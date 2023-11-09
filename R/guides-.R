@@ -502,16 +502,16 @@ Guides <- ggproto(
     theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
 
     # Measure guides
-    widths  <- lapply(grobs, function(g) sum(g$widths))
-    widths  <- inject(unit.c(!!!widths))
-    heights <- lapply(grobs, function(g) sum(g$heights))
-    heights <- inject(unit.c(!!!heights))
+    widths  <- lapply(grobs, `[[`, "widths")
+    heights <- lapply(grobs, `[[`, "heights")
 
     # Set the justification of each legend within the legend box
     # First value is xjust, second value is yjust
     just <- valid.just(theme$legend.box.just)
     xjust <- just[1]
     yjust <- just[2]
+
+    margin <- theme$legend.box.margin %||% margin()
 
     # setting that is different for vertical and horizontal guide-boxes.
     if (identical(theme$legend.box, "horizontal")) {
@@ -523,14 +523,16 @@ Guides <- ggproto(
                         height = heightDetails(grobs[[i]]))
         )
       }
-      widths <- redistribute_null_units(widths, "width")
+      spacing <- convertWidth(theme$legend.spacing.x, "cm")
+      widths  <- redistribute_null_units(widths, spacing, margin, "width")
+      heights <- unit(height_cm(lapply(heights, sum)), "cm")
 
       guides <- gtable_row(name = "guides",
                            grobs = grobs,
                            widths = widths, height = max(heights))
 
       # add space between the guide-boxes
-      guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
+      guides <- gtable_add_col_space(guides, spacing)
 
     } else { # theme$legend.box == "vertical"
       # Set justification for each legend
@@ -541,18 +543,19 @@ Guides <- ggproto(
                         width = widthDetails(grobs[[i]]))
         )
       }
-      heights <- redistribute_null_units(heights, "height")
+      spacing <- convertHeight(theme$legend.spacing.y, "cm")
+      heights <- redistribute_null_units(heights, spacing, margin, "height")
+      widths  <- unit(width_cm(lapply(widths, sum)), "cm")
 
       guides <- gtable_col(name = "guides",
                            grobs = grobs,
                            width = max(widths), heights = heights)
 
       # add space between the guide-boxes
-      guides <- gtable_add_row_space(guides, theme$legend.spacing.y)
+      guides <- gtable_add_row_space(guides, spacing)
     }
 
     # Add margins around the guide-boxes.
-    margin <- theme$legend.box.margin %||% margin()
     guides <- gtable_add_cols(guides, margin[4], pos = 0)
     guides <- gtable_add_cols(guides, margin[2], pos = ncol(guides))
     guides <- gtable_add_rows(guides, margin[1], pos = 0)
@@ -681,38 +684,45 @@ validate_guide <- function(guide) {
   cli::cli_abort("Unknown guide: {guide}")
 }
 
-redistribute_null_units <- function(unit, type = "width") {
-  if (!any(unitType(unit) %in% c("sum", "max", "min"))) {
-    return(unit)
+redistribute_null_units <- function(units, spacing, margin, type = "width") {
+
+  has_null <- vapply(units, function(x) any(unitType(x) == "null"), logical(1))
+
+  # Early exit when we needn't bother with null units
+  if (!any(has_null)) {
+    units <- lapply(units, sum)
+    units <- inject(unit.c(!!!units))
+    return(units)
   }
 
-  # Find out the absolute part of the units
-  cms <- absolute.size(unit)
-  cms <- switch(
-    type,
-    width  = convertWidth( cms, "cm", valueOnly = TRUE),
-    height = convertHeight(cms, "cm", valueOnly = TRUE)
-  )
-  fixed <- sum(cms)
+  # Get spacing between guides and margins in absolute units
+  size    <- switch(type, width = convertWidth, height = convertHeight)
+  spacing <- size(spacing, "cm", valueOnly = TRUE)
+  spacing <- sum(rep(spacing, length(units) - 1))
+  margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
+  margin  <- sum(size(margin, "cm", valueOnly = TRUE))
 
-  # Try to grab the nulls from sum units
-  nulls <- rep(0, length(unit))
-  is_sum <- unitType(unit) == "sum"
-  nulls[is_sum] <- vapply(unclass(unit)[is_sum], function(x) {
-    if (is.null(x)) {
-      return(0)
-    }
-    x <- x[[2]]
-    sum(as.numeric(x[unitType(x) == "null"]))
+  # Get the absolute parts of the unit
+  absolute <- vapply(units, function(u) {
+    u <- absolute.size(u)
+    u <- size(u, "cm", valueOnly = TRUE)
+    sum(u)
   }, numeric(1))
-  # Add the plain nulls not part of sums/min/max
-  nulls <- nulls + as.numeric(unit) * (unitType(unit) == "null")
-  null_sum <- sum(nulls)
-  if (null_sum == 0) {
-    null_sum <- 1
+  absolute_sum <- sum(absolute) + spacing + margin
+
+  # Get the null parts of the unit
+  relative <- rep(0, length(units))
+  relative[has_null] <- vapply(units[has_null], function(u) {
+    sum(as.numeric(u)[unitType(u) == "null"])
+  }, numeric(1))
+  relative_sum <- sum(relative)
+
+  if (relative_sum == 0) {
+    return(unit(absolute, "cm"))
   }
-  nulls <- nulls / null_sum
 
-
-  (unit(1, "npc") - unit(fixed, "cm")) * nulls + unit(cms, "cm")
+  relative <- relative / relative_sum
+  available_space <- unit(1, "npc") - unit(absolute_sum, "cm")
+  relative_space <- available_space * relative
+  relative_space + unit(absolute, "cm")
 }
