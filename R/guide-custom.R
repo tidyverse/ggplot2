@@ -108,7 +108,8 @@ GuideCustom <- ggproto(
     elements
   },
 
-  draw = function(self, theme, params = self$params) {
+  draw = function(self, theme, position = NULL, direction = NULL,
+                  params = self$params) {
 
     # Render title
     elems <- self$setup_elements(params, self$elements, theme)
