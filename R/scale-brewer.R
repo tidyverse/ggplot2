@@ -1,3 +1,43 @@
+scale_colour_brewer_factory <- function(aesthetic) {
+  function(..., type = "seq", palette = 1, direction = 1, aesthetics = aesthetic) {
+    discrete_scale(aesthetics, palette = brewer_pal(type, palette, direction), ...)
+  }
+}
+
+scale_colour_distiller_factory <- function(aesthetic) {
+  function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = aesthetic) {
+    # warn about using a qualitative brewer palette to generate the gradient
+    type <- arg_match0(type, c("seq", "div", "qual"))
+    if (type == "qual") {
+      cli::cli_warn(c(
+        "Using a discrete colour palette in a continuous scale",
+        "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
+      ))
+    }
+    continuous_scale(
+      aesthetics,
+      palette = gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space),
+      na.value = na.value, guide = guide, ...
+    )
+    # NB: 6-7 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
+    # For diverging scales, you need an odd number to make sure the mid-point is in the center
+  }
+}
+
+scale_colour_fermenter_factory <- function(aesthetic) {
+  function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = aesthetic) {
+    # warn about using a qualitative brewer palette to generate the gradient
+    type <- arg_match0(type, c("seq", "div", "qual"))
+    if (type == "qual") {
+      cli::cli_warn(c(
+        "Using a discrete colour palette in a binned scale",
+        "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
+      ))
+    }
+    binned_scale(aesthetics, palette = binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
+  }
+}
+
 #' Sequential, diverging and qualitative colour scales from ColorBrewer
 #'
 #' @description
@@ -8,7 +48,7 @@
 #'
 #' @note
 #' The `distiller` scales extend `brewer` scales by smoothly
-#' interpolating 7 colours from any palette to a continuous scale. 
+#' interpolating 7 colours from any palette to a continuous scale.
 #' The `distiller` scales have a default direction = -1. To reverse, use direction = 1.
 #' The `fermenter` scales provide binned versions of the `brewer` scales.
 #'
@@ -83,76 +123,24 @@
 #' # or use blender variants to discretise continuous data
 #' v + scale_fill_fermenter()
 #'
-scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "colour") {
-  discrete_scale(aesthetics, palette = brewer_pal(type, palette, direction), ...)
-}
+scale_colour_brewer <- scale_colour_brewer_factory("colour")
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "fill") {
-  discrete_scale(aesthetics, palette = brewer_pal(type, palette, direction), ...)
-}
+scale_fill_brewer <- scale_colour_brewer_factory("fill")
 
 #' @export
 #' @rdname scale_brewer
-scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "colour") {
-  # warn about using a qualitative brewer palette to generate the gradient
-  type <- arg_match0(type, c("seq", "div", "qual"))
-  if (type == "qual") {
-    cli::cli_warn(c(
-      "Using a discrete colour palette in a continuous scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
-    ))
-  }
-  continuous_scale(
-    aesthetics,
-    palette = gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space),
-    na.value = na.value, guide = guide, ...
-  )
-  # NB: 6-7 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
-  # For diverging scales, you need an odd number to make sure the mid-point is in the center
-}
+scale_colour_distiller <- scale_colour_distiller_factory("colour")
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "fill") {
-  type <- arg_match0(type, c("seq", "div", "qual"))
-  if (type == "qual") {
-    cli::cli_warn(c(
-      "Using a discrete colour palette in a continuous scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
-    ))
-  }
-  continuous_scale(
-    aesthetics,
-    palette = gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space),
-    na.value = na.value, guide = guide, ...
-  )
-}
+scale_fill_distiller <- scale_colour_distiller_factory("fill")
 
 #' @export
 #' @rdname scale_brewer
-scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
-  # warn about using a qualitative brewer palette to generate the gradient
-  type <- arg_match0(type, c("seq", "div", "qual"))
-  if (type == "qual") {
-    cli::cli_warn(c(
-      "Using a discrete colour palette in a binned scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
-    ))
-  }
-  binned_scale(aesthetics, palette = binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
-}
+scale_colour_fermenter <- scale_colour_fermenter_factory("colour")
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
-  type <- arg_match0(type, c("seq", "div", "qual"))
-  if (type == "qual") {
-    cli::cli_warn(c(
-      "Using a discrete colour palette in a binned scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
-    ))
-  }
-  binned_scale(aesthetics, palette = binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
-}
+scale_fill_fermenter <- scale_colour_fermenter_factory("fill")

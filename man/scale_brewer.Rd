@@ -17,7 +17,7 @@ scale_colour_brewer(
   type = "seq",
   palette = 1,
   direction = 1,
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_brewer(
@@ -25,7 +25,7 @@ scale_fill_brewer(
   type = "seq",
   palette = 1,
   direction = 1,
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 
 scale_colour_distiller(
@@ -37,7 +37,7 @@ scale_colour_distiller(
   space = "Lab",
   na.value = "grey50",
   guide = "colourbar",
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_distiller(
@@ -49,7 +49,7 @@ scale_fill_distiller(
   space = "Lab",
   na.value = "grey50",
   guide = "colourbar",
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 
 scale_colour_fermenter(
@@ -59,7 +59,7 @@ scale_colour_fermenter(
   direction = -1,
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_fermenter(
@@ -69,7 +69,7 @@ scale_fill_fermenter(
   direction = -1,
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 }
 \arguments{

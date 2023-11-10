@@ -22,7 +22,7 @@ scale_colour_viridis_d(
   end = 1,
   direction = 1,
   option = "D",
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_viridis_d(
@@ -32,7 +32,7 @@ scale_fill_viridis_d(
   end = 1,
   direction = 1,
   option = "D",
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 
 scale_colour_viridis_c(
@@ -46,7 +46,7 @@ scale_colour_viridis_c(
   space = "Lab",
   na.value = "grey50",
   guide = "colourbar",
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_viridis_c(
@@ -60,7 +60,7 @@ scale_fill_viridis_c(
   space = "Lab",
   na.value = "grey50",
   guide = "colourbar",
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 
 scale_colour_viridis_b(
@@ -74,7 +74,7 @@ scale_colour_viridis_b(
   space = "Lab",
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "colour"
+  aesthetics = aesthetic
 )
 
 scale_fill_viridis_b(
@@ -88,7 +88,7 @@ scale_fill_viridis_b(
   space = "Lab",
   na.value = "grey50",
   guide = "coloursteps",
-  aesthetics = "fill"
+  aesthetics = aesthetic
 )
 }
 \arguments{

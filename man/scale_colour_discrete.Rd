@@ -8,7 +8,7 @@
 \usage{
 scale_colour_discrete(..., type = getOption("ggplot2.discrete.colour"))
 
-scale_fill_discrete(..., type = getOption("ggplot2.discrete.fill"))
+scale_fill_discrete(..., type = getOption("ggplot2.discrete.colour"))
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type,}
