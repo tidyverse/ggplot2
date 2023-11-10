@@ -6,6 +6,14 @@
 #' [scale_(x|y)_discrete()][scale_x_discrete()].
 #'
 #' @inheritParams guide_legend
+#' @param breaks,labels,minor.breaks Either `derive()` to indicate that the
+#'   breaks, labels or minor breaks should be taken from the scale, or valid
+#'   input to the scale's synonymous arguments to override the scale's settings.
+#'   By default, `breaks` and `labels` are derived from the scale, whereas
+#'   `minor.breaks` are omitted.
+#' @param trans A `function`, `formula` or `<trans>` object that can perform
+#'   the transformation for secondary axes. Note that discrete scales cannot
+#'   be transformed. The default, `NULL`, will perform no transformation.
 #' @param check.overlap silently remove overlapping labels,
 #'   (recursively) prioritizing the first, last, and middle labels.
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
@@ -14,8 +22,6 @@
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
-#' @param minor.ticks Whether to draw the minor ticks (`TRUE`) or not draw
-#'   minor ticks (`FALSE`, default).
 #' @param cap A `character` to cut the axis line back to the last breaks. Can
 #'   be `"none"` (default) to draw the axis line along the whole panel, or
 #'   `"upper"` and `"lower"` to draw the axis to the upper or lower break, or
@@ -43,24 +49,44 @@
 #'
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, minor.ticks = FALSE, cap = "none",
-                       order = 0, position = waiver()) {
-  check_bool(minor.ticks)
+guide_axis <- function(
+  title = waiver(),
+  breaks = derive(),
+  labels = derive(),
+  minor.breaks = NULL,
+  trans = NULL,
+  check.overlap = FALSE,
+  angle = NULL,
+  n.dodge = 1,
+  cap = "none",
+  order = 0,
+  position = waiver()
+) {
   if (is.logical(cap)) {
     check_bool(cap)
     cap <- if (cap) "both" else "none"
   }
   cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
+  if (is.logical(minor.breaks)) {
+    check_bool(minor.breaks)
+    minor.breaks <- if (minor.breaks) derive() else NULL
+  }
+
+  check_breaks_labels(breaks, labels)
 
   new_guide(
     title = title,
+
+    # Override settings
+    breaks = breaks,
+    labels = labels,
+    minor_breaks = minor.breaks,
+    trans  = allow_lambda(trans),
 
     # customisations
     check.overlap = check.overlap,
     angle = angle,
     n.dodge = n.dodge,
-    minor.ticks = minor.ticks,
     cap = cap,
 
     # parameter
@@ -83,13 +109,17 @@ GuideAxis <- ggproto(
 
   params = list(
     title     = waiver(),
+    breaks    = derive(),
+    labels    = derive(),
+    minor_breaks = NULL,
+    trans     = NULL,
     name      = "axis",
     hash      = character(),
     position  = waiver(),
+    minor_ticks = FALSE,
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
-    minor.ticks = FALSE,
     cap       = "none",
     order     = 0,
     check.overlap = FALSE
@@ -108,33 +138,115 @@ GuideAxis <- ggproto(
     minor_length = "axis.minor.ticks.length"
   ),
 
-  extract_key = function(scale, aesthetic, minor.ticks, ...) {
-    major <- Guide$extract_key(scale, aesthetic, ...)
-    if (!minor.ticks) {
-      return(major)
-    }
+  extract_key = function(scale, aesthetic,
+                         breaks, minor_breaks, labels,
+                         trans, ...) {
 
-    minor_breaks <- scale$get_breaks_minor()
-    minor_breaks <- setdiff(minor_breaks, major$.value)
-    minor_breaks <- minor_breaks[is.finite(minor_breaks)]
+    # Retrieve limits information
+    limits <- scale$get_limits()
+    range  <- scale$continuous_range
 
-    if (length(minor_breaks) < 1) {
-      return(major)
-    }
+    # Resolve transformations
+    scale_trans <- scale$scale$trans %||% identity_trans()
+    trans <- function_as_trans(trans, range, scale_trans)
 
-    minor <- data_frame0(!!aesthetic := scale$map(minor_breaks))
-    minor$.value <- minor_breaks
-    minor$.type <- "minor"
-
-    if (nrow(major) > 0) {
-      major$.type <- "major"
-      vec_rbind(major, minor)
+    if (!is.null(trans) || is.custom(breaks) || is.custom(labels) ||
+        is.custom(minor_breaks)) {
+      if (is.derived(breaks)) {
+        breaks <- scale$scale$breaks
+        if (is.waive(breaks) && !scale$is_discrete()) {
+          breaks <- scale_trans$breaks
+        }
+      }
+      if (is.derived(minor_breaks)) {
+        minor_breaks <- scale$scale$minor_breaks
+      }
+      limits <- scale_trans$inverse(limits)
+      # If anything needs to be computed that is not included in the viewscale,
+      # a temporary scale computes the necessary components
+      temp_scale <- ggproto(
+        NULL, scale$scale,
+        trans  = trans %||% scale_trans,
+        limits = limits,
+        breaks = breaks,
+        minor_breaks = minor_breaks,
+        labels = if (is.derived(labels)) scale$scale$labels else labels
+      )
+      if (scale$is_discrete()) {
+        # Allow plain numeric breaks for discrete scales
+        if (!is.numeric(breaks)) {
+          breaks <- temp_scale$get_breaks(limits)
+        }
+        # Allow minor breaks to be a function
+        if (is.function(minor_breaks)) {
+          minor_breaks <- minor_breaks(limits)
+        }
+      } else {
+        breaks <- temp_scale$get_breaks(limits)
+        minor_breaks <- temp_scale$get_breaks_minor(b = breaks, limits = limits)
+      }
     } else {
-      minor
+      temp_scale <- scale
+      if (!is.null(breaks)) {
+        breaks <- scale$get_breaks()
+      }
+      if (!is.null(minor_breaks)) {
+        minor_breaks <- scale$get_breaks_minor()
+      }
     }
+
+    if (is.null(trans)) {
+      map <- function(x) scale$map(x)
+    } else {
+      map <- function(x) scale$map(scale_trans$transform(x))
+    }
+
+    if (!is.null(breaks)) {
+      if (!is.null(labels)) {
+        labels <- temp_scale$get_labels(breaks)
+      }
+      if (is.expression(labels)) {
+        labels <- as.list(labels)
+      }
+      key <- data_frame(!!aesthetic := map(breaks))
+      key$.value <- breaks
+      key$.label <- labels
+      key <- vec_slice(key, is_finite(breaks))
+    } else {
+      key <- data_frame0()
+    }
+
+    if (!is.null(minor_breaks)) {
+
+      minor_breaks <- setdiff(minor_breaks, key$.value)
+      minor_breaks <- minor_breaks[is_finite(minor_breaks)]
+
+      if (length(minor_breaks) < 1) {
+        return(key)
+      }
+      minor <- data_frame0(!!aesthetic := map(minor_breaks))
+
+      if (!scale$is_discrete()) {
+        minor$.value <- minor_breaks
+      }
+
+      minor$.type <- "minor"
+
+      if (nrow(key) > 0) {
+        key$.type <- "major"
+        key <- vec_rbind(key, minor)
+      } else {
+        return(minor)
+      }
+    }
+    if (nrow(key) == 0) {
+      return(NULL)
+    }
+    key
   },
 
   extract_params = function(scale, params, ...) {
+    params$minor_ticks <- any(params$key$.type == "minor")
     params$name <- paste0(params$name, "_", params$aesthetic)
     params
   },
@@ -305,7 +417,7 @@ GuideAxis <- ggproto(
       elements$major_length
     )
 
-    if (!params$minor.ticks) {
+    if (!params$minor_ticks) {
       return(major)
     }
 
@@ -359,7 +471,7 @@ GuideAxis <- ggproto(
     # Ticks
     major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
     range <- range(0, major_cm)
-    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+    if (params$minor_ticks && !inherits(elements$minor, "element_blank")) {
       minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
       range <- range(range, minor_cm)
     }
@@ -592,3 +704,79 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
     ))
   }
 }
+
+function_as_trans <- function(fun, limits, scale_trans, detail = 1000) {
+  if (is.null(fun)) {
+    return(NULL)
+  }
+  if (is.character(fun)) {
+    fun <- as.trans(fun)
+  }
+  if (!is.null(fun) && !is.numeric(limits)) {
+    cli::cli_warn("Cannot use axis transformation with discrete scales.")
+    return(NULL)
+  }
+  if (is.trans(fun)) {
+    if (fun$name == "identity") {
+      return(NULL)
+    }
+    return(fun)
+  }
+  if (is.null(fun) || is.null(limits) || zero_range(limits)) {
+    return(NULL)
+  }
+  if (!is.function(fun)) {
+    cli::cli_abort(paste0(
+      "The {.arg trans} argument must be a {.cls trans} object, ",
+      "a {.field formula} or {.field function}, not {obj_type_friendly(fun)}."
+    ))
+  }
+
+  # Translation between primary and secondary ranges
+  limits_seq <- seq(limits[1], limits[2], length.out = detail)
+  origin_seq <- scale_trans$inverse(limits_seq)
+  trans_seq  <- fun(origin_seq)
+
+  if (length(trans_seq) != detail) {
+    cli::cli_abort(
+      "The {.arg trans} transformation must preserve the length of input."
+    )
+  }
+
+  finite <- is.finite(trans_seq)
+  origin_seq <- origin_seq[finite]
+  trans_seq  <- trans_seq[finite]
+
+  if (length(trans_seq) < detail / 100) {
+    cli::cli_abort(paste0(
+      "The {.arg trans} transformation could not transform the range ",
+      "{.field [{limits[1]}, {limits[2]}]}."
+    ))
+  }
+
+  # Test for monotonicity
+  if (!is_unique(sign(diff(trans_seq)))) {
+    cli::cli_abort("The {.arg trans} transformation must be monotonic.")
+  }
+
+  # Deduplicate in the expanded area of the range that can occur if the
+  # transformation is non-monotonic in the expansion. The split ensures
+  # that the middle duplicates are kept.
+  duplicates <- c(
+    !duplicated(trans_seq[seq_len(detail / 2)], fromLast = TRUE),
+    !duplicated(trans_seq[-seq_len(detail / 2)])
+  )
+  origin_seq <- origin_seq[duplicates]
+  trans_seq  <- trans_seq[duplicates]
+
+  trans_new(
+    "secondary_transformation",
+    transform = function(x) stats::approx(trans_seq, origin_seq, x)$y,
+    inverse   = fun,
+    format    = format_format(digits = 3),
+    domain    = range(trans_seq)
+  )
+}
+
+is.custom <- function(x) !is.null(x) && !is.derived(x)
+
