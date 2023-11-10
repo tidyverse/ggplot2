@@ -17,8 +17,8 @@
 %   R/guide-none.R, R/guide-old.R, R/layout.R, R/position-.R,
 %   R/position-dodge.R, R/position-dodge2.R, R/position-identity.R,
 %   R/position-jitter.R, R/position-jitterdodge.R, R/position-nudge.R,
-%   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
-%   R/scale-date.R, R/scale-discrete-.R, R/scale-identity.R, R/stat-align.R,
+%   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-identity.R,
+%   R/scale-continuous.R, R/scale-date.R, R/scale-discrete-.R, R/stat-align.R,
 %   R/stat-bin.R, R/stat-bin2d.R, R/stat-bindot.R, R/stat-binhex.R,
 %   R/stat-boxplot.R, R/stat-contour.R, R/stat-count.R, R/stat-density-2d.R,
 %   R/stat-density.R, R/stat-ecdf.R, R/stat-ellipse.R, R/stat-function.R,
@@ -110,12 +110,12 @@
 \alias{ScaleDiscrete}
 \alias{ScaleBinned}
 \alias{ScaleBinnedPosition}
+\alias{ScaleDiscreteIdentity}
+\alias{ScaleContinuousIdentity}
 \alias{ScaleContinuousPosition}
 \alias{ScaleContinuousDatetime}
 \alias{ScaleContinuousDate}
 \alias{ScaleDiscretePosition}
-\alias{ScaleDiscreteIdentity}
-\alias{ScaleContinuousIdentity}
 \alias{StatAlign}
 \alias{StatBin}
 \alias{StatBin2d}

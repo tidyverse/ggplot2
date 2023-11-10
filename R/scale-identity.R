@@ -63,16 +63,7 @@ NULL
 #' @rdname scale_identity
 #' @export
 scale_colour_identity <- function(..., guide = "none", aesthetics = "colour") {
-  sc <- discrete_scale(aesthetics, palette = identity_pal(), ..., guide = guide,
-    super = ScaleDiscreteIdentity)
-
-  sc
-}
-
-#' @rdname scale_identity
-#' @export
-scale_fill_identity <- function(..., guide = "none", aesthetics = "fill") {
-  sc <- discrete_scale(aesthetics, palette = identity_pal(), ..., guide = guide,
+  sc <- discrete_scale(aesthetics = aesthetics, palette = identity_pal(), ..., guide = guide,
     super = ScaleDiscreteIdentity)
 
   sc

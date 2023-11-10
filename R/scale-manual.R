@@ -88,13 +88,7 @@ NULL
 #' @rdname scale_manual
 #' @export
 scale_colour_manual <- function(..., values, aesthetics = "colour", breaks = waiver(), na.value = "grey50") {
-  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
-}
-
-#' @rdname scale_manual
-#' @export
-scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver(), na.value = "grey50") {
-  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
+  manual_scale(aesthetics = aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
