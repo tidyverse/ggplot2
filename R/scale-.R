@@ -1286,13 +1286,17 @@ scale_flip_position <- function(scale) {
   invisible()
 }
 
-check_transformation <- function(x, transformed, name, call = NULL) {
-  if (any(is.finite(x) != is.finite(transformed))) {
-    cli::cli_warn(
-      "{.field {name}} transformation introduced infinite values.",
-      call = call
-    )
+check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) {
+  if (!any(is.finite(x) != is.finite(transformed))) {
+    return(invisible())
   }
+  if (is.null(arg)) {
+    end <- "."
+  } else {
+    end <- paste0(" in {.arg {arg}}.")
+  }
+  msg <- paste0("{.field {name}} transformation introduced infinite values", end)
+  cli::cli_warn(msg, call = call)
 }
 
 trans_support_nbreaks <- function(trans) {
