@@ -128,9 +128,16 @@ scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = 
   )
 }
 
-mid_rescaler <- function(mid) {
+mid_rescaler <- function(mid, trans = "identity",
+                         arg = caller_arg(mid), call = caller_env()) {
+  trans <- as.trans(trans)
+  trans_mid <- trans$transform(mid)
+  check_transformation(
+    mid, trans_mid, trans$name,
+    arg = arg, call = call
+  )
   function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
-    rescale_mid(x, to, from, mid)
+    rescale_mid(x, to, from, trans_mid)
   }
 }
 
