@@ -583,7 +583,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 
 default_transform <- function(self, x) {
   new_x <- self$trans$transform(x)
-  check_transformation(x, new_x, self$trans$name, self$call)
+  check_transformation(x, new_x, self$trans$name, call = self$call)
   new_x
 }
 

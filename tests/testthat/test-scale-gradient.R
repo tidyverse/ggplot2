@@ -17,7 +17,7 @@ test_that("midpoints are transformed", {
   expect_equal(scale$rescale(c(0, 3)), c(0.25, 1))
 
   scale <- scale_colour_gradient2(midpoint = 10, trans = "log10")
-  scale$train(scale$transform(c(0, 1000)))
+  scale$train(scale$transform(c(1, 1000)))
   ans <- scale$rescale(c(0, 3), c(0.25, 1))
 
   expect_warning(
