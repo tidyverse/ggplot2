@@ -90,6 +90,7 @@ scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = 
 }
 
 #' @inheritParams scales::div_gradient_pal
+#' @inheritParams continuous_scale
 #' @param midpoint The midpoint (in data value) of the diverging scale.
 #'   Defaults to 0.
 #' @rdname scale_gradient

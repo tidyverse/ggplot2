@@ -30,6 +30,7 @@ scale_colour_steps2(
   midpoint = 0,
   space = "Lab",
   na.value = "grey50",
+  trans = "identity",
   guide = "coloursteps",
   aesthetics = "colour"
 )
@@ -63,6 +64,7 @@ scale_fill_steps2(
   midpoint = 0,
   space = "Lab",
   na.value = "grey50",
+  trans = "identity",
   guide = "coloursteps",
   aesthetics = "fill"
 )
@@ -142,18 +144,6 @@ bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
 \item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
-    \item{\code{trans}}{For continuous scales, the name of a transformation object
-or the object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
-"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
-"reverse", "sqrt" and "time".
-
-A transformation object bundles together a transform, its inverse,
-and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans}. If
-transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
-You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
@@ -185,6 +175,19 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{midpoint}{The midpoint (in data value) of the diverging scale.
 Defaults to 0.}
+
+\item{trans}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
+
+A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \verb{<name>_trans}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
+You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{colours, colors}{Vector of colours to use for n-colour gradient.}
 
