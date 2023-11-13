@@ -98,15 +98,11 @@ scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high 
                                    midpoint = 0, space = "Lab", na.value = "grey50",
                                    trans = "identity", guide = "colourbar",
                                    aesthetics = "colour") {
-  trans <- as.trans(trans)
-  trans_mid <- trans$transform(midpoint)
-  check_transformation(midpoint, trans_mid, trans$name, call = expr(midpoint))
-
   continuous_scale(
     aesthetics,
     palette = div_gradient_pal(low, mid, high, space),
     na.value = na.value, trans = trans, guide = guide, ...,
-    rescaler = mid_rescaler(mid = trans_mid)
+    rescaler = mid_rescaler(mid = midpoint, trans = trans)
   )
 }
 
@@ -116,15 +112,11 @@ scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = 
                                  midpoint = 0, space = "Lab", na.value = "grey50",
                                  trans = "identity", guide = "colourbar",
                                  aesthetics = "fill") {
-  trans <- as.trans(trans)
-  trans_mid <- trans$transform(midpoint)
-  check_transformation(midpoint, trans_mid, trans$name, call = expr(midpoint))
-
   continuous_scale(
     aesthetics,
     palette = div_gradient_pal(low, mid, high, space),
-    na.value = na.value, guide = guide, ...,
-    rescaler = mid_rescaler(mid = trans_mid)
+    na.value = na.value, trans = trans, guide = guide, ...,
+    rescaler = mid_rescaler(mid = midpoint, trans = trans)
   )
 }
 

@@ -55,12 +55,10 @@ scale_colour_steps2 <- function(..., low = muted("red"), mid = "white", high = m
                                 midpoint = 0, space = "Lab", na.value = "grey50",
                                 trans = "identity", guide = "coloursteps",
                                 aesthetics = "colour") {
-  trans <- as.trans(trans)
-  trans_mid <- trans$transform(midpoint)
-  check_transformation(midpoint, trans_mid, trans$name, call = expr(midpoint))
 
   binned_scale(aesthetics, palette = div_gradient_pal(low, mid, high, space),
-               na.value = na.value, guide = guide, rescaler = mid_rescaler(mid = trans_mid), ...)
+               na.value = na.value, trans = trans, guide = guide,
+               rescaler = mid_rescaler(mid = midpoint, trans = trans), ...)
 }
 #' @rdname scale_steps
 #' @export
@@ -83,12 +81,10 @@ scale_fill_steps2 <- function(..., low = muted("red"), mid = "white", high = mut
                               midpoint = 0, space = "Lab", na.value = "grey50",
                               trans = "identity", guide = "coloursteps",
                               aesthetics = "fill") {
-  trans <- as.trans(trans)
-  trans_mid <- trans$transform(midpoint)
-  check_transformation(midpoint, trans_mid, trans$name, call = expr(midpoint))
 
   binned_scale(aesthetics, palette = div_gradient_pal(low, mid, high, space),
-               na.value = na.value, guide = guide, rescaler = mid_rescaler(mid = trans_mid), ...)
+               na.value = na.value, trans = trans, guide = guide,
+               rescaler = mid_rescaler(mid = midpoint, trans = trans), ...)
 }
 #' @rdname scale_steps
 #' @export
