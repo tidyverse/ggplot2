@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
+
 * In the theme element hierarchy, parent elements that are a strict subclass
   of child elements now confer their subclass upon the children (#5457).
 
