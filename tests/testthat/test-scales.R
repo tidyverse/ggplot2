@@ -111,10 +111,14 @@ test_that("oob affects position values", {
   }
   base + scale_y_continuous(limits = c(-0,5))
 
-  expect_warning(low_censor <- cdata(base + y_scale(c(0, 5), censor)),
+  low_censor <- cdata(base + y_scale(c(0, 5), censor))
+  mid_censor <- cdata(base + y_scale(c(3, 7), censor))
+  handle <- GeomBar$handle_na
+
+  expect_warning(low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
     "Removed 1 row containing missing values or values outside the scale range")
-  expect_warning(mid_censor <- cdata(base + y_scale(c(3, 7), censor)),
-    "Removed 2 rows containing missing values or values outside the scale range")
+  expect_warning(mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
+    "Removed 3 rows containing missing values or values outside the scale range")
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
@@ -127,7 +131,7 @@ test_that("oob affects position values", {
 
   # Bars depend on limits and oob
   expect_equal(low_censor[[1]]$y, c(0.2, 1))
-  expect_equal(mid_censor[[1]]$y, c(0.5))
+  expect_equal(mid_censor[[1]]$y, numeric(0))
   expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
   expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
 })
