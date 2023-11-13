@@ -175,11 +175,10 @@ PositionStack <- ggproto("PositionStack", Position,
       ymax = as.numeric(ifelse(data$ymax == 0, data$ymin, data$ymax))
     )
 
-    data <- remove_missing(
-      data,
-      vars = c("x", "xmin", "xmax", "y"),
-      name = "position_stack"
-    )
+    vars <- intersect(c("x", "xmin", "xmax", "y"), names(data))
+    missing <- detect_missing(data, vars)
+    data[missing, vars] <- NA
+
     flip_data(data, params$flipped_aes)
   },
 
