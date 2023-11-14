@@ -805,4 +805,7 @@ is.subclass <- function(x, y) {
 is.theme <- function(x) inherits(x, "theme")
 
 #' @export
+`$.theme` <- .subset2
+
+#' @export
 print.theme <- function(x, ...) utils::str(x)
