@@ -163,20 +163,20 @@ guide_legend <- function(
   ...
 ) {
   # Resolve key sizes
-  if (!(is.null(keywidth) | is.unit(keywidth))) {
+  if (!(is.null(keywidth) || is.unit(keywidth))) {
     keywidth <- unit(keywidth, default.unit)
   }
-  if (!(is.null(keyheight) | is.unit(keyheight))) {
+  if (!(is.null(keyheight) || is.unit(keyheight))) {
     keyheight <- unit(keyheight, default.unit)
   }
 
   # Resolve spacing
   key.spacing.x <- key.spacing.x %||% key.spacing
-  if (!is.null(key.spacing.x) | is.unit(key.spacing.x)) {
+  if (!is.null(key.spacing.x) || is.unit(key.spacing.x)) {
     key.spacing.x <- unit(key.spacing.x, default.unit)
   }
   key.spacing.y <- key.spacing.y %||% key.spacing
-  if (!is.null(key.spacing.y) | is.unit(key.spacing.y)) {
+  if (!is.null(key.spacing.y) || is.unit(key.spacing.y)) {
     key.spacing.y <- unit(key.spacing.y, default.unit)
   }
 
