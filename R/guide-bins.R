@@ -341,13 +341,6 @@ GuideBins <- ggproto(
     }
     key$.label[c(1, n_labels)[!params$show.limits]] <- ""
 
-    just <- switch(
-      params$direction,
-      horizontal = elements$text$vjust,
-      vertical   = elements$text$hjust,
-      0.5
-    )
-
     if (params$direction == "vertical") {
       key$.value <- 1 - key$.value
     }
@@ -356,7 +349,6 @@ GuideBins <- ggproto(
       elements$text,
       label = key$.label,
       x = unit(key$.value, "npc"),
-      y = rep(just, nrow(key)),
       margin_x = FALSE,
       margin_y = TRUE,
       flip = params$direction == "vertical"
