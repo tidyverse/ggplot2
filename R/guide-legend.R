@@ -470,6 +470,9 @@ GuideLegend <- ggproto(
       "cm", valueOnly = TRUE
     )
 
+    # When no explicit margin has been set, either in this guide or in the
+    # theme, we set a default text margin to leave a small gap in between
+    # the label and the key.
     if (is.null(params$label.theme$margin %||% theme$legend.text$margin) &&
         !inherits(elements$text, "element_blank")) {
       i <- match(params$label.position, .trbl[c(3, 4, 1, 2)])
