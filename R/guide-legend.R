@@ -322,7 +322,7 @@ GuideLegend <- ggproto(
 
   get_layer_key = function(params, layers, data) {
 
-    decor <- lapply(layers, function(layer) {
+    decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
       matched_aes <- matched_aes(layer, params)
 
@@ -343,9 +343,10 @@ GuideLegend <- ggproto(
               "Failed to apply {.fn after_scale} modifications to legend",
               parent = cnd
             )
-            layer$geom$use_defaults(params$key[matched], layer_params, list())
+            layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
           }
         )
+        data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
       } else {
         reps <- rep(1, nrow(params$key))
         data <- layer$geom$use_defaults(NULL, layer$aes_params)[reps, ]
@@ -510,7 +511,12 @@ GuideLegend <- ggproto(
     draw <- function(i) {
       bg <- elements$key
       keys <- lapply(decor, function(g) {
-        g$draw_key(vec_slice(g$data, i), g$params, key_size)
+        data <- vec_slice(g$data, i)
+        if (data$.draw %||% TRUE) {
+          g$draw_key(data, g$params, key_size)
+        } else {
+          zeroGrob()
+        }
       })
       c(list(bg), keys)
     }
@@ -803,4 +809,39 @@ measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
     widths  = pmax(default_width,  apply(size, 2, max)),
     heights = pmax(default_height, apply(size, 1, max))
   )
+}
+
+# For legend keys, check if the guide key's `.value` also occurs in the layer
+# data when `show.legend = NA` and data is discrete. Note that `show.legend`
+# besides TRUE (always show), FALSE (never show) and NA (show in relevant legend),
+# can also take *named* logical vector to set this behaviour per aesthetic.
+keep_key_data <- function(key, data, aes, show) {
+  # First, can we exclude based on anything else than actually checking the
+  # data that we should include or drop the key?
+  if (!is.discrete(key$.value)) {
+    return(TRUE)
+  }
+  if (is_named(show)) {
+    aes  <- intersect(aes, names(show))
+    show <- show[aes]
+  } else {
+    show <- show[rep(1L, length(aes))]
+  }
+  if (isTRUE(any(show)) || length(show) == 0) {
+    return(TRUE)
+  }
+  if (isTRUE(all(!show))) {
+    return(FALSE)
+  }
+  # Second, we go find if the value is actually present in the data.
+  aes <- aes[is.na(show)]
+  match <- which(names(data) %in% aes)
+  if (length(match) == 0) {
+    return(TRUE)
+  }
+  keep <- rep(FALSE, nrow(key))
+  for (column in match) {
+    keep <- keep | vec_in(key$.value, data[[column]])
+  }
+  keep
 }

@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* By default, `guide_legend()` now only draws a key glyph for a layer when
+  the value is is the layer's data. To revert to the old behaviour, you
+  can still set `show.legend = c({aesthetic} = TRUE)` (@teunbrand, #3648).
+
 * The spacing between legend keys and their labels, in addition to legends
   and their titles, is now controlled by the text's `margin` setting. Not
   specifying margins will automatically add appropriate text margins. To
