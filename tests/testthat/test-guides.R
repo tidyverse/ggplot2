@@ -96,13 +96,6 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
   expect_setequal(axis_label_priority(100), seq_len(100))
 })
 
-test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
-  expect_s3_class(axis_label_element_overrides("bottom", 0), "element")
-  expect_snapshot_error(axis_label_element_overrides("bottom", 91))
-  expect_snapshot_error(axis_label_element_overrides("bottom", -91))
-  expect_snapshot_error(axis_label_element_overrides("test", 0))
-})
-
 test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
@@ -833,6 +826,37 @@ test_that("binning scales understand the different combinations of limits, break
                            labels = 1:5)
   )
   expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE)))
+})
+
+test_that("guide_axis_theta sets relative angle", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    scale_x_continuous(breaks = breaks_width(25)) +
+    coord_radial(donut = 0.5) +
+    guides(
+      theta = guide_axis_theta(angle = 0, cap = "none"),
+      theta.sec = guide_axis_theta(angle = 90, cap = "both")
+    ) +
+    theme(axis.line = element_line(colour = "black"))
+
+  expect_doppelganger("guide_axis_theta with angle adapting to theta", p)
+})
+
+test_that("guide_axis_theta can be used in cartesian coordinates", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    guides(x = "axis_theta", y = "axis_theta",
+           x.sec = "axis_theta", y.sec = "axis_theta") +
+    theme(
+      axis.line.x.bottom = element_line(colour = "tomato"),
+      axis.line.x.top    = element_line(colour = "limegreen"),
+      axis.line.y.left   = element_line(colour = "dodgerblue"),
+      axis.line.y.right  = element_line(colour = "orchid")
+    )
+
+  expect_doppelganger("guide_axis_theta in cartesian coordinates", p)
 })
 
 test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
