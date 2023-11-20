@@ -400,6 +400,13 @@ GuideLegend <- ggproto(
     theme$legend.text$hjust <- theme$legend.text$hjust %||% default_just[1]
     theme$legend.text$vjust <- theme$legend.text$vjust %||% default_just[2]
 
+    # We break inheritance of the text margins to add small spacings between
+    # labels and keys.
+    # We set the global text's margin to NULL here, so that a NULL in the
+    # computed elements indicates that no explicit margin has been set in
+    # neither the guide nor the theme's legend.text/legend.title.
+    theme$text$margin <- NULL
+
     Guide$setup_elements(params, elements, theme)
   },
 
@@ -426,22 +433,16 @@ GuideLegend <- ggproto(
       "cm", valueOnly = TRUE
     )
 
-    # When no explicit margin has been set, either in this guide or in the
-    # theme, we add a default text margin to leave a small gap in between
-    # the label and the key.
-    margin_absent <- is.null(
-      params$internal_theme$legend.text$margin %||% theme$legend.text$margin
-    )
-    if (margin_absent && !inherits(elements$text, "element_blank")) {
-      i <- match(params$label.position, .trbl[c(3, 4, 1, 2)])
-      elements$text$margin[i] <- elements$text$margin[i] + gap
+    # When no explicit margin has been set, we set a default text margin
+    # to leave a small gap in between the label and the key.
+    margin <- theme$text$margin %||% margin()
+    if (is.null(elements$text$margin)) {
+      i <- match(params$label.position, .trbl[c(3, 4, 1, 2)]) # match opposite
+      elements$text$margin <- replace(margin, i, margin[i] + gap)
     }
-    margin_absent <- is.null(
-      params$internal_theme$legend.title$margin %||% theme$legend.title$margin
-    )
-    if (margin_absent && !inherits(elements$title, "element_blank")) {
+    if (is.null(elements$title$margin)) {
       i <- match(params$title.position, .trbl[c(3, 4, 1, 2)])
-      elements$title$margin[i] <- elements$title$margin[i] + gap
+      elements$title$margin <- replace(margin, i, margin[i] + gap)
     }
 
     # Evaluate backgrounds early
