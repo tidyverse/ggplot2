@@ -76,7 +76,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
     }
 
     x_coords <- inject(distribution(p = line.p, !!!dparams))
-    y_coords <- quantile(sample, line.p)
+    y_coords <- stats::quantile(sample, line.p)
     slope <- diff(y_coords) / diff(x_coords)
     intercept <- y_coords[1L] - slope * x_coords[1L]
 

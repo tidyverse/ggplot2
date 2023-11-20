@@ -1,5 +1,29 @@
 # ggplot2 (development version)
 
+* `coord_radial()` is a successor to `coord_polar()` with more customisation 
+  options. `coord_radial()` can:
+  
+  * integrate with the new guide system via a dedicated `guide_axis_theta()` to
+    display the angle coordinate.
+  * in addition to drawing full circles, also draw circle sectors by using the 
+    `end` argument.
+  * avoid data vanishing in the center of the plot by setting the `donut` 
+    argument.
+  * adjust the `angle` aesthetic of layers, such as `geom_text()`, to align 
+    with the coordinate system using the `rotate_angle` argument.
+
+* By default, `guide_legend()` now only draws a key glyph for a layer when
+  the value is is the layer's data. To revert to the old behaviour, you
+  can still set `show.legend = c({aesthetic} = TRUE)` (@teunbrand, #3648).
+
+* The spacing between legend keys and their labels, in addition to legends
+  and their titles, is now controlled by the text's `margin` setting. Not
+  specifying margins will automatically add appropriate text margins. To
+  control the spacing within a legend between keys, the new 
+  `key.spacing.{x/y}` argument can be used. This leaves the 
+  `legend.spacing` dedicated to controlling the spacing between
+  different guides (#5455).
+
 * In the theme element hierarchy, parent elements that are a strict subclass
   of child elements now confer their subclass upon the children (#5457).
 

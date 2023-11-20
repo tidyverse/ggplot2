@@ -292,9 +292,6 @@ GuideColourbar <- ggproto(
     ticks_length = unit(0.2, "npc"),
     background  = "legend.background",
     margin      = "legend.margin",
-    spacing     = "legend.spacing",
-    spacing.x   = "legend.spacing.x",
-    spacing.y   = "legend.spacing.y",
     key         = "legend.key",
     key.height  = "legend.key.height",
     key.width   = "legend.key.width",
@@ -403,17 +400,10 @@ GuideColourbar <- ggproto(
       return(list(labels = zeroGrob()))
     }
 
-    just <- if (params$direction == "horizontal") {
-      elements$text$vjust
-    } else {
-      elements$text$hjust
-    }
-
     list(labels = flip_element_grob(
       elements$text,
       label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
-      y = rep(just, nrow(key)),
       margin_x = FALSE,
       margin_y = TRUE,
       flip = params$direction == "vertical"
