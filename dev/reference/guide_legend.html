@@ -106,6 +106,9 @@ Legend guides for various scales are integrated if possible.</p>
 <span>  label.vjust <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  keywidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  keyheight <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  key.spacing <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  key.spacing.x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  key.spacing.y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  default.unit <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>  override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -187,6 +190,13 @@ the width of the legend key. Default value is <code>legend.key.width</code> or
 <dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
 the height of the legend key. Default value is <code>legend.key.height</code> or
 <code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
+
+
+<dt>key.spacing, key.spacing.x, key.spacing.y</dt>
+<dd><p>A numeric or <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code>
+object specifying the distance between key-label pairs in the horizontal
+direction (<code>key.spacing.x</code>), vertical direction (<code>key.spacing.y</code>) or both
+(<code>key.spacing</code>).</p></dd>
 
 
 <dt>direction</dt>
