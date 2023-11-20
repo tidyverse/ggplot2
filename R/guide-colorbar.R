@@ -307,9 +307,6 @@ GuideColourbar <- ggproto(
     ticks_length = unit(0.2, "npc"),
     background  = "legend.background",
     margin      = "legend.margin",
-    spacing     = "legend.spacing",
-    spacing.x   = "legend.spacing.x",
-    spacing.y   = "legend.spacing.y",
     key         = "legend.key",
     key.height  = "legend.key.height",
     key.width   = "legend.key.width",
@@ -344,27 +341,10 @@ GuideColourbar <- ggproto(
   },
 
   extract_params = function(scale, params,
-                            title  = waiver(), direction = "vertical", ...) {
+                            title  = waiver(), ...) {
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
     )
-    params$direction <- arg_match0(
-      params$direction %||% direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
-    )
-    valid_label_pos <- switch(
-      params$direction,
-      "horizontal" = c("bottom", "top"),
-      "vertical"   = c("right", "left")
-    )
-    params$label.position <- params$label.position %||% valid_label_pos[1]
-    if (!params$label.position %in% valid_label_pos) {
-      cli::cli_abort(paste0(
-        "When {.arg direction} is {.val {params$direction}}, ",
-        "{.arg label.position} must be one of {.or {.val {valid_label_pos}}}, ",
-        "not {.val {params$label.position}}."
-      ))
-    }
 
     limits <- c(params$decor$value[1], params$decor$value[nrow(params$decor)])
     params$key$.value <- rescale(
@@ -381,27 +361,28 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers) {
-
-    guide_layers <- lapply(layers, function(layer) {
-
-      matched_aes <- matched_aes(layer, params)
-
-      # Check if this layer should be included
-      if (include_layer_in_guide(layer, matched_aes)) {
-        layer
-      } else {
-        NULL
-      }
-    })
-
-    if (length(compact(guide_layers)) == 0) {
-      return(NULL)
-    }
-    return(params)
+  get_layer_key = function(params, layers, data = NULL) {
+    params
   },
 
   setup_params = function(params) {
+    params$direction <- arg_match0(
+      params$direction,
+      c("horizontal", "vertical"), arg_nm = "direction"
+    )
+    valid_label_pos <- switch(
+      params$direction,
+      "horizontal" = c("bottom", "top"),
+      "vertical"   = c("right", "left")
+    )
+    params$label.position <- params$label.position %||% valid_label_pos[1]
+    if (!params$label.position %in% valid_label_pos) {
+      cli::cli_abort(paste0(
+        "When {.arg direction} is {.val {params$direction}}, ",
+        "{.arg label.position} must be one of {.or {.val {valid_label_pos}}}, ",
+        "not {.val {params$label.position}}."
+      ))
+    }
     params$title.position <- arg_match0(
       params$title.position %||%
         switch(params$direction, vertical = "top", horizontal = "left"),
@@ -429,17 +410,10 @@ GuideColourbar <- ggproto(
       return(list(labels = zeroGrob()))
     }
 
-    just <- if (params$direction == "horizontal") {
-      elements$text$vjust
-    } else {
-      elements$text$hjust
-    }
-
     list(labels = flip_element_grob(
       elements$text,
       label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
-      y = rep(just, nrow(key)),
       margin_x = FALSE,
       margin_y = TRUE,
       flip = params$direction == "vertical"

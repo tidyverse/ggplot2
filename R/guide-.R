@@ -117,9 +117,12 @@ new_guide <- function(..., available_aes = "any", super) {
 #'   `params$hash`. This ensures that e.g. `guide_legend()` can display both
 #'   `shape` and `colour` in the same guide.
 #'
-#' - `get_layer_key()` Extract information from layers. This can be used to
-#'   check that the guide's aesthetic is actually in use, or to gather
-#'   information about how legend keys should be displayed.
+#' - `process_layers()` Extract information from layers. This acts mostly
+#'   as a filter for which layers to include and these are then (typically)
+#'   forwarded to `get_layer_key()`.
+#'
+#' - `get_layer_key()` This can be used to gather information about how legend
+#'   keys should be displayed.
 #'
 #' - `setup_params()` Set up parameters at the beginning of drawing stages.
 #'   It can be used to overrule user-supplied parameters or perform checks on
@@ -253,7 +256,11 @@ Guide <- ggproto(
 
   # Function for extracting information from the layers.
   # Mostly applies to `guide_legend()` and `guide_binned()`
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
+    self$get_layer_key(params, layers, data)
+  },
+
+  get_layer_key = function(params, layers, data = NULL) {
     return(params)
   },
 
@@ -280,11 +287,14 @@ Guide <- ggproto(
 
   # Main drawing function that organises more specialised aspects of guide
   # drawing.
-  draw = function(self, theme, params = self$params) {
+  draw = function(self, theme, position = NULL, direction = NULL,
+                  params = self$params) {
 
     key <- params$key
 
     # Setup parameters and theme
+    params$position  <- params$position  %||% position
+    params$direction <- params$direction %||% direction
     params <- self$setup_params(params)
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)

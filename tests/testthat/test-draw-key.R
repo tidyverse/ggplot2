@@ -7,14 +7,16 @@ test_that("alternative key glyphs work", {
   expect_doppelganger("time series and polygon key glyphs",
     ggplot(df, aes(x, y)) +
       geom_line(aes(color = "line"), key_glyph = "timeseries") +
-      geom_point(aes(fill = z), pch = 21, size = 3, key_glyph = "polygon")
+      geom_point(aes(fill = z), pch = 21, size = 3, key_glyph = "polygon") +
+      guides(fill = guide_legend(order = 1))
    )
 
   # specify key glyph by function
   expect_doppelganger("rectangle and dotplot key glyphs",
     ggplot(df, aes(x, y)) +
       geom_line(aes(color = "line"), key_glyph = draw_key_rect) +
-      geom_point(aes(fill = z), pch = 21, size = 3, stroke = 2, key_glyph = draw_key_dotplot)
+      geom_point(aes(fill = z), pch = 21, size = 3, stroke = 2, key_glyph = draw_key_dotplot) +
+      guides(fill = guide_legend(order = 1))
   )
 })
 
@@ -43,11 +45,52 @@ test_that("horizontal key glyphs work", {
   expect_doppelganger("horizontal boxplot and crossbar",
     p +
       geom_boxplot(aes(y = group1, color = group1), stat = "identity") +
-      geom_crossbar(aes(y = group2, fill = group2))
+      geom_crossbar(aes(y = group2, fill = group2)) +
+      guides(color = guide_legend(order = 1))
   )
   expect_doppelganger("horizontal linerange and pointrange",
     p +
       geom_linerange(aes(y = group1, color = group1)) +
-      geom_pointrange(aes(y = group2, shape = group2))
+      geom_pointrange(aes(y = group2, shape = group2)) +
+      guides(color = guide_legend(order = 1))
   )
+})
+
+test_that("keep_draw_key", {
+
+  key  <- data_frame0(.value = c("A", "C"))
+  data <- data_frame0(foo = c("A", "B"), bar = c("B", "C"))
+
+  expect_true( keep_key_data(key, data, "foo", show = TRUE))
+  expect_false(keep_key_data(key, data, "foo", show = FALSE))
+  expect_equal(keep_key_data(key, data, "foo", show = NA), c(TRUE, FALSE))
+  expect_equal(keep_key_data(key, data, "bar", show = NA), c(FALSE, TRUE))
+  expect_equal(keep_key_data(key, data, c("foo", "bar"), show = NA), c(TRUE, TRUE))
+
+  # Named show
+  expect_true(
+    keep_key_data(key, data, c("foo", "bar"), show = c(foo = TRUE, bar = FALSE))
+  )
+  expect_equal(
+    keep_key_data(key, data, c("foo", "bar"), show = c(foo = NA, bar = FALSE)),
+    c(TRUE, FALSE)
+  )
+  expect_equal(
+    keep_key_data(key, data, c("foo", "bar"), show = c(foo = FALSE, bar = NA)),
+    c(FALSE, TRUE)
+  )
+
+  p <- ggplot(data.frame(x = 1:2), aes(x, x)) +
+    geom_point(
+      aes(colour = "point", alpha = "point"),
+      show.legend = c("colour" = NA, alpha = FALSE)
+    ) +
+    geom_line(
+      aes(colour = "line", alpha = "line"),
+      show.legend = c("colour" = NA, alpha = TRUE)
+    ) +
+    suppressWarnings(scale_alpha_discrete())
+
+  expect_doppelganger("appropriate colour key with alpha key as lines", p)
+
 })
