@@ -338,6 +338,16 @@ test_that("guide_colourbar warns about discrete scales", {
 
 })
 
+test_that("guide_legend uses key.spacing correctly", {
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(carb))) +
+    geom_point() +
+    guides(colour = guide_legend(
+      ncol = 2, key.spacing.y = 1, key.spacing.x = 2
+    ))
+
+  expect_doppelganger("legend with widely spaced keys", p)
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
@@ -636,10 +646,10 @@ test_that("guides title and text are positioned correctly", {
       scale_fill_continuous(name = "the\ncontinuous\ncolorscale")
   )
   expect_doppelganger("vertical gap of 1cm between guide title and guide",
-    p + theme(legend.spacing.y = grid::unit(1, "cm"))
+    p + theme(legend.title = element_text(margin = margin(b = 1, unit = "cm")))
   )
   expect_doppelganger("horizontal gap of 1cm between guide and guide text",
-    p + theme(legend.spacing.x = grid::unit(1, "cm"))
+    p + theme(legend.text = element_text(margin = margin(l = 1, unit = "cm")))
   )
 
   # now test label positioning, alignment, etc
@@ -654,8 +664,8 @@ test_that("guides title and text are positioned correctly", {
 
   expect_doppelganger("guide title and text positioning and alignment via themes",
     p + theme(
-      legend.title = element_text(hjust = 0.5, margin = margin(t = 30)),
-      legend.text = element_text(hjust = 1, margin = margin(l = 5, t = 10, b = 10))
+      legend.title = element_text(hjust = 0.5, margin = margin(t = 30, b = 5.5)),
+      legend.text = element_text(hjust = 1, margin = margin(l = 10.5, t = 10, b = 10))
     )
   )
 
