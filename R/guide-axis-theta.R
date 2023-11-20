@@ -85,7 +85,7 @@ GuideAxisTheta <- ggproto(
 
     if (!("theta" %in% names(key))) {
       # We likely have a linear coord, so we match the text angles to
-      # standard axes.
+      # standard axes to be visually similar.
       key$theta <- switch(
         params$position,
         top    = 0,
@@ -155,7 +155,7 @@ GuideAxisTheta <- ggproto(
   override_elements = function(params, elements, theme) {
     # We don't override any label angles/hjust/vjust because these depend on
     # theta of label.
-    return(elements)
+    elements
   },
 
   build_labels = function(key, elements, params) {
@@ -211,11 +211,15 @@ GuideAxisTheta <- ggproto(
   },
 
   measure_grobs = function(grobs, params, elements) {
-    return(invisible())
+    # As this guide is expected to be placed in the interior of coord_radial,
+    # we don't need to measure grob sizes nor arrange the layout.
+    # There is a fallback in `$assemble_drawing()` that takes care of this
+    # for non-polar coordinates.
+    NULL
   },
 
   arrange_layout = function(key, sizes, params) {
-    return(invisible())
+    NULL
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
