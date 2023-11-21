@@ -507,9 +507,6 @@ Guides <- ggproto(
     )
     positions <- factor(positions, levels = c(.trbl, "inside"))
 
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
-
     directions <- rep("vertical", length(positions))
     directions[positions %in% c("top", "bottom")] <- "horizontal"
 
