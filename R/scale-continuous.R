@@ -53,9 +53,9 @@
 #'   y = seq(0, 1, length.out = 10)
 #' )
 #' p2 <- ggplot(df, aes(x, y)) + geom_point()
-#' p2 + scale_y_continuous(labels = scales::percent)
-#' p2 + scale_y_continuous(labels = scales::dollar)
-#' p2 + scale_x_continuous(labels = scales::comma)
+#' p2 + scale_y_continuous(labels = scales::label_percent())
+#' p2 + scale_y_continuous(labels = scales::label_dollar())
+#' p2 + scale_x_continuous(labels = scales::label_comma())
 #'
 #' # You can also override the default linear mapping by using a
 #' # transformation. There are three shortcuts:

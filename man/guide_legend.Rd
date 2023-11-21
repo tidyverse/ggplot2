@@ -17,6 +17,9 @@ guide_legend(
   label.vjust = NULL,
   keywidth = NULL,
   keyheight = NULL,
+  key.spacing = NULL,
+  key.spacing.x = NULL,
+  key.spacing.y = NULL,
   position = NULL,
   direction = NULL,
   default.unit = "line",
@@ -74,6 +77,11 @@ the width of the legend key. Default value is \code{legend.key.width} or
 \item{keyheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the legend key. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}}.}
+
+\item{key.spacing, key.spacing.x, key.spacing.y}{A numeric or \code{\link[grid:unit]{grid::unit()}}
+object specifying the distance between key-label pairs in the horizontal
+direction (\code{key.spacing.x}), vertical direction (\code{key.spacing.y}) or both
+(\code{key.spacing}).}
 
 \item{position}{A character string indicating where the legend should be
 placed relative to the plot panels.}
