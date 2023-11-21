@@ -434,7 +434,7 @@ table_add_legends <- function(table, legends, theme) {
   }
 
   legends[.trbl] <- lapply(.trbl, function(position) {
-    box <- .subset2(legends, position)
+    box <- legends[[position]]
     if (is.zero(box)) {
       return(box)
     }
@@ -449,8 +449,8 @@ table_add_legends <- function(table, legends, theme) {
 
     vp <- viewport(
       x = xjust, y = yjust, just = just,
-      height = .subset2(heights, position),
-      width  = .subset2(widths,  position)
+      height = heights[[position]],
+      width  = widths[[position]]
     )
     box <- editGrob(box, vp = vp)
     gtable_add_padding(box, margin)
@@ -520,10 +520,10 @@ table_add_legends <- function(table, legends, theme) {
 plot_extent <- function(table) {
   layout <- table$layout
   data_frame0(
-    t = min(.subset2(layout, "t")),
-    r = max(.subset2(layout, "r")),
-    b = max(.subset2(layout, "b")),
-    l = min(.subset2(layout, "l")),
+    t = min(layout[["t"]]),
+    r = max(layout[["r"]]),
+    b = max(layout[["b"]]),
+    l = min(layout[["l"]]),
     .size = 1L
   )
 }
