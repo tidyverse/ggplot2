@@ -481,15 +481,16 @@ Guides <- ggproto(
       return(zeroGrob())
     }
 
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
+    # Populate key sizes
+    theme$legend.key.width  <- calc_element("legend.key.width",  theme)
+    theme$legend.key.height <- calc_element("legend.key.height", theme)
 
     grobs <- self$draw(theme, default_position)
 
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
-    theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
-    theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
+    theme$legend.spacing.y <- calc_element("legend.spacing.y", theme)
+    theme$legend.spacing.x <- calc_element("legend.spacing.x", theme)
 
     Map(
       grobs    = grobs,
