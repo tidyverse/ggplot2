@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
+  an axis. It supersedes the `annotation_logticks()` function 
+  (@teunbrand, #5325).
+
 * Glyphs drawing functions of the `draw_key_*()` family can now set `"width"`
   and `"height"` attributes (in centimetres) to the produced keys to control
   their displayed size in the legend.
