@@ -59,12 +59,12 @@ Suggests:
     nlme,
     profvis,
     quantreg,
-    ragg,
+    ragg (>= 1.2.6),
     RColorBrewer,
     rmarkdown,
     rpart,
     sf (>= 0.7-3),
-    svglite (>= 1.2.0.9001),
+    svglite (>= 2.1.2),
     testthat (>= 3.1.2),
     vdiffr (>= 1.0.6),
     xml2
@@ -115,6 +115,7 @@ Collate:
     'coord-munch.R'
     'coord-polar.R'
     'coord-quickmap.R'
+    'coord-radial.R'
     'coord-sf.R'
     'coord-transform.R'
     'data.R'
@@ -175,6 +176,7 @@ Collate:
     'guide-.R'
     'guide-axis.R'
     'guide-axis-logticks.R'
+    'guide-axis-theta.R'
     'guide-legend.R'
     'guide-bins.R'
     'guide-colorbar.R'

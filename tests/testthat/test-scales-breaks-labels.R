@@ -321,7 +321,7 @@ test_that("minor breaks draw correctly", {
     ggplot(df, aes(x_date, y)) +
       geom_blank() +
       scale_x_date(
-        labels = scales::date_format("%m/%d"),
+        labels = scales::label_date("%m/%d"),
         breaks = scales::date_breaks("month"),
         minor_breaks = scales::date_breaks("week")
       ) +

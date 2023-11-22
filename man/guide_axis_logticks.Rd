@@ -52,7 +52,12 @@ and \code{FALSE} are shorthand for \code{"both"} and \code{"none"} respectively.
 (recursively) prioritizing the first, last, and middle labels.}
     \item{\code{angle}}{Compared to setting the angle in \code{\link[=theme]{theme()}} / \code{\link[=element_text]{element_text()}},
 this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that
-you probably want.}
+you probably want. Can be one of the following:
+\itemize{
+\item \code{NULL} to take the angles and \code{hjust}/\code{vjust} directly from the theme.
+\item \code{waiver()} to allow reasonable defaults in special cases.
+\item A number representing the text angle in degrees.
+}}
     \item{\code{n.dodge}}{The number of rows (for vertical axes) or columns (for
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}

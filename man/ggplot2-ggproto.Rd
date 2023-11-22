@@ -3,8 +3,8 @@
 %   R/annotation-logticks.R, R/geom-polygon.R, R/geom-map.R, R/annotation-map.R,
 %   R/geom-raster.R, R/annotation-raster.R, R/axis-secondary.R, R/coord-.R,
 %   R/coord-cartesian-.R, R/coord-fixed.R, R/coord-flip.R, R/coord-map.R,
-%   R/coord-polar.R, R/coord-quickmap.R, R/coord-transform.R, R/facet-.R,
-%   R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
+%   R/coord-polar.R, R/coord-quickmap.R, R/coord-radial.R, R/coord-transform.R,
+%   R/facet-.R, R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
 %   R/geom-abline.R, R/geom-rect.R, R/geom-bar.R, R/geom-blank.R,
 %   R/geom-boxplot.R, R/geom-col.R, R/geom-path.R, R/geom-contour.R,
 %   R/geom-crossbar.R, R/geom-segment.R, R/geom-curve.R, R/geom-ribbon.R,
@@ -45,6 +45,7 @@
 \alias{CoordMap}
 \alias{CoordPolar}
 \alias{CoordQuickmap}
+\alias{CoordRadial}
 \alias{CoordTrans}
 \alias{Facet}
 \alias{FacetGrid}
@@ -423,9 +424,11 @@ range.
 \item \code{merge()} Combines information from multiple guides with the same
 \code{params$hash}. This ensures that e.g. \code{guide_legend()} can display both
 \code{shape} and \code{colour} in the same guide.
-\item \code{get_layer_key()} Extract information from layers. This can be used to
-check that the guide's aesthetic is actually in use, or to gather
-information about how legend keys should be displayed.
+\item \code{process_layers()} Extract information from layers. This acts mostly
+as a filter for which layers to include and these are then (typically)
+forwarded to \code{get_layer_key()}.
+\item \code{get_layer_key()} This can be used to gather information about how legend
+keys should be displayed.
 \item \code{setup_params()} Set up parameters at the beginning of drawing stages.
 It can be used to overrule user-supplied parameters or perform checks on
 the \code{params} property.

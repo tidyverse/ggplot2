@@ -43,6 +43,10 @@
 #'   specifying dimensions in pixels.
 #' @param bg Background colour. If `NULL`, uses the `plot.background` fill value
 #'   from the plot theme.
+#' @param create.dir Whether to create new directories if a non-existing
+#'   directory is specified in the `filename` or `path` (`TRUE`) or return an
+#'   error (`FALSE`, default). If `FALSE` and run in an interactive session,
+#'   a prompt will appear asking to create a new directory when necessary.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
 #' @export
@@ -84,27 +88,16 @@
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm", "px"),
-                   dpi = 300, limitsize = TRUE, bg = NULL, ...) {
-  if (length(filename) != 1) {
-    if (length(filename) == 0) {
-      cli::cli_abort("{.arg filename} cannot be empty.")
-    }
-    len <- length(filename)
-    filename <- filename[1]
-    cli::cli_warn(c(
-      "{.arg filename} must have length 1, not length {len}.",
-      "!" = "Only the first, {.file {filename}}, will be used."
-    ))
-  }
+                   dpi = 300, limitsize = TRUE, bg = NULL,
+                   create.dir = FALSE,
+                   ...) {
+  filename <- check_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
 
-  if (!is.null(path)) {
-    filename <- file.path(path, filename)
-  }
   if (is_null(bg)) {
     bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
   }
@@ -117,6 +110,56 @@ ggsave <- function(filename, plot = last_plot(),
   grid.draw(plot)
 
   invisible(filename)
+}
+
+check_path <- function(path, filename, create.dir,
+                       call = caller_env()) {
+
+  if (length(filename) > 1 && is.character(filename)) {
+    cli::cli_warn(c(
+      "{.arg filename} must have length 1, not {length(filename)}.",
+      "!" = "Only the first, {.file {filename[1]}}, will be used."
+    ), call = call)
+    filename <- filename[1]
+  }
+  check_string(filename, allow_empty = FALSE, call = call)
+
+  check_string(path, allow_empty = FALSE, allow_null = TRUE, call = call)
+  if (!is.null(path)) {
+    filename <- file.path(path, filename)
+  } else {
+    path <- dirname(filename)
+  }
+
+  # Happy path: target file is in valid directory
+  if (dir.exists(path)) {
+    return(filename)
+  }
+
+  check_bool(create.dir, call = call)
+
+  # Try to ask user to create a new directory
+  if (interactive() && !create.dir) {
+    cli::cli_bullets(c(
+      "Cannot find directory {.path {path}}.",
+      "i" = "Would you like to create a new directory?"
+    ))
+    create.dir <- utils::menu(c("Yes", "No")) == 1
+  }
+
+  # Create new directory
+  if (create.dir) {
+    dir.create(path, recursive = TRUE)
+    if (dir.exists(path)) {
+      cli::cli_alert_success("Created directory: {.path {path}}.")
+      return(filename)
+    }
+  }
+
+  cli::cli_abort(c(
+    "Cannot find directory {.path {path}}.",
+    i = "Please supply an existing directory or use {.code create.dir = TRUE}."
+  ), call = call)
 }
 
 #' Parse a DPI input from the user

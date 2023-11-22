@@ -96,19 +96,11 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
   expect_setequal(axis_label_priority(100), seq_len(100))
 })
 
-test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
-  expect_s3_class(axis_label_element_overrides("bottom", 0), "element")
-  expect_snapshot_error(axis_label_element_overrides("bottom", 91))
-  expect_snapshot_error(axis_label_element_overrides("bottom", -91))
-  expect_snapshot_error(axis_label_element_overrides("test", 0))
-})
-
 test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
     scale_y_continuous(guide = guide_axis(position = "top"))
-  built <- expect_silent(ggplot_build(plot))
-  expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
+  expect_warning(ggplot_build(plot), "Position guide is perpendicular")
 })
 
 test_that("a warning is not generated when a guide is specified with duplicate breaks", {
@@ -152,22 +144,17 @@ test_that("guide_none() can be used in non-position scales", {
   guides <- guides$build(
     plot$scales,
     plot$layers,
-    plot$mapping,
-    "right",
-    theme_gray(),
     plot$labels
   )
 
-  expect_identical(guides, zeroGrob())
+  expect_length(guides$guides, 0)
 })
 
 test_that("Using non-position guides for position scales results in an informative error", {
   p <- ggplot(mpg, aes(cty, hwy)) +
     geom_point() +
     scale_x_continuous(guide = guide_legend())
-
-  built <- ggplot_build(p)
-  expect_snapshot_warning(ggplot_gtable(built))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("guide merging for guide_legend() works as expected", {
@@ -186,7 +173,7 @@ test_that("guide merging for guide_legend() works as expected", {
 
     guides <- guides_list(NULL)
     guides <- guides$setup(scales, aesthetics)
-    guides$train(scales, "vertical", labs())
+    guides$train(scales, labs())
     guides$merge()
     guides$params
   }
@@ -287,11 +274,11 @@ test_that("legend reverse argument reverses the key", {
   guides <- guides$setup(list(scale), "colour")
 
   guides$params[[1]]$reverse <- FALSE
-  guides$train(list(scale), "horizontal", labels = labs())
+  guides$train(list(scale), labels = labs())
   fwd <- guides$get_params(1)$key
 
   guides$params[[1]]$reverse <- TRUE
-  guides$train(list(scale), "horizontal", labels = labs())
+  guides$train(list(scale), labels = labs())
   rev <- guides$get_params(1)$key
 
   expect_equal(fwd$colour, rev(rev$colour))
@@ -306,10 +293,10 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   key <- g$train(scale = scale, aesthetic = "colour")$key
   expect_true(all(diff(key$.value) > 0))
 
-  # Bins guide is decreasing order
+  # Bins guide is increasing order
   g <- guide_bins()
-  key <- g$train(scale = scale, aesthetics = "colour", direction = "vertical")$key
-  expect_true(all(diff(key$.value) < 0))
+  key <- g$train(scale = scale, aesthetics = "colour")$key
+  expect_true(all(diff(key$.value) > 0))
 })
 
 
@@ -406,7 +393,16 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   # Should warn when scale also has transformation
   scale <- test_scale(log10_trans(), limits = c(10, 1000))
   expect_snapshot_warning(train_guide(guide, scale)$logkey)
+})
 
+test_that("guide_legend uses key.spacing correctly", {
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(carb))) +
+    geom_point() +
+    guides(colour = guide_legend(
+      ncol = 2, key.spacing.y = 1, key.spacing.x = 2
+    ))
+
+  expect_doppelganger("legend with widely spaced keys", p)
 })
 
 # Visual tests ------------------------------------------------------------
@@ -571,7 +567,7 @@ test_that("guide_axis() draws minor ticks correctly", {
           axis.minor.ticks.length.x.top = unit(-0.5, "cm"),
           axis.minor.ticks.length.x.bottom = unit(0.75, "cm"),
           axis.minor.ticks.length.y.right = unit(5, "cm")) +
-    scale_x_continuous(labels = math_format()) +
+    scale_x_continuous(labels = label_math()) +
     guides(
       # Test for styling and style inheritance
       x = guide_axis(minor.ticks = TRUE),
@@ -706,7 +702,7 @@ test_that("guides are positioned correctly", {
   dat <- data_frame(x = LETTERS[1:3], y = 1)
   p2 <- ggplot(dat, aes(x, y, fill = x, colour = 1:3)) +
     geom_bar(stat = "identity") +
-    guides(color = "colorbar") +
+    guides(color = guide_colourbar(order = 1)) +
     theme_test() +
     theme(legend.background = element_rect(colour = "black"))
 
@@ -743,10 +739,10 @@ test_that("guides title and text are positioned correctly", {
       scale_fill_continuous(name = "the\ncontinuous\ncolorscale")
   )
   expect_doppelganger("vertical gap of 1cm between guide title and guide",
-    p + theme(legend.spacing.y = grid::unit(1, "cm"))
+    p + theme(legend.title = element_text(margin = margin(b = 1, unit = "cm")))
   )
   expect_doppelganger("horizontal gap of 1cm between guide and guide text",
-    p + theme(legend.spacing.x = grid::unit(1, "cm"))
+    p + theme(legend.text = element_text(margin = margin(l = 1, unit = "cm")))
   )
 
   # now test label positioning, alignment, etc
@@ -761,8 +757,8 @@ test_that("guides title and text are positioned correctly", {
 
   expect_doppelganger("guide title and text positioning and alignment via themes",
     p + theme(
-      legend.title = element_text(hjust = 0.5, margin = margin(t = 30)),
-      legend.text = element_text(hjust = 1, margin = margin(l = 5, t = 10, b = 10))
+      legend.title = element_text(hjust = 0.5, margin = margin(t = 30, b = 5.5)),
+      legend.text = element_text(hjust = 1, margin = margin(l = 10.5, t = 10, b = 10))
     )
   )
 
@@ -932,6 +928,37 @@ test_that("binning scales understand the different combinations of limits, break
   expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE)))
 })
 
+test_that("guide_axis_theta sets relative angle", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    scale_x_continuous(breaks = breaks_width(25)) +
+    coord_radial(donut = 0.5) +
+    guides(
+      theta = guide_axis_theta(angle = 0, cap = "none"),
+      theta.sec = guide_axis_theta(angle = 90, cap = "both")
+    ) +
+    theme(axis.line = element_line(colour = "black"))
+
+  expect_doppelganger("guide_axis_theta with angle adapting to theta", p)
+})
+
+test_that("guide_axis_theta can be used in cartesian coordinates", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    guides(x = "axis_theta", y = "axis_theta",
+           x.sec = "axis_theta", y.sec = "axis_theta") +
+    theme(
+      axis.line.x.bottom = element_line(colour = "tomato"),
+      axis.line.x.top    = element_line(colour = "limegreen"),
+      axis.line.y.left   = element_line(colour = "dodgerblue"),
+      axis.line.y.right  = element_line(colour = "orchid")
+    )
+
+  expect_doppelganger("guide_axis_theta in cartesian coordinates", p)
+})
+
 test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
   df <- data_frame(x = c(1, 2, 4),
                    y = c(6, 5, 7))
@@ -942,8 +969,7 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
 
   # warn on scale_*(guide = FALSE)
   p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
-  built <- expect_silent(ggplot_build(p))
-  expect_snapshot_warning(ggplot_gtable(built))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("guides() warns if unnamed guides are provided", {
