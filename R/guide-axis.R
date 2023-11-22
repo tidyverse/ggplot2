@@ -10,7 +10,10 @@
 #'   (recursively) prioritizing the first, last, and middle labels.
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
 #'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
-#'   you probably want.
+#'   you probably want. Can be one of the following:
+#'   * `NULL` to take the angles and `hjust`/`vjust` directly from the theme.
+#'   * `waiver()` to allow reasonable defaults in special cases.
+#'   *  A number representing the text angle in degrees.
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
@@ -43,7 +46,7 @@
 #'
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
+guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = waiver(),
                        n.dodge = 1, minor.ticks = FALSE, cap = "none",
                        order = 0, position = waiver()) {
   check_bool(minor.ticks)
@@ -64,7 +67,7 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
     cap = cap,
 
     # parameter
-    available_aes = c("x", "y"),
+    available_aes = c("x", "y", "r"),
 
     # general
     order = order,
@@ -177,6 +180,12 @@ GuideAxis <- ggproto(
 
     params$decor <- coord_munch(coord, params$decor, panel_params)
 
+    if (!coord$is_linear()) {
+      # For non-linear coords, we hardcode the opposite position
+      params$decor$x <- switch(position, left = 1, right = 0, params$decor$x)
+      params$decor$y <- switch(position, top = 0, bottom = 1, params$decor$y)
+    }
+
     # Ported over from `warn_for_position_guide`
     # This is trying to catch when a user specifies a position perpendicular
     # to the direction of the axis (e.g., a "y" axis on "top").
@@ -271,7 +280,7 @@ GuideAxis <- ggproto(
     }
 
     new_params <- list(
-      opposite  = unname(setNames(.trbl, .trbl[c(3,4,1,2)])[position]),
+      opposite  = opposite_position(position),
       secondary = position %in% c("top", "right"),
       lab_first = position %in% c("top", "left"),
       orth_side = if (position %in% c("top", "right")) 0 else 1,
@@ -554,41 +563,42 @@ axis_label_priority_between <- function(x, y) {
 #' @noRd
 #'
 axis_label_element_overrides <- function(axis_position, angle = NULL) {
-  if (is.null(angle)) {
+
+  if (is.null(angle) || is.waive(angle)) {
     return(element_text(angle = NULL, hjust = NULL, vjust = NULL))
   }
 
-  # it is not worth the effort to align upside-down labels properly
-  check_number_decimal(angle, min = -90, max = 90)
+  check_number_decimal(angle)
+  angle <- angle %% 360
 
   if (axis_position == "bottom") {
-    element_text(
-      angle = angle,
-      hjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
-      vjust = if (abs(angle) == 90) 0.5 else 1
-    )
+
+    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+
   } else if (axis_position == "left") {
-    element_text(
-      angle = angle,
-      hjust = if (abs(angle) == 90) 0.5 else 1,
-      vjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
-    )
+
+    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+
   } else if (axis_position == "top") {
-    element_text(
-      angle = angle,
-      hjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
-      vjust = if (abs(angle) == 90) 0.5 else 0
-    )
+
+    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+
   } else if (axis_position == "right") {
-    element_text(
-      angle = angle,
-      hjust = if (abs(angle) == 90) 0.5 else 0,
-      vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
-    )
+
+    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+
   } else {
+
     cli::cli_abort(c(
       "Unrecognized {.arg axis_position}: {.val {axis_position}}",
       "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
     ))
+
   }
+
+  element_text(angle = angle, hjust = hjust, vjust = vjust)
 }

@@ -45,7 +45,7 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
                            fun = "mean", fun.args = list()) {
-    check_installed("hexbin", reason = "for `stat_summary_hex()`")
+    check_installed("hexbin", reason = "for `stat_summary_hex()`.")
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
     fun <- as_function(fun)

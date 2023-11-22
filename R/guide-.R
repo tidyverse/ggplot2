@@ -436,6 +436,16 @@ flip_names = c(
 # Shortcut for position argument matching
 .trbl <- c("top", "right", "bottom", "left")
 
+opposite_position <- function(position) {
+  switch(
+    position,
+    top    = "bottom",
+    bottom = "top",
+    left   = "right",
+    right  = "left"
+  )
+}
+
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {
   if (!is.list(labels)) {
