@@ -17,6 +17,9 @@ NULL
 #'   keep the default `NULL` argument.
 #' @param negative_small When the scale limits include 0 or negative numbers,
 #'   what should be the smallest absolute value that is marked with a tick?
+#' @param short_theme A theme [element][element_line()] for customising the
+#'   display of the shortest ticks. Must be a line or blank element, and
+#'   it inherits from the `axis.minor.ticks` setting for the relevant position.
 #' @param expanded Whether the ticks should cover the range after scale
 #'   expansion (`TRUE`, default), or be restricted to the scale limits
 #'   (`FALSE`).
@@ -66,6 +69,7 @@ guide_axis_logticks <- function(
   short = 0.75,
   prescale_base = NULL,
   negative_small = 0.1,
+  short_theme = element_line(),
   expanded = TRUE,
   cap = "none",
   ...
@@ -91,6 +95,7 @@ guide_axis_logticks <- function(
     allow_null = TRUE
   )
   check_bool(expanded)
+  check_inherits(short_theme, c("element_blank", "element_line"))
 
   new_guide(
     available_aes  = c("x", "y"),
@@ -102,6 +107,7 @@ guide_axis_logticks <- function(
     short = short,
     cap   = cap,
     minor.ticks = TRUE,
+    short_theme = short_theme,
     ...,
     super = GuideAxisLogticks
   )
@@ -122,7 +128,8 @@ GuideAxisLogticks <- ggproto(
       long  = 2.25,
       mid   = 1.5,
       short = 0.75,
-      expanded = TRUE
+      expanded = TRUE,
+      short_theme = NULL
     ),
     GuideAxis$params
   ),
@@ -216,6 +223,9 @@ GuideAxisLogticks <- ggproto(
     elements <- GuideAxis$override_elements(params, elements, theme)
     length <- elements$major_length
 
+    # Inherit short ticks from minor ticks
+    elements$short <- combine_elements(params$short_theme, elements$minor)
+
     # Multiply rel units with theme's tick length
     tick_length <- lapply(params[c("long", "mid", "short")], function(x) {
       if (is.unit(x)) x else unclass(x) * length
@@ -231,11 +241,24 @@ GuideAxisLogticks <- ggproto(
 
   build_ticks = function(key, elements, params, position = params$opposite) {
     # Instead of passing regular key, we pass the logkey
-    # In addition, we pass tick lengths directly
-    Guide$build_ticks(
-      params$logkey,
+    key <- params$logkey
+    long <- Guide$build_ticks(
+      vec_slice(key, key$.type == 1L),
       elements$ticks, params, position,
-      elements$tick_length[params$logkey$.type]
+      elements$tick_length[1L]
     )
+
+    mid <- Guide$build_ticks(
+      vec_slice(key, key$.type == 2L),
+      elements$minor, params, position,
+      elements$tick_length[2L]
+    )
+
+    short <- Guide$build_ticks(
+      vec_slice(key, key$.type == 3L),
+      elements$short, params, position,
+      elements$tick_length[3L]
+    )
+    grobTree(long, mid, short, name = "ticks")
   }
 )

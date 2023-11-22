@@ -10,6 +10,7 @@ guide_axis_logticks(
   short = 0.75,
   prescale_base = NULL,
   negative_small = 0.1,
+  short_theme = element_line(),
   expanded = TRUE,
   cap = "none",
   ...
@@ -29,6 +30,10 @@ keep the default \code{NULL} argument.}
 
 \item{negative_small}{When the scale limits include 0 or negative numbers,
 what should be the smallest absolute value that is marked with a tick?}
+
+\item{short_theme}{A theme \link[=element_line]{element} for customising the
+display of the shortest ticks. Must be a line or blank element, and
+it inherits from the \code{axis.minor.ticks} setting for the relevant position.}
 
 \item{expanded}{Whether the ticks should cover the range after scale
 expansion (\code{TRUE}, default), or be restricted to the scale limits
