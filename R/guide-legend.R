@@ -737,7 +737,7 @@ legend_label_just <- function(position) {
   default_just <- switch(
     position,
     top    = c(0.5, 0),
-    bottom = c(0.5, 0),
+    bottom = c(0.5, 1),
     left   = c(1, 0.5),
     right  = c(0, 0.5),
     arg_match0(position, .trbl, arg = "label.position")
