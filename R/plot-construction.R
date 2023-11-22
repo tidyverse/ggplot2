@@ -165,7 +165,13 @@ ggplot_add.by <- function(object, plot, object_name) {
 }
 
 #' @export
+#' @method ggplot_add Layer
 ggplot_add.Layer <- function(object, plot, object_name) {
+  UseMethod("ggplot_add.Layer", plot)
+}
+
+#' @export
+ggplot_add.Layer.default <- function(object, plot, object_name) {
   plot$layers <- append(plot$layers, object)
 
   # Add any new labels
