@@ -377,7 +377,7 @@ GuideAxis <- ggproto(
     spacer <- max(unit(0, "pt"), unit(-1 * diff(range), "cm"))
 
     # Text
-    labels <- unit(measure(grobs$label), "cm")
+    labels <- unit(measure(grobs$labels), "cm")
     title  <- unit(measure(grobs$title), "cm")
 
     sizes <- unit.c(length, spacer, labels, title)
