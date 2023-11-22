@@ -368,14 +368,15 @@ GuideBins <- ggproto(
 
     dim <- if (params$direction == "vertical") c(nkeys, 1) else c(1, nkeys)
 
+    decor <- GuideLegend$build_decor(decor, grobs, elements, params)
+
     sizes <- measure_legend_keys(
-      params$decor, nkeys, dim, byrow = FALSE,
+      decor, nkeys, dim, byrow = FALSE,
       default_width  = elements$key.width,
       default_height = elements$key.height
     )
     sizes <- lapply(sizes, function(x) rep_len(max(x), length(x)))
 
-    decor <- GuideLegend$build_decor(decor, grobs, elements, params)
     n_layers <- length(decor) / nkeys
     key_id <- rep(seq_len(nkeys), each = n_layers)
     key_nm <- paste("key", key_id, c("bg", seq_len(n_layers - 1)))

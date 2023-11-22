@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Glyphs drawing functions of the `draw_key_*()` family can now set `"width"`
+  and `"height"` attributes (in centimetres) to the produced keys to control
+  their displayed size in the legend.
+
 * `coord_radial()` is a successor to `coord_polar()` with more customisation 
   options. `coord_radial()` can:
   

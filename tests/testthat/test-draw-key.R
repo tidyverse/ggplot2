@@ -20,6 +20,22 @@ test_that("alternative key glyphs work", {
   )
 })
 
+test_that("keys can communicate their size", {
+
+  draw_key_dummy <- function(data, params, size) {
+    grob <- circleGrob(r = unit(1, "cm"))
+    attr(grob, "width")  <- 2
+    attr(grob, "height") <- 2
+    grob
+  }
+
+  expect_doppelganger(
+    "circle glyphs of 2cm size",
+    ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
+      geom_point(key_glyph = draw_key_dummy)
+  )
+})
+
 # Orientation-aware key glyphs --------------------------------------------
 
 test_that("horizontal key glyphs work", {
