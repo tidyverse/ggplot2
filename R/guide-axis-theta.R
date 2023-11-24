@@ -158,6 +158,21 @@ GuideAxisTheta <- ggproto(
     elements
   },
 
+  build_decor = function(decor, grobs, elements, params) {
+    if (is.null(params$stack_offset) || !("theta" %in% names(decor))) {
+      # Just use regular method if we do not need to offset the guide
+      decor <- GuideAxis$build_decor(decor, grobs, elements, params)
+      return(decor)
+    }
+    if (empty(decor)) {
+      return(zeroGrob())
+    }
+    # Add the stacking offset to positions
+    x <- unit(decor$x, "npc") + sin(decor$theta) * params$stack_offset
+    y <- unit(decor$y, "npc") + cos(decor$theta) * params$stack_offset
+    element_grob(elements$line, x = x, y = y)
+  },
+
   build_labels = function(key, elements, params) {
 
     key <- vec_slice(key, !vec_detect_missing(key$.label %||% NA))
@@ -179,9 +194,15 @@ GuideAxisTheta <- ggproto(
     # Position angle in radians
     theta <- key$theta
 
+    # Add the stacking offset if necessary
+    offset <- elements$offset
+    if (!is.null(params$stack_offset)) {
+      offset <- offset + params$stack_offset
+    }
+
     # Offset distance to displace text away from outer circle line
-    xoffset <- elements$offset * sin(theta)
-    yoffset <- elements$offset * cos(theta)
+    xoffset <- offset * sin(theta)
+    yoffset <- offset * cos(theta)
 
     # Note that element_grob expects 1 angle for *all* labels, so we're
     # rendering one grob per label to propagate angle properly
@@ -197,14 +218,14 @@ GuideAxisTheta <- ggproto(
   },
 
   build_ticks = function(key, elements, params, position = params$position) {
-
+    offset <- params$stack_offset
     major <- theta_tickmarks(
       vec_slice(key, (key$.type %||% "major") == "major"),
-      elements$ticks, elements$major_length
+      elements$ticks, elements$major_length, offset = offset
     )
     minor <- theta_tickmarks(
       vec_slice(key, (key$.type %||% "major") == "minor"),
-      elements$minor, elements$minor_length
+      elements$minor, elements$minor_length, offset = offset
     )
 
     grobTree(major, minor, name = "ticks")
@@ -320,7 +341,7 @@ GuideAxisTheta <- ggproto(
   }
 )
 
-theta_tickmarks <- function(key, element, length) {
+theta_tickmarks <- function(key, element, length, offset = NULL) {
   n_breaks <- nrow(key)
   if (n_breaks < 1 || inherits(element, "element_blank")) {
     return(zeroGrob())
@@ -331,6 +352,9 @@ theta_tickmarks <- function(key, element, length) {
   x      <- rep(key$x,     each = 2)
   y      <- rep(key$y,     each = 2)
   length <- rep(c(0, 1),  times = n_breaks) * length
+  if (!is.null(offset)) {
+    length <- length + offset
+  }
 
   minor <- element_grob(
     element,
