@@ -167,6 +167,9 @@ GuideAxisTheta <- ggproto(
     if (empty(decor)) {
       return(zeroGrob())
     }
+    if (params$position == "theta.sec") {
+      decor$theta <- decor$theta + pi
+    }
     # Add the stacking offset to positions
     x <- unit(decor$x, "npc") + sin(decor$theta) * params$stack_offset
     y <- unit(decor$y, "npc") + cos(decor$theta) * params$stack_offset

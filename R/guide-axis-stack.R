@@ -102,7 +102,10 @@ GuideAxisStack <- ggproto(
 
   # Sets position, loops through guides to train
   train = function(self, params = self$params, scale, aesthetic = NULL, ...) {
-    position <- arg_match0(params$position, c(.trbl, "theta"), arg_nm = "position")
+    position <- arg_match0(
+      params$position, c(.trbl, "theta", "theta.sec"),
+      arg_nm = "position"
+    )
     for (i in seq_along(params$guides)) {
       params$guide_params[[i]]$position <- position
       params$guide_params[[i]]$angle <- params$guide_params[[i]]$angle %|W|% params$angle
@@ -143,7 +146,7 @@ GuideAxisStack <- ggproto(
     position  <- params$position  %||% position
     direction <- params$direction %||% direction
 
-    if (params$position == "theta") {
+    if (position %in% c("theta", "theta.sec")) {
       # If we are a theta guide, we need to keep track how much space in the
       # radial direction a guide occupies, and add that as an offset to the
       # next guide.
