@@ -622,6 +622,17 @@ test_that("guide_axis_stack stacks axes", {
     theme(axis.line = element_line()) +
     guides(x = bottom, x.sec = top, y = left, y.sec = right)
   expect_doppelganger("stacked axes", p)
+
+  bottom <- guide_axis_stack("axis_theta", guide_axis_theta(cap = "both"))
+  top    <- guide_axis_stack("axis_theta", guide_axis_theta(cap = "both"))
+
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    coord_radial(start = 0.25 * pi, end = 1.75 * pi, donut = 0.5) +
+    guides(theta = top, theta.sec = bottom, r = left, r.sec = right)
+  expect_doppelganger("stacked radial axes", p)
+
 })
 
 test_that("logticks look as they should", {
