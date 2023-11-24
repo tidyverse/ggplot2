@@ -215,7 +215,63 @@ GuideAxisTheta <- ggproto(
     # we don't need to measure grob sizes nor arrange the layout.
     # There is a fallback in `$assemble_drawing()` that takes care of this
     # for non-polar coordinates.
-    NULL
+    if (is.null(params$stack_offset)) {
+      return(NULL)
+    }
+
+    # However, when this guide is part of a stacked axis guide, we need to
+    # know the width of the 'ring' that this guide occupies to correctly
+    # position the next guide
+
+    offset <- convertUnit(elements$offset, "cm", valueOnly = TRUE)
+
+    key <- params$key
+    key <- vec_slice(key, !is.na(key$.label) & nzchar(key$.label))
+    labels <- key$.label
+    if (length(labels) == 0 || inherits(elements$text, "element_blank")) {
+      return(list(offset = offset))
+    }
+
+    # Resolve text angle
+    if (is.waive(params$angle %||% waiver())) {
+      angle <- elements$text$angle
+    } else {
+      angle <- flip_text_angle(params$angle - rad2deg(key$theta))
+    }
+    angle <- key$theta + deg2rad(angle)
+
+    # Set margin
+    margin <- rep(max(elements$text$margin), length.out = 4)
+
+    # Measure size of each individual label
+    single_labels <- lapply(labels, function(lab) {
+      element_grob(
+        elements$text, label = lab,
+        margin = margin, margin_x = TRUE, margin_y = TRUE
+      )
+    })
+    widths  <- width_cm(single_labels)
+    heights <- height_cm(single_labels)
+
+    # Set text justification
+    hjust <- 0.5 - sin(angle) / 2
+    vjust <- 0.5 - cos(angle) / 2
+
+    # Calculate text bounding box
+    xmin <- widths * -hjust
+    xmax <- widths * (1 - hjust)
+
+    ymin <- heights * -vjust
+    ymax <- heights * (1 - vjust)
+
+    # Convert to corner coordinates
+    x <- vec_interleave(xmin, xmin, xmax, xmax)
+    y <- vec_interleave(ymin, ymax, ymax, ymin)
+
+    # Rotate y coordinate to get maximum height
+    rotate <- rep(angle, each = 4)
+    height <- x * sin(rotate) + y * cos(rotate)
+    list(offset = max(height))
   },
 
   arrange_layout = function(key, sizes, params) {
@@ -223,8 +279,13 @@ GuideAxisTheta <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
+
     if (params$position %in% c("theta", "theta.sec")) {
-      return(inject(grobTree(!!!grobs)))
+      # We append an 'offset' slot in case this guide is part
+      # of a stacked guide
+      grobs <- inject(gList(!!!grobs))
+      offset <- unit(sizes$offset %||% 0, "cm")
+      return(gTree(offset = offset, children = grobs))
     }
 
     # As a fallback, we adjust the viewport to act like regular axes.
