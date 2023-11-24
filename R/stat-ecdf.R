@@ -100,7 +100,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     if (pad) {
       x <- c(-Inf, x, Inf)
     }
-    data_ecdf <- ecdf(data$x)(x)
+    data_ecdf <- stats::ecdf(data$x)(x)
 
     df_ecdf <- data_frame0(
       x = x,
