@@ -137,6 +137,36 @@ GuideAxisStack <- ggproto(
 
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
+
+    position  <- params$position  %||% position
+    direction <- params$direction %||% direction
+
+    if (params$position == "theta") {
+      # If we are a theta guide, we need to keep track how much space in the
+      # radial direction a guide occupies, and add that as an offset to the
+      # next guide.
+      offset  <- unit(0, "cm")
+      spacing <- params$spacing %||% unit(2.25, "pt")
+      grobs   <- list()
+      for (i in seq_along(params$guides)) {
+        # Add offset to params
+        pars <- params$guide_params[[i]]
+        pars$stack_offset <- offset
+        # Draw guide
+        grobs[[i]] <- params$guides[[i]]$draw(
+          theme, position = position, direction = direction,
+          params = pars
+        )
+        # Increment offset
+        if (!is.null(grobs[[i]]$offset)) {
+          offset <- offset + spacing + grobs[[i]]$offset
+          offset <- convertUnit(offset, "cm")
+        }
+      }
+      grob <- inject(grobTree(!!!grobs))
+      return(grob)
+    }
+
     # Loop through every guide's draw method
     grobs <- list()
     for (i in seq_along(params$guides)) {
@@ -158,7 +188,6 @@ GuideAxisStack <- ggproto(
     heights <- inject(unit.c(!!!lapply(grobs, grobHeight)))
 
     # Set spacing
-    position <- params$position
     if (is.null(params$spacing)) {
       aes <- if (position %in% c("top", "bottom")) "x" else "y"
       spacing <- paste("axis.ticks.length", aes, position, sep = ".")
