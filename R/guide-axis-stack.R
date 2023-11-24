@@ -88,6 +88,7 @@ GuideAxisStack <- ggproto(
     # Standard guide stuff
     name      = "stacked_axis",
     title     = waiver(),
+    angle     = waiver(),
     hash      = character(),
     position  = waiver(),
     direction = NULL,
@@ -104,6 +105,7 @@ GuideAxisStack <- ggproto(
     position <- arg_match0(params$position, c(.trbl, "theta"), arg_nm = "position")
     for (i in seq_along(params$guides)) {
       params$guide_params[[i]]$position <- position
+      params$guide_params[[i]]$angle <- params$guide_params[[i]]$angle %|W|% params$angle
       params$guide_params[[i]] <- params$guides[[i]]$train(
         params = params$guide_params[[i]],
         scale = scale, aesthetic = aesthetic,
@@ -208,16 +210,29 @@ GuideAxisStack <- ggproto(
       gt <- gtable(widths = unit(1, "npc"), heights = heights)
       gt <- gtable_add_grob(gt, grobs, t = along, l = 1, name = "axis", clip = "off")
       gt <- gtable_add_row_space(gt, height = spacing)
+      vp <- exec(
+        viewport,
+        y    = unit(as.numeric(position == "bottom"), "npc"),
+        height = grobHeight(gt),
+        just = opposite_position(position)
+      )
     } else {
       gt <- gtable(widths = widths, heights = unit(1, "npc"))
       gt <- gtable_add_grob(gt, grobs, t = 1, l = along, name = "axis", clip = "off")
       gt <- gtable_add_col_space(gt, width = spacing)
+      vp <- exec(
+        viewport,
+        x     = unit(as.numeric(position == "left"), "npc"),
+        width = grobWidth(gt),
+        just  = opposite_position(position)
+      )
     }
 
     absoluteGrob(
       grob   = gList(gt),
       width  = gtable_width(gt),
-      height = gtable_height(gt)
+      height = gtable_height(gt),
+      vp = vp
     )
   }
 )
