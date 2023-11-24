@@ -111,7 +111,7 @@ GuideAxis <- ggproto(
     minor_length = "axis.minor.ticks.length"
   ),
 
-  extract_key = function(scale, aesthetic, minor.ticks, ...) {
+  extract_key = function(scale, aesthetic, minor.ticks = FALSE, ...) {
     major <- Guide$extract_key(scale, aesthetic, ...)
     if (!minor.ticks) {
       return(major)

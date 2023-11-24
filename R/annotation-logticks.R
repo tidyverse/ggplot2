@@ -1,5 +1,10 @@
 #' Annotation: log tick marks
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is superseded by using [`guide_axis_logticks()`].
+#'
 #' This annotation adds log tick marks with diminishing spacing.
 #' These tick marks probably make sense only for base 10.
 #'

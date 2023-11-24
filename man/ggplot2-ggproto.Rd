@@ -12,8 +12,8 @@
 %   R/geom-errorbarh.R, R/geom-function.R, R/geom-hex.R, R/geom-hline.R,
 %   R/geom-label.R, R/geom-linerange.R, R/geom-point.R, R/geom-pointrange.R,
 %   R/geom-quantile.R, R/geom-rug.R, R/geom-smooth.R, R/geom-spoke.R,
-%   R/geom-text.R, R/geom-tile.R, R/geom-violin.R, R/geom-vline.R,
-%   R/guide-.R, R/guide-axis.R, R/guide-legend.R, R/guide-bins.R,
+%   R/geom-text.R, R/geom-tile.R, R/geom-violin.R, R/geom-vline.R, R/guide-.R,
+%   R/guide-axis.R, R/guide-axis-logticks.R, R/guide-legend.R, R/guide-bins.R,
 %   R/guide-colorbar.R, R/guide-colorsteps.R, R/guide-none.R, R/guide-old.R,
 %   R/layout.R, R/position-.R, R/position-dodge.R, R/position-dodge2.R,
 %   R/position-identity.R, R/position-jitter.R, R/position-jitterdodge.R,
@@ -91,6 +91,7 @@
 \alias{GeomVline}
 \alias{Guide}
 \alias{GuideAxis}
+\alias{GuideAxisLogticks}
 \alias{GuideLegend}
 \alias{GuideBins}
 \alias{GuideColourbar}
@@ -423,9 +424,11 @@ range.
 \item \code{merge()} Combines information from multiple guides with the same
 \code{params$hash}. This ensures that e.g. \code{guide_legend()} can display both
 \code{shape} and \code{colour} in the same guide.
-\item \code{get_layer_key()} Extract information from layers. This can be used to
-check that the guide's aesthetic is actually in use, or to gather
-information about how legend keys should be displayed.
+\item \code{process_layers()} Extract information from layers. This acts mostly
+as a filter for which layers to include and these are then (typically)
+forwarded to \code{get_layer_key()}.
+\item \code{get_layer_key()} This can be used to gather information about how legend
+keys should be displayed.
 \item \code{setup_params()} Set up parameters at the beginning of drawing stages.
 It can be used to overrule user-supplied parameters or perform checks on
 the \code{params} property.
