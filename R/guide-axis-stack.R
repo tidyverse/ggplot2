@@ -65,7 +65,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(),
     title = title,
     guides = axes,
     guide_params = params,
-    available_aes = c("x", "y"),
+    available_aes = c("x", "y", "theta", "r"),
     order = order,
     position = position,
     name = "stacked_axis",
@@ -94,14 +94,14 @@ GuideAxisStack <- ggproto(
     order     = 0
   ),
 
-  available_aes = c("x", "y"),
+  available_aes = c("x", "y", "theta", "r"),
 
   # Doesn't depend on keys, but on member axis' class
   hashables = exprs(title, lapply(guides, snake_class), name),
 
   # Sets position, loops through guides to train
   train = function(self, params = self$params, scale, aesthetic = NULL, ...) {
-    position <- arg_match0(params$position, .trbl, arg_nm = "position")
+    position <- arg_match0(params$position, c(.trbl, "theta"), arg_nm = "position")
     for (i in seq_along(params$guides)) {
       params$guide_params[[i]]$position <- position
       params$guide_params[[i]] <- params$guides[[i]]$train(
