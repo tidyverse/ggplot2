@@ -87,49 +87,80 @@ add_ggplot <- function(p, object, objectname) {
 #'
 #' @keywords internal
 #' @export
-ggplot_add <- function(object, plot, object_name) {
-  UseMethod("ggplot_add")
-}
-#' @export
-ggplot_add.default <- function(object, plot, object_name) {
+ggplot_add <- new_generic(
+  "ggplot_add",
+  dispatch_args = c("object", "plot"),
+  fun = function(object, plot, object_name) S7_dispatch()
+)
+
+class_ggplot <- new_S3_class("ggplot")
+
+method(
+  ggplot_add,
+  list(object = class_any, plot = class_ggplot)
+) <- function(object, plot, object_name) {
   cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
 }
-#' @export
-ggplot_add.NULL <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("NULL"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   plot
 }
-#' @export
-ggplot_add.data.frame <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("data.frame"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   plot$data <- object
   plot
 }
-#' @export
-ggplot_add.function <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("function"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   cli::cli_abort(c(
-          "Can't add {.var {object_name}} to a {.cls ggplot} object",
+    "Can't add {.var {object_name}} to a {.cls ggplot} object",
     "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
   ))
 }
-#' @export
-ggplot_add.theme <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("theme"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   plot$theme <- add_theme(plot$theme, object)
   plot
 }
-#' @export
-ggplot_add.Scale <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("Scale"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   plot$scales$add(object)
   plot
 }
-#' @export
-ggplot_add.labels <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("labels"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   update_labels(plot, object)
 }
-#' @export
-ggplot_add.Guides <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("Guides"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   update_guides(plot, object)
 }
-#' @export
-ggplot_add.uneval <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("uneval"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   plot$mapping <- defaults(object, plot$mapping)
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
@@ -138,8 +169,11 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   names(labels) <- names(object)
   update_labels(plot, labels)
 }
-#' @export
-ggplot_add.Coord <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("Coord"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   if (!isTRUE(plot$coordinates$default)) {
     cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
   }
@@ -147,31 +181,36 @@ ggplot_add.Coord <- function(object, plot, object_name) {
   plot$coordinates <- object
   plot
 }
-#' @export
-ggplot_add.Facet <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("Facet"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   plot$facet <- object
   plot
 }
-#' @export
-ggplot_add.list <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = class_list, plot = class_ggplot)
+) <- function(object, plot, object_name) {
   for (o in object) {
     plot <- plot %+% o
   }
   plot
 }
-#' @export
-ggplot_add.by <- function(object, plot, object_name) {
+
+method(
+  ggplot_add,
+  list(object = new_S3_class("by"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   ggplot_add.list(object, plot, object_name)
 }
 
-#' @export
-#' @method ggplot_add Layer
-ggplot_add.Layer <- function(object, plot, object_name) {
-  UseMethod("ggplot_add.Layer", plot)
-}
-
-#' @export
-ggplot_add.Layer.default <- function(object, plot, object_name) {
+method(
+  ggplot_add,
+  list(object = new_S3_class("Layer"), plot = class_ggplot)
+) <- function(object, plot, object_name) {
   plot$layers <- append(plot$layers, object)
 
   # Add any new labels

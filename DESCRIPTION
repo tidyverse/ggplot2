@@ -40,6 +40,7 @@ Imports:
     MASS,
     mgcv,
     rlang (>= 1.1.0),
+    S7,
     scales (>= 1.2.0),
     stats,
     tibble,
