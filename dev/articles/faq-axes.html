@@ -397,7 +397,7 @@ worry about the order of the levels.</li>
 <div class="section level3">
 <h3 id="how-can-i-stop-r-from-using-scientific-notation-on-axis-labels">How can I stop R from using scientific notation on axis labels?<a class="anchor" aria-label="anchor" href="#how-can-i-stop-r-from-using-scientific-notation-on-axis-labels"></a>
 </h3>
-<p>Use <code><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">scales::label_number()</a></code> to force decimal display of
+<p>Use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code> to force decimal display of
 numbers. You will first need to add a <code>scale_*()</code> layer
 (e.g. <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code>,
 <code><a href="../reference/scale_discrete.html">scale_y_discrete()</a></code>, etc.) and customise the
@@ -414,16 +414,16 @@ are shown in scientific notation.</p>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-14-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of both axes are in scientific notation, for example: '1e+09'." width="80%"></p>
 <p>The <a href="https://scales.r-lib.org/" class="external-link"><strong>scales</strong></a>
 package offers a large number of functions to control the formatting of
-axis labels and legend keys. Use <code><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">scales::label_number()</a></code> to
+axis labels and legend keys. Use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code> to
 force decimal display of numbers rather than using scientific notation
-or use <code><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">scales::label_comma()</a></code> to insert a comma every three
+or use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code> to insert a comma every three
 digits.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">txhousing</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">median</span>, y <span class="op">=</span> <span class="va">volume</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">label_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 617 rows containing missing values or values outside the scale</span></span>
 <span><span class="co">#&gt; range (`geom_point()`).</span></span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-15-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of the y-axis are written out in full, with commas marking groups of three zeroes. The x-axis labels are written out in full, with spaces marking groups of three zeroes." width="80%"></p>
@@ -432,7 +432,7 @@ digits.</p>
 <div class="section level3">
 <h3 id="how-can-i-change-the-number-of-decimal-places-on-axis-labels">How can I change the number of decimal places on axis labels?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-number-of-decimal-places-on-axis-labels"></a>
 </h3>
-<p>Set the <code>accuracy</code> in <code><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">scales::label_number()</a></code>
+<p>Set the <code>accuracy</code> in <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code>
 to the desired level of decimal places, e.g. 0.1 to show 1 decimal
 place, 0.0001 to show 4 decimal places, etc. You will first need to add
 a <code>scale_*()</code> layer (e.g. <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code>,
@@ -448,7 +448,7 @@ shown in the axis text in the following plot.</p>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-16-1.png" alt="A scatter plot showing the difference in longitude on the x-axis and difference in latitude on the y-axis for seal movements. The x-axis labels have one digit after the decimal place. The y-axis labels have two digits after the decimal place." width="80%"></p>
 <p>The <a href="https://scales.r-lib.org/" class="external-link"><strong>scales</strong></a>
 package offers a large number of functions to control the formatting of
-axis labels and legend keys. Use <code><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">scales::label_number()</a></code>
+axis labels and legend keys. Use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code>
 where the <code>accuracy</code> argument indicates the number to round
 to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal places,
 etc.</p>
@@ -456,15 +456,15 @@ etc.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">seals</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delta_long</span>, y <span class="op">=</span> <span class="va">delta_lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.0001</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.0001</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-17-1.png" alt="A scatter plot showing the difference in longitude on the x-axis and difference in latitude on the y-axis for seal movements. The x-axis labels have one digit after the decimal place. The y-axis labels have four digits after the decimal place." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
 <h3 id="how-can-i-add-percentage-symbols-to-axis-labels">How can I add percentage symbols (%) to axis labels?<a class="anchor" aria-label="anchor" href="#how-can-i-add-percentage-symbols-to-axis-labels"></a>
 </h3>
-<p>Use <code><a href="https://rdrr.io/pkg/scales/man/label_percent.html" class="external-link">scales::label_percent()</a></code>, which will place a
+<p>Use <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code>, which will place a
 <code>%</code> <em>after</em> the number, by default. You can customise
 where <code>%</code> is placed using the <code>prefix</code> and
 <code>suffix</code> arguments, and also <code>scale</code> the numbers
@@ -481,12 +481,12 @@ percentages.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">psavert</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-18-1.png" alt="A lineplot showing the personal savings rate over time from 1967  to 2015." width="80%"></p>
-<p>With <code><a href="https://rdrr.io/pkg/scales/man/label_percent.html" class="external-link">scales::label_percent()</a></code> you can add <code>%</code>s
+<p>With <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code> you can add <code>%</code>s
 after the numbers shown on the axis to make the units more clear.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">psavert</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scales/man/label_percent.html" class="external-link">label_percent</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">1</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">label_percent</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">1</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="faq-axes_files/figure-html/unnamed-chunk-19-1.png" alt="A lineplot showing the personal savings rate over time from 1967  to 2015. The y-axis labels are appended by percentage signs." width="80%"></p>
 <p>where the <code>accuracy</code> argument indicates the number to
 round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal

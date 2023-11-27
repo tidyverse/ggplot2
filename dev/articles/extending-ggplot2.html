@@ -622,7 +622,7 @@ polygon. In this case, you should instead override
 <span>      default.units <span class="op">=</span> <span class="st">"native"</span>,</span>
 <span>      gp <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span></span>
 <span>        col <span class="op">=</span> <span class="va">first_row</span><span class="op">$</span><span class="va">colour</span>,</span>
-<span>        fill <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scales/man/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">first_row</span><span class="op">$</span><span class="va">fill</span>, <span class="va">first_row</span><span class="op">$</span><span class="va">alpha</span><span class="op">)</span>,</span>
+<span>        fill <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">first_row</span><span class="op">$</span><span class="va">fill</span>, <span class="va">first_row</span><span class="op">$</span><span class="va">alpha</span><span class="op">)</span>,</span>
 <span>        lwd <span class="op">=</span> <span class="va">first_row</span><span class="op">$</span><span class="va">linewidth</span> <span class="op">*</span> <span class="va">.pt</span>,</span>
 <span>        lty <span class="op">=</span> <span class="va">first_row</span><span class="op">$</span><span class="va">linetype</span></span>
 <span>      <span class="op">)</span></span>
@@ -1217,7 +1217,7 @@ adds panels with y-transformed axes:</p>
 <span>  <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">FacetTrans</span>,</span>
 <span>    shrink <span class="op">=</span> <span class="va">shrink</span>,</span>
 <span>    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      trans <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scales/man/trans_new.html" class="external-link">as.trans</a></span><span class="op">(</span><span class="va">trans</span><span class="op">)</span>,</span>
+<span>      trans <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">as.trans</a></span><span class="op">(</span><span class="va">trans</span><span class="op">)</span>,</span>
 <span>      horizontal <span class="op">=</span> <span class="va">horizontal</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
