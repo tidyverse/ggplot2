@@ -169,13 +169,13 @@ guide_legend <- function(
     label.position <- arg_match0(label.position, .trbl)
   }
   label.theme <- if (!isFALSE(label)) label.theme else element_blank()
-  label.theme <- merge_element(
-    element_text(hjust = label.hjust, vjust = label.vjust, inherit.blank = TRUE),
-    label.theme
+  label.theme <- combine_elements(
+    label.theme,
+    element_text(hjust = label.hjust, vjust = label.vjust, inherit.blank = TRUE)
   )
-  title.theme <- merge_element(
-    element_text(hjust = title.hjust, vjust = label.vjust, inherit.blank = TRUE),
-    title.theme
+  title.theme <- combine_elements(
+    title.theme,
+    element_text(hjust = title.hjust, vjust = label.vjust, inherit.blank = TRUE)
   )
 
   internal_theme <- theme(
@@ -184,7 +184,6 @@ guide_legend <- function(
     legend.key.width  = set_default_unit(keywidth,  default.unit),
     legend.key.height = set_default_unit(keyheight, default.unit),
   )
-  internal_theme <- compact(internal_theme)
 
   # Resolve spacing
   key.spacing.x <- set_default_unit(key.spacing.x %||% key.spacing, default.unit)
