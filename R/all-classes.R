@@ -1,0 +1,11 @@
+# Class declarations for S7 dispatch.
+class_theme  <- S7::new_S3_class("theme")
+class_scale  <- S7::new_S3_class("Scale")
+class_labels <- S7::new_S3_class("labels")
+class_guides <- S7::new_S3_class("Guides")
+class_aes    <- S7::new_S3_class("uneval")
+class_coord  <- S7::new_S3_class("Coord")
+class_facet  <- S7::new_S3_class("Facet")
+class_by     <- S7::new_S3_class("by")
+class_layer  <- S7::new_S3_class("Layer")
+class_scales_list <- S7::new_S3_class("ScalesList")
