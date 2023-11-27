@@ -491,7 +491,7 @@ Guides <- ggproto(
       horizontal = c("center", "top")
     )
 
-    grobs <- self$draw(theme, position, default_direction)
+    grobs <- self$draw(theme, position, theme$legend.direction)
     if (length(grobs) < 1) {
       return(zeroGrob())
     }
