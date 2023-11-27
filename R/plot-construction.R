@@ -70,7 +70,7 @@ add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)
 
   p <- plot_clone(p)
-  p <- ggplot_add(object, p, objectname)
+  p <- ggplot_add(object, p, object_name = objectname)
   set_last_plot(p)
   p
 }
@@ -87,20 +87,7 @@ add_ggplot <- function(p, object, objectname) {
 #'
 #' @keywords internal
 #' @export
-ggplot_add <- new_generic(
-  "ggplot_add",
-  dispatch_args = c("object", "plot"),
-  fun = function(object, plot, object_name) S7_dispatch()
-)
-
-class_ggplot <- new_S3_class("ggplot")
-
-method(
-  ggplot_add,
-  list(object = class_any, plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
-}
+ggplot_add <- S7::new_generic("ggplot_add", c("object", "plot"))
 
 # Class declarations for S7 dispatch. If S7 gets implemented more broadly,
 # consider moving these to a new file.
@@ -115,129 +102,112 @@ class_facet  <- S7::new_S3_class("Facet")
 class_by     <- S7::new_S3_class("by")
 class_layer  <- S7::new_S3_class("Layer")
 
-method(
-  ggplot_add,
-  list(object = new_S3_class("NULL"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  plot
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("data.frame"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  plot$data <- object
-  plot
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("function"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  cli::cli_abort(c(
-    "Can't add {.var {object_name}} to a {.cls ggplot} object",
-    "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
-  ))
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("theme"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  plot$theme <- add_theme(plot$theme, object)
-  plot
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("Scale"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  plot$scales$add(object)
-  plot
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("labels"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  update_labels(plot, object)
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("Guides"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  update_guides(plot, object)
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("uneval"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  plot$mapping <- defaults(object, plot$mapping)
-  # defaults() doesn't copy class, so copy it.
-  class(plot$mapping) <- class(object)
-
-  labels <- make_labels(object)
-  names(labels) <- names(object)
-  update_labels(plot, labels)
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("Coord"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  if (!isTRUE(plot$coordinates$default)) {
-    cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
+S7::method(ggplot_add, list(S7::class_any, class_ggplot)) <-
+  function(object, plot, object_name) {
+    cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
   }
 
-  plot$coordinates <- object
-  plot
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("Facet"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  plot$facet <- object
-  plot
-}
-
-method(
-  ggplot_add,
-  list(object = class_list, plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  for (o in object) {
-    plot <- plot %+% o
+# Cannot currently double dispatch on NULL directly
+# replace `S7::new_S3_class("NULL")` with `NULL` when S7 version > 0.1.1
+S7::method(ggplot_add, list(S7::new_S3_class("NULL"), class_ggplot)) <-
+  function(object, plot, object_name) {
+    plot
   }
-  plot
-}
 
-method(
-  ggplot_add,
-  list(object = new_S3_class("by"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  ggplot_add.list(object, plot, object_name)
-}
-
-method(
-  ggplot_add,
-  list(object = new_S3_class("Layer"), plot = class_ggplot)
-) <- function(object, plot, object_name) {
-  plot$layers <- append(plot$layers, object)
-
-  # Add any new labels
-  mapping <- make_labels(object$mapping)
-  default <- lapply(make_labels(object$stat$default_aes), function(l) {
-    attr(l, "fallback") <- TRUE
-    l
-  })
-  new_labels <- defaults(mapping, default)
-  current_labels <- plot$labels
-  current_fallbacks <- vapply(current_labels, function(l) isTRUE(attr(l, "fallback")), logical(1))
-  plot$labels <- defaults(current_labels[!current_fallbacks], new_labels)
-  if (any(current_fallbacks)) {
-    plot$labels <- defaults(plot$labels, current_labels)
+S7::method(ggplot_add, list(S7::class_data.frame, class_ggplot)) <-
+  function(object, plot, object_name) {
+    plot$data <- object
+    plot
   }
-  plot
-}
+
+S7::method(ggplot_add, list(S7::class_function, class_ggplot)) <-
+  function(object, plot, object_name) {
+    cli::cli_abort(c(
+      "Can't add {.var {object_name}} to a {.cls ggplot} object",
+      "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
+    ))
+  }
+
+S7::method(ggplot_add, list(class_theme, class_ggplot)) <-
+  function(object, plot, object_name) {
+    plot$theme <- add_theme(plot$theme, object)
+    plot
+  }
+
+S7::method(ggplot_add, list(class_scale, class_ggplot)) <-
+  function(object, plot, object_name) {
+    plot$scales$add(object)
+    plot
+  }
+
+S7::method(ggplot_add, list(class_labels, class_ggplot)) <-
+  function(object, plot, object_name) {
+    update_labels(plot, object)
+  }
+
+S7::method(ggplot_add, list(class_guides, class_ggplot)) <-
+  function(object, plot, object_name) {
+    update_guides(plot, object)
+  }
+
+S7::method(ggplot_add, list(class_aes, class_ggplot)) <-
+  function(object, plot, object_name) {
+    plot$mapping <- defaults(object, plot$mapping)
+    # defaults() doesn't copy class, so copy it.
+    class(plot$mapping) <- class(object)
+
+    labels <- make_labels(object)
+    names(labels) <- names(object)
+    update_labels(plot, labels)
+  }
+
+S7::method(ggplot_add, list(class_coord, class_ggplot)) <-
+  function(object, plot, object_name) {
+    if (!isTRUE(plot$coordinates$default)) {
+      cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
+    }
+
+    plot$coordinates <- object
+    plot
+  }
+
+S7::method(ggplot_add, list(class_facet, class_ggplot)) <-
+  function(object, plot, object_name) {
+    plot$facet <- object
+    plot
+  }
+
+S7::method(ggplot_add, list(S7::class_list, class_ggplot)) <-
+  function(object, plot, object_name) {
+    for (o in object) {
+      plot <- plot %+% o
+    }
+    plot
+  }
+
+S7::method(ggplot_add, list(class_by, class_ggplot)) <-
+  function(object, plot, object_name) {
+    S7::method(ggplot_add, list(class_list, class_ggplot))(
+      object, plot, object_name
+    )
+  }
+
+S7::method(ggplot_add, list(class_layer, class_ggplot)) <-
+  function(object, plot, object_name) {
+    plot$layers <- append(plot$layers, object)
+
+    # Add any new labels
+    mapping <- make_labels(object$mapping)
+    default <- lapply(make_labels(object$stat$default_aes), function(l) {
+      attr(l, "fallback") <- TRUE
+      l
+    })
+    new_labels <- defaults(mapping, default)
+    current_labels <- plot$labels
+    current_fallbacks <- vapply(current_labels, function(l) isTRUE(attr(l, "fallback")), logical(1))
+    plot$labels <- defaults(current_labels[!current_fallbacks], new_labels)
+    if (any(current_fallbacks)) {
+      plot$labels <- defaults(plot$labels, current_labels)
+    }
+    plot
+  }
