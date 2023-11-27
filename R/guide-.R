@@ -273,7 +273,7 @@ Guide <- ggproto(
   # Converts the `elements` field to proper elements to be accepted by
   # `element_grob()`. String-interpolates aesthetic/position dependent elements.
   setup_elements = function(params, elements, theme) {
-    theme <- add_theme_preserve_blank(theme, params$internal_theme)
+    theme <- merge_internal_theme(theme, params$internal_theme)
     is_char  <- vapply(elements, is.character, logical(1))
     elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements
@@ -456,4 +456,57 @@ validate_labels <- function(labels) {
   } else {
     unlist(labels)
   }
+}
+
+# This logic is similar to `add_theme()` with the following exceptions:
+#
+# 1. Elements in `new` that have `inherit.blank = TRUE` and are blank in `old`
+#    will remain blank.
+# 2. `NULL` elements in `new` are ignored.
+# 3. When an `old` element is a subclass of the `new` element, that subclass
+#    is preserved.
+merge_internal_theme <- function(old, new, new_name = caller_arg(new)) {
+  if (is.null(new)) {
+    return(old)
+  }
+  # Get non empty names of new theme
+  nms <- names(new)[!vapply(new, is.null, logical(1))]
+
+  # Does any of the new theme elements carry over blank elements?
+  inherit_blank <- vapply(
+    new[nms], FUN.VALUE = logical(1),
+    function(x) is.list(x) && isTRUE(x$inherit.blank)
+  )
+  # Are their equivalents in the old theme blank?
+  is_blank <- vapply(old[nms], inherits, logical(1), what = "element_blank")
+
+  # Only merge in elements that shouldn't become blank
+  keep <- nms[!(inherit_blank & is_blank)]
+
+  try_fetch(
+    for (item in keep) {
+      x <- merge_subclass(new[[item]], old[[item]])
+      old[item] <- list(x)
+    },
+    error = function(cnd) {
+      cli::cli_abort(
+        "Problem merging the {.var {item}} theme element.",
+        parent = cnd
+      )
+    }
+  )
+  old
+}
+
+merge_subclass <- function(new, old) {
+  if (!is.subclass(old, new)) {
+    return(merge_element(new, old))
+  }
+  if (is.null(old)) {
+    return(new)
+  }
+  idx <- !vapply(new, is.null, logical(1))
+  idx <- names(new)[idx]
+  old[idx] <- new[idx]
+  old
 }

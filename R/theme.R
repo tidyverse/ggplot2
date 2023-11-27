@@ -560,44 +560,6 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
   t1
 }
 
-#' Combine themes while preserving blank elements
-#'
-#' This calls `add_theme()` but with the following modifications:
-#'
-#' * Elements in `new` that have `inherit.blank = TRUE` and are blank in `old`
-#'   will remain blank.
-#' * `NULL` elements in `new` are ignored.
-#'
-#' This logic is used in the guide system to merge theme settings provided
-#' at the guide level with theme settings provided at the plot level.
-#'
-#' @param old A theme object, typically the plot level theme.
-#' @param new A theme object
-#' @param new_name A name to display in error messages
-#'
-#' @keywords internal
-#' @noRd
-add_theme_preserve_blank <- function(old, new, new_name = caller_arg(new)) {
-  if (is.null(new)) {
-    return(old)
-  }
-  # Get non empty names of new theme
-  nms <- names(new)[!vapply(new, is.null, logical(1))]
-
-  # Does any of the new theme elements carry over blank elements?
-  inherit_blank <- vapply(
-    new[nms], FUN.VALUE = logical(1),
-    function(x) is.list(x) && isTRUE(x$inherit.blank)
-  )
-  # Are their equivalents in the old theme blank?
-  is_blank <- vapply(old[nms], inherits, logical(1), what = "element_blank")
-
-  # Only merge in elements that shouldn't become blank
-  keep <- nms[!(inherit_blank & is_blank)]
-  add_theme(old, new[keep], t2name = new_name)
-}
-
-
 #' Calculate the element properties, by inheriting properties from its parents
 #'
 #' @param element The name of the theme element to calculate
