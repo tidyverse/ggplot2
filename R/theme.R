@@ -774,12 +774,12 @@ combine_elements <- function(e1, e2) {
 
   # Calculate relative sizes
   if (is.rel(e1$size)) {
-    e1$size <- e2$size * unclass(e1$size)
+    e1$size <- (e2$size %||% rel(1)) * unclass(e1$size)
   }
 
   # Calculate relative linewidth
   if (is.rel(e1$linewidth)) {
-    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+    e1$linewidth <- (e2$linewidth %||% rel(1)) * unclass(e1$linewidth)
   }
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
