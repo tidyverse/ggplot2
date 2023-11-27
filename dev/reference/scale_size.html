@@ -157,10 +157,10 @@ omitted.</p></dd>
 <dt>breaks</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks computed by the
-<a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">transformation object</a></p></li>
+<a href="https://rdrr.io/pkg/scales/man/trans_new.html" class="external-link">transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
+as output (e.g., a function returned by <code><a href="https://rdrr.io/pkg/scales/man/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
 Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
 
@@ -205,8 +205,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code>. If
 transformations require arguments, you can call them from the scales
-package, e.g. <code><a href="https://scales.r-lib.org/reference/boxcox_trans.html" class="external-link">scales::boxcox_trans(p = 2)</a></code>.
-You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
+package, e.g. <code><a href="https://rdrr.io/pkg/scales/man/boxcox_trans.html" class="external-link">scales::boxcox_trans(p = 2)</a></code>.
+You can create your own transformation with <code><a href="https://rdrr.io/pkg/scales/man/trans_new.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
 
 
 <dt>guide</dt>
@@ -243,10 +243,10 @@ accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class
 <dd><p>One of:</p><ul><li><p>Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a>
 function notation.</p></li>
-<li><p>The default (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></dd>
 
     <dt><code>na.value</code></dt>
