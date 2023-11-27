@@ -132,10 +132,13 @@ GeomPath <- ggproto("GeomPath", Geom,
 
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
+  non_missing_aes = c("linewidth", "colour", "linetype"),
+
   handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    complete <- stats::complete.cases(data[names(data) %in% c("x", "y", "linewidth", "colour", "linetype")])
+    aesthetics <- c(self$required_aes, self$non_missing_aes)
+    complete <- stats::complete.cases(data[names(data) %in% aesthetics])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
