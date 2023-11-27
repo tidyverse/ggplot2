@@ -1,3 +1,6 @@
+#' @include plot.R
+NULL
+
 #' Add components to a plot
 #'
 #' `+` is the key to constructing sophisticated ggplot2 graphics. It
@@ -91,25 +94,25 @@ add_ggplot <- function(p, object, objectname) {
 #' @export
 ggplot_add <- S7::new_generic("ggplot_add", c("object", "plot"))
 
-S7::method(ggplot_add, list(S7::class_any, class_ggplot)) <-
+S7::method(ggplot_add, list(S7::class_any, ggplot)) <-
   function(object, plot, object_name) {
     cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
   }
 
 # Cannot currently double dispatch on NULL directly
 # replace `S7::new_S3_class("NULL")` with `NULL` when S7 version > 0.1.1
-S7::method(ggplot_add, list(S7::new_S3_class("NULL"), class_ggplot)) <-
+S7::method(ggplot_add, list(S7::new_S3_class("NULL"), ggplot)) <-
   function(object, plot, object_name) {
     plot
   }
 
-S7::method(ggplot_add, list(S7::class_data.frame, class_ggplot)) <-
+S7::method(ggplot_add, list(S7::class_data.frame, ggplot)) <-
   function(object, plot, object_name) {
     plot$data <- object
     plot
   }
 
-S7::method(ggplot_add, list(S7::class_function, class_ggplot)) <-
+S7::method(ggplot_add, list(S7::class_function, ggplot)) <-
   function(object, plot, object_name) {
     cli::cli_abort(c(
       "Can't add {.var {object_name}} to a {.cls ggplot} object",
@@ -117,40 +120,42 @@ S7::method(ggplot_add, list(S7::class_function, class_ggplot)) <-
     ))
   }
 
-S7::method(ggplot_add, list(class_theme, class_ggplot)) <-
+S7::method(ggplot_add, list(class_theme, ggplot)) <-
   function(object, plot, object_name) {
     plot$theme <- add_theme(plot$theme, object)
     plot
   }
 
-S7::method(ggplot_add, list(class_scale, class_ggplot)) <-
+S7::method(ggplot_add, list(class_scale, ggplot)) <-
   function(object, plot, object_name) {
     plot$scales$add(object)
     plot
   }
 
-S7::method(ggplot_add, list(class_labels, class_ggplot)) <-
+S7::method(ggplot_add, list(class_labels, ggplot)) <-
   function(object, plot, object_name) {
     update_labels(plot, object)
   }
 
-S7::method(ggplot_add, list(class_guides, class_ggplot)) <-
+S7::method(ggplot_add, list(class_guides, ggplot)) <-
   function(object, plot, object_name) {
     update_guides(plot, object)
   }
 
-S7::method(ggplot_add, list(class_aes, class_ggplot)) <-
+S7::method(ggplot_add, list(class_aes, ggplot)) <-
   function(object, plot, object_name) {
-    plot$mapping <- defaults(object, plot$mapping)
+    mapping <- defaults(object, plot$mapping)
     # defaults() doesn't copy class, so copy it.
-    class(plot$mapping) <- class(object)
+    class(mapping) <- class(object)
+    S7::prop(plot, "mapping") <- mapping
+
 
     labels <- make_labels(object)
     names(labels) <- names(object)
     update_labels(plot, labels)
   }
 
-S7::method(ggplot_add, list(class_coord, class_ggplot)) <-
+S7::method(ggplot_add, list(class_coord, ggplot)) <-
   function(object, plot, object_name) {
     if (!isTRUE(plot$coordinates$default)) {
       cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
@@ -160,13 +165,13 @@ S7::method(ggplot_add, list(class_coord, class_ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(class_facet, class_ggplot)) <-
+S7::method(ggplot_add, list(class_facet, ggplot)) <-
   function(object, plot, object_name) {
     plot$facet <- object
     plot
   }
 
-S7::method(ggplot_add, list(S7::class_list, class_ggplot)) <-
+S7::method(ggplot_add, list(S7::class_list, ggplot)) <-
   function(object, plot, object_name) {
     for (o in object) {
       plot <- plot %+% o
@@ -174,14 +179,14 @@ S7::method(ggplot_add, list(S7::class_list, class_ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(class_by, class_ggplot)) <-
+S7::method(ggplot_add, list(class_by, ggplot)) <-
   function(object, plot, object_name) {
-    S7::method(ggplot_add, list(class_list, class_ggplot))(
+    S7::method(ggplot_add, list(class_list, ggplot))(
       object, plot, object_name
     )
   }
 
-S7::method(ggplot_add, list(class_layer, class_ggplot)) <-
+S7::method(ggplot_add, list(class_layer, ggplot)) <-
   function(object, plot, object_name) {
     plot$layers <- append(plot$layers, object)
 

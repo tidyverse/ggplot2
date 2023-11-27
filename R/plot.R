@@ -156,8 +156,15 @@ ggplot <- S7::new_class(
   }
 )
 
+S7::method(`$`, ggplot) <- function(x, i) {
+  if (!S7::prop_exists(x, i)) {
+    return(NULL)
+  }
+  S7::prop(x, i)
 }
 
+S7::method(`$<-`, ggplot) <- function(x, ...) {
+  S7::`prop<-`(x, ...)
 }
 
 plot_clone <- function(plot) {
