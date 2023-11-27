@@ -437,11 +437,11 @@ GuideLegend <- ggproto(
     # to leave a small gap in between the label and the key.
     margin <- theme$text$margin %||% margin()
     if (is.null(elements$text$margin)) {
-      i <- match(params$label.position, .trbl[c(3, 4, 1, 2)]) # match opposite
+      i <- match(opposite_position(params$label.position), .trbl) # match opposite
       elements$text$margin <- replace(margin, i, margin[i] + gap)
     }
     if (is.null(elements$title$margin)) {
-      i <- match(params$title.position, .trbl[c(3, 4, 1, 2)])
+      i <- match(opposite_position(params$title.position), .trbl)
       elements$title$margin <- replace(margin, i, margin[i] + gap)
     }
 
