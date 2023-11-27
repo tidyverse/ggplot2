@@ -102,6 +102,19 @@ method(
   cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
 }
 
+# Class declarations for S7 dispatch. If S7 gets implemented more broadly,
+# consider moving these to a new file.
+class_ggplot <- S7::new_S3_class("ggplot")
+class_theme  <- S7::new_S3_class("theme")
+class_scale  <- S7::new_S3_class("Scale")
+class_labels <- S7::new_S3_class("labels")
+class_guides <- S7::new_S3_class("Guides")
+class_aes    <- S7::new_S3_class("uneval")
+class_coord  <- S7::new_S3_class("Coord")
+class_facet  <- S7::new_S3_class("Facet")
+class_by     <- S7::new_S3_class("by")
+class_layer  <- S7::new_S3_class("Layer")
+
 method(
   ggplot_add,
   list(object = new_S3_class("NULL"), plot = class_ggplot)
