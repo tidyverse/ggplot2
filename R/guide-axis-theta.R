@@ -148,7 +148,7 @@ GuideAxisTheta <- ggproto(
     }
 
     offset <- max(unit(0, "pt"), elements$major_length, elements$minor_length)
-    elements$offset <- offset + max(elements$text$margin)
+    elements$offset <- offset + max(elements$text$margin %||% unit(0, "pt"))
     elements
   },
 
@@ -160,12 +160,16 @@ GuideAxisTheta <- ggproto(
 
   build_labels = function(key, elements, params) {
 
+    if (inherits(elements$text, "element_blank")) {
+      return(zeroGrob())
+    }
+
     key <- vec_slice(key, !vec_detect_missing(key$.label %||% NA))
 
     # Early exit if drawing no labels
     labels <- key$.label
     if (length(labels) < 1) {
-      return(list(zeroGrob()))
+      return(zeroGrob())
     }
 
     # Resolve text angle
