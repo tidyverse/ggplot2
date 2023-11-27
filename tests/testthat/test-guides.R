@@ -811,14 +811,15 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red colorbar, thick black ticks, green frame",
+  expect_doppelganger("white-to-red colorbar, long thick black ticks, green frame",
     p + scale_color_gradient(
           low = 'white', high = 'red',
           guide = guide_colorbar(
             frame = element_rect(colour = "green"),
             frame.linewidth = 1.5 / .pt,
             ticks.colour = "black",
-            ticks.linewidth = 2.5 / .pt
+            ticks.linewidth = 2.5 / .pt,
+            ticks.length = unit(0.4, "npc")
             )
         )
     )

@@ -429,14 +429,11 @@ GuideColourbar <- ggproto(
       "horizontal" = c("bottom", "top"),
       "vertical"   = c("right", "left")
     )
-    elements$ticks_length <- rep(elements$ticks_length, length.out = 2)
-    elem1 <- elem2 <- elements
-    elem1$ticks_length <- elements$ticks_length[2]
-    elem2$ticks_length <- elements$ticks_length[1]
+    ticks_length <- rep(elements$ticks_length, length.out = 2)
 
     grobTree(
-      Guide$build_ticks(pos, elem1, params, position[1]),
-      Guide$build_ticks(pos, elem2, params, position[2])
+      Guide$build_ticks(pos, elements, params, position[1], ticks_length[1]),
+      Guide$build_ticks(pos, elements, params, position[2], ticks_length[2])
     )
   },
 
