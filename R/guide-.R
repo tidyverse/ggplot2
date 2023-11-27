@@ -502,9 +502,6 @@ merge_subclass <- function(new, old) {
   if (!is.subclass(old, new)) {
     return(merge_element(new, old))
   }
-  if (is.null(old)) {
-    return(new)
-  }
   idx <- !vapply(new, is.null, logical(1))
   idx <- names(new)[idx]
   old[idx] <- new[idx]
