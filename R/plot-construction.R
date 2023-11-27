@@ -81,7 +81,9 @@ add_ggplot <- function(p, object, objectname) {
 #'
 #' @param object An object to add to the plot
 #' @param plot The ggplot object to add `object` to
-#' @param object_name The name of the object to add
+#' @param ... Additional arguments to pass to the methods. Typically, an
+#'   `object_name` argument that gives a display name for `object` to use
+#'   in error messages.
 #'
 #' @return A modified ggplot object
 #'

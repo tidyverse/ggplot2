@@ -4,14 +4,16 @@
 \alias{ggplot_add}
 \title{Add custom objects to ggplot}
 \usage{
-ggplot_add(object, plot, object_name)
+ggplot_add(object, plot, ...)
 }
 \arguments{
 \item{object}{An object to add to the plot}
 
 \item{plot}{The ggplot object to add \code{object} to}
 
-\item{object_name}{The name of the object to add}
+\item{...}{Additional arguments to pass to the methods. Typically, an
+\code{object_name} argument that gives a display name for \code{object} to use
+in error messages.}
 }
 \value{
 A modified ggplot object
