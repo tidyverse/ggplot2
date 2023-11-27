@@ -466,7 +466,7 @@ validate_labels <- function(labels) {
 # 3. When an `old` element is a subclass of the `new` element, that subclass
 #    is preserved.
 merge_internal_theme <- function(old, new, new_name = caller_arg(new)) {
-  if (is.null(new)) {
+  if (length(new) == 0) {
     return(old)
   }
   # Get non empty names of new theme
