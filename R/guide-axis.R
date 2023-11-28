@@ -111,7 +111,7 @@ GuideAxis <- ggproto(
     minor_length = "axis.minor.ticks.length"
   ),
 
-  extract_key = function(scale, aesthetic, minor.ticks, ...) {
+  extract_key = function(scale, aesthetic, minor.ticks = FALSE, ...) {
     major <- Guide$extract_key(scale, aesthetic, ...)
     if (!minor.ticks) {
       return(major)
@@ -377,7 +377,7 @@ GuideAxis <- ggproto(
     spacer <- max(unit(0, "pt"), unit(-1 * diff(range), "cm"))
 
     # Text
-    labels <- unit(measure(grobs$label), "cm")
+    labels <- unit(measure(grobs$labels), "cm")
     title  <- unit(measure(grobs$title), "cm")
 
     sizes <- unit.c(length, spacer, labels, title)

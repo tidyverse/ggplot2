@@ -1,5 +1,11 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("dollar subsetting the theme does no partial matching", {
+  t <- theme(foobar = 12)
+  expect_null(t$foo)
+  expect_equal(t$foobar, 12)
+})
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works

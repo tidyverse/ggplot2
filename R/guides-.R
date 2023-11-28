@@ -485,10 +485,10 @@ Guides <- ggproto(
     theme$legend.key.width  <- calc_element("legend.key.width",  theme)
     theme$legend.key.height <- calc_element("legend.key.height", theme)
 
-    grobs <- self$draw(theme, default_position)
+    grobs <- self$draw(theme, default_position, theme$legend.direction)
 
     # Set spacing
-    theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
+    theme$legend.spacing   <- theme$legend.spacing %||% unit(0.5, "lines")
     theme$legend.spacing.y <- calc_element("legend.spacing.y", theme)
     theme$legend.spacing.x <- calc_element("legend.spacing.x", theme)
 
@@ -501,8 +501,11 @@ Guides <- ggproto(
   },
 
   # Render the guides into grobs
-  draw = function(self, theme, default_position = "right",
-                  params = self$params, guides = self$guides) {
+  draw = function(self, theme,
+                  default_position = "right",
+                  direction = NULL,
+                  params = self$params,
+                  guides = self$guides) {
     positions <- vapply(
       params,
       function(p) p$position[1] %||% default_position,
@@ -510,8 +513,10 @@ Guides <- ggproto(
     )
     positions <- factor(positions, levels = c(.trbl, "inside"))
 
-    directions <- rep("vertical", length(positions))
-    directions[positions %in% c("top", "bottom")] <- "horizontal"
+    directions <- rep(direction %||% "vertical", length(positions))
+    if (is.null(direction)) {
+      directions[positions %in% c("top", "bottom")] <- "horizontal"
+    }
 
     grobs <- vector("list", length(guides))
     for (i in seq_along(grobs)) {
@@ -538,7 +543,6 @@ Guides <- ggproto(
 
     # Populate missing theme arguments
     theme$legend.box       <- theme$legend.box       %||% direction
-    theme$legend.direction <- theme$legend.direction %||% direction
     theme$legend.box.just  <- theme$legend.box.just  %||% switch(
       direction,
       vertical   = c("left", "top"),

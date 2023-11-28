@@ -52,6 +52,10 @@
     Breaks are not formatted correctly for a bin legend.
     i Use `(<lower>, <upper>]` format to indicate bins.
 
+# guide_axis_logticks calculates appropriate ticks
+
+    The `prescale_base` argument will override the scale's log-10 transformation in log-tick positioning.
+
 # binning scales understand the different combinations of limits, breaks, labels, and show.limits
 
     `show.limits` is ignored when `labels` are given as a character vector.
