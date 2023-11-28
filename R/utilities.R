@@ -178,7 +178,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-binned_pal <- function(palette) {
+pal_binned <- function(palette) {
   function(x) {
     palette(length(x))
   }

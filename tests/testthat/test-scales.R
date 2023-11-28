@@ -707,8 +707,8 @@ test_that("find_scale appends appropriate calls", {
 
 test_that("Using `scale_name` prompts deprecation message", {
 
-  expect_snapshot_warning(continuous_scale("x", "foobar", identity_pal()))
-  expect_snapshot_warning(discrete_scale("x",   "foobar", identity_pal()))
-  expect_snapshot_warning(binned_scale("x",     "foobar", identity_pal()))
+  expect_snapshot_warning(continuous_scale("x", "foobar", pal_identity()))
+  expect_snapshot_warning(discrete_scale("x",   "foobar", pal_identity()))
+  expect_snapshot_warning(binned_scale("x",     "foobar", pal_identity()))
 
 })
