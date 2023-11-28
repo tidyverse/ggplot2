@@ -176,6 +176,9 @@ S7::method(`$<-`, S7_ggplot) <- function(x, ...) {
   S7::`prop<-`(x, ...)
 }
 
+# Deal with S7 bug: https://github.com/RConsortium/S7/issues/390
+rm(`$`, `$<-`)
+
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
