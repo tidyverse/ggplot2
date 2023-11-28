@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `theme()` now supports splicing a list of arguments (#5542).
+
 * Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
 
 * New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
