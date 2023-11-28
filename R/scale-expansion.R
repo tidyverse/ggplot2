@@ -168,7 +168,7 @@ expand_limits_discrete <- function(limits, expand = expansion(0, 0), coord_limit
 }
 
 expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
-                                           coord_limits = c(NA, NA), trans = identity_trans()) {
+                                           coord_limits = c(NA, NA), trans = transform_identity()) {
 
   # let non-NA coord_limits override the scale limits
   limits <- ifelse(is.na(coord_limits), limits, coord_limits)
@@ -198,7 +198,7 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
 }
 
 expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
-                                         coord_limits = c(NA, NA), trans = identity_trans(),
+                                         coord_limits = c(NA, NA), trans = transform_identity(),
                                          range_continuous = NULL) {
   if (is.discrete(limits)) {
     n_discrete_limits <- length(limits)
