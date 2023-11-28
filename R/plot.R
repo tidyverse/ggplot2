@@ -147,8 +147,37 @@ ggplot.function <- function(data = NULL, mapping = aes(), ...,
   ))
 }
 
+#' ggplot class
+#'
+#' The ggplot class is implemented using S7 and has properties needed to
+#' build and render a plot.
+#'
+#' @param data Any object that can be used with [`fortify()`] to yield a
+#'   `<data.frame>`.
+#' @param layers A `<list>` containing `<LayerInstance>` objects. Typically
+#'   an empty `<list>` that will be filled when adding layers using `+`.
+#' @param scales A `<ScalesList>` ggproto object that manages scales that
+#'   are added to the plot.
+#' @param guides A `<Guides>` ggproto object that manages guides that are
+#'   added to the plot.
+#' @param mapping An `<uneval>` object constructed with [`aes()`] containing
+#'   the default aesthetic mappings.
+#' @param theme A `<theme>` object constructed with [`theme()`] containing
+#'   non-data visual settings.
+#' @param coordinates A `<Coord>` ggproto object that manages the interpretation
+#'   of position aesthetics.
+#' @param facet A `<Facet>` ggproto object that manages the display of data
+#'   subsets.
+#' @param labels A named `<list>` of `character`s and `expression`s giving
+#'   aesthetic-label pairs.
+#' @param plot_env An `<environment>` in which the plot was created.
+#'
+#' @details
+#' The purpose of the ggplot class object is to allow developers to extend
+#' their own versions of a ggplot class. Users should instead use the
+#' [`ggplot()`] interface to construct a new plot.
+#'
 #' @export
-#' @rdname ggplot
 S7_ggplot <- S7::new_class(
   name = "ggplot", parent = gg,
   properties = list(
