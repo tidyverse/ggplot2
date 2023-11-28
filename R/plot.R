@@ -104,7 +104,52 @@ gg <- S7::new_class("gg", abstract = TRUE)
 #'     mapping = aes(x = group, y = group_mean), data = group_means_df,
 #'     colour = 'red', size = 3
 #'   )
-ggplot <- S7::new_class(
+ggplot <- function(data = NULL, mapping = aes(), ...,
+                   environment = parent.frame()) {
+  UseMethod("ggplot")
+}
+
+#' @export
+ggplot.default <- function(data = NULL, mapping = aes(), ...,
+                           environment = parent.frame()) {
+  if (!missing(mapping) && !inherits(mapping, "uneval")) {
+    cli::cli_abort(c(
+      "{.arg mapping} should be created with {.fn aes}.",
+      "x" = "You've supplied a {.cls {class(mapping)[1]}} object."
+    ))
+  }
+
+  data <- fortify(data, ...)
+
+  p <- S7_ggplot(
+    data    = data,
+    layers  = list(),
+    scales  = scales_list(),
+    guides  = guides_list(),
+    mapping = mapping,
+    theme   = theme(),
+    coordinates = coord_cartesian(default = TRUE),
+    facet   = facet_null(),
+    labels  = make_labels(mapping),
+    plot_env = environment
+  )
+
+  set_last_plot(p)
+  p
+}
+
+#' @export
+ggplot.function <- function(data = NULL, mapping = aes(), ...,
+                            environment = parent.frame()) {
+  cli::cli_abort(c(
+    "{.arg data} cannot be a function.",
+    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}?"
+  ))
+}
+
+#' @export
+#' @rdname ggplot
+S7_ggplot <- S7::new_class(
   name = "ggplot", parent = gg,
   properties = list(
     data        = S7::class_any,
@@ -117,53 +162,17 @@ ggplot <- S7::new_class(
     facet       = class_facet,
     labels      = S7::class_list,
     plot_env    = S7::class_environment
-  ),
-  constructor = function(data = NULL, mapping = aes(), ...,
-                         environment = parent.frame()) {
-
-    if (!missing(mapping) && !inherits(mapping, "uneval")) {
-      cli::cli_abort(c(
-        "{.arg mapping} should be created with {.fn aes}.",
-        "x" = "You've supplied a {.cls {class(mapping)[1]}} object."
-      ))
-    }
-
-    if (is.function(data)) {
-      cli::cli_abort(c(
-        "{.arg data} cannot be a function.",
-        "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}?"
-      ))
-    }
-
-    data <- fortify(data, ...)
-
-    obj <- S7::new_object(
-      S7::S7_object(),
-      data    = data,
-      layers  = list(),
-      scales  = scales_list(),
-      guides  = guides_list(),
-      mapping = mapping,
-      theme   = theme(),
-      coordinates = coord_cartesian(default = TRUE),
-      facet   = facet_null(),
-      labels  = make_labels(mapping),
-      plot_env = environment
-    )
-
-    set_last_plot(obj)
-    obj
-  }
+  )
 )
 
-S7::method(`$`, ggplot) <- function(x, i) {
+S7::method(`$`, S7_ggplot) <- function(x, i) {
   if (!S7::prop_exists(x, i)) {
     return(NULL)
   }
   S7::prop(x, i)
 }
 
-S7::method(`$<-`, ggplot) <- function(x, ...) {
+S7::method(`$<-`, S7_ggplot) <- function(x, ...) {
   S7::`prop<-`(x, ...)
 }
 

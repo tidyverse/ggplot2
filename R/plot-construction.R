@@ -94,25 +94,25 @@ add_ggplot <- function(p, object, objectname) {
 #' @export
 ggplot_add <- S7::new_generic("ggplot_add", c("object", "plot"))
 
-S7::method(ggplot_add, list(S7::class_any, ggplot)) <-
+S7::method(ggplot_add, list(S7::class_any, S7_ggplot)) <-
   function(object, plot, object_name) {
     cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
   }
 
 # Cannot currently double dispatch on NULL directly
 # replace `S7::new_S3_class("NULL")` with `NULL` when S7 version > 0.1.1
-S7::method(ggplot_add, list(S7::new_S3_class("NULL"), ggplot)) <-
+S7::method(ggplot_add, list(S7::new_S3_class("NULL"), S7_ggplot)) <-
   function(object, plot, object_name) {
     plot
   }
 
-S7::method(ggplot_add, list(S7::class_data.frame, ggplot)) <-
+S7::method(ggplot_add, list(S7::class_data.frame, S7_ggplot)) <-
   function(object, plot, object_name) {
     plot$data <- object
     plot
   }
 
-S7::method(ggplot_add, list(S7::class_function, ggplot)) <-
+S7::method(ggplot_add, list(S7::class_function, S7_ggplot)) <-
   function(object, plot, object_name) {
     cli::cli_abort(c(
       "Can't add {.var {object_name}} to a {.cls ggplot} object",
@@ -120,29 +120,29 @@ S7::method(ggplot_add, list(S7::class_function, ggplot)) <-
     ))
   }
 
-S7::method(ggplot_add, list(class_theme, ggplot)) <-
+S7::method(ggplot_add, list(class_theme, S7_ggplot)) <-
   function(object, plot, object_name) {
     plot$theme <- add_theme(plot$theme, object)
     plot
   }
 
-S7::method(ggplot_add, list(class_scale, ggplot)) <-
+S7::method(ggplot_add, list(class_scale, S7_ggplot)) <-
   function(object, plot, object_name) {
     plot$scales$add(object)
     plot
   }
 
-S7::method(ggplot_add, list(class_labels, ggplot)) <-
+S7::method(ggplot_add, list(class_labels, S7_ggplot)) <-
   function(object, plot, object_name) {
     update_labels(plot, object)
   }
 
-S7::method(ggplot_add, list(class_guides, ggplot)) <-
+S7::method(ggplot_add, list(class_guides, S7_ggplot)) <-
   function(object, plot, object_name) {
     update_guides(plot, object)
   }
 
-S7::method(ggplot_add, list(class_aes, ggplot)) <-
+S7::method(ggplot_add, list(class_aes, S7_ggplot)) <-
   function(object, plot, object_name) {
     mapping <- defaults(object, plot$mapping)
     # defaults() doesn't copy class, so copy it.
@@ -155,7 +155,7 @@ S7::method(ggplot_add, list(class_aes, ggplot)) <-
     update_labels(plot, labels)
   }
 
-S7::method(ggplot_add, list(class_coord, ggplot)) <-
+S7::method(ggplot_add, list(class_coord, S7_ggplot)) <-
   function(object, plot, object_name) {
     if (!isTRUE(plot$coordinates$default)) {
       cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
@@ -165,13 +165,13 @@ S7::method(ggplot_add, list(class_coord, ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(class_facet, ggplot)) <-
+S7::method(ggplot_add, list(class_facet, S7_ggplot)) <-
   function(object, plot, object_name) {
     plot$facet <- object
     plot
   }
 
-S7::method(ggplot_add, list(S7::class_list, ggplot)) <-
+S7::method(ggplot_add, list(S7::class_list, S7_ggplot)) <-
   function(object, plot, object_name) {
     for (o in object) {
       plot <- plot %+% o
@@ -179,14 +179,14 @@ S7::method(ggplot_add, list(S7::class_list, ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(class_by, ggplot)) <-
+S7::method(ggplot_add, list(class_by, S7_ggplot)) <-
   function(object, plot, object_name) {
     S7::method(ggplot_add, list(class_list, ggplot))(
       object, plot, object_name
     )
   }
 
-S7::method(ggplot_add, list(class_layer, ggplot)) <-
+S7::method(ggplot_add, list(class_layer, S7_ggplot)) <-
   function(object, plot, object_name) {
     plot$layers <- append(plot$layers, object)
 
