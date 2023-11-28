@@ -2,6 +2,7 @@
 
 S3method("$",ggproto)
 S3method("$",ggproto_parent)
+S3method("$",theme)
 S3method("$<-",uneval)
 S3method("+",gg)
 S3method("[",mapped_discrete)
