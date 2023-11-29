@@ -133,7 +133,7 @@ guide_colourbar <- function(
   # bar
   barwidth = NULL,
   barheight = NULL,
-  nbin = 300,
+  nbin = NULL,
   display = "raster",
   raster = lifecycle::deprecated(),
 
@@ -165,6 +165,8 @@ guide_colourbar <- function(
     display <- if (raster) "raster" else "rectangles"
   }
   display <- match.arg(display, c("raster", "rectangles", "gradient"))
+  nbin <- nbin %||% switch(display, gradient = 15, 300)
+
   if (!(is.null(barwidth) || is.unit(barwidth))) {
     barwidth <- unit(barwidth, default.unit)
   }
