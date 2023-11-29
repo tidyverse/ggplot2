@@ -903,18 +903,12 @@ the existing theme. For example, the following code sets the key colour
 to red, but it inherits the existing fill colour:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">legend.key</span></span>
-<span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ fill         : chr "grey95"</span></span>
-<span><span class="co">#&gt;  $ colour       : logi NA</span></span>
-<span><span class="co">#&gt;  $ linewidth    : NULL</span></span>
-<span><span class="co">#&gt;  $ linetype     : NULL</span></span>
-<span><span class="co">#&gt;  $ inherit.blank: logi TRUE</span></span>
-<span><span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></span>
+<span><span class="co">#&gt; NULL</span></span>
 <span></span>
 <span><span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">new_theme</span><span class="op">$</span><span class="va">legend.key</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ fill         : chr "grey95"</span></span>
+<span><span class="co">#&gt;  $ fill         : NULL</span></span>
 <span><span class="co">#&gt;  $ colour       : chr "red"</span></span>
 <span><span class="co">#&gt;  $ linewidth    : NULL</span></span>
 <span><span class="co">#&gt;  $ linetype     : NULL</span></span>
