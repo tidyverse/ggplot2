@@ -134,7 +134,8 @@ guide_colourbar <- function(
   barwidth = NULL,
   barheight = NULL,
   nbin = 300,
-  raster = TRUE,
+  display = "raster",
+  raster = lifecycle::deprecated(),
 
   # frame
   frame = element_blank(),
@@ -158,6 +159,12 @@ guide_colourbar <- function(
   available_aes = c("colour", "color", "fill"),
   ...
 ) {
+  if (lifecycle::is_present(raster)) {
+    deprecate_soft0("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
+    check_bool(raster)
+    display <- if (raster) "raster" else "rectangles"
+  }
+  display <- match.arg(display, c("raster", "rectangles", "gradient"))
   if (!(is.null(barwidth) || is.unit(barwidth))) {
     barwidth <- unit(barwidth, default.unit)
   }
@@ -229,7 +236,7 @@ guide_colourbar <- function(
     keywidth = barwidth,
     keyheight = barheight,
     nbin = nbin,
-    raster = raster,
+    display = display,
 
     # frame
     frame = frame,
@@ -282,7 +289,7 @@ GuideColourbar <- ggproto(
     keywidth  = NULL,
     keyheight = NULL,
     nbin = 300,
-    raster = TRUE,
+    display = "raster",
 
     draw_lim = c(TRUE, TRUE),
 
