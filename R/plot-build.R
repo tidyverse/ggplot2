@@ -265,15 +265,24 @@ ggplot_gtable.ggplot_built <- function(data) {
   }
 
   # Title
-  title <- element_render(theme, "plot.title", plot$labels$title, margin_y = TRUE)
+  title <- element_render(
+    theme, "plot.title", plot$labels$title,
+    margin_y = TRUE, margin_x = TRUE
+  )
   title_height <- grobHeight(title)
 
   # Subtitle
-  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, margin_y = TRUE)
+  subtitle <- element_render(
+    theme, "plot.subtitle", plot$labels$subtitle,
+    margin_y = TRUE, margin_x = TRUE
+  )
   subtitle_height <- grobHeight(subtitle)
 
   # whole plot annotation
-  caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
+  caption <- element_render(
+    theme, "plot.caption", plot$labels$caption,
+    margin_y = TRUE, margin_x = TRUE
+  )
   caption_height <- grobHeight(caption)
 
   # positioning of title and subtitle is governed by plot.title.position
