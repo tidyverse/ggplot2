@@ -135,6 +135,7 @@ guide_colourbar <- function(
   barheight = NULL,
   nbin = 300,
   raster = TRUE,
+  alpha = NA,
 
   # frame
   frame = element_blank(),
@@ -205,6 +206,8 @@ guide_colourbar <- function(
     ticks$linewidth <- ticks.linewidth %||% ticks$linewidth %||% (0.5 / .pt)
   }
 
+  check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
+
   # Trick to re-use this constructor in `guide_coloursteps()`.
   args  <- list2(...)
   super <- args$super %||% GuideColourbar
@@ -230,6 +233,7 @@ guide_colourbar <- function(
     keyheight = barheight,
     nbin = nbin,
     raster = raster,
+    alpha = alpha,
 
     # frame
     frame = frame,
@@ -283,6 +287,7 @@ GuideColourbar <- ggproto(
     keyheight = NULL,
     nbin = 300,
     raster = TRUE,
+    alpha = NA,
 
     draw_lim = c(TRUE, TRUE),
 
@@ -322,7 +327,7 @@ GuideColourbar <- ggproto(
     Guide$extract_key(scale, aesthetic, ...)
   },
 
-  extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, ...) {
+  extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, alpha = NA, ...) {
 
     limits <- scale$get_limits()
     bar <- seq(limits[1], limits[2], length.out = nbin)
@@ -330,7 +335,7 @@ GuideColourbar <- ggproto(
       bar <- unique0(limits)
     }
     bar <- data_frame0(
-      colour = scale$map(bar),
+      colour = alpha(scale$map(bar), alpha),
       value  = bar,
       .size  = length(bar)
     )
