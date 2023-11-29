@@ -37,6 +37,9 @@ NULL
 #'   raster object. If `FALSE` then the colourbar is rendered as a set of
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
+#' @param alpha A numeric between 0 and 1 setting the colour transparency of
+#'   the bar. Use `NA` to preserve the alpha encoded in the colour itself
+#'   (default).
 #' @param ticks A theme object for rendering tick marks at the colourbar.
 #'   Usually, the object of `element_line()` is expected (default). If
 #'   `element_blank()`, no tick marks are drawn. For backward compatibility,

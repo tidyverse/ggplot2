@@ -54,6 +54,9 @@ not \code{NULL}, the \code{frame} argument will be set to \code{element_rect()}.
 drawn around the bar in millimetres.}
     \item{\code{frame.linetype}}{A numeric specifying the linetype of the frame
 drawn around the bar.}
+    \item{\code{alpha}}{A numeric between 0 and 1 setting the colour transparency of
+the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
+(default).}
     \item{\code{ticks.colour}}{A string specifying the colour of the tick marks.}
     \item{\code{ticks.linewidth}}{A numeric specifying the width of the tick marks in
 millimetres.}

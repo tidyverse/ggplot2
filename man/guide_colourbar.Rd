@@ -20,6 +20,7 @@ guide_colourbar(
   barheight = NULL,
   nbin = 300,
   raster = TRUE,
+  alpha = NA,
   frame = element_blank(),
   frame.colour = NULL,
   frame.linewidth = NULL,
@@ -53,6 +54,7 @@ guide_colorbar(
   barheight = NULL,
   nbin = 300,
   raster = TRUE,
+  alpha = NA,
   frame = element_blank(),
   frame.colour = NULL,
   frame.linewidth = NULL,
@@ -124,6 +126,10 @@ colourbar. A smoother colourbar results from a larger value.}
 raster object. If \code{FALSE} then the colourbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
+
+\item{alpha}{A numeric between 0 and 1 setting the colour transparency of
+the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
+(default).}
 
 \item{frame}{A theme object for rendering a frame drawn around the bar.
 Usually, the object of \code{element_rect()} is expected. If \code{element_blank()}
