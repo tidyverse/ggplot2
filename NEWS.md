@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `guide_colourbar()` and `guide_coloursteps()` gain an `alpha` argument to
+  set the transparency of the bar (#5085).
+
 * Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
 
 * New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
