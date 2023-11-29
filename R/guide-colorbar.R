@@ -354,13 +354,13 @@ GuideColourbar <- ggproto(
     params$title <- scale$make_title(
       params$title %|W|% scale$name %|W|% title
     )
-
     limits <- c(params$decor$value[1], params$decor$value[nrow(params$decor)])
-    params$key$.value <- rescale(
-      params$key$.value,
-      c(0.5, params$nbin - 0.5) / params$nbin,
-      limits
+    to <- switch(
+      params$display,
+      gradient = c(0, 1),
+      c(0.5, params$nbin - 0.5) / params$nbin
     )
+    params$key$.value <- rescale(params$key$.value, to = to, from = limits)
     params
   },
 
