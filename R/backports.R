@@ -22,3 +22,17 @@ if (getRversion() < "3.5") {
   isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
   isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) &&  x
 }
+
+version_unavailable <- function(...) {
+  fun <- as_label(current_call()[[1]])
+  cli::cli_abort("{.fn {fun}} is not available in R version {getRversion()}.")
+}
+
+# Unavailable prior to R 4.1.0
+linearGradient <- version_unavailable
+
+on_load({
+  if ("linearGradient" %in% getNamespaceExports("grid")) {
+    linearGradient <- grid::linearGradient()
+  }
+})
