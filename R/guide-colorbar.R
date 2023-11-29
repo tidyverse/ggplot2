@@ -447,8 +447,7 @@ GuideColourbar <- ggproto(
   },
 
   build_decor = function(decor, grobs, elements, params) {
-
-    if (params$raster) {
+    if (params$display == "raster") {
       image <- switch(
         params$direction,
         "horizontal" = t(decor$colour),
@@ -462,7 +461,7 @@ GuideColourbar <- ggproto(
         gp = gpar(col = NA),
         interpolate = TRUE
       )
-    } else{
+    } else if (params$display == "rectangles") {
       if (params$direction == "horizontal") {
         width  <- elements$key.width / nrow(decor)
         height <- elements$key.height
@@ -481,6 +480,20 @@ GuideColourbar <- ggproto(
         default.units = "cm",
         gp = gpar(col = NA, fill = decor$colour)
       )
+    } else if (params$display == "gradient") {
+      check_device("gradients", call = expr(guide_colourbar()))
+      value <- if (isTRUE(params$reverse)) {
+        rescale(decor$value, to = c(1, 0))
+      } else {
+        rescale(decor$value, to = c(0, 1))
+      }
+      position <- switch(
+        params$direction,
+        horizontal = list(y1 = unit(0.5, "npc"), y2 = unit(0.5, "npc")),
+        vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
+      )
+      gradient <- inject(linearGradient(decor$colour, value, !!!position))
+      grob <- rectGrob(gp = gpar(fill = gradient, col = NA))
     }
 
     frame <- element_grob(elements$frame, fill = NA)
