@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The plot's title, subtitle and caption now obey horizontal text margins
+  (#5533).
+
 * Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
 
 * New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
