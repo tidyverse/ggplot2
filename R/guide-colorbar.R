@@ -33,10 +33,18 @@ NULL
 #'   drawn around the bar.
 #' @param nbin A numeric specifying the number of bins for drawing the
 #'   colourbar. A smoother colourbar results from a larger value.
-#' @param raster A logical. If `TRUE` then the colourbar is rendered as a
-#'   raster object. If `FALSE` then the colourbar is rendered as a set of
-#'   rectangles. Note that not all graphics devices are capable of rendering
-#'   raster image.
+#' @param display A string indicating a method to display the colourbar. Can be
+#'   one of the following:
+#'
+#'   * `"raster"` to display as a bitmap image.
+#'   * `"rectangles"` to display as a series of rectangles.
+#'   * `"gradient"` to display as a linear gradient.
+#'
+#'   Note that not all devices are able to render rasters and gradients.
+#' @param raster `r lifecycle::badge("deprecated")`  A logical. If `TRUE` then
+#'   the colourbar is rendered as a raster object. If `FALSE` then the colourbar
+#'   is rendered as a set of rectangles. Note that not all graphics devices are
+#'   capable of rendering raster image.
 #' @param ticks A theme object for rendering tick marks at the colourbar.
 #'   Usually, the object of `element_line()` is expected (default). If
 #'   `element_blank()`, no tick marks are drawn. For backward compatibility,

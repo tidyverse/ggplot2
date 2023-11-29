@@ -16,7 +16,7 @@
 #'   (default), no tick marks are drawn. For backward compatibility, can also
 #'   be a logical which translates `TRUE` to `element_line()` and `FALSE` to
 #'   `element_blank()`.
-#' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
+#' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes -display
 #'
 #' @inheritSection guide_bins Use with discrete scale
 #'

@@ -18,8 +18,9 @@ guide_colourbar(
   label.vjust = NULL,
   barwidth = NULL,
   barheight = NULL,
-  nbin = 300,
-  raster = TRUE,
+  nbin = NULL,
+  display = "raster",
+  raster = lifecycle::deprecated(),
   frame = element_blank(),
   frame.colour = NULL,
   frame.linewidth = NULL,
@@ -51,8 +52,9 @@ guide_colorbar(
   label.vjust = NULL,
   barwidth = NULL,
   barheight = NULL,
-  nbin = 300,
-  raster = TRUE,
+  nbin = NULL,
+  display = "raster",
+  raster = lifecycle::deprecated(),
   frame = element_blank(),
   frame.colour = NULL,
   frame.linewidth = NULL,
@@ -120,10 +122,20 @@ the height of the colourbar. Default value is \code{legend.key.height} or
 \item{nbin}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
 
-\item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
-raster object. If \code{FALSE} then the colourbar is rendered as a set of
-rectangles. Note that not all graphics devices are capable of rendering
-raster image.}
+\item{display}{A string indicating a method to display the colourbar. Can be
+one of the following:
+\itemize{
+\item \code{"raster"} to display as a bitmap image.
+\item \code{"rectangles"} to display as a series of rectangles.
+\item \code{"gradient"} to display as a linear gradient.
+}
+
+Note that not all devices are able to render rasters and gradients.}
+
+\item{raster}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}  A logical. If \code{TRUE} then
+the colourbar is rendered as a raster object. If \code{FALSE} then the colourbar
+is rendered as a set of rectangles. Note that not all graphics devices are
+capable of rendering raster image.}
 
 \item{frame}{A theme object for rendering a frame drawn around the bar.
 Usually, the object of \code{element_rect()} is expected. If \code{element_blank()}
