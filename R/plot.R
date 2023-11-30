@@ -1,3 +1,6 @@
+
+gg <- S7::new_class("gg", abstract = TRUE)
+
 #' Create a new ggplot
 #'
 #' `ggplot()` initializes a ggplot object. It can be used to
@@ -112,25 +115,24 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     cli::cli_abort(c(
       "{.arg mapping} should be created with {.fn aes}.",
-      "x" = "You've supplied a {.cls {class(mapping)[1]}} object"
+      "x" = "You've supplied a {.cls {class(mapping)[1]}} object."
     ))
   }
 
   data <- fortify(data, ...)
 
-  p <- structure(list(
-    data = data,
-    layers = list(),
-    scales = scales_list(),
-    guides = guides_list(),
+  p <- S7_ggplot(
+    data    = data,
+    layers  = list(),
+    scales  = scales_list(),
+    guides  = guides_list(),
     mapping = mapping,
-    theme = list(),
+    theme   = theme(),
     coordinates = coord_cartesian(default = TRUE),
-    facet = facet_null(),
+    facet   = facet_null(),
+    labels  = make_labels(mapping),
     plot_env = environment
-  ), class = c("gg", "ggplot"))
-
-  p$labels <- make_labels(mapping)
+  )
 
   set_last_plot(p)
   p
@@ -139,12 +141,72 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 #' @export
 ggplot.function <- function(data = NULL, mapping = aes(), ...,
                             environment = parent.frame()) {
-  # Added to avoid functions end in ggplot.default
   cli::cli_abort(c(
     "{.arg data} cannot be a function.",
-    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}?"
   ))
 }
+
+#' ggplot class
+#'
+#' The ggplot class is implemented using S7 and has properties needed to
+#' build and render a plot.
+#'
+#' @param data Any object that can be used with [`fortify()`] to yield a
+#'   `<data.frame>`.
+#' @param layers A `<list>` containing `<LayerInstance>` objects. Typically
+#'   an empty `<list>` that will be filled when adding layers using `+`.
+#' @param scales A `<ScalesList>` ggproto object that manages scales that
+#'   are added to the plot.
+#' @param guides A `<Guides>` ggproto object that manages guides that are
+#'   added to the plot.
+#' @param mapping An `<uneval>` object constructed with [`aes()`] containing
+#'   the default aesthetic mappings.
+#' @param theme A `<theme>` object constructed with [`theme()`] containing
+#'   non-data visual settings.
+#' @param coordinates A `<Coord>` ggproto object that manages the interpretation
+#'   of position aesthetics.
+#' @param facet A `<Facet>` ggproto object that manages the display of data
+#'   subsets.
+#' @param labels A named `<list>` of `character`s and `expression`s giving
+#'   aesthetic-label pairs.
+#' @param plot_env An `<environment>` in which the plot was created.
+#'
+#' @details
+#' The purpose of the ggplot class object is to allow developers to extend
+#' their own versions of a ggplot class. Users should instead use the
+#' [`ggplot()`] interface to construct a new plot.
+#'
+#' @export
+S7_ggplot <- S7::new_class(
+  name = "ggplot", parent = gg,
+  properties = list(
+    data        = S7::class_any,
+    layers      = S7::class_list,
+    scales      = class_scales_list,
+    guides      = class_guides,
+    mapping     = class_aes,
+    theme       = class_theme,
+    coordinates = class_coord,
+    facet       = class_facet,
+    labels      = S7::class_list,
+    plot_env    = S7::class_environment
+  )
+)
+
+S7::method(`$`, S7_ggplot) <- function(x, i) {
+  if (!S7::prop_exists(x, i)) {
+    return(NULL)
+  }
+  S7::prop(x, i)
+}
+
+S7::method(`$<-`, S7_ggplot) <- function(x, ...) {
+  S7::`prop<-`(x, ...)
+}
+
+# Deal with S7 bug: https://github.com/RConsortium/S7/issues/390
+rm(`$`, `$<-`)
 
 plot_clone <- function(plot) {
   p <- plot
