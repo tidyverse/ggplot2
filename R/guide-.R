@@ -25,13 +25,8 @@ new_guide <- function(..., available_aes = "any", super) {
   params <- intersect(names(args), param_names)
   params <- defaults(args[params], super$params)
 
-  # Set elements
-  elems_names <- names(super$elements)
-  elems  <- intersect(names(args), elems_names)
-  elems  <- defaults(args[elems], super$elements)
-
   # Warn about extra arguments
-  extra_args <- setdiff(names(args), union(param_names, elems_names))
+  extra_args <- setdiff(names(args), param_names)
   if (length(extra_args) > 0) {
     cli::cli_warn(paste0(
       "Ignoring unknown {cli::qty(extra_args)} argument{?s} to ",
@@ -56,8 +51,7 @@ new_guide <- function(..., available_aes = "any", super) {
 
   ggproto(
     NULL, super,
-    params   = params,
-    elements = elems,
+    params = params,
     available_aes = available_aes
   )
 }
