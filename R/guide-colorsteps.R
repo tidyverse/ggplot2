@@ -51,13 +51,11 @@
 guide_coloursteps <- function(
   even.steps  = TRUE,
   show.limits = NULL,
-  ticks       = element_blank(),
   ...
 ) {
   guide_colourbar(
     even.steps  = even.steps,
     show.limits = show.limits,
-    ticks       = ticks,
     ...,
     super       = GuideColoursteps
   )
@@ -76,7 +74,7 @@ GuideColoursteps <- ggproto(
 
   params = c(
     list(even.steps = TRUE, show.limits = NULL),
-    GuideColourbar$params
+    vec_assign(GuideColourbar$params, "default_ticks", list(element_blank()))
   ),
 
   extract_key = function(scale, aesthetic, even.steps, ...) {
@@ -94,7 +92,7 @@ GuideColoursteps <- ggproto(
     limits <- parsed$limits
     breaks <- parsed$breaks
 
-    key <- data_frame(scale$map(breaks), .name_repair = ~ aesthetic)
+    key <- data_frame0(!!aesthetic := scale$map(breaks))
     key$.value <- seq_along(breaks)
     key$.label <- scale$get_labels(breaks)
 

@@ -118,35 +118,13 @@ guide_colourbar <- function(
 
   # title
   title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-
-  # label
-  label = TRUE,
-  label.position = NULL,
-  label.theme = NULL,
-  label.hjust = NULL,
-  label.vjust = NULL,
+  theme = NULL,
 
   # bar
-  barwidth = NULL,
-  barheight = NULL,
   nbin = 300,
   raster = TRUE,
 
-  # frame
-  frame = element_blank(),
-  frame.colour = NULL,
-  frame.linewidth = NULL,
-  frame.linetype = NULL,
-
   # ticks
-  ticks = element_line(),
-  ticks.colour = NULL,
-  ticks.linewidth = NULL,
-  ticks.length = unit(0.2, "npc"),
   draw.ulim = TRUE,
   draw.llim = TRUE,
 
@@ -158,52 +136,6 @@ guide_colourbar <- function(
   available_aes = c("colour", "color", "fill"),
   ...
 ) {
-  if (!(is.null(barwidth) || is.unit(barwidth))) {
-    barwidth <- unit(barwidth, default.unit)
-  }
-  if (!(is.null(barheight) || is.unit(barheight))) {
-    barheight <- unit(barheight, default.unit)
-  }
-  if (!is.unit(ticks.length)) {
-    ticks.length <- unit(ticks.length, default.unit)
-  }
-
-  if (!is.null(title.position)) {
-    title.position <- arg_match0(title.position, .trbl)
-  }
-  if (!is.null(direction)) {
-    direction <- arg_match0(direction, c("horizontal", "vertical"))
-  }
-  if (!is.null(label.position)) {
-    label.position <- arg_match0(label.position, .trbl)
-  }
-
-  if (!is.null(frame.colour) && !inherits(frame, "element_rect")) {
-    # For backward compatibility, frame should not be element_blank when
-    # colour is not NULL
-    cli::cli_inform(c(paste0(
-      "If {.arg frame.colour} is set, {.arg frame} should not be ",
-      "{.cls {class(frame)[[1]]}}."
-    ), "i" = "{.arg frame} has been converted to {.cls element_rect}."))
-    frame <- element_rect()
-  }
-  if (inherits(frame, "element_rect")) {
-    frame$colour    <- frame.colour    %||% frame$colour
-    frame$linewidth <- frame.linewidth %||% frame$linewidth %||% (0.5 / .pt)
-    frame$linetype  <- frame.linetype  %||% frame$linetype  %||% 1
-  } else {
-    frame <- element_blank()
-  }
-
-  if (is.logical(ticks)) {
-    # Also for backward compatibility. `ticks = FALSE` used to mean: don't draw
-    # the ticks
-    ticks <- if (ticks) element_line() else element_blank()
-  }
-  if (inherits(ticks, "element_line")) {
-    ticks$colour    <- ticks.colour    %||% ticks$colour    %||% "white"
-    ticks$linewidth <- ticks.linewidth %||% ticks$linewidth %||% (0.5 / .pt)
-  }
 
   # Trick to re-use this constructor in `guide_coloursteps()`.
   args  <- list2(...)
@@ -213,30 +145,12 @@ guide_colourbar <- function(
   new_guide(
     # title
     title = title,
-    title.position = title.position,
-    title.theme = title.theme,
-    title.hjust = title.hjust,
-    title.vjust = title.vjust,
+    theme = theme,
 
-    # label
-    label = label,
-    label.position = label.position,
-    label.theme = label.theme,
-    label.hjust = label.hjust,
-    label.vjust = label.vjust,
-
-    # bar
-    keywidth = barwidth,
-    keyheight = barheight,
     nbin = nbin,
     raster = raster,
 
-    # frame
-    frame = frame,
-
     # ticks
-    ticks = ticks,
-    ticks_length = ticks.length,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
 
     # general
@@ -266,21 +180,14 @@ GuideColourbar <- ggproto(
   params = list(
     # title
     title = waiver(),
-    title.position = NULL,
-    title.theme = NULL,
-    title.hjust = NULL,
-    title.vjust = NULL,
 
-    # label
-    label = TRUE,
-    label.position = NULL,
-    label.theme = NULL,
-    label.hjust = NULL,
-    label.vjust = NULL,
+    # theming
+    theme = NULL,
+    default_ticks = element_line(colour = "white", linewidth = 0.5 / .pt),
+    default_frame = element_blank(),
+    default_tick_length = unit(0.2, "npc"),
 
     # bar
-    keywidth  = NULL,
-    keyheight = NULL,
     nbin = 300,
     raster = TRUE,
 
@@ -290,6 +197,8 @@ GuideColourbar <- ggproto(
     direction = NULL,
     reverse = FALSE,
     order = 0,
+
+    rejust_labels = FALSE,
 
     # parameter
     name = "colourbar",
@@ -302,16 +211,19 @@ GuideColourbar <- ggproto(
   hashables = exprs(title, key$.label, decor, name),
 
   elements = list(
-    frame       = "rect",
-    ticks       = "line",
-    ticks_length = unit(0.2, "npc"),
-    background  = "legend.background",
-    margin      = "legend.margin",
-    key         = "legend.key",
-    key.height  = "legend.key.height",
-    key.width   = "legend.key.width",
-    text        = "legend.text",
-    theme.title = "legend.title"
+    background     = "legend.background",
+    margin         = "legend.margin",
+    key            = "legend.key",
+    key_height     = "legend.key.height",
+    key_width      = "legend.key.width",
+    text           = "legend.text",
+    theme.title    = "legend.title",
+    text_position  = "legend.text.position",
+    title_position = "legend.title.position",
+    axis_line      = "legend.axis.line",
+    ticks          = "legend.ticks",
+    ticks_length   = "legend.ticks.length",
+    frame          = "legend.frame"
   ),
 
   extract_key = function(scale, aesthetic, ...) {
@@ -342,11 +254,9 @@ GuideColourbar <- ggproto(
 
   extract_params = function(scale, params,
                             title  = waiver(), ...) {
-    params$title <- scale$make_title(
-      params$title %|W|% scale$name %|W|% title
-    )
+    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
 
-    limits <- c(params$decor$value[1], params$decor$value[nrow(params$decor)])
+    limits <- params$decor$value[c(1L, nrow(params$decor))]
     params$key$.value <- rescale(
       params$key$.value,
       c(0.5, params$nbin - 0.5) / params$nbin,
@@ -370,38 +280,41 @@ GuideColourbar <- ggproto(
       params$direction,
       c("horizontal", "vertical"), arg_nm = "direction"
     )
-    valid_label_pos <- switch(
-      params$direction,
-      "horizontal" = c("bottom", "top"),
-      "vertical"   = c("right", "left")
-    )
-    params$label.position <- params$label.position %||% valid_label_pos[1]
-    if (!params$label.position %in% valid_label_pos) {
-      cli::cli_abort(paste0(
-        "When {.arg direction} is {.val {params$direction}}, ",
-        "{.arg label.position} must be one of {.or {.val {valid_label_pos}}}, ",
-        "not {.val {params$label.position}}."
-      ))
-    }
-    params$title.position <- arg_match0(
-      params$title.position %||%
-        switch(params$direction, vertical = "top", horizontal = "left"),
-      .trbl, arg_nm = "title.position"
-    )
-    params$rejust_labels <- FALSE
     params
   },
 
-  override_elements = function(params, elements, theme) {
-    # These key sizes are the defaults, the GuideLegend method may overrule this
+  setup_elements = function(params, elements, theme) {
+    # We set the defaults in `theme` so that the `params$theme` can still
+    # overrule defaults given here
     if (params$direction == "horizontal") {
-      elements$key.width <- elements$key.width * 5
+      theme$legend.key.width  <- theme$legend.key.width * 5
+      valid_position <- c("bottom", "top")
     } else {
-      elements$key.height <- elements$key.height * 5
+      theme$legend.key.height <- theme$legend.key.height * 5
+      valid_position <- c("right", "left")
     }
-    elements$ticks <- combine_elements(elements$ticks, theme$line)
-    elements$frame <- combine_elements(elements$frame, theme$rect)
-    GuideLegend$override_elements(params, elements, theme)
+
+    # Set defaults
+    theme <- replace_null(
+      theme,
+      legend.text.position = valid_position[1],
+      legend.ticks.length  = params$default_tick_length,
+      legend.ticks         = params$default_ticks,
+      legend.frame         = params$default_frame
+    )
+
+    # Let the legend guide handle the rest
+    elements <- GuideLegend$setup_elements(params, elements, theme)
+
+    # Check text position
+    if (!elements$text_position %in% valid_position) {
+      cli::cli_abort(paste0(
+        "When {.arg direction} is {.val {params$direction}}, ",
+        "{.arg legend.text.position} must be one of ",
+        "{.or {.val {valid_position}}}, not {.val {elements$text_position}}."
+      ))
+    }
+    elements
   },
 
   build_labels = function(key, elements, params) {
@@ -447,21 +360,21 @@ GuideColourbar <- ggproto(
       )
       grob <- rasterGrob(
         image  = image,
-        width  = elements$key.width,
-        height = elements$key.height,
+        width  = elements$key_width,
+        height = elements$key_height,
         default.units = "cm",
         gp = gpar(col = NA),
         interpolate = TRUE
       )
     } else{
       if (params$direction == "horizontal") {
-        width  <- elements$key.width / nrow(decor)
-        height <- elements$key.height
+        width  <- elements$key_width / nrow(decor)
+        height <- elements$key_height
         x <- (seq(nrow(decor)) - 1) * width
         y <- 0
       } else {
-        width  <- elements$key.width
-        height <- elements$key.height / nrow(decor)
+        width  <- elements$key_width
+        height <- elements$key_height / nrow(decor)
         y <- (seq(nrow(decor)) - 1) * height
         x <- 0
       }
@@ -481,8 +394,8 @@ GuideColourbar <- ggproto(
 
   measure_grobs = function(grobs, params, elements) {
     params$sizes <- list(
-      widths  = elements$key.width,
-      heights = elements$key.height
+      widths  = elements$key_width,
+      heights = elements$key_height
     )
     GuideLegend$measure_grobs(grobs, params, elements)
   }
