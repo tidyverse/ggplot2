@@ -74,30 +74,7 @@ NULL
 guide_bins <- function(
   # title
   title = waiver(),
-  title.position = NULL,
-  title.theme    = NULL,
-  title.hjust    = NULL,
-  title.vjust    = NULL,
-
-  # label
-  label          = TRUE,
-  label.position = NULL,
-  label.theme    = NULL,
-  label.hjust    = NULL,
-  label.vjust    = NULL,
-
-  # key
-  keywidth  = NULL,
-  keyheight = NULL,
-
-  # ticks
-  axis           = TRUE,
-  axis.colour    = "black",
-  axis.linewidth = NULL,
-  axis.arrow     = NULL,
-
-  ticks        = NULL,
-  ticks.length = unit(0.2, "npc"),
+  theme = NULL,
 
   # general
   direction    = NULL,
@@ -109,64 +86,14 @@ guide_bins <- function(
   ...
 ) {
 
-  if (!(is.null(keywidth) || is.unit(keywidth))) {
-    keywidth <- unit(keywidth, default.unit)
-  }
-  if (!(is.null(keyheight) || is.unit(keyheight))) {
-    keyheight <- unit(keyheight, default.unit)
-  }
-  if (!is.unit(ticks.length)) {
-    ticks.length <- unit(ticks.length, default.unit)
-  }
-  if (!is.null(title.position)) {
-    title.position <- arg_match0(title.position, .trbl)
-  }
   if (!is.null(direction)) {
     direction <- arg_match0(direction, c("horizontal", "vertical"))
-  }
-  if (!is.null(label.position)) {
-    label.position <- arg_match0(label.position, .trbl)
-  }
-
-  if (is.logical(axis)) {
-    axis <- if (axis) element_line() else element_rect()
-  }
-  if (inherits(axis, "element_line")) {
-    axis$colour    <- axis.colour    %||% axis$colour      %||% "black"
-    axis$linewidth <- axis.linewidth %||% axis$linewidth   %||% (0.5 / .pt)
-    axis$arrow     <- axis.arrow     %||% axis$arrow
-  } else {
-    axis <- element_blank()
-  }
-
-  if (is.null(ticks)) {
-    ticks <- axis
-    ticks$arrow <- NULL
   }
 
   new_guide(
     # title
     title = title,
-    title.position = title.position,
-    title.theme = title.theme,
-    title.hjust = title.hjust,
-    title.vjust = title.vjust,
-
-    # label
-    label = label,
-    label.position = label.position,
-    label.theme = label.theme,
-    label.hjust = label.hjust,
-    label.vjust = label.vjust,
-
-    # key
-    keywidth  = keywidth,
-    keyheight = keyheight,
-
-    # ticks
-    line  = axis,
-    ticks = ticks,
-    ticks_length = ticks.length,
+    theme = theme,
 
     # general
     direction = direction,
@@ -192,19 +119,13 @@ GuideBins <- ggproto(
 
   params = list(
     title = waiver(),
-    title.position = NULL,
-    title.theme = NULL,
-    title.hjust = NULL,
-    title.vjust = NULL,
 
-    label = TRUE,
-    label.position = NULL,
-    label.theme = NULL,
-    label.hjust = NULL,
-    label.vjust = NULL,
-
-    keywidth  = NULL,
-    keyheight = NULL,
+    # theming
+    theme = NULL,
+    default_axis = element_line("black", linewidth = (0.5 / .pt)),
+    default_ticks = element_line(inherit.blank = TRUE),
+    default_tick_length = unit(0.2, "npc"),
+    rejust_labels = FALSE,
 
     direction = NULL,
     override.aes = list(),
@@ -221,9 +142,9 @@ GuideBins <- ggproto(
   elements = c(
     GuideLegend$elements,
     list(
-      line  = "line",
-      ticks = "line",
-      ticks_length = unit(0.2, "npc")
+      axis_line    = "legend.axis.line",
+      ticks_length = "legend.ticks.length",
+      ticks        = "legend.ticks"
     )
   ),
 
@@ -295,43 +216,45 @@ GuideBins <- ggproto(
       key$.value <- 1 - key$.value
     }
 
-    params$title <- scale$make_title(
-      params$title %|W|% scale$name %|W|% title
-    )
+    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
     params$key <- key
     params
   },
 
   setup_params = function(params) {
-    params$direction <- arg_match0(
-      params$direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
-    )
-    valid_label_pos <- switch(
+    params <- GuideLegend$setup_params(params)
+    params$nrow <- params$ncol <- params$n_breaks <- params$n_key_layers <- 1
+    params
+  },
+
+  setup_elements = function(params, elements, theme) {
+    valid_position <- switch(
       params$direction,
       "horizontal" = c("bottom", "top"),
       "vertical"   = c("right",  "left")
     )
-    params$label.position <- params$label.position %||% valid_label_pos[1]
-    if (!params$label.position %in% valid_label_pos) {
+
+    # Set defaults
+    theme <- replace_null(
+      theme,
+      legend.text.position = valid_position[1],
+      legend.ticks.length  = params$default_tick_length,
+      legend.axis.line     = params$default_axis,
+      legend.ticks         = params$default_ticks
+    )
+
+    # Let the legend guide handle the rest
+    elements <- GuideLegend$setup_elements(params, elements, theme)
+
+    # Check text position
+    if (!elements$text_position %in% valid_position) {
       cli::cli_abort(paste0(
-        "When {.arg direction} is {.val {params$direction}}, ",
-        "{.arg label.position} must be one of {.or {.val {valid_label_pos}}}, ",
-        "not {.val {params$label.position}}."
+        "When {.arg direction} is {.val {params$direction}, ",
+        "{.arg legend.text.position} must be one of ",
+        "{.or {.val {valid_position}}}, not {.val {elements$text.position}}."
       ))
     }
-    params <- GuideLegend$setup_params(params)
-    params$byrow <- FALSE
-    params$rejust_labels <- FALSE
-    params$nrow <- params$ncol <- params$n_breaks <- params$n_key_layers <- 1
-    params$multikey_decor <- FALSE
-    params
-  },
-
-  override_elements = function(params, elements, theme) {
-    elements$ticks <- combine_elements(elements$ticks, theme$line)
-    elements$line  <- combine_elements(elements$line,  theme$line)
-    GuideLegend$override_elements(params, elements, theme)
+    elements
   },
 
   build_labels = function(key, elements, params) {
@@ -360,7 +283,7 @@ GuideBins <- ggproto(
       key$.value <- 1 - key$.value
     }
     key$.value[c(1, nrow(key))[!params$show.limits]] <- NA
-    Guide$build_ticks(key$.value, elements, params, params$label.position)
+    Guide$build_ticks(key$.value, elements, params, elements$text_position)
   },
 
   build_decor = function(decor, grobs, elements, params) {
@@ -372,8 +295,8 @@ GuideBins <- ggproto(
 
     sizes <- measure_legend_keys(
       decor, nkeys, dim, byrow = FALSE,
-      default_width  = elements$key.width,
-      default_height = elements$key.height
+      default_width  = elements$key_width,
+      default_height = elements$key_height
     )
     sizes <- lapply(sizes, function(x) rep_len(max(x), length(x)))
 
@@ -395,13 +318,13 @@ GuideBins <- ggproto(
                           name = key_nm, clip = "off")
 
     axis <- switch(
-      params$label.position,
+      elements$text_position,
       "top"    = list(x = c(0, 1), y = c(1, 1)),
       "bottom" = list(x = c(0, 1), y = c(0, 0)),
       "left"   = list(x = c(0, 0), y = c(0, 1)),
       "right"  = list(x = c(1, 1), y = c(0, 1))
     )
-    axis <- element_grob(elements$line, x = axis$x, y = axis$y)
+    axis <- element_grob(elements$axis_line, x = axis$x, y = axis$y)
 
     list(keys = gt, axis_line = axis, ticks = grobs$ticks)
   },
