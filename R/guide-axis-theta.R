@@ -23,7 +23,7 @@ NULL
 #'
 #' # The `angle` argument can be used to set relative angles
 #' p + guides(theta = guide_axis_theta(angle = 0))
-guide_axis_theta <- function(title = waiver(), angle = waiver(),
+guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
                              minor.ticks = FALSE, cap = "none", order = 0,
                              position = waiver()) {
 
