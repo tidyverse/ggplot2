@@ -1,3 +1,6 @@
+#' @include theme-elements.R
+NULL
+
 #' Guide constructor
 #'
 #' A constructor function for guides, which performs some standard compatibility
@@ -43,6 +46,11 @@ new_guide <- function(..., available_aes = "any", super) {
       "The following parameter{?s} {?is/are} required for setting up a guide, ",
       "but {?is/are} missing: {.field {missing_params}}"
     ))
+  }
+
+  # Validate theme settings
+  if (!is.null(params$theme)) {
+    validate_theme(theme)
   }
 
   # Ensure 'order' is length 1 integer
@@ -156,6 +164,7 @@ Guide <- ggproto(
   #  `GuidesList` class.
   params = list(
     title     = waiver(),
+    theme     = NULL,
     name      = character(),
     position  = waiver(),
     direction = NULL,
@@ -268,6 +277,7 @@ Guide <- ggproto(
   # Converts the `elements` field to proper elements to be accepted by
   # `element_grob()`. String-interpolates aesthetic/position dependent elements.
   setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
     is_char  <- vapply(elements, is.character, logical(1))
     elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements
