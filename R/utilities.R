@@ -710,6 +710,17 @@ vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
   )
 }
 
+replace_null <- function(list, ..., env = caller_env()) {
+  # Collect dots without evaluating
+  dots <- match.call(replace_null, expand.dots = FALSE)$`...`
+  # Select arguments that are null in `list`
+  nms  <- names(dots)
+  nms  <- nms[vapply(list[nms], is.null, logical(1))]
+  # Replace those with the evaluated dots
+  list[nms] <- inject(list(!!!dots[nms]), env = env)
+  list
+}
+
 attach_plot_env <- function(env) {
   old_env <- getOption("ggplot2_plot_env")
   options(ggplot2_plot_env = env)
