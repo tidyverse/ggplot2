@@ -11,7 +11,7 @@
 #'   scale. This argument is ignored if `labels` is given as a vector of
 #'   values. If one or both of the limits is also given in `breaks` it will be
 #'   shown irrespective of the value of `show.limits`.
-#' @inheritDotParams guide_colourbar -nbin -raster -available_aes
+#' @inheritParams guide_colourbar
 #'
 #' @inheritSection guide_bins Use with discrete scale
 #'

@@ -5,11 +5,40 @@
 \alias{guide_colorsteps}
 \title{Discretized colourbar guide}
 \usage{
-guide_coloursteps(even.steps = TRUE, show.limits = NULL, ...)
+guide_coloursteps(
+  title = waiver(),
+  theme = NULL,
+  even.steps = TRUE,
+  show.limits = NULL,
+  direction = NULL,
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
+  ...
+)
 
-guide_colorsteps(even.steps = TRUE, show.limits = NULL, ...)
+guide_colorsteps(
+  title = waiver(),
+  theme = NULL,
+  even.steps = TRUE,
+  show.limits = NULL,
+  direction = NULL,
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
+  ...
+)
 }
 \arguments{
+\item{title}{A character string or expression indicating a title of guide.
+If \code{NULL}, the title is not shown. By default
+(\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
+specified in \code{\link[=labs]{labs()}} is used for the title.}
+
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide override,s and is combined with, the plot's theme.}
+
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}
 
@@ -19,29 +48,21 @@ scale. This argument is ignored if \code{labels} is given as a vector of
 values. If one or both of the limits is also given in \code{breaks} it will be
 shown irrespective of the value of \code{show.limits}.}
 
-\item{...}{
-  Arguments passed on to \code{\link[=guide_colourbar]{guide_colourbar}}
-  \describe{
-    \item{\code{draw.ulim}}{A logical specifying if the upper limit tick marks should
-be visible.}
-    \item{\code{draw.llim}}{A logical specifying if the lower limit tick marks should
-be visible.}
-    \item{\code{direction}}{A character string indicating the direction of the guide.
+\item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
-    \item{\code{reverse}}{logical. If \code{TRUE} the colourbar is reversed. By default,
+
+\item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
-    \item{\code{title}}{A character string or expression indicating a title of guide.
-If \code{NULL}, the title is not shown. By default
-(\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
-specified in \code{\link[=labs]{labs()}} is used for the title.}
-    \item{\code{theme}}{A \code{\link[=theme]{theme}} object to style the guide individually or
-differently from the plot's theme settings. The \code{theme} argument in the
-guide override,s and is combined with, the plot's theme.}
-    \item{\code{order}}{positive integer less than 99 that specifies the order of
+
+\item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
-  }}
+
+\item{available_aes}{A vector of character strings listing the aesthetics
+for which a colourbar can be drawn.}
+
+\item{...}{ignored.}
 }
 \value{
 A guide object
