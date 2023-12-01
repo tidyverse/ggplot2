@@ -18,7 +18,7 @@
 
 ---
 
-    `title.position` must be one of "top", "right", "bottom", or "left", not "leftish".
+    `legend.title.position` must be one of "top", "right", "bottom", or "left", not "leftish".
 
 ---
 
@@ -27,15 +27,15 @@
 
 ---
 
-    When `direction` is "vertical", `label.position` must be one of "right" or "left", not "top".
+    When `direction` is "vertical", `legend.text.position` must be one of "right" or "left", not "top".
 
 ---
 
-    When `direction` is "horizontal", `label.position` must be one of "bottom" or "top", not "left".
+    When `direction` is "horizontal", `legend.text.position` must be one of "bottom" or "top", not "left".
 
 ---
 
-    `label.position` must be one of "top", "right", "bottom", or "left", not "test".
+    `legend.text.position` must be one of "top", "right", "bottom", or "left", not "test".
     i Did you mean "left"?
 
 ---
