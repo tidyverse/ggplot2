@@ -71,6 +71,8 @@ guide_bins <- function(
   ...
 ) {
 
+  theme <- deprecated_guide_args(theme, ...)
+
   new_guide(
     # title
     title = title,

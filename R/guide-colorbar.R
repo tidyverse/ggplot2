@@ -125,10 +125,11 @@ guide_colourbar <- function(
   ...
 ) {
 
+  theme <- deprecated_guide_args(theme, ...)
+
   # Trick to re-use this constructor in `guide_coloursteps()`.
   args  <- list2(...)
   super <- args$super %||% GuideColourbar
-  args$super <- NULL
 
   new_guide(
     # title
@@ -149,7 +150,6 @@ guide_colourbar <- function(
     # parameter
     available_aes = available_aes,
     name = "colourbar",
-    !!!args,
     super = super
   )
 }

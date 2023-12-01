@@ -108,6 +108,8 @@ guide_legend <- function(
   ...
 ) {
 
+  theme <- deprecated_guide_args(theme, ...)
+
   new_guide(
     # Title
     title = title,
@@ -745,4 +747,120 @@ position_margin <- function(position, margin = margin(), gap = unit(0, "pt")) {
     left   = replace(margin, 2, margin[2] + gap),
     right  = replace(margin, 4, margin[4] + gap)
   )
+}
+
+# Function implementing backward compatibility with the old way of specifying
+# guide styling
+deprecated_guide_args <- function(
+  theme = NULL,
+  title.position = NULL,
+  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
+  label = NULL,
+  label.position = NULL,
+  label.theme = NULL, label.hjust = NULL, label.vjust = NULL,
+  keywidth  = NULL, keyheight = NULL, barwidth  = NULL, barheight = NULL,
+  byrow = NULL,
+  frame.colour = NULL, frame.linewidth = NULL, frame.linetype = NULL,
+  ticks = NULL, ticks.colour = NULL, ticks.linewidth = NULL,
+  axis = NULL, axis.colour = NULL, axis.linewidth = NULL, axis.arrow = NULL,
+  default.unit = "line",
+  ...,
+  .call = caller_call()) {
+
+  args <- names(formals(deprecated_guide_args))
+  args <- setdiff(args, c("theme", "default.unit", "...", ".call"))
+  vals <- compact(mget(args, current_env()))
+
+  # Early exit when no old arguments have been supplied
+  if (length(vals) == 0) {
+    return(theme)
+  }
+  fun_name <- call_name(.call)
+  replacement <- paste0(fun_name, "(theme)")
+  for (arg_name in names(vals)) {
+    deprecate_soft0(
+      when = "3.5.0",
+      what = paste0(fun_name, "(", arg_name, ")"),
+      with = replacement
+    )
+  }
+  def_unit <- function(x) {
+    if (is.null(x) || is.unit(x)) {
+      return(x)
+    }
+    unit(x, default.unit)
+  }
+
+  theme <- theme %||% list()
+
+  # Resolve straightforward arguments
+  theme <- replace_null(
+    theme,
+    legend.title.position = title.position,
+    legend.text.position  = label.position,
+    legend.byrow          = byrow,
+    legend.key.width      = def_unit(keywidth  %||% barwidth),
+    legend.key.height     = def_unit(keyheight %||% barheight)
+  )
+
+  # Set legend.text
+  if (isFALSE(label)) {
+    label.theme <- element_blank()
+  } else if (!is.null(label.theme %||% label.hjust %||% label.vjust)) {
+    label.theme <- label.theme %||% element_text()
+    label.theme <- replace_null(
+      label.theme,
+      hjust = label.hjust %||% label.theme$hjust,
+      vjust = label.vjust %||% label.theme$vjust
+    )
+  }
+  theme$legend.text <- theme$legend.text %||% label.theme
+
+  # Set legend.title
+  if (!is.null(title.hjust %||% title.vjust)) {
+    title.theme <- title.theme %||% element_text()
+    title.theme <- replace_null(
+      title.theme,
+      hjust = title.hjust %||% title.theme$hjust,
+      vjust = title.vjust %||% title.theme$vjust
+    )
+  }
+  theme$legend.title <- theme$legend.title %||% title.theme
+
+  # Set legend.frame
+  if (!is.null(frame.colour %||% frame.linewidth %||% frame.linetype)) {
+    frame <- theme$legend.frame %||% element_rect(
+      colour    = frame.colour,
+      linewidth = frame.linewidth,
+      linetype  = frame.linetype
+    )
+    theme$legend.frame <- theme$legend.frame %||% frame
+  }
+
+  # Set legend.ticks
+  if (isFALSE(ticks)) {
+    ticks <- element_blank()
+  } else if (!is.null(ticks.colour %||% ticks.linewidth)) {
+    ticks <- element_line(colour = ticks.colour, linewidth = ticks.linewidth)
+    theme$legend.ticks <- theme$legend.ticks %||% ticks
+  }
+
+  # Set legend.axis
+  if (isFALSE(axis)) {
+    axis <- element_blank()
+  } else if (!is.null(axis.colour %||% axis.linewidth %||% axis.arrow)) {
+    axis <- element_line(
+      colour = axis.colour,
+      linewidth = axis.linewidth,
+      arrow = axis.arrow
+    )
+    theme$legend.axis.line <- theme$legend.axis.line %||% axis
+  }
+
+  # Set as theme
+  theme <- compact(theme)
+  if (!is.theme(theme)) {
+    theme <- inject(theme(!!!theme))
+  }
+  theme
 }
