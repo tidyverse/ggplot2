@@ -64,17 +64,12 @@ guide_bins <- function(
 
   # general
   direction    = NULL,
-  default.unit = "line",
   override.aes = list(),
   reverse      = FALSE,
   order        = 0,
   show.limits  = NULL,
   ...
 ) {
-
-  if (!is.null(direction)) {
-    direction <- arg_match0(direction, c("horizontal", "vertical"))
-  }
 
   new_guide(
     # title

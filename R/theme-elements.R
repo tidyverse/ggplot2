@@ -513,6 +513,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.title.position = el_def("character"),
   legend.position     = el_def(c("character", "numeric", "integer")),
   legend.direction    = el_def("character"),
+  legend.byrow        = el_def("logical"),
   legend.justification = el_def(c("character", "numeric", "integer")),
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),

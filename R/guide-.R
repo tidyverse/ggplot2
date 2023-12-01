@@ -50,7 +50,9 @@ new_guide <- function(..., available_aes = "any", super) {
 
   # Validate theme settings
   if (!is.null(params$theme)) {
-    validate_theme(theme)
+    check_object(params$theme, is.theme, what = "a {.cls theme} object")
+    validate_theme(params$theme)
+    params$direction <- params$direction %||% params$theme$legend.direction
   }
 
   # Ensure 'order' is length 1 integer
