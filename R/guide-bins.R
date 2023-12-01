@@ -11,26 +11,11 @@ NULL
 #' guide if they are mapped in the same way.
 #'
 #' @inheritParams guide_legend
-#' @param axis A theme object for rendering a small axis along the guide.
-#'   Usually, the object of `element_line()` is expected (default). If
-#'   `element_blank()`, no axis is drawn. For backward compatibility, can also
-#'   be a logical which translates `TRUE` to `element_line()` and `FALSE` to
-#'   `element_blank()`.
-#' @param axis.colour,axis.linewidth Graphic specifications for the look of the
-#'   axis.
-#' @param axis.arrow A call to `arrow()` to specify arrows at the end of the
-#'   axis line, thus showing an open interval.
 #' @param show.limits Logical. Should the limits of the scale be shown with
 #'   labels and ticks. Default is `NULL` meaning it will take the value from the
 #'   scale. This argument is ignored if `labels` is given as a vector of
 #'   values. If one or both of the limits is also given in `breaks` it will be
 #'   shown irrespective of the value of `show.limits`.
-#' @param ticks A theme object for rendering tick marks at the colourbar.
-#'   Usually, the object of `element_line()` is expected. If `element_blank()`,
-#'   no tick marks are drawn. If `NULL` (default), the `axis` argument is
-#'   re-used as `ticks` argument (without arrow).
-#' @param ticks.length A numeric or a [grid::unit()] object specifying the
-#'   length of tick marks between the keys.
 #'
 #' @section Use with discrete scale:
 #' This guide is intended to show binned data and work together with ggplot2's
@@ -57,13 +42,14 @@ NULL
 #' p
 #'
 #' # Remove the axis or style it
-#' p + guides(size = guide_bins(axis = FALSE))
+#' p + guides(size = guide_bins(theme = theme(legend.axis = element_blank())))
 #'
 #' p + guides(size = guide_bins(show.limits = TRUE))
 #'
-#' p + guides(size = guide_bins(
-#'   axis.arrow = arrow(length = unit(1.5, 'mm'), ends = 'both')
-#' ))
+#' my_arrow <- arrow(length = unit(1.5, "mm"), ends = "both")
+#' p + guides(size = guide_bins(theme = theme(
+#'   legend.axis = element_line(arrow = my_arrow)
+#' )))
 #'
 #' # Guides are merged together if possible
 #' ggplot(mtcars) +

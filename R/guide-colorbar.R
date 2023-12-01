@@ -15,46 +15,18 @@ NULL
 #' see [guides()].
 #'
 #' @inheritParams guide_legend
-#' @param barwidth A numeric or a [grid::unit()] object specifying
-#'   the width of the colourbar. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()] or theme.
-#' @param barheight A numeric or a [grid::unit()] object specifying
-#'   the height of the colourbar. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()] or theme.
-#' @param frame A theme object for rendering a frame drawn around the bar.
-#'   Usually, the object of `element_rect()` is expected. If `element_blank()`
-#'   (default), no frame is drawn.
-#' @param frame.colour A string specifying the colour of the frame
-#'   drawn around the bar. For backward compatibility, if this argument is
-#'   not `NULL`, the `frame` argument will be set to `element_rect()`.
-#' @param frame.linewidth A numeric specifying the width of the frame
-#'   drawn around the bar in millimetres.
-#' @param frame.linetype A numeric specifying the linetype of the frame
-#'   drawn around the bar.
 #' @param nbin A numeric specifying the number of bins for drawing the
 #'   colourbar. A smoother colourbar results from a larger value.
 #' @param raster A logical. If `TRUE` then the colourbar is rendered as a
 #'   raster object. If `FALSE` then the colourbar is rendered as a set of
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
-#' @param ticks A theme object for rendering tick marks at the colourbar.
-#'   Usually, the object of `element_line()` is expected (default). If
-#'   `element_blank()`, no tick marks are drawn. For backward compatibility,
-#'   can also be a logical which translates `TRUE` to `element_line()` and
-#'   `FALSE` to `element_blank()`.
-#' @param ticks.colour A string specifying the colour of the tick marks.
-#' @param ticks.linewidth A numeric specifying the width of the tick marks in
-#'   millimetres.
-#' @param ticks.length A numeric or a [grid::unit()] object specifying the
-#'   length of tick marks at the colourbar.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
 #'   be visible.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating [grid::unit()]
-#'   for `barwidth` and `barheight`.
 #' @param reverse logical. If `TRUE` the colourbar is reversed. By default,
 #'   the highest value is on the top and the lowest value is on the bottom
 #' @param available_aes A vector of character strings listing the aesthetics
@@ -78,19 +50,31 @@ NULL
 #' # Control styles
 #'
 #' # bar size
-#' p1 + guides(fill = guide_colourbar(barwidth = 0.5, barheight = 10))
+#' p1 + guides(fill = guide_colourbar(theme = theme(
+#'   legend.key.width  = unit(0.5, "lines"),
+#'   legend.key.height = unit(10, "lines")
+#' )))
+#'
 #'
 #' # no label
-#' p1 + guides(fill = guide_colourbar(label = FALSE))
+#' p1 + guides(fill = guide_colourbar(theme = theme(
+#'   legend.text = element_blank()
+#' )))
 #'
 #' # no tick marks
-#' p1 + guides(fill = guide_colourbar(ticks = FALSE))
+#' p1 + guides(fill = guide_colourbar(theme = theme(
+#'   legend.ticks = element_blank()
+#' )))
 #'
 #' # label position
-#' p1 + guides(fill = guide_colourbar(label.position = "left"))
+#' p1 + guides(fill = guide_colourbar(theme = theme(
+#'   legend.text.position = "left"
+#' )))
 #'
 #' # label theme
-#' p1 + guides(fill = guide_colourbar(label.theme = element_text(colour = "blue", angle = 0)))
+#' p1 + guides(fill = guide_colourbar(theme = theme(
+#'   legend.text = element_text(colour = "blue", angle = 0)
+#' )))
 #'
 #' # small number of bins
 #' p1 + guides(fill = guide_colourbar(nbin = 3))
@@ -103,7 +87,7 @@ NULL
 #'   scale_fill_continuous(
 #'     limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
 #'     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
-#'    )
+#'   )
 #'
 #' # guides can be controlled independently
 #' p2 +
@@ -112,8 +96,12 @@ NULL
 #' p2 + guides(fill = "colourbar", size = "legend")
 #'
 #' p2 +
-#'   scale_fill_continuous(guide = guide_colourbar(direction = "horizontal")) +
-#'   scale_size(guide = guide_legend(direction = "vertical"))
+#'   scale_fill_continuous(guide = guide_colourbar(theme = theme(
+#'     legend.direction = "horizontal"
+#'   ))) +
+#'   scale_size(guide = guide_legend(theme = theme(
+#'     legend.direction = "vertical"
+#'   )))
 guide_colourbar <- function(
 
   # title

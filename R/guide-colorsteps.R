@@ -11,12 +11,7 @@
 #'   scale. This argument is ignored if `labels` is given as a vector of
 #'   values. If one or both of the limits is also given in `breaks` it will be
 #'   shown irrespective of the value of `show.limits`.
-#' @param ticks A theme object for rendering tick marks at the colourbar.
-#'   Usually, the object of `element_line()` is expected. If `element_blank()`
-#'   (default), no tick marks are drawn. For backward compatibility, can also
-#'   be a logical which translates `TRUE` to `element_line()` and `FALSE` to
-#'   `element_blank()`.
-#' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
+#' @inheritDotParams guide_colourbar -nbin -raster -available_aes
 #'
 #' @inheritSection guide_bins Use with discrete scale
 #'

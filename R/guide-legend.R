@@ -13,49 +13,15 @@
 #'   If `NULL`, the title is not shown. By default
 #'   ([waiver()]), the name of the scale object or the name
 #'   specified in [labs()] is used for the title.
-#' @param title.position A character string indicating the position of a
-#'   title. One of "top" (default for a vertical guide), "bottom", "left"
-#'  (default for a horizontal guide), or "right."
-#' @param title.theme A theme object for rendering the title text. Usually the
-#'   object of [element_text()] is expected. By default, the theme is
-#'   specified by `legend.title` in [theme()] or theme.
-#' @param title.hjust A number specifying horizontal justification of the
-#'   title text.
-#' @param title.vjust A number specifying vertical justification of the title
-#'   text.
-#' @param label logical. If `TRUE` then the labels are drawn. If
-#'   `FALSE` then the labels are invisible.
-#' @param label.position A character string indicating the position of a
-#'   label. One of "top", "bottom" (default for horizontal guide), "left", or
-#'   "right" (default for vertical guide).
-#' @param label.theme A theme object for rendering the label text. Usually the
-#'   object of [element_text()] is expected. By default, the theme is
-#'   specified by `legend.text` in [theme()].
-#' @param label.hjust A numeric specifying horizontal justification of the
-#'   label text. The default for standard text is 0 (left-aligned) and 1
-#'   (right-aligned) for expressions.
-#' @param label.vjust A numeric specifying vertical justification of the label
-#'   text.
-#' @param keywidth A numeric or a [grid::unit()] object specifying
-#'   the width of the legend key. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()].
-#' @param keyheight A numeric or a [grid::unit()] object specifying
-#'   the height of the legend key. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()].
-#' @param key.spacing,key.spacing.x,key.spacing.y A numeric or [grid::unit()]
-#'   object specifying the distance between key-label pairs in the horizontal
-#'   direction (`key.spacing.x`), vertical direction (`key.spacing.y`) or both
-#'   (`key.spacing`).
+#' @param theme A [`theme`][theme()] object to style the guide individually or
+#'   differently from the plot's theme settings. The `theme` argument in the
+#'   guide override,s and is combined with, the plot's theme.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating [grid::unit()]
-#'   for `keywidth` and `keyheight`.
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
-#' @param nrow The desired number of rows of legends.
-#' @param ncol The desired number of column of legends.
-#' @param byrow logical. If `FALSE` (the default) the legend-matrix is
-#'   filled by columns, otherwise the legend-matrix is filled by rows.
+#' @param nrow,ncol The desired number of rows and column of legends
+#'   respectively.
 #' @param reverse logical. If `TRUE` the order of legends is reversed.
 #' @param order positive integer less than 99 that specifies the order of
 #'   this guide among multiple guides. This controls the order in which
@@ -78,36 +44,32 @@
 #' # Control styles
 #'
 #' # title position
-#' p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
+#' p1 + guides(fill = guide_legend(
+#'   title = "LEFT", theme(legend.title.position = "left")
+#' ))
 #'
 #' # title text styles via element_text
-#' p1 + guides(fill =
-#'   guide_legend(
-#'     title.theme = element_text(
-#'       size = 15,
-#'       face = "italic",
-#'       colour = "red",
-#'       angle = 0
-#'     )
-#'   )
-#' )
+#' p1 + guides(fill = guide_legend(theme = theme(
+#'   legend.title = element_text(size = 15, face = "italic", colour = "red")
+#' )))
 #'
 #' # label position
-#' p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
+#' p1 + guides(fill = guide_legend(theme = theme(
+#'   legend.text.position = "left",
+#'   legend.text = element_text(hjust = 1)
+#' )))
 #'
 #' # label styles
 #' p1 +
 #'   scale_fill_continuous(
 #'     breaks = c(5, 10, 15),
 #'     labels = paste("long", c(5, 10, 15)),
-#'     guide = guide_legend(
-#'       direction = "horizontal",
-#'       title.position = "top",
-#'       label.position = "bottom",
-#'       label.hjust = 0.5,
-#'       label.vjust = 1,
-#'       label.theme = element_text(angle = 90)
-#'     )
+#'     guide = guide_legend(theme = theme(
+#'       legend.direction = "horizontal",
+#'       legend.title.position = "top",
+#'       legend.text.position = "bottom",
+#'       legend.text = element_text(hjust = 0.5, vjust = 1, angle = 90)
+#'     ))
 #'   )
 #'
 #' # Set aesthetic of legend key
@@ -124,7 +86,7 @@
 #'   geom_point(aes(colour = color))
 #' p + guides(col = guide_legend(nrow = 8))
 #' p + guides(col = guide_legend(ncol = 8))
-#' p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
+#' p + guides(col = guide_legend(nrow = 8, theme = theme(legend.byrow = TRUE)))
 #'
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
