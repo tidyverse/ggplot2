@@ -103,22 +103,13 @@ NULL
 #'     legend.direction = "vertical"
 #'   )))
 guide_colourbar <- function(
-
-  # title
   title = waiver(),
   theme = NULL,
-
-  # bar
   nbin = 300,
   raster = TRUE,
-
-  # ticks
   draw.ulim = TRUE,
   draw.llim = TRUE,
-
-  # general
   direction = NULL,
-  default.unit = "line",
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -127,30 +118,18 @@ guide_colourbar <- function(
 
   theme <- deprecated_guide_args(theme, ...)
 
-  # Trick to re-use this constructor in `guide_coloursteps()`.
-  args  <- list2(...)
-  super <- args$super %||% GuideColourbar
-
   new_guide(
-    # title
     title = title,
     theme = theme,
-
     nbin = nbin,
     raster = raster,
-
-    # ticks
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
-
-    # general
     direction = direction,
     reverse = reverse,
     order = order,
-
-    # parameter
     available_aes = available_aes,
     name = "colourbar",
-    super = super
+    super = GuideColourbar
   )
 }
 

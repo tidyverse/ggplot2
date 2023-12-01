@@ -44,15 +44,28 @@
 #' # (can also be set in the scale)
 #' p + scale_fill_binned(show.limits = TRUE)
 guide_coloursteps <- function(
+  title = waiver(),
+  theme = NULL,
   even.steps  = TRUE,
   show.limits = NULL,
+  direction = NULL,
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
   ...
 ) {
-  guide_colourbar(
+
+  theme <- deprecated_guide_args(theme, ...)
+
+  new_guide(
+    title = title,
+    theme = theme,
     even.steps  = even.steps,
     show.limits = show.limits,
-    ...,
-    super       = GuideColoursteps
+    direction = direction,
+    reverse = reverse,
+    order = order,
+    super = GuideColoursteps
   )
 }
 
