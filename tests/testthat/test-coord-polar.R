@@ -83,7 +83,8 @@ test_that("coord_radial warns about axes", {
 
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point()
-  # use out to avoid showin g output in snapshot (mostly interested in the warning)
+
+  # use out to capture warning only
   expect_snapshot({
     # Cannot use regular axis for theta position
     out <- ggplotGrob(
