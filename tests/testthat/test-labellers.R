@@ -7,8 +7,8 @@ test_that("label_bquote has access to functions in the calling environment", {
 })
 
 test_that("resolve_labeller() provide meaningful errors", {
-  expect_snapshot_error(resolve_labeller(NULL, NULL))
-  expect_snapshot_error(resolve_labeller(prod, sum, structure(1:4, facet = "wrap")))
+  expect_snapshot(error = TRUE, resolve_labeller(NULL, NULL))
+  expect_snapshot(error = TRUE, resolve_labeller(prod, sum, structure(1:4, facet = "wrap")))
 })
 
 test_that("labeller function catches overlap in names", {
@@ -18,7 +18,7 @@ test_that("labeller function catches overlap in names", {
       vs + am ~ gear,
       labeller = labeller(.rows = label_both, vs = label_value)
     )
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 })
 
 test_that("labeller handles badly specified labels from lookup tables", {

@@ -73,10 +73,10 @@ test_that("alt text is returned", {
 test_that("plot.tag.position rejects invalid input", {
   p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(tag = "Fig. A)")
 
-  expect_snapshot_error(
+  expect_snapshot(error = TRUE, 
     ggplotGrob(p + theme(plot.tag.position = TRUE))
   )
-  expect_snapshot_error(
+  expect_snapshot(error = TRUE, 
     ggplotGrob(p + theme(plot.tag.position = "foobar"))
   )
   expect_error(

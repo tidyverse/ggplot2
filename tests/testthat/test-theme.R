@@ -268,35 +268,35 @@ test_that("theme validation happens at build stage", {
 
   # the error occurs when we try to render the plot
   p <- ggplot() + theme(text = 0)
-  expect_snapshot_error(print(p))
+  expect_snapshot(error = TRUE, print(p))
 
   # without validation, the error occurs when the element is accessed
   p <- ggplot() + theme(text = 0, validate = FALSE)
-  expect_snapshot_error(print(p))
+  expect_snapshot(error = TRUE, print(p))
 })
 
 test_that("incorrect theme specifications throw meaningful errors", {
-  expect_snapshot_error(add_theme(theme_grey(), theme(line = element_rect())))
-  expect_snapshot_error(calc_element("line", theme(line = element_rect())))
+  expect_snapshot(error = TRUE, add_theme(theme_grey(), theme(line = element_rect())))
+  expect_snapshot(error = TRUE, calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
-  expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
-  expect_snapshot_error(theme_set("foo"))
+  expect_snapshot(error = TRUE, calc_element("test", theme_gray() + theme(test = element_rect())))
+  expect_snapshot(error = TRUE, theme_set("foo"))
 })
 
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_snapshot_error(print(p))
+  expect_snapshot(error = TRUE, print(p))
 
   register_theme_elements(
     element_tree = list(blablabla = el_def("character", "text"))
   )
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 
   register_theme_elements(
     element_tree = list(blablabla = el_def("unit", "text"))
   )
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 
   # things work once we add a new element to the element tree
   register_theme_elements(
@@ -305,7 +305,7 @@ test_that("element tree can be modified", {
   expect_silent(ggplotGrob(p))
 
   p1 <- ggplot() + theme(blablabla = element_line())
-  expect_snapshot_error(ggplotGrob(p1))
+  expect_snapshot(error = TRUE, ggplotGrob(p1))
 
   # inheritance and final calculation of novel element works
   final_theme <- ggplot2:::plot_theme(p, theme_gray())
@@ -498,21 +498,21 @@ test_that("provided themes explicitly define all elements", {
 
 test_that("Theme elements are checked during build", {
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.title.position = "test")
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.caption.position = "test")
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) +
     theme(plot.tag.position = "test") + labs(tag = "test")
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 })
 
 test_that("Theme validation behaves as expected", {
   tree <- get_element_tree()
   expect_silent(validate_element(1,  "aspect.ratio", tree))
   expect_silent(validate_element(1L, "aspect.ratio", tree))
-  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+  expect_snapshot(error = TRUE, validate_element("A", "aspect.ratio", tree))
 })
 
 test_that("Element subclasses are inherited", {

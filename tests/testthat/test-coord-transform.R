@@ -126,8 +126,8 @@ test_that("second axes display in coord_trans()", {
 
 test_that("coord_trans() throws error when limits are badly specified", {
   # throws error when limit is a Scale object instead of vector
-  expect_snapshot_error(ggplot() + coord_trans(xlim=xlim(1,1)))
+  expect_snapshot(error = TRUE, ggplot() + coord_trans(xlim=xlim(1,1)))
 
   # throws error when limit's length is different than two
-  expect_snapshot_error(ggplot() + coord_trans(ylim=1:3))
+  expect_snapshot(error = TRUE, ggplot() + coord_trans(ylim=1:3))
 })

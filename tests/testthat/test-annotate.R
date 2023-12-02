@@ -30,7 +30,7 @@ test_that("segment annotations transform with scales", {
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {
   skip_if_not_installed("maps")
-  skip_if(packageVersion("base") < "3.5.0")
+  skip_if(getRversion() < "3.5.0")
   custom <- annotation_custom(zeroGrob())
   logtick <- annotation_logticks()
   usamap <- map_data("state")
@@ -54,29 +54,31 @@ test_that("annotation_raster() and annotation_custom() requires cartesian coordi
   p <- ggplot() +
     annotation_raster(rainbow, 15, 20, 3, 4) +
     coord_polar()
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
   p <- ggplot() +
     annotation_custom(
       grob = grid::roundrectGrob(),
       xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
     ) +
     coord_polar()
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 })
 
 test_that("annotation_map() checks the input data", {
-  expect_snapshot_error(annotation_map(letters))
-  expect_snapshot_error(annotation_map(mtcars))
+  expect_snapshot(error = TRUE, {
+    annotation_map(letters)
+    annotation_map(mtcars)
+  })
 })
 
 test_that("unsupported geoms signal a warning (#4719)", {
-  expect_snapshot_warning(annotate("hline", yintercept = 0))
+  expect_snapshot(out <- annotate("hline", yintercept = 0))
 })
 
 test_that("annotate() checks aesthetic lengths match", {
-  expect_snapshot_error(annotate("point", 1:3, 1:3, fill = c('red', 'black')))
+  expect_snapshot(error = TRUE, annotate("point", 1:3, 1:3, fill = c('red', 'black')))
 })
 
 test_that("annotation_logticks warns about deprecated `size` argument", {
-  expect_snapshot_warning(annotation_logticks(size = 5))
+  expect_snapshot(out <- annotation_logticks(size = 5))
 })

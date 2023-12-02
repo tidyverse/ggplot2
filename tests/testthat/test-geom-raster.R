@@ -1,12 +1,12 @@
 test_that("geom_raster() checks input and coordinate system", {
-  expect_snapshot_error(geom_raster(hjust = c(2.5, 1.3)))
-  expect_snapshot_error(geom_raster(hjust = "a"))
-  expect_snapshot_error(geom_raster(vjust = c(2.5, 1.3)))
-  expect_snapshot_error(geom_raster(vjust = "a"))
+  expect_snapshot(error = TRUE, geom_raster(hjust = c(2.5, 1.3)))
+  expect_snapshot(error = TRUE, geom_raster(hjust = "a"))
+  expect_snapshot(error = TRUE, geom_raster(vjust = c(2.5, 1.3)))
+  expect_snapshot(error = TRUE, geom_raster(vjust = "a"))
 
   df <- data_frame(x = rep(c(-1, 1), each = 3), y = rep(-1:1, 2), z = 1:6)
   p <- ggplot(df, aes(x, y, fill = z)) + geom_raster() + coord_polar()
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 })
 
 # Visual tests ------------------------------------------------------------

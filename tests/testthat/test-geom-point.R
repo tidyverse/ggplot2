@@ -19,6 +19,6 @@ test_that("single characters are not translated to integers", {
 })
 
 test_that("invalid shape names raise an error", {
-  expect_snapshot_error(translate_shape_string("void"))
-  expect_snapshot_error(translate_shape_string("tri"))
+  expect_snapshot(error = TRUE, translate_shape_string("void"))
+  expect_snapshot(error = TRUE, translate_shape_string("tri"))
 })

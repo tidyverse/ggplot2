@@ -6,7 +6,7 @@ test_that(".DollarNames retrieves inherited methods", {
 })
 
 test_that("construction checks input", {
-  expect_snapshot_error(ggproto("Test", NULL, function(self, a) a))
-  expect_snapshot_error(ggproto("Test", NULL, a <- function(self, a) a))
-  expect_snapshot_error(ggproto("Test", mtcars, a = function(self, a) a))
+  expect_snapshot(error = TRUE, ggproto("Test", NULL, function(self, a) a))
+  expect_snapshot(error = TRUE, ggproto("Test", NULL, a <- function(self, a) a))
+  expect_snapshot(error = TRUE, ggproto("Test", mtcars, a = function(self, a) a))
 })

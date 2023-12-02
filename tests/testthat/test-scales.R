@@ -223,8 +223,8 @@ test_that("size and alpha scales throw appropriate warnings for factors", {
     "Using linewidth for a discrete variable is not advised."
   )
   # There should be no warnings for ordered factors
-  expect_warning(ggplot_build(p + geom_point(aes(size = o))), NA)
-  expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA)
+  expect_no_warning(ggplot_build(p + geom_point(aes(size = o))))
+  expect_no_warning(ggplot_build(p + geom_point(aes(alpha = o))))
 })
 
 test_that("shape scale throws appropriate warnings for factors", {
@@ -237,7 +237,7 @@ test_that("shape scale throws appropriate warnings for factors", {
   p <- ggplot(df, aes(x, y))
 
   # There should be no warnings when unordered factors are mapped to shape
-  expect_warning(ggplot_build(p + geom_point(aes(shape = d))), NA)
+  expect_no_warning(ggplot_build(p + geom_point(aes(shape = d))))
 
   # There should be warnings for ordered factors
   expect_warning(
@@ -345,7 +345,7 @@ test_that("scale_apply preserves class and attributes", {
   )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
 
   # Check that it errors on bad scale ids
-  expect_snapshot_error(scale_apply(
+  expect_snapshot(error = TRUE, scale_apply(
     df, "x", "transform", c(NA, 1), plot$layout$panel_scales_x
   ))
 
@@ -427,26 +427,26 @@ test_that("scales accept lambda notation for function input", {
 })
 
 test_that("breaks and labels are correctly checked", {
-  expect_snapshot_error(check_breaks_labels(1:10, letters))
+  expect_snapshot(error = TRUE, check_breaks_labels(1:10, letters))
   p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(breaks = NA)
-  expect_snapshot_error(ggplot_build(p))
+  expect_snapshot(error = TRUE, ggplot_build(p))
   p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(minor_breaks = NA)
-  expect_snapshot_error(ggplot_build(p))
+  expect_snapshot(error = TRUE, ggplot_build(p))
   p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = NA)
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
   p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = function(x) 1:2)
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
   p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(breaks = NA)
-  expect_snapshot_error(ggplot_build(p))
+  expect_snapshot(error = TRUE, ggplot_build(p))
   p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(labels = NA)
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 
   p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(breaks = NA)
-  expect_snapshot_error(ggplot_build(p))
+  expect_snapshot(error = TRUE, ggplot_build(p))
   p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = NA)
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
   p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = function(x) 1:2)
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 })
 
 test_that("staged aesthetics are backtransformed properly (#4155)", {
@@ -681,12 +681,12 @@ test_that("scale call is found accurately", {
 test_that("training incorrectly appropriately communicates the offenders", {
 
   sc <- scale_colour_viridis_d()
-  expect_snapshot_error(
+  expect_snapshot(error = TRUE,
     sc$train(1:5)
   )
 
   sc <- scale_colour_viridis_c()
-  expect_snapshot_error(
+  expect_snapshot(error = TRUE,
     sc$train(LETTERS[1:5])
   )
 })
@@ -706,9 +706,11 @@ test_that("find_scale appends appropriate calls", {
 })
 
 test_that("Using `scale_name` prompts deprecation message", {
-
-  expect_snapshot_warning(continuous_scale("x", "foobar", identity_pal()))
-  expect_snapshot_warning(discrete_scale("x",   "foobar", identity_pal()))
-  expect_snapshot_warning(binned_scale("x",     "foobar", identity_pal()))
+  # Interested in message
+  expect_snapshot({
+    res <- continuous_scale("x", "foobar", identity_pal())
+    res <- discrete_scale("x",   "foobar", identity_pal())
+    res <- binned_scale("x",     "foobar", identity_pal())
+  })
 
 })

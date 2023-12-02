@@ -80,21 +80,26 @@ test_that("axis labels can be set manually", {
     graticule[graticule$type == "N", ]$degree_label,
     c("D", "E", "F")
   )
-  p <- plot +
-    scale_x_continuous(
-      breaks = c(1000, 2000, 3000),
-      labels = function(...) c("A", "B")
-    )
-  expect_snapshot_error(ggplot_build(p))
-  p <- plot +
-    scale_y_continuous(
-      breaks = c(1000, 2000, 3000),
-      labels = function(...) c("A", "B")
-    )
-  expect_snapshot_error(ggplot_build(p))
 
-  expect_snapshot_error(coord_sf(label_graticule = 1:17))
-  expect_snapshot_error(coord_sf(label_axes = 1:17))
+  expect_snapshot(error = TRUE, {
+    p <- plot +
+      scale_x_continuous(
+        breaks = c(1000, 2000, 3000),
+        labels = function(...) c("A", "B")
+      )
+    ggplot_build(p)
+    p <- plot +
+      scale_y_continuous(
+        breaks = c(1000, 2000, 3000),
+        labels = function(...) c("A", "B")
+      )
+    ggplot_build(p)
+  })
+
+  expect_snapshot(error = TRUE, {
+    coord_sf(label_graticule = 1:17)
+    coord_sf(label_axes = 1:17)
+  })
 })
 
 test_that("factors are treated like character labels and are not parsed", {
@@ -234,7 +239,7 @@ test_that("default crs works", {
 
   p <- ggplot(polygon) + geom_sf(fill = NA)
 
-  expect_snapshot_error(ggplot_build(p + xlim(-Inf, 80)))
+  expect_snapshot(error = TRUE, ggplot_build(p + xlim(-Inf, 80)))
 
   # by default, regular geoms are interpreted to use projected data
   points_trans <- sf_transform_xy(points, 3347, 4326)
@@ -325,8 +330,8 @@ test_that("coord_sf() uses the guide system", {
 
 test_that("coord_sf() throws error when limits are badly specified", {
   # throws error when limit is a Scale object instead of vector
-  expect_snapshot_error(ggplot() + coord_sf(xlim(1,1)))
+  expect_snapshot(error = TRUE, ggplot() + coord_sf(xlim(1,1)))
 
   # throws error when limit's length is different than two
-  expect_snapshot_error(ggplot() + coord_sf(ylim=1:3))
+  expect_snapshot(error = TRUE, ggplot() + coord_sf(ylim=1:3))
 })

@@ -7,7 +7,7 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
 
 test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
   p <- ggplot(economics, aes(unemploy/pop, psavert, colour = pop)) + geom_path(linetype = 2)
-  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot(error = TRUE, ggplotGrob(p))
 })
 
 test_that("repair_segment_arrow() repairs sensibly", {

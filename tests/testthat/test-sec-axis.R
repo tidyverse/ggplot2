@@ -6,13 +6,13 @@ foo <- data_frame(
 
 test_that("sec_axis checks the user input", {
   scale <- scale_x_continuous()
-  expect_snapshot_error(set_sec_axis(16, scale))
+  expect_snapshot(error = TRUE, set_sec_axis(16, scale))
   expect_silent(set_sec_axis(~ .^2, scale))
   secondary <- ggproto(NULL, AxisSecondary, trans = 1:10)
-  expect_snapshot_error(secondary$init(scale))
+  expect_snapshot(error = TRUE, secondary$init(scale))
 
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(.))
-  expect_snapshot_error(ggplot_build(p))
+  expect_snapshot(error = TRUE, ggplot_build(p))
 
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(./100))
   expect_silent(ggplot_build(p))

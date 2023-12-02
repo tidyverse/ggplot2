@@ -48,12 +48,15 @@ test_that("curved lines in map projections", {
 # Warning tests ------------------------------------------------------------
 
 test_that("warnings are thrown when parameters cause mapping and data to be ignored", {
-  expect_snapshot_warning(geom_vline(aes(), xintercept = 2))
-  expect_snapshot_warning(geom_vline(data = mtcars, xintercept = 2))
-  expect_snapshot_warning(geom_hline(aes(), yintercept = 2))
-  expect_snapshot_warning(geom_hline(data = mtcars, yintercept = 2))
-  expect_snapshot_warning(geom_abline(aes(), slope = 2))
-  expect_snapshot_warning(geom_abline(aes(), intercept = 2))
-  expect_snapshot_warning(geom_abline(data = mtcars, slope = 2))
-  expect_snapshot_warning(geom_abline(data = mtcars, intercept = 2))
+  # using out <- to capture the warnings
+  expect_snapshot({
+    out <- geom_vline(aes(), xintercept = 2)
+    out <- geom_vline(data = mtcars, xintercept = 2)
+    out <- geom_hline(aes(), yintercept = 2)
+    out <- geom_hline(data = mtcars, yintercept = 2)
+    out <- geom_abline(aes(), slope = 2)
+    out <- geom_abline(aes(), intercept = 2)
+    out <- geom_abline(data = mtcars, slope = 2)
+    out <- geom_abline(data = mtcars, intercept = 2)
+  })
 })

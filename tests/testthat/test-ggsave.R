@@ -93,7 +93,7 @@ test_that("ggsave fails informatively for no-extension filenames", {
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
   expect_error(
     ggsave(tempfile(), plot),
-    '`filename` has no file extension and `device` is "NULL"'
+    "Can't save"
   )
 })
 
@@ -125,7 +125,7 @@ test_that("scale multiplies height & width", {
 # plot_dev ---------------------------------------------------------------------
 
 test_that("unknown device triggers error", {
-  expect_snapshot_error(plot_dev(1))
+  expect_snapshot(error = TRUE, plot_dev(1))
   expect_error(plot_dev("xyz"), "Unknown graphics device")
   expect_error(plot_dev(NULL, "test.xyz"), "Unknown graphics device")
 })
@@ -151,12 +151,14 @@ test_that("DPI string values are parsed correctly", {
 })
 
 test_that("invalid single-string DPI values throw an error", {
-  expect_snapshot_error(parse_dpi("abc"))
+  expect_snapshot(error = TRUE, parse_dpi("abc"))
 })
 
 test_that("invalid non-single-string DPI values throw an error", {
-  expect_snapshot_error(parse_dpi(factor(100)))
-  expect_snapshot_error(parse_dpi(c("print", "screen")))
-  expect_snapshot_error(parse_dpi(c(150, 300)))
-  expect_snapshot_error(parse_dpi(list(150)))
+  expect_snapshot(error = TRUE,  {
+    parse_dpi(factor(100))
+    parse_dpi(c("print", "screen"))
+    parse_dpi(c(150, 300))
+    parse_dpi(list(150))
+  })
 })

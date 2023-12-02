@@ -93,15 +93,15 @@ test_that("x and y aesthetics have the same length", {
 test_that("check_required_aesthetics() errors on missing", {
   required_single <- c("x", "y")
   required_bidirectional <- c("x|y", "fill")
-  expect_snapshot_error(check_required_aesthetics(required_single, present = "x", name = "test"))
-  expect_snapshot_error(check_required_aesthetics(required_single, present = "shape", name = "test"))
+  expect_snapshot(error = TRUE, check_required_aesthetics(required_single, present = "x", name = "test"))
+  expect_snapshot(error = TRUE, check_required_aesthetics(required_single, present = "shape", name = "test"))
 
-  expect_snapshot_error(check_required_aesthetics(required_bidirectional, present = "fill", name = "test"))
-  expect_snapshot_error(check_required_aesthetics(required_bidirectional, present = "shape", name = "test"))
+  expect_snapshot(error = TRUE, check_required_aesthetics(required_bidirectional, present = "fill", name = "test"))
+  expect_snapshot(error = TRUE, check_required_aesthetics(required_bidirectional, present = "shape", name = "test"))
 })
 
 test_that("remove_missing checks input", {
-  expect_snapshot_error(remove_missing(na.rm = 1:5))
+  expect_snapshot(error = TRUE, remove_missing(na.rm = 1:5))
 })
 
 test_that("characters survive remove_missing", {
@@ -113,27 +113,27 @@ test_that("characters survive remove_missing", {
 })
 
 test_that("tolower() and toupper() has been masked", {
-  expect_snapshot_error(tolower())
-  expect_snapshot_error(toupper())
+  expect_snapshot(error = TRUE, tolower())
+  expect_snapshot(error = TRUE, toupper())
 })
 
 test_that("parse_safe() checks input", {
-  expect_snapshot_error(parse_safe(1:5))
+  expect_snapshot(error = TRUE, parse_safe(1:5))
 })
 
 test_that("width_cm() and height_cm() checks input", {
-  expect_snapshot_error(width_cm(letters))
-  expect_snapshot_error(height_cm(letters))
+  expect_snapshot(error = TRUE, width_cm(letters))
+  expect_snapshot(error = TRUE, height_cm(letters))
 })
 
 test_that("cut_*() checks its input and output", {
-  expect_snapshot_error(cut_number(1, 10))
-  expect_snapshot_error(breaks(1:10, "numbers", nbins = 2, binwidth = 05))
-  expect_snapshot_error(cut_width(1:10, 1, center = 0, boundary = 0.5))
+  expect_snapshot(error = TRUE, cut_number(1, 10))
+  expect_snapshot(error = TRUE, breaks(1:10, "numbers", nbins = 2, binwidth = 05))
+  expect_snapshot(error = TRUE, cut_width(1:10, 1, center = 0, boundary = 0.5))
 })
 
 test_that("interleave() checks the vector lengths", {
-  expect_snapshot_error(interleave(1:4, numeric()))
+  expect_snapshot(error = TRUE, interleave(1:4, numeric()))
 })
 
 test_that("vec_rbind0 can combined ordered factors", {
