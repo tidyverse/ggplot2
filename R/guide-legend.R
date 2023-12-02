@@ -395,7 +395,7 @@ GuideLegend <- ggproto(
         params$nrow * params$ncol < n_breaks) {
       cli::cli_abort(paste0(
         "{.arg nrow} * {.arg ncol} needs to be larger than the number of ",
-        "breaks ({n_breaks})"
+        "breaks ({n_breaks})."
       ))
     }
     if (is.null(params$nrow) && is.null(params$ncol)) {
