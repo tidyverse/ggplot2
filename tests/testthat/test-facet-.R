@@ -142,11 +142,11 @@ test_that("facet_grid() accepts vars()", {
 })
 
 test_that("facet_grid() fails if passed both a formula and a vars()", {
-  expect_snapshot(error = TRUE, facet_grid(~foo, vars()))
+  expect_snapshot_error(facet_grid(~foo, vars()))
 })
 
 test_that("can't pass formulas to `cols`", {
-  expect_snapshot(error = TRUE, facet_grid(NULL, ~foo))
+  expect_snapshot_error(facet_grid(NULL, ~foo))
 })
 
 test_that("can still pass `margins` as second argument", {
@@ -229,10 +229,10 @@ test_that("facet variables", {
 
 test_that("facet gives clear error if ", {
   df <- data_frame(x = 1)
-  expect_snapshot(error = TRUE, print(ggplot(df, aes(x)) + facet_grid(x ~ x)))
-  expect_snapshot(error = TRUE, print(ggplot(df, aes(x)) %>% facet_grid(. ~ x)))
-  expect_snapshot(error = TRUE, print(ggplot(df, aes(x)) + facet_grid(list(1, 2, 3))))
-  expect_snapshot(error = TRUE, print(ggplot(df, aes(x)) + facet_grid(vars(x), "free")))
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(x ~ x)))
+  expect_snapshot_error(print(ggplot(df, aes(x)) %>% facet_grid(. ~ x)))
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(list(1, 2, 3))))
+  expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(vars(x), "free")))
 })
 
 # Variable combinations ---------------------------------------------------
@@ -246,7 +246,7 @@ test_that("zero-length vars in combine_vars() generates zero combinations", {
 test_that("at least one layer must contain all facet variables in combine_vars()", {
   df <- data_frame(letter = c("a", "b"))
   expect_silent(combine_vars(list(df), vars = vars(letter = letter)))
-  expect_snapshot(error = TRUE, combine_vars(list(df), vars = vars(letter = number)))
+  expect_snapshot_error(combine_vars(list(df), vars = vars(letter = number)))
 })
 
 test_that("at least one combination must exist in combine_vars()", {
@@ -297,14 +297,14 @@ test_that("combine_vars() generates the correct combinations", {
     ignore_attr = TRUE   # do not compare `row.names`
   )
 
-  expect_snapshot(error = TRUE, 
+  expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2, b = 2:3), data.frame(a = 1:2, c = 2:3)),
       vars = vars(b=b, c=c)
     )
   )
 
-  expect_snapshot(error = TRUE, 
+  expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2), data.frame(b = numeric())),
       vars = vars(b=b)
@@ -368,12 +368,12 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
 })
 
 test_that("validate_facets() provide meaningful errors", {
-  expect_snapshot(error = TRUE, validate_facets(aes(var)))
-  expect_snapshot(error = TRUE, validate_facets(ggplot()))
+  expect_snapshot_error(validate_facets(aes(var)))
+  expect_snapshot_error(validate_facets(ggplot()))
 })
 
 test_that("check_layout() throws meaningful errors", {
-  expect_snapshot(error = TRUE, check_layout(mtcars))
+  expect_snapshot_error(check_layout(mtcars))
 })
 
 # Visual tests ------------------------------------------------------------

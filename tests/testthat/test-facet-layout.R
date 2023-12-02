@@ -155,24 +155,24 @@ test_that("missing values get a panel", {
 # Input checking ----------------------------------------------------------
 
 test_that("facet_wrap throws errors at bad layout specs", {
-  expect_snapshot(error = TRUE, facet_wrap(~test, ncol = 1:4))
-  expect_snapshot(error = TRUE, facet_wrap(~test, ncol = -1))
-  expect_snapshot(error = TRUE, facet_wrap(~test, ncol = 1.5))
+  expect_snapshot_error(facet_wrap(~test, ncol = 1:4))
+  expect_snapshot_error(facet_wrap(~test, ncol = -1))
+  expect_snapshot_error(facet_wrap(~test, ncol = 1.5))
 
-  expect_snapshot(error = TRUE, facet_wrap(~test, nrow = 1:4))
-  expect_snapshot(error = TRUE, facet_wrap(~test, nrow = -1))
-  expect_snapshot(error = TRUE, facet_wrap(~test, nrow = 1.5))
+  expect_snapshot_error(facet_wrap(~test, nrow = 1:4))
+  expect_snapshot_error(facet_wrap(~test, nrow = -1))
+  expect_snapshot_error(facet_wrap(~test, nrow = 1.5))
 
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp)) +
     facet_wrap(~gear, ncol = 1, nrow = 1)
-  expect_snapshot(error = TRUE, ggplot_build(p))
+  expect_snapshot_error(ggplot_build(p))
 
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp)) +
     facet_wrap(~gear, scales = "free") +
     coord_fixed()
-  expect_snapshot(error = TRUE, ggplotGrob(p))
+  expect_snapshot_error(ggplotGrob(p))
 })
 
 test_that("facet_grid throws errors at bad layout specs", {
@@ -180,12 +180,12 @@ test_that("facet_grid throws errors at bad layout specs", {
     geom_point(aes(mpg, disp)) +
     facet_grid(.~gear, scales = "free") +
     coord_fixed()
-  expect_snapshot(error = TRUE, ggplotGrob(p))
+  expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp)) +
     facet_grid(.~gear, space = "free") +
     theme(aspect.ratio = 1)
-  expect_snapshot(error = TRUE, ggplotGrob(p))
+  expect_snapshot_error(ggplotGrob(p))
 })
 
 test_that("facet_wrap and facet_grid throws errors when using reserved words", {
@@ -195,7 +195,7 @@ test_that("facet_wrap and facet_grid throws errors when using reserved words", {
 
   p <- ggplot(mtcars2) +
     geom_point(aes(mpg, disp))
-  expect_snapshot(error = TRUE, ggplotGrob(p + facet_grid(ROW ~ gear)))
-  expect_snapshot(error = TRUE, ggplotGrob(p + facet_grid(ROW ~ PANEL)))
-  expect_snapshot(error = TRUE, ggplotGrob(p + facet_wrap(~ROW)))
+  expect_snapshot_error(ggplotGrob(p + facet_grid(ROW ~ gear)))
+  expect_snapshot_error(ggplotGrob(p + facet_grid(ROW ~ PANEL)))
+  expect_snapshot_error(ggplotGrob(p + facet_wrap(~ROW)))
 })

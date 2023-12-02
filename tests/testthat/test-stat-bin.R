@@ -1,11 +1,11 @@
 test_that("stat_bin throws error when wrong combination of aesthetic is present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_snapshot(error = TRUE, ggplot_build(ggplot(dat) + stat_bin()))
+  expect_snapshot_error(ggplot_build(ggplot(dat) + stat_bin()))
 
-  expect_snapshot(error = TRUE, ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()))
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()))
 
-  expect_snapshot(error = TRUE, ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)))
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)))
 })
 
 test_that("stat_bin works in both directions", {
@@ -119,18 +119,13 @@ comp_bin <- function(df, ...) {
 
 test_that("inputs to binning are checked", {
   dat <- data_frame(x = c(0, 10))
-  expect_snapshot({
-    # Only capture condition
-    r <- comp_bin(dat, breaks = letters)
-    r <- comp_bin(dat, binwidth = letters)
-    r <- comp_bin(dat, binwidth = -4)
-    r <- comp_bin(dat, bins = -4)
-  })
+  expect_snapshot_error(comp_bin(dat, breaks = letters))
+  expect_snapshot_error(bin_breaks_width(3))
+  expect_snapshot_error(comp_bin(dat, binwidth = letters))
+  expect_snapshot_error(comp_bin(dat, binwidth = -4))
 
-  expect_snapshot(error = TRUE, {
-    bin_breaks_bins(3)
-  })
-
+  expect_snapshot_error(bin_breaks_bins(3))
+  expect_snapshot_error(comp_bin(dat, bins = -4))
 })
 
 test_that("closed left or right", {
@@ -190,7 +185,7 @@ test_that("bin errors at high bin counts", {
 test_that("stat_count throws error when both x and y aesthetic present", {
   dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_snapshot(error = TRUE, ggplot_build(ggplot(dat, aes(x, y)) + stat_count()))
+  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_count()))
 })
 
 test_that("stat_count preserves x order for continuous and discrete", {

@@ -55,8 +55,7 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
   df <- data.frame(x = 1, y = 1, lab = "test")
 
   # One warning in plot code due to evaluation of `aes()`
-  expect_snapshot({
-
+  expect_snapshot_warning(
     p <- ggplot(df, aes(x, y, label = lab)) +
       geom_label(
         aes(colour = stage(lab, after_scale = colour),
@@ -66,13 +65,15 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
       # `guide_geom.legend` also using `Geom$use_defaults` method, which we
       # test next
       guides(colour = "none")
-  })
+  )
+  # One warning in building due to `stage()`/`after_scale()`
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {
   p1 <- ggplot(NULL, aes(stat(foo)))
-  expect_snapshot(out <- ggplot_build(p1))
+  expect_snapshot_warning(b1 <- ggplot_build(p1))
 
   p2 <- ggplot(NULL, aes(..bar..))
-  expect_snapshot(out <- ggplot_build(p2))
+  expect_snapshot_warning(b2 <- ggplot_build(p2))
 })

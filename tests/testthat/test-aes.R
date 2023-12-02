@@ -165,10 +165,8 @@ test_that("Warnings are issued when plots use discouraged extract usage within a
 })
 
 test_that("aes evaluation fails with unknown input", {
-  expect_snapshot(error = TRUE, {
-    is_calculated(environment())
-    strip_dots(environment())
-  })
+  expect_snapshot_error(is_calculated(environment()))
+  expect_snapshot_error(strip_dots(environment()))
 })
 
 test_that("aes() supports `!!!` in named arguments (#2675)", {
@@ -184,7 +182,7 @@ test_that("aes() supports `!!!` in named arguments (#2675)", {
     aes(, , !!!list(y = 1)),
     aes(y = 1)
   )
-  expect_snapshot(error = TRUE, aes(y = 1, !!!list(y = 2)))
+  expect_snapshot_error(aes(y = 1, !!!list(y = 2)))
 })
 
 test_that("alternative_aes_extract_usage() can inspect the call", {
@@ -193,11 +191,11 @@ test_that("alternative_aes_extract_usage() can inspect the call", {
   x <- quote(test$var)
   expect_identical(alternative_aes_extract_usage(x), "var")
   x <- quote(foo())
-  expect_snapshot(error = TRUE, alternative_aes_extract_usage(x))
+  expect_snapshot_error(alternative_aes_extract_usage(x))
 })
 
 test_that("new_aes() checks its inputs", {
-  expect_snapshot(error = TRUE, new_aes(1:5))
+  expect_snapshot_error(new_aes(1:5))
 })
 
 # Visual tests ------------------------------------------------------------

@@ -121,7 +121,7 @@ test_that("facet_grid() switches to both 'x' and 'y'", {
 })
 
 test_that("facet_grid() warns about bad switch input", {
-  expect_snapshot(error = TRUE, facet_grid(am ~ cyl, switch = "z"))
+  expect_snapshot_error(facet_grid(am ~ cyl, switch = "z"))
 })
 
 test_that("strips can be removed", {

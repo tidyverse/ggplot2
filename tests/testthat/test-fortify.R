@@ -52,7 +52,7 @@ test_that("spatial polygons have correct ordering", {
 })
 
 test_that("fortify.default proves a helpful error with class uneval", {
-  expect_snapshot(error = TRUE, ggplot(aes(x = x)))
+  expect_snapshot_error(ggplot(aes(x = x)))
 })
 
 test_that("fortify.default can handle healthy data-frame-like objects", {

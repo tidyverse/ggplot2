@@ -84,6 +84,7 @@ test_that("coord_radial warns about axes", {
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point()
 
+<<<<<<< HEAD
   # use out to capture warning only
   expect_snapshot({
     # Cannot use regular axis for theta position
@@ -96,6 +97,19 @@ test_that("coord_radial warns about axes", {
       p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r_axis_inside = FALSE)
     )
   })
+=======
+  # Cannot use regular axis for theta position
+  expect_snapshot_warning(ggplotGrob(
+    p + coord_radial() + guides(theta = "axis")
+  ))
+
+  # If arc doesn't contain the top/bottom/left/right of a circle,
+  # axis placement cannot be outside panel
+  expect_snapshot_warning(ggplotGrob(
+    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r_axis_inside = FALSE)
+  ))
+
+>>>>>>> parent of 3b7dcc78 (Replace `expect_snapshot_warning` and `expect_snapshot_error()` with `expect_snapshot()`.)
 })
 
 test_that("bounding box calculations are sensible", {

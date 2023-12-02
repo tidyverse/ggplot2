@@ -1,3 +1,3 @@
 test_that("justify_grobs() checks input", {
-  expect_snapshot(error = TRUE, justify_grobs(1))
+  expect_snapshot_error(justify_grobs(1))
 })

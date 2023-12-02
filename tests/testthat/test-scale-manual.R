@@ -16,8 +16,9 @@ test_that("names of values used in manual scales", {
    # Names do not match data
    s <- scale_colour_manual(values = c("foo" = "x", "bar" = "y"))
    s$train(c("A", "B"))
-   expect_snapshot(out <- s$get_limits())
-   expect_equal(out, character())
+   expect_snapshot_warning(
+     expect_equal(s$get_limits(), character())
+   )
 })
 
 

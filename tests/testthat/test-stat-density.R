@@ -108,7 +108,7 @@ test_that("stat_density works in both directions", {
   expect_identical(x, flip_data(y, TRUE)[,names(x)])
 
   p <- ggplot(mpg) + stat_density()
-  expect_snapshot(error = TRUE, ggplot_build(p))
+  expect_snapshot_error(ggplot_build(p))
 })
 
 test_that("compute_density returns useful df and throws warning when <2 values", {
@@ -122,6 +122,6 @@ test_that("compute_density returns useful df and throws warning when <2 values",
 test_that("precompute_bandwidth() errors appropriately", {
   expect_silent(precompute_bw(1:10))
   expect_equal(precompute_bw(1:10, 5), 5)
-  expect_snapshot(error = TRUE, precompute_bw(1:10, bw = "foobar"))
-  expect_snapshot(error = TRUE, precompute_bw(1:10, bw = Inf))
+  expect_snapshot_error(precompute_bw(1:10, bw = "foobar"))
+  expect_snapshot_error(precompute_bw(1:10, bw = Inf))
 })

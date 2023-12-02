@@ -12,7 +12,7 @@ test_that("stat_ecdf works in both directions", {
   expect_identical(x, flip_data(y, TRUE)[,names(x)])
 
   p <- ggplot(mpg) + stat_ecdf()
-  expect_snapshot(error = TRUE, ggplot_build(p))
+  expect_snapshot_error(ggplot_build(p))
 })
 
 # See #5113 and #5112

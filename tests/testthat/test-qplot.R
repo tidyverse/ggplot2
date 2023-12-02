@@ -51,7 +51,7 @@ test_that("qplot() evaluates layers in package environment", {
 })
 
 test_that("qplot() only work with character geom", {
-    expect_snapshot(error = TRUE, {
-      qplot(geom = GeomLinerange)
-  })
+  lifecycle::expect_deprecated(
+    expect_snapshot_error(qplot(geom = GeomLinerange))
+  )
 })

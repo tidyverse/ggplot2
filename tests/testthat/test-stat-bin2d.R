@@ -11,13 +11,11 @@ test_that("binwidth is respected", {
 
   p <- ggplot(df, aes(x, y)) +
     stat_bin_2d(geom = "tile", binwidth = c(0.25, 0.5, 0.75))
-  # Capture warning
-  expect_snapshot(res <- ggplot_build(p))
+  expect_snapshot_warning(ggplot_build(p))
 
   p <- ggplot(df, aes(x, y)) +
     stat_bin_2d(geom = "tile", origin = c(0.25, 0.5, 0.75))
-  # Capture warning
-  expect_snapshot(res <- ggplot_build(p))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("breaks override binwidth", {

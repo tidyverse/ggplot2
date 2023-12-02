@@ -1,18 +1,15 @@
 # Parameters --------------------------------------------------------------
 
 test_that("layer() checks its input", {
-  expect_snapshot(error = TRUE, {
-    layer(stat = "identity", position = "identity")
-    layer(geom = "point", position = "identity")
-    layer(geom = "point", stat = "identity")
-    layer("point", "identity", mapping = 1:4, position = "identity")
-    layer("point", "identity", mapping = ggplot(), position = "identity")
-  })
+  expect_snapshot_error(layer(stat = "identity", position = "identity"))
+  expect_snapshot_error(layer(geom = "point", position = "identity"))
+  expect_snapshot_error(layer(geom = "point", stat = "identity"))
 
-  expect_snapshot(error = TRUE, {
-    check_subclass("test", "geom")
-    check_subclass(environment(), "geom")
-  })
+  expect_snapshot_error(layer("point", "identity", mapping = 1:4, position = "identity"))
+  expect_snapshot_error(layer("point", "identity", mapping = ggplot(), position = "identity"))
+
+  expect_snapshot_error(check_subclass("test", "geom"))
+  expect_snapshot_error(check_subclass(environment(), "geom"))
 })
 
 test_that("aesthetics go in aes_params", {
@@ -30,13 +27,13 @@ test_that("unknown aesthetics create warning", {
 
 test_that("invalid aesthetics throws errors", {
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
-  expect_snapshot(error = TRUE, ggplot_build(p))
+  expect_snapshot_error(ggplot_build(p))
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
-  expect_snapshot(error = TRUE, ggplot_build(p))
+  expect_snapshot_error(ggplot_build(p))
 })
 
 test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
-  expect_no_warning(geom_point(aes(blah = NULL)))
+  expect_warning(geom_point(aes(blah = NULL)), NA)
 })
 
 test_that("column vectors are allowed (#2609)", {
@@ -48,25 +45,26 @@ test_that("column vectors are allowed (#2609)", {
 
 test_that("missing aesthetics trigger informative error", {
   df <- data_frame(x = 1:10)
-  expect_snapshot(error = TRUE, {
-    p <- ggplot(df) + geom_line()
-    ggplot_build(p)
-    p <- ggplot(df) + geom_col()
-    ggplot_build(p)
-
-  })
+  expect_error(
+    ggplot_build(ggplot(df) + geom_line()),
+    "requires the following missing aesthetics:"
+  )
+  expect_error(
+    ggplot_build(ggplot(df) + geom_col()),
+    "requires the following missing aesthetics:"
+  )
 })
 
 test_that("function aesthetics are wrapped with after_stat()", {
   df <- data_frame(x = 1:10)
-  expect_snapshot(error = TRUE,
+  expect_snapshot_error(
     ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point())
   )
 })
 
 test_that("computed stats are in appropriate layer", {
   df <- data_frame(x = 1:10)
-  expect_snapshot(error = TRUE,
+  expect_snapshot_error(
     ggplot_build(ggplot(df, aes(colour = after_stat(density), fill = after_stat(density))) + geom_point())
   )
 })
@@ -75,7 +73,7 @@ test_that("if an aes is mapped to a function that returns NULL, it is removed", 
   df <- data_frame(x = 1:10)
   null <- function(...) NULL
   p <- cdata(ggplot(df, aes(x, null())))
-  expect_named(p[[1]], c("x", "PANEL", "group"))
+  expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
 })
 
 test_that("layers are stateless except for the computed params", {
@@ -113,7 +111,7 @@ test_that("retransform works on computed aesthetics in `map_statistic`", {
 test_that("layer reports the error with correct index etc", {
   p <- ggplot(mtcars) + geom_linerange(aes(disp, mpg), ymin = 2)
 
-  expect_snapshot(error = TRUE, ggplotGrob(p))
+  expect_snapshot_error(ggplotGrob(p))
 
   p <- ggplot(
     data_frame(x = "one value", y = 3, value = 4:6),
@@ -122,7 +120,7 @@ test_that("layer reports the error with correct index etc", {
     geom_point(aes(x = x, y = y), inherit.aes = FALSE) +
     geom_boxplot(stat = "identity")
 
-  expect_snapshot(error = TRUE, ggplotGrob(p))
+  expect_snapshot_error(ggplotGrob(p))
 })
 
 test_that("layer warns for constant aesthetics", {
@@ -130,8 +128,7 @@ test_that("layer warns for constant aesthetics", {
   expect_silent(ggplot_build(p))
 
   p <- ggplot(mtcars, aes(x = 1)) + geom_point(aes(y = 2))
-  # Capture warning
-  expect_snapshot(e <- ggplot_build(p))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 # Data extraction ---------------------------------------------------------
@@ -146,5 +143,5 @@ test_that("layer_data returns a data.frame", {
   l <- geom_point(data = ~ head(., 10))
   expect_equal(l$layer_data(mtcars), head(unrowname(mtcars), 10))
   l <- geom_point(data = nrow)
-  expect_snapshot(error = TRUE, l$layer_data(mtcars))
+  expect_snapshot_error(l$layer_data(mtcars))
 })

@@ -146,9 +146,9 @@ test_that("errors are correctly triggered", {
     colour = c("red", NA)
   )
   p <- ggplot(pts) + geom_sf() + coord_cartesian()
-  expect_snapshot(error = TRUE, ggplotGrob(p))
-  expect_snapshot(error = TRUE, geom_sf_label(position = "jitter", nudge_x = 0.5))
-  expect_snapshot(error = TRUE, geom_sf_text(position = "jitter", nudge_x = 0.5))
+  expect_snapshot_error(ggplotGrob(p))
+  expect_snapshot_error(geom_sf_label(position = "jitter", nudge_x = 0.5))
+  expect_snapshot_error(geom_sf_text(position = "jitter", nudge_x = 0.5))
 
   # #5204: missing linewidth should be dropped
   pts <- sf::st_sf(
@@ -158,7 +158,7 @@ test_that("errors are correctly triggered", {
     ),
     linewidth = c(1, NA)
   )
-  expect_snapshot(sf_grob(pts, na.rm = FALSE))
+  expect_snapshot_warning(sf_grob(pts, na.rm = FALSE))
 })
 
 # Visual tests ------------------------------------------------------------

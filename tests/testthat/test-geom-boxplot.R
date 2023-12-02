@@ -84,7 +84,7 @@ test_that("boxplots with a group size >1 error", {
     geom_boxplot(stat = "identity")
 
   expect_equal(nrow(layer_data(p, 1)), 3)
-  expect_snapshot(error = TRUE, layer_grob(p, 1))
+  expect_snapshot_error(layer_grob(p, 1))
 })
 
 # Visual tests ------------------------------------------------------------

@@ -151,14 +151,10 @@ test_that("guide_none() can be used in non-position scales", {
 })
 
 test_that("Using non-position guides for position scales results in an informative error", {
-
-  expect_snapshot({
-    p <- ggplot(mpg, aes(cty, hwy)) +
-      geom_point() +
-      scale_x_continuous(guide = guide_legend())
-    # avoid printing the plot
-    e <- ggplot_build(p)
-  })
+  p <- ggplot(mpg, aes(cty, hwy)) +
+    geom_point() +
+    scale_x_continuous(guide = guide_legend())
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("guide merging for guide_legend() works as expected", {
@@ -229,60 +225,44 @@ test_that("size = NA doesn't throw rendering errors", {
 })
 
 test_that("guide specifications are properly checked", {
-  expect_snapshot(error = TRUE, {
-    validate_guide("test")
-    validate_guide(1)
-  })
+  expect_snapshot_error(validate_guide("test"))
+  expect_snapshot_error(validate_guide(1))
 
-  # Capture warning
-  expect_snapshot({
-    p <- ggplot(mtcars) +
-      geom_point(aes(mpg, disp, shape = factor(gear))) +
-      guides(shape = "colourbar")
-    # Avoid printing to console
-    e <- ggplotGrob(p)
-  })
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, shape = factor(gear))) +
+    guides(shape = "colourbar")
 
-  expect_snapshot(error = TRUE, {
-    guide_legend(title.position = "leftish")
-    guide_legend(label.position = "test")
-    guide_colourbar()$transform()
-  })
+  expect_snapshot_warning(ggplotGrob(p))
 
-  expect_snapshot(error = TRUE, {
-    p <- ggplot(mtcars) +
-      geom_point(aes(mpg, disp, colour = gear)) +
-      guides(colour = guide_colourbar(label.position = "top"))
-    ggplotGrob(p)
-  })
+  expect_snapshot_error(guide_legend(title.position = "leftish"))
 
-  expect_snapshot(error = TRUE, {
-    p <- ggplot(mtcars) +
-      geom_point(aes(mpg, disp, colour = gear)) +
-      guides(colour = guide_colourbar(direction = "horizontal", label.position = "left"))
-    ggplotGrob(p)
-  })
+  expect_snapshot_error(guide_colourbar()$transform())
 
-  expect_snapshot(error = TRUE, {
-    p <- ggplot(mtcars) +
-      geom_point(aes(mpg, disp, colour = gear)) +
-      guides(colour = guide_legend(nrow = 2, ncol = 2))
-    ggplotGrob(p)
-  })
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_colourbar(label.position = "top"))
+  expect_snapshot_error(ggplotGrob(p))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_colourbar(direction = "horizontal", label.position = "left"))
+  expect_snapshot_error(ggplotGrob(p))
+
+  expect_snapshot_error(guide_legend(label.position = "test"))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_legend(nrow = 2, ncol = 2))
+  expect_snapshot_error(ggplotGrob(p))
 })
 
 test_that("colorsteps and bins checks the breaks format", {
-
-  expect_snapshot(error = TRUE, {
-    p <- ggplot(mtcars) +
-      geom_point(aes(mpg, disp, colour = paste("A", gear))) +
-      guides(colour = "colorsteps")
-    suppressWarnings(ggplotGrob(p))
-    p <- ggplot(mtcars) +
-      geom_point(aes(mpg, disp, colour = paste("A", gear))) +
-      guides(colour = "bins")
-    suppressWarnings(ggplotGrob(p))
-  })
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = paste("A", gear))) +
+    guides(colour = "colorsteps")
+  expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = paste("A", gear))) +
+    guides(colour = "bins")
+  expect_snapshot_error(suppressWarnings(ggplotGrob(p)))
 })
 
 test_that("legend reverse argument reverses the key", {
@@ -321,7 +301,7 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
 
 
 test_that("guide_colourbar merging preserves both aesthetics", {
-  # See issue #5324
+  # See issue 5324
 
   scale1 <- scale_colour_viridis_c()
   scale1$train(c(0, 2))
@@ -337,7 +317,7 @@ test_that("guide_colourbar merging preserves both aesthetics", {
 
   merged <- g$merge(p1, g, p2)
 
-  expect_contains(names(merged$params$key), c("colour", "fill"))
+  expect_true(all(c("colour", "fill") %in% names(merged$params$key)))
 })
 
 test_that("guide_colourbar warns about discrete scales", {
@@ -429,8 +409,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
 
   # Should warn when scale also has transformation
   scale <- test_scale(log10_trans(), limits = c(10, 1000))
-  # avoid printing output
-  expect_snapshot(res <- train_guide(guide, scale)$logkey)
+  expect_snapshot_warning(train_guide(guide, scale)$logkey)
 })
 
 test_that("guide_legend uses key.spacing correctly", {
@@ -944,10 +923,7 @@ test_that("binning scales understand the different combinations of limits, break
                            breaks = c(1999, 2000, 2002, 2004, 2006),
                            labels = 1:5, guide = 'bins')
   )
-  expect_snapshot(
-    res <- ggplotGrob(
-      p + scale_color_binned(labels = 1:4, show.limits = TRUE, guide = "bins"))
-  )
+  expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE, guide = "bins")))
 
   expect_doppelganger("guide_colorsteps understands coinciding limits and bins",
     p + scale_color_binned(limits = c(1999, 2008),
@@ -967,9 +943,7 @@ test_that("binning scales understand the different combinations of limits, break
                            breaks = c(1999, 2000, 2002, 2004, 2006),
                            labels = 1:5)
   )
-  # Capture warning only
-  expect_snapshot(
-    res <- ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE)))
+  expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE)))
 })
 
 test_that("guide_axis_theta sets relative angle", {
@@ -1013,7 +987,7 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
 
   # warn on scale_*(guide = FALSE)
   p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
-  expect_snapshot(e <- ggplot_build(p))
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("guides() warns if unnamed guides are provided", {
@@ -1071,9 +1045,12 @@ test_that("old S3 guides can be implemented", {
 
   withr::local_environment(my_env)
 
-  expect_snapshot(expect_doppelganger(
-    "old S3 guide drawing a circle",
-    ggplot(mtcars, aes(disp, mpg)) +geom_point() + guides(x = "circle")
-
-  ))
+  expect_snapshot_warning(
+    expect_doppelganger(
+      "old S3 guide drawing a circle",
+      ggplot(mtcars, aes(disp, mpg)) +
+        geom_point() +
+        guides(x = "circle")
+    )
+  )
 })

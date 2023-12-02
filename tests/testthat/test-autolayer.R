@@ -1,3 +1,3 @@
 test_that("autolayers default error looks correct", {
-  expect_snapshot(error = TRUE, autolayer(letters))
+  expect_snapshot_error(autolayer(letters))
 })

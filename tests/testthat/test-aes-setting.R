@@ -31,7 +31,7 @@ test_that("legend filters out aesthetics not of length 1", {
 
   # Ideally would test something in the legend data structure, but
   # that's not easily accessible currently.
-  expect_no_error(ggplot_gtable(ggplot_build(p)))
+  expect_error(ggplot_gtable(ggplot_build(p)), NA)
 })
 
 test_that("alpha affects only fill colour of solid geoms", {

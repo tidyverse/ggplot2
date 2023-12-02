@@ -49,10 +49,10 @@ test_that("quantiles do not fail on zero-range data", {
 test_that("quantiles fails outside 0-1 bound", {
   p <- ggplot(mtcars) +
     geom_violin(aes(as.factor(gear), mpg), draw_quantiles = c(-1, 0.5))
-  expect_snapshot(error = TRUE, ggplotGrob(p))
+  expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_violin(aes(as.factor(gear), mpg), draw_quantiles = c(0.5, 2))
-  expect_snapshot(error = TRUE, ggplotGrob(p))
+  expect_snapshot_error(ggplotGrob(p))
 })
 
 test_that("quantiles are at expected positions at zero width", {
@@ -72,7 +72,7 @@ test_that("quantiles do not issue warning", {
   p <- ggplot(data, aes(x = x, y = y)) +
     geom_violin(draw_quantiles = 0.5)
 
-  expect_no_warning(plot(p))
+  expect_warning(plot(p), regexp = NA)
 })
 
 
