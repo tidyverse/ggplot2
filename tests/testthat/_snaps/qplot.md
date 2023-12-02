@@ -1,4 +1,10 @@
 # qplot() only work with character geom
 
-    `geom` must be a character vector, not a <GeomLinerange/Geom/ggproto/gg> object.
+    Code
+      qplot(geom = GeomLinerange)
+    Condition
+      Warning:
+      `qplot()` was deprecated in ggplot2 3.4.0.
+      Error in `qplot()`:
+      ! `geom` must be a character vector, not a <GeomLinerange/Geom/ggproto/gg> object.
 

@@ -1,8 +1,16 @@
 # limits() throw meaningful errors
 
-    All arguments must be named
+    Code
+      lims(1:2)
+    Condition
+      Error in `lims()`:
+      ! All arguments must be named.
 
 ---
 
-    `linewidth` must be a two-element vector
+    Code
+      lims(linewidth = 1)
+    Condition
+      Error in `lims()`:
+      ! `linewidth` must be a two-element vector.
 

@@ -1,5 +1,9 @@
 # geom_jitter() throws relevant errors
 
-    both `position` and `width`/`height` are supplied
-    i Only use one approach to alter the position
+    Code
+      geom_jitter(position = "jitter", width = 4)
+    Condition
+      Error in `geom_jitter()`:
+      ! Both `position` and `width`/`height` were supplied.
+      i Choose a single approach to alter the position.
 

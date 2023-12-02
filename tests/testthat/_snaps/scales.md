@@ -1,46 +1,90 @@
 # scale_apply preserves class and attributes
 
-    `scale_id` must not contain any "NA"
+    Code
+      scale_apply(df, "x", "transform", c(NA, 1), plot$layout$panel_scales_x)
+    Condition
+      Error in `scale_apply()`:
+      ! `scale_id` must not contain any "NA".
 
 # breaks and labels are correctly checked
 
-    `breaks` and `labels` must have the same length
+    Code
+      check_breaks_labels(1:10, letters)
+    Condition
+      Error:
+      ! `breaks` and `labels` must have the same length.
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA".
+    Code
+      ggplot_build(p)
+    Condition
+      Error in `scale_x_continuous()`:
+      ! Invalid `breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `minor_breaks` specification. Use "NULL", not "NA".
+    Code
+      ggplot_build(p)
+    Condition
+      Error in `scale_x_continuous()`:
+      ! Invalid `minor_breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA".
+    Code
+      ggplotGrob(p)
+    Condition
+      Error in `scale_x_continuous()`:
+      ! Invalid `labels` specification. Use `NULL`, not `NA`.
 
 ---
 
-    `breaks` and `labels` are different lengths.
+    Code
+      ggplotGrob(p)
+    Condition
+      Error in `scale_x_continuous()`:
+      ! `breaks` and `labels` have different lengths.
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA".
+    Code
+      ggplot_build(p)
+    Condition
+      Error in `scale_x_discrete()`:
+      ! Invalid `breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA".
+    Code
+      ggplotGrob(p)
+    Condition
+      Error in `scale_x_discrete()`:
+      ! Invalid `labels` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA".
+    Code
+      ggplot_build(p)
+    Condition
+      Error in `scale_x_binned()`:
+      ! Invalid `breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA".
+    Code
+      ggplotGrob(p)
+    Condition
+      Error in `scale_x_binned()`:
+      ! Invalid `labels` specification. Use `NULL`, not `NA`.
 
 ---
 
-    `breaks` and `labels` are different lengths.
+    Code
+      ggplotGrob(p)
+    Condition
+      Error in `scale_x_binned()`:
+      ! `breaks` and `labels` have different lengths.
 
 # numeric scale transforms can produce breaks
 
@@ -51,23 +95,37 @@
 
 # training incorrectly appropriately communicates the offenders
 
-    Continuous values supplied to discrete scale
-    i Example values: 1, 2, 3, 4, and 5
+    Code
+      sc$train(1:5)
+    Condition
+      Error in `scale_colour_viridis_d()`:
+      ! Continuous values supplied to discrete scale.
+      i Example values: 1, 2, 3, 4, and 5
 
 ---
 
-    Discrete values supplied to continuous scale
-    i Example values: "A", "B", "C", "D", and "E"
+    Code
+      sc$train(LETTERS[1:5])
+    Condition
+      Error in `scale_colour_viridis_c()`:
+      ! Discrete values supplied to continuous scale.
+      i Example values: "A", "B", "C", "D", and "E"
 
 # Using `scale_name` prompts deprecation message
 
-    The `scale_name` argument of `continuous_scale()` is deprecated as of ggplot2 3.5.0.
-
----
-
-    The `scale_name` argument of `discrete_scale()` is deprecated as of ggplot2 3.5.0.
-
----
-
-    The `scale_name` argument of `binned_scale()` is deprecated as of ggplot2 3.5.0.
+    Code
+      res <- continuous_scale("x", "foobar", identity_pal())
+    Condition
+      Warning:
+      The `scale_name` argument of `continuous_scale()` is deprecated as of ggplot2 3.5.0.
+    Code
+      res <- discrete_scale("x", "foobar", identity_pal())
+    Condition
+      Warning:
+      The `scale_name` argument of `discrete_scale()` is deprecated as of ggplot2 3.5.0.
+    Code
+      res <- binned_scale("x", "foobar", identity_pal())
+    Condition
+      Warning:
+      The `scale_name` argument of `binned_scale()` is deprecated as of ggplot2 3.5.0.
 
