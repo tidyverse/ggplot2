@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
+
 * The `legend.key` theme element is set to inherit from the `panel.background`
   theme element. The default themes no longer set the `legend.key` element.
   This causes a visual change with the default `theme_gray()` (#5549).
