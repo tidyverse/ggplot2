@@ -142,7 +142,7 @@ limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Transformations only work with continuous values: see
-<code><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">scales::trans_new()</a></code> for list of transformations, and instructions
+<code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::trans_new()</a></code> for list of transformations, and instructions
 on how to create your own.</p>
     </div>
 
@@ -202,7 +202,7 @@ on how to create your own.</p>
 <span class="r-in"><span>  <span class="fu"><a href="geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">coord_trans</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/exp_trans.html" class="external-link">exp_trans</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/exp_trans.html" class="external-link">exp_trans</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">coord_trans</span><span class="op">(</span>x <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/transform_exp.html" class="external-link">exp_trans</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/transform_exp.html" class="external-link">exp_trans</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> `geom_smooth()` using formula = 'y ~ x'</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NaNs produced</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NaNs produced</span>
