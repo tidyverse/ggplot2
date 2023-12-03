@@ -98,15 +98,20 @@ ggsave <- function(filename, plot = last_plot(),
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
 
-  if (is_null(bg)) {
-    bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
-  }
   old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
     if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device
   }))
+
+  # Calculation must happen after a device has been set
+  # because evaluating `plot` might already require an active device
+  # for measuring text etc.
+  if (is_null(bg)) {
+    bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
+  }
+
   grid.draw(plot)
 
   invisible(filename)
