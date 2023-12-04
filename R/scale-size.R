@@ -52,7 +52,7 @@ NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
                                   trans = "identity", guide = "legend") {
-  continuous_scale("size", palette = area_pal(range), name = name,
+  continuous_scale("size", palette = pal_area(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
     guide = guide)
 }
@@ -66,7 +66,7 @@ scale_size <- scale_size_continuous
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
                          trans = "identity", guide = "legend") {
-  continuous_scale("size", palette = rescale_pal(range), name = name,
+  continuous_scale("size", palette = pal_rescale(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
     guide = guide)
 }
@@ -76,7 +76,7 @@ scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
 scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
                               nice.breaks = TRUE, trans = "identity", guide = "bins") {
-  binned_scale("size", palette = area_pal(range), name = name,
+  binned_scale("size", palette = pal_area(range), name = name,
                breaks = breaks, labels = labels, limits = limits, trans = trans,
                n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
 }
@@ -129,12 +129,12 @@ scale_size_binned_area <- function(..., max_size = 6) {
 #' @export
 #' @usage NULL
 scale_size_datetime <- function(..., range = c(1, 6)) {
-  datetime_scale("size", "time", palette = area_pal(range), ...)
+  datetime_scale("size", "time", palette = pal_area(range), ...)
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
 scale_size_date <- function(..., range = c(1, 6)) {
-  datetime_scale("size", "date", palette = area_pal(range), ...)
+  datetime_scale("size", "date", palette = pal_area(range), ...)
 }

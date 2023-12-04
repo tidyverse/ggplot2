@@ -362,7 +362,12 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+      cli::cli_abort(c(
+        "Problem while {step}.",
+        "i" = "Error occurred in the {ordinal(i)} layer."),
+        call = layers[[i]]$constructor,
+        parent = cnd
+      )
     }
   )
   out
@@ -391,14 +396,16 @@ table_add_tag <- function(table, label, theme) {
     if (location == "margin") {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
-        "{.code \"margin\"} as {.arg plot.tag.location}."
-      ))
+        "`{.val margin}` as {.arg plot.tag.location}."
+      ),
+      call = expr(theme()))
     }
     if (length(position) != 2) {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} ",
         "theme setting must have length 2."
-      ))
+      ),
+      call = expr(theme()))
     }
     top <- left <- right <- bottom <- FALSE
   } else {
@@ -407,7 +414,8 @@ table_add_tag <- function(table, label, theme) {
       position[1],
       c("topleft", "top", "topright", "left",
         "right", "bottomleft", "bottom", "bottomright"),
-      arg_nm = "plot.tag.position"
+      arg_nm = "plot.tag.position",
+      error_call = expr(theme())
     )
     top    <- position %in% c("topleft",    "top",    "topright")
     left   <- position %in% c("topleft",    "left",   "bottomleft")

@@ -30,7 +30,7 @@ that should be used for error messages associated with this scale.}
 
 \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
+they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
 
 \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first

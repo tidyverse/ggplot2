@@ -78,8 +78,8 @@ validate_as_data_frame <- function(data) {
 fortify.default <- function(model, data, ...) {
   msg0 <- paste0(
     "{{.arg data}} must be a {{.cls data.frame}}, ",
-    "or an object coercible by {{.code fortify()}}, or a valid ",
-    "{{.cls data.frame}}-like object coercible by {{.code as.data.frame()}}"
+    "or an object coercible by {{.fn fortify}}, or a valid ",
+    "{{.cls data.frame}}-like object coercible by {{.fn as.data.frame}}"
   )
   if (inherits(model, "uneval")) {
     msg <- c(

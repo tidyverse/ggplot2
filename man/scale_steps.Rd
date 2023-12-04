@@ -103,7 +103,7 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
@@ -152,8 +152,8 @@ A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \verb{<name>_trans}. If
 transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
-You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
@@ -231,7 +231,7 @@ ggplot(df, aes(x, y)) +
   scale_colour_stepsn(colours = terrain.colors(10))
 }
 \seealso{
-\code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
+\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying
 palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.

@@ -257,11 +257,13 @@ Layout <- ggproto("Layout", NULL,
         guides <- c("x", "x.sec")
       }
       params    <- self$panel_params[[1]]$guides$get_params(guides)
-      primary   <- params[[1]]$title %|W|% primary
-      secondary <- params[[2]]$title %|W|% secondary
-      position  <- params[[1]]$position %||% scale$position
-      if (position != scale$position) {
-        order <- rev(order)
+      if (!is.null(params)) {
+        primary   <- params[[1]]$title %|W|% primary
+        secondary <- params[[2]]$title %|W|% secondary
+        position  <- params[[1]]$position %||% scale$position
+        if (position != scale$position) {
+          order <- rev(order)
+        }
       }
     }
     primary   <- scale$make_title(primary)
@@ -304,8 +306,8 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
-  if (any(is.na(scale_id))) {
-    cli::cli_abort("{.arg scale_id} must not contain any {.val NA}")
+  if (anyNA(scale_id)) {
+    cli::cli_abort("{.arg scale_id} must not contain any {.val NA}.")
   }
 
   scale_index <- split_with_index(seq_along(scale_id), scale_id, length(scales))
