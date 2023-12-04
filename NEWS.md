@@ -2,6 +2,8 @@
 
 * New `guide_custom()` function for drawing custom graphical objects (grobs)
   unrelated to scales in legend positions (#5416).
+  
+* `theme()` now supports splicing a list of arguments (#5542).
 
 * Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
 

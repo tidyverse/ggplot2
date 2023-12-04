@@ -6,6 +6,13 @@ test_that("dollar subsetting the theme does no partial matching", {
   expect_equal(t$foobar, 12)
 })
 
+test_that("theme argument splicing works", {
+  l <- list(a = 10, b = "c", d = c("foo", "bar"))
+  test <- theme(!!!l)
+  ref  <- theme(a = 10, b = "c", d = c("foo", "bar"))
+  expect_equal(test, ref)
+})
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works
