@@ -109,6 +109,7 @@ together according to inheritance, read more about theme inheritance below.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">line</span>,</span>
 <span>  <span class="va">rect</span>,</span>
 <span>  <span class="va">text</span>,</span>
@@ -216,7 +217,6 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">strip.text.y.right</span>,</span>
 <span>  <span class="va">strip.switch.pad.grid</span>,</span>
 <span>  <span class="va">strip.switch.pad.wrap</span>,</span>
-<span>  <span class="va">...</span>,</span>
 <span>  complete <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  validate <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -224,7 +224,12 @@ together according to inheritance, read more about theme inheritance below.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>line</dt>
+    <dl><dt>...</dt>
+<dd><p>additional element specifications not part of base ggplot2. In general,
+these should also be defined in the <code>element tree</code> argument.</p></dd>
+
+
+<dt>line</dt>
 <dd><p>all line elements (<code><a href="element.html">element_line()</a></code>)</p></dd>
 
 
@@ -496,11 +501,6 @@ switched (<code>unit</code>)</p></dd>
 <dt>strip.switch.pad.wrap</dt>
 <dd><p>space between strips and axes when strips are
 switched (<code>unit</code>)</p></dd>
-
-
-<dt>...</dt>
-<dd><p>additional element specifications not part of base ggplot2. In general,
-these should also be defined in the <code>element tree</code> argument.</p></dd>
 
 
 <dt>complete</dt>
