@@ -94,14 +94,20 @@
 #'   )
 #'
 #' @export
-sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
-                     guide = waiver()) {
-  # sec_axis() historically accepted two-sided formula, so be permissive.
-  if (length(trans) > 2) trans <- trans[c(1,3)]
+sec_axis <- function(transform = NULL,
+                     name = waiver(), breaks = waiver(), labels = waiver(),
+                     guide = waiver(), trans = lifecycle::deprecated()) {
+  if (lifecycle::is_present(trans)) {
+    deprecate_soft0("3.5.0", "sec_axis(trans)", "sec_axis(transform)")
+    transform <- trans
+  }
 
-  trans <- as_function(trans)
+  # sec_axis() historically accepted two-sided formula, so be permissive.
+  if (length(transform) > 2) transform <- transform[c(1,3)]
+
+  transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,
-    trans = trans,
+    trans = transform,
     name = name,
     breaks = breaks,
     labels = labels,
@@ -111,8 +117,9 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
-  sec_axis(trans, name, breaks, labels, guide)
+dup_axis <- function(transform = ~., trans = lifecycle::deprecated(),
+                     name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
+  sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
 
 is.sec_axis <- function(x) {
