@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New `guide_custom()` function for drawing custom graphical objects (grobs)
+  unrelated to scales in legend positions (#5416).
+
 * Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
 
 * The `legend.key` theme element is set to inherit from the `panel.background`
