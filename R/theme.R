@@ -281,7 +281,8 @@
 #' p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 #' p3 + theme(panel.spacing = unit(1, "lines"))
 #' }
-theme <- function(line,
+theme <- function(...,
+                  line,
                   rect,
                   text,
                   title,
@@ -388,7 +389,6 @@ theme <- function(line,
                   strip.text.y.right,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
-                  ...,
                   complete = FALSE,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
