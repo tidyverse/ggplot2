@@ -4,5 +4,5 @@
 
 ---
 
-    `map` must have the columns `x`, `y`, and `id`
+    `map` must have the columns `x`, `y`, and `id`.
 

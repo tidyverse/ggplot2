@@ -155,7 +155,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 calc_bw <- function(x, bw) {
   if (is.character(bw)) {
     if (length(x) < 2) {
-      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically")
+      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically.")
     }
 
     bw <- switch(
@@ -167,7 +167,7 @@ calc_bw <- function(x, bw) {
       sj = ,
       `sj-ste` = stats::bw.SJ(x, method = "ste"),
       `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
-      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule")
+      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule.")
     )
   }
   bw
