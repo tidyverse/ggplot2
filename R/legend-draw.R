@@ -236,17 +236,26 @@ draw_key_smooth <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_text <- function(data, params, size) {
-  if(is.null(data$label)) data$label <- "a"
-
-  textGrob(data$label, 0.5, 0.5,
-    rot = data$angle %||% 0,
+  data$label <- data$label %||% "a"
+  just <- rotate_just(data$angle, data$hjust, data$vjust)
+  grob <- titleGrob(
+    data$label,
+    x = unit(just$hjust, "npc"), y = unit(just$vjust, "npc"),
+    angle = data$angle,
+    hjust = data$hjust,
+    vjust = data$vjust,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      fontfamily = data$family %||% "",
-      fontface = data$fontface %||% 1,
-      fontsize = (data$size %||% 3.88) * .pt
-    )
+      fontfamily = data$family   %||% "",
+      fontface   = data$fontface %||% 1,
+      fontsize   = (data$size %||% 3.88) * .pt
+    ),
+    margin = margin(0.1, 0.1, 0.1, 0.1, unit = "lines"),
+    margin_x = TRUE, margin_y = TRUE
   )
+  attr(grob, "width")  <- convertWidth(grobWidth(grob),   "cm", valueOnly = TRUE)
+  attr(grob, "height") <- convertHeight(grobHeight(grob), "cm", valueOnly = TRUE)
+  grob
 }
 
 #' @export
