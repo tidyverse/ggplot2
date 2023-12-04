@@ -242,7 +242,7 @@ scale_x_time <- function(name = waiver(),
     na.value = na.value,
     guide = guide,
     position = position,
-    trans = scales::transform_hms(),
+    transform = scales::transform_hms(),
     sec.axis = sec.axis
   )
 }
@@ -273,7 +273,7 @@ scale_y_time <- function(name = waiver(),
     na.value = na.value,
     guide = guide,
     position = position,
-    trans = scales::transform_hms(),
+    transform = scales::transform_hms(),
     sec.axis = sec.axis
   )
 }

@@ -29,11 +29,12 @@ NULL
 #' @usage NULL
 scale_linewidth_continuous <- function(name = waiver(), breaks = waiver(),
                                        labels = waiver(), limits = NULL,
-                                       range = c(1, 6), trans = "identity",
+                                       range = c(1, 6), transform = "identity",
+                                       trans = lifecycle::deprecated(),
                                        guide = "legend") {
   continuous_scale("linewidth", palette = pal_rescale(range), name = name,
-                   breaks = breaks, labels = labels, limits = limits, trans = trans,
-                   guide = guide)
+                   breaks = breaks, labels = labels, limits = limits,
+                   transform = transform, trans = trans, guide = guide)
 }
 
 #' @rdname scale_linewidth
@@ -44,10 +45,12 @@ scale_linewidth <- scale_linewidth_continuous
 #' @export
 scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
-                              nice.breaks = TRUE, trans = "identity", guide = "bins") {
+                              nice.breaks = TRUE, transform = "identity",
+                              trans = lifecycle::deprecated(), guide = "bins") {
   binned_scale("linewidth", palette = pal_rescale(range), name = name,
-               breaks = breaks, labels = labels, limits = limits, trans = trans,
-               n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
+               breaks = breaks, labels = labels, limits = limits,
+               transform = transform, trans = trans, n.breaks = n.breaks,
+               nice.breaks = nice.breaks, guide = guide)
 }
 
 #' @rdname scale_linewidth
