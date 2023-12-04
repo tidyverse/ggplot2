@@ -176,7 +176,7 @@ that should be used for error messages associated with this scale.</p></dd>
     <dt><code>palette</code></dt>
 <dd><p>A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., <code><a href="https://scales.r-lib.org/reference/pal_area.html" class="external-link">scales::area_pal()</a></code>).</p></dd>
+(e.g., <code><a href="https://scales.r-lib.org/reference/pal_area.html" class="external-link">scales::pal_area()</a></code>).</p></dd>
 
     <dt><code>name</code></dt>
 <dd><p>The name of the scale. Used as the axis or legend title. If
@@ -260,8 +260,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code>. If
 transformations require arguments, you can call them from the scales
-package, e.g. <code><a href="https://scales.r-lib.org/reference/transform_boxcox.html" class="external-link">scales::boxcox_trans(p = 2)</a></code>.
-You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
+package, e.g. <code><a href="https://scales.r-lib.org/reference/transform_boxcox.html" class="external-link">scales::transform_boxcox(p = 2)</a></code>.
+You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::new_transform()</a></code>.</p></dd>
 
     <dt><code>expand</code></dt>
 <dd><p>For position scales, a vector of range expansion constants used to add some
@@ -340,7 +340,7 @@ Munsell colour system.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://scales.r-lib.org/reference/pal_seq_gradient.html" class="external-link">scales::seq_gradient_pal()</a></code> for details on underlying
+    <div class="dont-index"><p><code><a href="https://scales.r-lib.org/reference/pal_seq_gradient.html" class="external-link">scales::pal_seq_gradient()</a></code> for details on underlying
 palette, <code><a href="scale_steps.html">scale_colour_steps()</a></code> for binned variants of these scales.</p>
 <p>The documentation on <a href="aes_colour_fill_alpha.html">colour aesthetics</a>.</p>
 <p>Other colour scales: 
