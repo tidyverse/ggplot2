@@ -160,8 +160,7 @@ draw_key_path <- function(data, params, size) {
   } else {
     data$linetype[is.na(data$linetype)] <- 0
   }
-
-  segmentsGrob(0.1, 0.5, 0.9, 0.5,
+  grob <- segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       fill = alpha(params$arrow.fill %||% data$colour
@@ -172,12 +171,19 @@ draw_key_path <- function(data, params, size) {
     ),
     arrow = params$arrow
   )
+  if (!is.null(params$arrow)) {
+    angle <- deg2rad(params$arrow$angle)
+    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+    attr(grob, "width")  <- cos(angle) * length * 1.25
+    attr(grob, "height") <- sin(angle) * length * 2
+  }
+  grob
 }
 
 #' @export
 #' @rdname draw_key
 draw_key_vpath <- function(data, params, size) {
-  segmentsGrob(0.5, 0.1, 0.5, 0.9,
+  grob <- segmentsGrob(0.5, 0.1, 0.5, 0.9,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
@@ -186,6 +192,13 @@ draw_key_vpath <- function(data, params, size) {
     ),
     arrow = params$arrow
   )
+  if (!is.null(params$arrow)) {
+    angle <- deg2rad(params$arrow$angle)
+    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+    attr(grob, "width")  <- sin(angle) * length * 2
+    attr(grob, "height") <- cos(angle) * length * 1.25
+  }
+  grob
 }
 
 #' @export
