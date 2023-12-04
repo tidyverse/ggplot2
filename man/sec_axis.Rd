@@ -7,15 +7,17 @@
 \title{Specify a secondary axis}
 \usage{
 sec_axis(
-  trans = NULL,
+  transform = NULL,
   name = waiver(),
   breaks = waiver(),
   labels = waiver(),
-  guide = waiver()
+  guide = waiver(),
+  trans = lifecycle::deprecated()
 )
 
 dup_axis(
-  trans = ~.,
+  transform = ~.,
+  trans = lifecycle::deprecated(),
   name = derive(),
   breaks = derive(),
   labels = derive(),
@@ -25,8 +27,6 @@ dup_axis(
 derive()
 }
 \arguments{
-\item{trans}{A formula or function of transformation}
-
 \item{name}{The name of the secondary axis}
 
 \item{breaks}{One of:
@@ -47,6 +47,8 @@ derive()
 
 \item{guide}{A position guide that will be used to render
 the axis on the plot. Usually this is \code{\link[=guide_axis]{guide_axis()}}.}
+
+\item{trans}{A formula or function of transformation}
 }
 \description{
 This function is used in conjunction with a position scale to create a
