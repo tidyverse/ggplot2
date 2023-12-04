@@ -65,7 +65,7 @@
 #'   - [scales::squish()] for squishing out of bounds values into range.
 #'   - [scales::squish_infinite()] for squishing infinite values into range.
 #' @param na.value Missing values will be replaced with this value.
-#' @param trans For continuous scales, the name of a transformation object
+#' @param transform For continuous scales, the name of a transformation object
 #'   or the object itself. Built-in transformations include "asn", "atanh",
 #'   "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 #'   "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -73,10 +73,12 @@
 #'
 #'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
-#'   are defined in the scales package, and are called `<name>_trans`. If
+#'   are defined in the scales package, and are called `transform_<name>`. If
 #'   transformations require arguments, you can call them from the scales
 #'   package, e.g. [`scales::transform_boxcox(p = 2)`][scales::transform_boxcox].
 #'   You can create your own transformation with [scales::new_transform()].
+#' @param trans `r lifecycle::badge("deprecated")` Deprecated in favour of
+#'   `transform`.
 #' @param guide A function used to create a guide or its name. See
 #'   [guides()] for more information.
 #' @param expand For position scales, a vector of range expansion constants used to add some
@@ -94,12 +96,17 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
                              breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
                              labels = waiver(), limits = NULL, rescaler = rescale,
                              oob = censor, expand = waiver(), na.value = NA_real_,
-                             trans = "identity", guide = "legend", position = "left",
+                             transform = "identity", trans = lifecycle::deprecated(),
+                             guide = "legend", position = "left",
                              call = caller_call(),
                              super = ScaleContinuous) {
   call <- call %||% current_call()
   if (lifecycle::is_present(scale_name)) {
     deprecate_soft0("3.5.0", "continuous_scale(scale_name)")
+  }
+  if (lifecycle::is_present(trans)) {
+    deprecate_soft0("3.5.0", "continuous_scale(trans)", "continuous_scale(transform)")
+    transform <- trans
   }
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -113,9 +120,9 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
     guide <- "none"
   }
 
-  trans <- as.transform(trans)
+  transform <- as.transform(transform)
   if (!is.null(limits) && !is.function(limits)) {
-    limits <- trans$transform(limits)
+    limits <- transform$transform(limits)
   }
 
   # Convert formula to function if appropriate
@@ -134,7 +141,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 
     range = ContinuousRange$new(),
     limits = limits,
-    trans = trans,
+    trans = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -259,13 +266,19 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          rescaler = rescale, oob = squish, expand = waiver(),
                          na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
-                         right = TRUE, trans = "identity", show.limits = FALSE,
+                         right = TRUE, transform = "identity",
+                         trans = lifecycle::deprecated(), show.limits = FALSE,
                          guide = "bins", position = "left",
                          call = caller_call(),
                          super = ScaleBinned) {
   if (lifecycle::is_present(scale_name)) {
     deprecate_soft0("3.5.0", "binned_scale(scale_name)")
   }
+  if (lifecycle::is_present(trans)) {
+    deprecate_soft0("3.5.0", "binned_scale(trans)", "binned_scale(transform)")
+    transform <- trans
+  }
+
   call <- call %||% current_call()
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -278,9 +291,9 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
     guide <- "none"
   }
 
-  trans <- as.transform(trans)
+  transform <- as.transform(transform)
   if (!is.null(limits)) {
-    limits <- trans$transform(limits)
+    limits <- transform$transform(limits)
   }
 
   # Convert formula input to function if appropriate
@@ -298,7 +311,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
     range = ContinuousRange$new(),
     limits = limits,
-    trans = trans,
+    trans = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
