@@ -27,6 +27,8 @@ dup_axis(
 derive()
 }
 \arguments{
+\item{transform}{A formula or function of transformation}
+
 \item{name}{The name of the secondary axis}
 
 \item{breaks}{One of:
@@ -48,7 +50,7 @@ derive()
 \item{guide}{A position guide that will be used to render
 the axis on the plot. Usually this is \code{\link[=guide_axis]{guide_axis()}}.}
 
-\item{trans}{A formula or function of transformation}
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 This function is used in conjunction with a position scale to create a

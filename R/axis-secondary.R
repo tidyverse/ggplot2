@@ -4,7 +4,9 @@
 #' secondary axis, positioned opposite of the primary axis. All secondary
 #' axes must be based on a one-to-one transformation of the primary axes.
 #'
-#' @param trans A formula or function of transformation
+#' @param transform A formula or function of transformation
+#'
+#' @param trans `r lifecycle::badge("deprecated")`
 #'
 #' @param name The name of the secondary axis
 #'
