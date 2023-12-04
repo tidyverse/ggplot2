@@ -154,7 +154,7 @@ GuideAxisLogticks <- ggproto(
           "{.field {trans_name}} transformation in log-tick positioning."
         ))
       }
-      trans <- log_trans(base = params$prescale_base)
+      trans <- transform_log(base = params$prescale_base)
     } else {
       trans <- scale$scale$trans
     }

@@ -28,7 +28,7 @@ the object itself. Built-in transformations include "hms", "date" and "time".}
 
 \item{palette}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}
+(e.g., \code{\link[scales:pal_area]{scales::pal_area()}}).}
 
 \item{breaks}{One of:
 \itemize{
