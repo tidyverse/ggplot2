@@ -314,7 +314,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
-        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
+        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
         "i" = "Only use one approach to alter the position."
       ))
     }

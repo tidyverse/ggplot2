@@ -542,14 +542,12 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes <- parse_axes_labeling(label_axes)
   } else if (!is.list(label_axes)) {
     cli::cli_abort("Panel labeling format not recognized.")
-    # label_axes <- list(left = "N", bottom = "E")
   }
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
   } else {
     cli::cli_abort("Graticule labeling format not recognized.")
-    # label_graticule <- ""
   }
 
   # switch limit method to "orthogonal" if not specified and default_crs indicates projected coords

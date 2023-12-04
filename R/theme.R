@@ -595,7 +595,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
-      if (verbose) cli::cli_inform("`element_blank()` (no inheritance)")
+      if (verbose) cli::cli_inform("{.fn element_blank} (no inheritance)")
       return(el_out)
     }
   }
