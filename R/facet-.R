@@ -83,10 +83,10 @@ Facet <- ggproto("Facet", NULL,
   params = list(),
 
   compute_layout = function(data, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   map_data = function(data, layout, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
@@ -132,7 +132,7 @@ Facet <- ggproto("Facet", NULL,
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)

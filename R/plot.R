@@ -111,8 +111,8 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     cli::cli_abort(c(
-      "{.arg mapping} should be created with {.fn aes}.",
-      "x" = "You've supplied {.obj_type_friendly {mapping}}."```
+      "{.arg mapping} must be created with {.fn aes}.",
+      "x" = "You've supplied {.obj_type_friendly {mapping}}."
     ))
   }
 

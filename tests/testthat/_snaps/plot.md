@@ -1,7 +1,7 @@
 # ggplot() throws informative errors
 
-    `mapping` should be created with `aes()`.
-    x You've supplied a <character> object.
+    `mapping` must be created with `aes()`.
+    x You've supplied a character vector.
 
 ---
 

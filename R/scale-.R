@@ -418,7 +418,7 @@ Scale <- ggproto("Scale", NULL,
   call = NULL,
   aesthetics = aes(),
   palette = function() {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
 
   range = Range$new(),
@@ -434,7 +434,7 @@ Scale <- ggproto("Scale", NULL,
 
 
   is_discrete = function() {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
 
   train_df = function(self, df) {
@@ -448,7 +448,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   train = function(self, x) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   reset = function(self) {
@@ -473,7 +473,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   transform = function(self, x) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   map_df = function(self, df, i = NULL) {
@@ -495,11 +495,11 @@ Scale <- ggproto("Scale", NULL,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = self$dimension()) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   get_limits = function(self) {
@@ -517,11 +517,11 @@ Scale <- ggproto("Scale", NULL,
   },
 
   dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   break_positions = function(self, range = self$get_limits()) {
@@ -529,19 +529,19 @@ Scale <- ggproto("Scale", NULL,
   },
 
   get_breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$get_limits()) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   get_labels = function(self, breaks = self$get_breaks()) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   clone = function(self) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   break_info = function(self, range = NULL) {
-    cli::cli_abort("Not implemented", call = self$call)
+    cli::cli_abort("Not implemented.", call = self$call)
   },
 
   axis_order = function(self) {

@@ -178,7 +178,7 @@ Stat <- ggproto("Stat",
   },
 
   compute_group = function(self, data, scales) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
 
   finish_layer = function(self, data, params) {
