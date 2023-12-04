@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `trans` argument in scales and secondary axes has been renamed to 
+  `transform`. The `trans` argument itself is deprecated (#5558).
+
 * Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
 
 * The `legend.key` theme element is set to inherit from the `panel.background`
