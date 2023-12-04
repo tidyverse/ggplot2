@@ -41,13 +41,13 @@
 #'   facet_wrap(~shape) +
 #'   theme_void()
 scale_shape <- function(..., solid = TRUE) {
-  discrete_scale("shape", palette = shape_pal(solid), ...)
+  discrete_scale("shape", palette = pal_shape(solid), ...)
 }
 
 #' @rdname scale_shape
 #' @export
 scale_shape_binned <- function(..., solid = TRUE) {
-  binned_scale("shape", palette = binned_pal(shape_pal(solid)), ...)
+  binned_scale("shape", palette = pal_binned(pal_shape(solid)), ...)
 }
 
 #' @rdname scale_shape

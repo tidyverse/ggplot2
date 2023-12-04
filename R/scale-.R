@@ -7,7 +7,7 @@
 #'   that should be used for error messages associated with this scale.
 #' @param palette A palette function that when called with a numeric vector with
 #'   values between 0 and 1 returns the corresponding output values
-#'   (e.g., [scales::area_pal()]).
+#'   (e.g., [scales::pal_area()]).
 #' @param name The name of the scale. Used as the axis or legend title. If
 #'   `waiver()`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic. If `NULL`, the legend title will be
@@ -15,7 +15,7 @@
 #' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks computed by the
-#'     [transformation object][scales::trans_new()]
+#'     [transformation object][scales::new_transform()]
 #'   - A numeric vector of positions
 #'   - A function that takes the limits as input and returns breaks
 #'     as output (e.g., a function returned by [scales::extended_breaks()]).
@@ -75,8 +75,8 @@
 #'   and methods for generating breaks and labels. Transformation objects
 #'   are defined in the scales package, and are called `<name>_trans`. If
 #'   transformations require arguments, you can call them from the scales
-#'   package, e.g. [`scales::boxcox_trans(p = 2)`][scales::boxcox_trans].
-#'   You can create your own transformation with [scales::trans_new()].
+#'   package, e.g. [`scales::transform_boxcox(p = 2)`][scales::transform_boxcox].
+#'   You can create your own transformation with [scales::new_transform()].
 #' @param guide A function used to create a guide or its name. See
 #'   [guides()] for more information.
 #' @param expand For position scales, a vector of range expansion constants used to add some
@@ -113,7 +113,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
     guide <- "none"
   }
 
-  trans <- as.trans(trans)
+  trans <- as.transform(trans)
   if (!is.null(limits) && !is.function(limits)) {
     limits <- trans$transform(limits)
   }
@@ -157,7 +157,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #' @inheritParams continuous_scale
 #' @param palette A palette function that when called with a single integer
 #'   argument (the number of levels in the scale) returns the values that
-#'   they should take (e.g., [scales::hue_pal()]).
+#'   they should take (e.g., [scales::pal_hue()]).
 #' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks (the scale limits)
@@ -278,7 +278,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
     guide <- "none"
   }
 
-  trans <- as.trans(trans)
+  trans <- as.transform(trans)
   if (!is.null(limits)) {
     limits <- trans$transform(limits)
   }
@@ -603,7 +603,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   oob = censor,
   minor_breaks = waiver(),
   n.breaks = NULL,
-  trans = identity_trans(),
+  trans = transform_identity(),
 
   is_discrete = function() FALSE,
 

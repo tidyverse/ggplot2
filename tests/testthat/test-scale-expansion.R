@@ -31,7 +31,7 @@ test_that("expand_limits_continuous_trans() expands limits in coordinate space",
   limit_info <- expand_limits_continuous_trans(
     c(1, 2),
     expand = expansion(add = 0.5),
-    trans = log10_trans()
+    trans = transform_log10()
   )
 
   expect_identical(
@@ -49,7 +49,7 @@ test_that("introduced non-finite values fall back on scale limits", {
   limit_info <- expand_limits_continuous_trans(
     c(1, 100),
     expand = expansion(add = 2),
-    trans = sqrt_trans()
+    trans = transform_sqrt()
   )
 
   expect_identical(limit_info$continuous_range, c(1, (sqrt(100) + 2)^2))
@@ -102,7 +102,7 @@ test_that("expand_limits_continuous_trans() works with inverted transformations"
   limit_info <- expand_limits_continuous_trans(
     c(1, 2),
     expand = expansion(add = 1),
-    trans = reverse_trans()
+    trans = transform_reverse()
   )
 
   expect_identical(limit_info$continuous_range, c(0, 3))
