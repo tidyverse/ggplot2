@@ -85,7 +85,7 @@ test_that("layout summary - reversed scales", {
 })
 
 test_that("layout summary - log scales", {
-  pl <- p + scale_x_log10() + scale_y_continuous(trans = "log2")
+  pl <- p + scale_x_log10() + scale_y_continuous(transform = "log2")
   ll <- summarise_layout(ggplot_build(pl))
   expect_equal(ll$xscale[[1]]$trans$name, "log-10")
   expect_equal(ll$xscale[[1]]$trans$transform(100), 2)

@@ -127,7 +127,7 @@ test_that("custom breaks work", {
     scale_x_continuous(
       name = "Unit A",
       sec.axis = sec_axis(
-        trans = y ~ .,
+        transform = y ~ .,
         breaks = custom_breaks
       )
     )
@@ -142,7 +142,7 @@ test_that("sec axis works with skewed transform", {
     ggplot(foo, aes(x, y)) +
       geom_point() +
       scale_x_continuous(
-        name = "Unit A", trans = "log",
+        name = "Unit A", transform = "log",
         breaks = c(0.001, 0.01, 0.1, 1, 10, 100, 1000),
         sec.axis = sec_axis(~ . * 100,
           name = "Unit B",
@@ -192,7 +192,7 @@ test_that("sec_axis() handles secondary power transformations", {
   )
   p <- ggplot(df, aes(x, y)) +
     geom_point() +
-    scale_y_continuous(sec.axis = sec_axis(trans = (~ 2^.)))
+    scale_y_continuous(sec.axis = sec_axis(transform = (~ 2^.)))
 
   scale <- layer_scales(p)$y
   breaks <- scale$break_info()
@@ -244,11 +244,11 @@ test_that("sec_axis() respects custom transformations", {
     ggplot(dat, aes(x = x, y = y)) +
       geom_line(linewidth = 1, na.rm = T) +
       scale_y_continuous(
-        trans =
+        transform =
           magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =
           c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits =
           c(0.001, 1), sec.axis = sec_axis(
-          trans =
+          transform =
             ~ . * (1 / 2), breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
         )
       ) + theme_linedraw()
@@ -335,8 +335,8 @@ test_that("sec.axis allows independent trans btwn primary and secondary axes", {
     "sec_axis, independent transformations",
     ggplot(data = data, aes(Probability, Value)) + geom_point() +
       scale_x_continuous(
-        trans = scales::transform_probability(distribution = "norm", lower.tail = FALSE),
-        sec.axis = sec_axis(trans = ~ 1 / ., name = "Return Period")
+        transform = scales::transform_probability(distribution = "norm", lower.tail = FALSE),
+        sec.axis = sec_axis(transform = ~ 1 / ., name = "Return Period")
       ) + theme_linedraw()
   )
 })
@@ -351,7 +351,8 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
     "sec axis monotonicity test",
     ggplot(data, aes(x, y)) +
       geom_line() +
-      scale_y_continuous(trans = "sqrt", sec.axis = dup_axis()) + theme_linedraw()
+      scale_y_continuous(transform = "sqrt", sec.axis = dup_axis()) +
+      theme_linedraw()
   )
 
   testdat <- data_frame(
@@ -360,7 +361,7 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
   )
   p <- ggplot(data = testdat, aes(x = x, y = y)) +
     geom_point() +
-    scale_y_continuous(sec.axis = sec_axis(trans = ~ .^0.5))
+    scale_y_continuous(sec.axis = sec_axis(transform = ~ .^0.5))
   scale <- layer_scales(p)$y
   breaks <- scale$break_info()
   expect_equal(breaks$major, sqrt(breaks$sec.major), tolerance = .005)

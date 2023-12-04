@@ -350,8 +350,8 @@ test_that("legend directions are set correctly", {
 
 test_that("guide_axis_logticks calculates appropriate ticks", {
 
-  test_scale <- function(trans = transform_identity(), limits = c(NA, NA)) {
-    scale <- scale_x_continuous(trans = trans)
+  test_scale <- function(transform = transform_identity(), limits = c(NA, NA)) {
+    scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view_scale_primary(scale)
   }
@@ -631,8 +631,10 @@ test_that("logticks look as they should", {
 
   p <- ggplot(data.frame(x = c(-100, 100), y = c(10, 1000)), aes(x, y)) +
     geom_point() +
-    scale_y_continuous(trans = transform_compose(transform_log10(), transform_reverse()),
-                       expand = expansion(add = 0.5)) +
+    scale_y_continuous(
+      transform = transform_compose(transform_log10(), transform_reverse()),
+      expand = expansion(add = 0.5)
+    ) +
     scale_x_continuous(
       breaks = c(-100, -10, -1, 0, 1, 10, 100)
     ) +
