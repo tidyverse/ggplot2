@@ -228,10 +228,14 @@ draw_key_linerange <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_pointrange <- function(data, params, size) {
-  grobTree(
-    draw_key_linerange(data, params, size),
+  linerange <- draw_key_linerange(data, params, size)
+  grob <- grobTree(
+    linerange,
     draw_key_point(transform(data, size = (data$size %||% 1.5) * 4), params)
   )
+  attr(grob, "width")  <- attr(linerange, "width")
+  attr(grob, "height") <- attr(linerange, "height")
+  grob
 }
 
 #' @export
@@ -240,10 +244,15 @@ draw_key_smooth <- function(data, params, size) {
   data$fill <- alpha(data$fill %||% "grey60", data$alpha)
   data$alpha <- 1
 
-  grobTree(
+  path <- draw_key_path(data, params, size)
+
+  grob <- grobTree(
     if (isTRUE(params$se)) rectGrob(gp = gpar(col = NA, fill = data$fill)),
-    draw_key_path(data, params, size)
+    path
   )
+  attr(grob, "width") <- attr(path, "width")
+  attr(grob, "height") <- attr(path, "height")
+  grob
 }
 
 #' @export
