@@ -18,7 +18,7 @@ scale_x_binned(
   right = TRUE,
   show.limits = FALSE,
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = waiver(),
   position = "bottom"
 )
@@ -36,7 +36,7 @@ scale_y_binned(
   right = TRUE,
   show.limits = FALSE,
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = waiver(),
   position = "left"
 )

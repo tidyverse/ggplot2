@@ -12,12 +12,12 @@ sec_axis(
   breaks = waiver(),
   labels = waiver(),
   guide = waiver(),
-  trans = lifecycle::deprecated()
+  trans = deprecated()
 )
 
 dup_axis(
   transform = ~.,
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   name = derive(),
   breaks = derive(),
   labels = derive(),

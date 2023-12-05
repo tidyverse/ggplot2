@@ -20,7 +20,7 @@ scale_size(
   limits = NULL,
   range = c(1, 6),
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = "legend"
 )
 
@@ -31,7 +31,7 @@ scale_radius(
   limits = NULL,
   range = c(1, 6),
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = "legend"
 )
 
@@ -44,7 +44,7 @@ scale_size_binned(
   n.breaks = NULL,
   nice.breaks = TRUE,
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = "bins"
 )
 

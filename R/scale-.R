@@ -96,7 +96,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
                              breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
                              labels = waiver(), limits = NULL, rescaler = rescale,
                              oob = censor, expand = waiver(), na.value = NA_real_,
-                             transform = "identity", trans = lifecycle::deprecated(),
+                             transform = "identity", trans = deprecated(),
                              guide = "legend", position = "left",
                              call = caller_call(),
                              super = ScaleContinuous) {
@@ -267,7 +267,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
                          rescaler = rescale, oob = squish, expand = waiver(),
                          na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
                          right = TRUE, transform = "identity",
-                         trans = lifecycle::deprecated(), show.limits = FALSE,
+                         trans = deprecated(), show.limits = FALSE,
                          guide = "bins", position = "left",
                          call = caller_call(),
                          super = ScaleBinned) {

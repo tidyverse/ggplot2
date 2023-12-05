@@ -52,7 +52,7 @@ NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
                                   transform = "identity",
-                                  trans = lifecycle::deprecated(),
+                                  trans = deprecated(),
                                   guide = "legend") {
   continuous_scale("size", palette = pal_area(range), name = name,
     breaks = breaks, labels = labels, limits = limits,
@@ -67,7 +67,7 @@ scale_size <- scale_size_continuous
 #' @export
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
-                         transform = "identity", trans = lifecycle::deprecated(),
+                         transform = "identity", trans = deprecated(),
                          guide = "legend") {
   continuous_scale("size", palette = pal_rescale(range), name = name,
     breaks = breaks, labels = labels, limits = limits, transform = transform,
@@ -79,7 +79,7 @@ scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
 scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
                               nice.breaks = TRUE, transform = "identity",
-                              trans = lifecycle::deprecated(), guide = "bins") {
+                              trans = deprecated(), guide = "bins") {
   binned_scale("size", palette = pal_area(range), name = name,
                breaks = breaks, labels = labels, limits = limits,
                transform = transform, trans = trans, n.breaks = n.breaks,

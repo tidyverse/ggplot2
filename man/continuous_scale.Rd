@@ -19,7 +19,7 @@ continuous_scale(
   expand = waiver(),
   na.value = NA_real_,
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = "legend",
   position = "left",
   call = caller_call(),

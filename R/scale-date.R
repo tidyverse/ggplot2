@@ -288,7 +288,7 @@ scale_y_time <- function(name = waiver(),
 #'
 #' @export
 #' @keywords internal
-datetime_scale <- function(aesthetics, transform, trans = lifecycle::deprecated(),
+datetime_scale <- function(aesthetics, transform, trans = deprecated(),
                            palette, breaks = pretty_breaks(), minor_breaks = waiver(),
                            labels = waiver(), date_breaks = waiver(),
                            date_labels = waiver(),

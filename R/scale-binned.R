@@ -27,7 +27,7 @@ scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            breaks = waiver(), labels = waiver(), limits = NULL,
                            expand = waiver(), oob = squish, na.value = NA_real_,
                            right = TRUE, show.limits = FALSE, transform = "identity",
-                           trans = lifecycle::deprecated(),
+                           trans = deprecated(),
                            guide = waiver(), position = "bottom") {
   binned_scale(
     ggplot_global$x_aes,
@@ -47,7 +47,7 @@ scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            breaks = waiver(), labels = waiver(), limits = NULL,
                            expand = waiver(), oob = squish, na.value = NA_real_,
                            right = TRUE, show.limits = FALSE, transform = "identity",
-                           trans = lifecycle::deprecated(),
+                           trans = deprecated(),
                            guide = waiver(), position = "left") {
   binned_scale(
     ggplot_global$y_aes,

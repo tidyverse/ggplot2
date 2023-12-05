@@ -7,7 +7,7 @@
 datetime_scale(
   aesthetics,
   transform,
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   palette,
   breaks = pretty_breaks(),
   minor_breaks = waiver(),

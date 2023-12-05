@@ -82,7 +82,7 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                labels = waiver(), limits = NULL,
                                expand = waiver(), oob = censor,
                                na.value = NA_real_, transform = "identity",
-                               trans = lifecycle::deprecated(),
+                               trans = deprecated(),
                                guide = waiver(), position = "bottom",
                                sec.axis = waiver()) {
   call <- caller_call()
@@ -109,7 +109,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                labels = waiver(), limits = NULL,
                                expand = waiver(), oob = censor,
                                na.value = NA_real_, transform = "identity",
-                               trans = lifecycle::deprecated(),
+                               trans = deprecated(),
                                guide = waiver(), position = "left",
                                sec.axis = waiver()) {
   call <- caller_call()

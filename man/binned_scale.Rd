@@ -20,7 +20,7 @@ binned_scale(
   nice.breaks = TRUE,
   right = TRUE,
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   show.limits = FALSE,
   guide = "bins",
   position = "left",

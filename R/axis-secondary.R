@@ -98,7 +98,7 @@
 #' @export
 sec_axis <- function(transform = NULL,
                      name = waiver(), breaks = waiver(), labels = waiver(),
-                     guide = waiver(), trans = lifecycle::deprecated()) {
+                     guide = waiver(), trans = deprecated()) {
   if (lifecycle::is_present(trans)) {
     deprecate_soft0("3.5.0", "sec_axis(trans)", "sec_axis(transform)")
     transform <- trans
@@ -119,7 +119,7 @@ sec_axis <- function(transform = NULL,
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(transform = ~., trans = lifecycle::deprecated(),
+dup_axis <- function(transform = ~., trans = deprecated(),
                      name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
   sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }

@@ -17,7 +17,7 @@ scale_linewidth(
   limits = NULL,
   range = c(1, 6),
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = "legend"
 )
 
@@ -30,7 +30,7 @@ scale_linewidth_binned(
   n.breaks = NULL,
   nice.breaks = TRUE,
   transform = "identity",
-  trans = lifecycle::deprecated(),
+  trans = deprecated(),
   guide = "bins"
 )
 }
