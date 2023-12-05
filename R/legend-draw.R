@@ -252,9 +252,29 @@ draw_key_text <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_label <- function(data, params, size) {
-  grobTree(
-    draw_key_rect(data, list()),
-    draw_key_text(data, list())
+  if(is.null(params$label.padding)) params$label.padding <- unit(0.25, "lines")
+  if(length(params$label.padding) == 1) params$label.padding[2:4] <- params$label.padding
+
+  labelGrob(
+    label = data$label %||% "a",
+    x = 0.5,
+    y = 0.5,
+    padding = params$label.padding,
+    r = data$label.r %||% unit(0.1, "snpc"),
+    angle = data$angle %||% 0,
+    text.gp = gpar(
+      col = alpha(data$colour %||% "white", data$alpha),
+      fontfamily = data$family %||% "",
+      fontface = data$fontface %||% 1,
+      fontsize = (data$size %||% 3.88) * .pt
+    ),
+    rect.gp = gpar(
+      col = alpha(params$border.colour %||% params$border.color %||% data$colour %||% "black", data$alpha),
+      fill = alpha(data$fill %||% "white", data$alpha),
+      lty = data$linetype,
+      lwd = data$linewidth * .pt
+    ),
+    vp = NULL
   )
 }
 

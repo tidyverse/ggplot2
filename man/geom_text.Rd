@@ -16,11 +16,13 @@ geom_label(
   nudge_y = 0,
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
-  label.size = 0.25,
+  label.size = deprecated(),
   size.unit = "mm",
+  border.colour = NULL,
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  border.color = border.colour
 )
 
 geom_text(
@@ -85,11 +87,13 @@ Cannot be jointly specified with \code{position}.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
-\item{label.size}{Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{linewidth} to set the size of the border.}
 
 \item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
 (\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
 or picas (\code{"pc"}).}
+
+\item{border.colour}{Colour of the label's border. If \code{NULL}, it will fall back to the text colour.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -104,6 +108,8 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{border.color}{An alias for \code{border.colour}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
@@ -206,6 +212,18 @@ p + geom_text(aes(colour = factor(cyl)))
 p + geom_text(aes(colour = factor(cyl))) +
   scale_colour_discrete(l = 40)
 p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
+
+# If border.color is NULL or not set, the border will use the text color
+p + geom_label(aes(color = factor(cyl)))
+
+# Alternatively, border.color can have a static value
+p + geom_label(aes(color = factor(cyl)), border.color = "black")
+
+# Use linetype and linewidth aesthetics to add highlights
+p + geom_label(
+  aes(fill = factor(cyl), linetype = qsec < 15),
+  border.colour = "black", color = "white", linewidth = 1) +
+scale_linetype_manual(values=c("solid", "blank"), limits = TRUE, labels = "1/4 mi < 15s", name = NULL)
 
 p + geom_text(aes(size = wt))
 # Scale height of text, rather than sqrt(height)

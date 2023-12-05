@@ -236,7 +236,7 @@ Cannot be jointly specified with \code{position}.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
-\item{label.size}{Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{linewidth} to set the size of the border.}
 
 \item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
 same length as the input. If \code{NULL}, \code{function(x) sf::st_point_on_surface(sf::st_zm(x))}

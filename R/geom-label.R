@@ -2,7 +2,8 @@
 #' @rdname geom_text
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
-#' @param label.size Size of label border, in mm.
+#' @param label.size `r lifecycle::badge("deprecated")` Please use `linewidth` to set the width of the border.
+#' @param border.colour,border.color Colour of the label's border. If `NULL` (default), it will fall back to the text colour. `border.color` is an alias.
 geom_label <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
                        ...,
@@ -11,11 +12,13 @@ geom_label <- function(mapping = NULL, data = NULL,
                        nudge_y = 0,
                        label.padding = unit(0.25, "lines"),
                        label.r = unit(0.15, "lines"),
-                       label.size = 0.25,
+                       label.size = deprecated(),
                        size.unit = "mm",
+                       border.colour = NULL,
                        na.rm = FALSE,
                        show.legend = NA,
-                       inherit.aes = TRUE) {
+                       inherit.aes = TRUE,
+                       border.color = border.colour) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -25,6 +28,10 @@ geom_label <- function(mapping = NULL, data = NULL,
     }
 
     position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  if (lifecycle::is_present(label.size)) {
+    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
   }
 
   layer(
@@ -39,8 +46,8 @@ geom_label <- function(mapping = NULL, data = NULL,
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
-      label.size = label.size,
       size.unit = size.unit,
+      border.colour = border.colour %||% border.color,
       na.rm = na.rm,
       ...
     )
@@ -58,15 +65,15 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   default_aes = aes(
     colour = "black", fill = "white", size = 3.88, angle = 0,
     hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
-    lineheight = 1.2
+    lineheight = 1.2, linetype = 1, linewidth = 0.25
   ),
 
   draw_panel = function(self, data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
-                        label.size = 0.25,
-                        size.unit = "mm") {
+                        size.unit = "mm",
+                        border.colour = NULL) {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -102,9 +109,10 @@ GeomLabel <- ggproto("GeomLabel", Geom,
           lineheight = row$lineheight
         ),
         rect.gp = gpar(
-          col = if (isTRUE(all.equal(label.size, 0))) NA else row$colour,
+          col = ifelse(row$linewidth == 0, NA, border.colour %||% row$colour),
           fill = alpha(row$fill, row$alpha),
-          lwd = label.size * .pt
+          lty = row$linetype,
+          lwd = row$linewidth * .pt
         )
       )
     })
