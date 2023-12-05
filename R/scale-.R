@@ -586,7 +586,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
     length(breaks) != length(labels)
   if (bad_labels) {
     cli::cli_abort(
-      "{.arg breaks} and {.arg labels} must have the same length",
+      "{.arg breaks} and {.arg labels} must have the same length.",
       call = call
     )
   }
@@ -627,7 +627,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # Intercept error here to give examples and mention scale in call
     if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
       cli::cli_abort(
-        c("Discrete values supplied to continuous scale",
+        c("Discrete values supplied to continuous scale.",
           i = "Example values: {.and {.val {head(x, 5)}}}"),
         call = self$call
       )
@@ -699,7 +699,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (identical(self$breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
@@ -745,7 +745,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (identical(self$minor_breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg minor_breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg minor_breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
@@ -781,7 +781,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (identical(self$labels, NA)) {
       cli::cli_abort(
-        "Invalid {.arg labels} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
@@ -796,7 +796,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (length(labels) != length(breaks)) {
       cli::cli_abort(
-        "{.arg breaks} and {.arg labels} are different lengths.",
+        "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
     }
@@ -887,7 +887,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     # Intercept error here to give examples and mention scale in call
     if (!is.discrete(x)) {
       cli::cli_abort(
-        c("Continuous values supplied to discrete scale",
+        c("Continuous values supplied to discrete scale.",
           i = "Example values: {.and {.val {head(x, 5)}}}"),
         call = self$call
       )
@@ -951,7 +951,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
     if (identical(self$breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
@@ -986,7 +986,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
     if (identical(self$labels, NA)) {
       cli::cli_abort(
-        "Invalid {.arg labels} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
@@ -1146,7 +1146,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       return(NULL)
     } else if (identical(self$breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     } else if (is.waive(self$breaks)) {
@@ -1235,7 +1235,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       return(NULL)
     } else if (identical(self$labels, NA)) {
       cli::cli_abort(
-        "Invalid {.arg labels} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     } else if (is.waive(self$labels)) {
@@ -1247,7 +1247,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     }
     if (length(labels) != length(breaks)) {
       cli::cli_abort(
-        "{.arg breaks} and {.arg labels} are different lengths.",
+        "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
     }

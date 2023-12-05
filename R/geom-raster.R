@@ -89,7 +89,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
       cli::cli_abort(c(
-        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}"
+        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}."
       ))
     }
 
