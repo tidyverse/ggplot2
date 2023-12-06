@@ -59,42 +59,57 @@ is_pattern <- function(x) {
   inherits(x, "GridPattern")
 }
 
-# Function that applies alpha to <GridPattern> objects.
-# For linear or radial gradients, this is as simple as modifying their `colours`
-# slot with an alpha.
-# For tiled patterns, we attach an alpha mask in the grobs' viewport.
+#' Modify transparency for patterns
+#'
+#' This generic allows you to add your own methods for adding transparency to
+#' pattern-like objects.
+#'
+#' @param x Object to be interpreted as pattern.
+#' @param alpha A `numeric` vector between 0 and 1. If `NA`, alpha values
+#'   are preserved.
+#'
+#' @return `x` with modified transparency
+#' @export
+#' @keywords internal
 pattern_alpha <- function(x, alpha) {
-  if (!is.list(x)) {
-    # If this is a plain colour, convert to pattern because grid doesn't accept
-    # mixed patterns and plain colours.
-    out <- pattern(rectGrob(), gp = gpar(fill = alpha(x, alpha)))
-    return(out)
+  UseMethod("pattern_alpha")
+}
+
+#' @export
+pattern_alpha.default <- function(x, alpha) {
+  if (!is.atomic(x)) {
+    cli::cli_abort("Can't apply {.arg alpha} to {obj_type_friendly(x)}.")
   }
-  if (!is_pattern(x)) {
-    out <- Map(pattern_alpha, x = x, alpha = alpha)
-    return(out)
-  }
-  if (inherits(x, c("GridLinearGradient", "GridRadialGradient"))) {
-    # Apply alpha to gradient colours
-    x$colours <- alpha(x$colours, alpha[1])
+  pattern(rectGrob(), gp = gpar(fill = alpha(x, alpha)))
+}
+
+#' @export
+pattern_alpha.GridPattern <- function(x, alpha) {
+  x$colours <- alpha(x$colours, alpha[1])
+  x
+}
+
+#' @export
+pattern_alpha.GridTilingPattern <- function(x, alpha) {
+  if (all(is.na(alpha) | alpha == 1)) {
     return(x)
   }
-  needs_alpha <- !(is.na(alpha[1]) || alpha[1] == 1)
-  if (needs_alpha && inherits(x, "GridTilingPattern") &&
-      check_device("alpha_masks", action = "warn")) {
-    # Dig out the grob from the function environment
-    grob <- env_get(environment(x$f), "grob")
-    # Apply a mask in the grob's viewport
-    mask <- as.mask(rectGrob(gp = gpar(fill = alpha("white", alpha[1]))))
-    if (is.null(grob$vp)) {
-      grob$vp <- viewport(mask = mask)
-    } else {
-      grob$vp$mask <- mask
-    }
-    # Re-attach new function environment
-    new_env <- new.env(parent = environment(x$f))
-    env_bind(new_env, grob = grob)
-    environment(x$f) <- new_env
+  check_device("alpha_masks", "warn")
+  grob <- env_get(environment(x$f), "grob")
+  mask <- as.mask(rectGrob(gp = gpar(fill = alpha("white", alpha))))
+  if (is.null(grob$vp)) {
+    grob$vp <- viewport(mask = mask)
+  } else {
+    grob$vp <- editViewport(grob$vp, mask = mask)
   }
-  return(x)
+  new_env <- new.env(parent = environment(x$f))
+  env_bind(new_env, grob = grob)
+  environment(x$f) <- new_env
+  x
 }
+
+#' @export
+pattern_alpha.list <- function(x, alpha) {
+  Map(pattern_alpha, x = x, alpha = alpha)
+}
+
