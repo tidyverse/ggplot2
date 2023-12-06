@@ -28,7 +28,7 @@ fill_alpha <- function(fill, alpha) {
     return(alpha(fill, alpha))
   }
   if (is_pattern(fill) || any(vapply(fill, is_pattern, logical(1)))) {
-    check_device("patterns", action = "abort")
+    check_device("patterns", action = "warn")
     fill <- pattern_alpha(fill, alpha)
     return(fill)
   } else {
