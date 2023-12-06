@@ -117,9 +117,12 @@ new_guide <- function(..., available_aes = "any", super) {
 #'   `params$hash`. This ensures that e.g. `guide_legend()` can display both
 #'   `shape` and `colour` in the same guide.
 #'
-#' - `get_layer_key()` Extract information from layers. This can be used to
-#'   check that the guide's aesthetic is actually in use, or to gather
-#'   information about how legend keys should be displayed.
+#' - `process_layers()` Extract information from layers. This acts mostly
+#'   as a filter for which layers to include and these are then (typically)
+#'   forwarded to `get_layer_key()`.
+#'
+#' - `get_layer_key()` This can be used to gather information about how legend
+#'   keys should be displayed.
 #'
 #' - `setup_params()` Set up parameters at the beginning of drawing stages.
 #'   It can be used to overrule user-supplied parameters or perform checks on
@@ -253,7 +256,11 @@ Guide <- ggproto(
 
   # Function for extracting information from the layers.
   # Mostly applies to `guide_legend()` and `guide_binned()`
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
+    self$get_layer_key(params, layers, data)
+  },
+
+  get_layer_key = function(params, layers, data = NULL) {
     return(params)
   },
 
@@ -280,11 +287,14 @@ Guide <- ggproto(
 
   # Main drawing function that organises more specialised aspects of guide
   # drawing.
-  draw = function(self, theme, params = self$params) {
+  draw = function(self, theme, position = NULL, direction = NULL,
+                  params = self$params) {
 
     key <- params$key
 
     # Setup parameters and theme
+    params$position  <- params$position  %||% position
+    params$direction <- params$direction %||% direction
     params <- self$setup_params(params)
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)
@@ -351,7 +361,14 @@ Guide <- ggproto(
   },
 
   # Renders tickmarks
-  build_ticks = function(key, elements, params, position = params$position) {
+  build_ticks = function(key, elements, params, position = params$position,
+                         length = elements$ticks_length) {
+    if (!inherits(elements, "element")) {
+      elements <- elements$ticks
+    }
+    if (!inherits(elements, "element_line")) {
+      return(zeroGrob())
+    }
 
     if (!is.list(key)) {
       breaks <- key
@@ -365,8 +382,7 @@ Guide <- ggproto(
       return(zeroGrob())
     }
 
-    tick_len <- rep(elements$ticks_length %||% unit(0.2, "npc"),
-                    length.out = n_breaks)
+    tick_len <- rep(length %||% unit(0.2, "npc"), length.out = n_breaks)
 
     # Resolve mark
     mark <- unit(rep(breaks, each = 2), "npc")
@@ -375,12 +391,12 @@ Guide <- ggproto(
     pos <- unname(c(top = 1, bottom = 0, left = 0, right = 1)[position])
     dir <- -2 * pos + 1
     pos <- unit(rep(pos, 2 * n_breaks), "npc")
-    dir <- rep(vec_interleave(0, dir), n_breaks) * tick_len
+    dir <- rep(vec_interleave(dir, 0), n_breaks) * rep(tick_len, each = 2)
     tick <- pos + dir
 
     # Build grob
     flip_element_grob(
-      elements$ticks,
+      elements,
       x = tick, y = mark,
       id.lengths = rep(2, n_breaks),
       flip = position %in% c("top", "bottom")
@@ -419,6 +435,16 @@ flip_names = c(
 
 # Shortcut for position argument matching
 .trbl <- c("top", "right", "bottom", "left")
+
+opposite_position <- function(position) {
+  switch(
+    position,
+    top    = "bottom",
+    bottom = "top",
+    left   = "right",
+    right  = "left"
+  )
+}
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {

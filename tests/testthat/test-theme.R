@@ -1,5 +1,18 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("dollar subsetting the theme does no partial matching", {
+  t <- theme(foobar = 12)
+  expect_null(t$foo)
+  expect_equal(t$foobar, 12)
+})
+
+test_that("theme argument splicing works", {
+  l <- list(a = 10, b = "c", d = c("foo", "bar"))
+  test <- theme(!!!l)
+  ref  <- theme(a = 10, b = "c", d = c("foo", "bar"))
+  expect_equal(test, ref)
+})
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works
@@ -507,6 +520,67 @@ test_that("Theme validation behaves as expected", {
   expect_silent(validate_element(1,  "aspect.ratio", tree))
   expect_silent(validate_element(1L, "aspect.ratio", tree))
   expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+})
+
+test_that("Element subclasses are inherited", {
+
+  # `rich` is subclass of `poor`
+  poor <- element_line(colour = "red", linetype = 3)
+  rich <- element_line(linetype = 2, linewidth = 2)
+  class(rich) <- c("element_rich", class(rich))
+
+  # `poor` should acquire `rich`
+  test <- combine_elements(poor, rich)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, poor)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+
+  # `sibling` is not strict subclass of `rich`
+  sibling <- poor
+  class(sibling) <- c("element_sibling", class(sibling))
+
+  # `sibling` should stay `sibling`
+  test <- combine_elements(sibling, rich)
+  expect_s3_class(test, "element_sibling")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, sibling)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+})
+
+test_that("Minor tick length supports biparental inheritance", {
+  my_theme <- theme_gray() + theme(
+    axis.ticks.length = unit(1, "cm"),
+    axis.ticks.length.y.left = unit(1, "pt"),
+    axis.minor.ticks.length.y = unit(1, "inch"),
+    axis.minor.ticks.length = rel(0.5)
+  )
+  expect_equal( # Inherits rel(0.5) from minor, 1cm from major
+    calc_element("axis.minor.ticks.length.x.bottom", my_theme),
+    unit(1, "cm") * 0.5
+  )
+  expect_equal( # Inherits 1inch directly from minor
+    calc_element("axis.minor.ticks.length.y.left", my_theme),
+    unit(1, "inch")
+  )
 })
 
 # Visual tests ------------------------------------------------------------

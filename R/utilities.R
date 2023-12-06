@@ -42,7 +42,7 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
   if (length(missing_aes) > 1) {
     message <- paste0(message, " {.strong or} {.field {missing_aes[[2]]}}")
   }
-  cli::cli_abort(message, call = call)
+  cli::cli_abort(paste0(message, "."), call = call)
 }
 
 # Concatenate a named list for output
@@ -62,7 +62,7 @@ clist <- function(l) {
 # @keyword internal
 uniquecols <- function(df) {
   df <- df[1, sapply(df, is_unique), drop = FALSE]
-  rownames(df) <- 1:nrow(df)
+  rownames(df) <- seq_len(nrow(df))
   df
 }
 
@@ -178,7 +178,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-binned_pal <- function(palette) {
+pal_binned <- function(palette) {
   function(x) {
     palette(length(x))
   }
@@ -199,7 +199,7 @@ gg_dep <- function(version, msg) {
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
-  text <- "{msg} (Defunct; last used in version {version})"
+  text <- "{msg} (Defunct; last used in version {version})."
 
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
@@ -320,7 +320,7 @@ find_args <- function(...) {
   vals <- mget(args, envir = env)
   vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
 
-  modify_list(vals, list(..., `...` = NULL))
+  modify_list(vals, list2(..., `...` = NULL))
 }
 
 # Used in annotations to ensure printed even when no

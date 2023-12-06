@@ -145,7 +145,7 @@ d + scale_colour_brewer()
 # Change scale label
 d + scale_colour_brewer("Diamond\nclarity")
 
-# Select brewer palette to use, see ?scales::brewer_pal for more details
+# Select brewer palette to use, see ?scales::pal_brewer for more details
 d + scale_colour_brewer(palette = "Greens")
 d + scale_colour_brewer(palette = "Set1")
 
@@ -169,7 +169,8 @@ v <- ggplot(faithfuld) +
 v
 v + scale_fill_distiller()
 v + scale_fill_distiller(palette = "Spectral")
-# the order of colour can be reversed, but with scale_*_distiller(), the default direction = -1, so to reverse, use direction = 1.
+# the order of colour can be reversed, but with scale_*_distiller(),
+# the default direction = -1, so to reverse, use direction = 1.
 v + scale_fill_distiller(palette = "Spectral", direction = 1)
 
 # or use blender variants to discretise continuous data

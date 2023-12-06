@@ -35,7 +35,8 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           na.rm = FALSE,
                           orientation = NA,
                           show.legend = NA,
-                          inherit.aes = TRUE) {
+                          inherit.aes = TRUE,
+                          bounds = c(-Inf, Inf)) {
   scale <- arg_match0(scale, c("area", "count", "width"))
 
   layer(
@@ -54,6 +55,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
       scale = scale,
       drop  = drop,
       na.rm = na.rm,
+      bounds = bounds,
       ...
     )
   )
@@ -78,7 +80,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                       drop = TRUE, flipped_aes = FALSE) {
+                       drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -98,7 +100,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens <- compute_density(
       data$y, data[["weight"]],
       from = range[1] - modifier * bw, to = range[2] + modifier * bw,
-      bw = bw, adjust = adjust, kernel = kernel
+      bw = bw, adjust = adjust, kernel = kernel, bounds = bounds
     )
 
     dens$y <- dens$x
@@ -118,11 +120,12 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                           scale = "area", flipped_aes = FALSE, drop = TRUE) {
+                           scale = "area", flipped_aes = FALSE, drop = TRUE,
+                           bounds = c(-Inf, Inf)) {
     data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
-      trim = trim, na.rm = na.rm, drop = drop
+      trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
     )
     if (!drop && any(data$n < 2)) {
       cli::cli_warn(
@@ -152,7 +155,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 calc_bw <- function(x, bw) {
   if (is.character(bw)) {
     if (length(x) < 2) {
-      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically")
+      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically.")
     }
 
     bw <- switch(
@@ -164,7 +167,7 @@ calc_bw <- function(x, bw) {
       sj = ,
       `sj-ste` = stats::bw.SJ(x, method = "ste"),
       `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
-      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule")
+      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule.")
     )
   }
   bw

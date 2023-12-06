@@ -137,7 +137,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # Check that aesthetics are constant
     aes <- unique0(data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")])
     if (nrow(aes) > 1) {
-      cli::cli_abort("Aesthetics can not vary along a ribbon")
+      cli::cli_abort("Aesthetics can not vary along a ribbon.")
     }
     aes <- as.list(aes)
 
@@ -200,14 +200,15 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # Increment the IDs of the lower line so that they will be drawn as separate lines
     munched_lower$id <- munched_lower$id + max(ids, na.rm = TRUE)
 
+    arg_match0(
+      outline.type,
+      c("both", "upper", "lower")
+    )
+
     munched_lines <- switch(outline.type,
       both = vec_rbind0(munched_upper, munched_lower),
       upper = munched_upper,
-      lower = munched_lower,
-      cli::cli_abort(c(
-        "invalid {.arg outline.type}: {.val {outline.type}}",
-        "i" = "use either {.val upper}, {.val lower}, or {.val both}"
-      ))
+      lower = munched_lower
     )
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,

@@ -239,8 +239,8 @@ check_aesthetics <- function(x, n) {
   }
 
   cli::cli_abort(c(
-    "Aesthetics must be either length 1 or the same as the data ({n})",
-    "x" = "Fix the following mappings: {.col {names(which(!good))}}"
+    "Aesthetics must be either length 1 or the same as the data ({n}).",
+    "x" = "Fix the following mappings: {.col {names(which(!good))}}."
   ))
 }
 

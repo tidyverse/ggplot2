@@ -48,8 +48,8 @@ affect the legend.
 \section{Unsupported geoms}{
 
 Due to their special nature, reference line geoms \code{\link[=geom_abline]{geom_abline()}},
-\code{\link[=geom_hline]{geom_hline()}}, and \code{\link[=geom_vline]{geom_vline()}} can't be used with \code{\link[=annotate]{annotate()}}.
-You can use these geoms directory for annotations.
+\code{\link[=geom_hline]{geom_hline()}}, and \code{\link[=geom_vline]{geom_vline()}} can't be used with \code{annotate()}.
+You can use these geoms directly for annotations.
 }
 
 \examples{

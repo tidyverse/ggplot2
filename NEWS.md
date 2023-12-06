@@ -4,6 +4,64 @@
   invoking the identity scale. This allows these columns to co-exist with other
   layers that need a non-identity scale for the same aesthetic. Also, it makes
   it easy to specify relative positions (@teunbrand, #5142).
+* New `guide_custom()` function for drawing custom graphical objects (grobs)
+  unrelated to scales in legend positions (#5416).
+  
+* `theme()` now supports splicing a list of arguments (#5542).
+
+* Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
+
+* The `legend.key` theme element is set to inherit from the `panel.background`
+  theme element. The default themes no longer set the `legend.key` element.
+  This causes a visual change with the default `theme_gray()` (#5549).
+
+* Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
+
+* New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
+  an axis. It supersedes the `annotation_logticks()` function 
+  (@teunbrand, #5325).
+
+* Glyphs drawing functions of the `draw_key_*()` family can now set `"width"`
+  and `"height"` attributes (in centimetres) to the produced keys to control
+  their displayed size in the legend.
+
+* `coord_radial()` is a successor to `coord_polar()` with more customisation 
+  options. `coord_radial()` can:
+  
+  * integrate with the new guide system via a dedicated `guide_axis_theta()` to
+    display the angle coordinate.
+  * in addition to drawing full circles, also draw circle sectors by using the 
+    `end` argument.
+  * avoid data vanishing in the center of the plot by setting the `donut` 
+    argument.
+  * adjust the `angle` aesthetic of layers, such as `geom_text()`, to align 
+    with the coordinate system using the `rotate_angle` argument.
+
+* By default, `guide_legend()` now only draws a key glyph for a layer when
+  the value is is the layer's data. To revert to the old behaviour, you
+  can still set `show.legend = c({aesthetic} = TRUE)` (@teunbrand, #3648).
+
+* The spacing between legend keys and their labels, in addition to legends
+  and their titles, is now controlled by the text's `margin` setting. Not
+  specifying margins will automatically add appropriate text margins. To
+  control the spacing within a legend between keys, the new 
+  `key.spacing.{x/y}` argument can be used. This leaves the 
+  `legend.spacing` dedicated to controlling the spacing between
+  different guides (#5455).
+
+* In the theme element hierarchy, parent elements that are a strict subclass
+  of child elements now confer their subclass upon the children (#5457).
+
+* `ggsave()` no longer sometimes creates new directories, which is now 
+  controlled by the new `create.dir` argument (#5489).
+
+* `guide_coloursteps(even.steps = FALSE)` now draws one rectangle per interval
+  instead of many small ones (#5481).
+
+* (internal) guide building is now part of `ggplot_build()` instead of 
+  `ggplot_gtable()` to allow guides to observe unmapped data (#5483).
+
+* `geom_violin()` gains a `bounds` argument analogous to `geom_density()`s (@eliocamp, #5493).
 
 * Legend titles no longer take up space if they've been removed by setting 
   `legend.title = element_blank()` (@teunbrand, #3587).
@@ -119,6 +177,7 @@
     * More informative error for mismatched 
      `direction`/`theme(legend.direction = ...)` arguments (#4364, #4930).
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
+    * `guide_axis()` gains a `minor.ticks` argument to draw minor ticks (#4387).
     * `guide_axis()` gains a `cap` argument that can be used to trim the
       axis line to extreme breaks (#4907).
     * `guide_colourbar()` and `guide_coloursteps()` merge properly when one

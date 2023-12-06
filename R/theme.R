@@ -48,8 +48,13 @@
 #'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
+#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,
+#'   minor tick marks along axes ([element_line()]). `axis.minor.ticks.*.*`
+#'   inherit from the corresponding major ticks `axis.ticks.*.*`.
 #' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
 #'   length of tick marks (`unit`)
+#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right
+#'   length of minor tick marks (`unit`), or relative to `axis.ticks.length` when provided with `rel()`.
 #' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
@@ -276,7 +281,8 @@
 #' p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 #' p3 + theme(panel.spacing = unit(1, "lines"))
 #' }
-theme <- function(line,
+theme <- function(...,
+                  line,
                   rect,
                   text,
                   title,
@@ -302,6 +308,10 @@ theme <- function(line,
                   axis.ticks.y,
                   axis.ticks.y.left,
                   axis.ticks.y.right,
+                  axis.minor.ticks.x.top,
+                  axis.minor.ticks.x.bottom,
+                  axis.minor.ticks.y.left,
+                  axis.minor.ticks.y.right,
                   axis.ticks.length,
                   axis.ticks.length.x,
                   axis.ticks.length.x.top,
@@ -309,6 +319,13 @@ theme <- function(line,
                   axis.ticks.length.y,
                   axis.ticks.length.y.left,
                   axis.ticks.length.y.right,
+                  axis.minor.ticks.length,
+                  axis.minor.ticks.length.x,
+                  axis.minor.ticks.length.x.top,
+                  axis.minor.ticks.length.x.bottom,
+                  axis.minor.ticks.length.y,
+                  axis.minor.ticks.length.y.left,
+                  axis.minor.ticks.length.y.right,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,
@@ -372,7 +389,6 @@ theme <- function(line,
                   strip.text.y.right,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
-                  ...,
                   complete = FALSE,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
@@ -529,7 +545,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
       t1[item] <- list(x)
     },
     error = function(cnd) {
-      cli::cli_abort("Problem merging the {.var {item}} theme element", parent = cnd, call = call)
+      cli::cli_abort("Can't merge the {.var {item}} theme element.", parent = cnd, call = call)
     }
   )
 
@@ -569,7 +585,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
 #' t$text
 calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
                          call = caller_env()) {
-  if (verbose) message(element, " --> ", appendLF = FALSE)
+  if (verbose) cli::cli_inform(paste0(element, " --> "))
 
   el_out <- theme[[element]]
 
@@ -579,7 +595,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
-      if (verbose) message("element_blank (no inheritance)")
+      if (verbose) cli::cli_inform("{.fn element_blank} (no inheritance)")
       return(el_out)
     }
   }
@@ -591,7 +607,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
   }
 
   # Get the names of parents from the inheritance tree
@@ -599,7 +615,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
-    if (verbose) message("nothing (top level)")
+    if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
     nullprops <- vapply(el_out, is.null, logical(1))
@@ -614,11 +630,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
       return(el_out) # no null properties remaining, return element
     }
 
-    cli::cli_abort("Theme element {.var {element}} has {.val NULL} property without default: {.field {names(nullprops)[nullprops]}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} has {.code NULL} property without default: {.field {names(nullprops)[nullprops]}}.", call = call)
   }
 
   # Calculate the parent objects' inheritance
-  if (verbose) message(paste(pnames, collapse = ", "))
+  if (verbose) cli::cli_inform("{pnames}")
   parents <- lapply(
     pnames,
     calc_element,
@@ -670,7 +686,7 @@ merge_element.default <- function(new, old) {
   }
 
   # otherwise we can't merge
-  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}")
+  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
 }
 
 #' @rdname merge_element
@@ -690,7 +706,7 @@ merge_element.element <- function(new, old) {
 
   # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
-    cli::cli_abort("Only elements of the same class can be merged")
+    cli::cli_abort("Only elements of the same class can be merged.")
   }
 
   # Override NULL properties of new with the values in old
@@ -767,7 +783,19 @@ combine_elements <- function(e1, e2) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
+  # If e2 is 'richer' than e1, fill e2 with e1 parameters
+  if (is.subclass(e2, e1)) {
+    new <- defaults(e1, e2)
+    e2[names(new)] <- new
+    return(e2)
+  }
+
   e1
+}
+
+is.subclass <- function(x, y) {
+  inheritance <- inherits(x, class(y), which = TRUE)
+  !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
 }
 
 #' Reports whether x is a theme object
@@ -775,6 +803,11 @@ combine_elements <- function(e1, e2) {
 #' @export
 #' @keywords internal
 is.theme <- function(x) inherits(x, "theme")
+
+#' @export
+`$.theme` <- function(x, ...) {
+  .subset2(x, ...)
+}
 
 #' @export
 print.theme <- function(x, ...) utils::str(x)

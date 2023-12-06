@@ -87,11 +87,18 @@ ggplot_build.ggplot <- function(plot) {
   layout$setup_panel_params()
   data <- layout$map_position(data)
 
-  # Train and map non-position scales
+  # Hand off position guides to layout
+  layout$setup_panel_guides(plot$guides, plot$layers)
+
+  # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
+    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)
+  } else {
+    # Only keep custom guides if there are no non-position scales
+    plot$guides <- plot$guides$get_custom()
   }
   data <- expose_data(data)
 
@@ -172,7 +179,6 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
 
-  layout$setup_panel_guides(plot$guides, plot$layers)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
@@ -181,9 +187,7 @@ ggplot_gtable.ggplot_built <- function(data) {
     position <- "manual"
   }
 
-  legend_box <- plot$guides$build(
-    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels
-  )
+  legend_box <- plot$guides$assemble(theme, position)
 
   if (is.zero(legend_box)) {
     position <- "none"
@@ -362,7 +366,12 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+      cli::cli_abort(c(
+        "Problem while {step}.",
+        "i" = "Error occurred in the {ordinal(i)} layer."),
+        call = layers[[i]]$constructor,
+        parent = cnd
+      )
     }
   )
   out
@@ -391,14 +400,16 @@ table_add_tag <- function(table, label, theme) {
     if (location == "margin") {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
-        "{.code \"margin\"} as {.arg plot.tag.location}."
-      ))
+        "`{.val margin}` as {.arg plot.tag.location}."
+      ),
+      call = expr(theme()))
     }
     if (length(position) != 2) {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} ",
         "theme setting must have length 2."
-      ))
+      ),
+      call = expr(theme()))
     }
     top <- left <- right <- bottom <- FALSE
   } else {
@@ -407,7 +418,8 @@ table_add_tag <- function(table, label, theme) {
       position[1],
       c("topleft", "top", "topright", "left",
         "right", "bottomleft", "bottom", "bottomright"),
-      arg_nm = "plot.tag.position"
+      arg_nm = "plot.tag.position",
+      error_call = expr(theme())
     )
     top    <- position %in% c("topleft",    "top",    "topright")
     left   <- position %in% c("topleft",    "left",   "bottomleft")

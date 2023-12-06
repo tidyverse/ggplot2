@@ -85,7 +85,7 @@ StatAlign <- ggproto("StatAlign", Stat,
         d
       })
     }
-    y_val <- approxfun(data$x, data$y)(unique_loc)
+    y_val <- stats::approxfun(data$x, data$y)(unique_loc)
     keep <- !is.na(y_val)
     x_val <- unique_loc[keep]
     y_val <- y_val[keep]
