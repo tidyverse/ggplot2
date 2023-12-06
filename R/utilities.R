@@ -600,6 +600,7 @@ is_bang <- function(x) {
 
 # Puts all columns with 'AsIs' type in a '.ignore' column.
 ignore_data <- function(data) {
+.ignore_data <- function(data) {
   if (!is_bare_list(data)) {
     data <- list(data)
   }
@@ -620,6 +621,7 @@ ignore_data <- function(data) {
 
 # Restores all columns packed into the '.ignored' column.
 expose_data <- function(data) {
+.expose_data <- function(data) {
   if (!is_bare_list(data)) {
     data <- list(data)
   }

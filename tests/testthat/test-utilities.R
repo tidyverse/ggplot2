@@ -182,16 +182,16 @@ test_that("expose/ignore_data() can round-trip a data.frame", {
 
   # Plain data.frame
   df <- data_frame0(a = 1:3, b = 4:6, c = LETTERS[1:3], d = LETTERS[4:6])
-  expect_equal(list(df), ignore_data(df))
-  expect_equal(list(df), expose_data(df))
+  expect_equal(list(df), .ignore_data(df))
+  expect_equal(list(df), .expose_data(df))
 
   # data.frame with ignored columns
   df <- data_frame0(a = 1:3, b = I(4:6), c = LETTERS[1:3], d = I(LETTERS[4:6]))
-  test <- ignore_data(df)[[1]]
+  test <- .ignore_data(df)[[1]]
   expect_equal(names(test), c("a", "c", ".ignored"))
   expect_equal(names(test$.ignored), c("b", "d"))
 
-  test <- expose_data(test)[[1]]
+  test <- .expose_data(test)[[1]]
   expect_equal(test, df[, c("a", "c", "b", "d")])
 
 })
