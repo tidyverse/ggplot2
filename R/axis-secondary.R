@@ -178,7 +178,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
-    if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
+    if (is.waive(self$breaks)) self$breaks <- scale$transformer$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
     if (is.derived(self$guide)) self$guide <- scale$guide
   },
@@ -195,8 +195,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       return()
     }
 
+    transformer <- scale$transformer
     along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    old_range <- transformer$inverse(along_range)
 
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
@@ -213,8 +214,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     self$mono_test(scale)
 
     # Get scale's original range before transformation
+    transformer <- scale$transformer
     along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    old_range <- transformer$inverse(along_range)
 
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
@@ -234,8 +236,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # patch for date and datetime scales just to maintain functionality
     # works only for linear secondary transforms that respect the time or date transform
-    if (scale$trans$name %in% c("date", "time")) {
-      temp_scale <- self$create_scale(new_range, trans = scale$trans)
+    if (transformer$name %in% c("date", "time")) {
+      temp_scale <- self$create_scale(new_range, trans = transformer)
       range_info <- temp_scale$break_info()
       old_val_trans <- rescale(range_info$major, from = c(0, 1), to = range)
       old_val_minor_trans <- rescale(range_info$minor, from = c(0, 1), to = range)
@@ -246,7 +248,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       # Map the break values back to their correct position on the primary scale
       if (!is.null(range_info$major_source)) {
         old_val <- stats::approx(full_range, old_range, range_info$major_source)$y
-        old_val_trans <- scale$trans$transform(old_val)
+        old_val_trans <- transformer$transform(old_val)
 
         # rescale values from 0 to 1
         range_info$major[] <- round(
@@ -262,7 +264,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
       if (!is.null(range_info$minor_source)) {
         old_val_minor <- stats::approx(full_range, old_range, range_info$minor_source)$y
-        old_val_minor_trans <- scale$trans$transform(old_val_minor)
+        old_val_minor_trans <- transformer$transform(old_val_minor)
 
         range_info$minor[] <- round(
           rescale(

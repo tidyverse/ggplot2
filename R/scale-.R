@@ -141,7 +141,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 
     range = ContinuousRange$new(),
     limits = limits,
-    trans = transform,
+    transformer = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -311,7 +311,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
     range = ContinuousRange$new(),
     limits = limits,
-    trans = transform,
+    transformer = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -354,7 +354,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #' - `clone()` Returns a copy of the scale that can be trained
 #'   independently without affecting the original scale.
 #'
-#' - `transform()` Transforms a vector of values using `self$trans`.
+#' - `transform()` Transforms a vector of values using `self$transformer`.
 #'   This occurs before the `Stat` is calculated.
 #'
 #' - `train()` Update the `self$range` of observed (transformed) data values with
@@ -384,7 +384,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'   (`self$range`).
 #'
 #' - `get_breaks()` Calculates the final scale breaks in transformed data space
-#'   based on on the combination of `self$breaks`, `self$trans$breaks()` (for
+#'   based on on the combination of `self$breaks`, `self$transformer$breaks()` (for
 #'   continuous scales), and `limits`. Breaks outside of `limits` are assigned
 #'   a value of `NA` (continuous scales) or dropped (discrete scales).
 #'
@@ -393,7 +393,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'
 #' - `get_breaks_minor()` For continuous scales, calculates the final scale minor breaks
 #'   in transformed data space based on the rescaled `breaks`, the value of `self$minor_breaks`,
-#'   and the value of `self$trans$minor_breaks()`. Discrete scales always return `NULL`.
+#'   and the value of `self$transformer$minor_breaks()`. Discrete scales always return `NULL`.
 #'
 #' - `make_title()` Hook to modify the title that is calculated during guide construction
 #'   (for non-position scales) or when the `Layout` calculates the x and y labels
@@ -595,8 +595,8 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 }
 
 default_transform <- function(self, x) {
-  new_x <- self$trans$transform(x)
-  check_transformation(x, new_x, self$trans$name, self$call)
+  new_x <- self$transformer$transform(x)
+  check_transformation(x, new_x, self$transformer$name, self$call)
   new_x
 }
 
@@ -616,7 +616,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   oob = censor,
   minor_breaks = waiver(),
   n.breaks = NULL,
-  trans = transform_identity(),
+  transformer = transform_identity(),
 
   is_discrete = function() FALSE,
 
@@ -665,8 +665,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (is.null(self$limits)) {
       self$range$range
     } else if (is.function(self$limits)) {
+      transformer <- self$transformer
       # if limits is a function, it expects to work in data space
-      self$trans$transform(self$limits(self$trans$inverse(self$range$range)))
+      transformer$transform(self$limits(transformer$inverse(self$range$range)))
     } else {
       # NA limits for a continuous scale mean replace with the min/max of data
       ifelse(is.na(self$limits), self$range$range, self$limits)
@@ -681,9 +682,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (self$is_empty()) {
       return(numeric())
     }
-
+    transformer <- self$transformer
     # Ensure limits don't exceed domain (#980)
-    domain <- suppressWarnings(self$trans$transform(self$trans$domain))
+    domain <- suppressWarnings(transformer$transform(transformer$domain))
     domain <- sort(domain)
     # To avoid NaN causing issues. NaN are dropped by the sort()
     if (length(domain) == 2 && !zero_range(domain)) {
@@ -691,7 +692,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Limits in transformed space need to be converted back to data space
-    limits <- self$trans$inverse(limits)
+    limits <- transformer$inverse(limits)
 
     if (is.null(self$breaks)) {
       return(NULL)
@@ -706,19 +707,19 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     # Compute `zero_range()` in transformed space in case `limits` in data space
     # don't support conversion to numeric (#5304)
-    if (zero_range(as.numeric(self$trans$transform(limits)))) {
+    if (zero_range(as.numeric(transformer$transform(limits)))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
-      if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
-        breaks <- self$trans$breaks(limits, self$n.breaks)
+      if (!is.null(self$n.breaks) && trans_support_nbreaks(transformer)) {
+        breaks <- transformer$breaks(limits, self$n.breaks)
       } else {
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
-            "Ignoring {.arg n.breaks}. Use a {.cls trans} object that supports setting number of breaks.",
+            "Ignoring {.arg n.breaks}. Use a {.cls transform} object that supports setting number of breaks.",
             call = self$call
           )
         }
-        breaks <- self$trans$breaks(limits)
+        breaks <- transformer$breaks(limits)
       }
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -727,9 +728,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Breaks in data space need to be converted back to transformed space
-    breaks <- self$trans$transform(breaks)
+    breaks <- transformer$transform(breaks)
     # Any breaks outside the dimensions are flagged as missing
-    breaks <- censor(breaks, self$trans$transform(limits), only.finite = FALSE)
+    breaks <- censor(breaks, transformer$transform(limits), only.finite = FALSE)
 
     breaks
   },
@@ -750,18 +751,19 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       )
     }
 
+    transformer <- self$transformer
     if (is.waive(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
       } else {
-        breaks <- self$trans$minor_breaks(b, limits, n)
+        breaks <- transformer$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
       # Find breaks in data space, and convert to numeric
-      breaks <- self$minor_breaks(self$trans$inverse(limits))
-      breaks <- self$trans$transform(breaks)
+      breaks <- self$minor_breaks(transformer$inverse(limits))
+      breaks <- transformer$transform(breaks)
     } else {
-      breaks <- self$trans$transform(self$minor_breaks)
+      breaks <- transformer$transform(self$minor_breaks)
     }
 
     # Any minor breaks outside the dimensions need to be thrown away
@@ -773,7 +775,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(NULL)
     }
 
-    breaks <- self$trans$inverse(breaks)
+    transformer <- self$transformer
+    breaks <- transformer$inverse(breaks)
 
     if (is.null(self$labels)) {
       return(NULL)
@@ -787,7 +790,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     if (is.waive(self$labels)) {
-      labels <- self$trans$format(breaks)
+      labels <- transformer$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
     } else {
@@ -1138,7 +1141,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
-    limits <- self$trans$inverse(limits)
+    transformer <- self$transformer
+
+    limits <- transformer$inverse(limits)
     is_rev <- limits[2] < limits[1]
     limits <- sort(limits)
 
@@ -1151,8 +1156,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       )
     } else if (is.waive(self$breaks)) {
       if (self$nice.breaks) {
-        if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
-          breaks <- self$trans$breaks(limits, n = self$n.breaks)
+        if (!is.null(self$n.breaks) && trans_support_nbreaks(transformer)) {
+          breaks <- transformer$breaks(limits, n = self$n.breaks)
         } else {
           if (!is.null(self$n.breaks)) {
             cli::cli_warn(
@@ -1160,7 +1165,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
               call = self$call
             )
           }
-          breaks <- self$trans$breaks(limits)
+          breaks <- transformer$breaks(limits)
         }
       } else {
         n.breaks <- self$n.breaks %||% 5 # same default as trans objects
@@ -1191,12 +1196,12 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
           new_limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
         }
-        new_limits_trans <- suppressWarnings(self$trans$transform(new_limits))
+        new_limits_trans <- suppressWarnings(transformer$transform(new_limits))
         limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
         if (is_rev) {
-          self$limits <- rev(self$trans$transform(limits))
+          self$limits <- rev(transformer$transform(limits))
         } else {
-          self$limits <- self$trans$transform(limits)
+          self$limits <- transformer$transform(limits)
         }
       }
     } else if (is.function(self$breaks)) {
@@ -1221,7 +1226,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     self$breaks <- breaks
 
-    self$trans$transform(breaks)
+    transformer$transform(breaks)
   },
 
   get_breaks_minor = function(...) NULL,
@@ -1229,7 +1234,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_labels = function(self, breaks = self$get_breaks()) {
     if (is.null(breaks)) return(NULL)
 
-    breaks <- self$trans$inverse(breaks)
+    transformer <- self$transformer
+    breaks <- transformer$inverse(breaks)
 
     if (is.null(self$labels)) {
       return(NULL)
@@ -1239,7 +1245,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         call = self$call
       )
     } else if (is.waive(self$labels)) {
-      labels <- self$trans$format(breaks)
+      labels <- transformer$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
     } else {
