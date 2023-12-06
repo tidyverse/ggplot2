@@ -62,7 +62,7 @@
 <g transform='translate(-357.21,-269.67)'>
 <defs>
   <mask id='mask-0' style='mask-type:alpha'>
-<rect x='52.75' y='46.87' width='637.26' height='473.93' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #000000; fill-opacity: 0.40;' />
+<rect x='52.75' y='46.87' width='637.26' height='473.93' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFFF; fill-opacity: 0.40;' />
   </mask>
 </defs>
 <rect x='52.75' y='283.84' width='318.63' height='236.97' mask='url(#mask-0)' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #000000;' />
