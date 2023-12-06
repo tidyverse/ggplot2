@@ -13,7 +13,7 @@
 #'
 #' @section Unsupported geoms:
 #' Due to their special nature, reference line geoms [geom_abline()],
-#' [geom_hline()], and [geom_vline()] can't be used with [annotate()].
+#' [geom_hline()], and [geom_vline()] can't be used with `annotate()`.
 #' You can use these geoms directly for annotations.
 #' @param geom name of geom to use for annotation
 #' @param x,y,xmin,ymin,xmax,ymax,xend,yend positioning aesthetics -

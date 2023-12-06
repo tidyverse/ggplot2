@@ -4,21 +4,21 @@
 
 ---
 
-    Theme element `text` must have class <element_text>
+    Theme element `text` must have class <element_text>.
 
 # incorrect theme specifications throw meaningful errors
 
-    Problem merging the `line` theme element
+    Can't merge the `line` theme element.
     Caused by error in `merge_element()`:
-    ! Only elements of the same class can be merged
+    ! Only elements of the same class can be merged.
 
 ---
 
-    Theme element `line` must have class <element_line>
+    Theme element `line` must have class <element_line>.
 
 ---
 
-    Theme element `test` has "NULL" property without default: fill, colour, linewidth, and linetype
+    Theme element `test` has `NULL` property without default: fill, colour, linewidth, and linetype.
 
 ---
 

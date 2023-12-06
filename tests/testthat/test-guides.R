@@ -331,9 +331,26 @@ test_that("guide_colourbar warns about discrete scales", {
 
 })
 
+test_that("legend directions are set correctly", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, shape = factor(cyl), colour = drat)) +
+    geom_point() +
+    theme_test()
+
+  expect_doppelganger(
+    "vertical legend direction",
+    p + theme(legend.direction = "vertical")
+  )
+
+  expect_doppelganger(
+    "horizontal legend direction",
+    p + theme(legend.direction = "horizontal")
+  )
+})
+
 test_that("guide_axis_logticks calculates appropriate ticks", {
 
-  test_scale <- function(trans = identity_trans(), limits = c(NA, NA)) {
+  test_scale <- function(trans = transform_identity(), limits = c(NA, NA)) {
     scale <- scale_x_continuous(trans = trans)
     scale$train(scale$transform(limits))
     view_scale_primary(scale)
@@ -349,28 +366,28 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   outcome <- c((1:10)*10, (2:10)*100)
 
   # Test the classic log10 transformation
-  scale <- test_scale(log10_trans(), c(10, 1000))
+  scale <- test_scale(transform_log10(), c(10, 1000))
   key <- train_guide(guide, scale)$logkey
 
   expect_equal(sort(key$x), log10(outcome))
   expect_equal(key$.type, rep(c(1,2,3), c(3, 2, 14)))
 
   # Test compound transformation
-  scale <- test_scale(compose_trans(log10_trans(), reverse_trans()), c(10, 1000))
+  scale <- test_scale(transform_compose(transform_log10(), transform_reverse()), c(10, 1000))
   key   <- train_guide(guide, scale)$logkey
 
   expect_equal(sort(key$x), -log10(rev(outcome)))
 
   # Test transformation with negatives
-  scale <- test_scale(pseudo_log_trans(), c(-1000, 1000))
+  scale <- test_scale(transform_pseudo_log(), c(-1000, 1000))
   key   <- train_guide(guide, scale)$logkey
 
-  unlog <- sort(pseudo_log_trans()$inverse(key$x))
+  unlog <- sort(transform_pseudo_log()$inverse(key$x))
   expect_equal(unlog, c(-rev(outcome), 0, outcome))
   expect_equal(key$.type, rep(c(1,2,3), c(7, 4, 28)))
 
   # Test expanded argument
-  scale <- test_scale(log10_trans(), c(20, 900))
+  scale <- test_scale(transform_log10(), c(20, 900))
   scale$continuous_range <- c(1, 3)
 
   guide <- guide_axis_logticks(expanded = TRUE)
@@ -391,7 +408,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   expect_equal(sort(key$x), log2(outcome))
 
   # Should warn when scale also has transformation
-  scale <- test_scale(log10_trans(), limits = c(10, 1000))
+  scale <- test_scale(transform_log10(), limits = c(10, 1000))
   expect_snapshot_warning(train_guide(guide, scale)$logkey)
 })
 
@@ -639,12 +656,12 @@ test_that("logticks look as they should", {
 
   p <- ggplot(data.frame(x = c(-100, 100), y = c(10, 1000)), aes(x, y)) +
     geom_point() +
-    scale_y_continuous(trans = compose_trans(log10_trans(), reverse_trans()),
+    scale_y_continuous(trans = transform_compose(transform_log10(), transform_reverse()),
                        expand = expansion(add = 0.5)) +
     scale_x_continuous(
       breaks = c(-100, -10, -1, 0, 1, 10, 100)
     ) +
-    coord_trans(x = pseudo_log_trans()) +
+    coord_trans(x = transform_pseudo_log()) +
     theme_test() +
     theme(axis.line = element_line(colour = "black"),
           panel.border = element_blank(),
@@ -835,14 +852,15 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red colorbar, thick black ticks, green frame",
+  expect_doppelganger("white-to-red colorbar, long thick black ticks, green frame",
     p + scale_color_gradient(
           low = 'white', high = 'red',
           guide = guide_colorbar(
             frame = element_rect(colour = "green"),
             frame.linewidth = 1.5 / .pt,
             ticks.colour = "black",
-            ticks.linewidth = 2.5 / .pt
+            ticks.linewidth = 2.5 / .pt,
+            ticks.length = unit(0.4, "npc")
             )
         )
     )

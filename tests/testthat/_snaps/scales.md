@@ -1,46 +1,46 @@
 # scale_apply preserves class and attributes
 
-    `scale_id` must not contain any "NA"
+    `scale_id` must not contain any "NA".
 
 # breaks and labels are correctly checked
 
-    `breaks` and `labels` must have the same length
+    `breaks` and `labels` must have the same length.
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA".
+    Invalid `breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `minor_breaks` specification. Use "NULL", not "NA".
+    Invalid `minor_breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA".
+    Invalid `labels` specification. Use `NULL`, not `NA`.
 
 ---
 
-    `breaks` and `labels` are different lengths.
+    `breaks` and `labels` have different lengths.
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA".
+    Invalid `breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA".
+    Invalid `labels` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `breaks` specification. Use "NULL", not "NA".
+    Invalid `breaks` specification. Use `NULL`, not `NA`.
 
 ---
 
-    Invalid `labels` specification. Use "NULL", not "NA".
+    Invalid `labels` specification. Use `NULL`, not `NA`.
 
 ---
 
-    `breaks` and `labels` are different lengths.
+    `breaks` and `labels` have different lengths.
 
 # numeric scale transforms can produce breaks
 
@@ -51,12 +51,12 @@
 
 # training incorrectly appropriately communicates the offenders
 
-    Continuous values supplied to discrete scale
+    Continuous values supplied to discrete scale.
     i Example values: 1, 2, 3, 4, and 5
 
 ---
 
-    Discrete values supplied to continuous scale
+    Discrete values supplied to continuous scale.
     i Example values: "A", "B", "C", "D", and "E"
 
 # Using `scale_name` prompts deprecation message

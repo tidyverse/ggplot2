@@ -4,13 +4,13 @@
 
 # weight aesthetic is checked
 
-    Computation failed in `stat_bindot()`
+    Computation failed in `stat_bindot()`.
     Caused by error in `compute_group()`:
     ! `weight` must be nonnegative integers, not a double vector.
 
 ---
 
-    Computation failed in `stat_bindot()`
+    Computation failed in `stat_bindot()`.
     Caused by error in `compute_group()`:
     ! `weight` must be nonnegative integers, not a double vector.
 
