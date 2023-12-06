@@ -1,4 +1,4 @@
-test_that("warnings are generated when cord_trans() results in new infinite values", {
+test_that("warnings are generated when coord_trans() results in new infinite values", {
   p  <- ggplot(head(diamonds, 20)) +
     geom_bar(aes(x = cut)) +
     coord_trans(y = "log10")
@@ -59,7 +59,7 @@ test_that("coord_trans(y = 'log10') expands the x axis identically to scale_y_lo
 })
 
 test_that("coord_trans() expands axes outside the domain of the axis trans", {
-  # sqrt_trans() has a lower limit of 0
+  # transform_sqrt() has a lower limit of 0
   df <- data_frame(x = 1, y = c(0, 1, 2))
   p <- ggplot(df, aes(x, y)) + geom_point()
   built_cartesian <- ggplot_build(p + scale_y_sqrt())

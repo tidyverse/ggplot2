@@ -83,10 +83,10 @@ Facet <- ggproto("Facet", NULL,
   params = list(),
 
   compute_layout = function(data, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   map_data = function(data, layout, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
@@ -132,7 +132,7 @@ Facet <- ggproto("Facet", NULL,
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -323,13 +323,13 @@ as_facets_list <- function(x) {
 
 validate_facets <- function(x) {
   if (inherits(x, "uneval")) {
-    cli::cli_abort("Please use {.fn vars} to supply facet variables")
+    cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be
   # expected here, not just ggplot
   if (inherits(x, "gg")) {
     cli::cli_abort(c(
-      "Please use {.fn vars} to supply facet variables",
+      "Please use {.fn vars} to supply facet variables.",
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
@@ -500,7 +500,7 @@ check_layout <- function(x) {
     return()
   }
 
-  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}")
+  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}.")
 }
 
 check_facet_vars <- function(..., name) {
@@ -509,8 +509,8 @@ check_facet_vars <- function(..., name) {
   problems <- intersect(vars_names, reserved_names)
   if (length(problems) != 0) {
     cli::cli_abort(c(
-      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables",
-      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}"
+      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables.",
+      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
     ), call = call2(name))
   }
 }
@@ -631,7 +631,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   }
 
   if (empty(base)) {
-    cli::cli_abort("Faceting variables must have at least one value")
+    cli::cli_abort("Faceting variables must have at least one value.")
   }
 
   base

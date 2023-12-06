@@ -172,7 +172,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     legend.spacing.x =    NULL,
     legend.spacing.y =    NULL,
     legend.margin =      margin(half_line, half_line, half_line, half_line),
-    legend.key =         element_rect(fill = "grey95", colour = NA),
+    legend.key =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,
@@ -266,8 +266,6 @@ theme_bw <- function(base_size = 11, base_family = "",
       panel.grid.minor = element_line(linewidth = rel(0.5)),
       # contour strips to match panel contour
       strip.background = element_rect(fill = "grey85", colour = "grey20"),
-      # match legend key to background
-      legend.key       = element_rect(fill = "white", colour = NA),
 
       complete = TRUE
     )
@@ -340,9 +338,6 @@ theme_light <- function(base_size = 11, base_family = "",
       # match axes ticks thickness to gridlines and colour to panel border
       axis.ticks       = element_line(colour = "grey70", linewidth = rel(0.5)),
 
-      # match legend key to panel.background
-      legend.key       = element_rect(fill = "white", colour = NA),
-
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey70", colour = NA),
       strip.text       = element_text(
@@ -381,9 +376,6 @@ theme_dark <- function(base_size = 11, base_family = "",
 
       # match axes ticks thickness to gridlines
       axis.ticks       = element_line(colour = "grey20", linewidth = rel(0.5)),
-
-      # match legend key to panel.background
-      legend.key       = element_rect(fill = "grey50", colour = NA),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey15", colour = NA),
@@ -441,9 +433,6 @@ theme_classic <- function(base_size = 11, base_family = "",
 
       # show axes
       axis.line      = element_line(colour = "black", linewidth = rel(1)),
-
-      # match legend key to panel.background
-      legend.key       = element_blank(),
 
       # simple, black and white strips
       strip.background = element_rect(fill = "white", colour = "black", linewidth = rel(2)),
@@ -586,7 +575,7 @@ theme_test <- function(base_size = 11, base_family = "",
     legend.spacing.x =   NULL,
     legend.spacing.y =   NULL,
     legend.margin =      margin(0, 0, 0, 0, "cm"),
-    legend.key =         element_rect(fill = "white", colour=NA),
+    legend.key =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,

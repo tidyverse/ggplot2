@@ -18,12 +18,12 @@
 #' The first pattern is recommended if all layers use the same
 #' data and the same set of aesthetics, although this method
 #' can also be used when adding a layer using data from another
-#' data frame. 
+#' data frame.
 #'
 #' The second pattern specifies the default data frame to use
 #' for the plot, but no aesthetics are defined up front. This
 #' is useful when one data frame is used predominantly for the
-#' plot, but the aesthetics vary from one layer to another. 
+#' plot, but the aesthetics vary from one layer to another.
 #'
 #' The third pattern initializes a skeleton `ggplot` object, which
 #' is fleshed out as layers are added. This is useful when
@@ -48,22 +48,22 @@
 #' # Create a data frame with some sample data, then create a data frame
 #' # containing the mean value for each group in the sample data.
 #' set.seed(1)
-#' 
+#'
 #' sample_df <- data.frame(
 #'   group = factor(rep(letters[1:3], each = 10)),
 #'   value = rnorm(30)
 #' )
-#' 
+#'
 #' group_means_df <- setNames(
 #'   aggregate(value ~ group, sample_df, mean),
 #'   c("group", "group_mean")
 #' )
-#' 
+#'
 #' # The following three code blocks create the same graphic, each using one
 #' # of the three patterns specified above. In each graphic, the sample data
 #' # are plotted in the first layer and the group means data frame is used to
 #' # plot larger red points on top of the sample data in the second layer.
-#' 
+#'
 #' # Pattern 1
 #' # Both the `data` and `mapping` arguments are passed into the `ggplot()`
 #' # call. Those arguments are omitted in the first `geom_point()` layer
@@ -76,7 +76,7 @@
 #'     mapping = aes(y = group_mean), data = group_means_df,
 #'     colour = 'red', size = 3
 #'   )
-#' 
+#'
 #' # Pattern 2
 #' # Same plot as above, passing only the `data` argument into the `ggplot()`
 #' # call. The `mapping` arguments are now required in each `geom_point()`
@@ -88,7 +88,7 @@
 #'     mapping = aes(x = group, y = group_mean), data = group_means_df,
 #'     colour = 'red', size = 3
 #'   )
-#' 
+#'
 #' # Pattern 3
 #' # Same plot as above, passing neither the `data` or `mapping` arguments
 #' # into the `ggplot()` call. Both those arguments are now required in
@@ -111,8 +111,8 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     cli::cli_abort(c(
-      "{.arg mapping} should be created with {.fn aes}.",
-      "x" = "You've supplied a {.cls {class(mapping)[1]}} object"
+      "{.arg mapping} must be created with {.fn aes}.",
+      "x" = "You've supplied {.obj_type_friendly {mapping}}."
     ))
   }
 

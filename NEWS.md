@@ -3,6 +3,19 @@
 * The plot's title, subtitle and caption now obey horizontal text margins
   (#5533).
 
+* New `guide_axis_stack()` to combine other axis guides on top of one another.
+
+* New `guide_custom()` function for drawing custom graphical objects (grobs)
+  unrelated to scales in legend positions (#5416).
+  
+* `theme()` now supports splicing a list of arguments (#5542).
+
+* Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
+
+* The `legend.key` theme element is set to inherit from the `panel.background`
+  theme element. The default themes no longer set the `legend.key` element.
+  This causes a visual change with the default `theme_gray()` (#5549).
+
 * Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
 
 * New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
