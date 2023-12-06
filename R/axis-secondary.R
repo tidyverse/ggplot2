@@ -298,7 +298,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
-                     trans = trans
+                     transformer = trans
     )
     scale$train(range)
     scale
