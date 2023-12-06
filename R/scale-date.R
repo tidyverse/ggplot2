@@ -242,7 +242,7 @@ scale_x_time <- function(name = waiver(),
     na.value = na.value,
     guide = guide,
     position = position,
-    trans = scales::hms_trans(),
+    trans = scales::transform_hms(),
     sec.axis = sec.axis
   )
 }
@@ -273,7 +273,7 @@ scale_y_time <- function(name = waiver(),
     na.value = na.value,
     guide = guide,
     position = position,
-    trans = scales::hms_trans(),
+    trans = scales::transform_hms(),
     sec.axis = sec.axis
   )
 }
@@ -326,8 +326,8 @@ datetime_scale <- function(aesthetics, trans, palette,
   }
 
   trans <- switch(trans,
-    date = date_trans(),
-    time = time_trans(timezone)
+    date = transform_date(),
+    time = transform_time(timezone)
   )
 
   sc <- continuous_scale(
@@ -357,7 +357,7 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
     tz <- attr(x, "tzone")
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
-      self$trans <- time_trans(self$timezone)
+      self$trans <- transform_time(self$timezone)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },

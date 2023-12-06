@@ -105,7 +105,7 @@ Stat <- ggproto("Stat",
       try_fetch(
         inject(self$compute_panel(data = data, scales = scales, !!!params)),
         error = function(cnd) {
-          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}", parent = cnd)
+          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}.", parent = cnd)
           data_frame0()
         }
       )
@@ -166,7 +166,7 @@ Stat <- ggproto("Stat",
     dropped <- non_constant_columns[!non_constant_columns %in% self$dropped_aes]
     if (length(dropped) > 0) {
       cli::cli_warn(c(
-        "The following aesthetics were dropped during statistical transformation: {.field {glue_collapse(dropped, sep = ', ')}}",
+        "The following aesthetics were dropped during statistical transformation: {.field {dropped}}.",
         "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
         "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
       ))
@@ -178,7 +178,7 @@ Stat <- ggproto("Stat",
   },
 
   compute_group = function(self, data, scales) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
 
   finish_layer = function(self, data, params) {

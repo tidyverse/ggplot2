@@ -20,6 +20,22 @@ test_that("alternative key glyphs work", {
   )
 })
 
+test_that("keys can communicate their size", {
+
+  draw_key_dummy <- function(data, params, size) {
+    grob <- circleGrob(r = unit(1, "cm"))
+    attr(grob, "width")  <- 2
+    attr(grob, "height") <- 2
+    grob
+  }
+
+  expect_doppelganger(
+    "circle glyphs of 2cm size",
+    ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
+      geom_point(key_glyph = draw_key_dummy)
+  )
+})
+
 # Orientation-aware key glyphs --------------------------------------------
 
 test_that("horizontal key glyphs work", {
@@ -54,4 +70,43 @@ test_that("horizontal key glyphs work", {
       geom_pointrange(aes(y = group2, shape = group2)) +
       guides(color = guide_legend(order = 1))
   )
+})
+
+test_that("keep_draw_key", {
+
+  key  <- data_frame0(.value = c("A", "C"))
+  data <- data_frame0(foo = c("A", "B"), bar = c("B", "C"))
+
+  expect_true( keep_key_data(key, data, "foo", show = TRUE))
+  expect_false(keep_key_data(key, data, "foo", show = FALSE))
+  expect_equal(keep_key_data(key, data, "foo", show = NA), c(TRUE, FALSE))
+  expect_equal(keep_key_data(key, data, "bar", show = NA), c(FALSE, TRUE))
+  expect_equal(keep_key_data(key, data, c("foo", "bar"), show = NA), c(TRUE, TRUE))
+
+  # Named show
+  expect_true(
+    keep_key_data(key, data, c("foo", "bar"), show = c(foo = TRUE, bar = FALSE))
+  )
+  expect_equal(
+    keep_key_data(key, data, c("foo", "bar"), show = c(foo = NA, bar = FALSE)),
+    c(TRUE, FALSE)
+  )
+  expect_equal(
+    keep_key_data(key, data, c("foo", "bar"), show = c(foo = FALSE, bar = NA)),
+    c(FALSE, TRUE)
+  )
+
+  p <- ggplot(data.frame(x = 1:2), aes(x, x)) +
+    geom_point(
+      aes(colour = "point", alpha = "point"),
+      show.legend = c("colour" = NA, alpha = FALSE)
+    ) +
+    geom_line(
+      aes(colour = "line", alpha = "line"),
+      show.legend = c("colour" = NA, alpha = TRUE)
+    ) +
+    suppressWarnings(scale_alpha_discrete())
+
+  expect_doppelganger("appropriate colour key with alpha key as lines", p)
+
 })

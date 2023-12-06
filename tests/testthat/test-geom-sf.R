@@ -149,6 +149,16 @@ test_that("errors are correctly triggered", {
   expect_snapshot_error(ggplotGrob(p))
   expect_snapshot_error(geom_sf_label(position = "jitter", nudge_x = 0.5))
   expect_snapshot_error(geom_sf_text(position = "jitter", nudge_x = 0.5))
+
+  # #5204: missing linewidth should be dropped
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(
+      sf::st_linestring(matrix(c(0, 1, 0, 1), ncol = 2)),
+      sf::st_linestring(matrix(c(0, 1, 1, 0), ncol = 2))
+    ),
+    linewidth = c(1, NA)
+  )
+  expect_snapshot_warning(sf_grob(pts, na.rm = FALSE))
 })
 
 # Visual tests ------------------------------------------------------------
