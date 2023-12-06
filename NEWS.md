@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `guide_axis_stack()` to combine other axis guides on top of one another.
+
 * New `guide_custom()` function for drawing custom graphical objects (grobs)
   unrelated to scales in legend positions (#5416).
   
