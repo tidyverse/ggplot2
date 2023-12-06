@@ -3,14 +3,14 @@
     Problem while converting geom to grob.
     i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
-    ! `annotation_raster()` only works with `coord_cartesian()`
+    ! `annotation_raster()` only works with `coord_cartesian()`.
 
 ---
 
     Problem while converting geom to grob.
     i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
-    ! `annotation_custom()` only works with `coord_cartesian()`
+    ! `annotation_custom()` only works with `coord_cartesian()`.
 
 # annotation_map() checks the input data
 
@@ -18,7 +18,7 @@
 
 ---
 
-    `map` must have the columns `x`, `y`, and `id`
+    `map` must have the columns `x`, `y`, and `id`.
 
 # unsupported geoms signal a warning (#4719)
 

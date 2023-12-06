@@ -1,8 +1,8 @@
 # collide() checks the input data
 
-    Neither y nor ymax defined
+    y and ymax are undefined.
 
 ---
 
-    `test()` requires non-overlapping x intervals
+    `test()` requires non-overlapping x intervals.
 

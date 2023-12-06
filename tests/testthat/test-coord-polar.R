@@ -79,6 +79,51 @@ test_that("Inf is squished to range", {
   expect_equal(d[[3]]$theta, mapped_discrete(0))
 })
 
+test_that("coord_radial warns about axes", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point()
+
+  # Cannot use regular axis for theta position
+  expect_snapshot_warning(ggplotGrob(
+    p + coord_radial() + guides(theta = "axis")
+  ))
+
+  # If arc doesn't contain the top/bottom/left/right of a circle,
+  # axis placement cannot be outside panel
+  expect_snapshot_warning(ggplotGrob(
+    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r_axis_inside = FALSE)
+  ))
+
+})
+
+test_that("bounding box calculations are sensible", {
+
+  # Full cirle
+  expect_equal(
+    polar_bbox(arc = c(0, 2 * pi)),
+    list(x = c(0, 1), y = c(0, 1))
+  )
+
+  # Right half of circle
+  expect_equal(
+    polar_bbox(arc = c(0, pi)),
+    list(x = c(0.45, 1), y = c(0, 1))
+  )
+
+  # Right quarter of circle
+  expect_equal(
+    polar_bbox(arc = c(0.25 * pi, 0.75 * pi)),
+    list(x = c(0.45, 1), y = c(0.146446609, 0.853553391))
+  )
+
+  # Top quarter of circle with donuthole
+  expect_equal(
+    polar_bbox(arc = c(-0.25 * pi, 0.25 * pi), donut = c(0.2, 0.4)),
+    list(x = c(0.146446609, 0.853553391), y = c(0.59142136, 1))
+  )
+})
+
 
 # Visual tests ------------------------------------------------------------
 
@@ -138,5 +183,52 @@ test_that("polar coordinates draw correctly", {
       coord_polar() +
       theme_test() +
       theme(axis.text.x = element_blank())
+  )
+})
+
+test_that("coord_radial() draws correctly", {
+
+  # Theme to test for axis placement
+  theme <- theme(
+    axis.line.x.bottom = element_line(colour = "tomato"),
+    axis.line.x.top    = element_line(colour = "limegreen"),
+    axis.line.y.left   = element_line(colour = "dodgerblue"),
+    axis.line.y.right  = element_line(colour = "orchid")
+  )
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    theme
+
+  expect_doppelganger("donut with all axes", {
+    p + coord_radial(donut = 0.3, r_axis_inside = FALSE) +
+      guides(r.sec = "axis", theta.sec = "axis_theta")
+  })
+
+  expect_doppelganger("partial with all axes", {
+    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, donut = 0.3,
+                     r_axis_inside = TRUE, theta = "y") +
+      guides(r.sec = "axis", theta.sec = "axis_theta")
+  })
+
+  df <- data_frame0(
+    x = 1:5, lab = c("cat", "strawberry\ncake", "coffee", "window", "fluid")
+  )
+
+  ggplot(df, aes(x, label = lab)) +
+    geom_text(aes(y = "0 degrees"),  angle = 0) +
+    geom_text(aes(y = "90 degrees"), angle = 90) +
+    coord_radial(start = 0.5 * pi, end = 1.5 * pi,
+                 rotate_angle = TRUE) +
+    theme
+
+  expect_doppelganger(
+    "bottom half circle with rotated text",
+    ggplot(df, aes(x, label = lab)) +
+      geom_text(aes(y = "0 degrees"),  angle = 0) +
+      geom_text(aes(y = "90 degrees"), angle = 90) +
+      coord_radial(start = 0.5 * pi, end = 1.5 * pi,
+                   rotate_angle = TRUE, r_axis_inside = FALSE) +
+      theme
   )
 })

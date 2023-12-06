@@ -123,7 +123,7 @@ set_sec_axis <- function(sec.axis, scale) {
   if (!is.waive(sec.axis)) {
     if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
     if (!is.sec_axis(sec.axis)) {
-      cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}")
+      cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}.")
     }
     scale$secondary.axis <- sec.axis
   }
@@ -165,7 +165,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       return()
     }
     if (!is.function(self$trans)) {
-      cli::cli_abort("Transformation for secondary axes must be a function")
+      cli::cli_abort("Transformation for secondary axes must be a function.")
     }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
@@ -194,7 +194,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # Test for monotonicity
     if (!is_unique(sign(diff(full_range))))
-      cli::cli_abort("Transformation for secondary axes must be monotonic")
+      cli::cli_abort("Transformation for secondary axes must be monotonic.")
   },
 
   break_info = function(self, range, scale) {
@@ -236,7 +236,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
       # Map the break values back to their correct position on the primary scale
       if (!is.null(range_info$major_source)) {
-        old_val <- approx(full_range, old_range, range_info$major_source)$y
+        old_val <- stats::approx(full_range, old_range, range_info$major_source)$y
         old_val_trans <- scale$trans$transform(old_val)
 
         # rescale values from 0 to 1
@@ -252,7 +252,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       }
 
       if (!is.null(range_info$minor_source)) {
-        old_val_minor <- approx(full_range, old_range, range_info$minor_source)$y
+        old_val_minor <- stats::approx(full_range, old_range, range_info$minor_source)$y
         old_val_minor_trans <- scale$trans$transform(old_val_minor)
 
         range_info$minor[] <- round(
@@ -280,7 +280,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range, trans = identity_trans()) {
+  create_scale = function(self, range, trans = transform_identity()) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
                      name = self$name,
                      breaks = self$breaks,

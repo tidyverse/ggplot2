@@ -1,10 +1,10 @@
 # Backport fix from R 3.3:
 # https://github.com/wch/r-source/commit/4efc81c98d262f93de9e7911aaa910f5c63cd00f
 if (getRversion() < "3.3") {
-  absolute.units <- getFromNamespace("absolute.units", "grid")
-  absolute.units.unit <- getFromNamespace("absolute.units.unit", "grid")
-  absolute.units.unit.list <- getFromNamespace("absolute.units.unit.list", "grid")
-  absolute.units.unit.arithmetic <- getFromNamespace("absolute.units.unit.arithmetic", "grid")
+  absolute.units <- utils::getFromNamespace("absolute.units", "grid")
+  absolute.units.unit <- utils::getFromNamespace("absolute.units.unit", "grid")
+  absolute.units.unit.list <- utils::getFromNamespace("absolute.units.unit.list", "grid")
+  absolute.units.unit.arithmetic <- utils::getFromNamespace("absolute.units.unit.arithmetic", "grid")
 
   backport_unit_methods <- function() {
     registerS3method("absolute.units", "unit", absolute.units.unit)

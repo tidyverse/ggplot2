@@ -1,5 +1,5 @@
 # geom_jitter() throws relevant errors
 
-    both `position` and `width`/`height` are supplied
-    i Only use one approach to alter the position
+    Both `position` and `width`/`height` were supplied.
+    i Choose a single approach to alter the position.
 
