@@ -627,6 +627,31 @@ test_that("axis guides can be capped", {
   expect_doppelganger("axis guides with capped ends", p)
 })
 
+test_that("guide_axis_stack stacks axes", {
+
+  left   <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "left")
+  right  <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "right")
+  bottom <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "bottom")
+  top    <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "top")
+
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    guides(x = bottom, x.sec = top, y = left, y.sec = right)
+  expect_doppelganger("stacked axes", p)
+
+  bottom <- guide_axis_stack("axis_theta", guide_axis_theta(cap = "both"))
+  top    <- guide_axis_stack("axis_theta", guide_axis_theta(cap = "both"))
+
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    coord_radial(start = 0.25 * pi, end = 1.75 * pi, donut = 0.5) +
+    guides(theta = top, theta.sec = bottom, r = left, r.sec = right)
+  expect_doppelganger("stacked radial axes", p)
+
+})
+
 test_that("logticks look as they should", {
 
   p <- ggplot(data.frame(x = c(-100, 100), y = c(10, 1000)), aes(x, y)) +
@@ -660,7 +685,6 @@ test_that("logticks look as they should", {
       )
     )
   expect_doppelganger("logtick axes with customisation", p)
-
 })
 
 test_that("guides are positioned correctly", {
