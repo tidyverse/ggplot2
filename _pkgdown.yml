@@ -130,6 +130,7 @@ reference:
   - guide_axis_theta
   - guide_bins
   - guide_coloursteps
+  - guide_custom
   - guide_none
   - guides
   - sec_axis

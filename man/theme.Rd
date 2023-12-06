@@ -5,6 +5,7 @@
 \title{Modify components of a theme}
 \usage{
 theme(
+  ...,
   line,
   rect,
   text,
@@ -112,12 +113,14 @@ theme(
   strip.text.y.right,
   strip.switch.pad.grid,
   strip.switch.pad.wrap,
-  ...,
   complete = FALSE,
   validate = TRUE
 )
 }
 \arguments{
+\item{...}{additional element specifications not part of base ggplot2. In general,
+these should also be defined in the \verb{element tree} argument.}
+
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
 
 \item{rect}{all rectangular elements (\code{\link[=element_rect]{element_rect()}})}
@@ -297,9 +300,6 @@ switched (\code{unit})}
 
 \item{strip.switch.pad.wrap}{space between strips and axes when strips are
 switched (\code{unit})}
-
-\item{...}{additional element specifications not part of base ggplot2. In general,
-these should also be defined in the \verb{element tree} argument.}
 
 \item{complete}{set this to \code{TRUE} if this is a complete theme, such as
 the one returned by \code{\link[=theme_grey]{theme_grey()}}. Complete themes behave
