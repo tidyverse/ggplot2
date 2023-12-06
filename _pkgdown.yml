@@ -127,6 +127,7 @@ reference:
   - guide_legend
   - guide_axis
   - guide_axis_logticks
+  - guide_axis_stack
   - guide_axis_theta
   - guide_bins
   - guide_coloursteps

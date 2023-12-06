@@ -4,7 +4,9 @@
   invoking the identity scale. This allows these columns to co-exist with other
   layers that need a non-identity scale for the same aesthetic. Also, it makes
   it easy to specify relative positions (@teunbrand, #5142).
-  
+
+* New `guide_axis_stack()` to combine other axis guides on top of one another.
+
 * New `guide_custom()` function for drawing custom graphical objects (grobs)
   unrelated to scales in legend positions (#5416).
   
