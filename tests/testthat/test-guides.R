@@ -831,6 +831,22 @@ test_that("guides title and text are positioned correctly", {
     )
 
   expect_doppelganger("rotated guide titles and labels", p )
+
+  # title justification
+  p <- ggplot(data.frame(x = 1:2)) +
+    aes(x, x, colour = factor(x), fill = factor(x), shape = factor(x), alpha = x) +
+    geom_point() +
+    scale_alpha(breaks = 1:2) +
+    guides(
+      colour = guide_legend("colour title with hjust = 0", title.hjust = 0, order = 1),
+      fill   = guide_legend("fill title with hjust = 1",   title.hjust = 1, order = 2,
+                            title.position = "bottom", override.aes = list(shape = 21)),
+      alpha  = guide_legend("Title\nfor\nalpha\nwith\nvjust=0", title.vjust = 0,
+                            title.position = "left", order = 3),
+      shape = guide_legend("Title\nfor\nshape\nwith\nvjust=1", title.vjust = 1,
+                           title.position = "right", order = 4)
+    )
+  expect_doppelganger("legends with all title justifications", p)
 })
 
 test_that("size and linewidth affect key size", {
