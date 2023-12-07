@@ -714,11 +714,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Breaks in data space need to be converted back to transformed space
-    breaks <- self$trans$transform(breaks)
-    # Any breaks outside the dimensions are flagged as missing
-    breaks <- censor(breaks, self$trans$transform(limits), only.finite = FALSE)
-
-    breaks
+    self$trans$transform(breaks)
   },
 
   get_breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$get_limits()) {
@@ -736,6 +732,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         call = self$call
       )
     }
+    # major breaks are not censored, however;
+    # some transforms assume finite major breaks
+    b <- b[is.finite(b)]
 
     if (is.waive(self$minor_breaks)) {
       if (is.null(b)) {
@@ -829,13 +828,15 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # labels
     labels <- self$get_labels(major)
 
-    # drop oob breaks/labels by testing major == NA
-    if (!is.null(labels)) labels <- labels[!is.na(major)]
-    if (!is.null(major)) major <- major[!is.na(major)]
-
     # minor breaks
     minor <- self$get_breaks_minor(b = major, limits = range)
     if (!is.null(minor)) minor <- minor[!is.na(minor)]
+
+    major <- oob_censor_any(major, range)
+
+    # drop oob breaks/labels by testing major == NA
+    if (!is.null(labels)) labels <- labels[!is.na(major)]
+    if (!is.null(major)) major <- major[!is.na(major)]
 
     # rescale breaks [0, 1], which are used by coord/guide
     major_n <- rescale(major, from = range)
