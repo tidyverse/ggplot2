@@ -21,10 +21,12 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
     continuous_scale_sorted <- sort(continuous_range)
     breaks <- scale$get_breaks(continuous_scale_sorted)
     minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_scale_sorted)
+    breaks <- censor(breaks, continuous_scale_sorted, only.finite = FALSE)
   } else {
     breaks <- scale$get_breaks(limits)
     minor_breaks <- scale$get_breaks_minor(b = breaks, limits = limits)
   }
+  minor_breaks <- censor(minor_breaks, continuous_range, only.finite = FALSE)
 
   ggproto(NULL, ViewScale,
     scale = scale,
@@ -76,7 +78,7 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       aesthetics = scale$aesthetics,
       name = scale$sec_name(),
       make_title = function(self, title) self$scale$make_sec_title(title),
-
+      continuous_range = sort(continuous_range),
       dimension = function(self) self$break_info$range,
       get_limits = function(self) self$break_info$range,
       get_breaks = function(self) self$break_info$major_source,
