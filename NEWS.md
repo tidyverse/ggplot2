@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* The `minor_breaks` function argument in scales can now take a function with
+  two arguments: the scale's limits and the scale's major breaks (#3583).
+  
+* (internal) The `ScaleContinuous$get_breaks()` method no longer censors
+  the computed breaks.
+
 * The plot's title, subtitle and caption now obey horizontal text margins
   (#5533).
 
