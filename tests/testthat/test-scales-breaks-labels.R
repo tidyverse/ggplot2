@@ -231,7 +231,7 @@ test_that("breaks can be specified by names of labels", {
 test_that("only finite or NA values for breaks for transformed scales (#871)", {
   sc <- scale_y_continuous(limits = c(0.01, 0.99), trans = "probit",
                            breaks = seq(0, 1, 0.2))
-  breaks <- sc$break_info()$major_soruce
+  breaks <- sc$break_info()$major_source
   expect_true(all(is.finite(breaks) | is.na(breaks)))
 })
 
