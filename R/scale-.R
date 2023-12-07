@@ -744,8 +744,18 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         breaks <- self$trans$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
-      # Find breaks in data space, and convert to numeric
-      breaks <- self$minor_breaks(self$trans$inverse(limits))
+      # Using `fetch_ggproto` here to avoid auto-wrapping the user-supplied
+      # breaks function as a ggproto method.
+      break_fun <- fetch_ggproto(self, "minor_breaks")
+      arg_names <- fn_fmls_names(break_fun)
+
+      # Find breaks in data space
+      if (length(arg_names) == 1L) {
+        breaks <- break_fun(self$trans$inverse(limits))
+      } else {
+        breaks <- break_fun(self$trans$inverse(limits), self$trans$inverse(b))
+      }
+      # Convert breaks to numeric
       breaks <- self$trans$transform(breaks)
     } else {
       breaks <- self$trans$transform(self$minor_breaks)
