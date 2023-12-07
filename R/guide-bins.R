@@ -108,7 +108,6 @@ GuideBins <- ggproto(
     default_axis = element_line("black", linewidth = (0.5 / .pt)),
     default_ticks = element_line(inherit.blank = TRUE),
     default_tick_length = unit(0.2, "npc"),
-    rejust_labels = FALSE,
 
     direction = NULL,
     override.aes = list(),

@@ -165,8 +165,6 @@ GuideColourbar <- ggproto(
     reverse = FALSE,
     order = 0,
 
-    rejust_labels = FALSE,
-
     # parameter
     name = "colourbar",
     hash = character(),

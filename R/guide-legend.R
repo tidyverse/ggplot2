@@ -626,18 +626,8 @@ GuideLegend <- ggproto(
     }
 
     if (!is.zero(grobs$labels)) {
-      labels <- if (params$rejust_labels %||% TRUE) {
-        justify_grobs(
-          grobs$labels,
-          hjust = elements$text$hjust, vjust = elements$text$vjust,
-          int_angle = elements$text$angle, debug = elements$text$debug
-        )
-      } else {
-        grobs$labels
-      }
-
       gt <- gtable_add_grob(
-        gt, labels,
+        gt, grobs$labels,
         name = names(labels) %||%
           paste("label", layout$label_row, layout$label_col, sep = "-"),
         clip = "off",
