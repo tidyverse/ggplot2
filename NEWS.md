@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* When legend titles are larger than the legend, title justification extends
+  to the placement of keys and labels (#1903).
+
 * The plot's title, subtitle and caption now obey horizontal text margins
   (#5533).
 
