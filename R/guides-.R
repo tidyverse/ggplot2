@@ -248,6 +248,18 @@ Guides <- ggproto(
     )
   },
 
+  get_custom = function(self) {
+    custom <- vapply(self$guides, inherits, logical(1), what = "GuideCustom")
+    n_custom <- sum(custom)
+    if (n_custom < 1) {
+      return(guides_list())
+    }
+    custom <- guides_list(self$guides[custom])
+    custom$params <- lapply(custom$guides, `[[`, "params")
+    custom$merge()
+    custom
+  },
+
   ## Building ------------------------------------------------------------------
 
   # The `Guides$build()` method is called in ggplotGrob (plot-build.R) and makes
@@ -281,7 +293,8 @@ Guides <- ggproto(
   build = function(self, scales, layers, labels, layer_data) {
 
     # Empty guides list
-    no_guides <- guides_list()
+    custom <- self$get_custom()
+    no_guides <- custom
 
     # Extract the non-position scales
     scales <- scales$non_position_scales()$scales
@@ -308,6 +321,10 @@ Guides <- ggproto(
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
+
+    guides$guides <- c(guides$guides, custom$guides)
+    guides$params <- c(guides$params, custom$params)
+
     guides
   },
 
@@ -413,11 +430,6 @@ Guides <- ggproto(
     # Bundle together guides and their parameters
     pairs <- Map(list, guide = self$guides, params = self$params)
 
-    # If there is only one guide, we can exit early, because nothing to merge
-    if (length(pairs) == 1) {
-      return()
-    }
-
     # The `{order}_{hash}` combination determines groups of guides
     orders <- vapply(self$params, `[[`, 0, "order")
     orders[orders == 0] <- 99
@@ -425,10 +437,16 @@ Guides <- ggproto(
     hashes <- vapply(self$params, `[[`, "", "hash")
     hashes <- paste(orders, hashes, sep = "_")
 
+    # If there is only one guide, we can exit early, because nothing to merge
+    if (length(pairs) == 1) {
+      names(self$guides) <- hashes
+      return()
+    }
+
     # Split by hashes
     indices <- split(seq_along(pairs), hashes)
     indices <- vapply(indices, `[[`, 0L, 1L, USE.NAMES = FALSE) # First index
-    groups  <- unname(split(pairs, hashes))
+    groups  <- split(pairs, hashes)
     lens    <- lengths(groups)
 
     # Merge groups with >1 member
@@ -495,6 +513,7 @@ Guides <- ggproto(
     if (length(grobs) < 1) {
       return(zeroGrob())
     }
+    grobs <- grobs[order(names(grobs))]
 
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")

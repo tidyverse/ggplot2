@@ -94,8 +94,8 @@ ggplot_build.ggplot <- function(plot) {
     plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)
   } else {
-    # Assign empty guides if there are no non-position scales
-    plot$guides <- guides_list()
+    # Only keep custom guides if there are no non-position scales
+    plot$guides <- plot$guides$get_custom()
   }
 
   # Fill in defaults etc.
@@ -265,15 +265,24 @@ ggplot_gtable.ggplot_built <- function(data) {
   }
 
   # Title
-  title <- element_render(theme, "plot.title", plot$labels$title, margin_y = TRUE)
+  title <- element_render(
+    theme, "plot.title", plot$labels$title,
+    margin_y = TRUE, margin_x = TRUE
+  )
   title_height <- grobHeight(title)
 
   # Subtitle
-  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, margin_y = TRUE)
+  subtitle <- element_render(
+    theme, "plot.subtitle", plot$labels$subtitle,
+    margin_y = TRUE, margin_x = TRUE
+  )
   subtitle_height <- grobHeight(subtitle)
 
   # whole plot annotation
-  caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
+  caption <- element_render(
+    theme, "plot.caption", plot$labels$caption,
+    margin_y = TRUE, margin_x = TRUE
+  )
   caption_height <- grobHeight(caption)
 
   # positioning of title and subtitle is governed by plot.title.position
@@ -362,7 +371,12 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+      cli::cli_abort(c(
+        "Problem while {step}.",
+        "i" = "Error occurred in the {ordinal(i)} layer."),
+        call = layers[[i]]$constructor,
+        parent = cnd
+      )
     }
   )
   out
@@ -391,14 +405,16 @@ table_add_tag <- function(table, label, theme) {
     if (location == "margin") {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
-        "{.code \"margin\"} as {.arg plot.tag.location}."
-      ))
+        "`{.val margin}` as {.arg plot.tag.location}."
+      ),
+      call = expr(theme()))
     }
     if (length(position) != 2) {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} ",
         "theme setting must have length 2."
-      ))
+      ),
+      call = expr(theme()))
     }
     top <- left <- right <- bottom <- FALSE
   } else {
@@ -407,7 +423,8 @@ table_add_tag <- function(table, label, theme) {
       position[1],
       c("topleft", "top", "topright", "left",
         "right", "bottomleft", "bottom", "bottomright"),
-      arg_nm = "plot.tag.position"
+      arg_nm = "plot.tag.position",
+      error_call = expr(theme())
     )
     top    <- position %in% c("topleft",    "top",    "topright")
     left   <- position %in% c("topleft",    "left",   "bottomleft")

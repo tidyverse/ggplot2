@@ -1,10 +1,10 @@
 # axis labels can be set manually
 
-    Breaks and labels along x direction are different lengths
+    `breaks` and `labels` along `x` direction have different lengths.
 
 ---
 
-    Breaks and labels along y direction are different lengths
+    `breaks` and `labels` along `y` direction have different lengths.
 
 ---
 
@@ -16,7 +16,7 @@
 
 # default crs works
 
-    Scale limits cannot be mapped onto spatial coordinates in `coord_sf()`
+    Scale limits cannot be mapped onto spatial coordinates in `coord_sf()`.
     i Consider setting `lims_method = "geometry_bbox"` or `default_crs = NULL`.
 
 # coord_sf() throws error when limits are badly specified

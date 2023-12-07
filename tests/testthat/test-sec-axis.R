@@ -231,7 +231,7 @@ test_that("sec_axis() respects custom transformations", {
       }
     })
 
-    trans_new(name = "customlog", transform = trans, inverse = inv, domain = c(1e-16, Inf))
+    new_transform(name = "customlog", transform = trans, inverse = inv, domain = c(1e-16, Inf))
   }
 
   # Create data
@@ -335,7 +335,7 @@ test_that("sec.axis allows independent trans btwn primary and secondary axes", {
     "sec_axis, independent transformations",
     ggplot(data = data, aes(Probability, Value)) + geom_point() +
       scale_x_continuous(
-        trans = scales::probability_trans(distribution = "norm", lower.tail = FALSE),
+        trans = scales::transform_probability(distribution = "norm", lower.tail = FALSE),
         sec.axis = sec_axis(trans = ~ 1 / ., name = "Return Period")
       ) + theme_linedraw()
   )

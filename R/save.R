@@ -171,14 +171,12 @@ check_path <- function(path, filename, create.dir,
 #' @noRd
 parse_dpi <- function(dpi, call = caller_env()) {
   if (is_scalar_character(dpi)) {
+    arg_match0(dpi, c("screen", "print", "retina"), error_call = call)
+
     switch(dpi,
       screen = 72,
       print = 300,
       retina = 320,
-      cli::cli_abort(c(
-        "Unknown {.arg dpi} string",
-        "i" = "Use either {.val screen}, {.val print}, or {.val retina}"
-      ), call = call)
     )
   } else if (is_scalar_numeric(dpi)) {
     dpi
@@ -290,7 +288,10 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   if (is.null(device)) {
     device <- to_lower_ascii(tools::file_ext(filename))
     if (identical(device, "")) {
-      cli::cli_abort("{.arg filename} has no file extension and {.arg device} is {.val NULL}.", call = call)
+      cli::cli_abort(c(
+        "Can't save to {filename}.",
+        i = "Either supply {.arg filename} with a file extension or supply {.arg device}."),
+        call = call)
     }
   }
 

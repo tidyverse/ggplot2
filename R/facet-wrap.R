@@ -217,7 +217,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   },
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't use free scales with {.fn {snake_class(coord)}}")
+      cli::cli_abort("{.fn {snake_class(self)}} can't use free scales with {.fn {snake_class(coord)}}.")
     }
 
     if (inherits(coord, "CoordFlip")) {
@@ -470,8 +470,8 @@ wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
   }
   if (nrow * ncol < n) {
     cli::cli_abort(c(
-      "Need {n} panels, but together {.arg nrow} and {.arg ncol} only provide {nrow * ncol}",
-      i = "Please increase {.arg ncol} and/or {.arg nrow}"
+      "Need {n} panel{?s}, but together {.arg nrow} and {.arg ncol} only provide {nrow * ncol}.",
+      i = "Please increase {.arg ncol} and/or {.arg nrow}."
     ))
   }
 

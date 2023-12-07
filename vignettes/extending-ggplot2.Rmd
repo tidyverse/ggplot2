@@ -834,7 +834,7 @@ facet_trans <- function(trans, horizontal = TRUE, shrink = TRUE) {
   ggproto(NULL, FacetTrans,
     shrink = shrink,
     params = list(
-      trans = scales::as.trans(trans),
+      trans = scales::as.transform(trans),
       horizontal = horizontal
     )
   )

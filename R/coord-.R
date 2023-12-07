@@ -66,27 +66,27 @@ Coord <- ggproto("Coord",
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
 
   render_bg = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_bg} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_bg} method.")
   },
 
   render_axis_h = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_h} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_h} method.")
   },
 
   render_axis_v = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_v} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_v} method.")
   },
 
   # transform range given in transformed coordinates
   # back into range in given in (possibly scale-transformed)
   # data coordinates
   backtransform_range = function(self, panel_params) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn backtransform_range} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn backtransform_range} method.")
   },
 
   # return range stored in panel_params
   range = function(self, panel_params) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn range} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn range} method.")
   },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {

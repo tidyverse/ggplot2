@@ -5,7 +5,7 @@
 #' no guarantee that straight lines will continue to be straight.
 #'
 #' Transformations only work with continuous values: see
-#' [scales::trans_new()] for list of transformations, and instructions
+#' [scales::new_transform()] for list of transformations, and instructions
 #' on how to create your own.
 #'
 #' @inheritParams coord_cartesian
@@ -60,7 +60,7 @@
 #'   geom_smooth(method = "lm") +
 #'   scale_x_log10() +
 #'   scale_y_log10() +
-#'   coord_trans(x = scales::exp_trans(10), y = scales::exp_trans(10))
+#'   coord_trans(x = scales::transform_exp(10), y = scales::transform_exp(10))
 #'
 #' # cf.
 #' ggplot(diamonds, aes(carat, price)) +
@@ -90,8 +90,8 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
   check_coord_limits(ylim)
 
   # resolve transformers
-  if (is.character(x)) x <- as.trans(x)
-  if (is.character(y)) y <- as.trans(y)
+  if (is.character(x)) x <- as.transform(x)
+  if (is.character(y)) y <- as.transform(y)
 
   ggproto(NULL, CoordTrans,
     trans = list(x = x, y = y),
@@ -190,7 +190,7 @@ transform_value <- function(trans, value, range) {
 # TODO: can we merge this with view_scales_from_scale()?
 view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
-  scale_trans <- scale$trans %||% identity_trans()
+  scale_trans <- scale$trans %||% transform_identity()
   coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
   scale_limits <- scale$get_limits()
 
