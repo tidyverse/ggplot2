@@ -127,7 +127,6 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
   # care of it. But they do need to be made in to doubles, so stat methods
   # can tell the difference between continuous and discrete data.
   map = function(self, x, limits = self$get_limits()) {
-    if (length(x)==0) return(NULL)
     scaled <- as.numeric(self$oob(x, limits))
     ifelse(!is.na(scaled), scaled, self$na.value)
   },

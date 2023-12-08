@@ -121,7 +121,6 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    if (length(x)==0) return(NULL)
     if (is.discrete(x)) {
       x <- seq_along(limits)[match(as.character(x), limits)]
     }
