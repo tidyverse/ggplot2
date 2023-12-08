@@ -236,7 +236,9 @@ breaks are given explicitly.</p></dd>
 each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks. Also
-accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
+accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation. When
+the function has two arguments, it will be given the limits and major
+breaks.</p></li>
 </ul></dd>
 
     <dt><code>oob</code></dt>
