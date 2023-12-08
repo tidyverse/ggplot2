@@ -173,8 +173,15 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">legend.text</span>,</span>
 <span>  <span class="va">legend.title</span>,</span>
 <span>  <span class="va">legend.position</span>,</span>
+<span>  <span class="va">legend.position.inside</span>,</span>
 <span>  <span class="va">legend.direction</span>,</span>
 <span>  <span class="va">legend.justification</span>,</span>
+<span>  <span class="va">legend.justification.top</span>,</span>
+<span>  <span class="va">legend.justification.bottom</span>,</span>
+<span>  <span class="va">legend.justification.left</span>,</span>
+<span>  <span class="va">legend.justification.right</span>,</span>
+<span>  <span class="va">legend.justification.inside</span>,</span>
+<span>  <span class="va">legend.location</span>,</span>
 <span>  <span class="va">legend.box</span>,</span>
 <span>  <span class="va">legend.box.just</span>,</span>
 <span>  <span class="va">legend.box.margin</span>,</span>
@@ -334,8 +341,13 @@ inherits from <code>rect</code>)</p></dd>
 
 
 <dt>legend.position</dt>
-<dd><p>the position of legends ("none", "left", "right",
-"bottom", "top", or two-element numeric vector)</p></dd>
+<dd><p>the default position of legends ("none", "left",
+"right", "bottom", "top", "inside")</p></dd>
+
+
+<dt>legend.position.inside</dt>
+<dd><p>A numeric vector of length two setting the
+placement of legends that have the <code>"inside"</code> position.</p></dd>
 
 
 <dt>legend.direction</dt>
@@ -347,6 +359,16 @@ inherits from <code>rect</code>)</p></dd>
 <dd><p>anchor point for positioning legend inside plot
 ("center" or two-element numeric vector) or the justification according to
 the plot area when positioned outside the plot</p></dd>
+
+
+<dt>legend.justification.top, legend.justification.bottom, legend.justification.left, legend.justification.right, legend.justification.inside</dt>
+<dd><p>Same as <code>legend.justification</code> but specified per <code>legend.position</code> option.</p></dd>
+
+
+<dt>legend.location</dt>
+<dd><p>Relative placement of legends outside the plot as a
+string. Can be <code>"panel"</code> (default) to align legends to the panels or
+<code>"plot"</code> to align legends to the plot as a whole.</p></dd>
 
 
 <dt>legend.box</dt>
@@ -622,6 +644,9 @@ details of the specific theme elements.</p></div>
 <span class="r-in"><span>  legend.box.just <span class="op">=</span> <span class="st">"right"</span>,</span></span>
 <span class="r-in"><span>  legend.margin <span class="op">=</span> <span class="fu"><a href="element.html">margin</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>A numeric `legend.position` argument in `theme()` was deprecated in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> ggplot2 3.5.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use the `legend.position.inside` argument of `theme()` instead.</span>
 <span class="r-plt img"><img src="theme-18.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The legend.box properties work similarly for the space around</span></span></span>
