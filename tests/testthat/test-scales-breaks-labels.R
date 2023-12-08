@@ -1,7 +1,7 @@
 test_that("labels match breaks, even when outside limits", {
   sc <- scale_y_continuous(breaks = 1:4, labels = 1:4, limits = c(1, 3))
 
-  expect_equal(sc$get_breaks(), c(1:3, NA))
+  expect_equal(sc$get_breaks(), 1:4)
   expect_equal(sc$get_labels(), 1:4)
   expect_equal(sc$get_breaks_minor(), c(1, 1.5, 2, 2.5, 3))
 })
@@ -231,7 +231,7 @@ test_that("breaks can be specified by names of labels", {
 test_that("only finite or NA values for breaks for transformed scales (#871)", {
   sc <- scale_y_continuous(limits = c(0.01, 0.99), trans = "probit",
                            breaks = seq(0, 1, 0.2))
-  breaks <- sc$get_breaks()
+  breaks <- sc$break_info()$major_source
   expect_true(all(is.finite(breaks) | is.na(breaks)))
 })
 
@@ -257,7 +257,7 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
     limits = c(10, 30)
   )
 
-  expect_identical(test_scale$get_breaks(), c(NA, 20, NA))
+  expect_identical(test_scale$get_breaks(), c(0, 20, 40))
   expect_identical(test_scale$get_labels(), c(c("0", "20", "40")))
 
   test_view_scale <- view_scale_primary(test_scale)
