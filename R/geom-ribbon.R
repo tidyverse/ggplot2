@@ -183,7 +183,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       munched_poly$x, munched_poly$y, id = munched_poly$id,
       default.units = "native",
       gp = gpar(
-        fill = alpha(aes$fill, aes$alpha),
+        fill = fill_alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
         lwd = if (is_full_outline) aes$linewidth * .pt else 0,
         lty = if (is_full_outline) aes$linetype else 1,

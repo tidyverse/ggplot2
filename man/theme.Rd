@@ -69,8 +69,15 @@ theme(
   legend.text,
   legend.title,
   legend.position,
+  legend.position.inside,
   legend.direction,
   legend.justification,
+  legend.justification.top,
+  legend.justification.bottom,
+  legend.justification.left,
+  legend.justification.right,
+  legend.justification.inside,
+  legend.location,
   legend.box,
   legend.box.just,
   legend.box.margin,
@@ -187,8 +194,11 @@ inherits from \code{rect})}
 \item{legend.title}{title of legend (\code{\link[=element_text]{element_text()}}; inherits from
 \code{title})}
 
-\item{legend.position}{the position of legends ("none", "left", "right",
-"bottom", "top", or two-element numeric vector)}
+\item{legend.position}{the default position of legends ("none", "left",
+"right", "bottom", "top", "inside")}
+
+\item{legend.position.inside}{A numeric vector of length two setting the
+placement of legends that have the \code{"inside"} position.}
 
 \item{legend.direction}{layout of items in legends ("horizontal" or
 "vertical")}
@@ -196,6 +206,12 @@ inherits from \code{rect})}
 \item{legend.justification}{anchor point for positioning legend inside plot
 ("center" or two-element numeric vector) or the justification according to
 the plot area when positioned outside the plot}
+
+\item{legend.justification.top, legend.justification.bottom, legend.justification.left, legend.justification.right, legend.justification.inside}{Same as \code{legend.justification} but specified per \code{legend.position} option.}
+
+\item{legend.location}{Relative placement of legends outside the plot as a
+string. Can be \code{"panel"} (default) to align legends to the panels or
+\code{"plot"} to align legends to the plot as a whole.}
 
 \item{legend.box}{arrangement of multiple legends ("horizontal" or
 "vertical")}

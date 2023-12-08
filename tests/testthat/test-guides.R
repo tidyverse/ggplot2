@@ -51,22 +51,21 @@ test_that("Colorbar respects show.legend in layer", {
   df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
-  expect_false("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_length(ggplot_build(p)$plot$guides$guides, 0L)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = TRUE)
-  expect_true("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_length(ggplot_build(p)$plot$guides$guides, 1L)
 })
 
 test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
-    gb <- which(g$layout$name == "guide-box")
-    if (length(gb) > 0) {
-      n <- length(g$grobs[[gb]]) - 1
-    } else {
-      n <- 0
-    }
-    n
+    gb <- grep("guide-box", g$layout$name)
+    n <- vapply(g$grobs[gb], function(x) {
+      if (is.zero(x)) return(0)
+      length(x$grobs) - 1
+    }, numeric(1))
+    sum(n)
   }
 
   df <- data_frame(x = 1:3, y = 20:22)
@@ -749,18 +748,19 @@ test_that("guides are positioned correctly", {
 
   expect_doppelganger("padding in legend box", p2)
 
+  p2 <- p2 + theme(legend.position = "inside")
   # Placement of legend inside
   expect_doppelganger("legend inside plot, centered",
-    p2 + theme(legend.position = c(.5, .5))
+    p2 + theme(legend.position.inside = c(.5, .5))
   )
   expect_doppelganger("legend inside plot, bottom left",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(0,0))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
   )
   expect_doppelganger("legend inside plot, top right",
-    p2 + theme(legend.justification = c(1,1), legend.position = c(1,1))
+    p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(.5,.5))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(.5,.5))
   )
 })
 

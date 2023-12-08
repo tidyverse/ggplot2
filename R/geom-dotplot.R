@@ -294,7 +294,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                   stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
-                            fill = alpha(tdata$fill, tdata$alpha),
+                            fill = fill_alpha(tdata$fill, tdata$alpha),
                             lwd = tdata$stroke, lty = tdata$linetype,
                             lineend = lineend))
     )
