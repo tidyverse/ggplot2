@@ -84,14 +84,16 @@ p <- ggplot(mtcars) +
 p
 
 # Remove the axis or style it
-p + guides(size = guide_bins(theme = theme(legend.axis = element_blank())))
+p + guides(size = guide_bins(
+  theme = theme(legend.axis.line = element_blank())
+))
 
 p + guides(size = guide_bins(show.limits = TRUE))
 
 my_arrow <- arrow(length = unit(1.5, "mm"), ends = "both")
-p + guides(size = guide_bins(theme = theme(
-  legend.axis = element_line(arrow = my_arrow)
-)))
+p + guides(size = guide_bins(
+  theme = theme(legend.axis.line = element_line(arrow = my_arrow))
+))
 
 # Guides are merged together if possible
 ggplot(mtcars) +
