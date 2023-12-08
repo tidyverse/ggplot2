@@ -20,7 +20,7 @@ create_layout <- function(plot) UseMethod("create_layout", plot)
 
 #' @export
 create_layout.ggplot <- function(plot) {
-  ggproto(NULL, Layout, facet = plot$facet, plot$coordinates)
+  ggproto(NULL, Layout, facet = plot$facet, coord = plot$coordinates)
 }
 
 #' @rdname ggplot2-ggproto
