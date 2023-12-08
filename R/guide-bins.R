@@ -100,6 +100,7 @@ guide_bins <- function(
   ticks.length = unit(0.2, "npc"),
 
   # general
+  position     = NULL,
   direction    = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -120,6 +121,9 @@ guide_bins <- function(
   }
   if (!is.null(title.position)) {
     title.position <- arg_match0(title.position, .trbl)
+  }
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
   if (!is.null(direction)) {
     direction <- arg_match0(direction, c("horizontal", "vertical"))
@@ -169,6 +173,7 @@ guide_bins <- function(
     ticks_length = ticks.length,
 
     # general
+    position = position,
     direction = direction,
     override.aes = rename_aes(override.aes),
     reverse = reverse,

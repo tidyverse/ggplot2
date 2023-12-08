@@ -78,13 +78,20 @@
 #'   `text`)
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
-#' @param legend.position the position of legends ("none", "left", "right",
-#'   "bottom", "top", or two-element numeric vector)
+#' @param legend.position the default position of legends ("none", "left",
+#'   "right", "bottom", "top", "inside")
+#' @param legend.position.inside A numeric vector of length two setting the
+#'   placement of legends that have the `"inside"` position.
 #' @param legend.direction layout of items in legends ("horizontal" or
 #'   "vertical")
 #' @param legend.justification anchor point for positioning legend inside plot
 #'   ("center" or two-element numeric vector) or the justification according to
 #'   the plot area when positioned outside the plot
+#' @param legend.justification.top,legend.justification.bottom,legend.justification.left,legend.justification.right,legend.justification.inside
+#'   Same as `legend.justification` but specified per `legend.position` option.
+#' @param legend.location Relative placement of legends outside the plot as a
+#'   string. Can be `"panel"` (default) to align legends to the panels or
+#'   `"plot"` to align legends to the plot as a whole.
 #' @param legend.box arrangement of multiple legends ("horizontal" or
 #'   "vertical")
 #' @param legend.box.just justification of each legend within the overall
@@ -345,8 +352,15 @@ theme <- function(...,
                   legend.text,
                   legend.title,
                   legend.position,
+                  legend.position.inside,
                   legend.direction,
                   legend.justification,
+                  legend.justification.top,
+                  legend.justification.bottom,
+                  legend.justification.left,
+                  legend.justification.right,
+                  legend.justification.inside,
+                  legend.location,
                   legend.box,
                   legend.box.just,
                   legend.box.margin,
@@ -454,6 +468,14 @@ theme <- function(...,
         elements$legend.text.align
     }
     elements$legend.text.align <- NULL
+  }
+  if (is.numeric(elements[["legend.position"]])) {
+    deprecate_soft0(
+      "3.5.0", I("A numeric `legend.position` argument in `theme()`"),
+      "theme(legend.position.inside)"
+    )
+    elements$legend.position.inside <- elements$legend.position
+    elements$legend.position <- "inside"
   }
 
   # If complete theme set all non-blank elements to inherit from blanks
