@@ -211,6 +211,9 @@
     <loc>https://ggplot2.tidyverse.org/dev/reference/faithfuld.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/fill_alpha.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/find_panel.html</loc>
   </url>
   <url>
@@ -473,6 +476,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/old_guide.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/pattern_alpha.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/position_dodge.html</loc>
