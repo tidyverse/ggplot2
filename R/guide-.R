@@ -224,7 +224,8 @@ Guide <- ggproto(
     key$.label <- labels
 
     if (is.numeric(breaks)) {
-      vec_slice(key, is.finite(breaks))
+      range <- scale$continuous_range %||% scale$get_limits()
+      key <- vec_slice(key, is.finite(oob_censor_any(breaks, range)))
     } else {
       key
     }

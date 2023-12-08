@@ -3,7 +3,7 @@
 #' Based on [gray.colors()]. This is black and white equivalent
 #' of [scale_colour_gradient()].
 #'
-#' @inheritParams scales::grey_pal
+#' @inheritParams scales::pal_grey
 #' @inheritParams scale_colour_hue
 #' @inheritDotParams discrete_scale
 #' @family colour scales
@@ -28,13 +28,13 @@
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_grey(na.value = "green")
 scale_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red", aesthetics = "colour") {
-  discrete_scale(aesthetics, palette = grey_pal(start, end),
+  discrete_scale(aesthetics, palette = pal_grey(start, end),
     na.value = na.value, ...)
 }
 
 #' @rdname scale_grey
 #' @export
 scale_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "red", aesthetics = "fill") {
-  discrete_scale(aesthetics, palette = grey_pal(start, end),
+  discrete_scale(aesthetics, palette = pal_grey(start, end),
     na.value = na.value, ...)
 }

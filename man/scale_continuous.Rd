@@ -65,7 +65,7 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
@@ -79,7 +79,9 @@ Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks. Also
-accepts rlang \link[rlang:as_function]{lambda} function notation.
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+breaks.
 }}
 
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
@@ -142,8 +144,8 @@ A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \verb{<name>_trans}. If
 transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
-You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -215,9 +217,9 @@ p1 + scale_y_sqrt()
 p1 + scale_y_reverse()
 
 # Or you can supply a transformation in the `trans` argument:
-p1 + scale_y_continuous(trans = scales::reciprocal_trans())
+p1 + scale_y_continuous(trans = scales::transform_reciprocal())
 
-# You can also create your own. See ?scales::trans_new
+# You can also create your own. See ?scales::new_transform
 
 }
 \seealso{

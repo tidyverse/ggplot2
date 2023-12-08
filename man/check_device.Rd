@@ -33,7 +33,8 @@ either \code{"blending"} or \code{"compositing"}. If \code{NULL} (default), supp
 all known blending or compositing operations is queried.}
 
 \item{maybe}{A logical of length 1 determining what the return value should
-be in case the device capabilities cannot be assessed.}
+be in case the device capabilities cannot be assessed. When the current
+device is the 'null device', \code{maybe} is returned.}
 
 \item{call}{The execution environment of a currently running function, e.g.
 \code{\link[rlang:stack]{caller_env()}}. The function will be mentioned in

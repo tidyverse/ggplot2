@@ -184,7 +184,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid.")
     }
 
     # Work out grouping variables for grobs
@@ -351,11 +351,6 @@ stairstep <- function(data, direction = "hv") {
   } else if (direction == "mid") {
     xs <- rep(1:(n-1), each = 2)
     ys <- rep(1:n, each = 2)
-  } else {
-    cli::cli_abort(c(
-      "{.arg direction} is invalid.",
-      "i" = "Use either {.val vh}, {.val hv}, or {.va mid}"
-    ))
   }
 
   if (direction == "mid") {

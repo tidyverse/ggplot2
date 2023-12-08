@@ -40,7 +40,7 @@
 
 ---
 
-    `nrow` * `ncol` needs to be larger than the number of breaks (5)
+    `nrow` * `ncol` needs to be larger than the number of breaks (5).
 
 # colorsteps and bins checks the breaks format
 

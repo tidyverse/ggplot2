@@ -38,7 +38,7 @@ draw_key_point <- function(data, params, size) {
     pch = data$shape,
     gp = gpar(
       col = alpha(data$colour %||% "black", data$alpha),
-      fill = alpha(data$fill %||% "black", data$alpha),
+      fill = fill_alpha(data$fill %||% "black", data$alpha),
       fontsize = (data$size %||% 1.5) * .pt + stroke_size * .stroke / 2,
       lwd = stroke_size * .stroke / 2
     )
@@ -63,7 +63,7 @@ draw_key_abline <- function(data, params, size) {
 draw_key_rect <- function(data, params, size) {
   rectGrob(gp = gpar(
     col = NA,
-    fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+    fill = fill_alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
     lty = data$linetype %||% 1
   ))
 }
@@ -81,7 +81,7 @@ draw_key_polygon <- function(data, params, size) {
     height = unit(1, "npc") - unit(lwd, "mm"),
     gp = gpar(
       col = data$colour %||% NA,
-      fill = alpha(data$fill %||% "grey20", data$alpha),
+      fill = fill_alpha(data$fill %||% "grey20", data$alpha),
       lty = data$linetype %||% 1,
       lwd = lwd * .pt,
       linejoin = params$linejoin %||% "mitre",
@@ -100,7 +100,7 @@ draw_key_blank <- function(data, params, size) {
 draw_key_boxplot <- function(data, params, size) {
   gp <- gpar(
     col = data$colour %||% "grey20",
-    fill = alpha(data$fill %||% "white", data$alpha),
+    fill = fill_alpha(data$fill %||% "white", data$alpha),
     lwd = (data$linewidth %||% 0.5) * .pt,
     lty = data$linetype %||% 1,
     lineend = params$lineend %||% "butt",
@@ -131,7 +131,7 @@ draw_key_boxplot <- function(data, params, size) {
 draw_key_crossbar <- function(data, params, size) {
   gp <- gpar(
     col = data$colour %||% "grey20",
-    fill = alpha(data$fill %||% "white", data$alpha),
+    fill = fill_alpha(data$fill %||% "white", data$alpha),
     lwd = (data$linewidth %||% 0.5) * .pt,
     lty = data$linetype %||% 1,
     lineend = params$lineend %||% "butt",
@@ -195,7 +195,7 @@ draw_key_dotplot <- function(data, params, size) {
     pch = 21,
     gp = gpar(
       col = alpha(data$colour %||% "black", data$alpha),
-      fill = alpha(data$fill %||% "black", data$alpha),
+      fill = fill_alpha(data$fill %||% "black", data$alpha),
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     )
