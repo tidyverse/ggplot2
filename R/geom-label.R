@@ -103,7 +103,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         ),
         rect.gp = gpar(
           col = if (isTRUE(all.equal(label.size, 0))) NA else row$colour,
-          fill = alpha(row$fill, row$alpha),
+          fill = fill_alpha(row$fill, row$alpha),
           lwd = label.size * .pt
         )
       )
