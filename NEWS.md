@@ -5,6 +5,11 @@
   from `fill = alpha(fill, alpha)` to `fill = fill_alpha(fill, alpha)` when 
   providing fills to `grid::gpar()` (@teunbrand, #3997).
 
+* The plot's title, subtitle and caption now obey horizontal text margins
+  (#5533).
+
+* New `guide_axis_stack()` to combine other axis guides on top of one another.
+
 * New `guide_custom()` function for drawing custom graphical objects (grobs)
   unrelated to scales in legend positions (#5416).
   
