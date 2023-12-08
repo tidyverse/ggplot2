@@ -35,7 +35,7 @@ that should be used for error messages associated with this scale.}
 
 \item{palette}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}
+(e.g., \code{\link[scales:pal_area]{scales::pal_area()}}).}
 
 \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
@@ -46,7 +46,7 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
@@ -130,8 +130,8 @@ A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \verb{<name>_trans}. If
 transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
-You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
 
 \item{show.limits}{should the limits of the scale appear as ticks}
 

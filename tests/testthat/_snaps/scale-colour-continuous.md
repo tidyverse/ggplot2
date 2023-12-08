@@ -11,7 +11,7 @@
 ---
 
     The `type` argument must return a continuous scale for the colour aesthetic.
-    x The provided scale works with the following aesthetics: fill and point_colour
+    x The provided scale works with the following aesthetics: fill and point_colour.
 
 ---
 
@@ -21,10 +21,10 @@
 ---
 
     Unknown scale type: "abc"
-    i Use either "gradient" or "viridis"
+    i Use either "gradient" or "viridis".
 
 ---
 
     Unknown scale type: "abc"
-    i Use either "gradient" or "viridis"
+    i Use either "gradient" or "viridis".
 

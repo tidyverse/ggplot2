@@ -497,7 +497,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.spacing      = el_def("unit"),
   legend.spacing.x     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.spacing.y     = el_def(c("unit", "rel"), "legend.spacing"),
-  legend.key          = el_def("element_rect", "rect"),
+  legend.key          = el_def("element_rect", "panel.background"),
   legend.key.height   = el_def(c("unit", "rel"), "legend.key.size"),
   legend.key.width    = el_def(c("unit", "rel"), "legend.key.size"),
   legend.text         = el_def("element_text", "text"),

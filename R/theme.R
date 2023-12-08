@@ -288,7 +288,8 @@
 #' p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 #' p3 + theme(panel.spacing = unit(1, "lines"))
 #' }
-theme <- function(line,
+theme <- function(...,
+                  line,
                   rect,
                   text,
                   title,
@@ -402,7 +403,6 @@ theme <- function(line,
                   strip.text.y.right,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
-                  ...,
                   complete = FALSE,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
@@ -567,7 +567,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
       t1[item] <- list(x)
     },
     error = function(cnd) {
-      cli::cli_abort("Problem merging the {.var {item}} theme element", parent = cnd, call = call)
+      cli::cli_abort("Can't merge the {.var {item}} theme element.", parent = cnd, call = call)
     }
   )
 
@@ -607,7 +607,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
 #' t$text
 calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
                          call = caller_env()) {
-  if (verbose) message(element, " --> ", appendLF = FALSE)
+  if (verbose) cli::cli_inform(paste0(element, " --> "))
 
   el_out <- theme[[element]]
 
@@ -617,7 +617,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
-      if (verbose) message("element_blank (no inheritance)")
+      if (verbose) cli::cli_inform("{.fn element_blank} (no inheritance)")
       return(el_out)
     }
   }
@@ -629,7 +629,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
   }
 
   # Get the names of parents from the inheritance tree
@@ -637,7 +637,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
-    if (verbose) message("nothing (top level)")
+    if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
     nullprops <- vapply(el_out, is.null, logical(1))
@@ -652,11 +652,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
       return(el_out) # no null properties remaining, return element
     }
 
-    cli::cli_abort("Theme element {.var {element}} has {.val NULL} property without default: {.field {names(nullprops)[nullprops]}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} has {.code NULL} property without default: {.field {names(nullprops)[nullprops]}}.", call = call)
   }
 
   # Calculate the parent objects' inheritance
-  if (verbose) message(paste(pnames, collapse = ", "))
+  if (verbose) cli::cli_inform("{pnames}")
   parents <- lapply(
     pnames,
     calc_element,
@@ -708,7 +708,7 @@ merge_element.default <- function(new, old) {
   }
 
   # otherwise we can't merge
-  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}")
+  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
 }
 
 #' @rdname merge_element
@@ -728,7 +728,7 @@ merge_element.element <- function(new, old) {
 
   # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
-    cli::cli_abort("Only elements of the same class can be merged")
+    cli::cli_abort("Only elements of the same class can be merged.")
   }
 
   # Override NULL properties of new with the values in old

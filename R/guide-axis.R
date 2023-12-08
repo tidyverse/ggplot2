@@ -570,6 +570,10 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   check_number_decimal(angle)
   angle <- angle %% 360
+  arg_match0(
+    axis_position,
+    c("bottom", "left", "top", "right")
+  )
 
   if (axis_position == "bottom") {
 
@@ -590,13 +594,6 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
     hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
     vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-
-  } else {
-
-    cli::cli_abort(c(
-      "Unrecognized {.arg axis_position}: {.val {axis_position}}",
-      "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
-    ))
 
   }
 
