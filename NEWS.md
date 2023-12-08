@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `draw_key_label()` now better reflects the appearance of labels.
+
 * The `minor_breaks` function argument in scales can now take a function with
   two arguments: the scale's limits and the scale's major breaks (#3583).
   
