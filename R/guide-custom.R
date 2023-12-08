@@ -43,7 +43,7 @@
 guide_custom <- function(
   grob, width = grobWidth(grob), height = grobHeight(grob),
   title = NULL, title.position = "top", margin = NULL,
-  position = waiver(), order = 0
+  position = NULL, order = 0
 ) {
   check_object(grob, is.grob, "a {.cls grob} object")
   check_object(width, is.unit, "a {.cls unit} object")

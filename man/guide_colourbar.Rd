@@ -30,6 +30,7 @@ guide_colourbar(
   ticks.length = unit(0.2, "npc"),
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  position = NULL,
   direction = NULL,
   default.unit = "line",
   reverse = FALSE,
@@ -63,6 +64,7 @@ guide_colorbar(
   ticks.length = unit(0.2, "npc"),
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  position = NULL,
   direction = NULL,
   default.unit = "line",
   reverse = FALSE,
@@ -158,6 +160,9 @@ be visible.}
 
 \item{draw.llim}{A logical specifying if the lower limit tick marks should
 be visible.}
+
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}

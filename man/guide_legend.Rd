@@ -20,6 +20,7 @@ guide_legend(
   key.spacing = NULL,
   key.spacing.x = NULL,
   key.spacing.y = NULL,
+  position = NULL,
   direction = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -81,6 +82,9 @@ the height of the legend key. Default value is \code{legend.key.height} or
 object specifying the distance between key-label pairs in the horizontal
 direction (\code{key.spacing.x}), vertical direction (\code{key.spacing.y}) or both
 (\code{key.spacing}).}
+
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}

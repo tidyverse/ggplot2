@@ -11,7 +11,7 @@ guide_custom(
   title = NULL,
   title.position = "top",
   margin = NULL,
-  position = waiver(),
+  position = NULL,
   order = 0
 )
 }

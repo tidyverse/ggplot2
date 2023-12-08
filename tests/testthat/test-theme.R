@@ -743,6 +743,38 @@ test_that("plot titles and caption can be aligned to entire plot", {
 
 })
 
+test_that("Legends can on all sides of the plot with custom justification", {
+
+  plot <- ggplot(mtcars) +
+    aes(
+      disp, mpg,
+      colour = hp,
+      fill   = factor(gear),
+      shape  = factor(cyl),
+      size   = drat,
+      alpha = wt
+    ) +
+    geom_point() +
+    guides(
+      shape  = guide_legend(position = "top"),
+      colour = guide_colourbar(position = "bottom"),
+      size   = guide_legend(position = "left"),
+      alpha  = guide_legend(position = "right"),
+      fill   = guide_legend(position = "inside", override.aes = list(shape = 21))
+    ) +
+    theme_test() +
+    theme(
+      legend.justification.top    = "left",
+      legend.justification.bottom = c(1, 0),
+      legend.justification.left   = c(0, 1),
+      legend.justification.right  = "bottom",
+      legend.justification.inside = c(0.75, 0.75),
+      legend.location = "plot"
+    )
+
+  expect_doppelganger("legends at all sides with justification", plot)
+})
+
 test_that("Strips can render custom elements", {
   element_test <- function(...) {
     el <- element_text(...)

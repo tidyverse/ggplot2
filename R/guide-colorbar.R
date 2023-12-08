@@ -151,6 +151,7 @@ guide_colourbar <- function(
   draw.llim = TRUE,
 
   # general
+  position = NULL,
   direction = NULL,
   default.unit = "line",
   reverse = FALSE,
@@ -170,6 +171,9 @@ guide_colourbar <- function(
 
   if (!is.null(title.position)) {
     title.position <- arg_match0(title.position, .trbl)
+  }
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
   if (!is.null(direction)) {
     direction <- arg_match0(direction, c("horizontal", "vertical"))
@@ -240,6 +244,7 @@ guide_colourbar <- function(
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
 
     # general
+    position = position,
     direction = direction,
     reverse = reverse,
     order = order,
