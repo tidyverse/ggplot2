@@ -12,6 +12,7 @@ guide_colourbar(
   raster = TRUE,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  position = NULL,
   direction = NULL,
   reverse = FALSE,
   order = 0,
@@ -26,6 +27,7 @@ guide_colorbar(
   raster = TRUE,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  position = NULL,
   direction = NULL,
   reverse = FALSE,
   order = 0,
@@ -56,6 +58,9 @@ be visible.}
 
 \item{draw.llim}{A logical specifying if the lower limit tick marks should
 be visible.}
+
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}

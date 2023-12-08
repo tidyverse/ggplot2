@@ -16,6 +16,8 @@
 #' @param theme A [`theme`][theme()] object to style the guide individually or
 #'   differently from the plot's theme settings. The `theme` argument in the
 #'   guide override,s and is combined with, the plot's theme.
+#' @param position A character string indicating where the legend should be
+#'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param override.aes A list specifying aesthetic parameters of legend key.
@@ -99,6 +101,7 @@ guide_legend <- function(
   theme = NULL,
 
   # General
+  position     = NULL,
   direction    = NULL,
   override.aes = list(),
   nrow         = NULL,
@@ -109,6 +112,10 @@ guide_legend <- function(
 ) {
 
   theme <- deprecated_guide_args(theme, ...)
+
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "inside"))
+  }
 
   new_guide(
     # Title
@@ -122,6 +129,7 @@ guide_legend <- function(
     ncol = ncol,
     reverse = reverse,
     order = order,
+    position = position,
 
     # Fixed parameters
     available_aes = "any",

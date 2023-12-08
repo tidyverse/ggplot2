@@ -21,3 +21,10 @@
     Caused by error in `draw_panel()`:
     ! `geom_raster()` only works with `coord_cartesian()`.
 
+# geom_raster() fails with pattern fills
+
+    Problem while converting geom to grob.
+    i Error occurred in the 1st layer.
+    Caused by error in `draw_panel()`:
+    ! `geom_raster()` cannot render pattern fills.
+

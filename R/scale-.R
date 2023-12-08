@@ -26,7 +26,9 @@
 #'     each major break)
 #'   - A numeric vector of positions
 #'   - A function that given the limits returns a vector of minor breaks. Also
-#'     accepts rlang [lambda][rlang::as_function()] function notation.
+#'     accepts rlang [lambda][rlang::as_function()] function notation. When
+#'     the function has two arguments, it will be given the limits and major
+#'     breaks.
 #' @param n.breaks An integer guiding the number of major breaks. The algorithm
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
@@ -714,11 +716,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Breaks in data space need to be converted back to transformed space
-    breaks <- self$trans$transform(breaks)
-    # Any breaks outside the dimensions are flagged as missing
-    breaks <- censor(breaks, self$trans$transform(limits), only.finite = FALSE)
-
-    breaks
+    self$trans$transform(breaks)
   },
 
   get_breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$get_limits()) {
@@ -736,6 +734,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         call = self$call
       )
     }
+    # major breaks are not censored, however;
+    # some transforms assume finite major breaks
+    b <- b[is.finite(b)]
 
     if (is.waive(self$minor_breaks)) {
       if (is.null(b)) {
@@ -744,8 +745,18 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         breaks <- self$trans$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
-      # Find breaks in data space, and convert to numeric
-      breaks <- self$minor_breaks(self$trans$inverse(limits))
+      # Using `fetch_ggproto` here to avoid auto-wrapping the user-supplied
+      # breaks function as a ggproto method.
+      break_fun <- fetch_ggproto(self, "minor_breaks")
+      arg_names <- fn_fmls_names(break_fun)
+
+      # Find breaks in data space
+      if (length(arg_names) == 1L) {
+        breaks <- break_fun(self$trans$inverse(limits))
+      } else {
+        breaks <- break_fun(self$trans$inverse(limits), self$trans$inverse(b))
+      }
+      # Convert breaks to numeric
       breaks <- self$trans$transform(breaks)
     } else {
       breaks <- self$trans$transform(self$minor_breaks)
@@ -819,13 +830,15 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # labels
     labels <- self$get_labels(major)
 
-    # drop oob breaks/labels by testing major == NA
-    if (!is.null(labels)) labels <- labels[!is.na(major)]
-    if (!is.null(major)) major <- major[!is.na(major)]
-
     # minor breaks
     minor <- self$get_breaks_minor(b = major, limits = range)
     if (!is.null(minor)) minor <- minor[!is.na(minor)]
+
+    major <- oob_censor_any(major, range)
+
+    # drop oob breaks/labels by testing major == NA
+    if (!is.null(labels)) labels <- labels[!is.na(major)]
+    if (!is.null(major)) major <- major[!is.na(major)]
 
     # rescale breaks [0, 1], which are used by coord/guide
     major_n <- rescale(major, from = range)

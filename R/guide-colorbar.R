@@ -109,6 +109,7 @@ guide_colourbar <- function(
   raster = TRUE,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  position = NULL,
   direction = NULL,
   reverse = FALSE,
   order = 0,
@@ -117,6 +118,9 @@ guide_colourbar <- function(
 ) {
 
   theme <- deprecated_guide_args(theme, ...)
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "inside"))
+  }
 
   new_guide(
     title = title,
@@ -124,6 +128,7 @@ guide_colourbar <- function(
     nbin = nbin,
     raster = raster,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
+    position = position,
     direction = direction,
     reverse = reverse,
     order = order,

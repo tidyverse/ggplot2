@@ -63,6 +63,7 @@ guide_bins <- function(
   theme = NULL,
 
   # general
+  position     = NULL,
   direction    = NULL,
   override.aes = list(),
   reverse      = FALSE,
@@ -72,6 +73,9 @@ guide_bins <- function(
 ) {
 
   theme <- deprecated_guide_args(theme, ...)
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "inside"))
+  }
 
   new_guide(
     # title
@@ -79,6 +83,7 @@ guide_bins <- function(
     theme = theme,
 
     # general
+    position = position,
     direction = direction,
     override.aes = rename_aes(override.aes),
     reverse = reverse,
@@ -165,6 +170,7 @@ GuideBins <- ggproto(
     }
 
     key$.label <- labels
+    key <- vec_slice(key, !is.na(oob_censor_any(key$.value)))
 
     return(key)
   },

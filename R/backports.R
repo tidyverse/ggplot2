@@ -22,3 +22,26 @@ if (getRversion() < "3.5") {
   isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
   isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) &&  x
 }
+
+version_unavailable <- function(...) {
+  fun <- as_label(current_call()[[1]])
+  cli::cli_abort("{.fn {fun}} is not available in R version {getRversion()}.")
+}
+
+# Ignore mask argument if on lower R version (<= 4.1)
+viewport <- function(..., mask) grid::viewport(...)
+pattern  <- version_unavailable
+as.mask  <- version_unavailable
+on_load({
+  if ("mask" %in% fn_fmls_names(grid::viewport)) {
+    viewport <- grid::viewport
+  }
+  # Replace version unavailable functions if found
+  if ("pattern" %in% getNamespaceExports("grid")) {
+    pattern <- grid::pattern
+  }
+  if ("as.mask" %in% getNamespaceExports("grid")) {
+    as.mask <- grid::as.mask
+  }
+})
+

@@ -262,8 +262,8 @@ Guides <- ggproto(
 
   ## Building ------------------------------------------------------------------
 
-  # The `Guides$build()` method is called in ggplotGrob (plot-build.R) and makes
-  # the guide box for *non-position* scales.
+  # The `Guides$build()` method is called in ggplot_build (plot-build.R) and
+  # collects all information needed from the plot.
   # Note that position scales are handled in `Coord`s, which have their own
   # procedures to do equivalent steps.
   #
@@ -283,12 +283,7 @@ Guides <- ggproto(
   # 3. Guides$process_layers()
   #      process layer information and generate geom info.
   #
-  # 4. Guides$draw()
-  #      generate guide grob from each guide object
-  #      one guide grob for one guide object
-  #
-  # 5. Guides$assemble()
-  #      arrange all guide grobs
+  # The resulting guide is then drawn in ggplot_gtable
 
   build = function(self, scales, layers, labels, layer_data) {
 
@@ -476,49 +471,105 @@ Guides <- ggproto(
     invisible()
   },
 
-  # Loop over every guide, let them draw their grobs
-  draw = function(self, theme, position, direction) {
-    Map(
-      function(guide, params) guide$draw(theme, position, direction, params),
-      guide  = self$guides,
-      params = self$params
-    )
-  },
-
+  # The `Guides$assemble()` method is called in ggplot_gtable (plot-build.R) and
+  # applies the styling from the theme to render each guide and package them
+  # into guide boxes.
+  #
+  # The procedure is as follows
+  #
+  # 1. Guides$draw()
+  #      for every guide object, draw one grob,
+  #      then group the grobs in a list per position
+  #
+  # 2. Guides$package_box()
+  #      for every position, collect all individual guides and arrange them
+  #      into a guide box which will be inserted into the main gtable
   # Combining multiple guides in a guide box
-  assemble = function(self, theme, position) {
+  assemble = function(self, theme) {
 
     if (length(self$guides) < 1) {
       return(zeroGrob())
     }
 
-    position  <- legend_position(position)
-    if (position == "none") {
+    default_position <- theme$legend.position %||% "right"
+    if (length(default_position) == 2) {
+      default_position <- "inside"
+    }
+    if (default_position == "none") {
       return(zeroGrob())
     }
-    default_direction <- if (position == "inside") "vertical" else position
 
-    theme$legend.key.width  <- theme$legend.key.width  %||% theme$legend.key.size
-    theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
-    theme$legend.box       <- theme$legend.box       %||% default_direction
-    theme$legend.direction <- theme$legend.direction %||% default_direction
-    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
-      position,
-      inside     = c("center", "center"),
-      vertical   = c("left",   "top"),
-      horizontal = c("center", "top")
-    )
+    # Populate key sizes
+    theme$legend.key.width  <- calc_element("legend.key.width",  theme)
+    theme$legend.key.height <- calc_element("legend.key.height", theme)
 
-    grobs <- self$draw(theme, position, theme$legend.direction)
+    grobs <- self$draw(theme, default_position, theme$legend.direction)
     if (length(grobs) < 1) {
       return(zeroGrob())
     }
     grobs <- grobs[order(names(grobs))]
 
     # Set spacing
-    theme$legend.spacing   <- theme$legend.spacing    %||% unit(0.5, "lines")
-    theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
-    theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
+    theme$legend.spacing   <- theme$legend.spacing %||% unit(0.5, "lines")
+    theme$legend.spacing.y <- calc_element("legend.spacing.y", theme)
+    theme$legend.spacing.x <- calc_element("legend.spacing.x", theme)
+
+    Map(
+      grobs    = grobs,
+      position = names(grobs),
+      self$package_box,
+      MoreArgs = list(theme = theme)
+    )
+  },
+
+  # Render the guides into grobs
+  draw = function(self, theme,
+                  default_position = "right",
+                  direction = NULL,
+                  params = self$params,
+                  guides = self$guides) {
+    positions <- vapply(
+      params,
+      function(p) p$position[1] %||% default_position,
+      character(1)
+    )
+    positions <- factor(positions, levels = c(.trbl, "inside"))
+
+    directions <- rep(direction %||% "vertical", length(positions))
+    if (is.null(direction)) {
+      directions[positions %in% c("top", "bottom")] <- "horizontal"
+    }
+
+    grobs <- vector("list", length(guides))
+    for (i in seq_along(grobs)) {
+      grobs[[i]] <- guides[[i]]$draw(
+        theme = theme, position = as.character(positions[i]),
+        direction = directions[i], params = params[[i]]
+      )
+    }
+    split(grobs, positions)
+  },
+
+  package_box = function(grobs, position, theme) {
+
+    if (is.zero(grobs) || length(grobs) == 0) {
+      return(zeroGrob())
+    }
+
+    # Determine default direction
+    direction <- switch(
+      position,
+      inside = , left = , right = "vertical",
+      top = , bottom = "horizontal"
+    )
+
+    # Populate missing theme arguments
+    theme$legend.box       <- theme$legend.box       %||% direction
+    theme$legend.box.just  <- theme$legend.box.just  %||% switch(
+      direction,
+      vertical   = c("left", "top"),
+      horizontal = c("center", "top")
+    )
 
     # Measure guides
     widths  <- lapply(grobs, function(g) sum(g$widths))
@@ -526,54 +577,95 @@ Guides <- ggproto(
     heights <- lapply(grobs, function(g) sum(g$heights))
     heights <- inject(unit.c(!!!heights))
 
+    # Global justification of the complete legend box
+    global_just <- paste0("legend.justification.", position)
+    global_just <- valid.just(calc_element(global_just, theme))
+
+    if (position == "inside") {
+      # The position of inside legends are set by their justification
+      inside_position <- theme$legend.position.inside %||% global_just
+      global_xjust  <- inside_position[1]
+      global_yjust  <- inside_position[2]
+      global_margin <- margin()
+    } else {
+      global_xjust  <- global_just[1]
+      global_yjust  <- global_just[2]
+      # Legends to the side of the plot need a margin for justification
+      # relative to the plot panel
+      global_margin <- margin(
+        t = 1 - global_yjust, b = global_yjust,
+        r = 1 - global_xjust, l = global_xjust,
+        unit = "null"
+      )
+    }
+
     # Set the justification of each legend within the legend box
     # First value is xjust, second value is yjust
-    just <- valid.just(theme$legend.box.just)
-    xjust <- just[1]
-    yjust <- just[2]
+    box_just  <- valid.just(theme$legend.box.just)
+    box_xjust <- box_just[1]
+    box_yjust <- box_just[2]
 
     # setting that is different for vertical and horizontal guide-boxes.
     if (identical(theme$legend.box, "horizontal")) {
-      # Set justification for each legend
+      # Set justification for each legend within the box
       for (i in seq_along(grobs)) {
         grobs[[i]] <- editGrob(
           grobs[[i]],
-          vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+          vp = viewport(x = box_xjust, y = box_yjust, just = box_just,
                         height = heightDetails(grobs[[i]]))
         )
       }
+      spacing <- theme$legend.spacing.x
 
-      guides <- gtable_row(name = "guides",
-                           grobs = grobs,
-                           widths = widths, height = max(heights))
+      # Set global justification
+      vp <- viewport(
+        x = global_xjust, y = global_yjust, just = global_just,
+        height = max(heights),
+        width  = sum(widths, spacing * (length(grobs) - 1L))
+      )
 
-      # add space between the guide-boxes
-      guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
+      # Initialise gtable as legends in a row
+      guides <- gtable_row(
+        name = "guides", grobs = grobs,
+        widths = widths, height = max(heights),
+        vp = vp
+      )
+
+      # Add space between the guide-boxes
+      guides <- gtable_add_col_space(guides, spacing)
 
     } else { # theme$legend.box == "vertical"
-      # Set justification for each legend
+      # Set justification for each legend within the box
       for (i in seq_along(grobs)) {
         grobs[[i]] <- editGrob(
           grobs[[i]],
-          vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+          vp = viewport(x = box_xjust, y = box_yjust, just = box_just,
                         width = widthDetails(grobs[[i]]))
         )
       }
+      spacing <- theme$legend.spacing.y
 
-      guides <- gtable_col(name = "guides",
-                           grobs = grobs,
-                           width = max(widths), heights = heights)
+      # Set global justification
+      vp <- viewport(
+        x = global_xjust, y = global_yjust, just = global_just,
+        height = sum(heights, spacing * (length(grobs) - 1L)),
+        width =  max(widths)
+      )
 
-      # add space between the guide-boxes
-      guides <- gtable_add_row_space(guides, theme$legend.spacing.y)
+      # Initialise gtable as legends in a column
+      guides <- gtable_col(
+        name = "guides", grobs = grobs,
+        width = max(widths), heights = heights,
+        vp = vp
+      )
+
+      # Add space between the guide-boxes
+      guides <- gtable_add_row_space(guides, spacing)
     }
 
     # Add margins around the guide-boxes.
     margin <- theme$legend.box.margin %||% margin()
-    guides <- gtable_add_cols(guides, margin[4], pos = 0)
-    guides <- gtable_add_cols(guides, margin[2], pos = ncol(guides))
-    guides <- gtable_add_rows(guides, margin[1], pos = 0)
-    guides <- gtable_add_rows(guides, margin[3], pos = nrow(guides))
+    guides <- gtable_add_padding(guides, margin)
 
     # Add legend box background
     background <- element_grob(theme$legend.box.background %||% element_blank())
@@ -584,6 +676,10 @@ Guides <- ggproto(
       z = -Inf, clip = "off",
       name = "legend.box.background"
     )
+
+    # Set global margin
+    guides <- gtable_add_padding(guides, global_margin)
+
     guides$name <- "guide-box"
     guides
   },
