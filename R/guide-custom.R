@@ -124,10 +124,16 @@ GuideCustom <- ggproto(
       title.position <- "none"
     }
 
-    width  <- convertWidth(params$width, "cm")
-    height <- convertHeight(params$height, "cm")
-    gt <- gtable(widths = width, heights = height)
+    width  <- convertWidth(params$width, "cm", valueOnly = TRUE)
+    height <- convertHeight(params$height, "cm", valueOnly = TRUE)
+    gt <- gtable(widths = unit(width, "cm"), heights = unit(height, "cm"))
     gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1, clip = "off")
+
+    extra_width  <- max(0, width_cm(title) - width)
+    extra_height <- max(0, height_cm(title) - height)
+    just <- with(elems$title, rotate_just(angle, hjust, vjust))
+    hjust <- just$hjust
+    vjust <- just$vjust
 
     if (params$title.position == "top") {
       gt <- gtable_add_rows(gt, elems$margin[1], pos = 0)
@@ -146,6 +152,14 @@ GuideCustom <- ggproto(
       gt <- gtable_add_cols(gt, unit(width_cm(title), "cm"), pos = 0)
       gt <- gtable_add_grob(gt, title, t = 1, l = -1, name = "title", clip = "off")
     }
+    if (params$title.position %in% c("top", "bottom")) {
+      gt <- gtable_add_cols(gt, unit(extra_width * hjust, "cm"), pos = 0)
+      gt <- gtable_add_cols(gt, unit(extra_width * (1 - hjust), "cm"), pos = -1)
+    } else {
+      gt <- gtable_add_rows(gt, unit(extra_height * (1 - vjust), "cm"), pos = 0)
+      gt <- gtable_add_rows(gt, unit(extra_height * vjust, "cm"), pos = -1)
+    }
+
     gt <- gtable_add_padding(gt, elems$margin)
 
     background <- element_grob(elems$background)
