@@ -300,8 +300,7 @@ Guide <- ggproto(
     key <- params$key
 
     # Setup parameters and theme
-    params$position  <- params$position  %||% position
-    params$direction <- params$direction %||% direction
+    params <- replace_null(params, position = position, direction = direction)
     params <- self$setup_params(params)
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)

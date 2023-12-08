@@ -773,9 +773,17 @@ vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
   )
 }
 
+# This function is used to vectorise the following pattern:
+#
+# list$name1 <- list$name1 %||% value
+# list$name2 <- list$name2 %||% value
+#
+# and express this pattern as:
+#
+# replace_null(list, name1 = value, name2 = value)
 replace_null <- function(list, ..., env = caller_env()) {
   # Collect dots without evaluating
-  dots <- match.call(replace_null, expand.dots = FALSE)$`...`
+  dots <- enexprs(...)
   # Select arguments that are null in `list`
   nms  <- names(dots)
   nms  <- nms[vapply(list[nms], is.null, logical(1))]
