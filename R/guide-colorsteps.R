@@ -181,6 +181,8 @@ GuideColoursteps <- ggproto(
     params$key$.value <- rescale(params$key$.value, from = limits)
     params$decor$min  <- rescale(params$decor$min,  from = limits)
     params$decor$max  <- rescale(params$decor$max,  from = limits)
+    params$key <-
+      vec_slice(params$key, !is.na(oob_censor_any(params$key$.value)))
     params
   },
 

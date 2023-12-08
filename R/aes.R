@@ -425,7 +425,7 @@ alternative_aes_extract_usage <- function(x) {
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    cli::cli_abort("Don't know how to get alternative usage for {.var {x}}")
+    cli::cli_abort("Don't know how to get alternative usage for {.var {x}}.")
   }
 }
 

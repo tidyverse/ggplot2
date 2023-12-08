@@ -224,7 +224,8 @@ Guide <- ggproto(
     key$.label <- labels
 
     if (is.numeric(breaks)) {
-      vec_slice(key, is.finite(breaks))
+      range <- scale$continuous_range %||% scale$get_limits()
+      key <- vec_slice(key, is.finite(oob_censor_any(breaks, range)))
     } else {
       key
     }
@@ -391,7 +392,7 @@ Guide <- ggproto(
     pos <- unname(c(top = 1, bottom = 0, left = 0, right = 1)[position])
     dir <- -2 * pos + 1
     pos <- unit(rep(pos, 2 * n_breaks), "npc")
-    dir <- rep(vec_interleave(dir, 0), n_breaks) * tick_len
+    dir <- rep(vec_interleave(dir, 0), n_breaks) * rep(tick_len, each = 2)
     tick <- pos + dir
 
     # Build grob
@@ -435,6 +436,16 @@ flip_names = c(
 
 # Shortcut for position argument matching
 .trbl <- c("top", "right", "bottom", "left")
+
+opposite_position <- function(position) {
+  switch(
+    position,
+    top    = "bottom",
+    bottom = "top",
+    left   = "right",
+    right  = "left"
+  )
+}
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {

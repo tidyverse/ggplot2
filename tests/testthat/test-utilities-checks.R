@@ -2,7 +2,8 @@
 test_that("check_device checks R versions correctly", {
 
   # Most widely supported device
-  withr::local_pdf()
+  file <- withr::local_tempfile(fileext = ".pdf")
+  withr::local_pdf(file)
 
   # R 4.0.0 doesn't support any new features
   with_mocked_bindings(
@@ -45,7 +46,8 @@ test_that("check_device finds device capabilities", {
     getRversion() < "4.2.0",
     "R version < 4.2.0 does doesn't have proper `dev.capabilities()`."
   )
-  withr::local_pdf()
+  file <- withr::local_tempfile(fileext = ".pdf")
+  withr::local_pdf(file)
   with_mocked_bindings(
     dev.capabilities = function() list(clippingPaths = TRUE),
     expect_true(check_device("clippingPaths")),

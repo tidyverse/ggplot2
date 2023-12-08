@@ -1,7 +1,7 @@
 test_that("labels match breaks, even when outside limits", {
   sc <- scale_y_continuous(breaks = 1:4, labels = 1:4, limits = c(1, 3))
 
-  expect_equal(sc$get_breaks(), c(1:3, NA))
+  expect_equal(sc$get_breaks(), 1:4)
   expect_equal(sc$get_labels(), 1:4)
   expect_equal(sc$get_breaks_minor(), c(1, 1.5, 2, 2.5, 3))
 })
@@ -115,7 +115,7 @@ test_that("discrete labels match breaks", {
 })
 
 test_that("scale breaks work with numeric log transformation", {
-  sc <- scale_x_continuous(limits = c(1, 1e5), trans = log10_trans())
+  sc <- scale_x_continuous(limits = c(1, 1e5), trans = transform_log10())
   expect_equal(sc$get_breaks(), c(0, 2, 4)) # 1, 100, 10000
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2, 3, 4, 5))
 })
@@ -231,7 +231,7 @@ test_that("breaks can be specified by names of labels", {
 test_that("only finite or NA values for breaks for transformed scales (#871)", {
   sc <- scale_y_continuous(limits = c(0.01, 0.99), trans = "probit",
                            breaks = seq(0, 1, 0.2))
-  breaks <- sc$get_breaks()
+  breaks <- sc$break_info()$major_source
   expect_true(all(is.finite(breaks) | is.na(breaks)))
 })
 
@@ -257,7 +257,7 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
     limits = c(10, 30)
   )
 
-  expect_identical(test_scale$get_breaks(), c(NA, 20, NA))
+  expect_identical(test_scale$get_breaks(), c(0, 20, 40))
   expect_identical(test_scale$get_labels(), c(c("0", "20", "40")))
 
   test_view_scale <- view_scale_primary(test_scale)
@@ -297,15 +297,15 @@ test_that("minor breaks draw correctly", {
 
   expect_doppelganger("numeric-log",
     ggplot(df, aes(x_log, x_log)) +
-      scale_x_continuous(trans = log2_trans()) +
+      scale_x_continuous(trans = transform_log2()) +
       scale_y_log10() +
       labs(x = NULL, y = NULL) +
       theme
   )
   expect_doppelganger("numeric-exp",
     ggplot(df, aes(x_num, x_num)) +
-      scale_x_continuous(trans = exp_trans(2)) +
-      scale_y_continuous(trans = exp_trans(2)) +
+      scale_x_continuous(trans = transform_exp(2)) +
+      scale_y_continuous(trans = transform_exp(2)) +
       labs(x = NULL, y = NULL) +
       theme
   )
@@ -321,7 +321,7 @@ test_that("minor breaks draw correctly", {
     ggplot(df, aes(x_date, y)) +
       geom_blank() +
       scale_x_date(
-        labels = scales::date_format("%m/%d"),
+        labels = scales::label_date("%m/%d"),
         breaks = scales::date_breaks("month"),
         minor_breaks = scales::date_breaks("week")
       ) +

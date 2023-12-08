@@ -78,13 +78,20 @@
 #'   `text`)
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
-#' @param legend.position the position of legends ("none", "left", "right",
-#'   "bottom", "top", or two-element numeric vector)
+#' @param legend.position the default position of legends ("none", "left",
+#'   "right", "bottom", "top", "inside")
+#' @param legend.position.inside A numeric vector of length two setting the
+#'   placement of legends that have the `"inside"` position.
 #' @param legend.direction layout of items in legends ("horizontal" or
 #'   "vertical")
 #' @param legend.justification anchor point for positioning legend inside plot
 #'   ("center" or two-element numeric vector) or the justification according to
 #'   the plot area when positioned outside the plot
+#' @param legend.justification.top,legend.justification.bottom,legend.justification.left,legend.justification.right,legend.justification.inside
+#'   Same as `legend.justification` but specified per `legend.position` option.
+#' @param legend.location Relative placement of legends outside the plot as a
+#'   string. Can be `"panel"` (default) to align legends to the panels or
+#'   `"plot"` to align legends to the plot as a whole.
 #' @param legend.box arrangement of multiple legends ("horizontal" or
 #'   "vertical")
 #' @param legend.box.just justification of each legend within the overall
@@ -281,7 +288,8 @@
 #' p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 #' p3 + theme(panel.spacing = unit(1, "lines"))
 #' }
-theme <- function(line,
+theme <- function(...,
+                  line,
                   rect,
                   text,
                   title,
@@ -344,8 +352,15 @@ theme <- function(line,
                   legend.text,
                   legend.title,
                   legend.position,
+                  legend.position.inside,
                   legend.direction,
                   legend.justification,
+                  legend.justification.top,
+                  legend.justification.bottom,
+                  legend.justification.left,
+                  legend.justification.right,
+                  legend.justification.inside,
+                  legend.location,
                   legend.box,
                   legend.box.just,
                   legend.box.margin,
@@ -388,7 +403,6 @@ theme <- function(line,
                   strip.text.y.right,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
-                  ...,
                   complete = FALSE,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
@@ -454,6 +468,14 @@ theme <- function(line,
         elements$legend.text.align
     }
     elements$legend.text.align <- NULL
+  }
+  if (is.numeric(elements[["legend.position"]])) {
+    deprecate_soft0(
+      "3.5.0", I("A numeric `legend.position` argument in `theme()`"),
+      "theme(legend.position.inside)"
+    )
+    elements$legend.position.inside <- elements$legend.position
+    elements$legend.position <- "inside"
   }
 
   # If complete theme set all non-blank elements to inherit from blanks
@@ -545,7 +567,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
       t1[item] <- list(x)
     },
     error = function(cnd) {
-      cli::cli_abort("Problem merging the {.var {item}} theme element", parent = cnd, call = call)
+      cli::cli_abort("Can't merge the {.var {item}} theme element.", parent = cnd, call = call)
     }
   )
 
@@ -585,7 +607,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
 #' t$text
 calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
                          call = caller_env()) {
-  if (verbose) message(element, " --> ", appendLF = FALSE)
+  if (verbose) cli::cli_inform(paste0(element, " --> "))
 
   el_out <- theme[[element]]
 
@@ -595,7 +617,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
-      if (verbose) message("element_blank (no inheritance)")
+      if (verbose) cli::cli_inform("{.fn element_blank} (no inheritance)")
       return(el_out)
     }
   }
@@ -607,7 +629,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
   }
 
   # Get the names of parents from the inheritance tree
@@ -615,7 +637,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
-    if (verbose) message("nothing (top level)")
+    if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
     nullprops <- vapply(el_out, is.null, logical(1))
@@ -630,11 +652,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
       return(el_out) # no null properties remaining, return element
     }
 
-    cli::cli_abort("Theme element {.var {element}} has {.val NULL} property without default: {.field {names(nullprops)[nullprops]}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} has {.code NULL} property without default: {.field {names(nullprops)[nullprops]}}.", call = call)
   }
 
   # Calculate the parent objects' inheritance
-  if (verbose) message(paste(pnames, collapse = ", "))
+  if (verbose) cli::cli_inform("{pnames}")
   parents <- lapply(
     pnames,
     calc_element,
@@ -686,7 +708,7 @@ merge_element.default <- function(new, old) {
   }
 
   # otherwise we can't merge
-  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}")
+  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
 }
 
 #' @rdname merge_element
@@ -706,7 +728,7 @@ merge_element.element <- function(new, old) {
 
   # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
-    cli::cli_abort("Only elements of the same class can be merged")
+    cli::cli_abort("Only elements of the same class can be merged.")
   }
 
   # Override NULL properties of new with the values in old
@@ -783,7 +805,19 @@ combine_elements <- function(e1, e2) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
+  # If e2 is 'richer' than e1, fill e2 with e1 parameters
+  if (is.subclass(e2, e1)) {
+    new <- defaults(e1, e2)
+    e2[names(new)] <- new
+    return(e2)
+  }
+
   e1
+}
+
+is.subclass <- function(x, y) {
+  inheritance <- inherits(x, class(y), which = TRUE)
+  !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
 }
 
 #' Reports whether x is a theme object
@@ -791,6 +825,11 @@ combine_elements <- function(e1, e2) {
 #' @export
 #' @keywords internal
 is.theme <- function(x) inherits(x, "theme")
+
+#' @export
+`$.theme` <- function(x, ...) {
+  .subset2(x, ...)
+}
 
 #' @export
 print.theme <- function(x, ...) utils::str(x)

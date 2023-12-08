@@ -1,7 +1,8 @@
 #' Polar coordinates
 #'
 #' The polar coordinate system is most commonly used for pie charts, which
-#' are a stacked bar chart in polar coordinates.
+#' are a stacked bar chart in polar coordinates. `coord_radial()` has extended
+#' options.
 #'
 #' @param theta variable to map angle to (`x` or `y`)
 #' @param start Offset of starting point from 12 o'clock in radians. Offset
@@ -80,12 +81,14 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   aspect = function(details) 1,
 
   distance = function(self, x, y, details) {
+    arc <- self$start + c(0, 2 * pi)
+    dir <- self$direction
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range)
-      theta <- theta_rescale_no_clip(self, x, details)
+      theta <- theta_rescale_no_clip(x, details$theta.range, arc, dir)
     } else {
       r <- rescale(x, from = details$r.range)
-      theta <- theta_rescale_no_clip(self, y, details)
+      theta <- theta_rescale_no_clip(y, details$theta.range, arc, dir)
     }
 
     dist_polar(r, theta)
@@ -163,10 +166,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   transform = function(self, data, panel_params) {
+    arc  <- self$start + c(0, 2 * pi)
+    dir  <- self$direction
     data <- rename_data(self, data)
 
-    data$r  <- r_rescale(self, data$r, panel_params$r.range)
-    data$theta <- theta_rescale(self, data$theta, panel_params)
+    data$r  <- r_rescale(data$r, panel_params$r.range)
+    data$theta <- theta_rescale(data$theta, panel_params$theta.range, arc, dir)
     data$x <- data$r * sin(data$theta) + 0.5
     data$y <- data$r * cos(data$theta) + 0.5
 
@@ -176,11 +181,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   render_axis_v = function(self, panel_params, theme) {
     arrange <- panel_params$r.arrange %||% c("primary", "secondary")
 
-    x <- r_rescale(self, panel_params$r.major, panel_params$r.range) + 0.5
+    x <- r_rescale(panel_params$r.major, panel_params$r.range) + 0.5
     panel_params$r.major <- x
     if (!is.null(panel_params$r.sec.major)) {
       panel_params$r.sec.major <- r_rescale(
-        self,
         panel_params$r.sec.major,
         panel_params$r.sec.range
       ) + 0.5
@@ -201,14 +205,16 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
   render_bg = function(self, panel_params, theme) {
     panel_params <- rename_data(self, panel_params)
+    arc <- self$start + c(0, 2 * pi)
+    dir <- self$direction
 
     theta <- if (length(panel_params$theta.major) > 0)
-      theta_rescale(self, panel_params$theta.major, panel_params)
+      theta_rescale(panel_params$theta.major, panel_params$theta.range, arc, dir)
     thetamin <- if (length(panel_params$theta.minor) > 0)
-      theta_rescale(self, panel_params$theta.minor, panel_params)
+      theta_rescale(panel_params$theta.minor, panel_params$theta.range, arc, dir)
     thetafine <- seq(0, 2 * pi, length.out = 100)
 
-    rfine <- c(r_rescale(self, panel_params$r.major, panel_params$r.range), 0.45)
+    rfine <- c(r_rescale(panel_params$r.major, panel_params$r.range), 0.45)
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
@@ -247,8 +253,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     if (is.null(panel_params$theta.major)) {
       return(element_render(theme, "panel.border"))
     }
+    arc <- self$start + c(0, 2 * pi)
+    dir <- self$direction
 
-    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
+    theta <- theta_rescale(panel_params$theta.major, panel_params$theta.range, arc, dir)
     labels <- panel_params$theta.labels
 
     # Combine the two ends of the scale if they are close
@@ -305,18 +313,16 @@ rename_data <- function(coord, data) {
   }
 }
 
-theta_rescale_no_clip <- function(coord, x, panel_params) {
-  rotate <- function(x) (x + coord$start) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
+theta_rescale_no_clip <- function(x, range, arc = c(0, 2 * pi), direction = 1) {
+  rescale(x, to = arc, from = range) * direction
 }
 
-theta_rescale <- function(coord, x, panel_params) {
-  x <- squish_infinite(x, panel_params$theta.range)
-  rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
-}
-
-r_rescale <- function(coord, x, range) {
+theta_rescale <- function(x, range, arc = c(0, 2 * pi), direction = 1) {
   x <- squish_infinite(x, range)
-  rescale(x, c(0, 0.4), range)
+  rescale(x, to = arc, from = range) %% (2 * pi) * direction
+}
+
+r_rescale <- function(x, range, donut = c(0, 0.4)) {
+  x <- squish_infinite(x, range)
+  rescale(x, donut, range)
 }

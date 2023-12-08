@@ -1,5 +1,18 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("dollar subsetting the theme does no partial matching", {
+  t <- theme(foobar = 12)
+  expect_null(t$foo)
+  expect_equal(t$foobar, 12)
+})
+
+test_that("theme argument splicing works", {
+  l <- list(a = 10, b = "c", d = c("foo", "bar"))
+  test <- theme(!!!l)
+  ref  <- theme(a = 10, b = "c", d = c("foo", "bar"))
+  expect_equal(test, ref)
+})
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works
@@ -509,6 +522,50 @@ test_that("Theme validation behaves as expected", {
   expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
 })
 
+test_that("Element subclasses are inherited", {
+
+  # `rich` is subclass of `poor`
+  poor <- element_line(colour = "red", linetype = 3)
+  rich <- element_line(linetype = 2, linewidth = 2)
+  class(rich) <- c("element_rich", class(rich))
+
+  # `poor` should acquire `rich`
+  test <- combine_elements(poor, rich)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, poor)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+
+  # `sibling` is not strict subclass of `rich`
+  sibling <- poor
+  class(sibling) <- c("element_sibling", class(sibling))
+
+  # `sibling` should stay `sibling`
+  test <- combine_elements(sibling, rich)
+  expect_s3_class(test, "element_sibling")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, sibling)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+})
+
 test_that("Minor tick length supports biparental inheritance", {
   my_theme <- theme_gray() + theme(
     axis.ticks.length = unit(1, "cm"),
@@ -684,6 +741,38 @@ test_that("plot titles and caption can be aligned to entire plot", {
     theme(plot.caption.position = "plot")
   expect_doppelganger("caption aligned to entire plot", plot)
 
+})
+
+test_that("Legends can on all sides of the plot with custom justification", {
+
+  plot <- ggplot(mtcars) +
+    aes(
+      disp, mpg,
+      colour = hp,
+      fill   = factor(gear),
+      shape  = factor(cyl),
+      size   = drat,
+      alpha = wt
+    ) +
+    geom_point() +
+    guides(
+      shape  = guide_legend(position = "top"),
+      colour = guide_colourbar(position = "bottom"),
+      size   = guide_legend(position = "left"),
+      alpha  = guide_legend(position = "right"),
+      fill   = guide_legend(position = "inside", override.aes = list(shape = 21))
+    ) +
+    theme_test() +
+    theme(
+      legend.justification.top    = "left",
+      legend.justification.bottom = c(1, 0),
+      legend.justification.left   = c(0, 1),
+      legend.justification.right  = "bottom",
+      legend.justification.inside = c(0.75, 0.75),
+      legend.location = "plot"
+    )
+
+  expect_doppelganger("legends at all sides with justification", plot)
 })
 
 test_that("Strips can render custom elements", {
