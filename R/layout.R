@@ -6,9 +6,23 @@
 # This includes managing the parameters for the facet and the coord
 # so that we don't modify the ggproto object in place.
 
-create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
-  ggproto(NULL, Layout, facet = facet, coord = coord)
+#' create_layout
+#'
+#' This S3 method is called within `ggplot_build.ggplot` method and
+#' allows package developers to have control over how the Layout object
+#' is made by exporting their own `create_layout` method for their subclassed
+#' ggplot object.
+#'
+#' @param plot plotting object
+#' @return Layout ggproto object
+#' @export
+create_layout <- function(plot) UseMethod("create_layout", plot)
+
+#' @export
+create_layout.ggplot <- function(plot) {
+  ggproto(NULL, Layout, facet = plot$facet, coord = plot$coordinates)
 }
+
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
