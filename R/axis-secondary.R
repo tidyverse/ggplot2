@@ -109,7 +109,7 @@ sec_axis <- function(transform = NULL,
 
   transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,
-    trans = transform,
+    transform = transform,
     name = name,
     breaks = breaks,
     labels = labels,
@@ -153,7 +153,7 @@ is.derived <- function(x) {
 #' @usage NULL
 #' @export
 AxisSecondary <- ggproto("AxisSecondary", NULL,
-  trans = NULL,
+  transform = NULL,
   axis = NULL,
   name = waiver(),
   breaks = waiver(),
@@ -165,7 +165,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   detail = 1000,
 
   empty = function(self) {
-    is.null(self$trans)
+    is.null(self$transform %||% self$trans)
   },
 
   # Inherit settings from the primary axis/scale
@@ -173,7 +173,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) {
       return()
     }
-    if (!is.function(self$trans)) {
+    transform <- self$transform %||% self$trans
+    if (!is.function(transform)) {
       cli::cli_abort("Transformation for secondary axes must be a function.")
     }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
@@ -184,7 +185,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   transform_range = function(self, range) {
-    self$trans(range)
+    self$transform(range)
   },
 
   mono_test = function(self, scale){
@@ -237,7 +238,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # patch for date and datetime scales just to maintain functionality
     # works only for linear secondary transforms that respect the time or date transform
     if (transformation$name %in% c("date", "time")) {
-      temp_scale <- self$create_scale(new_range, trans = transformation)
+      temp_scale <- self$create_scale(new_range, transformation = transformation)
       range_info <- temp_scale$break_info()
       old_val_trans <- rescale(range_info$major, from = c(0, 1), to = range)
       old_val_minor_trans <- rescale(range_info$minor, from = c(0, 1), to = range)
@@ -291,14 +292,14 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range, trans = transform_identity()) {
+  create_scale = function(self, range, transformation = transform_identity()) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
                      name = self$name,
                      breaks = self$breaks,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
-                     transformation = trans
+                     transformation = transformation
     )
     scale$train(range)
     scale
