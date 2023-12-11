@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* When legend titles are larger than the legend, title justification extends
+  to the placement of keys and labels (#1903).
+
 * `draw_key_label()` now better reflects the appearance of labels.
 
 * The `minor_breaks` function argument in scales can now take a function with
