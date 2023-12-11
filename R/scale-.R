@@ -667,7 +667,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (is.null(self$limits)) {
       self$range$range
     } else if (is.function(self$limits)) {
-      transformer <- self$transformer
+      transformer <- self$transformer %||% self$trans
       # if limits is a function, it expects to work in data space
       transformer$transform(self$limits(transformer$inverse(self$range$range)))
     } else {
@@ -684,7 +684,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (self$is_empty()) {
       return(numeric())
     }
-    transformer <- self$transformer
+    transformer <- self$transformer %||% self$trans
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(transformer$transform(transformer$domain))
     domain <- sort(domain)
@@ -752,7 +752,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # some transforms assume finite major breaks
     b <- b[is.finite(b)]
 
-    transformer <- self$transformer
+    transformer <- self$transformer %||% self$trans
     if (is.waive(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
@@ -786,7 +786,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(NULL)
     }
 
-    transformer <- self$transformer
+    transformer <- self$transformer %||% self$trans
     breaks <- transformer$inverse(breaks)
 
     if (is.null(self$labels)) {
@@ -1154,7 +1154,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
-    transformer <- self$transformer
+    transformer <- self$transformer %||% self$trans
 
     limits <- transformer$inverse(limits)
     is_rev <- limits[2] < limits[1]
@@ -1247,7 +1247,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_labels = function(self, breaks = self$get_breaks()) {
     if (is.null(breaks)) return(NULL)
 
-    transformer <- self$transformer
+    transformer <- self$transformer %||% self$trans
     breaks <- transformer$inverse(breaks)
 
     if (is.null(self$labels)) {
