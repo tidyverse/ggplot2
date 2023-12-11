@@ -181,16 +181,11 @@ label text. The default for standard text is 0 (left-aligned) and 1
 text.</p></dd>
 
 
-<dt>keywidth</dt>
-<dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
-the width of the legend key. Default value is <code>legend.key.width</code> or
-<code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
-
-
-<dt>keyheight</dt>
-<dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
-the height of the legend key. Default value is <code>legend.key.height</code> or
-<code>legend.key.size</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
+<dt>keywidth, keyheight</dt>
+<dd><p>A numeric or <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the
+width and height of the legend key respectively. Default value is
+<code>legend.key.width</code>, <code>legend.key.height</code> or <code>legend.key</code> in <code><a href="theme.html">theme()</a></code>.<br><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a>: optionally a <code>"null"</code> unit to stretch
+keys to the available space.</p></dd>
 
 
 <dt>key.spacing, key.spacing.x, key.spacing.y</dt>
