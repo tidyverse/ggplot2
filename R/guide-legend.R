@@ -36,12 +36,11 @@
 #'   (right-aligned) for expressions.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
-#' @param keywidth A numeric or a [grid::unit()] object specifying
-#'   the width of the legend key. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()].
-#' @param keyheight A numeric or a [grid::unit()] object specifying
-#'   the height of the legend key. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()].
+#' @param keywidth,keyheight A numeric or [grid::unit()] object specifying the
+#'   width and height of the legend key respectively. Default value is
+#'   `legend.key.width`, `legend.key.height` or `legend.key` in [theme()].\cr
+#'   `r lifecycle::badge("experimental")`: optionally a `"null"` unit to stretch
+#'   keys to the available space.
 #' @param key.spacing,key.spacing.x,key.spacing.y A numeric or [grid::unit()]
 #'   object specifying the distance between key-label pairs in the horizontal
 #'   direction (`key.spacing.x`), vertical direction (`key.spacing.y`) or both
@@ -603,8 +602,19 @@ GuideLegend <- ggproto(
       # Measure title
       title_width  <- width_cm(grobs$title)
       title_height <- height_cm(grobs$title)
-      extra_width  <- max(0, title_width  - sum(widths))
-      extra_height <- max(0, title_height - sum(heights))
+
+      # Titles are assumed to have sufficient size when keys are null units
+      if (is.unit(params$keywidth) && unitType(params$keywidth) == "null") {
+        extra_width <- 0
+      } else {
+        extra_width  <- max(0, title_width  - sum(widths))
+      }
+      if (is.unit(params$keyheight) && unitType(params$keyheight) == "null") {
+        extra_height <- 0
+      } else {
+        extra_height <- max(0, title_height - sum(heights))
+      }
+
       just  <- with(elements$title, rotate_just(angle, hjust, vjust))
       hjust <- just$hjust
       vjust <- just$vjust
@@ -699,11 +709,19 @@ GuideLegend <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
+    widths <- unit(c(sizes$padding[4], sizes$widths, sizes$padding[2]), "cm")
+    if (is.unit(params$keywidth) && unitType(params$keywidth) == "null") {
+      i <- unique(layout$layout$key_col)
+      widths[i] <- params$keywidth
+    }
 
-    gt <- gtable(
-      widths  = unit(c(sizes$padding[4], sizes$widths, sizes$padding[2]), "cm"),
-      heights = unit(c(sizes$padding[1], sizes$heights, sizes$padding[3]), "cm")
-    )
+    heights <- unit(c(sizes$padding[1], sizes$heights, sizes$padding[3]), "cm")
+    if (is.unit(params$keyheight) && unitType(params$keyheight) == "null") {
+      i <- unique(layout$layout$key_row)
+      heights[i] <- params$keyheight
+    }
+
+    gt <- gtable(widths = widths, heights = heights)
 
     # Add background
     if (!is.zero(elements$background)) {

@@ -38,12 +38,11 @@ be a logical which translates \code{TRUE} to \code{element_line()} and \code{FAL
 \item{...}{
   Arguments passed on to \code{\link[=guide_colourbar]{guide_colourbar}}
   \describe{
-    \item{\code{barwidth}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the colourbar. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
-    \item{\code{barheight}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the colourbar. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+    \item{\code{barwidth,barheight}}{A numeric or \code{\link[grid:unit]{grid::unit()}} object specifying the
+width and height of the bar respectively. Default value is derived from
+\code{legend.key.width}, \code{legend.key.height} or \code{legend.key} in \code{\link[=theme]{theme()}}.\cr
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}: optionally a \code{"null"} unit to stretch
+the bar to the available space.}
     \item{\code{frame}}{A theme object for rendering a frame drawn around the bar.
 Usually, the object of \code{element_rect()} is expected. If \code{element_blank()}
 (default), no frame is drawn.}

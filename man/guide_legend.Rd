@@ -70,13 +70,11 @@ label text. The default for standard text is 0 (left-aligned) and 1
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
 
-\item{keywidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the legend key. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
-
-\item{keyheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the legend key. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
+\item{keywidth, keyheight}{A numeric or \code{\link[grid:unit]{grid::unit()}} object specifying the
+width and height of the legend key respectively. Default value is
+\code{legend.key.width}, \code{legend.key.height} or \code{legend.key} in \code{\link[=theme]{theme()}}.\cr
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}: optionally a \code{"null"} unit to stretch
+keys to the available space.}
 
 \item{key.spacing, key.spacing.x, key.spacing.y}{A numeric or \code{\link[grid:unit]{grid::unit()}}
 object specifying the distance between key-label pairs in the horizontal

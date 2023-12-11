@@ -15,12 +15,11 @@ NULL
 #' see [guides()].
 #'
 #' @inheritParams guide_legend
-#' @param barwidth A numeric or a [grid::unit()] object specifying
-#'   the width of the colourbar. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()] or theme.
-#' @param barheight A numeric or a [grid::unit()] object specifying
-#'   the height of the colourbar. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()] or theme.
+#' @param barwidth,barheight A numeric or [grid::unit()] object specifying the
+#'   width and height of the bar respectively. Default value is derived from
+#'   `legend.key.width`, `legend.key.height` or `legend.key` in [theme()].\cr
+#'   `r lifecycle::badge("experimental")`: optionally a `"null"` unit to stretch
+#'   the bar to the available space.
 #' @param frame A theme object for rendering a frame drawn around the bar.
 #'   Usually, the object of `element_rect()` is expected. If `element_blank()`
 #'   (default), no frame is drawn.
@@ -452,21 +451,21 @@ GuideColourbar <- ggproto(
       )
       grob <- rasterGrob(
         image  = image,
-        width  = elements$key.width,
-        height = elements$key.height,
-        default.units = "cm",
+        width  = 1,
+        height = 1,
+        default.units = "npc",
         gp = gpar(col = NA),
         interpolate = TRUE
       )
     } else{
       if (params$direction == "horizontal") {
-        width  <- elements$key.width / nrow(decor)
-        height <- elements$key.height
+        width  <- 1 / nrow(decor)
+        height <- 1
         x <- (seq(nrow(decor)) - 1) * width
         y <- 0
       } else {
-        width  <- elements$key.width
-        height <- elements$key.height / nrow(decor)
+        width  <- 1
+        height <- 1 / nrow(decor)
         y <- (seq(nrow(decor)) - 1) * height
         x <- 0
       }
@@ -474,7 +473,7 @@ GuideColourbar <- ggproto(
         x = x, y = y,
         vjust = 0, hjust = 0,
         width = width, height = height,
-        default.units = "cm",
+        default.units = "npc",
         gp = gpar(col = NA, fill = decor$colour)
       )
     }

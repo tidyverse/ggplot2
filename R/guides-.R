@@ -572,10 +572,12 @@ Guides <- ggproto(
     )
 
     # Measure guides
-    widths  <- lapply(grobs, function(g) sum(g$widths))
-    widths  <- inject(unit.c(!!!widths))
-    heights <- lapply(grobs, function(g) sum(g$heights))
-    heights <- inject(unit.c(!!!heights))
+    widths  <- lapply(grobs, `[[`, "widths")
+    heights <- lapply(grobs, `[[`, "heights")
+
+    # Check whether legends are stretched in some direction
+    stretch_x <- any(unlist(lapply(widths,  unitType)) == "null")
+    stretch_y <- any(unlist(lapply(heights, unitType)) == "null")
 
     # Global justification of the complete legend box
     global_just <- paste0("legend.justification.", position)
@@ -605,6 +607,8 @@ Guides <- ggproto(
     box_xjust <- box_just[1]
     box_yjust <- box_just[2]
 
+    margin <- theme$legend.box.margin %||% margin()
+
     # setting that is different for vertical and horizontal guide-boxes.
     if (identical(theme$legend.box, "horizontal")) {
       # Set justification for each legend within the box
@@ -615,13 +619,23 @@ Guides <- ggproto(
                         height = heightDetails(grobs[[i]]))
         )
       }
-      spacing <- theme$legend.spacing.x
+
+      spacing <- convertWidth(theme$legend.spacing.x, "cm")
+      heights <- unit(height_cm(lapply(heights, sum)), "cm")
+
+      if (stretch_x) {
+        widths   <- redistribute_null_units(widths, spacing, margin, "width")
+        vp_width <- unit(1, "npc")
+      } else {
+        widths   <- inject(unit.c(!!!lapply(widths, sum)))
+        vp_width <- sum(widths, spacing * (length(grobs) - 1L))
+      }
 
       # Set global justification
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
         height = max(heights),
-        width  = sum(widths, spacing * (length(grobs) - 1L))
+        width  = vp_width
       )
 
       # Initialise gtable as legends in a row
@@ -643,12 +657,22 @@ Guides <- ggproto(
                         width = widthDetails(grobs[[i]]))
         )
       }
-      spacing <- theme$legend.spacing.y
+
+      spacing <- convertHeight(theme$legend.spacing.y, "cm")
+      widths  <- unit(width_cm(lapply(widths, sum)), "cm")
+
+      if (stretch_y) {
+        heights   <- redistribute_null_units(heights, spacing, margin, "height")
+        vp_height <- unit(1, "npc")
+      } else {
+        heights   <- inject(unit.c(!!!lapply(heights, sum)))
+        vp_height <- sum(heights, spacing * (length(grobs) - 1L))
+      }
 
       # Set global justification
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
-        height = sum(heights, spacing * (length(grobs) - 1L)),
+        height = vp_height,
         width =  max(widths)
       )
 
@@ -664,7 +688,6 @@ Guides <- ggproto(
     }
 
     # Add margins around the guide-boxes.
-    margin <- theme$legend.box.margin %||% margin()
     guides <- gtable_add_padding(guides, margin)
 
     # Add legend box background
@@ -678,6 +701,12 @@ Guides <- ggproto(
     )
 
     # Set global margin
+    if (stretch_x) {
+      global_margin[c(2, 4)] <- unit(0, "cm")
+    }
+    if (stretch_y) {
+      global_margin[c(1, 3)] <- unit(0, "cm")
+    }
     guides <- gtable_add_padding(guides, global_margin)
 
     guides$name <- "guide-box"
@@ -792,4 +821,47 @@ validate_guide <- function(guide) {
     return(old_guide(guide))
   }
   cli::cli_abort("Unknown guide: {guide}")
+}
+
+redistribute_null_units <- function(units, spacing, margin, type = "width") {
+
+  has_null <- vapply(units, function(x) any(unitType(x) == "null"), logical(1))
+
+  # Early exit when we needn't bother with null units
+  if (!any(has_null)) {
+    units <- lapply(units, sum)
+    units <- inject(unit.c(!!!units))
+    return(units)
+  }
+
+  # Get spacing between guides and margins in absolute units
+  size    <- switch(type, width = convertWidth, height = convertHeight)
+  spacing <- size(spacing, "cm", valueOnly = TRUE)
+  spacing <- sum(rep(spacing, length(units) - 1))
+  margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
+  margin  <- sum(size(margin, "cm", valueOnly = TRUE))
+
+  # Get the absolute parts of the unit
+  absolute <- vapply(units, function(u) {
+    u <- absolute.size(u)
+    u <- size(u, "cm", valueOnly = TRUE)
+    sum(u)
+  }, numeric(1))
+  absolute_sum <- sum(absolute) + spacing + margin
+
+  # Get the null parts of the unit
+  relative <- rep(0, length(units))
+  relative[has_null] <- vapply(units[has_null], function(u) {
+    sum(as.numeric(u)[unitType(u) == "null"])
+  }, numeric(1))
+  relative_sum <- sum(relative)
+
+  if (relative_sum == 0) {
+    return(unit(absolute, "cm"))
+  }
+
+  relative <- relative / relative_sum
+  available_space <- unit(1, "npc") - unit(absolute_sum, "cm")
+  relative_space <- available_space * relative
+  relative_space + unit(absolute, "cm")
 }

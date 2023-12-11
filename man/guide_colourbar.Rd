@@ -111,13 +111,11 @@ label text. The default for standard text is 0 (left-aligned) and 1
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
 
-\item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the colourbar. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
-
-\item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the colourbar. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\item{barwidth, barheight}{A numeric or \code{\link[grid:unit]{grid::unit()}} object specifying the
+width and height of the bar respectively. Default value is derived from
+\code{legend.key.width}, \code{legend.key.height} or \code{legend.key} in \code{\link[=theme]{theme()}}.\cr
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}: optionally a \code{"null"} unit to stretch
+the bar to the available space.}
 
 \item{nbin}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
