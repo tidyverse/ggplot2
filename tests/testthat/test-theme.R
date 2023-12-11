@@ -793,3 +793,36 @@ test_that("Strips can render custom elements", {
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
 })
+
+test_that("legend margins are correct when using relative key sizes", {
+
+  df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
+  p <- ggplot(df, aes(x, y, colour = x, shape = a)) +
+    geom_point() +
+    theme_test() +
+    theme(
+      legend.box.background = element_rect(colour = "blue", fill = NA),
+      legend.background = element_rect(colour = "red", fill = NA)
+    )
+
+  vertical <- p + guides(
+    colour = guide_colourbar(barheight = unit(1, "null")),
+    shape  = guide_legend(keyheight = unit(1/3, "null"))
+  ) + theme(
+    legend.box.margin = margin(t = 5, b = 10, unit = "mm"),
+    legend.margin = margin(t = 10, b = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched vertical legends", vertical)
+
+  horizontal <- p + guides(
+    colour = guide_colourbar(barwidth = unit(1, "null")),
+    shape  = guide_legend(keywidth = unit(1/3, "null"))
+  ) + theme(
+    legend.position = "top",
+    legend.box.margin = margin(l = 5, r = 10, unit = "mm"),
+    legend.margin = margin(l = 10, r = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched horizontal legends", horizontal)
+})
