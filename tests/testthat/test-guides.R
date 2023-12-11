@@ -849,13 +849,32 @@ test_that("guides title and text are positioned correctly", {
     geom_point() +
     scale_alpha(breaks = 1:2) +
     guides(
-      colour = guide_legend("colour title with hjust = 0", title.hjust = 0, order = 1),
-      fill   = guide_legend("fill title with hjust = 1",   title.hjust = 1, order = 2,
-                            title.position = "bottom", override.aes = list(shape = 21)),
-      alpha  = guide_legend("Title\nfor\nalpha\nwith\nvjust=0", title.vjust = 0,
-                            title.position = "left", order = 3),
-      shape = guide_legend("Title\nfor\nshape\nwith\nvjust=1", title.vjust = 1,
-                           title.position = "right", order = 4)
+      colour = guide_legend(
+        "colour title with hjust = 0", order = 1,
+        theme = theme(legend.title = element_text(hjust = 0))
+      ),
+      fill   = guide_legend(
+        "fill title with hjust = 1", order = 2,
+        theme = theme(
+          legend.title = element_text(hjust = 1),
+          legend.title.position = "bottom"
+        ),
+        override.aes = list(shape = 21)
+      ),
+      alpha  = guide_legend(
+        "Title\nfor\nalpha\nwith\nvjust=0", order = 3,
+        theme = theme(
+          legend.title = element_text(vjust = 0),
+          legend.title.position = "left"
+        )
+      ),
+      shape = guide_legend(
+        "Title\nfor\nshape\nwith\nvjust=1", order = 4,
+        theme = theme(
+          legend.title = element_text(vjust = 1),
+          legend.title.position = "right"
+        )
+      )
     )
   expect_doppelganger("legends with all title justifications", p)
 })

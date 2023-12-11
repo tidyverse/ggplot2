@@ -364,8 +364,8 @@ GuideColourbar <- ggproto(
 
   measure_grobs = function(grobs, params, elements) {
     params$sizes <- list(
-      widths  = elements$key_width,
-      heights = elements$key_height
+      widths  = elements$width_cm,
+      heights = elements$height_cm
     )
     GuideLegend$measure_grobs(grobs, params, elements)
   }

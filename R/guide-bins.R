@@ -285,8 +285,8 @@ GuideBins <- ggproto(
 
     sizes <- measure_legend_keys(
       decor, nkeys, dim, byrow = FALSE,
-      default_width  = elements$key_width,
-      default_height = elements$key_height
+      default_width  = elements$width_cm,
+      default_height = elements$height_cm
     )
     sizes <- lapply(sizes, function(x) rep_len(max(x), length(x)))
 
