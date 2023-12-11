@@ -3,6 +3,14 @@
 * When legend titles are larger than the legend, title justification extends
   to the placement of keys and labels (#1903).
 
+* `draw_key_label()` now better reflects the appearance of labels.
+
+* The `minor_breaks` function argument in scales can now take a function with
+  two arguments: the scale's limits and the scale's major breaks (#3583).
+  
+* (internal) The `ScaleContinuous$get_breaks()` method no longer censors
+  the computed breaks.
+
 * Plot scales now ignore `AsIs` objects constructed with `I(x)`, instead of
   invoking the identity scale. This allows these columns to co-exist with other
   layers that need a non-identity scale for the same aesthetic. Also, it makes
