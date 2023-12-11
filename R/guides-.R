@@ -575,6 +575,10 @@ Guides <- ggproto(
     widths  <- lapply(grobs, `[[`, "widths")
     heights <- lapply(grobs, `[[`, "heights")
 
+    # Check whether legends are stretched in some direction
+    stretch_x <- any(unlist(lapply(widths,  unitType)) == "null")
+    stretch_y <- any(unlist(lapply(heights, unitType)) == "null")
+
     # Global justification of the complete legend box
     global_just <- paste0("legend.justification.", position)
     global_just <- valid.just(calc_element(global_just, theme))
@@ -617,14 +621,21 @@ Guides <- ggproto(
       }
 
       spacing <- convertWidth(theme$legend.spacing.x, "cm")
-      widths  <- redistribute_null_units(widths, spacing, margin, "width")
       heights <- unit(height_cm(lapply(heights, sum)), "cm")
+
+      if (stretch_x) {
+        widths   <- redistribute_null_units(widths, spacing, margin, "width")
+        vp_width <- unit(1, "npc")
+      } else {
+        widths   <- inject(unit.c(!!!lapply(widths, sum)))
+        vp_width <- sum(widths, spacing * (length(grobs) - 1L))
+      }
 
       # Set global justification
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
         height = max(heights),
-        width  = sum(widths, spacing * (length(grobs) - 1L))
+        width  = vp_width
       )
 
       # Initialise gtable as legends in a row
@@ -648,13 +659,20 @@ Guides <- ggproto(
       }
 
       spacing <- convertHeight(theme$legend.spacing.y, "cm")
-      heights <- redistribute_null_units(heights, spacing, margin, "height")
       widths  <- unit(width_cm(lapply(widths, sum)), "cm")
+
+      if (stretch_y) {
+        heights   <- redistribute_null_units(heights, spacing, margin, "height")
+        vp_height <- unit(1, "npc")
+      } else {
+        heights   <- inject(unit.c(!!!lapply(heights, sum)))
+        vp_height <- sum(heights, spacing * (length(grobs) - 1L))
+      }
 
       # Set global justification
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
-        height = sum(heights, spacing * (length(grobs) - 1L)),
+        height = vp_height,
         width =  max(widths)
       )
 
@@ -670,7 +688,6 @@ Guides <- ggproto(
     }
 
     # Add margins around the guide-boxes.
-    margin <- theme$legend.box.margin %||% margin()
     guides <- gtable_add_padding(guides, margin)
 
     # Add legend box background
@@ -684,6 +701,12 @@ Guides <- ggproto(
     )
 
     # Set global margin
+    if (stretch_x) {
+      global_margin[c(2, 4)] <- unit(0, "cm")
+    }
+    if (stretch_y) {
+      global_margin[c(1, 3)] <- unit(0, "cm")
+    }
     guides <- gtable_add_padding(guides, global_margin)
 
     guides$name <- "guide-box"
