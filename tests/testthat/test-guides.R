@@ -51,22 +51,21 @@ test_that("Colorbar respects show.legend in layer", {
   df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
-  expect_false("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_length(ggplot_build(p)$plot$guides$guides, 0L)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = TRUE)
-  expect_true("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_length(ggplot_build(p)$plot$guides$guides, 1L)
 })
 
 test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
-    gb <- which(g$layout$name == "guide-box")
-    if (length(gb) > 0) {
-      n <- length(g$grobs[[gb]]) - 1
-    } else {
-      n <- 0
-    }
-    n
+    gb <- grep("guide-box", g$layout$name)
+    n <- vapply(g$grobs[gb], function(x) {
+      if (is.zero(x)) return(0)
+      length(x$grobs) - 1
+    }, numeric(1))
+    sum(n)
   }
 
   df <- data_frame(x = 1:3, y = 20:22)
@@ -751,18 +750,19 @@ test_that("guides are positioned correctly", {
 
   expect_doppelganger("padding in legend box", p2)
 
+  p2 <- p2 + theme(legend.position = "inside")
   # Placement of legend inside
   expect_doppelganger("legend inside plot, centered",
-    p2 + theme(legend.position = c(.5, .5))
+    p2 + theme(legend.position.inside = c(.5, .5))
   )
   expect_doppelganger("legend inside plot, bottom left",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(0,0))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
   )
   expect_doppelganger("legend inside plot, top right",
-    p2 + theme(legend.justification = c(1,1), legend.position = c(1,1))
+    p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(.5,.5))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(.5,.5))
   )
 })
 
@@ -833,6 +833,22 @@ test_that("guides title and text are positioned correctly", {
     )
 
   expect_doppelganger("rotated guide titles and labels", p )
+
+  # title justification
+  p <- ggplot(data.frame(x = 1:2)) +
+    aes(x, x, colour = factor(x), fill = factor(x), shape = factor(x), alpha = x) +
+    geom_point() +
+    scale_alpha(breaks = 1:2) +
+    guides(
+      colour = guide_legend("colour title with hjust = 0", title.hjust = 0, order = 1),
+      fill   = guide_legend("fill title with hjust = 1",   title.hjust = 1, order = 2,
+                            title.position = "bottom", override.aes = list(shape = 21)),
+      alpha  = guide_legend("Title\nfor\nalpha\nwith\nvjust=0", title.vjust = 0,
+                            title.position = "left", order = 3),
+      shape = guide_legend("Title\nfor\nshape\nwith\nvjust=1", title.vjust = 1,
+                           title.position = "right", order = 4)
+    )
+  expect_doppelganger("legends with all title justifications", p)
 })
 
 test_that("size and linewidth affect key size", {
