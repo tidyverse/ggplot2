@@ -85,7 +85,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/draw_key.html">draw_key_label()</a></code> now better reflects the appearance of labels.</p></li>
+<ul><li><p>When legend titles are larger than the legend, title justification extends to the placement of keys and labels (<a href="https://github.com/tidyverse/ggplot2/issues/1903" class="external-link">#1903</a>).</p></li>
+<li><p><code><a href="../reference/draw_key.html">draw_key_label()</a></code> now better reflects the appearance of labels.</p></li>
 <li><p>The <code>minor_breaks</code> function argument in scales can now take a function with two arguments: the scale’s limits and the scale’s major breaks (<a href="https://github.com/tidyverse/ggplot2/issues/3583" class="external-link">#3583</a>).</p></li>
 <li><p>(internal) The <code>ScaleContinuous$get_breaks()</code> method no longer censors the computed breaks.</p></li>
 <li><p>Plot scales now ignore <code>AsIs</code> objects constructed with <code>I(x)</code>, instead of invoking the identity scale. This allows these columns to co-exist with other layers that need a non-identity scale for the same aesthetic. Also, it makes it easy to specify relative positions (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5142" class="external-link">#5142</a>).</p></li>
