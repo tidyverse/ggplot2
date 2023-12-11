@@ -602,8 +602,19 @@ GuideLegend <- ggproto(
       # Measure title
       title_width  <- width_cm(grobs$title)
       title_height <- height_cm(grobs$title)
-      extra_width  <- max(0, title_width  - sum(widths))
-      extra_height <- max(0, title_height - sum(heights))
+
+      # Titles are assumed to have sufficient size when keys are null units
+      if (is.unit(params$keywidth) && unitType(params$keywidth) == "null") {
+        extra_width <- 0
+      } else {
+        extra_width  <- max(0, title_width  - sum(widths))
+      }
+      if (is.unit(params$keyheight) && unitType(params$keyheight) == "null") {
+        extra_height <- 0
+      } else {
+        extra_height <- max(0, title_height - sum(heights))
+      }
+
       just  <- with(elements$title, rotate_just(angle, hjust, vjust))
       hjust <- just$hjust
       vjust <- just$vjust
