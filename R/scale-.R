@@ -597,7 +597,11 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 }
 
 default_transform <- function(self, x) {
-  new_x <- self$transformer$transform(x)
+  if (!is.null(self$trans)) {
+    deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformer"))
+  }
+  transformer <- self$transformer %||% self$trans
+  new_x <- transformer$transform(x)
   check_transformation(x, new_x, self$transformer$name, self$call)
   new_x
 }
