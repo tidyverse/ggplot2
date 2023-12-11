@@ -602,14 +602,7 @@ GuideLegend <- ggproto(
     # Add title
     if (!is.zero(grobs$title)) {
       gt <- gtable_add_grob(
-        gt,
-        justify_grobs(
-          grobs$title,
-          hjust = elements$title$hjust,
-          vjust = elements$title$vjust,
-          int_angle = elements$title$angle,
-          debug = elements$title$debug
-        ),
+        gt, grobs$title,
         name = "title", clip = "off",
         t = min(layout$title_row), r = max(layout$title_col),
         b = max(layout$title_row), l = min(layout$title_col)
