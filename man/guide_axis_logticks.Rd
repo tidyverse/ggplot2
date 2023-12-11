@@ -48,7 +48,7 @@ and \code{FALSE} are shorthand for \code{"both"} and \code{"none"} respectively.
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide override,s and is combined with, the plot's theme.}
+guide overrides, and is combined with, the plot's theme.}
 
 \item{...}{
   Arguments passed on to \code{\link[=guide_axis]{guide_axis}}

@@ -37,7 +37,7 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide override,s and is combined with, the plot's theme.}
+guide overrides, and is combined with, the plot's theme.}
 
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}

@@ -15,7 +15,7 @@
 #'   specified in [labs()] is used for the title.
 #' @param theme A [`theme`][theme()] object to style the guide individually or
 #'   differently from the plot's theme settings. The `theme` argument in the
-#'   guide override,s and is combined with, the plot's theme.
+#'   guide overrides, and is combined with, the plot's theme.
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.

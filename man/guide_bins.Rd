@@ -24,7 +24,7 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide override,s and is combined with, the plot's theme.}
+guide overrides, and is combined with, the plot's theme.}
 
 \item{position}{A character string indicating where the legend should be
 placed relative to the plot panels.}

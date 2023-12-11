@@ -43,7 +43,7 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide override,s and is combined with, the plot's theme.}
+guide overrides, and is combined with, the plot's theme.}
 
 \item{nbin}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
