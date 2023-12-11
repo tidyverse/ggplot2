@@ -464,7 +464,7 @@ test_that("numeric scale transforms can produce breaks", {
     scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view <- view_scale_primary(scale)
-    scale$transformer$inverse(view$get_breaks())
+    scale$transformation$inverse(view$get_breaks())
   }
 
   expect_equal(test_breaks("asn", limits = c(0, 1)),

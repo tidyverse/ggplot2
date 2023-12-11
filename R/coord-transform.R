@@ -190,8 +190,8 @@ transform_value <- function(trans, value, range) {
 # TODO: can we merge this with view_scales_from_scale()?
 view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
-  transformer <- scale$transformer %||% scale$trans %||% transform_identity()
-  coord_limits <- coord_limits %||% transformer$inverse(c(NA, NA))
+  transformation <- scale$transformation %||% scale$trans %||% transform_identity()
+  coord_limits <- coord_limits %||% transformation$inverse(c(NA, NA))
   scale_limits <- scale$get_limits()
 
   if (scale$is_discrete()) {
@@ -204,7 +204,7 @@ view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, 
     )
   } else {
     # transform user-specified limits to scale transformed space
-    coord_limits <- transformer$transform(coord_limits)
+    coord_limits <- transformation$transform(coord_limits)
     continuous_ranges <- expand_limits_continuous_trans(
       scale_limits,
       expansion,
