@@ -308,6 +308,9 @@ GuideAxisTheta <- ggproto(
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
 
+    # Fix order of grobs
+    grobs <- grobs[c("title", "labels", "ticks", "decor")]
+
     if (params$position %in% c("theta", "theta.sec")) {
       # We append an 'offset' slot in case this guide is part
       # of a stacked guide
