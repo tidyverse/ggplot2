@@ -17,6 +17,10 @@ guide_legend(
   label.vjust = NULL,
   keywidth = NULL,
   keyheight = NULL,
+  key.spacing = NULL,
+  key.spacing.x = NULL,
+  key.spacing.y = NULL,
+  position = NULL,
   direction = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -66,13 +70,19 @@ label text. The default for standard text is 0 (left-aligned) and 1
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
 
-\item{keywidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the legend key. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
+\item{keywidth, keyheight}{A numeric or \code{\link[grid:unit]{grid::unit()}} object specifying the
+width and height of the legend key respectively. Default value is
+\code{legend.key.width}, \code{legend.key.height} or \code{legend.key} in \code{\link[=theme]{theme()}}.\cr
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}: optionally a \code{"null"} unit to stretch
+keys to the available space.}
 
-\item{keyheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the legend key. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
+\item{key.spacing, key.spacing.x, key.spacing.y}{A numeric or \code{\link[grid:unit]{grid::unit()}}
+object specifying the distance between key-label pairs in the horizontal
+direction (\code{key.spacing.x}), vertical direction (\code{key.spacing.y}) or both
+(\code{key.spacing}).}
+
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}

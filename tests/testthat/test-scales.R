@@ -476,13 +476,13 @@ test_that("numeric scale transforms can produce breaks", {
   expect_equal(test_breaks("atanh", limits = c(-0.9, 0.9)),
                c(NA, -0.5, 0, 0.5, NA))
 
-  # Broken, should fix on {scale}'s side
-  # expect_equal(test_breaks(boxcox_trans(0), limits = c(0, 10)), ...)
+  expect_equal(test_breaks(transform_boxcox(0), limits = c(1, 10)),
+               c(NA, 2.5, 5.0, 7.5, 10))
 
-  expect_equal(test_breaks(modulus_trans(0), c(-10, 10)),
+  expect_equal(test_breaks(transform_modulus(0), c(-10, 10)),
                seq(-10, 10, by = 5))
 
-  expect_equal(test_breaks(yj_trans(0), c(-10, 10)),
+  expect_equal(test_breaks(transform_yj(0), c(-10, 10)),
                seq(-10, 10, by = 5))
 
   expect_equal(test_breaks("exp", c(-10, 10)),
@@ -707,8 +707,8 @@ test_that("find_scale appends appropriate calls", {
 
 test_that("Using `scale_name` prompts deprecation message", {
 
-  expect_snapshot_warning(continuous_scale("x", "foobar", identity_pal()))
-  expect_snapshot_warning(discrete_scale("x",   "foobar", identity_pal()))
-  expect_snapshot_warning(binned_scale("x",     "foobar", identity_pal()))
+  expect_snapshot_warning(continuous_scale("x", "foobar", pal_identity()))
+  expect_snapshot_warning(discrete_scale("x",   "foobar", pal_identity()))
+  expect_snapshot_warning(binned_scale("x",     "foobar", pal_identity()))
 
 })

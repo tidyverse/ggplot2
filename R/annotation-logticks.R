@@ -1,5 +1,10 @@
 #' Annotation: log tick marks
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is superseded by using [`guide_axis_logticks()`].
+#'
 #' This annotation adds log tick marks with diminishing spacing.
 #' These tick marks probably make sense only for base 10.
 #'
@@ -61,8 +66,8 @@
 #' # plotting it. Also hide the minor grid lines.
 #' b <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) +
 #'  geom_point(na.rm = TRUE) +
-#'  scale_x_continuous(name = "body", labels = scales::math_format(10^.x)) +
-#'  scale_y_continuous(name = "brain", labels = scales::math_format(10^.x)) +
+#'  scale_x_continuous(name = "body", labels = scales::label_math(10^.x)) +
+#'  scale_y_continuous(name = "brain", labels = scales::label_math(10^.x)) +
 #'  theme_bw() + theme(panel.grid.minor = element_blank())
 #'
 #' b + annotation_logticks()

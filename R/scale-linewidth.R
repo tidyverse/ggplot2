@@ -31,7 +31,7 @@ scale_linewidth_continuous <- function(name = waiver(), breaks = waiver(),
                                        labels = waiver(), limits = NULL,
                                        range = c(1, 6), trans = "identity",
                                        guide = "legend") {
-  continuous_scale("linewidth", palette = rescale_pal(range), name = name,
+  continuous_scale("linewidth", palette = pal_rescale(range), name = name,
                    breaks = breaks, labels = labels, limits = limits, trans = trans,
                    guide = guide)
 }
@@ -45,7 +45,7 @@ scale_linewidth <- scale_linewidth_continuous
 scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
                               nice.breaks = TRUE, trans = "identity", guide = "bins") {
-  binned_scale("linewidth", palette = rescale_pal(range), name = name,
+  binned_scale("linewidth", palette = pal_rescale(range), name = name,
                breaks = breaks, labels = labels, limits = limits, trans = trans,
                n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
 }
@@ -77,12 +77,12 @@ scale_linewidth_ordinal <- function(..., range = c(2, 6)) {
 #' @export
 #' @usage NULL
 scale_linewidth_datetime <- function(..., range = c(1, 6)) {
-  datetime_scale("linewidth", "time", palette = rescale_pal(range), ...)
+  datetime_scale("linewidth", "time", palette = pal_rescale(range), ...)
 }
 
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
 scale_linewidth_date <- function(..., range = c(1, 6)) {
-  datetime_scale("linewidth", "date", palette = rescale_pal(range), ...)
+  datetime_scale("linewidth", "date", palette = pal_rescale(range), ...)
 }

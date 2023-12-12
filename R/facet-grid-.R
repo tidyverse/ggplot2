@@ -162,8 +162,8 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     y = !draw_axes$y || any(axis_labels %in% c("all_y", "all"))
   )
 
-  if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    cli::cli_abort("{.arg switch} must be either {.val both}, {.val x}, or {.val y}")
+  if (!is.null(switch)) {
+    arg_match0(switch, c("both", "x", "y"))
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -185,7 +185,7 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      msg <- "{.arg rows} must be {.val NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list"
+      msg <- "{.arg rows} must be {.code NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list."
       # Native pipe have higher precedence than + so any type of gg object can be
       # expected here, not just ggplot
       if (inherits(rows, "gg")) {
@@ -199,7 +199,7 @@ grid_as_facets_list <- function(rows, cols) {
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
     if (length(facets_list) > 2L) {
-      cli::cli_abort("A grid facet specification can't have more than two dimensions")
+      cli::cli_abort("A grid facet specification can't have more than two dimensions.")
     }
     # Fill with empty quosures
     facets <- list(rows = quos(), cols = quos())
@@ -232,7 +232,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
       cli::cli_abort(c(
-              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.\n",
+              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.",
         "i" = "Duplicated variables: {.val {dups}}"
       ), call = call2(snake_class(self)))
     }
@@ -329,7 +329,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales")
+      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
 
     if (!params$axis_labels$x) {
@@ -361,7 +361,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     aspect_ratio <- theme$aspect.ratio
     if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
-      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio")
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
     }
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
       aspect_ratio <- coord$aspect(ranges[[1]])

@@ -100,6 +100,7 @@ guide_bins <- function(
   ticks.length = unit(0.2, "npc"),
 
   # general
+  position     = NULL,
   direction    = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -120,6 +121,9 @@ guide_bins <- function(
   }
   if (!is.null(title.position)) {
     title.position <- arg_match0(title.position, .trbl)
+  }
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
   if (!is.null(direction)) {
     direction <- arg_match0(direction, c("horizontal", "vertical"))
@@ -169,6 +173,7 @@ guide_bins <- function(
     ticks_length = ticks.length,
 
     # general
+    position = position,
     direction = direction,
     override.aes = rename_aes(override.aes),
     reverse = reverse,
@@ -262,6 +267,7 @@ GuideBins <- ggproto(
     }
 
     key$.label <- labels
+    key <- vec_slice(key, !is.na(oob_censor_any(key$.value)))
 
     return(key)
   },
@@ -341,13 +347,6 @@ GuideBins <- ggproto(
     }
     key$.label[c(1, n_labels)[!params$show.limits]] <- ""
 
-    just <- switch(
-      params$direction,
-      horizontal = elements$text$vjust,
-      vertical   = elements$text$hjust,
-      0.5
-    )
-
     if (params$direction == "vertical") {
       key$.value <- 1 - key$.value
     }
@@ -356,7 +355,6 @@ GuideBins <- ggproto(
       elements$text,
       label = key$.label,
       x = unit(key$.value, "npc"),
-      y = rep(just, nrow(key)),
       margin_x = FALSE,
       margin_y = TRUE,
       flip = params$direction == "vertical"
@@ -376,14 +374,15 @@ GuideBins <- ggproto(
 
     dim <- if (params$direction == "vertical") c(nkeys, 1) else c(1, nkeys)
 
+    decor <- GuideLegend$build_decor(decor, grobs, elements, params)
+
     sizes <- measure_legend_keys(
-      params$decor, nkeys, dim, byrow = FALSE,
+      decor, nkeys, dim, byrow = FALSE,
       default_width  = elements$key.width,
       default_height = elements$key.height
     )
     sizes <- lapply(sizes, function(x) rep_len(max(x), length(x)))
 
-    decor <- GuideLegend$build_decor(decor, grobs, elements, params)
     n_layers <- length(decor) / nkeys
     key_id <- rep(seq_len(nkeys), each = n_layers)
     key_nm <- paste("key", key_id, c("bg", seq_len(n_layers - 1)))

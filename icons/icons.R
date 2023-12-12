@@ -139,7 +139,7 @@ write_icon("geom_bin2d", {
   out <- expand.grid(x = x, y = x)
   fill <- sqrt((out$x - 0.5) ^ 2 + (out$y - 0.5) ^ 2)
 
-  pal <- scales::seq_gradient_pal("#56B1F7", "#132B43")
+  pal <- scales::pal_seq_gradient("#56B1F7", "#132B43")
   rectGrob(
     out$x + 1/n/2,
     out$y + 1/n/2,

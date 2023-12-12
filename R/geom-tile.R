@@ -5,7 +5,8 @@
 #' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
 #' `geom_tile()` uses the center of the tile and its size (`x`,
 #' `y`, `width`, `height`). `geom_raster()` is a high
-#' performance special case for when all the tiles are the same size.
+#' performance special case for when all the tiles are the same size, and no
+#' pattern fills are applied.
 #'
 #' @eval rd_aesthetics("geom", "tile", "Note that `geom_raster()` ignores `colour`.")
 #' @inheritParams layer

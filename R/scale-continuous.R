@@ -53,9 +53,9 @@
 #'   y = seq(0, 1, length.out = 10)
 #' )
 #' p2 <- ggplot(df, aes(x, y)) + geom_point()
-#' p2 + scale_y_continuous(labels = scales::percent)
-#' p2 + scale_y_continuous(labels = scales::dollar)
-#' p2 + scale_x_continuous(labels = scales::comma)
+#' p2 + scale_y_continuous(labels = scales::label_percent())
+#' p2 + scale_y_continuous(labels = scales::label_dollar())
+#' p2 + scale_x_continuous(labels = scales::label_comma())
 #'
 #' # You can also override the default linear mapping by using a
 #' # transformation. There are three shortcuts:
@@ -64,9 +64,9 @@
 #' p1 + scale_y_reverse()
 #'
 #' # Or you can supply a transformation in the `trans` argument:
-#' p1 + scale_y_continuous(trans = scales::reciprocal_trans())
+#' p1 + scale_y_continuous(trans = scales::transform_reciprocal())
 #'
-#' # You can also create your own. See ?scales::trans_new
+#' # You can also create your own. See ?scales::new_transform
 #'
 #' @name scale_continuous
 #' @aliases NULL
@@ -169,30 +169,30 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
 #' @rdname scale_continuous
 #' @export
 scale_x_log10 <- function(...) {
-  scale_x_continuous(..., trans = log10_trans())
+  scale_x_continuous(..., trans = transform_log10())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_log10 <- function(...) {
-  scale_y_continuous(..., trans = log10_trans())
+  scale_y_continuous(..., trans = transform_log10())
 }
 #' @rdname scale_continuous
 #' @export
 scale_x_reverse <- function(...) {
-  scale_x_continuous(..., trans = reverse_trans())
+  scale_x_continuous(..., trans = transform_reverse())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_reverse <- function(...) {
-  scale_y_continuous(..., trans = reverse_trans())
+  scale_y_continuous(..., trans = transform_reverse())
 }
 #' @rdname scale_continuous
 #' @export
 scale_x_sqrt <- function(...) {
-  scale_x_continuous(..., trans = sqrt_trans())
+  scale_x_continuous(..., trans = transform_sqrt())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_sqrt <- function(...) {
-  scale_y_continuous(..., trans = sqrt_trans())
+  scale_y_continuous(..., trans = transform_sqrt())
 }
