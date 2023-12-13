@@ -98,6 +98,7 @@ created with <a href="scale_continuous.html">scale_(x|y)_continuous()</a> and
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">guide_axis</span><span class="op">(</span></span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  check.overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  angle <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  n.dodge <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -115,6 +116,12 @@ created with <a href="scale_continuous.html">scale_(x|y)_continuous()</a> and
 If <code>NULL</code>, the title is not shown. By default
 (<code><a href="waiver.html">waiver()</a></code>), the name of the scale object or the name
 specified in <code><a href="labs.html">labs()</a></code> is used for the title.</p></dd>
+
+
+<dt>theme</dt>
+<dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
+differently from the plot's theme settings. The <code>theme</code> argument in the
+guide overrides, and is combined with, the plot's theme.</p></dd>
 
 
 <dt>check.overlap</dt>

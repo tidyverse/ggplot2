@@ -97,23 +97,46 @@ the gradient known from the colourbar counterpart.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">guide_coloursteps</span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  ticks <span class="op">=</span> <span class="fu"><a href="element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  order <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  available_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>, <span class="st">"color"</span>, <span class="st">"fill"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">guide_colorsteps</span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  ticks <span class="op">=</span> <span class="fu"><a href="element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  order <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  available_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"colour"</span>, <span class="st">"color"</span>, <span class="st">"fill"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>even.steps</dt>
+    <dl><dt>title</dt>
+<dd><p>A character string or expression indicating a title of guide.
+If <code>NULL</code>, the title is not shown. By default
+(<code><a href="waiver.html">waiver()</a></code>), the name of the scale object or the name
+specified in <code><a href="labs.html">labs()</a></code> is used for the title.</p></dd>
+
+
+<dt>theme</dt>
+<dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
+differently from the plot's theme settings. The <code>theme</code> argument in the
+guide overrides, and is combined with, the plot's theme.</p></dd>
+
+
+<dt>even.steps</dt>
 <dd><p>Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to <code>TRUE</code></p></dd>
 
@@ -126,129 +149,30 @@ values. If one or both of the limits is also given in <code>breaks</code> it wil
 shown irrespective of the value of <code>show.limits</code>.</p></dd>
 
 
-<dt>ticks</dt>
-<dd><p>A theme object for rendering tick marks at the colourbar.
-Usually, the object of <code><a href="element.html">element_line()</a></code> is expected. If <code><a href="element.html">element_blank()</a></code>
-(default), no tick marks are drawn. For backward compatibility, can also
-be a logical which translates <code>TRUE</code> to <code><a href="element.html">element_line()</a></code> and <code>FALSE</code> to
-<code><a href="element.html">element_blank()</a></code>.</p></dd>
-
-
-<dt>...</dt>
-<dd><p>Arguments passed on to <code><a href="guide_colourbar.html">guide_colourbar</a></code></p><dl><dt><code>barwidth,barheight</code></dt>
-<dd><p>A numeric or <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the
-width and height of the bar respectively. Default value is derived from
-<code>legend.key.width</code>, <code>legend.key.height</code> or <code>legend.key</code> in <code><a href="theme.html">theme()</a></code>.<br><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a>: optionally a <code>"null"</code> unit to stretch
-the bar to the available space.</p></dd>
-
-    <dt><code>frame</code></dt>
-<dd><p>A theme object for rendering a frame drawn around the bar.
-Usually, the object of <code><a href="element.html">element_rect()</a></code> is expected. If <code><a href="element.html">element_blank()</a></code>
-(default), no frame is drawn.</p></dd>
-
-    <dt><code>frame.colour</code></dt>
-<dd><p>A string specifying the colour of the frame
-drawn around the bar. For backward compatibility, if this argument is
-not <code>NULL</code>, the <code>frame</code> argument will be set to <code><a href="element.html">element_rect()</a></code>.</p></dd>
-
-    <dt><code>frame.linewidth</code></dt>
-<dd><p>A numeric specifying the width of the frame
-drawn around the bar in millimetres.</p></dd>
-
-    <dt><code>frame.linetype</code></dt>
-<dd><p>A numeric specifying the linetype of the frame
-drawn around the bar.</p></dd>
-
-    <dt><code>ticks.colour</code></dt>
-<dd><p>A string specifying the colour of the tick marks.</p></dd>
-
-    <dt><code>ticks.linewidth</code></dt>
-<dd><p>A numeric specifying the width of the tick marks in
-millimetres.</p></dd>
-
-    <dt><code>ticks.length</code></dt>
-<dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying the
-length of tick marks at the colourbar.</p></dd>
-
-    <dt><code>draw.ulim</code></dt>
-<dd><p>A logical specifying if the upper limit tick marks should
-be visible.</p></dd>
-
-    <dt><code>draw.llim</code></dt>
-<dd><p>A logical specifying if the lower limit tick marks should
-be visible.</p></dd>
-
-    <dt><code>direction</code></dt>
+<dt>direction</dt>
 <dd><p>A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."</p></dd>
 
-    <dt><code>default.unit</code></dt>
-<dd><p>A character string indicating <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code>
-for <code>barwidth</code> and <code>barheight</code>.</p></dd>
 
-    <dt><code>reverse</code></dt>
+<dt>reverse</dt>
 <dd><p>logical. If <code>TRUE</code> the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom</p></dd>
 
-    <dt><code>title</code></dt>
-<dd><p>A character string or expression indicating a title of guide.
-If <code>NULL</code>, the title is not shown. By default
-(<code><a href="waiver.html">waiver()</a></code>), the name of the scale object or the name
-specified in <code><a href="labs.html">labs()</a></code> is used for the title.</p></dd>
 
-    <dt><code>title.position</code></dt>
-<dd><p>A character string indicating the position of a
-title. One of "top" (default for a vertical guide), "bottom", "left"
-(default for a horizontal guide), or "right."</p></dd>
-
-    <dt><code>title.theme</code></dt>
-<dd><p>A theme object for rendering the title text. Usually the
-object of <code><a href="element.html">element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.title</code> in <code><a href="theme.html">theme()</a></code> or theme.</p></dd>
-
-    <dt><code>title.hjust</code></dt>
-<dd><p>A number specifying horizontal justification of the
-title text.</p></dd>
-
-    <dt><code>title.vjust</code></dt>
-<dd><p>A number specifying vertical justification of the title
-text.</p></dd>
-
-    <dt><code>label</code></dt>
-<dd><p>logical. If <code>TRUE</code> then the labels are drawn. If
-<code>FALSE</code> then the labels are invisible.</p></dd>
-
-    <dt><code>label.position</code></dt>
-<dd><p>A character string indicating the position of a
-label. One of "top", "bottom" (default for horizontal guide), "left", or
-"right" (default for vertical guide).</p></dd>
-
-    <dt><code>label.theme</code></dt>
-<dd><p>A theme object for rendering the label text. Usually the
-object of <code><a href="element.html">element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.text</code> in <code><a href="theme.html">theme()</a></code>.</p></dd>
-
-    <dt><code>label.hjust</code></dt>
-<dd><p>A numeric specifying horizontal justification of the
-label text. The default for standard text is 0 (left-aligned) and 1
-(right-aligned) for expressions.</p></dd>
-
-    <dt><code>label.vjust</code></dt>
-<dd><p>A numeric specifying vertical justification of the label
-text.</p></dd>
-
-    <dt><code>position</code></dt>
-<dd><p>A character string indicating where the legend should be
-placed relative to the plot panels.</p></dd>
-
-    <dt><code>order</code></dt>
+<dt>order</dt>
 <dd><p>positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.</p></dd>
 
-  
-</dl></dd>
+
+<dt>available_aes</dt>
+<dd><p>A vector of character strings listing the aesthetics
+for which a colourbar can be drawn.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>ignored.</p></dd>
 
 </dl></div>
     <div class="section level2">

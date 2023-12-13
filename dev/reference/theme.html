@@ -170,11 +170,21 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">legend.key.size</span>,</span>
 <span>  <span class="va">legend.key.height</span>,</span>
 <span>  <span class="va">legend.key.width</span>,</span>
+<span>  <span class="va">legend.key.spacing</span>,</span>
+<span>  <span class="va">legend.key.spacing.x</span>,</span>
+<span>  <span class="va">legend.key.spacing.y</span>,</span>
+<span>  <span class="va">legend.frame</span>,</span>
+<span>  <span class="va">legend.ticks</span>,</span>
+<span>  <span class="va">legend.ticks.length</span>,</span>
+<span>  <span class="va">legend.axis.line</span>,</span>
 <span>  <span class="va">legend.text</span>,</span>
+<span>  <span class="va">legend.text.position</span>,</span>
 <span>  <span class="va">legend.title</span>,</span>
+<span>  <span class="va">legend.title.position</span>,</span>
 <span>  <span class="va">legend.position</span>,</span>
 <span>  <span class="va">legend.position.inside</span>,</span>
 <span>  <span class="va">legend.direction</span>,</span>
+<span>  <span class="va">legend.byrow</span>,</span>
 <span>  <span class="va">legend.justification</span>,</span>
 <span>  <span class="va">legend.justification.top</span>,</span>
 <span>  <span class="va">legend.justification.bottom</span>,</span>
@@ -330,14 +340,48 @@ inherits from <code>rect</code>)</p></dd>
 <code>legend.key.size</code> or can be specified separately</p></dd>
 
 
+<dt>legend.key.spacing, legend.key.spacing.x, legend.key.spacing.y</dt>
+<dd><p>spacing
+between legend keys given as a <code>unit</code>. Spacing in the horizontal (x) and
+vertical (y) direction inherit from <code>legend.key.spacing</code> or can be
+specified separately.</p></dd>
+
+
+<dt>legend.frame</dt>
+<dd><p>frame drawn around the bar (<code><a href="element.html">element_rect()</a></code>).</p></dd>
+
+
+<dt>legend.ticks</dt>
+<dd><p>tick marks shown along bars or axes (<code><a href="element.html">element_line()</a></code>)</p></dd>
+
+
+<dt>legend.ticks.length</dt>
+<dd><p>length of tick marks in legend (<code>unit</code>)</p></dd>
+
+
+<dt>legend.axis.line</dt>
+<dd><p>lines along axes in legends (<code><a href="element.html">element_line()</a></code>)</p></dd>
+
+
 <dt>legend.text</dt>
 <dd><p>legend item labels (<code><a href="element.html">element_text()</a></code>; inherits from
 <code>text</code>)</p></dd>
 
 
+<dt>legend.text.position</dt>
+<dd><p>placement of legend text relative to legend keys
+or bars ("top", "right", "bottom" or "left"). The legend text placement
+might be incompatible with the legend's direction for some guides.</p></dd>
+
+
 <dt>legend.title</dt>
 <dd><p>title of legend (<code><a href="element.html">element_text()</a></code>; inherits from
 <code>title</code>)</p></dd>
+
+
+<dt>legend.title.position</dt>
+<dd><p>placement of legend title relative to the main
+legend ("top", "right", "bottom" or "left").</p></dd>
 
 
 <dt>legend.position</dt>
@@ -353,6 +397,11 @@ placement of legends that have the <code>"inside"</code> position.</p></dd>
 <dt>legend.direction</dt>
 <dd><p>layout of items in legends ("horizontal" or
 "vertical")</p></dd>
+
+
+<dt>legend.byrow</dt>
+<dd><p>whether the legend-matrix is filled by columns
+(<code>FALSE</code>, the default) or by rows (<code>TRUE</code>).</p></dd>
 
 
 <dt>legend.justification</dt>

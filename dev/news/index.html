@@ -85,7 +85,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p>When legend titles are larger than the legend, title justification extends to the placement of keys and labels (<a href="https://github.com/tidyverse/ggplot2/issues/1903" class="external-link">#1903</a>).</p></li>
+<ul><li><p><code>guide_*()</code> functions get a new <code>theme</code> argument to style individual guides. The <code><a href="../reference/theme.html">theme()</a></code> function has gained additional arguments for styling guides: <code>legend.key.spacing{.x/.y}</code>, <code>legend.frame</code>, <code>legend.axis.line</code>, <code>legend.ticks</code>, <code>legend.ticks.length</code>, <code>legend.text.position</code> and <code>legend.title.position</code>. Previous style arguments in the <code>guide_*()</code> functions have been soft-deprecated.</p></li>
+<li><p>When legend titles are larger than the legend, title justification extends to the placement of keys and labels (<a href="https://github.com/tidyverse/ggplot2/issues/1903" class="external-link">#1903</a>).</p></li>
 <li><p><code><a href="../reference/draw_key.html">draw_key_label()</a></code> now better reflects the appearance of labels.</p></li>
 <li><p>The <code>minor_breaks</code> function argument in scales can now take a function with two arguments: the scale’s limits and the scale’s major breaks (<a href="https://github.com/tidyverse/ggplot2/issues/3583" class="external-link">#3583</a>).</p></li>
 <li><p>(internal) The <code>ScaleContinuous$get_breaks()</code> method no longer censors the computed breaks.</p></li>

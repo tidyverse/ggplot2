@@ -102,6 +102,7 @@ log10 space.</p>
 <span>  short_theme <span class="op">=</span> <span class="fu"><a href="element.html">element_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  expanded <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  cap <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -146,6 +147,12 @@ be <code>"none"</code> (default) to draw the axis line along the whole panel, or
 <code>"upper"</code> and <code>"lower"</code> to draw the axis to the upper or lower break, or
 <code>"both"</code> to only draw the line in between the most extreme breaks. <code>TRUE</code>
 and <code>FALSE</code> are shorthand for <code>"both"</code> and <code>"none"</code> respectively.</p></dd>
+
+
+<dt>theme</dt>
+<dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
+differently from the plot's theme settings. The <code>theme</code> argument in the
+guide overrides, and is combined with, the plot's theme.</p></dd>
 
 
 <dt>...</dt>
