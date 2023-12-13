@@ -18,6 +18,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-3385-7233")),
     person("Dewey", "Dunnington", role = "aut",
            comment = c(ORCID = "0000-0002-9415-4582")),
+    person("Teun", "van den Brand", role = "aut",
+           comment = c(ORCID = "0000-0002-9335-7468")),
     person("Posit, PBC", role = c("cph", "fnd"))
   )
 Description: A system for 'declaratively' creating graphics, based on "The
