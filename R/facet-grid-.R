@@ -63,7 +63,7 @@ NULL
 #'   (default), axes will be drawn at the exterior margins. `"all_x"` and
 #'   `"all_y"` will draw the respective axes at the interior panels too, whereas
 #'   `"all"` will draw all axes at all panels.
-#' @param axis_labels Determines whether to draw labels for interior axes when
+#' @param axis.labels Determines whether to draw labels for interior axes when
 #'   the `axes` argument is not `"margins"`. When `"all"` (default), all
 #'   interior axes get labels. When `"margins"`, only the exterior axes get
 #'   labels and the interior axes get none. When `"all_x"` or `"all_y"`, only

@@ -1,9 +1,10 @@
 # ggplot2 (development version)
 
 * The new argument `axes` in `facet_grid()` and `facet_wrap()` controls the
-  display of axes at interior panel positions. Additionally, the `axis_labels`
+  display of axes at interior panel positions. Additionally, the `axis.labels`
   argument can be used to only draw tick marks or fully labelled axes 
   (@teunbrand, #4064).
+  
 * When legend titles are larger than the legend, title justification extends
   to the placement of keys and labels (#1903).
 
