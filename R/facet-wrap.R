@@ -91,7 +91,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
                        switch = deprecated(), drop = TRUE, dir = "h",
                        strip.position = 'top', axes = "margins",
-                       axis_labels = "all") {
+                       axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
   dir <- arg_match0(dir, c("h", "v"))
   free <- list(
@@ -108,7 +108,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
 
   # Omitting labels is special-cased internally, so only omit labels if
   # scales are not free and the axis is to be drawn
-  axis_labels <- arg_match0(axis_labels, c("margins", "all_x", "all_y", "all"))
+  axis_labels <- arg_match0(axis.labels, c("margins", "all_x", "all_y", "all"))
   axis_labels <- list(
     x = free$x || !draw_axes$x || any(axis_labels %in% c("all_x", "all")),
     y = free$y || !draw_axes$y || any(axis_labels %in% c("all_y", "all"))

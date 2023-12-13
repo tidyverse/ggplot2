@@ -17,7 +17,7 @@ facet_grid(
   margins = FALSE,
   facets = deprecated(),
   axes = "margins",
-  axis_labels = "all"
+  axis.labels = "all"
 )
 }
 \arguments{

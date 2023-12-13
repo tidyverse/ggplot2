@@ -17,7 +17,7 @@ facet_wrap(
   dir = "h",
   strip.position = "top",
   axes = "margins",
-  axis_labels = "all"
+  axis.labels = "all"
 )
 }
 \arguments{
