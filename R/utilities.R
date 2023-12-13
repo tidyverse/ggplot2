@@ -773,6 +773,25 @@ vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
   )
 }
 
+# This function is used to vectorise the following pattern:
+#
+# obj$name1 <- obj$name1 %||% value
+# obj$name2 <- obj$name2 %||% value
+#
+# and express this pattern as:
+#
+# replace_null(obj, name1 = value, name2 = value)
+replace_null <- function(obj, ..., env = caller_env()) {
+  # Collect dots without evaluating
+  dots <- enexprs(...)
+  # Select arguments that are null in `obj`
+  nms  <- names(dots)
+  nms  <- nms[vapply(obj[nms], is.null, logical(1))]
+  # Replace those with the evaluated dots
+  obj[nms] <- inject(list(!!!dots[nms]), env = env)
+  obj
+}
+
 attach_plot_env <- function(env) {
   old_env <- getOption("ggplot2_plot_env")
   options(ggplot2_plot_env = env)

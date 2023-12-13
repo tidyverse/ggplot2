@@ -8,6 +8,7 @@ guide_axis_stack(
   first = "axis",
   ...,
   title = waiver(),
+  theme = NULL,
   spacing = NULL,
   order = 0,
   position = waiver()
@@ -26,6 +27,10 @@ guide_axis_stack(
 If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
+
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
 \item{spacing}{A \code{\link[=unit]{unit()}} objects that determines how far separate guides are
 spaced apart.}

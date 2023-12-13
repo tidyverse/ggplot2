@@ -72,6 +72,7 @@ guide_axis_logticks <- function(
   short_theme = element_line(),
   expanded = TRUE,
   cap = "none",
+  theme = NULL,
   ...
 ) {
   if (is.logical(cap)) {
@@ -108,6 +109,7 @@ guide_axis_logticks <- function(
     cap   = cap,
     minor.ticks = TRUE,
     short_theme = short_theme,
+    theme = theme,
     ...,
     super = GuideAxisLogticks
   )

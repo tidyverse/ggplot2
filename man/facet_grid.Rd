@@ -87,7 +87,7 @@ and \code{cols} instead.}
 \code{"all_y"} will draw the respective axes at the interior panels too, whereas
 \code{"all"} will draw all axes at all panels.}
 
-\item{axis_labels}{Determines whether to draw labels for interior axes when
+\item{axis.labels}{Determines whether to draw labels for interior axes when
 the \code{axes} argument is not \code{"margins"}. When \code{"all"} (default), all
 interior axes get labels. When \code{"margins"}, only the exterior axes get
 labels and the interior axes get none. When \code{"all_x"} or \code{"all_y"}, only

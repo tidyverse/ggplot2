@@ -6,26 +6,9 @@
 \usage{
 guide_bins(
   title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-  label = TRUE,
-  label.position = NULL,
-  label.theme = NULL,
-  label.hjust = NULL,
-  label.vjust = NULL,
-  keywidth = NULL,
-  keyheight = NULL,
-  axis = TRUE,
-  axis.colour = "black",
-  axis.linewidth = NULL,
-  axis.arrow = NULL,
-  ticks = NULL,
-  ticks.length = unit(0.2, "npc"),
+  theme = NULL,
   position = NULL,
   direction = NULL,
-  default.unit = "line",
   override.aes = list(),
   reverse = FALSE,
   order = 0,
@@ -39,72 +22,15 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
 
-\item{title.position}{A character string indicating the position of a
-title. One of "top" (default for a vertical guide), "bottom", "left"
-(default for a horizontal guide), or "right."}
-
-\item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.title} in \code{\link[=theme]{theme()}} or theme.}
-
-\item{title.hjust}{A number specifying horizontal justification of the
-title text.}
-
-\item{title.vjust}{A number specifying vertical justification of the title
-text.}
-
-\item{label}{logical. If \code{TRUE} then the labels are drawn. If
-\code{FALSE} then the labels are invisible.}
-
-\item{label.position}{A character string indicating the position of a
-label. One of "top", "bottom" (default for horizontal guide), "left", or
-"right" (default for vertical guide).}
-
-\item{label.theme}{A theme object for rendering the label text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
-
-\item{label.hjust}{A numeric specifying horizontal justification of the
-label text. The default for standard text is 0 (left-aligned) and 1
-(right-aligned) for expressions.}
-
-\item{label.vjust}{A numeric specifying vertical justification of the label
-text.}
-
-\item{keywidth, keyheight}{A numeric or \code{\link[grid:unit]{grid::unit()}} object specifying the
-width and height of the legend key respectively. Default value is
-\code{legend.key.width}, \code{legend.key.height} or \code{legend.key} in \code{\link[=theme]{theme()}}.\cr
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}: optionally a \code{"null"} unit to stretch
-keys to the available space.}
-
-\item{axis}{A theme object for rendering a small axis along the guide.
-Usually, the object of \code{element_line()} is expected (default). If
-\code{element_blank()}, no axis is drawn. For backward compatibility, can also
-be a logical which translates \code{TRUE} to \code{element_line()} and \code{FALSE} to
-\code{element_blank()}.}
-
-\item{axis.colour, axis.linewidth}{Graphic specifications for the look of the
-axis.}
-
-\item{axis.arrow}{A call to \code{arrow()} to specify arrows at the end of the
-axis line, thus showing an open interval.}
-
-\item{ticks}{A theme object for rendering tick marks at the colourbar.
-Usually, the object of \code{element_line()} is expected. If \code{element_blank()},
-no tick marks are drawn. If \code{NULL} (default), the \code{axis} argument is
-re-used as \code{ticks} argument (without arrow).}
-
-\item{ticks.length}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying the
-length of tick marks between the keys.}
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
 \item{position}{A character string indicating where the legend should be
 placed relative to the plot panels.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
-
-\item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
-for \code{keywidth} and \code{keyheight}.}
 
 \item{override.aes}{A list specifying aesthetic parameters of legend key.
 See details and examples.}
@@ -158,12 +84,15 @@ p <- ggplot(mtcars) +
 p
 
 # Remove the axis or style it
-p + guides(size = guide_bins(axis = FALSE))
+p + guides(size = guide_bins(
+  theme = theme(legend.axis.line = element_blank())
+))
 
 p + guides(size = guide_bins(show.limits = TRUE))
 
+my_arrow <- arrow(length = unit(1.5, "mm"), ends = "both")
 p + guides(size = guide_bins(
-  axis.arrow = arrow(length = unit(1.5, 'mm'), ends = 'both')
+  theme = theme(legend.axis.line = element_line(arrow = my_arrow))
 ))
 
 # Guides are merged together if possible

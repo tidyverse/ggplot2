@@ -66,11 +66,21 @@ theme(
   legend.key.size,
   legend.key.height,
   legend.key.width,
+  legend.key.spacing,
+  legend.key.spacing.x,
+  legend.key.spacing.y,
+  legend.frame,
+  legend.ticks,
+  legend.ticks.length,
+  legend.axis.line,
   legend.text,
+  legend.text.position,
   legend.title,
+  legend.title.position,
   legend.position,
   legend.position.inside,
   legend.direction,
+  legend.byrow,
   legend.justification,
   legend.justification.top,
   legend.justification.bottom,
@@ -188,11 +198,31 @@ inherits from \code{rect})}
 \item{legend.key.size, legend.key.height, legend.key.width}{size of legend keys (\code{unit}); key background height & width inherit from
 \code{legend.key.size} or can be specified separately}
 
+\item{legend.key.spacing, legend.key.spacing.x, legend.key.spacing.y}{spacing
+between legend keys given as a \code{unit}. Spacing in the horizontal (x) and
+vertical (y) direction inherit from \code{legend.key.spacing} or can be
+specified separately.}
+
+\item{legend.frame}{frame drawn around the bar (\code{\link[=element_rect]{element_rect()}}).}
+
+\item{legend.ticks}{tick marks shown along bars or axes (\code{\link[=element_line]{element_line()}})}
+
+\item{legend.ticks.length}{length of tick marks in legend (\code{unit})}
+
+\item{legend.axis.line}{lines along axes in legends (\code{\link[=element_line]{element_line()}})}
+
 \item{legend.text}{legend item labels (\code{\link[=element_text]{element_text()}}; inherits from
 \code{text})}
 
+\item{legend.text.position}{placement of legend text relative to legend keys
+or bars ("top", "right", "bottom" or "left"). The legend text placement
+might be incompatible with the legend's direction for some guides.}
+
 \item{legend.title}{title of legend (\code{\link[=element_text]{element_text()}}; inherits from
 \code{title})}
+
+\item{legend.title.position}{placement of legend title relative to the main
+legend ("top", "right", "bottom" or "left").}
 
 \item{legend.position}{the default position of legends ("none", "left",
 "right", "bottom", "top", "inside")}
@@ -202,6 +232,9 @@ placement of legends that have the \code{"inside"} position.}
 
 \item{legend.direction}{layout of items in legends ("horizontal" or
 "vertical")}
+
+\item{legend.byrow}{whether the legend-matrix is filled by columns
+(\code{FALSE}, the default) or by rows (\code{TRUE}).}
 
 \item{legend.justification}{anchor point for positioning legend inside plot
 ("center" or two-element numeric vector) or the justification according to
