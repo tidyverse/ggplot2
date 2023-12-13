@@ -7,7 +7,16 @@
 # so that we don't modify the ggproto object in place.
 
 create_layout <- function(facet, coord, layout = NULL) {
-  ggproto(NULL, layout %||% Layout, facet = plot$facet, coord = plot$coordinates)
+  layout <- layout %||% Layout
+  if (!inherits(layout, "Layout"))
+    cli::cli_abort(
+      c(
+        "issue with ggproto layout",
+        "i" = "The supplied ggproto should inherit from {.cls Layout}",
+        "x" = "not {.cl {class(layout)}"
+      )
+    )
+  ggproto(NULL, layout, facet = plot$facet, coord = plot$coordinates)
 }
 
 #' @rdname ggplot2-ggproto
