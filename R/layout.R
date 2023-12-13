@@ -8,14 +8,7 @@
 
 create_layout <- function(facet, coord, layout = NULL) {
   layout <- layout %||% Layout
-  if (!inherits(layout, "Layout"))
-    cli::cli_abort(
-      c(
-        "issue with ggproto layout",
-        "i" = "The supplied ggproto should inherit from {.cls Layout}",
-        "x" = "not {.cl {class(layout)}"
-      )
-    )
+  check_inherits(layout, "Layout")
   ggproto(NULL, layout, facet = facet, coord = coord)
 }
 
