@@ -16,7 +16,7 @@ create_layout <- function(facet, coord, layout = NULL) {
         "x" = "not {.cl {class(layout)}"
       )
     )
-  ggproto(NULL, layout, facet = plot$facet, coord = plot$coordinates)
+  ggproto(NULL, layout, facet = facet, coord = coord)
 }
 
 #' @rdname ggplot2-ggproto
