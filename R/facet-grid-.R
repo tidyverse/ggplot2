@@ -123,7 +123,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        labeller = "label_value", as.table = TRUE,
                        switch = NULL, drop = TRUE, margins = FALSE,
                        facets = deprecated(), axes = "margins",
-                       axis_labels = "all") {
+                       axis.labels = "all") {
   # `facets` is deprecated and renamed to `rows`
   if (lifecycle::is_present(facets)) {
     deprecate_warn0("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
@@ -156,7 +156,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
 
   # Omitting labels is special-cased internally, so even when no internal axes
   # are to be drawn, register as labelled.
-  axis_labels <- arg_match0(axis_labels, c("margins", "all_x", "all_y", "all"))
+  axis_labels <- arg_match0(axis.labels, c("margins", "all_x", "all_y", "all"))
   axis_labels <- list(
     x = !draw_axes$x || any(axis_labels %in% c("all_x", "all")),
     y = !draw_axes$y || any(axis_labels %in% c("all_y", "all"))
