@@ -104,16 +104,16 @@
 <text x='572.23' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>400</text>
 <text x='373.66' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='20.18px' lengthAdjust='spacingAndGlyphs'>disp</text>
 <text transform='translate(13.05,298.07) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>mpg</text>
-<rect x='32.79' y='22.78' width='88.44' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='32.79' y='22.78' width='93.92' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <rect x='32.79' y='22.78' width='17.28' height='17.28' style='stroke-width: 1.07; fill: #EBEBEB;' />
 <circle cx='41.43' cy='31.42' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
-<rect x='63.74' y='22.78' width='17.28' height='17.28' style='stroke-width: 1.07; fill: #EBEBEB;' />
-<circle cx='72.38' cy='31.42' r='1.95' style='stroke-width: 0.71; stroke: #00BA38; fill: #00BA38;' />
-<rect x='94.68' y='22.78' width='17.28' height='17.28' style='stroke-width: 1.07; fill: #EBEBEB;' />
-<circle cx='103.32' cy='31.42' r='1.95' style='stroke-width: 0.71; stroke: #619CFF; fill: #619CFF;' />
-<text x='54.46' y='34.45' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>4</text>
-<text x='85.40' y='34.45' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>6</text>
-<text x='116.34' y='34.45' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>8</text>
+<rect x='65.93' y='22.78' width='17.28' height='17.28' style='stroke-width: 1.07; fill: #EBEBEB;' />
+<circle cx='74.57' cy='31.42' r='1.95' style='stroke-width: 0.71; stroke: #00BA38; fill: #00BA38;' />
+<rect x='99.06' y='22.78' width='17.28' height='17.28' style='stroke-width: 1.07; fill: #EBEBEB;' />
+<circle cx='107.70' cy='31.42' r='1.95' style='stroke-width: 0.71; stroke: #619CFF; fill: #619CFF;' />
+<text x='55.55' y='34.45' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>4</text>
+<text x='88.69' y='34.45' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>6</text>
+<text x='121.82' y='34.45' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>8</text>
 <text x='32.79' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='131.37px' lengthAdjust='spacingAndGlyphs'>left aligned legend key</text>
 </g>
 </svg>

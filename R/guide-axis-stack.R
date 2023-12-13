@@ -29,7 +29,7 @@ NULL
 #'
 #' # A normal axis first, then a capped axis
 #' p + guides(x = guide_axis_stack("axis", guide_axis(cap = "both")))
-guide_axis_stack <- function(first = "axis", ..., title = waiver(),
+guide_axis_stack <- function(first = "axis", ..., title = waiver(), theme = NULL,
                              spacing = NULL, order = 0, position = waiver()) {
 
   check_object(spacing, is.unit, "{.cls unit}", allow_null = TRUE)
@@ -63,6 +63,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(),
 
   new_guide(
     title = title,
+    theme = theme,
     guides = axes,
     guide_params = params,
     available_aes = c("x", "y", "theta", "r"),
@@ -88,6 +89,7 @@ GuideAxisStack <- ggproto(
     # Standard guide stuff
     name      = "stacked_axis",
     title     = waiver(),
+    theme     = NULL,
     angle     = waiver(),
     hash      = character(),
     position  = waiver(),
@@ -142,6 +144,7 @@ GuideAxisStack <- ggproto(
 
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
+    theme <- add_theme(theme, params$theme)
 
     position  <- params$position  %||% position
     direction <- params$direction %||% direction

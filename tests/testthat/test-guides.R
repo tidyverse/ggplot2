@@ -233,20 +233,24 @@ test_that("guide specifications are properly checked", {
 
   expect_snapshot_warning(ggplotGrob(p))
 
-  expect_snapshot_error(guide_legend(title.position = "leftish"))
+  p <-  p + guides(shape = guide_legend(theme = theme(legend.title.position = "leftish")))
+  expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(guide_colourbar()$transform())
 
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colourbar(label.position = "top"))
+    guides(colour = guide_colourbar(theme = theme(legend.text.position = "top")))
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colourbar(direction = "horizontal", label.position = "left"))
+    guides(colour = guide_colourbar(direction = "horizontal", theme = theme(legend.text.position = "left")))
   expect_snapshot_error(ggplotGrob(p))
 
-  expect_snapshot_error(guide_legend(label.position = "test"))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_legend(theme = theme(legend.text.position = "test")))
+  expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
     guides(colour = guide_legend(nrow = 2, ncol = 2))
@@ -414,9 +418,12 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
 test_that("guide_legend uses key.spacing correctly", {
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(carb))) +
     geom_point() +
-    guides(colour = guide_legend(
-      ncol = 2, key.spacing.y = 1, key.spacing.x = 2
-    ))
+    guides(colour = guide_legend(ncol = 2)) +
+    theme_test() +
+    theme(
+      legend.key.spacing.x = unit(2, "lines"),
+      legend.key.spacing.y = unit(1, "lines")
+    )
 
   expect_doppelganger("legend with widely spaced keys", p)
 })
@@ -810,8 +817,10 @@ test_that("guides title and text are positioned correctly", {
     scale_colour_continuous(
       name = "value",
       guide = guide_colorbar(
-        title.theme = element_text(size = 11, angle = 0, hjust = 0.5, vjust = 1),
-        label.theme = element_text(size = 0.8*11, angle = 270, hjust = 0.5, vjust = 1),
+        theme = theme(
+          legend.title = element_text(size = 11, angle = 0, hjust = 0.5, vjust = 1),
+          legend.text = element_text(size = 0.8 * 11, angle = 270, hjust = 0.5, vjust = 1)
+        ),
         order = 2 # set guide order to keep visual test stable
       )
     ) +
@@ -822,10 +831,12 @@ test_that("guides title and text are positioned correctly", {
       name = "fill value",
       guide = guide_legend(
         direction = "horizontal",
-        title.position = "top",
-        label.position = "bottom",
-        title.theme = element_text(size = 11, angle = 180, hjust = 0, vjust = 1),
-        label.theme = element_text(size = 0.8*11, angle = 90, hjust = 1, vjust = 0.5),
+        theme = theme(
+          legend.title.position = "top",
+          legend.text.position = "bottom",
+          legend.title = element_text(size = 11, angle = 180, hjust = 0, vjust = 1),
+          legend.text = element_text(size = 0.8 * 11, angle = 90, hjust = 1, vjust = 0.5)
+        ),
         order = 1
       )
     )
@@ -838,13 +849,32 @@ test_that("guides title and text are positioned correctly", {
     geom_point() +
     scale_alpha(breaks = 1:2) +
     guides(
-      colour = guide_legend("colour title with hjust = 0", title.hjust = 0, order = 1),
-      fill   = guide_legend("fill title with hjust = 1",   title.hjust = 1, order = 2,
-                            title.position = "bottom", override.aes = list(shape = 21)),
-      alpha  = guide_legend("Title\nfor\nalpha\nwith\nvjust=0", title.vjust = 0,
-                            title.position = "left", order = 3),
-      shape = guide_legend("Title\nfor\nshape\nwith\nvjust=1", title.vjust = 1,
-                           title.position = "right", order = 4)
+      colour = guide_legend(
+        "colour title with hjust = 0", order = 1,
+        theme = theme(legend.title = element_text(hjust = 0))
+      ),
+      fill   = guide_legend(
+        "fill title with hjust = 1", order = 2,
+        theme = theme(
+          legend.title = element_text(hjust = 1),
+          legend.title.position = "bottom"
+        ),
+        override.aes = list(shape = 21)
+      ),
+      alpha  = guide_legend(
+        "Title\nfor\nalpha\nwith\nvjust=0", order = 3,
+        theme = theme(
+          legend.title = element_text(vjust = 0),
+          legend.title.position = "left"
+        )
+      ),
+      shape = guide_legend(
+        "Title\nfor\nshape\nwith\nvjust=1", order = 4,
+        theme = theme(
+          legend.title = element_text(vjust = 1),
+          legend.title.position = "right"
+        )
+      )
     )
   expect_doppelganger("legends with all title justifications", p)
 })
@@ -870,16 +900,16 @@ test_that("colorbar can be styled", {
 
   expect_doppelganger("white-to-red colorbar, long thick black ticks, green frame",
     p + scale_color_gradient(
-          low = 'white', high = 'red',
-          guide = guide_colorbar(
-            frame = element_rect(colour = "green"),
-            frame.linewidth = 1.5 / .pt,
-            ticks.colour = "black",
-            ticks.linewidth = 2.5 / .pt,
-            ticks.length = unit(0.4, "npc")
-            )
+      low = 'white', high = 'red',
+      guide = guide_colorbar(
+        theme = theme(
+          legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
+          legend.ticks = element_line("black", linewidth = 2.5 / .pt),
+          legend.ticks.length = unit(0.4, "npc")
         )
+      )
     )
+  )
 })
 
 test_that("guides can handle multiple aesthetics for one scale", {
@@ -909,10 +939,21 @@ test_that("bin guide can be styled correctly", {
     p + guides(size = guide_bins(show.limits = TRUE))
   )
   expect_doppelganger("guide_bins can show arrows",
-    p + guides(size = guide_bins(axis.arrow = arrow(length = unit(1.5, "mm"), ends = "both")))
+    p + guides(size = guide_bins()) +
+      theme_test() +
+      theme(
+        legend.axis.line = element_line(
+          linewidth = 0.5 / .pt,
+          arrow = arrow(length = unit(1.5, "mm"), ends = "both")
+        )
+      )
   )
   expect_doppelganger("guide_bins can remove axis",
-    p + guides(size = guide_bins(axis = FALSE))
+    p + guides(size = guide_bins()) +
+      theme_test() +
+      theme(
+        legend.axis.line = element_blank()
+      )
   )
   expect_doppelganger("guide_bins work horizontally",
     p + guides(size = guide_bins(direction = "horizontal"))
@@ -935,7 +976,9 @@ test_that("coloursteps guide can be styled correctly", {
     p + guides(colour = guide_coloursteps(even.steps = FALSE))
   )
   expect_doppelganger("guide_bins can show ticks",
-    p + guides(colour = guide_coloursteps(ticks = TRUE))
+    p + guides(colour = guide_coloursteps(
+      theme = theme(legend.ticks = element_line(linewidth = 0.5 / .pt, colour = "white"))
+    ))
   )
 })
 

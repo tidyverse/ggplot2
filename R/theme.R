@@ -74,16 +74,31 @@
 #' @param legend.key.size,legend.key.height,legend.key.width
 #'   size of legend keys (`unit`); key background height & width inherit from
 #'   `legend.key.size` or can be specified separately
+#' @param legend.key.spacing,legend.key.spacing.x,legend.key.spacing.y spacing
+#'   between legend keys given as a `unit`. Spacing in the horizontal (x) and
+#'   vertical (y) direction inherit from `legend.key.spacing` or can be
+#'   specified separately.
+#' @param legend.frame frame drawn around the bar ([element_rect()]).
+#' @param legend.ticks tick marks shown along bars or axes ([element_line()])
+#' @param legend.ticks.length length of tick marks in legend (`unit`)
+#' @param legend.axis.line lines along axes in legends ([element_line()])
 #' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
+#' @param legend.text.position placement of legend text relative to legend keys
+#'   or bars ("top", "right", "bottom" or "left"). The legend text placement
+#'   might be incompatible with the legend's direction for some guides.
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
+#' @param legend.title.position placement of legend title relative to the main
+#'   legend ("top", "right", "bottom" or "left").
 #' @param legend.position the default position of legends ("none", "left",
 #'   "right", "bottom", "top", "inside")
 #' @param legend.position.inside A numeric vector of length two setting the
 #'   placement of legends that have the `"inside"` position.
 #' @param legend.direction layout of items in legends ("horizontal" or
 #'   "vertical")
+#' @param legend.byrow whether the legend-matrix is filled by columns
+#'   (`FALSE`, the default) or by rows (`TRUE`).
 #' @param legend.justification anchor point for positioning legend inside plot
 #'   ("center" or two-element numeric vector) or the justification according to
 #'   the plot area when positioned outside the plot
@@ -349,11 +364,21 @@ theme <- function(...,
                   legend.key.size,
                   legend.key.height,
                   legend.key.width,
+                  legend.key.spacing,
+                  legend.key.spacing.x,
+                  legend.key.spacing.y,
+                  legend.frame,
+                  legend.ticks,
+                  legend.ticks.length,
+                  legend.axis.line,
                   legend.text,
+                  legend.text.position,
                   legend.title,
+                  legend.title.position,
                   legend.position,
                   legend.position.inside,
                   legend.direction,
+                  legend.byrow,
                   legend.justification,
                   legend.justification.top,
                   legend.justification.bottom,
@@ -501,10 +526,17 @@ is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
 # check whether theme should be validated
 is_theme_validate <- function(x) {
   validate <- attr(x, "validate", exact = TRUE)
-  if (is.null(validate))
-    TRUE # we validate by default
-  else
-    isTRUE(validate)
+  isTRUE(validate %||% TRUE)
+}
+
+validate_theme <- function(theme, tree = get_element_tree()) {
+  if (!is_theme_validate(theme)) {
+    return()
+  }
+  mapply(
+    validate_element, theme, names(theme),
+    MoreArgs = list(element_tree = tree)
+  )
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
@@ -527,12 +559,7 @@ plot_theme <- function(x, default = theme_get()) {
   theme[missing] <- ggplot_global$theme_default[missing]
 
   # Check that all elements have the correct class (element_text, unit, etc)
-  if (is_theme_validate(theme)) {
-    mapply(
-      validate_element, theme, names(theme),
-      MoreArgs = list(element_tree = get_element_tree())
-    )
-  }
+  validate_theme(theme)
 
   theme
 }

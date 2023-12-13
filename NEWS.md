@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* `guide_*()` functions get a new `theme` argument to style individual guides.
+  The `theme()` function has gained additional arguments for styling guides:
+  `legend.key.spacing{.x/.y}`, `legend.frame`, `legend.axis.line`, 
+  `legend.ticks`, `legend.ticks.length`, `legend.text.position` and 
+  `legend.title.position`. Previous style arguments in the `guide_*()` functions 
+  have been soft-deprecated.
+  
 * When legend titles are larger than the legend, title justification extends
   to the placement of keys and labels (#1903).
 
