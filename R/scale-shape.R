@@ -41,13 +41,13 @@
 #'   facet_wrap(~shape) +
 #'   theme_void()
 scale_shape <- function(..., solid = TRUE) {
-  discrete_scale("shape", "shape_d", shape_pal(solid), ...)
+  discrete_scale("shape", palette = pal_shape(solid), ...)
 }
 
 #' @rdname scale_shape
 #' @export
 scale_shape_binned <- function(..., solid = TRUE) {
-  binned_scale("shape", "shape_b", binned_pal(shape_pal(solid)), ...)
+  binned_scale("shape", palette = pal_binned(pal_shape(solid)), ...)
 }
 
 #' @rdname scale_shape
@@ -60,7 +60,9 @@ scale_shape_discrete <- scale_shape
 #' @usage NULL
 scale_shape_ordinal <- function(...) {
   cli::cli_warn("Using shapes for an ordinal variable is not advised")
-  scale_shape(...)
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+  exec(scale_shape, !!!args)
 }
 
 #' @rdname scale_shape
@@ -68,7 +70,7 @@ scale_shape_ordinal <- function(...) {
 #' @usage NULL
 scale_shape_continuous <- function(...) {
   cli::cli_abort(c(
-    "A continuous variable cannot be mapped to the {.field shape} aesthetic",
-    "i" = "choose a different aesthetic or use {.fn scale_shape_binned}"
+    "A continuous variable cannot be mapped to the {.field shape} aesthetic.",
+    "i" = "Choose a different aesthetic or use {.fn scale_shape_binned}."
   ))
 }

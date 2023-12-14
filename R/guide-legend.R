@@ -13,45 +13,17 @@
 #'   If `NULL`, the title is not shown. By default
 #'   ([waiver()]), the name of the scale object or the name
 #'   specified in [labs()] is used for the title.
-#' @param title.position A character string indicating the position of a
-#'   title. One of "top" (default for a vertical guide), "bottom", "left"
-#'  (default for a horizontal guide), or "right."
-#' @param title.theme A theme object for rendering the title text. Usually the
-#'   object of [element_text()] is expected. By default, the theme is
-#'   specified by `legend.title` in [theme()] or theme.
-#' @param title.hjust A number specifying horizontal justification of the
-#'   title text.
-#' @param title.vjust A number specifying vertical justification of the title
-#'   text.
-#' @param label logical. If `TRUE` then the labels are drawn. If
-#'   `FALSE` then the labels are invisible.
-#' @param label.position A character string indicating the position of a
-#'   label. One of "top", "bottom" (default for horizontal guide), "left", or
-#'   "right" (default for vertical guide).
-#' @param label.theme A theme object for rendering the label text. Usually the
-#'   object of [element_text()] is expected. By default, the theme is
-#'   specified by `legend.text` in [theme()].
-#' @param label.hjust A numeric specifying horizontal justification of the
-#'   label text. The default for standard text is 0 (left-aligned) and 1
-#'   (right-aligned) for expressions.
-#' @param label.vjust A numeric specifying vertical justification of the label
-#'   text.
-#' @param keywidth A numeric or a [grid::unit()] object specifying
-#'   the width of the legend key. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()].
-#' @param keyheight A numeric or a [grid::unit()] object specifying
-#'   the height of the legend key. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()].
+#' @param theme A [`theme`][theme()] object to style the guide individually or
+#'   differently from the plot's theme settings. The `theme` argument in the
+#'   guide overrides, and is combined with, the plot's theme.
+#' @param position A character string indicating where the legend should be
+#'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating [grid::unit()]
-#'   for `keywidth` and `keyheight`.
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
-#' @param nrow The desired number of rows of legends.
-#' @param ncol The desired number of column of legends.
-#' @param byrow logical. If `FALSE` (the default) the legend-matrix is
-#'   filled by columns, otherwise the legend-matrix is filled by rows.
+#' @param nrow,ncol The desired number of rows and column of legends
+#'   respectively.
 #' @param reverse logical. If `TRUE` the order of legends is reversed.
 #' @param order positive integer less than 99 that specifies the order of
 #'   this guide among multiple guides. This controls the order in which
@@ -74,36 +46,32 @@
 #' # Control styles
 #'
 #' # title position
-#' p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
+#' p1 + guides(fill = guide_legend(
+#'   title = "LEFT", theme(legend.title.position = "left")
+#' ))
 #'
 #' # title text styles via element_text
-#' p1 + guides(fill =
-#'   guide_legend(
-#'     title.theme = element_text(
-#'       size = 15,
-#'       face = "italic",
-#'       colour = "red",
-#'       angle = 0
-#'     )
-#'   )
-#' )
+#' p1 + guides(fill = guide_legend(theme = theme(
+#'   legend.title = element_text(size = 15, face = "italic", colour = "red")
+#' )))
 #'
 #' # label position
-#' p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
+#' p1 + guides(fill = guide_legend(theme = theme(
+#'   legend.text.position = "left",
+#'   legend.text = element_text(hjust = 1)
+#' )))
 #'
 #' # label styles
 #' p1 +
 #'   scale_fill_continuous(
 #'     breaks = c(5, 10, 15),
 #'     labels = paste("long", c(5, 10, 15)),
-#'     guide = guide_legend(
-#'       direction = "horizontal",
-#'       title.position = "top",
-#'       label.position = "bottom",
-#'       label.hjust = 0.5,
-#'       label.vjust = 1,
-#'       label.theme = element_text(angle = 90)
-#'     )
+#'     guide = guide_legend(theme = theme(
+#'       legend.direction = "horizontal",
+#'       legend.title.position = "top",
+#'       legend.text.position = "bottom",
+#'       legend.text = element_text(hjust = 0.5, vjust = 1, angle = 90)
+#'     ))
 #'   )
 #'
 #' # Set aesthetic of legend key
@@ -120,82 +88,48 @@
 #'   geom_point(aes(colour = color))
 #' p + guides(col = guide_legend(nrow = 8))
 #' p + guides(col = guide_legend(ncol = 8))
-#' p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
+#' p + guides(col = guide_legend(nrow = 8, theme = theme(legend.byrow = TRUE)))
 #'
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
 #' }
 guide_legend <- function(
   # Title
-  title          = waiver(),
-  title.position = NULL,
-  title.theme    = NULL,
-  title.hjust    = NULL,
-  title.vjust    = NULL,
+  title = waiver(),
 
-  # Label
-  label          = TRUE,
-  label.position = NULL,
-  label.theme    = NULL,
-  label.hjust    = NULL,
-  label.vjust    = NULL,
-
-  # Key size
-  keywidth  = NULL,
-  keyheight = NULL,
+  # Theme
+  theme = NULL,
 
   # General
+  position     = NULL,
   direction    = NULL,
-  default.unit = "line",
   override.aes = list(),
   nrow         = NULL,
   ncol         = NULL,
-  byrow        = FALSE,
   reverse      = FALSE,
   order        = 0,
   ...
 ) {
-  # Resolve key sizes
-  if (!inherits(keywidth, c("NULL", "unit"))) {
-    keywidth <- unit(keywidth, default.unit)
-  }
-  if (!inherits(keyheight, c("NULL", "unit"))) {
-    keyheight <- unit(keyheight, default.unit)
-  }
-  if (!is.null(title.position)) {
-    title.position <- arg_match0(title.position, .trbl)
-  }
-  if (!is.null(label.position)) {
-    label.position <- arg_match0(label.position, .trbl)
+
+  theme <- deprecated_guide_args(theme, ...)
+
+  if (!is.null(position)) {
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
 
   new_guide(
     # Title
     title = title,
-    title.position = title.position,
-    title.theme = title.theme,
-    title.hjust = title.hjust,
-    title.vjust = title.vjust,
-
-    # Label
-    label = label,
-    label.position = label.position,
-    label.theme = label.theme,
-    label.hjust = label.hjust,
-    label.vjust = label.vjust,
-
-    # Key size
-    keywidth  = keywidth,
-    keyheight = keyheight,
+    theme = theme,
 
     # General
     direction = direction,
     override.aes = rename_aes(override.aes),
     nrow = nrow,
     ncol = ncol,
-    byrow = byrow,
     reverse = reverse,
     order = order,
+    position = position,
 
     # Fixed parameters
     available_aes = "any",
@@ -213,26 +147,12 @@ GuideLegend <- ggproto(
 
   params = list(
     title = waiver(),
-    title.position = NULL,
-    title.theme = NULL,
-    title.hjust = NULL,
-    title.vjust = NULL,
-
-    label = TRUE,
-    label.position = NULL,
-    label.theme = NULL,
-    label.hjust = NULL,
-    label.vjust = NULL,
-
-    keywidth  = NULL,
-    keyheight = NULL,
+    theme = NULL,
 
     # General
-    direction = NULL,
     override.aes = list(),
     nrow = NULL,
     ncol = NULL,
-    byrow = FALSE,
     reverse = FALSE,
     order = 0,
 
@@ -244,37 +164,30 @@ GuideLegend <- ggproto(
 
   available_aes = "any",
 
-  hashables = exprs(title, key$.label, direction, name),
+  hashables = exprs(title, key$.label, name),
 
   elements = list(
-    background  = "legend.background",
-    margin      = "legend.margin",
-    spacing     = "legend.spacing",
-    spacing.x   = "legend.spacing.x",
-    spacing.y   = "legend.spacing.y",
-    key         = "legend.key",
-    key.height  = "legend.key.height",
-    key.width   = "legend.key.width",
-    text        = "legend.text",
-    text.align  = "legend.text.align",
-    theme.title = "legend.title",
-    title.align = "legend.title.align"
+    background     = "legend.background",
+    margin         = "legend.margin",
+    key            = "legend.key",
+    key_height     = "legend.key.height",
+    key_width      = "legend.key.width",
+    text           = "legend.text",
+    theme.title    = "legend.title",
+    spacing_x      = "legend.key.spacing.x",
+    spacing_y      = "legend.key.spacing.y",
+    text_position  = "legend.text.position",
+    title_position = "legend.title.position",
+    byrow          = "legend.byrow"
   ),
 
-  extract_params = function(scale, params, hashables,
-                            title = waiver(), direction = NULL, ...) {
-    params$title <- scale$make_title(
-      params$title %|W|% scale$name %|W|% title
-    )
-    params$direction <- arg_match0(
-      params$direction %||% direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
-    )
+  extract_params = function(scale, params,
+                            title = waiver(), ...) {
+    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }
-
-    Guide$extract_params(scale, params, hashables)
+    params
   },
 
   merge = function(self, params, new_guide, new_params) {
@@ -294,16 +207,25 @@ GuideLegend <- ggproto(
   },
 
   # Arrange common data for vertical and horizontal legends
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL) {
 
-    decor <- lapply(layers, function(layer) {
+    include <- vapply(layers, function(layer) {
+      aes <- matched_aes(layer, params)
+      include_layer_in_guide(layer, aes)
+    }, logical(1))
+
+    if (!any(include)) {
+      return(NULL)
+    }
+
+    self$get_layer_key(params, layers[include], data[include])
+  },
+
+  get_layer_key = function(params, layers, data) {
+
+    decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
       matched_aes <- matched_aes(layer, params)
-
-      # Check if this layer should be included
-      if (!include_layer_in_guide(layer, matched_aes)) {
-        return(NULL)
-      }
 
       if (length(matched_aes) > 0) {
         # Filter out aesthetics that can't be applied to the legend
@@ -322,19 +244,16 @@ GuideLegend <- ggproto(
               "Failed to apply {.fn after_scale} modifications to legend",
               parent = cnd
             )
-            layer$geom$use_defaults(params$key[matched], layer_params, list())
+            layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
           }
         )
+        data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
       } else {
         reps <- rep(1, nrow(params$key))
         data <- layer$geom$use_defaults(NULL, layer$aes_params)[reps, ]
       }
 
       data <- modify_list(data, params$override.aes)
-
-      if (!is.null(data$size)) {
-        data$size[is.na(data$size)] <- 0
-      }
 
       list(
         draw_key = layer$geom$draw_key,
@@ -345,29 +264,14 @@ GuideLegend <- ggproto(
 
     # Remove NULL geoms
     params$decor <- compact(decor)
-
-    if (length(params$decor) == 0) {
-      return(NULL)
-    }
     return(params)
   },
 
   setup_params = function(params) {
-    if ("title.position" %in% names(params)) {
-      params$title.position <- arg_match0(
-        params$title.position %||%
-          switch(params$direction, vertical = "top", horizontal = "left"),
-        .trbl, arg_nm = "title.position"
-      )
-    }
-    if ("label.position" %in% names(params)) {
-      params$label.position <- arg_match0(
-        params$label.position %||% "right",
-        .trbl, arg_nm = "label.position"
-      )
-      params$rejust_labels <- TRUE
-    }
-
+    params$direction <- arg_match0(
+      params$direction,
+      c("horizontal", "vertical"), arg_nm = "direction"
+    )
     params$n_breaks <- n_breaks <- nrow(params$key)
     params$n_key_layers <- length(params$decor) + 1 # +1 is key background
 
@@ -376,7 +280,7 @@ GuideLegend <- ggproto(
         params$nrow * params$ncol < n_breaks) {
       cli::cli_abort(paste0(
         "{.arg nrow} * {.arg ncol} needs to be larger than the number of ",
-        "breaks ({n_breaks})"
+        "breaks ({n_breaks})."
       ))
     }
     if (is.null(params$nrow) && is.null(params$ncol)) {
@@ -391,71 +295,86 @@ GuideLegend <- ggproto(
     params
   },
 
+  setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
+    params$theme <- NULL
+
+    # Resolve text positions
+    text_position  <- theme$legend.text.position  %||% "right"
+    title_position <- theme$legend.title.position %||% switch(
+      params$direction,
+      vertical = "top", horizontal = "left"
+    )
+    theme$legend.text.position <-
+      arg_match0(text_position, .trbl, arg_nm = "legend.text.position")
+    theme$legend.title.position <-
+      arg_match0(title_position, .trbl, arg_nm = "legend.title.position")
+
+    # Set default spacing
+    theme$legend.key.spacing <- theme$legend.key.spacing %||% unit(5.5, "pt")
+    gap <- calc_element("legend.key.spacing", theme)
+
+    # For backward compatibility, default vertical spacing is no spacing
+    if (params$direction == "vertical") {
+      theme$legend.key.spacing.y <- theme$legend.key.spacing.y %||%
+        unit(0, "pt")
+    }
+
+    # Resolve title. The trick here is to override the main text element, so
+    # that any settings declared in `legend.title` will be honoured but we have
+    # custom defaults for the guide.
+    margin <- calc_element("text", theme)$margin
+    title <- theme(text = element_text(
+      hjust = 0, vjust = 0.5,
+      margin = position_margin(title_position, margin, gap)
+    ))
+    elements$title <- calc_element("legend.title", add_theme(theme, title))
+
+    # Resolve text, setting default justification and margins. Again, the
+    # trick here is to set the main text element to propagate defaults while
+    # honouring the `legend.text` settings.
+    margin <- position_margin(text_position, margin, gap)
+    text  <- theme(
+      text = switch(
+        text_position,
+        top    = element_text(hjust = 0.5, vjust = 0.0, margin = margin),
+        bottom = element_text(hjust = 0.5, vjust = 1.0, margin = margin),
+        left   = element_text(hjust = 1.0, vjust = 0.5, margin = margin),
+        right  = element_text(hjust = 0.0, vjust = 0.5, margin = margin)
+      )
+    )
+    elements$text <- calc_element("legend.text", add_theme(theme, text))
+    Guide$setup_elements(params, elements, theme)
+  },
+
   override_elements = function(params, elements, theme) {
 
-    # Title
-    title <- combine_elements(params$title.theme, elements$theme.title)
-    title$hjust <- params$title.hjust %||% elements$title.align %||%
-      title$hjust %||% 0
-    title$vjust <- params$title.vjust %||% title$vjust %||% 0.5
-    elements$title <- title
-
-    # Labels
-    if (!is.null(elements$text)) {
-      label <- combine_elements(params$label.theme, elements$text)
-      if (!params$label || is.null(params$key$.label)) {
-        label <- element_blank()
-      } else {
-        hjust <- unname(label_hjust_defaults[params$label.position])
-        vjust <- unname(label_vjust_defaults[params$label.position])
-        # Expressions default to right-justified
-        if (hjust == 0 && any(is.expression(params$key$.label))) {
-          hjust <- 1
-        }
-        # Breaking justification inheritance for intuition purposes.
-        if (is.null(params$label.theme$hjust) &&
-            is.null(theme$legend.text$hjust)) {
-          label$hjust <- NULL
-        }
-        if (is.null(params$label.theme$vjust) &&
-            is.null(theme$legend.text$vjust)) {
-          label$vjust <- NULL
-        }
-        label$hjust <- params$label.hjust %||% elements$text.align %||%
-          label$hjust %||% hjust
-        label$vjust <- params$label.vjust %||% label$vjust %||% vjust
-      }
-      elements$text <- label
+    if (any(c("key_width", "key_height") %in% names(elements))) {
+      # Determine if the key is stretched
+      elements$stretch_x <- unitType(elements$key_width) == "null"
+      elements$stretch_y <- unitType(elements$key_height) == "null"
+      # Convert key sizes to cm
+      elements$width_cm  <- width_cm(elements$key_width)
+      elements$height_cm <- height_cm(elements$key_height)
     }
 
-    # Keys
-    if (any(c("key.width", "key.height") %in% names(elements))) {
-      elements$key.width  <- width_cm( params$keywidth  %||% elements$key.width)
-      elements$key.height <- height_cm(params$keyheight %||% elements$key.height)
+    # Convert padding and spacing to cm
+    if (any(c("spacing_x", "spacing_y") %in% names(elements))) {
+      elements$spacing_x <- width_cm(elements$spacing_x)
+      elements$spacing_y <- height_cm(elements$spacing_y)
     }
 
-    # Spacing
-    gap <- title$size %||% elements$theme.title$size %||%
-      elements$text$size %||% 11
-    gap <- unit(gap * 0.5, "pt")
-    # Should maybe be elements$spacing.{x/y} instead of the theme's spacing?
-    elements$hgap <- width_cm( theme$legend.spacing.x %||% gap)
-    elements$vgap <- height_cm(theme$legend.spacing.y %||% gap)
-    elements$padding <- convertUnit(
-      elements$margin %||% margin(),
-      "cm", valueOnly = TRUE
-    )
+    elements$padding <-
+      convertUnit(elements$margin %||% margin(), "cm", valueOnly = TRUE)
 
     # Evaluate backgrounds early
     if (!is.null(elements$background)) {
-      elements$background <- ggname(
-        "legend.background", element_grob(elements$background)
-      )
+      elements$background <-
+        ggname("legend.background", element_grob(elements$background))
     }
     if (!is.null(elements$key)) {
-      elements$key <- ggname(
-        "legend.key", element_grob(elements$key)
-      )
+      elements$key <-
+        ggname("legend.key", element_grob(elements$key))
     }
 
     elements
@@ -467,12 +386,18 @@ GuideLegend <- ggproto(
 
   build_decor = function(decor, grobs, elements, params) {
 
-    key_size <- c(elements$key.width, elements$key.height) * 10
+    key_size <- c(elements$width_cm, elements$height_cm) * 10
 
     draw <- function(i) {
       bg <- elements$key
       keys <- lapply(decor, function(g) {
-        g$draw_key(vec_slice(g$data, i), g$params, key_size)
+        data <- vec_slice(g$data, i)
+        if (data$.draw %||% TRUE) {
+          key <- g$draw_key(data, g$params, key_size)
+          set_key_size(key, data$linewidth, data$size, key_size / 10)
+        } else {
+          zeroGrob()
+        }
       })
       c(list(bg), keys)
     }
@@ -480,6 +405,11 @@ GuideLegend <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
+    n_labels <- length(key$.label)
+    if (n_labels < 1) {
+      out <- rep(list(zeroGrob()), nrow(key))
+      return(out)
+    }
     lapply(key$.label, function(lab) {
       ggname(
         "guide.label",
@@ -494,16 +424,17 @@ GuideLegend <- ggproto(
   },
 
   measure_grobs = function(grobs, params, elements) {
-    byrow    <- params$byrow    %||% FALSE
+
+    byrow    <- elements$byrow  %||% FALSE
     n_breaks <- params$n_breaks %||% 1L
-    dim      <- c(params$nrow %||% 1L, params$ncol %||% 1L)
+    dim      <- c(params$nrow   %||% 1L, params$ncol %||% 1L)
 
     # A guide may have already specified the size of the decoration, only
     # measure when it hasn't already.
     sizes <- params$sizes %||% measure_legend_keys(
-      params$decor, n = n_breaks, dim = dim, byrow = byrow,
-      default_width  = elements$key.width,
-      default_height = elements$key.height
+      grobs$decor, n = n_breaks, dim = dim, byrow = byrow,
+      default_width  = elements$width_cm,
+      default_height = elements$height_cm
     )
     widths  <- sizes$widths
     heights <- sizes$heights
@@ -522,46 +453,61 @@ GuideLegend <- ggproto(
     # Interleave gaps between keys and labels, which depends on the label
     # position. For unclear reasons, we need to adjust some gaps based on the
     # `byrow` parameter (see also #4352).
-    hgap <- elements$hgap %||% 0
+    hgap <- elements$spacing_x %||% 0
     widths <- switch(
-      params$label.position,
-      "left"   = list(label_widths, hgap, widths, hgap),
-      "right"  = list(widths, hgap, label_widths, hgap),
-      list(pmax(label_widths, widths), hgap * (!byrow))
+      elements$text_position,
+      "left"   = list(label_widths, widths, hgap),
+      "right"  = list(widths, label_widths, hgap),
+      list(pmax(label_widths, widths), hgap)
     )
     widths  <- head(vec_interleave(!!!widths),  -1)
 
-    vgap <- elements$vgap %||% 0
+    vgap <- elements$spacing_y %||% 0
     heights <- switch(
-      params$label.position,
-      "top"    = list(label_heights, vgap, heights, vgap),
-      "bottom" = list(heights, vgap, label_heights, vgap),
-      list(pmax(label_heights, heights), vgap * (byrow))
+      elements$text_position,
+      "top"    = list(label_heights, heights, vgap),
+      "bottom" = list(heights, label_heights, vgap),
+      list(pmax(label_heights, heights), vgap)
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
-    # Measure title
-    title_width  <- width_cm(grobs$title)
-    title_height <- height_cm(grobs$title)
+    has_title <- !is.zero(grobs$title)
 
-    # Combine title with rest of the sizes based on its position
-    widths <- switch(
-      params$title.position,
-      "left"  = c(title_width, hgap, widths),
-      "right" = c(widths, hgap, title_width),
-      c(widths, max(0, title_width - sum(widths)))
-    )
-    heights <- switch(
-      params$title.position,
-      "top"    = c(title_height, vgap, heights),
-      "bottom" = c(heights, vgap, title_height),
-      c(heights, max(0, title_height - sum(heights)))
-    )
+    if (has_title) {
+      # Measure title
+      title_width  <- width_cm(grobs$title)
+      title_height <- height_cm(grobs$title)
+
+      # Titles are assumed to have sufficient size when keys are null units
+      extra_width <-
+        if (isTRUE(elements$stretch_x)) 0 else max(0, title_width - sum(widths))
+      extra_height <-
+        if (isTRUE(elements$stretch_y)) 0 else max(0, title_height - sum(heights))
+
+      just <- with(elements$title, rotate_just(angle, hjust, vjust))
+
+      # Combine title with rest of the sizes based on its position
+      widths <- switch(
+        elements$title_position,
+        "left"  = c(title_width, widths),
+        "right" = c(widths, title_width),
+        c(extra_width * just$hjust, widths, extra_width * (1 - just$hjust))
+      )
+      heights <- switch(
+        elements$title_position,
+        "top"    = c(title_height, heights),
+        "bottom" = c(heights, title_height),
+        c(extra_height * (1 - just$vjust), heights, extra_height * just$vjust)
+      )
+    }
 
     list(
       widths  = widths,
       heights = heights,
-      padding = elements$padding
+      padding = elements$padding,
+      has_title = has_title,
+      label_position = elements$text_position,
+      title_position = elements$title_position
     )
   },
 
@@ -572,64 +518,59 @@ GuideLegend <- ggproto(
 
     # Find rows / columns of legend items
     if (params$byrow %||% FALSE) {
-      df <- data_frame0(
-        R = ceiling(break_seq / dim[2]),
-        C = (break_seq - 1) %% dim[2] + 1
-      )
+      row <- ceiling(break_seq / dim[2L])
+      col <- (break_seq - 1L) %% dim[2L] + 1L
     } else {
       df <- mat_2_df(arrayInd(break_seq, dim), c("R", "C"))
+      row <- df$R
+      col <- df$C
     }
     # Make spacing for padding / gaps. For example: because first gtable cell
     # will be padding, first item will be at [2, 2] position. Then the
     # second item-row will be [4, 2] because [3, 2] will be a gap cell.
-    key_row <- label_row <- df$R * 2
-    key_col <- label_col <- df$C * 2
+    key_row <- label_row <- row * 2
+    key_col <- label_col <- col * 2
 
     # Make gaps for key-label spacing depending on label position
     switch(
-      params$label.position,
+      sizes$label_position,
       "top" = {
-        key_row   <- key_row   * 2
-        label_row <- label_row * 2 - 2
+        key_row   <- key_row + row
+        label_row <- key_row - 1
       },
       "bottom" = {
-        key_row   <- key_row   * 2 - 2
-        label_row <- label_row * 2
+        key_row   <- key_row + row - 1
+        label_row <- key_row + 1
       },
       "left" = {
-        key_col   <- key_col   * 2
-        label_col <- label_col * 2 - 2
+        key_col   <- key_col + col
+        label_col <- key_col - 1
       },
       "right" = {
-        key_col   <- key_col   * 2 - 2
-        label_col <- label_col * 2
+        key_col   <- key_col + col - 1
+        label_col <- key_col + 1
       }
     )
 
     # Offset layout based on title position
-    switch(
-      params$title.position,
-      "top" = {
-        key_row   <- key_row   + 2
-        label_row <- label_row + 2
-        title_row <- 2
-        title_col <- seq_along(sizes$widths) + 1
-      },
-      "bottom" = {
-        title_row <- length(sizes$heights)   + 1
-        title_col <- seq_along(sizes$widths) + 1
-      },
-      "left" = {
-        key_col   <- key_col   + 2
-        label_col <- label_col + 2
-        title_row <- seq_along(sizes$heights) + 1
-        title_col <- 2
-      },
-      "right" = {
-        title_row <- seq_along(sizes$heights) + 1
-        title_col <- length(sizes$widths)     + 1
+    if (sizes$has_title) {
+      position <- sizes$title_position
+      if (position != "right") {
+        key_col   <- key_col   + 1
+        label_col <- label_col + 1
       }
-    )
+      if (position != "bottom") {
+        key_row   <- key_row   + 1
+        label_row <- label_row + 1
+      }
+      nrow <- length(sizes$heights)
+      ncol <- length(sizes$widths)
+      title_row <- switch(position, top  = 1, bottom = nrow, seq_len(nrow)) + 1
+      title_col <- switch(position, left = 1, right  = ncol, seq_len(ncol)) + 1
+    } else {
+      title_row <- NA
+      title_col <- NA
+    }
 
     df <- cbind(df, key_row, key_col, label_row, label_col)
 
@@ -637,11 +578,17 @@ GuideLegend <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
+    widths <- unit(c(sizes$padding[4], sizes$widths, sizes$padding[2]), "cm")
+    if (isTRUE(elements$stretch_x)) {
+      widths[unique(layout$layout$key_col)] <- elements$key_width
+    }
 
-    gt <- gtable(
-      widths  = unit(c(sizes$padding[4], sizes$widths, sizes$padding[2]), "cm"),
-      heights = unit(c(sizes$padding[1], sizes$heights, sizes$padding[3]), "cm")
-    )
+    heights <- unit(c(sizes$padding[1], sizes$heights, sizes$padding[3]), "cm")
+    if (isTRUE(elements$stretch_y)) {
+      heights[unique(layout$layout$key_row)] <- elements$key_height
+    }
+
+    gt <- gtable(widths = widths, heights = heights)
 
     # Add background
     if (!is.zero(elements$background)) {
@@ -655,14 +602,7 @@ GuideLegend <- ggproto(
     # Add title
     if (!is.zero(grobs$title)) {
       gt <- gtable_add_grob(
-        gt,
-        justify_grobs(
-          grobs$title,
-          hjust = elements$title$hjust,
-          vjust = elements$title$vjust,
-          int_angle = elements$title$angle,
-          debug = elements$title$debug
-        ),
+        gt, grobs$title,
         name = "title", clip = "off",
         t = min(layout$title_row), r = max(layout$title_col),
         b = max(layout$title_row), l = min(layout$title_col)
@@ -690,18 +630,8 @@ GuideLegend <- ggproto(
     }
 
     if (!is.zero(grobs$labels)) {
-      labels <- if (params$rejust_labels %||% TRUE) {
-        justify_grobs(
-          grobs$labels,
-          hjust = elements$text$hjust, vjust = elements$text$vjust,
-          int_angle = elements$text$angle, debug = elements$text$debug
-        )
-      } else {
-        grobs$labels
-      }
-
       gt <- gtable_add_grob(
-        gt, labels,
+        gt, grobs$labels,
         name = names(labels) %||%
           paste("label", layout$label_row, layout$label_col, sep = "-"),
         clip = "off",
@@ -714,38 +644,213 @@ GuideLegend <- ggproto(
   }
 )
 
-label_hjust_defaults <- c(top = 0.5, bottom = 0.5, left = 1,   right = 0)
-label_vjust_defaults <- c(top = 0,   bottom = 1,   left = 0.5, right = 0.5)
 
-measure_legend_keys <- function(decor, n, dim, byrow = FALSE,
+measure_legend_keys <- function(keys, n, dim, byrow = FALSE,
                                 default_width = 1, default_height = 1) {
-  if (is.null(decor)) {
+  if (is.null(keys)) {
     ans <- list(widths = NULL, heights = NULL)
     return(ans)
   }
 
   # Vector padding in case rows * cols > keys
-  zeroes <- rep(0, prod(dim) - n)
+  padding_zeroes <- rep(0, prod(dim) - n)
 
   # For every layer, extract the size in cm
-  size <- lapply(decor, function(g) g$data$size / 10) # mm to cm
-  size <- inject(cbind(!!!size))
-
-  # Guard against layers with no size aesthetic
-  if (any(dim(size) == 0)) {
-    size <- matrix(0, ncol = 1, nrow = n)
-  } else {
-    size <- size[seq_len(n), , drop = FALSE]
-  }
-
-  # For every key, find maximum across all layers
-  size <- apply(size, 1, max)
+  widths  <- c(get_key_size(keys, "width", n),  padding_zeroes)
+  heights <- c(get_key_size(keys, "height", n), padding_zeroes)
 
   # Apply legend layout
-  size <- matrix(c(size, zeroes), nrow = dim[1], ncol = dim[2], byrow = byrow)
+  widths  <- matrix(widths,  nrow = dim[1], ncol = dim[2], byrow = byrow)
+  heights <- matrix(heights, nrow = dim[1], ncol = dim[2], byrow = byrow)
 
   list(
-    widths  = pmax(default_width,  apply(size, 2, max)),
-    heights = pmax(default_height, apply(size, 1, max))
+    widths  = pmax(default_width,  apply(widths,  2, max)),
+    heights = pmax(default_height, apply(heights, 1, max))
   )
+}
+
+get_key_size <- function(keys, which = "width", n) {
+  size <- lapply(keys, attr, which = which)
+  size[lengths(size) != 1] <- 0
+  size <- matrix(unlist(size), ncol = n)
+  apply(size, 2, max)
+}
+
+set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
+  if (!is.null(attr(key, "width")) && !is.null(attr(key, 'height'))) {
+    return(key)
+  }
+  if (!is.null(size) || !is.null(linewidth)) {
+    size      <- size %||% 0
+    linewidth <- linewidth %||% 0
+    size      <- if (is.na(size)[1]) 0 else size[1]
+    linewidth <- if (is.na(linewidth)[1]) 0 else linewidth[1]
+    size <- (size + linewidth) / 10 # From mm to cm
+  } else {
+    size <- NULL
+  }
+  attr(key, "width")  <- attr(key, "width",  TRUE) %||% size %||% default[1]
+  attr(key, "height") <- attr(key, "height", TRUE) %||% size %||% default[2]
+  key
+}
+
+# For legend keys, check if the guide key's `.value` also occurs in the layer
+# data when `show.legend = NA` and data is discrete. Note that `show.legend`
+# besides TRUE (always show), FALSE (never show) and NA (show in relevant legend),
+# can also take *named* logical vector to set this behaviour per aesthetic.
+keep_key_data <- function(key, data, aes, show) {
+  # First, can we exclude based on anything else than actually checking the
+  # data that we should include or drop the key?
+  if (!is.discrete(key$.value)) {
+    return(TRUE)
+  }
+  if (is_named(show)) {
+    aes  <- intersect(aes, names(show))
+    show <- show[aes]
+  } else {
+    show <- show[rep(1L, length(aes))]
+  }
+  if (isTRUE(any(show)) || length(show) == 0) {
+    return(TRUE)
+  }
+  if (isTRUE(all(!show))) {
+    return(FALSE)
+  }
+  # Second, we go find if the value is actually present in the data.
+  aes <- aes[is.na(show)]
+  match <- which(names(data) %in% aes)
+  if (length(match) == 0) {
+    return(TRUE)
+  }
+  keep <- rep(FALSE, nrow(key))
+  for (column in match) {
+    keep <- keep | vec_in(key$.value, data[[column]])
+  }
+  keep
+}
+
+position_margin <- function(position, margin = margin(), gap = unit(0, "pt")) {
+  switch(
+    position,
+    top    = replace(margin, 3, margin[3] + gap),
+    bottom = replace(margin, 1, margin[1] + gap),
+    left   = replace(margin, 2, margin[2] + gap),
+    right  = replace(margin, 4, margin[4] + gap)
+  )
+}
+
+# Function implementing backward compatibility with the old way of specifying
+# guide styling
+deprecated_guide_args <- function(
+  theme = NULL,
+  title.position = NULL,
+  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
+  label = NULL,
+  label.position = NULL,
+  label.theme = NULL, label.hjust = NULL, label.vjust = NULL,
+  keywidth  = NULL, keyheight = NULL, barwidth  = NULL, barheight = NULL,
+  byrow = NULL,
+  frame.colour = NULL, frame.linewidth = NULL, frame.linetype = NULL,
+  ticks = NULL, ticks.colour = NULL, ticks.linewidth = NULL,
+  axis = NULL, axis.colour = NULL, axis.linewidth = NULL, axis.arrow = NULL,
+  default.unit = "line",
+  ...,
+  .call = caller_call()) {
+
+  args <- names(formals(deprecated_guide_args))
+  args <- setdiff(args, c("theme", "default.unit", "...", ".call"))
+  vals <- compact(mget(args, current_env()))
+
+  # Early exit when no old arguments have been supplied
+  if (length(vals) == 0) {
+    return(theme)
+  }
+  fun_name <- call_name(.call)
+  replacement <- paste0(fun_name, "(theme)")
+  for (arg_name in names(vals)) {
+    deprecate_soft0(
+      when = "3.5.0",
+      what = paste0(fun_name, "(", arg_name, ")"),
+      with = replacement
+    )
+  }
+  def_unit <- function(x) {
+    if (is.null(x) || is.unit(x)) {
+      return(x)
+    }
+    unit(x, default.unit)
+  }
+
+  theme <- theme %||% list()
+
+  # Resolve straightforward arguments
+  theme <- replace_null(
+    theme,
+    legend.title.position = title.position,
+    legend.text.position  = label.position,
+    legend.byrow          = byrow,
+    legend.key.width      = def_unit(keywidth  %||% barwidth),
+    legend.key.height     = def_unit(keyheight %||% barheight)
+  )
+
+  # Set legend.text
+  if (isFALSE(label)) {
+    label.theme <- element_blank()
+  } else if (!is.null(label.theme %||% label.hjust %||% label.vjust)) {
+    label.theme <- label.theme %||% element_text()
+    label.theme <- replace_null(
+      label.theme,
+      hjust = label.hjust %||% label.theme$hjust,
+      vjust = label.vjust %||% label.theme$vjust
+    )
+  }
+  theme$legend.text <- theme$legend.text %||% label.theme
+
+  # Set legend.title
+  if (!is.null(title.hjust %||% title.vjust)) {
+    title.theme <- title.theme %||% element_text()
+    title.theme <- replace_null(
+      title.theme,
+      hjust = title.hjust %||% title.theme$hjust,
+      vjust = title.vjust %||% title.theme$vjust
+    )
+  }
+  theme$legend.title <- theme$legend.title %||% title.theme
+
+  # Set legend.frame
+  if (!is.null(frame.colour %||% frame.linewidth %||% frame.linetype)) {
+    frame <- theme$legend.frame %||% element_rect(
+      colour    = frame.colour,
+      linewidth = frame.linewidth,
+      linetype  = frame.linetype
+    )
+    theme$legend.frame <- theme$legend.frame %||% frame
+  }
+
+  # Set legend.ticks
+  if (isFALSE(ticks)) {
+    ticks <- element_blank()
+  } else if (!is.null(ticks.colour %||% ticks.linewidth)) {
+    ticks <- element_line(colour = ticks.colour, linewidth = ticks.linewidth)
+    theme$legend.ticks <- theme$legend.ticks %||% ticks
+  }
+
+  # Set legend.axis
+  if (isFALSE(axis)) {
+    axis <- element_blank()
+  } else if (!is.null(axis.colour %||% axis.linewidth %||% axis.arrow)) {
+    axis <- element_line(
+      colour = axis.colour,
+      linewidth = axis.linewidth,
+      arrow = axis.arrow
+    )
+    theme$legend.axis.line <- theme$legend.axis.line %||% axis
+  }
+
+  # Set as theme
+  theme <- compact(theme)
+  if (!is.theme(theme)) {
+    theme <- inject(theme(!!!theme))
+  }
+  theme
 }

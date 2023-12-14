@@ -6,7 +6,8 @@
 \usage{
 datetime_scale(
   aesthetics,
-  trans,
+  transform,
+  trans = deprecated(),
   palette,
   breaks = pretty_breaks(),
   minor_breaks = waiver(),
@@ -16,18 +17,32 @@ datetime_scale(
   date_minor_breaks = waiver(),
   timezone = NULL,
   guide = "legend",
+  call = caller_call(),
   ...
 )
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
 
+\item{transform}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
+
+A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \verb{transform_<name>}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
+
 \item{trans}{For date/time scales, the name of a date/time transformation or
 the object itself. Built-in transformations include "hms", "date" and "time".}
 
 \item{palette}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}
+(e.g., \code{\link[scales:pal_area]{scales::pal_area()}}).}
 
 \item{breaks}{One of:
 \itemize{
@@ -79,11 +94,13 @@ optionally followed by 's'.}
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
 
+\item{call}{The \code{call} used to construct the scale for reporting messages.}
+
 \item{...}{
   Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
   \describe{
-    \item{\code{scale_name}}{The name of the scale that should be used for error messages
-associated with this scale.}
+    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
     \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be

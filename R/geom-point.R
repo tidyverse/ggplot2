@@ -4,7 +4,7 @@
 #' useful for displaying the relationship between two continuous variables.
 #' It can be used to compare one continuous and one categorical variable, or
 #' two categorical variables, but a variation like [geom_jitter()],
-#' [geom_count()], or [geom_bin2d()] is usually more
+#' [geom_count()], or [geom_bin_2d()] is usually more
 #' appropriate. A _bubblechart_ is a scatterplot with a third variable
 #' mapped to the size of points.
 #'
@@ -131,7 +131,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
         pch = coords$shape,
         gp = gpar(
           col = alpha(coords$colour, coords$alpha),
-          fill = alpha(coords$fill, coords$alpha),
+          fill = fill_alpha(coords$fill, coords$alpha),
           # Stroke is added around the outside of the point
           fontsize = coords$size * .pt + stroke_size * .stroke / 2,
           lwd = coords$stroke * .stroke / 2
@@ -203,14 +203,14 @@ translate_shape_string <- function(shape_string) {
 
   if (any(invalid_strings)) {
     bad_string <- unique0(shape_string[invalid_strings])
-    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}")
+    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}.")
   }
 
   if (any(nonunique_strings)) {
     bad_string <- unique0(shape_string[nonunique_strings])
     cli::cli_abort(c(
-      "shape names must be given unambiguously",
-      "i" = "Fix {.val {bad_string}}"
+      "Shape names must be given unambiguously.",
+      "i" = "Fix {.val {bad_string}}."
     ))
   }
 

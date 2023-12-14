@@ -1,6 +1,161 @@
 # ggplot2 (development version)
 
 * `coord_polar()` can have free scales in facets (@teunbrand, #2815).
+* The `trans` argument in scales and secondary axes has been renamed to 
+  `transform`. The `trans` argument itself is deprecated. To access the
+  transformation from the scale, a new `get_transformation()` method is 
+  added to Scale-classes (#5558).
+
+* `guide_*()` functions get a new `theme` argument to style individual guides.
+  The `theme()` function has gained additional arguments for styling guides:
+  `legend.key.spacing{.x/.y}`, `legend.frame`, `legend.axis.line`, 
+  `legend.ticks`, `legend.ticks.length`, `legend.text.position` and 
+  `legend.title.position`. Previous style arguments in the `guide_*()` functions 
+  have been soft-deprecated.
+
+* When legend titles are larger than the legend, title justification extends
+  to the placement of keys and labels (#1903).
+
+* `draw_key_label()` now better reflects the appearance of labels.
+
+* The `minor_breaks` function argument in scales can now take a function with
+  two arguments: the scale's limits and the scale's major breaks (#3583).
+  
+* (internal) The `ScaleContinuous$get_breaks()` method no longer censors
+  the computed breaks.
+
+* Plot scales now ignore `AsIs` objects constructed with `I(x)`, instead of
+  invoking the identity scale. This allows these columns to co-exist with other
+  layers that need a non-identity scale for the same aesthetic. Also, it makes
+  it easy to specify relative positions (@teunbrand, #5142).
+
+* The `fill` aesthetic in many geoms now accepts grid's patterns and gradients.
+  For developers of layer extensions, this feature can be enabled by switching 
+  from `fill = alpha(fill, alpha)` to `fill = fill_alpha(fill, alpha)` when 
+  providing fills to `grid::gpar()` (@teunbrand, #3997).
+
+* The plot's title, subtitle and caption now obey horizontal text margins
+  (#5533).
+
+* New `guide_axis_stack()` to combine other axis guides on top of one another.
+
+* New `guide_custom()` function for drawing custom graphical objects (grobs)
+  unrelated to scales in legend positions (#5416).
+  
+* `theme()` now supports splicing a list of arguments (#5542).
+
+* Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
+
+* The `legend.key` theme element is set to inherit from the `panel.background`
+  theme element. The default themes no longer set the `legend.key` element.
+  This causes a visual change with the default `theme_gray()` (#5549).
+
+* Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
+
+* New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
+  an axis. It supersedes the `annotation_logticks()` function 
+  (@teunbrand, #5325).
+
+* Glyphs drawing functions of the `draw_key_*()` family can now set `"width"`
+  and `"height"` attributes (in centimetres) to the produced keys to control
+  their displayed size in the legend.
+
+* `coord_radial()` is a successor to `coord_polar()` with more customisation 
+  options. `coord_radial()` can:
+  
+  * integrate with the new guide system via a dedicated `guide_axis_theta()` to
+    display the angle coordinate.
+  * in addition to drawing full circles, also draw circle sectors by using the 
+    `end` argument.
+  * avoid data vanishing in the center of the plot by setting the `donut` 
+    argument.
+  * adjust the `angle` aesthetic of layers, such as `geom_text()`, to align 
+    with the coordinate system using the `rotate_angle` argument.
+
+* By default, `guide_legend()` now only draws a key glyph for a layer when
+  the value is is the layer's data. To revert to the old behaviour, you
+  can still set `show.legend = c({aesthetic} = TRUE)` (@teunbrand, #3648).
+
+* The spacing between legend keys and their labels, in addition to legends
+  and their titles, is now controlled by the text's `margin` setting. Not
+  specifying margins will automatically add appropriate text margins. To
+  control the spacing within a legend between keys, the new 
+  `key.spacing.{x/y}` argument can be used. This leaves the 
+  `legend.spacing` dedicated to controlling the spacing between
+  different guides (#5455).
+
+* In the theme element hierarchy, parent elements that are a strict subclass
+  of child elements now confer their subclass upon the children (#5457).
+
+* `ggsave()` no longer sometimes creates new directories, which is now 
+  controlled by the new `create.dir` argument (#5489).
+
+* `guide_coloursteps(even.steps = FALSE)` now draws one rectangle per interval
+  instead of many small ones (#5481).
+
+* (internal) guide building is now part of `ggplot_build()` instead of 
+  `ggplot_gtable()` to allow guides to observe unmapped data (#5483).
+
+* `geom_violin()` gains a `bounds` argument analogous to `geom_density()`s (@eliocamp, #5493).
+
+* Legend titles no longer take up space if they've been removed by setting 
+  `legend.title = element_blank()` (@teunbrand, #3587).
+
+* New function `check_device()` for testing the availability of advanced 
+  graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
+
+* Failing to fit or predict in `stat_smooth()` now gives a warning and omits
+  the failed group, instead of throwing an error (@teunbrand, #5352).
+  
+* `resolution()` has a small tolerance, preventing spuriously small resolutions 
+  due to rounding errors (@teunbrand, #2516).
+
+* `stage()` now works correctly, even with aesthetics that do not have scales 
+  (#5408)
+
+* `labeller()` now handles unspecified entries from lookup tables
+  (@92amartins, #4599).
+
+* `fortify.default()` now accepts a data-frame-like object granted the object
+  exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviors
+  (@hpages, #5390).
+
+* `ScaleContinuous$get_breaks()` now only calls `scales::zero_range()` on limits
+  in transformed space, rather than in data space (#5304).
+
+* Scales throw more informative messages (@teunbrand, #4185, #4258)
+
+* The `scale_name` argument in `continuous_scale()`, `discrete_scale()` and
+  `binned_scale()` is soft-deprecated (@teunbrand, #1312).
+
+* In `theme()`, some elements can be specified with `rel()` to inherit from
+  `unit`-class objects in a relative fashion (@teunbrand, #3951).
+
+* `stat_ydensity()` with incomplete groups calculates the default `width` 
+  parameter more stably (@teunbrand, #5396)
+
+* `geom_boxplot()` gains a new argument, `staplewidth` that can draw staples
+  at the ends of whiskers (@teunbrand, #5126)
+
+* The `size` argument in `annotation_logticks()` has been deprecated in favour
+  of the `linewidth` argument (#5292).
+
+* `geom_boxplot()` gains an `outliers` argument to switch outliers on or off,
+  in a manner that does affects the scale range. For hiding outliers that does
+  not affect the scale range, you can continue to use `outlier.shape = NA` 
+  (@teunbrand, #4892).
+
+* Binned scales now treat `NA`s in limits the same way continuous scales do 
+  (#5355).
+
+* Binned scales work better with `trans = "reverse"` (#5355).
+
+* The `legend.text.align` and `legend.title.align` arguments in `theme()` are 
+  deprecated. The `hjust` setting of the `legend.text` and `legend.title` 
+  elements continues to fulfil the role of text alignment (@teunbrand, #5347).
+
+* Integers are once again valid input to theme arguments that expect numeric
+  input (@teunbrand, #5369)
 
 * Nicer error messages for xlim/ylim arguments in coord-* functions
   (@92amartins, #4601, #5297).
@@ -57,8 +212,13 @@
     * More informative error for mismatched 
      `direction`/`theme(legend.direction = ...)` arguments (#4364, #4930).
     * `guide_coloursteps()` and `guide_bins()` sort breaks (#5152).
+    * `guide_axis()` gains a `minor.ticks` argument to draw minor ticks (#4387).
     * `guide_axis()` gains a `cap` argument that can be used to trim the
       axis line to extreme breaks (#4907).
+    * `guide_colourbar()` and `guide_coloursteps()` merge properly when one
+      of aesthetics is dropped (#5324).
+    * Fixed regression in `guide_legend()` where the `linewidth` key size
+      wasn't adapted to the width of the lines (#5160).
 
 * `geom_label()` now uses the `angle` aesthetic (@teunbrand, #2785)
 * 'lines' units in `geom_label()`, often used in the `label.padding` argument, 
@@ -93,6 +253,21 @@
 * `stat_contour()` and `stat_contour_filled()` now warn about and remove
   duplicated coordinates (@teunbrand, #5215).
 * Improve performance of layers without positional scales (@zeehio, #4990)
+
+# ggplot2 3.4.4
+
+This hotfix release adapts to a change in r-devel's `base::is.atomic()` and 
+the upcoming retirement of maptools.
+
+* `fortify()` for sp objects (e.g., `SpatialPolygonsDataFrame`) is now deprecated
+  and will be removed soon in support of [the upcoming retirement of rgdal, rgeos,
+  and maptools](https://r-spatial.org/r/2023/05/15/evolution4.html). In advance
+  of the whole removal, `fortify(<SpatialPolygonsDataFrame>, region = ...)`
+  no longer works as of this version (@yutannihilation, #5244).
+
+# ggplot2 3.4.3
+This hotfix release addresses a version comparison change in r-devel. There are
+no user-facing or breaking changes.
 
 # ggplot2 3.4.2
 This is a hotfix release anticipating changes in r-devel, but folds in upkeep

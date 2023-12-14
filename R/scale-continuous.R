@@ -2,7 +2,7 @@
 #'
 #' `scale_x_continuous()` and `scale_y_continuous()` are the default
 #' scales for continuous x and y aesthetics. There are three variants
-#' that set the `trans` argument for commonly used transformations:
+#' that set the `transform` argument for commonly used transformations:
 #' `scale_*_log10()`, `scale_*_sqrt()` and `scale_*_reverse()`.
 #'
 #' For simple manipulation of labels and limits, you may wish to use
@@ -53,9 +53,9 @@
 #'   y = seq(0, 1, length.out = 10)
 #' )
 #' p2 <- ggplot(df, aes(x, y)) + geom_point()
-#' p2 + scale_y_continuous(labels = scales::percent)
-#' p2 + scale_y_continuous(labels = scales::dollar)
-#' p2 + scale_x_continuous(labels = scales::comma)
+#' p2 + scale_y_continuous(labels = scales::label_percent())
+#' p2 + scale_y_continuous(labels = scales::label_dollar())
+#' p2 + scale_x_continuous(labels = scales::label_comma())
 #'
 #' # You can also override the default linear mapping by using a
 #' # transformation. There are three shortcuts:
@@ -64,9 +64,9 @@
 #' p1 + scale_y_reverse()
 #'
 #' # Or you can supply a transformation in the `trans` argument:
-#' p1 + scale_y_continuous(trans = scales::reciprocal_trans())
+#' p1 + scale_y_continuous(transform = scales::transform_reciprocal())
 #'
-#' # You can also create your own. See ?scales::trans_new
+#' # You can also create your own. See ?scales::new_transform
 #'
 #' @name scale_continuous
 #' @aliases NULL
@@ -81,15 +81,21 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), n.breaks = NULL,
                                labels = waiver(), limits = NULL,
                                expand = waiver(), oob = censor,
-                               na.value = NA_real_, trans = "identity",
+                               na.value = NA_real_, transform = "identity",
+                               trans = deprecated(),
                                guide = waiver(), position = "bottom",
                                sec.axis = waiver()) {
+  call <- caller_call()
+  if (is.null(call) || !any(startsWith(as.character(call[[1]]), "scale_"))) {
+    call <- current_call()
+  }
   sc <- continuous_scale(
     ggplot_global$x_aes,
-    "position_c", identity, name = name, breaks = breaks, n.breaks = n.breaks,
+    palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = guide, position = position, super = ScaleContinuousPosition
+    expand = expand, oob = oob, na.value = na.value, transform = transform,
+    trans = trans, guide = guide, position = position, call = call,
+    super = ScaleContinuousPosition
   )
 
   set_sec_axis(sec.axis, sc)
@@ -102,15 +108,21 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), n.breaks = NULL,
                                labels = waiver(), limits = NULL,
                                expand = waiver(), oob = censor,
-                               na.value = NA_real_, trans = "identity",
+                               na.value = NA_real_, transform = "identity",
+                               trans = deprecated(),
                                guide = waiver(), position = "left",
                                sec.axis = waiver()) {
+  call <- caller_call()
+  if (is.null(call) || !any(startsWith(as.character(call[[1]]), "scale_"))) {
+    call <- current_call()
+  }
   sc <- continuous_scale(
     ggplot_global$y_aes,
-    "position_c", identity, name = name, breaks = breaks, n.breaks = n.breaks,
+    palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = guide, position = position, super = ScaleContinuousPosition
+    expand = expand, oob = oob, na.value = na.value, transform = transform,
+    trans = trans, guide = guide, position = position, call = call,
+    super = ScaleContinuousPosition
   )
 
   set_sec_axis(sec.axis, sc)
@@ -159,30 +171,30 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
 #' @rdname scale_continuous
 #' @export
 scale_x_log10 <- function(...) {
-  scale_x_continuous(..., trans = log10_trans())
+  scale_x_continuous(..., transform = transform_log10())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_log10 <- function(...) {
-  scale_y_continuous(..., trans = log10_trans())
+  scale_y_continuous(..., transform = transform_log10())
 }
 #' @rdname scale_continuous
 #' @export
 scale_x_reverse <- function(...) {
-  scale_x_continuous(..., trans = reverse_trans())
+  scale_x_continuous(..., transform = transform_reverse())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_reverse <- function(...) {
-  scale_y_continuous(..., trans = reverse_trans())
+  scale_y_continuous(..., transform = transform_reverse())
 }
 #' @rdname scale_continuous
 #' @export
 scale_x_sqrt <- function(...) {
-  scale_x_continuous(..., trans = sqrt_trans())
+  scale_x_continuous(..., transform = transform_sqrt())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_sqrt <- function(...) {
-  scale_y_continuous(..., trans = sqrt_trans())
+  scale_y_continuous(..., transform = transform_sqrt())
 }

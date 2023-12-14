@@ -9,11 +9,11 @@ test_that("stat_bin throws error when wrong combination of aesthetic is present"
 })
 
 test_that("stat_bin works in both directions", {
-  p <- ggplot(mpg, aes(hwy)) + stat_bin()
+  p <- ggplot(mpg, aes(hwy)) + stat_bin(bins = 30)
   x <- layer_data(p)
   expect_false(x$flipped_aes[1])
 
-  p <- ggplot(mpg, aes(y = hwy)) + stat_bin()
+  p <- ggplot(mpg, aes(y = hwy)) + stat_bin(bins = 30)
   y <- layer_data(p)
   expect_true(y$flipped_aes[1])
 
@@ -81,7 +81,7 @@ test_that("breaks are transformed by the scale", {
 
 test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
   df <- data_frame(x = rep(1, 100))
-  out <- layer_data(ggplot(df, aes(x)) + geom_histogram())
+  out <- layer_data(ggplot(df, aes(x)) + geom_histogram(bins = 30))
 
   expect_equal(nrow(out), 1)
   expect_equal(out$xmin, 0.95)

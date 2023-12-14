@@ -5,7 +5,8 @@
 #' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
 #' `geom_tile()` uses the center of the tile and its size (`x`,
 #' `y`, `width`, `height`). `geom_raster()` is a high
-#' performance special case for when all the tiles are the same size.
+#' performance special case for when all the tiles are the same size, and no
+#' pattern fills are applied.
 #'
 #' @eval rd_aesthetics("geom", "tile", "Note that `geom_raster()` ignores `colour`.")
 #' @inheritParams layer
@@ -60,8 +61,8 @@
 #' # Inspired by the image-density plots of Ken Knoblauch
 #' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 #' cars + geom_point()
-#' cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
-#' cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
+#' cars + stat_bin_2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+#' cars + stat_bin_2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 #'
 #' cars +
 #'   stat_density(

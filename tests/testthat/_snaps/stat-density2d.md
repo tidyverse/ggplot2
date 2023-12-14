@@ -3,6 +3,5 @@
     Problem while computing stat.
     i Error occurred in the 1st layer.
     Caused by error in `compute_layer()`:
-    ! Invalid value of `contour_var` ("abcd")
-    i Supported values are "density", "ndensity", and "count".
+    ! `contour_var` must be one of "density", "ndensity", or "count", not "abcd".
 

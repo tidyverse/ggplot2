@@ -109,7 +109,8 @@ parameterised differently: \code{geom_rect()} uses the locations of the four
 corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
 \code{geom_tile()} uses the center of the tile and its size (\code{x},
 \code{y}, \code{width}, \code{height}). \code{geom_raster()} is a high
-performance special case for when all the tiles are the same size.
+performance special case for when all the tiles are the same size, and no
+pattern fills are applied.
 }
 \details{
 \code{geom_rect()} and \code{geom_tile()}'s respond differently to scale
@@ -178,8 +179,8 @@ ggplot(df, aes(x, y, fill = z)) +
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
-cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
+cars + stat_bin_2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+cars + stat_bin_2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 
 cars +
   stat_density(

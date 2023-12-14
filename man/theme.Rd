@@ -5,6 +5,7 @@
 \title{Modify components of a theme}
 \usage{
 theme(
+  ...,
   line,
   rect,
   text,
@@ -31,6 +32,10 @@ theme(
   axis.ticks.y,
   axis.ticks.y.left,
   axis.ticks.y.right,
+  axis.minor.ticks.x.top,
+  axis.minor.ticks.x.bottom,
+  axis.minor.ticks.y.left,
+  axis.minor.ticks.y.right,
   axis.ticks.length,
   axis.ticks.length.x,
   axis.ticks.length.x.top,
@@ -38,6 +43,13 @@ theme(
   axis.ticks.length.y,
   axis.ticks.length.y.left,
   axis.ticks.length.y.right,
+  axis.minor.ticks.length,
+  axis.minor.ticks.length.x,
+  axis.minor.ticks.length.x.top,
+  axis.minor.ticks.length.x.bottom,
+  axis.minor.ticks.length.y,
+  axis.minor.ticks.length.y.left,
+  axis.minor.ticks.length.y.right,
   axis.line,
   axis.line.x,
   axis.line.x.top,
@@ -54,13 +66,28 @@ theme(
   legend.key.size,
   legend.key.height,
   legend.key.width,
+  legend.key.spacing,
+  legend.key.spacing.x,
+  legend.key.spacing.y,
+  legend.frame,
+  legend.ticks,
+  legend.ticks.length,
+  legend.axis.line,
   legend.text,
-  legend.text.align,
+  legend.text.position,
   legend.title,
-  legend.title.align,
+  legend.title.position,
   legend.position,
+  legend.position.inside,
   legend.direction,
+  legend.byrow,
   legend.justification,
+  legend.justification.top,
+  legend.justification.bottom,
+  legend.justification.left,
+  legend.justification.right,
+  legend.justification.inside,
+  legend.location,
   legend.box,
   legend.box.just,
   legend.box.margin,
@@ -103,12 +130,14 @@ theme(
   strip.text.y.right,
   strip.switch.pad.grid,
   strip.switch.pad.wrap,
-  ...,
   complete = FALSE,
   validate = TRUE
 )
 }
 \arguments{
+\item{...}{additional element specifications not part of base ggplot2. In general,
+these should also be defined in the \verb{element tree} argument.}
+
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
 
 \item{rect}{all rectangular elements (\code{\link[=element_rect]{element_rect()}})}
@@ -141,7 +170,12 @@ for each axis (using \code{axis.ticks.x.bottom}, \code{axis.ticks.x.top},
 \verb{axis.ticks.*} which inherits from \code{axis.ticks}, which in turn inherits
 from \code{line}}
 
+\item{axis.minor.ticks.x.top, axis.minor.ticks.x.bottom, axis.minor.ticks.y.left, axis.minor.ticks.y.right, }{minor tick marks along axes (\code{\link[=element_line]{element_line()}}). \verb{axis.minor.ticks.*.*}
+inherit from the corresponding major ticks \verb{axis.ticks.*.*}.}
+
 \item{axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right}{length of tick marks (\code{unit})}
+
+\item{axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right}{length of minor tick marks (\code{unit}), or relative to \code{axis.ticks.length} when provided with \code{rel()}.}
 
 \item{axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right}{lines along axes (\code{\link[=element_line]{element_line()}}). Specify lines along all axes (\code{axis.line}),
 lines for each plane (using \code{axis.line.x} or \code{axis.line.y}), or individually
@@ -164,27 +198,53 @@ inherits from \code{rect})}
 \item{legend.key.size, legend.key.height, legend.key.width}{size of legend keys (\code{unit}); key background height & width inherit from
 \code{legend.key.size} or can be specified separately}
 
+\item{legend.key.spacing, legend.key.spacing.x, legend.key.spacing.y}{spacing
+between legend keys given as a \code{unit}. Spacing in the horizontal (x) and
+vertical (y) direction inherit from \code{legend.key.spacing} or can be
+specified separately.}
+
+\item{legend.frame}{frame drawn around the bar (\code{\link[=element_rect]{element_rect()}}).}
+
+\item{legend.ticks}{tick marks shown along bars or axes (\code{\link[=element_line]{element_line()}})}
+
+\item{legend.ticks.length}{length of tick marks in legend (\code{unit})}
+
+\item{legend.axis.line}{lines along axes in legends (\code{\link[=element_line]{element_line()}})}
+
 \item{legend.text}{legend item labels (\code{\link[=element_text]{element_text()}}; inherits from
 \code{text})}
 
-\item{legend.text.align}{alignment of legend labels (number from 0 (left) to
-1 (right))}
+\item{legend.text.position}{placement of legend text relative to legend keys
+or bars ("top", "right", "bottom" or "left"). The legend text placement
+might be incompatible with the legend's direction for some guides.}
 
 \item{legend.title}{title of legend (\code{\link[=element_text]{element_text()}}; inherits from
 \code{title})}
 
-\item{legend.title.align}{alignment of legend title (number from 0 (left) to
-1 (right))}
+\item{legend.title.position}{placement of legend title relative to the main
+legend ("top", "right", "bottom" or "left").}
 
-\item{legend.position}{the position of legends ("none", "left", "right",
-"bottom", "top", or two-element numeric vector)}
+\item{legend.position}{the default position of legends ("none", "left",
+"right", "bottom", "top", "inside")}
+
+\item{legend.position.inside}{A numeric vector of length two setting the
+placement of legends that have the \code{"inside"} position.}
 
 \item{legend.direction}{layout of items in legends ("horizontal" or
 "vertical")}
 
+\item{legend.byrow}{whether the legend-matrix is filled by columns
+(\code{FALSE}, the default) or by rows (\code{TRUE}).}
+
 \item{legend.justification}{anchor point for positioning legend inside plot
 ("center" or two-element numeric vector) or the justification according to
 the plot area when positioned outside the plot}
+
+\item{legend.justification.top, legend.justification.bottom, legend.justification.left, legend.justification.right, legend.justification.inside}{Same as \code{legend.justification} but specified per \code{legend.position} option.}
+
+\item{legend.location}{Relative placement of legends outside the plot as a
+string. Can be \code{"panel"} (default) to align legends to the panels or
+\code{"plot"} to align legends to the plot as a whole.}
 
 \item{legend.box}{arrangement of multiple legends ("horizontal" or
 "vertical")}
@@ -289,9 +349,6 @@ switched (\code{unit})}
 
 \item{strip.switch.pad.wrap}{space between strips and axes when strips are
 switched (\code{unit})}
-
-\item{...}{additional element specifications not part of base ggplot2. In general,
-these should also be defined in the \verb{element tree} argument.}
 
 \item{complete}{set this to \code{TRUE} if this is a complete theme, such as
 the one returned by \code{\link[=theme_grey]{theme_grey()}}. Complete themes behave

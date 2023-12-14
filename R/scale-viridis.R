@@ -5,8 +5,8 @@
 #' with common forms of colour blindness. See also
 #' <https://bids.github.io/colormap/>.
 #'
-#' @inheritParams scales::viridis_pal
-#' @inheritParams scales::gradient_n_pal
+#' @inheritParams scales::pal_viridis
+#' @inheritParams scales::pal_gradient_n
 #' @inheritParams continuous_scale
 #' @param ... Other arguments passed on to [discrete_scale()],
 #' [continuous_scale()], or [binned_scale()] to control name, limits, breaks,
@@ -37,7 +37,7 @@
 #' # Change scale label
 #' d + scale_colour_viridis_d("City\nCenter")
 #'
-#' # Select palette to use, see ?scales::viridis_pal for more details
+#' # Select palette to use, see ?scales::pal_viridis for more details
 #' d + scale_colour_viridis_d(option = "plasma")
 #' d + scale_colour_viridis_d(option = "inferno")
 #'
@@ -62,8 +62,7 @@ scale_colour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", aesthetics = "colour") {
   discrete_scale(
     aesthetics,
-    "viridis_d",
-    viridis_pal(alpha, begin, end, direction, option),
+    palette = pal_viridis(alpha, begin, end, direction, option),
     ...
   )
 }
@@ -74,8 +73,7 @@ scale_fill_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
                                  direction = 1, option = "D", aesthetics = "fill") {
   discrete_scale(
     aesthetics,
-    "viridis_d",
-    viridis_pal(alpha, begin, end, direction, option),
+    palette = pal_viridis(alpha, begin, end, direction, option),
     ...
   )
 }
@@ -88,9 +86,8 @@ scale_colour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
                                    guide = "colourbar", aesthetics = "colour") {
   continuous_scale(
     aesthetics,
-    "viridis_c",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
+    palette = pal_gradient_n(
+      pal_viridis(alpha, begin, end, direction, option)(6),
       values,
       space
     ),
@@ -108,9 +105,8 @@ scale_fill_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
                                  guide = "colourbar", aesthetics = "fill") {
   continuous_scale(
     aesthetics,
-    "viridis_c",
-    gradient_n_pal(
-      viridis_pal(alpha, begin, end, direction, option)(6),
+    palette = pal_gradient_n(
+      pal_viridis(alpha, begin, end, direction, option)(6),
       values,
       space
     ),
@@ -126,14 +122,13 @@ scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", values = NULL,
                                    space = "Lab", na.value = "grey50",
                                    guide = "coloursteps", aesthetics = "colour") {
-  pal <-  binned_pal(
-    viridis_pal(alpha, begin, end, direction, option)
+  pal <-  pal_binned(
+    pal_viridis(alpha, begin, end, direction, option)
   )
 
   binned_scale(
     aesthetics,
-    "viridis_b",
-    pal,
+    palette = pal,
     na.value = na.value,
     guide = guide,
     ...
@@ -146,14 +141,13 @@ scale_fill_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
                                  direction = 1, option = "D", values = NULL,
                                  space = "Lab", na.value = "grey50",
                                  guide = "coloursteps", aesthetics = "fill") {
-  pal <-  binned_pal(
-    viridis_pal(alpha, begin, end, direction, option)
+  pal <-  pal_binned(
+    pal_viridis(alpha, begin, end, direction, option)
   )
 
   binned_scale(
     aesthetics,
-    "viridis_b",
-    pal,
+    palette = pal,
     na.value = na.value,
     guide = guide,
     ...

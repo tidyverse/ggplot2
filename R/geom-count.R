@@ -7,7 +7,7 @@
 #' @eval rd_aesthetics("geom", "point")
 #' @param geom,stat Use to override the default connection between
 #'   `geom_count()` and `stat_sum()`.
-#' @seealso For continuous `x` and `y`, use [geom_bin2d()].
+#' @seealso For continuous `x` and `y`, use [geom_bin_2d()].
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export

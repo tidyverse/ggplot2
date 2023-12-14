@@ -171,7 +171,7 @@ layer <- function(geom = NULL, stat = NULL,
 
 validate_mapping <- function(mapping, call = caller_env()) {
   if (!inherits(mapping, "uneval")) {
-    msg <- paste0("{.arg mapping} must be created by {.fn aes}")
+    msg <- "{.arg mapping} must be created by {.fn aes}."
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
     if (inherits(mapping, "gg")) {
@@ -221,7 +221,7 @@ Layer <- ggproto("Layer", NULL,
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
-        cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}")
+        cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}.")
       }
     } else {
       data <- self$data
@@ -268,12 +268,12 @@ Layer <- ggproto("Layer", NULL,
       aesthetics[["group"]] <- self$aes_params$group
     }
 
-    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
-
     # Evaluate aesthetics
     env <- child_env(baseenv(), stage = stage)
     evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
     evaled <- compact(evaled)
+
+    plot$scales$add_defaults(evaled, plot$plot_env)
 
     # Check for discouraged usage in mapping
     warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
@@ -376,7 +376,7 @@ Layer <- ggproto("Layer", NULL,
     stat_data <- data_frame0(!!!compact(stat_data))
 
     # Add any new scales, if needed
-    plot$scales$add_defaults(data, new, plot$plot_env)
+    plot$scales$add_defaults(stat_data, plot$plot_env)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {
@@ -445,7 +445,7 @@ check_subclass <- function(x, subclass,
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
-      cli::cli_abort("Can't find {argname} called {.val {x}}", call = call)
+      cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
     } else {
       obj
     }
