@@ -10,17 +10,22 @@
 \alias{scale_alpha_date}
 \title{Alpha transparency scales}
 \usage{
-scale_alpha(..., range = c(0.1, 1))
+scale_alpha(name = waiver(), ..., range = c(0.1, 1))
 
-scale_alpha_continuous(..., range = c(0.1, 1))
+scale_alpha_continuous(name = waiver(), ..., range = c(0.1, 1))
 
-scale_alpha_binned(..., range = c(0.1, 1))
+scale_alpha_binned(name = waiver(), ..., range = c(0.1, 1))
 
 scale_alpha_discrete(...)
 
-scale_alpha_ordinal(..., range = c(0.1, 1))
+scale_alpha_ordinal(name = waiver(), ..., range = c(0.1, 1))
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}, \code{\link[=binned_scale]{binned_scale()}},
 or \code{\link[=discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
 breaks, labels and so forth.}

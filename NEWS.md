@@ -5,8 +5,12 @@
   argument can be used to only draw tick marks or fully labelled axes 
   (@teunbrand, #4064).
   
+* The `name` argument in most scales is now explicitly the first argument 
+  (#5535)
+
 * New `display` argument in `guide_colourbar()` supplants the `raster` argument.
   In R 4.1.0 and above, `display = "gradient"` will draw a gradient.
+  
 * When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
   now stacked from the y-position rather than from 0 (@teunbrand, #5462)
 
