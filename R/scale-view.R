@@ -131,6 +131,7 @@ ViewScale <- ggproto("ViewScale", NULL,
   get_breaks = function(self) self$breaks,
   get_breaks_minor = function(self) self$minor_breaks,
   get_labels = function(self, breaks = self$get_breaks()) self$scale$get_labels(breaks),
+  get_transformation = function(self) self$scale$get_transformation(),
   rescale = function(self, x) {
     self$scale$rescale(x, self$limits, self$continuous_range)
   },

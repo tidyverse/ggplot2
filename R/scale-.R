@@ -551,6 +551,14 @@ Scale <- ggproto("Scale", NULL,
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  get_transformation = function(self) {
+    if (!is.null(self$trans)) {
+      deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
+      return(self$trans)
+    }
+    self$transformation
+  },
+
   clone = function(self) {
     cli::cli_abort("Not implemented.", call = self$call)
   },
