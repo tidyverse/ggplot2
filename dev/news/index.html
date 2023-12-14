@@ -85,7 +85,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> and <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> gain an <code>alpha</code> argument to set the transparency of the bar (<a href="https://github.com/tidyverse/ggplot2/issues/5085" class="external-link">#5085</a>).</p></li>
+<ul><li><p>(breaking) In the <code>scale_{colour/fill}_gradient2()</code> and <code>scale_{colour/fill}_steps2()</code> functions, the <code>midpoint</code> argument is transformed by the scale transformation (<a href="https://github.com/tidyverse/ggplot2/issues/3198" class="external-link">#3198</a>).</p></li>
+<li><p><code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> and <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> gain an <code>alpha</code> argument to set the transparency of the bar (<a href="https://github.com/tidyverse/ggplot2/issues/5085" class="external-link">#5085</a>).</p></li>
 <li><p><code><a href="../reference/geom_bar.html">stat_count()</a></code> treats <code>x</code> as unique in the same manner <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> does (<a href="https://github.com/tidyverse/ggplot2/issues/4609" class="external-link">#4609</a>).</p></li>
 <li><p><code><a href="../reference/position_stack.html">position_stack()</a></code> no longer silently removes missing data, which is now handled by the geom instead of position (<a href="https://github.com/tidyverse/ggplot2/issues/3532" class="external-link">#3532</a>).</p></li>
 <li><p>Legend keys that can draw arrows have their size adjusted for arrows.</p></li>

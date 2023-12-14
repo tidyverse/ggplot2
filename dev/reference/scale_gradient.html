@@ -127,6 +127,7 @@ these scales, see the <a href="scale_steps.html">color steps</a> scales.</p>
 <span>  midpoint <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  guide <span class="op">=</span> <span class="st">"colourbar"</span>,</span>
 <span>  aesthetics <span class="op">=</span> <span class="st">"colour"</span></span>
 <span><span class="op">)</span></span>
@@ -139,6 +140,7 @@ these scales, see the <a href="scale_steps.html">color steps</a> scales.</p>
 <span>  midpoint <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  guide <span class="op">=</span> <span class="st">"colourbar"</span>,</span>
 <span>  aesthetics <span class="op">=</span> <span class="st">"fill"</span></span>
 <span><span class="op">)</span></span>
@@ -252,19 +254,6 @@ bounds values with <code>NA</code>.</p></li>
 <li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></dd>
 
-    <dt><code>transform</code></dt>
-<dd><p>For continuous scales, the name of a transformation object
-or the object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
-"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
-"reverse", "sqrt" and "time".</p>
-<p>A transformation object bundles together a transform, its inverse,
-and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called <code>transform_&lt;name&gt;</code>. If
-transformations require arguments, you can call them from the scales
-package, e.g. <code><a href="https://scales.r-lib.org/reference/transform_boxcox.html" class="external-link">scales::transform_boxcox(p = 2)</a></code>.
-You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::new_transform()</a></code>.</p></dd>
-
     <dt><code>trans</code></dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Deprecated in favour of
 <code>transform</code>.</p></dd>
@@ -323,6 +312,20 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></dd>
 <dt>midpoint</dt>
 <dd><p>The midpoint (in data value) of the diverging scale.
 Defaults to 0.</p></dd>
+
+
+<dt>transform</dt>
+<dd><p>For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".</p>
+<p>A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called <code>transform_&lt;name&gt;</code>. If
+transformations require arguments, you can call them from the scales
+package, e.g. <code><a href="https://scales.r-lib.org/reference/transform_boxcox.html" class="external-link">scales::transform_boxcox(p = 2)</a></code>.
+You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::new_transform()</a></code>.</p></dd>
 
 
 <dt>colours, colors</dt>
