@@ -24,6 +24,16 @@ NULL
 #'   "bottom", "left", "right")}
 #' @param dir Direction: either `"h"` for horizontal, the default, or `"v"`,
 #'   for vertical.
+#' @param axes Determines which axes will be drawn in case of fixed scales.
+#'   When `"margins"` (default), axes will be drawn at the exterior margins.
+#'   `"all_x"` and `"all_y"` will draw the respective axes at the interior
+#'   panels too, whereas `"all"` will draw all axes at all panels.
+#' @param axis.labels Determines whether to draw labels for interior axes when
+#'   the scale is fixed and the `axis` argument is not `"margins"`. When
+#'   `"all"` (default), all interior axes get labels. When `"margins"`, only
+#'   the exterior axes get labels, and the interior axes get none. When
+#'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
+#'   x- or y-direction respectively.
 #' @inheritParams facet_grid
 #' @export
 #' @examples
@@ -61,6 +71,12 @@ NULL
 #'   geom_point() +
 #'   facet_wrap(vars(class), scales = "free")
 #'
+#' # When scales are constant, duplicated axes can be shown with
+#' # or without labels
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(vars(class), axes = "all", axis.labels = "all_y")
+#'
 #' # To repeat the same data in every panel, simply construct a data frame
 #' # that does not contain the faceting variable.
 #' ggplot(mpg, aes(displ, hwy)) +
@@ -80,12 +96,28 @@ NULL
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
                        switch = deprecated(), drop = TRUE, dir = "h",
-                       strip.position = 'top') {
+                       strip.position = 'top', axes = "margins",
+                       axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
   dir <- arg_match0(dir, c("h", "v"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
+  )
+
+  # If scales are free, always draw the axes
+  draw_axes <- arg_match0(axes, c("margins", "all_x", "all_y", "all"))
+  draw_axes <- list(
+    x = free$x || any(draw_axes %in% c("all_x", "all")),
+    y = free$y || any(draw_axes %in% c("all_y", "all"))
+  )
+
+  # Omitting labels is special-cased internally, so only omit labels if
+  # scales are not free and the axis is to be drawn
+  axis_labels <- arg_match0(axis.labels, c("margins", "all_x", "all_y", "all"))
+  axis_labels <- list(
+    x = free$x || !draw_axes$x || any(axis_labels %in% c("all_x", "all")),
+    y = free$y || !draw_axes$y || any(axis_labels %in% c("all_y", "all"))
   )
 
   # Check for deprecated labellers
@@ -121,7 +153,9 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
       ncol = ncol,
       nrow = nrow,
       labeller = labeller,
-      dir = dir
+      dir = dir,
+      draw_axes = draw_axes,
+      axis_labels = axis_labels
     )
   )
 }
@@ -241,6 +275,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panels <- panels[panel_order]
     panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
 
+    x_axis_order <- if (params$axis_labels$x) layout$SCALE_X else seq(n)
+    y_axis_order <- if (params$axis_labels$y) layout$SCALE_Y else seq(n)
+
+    ranges <- censor_labels(ranges, layout, params$axis_labels)
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
     if (length(params$facets) == 0) {
@@ -285,37 +323,23 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     # Add axes
     axis_mat_x_top <- empty_table
-    axis_mat_x_top[panel_pos] <- axes$x$top[layout$SCALE_X]
+    axis_mat_x_top[panel_pos] <- axes$x$top[x_axis_order]
     axis_mat_x_bottom <- empty_table
-    axis_mat_x_bottom[panel_pos] <- axes$x$bottom[layout$SCALE_X]
+    axis_mat_x_bottom[panel_pos] <- axes$x$bottom[x_axis_order]
     axis_mat_y_left <- empty_table
-    axis_mat_y_left[panel_pos] <- axes$y$left[layout$SCALE_Y]
+    axis_mat_y_left[panel_pos] <- axes$y$left[y_axis_order]
     axis_mat_y_right <- empty_table
-    axis_mat_y_right[panel_pos] <- axes$y$right[layout$SCALE_Y]
-    if (!params$free$x) {
+    axis_mat_y_right[panel_pos] <- axes$y$right[y_axis_order]
+    if (!(params$free$x || params$draw_axes$x)) {
       axis_mat_x_top[-1,]<- list(zeroGrob())
       axis_mat_x_bottom[-nrow,]<- list(zeroGrob())
     }
-    if (!params$free$y) {
+    if (!(params$free$y || params$draw_axes$y)) {
       axis_mat_y_left[, -1] <- list(zeroGrob())
       axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
-    axis_height_top <- unit(
-      apply(axis_mat_x_top, 1, max_height, value_only = TRUE),
-      "cm"
-    )
-    axis_height_bottom <- unit(
-      apply(axis_mat_x_bottom, 1, max_height, value_only = TRUE),
-      "cm"
-    )
-    axis_width_left <- unit(
-      apply(axis_mat_y_left, 2, max_width, value_only = TRUE),
-      "cm"
-    )
-    axis_width_right <- unit(
-      apply(axis_mat_y_right, 2, max_width, value_only = TRUE),
-      "cm"
-    )
+
+
     # Add back missing axes
     if (any(empties)) {
       row_ind <- row(empties)
@@ -330,7 +354,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        x_axes <- axes$x$bottom[layout$SCALE_X[panels]]
+        x_axes <- axes$x$bottom[x_axis_order[panels]]
         if (params$strip.position == "bottom" &&
             !inside &&
             any(!vapply(x_axes, is.zero, logical(1))) &&
@@ -349,7 +373,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        x_axes <- axes$x$top[layout$SCALE_X[panels]]
+        x_axes <- axes$x$top[x_axis_order[panels]]
         if (params$strip.position == "top" &&
             !inside &&
             any(!vapply(x_axes, is.zero, logical(1))) &&
@@ -368,7 +392,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        y_axes <- axes$y$right[layout$SCALE_Y[panels]]
+        y_axes <- axes$y$right[y_axis_order[panels]]
         if (params$strip.position == "right" &&
             !inside &&
             any(!vapply(y_axes, is.zero, logical(1))) &&
@@ -387,7 +411,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           .size = length(pos)
         )
         panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        y_axes <- axes$y$left[layout$SCALE_Y[panels]]
+        y_axes <- axes$y$left[y_axis_order[panels]]
         if (params$strip.position == "left" &&
             !inside &&
             any(!vapply(y_axes, is.zero, logical(1))) &&
@@ -398,10 +422,16 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         }
       }
     }
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t", 3)
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_height_bottom, "axis-b", 3)
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_width_left, "axis-l", 3)
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_width_right, "axis-r", 3)
+    panel_table <- weave_axes(
+      panel_table,
+      axes = list(
+        top  = axis_mat_x_top,  bottom = axis_mat_x_bottom,
+        left = axis_mat_y_left, right  = axis_mat_y_right
+      ),
+      empty = empties
+    )
+    axis_size   <- panel_table$sizes
+    panel_table <- panel_table$panels
 
     strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
     strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
@@ -411,10 +441,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "top") {
         placement <- if (inside_x) -1 else -2
-        strip_pad <- axis_height_top
+        strip_pad <- axis_size$top
       } else {
         placement <- if (inside_x) 0 else 1
-        strip_pad <- axis_height_bottom
+        strip_pad <- axis_size$bottom
       }
       strip_height <- unit(apply(strip_mat, 1, max_height, value_only = TRUE), "cm")
       panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, coord$clip)
@@ -426,10 +456,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "left") {
         placement <- if (inside_y) -1 else -2
-        strip_pad <- axis_width_left
+        strip_pad <- axis_size$left
       } else {
         placement <- if (inside_y) 0 else 1
-        strip_pad <- axis_width_right
+        strip_pad <- axis_size$right
       }
       strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
       strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
@@ -504,4 +534,42 @@ weave_tables_row <- function(table, table2, row_shift, row_height, name, z = 1, 
     }
   }
   table
+}
+
+weave_axes <- function(panels, axes, empty = NULL, z = 3L) {
+  empty  <- which(empty %||% matrix(logical(), 0, 0), arr.ind = TRUE)
+  sides  <- match(names(axes), .trbl)
+  margin <- c(1L, 2L, 1L, 2L)[sides]
+  shift  <- c(1L, -1L, -1L, 1L)[sides]
+  sizes  <- Map(
+    measure_axes, axis = axes, margin = margin, shift = shift,
+    MoreArgs = list(empty_idx = empty)
+  )
+  names <- paste0("axis-", substr(names(axes), 1, 1))
+  shift <- c(-1L, 0L, 0L, -1L)[sides]
+  weave <- list(weave_tables_row, weave_tables_col)[c(1, 2, 1, 2)][sides]
+  for (i in seq_along(axes)) {
+    panels <- weave[[i]](panels, axes[[i]], shift[i], sizes[[i]], names[i], z = z)
+  }
+  list(panels = panels, sizes = sizes)
+}
+
+# Measures the size of axes while ignoring those bordering empty panels
+measure_axes <- function(empty_idx, axis, margin = 1L, shift = 0) {
+  dim  <- dim(axis)
+
+  measure <- switch(margin, height_cm, width_cm)
+  cm <- matrix(measure(axis), dim[1], dim[2])
+
+  if (nrow(empty_idx) > 0 && shift != 0) {
+    set_zero <- empty_idx
+    set_zero[, margin] <- set_zero[, margin] + shift
+    keep <- set_zero[, margin] <= dim[margin] & set_zero[, margin] > 0
+    set_zero <- set_zero[keep, , drop = FALSE]
+  } else {
+    set_zero <- matrix(integer(), nrow = 0, ncol = 2)
+  }
+
+  cm[set_zero] <- 0
+  unit(apply(cm, margin, max), "cm")
 }

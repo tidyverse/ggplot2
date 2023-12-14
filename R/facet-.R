@@ -701,3 +701,31 @@ render_strips <- function(x = NULL, y = NULL, labeller, theme) {
     y = build_strip(y, labeller, theme, FALSE)
   )
 }
+
+
+censor_labels <- function(ranges, layout, labels) {
+  if (labels$x && labels$y) {
+    return(ranges)
+  }
+  draw <- matrix(
+    TRUE, length(ranges), 4,
+    dimnames = list(NULL, c("top", "bottom", "left", "right"))
+  )
+
+  if (!labels$x) {
+    xmax <- stats::ave(layout$ROW, layout$COL, FUN = max)
+    xmin <- stats::ave(layout$ROW, layout$COL, FUN = min)
+    draw[which(layout$ROW != xmax), "bottom"] <- FALSE
+    draw[which(layout$ROW != xmin), "top"] <- FALSE
+  }
+  if (!labels$y) {
+    ymax <- stats::ave(layout$COL, layout$ROW, FUN = max)
+    ymin <- stats::ave(layout$COL, layout$ROW, FUN = min)
+    draw[which(layout$COL != ymax), "right"] <- FALSE
+    draw[which(layout$COL != ymin), "left"] <- FALSE
+  }
+  for (i in seq_along(ranges)) {
+    ranges[[i]]$draw_labels <- as.list(draw[i, ])
+  }
+  ranges
+}

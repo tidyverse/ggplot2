@@ -149,6 +149,11 @@ GuideAxisStack <- ggproto(
     position  <- params$position  %||% position
     direction <- params$direction %||% direction
 
+    # If we are instructed to not draw labels at interior panels, just render
+    # the first axis
+    draw_label  <- params$draw_label %||% TRUE
+    guide_index <- if (draw_label) seq_along(params$guides) else 1L
+
     if (position %in% c("theta", "theta.sec")) {
       # If we are a theta guide, we need to keep track how much space in the
       # radial direction a guide occupies, and add that as an offset to the
@@ -156,7 +161,8 @@ GuideAxisStack <- ggproto(
       offset  <- unit(0, "cm")
       spacing <- params$spacing %||% unit(2.25, "pt")
       grobs   <- list()
-      for (i in seq_along(params$guides)) {
+
+      for (i in guide_index) {
         # Add offset to params
         pars <- params$guide_params[[i]]
         pars$stack_offset <- offset
@@ -177,10 +183,12 @@ GuideAxisStack <- ggproto(
 
     # Loop through every guide's draw method
     grobs <- list()
-    for (i in seq_along(params$guides)) {
+    for (i in guide_index) {
+      pars <- params$guide_params[[i]]
+      pars$draw_label <- draw_label
       grobs[[i]] <- params$guides[[i]]$draw(
         theme, position = position, direction = direction,
-        params = params$guide_params[[i]]
+        params = pars
       )
     }
 

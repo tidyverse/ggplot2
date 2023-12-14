@@ -59,6 +59,16 @@ NULL
 #'   variables for which margins are to be created.
 #' @param facets `r lifecycle::badge("deprecated")` Please use `rows`
 #'   and `cols` instead.
+#' @param axes Determines which axes will be drawn. When `"margins"`
+#'   (default), axes will be drawn at the exterior margins. `"all_x"` and
+#'   `"all_y"` will draw the respective axes at the interior panels too, whereas
+#'   `"all"` will draw all axes at all panels.
+#' @param axis.labels Determines whether to draw labels for interior axes when
+#'   the `axes` argument is not `"margins"`. When `"all"` (default), all
+#'   interior axes get labels. When `"margins"`, only the exterior axes get
+#'   labels and the interior axes get none. When `"all_x"` or `"all_y"`, only
+#'   draws the labels at the interior axes in the x- or y-direction
+#'   respectively.
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()
@@ -78,6 +88,12 @@ NULL
 #' p +
 #'   facet_grid(cols = vars(cyl)) +
 #'   geom_point(data = df, colour = "red", size = 2)
+#'
+#' # When scales are constant, duplicated axes can be shown with
+#' # or without labels
+#' ggplot(mpg, aes(cty, hwy)) +
+#'   geom_point() +
+#'   facet_grid(year ~ drv, axes = "all", axis.labels = "all_x")
 #'
 #' # Free scales -------------------------------------------------------
 #' # You can also choose whether the scales should be constant
@@ -112,6 +128,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,
                        switch = NULL, drop = TRUE, margins = FALSE,
+                       axes = "margins", axis.labels = "all",
                        facets = deprecated()) {
   # `facets` is deprecated and renamed to `rows`
   if (lifecycle::is_present(facets)) {
@@ -137,6 +154,20 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     y = any(space %in% c("free_y", "free"))
   )
 
+  draw_axes <- arg_match0(axes, c("margins", "all_x", "all_y", "all"))
+  draw_axes <- list(
+    x = any(draw_axes %in% c("all_x", "all")),
+    y = any(draw_axes %in% c("all_y", "all"))
+  )
+
+  # Omitting labels is special-cased internally, so even when no internal axes
+  # are to be drawn, register as labelled.
+  axis_labels <- arg_match0(axis.labels, c("margins", "all_x", "all_y", "all"))
+  axis_labels <- list(
+    x = !draw_axes$x || any(axis_labels %in% c("all_x", "all")),
+    y = !draw_axes$y || any(axis_labels %in% c("all_y", "all"))
+  )
+
   if (!is.null(switch)) {
     arg_match0(switch, c("both", "x", "y"))
   }
@@ -150,7 +181,8 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     shrink = shrink,
     params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
-      as.table = as.table, switch = switch, drop = drop)
+      as.table = as.table, switch = switch, drop = drop,
+      draw_axes = draw_axes, axis_labels = axis_labels)
   )
 }
 
@@ -306,8 +338,22 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
 
-    cols <- which(layout$ROW == 1)
-    rows <- which(layout$COL == 1)
+    if (!params$axis_labels$x) {
+      cols <- seq_len(nrow(layout))
+      x_axis_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
+    } else {
+      cols <- which(layout$ROW == 1)
+      x_axis_order <- layout$COL
+    }
+    if (!params$axis_labels$y) {
+      rows <- seq_len(nrow(layout))
+      y_axis_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
+    } else {
+      rows <- which(layout$COL == 1)
+      y_axis_order <- layout$ROW
+    }
+
+    ranges <- censor_labels(ranges, layout, params$axis_labels)
     axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
     col_vars <- unique0(layout[names(params$cols)])
@@ -334,7 +380,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
-    panel_table <- matrix(panels, nrow = nrow, ncol = ncol, byrow = TRUE)
+    mtx <- function(x) matrix(x, nrow = nrow, ncol = ncol, byrow = TRUE)
+    panel_table <- mtx(panels)
 
     # @kohske
     # Now size of each panel is calculated using PANEL$ranges, which is given by
@@ -358,7 +405,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
+      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = mtx(1))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
     panel_table <- gtable_add_col_space(panel_table,
@@ -367,17 +414,27 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       theme$panel.spacing.y %||% theme$panel.spacing)
 
     # Add axes
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top),     0)
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left),     0)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right),   -1)
-    panel_pos_col <- panel_cols(panel_table)
-    panel_pos_rows <- panel_rows(panel_table)
+    if (params$draw_axes$x) {
+      axes$x <- lapply(axes$x, function(x) mtx(x[x_axis_order]))
+      panel_table <- weave_axes(panel_table, axes$x)$panels
+    } else {
+      panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top), 0)
+      panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
+      panel_pos_col <- panel_cols(panel_table)
+      panel_table <- gtable_add_grob(panel_table, axes$x$top, 1, panel_pos_col$l, clip = "off", name = paste0("axis-t-", seq_along(axes$x$top)), z = 3)
+      panel_table <- gtable_add_grob(panel_table, axes$x$bottom, -1, panel_pos_col$l, clip = "off", name = paste0("axis-b-", seq_along(axes$x$bottom)), z = 3)
+    }
 
-    panel_table <- gtable_add_grob(panel_table, axes$x$top, 1, panel_pos_col$l, clip = "off", name = paste0("axis-t-", seq_along(axes$x$top)), z = 3)
-    panel_table <- gtable_add_grob(panel_table, axes$x$bottom, -1, panel_pos_col$l, clip = "off", name = paste0("axis-b-", seq_along(axes$x$bottom)), z = 3)
-    panel_table <- gtable_add_grob(panel_table, axes$y$left, panel_pos_rows$t, 1, clip = "off", name = paste0("axis-l-", seq_along(axes$y$left)), z = 3)
-    panel_table <- gtable_add_grob(panel_table, axes$y$right, panel_pos_rows$t, -1, clip = "off", name = paste0("axis-r-", seq_along(axes$y$right)), z= 3)
+    if (params$draw_axes$y) {
+      axes$y <- lapply(axes$y, function(y) mtx(y[y_axis_order]))
+      panel_table <- weave_axes(panel_table, axes$y)$panels
+    } else {
+      panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left), 0)
+      panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right), -1)
+      panel_pos_rows <- panel_rows(panel_table)
+      panel_table <- gtable_add_grob(panel_table, axes$y$left, panel_pos_rows$t, 1, clip = "off", name = paste0("axis-l-", seq_along(axes$y$left)), z = 3)
+      panel_table <- gtable_add_grob(panel_table, axes$y$right, panel_pos_rows$t, -1, clip = "off", name = paste0("axis-r-", seq_along(axes$y$right)), z= 3)
+    }
 
     # Add strips
     switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
