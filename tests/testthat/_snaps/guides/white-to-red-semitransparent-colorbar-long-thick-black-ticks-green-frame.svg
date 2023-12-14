@@ -57,7 +57,7 @@
 <text transform='translate(13.05,283.95) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
 <rect x='679.53' y='233.08' width='34.99' height='101.73' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='679.53' y='241.79' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
-<image width='17.28' height='86.40' x='679.53' y='248.41' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAAeUlEQVQ4jcWPSw6AMAhEH2O9/5F1Y2pSARtL4oYA82HggEPsxlWaEM0QmyEkp+uj3WMvFnUTo7vjSRkVOQUEEZDLzBytJ3u/EbrMAHXkYYfzUbxLXyVV1LhMp59UjGhotRrthxhFpim69GVN8OjGR5c4ZKFLYeaEdwL6pgZTBMOKRwAAAABJRU5ErkJggg=='/>
+<image width='17.28' height='86.40' x='679.53' y='248.41' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAAeklEQVQ4jcWPSw6AMAhEH2O9/5E8mm6MJhWwsSRuCDAfBnbYxGqcpQnRDLEYQnK6a7R7vIpF3cDo7nhSekVOAUEE5DIzR+vJ3m+ELiNAHbnb4XwU79JXSRU1LsPpBxU9GlrNRvshRpFpik59WRM8uvHRJQ5Z6FKYOeEdhJcGE4IvQYUAAAAASUVORK5CYII='/>
 <rect x='679.53' y='248.41' width='17.28' height='86.40' style='stroke-width: 1.12; stroke: #00FF00;' />
 <polyline points='689.90,334.67 696.81,334.67 ' style='stroke-width: 1.88; stroke-linecap: butt;' />
 <polyline points='689.90,313.14 696.81,313.14 ' style='stroke-width: 1.88; stroke-linecap: butt;' />
@@ -74,6 +74,6 @@
 <text x='702.29' y='294.64' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.0</text>
 <text x='702.29' y='273.11' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.5</text>
 <text x='702.29' y='251.59' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.0</text>
-<text x='35.24' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='327.25px' lengthAdjust='spacingAndGlyphs'>white-to-red colorbar, long thick black ticks, green frame</text>
+<text x='35.24' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='425.57px' lengthAdjust='spacingAndGlyphs'>white-to-red semitransparent colorbar, long thick black ticks, green frame</text>
 </g>
 </svg>

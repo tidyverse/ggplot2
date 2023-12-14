@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `guide_colourbar()` and `guide_coloursteps()` gain an `alpha` argument to
+  set the transparency of the bar (#5085).
+
 * `stat_count()` treats `x` as unique in the same manner `unique()` does 
   (#4609).
 
