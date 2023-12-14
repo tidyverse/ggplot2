@@ -338,13 +338,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       axis_mat_y_left[, -1] <- list(zeroGrob())
       axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
-    axis_size <- measure_axis_mats(
-      empty  = empties,
-      top    = axis_mat_x_top,
-      bottom = axis_mat_x_bottom,
-      left   = axis_mat_y_left,
-      right  = axis_mat_y_right
-    )
+
 
     # Add back missing axes
     if (any(empties)) {
@@ -428,10 +422,16 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         }
       }
     }
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_size$top, "axis-t", 3)
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_size$bottom, "axis-b", 3)
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_size$left, "axis-l", 3)
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_size$right, "axis-r", 3)
+    panel_table <- weave_axes(
+      panel_table,
+      axes = list(
+        top  = axis_mat_x_top,  bottom = axis_mat_x_bottom,
+        left = axis_mat_y_left, right  = axis_mat_y_right
+      ),
+      empty = empties
+    )
+    axis_size   <- panel_table$sizes
+    panel_table <- panel_table$panels
 
     strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
     strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
@@ -536,12 +536,30 @@ weave_tables_row <- function(table, table2, row_shift, row_height, name, z = 1, 
   table
 }
 
+weave_axes <- function(panels, axes, empty = NULL, z = 3L) {
+  empty  <- which(empty %||% matrix(logical(), 0, 0), arr.ind = TRUE)
+  sides  <- match(names(axes), .trbl)
+  margin <- c(1L, 2L, 1L, 2L)[sides]
+  shift  <- c(1L, -1L, -1L, 1L)[sides]
+  sizes  <- Map(
+    measure_axes, axis = axes, margin = margin, shift = shift,
+    MoreArgs = list(empty_idx = empty)
+  )
+  names <- paste0("axis-", substr(names(axes), 1, 1))
+  shift <- c(-1L, 0L, 0L, -1L)[sides]
+  weave <- list(weave_tables_row, weave_tables_col)[c(1, 2, 1, 2)][sides]
+  for (i in seq_along(axes)) {
+    panels <- weave[[i]](panels, axes[[i]], shift[i], sizes[[i]], names[i], z = z)
+  }
+  list(panels = panels, sizes = sizes)
+}
+
 # Measures the size of axes while ignoring those bordering empty panels
-measure_axes <- function(empty_idx, axes, margin = 1L, shift = 0) {
-  dim  <- dim(axes)
+measure_axes <- function(empty_idx, axis, margin = 1L, shift = 0) {
+  dim  <- dim(axis)
 
   measure <- switch(margin, height_cm, width_cm)
-  cm <- matrix(measure(axes), dim[1], dim[2])
+  cm <- matrix(measure(axis), dim[1], dim[2])
 
   if (nrow(empty_idx) > 0 && shift != 0) {
     set_zero <- empty_idx
@@ -554,15 +572,4 @@ measure_axes <- function(empty_idx, axes, margin = 1L, shift = 0) {
 
   cm[set_zero] <- 0
   unit(apply(cm, margin, max), "cm")
-}
-
-# Measure the axis layout heights and widths
-measure_axis_mats <- function(empty, top, bottom, left, right) {
-  empty  <- which(empty, arr.ind = TRUE)
-  list(
-    top    = measure_axes(empty, top,    1L, 1L),
-    bottom = measure_axes(empty, bottom, 1L, -1L),
-    left   = measure_axes(empty, left,   2L,  1L),
-    right  = measure_axes(empty, right,  2L, -1L)
-  )
 }
