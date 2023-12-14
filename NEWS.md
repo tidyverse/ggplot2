@@ -3,6 +3,24 @@
 * The `get_guide_data()` function can be used to extract position and label
   information from the plot (#5004).
   
+* When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
+  now stacked from the y-position rather than from 0 (@teunbrand, #5462)
+
+* (breaking) In the `scale_{colour/fill}_gradient2()` and 
+  `scale_{colour/fill}_steps2()` functions, the `midpoint` argument is 
+  transformed by the scale transformation (#3198).
+
+* `guide_colourbar()` and `guide_coloursteps()` gain an `alpha` argument to
+  set the transparency of the bar (#5085).
+
+* `stat_count()` treats `x` as unique in the same manner `unique()` does 
+  (#4609).
+
+* `position_stack()` no longer silently removes missing data, which is now
+  handled by the geom instead of position (#3532).
+
+* Legend keys that can draw arrows have their size adjusted for arrows.
+
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
   transformation from the scale, a new `get_transformation()` method is 

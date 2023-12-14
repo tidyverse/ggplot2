@@ -7,8 +7,8 @@ test_that("geom_col removes columns with parts outside the plot limits", {
     ggplotGrob(p + ylim(0.5, 4)),
     "Removed 3 rows containing missing values or values outside the scale range"
   )
-  expect_warning( # warning created at build stage
-    ggplot_build(p + ylim(0, 2.5)),
+  expect_warning( # warning created at render stage
+    ggplotGrob(p + ylim(0, 2.5)),
     "Removed 1 row containing missing values or values outside the scale range"
   )
 })

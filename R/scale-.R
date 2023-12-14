@@ -609,7 +609,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 default_transform <- function(self, x) {
   transformation <- self$get_transformation()
   new_x <- transformation$transform(x)
-  check_transformation(x, new_x, self$transformation$name, self$call)
+  check_transformation(x, new_x, self$transformation$name, call = self$call)
   new_x
 }
 
@@ -1329,13 +1329,17 @@ scale_flip_position <- function(scale) {
   invisible()
 }
 
-check_transformation <- function(x, transformed, name, call = NULL) {
-  if (any(is.finite(x) != is.finite(transformed))) {
-    cli::cli_warn(
-      "{.field {name}} transformation introduced infinite values.",
-      call = call
-    )
+check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) {
+  if (!any(is.finite(x) != is.finite(transformed))) {
+    return(invisible())
   }
+  if (is.null(arg)) {
+    end <- "."
+  } else {
+    end <- paste0(" in {.arg {arg}}.")
+  }
+  msg <- paste0("{.field {name}} transformation introduced infinite values", end)
+  cli::cli_warn(msg, call = call)
 }
 
 trans_support_nbreaks <- function(trans) {

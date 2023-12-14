@@ -160,8 +160,7 @@ draw_key_path <- function(data, params, size) {
   } else {
     data$linetype[is.na(data$linetype)] <- 0
   }
-
-  segmentsGrob(0.1, 0.5, 0.9, 0.5,
+  grob <- segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       fill = alpha(params$arrow.fill %||% data$colour
@@ -172,12 +171,19 @@ draw_key_path <- function(data, params, size) {
     ),
     arrow = params$arrow
   )
+  if (!is.null(params$arrow)) {
+    angle <- deg2rad(params$arrow$angle)
+    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+    attr(grob, "width")  <- cos(angle) * length * 1.25
+    attr(grob, "height") <- sin(angle) * length * 2
+  }
+  grob
 }
 
 #' @export
 #' @rdname draw_key
 draw_key_vpath <- function(data, params, size) {
-  segmentsGrob(0.5, 0.1, 0.5, 0.9,
+  grob <- segmentsGrob(0.5, 0.1, 0.5, 0.9,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       lwd = (data$linewidth %||% 0.5) * .pt,
@@ -186,6 +192,13 @@ draw_key_vpath <- function(data, params, size) {
     ),
     arrow = params$arrow
   )
+  if (!is.null(params$arrow)) {
+    angle <- deg2rad(params$arrow$angle)
+    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+    attr(grob, "width")  <- sin(angle) * length * 2
+    attr(grob, "height") <- cos(angle) * length * 1.25
+  }
+  grob
 }
 
 #' @export
@@ -215,10 +228,14 @@ draw_key_linerange <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_pointrange <- function(data, params, size) {
-  grobTree(
-    draw_key_linerange(data, params, size),
+  linerange <- draw_key_linerange(data, params, size)
+  grob <- grobTree(
+    linerange,
     draw_key_point(transform(data, size = (data$size %||% 1.5) * 4), params)
   )
+  attr(grob, "width")  <- attr(linerange, "width")
+  attr(grob, "height") <- attr(linerange, "height")
+  grob
 }
 
 #' @export
@@ -227,10 +244,15 @@ draw_key_smooth <- function(data, params, size) {
   data$fill <- alpha(data$fill %||% "grey60", data$alpha)
   data$alpha <- 1
 
-  grobTree(
+  path <- draw_key_path(data, params, size)
+
+  grob <- grobTree(
     if (isTRUE(params$se)) rectGrob(gp = gpar(col = NA, fill = data$fill)),
-    draw_key_path(data, params, size)
+    path
   )
+  attr(grob, "width") <- attr(path, "width")
+  attr(grob, "height") <- attr(path, "height")
+  grob
 }
 
 #' @export
