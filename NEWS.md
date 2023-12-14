@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `stat_count()` treats `x` as unique in the same manner `unique()` does 
+  (#4609).
+
 * `position_stack()` no longer silently removes missing data, which is now
   handled by the geom instead of position (#3532).
 
