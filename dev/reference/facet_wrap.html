@@ -107,7 +107,9 @@ displays are roughly rectangular.</p>
 <span>  switch <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dir <span class="op">=</span> <span class="st">"h"</span>,</span>
-<span>  strip.position <span class="op">=</span> <span class="st">"top"</span></span>
+<span>  strip.position <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>  axes <span class="op">=</span> <span class="st">"margins"</span>,</span>
+<span>  axis.labels <span class="op">=</span> <span class="st">"all"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -181,6 +183,22 @@ for vertical.</p></dd>
 the plot. Using <code>strip.position</code> it is possible to place the labels on
 either of the four sides by setting <code>strip.position = c("top",
   "bottom", "left", "right")</code></p></dd>
+
+
+<dt>axes</dt>
+<dd><p>Determines which axes will be drawn in case of fixed scales.
+When <code>"margins"</code> (default), axes will be drawn at the exterior margins.
+<code>"all_x"</code> and <code>"all_y"</code> will draw the respective axes at the interior
+panels too, whereas <code>"all"</code> will draw all axes at all panels.</p></dd>
+
+
+<dt>axis.labels</dt>
+<dd><p>Determines whether to draw labels for interior axes when
+the scale is fixed and the <code>axis</code> argument is not <code>"margins"</code>. When
+<code>"all"</code> (default), all interior axes get labels. When <code>"margins"</code>, only
+the exterior axes get labels, and the interior axes get none. When
+<code>"all_x"</code> or <code>"all_y"</code>, only draws the labels at the interior axes in the
+x- or y-direction respectively.</p></dd>
 
 </dl></div>
 

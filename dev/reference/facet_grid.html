@@ -110,6 +110,8 @@ If you have only one variable with many levels, try <code><a href="facet_wrap.ht
 <span>  switch <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  margins <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  axes <span class="op">=</span> <span class="st">"margins"</span>,</span>
+<span>  axis.labels <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  facets <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -189,6 +191,22 @@ for each of the possible values of the faceting variables. If
 default). If <code>TRUE</code>, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.</p></dd>
+
+
+<dt>axes</dt>
+<dd><p>Determines which axes will be drawn. When <code>"margins"</code>
+(default), axes will be drawn at the exterior margins. <code>"all_x"</code> and
+<code>"all_y"</code> will draw the respective axes at the interior panels too, whereas
+<code>"all"</code> will draw all axes at all panels.</p></dd>
+
+
+<dt>axis.labels</dt>
+<dd><p>Determines whether to draw labels for interior axes when
+the <code>axes</code> argument is not <code>"margins"</code>. When <code>"all"</code> (default), all
+interior axes get labels. When <code>"margins"</code>, only the exterior axes get
+labels and the interior axes get none. When <code>"all_x"</code> or <code>"all_y"</code>, only
+draws the labels at the interior axes in the x- or y-direction
+respectively.</p></dd>
 
 
 <dt>facets</dt>
