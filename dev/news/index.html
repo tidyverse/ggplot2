@@ -85,7 +85,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p>Legend keys that can draw arrows have their size adjusted for arrows.</p></li>
+<ul><li><p><code><a href="../reference/position_stack.html">position_stack()</a></code> no longer silently removes missing data, which is now handled by the geom instead of position (<a href="https://github.com/tidyverse/ggplot2/issues/3532" class="external-link">#3532</a>).</p></li>
+<li><p>Legend keys that can draw arrows have their size adjusted for arrows.</p></li>
 <li><p>The <code>trans</code> argument in scales and secondary axes has been renamed to <code>transform</code>. The <code>trans</code> argument itself is deprecated. To access the transformation from the scale, a new <code>get_transformation()</code> method is added to Scale-classes (<a href="https://github.com/tidyverse/ggplot2/issues/5558" class="external-link">#5558</a>).</p></li>
 <li><p><code>guide_*()</code> functions get a new <code>theme</code> argument to style individual guides. The <code><a href="../reference/theme.html">theme()</a></code> function has gained additional arguments for styling guides: <code>legend.key.spacing{.x/.y}</code>, <code>legend.frame</code>, <code>legend.axis.line</code>, <code>legend.ticks</code>, <code>legend.ticks.length</code>, <code>legend.text.position</code> and <code>legend.title.position</code>. Previous style arguments in the <code>guide_*()</code> functions have been soft-deprecated.</p></li>
 <li><p>When legend titles are larger than the legend, title justification extends to the placement of keys and labels (<a href="https://github.com/tidyverse/ggplot2/issues/1903" class="external-link">#1903</a>).</p></li>
