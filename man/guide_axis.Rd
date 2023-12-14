@@ -6,6 +6,7 @@
 \usage{
 guide_axis(
   title = waiver(),
+  theme = NULL,
   check.overlap = FALSE,
   angle = waiver(),
   n.dodge = 1,
@@ -20,6 +21,10 @@ guide_axis(
 If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
+
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
 \item{check.overlap}{silently remove overlapping labels,
 (recursively) prioritizing the first, last, and middle labels.}

@@ -54,7 +54,7 @@ test_that("binned scales can use NAs in limits", {
 })
 
 test_that("binned scales can calculate breaks with reverse transformation", {
-  scale <- scale_x_binned(trans = "reverse")
+  scale <- scale_x_binned(transform = "reverse")
   scale$train(c(1, 9))
   expect_equal(scale$get_breaks(), 8:2)
 })
@@ -63,9 +63,9 @@ test_that('binned scales can calculate breaks on dates', {
 
   data <- seq(as.Date("2000-01-01"), as.Date("2020-01-01"), length.out = 100)
 
-  scale <- scale_x_binned(trans = "date")
+  scale <- scale_x_binned(transform = "date")
   scale$train(scale$transform(data))
-  breaks <- scale$trans$inverse(scale$get_breaks())
+  breaks <- scale$transformation$inverse(scale$get_breaks())
 
   expect_s3_class(breaks, "Date")
   expect_equal(
@@ -81,9 +81,9 @@ test_that('binned scales can calculate breaks on date-times', {
     length.out = 100
   )
 
-  scale <- scale_x_binned(trans = "time")
+  scale <- scale_x_binned(transform = "time")
   scale$train(scale$transform(data))
-  breaks <- scale$trans$inverse(scale$get_breaks())
+  breaks <- scale$transformation$inverse(scale$get_breaks())
 
   expect_s3_class(breaks, "POSIXct")
   expect_equal(

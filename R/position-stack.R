@@ -202,7 +202,7 @@ PositionStack <- ggproto("PositionStack", Position,
         reverse = params$reverse
       )
     }
-    if (any(!negative)) {
+    if (!all(negative)) {
       pos <- collide(pos, NULL, "position_stack", pos_stack,
         vjust = params$vjust,
         fill = params$fill,

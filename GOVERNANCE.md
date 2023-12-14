@@ -44,6 +44,7 @@ The core developers of ggplot2 are:
 * [Kara Woo](https://github.com/karawoo)
 * [Hiroaki Yutani](https://github.com/yutannihilation)
 * [Dewey Dunnington](https://github.com/paleolimbot)
+* [Teun van den Brand](https://github.com/teunbrand)
 
 All core developers are bound by the [code of conduct](CODE_OF_CONDUCT.md).
 

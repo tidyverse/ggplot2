@@ -13,6 +13,7 @@ guide_axis_logticks(
   short_theme = element_line(),
   expanded = TRUE,
   cap = "none",
+  theme = NULL,
   ...
 )
 }
@@ -44,6 +45,10 @@ be \code{"none"} (default) to draw the axis line along the whole panel, or
 \code{"upper"} and \code{"lower"} to draw the axis to the upper or lower break, or
 \code{"both"} to only draw the line in between the most extreme breaks. \code{TRUE}
 and \code{FALSE} are shorthand for \code{"both"} and \code{"none"} respectively.}
+
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
 \item{...}{
   Arguments passed on to \code{\link[=guide_axis]{guide_axis}}
@@ -104,7 +109,7 @@ p2 <- ggplot(data.frame(x = rcauchy(1000)), aes(x = x)) +
   geom_density() +
   scale_x_continuous(
     breaks = c(-10^(4:0), 0, 10^(0:4)),
-    trans = "pseudo_log"
+    transform = "pseudo_log"
   )
 
 # The log ticks are mirrored when 0 is included

@@ -38,7 +38,7 @@ draw_key_point <- function(data, params, size) {
     pch = data$shape,
     gp = gpar(
       col = alpha(data$colour %||% "black", data$alpha),
-      fill = alpha(data$fill %||% "black", data$alpha),
+      fill = fill_alpha(data$fill %||% "black", data$alpha),
       fontsize = (data$size %||% 1.5) * .pt + stroke_size * .stroke / 2,
       lwd = stroke_size * .stroke / 2
     )
@@ -63,7 +63,7 @@ draw_key_abline <- function(data, params, size) {
 draw_key_rect <- function(data, params, size) {
   rectGrob(gp = gpar(
     col = NA,
-    fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+    fill = fill_alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
     lty = data$linetype %||% 1
   ))
 }
@@ -81,7 +81,7 @@ draw_key_polygon <- function(data, params, size) {
     height = unit(1, "npc") - unit(lwd, "mm"),
     gp = gpar(
       col = data$colour %||% NA,
-      fill = alpha(data$fill %||% "grey20", data$alpha),
+      fill = fill_alpha(data$fill %||% "grey20", data$alpha),
       lty = data$linetype %||% 1,
       lwd = lwd * .pt,
       linejoin = params$linejoin %||% "mitre",
@@ -100,7 +100,7 @@ draw_key_blank <- function(data, params, size) {
 draw_key_boxplot <- function(data, params, size) {
   gp <- gpar(
     col = data$colour %||% "grey20",
-    fill = alpha(data$fill %||% "white", data$alpha),
+    fill = fill_alpha(data$fill %||% "white", data$alpha),
     lwd = (data$linewidth %||% 0.5) * .pt,
     lty = data$linetype %||% 1,
     lineend = params$lineend %||% "butt",
@@ -131,7 +131,7 @@ draw_key_boxplot <- function(data, params, size) {
 draw_key_crossbar <- function(data, params, size) {
   gp <- gpar(
     col = data$colour %||% "grey20",
-    fill = alpha(data$fill %||% "white", data$alpha),
+    fill = fill_alpha(data$fill %||% "white", data$alpha),
     lwd = (data$linewidth %||% 0.5) * .pt,
     lty = data$linetype %||% 1,
     lineend = params$lineend %||% "butt",
@@ -195,7 +195,7 @@ draw_key_dotplot <- function(data, params, size) {
     pch = 21,
     gp = gpar(
       col = alpha(data$colour %||% "black", data$alpha),
-      fill = alpha(data$fill %||% "black", data$alpha),
+      fill = fill_alpha(data$fill %||% "black", data$alpha),
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     )
@@ -236,26 +236,68 @@ draw_key_smooth <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_text <- function(data, params, size) {
-  if(is.null(data$label)) data$label <- "a"
-
-  textGrob(data$label, 0.5, 0.5,
-    rot = data$angle %||% 0,
+  data$label <- data$label %||% "a"
+  just <- rotate_just(data$angle, data$hjust, data$vjust)
+  grob <- titleGrob(
+    data$label,
+    x = unit(just$hjust, "npc"), y = unit(just$vjust, "npc"),
+    angle = data$angle,
+    hjust = data$hjust,
+    vjust = data$vjust,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      fontfamily = data$family %||% "",
-      fontface = data$fontface %||% 1,
-      fontsize = (data$size %||% 3.88) * .pt
-    )
+      fontfamily = data$family   %||% "",
+      fontface   = data$fontface %||% 1,
+      fontsize   = (data$size %||% 3.88) * .pt
+    ),
+    margin = margin(0.1, 0.1, 0.1, 0.1, unit = "lines"),
+    margin_x = TRUE, margin_y = TRUE
   )
+  attr(grob, "width")  <- convertWidth(grobWidth(grob),   "cm", valueOnly = TRUE)
+  attr(grob, "height") <- convertHeight(grobHeight(grob), "cm", valueOnly = TRUE)
+  grob
 }
 
 #' @export
 #' @rdname draw_key
 draw_key_label <- function(data, params, size) {
-  grobTree(
-    draw_key_rect(data, list()),
-    draw_key_text(data, list())
+  data$label <- data$label %||% "a"
+  just <- rotate_just(data$angle, data$hjust, data$vjust)
+  padding <- rep(params$label.padding, length.out = 4)
+  descent <- font_descent(
+    family = data$family %||% "",
+    face = data$fontface %||% 1,
+    size = data$size %||% 3.88
   )
+  grob <- labelGrob(
+    data$label,
+    x = unit(just$hjust, "npc"),
+    y = unit(just$vjust, "npc") + descent,
+    angle = data$angle,
+    just = c(data$hjust, data$vjust),
+    padding = padding,
+    r = params$label.r,
+    text.gp = gpar(
+      col = data$colour %||% "black",
+      fontfamily = data$family   %||% "",
+      fontface   = data$fontface %||% 1,
+      fontsize   = (data$size %||% 3.88) * .pt
+    ),
+    rect.gp = gpar(
+      col = if (isTRUE(all.equal(params$label.size, 0))) NA else data$colour,
+      fill = alpha(data$fill %||% "white", data$alpha),
+      lwd = params$label.size * .pt
+    )
+  )
+  angle  <- deg2rad(data$angle %||% 0)
+  text   <- grob$children[[2]]
+  width  <- convertWidth(grobWidth(text),   "cm", valueOnly = TRUE)
+  height <- convertHeight(grobHeight(text), "cm", valueOnly = TRUE)
+  x <- c(0, 0, width, width)
+  y <- c(0, height, height, 0)
+  attr(grob, "width")  <- diff(range(x * cos(angle) - y * sin(angle)))
+  attr(grob, "height") <- diff(range(x * sin(angle) + y * cos(angle)))
+  grob
 }
 
 #' @export

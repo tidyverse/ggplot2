@@ -93,7 +93,7 @@ test_that("ggsave fails informatively for no-extension filenames", {
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
   expect_error(
     ggsave(tempfile(), plot),
-    '`filename` has no file extension and `device` is "NULL"'
+    "Can't save to"
   )
 })
 

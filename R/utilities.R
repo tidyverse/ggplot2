@@ -42,7 +42,7 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
   if (length(missing_aes) > 1) {
     message <- paste0(message, " {.strong or} {.field {missing_aes[[2]]}}")
   }
-  cli::cli_abort(message, call = call)
+  cli::cli_abort(paste0(message, "."), call = call)
 }
 
 # Concatenate a named list for output
@@ -62,7 +62,7 @@ clist <- function(l) {
 # @keyword internal
 uniquecols <- function(df) {
   df <- df[1, sapply(df, is_unique), drop = FALSE]
-  rownames(df) <- 1:nrow(df)
+  rownames(df) <- seq_len(nrow(df))
   df
 }
 
@@ -178,7 +178,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-binned_pal <- function(palette) {
+pal_binned <- function(palette) {
   function(x) {
     palette(length(x))
   }
@@ -199,7 +199,7 @@ gg_dep <- function(version, msg) {
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
-  text <- "{msg} (Defunct; last used in version {version})"
+  text <- "{msg} (Defunct; last used in version {version})."
 
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
@@ -320,7 +320,7 @@ find_args <- function(...) {
   vals <- mget(args, envir = env)
   vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
 
-  modify_list(vals, list(..., `...` = NULL))
+  modify_list(vals, list2(..., `...` = NULL))
 }
 
 # Used in annotations to ensure printed even when no
@@ -598,6 +598,69 @@ is_bang <- function(x) {
   is_call(x, "!", n = 1)
 }
 
+# Puts all columns with 'AsIs' type in a '.ignore' column.
+
+
+
+#' Ignoring and exposing data
+#'
+#' The `.ignore_data()` function is used to hide `<AsIs>` columns during
+#' scale interactions in `ggplot_build()`. The `.expose_data()` function is
+#' used to restore hidden columns.
+#'
+#' @param data A list of `<data.frame>`s.
+#'
+#' @return A modified list of `<data.frame>s`
+#' @export
+#' @keywords internal
+#' @name ignoring_data
+#'
+#' @examples
+#' data <- list(
+#'   data.frame(x = 1:3, y = I(1:3)),
+#'   data.frame(w = I(1:3), z = 1:3)
+#' )
+#'
+#' ignored <- .ignore_data(data)
+#' str(ignored)
+#'
+#' .expose_data(ignored)
+.ignore_data <- function(data) {
+  if (!is_bare_list(data)) {
+    data <- list(data)
+  }
+  lapply(data, function(df) {
+    is_asis <- vapply(df, inherits, logical(1), what = "AsIs")
+    if (!any(is_asis)) {
+      return(df)
+    }
+    df <- unclass(df)
+    # We trust that 'df' is a valid data.frame with equal length columns etc,
+    # so we can use the more performant `new_data_frame()`
+    new_data_frame(c(
+      df[!is_asis],
+      list(.ignored = new_data_frame(df[is_asis]))
+    ))
+  })
+}
+
+# Restores all columns packed into the '.ignored' column.
+#' @rdname ignoring_data
+#' @export
+.expose_data <- function(data) {
+  if (!is_bare_list(data)) {
+    data <- list(data)
+  }
+  lapply(data, function(df) {
+    is_ignored <- which(names(df) == ".ignored")
+    if (length(is_ignored) == 0) {
+      return(df)
+    }
+    df <- unclass(df)
+    new_data_frame(c(df[-is_ignored], df[[is_ignored[1]]]))
+  })
+}
+
 is_triple_bang <- function(x) {
   if (!is_bang(x)) {
     return(FALSE)
@@ -708,6 +771,25 @@ vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
     vec_rbind(..., .error_call = .error_call),
     .call
   )
+}
+
+# This function is used to vectorise the following pattern:
+#
+# obj$name1 <- obj$name1 %||% value
+# obj$name2 <- obj$name2 %||% value
+#
+# and express this pattern as:
+#
+# replace_null(obj, name1 = value, name2 = value)
+replace_null <- function(obj, ..., env = caller_env()) {
+  # Collect dots without evaluating
+  dots <- enexprs(...)
+  # Select arguments that are null in `obj`
+  nms  <- names(dots)
+  nms  <- nms[vapply(obj[nms], is.null, logical(1))]
+  # Replace those with the evaluated dots
+  obj[nms] <- inject(list(!!!dots[nms]), env = env)
+  obj
 }
 
 attach_plot_env <- function(env) {
