@@ -154,6 +154,9 @@ test_that("geom_dotplot draws correctly", {
   # Binning along y, with multiple grouping factors
   dat2 <- data_frame(x = rep(factor(LETTERS[1:3]), 30), y = rnorm(90), g = rep(factor(LETTERS[1:2]), 45))
 
+  expect_doppelganger("bin x, three y groups, stack centerwhole",
+    ggplot(dat2, aes(y, x)) + geom_dotplot(binwidth = .25, binaxis = "x", stackdir = "centerwhole")
+  )
   expect_doppelganger("bin y, three x groups, stack centerwhole",
     ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = .25, binaxis = "y", stackdir = "centerwhole")
   )
