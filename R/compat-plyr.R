@@ -19,7 +19,7 @@ unrowname <- function(x) {
   } else if (is.matrix(x)) {
     dimnames(x)[1] <- list(NULL)
   } else {
-    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects")
+    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects.")
   }
   x
 }
@@ -239,7 +239,7 @@ as.quoted <- function(x, env = parent.frame()) {
   } else if (is.call(x)) {
     as.list(x)[-1]
   } else {
-    cli::cli_abort("Must be a character vector, call, or formula")
+    cli::cli_abort("Must be a character vector, call, or formula.")
   }
   attributes(x) <- list(env = env, class = 'quoted')
   x

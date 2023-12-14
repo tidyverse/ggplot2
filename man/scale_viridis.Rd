@@ -109,14 +109,14 @@ reversed.}
 \item{option}{A character string indicating the color map option to use.
 Eight options are available:
 \itemize{
- \item "magma" (or "A")
- \item "inferno" (or "B")
- \item "plasma" (or "C")
- \item "viridis" (or "D")
- \item "cividis" (or "E")
- \item "rocket" (or "F")
- \item "mako" (or "G")
- \item "turbo" (or "H")
+\item \code{"magma"} (or \code{"A"})
+\item \code{"inferno"} (or \code{"B"})
+\item \code{"plasma"} (or \code{"C"})
+\item \code{"viridis"} (or \code{"D"})
+\item \code{"cividis"} (or \code{"E"})
+\item \code{"rocket"} (or \code{"F"})
+\item \code{"mako"} (or \code{"G"})
+\item \code{"turbo"} (or \code{"H"})
 }}
 
 \item{aesthetics}{Character string or vector of character strings listing the
@@ -160,7 +160,7 @@ d + scale_colour_viridis_d()
 # Change scale label
 d + scale_colour_viridis_d("City\nCenter")
 
-# Select palette to use, see ?scales::viridis_pal for more details
+# Select palette to use, see ?scales::pal_viridis for more details
 d + scale_colour_viridis_d(option = "plasma")
 d + scale_colour_viridis_d(option = "inferno")
 

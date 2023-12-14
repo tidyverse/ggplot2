@@ -7,7 +7,7 @@
 #'   that should be used for error messages associated with this scale.
 #' @param palette A palette function that when called with a numeric vector with
 #'   values between 0 and 1 returns the corresponding output values
-#'   (e.g., [scales::area_pal()]).
+#'   (e.g., [scales::pal_area()]).
 #' @param name The name of the scale. Used as the axis or legend title. If
 #'   `waiver()`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic. If `NULL`, the legend title will be
@@ -15,7 +15,7 @@
 #' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks computed by the
-#'     [transformation object][scales::trans_new()]
+#'     [transformation object][scales::new_transform()]
 #'   - A numeric vector of positions
 #'   - A function that takes the limits as input and returns breaks
 #'     as output (e.g., a function returned by [scales::extended_breaks()]).
@@ -26,7 +26,9 @@
 #'     each major break)
 #'   - A numeric vector of positions
 #'   - A function that given the limits returns a vector of minor breaks. Also
-#'     accepts rlang [lambda][rlang::as_function()] function notation.
+#'     accepts rlang [lambda][rlang::as_function()] function notation. When
+#'     the function has two arguments, it will be given the limits and major
+#'     breaks.
 #' @param n.breaks An integer guiding the number of major breaks. The algorithm
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
@@ -65,7 +67,7 @@
 #'   - [scales::squish()] for squishing out of bounds values into range.
 #'   - [scales::squish_infinite()] for squishing infinite values into range.
 #' @param na.value Missing values will be replaced with this value.
-#' @param trans For continuous scales, the name of a transformation object
+#' @param transform For continuous scales, the name of a transformation object
 #'   or the object itself. Built-in transformations include "asn", "atanh",
 #'   "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 #'   "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -73,10 +75,12 @@
 #'
 #'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
-#'   are defined in the scales package, and are called `<name>_trans`. If
+#'   are defined in the scales package, and are called `transform_<name>`. If
 #'   transformations require arguments, you can call them from the scales
-#'   package, e.g. [`scales::boxcox_trans(p = 2)`][scales::boxcox_trans].
-#'   You can create your own transformation with [scales::trans_new()].
+#'   package, e.g. [`scales::transform_boxcox(p = 2)`][scales::transform_boxcox].
+#'   You can create your own transformation with [scales::new_transform()].
+#' @param trans `r lifecycle::badge("deprecated")` Deprecated in favour of
+#'   `transform`.
 #' @param guide A function used to create a guide or its name. See
 #'   [guides()] for more information.
 #' @param expand For position scales, a vector of range expansion constants used to add some
@@ -94,12 +98,17 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
                              breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
                              labels = waiver(), limits = NULL, rescaler = rescale,
                              oob = censor, expand = waiver(), na.value = NA_real_,
-                             trans = "identity", guide = "legend", position = "left",
+                             transform = "identity", trans = deprecated(),
+                             guide = "legend", position = "left",
                              call = caller_call(),
                              super = ScaleContinuous) {
   call <- call %||% current_call()
   if (lifecycle::is_present(scale_name)) {
     deprecate_soft0("3.5.0", "continuous_scale(scale_name)")
+  }
+  if (lifecycle::is_present(trans)) {
+    deprecate_soft0("3.5.0", "continuous_scale(trans)", "continuous_scale(transform)")
+    transform <- trans
   }
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -113,9 +122,9 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
     guide <- "none"
   }
 
-  trans <- as.trans(trans)
+  transform <- as.transform(transform)
   if (!is.null(limits) && !is.function(limits)) {
-    limits <- trans$transform(limits)
+    limits <- transform$transform(limits)
   }
 
   # Convert formula to function if appropriate
@@ -134,7 +143,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 
     range = ContinuousRange$new(),
     limits = limits,
-    trans = trans,
+    transformation = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -157,7 +166,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #' @inheritParams continuous_scale
 #' @param palette A palette function that when called with a single integer
 #'   argument (the number of levels in the scale) returns the values that
-#'   they should take (e.g., [scales::hue_pal()]).
+#'   they should take (e.g., [scales::pal_hue()]).
 #' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks (the scale limits)
@@ -259,13 +268,19 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          rescaler = rescale, oob = squish, expand = waiver(),
                          na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
-                         right = TRUE, trans = "identity", show.limits = FALSE,
+                         right = TRUE, transform = "identity",
+                         trans = deprecated(), show.limits = FALSE,
                          guide = "bins", position = "left",
                          call = caller_call(),
                          super = ScaleBinned) {
   if (lifecycle::is_present(scale_name)) {
     deprecate_soft0("3.5.0", "binned_scale(scale_name)")
   }
+  if (lifecycle::is_present(trans)) {
+    deprecate_soft0("3.5.0", "binned_scale(trans)", "binned_scale(transform)")
+    transform <- trans
+  }
+
   call <- call %||% current_call()
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -278,9 +293,9 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
     guide <- "none"
   }
 
-  trans <- as.trans(trans)
+  transform <- as.transform(transform)
   if (!is.null(limits)) {
-    limits <- trans$transform(limits)
+    limits <- transform$transform(limits)
   }
 
   # Convert formula input to function if appropriate
@@ -298,7 +313,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
     range = ContinuousRange$new(),
     limits = limits,
-    trans = trans,
+    transformation = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -341,7 +356,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #' - `clone()` Returns a copy of the scale that can be trained
 #'   independently without affecting the original scale.
 #'
-#' - `transform()` Transforms a vector of values using `self$trans`.
+#' - `transform()` Transforms a vector of values using `self$transformation`.
 #'   This occurs before the `Stat` is calculated.
 #'
 #' - `train()` Update the `self$range` of observed (transformed) data values with
@@ -371,7 +386,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'   (`self$range`).
 #'
 #' - `get_breaks()` Calculates the final scale breaks in transformed data space
-#'   based on on the combination of `self$breaks`, `self$trans$breaks()` (for
+#'   based on on the combination of `self$breaks`, `self$transformation$breaks()` (for
 #'   continuous scales), and `limits`. Breaks outside of `limits` are assigned
 #'   a value of `NA` (continuous scales) or dropped (discrete scales).
 #'
@@ -380,7 +395,9 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'
 #' - `get_breaks_minor()` For continuous scales, calculates the final scale minor breaks
 #'   in transformed data space based on the rescaled `breaks`, the value of `self$minor_breaks`,
-#'   and the value of `self$trans$minor_breaks()`. Discrete scales always return `NULL`.
+#'   and the value of `self$transformation$minor_breaks()`. Discrete scales always return `NULL`.
+#'
+#' - `get_transformation()` Returns the scale's transformation object.
 #'
 #' - `make_title()` Hook to modify the title that is calculated during guide construction
 #'   (for non-position scales) or when the `Layout` calculates the x and y labels
@@ -536,6 +553,14 @@ Scale <- ggproto("Scale", NULL,
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  get_transformation = function(self) {
+    if (!is.null(self$trans)) {
+      deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
+      return(self$trans)
+    }
+    self$transformation
+  },
+
   clone = function(self) {
     cli::cli_abort("Not implemented.", call = self$call)
   },
@@ -573,7 +598,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
     length(breaks) != length(labels)
   if (bad_labels) {
     cli::cli_abort(
-      "{.arg breaks} and {.arg labels} must have the same length",
+      "{.arg breaks} and {.arg labels} must have the same length.",
       call = call
     )
   }
@@ -582,8 +607,9 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 }
 
 default_transform <- function(self, x) {
-  new_x <- self$trans$transform(x)
-  check_transformation(x, new_x, self$trans$name, self$call)
+  transformation <- self$get_transformation()
+  new_x <- transformation$transform(x)
+  check_transformation(x, new_x, self$transformation$name, call = self$call)
   new_x
 }
 
@@ -603,7 +629,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   oob = censor,
   minor_breaks = waiver(),
   n.breaks = NULL,
-  trans = identity_trans(),
+  transformation = transform_identity(),
 
   is_discrete = function() FALSE,
 
@@ -614,7 +640,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # Intercept error here to give examples and mention scale in call
     if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
       cli::cli_abort(
-        c("Discrete values supplied to continuous scale",
+        c("Discrete values supplied to continuous scale.",
           i = "Example values: {.and {.val {head(x, 5)}}}"),
         call = self$call
       )
@@ -652,8 +678,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (is.null(self$limits)) {
       self$range$range
     } else if (is.function(self$limits)) {
+      transformation <- self$get_transformation()
       # if limits is a function, it expects to work in data space
-      self$trans$transform(self$limits(self$trans$inverse(self$range$range)))
+      transformation$transform(self$limits(transformation$inverse(self$range$range)))
     } else {
       # NA limits for a continuous scale mean replace with the min/max of data
       ifelse(is.na(self$limits), self$range$range, self$limits)
@@ -668,9 +695,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (self$is_empty()) {
       return(numeric())
     }
-
+    transformation <- self$get_transformation()
     # Ensure limits don't exceed domain (#980)
-    domain <- suppressWarnings(self$trans$transform(self$trans$domain))
+    domain <- suppressWarnings(transformation$transform(transformation$domain))
     domain <- sort(domain)
     # To avoid NaN causing issues. NaN are dropped by the sort()
     if (length(domain) == 2 && !zero_range(domain)) {
@@ -678,7 +705,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Limits in transformed space need to be converted back to data space
-    limits <- self$trans$inverse(limits)
+    limits <- transformation$inverse(limits)
 
     if (is.null(self$breaks)) {
       return(NULL)
@@ -686,26 +713,26 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (identical(self$breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
 
     # Compute `zero_range()` in transformed space in case `limits` in data space
     # don't support conversion to numeric (#5304)
-    if (zero_range(as.numeric(self$trans$transform(limits)))) {
+    if (zero_range(as.numeric(transformation$transform(limits)))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
-      if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
-        breaks <- self$trans$breaks(limits, self$n.breaks)
+      if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
+        breaks <- transformation$breaks(limits, self$n.breaks)
       } else {
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
-            "Ignoring {.arg n.breaks}. Use a {.cls trans} object that supports setting number of breaks.",
+            "Ignoring {.arg n.breaks}. Use a {.cls transform} object that supports setting number of breaks.",
             call = self$call
           )
         }
-        breaks <- self$trans$breaks(limits)
+        breaks <- transformation$breaks(limits)
       }
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -714,11 +741,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Breaks in data space need to be converted back to transformed space
-    breaks <- self$trans$transform(breaks)
-    # Any breaks outside the dimensions are flagged as missing
-    breaks <- censor(breaks, self$trans$transform(limits), only.finite = FALSE)
-
-    breaks
+    transformation$transform(breaks)
   },
 
   get_breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$get_limits()) {
@@ -732,23 +755,37 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (identical(self$minor_breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg minor_breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg minor_breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
+    # major breaks are not censored, however;
+    # some transforms assume finite major breaks
+    b <- b[is.finite(b)]
 
+    transformation <- self$get_transformation()
     if (is.waive(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
       } else {
-        breaks <- self$trans$minor_breaks(b, limits, n)
+        breaks <- transformation$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
-      # Find breaks in data space, and convert to numeric
-      breaks <- self$minor_breaks(self$trans$inverse(limits))
-      breaks <- self$trans$transform(breaks)
+      # Using `fetch_ggproto` here to avoid auto-wrapping the user-supplied
+      # breaks function as a ggproto method.
+      break_fun <- fetch_ggproto(self, "minor_breaks")
+      arg_names <- fn_fmls_names(break_fun)
+
+      # Find breaks in data space
+      if (length(arg_names) == 1L) {
+        breaks <- break_fun(transformation$inverse(limits))
+      } else {
+        breaks <- break_fun(transformation$inverse(limits), transformation$inverse(b))
+      }
+      # Convert breaks to numeric
+      breaks <- transformation$transform(breaks)
     } else {
-      breaks <- self$trans$transform(self$minor_breaks)
+      breaks <- transformation$transform(self$minor_breaks)
     }
 
     # Any minor breaks outside the dimensions need to be thrown away
@@ -760,7 +797,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(NULL)
     }
 
-    breaks <- self$trans$inverse(breaks)
+    transformation <- self$get_transformation()
+    breaks <- transformation$inverse(breaks)
 
     if (is.null(self$labels)) {
       return(NULL)
@@ -768,13 +806,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (identical(self$labels, NA)) {
       cli::cli_abort(
-        "Invalid {.arg labels} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
 
     if (is.waive(self$labels)) {
-      labels <- self$trans$format(breaks)
+      labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
     } else {
@@ -783,7 +821,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (length(labels) != length(breaks)) {
       cli::cli_abort(
-        "{.arg breaks} and {.arg labels} are different lengths.",
+        "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
     }
@@ -819,13 +857,15 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # labels
     labels <- self$get_labels(major)
 
-    # drop oob breaks/labels by testing major == NA
-    if (!is.null(labels)) labels <- labels[!is.na(major)]
-    if (!is.null(major)) major <- major[!is.na(major)]
-
     # minor breaks
     minor <- self$get_breaks_minor(b = major, limits = range)
     if (!is.null(minor)) minor <- minor[!is.na(minor)]
+
+    major <- oob_censor_any(major, range)
+
+    # drop oob breaks/labels by testing major == NA
+    if (!is.null(labels)) labels <- labels[!is.na(major)]
+    if (!is.null(major)) major <- major[!is.na(major)]
 
     # rescale breaks [0, 1], which are used by coord/guide
     major_n <- rescale(major, from = range)
@@ -874,7 +914,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     # Intercept error here to give examples and mention scale in call
     if (!is.discrete(x)) {
       cli::cli_abort(
-        c("Continuous values supplied to discrete scale",
+        c("Continuous values supplied to discrete scale.",
           i = "Example values: {.and {.val {head(x, 5)}}}"),
         call = self$call
       )
@@ -938,7 +978,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
     if (identical(self$breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
@@ -973,7 +1013,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
     if (identical(self$labels, NA)) {
       cli::cli_abort(
-        "Invalid {.arg labels} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
@@ -1125,7 +1165,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
-    limits <- self$trans$inverse(limits)
+    transformation <- self$get_transformation()
+
+    limits <- transformation$inverse(limits)
     is_rev <- limits[2] < limits[1]
     limits <- sort(limits)
 
@@ -1133,13 +1175,13 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       return(NULL)
     } else if (identical(self$breaks, NA)) {
       cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     } else if (is.waive(self$breaks)) {
       if (self$nice.breaks) {
-        if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
-          breaks <- self$trans$breaks(limits, n = self$n.breaks)
+        if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
+          breaks <- transformation$breaks(limits, n = self$n.breaks)
         } else {
           if (!is.null(self$n.breaks)) {
             cli::cli_warn(
@@ -1147,7 +1189,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
               call = self$call
             )
           }
-          breaks <- self$trans$breaks(limits)
+          breaks <- transformation$breaks(limits)
         }
       } else {
         n.breaks <- self$n.breaks %||% 5 # same default as trans objects
@@ -1178,12 +1220,12 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
           new_limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
         }
-        new_limits_trans <- suppressWarnings(self$trans$transform(new_limits))
+        new_limits_trans <- suppressWarnings(transformation$transform(new_limits))
         limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
         if (is_rev) {
-          self$limits <- rev(self$trans$transform(limits))
+          self$limits <- rev(transformation$transform(limits))
         } else {
-          self$limits <- self$trans$transform(limits)
+          self$limits <- transformation$transform(limits)
         }
       }
     } else if (is.function(self$breaks)) {
@@ -1208,7 +1250,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     self$breaks <- breaks
 
-    self$trans$transform(breaks)
+    transformation$transform(breaks)
   },
 
   get_breaks_minor = function(...) NULL,
@@ -1216,17 +1258,18 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_labels = function(self, breaks = self$get_breaks()) {
     if (is.null(breaks)) return(NULL)
 
-    breaks <- self$trans$inverse(breaks)
+    transformation <- self$get_transformation()
+    breaks <- transformation$inverse(breaks)
 
     if (is.null(self$labels)) {
       return(NULL)
     } else if (identical(self$labels, NA)) {
       cli::cli_abort(
-        "Invalid {.arg labels} specification. Use {.val NULL}, not {.val NA}.",
+        "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     } else if (is.waive(self$labels)) {
-      labels <- self$trans$format(breaks)
+      labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
     } else {
@@ -1234,7 +1277,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     }
     if (length(labels) != length(breaks)) {
       cli::cli_abort(
-        "{.arg breaks} and {.arg labels} are different lengths.",
+        "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
     }
@@ -1286,13 +1329,17 @@ scale_flip_position <- function(scale) {
   invisible()
 }
 
-check_transformation <- function(x, transformed, name, call = NULL) {
-  if (any(is.finite(x) != is.finite(transformed))) {
-    cli::cli_warn(
-      "{.field {name}} transformation introduced infinite values.",
-      call = call
-    )
+check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) {
+  if (!any(is.finite(x) != is.finite(transformed))) {
+    return(invisible())
   }
+  if (is.null(arg)) {
+    end <- "."
+  } else {
+    end <- paste0(" in {.arg {arg}}.")
+  }
+  msg <- paste0("{.field {name}} transformation introduced infinite values", end)
+  cli::cli_warn(msg, call = call)
 }
 
 trans_support_nbreaks <- function(trans) {

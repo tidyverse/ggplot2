@@ -12,16 +12,16 @@
 
 ---
 
-    `mapping` must be created by `aes()`
+    `mapping` must be created by `aes()`.
 
 ---
 
-    `mapping` must be created by `aes()`
+    `mapping` must be created by `aes()`.
     i Did you use `%>%` or `|>` instead of `+`?
 
 ---
 
-    Can't find geom called "test"
+    Can't find geom called "test".
 
 ---
 
@@ -74,14 +74,14 @@
     Problem while setting up geom.
     i Error occurred in the 1st layer.
     Caused by error in `compute_geom_1()`:
-    ! `geom_linerange()` requires the following missing aesthetics: ymax or xmin and xmax
+    ! `geom_linerange()` requires the following missing aesthetics: ymax or xmin and xmax.
 
 ---
 
     Problem while converting geom to grob.
     i Error occurred in the 2nd layer.
     Caused by error in `draw_group()`:
-    ! Can only draw one boxplot per group
+    ! Can only draw one boxplot per group.
     i Did you forget `aes(group = ...)`?
 
 # layer warns for constant aesthetics
@@ -91,5 +91,5 @@
 
 # layer_data returns a data.frame
 
-    `layer_data()` must return a <data.frame>
+    `layer_data()` must return a <data.frame>.
 

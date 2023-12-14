@@ -89,7 +89,8 @@ check_inherits <- function(x,
 #'   either `"blending"` or `"compositing"`. If `NULL` (default), support for
 #'   all known blending or compositing operations is queried.
 #' @param maybe A logical of length 1 determining what the return value should
-#'   be in case the device capabilities cannot be assessed.
+#'   be in case the device capabilities cannot be assessed. When the current
+#'   device is the 'null device', `maybe` is returned.
 #' @param call The execution environment of a currently running function, e.g.
 #'   [`caller_env()`][rlang::caller_env()]. The function will be mentioned in
 #'   warnings and error messages as the source of the warning or error. See
@@ -186,6 +187,14 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
 
   check_bool(maybe, allow_na = TRUE)
 
+  # Grab device for checking
+  dev_cur  <- grDevices::dev.cur()
+  dev_name <- names(dev_cur)
+
+  if (dev_name == "null device") {
+    return(maybe)
+  }
+
   action <- arg_match0(action, c("test", "warn", "abort"))
   action_fun <- switch(
     action,
@@ -233,10 +242,6 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
     return(FALSE)
   }
 
-  # Grab device for checking
-  dev_cur  <- grDevices::dev.cur()
-  dev_name <- names(dev_cur)
-
   if (dev_name == "RStudioGD") {
     # RStudio opens RStudioGD as the active graphics device, but the back-end
     # appears to be the *next* device. Temporarily set the next device as the
@@ -245,6 +250,20 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
     on.exit(grDevices::dev.set(dev_old), add = TRUE)
     dev_cur  <- grDevices::dev.set(grDevices::dev.next())
     dev_name <- names(dev_cur)
+  }
+
+  # {ragg} and {svglite} report capabilities, but need specific version
+  if (dev_name %in% c("agg_jpeg", "agg_ppm", "agg_png", "agg_tiff")) {
+    check_installed(
+      "ragg", version = "1.2.6",
+      reason = paste0("for checking device support for ", feat_name, ".")
+    )
+  }
+  if (dev_name == "devSVG") {
+    check_installed(
+      "svglite", version = "2.1.2",
+      reason = paste0("for checking device support for ", feat_name, ".")
+    )
   }
 
   # For blending/compositing, maybe test a specific operation
@@ -305,65 +324,12 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
     }
   }
 
-  # Test {ragg}'s capabilities
-  if (dev_name %in% c("agg_jpeg", "agg_ppm", "agg_png", "agg_tiff")) {
-    # We return ragg's version number if not installed, so we can suggest to
-    # install it.
-    capable <- switch(
-      feature,
-      clippingPaths =, alpha_masks =, gradients =,
-      patterns = if (is_installed("ragg", version = "1.2.0")) TRUE else "1.2.0",
-      FALSE
-    )
-    if (isTRUE(capable)) {
-      return(TRUE)
-    }
-    if (is.character(capable) && action != "test") {
-      check_installed(
-        "ragg", version = capable,
-        reason = paste0("for graphics support of ", feat_name, ".")
-      )
-    }
-    action_fun(paste0(
-      "The {.pkg ragg} package's {.field {dev_name}} device does not support ",
-      "{.emph {feat_name}}."
-    ), call = call)
-    return(FALSE)
-  }
-
-  # The vdiffr version of the SVG device is known to not support any newer
-  # features
+  # If vdiffr has neither confirmed nor denied its capabilities, the feature
+  # is assumed to be not supported.
   if (dev_name == "devSVG_vdiffr") {
     action_fun(
       "The {.pkg vdiffr} package's device does not support {.emph {feat_name}}.",
       call = call
-    )
-    return(FALSE)
-  }
-
-  # The same logic applies to {svglite} but is tested separately in case
-  # {ragg} and {svglite} diverge at some point.
-  if (dev_name == "devSVG") {
-    # We'll return a version number if not installed so we can suggest it
-    capable <- switch(
-      feature,
-      clippingPaths =, gradients =, alpha_masks =,
-      patterns = if (is_installed("svglite", version = "2.1.0")) TRUE else "2.1.0",
-      FALSE
-    )
-
-    if (isTRUE(capable)) {
-      return(TRUE)
-    }
-    if (is.character(capable) && action != "test") {
-      check_installed(
-        "svglite", version = capable,
-        reason = paste0("for graphics support of ", feat_name, ".")
-      )
-    }
-    action_fun(paste0(
-      "The {.pkg {pkg}} package's {.field {dev_name}} device does not ",
-      "support {.emph {feat_name}}."), call = call
     )
     return(FALSE)
   }

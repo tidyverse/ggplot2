@@ -21,7 +21,8 @@ scale_x_continuous(
   expand = waiver(),
   oob = censor,
   na.value = NA_real_,
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = waiver(),
   position = "bottom",
   sec.axis = waiver()
@@ -37,7 +38,8 @@ scale_y_continuous(
   expand = waiver(),
   oob = censor,
   na.value = NA_real_,
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = waiver(),
   position = "left",
   sec.axis = waiver()
@@ -65,7 +67,7 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
@@ -79,7 +81,9 @@ Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks. Also
-accepts rlang \link[rlang:as_function]{lambda} function notation.
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+breaks.
 }}
 
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
@@ -132,7 +136,7 @@ bounds values with \code{NA}.
 
 \item{na.value}{Missing values will be replaced with this value.}
 
-\item{trans}{For continuous scales, the name of a transformation object
+\item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -140,10 +144,13 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans}. If
+are defined in the scales package, and are called \verb{transform_<name>}. If
 transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
-You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
+
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
+\code{transform}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -158,7 +165,7 @@ You can create your own transformation with \code{\link[scales:trans_new]{scales
 \description{
 \code{scale_x_continuous()} and \code{scale_y_continuous()} are the default
 scales for continuous x and y aesthetics. There are three variants
-that set the \code{trans} argument for commonly used transformations:
+that set the \code{transform} argument for commonly used transformations:
 \verb{scale_*_log10()}, \verb{scale_*_sqrt()} and \verb{scale_*_reverse()}.
 }
 \details{
@@ -204,9 +211,9 @@ df <- data.frame(
   y = seq(0, 1, length.out = 10)
 )
 p2 <- ggplot(df, aes(x, y)) + geom_point()
-p2 + scale_y_continuous(labels = scales::percent)
-p2 + scale_y_continuous(labels = scales::dollar)
-p2 + scale_x_continuous(labels = scales::comma)
+p2 + scale_y_continuous(labels = scales::label_percent())
+p2 + scale_y_continuous(labels = scales::label_dollar())
+p2 + scale_x_continuous(labels = scales::label_comma())
 
 # You can also override the default linear mapping by using a
 # transformation. There are three shortcuts:
@@ -215,9 +222,9 @@ p1 + scale_y_sqrt()
 p1 + scale_y_reverse()
 
 # Or you can supply a transformation in the `trans` argument:
-p1 + scale_y_continuous(trans = scales::reciprocal_trans())
+p1 + scale_y_continuous(transform = scales::transform_reciprocal())
 
-# You can also create your own. See ?scales::trans_new
+# You can also create your own. See ?scales::new_transform
 
 }
 \seealso{

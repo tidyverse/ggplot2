@@ -75,8 +75,7 @@ StatCount <- ggproto("StatCount", Stat,
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
 
-    count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
-    count[is.na(count)] <- 0
+    count <- as.vector(rowsum(weight, x, na.rm = TRUE))
 
     bars <- data_frame0(
       count = count,

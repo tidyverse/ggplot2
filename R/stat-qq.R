@@ -95,7 +95,7 @@ StatQq <- ggproto("StatQq", Stat,
     if (is.null(quantiles)) {
       quantiles <- stats::ppoints(n)
     } else if (length(quantiles) != n) {
-      cli::cli_abort("The length of {.arg quantiles} must match the length of the data")
+      cli::cli_abort("The length of {.arg quantiles} must match the length of the data.")
     }
 
     theoretical <- inject(distribution(p = quantiles, !!!dparams))
