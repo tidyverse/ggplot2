@@ -3,6 +3,11 @@
 * `stat_count()` treats `x` as unique in the same manner `unique()` does 
   (#4609).
 
+* `position_stack()` no longer silently removes missing data, which is now
+  handled by the geom instead of position (#3532).
+
+* Legend keys that can draw arrows have their size adjusted for arrows.
+
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
   transformation from the scale, a new `get_transformation()` method is 
