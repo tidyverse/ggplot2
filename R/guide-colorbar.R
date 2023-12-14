@@ -130,7 +130,7 @@ guide_colourbar <- function(
     check_bool(raster)
     display <- if (raster) "raster" else "rectangles"
   }
-  display <- match.arg(display, c("raster", "rectangles", "gradient"))
+  display <- arg_match0(display, c("raster", "rectangles", "gradient"))
   nbin <- nbin %||% switch(display, gradient = 15, 300)
 
   theme <- deprecated_guide_args(theme, ...)
