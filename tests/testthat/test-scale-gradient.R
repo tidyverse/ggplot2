@@ -21,7 +21,7 @@ test_that("midpoints are transformed", {
   ans <- scale$rescale(c(0, 3), c(0.25, 1))
 
   expect_warning(
-    scale_colour_gradient2(midpoint = 0, trans = "log10"),
+    scale_colour_gradient2(midpoint = 0, transform = "log10"),
     "introduced infinite values"
   )
 })
