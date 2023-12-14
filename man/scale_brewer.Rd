@@ -13,6 +13,7 @@
 \title{Sequential, diverging and qualitative colour scales from ColorBrewer}
 \usage{
 scale_colour_brewer(
+  name = waiver(),
   ...,
   type = "seq",
   palette = 1,
@@ -21,6 +22,7 @@ scale_colour_brewer(
 )
 
 scale_fill_brewer(
+  name = waiver(),
   ...,
   type = "seq",
   palette = 1,
@@ -29,6 +31,7 @@ scale_fill_brewer(
 )
 
 scale_colour_distiller(
+  name = waiver(),
   ...,
   type = "seq",
   palette = 1,
@@ -41,6 +44,7 @@ scale_colour_distiller(
 )
 
 scale_fill_distiller(
+  name = waiver(),
   ...,
   type = "seq",
   palette = 1,
@@ -53,6 +57,7 @@ scale_fill_distiller(
 )
 
 scale_colour_fermenter(
+  name = waiver(),
   ...,
   type = "seq",
   palette = 1,
@@ -63,6 +68,7 @@ scale_colour_fermenter(
 )
 
 scale_fill_fermenter(
+  name = waiver(),
   ...,
   type = "seq",
   palette = 1,
@@ -73,6 +79,11 @@ scale_fill_fermenter(
 )
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}}, \code{\link[=continuous_scale]{continuous_scale()}},
 or \code{\link[=binned_scale]{binned_scale()}}, for \code{brewer}, \code{distiller}, and \code{fermenter} variants
 respectively, to control name, limits, breaks, labels and so forth.}

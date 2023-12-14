@@ -13,6 +13,7 @@
 \title{Binned gradient colour scales}
 \usage{
 scale_colour_steps(
+  name = waiver(),
   ...,
   low = "#132B43",
   high = "#56B1F7",
@@ -23,6 +24,7 @@ scale_colour_steps(
 )
 
 scale_colour_steps2(
+  name = waiver(),
   ...,
   low = muted("red"),
   mid = "white",
@@ -36,6 +38,7 @@ scale_colour_steps2(
 )
 
 scale_colour_stepsn(
+  name = waiver(),
   ...,
   colours,
   values = NULL,
@@ -47,6 +50,7 @@ scale_colour_stepsn(
 )
 
 scale_fill_steps(
+  name = waiver(),
   ...,
   low = "#132B43",
   high = "#56B1F7",
@@ -57,6 +61,7 @@ scale_fill_steps(
 )
 
 scale_fill_steps2(
+  name = waiver(),
   ...,
   low = muted("red"),
   mid = "white",
@@ -70,6 +75,7 @@ scale_fill_steps2(
 )
 
 scale_fill_stepsn(
+  name = waiver(),
   ...,
   colours,
   values = NULL,
@@ -81,6 +87,11 @@ scale_fill_stepsn(
 )
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{
   Arguments passed on to \code{\link[=binned_scale]{binned_scale}}
   \describe{
@@ -97,10 +108,6 @@ means that values at break positions are part of the lower bin (open on the
 left), whereas they are part of the upper bin when intervals are closed on
 the left (open on the right).}
     \item{\code{show.limits}}{should the limits of the scale appear as ticks}
-    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
-\code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If \code{NULL}, the legend title will be
-omitted.}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks

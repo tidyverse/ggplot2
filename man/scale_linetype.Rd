@@ -7,15 +7,20 @@
 \alias{scale_linetype_discrete}
 \title{Scale for line patterns}
 \usage{
-scale_linetype(..., na.value = "blank")
+scale_linetype(name = waiver(), ..., na.value = "blank")
 
-scale_linetype_binned(..., na.value = "blank")
+scale_linetype_binned(name = waiver(), ..., na.value = "blank")
 
 scale_linetype_continuous(...)
 
-scale_linetype_discrete(..., na.value = "blank")
+scale_linetype_discrete(name = waiver(), ..., na.value = "blank")
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{
   Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
   \describe{
@@ -49,10 +54,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
 that should be used for error messages associated with this scale.}
-    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
-\code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If \code{NULL}, the legend title will be
-omitted.}
     \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels

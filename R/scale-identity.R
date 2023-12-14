@@ -21,6 +21,7 @@
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @param guide Guide to use for this scale. Defaults to `"none"`.
+#' @inheritParams continuous_scale
 #' @family colour scales
 #' @examples
 #' ggplot(luv_colours, aes(u, v)) +

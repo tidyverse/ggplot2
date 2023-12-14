@@ -10,6 +10,7 @@
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
 #' @inheritParams scales::pal_hue
+#' @inheritParams discrete_scale
 #' @rdname scale_hue
 #' @export
 #' @family colour scales

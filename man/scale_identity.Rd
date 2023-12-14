@@ -13,25 +13,35 @@
 \alias{scale_color_identity}
 \title{Use values without scaling}
 \usage{
-scale_colour_identity(..., guide = "none", aesthetics = "colour")
+scale_colour_identity(
+  name = waiver(),
+  ...,
+  guide = "none",
+  aesthetics = "colour"
+)
 
-scale_fill_identity(..., guide = "none", aesthetics = "fill")
+scale_fill_identity(name = waiver(), ..., guide = "none", aesthetics = "fill")
 
-scale_shape_identity(..., guide = "none")
+scale_shape_identity(name = waiver(), ..., guide = "none")
 
-scale_linetype_identity(..., guide = "none")
+scale_linetype_identity(name = waiver(), ..., guide = "none")
 
-scale_linewidth_identity(..., guide = "none")
+scale_linewidth_identity(name = waiver(), ..., guide = "none")
 
-scale_alpha_identity(..., guide = "none")
+scale_alpha_identity(name = waiver(), ..., guide = "none")
 
-scale_size_identity(..., guide = "none")
+scale_size_identity(name = waiver(), ..., guide = "none")
 
-scale_discrete_identity(aesthetics, ..., guide = "none")
+scale_discrete_identity(aesthetics, name = waiver(), ..., guide = "none")
 
-scale_continuous_identity(aesthetics, ..., guide = "none")
+scale_continuous_identity(aesthetics, name = waiver(), ..., guide = "none")
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
 \code{\link[=continuous_scale]{continuous_scale()}}}
 
