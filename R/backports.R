@@ -52,6 +52,9 @@ version_unavailable <- function(...) {
 viewport <- function(..., mask) grid::viewport(...)
 pattern  <- version_unavailable
 as.mask  <- version_unavailable
+# Unavailable prior to R 4.1.0
+linearGradient <- version_unavailable
+
 on_load({
   if ("mask" %in% fn_fmls_names(grid::viewport)) {
     viewport <- grid::viewport
@@ -63,5 +66,7 @@ on_load({
   if ("as.mask" %in% getNamespaceExports("grid")) {
     as.mask <- grid::as.mask
   }
+  if ("linearGradient" %in% getNamespaceExports("grid")) {
+    linearGradient <- grid::linearGradient()
+  }
 })
-

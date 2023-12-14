@@ -900,7 +900,7 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red colorbar, long thick black ticks, green frame",
+  expect_doppelganger("white-to-red semitransparent colorbar, long thick black ticks, green frame",
     p + scale_color_gradient(
       low = 'white', high = 'red',
       guide = guide_colorbar(
@@ -908,7 +908,7 @@ test_that("colorbar can be styled", {
           legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
           legend.ticks = element_line("black", linewidth = 2.5 / .pt),
           legend.ticks.length = unit(0.4, "npc")
-        )
+        ), alpha = 0.75
       )
     )
   )
@@ -977,8 +977,9 @@ test_that("coloursteps guide can be styled correctly", {
   expect_doppelganger("guide_coloursteps can have bins relative to binsize",
     p + guides(colour = guide_coloursteps(even.steps = FALSE))
   )
-  expect_doppelganger("guide_bins can show ticks",
+  expect_doppelganger("guide_bins can show ticks and transparancy",
     p + guides(colour = guide_coloursteps(
+      alpha = 0.75,
       theme = theme(legend.ticks = element_line(linewidth = 0.5 / .pt, colour = "white"))
     ))
   )

@@ -8,8 +8,10 @@
 guide_colourbar(
   title = waiver(),
   theme = NULL,
-  nbin = 300,
-  raster = TRUE,
+  nbin = NULL,
+  display = "raster",
+  raster = deprecated(),
+  alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
   position = NULL,
@@ -23,8 +25,10 @@ guide_colourbar(
 guide_colorbar(
   title = waiver(),
   theme = NULL,
-  nbin = 300,
-  raster = TRUE,
+  nbin = NULL,
+  display = "raster",
+  raster = deprecated(),
+  alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
   position = NULL,
@@ -48,10 +52,24 @@ guide overrides, and is combined with, the plot's theme.}
 \item{nbin}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
 
-\item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
-raster object. If \code{FALSE} then the colourbar is rendered as a set of
-rectangles. Note that not all graphics devices are capable of rendering
-raster image.}
+\item{display}{A string indicating a method to display the colourbar. Can be
+one of the following:
+\itemize{
+\item \code{"raster"} to display as a bitmap image.
+\item \code{"rectangles"} to display as a series of rectangles.
+\item \code{"gradient"} to display as a linear gradient.
+}
+
+Note that not all devices are able to render rasters and gradients.}
+
+\item{raster}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}  A logical. If \code{TRUE} then
+the colourbar is rendered as a raster object. If \code{FALSE} then the colourbar
+is rendered as a set of rectangles. Note that not all graphics devices are
+capable of rendering raster image.}
+
+\item{alpha}{A numeric between 0 and 1 setting the colour transparency of
+the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
+(default).}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
 be visible.}

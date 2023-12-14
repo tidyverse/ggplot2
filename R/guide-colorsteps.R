@@ -46,6 +46,7 @@
 guide_coloursteps <- function(
   title = waiver(),
   theme = NULL,
+  alpha = NA,
   even.steps  = TRUE,
   show.limits = NULL,
   direction = NULL,
@@ -56,10 +57,12 @@ guide_coloursteps <- function(
 ) {
 
   theme <- deprecated_guide_args(theme, ...)
+  check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
 
   new_guide(
     title = title,
     theme = theme,
+    alpha = alpha,
     even.steps  = even.steps,
     show.limits = show.limits,
     direction = direction,
@@ -120,11 +123,11 @@ GuideColoursteps <- ggproto(
 
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
-                           nbin = 100, ...) {
+                           nbin = 100, alpha = NA,...) {
     if (even.steps) {
       bin_at <- attr(key, "bin_at", TRUE)
       bar <- data_frame0(
-        colour = scale$map(bin_at),
+        colour = alpha(scale$map(bin_at), alpha),
         min    = seq_along(bin_at) - 1,
         max    = seq_along(bin_at),
         .size  = length(bin_at)
@@ -134,7 +137,7 @@ GuideColoursteps <- ggproto(
       n <- length(breaks)
       bin_at <- (breaks[-1] + breaks[-n]) / 2
       bar <- data_frame0(
-        colour = scale$map(bin_at),
+        colour = alpha(scale$map(bin_at), alpha),
         min    = head(breaks, -1),
         max    = tail(breaks, -1),
         .size  = length(bin_at)
