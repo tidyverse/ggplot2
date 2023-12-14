@@ -17,8 +17,51 @@ if (getRversion() < "3.3") {
 
 on_load(backport_unit_methods())
 
+unitType <- function(x) {
+  unit <- attr(x, "unit")
+  if (!is.null(unit)) {
+    return(unit)
+  }
+  if (is.list(x) && is.unit(x[[1]])) {
+    unit <- vapply(x, unitType, character(1))
+    return(unit)
+  } else if ("fname" %in% names(x)) {
+    return(x$fname)
+  }
+  rep("", length(x)) # we're only interested in simple units for now
+}
+
+on_load({
+  if ("unitType" %in% getNamespaceExports("grid")) {
+    unitType <- grid::unitType
+  }
+})
+
 # isFALSE() and isTRUE() are available on R (>=3.5)
 if (getRversion() < "3.5") {
   isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
   isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) &&  x
 }
+
+version_unavailable <- function(...) {
+  fun <- as_label(current_call()[[1]])
+  cli::cli_abort("{.fn {fun}} is not available in R version {getRversion()}.")
+}
+
+# Ignore mask argument if on lower R version (<= 4.1)
+viewport <- function(..., mask) grid::viewport(...)
+pattern  <- version_unavailable
+as.mask  <- version_unavailable
+on_load({
+  if ("mask" %in% fn_fmls_names(grid::viewport)) {
+    viewport <- grid::viewport
+  }
+  # Replace version unavailable functions if found
+  if ("pattern" %in% getNamespaceExports("grid")) {
+    pattern <- grid::pattern
+  }
+  if ("as.mask" %in% getNamespaceExports("grid")) {
+    as.mask <- grid::as.mask
+  }
+})
+

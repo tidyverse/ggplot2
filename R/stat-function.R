@@ -66,7 +66,7 @@ StatFunction <- ggproto("StatFunction", Stat,
       } else {
         # For continuous scales, need to back transform from transformed range
         # to original values
-        x_trans <- scales$x$trans$inverse(xseq)
+        x_trans <- scales$x$transformation$inverse(xseq)
       }
     }
 
@@ -75,7 +75,7 @@ StatFunction <- ggproto("StatFunction", Stat,
     y_out <- inject(fun(x_trans, !!!args))
     if (!is.null(scales$y) && !scales$y$is_discrete()) {
       # For continuous scales, need to apply transform
-      y_out <- scales$y$trans$transform(y_out)
+      y_out <- scales$y$transformation$transform(y_out)
     }
 
     data_frame0(x = xseq, y = y_out)

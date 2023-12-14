@@ -6,6 +6,13 @@ test_that("dollar subsetting the theme does no partial matching", {
   expect_equal(t$foobar, 12)
 })
 
+test_that("theme argument splicing works", {
+  l <- list(a = 10, b = "c", d = c("foo", "bar"))
+  test <- theme(!!!l)
+  ref  <- theme(a = 10, b = "c", d = c("foo", "bar"))
+  expect_equal(test, ref)
+})
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works
@@ -736,6 +743,38 @@ test_that("plot titles and caption can be aligned to entire plot", {
 
 })
 
+test_that("Legends can on all sides of the plot with custom justification", {
+
+  plot <- ggplot(mtcars) +
+    aes(
+      disp, mpg,
+      colour = hp,
+      fill   = factor(gear),
+      shape  = factor(cyl),
+      size   = drat,
+      alpha = wt
+    ) +
+    geom_point() +
+    guides(
+      shape  = guide_legend(position = "top"),
+      colour = guide_colourbar(position = "bottom"),
+      size   = guide_legend(position = "left"),
+      alpha  = guide_legend(position = "right"),
+      fill   = guide_legend(position = "inside", override.aes = list(shape = 21))
+    ) +
+    theme_test() +
+    theme(
+      legend.justification.top    = "left",
+      legend.justification.bottom = c(1, 0),
+      legend.justification.left   = c(0, 1),
+      legend.justification.right  = "bottom",
+      legend.justification.inside = c(0.75, 0.75),
+      legend.location = "plot"
+    )
+
+  expect_doppelganger("legends at all sides with justification", plot)
+})
+
 test_that("Strips can render custom elements", {
   element_test <- function(...) {
     el <- element_text(...)
@@ -753,4 +792,37 @@ test_that("Strips can render custom elements", {
     facet_wrap(~a) +
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
+})
+
+test_that("legend margins are correct when using relative key sizes", {
+
+  df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
+  p <- ggplot(df, aes(x, y, colour = x, shape = a)) +
+    geom_point() +
+    theme_test() +
+    theme(
+      legend.box.background = element_rect(colour = "blue", fill = NA),
+      legend.background = element_rect(colour = "red", fill = NA)
+    )
+
+  vertical <- p + guides(
+    colour = guide_colourbar(theme = theme(legend.key.height = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.height = unit(1/3, "null")))
+  ) + theme(
+    legend.box.margin = margin(t = 5, b = 10, unit = "mm"),
+    legend.margin = margin(t = 10, b = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched vertical legends", vertical)
+
+  horizontal <- p + guides(
+    colour = guide_colourbar(theme = theme(legend.key.width = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.width = unit(1/3, "null")))
+  ) + theme(
+    legend.position = "top",
+    legend.box.margin = margin(l = 5, r = 10, unit = "mm"),
+    legend.margin = margin(l = 10, r = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched horizontal legends", horizontal)
 })

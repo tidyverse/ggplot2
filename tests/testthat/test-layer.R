@@ -26,10 +26,13 @@ test_that("unknown aesthetics create warning", {
 })
 
 test_that("invalid aesthetics throws errors", {
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
-  expect_snapshot_error(ggplot_build(p))
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
-  expect_snapshot_error(ggplot_build(p))
+  # We want to test error and ignore the scale search message
+  suppressMessages({
+    p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
+    expect_snapshot_error(ggplot_build(p))
+    p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
+    expect_snapshot_error(ggplot_build(p))
+  })
 })
 
 test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
@@ -57,8 +60,12 @@ test_that("missing aesthetics trigger informative error", {
 
 test_that("function aesthetics are wrapped with after_stat()", {
   df <- data_frame(x = 1:10)
-  expect_snapshot_error(
-    ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point())
+  suppressMessages(
+    expect_snapshot_error(
+      ggplot_build(
+        ggplot(df, aes(colour = density, fill = density)) + geom_point()
+      )
+    )
   )
 })
 

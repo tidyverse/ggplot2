@@ -93,7 +93,7 @@ scale_colour_continuous <- function(...,
   } else {
     cli::cli_abort(c(
       "Unknown scale type: {.val {type}}",
-      "i" = "Use either {.val gradient} or {.val viridis}"
+      "i" = "Use either {.val gradient} or {.val viridis}."
     ))
   }
 }
@@ -118,7 +118,7 @@ scale_fill_continuous <- function(...,
   } else {
     cli::cli_abort(c(
       "Unknown scale type: {.val {type}}",
-      "i" = "Use either {.val gradient} or {.val viridis}"
+      "i" = "Use either {.val gradient} or {.val viridis}."
     ))
   }
 }
@@ -151,7 +151,7 @@ scale_colour_binned <- function(...,
     } else {
       cli::cli_abort(c(
         "Unknown scale type: {.val {type}}",
-        "i" = "Use either {.val gradient} or {.val viridis}"
+        "i" = "Use either {.val gradient} or {.val viridis}."
       ))
     }
   }
@@ -185,7 +185,7 @@ scale_fill_binned <- function(...,
     } else {
       cli::cli_abort(c(
         "Unknown scale type: {.val {type}}",
-        "i" = "Use either {.val gradient} or {.val viridis}"
+        "i" = "Use either {.val gradient} or {.val viridis}."
       ))
     }
   }
@@ -204,7 +204,7 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
   if (!isTRUE(aesthetic %in% scale$aesthetics)) {
     cli::cli_abort(c(
       "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
-      "x" = "The provided scale works with the following aesthetics: {.field {scale$aesthetics}}"
+      "x" = "The provided scale works with the following aesthetics: {.field {scale$aesthetics}}."
     ), call = call)
   }
   if (isTRUE(scale$is_discrete()) != scale_is_discrete) {
