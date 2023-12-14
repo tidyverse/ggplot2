@@ -99,28 +99,40 @@ These scales will not produce a legend unless you also supply the <code>breaks</
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_colour_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span>, aesthetics <span class="op">=</span> <span class="st">"colour"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_colour_identity</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"colour"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_fill_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span>, aesthetics <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span></span>
+<span><span class="fu">scale_fill_identity</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span>, aesthetics <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_shape_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu">scale_shape_identity</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_linetype_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu">scale_linetype_identity</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_linewidth_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu">scale_linewidth_identity</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_alpha_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu">scale_alpha_identity</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_size_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu">scale_size_identity</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_discrete_identity</span><span class="op">(</span><span class="va">aesthetics</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu">scale_discrete_identity</span><span class="op">(</span><span class="va">aesthetics</span>, name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_continuous_identity</span><span class="op">(</span><span class="va">aesthetics</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">scale_continuous_identity</span><span class="op">(</span><span class="va">aesthetics</span>, name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>...</dt>
+    <dl><dt>name</dt>
+<dd><p>The name of the scale. Used as the axis or legend title. If
+<code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
+omitted.</p></dd>
+
+
+<dt>...</dt>
 <dd><p>Other arguments passed on to <code><a href="discrete_scale.html">discrete_scale()</a></code> or
 <code><a href="continuous_scale.html">continuous_scale()</a></code></p></dd>
 

@@ -100,6 +100,7 @@ with common forms of colour blindness. See also
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_colour_viridis_d</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  begin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -110,6 +111,7 @@ with common forms of colour blindness. See also
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_fill_viridis_d</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  begin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -120,6 +122,7 @@ with common forms of colour blindness. See also
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_colour_viridis_c</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  begin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -134,6 +137,7 @@ with common forms of colour blindness. See also
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_fill_viridis_c</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  begin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -148,6 +152,7 @@ with common forms of colour blindness. See also
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_colour_viridis_b</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  begin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -162,6 +167,7 @@ with common forms of colour blindness. See also
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_fill_viridis_b</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  begin <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -178,7 +184,14 @@ with common forms of colour blindness. See also
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>...</dt>
+    <dl><dt>name</dt>
+<dd><p>The name of the scale. Used as the axis or legend title. If
+<code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
+omitted.</p></dd>
+
+
+<dt>...</dt>
 <dd><p>Other arguments passed on to <code><a href="discrete_scale.html">discrete_scale()</a></code>,
 <code><a href="continuous_scale.html">continuous_scale()</a></code>, or <code><a href="binned_scale.html">binned_scale()</a></code> to control name, limits, breaks,
 labels and so forth.</p></dd>

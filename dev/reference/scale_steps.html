@@ -103,6 +103,7 @@ works in the same way.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_colour_steps</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  low <span class="op">=</span> <span class="st">"#132B43"</span>,</span>
 <span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
@@ -113,6 +114,7 @@ works in the same way.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_colour_steps2</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  low <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>,</span>
 <span>  mid <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -126,6 +128,7 @@ works in the same way.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_colour_stepsn</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">colours</span>,</span>
 <span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -137,6 +140,7 @@ works in the same way.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_fill_steps</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  low <span class="op">=</span> <span class="st">"#132B43"</span>,</span>
 <span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
@@ -147,6 +151,7 @@ works in the same way.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_fill_steps2</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  low <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>,</span>
 <span>  mid <span class="op">=</span> <span class="st">"white"</span>,</span>
@@ -160,6 +165,7 @@ works in the same way.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_fill_stepsn</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">colours</span>,</span>
 <span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -173,7 +179,14 @@ works in the same way.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>...</dt>
+    <dl><dt>name</dt>
+<dd><p>The name of the scale. Used as the axis or legend title. If
+<code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
+omitted.</p></dd>
+
+
+<dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="binned_scale.html">binned_scale</a></code></p><dl><dt><code>n.breaks</code></dt>
 <dd><p>The number of break points to create if breaks are not given
 directly.</p></dd>
@@ -194,12 +207,6 @@ the left (open on the right).</p></dd>
 
     <dt><code>show.limits</code></dt>
 <dd><p>should the limits of the scale appear as ticks</p></dd>
-
-    <dt><code>name</code></dt>
-<dd><p>The name of the scale. Used as the axis or legend title. If
-<code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
-omitted.</p></dd>
 
     <dt><code>breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
