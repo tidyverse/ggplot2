@@ -196,7 +196,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       return()
     }
 
-    transformation <- scale$transformation %||% scale$trans
+    transformation <- scale$get_transformation()
     along_range <- seq(range[1], range[2], length.out = self$detail)
     old_range <- transformation$inverse(along_range)
 
@@ -215,7 +215,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     self$mono_test(scale)
 
     # Get scale's original range before transformation
-    transformation <- scale$transformation %||% scale$trans
+    transformation <- scale$get_transformation()
     along_range <- seq(range[1], range[2], length.out = self$detail)
     old_range <- transformation$inverse(along_range)
 

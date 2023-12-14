@@ -156,7 +156,7 @@ GuideAxisLogticks <- ggproto(
       }
       transformation <- transform_log(base = params$prescale_base)
     } else {
-      transformation <- scale$scale$transformation %||% scale$scale$trans
+      transformation <- scale$get_transformation()
     }
 
     # Reconstruct original range

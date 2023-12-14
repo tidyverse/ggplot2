@@ -190,7 +190,7 @@ transform_value <- function(trans, value, range) {
 # TODO: can we merge this with view_scales_from_scale()?
 view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
-  transformation <- scale$transformation %||% scale$trans %||% transform_identity()
+  transformation <- scale$get_transformation() %||% transform_identity()
   coord_limits <- coord_limits %||% transformation$inverse(c(NA, NA))
   scale_limits <- scale$get_limits()
 

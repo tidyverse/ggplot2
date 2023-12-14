@@ -605,10 +605,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 }
 
 default_transform <- function(self, x) {
-  if (!is.null(self$trans)) {
-    deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
-  }
-  transformation <- self$transformation %||% self$trans
+  transformation <- self$get_transformation()
   new_x <- transformation$transform(x)
   check_transformation(x, new_x, self$transformation$name, self$call)
   new_x
@@ -679,7 +676,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (is.null(self$limits)) {
       self$range$range
     } else if (is.function(self$limits)) {
-      transformation <- self$transformation %||% self$trans
+      transformation <- self$get_transformation()
       # if limits is a function, it expects to work in data space
       transformation$transform(self$limits(transformation$inverse(self$range$range)))
     } else {
@@ -696,7 +693,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (self$is_empty()) {
       return(numeric())
     }
-    transformation <- self$transformation %||% self$trans
+    transformation <- self$get_transformation()
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(transformation$transform(transformation$domain))
     domain <- sort(domain)
@@ -764,7 +761,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # some transforms assume finite major breaks
     b <- b[is.finite(b)]
 
-    transformation <- self$transformation %||% self$trans
+    transformation <- self$get_transformation()
     if (is.waive(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
@@ -798,7 +795,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(NULL)
     }
 
-    transformation <- self$transformation %||% self$trans
+    transformation <- self$get_transformation()
     breaks <- transformation$inverse(breaks)
 
     if (is.null(self$labels)) {
@@ -1166,7 +1163,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
-    transformation <- self$transformation %||% self$trans
+    transformation <- self$get_transformation()
 
     limits <- transformation$inverse(limits)
     is_rev <- limits[2] < limits[1]
@@ -1259,7 +1256,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_labels = function(self, breaks = self$get_breaks()) {
     if (is.null(breaks)) return(NULL)
 
-    transformation <- self$transformation %||% self$trans
+    transformation <- self$get_transformation()
     breaks <- transformation$inverse(breaks)
 
     if (is.null(self$labels)) {
