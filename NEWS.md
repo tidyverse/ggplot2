@@ -1,7 +1,8 @@
 # ggplot2 (development version)
 
-* The `guide_data()` function can be used to extract position and label
+* The `get_guide_data()` function can be used to extract position and label
   information from the plot (#5004).
+  
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
   transformation from the scale, a new `get_transformation()` method is 

@@ -745,7 +745,7 @@ Guides <- ggproto(
 
 #' Extract tick information from guides
 #'
-#' `guide_data()` builds a plot and extracts information from guide keys. This
+#' `get_guide_data()` builds a plot and extracts information from guide keys. This
 #' information typically contains positions, values and/or labels, depending
 #' on which aesthetic is queried or guide is used.
 #'
@@ -774,19 +774,19 @@ Guides <- ggproto(
 #'   facet_wrap(vars(cyl), scales = "free_x")
 #'
 #' # Guide information for legends
-#' guide_data(p, "size")
+#' get_guide_data(p, "size")
 #'
 #' # Note that legend guides can be merged
 #' merged <- p + guides(colour = "legend")
-#' guide_data(merged, "size")
+#' get_guide_data(merged, "size")
 #'
 #' # Guide information for positions
-#' guide_data(p, "x", i = 1, j = 2)
+#' get_guide_data(p, "x", i = 1, j = 2)
 #'
 #' # Coord polar doesn't support proper guides, so we get a list
 #' polar <- p + coord_polar()
-#' guide_data(polar, "theta", i = 1, j = 2)
-guide_data <- function(plot = last_plot(), aesthetic, i = 1L, j = 1L) {
+#' get_guide_data(polar, "theta", i = 1, j = 2)
+get_guide_data <- function(plot = last_plot(), aesthetic, i = 1L, j = 1L) {
 
   check_string(aesthetic, allow_empty = FALSE)
   aesthetic <- standardise_aes_names(aesthetic)
