@@ -1,3 +1,6 @@
+#' @include theme-elements.R
+NULL
+
 #' Guide constructor
 #'
 #' A constructor function for guides, which performs some standard compatibility
@@ -25,13 +28,8 @@ new_guide <- function(..., available_aes = "any", super) {
   params <- intersect(names(args), param_names)
   params <- defaults(args[params], super$params)
 
-  # Set elements
-  elems_names <- names(super$elements)
-  elems  <- intersect(names(args), elems_names)
-  elems  <- defaults(args[elems], super$elements)
-
   # Warn about extra arguments
-  extra_args <- setdiff(names(args), union(param_names, elems_names))
+  extra_args <- setdiff(names(args), param_names)
   if (length(extra_args) > 0) {
     cli::cli_warn(paste0(
       "Ignoring unknown {cli::qty(extra_args)} argument{?s} to ",
@@ -50,14 +48,20 @@ new_guide <- function(..., available_aes = "any", super) {
     ))
   }
 
+  # Validate theme settings
+  if (!is.null(params$theme)) {
+    check_object(params$theme, is.theme, what = "a {.cls theme} object")
+    validate_theme(params$theme)
+    params$direction <- params$direction %||% params$theme$legend.direction
+  }
+
   # Ensure 'order' is length 1 integer
   params$order <- vec_cast(params$order, 0L, x_arg = "order", call = pf)
   vec_assert(params$order, 0L, size = 1L, arg = "order", call = pf)
 
   ggproto(
     NULL, super,
-    params   = params,
-    elements = elems,
+    params = params,
     available_aes = available_aes
   )
 }
@@ -162,6 +166,7 @@ Guide <- ggproto(
   #  `GuidesList` class.
   params = list(
     title     = waiver(),
+    theme     = NULL,
     name      = character(),
     position  = waiver(),
     direction = NULL,
@@ -275,6 +280,7 @@ Guide <- ggproto(
   # Converts the `elements` field to proper elements to be accepted by
   # `element_grob()`. String-interpolates aesthetic/position dependent elements.
   setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
     is_char  <- vapply(elements, is.character, logical(1))
     elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements
@@ -294,8 +300,7 @@ Guide <- ggproto(
     key <- params$key
 
     # Setup parameters and theme
-    params$position  <- params$position  %||% position
-    params$direction <- params$direction %||% direction
+    params <- replace_null(params, position = position, direction = direction)
     params <- self$setup_params(params)
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)

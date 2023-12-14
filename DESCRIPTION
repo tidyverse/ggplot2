@@ -18,6 +18,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-3385-7233")),
     person("Dewey", "Dunnington", role = "aut",
            comment = c(ORCID = "0000-0002-9415-4582")),
+    person("Teun", "van den Brand", role = "aut",
+           comment = c(ORCID = "0000-0002-9335-7468")),
     person("Posit, PBC", role = c("cph", "fnd"))
   )
 Description: A system for 'declaratively' creating graphics, based on "The
@@ -173,6 +175,7 @@ Collate:
     'grob-dotstack.R'
     'grob-null.R'
     'grouping.R'
+    'theme-elements.R'
     'guide-.R'
     'guide-axis.R'
     'guide-axis-logticks.R'
@@ -267,7 +270,6 @@ Collate:
     'stat-ydensity.R'
     'summarise-plot.R'
     'summary.R'
-    'theme-elements.R'
     'theme.R'
     'theme-defaults.R'
     'theme-current.R'
