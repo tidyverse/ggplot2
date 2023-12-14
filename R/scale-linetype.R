@@ -33,15 +33,24 @@
 #'   scale_linetype_identity() +
 #'   facet_grid(linetype ~ .) +
 #'   theme_void(20)
-scale_linetype <- function(..., na.value = "blank") {
-  discrete_scale("linetype", palette = pal_linetype(),
-    na.value = na.value, ...)
+scale_linetype <- function(name = waiver(), ..., na.value = "blank") {
+  discrete_scale(
+    "linetype", name = name,
+    palette = pal_linetype(),
+    na.value = na.value,
+    ...
+  )
 }
 
 #' @rdname scale_linetype
 #' @export
-scale_linetype_binned <- function(..., na.value = "blank") {
-  binned_scale("linetype", palette = pal_binned(pal_linetype()), ...)
+scale_linetype_binned <- function(name = waiver(), ..., na.value = "blank") {
+  binned_scale(
+    "linetype", name = name,
+    palette = pal_binned(pal_linetype()),
+    na.value = na.value,
+    ...
+  )
 }
 
 #' @rdname scale_linetype

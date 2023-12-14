@@ -53,18 +53,26 @@
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_hue(na.value = "black")
 #' }
-scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                             direction = 1, na.value = "grey50", aesthetics = "colour") {
-  discrete_scale(aesthetics, palette = pal_hue(h, c, l, h.start, direction),
-    na.value = na.value, ...)
+scale_colour_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
+                             l = 65, h.start = 0, direction = 1,
+                             na.value = "grey50", aesthetics = "colour") {
+  discrete_scale(
+    aesthetics, name = name,
+    palette = pal_hue(h, c, l, h.start, direction),
+    na.value = na.value, ...
+  )
 }
 
 #' @rdname scale_hue
 #' @export
-scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                           direction = 1, na.value = "grey50", aesthetics = "fill") {
-  discrete_scale(aesthetics, palette = pal_hue(h, c, l, h.start, direction),
-    na.value = na.value, ...)
+scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
+                           l = 65, h.start = 0, direction = 1,
+                           na.value = "grey50", aesthetics = "fill") {
+  discrete_scale(
+    aesthetics, name = name,
+    palette = pal_hue(h, c, l, h.start, direction),
+    na.value = na.value, ...
+  )
 }
 
 
@@ -165,18 +173,25 @@ scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) 
   }
 }
 
-scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                     direction = 1, na.value = "grey50", aesthetics = "colour") {
+scale_colour_qualitative <- function(name = waiver(), ..., type = NULL,
+                                     h = c(0, 360) + 15, c = 100, l = 65,
+                                     h.start = 0, direction = 1,
+                                     na.value = "grey50",
+                                     aesthetics = "colour") {
   discrete_scale(
-    aesthetics, palette = pal_qualitative(type, h, c, l, h.start, direction),
+    aesthetics, name = name,
+    palette = pal_qualitative(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
 
-scale_fill_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                   direction = 1, na.value = "grey50", aesthetics = "fill") {
+scale_fill_qualitative <- function(name = waiver(), ..., type = NULL,
+                                   h = c(0, 360) + 15, c = 100, l = 65,
+                                   h.start = 0, direction = 1,
+                                   na.value = "grey50", aesthetics = "fill") {
   discrete_scale(
-    aesthetics, palette = pal_qualitative(type, h, c, l, h.start, direction),
+    aesthetics, name = name,
+    palette = pal_qualitative(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
