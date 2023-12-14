@@ -353,8 +353,8 @@ test_that("legend directions are set correctly", {
 
 test_that("guide_axis_logticks calculates appropriate ticks", {
 
-  test_scale <- function(trans = transform_identity(), limits = c(NA, NA)) {
-    scale <- scale_x_continuous(trans = trans)
+  test_scale <- function(transform = transform_identity(), limits = c(NA, NA)) {
+    scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view_scale_primary(scale)
   }
@@ -662,8 +662,10 @@ test_that("logticks look as they should", {
 
   p <- ggplot(data.frame(x = c(-100, 100), y = c(10, 1000)), aes(x, y)) +
     geom_point() +
-    scale_y_continuous(trans = transform_compose(transform_log10(), transform_reverse()),
-                       expand = expansion(add = 0.5)) +
+    scale_y_continuous(
+      transform = transform_compose(transform_log10(), transform_reverse()),
+      expand = expansion(add = 0.5)
+    ) +
     scale_x_continuous(
       breaks = c(-100, -10, -1, 0, 1, 10, 100)
     ) +
@@ -898,7 +900,7 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red colorbar, long thick black ticks, green frame",
+  expect_doppelganger("white-to-red semitransparent colorbar, long thick black ticks, green frame",
     p + scale_color_gradient(
       low = 'white', high = 'red',
       guide = guide_colorbar(
@@ -906,7 +908,7 @@ test_that("colorbar can be styled", {
           legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
           legend.ticks = element_line("black", linewidth = 2.5 / .pt),
           legend.ticks.length = unit(0.4, "npc")
-        )
+        ), alpha = 0.75
       )
     )
   )
@@ -975,8 +977,9 @@ test_that("coloursteps guide can be styled correctly", {
   expect_doppelganger("guide_coloursteps can have bins relative to binsize",
     p + guides(colour = guide_coloursteps(even.steps = FALSE))
   )
-  expect_doppelganger("guide_bins can show ticks",
+  expect_doppelganger("guide_bins can show ticks and transparancy",
     p + guides(colour = guide_coloursteps(
+      alpha = 0.75,
       theme = theme(legend.ticks = element_line(linewidth = 0.5 / .pt, colour = "white"))
     ))
   )

@@ -16,7 +16,8 @@ scale_linewidth(
   labels = waiver(),
   limits = NULL,
   range = c(1, 6),
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = "legend"
 )
 
@@ -28,7 +29,8 @@ scale_linewidth_binned(
   range = c(1, 6),
   n.breaks = NULL,
   nice.breaks = TRUE,
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = "bins"
 )
 }
@@ -77,7 +79,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 \item{range}{a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.}
 
-\item{trans}{For continuous scales, the name of a transformation object
+\item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -85,10 +87,13 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans}. If
+are defined in the scales package, and are called \verb{transform_<name>}. If
 transformations require arguments, you can call them from the scales
 package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
 You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
+
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
+\code{transform}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}

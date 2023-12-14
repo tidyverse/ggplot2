@@ -109,7 +109,7 @@ p2 <- ggplot(data.frame(x = rcauchy(1000)), aes(x = x)) +
   geom_density() +
   scale_x_continuous(
     breaks = c(-10^(4:0), 0, 10^(0:4)),
-    trans = "pseudo_log"
+    transform = "pseudo_log"
   )
 
 # The log ticks are mirrored when 0 is included

@@ -111,10 +111,14 @@ test_that("oob affects position values", {
   }
   base + scale_y_continuous(limits = c(-0,5))
 
-  expect_warning(low_censor <- cdata(base + y_scale(c(0, 5), censor)),
+  low_censor <- cdata(base + y_scale(c(0, 5), censor))
+  mid_censor <- cdata(base + y_scale(c(3, 7), censor))
+  handle <- GeomBar$handle_na
+
+  expect_warning(low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
     "Removed 1 row containing missing values or values outside the scale range")
-  expect_warning(mid_censor <- cdata(base + y_scale(c(3, 7), censor)),
-    "Removed 2 rows containing missing values or values outside the scale range")
+  expect_warning(mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
+    "Removed 3 rows containing missing values or values outside the scale range")
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
@@ -127,7 +131,7 @@ test_that("oob affects position values", {
 
   # Bars depend on limits and oob
   expect_equal(low_censor[[1]]$y, c(0.2, 1))
-  expect_equal(mid_censor[[1]]$y, c(0.5))
+  expect_equal(mid_censor[[1]]$y, numeric(0))
   expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
   expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
 })
@@ -460,11 +464,11 @@ test_that("staged aesthetics are backtransformed properly (#4155)", {
 
 test_that("numeric scale transforms can produce breaks", {
 
-  test_breaks <- function(trans, limits) {
-    scale <- scale_x_continuous(trans = trans)
+  test_breaks <- function(transform, limits) {
+    scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view <- view_scale_primary(scale)
-    scale$trans$inverse(view$get_breaks())
+    scale$transformation$inverse(view$get_breaks())
   }
 
   expect_equal(test_breaks("asn", limits = c(0, 1)),
@@ -650,27 +654,27 @@ test_that("scale functions accurately report their calls", {
 
 test_that("scale call is found accurately", {
 
-  call_template <- quote(scale_x_continuous(trans = "log10"))
+  call_template <- quote(scale_x_continuous(transform = "log10"))
 
-  sc <- do.call("scale_x_continuous", list(trans = "log10"))
+  sc <- do.call("scale_x_continuous", list(transform = "log10"))
   expect_equal(sc$call, call_template)
 
-  sc <- inject(scale_x_continuous(!!!list(trans = "log10")))
+  sc <- inject(scale_x_continuous(!!!list(transform = "log10")))
   expect_equal(sc$call, call_template)
 
-  sc <- exec("scale_x_continuous", trans = "log10")
+  sc <- exec("scale_x_continuous", transform = "log10")
   expect_equal(sc$call, call_template)
 
-  foo <- function() scale_x_continuous(trans = "log10")
+  foo <- function() scale_x_continuous(transform = "log10")
   expect_equal(foo()$call, call_template)
 
   env <- new_environment()
-  env$bar <- function() scale_x_continuous(trans = "log10")
+  env$bar <- function() scale_x_continuous(transform = "log10")
   expect_equal(env$bar()$call, call_template)
 
   # Now should recognise the outer function
   scale_x_new <- function() {
-    scale_x_continuous(trans = "log10")
+    scale_x_continuous(transform = "log10")
   }
   expect_equal(
     scale_x_new()$call,

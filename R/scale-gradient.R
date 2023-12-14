@@ -90,37 +90,47 @@ scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = 
 }
 
 #' @inheritParams scales::pal_div_gradient
+#' @inheritParams continuous_scale
 #' @param midpoint The midpoint (in data value) of the diverging scale.
 #'   Defaults to 0.
 #' @rdname scale_gradient
 #' @export
 scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
-                                   midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar",
+                                   midpoint = 0, space = "Lab", na.value = "grey50",
+                                   transform = "identity", guide = "colourbar",
                                    aesthetics = "colour") {
   continuous_scale(
     aesthetics,
-    palette = pal_div_gradient(low, mid, high, space),
-    na.value = na.value, guide = guide, ...,
-    rescaler = mid_rescaler(mid = midpoint)
+    palette = div_gradient_pal(low, mid, high, space),
+    na.value = na.value, transform = transform, guide = guide, ...,
+    rescaler = mid_rescaler(mid = midpoint, transform = transform)
   )
 }
 
 #' @rdname scale_gradient
 #' @export
 scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
-                                 midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar",
+                                 midpoint = 0, space = "Lab", na.value = "grey50",
+                                 transform = "identity", guide = "colourbar",
                                  aesthetics = "fill") {
   continuous_scale(
     aesthetics,
-    palette = pal_div_gradient(low, mid, high, space),
-    na.value = na.value, guide = guide, ...,
-    rescaler = mid_rescaler(mid = midpoint)
+    palette = div_gradient_pal(low, mid, high, space),
+    na.value = na.value, transform = transform, guide = guide, ...,
+    rescaler = mid_rescaler(mid = midpoint, transform = transform)
   )
 }
 
-mid_rescaler <- function(mid) {
+mid_rescaler <- function(mid, transform = "identity",
+                         arg = caller_arg(mid), call = caller_env()) {
+  transform <- as.trans(transform)
+  trans_mid <- transform$transform(mid)
+  check_transformation(
+    mid, trans_mid, transform$name,
+    arg = arg, call = call
+  )
   function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
-    rescale_mid(x, to, from, mid)
+    rescale_mid(x, to, from, trans_mid)
   }
 }
 

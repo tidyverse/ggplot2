@@ -145,8 +145,9 @@ expand_limits_scale <- function(scale, expand = expansion(0, 0), limits = waiver
   } else {
     # using the inverse transform to resolve the NA value is needed for date/datetime/time
     # scales, which refuse to transform objects of the incorrect type
-    coord_limits <- coord_limits %||% scale$trans$inverse(c(NA_real_, NA_real_))
-    coord_limits_scale <- scale$trans$transform(coord_limits)
+    transformation <- scale$get_transformation()
+    coord_limits <- coord_limits %||% transformation$inverse(c(NA_real_, NA_real_))
+    coord_limits_scale <- transformation$transform(coord_limits)
     expand_limits_continuous(limits, expand, coord_limits_scale)
   }
 }

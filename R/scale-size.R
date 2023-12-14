@@ -51,10 +51,12 @@ NULL
 #' @usage NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
-                                  trans = "identity", guide = "legend") {
+                                  transform = "identity",
+                                  trans = deprecated(),
+                                  guide = "legend") {
   continuous_scale("size", palette = pal_area(range), name = name,
-    breaks = breaks, labels = labels, limits = limits, trans = trans,
-    guide = guide)
+    breaks = breaks, labels = labels, limits = limits,
+    transform = transform, trans = trans, guide = guide)
 }
 
 #' @rdname scale_size
@@ -65,20 +67,23 @@ scale_size <- scale_size_continuous
 #' @export
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
-                         trans = "identity", guide = "legend") {
+                         transform = "identity", trans = deprecated(),
+                         guide = "legend") {
   continuous_scale("size", palette = pal_rescale(range), name = name,
-    breaks = breaks, labels = labels, limits = limits, trans = trans,
-    guide = guide)
+    breaks = breaks, labels = labels, limits = limits, transform = transform,
+    trans = trans, guide = guide)
 }
 
 #' @rdname scale_size
 #' @export
 scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
-                              nice.breaks = TRUE, trans = "identity", guide = "bins") {
+                              nice.breaks = TRUE, transform = "identity",
+                              trans = deprecated(), guide = "bins") {
   binned_scale("size", palette = pal_area(range), name = name,
-               breaks = breaks, labels = labels, limits = limits, trans = trans,
-               n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
+               breaks = breaks, labels = labels, limits = limits,
+               transform = transform, trans = trans, n.breaks = n.breaks,
+               nice.breaks = nice.breaks, guide = guide)
 }
 
 #' @rdname scale_size

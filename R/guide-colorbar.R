@@ -17,10 +17,21 @@ NULL
 #' @inheritParams guide_legend
 #' @param nbin A numeric specifying the number of bins for drawing the
 #'   colourbar. A smoother colourbar results from a larger value.
-#' @param raster A logical. If `TRUE` then the colourbar is rendered as a
-#'   raster object. If `FALSE` then the colourbar is rendered as a set of
-#'   rectangles. Note that not all graphics devices are capable of rendering
-#'   raster image.
+#' @param display A string indicating a method to display the colourbar. Can be
+#'   one of the following:
+#'
+#'   * `"raster"` to display as a bitmap image.
+#'   * `"rectangles"` to display as a series of rectangles.
+#'   * `"gradient"` to display as a linear gradient.
+#'
+#'   Note that not all devices are able to render rasters and gradients.
+#' @param raster `r lifecycle::badge("deprecated")`  A logical. If `TRUE` then
+#'   the colourbar is rendered as a raster object. If `FALSE` then the colourbar
+#'   is rendered as a set of rectangles. Note that not all graphics devices are
+#'   capable of rendering raster image.
+#' @param alpha A numeric between 0 and 1 setting the colour transparency of
+#'   the bar. Use `NA` to preserve the alpha encoded in the colour itself
+#'   (default).
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -105,8 +116,10 @@ NULL
 guide_colourbar <- function(
   title = waiver(),
   theme = NULL,
-  nbin = 300,
-  raster = TRUE,
+  nbin = NULL,
+  display = "raster",
+  raster = deprecated(),
+  alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
   position = NULL,
@@ -116,17 +129,26 @@ guide_colourbar <- function(
   available_aes = c("colour", "color", "fill"),
   ...
 ) {
+  if (lifecycle::is_present(raster)) {
+    deprecate_soft0("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
+    check_bool(raster)
+    display <- if (raster) "raster" else "rectangles"
+  }
+  display <- arg_match0(display, c("raster", "rectangles", "gradient"))
+  nbin <- nbin %||% switch(display, gradient = 15, 300)
 
   theme <- deprecated_guide_args(theme, ...)
   if (!is.null(position)) {
     position <- arg_match0(position, c(.trbl, "inside"))
   }
+  check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
 
   new_guide(
     title = title,
     theme = theme,
     nbin = nbin,
-    raster = raster,
+    display = display,
+    alpha = alpha,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
     position = position,
     direction = direction,
@@ -161,7 +183,8 @@ GuideColourbar <- ggproto(
 
     # bar
     nbin = 300,
-    raster = TRUE,
+    display = "raster",
+    alpha = NA,
 
     draw_lim = c(TRUE, TRUE),
 
@@ -204,7 +227,7 @@ GuideColourbar <- ggproto(
     Guide$extract_key(scale, aesthetic, ...)
   },
 
-  extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, ...) {
+  extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, alpha = NA, ...) {
 
     limits <- scale$get_limits()
     bar <- seq(limits[1], limits[2], length.out = nbin)
@@ -212,7 +235,7 @@ GuideColourbar <- ggproto(
       bar <- unique0(limits)
     }
     bar <- data_frame0(
-      colour = scale$map(bar),
+      colour = alpha(scale$map(bar), alpha),
       value  = bar,
       .size  = length(bar)
     )
@@ -225,13 +248,13 @@ GuideColourbar <- ggproto(
   extract_params = function(scale, params,
                             title  = waiver(), ...) {
     params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
-
     limits <- params$decor$value[c(1L, nrow(params$decor))]
-    params$key$.value <- rescale(
-      params$key$.value,
-      c(0.5, params$nbin - 0.5) / params$nbin,
-      limits
+    to <- switch(
+      params$display,
+      gradient = c(0, 1),
+      c(0.5, params$nbin - 0.5) / params$nbin
     )
+    params$key$.value <- rescale(params$key$.value, to = to, from = limits)
     params
   },
 
@@ -321,8 +344,7 @@ GuideColourbar <- ggproto(
   },
 
   build_decor = function(decor, grobs, elements, params) {
-
-    if (params$raster) {
+    if (params$display == "raster") {
       image <- switch(
         params$direction,
         "horizontal" = t(decor$colour),
@@ -336,7 +358,7 @@ GuideColourbar <- ggproto(
         gp = gpar(col = NA),
         interpolate = TRUE
       )
-    } else{
+    } else if (params$display == "rectangles") {
       if (params$direction == "horizontal") {
         width  <- 1 / nrow(decor)
         height <- 1
@@ -355,6 +377,20 @@ GuideColourbar <- ggproto(
         default.units = "npc",
         gp = gpar(col = NA, fill = decor$colour)
       )
+    } else if (params$display == "gradient") {
+      check_device("gradients", call = expr(guide_colourbar()))
+      value <- if (isTRUE(params$reverse)) {
+        rescale(decor$value, to = c(1, 0))
+      } else {
+        rescale(decor$value, to = c(0, 1))
+      }
+      position <- switch(
+        params$direction,
+        horizontal = list(y1 = unit(0.5, "npc"), y2 = unit(0.5, "npc")),
+        vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
+      )
+      gradient <- inject(linearGradient(decor$colour, value, !!!position))
+      grob <- rectGrob(gp = gpar(fill = gradient, col = NA))
     }
 
     frame <- element_grob(elements$frame, fill = NA)
