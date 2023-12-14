@@ -3,6 +3,9 @@
 * The `name` argument in most scales is now explicitly the first argument 
   (#5535)
 
+* When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
+  now stacked from the y-position rather than from 0 (@teunbrand, #5462)
+
 * (breaking) In the `scale_{colour/fill}_gradient2()` and 
   `scale_{colour/fill}_steps2()` functions, the `midpoint` argument is 
   transformed by the scale transformation (#3198).
