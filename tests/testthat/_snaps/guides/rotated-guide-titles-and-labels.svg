@@ -79,11 +79,11 @@
 <polyline points='655.18,330.58 651.72,330.58 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='655.18,309.05 651.72,309.05 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='655.18,287.52 651.72,287.52 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<text transform='translate(672.37,373.63) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>5.0</text>
-<text transform='translate(672.37,352.10) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>7.5</text>
-<text transform='translate(672.37,330.58) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>10.0</text>
-<text transform='translate(672.37,309.05) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>12.5</text>
-<text transform='translate(672.37,287.52) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>15.0</text>
+<text transform='translate(676.31,373.63) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>5.0</text>
+<text transform='translate(676.31,352.10) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>7.5</text>
+<text transform='translate(676.31,330.58) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>10.0</text>
+<text transform='translate(676.31,309.05) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>12.5</text>
+<text transform='translate(676.31,287.52) rotate(-270)' text-anchor='middle' style='font-size: 8.80px; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>15.0</text>
 <text x='40.13' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='171.72px' lengthAdjust='spacingAndGlyphs'>rotated guide titles and labels</text>
 </g>
 </svg>

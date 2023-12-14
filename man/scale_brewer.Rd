@@ -145,7 +145,7 @@ d + scale_colour_brewer()
 # Change scale label
 d + scale_colour_brewer("Diamond\nclarity")
 
-# Select brewer palette to use, see ?scales::brewer_pal for more details
+# Select brewer palette to use, see ?scales::pal_brewer for more details
 d + scale_colour_brewer(palette = "Greens")
 d + scale_colour_brewer(palette = "Set1")
 

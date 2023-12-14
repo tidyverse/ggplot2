@@ -13,7 +13,7 @@ test_that("geom_quantile matches quantile regression", {
     y = x^2 + 0.5 * rnorm(10)
   )
 
-  ps <- ggplot(df, aes(x, y)) + geom_quantile()
+  ps <- ggplot(df, aes(x, y)) + geom_quantile(formula = y ~ x)
 
   quants <- c(0.25, 0.5, 0.75)
 

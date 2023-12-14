@@ -90,7 +90,7 @@ ScalesList <- ggproto("ScalesList", NULL,
     # to transform anything
     idx_skip <- vapply(self$scales, function(x) {
       has_default_transform(x) &&
-        (is.null(x$trans) || identical(x$trans$transform, identity))
+        (is.null(x$transformation) || identical(x$transformation$transform, identity))
     }, logical(1L))
     scales <- self$scales[!idx_skip]
 
@@ -114,7 +114,7 @@ ScalesList <- ggproto("ScalesList", NULL,
     # to transform anything
     idx_skip <- vapply(self$scales, function(x) {
       has_default_transform(x) &&
-        (is.null(x$trans) || identical(x$trans$transform, identity))
+        (is.null(x$transformation) || identical(x$transformation$transform, identity))
     }, logical(1))
     scales <- self$scales[!idx_skip]
 
@@ -129,7 +129,7 @@ ScalesList <- ggproto("ScalesList", NULL,
         if (length(aesthetics) == 0) {
           return()
         }
-        lapply(df[aesthetics], scale$trans$inverse)
+        lapply(df[aesthetics], scale$transformation$inverse)
       }
     ), recursive = FALSE)
 
