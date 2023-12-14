@@ -97,15 +97,17 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sec_axis</span><span class="op">(</span></span>
-<span>  trans <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  transform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  labels <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  guide <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  guide <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  trans <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dup_axis</span><span class="op">(</span></span>
-<span>  trans <span class="op">=</span> <span class="op">~</span><span class="va">.</span>,</span>
+<span>  transform <span class="op">=</span> <span class="op">~</span><span class="va">.</span>,</span>
+<span>  trans <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  name <span class="op">=</span> <span class="fu">derive</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu">derive</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  labels <span class="op">=</span> <span class="fu">derive</span><span class="op">(</span><span class="op">)</span>,</span>
@@ -117,7 +119,7 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>trans</dt>
+    <dl><dt>transform</dt>
 <dd><p>A formula or function of transformation</p></dd>
 
 
@@ -144,6 +146,10 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
 <dt>guide</dt>
 <dd><p>A position guide that will be used to render
 the axis on the plot. Usually this is <code><a href="guide_axis.html">guide_axis()</a></code>.</p></dd>
+
+
+<dt>trans</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p></dd>
 
 </dl></div>
     <div class="section level2">

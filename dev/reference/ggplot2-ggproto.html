@@ -402,7 +402,7 @@ the scale.</p></li>
 it has no information with which to calculate its <code>limits</code>).</p></li>
 <li><p><code>clone()</code> Returns a copy of the scale that can be trained
 independently without affecting the original scale.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform()</a></code> Transforms a vector of values using <code>self$trans</code>.
+<li><p><code><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform()</a></code> Transforms a vector of values using <code>self$transformation</code>.
 This occurs before the <code>Stat</code> is calculated.</p></li>
 <li><p><code>train()</code> Update the <code>self$range</code> of observed (transformed) data values with
 a vector of (possibly) new values.</p></li>
@@ -425,14 +425,15 @@ accept a data frame, and apply the <code>transform</code>, <code>train</code>, a
 based on the combination of <code>self$limits</code> and/or the range of observed values
 (<code>self$range</code>).</p></li>
 <li><p><code>get_breaks()</code> Calculates the final scale breaks in transformed data space
-based on on the combination of <code>self$breaks</code>, <code>self$trans$breaks()</code> (for
+based on on the combination of <code>self$breaks</code>, <code>self$transformation$breaks()</code> (for
 continuous scales), and <code>limits</code>. Breaks outside of <code>limits</code> are assigned
 a value of <code>NA</code> (continuous scales) or dropped (discrete scales).</p></li>
 <li><p><code>get_labels()</code> Calculates labels for a given set of (transformed) <code>breaks</code>
 based on the combination of <code>self$labels</code> and <code>breaks</code>.</p></li>
 <li><p><code>get_breaks_minor()</code> For continuous scales, calculates the final scale minor breaks
 in transformed data space based on the rescaled <code>breaks</code>, the value of <code>self$minor_breaks</code>,
-and the value of <code>self$trans$minor_breaks()</code>. Discrete scales always return <code>NULL</code>.</p></li>
+and the value of <code>self$transformation$minor_breaks()</code>. Discrete scales always return <code>NULL</code>.</p></li>
+<li><p><code>get_transformation()</code> Returns the scale's transformation object.</p></li>
 <li><p><code>make_title()</code> Hook to modify the title that is calculated during guide construction
 (for non-position scales) or when the <code>Layout</code> calculates the x and y labels
 (position scales).</p></li>

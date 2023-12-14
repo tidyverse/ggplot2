@@ -105,7 +105,8 @@ aesthetics from stroke width aesthetics.</p>
 <span>  labels <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span>,</span>
-<span>  trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  trans <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  guide <span class="op">=</span> <span class="st">"legend"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -117,7 +118,8 @@ aesthetics from stroke width aesthetics.</p>
 <span>  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span>,</span>
 <span>  n.breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nice.breaks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  trans <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  guide <span class="op">=</span> <span class="st">"bins"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -172,7 +174,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 maximum size of the plotting symbol after transformation.</p></dd>
 
 
-<dt>trans</dt>
+<dt>transform</dt>
 <dd><p>For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
@@ -180,10 +182,15 @@ or the object itself. Built-in transformations include "asn", "atanh",
 "reverse", "sqrt" and "time".</p>
 <p>A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called <code>&lt;name&gt;_trans</code>. If
+are defined in the scales package, and are called <code>transform_&lt;name&gt;</code>. If
 transformations require arguments, you can call them from the scales
 package, e.g. <code><a href="https://scales.r-lib.org/reference/transform_boxcox.html" class="external-link">scales::transform_boxcox(p = 2)</a></code>.
 You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::new_transform()</a></code>.</p></dd>
+
+
+<dt>trans</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Deprecated in favour of
+<code>transform</code>.</p></dd>
 
 
 <dt>guide</dt>

@@ -92,7 +92,8 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">datetime_scale</span><span class="op">(</span></span>
 <span>  <span class="va">aesthetics</span>,</span>
-<span>  <span class="va">trans</span>,</span>
+<span>  <span class="va">transform</span>,</span>
+<span>  trans <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">palette</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu">pretty_breaks</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  minor_breaks <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -111,6 +112,20 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>aesthetics</dt>
 <dd><p>The names of the aesthetics that this scale works with.</p></dd>
+
+
+<dt>transform</dt>
+<dd><p>For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".</p>
+<p>A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called <code>transform_&lt;name&gt;</code>. If
+transformations require arguments, you can call them from the scales
+package, e.g. <code><a href="https://scales.r-lib.org/reference/transform_boxcox.html" class="external-link">scales::transform_boxcox(p = 2)</a></code>.
+You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::new_transform()</a></code>.</p></dd>
 
 
 <dt>trans</dt>
