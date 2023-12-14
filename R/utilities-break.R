@@ -95,7 +95,7 @@ find_origin <- function(x_range, width, boundary) {
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- arg_match0(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
-    cli::cli_abort("Specify exactly one of {.arg n} and {.arg width}")
+    cli::cli_abort("Specify exactly one of {.arg n} and {.arg width}.")
   }
 
   rng <- range(x, na.rm = TRUE, finite = TRUE)

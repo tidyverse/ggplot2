@@ -19,7 +19,8 @@ scale_size(
   labels = waiver(),
   limits = NULL,
   range = c(1, 6),
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = "legend"
 )
 
@@ -29,7 +30,8 @@ scale_radius(
   labels = waiver(),
   limits = NULL,
   range = c(1, 6),
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = "legend"
 )
 
@@ -41,7 +43,8 @@ scale_size_binned(
   range = c(1, 6),
   n.breaks = NULL,
   nice.breaks = TRUE,
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = "bins"
 )
 
@@ -59,7 +62,7 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
@@ -94,7 +97,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 \item{range}{a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.}
 
-\item{trans}{For continuous scales, the name of a transformation object
+\item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -102,10 +105,13 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans}. If
+are defined in the scales package, and are called \verb{transform_<name>}. If
 transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
-You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
+
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
+\code{transform}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -131,7 +137,9 @@ breaks are given explicitly.}
 each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks. Also
-accepts rlang \link[rlang:as_function]{lambda} function notation.
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+breaks.
 }}
     \item{\code{oob}}{One of:
 \itemize{

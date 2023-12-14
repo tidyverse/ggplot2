@@ -42,7 +42,7 @@ no guarantee that straight lines will continue to be straight.
 }
 \details{
 Transformations only work with continuous values: see
-\code{\link[scales:trans_new]{scales::trans_new()}} for list of transformations, and instructions
+\code{\link[scales:new_transform]{scales::new_transform()}} for list of transformations, and instructions
 on how to create your own.
 }
 \examples{
@@ -93,7 +93,7 @@ ggplot(diamonds, aes(carat, price)) +
   geom_smooth(method = "lm") +
   scale_x_log10() +
   scale_y_log10() +
-  coord_trans(x = scales::exp_trans(10), y = scales::exp_trans(10))
+  coord_trans(x = scales::transform_exp(10), y = scales::transform_exp(10))
 
 # cf.
 ggplot(diamonds, aes(carat, price)) +

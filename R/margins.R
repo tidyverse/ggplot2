@@ -252,19 +252,30 @@ rotate_just <- function(angle, hjust, vjust) {
   #vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
 
   angle <- (angle %||% 0) %% 360
-  if (0 <= angle & angle < 90) {
-    hnew <- hjust
-    vnew <- vjust
-  } else if (90 <= angle & angle < 180) {
-    hnew <- 1 - vjust
-    vnew <- hjust
-  } else if (180 <= angle & angle < 270) {
-    hnew <- 1 - hjust
-    vnew <- 1 - vjust
-  } else if (270 <= angle & angle < 360) {
-    hnew <- vjust
-    vnew <- 1 - hjust
-  }
+
+  # Apply recycle rules
+  size  <- vec_size_common(angle, hjust, vjust)
+  angle <- vec_recycle(angle, size)
+  hjust <- vec_recycle(hjust, size)
+  vjust <- vec_recycle(vjust, size)
+
+  # Find quadrant on circle
+  case <- findInterval(angle, c(0, 90, 180, 270, 360))
+
+  hnew <- hjust
+  vnew <- vjust
+
+  is_case <- which(case == 2) # 90 <= x < 180
+  hnew[is_case] <- 1 - vjust[is_case]
+  vnew[is_case] <- hjust[is_case]
+
+  is_case <- which(case == 3) # 180 <= x < 270
+  hnew[is_case] <- 1 - hjust[is_case]
+  vnew[is_case] <- 1 - vjust[is_case]
+
+  is_case <- which(case == 4) # 270 <= x < 360
+  hnew[is_case] <- vjust[is_case]
+  vnew[is_case] <- 1 - hjust[is_case]
 
   list(hjust = hnew, vjust = vnew)
 }

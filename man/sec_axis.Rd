@@ -7,15 +7,17 @@
 \title{Specify a secondary axis}
 \usage{
 sec_axis(
-  trans = NULL,
+  transform = NULL,
   name = waiver(),
   breaks = waiver(),
   labels = waiver(),
-  guide = waiver()
+  guide = waiver(),
+  trans = deprecated()
 )
 
 dup_axis(
-  trans = ~.,
+  transform = ~.,
+  trans = deprecated(),
   name = derive(),
   breaks = derive(),
   labels = derive(),
@@ -25,7 +27,7 @@ dup_axis(
 derive()
 }
 \arguments{
-\item{trans}{A formula or function of transformation}
+\item{transform}{A formula or function of transformation}
 
 \item{name}{The name of the secondary axis}
 
@@ -47,6 +49,8 @@ derive()
 
 \item{guide}{A position guide that will be used to render
 the axis on the plot. Usually this is \code{\link[=guide_axis]{guide_axis()}}.}
+
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 This function is used in conjunction with a position scale to create a
@@ -106,7 +110,7 @@ ggplot(df, aes(x = dx, y = price)) +
     date_breaks = "6 hour",
     sec.axis = dup_axis(
       name = "Time of Day",
-      labels = scales::time_format("\%I \%p")
+      labels = scales::label_time("\%I \%p")
     )
   )
 
@@ -119,7 +123,7 @@ ggplot(df, aes(x = dx, y = price)) +
     sec.axis = sec_axis(
       ~ . + 8 * 3600,
       name = "GMT+8",
-      labels = scales::time_format("\%b \%d \%I \%p")
+      labels = scales::label_time("\%b \%d \%I \%p")
     )
   )
 

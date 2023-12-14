@@ -11,11 +11,11 @@ random_tip <- function() {
   tips <- c(
     "RStudio Community is a great place to get help: https://community.rstudio.com/c/tidyverse",
     "Learn more about the underlying theory at https://ggplot2-book.org/",
-    "Keep up to date with changes at https://www.tidyverse.org/blog/",
+    "Keep up to date with changes at https://tidyverse.org/blog/",
     "Use suppressPackageStartupMessages() to eliminate package startup messages",
     "Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2",
     "Need help getting started? Try the R Graphics Cookbook: https://r-graphics.org",
-    "Want to understand how all the pieces fit together? Read R for Data Science: https://r4ds.had.co.nz/"
+    "Want to understand how all the pieces fit together? Read R for Data Science: https://r4ds.hadley.nz/"
   )
 
   sample(tips, 1)

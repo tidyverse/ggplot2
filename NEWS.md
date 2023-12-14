@@ -2,6 +2,91 @@
 
 * The `guide_data()` function can be used to extract position and label
   information from the plot (#5004).
+* The `trans` argument in scales and secondary axes has been renamed to 
+  `transform`. The `trans` argument itself is deprecated. To access the
+  transformation from the scale, a new `get_transformation()` method is 
+  added to Scale-classes (#5558).
+
+* `guide_*()` functions get a new `theme` argument to style individual guides.
+  The `theme()` function has gained additional arguments for styling guides:
+  `legend.key.spacing{.x/.y}`, `legend.frame`, `legend.axis.line`, 
+  `legend.ticks`, `legend.ticks.length`, `legend.text.position` and 
+  `legend.title.position`. Previous style arguments in the `guide_*()` functions 
+  have been soft-deprecated.
+
+* When legend titles are larger than the legend, title justification extends
+  to the placement of keys and labels (#1903).
+
+* `draw_key_label()` now better reflects the appearance of labels.
+
+* The `minor_breaks` function argument in scales can now take a function with
+  two arguments: the scale's limits and the scale's major breaks (#3583).
+  
+* (internal) The `ScaleContinuous$get_breaks()` method no longer censors
+  the computed breaks.
+
+* Plot scales now ignore `AsIs` objects constructed with `I(x)`, instead of
+  invoking the identity scale. This allows these columns to co-exist with other
+  layers that need a non-identity scale for the same aesthetic. Also, it makes
+  it easy to specify relative positions (@teunbrand, #5142).
+
+* The `fill` aesthetic in many geoms now accepts grid's patterns and gradients.
+  For developers of layer extensions, this feature can be enabled by switching 
+  from `fill = alpha(fill, alpha)` to `fill = fill_alpha(fill, alpha)` when 
+  providing fills to `grid::gpar()` (@teunbrand, #3997).
+
+* The plot's title, subtitle and caption now obey horizontal text margins
+  (#5533).
+
+* New `guide_axis_stack()` to combine other axis guides on top of one another.
+
+* New `guide_custom()` function for drawing custom graphical objects (grobs)
+  unrelated to scales in legend positions (#5416).
+  
+* `theme()` now supports splicing a list of arguments (#5542).
+
+* Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
+
+* The `legend.key` theme element is set to inherit from the `panel.background`
+  theme element. The default themes no longer set the `legend.key` element.
+  This causes a visual change with the default `theme_gray()` (#5549).
+
+* Lines where `linewidth = NA` are now dropped in `geom_sf()` (#5204).
+
+* New `guide_axis_logticks()` can be used to draw logarithmic tick marks as
+  an axis. It supersedes the `annotation_logticks()` function 
+  (@teunbrand, #5325).
+
+* Glyphs drawing functions of the `draw_key_*()` family can now set `"width"`
+  and `"height"` attributes (in centimetres) to the produced keys to control
+  their displayed size in the legend.
+
+* `coord_radial()` is a successor to `coord_polar()` with more customisation 
+  options. `coord_radial()` can:
+  
+  * integrate with the new guide system via a dedicated `guide_axis_theta()` to
+    display the angle coordinate.
+  * in addition to drawing full circles, also draw circle sectors by using the 
+    `end` argument.
+  * avoid data vanishing in the center of the plot by setting the `donut` 
+    argument.
+  * adjust the `angle` aesthetic of layers, such as `geom_text()`, to align 
+    with the coordinate system using the `rotate_angle` argument.
+
+* By default, `guide_legend()` now only draws a key glyph for a layer when
+  the value is is the layer's data. To revert to the old behaviour, you
+  can still set `show.legend = c({aesthetic} = TRUE)` (@teunbrand, #3648).
+
+* The spacing between legend keys and their labels, in addition to legends
+  and their titles, is now controlled by the text's `margin` setting. Not
+  specifying margins will automatically add appropriate text margins. To
+  control the spacing within a legend between keys, the new 
+  `key.spacing.{x/y}` argument can be used. This leaves the 
+  `legend.spacing` dedicated to controlling the spacing between
+  different guides (#5455).
+
+* In the theme element hierarchy, parent elements that are a strict subclass
+  of child elements now confer their subclass upon the children (#5457).
 
 * `ggsave()` no longer sometimes creates new directories, which is now 
   controlled by the new `create.dir` argument (#5489).

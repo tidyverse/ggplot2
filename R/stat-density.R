@@ -167,7 +167,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 fit_data_to_bounds <- function(bounds, x, w) {
   is_inside_bounds <- (bounds[1] <= x) & (x <= bounds[2])
 
-  if (any(!is_inside_bounds)) {
+  if (!all(is_inside_bounds)) {
     cli::cli_warn("Some data points are outside of `bounds`. Removing them.")
     x <- x[is_inside_bounds]
     w <- w[is_inside_bounds]

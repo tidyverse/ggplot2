@@ -127,7 +127,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(x_labels) != length(x_breaks)) {
-      cli::cli_abort("Breaks and labels along x direction are different lengths")
+      cli::cli_abort("{.arg breaks} and {.arg labels} along {.code x} direction have different lengths.")
     }
     graticule$degree_label[graticule$type == "E"] <- x_labels
 
@@ -152,7 +152,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(y_labels) != length(y_breaks)) {
-      cli::cli_abort("Breaks and labels along y direction are different lengths")
+      cli::cli_abort("{.arg breaks} and {.arg labels} along {.code y} direction have different lengths.")
     }
     graticule$degree_label[graticule$type == "N"] <- y_labels
 
@@ -203,7 +203,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       if (self$lims_method != "geometry_bbox") {
         cli::cli_warn(c(
                 "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
-          "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
+          "i" = "Consider setting {.code lims_method = {.val geometry_bbox}} or {.code default_crs = NULL}."
         ))
       }
       coord_bbox <- self$params$bbox
@@ -409,7 +409,7 @@ sf_rescale01 <- function(x, x_range, y_range) {
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (any(!is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
     cli::cli_abort(c(
-            "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}",
+            "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
       "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
     ))
   }
@@ -542,14 +542,12 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes <- parse_axes_labeling(label_axes)
   } else if (!is.list(label_axes)) {
     cli::cli_abort("Panel labeling format not recognized.")
-    label_axes <- list(left = "N", bottom = "E")
   }
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
   } else {
     cli::cli_abort("Graticule labeling format not recognized.")
-    label_graticule <- ""
   }
 
   # switch limit method to "orthogonal" if not specified and default_crs indicates projected coords

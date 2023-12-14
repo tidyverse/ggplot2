@@ -230,7 +230,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
       cli::cli_abort(c(
-        "Can only draw one boxplot per group",
+        "Can only draw one boxplot per group.",
         "i"= "Did you forget {.code aes(group = ...)}?"
       ))
     }
@@ -239,7 +239,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       colour = data$colour,
       linewidth = data$linewidth,
       linetype = data$linetype,
-      fill = alpha(data$fill, data$alpha),
+      fill = fill_alpha(data$fill, data$alpha),
       group = data$group
     )
 
