@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `stat_count()` treats `x` as unique in the same manner `unique()` does 
+  (#4609).
+
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
   transformation from the scale, a new `get_transformation()` method is 
