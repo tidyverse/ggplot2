@@ -26,14 +26,17 @@ NULL
 scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            breaks = waiver(), labels = waiver(), limits = NULL,
                            expand = waiver(), oob = squish, na.value = NA_real_,
-                           right = TRUE, show.limits = FALSE, trans = "identity",
+                           right = TRUE, show.limits = FALSE, transform = "identity",
+                           trans = deprecated(),
                            guide = waiver(), position = "bottom") {
   binned_scale(
     ggplot_global$x_aes,
     palette = identity, name = name, breaks = breaks,
-    labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
-    n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,
-    show.limits = show.limits, guide = guide, position = position, super = ScaleBinnedPosition
+    labels = labels, limits = limits, expand = expand, oob = oob,
+    na.value = na.value, n.breaks = n.breaks, nice.breaks = nice.breaks,
+    right = right, transform = transform, trans = trans,
+    show.limits = show.limits, guide = guide, position = position,
+    super = ScaleBinnedPosition
   )
 }
 
@@ -43,14 +46,16 @@ scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
 scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            breaks = waiver(), labels = waiver(), limits = NULL,
                            expand = waiver(), oob = squish, na.value = NA_real_,
-                           right = TRUE, show.limits = FALSE, trans = "identity",
+                           right = TRUE, show.limits = FALSE, transform = "identity",
+                           trans = deprecated(),
                            guide = waiver(), position = "left") {
   binned_scale(
     ggplot_global$y_aes,
     palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
-    n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,
-    show.limits = show.limits, guide = guide, position = position, super = ScaleBinnedPosition
+    n.breaks = n.breaks, nice.breaks = nice.breaks, right = right,
+    transform = transform, trans = trans, show.limits = show.limits,
+    guide = guide, position = position, super = ScaleBinnedPosition
   )
 }
 

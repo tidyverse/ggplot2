@@ -5,12 +5,12 @@ collide_setup <- function(data, width = NULL, name, strategy,
   # Determine width
   if (!is.null(width)) {
     # Width set manually
-    if (!(all(c("xmin", "xmax") %in% names(data)))) {
+    if (!all(c("xmin", "xmax") %in% names(data))) {
       data$xmin <- data$x - width / 2
       data$xmax <- data$x + width / 2
     }
   } else {
-    if (!(all(c("xmin", "xmax") %in% names(data)))) {
+    if (!all(c("xmin", "xmax") %in% names(data))) {
       data$xmin <- data$x
       data$xmax <- data$x
     }
@@ -49,7 +49,7 @@ collide <- function(data, width = NULL, name, strategy,
   intervals <- intervals[!is.na(intervals)]
 
   if (vec_unique_count(intervals) > 1 & any(diff(scale(intervals)) < -1e-6)) {
-    cli::cli_warn("{.fn {name}} requires non-overlapping {.field x} intervals")
+    cli::cli_warn("{.fn {name}} requires non-overlapping {.field x} intervals.")
     # This is where the algorithm from [L. Wilkinson. Dot plots.
     # The American Statistician, 1999.] should be used
   }
@@ -61,7 +61,7 @@ collide <- function(data, width = NULL, name, strategy,
     data <- dapply(data, "xmin", strategy, ..., width = width)
     data$y <- data$ymax
   } else {
-    cli::cli_abort("Neither {.field y} nor {.field ymax} defined")
+    cli::cli_abort("{.field y} and {.field ymax} are undefined.")
   }
   data[match(seq_along(ord), ord), ]
 }
