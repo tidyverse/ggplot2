@@ -104,6 +104,7 @@ For more information, see the inspiration for this function:
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nbin <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>  raster <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  draw.ulim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  draw.llim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  position <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -119,6 +120,7 @@ For more information, see the inspiration for this function:
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nbin <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>  raster <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  draw.ulim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  draw.llim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  position <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -155,6 +157,12 @@ colourbar. A smoother colourbar results from a larger value.</p></dd>
 raster object. If <code>FALSE</code> then the colourbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>A numeric between 0 and 1 setting the colour transparency of
+the bar. Use <code>NA</code> to preserve the alpha encoded in the colour itself
+(default).</p></dd>
 
 
 <dt>draw.ulim</dt>

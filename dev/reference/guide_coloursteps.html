@@ -99,6 +99,7 @@ the gradient known from the colourbar counterpart.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">guide_coloursteps</span><span class="op">(</span></span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -111,6 +112,7 @@ the gradient known from the colourbar counterpart.</p>
 <span><span class="fu">guide_colorsteps</span><span class="op">(</span></span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -134,6 +136,12 @@ specified in <code><a href="labs.html">labs()</a></code> is used for the title.<
 <dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
 differently from the plot's theme settings. The <code>theme</code> argument in the
 guide overrides, and is combined with, the plot's theme.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>A numeric between 0 and 1 setting the colour transparency of
+the bar. Use <code>NA</code> to preserve the alpha encoded in the colour itself
+(default).</p></dd>
 
 
 <dt>even.steps</dt>
