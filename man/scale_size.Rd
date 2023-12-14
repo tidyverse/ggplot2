@@ -48,9 +48,9 @@ scale_size_binned(
   guide = "bins"
 )
 
-scale_size_area(..., max_size = 6)
+scale_size_area(name = waiver(), ..., max_size = 6)
 
-scale_size_binned_area(..., max_size = 6)
+scale_size_binned_area(name = waiver(), ..., max_size = 6)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If

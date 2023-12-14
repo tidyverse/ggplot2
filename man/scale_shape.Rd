@@ -8,11 +8,16 @@
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
-scale_shape(..., solid = TRUE)
+scale_shape(name = waiver(), ..., solid = TRUE)
 
-scale_shape_binned(..., solid = TRUE)
+scale_shape_binned(name = waiver(), ..., solid = TRUE)
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{
   Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
   \describe{
@@ -49,10 +54,6 @@ where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
 that should be used for error messages associated with this scale.}
-    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
-\code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If \code{NULL}, the legend title will be
-omitted.}
     \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
