@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
 * `position_stack()` no longer silently removes missing data, which is now
-  handled by the geom instead of position.
+  handled by the geom instead of position (#3532).
 
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
