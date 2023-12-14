@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* (breaking) In the `scale_{colour/fill}_gradient2()` and 
+  `scale_{colour/fill}_steps2()` functions, the `midpoint` argument is 
+  transformed by the scale transformation (#3198).
+
 * `guide_colourbar()` and `guide_coloursteps()` gain an `alpha` argument to
   set the transparency of the bar (#5085).
 
