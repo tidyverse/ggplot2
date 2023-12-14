@@ -21,7 +21,7 @@ scale_linetype_discrete(..., na.value = "blank")
   \describe{
     \item{\code{palette}}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
+they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks

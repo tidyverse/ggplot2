@@ -126,6 +126,10 @@ Geom <- ggproto("Geom",
       deprecate_soft0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
       default_aes$linewidth <- default_aes$size
     }
+    if (is_pattern(params$fill)) {
+      params$fill <- list(params$fill)
+    }
+
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(default_aes), names(data))
 
@@ -239,8 +243,8 @@ check_aesthetics <- function(x, n) {
   }
 
   cli::cli_abort(c(
-    "Aesthetics must be either length 1 or the same as the data ({n})",
-    "x" = "Fix the following mappings: {.col {names(which(!good))}}"
+    "Aesthetics must be either length 1 or the same as the data ({n}).",
+    "x" = "Fix the following mappings: {.col {names(which(!good))}}."
   ))
 }
 

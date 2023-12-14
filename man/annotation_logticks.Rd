@@ -61,6 +61,10 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 \item{size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is superseded by using \code{\link[=guide_axis_logticks]{guide_axis_logticks()}}.
+
 This annotation adds log tick marks with diminishing spacing.
 These tick marks probably make sense only for base 10.
 }

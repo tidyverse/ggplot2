@@ -11,13 +11,13 @@
 #' luminance. The \pkg{munsell} package makes this easy to do using the
 #' Munsell colour system.
 #'
-#' @inheritParams scales::seq_gradient_pal
+#' @inheritParams scales::pal_seq_gradient
 #' @inheritParams scale_colour_hue
 #' @param low,high Colours for low and high ends of the gradient.
 #' @param guide Type of legend. Use `"colourbar"` for continuous
 #'   colour bar, or `"legend"` for discrete colour legend.
 #' @inheritDotParams continuous_scale -na.value -guide -aesthetics
-#' @seealso [scales::seq_gradient_pal()] for details on underlying
+#' @seealso [scales::pal_seq_gradient()] for details on underlying
 #'   palette, [scale_colour_steps()] for binned variants of these scales.
 #'
 #'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
@@ -77,7 +77,7 @@
 #'
 scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                   na.value = "grey50", guide = "colourbar", aesthetics = "colour") {
-  continuous_scale(aesthetics, palette = seq_gradient_pal(low, high, space),
+  continuous_scale(aesthetics, palette = pal_seq_gradient(low, high, space),
     na.value = na.value, guide = guide, ...)
 }
 
@@ -85,11 +85,11 @@ scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space 
 #' @export
 scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                 na.value = "grey50", guide = "colourbar", aesthetics = "fill") {
-  continuous_scale(aesthetics, palette = seq_gradient_pal(low, high, space),
+  continuous_scale(aesthetics, palette = pal_seq_gradient(low, high, space),
     na.value = na.value, guide = guide, ...)
 }
 
-#' @inheritParams scales::div_gradient_pal
+#' @inheritParams scales::pal_div_gradient
 #' @inheritParams continuous_scale
 #' @param midpoint The midpoint (in data value) of the diverging scale.
 #'   Defaults to 0.
@@ -97,13 +97,13 @@ scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = 
 #' @export
 scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
                                    midpoint = 0, space = "Lab", na.value = "grey50",
-                                   trans = "identity", guide = "colourbar",
+                                   transform = "identity", guide = "colourbar",
                                    aesthetics = "colour") {
   continuous_scale(
     aesthetics,
     palette = div_gradient_pal(low, mid, high, space),
-    na.value = na.value, trans = trans, guide = guide, ...,
-    rescaler = mid_rescaler(mid = midpoint, trans = trans)
+    na.value = na.value, transform = transform, guide = guide, ...,
+    rescaler = mid_rescaler(mid = midpoint, transform = transform)
   )
 }
 
@@ -111,22 +111,22 @@ scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high 
 #' @export
 scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
                                  midpoint = 0, space = "Lab", na.value = "grey50",
-                                 trans = "identity", guide = "colourbar",
+                                 transform = "identity", guide = "colourbar",
                                  aesthetics = "fill") {
   continuous_scale(
     aesthetics,
     palette = div_gradient_pal(low, mid, high, space),
-    na.value = na.value, trans = trans, guide = guide, ...,
-    rescaler = mid_rescaler(mid = midpoint, trans = trans)
+    na.value = na.value, transform = transform, guide = guide, ...,
+    rescaler = mid_rescaler(mid = midpoint, transform = transform)
   )
 }
 
-mid_rescaler <- function(mid, trans = "identity",
+mid_rescaler <- function(mid, transform = "identity",
                          arg = caller_arg(mid), call = caller_env()) {
-  trans <- as.trans(trans)
-  trans_mid <- trans$transform(mid)
+  transform <- as.trans(transform)
+  trans_mid <- transform$transform(mid)
   check_transformation(
-    mid, trans_mid, trans$name,
+    mid, trans_mid, transform$name,
     arg = arg, call = call
   )
   function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
@@ -134,7 +134,7 @@ mid_rescaler <- function(mid, trans = "identity",
   }
 }
 
-#' @inheritParams scales::gradient_n_pal
+#' @inheritParams scales::pal_gradient_n
 #' @param colours,colors Vector of colours to use for n-colour gradient.
 #' @rdname scale_gradient
 #' @export
@@ -144,7 +144,7 @@ scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", n
 
   continuous_scale(
     aesthetics,
-    palette = gradient_n_pal(colours, values, space),
+    palette = pal_gradient_n(colours, values, space),
     na.value = na.value, guide = guide, ...
   )
 }
@@ -156,7 +156,7 @@ scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.
 
   continuous_scale(
     aesthetics,
-    palette = gradient_n_pal(colours, values, space),
+    palette = pal_gradient_n(colours, values, space),
     na.value = na.value, guide = guide, ...
   )
 }
