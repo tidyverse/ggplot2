@@ -6,27 +6,12 @@
 \usage{
 guide_legend(
   title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-  label = TRUE,
-  label.position = NULL,
-  label.theme = NULL,
-  label.hjust = NULL,
-  label.vjust = NULL,
-  keywidth = NULL,
-  keyheight = NULL,
-  key.spacing = NULL,
-  key.spacing.x = NULL,
-  key.spacing.y = NULL,
+  theme = NULL,
   position = NULL,
   direction = NULL,
-  default.unit = "line",
   override.aes = list(),
   nrow = NULL,
   ncol = NULL,
-  byrow = FALSE,
   reverse = FALSE,
   order = 0,
   ...
@@ -38,48 +23,9 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
 
-\item{title.position}{A character string indicating the position of a
-title. One of "top" (default for a vertical guide), "bottom", "left"
-(default for a horizontal guide), or "right."}
-
-\item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.title} in \code{\link[=theme]{theme()}} or theme.}
-
-\item{title.hjust}{A number specifying horizontal justification of the
-title text.}
-
-\item{title.vjust}{A number specifying vertical justification of the title
-text.}
-
-\item{label}{logical. If \code{TRUE} then the labels are drawn. If
-\code{FALSE} then the labels are invisible.}
-
-\item{label.position}{A character string indicating the position of a
-label. One of "top", "bottom" (default for horizontal guide), "left", or
-"right" (default for vertical guide).}
-
-\item{label.theme}{A theme object for rendering the label text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
-
-\item{label.hjust}{A numeric specifying horizontal justification of the
-label text. The default for standard text is 0 (left-aligned) and 1
-(right-aligned) for expressions.}
-
-\item{label.vjust}{A numeric specifying vertical justification of the label
-text.}
-
-\item{keywidth, keyheight}{A numeric or \code{\link[grid:unit]{grid::unit()}} object specifying the
-width and height of the legend key respectively. Default value is
-\code{legend.key.width}, \code{legend.key.height} or \code{legend.key} in \code{\link[=theme]{theme()}}.\cr
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}: optionally a \code{"null"} unit to stretch
-keys to the available space.}
-
-\item{key.spacing, key.spacing.x, key.spacing.y}{A numeric or \code{\link[grid:unit]{grid::unit()}}
-object specifying the distance between key-label pairs in the horizontal
-direction (\code{key.spacing.x}), vertical direction (\code{key.spacing.y}) or both
-(\code{key.spacing}).}
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
 \item{position}{A character string indicating where the legend should be
 placed relative to the plot panels.}
@@ -87,18 +33,11 @@ placed relative to the plot panels.}
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
 
-\item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
-for \code{keywidth} and \code{keyheight}.}
-
 \item{override.aes}{A list specifying aesthetic parameters of legend key.
 See details and examples.}
 
-\item{nrow}{The desired number of rows of legends.}
-
-\item{ncol}{The desired number of column of legends.}
-
-\item{byrow}{logical. If \code{FALSE} (the default) the legend-matrix is
-filled by columns, otherwise the legend-matrix is filled by rows.}
+\item{nrow, ncol}{The desired number of rows and column of legends
+respectively.}
 
 \item{reverse}{logical. If \code{TRUE} the order of legends is reversed.}
 
@@ -134,36 +73,32 @@ p1 + scale_fill_continuous(guide = guide_legend())
 # Control styles
 
 # title position
-p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
+p1 + guides(fill = guide_legend(
+  title = "LEFT", theme(legend.title.position = "left")
+))
 
 # title text styles via element_text
-p1 + guides(fill =
-  guide_legend(
-    title.theme = element_text(
-      size = 15,
-      face = "italic",
-      colour = "red",
-      angle = 0
-    )
-  )
-)
+p1 + guides(fill = guide_legend(theme = theme(
+  legend.title = element_text(size = 15, face = "italic", colour = "red")
+)))
 
 # label position
-p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
+p1 + guides(fill = guide_legend(theme = theme(
+  legend.text.position = "left",
+  legend.text = element_text(hjust = 1)
+)))
 
 # label styles
 p1 +
   scale_fill_continuous(
     breaks = c(5, 10, 15),
     labels = paste("long", c(5, 10, 15)),
-    guide = guide_legend(
-      direction = "horizontal",
-      title.position = "top",
-      label.position = "bottom",
-      label.hjust = 0.5,
-      label.vjust = 1,
-      label.theme = element_text(angle = 90)
-    )
+    guide = guide_legend(theme = theme(
+      legend.direction = "horizontal",
+      legend.title.position = "top",
+      legend.text.position = "bottom",
+      legend.text = element_text(hjust = 0.5, vjust = 1, angle = 90)
+    ))
   )
 
 # Set aesthetic of legend key
@@ -180,7 +115,7 @@ p <- ggplot(df, aes(x, y)) +
   geom_point(aes(colour = color))
 p + guides(col = guide_legend(nrow = 8))
 p + guides(col = guide_legend(ncol = 8))
-p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
+p + guides(col = guide_legend(nrow = 8, theme = theme(legend.byrow = TRUE)))
 
 # reversed order legend
 p + guides(col = guide_legend(reverse = TRUE))

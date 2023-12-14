@@ -806,8 +806,8 @@ test_that("legend margins are correct when using relative key sizes", {
     )
 
   vertical <- p + guides(
-    colour = guide_colourbar(barheight = unit(1, "null")),
-    shape  = guide_legend(keyheight = unit(1/3, "null"))
+    colour = guide_colourbar(theme = theme(legend.key.height = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.height = unit(1/3, "null")))
   ) + theme(
     legend.box.margin = margin(t = 5, b = 10, unit = "mm"),
     legend.margin = margin(t = 10, b = 5, unit = "mm")
@@ -816,8 +816,8 @@ test_that("legend margins are correct when using relative key sizes", {
   expect_doppelganger("stretched vertical legends", vertical)
 
   horizontal <- p + guides(
-    colour = guide_colourbar(barwidth = unit(1, "null")),
-    shape  = guide_legend(keywidth = unit(1/3, "null"))
+    colour = guide_colourbar(theme = theme(legend.key.width = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.width = unit(1/3, "null")))
   ) + theme(
     legend.position = "top",
     legend.box.margin = margin(l = 5, r = 10, unit = "mm"),
