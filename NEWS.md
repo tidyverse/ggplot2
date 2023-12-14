@@ -3,7 +3,7 @@
 * The ggplot object now contains `$layout` which points to the `Layout` ggproto
   object and will be used by the `ggplot_build.ggplot` method. This was exposed
   so that package developers may extend the behavior of the `Layout` ggproto object
-  without needing to develop an entirely `ggplot_build` method (@jtlandis, #5077).
+  without needing to develop an entirely new `ggplot_build` method (@jtlandis, #5077).
 
 * `draw_key_label()` now better reflects the appearance of labels.
 
