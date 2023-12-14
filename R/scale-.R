@@ -397,6 +397,8 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'   in transformed data space based on the rescaled `breaks`, the value of `self$minor_breaks`,
 #'   and the value of `self$transformation$minor_breaks()`. Discrete scales always return `NULL`.
 #'
+#' - `get_transformation()` Returns the scale's transformation object.
+#'
 #' - `make_title()` Hook to modify the title that is calculated during guide construction
 #'   (for non-position scales) or when the `Layout` calculates the x and y labels
 #'   (position scales).

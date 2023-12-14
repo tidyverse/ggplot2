@@ -546,6 +546,7 @@ based on the combination of \code{self$labels} and \code{breaks}.
 \item \code{get_breaks_minor()} For continuous scales, calculates the final scale minor breaks
 in transformed data space based on the rescaled \code{breaks}, the value of \code{self$minor_breaks},
 and the value of \code{self$transformation$minor_breaks()}. Discrete scales always return \code{NULL}.
+\item \code{get_transformation()} Returns the scale's transformation object.
 \item \code{make_title()} Hook to modify the title that is calculated during guide construction
 (for non-position scales) or when the \code{Layout} calculates the x and y labels
 (position scales).
