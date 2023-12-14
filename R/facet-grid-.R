@@ -380,7 +380,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
-    panel_table <- matrix(panels, nrow = nrow, ncol = ncol, byrow = TRUE)
+    mtx <- function(x) matrix(x, nrow = nrow, ncol = ncol, byrow = TRUE)
+    panel_table <- mtx(panels)
 
     # @kohske
     # Now size of each panel is calculated using PANEL$ranges, which is given by
@@ -404,7 +405,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
+      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = mtx(1))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
     panel_table <- gtable_add_col_space(panel_table,
@@ -414,21 +415,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     # Add axes
     if (params$draw_axes$x) {
-      # Take facet_wrap approach to axis placement
-      axes$x$top <- matrix(axes$x$top[x_axis_order],
-                           nrow = nrow, ncol = ncol, byrow = TRUE)
-      panel_table <- weave_tables_row(
-        panel_table, axes$x$top, -1,
-        unit(apply(axes$x$top, 1, max_height, value_only = TRUE), "cm"),
-        name = "axis-t", z = 3
-      )
-      axes$x$bottom <- matrix(axes$x$bottom[x_axis_order],
-                              nrow = nrow, ncol = ncol, byrow = TRUE)
-      panel_table <- weave_tables_row(
-        panel_table, axes$x$bottom, 0,
-        unit(apply(axes$x$bottom, 1, max_height, value_only = TRUE), "cm"),
-        name = "axis-b", z = 3
-      )
+      axes$x <- lapply(axes$x, function(x) mtx(x[x_axis_order]))
+      panel_table <- weave_axes(panel_table, axes$x)$panels
     } else {
       panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top), 0)
       panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
@@ -438,21 +426,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     if (params$draw_axes$y) {
-      # Take facet_wrap approach to axis placement
-      axes$y$left <- matrix(axes$y$left[y_axis_order],
-                            nrow = nrow, ncol = ncol, byrow = TRUE)
-      panel_table <- weave_tables_col(
-        panel_table, axes$y$left, -1,
-        unit(apply(axes$y$left, 2, max_width, value_only = TRUE), "cm"),
-        name = "axis-l", z = 3
-      )
-      axes$y$right <- matrix(axes$y$right[y_axis_order],
-                             nrow = nrow, ncol = ncol, byrow = TRUE)
-      panel_table <- weave_tables_col(
-        panel_table, axes$y$right, 0,
-        unit(apply(axes$y$right, 2, max_width, value_only = TRUE), "cm"),
-        name = "axis-r", z = 3
-      )
+      axes$y <- lapply(axes$y, function(y) mtx(y[y_axis_order]))
+      panel_table <- weave_axes(panel_table, axes$y)$panels
     } else {
       panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left), 0)
       panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right), -1)
