@@ -46,6 +46,7 @@ scale_colour_gradient2(
   midpoint = 0,
   space = "Lab",
   na.value = "grey50",
+  transform = "identity",
   guide = "colourbar",
   aesthetics = "colour"
 )
@@ -58,6 +59,7 @@ scale_fill_gradient2(
   midpoint = 0,
   space = "Lab",
   na.value = "grey50",
+  transform = "identity",
   guide = "colourbar",
   aesthetics = "fill"
 )
@@ -161,18 +163,6 @@ bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
 \item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
-    \item{\code{transform}}{For continuous scales, the name of a transformation object
-or the object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
-"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
-"reverse", "sqrt" and "time".
-
-A transformation object bundles together a transform, its inverse,
-and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{transform_<name>}. If
-transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
-You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
     \item{\code{trans}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
 \code{transform}.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
@@ -206,6 +196,19 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{midpoint}{The midpoint (in data value) of the diverging scale.
 Defaults to 0.}
+
+\item{transform}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
+
+A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \verb{transform_<name>}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
 
 \item{colours, colors}{Vector of colours to use for n-colour gradient.}
 

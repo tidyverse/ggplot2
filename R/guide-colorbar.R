@@ -29,6 +29,9 @@ NULL
 #'   the colourbar is rendered as a raster object. If `FALSE` then the colourbar
 #'   is rendered as a set of rectangles. Note that not all graphics devices are
 #'   capable of rendering raster image.
+#' @param alpha A numeric between 0 and 1 setting the colour transparency of
+#'   the bar. Use `NA` to preserve the alpha encoded in the colour itself
+#'   (default).
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -116,6 +119,7 @@ guide_colourbar <- function(
   nbin = NULL,
   display = "raster",
   raster = deprecated(),
+  alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
   position = NULL,
@@ -137,12 +141,14 @@ guide_colourbar <- function(
   if (!is.null(position)) {
     position <- arg_match0(position, c(.trbl, "inside"))
   }
+  check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
 
   new_guide(
     title = title,
     theme = theme,
     nbin = nbin,
     display = display,
+    alpha = alpha,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
     position = position,
     direction = direction,
@@ -178,6 +184,7 @@ GuideColourbar <- ggproto(
     # bar
     nbin = 300,
     display = "raster",
+    alpha = NA,
 
     draw_lim = c(TRUE, TRUE),
 
@@ -220,7 +227,7 @@ GuideColourbar <- ggproto(
     Guide$extract_key(scale, aesthetic, ...)
   },
 
-  extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, ...) {
+  extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, alpha = NA, ...) {
 
     limits <- scale$get_limits()
     bar <- seq(limits[1], limits[2], length.out = nbin)
@@ -228,7 +235,7 @@ GuideColourbar <- ggproto(
       bar <- unique0(limits)
     }
     bar <- data_frame0(
-      colour = scale$map(bar),
+      colour = alpha(scale$map(bar), alpha),
       value  = bar,
       .size  = length(bar)
     )

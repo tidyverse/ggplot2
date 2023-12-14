@@ -2,6 +2,21 @@
 
 * New `display` argument in `guide_colourbar()` supplants the `raster` argument.
   In R 4.1.0 and above, `display = "gradient"` will draw a gradient.
+* When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
+  now stacked from the y-position rather than from 0 (@teunbrand, #5462)
+
+* (breaking) In the `scale_{colour/fill}_gradient2()` and 
+  `scale_{colour/fill}_steps2()` functions, the `midpoint` argument is 
+  transformed by the scale transformation (#3198).
+
+* `guide_colourbar()` and `guide_coloursteps()` gain an `alpha` argument to
+  set the transparency of the bar (#5085).
+
+* `stat_count()` treats `x` as unique in the same manner `unique()` does 
+  (#4609).
+
+* `position_stack()` no longer silently removes missing data, which is now
+  handled by the geom instead of position (#3532).
 
 * Legend keys that can draw arrows have their size adjusted for arrows.
 
