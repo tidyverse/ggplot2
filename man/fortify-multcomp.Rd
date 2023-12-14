@@ -42,7 +42,7 @@ fortify(summary(wht))
 ggplot(mapping = aes(lhs, estimate)) +
    geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) +
    geom_point(aes(size = p), data = summary(wht)) +
-   scale_size(trans = "reverse")
+   scale_size(transform = "reverse")
 
 cld <- cld(wht)
 fortify(cld)

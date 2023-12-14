@@ -4,7 +4,9 @@
 #' secondary axis, positioned opposite of the primary axis. All secondary
 #' axes must be based on a one-to-one transformation of the primary axes.
 #'
-#' @param trans A formula or function of transformation
+#' @param transform A formula or function of transformation
+#'
+#' @param trans `r lifecycle::badge("deprecated")`
 #'
 #' @param name The name of the secondary axis
 #'
@@ -94,14 +96,20 @@
 #'   )
 #'
 #' @export
-sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
-                     guide = waiver()) {
-  # sec_axis() historically accepted two-sided formula, so be permissive.
-  if (length(trans) > 2) trans <- trans[c(1,3)]
+sec_axis <- function(transform = NULL,
+                     name = waiver(), breaks = waiver(), labels = waiver(),
+                     guide = waiver(), trans = deprecated()) {
+  if (lifecycle::is_present(trans)) {
+    deprecate_soft0("3.5.0", "sec_axis(trans)", "sec_axis(transform)")
+    transform <- trans
+  }
 
-  trans <- as_function(trans)
+  # sec_axis() historically accepted two-sided formula, so be permissive.
+  if (length(transform) > 2) transform <- transform[c(1,3)]
+
+  transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,
-    trans = trans,
+    transform = transform,
     name = name,
     breaks = breaks,
     labels = labels,
@@ -111,8 +119,9 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
-  sec_axis(trans, name, breaks, labels, guide)
+dup_axis <- function(transform = ~., trans = deprecated(),
+                     name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
+  sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
 
 is.sec_axis <- function(x) {
@@ -144,7 +153,7 @@ is.derived <- function(x) {
 #' @usage NULL
 #' @export
 AxisSecondary <- ggproto("AxisSecondary", NULL,
-  trans = NULL,
+  transform = NULL,
   axis = NULL,
   name = waiver(),
   breaks = waiver(),
@@ -156,7 +165,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   detail = 1000,
 
   empty = function(self) {
-    is.null(self$trans)
+    is.null(self$transform %||% self$trans)
   },
 
   # Inherit settings from the primary axis/scale
@@ -164,18 +173,19 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) {
       return()
     }
-    if (!is.function(self$trans)) {
+    transform <- self$transform %||% self$trans
+    if (!is.function(transform)) {
       cli::cli_abort("Transformation for secondary axes must be a function.")
     }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
-    if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
+    if (is.waive(self$breaks)) self$breaks <- scale$transformation$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
     if (is.derived(self$guide)) self$guide <- scale$guide
   },
 
   transform_range = function(self, range) {
-    self$trans(range)
+    self$transform(range)
   },
 
   mono_test = function(self, scale){
@@ -186,8 +196,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       return()
     }
 
+    transformation <- scale$get_transformation()
     along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    old_range <- transformation$inverse(along_range)
 
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
@@ -204,8 +215,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     self$mono_test(scale)
 
     # Get scale's original range before transformation
+    transformation <- scale$get_transformation()
     along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    old_range <- transformation$inverse(along_range)
 
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
@@ -225,8 +237,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # patch for date and datetime scales just to maintain functionality
     # works only for linear secondary transforms that respect the time or date transform
-    if (scale$trans$name %in% c("date", "time")) {
-      temp_scale <- self$create_scale(new_range, trans = scale$trans)
+    if (transformation$name %in% c("date", "time")) {
+      temp_scale <- self$create_scale(new_range, transformation = transformation)
       range_info <- temp_scale$break_info()
       old_val_trans <- rescale(range_info$major, from = c(0, 1), to = range)
       old_val_minor_trans <- rescale(range_info$minor, from = c(0, 1), to = range)
@@ -237,7 +249,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       # Map the break values back to their correct position on the primary scale
       if (!is.null(range_info$major_source)) {
         old_val <- stats::approx(full_range, old_range, range_info$major_source)$y
-        old_val_trans <- scale$trans$transform(old_val)
+        old_val_trans <- transformation$transform(old_val)
 
         # rescale values from 0 to 1
         range_info$major[] <- round(
@@ -253,7 +265,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
       if (!is.null(range_info$minor_source)) {
         old_val_minor <- stats::approx(full_range, old_range, range_info$minor_source)$y
-        old_val_minor_trans <- scale$trans$transform(old_val_minor)
+        old_val_minor_trans <- transformation$transform(old_val_minor)
 
         range_info$minor[] <- round(
           rescale(
@@ -280,14 +292,14 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range, trans = transform_identity()) {
+  create_scale = function(self, range, transformation = transform_identity()) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
                      name = self$name,
                      breaks = self$breaks,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
-                     trans = trans
+                     transformation = transformation
     )
     scale$train(range)
     scale

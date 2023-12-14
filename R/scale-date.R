@@ -242,7 +242,7 @@ scale_x_time <- function(name = waiver(),
     na.value = na.value,
     guide = guide,
     position = position,
-    trans = scales::transform_hms(),
+    transform = scales::transform_hms(),
     sec.axis = sec.axis
   )
 }
@@ -273,7 +273,7 @@ scale_y_time <- function(name = waiver(),
     na.value = na.value,
     guide = guide,
     position = position,
-    trans = scales::transform_hms(),
+    transform = scales::transform_hms(),
     sec.axis = sec.axis
   )
 }
@@ -288,8 +288,8 @@ scale_y_time <- function(name = waiver(),
 #'
 #' @export
 #' @keywords internal
-datetime_scale <- function(aesthetics, trans, palette,
-                           breaks = pretty_breaks(), minor_breaks = waiver(),
+datetime_scale <- function(aesthetics, transform, trans = deprecated(),
+                           palette, breaks = pretty_breaks(), minor_breaks = waiver(),
                            labels = waiver(), date_breaks = waiver(),
                            date_labels = waiver(),
                            date_minor_breaks = waiver(), timezone = NULL,
@@ -317,7 +317,7 @@ datetime_scale <- function(aesthetics, trans, palette,
   # ScaleContinuousDatetime; others use ScaleContinuous
   if (all(aesthetics %in% c("x", "xmin", "xmax", "xend", "y", "ymin", "ymax", "yend"))) {
     scale_class <- switch(
-      trans,
+      transform,
       date = ScaleContinuousDate,
       time = ScaleContinuousDatetime
     )
@@ -325,7 +325,7 @@ datetime_scale <- function(aesthetics, trans, palette,
     scale_class <- ScaleContinuous
   }
 
-  trans <- switch(trans,
+  transform <- switch(transform,
     date = transform_date(),
     time = transform_time(timezone)
   )
@@ -337,6 +337,7 @@ datetime_scale <- function(aesthetics, trans, palette,
     minor_breaks = minor_breaks,
     labels = labels,
     guide = guide,
+    transform = transform,
     trans = trans,
     call = call,
     ...,
@@ -357,7 +358,7 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
     tz <- attr(x, "tzone")
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
-      self$trans <- transform_time(self$timezone)
+      self$transformation <- transform_time(self$timezone)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },

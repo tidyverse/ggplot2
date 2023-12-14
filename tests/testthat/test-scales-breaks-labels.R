@@ -115,7 +115,7 @@ test_that("discrete labels match breaks", {
 })
 
 test_that("scale breaks work with numeric log transformation", {
-  sc <- scale_x_continuous(limits = c(1, 1e5), trans = transform_log10())
+  sc <- scale_x_continuous(limits = c(1, 1e5), transform = transform_log10())
   expect_equal(sc$get_breaks(), c(0, 2, 4)) # 1, 100, 10000
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2, 3, 4, 5))
 })
@@ -229,14 +229,14 @@ test_that("breaks can be specified by names of labels", {
 })
 
 test_that("only finite or NA values for breaks for transformed scales (#871)", {
-  sc <- scale_y_continuous(limits = c(0.01, 0.99), trans = "probit",
+  sc <- scale_y_continuous(limits = c(0.01, 0.99), transform = "probit",
                            breaks = seq(0, 1, 0.2))
   breaks <- sc$break_info()$major_source
   expect_true(all(is.finite(breaks) | is.na(breaks)))
 })
 
 test_that("minor breaks are transformed by scales", {
-  sc <- scale_y_continuous(limits = c(1, 100), trans = "log10",
+  sc <- scale_y_continuous(limits = c(1, 100), transform = "log10",
     minor_breaks = c(1, 10, 100))
 
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2))
@@ -297,15 +297,15 @@ test_that("minor breaks draw correctly", {
 
   expect_doppelganger("numeric-log",
     ggplot(df, aes(x_log, x_log)) +
-      scale_x_continuous(trans = transform_log2()) +
+      scale_x_continuous(transform = transform_log2()) +
       scale_y_log10() +
       labs(x = NULL, y = NULL) +
       theme
   )
   expect_doppelganger("numeric-exp",
     ggplot(df, aes(x_num, x_num)) +
-      scale_x_continuous(trans = transform_exp(2)) +
-      scale_y_continuous(trans = transform_exp(2)) +
+      scale_x_continuous(transform = transform_exp(2)) +
+      scale_y_continuous(transform = transform_exp(2)) +
       labs(x = NULL, y = NULL) +
       theme
   )

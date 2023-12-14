@@ -113,7 +113,7 @@ test_that("second axes display in coord_trans()", {
       geom_point() +
       scale_y_continuous(
         sec.axis = sec_axis(
-          trans = ~log2(.),
+          transform = ~log2(.),
           breaks = c(3.5, 4, 4.5, 5, 5.5),
           name = "log2(hwy)"
         ),

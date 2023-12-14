@@ -460,11 +460,11 @@ test_that("staged aesthetics are backtransformed properly (#4155)", {
 
 test_that("numeric scale transforms can produce breaks", {
 
-  test_breaks <- function(trans, limits) {
-    scale <- scale_x_continuous(trans = trans)
+  test_breaks <- function(transform, limits) {
+    scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view <- view_scale_primary(scale)
-    scale$trans$inverse(view$get_breaks())
+    scale$transformation$inverse(view$get_breaks())
   }
 
   expect_equal(test_breaks("asn", limits = c(0, 1)),
@@ -650,27 +650,27 @@ test_that("scale functions accurately report their calls", {
 
 test_that("scale call is found accurately", {
 
-  call_template <- quote(scale_x_continuous(trans = "log10"))
+  call_template <- quote(scale_x_continuous(transform = "log10"))
 
-  sc <- do.call("scale_x_continuous", list(trans = "log10"))
+  sc <- do.call("scale_x_continuous", list(transform = "log10"))
   expect_equal(sc$call, call_template)
 
-  sc <- inject(scale_x_continuous(!!!list(trans = "log10")))
+  sc <- inject(scale_x_continuous(!!!list(transform = "log10")))
   expect_equal(sc$call, call_template)
 
-  sc <- exec("scale_x_continuous", trans = "log10")
+  sc <- exec("scale_x_continuous", transform = "log10")
   expect_equal(sc$call, call_template)
 
-  foo <- function() scale_x_continuous(trans = "log10")
+  foo <- function() scale_x_continuous(transform = "log10")
   expect_equal(foo()$call, call_template)
 
   env <- new_environment()
-  env$bar <- function() scale_x_continuous(trans = "log10")
+  env$bar <- function() scale_x_continuous(transform = "log10")
   expect_equal(env$bar()$call, call_template)
 
   # Now should recognise the outer function
   scale_x_new <- function() {
-    scale_x_continuous(trans = "log10")
+    scale_x_continuous(transform = "log10")
   }
   expect_equal(
     scale_x_new()$call,

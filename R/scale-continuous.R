@@ -2,7 +2,7 @@
 #'
 #' `scale_x_continuous()` and `scale_y_continuous()` are the default
 #' scales for continuous x and y aesthetics. There are three variants
-#' that set the `trans` argument for commonly used transformations:
+#' that set the `transform` argument for commonly used transformations:
 #' `scale_*_log10()`, `scale_*_sqrt()` and `scale_*_reverse()`.
 #'
 #' For simple manipulation of labels and limits, you may wish to use
@@ -64,7 +64,7 @@
 #' p1 + scale_y_reverse()
 #'
 #' # Or you can supply a transformation in the `trans` argument:
-#' p1 + scale_y_continuous(trans = scales::transform_reciprocal())
+#' p1 + scale_y_continuous(transform = scales::transform_reciprocal())
 #'
 #' # You can also create your own. See ?scales::new_transform
 #'
@@ -81,7 +81,8 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), n.breaks = NULL,
                                labels = waiver(), limits = NULL,
                                expand = waiver(), oob = censor,
-                               na.value = NA_real_, trans = "identity",
+                               na.value = NA_real_, transform = "identity",
+                               trans = deprecated(),
                                guide = waiver(), position = "bottom",
                                sec.axis = waiver()) {
   call <- caller_call()
@@ -92,8 +93,8 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
     ggplot_global$x_aes,
     palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = guide, position = position, call = call,
+    expand = expand, oob = oob, na.value = na.value, transform = transform,
+    trans = trans, guide = guide, position = position, call = call,
     super = ScaleContinuousPosition
   )
 
@@ -107,7 +108,8 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), n.breaks = NULL,
                                labels = waiver(), limits = NULL,
                                expand = waiver(), oob = censor,
-                               na.value = NA_real_, trans = "identity",
+                               na.value = NA_real_, transform = "identity",
+                               trans = deprecated(),
                                guide = waiver(), position = "left",
                                sec.axis = waiver()) {
   call <- caller_call()
@@ -118,8 +120,8 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
     ggplot_global$y_aes,
     palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, trans = trans,
-    guide = guide, position = position, call = call,
+    expand = expand, oob = oob, na.value = na.value, transform = transform,
+    trans = trans, guide = guide, position = position, call = call,
     super = ScaleContinuousPosition
   )
 
@@ -169,30 +171,30 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
 #' @rdname scale_continuous
 #' @export
 scale_x_log10 <- function(...) {
-  scale_x_continuous(..., trans = transform_log10())
+  scale_x_continuous(..., transform = transform_log10())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_log10 <- function(...) {
-  scale_y_continuous(..., trans = transform_log10())
+  scale_y_continuous(..., transform = transform_log10())
 }
 #' @rdname scale_continuous
 #' @export
 scale_x_reverse <- function(...) {
-  scale_x_continuous(..., trans = transform_reverse())
+  scale_x_continuous(..., transform = transform_reverse())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_reverse <- function(...) {
-  scale_y_continuous(..., trans = transform_reverse())
+  scale_y_continuous(..., transform = transform_reverse())
 }
 #' @rdname scale_continuous
 #' @export
 scale_x_sqrt <- function(...) {
-  scale_x_continuous(..., trans = transform_sqrt())
+  scale_x_continuous(..., transform = transform_sqrt())
 }
 #' @rdname scale_continuous
 #' @export
 scale_y_sqrt <- function(...) {
-  scale_y_continuous(..., trans = transform_sqrt())
+  scale_y_continuous(..., transform = transform_sqrt())
 }

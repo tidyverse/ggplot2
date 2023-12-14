@@ -55,7 +55,7 @@ NULL
 #'   geom_density() +
 #'   scale_x_continuous(
 #'     breaks = c(-10^(4:0), 0, 10^(0:4)),
-#'     trans = "pseudo_log"
+#'     transform = "pseudo_log"
 #'   )
 #'
 #' # The log ticks are mirrored when 0 is included
@@ -149,20 +149,20 @@ GuideAxisLogticks <- ggproto(
 
     # Reconstruct a transformation if user has prescaled data
     if (!is.null(params$prescale_base)) {
-      trans_name <- scale$scale$trans$name
+      trans_name <- scale$scale$transformation$name
       if (trans_name != "identity") {
         cli::cli_warn(paste0(
           "The {.arg prescale_base} argument will override the scale's ",
           "{.field {trans_name}} transformation in log-tick positioning."
         ))
       }
-      trans <- transform_log(base = params$prescale_base)
+      transformation <- transform_log(base = params$prescale_base)
     } else {
-      trans <- scale$scale$trans
+      transformation <- scale$get_transformation()
     }
 
     # Reconstruct original range
-    limits <- trans$inverse(scale$get_limits())
+    limits <- transformation$inverse(scale$get_limits())
     has_negatives <- any(limits <= 0)
 
     if (!has_negatives) {
@@ -190,7 +190,7 @@ GuideAxisLogticks <- ggproto(
     }
 
     # Set ticks back into transformed space
-    ticks  <- trans$transform(c(tens, fives, ones))
+    ticks  <- transformation$transform(c(tens, fives, ones))
     nticks <- c(length(tens), length(fives), length(ones))
 
     logkey <- data_frame0(
