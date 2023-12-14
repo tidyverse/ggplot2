@@ -128,7 +128,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
-    layout = Layout
+    layout = ggproto(NULL, Layout)
   ), class = c("gg", "ggplot"))
 
   p$labels <- make_labels(mapping)
