@@ -753,8 +753,8 @@ Guides <- ggproto(
 #' @param aesthetic A string that describes a single aesthetic for which to
 #'   extract guide information. For example: `"colour"`, `"size"`, `"x"` or
 #'   `"y.sec"`.
-#' @param i,j An integer giving a row (i) and column (j) number of a facet for
-#'   which to return position guide information.
+#' @param panel An integer giving a panel number for which to return position guide
+#'   information.
 #'
 #' @return
 #' One of the following:
@@ -781,12 +781,12 @@ Guides <- ggproto(
 #' get_guide_data(merged, "size")
 #'
 #' # Guide information for positions
-#' get_guide_data(p, "x", i = 1, j = 2)
+#' get_guide_data(p, "x", panel = 2)
 #'
 #' # Coord polar doesn't support proper guides, so we get a list
 #' polar <- p + coord_polar()
-#' get_guide_data(polar, "theta", i = 1, j = 2)
-get_guide_data <- function(plot = last_plot(), aesthetic, i = 1L, j = 1L) {
+#' get_guide_data(polar, "theta", panel = 2)
+get_guide_data <- function(plot = last_plot(), aesthetic, panel = 1L) {
 
   check_string(aesthetic, allow_empty = FALSE)
   aesthetic <- standardise_aes_names(aesthetic)
@@ -804,10 +804,9 @@ get_guide_data <- function(plot = last_plot(), aesthetic, i = 1L, j = 1L) {
   }
 
   # Position guides: find the right layout entry
-  check_number_whole(i)
-  check_number_whole(j)
+  check_number_whole(panel)
   layout <- plot$layout$layout
-  select <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
+  select <- layout[layout$PANEL == panel, , drop = FALSE]
   if (nrow(select) == 0) {
     return(NULL)
   }

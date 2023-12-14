@@ -332,7 +332,7 @@ test_that("get_guide_data retrieves keys appropriately", {
   b <- ggplot_build(p)
 
   # Test facetted panel
-  test <- get_guide_data(b, "x", i = 1, j = 2)
+  test <- get_guide_data(b, "x", panel = 2)
   expect_equal(test$.label, c("18", "19", "20", "21"))
 
   # Test plain legend
@@ -347,10 +347,10 @@ test_that("get_guide_data retrieves keys appropriately", {
   expect_null(get_guide_data(b, "shape"))
 
   # Non-existent panels
-  expect_null(get_guide_data(b, "x", i = 2, j = 2))
+  expect_null(get_guide_data(b, "x", panel = 4))
 
   expect_error(get_guide_data(b, 1), "must be a single string")
-  expect_error(get_guide_data(b, "x", i = "a"), "must be a whole number")
+  expect_error(get_guide_data(b, "x", panel = "a"), "must be a whole number")
 })
 
 test_that("get_guide_data retrieves keys from exotic coords", {

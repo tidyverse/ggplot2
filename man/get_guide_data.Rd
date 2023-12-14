@@ -4,7 +4,7 @@
 \alias{get_guide_data}
 \title{Extract tick information from guides}
 \usage{
-get_guide_data(plot = last_plot(), aesthetic, i = 1L, j = 1L)
+get_guide_data(plot = last_plot(), aesthetic, panel = 1L)
 }
 \arguments{
 \item{plot}{A \code{ggplot} or \code{ggplot_build} object.}
@@ -13,8 +13,8 @@ get_guide_data(plot = last_plot(), aesthetic, i = 1L, j = 1L)
 extract guide information. For example: \code{"colour"}, \code{"size"}, \code{"x"} or
 \code{"y.sec"}.}
 
-\item{i, j}{An integer giving a row (i) and column (j) number of a facet for
-which to return position guide information.}
+\item{panel}{An integer giving a panel number for which to return position guide
+information.}
 }
 \value{
 One of the following:
@@ -46,10 +46,10 @@ merged <- p + guides(colour = "legend")
 get_guide_data(merged, "size")
 
 # Guide information for positions
-get_guide_data(p, "x", i = 1, j = 2)
+get_guide_data(p, "x", panel = 2)
 
 # Coord polar doesn't support proper guides, so we get a list
 polar <- p + coord_polar()
-get_guide_data(polar, "theta", i = 1, j = 2)
+get_guide_data(polar, "theta", panel = 2)
 }
 \keyword{internal}
