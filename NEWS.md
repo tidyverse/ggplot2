@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New `display` argument in `guide_colourbar()` supplants the `raster` argument.
+  In R 4.1.0 and above, `display = "gradient"` will draw a gradient.
+
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
   transformation from the scale, a new `get_transformation()` method is 
