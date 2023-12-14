@@ -51,22 +51,21 @@ test_that("Colorbar respects show.legend in layer", {
   df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
-  expect_false("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_length(ggplot_build(p)$plot$guides$guides, 0L)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = TRUE)
-  expect_true("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_length(ggplot_build(p)$plot$guides$guides, 1L)
 })
 
 test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
-    gb <- which(g$layout$name == "guide-box")
-    if (length(gb) > 0) {
-      n <- length(g$grobs[[gb]]) - 1
-    } else {
-      n <- 0
-    }
-    n
+    gb <- grep("guide-box", g$layout$name)
+    n <- vapply(g$grobs[gb], function(x) {
+      if (is.zero(x)) return(0)
+      length(x$grobs) - 1
+    }, numeric(1))
+    sum(n)
   }
 
   df <- data_frame(x = 1:3, y = 20:22)
@@ -234,20 +233,24 @@ test_that("guide specifications are properly checked", {
 
   expect_snapshot_warning(ggplotGrob(p))
 
-  expect_snapshot_error(guide_legend(title.position = "leftish"))
+  p <-  p + guides(shape = guide_legend(theme = theme(legend.title.position = "leftish")))
+  expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(guide_colourbar()$transform())
 
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colourbar(label.position = "top"))
+    guides(colour = guide_colourbar(theme = theme(legend.text.position = "top")))
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
-    guides(colour = guide_colourbar(direction = "horizontal", label.position = "left"))
+    guides(colour = guide_colourbar(direction = "horizontal", theme = theme(legend.text.position = "left")))
   expect_snapshot_error(ggplotGrob(p))
 
-  expect_snapshot_error(guide_legend(label.position = "test"))
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp, colour = gear)) +
+    guides(colour = guide_legend(theme = theme(legend.text.position = "test")))
+  expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp, colour = gear)) +
     guides(colour = guide_legend(nrow = 2, ncol = 2))
@@ -350,8 +353,8 @@ test_that("legend directions are set correctly", {
 
 test_that("guide_axis_logticks calculates appropriate ticks", {
 
-  test_scale <- function(trans = identity_trans(), limits = c(NA, NA)) {
-    scale <- scale_x_continuous(trans = trans)
+  test_scale <- function(transform = transform_identity(), limits = c(NA, NA)) {
+    scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view_scale_primary(scale)
   }
@@ -366,28 +369,28 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   outcome <- c((1:10)*10, (2:10)*100)
 
   # Test the classic log10 transformation
-  scale <- test_scale(log10_trans(), c(10, 1000))
+  scale <- test_scale(transform_log10(), c(10, 1000))
   key <- train_guide(guide, scale)$logkey
 
   expect_equal(sort(key$x), log10(outcome))
   expect_equal(key$.type, rep(c(1,2,3), c(3, 2, 14)))
 
   # Test compound transformation
-  scale <- test_scale(compose_trans(log10_trans(), reverse_trans()), c(10, 1000))
+  scale <- test_scale(transform_compose(transform_log10(), transform_reverse()), c(10, 1000))
   key   <- train_guide(guide, scale)$logkey
 
   expect_equal(sort(key$x), -log10(rev(outcome)))
 
   # Test transformation with negatives
-  scale <- test_scale(pseudo_log_trans(), c(-1000, 1000))
+  scale <- test_scale(transform_pseudo_log(), c(-1000, 1000))
   key   <- train_guide(guide, scale)$logkey
 
-  unlog <- sort(pseudo_log_trans()$inverse(key$x))
+  unlog <- sort(transform_pseudo_log()$inverse(key$x))
   expect_equal(unlog, c(-rev(outcome), 0, outcome))
   expect_equal(key$.type, rep(c(1,2,3), c(7, 4, 28)))
 
   # Test expanded argument
-  scale <- test_scale(log10_trans(), c(20, 900))
+  scale <- test_scale(transform_log10(), c(20, 900))
   scale$continuous_range <- c(1, 3)
 
   guide <- guide_axis_logticks(expanded = TRUE)
@@ -408,16 +411,19 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   expect_equal(sort(key$x), log2(outcome))
 
   # Should warn when scale also has transformation
-  scale <- test_scale(log10_trans(), limits = c(10, 1000))
+  scale <- test_scale(transform_log10(), limits = c(10, 1000))
   expect_snapshot_warning(train_guide(guide, scale)$logkey)
 })
 
 test_that("guide_legend uses key.spacing correctly", {
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(carb))) +
     geom_point() +
-    guides(colour = guide_legend(
-      ncol = 2, key.spacing.y = 1, key.spacing.x = 2
-    ))
+    guides(colour = guide_legend(ncol = 2)) +
+    theme_test() +
+    theme(
+      legend.key.spacing.x = unit(2, "lines"),
+      legend.key.spacing.y = unit(1, "lines")
+    )
 
   expect_doppelganger("legend with widely spaced keys", p)
 })
@@ -627,16 +633,43 @@ test_that("axis guides can be capped", {
   expect_doppelganger("axis guides with capped ends", p)
 })
 
+test_that("guide_axis_stack stacks axes", {
+
+  left   <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "left")
+  right  <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "right")
+  bottom <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "bottom")
+  top    <- guide_axis_stack("axis", guide_axis(cap = "both"), title = "top")
+
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    guides(x = bottom, x.sec = top, y = left, y.sec = right)
+  expect_doppelganger("stacked axes", p)
+
+  bottom <- guide_axis_stack("axis_theta", guide_axis_theta(cap = "both"))
+  top    <- guide_axis_stack("axis_theta", guide_axis_theta(cap = "both"))
+
+  p <- ggplot(mtcars, aes(hp, disp)) +
+    geom_point() +
+    theme(axis.line = element_line()) +
+    coord_radial(start = 0.25 * pi, end = 1.75 * pi, donut = 0.5) +
+    guides(theta = top, theta.sec = bottom, r = left, r.sec = right)
+  expect_doppelganger("stacked radial axes", p)
+
+})
+
 test_that("logticks look as they should", {
 
   p <- ggplot(data.frame(x = c(-100, 100), y = c(10, 1000)), aes(x, y)) +
     geom_point() +
-    scale_y_continuous(trans = compose_trans(log10_trans(), reverse_trans()),
-                       expand = expansion(add = 0.5)) +
+    scale_y_continuous(
+      transform = transform_compose(transform_log10(), transform_reverse()),
+      expand = expansion(add = 0.5)
+    ) +
     scale_x_continuous(
       breaks = c(-100, -10, -1, 0, 1, 10, 100)
     ) +
-    coord_trans(x = pseudo_log_trans()) +
+    coord_trans(x = transform_pseudo_log()) +
     theme_test() +
     theme(axis.line = element_line(colour = "black"),
           panel.border = element_blank(),
@@ -660,7 +693,6 @@ test_that("logticks look as they should", {
       )
     )
   expect_doppelganger("logtick axes with customisation", p)
-
 })
 
 test_that("guides are positioned correctly", {
@@ -725,18 +757,19 @@ test_that("guides are positioned correctly", {
 
   expect_doppelganger("padding in legend box", p2)
 
+  p2 <- p2 + theme(legend.position = "inside")
   # Placement of legend inside
   expect_doppelganger("legend inside plot, centered",
-    p2 + theme(legend.position = c(.5, .5))
+    p2 + theme(legend.position.inside = c(.5, .5))
   )
   expect_doppelganger("legend inside plot, bottom left",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(0,0))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
   )
   expect_doppelganger("legend inside plot, top right",
-    p2 + theme(legend.justification = c(1,1), legend.position = c(1,1))
+    p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position = c(.5,.5))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(.5,.5))
   )
 })
 
@@ -786,8 +819,10 @@ test_that("guides title and text are positioned correctly", {
     scale_colour_continuous(
       name = "value",
       guide = guide_colorbar(
-        title.theme = element_text(size = 11, angle = 0, hjust = 0.5, vjust = 1),
-        label.theme = element_text(size = 0.8*11, angle = 270, hjust = 0.5, vjust = 1),
+        theme = theme(
+          legend.title = element_text(size = 11, angle = 0, hjust = 0.5, vjust = 1),
+          legend.text = element_text(size = 0.8 * 11, angle = 270, hjust = 0.5, vjust = 1)
+        ),
         order = 2 # set guide order to keep visual test stable
       )
     ) +
@@ -798,15 +833,52 @@ test_that("guides title and text are positioned correctly", {
       name = "fill value",
       guide = guide_legend(
         direction = "horizontal",
-        title.position = "top",
-        label.position = "bottom",
-        title.theme = element_text(size = 11, angle = 180, hjust = 0, vjust = 1),
-        label.theme = element_text(size = 0.8*11, angle = 90, hjust = 1, vjust = 0.5),
+        theme = theme(
+          legend.title.position = "top",
+          legend.text.position = "bottom",
+          legend.title = element_text(size = 11, angle = 180, hjust = 0, vjust = 1),
+          legend.text = element_text(size = 0.8 * 11, angle = 90, hjust = 1, vjust = 0.5)
+        ),
         order = 1
       )
     )
 
   expect_doppelganger("rotated guide titles and labels", p )
+
+  # title justification
+  p <- ggplot(data.frame(x = 1:2)) +
+    aes(x, x, colour = factor(x), fill = factor(x), shape = factor(x), alpha = x) +
+    geom_point() +
+    scale_alpha(breaks = 1:2) +
+    guides(
+      colour = guide_legend(
+        "colour title with hjust = 0", order = 1,
+        theme = theme(legend.title = element_text(hjust = 0))
+      ),
+      fill   = guide_legend(
+        "fill title with hjust = 1", order = 2,
+        theme = theme(
+          legend.title = element_text(hjust = 1),
+          legend.title.position = "bottom"
+        ),
+        override.aes = list(shape = 21)
+      ),
+      alpha  = guide_legend(
+        "Title\nfor\nalpha\nwith\nvjust=0", order = 3,
+        theme = theme(
+          legend.title = element_text(vjust = 0),
+          legend.title.position = "left"
+        )
+      ),
+      shape = guide_legend(
+        "Title\nfor\nshape\nwith\nvjust=1", order = 4,
+        theme = theme(
+          legend.title = element_text(vjust = 1),
+          legend.title.position = "right"
+        )
+      )
+    )
+  expect_doppelganger("legends with all title justifications", p)
 })
 
 test_that("size and linewidth affect key size", {
@@ -830,16 +902,16 @@ test_that("colorbar can be styled", {
 
   expect_doppelganger("white-to-red colorbar, long thick black ticks, green frame",
     p + scale_color_gradient(
-          low = 'white', high = 'red',
-          guide = guide_colorbar(
-            frame = element_rect(colour = "green"),
-            frame.linewidth = 1.5 / .pt,
-            ticks.colour = "black",
-            ticks.linewidth = 2.5 / .pt,
-            ticks.length = unit(0.4, "npc")
-            )
+      low = 'white', high = 'red',
+      guide = guide_colorbar(
+        theme = theme(
+          legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
+          legend.ticks = element_line("black", linewidth = 2.5 / .pt),
+          legend.ticks.length = unit(0.4, "npc")
         )
+      )
     )
+  )
 })
 
 test_that("guides can handle multiple aesthetics for one scale", {
@@ -869,10 +941,21 @@ test_that("bin guide can be styled correctly", {
     p + guides(size = guide_bins(show.limits = TRUE))
   )
   expect_doppelganger("guide_bins can show arrows",
-    p + guides(size = guide_bins(axis.arrow = arrow(length = unit(1.5, "mm"), ends = "both")))
+    p + guides(size = guide_bins()) +
+      theme_test() +
+      theme(
+        legend.axis.line = element_line(
+          linewidth = 0.5 / .pt,
+          arrow = arrow(length = unit(1.5, "mm"), ends = "both")
+        )
+      )
   )
   expect_doppelganger("guide_bins can remove axis",
-    p + guides(size = guide_bins(axis = FALSE))
+    p + guides(size = guide_bins()) +
+      theme_test() +
+      theme(
+        legend.axis.line = element_blank()
+      )
   )
   expect_doppelganger("guide_bins work horizontally",
     p + guides(size = guide_bins(direction = "horizontal"))
@@ -895,7 +978,9 @@ test_that("coloursteps guide can be styled correctly", {
     p + guides(colour = guide_coloursteps(even.steps = FALSE))
   )
   expect_doppelganger("guide_bins can show ticks",
-    p + guides(colour = guide_coloursteps(ticks = TRUE))
+    p + guides(colour = guide_coloursteps(
+      theme = theme(legend.ticks = element_line(linewidth = 0.5 / .pt, colour = "white"))
+    ))
   )
 })
 

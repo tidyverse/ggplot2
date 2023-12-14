@@ -46,9 +46,9 @@
 #'
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = waiver(),
-                       n.dodge = 1, minor.ticks = FALSE, cap = "none",
-                       order = 0, position = waiver()) {
+guide_axis <- function(title = waiver(), theme = NULL, check.overlap = FALSE,
+                       angle = waiver(), n.dodge = 1, minor.ticks = FALSE,
+                       cap = "none", order = 0, position = waiver()) {
   check_bool(minor.ticks)
   if (is.logical(cap)) {
     check_bool(cap)
@@ -58,6 +58,7 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = waiver()
 
   new_guide(
     title = title,
+    theme = theme,
 
     # customisations
     check.overlap = check.overlap,
@@ -86,6 +87,7 @@ GuideAxis <- ggproto(
 
   params = list(
     title     = waiver(),
+    theme     = NULL,
     name      = "axis",
     hash      = character(),
     position  = waiver(),
@@ -225,17 +227,14 @@ GuideAxis <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
-    axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
-    is_char  <- vapply(elements[axis_elem], is.character, logical(1))
-    axis_elem <- axis_elem[is_char]
-    elements[axis_elem] <- lapply(
-      paste(
-        unlist(elements[axis_elem]),
-        params$aes, params$position, sep = "."
-      ),
-      calc_element, theme = theme
+    is_char <- vapply(elements, is.character, logical(1))
+    suffix <- paste(params$aes, params$position, sep = ".")
+    elements[is_char] <- vapply(
+      elements[is_char],
+      function(x) paste(x, suffix, sep = "."),
+      character(1)
     )
-    elements
+    Guide$setup_elements(params, elements, theme)
   },
 
   override_elements = function(params, elements, theme) {
@@ -570,6 +569,10 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   check_number_decimal(angle)
   angle <- angle %% 360
+  arg_match0(
+    axis_position,
+    c("bottom", "left", "top", "right")
+  )
 
   if (axis_position == "bottom") {
 
@@ -590,13 +593,6 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
     hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
     vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-
-  } else {
-
-    cli::cli_abort(c(
-      "Unrecognized {.arg axis_position}: {.val {axis_position}}",
-      "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
-    ))
 
   }
 

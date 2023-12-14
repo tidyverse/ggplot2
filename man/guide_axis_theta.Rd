@@ -6,6 +6,7 @@
 \usage{
 guide_axis_theta(
   title = waiver(),
+  theme = NULL,
   angle = waiver(),
   minor.ticks = FALSE,
   cap = "none",
@@ -18,6 +19,10 @@ guide_axis_theta(
 If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
+
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
 \item{angle}{Compared to setting the angle in \code{\link[=theme]{theme()}} / \code{\link[=element_text]{element_text()}},
 this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that

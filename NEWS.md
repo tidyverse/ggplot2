@@ -2,6 +2,49 @@
 
 * Legend keys that can draw arrows have their size adjusted for arrows.
 
+* The `trans` argument in scales and secondary axes has been renamed to 
+  `transform`. The `trans` argument itself is deprecated. To access the
+  transformation from the scale, a new `get_transformation()` method is 
+  added to Scale-classes (#5558).
+
+* `guide_*()` functions get a new `theme` argument to style individual guides.
+  The `theme()` function has gained additional arguments for styling guides:
+  `legend.key.spacing{.x/.y}`, `legend.frame`, `legend.axis.line`, 
+  `legend.ticks`, `legend.ticks.length`, `legend.text.position` and 
+  `legend.title.position`. Previous style arguments in the `guide_*()` functions 
+  have been soft-deprecated.
+
+* When legend titles are larger than the legend, title justification extends
+  to the placement of keys and labels (#1903).
+
+* `draw_key_label()` now better reflects the appearance of labels.
+
+* The `minor_breaks` function argument in scales can now take a function with
+  two arguments: the scale's limits and the scale's major breaks (#3583).
+  
+* (internal) The `ScaleContinuous$get_breaks()` method no longer censors
+  the computed breaks.
+
+* Plot scales now ignore `AsIs` objects constructed with `I(x)`, instead of
+  invoking the identity scale. This allows these columns to co-exist with other
+  layers that need a non-identity scale for the same aesthetic. Also, it makes
+  it easy to specify relative positions (@teunbrand, #5142).
+
+* The `fill` aesthetic in many geoms now accepts grid's patterns and gradients.
+  For developers of layer extensions, this feature can be enabled by switching 
+  from `fill = alpha(fill, alpha)` to `fill = fill_alpha(fill, alpha)` when 
+  providing fills to `grid::gpar()` (@teunbrand, #3997).
+
+* The plot's title, subtitle and caption now obey horizontal text margins
+  (#5533).
+
+* New `guide_axis_stack()` to combine other axis guides on top of one another.
+
+* New `guide_custom()` function for drawing custom graphical objects (grobs)
+  unrelated to scales in legend positions (#5416).
+  
+* `theme()` now supports splicing a list of arguments (#5542).
+
 * Contour functions will not fail when `options("OutDec")` is not `.` (@eliocamp, #5555).
 
 * The `legend.key` theme element is set to inherit from the `panel.background`

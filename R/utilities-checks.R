@@ -89,7 +89,8 @@ check_inherits <- function(x,
 #'   either `"blending"` or `"compositing"`. If `NULL` (default), support for
 #'   all known blending or compositing operations is queried.
 #' @param maybe A logical of length 1 determining what the return value should
-#'   be in case the device capabilities cannot be assessed.
+#'   be in case the device capabilities cannot be assessed. When the current
+#'   device is the 'null device', `maybe` is returned.
 #' @param call The execution environment of a currently running function, e.g.
 #'   [`caller_env()`][rlang::caller_env()]. The function will be mentioned in
 #'   warnings and error messages as the source of the warning or error. See
@@ -186,6 +187,14 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
 
   check_bool(maybe, allow_na = TRUE)
 
+  # Grab device for checking
+  dev_cur  <- grDevices::dev.cur()
+  dev_name <- names(dev_cur)
+
+  if (dev_name == "null device") {
+    return(maybe)
+  }
+
   action <- arg_match0(action, c("test", "warn", "abort"))
   action_fun <- switch(
     action,
@@ -232,10 +241,6 @@ check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
                call = call)
     return(FALSE)
   }
-
-  # Grab device for checking
-  dev_cur  <- grDevices::dev.cur()
-  dev_name <- names(dev_cur)
 
   if (dev_name == "RStudioGD") {
     # RStudio opens RStudioGD as the active graphics device, but the back-end
