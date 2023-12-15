@@ -29,7 +29,7 @@ NULL
 #'
 #' # A normal axis first, then a capped axis
 #' p + guides(x = guide_axis_stack("axis", guide_axis(cap = "both")))
-guide_axis_stack <- function(first = "axis", ..., title = waiver(),
+guide_axis_stack <- function(first = "axis", ..., title = waiver(), theme = NULL,
                              spacing = NULL, order = 0, position = waiver()) {
 
   check_object(spacing, is.unit, "{.cls unit}", allow_null = TRUE)
@@ -63,6 +63,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(),
 
   new_guide(
     title = title,
+    theme = theme,
     guides = axes,
     guide_params = params,
     available_aes = c("x", "y", "theta", "r"),
@@ -88,6 +89,7 @@ GuideAxisStack <- ggproto(
     # Standard guide stuff
     name      = "stacked_axis",
     title     = waiver(),
+    theme     = NULL,
     angle     = waiver(),
     hash      = character(),
     position  = waiver(),
@@ -142,9 +144,15 @@ GuideAxisStack <- ggproto(
 
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
+    theme <- add_theme(theme, params$theme)
 
     position  <- params$position  %||% position
     direction <- params$direction %||% direction
+
+    # If we are instructed to not draw labels at interior panels, just render
+    # the first axis
+    draw_label  <- params$draw_label %||% TRUE
+    guide_index <- if (draw_label) seq_along(params$guides) else 1L
 
     if (position %in% c("theta", "theta.sec")) {
       # If we are a theta guide, we need to keep track how much space in the
@@ -153,7 +161,8 @@ GuideAxisStack <- ggproto(
       offset  <- unit(0, "cm")
       spacing <- params$spacing %||% unit(2.25, "pt")
       grobs   <- list()
-      for (i in seq_along(params$guides)) {
+
+      for (i in guide_index) {
         # Add offset to params
         pars <- params$guide_params[[i]]
         pars$stack_offset <- offset
@@ -174,10 +183,12 @@ GuideAxisStack <- ggproto(
 
     # Loop through every guide's draw method
     grobs <- list()
-    for (i in seq_along(params$guides)) {
+    for (i in guide_index) {
+      pars <- params$guide_params[[i]]
+      pars$draw_label <- draw_label
       grobs[[i]] <- params$guides[[i]]$draw(
         theme, position = position, direction = direction,
-        params = params$guide_params[[i]]
+        params = pars
       )
     }
 

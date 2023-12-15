@@ -17,6 +17,26 @@ if (getRversion() < "3.3") {
 
 on_load(backport_unit_methods())
 
+unitType <- function(x) {
+  unit <- attr(x, "unit")
+  if (!is.null(unit)) {
+    return(unit)
+  }
+  if (is.list(x) && is.unit(x[[1]])) {
+    unit <- vapply(x, unitType, character(1))
+    return(unit)
+  } else if ("fname" %in% names(x)) {
+    return(x$fname)
+  }
+  rep("", length(x)) # we're only interested in simple units for now
+}
+
+on_load({
+  if ("unitType" %in% getNamespaceExports("grid")) {
+    unitType <- grid::unitType
+  }
+})
+
 # isFALSE() and isTRUE() are available on R (>=3.5)
 if (getRversion() < "3.5") {
   isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
@@ -32,6 +52,9 @@ version_unavailable <- function(...) {
 viewport <- function(..., mask) grid::viewport(...)
 pattern  <- version_unavailable
 as.mask  <- version_unavailable
+# Unavailable prior to R 4.1.0
+linearGradient <- version_unavailable
+
 on_load({
   if ("mask" %in% fn_fmls_names(grid::viewport)) {
     viewport <- grid::viewport
@@ -43,5 +66,7 @@ on_load({
   if ("as.mask" %in% getNamespaceExports("grid")) {
     as.mask <- grid::as.mask
   }
+  if ("linearGradient" %in% getNamespaceExports("grid")) {
+    linearGradient <- grid::linearGradient()
+  }
 })
-

@@ -235,6 +235,96 @@ test_that("facet gives clear error if ", {
   expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(vars(x), "free")))
 })
 
+test_that("facet_grid `axis_labels` argument can be overruled", {
+
+  f <- facet_grid(vars(cyl), axes = "all", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_grid(vars(cyl), axes = "all", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = FALSE, y = FALSE))
+
+  # Overrule when only drawing at margins
+  f <- facet_grid(vars(cyl), axes = "margins", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+})
+
+test_that("facet_wrap `axis_labels` argument can be overruled", {
+
+  # The folllowing three should all draw axis labels
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  # The only case when labels shouldn't be drawn is when scales are fixed but
+  # the axes are to be drawn
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = FALSE, y = FALSE))
+
+  # Should draw labels because scales are free
+  f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  # Should draw labels because only drawing at margins
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+})
+
+test_that("facet_grid `axes` can draw inner axes.", {
+  df <- data_frame(
+    x = 1:4, y = 1:4,
+    fx = c("A", "A", "B", "B"),
+    fy = c("c", "d", "c", "d")
+  )
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  case <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "all"))
+  ctrl <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "margins"))
+
+  # 4 x-axes if all axes should be drawn
+  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
+  # 2 x-axes if drawing at the margins
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
+
+  # Ditto for y-axes
+  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
+})
+
+test_that("facet_wrap `axes` can draw inner axes.", {
+  df <- data_frame(
+    x = 1, y = 1, facet = LETTERS[1:4]
+  )
+
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  case <- ggplotGrob(p + facet_wrap(vars(facet), axes = "all"))
+  ctrl <- ggplotGrob(p + facet_wrap(vars(facet), axes = "margins"))
+
+  # 4 x-axes if all axes should be drawn
+  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
+  # 2 x-axes if drawing at the margins
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
+
+  # Ditto for y-axes
+  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
+})
+
 # Variable combinations ---------------------------------------------------
 
 test_that("zero-length vars in combine_vars() generates zero combinations", {
@@ -412,4 +502,21 @@ test_that("facet labels respect both justification and margin arguments", {
 
   expect_doppelganger("left justified facet labels with margins", p1)
   expect_doppelganger("left justified rotated facet labels with margins", p2)
+})
+
+test_that("facet's 'axis_labels' argument correctly omits labels", {
+
+  base <- ggplot(mtcars, aes(mpg, disp)) +
+    geom_point() +
+    guides(x = "axis", y = "axis", x.sec = "axis", y.sec = "axis")
+
+  expect_doppelganger(
+    "facet_grid with omitted inner axis labels",
+    base + facet_grid(vars(cyl), vars(vs), axes = "all", axis.labels = "margins")
+  )
+
+  expect_doppelganger(
+    "facet_wrap with omitted inner axis labels",
+    base + facet_wrap(vars(cyl, vs), axes = "all", axis.labels = "margins")
+  )
 })

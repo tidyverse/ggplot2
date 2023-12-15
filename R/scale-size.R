@@ -51,10 +51,12 @@ NULL
 #' @usage NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
-                                  trans = "identity", guide = "legend") {
+                                  transform = "identity",
+                                  trans = deprecated(),
+                                  guide = "legend") {
   continuous_scale("size", palette = pal_area(range), name = name,
-    breaks = breaks, labels = labels, limits = limits, trans = trans,
-    guide = guide)
+    breaks = breaks, labels = labels, limits = limits,
+    transform = transform, trans = trans, guide = guide)
 }
 
 #' @rdname scale_size
@@ -65,20 +67,23 @@ scale_size <- scale_size_continuous
 #' @export
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
-                         trans = "identity", guide = "legend") {
+                         transform = "identity", trans = deprecated(),
+                         guide = "legend") {
   continuous_scale("size", palette = pal_rescale(range), name = name,
-    breaks = breaks, labels = labels, limits = limits, trans = trans,
-    guide = guide)
+    breaks = breaks, labels = labels, limits = limits, transform = transform,
+    trans = trans, guide = guide)
 }
 
 #' @rdname scale_size
 #' @export
 scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
-                              nice.breaks = TRUE, trans = "identity", guide = "bins") {
+                              nice.breaks = TRUE, transform = "identity",
+                              trans = deprecated(), guide = "bins") {
   binned_scale("size", palette = pal_area(range), name = name,
-               breaks = breaks, labels = labels, limits = limits, trans = trans,
-               n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
+               breaks = breaks, labels = labels, limits = limits,
+               transform = transform, trans = trans, n.breaks = n.breaks,
+               nice.breaks = nice.breaks, guide = guide)
 }
 
 #' @rdname scale_size
@@ -94,11 +99,11 @@ scale_size_discrete <- function(...) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_ordinal <- function(..., range = c(2, 6)) {
+scale_size_ordinal <- function(name = waiver(), ..., range = c(2, 6)) {
   force(range)
 
   discrete_scale(
-    "size",
+    "size", name = name,
     palette = function(n) {
       area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
       sqrt(area)
@@ -111,30 +116,34 @@ scale_size_ordinal <- function(..., range = c(2, 6)) {
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size
-scale_size_area <- function(..., max_size = 6) {
-  continuous_scale("size",
+scale_size_area <- function(name = waiver(), ..., max_size = 6) {
+  continuous_scale(
+    "size", name = name,
     palette = abs_area(max_size),
-    rescaler = rescale_max, ...)
+    rescaler = rescale_max, ...
+  )
 }
 
 #' @export
 #' @rdname scale_size
-scale_size_binned_area <- function(..., max_size = 6) {
-  binned_scale("size",
-               palette = abs_area(max_size),
-               rescaler = rescale_max, ...)
-}
-
-#' @rdname scale_size
-#' @export
-#' @usage NULL
-scale_size_datetime <- function(..., range = c(1, 6)) {
-  datetime_scale("size", "time", palette = pal_area(range), ...)
+scale_size_binned_area <- function(name = waiver(), ..., max_size = 6) {
+  binned_scale(
+    "size", name = name,
+    palette = abs_area(max_size),
+    rescaler = rescale_max, ...
+  )
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_date <- function(..., range = c(1, 6)) {
-  datetime_scale("size", "date", palette = pal_area(range), ...)
+scale_size_datetime <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale("size", "time", name = name, palette = pal_area(range), ...)
+}
+
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_date <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale("size", "date", name = name, palette = pal_area(range), ...)
 }

@@ -23,7 +23,7 @@ NULL
 #'
 #' # The `angle` argument can be used to set relative angles
 #' p + guides(theta = guide_axis_theta(angle = 0))
-guide_axis_theta <- function(title = waiver(), angle = waiver(),
+guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
                              minor.ticks = FALSE, cap = "none", order = 0,
                              position = waiver()) {
 
@@ -53,6 +53,10 @@ guide_axis_theta <- function(title = waiver(), angle = waiver(),
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GuideAxisTheta <- ggproto(
   "GuideAxisTheta", GuideAxis,
 
@@ -185,7 +189,7 @@ GuideAxisTheta <- ggproto(
     key <- vec_slice(key, !vec_detect_missing(key$.label %||% NA))
 
     # Early exit if drawing no labels
-    labels <- key$.label
+    labels <- validate_labels(key$.label)
     if (length(labels) < 1) {
       return(zeroGrob())
     }
@@ -255,7 +259,7 @@ GuideAxisTheta <- ggproto(
 
     key <- params$key
     key <- vec_slice(key, !is.na(key$.label) & nzchar(key$.label))
-    labels <- key$.label
+    labels <- validate_labels(key$.label)
     if (length(labels) == 0 || inherits(elements$text, "element_blank")) {
       return(list(offset = offset))
     }
@@ -307,6 +311,9 @@ GuideAxisTheta <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
+
+    # Fix order of grobs
+    grobs <- grobs[c("title", "labels", "ticks", "decor")]
 
     if (params$position %in% c("theta", "theta.sec")) {
       # We append an 'offset' slot in case this guide is part

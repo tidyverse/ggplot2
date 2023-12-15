@@ -15,6 +15,8 @@ facet_grid(
   switch = NULL,
   drop = TRUE,
   margins = FALSE,
+  axes = "margins",
+  axis.labels = "all",
   facets = deprecated()
 )
 }
@@ -76,6 +78,18 @@ for each of the possible values of the faceting variables. If
 default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
+
+\item{axes}{Determines which axes will be drawn. When \code{"margins"}
+(default), axes will be drawn at the exterior margins. \code{"all_x"} and
+\code{"all_y"} will draw the respective axes at the interior panels too, whereas
+\code{"all"} will draw all axes at all panels.}
+
+\item{axis.labels}{Determines whether to draw labels for interior axes when
+the \code{axes} argument is not \code{"margins"}. When \code{"all"} (default), all
+interior axes get labels. When \code{"margins"}, only the exterior axes get
+labels and the interior axes get none. When \code{"all_x"} or \code{"all_y"}, only
+draws the labels at the interior axes in the x- or y-direction
+respectively.}
 
 \item{facets}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{rows}
 and \code{cols} instead.}

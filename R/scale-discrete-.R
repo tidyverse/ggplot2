@@ -61,18 +61,28 @@
 #'   geom_point() +
 #'   scale_x_discrete(labels = abbreviate)
 #' }
-scale_x_discrete <- function(..., expand = waiver(), guide = waiver(), position = "bottom") {
-  sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), palette = identity, ...,
-    expand = expand, guide = guide, position = position, super = ScaleDiscretePosition)
+scale_x_discrete <- function(name = waiver(), ..., expand = waiver(),
+                             guide = waiver(), position = "bottom") {
+  sc <- discrete_scale(
+    aesthetics = c("x", "xmin", "xmax", "xend"), name = name,
+    palette = identity, ...,
+    expand = expand, guide = guide, position = position,
+    super = ScaleDiscretePosition
+  )
 
   sc$range_c <- ContinuousRange$new()
   sc
 }
 #' @rdname scale_discrete
 #' @export
-scale_y_discrete <- function(..., expand = waiver(), guide = waiver(), position = "left") {
-  sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), palette = identity, ...,
-    expand = expand, guide = guide, position = position, super = ScaleDiscretePosition)
+scale_y_discrete <- function(name = waiver(), ..., expand = waiver(),
+                             guide = waiver(), position = "left") {
+  sc <- discrete_scale(
+    aesthetics = c("y", "ymin", "ymax", "yend"), name = name,
+    palette = identity, ...,
+    expand = expand, guide = guide, position = position,
+    super = ScaleDiscretePosition
+  )
 
   sc$range_c <- ContinuousRange$new()
   sc

@@ -16,6 +16,7 @@
 \title{Viridis colour scales from viridisLite}
 \usage{
 scale_colour_viridis_d(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -26,6 +27,7 @@ scale_colour_viridis_d(
 )
 
 scale_fill_viridis_d(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -36,6 +38,7 @@ scale_fill_viridis_d(
 )
 
 scale_colour_viridis_c(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -50,6 +53,7 @@ scale_colour_viridis_c(
 )
 
 scale_fill_viridis_c(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -64,6 +68,7 @@ scale_fill_viridis_c(
 )
 
 scale_colour_viridis_b(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -78,6 +83,7 @@ scale_colour_viridis_b(
 )
 
 scale_fill_viridis_b(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -92,6 +98,11 @@ scale_fill_viridis_b(
 )
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}},
 \code{\link[=continuous_scale]{continuous_scale()}}, or \code{\link[=binned_scale]{binned_scale()}} to control name, limits, breaks,
 labels and so forth.}

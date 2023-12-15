@@ -6,7 +6,8 @@
 \usage{
 datetime_scale(
   aesthetics,
-  trans,
+  transform,
+  trans = deprecated(),
   palette,
   breaks = pretty_breaks(),
   minor_breaks = waiver(),
@@ -22,6 +23,19 @@ datetime_scale(
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
+
+\item{transform}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
+
+A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \verb{transform_<name>}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
 
 \item{trans}{For date/time scales, the name of a date/time transformation or
 the object itself. Built-in transformations include "hms", "date" and "time".}

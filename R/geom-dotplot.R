@@ -242,12 +242,12 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because y position isn't real.
       # After position code is rewritten, each dot should have its own bounding box.
+      yoffset <- if (is_mapped_discrete(data$y)) data$y else 0
       data$xmin <- data$x - data$binwidth / 2
       data$xmax <- data$x + data$binwidth / 2
-      data$ymin <- stackaxismin
-      data$ymax <- stackaxismax
-      data$y    <- 0
-
+      data$ymin <- stackaxismin + yoffset
+      data$ymax <- stackaxismax + yoffset
+      data$y <- yoffset
     } else if (params$binaxis == "y") {
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because x position isn't real.

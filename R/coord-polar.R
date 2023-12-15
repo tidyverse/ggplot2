@@ -80,6 +80,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
   aspect = function(details) 1,
 
+  is_free = function() TRUE,
+
   distance = function(self, x, y, details) {
     arc <- self$start + c(0, 2 * pi)
     dir <- self$direction

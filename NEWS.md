@@ -5,6 +5,52 @@
   so that package developers may extend the behavior of the `Layout` ggproto object
   without needing to develop an entirely new `ggplot_build` method (@jtlandis, #5077).
 
+* `coord_polar()` can have free scales in facets (@teunbrand, #2815).
+
+* The new argument `axes` in `facet_grid()` and `facet_wrap()` controls the
+  display of axes at interior panel positions. Additionally, the `axis.labels`
+  argument can be used to only draw tick marks or fully labelled axes 
+  (@teunbrand, #4064).
+  
+* The `name` argument in most scales is now explicitly the first argument 
+  (#5535)
+
+* New `display` argument in `guide_colourbar()` supplants the `raster` argument.
+  In R 4.1.0 and above, `display = "gradient"` will draw a gradient.
+  
+* When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
+  now stacked from the y-position rather than from 0 (@teunbrand, #5462)
+
+* (breaking) In the `scale_{colour/fill}_gradient2()` and 
+  `scale_{colour/fill}_steps2()` functions, the `midpoint` argument is 
+  transformed by the scale transformation (#3198).
+
+* `guide_colourbar()` and `guide_coloursteps()` gain an `alpha` argument to
+  set the transparency of the bar (#5085).
+
+* `stat_count()` treats `x` as unique in the same manner `unique()` does 
+  (#4609).
+
+* `position_stack()` no longer silently removes missing data, which is now
+  handled by the geom instead of position (#3532).
+
+* Legend keys that can draw arrows have their size adjusted for arrows.
+
+* The `trans` argument in scales and secondary axes has been renamed to 
+  `transform`. The `trans` argument itself is deprecated. To access the
+  transformation from the scale, a new `get_transformation()` method is 
+  added to Scale-classes (#5558).
+
+* `guide_*()` functions get a new `theme` argument to style individual guides.
+  The `theme()` function has gained additional arguments for styling guides:
+  `legend.key.spacing{.x/.y}`, `legend.frame`, `legend.axis.line`, 
+  `legend.ticks`, `legend.ticks.length`, `legend.text.position` and 
+  `legend.title.position`. Previous style arguments in the `guide_*()` functions 
+  have been soft-deprecated.
+
+* When legend titles are larger than the legend, title justification extends
+  to the placement of keys and labels (#1903).
+
 * `draw_key_label()` now better reflects the appearance of labels.
 
 * The `minor_breaks` function argument in scales can now take a function with

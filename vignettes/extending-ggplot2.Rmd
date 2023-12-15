@@ -864,7 +864,7 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     if (!is.null(y_scale)) {
       y_scale_orig <- y_scale$clone()
       y_scale_new <- y_scale$clone()
-      y_scale_new$trans <- params$trans
+      y_scale_new$transformation <- params$trans
       # Make sure that oob values are kept
       y_scale_new$oob <- function(x, ...) x
       scales$y <- list(y_scale_orig, y_scale_new)

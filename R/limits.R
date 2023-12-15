@@ -122,7 +122,7 @@ limits.numeric <- function(lims, var, call = caller_env()) {
     trans <- "identity"
   }
 
-  make_scale("continuous", var, limits = lims, trans = trans, call = call)
+  make_scale("continuous", var, limits = lims, transform = trans, call = call)
 }
 
 make_scale <- function(type, var, ..., call = NULL) {
