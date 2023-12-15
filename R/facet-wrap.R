@@ -293,12 +293,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       structure(labels_df, type = "cols"),
       params$labeller, theme)
 
-    # If user hasn't set aspect ratio, and we have fixed scales, then
-    # ask the coordinate system if it wants to specify one
-    aspect_ratio <- theme$aspect.ratio
-    if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
-      aspect_ratio <- coord$aspect(ranges[[1]])
-    }
+    # If user hasn't set aspect ratio, ask the coordinate system if
+    # it wants to specify one
+    aspect_ratio <- theme$aspect.ratio %||% coord$aspect(ranges[[1]])
 
     if (is.null(aspect_ratio)) {
       aspect_ratio <- 1

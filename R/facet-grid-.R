@@ -369,9 +369,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
       cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
     }
-    if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
-      aspect_ratio <- coord$aspect(ranges[[1]])
-    }
+    aspect_ratio <- aspect_ratio %||% coord$aspect(ranges[[1]])
     if (is.null(aspect_ratio)) {
       aspect_ratio <- 1
       respect <- FALSE

@@ -79,6 +79,25 @@ test_that("Inf is squished to range", {
   expect_equal(d[[3]]$theta, mapped_discrete(0))
 })
 
+test_that("coord_polar can have free scales in facets", {
+
+  p <- ggplot(data_frame0(x = c(1, 2)), aes(1, x)) +
+    geom_col() +
+    coord_polar(theta = "y")
+
+  sc <- layer_scales(p + facet_wrap(~ x), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 2))
+
+  sc <- layer_scales(p + facet_wrap(~ x, scales = "free"), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 1))
+
+  sc <- layer_scales(p + facet_grid(x ~ .), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 2))
+
+  sc <- layer_scales(p + facet_grid(x ~ ., scales = "free"), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 1))
+})
+
 test_that("coord_radial warns about axes", {
 
   p <- ggplot(mtcars, aes(disp, mpg)) +
