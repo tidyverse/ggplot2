@@ -124,6 +124,12 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(vars(class), scales = "free")
 
+# When scales are constant, duplicated axes can be shown with
+# or without labels
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  facet_wrap(vars(class), axes = "all", axis.labels = "all_y")
+
 # To repeat the same data in every panel, simply construct a data frame
 # that does not contain the faceting variable.
 ggplot(mpg, aes(displ, hwy)) +
