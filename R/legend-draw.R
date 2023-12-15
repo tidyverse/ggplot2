@@ -258,7 +258,10 @@ draw_key_smooth <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_text <- function(data, params, size) {
-  data$label <- data$label %||% "a"
+  data <- replace_null(
+    unclass(data),
+    label = "a", hjust = 0.5, vjust = 0.5, angle = 0
+  )
   just <- rotate_just(data$angle, data$hjust, data$vjust)
   grob <- titleGrob(
     data$label,
@@ -283,9 +286,13 @@ draw_key_text <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_label <- function(data, params, size) {
-  data$label <- data$label %||% "a"
+  data <- replace_null(
+    unclass(data),
+    label = "a", hjust = 0.5, vjust = 0.5, angle = 0
+  )
+  params$label.size <- params$label.size %||% 0.25
   just <- rotate_just(data$angle, data$hjust, data$vjust)
-  padding <- rep(params$label.padding, length.out = 4)
+  padding <- rep(params$label.padding %||% unit(0.25, "lines"), length.out = 4)
   descent <- font_descent(
     family = data$family %||% "",
     face = data$fontface %||% 1,
@@ -298,7 +305,7 @@ draw_key_label <- function(data, params, size) {
     angle = data$angle,
     just = c(data$hjust, data$vjust),
     padding = padding,
-    r = params$label.r,
+    r = params$label.r %||% unit(0.15, "lines"),
     text.gp = gpar(
       col = data$colour %||% "black",
       fontfamily = data$family   %||% "",
@@ -306,9 +313,9 @@ draw_key_label <- function(data, params, size) {
       fontsize   = (data$size %||% 3.88) * .pt
     ),
     rect.gp = gpar(
-      col = if (isTRUE(all.equal(params$label.size, 0))) NA else data$colour,
+      col  = if (isTRUE(all.equal(params$label.size, 0))) NA else data$colour,
       fill = alpha(data$fill %||% "white", data$alpha),
-      lwd = params$label.size * .pt
+      lwd  = params$label.size * .pt
     )
   )
   angle  <- deg2rad(data$angle %||% 0)
