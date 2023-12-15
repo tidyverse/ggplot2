@@ -524,6 +524,14 @@ change the font size of <code>geom_text()</code>?<a class="anchor" aria-label="a
 <code><a href="../reference/geom_text.html">geom_text()</a></code> for a single plot. If you want to use the same
 updated size, you can set this with <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code>,
 e.g. <code>update_geom_defaults("text", list(size = 6))</code>.</p>
+<p>One tricky thing is that this <code>size</code> is in
+<strong>mm</strong> while the <code>size</code> of
+<code><a href="../reference/element.html">element_text()</a></code> is in pt. If you want to match
+<code><a href="../reference/geom_text.html">geom_text()</a></code>’s font size to the theme’s size, specify
+<code>size.unit = "pt"</code> in <code><a href="../reference/geom_text.html">geom_text()</a></code> for a single
+plot, or divide the number by the <code>.pt</code> constant variable for
+<code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code>. Please refer to <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#font-size">“Font
+size” section of the aesthetic specifications</a> for more details.</p>
 <details><summary>
 See example
 </summary><p>Suppose you have the following data frame and visualization.</p>
