@@ -117,15 +117,27 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   render_axis_h = function(panel_params, theme) {
     list(
-      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
-      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
+      top = panel_guides_grob(
+        panel_params$guides, position = "top",
+        theme = theme, labels = panel_params$draw_labels$top
+      ),
+      bottom = panel_guides_grob(
+        panel_params$guides, position = "bottom",
+        theme = theme, labels = panel_params$draw_labels$bottom
+      )
     )
   },
 
   render_axis_v = function(panel_params, theme) {
     list(
-      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
-      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
+      left = panel_guides_grob(
+        panel_params$guides, position = "left",
+        theme = theme, labels = panel_params$draw_labels$left
+        ),
+      right = panel_guides_grob(
+        panel_params$guides, position = "right",
+        theme = theme, labels = panel_params$draw_labels$right
+      )
     )
   }
 )
@@ -146,10 +158,11 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-panel_guides_grob <- function(guides, position, theme) {
+panel_guides_grob <- function(guides, position, theme, labels = NULL) {
   if (!inherits(guides, "Guides")) {
     return(zeroGrob())
   }
   pair <- guides$get_position(position)
+  pair$params$draw_label <- labels %||% NULL
   pair$guide$draw(theme, params = pair$params)
 }

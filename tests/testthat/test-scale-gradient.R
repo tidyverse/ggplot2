@@ -12,11 +12,11 @@ test_that("points outside the limits are plotted as NA", {
 
 test_that("midpoints are transformed", {
 
-  scale <- scale_colour_gradient2(midpoint = 1, trans = "identity")
+  scale <- scale_colour_gradient2(midpoint = 1, transform = "identity")
   scale$train(c(0, 3))
   expect_equal(scale$rescale(c(0, 3)), c(0.25, 1))
 
-  scale <- scale_colour_gradient2(midpoint = 10, trans = "log10")
+  scale <- scale_colour_gradient2(midpoint = 10, transform = "log10")
   scale$train(scale$transform(c(1, 1000)))
   ans <- scale$rescale(c(0, 3), c(0.25, 1))
 

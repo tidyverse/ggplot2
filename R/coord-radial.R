@@ -79,6 +79,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     diff(details$bbox$y) / diff(details$bbox$x)
   },
 
+  is_free = function() TRUE,
+
   distance = function(self, x, y, details) {
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
@@ -241,20 +243,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (self$r_axis_inside) {
       return(list(left = zeroGrob(), right = zeroGrob()))
     }
-    list(
-      left  = panel_guides_grob(panel_params$guides, position = "left",  theme = theme),
-      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
-    )
+    CoordCartesian$render_axis_v(panel_params, theme)
   },
 
   render_axis_h = function(self, panel_params, theme) {
     if (self$r_axis_inside) {
       return(list(top = zeroGrob(), bottom = zeroGrob()))
     }
-    list(
-      top    = panel_guides_grob(panel_params$guides, position = "top",    theme = theme),
-      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
-    )
+    CoordCartesian$render_axis_h(panel_params, theme)
   },
 
   render_bg = function(self, panel_params, theme) {

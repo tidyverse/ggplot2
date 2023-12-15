@@ -66,11 +66,11 @@ scale_linewidth_discrete <- function(...) {
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_ordinal <- function(..., range = c(2, 6)) {
+scale_linewidth_ordinal <- function(name = waiver(), ..., range = c(2, 6)) {
   force(range)
 
   discrete_scale(
-    "linewidth",
+    "linewidth", name = name,
     palette = function(n) seq(range[1], range[2], length.out = n),
     ...
   )
@@ -79,13 +79,19 @@ scale_linewidth_ordinal <- function(..., range = c(2, 6)) {
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_datetime <- function(..., range = c(1, 6)) {
-  datetime_scale("linewidth", "time", palette = pal_rescale(range), ...)
+scale_linewidth_datetime <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale(
+    "linewidth", transform = "time", name = name,
+    palette = pal_rescale(range), ...
+  )
 }
 
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_date <- function(..., range = c(1, 6)) {
-  datetime_scale("linewidth", "date", palette = pal_rescale(range), ...)
+scale_linewidth_date <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale(
+    "linewidth", transform = "date", name = name,
+    palette = pal_rescale(range), ...
+  )
 }

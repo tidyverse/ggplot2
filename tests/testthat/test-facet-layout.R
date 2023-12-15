@@ -4,7 +4,7 @@ c <- data_frame(b = 3)
 empty <- data_frame()
 
 panel_layout <- function(facet, data) {
-  layout <- create_layout(facet)
+  layout <- create_layout(facet = facet, coord = CoordCartesian)
   layout$setup(data)
   layout$layout
 }

@@ -99,11 +99,11 @@ scale_size_discrete <- function(...) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_ordinal <- function(..., range = c(2, 6)) {
+scale_size_ordinal <- function(name = waiver(), ..., range = c(2, 6)) {
   force(range)
 
   discrete_scale(
-    "size",
+    "size", name = name,
     palette = function(n) {
       area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
       sqrt(area)
@@ -116,30 +116,34 @@ scale_size_ordinal <- function(..., range = c(2, 6)) {
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size
-scale_size_area <- function(..., max_size = 6) {
-  continuous_scale("size",
+scale_size_area <- function(name = waiver(), ..., max_size = 6) {
+  continuous_scale(
+    "size", name = name,
     palette = abs_area(max_size),
-    rescaler = rescale_max, ...)
+    rescaler = rescale_max, ...
+  )
 }
 
 #' @export
 #' @rdname scale_size
-scale_size_binned_area <- function(..., max_size = 6) {
-  binned_scale("size",
-               palette = abs_area(max_size),
-               rescaler = rescale_max, ...)
-}
-
-#' @rdname scale_size
-#' @export
-#' @usage NULL
-scale_size_datetime <- function(..., range = c(1, 6)) {
-  datetime_scale("size", "time", palette = pal_area(range), ...)
+scale_size_binned_area <- function(name = waiver(), ..., max_size = 6) {
+  binned_scale(
+    "size", name = name,
+    palette = abs_area(max_size),
+    rescaler = rescale_max, ...
+  )
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_date <- function(..., range = c(1, 6)) {
-  datetime_scale("size", "date", palette = pal_area(range), ...)
+scale_size_datetime <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale("size", "time", name = name, palette = pal_area(range), ...)
+}
+
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_date <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale("size", "date", name = name, palette = pal_area(range), ...)
 }
