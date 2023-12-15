@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* The ggplot object now contains `$layout` which points to the `Layout` ggproto
+  object and will be used by the `ggplot_build.ggplot` method. This was exposed
+  so that package developers may extend the behavior of the `Layout` ggproto object
+  without needing to develop an entirely new `ggplot_build` method (@jtlandis, #5077).
+
 * `coord_polar()` can have free scales in facets (@teunbrand, #2815).
 
 * The new argument `axes` in `facet_grid()` and `facet_wrap()` controls the

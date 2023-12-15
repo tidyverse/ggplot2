@@ -6,9 +6,12 @@
 # This includes managing the parameters for the facet and the coord
 # so that we don't modify the ggproto object in place.
 
-create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
-  ggproto(NULL, Layout, facet = facet, coord = coord)
+create_layout <- function(facet, coord, layout = NULL) {
+  layout <- layout %||% Layout
+  check_inherits(layout, "Layout")
+  ggproto(NULL, layout, facet = facet, coord = coord)
 }
+
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
