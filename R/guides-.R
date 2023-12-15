@@ -741,6 +741,91 @@ Guides <- ggproto(
   }
 )
 
+# Data accessor -----------------------------------------------------------
+
+#' Extract tick information from guides
+#'
+#' `get_guide_data()` builds a plot and extracts information from guide keys. This
+#' information typically contains positions, values and/or labels, depending
+#' on which aesthetic is queried or guide is used.
+#'
+#' @param plot A `ggplot` or `ggplot_build` object.
+#' @param aesthetic A string that describes a single aesthetic for which to
+#'   extract guide information. For example: `"colour"`, `"size"`, `"x"` or
+#'   `"y.sec"`.
+#' @param panel An integer giving a panel number for which to return position guide
+#'   information.
+#'
+#' @return
+#' One of the following:
+#' * A `data.frame` representing the guide key, when the guide is unique for
+#'   the aesthetic.
+#' * A `list` when the coord does not support position axes or multiple guides
+#'   match the aesthetic.
+#' * `NULL` when no guide key could be found.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' # A standard plot
+#' p <- ggplot(mtcars) +
+#'   aes(mpg, disp, colour = drat, size = drat) +
+#'   geom_point() +
+#'   facet_wrap(vars(cyl), scales = "free_x")
+#'
+#' # Guide information for legends
+#' get_guide_data(p, "size")
+#'
+#' # Note that legend guides can be merged
+#' merged <- p + guides(colour = "legend")
+#' get_guide_data(merged, "size")
+#'
+#' # Guide information for positions
+#' get_guide_data(p, "x", panel = 2)
+#'
+#' # Coord polar doesn't support proper guides, so we get a list
+#' polar <- p + coord_polar()
+#' get_guide_data(polar, "theta", panel = 2)
+get_guide_data <- function(plot = last_plot(), aesthetic, panel = 1L) {
+
+  check_string(aesthetic, allow_empty = FALSE)
+  aesthetic <- standardise_aes_names(aesthetic)
+
+  if (!inherits(plot, "ggplot_built")) {
+    plot <- ggplot_build(plot)
+  }
+
+  if (!aesthetic %in% c("x", "y", "x.sec", "y.sec", "theta", "r")) {
+    # Non position guides: check if aesthetic in colnames of key
+    keys <- lapply(plot$plot$guides$params, `[[`, "key")
+    keep <- vapply(keys, function(x) any(colnames(x) %in% aesthetic), logical(1))
+    keys <- switch(sum(keep) + 1, NULL, keys[[which(keep)]], keys[keep])
+    return(keys)
+  }
+
+  # Position guides: find the right layout entry
+  check_number_whole(panel)
+  layout <- plot$layout$layout
+  select <- layout[layout$PANEL == panel, , drop = FALSE]
+  if (nrow(select) == 0) {
+    return(NULL)
+  }
+  params <- plot$layout$panel_params[select$PANEL][[1]]
+
+  # If panel params don't have guides, we probably have old coord system
+  # that doesn't use the guide system.
+  if (is.null(params$guides)) {
+    # Old system: just return relevant parameters
+    aesthetic <- paste(aesthetic, c("major", "minor", "labels", "range"), sep = ".")
+    params <- params[intersect(names(params), aesthetic)]
+    return(params)
+  } else {
+    # Get and return key
+    key <- params$guides$get_params(aesthetic)$key
+    return(key)
+  }
+}
+
 # Helpers -----------------------------------------------------------------
 
 matched_aes <- function(layer, guide) {

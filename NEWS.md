@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `get_guide_data()` function can be used to extract position and label
+  information from the plot (#5004).
+
 * The ggplot object now contains `$layout` which points to the `Layout` ggproto
   object and will be used by the `ggplot_build.ggplot` method. This was exposed
   so that package developers may extend the behavior of the `Layout` ggproto object

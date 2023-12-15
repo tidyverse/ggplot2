@@ -323,6 +323,55 @@ test_that("guide_colourbar merging preserves both aesthetics", {
   expect_true(all(c("colour", "fill") %in% names(merged$params$key)))
 })
 
+test_that("get_guide_data retrieves keys appropriately", {
+
+  p <- ggplot(mtcars, aes(mpg, disp, colour = drat, size = drat, fill = wt)) +
+    geom_point(shape = 21) +
+    facet_wrap(vars(cyl), scales = "free_x") +
+    guides(colour = "legend")
+  b <- ggplot_build(p)
+
+  # Test facetted panel
+  test <- get_guide_data(b, "x", panel = 2)
+  expect_equal(test$.label, c("18", "19", "20", "21"))
+
+  # Test plain legend
+  test <- get_guide_data(b, "fill")
+  expect_equal(test$.label, c("2", "3", "4", "5"))
+
+  # Test merged legend
+  test <- get_guide_data(b, "colour")
+  expect_true(all(c("colour", "size") %in% colnames(test)))
+
+  # Unmapped data
+  expect_null(get_guide_data(b, "shape"))
+
+  # Non-existent panels
+  expect_null(get_guide_data(b, "x", panel = 4))
+
+  expect_error(get_guide_data(b, 1), "must be a single string")
+  expect_error(get_guide_data(b, "x", panel = "a"), "must be a whole number")
+})
+
+test_that("get_guide_data retrieves keys from exotic coords", {
+
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point()
+
+  # Sanity check
+  test <- get_guide_data(p + coord_cartesian(), "x")
+  expect_equal(test$.label, c("10", "15", "20", "25", "30", "35"))
+
+  # We're not testing the formatting, so just testing output shape
+  test <- get_guide_data(p + coord_sf(crs = 3347), "y")
+  expect_equal(nrow(test), 5)
+  expect_true(all(c("x", ".value", ".label", "x") %in% colnames(test)))
+
+  # For coords that don't use guide system, we expect a list
+  test <- get_guide_data(p + coord_polar(), "theta")
+  expect_true(is.list(test) && !is.data.frame(test))
+  expect_equal(test$theta.labels, c("15", "20", "25", "30"))
+})
+
 test_that("guide_colourbar warns about discrete scales", {
 
   g <- guide_colourbar()
