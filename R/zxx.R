@@ -31,15 +31,14 @@ scale_color_ordinal <- scale_colour_ordinal
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_colour_datetime <- function(...,
+scale_colour_datetime <- function(name = waiver(), ...,
                                   low = "#132B43",
                                   high = "#56B1F7",
                                   space = "Lab",
                                   na.value = "grey50",
                                   guide = "colourbar") {
   datetime_scale(
-    "colour",
-    "time",
+    aesthetics = "colour", transform = "time", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,
@@ -55,15 +54,15 @@ scale_color_datetime <- scale_colour_datetime
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_colour_date <- function(...,
+scale_colour_date <- function(name = waiver(),
+                              ...,
                               low = "#132B43",
                               high = "#56B1F7",
                               space = "Lab",
                               na.value = "grey50",
                               guide = "colourbar") {
   datetime_scale(
-    "colour",
-    "date",
+    aesthetics = "colour", transform = "date", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,
@@ -110,15 +109,14 @@ pal_ordinal <- function(colours, na.color = "grey50", alpha = TRUE) {
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_fill_datetime <- function(...,
+scale_fill_datetime <- function(name = waiver(), ...,
                                 low = "#132B43",
                                 high = "#56B1F7",
                                 space = "Lab",
                                 na.value = "grey50",
                                 guide = "colourbar") {
   datetime_scale(
-    "fill",
-    "time",
+    aesthetics = "fill", transform = "time", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,
@@ -129,15 +127,14 @@ scale_fill_datetime <- function(...,
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_fill_date <- function(...,
+scale_fill_date <- function(name = waiver(), ...,
                             low = "#132B43",
                             high = "#56B1F7",
                             space = "Lab",
                             na.value = "grey50",
                             guide = "colourbar") {
   datetime_scale(
-    "fill",
-    "date",
+    aesthetics = "fill", transform = "date", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,

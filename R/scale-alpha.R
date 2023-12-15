@@ -9,6 +9,7 @@
 #'   or [discrete_scale()] as appropriate, to control name, limits,
 #'   breaks, labels and so forth.
 #' @param range Output range of alpha values. Must lie between 0 and 1.
+#' @inheritParams continuous_scale
 #' @family colour scales
 #' @family alpha scales
 #' @seealso
@@ -23,8 +24,8 @@
 #' p
 #' p + scale_alpha("cylinders")
 #' p + scale_alpha(range = c(0.4, 0.8))
-scale_alpha <- function(..., range = c(0.1, 1)) {
-  continuous_scale("alpha", palette = pal_rescale(range), ...)
+scale_alpha <- function(name = waiver(), ..., range = c(0.1, 1)) {
+  continuous_scale("alpha", name = name, palette = pal_rescale(range), ...)
 }
 
 #' @rdname scale_alpha
@@ -33,8 +34,8 @@ scale_alpha_continuous <- scale_alpha
 
 #' @rdname scale_alpha
 #' @export
-scale_alpha_binned <- function(..., range = c(0.1, 1)) {
-  binned_scale("alpha", palette = pal_rescale(range), ...)
+scale_alpha_binned <- function(name = waiver(), ..., range = c(0.1, 1)) {
+  binned_scale("alpha", name = name, palette = pal_rescale(range), ...)
 }
 
 #' @rdname scale_alpha
@@ -48,9 +49,9 @@ scale_alpha_discrete <- function(...) {
 
 #' @rdname scale_alpha
 #' @export
-scale_alpha_ordinal <- function(..., range = c(0.1, 1)) {
+scale_alpha_ordinal <- function(name = waiver(), ..., range = c(0.1, 1)) {
   discrete_scale(
-    "alpha",
+    "alpha", name = name,
     palette = function(n) seq(range[1], range[2], length.out = n),
     ...
   )
@@ -59,13 +60,21 @@ scale_alpha_ordinal <- function(..., range = c(0.1, 1)) {
 #' @rdname scale_alpha
 #' @export
 #' @usage NULL
-scale_alpha_datetime <- function(..., range = c(0.1, 1)) {
-  datetime_scale("alpha", "time", palette = pal_rescale(range), ...)
+scale_alpha_datetime <- function(name = waiver(), ..., range = c(0.1, 1)) {
+  datetime_scale(
+    aesthetics = "alpha", transform = "time", name = name,
+    palette = pal_rescale(range),
+    ...
+  )
 }
 
 #' @rdname scale_alpha
 #' @export
 #' @usage NULL
-scale_alpha_date <- function(..., range = c(0.1, 1)){
-  datetime_scale("alpha", "date", palette = pal_rescale(range), ...)
+scale_alpha_date <- function(name = waiver(), ..., range = c(0.1, 1)){
+  datetime_scale(
+    aesthetics = "alpha", transform = "date", name = name,
+    palette = pal_rescale(range),
+    ...
+  )
 }

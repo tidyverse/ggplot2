@@ -314,9 +314,13 @@ Guide <- ggproto(
     # Build grobs
     grobs <- list(
       title  = self$build_title(params$title, elems, params),
-      labels = self$build_labels(key, elems, params),
       ticks  = self$build_ticks(key, elems, params)
     )
+    if (params$draw_label %||% TRUE) {
+      grobs$labels <- self$build_labels(key, elems, params)
+    } else {
+      grobs$labels <- list(zeroGrob())
+    }
     grobs$decor <- self$build_decor(params$decor, grobs, elems, params)
 
     # Arrange and assemble grobs

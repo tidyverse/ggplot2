@@ -19,6 +19,7 @@
 \title{Gradient colour scales}
 \usage{
 scale_colour_gradient(
+  name = waiver(),
   ...,
   low = "#132B43",
   high = "#56B1F7",
@@ -29,6 +30,7 @@ scale_colour_gradient(
 )
 
 scale_fill_gradient(
+  name = waiver(),
   ...,
   low = "#132B43",
   high = "#56B1F7",
@@ -39,6 +41,7 @@ scale_fill_gradient(
 )
 
 scale_colour_gradient2(
+  name = waiver(),
   ...,
   low = muted("red"),
   mid = "white",
@@ -52,6 +55,7 @@ scale_colour_gradient2(
 )
 
 scale_fill_gradient2(
+  name = waiver(),
   ...,
   low = muted("red"),
   mid = "white",
@@ -65,6 +69,7 @@ scale_fill_gradient2(
 )
 
 scale_colour_gradientn(
+  name = waiver(),
   ...,
   colours,
   values = NULL,
@@ -76,6 +81,7 @@ scale_colour_gradientn(
 )
 
 scale_fill_gradientn(
+  name = waiver(),
   ...,
   colours,
   values = NULL,
@@ -87,6 +93,11 @@ scale_fill_gradientn(
 )
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{
   Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
   \describe{
@@ -95,10 +106,6 @@ that should be used for error messages associated with this scale.}
     \item{\code{palette}}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
 (e.g., \code{\link[scales:pal_area]{scales::pal_area()}}).}
-    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
-\code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If \code{NULL}, the legend title will be
-omitted.}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks

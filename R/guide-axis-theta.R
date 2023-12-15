@@ -53,6 +53,10 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GuideAxisTheta <- ggproto(
   "GuideAxisTheta", GuideAxis,
 
@@ -307,6 +311,9 @@ GuideAxisTheta <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
+
+    # Fix order of grobs
+    grobs <- grobs[c("title", "labels", "ticks", "decor")]
 
     if (params$position %in% c("theta", "theta.sec")) {
       # We append an 'offset' slot in case this guide is part
