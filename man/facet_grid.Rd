@@ -119,6 +119,12 @@ p +
   facet_grid(cols = vars(cyl)) +
   geom_point(data = df, colour = "red", size = 2)
 
+# When scales are constant, duplicated axes can be shown with
+# or without labels
+ggplot(mpg, aes(cty, hwy)) +
+  geom_point() +
+  facet_grid(year ~ drv, axes = "all", axis.labels = "all_x")
+
 # Free scales -------------------------------------------------------
 # You can also choose whether the scales should be constant
 # across all panels (the default), or whether they should be allowed
