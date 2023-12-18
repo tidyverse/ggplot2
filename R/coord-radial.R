@@ -233,7 +233,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     data$y <- rescale(data$r * cos(data$theta) + 0.5, from = bbox$y)
 
     if (self$rotate_angle && "angle" %in% names(data)) {
-      data$angle <- flip_text_angle(data$angle - rad2deg(data$theta))
+      data <- flip_data_text_angle(data)
     }
 
     data
@@ -526,6 +526,23 @@ flip_text_angle <- function(angle) {
   flip <- angle > 90 & angle < 270
   angle[flip] <- angle[flip] + 180
   angle
+}
+
+flip_data_text_angle <- function(data) {
+  if (!all(c("angle", "theta") %in% names(data))) {
+    return(data)
+  }
+  angle <- (data$angle - rad2deg(data$theta)) %% 360
+  flip  <- angle > 90 & angle < 270
+  angle[flip] <- angle[flip] + 180
+  data$angle <- angle
+  if ("hjust" %in% names(data)) {
+    data$hjust[flip] <- 1 - data$hjust[flip]
+  }
+  if ("vjust" %in% names(data)) {
+    data$vjust[flip] <- 1 - data$vjust[flip]
+  }
+  data
 }
 
 
