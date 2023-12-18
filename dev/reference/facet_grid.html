@@ -239,6 +239,13 @@ and <code>cols</code> instead.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># When scales are constant, duplicated axes can be shown with</span></span></span>
+<span class="r-in"><span><span class="co"># or without labels</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">cty</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">drv</span>, axes <span class="op">=</span> <span class="st">"all"</span>, axis.labels <span class="op">=</span> <span class="st">"all_x"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="facet_grid-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Free scales -------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># You can also choose whether the scales should be constant</span></span></span>
 <span class="r-in"><span><span class="co"># across all panels (the default), or whether they should be allowed</span></span></span>
@@ -247,7 +254,7 @@ and <code>cols</code> instead.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">mt</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="facet_grid-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="facet_grid-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If scales and space are free, then the mapping between position</span></span></span>
 <span class="r-in"><span><span class="co"># and values in the data will be the same across all panels. This</span></span></span>
@@ -256,7 +263,7 @@ and <code>cols</code> instead.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">manufacturer</span> <span class="op">~</span> <span class="va">.</span>, scales <span class="op">=</span> <span class="st">"free"</span>, space <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>strip.text.y <span class="op">=</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="facet_grid-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="facet_grid-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Margins ----------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
@@ -264,14 +271,14 @@ and <code>cols</code> instead.</p></dd>
 <span class="r-in"><span><span class="co"># variables as (character) variable names</span></span></span>
 <span class="r-in"><span><span class="va">mg</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="facet_grid-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_grid-8.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="facet_grid-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># when margins are made over "vs", since the facets for "am" vary</span></span></span>
 <span class="r-in"><span><span class="co"># within the values of "vs", the marginal facet for "vs" is also</span></span></span>
 <span class="r-in"><span><span class="co"># a margin over "am".</span></span></span>
 <span class="r-in"><span><span class="va">mg</span> <span class="op">+</span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">vs</span> <span class="op">+</span> <span class="va">am</span> <span class="op">~</span> <span class="va">gear</span>, margins <span class="op">=</span> <span class="st">"vs"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="facet_grid-9.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="facet_grid-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
