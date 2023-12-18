@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
 This is a minor release that turned out quite beefy. It is focused on 
-overhauling the guide system: the system responsible displaying information 
+overhauling the guide system: the system responsible for displaying information 
 from scales in the guise of axes and legends. As part of that overhaul, new 
 guides have been implemented and existing guides have been refined. The look 
 and feel of guides has been mostly preserved, but their internals and 
@@ -22,7 +22,7 @@ vectors interact with the scale system, namely: not at all.
   guides with the S3 system will no longer work.
   
 * By default, `guide_legend()` now only draws a key glyph for a layer when
-  the value is is the layer's data. To revert to the old behaviour, you
+  the value is in the layer's data. To revert to the old behaviour, you
   can still set `show.legend = c({aesthetic} = TRUE)` (@teunbrand, #3648).
 
 * In the `scale_{colour/fill}_gradient2()` and 
