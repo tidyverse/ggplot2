@@ -1,4 +1,4 @@
-# ggplot2 (development version)
+# ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
 overhauling the guide system: the system responsible for displaying information 
