@@ -18,7 +18,7 @@ vectors interact with the scale system, namely: not at all.
   While the S3 guide generics are still in place, the S3 methods for 
   `guide_train()`, `guide_merge()`, `guide_geom()`, `guide_transform()`,
   `guide_gengrob()` have been superseded by the respective ggproto methods.
-  In practise, this will mean that `NextMethod()` or sub-classing ggplot2's
+  In practice, this will mean that `NextMethod()` or sub-classing ggplot2's
   guides with the S3 system will no longer work.
   
 * By default, `guide_legend()` now only draws a key glyph for a layer when
@@ -73,7 +73,7 @@ vectors interact with the scale system, namely: not at all.
   providing fills to `grid::gpar()` (@teunbrand, #3997).
   
 * New function `check_device()` for testing the availability of advanced 
-  graphics features introduced in R 4.1.0 onwards (@teunbrand, #5332).
+  graphics features introduced in R 4.1.0 onward (@teunbrand, #5332).
   
 * `coord_radial()` is a successor to `coord_polar()` with more customisation 
   options. `coord_radial()` can:
@@ -89,7 +89,7 @@ vectors interact with the scale system, namely: not at all.
     
 ### The guide system
 
-The guide system ecompassing axes and legends, as the last remaining chunk of 
+The guide system encompassing axes and legends, as the last remaining chunk of 
 ggplot2, has been rewritten to use the `<ggproto>` system instead of the S3 
 system. This change was a necessary step to officially break open the guide 
 system for extension package developers. The axes and legends now inherit from 
@@ -101,7 +101,7 @@ stats, facets and coords (#3329, @teunbrand)
   individual guides, while `theme()` has gained additional arguments to style
   guides. Theme elements declared in the guide override theme elements set
   through the plot. The new theme elements for guides are: 
-  `legend.key.spacing{.x/.y}`, `legend.grame`, `legend.axis.line`, 
+  `legend.key.spacing{.x/.y}`, `legend.frame`, `legend.axis.line`, 
   `legend.ticks`, `legend.ticks.length`, `legend.text.position` and 
   `legend.title.position`. Previous style options in the arguments of 
   `guide_*()` functions are soft-deprecated.
@@ -168,7 +168,7 @@ stats, facets and coords (#3329, @teunbrand)
 * When legend titles are larger than the legend, title justification extends
   to the placement of keys and labels (#1903).
 
-* Glyphs drawing functions of the `draw_key_*()` family can now set `"width"`
+* Glyph drawing functions of the `draw_key_*()` family can now set `"width"`
   and `"height"` attributes (in centimetres) to the produced keys to control
   their displayed size in the legend.
   
@@ -195,7 +195,7 @@ stats, facets and coords (#3329, @teunbrand)
   (@92amartins, #4599).
   
 * `fortify.default()` now accepts a data-frame-like object granted the object
-  exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviors
+  exhibits healthy `dim()`, `colnames()`, and `as.data.frame()` behaviours
   (@hpages, #5390).
 
 * `geom_violin()` gains a `bounds` argument analogous to `geom_density()`s 
@@ -290,7 +290,7 @@ stats, facets and coords (#3329, @teunbrand)
   the guide when it has long labels.
   
 * `guide_colourbar()` and `guide_coloursteps()` merge properly when one
-  of aesthetics is dropped (#5324).
+  of the aesthetics is dropped (#5324).
 
 * When using `geom_dotplot(binaxis = "x")` with a discrete y-variable, dots are
   now stacked from the y-position rather than from 0 (@teunbrand, #5462)
@@ -360,8 +360,9 @@ stats, facets and coords (#3329, @teunbrand)
   
 * The ggplot object now contains `$layout` which points to the `Layout` ggproto
   object and will be used by the `ggplot_build.ggplot` method. This was exposed
-  so that package developers may extend the behavior of the `Layout` ggproto object
-  without needing to develop an entirely new `ggplot_build` method (@jtlandis, #5077).
+  so that package developers may extend the behaviour of the `Layout` ggproto 
+  object without needing to develop an entirely new `ggplot_build` method 
+  (@jtlandis, #5077).
   
 * Guide building is now part of `ggplot_build()` instead of 
   `ggplot_gtable()` to allow guides to observe unmapped data (#5483).
