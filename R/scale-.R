@@ -608,8 +608,8 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 
 default_transform <- function(self, x) {
   transformation <- self$get_transformation()
-  new_x <- transformation$transform(x)
-  check_transformation(x, new_x, self$transformation$name, call = self$call)
+  new_x <- transform_unit(x, transformation$transform)
+  if (!is.unit(x)) check_transformation(x, new_x, self$transformation$name, call = self$call)
   new_x
 }
 
@@ -667,7 +667,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = limits) {
-    self$rescaler(x, from = range)
+    transform_unit(x, self$rescaler, from = range)
   },
 
   get_limits = function(self) {

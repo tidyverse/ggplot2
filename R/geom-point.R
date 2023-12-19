@@ -121,27 +121,59 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     if (is.character(data$shape)) {
       data$shape <- translate_shape_string(data$shape)
     }
-
     coords <- coord$transform(data, panel_params)
+
     stroke_size <- coords$stroke
-    stroke_size[is.na(stroke_size)] <- 0
+    if (!is.unit(stroke_size)) stroke_size <- unit(stroke_size * .stroke, "pt")
+    stroke_size <- transform_unit(stroke_size, rescale, from = c(0, diff(coord$range(panel_params)$x)))
+    stroke_size[is.na(stroke_size)] <- unit(0, "pt")
+
+    font_size <- coords$size
+    if (!is.unit(font_size)) font_size <- unit(font_size * .pt, "pt")
+    font_size <- transform_unit(font_size, rescale, from = c(0, diff(coord$range(panel_params)$x)))
+
     ggname("geom_point",
-      pointsGrob(
+      ggplot2_pointsGrob(
         coords$x, coords$y,
         pch = coords$shape,
-        gp = gpar(
-          col = alpha(coords$colour, coords$alpha),
-          fill = fill_alpha(coords$fill, coords$alpha),
-          # Stroke is added around the outside of the point
-          fontsize = coords$size * .pt + stroke_size * .stroke / 2,
-          lwd = coords$stroke * .stroke / 2
-        )
+        col = alpha(coords$colour, coords$alpha),
+        fill = fill_alpha(coords$fill, coords$alpha),
+        # Stroke is added around the outside of the point
+        fontsize = font_size + stroke_size / 2,
+        lwd = stroke_size / 2
       )
     )
   },
 
   draw_key = draw_key_point
 )
+
+ggplot2_pointsGrob <- function(
+  x, y, pch = 1, vp = NULL,
+  fontsize = 12, lwd = 1, col = "black", fill = "white"
+) {
+  grob(
+    x = x, y = y, pch = pch, vp = vp,
+    fontsize = fontsize, lwd = lwd, col = col, fill = fill,
+    cl = "ggplot2_pointsGrob"
+  )
+}
+
+#' @export
+makeContext.ggplot2_pointsGrob <- function(x) {
+  pointsGrob(
+    x$x,
+    x$y,
+    pch = x$pch,
+    gp = gpar(
+      col = x$col,
+      fill = x$fill,
+      # Stroke is added around the outside of the point
+      fontsize = convertUnit(x$fontsize + x$lwd, unitTo = "pt", valueOnly = TRUE),
+      lwd = convertUnit(x$lwd, unitTo = "pt", valueOnly = TRUE)
+    )
+  )
+}
 
 #' Translating shape strings
 #'
