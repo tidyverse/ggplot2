@@ -114,6 +114,10 @@ GuideCustom <- ggproto(
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
 
+    if (is.zero(params$grob)) {
+      return(zeroGrob())
+    }
+
     # Render title
     params$direction <- params$direction %||% direction
     elems <- self$setup_elements(params, self$elements, theme)
