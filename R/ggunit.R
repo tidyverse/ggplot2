@@ -50,10 +50,19 @@ is_ggunit <- function(x) {
 
 # math --------------------------------------------------------------------
 
+# #' @export
+# Math.ggunit <- function(x, ...) {
+#   transform_unit(x, match.fun(.Generic), ...)
+# }
+
 #' @export
 Ops.ggunit <- function(x, y) {
-  x <- vec_cast(x, new_ggunit())
-  if (!missing(y)) y <- vec_cast(y, new_ggunit())
+  if (!(.Generic %in% c("*", "/"))) {
+    x <- vec_cast(x, new_ggunit())
+    if (!missing(y)) {
+      y <- vec_cast(y, new_ggunit())
+    }
+  }
   out <- NextMethod()
   new_ggunit(out)
 }
