@@ -131,7 +131,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
                         flipped_aes = FALSE, outline.type = "both") {
     data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
-    if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
+    if (na.rm) data <- data[vec_detect_complete(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
@@ -148,7 +148,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # has distinct polygon numbers for sequences of non-NA values and NA
     # for NA values in the original data.  Example: c(NA, 2, 2, 2, NA, NA,
     # 4, 4, 4, NA)
-    missing_pos <- !stats::complete.cases(data[c("x", "ymin", "ymax")])
+    missing_pos <- !vec_detect_complete(data[c("x", "ymin", "ymax")])
     ids <- cumsum(missing_pos) + 1
     ids[missing_pos] <- NA
 

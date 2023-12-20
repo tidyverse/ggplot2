@@ -37,7 +37,7 @@ fortify.map <- function(model, data, ...) {
   names <- inject(rbind(!!!names))
   df$region <- names[df$group, 1]
   df$subregion <- names[df$group, 2]
-  df[stats::complete.cases(df$lat, df$long), ]
+  df[vec_detect_complete(df$lat, df$long), ]
 }
 
 #' Create a data frame of map data
