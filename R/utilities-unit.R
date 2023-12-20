@@ -42,10 +42,9 @@ vec_restore.unit <- function(x, ...) {
 
 #' @export
 vec_proxy.simpleUnit <- function(x, ...) {
-  x
-}
-
-#' @export
-vec_restore.simpleUnit <- function(x, ...) {
-  x
+  # turn a simpleUnit into a unit when proxied, because simpleUnit's format
+  # (a numeric vector with an attribute indicating the type of all entries)
+  # does not work properly with many operations, like binding
+  type <- attr(x, "unit")
+  lapply(x, function(x_i) list(x_i, NULL, type))
 }
