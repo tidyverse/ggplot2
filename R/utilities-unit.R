@@ -36,6 +36,9 @@ vec_proxy.unit <- function(x, ...) {
 
 #' @export
 vec_restore.unit <- function(x, ...) {
+  # replace NAs (NULL entries) with unit's version of NA
+  is_na <- vapply(x, is.null, logical(1))
+  x[is_na] <- vec_proxy(unit(NA_real_, "native"))
   class(x) <- c("unit", "unit_v2")
   x
 }
@@ -46,5 +49,5 @@ vec_proxy.simpleUnit <- function(x, ...) {
   # (a numeric vector with an attribute indicating the type of all entries)
   # does not work properly with many operations, like binding
   type <- attr(x, "unit")
-  lapply(x, function(x_i) list(x_i, NULL, type))
+  lapply(unclass(x), function(x_i) list(x_i, NULL, type))
 }
