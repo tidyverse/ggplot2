@@ -171,6 +171,7 @@ Collate:
     'geom-violin.R'
     'geom-vline.R'
     'ggplot2-package.R'
+    'ggunit.R'
     'grob-absolute.R'
     'grob-dotstack.R'
     'grob-null.R'
