@@ -131,7 +131,11 @@ ScalesList <- ggproto("ScalesList", NULL,
         if (length(aesthetics) == 0) {
           return()
         }
-        lapply(df[aesthetics], scale$get_transformation()$inverse)
+        inverse <- scale$get_transformation()$inverse
+        if (is.null(inverse)) {
+          return()
+        }
+        lapply(df[aesthetics], inverse)
       }
     ), recursive = FALSE)
 
