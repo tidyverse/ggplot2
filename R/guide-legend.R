@@ -781,7 +781,7 @@ deprecated_guide_args <- function(
     unit(x, default.unit)
   }
 
-  theme <- theme %||% list()
+  theme <- theme %||% theme()
 
   # Resolve straightforward arguments
   theme <- replace_null(
