@@ -206,7 +206,7 @@ scale_override_call <- function(call = NULL) {
     return(TRUE)
   }
   try_fetch(
-    !any(startsWith(as.character(call[[1]])), "scale_"),
+    !any(startsWith(as.character(call[[1]]), "scale_")),
     error = function(cnd) TRUE
   )
 }
