@@ -102,3 +102,6 @@ scale_type.double <- function(x) "continuous"
 
 #' @export
 scale_type.hms <- function(x) "time"
+
+#' @export
+scale_type.unit <- function(x) "continuous"

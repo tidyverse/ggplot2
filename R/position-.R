@@ -81,10 +81,10 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   scales <- aes_to_scale(names(df))
 
   if (!is.null(trans_x)) {
-    df[scales == "x"] <- lapply(df[scales == "x"], function(x) transform_unit(x, trans_x, ...))
+    df[scales == "x"] <- lapply(df[scales == "x"], function(x) transform_native_units(x, trans_x, ...))
   }
   if (!is.null(trans_y)) {
-    df[scales == "y"] <- lapply(df[scales == "y"], function(y) transform_unit(y, trans_y, ...))
+    df[scales == "y"] <- lapply(df[scales == "y"], function(y) transform_native_units(y, trans_y, ...))
   }
 
   class(df) <- oldclass

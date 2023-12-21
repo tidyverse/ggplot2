@@ -167,7 +167,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     panel_params
   },
 
-  transform = function(self, data, panel_params) {
+  transform_native = function(self, data, panel_params) {
     arc  <- self$start + c(0, 2 * pi)
     dir  <- self$direction
     data <- rename_data(self, data)
@@ -316,15 +316,15 @@ rename_data <- function(coord, data) {
 }
 
 theta_rescale_no_clip <- function(x, range, arc = c(0, 2 * pi), direction = 1) {
-  rescale(x, to = arc, from = range) * direction
+  transform_native_units(x, function(x) rescale(x, to = arc, from = range) * direction)
 }
 
 theta_rescale <- function(x, range, arc = c(0, 2 * pi), direction = 1) {
   x <- squish_infinite(x, range)
-  rescale(x, to = arc, from = range) %% (2 * pi) * direction
+  transform_native_units(x, function(x) rescale(x, to = arc, from = range) %% (2 * pi) * direction)
 }
 
 r_rescale <- function(x, range, donut = c(0, 0.4)) {
   x <- squish_infinite(x, range)
-  rescale(x, donut, range)
+  transform_native_units(x, function(x) rescale(x, donut, range))
 }

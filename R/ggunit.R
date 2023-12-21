@@ -52,7 +52,7 @@ is_ggunit <- function(x) {
 
 # #' @export
 # Math.ggunit <- function(x, ...) {
-#   transform_unit(x, match.fun(.Generic), ...)
+#   transform_native_units(x, match.fun(.Generic), ...)
 # }
 
 #' @export
@@ -63,8 +63,28 @@ Ops.ggunit <- function(x, y) {
       y <- vec_cast(y, new_ggunit())
     }
   }
-  out <- NextMethod()
-  new_ggunit(out)
+  if (.Generic == "==") {
+    len <- max(length(x), length(y))
+    out <- logical(len)
+    x <- rep_len(x, len)
+    y <- rep_len(y, len)
+    type_x = unitType(x)
+    type_y = unitType(y)
+
+    is_same_atomic <- type_x == type_y & !type_x %in% c("sum", "min", "max")
+    out[is_same_atomic] <- as.numeric(x[is_same_atomic]) == as.numeric(y[is_same_atomic])
+
+    # determine equality in otherwise incomparable units where possible (unequal signs, 0s, Infs)
+    x_not_atomic <- x[!is_same_atomic]
+    y_not_atomic <- y[!is_same_atomic]
+    sign_x_not_atomic <- sign(x_not_atomic)
+    sign_y_not_atomic <- sign(y_not_atomic)
+    out[!is_same_atomic] <- sign_x_not_atomic == sign_y_not_atomic &
+      ifelse(sign_x_not_atomic == 0 | (is.infinite(x_not_atomic) & is.infinite(y_not_atomic)), TRUE, NA)
+  } else {
+    out <- new_ggunit(NextMethod())
+  }
+  return(out)
 }
 
 #' @export
@@ -81,8 +101,75 @@ Summary.ggunit <- function(..., na.rm = FALSE) {
   new_ggunit(out)
 }
 
+ggunit_math_function <- function(x, out_type, atomic_f, sum_f = function(x) NA, min_f = function(x) NA, max_f = function(x) NA) {
+  out <- out_type(length(x))
+  type <- unitType(x)
+
+  is_atomic <- !type %in% c("sum", "min", "max")
+  out[is_atomic] <- atomic_f(as.numeric(x[is_atomic]))
+
+  for (t in c("sum", "min", "max")) {
+    is_type <- t == type
+    f <- get(paste0(t, "_f"))
+    out[is_type] <- vapply(x[is_type], FUN.VALUE = out_type(1), function(x_i) {
+      components <- vec_cast(unclass(x_i)[[1]][[2]], new_ggunit())
+      f(components)
+    })
+  }
+
+  out
+}
+
+is_pos_Inf <- function(x) (is.infinite(x) & sign(x) == 1) %in% TRUE
+is_neg_Inf <- function(x) (is.infinite(x) & sign(x) == -1) %in% TRUE
+
+#' @export
+is.infinite.ggunit <- function(x) {
+  ggunit_math_function(x, logical,
+    atomic_f = is.infinite,
+    sum_f = function(x) any(is.infinite(x)),
+    min_f = function(x) all(is.infinite(x)) || any(is_neg_Inf(x)),
+    max_f = function(x) all(is.infinite(x)) || any(is_pos_Inf(x))
+  )
+}
+
+#' @export
+is.finite.ggunit <- function(x) {
+  ggunit_math_function(x, logical,
+    atomic_f = is.finite,
+    sum_f = function(x) all(is.finite(x)),
+    min_f = function(x) any(is.finite(x)) && all(is_pos_Inf(x[!is_finite])),
+    max_f = function(x) any(is.finite(x)) && all(is_neg_Inf(x[!is_finite]))
+  )
+}
+
+#' @export
+sign.ggunit <- function(x) {
+  ggunit_math_function(x, numeric,
+    atomic_f = sign,
+    sum_f = function(x) {
+      unique_sign <- unique(sign(x))
+      if (length(unique_sign) == 1) unique_sign else NA_real_
+    },
+    min_f = function(x) {
+      sign_x <- sign(x)
+      if (isTRUE(any(sign_x == -1))) -1 else min(sign(x))
+    },
+    max_f = function(x) {
+      sign_x <- sign(x)
+      if (isTRUE(any(sign(x) == 1))) 1 else max(sign(x))
+    }
+  )
+}
+
 
 # assignment --------------------------------------------------------------
+
+#' @export
+`[.ggunit` <- function(x, i) {
+  if (missing(i)) return(x)
+  vec_slice(x, i)
+}
 
 #' @export
 `[<-.ggunit` <- function(x, i, ..., value) {
@@ -164,4 +251,12 @@ vec_cast.ggunit.logical <- function(x, to, ...) ggunit(x)
 #' @export
 vec_cast.logical.ggunit <- function(x, to, ...) as.logical(as.numeric(x))
 #' @export
-vec_cast.ggunit.list <- function(x, to, ...) stop_incompatible_cast(x, to, x_arg = "x", to_arg = "to")
+vec_cast.ggunit.list <- function(x, to, ...) {
+  is_na <- vapply(x, is.null, logical(1))
+  x[is_na] <- NA
+  x <- vec_cast(x, list_of(new_ggunit()))
+  if (any(lengths(x) != 1)) {
+    stop_incompatible_cast(x, to, x_arg = "x", to_arg = "to", details = "All elements of the list must be length-1 ggunits or NULL.")
+  }
+  list_unchop(x, ptype = new_ggunit())
+}
