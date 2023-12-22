@@ -202,12 +202,9 @@ scale_y_sqrt <- function(...) {
 # Helpers -----------------------------------------------------------------
 
 scale_override_call <- function(call = NULL) {
-  if (is.null(call)) {
+  if (is.null(call) || is.function(call[[1]])) {
     return(TRUE)
   }
-  try_fetch(
-    !any(startsWith(as.character(call[[1]]), "scale_")),
-    error = function(cnd) TRUE
-  )
+  !any(startsWith(as.character(call[[1]])), "scale_")
 }
 
