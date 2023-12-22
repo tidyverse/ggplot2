@@ -125,12 +125,12 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 
     stroke_size <- coords$stroke
     if (!is.unit(stroke_size)) stroke_size <- unit(stroke_size * .stroke, "pt")
-    stroke_size <- transform_native_units(stroke_size, rescale, from = c(0, diff(coord$range(panel_params)$x)))
+    native_units(stroke_size) <- rescale(native_units(stroke_size), from = c(0, diff(coord$range(panel_params)$x)))
     stroke_size[is.na(stroke_size)] <- unit(0, "pt")
 
     font_size <- coords$size
     if (!is.unit(font_size)) font_size <- unit(font_size * .pt, "pt")
-    font_size <- transform_native_units(font_size, rescale, from = c(0, diff(coord$range(panel_params)$x)))
+    native_units(font_size) <- rescale(native_units(font_size), from = c(0, diff(coord$range(panel_params)$x)))
 
     ggname("geom_point",
       ggplot2_pointsGrob(

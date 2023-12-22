@@ -43,8 +43,10 @@ collapse_native_units <- function(x) {
 }
 
 native_units <- function(x) {
-  if (is.numeric(x)) return(x)
-  if (!is.unit(x)) stop_input_type(x, as_cli("a {.cls unit} or a {.cls numeric}"))
+  if (!is.unit(x)) {
+    if (is.numeric(x)) return(x)
+    stop_input_type(x, as_cli("a {.cls unit} or a {.cls numeric}"))
+  }
   .get_native_units(x)$values
 }
 
@@ -75,8 +77,10 @@ native_units <- function(x) {
 }
 
 `native_units<-` <- function(x, values) {
-  if (is.numeric(x)) return(values)
-  if (!is.unit(x)) stop_input_type(x, as_cli("a {.cls unit} or a {.cls numeric}"))
+  if (!is.unit(x)) {
+    if (is.numeric(x)) return(values)
+    stop_input_type(x, as_cli("a {.cls unit} or a {.cls numeric}"))
+  }
   .set_native_units(x, values)$x
 }
 
@@ -124,8 +128,6 @@ native_units <- function(x) {
       return(df)
     }
     df <- unclass(df)
-    # We trust that 'df' is a valid data.frame with equal length columns etc,
-    # so we can use the more performant `new_data_frame()`
     unit_cols <- lapply(df[is_unit], collapse_native_units)
     new_data_frame(c(
       df[!is_unit],
@@ -155,6 +157,14 @@ native_units <- function(x) {
   })
 }
 
+
+# rescale -----------------------------------------------------------------
+
+#' @export
+rescale.unit <- function(x, to, from, ...) {
+  native_units(x) <- rescale(native_units(x), to, from, ...)
+  x
+}
 
 # proxies -----------------------------------------------------------------
 

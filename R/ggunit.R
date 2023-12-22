@@ -45,11 +45,6 @@ is_ggunit <- function(x) {
 
 # math --------------------------------------------------------------------
 
-# #' @export
-# Math.ggunit <- function(x, ...) {
-#   transform_native_units(x, match.fun(.Generic), ...)
-# }
-
 #' @export
 Ops.ggunit <- function(x, y) {
   if (!(.Generic %in% c("*", "/"))) {
