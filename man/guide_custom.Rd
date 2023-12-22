@@ -9,8 +9,7 @@ guide_custom(
   width = grobWidth(grob),
   height = grobHeight(grob),
   title = NULL,
-  title.position = "top",
-  margin = NULL,
+  theme = NULL,
   position = NULL,
   order = 0
 )
@@ -24,13 +23,12 @@ in \code{\link[grid:unit]{grid::unit()}}s.}
 \item{title}{A character string or expression indicating the title of guide.
 If \code{NULL} (default), no title is shown.}
 
-\item{title.position}{A character string indicating the position of a title.
-One of \code{"top"} (default), \code{"bottom"}, \code{"left"} or \code{"right"}.}
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
-\item{margin}{Margins around the guide. See \code{\link[=margin]{margin()}} for more details. If
-\code{NULL} (default), margins are taken from the \code{legend.margin} theme setting.}
-
-\item{position}{Currently not in use.}
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
