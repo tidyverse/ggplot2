@@ -11,31 +11,13 @@ transform_native_units <- function(x, trans, ...) {
   x
 }
 
-transform_unit_recursively = function(x, trans, ...) {
-  is_native <- unitType(x) == "native"
-  if (any(is_native)) {
-    x[is_native] <- unit(trans(as.numeric(x[is_native]), ...), "native")
-  }
-
-  is_recursive <- unitType(x) %in% c("sum", "min", "max")
-  if (any(is_recursive)) {
-    x[is_recursive] <- do.call(unit.c, lapply(x[is_recursive], function(x_i) {
-      unit_components(x_i) <- transform_unit_recursively(unit_components(x_i), trans, ...)
-    }))
-  }
-
-  x
-}
-
 unit_components <- function(x) {
   unclass(x)[[1]][[2]]
 }
 
 `unit_components<-` <- function(x, value) {
-  if (inherits(value, "simpleUnit")) {
-    # force the value to be a list form of unit, not a numeric vector form
-    value <- vec_restore(vec_proxy(value), new_ggunit())
-  }
+  # force the value to be a list form of unit, not a simpleUnit
+  x <- vec_cast(x, null_unit())
   oldclass <- class(x)
   x <- unclass(x)
   x[[1]][[2]] <- value
@@ -49,7 +31,7 @@ collapse_native_units <- function(x) {
   is_recursive <- type %in% c("sum", "min", "max")
   x[is_recursive] <- .mapply(list(x[is_recursive], type[is_recursive]), NULL, FUN = function(x_i, f) {
     f <- match.fun(f)
-    components <- unit_components(x_i)
+    components <- collapse_native_units(unit_components(x_i))
     is_native <- unitType(components) == "native"
     if (any(is_native)) {
       x_i <- f(ggunit(f(as.numeric(components[is_native]))), components[!is_native])
@@ -60,7 +42,8 @@ collapse_native_units <- function(x) {
 }
 
 native_units <- function(x) {
-  x <- vec_cast(x, new_ggunit())
+  if (is.numeric(x)) return(x)
+  if (!is.unit(x)) stop_input_type(x, as_cli("a {.cls unit} or a {.cls numeric}"))
   .get_native_units(x)$values
 }
 
@@ -69,7 +52,9 @@ native_units <- function(x) {
   type <- unitType(x)
 
   is_native <- type == "native"
-  values[is_native] <- as.numeric(x[is_native])
+  if (any(is_native)) {
+    values[is_native] <- as.numeric(x[is_native])
+  }
 
   is_recursive <- unitType(x) %in% c("sum", "min", "max")
   if (any(is_recursive)) {
@@ -89,6 +74,8 @@ native_units <- function(x) {
 }
 
 `native_units<-` <- function(x, values) {
+  if (is.numeric(x)) return(values)
+  if (!is.unit(x)) stop_input_type(x, as_cli("a {.cls unit} or a {.cls numeric}"))
   .set_native_units(x, values)$x
 }
 
@@ -165,6 +152,7 @@ vec_restore.unit <- function(x, ...) {
   # replace NAs (NULL entries) with unit's version of NA
   is_na <- vapply(x, is.null, logical(1))
   x[is_na] <- vec_proxy(unit(NA_real_, "native"))
+
   class(x) <- c("unit", "unit_v2")
   x
 }
@@ -177,3 +165,27 @@ vec_proxy.simpleUnit <- function(x, ...) {
   type <- attr(x, "unit")
   lapply(unclass(x), function(x_i) list(x_i, NULL, type))
 }
+
+
+
+# casting -----------------------------------------------------------------
+
+null_unit <- function() {
+  # grid::unit() doesn't allow zero-length vectors,
+  # so we have to do this manually
+  structure(list(), class = c("unit", "unit_v2"))
+}
+
+#' @export
+vec_ptype2.unit.unit <- function(x, y, ...) null_unit()
+#' @export
+vec_ptype2.unit.simpleUnit <- function(x, y, ...) null_unit()
+#' @export
+vec_ptype2.simpleUnit.unit <- function(x, y, ...) null_unit()
+
+#' @export
+vec_cast.unit.unit <- function(x, to, ...) x
+#' @export
+vec_cast.unit.simpleUnit <- function(x, to, ...) vec_restore(vec_proxy(x), null_unit())
+#' @export
+vec_cast.simpleUnit.unit <- function(x, to, ...) vec_restore(vec_proxy(x), null_unit())

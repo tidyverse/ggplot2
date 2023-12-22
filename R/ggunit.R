@@ -1,13 +1,8 @@
 # constructors ------------------------------------------------------------
 
-null_unit <- function() {
-  # grid::unit() doesn't allow zero-length vectors,
-  # so we have to do this manually
-  structure(list(), class = c("unit", "unit_v2"))
-}
-
 new_ggunit <- function(x = null_unit()) {
-  class(x) <- c("ggunit", setdiff(class(x), c("ggunit", "vctrs_vctr")), "vctrs_vctr")
+  x <- vec_cast(x, null_unit())
+  class(x) <- c("ggunit", class(x), "vctrs_vctr")
   x
 }
 
@@ -63,7 +58,9 @@ Ops.ggunit <- function(x, y) {
       y <- vec_cast(y, new_ggunit())
     }
   }
-  if (.Generic == "==") {
+
+  if (.Generic %in% c("==", ">", "<", ">=", "<=")) {
+    f <- match.fun(.Generic)
     len <- max(length(x), length(y))
     out <- logical(len)
     x <- rep_len(x, len)
@@ -71,19 +68,31 @@ Ops.ggunit <- function(x, y) {
     type_x = unitType(x)
     type_y = unitType(y)
 
-    is_same_atomic <- type_x == type_y & !type_x %in% c("sum", "min", "max")
-    out[is_same_atomic] <- as.numeric(x[is_same_atomic]) == as.numeric(y[is_same_atomic])
+    is_same_type <- type_x == type_y & !type_x %in% c("sum", "min", "max")
+    out[is_same_type] <- f(as.numeric(x[is_same_type]), as.numeric(y[is_same_type]))
 
-    # determine equality in otherwise incomparable units where possible (unequal signs, 0s, Infs)
-    x_not_atomic <- x[!is_same_atomic]
-    y_not_atomic <- y[!is_same_atomic]
-    sign_x_not_atomic <- sign(x_not_atomic)
-    sign_y_not_atomic <- sign(y_not_atomic)
-    out[!is_same_atomic] <- sign_x_not_atomic == sign_y_not_atomic &
-      ifelse(sign_x_not_atomic == 0 | (is.infinite(x_not_atomic) & is.infinite(y_not_atomic)), TRUE, NA)
+    # determine relationships in otherwise incomparable units where possible (unequal signs, 0s, Infs)
+    not_same_type <- !is_same_type
+    x_not_same_type <- x[not_same_type]
+    y_not_same_type <- y[not_same_type]
+    sign_x_not_same_type <- sign(x_not_same_type)
+    sign_y_not_same_type <- sign(y_not_same_type)
+    out[not_same_type] <- switch(.Generic,
+      "==" =
+        sign_x_not_same_type == sign_y_not_same_type &
+        ifelse(sign_x_not_same_type == 0 | (is.infinite(x_not_same_type) & is.infinite(y_not_same_type)), TRUE, NA),
+      "<" =, ">" =
+        ifelse(sign_x_not_same_type == sign_y_not_same_type,
+          ifelse(sign_x_not_same_type == 0, FALSE, NA),
+          f(sign_x_not_same_type, sign_y_not_same_type)
+        ),
+      "<=" = x_not_same_type < y_not_same_type | x_not_same_type == y_not_same_type,
+      ">=" = x_not_same_type > y_not_same_type | x_not_same_type == y_not_same_type
+    )
   } else {
     out <- new_ggunit(NextMethod())
   }
+
   return(out)
 }
 
@@ -138,9 +147,14 @@ is.finite.ggunit <- function(x) {
   ggunit_math_function(x, logical,
     atomic_f = is.finite,
     sum_f = function(x) all(is.finite(x)),
-    min_f = function(x) any(is.finite(x)) && all(is_pos_Inf(x[!is_finite])),
-    max_f = function(x) any(is.finite(x)) && all(is_neg_Inf(x[!is_finite]))
+    min_f = function(x) any(is.finite(x)) && all(is_pos_Inf(x[!is.finite(x)])),
+    max_f = function(x) any(is.finite(x)) && all(is_neg_Inf(x[!is.finite(x)]))
   )
+}
+
+#' @export
+is.na.ggunit <- function(x) {
+  ggunit_math_function(x, logical, atomic_f = is.na, sum_f = anyNA, min_f = anyNA, max_f = anyNA)
 }
 
 #' @export
@@ -153,11 +167,11 @@ sign.ggunit <- function(x) {
     },
     min_f = function(x) {
       sign_x <- sign(x)
-      if (isTRUE(any(sign_x == -1))) -1 else min(sign(x))
+      if (isTRUE(any(sign_x == -1))) -1 else min(sign_x)
     },
     max_f = function(x) {
       sign_x <- sign(x)
-      if (isTRUE(any(sign(x) == 1))) 1 else max(sign(x))
+      if (isTRUE(any(sign_x == 1))) 1 else max(sign_x)
     }
   )
 }
