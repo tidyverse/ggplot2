@@ -205,6 +205,6 @@ scale_override_call <- function(call = NULL) {
   if (is.null(call) || is.function(call[[1]])) {
     return(TRUE)
   }
-  !any(startsWith(as.character(call[[1]])), "scale_")
+  !any(startsWith(as.character(call[[1]]), "scale_"))
 }
 
