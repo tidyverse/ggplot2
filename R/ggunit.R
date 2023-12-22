@@ -176,6 +176,16 @@ sign.ggunit <- function(x) {
   )
 }
 
+ggunit_pmin <- function(...) {
+  dots <- vec_cast(list(...), list_of(new_ggunit()))
+  vec_cast(.mapply(min, dots, NULL), new_ggunit())
+}
+
+ggunit_pmax <- function(...) {
+  dots <- vec_cast(list(...), list_of(new_ggunit()))
+  vec_cast(.mapply(max, dots, NULL), new_ggunit())
+}
+
 
 # assignment --------------------------------------------------------------
 
