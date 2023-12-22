@@ -724,7 +724,7 @@ keep_key_data <- function(key, data, aes, show) {
   }
   keep <- rep(FALSE, nrow(key))
   for (column in match) {
-    keep <- keep | vec_in(key$.value, data[[column]])
+    keep <- keep | key$.value %in% data[[column]]
   }
   keep
 }
