@@ -18,6 +18,7 @@ unit_components <- function(x) {
 `unit_components<-` <- function(x, value) {
   # force the value to be a list form of unit, not a simpleUnit
   x <- vec_cast(x, null_unit())
+
   oldclass <- class(x)
   x <- unclass(x)
   x[[1]][[2]] <- value
@@ -93,7 +94,7 @@ native_units <- function(x) {
   is_recursive <- unitType(x) %in% c("sum", "min", "max")
   if (any(is_recursive)) {
     for (i in which(is_recursive)) {
-      out <- .set_native_units(unit_components(x), values[[i]])
+      out <- .set_native_units(unit_components(x[[i]]), values[[i]])
       native_i <- which(out$is_native)
       if (length(native_i) > 1) {
         cli::cli_abort("More than one native unit in {x[[i]]}")
@@ -107,40 +108,55 @@ native_units <- function(x) {
   list(x = x, is_native = is_native)
 }
 
-.ignore_units <- function(df, cols = c(ggplot_global$x_aes, ggplot_global$y_aes)) {
-  if (is.null(cols)) {
-    is_selected <- TRUE
-  } else {
-    is_selected <- names(df) %in% cols
+.ignore_units <- function(data, cols = c(ggplot_global$x_aes, ggplot_global$y_aes)) {
+  if (is.data.frame(data)) {
+    return(.ignore_units(list(data), cols)[[1]])
   }
-  is_unit <- vapply(df, is.unit, logical(1)) & is_selected
-  if (!any(is_unit)) {
-    return(df)
-  }
-  df <- unclass(df)
-  # We trust that 'df' is a valid data.frame with equal length columns etc,
-  # so we can use the more performant `new_data_frame()`
-  unit_cols <- lapply(df[is_unit], collapse_native_units)
-  new_data_frame(c(
-    df[!is_unit],
-    lapply(unit_cols, native_units),
-    list(.ignored_units = new_data_frame(unit_cols))
-  ))
+
+  lapply(data, function(df) {
+    if (is.null(cols)) {
+      is_selected <- TRUE
+    } else {
+      is_selected <- names(df) %in% cols
+    }
+    is_unit <- vapply(df, is.unit, logical(1)) & is_selected
+    if (!any(is_unit)) {
+      return(df)
+    }
+    df <- unclass(df)
+    # We trust that 'df' is a valid data.frame with equal length columns etc,
+    # so we can use the more performant `new_data_frame()`
+    unit_cols <- lapply(df[is_unit], collapse_native_units)
+    new_data_frame(c(
+      df[!is_unit],
+      lapply(unit_cols, native_units),
+      list(.ignored_units = new_data_frame(unit_cols))
+    ))
+  })
 }
 
-.expose_units <- function(df) {
-  is_ignored <- which(names(df) == ".ignored_units")
-  if (length(is_ignored) == 0) {
-    return(df)
+.expose_units <- function(data) {
+  if (is.data.frame(data)) {
+    return(.expose_units(list(data))[[1]])
   }
-  unit_col_names <- intersect(names(df), names(df[[is_ignored[1]]]))
-  is_unit <- which(names(df) %in% unit_col_names)
-  df <- unclass(df)
-  new_data_frame(c(
-    df[-c(is_ignored, is_unit)],
-    mapply(`native_units<-`, df[[is_ignored[1]]][unit_col_names], df[unit_col_names], SIMPLIFY = FALSE)
-  ))
+
+  lapply(data, function(df) {
+    is_ignored <- which(names(df) == ".ignored_units")
+    if (length(is_ignored) == 0) {
+      return(df)
+    }
+    unit_col_names <- intersect(names(df), names(df[[is_ignored[1]]]))
+    is_unit <- which(names(df) %in% unit_col_names)
+    df <- unclass(df)
+    new_data_frame(c(
+      df[-c(is_ignored, is_unit)],
+      mapply(`native_units<-`, df[[is_ignored[1]]][unit_col_names], df[unit_col_names], SIMPLIFY = FALSE)
+    ))
+  })
 }
+
+
+# proxies -----------------------------------------------------------------
 
 #' @export
 vec_proxy.unit <- function(x, ...) {
@@ -165,7 +181,6 @@ vec_proxy.simpleUnit <- function(x, ...) {
   type <- attr(x, "unit")
   lapply(unclass(x), function(x_i) list(x_i, NULL, type))
 }
-
 
 
 # casting -----------------------------------------------------------------

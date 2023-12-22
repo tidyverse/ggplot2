@@ -51,7 +51,7 @@ ggplot_build.ggplot <- function(plot) {
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
-  data <- .ignore_data(data)
+  data <- .ignore_units(.ignore_data(data))
 
   # Transform all scales
   data <- lapply(data, scales$transform_df)
@@ -63,7 +63,7 @@ ggplot_build.ggplot <- function(plot) {
 
   layout$train_position(data, scale_x(), scale_y())
   data <- layout$map_position(data)
-  data <- .expose_data(data)
+  data <- .expose_units(.expose_data(data))
 
   # Apply and map statistics
   data <- by_layer(function(l, d) l$compute_statistic(d, layout), layers, data, "computing stat")
@@ -81,7 +81,7 @@ ggplot_build.ggplot <- function(plot) {
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what is
   # displayed, or does it include the range of underlying data
-  data <- .ignore_data(data)
+  data <- .ignore_units(.ignore_data(data))
   layout$reset_scales()
   layout$train_position(data, scale_x(), scale_y())
   layout$setup_panel_params()
@@ -100,7 +100,7 @@ ggplot_build.ggplot <- function(plot) {
     # Only keep custom guides if there are no non-position scales
     plot$guides <- plot$guides$get_custom()
   }
-  data <- .expose_data(data)
+  data <- .expose_units(.expose_data(data))
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d), layers, data, "setting up geom aesthetics")
