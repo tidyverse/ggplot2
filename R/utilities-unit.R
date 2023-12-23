@@ -35,7 +35,7 @@ collapse_native_units <- function(x) {
     components <- collapse_native_units(unit_components(x_i))
     is_native <- unitType(components) == "native"
     if (any(is_native)) {
-      x_i <- f(unit(f(as.numeric(components[is_native])), "native"), components[!is_native])
+      unit_components(x_i) <- vec_c(unit(f(as.numeric(components[is_native])), "native"), components[!is_native])
     }
     x_i
   })
