@@ -88,7 +88,11 @@ Ops.ggunit <- function(x, y) {
     out <- new_ggunit(NextMethod())
   }
 
-  return(out)
+  if (.Generic %in% c("+", "-")) {
+    out <- collapse_native_units(out)
+  }
+
+  out
 }
 
 #' @export
@@ -101,7 +105,12 @@ chooseOpsMethod.ggunit = function(x, y, mx, my, cl, reverse) {
 Summary.ggunit <- function(..., na.rm = FALSE) {
   ggunits <- vec_cast_common(..., .to = new_ggunit())
   units <- vec_cast(ggunits, list_of(null_unit()))
-  out <- do.call(.Generic, c(units, list(na.rm = na.rm)))
+  args <- c(units, list(na.rm = na.rm))
+  out <- switch(.Generic,
+    range = vec_c(do.call(min, args), do.call(max, args)),
+    sum =, min =, max = collapse_native_units(do.call(.Generic, args)),
+    do.call(.Generic, args)
+  )
   new_ggunit(out)
 }
 
