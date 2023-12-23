@@ -170,7 +170,11 @@ Coord <- ggproto("Coord",
     panel_params
   },
 
-  transform = function(data, range) NULL,
+  transform = function(self, data, range) {
+    .expose_units(self$transform_native(.ignore_units(data), range))
+  },
+
+  transform_native = function(data, range) NULL,
 
   distance = function(x, y, panel_params) NULL,
 

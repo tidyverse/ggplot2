@@ -15,6 +15,8 @@
 coord_munch <- function(coord, data, range, segment_length = 0.01, is_closed = FALSE) {
   if (coord$is_linear()) return(coord$transform(data, range))
 
+  data <- .ignore_units(data)
+
   if (is_closed) {
     data <- close_poly(data)
   }
@@ -44,7 +46,7 @@ coord_munch <- function(coord, data, range, segment_length = 0.01, is_closed = F
     runs <- vec_run_sizes(munched[, group_cols, drop = FALSE])
     munched <- vec_slice(munched, -(cumsum(runs)))
   }
-  coord$transform(munched, range)
+  coord$transform(.expose_units(munched), range)
 }
 
 # For munching, only grobs are lines and polygons: everything else is

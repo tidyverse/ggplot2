@@ -138,7 +138,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
     aesthetics <- c(self$required_aes, self$non_missing_aes)
-    complete <- stats::complete.cases(data[names(data) %in% aesthetics])
+    complete <- vec_detect_complete(data[names(data) %in% aesthetics])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
