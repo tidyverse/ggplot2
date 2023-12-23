@@ -51,7 +51,7 @@ ggplot_build.ggplot <- function(plot) {
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
-  data <- .ignore_units(.ignore_data(data))
+  data <- .ignore_data(.ignore_units(data))
 
   # Transform all scales
   data <- lapply(data, scales$transform_df)
@@ -76,12 +76,13 @@ ggplot_build.ggplot <- function(plot) {
   data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
 
   # Apply position adjustments
+  data <- .ignore_units(data)
   data <- by_layer(function(l, d) l$compute_position(d, layout), layers, data, "computing position")
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what is
   # displayed, or does it include the range of underlying data
-  data <- .ignore_units(.ignore_data(data))
+  data <- .ignore_data(data)
   layout$reset_scales()
   layout$train_position(data, scale_x(), scale_y())
   layout$setup_panel_params()
