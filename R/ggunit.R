@@ -97,8 +97,8 @@ Ops.ggunit <- function(x, y) {
 
 #' @export
 chooseOpsMethod.ggunit = function(x, y, mx, my, cl, reverse) {
-  # TODO: something more comprehensive using vec_ptype2
-  inherits(x, "ggunit")
+  # TODO: something more comprehensive?
+  is_ggunit(vec_ptype2(x, y)) == is_ggunit(x)
 }
 
 #' @export
@@ -278,6 +278,12 @@ vec_cast.double.ggunit <- function(x, to, ...) as.numeric(x)
 vec_cast.ggunit.logical <- function(x, to, ...) ggunit(x)
 #' @export
 vec_cast.logical.ggunit <- function(x, to, ...) as.logical(as.numeric(x))
+#' @export
+vec_cast.ggunit.mapped_discrete <- function(x, to, ...) ggunit(x)
+#' @export
+vec_cast.mapped_discrete.ggunit <- function(x, to, ...) new_mapped_discrete(as.numeric(x))
+#' @export
+vec_cast.ggunit.character <- function(x, to, ...) stop_incompatible_cast(x, to, x_arg = "a", to_arg = "to")
 #' @export
 vec_cast.ggunit.list <- function(x, to, ...) {
   is_na <- vapply(x, is.null, logical(1))
