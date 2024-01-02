@@ -1368,7 +1368,11 @@ is_active_binding <- function(self, name) {
   FALSE
 }
 
-deprecate_trans <- function(x = self) {
+deprecate_trans <- function(new = NULL, x = self) {
+  if (!is.null(new)) {
+    x$transformation <- new
+    return()
+  }
   deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
   x$transformation
 }
