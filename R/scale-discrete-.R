@@ -147,6 +147,14 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     expand_limits_scale(self, expand, limits)
   },
 
+  sec_name = function(self) {
+    if (is.waive(self$secondary.axis)) {
+      waiver()
+    } else {
+      self$secondary.axis$name
+    }
+  },
+
   clone = function(self) {
     new <- ggproto(NULL, self)
     new$range <- DiscreteRange$new()
