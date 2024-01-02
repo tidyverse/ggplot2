@@ -253,7 +253,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       old_val_trans <- rescale(range_info$major, from = c(0, 1), to = range)
       old_val_minor_trans <- rescale(range_info$minor, from = c(0, 1), to = range)
     } else {
-      temp_scale <- self$create_scale(new_range)
+      temp_scale <- self$create_scale(new_range, breaks = breaks)
       range_info <- temp_scale$break_info()
 
       # Map the break values back to their correct position on the primary scale
@@ -302,10 +302,11 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range, transformation = transform_identity()) {
+  create_scale = function(self, range, transformation = transform_identity(),
+                          breaks = self$breaks) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
                      name = self$name,
-                     breaks = self$breaks,
+                     breaks = breaks,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
