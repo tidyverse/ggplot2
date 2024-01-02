@@ -119,7 +119,7 @@ sec_axis <- function(transform = NULL,
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(transform = ~., trans = deprecated(),
+dup_axis <- function(transform = identity, trans = deprecated(),
                      name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
   sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
@@ -129,6 +129,11 @@ is.sec_axis <- function(x) {
 }
 
 set_sec_axis <- function(sec.axis, scale) {
+  if (scale$is_discrete()) {
+    if (!identical(.subset2(sec.axis, "transform"), identity)) {
+      cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
+    }
+  }
   if (!is.waive(sec.axis)) {
     if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
     if (!is.sec_axis(sec.axis)) {
