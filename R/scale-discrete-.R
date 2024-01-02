@@ -62,7 +62,8 @@
 #'   scale_x_discrete(labels = abbreviate)
 #' }
 scale_x_discrete <- function(name = waiver(), ..., expand = waiver(),
-                             guide = waiver(), position = "bottom") {
+                             guide = waiver(), position = "bottom",
+                             sec.axis = waiver()) {
   sc <- discrete_scale(
     aesthetics = c("x", "xmin", "xmax", "xend"), name = name,
     palette = identity, ...,
@@ -71,12 +72,13 @@ scale_x_discrete <- function(name = waiver(), ..., expand = waiver(),
   )
 
   sc$range_c <- ContinuousRange$new()
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 #' @rdname scale_discrete
 #' @export
 scale_y_discrete <- function(name = waiver(), ..., expand = waiver(),
-                             guide = waiver(), position = "left") {
+                             guide = waiver(), position = "left",
+                             sec.axis = waiver()) {
   sc <- discrete_scale(
     aesthetics = c("y", "ymin", "ymax", "yend"), name = name,
     palette = identity, ...,
@@ -85,7 +87,7 @@ scale_y_discrete <- function(name = waiver(), ..., expand = waiver(),
   )
 
   sc$range_c <- ContinuousRange$new()
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 
 # The discrete position scale maintains two separate ranges - one for
