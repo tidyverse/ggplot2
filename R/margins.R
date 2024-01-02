@@ -253,6 +253,15 @@ rotate_just <- function(angle, hjust, vjust) {
 
   angle <- (angle %||% 0) %% 360
 
+  if (is.character(hjust)) {
+    hjust <- match(hjust, c("left", "right")) - 1
+    hjust[is.na(hjust)] <- 0.5
+  }
+  if (is.character(vjust)) {
+    vjust <- match(vjust, c("bottom", "top")) - 1
+    vjust[is.na(vjust)] <- 0.5
+  }
+
   # Apply recycle rules
   size  <- vec_size_common(angle, hjust, vjust)
   angle <- vec_recycle(angle, size)
