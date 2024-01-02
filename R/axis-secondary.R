@@ -184,7 +184,13 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
-    if (is.waive(self$breaks)) self$breaks <- scale$transformation$breaks
+    if (is.waive(self$breaks)) {
+      if (scale$is_discrete()) {
+        self$breaks <- scale$get_breaks()
+      } else {
+        self$breaks <- scale$transformation$breaks
+      }
+    }
     if (is.derived(self$labels)) self$labels <- scale$labels
     if (is.derived(self$guide)) self$guide <- scale$guide
   },
