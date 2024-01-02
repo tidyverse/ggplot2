@@ -12,6 +12,7 @@
 #'
 #' @inheritDotParams discrete_scale
 #' @inheritParams discrete_scale
+#' @param sec.axis [dup_axis()] is used to specify a secondary axis.
 #' @rdname scale_discrete
 #' @family position scales
 #' @seealso
