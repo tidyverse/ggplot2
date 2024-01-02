@@ -135,7 +135,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   oob      <- allow_lambda(oob)
   minor_breaks <- allow_lambda(minor_breaks)
 
-  ggproto(NULL, super,
+  sc <- ggproto(NULL, super,
     call = call,
 
     aesthetics = aesthetics,
@@ -158,6 +158,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
     guide = guide,
     position = position
   )
+  deprecate_field(sc, "trans", deprecate_trans)
 }
 
 #' Discrete scale constructor
@@ -305,7 +306,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   rescaler <- allow_lambda(rescaler)
   oob      <- allow_lambda(oob)
 
-  ggproto(NULL, super,
+  sc <- ggproto(NULL, super,
     call = call,
 
     aesthetics = aesthetics,
@@ -330,6 +331,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
     guide = guide,
     position = position
   )
+  deprecate_field(sc, "trans", deprecate_trans)
 }
 
 #' @section Scales:
@@ -554,11 +556,16 @@ Scale <- ggproto("Scale", NULL,
   },
 
   get_transformation = function(self) {
-    if (!is.null(self$trans)) {
-      deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
-      return(self$trans)
+    if (!is_active_binding(self, "trans")) {
+      if (is.null(self$trans)) {
+        self$transformation
+      } else {
+        deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
+        self$trans
+      }
+    } else {
+      self$transformation %||% self$trans
     }
-    self$transformation
   },
 
   clone = function(self) {
@@ -1348,4 +1355,32 @@ trans_support_nbreaks <- function(trans) {
 
 allow_lambda <- function(x) {
   if (is_formula(x)) as_function(x) else x
+}
+
+is_active_binding <- function(self, name) {
+  env <- self
+  while ("super" %in% ls(env)) {
+    if (name %in% ls(env)) {
+      return(bindingIsActive(name, env))
+    }
+    env <- env$super()
+  }
+  FALSE
+}
+
+deprecate_trans <- function(x = self) {
+  deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
+  x$transformation
+}
+
+deprecate_field <- function(ggproto, name, recover) {
+  makeActiveBinding(
+    name, env = ggproto,
+    new_function(
+      formals(recover),
+      body(recover),
+      list2env(list(self = ggproto))
+    )
+  )
+  ggproto
 }
