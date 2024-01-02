@@ -220,12 +220,8 @@ GeomText <- ggproto("GeomText", Geom,
 
     data <- coord$transform(data, panel_params)
 
-    if (is.character(data$vjust)) {
-      data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
-    }
-    if (is.character(data$hjust)) {
-      data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
-    }
+    data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
+    data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
 
     size.unit <- resolve_text_unit(size.unit)
 
@@ -248,7 +244,10 @@ GeomText <- ggproto("GeomText", Geom,
   draw_key = draw_key_text
 )
 
-compute_just <- function(just, a, b = a, angle = 0) {
+compute_just <- function(just, a = 0.5, b = a, angle = 0) {
+  if (!is.character(just)) {
+    return(just)
+  }
   #  As justification direction is relative to the text, not the plotting area
   #  we need to swap x and y if text direction is rotated so that hjust is
   #  applied along y and vjust along x.
