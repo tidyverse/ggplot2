@@ -10,7 +10,8 @@ scale_x_discrete(
   ...,
   expand = waiver(),
   guide = waiver(),
-  position = "bottom"
+  position = "bottom",
+  sec.axis = waiver()
 )
 
 scale_y_discrete(
@@ -18,7 +19,8 @@ scale_y_discrete(
   ...,
   expand = waiver(),
   guide = waiver(),
-  position = "left"
+  position = "left",
+  sec.axis = waiver()
 )
 }
 \arguments{
@@ -90,6 +92,8 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+
+\item{sec.axis}{\code{\link[=dup_axis]{dup_axis()}} is used to specify a secondary axis.}
 }
 \description{
 \code{scale_x_discrete()} and \code{scale_y_discrete()} are used to set the values for

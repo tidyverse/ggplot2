@@ -16,7 +16,7 @@ sec_axis(
 )
 
 dup_axis(
-  transform = ~.,
+  transform = identity,
   trans = deprecated(),
   name = derive(),
   breaks = derive(),
