@@ -1,3 +1,8 @@
+* `theme()` gets new `spacing` and `margins` arguments that all other spacings
+  and (non-text) margins inherit from.
+
+* The `legend.ticks.length` theme setting inherits from `legend.key.size`.
+
 # ggplot2 (development version)
 
 This is a minor release that turned out quite beefy. It is focused on 
