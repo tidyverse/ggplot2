@@ -529,13 +529,13 @@ is_theme_validate <- function(x) {
   isTRUE(validate %||% TRUE)
 }
 
-validate_theme <- function(theme, tree = get_element_tree()) {
+validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
   mapply(
     validate_element, theme, names(theme),
-    MoreArgs = list(element_tree = tree)
+    MoreArgs = list(element_tree = tree, call = call)
   )
 }
 

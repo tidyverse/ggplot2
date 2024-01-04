@@ -949,7 +949,7 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red semitransparent colorbar, long thick black ticks, green frame",
+  expect_doppelganger("customized colorbar",
     p + scale_color_gradient(
       low = 'white', high = 'red',
       guide = guide_colorbar(
@@ -959,7 +959,7 @@ test_that("colorbar can be styled", {
           legend.ticks.length = unit(0.4, "npc")
         ), alpha = 0.75
       )
-    )
+    ) + labs(subtitle = "white-to-red semitransparent colorbar, long thick black ticks, green frame")
   )
 })
 
