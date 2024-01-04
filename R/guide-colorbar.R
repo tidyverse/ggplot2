@@ -179,7 +179,6 @@ GuideColourbar <- ggproto(
     theme = NULL,
     default_ticks = element_line(colour = "white", linewidth = 0.5 / .pt),
     default_frame = element_blank(),
-    default_tick_length = unit(0.2, "npc"),
 
     # bar
     nbin = 300,
@@ -291,7 +290,6 @@ GuideColourbar <- ggproto(
     theme <- replace_null(
       theme,
       legend.text.position = valid_position[1],
-      legend.ticks.length  = params$default_tick_length,
       legend.ticks         = params$default_ticks,
       legend.frame         = params$default_frame
     )

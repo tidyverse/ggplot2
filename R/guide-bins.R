@@ -114,7 +114,6 @@ GuideBins <- ggproto(
     theme = NULL,
     default_axis = element_line("black", linewidth = (0.5 / .pt)),
     default_ticks = element_line(inherit.blank = TRUE),
-    default_tick_length = unit(0.2, "npc"),
 
     direction = NULL,
     override.aes = list(),
@@ -228,7 +227,6 @@ GuideBins <- ggproto(
     theme <- replace_null(
       theme,
       legend.text.position = valid_position[1],
-      legend.ticks.length  = params$default_tick_length,
       legend.axis.line     = params$default_axis,
       legend.ticks         = params$default_ticks
     )
