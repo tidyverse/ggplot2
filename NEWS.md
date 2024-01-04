@@ -1,3 +1,7 @@
+
+* The default `vjust` for the `axis.title.y.right` element is now 1 instead of
+  0.
+
 # ggplot2 (development version)
 
 This is a minor release that turned out quite beefy. It is focused on 
