@@ -25,6 +25,8 @@
 #' @param text all text elements ([element_text()])
 #' @param title all title elements: plot, axes, legends ([element_text()];
 #'   inherits from `text`)
+#' @param spacing all spacings ([`unit()`][grid::unit])
+#' @param margins all margins ([margin()])
 #' @param aspect.ratio aspect ratio of the panel
 #'
 #' @param axis.title,axis.title.x,axis.title.y,axis.title.x.top,axis.title.x.bottom,axis.title.y.left,axis.title.y.right
@@ -308,6 +310,8 @@ theme <- function(...,
                   rect,
                   text,
                   title,
+                  spacing,
+                  margins,
                   aspect.ratio,
                   axis.title,
                   axis.title.x,

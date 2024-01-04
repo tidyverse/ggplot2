@@ -130,6 +130,8 @@ theme_grey <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+    spacing = unit(half_line, "pt"),
+    margins = margin(half_line, half_line, half_line, half_line),
 
     axis.line =          element_blank(),
     axis.line.x =        NULL,
@@ -460,6 +462,8 @@ theme_void <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+    spacing =            unit(half_line, "pt"),
+    margins =            margin(half_line, half_line, half_line, half_line),
     axis.text =          element_blank(),
     axis.title =         element_blank(),
     axis.ticks.length =  unit(0, "pt"),

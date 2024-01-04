@@ -425,6 +425,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
   title               = el_def("element_text", "text"),
+  spacing             = el_def("unit"),
+  margins             = el_def("margin"),
+
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
   axis.title          = el_def("element_text", "title"),
