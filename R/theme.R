@@ -54,7 +54,7 @@
 #'   minor tick marks along axes ([element_line()]). `axis.minor.ticks.*.*`
 #'   inherit from the corresponding major ticks `axis.ticks.*.*`.
 #' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
-#'   length of tick marks (`unit`)
+#'   length of tick marks (`unit`). `axis.ticks.length` inherits from `spacing`.
 #' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right
 #'   length of minor tick marks (`unit`), or relative to `axis.ticks.length` when provided with `rel()`.
 #' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
@@ -67,22 +67,26 @@
 #'
 #' @param legend.background background of legend ([element_rect()]; inherits
 #'   from `rect`)
-#' @param legend.margin the margin around each legend ([margin()])
+#' @param legend.margin the margin around each legend ([margin()]); inherits
+#'   from `margins`.
 #' @param legend.spacing,legend.spacing.x,legend.spacing.y
 #'   the spacing between legends (`unit`). `legend.spacing.x` & `legend.spacing.y`
-#'   inherit from `legend.spacing` or can be specified separately
+#'   inherit from `legend.spacing` or can be specified separately.
+#'   `legend.spacing` inherits from `spacing`.
 #' @param legend.key background underneath legend keys ([element_rect()];
 #'   inherits from `rect`)
 #' @param legend.key.size,legend.key.height,legend.key.width
 #'   size of legend keys (`unit`); key background height & width inherit from
-#'   `legend.key.size` or can be specified separately
+#'   `legend.key.size` or can be specified separately. In turn `legend.key.size`
+#'   inherits from `spacing`.
 #' @param legend.key.spacing,legend.key.spacing.x,legend.key.spacing.y spacing
 #'   between legend keys given as a `unit`. Spacing in the horizontal (x) and
 #'   vertical (y) direction inherit from `legend.key.spacing` or can be
-#'   specified separately.
+#'   specified separately. `legend.key.spacing` inherits from `spacing`.
 #' @param legend.frame frame drawn around the bar ([element_rect()]).
 #' @param legend.ticks tick marks shown along bars or axes ([element_line()])
-#' @param legend.ticks.length length of tick marks in legend (`unit`)
+#' @param legend.ticks.length length of tick marks in legend
+#'   ([`unit()`][grid::unit]); inherits from `legend.key.size`.
 #' @param legend.axis.line lines along axes in legends ([element_line()])
 #' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
@@ -115,11 +119,11 @@
 #'   bounding box, when there are multiple legends ("top", "bottom", "left", or
 #'   "right")
 #' @param legend.box.margin margins around the full legend area, as specified
-#'   using [margin()]
+#'   using [margin()]; inherits from `margins`.
 #' @param legend.box.background background of legend area ([element_rect()];
 #'   inherits from `rect`)
 #' @param legend.box.spacing The spacing between the plotting area and the
-#'   legend box (`unit`)
+#'   legend box (`unit`); inherits from `spacing`.
 #'
 #' @param panel.background background of plotting area, drawn underneath plot
 #'   ([element_rect()]; inherits from `rect`)
@@ -129,7 +133,7 @@
 #'   ([element_rect()]; inherits from `rect`)
 #' @param panel.spacing,panel.spacing.x,panel.spacing.y spacing between facet
 #'   panels (`unit`). `panel.spacing.x` & `panel.spacing.y` inherit from `panel.spacing`
-#'   or can be specified separately.
+#'   or can be specified separately. `panel.spacing` inherits from `spacing`.
 #' @param panel.grid,panel.grid.major,panel.grid.minor,panel.grid.major.x,panel.grid.major.y,panel.grid.minor.x,panel.grid.minor.y
 #'   grid lines ([element_line()]). Specify major grid lines,
 #'   or minor grid lines separately (using `panel.grid.major` or `panel.grid.minor`)
@@ -168,7 +172,7 @@
 #'   set the x,y-coordinate relative to the whole plot. The coordinate option
 #'   is unavailable for `plot.tag.location = "margin"`.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
-#'   the top, right, bottom, and left margins)
+#'   the top, right, bottom, and left margins); inherits from `margin`.
 #'
 #' @param strip.background,strip.background.x,strip.background.y
 #'   background of facet labels ([element_rect()];
@@ -190,10 +194,8 @@
 #'   that inherit from `strip.text.x` and `strip.text.y`, respectively.
 #'   As a consequence, some theme stylings need to be applied to
 #'   the position-dependent elements rather than to the parent elements
-#' @param strip.switch.pad.grid space between strips and axes when strips are
-#'   switched (`unit`)
-#' @param strip.switch.pad.wrap space between strips and axes when strips are
-#'   switched (`unit`)
+#' @param strip.switch.pad.grid,strip.switch.pad.wrap space between strips and
+#'   axes when strips are switched (`unit`); inherits from `spacing`.
 #'
 #' @param ... additional element specifications not part of base ggplot2. In general,
 #'   these should also be defined in the `element tree` argument.
