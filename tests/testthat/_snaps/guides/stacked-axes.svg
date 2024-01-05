@@ -142,7 +142,7 @@
 <text x='360.00' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='15.29px' lengthAdjust='spacingAndGlyphs'>top</text>
 <text x='360.00' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='33.63px' lengthAdjust='spacingAndGlyphs'>bottom</text>
 <text transform='translate(13.05,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='14.67px' lengthAdjust='spacingAndGlyphs'>left</text>
-<text transform='translate(704.67,296.65) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>right</text>
+<text transform='translate(706.95,296.65) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>right</text>
 <text x='60.04' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='77.07px' lengthAdjust='spacingAndGlyphs'>stacked axes</text>
 </g>
 </svg>

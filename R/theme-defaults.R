@@ -164,7 +164,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
@@ -569,7 +569,7 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
