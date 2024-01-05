@@ -137,6 +137,9 @@ stats, facets and coords (#3329, @teunbrand)
   `guides(x = guide_axis(position = "top"))` will display the title at the
   top by default (#4650).
   
+* The default `vjust` for the `axis.title.y.right` element is now 1 instead of
+  0.
+  
 * Unknown secondary axis guide positions are now inferred as the opposite 
   of the primary axis guide when the latter has a known `position` (#4650).
   
