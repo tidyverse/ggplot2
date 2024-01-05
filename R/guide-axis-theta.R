@@ -327,7 +327,7 @@ GuideAxisTheta <- ggproto(
     if (params$position %in% c("top", "bottom")) {
       height <- sum(
         elements$offset,
-        unit(max(height_cm(grobs$labels$children)), "cm")
+        unit(max(height_cm(grobs$labels)), "cm")
       )
       vp <- viewport(
         y = unit(as.numeric(params$position == "bottom"), "npc"),
@@ -337,7 +337,7 @@ GuideAxisTheta <- ggproto(
     } else {
       width <- sum(
         elements$offset,
-        unit(max(width_cm(grobs$labels$children)), "cm")
+        unit(max(width_cm(grobs$labels)), "cm")
       )
       vp <- viewport(
         x = unit(as.numeric(params$position == "left"), "npc"),

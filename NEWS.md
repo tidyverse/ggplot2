@@ -1,8 +1,4 @@
-
-* The default `vjust` for the `axis.title.y.right` element is now 1 instead of
-  0.
-
-# ggplot2 (development version)
+# ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
 overhauling the guide system: the system responsible for displaying information 
@@ -140,6 +136,9 @@ stats, facets and coords (#3329, @teunbrand)
 * Primary axis titles are now placed at the primary guide, so that
   `guides(x = guide_axis(position = "top"))` will display the title at the
   top by default (#4650).
+  
+* The default `vjust` for the `axis.title.y.right` element is now 1 instead of
+  0.
   
 * Unknown secondary axis guide positions are now inferred as the opposite 
   of the primary axis guide when the latter has a known `position` (#4650).
