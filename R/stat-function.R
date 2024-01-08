@@ -75,7 +75,7 @@ StatFunction <- ggproto("StatFunction", Stat,
     y_out <- inject(fun(x_trans, !!!args))
     if (!is.null(scales$y) && !scales$y$is_discrete()) {
       # For continuous scales, need to apply transform
-      y_out <- scales$y$transform(y_out)
+      y_out <- scales$y$get_transformation()$transform(y_out)
     }
 
     data_frame0(x = xseq, y = y_out)
