@@ -724,11 +724,7 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
     panel_table <- gtable::gtable_matrix("layout", panels, 
       widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
     # Add spacing according to theme
-    panel_spacing <- if (is.null(theme$panel.spacing.x)) {
-      theme$panel.spacing
-    } else {
-      theme$panel.spacing.x
-    }
+    panel_spacing <- calc_element("panel.spacing.x", theme)
     panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
   } else {
     panels <- matrix(panels, ncol = 1)
@@ -909,21 +905,13 @@ FacetTrans <- ggproto("FacetTrans", Facet,
       panel_table <- gtable::gtable_matrix("layout", panels, 
         widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
       # Add spacing according to theme
-      panel_spacing <- if (is.null(theme$panel.spacing.x)) {
-        theme$panel.spacing
-      } else {
-        theme$panel.spacing.x
-      }
+      panel_spacing <- calc_element("panel.spacing.x", theme)
       panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
     } else {
       panels <- matrix(panels, ncol = 1)
       panel_table <- gtable::gtable_matrix("layout", panels, 
         widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on")
-      panel_spacing <- if (is.null(theme$panel.spacing.y)) {
-        theme$panel.spacing
-      } else {
-        theme$panel.spacing.y
-      }
+      panel_spacing <- calc_element("panel.spacing.y", theme)
       panel_table <- gtable::gtable_add_row_space(panel_table, panel_spacing)
     }
     # Name panel grobs so they can be found later

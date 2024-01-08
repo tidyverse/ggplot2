@@ -193,7 +193,7 @@ ggplot(sales, aes(x = interaction(quarter, year), y = value, group = 1)) +
   geom_line() +
   coord_cartesian(ylim = c(9, 32), expand = FALSE, clip = "off") +
   theme(
-    plot.margin = unit(c(1, 1, 3, 1), "lines"),
+    plot.margin = margin(1, 1, 3, 1, "lines"),
     axis.title.x = element_blank(),
     axis.text.x = element_blank()
     ) +
@@ -215,7 +215,7 @@ ggplot(sales, aes(x = interaction(quarter, year), y = value)) +
   annotate(geom = "text", x = seq_len(nrow(sales)), y = -1, label = sales$quarter, size = 3) +
   annotate(geom = "text", x = c(2.5, 6.5), y = -3, label = unique(sales$year), size = 4) +
   theme(
-    plot.margin = unit(c(1, 1, 3, 1), "lines"),
+    plot.margin = margin(1, 1, 3, 1, "lines"),
     axis.title.x = element_blank(),
     axis.text.x = element_blank()
     )
