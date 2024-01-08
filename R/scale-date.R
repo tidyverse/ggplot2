@@ -358,7 +358,7 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
     tz <- attr(x, "tzone")
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
-      self$transformation <- transform_time(self$timezone)
+      self$trans <- transform_time(self$timezone)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
