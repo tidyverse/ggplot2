@@ -109,7 +109,7 @@ sec_axis <- function(transform = NULL,
 
   transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,
-    transform = transform,
+    trans = transform,
     name = name,
     breaks = breaks,
     labels = labels,
@@ -153,7 +153,7 @@ is.derived <- function(x) {
 #' @usage NULL
 #' @export
 AxisSecondary <- ggproto("AxisSecondary", NULL,
-  transform = NULL,
+  trans = NULL,
   axis = NULL,
   name = waiver(),
   breaks = waiver(),
@@ -165,7 +165,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   detail = 1000,
 
   empty = function(self) {
-    is.null(self$transform %||% self$trans)
+    is.null(self$trans)
   },
 
   # Inherit settings from the primary axis/scale
@@ -173,7 +173,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) {
       return()
     }
-    transform <- self$transform %||% self$trans
+    transform <- self$trans
     if (!is.function(transform)) {
       cli::cli_abort("Transformation for secondary axes must be a function.")
     }
@@ -185,7 +185,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   transform_range = function(self, range) {
-    self$transform(range)
+    self$trans(range)
   },
 
   mono_test = function(self, scale){
@@ -299,7 +299,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
-                     transformation = transformation
+                     trans  = transformation
     )
     scale$train(range)
     scale

@@ -53,8 +53,7 @@ vectors interact with the scale system, namely: not at all.
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
   transformation from the scale, a new `get_transformation()` method is 
-  added to Scale-classes that retrieves the transformation object from the 
-  new `Scale$transformation` field (#5558).
+  added to Scale-classes (#5558).
   
 * Providing a numeric vector to `theme(legend.position)` has been deprecated.
   To set the default legend position inside the plot use 

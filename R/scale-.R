@@ -143,7 +143,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 
     range = ContinuousRange$new(),
     limits = limits,
-    transformation = transform,
+    trans = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -313,7 +313,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
     range = ContinuousRange$new(),
     limits = limits,
-    transformation = transform,
+    trans = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -356,7 +356,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #' - `clone()` Returns a copy of the scale that can be trained
 #'   independently without affecting the original scale.
 #'
-#' - `transform()` Transforms a vector of values using `self$transformation`.
+#' - `transform()` Transforms a vector of values using `self$trans`.
 #'   This occurs before the `Stat` is calculated.
 #'
 #' - `train()` Update the `self$range` of observed (transformed) data values with
@@ -386,7 +386,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'   (`self$range`).
 #'
 #' - `get_breaks()` Calculates the final scale breaks in transformed data space
-#'   based on on the combination of `self$breaks`, `self$transformation$breaks()` (for
+#'   based on on the combination of `self$breaks`, `self$trans$breaks()` (for
 #'   continuous scales), and `limits`. Breaks outside of `limits` are assigned
 #'   a value of `NA` (continuous scales) or dropped (discrete scales).
 #'
@@ -395,7 +395,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'
 #' - `get_breaks_minor()` For continuous scales, calculates the final scale minor breaks
 #'   in transformed data space based on the rescaled `breaks`, the value of `self$minor_breaks`,
-#'   and the value of `self$transformation$minor_breaks()`. Discrete scales always return `NULL`.
+#'   and the value of `self$trans$minor_breaks()`. Discrete scales always return `NULL`.
 #'
 #' - `get_transformation()` Returns the scale's transformation object.
 #'
@@ -554,11 +554,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   get_transformation = function(self) {
-    if (!is.null(self$trans)) {
-      deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
-      return(self$trans)
-    }
-    self$transformation
+    self$trans
   },
 
   clone = function(self) {
@@ -629,7 +625,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   oob = censor,
   minor_breaks = waiver(),
   n.breaks = NULL,
-  transformation = transform_identity(),
+  trans = transform_identity(),
 
   is_discrete = function() FALSE,
 
