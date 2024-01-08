@@ -338,6 +338,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
 
+    # Fill missing parameters for backward compatibility
+    params$draw_axes   <- params$draw_axes   %||% list(x = FALSE, y = FALSE)
+    params$axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
+
     if (!params$axis_labels$x) {
       cols <- seq_len(nrow(layout))
       x_axis_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
