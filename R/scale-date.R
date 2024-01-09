@@ -405,7 +405,6 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
       return(NULL)
     }
     breaks <- floor(breaks)
-    breaks[breaks >= limits[1] & breaks <= limits[2]]
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
