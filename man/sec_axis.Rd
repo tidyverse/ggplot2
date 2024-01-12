@@ -17,11 +17,11 @@ sec_axis(
 
 dup_axis(
   transform = ~.,
-  trans = deprecated(),
   name = derive(),
   breaks = derive(),
   labels = derive(),
-  guide = derive()
+  guide = derive(),
+  trans = deprecated()
 )
 
 derive()
