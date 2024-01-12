@@ -119,8 +119,8 @@ sec_axis <- function(transform = NULL,
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(transform = ~., trans = deprecated(),
-                     name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
+dup_axis <- function(transform = ~., name = derive(), breaks = derive(),
+                     labels = derive(), guide = derive(), trans = deprecated()) {
   sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
 
