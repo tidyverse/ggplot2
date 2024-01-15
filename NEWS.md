@@ -1,3 +1,6 @@
+* The bounded density option in `stat_density()` uses a wider range to
+  prevent discontinuities (#5641).
+
 # ggplot2 (development version)
 
 This is a minor release that turned out quite beefy. It is focused on 
