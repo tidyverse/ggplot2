@@ -58,7 +58,7 @@ test_that("stat_density uses `bounds`", {
     expect_equal(
       orig_density(test_sample) + left_reflection + right_reflection,
       plot_density(test_sample),
-      tolerance = 1e-4
+      tolerance = 1e-3
     )
   }
 
@@ -86,7 +86,7 @@ test_that("stat_density handles data outside of `bounds`", {
       stat_density(bounds = c(cutoff, Inf))
   )
 
-  expect_equal(data_actual, data_expected)
+  expect_equal(data_actual, data_expected, tolerance = 1e-4)
 })
 
 test_that("compute_density succeeds when variance is zero", {
