@@ -477,6 +477,30 @@ test_that("guide_legend uses key.spacing correctly", {
   expect_doppelganger("legend with widely spaced keys", p)
 })
 
+test_that("empty guides are dropped", {
+
+  df <- data.frame(x = 1:2)
+  # Making a guide where all breaks are out-of-bounds
+  p <- ggplot(df, aes(x, x, colour = x)) +
+    geom_point() +
+    scale_colour_continuous(
+      limits = c(0.25, 0.75),
+      breaks = c(1, 2),
+      guide  = "legend"
+    )
+  p <- ggplot_build(p)
+
+  # Empty guide that survives most steps
+  gd <- get_guide_data(p, "colour")
+  expect_equal(nrow(gd), 0)
+
+  # Draw guides
+  guides <- p$plot$guides$draw(theme_gray(), direction = "vertical")
+
+  # All guide-boxes should be empty
+  expect_equal(lengths(guides, use.names = FALSE), rep(0, 5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
