@@ -101,33 +101,11 @@ GuideCustom <- ggproto(
     params
   },
 
-  setup_elements = function(params, elements, theme) {
-    theme <- add_theme(theme, params$theme)
-
-    elements$title_position <- params$title.position %||%
-      theme$legend.title.position %||%
-      switch(params$idreciton, vertical = "top", horizontal = "left")
-    margin <- position_margin(
-      elements$title_position,
-      calc_element("text", theme)$margin,
-      calc_element("legend.key.spacing", theme)
-    )
-    title_theme <-
-      theme(text = element_text(hjust = 0, vjust = 0.5, margin = margin))
-    elements$title <-
-      calc_element("legend.title", add_theme(theme, title_theme))
-    elements$background <-
-      element_grob(calc_element("legend.background", theme))
-    elements$margin <-
-      calc_element("legend.margin", theme)
-    elements
-  },
-
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
 
     # Render title
-    elems <- self$setup_elements(params, self$elements, theme)
+    elems <- GuideLegend$setup_elements(params, self$elements, theme)
     if (!is.waive(params$title) && !is.null(params$title)) {
       title <- self$build_title(params$title, elems, params)
     } else {
@@ -148,7 +126,7 @@ GuideCustom <- ggproto(
     gt <- gtable_add_padding(gt, elems$margin)
 
     gt <- gtable_add_grob(
-      gt, elems$backgroun,
+      gt, elems$background,
       t = 1, l = 1, r = -1, b = -1,
       z = -Inf, clip = "off"
     )
