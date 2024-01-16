@@ -82,16 +82,15 @@ GuideCustom <- ggproto(
   params = c(Guide$params, list(
     grob = NULL, width = NULL, height = NULL,
     margin = NULL,
-    title = NULL,
     title.position = "top"
   )),
 
   hashables = exprs(title, grob),
 
   elements = list(
-    background   = "legend.background",
-    theme.margin = "legend.margin",
-    theme.title  = "legend.title"
+    background = "legend.background",
+    margin     = "legend.margin",
+    title      = "legend.title"
   ),
 
   train = function(...) {
@@ -102,9 +101,25 @@ GuideCustom <- ggproto(
     params
   },
 
-  override_elements = function(params, elements, theme) {
-    elements$title <- elements$theme.title
-    elements$margin <- params$margin %||% elements$theme.margin
+  setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
+
+    elements$title_position <- params$title.position %||%
+      theme$legend.title.position %||%
+      switch(params$idreciton, vertical = "top", horizontal = "left")
+    margin <- position_margin(
+      elements$title_position,
+      calc_element("text", theme)$margin,
+      calc_element("legend.key.spacing", theme)
+    )
+    title_theme <-
+      theme(text = element_text(hjust = 0, vjust = 0.5, margin = margin))
+    elements$title <-
+      calc_element("legend.title", add_theme(theme, title_theme))
+    elements$background <-
+      element_grob(calc_element("legend.background", theme))
+    elements$margin <-
+      calc_element("legend.margin", theme)
     elements
   },
 
@@ -113,58 +128,27 @@ GuideCustom <- ggproto(
 
     # Render title
     elems <- self$setup_elements(params, self$elements, theme)
-    elems <- self$override_elements(params, elems, theme)
     if (!is.waive(params$title) && !is.null(params$title)) {
       title <- self$build_title(params$title, elems, params)
     } else {
       title <- zeroGrob()
     }
-    title.position <- params$title.position
-    if (is.zero(title)) {
-      title.position <- "none"
-    }
+    title.position <- elems$title.position
 
     width  <- convertWidth(params$width, "cm", valueOnly = TRUE)
     height <- convertHeight(params$height, "cm", valueOnly = TRUE)
     gt <- gtable(widths = unit(width, "cm"), heights = unit(height, "cm"))
     gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1, clip = "off")
 
-    extra_width  <- max(0, width_cm(title) - width)
-    extra_height <- max(0, height_cm(title) - height)
-    just <- with(elems$title, rotate_just(angle, hjust, vjust))
-    hjust <- just$hjust
-    vjust <- just$vjust
-
-    if (params$title.position == "top") {
-      gt <- gtable_add_rows(gt, elems$margin[1], pos = 0)
-      gt <- gtable_add_rows(gt, unit(height_cm(title), "cm"), pos = 0)
-      gt <- gtable_add_grob(gt, title, t = 1, l = 1, name = "title", clip = "off")
-    } else if (params$title.position == "bottom") {
-      gt <- gtable_add_rows(gt, elems$margin[3], pos = -1)
-      gt <- gtable_add_rows(gt, unit(height_cm(title), "cm"), pos = -1)
-      gt <- gtable_add_grob(gt, title, t = -1, l = 1, name = "title", clip = "off")
-    } else if (params$title.position == "left") {
-      gt <- gtable_add_cols(gt, elems$margin[4], pos = 0)
-      gt <- gtable_add_cols(gt, unit(width_cm(title), "cm"), pos = 0)
-      gt <- gtable_add_grob(gt, title, t = 1, l = 1, name = "title", clip = "off")
-    } else if (params$title.position == "right") {
-      gt <- gtable_add_cols(gt, elems$margin[2], pos = -1)
-      gt <- gtable_add_cols(gt, unit(width_cm(title), "cm"), pos = 0)
-      gt <- gtable_add_grob(gt, title, t = 1, l = -1, name = "title", clip = "off")
-    }
-    if (params$title.position %in% c("top", "bottom")) {
-      gt <- gtable_add_cols(gt, unit(extra_width * hjust, "cm"), pos = 0)
-      gt <- gtable_add_cols(gt, unit(extra_width * (1 - hjust), "cm"), pos = -1)
-    } else {
-      gt <- gtable_add_rows(gt, unit(extra_height * (1 - vjust), "cm"), pos = 0)
-      gt <- gtable_add_rows(gt, unit(extra_height * vjust, "cm"), pos = -1)
-    }
+    gt <- legend_add_title(
+      gt, title, title.position,
+      with(elems$title, rotate_just(angle, hjust, vjust))
+    )
 
     gt <- gtable_add_padding(gt, elems$margin)
 
-    background <- element_grob(elems$background)
     gt <- gtable_add_grob(
-      gt, background,
+      gt, elems$backgroun,
       t = 1, l = 1, r = -1, b = -1,
       z = -Inf, clip = "off"
     )
