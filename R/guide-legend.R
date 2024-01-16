@@ -739,6 +739,69 @@ position_margin <- function(position, margin = margin(), gap = unit(0, "pt")) {
   )
 }
 
+legend_add_title <- function(gtable, title, position, just) {
+  if (is.zero(title)) {
+    return(gtable)
+  }
+
+  title_width_cm  <- width_cm(title)
+  title_height_cm <- height_cm(title)
+
+  # Add extra row/col for title
+  gtable <- switch(
+    position,
+    top    = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos =  0),
+    right  = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos = -1),
+    bottom = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos = -1),
+    left   = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos =  0)
+  )
+
+  # Add title
+  args <- switch(
+    position,
+    top    = list(t =  1, l =  1, r = -1, b =  1),
+    right  = list(t =  1, l = -1, r = -1, b = -1),
+    bottom = list(t = -1, l =  1, r = -1, b = -1),
+    left   = list(t =  1, l =  1, r =  1, b = -1),
+  )
+  gtable <- inject(gtable_add_grob(
+    x = gtable, grobs = title, !!!args, z = -Inf, name = "title", clip = "off"
+  ))
+
+  if (position %in% c("top", "bottom")) {
+
+    if (any(unitType(gtable$widths) == "null")) {
+      # Don't need to add extra title size for stretchy legends
+      return(gtable)
+    }
+    table_width <- sum(width_cm(gtable$widths))
+    extra_width <- max(0, title_width_cm - table_width)
+    if (extra_width == 0) {
+      return(gtable)
+    }
+    extra_width <- unit((c(1, -1) * just$hjust + c(0, 1)) * extra_width, "cm")
+    gtable <- gtable_add_cols(gtable, extra_width[1], pos =  0)
+    gtable <- gtable_add_cols(gtable, extra_width[2], pos = -1)
+
+  } else {
+
+    if (any(unitType(gtable$heights) == "null")) {
+      # Don't need to add extra title size for stretchy legends
+      return(gtable)
+    }
+    table_height <- sum(height_cm(gtable$heights))
+    extra_height <- max(0, title_height_cm - table_height)
+    if (extra_height == 0) {
+      return(gtable)
+    }
+    extra_height <- unit((c(-1, 1) * just$vjust + c(1, 0)) * extra_height, "cm")
+    gtable <- gtable_add_rows(gtable, extra_height[1], pos =  0)
+    gtable <- gtable_add_rows(gtable, extra_height[2], pos = -1)
+  }
+
+  gtable
+}
+
 # Function implementing backward compatibility with the old way of specifying
 # guide styling
 deprecated_guide_args <- function(
