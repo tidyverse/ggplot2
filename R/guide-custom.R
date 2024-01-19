@@ -94,18 +94,15 @@ GuideCustom <- ggproto(
                   params = self$params) {
 
     # Render title
+    params <- replace_null(params, position = position, direction = direction)
     elems <- GuideLegend$setup_elements(params, self$elements, theme)
     if (!is.waive(params$title) && !is.null(params$title)) {
       title <- self$build_title(params$title, elems, params)
     } else {
       title <- zeroGrob()
     }
-    title.position <- elems$title.position
 
-    # Render title
-    params$direction <- params$direction %||% direction
-    elems <- self$setup_elements(params, self$elements, theme)
-    elems <- self$override_elements(params, elems, theme)
+    title_position <- elems$title_position
 
     # Start with putting the main grob in a gtable
     width  <- convertWidth(params$width, "cm", valueOnly = TRUE)
@@ -115,7 +112,7 @@ GuideCustom <- ggproto(
 
 
     gt <- self$add_title(
-      gt, title, title.position,
+      gt, title, title_position,
       with(elems$title, rotate_just(angle, hjust, vjust))
     )
 
