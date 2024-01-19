@@ -61,7 +61,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   }
 
   # How many endpoints for each old segment, not counting the last one
-  extra <- pmax(floor(dist / segment_length), 1)
+  extra <- pmin(pmax(floor(dist / segment_length), 1), 1e4)
   extra[is.na(extra)] <- 1
   # Generate extra pieces for x and y values
   # The final point must be manually inserted at the end

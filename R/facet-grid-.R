@@ -338,6 +338,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
 
+    # Fill missing parameters for backward compatibility
+    params$draw_axes   <- params$draw_axes   %||% list(x = FALSE, y = FALSE)
+    params$axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
+
     if (!params$axis_labels$x) {
       cols <- seq_len(nrow(layout))
       x_axis_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
@@ -443,22 +447,26 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_pos_col <- panel_cols(panel_table)
     if (switch_x) {
       if (!is.null(strips$x$bottom)) {
-        if (inside_x || all(vapply(axes$x$bottom, is.zero, logical(1)))) {
+        if (inside_x) {
           panel_table <- gtable_add_rows(panel_table, max_height(strips$x$bottom), -2)
           panel_table <- gtable_add_grob(panel_table, strips$x$bottom, -2, panel_pos_col$l, clip = "on", name = paste0("strip-b-", seq_along(strips$x$bottom)), z = 2)
         } else {
-          panel_table <- gtable_add_rows(panel_table, strip_padding, -1)
+          if (!all(vapply(axes$x$bottom, is.zero, logical(1)))) {
+            panel_table <- gtable_add_rows(panel_table, strip_padding, -1)
+          }
           panel_table <- gtable_add_rows(panel_table, max_height(strips$x$bottom), -1)
           panel_table <- gtable_add_grob(panel_table, strips$x$bottom, -1, panel_pos_col$l, clip = "on", name = paste0("strip-b-", seq_along(strips$x$bottom)), z = 2)
         }
       }
     } else {
       if (!is.null(strips$x$top)) {
-        if (inside_x || all(vapply(axes$x$top, is.zero, logical(1)))) {
+        if (inside_x) {
           panel_table <- gtable_add_rows(panel_table, max_height(strips$x$top), 1)
           panel_table <- gtable_add_grob(panel_table, strips$x$top, 2, panel_pos_col$l, clip = "on", name = paste0("strip-t-", seq_along(strips$x$top)), z = 2)
         } else {
-          panel_table <- gtable_add_rows(panel_table, strip_padding, 0)
+          if (!all(vapply(axes$x$top, is.zero, logical(1)))) {
+            panel_table <- gtable_add_rows(panel_table, strip_padding, 0)
+          }
           panel_table <- gtable_add_rows(panel_table, max_height(strips$x$top), 0)
           panel_table <- gtable_add_grob(panel_table, strips$x$top, 1, panel_pos_col$l, clip = "on", name = paste0("strip-t-", seq_along(strips$x$top)), z = 2)
         }
@@ -467,22 +475,26 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_pos_rows <- panel_rows(panel_table)
     if (switch_y) {
       if (!is.null(strips$y$left)) {
-        if (inside_y || all(vapply(axes$y$left, is.zero, logical(1)))) {
+        if (inside_y) {
           panel_table <- gtable_add_cols(panel_table, max_width(strips$y$left), 1)
           panel_table <- gtable_add_grob(panel_table, strips$y$left, panel_pos_rows$t, 2, clip = "on", name = paste0("strip-l-", seq_along(strips$y$left)), z = 2)
         } else {
-          panel_table <- gtable_add_cols(panel_table, strip_padding, 0)
+          if (!all(vapply(axes$y$left, is.zero, logical(1)))) {
+            panel_table <- gtable_add_cols(panel_table, strip_padding, 0)
+          }
           panel_table <- gtable_add_cols(panel_table, max_width(strips$y$left), 0)
           panel_table <- gtable_add_grob(panel_table, strips$y$left, panel_pos_rows$t, 1, clip = "on", name = paste0("strip-l-", seq_along(strips$y$left)), z = 2)
         }
       }
     } else {
       if (!is.null(strips$y$right)) {
-        if (inside_y || all(vapply(axes$y$right, is.zero, logical(1)))) {
+        if (inside_y) {
           panel_table <- gtable_add_cols(panel_table, max_width(strips$y$right), -2)
           panel_table <- gtable_add_grob(panel_table, strips$y$right, panel_pos_rows$t, -2, clip = "on", name = paste0("strip-r-", seq_along(strips$y$right)), z = 2)
         } else {
-          panel_table <- gtable_add_cols(panel_table, strip_padding, -1)
+          if (!all(vapply(axes$y$right, is.zero, logical(1)))) {
+            panel_table <- gtable_add_cols(panel_table, strip_padding, -1)
+          }
           panel_table <- gtable_add_cols(panel_table, max_width(strips$y$right), -1)
           panel_table <- gtable_add_grob(panel_table, strips$y$right, panel_pos_rows$t, -1, clip = "on", name = paste0("strip-r-", seq_along(strips$y$right)), z = 2)
         }

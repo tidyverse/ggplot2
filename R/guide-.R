@@ -51,7 +51,7 @@ new_guide <- function(..., available_aes = "any", super) {
   # Validate theme settings
   if (!is.null(params$theme)) {
     check_object(params$theme, is.theme, what = "a {.cls theme} object")
-    validate_theme(params$theme)
+    validate_theme(params$theme, call = caller_env())
     params$direction <- params$direction %||% params$theme$legend.direction
   }
 
@@ -297,11 +297,12 @@ Guide <- ggproto(
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
 
-    key <- params$key
-
-    # Setup parameters and theme
+    # Setup parameters
     params <- replace_null(params, position = position, direction = direction)
     params <- self$setup_params(params)
+    key    <- params$key
+
+    # Setup style options
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)
 

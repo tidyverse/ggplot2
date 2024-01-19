@@ -86,7 +86,7 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                guide = waiver(), position = "bottom",
                                sec.axis = waiver()) {
   call <- caller_call()
-  if (is.null(call) || !any(startsWith(as.character(call[[1]]), "scale_"))) {
+  if (scale_override_call(call)) {
     call <- current_call()
   }
   sc <- continuous_scale(
@@ -113,7 +113,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                guide = waiver(), position = "left",
                                sec.axis = waiver()) {
   call <- caller_call()
-  if (is.null(call) || !any(startsWith(as.character(call[[1]]), "scale_"))) {
+  if (scale_override_call(call)) {
     call <- current_call()
   }
   sc <- continuous_scale(
@@ -198,3 +198,13 @@ scale_x_sqrt <- function(...) {
 scale_y_sqrt <- function(...) {
   scale_y_continuous(..., transform = transform_sqrt())
 }
+
+# Helpers -----------------------------------------------------------------
+
+scale_override_call <- function(call = NULL) {
+  if (is.null(call) || is.function(call[[1]])) {
+    return(TRUE)
+  }
+  !any(startsWith(as.character(call[[1]]), "scale_"))
+}
+

@@ -149,7 +149,7 @@ GuideAxisLogticks <- ggproto(
 
     # Reconstruct a transformation if user has prescaled data
     if (!is.null(params$prescale_base)) {
-      trans_name <- scale$scale$transformation$name
+      trans_name <- scale$get_transformation()$name
       if (trans_name != "identity") {
         cli::cli_warn(paste0(
           "The {.arg prescale_base} argument will override the scale's ",

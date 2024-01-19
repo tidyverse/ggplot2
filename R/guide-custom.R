@@ -8,11 +8,6 @@
 #'  in [grid::unit()]s.
 #' @param title A character string or expression indicating the title of guide.
 #'   If `NULL` (default), no title is shown.
-#' @param title.position A character string indicating the position of a title.
-#'   One of `"top"` (default), `"bottom"`, `"left"` or `"right"`.
-#' @param margin Margins around the guide. See [margin()] for more details. If
-#'   `NULL` (default), margins are taken from the `legend.margin` theme setting.
-#' @param position Currently not in use.
 #' @inheritParams guide_legend
 #'
 #' @export
@@ -42,28 +37,25 @@
 #' ))
 guide_custom <- function(
   grob, width = grobWidth(grob), height = grobHeight(grob),
-  title = NULL, title.position = "top", margin = NULL,
+  title = NULL, theme = NULL,
   position = NULL, order = 0
 ) {
   check_object(grob, is.grob, "a {.cls grob} object")
   check_object(width, is.unit, "a {.cls unit} object")
   check_object(height, is.unit, "a {.cls unit} object")
-  check_object(margin, is.margin, "a {.cls margin} object", allow_null = TRUE)
   if (length(width) != 1) {
     cli::cli_abort("{.arg width} must be a single {.cls unit}, not a unit vector.")
   }
   if (length(height) != 1) {
     cli::cli_abort("{.arg height} must be a single {.cls unit}, not a unit vector.")
   }
-  title.position <- arg_match0(title.position, .trbl)
 
   new_guide(
     grob = grob,
     width = width,
     height = height,
     title = title,
-    title.position = title.position,
-    margin = margin,
+    theme = theme,
     hash = hash(list(title, grob)), # hash is already known
     position = position,
     order = order,
@@ -79,18 +71,15 @@ guide_custom <- function(
 GuideCustom <- ggproto(
   "GuideCustom", Guide,
 
-  params = c(Guide$params, list(
-    grob = NULL, width = NULL, height = NULL,
-    margin = NULL,
-    title.position = "top"
-  )),
+  params = c(Guide$params, list(grob = NULL, width = NULL, height = NULL)),
 
   hashables = exprs(title, grob),
 
   elements = list(
     background = "legend.background",
     margin     = "legend.margin",
-    title      = "legend.title"
+    title      = "legend.title",
+    title_position = "legend.title.position"
   ),
 
   train = function(...) {
@@ -113,16 +102,24 @@ GuideCustom <- ggproto(
     }
     title.position <- elems$title.position
 
+    # Render title
+    params$direction <- params$direction %||% direction
+    elems <- self$setup_elements(params, self$elements, theme)
+    elems <- self$override_elements(params, elems, theme)
+
+    # Start with putting the main grob in a gtable
     width  <- convertWidth(params$width, "cm", valueOnly = TRUE)
     height <- convertHeight(params$height, "cm", valueOnly = TRUE)
     gt <- gtable(widths = unit(width, "cm"), heights = unit(height, "cm"))
     gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1, clip = "off")
+
 
     gt <- legend_add_title(
       gt, title, title.position,
       with(elems$title, rotate_just(angle, hjust, vjust))
     )
 
+    # Add padding and background
     gt <- gtable_add_padding(gt, elems$margin)
 
     gt <- gtable_add_grob(
@@ -130,6 +127,7 @@ GuideCustom <- ggproto(
       t = 1, l = 1, r = -1, b = -1,
       z = -Inf, clip = "off"
     )
+
     gt
   }
 )

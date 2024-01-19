@@ -65,7 +65,7 @@ test_that('binned scales can calculate breaks on dates', {
 
   scale <- scale_x_binned(transform = "date")
   scale$train(scale$transform(data))
-  breaks <- scale$transformation$inverse(scale$get_breaks())
+  breaks <- scale$get_transformation()$inverse(scale$get_breaks())
 
   expect_s3_class(breaks, "Date")
   expect_equal(
@@ -83,7 +83,7 @@ test_that('binned scales can calculate breaks on date-times', {
 
   scale <- scale_x_binned(transform = "time")
   scale$train(scale$transform(data))
-  breaks <- scale$transformation$inverse(scale$get_breaks())
+  breaks <- scale$get_transformation()$inverse(scale$get_breaks())
 
   expect_s3_class(breaks, "POSIXct")
   expect_equal(
