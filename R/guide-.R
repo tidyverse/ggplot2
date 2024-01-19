@@ -154,6 +154,9 @@ new_guide <- function(..., available_aes = "any", super) {
 #'   methods, the measurements from `measure_grobs()` and layout from
 #'   `arrange_layout()` to finalise the guide.
 #'
+#' - `add_title` Adds the title to a gtable, taking into account the size
+#'   of the title as well as the gtable size.
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
