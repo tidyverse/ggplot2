@@ -506,7 +506,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.frame        = el_def("element_rect", "rect"),
   legend.axis.line    = el_def("element_line", "line"),
   legend.ticks        = el_def("element_line", "legend.axis.line"),
-  legend.ticks.length = el_def("unit"),
+  legend.ticks.length = el_def(c("rel", "unit"), "legend.key.size"),
   legend.text         = el_def("element_text", "text"),
   legend.text.position = el_def("character"),
   legend.title        = el_def("element_text", "title"),
