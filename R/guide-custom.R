@@ -114,7 +114,7 @@ GuideCustom <- ggproto(
     gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1, clip = "off")
 
 
-    gt <- legend_add_title(
+    gt <- self$add_title(
       gt, title, title.position,
       with(elems$title, rotate_just(angle, hjust, vjust))
     )
