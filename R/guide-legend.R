@@ -513,12 +513,12 @@ GuideLegend <- ggproto(
 
     widths <- unit(sizes$widths, "cm")
     if (isTRUE(elements$stretch_x)) {
-      widths[unique(layout$key_col)] <- elements$key_width
+      widths[unique0(layout$key_col)] <- elements$key_width
     }
 
     heights <- unit(sizes$heights, "cm")
     if (isTRUE(elements$stretch_y)) {
-      heights[unique(layout$key_row)] <- elements$key_height
+      heights[unique0(layout$key_row)] <- elements$key_height
     }
 
     gt <- gtable(widths = widths, heights = heights)
