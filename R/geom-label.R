@@ -152,16 +152,18 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   vjust <- resolveVJust(just, NULL)
 
   text <- titleGrob(
-    label = label, hjust = hjust, vjust = vjust, x = x, y = y,
+    label = label, hjust = hjust, vjust = vjust, x = x,
+    y = y + (1 - vjust) * descent,
     margin = padding, margin_x = TRUE, margin_y = TRUE,
     gp = text.gp
   )
 
+  height <- heightDetails(text)
   box <- roundrectGrob(
-    x = x, y = y - (1 - vjust) * descent,
+    x = x, y = y + (0.5 - vjust) * height,
     width  = widthDetails(text),
-    height = heightDetails(text),
-    just   = c(hjust, vjust),
+    height = height,
+    just   = c(hjust, 0.5),
     r = r, gp = rect.gp, name = "box"
   )
 
