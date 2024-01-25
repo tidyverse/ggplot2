@@ -120,7 +120,7 @@ GuideCustom <- ggproto(
     gt <- gtable_add_padding(gt, elems$margin)
 
     gt <- gtable_add_grob(
-      gt, elems$background,
+      gt, element_grob(elems$background),
       t = 1, l = 1, r = -1, b = -1,
       z = -Inf, clip = "off"
     )
