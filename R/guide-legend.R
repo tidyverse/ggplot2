@@ -471,12 +471,7 @@ GuideLegend <- ggproto(
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
-    list(
-      widths  = widths,
-      heights = heights,
-      padding = elements$padding,
-      label_position = elements$text_position
-    )
+    list(widths = widths, heights = heights)
   },
 
   arrange_layout = function(key, sizes, params, elements) {
@@ -485,7 +480,7 @@ GuideLegend <- ggproto(
     dim <- c(params$nrow %||% 1L, params$ncol %||% 1L)
 
     # Find rows / columns of legend items
-    if (params$byrow %||% FALSE) {
+    if (elements$byrow %||% FALSE) {
       row <- ceiling(break_seq / dim[2L])
       col <- (break_seq - 1L) %% dim[2L] + 1L
     } else {
@@ -497,7 +492,7 @@ GuideLegend <- ggproto(
     key_col <- col * 2 - 1
 
     # Make gaps for key-label spacing depending on label position
-    position <- sizes$label_position
+    position <- elements$text_position
     key_row <- key_row + switch(position, top  = row, bottom = row - 1, 0)
     lab_row <- key_row + switch(position, top  = -1,  bottom = 1,       0)
     key_col <- key_col + switch(position, left = col, right  = col - 1, 0)
