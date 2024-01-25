@@ -450,6 +450,8 @@ the \verb{build_*()} methods should be arranged.
 \item \code{assemble_drawing()} Take the graphical objects produced by the \verb{build_*()}
 methods, the measurements from \code{measure_grobs()} and layout from
 \code{arrange_layout()} to finalise the guide.
+\item \code{add_title} Adds the title to a gtable, taking into account the size
+of the title as well as the gtable size.
 }
 }
 
