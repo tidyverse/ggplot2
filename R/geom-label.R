@@ -143,6 +143,11 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   descent <- font_descent(
     text.gp$fontfamily, text.gp$fontface, text.gp$fontsize, text.gp$cex
   )
+  # To balance labels, we ensure the top includes at least the descent height
+  # and subtract the descent height from the bottom padding
+  padding[1] <- unit.pmax(padding[1], descent)
+  padding[3] <- unit.pmax(padding[3] - descent, unit(0, "pt"))
+
   hjust <- resolveHJust(just, NULL)
   vjust <- resolveVJust(just, NULL)
 
