@@ -306,7 +306,7 @@ GuideAxisTheta <- ggproto(
     list(offset = max(height))
   },
 
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
     NULL
   },
 

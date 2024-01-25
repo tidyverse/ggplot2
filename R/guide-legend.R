@@ -479,7 +479,7 @@ GuideLegend <- ggproto(
     )
   },
 
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
 
     break_seq <- seq_len(params$n_breaks %||% 1L)
     dim <- c(params$nrow %||% 1L, params$ncol %||% 1L)
