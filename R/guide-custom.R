@@ -90,38 +90,19 @@ GuideCustom <- ggproto(
     params
   },
 
-  setup_elements = function(params, elements, theme) {
-    theme <- add_theme(theme, params$theme)
-    title_position <- theme$legend.title.position %||% switch(
-      params$direction, vertical = "top", horizontal = "left"
-    )
-    title_position <- arg_match0(
-      title_position, .trbl, arg_nm = "legend.title.position"
-    )
-    theme$legend.title.position <- title_position
-    theme$legend.key.spacing <- theme$legend.key.spacing %||% unit(5.5, "pt")
-    gap <- calc_element("legend.key.spacing", theme)
-
-    margin <- calc_element("text", theme)$margin
-    title <- theme(text = element_text(
-      hjust = 0, vjust = 0.5,
-      margin = position_margin(title_position, margin, gap)
-    ))
-    elements$title <- calc_element("legend.title", add_theme(theme, title))
-    Guide$setup_elements(params, elements, theme)
-  },
-
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
 
-    if (is.zero(params$grob)) {
-      return(zeroGrob())
+    # Render title
+    params <- replace_null(params, position = position, direction = direction)
+    elems <- GuideLegend$setup_elements(params, self$elements, theme)
+    if (!is.waive(params$title) && !is.null(params$title)) {
+      title <- self$build_title(params$title, elems, params)
+    } else {
+      title <- zeroGrob()
     }
 
-    # Render title
-    params$direction <- params$direction %||% direction
-    elems <- self$setup_elements(params, self$elements, theme)
-    elems <- self$override_elements(params, elems, theme)
+    title_position <- elems$title_position
 
     # Start with putting the main grob in a gtable
     width  <- convertWidth(params$width, "cm", valueOnly = TRUE)
@@ -129,50 +110,17 @@ GuideCustom <- ggproto(
     gt <- gtable(widths = unit(width, "cm"), heights = unit(height, "cm"))
     gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1, clip = "off")
 
-    # Render title
-    if (!is.waive(params$title) && !is.null(params$title)) {
-      title <- self$build_title(params$title, elems, params)
-    } else {
-      title <- zeroGrob()
-    }
 
-    # Add title
-    if (!is.zero(title)) {
-      common_args <- list(name = "title", clip = "off", grobs = title)
-      if (elems$title_position == "top") {
-        gt <- gtable_add_rows(gt, unit(height_cm(title), "cm"), pos = 0)
-        gt <- inject(gtable_add_grob(gt, t = 1, l = 1, !!!common_args))
-      } else if (elems$title_position == "bottom") {
-        gt <- gtable_add_rows(gt, unit(height_cm(title), "cm"), pos = -1)
-        gt <- inject(gtable_add_grob(gt, t = -1, l = 1, !!!common_args))
-      } else if (elems$title_position == "left") {
-        gt <- gtable_add_cols(gt, unit(width_cm(title), "cm"), pos = 0)
-        gt <- inject(gtable_add_grob(gt, t = 1, l = 1, !!!common_args))
-      } else if (elems$title_position == "right") {
-        gt <- gtable_add_cols(gt, unit(width_cm(title), "cm"), pos = -1)
-        gt <- inject(gtable_add_grob(gt, t = 1, l = -1, !!!common_args))
-      }
-
-      # Add extra space for large titles
-      extra_width  <- max(0, width_cm(title) - width)
-      extra_height <- max(0, height_cm(title) - height)
-      just <- with(elems$title, rotate_just(angle, hjust, vjust))
-      hjust <- just$hjust
-      vjust <- just$vjust
-      if (elems$title_position %in% c("top", "bottom")) {
-        gt <- gtable_add_cols(gt, unit(extra_width * hjust, "cm"), pos = 0)
-        gt <- gtable_add_cols(gt, unit(extra_width * (1 - hjust), "cm"), pos = -1)
-      } else {
-        gt <- gtable_add_rows(gt, unit(extra_height * (1 - vjust), "cm"), pos = 0)
-        gt <- gtable_add_rows(gt, unit(extra_height * vjust, "cm"), pos = -1)
-      }
-    }
+    gt <- self$add_title(
+      gt, title, title_position,
+      with(elems$title, rotate_just(angle, hjust, vjust))
+    )
 
     # Add padding and background
     gt <- gtable_add_padding(gt, elems$margin)
-    background <- element_grob(elems$background)
+
     gt <- gtable_add_grob(
-      gt, background,
+      gt, elems$background,
       t = 1, l = 1, r = -1, b = -1,
       z = -Inf, clip = "off"
     )
