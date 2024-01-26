@@ -329,7 +329,7 @@ Guide <- ggproto(
 
     # Arrange and assemble grobs
     sizes  <- self$measure_grobs(grobs, params, elems)
-    layout <- self$arrange_layout(key, sizes, params)
+    layout <- self$arrange_layout(key, sizes, params, elems)
     self$assemble_drawing(grobs, layout, sizes, params, elems)
   },
 
@@ -340,7 +340,7 @@ Guide <- ggproto(
   },
 
   # Takes care of where grobs should be added to the output gtable.
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
     return(invisible())
   },
 
