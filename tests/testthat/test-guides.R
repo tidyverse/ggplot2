@@ -1161,6 +1161,23 @@ test_that("guides() warns if unnamed guides are provided", {
   expect_null(guides())
 })
 
+test_that("legend.byrow works in `guide_legend()`", {
+
+  df <- data.frame(x = 1:6, f = LETTERS[1:6])
+
+  p <- ggplot(df, aes(x, x, colour = f)) +
+    geom_point() +
+    scale_colour_discrete(
+      guide = guide_legend(
+        ncol = 3,
+        theme = theme(legend.byrow = TRUE)
+      )
+    )
+
+  expect_doppelganger("legend.byrow = TRUE", p)
+
+})
+
 test_that("old S3 guides can be implemented", {
 
   my_env <- env()
