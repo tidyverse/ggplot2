@@ -1,6 +1,7 @@
 bins <- function(breaks, closed = "right",
-                 fuzz = 1e-08 * stats::median(diff(breaks))) {
+                 fuzz = NULL) {
   check_numeric(breaks)
+  fuzz <- fuzz %||% 1e-08 * stats::median(diff(breaks[is.finite(breaks)]))
   closed <- arg_match0(closed, c("right", "left"))
 
   breaks <- sort(breaks)
