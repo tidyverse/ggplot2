@@ -102,17 +102,17 @@ test_that("geom_sf() removes rows containing missing aes", {
   p <- ggplot(pts)
   expect_warning(
     expect_identical(grob_xy_length(p + geom_sf(aes(size = size))), c(1L, 1L)),
-    "Removed 1 row containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
   expect_warning(
     expect_identical(grob_xy_length(p + geom_sf(aes(shape = shape))), c(1L, 1L)),
-    "Removed 1 row containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
   # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
   expect_warning(
     expect_identical(grob_xy_length(p + geom_sf(aes(colour = colour)) + scale_colour_identity()),
                      c(1L, 1L)),
-    "Removed 1 row containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
 })
 
@@ -149,6 +149,16 @@ test_that("errors are correctly triggered", {
   expect_snapshot_error(ggplotGrob(p))
   expect_snapshot_error(geom_sf_label(position = "jitter", nudge_x = 0.5))
   expect_snapshot_error(geom_sf_text(position = "jitter", nudge_x = 0.5))
+
+  # #5204: missing linewidth should be dropped
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(
+      sf::st_linestring(matrix(c(0, 1, 0, 1), ncol = 2)),
+      sf::st_linestring(matrix(c(0, 1, 1, 0), ncol = 2))
+    ),
+    linewidth = c(1, NA)
+  )
+  expect_snapshot_warning(sf_grob(pts, na.rm = FALSE))
 })
 
 # Visual tests ------------------------------------------------------------

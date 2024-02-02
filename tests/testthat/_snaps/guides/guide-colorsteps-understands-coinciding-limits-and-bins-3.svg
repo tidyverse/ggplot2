@@ -285,6 +285,7 @@
 <text x='347.01' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='14.06px' lengthAdjust='spacingAndGlyphs'>cty</text>
 <text transform='translate(13.05,283.95) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='19.57px' lengthAdjust='spacingAndGlyphs'>hwy</text>
 <rect x='672.18' y='233.08' width='42.34' height='101.73' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<text x='672.18' y='241.79' style='font-size: 11.00px; font-family: sans;' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>year</text>
 <rect x='672.18' y='317.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #16324C;' />
 <rect x='672.18' y='300.25' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #214667;' />
 <rect x='672.18' y='282.97' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #2F638E;' />
@@ -296,7 +297,6 @@
 <text x='694.94' y='286.00' style='font-size: 8.80px; font-family: sans;' textLength='19.58px' lengthAdjust='spacingAndGlyphs'>2004</text>
 <text x='694.94' y='268.72' style='font-size: 8.80px; font-family: sans;' textLength='19.58px' lengthAdjust='spacingAndGlyphs'>2006</text>
 <text x='694.94' y='251.44' style='font-size: 8.80px; font-family: sans;' textLength='19.58px' lengthAdjust='spacingAndGlyphs'>2008</text>
-<text x='672.18' y='241.79' style='font-size: 11.00px; font-family: sans;' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>year</text>
 <text x='32.79' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='336.85px' lengthAdjust='spacingAndGlyphs'>guide_colorsteps understands coinciding limits and bins 3</text>
 </g>
 </svg>

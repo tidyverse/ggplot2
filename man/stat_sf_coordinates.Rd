@@ -131,16 +131,17 @@ or \code{sf::st_point_on_surface()}.
 For the first step, you can use an arbitrary function via \code{fun.geometry}.
 By default, \code{function(x) sf::st_point_on_surface(sf::st_zm(x))} is used;
 \code{sf::st_point_on_surface()} seems more appropriate than \code{sf::st_centroid()}
-since lables and text usually are intended to be put within the polygon or
+since labels and text usually are intended to be put within the polygon or
 the line. \code{sf::st_zm()} is needed to drop Z and M dimension beforehand,
 otherwise \code{sf::st_point_on_surface()} may fail when the geometries have M
 dimension.
 }
 \section{Computed variables}{
 
-\describe{
-\item{x}{X dimension of the simple feature}
-\item{y}{Y dimension of the simple feature}
+These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
+\itemize{
+\item \code{after_stat(x)}\cr X dimension of the simple feature.
+\item \code{after_stat(y)}\cr Y dimension of the simple feature.
 }
 }
 

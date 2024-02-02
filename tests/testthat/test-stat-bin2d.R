@@ -1,7 +1,7 @@
 test_that("binwidth is respected", {
   df <- data_frame(x = c(1, 1, 1, 2), y = c(1, 1, 1, 2))
   base <- ggplot(df, aes(x, y)) +
-    stat_bin2d(geom = "tile", binwidth = 0.25)
+    stat_bin_2d(geom = "tile", binwidth = 0.25)
 
   out <- layer_data(base)
   expect_equal(nrow(out), 2)
@@ -10,11 +10,11 @@ test_that("binwidth is respected", {
   expect_equal(out$xmax, c(1.25, 2), tolerance = 1e-7)
 
   p <- ggplot(df, aes(x, y)) +
-    stat_bin2d(geom = "tile", binwidth = c(0.25, 0.5, 0.75))
+    stat_bin_2d(geom = "tile", binwidth = c(0.25, 0.5, 0.75))
   expect_snapshot_warning(ggplot_build(p))
 
   p <- ggplot(df, aes(x, y)) +
-    stat_bin2d(geom = "tile", origin = c(0.25, 0.5, 0.75))
+    stat_bin_2d(geom = "tile", origin = c(0.25, 0.5, 0.75))
   expect_snapshot_warning(ggplot_build(p))
 })
 
@@ -26,7 +26,7 @@ test_that("breaks override binwidth", {
 
   df <- data_frame(x = 0:3, y = 0:3)
   base <- ggplot(df, aes(x, y)) +
-    stat_bin2d(
+    stat_bin_2d(
       breaks = list(x = integer_breaks, y = NULL),
       binwidth = c(0.5, 0.5)
     )

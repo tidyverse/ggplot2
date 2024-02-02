@@ -88,7 +88,7 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-path.r
+#' @include geom-path.R
 GeomFunction <- ggproto("GeomFunction", GeomPath,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,

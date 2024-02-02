@@ -9,6 +9,21 @@ test_that("ggsave creates file", {
   expect_true(file.exists(path))
 })
 
+test_that("ggsave can create directories", {
+  dir <- tempdir()
+  path <- file.path(dir, "foobar", "tmp.pdf")
+  on.exit(unlink(path))
+
+  p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+
+  expect_error(ggsave(path, p))
+  expect_false(dir.exists(dirname(path)))
+
+  # 2 messages: 1 for saving and 1 informing about directory creation
+  expect_message(expect_message(ggsave(path, p, create.dir = TRUE)))
+  expect_true(dir.exists(dirname(path)))
+})
+
 test_that("ggsave restores previous graphics device", {
   # When multiple devices are open, dev.off() restores the next one in the list,
   # not the previously-active one. (#2363)
@@ -27,6 +42,7 @@ test_that("ggsave restores previous graphics device", {
 })
 
 test_that("ggsave uses theme background as image background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -43,6 +59,7 @@ test_that("ggsave uses theme background as image background", {
 })
 
 test_that("ggsave can handle blank background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -57,19 +74,27 @@ test_that("ggsave can handle blank background", {
 })
 
 test_that("ggsave warns about empty or multiple filenames", {
-  filenames <- c("plot1.png", "plot2.png")
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
 
-  withr::with_file(filenames, {
+  withr::with_tempfile(c("file1", "file2"), fileext = ".png", {
     expect_warning(
-      suppressMessages(ggsave(filenames, plot)),
+      suppressMessages(ggsave(c(file1, file2), plot)),
       "`filename` must have length 1"
     )
-    expect_error(
-      ggsave(character(), plot),
-      "`filename` cannot be empty."
-    )
   })
+
+  expect_error(
+    ggsave(character(), plot),
+    "`filename` must be a single string"
+  )
+})
+
+test_that("ggsave fails informatively for no-extension filenames", {
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+  expect_error(
+    ggsave(tempfile(), plot),
+    "Can't save to"
+  )
 })
 
 # plot_dim ---------------------------------------------------------------
@@ -83,7 +108,7 @@ test_that("guesses and informs if dim not specified", {
 })
 
 test_that("uses 7x7 if no graphics device open", {
-  expect_equal(plot_dim(), c(7, 7))
+  suppressMessages(expect_equal(plot_dim(), c(7, 7)))
 })
 
 test_that("warned about large plot unless limitsize = FALSE", {

@@ -2,6 +2,40 @@ test_that("geom_text() checks input", {
   expect_snapshot_error(geom_text(position = "jitter", nudge_x = 0.5))
 })
 
+test_that("geom_text() drops missing angles", {
+
+  df <- data_frame0(x = 1, y = 1, label = "A", angle = 0)
+  geom <- geom_text()
+
+  expect_silent(
+    geom$geom$handle_na(df, geom$geom_params)
+  )
+
+  df$angle <- NA
+  expect_warning(
+    geom$geom$handle_na(df, geom$geom_params),
+    "Removed 1 row"
+  )
+})
+
+test_that("geom_text() accepts mm and pt size units", {
+  p <- ggplot(data_frame0(x = 1, y = 1, label = "A"), aes(x, y, label = label))
+
+  grob <- layer_grob(p + geom_text(size = 10, size.unit = "mm"))[[1]]
+  expect_equal(grob$gp$fontsize, 10 * .pt)
+
+  grob <- layer_grob(p + geom_text(size = 10, size.unit = "pt"))[[1]]
+  expect_equal(grob$gp$fontsize, 10)
+})
+
+test_that("geom_text() rejects exotic units", {
+  p <- ggplot(data_frame0(x = 1, y = 1, label = "A"), aes(x, y, label = label))
+  expect_error(
+    ggplotGrob(p + geom_text(size = 10, size.unit = "npc")),
+    "must be one of"
+  )
+})
+
 # compute_just ------------------------------------------------------------
 
 test_that("vertical and horizontal positions are equivalent", {

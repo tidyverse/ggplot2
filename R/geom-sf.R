@@ -131,7 +131,7 @@ GeomSf <- ggproto("GeomSf", Geom,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         arrow = NULL, na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
-      cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}")
+      cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
 
     # Need to refactor this to generate one grob per geometry type
@@ -176,7 +176,10 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   remove[is_other] <- detect_missing(x, c(GeomPolygon$required_aes, GeomPolygon$non_missing_aes))[is_other]
   if (any(remove)) {
     if (!na.rm) {
-      cli::cli_warn("Removed {sum(remove)} row{?s} containing missing values ({.fn geom_sf})")
+      cli::cli_warn(paste0(
+        "Removed {sum(remove)} row{?s} containing missing values or values ",
+        "outside the scale range ({.fn geom_sf})."
+      ))
     }
     x <- x[!remove, , drop = FALSE]
     type_ind <- type_ind[!remove]
@@ -264,8 +267,8 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
-        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
-        "i" = "Only use one approach to alter the position"
+        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
+        "i" = "Only use one approach to alter the position."
       ))
     }
 
@@ -311,8 +314,8 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
-        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
-        "i" = "Only use one approach to alter the position"
+        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
+        "i" = "Only use one approach to alter the position."
       ))
     }
 

@@ -1,10 +1,10 @@
 # facet_grid() fails if passed both a formula and a vars()
 
-    `rows` must be "NULL" or a `vars()` list if `cols` is a `vars()` list
+    `rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list.
 
 # can't pass formulas to `cols`
 
-    `cols` must be "NULL" or a `vars()` specification
+    `cols` must be a `vars()` specification or `NULL`, not a <formula> object.
 
 # facet gives clear error if 
 
@@ -13,16 +13,16 @@
 
 ---
 
-    `rows` must be "NULL" or a `vars()` list if `cols` is a `vars()` list
+    `rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list.
     i Did you use `%>%` or `|>` instead of `+`?
 
 ---
 
-    A grid facet specification can't have more than two dimensions
+    A grid facet specification can't have more than two dimensions.
 
 ---
 
-    `cols` must be "NULL" or a `vars()` specification
+    `cols` must be a `vars()` specification or `NULL`, not the string "free".
 
 # at least one layer must contain all facet variables in combine_vars()
 
@@ -38,18 +38,18 @@
 
 ---
 
-    Faceting variables must have at least one value
+    Faceting variables must have at least one value.
 
 # validate_facets() provide meaningful errors
 
-    Please use `vars()` to supply facet variables
+    Please use `vars()` to supply facet variables.
 
 ---
 
-    Please use `vars()` to supply facet variables
+    Please use `vars()` to supply facet variables.
     i Did you use `%>%` or `|>` instead of `+`?
 
 # check_layout() throws meaningful errors
 
-    Facet layout has a bad format. It must contain columns `PANEL`, `SCALE_X`, and `SCALE_Y`
+    Facet layout has a bad format. It must contain columns `PANEL`, `SCALE_X`, and `SCALE_Y`.
 

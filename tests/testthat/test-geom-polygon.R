@@ -24,3 +24,33 @@ test_that("geom_polygon draws correctly", {
 
   expect_doppelganger("basic polygon plot", p)
 })
+
+test_that("geom_polygon is closed before munching", {
+
+  df <- data_frame0(
+    x = c(1, 1, 4, 4, 2, 2, 3, 3),
+    y = c(1, 4, 4, 1, 2, 3, 3, 2),
+    sub = c(1, 1, 1, 1, 2, 2, 2, 2)
+  )
+
+  p <- ggplot(df, aes(x, y, subgroup = sub)) +
+    geom_polygon() +
+    xlim(c(0.5, 4.5)) +
+    ylim(c(0, 5)) +
+    coord_polar()
+
+  built <- ggplot_build(p)
+  coord <- built$plot$coordinates
+  data  <- built$data[[1]]
+  param <- built$layout$panel_params[[1]]
+
+  closed <- coord_munch(coord, data, param, is_closed = TRUE)
+  open   <- coord_munch(coord, data, param, is_closed = FALSE)
+
+  p <- ggplot(mapping = aes(x = x, y = y, group = subgroup)) +
+    geom_polygon(aes(colour = "closed"), data = closed, fill = NA) +
+    geom_polygon(aes(colour = "open"), data = open, fill = NA) +
+    theme_void()
+
+  expect_doppelganger("open and closed munched polygons", p)
+})
