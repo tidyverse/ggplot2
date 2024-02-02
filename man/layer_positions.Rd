@@ -110,8 +110,8 @@ For an overview of all position adjustments, see the
 \href{https://ggplot2.tidyverse.org/reference/index.html#position-adjustment}{online reference}.
 
 Other layer documentation: 
+\code{\link{layer}()},
 \code{\link{layer_geoms}},
-\code{\link{layer_stats}},
-\code{\link{layer}()}
+\code{\link{layer_stats}}
 }
 \concept{layer documentation}

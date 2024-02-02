@@ -134,8 +134,8 @@ For an overview of all stat layers, see the
 How \link[=after_stat]{computed aesthetics} work.
 
 Other layer documentation: 
+\code{\link{layer}()},
 \code{\link{layer_geoms}},
-\code{\link{layer_positions}},
-\code{\link{layer}()}
+\code{\link{layer_positions}}
 }
 \concept{layer documentation}
