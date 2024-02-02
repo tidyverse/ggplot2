@@ -59,7 +59,9 @@
 #'
 #'   You can also set this to one of "polygon", "line", and "point" to
 #'   override the default legend.
-#' @seealso [stat_sf_coordinates()]
+#' @seealso The
+#'  [simple feature maps section](https://ggplot2-book.org/maps#sec-sf)
+#'  of the online book. [stat_sf_coordinates()]
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)

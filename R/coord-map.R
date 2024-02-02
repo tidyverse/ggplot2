@@ -45,6 +45,9 @@
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
 #'   means no. For details, please see [`coord_cartesian()`].
 #' @export
+#' @seealso The
+#'  [polygon maps section](https://ggplot2-book.org/maps#sec-polygonmaps)
+#'  of the online book.
 #' @examples
 #' if (require("maps")) {
 #' nz <- map_data("nz")

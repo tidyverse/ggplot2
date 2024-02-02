@@ -16,6 +16,9 @@
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
 #' Other shape scales: [scale_shape_manual()], [scale_shape_identity()].
+#'
+#' The [shape section](https://ggplot2-book.org/scales-other#sec-scale-shape)
+#' of the online book.
 #' @export
 #' @examples
 #' set.seed(596)

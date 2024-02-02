@@ -46,6 +46,9 @@ NULL
 #' @return A guide object
 #' @export
 #' @family guides
+#' @seealso
+#' The [continuous legend section](https://ggplot2-book.org/scales-colour#sec-guide-colourbar)
+#' of the online book.
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2

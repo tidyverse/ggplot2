@@ -50,6 +50,9 @@ NULL
 #'     default values for aesthetics.
 #'   - `setup_data`: Converts width and height to xmin and xmax,
 #'     and ymin and ymax values. It can potentially set other values as well.
+#'
+#' See also the [new geoms section](https://ggplot2-book.org/extensions#sec-new-geoms)
+#' of the online book.
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL

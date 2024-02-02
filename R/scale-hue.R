@@ -16,6 +16,8 @@
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#' The [hue and grey scales section](https://ggplot2-book.org/scales-colour#hue-and-grey-scales)
+#' of the online book.
 #' @examples
 #' \donttest{
 #' set.seed(596)
@@ -97,6 +99,9 @@ scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
 #'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
 #'   [scale_fill_brewer()], etc).
 #' @export
+#' @seealso
+#' The [discrete colour scales section](https://ggplot2-book.org/scales-colour#sec-colour-discrete)
+#' of the online book.
 #' @examples
 #' # Template function for creating densities grouped by a variable
 #' cty_by_var <- function(var) {

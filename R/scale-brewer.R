@@ -40,6 +40,8 @@
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#' The [brewer scales section](https://ggplot2-book.org/scales-colour#brewer-scales)
+#' of the online book.
 #' @rdname scale_brewer
 #' @export
 #' @examples

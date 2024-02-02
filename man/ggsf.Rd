@@ -364,6 +364,8 @@ ggplot() + geom_sf(data = world2)
 }
 }
 \seealso{
-\code{\link[=stat_sf_coordinates]{stat_sf_coordinates()}}
+The
+\href{https://ggplot2-book.org/maps#sec-sf}{simple feature maps section}
+of the online book. \code{\link[=stat_sf_coordinates]{stat_sf_coordinates()}}
 }
 \keyword{datasets}

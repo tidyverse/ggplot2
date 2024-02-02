@@ -70,6 +70,9 @@ NULL
 #'   draws the labels at the interior axes in the x- or y-direction
 #'   respectively.
 #' @export
+#' @seealso
+#' The [facet grid section](https://ggplot2-book.org/facet#facet-grid) of the
+#' online book.
 #' @examples
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 #'

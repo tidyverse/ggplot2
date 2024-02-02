@@ -482,4 +482,8 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.
+
+The \href{https://ggplot2-book.org/themes#modifying-theme-components}{modifying theme components section}
+and \href{https://ggplot2-book.org/themes#sec-theme-elements}{theme elements section}
+of the online book.
 }

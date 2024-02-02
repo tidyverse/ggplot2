@@ -101,4 +101,8 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 \description{
 Discrete scale constructor
 }
+\seealso{
+The \href{https://ggplot2-book.org/extensions#sec-new-scales}{new scales section}
+of the online book.
+}
 \keyword{internal}

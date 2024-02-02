@@ -35,7 +35,9 @@
 #'   (`NULL`) uses the timezone encoded in the data.
 #' @family position scales
 #' @seealso
-#' [sec_axis()] for how to specify secondary axes
+#' [sec_axis()] for how to specify secondary axes.
+#' The [date-time position scales section](https://ggplot2-book.org/scales-position#sec-date-scales)
+#' of the online book.
 #'
 #' The [position documentation][aes_position].
 #' @examples

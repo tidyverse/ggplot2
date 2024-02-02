@@ -19,6 +19,9 @@
 #' @export
 #'
 #' @family guides
+#' @seealso
+#' The [binned legend section](https://ggplot2-book.org/scales-colour#sec-guide-coloursteps)
+#' of the online book.
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2

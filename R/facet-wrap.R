@@ -35,6 +35,9 @@ NULL
 #'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
 #'   x- or y-direction respectively.
 #' @inheritParams facet_grid
+#' @seealso
+#' The [facet wrap section](https://ggplot2-book.org/facet#sec-facet-wrap) of
+#' the online book.
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) + geom_point()

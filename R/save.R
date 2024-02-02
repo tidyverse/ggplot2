@@ -49,6 +49,10 @@
 #'   a prompt will appear asking to create a new directory when necessary.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
+#'
+#' @seealso
+#' The [saving section](https://ggplot2-book.org/themes#sec-saving) of the
+#' online book.
 #' @export
 #' @examples
 #' \dontrun{

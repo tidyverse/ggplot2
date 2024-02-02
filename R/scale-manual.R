@@ -35,6 +35,10 @@
 #'
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #'
+#' The [manual colour scales section](https://ggplot2-book.org/scales-colour#sec-manual-colour)
+#' and [manual scales section](https://ggplot2-book.org/scales-other#sec-scale-manual)
+#' of the online book.
+#'
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with

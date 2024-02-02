@@ -207,6 +207,10 @@
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
 #' @export
+#' @seealso
+#' The [modifying theme components section](https://ggplot2-book.org/themes#modifying-theme-components)
+#' and [theme elements section](https://ggplot2-book.org/themes#sec-theme-elements)
+#' of the online book.
 #' @examples
 #' p1 <- ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +

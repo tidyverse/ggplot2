@@ -122,3 +122,7 @@ dev.off()
 
 }
 }
+\seealso{
+The \href{https://ggplot2-book.org/themes#sec-saving}{saving section} of the
+online book.
+}

@@ -39,6 +39,9 @@
 #'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @family colour scales
 #' @rdname scale_colour_continuous
+#' @seealso
+#' The [continuous colour scales section](https://ggplot2-book.org/scales-colour#sec-colour-continuous)
+#' of the online book.
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with

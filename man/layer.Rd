@@ -100,4 +100,9 @@ ggplot(mpg, aes(displ, hwy)) +
   )
 
 }
+\seealso{
+The \href{https://ggplot2-book.org/scales-other#sec-scale-identity}{build a plot layer by layer chapter},
+and \href{https://ggplot2-book.org/individual-geoms}{individual geoms chapter}
+of the online book.
+}
 \keyword{internal}

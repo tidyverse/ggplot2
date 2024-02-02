@@ -10,6 +10,8 @@
 #' @family position scales
 #' @seealso
 #' The [position documentation][aes_position].
+#' The [binned position scales section](https://ggplot2-book.org/scales-position#sec-binned-position)
+#' of the online book.
 #' @name scale_binned
 #' @aliases NULL
 #'

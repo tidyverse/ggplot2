@@ -32,6 +32,9 @@
 #' @param ... ignored.
 #' @export
 #' @family guides
+#' @seealso
+#' The [legends section](https://ggplot2-book.org/scales-colour#sec-guide-legend)
+#' of the online book.
 #' @examples
 #' \donttest{
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)

@@ -12,6 +12,9 @@
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
 #'   means no. For details, please see [`coord_cartesian()`].
 #' @export
+#' @seealso
+#' The [polar coordinates section](https://ggplot2-book.org/coord#polar-coordinates-with-coord_polar)
+#' of the online book.
 #' @examples
 #' # NOTE: Use these plots with caution - polar coordinates has
 #' # major perceptual problems.  The main point of these examples is

@@ -48,6 +48,10 @@
 #'
 #' }
 #'
+#' @seealso
+#' The [complete themes section](https://ggplot2-book.org/themes#sec-themes)
+#' of the online book.
+#'
 #' @examples
 #' mtcars2 <- within(mtcars, {
 #'   vs <- factor(vs, labels = c("V-shaped", "Straight"))

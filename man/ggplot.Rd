@@ -115,3 +115,7 @@ ggplot() +
     colour = 'red', size = 3
   )
 }
+\seealso{
+The \href{https://ggplot2-book.org/getting-started}{first steps chapter}
+of the online book.
+}

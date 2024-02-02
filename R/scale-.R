@@ -93,6 +93,11 @@
 #' `left` or `right` for y axes, `top` or `bottom` for x axes.
 #' @param call The `call` used to construct the scale for reporting messages.
 #' @param super The super class to use for the constructed scale
+#'
+#' @seealso
+#' The [new scales section](https://ggplot2-book.org/extensions#sec-new-scales)
+#' of the online book.
+#'
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                              breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
@@ -190,6 +195,9 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #' @param na.value If `na.translate = TRUE`, what aesthetic value should the
 #'   missing values be displayed as? Does not apply to position scales
 #'   where `NA` is always placed at the far right.
+#' @seealso
+#' The [new scales section](https://ggplot2-book.org/extensions#sec-new-scales)
+#' of the online book.
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                            breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
@@ -263,6 +271,9 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 #'   left), whereas they are part of the upper bin when intervals are closed on
 #'   the left (open on the right).
 #' @param show.limits should the limits of the scale appear as ticks
+#' @seealso
+#' The [new scales section](https://ggplot2-book.org/extensions#sec-new-scales)
+#' of the online book.
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,

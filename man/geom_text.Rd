@@ -274,3 +274,8 @@ ggplot(df, aes(x, y)) +
   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 }
 }
+\seealso{
+The
+\href{https://ggplot2-book.org/annotations#sec-text-labels}{text labels section}
+of the online book.
+}

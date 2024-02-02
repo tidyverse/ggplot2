@@ -44,6 +44,8 @@
 #' @param environment `r lifecycle::badge("deprecated")` Used prior to tidy
 #'   evaluation.
 #' @export
+#' @seealso The [first steps chapter](https://ggplot2-book.org/getting-started)
+#'  of the online book.
 #' @examples
 #' # Create a data frame with some sample data, then create a data frame
 #' # containing the mean value for each group in the sample data.

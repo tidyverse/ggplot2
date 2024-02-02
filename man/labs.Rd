@@ -84,3 +84,7 @@ p +
  labs(title = "title") +
  labs(title = NULL)
 }
+\seealso{
+The \href{https://ggplot2-book.org/annotations#sec-titles}{plot and axis titles section}
+of the online book.
+}
