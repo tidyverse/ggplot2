@@ -105,47 +105,6 @@ Run `revdepcheck::cloud_details(, "afex")` for more info
     Execution halted
     ```
 
-# AgroReg
-
-<details>
-
-* Version: 1.2.9
-* GitHub: NA
-* Source code: https://github.com/cran/AgroReg
-* Date/Publication: 2023-01-18 12:10:17 UTC
-* Number of recursive dependencies: 117
-
-Run `revdepcheck::cloud_details(, "AgroReg")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘AgroReg-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: adjust_scale
-    > ### Title: Utils: Adjust y and x scale
-    > ### Aliases: adjust_scale
-    > 
-    > ### ** Examples
-    > 
-    > library(AgroReg)
-    ...
-    Error in `adjust_scale()`:
-    ! Cannot add <ggproto> objects together.
-    ℹ Did you forget to add this object to a <ggplot> object?
-    Backtrace:
-        ▆
-     1. └─AgroReg::adjust_scale(...)
-     2.   └─ggplot2:::`+.gg`(plots, scale_y_continuous(breaks = scale.y, limits = limits.y))
-     3.     └─cli::cli_abort(...)
-     4.       └─rlang::abort(...)
-    Execution halted
-    ```
-
 # ale
 
 <details>
@@ -187,6 +146,47 @@ Run `revdepcheck::cloud_details(, "ale")` for more info
     Execution halted
     ```
 
+# APCI
+
+<details>
+
+* Version: 1.0.7
+* GitHub: NA
+* Source code: https://github.com/cran/APCI
+* Date/Publication: 2024-01-30 06:40:03 UTC
+* Number of recursive dependencies: 87
+
+Run `revdepcheck::cloud_details(, "APCI")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘1_tests.R’
+    Running the tests in ‘tests/1_tests.R’ failed.
+    Complete output:
+      > # install the package and use this script to test the package
+      > library("APCI")
+      > # or: remotes::install_github("jiahui1902/APCI")
+      > test_data <- APCI::women9017
+      > test_data$acc <- as.factor(test_data$acc)
+      > test_data$pcc <- as.factor(test_data$pcc)
+      > test_data$educc <- as.factor(test_data$educc)
+    ...
+       -0.341586100   0.108521398   0.196915587  -0.384744431   0.213074939 
+          acc8:pcc3     acc9:pcc3     acc1:pcc4     acc2:pcc4     acc3:pcc4 
+       -0.127365980   0.127168930  -0.469822600   0.040191453   0.330041906 
+          acc4:pcc4     acc5:pcc4     acc6:pcc4     acc7:pcc4     acc8:pcc4 
+        0.312063653   0.268107970  -0.184595190  -0.048022414  -0.334166947 
+          acc9:pcc4     acc1:pcc5     acc2:pcc5     acc3:pcc5     acc4:pcc5 
+        0.061742631   0.027680958   0.288167814  -0.061750085  -0.167463426 
+          acc5:pcc5     acc6:pcc5     acc7:pcc5     acc8:pcc5     acc9:pcc5 
+       -0.558510769  -0.300765544   0.317141130   0.728091684  -0.318307169 
+      Killed
+    ```
+
 # assignPOP
 
 <details>
@@ -216,7 +216,7 @@ Run `revdepcheck::cloud_details(, "assignPOP")` for more info
         Correct assignment rates were estimated!!
         A total of 3 assignment tests for 3 pops.
     ...
-      Actual value: "List of 11\\n \$ data       :'data\.frame':\\t72 obs\. of  6 variables:\\n  \.\.\$ Ind\.ID    : Factor w/ 24 levels "A10","A12","AA9",\.\.: 3 1 2 5 6 4 7 8 11 9 \.\.\.\\n  \.\.\$ origin\.pop: Factor w/ 3 levels "pop\.1","pop\.2",\.\.: 1 1 1 2 2 2 3 3 1 1 \.\.\.\\n  \.\.\$ pred\.pop  : Factor w/ 3 levels "pop\.1","pop\.3",\.\.: 1 2 2 1 1 1 1 1 2 2 \.\.\.\\n  \.\.\$ fold_n    : chr \[1:72\] "fold_1" "fold_1" "fold_1" "fold_1" \.\.\.\\n  \.\.\$ variable  : Factor w/ 3 levels "pop\.1","pop\.2",\.\.: 1 1 1 1 1 1 1 1 1 1 \.\.\.\\n  \.\.\$ value     : num \[1:72\] 0\.4 0\.326 0\.26 0\.383 0\.44 \.\.\.\\n \$ layers     :List of 1\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: NULL\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: list\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 3\\n  \.\.\$ x   : language ~Ind\.ID\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x555a8094ad98> \\n  \.\.\$ y   : language ~value\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x555a8094ad98> \\n  \.\.\$ fill: language ~variable\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x555a8094ad98> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      :List of 124\\n  \.\.\$ line                            :List of 6\\n  \.\. \.\.\$ colour       : chr "black"\\n  \.\. \.\.\$ linewidth    : num 0\.5\\n  \.\. \.\.\$ linetype     : num 1\\n  \.\. \.\.\$ lineend      : chr "butt"\\n  \.\. \.\.\$ arrow        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_line" "element"\\n  \.\.\$ rect                            :List of 5\\n  \.\. \.\.\$ fill         : chr "white"\\n  \.\. \.\.\$ colour       : chr "black"\\n  \.\. \.\.\$ linewidth    : num 0\.5\\n  \.\. \.\.\$ linetype     : num 1\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ text                            :List of 11\\n  \.\. \.\.\$ family       : chr ""\\n  \.\. \.\.\$ face         : chr "plain"\\n  \.\. \.\.\$ colour       : chr "black"\\n  \.\. \.\.\$ size         : num 11\\n  \.\. \.\.\$ hjust        : num 0\.5\\n  \.\. \.\.\$ vjust        : num 0\.5\\n  \.\. \.\.\$ angle        : num 0\\n  \.\. \.\.\$ lineheight   : num 0\.9\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ title                           : NULL\\n  \.\.\$ aspect\.ratio                    : NULL\\n  \.\.\$ axis\.title                      : NULL\\n  \.\.\$ axis\.title\.x                    : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ axis\.title\.x\.top                :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 0\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 2\.75points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.title\.x\.bottom             : NULL\\n  \.\.\$ axis\.title\.y                    :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 1\\n  \.\. \.\.\$ angle        : num 90\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 2\.75points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.title\.y\.left               : NULL\\n  \.\.\$ axis\.title\.y\.right              :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 1\\n  \.\. \.\.\$ angle        : num -90\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 0points 2\.75points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text                       :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : chr "grey30"\\n  \.\. \.\.\$ size         : 'rel' num 0\.8\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.x                     :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 1\\n  \.\. \.\.\$ angle        : num 90\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 2\.2points 0points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi FALSE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.x\.top                 :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 0\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 2\.2points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.x\.bottom              : NULL\\n  \.\.\$ axis\.text\.y                     :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 1\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 2\.2points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.y\.left                : NULL\\n  \.\.\$ axis\.text\.y\.right               :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 0points 2\.2points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.ticks                      :List of 6\\n  \.\. \.\.\$ colour       : chr "grey20"\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ lineend      : NULL\\n  \.\. \.\.\$ arrow        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_line" "element"\\n  \.\.\$ axis\.ticks\.x                    : NULL\\n  \.\.\$ axis\.ticks\.x\.top                : NULL\\n  \.\.\$ axis\.ticks\.x\.bottom             : NULL\\n  \.\.\$ axis\.ticks\.y                    : NULL\\n  \.\.\$ axis\.ticks\.y\.left               : NULL\\n  \.\.\$ axis\.ticks\.y\.right              : NULL\\n  \.\.\$ axis\.minor\.ticks\.x\.top          : NULL\\n  \.\.\$ axis\.minor\.ticks\.x\.bottom       : NULL\\n  \.\.\$ axis\.minor\.ticks\.y\.left         : NULL\\n  \.\.\$ axis\.minor\.ticks\.y\.right        : NULL\\n  \.\.\$ axis\.ticks\.length               : 'simpleUnit' num 2\.75points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ axis\.ticks\.length\.x             : NULL\\n  \.\.\$ axis\.ticks\.length\.x\.top         : NULL\\n  \.\.\$ axis\.ticks\.length\.x\.bottom      : NULL\\n  \.\.\$ axis\.ticks\.length\.y             : NULL\\n  \.\.\$ axis\.ticks\.length\.y\.left        : NULL\\n  \.\.\$ axis\.ticks\.length\.y\.right       : NULL\\n  \.\.\$ axis\.minor\.ticks\.length         : 'rel' num 0\.75\\n  \.\.\$ axis\.minor\.ticks\.length\.x       : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.x\.top   : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.x\.bottom: NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.y       : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.y\.left  : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.y\.right : NULL\\n  \.\.\$ axis\.line                       : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ axis\.line\.x                     : NULL\\n  \.\.\$ axis\.line\.x\.top                 : NULL\\n  \.\.\$ axis\.line\.x\.bottom              : NULL\\n  \.\.\$ axis\.line\.y                     : NULL\\n  \.\.\$ axis\.line\.y\.left                : NULL\\n  \.\.\$ axis\.line\.y\.right               : NULL\\n  \.\.\$ legend\.background               :List of 5\\n  \.\. \.\.\$ fill         : NULL\\n  \.\. \.\.\$ colour       : logi NA\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ legend\.margin                   : 'margin' num \[1:4\] 5\.5points 5\.5points 5\.5points 5\.5points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ legend\.spacing                  : 'simpleUnit' num 11points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ legend\.spacing\.x                : NULL\\n  \.\.\$ legend\.spacing\.y                : NULL\\n  \.\.\$ legend\.key                      : NULL\\n  \.\.\$ legend\.key\.size                 : 'simpleUnit' num 1\.2lines\\n  \.\. \.\.- attr\(\*, "unit"\)= int 3\\n  \.\.\$ legend\.key\.height               : NULL\\n  \.\.\$ legend\.key\.width                : NULL\\n  \.\.\$ legend\.key\.spacing              : 'simpleUnit' num 5\.5points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ legend\.key\.spacing\.x            : NULL\\n  \.\.\$ legend\.key\.spacing\.y            : NULL\\n  \.\.\$ legend\.frame                    : NULL\\n  \.\.\$ legend\.ticks                    : NULL\\n  \.\.\$ legend\.ticks\.length             : NULL\\n  \.\.\$ legend\.axis\.line                : NULL\\n  \.\.\$ legend\.text                     :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : 'rel' num 0\.8\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ legend\.text\.position            : NULL\\n  \.\.\$ legend\.title                    :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ legend\.title\.position           : NULL\\n  \.\.\$ legend\.position                 : chr "right"\\n  \.\.\$ legend\.position\.inside          : NULL\\n  \.\.\$ legend\.direction                : NULL\\n  \.\.\$ legend\.byrow                    : NULL\\n  \.\.\$ legend\.justification            : chr "center"\\n  \.\.\$ legend\.justification\.top        : NULL\\n  \.\.\$ legend\.justification\.bottom     : NULL\\n  \.\.\$ legend\.justification\.left       : NULL\\n  \.\.\$ legend\.justification\.right      : NULL\\n  \.\.\$ legend\.justification\.inside     : NULL\\n  \.\.\$ legend\.location                 : NULL\\n  \.\.\$ legend\.box                      : NULL\\n  \.\.\$ legend\.box\.just                 : NULL\\n  \.\.\$ legend\.box\.margin               : 'margin' num \[1:4\] 0cm 0cm 0cm 0cm\\n  \.\. \.\.- attr\(\*, "unit"\)= int 1\\n  \.\.\$ legend\.box\.background           : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ legend\.box\.spacing              : 'simpleUnit' num 11points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ panel\.background                :List of 5\\n  \.\. \.\.\$ fill         : chr "white"\\n  \.\. \.\.\$ colour       : logi NA\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ panel\.border                    :List of 5\\n  \.\. \.\.\$ fill         : logi NA\\n  \.\. \.\.\$ colour       : chr "grey20"\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ panel\.spacing                   : 'simpleUnit' num 5\.5points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ panel\.spacing\.x                 : NULL\\n  \.\.\$ panel\.spacing\.y                 : NULL\\n  \.\.\$ panel\.grid                      :List of 6\\n  \.\. \.\.\$ colour       : chr "grey92"\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ lineend      : NULL\\n  \.\. \.\.\$ arrow        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_line" "element"\\n  \.\.\$ panel\.grid\.major                : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ panel\.grid\.minor                : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ panel\.grid\.major\.x              : NULL\\n  \.\.\$ panel\.grid\.major\.y              : NULL\\n  \.\.\$ panel\.grid\.minor\.x              : NULL\\n  \.\.\$ panel\.grid\.minor\.y              : NULL\\n  \.\. \[list output truncated\]\\n  \.\.- attr\(\*, "class"\)= chr \[1:2\] "theme" "gg"\\n  \.\.- attr\(\*, "complete"\)= logi TRUE\\n  \.\.- attr\(\*, "validate"\)= logi TRUE\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: FALSE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetGrid', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetGrid, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetGrid, Facet, gg> \\n \$ plot_env   :<environment: 0x555a8094ad98> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 4\\n  \.\.\$ title: chr "K = 3  "\\n  \.\.\$ y    : chr "Probability"\\n  \.\.\$ x    : chr "Ind\.ID"\\n  \.\.\$ fill : chr "variable"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
+      Actual value: "List of 11\\n \$ data       :'data\.frame':\\t72 obs\. of  6 variables:\\n  \.\.\$ Ind\.ID    : Factor w/ 24 levels "A10","A12","AA9",\.\.: 3 1 2 5 6 4 7 8 11 9 \.\.\.\\n  \.\.\$ origin\.pop: Factor w/ 3 levels "pop\.1","pop\.2",\.\.: 1 1 1 2 2 2 3 3 1 1 \.\.\.\\n  \.\.\$ pred\.pop  : Factor w/ 3 levels "pop\.1","pop\.3",\.\.: 1 2 2 1 1 1 1 1 2 2 \.\.\.\\n  \.\.\$ fold_n    : chr \[1:72\] "fold_1" "fold_1" "fold_1" "fold_1" \.\.\.\\n  \.\.\$ variable  : Factor w/ 3 levels "pop\.1","pop\.2",\.\.: 1 1 1 1 1 1 1 1 1 1 \.\.\.\\n  \.\.\$ value     : num \[1:72\] 0\.4 0\.326 0\.26 0\.383 0\.44 \.\.\.\\n \$ layers     :List of 1\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: NULL\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: list\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        add_title: function\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 3\\n  \.\.\$ x   : language ~Ind\.ID\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x5562edf4d5b0> \\n  \.\.\$ y   : language ~value\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x5562edf4d5b0> \\n  \.\.\$ fill: language ~variable\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x5562edf4d5b0> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      :List of 124\\n  \.\.\$ line                            :List of 6\\n  \.\. \.\.\$ colour       : chr "black"\\n  \.\. \.\.\$ linewidth    : num 0\.5\\n  \.\. \.\.\$ linetype     : num 1\\n  \.\. \.\.\$ lineend      : chr "butt"\\n  \.\. \.\.\$ arrow        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_line" "element"\\n  \.\.\$ rect                            :List of 5\\n  \.\. \.\.\$ fill         : chr "white"\\n  \.\. \.\.\$ colour       : chr "black"\\n  \.\. \.\.\$ linewidth    : num 0\.5\\n  \.\. \.\.\$ linetype     : num 1\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ text                            :List of 11\\n  \.\. \.\.\$ family       : chr ""\\n  \.\. \.\.\$ face         : chr "plain"\\n  \.\. \.\.\$ colour       : chr "black"\\n  \.\. \.\.\$ size         : num 11\\n  \.\. \.\.\$ hjust        : num 0\.5\\n  \.\. \.\.\$ vjust        : num 0\.5\\n  \.\. \.\.\$ angle        : num 0\\n  \.\. \.\.\$ lineheight   : num 0\.9\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ title                           : NULL\\n  \.\.\$ aspect\.ratio                    : NULL\\n  \.\.\$ axis\.title                      : NULL\\n  \.\.\$ axis\.title\.x                    : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ axis\.title\.x\.top                :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 0\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 2\.75points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.title\.x\.bottom             : NULL\\n  \.\.\$ axis\.title\.y                    :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 1\\n  \.\. \.\.\$ angle        : num 90\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 2\.75points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.title\.y\.left               : NULL\\n  \.\.\$ axis\.title\.y\.right              :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 1\\n  \.\. \.\.\$ angle        : num -90\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 0points 2\.75points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text                       :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : chr "grey30"\\n  \.\. \.\.\$ size         : 'rel' num 0\.8\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.x                     :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 1\\n  \.\. \.\.\$ angle        : num 90\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 2\.2points 0points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi FALSE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.x\.top                 :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : num 0\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 2\.2points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.x\.bottom              : NULL\\n  \.\.\$ axis\.text\.y                     :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 1\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 2\.2points 0points 0points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.text\.y\.left                : NULL\\n  \.\.\$ axis\.text\.y\.right               :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : 'margin' num \[1:4\] 0points 0points 0points 2\.2points\\n  \.\. \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ axis\.ticks                      :List of 6\\n  \.\. \.\.\$ colour       : chr "grey20"\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ lineend      : NULL\\n  \.\. \.\.\$ arrow        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_line" "element"\\n  \.\.\$ axis\.ticks\.x                    : NULL\\n  \.\.\$ axis\.ticks\.x\.top                : NULL\\n  \.\.\$ axis\.ticks\.x\.bottom             : NULL\\n  \.\.\$ axis\.ticks\.y                    : NULL\\n  \.\.\$ axis\.ticks\.y\.left               : NULL\\n  \.\.\$ axis\.ticks\.y\.right              : NULL\\n  \.\.\$ axis\.minor\.ticks\.x\.top          : NULL\\n  \.\.\$ axis\.minor\.ticks\.x\.bottom       : NULL\\n  \.\.\$ axis\.minor\.ticks\.y\.left         : NULL\\n  \.\.\$ axis\.minor\.ticks\.y\.right        : NULL\\n  \.\.\$ axis\.ticks\.length               : 'simpleUnit' num 2\.75points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ axis\.ticks\.length\.x             : NULL\\n  \.\.\$ axis\.ticks\.length\.x\.top         : NULL\\n  \.\.\$ axis\.ticks\.length\.x\.bottom      : NULL\\n  \.\.\$ axis\.ticks\.length\.y             : NULL\\n  \.\.\$ axis\.ticks\.length\.y\.left        : NULL\\n  \.\.\$ axis\.ticks\.length\.y\.right       : NULL\\n  \.\.\$ axis\.minor\.ticks\.length         : 'rel' num 0\.75\\n  \.\.\$ axis\.minor\.ticks\.length\.x       : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.x\.top   : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.x\.bottom: NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.y       : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.y\.left  : NULL\\n  \.\.\$ axis\.minor\.ticks\.length\.y\.right : NULL\\n  \.\.\$ axis\.line                       : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ axis\.line\.x                     : NULL\\n  \.\.\$ axis\.line\.x\.top                 : NULL\\n  \.\.\$ axis\.line\.x\.bottom              : NULL\\n  \.\.\$ axis\.line\.y                     : NULL\\n  \.\.\$ axis\.line\.y\.left                : NULL\\n  \.\.\$ axis\.line\.y\.right               : NULL\\n  \.\.\$ legend\.background               :List of 5\\n  \.\. \.\.\$ fill         : NULL\\n  \.\. \.\.\$ colour       : logi NA\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ legend\.margin                   : 'margin' num \[1:4\] 5\.5points 5\.5points 5\.5points 5\.5points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ legend\.spacing                  : 'simpleUnit' num 11points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ legend\.spacing\.x                : NULL\\n  \.\.\$ legend\.spacing\.y                : NULL\\n  \.\.\$ legend\.key                      : NULL\\n  \.\.\$ legend\.key\.size                 : 'simpleUnit' num 1\.2lines\\n  \.\. \.\.- attr\(\*, "unit"\)= int 3\\n  \.\.\$ legend\.key\.height               : NULL\\n  \.\.\$ legend\.key\.width                : NULL\\n  \.\.\$ legend\.key\.spacing              : 'simpleUnit' num 5\.5points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ legend\.key\.spacing\.x            : NULL\\n  \.\.\$ legend\.key\.spacing\.y            : NULL\\n  \.\.\$ legend\.frame                    : NULL\\n  \.\.\$ legend\.ticks                    : NULL\\n  \.\.\$ legend\.ticks\.length             : 'rel' num 0\.2\\n  \.\.\$ legend\.axis\.line                : NULL\\n  \.\.\$ legend\.text                     :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : 'rel' num 0\.8\\n  \.\. \.\.\$ hjust        : NULL\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ legend\.text\.position            : NULL\\n  \.\.\$ legend\.title                    :List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.\$ legend\.title\.position           : NULL\\n  \.\.\$ legend\.position                 : chr "right"\\n  \.\.\$ legend\.position\.inside          : NULL\\n  \.\.\$ legend\.direction                : NULL\\n  \.\.\$ legend\.byrow                    : NULL\\n  \.\.\$ legend\.justification            : chr "center"\\n  \.\.\$ legend\.justification\.top        : NULL\\n  \.\.\$ legend\.justification\.bottom     : NULL\\n  \.\.\$ legend\.justification\.left       : NULL\\n  \.\.\$ legend\.justification\.right      : NULL\\n  \.\.\$ legend\.justification\.inside     : NULL\\n  \.\.\$ legend\.location                 : NULL\\n  \.\.\$ legend\.box                      : NULL\\n  \.\.\$ legend\.box\.just                 : NULL\\n  \.\.\$ legend\.box\.margin               : 'margin' num \[1:4\] 0cm 0cm 0cm 0cm\\n  \.\. \.\.- attr\(\*, "unit"\)= int 1\\n  \.\.\$ legend\.box\.background           : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ legend\.box\.spacing              : 'simpleUnit' num 11points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ panel\.background                :List of 5\\n  \.\. \.\.\$ fill         : chr "white"\\n  \.\. \.\.\$ colour       : logi NA\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ panel\.border                    :List of 5\\n  \.\. \.\.\$ fill         : logi NA\\n  \.\. \.\.\$ colour       : chr "grey20"\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_rect" "element"\\n  \.\.\$ panel\.spacing                   : 'simpleUnit' num 5\.5points\\n  \.\. \.\.- attr\(\*, "unit"\)= int 8\\n  \.\.\$ panel\.spacing\.x                 : NULL\\n  \.\.\$ panel\.spacing\.y                 : NULL\\n  \.\.\$ panel\.grid                      :List of 6\\n  \.\. \.\.\$ colour       : chr "grey92"\\n  \.\. \.\.\$ linewidth    : NULL\\n  \.\. \.\.\$ linetype     : NULL\\n  \.\. \.\.\$ lineend      : NULL\\n  \.\. \.\.\$ arrow        : logi FALSE\\n  \.\. \.\.\$ inherit\.blank: logi TRUE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_line" "element"\\n  \.\.\$ panel\.grid\.major                : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ panel\.grid\.minor                : list\(\)\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_blank" "element"\\n  \.\.\$ panel\.grid\.major\.x              : NULL\\n  \.\.\$ panel\.grid\.major\.y              : NULL\\n  \.\.\$ panel\.grid\.minor\.x              : NULL\\n  \.\.\$ panel\.grid\.minor\.y              : NULL\\n  \.\. \[list output truncated\]\\n  \.\.- attr\(\*, "class"\)= chr \[1:2\] "theme" "gg"\\n  \.\.- attr\(\*, "complete"\)= logi TRUE\\n  \.\.- attr\(\*, "validate"\)= logi TRUE\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: FALSE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetGrid', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetGrid, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetGrid, Facet, gg> \\n \$ plot_env   :<environment: 0x5562edf4d5b0> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 4\\n  \.\.\$ title: chr "K = 3  "\\n  \.\.\$ y    : chr "Probability"\\n  \.\.\$ x    : chr "Ind\.ID"\\n  \.\.\$ fill : chr "variable"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
       Backtrace:
           ▆
        1. └─testthat::expect_output(str(plot), "List of 10") at test_membership.R:5:3
@@ -226,150 +226,6 @@ Run `revdepcheck::cloud_details(, "assignPOP")` for more info
       [ FAIL 3 | WARN 1 | SKIP 0 | PASS 39 ]
       Error: Test failures
       Execution halted
-    ```
-
-# autohrf
-
-<details>
-
-* Version: 1.1.2
-* GitHub: https://github.com/demsarjure/autohrf
-* Source code: https://github.com/cran/autohrf
-* Date/Publication: 2023-02-15 11:50:05 UTC
-* Number of recursive dependencies: 62
-
-Run `revdepcheck::cloud_details(, "autohrf")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # SPDX-FileCopyrightText: 2022 Jure Demšar, Nina Purg, Grega Repovš
-      > #
-      > # SPDX-License-Identifier: GPL-3.0-or-later
-      > 
-      > library(testthat)
-      > library(autohrf)
-      > 
-    ...
-      1/1 mismatches
-      [1] 11 - 9 == 2
-      ── Failure ('test_modelling.R:111:3'): plot_best_models ────────────────────────
-      length(plot) not equal to 9.
-      1/1 mismatches
-      [1] 11 - 9 == 2
-      
-      [ FAIL 4 | WARN 2 | SKIP 0 | PASS 16 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# bayesplot
-
-<details>
-
-* Version: 1.10.0
-* GitHub: https://github.com/stan-dev/bayesplot
-* Source code: https://github.com/cran/bayesplot
-* Date/Publication: 2022-11-16 22:00:08 UTC
-* Number of recursive dependencies: 127
-
-Run `revdepcheck::cloud_details(, "bayesplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(bayesplot)
-      This is bayesplot version 1.10.0
-      - Online documentation and vignettes at mc-stan.org/bayesplot
-      - bayesplot theme set to bayesplot::theme_default()
-         * Does _not_ affect other ggplot2 plots
-         * See ?bayesplot_theme_set for details on theme setting
-    ...
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-convenience-functions.R:113:3'): legend_move returns correct theme object ──
-      `pos` not equivalent to list(legend.position = c(0.25, 0.5)).
-      Length mismatch: comparison on first 1 components
-      Component "legend.position": target is character, current is numeric
-      
-      [ FAIL 1 | WARN 9 | SKIP 73 | PASS 1018 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.6Mb
-      sub-directories of 1Mb or more:
-        R     3.9Mb
-        doc   3.9Mb
-    ```
-
-# BCClong
-
-<details>
-
-* Version: 1.0.1
-* GitHub: NA
-* Source code: https://github.com/cran/BCClong
-* Date/Publication: 2023-08-08 10:10:08 UTC
-* Number of recursive dependencies: 142
-
-Run `revdepcheck::cloud_details(, "BCClong")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-    ...
-      `expected`: 10
-      ── Failure ('test-Trajplot.R:15:3'): trajplot works ────────────────────────────
-      length(p2) (`actual`) not equal to 10 (`expected`).
-      
-        `actual`: 11
-      `expected`: 10
-      
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 29 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 18.0Mb
-      sub-directories of 1Mb or more:
-        doc       1.2Mb
-        extdata   3.3Mb
-        libs     13.4Mb
     ```
 
 # BeeBDC
@@ -408,7 +264,7 @@ Run `revdepcheck::cloud_details(, "BeeBDC")` for more info
         `actual`: 11
       `expected`:  9
       
-      [ FAIL 3 | WARN 1 | SKIP 0 | PASS 231 ]
+      [ FAIL 3 | WARN 3 | SKIP 0 | PASS 231 ]
       Error: Test failures
       Execution halted
     ```
@@ -469,7 +325,7 @@ Run `revdepcheck::cloud_details(, "bioassays")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/BOSO
 * Date/Publication: 2021-07-01 07:40:11 UTC
-* Number of recursive dependencies: 156
+* Number of recursive dependencies: 153
 
 Run `revdepcheck::cloud_details(, "BOSO")` for more info
 
@@ -529,7 +385,7 @@ Run `revdepcheck::cloud_details(, "breakDown")` for more info
       > test_check("breakDown")
                                    contribution
       (Intercept)                         0.240
-      - satisfaction_level = 0.45        -0.049
+      - number_project = 2               -0.051
     ...
       ── Failure ('test_plot.R:38:3'): Output format ─────────────────────────────────
       plot(broken_rf_classif) has length 11, not length 9.
@@ -539,47 +395,6 @@ Run `revdepcheck::cloud_details(, "breakDown")` for more info
       plot(broken_glm_classif) has length 11, not length 9.
       
       [ FAIL 3 | WARN 12 | SKIP 0 | PASS 30 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# breathtestcore
-
-<details>
-
-* Version: 0.8.6
-* GitHub: https://github.com/dmenne/breathtestcore
-* Source code: https://github.com/cran/breathtestcore
-* Date/Publication: 2023-02-13 14:00:07 UTC
-* Number of recursive dependencies: 126
-
-Run `revdepcheck::cloud_details(, "breathtestcore")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘test-all.R’
-    Running the tests in ‘tests/test-all.R’ failed.
-    Complete output:
-      > library(testthat)
-      > 
-      > options(Ncpus = parallelly::availableCores(omit = 1))
-      > test_check("breathtestcore")
-      Loading required package: breathtestcore
-      Starting 1 test process
-      [ FAIL 3 | WARN 11 | SKIP 4 | PASS 356 ]
-    ...
-      `expected`:  9
-      ── Failure ('test_plot_breathtestfit.R:81:3'): Plot multiple groups data only (no fit) ──
-      length(p) (`actual`) not equal to 9 (`expected`).
-      
-        `actual`: 11
-      `expected`:  9
-      
-      [ FAIL 3 | WARN 11 | SKIP 4 | PASS 356 ]
       Error: Test failures
       Execution halted
     ```
@@ -673,33 +488,6 @@ Run `revdepcheck::cloud_details(, "CEDA")` for more info
     Execution halted
     ```
 
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Userguide.Rmd’ using rmarkdown
-    
-    /usr/local/bin/tlmgr: signature verification error of /tmp/BnVkxMLWWM/vPb8PcWEoe from https://mirror.mwt.me/ctan/systems/texlive/tlnet/tlpkg/texlive.tlpdb: cryptographic signature verification of
-      /tmp/BnVkxMLWWM/uIROn7tdXC
-    against
-      https://mirror.mwt.me/ctan/systems/texlive/tlnet/tlpkg/texlive.tlpdb.sha512.asc
-    failed. Output was:
-    gpg: Signature made Mon Jan 15 00:45:35 2024 UTC
-    gpg:                using RSA key D8F2F86057A857E42A88106A4CE1877E19438C70
-    ...
-    
-    Error: processing vignette 'Userguide.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/CEDA/old/CEDA.Rcheck/vign_test/CEDA/vignettes/Userguide.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See Userguide.log for more info.
-    --- failed re-building ‘Userguide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘Userguide.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # cobalt
 
 <details>
@@ -774,7 +562,7 @@ Run `revdepcheck::cloud_details(, "cobalt")` for more info
 * GitHub: https://github.com/cynkra/constructive
 * Source code: https://github.com/cran/constructive
 * Date/Publication: 2023-11-13 17:33:24 UTC
-* Number of recursive dependencies: 115
+* Number of recursive dependencies: 112
 
 Run `revdepcheck::cloud_details(, "constructive")` for more info
 
@@ -807,86 +595,45 @@ Run `revdepcheck::cloud_details(, "constructive")` for more info
       Execution halted
     ```
 
-# coveffectsplot
+# cylcop
 
 <details>
 
-* Version: 1.0.4
-* GitHub: https://github.com/smouksassi/coveffectsplot
-* Source code: https://github.com/cran/coveffectsplot
-* Date/Publication: 2023-09-18 12:40:16 UTC
-* Number of recursive dependencies: 149
+* Version: 0.2.0
+* GitHub: https://github.com/r-lib/devtools
+* Source code: https://github.com/cran/cylcop
+* Date/Publication: 2022-10-29 22:00:21 UTC
+* Number of recursive dependencies: 98
 
-Run `revdepcheck::cloud_details(, "coveffectsplot")` for more info
+Run `revdepcheck::cloud_details(, "cylcop")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... ERROR
+*   checking examples ... ERROR
     ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Exposure_Response_Example.Rmd’ using rmarkdown
-    --- finished re-building ‘Exposure_Response_Example.Rmd’
+    Running examples in ‘cylcop-Ex.R’ failed
+    The error most likely occurred in:
     
-    --- re-building ‘PKPD_Example.Rmd’ using rmarkdown
-    --- finished re-building ‘PKPD_Example.Rmd’
-    
-    --- re-building ‘PK_Example.Rmd’ using rmarkdown
-    
-    Quitting from lines 535-583 [unnamed-chunk-8] (PK_Example.Rmd)
+    > ### Name: plot_circ_hist
+    > ### Title: Circular Histogram of Turn Angles
+    > ### Aliases: plot_circ_hist
+    > 
+    > ### ** Examples
+    > 
+    > set.seed(123)
     ...
-    --- finished re-building ‘app.Rmd’
-    
-    --- re-building ‘introduction_to_coveffectsplot.Rmd’ using rmarkdown
-    --- finished re-building ‘introduction_to_coveffectsplot.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘PK_Example.Rmd’
-    
-    Error: Vignette re-building failed.
+     21. │             └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
+     22. │               └─l$compute_geom_2(d)
+     23. │                 └─ggplot2 (local) compute_geom_2(..., self = self)
+     24. │                   └─self$geom$use_defaults(data, self$aes_params, modifiers)
+     25. │                     └─ggplot2 (local) use_defaults(..., self = self)
+     26. │                       └─vctrs::vec_cbind(data[setdiff(names(data), aes_params)], !!!params[aes_params])
+     27. └─vctrs:::stop_scalar_type(`<fn>`(`<expression>`), "label", `<env>`)
+     28.   └─vctrs:::stop_vctrs(...)
+     29.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
     Execution halted
-    ```
-
-# cowplot
-
-<details>
-
-* Version: 1.1.2
-* GitHub: https://github.com/wilkelab/cowplot
-* Source code: https://github.com/cran/cowplot
-* Date/Publication: 2023-12-15 07:40:02 UTC
-* Number of recursive dependencies: 101
-
-Run `revdepcheck::cloud_details(, "cowplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(cowplot)
-      > 
-      > test_check("cowplot")
-      [ FAIL 10 | WARN 4 | SKIP 7 | PASS 45 ]
-      
-      ══ Skipped tests (7) ═══════════════════════════════════════════════════════════
-    ...
-      `expected` is NULL
-      ── Failure ('test_plot_components.R:14:3'): plot components ────────────────────
-      all(component_names %in% plot_component_names(p)) is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      
-      [ FAIL 10 | WARN 4 | SKIP 7 | PASS 45 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # daiquiri
@@ -930,86 +677,35 @@ Run `revdepcheck::cloud_details(, "daiquiri")` for more info
       Execution halted
     ```
 
-# deeptime
+# ddpcr
 
 <details>
 
-* Version: 1.0.1
-* GitHub: https://github.com/willgearty/deeptime
-* Source code: https://github.com/cran/deeptime
-* Date/Publication: 2023-02-16 16:40:02 UTC
-* Number of recursive dependencies: 156
+* Version: 1.15.2
+* GitHub: https://github.com/daattali/ddpcr
+* Source code: https://github.com/cran/ddpcr
+* Date/Publication: 2023-08-20 22:32:32 UTC
+* Number of recursive dependencies: 113
 
-Run `revdepcheck::cloud_details(, "deeptime")` for more info
+Run `revdepcheck::cloud_details(, "ddpcr")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘coord.Rmd’ using rmarkdown
-    
-    Quitting from lines 28-32 [unnamed-chunk-3] (coord.Rmd)
-    Error: processing vignette 'coord.Rmd' failed with diagnostics:
-    cannot allocate vector of size 7978.1 Gb
-    --- failed re-building ‘coord.Rmd’
-    
-    --- re-building ‘coord_geo.Rmd’ using rmarkdown
-    ...
-    --- finished re-building ‘phylogenies.Rmd’
-    
-    --- re-building ‘traits.Rmd’ using rmarkdown
-    --- finished re-building ‘traits.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘coord.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        sample_data   3.0Mb
     ```
 
-# directlabels
+## In both
 
-<details>
-
-* Version: 2023.8.25
-* GitHub: https://github.com/tdhock/directlabels
-* Source code: https://github.com/cran/directlabels
-* Date/Publication: 2023-09-01 08:30:06 UTC
-* Number of recursive dependencies: 81
-
-Run `revdepcheck::cloud_details(, "directlabels")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-      Running ‘ggplot.R’
-    Running the tests in ‘tests/ggplot.R’ failed.
-    Complete output:
-      > if(require(ggplot2)){
-      +   library(directlabels)
-      +   data(mpg,package="ggplot2")
-      +   plots <-
-      +     list(qplot=qplot(hwy,cty,data=mpg,colour=class),
-      +          ggplot=ggplot(mpg,aes(hwy,cty,colour=class))+geom_point(),
-      +          aes2=ggplot(,aes(hwy,cty))+geom_point(aes(colour=class),data=mpg),
-    ...
-      The following object is masked from 'package:directlabels':
-      
-          gapply
-      
-      Error in y[setdiff(names(y), names(x))] : 
-        object of type 'environment' is not subsettable
-      Calls: legends2hide -> defaults
-      In addition: Warning message:
-      `qplot()` was deprecated in ggplot2 3.4.0. 
-      Execution halted
+    Namespace in Imports field not imported from: ‘shinydisconnect’
+      All declared Imports should be used.
     ```
 
 # distributional
@@ -1041,15 +737,15 @@ Run `revdepcheck::cloud_details(, "distributional")` for more info
     > 
     > dist <- dist_normal(1:3, 1:3)
     ...
-      7.         └─ggplot2 (local) train_df(..., self = self)
-      8.           └─base::lapply(self$scales, function(scale) scale$train_df(df = df))
-      9.             └─ggplot2 (local) FUN(X[[i]], ...)
-     10.               └─scale$train_df(df = df)
-     11.                 └─ggplot2 (local) train_df(..., self = self)
-     12.                   └─self$train(df[[aesthetic]])
-     13.                     └─ggplot2 (local) train(..., self = self)
-     14.                       └─cli::cli_abort(...)
-     15.                         └─rlang::abort(...)
+    Warning: The `trans` argument of `continuous_scale()` is deprecated as of ggplot2 3.5.0.
+    ℹ Please use the `transform` argument instead.
+    Warning: The `scale_name` argument of `continuous_scale()` is deprecated as of ggplot2
+    3.5.0.
+    Warning: The S3 guide system was deprecated in ggplot2 3.5.0.
+    ℹ It has been replaced by a ggproto system that can be extended.
+    Error in if (guide$reverse) key <- key[nrow(key):1, ] : 
+      argument is of length zero
+    Calls: <Anonymous> ... <Anonymous> -> train -> guide_train -> guide_train.level_guide
     Execution halted
     ```
 
@@ -1062,18 +758,18 @@ Run `revdepcheck::cloud_details(, "distributional")` for more info
       > library(distributional)
       > 
       > test_check("distributional")
-      [ FAIL 2 | WARN 2 | SKIP 0 | PASS 498 ]
+      [ FAIL 2 | WARN 3 | SKIP 0 | PASS 498 ]
       
       == Failed tests ================================================================
     ...
-       18.               \-scale$train_df(df = df)
-       19.                 \-ggplot2 (local) train_df(..., self = self)
-       20.                   \-self$train(df[[aesthetic]])
+       18.               \-base::mapply(FUN = f, ..., SIMPLIFY = FALSE)
+       19.                 \-ggplot2 (local) `<fn>`(...)
+       20.                   \-guide$train(param, scale, aes, title = labels[[aes]])
        21.                     \-ggplot2 (local) train(..., self = self)
-       22.                       \-cli::cli_abort(...)
-       23.                         \-rlang::abort(...)
+       22.                       +-ggplot2::guide_train(params, scale, aesthetic)
+       23.                       \-distributional:::guide_train.level_guide(params, scale, aesthetic)
       
-      [ FAIL 2 | WARN 2 | SKIP 0 | PASS 498 ]
+      [ FAIL 2 | WARN 3 | SKIP 0 | PASS 498 ]
       Error: Test failures
       Execution halted
     ```
@@ -1115,61 +811,6 @@ Run `revdepcheck::cloud_details(, "docxtools")` for more info
       Execution halted
     ```
 
-# dragon
-
-<details>
-
-* Version: 1.2.1
-* GitHub: https://github.com/sjspielman/dragon
-* Source code: https://github.com/cran/dragon
-* Date/Publication: 2022-04-08 08:42:33 UTC
-* Number of recursive dependencies: 131
-
-Run `revdepcheck::cloud_details(, "dragon")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(dragon)
-      > 
-      > test_check("dragon")
-      NULL
-      NULL
-      NULL
-    ...
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_build-linear-models.R:102:3'): fct_run_linear_models::plot_linear_model_cluster() ──
-      `box_legend` is not NULL
-      
-      `actual` is an S3 object of class <zeroGrob/grob/gDesc>, a list
-      `expected` is NULL
-      
-      [ FAIL 1 | WARN 25 | SKIP 3 | PASS 199 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package subdirectories ... NOTE
-    ```
-    Problems with news in ‘NEWS.md’:
-    No news entries found.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘htmltools’
-      All declared Imports should be used.
-    ```
-
 # dynamAedes
 
 <details>
@@ -1190,7 +831,7 @@ Run `revdepcheck::cloud_details(, "dynamAedes")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘dynamAedes_01_punctual.Rmd’ using rmarkdown
-    starting worker pid=5737 on localhost:11050 at 07:31:03.463
+    starting worker pid=3991 on localhost:11769 at 17:08:19.406
     Loading required package: dynamAedes
     loaded dynamAedes and set parent environment
     
@@ -1268,28 +909,28 @@ Run `revdepcheck::cloud_details(, "episensr")` for more info
 
 ## Newly broken
 
-*   checking examples ... ERROR
+*   checking re-building of vignette outputs ... ERROR
     ```
-    Running examples in ‘episensr-Ex.R’ failed
-    The error most likely occurred in:
+    Error(s) in re-building vignettes:
+    --- re-building ‘b_probabilistic.Rmd’ using rmarkdown
+    --- finished re-building ‘b_probabilistic.Rmd’
     
-    > ### Name: plot.mbias
-    > ### Title: Plot DAGs before and after conditioning on collider (M bias)
-    > ### Aliases: plot.mbias
-    > 
-    > ### ** Examples
-    > 
-    > plot(mbias(or = c(2, 5.4, 2.5, 1.5, 1),
+    --- re-building ‘c_multiple_bias.Rmd’ using rmarkdown
+    --- finished re-building ‘c_multiple_bias.Rmd’
+    
+    --- re-building ‘d_other_sens.Rmd’ using rmarkdown
+    
+    Quitting from lines 136-168 [conf_ext_apply] (d_other_sens.Rmd)
     ...
-     11. │     │ └─base::withCallingHandlers(...)
-     12. │     └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
-     13. │       └─l$compute_aesthetics(d, plot)
-     14. │         └─ggplot2 (local) compute_aesthetics(..., self = self)
-     15. └─base::.handleSimpleError(...)
-     16.   └─rlang (local) h(simpleError(msg, call))
-     17.     └─handlers[[1L]](cnd)
-     18.       └─cli::cli_abort(...)
-     19.         └─rlang::abort(...)
+      collapsing to unique 'x' values
+    Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm) :
+      collapsing to unique 'x' values
+    --- finished re-building ‘episensr.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘d_other_sens.Rmd’
+    
+    Error: Vignette re-building failed.
     Execution halted
     ```
 
@@ -1759,7 +1400,7 @@ Run `revdepcheck::cloud_details(, "GGally")` for more info
        1. └─GGally (local) expect_legend("right", right) at test-gglegend.R:23:3
        2.   └─testthat::expect_true(inherits(plotLegend, "gTree")) at test-gglegend.R:18:5
       
-      [ FAIL 3 | WARN 1 | SKIP 25 | PASS 479 ]
+      [ FAIL 3 | WARN 2 | SKIP 25 | PASS 479 ]
       Error: Test failures
       Execution halted
     ```
@@ -1816,97 +1457,6 @@ Run `revdepcheck::cloud_details(, "ggbrain")` for more info
         libs     13.0Mb
     ```
 
-# ggdag
-
-<details>
-
-* Version: 0.2.10
-* GitHub: https://github.com/r-causal/ggdag
-* Source code: https://github.com/cran/ggdag
-* Date/Publication: 2023-05-28 23:30:02 UTC
-* Number of recursive dependencies: 103
-
-Run `revdepcheck::cloud_details(, "ggdag")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggdag-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: Covariate Adjustment Sets
-    > ### Title: Covariate Adjustment Sets
-    > ### Aliases: 'Covariate Adjustment Sets' dag_adjustment_sets
-    > ###   ggdag_adjustment_set
-    > 
-    > ### ** Examples
-    > 
-    ...
-     11. │     │ └─base::withCallingHandlers(...)
-     12. │     └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
-     13. │       └─l$compute_aesthetics(d, plot)
-     14. │         └─ggplot2 (local) compute_aesthetics(..., self = self)
-     15. └─base::.handleSimpleError(...)
-     16.   └─rlang (local) h(simpleError(msg, call))
-     17.     └─handlers[[1L]](cnd)
-     18.       └─cli::cli_abort(...)
-     19.         └─rlang::abort(...)
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ggdag)
-      
-      Attaching package: 'ggdag'
-      
-      The following object is masked from 'package:stats':
-    ...
-      • quick_plots/ggdag-collider-triangle-is-triangle-too.svg
-      • quick_plots/ggdag-confounder-triangle-is-triangle.svg
-      • relations/ggdag-ancestors-identifies-v-w1-and-z1.svg
-      • relations/ggdag-descendants-identifies-y-x-and-z1.svg
-      • relations/ggdag-parents-identifies-z2-x-w1-and-w2.svg
-      • themes/theme-dag-gray-grid.svg
-      • themes/theme-dag-gray.svg
-      • themes/theme-dag-grid.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘bias-structures.Rmd’ using rmarkdown
-    
-    Quitting from lines 44-46 [unnamed-chunk-1] (bias-structures.Rmd)
-    Error: processing vignette 'bias-structures.Rmd' failed with diagnostics:
-    Problem while computing aesthetics.
-    ℹ Error occurred in the 1st layer.
-    Caused by error in `plot$scales$add_defaults()`:
-    ! attempt to apply non-function
-    --- failed re-building ‘bias-structures.Rmd’
-    ...
-    ℹ Error occurred in the 1st layer.
-    Caused by error in `plot$scales$add_defaults()`:
-    ! attempt to apply non-function
-    --- failed re-building ‘intro-to-ggdag.Rmd’
-    
-    SUMMARY: processing the following files failed:
-      ‘bias-structures.Rmd’ ‘intro-to-dags.Rmd’ ‘intro-to-ggdag.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # ggedit
 
 <details>
@@ -1951,152 +1501,6 @@ Run `revdepcheck::cloud_details(, "ggedit")` for more info
       All declared Imports should be used.
     ```
 
-# ggfittext
-
-<details>
-
-* Version: 0.10.1
-* GitHub: https://github.com/wilkox/ggfittext
-* Source code: https://github.com/cran/ggfittext
-* Date/Publication: 2023-09-05 11:50:14 UTC
-* Number of recursive dependencies: 79
-
-Run `revdepcheck::cloud_details(, "ggfittext")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ggfittext)
-      > 
-      > test_check("ggfittext")
-      [ FAIL 3 | WARN 0 | SKIP 14 | PASS 4 ]
-      
-    ...
-      • richtext/basic-rich-text-with-grow-and-reflow.svg
-      • richtext/basic-rich-text-with-grow.svg
-      • richtext/basic-rich-text-with-reflow.svg
-      • richtext/complex-rich-text-with-grow-and-reflow.svg
-      • richtext/complex-rich-text-with-reflow-only.svg
-      • richtext/rich-bar-plot-with-grow-and-reflow.svg
-      • richtext/rich-bar-plot-with-grow.svg
-      • richtext/rich-bar-plot-with-reflow.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘introduction-to-ggfittext.Rmd’ using rmarkdown
-    
-    Quitting from lines 140-146 [unnamed-chunk-10] (introduction-to-ggfittext.Rmd)
-    Error: processing vignette 'introduction-to-ggfittext.Rmd' failed with diagnostics:
-    Problem while converting geom to grob.
-    ℹ Error occurred in the 2nd layer.
-    Caused by error in `x == -Inf`:
-    ! comparison (==) is possible only for atomic and list types
-    --- failed re-building ‘introduction-to-ggfittext.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘introduction-to-ggfittext.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# ggfun
-
-<details>
-
-* Version: 0.1.3
-* GitHub: NA
-* Source code: https://github.com/cran/ggfun
-* Date/Publication: 2023-09-15 10:12:08 UTC
-* Number of recursive dependencies: 63
-
-Run `revdepcheck::cloud_details(, "ggfun")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggfun-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: keybox
-    > ### Title: keybox
-    > ### Aliases: keybox
-    > 
-    > ### ** Examples
-    > 
-    > library(ggplot2)
-    > p <- ggplot(mtcars, aes(mpg, disp, color=factor(cyl), size=cyl)) + geom_point()
-    > keybox(p, 'roundrect', gp = gpar(col = '#808080', lty = "dashed"))
-    Error in g$grob[[i]] : no such index at level 2
-    Calls: keybox
-    Execution halted
-    ```
-
-# ggh4x
-
-<details>
-
-* Version: 0.2.7
-* GitHub: https://github.com/teunbrand/ggh4x
-* Source code: https://github.com/cran/ggh4x
-* Date/Publication: 2023-12-22 10:10:02 UTC
-* Number of recursive dependencies: 80
-
-Run `revdepcheck::cloud_details(, "ggh4x")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ggh4x)
-      Loading required package: ggplot2
-      
-      Attaching package: 'ggh4x'
-      
-      The following object is masked from 'package:ggplot2':
-    ...
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-help_secondary.R:12:3'): help_secondary does what it is supposed to ──
-      names(formals) (`actual`) not identical to "x" (`expected`).
-      
-      `actual` is NULL
-      `expected` is a character vector ('x')
-      
-      [ FAIL 1 | WARN 1 | SKIP 18 | PASS 758 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## Newly fixed
-
-*   checking R code for possible problems ... NOTE
-    ```
-    help_secondary: possible error in sec_axis(transform = help$reverse,
-      ...): unused argument (transform = help$reverse)
-    ```
-
 # gghdr
 
 <details>
@@ -2126,15 +1530,15 @@ Run `revdepcheck::cloud_details(, "gghdr")` for more info
     > 
     > library(ggplot2)
     ...
-      7.         └─ggplot2 (local) train_df(..., self = self)
-      8.           └─base::lapply(self$scales, function(scale) scale$train_df(df = df))
-      9.             └─ggplot2 (local) FUN(X[[i]], ...)
-     10.               └─scale$train_df(df = df)
-     11.                 └─ggplot2 (local) train_df(..., self = self)
-     12.                   └─self$train(df[[aesthetic]])
-     13.                     └─ggplot2 (local) train(..., self = self)
-     14.                       └─cli::cli_abort(...)
-     15.                         └─rlang::abort(...)
+      the data.
+    ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
+      variable into a factor?
+    Warning: The `scale_name` argument of `discrete_scale()` is deprecated as of ggplot2
+    3.5.0.
+    Warning: The S3 guide system was deprecated in ggplot2 3.5.0.
+    ℹ It has been replaced by a ggproto system that can be extended.
+    Error in if (guide$reverse) { : argument is of length zero
+    Calls: <Anonymous> ... <Anonymous> -> train -> guide_train -> guide_train.prob_guide
     Execution halted
     ```
 
@@ -2151,14 +1555,14 @@ Run `revdepcheck::cloud_details(, "gghdr")` for more info
       > 
       > test_check("gghdr")
     ...
-       14.                     └─scale$train_df(df = df)
-       15.                       └─ggplot2 (local) train_df(..., self = self)
-       16.                         └─self$train(df[[aesthetic]])
+       14.                     └─base::mapply(FUN = f, ..., SIMPLIFY = FALSE)
+       15.                       └─ggplot2 (local) `<fn>`(...)
+       16.                         └─guide$train(param, scale, aes, title = labels[[aes]])
        17.                           └─ggplot2 (local) train(..., self = self)
-       18.                             └─cli::cli_abort(...)
-       19.                               └─rlang::abort(...)
+       18.                             ├─ggplot2::guide_train(params, scale, aesthetic)
+       19.                             └─gghdr:::guide_train.prob_guide(params, scale, aesthetic)
       
-      [ FAIL 3 | WARN 5 | SKIP 1 | PASS 8 ]
+      [ FAIL 3 | WARN 6 | SKIP 1 | PASS 8 ]
       Error: Test failures
       Execution halted
     ```
@@ -2171,8 +1575,7 @@ Run `revdepcheck::cloud_details(, "gghdr")` for more info
     
     Quitting from lines 93-98 [setup] (gghdr.Rmd)
     Error: processing vignette 'gghdr.Rmd' failed with diagnostics:
-    Continuous values supplied to discrete scale.
-    ℹ Example values: c(0.99, 0.95, 0.5, 0.99, 0.95, 0.5)
+    argument is of length zero
     --- failed re-building ‘gghdr.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -2180,47 +1583,6 @@ Run `revdepcheck::cloud_details(, "gghdr")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
-    ```
-
-# gghdx
-
-<details>
-
-* Version: 0.1.1
-* GitHub: https://github.com/OCHA-DAP/gghdx
-* Source code: https://github.com/cran/gghdx
-* Date/Publication: 2023-08-18 18:22:33 UTC
-* Number of recursive dependencies: 83
-
-Run `revdepcheck::cloud_details(, "gghdx")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-    ...
-      
-      `environment(actual$super)$env$call`:   `scale_color_gradient2_hdx()` 
-      `environment(expected$super)$env$call`: `scale_colour_gradient2_hdx()`
-      
-      `environment(actual$super)$members$call`:   `scale_color_gradient2_hdx()` 
-      `environment(expected$super)$members$call`: `scale_colour_gradient2_hdx()`
-      
-      [ FAIL 9 | WARN 18 | SKIP 0 | PASS 58 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # ggiraph
@@ -2376,6 +1738,88 @@ Run `revdepcheck::cloud_details(, "ggnewscale")` for more info
       • newscale/implicit-mapping.svg
       • newscale/many-layers.svg
       • newscale/respects-override-aes-2.svg
+      Error: Test failures
+      Execution halted
+    ```
+
+# ggparallel
+
+<details>
+
+* Version: 0.3.0
+* GitHub: https://github.com/heike/ggparallel
+* Source code: https://github.com/cran/ggparallel
+* Date/Publication: 2024-01-29 18:50:06 UTC
+* Number of recursive dependencies: 51
+
+Run `revdepcheck::cloud_details(, "ggparallel")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
+    ...
+       12. │       └─ggplot2 (local) compute_aesthetics(..., self = self)
+       13. └─base::.handleSimpleError(...)
+       14.   └─rlang (local) h(simpleError(msg, call))
+       15.     └─handlers[[1L]](cnd)
+       16.       └─cli::cli_abort(...)
+       17.         └─rlang::abort(...)
+      
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 0 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# ggpp
+
+<details>
+
+* Version: 0.5.6
+* GitHub: https://github.com/aphalo/ggpp
+* Source code: https://github.com/cran/ggpp
+* Date/Publication: 2024-01-09 07:00:02 UTC
+* Number of recursive dependencies: 83
+
+Run `revdepcheck::cloud_details(, "ggpp")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(ggpp)
+      Loading required package: ggplot2
+      Registered S3 methods overwritten by 'ggpp':
+        method                  from   
+        heightDetails.titleGrob ggplot2
+        widthDetails.titleGrob  ggplot2
+    ...
+      * stat_fmt_tb/stat-fmt-tb-2.svg
+      * stat_fmt_tb/stat-fmt-tb-3.svg
+      * stat_fmt_tb/stat-fmt-tb-4.svg
+      * stat_panel_counts/stat-group-counts-x.svg
+      * stat_panel_counts/stat-group-counts-xy-color.svg
+      * stat_panel_counts/stat-group-counts-y.svg
+      * stat_panel_counts/stat-panel-counts-x.svg
+      * stat_panel_counts/stat-panel-counts-y.svg
       Error: Test failures
       Execution halted
     ```
@@ -2550,54 +1994,6 @@ Run `revdepcheck::cloud_details(, "ggraph")` for more info
       sub-directories of 1Mb or more:
         doc    3.5Mb
         libs   5.9Mb
-    ```
-
-# ggridges
-
-<details>
-
-* Version: 0.5.5
-* GitHub: https://github.com/wilkelab/ggridges
-* Source code: https://github.com/cran/ggridges
-* Date/Publication: 2023-12-15 05:30:02 UTC
-* Number of recursive dependencies: 83
-
-Run `revdepcheck::cloud_details(, "ggridges")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ggridges)
-      > 
-      > test_check("ggridges")
-      Picking joint bandwidth of 0.181
-      [ FAIL 1 | WARN 1 | SKIP 5 | PASS 57 ]
-      
-    ...
-        'test_theme_ridges.R:25:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_scale_cyclical.R:26:3'): basic tests ─────────────────────────
-      "guide-box" %in% ggplotGrob(p)$layout$name not equal to TRUE.
-      1 element mismatch
-      
-      [ FAIL 1 | WARN 1 | SKIP 5 | PASS 57 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 6242 marked UTF-8 strings
     ```
 
 # ggside
@@ -3074,7 +2470,7 @@ Run `revdepcheck::cloud_details(, "grafify")` for more info
 * GitHub: https://github.com/keaven/gsDesign
 * Source code: https://github.com/cran/gsDesign
 * Date/Publication: 2023-11-12 05:43:19 UTC
-* Number of recursive dependencies: 105
+* Number of recursive dependencies: 102
 
 Run `revdepcheck::cloud_details(, "gsDesign")` for more info
 
@@ -3207,6 +2603,47 @@ Run `revdepcheck::cloud_details(, "hmer")` for more info
     Execution halted
     ```
 
+# injurytools
+
+<details>
+
+* Version: 1.0.3
+* GitHub: https://github.com/lzumeta/injurytools
+* Source code: https://github.com/cran/injurytools
+* Date/Publication: 2023-11-14 17:20:05 UTC
+* Number of recursive dependencies: 152
+
+Run `revdepcheck::cloud_details(, "injurytools")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘estimate-epi-measures.Rmd’ using rmarkdown
+    --- finished re-building ‘estimate-epi-measures.Rmd’
+    
+    --- re-building ‘model-injury-data-i.Rmd’ using rmarkdown
+    --- finished re-building ‘model-injury-data-i.Rmd’
+    
+    --- re-building ‘model-injury-data-ii.Rmd’ using rmarkdown
+    
+    Quitting from lines 266-298 [unnamed-chunk-11] (model-injury-data-ii.Rmd)
+    ...
+    --- finished re-building ‘prepare-injury-data.Rmd’
+    
+    --- re-building ‘visualize-injury-data.Rmd’ using rmarkdown
+    --- finished re-building ‘visualize-injury-data.Rmd’
+    
+    SUMMARY: processing the following file failed:
+      ‘model-injury-data-ii.Rmd’
+    
+    Error: Vignette re-building failed.
+    Execution halted
+    ```
+
 # inTextSummaryTable
 
 <details>
@@ -3253,47 +2690,6 @@ Run `revdepcheck::cloud_details(, "inTextSummaryTable")` for more info
       installed size is 10.9Mb
       sub-directories of 1Mb or more:
         doc   9.9Mb
-    ```
-
-# iNZightTS
-
-<details>
-
-* Version: 1.5.9
-* GitHub: https://github.com/iNZightVIT/iNZightTS
-* Source code: https://github.com/cran/iNZightTS
-* Date/Publication: 2022-01-31 21:50:02 UTC
-* Number of recursive dependencies: 76
-
-Run `revdepcheck::cloud_details(, "iNZightTS")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(iNZightTS)
-      
-      Attaching package: 'iNZightTS'
-      
-      The following object is masked from 'package:stats':
-      
-    ...
-      ── Failure ('test_submodel.R:41:5'): Decomposition uses sub-portion of the plots (multi) ──
-      `plot(tm, compare = FALSE, model.lim = c(2005, 2009.75))` produced unexpected warnings.
-      Expected match: Removed \\d+ rows containing missing values
-      Actual values:
-      * Removed 1 row containing missing values or values outside the scale range
-      (`geom_point()`).
-      
-      [ FAIL 1 | WARN 2 | SKIP 1 | PASS 85 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # irt
@@ -3538,59 +2934,6 @@ Run `revdepcheck::cloud_details(, "manydata")` for more info
       Note: found 3 marked UTF-8 strings
     ```
 
-# manynet
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/snlab-ch/manynet
-* Source code: https://github.com/cran/manynet
-* Date/Publication: 2023-12-15 19:10:02 UTC
-* Number of recursive dependencies: 140
-
-Run `revdepcheck::cloud_details(, "manynet")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(manynet)
-      Registered S3 method overwritten by 'manynet':
-        method          from     
-        print.tbl_graph tidygraph
-      > 
-      > test_check("manynet")
-    ...
-      ── Failure ('test-map_theme.R:61:3'): scales graph correctly ───────────────────
-      test_uzh[["scales"]][["scales"]][[1]][["call"]][["scale_name"]] not equal to "UZH".
-      target is NULL, current is character
-      ── Failure ('test-map_theme.R:62:3'): scales graph correctly ───────────────────
-      test_rug[["scales"]][["scales"]][[1]][["call"]][["scale_name"]] not equal to "RUG".
-      target is NULL, current is character
-      
-      [ FAIL 6 | WARN 1 | SKIP 14 | PASS 324 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘Rgraphviz’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 7 marked UTF-8 strings
-    ```
-
 # metR
 
 <details>
@@ -3689,56 +3032,6 @@ Run `revdepcheck::cloud_details(, "metR")` for more info
         doc    1.6Mb
     ```
 
-# mvGPS
-
-<details>
-
-* Version: 1.2.2
-* GitHub: https://github.com/williazo/mvGPS
-* Source code: https://github.com/cran/mvGPS
-* Date/Publication: 2021-12-07 08:20:15 UTC
-* Number of recursive dependencies: 118
-
-Run `revdepcheck::cloud_details(, "mvGPS")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘mvGPS-intro.Rmd’ using rmarkdown
-    
-    Quitting from lines 33-52 [dag_draw] (mvGPS-intro.Rmd)
-    Error: processing vignette 'mvGPS-intro.Rmd' failed with diagnostics:
-    Problem while computing aesthetics.
-    ℹ Error occurred in the 1st layer.
-    Caused by error in `plot$scales$add_defaults()`:
-    ! attempt to apply non-function
-    --- failed re-building ‘mvGPS-intro.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘mvGPS-intro.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘Rdpack’
-      All declared Imports should be used.
-    ```
-
-*   checking Rd files ... NOTE
-    ```
-    checkRd: (-1) bal.Rd:156: Escaped LaTeX specials: \&
-    ```
-
 # NAIR
 
 <details>
@@ -3818,7 +3111,7 @@ Run `revdepcheck::cloud_details(, "OpenLand")` for more info
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
     ...
-      Actual value: "List of 11\\n \$ data       : tibble \[200 × 5\] \(S3: tbl_df/tbl/data\.frame\)\\n  \.\.\$ Period    : chr \[1:200\] "2000-2001" "2000-2001" "2000-2001" "2000-2001" \.\.\.\\n  \.\.\$ area_gross: num \[1:200\] 0\.000388 0\.000379 0\.00038 0\.000411 0\.000403 0\.000416 0\.000368 0\.000445 0\.000387 0\.000399 \.\.\.\\n  \.\.\$ From      : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 3 3 3 3 4 4 4 4 2 2 \.\.\.\\n  \.\.\$ To        : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 4 2 1 5 3 2 1 5 3 4 \.\.\.\\n  \.\.\$ changes   : chr \[1:200\] "Gain" "Gain" "Gain" "Gain" \.\.\.\\n \$ layers     :List of 4\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomSegment, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: linetype linewidth\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y xend\|yend\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomHline, Geom, gg>\\n        aesthetics: function\\n        check_constant_aes: FALSE\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: yintercept\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: FALSE\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: NULL\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 2\\n  \.\.\$ x: language ~To\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x563e03a9a208> \\n  \.\.\$ y: language ~area_gross\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x563e03a9a208> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      :List of 1\\n  \.\.\$ plot\.title:List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\.5\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi FALSE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.- attr\(\*, "complete"\)= logi FALSE\\n  \.\.- attr\(\*, "validate"\)= logi TRUE\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: TRUE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetNull', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetNull, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetNull, Facet, gg> \\n \$ plot_env   :<environment: 0x563e03a9a208> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 7\\n  \.\.\$ title     : NULL\\n  \.\.\$ y         : chr "Area \(Km2\)"\\n  \.\.\$ x         : chr "LUC category"\\n  \.\.\$ fill      : chr "Changes"\\n  \.\.\$ xend      : chr "as\.numeric\(To\) \+ 0\.3"\\n  \.\.\$ yend      : chr "area"\\n  \.\.\$ yintercept: chr "yintercept"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
+      Actual value: "List of 11\\n \$ data       : tibble \[200 × 5\] \(S3: tbl_df/tbl/data\.frame\)\\n  \.\.\$ Period    : chr \[1:200\] "2000-2001" "2000-2001" "2000-2001" "2000-2001" \.\.\.\\n  \.\.\$ area_gross: num \[1:200\] 0\.000388 0\.000379 0\.00038 0\.000411 0\.000403 0\.000416 0\.000368 0\.000445 0\.000387 0\.000399 \.\.\.\\n  \.\.\$ From      : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 3 3 3 3 4 4 4 4 2 2 \.\.\.\\n  \.\.\$ To        : Factor w/ 5 levels "GUP","OZS","PSN",\.\.: 4 2 1 5 3 2 1 5 3 4 \.\.\.\\n  \.\.\$ changes   : chr \[1:200\] "Gain" "Gain" "Gain" "Gain" \.\.\.\\n \$ layers     :List of 4\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomBar, GeomRect, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: just na\.rm orientation\\n        handle_na: function\\n        non_missing_aes: xmin xmax ymin ymax\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class GeomRect, Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionStack, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        fill: FALSE\\n        required_aes: \\n        reverse: FALSE\\n        setup_data: function\\n        setup_params: function\\n        type: NULL\\n        vjust: 1\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: tbl_df, tbl, data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomSegment, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: linetype linewidth\\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y xend\|yend\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomHline, Geom, gg>\\n        aesthetics: function\\n        check_constant_aes: FALSE\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: yintercept\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: FALSE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionIdentity, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: FALSE\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: NULL\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        add_title: function\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 2\\n  \.\.\$ x: language ~To\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x556687e8b5d0> \\n  \.\.\$ y: language ~area_gross\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x556687e8b5d0> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      :List of 1\\n  \.\.\$ plot\.title:List of 11\\n  \.\. \.\.\$ family       : NULL\\n  \.\. \.\.\$ face         : NULL\\n  \.\. \.\.\$ colour       : NULL\\n  \.\. \.\.\$ size         : NULL\\n  \.\. \.\.\$ hjust        : num 0\.5\\n  \.\. \.\.\$ vjust        : NULL\\n  \.\. \.\.\$ angle        : NULL\\n  \.\. \.\.\$ lineheight   : NULL\\n  \.\. \.\.\$ margin       : NULL\\n  \.\. \.\.\$ debug        : NULL\\n  \.\. \.\.\$ inherit\.blank: logi FALSE\\n  \.\. \.\.- attr\(\*, "class"\)= chr \[1:2\] "element_text" "element"\\n  \.\.- attr\(\*, "complete"\)= logi FALSE\\n  \.\.- attr\(\*, "validate"\)= logi TRUE\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: TRUE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetNull', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetNull, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetNull, Facet, gg> \\n \$ plot_env   :<environment: 0x556687e8b5d0> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 7\\n  \.\.\$ title     : NULL\\n  \.\.\$ y         : chr "Area \(Km2\)"\\n  \.\.\$ x         : chr "LUC category"\\n  \.\.\$ fill      : chr "Changes"\\n  \.\.\$ xend      : chr "as\.numeric\(To\) \+ 0\.3"\\n  \.\.\$ yend      : chr "area"\\n  \.\.\$ yintercept: chr "yintercept"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
       Backtrace:
           ▆
        1. └─testthat::expect_output(...) at test_plots.R:59:3
@@ -3828,113 +3121,6 @@ Run `revdepcheck::cloud_details(, "OpenLand")` for more info
       [ FAIL 2 | WARN 1 | SKIP 0 | PASS 110 ]
       Error: Test failures
       Execution halted
-    ```
-
-# paletteer
-
-<details>
-
-* Version: 1.5.0
-* GitHub: https://github.com/EmilHvitfeldt/paletteer
-* Source code: https://github.com/cran/paletteer
-* Date/Publication: 2022-10-19 10:02:40 UTC
-* Number of recursive dependencies: 91
-
-Run `revdepcheck::cloud_details(, "paletteer")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(paletteer)
-      > 
-      > test_check("paletteer")
-      NULL
-      NULL
-      NULL
-    ...
-      • vdiffr_palette_check/tvthemes.svg
-      • vdiffr_palette_check/unikn.svg
-      • vdiffr_palette_check/vapeplot.svg
-      • vdiffr_palette_check/vaporwave.svg
-      • vdiffr_palette_check/viridis.svg
-      • vdiffr_palette_check/werpals.svg
-      • vdiffr_palette_check/wesanderson.svg
-      • vdiffr_palette_check/yarrr.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-# pathfindR
-
-<details>
-
-* Version: 2.3.0
-* GitHub: https://github.com/egeulgen/pathfindR
-* Source code: https://github.com/cran/pathfindR
-* Date/Publication: 2023-10-08 20:30:02 UTC
-* Number of recursive dependencies: 144
-
-Run `revdepcheck::cloud_details(, "pathfindR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘pathfindR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: UpSet_plot
-    > ### Title: Create UpSet Plot of Enriched Terms
-    > ### Aliases: UpSet_plot
-    > 
-    > ### ** Examples
-    > 
-    > UpSet_plot(example_pathfindR_output)
-    ...
-     16. │             └─ggplot2 (local) setup_data(...)
-     17. │               ├─data$width %||% params$width %||% resolution(data$x, FALSE)
-     18. │               └─ggplot2::resolution(data$x, FALSE)
-     19. │                 └─ggplot2:::unique0(as.numeric(x))
-     20. └─base::.handleSimpleError(...)
-     21.   └─rlang (local) h(simpleError(msg, call))
-     22.     └─handlers[[1L]](cnd)
-     23.       └─cli::cli_abort(...)
-     24.         └─rlang::abort(...)
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘comparing_results.Rmd’ using rmarkdown
-    Warning: ggrepel: 9 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-    --- finished re-building ‘comparing_results.Rmd’
-    
-    --- re-building ‘intro_vignette.Rmd’ using rmarkdown
-    --- finished re-building ‘intro_vignette.Rmd’
-    
-    --- re-building ‘manual_execution.Rmd’ using rmarkdown
-    --- finished re-building ‘manual_execution.Rmd’
-    ...
-    ℹ Error occurred in the 2nd layer.
-    Caused by error in `unique0()`:
-    ! 'list' object cannot be coerced to type 'double'
-    --- failed re-building ‘visualization_vignette.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘visualization_vignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # platetools
@@ -4122,52 +3308,45 @@ Run `revdepcheck::cloud_details(, "rabhit")` for more info
     Execution halted
     ```
 
-# rfars
+# Repliscope
 
 <details>
 
-* Version: 0.3.0
-* GitHub: https://github.com/s87jackson/rfars
-* Source code: https://github.com/cran/rfars
-* Date/Publication: 2023-05-05 09:40:02 UTC
-* Number of recursive dependencies: 92
+* Version: 1.1.1
+* GitHub: NA
+* Source code: https://github.com/cran/Repliscope
+* Date/Publication: 2022-09-13 07:20:02 UTC
+* Number of recursive dependencies: 65
 
-Run `revdepcheck::cloud_details(, "rfars")` for more info
+Run `revdepcheck::cloud_details(, "Repliscope")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... ERROR
+*   checking examples ... ERROR
     ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Crash_sequences.Rmd’ using rmarkdown
-    trying URL 'https://static.nhtsa.gov/nhtsa/downloads/CRSS/2021/CRSS2021SAS.zip'
-    Content type 'application/x-zip-compressed' length 62354127 bytes (59.5 MB)
-    =================
-    downloaded 21.4 MB
+    Running examples in ‘Repliscope-Ex.R’ failed
+    The error most likely occurred in:
     
-    
-    Quitting from lines 43-46 [unnamed-chunk-2] (Crash_sequences.Rmd)
-    Error: processing vignette 'Crash_sequences.Rmd' failed with diagnostics:
+    > ### Name: plotBed
+    > ### Title: A function to boxplot 'score' column of a BED dataframe, per
+    > ###   unique chromosome name in the 'chrom' column. The resulting plot also
+    > ###   highlights outliers based on the inter quartile range (IQR). The
+    > ###   genome wide median is plotted as a pink line through the boxplots.
+    > ### Aliases: plotBed
+    > ### Keywords: BED bioinformatics boxplot genomics
     ...
-    ==================================================
-    downloaded 41.2 MB
-    
-    --- finished re-building ‘Rural_roads.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘Crash_sequences.Rmd’
-    
-    Error: Vignette re-building failed.
+     28. │                                   └─self$scale$rescale(x, self$limits, self$continuous_range)
+     29. │                                     └─ggplot2 (local) rescale(..., self = self)
+     30. │                                       └─self$rescaler(x, from = range)
+     31. │                                         └─scales (local) rescaler(...)
+     32. └─base::.handleSimpleError(...)
+     33.   └─rlang (local) h(simpleError(msg, call))
+     34.     └─handlers[[1L]](cnd)
+     35.       └─cli::cli_abort(...)
+     36.         └─rlang::abort(...)
     Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 806 marked UTF-8 strings
     ```
 
 # robber
@@ -4254,6 +3433,72 @@ Run `revdepcheck::cloud_details(, "santaR")` for more info
       All declared Imports should be used.
     ```
 
+# saros
+
+<details>
+
+* Version: 1.0.1
+* GitHub: https://github.com/NIFU-NO/saros
+* Source code: https://github.com/cran/saros
+* Date/Publication: 2024-01-26 11:30:02 UTC
+* Number of recursive dependencies: 141
+
+Run `revdepcheck::cloud_details(, "saros")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘saros-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: embed_cat_prop_plot
+    > ### Title: Embed Interactive Categorical Plot
+    > ### Aliases: embed_cat_prop_plot
+    > 
+    > ### ** Examples
+    > 
+    > embed_cat_prop_plot(data = ex_survey, dep = b_1:b_3)
+    ...
+     16.                       │ ├─base::tryCatch(...)
+     17.                       │ │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+     18.                       │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+     19.                       │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+     20.                       │ └─base::withCallingHandlers(...)
+     21.                       ├─ggplot2::merge_element(t2[[item]], t1[[item]])
+     22.                       └─ggplot2:::merge_element.element(t2[[item]], t1[[item]])
+     23.                         └─cli::cli_abort("Only elements of the same class can be merged.")
+     24.                           └─rlang::abort(...)
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘spelling.R’
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(saros)
+      > 
+      > testthat::test_check("saros")
+      Starting 2 test processes
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 184 ]
+    ...
+      
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-draft_report.R:4:3'): draft_report ─────────────────────────────
+      Error in `setup_elements(...)`: Can't merge the `text` theme element.
+      Caused by error in `merge_element()`:
+      ! Only elements of the same class can be merged.
+      
+      [ FAIL 1 | WARN 0 | SKIP 0 | PASS 184 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # scCustomize
 
 <details>
@@ -4336,109 +3581,6 @@ Run `revdepcheck::cloud_details(, "scdhlm")` for more info
       Execution halted
     ```
 
-# see
-
-<details>
-
-* Version: 0.8.1
-* GitHub: https://github.com/easystats/see
-* Source code: https://github.com/cran/see
-* Date/Publication: 2023-11-03 12:20:02 UTC
-* Number of recursive dependencies: 221
-
-Run `revdepcheck::cloud_details(, "see")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘see-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: geom_from_list
-    > ### Title: Create ggplot2 geom(s) from a list
-    > ### Aliases: geom_from_list geoms_from_list
-    > 
-    > ### ** Examples
-    > 
-    > ## Don't show: 
-    ...
-     13. │         │ └─base::withCallingHandlers(...)
-     14. │         └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
-     15. │           └─l$compute_aesthetics(d, plot)
-     16. │             └─ggplot2 (local) compute_aesthetics(..., self = self)
-     17. └─base::.handleSimpleError(...)
-     18.   └─rlang (local) h(simpleError(msg, call))
-     19.     └─handlers[[1L]](cnd)
-     20.       └─cli::cli_abort(...)
-     21.         └─rlang::abort(...)
-    Execution halted
-    ```
-
-# shadowtext
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/GuangchuangYu/shadowtext
-* Source code: https://github.com/cran/shadowtext
-* Date/Publication: 2022-04-22 09:10:02 UTC
-* Number of recursive dependencies: 53
-
-Run `revdepcheck::cloud_details(, "shadowtext")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘shadowtext’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/shadowtext/new/shadowtext.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘shadowtext’ ...
-** package ‘shadowtext’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'add_margins' not found
-Error: unable to load R code in package ‘shadowtext’
-Execution halted
-ERROR: lazy loading failed for package ‘shadowtext’
-* removing ‘/tmp/workdir/shadowtext/new/shadowtext.Rcheck/shadowtext’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘shadowtext’ ...
-** package ‘shadowtext’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (shadowtext)
-
-
-```
 # shinipsum
 
 <details>
@@ -4531,31 +3673,6 @@ Run `revdepcheck::cloud_details(, "simmr")` for more info
 
 ## In both
 
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(simmr)
-      Loading required package: R2jags
-      Loading required package: rjags
-      Loading required package: coda
-      Linked to JAGS 4.3.0
-      Loaded modules: basemod,bugs
-    ...
-      Error in `eval(code, test_env)`: Assertion on 'diff_p < 0.03' failed: Must be TRUE.
-      Backtrace:
-          ▆
-       1. └─checkmate::assert_true(diff_p < 0.03) at test-simmr_ffvb.R:80:3
-       2.   └─checkmate::makeAssertion(x, res, .var.name, add)
-       3.     └─checkmate:::mstop(...)
-      
-      [ FAIL 1 | WARN 0 | SKIP 4 | PASS 256 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 *   checking installed package size ... NOTE
     ```
       installed size is  7.9Mb
@@ -4564,63 +3681,14 @@ Run `revdepcheck::cloud_details(, "simmr")` for more info
         libs   5.9Mb
     ```
 
-# spinifex
-
-<details>
-
-* Version: 0.3.6
-* GitHub: https://github.com/nspyrison/spinifex
-* Source code: https://github.com/cran/spinifex
-* Date/Publication: 2022-03-31 08:30:02 UTC
-* Number of recursive dependencies: 164
-
-Run `revdepcheck::cloud_details(, "spinifex")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(spinifex)
-      Loading required package: tourr
-      --------------------------------------------------------
-      spinifex --- version 0.3.6
-      Please share bugs, suggestions, and feature requests at:
-    ...
-      1/1 mismatches
-      [1] 11 - 9 == 2
-      ── Failure ('test-zDepricated_3_visualize.r:102:3'): view_manip_space: gganimate class and length ──
-      length(ret_heavy) not equal to 9L.
-      1/1 mismatches
-      [1] 11 - 9 == 2
-      
-      [ FAIL 9 | WARN 11 | SKIP 0 | PASS 156 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking Rd files ... NOTE
-    ```
-    checkRd: (-1) PimaIndiansDiabetes_long.Rd:14: Escaped LaTeX specials: \^
-    checkRd: (-1) PimaIndiansDiabetes_wide.Rd:16: Escaped LaTeX specials: \^
-    ```
-
 # spqdep
 
 <details>
 
-* Version: 0.1.2
+* Version: 0.1.3.2
 * GitHub: NA
 * Source code: https://github.com/cran/spqdep
-* Date/Publication: 2022-03-28 16:20:02 UTC
+* Date/Publication: 2024-02-05 12:30:02 UTC
 * Number of recursive dependencies: 113
 
 Run `revdepcheck::cloud_details(, "spqdep")` for more info
@@ -4635,7 +3703,7 @@ Run `revdepcheck::cloud_details(, "spqdep")` for more info
       ...
     --- re-building ‘spq_userguide.Rmd’ using rmarkdown
     
-    Quitting from lines 377-378 [unnamed-chunk-24] (spq_userguide.Rmd)
+    Quitting from lines 500-501 [unnamed-chunk-24] (spq_userguide.Rmd)
     Error: processing vignette 'spq_userguide.Rmd' failed with diagnostics:
     Invalid index: field name 'x_start' not found
     --- failed re-building ‘spq_userguide.Rmd’
@@ -4651,8 +3719,7 @@ Run `revdepcheck::cloud_details(, "spqdep")` for more info
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespaces in Imports field not imported from:
-      ‘lwgeom’ ‘rgeoda’
+    Namespace in Imports field not imported from: ‘lwgeom’
       All declared Imports should be used.
     ```
 
@@ -4690,7 +3757,7 @@ Run `revdepcheck::cloud_details(, "superb")` for more info
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
     ...
-      Actual value: "List of 11\\n \$ data       :'data\.frame':\\t6 obs\. of  5 variables:\\n  \.\.\$ dose      : num \[1:6\] 0\.5 0\.5 1 1 2 2\\n  \.\.\$ supp      : chr \[1:6\] "OJ" "VC" "OJ" "VC" \.\.\.\\n  \.\.\$ center    : num \[1:6\] 13 8 22 17 26 26\\n  \.\.\$ lowerwidth: num \[1:6\] -3 -2 -3 -2 -2 -4\\n  \.\.\$ upperwidth: num \[1:6\] 3 2 3 2 2 4\\n \$ layers     :List of 4\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomViolin, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm orientation lineend linejoin linemitre\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionDodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        preserve: total\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        width: 0\.75\\n        super:  <ggproto object: Class PositionDodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatYdensity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: weight\\n        extra_params: na\.rm orientation\\n        finish_layer: function\\n        non_missing_aes: weight\\n        optional_aes: \\n        parameters: function\\n        required_aes: x y\\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomPoint, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: size shape colour\\n        optional_aes: \\n        parameters: function\\n        rename_size: FALSE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionJitterdodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        dodge\.width: 0\.75\\n        jitter\.height: 0\\n        jitter\.width: 0\.1\\n        required_aes: x y\\n        seed: 1294183626\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class PositionJitterdodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomPoint, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: size shape colour\\n        optional_aes: \\n        parameters: function\\n        rename_size: FALSE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionDodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        preserve: total\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        width: 0\.75\\n        super:  <ggproto object: Class PositionDodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomsuperbErrorbar, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm orientation direction tipformat tipgap pointing\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: FALSE\\n        required_aes: x\|y ymin\|xmin ymax\|xmax\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionDodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        preserve: total\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        width: 0\.75\\n        super:  <ggproto object: Class PositionDodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: NULL\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 2\\n  \.\.\$ x     : language ~dose\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x560046e31710> \\n  \.\.\$ colour: language ~supp\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x560046e31710> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      : list\(\)\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: TRUE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetGrid', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetGrid, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetGrid, Facet, gg> \\n \$ plot_env   :<environment: 0x560046e31710> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 7\\n  \.\.\$ x     : chr "dose"\\n  \.\.\$ colour: chr "supp"\\n  \.\.\$ y     : chr "center"\\n  \.\.\$ fill  : chr "supp"\\n  \.\.\$ group : chr "supp"\\n  \.\.\$ ymin  : chr "center \+ lowerwidth"\\n  \.\.\$ ymax  : chr "center \+ upperwidth"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
+      Actual value: "List of 11\\n \$ data       :'data\.frame':\\t6 obs\. of  5 variables:\\n  \.\.\$ dose      : num \[1:6\] 0\.5 0\.5 1 1 2 2\\n  \.\.\$ supp      : chr \[1:6\] "OJ" "VC" "OJ" "VC" \.\.\.\\n  \.\.\$ center    : num \[1:6\] 13 8 22 17 26 26\\n  \.\.\$ lowerwidth: num \[1:6\] -3 -2 -3 -2 -2 -4\\n  \.\.\$ upperwidth: num \[1:6\] 3 2 3 2 2 4\\n \$ layers     :List of 4\\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomViolin, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm orientation lineend linejoin linemitre\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: TRUE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionDodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        preserve: total\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        width: 0\.75\\n        super:  <ggproto object: Class PositionDodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatYdensity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: weight\\n        extra_params: na\.rm orientation\\n        finish_layer: function\\n        non_missing_aes: weight\\n        optional_aes: \\n        parameters: function\\n        required_aes: x y\\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: data\.frame\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomPoint, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: size shape colour\\n        optional_aes: \\n        parameters: function\\n        rename_size: FALSE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionJitterdodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        dodge\.width: 0\.75\\n        jitter\.height: 0\\n        jitter\.width: 0\.1\\n        required_aes: x y\\n        seed: 208773918\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class PositionJitterdodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomPoint, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm\\n        handle_na: function\\n        non_missing_aes: size shape colour\\n        optional_aes: \\n        parameters: function\\n        rename_size: FALSE\\n        required_aes: x y\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionDodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        preserve: total\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        width: 0\.75\\n        super:  <ggproto object: Class PositionDodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n  \.\.\$ :Classes 'LayerInstance', 'Layer', 'ggproto', 'gg' <ggproto object: Class LayerInstance, Layer, gg>\\n    aes_params: list\\n    compute_aesthetics: function\\n    compute_geom_1: function\\n    compute_geom_2: function\\n    compute_position: function\\n    compute_statistic: function\\n    computed_geom_params: NULL\\n    computed_mapping: NULL\\n    computed_stat_params: NULL\\n    constructor: call\\n    data: waiver\\n    draw_geom: function\\n    finish_statistics: function\\n    geom: <ggproto object: Class GeomsuperbErrorbar, Geom, gg>\\n        aesthetics: function\\n        default_aes: uneval\\n        draw_group: function\\n        draw_key: function\\n        draw_layer: function\\n        draw_panel: function\\n        extra_params: na\.rm orientation direction tipformat tipgap pointing\\n        handle_na: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        rename_size: FALSE\\n        required_aes: x\|y ymin\|xmin ymax\|xmax\\n        setup_data: function\\n        setup_params: function\\n        use_defaults: function\\n        super:  <ggproto object: Class Geom, gg>\\n    geom_params: list\\n    inherit\.aes: TRUE\\n    layer_data: function\\n    map_statistic: function\\n    mapping: uneval\\n    position: <ggproto object: Class PositionDodge, Position, gg>\\n        compute_layer: function\\n        compute_panel: function\\n        preserve: total\\n        required_aes: \\n        setup_data: function\\n        setup_params: function\\n        width: 0\.75\\n        super:  <ggproto object: Class PositionDodge, Position, gg>\\n    print: function\\n    setup_layer: function\\n    show\.legend: NA\\n    stat: <ggproto object: Class StatIdentity, Stat, gg>\\n        aesthetics: function\\n        compute_group: function\\n        compute_layer: function\\n        compute_panel: function\\n        default_aes: uneval\\n        dropped_aes: \\n        extra_params: na\.rm\\n        finish_layer: function\\n        non_missing_aes: \\n        optional_aes: \\n        parameters: function\\n        required_aes: \\n        retransform: TRUE\\n        setup_data: function\\n        setup_params: function\\n        super:  <ggproto object: Class Stat, gg>\\n    stat_params: list\\n    super:  <ggproto object: Class Layer, gg> \\n \$ scales     :Classes 'ScalesList', 'ggproto', 'gg' <ggproto object: Class ScalesList, gg>\\n    add: function\\n    add_defaults: function\\n    add_missing: function\\n    backtransform_df: function\\n    clone: function\\n    find: function\\n    get_scales: function\\n    has_scale: function\\n    input: function\\n    map_df: function\\n    n: function\\n    non_position_scales: function\\n    scales: list\\n    train_df: function\\n    transform_df: function\\n    super:  <ggproto object: Class ScalesList, gg> \\n \$ guides     :Classes 'Guides', 'ggproto', 'gg' <ggproto object: Class Guides, gg>\\n    add: function\\n    assemble: function\\n    build: function\\n    draw: function\\n    get_custom: function\\n    get_guide: function\\n    get_params: function\\n    get_position: function\\n    guides: NULL\\n    merge: function\\n    missing: <ggproto object: Class GuideNone, Guide, gg>\\n        add_title: function\\n        arrange_layout: function\\n        assemble_drawing: function\\n        available_aes: any\\n        build_decor: function\\n        build_labels: function\\n        build_ticks: function\\n        build_title: function\\n        draw: function\\n        draw_early_exit: function\\n        elements: list\\n        extract_decor: function\\n        extract_key: function\\n        extract_params: function\\n        get_layer_key: function\\n        hashables: list\\n        measure_grobs: function\\n        merge: function\\n        override_elements: function\\n        params: list\\n        process_layers: function\\n        setup_elements: function\\n        setup_params: function\\n        train: function\\n        transform: function\\n        super:  <ggproto object: Class GuideNone, Guide, gg>\\n    package_box: function\\n    print: function\\n    process_layers: function\\n    setup: function\\n    subset_guides: function\\n    train: function\\n    update_params: function\\n    super:  <ggproto object: Class Guides, gg> \\n \$ mapping    :List of 2\\n  \.\.\$ x     : language ~dose\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x5591d9010f60> \\n  \.\.\$ colour: language ~supp\\n  \.\. \.\.- attr\(\*, "\.Environment"\)=<environment: 0x5591d9010f60> \\n  \.\.- attr\(\*, "class"\)= chr "uneval"\\n \$ theme      : list\(\)\\n \$ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' <ggproto object: Class CoordCartesian, Coord, gg>\\n    aspect: function\\n    backtransform_range: function\\n    clip: on\\n    default: TRUE\\n    distance: function\\n    expand: TRUE\\n    is_free: function\\n    is_linear: function\\n    labels: function\\n    limits: list\\n    modify_scales: function\\n    range: function\\n    render_axis_h: function\\n    render_axis_v: function\\n    render_bg: function\\n    render_fg: function\\n    setup_data: function\\n    setup_layout: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    setup_params: function\\n    train_panel_guides: function\\n    transform: function\\n    super:  <ggproto object: Class CoordCartesian, Coord, gg> \\n \$ facet      :Classes 'FacetGrid', 'Facet', 'ggproto', 'gg' <ggproto object: Class FacetGrid, Facet, gg>\\n    compute_layout: function\\n    draw_back: function\\n    draw_front: function\\n    draw_labels: function\\n    draw_panels: function\\n    finish_data: function\\n    init_scales: function\\n    map_data: function\\n    params: list\\n    setup_data: function\\n    setup_params: function\\n    shrink: TRUE\\n    train_scales: function\\n    vars: function\\n    super:  <ggproto object: Class FacetGrid, Facet, gg> \\n \$ plot_env   :<environment: 0x5591d9010f60> \\n \$ layout     :Classes 'Layout', 'ggproto', 'gg' <ggproto object: Class Layout, gg>\\n    coord: NULL\\n    coord_params: list\\n    facet: NULL\\n    facet_params: list\\n    finish_data: function\\n    get_scales: function\\n    layout: NULL\\n    map_position: function\\n    panel_params: NULL\\n    panel_scales_x: NULL\\n    panel_scales_y: NULL\\n    render: function\\n    render_labels: function\\n    reset_scales: function\\n    resolve_label: function\\n    setup: function\\n    setup_panel_guides: function\\n    setup_panel_params: function\\n    train_position: function\\n    super:  <ggproto object: Class Layout, gg> \\n \$ labels     :List of 7\\n  \.\.\$ x     : chr "dose"\\n  \.\.\$ colour: chr "supp"\\n  \.\.\$ y     : chr "center"\\n  \.\.\$ fill  : chr "supp"\\n  \.\.\$ group : chr "supp"\\n  \.\.\$ ymin  : chr "center \+ lowerwidth"\\n  \.\.\$ ymax  : chr "center \+ upperwidth"\\n - attr\(\*, "class"\)= chr \[1:2\] "gg" "ggplot""
       Backtrace:
           ▆
        1. └─testthat::expect_output(str(p5), "List of 9") at test_subsidiaryFunctions.R:109:5
@@ -4809,7 +3876,7 @@ Run `revdepcheck::cloud_details(, "text")` for more info
 * GitHub: https://github.com/rstudio/thematic
 * Source code: https://github.com/cran/thematic
 * Date/Publication: 2023-11-04 04:00:02 UTC
-* Number of recursive dependencies: 98
+* Number of recursive dependencies: 97
 
 Run `revdepcheck::cloud_details(, "thematic")` for more info
 
@@ -4842,45 +3909,11 @@ Run `revdepcheck::cloud_details(, "thematic")` for more info
       Execution halted
     ```
 
-# tidyterra
+## In both
 
-<details>
-
-* Version: 0.5.1
-* GitHub: https://github.com/dieghernan/tidyterra
-* Source code: https://github.com/cran/tidyterra
-* Date/Publication: 2023-12-15 12:00:02 UTC
-* Number of recursive dependencies: 93
-
-Run `revdepcheck::cloud_details(, "tidyterra")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
+*   checking package dependencies ... NOTE
     ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-    ...
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-fortify-Spat.R:75:3'): Fortify SpatRasters ───────────────────
-      `build_terra` (`actual`) not identical to `build_point` (`expected`).
-      
-      `environment(environment(actual$layout$super)$env$layout$super)$env$...` is an internal dots object
-      `environment(environment(expected$layout$super)$env$layout$super)$env$...` is absent
-      
-      [ FAIL 1 | WARN 55 | SKIP 133 | PASS 1147 ]
-      Error: Test failures
-      Execution halted
+    Package suggested but not available for checking: ‘httpgd’
     ```
 
 # tmt
@@ -4922,86 +3955,6 @@ Run `revdepcheck::cloud_details(, "tmt")` for more info
       [ FAIL 1 | WARN 2 | SKIP 0 | PASS 346 ]
       Error: Test failures
       Execution halted
-    ```
-
-# tornado
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/bertcarnell/tornado
-* Source code: https://github.com/cran/tornado
-* Date/Publication: 2023-02-12 18:00:02 UTC
-* Number of recursive dependencies: 115
-
-Run `revdepcheck::cloud_details(, "tornado")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘tornado-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: importance.glm
-    > ### Title: GLM variable importance plot
-    > ### Aliases: importance.glm
-    > 
-    > ### ** Examples
-    > 
-    > gtest <- glm(mpg ~ cyl*wt*hp + gear + carb, data=mtcars, family=gaussian)
-    > gtestreduced <- glm(mpg ~ 1, data=mtcars, family=gaussian)
-    > imp <- importance(gtest, gtestreduced)
-    > plot(imp)
-    Error in ggp2_grob$grobs[[which(ggp2_grob$layout$name == "guide-box")]] : 
-      attempt to select less than one element in get1index
-    Calls: plot -> plot.importance_plot
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(tornado)
-      > 
-      > test_check("tornado")
-      Loading required namespace: glmnet
-      Loading required package: ggplot2
-      Loading required package: lattice
-    ...
-      ── Error ('test-plot_importance_plot.R:8:3'): plotting works for base packages ──
-      Error in `ggp2_grob$grobs[[which(ggp2_grob$layout$name == "guide-box")]]`: attempt to select less than one element in get1index
-      Backtrace:
-          ▆
-       1. ├─base::plot(imp) at test-plot_importance_plot.R:8:3
-       2. └─tornado:::plot.importance_plot(imp)
-      
-      [ FAIL 5 | WARN 0 | SKIP 0 | PASS 106 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘tornadoVignette.Rmd’ using rmarkdown
-    
-    Quitting from lines 266-270 [imp.lm] (tornadoVignette.Rmd)
-    Error: processing vignette 'tornadoVignette.Rmd' failed with diagnostics:
-    attempt to select less than one element in get1index
-    --- failed re-building ‘tornadoVignette.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘tornadoVignette.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # treeheatr
@@ -5106,7 +4059,7 @@ Run `revdepcheck::cloud_details(, "tvthemes")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/ufs
 * Date/Publication: 2023-06-09 16:30:03 UTC
-* Number of recursive dependencies: 161
+* Number of recursive dependencies: 154
 
 Run `revdepcheck::cloud_details(, "ufs")` for more info
 
@@ -5139,17 +4092,17 @@ Run `revdepcheck::cloud_details(, "ufs")` for more info
     Execution halted
     ```
 
-# updog
+# umx
 
 <details>
 
-* Version: 2.1.5
-* GitHub: https://github.com/dcgerard/updog
-* Source code: https://github.com/cran/updog
-* Date/Publication: 2023-11-29 15:50:02 UTC
-* Number of recursive dependencies: 151
+* Version: 4.19.0
+* GitHub: https://github.com/tbates/umx
+* Source code: https://github.com/cran/umx
+* Date/Publication: 2023-11-16 22:50:06 UTC
+* Number of recursive dependencies: 176
 
-Run `revdepcheck::cloud_details(, "updog")` for more info
+Run `revdepcheck::cloud_details(, "umx")` for more info
 
 </details>
 
@@ -5157,102 +4110,75 @@ Run `revdepcheck::cloud_details(, "updog")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘updog-Ex.R’ failed
+    Running examples in ‘umx-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: flexdog
-    > ### Title: Flexible genotyping for polyploids from next-generation
-    > ###   sequencing data.
-    > ### Aliases: flexdog
+    > ### Name: umxDiffMZ
+    > ### Title: MZ differences method for testing evidence for causality.
+    > ### Aliases: umxDiffMZ
     > 
     > ### ** Examples
     > 
+    > data(twinData)
     ...
-             Fit: 5 of 5 
-    Initial Bias: 2.718282 
-    Log-Likelihood: -15.44141 
-    Keeping old fit.
-    
-    Done!
-    > plot(fout)
-    Error in upgradeUnit.default(x) : Not a unit object
-    Calls: <Anonymous> ... lapply -> FUN -> upgradeUnit -> upgradeUnit.default
+     14. │       └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
+     15. │         └─l$compute_geom_2(d)
+     16. │           └─ggplot2 (local) compute_geom_2(..., self = self)
+     17. │             └─self$geom$use_defaults(data, self$aes_params, modifiers)
+     18. │               └─ggplot2 (local) use_defaults(..., self = self)
+     19. │                 └─vctrs::vec_cbind(data[setdiff(names(data), aes_params)], !!!params[aes_params])
+     20. └─vctrs:::stop_scalar_type(...)
+     21.   └─vctrs:::stop_vctrs(...)
+     22.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
     Execution halted
     ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘multidog.Rmd’ using rmarkdown
-    
-    Quitting from lines 88-89 [unnamed-chunk-8] (multidog.Rmd)
-    Error: processing vignette 'multidog.Rmd' failed with diagnostics:
-    Not a unit object
-    --- failed re-building ‘multidog.Rmd’
-    
-    --- re-building ‘oracle_calculations.Rmd’ using rmarkdown
-    ...
-    --- finished re-building ‘simulate_ngs.Rmd’
-    
-    --- re-building ‘smells_like_updog.Rmd’ using rmarkdown
-    --- finished re-building ‘smells_like_updog.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘multidog.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 13.5Mb
-      sub-directories of 1Mb or more:
-        libs  12.5Mb
-    ```
-
-# viridis
-
-<details>
-
-* Version: 0.6.4
-* GitHub: https://github.com/sjmgarnier/viridis
-* Source code: https://github.com/cran/viridis
-* Date/Publication: 2023-07-22 12:50:02 UTC
-* Number of recursive dependencies: 86
-
-Run `revdepcheck::cloud_details(, "viridis")` for more info
-
-</details>
-
-## Newly broken
 
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Complete output:
-      > library(testthat)
-      > library(viridis)
-      Loading required package: viridisLite
-      > library(ggplot2)
-      > library(MASS)
-      > library(gridExtra)
-      > 
+      > library("testthat")
+      > library("umx")
+      Loading required package: OpenMx
+      To take full advantage of multiple cores, use:
+        mxOption(key='Number of Threads', value=parallel::detectCores()) #now
+        Sys.setenv(OMP_NUM_THREADS=parallel::detectCores()) #before library(OpenMx)
+      For an overview type '?umx'
     ...
-      ── Failure ('test-viridis.R:5:3'): scales work correctly ───────────────────────
-      fill_scale$scale_name not equal to "gradientn".
-      target is NULL, current is character
-      ── Failure ('test-viridis.R:11:3'): scales work correctly ──────────────────────
-      color_scale$scale_name not equal to "gradientn".
-      target is NULL, current is character
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test_umx_DOC_etc.r:12:2'): testing umxDiffMZ ────────────────────────
+      Error in `annotate("text", x = labxy[1], y = labxy[2], label = blurb)`: Problem while setting up geom aesthetics.
+      ℹ Error occurred in the 4th layer.
+      Caused by error in `vec_cbind()`:
+      ! `label` must be a vector, not a call.
       
-      [ FAIL 2 | WARN 1 | SKIP 1 | PASS 3 ]
+      [ FAIL 1 | WARN 4 | SKIP 26 | PASS 342 ]
       Error: Test failures
       Execution halted
+    ```
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Packages which this enhances but not available for checking:
+      'DiagrammeRsvg', 'rsvg'
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.5Mb
+      sub-directories of 1Mb or more:
+        R      1.9Mb
+        help   5.0Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘foreign’ ‘psychTools’ ‘pwr’ ‘rmarkdown’
+      All declared Imports should be used.
     ```
 
 # visR
@@ -5263,7 +4189,7 @@ Run `revdepcheck::cloud_details(, "viridis")` for more info
 * GitHub: https://github.com/openpharma/visR
 * Source code: https://github.com/cran/visR
 * Date/Publication: 2023-11-20 18:20:02 UTC
-* Number of recursive dependencies: 155
+* Number of recursive dependencies: 148
 
 Run `revdepcheck::cloud_details(, "visR")` for more info
 
@@ -5309,7 +4235,6 @@ Run `revdepcheck::cloud_details(, "visR")` for more info
       > 
       > test_check("visR")
     ...
-      dim(grob_orig)[2] == dim(pltlist[[2]])[2] is not FALSE
       
       `actual`:   TRUE 
       `expected`: FALSE
@@ -5317,7 +4242,8 @@ Run `revdepcheck::cloud_details(, "visR")` for more info
       [ FAIL 12 | WARN 28 | SKIP 27 | PASS 988 ]
       Error: Test failures
       In addition: Warning message:
-      closing unused connection 4 (https://raw.githubusercontent.com/vntkumar8/covid-survival/main/data/final.csv) 
+      In for (i in seq_along(quosures)) { :
+        closing unused connection 4 (https://raw.githubusercontent.com/vntkumar8/covid-survival/main/data/final.csv)
       Execution halted
     ```
 
