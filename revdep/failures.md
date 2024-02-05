@@ -387,6 +387,84 @@ Status: 2 NOTEs
 
 
 ```
+# multinma
+
+<details>
+
+* Version: 0.6.0
+* GitHub: https://github.com/dmphillippo/multinma
+* Source code: https://github.com/cran/multinma
+* Date/Publication: 2024-01-24 13:30:05 UTC
+* Number of recursive dependencies: 152
+
+Run `revdepcheck::cloud_details(, "multinma")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘multinma’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/multinma/new/multinma.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘multinma’ ...
+** package ‘multinma’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0’
+using C++17
+
+
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.3.1/lib/R/site-library/rstan/include' -I'/opt/R/4.3.1/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+...
+/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/ProductEvaluators.h:35:90:   required from ‘Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::evaluator(const XprType&) [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Options = 0; Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::XprType = Eigen::Product<Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>, Eigen::Matrix<double, -1, 1>, 0>]’
+/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
+/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_survival_param_namespace::model_survival_param; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:21:10:   required from here
+/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stanExports_survival_param.o] Error 1
+ERROR: compilation failed for package ‘multinma’
+* removing ‘/tmp/workdir/multinma/new/multinma.Rcheck/multinma’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘multinma’ ...
+** package ‘multinma’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0’
+using C++17
+
+
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.3.1/lib/R/site-library/rstan/include' -I'/opt/R/4.3.1/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:397,
+...
+/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/ProductEvaluators.h:35:90:   required from ‘Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::evaluator(const XprType&) [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Options = 0; Eigen::internal::evaluator<Eigen::Product<Lhs, Rhs, Option> >::XprType = Eigen::Product<Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>, Eigen::Matrix<double, -1, 1>, 0>]’
+/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/Product.h:132:22:   required from ‘Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::operator const Scalar() const [with Lhs = Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<double, double>, const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<double>, const Eigen::Matrix<double, 1, -1> >, const Eigen::Transpose<Eigen::Matrix<double, -1, 1> > >, Eigen::Matrix<double, -1, -1>, 0>; Rhs = Eigen::Matrix<double, -1, 1>; int Option = 0; Eigen::internal::dense_product_base<Lhs, Rhs, Option, 6>::Scalar = double]’
+/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_survival_param_namespace::model_survival_param; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:21:10:   required from here
+/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:55:30: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__vector(2) double’} [-Wignored-attributes]
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stanExports_survival_param.o] Error 1
+ERROR: compilation failed for package ‘multinma’
+* removing ‘/tmp/workdir/multinma/old/multinma.Rcheck/multinma’
+
+
+```
 # rmsb
 
 <details>
@@ -443,11 +521,11 @@ ERROR: configuration failed for package ‘rmsb’
 
 <details>
 
-* Version: 2.26.1
+* Version: 2.32.1
 * GitHub: https://github.com/stan-dev/rstanarm
 * Source code: https://github.com/cran/rstanarm
-* Date/Publication: 2023-09-13 22:50:03 UTC
-* Number of recursive dependencies: 137
+* Date/Publication: 2024-01-18 23:00:03 UTC
+* Number of recursive dependencies: 139
 
 Run `revdepcheck::cloud_details(, "rstanarm")` for more info
 
@@ -593,146 +671,6 @@ Status: 3 NOTEs
 
 
 ```
-# sgd
-
-<details>
-
-* Version: 1.1.1
-* GitHub: https://github.com/airoldilab/sgd
-* Source code: https://github.com/cran/sgd
-* Date/Publication: 2019-07-12 22:11:28 UTC
-* Number of recursive dependencies: 65
-
-Run `revdepcheck::cloud_details(, "sgd")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘sgd’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/sgd/new/sgd.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sgd’ ...
-** package ‘sgd’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0’
-using C++11
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c sgd.cpp -o sgd.o
-In file included from /opt/R/4.3.1/lib/R/site-library/BH/include/boost/math/tools/roots.hpp:19,
-                 from basedef.h:9,
-...
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/config/pragma_message.hpp:24:34: note: in definition of macro ‘BOOST_PRAGMA_MESSAGE’
-   24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/timer.hpp:25:1: note: in expansion of macro ‘BOOST_HEADER_DEPRECATED’
-   25 | BOOST_HEADER_DEPRECATED( "the facilities in <boost/timer/timer.hpp>" )
-      | ^~~~~~~~~~~~~~~~~~~~~~~
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:200: sgd.o] Error 1
-ERROR: compilation failed for package ‘sgd’
-* removing ‘/tmp/workdir/sgd/new/sgd.Rcheck/sgd’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sgd’ ...
-** package ‘sgd’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0’
-using C++11
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c sgd.cpp -o sgd.o
-In file included from /opt/R/4.3.1/lib/R/site-library/BH/include/boost/math/tools/roots.hpp:19,
-                 from basedef.h:9,
-...
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/config/pragma_message.hpp:24:34: note: in definition of macro ‘BOOST_PRAGMA_MESSAGE’
-   24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/timer.hpp:25:1: note: in expansion of macro ‘BOOST_HEADER_DEPRECATED’
-   25 | BOOST_HEADER_DEPRECATED( "the facilities in <boost/timer/timer.hpp>" )
-      | ^~~~~~~~~~~~~~~~~~~~~~~
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:200: sgd.o] Error 1
-ERROR: compilation failed for package ‘sgd’
-* removing ‘/tmp/workdir/sgd/old/sgd.Rcheck/sgd’
-
-
-```
-# shadowtext
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/GuangchuangYu/shadowtext
-* Source code: https://github.com/cran/shadowtext
-* Date/Publication: 2022-04-22 09:10:02 UTC
-* Number of recursive dependencies: 53
-
-Run `revdepcheck::cloud_details(, "shadowtext")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘shadowtext’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/shadowtext/new/shadowtext.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘shadowtext’ ...
-** package ‘shadowtext’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'add_margins' not found
-Error: unable to load R code in package ‘shadowtext’
-Execution halted
-ERROR: lazy loading failed for package ‘shadowtext’
-* removing ‘/tmp/workdir/shadowtext/new/shadowtext.Rcheck/shadowtext’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘shadowtext’ ...
-** package ‘shadowtext’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (shadowtext)
-
-
-```
 # streamDAG
 
 <details>
@@ -809,10 +747,10 @@ Status: 1 ERROR
 
 <details>
 
-* Version: 1.0.3
+* Version: 1.0.5
 * GitHub: https://github.com/thijsjanzen/treestats
 * Source code: https://github.com/cran/treestats
-* Date/Publication: 2024-01-12 16:30:02 UTC
+* Date/Publication: 2024-01-30 15:50:02 UTC
 * Number of recursive dependencies: 229
 
 Run `revdepcheck::cloud_details(, "treestats")` for more info
