@@ -224,7 +224,11 @@ GuideColourbar <- ggproto(
       cli::cli_warn("{.fn guide_colourbar} needs continuous scales.")
       return(NULL)
     }
-    Guide$extract_key(scale, aesthetic, ...)
+    key <- Guide$extract_key(scale, aesthetic, ...)
+    if (NROW(key) == 0) {
+      return(NULL)
+    }
+    key
   },
 
   extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, alpha = NA, ...) {
