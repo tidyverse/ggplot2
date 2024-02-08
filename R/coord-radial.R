@@ -216,17 +216,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     }
 
     # Set theme suffixes
-    if (self$theta == "x") {
-      gdefs$theta$theme_suffix     <- "x.bottom"
-      gdefs$theta.sec$theme_suffix <- "x.top"
-      gdefs$r$theme_suffix         <- "y.left"
-      gdefs$r.sec$theme_suffix     <- "y.right"
-    } else {
-      gdefs$theta$theme_suffix     <- "y.left"
-      gdefs$theta.sec$theme_suffix <- "y.right"
-      gdefs$r$theme_suffix         <- "x.bottom"
-      gdefs$r.sec$theme_suffix     <- "x.top"
-    }
+    gdefs$theta$theme_suffix     <- "theta"
+    gdefs$theta.sec$theme_suffix <- "theta"
+    gdefs$r$theme_suffix         <- "r"
+    gdefs$r.sec$theme_suffix     <- "r"
 
     panel_params$guides$update_params(gdefs)
     panel_params
