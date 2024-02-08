@@ -41,6 +41,7 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
     angle = angle,
     cap = cap,
     minor.ticks  = minor.ticks,
+    theme = theme,
 
     # parameter
     available_aes = c("x", "y", "theta"),
@@ -127,6 +128,7 @@ GuideAxisTheta <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
 
     axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
     is_char <- vapply(elements[axis_elem], is.character, logical(1))
