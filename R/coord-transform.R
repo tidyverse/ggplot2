@@ -127,7 +127,7 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     )
   },
 
-  transform = function(self, data, panel_params) {
+  transform_numeric = function(self, data, panel_params) {
     # trans_x() and trans_y() needs to keep Inf values because this can be called
     # in guide_transform.axis()
     trans_x <- function(data) {

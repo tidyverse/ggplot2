@@ -194,14 +194,31 @@ after_scale <- function(x) {
 }
 #' @rdname aes_eval
 #' @export
-stage <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
+after_coord <- function(x) {
+  # Need to put NULL because geoms/scales will not work on unit()s, so
+  # the value of after_coord cannot be inserted until later in the pipeline,
+  # by compute_staged_aes() via after_coord_eval().
+  # Alternatively, this perhaps could return some kind of sentinel value that
+  # tells scales to ignore the value during calculations, or something.
+  # That would help avoid errors about missing required aesthetics.
+  NULL
+}
+after_coord_eval <- function(x) {
+  x
+}
+#' @rdname aes_eval
+#' @export
+stage <- function(start = NULL, after_stat = NULL, after_scale = NULL, after_coord = NULL) {
   start
 }
-stage_calculated <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
+stage_calculated <- function(start = NULL, after_stat = NULL, after_scale = NULL, after_coord = NULL) {
   after_stat
 }
-stage_scaled <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
+stage_scaled <- function(start = NULL, after_stat = NULL, after_scale = NULL, after_coord = NULL) {
   after_scale
+}
+stage_coord <- function(start = NULL, after_stat = NULL, after_scale = NULL, after_coord = NULL) {
+  after_coord
 }
 
 # Regex to determine if an identifier refers to a calculated aesthetic
@@ -217,6 +234,9 @@ is_calculated_aes <- function(aesthetics, warn = FALSE) {
 }
 is_scaled_aes <- function(aesthetics) {
   vapply(aesthetics, is_scaled, logical(1), USE.NAMES = FALSE)
+}
+is_coord_aes <- function(aesthetics) {
+  vapply(aesthetics, is_coord_stage, logical(1), USE.NAMES = FALSE)
 }
 is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
@@ -260,8 +280,60 @@ is_calculated <- function(x, warn = FALSE) {
 is_scaled <- function(x) {
   is_call(get_expr(x), "after_scale")
 }
+is_coord_stage <- function(x) {
+  is_call(get_expr(x), "after_coord")
+}
 is_staged <- function(x) {
   is_call(get_expr(x), "stage")
+}
+
+#' Compute aesthetic mappings for the after_scale or after_coord stages
+#' @param data data frame of layer data
+#' @param mapping aesthetic mappings containing calls to `stage()`,
+#' `after_scale()`, or `after_coord()`
+#' @param stage one of `"after_scale"` or `"after_coord"`: the stage to apply
+#' @returns modified version of `data` with mappings corresponding to the
+#' given `stage` applied.
+#' @noRd
+compute_staged_aes <- function(data, mapping, stage = "after_scale", call = caller_env()) {
+  if (length(mapping) == 0) return(data)
+
+  # Set up evaluation environment and mask so they return the correct expressions
+  switch(stage,
+    after_scale = {
+      # env <- child_env(baseenv(), after_scale = after_scale)
+      stage_mask <- child_env(emptyenv(), stage = stage_scaled, after_scale = after_scale)
+    },
+    after_coord = {
+      # env <- child_env(baseenv(), after_coord = after_coord_eval)
+      stage_mask <- child_env(emptyenv(), stage = stage_coord, after_coord = after_coord_eval)
+    }
+  )
+  mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+  mask$.data <- as_data_pronoun(mask)
+  modified_aes <- lapply(substitute_aes(mapping), eval_tidy, mask, baseenv())
+
+  # Check that all output are valid data
+  nondata_modified <- check_nondata_cols(modified_aes)
+  if (length(nondata_modified) > 0) {
+    issues <- paste0("{.code ", nondata_modified, " = ", as_label(mapping[[nondata_modified]]), "}")
+    names(issues) <- rep("x", length(issues))
+    cli::cli_abort(
+      c(
+        "Aesthetic modifiers returned invalid values",
+        "x" = "The following mappings are invalid",
+        issues,
+        "i" = "Did you map the modifier in the wrong layer?"
+      ),
+      call = call
+    )
+  }
+
+  modified_aes <- vec_recycle_common(!!!modified_aes, .size = nrow(data))
+  names(modified_aes) <- names(rename_aes(mapping))
+  modified_aes <- data_frame0(!!!compact(modified_aes))
+
+  cunion(modified_aes, data)
 }
 
 # Strip dots from expressions

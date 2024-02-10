@@ -153,7 +153,7 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
 #' @export
 CoordMap <- ggproto("CoordMap", Coord,
 
-  transform = function(self, data, panel_params) {
+  transform_numeric = function(self, data, panel_params) {
     trans <- mproject(self, data$x, data$y, panel_params$orientation)
     out <- cunion(trans[c("x", "y")], data)
 

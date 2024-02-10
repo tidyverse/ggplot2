@@ -78,7 +78,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     self$params$bbox <- bbox
   },
 
-  transform = function(self, data, panel_params) {
+  transform_numeric = function(self, data, panel_params) {
     # we need to transform all non-sf data into the correct coordinate system
     source_crs <- panel_params$default_crs
     target_crs <- panel_params$crs

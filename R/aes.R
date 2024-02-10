@@ -386,7 +386,7 @@ mapped_aesthetics <- function(x) {
   }
 
   is_null <- vapply(x, is.null, logical(1))
-  names(x)[!is_null]
+  names(x)[!is_null & !is_coord_aes(x)]
 }
 
 

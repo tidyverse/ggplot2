@@ -170,7 +170,12 @@ Coord <- ggproto("Coord",
     panel_params
   },
 
-  transform = function(data, range) NULL,
+  transform = function(self, data, panel_params) {
+    data <- self$transform_numeric(data, panel_params)
+    compute_staged_aes(data, panel_params$coord_mapping, stage = "after_coord")
+  },
+
+  transform_numeric = function(data, panel_params) NULL,
 
   distance = function(x, y, panel_params) NULL,
 
