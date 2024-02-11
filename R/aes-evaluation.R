@@ -26,6 +26,8 @@
 #'   expression using variables calculated by the stat.
 #' @param after_scale <[`data-masking`][rlang::topic-data-mask]> An aesthetic
 #'   expression using layer aesthetics.
+#' @param after_coord <[`data-masking`][rlang::topic-data-mask]> An aesthetic
+#'   expression using variables calculated by the coord.
 #'
 #' @details
 #' # Staging

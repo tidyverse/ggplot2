@@ -277,7 +277,6 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
-        fill = NA,
         alpha = outlier.alpha %||% data$alpha[1],
         .size = length(data$outliers[[1]])
       )
