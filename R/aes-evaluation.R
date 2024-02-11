@@ -195,13 +195,16 @@ after_scale <- function(x) {
 #' @rdname aes_eval
 #' @export
 after_coord <- function(x) {
-  # Need to put NULL because geoms/scales will not work on unit()s, so
-  # the value of after_coord cannot be inserted until later in the pipeline,
-  # by compute_staged_aes() via after_coord_eval().
-  # Alternatively, this perhaps could return some kind of sentinel value that
-  # tells scales to ignore the value during calculations, or something.
-  # That would help avoid errors about missing required aesthetics.
-  NULL
+  # Need to put a non-unit() value here as a placeholder until the after_coord
+  # stage of the pipeline, because geoms/scales will not work on unit()s. We
+  # need something that (1) won't affect training of scales (so it can't be an
+  # arbitrary finite number like 0, 1, etc); (2) won't be removed (so it can't
+  # be `NA`); and (3) won't raise errors about missing required aesthetics (so
+  # it can't be `NULL`). The only value satisfying all these properties is `Inf`
+  # (or `-Inf`). If property (3) is relaxed, this could also be `NULL`, though
+  # that would mean users could not use after_coord() on required aesthetics
+  # and would have to do something like stage(Inf, after_coord = ...).
+  rep.int(Inf, length(x))
 }
 after_coord_eval <- function(x) {
   x
