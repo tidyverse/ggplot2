@@ -304,11 +304,9 @@ compute_staged_aes <- function(data, mapping, stage = "after_scale", call = call
   # Set up evaluation environment and mask so they return the correct expressions
   switch(stage,
     after_scale = {
-      # env <- child_env(baseenv(), after_scale = after_scale)
       stage_mask <- child_env(emptyenv(), stage = stage_scaled, after_scale = after_scale)
     },
     after_coord = {
-      # env <- child_env(baseenv(), after_coord = after_coord_eval)
       stage_mask <- child_env(emptyenv(), stage = stage_coord, after_coord = after_coord_eval)
     }
   )
