@@ -172,8 +172,16 @@ Geom <- ggproto("Geom",
 
     # Override mappings with params
     aes_params <- intersect(self$aesthetics(), names(params))
-    check_aesthetics(params[aes_params], nrow(data))
-    vec_cbind(data[setdiff(names(data), aes_params)], !!!params[aes_params])
+    new_params <- params[aes_params]
+    check_aesthetics(new_params, nrow(data))
+    data[aes_params] <- new_params
+
+    # Restore any AsIs classes (#5656)
+    is_asis <- which(vapply(new_params, inherits, what = "AsIs", logical(1)))
+    for (i in aes_params[is_asis]) {
+      data[[i]] <- I(data[[i]])
+    }
+    data
   },
 
   # Most parameters for the geom are taken automatically from draw_panel() or
