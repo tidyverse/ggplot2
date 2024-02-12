@@ -91,9 +91,8 @@ scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also a
 \item Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
 function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item The default (\code{\link[scales:oob]{scales::squish()}}) squishes out of bounds values into range.
+\item \code{\link[scales:oob]{scales::censor()}} replaces out of bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
 
