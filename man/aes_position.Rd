@@ -98,9 +98,9 @@ ggplot(counts, aes(x = x, y = Freq)) +
 }
 
 Other aesthetics documentation: 
+\code{\link{aes}()},
 \code{\link{aes_colour_fill_alpha}},
 \code{\link{aes_group_order}},
-\code{\link{aes_linetype_size_shape}},
-\code{\link{aes}()}
+\code{\link{aes_linetype_size_shape}}
 }
 \concept{aesthetics documentation}
