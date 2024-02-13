@@ -725,7 +725,7 @@ test_that("guide_axis_stack stacks axes", {
   p <- ggplot(mtcars, aes(hp, disp)) +
     geom_point() +
     theme(axis.line = element_line()) +
-    coord_radial(start = 0.25 * pi, end = 1.75 * pi, donut = 0.5) +
+    coord_radial(start = 0.25 * pi, end = 1.75 * pi, inner.radius = 0.5) +
     guides(theta = top, theta.sec = bottom, r = left, r.sec = right)
   expect_doppelganger("stacked radial axes", p)
 
@@ -1110,7 +1110,7 @@ test_that("guide_axis_theta sets relative angle", {
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point() +
     scale_x_continuous(breaks = breaks_width(25)) +
-    coord_radial(donut = 0.5) +
+    coord_radial(inner.radius = 0.5) +
     guides(
       theta = guide_axis_theta(angle = 0, cap = "none"),
       theta.sec = guide_axis_theta(angle = 90, cap = "both")
@@ -1159,6 +1159,23 @@ test_that("guides() warns if unnamed guides are provided", {
     "The 2nd guide is unnamed"
   )
   expect_null(guides())
+})
+
+test_that("legend.byrow works in `guide_legend()`", {
+
+  df <- data.frame(x = 1:6, f = LETTERS[1:6])
+
+  p <- ggplot(df, aes(x, x, colour = f)) +
+    geom_point() +
+    scale_colour_discrete(
+      guide = guide_legend(
+        ncol = 3,
+        theme = theme(legend.byrow = TRUE)
+      )
+    )
+
+  expect_doppelganger("legend.byrow = TRUE", p)
+
 })
 
 test_that("old S3 guides can be implemented", {

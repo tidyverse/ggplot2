@@ -136,9 +136,9 @@ test_that("bounding box calculations are sensible", {
     list(x = c(0.45, 1), y = c(0.146446609, 0.853553391))
   )
 
-  # Top quarter of circle with donuthole
+  # Top quarter of circle with inner radius
   expect_equal(
-    polar_bbox(arc = c(-0.25 * pi, 0.25 * pi), donut = c(0.2, 0.4)),
+    polar_bbox(arc = c(-0.25 * pi, 0.25 * pi), inner_radius = c(0.2, 0.4)),
     list(x = c(0.146446609, 0.853553391), y = c(0.59142136, 1))
   )
 })
@@ -226,13 +226,13 @@ test_that("coord_radial() draws correctly", {
     geom_point() +
     theme
 
-  expect_doppelganger("donut with all axes", {
-    p + coord_radial(donut = 0.3, r_axis_inside = FALSE) +
+  expect_doppelganger("inner.radius with all axes", {
+    p + coord_radial(inner.radius = 0.3, r_axis_inside = FALSE) +
       sec_guides
   })
 
   expect_doppelganger("partial with all axes", {
-    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, donut = 0.3,
+    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, inner.radius = 0.3,
                      r_axis_inside = TRUE, theta = "y") +
       sec_guides
   })

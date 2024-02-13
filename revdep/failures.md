@@ -334,8 +334,8 @@ Run `revdepcheck::cloud_details(, "grandR")` for more info
 * using R version 4.3.1 (2023-06-16)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * R was compiled by
-    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 * running under: Ubuntu 20.04.6 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
@@ -364,8 +364,8 @@ Status: 2 NOTEs
 * using R version 4.3.1 (2023-06-16)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * R was compiled by
-    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 * running under: Ubuntu 20.04.6 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
@@ -443,11 +443,11 @@ ERROR: configuration failed for package ‘rmsb’
 
 <details>
 
-* Version: 2.26.1
+* Version: 2.32.1
 * GitHub: https://github.com/stan-dev/rstanarm
 * Source code: https://github.com/cran/rstanarm
-* Date/Publication: 2023-09-13 22:50:03 UTC
-* Number of recursive dependencies: 137
+* Date/Publication: 2024-01-18 23:00:03 UTC
+* Number of recursive dependencies: 139
 
 Run `revdepcheck::cloud_details(, "rstanarm")` for more info
 
@@ -540,8 +540,8 @@ Run `revdepcheck::cloud_details(, "Seurat")` for more info
 * using R version 4.3.1 (2023-06-16)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * R was compiled by
-    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 * running under: Ubuntu 20.04.6 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
@@ -570,8 +570,8 @@ Status: 3 NOTEs
 * using R version 4.3.1 (2023-06-16)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * R was compiled by
-    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 * running under: Ubuntu 20.04.6 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
@@ -590,146 +590,6 @@ Status: 3 NOTEs
 
 
 
-
-
-```
-# sgd
-
-<details>
-
-* Version: 1.1.1
-* GitHub: https://github.com/airoldilab/sgd
-* Source code: https://github.com/cran/sgd
-* Date/Publication: 2019-07-12 22:11:28 UTC
-* Number of recursive dependencies: 65
-
-Run `revdepcheck::cloud_details(, "sgd")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘sgd’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/sgd/new/sgd.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sgd’ ...
-** package ‘sgd’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0’
-using C++11
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c sgd.cpp -o sgd.o
-In file included from /opt/R/4.3.1/lib/R/site-library/BH/include/boost/math/tools/roots.hpp:19,
-                 from basedef.h:9,
-...
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/config/pragma_message.hpp:24:34: note: in definition of macro ‘BOOST_PRAGMA_MESSAGE’
-   24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/timer.hpp:25:1: note: in expansion of macro ‘BOOST_HEADER_DEPRECATED’
-   25 | BOOST_HEADER_DEPRECATED( "the facilities in <boost/timer/timer.hpp>" )
-      | ^~~~~~~~~~~~~~~~~~~~~~~
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:200: sgd.o] Error 1
-ERROR: compilation failed for package ‘sgd’
-* removing ‘/tmp/workdir/sgd/new/sgd.Rcheck/sgd’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sgd’ ...
-** package ‘sgd’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0’
-using C++11
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -DARMA_DONT_PRINT_OPENMP_WARNING -DARMA_DONT_PRINT_CXX11_WARNING -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/bigmemory/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c sgd.cpp -o sgd.o
-In file included from /opt/R/4.3.1/lib/R/site-library/BH/include/boost/math/tools/roots.hpp:19,
-                 from basedef.h:9,
-...
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/config/pragma_message.hpp:24:34: note: in definition of macro ‘BOOST_PRAGMA_MESSAGE’
-   24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
-      |                                  ^~~~~~~
-/opt/R/4.3.1/lib/R/site-library/BH/include/boost/timer.hpp:25:1: note: in expansion of macro ‘BOOST_HEADER_DEPRECATED’
-   25 | BOOST_HEADER_DEPRECATED( "the facilities in <boost/timer/timer.hpp>" )
-      | ^~~~~~~~~~~~~~~~~~~~~~~
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:200: sgd.o] Error 1
-ERROR: compilation failed for package ‘sgd’
-* removing ‘/tmp/workdir/sgd/old/sgd.Rcheck/sgd’
-
-
-```
-# shadowtext
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/GuangchuangYu/shadowtext
-* Source code: https://github.com/cran/shadowtext
-* Date/Publication: 2022-04-22 09:10:02 UTC
-* Number of recursive dependencies: 53
-
-Run `revdepcheck::cloud_details(, "shadowtext")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘shadowtext’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/shadowtext/new/shadowtext.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘shadowtext’ ...
-** package ‘shadowtext’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'add_margins' not found
-Error: unable to load R code in package ‘shadowtext’
-Execution halted
-ERROR: lazy loading failed for package ‘shadowtext’
-* removing ‘/tmp/workdir/shadowtext/new/shadowtext.Rcheck/shadowtext’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘shadowtext’ ...
-** package ‘shadowtext’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (shadowtext)
 
 
 ```
@@ -756,8 +616,8 @@ Run `revdepcheck::cloud_details(, "streamDAG")` for more info
 * using R version 4.3.1 (2023-06-16)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * R was compiled by
-    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 * running under: Ubuntu 20.04.6 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
@@ -784,8 +644,8 @@ Status: 1 ERROR
 * using R version 4.3.1 (2023-06-16)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * R was compiled by
-    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+    GNU Fortran (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 * running under: Ubuntu 20.04.6 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
@@ -809,10 +669,10 @@ Status: 1 ERROR
 
 <details>
 
-* Version: 1.0.3
+* Version: 1.0.5
 * GitHub: https://github.com/thijsjanzen/treestats
 * Source code: https://github.com/cran/treestats
-* Date/Publication: 2024-01-12 16:30:02 UTC
+* Date/Publication: 2024-01-30 15:50:02 UTC
 * Number of recursive dependencies: 229
 
 Run `revdepcheck::cloud_details(, "treestats")` for more info

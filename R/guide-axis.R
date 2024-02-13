@@ -387,7 +387,7 @@ GuideAxis <- ggproto(
     sizes
   },
 
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
 
     layout <- seq_along(sizes)
 
