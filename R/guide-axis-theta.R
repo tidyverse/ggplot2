@@ -41,6 +41,7 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
     angle = angle,
     cap = cap,
     minor.ticks  = minor.ticks,
+    theme = theme,
 
     # parameter
     available_aes = c("x", "y", "theta"),
@@ -85,8 +86,6 @@ GuideAxisTheta <- ggproto(
     key <- params$key
     n <- nrow(key)
 
-    params$theme_aes <- coord$theta %||% params$aesthetic
-
     if (!("theta" %in% names(key))) {
       # We likely have a linear coord, so we match the text angles to
       # standard axes to be visually similar.
@@ -129,12 +128,13 @@ GuideAxisTheta <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
 
     axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
     is_char <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
 
-    aes <- switch(
+    aes <- params$theme_suffix %||% switch(
       params$position,
       theta     = "x.bottom",
       theta.sec = "x.top",

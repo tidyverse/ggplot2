@@ -215,6 +215,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       gdefs[[r]] <- guides[[r]]$get_layer_key(gdefs[[r]], layers)
     }
 
+    # Set theme suffixes
+    gdefs$theta$theme_suffix     <- "theta"
+    gdefs$theta.sec$theme_suffix <- "theta"
+    gdefs$r$theme_suffix         <- "r"
+    gdefs$r.sec$theme_suffix     <- "r"
+
     panel_params$guides$update_params(gdefs)
     panel_params
   },
