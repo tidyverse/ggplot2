@@ -20,7 +20,9 @@ geom_label(
   size.unit = "mm",
   na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE
+  inherit.aes = TRUE,
+  force = 0,
+  force_pull = 0
 )
 
 geom_text(
@@ -104,6 +106,12 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{force}{Force of repulsion between overlapping text labels. Defaults
+to 1.}
+
+\item{force_pull}{Force of attraction between a text label and its
+corresponding data point. Defaults to 1.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in

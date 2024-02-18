@@ -15,7 +15,9 @@ geom_label <- function(mapping = NULL, data = NULL,
                        size.unit = "mm",
                        na.rm = FALSE,
                        show.legend = NA,
-                       inherit.aes = TRUE) {
+                       inherit.aes = TRUE,
+                       force = 0,
+                       force_pull = 0) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -42,6 +44,8 @@ geom_label <- function(mapping = NULL, data = NULL,
       label.size = label.size,
       size.unit = size.unit,
       na.rm = na.rm,
+      force = force,
+      force_pull = force_pull,
       ...
     )
   )

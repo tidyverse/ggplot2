@@ -51,6 +51,7 @@ Suggests:
     covr,
     dplyr,
     ggplot2movies,
+    ggrepel,
     hexbin,
     Hmisc,
     knitr,

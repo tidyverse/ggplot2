@@ -39,6 +39,7 @@
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @inheritParams ggrepel::geom_text_repel
 #' @param parse If `TRUE`, the labels will be parsed into expressions and
 #'   displayed as described in `?plotmath`.
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
