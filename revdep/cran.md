@@ -1,8 +1,8 @@
 ## revdepcheck results
 
-We checked 4927 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 4935 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 61 new problems
+ * We saw 56 new problems
  * We failed to check 13 packages
 
 Issues with CRAN packages are summarised below.
@@ -16,6 +16,9 @@ Issues with CRAN packages are summarised below.
 * afex
   checking tests ... ERROR
   checking re-building of vignette outputs ... ERROR
+
+* archeoViz
+  checking tests ... ERROR
 
 * assignPOP
   checking tests ... ERROR
@@ -31,6 +34,9 @@ Issues with CRAN packages are summarised below.
 
 * canadianmaps
   checking tests ... ERROR
+
+* CAST
+  checking installed package size ... NOTE
 
 * CEDA
   checking re-building of vignette outputs ... ERROR
@@ -70,9 +76,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
 
 * geomtextpath
-  checking tests ... ERROR
-
-* GGally
   checking tests ... ERROR
 
 * ggedit
@@ -123,17 +126,8 @@ Issues with CRAN packages are summarised below.
 * grafify
   checking tests ... ERROR
 
-* gsDesign
-  checking tests ... ERROR
-
-* hmer
-  checking examples ... ERROR
-
 * inTextSummaryTable
   checking tests ... ERROR
-
-* irt
-  checking examples ... ERROR
 
 * LMoFit
   checking re-building of vignette outputs ... ERROR
@@ -141,8 +135,12 @@ Issues with CRAN packages are summarised below.
 * manydata
   checking tests ... ERROR
 
-* MplusAutomation
-  checking installed package size ... NOTE
+* MiscMetabar
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* miWQS
+  checking re-building of vignette outputs ... ERROR
 
 * NAIR
   checking tests ... ERROR
@@ -163,9 +161,6 @@ Issues with CRAN packages are summarised below.
 * rabhit
   checking re-building of vignette outputs ... ERROR
 
-* reportRmd
-  checking tests ... ERROR
-
 * santaR
   checking tests ... ERROR
 
@@ -179,20 +174,14 @@ Issues with CRAN packages are summarised below.
 * scdhlm
   checking tests ... ERROR
 
+* see
+  checking examples ... ERROR
+
 * spqdep
   checking re-building of vignette outputs ... ERROR
 
-* supernova
-  checking tests ... ERROR
-
 * TCIU
   checking re-building of vignette outputs ... ERROR
-
-* text
-  checking examples ... ERROR
-
-* thematic
-  checking tests ... ERROR
 
 * tmt
   checking tests ... ERROR
@@ -206,9 +195,6 @@ Issues with CRAN packages are summarised below.
 * visR
   checking examples ... ERROR
   checking tests ... ERROR
-
-* vivid
-  checking examples ... ERROR
 
 ### Failed to check
 
