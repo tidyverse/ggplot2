@@ -315,11 +315,11 @@ ERROR: lazy loading failed for package ‘ggtern’
 
 <details>
 
-* Version: 0.2.2
+* Version: 0.2.5
 * GitHub: https://github.com/erhard-lab/grandR
 * Source code: https://github.com/cran/grandR
-* Date/Publication: 2023-04-20 21:22:30 UTC
-* Number of recursive dependencies: 265
+* Date/Publication: 2024-02-15 15:30:02 UTC
+* Number of recursive dependencies: 267
 
 Run `revdepcheck::cloud_details(, "grandR")` for more info
 

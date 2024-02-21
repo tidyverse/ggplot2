@@ -18,17 +18,19 @@
 |triptych         |0.1.2   |1      |        |     |
 |valse            |0.1-0   |1      |        |     |
 
-## New problems (61)
+## New problems (56)
 
 |package            |version |error  |warning |note   |
 |:------------------|:-------|:------|:-------|:------|
 |[AcademicThemes](problems.md#academicthemes)|0.0.1   |__+1__ |        |       |
 |[afex](problems.md#afex)|1.3-0   |__+2__ |        |       |
+|[archeoViz](problems.md#archeoviz)|1.3.4   |__+1__ |        |       |
 |[assignPOP](problems.md#assignpop)|1.2.4   |__+1__ |        |       |
 |[bioassays](problems.md#bioassays)|1.0.1   |__+1__ |        |       |
 |[BOSO](problems.md#boso)|1.0.3   |__+1__ |        |1      |
 |[breakDown](problems.md#breakdown)|0.2.1   |__+1__ |        |       |
 |[canadianmaps](problems.md#canadianmaps)|1.3.0   |__+1__ |        |2      |
+|[CAST](problems.md#cast)|0.9.0   |       |        |__+1__ |
 |[CEDA](problems.md#ceda)|1.1.0   |__+1__ |        |       |
 |[cobalt](problems.md#cobalt)|4.5.3   |__+2__ |        |       |
 |[constructive](problems.md#constructive)|0.2.0   |__+1__ |        |       |
@@ -41,7 +43,6 @@
 |[fmeffects](problems.md#fmeffects)|0.1.1   |__+2__ |        |       |
 |[genekitr](problems.md#genekitr)|1.2.5   |__+1__ |        |       |
 |[geomtextpath](problems.md#geomtextpath)|0.1.1   |__+1__ |        |       |
-|[GGally](problems.md#ggally)|2.2.0   |__+1__ |        |       |
 |[ggedit](problems.md#ggedit)|0.3.1   |__+1__ |        |1      |
 |[gghdr](problems.md#gghdr)|0.2.0   |__+3__ |        |       |
 |[ggiraph](problems.md#ggiraph)|0.8.8   |__+2__ |        |1      |
@@ -55,32 +56,26 @@
 |[ghibli](problems.md#ghibli)|0.3.3   |__+1__ |        |       |
 |[glancedata](problems.md#glancedata)|1.0.1   |__+1__ |        |1      |
 |[grafify](problems.md#grafify)|4.0     |__+1__ |        |2      |
-|[gsDesign](problems.md#gsdesign)|3.6.0   |__+1__ |        |       |
-|[hmer](problems.md#hmer)|1.5.6   |__+1__ |        |       |
 |[inTextSummaryTable](problems.md#intextsummarytable)|3.3.1   |__+1__ |        |1      |
-|[irt](problems.md#irt)|0.2.7   |__+1__ |        |3      |
 |[LMoFit](problems.md#lmofit)|0.1.6   |__+1__ |        |       |
 |[manydata](problems.md#manydata)|0.8.3   |__+1__ |        |1      |
-|[MplusAutomation](problems.md#mplusautomation)|1.1.1   |       |        |__+1__ |
+|[MiscMetabar](problems.md#miscmetabar)|0.7.9   |__+2__ |        |       |
+|[miWQS](problems.md#miwqs)|0.4.4   |__+1__ |-1      |       |
 |[NAIR](problems.md#nair)|1.0.3   |__+1__ |        |1      |
 |[OpenLand](problems.md#openland)|1.0.2   |__+1__ |        |       |
 |[platetools](problems.md#platetools)|0.1.5   |__+1__ |        |       |
 |[plot3logit](problems.md#plot3logit)|3.1.4   |__+1__ |        |       |
 |[PTXQC](problems.md#ptxqc)|1.1.0   |__+2__ |        |1      |
-|[rabhit](problems.md#rabhit)|0.2.5   |__+1__ |        |       |
-|[reportRmd](problems.md#reportrmd)|0.1.0   |__+1__ |        |       |
+|[rabhit](problems.md#rabhit)|0.2.5   |__+1__ |-1      |       |
 |[santaR](problems.md#santar)|1.2.3   |__+1__ |        |1      |
 |[saros](problems.md#saros)|1.0.1   |__+2__ |        |       |
 |[scCustomize](problems.md#sccustomize)|2.0.1   |__+1__ |        |       |
 |[scdhlm](problems.md#scdhlm)|0.7.2   |__+1__ |        |       |
+|[see](problems.md#see)|0.8.2   |__+1__ |        |       |
 |[spqdep](problems.md#spqdep)|0.1.3.2 |__+1__ |        |2      |
-|[supernova](problems.md#supernova)|3.0.0   |__+1__ |        |       |
 |[TCIU](problems.md#tciu)|1.2.4   |__+1__ |        |1      |
-|[text](problems.md#text)|1.0     |__+1__ |        |1      |
-|[thematic](problems.md#thematic)|0.1.4   |__+1__ |        |1      |
 |[tmt](problems.md#tmt)|0.3.1-2 |__+1__ |        |       |
 |[tvthemes](problems.md#tvthemes)|1.3.2   |__+1__ |        |       |
 |[ufs](problems.md#ufs)|0.5.10  |__+1__ |        |       |
 |[visR](problems.md#visr)|0.4.0   |__+2__ |        |       |
-|[vivid](problems.md#vivid)|0.2.8   |__+1__ |        |       |
 
