@@ -74,3 +74,15 @@ test_that("outline.type option works", {
   expect_s3_class(g_area_default$children[[1]]$children[[2]], "polyline")
   expect_equal(g_area_default$children[[1]]$children[[2]]$id, rep(1L, each = 4))
 })
+
+test_that("ribbons can have gradients", {
+
+  df <- data.frame(x = 1:2, ymin = c(-1:-2), ymax = 1:2)
+  p <- ggplot(df, aes(x, ymin = ymin, ymax = ymax, fill = x)) +
+    geom_ribbon(outline.type = "full") +
+    scale_fill_gradientn(colours = c("red", "blue"))
+  fill <- layer_grob(p)[[1]]$children[[1]]$gp$fill
+
+  expect_s3_class(fill, "GridLinearGradient")
+  expect_equal(fill$colours, alpha(c("red", "blue"), NA))
+})
