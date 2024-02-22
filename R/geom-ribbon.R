@@ -145,9 +145,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       # these to vary
       non_constant <- setdiff(non_constant, c("fill", "alpha"))
     }
-    if (length(non_constant) > 1) {
+    if (length(non_constant) > 0) {
       cli::cli_abort(
-        "Aesthetics can not vary along a ribbon: {.field {.and non_constant}}."
+        "Aesthetics can not vary along a ribbon: {.and {.field {non_constant}}}."
       )
     }
     if (length(aes$fill) > 1 || length(aes$alpha) > 1) {

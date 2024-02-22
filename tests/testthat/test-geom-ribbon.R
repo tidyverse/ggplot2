@@ -7,7 +7,7 @@ test_that("geom_ribbon() checks the aesthetics", {
     geom_ribbon(aes(y = year, xmin = level - 5, xmax = level + 5), orientation = "x")
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(huron) +
-    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, fill = year))
+    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, linewidth = year))
   expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), outline.type = "test"))
