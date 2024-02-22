@@ -76,6 +76,10 @@ test_that("outline.type option works", {
 })
 
 test_that("ribbons can have gradients", {
+  skip_if_not(
+    check_device("gradients", action = "test"),
+    "graphics device does not support gradients."
+  )
 
   df <- data.frame(x = 1:2, ymin = c(-1:-2), ymax = 1:2)
   p <- ggplot(df, aes(x, ymin = ymin, ymax = ymax, fill = x)) +

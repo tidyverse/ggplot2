@@ -141,6 +141,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     )
     non_constant <- names(aes)[lengths(aes) > 1]
     if (coord$is_linear()) {
+      if (any(c("fill", "alpha") %in% non_constant)) {
+        check_device("gradients", action = "abort", maybe = TRUE)
+      }
       # For linear coords, we can make a fill/alpha gradient, so we allow
       # these to vary
       non_constant <- setdiff(non_constant, c("fill", "alpha"))
@@ -150,8 +153,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
         "Aesthetics can not vary along a ribbon: {.and {.field {non_constant}}}."
       )
     }
-    if (length(aes$fill) > 1 || length(aes$alpha) > 1) {
-      check_device("gradients")
+    if ((length(aes$fill) > 1 || length(aes$alpha) > 1)) {
       transformed <- coord$transform(flip_data(data, flipped_aes), panel_params)
       if (flipped_aes) {
         keep <- is.finite(tranformed$y)
