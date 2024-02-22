@@ -123,6 +123,8 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 GeomSmooth <- ggproto("GeomSmooth", Geom,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE, ambiguous = TRUE)
+    params$se <- params$se %||%
+      all(c("ymin", "ymax") %in% names(data))
     params
   },
 
