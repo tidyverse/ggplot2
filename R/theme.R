@@ -34,28 +34,28 @@
 #'   `axis.title.y.left`, `axis.title.y.right`). `axis.title.*.*` inherits from
 #'   `axis.title.*` which inherits from `axis.title`, which in turn inherits
 #'   from `text`
-#' @param axis.text,axis.text.x,axis.text.y,axis.text.x.top,axis.text.x.bottom,axis.text.y.left,axis.text.y.right
+#' @param axis.text,axis.text.x,axis.text.y,axis.text.x.top,axis.text.x.bottom,axis.text.y.left,axis.text.y.right,axis.text.theta,axis.text.r
 #'   tick labels along axes ([element_text()]). Specify all axis tick labels (`axis.text`),
 #'   tick labels by plane (using `axis.text.x` or `axis.text.y`), or individually
 #'   for each axis (using `axis.text.x.bottom`, `axis.text.x.top`,
 #'   `axis.text.y.left`, `axis.text.y.right`). `axis.text.*.*` inherits from
 #'   `axis.text.*` which inherits from `axis.text`, which in turn inherits
 #'   from `text`
-#' @param axis.ticks,axis.ticks.x,axis.ticks.x.top,axis.ticks.x.bottom,axis.ticks.y,axis.ticks.y.left,axis.ticks.y.right
+#' @param axis.ticks,axis.ticks.x,axis.ticks.x.top,axis.ticks.x.bottom,axis.ticks.y,axis.ticks.y.left,axis.ticks.y.right,axis.ticks.theta,axis.ticks.r
 #'   tick marks along axes ([element_line()]). Specify all tick marks (`axis.ticks`),
 #'   ticks by plane (using `axis.ticks.x` or `axis.ticks.y`), or individually
 #'   for each axis (using `axis.ticks.x.bottom`, `axis.ticks.x.top`,
 #'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
-#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,
+#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,axis.minor.ticks.theta,axis.minor.ticks.r,
 #'   minor tick marks along axes ([element_line()]). `axis.minor.ticks.*.*`
 #'   inherit from the corresponding major ticks `axis.ticks.*.*`.
-#' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
+#' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right,axis.ticks.length.theta,axis.ticks.length.r
 #'   length of tick marks (`unit`)
-#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right
+#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right,axis.minor.ticks.length.theta,axis.minor.ticks.length.r
 #'   length of minor tick marks (`unit`), or relative to `axis.ticks.length` when provided with `rel()`.
-#' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
+#' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right,axis.line.theta,axis.line.r
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
 #'   for each axis (using `axis.line.x.bottom`, `axis.line.x.top`,
@@ -323,6 +323,8 @@ theme <- function(...,
                   axis.text.y,
                   axis.text.y.left,
                   axis.text.y.right,
+                  axis.text.theta,
+                  axis.text.r,
                   axis.ticks,
                   axis.ticks.x,
                   axis.ticks.x.top,
@@ -330,10 +332,14 @@ theme <- function(...,
                   axis.ticks.y,
                   axis.ticks.y.left,
                   axis.ticks.y.right,
+                  axis.ticks.theta,
+                  axis.ticks.r,
                   axis.minor.ticks.x.top,
                   axis.minor.ticks.x.bottom,
                   axis.minor.ticks.y.left,
                   axis.minor.ticks.y.right,
+                  axis.minor.ticks.theta,
+                  axis.minor.ticks.r,
                   axis.ticks.length,
                   axis.ticks.length.x,
                   axis.ticks.length.x.top,
@@ -341,6 +347,8 @@ theme <- function(...,
                   axis.ticks.length.y,
                   axis.ticks.length.y.left,
                   axis.ticks.length.y.right,
+                  axis.ticks.length.theta,
+                  axis.ticks.length.r,
                   axis.minor.ticks.length,
                   axis.minor.ticks.length.x,
                   axis.minor.ticks.length.x.top,
@@ -348,6 +356,8 @@ theme <- function(...,
                   axis.minor.ticks.length.y,
                   axis.minor.ticks.length.y.left,
                   axis.minor.ticks.length.y.right,
+                  axis.minor.ticks.length.theta,
+                  axis.minor.ticks.length.r,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,
@@ -355,6 +365,8 @@ theme <- function(...,
                   axis.line.y,
                   axis.line.y.left,
                   axis.line.y.right,
+                  axis.line.theta,
+                  axis.line.r,
                   legend.background,
                   legend.margin,
                   legend.spacing,
@@ -529,13 +541,13 @@ is_theme_validate <- function(x) {
   isTRUE(validate %||% TRUE)
 }
 
-validate_theme <- function(theme, tree = get_element_tree()) {
+validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
   mapply(
     validate_element, theme, names(theme),
-    MoreArgs = list(element_tree = tree)
+    MoreArgs = list(element_tree = tree, call = call)
   )
 }
 

@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+# ggplot2 3.5.0
+
 This is a minor release that turned out quite beefy. It is focused on 
 overhauling the guide system: the system responsible for displaying information 
 from scales in the guise of axes and legends. As part of that overhaul, new 
@@ -53,8 +55,7 @@ vectors interact with the scale system, namely: not at all.
 * The `trans` argument in scales and secondary axes has been renamed to 
   `transform`. The `trans` argument itself is deprecated. To access the
   transformation from the scale, a new `get_transformation()` method is 
-  added to Scale-classes that retrieves the transformation object from the 
-  new `Scale$transformation` field (#5558).
+  added to Scale-classes (#5558).
   
 * Providing a numeric vector to `theme(legend.position)` has been deprecated.
   To set the default legend position inside the plot use 
@@ -136,6 +137,9 @@ stats, facets and coords (#3329, @teunbrand)
 * Primary axis titles are now placed at the primary guide, so that
   `guides(x = guide_axis(position = "top"))` will display the title at the
   top by default (#4650).
+  
+* The default `vjust` for the `axis.title.y.right` element is now 1 instead of
+  0.
   
 * Unknown secondary axis guide positions are now inferred as the opposite 
   of the primary axis guide when the latter has a known `position` (#4650).

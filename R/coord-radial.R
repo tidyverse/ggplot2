@@ -15,7 +15,7 @@
 #'   in accordance with the computed `theta` position. If `FALSE` (default),
 #'   no such transformation is performed. Can be useful to rotate text geoms in
 #'   alignment with the coordinates.
-#' @param donut A `numeric` between 0 and 1 setting the size of a donut hole.
+#' @param inner.radius A `numeric` between 0 and 1 setting the size of a inner.radius hole.
 #'
 #' @note
 #' In `coord_radial()`, position guides are can be defined by using
@@ -23,14 +23,14 @@
 #' these guides require `r` and `theta` as available aesthetics. The classic
 #' `guide_axis()` can be used for the `r` positions and `guide_axis_theta()` can
 #' be used for the `theta` positions. Using the `theta.sec` position is only
-#' sensible when `donut > 0`.
+#' sensible when `inner.radius > 0`.
 #'
 #' @export
 #' @examples
 #' # A partial polar plot
 #' ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
-#'   coord_radial(start = -0.4 * pi, end = 0.4 * pi, donut = 0.3)
+#'   coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
                          expand = TRUE,
@@ -38,7 +38,7 @@ coord_radial <- function(theta = "x",
                          clip = "off",
                          r_axis_inside = NULL,
                          rotate_angle = FALSE,
-                         donut = 0) {
+                         inner.radius = 0) {
 
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
@@ -47,7 +47,7 @@ coord_radial <- function(theta = "x",
   check_bool(rotate_angle)
   check_number_decimal(start, allow_infinite = FALSE)
   check_number_decimal(end, allow_infinite = FALSE, allow_null = TRUE)
-  check_number_decimal(donut, min = 0, max = 1, allow_infinite = FALSE)
+  check_number_decimal(inner.radius, min = 0, max = 1, allow_infinite = FALSE)
 
   end <- end %||% (start + 2 * pi)
   if (start > end) {
@@ -64,7 +64,7 @@ coord_radial <- function(theta = "x",
     direction = sign(direction),
     r_axis_inside = r_axis_inside,
     rotate_angle = rotate_angle,
-    donut = c(donut, 1) * 0.4,
+    inner_radius = c(inner.radius, 1) * 0.4,
     clip = clip
   )
 }
@@ -84,13 +84,13 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   distance = function(self, x, y, details) {
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
-      r <- rescale(y, from = details$r.range, to = self$donut / 0.4)
+      r <- rescale(y, from = details$r.range, to = self$inner_radius / 0.4)
       theta <- theta_rescale_no_clip(
         x, details$theta.range,
         arc, self$direction
       )
     } else {
-      r <- rescale(x, from = details$r.range, to = self$donut / 0.4)
+      r <- rescale(x, from = details$r.range, to = self$inner_radius / 0.4)
       theta <- theta_rescale_no_clip(
         y, details$theta.range,
         arc, self$direction
@@ -117,8 +117,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     c(
       view_scales_polar(scale_x, self$theta, expand = self$expand),
       view_scales_polar(scale_y, self$theta, expand = self$expand),
-      list(bbox = polar_bbox(self$arc, donut = self$donut),
-           arc = self$arc, donut = self$donut)
+      list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
+           arc = self$arc, inner_radius = self$inner_radius)
     )
   },
 
@@ -215,6 +215,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       gdefs[[r]] <- guides[[r]]$get_layer_key(gdefs[[r]], layers)
     }
 
+    # Set theme suffixes
+    gdefs$theta$theme_suffix     <- "theta"
+    gdefs$theta.sec$theme_suffix <- "theta"
+    gdefs$r$theme_suffix         <- "r"
+    gdefs$r.sec$theme_suffix     <- "r"
+
     panel_params$guides$update_params(gdefs)
     panel_params
   },
@@ -224,7 +230,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     bbox <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
     arc  <- panel_params$arc  %||% c(0, 2 * pi)
 
-    data$r  <- r_rescale(data$r, panel_params$r.range, panel_params$donut)
+    data$r  <- r_rescale(data$r, panel_params$r.range, panel_params$inner_radius)
     data$theta <- theta_rescale(
       data$theta, panel_params$theta.range,
       arc, self$direction
@@ -233,7 +239,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     data$y <- rescale(data$r * cos(data$theta) + 0.5, from = bbox$y)
 
     if (self$rotate_angle && "angle" %in% names(data)) {
-      data$angle <- flip_text_angle(data$angle - rad2deg(data$theta))
+      data <- flip_data_text_angle(data)
     }
 
     data
@@ -258,7 +264,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     bbox  <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
     arc   <- panel_params$arc  %||% c(0, 2 * pi)
     dir   <- self$direction
-    donut <- panel_params$donut
+    inner_radius <- panel_params$inner_radius
 
     theta_lim <- panel_params$theta.range
     theta_maj <- panel_params$theta.major
@@ -273,7 +279,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     theta_fine <- seq(self$arc[1], self$arc[2], length.out = 100)
 
     r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
-                         panel_params$donut)
+                         panel_params$inner_radius)
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
@@ -308,8 +314,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
     ggname("grill", grobTree(
       background,
-      theta_grid(theta_maj, grid_elems[[1]], donut, bbox),
-      theta_grid(theta_min, grid_elems[[2]], donut, bbox),
+      theta_grid(theta_maj, grid_elems[[1]], inner_radius, bbox),
+      theta_grid(theta_min, grid_elems[[2]], inner_radius, bbox),
       element_render(
         theme, majorr, name = "radius",
         x = rescale(rep(r_fine, each = length(theta_fine)) *
@@ -453,7 +459,7 @@ view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
 #' @examples
 #' polar_bbox(c(0, 1) * pi)
 polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
-                       donut = c(0, 0.4)) {
+                       inner_radius = c(0, 0.4)) {
 
   # Early exit if we have full circle or more
   if (abs(diff(arc)) >= 2 * pi) {
@@ -463,8 +469,8 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
   # X and Y position of the sector arc ends
   xmax <- 0.5 * sin(arc) + 0.5
   ymax <- 0.5 * cos(arc) + 0.5
-  xmin <- donut[1] * sin(arc) + 0.5
-  ymin <- donut[1] * cos(arc) + 0.5
+  xmin <- inner_radius[1] * sin(arc) + 0.5
+  ymin <- inner_radius[1] * cos(arc) + 0.5
 
   margin <- c(
     max(ymin) + margin[1],
@@ -528,17 +534,34 @@ flip_text_angle <- function(angle) {
   angle
 }
 
+flip_data_text_angle <- function(data) {
+  if (!all(c("angle", "theta") %in% names(data))) {
+    return(data)
+  }
+  angle <- (data$angle - rad2deg(data$theta)) %% 360
+  flip  <- angle > 90 & angle < 270
+  angle[flip] <- angle[flip] + 180
+  data$angle <- angle
+  if ("hjust" %in% names(data)) {
+    data$hjust[flip] <- 1 - data$hjust[flip]
+  }
+  if ("vjust" %in% names(data)) {
+    data$vjust[flip] <- 1 - data$vjust[flip]
+  }
+  data
+}
 
-theta_grid <- function(theta, element, donut = c(0, 0.4),
+
+theta_grid <- function(theta, element, inner_radius = c(0, 0.4),
                        bbox = list(x = c(0, 1), y = c(0, 1))) {
   n <- length(theta)
   if (n < 1) {
     return(NULL)
   }
 
-  donut <- rep(donut, n)
-  x <- rep(sin(theta), each = 2) * donut + 0.5
-  y <- rep(cos(theta), each = 2) * donut + 0.5
+  inner_radius <- rep(inner_radius, n)
+  x <- rep(sin(theta), each = 2) * inner_radius + 0.5
+  y <- rep(cos(theta), each = 2) * inner_radius + 0.5
 
   element_grob(
     element,

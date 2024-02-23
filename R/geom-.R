@@ -126,9 +126,6 @@ Geom <- ggproto("Geom",
       deprecate_soft0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
       default_aes$linewidth <- default_aes$size
     }
-    if (is_pattern(params$fill)) {
-      params$fill <- list(params$fill)
-    }
 
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(default_aes), names(data))
@@ -175,8 +172,15 @@ Geom <- ggproto("Geom",
 
     # Override mappings with params
     aes_params <- intersect(self$aesthetics(), names(params))
-    check_aesthetics(params[aes_params], nrow(data))
-    data[aes_params] <- params[aes_params]
+    new_params <- params[aes_params]
+    check_aesthetics(new_params, nrow(data))
+    data[aes_params] <- new_params
+
+    # Restore any AsIs classes (#5656)
+    is_asis <- which(vapply(new_params, inherits, what = "AsIs", logical(1)))
+    for (i in aes_params[is_asis]) {
+      data[[i]] <- I(data[[i]])
+    }
     data
   },
 
