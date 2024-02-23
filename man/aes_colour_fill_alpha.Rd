@@ -122,9 +122,9 @@ can be modified.
 }
 
 Other aesthetics documentation: 
+\code{\link{aes}()},
 \code{\link{aes_group_order}},
 \code{\link{aes_linetype_size_shape}},
-\code{\link{aes_position}},
-\code{\link{aes}()}
+\code{\link{aes_position}}
 }
 \concept{aesthetics documentation}
