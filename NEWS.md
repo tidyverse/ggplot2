@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* When passing a function to `stat_contour(breaks)`, that function is used to
+  calculate the breaks even if `bins` and `binwidth` are missing 
+  (@teunbrand, #5686).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
