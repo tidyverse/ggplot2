@@ -268,6 +268,8 @@ articles:
 
 news:
   releases:
+  - text: "Version 3.5.0"
+    href: https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/
   - text: "Version 3.4.0"
     href: https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/
   - text: "Version 3.3.0"
