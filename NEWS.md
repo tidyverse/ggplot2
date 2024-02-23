@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `coord_map()` and `coord_polar()` throw informative warnings when used
+  with the guide system (#5707).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
