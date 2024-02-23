@@ -98,6 +98,12 @@ test_that("coord_polar can have free scales in facets", {
   expect_equal(sc$y$get_limits(), c(0, 1))
 })
 
+test_that("coord_polar throws informative warning about guides", {
+  expect_snapshot_warning(
+    ggplot_build(ggplot() + coord_polar() + guides(theta = guide_axis()))
+  )
+})
+
 test_that("coord_radial warns about axes", {
 
   p <- ggplot(mtcars, aes(disp, mpg)) +
