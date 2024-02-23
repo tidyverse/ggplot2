@@ -172,10 +172,8 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   breaks_fun <- fullseq
   if (is.function(breaks)) {
     breaks_fun <- breaks
-  }
-
-  # If no parameters set, use pretty bins
-  if (is.null(bins) && is.null(binwidth)) {
+  } else if (is.null(bins) && is.null(binwidth)) {
+    # If no parameters set, use pretty bins
     breaks <- pretty(z_range, 10)
     return(breaks)
   }
@@ -206,7 +204,7 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   }
 
   # if we haven't returned yet, compute breaks from binwidth
-  breaks_fun(z_range, binwidth)
+  breaks_fun(z_range, binwidth %||% (diff(z_range) / 10))
 }
 
 #' Compute isoband objects
