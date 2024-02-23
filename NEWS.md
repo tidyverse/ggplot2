@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* The default `se` parameter in layers with `geom = "smooth"` will be `TRUE` 
+  when the data has `ymin` and `ymax` parameters and `FALSE` if these are 
+  absent. Note that this does not affect the default of `geom_smooth()` or
+  `stat_smooth()` (@teunbrand, #5572).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
