@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_step()` now supports `lineend`, `linejoin` and `linemitre` parameters 
+  (@teunbrand, #5705).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
