@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* When facets coerce the faceting variables to factors, the 'ordered' class
+  is dropped (@teunbrand, #5666).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 

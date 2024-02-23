@@ -811,3 +811,9 @@ deprecate_warn0 <- function(..., user_env = NULL) {
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
   lifecycle::deprecate_warn(..., user_env = user_env)
 }
+
+as_unordered_factor <- function(x) {
+  x <- as.factor(x)
+  class(x) <- setdiff(class(x), "ordered")
+  x
+}
