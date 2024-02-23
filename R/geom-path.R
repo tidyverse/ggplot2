@@ -326,7 +326,10 @@ GeomStep <- ggproto("GeomStep", GeomPath,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         direction = "hv") {
     data <- dapply(data, "group", stairstep, direction = direction)
-    GeomPath$draw_panel(data, panel_params, coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre)
+    GeomPath$draw_panel(
+      data, panel_params, coord,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+    )
   }
 )
 
