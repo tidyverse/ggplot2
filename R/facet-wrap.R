@@ -275,6 +275,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panels <- panels[panel_order]
     panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
 
+    # Fill missing parameters for backward compatibility
+    params$draw_axes   <- params$draw_axes   %||% list(x = FALSE, y = FALSE)
+    params$axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
+
     x_axis_order <- if (params$axis_labels$x) layout$SCALE_X else seq(n)
     y_axis_order <- if (params$axis_labels$y) layout$SCALE_Y else seq(n)
 

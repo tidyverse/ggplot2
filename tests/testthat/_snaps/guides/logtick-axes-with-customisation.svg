@@ -200,7 +200,7 @@
 <text x='360.00' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='274.57px' lengthAdjust='spacingAndGlyphs'>Negative length pseudo-logticks with 0.1 as smallest tick</text>
 <text x='360.00' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='187.11px' lengthAdjust='spacingAndGlyphs'>Pseudo-logticks with 1 as smallest tick</text>
 <text transform='translate(13.05,293.57) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='207.31px' lengthAdjust='spacingAndGlyphs'>Inverted logticks with swapped tick lengths</text>
-<text transform='translate(704.67,293.57) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='212.23px' lengthAdjust='spacingAndGlyphs'>Capped and not-expanded inverted logticks</text>
+<text transform='translate(706.95,293.57) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='212.23px' lengthAdjust='spacingAndGlyphs'>Capped and not-expanded inverted logticks</text>
 <text x='46.01' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='180.51px' lengthAdjust='spacingAndGlyphs'>logtick axes with customisation</text>
 </g>
 </svg>
