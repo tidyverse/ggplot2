@@ -46,6 +46,9 @@
     <loc>https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/articles/ggplot2.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/articles/index.html</loc>
   </url>
   <url>
@@ -136,6 +139,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/calc_element.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/check_device.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/combine_vars.html</loc>
   </url>
   <url>
@@ -206,6 +212,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/faithfuld.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/fill_alpha.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/find_panel.html</loc>
@@ -319,6 +328,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/get_alt_text.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/get_guide_data.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/gg-add.html</loc>
   </url>
   <url>
@@ -361,10 +373,16 @@
     <loc>https://ggplot2.tidyverse.org/reference/graphical-units.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide-exts.html</loc>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_axis.html</loc>
   </url>
   <url>
-    <loc>https://ggplot2.tidyverse.org/reference/guide_axis.html</loc>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_axis_logticks.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_axis_stack.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_axis_theta.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/guide_bins.html</loc>
@@ -374,6 +392,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/guide_coloursteps.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_custom.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/guide_legend.html</loc>
@@ -386,6 +407,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/hmisc.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/ignoring_data.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/index.html</loc>
@@ -455,6 +479,15 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/msleep.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/new_guide.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/old_guide.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/pattern_alpha.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/position_dodge.html</loc>
@@ -620,6 +653,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/transform_position.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/translate_shape_string.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/txhousing.html</loc>

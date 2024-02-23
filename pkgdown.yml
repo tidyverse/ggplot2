@@ -11,8 +11,9 @@ articles:
   extending-ggplot2: extending-ggplot2.html
   ggplot2-in-packages: ggplot2-in-packages.html
   ggplot2-specs: ggplot2-specs.html
+  ggplot2: ggplot2.html
   profiling: profiling.html
-last_built: 2023-10-12T18:58Z
+last_built: 2024-02-23T09:37Z
 urls:
   reference: https://ggplot2.tidyverse.org/reference
   article: https://ggplot2.tidyverse.org/articles
