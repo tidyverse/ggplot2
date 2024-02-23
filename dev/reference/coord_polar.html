@@ -14,7 +14,7 @@ options."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,7 @@ options."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
@@ -107,7 +108,7 @@ options.</p>
 <span>  clip <span class="op">=</span> <span class="st">"off"</span>,</span>
 <span>  r_axis_inside <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rotate_angle <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  donut <span class="op">=</span> <span class="fl">0</span></span>
+<span>  inner.radius <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -158,8 +159,8 @@ no such transformation is performed. Can be useful to rotate text geoms in
 alignment with the coordinates.</p></dd>
 
 
-<dt>donut</dt>
-<dd><p>A <code>numeric</code> between 0 and 1 setting the size of a donut hole.</p></dd>
+<dt>inner.radius</dt>
+<dd><p>A <code>numeric</code> between 0 and 1 setting the size of a inner.radius hole.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -169,7 +170,7 @@ alignment with the coordinates.</p></dd>
 these guides require <code>r</code> and <code>theta</code> as available aesthetics. The classic
 <code><a href="guide_axis.html">guide_axis()</a></code> can be used for the <code>r</code> positions and <code><a href="guide_axis_theta.html">guide_axis_theta()</a></code> can
 be used for the <code>theta</code> positions. Using the <code>theta.sec</code> position is only
-sensible when <code>donut &gt; 0</code>.</p>
+sensible when <code>inner.radius &gt; 0</code>.</p>
     </div>
 
     <div class="section level2">
@@ -230,7 +231,7 @@ sensible when <code>donut &gt; 0</code>.</p>
 <span class="r-in"><span><span class="co"># A partial polar plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">coord_radial</span><span class="op">(</span>start <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>, end <span class="op">=</span> <span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>, donut <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">coord_radial</span><span class="op">(</span>start <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>, end <span class="op">=</span> <span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>, inner.radius <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="coord_polar-7.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -241,7 +242,7 @@ sensible when <code>donut &gt; 0</code>.</p>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
+  <p></p><p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

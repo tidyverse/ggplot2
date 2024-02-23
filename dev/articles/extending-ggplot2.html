@@ -38,7 +38,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,6 +57,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
@@ -1241,7 +1242,7 @@ adds panels with y-transformed axes:</p>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">y_scale</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">y_scale_orig</span> <span class="op">&lt;-</span> <span class="va">y_scale</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span></span>
 <span>      <span class="va">y_scale_new</span> <span class="op">&lt;-</span> <span class="va">y_scale</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span><span class="op">)</span></span>
-<span>      <span class="va">y_scale_new</span><span class="op">$</span><span class="va">transformation</span> <span class="op">&lt;-</span> <span class="va">params</span><span class="op">$</span><span class="va">trans</span></span>
+<span>      <span class="va">y_scale_new</span><span class="op">$</span><span class="va">trans</span> <span class="op">&lt;-</span> <span class="va">params</span><span class="op">$</span><span class="va">trans</span></span>
 <span>      <span class="co"># Make sure that oob values are kept</span></span>
 <span>      <span class="va">y_scale_new</span><span class="op">$</span><span class="va">oob</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="va">x</span></span>
 <span>      <span class="va">scales</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">y_scale_orig</span>, <span class="va">y_scale_new</span><span class="op">)</span></span>
@@ -1485,6 +1486,182 @@ related to adding multiple layers with the same data.</li>
 </ol>
 </div>
 </div>
+<div class="section level2">
+<h2 id="creating-new-guides">Creating new guides<a class="anchor" aria-label="anchor" href="#creating-new-guides"></a>
+</h2>
+<p>Guides are closely related to scales and aesthetics, so an important
+part of guides is taking information from the scale and translating it
+to a graphic. This information is passed around inside guides as a
+<code>key</code> dataframe. For existing guides, you can glance at what
+a key contains by using the <code><a href="../reference/get_guide_data.html">get_guide_data()</a></code> function.
+Typical variables you may see in guides are the aesthetic mapped by the
+scale, such as the hexadecimal colours in the example below, what those
+aesthetic represent in the <code>.value</code> column and how they
+should be labelled in the <code>.label</code> column. Sometimes, the
+aesthetic is used in computations. To avoid interpreting the values and
+labels as aesthetics, it is customary to prefix these with
+<code>.</code>.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_colour_discrete.html">scale_colour_discrete</a></span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"4-wheel drive"</span>, <span class="st">"front wheel drive"</span>, <span class="st">"rear wheel drive"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/get_guide_data.html">get_guide_data</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"colour"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    colour .value            .label</span></span>
+<span><span class="co">#&gt; 1 #F8766D      4     4-wheel drive</span></span>
+<span><span class="co">#&gt; 2 #00BA38      f front wheel drive</span></span>
+<span><span class="co">#&gt; 3 #619CFF      r  rear wheel drive</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="overriding-scale-extraction">Overriding scale extraction<a class="anchor" aria-label="anchor" href="#overriding-scale-extraction"></a>
+</h3>
+<p>Let’s now make a first guide extension by adjusting the guide’s key.
+Axes are most straightforward to extend, because they are the least
+complicated. We’ll build an axis that accepts custom values for the
+guide’s <code>key</code>. We can begin by making a custom ggproto class
+that inherits from the axis guide. An important extension point is the
+<code>extract_key()</code> method, which determines how break
+information is transferred from the scale to the guide. In our class, we
+reject the scale’s reality and substitute our own.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">GuideKey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Guide"</span>, <span class="va">GuideAxis</span>,</span>
+<span>  </span>
+<span>  <span class="co"># Some parameters are required, so it is easiest to copy the base Guide's</span></span>
+<span>  <span class="co"># parameters into our new parameters.</span></span>
+<span>  <span class="co"># We add a new 'key' parameter for our own guide.</span></span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">GuideAxis</span><span class="op">$</span><span class="va">params</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co"># It is important for guides to have a mapped aesthetic with the correct name</span></span>
+<span>  extract_key <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">scale</span>, <span class="va">aesthetic</span>, <span class="va">key</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">key</span><span class="op">$</span><span class="va">aesthetic</span> <span class="op">&lt;-</span> <span class="va">scale</span><span class="op">$</span><span class="fu">map</span><span class="op">(</span><span class="va">key</span><span class="op">$</span><span class="va">aesthetic</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span> <span class="op">==</span> <span class="st">"aesthetic"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">aesthetic</span></span>
+<span>    <span class="va">key</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="guide-constructors">Guide constructors<a class="anchor" aria-label="anchor" href="#guide-constructors"></a>
+</h3>
+<p>Now we can make a guide constructor that creates a custom key to pass
+along on. The <code><a href="../reference/new_guide.html">new_guide()</a></code> function instantiates a new guide
+with the given parameters. This function automatically rejects any
+parameters that are not in the class’ <code>params</code> field, so it
+is important to declare these.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">guide_key</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
+<span>  <span class="va">aesthetic</span>, <span class="va">value</span> <span class="op">=</span> <span class="va">aesthetic</span>, <span class="va">label</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">aesthetic</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="co"># Standard guide arguments</span></span>
+<span>  <span class="va">theme</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">title</span> <span class="op">=</span> <span class="fu"><a href="../reference/waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">order</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">position</span> <span class="op">=</span> <span class="fu"><a href="../reference/waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">aesthetic</span>, .value <span class="op">=</span> <span class="va">value</span>, .label <span class="op">=</span> <span class="va">label</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="../reference/new_guide.html">new_guide</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Arguments passed on to the GuideKey$params field</span></span>
+<span>    key <span class="op">=</span> <span class="va">key</span>, theme <span class="op">=</span> <span class="va">theme</span>, title <span class="op">=</span> <span class="va">title</span>, order <span class="op">=</span> <span class="va">order</span>, position <span class="op">=</span> <span class="va">position</span>,</span>
+<span>    <span class="co"># Declare which aesthetics are supported</span></span>
+<span>    available_aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Set the guide class</span></span>
+<span>    super <span class="op">=</span> <span class="va">GuideKey</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Our new guide can now be used inside the <code><a href="../reference/guides.html">guides()</a></code>
+function or as the <code>guide</code> argument in a position scale.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span></span>
+<span>    guide <span class="op">=</span> <span class="fu">guide_key</span><span class="op">(</span>aesthetic <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">6</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="extending-ggplot2_files/figure-html/key_example-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon. The x-axis axis ticks are at 2.5, 3.5, 4.5, 5.5 and 6.5." width="672" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="custom-drawings">Custom drawings<a class="anchor" aria-label="anchor" href="#custom-drawings"></a>
+</h3>
+<p>If we are feeling more adventurous, we can also alter they way guides
+are drawn. The majority of drawing code is in the
+<code>Guide$build_*()</code> methods, which is all orchestrated by the
+<code>Guide$draw()</code> method. For derived guides, such as the custom
+key guide we’re extending here, overriding a
+<code>Guide$build_*()</code> method should be sufficient. If you are
+writing a completely novel guide that does not resemble the structure of
+any existing guide, overriding the <code>Guide$draw()</code> method
+might be wise.</p>
+<p>In this example, we are changing the way the labels are drawn, so we
+should edit the <code>Guide$build_labels()</code> method. We’ll edit the
+method so that the labels are drawn with a <code>colour</code> set in
+the key. In addition to the <code>key</code> and <code>params</code>
+variable we’ve seen before, we now also have an <code>elements</code>
+variable, which is a list of precomputed theme elements. We can use the
+<code>elements$text</code> element to draw a graphical object (grob) in
+the style of axis text. Perhaps the most finicky thing about drawing
+guides is that a lot of settings depend on the guide’s
+<code>position</code> parameter.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Same as before</span></span>
+<span><span class="va">GuideKey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggproto.html">ggproto</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Guide"</span>, <span class="va">GuideAxis</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">GuideAxis</span><span class="op">$</span><span class="va">params</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>key <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  extract_key <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">scale</span>, <span class="va">aesthetic</span>, <span class="va">key</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">key</span><span class="op">$</span><span class="va">aesthetic</span> <span class="op">&lt;-</span> <span class="va">scale</span><span class="op">$</span><span class="fu">map</span><span class="op">(</span><span class="va">key</span><span class="op">$</span><span class="va">aesthetic</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">key</span><span class="op">)</span> <span class="op">==</span> <span class="st">"aesthetic"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">aesthetic</span></span>
+<span>    <span class="va">key</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  </span>
+<span>  <span class="co"># New method to draw labels</span></span>
+<span>  build_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">key</span>, <span class="va">elements</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">position</span> <span class="op">&lt;-</span> <span class="va">params</span><span class="op">$</span><span class="va">position</span></span>
+<span>    <span class="co"># Downstream code expects a list of labels</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/element_grob.html">element_grob</a></span><span class="op">(</span></span>
+<span>      <span class="va">elements</span><span class="op">$</span><span class="va">text</span>,</span>
+<span>      label <span class="op">=</span> <span class="va">key</span><span class="op">$</span><span class="va">.label</span>,</span>
+<span>      x <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html" class="external-link">switch</a></span><span class="op">(</span><span class="va">position</span>, left <span class="op">=</span> <span class="fl">1</span>, right <span class="op">=</span> <span class="fl">0</span>, <span class="va">key</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>      y <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html" class="external-link">switch</a></span><span class="op">(</span><span class="va">position</span>, top <span class="op">=</span> <span class="fl">0</span>, bottom <span class="op">=</span> <span class="fl">1</span>, <span class="va">key</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>,</span>
+<span>      margin_x <span class="op">=</span> <span class="va">position</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
+<span>      margin_y <span class="op">=</span> <span class="va">position</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"bottom"</span><span class="op">)</span>,</span>
+<span>      colour <span class="op">=</span> <span class="va">key</span><span class="op">$</span><span class="va">colour</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Because we are incorporating the <code>...</code> argument to
+<code>guide_key()</code> in the key, adding a <code>colour</code> column
+to the key is straightforward. We can check that are guide looks correct
+in the different positions around the panel.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/guides.html">guides</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="fu">guide_key</span><span class="op">(</span></span>
+<span>      aesthetic <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">6</span> <span class="op">+</span> <span class="fl">0.5</span>,</span>
+<span>      colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"grey"</span>, <span class="st">"red"</span>, <span class="st">"grey"</span>, <span class="st">"red"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    x.sec <span class="op">=</span> <span class="fu">guide_key</span><span class="op">(</span></span>
+<span>      aesthetic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>, </span>
+<span>      colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tomato"</span>, <span class="st">"limegreen"</span>, <span class="st">"dodgerblue"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="extending-ggplot2_files/figure-html/key_example_2-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon. There are two x-axes at the bottom and top of the plot. The bottom has labels alternating in red and gray, and the top has red, green and blue labels." width="672" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="exercises-3">Exercises<a class="anchor" aria-label="anchor" href="#exercises-3"></a>
+</h3>
+<ul>
+<li>Extend <code>guide_key()</code> to also pass on <code>family</code>,
+<code>face</code> and <code>size</code> aesthetics from the key to the
+labels.</li>
+<li>Override the <code>GuideKey$build_ticks()</code> method to also pass
+on <code>colour</code> and <code>linewidth</code> settings to the tick
+marks. Looking at <code>Guide$build_ticks()</code> is a good starting
+point.</li>
+<li>Compare <code>GuideKey$extract_key()</code> to
+<code>Guide$extract_key()</code>. What steps have been skimmed over in
+the example?</li>
+</ul>
+</div>
+</div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
@@ -1495,7 +1672,7 @@ related to adding multiple layers with the same data.</li>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
+<p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

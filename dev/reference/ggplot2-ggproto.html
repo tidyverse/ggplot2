@@ -14,7 +14,7 @@ ggplot2::Position, or ggplot2::Scale."><meta property="og:image" content="https:
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,7 @@ ggplot2::Position, or ggplot2::Scale."><meta property="og:image" content="https:
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
@@ -351,6 +352,8 @@ the <code>build_*()</code> methods should be arranged.</p></li>
 <li><p><code>assemble_drawing()</code> Take the graphical objects produced by the <code>build_*()</code>
 methods, the measurements from <code>measure_grobs()</code> and layout from
 <code>arrange_layout()</code> to finalise the guide.</p></li>
+<li><p><code>add_title</code> Adds the title to a gtable, taking into account the size
+of the title as well as the gtable size.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="positions">Positions<a class="anchor" aria-label="anchor" href="#positions"></a></h2>
@@ -402,7 +405,7 @@ the scale.</p></li>
 it has no information with which to calculate its <code>limits</code>).</p></li>
 <li><p><code>clone()</code> Returns a copy of the scale that can be trained
 independently without affecting the original scale.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform()</a></code> Transforms a vector of values using <code>self$transformation</code>.
+<li><p><code><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform()</a></code> Transforms a vector of values using <code>self$trans</code>.
 This occurs before the <code>Stat</code> is calculated.</p></li>
 <li><p><code>train()</code> Update the <code>self$range</code> of observed (transformed) data values with
 a vector of (possibly) new values.</p></li>
@@ -425,14 +428,14 @@ accept a data frame, and apply the <code>transform</code>, <code>train</code>, a
 based on the combination of <code>self$limits</code> and/or the range of observed values
 (<code>self$range</code>).</p></li>
 <li><p><code>get_breaks()</code> Calculates the final scale breaks in transformed data space
-based on on the combination of <code>self$breaks</code>, <code>self$transformation$breaks()</code> (for
+based on on the combination of <code>self$breaks</code>, <code>self$trans$breaks()</code> (for
 continuous scales), and <code>limits</code>. Breaks outside of <code>limits</code> are assigned
 a value of <code>NA</code> (continuous scales) or dropped (discrete scales).</p></li>
 <li><p><code>get_labels()</code> Calculates labels for a given set of (transformed) <code>breaks</code>
 based on the combination of <code>self$labels</code> and <code>breaks</code>.</p></li>
 <li><p><code>get_breaks_minor()</code> For continuous scales, calculates the final scale minor breaks
 in transformed data space based on the rescaled <code>breaks</code>, the value of <code>self$minor_breaks</code>,
-and the value of <code>self$transformation$minor_breaks()</code>. Discrete scales always return <code>NULL</code>.</p></li>
+and the value of <code>self$trans$minor_breaks()</code>. Discrete scales always return <code>NULL</code>.</p></li>
 <li><p><code>get_transformation()</code> Returns the scale's transformation object.</p></li>
 <li><p><code>make_title()</code> Hook to modify the title that is calculated during guide construction
 (for non-position scales) or when the <code>Layout</code> calculates the x and y labels
@@ -467,7 +470,7 @@ when the <code>Layout</code> calculates the x and y labels.</p></li>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
+  <p></p><p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

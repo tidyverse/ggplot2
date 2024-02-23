@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
@@ -85,10 +86,13 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="3.5.0" id="ggplot2-350">ggplot2 3.5.0<a class="anchor" aria-label="anchor" href="#ggplot2-350"></a></h2>
 <p>This is a minor release that turned out quite beefy. It is focused on overhauling the guide system: the system responsible for displaying information from scales in the guise of axes and legends. As part of that overhaul, new guides have been implemented and existing guides have been refined. The look and feel of guides has been mostly preserved, but their internals and styling options have changed drastically.</p>
 <p>Briefly summarising other highlights, we also welcome <code><a href="../reference/coord_polar.html">coord_radial()</a></code> as a successor of <code><a href="../reference/coord_polar.html">coord_polar()</a></code>. Initial support for newer graphical features, such as pattern fills has been added. The API has changed how <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>/<code>&lt;AsIs&gt;</code> vectors interact with the scale system, namely: not at all.</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-3-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-3-5-0"></a></h3>
 <ul><li><p>The guide system. As a whole. See ‘new features’ for more information. While the S3 guide generics are still in place, the S3 methods for <code><a href="../reference/old_guide.html">guide_train()</a></code>, <code><a href="../reference/old_guide.html">guide_merge()</a></code>, <code><a href="../reference/old_guide.html">guide_geom()</a></code>, <code><a href="../reference/old_guide.html">guide_transform()</a></code>, <code><a href="../reference/old_guide.html">guide_gengrob()</a></code> have been superseded by the respective ggproto methods. In practice, this will mean that <code><a href="https://rdrr.io/r/base/UseMethod.html" class="external-link">NextMethod()</a></code> or sub-classing ggplot2’s guides with the S3 system will no longer work.</p></li>
 <li><p>By default, <code><a href="../reference/guide_legend.html">guide_legend()</a></code> now only draws a key glyph for a layer when the value is in the layer’s data. To revert to the old behaviour, you can still set <code>show.legend = c({aesthetic} = TRUE)</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/3648" class="external-link">#3648</a>).</p></li>
 <li><p>In the <code>scale_{colour/fill}_gradient2()</code> and <code>scale_{colour/fill}_steps2()</code> functions, the <code>midpoint</code> argument is transformed by the scale transformation (<a href="https://github.com/tidyverse/ggplot2/issues/3198" class="external-link">#3198</a>).</p></li>
@@ -97,11 +101,11 @@
 <li><p>The <code>legend.text.align</code> and <code>legend.title.align</code> arguments in <code><a href="../reference/theme.html">theme()</a></code> are deprecated. The <code>hjust</code> setting of the <code>legend.text</code> and <code>legend.title</code> elements continues to fulfill the role of text alignment (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5347" class="external-link">#5347</a>).</p></li>
 <li><p>‘lines’ units in <code><a href="../reference/geom_text.html">geom_label()</a></code>, often used in the <code>label.padding</code> argument, are now are relative to the text size. This causes a visual change, but fixes a misalignment issue between the textbox and text (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4753" class="external-link">#4753</a>)</p></li>
 <li><p><code><a href="../reference/coord_flip.html">coord_flip()</a></code> has been marked as superseded. The recommended alternative is to swap the <code>x</code> and <code>y</code> aesthetic and/or using the <code>orientation</code> argument in a layer (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5130" class="external-link">#5130</a>).</p></li>
-<li><p>The <code>trans</code> argument in scales and secondary axes has been renamed to <code>transform</code>. The <code>trans</code> argument itself is deprecated. To access the transformation from the scale, a new <code>get_transformation()</code> method is added to Scale-classes that retrieves the transformation object from the new <code>Scale$transformation</code> field (<a href="https://github.com/tidyverse/ggplot2/issues/5558" class="external-link">#5558</a>).</p></li>
+<li><p>The <code>trans</code> argument in scales and secondary axes has been renamed to <code>transform</code>. The <code>trans</code> argument itself is deprecated. To access the transformation from the scale, a new <code>get_transformation()</code> method is added to Scale-classes (<a href="https://github.com/tidyverse/ggplot2/issues/5558" class="external-link">#5558</a>).</p></li>
 <li><p>Providing a numeric vector to <code>theme(legend.position)</code> has been deprecated. To set the default legend position inside the plot use <code>theme(legend.position = "inside", legend.position.inside = c(...))</code> instead.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-3-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-3-5-0"></a></h3>
 <ul><li><p>Plot scales now ignore <code>AsIs</code> objects constructed with <code>I(x)</code>, instead of invoking the identity scale. This allows these columns to co-exist with other layers that need a non-identity scale for the same aesthetic. Also, it makes it easy to specify relative positions (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5142" class="external-link">#5142</a>).</p></li>
 <li><p>The <code>fill</code> aesthetic in many geoms now accepts grid’s patterns and gradients. For developers of layer extensions, this feature can be enabled by switching from <code>fill = alpha(fill, alpha)</code> to <code>fill = fill_alpha(fill, alpha)</code> when providing fills to <code><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">grid::gpar()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/3997" class="external-link">#3997</a>).</p></li>
 <li><p>New function <code><a href="../reference/check_device.html">check_device()</a></code> for testing the availability of advanced graphics features introduced in R 4.1.0 onward (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5332" class="external-link">#5332</a>).</p></li>
@@ -113,23 +117,27 @@
 <li>adjust the <code>angle</code> aesthetic of layers, such as <code><a href="../reference/geom_text.html">geom_text()</a></code>, to align with the coordinate system using the <code>rotate_angle</code> argument.</li>
 </ul></li>
 </ul><div class="section level4">
-<h4 id="the-guide-system-development-version">The guide system<a class="anchor" aria-label="anchor" href="#the-guide-system-development-version"></a></h4>
+<h4 id="the-guide-system-3-5-0">The guide system<a class="anchor" aria-label="anchor" href="#the-guide-system-3-5-0"></a></h4>
 <p>The guide system encompassing axes and legends, as the last remaining chunk of ggplot2, has been rewritten to use the <code>&lt;ggproto&gt;</code> system instead of the S3 system. This change was a necessary step to officially break open the guide system for extension package developers. The axes and legends now inherit from a <code>&lt;Guide&gt;</code> class, which makes them extensible in the same manner as geoms, stats, facets and coords (<a href="https://github.com/tidyverse/ggplot2/issues/3329" class="external-link">#3329</a>, <a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>)</p>
 <ul><li><p>The most user-facing change is that the styling of guides is rewired through the theme system. Guides now have a <code>theme</code> argument that can style individual guides, while <code><a href="../reference/theme.html">theme()</a></code> has gained additional arguments to style guides. Theme elements declared in the guide override theme elements set through the plot. The new theme elements for guides are: <code>legend.key.spacing{.x/.y}</code>, <code>legend.frame</code>, <code>legend.axis.line</code>, <code>legend.ticks</code>, <code>legend.ticks.length</code>, <code>legend.text.position</code> and <code>legend.title.position</code>. Previous style options in the arguments of <code>guide_*()</code> functions are soft-deprecated.</p></li>
 <li><p>Unfortunately, we could not fully preserve the function of pre-existing guide extensions written in the S3 system. A fallback for these old guides is encapsulated in the <code>&lt;GuideOld&gt;</code> class, which calls the old S3 generics. The S3 methods have been removed as part of cleaning up, so the old guides will still work if the S3 methods are reimplemented, but we encourage to switch to the new system (<a href="https://github.com/tidyverse/ggplot2/issues/2728" class="external-link">#2728</a>).</p></li>
 <li><p>The <code>order</code> argument of guides now strictly needs to be a length-1 integer (<a href="https://github.com/tidyverse/ggplot2/issues/4958" class="external-link">#4958</a>).</p></li>
 </ul><div class="section level5">
-<h5 id="axes-development-version">Axes<a class="anchor" aria-label="anchor" href="#axes-development-version"></a></h5>
+<h5 id="axes-3-5-0">Axes<a class="anchor" aria-label="anchor" href="#axes-3-5-0"></a></h5>
 <ul><li><p>New <code><a href="../reference/guide_axis_stack.html">guide_axis_stack()</a></code> to combine other axis guides on top of one another.</p></li>
 <li><p>New <code><a href="../reference/guide_axis_theta.html">guide_axis_theta()</a></code> to draw an axis in a circular arc in <code><a href="../reference/coord_polar.html">coord_radial()</a></code>. The guide can be controlled by adding <code>guides(theta = guide_axis_theta(...))</code> to a plot.</p></li>
 <li><p>New <code><a href="../reference/guide_axis_logticks.html">guide_axis_logticks()</a></code> can be used to draw logarithmic tick marks as an axis. It supersedes the <code><a href="../reference/annotation_logticks.html">annotation_logticks()</a></code> function (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5325" class="external-link">#5325</a>).</p></li>
 <li><p><code><a href="../reference/guide_axis.html">guide_axis()</a></code> gains a <code>minor.ticks</code> argument to draw minor ticks (<a href="https://github.com/tidyverse/ggplot2/issues/4387" class="external-link">#4387</a>).</p></li>
 <li><p><code><a href="../reference/guide_axis.html">guide_axis()</a></code> gains a <code>cap</code> argument that can be used to trim the axis line to extreme breaks (<a href="https://github.com/tidyverse/ggplot2/issues/4907" class="external-link">#4907</a>).</p></li>
 <li><p>Primary axis titles are now placed at the primary guide, so that <code>guides(x = guide_axis(position = "top"))</code> will display the title at the top by default (<a href="https://github.com/tidyverse/ggplot2/issues/4650" class="external-link">#4650</a>).</p></li>
+<li>
+<p>The default <code>vjust</code> for the <code>axis.title.y.right</code> element is now 1 instead of</p>
+<ol start="0" style="list-style-type: decimal"><li>
+</li></ol></li>
 <li><p>Unknown secondary axis guide positions are now inferred as the opposite of the primary axis guide when the latter has a known <code>position</code> (<a href="https://github.com/tidyverse/ggplot2/issues/4650" class="external-link">#4650</a>).</p></li>
 </ul></div>
 <div class="section level5">
-<h5 id="legends-development-version">Legends<a class="anchor" aria-label="anchor" href="#legends-development-version"></a></h5>
+<h5 id="legends-3-5-0">Legends<a class="anchor" aria-label="anchor" href="#legends-3-5-0"></a></h5>
 <ul><li><p>New <code><a href="../reference/guide_custom.html">guide_custom()</a></code> function for drawing custom graphical objects (grobs) unrelated to scales in legend positions (<a href="https://github.com/tidyverse/ggplot2/issues/5416" class="external-link">#5416</a>).</p></li>
 <li><p>All legends have acquired a <code>position</code> argument, that allows individual guides to deviate from the <code>legend.position</code> set in the <code><a href="../reference/theme.html">theme()</a></code> function. This means that legends can now be placed at multiple sides of the plot (<a href="https://github.com/tidyverse/ggplot2/issues/5488" class="external-link">#5488</a>).</p></li>
 <li><p>The spacing between legend keys and their labels, in addition to legends and their titles, is now controlled by the text’s <code>margin</code> setting. Not specifying margins will automatically add appropriate text margins. To control the spacing within a legend between keys, the new <code>legend.key.spacing.{x/y}</code> argument can be used in <code><a href="../reference/theme.html">theme()</a></code>. This leaves the <code>legend.spacing</code> theme setting dedicated to solely controlling the spacing between different guides (<a href="https://github.com/tidyverse/ggplot2/issues/5455" class="external-link">#5455</a>).</p></li>
@@ -143,7 +151,7 @@
 </div>
 </div>
 <div class="section level3">
-<h3 id="improvements-development-version">Improvements<a class="anchor" aria-label="anchor" href="#improvements-development-version"></a></h3>
+<h3 id="improvements-3-5-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-3-5-0"></a></h3>
 <ul><li><p><code>guide_coloursteps(even.steps = FALSE)</code> now draws one rectangle per interval instead of many small ones (<a href="https://github.com/tidyverse/ggplot2/issues/5481" class="external-link">#5481</a>).</p></li>
 <li><p><code><a href="../reference/draw_key.html">draw_key_label()</a></code> now better reflects the appearance of labels (<a href="https://github.com/tidyverse/ggplot2/issues/5561" class="external-link">#5561</a>).</p></li>
 <li><p><code><a href="../reference/position_stack.html">position_stack()</a></code> no longer silently removes missing data, which is now handled by the geom instead of position (<a href="https://github.com/tidyverse/ggplot2/issues/3532" class="external-link">#3532</a>).</p></li>
@@ -180,7 +188,7 @@
 <li><p>More informative error for mismatched <code>direction</code>/<code>theme(legend.direction = ...)</code> arguments (<a href="https://github.com/tidyverse/ggplot2/issues/4364" class="external-link">#4364</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4930" class="external-link">#4930</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-3-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-3-5-0"></a></h3>
 <ul><li><p>Fixed regression in <code><a href="../reference/guide_legend.html">guide_legend()</a></code> where the <code>linewidth</code> key size wasn’t adapted to the width of the lines (<a href="https://github.com/tidyverse/ggplot2/issues/5160" class="external-link">#5160</a>).</p></li>
 <li><p>In <code><a href="../reference/guide_bins.html">guide_bins()</a></code>, the title no longer arbitrarily becomes offset from the guide when it has long labels.</p></li>
 <li><p><code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> and <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> merge properly when one of the aesthetics is dropped (<a href="https://github.com/tidyverse/ggplot2/issues/5324" class="external-link">#5324</a>).</p></li>
@@ -208,7 +216,7 @@
 <li><p><code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> and <code><a href="../reference/guide_bins.html">guide_bins()</a></code> sort breaks (<a href="https://github.com/tidyverse/ggplot2/issues/5152" class="external-link">#5152</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="internal-changes-development-version">Internal changes<a class="anchor" aria-label="anchor" href="#internal-changes-development-version"></a></h3>
+<h3 id="internal-changes-3-5-0">Internal changes<a class="anchor" aria-label="anchor" href="#internal-changes-3-5-0"></a></h3>
 <ul><li><p>The <code>ScaleContinuous$get_breaks()</code> method no longer censors the computed breaks.</p></li>
 <li><p>The ggplot object now contains <code>$layout</code> which points to the <code>Layout</code> ggproto object and will be used by the <code>ggplot_build.ggplot</code> method. This was exposed so that package developers may extend the behaviour of the <code>Layout</code> ggproto object without needing to develop an entirely new <code>ggplot_build</code> method (<a href="https://github.com/jtlandis" class="external-link">@jtlandis</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5077" class="external-link">#5077</a>).</p></li>
 <li><p>Guide building is now part of <code><a href="../reference/ggplot_build.html">ggplot_build()</a></code> instead of <code><a href="../reference/ggplot_gtable.html">ggplot_gtable()</a></code> to allow guides to observe unmapped data (<a href="https://github.com/tidyverse/ggplot2/issues/5483" class="external-link">#5483</a>).</p></li>
@@ -1179,7 +1187,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
+  <p></p><p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

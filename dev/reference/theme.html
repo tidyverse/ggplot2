@@ -22,7 +22,7 @@ together according to inheritance, read more about theme inheritance below."><me
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.4.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,7 @@ together according to inheritance, read more about theme inheritance below."><me
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
@@ -129,6 +130,8 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">axis.text.y</span>,</span>
 <span>  <span class="va">axis.text.y.left</span>,</span>
 <span>  <span class="va">axis.text.y.right</span>,</span>
+<span>  <span class="va">axis.text.theta</span>,</span>
+<span>  <span class="va">axis.text.r</span>,</span>
 <span>  <span class="va">axis.ticks</span>,</span>
 <span>  <span class="va">axis.ticks.x</span>,</span>
 <span>  <span class="va">axis.ticks.x.top</span>,</span>
@@ -136,10 +139,14 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">axis.ticks.y</span>,</span>
 <span>  <span class="va">axis.ticks.y.left</span>,</span>
 <span>  <span class="va">axis.ticks.y.right</span>,</span>
+<span>  <span class="va">axis.ticks.theta</span>,</span>
+<span>  <span class="va">axis.ticks.r</span>,</span>
 <span>  <span class="va">axis.minor.ticks.x.top</span>,</span>
 <span>  <span class="va">axis.minor.ticks.x.bottom</span>,</span>
 <span>  <span class="va">axis.minor.ticks.y.left</span>,</span>
 <span>  <span class="va">axis.minor.ticks.y.right</span>,</span>
+<span>  <span class="va">axis.minor.ticks.theta</span>,</span>
+<span>  <span class="va">axis.minor.ticks.r</span>,</span>
 <span>  <span class="va">axis.ticks.length</span>,</span>
 <span>  <span class="va">axis.ticks.length.x</span>,</span>
 <span>  <span class="va">axis.ticks.length.x.top</span>,</span>
@@ -147,6 +154,8 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">axis.ticks.length.y</span>,</span>
 <span>  <span class="va">axis.ticks.length.y.left</span>,</span>
 <span>  <span class="va">axis.ticks.length.y.right</span>,</span>
+<span>  <span class="va">axis.ticks.length.theta</span>,</span>
+<span>  <span class="va">axis.ticks.length.r</span>,</span>
 <span>  <span class="va">axis.minor.ticks.length</span>,</span>
 <span>  <span class="va">axis.minor.ticks.length.x</span>,</span>
 <span>  <span class="va">axis.minor.ticks.length.x.top</span>,</span>
@@ -154,6 +163,8 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">axis.minor.ticks.length.y</span>,</span>
 <span>  <span class="va">axis.minor.ticks.length.y.left</span>,</span>
 <span>  <span class="va">axis.minor.ticks.length.y.right</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.theta</span>,</span>
+<span>  <span class="va">axis.minor.ticks.length.r</span>,</span>
 <span>  <span class="va">axis.line</span>,</span>
 <span>  <span class="va">axis.line.x</span>,</span>
 <span>  <span class="va">axis.line.x.top</span>,</span>
@@ -161,6 +172,8 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">axis.line.y</span>,</span>
 <span>  <span class="va">axis.line.y.left</span>,</span>
 <span>  <span class="va">axis.line.y.right</span>,</span>
+<span>  <span class="va">axis.line.theta</span>,</span>
+<span>  <span class="va">axis.line.r</span>,</span>
 <span>  <span class="va">legend.background</span>,</span>
 <span>  <span class="va">legend.margin</span>,</span>
 <span>  <span class="va">legend.spacing</span>,</span>
@@ -276,7 +289,7 @@ for each axis (using <code>axis.title.x.bottom</code>, <code>axis.title.x.top</c
 from <code>text</code></p></dd>
 
 
-<dt>axis.text, axis.text.x, axis.text.y, axis.text.x.top, axis.text.x.bottom, axis.text.y.left, axis.text.y.right</dt>
+<dt>axis.text, axis.text.x, axis.text.y, axis.text.x.top, axis.text.x.bottom, axis.text.y.left, axis.text.y.right, axis.text.theta, axis.text.r</dt>
 <dd><p>tick labels along axes (<code><a href="element.html">element_text()</a></code>). Specify all axis tick labels (<code>axis.text</code>),
 tick labels by plane (using <code>axis.text.x</code> or <code>axis.text.y</code>), or individually
 for each axis (using <code>axis.text.x.bottom</code>, <code>axis.text.x.top</code>,
@@ -285,7 +298,7 @@ for each axis (using <code>axis.text.x.bottom</code>, <code>axis.text.x.top</cod
 from <code>text</code></p></dd>
 
 
-<dt>axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right</dt>
+<dt>axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right, axis.ticks.theta, axis.ticks.r</dt>
 <dd><p>tick marks along axes (<code><a href="element.html">element_line()</a></code>). Specify all tick marks (<code>axis.ticks</code>),
 ticks by plane (using <code>axis.ticks.x</code> or <code>axis.ticks.y</code>), or individually
 for each axis (using <code>axis.ticks.x.bottom</code>, <code>axis.ticks.x.top</code>,
@@ -294,20 +307,20 @@ for each axis (using <code>axis.ticks.x.bottom</code>, <code>axis.ticks.x.top</c
 from <code>line</code></p></dd>
 
 
-<dt>axis.minor.ticks.x.top, axis.minor.ticks.x.bottom, axis.minor.ticks.y.left, axis.minor.ticks.y.right, </dt>
+<dt>axis.minor.ticks.x.top, axis.minor.ticks.x.bottom, axis.minor.ticks.y.left, axis.minor.ticks.y.right, axis.minor.ticks.theta, axis.minor.ticks.r, </dt>
 <dd><p>minor tick marks along axes (<code><a href="element.html">element_line()</a></code>). <code>axis.minor.ticks.*.*</code>
 inherit from the corresponding major ticks <code>axis.ticks.*.*</code>.</p></dd>
 
 
-<dt>axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right</dt>
+<dt>axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right, axis.ticks.length.theta, axis.ticks.length.r</dt>
 <dd><p>length of tick marks (<code>unit</code>)</p></dd>
 
 
-<dt>axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right</dt>
+<dt>axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right, axis.minor.ticks.length.theta, axis.minor.ticks.length.r</dt>
 <dd><p>length of minor tick marks (<code>unit</code>), or relative to <code>axis.ticks.length</code> when provided with <code><a href="element.html">rel()</a></code>.</p></dd>
 
 
-<dt>axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right</dt>
+<dt>axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right, axis.line.theta, axis.line.r</dt>
 <dd><p>lines along axes (<code><a href="element.html">element_line()</a></code>). Specify lines along all axes (<code>axis.line</code>),
 lines for each plane (using <code>axis.line.x</code> or <code>axis.line.y</code>), or individually
 for each axis (using <code>axis.line.x.bottom</code>, <code>axis.line.x.top</code>,
@@ -743,7 +756,7 @@ details of the specific theme elements.</p></div>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
+  <p></p><p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
