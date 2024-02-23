@@ -1,4 +1,5 @@
 # ggplot2 (development version)
+
 * `geom_ribbon()` can have varying `fill` or `alpha` in linear coordinate
   systems (@teunbrand, #4690)
 
