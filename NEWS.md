@@ -1,3 +1,7 @@
+
+* `geom_raster()` now falls back to rendering as `geom_rect()` when coordinates
+  are not Cartesian (#5503).
+
 # ggplot2 (development version)
 
 # ggplot2 3.5.0

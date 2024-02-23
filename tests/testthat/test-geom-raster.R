@@ -6,7 +6,7 @@ test_that("geom_raster() checks input and coordinate system", {
 
   df <- data_frame(x = rep(c(-1, 1), each = 3), y = rep(-1:1, 2), z = 1:6)
   p <- ggplot(df, aes(x, y, fill = z)) + geom_raster() + coord_polar()
-  expect_snapshot_error(ggplotGrob(p))
+  expect_message(ggplotGrob(p), "only works with")
 })
 
 test_that("geom_raster() fails with pattern fills", {
@@ -64,6 +64,14 @@ test_that("geom_raster draws correctly", {
   expect_doppelganger("3 x 1, just = (0, 0)",
     ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0) +
       geom_point(colour = "red")
+  )
+
+  # In non-linear coordinates
+  df <- data.frame(x = c(1, 2, 1, 2), y = c(1, 1, 2, 2), fill = LETTERS[1:4])
+  suppressMessages(
+    expect_doppelganger("rectangle fallback",
+      ggplot(df, aes(x, y, fill = fill)) + geom_raster() + coord_polar()
+    )
   )
 
   # Categorical fill, irregular swatches ---------------------------------------
