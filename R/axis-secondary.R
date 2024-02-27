@@ -247,7 +247,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       range_info <- temp_scale$break_info()
 
       # Map the break values back to their correct position on the primary scale
-      if (!is.null(range_info$major_source)) {
+      if (length(range_info$major_source) > 0) {
         old_val <- stats::approx(full_range, old_range, range_info$major_source)$y
         old_val_trans <- transformation$transform(old_val)
 
@@ -263,7 +263,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
         old_val_trans <- NULL
       }
 
-      if (!is.null(range_info$minor_source)) {
+      if (length(range_info$minor_source) > 0) {
         old_val_minor <- stats::approx(full_range, old_range, range_info$minor_source)$y
         old_val_minor_trans <- transformation$transform(old_val_minor)
 

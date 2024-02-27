@@ -477,7 +477,7 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   mask <- new_data_mask(env)
   mask$.data <- as_data_pronoun(mask)
 
-  tryCatch(
+  try_fetch(
     eval_tidy(facet, mask),
     ggplot2_missing_facet_var = function(e) NULL
   )

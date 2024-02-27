@@ -1,5 +1,13 @@
+
 # ggplot2 (development version)
 
+* Fixed bug where discrete scales could not map aesthetics only consisting of
+  `NA`s (#5623)
+* Facet evaluation is better at dealing with inherited errors 
+  (@teunbrand, #5670).
+* Fixed spurious warnings from `sec_axis()` with `breaks = NULL` (#5713).
+* Patterns and gradients are now also enabled in `geom_sf()` 
+  (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
 
 # ggplot2 3.5.0
