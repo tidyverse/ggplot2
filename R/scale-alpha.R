@@ -21,9 +21,14 @@
 #' p <- ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point(aes(alpha = year))
 #'
+#' # The default range of 0.1-1.0 leaves all data visible
 #' p
+#'
+#' # Include 0 in the range to make data invisible
+#' p + scale_alpha(range = c(0, 1))
+#'
+#' # Changing the title
 #' p + scale_alpha("cylinders")
-#' p + scale_alpha(range = c(0.4, 0.8))
 scale_alpha <- function(name = waiver(), ..., range = c(0.1, 1)) {
   continuous_scale("alpha", name = name, palette = pal_rescale(range), ...)
 }
