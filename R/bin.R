@@ -1,11 +1,11 @@
 bins <- function(breaks, closed = "right",
                  fuzz = NULL) {
   check_numeric(breaks)
-  fuzz <- fuzz %||% 1e-08 * stats::median(diff(breaks[is.finite(breaks)]))
   closed <- arg_match0(closed, c("right", "left"))
-
   breaks <- sort(breaks)
+
   # Adapted base::hist - this protects from floating point rounding errors
+  fuzz <- fuzz %||% 1e-08 * stats::median(diff(breaks[is.finite(breaks)]))
   if (closed == "right") {
     fuzzes <- c(-fuzz, rep.int(fuzz, length(breaks) - 1))
   } else {
