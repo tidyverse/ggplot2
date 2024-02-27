@@ -32,6 +32,7 @@ stat_smooth(
   n = 80,
   span = 0.75,
   fullrange = FALSE,
+  xseq = NULL,
   level = 0.95,
   method.args = list(),
   na.rm = FALSE,
@@ -160,6 +161,10 @@ observations.}
 \item{fullrange}{If \code{TRUE}, the smoothing line gets expanded to the range of the plot,
 potentially beyond the data. This does not extend the line into any additional padding
 created by \code{expansion}.}
+
+\item{xseq}{A numeric vector of values at which the smoother is evaluated.
+When \code{NULL} (default), \code{xseq} is internally evaluated as a sequence of \code{n}
+equally spaced points for continuous data.}
 
 \item{level}{Level of confidence interval to use (0.95 by default).}
 
