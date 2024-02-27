@@ -6,6 +6,9 @@ bins <- function(breaks, closed = "right",
 
   # Adapted base::hist - this protects from floating point rounding errors
   fuzz <- fuzz %||% 1e-08 * stats::median(diff(breaks[is.finite(breaks)]))
+  if (!is.finite(fuzz)) { # happens when 0 or 1 finite breaks are given
+    fuzz <- .Machine$double.eps * 1e3
+  }
   if (closed == "right") {
     fuzzes <- c(-fuzz, rep.int(fuzz, length(breaks) - 1))
   } else {
