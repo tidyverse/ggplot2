@@ -66,6 +66,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(), theme = NULL
     theme = theme,
     guides = axes,
     guide_params = params,
+    spacing = spacing,
     available_aes = c("x", "y", "theta", "r"),
     order = order,
     position = position,
@@ -86,6 +87,7 @@ GuideAxisStack <- ggproto(
     guides    = list(),
     # List of parameters to each guide
     guide_params = list(),
+    spacing   = NULL,
     # Standard guide stuff
     name      = "stacked_axis",
     title     = waiver(),

@@ -31,7 +31,9 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
-#'   `geom_histogram()`/`geom_freqpoly()` and `stat_bin()`.
+#'   `geom_histogram()`/`geom_freqpoly()` and `stat_bin()`. For more information
+#'   at overriding these connections, see how the [stat][layer_stats] and
+#'   [geom][layer_geoms] arguments work.
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram()

@@ -51,7 +51,7 @@ new_guide <- function(..., available_aes = "any", super) {
   # Validate theme settings
   if (!is.null(params$theme)) {
     check_object(params$theme, is.theme, what = "a {.cls theme} object")
-    validate_theme(params$theme)
+    validate_theme(params$theme, call = caller_env())
     params$direction <- params$direction %||% params$theme$legend.direction
   }
 
@@ -153,6 +153,9 @@ new_guide <- function(..., available_aes = "any", super) {
 #' - `assemble_drawing()` Take the graphical objects produced by the `build_*()`
 #'   methods, the measurements from `measure_grobs()` and layout from
 #'   `arrange_layout()` to finalise the guide.
+#'
+#' - `add_title` Adds the title to a gtable, taking into account the size
+#'   of the title as well as the gtable size.
 #'
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -297,11 +300,12 @@ Guide <- ggproto(
   draw = function(self, theme, position = NULL, direction = NULL,
                   params = self$params) {
 
-    key <- params$key
-
-    # Setup parameters and theme
+    # Setup parameters
     params <- replace_null(params, position = position, direction = direction)
     params <- self$setup_params(params)
+    key    <- params$key
+
+    # Setup style options
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)
 
@@ -325,7 +329,7 @@ Guide <- ggproto(
 
     # Arrange and assemble grobs
     sizes  <- self$measure_grobs(grobs, params, elems)
-    layout <- self$arrange_layout(key, sizes, params)
+    layout <- self$arrange_layout(key, sizes, params, elems)
     self$assemble_drawing(grobs, layout, sizes, params, elems)
   },
 
@@ -336,7 +340,7 @@ Guide <- ggproto(
   },
 
   # Takes care of where grobs should be added to the output gtable.
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
     return(invisible())
   },
 
@@ -415,6 +419,69 @@ Guide <- ggproto(
 
   draw_early_exit = function(self, params, elements) {
     zeroGrob()
+  },
+
+  add_title = function(gtable, title, position, just) {
+    if (is.zero(title)) {
+      return(gtable)
+    }
+
+    title_width_cm  <- width_cm(title)
+    title_height_cm <- height_cm(title)
+
+    # Add extra row/col for title
+    gtable <- switch(
+      position,
+      top    = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos =  0),
+      right  = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos = -1),
+      bottom = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos = -1),
+      left   = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos =  0)
+    )
+
+    # Add title
+    args <- switch(
+      position,
+      top    = list(t =  1, l =  1, r = -1, b =  1),
+      right  = list(t =  1, l = -1, r = -1, b = -1),
+      bottom = list(t = -1, l =  1, r = -1, b = -1),
+      left   = list(t =  1, l =  1, r =  1, b = -1),
+    )
+    gtable <- inject(gtable_add_grob(
+      x = gtable, grobs = title, !!!args, z = -Inf, name = "title", clip = "off"
+    ))
+
+    if (position %in% c("top", "bottom")) {
+
+      if (any(unitType(gtable$widths) == "null")) {
+        # Don't need to add extra title size for stretchy legends
+        return(gtable)
+      }
+      table_width <- sum(width_cm(gtable$widths))
+      extra_width <- max(0, title_width_cm - table_width)
+      if (extra_width == 0) {
+        return(gtable)
+      }
+      extra_width <- unit((c(1, -1) * just$hjust + c(0, 1)) * extra_width, "cm")
+      gtable <- gtable_add_cols(gtable, extra_width[1], pos =  0)
+      gtable <- gtable_add_cols(gtable, extra_width[2], pos = -1)
+
+    } else {
+
+      if (any(unitType(gtable$heights) == "null")) {
+        # Don't need to add extra title size for stretchy legends
+        return(gtable)
+      }
+      table_height <- sum(height_cm(gtable$heights))
+      extra_height <- max(0, title_height_cm - table_height)
+      if (extra_height == 0) {
+        return(gtable)
+      }
+      extra_height <- unit((c(-1, 1) * just$vjust + c(1, 0)) * extra_height, "cm")
+      gtable <- gtable_add_rows(gtable, extra_height[1], pos =  0)
+      gtable <- gtable_add_rows(gtable, extra_height[2], pos = -1)
+    }
+
+    gtable
   }
 )
 

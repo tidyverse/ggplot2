@@ -179,7 +179,6 @@ GuideColourbar <- ggproto(
     theme = NULL,
     default_ticks = element_line(colour = "white", linewidth = 0.5 / .pt),
     default_frame = element_blank(),
-    default_tick_length = unit(0.2, "npc"),
 
     # bar
     nbin = 300,
@@ -224,7 +223,11 @@ GuideColourbar <- ggproto(
       cli::cli_warn("{.fn guide_colourbar} needs continuous scales.")
       return(NULL)
     }
-    Guide$extract_key(scale, aesthetic, ...)
+    key <- Guide$extract_key(scale, aesthetic, ...)
+    if (NROW(key) == 0) {
+      return(NULL)
+    }
+    key
   },
 
   extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, alpha = NA, ...) {
@@ -291,7 +294,6 @@ GuideColourbar <- ggproto(
     theme <- replace_null(
       theme,
       legend.text.position = valid_position[1],
-      legend.ticks.length  = params$default_tick_length,
       legend.ticks         = params$default_ticks,
       legend.frame         = params$default_frame
     )

@@ -16,7 +16,7 @@ coord_radial(
   clip = "off",
   r_axis_inside = NULL,
   rotate_angle = FALSE,
-  donut = 0
+  inner.radius = 0
 )
 }
 \arguments{
@@ -49,7 +49,7 @@ in accordance with the computed \code{theta} position. If \code{FALSE} (default)
 no such transformation is performed. Can be useful to rotate text geoms in
 alignment with the coordinates.}
 
-\item{donut}{A \code{numeric} between 0 and 1 setting the size of a donut hole.}
+\item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a inner.radius hole.}
 }
 \description{
 The polar coordinate system is most commonly used for pie charts, which
@@ -62,7 +62,7 @@ In \code{coord_radial()}, position guides are can be defined by using
 these guides require \code{r} and \code{theta} as available aesthetics. The classic
 \code{guide_axis()} can be used for the \code{r} positions and \code{guide_axis_theta()} can
 be used for the \code{theta} positions. Using the \code{theta.sec} position is only
-sensible when \code{donut > 0}.
+sensible when \code{inner.radius > 0}.
 }
 \examples{
 # NOTE: Use these plots with caution - polar coordinates has
@@ -114,5 +114,5 @@ doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 # A partial polar plot
 ggplot(mtcars, aes(disp, mpg)) +
   geom_point() +
-  coord_radial(start = -0.4 * pi, end = 0.4 * pi, donut = 0.3)
+  coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
 }

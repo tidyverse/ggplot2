@@ -32,7 +32,9 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
-#'   `geom_boxplot()` and `stat_boxplot()`.
+#'   `geom_boxplot()` and `stat_boxplot()`. For more information about
+#'   overriding these connections, see how the [stat][layer_stats] and
+#'   [geom][layer_geoms] arguments work.
 #' @param outliers Whether to display (`TRUE`) or discard (`FALSE`) outliers
 #'   from the plot. Hiding or discarding outliers can be useful when, for
 #'   example, raw data points need to be displayed on top of the boxplot.
