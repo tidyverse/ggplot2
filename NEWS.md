@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
