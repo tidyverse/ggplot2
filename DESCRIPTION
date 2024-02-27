@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.4.4.9000
+Version: 3.5.0.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
@@ -79,7 +79,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Collate: 
     'ggproto.R'
     'ggplot-global.R'

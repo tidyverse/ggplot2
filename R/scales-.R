@@ -89,8 +89,9 @@ ScalesList <- ggproto("ScalesList", NULL,
     # If the scale contains to trans or trans is identity, there is no need
     # to transform anything
     idx_skip <- vapply(self$scales, function(x) {
+      transformation <- x$get_transformation()
       has_default_transform(x) &&
-        (is.null(x$transformation) || identical(x$transformation$transform, identity))
+        (is.null(transformation) || identical(transformation$transform, identity))
     }, logical(1L))
     scales <- self$scales[!idx_skip]
 
@@ -113,8 +114,9 @@ ScalesList <- ggproto("ScalesList", NULL,
     # If the scale contains to trans or trans is identity, there is no need
     # to transform anything
     idx_skip <- vapply(self$scales, function(x) {
+      transformation <- x$get_transformation()
       has_default_transform(x) &&
-        (is.null(x$transformation) || identical(x$transformation$transform, identity))
+        (is.null(transformation) || identical(transformation$transform, identity))
     }, logical(1))
     scales <- self$scales[!idx_skip]
 
@@ -129,7 +131,11 @@ ScalesList <- ggproto("ScalesList", NULL,
         if (length(aesthetics) == 0) {
           return()
         }
-        lapply(df[aesthetics], scale$transformation$inverse)
+        inverse <- scale$get_transformation()$inverse
+        if (is.null(inverse)) {
+          return()
+        }
+        lapply(df[aesthetics], inverse)
       }
     ), recursive = FALSE)
 

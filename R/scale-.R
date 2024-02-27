@@ -143,7 +143,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 
     range = ContinuousRange$new(),
     limits = limits,
-    transformation = transform,
+    trans = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -257,6 +257,14 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 #'   the scale will ask the transformation object to create breaks, and this
 #'   may result in a different number of breaks than requested. Ignored if
 #'   breaks are given explicitly.
+#' @param oob One of:
+#'   - Function that handles limits outside of the scale limits
+#'   (out of bounds). Also accepts rlang [lambda][rlang::as_function()]
+#'   function notation.
+#'   - The default ([scales::squish()]) squishes out of
+#'   bounds values into range.
+#'   - [scales::censor] for replacing out of bounds values with `NA`.
+#'   - [scales::squish_infinite()] for squishing infinite values into range.
 #' @param right Should the intervals be closed on the right (`TRUE`, default) or
 #'   should the intervals be closed on the left (`FALSE`)? 'Closed on the right'
 #'   means that values at break positions are part of the lower bin (open on the
@@ -313,7 +321,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
     range = ContinuousRange$new(),
     limits = limits,
-    transformation = transform,
+    trans = transform,
     na.value = na.value,
     expand = expand,
     rescaler = rescaler,
@@ -356,7 +364,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #' - `clone()` Returns a copy of the scale that can be trained
 #'   independently without affecting the original scale.
 #'
-#' - `transform()` Transforms a vector of values using `self$transformation`.
+#' - `transform()` Transforms a vector of values using `self$trans`.
 #'   This occurs before the `Stat` is calculated.
 #'
 #' - `train()` Update the `self$range` of observed (transformed) data values with
@@ -386,7 +394,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'   (`self$range`).
 #'
 #' - `get_breaks()` Calculates the final scale breaks in transformed data space
-#'   based on on the combination of `self$breaks`, `self$transformation$breaks()` (for
+#'   based on on the combination of `self$breaks`, `self$trans$breaks()` (for
 #'   continuous scales), and `limits`. Breaks outside of `limits` are assigned
 #'   a value of `NA` (continuous scales) or dropped (discrete scales).
 #'
@@ -395,7 +403,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'
 #' - `get_breaks_minor()` For continuous scales, calculates the final scale minor breaks
 #'   in transformed data space based on the rescaled `breaks`, the value of `self$minor_breaks`,
-#'   and the value of `self$transformation$minor_breaks()`. Discrete scales always return `NULL`.
+#'   and the value of `self$trans$minor_breaks()`. Discrete scales always return `NULL`.
 #'
 #' - `get_transformation()` Returns the scale's transformation object.
 #'
@@ -554,11 +562,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   get_transformation = function(self) {
-    if (!is.null(self$trans)) {
-      deprecate_soft0("3.5.0", I("Scale$trans"), I("Scale$transformation"))
-      return(self$trans)
-    }
-    self$transformation
+    self$trans
   },
 
   clone = function(self) {
@@ -609,7 +613,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 default_transform <- function(self, x) {
   transformation <- self$get_transformation()
   new_x <- transformation$transform(x)
-  check_transformation(x, new_x, self$transformation$name, call = self$call)
+  check_transformation(x, new_x, transformation$name, call = self$call)
   new_x
 }
 
@@ -629,7 +633,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   oob = censor,
   minor_breaks = waiver(),
   n.breaks = NULL,
-  transformation = transform_identity(),
+  trans = transform_identity(),
 
   is_discrete = function() FALSE,
 
@@ -639,11 +643,15 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
     # Intercept error here to give examples and mention scale in call
     if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
-      cli::cli_abort(
-        c("Discrete values supplied to continuous scale.",
-          i = "Example values: {.and {.val {head(x, 5)}}}"),
-        call = self$call
-      )
+      # These assumptions only hold for standard ContinuousRange class, so
+      # we skip the error if another range class is used
+      if (inherits(self$range, "ContinuousRange")) {
+        cli::cli_abort(
+          c("Discrete values supplied to continuous scale.",
+            i = "Example values: {.and {.val {head(x, 5)}}}"),
+          call = self$call
+        )
+      }
     }
     self$range$train(x)
   },
@@ -913,11 +921,15 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
     # Intercept error here to give examples and mention scale in call
     if (!is.discrete(x)) {
-      cli::cli_abort(
-        c("Continuous values supplied to discrete scale.",
-          i = "Example values: {.and {.val {head(x, 5)}}}"),
-        call = self$call
-      )
+      # These assumptions only hold for standard DiscreteRange class, so
+      # we skip the error if another range class is used
+      if (inherits(self$range, "DiscreteRange")) {
+        cli::cli_abort(
+          c("Continuous values supplied to discrete scale.",
+            i = "Example values: {.and {.val {head(x, 5)}}}"),
+          call = self$call
+        )
+      }
     }
     self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
   },

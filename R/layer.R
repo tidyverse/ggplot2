@@ -124,6 +124,12 @@ layer <- function(geom = NULL, stat = NULL,
 
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
 
+  # Take care of plain patterns provided as aesthetic
+  pattern <- vapply(aes_params, is_pattern, logical(1))
+  if (any(pattern)) {
+    aes_params[pattern] <- lapply(aes_params[pattern], list)
+  }
+
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
   # Take care of size->linewidth renaming in layer params
