@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed spurious warnings from `sec_axis()` with `breaks = NULL` (#5713).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
