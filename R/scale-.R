@@ -19,6 +19,7 @@
 #'   - A numeric vector of positions
 #'   - A function that takes the limits as input and returns breaks
 #'     as output (e.g., a function returned by [scales::extended_breaks()]).
+#'     Note that for position scales, limits are provided after scale expansion.
 #'     Also accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param minor_breaks One of:
 #'   - `NULL` for no minor breaks
@@ -938,6 +939,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
   map = function(self, x, limits = self$get_limits()) {
     n <- sum(!is.na(limits))
+    if (n < 1) {
+      return(rep(self$na.value, length(x)))
+    }
     if (!is.null(self$n.breaks.cache) && self$n.breaks.cache == n) {
       pal <- self$palette.cache
     } else {
