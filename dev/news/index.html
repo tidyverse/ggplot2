@@ -86,7 +86,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-</div>
+<ul><li>Fixed bug where discrete scales could not map aesthetics only consisting of <code>NA</code>s (<a href="https://github.com/tidyverse/ggplot2/issues/5623" class="external-link">#5623</a>)</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.5.0" id="ggplot2-350">ggplot2 3.5.0<a class="anchor" aria-label="anchor" href="#ggplot2-350"></a></h2><p class="text-muted">CRAN release: 2024-02-23</p>
 <p>This is a minor release that turned out quite beefy. It is focused on overhauling the guide system: the system responsible for displaying information from scales in the guise of axes and legends. As part of that overhaul, new guides have been implemented and existing guides have been refined. The look and feel of guides has been mostly preserved, but their internals and styling options have changed drastically.</p>
