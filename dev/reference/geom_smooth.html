@@ -127,6 +127,7 @@ display the results with a non-standard geom.</p>
 <span>  n <span class="op">=</span> <span class="fl">80</span>,</span>
 <span>  span <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  fullrange <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  xseq <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -277,6 +278,12 @@ observations.</p></dd>
 <dd><p>If <code>TRUE</code>, the smoothing line gets expanded to the range of the plot,
 potentially beyond the data. This does not extend the line into any additional padding
 created by <code>expansion</code>.</p></dd>
+
+
+<dt>xseq</dt>
+<dd><p>A numeric vector of values at which the smoother is evaluated.
+When <code>NULL</code> (default), <code>xseq</code> is internally evaluated as a sequence of <code>n</code>
+equally spaced points for continuous data.</p></dd>
 
 
 <dt>level</dt>
