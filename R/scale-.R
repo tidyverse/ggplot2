@@ -19,6 +19,7 @@
 #'   - A numeric vector of positions
 #'   - A function that takes the limits as input and returns breaks
 #'     as output (e.g., a function returned by [scales::extended_breaks()]).
+#'     Note that for position scales, limits are provided after scale expansion.
 #'     Also accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param minor_breaks One of:
 #'   - `NULL` for no minor breaks
