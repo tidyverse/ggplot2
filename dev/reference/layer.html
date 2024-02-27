@@ -116,16 +116,29 @@ calls but it can also be created directly using this function.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>geom</dt>
-<dd><p>The geometric object to use to display the data, either as a
-<code>ggproto</code> <code>Geom</code> subclass or as a string naming the geom stripped of the
-<code>geom_</code> prefix (e.g. <code>"point"</code> rather than <code>"geom_point"</code>)</p></dd>
+<dd><p>The geometric object to use to display the data for this layer.
+When using a <code>stat_*()</code> function to construct a layer, the <code>geom</code> argument
+can be used to override the default coupling between stats and geoms. The
+<code>geom</code> argument accepts the following:</p><ul><li><p>A <code>Geom</code> ggproto subclass, for example <code>GeomPoint</code>.</p></li>
+<li><p>A string naming the geom. To give the geom as a string, strip the
+function name of the <code>geom_</code> prefix. For example, to use <code><a href="geom_point.html">geom_point()</a></code>,
+give the geom as <code>"point"</code>.</p></li>
+<li><p>For more information and other ways to specify the geom, see the
+<a href="layer_geoms.html">layer geom</a> documentation.</p></li>
+</ul></dd>
 
 
 <dt>stat</dt>
-<dd><p>The statistical transformation to use on the data for this
-layer, either as a <code>ggproto</code> <code>Geom</code> subclass or as a string naming the
-stat stripped of the <code>stat_</code> prefix (e.g. <code>"count"</code> rather than
-<code>"stat_count"</code>)</p></dd>
+<dd><p>The statistical transformation to use on the data for this layer.
+When using a <code>geom_*()</code> function to construct a layer, the <code>stat</code>
+argument can be used the override the default coupling between geoms and
+stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
+<li><p>A string naming the stat. To give the stat as a string, strip the
+function name of the <code>stat_</code> prefix. For example, to use <code><a href="geom_bar.html">stat_count()</a></code>,
+give the stat as <code>"count"</code>.</p></li>
+<li><p>For more information and other ways to specify the stat, see the
+<a href="layer_stats.html">layer stat</a> documentation.</p></li>
+</ul></dd>
 
 
 <dt>data</dt>
@@ -150,10 +163,16 @@ mapping.</p></dd>
 
 
 <dt>position</dt>
-<dd><p>Position adjustment, either as a string naming the adjustment
-(e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.</p></dd>
+<dd><p>A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.
+This method allows for passing extra arguments to the position.</p></li>
+<li><p>A string naming the position adjustment. To give the position as a
+string, strip the function name of the <code>position_</code> prefix. For example,
+to use <code><a href="position_jitter.html">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
+<li><p>For more information and other ways to specify the position, see the
+<a href="layer_positions.html">layer position</a> documentation.</p></li>
+</ul></dd>
 
 
 <dt>params</dt>
@@ -191,6 +210,13 @@ function name minus the <code>draw_key_</code> prefix. See <a href="draw_key.htm
 intended for ggplot2 internal use only.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other layer documentation: 
+<code><a href="layer_geoms.html">layer_geoms</a></code>,
+<code><a href="layer_positions.html">layer_positions</a></code>,
+<code><a href="layer_stats.html">layer_stats</a></code></p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

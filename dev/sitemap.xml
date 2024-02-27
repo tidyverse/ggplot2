@@ -445,7 +445,16 @@
     <loc>https://ggplot2.tidyverse.org/dev/reference/layer.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/layer_geoms.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/layer_positions.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/layer_sf.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/layer_stats.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/limits.html</loc>

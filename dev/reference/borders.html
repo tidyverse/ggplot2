@@ -161,16 +161,28 @@ will be used as the layer data. A <code>function</code> can be created
 from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
 
     <dt><code>stat</code></dt>
-<dd><p>The statistical transformation to use on the data for this
-layer, either as a <code>ggproto</code> <code>Geom</code> subclass or as a string naming the
-stat stripped of the <code>stat_</code> prefix (e.g. <code>"count"</code> rather than
-<code>"stat_count"</code>)</p></dd>
+<dd><p>The statistical transformation to use on the data for this layer.
+When using a <code>geom_*()</code> function to construct a layer, the <code>stat</code>
+argument can be used the override the default coupling between geoms and
+stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
+<li><p>A string naming the stat. To give the stat as a string, strip the
+function name of the <code>stat_</code> prefix. For example, to use <code><a href="geom_bar.html">stat_count()</a></code>,
+give the stat as <code>"count"</code>.</p></li>
+<li><p>For more information and other ways to specify the stat, see the
+<a href="layer_stats.html">layer stat</a> documentation.</p></li>
+</ul></dd>
 
     <dt><code>position</code></dt>
-<dd><p>Position adjustment, either as a string naming the adjustment
-(e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.</p></dd>
+<dd><p>A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.
+This method allows for passing extra arguments to the position.</p></li>
+<li><p>A string naming the position adjustment. To give the position as a
+string, strip the function name of the <code>position_</code> prefix. For example,
+to use <code><a href="position_jitter.html">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
+<li><p>For more information and other ways to specify the position, see the
+<a href="layer_positions.html">layer position</a> documentation.</p></li>
+</ul></dd>
 
     <dt><code>show.legend</code></dt>
 <dd><p>logical. Should this layer be included in the legends?
