@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Patterns and gradients are now also enabled in `geom_sf()` 
+  (@teunbrand, #5716).
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
