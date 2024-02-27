@@ -8,6 +8,7 @@
 * Fixed spurious warnings from `sec_axis()` with `breaks = NULL` (#5713).
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
+* `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
 
 # ggplot2 3.5.0
 
