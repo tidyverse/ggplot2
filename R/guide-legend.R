@@ -471,146 +471,52 @@ GuideLegend <- ggproto(
     )
     heights <- head(vec_interleave(!!!heights), -1)
 
-    has_title <- !is.zero(grobs$title)
-
-    if (has_title) {
-      # Measure title
-      title_width  <- width_cm(grobs$title)
-      title_height <- height_cm(grobs$title)
-
-      # Titles are assumed to have sufficient size when keys are null units
-      extra_width <-
-        if (isTRUE(elements$stretch_x)) 0 else max(0, title_width - sum(widths))
-      extra_height <-
-        if (isTRUE(elements$stretch_y)) 0 else max(0, title_height - sum(heights))
-
-      just <- with(elements$title, rotate_just(angle, hjust, vjust))
-
-      # Combine title with rest of the sizes based on its position
-      widths <- switch(
-        elements$title_position,
-        "left"  = c(title_width, widths),
-        "right" = c(widths, title_width),
-        c(extra_width * just$hjust, widths, extra_width * (1 - just$hjust))
-      )
-      heights <- switch(
-        elements$title_position,
-        "top"    = c(title_height, heights),
-        "bottom" = c(heights, title_height),
-        c(extra_height * (1 - just$vjust), heights, extra_height * just$vjust)
-      )
-    }
-
-    list(
-      widths  = widths,
-      heights = heights,
-      padding = elements$padding,
-      has_title = has_title,
-      label_position = elements$text_position,
-      title_position = elements$title_position
-    )
+    list(widths = widths, heights = heights)
   },
 
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
 
     break_seq <- seq_len(params$n_breaks %||% 1L)
     dim <- c(params$nrow %||% 1L, params$ncol %||% 1L)
 
     # Find rows / columns of legend items
-    if (params$byrow %||% FALSE) {
+    if (elements$byrow %||% FALSE) {
       row <- ceiling(break_seq / dim[2L])
       col <- (break_seq - 1L) %% dim[2L] + 1L
     } else {
-      df <- mat_2_df(arrayInd(break_seq, dim), c("R", "C"))
-      row <- df$R
-      col <- df$C
+      row <- (break_seq - 1L) %% dim[1L] + 1L
+      col <- ceiling(break_seq / dim[1L])
     }
-    # Make spacing for padding / gaps. For example: because first gtable cell
-    # will be padding, first item will be at [2, 2] position. Then the
-    # second item-row will be [4, 2] because [3, 2] will be a gap cell.
-    key_row <- label_row <- row * 2
-    key_col <- label_col <- col * 2
+    # Account for spacing in between keys
+    key_row <- row * 2 - 1
+    key_col <- col * 2 - 1
 
     # Make gaps for key-label spacing depending on label position
-    switch(
-      sizes$label_position,
-      "top" = {
-        key_row   <- key_row + row
-        label_row <- key_row - 1
-      },
-      "bottom" = {
-        key_row   <- key_row + row - 1
-        label_row <- key_row + 1
-      },
-      "left" = {
-        key_col   <- key_col + col
-        label_col <- key_col - 1
-      },
-      "right" = {
-        key_col   <- key_col + col - 1
-        label_col <- key_col + 1
-      }
+    position <- elements$text_position
+    key_row <- key_row + switch(position, top  = row, bottom = row - 1, 0)
+    lab_row <- key_row + switch(position, top  = -1,  bottom = 1,       0)
+    key_col <- key_col + switch(position, left = col, right  = col - 1, 0)
+    lab_col <- key_col + switch(position, left = -1,  right  = 1,       0)
+
+    data_frame0(
+      key_row = key_row, key_col = key_col,
+      label_row = lab_row, label_col = lab_col
     )
-
-    # Offset layout based on title position
-    if (sizes$has_title) {
-      position <- sizes$title_position
-      if (position != "right") {
-        key_col   <- key_col   + 1
-        label_col <- label_col + 1
-      }
-      if (position != "bottom") {
-        key_row   <- key_row   + 1
-        label_row <- label_row + 1
-      }
-      nrow <- length(sizes$heights)
-      ncol <- length(sizes$widths)
-      title_row <- switch(position, top  = 1, bottom = nrow, seq_len(nrow)) + 1
-      title_col <- switch(position, left = 1, right  = ncol, seq_len(ncol)) + 1
-    } else {
-      title_row <- NA
-      title_col <- NA
-    }
-
-    df <- cbind(df, key_row, key_col, label_row, label_col)
-
-    list(layout = df, title_row = title_row, title_col = title_col)
   },
 
-  assemble_drawing = function(grobs, layout, sizes, params, elements) {
-    widths <- unit(c(sizes$padding[4], sizes$widths, sizes$padding[2]), "cm")
+  assemble_drawing = function(self, grobs, layout, sizes, params, elements) {
+
+    widths <- unit(sizes$widths, "cm")
     if (isTRUE(elements$stretch_x)) {
-      widths[unique(layout$layout$key_col)] <- elements$key_width
+      widths[unique0(layout$key_col)] <- elements$key_width
     }
 
-    heights <- unit(c(sizes$padding[1], sizes$heights, sizes$padding[3]), "cm")
+    heights <- unit(sizes$heights, "cm")
     if (isTRUE(elements$stretch_y)) {
-      heights[unique(layout$layout$key_row)] <- elements$key_height
+      heights[unique0(layout$key_row)] <- elements$key_height
     }
 
     gt <- gtable(widths = widths, heights = heights)
-
-    # Add background
-    if (!is.zero(elements$background)) {
-      gt <- gtable_add_grob(
-        gt, elements$background,
-        name = "background", clip = "off",
-        t = 1, r = -1, b = -1, l =1
-      )
-    }
-
-    # Add title
-    if (!is.zero(grobs$title)) {
-      gt <- gtable_add_grob(
-        gt, grobs$title,
-        name = "title", clip = "off",
-        t = min(layout$title_row), r = max(layout$title_col),
-        b = max(layout$title_row), l = min(layout$title_col)
-      )
-    }
-
-    # Extract appropriate part of layout
-    layout   <- layout$layout
 
     # Add keys
     if (!is.zero(grobs$decor)) {
@@ -640,6 +546,21 @@ GuideLegend <- ggproto(
       )
     }
 
+    gt <- self$add_title(
+      gt, grobs$title, elements$title_position,
+      with(elements$title, rotate_just(angle, hjust, vjust))
+    )
+
+    gt <- gtable_add_padding(gt, unit(elements$padding, "cm"))
+
+    # Add background
+    if (!is.zero(elements$background)) {
+      gt <- gtable_add_grob(
+        gt, elements$background,
+        name = "background", clip = "off",
+        t = 1, r = -1, b = -1, l =1, z = -Inf
+      )
+    }
     gt
   }
 )
@@ -724,7 +645,7 @@ keep_key_data <- function(key, data, aes, show) {
   }
   keep <- rep(FALSE, nrow(key))
   for (column in match) {
-    keep <- keep | vec_in(key$.value, data[[column]])
+    keep <- keep | key$.value %in% data[[column]]
   }
   keep
 }
@@ -781,7 +702,7 @@ deprecated_guide_args <- function(
     unit(x, default.unit)
   }
 
-  theme <- theme %||% list()
+  theme <- theme %||% theme()
 
   # Resolve straightforward arguments
   theme <- replace_null(

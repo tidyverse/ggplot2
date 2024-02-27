@@ -450,6 +450,8 @@ the \verb{build_*()} methods should be arranged.
 \item \code{assemble_drawing()} Take the graphical objects produced by the \verb{build_*()}
 methods, the measurements from \code{measure_grobs()} and layout from
 \code{arrange_layout()} to finalise the guide.
+\item \code{add_title} Adds the title to a gtable, taking into account the size
+of the title as well as the gtable size.
 }
 }
 
@@ -517,7 +519,7 @@ Methods:
 it has no information with which to calculate its \code{limits}).
 \item \code{clone()} Returns a copy of the scale that can be trained
 independently without affecting the original scale.
-\item \code{transform()} Transforms a vector of values using \code{self$transformation}.
+\item \code{transform()} Transforms a vector of values using \code{self$trans}.
 This occurs before the \code{Stat} is calculated.
 \item \code{train()} Update the \code{self$range} of observed (transformed) data values with
 a vector of (possibly) new values.
@@ -540,14 +542,14 @@ accept a data frame, and apply the \code{transform}, \code{train}, and \code{map
 based on the combination of \code{self$limits} and/or the range of observed values
 (\code{self$range}).
 \item \code{get_breaks()} Calculates the final scale breaks in transformed data space
-based on on the combination of \code{self$breaks}, \code{self$transformation$breaks()} (for
+based on on the combination of \code{self$breaks}, \code{self$trans$breaks()} (for
 continuous scales), and \code{limits}. Breaks outside of \code{limits} are assigned
 a value of \code{NA} (continuous scales) or dropped (discrete scales).
 \item \code{get_labels()} Calculates labels for a given set of (transformed) \code{breaks}
 based on the combination of \code{self$labels} and \code{breaks}.
 \item \code{get_breaks_minor()} For continuous scales, calculates the final scale minor breaks
 in transformed data space based on the rescaled \code{breaks}, the value of \code{self$minor_breaks},
-and the value of \code{self$transformation$minor_breaks()}. Discrete scales always return \code{NULL}.
+and the value of \code{self$trans$minor_breaks()}. Discrete scales always return \code{NULL}.
 \item \code{get_transformation()} Returns the scale's transformation object.
 \item \code{make_title()} Hook to modify the title that is calculated during guide construction
 (for non-position scales) or when the \code{Layout} calculates the x and y labels

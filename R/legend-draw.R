@@ -258,17 +258,16 @@ draw_key_smooth <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_text <- function(data, params, size) {
-  data <- replace_null(
-    unclass(data),
-    label = "a", hjust = 0.5, vjust = 0.5, angle = 0
-  )
-  just <- rotate_just(data$angle, data$hjust, data$vjust)
-  grob <- titleGrob(
+  data  <- replace_null(unclass(data), label = "a", angle = 0)
+  hjust <- compute_just(data$hjust %||% 0.5)
+  vjust <- compute_just(data$vjust %||% 0.5)
+  just  <- rotate_just(data$angle, hjust, vjust)
+  grob  <- titleGrob(
     data$label,
     x = unit(just$hjust, "npc"), y = unit(just$vjust, "npc"),
     angle = data$angle,
-    hjust = data$hjust,
-    vjust = data$vjust,
+    hjust = hjust,
+    vjust = vjust,
     gp = gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       fontfamily = data$family   %||% "",
@@ -286,12 +285,11 @@ draw_key_text <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_label <- function(data, params, size) {
-  data <- replace_null(
-    unclass(data),
-    label = "a", hjust = 0.5, vjust = 0.5, angle = 0
-  )
+  data <- replace_null(unclass(data), label = "a", angle = 0)
   params$label.size <- params$label.size %||% 0.25
-  just <- rotate_just(data$angle, data$hjust, data$vjust)
+  hjust <- compute_just(data$hjust %||% 0.5)
+  vjust <- compute_just(data$vjust %||% 0.5)
+  just  <- rotate_just(data$angle, hjust, vjust)
   padding <- rep(params$label.padding %||% unit(0.25, "lines"), length.out = 4)
   descent <- font_descent(
     family = data$family %||% "",
@@ -303,7 +301,7 @@ draw_key_label <- function(data, params, size) {
     x = unit(just$hjust, "npc"),
     y = unit(just$vjust, "npc") + descent,
     angle = data$angle,
-    just = c(data$hjust, data$vjust),
+    just = c(hjust, vjust),
     padding = padding,
     r = params$label.r %||% unit(0.15, "lines"),
     text.gp = gpar(
