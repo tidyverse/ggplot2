@@ -20,7 +20,8 @@ no class name will be added to the object.}
 \item{_inherit}{ggproto object to inherit from. If \code{NULL}, don't
 inherit from any object.}
 
-\item{...}{A list of members in the ggproto object.}
+\item{...}{A list of named members in the ggproto object. These can be
+functions that become methods of the class or regular objects.}
 
 \item{parent, self}{Access parent class \code{parent} of object \code{self}.}
 
@@ -57,6 +58,15 @@ in the function signature, although customarily it comes first.
 
 To explicitly call a methods in a parent, use
 \code{ggproto_parent(Parent, self)}.
+}
+
+\section{Working with ggproto classes}{
+
+The ggproto objects constructed are build on top of environments, which has
+some ramifications. Environments do not follow the 'copy on modify' semantics
+one might be accustomed to in regular objects. Instead they have
+\href{https://adv-r.hadley.nz/names-values.html#env-modify}{'modify in place'}
+semantics.
 }
 
 \examples{
