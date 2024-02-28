@@ -27,7 +27,7 @@ dup_axis(
 derive()
 }
 \arguments{
-\item{transform}{A formula or function of transformation}
+\item{transform}{A formula or function of a strictly monotonic transformation}
 
 \item{name}{The name of the secondary axis}
 
