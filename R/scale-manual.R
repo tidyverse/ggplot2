@@ -12,7 +12,7 @@
 #' of aesthetics provided via the `aesthetics` argument.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -aesthetics
+#' @inheritDotParams discrete_scale -expand -position -aesthetics -palette
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
