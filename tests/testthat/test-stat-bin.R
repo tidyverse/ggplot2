@@ -112,6 +112,13 @@ test_that("stat_bin() provides width (#3522)", {
 
 # Underlying binning algorithm --------------------------------------------
 
+test_that("bins() computes fuzz with non-finite breaks", {
+  test <- bins(breaks = c(-Inf, 1, Inf))
+  expect_equal(test$fuzzy, test$breaks, tolerance = 1e-10)
+  difference <- test$fuzzy - test$breaks
+  expect_equal(difference[2], 1000 * .Machine$double.eps, tolerance = 0)
+})
+
 comp_bin <- function(df, ...) {
   plot <- ggplot(df, aes(x = x)) + stat_bin(...)
   layer_data(plot)

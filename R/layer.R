@@ -23,17 +23,37 @@
 #'    the plot data. The return value must be a `data.frame`, and
 #'    will be used as the layer data. A `function` can be created
 #'    from a `formula` (e.g. `~ head(.x, 10)`).
-#' @param geom The geometric object to use to display the data, either as a
-#'   `ggproto` `Geom` subclass or as a string naming the geom stripped of the
-#'   `geom_` prefix (e.g. `"point"` rather than `"geom_point"`)
-#' @param stat The statistical transformation to use on the data for this
-#'    layer, either as a `ggproto` `Geom` subclass or as a string naming the
-#'    stat stripped of the `stat_` prefix (e.g. `"count"` rather than
-#'    `"stat_count"`)
-#' @param position Position adjustment, either as a string naming the adjustment
-#'   (e.g. `"jitter"` to use `position_jitter`), or the result of a call to a
-#'   position adjustment function. Use the latter if you need to change the
-#'   settings of the adjustment.
+#'
+#' @param geom The geometric object to use to display the data for this layer.
+#'   When using a `stat_*()` function to construct a layer, the `geom` argument
+#'   can be used to override the default coupling between stats and geoms. The
+#'   `geom` argument accepts the following:
+#'   * A `Geom` ggproto subclass, for example `GeomPoint`.
+#'   * A string naming the geom. To give the geom as a string, strip the
+#'     function name of the `geom_` prefix. For example, to use `geom_point()`,
+#'     give the geom as `"point"`.
+#'   * For more information and other ways to specify the geom, see the
+#'     [layer geom][layer_geoms] documentation.
+#' @param stat The statistical transformation to use on the data for this layer.
+#'   When using a `geom_*()` function to construct a layer, the `stat`
+#'   argument can be used the override the default coupling between geoms and
+#'   stats. The `stat` argument accepts the following:
+#'   * A `Stat` ggproto subclass, for example `StatCount`.
+#'   * A string naming the stat. To give the stat as a string, strip the
+#'     function name of the `stat_` prefix. For example, to use `stat_count()`,
+#'     give the stat as `"count"`.
+#'   * For more information and other ways to specify the stat, see the
+#'     [layer stat][layer_stats] documentation.
+#' @param position A position adjustment to use on the data for this layer. This
+#'   can be used in various ways, including to prevent overplotting and
+#'   improving the display. The `position` argument accepts the following:
+#'   * The result of calling a position function, such as `position_jitter()`.
+#'     This method allows for passing extra arguments to the position.
+#'   * A string naming the position adjustment. To give the position as a
+#'     string, strip the function name of the `position_` prefix. For example,
+#'     to use `position_jitter()`, give the position as `"jitter"`.
+#'   * For more information and other ways to specify the position, see the
+#'     [layer position][layer_positions] documentation.
 #' @param show.legend logical. Should this layer be included in the legends?
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
@@ -52,6 +72,7 @@
 #' @param layer_class The type of layer object to be constructed. This is
 #'   intended for ggplot2 internal use only.
 #' @keywords internal
+#' @family layer documentation
 #' @examples
 #' # geom calls are just a short cut for layer
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()

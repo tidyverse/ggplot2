@@ -19,6 +19,7 @@
 #'   - A numeric vector of positions
 #'   - A function that takes the limits as input and returns breaks
 #'     as output (e.g., a function returned by [scales::extended_breaks()]).
+#'     Note that for position scales, limits are provided after scale expansion.
 #'     Also accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param minor_breaks One of:
 #'   - `NULL` for no minor breaks
@@ -257,6 +258,14 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 #'   the scale will ask the transformation object to create breaks, and this
 #'   may result in a different number of breaks than requested. Ignored if
 #'   breaks are given explicitly.
+#' @param oob One of:
+#'   - Function that handles limits outside of the scale limits
+#'   (out of bounds). Also accepts rlang [lambda][rlang::as_function()]
+#'   function notation.
+#'   - The default ([scales::squish()]) squishes out of
+#'   bounds values into range.
+#'   - [scales::censor] for replacing out of bounds values with `NA`.
+#'   - [scales::squish_infinite()] for squishing infinite values into range.
 #' @param right Should the intervals be closed on the right (`TRUE`, default) or
 #'   should the intervals be closed on the left (`FALSE`)? 'Closed on the right'
 #'   means that values at break positions are part of the lower bin (open on the
@@ -930,6 +939,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
   map = function(self, x, limits = self$get_limits()) {
     n <- sum(!is.na(limits))
+    if (n < 1) {
+      return(rep(self$na.value, length(x)))
+    }
     if (!is.null(self$n.breaks.cache) && self$n.breaks.cache == n) {
       pal <- self$palette.cache
     } else {
