@@ -468,7 +468,7 @@ test_that("numeric scale transforms can produce breaks", {
     scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view <- view_scale_primary(scale)
-    scale$transformation$inverse(view$get_breaks())
+    scale$get_transformation()$inverse(view$get_breaks())
   }
 
   expect_equal(test_breaks("asn", limits = c(0, 1)),
@@ -715,4 +715,18 @@ test_that("Using `scale_name` prompts deprecation message", {
   expect_snapshot_warning(discrete_scale("x",   "foobar", pal_identity()))
   expect_snapshot_warning(binned_scale("x",     "foobar", pal_identity()))
 
+})
+
+# From #5623
+test_that("Discrete scales with only NAs return `na.value`", {
+
+  x <- c(NA, NA)
+
+  sc <- scale_colour_discrete(na.value = "red")
+  sc$train(x)
+  expect_equal(sc$map(x), c("red", "red"))
+
+  sc <- scale_shape(na.value = NA_real_)
+  sc$train(x)
+  expect_equal(sc$map(x), c(NA_real_, NA_real_))
 })

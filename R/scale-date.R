@@ -360,7 +360,7 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
     tz <- attr(x, "tzone")
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
-      self$transformation <- transform_time(self$timezone)
+      self$trans <- transform_time(self$timezone)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
@@ -407,7 +407,6 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
       return(NULL)
     }
     breaks <- floor(breaks)
-    breaks[breaks >= limits[1] & breaks <= limits[2]]
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)

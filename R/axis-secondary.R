@@ -109,7 +109,7 @@ sec_axis <- function(transform = NULL,
 
   transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,
-    transform = transform,
+    trans = transform,
     name = name,
     breaks = breaks,
     labels = labels,
@@ -119,8 +119,8 @@ sec_axis <- function(transform = NULL,
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(transform = ~., trans = deprecated(),
-                     name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
+dup_axis <- function(transform = ~., name = derive(), breaks = derive(),
+                     labels = derive(), guide = derive(), trans = deprecated()) {
   sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
 
@@ -153,7 +153,7 @@ is.derived <- function(x) {
 #' @usage NULL
 #' @export
 AxisSecondary <- ggproto("AxisSecondary", NULL,
-  transform = NULL,
+  trans = NULL,
   axis = NULL,
   name = waiver(),
   breaks = waiver(),
@@ -165,7 +165,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   detail = 1000,
 
   empty = function(self) {
-    is.null(self$transform %||% self$trans)
+    is.null(self$trans)
   },
 
   # Inherit settings from the primary axis/scale
@@ -173,19 +173,19 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) {
       return()
     }
-    transform <- self$transform %||% self$trans
+    transform <- self$trans
     if (!is.function(transform)) {
       cli::cli_abort("Transformation for secondary axes must be a function.")
     }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
-    if (is.waive(self$breaks)) self$breaks <- scale$transformation$breaks
+    if (is.waive(self$breaks)) self$breaks <- scale$get_transformation()$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
     if (is.derived(self$guide)) self$guide <- scale$guide
   },
 
   transform_range = function(self, range) {
-    self$transform(range)
+    self$trans(range)
   },
 
   mono_test = function(self, scale){
@@ -247,7 +247,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       range_info <- temp_scale$break_info()
 
       # Map the break values back to their correct position on the primary scale
-      if (!is.null(range_info$major_source)) {
+      if (length(range_info$major_source) > 0) {
         old_val <- stats::approx(full_range, old_range, range_info$major_source)$y
         old_val_trans <- transformation$transform(old_val)
 
@@ -263,7 +263,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
         old_val_trans <- NULL
       }
 
-      if (!is.null(range_info$minor_source)) {
+      if (length(range_info$minor_source) > 0) {
         old_val_minor <- stats::approx(full_range, old_range, range_info$minor_source)$y
         old_val_minor_trans <- transformation$transform(old_val_minor)
 
@@ -299,7 +299,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
-                     transformation = transformation
+                     trans  = transformation
     )
     scale$train(range)
     scale

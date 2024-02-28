@@ -477,6 +477,30 @@ test_that("guide_legend uses key.spacing correctly", {
   expect_doppelganger("legend with widely spaced keys", p)
 })
 
+test_that("empty guides are dropped", {
+
+  df <- data.frame(x = 1:2)
+  # Making a guide where all breaks are out-of-bounds
+  p <- ggplot(df, aes(x, x, colour = x)) +
+    geom_point() +
+    scale_colour_continuous(
+      limits = c(0.25, 0.75),
+      breaks = c(1, 2),
+      guide  = "legend"
+    )
+  p <- ggplot_build(p)
+
+  # Empty guide that survives most steps
+  gd <- get_guide_data(p, "colour")
+  expect_equal(nrow(gd), 0)
+
+  # Draw guides
+  guides <- p$plot$guides$draw(theme_gray(), direction = "vertical")
+
+  # All guide-boxes should be empty
+  expect_equal(lengths(guides, use.names = FALSE), rep(0, 5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
@@ -701,7 +725,7 @@ test_that("guide_axis_stack stacks axes", {
   p <- ggplot(mtcars, aes(hp, disp)) +
     geom_point() +
     theme(axis.line = element_line()) +
-    coord_radial(start = 0.25 * pi, end = 1.75 * pi, donut = 0.5) +
+    coord_radial(start = 0.25 * pi, end = 1.75 * pi, inner.radius = 0.5) +
     guides(theta = top, theta.sec = bottom, r = left, r.sec = right)
   expect_doppelganger("stacked radial axes", p)
 
@@ -949,7 +973,7 @@ test_that("colorbar can be styled", {
     p + scale_color_gradient(low = 'white', high = 'red')
   )
 
-  expect_doppelganger("white-to-red semitransparent colorbar, long thick black ticks, green frame",
+  expect_doppelganger("customized colorbar",
     p + scale_color_gradient(
       low = 'white', high = 'red',
       guide = guide_colorbar(
@@ -959,7 +983,7 @@ test_that("colorbar can be styled", {
           legend.ticks.length = unit(0.4, "npc")
         ), alpha = 0.75
       )
-    )
+    ) + labs(subtitle = "white-to-red semitransparent colorbar, long thick black ticks, green frame")
   )
 })
 
@@ -1086,7 +1110,7 @@ test_that("guide_axis_theta sets relative angle", {
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point() +
     scale_x_continuous(breaks = breaks_width(25)) +
-    coord_radial(donut = 0.5) +
+    coord_radial(inner.radius = 0.5) +
     guides(
       theta = guide_axis_theta(angle = 0, cap = "none"),
       theta.sec = guide_axis_theta(angle = 90, cap = "both")
@@ -1135,6 +1159,23 @@ test_that("guides() warns if unnamed guides are provided", {
     "The 2nd guide is unnamed"
   )
   expect_null(guides())
+})
+
+test_that("legend.byrow works in `guide_legend()`", {
+
+  df <- data.frame(x = 1:6, f = LETTERS[1:6])
+
+  p <- ggplot(df, aes(x, x, colour = f)) +
+    geom_point() +
+    scale_colour_discrete(
+      guide = guide_legend(
+        ncol = 3,
+        theme = theme(legend.byrow = TRUE)
+      )
+    )
+
+  expect_doppelganger("legend.byrow = TRUE", p)
+
 })
 
 test_that("old S3 guides can be implemented", {

@@ -864,7 +864,7 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     if (!is.null(y_scale)) {
       y_scale_orig <- y_scale$clone()
       y_scale_new <- y_scale$clone()
-      y_scale_new$transformation <- params$trans
+      y_scale_new$trans <- params$trans
       # Make sure that oob values are kept
       y_scale_new$oob <- function(x, ...) x
       scales$y <- list(y_scale_orig, y_scale_new)
@@ -1095,3 +1095,161 @@ What we are doing above is to intercept the `compute_layout` and `map_data` meth
 2. Based on the FacetWrap implementation rewrite FacetTrans to take the strip.placement theme setting into account.
 3. Think about which caveats there are in FacetBootstrap specifically related to adding multiple layers with the same data.
 
+## Creating new guides
+
+Guides are closely related to scales and aesthetics, so an important part of guides is taking information from the scale and translating it to a graphic.
+This information is passed around inside guides as a `key` dataframe.
+For existing guides, you can glance at what a key contains by using the `get_guide_data()` function.
+Typical variables you may see in guides are the aesthetic mapped by the scale, such as the hexadecimal colours in the example below, what those aesthetic represent in the `.value` column and how they should be labelled in the `.label` column. 
+Sometimes, the aesthetic is used in computations. 
+To avoid interpreting the values and labels as aesthetics, it is customary to prefix these with `.`.
+
+```{r}
+p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+  geom_point() +
+  scale_colour_discrete(
+    labels = c("4-wheel drive", "front wheel drive", "rear wheel drive")
+  )
+
+get_guide_data(p, "colour")
+```
+
+### Overriding scale extraction
+
+Let's now make a first guide extension by adjusting the guide's key.
+Axes are most straightforward to extend, because they are the least complicated.
+We'll build an axis that accepts custom values for the guide's `key`.
+We can begin by making a custom ggproto class that inherits from the axis guide.
+An important extension point is the `extract_key()` method, which determines how break information is transferred from the scale to the guide.
+In our class, we reject the scale's reality and substitute our own.
+
+```{r}
+GuideKey <- ggproto(
+  "Guide", GuideAxis,
+  
+  # Some parameters are required, so it is easiest to copy the base Guide's
+  # parameters into our new parameters.
+  # We add a new 'key' parameter for our own guide.
+  params = c(GuideAxis$params, list(key = NULL)),
+  
+  # It is important for guides to have a mapped aesthetic with the correct name
+  extract_key = function(scale, aesthetic, key, ...) {
+    key$aesthetic <- scale$map(key$aesthetic)
+    names(key)[names(key) == "aesthetic"] <- aesthetic
+    key
+  }
+)
+```
+
+### Guide constructors
+
+Now we can make a guide constructor that creates a custom key to pass along on.
+The `new_guide()` function instantiates a new guide with the given parameters.
+This function automatically rejects any parameters that are not in the class' `params` field, so it is important to declare these.
+
+```{r}
+guide_key <- function(
+  aesthetic, value = aesthetic, label = as.character(aesthetic),
+  ...,
+  # Standard guide arguments
+  theme = NULL, title = waiver(), order = 0, position = waiver()
+) {
+  
+  key <- data.frame(aesthetic, .value = value, .label = label, ...)
+  
+  new_guide(
+    # Arguments passed on to the GuideKey$params field
+    key = key, theme = theme, title = title, order = order, position = position,
+    # Declare which aesthetics are supported
+    available_aes = c("x", "y"),
+    # Set the guide class
+    super = GuideKey
+  )
+}
+```
+
+Our new guide can now be used inside the `guides()` function or as the `guide` argument in a position scale.
+
+```{r key_example}
+#| fig.alt: >
+#|  Scatterplot of engine displacement versus highway miles per 
+#|  gallon. The x-axis axis ticks are at 2.5, 3.5, 4.5, 5.5 and 6.5.
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  scale_x_continuous(
+    guide = guide_key(aesthetic = 2:6 + 0.5)
+  )
+```
+
+### Custom drawings
+
+If we are feeling more adventurous, we can also alter they way guides are drawn.
+The majority of drawing code is in the `Guide$build_*()` methods, which is all orchestrated by the `Guide$draw()` method.
+For derived guides, such as the custom key guide we're extending here, overriding a `Guide$build_*()` method should be sufficient.
+If you are writing a completely novel guide that does not resemble the structure of any existing guide, overriding the `Guide$draw()` method might be wise.
+
+In this example, we are changing the way the labels are drawn, so we should edit the `Guide$build_labels()` method.
+We'll edit the method so that the labels are drawn with a `colour` set in the key.
+In addition to the `key` and `params` variable we've seen before, we now also have an `elements` variable, which is a list of precomputed theme elements. We can use the `elements$text` element to draw a graphical object (grob) in the style of axis text.
+Perhaps the most finicky thing about drawing guides is that a lot of settings depend on the guide's `position` parameter.
+
+```{r key_ggproto_edit}
+# Same as before
+GuideKey <- ggproto(
+  "Guide", GuideAxis,
+  params = c(GuideAxis$params, list(key = NULL)),
+  extract_key = function(scale, aesthetic, key, ...) {
+    key$aesthetic <- scale$map(key$aesthetic)
+    names(key)[names(key) == "aesthetic"] <- aesthetic
+    key
+  },
+  
+  # New method to draw labels
+  build_labels = function(key, elements, params) {
+    position <- params$position
+    # Downstream code expects a list of labels
+    list(element_grob(
+      elements$text,
+      label = key$.label,
+      x = switch(position, left = 1, right = 0, key$x),
+      y = switch(position, top = 0, bottom = 1, key$y),
+      margin_x = position %in% c("left", "right"),
+      margin_y = position %in% c("top", "bottom"),
+      colour = key$colour
+    ))
+  }
+)
+```
+
+Because we are incorporating the `...` argument to `guide_key()` in the key, adding a `colour` column to the key is straightforward.
+We can check that are guide looks correct in the different positions around the panel.
+
+```{r key_example_2}
+#| fig.alt: >
+#|  Scatterplot of engine displacement versus highway miles per 
+#|  gallon. There are two x-axes at the bottom and top of the plot. The bottom
+#|  has labels alternating in red and gray, and the top has red, green and blue
+#|  labels.
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  guides(
+    x = guide_key(
+      aesthetic = 2:6 + 0.5,
+      colour = c("red", "grey", "red", "grey", "red")
+    ),
+    x.sec = guide_key(
+      aesthetic = c(2, 4, 6), 
+      colour = c("tomato", "limegreen", "dodgerblue")
+    )
+  )
+```
+
+### Exercises
+
+* Extend `guide_key()` to also pass on `family`, `face` and `size` aesthetics from the key to the labels.
+* Override the `GuideKey$build_ticks()` method to also pass on `colour` and `linewidth` settings to the tick marks. 
+  Looking at `Guide$build_ticks()` is a good starting point.
+* Compare `GuideKey$extract_key()` to `Guide$extract_key()`. 
+  What steps have been skimmed over in the example?
