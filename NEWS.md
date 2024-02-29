@@ -1,6 +1,7 @@
 
 # ggplot2 (development version)
 
+* Fixed performance loss when the `.data` pronoun is used in `aes()` (#5730).
 * Fixed bug where discrete scales could not map aesthetics only consisting of
   `NA`s (#5623)
 * Facet evaluation is better at dealing with inherited errors 
