@@ -45,6 +45,8 @@
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
 #'   means no. For details, please see [`coord_cartesian()`].
 #' @export
+#' @seealso
+#' The `r link_book("polygon maps section", "maps#sec-polygonmaps")`
 #' @examples
 #' if (require("maps")) {
 #' nz <- map_data("nz")

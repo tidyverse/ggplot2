@@ -9,6 +9,8 @@
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' The `r link_book("hue and grey scales section", "scales-colour#hue-and-grey-scales")`
 #' @rdname scale_grey
 #' @export
 #' @examples

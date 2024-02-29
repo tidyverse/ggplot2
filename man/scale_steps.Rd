@@ -244,10 +244,12 @@ ggplot(df, aes(x, y)) +
   scale_colour_stepsn(colours = terrain.colors(10))
 }
 \seealso{
-\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying
-palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
+\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying palette,
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-colour#sec-binned-colour}{binned colour scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},

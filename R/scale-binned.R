@@ -10,6 +10,8 @@
 #' @family position scales
 #' @seealso
 #' The [position documentation][aes_position].
+#'
+#' The `r link_book("binned position scales section", "scales-position#sec-binned-position")`
 #' @name scale_binned
 #' @aliases NULL
 #'
