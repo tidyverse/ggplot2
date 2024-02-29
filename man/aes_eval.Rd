@@ -5,6 +5,7 @@
 \alias{after_stat}
 \alias{stat}
 \alias{after_scale}
+\alias{after_coord}
 \alias{stage}
 \title{Control aesthetic evaluation}
 \usage{
@@ -16,7 +17,9 @@ after_stat(x)
 
 after_scale(x)
 
-stage(start = NULL, after_stat = NULL, after_scale = NULL)
+after_coord(x)
+
+stage(start = NULL, after_stat = NULL, after_scale = NULL, after_coord = NULL)
 }
 \arguments{
 \item{x}{<\code{\link[rlang:topic-data-mask]{data-masking}}> An aesthetic expression
@@ -31,6 +34,9 @@ expression using variables calculated by the stat.}
 
 \item{after_scale}{<\code{\link[rlang:topic-data-mask]{data-masking}}> An aesthetic
 expression using layer aesthetics.}
+
+\item{after_coord}{<\code{\link[rlang:topic-data-mask]{data-masking}}> An aesthetic
+expression using variables calculated by the coord.}
 }
 \description{
 Most \link[=aes]{aesthetics} are mapped from variables found in the data.

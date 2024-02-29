@@ -93,7 +93,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     self$range(panel_params)
   },
 
-  transform = function(data, panel_params) {
+  transform_numeric = function(data, panel_params) {
     data <- transform_position(data, panel_params$x$rescale, panel_params$y$rescale)
     transform_position(data, squish_infinite, squish_infinite)
   },

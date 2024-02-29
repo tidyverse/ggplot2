@@ -281,5 +281,6 @@ Collate:
     'utilities-patterns.R'
     'utilities-resolution.R'
     'utilities-tidy-eval.R'
+    'utilities-unit.R'
     'zxx.R'
     'zzz.R'
