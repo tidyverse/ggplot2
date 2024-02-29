@@ -49,8 +49,7 @@
 #' }
 #'
 #' @seealso
-#' The [complete themes section](https://ggplot2-book.org/themes#sec-themes)
-#' of the online book.
+#' The `r link_book("complete themes section", "themes#sec-themes")`
 #'
 #' @examples
 #' mtcars2 <- within(mtcars, {

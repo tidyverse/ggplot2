@@ -36,8 +36,8 @@
 #' @family position scales
 #' @seealso
 #' [sec_axis()] for how to specify secondary axes.
-#' The [date-time position scales section](https://ggplot2-book.org/scales-position#sec-date-scales)
-#' of the online book.
+#'
+#' The `r link_book("date-time position scales section", "scales-position#sec-date-scales")`
 #'
 #' The [position documentation][aes_position].
 #' @examples

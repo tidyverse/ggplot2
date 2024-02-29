@@ -24,8 +24,7 @@
 #' @inheritParams continuous_scale
 #' @family colour scales
 #' @seealso
-#' The [identity scales section](https://ggplot2-book.org/scales-other#sec-scale-identity)
-#' of the online book.
+#' The `r link_book("identity scales section", "scales-other#sec-scale-identity")`
 #' @examples
 #' ggplot(luv_colours, aes(u, v)) +
 #'   geom_point(aes(colour = col), size = 3) +

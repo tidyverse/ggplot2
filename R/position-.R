@@ -37,8 +37,7 @@
 #'   - `required_aes`: a character vector giving the aesthetics
 #'      that must be present for this position adjustment to work.
 #'
-#' See also the [new positions section](https://ggplot2-book.org/extensions#new-positions)
-#' of the online book.
+#' See also the `r link_book("new positions section", "extensions#new-positions")`
 #'
 #' @rdname ggplot2-ggproto
 #' @format NULL

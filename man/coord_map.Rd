@@ -155,7 +155,5 @@ worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 }
 }
 \seealso{
-The
-\href{https://ggplot2-book.org/maps#sec-polygonmaps}{polygon maps section}
-of the online book.
+The \href{https://ggplot2-book.org/maps#sec-polygonmaps}{polygon maps section} of the online ggplot2 book.
 }

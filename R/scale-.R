@@ -96,8 +96,7 @@
 #' @param super The super class to use for the constructed scale
 #'
 #' @seealso
-#' The [new scales section](https://ggplot2-book.org/extensions#sec-new-scales)
-#' of the online book.
+#' The `r link_book("new scales section", "extensions#sec-new-scales")`
 #'
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
@@ -197,8 +196,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #'   missing values be displayed as? Does not apply to position scales
 #'   where `NA` is always placed at the far right.
 #' @seealso
-#' The [new scales section](https://ggplot2-book.org/extensions#sec-new-scales)
-#' of the online book.
+#' The `r link_book("new scales section", "extensions#sec-new-scales")`
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                            breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
@@ -281,8 +279,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 #'   the left (open on the right).
 #' @param show.limits should the limits of the scale appear as ticks
 #' @seealso
-#' The [new scales section](https://ggplot2-book.org/extensions#sec-new-scales)
-#' of the online book.
+#' The `r link_book("new scales section", "extensions#sec-new-scales")`
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,

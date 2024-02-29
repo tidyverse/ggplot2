@@ -148,6 +148,5 @@ ggplot(economics_long, aes(date, value)) +
 }
 }
 \seealso{
-The \href{https://ggplot2-book.org/facet#sec-facet-wrap}{facet wrap section} of
-the online book.
+The \href{https://ggplot2-book.org/facet#sec-facet-wrap}{facet wrap section} of the online ggplot2 book.
 }

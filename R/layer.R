@@ -73,9 +73,7 @@
 #'   intended for ggplot2 internal use only.
 #' @keywords internal
 #' @seealso
-#' The [build a plot layer by layer chapter](https://ggplot2-book.org/scales-other#sec-scale-identity),
-#' and [individual geoms chapter](https://ggplot2-book.org/individual-geoms)
-#' of the online book.
+#' The `r link_book(c("plot building chapter", "geoms chapter"), c("layers", "individual-geoms"))`
 #' @family layer documentation
 #' @examples
 #' # geom calls are just a short cut for layer

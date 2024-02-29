@@ -13,8 +13,7 @@
 #'   means no. For details, please see [`coord_cartesian()`].
 #' @export
 #' @seealso
-#' The [polar coordinates section](https://ggplot2-book.org/coord#polar-coordinates-with-coord_polar)
-#' of the online book.
+#' The `r link_book("polar coordinates section", "coord#polar-coordinates-with-coord_polar")`
 #' @examples
 #' # NOTE: Use these plots with caution - polar coordinates has
 #' # major perceptual problems.  The main point of these examples is

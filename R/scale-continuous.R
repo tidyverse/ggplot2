@@ -12,9 +12,8 @@
 #' @family position scales
 #' @seealso
 #' The [position documentation][aes_position].
-#' The
-#' [numeric position scales section](https://ggplot2-book.org/scales-position#sec-numeric-position-scales)
-#' of the online book.
+#'
+#' The `r link_book("numeric position scales section", "scales-position#sec-numeric-position-scales")`
 #'
 #' @param ... Other arguments passed on to `scale_(x|y)_continuous()`
 #' @examples

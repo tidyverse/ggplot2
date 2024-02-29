@@ -40,8 +40,7 @@
 #' @family colour scales
 #' @rdname scale_colour_continuous
 #' @seealso
-#' The [continuous colour scales section](https://ggplot2-book.org/scales-colour#sec-colour-continuous)
-#' of the online book.
+#' The `r link_book("continuous colour scales section", "scales-colour#sec-colour-continuous")`
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with

@@ -24,7 +24,6 @@ a single display, preserving aspect ratios across the plots.
 for functions that contain the complete set of steps for generating
 a ggplot2 plot.
 
-The \href{https://ggplot2-book.org/internals#sec-ggplotgtable}{gtable step section}
-of the online book.
+The \href{https://ggplot2-book.org/internals#sec-ggplotgtable}{gtable step section} of the online ggplot2 book.
 }
 \keyword{internal}

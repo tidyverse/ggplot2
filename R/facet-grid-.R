@@ -71,8 +71,7 @@ NULL
 #'   respectively.
 #' @export
 #' @seealso
-#' The [facet grid section](https://ggplot2-book.org/facet#facet-grid) of the
-#' online book.
+#' The `r link_book("facet grid section", "facet#facet-grid")`
 #' @examples
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 #'

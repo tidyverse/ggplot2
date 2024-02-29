@@ -20,9 +20,8 @@
 #'   you must specify at least one of these.
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @seealso The
-#'  [building custom annotations section](https://ggplot2-book.org/annotations#sec-custom-annotations)
-#'  of the online book.
+#' @seealso
+#' The `r link_book("custom annotations section", "annotations#sec-custom-annotations")`
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()

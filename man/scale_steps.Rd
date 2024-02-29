@@ -249,8 +249,7 @@ ggplot(df, aes(x, y)) +
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
-The \href{https://ggplot2-book.org/scales-colour#sec-binned-colour}{binned colour scales section}
-of the online book.
+The \href{https://ggplot2-book.org/scales-colour#sec-binned-colour}{binned colour scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},

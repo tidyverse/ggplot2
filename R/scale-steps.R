@@ -21,8 +21,7 @@
 #'
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #'
-#' The [binned colour scales section](https://ggplot2-book.org/scales-colour#sec-binned-colour)
-#' of the online book.
+#' The `r link_book("binned colour scales section", "scales-colour#sec-binned-colour")`
 #' @family colour scales
 #' @export
 #' @examples

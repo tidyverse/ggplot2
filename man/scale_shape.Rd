@@ -111,6 +111,5 @@ The documentation for \link[=aes_linetype_size_shape]{differentiation related ae
 
 Other shape scales: \code{\link[=scale_shape_manual]{scale_shape_manual()}}, \code{\link[=scale_shape_identity]{scale_shape_identity()}}.
 
-The \href{https://ggplot2-book.org/scales-other#sec-scale-shape}{shape section}
-of the online book.
+The \href{https://ggplot2-book.org/scales-other#sec-scale-shape}{shape section} of the online ggplot2 book.
 }

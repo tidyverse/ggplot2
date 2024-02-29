@@ -157,8 +157,8 @@ ggplot(mtcars, aes(mpg, wt)) +
 }
 \seealso{
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
-The \href{https://ggplot2-book.org/scales-colour#hue-and-grey-scales}{hue and grey scales section}
-of the online book.
+
+The \href{https://ggplot2-book.org/scales-colour#hue-and-grey-scales}{hue and grey scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},

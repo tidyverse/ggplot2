@@ -16,8 +16,8 @@
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
-#' The [hue and grey scales section](https://ggplot2-book.org/scales-colour#hue-and-grey-scales)
-#' of the online book.
+#'
+#' The `r link_book("hue and grey scales section", "scales-colour#hue-and-grey-scales")`
 #' @examples
 #' \donttest{
 #' set.seed(596)
@@ -100,8 +100,7 @@ scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
 #'   [scale_fill_brewer()], etc).
 #' @export
 #' @seealso
-#' The [discrete colour scales section](https://ggplot2-book.org/scales-colour#sec-colour-discrete)
-#' of the online book.
+#' The `r link_book("discrete colour scales section", "scales-colour#sec-colour-discrete")`
 #' @examples
 #' # Template function for creating densities grouped by a variable
 #' cty_by_var <- function(var) {

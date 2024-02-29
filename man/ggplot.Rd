@@ -116,6 +116,5 @@ ggplot() +
   )
 }
 \seealso{
-The \href{https://ggplot2-book.org/getting-started}{first steps chapter}
-of the online book.
+The \href{https://ggplot2-book.org/getting-started}{first steps chapter} of the online ggplot2 book.
 }

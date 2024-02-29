@@ -210,6 +210,5 @@ p + scale_radius()
 
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
 
-The \href{https://ggplot2-book.org/scales-other#sec-scale-size}{size section} of
-the online book.
+The \href{https://ggplot2-book.org/scales-other#sec-scale-size}{size section} of the online ggplot2 book.
 }

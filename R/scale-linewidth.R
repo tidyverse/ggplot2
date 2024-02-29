@@ -11,8 +11,7 @@
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
-#' The [line width section](https://ggplot2-book.org/scales-other#sec-scale-linewidth)
-#' of the online book.
+#' The `r link_book("line width section", "scales-other#sec-scale-linewidth")`
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @examples

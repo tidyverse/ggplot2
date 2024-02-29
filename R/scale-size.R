@@ -25,8 +25,7 @@
 #'
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
-#' The [size section](https://ggplot2-book.org/scales-other#sec-scale-size) of
-#' the online book.
+#' The `r link_book("size section", "scales-other#sec-scale-size")`
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
 #'    geom_point()

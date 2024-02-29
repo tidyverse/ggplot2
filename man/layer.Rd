@@ -126,9 +126,7 @@ ggplot(mpg, aes(displ, hwy)) +
 
 }
 \seealso{
-The \href{https://ggplot2-book.org/scales-other#sec-scale-identity}{build a plot layer by layer chapter},
-and \href{https://ggplot2-book.org/individual-geoms}{individual geoms chapter}
-of the online book.
+The \href{https://ggplot2-book.org/layers}{plot building chapter} and \href{https://ggplot2-book.org/individual-geoms}{geoms chapter} of the online ggplot2 book.
 
 Other layer documentation: 
 \code{\link{layer_geoms}},

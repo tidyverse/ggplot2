@@ -313,7 +313,5 @@ ggplot(df, aes(x, y)) +
 }
 }
 \seealso{
-The
-\href{https://ggplot2-book.org/annotations#sec-text-labels}{text labels section}
-of the online book.
+The \href{https://ggplot2-book.org/annotations#sec-text-labels}{text labels section} of the online ggplot2 book.
 }

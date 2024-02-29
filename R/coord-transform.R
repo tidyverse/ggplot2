@@ -12,8 +12,7 @@
 #' @param x,y Transformers for x and y axes or their names.
 #' @param limx,limy `r lifecycle::badge("deprecated")` use `xlim` and `ylim` instead.
 #' @seealso
-#' The [coord transformations section](https://ggplot2-book.org/coord#transformations-with-coord_trans)
-#' of the online book.
+#' The `r link_book("coord transformations section", "coord#transformations-with-coord_trans")`
 #' @export
 #' @examples
 #' \donttest{

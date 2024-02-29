@@ -14,8 +14,7 @@
 #'
 #' Other linetype scales: [scale_linetype_manual()], [scale_linetype_identity()].
 #'
-#' The [line type section](https://ggplot2-book.org/scales-other#sec-scale-linetype)
-#' of the online book.
+#' The `r link_book("line type section", "scales-other#sec-scale-linetype")`
 #' @export
 #' @examples
 #' base <- ggplot(economics_long, aes(date, value01))

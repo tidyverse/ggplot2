@@ -180,6 +180,5 @@ p2 + theme_void()
 }
 }
 \seealso{
-The \href{https://ggplot2-book.org/themes#sec-themes}{complete themes section}
-of the online book.
+The \href{https://ggplot2-book.org/themes#sec-themes}{complete themes section} of the online ggplot2 book.
 }

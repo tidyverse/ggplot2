@@ -201,16 +201,14 @@
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @export
 #' @seealso
 #'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
-#' @export
-#' @seealso
-#' The [modifying theme components section](https://ggplot2-book.org/themes#modifying-theme-components)
-#' and [theme elements section](https://ggplot2-book.org/themes#sec-theme-elements)
-#' of the online book.
+#'
+#' The `r link_book(c("modifying theme components", "theme elements sections"), c("themes#modifying-theme-components", "themes#sec-theme-elements"))`
 #' @examples
 #' p1 <- ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +

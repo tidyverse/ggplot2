@@ -181,8 +181,7 @@ p2 +
   )))
 }
 \seealso{
-The \href{https://ggplot2-book.org/scales-colour#sec-guide-colourbar}{continuous legend section}
-of the online book.
+The \href{https://ggplot2-book.org/scales-colour#sec-guide-colourbar}{continuous legend section} of the online ggplot2 book.
 
 Other guides: 
 \code{\link{guide_bins}()},

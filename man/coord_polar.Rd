@@ -117,6 +117,5 @@ ggplot(mtcars, aes(disp, mpg)) +
   coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
 }
 \seealso{
-The \href{https://ggplot2-book.org/coord#polar-coordinates-with-coord_polar}{polar coordinates section}
-of the online book.
+The \href{https://ggplot2-book.org/coord#polar-coordinates-with-coord_polar}{polar coordinates section} of the online ggplot2 book.
 }

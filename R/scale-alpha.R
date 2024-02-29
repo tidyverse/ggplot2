@@ -17,8 +17,7 @@
 #'
 #' Other alpha scales: [scale_alpha_manual()], [scale_alpha_identity()].
 #'
-#' The [alpha scales section](https://ggplot2-book.org/scales-colour#sec-scales-alpha)
-#' of the online book.
+#' The `r link_book("alpha scales section", "scales-colour#sec-scales-alpha")`
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) +

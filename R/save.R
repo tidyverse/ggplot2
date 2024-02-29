@@ -51,8 +51,7 @@
 #'   as specified by `device`.
 #'
 #' @seealso
-#' The [saving section](https://ggplot2-book.org/themes#sec-saving) of the
-#' online book.
+#' The `r link_book("saving section", "themes#sec-saving")`
 #' @export
 #' @examples
 #' \dontrun{

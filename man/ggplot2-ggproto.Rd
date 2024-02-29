@@ -207,8 +207,7 @@ default values for aesthetics.
 and ymin and ymax values. It can potentially set other values as well.
 }
 
-See also the \href{https://ggplot2-book.org/extensions#sec-new-geoms}{new geoms section}
-of the online book.
+See also the \href{https://ggplot2-book.org/extensions#sec-new-geoms}{new geoms section} of the online ggplot2 book.
 }
 
 \section{Coordinate systems}{
@@ -259,8 +258,7 @@ system to manipulate the \code{layout} data frame which assigns
 data to panels and scales.
 }
 
-See also the \href{https://ggplot2-book.org/extensions#sec-new-coords}{new coords section}
-of the online book.
+See also the \href{https://ggplot2-book.org/extensions#sec-new-coords}{new coords section} of the online ggplot2 book.
 }
 
 \section{Facets}{
@@ -332,8 +330,7 @@ information into this field. The only exception is the \code{shrink}
 parameter which is used to determine if scales are retrained after Stat
 transformations has been applied.
 
-See also the \href{https://ggplot2-book.org/extensions#new-facets}{new facets section}
-of the online book.
+See also the \href{https://ggplot2-book.org/extensions#new-facets}{new facets section} of the online ggplot2 book.
 }
 
 \section{Stats}{
@@ -386,8 +383,7 @@ render the geom.
 default values for aesthetics.
 }
 
-See also the \href{https://ggplot2-book.org/extensions#sec-new-stats}{new stats section}
-of the online book.
+See also the \href{https://ggplot2-book.org/extensions#sec-new-stats}{new stats section} of the online ggplot2 book.
 }
 
 \section{Guides}{
@@ -509,8 +505,7 @@ And the following fields
 that must be present for this position adjustment to work.
 }
 
-See also the \href{https://ggplot2-book.org/extensions#new-positions}{new positions section}
-of the online book.
+See also the \href{https://ggplot2-book.org/extensions#new-positions}{new positions section} of the online ggplot2 book.
 }
 
 \section{Scales}{

@@ -63,9 +63,8 @@
 #'   (`"mm"`, default), points (`"pt"`), centimetres (`"cm"`), inches (`"in"`),
 #'   or picas (`"pc"`).
 #' @export
-#' @seealso The
-#'  [text labels section](https://ggplot2-book.org/annotations#sec-text-labels)
-#'  of the online book.
+#' @seealso
+#' The `r link_book("text labels section", "annotations#sec-text-labels")`
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 #'

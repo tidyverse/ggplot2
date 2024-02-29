@@ -34,8 +34,7 @@
 #'   inherit from any object.
 #' @param ... A list of members in the ggproto object.
 #' @seealso
-#' The [ggproto introduction section](https://ggplot2-book.org/internals#sec-ggproto)
-#' of the online book.
+#' The `r link_book("ggproto introduction section", "internals#sec-ggproto")`
 #' @export
 #' @examples
 #' Adder <- ggproto("Adder",

@@ -33,8 +33,7 @@
 #' @export
 #' @family guides
 #' @seealso
-#' The [legends section](https://ggplot2-book.org/scales-colour#sec-guide-legend)
-#' of the online book.
+#' The `r link_book("legends section", "scales-colour#sec-guide-legend")`
 #' @examples
 #' \donttest{
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)

@@ -16,8 +16,8 @@
 #' @family position scales
 #' @seealso
 #' The [position documentation][aes_position].
-#' The [discrete position scales section](https://ggplot2-book.org/scales-position#sec-discrete-position)
-#' of the online book.
+#'
+#' The `r link_book("discrete position scales section", "scales-position#sec-discrete-position")`
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(cut)) + geom_bar()

@@ -36,8 +36,7 @@ NULL
 #'   x- or y-direction respectively.
 #' @inheritParams facet_grid
 #' @seealso
-#' The [facet wrap section](https://ggplot2-book.org/facet#sec-facet-wrap) of
-#' the online book.
+#' The `r link_book("facet wrap section", "facet#sec-facet-wrap")`
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) + geom_point()

@@ -230,9 +230,8 @@ p1 + scale_y_continuous(transform = scales::transform_reciprocal())
 }
 \seealso{
 The \link[=aes_position]{position documentation}.
-The
-\href{https://ggplot2-book.org/scales-position#sec-numeric-position-scales}{numeric position scales section}
-of the online book.
+
+The \href{https://ggplot2-book.org/scales-position#sec-numeric-position-scales}{numeric position scales section} of the online ggplot2 book.
 
 Other position scales: 
 \code{\link{scale_x_binned}()},

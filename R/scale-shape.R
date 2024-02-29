@@ -17,8 +17,7 @@
 #'
 #' Other shape scales: [scale_shape_manual()], [scale_shape_identity()].
 #'
-#' The [shape section](https://ggplot2-book.org/scales-other#sec-scale-shape)
-#' of the online book.
+#' The `r link_book("shape section", "scales-other#sec-scale-shape")`
 #' @export
 #' @examples
 #' set.seed(596)
