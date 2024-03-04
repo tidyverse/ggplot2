@@ -12,6 +12,8 @@
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
 #'   means no. For details, please see [`coord_cartesian()`].
 #' @export
+#' @seealso
+#' The `r link_book("polar coordinates section", "coord#polar-coordinates-with-coord_polar")`
 #' @examples
 #' # NOTE: Use these plots with caution - polar coordinates has
 #' # major perceptual problems.  The main point of these examples is

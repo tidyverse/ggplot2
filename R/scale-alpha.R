@@ -16,6 +16,8 @@
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #'
 #' Other alpha scales: [scale_alpha_manual()], [scale_alpha_identity()].
+#'
+#' The `r link_book("alpha scales section", "scales-colour#sec-scales-alpha")`
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) +

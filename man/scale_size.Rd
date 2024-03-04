@@ -205,9 +205,10 @@ ggplot(mpg, aes(class, cyl)) +
 p + scale_radius()
 }
 \seealso{
-\code{\link[=scale_size_area]{scale_size_area()}} if you want 0 values to be mapped
-to points with size 0. \code{\link[=scale_linewidth]{scale_linewidth()}} if you want to scale the width
-of lines.
+\code{\link[=scale_size_area]{scale_size_area()}} if you want 0 values to be mapped to points with size 0.
+\code{\link[=scale_linewidth]{scale_linewidth()}} if you want to scale the width of lines.
 
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-other#sec-scale-size}{size section} of the online ggplot2 book.
 }

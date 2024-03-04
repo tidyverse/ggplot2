@@ -129,4 +129,6 @@ p + scale_linewidth_binned()
 }
 \seealso{
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-other#sec-scale-linewidth}{line width section} of the online ggplot2 book.
 }

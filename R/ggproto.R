@@ -41,6 +41,8 @@
 #'   inherit from any object.
 #' @param ... A list of named members in the ggproto object. These can be
 #'   functions that become methods of the class or regular objects.
+#' @seealso
+#' The `r link_book("ggproto introduction section", "internals#sec-ggproto")`
 #' @export
 #' @examples
 #' Adder <- ggproto("Adder",

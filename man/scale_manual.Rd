@@ -177,6 +177,8 @@ The documentation for \link[=aes_linetype_size_shape]{differentiation related ae
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
+The \href{https://ggplot2-book.org/scales-other#sec-scale-manual}{manual scales} and \href{https://ggplot2-book.org/scales-colour#sec-manual-colour}{manual colour scales sections} of the online ggplot2 book.
+
 Other size scales: \code{\link[=scale_size]{scale_size()}}, \code{\link[=scale_size_identity]{scale_size_identity()}}.
 
 Other shape scales: \code{\link[=scale_shape]{scale_shape()}}, \code{\link[=scale_shape_identity]{scale_shape_identity()}}.

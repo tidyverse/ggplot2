@@ -48,6 +48,8 @@
 #'   - `dropped_aes` is a vecor of aesthetic names that are safe to drop after
 #'     statistical transformation. A classic example is the `weight` aesthetic
 #'     that is consumed during computation of the stat.
+#'
+#' See also the `r link_book("new stats section", "extensions#sec-new-stats")`
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL

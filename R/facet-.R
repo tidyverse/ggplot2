@@ -74,6 +74,8 @@ NULL
 #' parameter which is used to determine if scales are retrained after Stat
 #' transformations has been applied.
 #'
+#' See also the `r link_book("new facets section", "extensions#new-facets")`
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL

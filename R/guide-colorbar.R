@@ -46,6 +46,8 @@ NULL
 #' @return A guide object
 #' @export
 #' @family guides
+#' @seealso
+#' The `r link_book("continuous legend section", "scales-colour#sec-guide-colourbar")`
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2

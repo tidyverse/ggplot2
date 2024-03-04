@@ -206,6 +206,8 @@ default values for aesthetics.
 \item \code{setup_data}: Converts width and height to xmin and xmax,
 and ymin and ymax values. It can potentially set other values as well.
 }
+
+See also the \href{https://ggplot2-book.org/extensions#sec-new-geoms}{new geoms section} of the online ggplot2 book.
 }
 
 \section{Coordinate systems}{
@@ -255,6 +257,8 @@ manipulate the plot data. Should return list of data frames.
 system to manipulate the \code{layout} data frame which assigns
 data to panels and scales.
 }
+
+See also the \href{https://ggplot2-book.org/extensions#sec-new-coords}{new coords section} of the online ggplot2 book.
 }
 
 \section{Facets}{
@@ -325,6 +329,8 @@ argument, so the constructor function will generally put all relevant
 information into this field. The only exception is the \code{shrink}
 parameter which is used to determine if scales are retrained after Stat
 transformations has been applied.
+
+See also the \href{https://ggplot2-book.org/extensions#new-facets}{new facets section} of the online ggplot2 book.
 }
 
 \section{Stats}{
@@ -379,6 +385,8 @@ default values for aesthetics.
 statistical transformation. A classic example is the \code{weight} aesthetic
 that is consumed during computation of the stat.
 }
+
+See also the \href{https://ggplot2-book.org/extensions#sec-new-stats}{new stats section} of the online ggplot2 book.
 }
 
 \section{Guides}{
@@ -499,6 +507,8 @@ And the following fields
 \item \code{required_aes}: a character vector giving the aesthetics
 that must be present for this position adjustment to work.
 }
+
+See also the \href{https://ggplot2-book.org/extensions#new-positions}{new positions section} of the online ggplot2 book.
 }
 
 \section{Scales}{

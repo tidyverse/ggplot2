@@ -32,6 +32,8 @@
 #' @param ... ignored.
 #' @export
 #' @family guides
+#' @seealso
+#' The `r link_book("legends section", "scales-colour#sec-guide-legend")`
 #' @examples
 #' \donttest{
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)

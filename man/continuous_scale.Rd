@@ -151,4 +151,7 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 \description{
 Continuous scale constructor
 }
+\seealso{
+The \href{https://ggplot2-book.org/extensions#sec-new-scales}{new scales section} of the online ggplot2 book.
+}
 \keyword{internal}

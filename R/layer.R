@@ -72,6 +72,8 @@
 #' @param layer_class The type of layer object to be constructed. This is
 #'   intended for ggplot2 internal use only.
 #' @keywords internal
+#' @seealso
+#' The `r link_book(c("plot building chapter", "geoms chapter"), c("layers", "individual-geoms"))`
 #' @family layer documentation
 #' @examples
 #' # geom calls are just a short cut for layer

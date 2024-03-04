@@ -158,6 +158,8 @@ ggplot(mtcars) +
 \seealso{
 The \link[=aes_position]{position documentation}.
 
+The \href{https://ggplot2-book.org/scales-position#sec-binned-position}{binned position scales section} of the online ggplot2 book.
+
 Other position scales: 
 \code{\link{scale_x_continuous}()},
 \code{\link{scale_x_date}()},
