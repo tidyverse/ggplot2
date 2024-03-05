@@ -1,7 +1,7 @@
 #' @rdname stat_summary
 #' @inheritParams stat_bin
 #' @param breaks Alternatively, you can supply a numeric vector giving the bin
-#'   boundaries.
+#'   boundaries. Overrides `binwidth` and `bins`.
 #' @export
 stat_summary_bin <- function(mapping = NULL, data = NULL,
                              geom = "pointrange", position = "identity",
