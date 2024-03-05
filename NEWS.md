@@ -10,6 +10,7 @@
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* Theme elements that do not exist now throw warnings instead of errors (#5719).
 
 # ggplot2 3.5.0
 
