@@ -105,6 +105,8 @@
 #' plot(my_data)
 #' ```
 #'
+#' @family plotting automation topics
+#'
 #' @name automatic_plotting
 NULL
 
@@ -118,7 +120,7 @@ NULL
 #' @param ... other arguments passed to specific methods
 #' @return a ggplot object
 #' @export
-#' @seealso [autolayer()], [ggplot()] and [fortify()]
+#' @family plotting automation topics
 autoplot <- function(object, ...) {
   UseMethod("autoplot")
 }
