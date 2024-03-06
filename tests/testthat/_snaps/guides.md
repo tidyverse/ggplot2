@@ -54,7 +54,7 @@
 
 # guide_axis_logticks calculates appropriate ticks
 
-    The `prescale_base` argument will override the scale's log-10 transformation in log-tick positioning.
+    The `prescale.base` argument will override the scale's log-10 transformation in log-tick positioning.
 
 # binning scales understand the different combinations of limits, breaks, labels, and show.limits
 
