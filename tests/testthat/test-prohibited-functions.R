@@ -115,6 +115,7 @@ test_that("No new argument names use underscores", {
 
   underscore_args <- lapply(formals, function(x) x[grep("_", x, fixed = TRUE)])
   underscore_args <- underscore_args[lengths(underscore_args) > 0]
+  underscore_args <- underscore_args[order(names(underscore_args))]
 
   expect_snapshot(underscore_args)
 })
