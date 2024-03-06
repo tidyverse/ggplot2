@@ -750,14 +750,14 @@ test_that("logticks look as they should", {
     guides(
       x = guide_axis_logticks(
         title = "Pseudo-logticks with 1 as smallest tick",
-        negative_small = 1
+        negative.small = 1
       ),
       y = guide_axis_logticks(
         title = "Inverted logticks with swapped tick lengths",
         long = 0.75, short = 2.25
       ),
       x.sec = guide_axis_logticks(
-        negative_small = 0.1,
+        negative.small = 0.1,
         title = "Negative length pseudo-logticks with 0.1 as smallest tick"
       ),
       y.sec = guide_axis_logticks(
