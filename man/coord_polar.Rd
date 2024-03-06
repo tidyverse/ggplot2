@@ -53,7 +53,7 @@ alignment with the coordinates.}
 
 \item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a inner.radius hole.}
 
-\item{r_axis_inside, rotate_angle}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}.}
+\item{r_axis_inside, rotate_angle}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 The polar coordinate system is most commonly used for pie charts, which
