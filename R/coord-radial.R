@@ -151,7 +151,11 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     guide_params[["theta"]]$position     <- "theta"
     guide_params[["theta.sec"]]$position <- "theta.sec"
 
-    opposite_r <- isTRUE(scales$r$position %in% c("top", "right"))
+    if (self$theta == "x") {
+      opposite_r <- isTRUE(scales$r$position %in% c("top", "right"))
+    } else {
+      opposite_r <- isTRUE(scales$r$position %in% c("bottom", "left"))
+    }
 
     if (self$r_axis_inside) {
 
