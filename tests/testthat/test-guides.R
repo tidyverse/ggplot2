@@ -501,6 +501,34 @@ test_that("empty guides are dropped", {
   expect_equal(lengths(guides, use.names = FALSE), rep(0, 5))
 })
 
+test_that("bins can be parsed by guides for all scale types", {
+
+  breaks <- c(90, 100, 200, 300)
+  limits <- c(0, 1000)
+
+  sc <- scale_colour_continuous(breaks = breaks)
+  sc$train(limits)
+
+  expect_equal(parse_binned_breaks(sc)$breaks, breaks)
+
+  sc <- scale_colour_binned(breaks = breaks)
+  sc$train(limits)
+
+  expect_equal(parse_binned_breaks(sc)$breaks, breaks)
+
+  # Note: discrete binned breaks treats outer breaks as limits
+  cut <- cut(c(0, 95, 150, 250, 1000), breaks = breaks)
+
+  sc <- scale_colour_discrete()
+  sc$train(cut)
+
+  parsed <- parse_binned_breaks(sc)
+  expect_equal(
+    sort(c(parsed$limits, parsed$breaks)),
+    breaks
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
