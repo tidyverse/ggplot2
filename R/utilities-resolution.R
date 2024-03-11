@@ -17,9 +17,11 @@
 #' # Note the difference between numeric and integer vectors
 #' resolution(c(2, 10, 20, 50))
 #' resolution(c(2L, 10L, 20L, 50L))
-resolution <- function(x, zero = TRUE) {
-  if (is.integer(x) || is_mapped_discrete(x) ||
-      zero_range(range(x, na.rm = TRUE))) {
+resolution <- function(x, zero = TRUE, discrete = FALSE) {
+  if (is.integer(x) || zero_range(range(x, na.rm = TRUE))) {
+    return(1)
+  }
+  if (discrete && is_mapped_discrete(x)) {
     return(1)
   }
 
