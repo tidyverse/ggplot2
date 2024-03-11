@@ -8,6 +8,8 @@
 #' @param x numeric vector
 #' @param zero should a zero value be automatically included in the
 #'   computation of resolution
+#' @param discrete should vectors mapped with a discrete scale be treated as
+#'   having a resolution of 1?
 #' @export
 #' @examples
 #' resolution(1:10)
