@@ -10,6 +10,9 @@
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* The `arrow.fill` parameter is now applied to more line-based functions: 
+  `geom_path()`, `geom_line()`, `geom_function()`, line geometries in 
+  `geom_sf()` and `element_line()`.
 
 # ggplot2 3.5.0
 
