@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* The default behaviour of `resolution()` has been reverted to pre-3.5.0 
+  behaviour. Whether mapped discrete vectors should be treated as having 
+  resolution of 1 is controlled by the new `discrete` argument.
+
 # ggplot2 3.5.0
 
 This is a minor release that turned out quite beefy. It is focused on 
