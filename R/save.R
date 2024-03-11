@@ -49,6 +49,9 @@
 #'   a prompt will appear asking to create a new directory when necessary.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
+#'
+#' @seealso
+#' The `r link_book("saving section", "themes#sec-saving")`
 #' @export
 #' @examples
 #' \dontrun{

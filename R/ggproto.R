@@ -33,6 +33,8 @@
 #' @param _inherit ggproto object to inherit from. If `NULL`, don't
 #'   inherit from any object.
 #' @param ... A list of members in the ggproto object.
+#' @seealso
+#' The `r link_book("ggproto introduction section", "internals#sec-ggproto")`
 #' @export
 #' @examples
 #' Adder <- ggproto("Adder",

@@ -109,3 +109,6 @@ plot + coord_trans(x = "log10")
 plot + coord_trans(x = "sqrt")
 }
 }
+\seealso{
+The \href{https://ggplot2-book.org/coord#transformations-with-coord_trans}{coord transformations section} of the online ggplot2 book.
+}

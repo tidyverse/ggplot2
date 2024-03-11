@@ -103,4 +103,6 @@ ggplot(df_lines) +
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
 
 Other linetype scales: \code{\link[=scale_linetype_manual]{scale_linetype_manual()}}, \code{\link[=scale_linetype_identity]{scale_linetype_identity()}}.
+
+The \href{https://ggplot2-book.org/scales-other#sec-scale-linetype}{line type section} of the online ggplot2 book.
 }

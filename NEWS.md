@@ -1,5 +1,15 @@
+
 # ggplot2 (development version)
 
+* Fixed performance loss when the `.data` pronoun is used in `aes()` (#5730).
+* Fixed bug where discrete scales could not map aesthetics only consisting of
+  `NA`s (#5623)
+* Facet evaluation is better at dealing with inherited errors 
+  (@teunbrand, #5670).
+* Fixed spurious warnings from `sec_axis()` with `breaks = NULL` (#5713).
+* Patterns and gradients are now also enabled in `geom_sf()` 
+  (@teunbrand, #5716).
+* `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
 * The default behaviour of `resolution()` has been reverted to pre-3.5.0 
   behaviour. Whether mapped discrete vectors should be treated as having 
   resolution of 1 is controlled by the new `discrete` argument.

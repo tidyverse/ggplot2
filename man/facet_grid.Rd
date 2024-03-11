@@ -155,3 +155,6 @@ mg + facet_grid(vs + am ~ gear, margins = "am")
 mg + facet_grid(vs + am ~ gear, margins = "vs")
 }
 }
+\seealso{
+The \href{https://ggplot2-book.org/facet#facet-grid}{facet grid section} of the online ggplot2 book.
+}

@@ -126,6 +126,7 @@ the left (open on the right).}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{labels}}{One of:
@@ -243,10 +244,12 @@ ggplot(df, aes(x, y)) +
   scale_colour_stepsn(colours = terrain.colors(10))
 }
 \seealso{
-\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying
-palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
+\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying palette,
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-colour#sec-binned-colour}{binned colour scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},

@@ -121,6 +121,7 @@ Collate:
     'coord-sf.R'
     'coord-transform.R'
     'data.R'
+    'docs_layer.R'
     'facet-.R'
     'facet-grid-.R'
     'facet-null.R'

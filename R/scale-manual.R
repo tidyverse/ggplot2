@@ -35,6 +35,8 @@
 #'
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #'
+#' The `r link_book(c("manual scales", "manual colour scales sections"), c("scales-other#sec-scale-manual", "scales-colour#sec-manual-colour"))`
+#'
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with

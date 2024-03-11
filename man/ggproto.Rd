@@ -80,3 +80,6 @@ Doubler <- ggproto("Doubler", Adder,
 Doubler$x
 Doubler$add(10)
 }
+\seealso{
+The \href{https://ggplot2-book.org/internals#sec-ggproto}{ggproto introduction section} of the online ggplot2 book.
+}

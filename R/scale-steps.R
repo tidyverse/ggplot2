@@ -15,10 +15,13 @@
 #' @inheritParams scale_colour_gradient
 #' @inheritDotParams binned_scale -aesthetics -scale_name -palette -na.value -guide -rescaler
 #'
-#' @seealso [scales::pal_seq_gradient()] for details on underlying
-#'   palette, [scale_colour_gradient()] for continuous scales without binning.
+#' @seealso
+#' [scales::pal_seq_gradient()] for details on underlying palette,
+#' [scale_colour_gradient()] for continuous scales without binning.
 #'
-#'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' The `r link_book("binned colour scales section", "scales-colour#sec-binned-colour")`
 #' @family colour scales
 #' @export
 #' @examples
