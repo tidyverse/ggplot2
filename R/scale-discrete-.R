@@ -134,7 +134,21 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   map = function(self, x, limits = self$get_limits()) {
     if (is.discrete(x)) {
-      x <- seq_along(limits)[match(as.character(x), limits)]
+      values <- self$palette(limits)
+      if (!is.numeric(values)) {
+        cli::cli_abort(
+          "The {.arg palette} function must return a {.cls numeric} vector.",
+          call = self$call
+        )
+      }
+      if (length(values) < length(limits)) {
+        cli::cli_abort(
+          "The {.arg palette} function must return at least \\
+            {length(limits)} values.",
+          call = self$call
+        )
+      }
+      x <- values[match(as.character(x), limits)]
     }
     mapped_discrete(x)
   },
