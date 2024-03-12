@@ -12,6 +12,8 @@
 #'
 #' @inheritDotParams discrete_scale
 #' @inheritParams discrete_scale
+#' @param palette A function that takes the limits as input and provides
+#'   numerical values as output.
 #' @rdname scale_discrete
 #' @family position scales
 #' @seealso
@@ -63,11 +65,12 @@
 #'   geom_point() +
 #'   scale_x_discrete(labels = abbreviate)
 #' }
-scale_x_discrete <- function(name = waiver(), ..., expand = waiver(),
+scale_x_discrete <- function(name = waiver(), ..., palette = seq_along,
+                             expand = waiver(),
                              guide = waiver(), position = "bottom") {
   sc <- discrete_scale(
     aesthetics = c("x", "xmin", "xmax", "xend"), name = name,
-    palette = identity, ...,
+    palette = palette, ...,
     expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition
   )
@@ -77,11 +80,12 @@ scale_x_discrete <- function(name = waiver(), ..., expand = waiver(),
 }
 #' @rdname scale_discrete
 #' @export
-scale_y_discrete <- function(name = waiver(), ..., expand = waiver(),
+scale_y_discrete <- function(name = waiver(), ..., palette = seq_along,
+                             expand = waiver(),
                              guide = waiver(), position = "left") {
   sc <- discrete_scale(
     aesthetics = c("y", "ymin", "ymax", "yend"), name = name,
-    palette = identity, ...,
+    palette = palette, ...,
     expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition
   )
