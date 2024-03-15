@@ -40,7 +40,9 @@
 #'     value and apply to the layer as a whole. For example, `colour = "red"`
 #'     or `linewidth = 3`. The geom's documentation has an **Aesthetics**
 #'     section that lists the available options. The 'required' aesthetics
-#'     cannot be passed on to the `params`.
+#'     cannot be passed on to the `params`. Please note that while passing
+#'     unmapped aesthetics as vectors is technically possible, the order and
+#'     required length is not guaranteed to be parallel to the input data.
 #'   * When constructing a layer using
 #'     a `stat_*()` function, the `...` argument can be used to pass on
 #'     parameters to the `geom` part of the layer. An example of this is
