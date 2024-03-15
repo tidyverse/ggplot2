@@ -23,13 +23,13 @@
 #'     Also accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param minor_breaks One of:
 #'   - `NULL` for no minor breaks
-#'   - `waiver()` for the default breaks (one minor break between
-#'     each major break)
+#'   - `waiver()` for the default breaks (none for discrete, one minor break
+#'     between each major break for continuous)
 #'   - A numeric vector of positions
 #'   - A function that given the limits returns a vector of minor breaks. Also
 #'     accepts rlang [lambda][rlang::as_function()] function notation. When
 #'     the function has two arguments, it will be given the limits and major
-#'     breaks.
+#'     break positions.
 #' @param n.breaks An integer guiding the number of major breaks. The algorithm
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
