@@ -1,6 +1,9 @@
 
 # ggplot2 (development version)
 
+* Discrete scales now support `minor_breaks`. This may only make sense in
+  discrete position scales, where it affects the placement of minor ticks
+  and minor gridlines (#5434).
 * Fixed performance loss when the `.data` pronoun is used in `aes()` (#5730).
 * Fixed bug where discrete scales could not map aesthetics only consisting of
   `NA`s (#5623)
