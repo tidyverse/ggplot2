@@ -199,7 +199,8 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #' The `r link_book("new scales section", "extensions#sec-new-scales")`
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
-                           breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
+                           breaks = waiver(), minor_breaks = waiver(),
+                           labels = waiver(), limits = NULL, expand = waiver(),
                            na.translate = TRUE, na.value = NA, drop = TRUE,
                            guide = "legend", position = "left",
                            call = caller_call(),
@@ -217,6 +218,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   limits <- allow_lambda(limits)
   breaks <- allow_lambda(breaks)
   labels <- allow_lambda(labels)
+  minor_breaks <- allow_lambda(minor_breaks)
 
   if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
     cli::cli_warn(c(
@@ -246,6 +248,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 
     name = name,
     breaks = breaks,
+    minor_breaks = minor_breaks,
     labels = labels,
     drop = drop,
     guide = guide,
