@@ -1023,7 +1023,34 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     structure(in_domain, pos = match(in_domain, breaks))
   },
 
-  get_breaks_minor = function(...) NULL,
+  get_breaks_minor = function(self, n = 2, b = self$break_positions(),
+                              limits = self$get_limits()) {
+    breaks <- self$minor_breaks
+    # The default is to draw no minor ticks
+    if (is.null(breaks %|W|% NULL)) {
+      return(NULL)
+    }
+    if (is.function(breaks)) {
+      # Ensure function gets supplied numeric limits and breaks
+      if (!is.numeric(b)) {
+        b <- self$map(b)
+      }
+      if (!is.numeric(limits)) {
+        limits <- self$map(limits)
+        limits <- self$dimension(self$expand, limits)
+      }
+
+      # Allow for two types of minor breaks specifications
+      break_fun <- fetch_ggproto(self, "minor_breaks")
+      arg_names <- fn_fmls_names(break_fun)
+      if (length(arg_names) == 1L) {
+        breaks <- break_fun(limits)
+      } else {
+        breaks <- break_fun(limits, b)
+      }
+    }
+    breaks
+  },
 
   get_labels = function(self, breaks = self$get_breaks()) {
     if (self$is_empty()) {
