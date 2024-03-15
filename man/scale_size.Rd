@@ -134,13 +134,13 @@ breaks are given explicitly.}
     \item{\code{minor_breaks}}{One of:
 \itemize{
 \item \code{NULL} for no minor breaks
-\item \code{waiver()} for the default breaks (one minor break between
-each major break)
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks. Also
 accepts rlang \link[rlang:as_function]{lambda} function notation. When
 the function has two arguments, it will be given the limits and major
-breaks.
+break positions.
 }}
     \item{\code{oob}}{One of:
 \itemize{
