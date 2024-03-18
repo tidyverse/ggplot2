@@ -86,7 +86,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li>When passing a function to <code>stat_contour(breaks)</code>, that function is used to calculate the breaks even if <code>bins</code> and <code>binwidth</code> are missing (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5686" class="external-link">#5686</a>).</li>
+<li>
 <code><a href="../reference/geom_path.html">geom_step()</a></code> now supports <code>lineend</code>, <code>linejoin</code> and <code>linemitre</code> parameters (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5705" class="external-link">#5705</a>).</li>
 <li>Fixed performance loss when the <code>.data</code> pronoun is used in <code><a href="../reference/aes.html">aes()</a></code> (<a href="https://github.com/tidyverse/ggplot2/issues/5730" class="external-link">#5730</a>).</li>
 <li>Fixed bug where discrete scales could not map aesthetics only consisting of <code>NA</code>s (<a href="https://github.com/tidyverse/ggplot2/issues/5623" class="external-link">#5623</a>)</li>
