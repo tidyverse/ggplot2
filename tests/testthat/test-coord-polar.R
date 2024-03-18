@@ -124,6 +124,12 @@ test_that("bounding box calculations are sensible", {
     list(x = c(0, 1), y = c(0, 1))
   )
 
+  # Full offset cirle
+  expect_equal(
+    polar_bbox(arc = c(2 * pi, 4 * pi)),
+    list(x = c(0, 1), y = c(0, 1))
+  )
+
   # Right half of circle
   expect_equal(
     polar_bbox(arc = c(0, pi)),

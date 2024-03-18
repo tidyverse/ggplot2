@@ -12,6 +12,8 @@
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* Fixed bug in `coord_radial()` where full circles were not treated as such 
+  (@teunbrand, #5750).
 * When legends detect the presence of values in a layer, `NA` is now detected
   if the data contains values outside the given breaks (@teunbrand, #5749).
 * `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
