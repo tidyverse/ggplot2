@@ -15,6 +15,9 @@
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* Fixed bug in `guide_bins()` and `guide_coloursteps()` where discrete breaks,
+  such as the levels produced by `cut()`, were ordered incorrectly 
+  (@teunbrand, #5757).
 * Theme elements that do not exist now throw warnings instead of errors (#5719).
 * Fixed bug in `coord_radial()` where full circles were not treated as such 
   (@teunbrand, #5750).
