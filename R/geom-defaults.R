@@ -33,23 +33,41 @@
 #'
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
-  g <- check_subclass(geom, "Geom", env = parent.frame())
-  old <- g$default_aes
-  new <- rename_aes(new)
-  new_names_order <- unique(c(names(old), names(new)))
-  new <- defaults(new, old)[new_names_order]
-  g$default_aes[names(new)] <- new
-  invisible()
+  update_defaults(geom, "Geom", new, env = parent.frame())
 }
 
 #' @rdname update_defaults
 #' @export
 update_stat_defaults <- function(stat, new) {
-  g <- check_subclass(stat, "Stat", env = parent.frame())
-  old <- g$default_aes
-  new <- rename_aes(new)
-  new_names_order <- unique(c(names(old), names(new)))
-  new <- defaults(new, old)[new_names_order]
-  g$default_aes[names(new)] <- new
-  invisible()
+  update_defaults(stat, "Stat", new, env = parent.frame())
+}
+
+cache_defaults <- new_environment()
+
+update_defaults <- function(name, subclass, new, env = parent.frame()) {
+  obj   <- check_subclass(name, subclass, env = env)
+  index <- snake_class(obj)
+
+  if (is.null(new)) { # Reset from cache
+
+    old <- cache_defaults[[index]]
+    if (!is.null(old)) {
+      new <- update_defaults(name, subclass, new = old, env = env)
+    }
+    invisible(new)
+
+  } else { # Update default aesthetics
+
+    old <- obj$default_aes
+    # Only update cache the first time defaults are changed
+    if (!index %in% ls(cache_defaults)) {
+      cache_defaults[[index]] <- old
+    }
+    new <- rename_aes(new)
+    name_order <- unique(c(names(old), names(new)))
+    new <- defaults(new, old)[name_order]
+    obj$default_aes[names(new)] <- new
+    invisible(old)
+
+  }
 }
