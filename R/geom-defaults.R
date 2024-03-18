@@ -3,7 +3,9 @@
 #' @param stat,geom Name of geom/stat to modify (like `"point"` or
 #'   `"bin"`), or a Geom/Stat object (like `GeomPoint` or
 #'   `StatBin`).
-#' @param new Named list of aesthetics.
+#' @param new One of the following:
+#'  * A named list of aesthetics to serve as new defaults.
+#'  * `NULL` to reset the defaults.
 #' @keywords internal
 #' @export
 #' @examples
@@ -16,7 +18,7 @@
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #'
 #' # reset default
-#' update_geom_defaults("point", aes(color = "black"))
+#' update_geom_defaults("point", NULL)
 #'
 #'
 #' # updating a stat's default aesthetic settings
@@ -29,7 +31,7 @@
 #'   geom_function(fun = dnorm, color = "red")
 #'
 #' # reset default
-#' update_stat_defaults("bin", aes(y = after_stat(count)))
+#' update_stat_defaults("bin", NULL)
 #'
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
