@@ -106,9 +106,11 @@ options.</p>
 <span>  expand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  direction <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  clip <span class="op">=</span> <span class="st">"off"</span>,</span>
-<span>  r_axis_inside <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  rotate_angle <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  inner.radius <span class="op">=</span> <span class="fl">0</span></span>
+<span>  r.axis.inside <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rotate.angle <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  inner.radius <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  r_axis_inside <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  rotate_angle <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -145,14 +147,14 @@ the limits to prevent overlap between data and axes. If <code>FALSE</code>, limi
 are taken directly from the scale.</p></dd>
 
 
-<dt>r_axis_inside</dt>
+<dt>r.axis.inside</dt>
 <dd><p>If <code>TRUE</code>, places the radius axis inside the
 panel. If <code>FALSE</code>, places the radius axis next to the panel. The default,
 <code>NULL</code>, places the radius axis outside if the <code>start</code> and <code>end</code> arguments
 form a full circle.</p></dd>
 
 
-<dt>rotate_angle</dt>
+<dt>rotate.angle</dt>
 <dd><p>If <code>TRUE</code>, transforms the <code>angle</code> aesthetic in data
 in accordance with the computed <code>theta</code> position. If <code>FALSE</code> (default),
 no such transformation is performed. Can be useful to rotate text geoms in
@@ -161,6 +163,10 @@ alignment with the coordinates.</p></dd>
 
 <dt>inner.radius</dt>
 <dd><p>A <code>numeric</code> between 0 and 1 setting the size of a inner.radius hole.</p></dd>
+
+
+<dt>r_axis_inside, rotate_angle</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p></dd>
 
 </dl></div>
     <div class="section level2">
