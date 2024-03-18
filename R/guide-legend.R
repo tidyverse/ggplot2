@@ -665,7 +665,8 @@ keep_key_data <- function(key, data, aes, show) {
   keep
 }
 
-position_margin <- function(position, margin = margin(), gap = unit(0, "pt")) {
+position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
+  margin <- margin %||% margin()
   switch(
     position,
     top    = replace(margin, 3, margin[3] + gap),

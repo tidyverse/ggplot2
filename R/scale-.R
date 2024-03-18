@@ -188,7 +188,8 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #'     notation.
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, `TRUE`, uses the levels that appear in the data;
-#'    `FALSE` uses all the levels in the factor.
+#'    `FALSE` includes the levels in the factor. Please note that to display
+#'    every level in a legend, the layer should use `show.legend = TRUE`.
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify `na.translate = FALSE`.

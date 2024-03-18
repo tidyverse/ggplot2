@@ -27,12 +27,20 @@
 #' To explicitly call a methods in a parent, use
 #' `ggproto_parent(Parent, self)`.
 #'
+#' @section Working with ggproto classes:
+#' The ggproto objects constructed are build on top of environments, which has
+#' some ramifications. Environments do not follow the 'copy on modify' semantics
+#' one might be accustomed to in regular objects. Instead they have
+#' ['modify in place'](https://adv-r.hadley.nz/names-values.html#env-modify)
+#' semantics.
+#'
 #' @param _class Class name to assign to the object. This is stored as the class
 #'   attribute of the object. This is optional: if `NULL` (the default),
 #'   no class name will be added to the object.
 #' @param _inherit ggproto object to inherit from. If `NULL`, don't
 #'   inherit from any object.
-#' @param ... A list of members in the ggproto object.
+#' @param ... A list of named members in the ggproto object. These can be
+#'   functions that become methods of the class or regular objects.
 #' @seealso
 #' The `r link_book("ggproto introduction section", "internals#sec-ggproto")`
 #' @export
