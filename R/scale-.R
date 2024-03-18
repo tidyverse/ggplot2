@@ -19,6 +19,7 @@
 #'   - A numeric vector of positions
 #'   - A function that takes the limits as input and returns breaks
 #'     as output (e.g., a function returned by [scales::extended_breaks()]).
+#'     Note that for position scales, limits are provided after scale expansion.
 #'     Also accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param minor_breaks One of:
 #'   - `NULL` for no minor breaks
@@ -93,6 +94,10 @@
 #' `left` or `right` for y axes, `top` or `bottom` for x axes.
 #' @param call The `call` used to construct the scale for reporting messages.
 #' @param super The super class to use for the constructed scale
+#'
+#' @seealso
+#' The `r link_book("new scales section", "extensions#sec-new-scales")`
+#'
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                              breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
@@ -183,13 +188,16 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #'     notation.
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, `TRUE`, uses the levels that appear in the data;
-#'    `FALSE` uses all the levels in the factor.
+#'    `FALSE` includes the levels in the factor. Please note that to display
+#'    every level in a legend, the layer should use `show.legend = TRUE`.
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify `na.translate = FALSE`.
 #' @param na.value If `na.translate = TRUE`, what aesthetic value should the
 #'   missing values be displayed as? Does not apply to position scales
 #'   where `NA` is always placed at the far right.
+#' @seealso
+#' The `r link_book("new scales section", "extensions#sec-new-scales")`
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                            breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
@@ -271,6 +279,8 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 #'   left), whereas they are part of the upper bin when intervals are closed on
 #'   the left (open on the right).
 #' @param show.limits should the limits of the scale appear as ticks
+#' @seealso
+#' The `r link_book("new scales section", "extensions#sec-new-scales")`
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
@@ -938,6 +948,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
   map = function(self, x, limits = self$get_limits()) {
     n <- sum(!is.na(limits))
+    if (n < 1) {
+      return(rep(self$na.value, length(x)))
+    }
     if (!is.null(self$n.breaks.cache) && self$n.breaks.cache == n) {
       pal <- self$palette.cache
     } else {

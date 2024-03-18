@@ -1,7 +1,31 @@
+
 # ggplot2 (development version)
 
 * `coord_map()` and `coord_polar()` throw informative warnings when used
   with the guide system (#5707).
+* When passing a function to `stat_contour(breaks)`, that function is used to
+  calculate the breaks even if `bins` and `binwidth` are missing 
+  (@teunbrand, #5686).
+* `geom_step()` now supports `lineend`, `linejoin` and `linemitre` parameters 
+  (@teunbrand, #5705).
+* Fixed performance loss when the `.data` pronoun is used in `aes()` (#5730).
+* Fixed bug where discrete scales could not map aesthetics only consisting of
+  `NA`s (#5623)
+* Facet evaluation is better at dealing with inherited errors 
+  (@teunbrand, #5670).
+* Fixed spurious warnings from `sec_axis()` with `breaks = NULL` (#5713).
+* Patterns and gradients are now also enabled in `geom_sf()` 
+  (@teunbrand, #5716).
+* `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* Fixed bug in `guide_bins()` and `guide_coloursteps()` where discrete breaks,
+  such as the levels produced by `cut()`, were ordered incorrectly 
+  (@teunbrand, #5757).
+* Theme elements that do not exist now throw warnings instead of errors (#5719).
+* Fixed bug in `coord_radial()` where full circles were not treated as such 
+  (@teunbrand, #5750).
+* When legends detect the presence of values in a layer, `NA` is now detected
+  if the data contains values outside the given breaks (@teunbrand, #5749).
+* `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
 
 # ggplot2 3.5.0
 

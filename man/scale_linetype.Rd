@@ -47,7 +47,8 @@ notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
@@ -103,4 +104,6 @@ ggplot(df_lines) +
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
 
 Other linetype scales: \code{\link[=scale_linetype_manual]{scale_linetype_manual()}}, \code{\link[=scale_linetype_identity]{scale_linetype_identity()}}.
+
+The \href{https://ggplot2-book.org/scales-other#sec-scale-linetype}{line type section} of the online ggplot2 book.
 }

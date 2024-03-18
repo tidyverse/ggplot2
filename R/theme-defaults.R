@@ -48,6 +48,9 @@
 #'
 #' }
 #'
+#' @seealso
+#' The `r link_book("complete themes section", "themes#sec-themes")`
+#'
 #' @examples
 #' mtcars2 <- within(mtcars, {
 #'   vs <- factor(vs, labels = c("V-shaped", "Straight"))

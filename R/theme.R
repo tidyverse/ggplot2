@@ -201,12 +201,14 @@
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @export
 #' @seealso
 #'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
-#' @export
+#'
+#' The `r link_book(c("modifying theme components", "theme elements sections"), c("themes#modifying-theme-components", "themes#sec-theme-elements"))`
 #' @examples
 #' p1 <- ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
@@ -573,7 +575,8 @@ plot_theme <- function(x, default = theme_get()) {
   # Check that all elements have the correct class (element_text, unit, etc)
   validate_theme(theme)
 
-  theme
+
+  theme[intersect(names(theme), names(get_element_tree()))]
 }
 
 #' Modify properties of an element in a theme object

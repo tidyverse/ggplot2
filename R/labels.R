@@ -47,6 +47,9 @@ update_labels <- function(p, labels) {
 #'        See [get_alt_text] for examples.
 #' @param ... A list of new name-value pairs. The name should be an aesthetic.
 #' @export
+#'
+#' @seealso
+#' The `r link_book("plot and axis titles section", "annotations#sec-titles")`
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
 #' p + labs(colour = "Cylinders")

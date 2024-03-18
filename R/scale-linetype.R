@@ -13,6 +13,8 @@
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
 #' Other linetype scales: [scale_linetype_manual()], [scale_linetype_identity()].
+#'
+#' The `r link_book("line type section", "scales-other#sec-scale-linetype")`
 #' @export
 #' @examples
 #' base <- ggplot(economics_long, aes(date, value01))
