@@ -1,6 +1,9 @@
 
 # ggplot2 (development version)
 
+* When passing a function to `stat_contour(breaks)`, that function is used to
+  calculate the breaks even if `bins` and `binwidth` are missing 
+  (@teunbrand, #5686).
 * `geom_step()` now supports `lineend`, `linejoin` and `linemitre` parameters 
   (@teunbrand, #5705).
 * Fixed performance loss when the `.data` pronoun is used in `aes()` (#5730).
