@@ -76,7 +76,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
-    params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
+    params$width <- params$width %||% (resolution(data$x %||% 0, discrete = TRUE) * 0.75)
 
     if (!is_mapped_discrete(data$x) && is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       cli::cli_warn(c(

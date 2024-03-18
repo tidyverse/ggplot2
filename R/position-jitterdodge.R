@@ -46,7 +46,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
-    width <- self$jitter.width %||% (resolution(data$x, zero = FALSE) * 0.4)
+    width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
     # Adjust the x transformation based on the number of 'dodge' variables
     possible_dodge <- c("fill", "colour", "linetype", "shape", "size", "alpha")
     dodgecols <- intersect(possible_dodge, colnames(data))

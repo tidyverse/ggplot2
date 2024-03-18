@@ -94,8 +94,8 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     }
 
     # Convert vector of data to raster
-    x_pos <- as.integer((data$x - min(data$x)) / resolution(unclass(data$x), FALSE))
-    y_pos <- as.integer((data$y - min(data$y)) / resolution(unclass(data$y), FALSE))
+    x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
+    y_pos <- as.integer((data$y - min(data$y)) / resolution(data$y, FALSE))
 
     data <- coord$transform(data, panel_params)
 

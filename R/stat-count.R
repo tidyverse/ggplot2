@@ -62,7 +62,7 @@ StatCount <- ggproto("StatCount", Stat,
 
     if (is.null(params$width)) {
       x <- if (params$flipped_aes) "y" else "x"
-      params$width <- resolution(data[[x]]) * 0.9
+      params$width <- resolution(data[[x]], discrete = TRUE) * 0.9
     }
 
     params

@@ -68,8 +68,8 @@ PositionJitter <- ggproto("PositionJitter", Position,
       seed <- self$seed
     }
     list(
-      width = self$width %||% (resolution(data$x, zero = FALSE) * 0.4),
-      height = self$height %||% (resolution(data$y, zero = FALSE) * 0.4),
+      width = self$width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4),
+      height = self$height %||% (resolution(data$y, zero = FALSE, TRUE) * 0.4),
       seed = seed
     )
   },

@@ -60,7 +60,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 
   setup_data = function(data, params) {
     data$height <- data$height %||%
-      params$height %||% (resolution(data$y, FALSE) * 0.9)
+      params$height %||% (resolution(data$y, FALSE, TRUE) * 0.9)
 
     transform(data,
       ymin = y - height / 2, ymax = y + height / 2, height = NULL
