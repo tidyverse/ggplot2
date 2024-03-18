@@ -44,9 +44,6 @@ scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 \item{...}{
   Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
   \describe{
-    \item{\code{palette}}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
     \item{\code{limits}}{One of:
 \itemize{
 \item \code{NULL} to use the default scale values
@@ -58,7 +55,8 @@ notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
