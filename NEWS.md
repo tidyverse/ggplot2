@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* `coord_map()` and `coord_polar()` throw informative warnings when used
+  with the guide system (#5707).
 * When passing a function to `stat_contour(breaks)`, that function is used to
   calculate the breaks even if `bins` and `binwidth` are missing 
   (@teunbrand, #5686).
