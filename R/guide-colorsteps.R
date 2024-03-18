@@ -98,7 +98,7 @@ GuideColoursteps <- ggproto(
       return(Guide$extract_key(scale, aesthetic))
     }
 
-    parsed <- parse_binned_breaks(scale, breaks, even.steps)
+    parsed <- parse_binned_breaks(scale, breaks)
     if (is.null(parsed)) {
       return(parsed)
     }
