@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* `geom_step()` now supports `lineend`, `linejoin` and `linemitre` parameters 
+  (@teunbrand, #5705).
 * Fixed performance loss when the `.data` pronoun is used in `aes()` (#5730).
 * Fixed bug where discrete scales could not map aesthetics only consisting of
   `NA`s (#5623)

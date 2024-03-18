@@ -322,9 +322,14 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.R
 GeomStep <- ggproto("GeomStep", GeomPath,
-  draw_panel = function(data, panel_params, coord, direction = "hv") {
+  draw_panel = function(data, panel_params, coord,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
+                        direction = "hv") {
     data <- dapply(data, "group", stairstep, direction = direction)
-    GeomPath$draw_panel(data, panel_params, coord)
+    GeomPath$draw_panel(
+      data, panel_params, coord,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+    )
   }
 )
 
