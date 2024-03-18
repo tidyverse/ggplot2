@@ -135,6 +135,18 @@ limits, then those data points may show up in places such as the axes, the
 legend, the plot title, or the plot margins.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Coordinate systems interact with many parts of the plotting system. You can
+expect the following for <code>coord_flip()</code>:</p><ul><li><p>It does <em>not</em> change the facet order in <code><a href="facet_grid.html">facet_grid()</a></code> or <code><a href="facet_wrap.html">facet_wrap()</a></code>.</p></li>
+<li><p>The <code>scale_x_*()</code> functions apply to the vertical direction,
+whereas <code>scale_y_*()</code> functions apply to the horizontal direction. The
+same holds for the <code>xlim</code> and <code>ylim</code> arguments of <code>coord_flip()</code> and the
+<code><a href="lims.html">xlim()</a></code> and <code><a href="lims.html">ylim()</a></code> functions.</p></li>
+<li><p>The x-axis theme settings, such as <code>axis.line.x</code> apply to the horizontal
+direction. The y-axis theme settings, such as <code>axis.text.y</code> apply to the
+vertical direction.</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

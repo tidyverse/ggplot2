@@ -126,12 +126,7 @@ data to aesthetic values.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
-<dd><p>Arguments passed on to <code><a href="discrete_scale.html">discrete_scale</a></code></p><dl><dt><code>palette</code></dt>
-<dd><p>A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href="https://scales.r-lib.org/reference/pal_hue.html" class="external-link">scales::pal_hue()</a></code>).</p></dd>
-
-    <dt><code>limits</code></dt>
+<dd><p>Arguments passed on to <code><a href="discrete_scale.html">discrete_scale</a></code></p><dl><dt><code>limits</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale values</p></li>
 <li><p>A character vector that defines possible values of the scale and their
 order</p></li>
@@ -143,7 +138,8 @@ notation.</p></li>
     <dt><code>drop</code></dt>
 <dd><p>Should unused factor levels be omitted from the scale?
 The default, <code>TRUE</code>, uses the levels that appear in the data;
-<code>FALSE</code> uses all the levels in the factor.</p></dd>
+<code>FALSE</code> includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use <code>show.legend = TRUE</code>.</p></dd>
 
     <dt><code>na.translate</code></dt>
 <dd><p>Unlike continuous scales, discrete scales can easily show
