@@ -8,7 +8,7 @@
 #' @param ... other arguments passed to specific methods
 #' @return a ggplot layer
 #' @export
-#' @seealso [autoplot()], [ggplot()] and [fortify()]
+#' @family plotting automation topics
 autolayer <- function(object, ...) {
   UseMethod("autolayer")
 }
