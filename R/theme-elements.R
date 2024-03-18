@@ -620,7 +620,8 @@ validate_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    cli::cli_abort("The {.var {elname}} theme element is not defined in the element hierarchy.", call = call)
+    cli::cli_warn("The {.var {elname}} theme element is not defined in the element hierarchy.", call = call)
+    return()
   }
 
   # NULL values for elements are OK

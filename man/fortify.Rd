@@ -20,4 +20,10 @@ may be deprecated in the future.
 }
 \seealso{
 \code{\link[=fortify.lm]{fortify.lm()}}
+
+Other plotting automation topics: 
+\code{\link{autolayer}()},
+\code{\link{automatic_plotting}},
+\code{\link{autoplot}()}
 }
+\concept{plotting automation topics}

@@ -50,3 +50,9 @@ test_that("coord map throws error when limits are badly specified", {
   # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_cartesian(ylim=1:3))
 })
+
+test_that("coord_map throws informative warning about guides", {
+  expect_snapshot_warning(
+   ggplot_build(ggplot() + coord_map() + guides(x = guide_axis()))
+  )
+})
