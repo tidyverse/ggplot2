@@ -10,7 +10,7 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @inheritDotParams discrete_scale
+#' @inheritDotParams discrete_scale -scale_name
 #' @inheritParams discrete_scale
 #' @rdname scale_discrete
 #' @family position scales

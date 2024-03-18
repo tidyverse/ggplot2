@@ -53,8 +53,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
 missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
-    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
-that should be used for error messages associated with this scale.}
     \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
