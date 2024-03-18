@@ -575,7 +575,8 @@ plot_theme <- function(x, default = theme_get()) {
   # Check that all elements have the correct class (element_text, unit, etc)
   validate_theme(theme)
 
-  theme
+
+  theme[intersect(names(theme), names(get_element_tree()))]
 }
 
 #' Modify properties of an element in a theme object

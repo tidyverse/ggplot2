@@ -12,6 +12,7 @@
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* Theme elements that do not exist now throw warnings instead of errors (#5719).
 * Fixed bug in `coord_radial()` where full circles were not treated as such 
   (@teunbrand, #5750).
 * When legends detect the presence of values in a layer, `NA` is now detected
