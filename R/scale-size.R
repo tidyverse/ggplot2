@@ -114,7 +114,7 @@ scale_size_ordinal <- function(name = waiver(), ..., range = c(2, 6)) {
   )
 }
 
-#' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler
+#' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler -expand -position
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size

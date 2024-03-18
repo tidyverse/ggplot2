@@ -649,10 +649,24 @@ keep_key_data <- function(key, data, aes, show) {
   for (column in match) {
     keep <- keep | key$.value %in% data[[column]]
   }
+
+  # NA might be included in breaks but originate from non-missing values that
+  # map to NA instead of *being* NA. We double-check if there are values
+  # outside the non-missing conventional limits.
+  is_na <- which(is.na(key$.value) & !keep)
+  if (length(is_na) > 0) {
+    na_keep <- FALSE
+    for (column in match) {
+      na_keep <- na_keep || !all(data[[column]] %in% key$.value)
+    }
+    keep[is_na] <- na_keep
+  }
+
   keep
 }
 
-position_margin <- function(position, margin = margin(), gap = unit(0, "pt")) {
+position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
+  margin <- margin %||% margin()
   switch(
     position,
     top    = replace(margin, 3, margin[3] + gap),

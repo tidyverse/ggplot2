@@ -301,6 +301,7 @@ test_that("sf_transform_xy() works", {
 })
 
 test_that("coord_sf() uses the guide system", {
+  skip_if_not_installed("sf")
   polygon <- sf::st_sfc(
     sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
     crs = 4326 # basic long-lat crs
@@ -324,6 +325,7 @@ test_that("coord_sf() uses the guide system", {
 })
 
 test_that("coord_sf() throws error when limits are badly specified", {
+  skip_if_not_installed("sf")
   # throws error when limit is a Scale object instead of vector
   expect_snapshot_error(ggplot() + coord_sf(xlim(1,1)))
 

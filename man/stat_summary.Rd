@@ -145,9 +145,8 @@ stories in your data.
 The bin width of a date variable is the number of days in each time; the
 bin width of a time variable is the number of seconds.}
 
-\item{breaks}{Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}.}
+\item{breaks}{Alternatively, you can supply a numeric vector giving the bin
+boundaries. Overrides \code{binwidth} and \code{bins}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
