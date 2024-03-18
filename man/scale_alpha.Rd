@@ -56,6 +56,8 @@ The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
 Other alpha scales: \code{\link[=scale_alpha_manual]{scale_alpha_manual()}}, \code{\link[=scale_alpha_identity]{scale_alpha_identity()}}.
 
+The \href{https://ggplot2-book.org/scales-colour#sec-scales-alpha}{alpha scales section} of the online ggplot2 book.
+
 Other colour scales: 
 \code{\link{scale_colour_brewer}()},
 \code{\link{scale_colour_continuous}()},

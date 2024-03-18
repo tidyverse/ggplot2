@@ -4,7 +4,7 @@
 #' secondary axis, positioned opposite of the primary axis. All secondary
 #' axes must be based on a one-to-one transformation of the primary axes.
 #'
-#' @param transform A formula or function of transformation
+#' @param transform A formula or function of a strictly monotonic transformation
 #'
 #' @param trans `r lifecycle::badge("deprecated")`
 #'
@@ -205,7 +205,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # Test for monotonicity
     if (!is_unique(sign(diff(full_range))))
-      cli::cli_abort("Transformation for secondary axes must be monotonic.")
+      cli::cli_abort(
+        "Transformation for secondary axes must be strictly monotonic."
+      )
   },
 
   break_info = function(self, range, scale) {

@@ -101,4 +101,7 @@ ggplot(df, aes(x, y)) +
 # Revert to the original ggplot2 settings
 reset_theme_settings()
 }
+\seealso{
+The \href{https://ggplot2-book.org/extensions#sec-defining-theme-elements}{defining theme elements section} of the online ggplot2 book.
+}
 \keyword{internal}

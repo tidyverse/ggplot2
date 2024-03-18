@@ -154,14 +154,6 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 }}
     \item{\code{trans}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
 \code{transform}.}
-    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
-to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
-    \item{\code{position}}{For position scales, The position of the axis.
-\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
     \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
@@ -244,10 +236,12 @@ ggplot(df, aes(x, y)) +
   scale_colour_stepsn(colours = terrain.colors(10))
 }
 \seealso{
-\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying
-palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
+\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying palette,
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-colour#sec-binned-colour}{binned colour scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},

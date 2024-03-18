@@ -153,14 +153,6 @@ bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
     \item{\code{na.value}}{Missing values will be replaced with this value.}
-    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
-to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
-    \item{\code{position}}{For position scales, The position of the axis.
-\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
     \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
@@ -205,9 +197,10 @@ ggplot(mpg, aes(class, cyl)) +
 p + scale_radius()
 }
 \seealso{
-\code{\link[=scale_size_area]{scale_size_area()}} if you want 0 values to be mapped
-to points with size 0. \code{\link[=scale_linewidth]{scale_linewidth()}} if you want to scale the width
-of lines.
+\code{\link[=scale_size_area]{scale_size_area()}} if you want 0 values to be mapped to points with size 0.
+\code{\link[=scale_linewidth]{scale_linewidth()}} if you want to scale the width of lines.
 
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-other#sec-scale-size}{size section} of the online ggplot2 book.
 }

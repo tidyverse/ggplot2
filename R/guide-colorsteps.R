@@ -19,6 +19,8 @@
 #' @export
 #'
 #' @family guides
+#' @seealso
+#' The `r link_book("binned legend section", "scales-colour#sec-guide-coloursteps")`
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2
