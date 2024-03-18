@@ -316,6 +316,8 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'   inheritance relationship of the theme elements. The element tree must be provided as
 #'   a list of named element definitions created with el_def().
 #' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
+#' @seealso
+#' The `r link_book("defining theme elements section", "extensions#sec-defining-theme-elements")`
 #' @examples
 #' # Let's assume a package `ggxyz` wants to provide an easy way to add annotations to
 #' # plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`

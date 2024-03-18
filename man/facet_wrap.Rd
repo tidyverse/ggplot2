@@ -147,3 +147,6 @@ ggplot(economics_long, aes(date, value)) +
   theme(strip.background = element_blank(), strip.placement = "outside")
 }
 }
+\seealso{
+The \href{https://ggplot2-book.org/facet#sec-facet-wrap}{facet wrap section} of the online ggplot2 book.
+}
