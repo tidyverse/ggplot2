@@ -7,15 +7,16 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor the
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
-#' @param r_axis_inside If `TRUE`, places the radius axis inside the
+#' @param r.axis.inside If `TRUE`, places the radius axis inside the
 #'   panel. If `FALSE`, places the radius axis next to the panel. The default,
 #'   `NULL`, places the radius axis outside if the `start` and `end` arguments
 #'   form a full circle.
-#' @param rotate_angle If `TRUE`, transforms the `angle` aesthetic in data
+#' @param rotate.angle If `TRUE`, transforms the `angle` aesthetic in data
 #'   in accordance with the computed `theta` position. If `FALSE` (default),
 #'   no such transformation is performed. Can be useful to rotate text geoms in
 #'   alignment with the coordinates.
 #' @param inner.radius A `numeric` between 0 and 1 setting the size of a inner.radius hole.
+#' @param r_axis_inside,rotate_angle `r lifecycle::badge("deprecated")`
 #'
 #' @note
 #' In `coord_radial()`, position guides are can be defined by using
@@ -36,15 +37,30 @@ coord_radial <- function(theta = "x",
                          expand = TRUE,
                          direction = 1,
                          clip = "off",
-                         r_axis_inside = NULL,
-                         rotate_angle = FALSE,
-                         inner.radius = 0) {
+                         r.axis.inside = NULL,
+                         rotate.angle = FALSE,
+                         inner.radius = 0,
+                         r_axis_inside = deprecated(),
+                         rotate_angle = deprecated()) {
+
+  if (lifecycle::is_present(r_axis_inside)) {
+    deprecate_warn0(
+      "3.5.1", "coord_radial(r_axis_inside)", "coord_radial(r.axis.inside)"
+    )
+    r.axis.inside <- r_axis_inside
+  }
+  if (lifecycle::is_present(rotate_angle)) {
+    deprecate_warn0(
+      "3.5.1", "coord_radial(rotate_angle)", "coord_radial(rotate.angle)"
+    )
+    rotate.angle <- rotate_angle
+  }
 
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
-  check_bool(r_axis_inside, allow_null = TRUE)
+  check_bool(r.axis.inside, allow_null = TRUE)
   check_bool(expand)
-  check_bool(rotate_angle)
+  check_bool(rotate.angle)
   check_number_decimal(start, allow_infinite = FALSE)
   check_number_decimal(end, allow_infinite = FALSE, allow_null = TRUE)
   check_number_decimal(inner.radius, min = 0, max = 1, allow_infinite = FALSE)
@@ -54,7 +70,7 @@ coord_radial <- function(theta = "x",
     n_rotate <- ((start - end) %/% (2 * pi)) + 1
     start <- start - n_rotate * 2 * pi
   }
-  r_axis_inside <- r_axis_inside %||% !(abs(end - start) >= 1.999 * pi)
+  r.axis.inside <- r.axis.inside %||% !(abs(end - start) >= 1.999 * pi)
 
   ggproto(NULL, CoordRadial,
     theta = theta,
@@ -62,8 +78,8 @@ coord_radial <- function(theta = "x",
     arc = c(start, end),
     expand = expand,
     direction = sign(direction),
-    r_axis_inside = r_axis_inside,
-    rotate_angle = rotate_angle,
+    r_axis_inside = r.axis.inside,
+    rotate_angle = rotate.angle,
     inner_radius = c(inner.radius, 1) * 0.4,
     clip = clip
   )
@@ -496,6 +512,11 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
 # For any `theta` in [0, 2 * pi), test if theta is inside the span
 # given by `arc`
 in_arc <- function(theta, arc) {
+  # Full circle case
+  if (abs(diff(arc)) > 2 * pi - sqrt(.Machine$double.eps)) {
+    return(rep(TRUE, length(theta)))
+  }
+  # Partial circle case
   arc <- arc %% (2 * pi)
   if (arc[1] < arc[2]) {
     theta >= arc[1] & theta <= arc[2]
