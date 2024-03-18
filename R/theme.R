@@ -272,7 +272,8 @@
 #' # Or place legends inside the plot using relative coordinates between 0 and 1
 #' # legend.justification sets the corner that the position refers to
 #' p2 + theme(
-#'   legend.position = c(.95, .95),
+#'   legend.position = "inside",
+#'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
 #'   legend.margin = margin(6, 6, 6, 6)
