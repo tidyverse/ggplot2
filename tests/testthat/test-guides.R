@@ -302,6 +302,21 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   expect_true(all(diff(key$.value) > 0))
 })
 
+test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
+
+  val <- cut(1:10, breaks = c(0, 3, 5, 10), include.lowest = TRUE)
+  scale <- scale_colour_viridis_d()
+  scale$train(val)
+
+  g <- guide_coloursteps(even.steps = TRUE)
+  decor <- g$train(scale = scale, aesthetics = "colour")$decor
+  expect_equal(decor$max - decor$min, rep(1/3, 3))
+
+  g <- guide_coloursteps(even.steps = FALSE)
+  decor <- g$train(scale = scale, aesthetics = "colour")$decor
+  expect_equal(decor$max - decor$min, c(0.3, 0.2, 0.5))
+})
+
 
 test_that("guide_colourbar merging preserves both aesthetics", {
   # See issue 5324
