@@ -169,7 +169,7 @@ GuideColoursteps <- ggproto(
 
     if (show.limits) {
       key <- params$key
-      limits <- attr(key, "limits", TRUE) %||% scale$get_limits()
+      limits <- attr(key, "parsed")$limits %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
       n <- nrow(key)
       key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)
