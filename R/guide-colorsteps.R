@@ -121,23 +121,23 @@ GuideColoursteps <- ggproto(
       key[[1]][nrow(key)] <- NA
     }
     # To avoid having to recalculate these variables in other methods, we
-    # attach these as attributes. It might not be very elegant, but it works.
-    attr(key, "limits") <- parsed$limits
-    attr(key, "bin_at") <- parsed$bin_at
-    attr(key, "breaks") <- parsed$breaks
-    return(key)
+    # attach the parsed values as attributes. It might not be very elegant,
+    # but it works.
+    attr(key, "parsed") <- parsed
+    key
   },
 
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
                            nbin = 100, alpha = NA,...) {
 
-    breaks <- attr(key, "breaks") %||% scale$get_breaks()
-    limits <- attr(key, "limits") %||% scale$get_limits()
+    parsed <- attr(key, "parsed")
+    breaks <- parsed$breaks %||% scale$get_breaks()
+    limits <- parsed$limits %||% scale$get_limits()
 
     breaks <- sort(unique0(c(limits, breaks)))
     n      <- length(breaks)
-    bin_at <- attr(key, "bin_at") %||% ((breaks[-1] + breaks[-n]) / 2)
+    bin_at <- parsed$bin_at %||% ((breaks[-1] + breaks[-n]) / 2)
 
     if (even.steps) {
       breaks <- seq_len(n) - 1L
