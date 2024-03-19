@@ -120,32 +120,31 @@ GuideColoursteps <- ggproto(
     # attach these as attributes. It might not be very elegant, but it works.
     attr(key, "limits") <- parsed$limits
     attr(key, "bin_at") <- parsed$bin_at
+    attr(key, "breaks") <- parsed$breaks
     return(key)
   },
 
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
                            nbin = 100, alpha = NA,...) {
+
+    breaks <- attr(key, "breaks") %||% scale$get_breaks()
+    limits <- attr(key, "limits") %||% scale$get_limits()
+
+    breaks <- sort(unique0(c(limits, breaks)))
+    n      <- length(breaks)
+    bin_at <- attr(key, "bin_at") %||% ((breaks[-1] + breaks[-n]) / 2)
+
     if (even.steps) {
-      bin_at <- attr(key, "bin_at", TRUE)
-      bar <- data_frame0(
-        colour = alpha(scale$map(bin_at), alpha),
-        min    = seq_along(bin_at) - 1,
-        max    = seq_along(bin_at),
-        .size  = length(bin_at)
-      )
-    } else {
-      breaks <- unique(sort(c(scale$get_limits(), scale$get_breaks())))
-      n <- length(breaks)
-      bin_at <- (breaks[-1] + breaks[-n]) / 2
-      bar <- data_frame0(
-        colour = alpha(scale$map(bin_at), alpha),
-        min    = head(breaks, -1),
-        max    = tail(breaks, -1),
-        .size  = length(bin_at)
-      )
+      breaks <- seq_len(n) - 1L
     }
-    return(bar)
+
+    data_frame0(
+      colour = alpha(scale$map(bin_at), alpha),
+      min    = breaks[-n],
+      max    = breaks[-1],
+      .size  = length(bin_at)
+    )
   },
 
   extract_params = function(scale, params, direction = "vertical", title = waiver(), ...) {
