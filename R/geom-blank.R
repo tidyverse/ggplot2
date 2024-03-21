@@ -36,5 +36,6 @@ geom_blank <- function(mapping = NULL, data = NULL,
 GeomBlank <- ggproto("GeomBlank", Geom,
   default_aes = aes(),
   handle_na = function(data, params) data,
+  check_constant_aes = FALSE,
   draw_panel = function(...) nullGrob()
 )
