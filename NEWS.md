@@ -26,6 +26,10 @@
 * When legends detect the presence of values in a layer, `NA` is now detected
   if the data contains values outside the given breaks (@teunbrand, #5749).
 * `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
+* `stat_align()` skips computation when there is only 1 group and therefore
+  alignment is not necessary (#5788).
+* `position_stack()` skips computation when all `x` values are unique and 
+  therefore stacking is not necessary (#5788).
 
 # ggplot2 3.5.0
 

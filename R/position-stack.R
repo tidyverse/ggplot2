@@ -187,6 +187,10 @@ PositionStack <- ggproto("PositionStack", Position,
     if (is.null(params$var)) {
       return(data)
     }
+    if (!vec_duplicate_any(data$x)) {
+      # Every x is unique, nothing to stack here
+      return(flip_data(data, params$flipped_aes))
+    }
 
     negative <- data$ymax < 0
     negative[is.na(negative)] <- FALSE
