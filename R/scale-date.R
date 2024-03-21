@@ -81,7 +81,7 @@ scale_x_date <- function(name = waiver(),
                          sec.axis = waiver()) {
 
   sc <- datetime_scale(
-    c("x", "xmin", "xmax", "xend"),
+    ggplot_global$x_aes,
     "date",
     name = name,
     palette = identity,
@@ -118,7 +118,7 @@ scale_y_date <- function(name = waiver(),
                          sec.axis = waiver()) {
 
   sc <- datetime_scale(
-    c("y", "ymin", "ymax", "yend"),
+    ggplot_global$y_aes,
     "date",
     name = name,
     palette = identity,
@@ -156,7 +156,7 @@ scale_x_datetime <- function(name = waiver(),
                              sec.axis = waiver()) {
 
   sc <- datetime_scale(
-    c("x", "xmin", "xmax", "xend"),
+    ggplot_global$x_aes,
     "time",
     name = name,
     palette = identity,
@@ -196,7 +196,7 @@ scale_y_datetime <- function(name = waiver(),
                              sec.axis = waiver()) {
 
   sc <- datetime_scale(
-    c("y", "ymin", "ymax", "yend"),
+    ggplot_global$y_aes,
     "time",
     name = name,
     palette = identity,
@@ -317,7 +317,7 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
 
   # x/y position aesthetics should use ScaleContinuousDate or
   # ScaleContinuousDatetime; others use ScaleContinuous
-  if (all(aesthetics %in% c("x", "xmin", "xmax", "xend", "y", "ymin", "ymax", "yend"))) {
+  if (all(aesthetics %in% c(ggplot_global$x_aes, ggplot_global$y_aes))) {
     scale_class <- switch(
       transform,
       date = ScaleContinuousDate,
