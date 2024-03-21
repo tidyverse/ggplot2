@@ -148,7 +148,7 @@ theme(
 }
 \arguments{
 \item{...}{additional element specifications not part of base ggplot2. In general,
-these should also be defined in the \verb{element tree} argument.}
+these should also be defined in the \verb{element tree} argument. \link[rlang:splice]{Splicing} a list is also supported.}
 
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
 
