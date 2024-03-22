@@ -162,3 +162,45 @@ test_that("mapped_discrete vectors behaves as predicted", {
   x[5:7] <- mapped_discrete(seq_len(3))
   expect_s3_class(x, "mapped_discrete")
 })
+
+# Palettes ----------------------------------------------------------------
+
+test_that("palettes work for discrete scales", {
+
+  df <- data.frame(x = c("A", "B", "C"), y = 1:3)
+  values <- c(1, 10, 100)
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    scale_x_discrete(palette = function(x) values)
+
+  # Check limits are translated to correct values
+  ld <- layer_data(p)
+  expect_equal(ld$x, values, ignore_attr = TRUE)
+
+  # Check discsrete expansion is applied
+  b <- ggplot_build(p)
+  expect_equal(
+    b$layout$panel_params[[1]]$x.range,
+    range(values) + c(-0.6, 0.6)
+  )
+})
+
+test_that("invalid palettes trigger errors", {
+
+  df <- data.frame(x = c("A", "B", "C"), y = 1:3)
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point()
+
+  expect_error(
+    ggplot_build(p + scale_x_discrete(palette = function(x) LETTERS[1:3])),
+    "must return a .+ vector\\."
+  )
+
+  expect_error(
+    ggplot_build(p + scale_x_discrete(palette = function(x) 1:2)),
+    "must return at least 3 values"
+  )
+})
+

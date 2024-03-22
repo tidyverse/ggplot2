@@ -12,6 +12,8 @@
 #'
 #' @inheritDotParams discrete_scale -scale_name
 #' @inheritParams discrete_scale
+#' @param palette A function that takes the limits as input and provides
+#'   numerical values as output.
 #' @rdname scale_discrete
 #' @family position scales
 #' @seealso
@@ -63,11 +65,12 @@
 #'   geom_point() +
 #'   scale_x_discrete(labels = abbreviate)
 #' }
-scale_x_discrete <- function(name = waiver(), ..., expand = waiver(),
+scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
+                             expand = waiver(),
                              guide = waiver(), position = "bottom") {
   sc <- discrete_scale(
     aesthetics = c("x", "xmin", "xmax", "xend"), name = name,
-    palette = identity, ...,
+    palette = palette, ...,
     expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition
   )
@@ -77,11 +80,12 @@ scale_x_discrete <- function(name = waiver(), ..., expand = waiver(),
 }
 #' @rdname scale_discrete
 #' @export
-scale_y_discrete <- function(name = waiver(), ..., expand = waiver(),
+scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
+                             expand = waiver(),
                              guide = waiver(), position = "left") {
   sc <- discrete_scale(
     aesthetics = c("y", "ymin", "ymax", "yend"), name = name,
-    palette = identity, ...,
+    palette = palette, ...,
     expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition
   )
@@ -134,7 +138,21 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   map = function(self, x, limits = self$get_limits()) {
     if (is.discrete(x)) {
-      x <- seq_along(limits)[match(as.character(x), limits)]
+      values <- self$palette(length(limits))
+      if (!is.numeric(values)) {
+        cli::cli_abort(
+          "The {.arg palette} function must return a {.cls numeric} vector.",
+          call = self$call
+        )
+      }
+      if (length(values) < length(limits)) {
+        cli::cli_abort(
+          "The {.arg palette} function must return at least \\
+            {length(limits)} values.",
+          call = self$call
+        )
+      }
+      x <- values[match(as.character(x), limits)]
     }
     mapped_discrete(x)
   },
