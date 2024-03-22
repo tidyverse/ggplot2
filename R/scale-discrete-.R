@@ -65,7 +65,7 @@
 #'   geom_point() +
 #'   scale_x_discrete(labels = abbreviate)
 #' }
-scale_x_discrete <- function(name = waiver(), ..., palette = seq_along,
+scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(),
                              guide = waiver(), position = "bottom") {
   sc <- discrete_scale(
@@ -80,7 +80,7 @@ scale_x_discrete <- function(name = waiver(), ..., palette = seq_along,
 }
 #' @rdname scale_discrete
 #' @export
-scale_y_discrete <- function(name = waiver(), ..., palette = seq_along,
+scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(),
                              guide = waiver(), position = "left") {
   sc <- discrete_scale(
@@ -138,7 +138,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   map = function(self, x, limits = self$get_limits()) {
     if (is.discrete(x)) {
-      values <- self$palette(limits)
+      values <- self$palette(length(limits))
       if (!is.numeric(values)) {
         cli::cli_abort(
           "The {.arg palette} function must return a {.cls numeric} vector.",
