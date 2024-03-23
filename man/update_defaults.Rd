@@ -10,7 +10,11 @@ update_geom_defaults(geom, new)
 update_stat_defaults(stat, new)
 }
 \arguments{
-\item{new}{Named list of aesthetics.}
+\item{new}{One of the following:
+\itemize{
+\item A named list of aesthetics to serve as new defaults.
+\item \code{NULL} to reset the defaults.
+}}
 
 \item{stat, geom}{Name of geom/stat to modify (like \code{"point"} or
 \code{"bin"}), or a Geom/Stat object (like \code{GeomPoint} or
@@ -29,7 +33,7 @@ GeomPoint$default_aes
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
 
 # reset default
-update_geom_defaults("point", aes(color = "black"))
+update_geom_defaults("point", NULL)
 
 
 # updating a stat's default aesthetic settings
@@ -42,7 +46,7 @@ ggplot(data.frame(x = rnorm(1e3)), aes(x)) +
   geom_function(fun = dnorm, color = "red")
 
 # reset default
-update_stat_defaults("bin", aes(y = after_stat(count)))
+update_stat_defaults("bin", NULL)
 
 }
 \keyword{internal}
