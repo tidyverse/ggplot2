@@ -82,33 +82,49 @@ NULL
 #'   theme(text = element_text(family = "Times"))
 #' rep_el$text
 #'
-theme_get <- function() {
+get_theme <- function() {
   ggplot_global$theme_current
 }
 
-#' @rdname theme_get
+#' @export
+#' @rdname get_theme
+theme_get <- get_theme
+
+#' @rdname get_theme
 #' @param new new theme (a list of theme elements)
 #' @export
-theme_set <- function(new) {
+set_theme <- function(new) {
   check_object(new, is.theme, "a {.cls theme} object")
   old <- ggplot_global$theme_current
   ggplot_global$theme_current <- new
   invisible(old)
 }
 
-#' @rdname theme_get
 #' @export
-theme_update <- function(...) {
-  theme_set(theme_get() + theme(...))
+#' @rdname get_theme
+theme_set <- set_theme
+
+#' @rdname get_theme
+#' @export
+update_theme <- function(...) {
+  set_theme(get_theme() + theme(...))
 }
 
-#' @rdname theme_get
 #' @export
-theme_replace <- function(...) {
-  theme_set(theme_get() %+replace% theme(...))
+#' @rdname get_theme
+theme_update <- update_theme
+
+#' @rdname get_theme
+#' @export
+replace_theme <- function(...) {
+  set_theme(get_theme() %+replace% theme(...))
 }
 
-#' @rdname theme_get
+#' @export
+#' @rdname get_theme
+theme_replace <- replace_theme
+
+#' @rdname get_theme
 #' @export
 "%+replace%" <- function(e1, e2) {
   if (!is.theme(e1) || !is.theme(e2)) {
