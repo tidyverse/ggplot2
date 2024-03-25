@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* New function `complete_theme()` to replicate how themes are handled during
+  plot building (#5801).
 * `coord_map()` and `coord_polar()` throw informative warnings when used
   with the guide system (#5707).
 * When passing a function to `stat_contour(breaks)`, that function is used to
