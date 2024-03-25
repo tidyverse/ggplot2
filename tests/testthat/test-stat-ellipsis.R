@@ -4,7 +4,7 @@ test_that("stat_ellipsis returns correct data format", {
   p <- ggplot(d, aes(x = x, y = y, group = id)) +
     geom_point() +
     stat_ellipse(segments = n_seg)
-  out <- layer_data(p, 2)
+  out <- get_layer_data(p, 2)
   expect_equal(nrow(out), (n_seg + 1) * 2)
   expect_equal(unique(out$group), c(1, 2))
 })

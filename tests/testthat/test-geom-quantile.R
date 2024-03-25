@@ -33,7 +33,7 @@ test_that("geom_quantile matches quantile regression", {
   # pred_rq is a matrix; convert it to data.frame so that it can be compared
   pred_rq <- as.data.frame(pred_rq)
 
-  ggplot_data <- layer_data(ps)
+  ggplot_data <- get_layer_data(ps)
 
   pred_rq_test_25 <- pred_rq[, c("x", "Q_25")]
   colnames(pred_rq_test_25) <- c("x", "y")

@@ -287,7 +287,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
-  expect_snapshot_error(theme_set("foo"))
+  expect_snapshot_error(set_theme("foo"))
 })
 
 test_that("element tree can be modified", {
@@ -394,7 +394,7 @@ test_that("complete plot themes shouldn't inherit from default", {
 })
 
 test_that("current theme can be updated with new elements", {
-  old <- theme_set(theme_grey())
+  old <- set_theme(theme_grey())
 
   b1 <- ggplot() + theme_grey()
   b2 <- ggplot()
@@ -428,7 +428,7 @@ test_that("current theme can be updated with new elements", {
   expect_identical(e1, e2)
 
   reset_theme_settings()
-  theme_set(old)
+  set_theme(old)
 })
 
 test_that("titleGrob() and margins() work correctly", {

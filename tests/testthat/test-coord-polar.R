@@ -85,16 +85,16 @@ test_that("coord_polar can have free scales in facets", {
     geom_col() +
     coord_polar(theta = "y")
 
-  sc <- layer_scales(p + facet_wrap(~ x), 1, 1)
+  sc <- get_panel_scales(p + facet_wrap(~ x), 1, 1)
   expect_equal(sc$y$get_limits(), c(0, 2))
 
-  sc <- layer_scales(p + facet_wrap(~ x, scales = "free"), 1, 1)
+  sc <- get_panel_scales(p + facet_wrap(~ x, scales = "free"), 1, 1)
   expect_equal(sc$y$get_limits(), c(0, 1))
 
-  sc <- layer_scales(p + facet_grid(x ~ .), 1, 1)
+  sc <- get_panel_scales(p + facet_grid(x ~ .), 1, 1)
   expect_equal(sc$y$get_limits(), c(0, 2))
 
-  sc <- layer_scales(p + facet_grid(x ~ ., scales = "free"), 1, 1)
+  sc <- get_panel_scales(p + facet_grid(x ~ ., scales = "free"), 1, 1)
   expect_equal(sc$y$get_limits(), c(0, 1))
 })
 

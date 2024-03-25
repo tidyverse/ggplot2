@@ -4,18 +4,18 @@ test_that("data is ordered by x", {
   ps <- ggplot(df, aes(x, y))+
     geom_smooth(stat = "identity", se = FALSE)
 
-  expect_equal(layer_data(ps)[c("x", "y")], df[order(df$x), ], ignore_attr = TRUE)
+  expect_equal(get_layer_data(ps)[c("x", "y")], df[order(df$x), ], ignore_attr = TRUE)
 })
 
 test_that("geom_smooth works in both directions", {
   p <- ggplot(mpg, aes(displ, hwy)) +
     geom_smooth(method = 'loess', formula = y ~ x)
-  x <- layer_data(p)
+  x <- get_layer_data(p)
   expect_false(x$flipped_aes[1])
 
   p <- ggplot(mpg, aes(hwy, displ)) +
     geom_smooth(orientation = "y", method = 'loess', formula = y ~ x)
-  y <- layer_data(p)
+  y <- get_layer_data(p)
   expect_true(y$flipped_aes[1])
 
   x$flipped_aes <- NULL
@@ -45,7 +45,7 @@ test_that("default smoothing methods for small and large data sets work", {
   p <- ggplot(df, aes(x, y)) + geom_smooth()
 
   expect_message(
-    plot_data <- layer_data(p),
+    plot_data <- get_layer_data(p),
     "method = 'loess' and formula = 'y ~ x'"
   )
   expect_equal(plot_data$y, as.numeric(out))
@@ -64,7 +64,7 @@ test_that("default smoothing methods for small and large data sets work", {
   p <- ggplot(df, aes(x, y)) + geom_smooth()
 
   expect_message(
-    plot_data <- layer_data(p),
+    plot_data <- get_layer_data(p),
     "method = 'gam' and formula = 'y ~ s\\(x, bs = \"cs\"\\)"
   )
   expect_equal(plot_data$y, as.numeric(out))
@@ -73,7 +73,7 @@ test_that("default smoothing methods for small and large data sets work", {
   p <- ggplot(df, aes(x, y)) + geom_smooth(method = "auto")
 
   expect_message(
-    plot_data <- layer_data(p),
+    plot_data <- get_layer_data(p),
     "method = 'gam' and formula = 'y ~ s\\(x, bs = \"cs\"\\)"
   )
   expect_equal(plot_data$y, as.numeric(out))
@@ -90,7 +90,7 @@ test_that("geom_smooth() works when one group fails", {
     geom_smooth(method = "loess", formula = y ~ x)
 
   suppressWarnings(
-    expect_warning(ld <- layer_data(p), "Failed to fit group 1")
+    expect_warning(ld <- get_layer_data(p), "Failed to fit group 1")
   )
   expect_equal(unique(ld$group), 2)
   expect_gte(nrow(ld), 2)

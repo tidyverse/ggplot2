@@ -5,7 +5,7 @@ test_that("nudging works in both dimensions simultaneously", {
   p <- ggplot(df, aes(x, x, xmax = x, xmin = x, ymax = x, ymin = x)) +
     geom_point(position = position_nudge(x = 1, y = 2))
 
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_equal(data$x, 2:4)
   expect_equal(data$xmin, 2:4)
@@ -20,7 +20,7 @@ test_that("nudging works in both dimensions simultaneously", {
   p <- ggplot(df, aes(x, x, xmax = x, xmin = x, ymax = x, ymin = x)) +
     geom_point(position = position_nudge(x = c(0, -1, 0), y = c(0, 1, 2)))
 
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_equal(data$x, c(1, 1, 1))
   expect_equal(data$xmin, c(1, 1, 1))
@@ -39,7 +39,7 @@ test_that("nudging works in individual dimensions", {
   p <- ggplot(df, aes(x = x, xmax = x, xmin = x)) +
     layer(geom = Geom, stat = StatIdentity, position = position_nudge(x = 1))
 
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_equal(data$x, 2:4)
   expect_equal(data$xmin, 2:4)
@@ -49,7 +49,7 @@ test_that("nudging works in individual dimensions", {
   p <- ggplot(df, aes(x = x, xmax = x, xmin = x)) +
     layer(geom = Geom, stat = StatIdentity, position = position_nudge(x = c(0, -1, -2)))
 
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_equal(data$x, c(1, 1, 1))
   expect_equal(data$xmin, c(1, 1, 1))
@@ -61,7 +61,7 @@ test_that("nudging works in individual dimensions", {
   p <- ggplot(df, aes(y = x, ymax = x, ymin = x)) +
     layer(geom = Geom, stat = StatIdentity, position = position_nudge(y = 2))
 
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_equal(data$y, 3:5)
   expect_equal(data$ymin, 3:5)
@@ -71,7 +71,7 @@ test_that("nudging works in individual dimensions", {
   p <- ggplot(df, aes(y = x, ymax = x, ymin = x)) +
     layer(geom = Geom, stat = StatIdentity, position = position_nudge(y = c(0, -1, -2)))
 
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_equal(data$y, c(1, 1, 1))
   expect_equal(data$ymin, c(1, 1, 1))

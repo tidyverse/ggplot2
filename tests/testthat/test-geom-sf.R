@@ -88,7 +88,7 @@ test_that("geom_sf() removes rows containing missing aes", {
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
 
   grob_xy_length <- function(x) {
-    g <- layer_grob(x)[[1]]
+    g <- get_layer_grob(x)[[1]]
     c(length(g$x), length(g$y))
   }
 
@@ -127,7 +127,7 @@ test_that("geom_sf() handles alpha properly", {
   )
   red <- "#FF0000FF"
   p <- ggplot(sfc) + geom_sf(colour = red, fill = red, alpha = 0.5)
-  g <- layer_grob(p)[[1]]
+  g <- get_layer_grob(p)[[1]]
 
   # alpha affects the colour of points and lines
   expect_equal(g[[1]]$gp$col, alpha(red, 0.5))

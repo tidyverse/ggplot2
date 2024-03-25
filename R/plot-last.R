@@ -21,4 +21,8 @@ set_last_plot <- function(value) .store$set(value)
 #' @seealso [ggsave()]
 #' @export
 #' @keywords internal
-last_plot <- function() .store$get()
+get_last_plot <- function() .store$get()
+
+#' @export
+#' @rdname get_last_plot
+last_plot <- get_last_plot

@@ -367,11 +367,11 @@ ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
   theme_gray(base_size = 18)
 ```
 
-If you would like all plots within a session/document to use a particular base size, you can set it with `theme_set()`.
+If you would like all plots within a session/document to use a particular base size, you can set it with `set_theme()`.
 Run the following at the beginning of your session or include on top of your R Markdown document.
 
 ```{r eval = FALSE}
-theme_set(theme_gray(base_size = 18))
+set_theme(theme_gray(base_size = 18))
 ```
 
 </details>

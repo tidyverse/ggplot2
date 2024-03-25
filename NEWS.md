@@ -1,6 +1,21 @@
 
 # ggplot2 (development version)
 
+* Special getter and setter functions have been renamed for consistency, allowing
+  for better tab-completion with `get_*`- and `set_*`-prefixes. The old names 
+  remain available for backward compatibility (@teunbrand, #5568).
+  
+  | New name             | Old name          |
+  | -------------------- | ----------------- |
+  | `get_theme()`        | `theme_get()`     |
+  | `set_theme()`        | `theme_set()`     |
+  | `replace_theme()`    | `theme_replace()` |
+  | `update_theme()`     | `theme_update()`  |
+  | `get_last_plot()`    | `last_plot()`     |
+  | `get_layer_data()`   | `layer_data()`    |
+  | `get_layer_grob()`   | `layer_grob()`    |
+  | `get_panel_scales()` | `layer_scales()`  |
+
 * `coord_map()` and `coord_polar()` throw informative warnings when used
   with the guide system (#5707).
 * When passing a function to `stat_contour(breaks)`, that function is used to

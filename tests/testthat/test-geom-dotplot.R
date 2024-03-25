@@ -11,7 +11,7 @@ test_that("dodging works", {
       position = "dodge",
       stackdir = "center"
     )
-  df <- layer_data(p)
+  df <- get_layer_data(p)
 
   # Number of levels in the dodged variable
   ndodge <- 3
@@ -37,7 +37,7 @@ test_that("dodging works", {
 test_that("binning works", {
   bp <- ggplot(dat, aes(y)) +
     geom_dotplot(binwidth = .4, method = "histodot")
-  x <- layer_data(bp)$x
+  x <- get_layer_data(bp)$x
 
   # Need ugly hack to make sure mod function doesn't give values like -3.99999
   # due to floating point error
@@ -45,7 +45,7 @@ test_that("binning works", {
 
   bp <- ggplot(dat, aes(x = y)) +
     geom_dotplot(binwidth = .4, method = "dotdensity")
-  x <- layer_data(bp)$x
+  x <- get_layer_data(bp)$x
 
   # This one doesn't ensure that dotdensity works, but it does check that it's not
   # doing fixed bin sizes

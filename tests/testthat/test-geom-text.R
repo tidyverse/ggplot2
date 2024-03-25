@@ -21,10 +21,10 @@ test_that("geom_text() drops missing angles", {
 test_that("geom_text() accepts mm and pt size units", {
   p <- ggplot(data_frame0(x = 1, y = 1, label = "A"), aes(x, y, label = label))
 
-  grob <- layer_grob(p + geom_text(size = 10, size.unit = "mm"))[[1]]
+  grob <- get_layer_grob(p + geom_text(size = 10, size.unit = "mm"))[[1]]
   expect_equal(grob$gp$fontsize, 10 * .pt)
 
-  grob <- layer_grob(p + geom_text(size = 10, size.unit = "pt"))[[1]]
+  grob <- get_layer_grob(p + geom_text(size = 10, size.unit = "pt"))[[1]]
   expect_equal(grob$gp$fontsize, 10)
 })
 
