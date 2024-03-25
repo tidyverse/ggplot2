@@ -125,7 +125,7 @@ ggplot_build.ggplot <- function(plot) {
 
 #' @export
 #' @rdname ggplot_build
-get_layer_data <- function(plot = last_plot(), i = 1L) {
+get_layer_data <- function(plot = get_last_plot(), i = 1L) {
   ggplot_build(plot)$data[[i]]
 }
 #' @export
@@ -134,7 +134,7 @@ layer_data <- get_layer_data
 
 #' @export
 #' @rdname ggplot_build
-get_panel_scales <- function(plot = last_plot(), i = 1L, j = 1L) {
+get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
   layout <- b$layout$layout
@@ -152,7 +152,7 @@ layer_scales <- get_panel_scales
 
 #' @export
 #' @rdname ggplot_build
-get_layer_grob <- function(plot = last_plot(), i = 1L) {
+get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
   b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)

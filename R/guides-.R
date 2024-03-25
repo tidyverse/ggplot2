@@ -787,7 +787,7 @@ Guides <- ggproto(
 #' # Coord polar doesn't support proper guides, so we get a list
 #' polar <- p + coord_polar()
 #' get_guide_data(polar, "theta", panel = 2)
-get_guide_data <- function(plot = last_plot(), aesthetic, panel = 1L) {
+get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   check_string(aesthetic, allow_empty = FALSE)
   aesthetic <- standardise_aes_names(aesthetic)
