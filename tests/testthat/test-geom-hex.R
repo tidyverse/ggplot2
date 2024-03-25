@@ -5,7 +5,7 @@ test_that("density and value summaries are available", {
   base <- ggplot(df, aes(x, y)) +
     geom_hex()
 
-  out <- layer_data(base)
+  out <- get_layer_data(base)
   expect_equal(nrow(out), 2)
   expect_equal(out$density, c(0.75, 0.25), tolerance = 1e-7)
   expect_equal(out$count, c(3, 1), tolerance = 1e-7)
