@@ -553,6 +553,22 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
   )
 }
 
+complete_theme <- function(theme = NULL, default = theme_get()) {
+  check_object(theme,   is.theme, "a {.cls theme} object", allow_null = TRUE)
+  check_object(default, is.theme, "a {.cls theme} object")
+  theme <- plot_theme(list(theme = theme), default = default)
+
+  # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
+  # construct a new theme
+  attributes(theme) <- list(names = attr(theme, "names"))
+  structure(
+    theme,
+    class = c("theme", "gg"),
+    complete = TRUE, # This theme is complete and has no missing elements
+    validate = FALSE # Settings have already been validated
+  )
+}
+
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = theme_get()) {
   theme <- x$theme
