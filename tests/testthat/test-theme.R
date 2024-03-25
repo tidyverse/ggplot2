@@ -583,6 +583,30 @@ test_that("Minor tick length supports biparental inheritance", {
   )
 })
 
+test_that("complete_theme completes a theme", {
+  # `NULL` should match default
+  gray <- theme_gray()
+  new <- complete_theme(NULL, default = gray)
+  expect_equal(new, gray)
+
+  # Elements are propagated
+  new <- complete_theme(theme(axis.line = element_line("red")), gray)
+  expect_equal(new$axis.line$colour, "red")
+
+  # Missing elements are filled in if default theme is incomplete
+  new <- complete_theme(default = theme())
+  expect_s3_class(new$axis.line, "element_blank")
+
+  # Registered elements are included
+  register_theme_elements(
+    test = element_text(),
+    element_tree = list(test = el_def("element_text", "text"))
+  )
+  new <- complete_theme(default = gray)
+  expect_s3_class(new$test, "element_text")
+  reset_theme_settings()
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
