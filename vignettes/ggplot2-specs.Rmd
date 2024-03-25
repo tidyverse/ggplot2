@@ -283,7 +283,8 @@ ggplot(df, aes(1, x)) +
 
 ### Font size
 
-The `size` of text is measured in mm. This is unusual, but makes the size of text consistent with the size of lines and points. Typically you specify font size using points (or pt for short), where 1 pt = 0.35mm. ggplot2 provides this conversion factor in the variable `.pt`, so if you want to draw 12pt text, set `size = 12 / .pt`.
+The `size` of text is measured in mm by default. This is unusual, but makes the size of text consistent with the size of lines and points. Typically you specify font size using points (or pt for short), where 1 pt = 0.35mm. In `geom_text()` and `geom_label()`, you can set `size.unit = "pt"` to use points instead of millimeters. In addition,
+ggplot2 provides a conversion factor as the variable `.pt`, so if you want to draw 12pt text, you can also set `size = 12 / .pt`.
 
 ### Justification
 
