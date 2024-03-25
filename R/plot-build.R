@@ -5,15 +5,15 @@
 #' a list of data frames (one for each layer), and a panel object, which
 #' contain all information about axis limits, breaks etc.
 #'
-#' `layer_data()`, `layer_grob()`, and `layer_scales()` are helper
+#' `get_layer_data()`, `get_layer_grob()`, and `get_panel_scales()` are helper
 #' functions that return the data, grob, or scales associated with a given
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
-#' @param i An integer. In `layer_data()`, the data to return (in the order added to the
-#'   plot). In `layer_grob()`, the grob to return (in the order added to the
-#'   plot). In `layer_scales()`, the row of a facet to return scales for.
-#' @param j An integer. In `layer_scales()`, the column of a facet to return
+#' @param i An integer. In `get_layer_data()`, the data to return (in the order added to the
+#'   plot). In `get_layer_grob()`, the grob to return (in the order added to the
+#'   plot). In `get_panel_scales()`, the row of a facet to return scales for.
+#' @param j An integer. In `get_panel_scales()`, the column of a facet to return
 #'   scales for.
 #' @seealso
 #' [print.ggplot()] and [benchplot()] for

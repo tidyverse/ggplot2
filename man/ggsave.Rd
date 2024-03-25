@@ -6,7 +6,7 @@
 \usage{
 ggsave(
   filename,
-  plot = last_plot(),
+  plot = get_last_plot(),
   device = NULL,
   path = NULL,
   scale = 1,
