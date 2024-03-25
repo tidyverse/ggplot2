@@ -572,7 +572,9 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
 #' my_theme <- theme(line = element_line(colour = "red"))
 #' complete_theme(my_theme)
 complete_theme <- function(theme = NULL, default = theme_get()) {
-  check_object(theme,   is.theme, "a {.cls theme} object", allow_null = TRUE)
+  if (!is_bare_list(theme)) {
+    check_object(theme, is.theme, "a {.cls theme} object", allow_null = TRUE)
+  }
   check_object(default, is.theme, "a {.cls theme} object")
   theme <- plot_theme(list(theme = theme), default = default)
 
