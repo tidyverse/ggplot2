@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* `width` is implemented as aesthetic instead of parameter in `geom_col()` and
+  `geom_bar()` (#3142).
 * `coord_map()` and `coord_polar()` throw informative warnings when used
   with the guide system (#5707).
 * When passing a function to `stat_contour(breaks)`, that function is used to

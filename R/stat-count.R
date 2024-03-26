@@ -13,7 +13,6 @@
 stat_count <- function(mapping = NULL, data = NULL,
                        geom = "bar", position = "stack",
                        ...,
-                       width = NULL,
                        na.rm = FALSE,
                        orientation = NA,
                        show.legend = NA,
@@ -22,7 +21,6 @@ stat_count <- function(mapping = NULL, data = NULL,
   params <- list2(
     na.rm = na.rm,
     orientation = orientation,
-    width = width,
     ...
   )
 
