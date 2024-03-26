@@ -134,6 +134,8 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   # limits, not just those for which x and y are outside the limits
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
+  default_aes = aes(!!!GeomRect$default_aes, width = NULL),
+
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
     params
@@ -158,16 +160,5 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
-                        linejoin = "mitre", width = NULL, flipped_aes = FALSE) {
-    # Hack to ensure that width is detected as a parameter
-    ggproto_parent(GeomRect, self)$draw_panel(
-      data,
-      panel_params,
-      coord,
-      lineend = lineend,
-      linejoin = linejoin
-    )
-  },
   rename_size = TRUE
 )
