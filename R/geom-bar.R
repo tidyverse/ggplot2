@@ -45,8 +45,6 @@
 #'   columns to the left/right of axis breaks. Note that this argument may have
 #'   unintended behaviour when used with alternative positions, e.g.
 #'   `position_dodge()`.
-#' @param width Bar width. By default, set to 90% of the [resolution()] of the
-#'   data.
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`. For more information about overriding these connections,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
@@ -98,7 +96,6 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
                      just = 0.5,
-                     width = NULL,
                      na.rm = FALSE,
                      orientation = NA,
                      show.legend = NA,
@@ -113,7 +110,6 @@ geom_bar <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list2(
       just = just,
-      width = width,
       na.rm = na.rm,
       orientation = orientation,
       ...
