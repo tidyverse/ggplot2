@@ -19,7 +19,7 @@
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
-#'   One of "horizontal" or "vertical."
+#'   One of "horizontal" or "vertical".
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
 #' @param nrow,ncol The desired number of rows and column of legends
