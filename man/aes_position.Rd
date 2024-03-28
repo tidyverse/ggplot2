@@ -30,6 +30,18 @@ geometry that they're used in. These are \code{xintercept}, \code{yintercept},
 \code{xmin_final}, \code{ymin_final}, \code{xmax_final}, \code{ymax_final}, \code{xlower}, \code{lower},
 \code{xmiddle}, \code{middle}, \code{xupper}, \code{upper}, \code{x0} and \code{y0}. Many of these are used
 and automatically computed in \code{\link[=geom_boxplot]{geom_boxplot()}}.
+\subsection{Relation to \code{width} and \code{height}}{
+
+The position aesthetics mentioned above like \code{x} and \code{y} are all location
+based. The \code{width} and \code{height} aesthetics are closely related length
+based aesthetics, but are not position aesthetics. Consequently, \code{x} and \code{y}
+aesthetics respond to scale transformations, whereas the length based
+\code{width} and \code{height} aesthetics are not transformed by scales. For example,
+if we have the pair \verb{x = 10, width = 2}, that gets translated to the
+locations \verb{xmin = 9, xmax = 11} when using the default identity scales.
+However, the same pair becomes \verb{xmin = 1, xmax = 100} when using log10 scales,
+as \code{width = 2} in log10-space spans a 100-fold change.
+}
 }
 \examples{
 
