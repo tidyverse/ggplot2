@@ -98,7 +98,7 @@ GuideColoursteps <- ggproto(
       return(Guide$extract_key(scale, aesthetic))
     }
 
-    parsed <- parse_binned_breaks(scale, breaks, even.steps)
+    parsed <- parse_binned_breaks(scale, breaks)
     if (is.null(parsed)) {
       return(parsed)
     }
@@ -106,7 +106,11 @@ GuideColoursteps <- ggproto(
     breaks <- parsed$breaks
 
     key <- data_frame0(!!aesthetic := scale$map(breaks))
-    key$.value <- seq_along(breaks)
+    if (even.steps) {
+      key$.value <- seq_along(breaks)
+    } else {
+      key$.value <- breaks
+    }
     key$.label <- scale$get_labels(breaks)
 
     if (breaks[1] %in% limits) {
@@ -117,35 +121,34 @@ GuideColoursteps <- ggproto(
       key[[1]][nrow(key)] <- NA
     }
     # To avoid having to recalculate these variables in other methods, we
-    # attach these as attributes. It might not be very elegant, but it works.
-    attr(key, "limits") <- parsed$limits
-    attr(key, "bin_at") <- parsed$bin_at
-    return(key)
+    # attach the parsed values as attributes. It might not be very elegant,
+    # but it works.
+    attr(key, "parsed") <- parsed
+    key
   },
 
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
                            nbin = 100, alpha = NA,...) {
+
+    parsed <- attr(key, "parsed")
+    breaks <- parsed$breaks %||% scale$get_breaks()
+    limits <- parsed$limits %||% scale$get_limits()
+
+    breaks <- sort(unique0(c(limits, breaks)))
+    n      <- length(breaks)
+    bin_at <- parsed$bin_at %||% ((breaks[-1] + breaks[-n]) / 2)
+
     if (even.steps) {
-      bin_at <- attr(key, "bin_at", TRUE)
-      bar <- data_frame0(
-        colour = alpha(scale$map(bin_at), alpha),
-        min    = seq_along(bin_at) - 1,
-        max    = seq_along(bin_at),
-        .size  = length(bin_at)
-      )
-    } else {
-      breaks <- unique(sort(c(scale$get_limits(), scale$get_breaks())))
-      n <- length(breaks)
-      bin_at <- (breaks[-1] + breaks[-n]) / 2
-      bar <- data_frame0(
-        colour = alpha(scale$map(bin_at), alpha),
-        min    = head(breaks, -1),
-        max    = tail(breaks, -1),
-        .size  = length(bin_at)
-      )
+      breaks <- seq_len(n) - 1L
     }
-    return(bar)
+
+    data_frame0(
+      colour = alpha(scale$map(bin_at), alpha),
+      min    = breaks[-n],
+      max    = breaks[-1],
+      .size  = length(bin_at)
+    )
   },
 
   extract_params = function(scale, params, direction = "vertical", title = waiver(), ...) {
@@ -166,7 +169,7 @@ GuideColoursteps <- ggproto(
 
     if (show.limits) {
       key <- params$key
-      limits <- attr(key, "limits", TRUE) %||% scale$get_limits()
+      limits <- attr(key, "parsed")$limits %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
       n <- nrow(key)
       key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)
