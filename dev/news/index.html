@@ -86,7 +86,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li>When facets coerce the faceting variables to factors, the ‘ordered’ class is dropped (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5666" class="external-link">#5666</a>).</li>
+<li>
 <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code> and <code><a href="../reference/update_defaults.html">update_stat_defaults()</a></code> have a reset mechanism when using <code>new = NULL</code> and invisible return the previous defaults (<a href="https://github.com/tidyverse/ggplot2/issues/4993" class="external-link">#4993</a>).</li>
 <li>
 <code><a href="../reference/coord_map.html">coord_map()</a></code> and <code><a href="../reference/coord_polar.html">coord_polar()</a></code> throw informative warnings when used with the guide system (<a href="https://github.com/tidyverse/ggplot2/issues/5707" class="external-link">#5707</a>).</li>
