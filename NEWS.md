@@ -29,6 +29,8 @@
 * When legends detect the presence of values in a layer, `NA` is now detected
   if the data contains values outside the given breaks (@teunbrand, #5749).
 * `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
+* `guide_coloursteps(even.steps = FALSE)` now works with discrete data that has 
+  been formatted by `cut()` (@teunbrand, #3877).
 
 # ggplot2 3.5.0
 
