@@ -96,6 +96,11 @@ test_that("keep_draw_key", {
     c(FALSE, TRUE)
   )
 
+  # Missing values
+  key  <- data_frame0(.value = c("A", "B", NA))
+  data <- data_frame0(foo = c("A", "B", "C")) # 'C' should count as NA
+  expect_equal(keep_key_data(key, data, "foo", show = NA), c(TRUE, TRUE, TRUE))
+
   p <- ggplot(data.frame(x = 1:2), aes(x, x)) +
     geom_point(
       aes(colour = "point", alpha = "point"),

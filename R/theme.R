@@ -194,7 +194,7 @@
 #'   switched (`unit`)
 #'
 #' @param ... additional element specifications not part of base ggplot2. In general,
-#'   these should also be defined in the `element tree` argument.
+#'   these should also be defined in the `element tree` argument. [Splicing][rlang::splice] a list is also supported.
 #' @param complete set this to `TRUE` if this is a complete theme, such as
 #'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
@@ -575,7 +575,8 @@ plot_theme <- function(x, default = theme_get()) {
   # Check that all elements have the correct class (element_text, unit, etc)
   validate_theme(theme)
 
-  theme
+
+  theme[intersect(names(theme), names(get_element_tree()))]
 }
 
 #' Modify properties of an element in a theme object
