@@ -180,7 +180,9 @@ of the 4 categories below are ignored.</p><ul><li><p>Static aesthetics that are 
 value and apply to the layer as a whole. For example, <code>colour = "red"</code>
 or <code>linewidth = 3</code>. The geom's documentation has an <strong>Aesthetics</strong>
 section that lists the available options. The 'required' aesthetics
-cannot be passed on to the <code>params</code>.</p></li>
+cannot be passed on to the <code>params</code>. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.</p></li>
 <li><p>When constructing a layer using
 a <code>stat_*()</code> function, the <code>...</code> argument can be used to pass on
 parameters to the <code>geom</code> part of the layer. An example of this is

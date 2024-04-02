@@ -395,12 +395,14 @@ of them and see which works best for your needs.</p>
 <div class="section level3">
 <h3 id="font-size">Font size<a class="anchor" aria-label="anchor" href="#font-size"></a>
 </h3>
-<p>The <code>size</code> of text is measured in mm. This is unusual, but
-makes the size of text consistent with the size of lines and points.
-Typically you specify font size using points (or pt for short), where 1
-pt = 0.35mm. ggplot2 provides this conversion factor in the variable
-<code>.pt</code>, so if you want to draw 12pt text, set
-<code>size = 12 / .pt</code>.</p>
+<p>The <code>size</code> of text is measured in mm by default. This is
+unusual, but makes the size of text consistent with the size of lines
+and points. Typically you specify font size using points (or pt for
+short), where 1 pt = 0.35mm. In <code><a href="../reference/geom_text.html">geom_text()</a></code> and
+<code><a href="../reference/geom_text.html">geom_label()</a></code>, you can set <code>size.unit = "pt"</code> to
+use points instead of millimeters. In addition, ggplot2 provides a
+conversion factor as the variable <code>.pt</code>, so if you want to
+draw 12pt text, you can also set <code>size = 12 / .pt</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="justification">Justification<a class="anchor" aria-label="anchor" href="#justification"></a>
