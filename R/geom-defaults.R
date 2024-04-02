@@ -62,7 +62,7 @@ update_defaults <- function(name, subclass, new, env = parent.frame()) {
 
     old <- obj$default_aes
     # Only update cache the first time defaults are changed
-    if (!index %in% ls(cache_defaults)) {
+    if (!exists(index, envir = cache_defaults)) {
       cache_defaults[[index]] <- old
     }
     new <- rename_aes(new)
