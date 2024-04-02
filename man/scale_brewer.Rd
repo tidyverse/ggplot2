@@ -191,6 +191,8 @@ v + scale_fill_fermenter()
 \seealso{
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
+The \href{https://ggplot2-book.org/scales-colour#brewer-scales}{brewer scales section} of the online ggplot2 book.
+
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_continuous}()},

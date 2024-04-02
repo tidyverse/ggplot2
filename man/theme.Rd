@@ -148,7 +148,7 @@ theme(
 }
 \arguments{
 \item{...}{additional element specifications not part of base ggplot2. In general,
-these should also be defined in the \verb{element tree} argument.}
+these should also be defined in the \verb{element tree} argument. \link[rlang:splice]{Splicing} a list is also supported.}
 
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
 
@@ -455,7 +455,8 @@ p2 + theme(legend.position = "bottom")
 # Or place legends inside the plot using relative coordinates between 0 and 1
 # legend.justification sets the corner that the position refers to
 p2 + theme(
-  legend.position = c(.95, .95),
+  legend.position = "inside",
+  legend.position.inside = c(.95, .95),
   legend.justification = c("right", "top"),
   legend.box.just = "right",
   legend.margin = margin(6, 6, 6, 6)
@@ -494,4 +495,6 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.
+
+The \href{https://ggplot2-book.org/themes#modifying-theme-components}{modifying theme components} and \href{https://ggplot2-book.org/themes#sec-theme-elements}{theme elements sections} of the online ggplot2 book.
 }

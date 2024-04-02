@@ -194,19 +194,21 @@
 #'   switched (`unit`)
 #'
 #' @param ... additional element specifications not part of base ggplot2. In general,
-#'   these should also be defined in the `element tree` argument.
+#'   these should also be defined in the `element tree` argument. [Splicing][rlang::splice] a list is also supported.
 #' @param complete set this to `TRUE` if this is a complete theme, such as
 #'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @export
 #' @seealso
 #'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
-#' @export
+#'
+#' The `r link_book(c("modifying theme components", "theme elements sections"), c("themes#modifying-theme-components", "themes#sec-theme-elements"))`
 #' @examples
 #' p1 <- ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
@@ -270,7 +272,8 @@
 #' # Or place legends inside the plot using relative coordinates between 0 and 1
 #' # legend.justification sets the corner that the position refers to
 #' p2 + theme(
-#'   legend.position = c(.95, .95),
+#'   legend.position = "inside",
+#'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
 #'   legend.margin = margin(6, 6, 6, 6)
@@ -573,7 +576,8 @@ plot_theme <- function(x, default = theme_get()) {
   # Check that all elements have the correct class (element_text, unit, etc)
   validate_theme(theme)
 
-  theme
+
+  theme[intersect(names(theme), names(get_element_tree()))]
 }
 
 #' Modify properties of an element in a theme object

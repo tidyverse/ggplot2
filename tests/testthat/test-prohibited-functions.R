@@ -92,3 +92,30 @@ test_that("do not use data.frame(), use `data_frame()` or `new_data_frame()`, or
   data.frames <- vapply(R_files, get_n_data.frame, integer(1))
   expect_equal(sum(data.frames), 0)
 })
+
+test_that("No new argument names use underscores", {
+
+  # For context:
+  # We decided to use dot.case for argument names in exported functions,
+  # not snake_case.
+  # For historical reasons, some functions have snake_case arguments, which
+  # we do not want to change.
+  # Here, we take a snapshot of those functions and their arguments so that
+  # any new argument that uses an underscore will fail this test.
+  # Removing a function that uses an underscore argument will also fail this
+  # test, in which case the snapshot needs updating.
+
+  ns <- getNamespace("ggplot2")
+  exported <- getNamespaceExports(ns)
+
+  functions <- mget(exported, ns, mode = "function", ifnotfound = list(NULL))
+  functions <- functions[lengths(functions) > 0]
+
+  formals <- lapply(functions, fn_fmls_names)
+
+  underscore_args <- lapply(formals, function(x) x[grep("_", x, fixed = TRUE)])
+  underscore_args <- underscore_args[lengths(underscore_args) > 0]
+  underscore_args <- underscore_args[order(names(underscore_args))]
+
+  expect_snapshot(underscore_args)
+})

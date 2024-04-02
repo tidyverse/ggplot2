@@ -193,7 +193,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {

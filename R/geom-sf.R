@@ -59,7 +59,11 @@
 #'
 #'   You can also set this to one of "polygon", "line", and "point" to
 #'   override the default legend.
-#' @seealso [stat_sf_coordinates()]
+#'
+#' @seealso
+#' The `r link_book("simple feature maps section", "maps#sec-sf")`
+#'
+#' [stat_sf_coordinates()]
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -202,7 +206,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
   col <- x$colour %||% defaults$colour[type_ind]
   col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])
   fill <- x$fill %||% defaults$fill[type_ind]
-  fill <- alpha(fill, alpha)
+  fill <- fill_alpha(fill, alpha)
   size <- x$size %||% defaults$size[type_ind]
   linewidth <- x$linewidth %||% defaults$linewidth[type_ind]
   point_size <- ifelse(

@@ -98,6 +98,12 @@ test_that("coord_polar can have free scales in facets", {
   expect_equal(sc$y$get_limits(), c(0, 1))
 })
 
+test_that("coord_polar throws informative warning about guides", {
+  expect_snapshot_warning(
+    ggplot_build(ggplot() + coord_polar() + guides(theta = guide_axis()))
+  )
+})
+
 test_that("coord_radial warns about axes", {
 
   p <- ggplot(mtcars, aes(disp, mpg)) +
@@ -111,7 +117,7 @@ test_that("coord_radial warns about axes", {
   # If arc doesn't contain the top/bottom/left/right of a circle,
   # axis placement cannot be outside panel
   expect_snapshot_warning(ggplotGrob(
-    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r_axis_inside = FALSE)
+    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r.axis.inside = FALSE)
   ))
 
 })
@@ -121,6 +127,12 @@ test_that("bounding box calculations are sensible", {
   # Full cirle
   expect_equal(
     polar_bbox(arc = c(0, 2 * pi)),
+    list(x = c(0, 1), y = c(0, 1))
+  )
+
+  # Full offset cirle
+  expect_equal(
+    polar_bbox(arc = c(2 * pi, 4 * pi)),
     list(x = c(0, 1), y = c(0, 1))
   )
 
@@ -227,13 +239,13 @@ test_that("coord_radial() draws correctly", {
     theme
 
   expect_doppelganger("inner.radius with all axes", {
-    p + coord_radial(inner.radius = 0.3, r_axis_inside = FALSE) +
+    p + coord_radial(inner.radius = 0.3, r.axis.inside = FALSE) +
       sec_guides
   })
 
   expect_doppelganger("partial with all axes", {
     p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, inner.radius = 0.3,
-                     r_axis_inside = TRUE, theta = "y") +
+                     r.axis.inside = TRUE, theta = "y") +
       sec_guides
   })
 
@@ -245,7 +257,7 @@ test_that("coord_radial() draws correctly", {
     geom_text(aes(y = "0 degrees"),  angle = 0) +
     geom_text(aes(y = "90 degrees"), angle = 90) +
     coord_radial(start = 0.5 * pi, end = 1.5 * pi,
-                 rotate_angle = TRUE) +
+                 rotate.angle = TRUE) +
     theme
 
   expect_doppelganger(
@@ -254,7 +266,7 @@ test_that("coord_radial() draws correctly", {
       geom_text(aes(y = "0 degrees"),  angle = 0) +
       geom_text(aes(y = "90 degrees"), angle = 90) +
       coord_radial(start = 0.5 * pi, end = 1.5 * pi,
-                   rotate_angle = TRUE, r_axis_inside = FALSE) +
+                   rotate.angle = TRUE, r.axis.inside = FALSE) +
       theme
   )
 })
