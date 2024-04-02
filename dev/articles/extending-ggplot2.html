@@ -743,7 +743,7 @@ helper:</p>
 <span><span class="co">#&gt;         cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")</span></span>
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     params$width &lt;- params$width %||% (resolution(data$x %||% </span></span>
-<span><span class="co">#&gt;         0) * 0.75)</span></span>
+<span><span class="co">#&gt;         0, discrete = TRUE) * 0.75)</span></span>
 <span><span class="co">#&gt;     if (!is_mapped_discrete(data$x) &amp;&amp; is.double(data$x) &amp;&amp; !has_groups(data) &amp;&amp; </span></span>
 <span><span class="co">#&gt;         any(data$x != data$x[1L])) {</span></span>
 <span><span class="co">#&gt;         cli::cli_warn(c("Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic", </span></span>
@@ -804,7 +804,7 @@ stat that doesn’t handle orientation (often
 <span><span class="co">#&gt;     data$flipped_aes &lt;- params$flipped_aes</span></span>
 <span><span class="co">#&gt;     data &lt;- flip_data(data, params$flipped_aes)</span></span>
 <span><span class="co">#&gt;     data$width &lt;- data$width %||% params$width %||% (resolution(data$x, </span></span>
-<span><span class="co">#&gt;         FALSE) * 0.9)</span></span>
+<span><span class="co">#&gt;         FALSE, TRUE) * 0.9)</span></span>
 <span><span class="co">#&gt;     if (isFALSE(params$outliers)) {</span></span>
 <span><span class="co">#&gt;         data$outliers &lt;- NULL</span></span>
 <span><span class="co">#&gt;     }</span></span>

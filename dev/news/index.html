@@ -98,12 +98,15 @@
 <li>Patterns and gradients are now also enabled in <code><a href="../reference/ggsf.html">geom_sf()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5716" class="external-link">#5716</a>).</li>
 <li>
 <code><a href="../reference/geom_histogram.html">stat_bin()</a></code> deals with non-finite breaks better (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5665" class="external-link">#5665</a>).</li>
+<li>The default behaviour of <code><a href="../reference/resolution.html">resolution()</a></code> has been reverted to pre-3.5.0 behaviour. Whether mapped discrete vectors should be treated as having resolution of 1 is controlled by the new <code>discrete</code> argument.</li>
 <li>Fixed bug in <code><a href="../reference/guide_bins.html">guide_bins()</a></code> and <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> where discrete breaks, such as the levels produced by <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut()</a></code>, were ordered incorrectly (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5757" class="external-link">#5757</a>).</li>
 <li>Theme elements that do not exist now throw warnings instead of errors (<a href="https://github.com/tidyverse/ggplot2/issues/5719" class="external-link">#5719</a>).</li>
 <li>Fixed bug in <code><a href="../reference/coord_polar.html">coord_radial()</a></code> where full circles were not treated as such (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5750" class="external-link">#5750</a>).</li>
 <li>When legends detect the presence of values in a layer, <code>NA</code> is now detected if the data contains values outside the given breaks (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5749" class="external-link">#5749</a>).</li>
 <li>
 <code><a href="../reference/annotate.html">annotate()</a></code> now warns about <code>stat</code> or <code>position</code> arguments (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5151" class="external-link">#5151</a>)</li>
+<li>
+<code>guide_coloursteps(even.steps = FALSE)</code> now works with discrete data that has been formatted by <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/3877" class="external-link">#3877</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.5.0" id="ggplot2-350">ggplot2 3.5.0<a class="anchor" aria-label="anchor" href="#ggplot2-350"></a></h2><p class="text-muted">CRAN release: 2024-02-23</p>
