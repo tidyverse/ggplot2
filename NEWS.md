@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* Fix a bug in `position_jitterdodge()` where different jitters would be applied
+  to different position aesthetics of the same axis (@teunbrand, #5818).
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
