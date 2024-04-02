@@ -167,11 +167,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     guide_params[["theta"]]$position     <- "theta"
     guide_params[["theta.sec"]]$position <- "theta.sec"
 
+    if (self$theta == "x") {
+      opposite_r <- isTRUE(scales$r$position %in% c("top", "right"))
+    } else {
+      opposite_r <- isTRUE(scales$r$position %in% c("bottom", "left"))
+    }
+
     if (self$r_axis_inside) {
 
       arc <- rad2deg(self$arc)
       r_position <- c("left", "right")
-      if (self$direction == -1) {
+      # If both opposite direction and opposite position, don't flip
+      if (xor(self$direction == -1, opposite_r)) {
         arc <- rev(arc)
         r_position <- rev(r_position)
       }
@@ -182,8 +189,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
       guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
     } else {
-      guide_params[["r"]]$position     <- params$r_axis
-      guide_params[["r.sec"]]$position <- opposite_position(params$r_axis)
+      r_position <- c(params$r_axis, opposite_position(params$r_axis))
+      if (opposite_r) {
+        r_position <- rev(r_position)
+      }
+      guide_params[["r"]]$position     <- r_position[1]
+      guide_params[["r.sec"]]$position <- r_position[2]
     }
 
     guide_params[drop_guides] <- list(NULL)

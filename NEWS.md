@@ -19,6 +19,9 @@
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* While axes in `coord_radial()` don't neatly fit the top/right/bottom/left
+  organisation, specifying `position = "top"` or `position = "right"` 
+  in the scale will flip the placement of the radial axis (#5735)
 * The default behaviour of `resolution()` has been reverted to pre-3.5.0 
   behaviour. Whether mapped discrete vectors should be treated as having 
   resolution of 1 is controlled by the new `discrete` argument.
