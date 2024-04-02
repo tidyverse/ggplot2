@@ -17,6 +17,9 @@
 * Patterns and gradients are now also enabled in `geom_sf()` 
   (@teunbrand, #5716).
 * `stat_bin()` deals with non-finite breaks better (@teunbrand, #5665).
+* The default behaviour of `resolution()` has been reverted to pre-3.5.0 
+  behaviour. Whether mapped discrete vectors should be treated as having 
+  resolution of 1 is controlled by the new `discrete` argument.
 * Fixed bug in `guide_bins()` and `guide_coloursteps()` where discrete breaks,
   such as the levels produced by `cut()`, were ordered incorrectly 
   (@teunbrand, #5757).
