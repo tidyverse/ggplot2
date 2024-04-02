@@ -87,6 +87,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
 <ul><li>
+<code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code> and <code><a href="../reference/update_defaults.html">update_stat_defaults()</a></code> have a reset mechanism when using <code>new = NULL</code> and invisible return the previous defaults (<a href="https://github.com/tidyverse/ggplot2/issues/4993" class="external-link">#4993</a>).</li>
+<li>
 <code><a href="../reference/coord_map.html">coord_map()</a></code> and <code><a href="../reference/coord_polar.html">coord_polar()</a></code> throw informative warnings when used with the guide system (<a href="https://github.com/tidyverse/ggplot2/issues/5707" class="external-link">#5707</a>).</li>
 <li>When passing a function to <code>stat_contour(breaks)</code>, that function is used to calculate the breaks even if <code>bins</code> and <code>binwidth</code> are missing (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5686" class="external-link">#5686</a>).</li>
 <li>
@@ -98,6 +100,7 @@
 <li>Patterns and gradients are now also enabled in <code><a href="../reference/ggsf.html">geom_sf()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5716" class="external-link">#5716</a>).</li>
 <li>
 <code><a href="../reference/geom_histogram.html">stat_bin()</a></code> deals with non-finite breaks better (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5665" class="external-link">#5665</a>).</li>
+<li>While axes in <code><a href="../reference/coord_polar.html">coord_radial()</a></code> don’t neatly fit the top/right/bottom/left organisation, specifying <code>position = "top"</code> or <code>position = "right"</code> in the scale will flip the placement of the radial axis (<a href="https://github.com/tidyverse/ggplot2/issues/5735" class="external-link">#5735</a>)</li>
 <li>The default behaviour of <code><a href="../reference/resolution.html">resolution()</a></code> has been reverted to pre-3.5.0 behaviour. Whether mapped discrete vectors should be treated as having resolution of 1 is controlled by the new <code>discrete</code> argument.</li>
 <li>Fixed bug in <code><a href="../reference/guide_bins.html">guide_bins()</a></code> and <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> where discrete breaks, such as the levels produced by <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut()</a></code>, were ordered incorrectly (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5757" class="external-link">#5757</a>).</li>
 <li>Theme elements that do not exist now throw warnings instead of errors (<a href="https://github.com/tidyverse/ggplot2/issues/5719" class="external-link">#5719</a>).</li>
