@@ -334,8 +334,8 @@ Layer <- ggproto("Layer", NULL,
         && length(aes_n) > 0 && all(aes_n == 1) && n > 1) {
       cli::cli_warn(c(
         "All aesthetics have length 1, but the data has {n} rows.",
-        i = "Please consider using {.fn annotate} or providing this layer \\
-        with data with a single row."
+        i = "Please consider using {.fn annotate} or provide this layer \\
+        with data containing a single row."
       ), call = self$constructor)
     }
     check_aesthetics(evaled, n)
