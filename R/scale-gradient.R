@@ -137,6 +137,9 @@ scale_fill_gradient2 <- function(name = waiver(), ..., low = muted("red"),
 
 mid_rescaler <- function(mid, transform = "identity",
                          arg = caller_arg(mid), call = caller_env()) {
+  if (is.null(mid)) {
+    return(rescale)
+  }
   transform <- as.trans(transform)
   trans_mid <- transform$transform(mid)
   check_transformation(
