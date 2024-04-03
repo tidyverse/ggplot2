@@ -77,12 +77,14 @@ scale_colour_steps2 <- function(name = waiver(), ..., low = muted("red"),
 scale_colour_stepsn <- function(name = waiver(), ..., colours, values = NULL,
                                 space = "Lab", na.value = "grey50",
                                 guide = "coloursteps", aesthetics = "colour",
-                                colors) {
+                                midpoint = NULL, transform = "identity",
+                                rescaler = NULL, colors) {
   colours <- if (missing(colours)) colors else colours
   binned_scale(
     aesthetics, name = name,
     palette = pal_gradient_n(colours, values, space),
-    na.value = na.value, guide = guide,
+    na.value = na.value, guide = guide, transform = transform,
+    rescaler = rescaler %||% mid_rescaler(midpoint, transform),
     ...
   )
 }
@@ -119,11 +121,14 @@ scale_fill_steps2 <- function(name = waiver(), ..., low = muted("red"),
 scale_fill_stepsn <- function(name = waiver(), ..., colours, values = NULL,
                               space = "Lab", na.value = "grey50",
                               guide = "coloursteps", aesthetics = "fill",
-                              colors) {
+                              transform = "identity", midpoint = NULL,
+                              rescaler = NULL, colors) {
   colours <- if (missing(colours)) colors else colours
   binned_scale(
     aesthetics, name = name,
     palette = pal_gradient_n(colours, values, space),
-    na.value = na.value, guide = guide, ...
+    na.value = na.value, guide = guide, transform = transform,
+    rescaler = rescaler %||% mid_rescaler(midpoint, transform),
+    ...
   )
 }
