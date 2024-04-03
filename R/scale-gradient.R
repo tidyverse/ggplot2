@@ -158,13 +158,15 @@ mid_rescaler <- function(mid, transform = "identity",
 scale_colour_gradientn <- function(name = waiver(), ..., colours, values = NULL,
                                    space = "Lab", na.value = "grey50",
                                    guide = "colourbar", aesthetics = "colour",
-                                   colors) {
+                                   midpoint = NULL, transform = "identity",
+                                   rescaler = NULL, colors) {
   colours <- if (missing(colours)) colors else colours
 
   continuous_scale(
     aesthetics, name = name,
     palette = pal_gradient_n(colours, values, space),
-    na.value = na.value, guide = guide, ...
+    rescaler = rescaler %||% mid_rescaler(midpoint, transform),
+    na.value = na.value, guide = guide, transform = transform, ...
   )
 }
 #' @rdname scale_gradient
@@ -172,12 +174,14 @@ scale_colour_gradientn <- function(name = waiver(), ..., colours, values = NULL,
 scale_fill_gradientn <- function(name = waiver(), ..., colours, values = NULL,
                                  space = "Lab", na.value = "grey50",
                                  guide = "colourbar", aesthetics = "fill",
-                                 colors) {
+                                 midpoint = NULL, transform = "identity",
+                                 rescaler = NULL, colors) {
   colours <- if (missing(colours)) colors else colours
 
   continuous_scale(
     aesthetics, name = name,
     palette = pal_gradient_n(colours, values, space),
-    na.value = na.value, guide = guide, ...
+    rescaler = rescaler %||% mid_rescaler(midpoint, transform),
+    na.value = na.value, guide = guide, transform = transform, ...
   )
 }
