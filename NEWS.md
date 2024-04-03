@@ -1,6 +1,9 @@
 
 # ggplot2 (development version)
 
+* `scale_{fill/colour}_gradientn()` and `scale_{fill/colour}_stepsn()` gain
+  a `midpoint` argument to make it easier to build divergent scales 
+  (@teunbrand, #3738).
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
