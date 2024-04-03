@@ -46,6 +46,9 @@ scale_colour_stepsn(
   na.value = "grey50",
   guide = "coloursteps",
   aesthetics = "colour",
+  midpoint = NULL,
+  transform = "identity",
+  rescaler = NULL,
   colors
 )
 
@@ -83,6 +86,9 @@ scale_fill_stepsn(
   na.value = "grey50",
   guide = "coloursteps",
   aesthetics = "fill",
+  transform = "identity",
+  midpoint = NULL,
+  rescaler = NULL,
   colors
 )
 }
@@ -198,6 +204,13 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 this vector gives the position (between 0 and 1) for each colour in the
 \code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
+
+\item{rescaler}{A function used to scale the input values to the
+range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
+diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
+\code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
+scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also accepts rlang
+\link[rlang:as_function]{lambda} function notation.}
 }
 \description{
 \verb{scale_*_steps} creates a two colour binned gradient (low-high),
