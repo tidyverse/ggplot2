@@ -1478,7 +1478,7 @@ accompanying issue #2890.
     
     We recognise that this is a big change and if you're not already familiar
     with rlang, there's a lot to learn. If you are stuck, or need any help,
-    please reach out on <https://community.rstudio.com>.
+    please reach out on <https://forum.posit.co/>.
 
 *   Error: Column `y` must be a 1d atomic vector or a list
 
