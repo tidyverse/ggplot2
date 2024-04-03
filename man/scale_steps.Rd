@@ -175,8 +175,9 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{mid}{colour for mid point}
 
-\item{midpoint}{The midpoint (in data value) of the diverging scale.
-Defaults to 0.}
+\item{midpoint}{The midpoint (in data value) for diverging scales.
+Can be set to \code{NULL} to skip centering the palette. The \code{midpoint} argument
+is incompatible with setting a \code{rescaler} argument.}
 
 \item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",

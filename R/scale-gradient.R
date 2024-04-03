@@ -103,8 +103,9 @@ scale_fill_gradient <- function(name = waiver(), ..., low = "#132B43",
 
 #' @inheritParams scales::pal_div_gradient
 #' @inheritParams continuous_scale
-#' @param midpoint The midpoint (in data value) of the diverging scale.
-#'   Defaults to 0.
+#' @param midpoint The midpoint (in data value) for diverging scales.
+#'   Can be set to `NULL` to skip centering the palette. The `midpoint` argument
+#'   is incompatible with setting a `rescaler` argument.
 #' @rdname scale_gradient
 #' @export
 scale_colour_gradient2 <- function(name = waiver(), ..., low = muted("red"),

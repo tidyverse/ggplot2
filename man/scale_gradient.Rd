@@ -77,6 +77,9 @@ scale_colour_gradientn(
   na.value = "grey50",
   guide = "colourbar",
   aesthetics = "colour",
+  midpoint = NULL,
+  transform = "identity",
+  rescaler = NULL,
   colors
 )
 
@@ -89,6 +92,9 @@ scale_fill_gradientn(
   na.value = "grey50",
   guide = "colourbar",
   aesthetics = "fill",
+  midpoint = NULL,
+  transform = "identity",
+  rescaler = NULL,
   colors
 )
 }
@@ -155,12 +161,6 @@ Note that setting limits on positional scales will \strong{remove} data outside 
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
 }}
-    \item{\code{rescaler}}{A function used to scale the input values to the
-range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
-diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
-\code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
-scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also accepts rlang
-\link[rlang:as_function]{lambda} function notation.}
     \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
@@ -194,8 +194,9 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{mid}{colour for mid point}
 
-\item{midpoint}{The midpoint (in data value) of the diverging scale.
-Defaults to 0.}
+\item{midpoint}{The midpoint (in data value) for diverging scales.
+Can be set to \code{NULL} to skip centering the palette. The \code{midpoint} argument
+is incompatible with setting a \code{rescaler} argument.}
 
 \item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
@@ -216,6 +217,13 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 this vector gives the position (between 0 and 1) for each colour in the
 \code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
+
+\item{rescaler}{A function used to scale the input values to the
+range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
+diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
+\code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
+scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also accepts rlang
+\link[rlang:as_function]{lambda} function notation.}
 }
 \description{
 \verb{scale_*_gradient} creates a two colour gradient (low-high),
