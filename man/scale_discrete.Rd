@@ -8,7 +8,7 @@
 scale_x_discrete(
   name = waiver(),
   ...,
-  palette = seq_along,
+  palette = seq_len,
   expand = waiver(),
   guide = waiver(),
   position = "bottom"
@@ -17,7 +17,7 @@ scale_x_discrete(
 scale_y_discrete(
   name = waiver(),
   ...,
-  palette = seq_along,
+  palette = seq_len,
   expand = waiver(),
   guide = waiver(),
   position = "left"
