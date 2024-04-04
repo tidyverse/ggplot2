@@ -430,7 +430,6 @@ GuideAxis <- ggproto(
     vp <- exec(
       viewport,
       !!params$orth_aes := unit(params$orth_side, "npc"),
-      !!params$orth_size := params$measure_gtable(gt),
       just = params$opposite
     )
 
