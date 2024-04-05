@@ -178,7 +178,17 @@ scale_color_discrete <- scale_colour_discrete
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
+scale_color_gradient_seq <- scale_colour_gradient_seq
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
 scale_color_gradient <- scale_colour_gradient
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
+scale_color_gradient_div <- scale_colour_gradient_div
 
 #' @export
 #' @rdname scale_gradient
@@ -193,7 +203,17 @@ scale_color_gradientn <- scale_colour_gradientn
 #' @export
 #' @rdname scale_steps
 #' @usage NULL
+scale_color_steps_seq <- scale_colour_steps_seq
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
 scale_color_steps <- scale_colour_steps
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
+scale_color_steps_div <- scale_colour_steps_div
 
 #' @export
 #' @rdname scale_steps
