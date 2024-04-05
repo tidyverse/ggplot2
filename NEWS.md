@@ -1,6 +1,10 @@
 
 # ggplot2 (development version)
 
+* `scale_*_gradient()` has been renamed to `scale_*_gradient_seq()`. 
+  `scale_*_gradient2()` has been renamed to `scale_*_gradient_div()`. Old names
+  for these functions are kept as aliases for backward compatibility 
+  (@teunbrand, #5821).
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
