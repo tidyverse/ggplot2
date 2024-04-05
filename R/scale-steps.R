@@ -1,7 +1,7 @@
 #' Binned gradient colour scales
 #'
-#' `scale_*_steps` creates a two colour binned gradient (low-high),
-#' `scale_*_steps2` creates a diverging binned colour gradient (low-mid-high),
+#' `scale_*_steps_seq` creates a sequential, two colour binned gradient (low-high),
+#' `scale_*_steps_div` creates a diverging binned colour gradient (low-mid-high),
 #' and `scale_*_stepsn` creates a n-colour binned gradient. These scales are
 #' binned variants of the [gradient scale][scale_colour_gradient] family and
 #' works in the same way.
@@ -35,12 +35,12 @@
 #' # Use scale_colour_steps for a standard binned gradient
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z1)) +
-#'   scale_colour_steps()
+#'   scale_colour_steps_seq()
 #'
 #' # Get a divergent binned scale with the *2 variant
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z1)) +
-#'   scale_colour_steps2()
+#'   scale_colour_steps_div()
 #'
 #' # Define your own colour ramp to extract binned colours from
 #' ggplot(df, aes(x, y)) +

@@ -1,7 +1,7 @@
 #' Gradient colour scales
 #'
-#' `scale_*_gradient` creates a two colour gradient (low-high),
-#' `scale_*_gradient2` creates a diverging colour gradient (low-mid-high),
+#' `scale_*_gradient_seq` creates a sequential, two colour gradient (low-high),
+#' `scale_*_gradient_div` creates a diverging colour gradient (low-mid-high),
 #' `scale_*_gradientn` creates a n-colour gradient. For binned variants of
 #' these scales, see the [color steps][scale_colour_steps] scales.
 #'
@@ -44,10 +44,10 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z2))
 #'
-#' # For diverging colour scales use gradient2
+#' # For diverging colour scales use gradient_div
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z1)) +
-#'   scale_colour_gradient2()
+#'   scale_colour_gradient_div()
 #'
 #' # Use your own colour scale with gradientn
 #' ggplot(df, aes(x, y)) +
@@ -62,18 +62,18 @@
 #' # Adjust colour choices with low and high
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z2)) +
-#'   scale_colour_gradient(low = "white", high = "black")
+#'   scale_colour_gradient_seq(low = "white", high = "black")
 #' # Avoid red-green colour contrasts because ~10% of men have difficulty
 #' # seeing them
 #'
 #'# Use `na.value = NA` to hide missing values but keep the original axis range
 #' ggplot(df_na, aes(x = value, y)) +
 #'   geom_bar(aes(fill = z1), stat = "identity") +
-#'   scale_fill_gradient(low = "yellow", high = "red", na.value = NA)
+#'   scale_fill_gradient_seq(low = "yellow", high = "red", na.value = NA)
 #'
-#'  ggplot(df_na, aes(x, y)) +
-#'    geom_point(aes(colour = z1)) +
-#'    scale_colour_gradient(low = "yellow", high = "red", na.value = NA)
+#' ggplot(df_na, aes(x, y)) +
+#'   geom_point(aes(colour = z1)) +
+#'   scale_colour_gradient_seq(low = "yellow", high = "red", na.value = NA)
 #'
 scale_colour_gradient_seq <- function(
     name = waiver(), ..., low = "#132B43",
