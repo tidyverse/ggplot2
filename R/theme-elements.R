@@ -144,6 +144,15 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+element_geom <- function(
+  ink = NULL, paper = NULL, accent = NULL, thin = NULL, thick = NULL) {
+
+  structure(
+    list(ink = ink, paper = paper, accent = accent, thin = thin, thick = thick),
+    class = c("element_geom", "element")
+  )
+}
+
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
@@ -426,6 +435,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
+  geom                = el_def("element_geom"),
   title               = el_def("element_text", "text"),
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
