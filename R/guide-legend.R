@@ -209,7 +209,7 @@ GuideLegend <- ggproto(
   },
 
   # Arrange common data for vertical and horizontal legends
-  process_layers = function(self, params, layers, data = NULL) {
+  process_layers = function(self, params, layers, data = NULL, theme = NULL) {
 
     include <- vapply(layers, function(layer) {
       aes <- matched_aes(layer, params)
@@ -220,10 +220,10 @@ GuideLegend <- ggproto(
       return(NULL)
     }
 
-    self$get_layer_key(params, layers[include], data[include])
+    self$get_layer_key(params, layers[include], data[include], theme)
   },
 
-  get_layer_key = function(params, layers, data) {
+  get_layer_key = function(params, layers, data, theme) {
 
     decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
@@ -240,13 +240,13 @@ GuideLegend <- ggproto(
 
         data <- try_fetch(
           layer$geom$use_defaults(params$key[matched_aes],
-                                  layer_params, modifiers),
+                                  layer_params, modifiers, theme),
           error = function(cnd) {
             cli::cli_warn(
               "Failed to apply {.fn after_scale} modifications to legend",
               parent = cnd
             )
-            layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
+            layer$geom$use_defaults(params$key[matched_aes], layer_params, list(), theme)
           }
         )
         data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)

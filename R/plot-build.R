@@ -93,11 +93,14 @@ ggplot_build.ggplot <- function(plot) {
   # Hand off position guides to layout
   layout$setup_panel_guides(plot$guides, plot$layers)
 
+  # Complete the plot's theme
+  plot$theme <- plot_theme(plot)
+
   # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
-    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
+    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data, plot$theme)
     data <- lapply(data, npscales$map_df)
   } else {
     # Only keep custom guides if there are no non-position scales
@@ -106,7 +109,6 @@ ggplot_build.ggplot <- function(plot) {
   data <- .expose_data(data)
 
   # Fill in defaults etc.
-  plot$theme <- plot_theme(plot)
   data <- by_layer(
     function(l, d) l$compute_geom_2(d, theme = plot$theme),
     layers, data, "setting up geom aesthetics"

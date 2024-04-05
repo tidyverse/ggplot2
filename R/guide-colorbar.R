@@ -269,7 +269,7 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers, data = NULL) {
+  get_layer_key = function(params, layers, data = NULL, theme = NULL) {
     params
   },
 
