@@ -47,10 +47,12 @@
 #'   geom_point(aes(colour = z1)) +
 #'   scale_colour_stepsn(colours = terrain.colors(10))
 #' @rdname scale_steps
-scale_colour_steps <- function(name = waiver(), ..., low = "#132B43",
-                               high = "#56B1F7", space = "Lab",
-                               na.value = "grey50", guide = "coloursteps",
-                               aesthetics = "colour") {
+scale_colour_steps_seq <- function(
+    name = waiver(), ..., low = "#132B43",
+    high = "#56B1F7", space = "Lab",
+    na.value = "grey50", guide = "coloursteps",
+    aesthetics = "colour") {
+
   binned_scale(
     aesthetics, name = name,
     palette = pal_seq_gradient(low, high, space),
@@ -59,11 +61,13 @@ scale_colour_steps <- function(name = waiver(), ..., low = "#132B43",
 }
 #' @rdname scale_steps
 #' @export
-scale_colour_steps2 <- function(name = waiver(), ..., low = muted("red"),
-                                mid = "white", high = muted("blue"),
-                                midpoint = 0, space = "Lab", na.value = "grey50",
-                                transform = "identity", guide = "coloursteps",
-                                aesthetics = "colour") {
+scale_colour_steps_div <- function(
+    name = waiver(), ..., low = muted("red"),
+    mid = "white", high = muted("blue"),
+    midpoint = 0, space = "Lab", na.value = "grey50",
+    transform = "identity", guide = "coloursteps",
+    aesthetics = "colour") {
+
   binned_scale(
     aesthetics, name = name,
     palette = div_gradient_pal(low, mid, high, space),
@@ -88,10 +92,12 @@ scale_colour_stepsn <- function(name = waiver(), ..., colours, values = NULL,
 }
 #' @rdname scale_steps
 #' @export
-scale_fill_steps <- function(name = waiver(), ..., low = "#132B43",
-                             high = "#56B1F7", space = "Lab",
-                             na.value = "grey50", guide = "coloursteps",
-                             aesthetics = "fill") {
+scale_fill_steps_seq <- function(
+    name = waiver(), ..., low = "#132B43",
+    high = "#56B1F7", space = "Lab",
+    na.value = "grey50", guide = "coloursteps",
+    aesthetics = "fill") {
+
   binned_scale(
     aesthetics, name = name,
     palette = pal_seq_gradient(low, high, space),
@@ -101,11 +107,13 @@ scale_fill_steps <- function(name = waiver(), ..., low = "#132B43",
 }
 #' @rdname scale_steps
 #' @export
-scale_fill_steps2 <- function(name = waiver(), ..., low = muted("red"),
-                              mid = "white", high = muted("blue"),
-                              midpoint = 0, space = "Lab", na.value = "grey50",
-                              transform = "identity", guide = "coloursteps",
-                              aesthetics = "fill") {
+scale_fill_steps_div <- function(
+    name = waiver(), ..., low = muted("red"),
+    mid = "white", high = muted("blue"),
+    midpoint = 0, space = "Lab", na.value = "grey50",
+    transform = "identity", guide = "coloursteps",
+    aesthetics = "fill") {
+
   binned_scale(
     aesthetics, name = name,
     palette = div_gradient_pal(low, mid, high, space),
