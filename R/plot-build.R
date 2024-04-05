@@ -106,7 +106,11 @@ ggplot_build.ggplot <- function(plot) {
   data <- .expose_data(data)
 
   # Fill in defaults etc.
-  data <- by_layer(function(l, d) l$compute_geom_2(d), layers, data, "setting up geom aesthetics")
+  plot$theme <- plot_theme(plot)
+  data <- by_layer(
+    function(l, d) l$compute_geom_2(d, theme = plot$theme),
+    layers, data, "setting up geom aesthetics"
+  )
 
   # Let layer stat have a final say before rendering
   data <- by_layer(function(l, d) l$finish_statistics(d), layers, data, "finishing layer stat")
@@ -181,7 +185,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot <- data$plot
   layout <- data$layout
   data <- data$data
-  theme <- plot_theme(plot)
+  theme <- plot$theme
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
 
