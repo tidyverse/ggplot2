@@ -91,6 +91,11 @@ scale_colour_gradient_seq <- function(
 
 #' @rdname scale_gradient
 #' @export
+#' @usage NULL
+scale_colour_gradient <- scale_colour_gradient_seq
+
+#' @rdname scale_gradient
+#' @export
 scale_fill_gradient_seq <- function(
     name = waiver(), ..., low = "#132B43",
     high = "#56B1F7", space = "Lab",
@@ -104,6 +109,11 @@ scale_fill_gradient_seq <- function(
     ...
   )
 }
+
+#' @rdname scale_gradient
+#' @export
+#' @usage NULL
+scale_fill_gradient <- scale_fill_gradient_seq
 
 #' @inheritParams scales::pal_div_gradient
 #' @inheritParams continuous_scale
@@ -128,6 +138,11 @@ scale_colour_gradient_div <- function(
 
 #' @rdname scale_gradient
 #' @export
+#' @usage NULL
+scale_colour_gradient2 <- scale_colour_gradient_div
+
+#' @rdname scale_gradient
+#' @export
 scale_fill_gradient_div <- function(
     name = waiver(), ..., low = muted("red"),
     mid = "white", high = muted("blue"),
@@ -142,6 +157,11 @@ scale_fill_gradient_div <- function(
     rescaler = mid_rescaler(mid = midpoint, transform = transform)
   )
 }
+
+#' @rdname scale_gradient
+#' @export
+#' @usage NULL
+scale_fill_gradient2 <- scale_fill_gradient_div
 
 mid_rescaler <- function(mid, transform = "identity",
                          arg = caller_arg(mid), call = caller_env()) {

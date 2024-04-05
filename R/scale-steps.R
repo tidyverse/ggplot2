@@ -59,6 +59,12 @@ scale_colour_steps_seq <- function(
     na.value = na.value, guide = guide, ...
   )
 }
+
+#' @rdname scale_steps
+#' @export
+#' @usage NULL
+scale_colour_steps <- scale_colour_steps_seq
+
 #' @rdname scale_steps
 #' @export
 scale_colour_steps_div <- function(
@@ -76,6 +82,12 @@ scale_colour_steps_div <- function(
     ...
   )
 }
+
+#' @rdname scale_steps
+#' @export
+#' @usage NULL
+scale_colour_steps2 <- scale_colour_steps_div
+
 #' @rdname scale_steps
 #' @export
 scale_colour_stepsn <- function(name = waiver(), ..., colours, values = NULL,
@@ -105,6 +117,12 @@ scale_fill_steps_seq <- function(
     ...
   )
 }
+
+#' @rdname scale_steps
+#' @export
+#' @usage NULL
+scale_fill_steps <- scale_fill_steps_seq
+
 #' @rdname scale_steps
 #' @export
 scale_fill_steps_div <- function(
@@ -122,6 +140,12 @@ scale_fill_steps_div <- function(
     ...
   )
 }
+
+#' @rdname scale_steps
+#' @export
+#' @usage NULL
+scale_fill_steps2 <- scale_fill_steps_div
+
 #' @rdname scale_steps
 #' @export
 scale_fill_stepsn <- function(name = waiver(), ..., colours, values = NULL,
