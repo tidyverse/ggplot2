@@ -131,8 +131,11 @@ Geom <- ggproto("Geom",
 
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(default_aes), names(data))
+    default_aes <- default_aes[missing_aes]
+    themed_defaults <- eval_from_theme(default_aes, theme)
+    default_aes[names(themed_defaults)] <- themed_defaults
 
-    missing_eval <- lapply(default_aes[missing_aes], eval_tidy)
+    missing_eval <- lapply(default_aes, eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 
@@ -222,6 +225,16 @@ Geom <- ggproto("Geom",
 
 )
 
+
+eval_from_theme <- function(aesthetics, theme) {
+  themed <- is_themed_aes(aesthetics)
+  if (!any(themed)) {
+    return(aesthetics)
+  }
+  settings <- calc_element("geom", theme) %||%
+    element_geom("black", "white", "#3366FF", 0.5, 2)
+  lapply(aesthetics[themed], eval_tidy, data = settings)
+}
 
 #' Graphical units
 #'
