@@ -75,10 +75,12 @@
 #'    geom_point(aes(colour = z1)) +
 #'    scale_colour_gradient(low = "yellow", high = "red", na.value = NA)
 #'
-scale_colour_gradient <- function(name = waiver(), ..., low = "#132B43",
-                                  high = "#56B1F7", space = "Lab",
-                                  na.value = "grey50",
-                                  guide = "colourbar", aesthetics = "colour") {
+scale_colour_gradient_seq <- function(
+    name = waiver(), ..., low = "#132B43",
+    high = "#56B1F7", space = "Lab",
+    na.value = "grey50",
+    guide = "colourbar", aesthetics = "colour") {
+
   continuous_scale(
     aesthetics, name = name,
     palette = pal_seq_gradient(low, high, space),
@@ -89,10 +91,12 @@ scale_colour_gradient <- function(name = waiver(), ..., low = "#132B43",
 
 #' @rdname scale_gradient
 #' @export
-scale_fill_gradient <- function(name = waiver(), ..., low = "#132B43",
-                                high = "#56B1F7", space = "Lab",
-                                na.value = "grey50", guide = "colourbar",
-                                aesthetics = "fill") {
+scale_fill_gradient_seq <- function(
+    name = waiver(), ..., low = "#132B43",
+    high = "#56B1F7", space = "Lab",
+    na.value = "grey50", guide = "colourbar",
+    aesthetics = "fill") {
+
   continuous_scale(
     aesthetics, name = name,
     palette = pal_seq_gradient(low, high, space),
@@ -107,11 +111,13 @@ scale_fill_gradient <- function(name = waiver(), ..., low = "#132B43",
 #'   Defaults to 0.
 #' @rdname scale_gradient
 #' @export
-scale_colour_gradient2 <- function(name = waiver(), ..., low = muted("red"),
-                                   mid = "white", high = muted("blue"),
-                                   midpoint = 0, space = "Lab", na.value = "grey50",
-                                   transform = "identity", guide = "colourbar",
-                                   aesthetics = "colour") {
+scale_colour_gradient_div <- function(
+    name = waiver(), ..., low = muted("red"),
+    mid = "white", high = muted("blue"),
+    midpoint = 0, space = "Lab", na.value = "grey50",
+    transform = "identity", guide = "colourbar",
+    aesthetics = "colour") {
+
   continuous_scale(
     aesthetics, name = name,
     palette = div_gradient_pal(low, mid, high, space),
@@ -122,11 +128,13 @@ scale_colour_gradient2 <- function(name = waiver(), ..., low = muted("red"),
 
 #' @rdname scale_gradient
 #' @export
-scale_fill_gradient2 <- function(name = waiver(), ..., low = muted("red"),
-                                 mid = "white", high = muted("blue"),
-                                 midpoint = 0, space = "Lab", na.value = "grey50",
-                                 transform = "identity", guide = "colourbar",
-                                 aesthetics = "fill") {
+scale_fill_gradient_div <- function(
+    name = waiver(), ..., low = muted("red"),
+    mid = "white", high = muted("blue"),
+    midpoint = 0, space = "Lab", na.value = "grey50",
+    transform = "identity", guide = "colourbar",
+    aesthetics = "fill") {
+
   continuous_scale(
     aesthetics, name = name,
     palette = div_gradient_pal(low, mid, high, space),
