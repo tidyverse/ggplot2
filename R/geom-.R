@@ -145,6 +145,13 @@ Geom <- ggproto("Geom",
       data[names(missing_eval)] <- missing_eval
     }
 
+    themed <- is_themed_aes(modifiers)
+    if (any(themed)) {
+      themed <- eval_from_theme(modifiers[themed], theme)
+      modifiers <- modifiers[setdiff(names(modifiers), names(themed))]
+      data[names(themed)] <- themed
+    }
+
     # If any after_scale mappings are detected they will be resolved here
     # This order means that they will have access to all default aesthetics
     if (length(modifiers) != 0) {
