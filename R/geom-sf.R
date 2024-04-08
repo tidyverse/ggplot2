@@ -131,6 +131,63 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
+  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+    data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
+    # Early exit for e.g. legend data that don't have geometry columns
+    if (!"geometry" %in% names(data)) {
+      return(data)
+    }
+
+    # Devise splitting index for geometry types
+    type <- sf_types[sf::st_geometry_type(data$geometry)]
+    type <- factor(type, c("point", "line", "other", "collection"))
+    index <- split(seq_len(nrow(data)), type)
+
+    # Initialise parts of the data
+    points <- lines <- others <- collections <- NULL
+
+    # Go through every part, applying different defaults
+    if (length(index$point) > 0) {
+      points <- GeomPoint$use_defaults(
+        vec_slice(data, index$point),
+        params, modifiers
+      )
+    }
+    if (length(index$line) > 0) {
+      lines <- GeomLine$use_defaults(
+        vec_slice(data, index$line),
+        params, modifiers
+      )
+    }
+    other_default <- modify_list(
+      GeomPolygon$default_aes,
+      list(fill = "grey90", colour = "grey35", linewidth = 0.2)
+    )
+    if (length(index$other) > 0) {
+      others <- GeomPolygon$use_defaults(
+        vec_slice(data, index$other),
+        params, modifiers,
+        default_aes = other_default
+      )
+    }
+    if (length(index$collection) > 0) {
+      modified <- rename(
+        GeomPoint$default_aes,
+        c(fill = "point_fill")
+      )
+      modified <- modify_list(other_default, modified)
+      collections <- Geom$use_defaults(
+        vec_slice(data, index$collection),
+        params, modifiers,
+        default_aes = modified
+      )
+    }
+
+    # Recombine data in original order
+    data <- vec_c(points, lines, others, collections)
+    vec_slice(data, order(unlist(index)))
+  },
+
   draw_panel = function(self, data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         arrow = NULL, na.rm = TRUE) {
