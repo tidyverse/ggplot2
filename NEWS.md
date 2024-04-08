@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* (Internal) Applying defaults in `geom_sf()` has moved from the internal 
+  `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
