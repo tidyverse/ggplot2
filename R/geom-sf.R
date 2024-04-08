@@ -246,36 +246,24 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
     type_ind <- type_ind[!remove]
     is_collection <- is_collection[!remove]
   }
-  defaults <- list(
-    GeomPoint$default_aes,
-    GeomLine$default_aes,
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35", linewidth = 0.2))
-  )
-  defaults[[4]] <- modify_list(
-    defaults[[3]],
-    rename(GeomPoint$default_aes, c(size = "point_size", fill = "point_fill"))
-  )
-  default_names <- unique0(unlist(lapply(defaults, names)))
-  defaults <- lapply(setNames(default_names, default_names), function(n) {
-    unlist(lapply(defaults, function(def) def[[n]] %||% NA))
-  })
-  alpha <- x$alpha %||% defaults$alpha[type_ind]
-  col <- x$colour %||% defaults$colour[type_ind]
+
+  alpha <- x$alpha %||% NA
+  fill <- fill_alpha(x$fill %||% NA, alpha)
+  col <- x$colour %||% NA
   col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])
-  fill <- x$fill %||% defaults$fill[type_ind]
-  fill <- fill_alpha(fill, alpha)
-  size <- x$size %||% defaults$size[type_ind]
-  linewidth <- x$linewidth %||% defaults$linewidth[type_ind]
+
+  size <- x$size %||% 0.5
+  linewidth <- x$linewidth %||% 0.5
   point_size <- ifelse(
     is_collection,
-    x$size %||% defaults$point_size[type_ind],
+    x$size,
     ifelse(is_point, size, linewidth)
   )
-  stroke <- (x$stroke %||% defaults$stroke[1]) * .stroke / 2
+  stroke <- (x$stroke %||% 0) * .stroke / 2
   fontsize <- point_size * .pt + stroke
   lwd <- ifelse(is_point, stroke, linewidth * .pt)
-  pch <- x$shape %||% defaults$shape[type_ind]
-  lty <- x$linetype %||% defaults$linetype[type_ind]
+  pch <- x$shape
+  lty <- x$linetype
   gp <- gpar(
     col = col, fill = fill, fontsize = fontsize, lwd = lwd, lty = lty,
     lineend = lineend, linejoin = linejoin, linemitre = linemitre
