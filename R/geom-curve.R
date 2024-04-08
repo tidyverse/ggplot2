@@ -47,6 +47,11 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
     if (!coord$is_linear()) {
       cli::cli_warn("{.fn geom_curve} is not implemented for non-linear coordinates")
     }
+    data <- remove_missing(
+      data, na.rm = na.rm,
+      c("x", "y", "xend", "yend", "linetype", "linewidth"),
+      name = "geom_curve"
+    )
 
     trans <- coord$transform(data, panel_params)
 
