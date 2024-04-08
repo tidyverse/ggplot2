@@ -5,6 +5,7 @@
 \alias{after_stat}
 \alias{stat}
 \alias{after_scale}
+\alias{from_theme}
 \alias{stage}
 \title{Control aesthetic evaluation}
 \usage{
@@ -15,6 +16,8 @@
 after_stat(x)
 
 after_scale(x)
+
+from_theme(x)
 
 stage(start = NULL, after_stat = NULL, after_scale = NULL)
 }

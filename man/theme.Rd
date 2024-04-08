@@ -10,6 +10,7 @@ theme(
   rect,
   text,
   title,
+  geom,
   aspect.ratio,
   axis.title,
   axis.title.x,
