@@ -222,13 +222,15 @@ test_that("geom_sf uses combinations of geometry correctly", {
   update_geom_defaults("line", list(colour = "red"))
   # Note: polygon defaults are mostly ignored or overridden
 
+  withr::defer({
+    update_geom_defaults("point", NULL)
+    update_geom_defaults("line",  NULL)
+  })
+
   expect_doppelganger(
     "mixed geometry types",
     ggplot(data) + geom_sf()
   )
-
-  update_geom_defaults("point", NULL)
-  update_geom_defaults("line",  NULL)
 })
 
 test_that("geom_sf_text() and geom_sf_label() draws correctly", {
