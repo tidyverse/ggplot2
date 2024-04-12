@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* Fixed regression in axes where `breaks = NULL` caused the axes to disappear
+  instead of just rendering the axis line (@teunbrand, #5816).
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
