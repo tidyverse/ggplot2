@@ -169,26 +169,32 @@ GuideAxis <- ggproto(
   transform = function(self, params, coord, panel_params) {
     key <- params$key
     position <- params$position
+    check <- FALSE
 
-    if (is.null(position) || nrow(key) == 0) {
+    if (!(is.null(position) || nrow(key) == 0)) {
+      check <- TRUE
+      aesthetics <- names(key)[!grepl("^\\.", names(key))]
+      if (!all(c("x", "y") %in% aesthetics)) {
+        other_aesthetic <- setdiff(c("x", "y"), aesthetics)
+        override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
+        key[[other_aesthetic]] <- override_value
+      }
+      key <- coord$transform(key, panel_params)
+      params$key <- key
+    }
+
+    if (!is.null(params$decor)) {
+      params$decor <- coord_munch(coord, params$decor, panel_params)
+
+      if (!coord$is_linear()) {
+        # For non-linear coords, we hardcode the opposite position
+        params$decor$x <- switch(position, left = 1, right = 0, params$decor$x)
+        params$decor$y <- switch(position, top = 0, bottom = 1, params$decor$y)
+      }
+    }
+
+    if (!check) {
       return(params)
-    }
-
-    aesthetics <- names(key)[!grepl("^\\.", names(key))]
-    if (!all(c("x", "y") %in% aesthetics)) {
-      other_aesthetic <- setdiff(c("x", "y"), aesthetics)
-      override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
-      key[[other_aesthetic]] <- override_value
-    }
-    key <- coord$transform(key, panel_params)
-    params$key <- key
-
-    params$decor <- coord_munch(coord, params$decor, panel_params)
-
-    if (!coord$is_linear()) {
-      # For non-linear coords, we hardcode the opposite position
-      params$decor$x <- switch(position, left = 1, right = 0, params$decor$x)
-      params$decor$y <- switch(position, top = 0, bottom = 1, params$decor$y)
     }
 
     # Ported over from `warn_for_position_guide`
