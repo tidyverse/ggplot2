@@ -150,10 +150,11 @@ GuideAxis <- ggproto(
   extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {
 
     value <- c(-Inf, Inf)
-    if (cap %in% c("both", "upper")) {
+    has_key <- !(is.null(key) || nrow(key) < 1)
+    if (cap %in% c("both", "upper") && has_key) {
       value[2] <- max(key[[aesthetic]])
     }
-    if (cap %in% c("both", "lower")) {
+    if (cap %in% c("both", "lower") && has_key) {
       value[1] <- min(key[[aesthetic]])
     }
 
