@@ -115,6 +115,9 @@ GuideAxis <- ggproto(
 
   extract_key = function(scale, aesthetic, minor.ticks = FALSE, ...) {
     major <- Guide$extract_key(scale, aesthetic, ...)
+    if (is.null(major) && is.null(scale$scale$get_breaks())) {
+      major <- data_frame0()
+    }
     if (!minor.ticks) {
       return(major)
     }
