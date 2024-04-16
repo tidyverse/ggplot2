@@ -34,7 +34,7 @@
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
@@ -235,7 +235,9 @@ need to call <code><a href="../reference/layer.html">ggplot2::layer()</a></code>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-3-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. The convex hull of all the points is marked by a polygon with no fill." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-3-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. The convex hull of all the points is marked by a
+ polygon with no fill." width="672" style="display: block; margin: auto;"></p>
 <p>(We’ll see later how to change the defaults of the geom so that you
 don’t need to specify <code>fill = NA</code> every time.)</p>
 <p>Once we’ve written this basic object, ggplot2 gives a lot for free.
@@ -245,14 +247,19 @@ constant within each group:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_chull</span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-4-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. The convex hulls of points, grouped and coloured by three types of drive train, are marked by polygons with no fill but the outline matches the colours of the points." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-4-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. The convex hulls of points, grouped and coloured by
+ three types of drive train, are marked by polygons with no fill but the
+ outline matches the colours of the points." width="672" style="display: block; margin: auto;"></p>
 <p>We can also override the default geom to display the convex hull in a
 different way:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_chull</span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"point"</span>, size <span class="op">=</span> <span class="fl">4</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-5-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. The points that are part of the convex hull of all points are marked with a red outline." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-5-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. The points that are part of the convex hull of all
+ points are marked with a red outline." width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="stat-parameters">Stat parameters<a class="anchor" aria-label="anchor" href="#stat-parameters"></a>
@@ -289,7 +296,9 @@ fit to a plot. We create a <code>StatLm</code> that inherits from
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_lm</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-6-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. A straight line with a negative slope passes through the cloud of points." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-6-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. A straight line with a negative slope passes through
+ the cloud of points." width="672" style="display: block; margin: auto;"></p>
 <p><code>StatLm</code> is inflexible because it has no parameters. We
 might want to allow the user to control the model formula and the number
 of points used to generate the grid. To do so, we add arguments to the
@@ -324,7 +333,10 @@ of points used to generate the grid. To do so, we add arguments to the
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_lm</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html" class="external-link">poly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_lm</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/poly.html" class="external-link">poly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"point"</span>, colour <span class="op">=</span> <span class="st">"red"</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-7-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. A wobbly line follows the point cloud over the horizontal direction. 20 points are placed on top of the line with constant horizontal intervals." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-7-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. A wobbly line follows the point cloud over the
+ horizontal direction. 20 points are placed on top of the line with constant
+ horizontal intervals." width="672" style="display: block; margin: auto;"></p>
 <p>Note that we don’t <em>have</em> to explicitly include the new
 parameters in the arguments for the layer, <code>...</code> will get
 passed to the right place anyway. But you’ll need to document them
@@ -403,12 +415,15 @@ passed the data and a list of params, and returns an updated list.</p>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Picking bandwidth of 0.345</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-9-1.png" alt="A line plot showing three kernel density estimates of engine displacement, coloured for three types of drive trains. The lines are a little bit wobbly." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-9-1.png" alt="A line plot showing three kernel density estimates of engine displacement,
+ coloured for three types of drive trains. The lines are a little bit
+ wobbly." width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-9-2.png" alt="A line plot showing three kernel density estimates of engine displacement, coloured for three types of drive trains. The lines are fairly smooth." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-9-2.png" alt="A line plot showing three kernel density estimates of engine displacement,
+ coloured for three types of drive trains. The lines are fairly smooth." width="672" style="display: block; margin: auto;"></p>
 <p>I recommend using <code>NULL</code> as a default value. If you pick
 important parameters automatically, it’s a good idea to
 <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> to the user (and when printing a floating point
@@ -437,13 +452,19 @@ different geoms:</p>
 <span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">drv</span>, colour <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-10-1.png" alt="A plot showing the engine displacement versus three types of drive trains. Every drive train is represented by a series of densely packed points that imitate a horizontal line, and their colour intensity indicates the kernel density estimate of the displacement." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-10-1.png" alt="A plot showing the engine displacement versus three types of drive
+ trains. Every drive train is represented by a series of densely packed
+ points that imitate a horizontal line, and their colour intensity indicates
+ the kernel density estimate of the displacement." width="672" style="display: block; margin: auto;"></p>
 <p>However, using this stat with the area geom doesn’t work quite right.
 The areas don’t stack on top of each other:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"area"</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-11-1.png" alt="An area plot showing the kernel density estimates of engine displacement. Three areas are shown that indicate the estimates for three types of drive trains separately. All areas are floored to the x-axis and overlap one another." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-11-1.png" alt="An area plot showing the kernel density estimates of
+ engine displacement. Three areas are shown that indicate the estimates for
+ three types of drive trains separately. All areas are floored to the x-axis
+ and overlap one another." width="672" style="display: block; margin: auto;"></p>
 <p>This is because each density is computed independently, and the
 estimated <code>x</code>s don’t line up. We can resolve that issue by
 computing the range of the data once in <code>setup_params()</code>.</p>
@@ -472,11 +493,17 @@ computing the range of the data once in <code>setup_params()</code>.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"area"</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-12-1.png" alt="A stacked area plot showing kernel density estimates of engine displacement. Three areas are shown that indicate the estimates for three types of drive trains separately. The areas are stacked on top of one another and show no overlap." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-12-1.png" alt="A stacked area plot showing kernel density estimates of engine displacement.
+ Three areas are shown that indicate the estimates for three types of drive
+ trains separately. The areas are stacked on top of one another and show
+ no overlap." width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">drv</span>, fill <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">stat_density_common</span><span class="op">(</span>bandwidth <span class="op">=</span> <span class="fl">1</span>, geom <span class="op">=</span> <span class="st">"raster"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-12-2.png" alt="A heatmap showing the density of engine displacement for three types of drive trains. The heatmap has three rows for the drive trains, but are continuous in the horizontal direction. The fill intensity of the heatmap shows the kernel density estimates." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-12-2.png" alt="A heatmap showing the density of engine displacement for three types of
+ drive trains. The heatmap has three rows for the drive trains, but are
+ continuous in the horizontal direction. The fill intensity of the heatmap
+ shows the kernel density estimates." width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="exercises">Exercises<a class="anchor" aria-label="anchor" href="#exercises"></a>
@@ -548,7 +575,8 @@ simplified version of <code><a href="../reference/geom_point.html">geom_point()<
 <span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_simple_point</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/GeomSimplePoint-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. The points are larger than the default." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/GeomSimplePoint-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. The points are larger than the default." width="672" style="display: block; margin: auto;"></p>
 <p>This is very similar to defining a new stat. You always need to
 provide fields/methods for the four pieces shown above:</p>
 <ul>
@@ -638,7 +666,10 @@ polygon. In this case, you should instead override
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_simple_polygon</span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-13-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. The convex hulls of points, grouped by 7 types of cars, are displayed as multiple polygons with no fill, but the outer line is coloured by the type." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-13-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. The convex hulls of points, grouped by 7 types of
+ cars, are displayed as multiple polygons with no fill, but the outer line is
+ coloured by the type." width="672" style="display: block; margin: auto;"></p>
 <p>There are a few things to note here:</p>
 <ul>
 <li><p>We override <code>draw_group()</code> instead of
@@ -687,7 +718,9 @@ change the defaults for <code>GeomPolygon</code> to work better with
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_chull</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-14-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars. The convex hull of all the points is marked by a polygon with no fill." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-14-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars. The convex hull of all the points is marked by a
+ polygon with no fill." width="672" style="display: block; margin: auto;"></p>
 <p>This doesn’t allow you to use different geoms with the stat, but that
 seems appropriate here since the convex hull is primarily a polygonal
 feature.</p>
@@ -972,10 +1005,12 @@ colour and overall font settings (e.g. family and size).</p>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">base</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/axis-line-ex-1.png" alt="Scatterplot of three observations arranged diagonally. The axis titles 'x' and 'y' are coloured in black" width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/axis-line-ex-1.png" alt="Scatterplot of three observations arranged diagonally. The axis titles 'x'
+ and 'y' are coloured in black" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">base</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/axis-line-ex-2.png" alt="Scatterplot of three observations arranged diagonally. The axis titles 'x' and 'y' are coloured in red" width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/axis-line-ex-2.png" alt="Scatterplot of three observations arranged diagonally. The axis titles 'x'
+ and 'y' are coloured in red" width="672" style="display: block; margin: auto;"></p>
 <p>You should generally start creating a theme by modifying these
 values.</p>
 </div>
@@ -1192,7 +1227,8 @@ constructor</p>
 <p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-26-1.png" alt="Scatterplot showing horsepower against miles per gallon for 32 cars." width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">facet_duplicate</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-26-2.png" alt="Scatterplot with two panels showing horsepower against miles per gallon for 32 cars. The left and right panels are identical." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-26-2.png" alt="Scatterplot with two panels showing horsepower against miles per gallon for
+ 32 cars. The left and right panels are identical." width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="doing-more-with-facets">Doing more with facets<a class="anchor" aria-label="anchor" href="#doing-more-with-facets"></a>
@@ -1250,7 +1286,7 @@ adds panels with y-transformed axes:</p>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">y_scales</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">layer_data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">match_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">layer_data</span><span class="op">$</span><span class="va">PANEL</span>, <span class="va">layout</span><span class="op">$</span><span class="va">PANEL</span><span class="op">)</span></span>
-<span>        <span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">y_scales</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aesthetics</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">layer_data</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">y_scales</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aesthetics</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">layer_data</span><span class="op">)</span><span class="op">)</span></span>
 <span>        <span class="va">trans_scale</span> <span class="op">&lt;-</span> <span class="va">layer_data</span><span class="op">$</span><span class="va">PANEL</span> <span class="op">==</span> <span class="fl">2L</span></span>
 <span>        <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">y_vars</span><span class="op">)</span> <span class="op">{</span></span>
 <span>          <span class="va">layer_data</span><span class="op">[</span><span class="va">trans_scale</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">y_scales</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">transform</span><span class="op">(</span><span class="va">layer_data</span><span class="op">[</span><span class="va">trans_scale</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
@@ -1264,7 +1300,7 @@ adds panels with y-transformed axes:</p>
 <span>  <span class="co"># doesn't have access to the scales</span></span>
 <span>  finish_data <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">layout</span>, <span class="va">x_scales</span>, <span class="va">y_scales</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">match_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">PANEL</span>, <span class="va">layout</span><span class="op">$</span><span class="va">PANEL</span><span class="op">)</span></span>
-<span>    <span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">y_scales</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aesthetics</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">y_scales</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">aesthetics</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="va">trans_scale</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">PANEL</span> <span class="op">==</span> <span class="fl">2L</span></span>
 <span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">y_vars</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">data</span><span class="op">[</span><span class="va">trans_scale</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">y_scales</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="fu">transform</span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="va">trans_scale</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
@@ -1393,7 +1429,11 @@ to be very meticulous when writing these methods.</p>
 works:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hp</span>, y <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">facet_trans</span><span class="op">(</span><span class="st">'sqrt'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-28-1.png" alt="Scatterplot with two panels showing horsepower against miles per gallon for 32 cars. Both panels show the same datapoints. The left panel is titled 'original' and the right panel is titled 'transformed (sqrt)'. On the right panel, the miles per gallon are displayed on a square root transformed scale." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-28-1.png" alt="Scatterplot with two panels showing horsepower against miles per
+ gallon for 32 cars. Both panels show the same datapoints. The left panel is
+ titled 'original' and the right panel is titled 'transformed (sqrt)'. On the
+ right panel, the miles per gallon are displayed on a square root
+ transformed scale." width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -1456,7 +1496,9 @@ that splits the input data into a number of panels at random.</p>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">facet_bootstrap</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span>, prop <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
-<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-29-1.png" alt="Scatterplot with three-by-three panels showing the weight versus the price of about 10.000 diamonds in every panel. The panels are titled 1 to 9 and show different points, but are visually similar." width="672" style="display: block; margin: auto;"></p>
+<p><img src="extending-ggplot2_files/figure-html/unnamed-chunk-29-1.png" alt="Scatterplot with three-by-three panels showing the weight versus
+ the price of about 10.000 diamonds in every panel. The panels are titled 1
+ to 9 and show different points, but are visually similar." width="672" style="display: block; margin: auto;"></p>
 <p>What we are doing above is to intercept the
 <code>compute_layout</code> and <code>map_data</code> methods and
 instead of dividing the data by a variable we randomly assigns rows to a
@@ -1672,7 +1714,7 @@ the example?</li>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
   </div></footer>

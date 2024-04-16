@@ -32,7 +32,7 @@
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
@@ -152,7 +152,9 @@ a single categorical variable.</p>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-2-1.png" alt="A histogram showing the city miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-2-1.png" alt="A histogram showing the city miles per gallon distribution for
+ three types of drive train, each in their own panel in a 1-row, 3-column
+ layout." width="80%"></p>
 <p>And <code><a href="../reference/facet_grid.html">facet_grid()</a></code> is commonly used to facet by a plot by
 two categorical variables.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -160,7 +162,10 @@ two categorical variables.</p>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-3-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction, and four numbers of cylinders in the vertical direction. Several panels have no data." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-3-1.png" alt="A histogram showing the city miles per gallon distribution. The
+ plot has twelve panels in a 4-row, 3-column layout, showing three types of
+ drive train in the horizontal direction, and four numbers of cylinders
+ in the vertical direction. Several panels have no data." width="80%"></p>
 <p>Notice that this results in some empty panes (e.g. 4-wheel drive and
 5 cylinders) as there are no cars in the <code>mpg</code> dataset that
 fall into such categories.</p>
@@ -172,7 +177,9 @@ the levels of variables for which data exists.</p>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-4-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has nine panels in a 3-row, 3-column layout, showing all existing combinations of three types of drive train, and four numbers of cylinders." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-4-1.png" alt="A histogram showing the city miles per gallon distribution. The
+ plot has nine panels in a 3-row, 3-column layout, showing all existing
+ combinations of three types of drive train, and four numbers of cylinders." width="80%"></p>
 <p>In <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> you can control the number of rows
 and/or columns of the resulting plot layout using the <code>nrow</code>
 and <code>ncol</code> arguments, respectively. In
@@ -189,14 +196,16 @@ row).</p>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 4-row, 1-column layout, showing four numbers of cylinders." width="50%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has
+ four panels in a 4-row, 1-column layout, showing four numbers of cylinders." width="50%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-2.png" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 1-row, 4-column layout, showing four numbers of cylinders." width="50%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-2.png" alt="A histogram showing the city miles per gallon distribution. The plot has
+ four panels in a 1-row, 4-column layout, showing four numbers of cylinders." width="50%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -216,7 +225,9 @@ pane.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-6-1.png" alt="A histogram showing the highway miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-6-1.png" alt="A histogram showing the highway miles per gallon distribution for
+ three types of drive train, each in their own panel in a 1-row, 3-column
+ layout." width="80%"></p>
 <p>First, calculate these means and save them in a new data frame.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -247,7 +258,10 @@ the summary data.</p>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg_summary</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">hwy_mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-8-1.png" alt="A histogram showing the highway miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout. Each panel has a vertical black line indicating the mean of the distribution." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-8-1.png" alt="A histogram showing the highway miles per gallon distribution for
+ three types of drive train, each in their own panel in a 1-row, 3-column
+ layout. Each panel has a vertical black line indicating the mean of the
+ distribution." width="80%"></p>
 </details>
 </div>
 </div>
@@ -270,7 +284,12 @@ scales are shared across the facets.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-9-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row has the same y-axis range, and every column has the same x-axis range." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-9-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and
+ highway miles per gallon on the y-axis. The plot has twelve panels in a
+ 4-row, 3-column layout, showing three types of drive train in the
+ horizontal direction and four numbers of cylinders in the vertical
+ direction. Several panels are empty. Every row has the same y-axis range,
+ and every column has the same x-axis range." width="80%"></p>
 <p>You can control this behaviour with the <code>scales</code> argument
 of faceting functions: varying scales across rows
 (<code>"free_x"</code>), columns (<code>"free_y"</code>), or both rows
@@ -279,7 +298,13 @@ and columns (<code>"free"</code>), e.g.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-10-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row in the layout has an independent y-axis range. Every column in the layout has an independent x-axis range." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-10-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and
+ highway miles per gallon on the y-axis. The plot has twelve panels in a
+ 4-row, 3-column layout, showing three types of drive train in the
+ horizontal direction and four numbers of cylinders in the vertical
+ direction. Several panels are empty. Every row in the layout has an
+ independent y-axis range. Every column in the layout has an independent
+ x-axis range." width="80%"></p>
 <p>If you also want to make sure that a particular value or range is
 included in each of the facets, you can set this with
 <code><a href="../reference/expand_limits.html">expand_limits()</a></code>, e.g. ensure that 10 is included in the
@@ -289,7 +314,13 @@ x-axis and values between 20 to 25 are included in the y-axis:</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-11-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row in the layout has an independent y-axis range, but all include the 20-25 interval. Every column in the layout has an independent x-axis range, but all include 10." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-11-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and
+ highway miles per gallon on the y-axis. The plot has twelve panels in a
+ 4-row, 3-column layout, showing three types of drive train in the
+ horizontal direction and four numbers of cylinders in the vertical
+ direction. Several panels are empty. Every row in the layout has an
+ independent y-axis range, but all include the 20-25 interval. Every column
+ in the layout has an independent x-axis range, but all include 10." width="80%"></p>
 </details>
 </div>
 </div>
@@ -310,7 +341,10 @@ remove all facet labels.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>strip.text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-12-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout. The strips, or panel layout titles and their backgrounds, are missing." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-12-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and
+ highway miles per gallon on the y-axis. The plot has twelve panels in a
+ 4-row, 3-column layout. The strips, or panel layout titles and
+ their backgrounds, are missing." width="80%"></p>
 <p>You can also remove the labels across rows only with
 <code>strip.x.text</code> or across columns only with
 <code>strip.y.text</code>.</p>
@@ -319,7 +353,10 @@ remove all facet labels.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>strip.text.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-13-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout. In the vertical direction, the panels indicate four numbers of cylinders. The strips of the horizontal direction are missing." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-13-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and
+ highway miles per gallon on the y-axis. The plot has twelve panels in a
+ 4-row, 3-column layout. In the vertical direction, the panels indicate four
+ numbers of cylinders. The strips of the horizontal direction are missing." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -347,7 +384,11 @@ cut off.</p>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-14-1.png" alt="A histogram with two panels in a 1-row, 2-column layout of random data. The first panel has as title 'A long group name for the first group'. The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the second group'. However, the second title is clipped to the panel width and doesn't show all the text." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-14-1.png" alt="A histogram with two panels in a 1-row, 2-column layout of random
+ data. The first panel has as title 'A long group name for the first group'.
+ The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the
+ second group'. However, the second title is clipped to the panel width and
+ doesn't show all the text." width="80%"></p>
 <p>You can control the maximum width of the facet label by setting the
 <code>width</code> in the <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> function, which
 is then passed to the <code>labeller</code> argument of your faceting
@@ -356,7 +397,11 @@ function.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span>, labeller <span class="op">=</span> <span class="fu"><a href="../reference/labeller.html">labeller</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="../reference/labellers.html">label_wrap_gen</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-15-1.png" alt="A histogram with two panels in a 1-row, 2-column layout of random data. The first panel has as title 'A long group name for the first group' in two lines of text. The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the second group' in three lines of text. The width of the second title now fits within the panel width." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-15-1.png" alt="A histogram with two panels in a 1-row, 2-column layout of random
+ data. The first panel has as title 'A long group name for the first group'
+ in two lines of text. The second panel has a title 'A muuuuuuuuuuuuuch
+ longer group name for the second group' in three lines of text. The width
+ of the second title now fits within the panel width." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -402,7 +447,9 @@ read due to the shared y-axis label.</p>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">country</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-17-1.png" alt="A timeseries plot showing price over time for two countries, Japan and the US, in two panels in a 2-row, 1-column layout. The countries are indicated at the top of each panel. The two y-axes have different ranges." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-17-1.png" alt="A timeseries plot showing price over time for two countries, Japan
+ and the US, in two panels in a 2-row, 1-column layout. The countries are
+ indicated at the top of each panel. The two y-axes have different ranges." width="80%"></p>
 <p>With the following you can customize the facet labels first with
 <code><a href="../reference/as_labeller.html">as_labeller()</a></code>, turn off the default y-axis label, and then
 place the facet labels where the y-axis label goes
@@ -421,10 +468,12 @@ place the facet labels where the y-axis label goes
 <span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></span>
 <span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max;</span></span>
 <span><span class="co">#&gt; returning -Inf</span></span>
-<span></span>
 <span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max;</span></span>
 <span><span class="co">#&gt; returning -Inf</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-18-1.png" alt="A timeseries plot showing price over time for two countries and their currencies, the Japanese Yen and the US Dollar, in two panels in a 2-row, 1-column layout. The countries and currency units are indicated at the left of each panel. The two y-axes have different ranges." width="80%"></p>
+<p><img src="faq-faceting_files/figure-html/unnamed-chunk-18-1.png" alt="A timeseries plot showing price over time for two countries and
+ their currencies, the Japanese Yen and the US Dollar, in two panels in a
+ 2-row, 1-column layout. The countries and currency units are indicated at
+ the left of each panel. The two y-axes have different ranges." width="80%"></p>
 </details>
 </div>
 </div>
@@ -443,7 +492,7 @@ place the facet labels where the y-axis label goes
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
   </div></footer>

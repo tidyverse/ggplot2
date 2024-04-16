@@ -34,7 +34,7 @@
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
@@ -134,10 +134,15 @@ elements, instead of being limited to a predefined set of charts.</p>
 the <a href="https://ggplot2-book.org/" class="external-link">book</a>, but here you’ll find a
 brief overview of the plot components and some terse examples to build a
 plot like this:</p>
-<p><img src="ggplot2_files/figure-html/cake-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars coloured by engine displacement. The plot has six panels in a 2-row, 3-column layout, showing the combinations of three types of drive train and year of manifacture. Every panel has an individual trendline." width="700"></p>
+<p><img src="ggplot2_files/figure-html/cake-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars
+ coloured by engine displacement. The plot has six panels in a 2-row,
+ 3-column layout, showing the combinations of three types of drive train and
+ year of manifacture. Every panel has an individual trendline." width="700"></p>
 <p>For structure, we go over the 7 composable parts that come together
 as a set of instructions on how to draw a chart.</p>
-<p><img src="ggplot2_files/figure-html/overview_graphic-1.png" alt="A schematic displaying seven overlaying rhombuses indicating the different composable parts. From bottom to top, the labels read 'Data', 'Mapping', 'Layers', 'Scales', 'Facets', 'Coordinates' and 'Theme'." width="700"></p>
+<p><img src="ggplot2_files/figure-html/overview_graphic-1.png" alt="A schematic displaying seven overlaying rhombuses indicating the
+ different composable parts. From bottom to top, the labels read 'Data',
+ 'Mapping', 'Layers', 'Scales', 'Facets', 'Coordinates' and 'Theme'." width="700"></p>
 <p>Out of these components, ggplot2 needs at least the following three
 to produce a chart: data, a mapping, and a layer. The scales, facets,
 coordinates, and themes have sensible defaults that take away a lot of
@@ -202,7 +207,8 @@ stack a trend line on top.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># to fit and overlay a loess trendline</span></span>
 <span>  <span class="fu"><a href="../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_layer-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The plot has a blue trendline with a positive slope." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_layer-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The plot has a blue trendline with a positive slope." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="scales">Scales<a class="anchor" aria-label="anchor" href="#scales"></a>
@@ -223,7 +229,8 @@ dataset to the viridis colour palette, we can write the following:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cty</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_viridis.html">scale_colour_viridis_d</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_scales-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The points are coloured according to seven classes of cars." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_scales-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The points are coloured according to seven classes of cars." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="facets">Facets<a class="anchor" aria-label="anchor" href="#facets"></a>
@@ -241,7 +248,9 @@ plot subsets of the <code>mpg</code> dataset based on levels of the
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cty</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_facets-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars. The plot has six panels in a 2-row, 3-column layout, showing the combinations of three types of drive train and year of manifacture." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_facets-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars.
+ The plot has six panels in a 2-row, 3-column layout, showing the
+ combinations of three types of drive train and year of manifacture." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="coordinates">Coordinates<a class="anchor" aria-label="anchor" href="#coordinates"></a>
@@ -258,7 +267,9 @@ automatically.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cty</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_coords-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The aspect ratio of the plot is such that units on the x-axis have the same length as units on the y-axis." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_coords-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The aspect ratio of the plot is such that units on the x-axis
+ have the same length as units on the y-axis." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="theme">Theme<a class="anchor" aria-label="anchor" href="#theme"></a>
@@ -283,7 +294,10 @@ control the graphical attributes of theme components.</p>
 <span>    axis.line <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    axis.line.x.bottom <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_theme-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The points are coloured according to seven classes of cars. The legend of the colour is displayed on top of the plot. The plot has thick axis lines and the bottom axis line is blue." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_theme-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The points are coloured according to seven classes of cars. The
+ legend of the colour is displayed on top of the plot. The plot has thick
+ axis lines and the bottom axis line is blue." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="combining">Combining<a class="anchor" aria-label="anchor" href="#combining"></a>
@@ -300,7 +314,10 @@ this vignette:</p>
 <span>  <span class="fu"><a href="../reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.grid.minor <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/outro-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars coloured by engine displacement. The plot has six panels in a 2-row, 3-column layout, showing the combinations of three types of drive train and year of manifacture. Every panel has an individual trendline." width="700"></p>
+<p><img src="ggplot2_files/figure-html/outro-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars
+ coloured by engine displacement. The plot has six panels in a 2-row,
+ 3-column layout, showing the combinations of three types of drive train and
+ year of manifacture. Every panel has an individual trendline." width="700"></p>
 <p>If you want to learn more, be sure to take a look at the <a href="https://ggplot2-book.org/" class="external-link">ggplot2 book</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -318,7 +335,7 @@ this vignette:</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
   </div></footer>
