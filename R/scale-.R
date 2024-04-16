@@ -388,7 +388,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'   which do not use the default implementation of this method). The output corresponds
 #'   to the transformed data value in aesthetic space (e.g., a color, line width, or size).
 #'
-#' - `rescale()` Rescale transformed data to the the range 0, 1. This is most useful for
+#' - `rescale()` Rescale transformed data to the range 0, 1. This is most useful for
 #'   position scales. For continuous scales, `rescale()` uses the `rescaler` that
 #'   was provided to the constructor. `rescale()` does not apply `self$oob()` to
 #'   its input, which means that discrete values outside `limits` will be `NA`, and
