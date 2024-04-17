@@ -8,13 +8,14 @@ test_that("aesthetic checking in geom throws correct errors", {
 
 test_that("geom defaults can be set and reset", {
   l <- geom_point()
+  orig <- l$geom$default_aes$colour
   test <- l$geom$use_defaults(data_frame0())
   expect_equal(test$colour, "black")
 
   inv <- update_geom_defaults("point", list(colour = "red"))
   test <- l$geom$use_defaults(data_frame0())
   expect_equal(test$colour, "red")
-  expect_equal(inv$colour, "black")
+  expect_equal(inv$colour, orig)
 
   inv <- update_geom_defaults("point", NULL)
   test <- l$geom$use_defaults(data_frame0())
