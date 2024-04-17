@@ -145,10 +145,26 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 element_geom <- function(
-  ink = NULL, paper = NULL, accent = NULL, thin = NULL, thick = NULL) {
+  # colours
+  ink = NULL, paper = NULL, accent = NULL,
+  # linewidth
+  thin = NULL, thick = NULL,
+  # text
+  family = NULL, fontsize = NULL
+  ) {
+
+  if (!is.null(fontsize)) {
+    fontsize <- fontsize / .pt
+  }
 
   structure(
-    list(ink = ink, paper = paper, accent = accent, thin = thin, thick = thick),
+    list(
+      ink = ink,
+      paper = paper,
+      accent = accent,
+      thin = thin, thick = thick,
+      family = family, fontsize = fontsize
+    ),
     class = c("element_geom", "element")
   )
 }
