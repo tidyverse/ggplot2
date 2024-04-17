@@ -135,7 +135,8 @@ theme_grey <- function(base_size = 11, base_family = "",
                          ),
 
     geom = element_geom(ink = "black", paper = "white", accent = "#3366FF",
-                        thin = base_line_size, thick = base_line_size * 2),
+                        thin = base_line_size, thick = base_line_size * 2,
+                        family = base_family, fontsize = base_size),
 
     axis.line =          element_blank(),
     axis.line.x =        NULL,

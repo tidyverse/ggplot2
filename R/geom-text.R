@@ -215,8 +215,11 @@ GeomText <- ggproto("GeomText", Geom,
   non_missing_aes = "angle",
 
   default_aes = aes(
-    colour = "black", size = 3.88, angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
+    colour = "black",
+    family = from_theme(family),
+    size = from_theme(fontsize),
+    angle = 0, hjust = 0.5,
+    vjust = 0.5, alpha = NA, fontface = 1, lineheight = 1.2
   ),
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,

@@ -238,8 +238,7 @@ eval_from_theme <- function(aesthetics, theme) {
   if (!any(themed)) {
     return(aesthetics)
   }
-  settings <- calc_element("geom", theme) %||%
-    element_geom("black", "white", "#3366FF", 0.5, 2)
+  settings <- calc_element("geom", theme) %||% .default_geom_element
   lapply(aesthetics[themed], eval_tidy, data = settings)
 }
 
