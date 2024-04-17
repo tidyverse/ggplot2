@@ -56,7 +56,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   required_aes = c("x", "y", "label"),
 
   default_aes = aes(
-    colour = "black", fill = "white",
+    colour = from_theme(ink), fill = from_theme(paper),
     family = from_theme(family),
     size = from_theme(fontsize),
     angle = 0,

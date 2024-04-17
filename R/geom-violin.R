@@ -197,7 +197,11 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw_key = draw_key_polygon,
 
-  default_aes = aes(weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
+  default_aes = aes(
+    weight = 1,
+    colour = from_theme(col_mix(ink, paper, 0.2)),
+    fill = from_theme(paper),
+    linewidth = from_theme(thin),
     alpha = NA, linetype = "solid"),
 
   required_aes = c("x", "y"),
