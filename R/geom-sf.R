@@ -189,14 +189,19 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
     type_ind <- type_ind[!remove]
     is_collection <- is_collection[!remove]
   }
+  # TODO: Wait for #5834
   defaults <- list(
-    GeomPoint$default_aes,
-    GeomLine$default_aes,
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35", linewidth = 0.2))
+    # GeomPoint$default_aes,
+    aes(shape = 19, colour = "black", size = 1.5, fill = NA, alpha = NA, stroke = 0.5),
+    # GeomLine$default_aes,
+    aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+    # modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35", linewidth = 0.2))
+    aes(colour = "grey35", fill = "grey90", linewidth = 0.2, linetype = 1, alpha = NA, subgroup = NULL)
   )
   defaults[[4]] <- modify_list(
     defaults[[3]],
-    rename(GeomPoint$default_aes, c(size = "point_size", fill = "point_fill"))
+    # rename(GeomPoint$default_aes, c(size = "point_size", fill = "point_fill"))
+    aes(shape = 19, colour = "black", point_size = 1.5, point_fill = NA, alpha = NA, stroke = 0.5)
   )
   default_names <- unique0(unlist(lapply(defaults, names)))
   defaults <- lapply(setNames(default_names, default_names), function(n) {
