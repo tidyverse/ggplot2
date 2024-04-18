@@ -6,21 +6,7 @@ test_that("aesthetic checking in geom throws correct errors", {
   expect_snapshot_error(check_aesthetics(aes, 4))
 })
 
-test_that("geom defaults can be set and reset", {
-  l <- geom_point()
-  test <- l$geom$use_defaults(data_frame0())
-  expect_equal(test$colour, "black")
 
-  inv <- update_geom_defaults("point", list(colour = "red"))
-  test <- l$geom$use_defaults(data_frame0())
-  expect_equal(test$colour, "red")
-  expect_equal(inv$colour, "black")
-
-  inv <- update_geom_defaults("point", NULL)
-  test <- l$geom$use_defaults(data_frame0())
-  expect_equal(test$colour, "black")
-  expect_equal(inv$colour, "red")
-})
 
 test_that("updating geom aesthetic defaults preserves class and order", {
 
@@ -37,7 +23,7 @@ test_that("updating geom aesthetic defaults preserves class and order", {
 
   expect_equal(updated_defaults, intended_defaults)
 
-  update_geom_defaults("point", NULL)
+  update_geom_defaults("point", original_defaults)
 
 })
 
@@ -60,6 +46,6 @@ test_that("updating stat aesthetic defaults preserves class and order", {
 
   expect_equal(updated_defaults, intended_defaults)
 
-  update_stat_defaults("bin", NULL)
+  update_stat_defaults("bin", original_defaults)
 
 })
