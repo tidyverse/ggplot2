@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* Fixed bug where `na.value` was incorrectly mapped to non-`NA` values 
+  (@teunbrand, #5756).
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `coord_map()` and `coord_polar()` throw informative warnings when used
