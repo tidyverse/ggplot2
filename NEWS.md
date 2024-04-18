@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* `geom_point()` can be dodged vertically by using 
+  `position_dodge(..., orientation = "y")` (@teunbrand, #5809).
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
