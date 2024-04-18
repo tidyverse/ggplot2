@@ -511,11 +511,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
 # Helpers -----------------------------------------------------------------
 
-ulevels <- function(x) {
+ulevels <- function(x, na.last = TRUE) {
   if (is.factor(x)) {
     x <- addNA(x, TRUE)
     factor(levels(x), levels(x), exclude = NULL)
   } else {
-    sort(unique0(x))
+    sort(unique0(x), na.last = na.last)
   }
 }
