@@ -947,7 +947,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   transform = identity,
 
   map = function(self, x, limits = self$get_limits()) {
-    n <- sum(!is.na(limits))
+    limits <- limits[!is.na(limits)]
+    n <- length(limits)
     if (n < 1) {
       return(rep(self$na.value, length(x)))
     }
@@ -961,12 +962,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
         )
       }
       pal <- self$palette(n)
-      if (n != length(limits)) {
-        # ensure NAs in non-end positions are reinserted
-        tmp <- rep(vec_cast(self$na.value, pal), length(limits))
-        tmp[!is.na(limits)] <- pal
-        pal <- tmp
-      }
       self$palette.cache <- pal
       self$n.breaks.cache <- n
     }
