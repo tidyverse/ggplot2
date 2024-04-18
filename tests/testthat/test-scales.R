@@ -745,13 +745,13 @@ test_that("discrete scales work with NAs in arbitrary positions", {
   input  <- c("A", "B", "C", NA)
   output <- c("red", "green", "blue", "gray")
 
-  test <- map(x, limits = c("A", "B", "C", NA))
+  test <- map(input, limits = c("A", "B", "C", NA))
   expect_equal(test, output)
 
-  test <- map(x, limits = c("A", NA, "B", "C"))
+  test <- map(input, limits = c("A", NA, "B", "C"))
   expect_equal(test, output)
 
-  test <- map(x, limits = c(NA, "A", "B", "C"))
+  test <- map(input, limits = c(NA, "A", "B", "C"))
   expect_equal(test, output)
 
 })
