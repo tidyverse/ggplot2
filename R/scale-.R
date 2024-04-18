@@ -961,6 +961,12 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
         )
       }
       pal <- self$palette(n)
+      if (n != length(limits)) {
+        # ensure NAs in non-end positions are reinserted
+        tmp <- rep(vec_cast(self$na.value, pal), length(limits))
+        tmp[!is.na(limits)] <- pal
+        pal <- tmp
+      }
       self$palette.cache <- pal
       self$n.breaks.cache <- n
     }
