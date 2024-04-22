@@ -8,8 +8,8 @@ test_that("range is expanded", {
     geom_violin(trim = FALSE) +
     facet_grid(x ~ ., scales = "free") +
     coord_cartesian(expand = FALSE)
-  expand_a <- stats::bw.nrd0(df$y[df$x == "a"]) * 3
-  expand_b <- stats::bw.nrd0(df$y[df$x == "b"]) * 3
+  expand_a <- stats::bw.SJ(df$y[df$x == "a"]) * 3
+  expand_b <- stats::bw.SJ(df$y[df$x == "b"]) * 3
   expect_equal(layer_scales(p, 1)$y$dimension(), c(0 - expand_a, 1 + expand_a))
   expect_equal(layer_scales(p, 2)$y$dimension(), c(0 - expand_b, 2 + expand_b))
 })

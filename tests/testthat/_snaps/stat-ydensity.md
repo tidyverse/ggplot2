@@ -4,5 +4,5 @@
 
 ---
 
-    `test` is not a valid bandwidth rule.
+    `bw` must be one of "nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", or "sj-dpi", not "test".
 

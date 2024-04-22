@@ -1,7 +1,7 @@
 test_that("stat_density actually computes density", {
   # Compare functon approximations because outputs from `ggplot()` and
   # `density()` give grids spanning different ranges
-  dens <- stats::density(mtcars$mpg)
+  dens <- stats::density(mtcars$mpg, bw = "sj")
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
 
   plot <- ggplot(mtcars, aes(mpg)) + stat_density()
@@ -19,7 +19,7 @@ test_that("stat_density can make weighted density estimation", {
   df <- mtcars
   df$weight <- mtcars$cyl / sum(mtcars$cyl)
 
-  dens <- stats::density(df$mpg, weights = df$weight, bw = bw.nrd0(df$mpg))
+  dens <- stats::density(df$mpg, weights = df$weight, bw = bw.SJ(df$mpg))
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
 
   plot <- ggplot(df, aes(mpg, weight = weight)) + stat_density()
@@ -38,7 +38,7 @@ test_that("stat_density uses `bounds`", {
   mpg_max <- max(mtcars$mpg)
 
   expect_bounds <- function(bounds) {
-    dens <- stats::density(mtcars$mpg)
+    dens <- stats::density(mtcars$mpg, bw = "sj")
     orig_density <- stats::approxfun(
       data.frame(x = dens$x, y = dens$y),
       yleft = 0,
