@@ -24,7 +24,7 @@ stat_density(
   geom = "area",
   position = "stack",
   ...,
-  bw = "nrd0",
+  bw = "sj",
   adjust = 1,
   kernel = "gaussian",
   n = 512,

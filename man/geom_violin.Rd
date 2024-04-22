@@ -27,7 +27,7 @@ stat_ydensity(
   geom = "violin",
   position = "dodge",
   ...,
-  bw = "nrd0",
+  bw = "sj",
   adjust = 1,
   kernel = "gaussian",
   trim = TRUE,

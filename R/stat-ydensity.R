@@ -26,7 +26,7 @@
 stat_ydensity <- function(mapping = NULL, data = NULL,
                           geom = "violin", position = "dodge",
                           ...,
-                          bw = "nrd0",
+                          bw = "sj",
                           adjust = 1,
                           kernel = "gaussian",
                           trim = TRUE,
@@ -78,7 +78,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
+  compute_group = function(self, data, scales, width = NULL, bw = "sj", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE,
                        drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
     if (nrow(data) < 2) {
@@ -118,7 +118,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens
   },
 
-  compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
+  compute_panel = function(self, data, scales, width = NULL, bw = "sj", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
                            scale = "area", flipped_aes = FALSE, drop = TRUE,
                            bounds = c(-Inf, Inf)) {

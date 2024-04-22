@@ -33,7 +33,7 @@
 stat_density <- function(mapping = NULL, data = NULL,
                          geom = "area", position = "stack",
                          ...,
-                         bw = "nrd0",
+                         bw = "sj",
                          adjust = 1,
                          kernel = "gaussian",
                          n = 512,
@@ -91,7 +91,7 @@ StatDensity <- ggproto("StatDensity", Stat,
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
+  compute_group = function(data, scales, bw = "sj", adjust = 1, kernel = "gaussian",
                            n = 512, trim = FALSE, na.rm = FALSE, bounds = c(-Inf, Inf),
                            flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
@@ -110,7 +110,7 @@ StatDensity <- ggproto("StatDensity", Stat,
 
 )
 
-compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
+compute_density <- function(x, w, from, to, bw = "sj", adjust = 1,
                             kernel = "gaussian", n = 512,
                             bounds = c(-Inf, Inf)) {
   nx <- length(x)
@@ -220,11 +220,15 @@ reflect_density <- function(dens, bounds, from, to) {
 # Similar to stats::density.default
 # Once R4.3.0 is the lowest supported version, this function can be replaced by
 # using `density(..., warnWbw = FALSE)`.
-precompute_bw = function(x, bw = "nrd0") {
+precompute_bw = function(x, bw = "sj") {
   bw <- bw[1]
   if (length(x) < 2) {
     cli::cli_abort("{.arg x} must contain at least 2 elements to select a \\
                    bandwidth automatically.")
+  }
+  if (zero_range(range(x))) {
+    # Many other bandwidth methods do not handle 0-variance input
+    return(stats::bw.nrd0(x))
   }
   if (is.character(bw)) {
     bw <- arg_match0(bw, c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi"))
