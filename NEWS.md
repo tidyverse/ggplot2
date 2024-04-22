@@ -1,8 +1,5 @@
 # ggplot2 3.5.1
 
-
-# ggplot2 (development version)
-
 This is a small release focusing on fixing regressions from 3.5.0 and 
 documentation updates.
 
