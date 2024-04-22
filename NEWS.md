@@ -1,6 +1,8 @@
 
 # ggplot2 (development version)
 
+* `facet_wrap()` has new options for the `dir` argument to more precisely
+  control panel directions (@teunbrand, #5212)
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `coord_map()` and `coord_polar()` throw informative warnings when used
