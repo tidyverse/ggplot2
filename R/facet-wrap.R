@@ -101,7 +101,15 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        strip.position = 'top', axes = "margins",
                        axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
-  dir <- arg_match0(dir, c("h", "v"))
+  dir <- arg_match0(dir, c("h", "v", "lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))
+  if (nchar(dir) == 1) {
+    dir <- base::switch(
+      dir,
+      h = if (as.table) "lt" else "lb",
+      v = if (as.table) "tl" else "tr"
+    )
+  }
+
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
@@ -149,7 +157,6 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     params = list(
       facets = facets,
       free = free,
-      as.table = as.table,
       strip.position = strip.position,
       drop = drop,
       ncol = ncol,
