@@ -1,6 +1,9 @@
 
 # ggplot2 (development version)
 
+* (breaking) the default `bw` argument in `stat_density()` and `stat_ydensity()`
+  has changed from `"nrd0"` to `"sj"` in keeping with the recommendation given
+  in `?density` (@teunbrand, #3825). 
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `coord_map()` and `coord_polar()` throw informative warnings when used
