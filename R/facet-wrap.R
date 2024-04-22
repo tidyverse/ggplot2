@@ -23,7 +23,12 @@ NULL
 #'   either of the four sides by setting \code{strip.position = c("top",
 #'   "bottom", "left", "right")}
 #' @param dir Direction: either `"h"` for horizontal, the default, or `"v"`,
-#'   for vertical.
+#'   for vertical. When `"h"` or `"v"` will be combined with `as.table` to
+#'   set final layout. Alternatively, a combination of `"t"` (top) or
+#'   `"b"` (bottom) with `"l"` (left) or `"r"` (right) to set a layout directly.
+#'   These two letters give the starting position and the first letter gives
+#'   the growing direction. For example `"rt"` will place the first panel in
+#'   the top-right and starts filling in panels right-to-left.
 #' @param axes Determines which axes will be drawn in case of fixed scales.
 #'   When `"margins"` (default), axes will be drawn at the exterior margins.
 #'   `"all_x"` and `"all_y"` will draw the respective axes at the interior
@@ -196,21 +201,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
-    layout <- data_frame0(
-      PANEL = factor(id, levels = seq_len(n)),
-      ROW = if (params$as.table) {
-        as.integer((id - 1L) %/% dims[2] + 1L)
-      } else {
-        as.integer(dims[1] - (id - 1L) %/% dims[2])
-      },
-      COL = as.integer((id - 1L) %% dims[2] + 1L),
-      .size = length(id)
-    )
-
-    # For vertical direction, flip row and col
-    if (identical(params$dir, "v")) {
-      layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
-    }
+    layout <- wrap_layout(id, dims, params$dir)
 
     panels <- vec_cbind(layout, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -582,4 +573,32 @@ measure_axes <- function(empty_idx, axis, margin = 1L, shift = 0) {
 
   cm[set_zero] <- 0
   unit(apply(cm, margin, max), "cm")
+}
+
+wrap_layout <- function(id, dims, dir) {
+  as.table <- TRUE
+  n <- attr(id, "n")
+
+  ROW <- switch(
+    dir,
+    lt = , rt = (id - 1L) %/% dims[2] + 1L,
+    tl = , tr = (id - 1L) %%  dims[1] + 1L,
+    lb = , rb = dims[1] - (id - 1L) %/% dims[2],
+    bl = , br = dims[1] - (id - 1L) %%  dims[1]
+  )
+
+  COL <- switch(
+    dir,
+    lt = , lb = (id - 1L) %% dims[2] + 1L,
+    tl = , bl = (id - 1L) %/% dims[1] + 1L,
+    rt = , rb = dims[2] - (id - 1L) %%  dims[2],
+    tr = , br = dims[2] - (id - 1L) %/% dims[1]
+  )
+
+  data_frame0(
+    PANEL = factor(id, levels = seq_len(n)),
+    ROW   = as.integer(ROW),
+    COL   = as.integer(COL),
+    .size = length(id)
+  )
 }
