@@ -222,6 +222,10 @@ reflect_density <- function(dens, bounds, from, to) {
 # using `density(..., warnWbw = FALSE)`.
 precompute_bw = function(x, bw = "nrd0") {
   bw <- bw[1]
+  if (length(x) < 2) {
+    cli::cli_abort("{.arg x} must contain at least 2 elements to select a \\
+                   bandwidth automatically.")
+  }
   if (is.character(bw)) {
     bw <- arg_match0(bw, c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi"))
     bw <- switch(

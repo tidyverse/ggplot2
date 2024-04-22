@@ -96,7 +96,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     }
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
-    bw <- calc_bw(data$y, bw)
+    bw <- precompute_bw(data$y, bw)
     dens <- compute_density(
       data$y, data[["weight"]],
       from = range[1] - modifier * bw, to = range[2] + modifier * bw,
@@ -151,24 +151,3 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   dropped_aes = "weight"
 )
-
-calc_bw <- function(x, bw) {
-  if (is.character(bw)) {
-    if (length(x) < 2) {
-      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically.")
-    }
-
-    bw <- switch(
-      to_lower_ascii(bw),
-      nrd0 = stats::bw.nrd0(x),
-      nrd = stats::bw.nrd(x),
-      ucv = stats::bw.ucv(x),
-      bcv = stats::bw.bcv(x),
-      sj = ,
-      `sj-ste` = stats::bw.SJ(x, method = "ste"),
-      `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
-      cli::cli_abort("{.var {bw}} is not a valid bandwidth rule.")
-    )
-  }
-  bw
-}
