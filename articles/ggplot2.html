@@ -16,11 +16,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.8/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to ggplot2">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to ggplot2">
 <meta property="og:description" content="An overview of the layered grammar of graphics.
 ">
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
@@ -33,11 +33,11 @@
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +56,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
@@ -132,10 +133,15 @@ elements, instead of being limited to a predefined set of charts.</p>
 the <a href="https://ggplot2-book.org/" class="external-link">book</a>, but here you’ll find a
 brief overview of the plot components and some terse examples to build a
 plot like this:</p>
-<p><img src="ggplot2_files/figure-html/cake-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars coloured by engine displacement. The plot has six panels in a 2-row, 3-column layout, showing the combinations of three types of drive train and year of manifacture. Every panel has an individual trendline." width="700"></p>
+<p><img src="ggplot2_files/figure-html/cake-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars
+ coloured by engine displacement. The plot has six panels in a 2-row,
+ 3-column layout, showing the combinations of three types of drive train and
+ year of manifacture. Every panel has an individual trendline." width="700"></p>
 <p>For structure, we go over the 7 composable parts that come together
 as a set of instructions on how to draw a chart.</p>
-<p><img src="ggplot2_files/figure-html/overview_graphic-1.png" alt="A schematic displaying seven overlaying rhombuses indicating the different composable parts. From bottom to top, the labels read 'Data', 'Mapping', 'Layers', 'Scales', 'Facets', 'Coordinates' and 'Theme'." width="700"></p>
+<p><img src="ggplot2_files/figure-html/overview_graphic-1.png" alt="A schematic displaying seven overlaying rhombuses indicating the
+ different composable parts. From bottom to top, the labels read 'Data',
+ 'Mapping', 'Layers', 'Scales', 'Facets', 'Coordinates' and 'Theme'." width="700"></p>
 <p>Out of these components, ggplot2 needs at least the following three
 to produce a chart: data, a mapping, and a layer. The scales, facets,
 coordinates, and themes have sensible defaults that take away a lot of
@@ -200,7 +206,8 @@ stack a trend line on top.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># to fit and overlay a loess trendline</span></span>
 <span>  <span class="fu"><a href="../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_layer-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The plot has a blue trendline with a positive slope." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_layer-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The plot has a blue trendline with a positive slope." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="scales">Scales<a class="anchor" aria-label="anchor" href="#scales"></a>
@@ -221,7 +228,8 @@ dataset to the viridis colour palette, we can write the following:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cty</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_viridis.html">scale_colour_viridis_d</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_scales-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The points are coloured according to seven classes of cars." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_scales-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The points are coloured according to seven classes of cars." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="facets">Facets<a class="anchor" aria-label="anchor" href="#facets"></a>
@@ -239,7 +247,9 @@ plot subsets of the <code>mpg</code> dataset based on levels of the
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cty</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_facets-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars. The plot has six panels in a 2-row, 3-column layout, showing the combinations of three types of drive train and year of manifacture." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_facets-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars.
+ The plot has six panels in a 2-row, 3-column layout, showing the
+ combinations of three types of drive train and year of manifacture." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="coordinates">Coordinates<a class="anchor" aria-label="anchor" href="#coordinates"></a>
@@ -256,7 +266,9 @@ automatically.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cty</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_coords-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The aspect ratio of the plot is such that units on the x-axis have the same length as units on the y-axis." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_coords-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The aspect ratio of the plot is such that units on the x-axis
+ have the same length as units on the y-axis." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="theme">Theme<a class="anchor" aria-label="anchor" href="#theme"></a>
@@ -281,7 +293,10 @@ control the graphical attributes of theme components.</p>
 <span>    axis.line <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    axis.line.x.bottom <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/example_theme-1.png" alt="A scatterplot showing city versus highway miles per gallon for many cars. The points are coloured according to seven classes of cars. The legend of the colour is displayed on top of the plot. The plot has thick axis lines and the bottom axis line is blue." width="700"></p>
+<p><img src="ggplot2_files/figure-html/example_theme-1.png" alt="A scatterplot showing city versus highway miles per gallon for
+ many cars. The points are coloured according to seven classes of cars. The
+ legend of the colour is displayed on top of the plot. The plot has thick
+ axis lines and the bottom axis line is blue." width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="combining">Combining<a class="anchor" aria-label="anchor" href="#combining"></a>
@@ -298,7 +313,10 @@ this vignette:</p>
 <span>  <span class="fu"><a href="../reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.grid.minor <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2_files/figure-html/outro-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars coloured by engine displacement. The plot has six panels in a 2-row, 3-column layout, showing the combinations of three types of drive train and year of manifacture. Every panel has an individual trendline." width="700"></p>
+<p><img src="ggplot2_files/figure-html/outro-1.png" alt="Scatterplot of city versus highway miles per gallon, for many cars
+ coloured by engine displacement. The plot has six panels in a 2-row,
+ 3-column layout, showing the combinations of three types of drive train and
+ year of manifacture. Every panel has an individual trendline." width="700"></p>
 <p>If you want to learn more, be sure to take a look at the <a href="https://ggplot2-book.org/" class="external-link">ggplot2 book</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -310,13 +328,11 @@ this vignette:</p>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
   </div></footer>

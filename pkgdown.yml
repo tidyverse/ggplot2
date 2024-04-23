@@ -1,19 +1,19 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
+  extending-ggplot2: extending-ggplot2.html
   faq-annotation: faq-annotation.html
   faq-axes: faq-axes.html
   faq-bars: faq-bars.html
   faq-customising: faq-customising.html
   faq-faceting: faq-faceting.html
   faq-reordering: faq-reordering.html
-  extending-ggplot2: extending-ggplot2.html
   ggplot2-in-packages: ggplot2-in-packages.html
   ggplot2-specs: ggplot2-specs.html
   ggplot2: ggplot2.html
   profiling: profiling.html
-last_built: 2024-02-23T09:37Z
+last_built: 2024-04-23T10:23Z
 urls:
   reference: https://ggplot2.tidyverse.org/reference
   article: https://ggplot2.tidyverse.org/articles

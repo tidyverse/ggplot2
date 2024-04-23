@@ -121,6 +121,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/autolayer.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/automatic_plotting.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/autoplot.html</loc>
   </url>
   <url>
@@ -448,7 +451,16 @@
     <loc>https://ggplot2.tidyverse.org/reference/layer.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/layer_geoms.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/layer_positions.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/layer_sf.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/layer_stats.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/limits.html</loc>

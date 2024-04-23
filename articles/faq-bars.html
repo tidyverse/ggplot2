@@ -15,11 +15,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.8/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Barplots">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Barplots">
 <meta property="og:description" content="ggplot2">
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -31,11 +31,11 @@
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +54,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
+    <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a>
     <a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
@@ -149,13 +150,15 @@ argument of <code><a href="../reference/geom_bar.html">geom_bar()</a></code>.</p
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-2-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. All bars are blue." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-2-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. All bars are blue." width="80%"></p>
 <p>Alternatively, if the colors should be based on a variable, this
 should be should happen in the <code><a href="../reference/aes.html">aes()</a></code> mapping.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-3-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. From left-to-right, the bars appear red, green and blue." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-3-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. From left-to-right, the bars appear red, green and blue." width="80%"></p>
 <p>And if you want to then customize the colors, one option is
 <code><a href="../reference/scale_manual.html">scale_fill_manual()</a></code>, which allows you to manually assign
 colors to each bar. See other <code>scale_fill_*()</code> functions for
@@ -164,7 +167,9 @@ more options for color choices.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"orange"</span>, <span class="st">"darkblue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-4-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. From left-to-right, the bars are purple, orange and dark blue." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-4-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. From left-to-right, the bars are purple, orange and dark
+ blue." width="80%"></p>
 </details>
 </div>
 </div>
@@ -184,12 +189,14 @@ value to get bars that are narrower with more space between them.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-5-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The bars are somewhat narrower than the default." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-5-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. The bars are somewhat narrower than the default." width="80%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-5-2.png" alt="A bar chart showing the number of cars for each of three types of drive train. The bars are very narrow." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-5-2.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. The bars are very narrow." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -208,21 +215,24 @@ the edges of the plot.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-6-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-6-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. No parts of the bars touch the panel edges." width="80%"></p>
 <p>To remove the spacing between the bars and the x-axis, but keep the
 spacing between the bars and the top of the plot, use the following.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-7-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The bottom of the bars touch the x-axis." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-7-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. The bottom of the bars touch the x-axis." width="80%"></p>
 <p>To achieve the opposite, switch the values in <code>mult</code>. Note
 that the tallest bar is now flush against top of the plot.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-8-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The top of the highest bar touches the top of the panel." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-8-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. The top of the highest bar touches the top of the panel." width="80%"></p>
 <p>To adjust spacing around the x-axis, adjust the <code>expand</code>
 argument in <code><a href="../reference/scale_discrete.html">scale_x_discrete()</a></code>. Note that this places the
 bars flush against the left side and leaves some space on the right
@@ -231,7 +241,8 @@ side.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-9-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The left of the leftmost bar touches the y-axis." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-9-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. The left of the leftmost bar touches the y-axis." width="80%"></p>
 <p>The default look of a bar plot can be achieved with the
 following.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -239,7 +250,8 @@ following.</p>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-10-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-10-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. No parts of the bars touch the panel edges." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -256,13 +268,18 @@ level of <code>drv</code> as there are differing levels of
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-11-1.png" alt="A grouped bar chart showing car counts dodged and filled by 7 types of cars for each of three types of drive train. The left group has 5 narrower bars, the middle group has 4 bars and the right group has 3 wider bars." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-11-1.png" alt="A grouped bar chart showing car counts dodged and filled by 7
+ types of cars for each of three types of drive train. The left group has
+ 5 narrower bars, the middle group has 4 bars and the right group has 3 wider
+ bars." width="80%"></p>
 <p>You can use <code><a href="../reference/position_dodge.html">position_dodge2()</a></code> with
 <code>preserve = "single"</code> to address this.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="../reference/position_dodge.html">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-12-1.png" alt="A grouped bar chart showing car counts dodged and filled by 7 types of cars for each of three types of drive train. From left-to-right, each groups has respectively 5, 4 and 3 equally wide bars." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-12-1.png" alt="A grouped bar chart showing car counts dodged and filled by 7
+ types of cars for each of three types of drive train. From left-to-right,
+ each groups has respectively 5, 4 and 3 equally wide bars." width="80%"></p>
 </details>
 </div>
 </div>
@@ -286,14 +303,17 @@ drive”.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-13-1.png" alt="A horizontal stacked bar chart showing car counts for 7 types of cars, stacked and filled by 3 types of drive train." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-13-1.png" alt="A horizontal stacked bar chart showing car counts for 7 types of
+ cars, stacked and filled by 3 types of drive train." width="80%"></p>
 <p><code>position = "fill"</code> will generate a bar plot with bars of
 equal length and the stacks in each bar will show the proportion of
 <code>drv</code> for that particular <code>class</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-14-1.png" alt="A horizontal filled bar chart showing proportions of cars for 7 types of cars. The fill colour represents 3 types of drive train. Every stacked bar spans the width of the panel." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-14-1.png" alt="A horizontal filled bar chart showing proportions of cars for 7
+ types of cars. The fill colour represents 3 types of drive train. Every
+ stacked bar spans the width of the panel." width="80%"></p>
 <p>If you want to show percentages instead of proportions on the x-axis,
 you can define this in <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> with
 <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code>.</p>
@@ -301,7 +321,9 @@ you can define this in <code><a href="../reference/scale_continuous.html">scale_
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"percentage"</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">label_percent</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-15-1.png" alt="A horizontal filled bar chart showing percentages of cars for 7 types of cars. The fill colour represents 3 types of drive train. Every stacked bar spans the width of the panel." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-15-1.png" alt="A horizontal filled bar chart showing percentages of cars for 7
+ types of cars. The fill colour represents 3 types of drive train. Every
+ stacked bar spans the width of the panel." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -355,14 +377,17 @@ with number of responses for each <code>opinion</code>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">poll_longer</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">party</span>, fill <span class="op">=</span> <span class="va">opinion</span>, x <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-18-1.png" alt="A horizontal stacked bar chart showing opinion counts for 3 parties, stacked and filled by 3 types of opinions." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-18-1.png" alt="A horizontal stacked bar chart showing opinion counts for 3
+ parties, stacked and filled by 3 types of opinions." width="80%"></p>
 <p>To plot proportions (relative frequencies) instead of counts, use
 <code>position = "fill"</code> in <code><a href="../reference/geom_bar.html">geom_col()</a></code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">poll_longer</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">party</span>, fill <span class="op">=</span> <span class="va">opinion</span>, x <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"proportion"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-19-1.png" alt="A horizontal filled bar chart showing proportions of opinions for 3 parties. The fill colour represents 3 types of opinion. Every stacked bar spans the width of the panel." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-19-1.png" alt="A horizontal filled bar chart showing proportions of opinions for
+ 3 parties. The fill colour represents 3 types of opinion. Every
+ stacked bar spans the width of the panel." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -398,7 +423,9 @@ together.</p>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">question</span>, fill <span class="op">=</span> <span class="va">response</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-21-1.png" alt="A grouped bar chart showing the number of responses to three questions. Within each question, two bars denote an 'Agree' or 'Disagree' response." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-21-1.png" alt="A grouped bar chart showing the number of responses to three
+ questions. Within each question, two bars denote an 'Agree' or 'Disagree'
+ response." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -421,13 +448,15 @@ frame to <code><a href="../reference/ggplot.html">ggplot()</a></code> and plot b
 <span>  <span class="fu">summarise</span><span class="op">(</span>mean_hwy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">mean_hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-22-1.png" alt="A bar chart showing the average highway miles per gallon for three types of drive train." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-22-1.png" alt="A bar chart showing the average highway miles per gallon for
+ three types of drive train." width="80%"></p>
 <p>Alternatively, you can use <code><a href="../reference/stat_summary.html">stat_summary()</a></code> to let ggplot2
 calculate and plot the means.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_summary.html">stat_summary</a></span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-23-1.png" alt="A bar chart showing the average highway miles per gallon for three types of drive train." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-23-1.png" alt="A bar chart showing the average highway miles per gallon for
+ three types of drive train." width="80%"></p>
 </details>
 </div>
 </div>
@@ -465,7 +494,8 @@ instead set the limits in <code><a href="../reference/coord_cartesian.html">coor
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">110</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-25-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The y-axis starts at 20, and all bars touch the x-axis." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-25-1.png" alt="A bar chart showing the number of cars for each of three types
+ of drive train. The y-axis starts at 20, and all bars touch the x-axis." width="80%"></p>
 <p>This is, indeed, a deceiving plot. If you’re using a bar plot to
 display values that could not take the value of 0, you might choose a
 different geom instead. For example, if you have the following data and
@@ -480,7 +510,9 @@ plot.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-26-1.png" alt="A bar chart showing numbers for 3 arbitrary categories. The numbers are far away from the x-axis and visually appear broadly similar in height." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-26-1.png" alt="A bar chart showing numbers for 3 arbitrary categories. The
+ numbers are far away from the x-axis and visually appear broadly similar
+ in height." width="80%"></p>
 <p>Also suppose that you want to cut off the bars at
 <code>y = 1000</code> since you know that the variable you’re plotting
 cannot take a value less than 1000, you might use
@@ -490,13 +522,17 @@ cannot take a value less than 1000, you might use
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1150</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-27-1.png" alt="A bar chart showing numbers for 3 arbitrary categories. The y-axis starts at 1000 and the bars all look different in height. This is not a recommended way of plotting this data." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-27-1.png" alt="A bar chart showing numbers for 3 arbitrary categories. The y-axis starts
+ at 1000 and the bars all look different in height. This is not a recommended
+ way of plotting this data." width="80%"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># do this</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-27-2.png" alt="A scatter plot with 3 points showing numbers for 3 arbitrary categories. The y-axis starts at 1000 and the points have visually different values. This is a better way of plotting this data." width="80%"></p>
+<p><img src="faq-bars_files/figure-html/unnamed-chunk-27-2.png" alt="A scatter plot with 3 points showing numbers for 3 arbitrary categories.
+ The y-axis starts at 1000 and the points have visually different values.
+ This is a better way of plotting this data." width="80%"></p>
 </details>
 </div>
 </div>
@@ -509,13 +545,11 @@ cannot take a value less than 1000, you might use
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/wch" class="external-link">Winston Chang</a>, <a href="https://github.com/lionel-" class="external-link">Lionel Henry</a>, <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, Kohske Takahashi, <a href="https://clauswilke.com" class="external-link">Claus Wilke</a>, <a href="https://karawoo.com" class="external-link">Kara Woo</a>, <a href="https://yutani.rbind.io" class="external-link">Hiroaki Yutani</a>, <a href="https://fishandwhistle.net" class="external-link">Dewey Dunnington</a>, Teun van den Brand, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
   </div></footer>
