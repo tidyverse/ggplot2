@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,9 +86,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="3.5.1" id="ggplot2-351">ggplot2 3.5.1<a class="anchor" aria-label="anchor" href="#ggplot2-351"></a></h2><p class="text-muted">CRAN release: 2024-04-23</p>
 <p>This is a small release focusing on fixing regressions from 3.5.0 and documentation updates.</p>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-3-5-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-3-5-1"></a></h3>
 <ul><li>Fixed bug where discrete scales could not map aesthetics only consisting of <code>NA</code>s (<a href="https://github.com/tidyverse/ggplot2/issues/5623" class="external-link">#5623</a>)</li>
 <li>Fixed spurious warnings from <code><a href="../reference/sec_axis.html">sec_axis()</a></code> with <code>breaks = NULL</code> (<a href="https://github.com/tidyverse/ggplot2/issues/5713" class="external-link">#5713</a>).</li>
 <li>Patterns and gradients are now also enabled in <code><a href="../reference/ggsf.html">geom_sf()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5716" class="external-link">#5716</a>).</li>
@@ -96,7 +99,7 @@
 <li>Fixed bug in <code><a href="../reference/guide_bins.html">guide_bins()</a></code> and <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> where discrete breaks, such as the levels produced by <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut()</a></code>, were ordered incorrectly (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5757" class="external-link">#5757</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="improvements-development-version">Improvements<a class="anchor" aria-label="anchor" href="#improvements-development-version"></a></h3>
+<h3 id="improvements-3-5-1">Improvements<a class="anchor" aria-label="anchor" href="#improvements-3-5-1"></a></h3>
 <ul><li>When facets coerce the faceting variables to factors, the ‘ordered’ class is dropped (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5666" class="external-link">#5666</a>).</li>
 <li>
 <code><a href="../reference/coord_map.html">coord_map()</a></code> and <code><a href="../reference/coord_polar.html">coord_polar()</a></code> throw informative warnings when used with the guide system (<a href="https://github.com/tidyverse/ggplot2/issues/5707" class="external-link">#5707</a>).</li>
