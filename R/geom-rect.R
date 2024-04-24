@@ -36,12 +36,18 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   setup_data = function(self, data, params) {
     if (is.null(data$xmin) || is.null(data$xmax)) {
-      x <- resolve_rect(data$xmin, data$xmax, data$x, data$width %||% params$width)
+      x <- resolve_rect(
+        data[["xmin"]], data[["xmax"]],
+        data[["x"]], data[["width"]] %||% params$width
+      )
       i <- lengths(x) > 1
       data[c("xmin", "xmax")[i]] <- x[i]
     }
     if (is.null(data$ymin) || is.null(data$ymax)) {
-      y <- resolve_rect(data$ymin, data$ymax, data$y, data$height %||% params$height)
+      y <- resolve_rect(
+        data[["ymin"]], data[["ymax"]],
+        data[["y"]], data[["height"]] %||% params$height
+      )
       i <- lengths(y) > 1
       data[c("ymin", "ymax")[i]] <- y[i]
     }
