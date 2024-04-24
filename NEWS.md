@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_rect()` can now derive the required corners positions from `x`/`width`
+  or `y`/`height` parameterisation (@teunbrand, #5861).
+
 # ggplot2 3.5.1
 
 This is a small release focusing on fixing regressions from 3.5.0 and 
