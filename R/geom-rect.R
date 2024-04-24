@@ -45,6 +45,11 @@ GeomRect <- ggproto("GeomRect", Geom,
       i <- lengths(y) > 1
       data[c("ymin", "ymax")[i]] <- y[i]
     }
+    check_required_aesthetics(
+      self$non_missing_aes,
+      names(data),
+      snake_class(self)
+    )
     data
   },
 
@@ -110,3 +115,4 @@ resolve_rect <- function(min = NULL, max = NULL, center = NULL, length = NULL) {
     }
   }
   list(min = min, max = max)
+}
