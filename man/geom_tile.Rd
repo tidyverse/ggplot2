@@ -144,19 +144,16 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 \code{geom_rect()} and \code{geom_tile()} do the same thing, but are
-parameterised differently: \code{geom_rect()} uses the locations of the four
-corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
-\code{geom_tile()} uses the center of the tile and its size (\code{x},
-\code{y}, \code{width}, \code{height}). \code{geom_raster()} is a high
-performance special case for when all the tiles are the same size, and no
-pattern fills are applied.
+parameterised differently: \code{geom_tile()} uses the center of the tile and its
+size (\code{x}, \code{y}, \code{width}, \code{height}), while \code{geom_rect()} can use those or the
+locations of the corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}).
+\code{geom_raster()} is a high performance special case for when all the tiles
+are the same size, and no pattern fills are applied.
 }
 \details{
-\code{geom_rect()} and \code{geom_tile()}'s respond differently to scale
-transformations due to their parameterisation. In \code{geom_rect()}, the scale
-transformation is applied to the corners of the rectangles. In \code{geom_tile()},
-the transformation is applied only to the centres and its size is determined
-after transformation.
+Please note that the \code{width} and \code{height} aesthetics are not true position
+aesthetics and therefore are not subject to scale transformation. It is
+only after transformation that these aesthetics are applied.
 }
 \section{Aesthetics}{
 
@@ -172,6 +169,10 @@ after transformation.
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{width}
+\item \code{\link[=aes_position]{xmax}}
+\item \code{\link[=aes_position]{xmin}}
+\item \code{\link[=aes_position]{ymax}}
+\item \code{\link[=aes_position]{ymin}}
 }
 Note that \code{geom_raster()} ignores \code{colour}.
 
