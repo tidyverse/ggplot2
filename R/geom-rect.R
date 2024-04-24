@@ -31,7 +31,8 @@ GeomRect <- ggproto("GeomRect", Geom,
   default_aes = aes(colour = NA, fill = "grey35", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
-  required_aes = c("xmin", "xmax", "ymin", "ymax"),
+  optional_aes = c("x", "width", "xmin", "xmax", "y", "height", "ymin", "ymax"),
+  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
     data <- check_linewidth(data, snake_class(self))
