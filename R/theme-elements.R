@@ -187,14 +187,6 @@ element_render <- function(theme, element, ..., name = NULL) {
   ggname(paste(element, name, sep = "."), grob)
 }
 
-
-# Returns NULL if x is length 0
-len0_null <- function(x) {
-  if (length(x) == 0)  NULL
-  else                 x
-}
-
-
 #' Generate grid grob from theme element
 #'
 #' @param element Theme element, i.e. `element_rect` or similar.
