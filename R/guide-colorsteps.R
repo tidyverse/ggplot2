@@ -204,7 +204,7 @@ GuideColoursteps <- ggproto(
 
     size <- abs(decor$max - decor$min)
     just <- as.numeric(decor$min > decor$max)
-    gp   <- gpar(col = NA, fill = decor$colour)
+    gp   <- ggpar(col = NA, fill = decor$colour)
     if (params$direction == "vertical") {
       grob <- rectGrob(
         x = 0, y = decor$min,
