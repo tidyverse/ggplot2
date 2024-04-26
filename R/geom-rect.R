@@ -35,6 +35,10 @@ GeomRect <- ggproto("GeomRect", Geom,
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_data = function(self, data, params) {
+    data$xmin <- data$xmin %||% params$xmin
+    data$xmax <- data$xmax %||% params$xmax
+    data$ymin <- data$ymin %||% params$ymin
+    data$ymax <- data$ymax %||% params$ymax
     if (is.null(data$xmin) || is.null(data$xmax)) {
       x <- resolve_rect(
         data[["xmin"]], data[["xmax"]],
