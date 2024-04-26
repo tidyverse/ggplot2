@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New helper function `ggpar()` to translate ggplot2's interpretation of 
+  graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
+
 # ggplot2 3.5.1
 
 This is a small release focusing on fixing regressions from 3.5.0 and 
