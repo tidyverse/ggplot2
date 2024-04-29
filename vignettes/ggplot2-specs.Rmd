@@ -230,7 +230,7 @@ Shapes take five types of values:
 
 ### Colour and fill
 
-Note that shapes 21-24 have both stroke `colour` and a `fill`. The size of the filled part is controlled by `size`, the size of the stroke is controlled by `stroke`. Each is measured in mm, and the total size of the point is the sum of the two. Note that the size is constant along the diagonal in the following figure.
+While `colour` applies to all shapes, `fill` only applies to shapes 21-25, as can be seen above. The size of the filled part is controlled by `size`, the size of the stroke is controlled by `stroke`. Each is measured in mm, and the total size of the point is the sum of the two. Note that the size is constant along the diagonal in the following figure.
 
 ```{r}
 #| fig.alt = "A plot showing a 4-by-4 grid of red points, the top 12 points with

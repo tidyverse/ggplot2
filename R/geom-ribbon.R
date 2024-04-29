@@ -182,10 +182,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     g_poly <- polygonGrob(
       munched_poly$x, munched_poly$y, id = munched_poly$id,
       default.units = "native",
-      gp = gpar(
+      gp = ggpar(
         fill = fill_alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
-        lwd = if (is_full_outline) aes$linewidth * .pt else 0,
+        lwd = if (is_full_outline) aes$linewidth else 0,
         lty = if (is_full_outline) aes$linetype else 1,
         lineend = lineend,
         linejoin = linejoin,
@@ -213,9 +213,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
       default.units = "native",
-      gp = gpar(
+      gp = ggpar(
         col = aes$colour,
-        lwd = aes$linewidth * .pt,
+        lwd = aes$linewidth,
         lty = aes$linetype,
         lineend = lineend,
         linejoin = linejoin,

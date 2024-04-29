@@ -187,14 +187,6 @@ element_render <- function(theme, element, ..., name = NULL) {
   ggname(paste(element, name, sep = "."), grob)
 }
 
-
-# Returns NULL if x is length 0
-len0_null <- function(x) {
-  if (length(x) == 0)  NULL
-  else                 x
-}
-
-
 #' Generate grid grob from theme element
 #'
 #' @param element Theme element, i.e. `element_rect` or similar.
@@ -220,8 +212,8 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   }
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd = len0_null(linewidth * .pt), col = colour, fill = fill, lty = linetype)
-  element_gp <- gpar(lwd = len0_null(element$linewidth * .pt), col = element$colour,
+  gp <- ggpar(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+  element_gp <- ggpar(lwd = element$linewidth, col = element$colour,
     fill = element$fill, lty = element$linetype)
 
   rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
@@ -244,10 +236,10 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   angle <- angle %||% element$angle %||% 0
 
   # The gp settings can override element_gp
-  gp <- gpar(fontsize = size, col = colour,
+  gp <- ggpar(fontsize = size, col = colour,
     fontfamily = family, fontface = face,
     lineheight = lineheight)
-  element_gp <- gpar(fontsize = element$size, col = element$colour,
+  element_gp <- ggpar(fontsize = element$size, col = element$colour,
     fontfamily = element$family, fontface = element$face,
     lineheight = element$lineheight)
 
@@ -269,13 +261,13 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   }
 
   # The gp settings can override element_gp
-  gp <- gpar(
+  gp <- ggpar(
     col = colour, fill = colour,
-    lwd = len0_null(linewidth * .pt), lty = linetype, lineend = lineend
+    lwd = linewidth, lty = linetype, lineend = lineend
   )
-  element_gp <- gpar(
+  element_gp <- ggpar(
     col = element$colour, fill = element$colour,
-    lwd = len0_null(element$linewidth * .pt), lty = element$linetype,
+    lwd = element$linewidth, lty = element$linetype,
     lineend = element$lineend
   )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
