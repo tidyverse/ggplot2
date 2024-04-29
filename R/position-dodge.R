@@ -13,6 +13,9 @@
 #'   geoms. See the examples.
 #' @param preserve Should dodging preserve the `"total"` width of all elements
 #'    at a position, or the width of a `"single"` element?
+#' @param orientation Fallback orientation when the layer or the data does not
+#'    indicate an explicit orientation, like `geom_point()`. Can be `"x"`
+#'    (default) or `"y"`.
 #' @family position adjustments
 #' @export
 #' @examples
@@ -79,10 +82,11 @@
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
-position_dodge <- function(width = NULL, preserve = "total") {
+position_dodge <- function(width = NULL, preserve = "total", orientation = "x") {
   ggproto(NULL, PositionDodge,
     width = width,
-    preserve = arg_match0(preserve, c("total", "single"))
+    preserve = arg_match0(preserve, c("total", "single")),
+    orientation = arg_match0(orientation, c("x", "y"))
   )
 }
 
@@ -93,8 +97,9 @@ position_dodge <- function(width = NULL, preserve = "total") {
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
+  orientation = "x",
   setup_params = function(self, data) {
-    flipped_aes <- has_flipped_aes(data)
+    flipped_aes <- has_flipped_aes(data, default = self$orientation == "y")
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       cli::cli_warn(c(

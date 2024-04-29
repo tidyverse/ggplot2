@@ -947,7 +947,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   transform = identity,
 
   map = function(self, x, limits = self$get_limits()) {
-    n <- sum(!is.na(limits))
+    limits <- limits[!is.na(limits)]
+    n <- length(limits)
     if (n < 1) {
       return(rep(self$na.value, length(x)))
     }
