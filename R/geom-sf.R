@@ -164,7 +164,11 @@ GeomSf <- ggproto("GeomSf", Geom,
     }
     other_default <- modify_list(
       GeomPolygon$default_aes,
-      list(fill = "grey90", colour = "grey35", linewidth = 0.2)
+      aes(
+        fill   = from_theme(col_mix(ink, paper, 0.9)),
+        colour = from_theme(col_mix(ink, paper, 0.35)),
+        linewidth = 0.2
+      )
     )
     if (length(index$other) > 0) {
       others <- GeomPolygon$use_defaults(
