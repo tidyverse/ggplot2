@@ -86,7 +86,14 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li>(Internal) Applying defaults in <code><a href="../reference/ggsf.html">geom_sf()</a></code> has moved from the internal <code>sf_grob()</code> to <code>GeomSf$use_defaults()</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</li>
+<li>
+<code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> has new options for the <code>dir</code> argument to more precisely control panel directions (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5212" class="external-link">#5212</a>)</li>
+<li>Prevented <code>facet_wrap(..., drop = FALSE)</code> from throwing spurious errors when a character facetting variable contained <code>NA</code>s (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5485" class="external-link">#5485</a>).</li>
+<li>When facets coerce the faceting variables to factors, the ‘ordered’ class is dropped (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5666" class="external-link">#5666</a>).</li>
+<li>
+<code><a href="../reference/geom_segment.html">geom_curve()</a></code> now appropriately removes missing data instead of throwing errors (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5831" class="external-link">#5831</a>).</li>
+<li>
 <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code> and <code><a href="../reference/update_defaults.html">update_stat_defaults()</a></code> have a reset mechanism when using <code>new = NULL</code> and invisible return the previous defaults (<a href="https://github.com/tidyverse/ggplot2/issues/4993" class="external-link">#4993</a>).</li>
 <li>Fixed regression in axes where <code>breaks = NULL</code> caused the axes to disappear instead of just rendering the axis line (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5816" class="external-link">#5816</a>).</li>
 <li>
