@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `facet_wrap()` has new options for the `dir` argument to more precisely
+  control panel directions (@teunbrand, #5212)
 * Prevented `facet_wrap(..., drop = FALSE)` from throwing spurious errors when
   a character facetting variable contained `NA`s (@teunbrand, #5485).
 * When facets coerce the faceting variables to factors, the 'ordered' class

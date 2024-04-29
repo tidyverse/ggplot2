@@ -32,6 +32,44 @@ test_that("grid: includes all combinations", {
   expect_equal(nrow(all), 4)
 })
 
+test_that("wrap: layout sorting is correct", {
+
+  dummy <- list(data_frame0(x = 1:5))
+
+  test <- panel_layout(facet_wrap(~x, dir = "lt"), dummy)
+  expect_equal(test$ROW, rep(c(1,2), c(3, 2)))
+  expect_equal(test$COL, c(1:3, 1:2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "tl"), dummy)
+  expect_equal(test$ROW, c(1, 2, 1, 2, 1))
+  expect_equal(test$COL, c(1, 1, 2, 2, 3))
+
+  test <- panel_layout(facet_wrap(~x, dir = "lb"), dummy)
+  expect_equal(test$ROW, c(2, 2, 2, 1, 1))
+  expect_equal(test$COL, c(1, 2, 3, 1, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "bl"), dummy)
+  expect_equal(test$ROW, c(2, 1, 2, 1, 2))
+  expect_equal(test$COL, c(1, 1, 2, 2, 3))
+
+  test <- panel_layout(facet_wrap(~x, dir = "rt"), dummy)
+  expect_equal(test$ROW, c(1, 1, 1, 2, 2))
+  expect_equal(test$COL, c(3, 2, 1, 3, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "tr"), dummy)
+  expect_equal(test$ROW, c(1, 2, 1, 2, 1))
+  expect_equal(test$COL, c(3, 3, 2, 2, 1))
+
+  test <- panel_layout(facet_wrap(~x, dir = "rb"), dummy)
+  expect_equal(test$ROW, c(2, 2, 2, 1, 1))
+  expect_equal(test$COL, c(3, 2, 1, 3, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "br"), dummy)
+  expect_equal(test$ROW, c(2, 1, 2, 1, 2))
+  expect_equal(test$COL, c(3, 3, 2, 2, 1))
+
+})
+
 test_that("wrap and grid are equivalent for 1d data", {
   rowg <- panel_layout(facet_grid(a~.), list(a))
   roww <- panel_layout(facet_wrap(~a, ncol = 1), list(a))
