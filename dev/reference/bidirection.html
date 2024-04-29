@@ -105,7 +105,8 @@ how they are used when implementing <code>Geom</code>, <code>Stat</code>, and <c
 <span>  group_has_equal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ambiguous <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  main_is_continuous <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  main_is_optional <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  main_is_optional <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  default <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">flip_data</span><span class="op">(</span><span class="va">data</span>, flip <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
@@ -154,6 +155,11 @@ the continuous one correspond to the main orientation?</p></dd>
 <dt>main_is_optional</dt>
 <dd><p>Is the main axis aesthetic optional and, if not
 given, set to <code>0</code></p></dd>
+
+
+<dt>default</dt>
+<dd><p>The logical value to return if no orientation can be discerned
+from the data.</p></dd>
 
 
 <dt>flip</dt>

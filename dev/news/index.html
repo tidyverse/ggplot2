@@ -86,7 +86,14 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>New helper function <code><a href="../reference/ggpar.html">ggpar()</a></code> to translate ggplot2’s interpretation of graphical parameters to {grid}’s interpretation (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5866" class="external-link">#5866</a>).</li>
+<ul><li>
+<code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code> and <code><a href="../reference/update_defaults.html">update_stat_defaults()</a></code> have a reset mechanism when using <code>new = NULL</code> and invisible return the previous defaults (<a href="https://github.com/tidyverse/ggplot2/issues/4993" class="external-link">#4993</a>).</li>
+<li>Fixed regression in axes where <code>breaks = NULL</code> caused the axes to disappear instead of just rendering the axis line (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5816" class="external-link">#5816</a>).</li>
+<li>
+<code><a href="../reference/geom_point.html">geom_point()</a></code> can be dodged vertically by using <code>position_dodge(..., orientation = "y")</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5809" class="external-link">#5809</a>).</li>
+<li>Fixed bug where <code>na.value</code> was incorrectly mapped to non-<code>NA</code> values (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5756" class="external-link">#5756</a>).</li>
+<li>Fixed bug in <code><a href="../reference/guide_custom.html">guide_custom()</a></code> that would throw error with <code><a href="../reference/ggtheme.html">theme_void()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5856" class="external-link">#5856</a>).</li>
+<li>New helper function <code><a href="../reference/ggpar.html">ggpar()</a></code> to translate ggplot2’s interpretation of graphical parameters to {grid}’s interpretation (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5866" class="external-link">#5866</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.5.1" id="ggplot2-351">ggplot2 3.5.1<a class="anchor" aria-label="anchor" href="#ggplot2-351"></a></h2><p class="text-muted">CRAN release: 2024-04-23</p>
