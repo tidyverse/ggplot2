@@ -2,6 +2,8 @@
 
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
   (@teunbrand, #5856).
+* New helper function `ggpar()` to translate ggplot2's interpretation of 
+  graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
 
 # ggplot2 3.5.1
 
