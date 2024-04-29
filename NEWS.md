@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
+  when using `new = NULL` and invisible return the previous defaults (#4993).
+
 # ggplot2 3.5.1
 
 This is a small release focusing on fixing regressions from 3.5.0 and 
@@ -23,8 +26,6 @@ documentation updates.
   
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
-* `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
-  when using `new = NULL` and invisible return the previous defaults (#4993).
 * `coord_map()` and `coord_polar()` throw informative warnings when used
   with the guide system (#5707).
 * When passing a function to `stat_contour(breaks)`, that function is used to
