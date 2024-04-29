@@ -360,12 +360,12 @@ usually 1 pixel.</p></li>
 <div class="section level3">
 <h3 id="colour-and-fill-1">Colour and fill<a class="anchor" aria-label="anchor" href="#colour-and-fill-1"></a>
 </h3>
-<p>Note that shapes 21-24 have both stroke <code>colour</code> and a
-<code>fill</code>. The size of the filled part is controlled by
-<code>size</code>, the size of the stroke is controlled by
-<code>stroke</code>. Each is measured in mm, and the total size of the
-point is the sum of the two. Note that the size is constant along the
-diagonal in the following figure.</p>
+<p>While <code>colour</code> applies to all shapes, <code>fill</code>
+only applies to shapes 21-25, as can be seen above. The size of the
+filled part is controlled by <code>size</code>, the size of the stroke
+is controlled by <code>stroke</code>. Each is measured in mm, and the
+total size of the point is the sum of the two. Note that the size is
+constant along the diagonal in the following figure.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>size <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span>, stroke <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sizes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">size</span>, <span class="va">stroke</span>, size <span class="op">=</span> <span class="va">size</span>, stroke <span class="op">=</span> <span class="va">stroke</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
