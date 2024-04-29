@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_point()` can be dodged vertically by using 
+  `position_dodge(..., orientation = "y")` (@teunbrand, #5809).
 * Fixed bug where `na.value` was incorrectly mapped to non-`NA` values 
   (@teunbrand, #5756).
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
