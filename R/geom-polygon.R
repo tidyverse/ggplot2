@@ -130,10 +130,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         polygonGrob(
           munched$x, munched$y, default.units = "native",
           id = munched$group,
-          gp = gpar(
+          gp = ggpar(
             col = first_rows$colour,
             fill = fill_alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -161,10 +161,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           munched$x, munched$y, default.units = "native",
           id = id, pathId = munched$group,
           rule = rule,
-          gp = gpar(
+          gp = ggpar(
             col = first_rows$colour,
             fill = fill_alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,

@@ -47,6 +47,11 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
     if (!coord$is_linear()) {
       cli::cli_warn("{.fn geom_curve} is not implemented for non-linear coordinates")
     }
+    data <- remove_missing(
+      data, na.rm = na.rm,
+      c("x", "y", "xend", "yend", "linetype", "linewidth"),
+      name = "geom_curve"
+    )
 
     trans <- coord$transform(data, panel_params)
 
@@ -57,10 +62,10 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
       default.units = "native",
       curvature = curvature, angle = angle, ncp = ncp,
       square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
-      gp = gpar(
+      gp = ggpar(
         col = alpha(trans$colour, trans$alpha),
         fill = alpha(arrow.fill, trans$alpha),
-        lwd = trans$linewidth * .pt,
+        lwd = trans$linewidth,
         lty = trans$linetype,
         lineend = lineend),
       arrow = arrow

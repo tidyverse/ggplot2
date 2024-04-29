@@ -379,7 +379,7 @@ GuideColourbar <- ggproto(
         vjust = 0, hjust = 0,
         width = width, height = height,
         default.units = "npc",
-        gp = gpar(col = NA, fill = decor$colour)
+        gp = ggpar(col = NA, fill = decor$colour)
       )
     } else if (params$display == "gradient") {
       check_device("gradients", call = expr(guide_colourbar()))
@@ -394,7 +394,7 @@ GuideColourbar <- ggproto(
         vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
       )
       gradient <- inject(linearGradient(decor$colour, value, !!!position))
-      grob <- rectGrob(gp = gpar(fill = gradient, col = NA))
+      grob <- rectGrob(gp = ggpar(fill = gradient, col = NA))
     }
 
     frame <- element_grob(elements$frame, fill = NA)
