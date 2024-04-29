@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
+  (@teunbrand, #5856).
 * New helper function `ggpar()` to translate ggplot2's interpretation of 
   graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
 
@@ -23,7 +25,7 @@ documentation updates.
   (@teunbrand, #5757).
   
 ## Improvements
-  
+
 * When facets coerce the faceting variables to factors, the 'ordered' class
   is dropped (@teunbrand, #5666).
 * `coord_map()` and `coord_polar()` throw informative warnings when used
