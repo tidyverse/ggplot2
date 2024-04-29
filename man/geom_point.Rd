@@ -148,6 +148,8 @@ Another technique is to make the points transparent (e.g.
 \item \code{\link[=aes_linetype_size_shape]{size}}
 \item \code{stroke}
 }
+The \code{fill} aesthetic only applies to shapes 21-25.
+
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
