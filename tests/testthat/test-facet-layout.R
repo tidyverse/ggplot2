@@ -138,7 +138,8 @@ test_that("grid: as.table reverses rows", {
 
 a2 <- data_frame(
   a = factor(1:3, levels = 1:4),
-  b = factor(1:3, levels = 4:1)
+  b = factor(1:3, levels = 4:1),
+  c = as.character(c(1:2, NA))
 )
 
 test_that("wrap: drop = FALSE preserves unused levels", {
@@ -149,6 +150,11 @@ test_that("wrap: drop = FALSE preserves unused levels", {
   wrap_b <- panel_layout(facet_wrap(~b, drop = FALSE), list(a2))
   expect_equal(nrow(wrap_b), 4)
   expect_equal(as.character(wrap_b$b), as.character(4:1))
+
+  # NA character should not be dropped or throw errors #5485
+  wrap_c <- panel_layout(facet_wrap(~c, drop = FALSE), list(a2))
+  expect_equal(nrow(wrap_c), 3)
+  expect_equal(wrap_c$c, a2$c)
 })
 
 test_that("grid: drop = FALSE preserves unused levels", {
