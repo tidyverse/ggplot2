@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (Internal) Applying defaults in `geom_sf()` has moved from the internal 
+  `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
   control panel directions (@teunbrand, #5212)
 * Prevented `facet_wrap(..., drop = FALSE)` from throwing spurious errors when
