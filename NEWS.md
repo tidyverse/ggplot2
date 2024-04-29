@@ -2,6 +2,8 @@
 
 * `geom_curve()` now appropriately removes missing data instead of throwing
   errors (@teunbrand, #5831).
+* `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
+  when using `new = NULL` and invisible return the previous defaults (#4993).
 * Fixed regression in axes where `breaks = NULL` caused the axes to disappear
   instead of just rendering the axis line (@teunbrand, #5816).
 * `geom_point()` can be dodged vertically by using 
