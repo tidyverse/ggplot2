@@ -89,10 +89,10 @@ GeomHex <- ggproto("GeomHex", Geom,
 
     ggname("geom_hex", polygonGrob(
       coords$x, coords$y,
-      gp = gpar(
+      gp = ggpar(
         col = data$colour,
         fill = fill_alpha(data$fill, data$alpha),
-        lwd = data$linewidth * .pt,
+        lwd = data$linewidth,
         lty = data$linetype,
         lineend = lineend,
         linejoin = linejoin,
