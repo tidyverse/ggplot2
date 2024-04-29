@@ -151,6 +151,14 @@ ggplot(economics_long, aes(date, value)) +
   facet_wrap(vars(variable), scales = "free_y", nrow = 2, strip.position = "top") +
   theme(strip.background = element_blank(), strip.placement = "outside")
 }
+
+# The two letters determine the starting position, so 'tr' starts
+# in the top-right.
+# The first letter determines direction, so 'tr' fills top-to-bottom.
+# `dir = "tr"` is equivalent to `dir = "v", as.table = FALSE`
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  facet_wrap(vars(class), dir = "tr")
 }
 \seealso{
 The \href{https://ggplot2-book.org/facet#sec-facet-wrap}{facet wrap section} of the online ggplot2 book.
