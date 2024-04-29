@@ -326,8 +326,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         y = c(Inf, -Inf, -Inf,  Inf)
       )
       background <- coord_munch(self, background, panel_params, is_closed = TRUE)
-      bg_gp <- gpar(
-        lwd = len0_null(bg_element$linewidth * .pt),
+      bg_gp <- ggpar(
+        lwd = bg_element$linewidth,
         col = bg_element$colour, fill = bg_element$fill,
         lty = bg_element$linetype
       )
