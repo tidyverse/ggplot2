@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Prevented `facet_wrap(..., drop = FALSE)` from throwing spurious errors when
+  a character facetting variable contained `NA`s (@teunbrand, #5485).
+* When facets coerce the faceting variables to factors, the 'ordered' class
+  is dropped (@teunbrand, #5666).
 * `geom_curve()` now appropriately removes missing data instead of throwing
   errors (@teunbrand, #5831).
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
