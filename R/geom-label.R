@@ -90,17 +90,17 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         padding = label.padding,
         r = label.r,
         angle = row$angle,
-        text.gp = gpar(
+        text.gp = ggpar(
           col = row$colour,
           fontsize = row$size * size.unit,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
         ),
-        rect.gp = gpar(
+        rect.gp = ggpar(
           col = if (isTRUE(all.equal(label.size, 0))) NA else row$colour,
           fill = fill_alpha(row$fill, row$alpha),
-          lwd = label.size * .pt
+          lwd = label.size
         )
       )
     })
@@ -115,7 +115,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
 labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       just = "center", padding = unit(0.25, "lines"), r = unit(0.1, "snpc"),
                       angle = NULL, default.units = "npc", name = NULL,
-                      text.gp = gpar(), rect.gp = gpar(fill = "white"), vp = NULL) {
+                      text.gp = gpar(), rect.gp = ggpar(fill = "white"), vp = NULL) {
 
   if (length(label) != 1) {
     cli::cli_abort("{.arg label} must be of length 1.")
@@ -130,7 +130,7 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
     vp <- viewport(
       angle = angle, x = x, y = y,
       width = unit(0, "cm"), height = unit(0, "cm"),
-      gp = gpar(fontsize = text.gp$fontsize)
+      gp = ggpar(fontsize = text.gp$fontsize)
     )
     x <- unit(rep(0.5, length(x)), "npc")
     y <- unit(rep(0.5, length(y)), "npc")
