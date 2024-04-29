@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug where `na.value` was incorrectly mapped to non-`NA` values 
+  (@teunbrand, #5756).
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
   (@teunbrand, #5856).
 * New helper function `ggpar()` to translate ggplot2's interpretation of 
