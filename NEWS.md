@@ -2,6 +2,10 @@
 
 * `update_geom_defaults()` and `update_stat_defaults()` have a reset mechanism
   when using `new = NULL` and invisible return the previous defaults (#4993).
+* Fixed regression in axes where `breaks = NULL` caused the axes to disappear
+  instead of just rendering the axis line (@teunbrand, #5816).
+* `geom_point()` can be dodged vertically by using 
+  `position_dodge(..., orientation = "y")` (@teunbrand, #5809).
 * Fixed bug where `na.value` was incorrectly mapped to non-`NA` values 
   (@teunbrand, #5756).
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
