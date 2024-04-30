@@ -109,6 +109,13 @@
 #'     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
 #'   )
 #' ```
+#'
+#' ## Theme access
+#' The `from_theme()` function can be used to acces the [`element_geom()`]
+#' fields of the `theme(geom)` argument. Using `aes(colour = from_theme(ink))`
+#' and `aes(colour = from_theme(accent))` allows swapping between foreground and
+#' accent colours.
+#'
 #' @rdname aes_eval
 #' @name aes_eval
 #'
@@ -196,7 +203,6 @@ after_scale <- function(x) {
 #' @rdname aes_eval
 #' @export
 from_theme <- function(x) {
-  # TODO: This is just a placeholder
   x
 }
 

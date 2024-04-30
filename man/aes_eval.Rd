@@ -130,6 +130,14 @@ ggplot(mpg, aes(class, displ)) +
   )
 }\if{html}{\out{</div>}}
 }
+
+\subsection{Theme access}{
+
+The \code{from_theme()} function can be used to acces the \code{\link[=element_geom]{element_geom()}}
+fields of the \code{theme(geom)} argument. Using \code{aes(colour = from_theme(ink))}
+and \code{aes(colour = from_theme(accent))} allows swapping between foreground and
+accent colours.
+}
 }
 
 \examples{
