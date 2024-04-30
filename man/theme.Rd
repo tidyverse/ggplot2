@@ -160,6 +160,8 @@ these should also be defined in the \verb{element tree} argument. \link[rlang:sp
 \item{title}{all title elements: plot, axes, legends (\code{\link[=element_text]{element_text()}};
 inherits from \code{text})}
 
+\item{geom}{defaults for geoms (\code{\link[=element_geom]{element_geom()}})}
+
 \item{aspect.ratio}{aspect ratio of the panel}
 
 \item{axis.title, axis.title.x, axis.title.y, axis.title.x.top, axis.title.x.bottom, axis.title.y.left, axis.title.y.right}{labels of axes (\code{\link[=element_text]{element_text()}}). Specify all axes' labels (\code{axis.title}),

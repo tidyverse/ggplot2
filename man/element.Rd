@@ -5,6 +5,7 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
+\alias{element_geom}
 \alias{rel}
 \alias{margin}
 \title{Theme elements}
@@ -47,6 +48,18 @@ element_text(
   inherit.blank = FALSE
 )
 
+element_geom(
+  ink = NULL,
+  paper = NULL,
+  accent = NULL,
+  thin = NULL,
+  thick = NULL,
+  family = NULL,
+  fontsize = NULL,
+  pointsize = NULL,
+  pointshape = NULL
+)
+
 rel(x)
 
 margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
@@ -69,7 +82,7 @@ a blank element among its parents will cause this element to be blank as
 well. If \code{FALSE} any blank parent element will be ignored when
 calculating final element state.}
 
-\item{size}{text size in pts.}
+\item{size, fontsize}{text size in pts.}
 
 \item{lineend}{Line end Line end style (round, butt, square)}
 
@@ -95,6 +108,18 @@ side of the text facing towards the center of the plot.}
 rectangle behind the complete text area, and a point where each label
 is anchored.}
 
+\item{ink}{Foreground colour.}
+
+\item{paper}{Background colour.}
+
+\item{accent}{Accent colour.}
+
+\item{thin, thick}{Linewidth for thin and thick lines in mm.}
+
+\item{pointsize}{Size for points in mm.}
+
+\item{pointshape}{Shape for points (1-25).}
+
 \item{x}{A single number specifying size relative to parent element.}
 
 \item{t, r, b, l}{Dimensions of each margin. (To remember order, think trouble).}
@@ -113,6 +138,7 @@ specify the display of how non-data components of the plot are drawn.
 \item \code{element_rect()}: borders and backgrounds.
 \item \code{element_line()}: lines.
 \item \code{element_text()}: text.
+\item \code{element_geom()}: defaults for drawing layers.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,
@@ -143,4 +169,12 @@ plot + theme(
     linewidth = 1
   )
 )
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  theme(geom = element_geom(
+    ink = "red", accent = "black",
+    pointsize = 1, thick = 2
+  ))
 }

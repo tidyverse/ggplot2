@@ -8,6 +8,7 @@
 #'   - `element_rect()`: borders and backgrounds.
 #'   - `element_line()`: lines.
 #'   - `element_text()`: text.
+#'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
 #' `margin()` is used to specify the margins of elements.
@@ -15,7 +16,7 @@
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param linewidth Line/border size in mm.
-#' @param size text size in pts.
+#' @param size,fontsize text size in pts.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
 #'   a blank element among its parents will cause this element to be blank as
@@ -47,6 +48,14 @@
 #'     linewidth = 1
 #'   )
 #' )
+#'
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   geom_smooth(formula = y ~ x, method = "lm") +
+#'   theme(geom = element_geom(
+#'     ink = "red", accent = "black",
+#'     pointsize = 1, thick = 2
+#'   ))
 #' @name element
 #' @aliases NULL
 NULL
@@ -144,6 +153,14 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @param ink Foreground colour.
+#' @param paper Background colour.
+#' @param accent Accent colour.
+#' @param thin,thick Linewidth for thin and thick lines in mm.
+#' @param pointsize Size for points in mm.
+#' @param pointshape Shape for points (1-25).
+#' @export
+#' @rdname element
 element_geom <- function(
   # colours
   ink = NULL, paper = NULL, accent = NULL,
