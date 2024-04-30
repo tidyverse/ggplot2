@@ -23,6 +23,10 @@ update_stat_defaults(stat, new)
 \description{
 Modify geom/stat aesthetic defaults for future plots
 }
+\note{
+Please note that geom defaults can be set \emph{en masse} via the \code{theme(geom)}
+argument.
+}
 \examples{
 
 # updating a geom's default aesthetic settings
