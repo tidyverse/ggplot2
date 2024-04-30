@@ -33,7 +33,7 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
   default_aes = aes(
     colour = from_theme(ink), size = from_theme(pointsize / 3),
     linewidth = from_theme(thin), linetype = 1,
-    shape = 19, fill = NA, alpha = NA, stroke = 1
+    shape = from_theme(pointshape), fill = NA, alpha = NA, stroke = 1
   ),
 
   draw_key = draw_key_pointrange,
