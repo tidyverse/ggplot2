@@ -820,11 +820,19 @@ as_unordered_factor <- function(x) {
 }
 
 # Shim for scales/#424
-# TODO: prefer scales version over this one
 col_mix <- function(a, b, amount = 0.5) {
   input <- vec_recycle_common(a = a, b = b, amount = amount)
-  a <- col2rgb(input$a, TRUE)
-  b <- col2rgb(input$b, TRUE)
+  a <- grDevices::col2rgb(input$a, TRUE)
+  b <- grDevices::col2rgb(input$b, TRUE)
   new <- (a * (1 - input$amount) + b * input$amount)
-  rgb(new["red", ], new["green", ], new["blue", ], alpha = new["alpha", ], maxColorValue = 255)
+  grDevices::rgb(
+    new["red", ], new["green", ], new["blue", ],
+    alpha = new["alpha", ], maxColorValue = 255
+  )
 }
+
+on_load({
+  if ("col_mix" %in% getNamespaceExports("scales")) {
+    col_mix <- scales::col_mix
+  }
+})
