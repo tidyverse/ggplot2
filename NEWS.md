@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* (Breaking) The defaults for all geoms can be set at one in the theme. 
+  (@teunbrand based on pioneering work by @dpseidel, #2239)
+    * A new `theme(geom)` argument is used to track these defaults.
+    * The `element_geom()` function can be used to populate that argument.
+    * The `from_theme()` function allows access to the theme default fields from
+      inside the `aes()` function.
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
