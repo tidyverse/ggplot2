@@ -150,7 +150,9 @@ element_geom <- function(
   # linewidth
   thin = NULL, thick = NULL,
   # text
-  family = NULL, fontsize = NULL
+  family = NULL, fontsize = NULL,
+  # points
+  pointsize = NULL, pointshape = NULL
   ) {
 
   if (!is.null(fontsize)) {
@@ -163,7 +165,8 @@ element_geom <- function(
       paper = paper,
       accent = accent,
       thin = thin, thick = thick,
-      family = family, fontsize = fontsize
+      family = family, fontsize = fontsize,
+      pointsize = pointsize, pointshape = pointshape
     ),
     class = c("element_geom", "element")
   )
@@ -172,7 +175,8 @@ element_geom <- function(
 .default_geom_element <- element_geom(
   ink = "black", paper = "white", accent = "#3366FF",
   thin = 0.5, thick = 2,
-  family = "", fontsize = 11
+  family = "", fontsize = 11,
+  pointsize = 1.5, pointshape = 19
 )
 
 #' @export
