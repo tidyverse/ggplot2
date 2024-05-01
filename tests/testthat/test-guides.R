@@ -300,6 +300,14 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   g <- guide_bins()
   key <- g$train(scale = scale, aesthetics = "colour")$key
   expect_true(all(diff(key$.value) > 0))
+
+  # Out of bound breaks are removed
+  scale <- scale_colour_viridis_c(breaks = c(10, 20, 30, 40, 50), na.value = "grey50")
+  scale$train(c(15, 45))
+
+  g <- guide_colorsteps()
+  key <- g$train(scale = scale, aesthetic = "colour")$key
+  expect_equal(sum(key$colour == "grey50"), 0)
 })
 
 test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
