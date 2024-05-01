@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug where binned guides would keep out-of-bounds breaks 
+  (@teunbrand, #5870).
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
