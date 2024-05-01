@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `plot` is now the first argument of `ggsave()`. `plot` and `filename` are
+  swapped when `plot` is a string and `filename` is a plot, to preserve some
+  backward compatibility (#3523).
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
