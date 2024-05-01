@@ -60,15 +60,15 @@
 #'   geom_point()
 #'
 #' # here, the device is inferred from the filename extension
-#' ggsave("mtcars.pdf")
-#' ggsave("mtcars.png")
+#' ggsave(filename = "mtcars.pdf")
+#' ggsave(filename = "mtcars.png")
 #'
 #' # setting dimensions of the plot
-#' ggsave("mtcars.pdf", width = 4, height = 4)
-#' ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
+#' ggsave(filename = "mtcars.pdf", width = 4, height = 4)
+#' ggsave(filename = "mtcars.pdf", width = 20, height = 20, units = "cm")
 #'
 #' # passing device-specific arguments to '...'
-#' ggsave("mtcars.pdf", colormodel = "cmyk")
+#' ggsave(filename = "mtcars.pdf", colormodel = "cmyk")
 #'
 #' # delete files with base::unlink()
 #' unlink("mtcars.pdf")
@@ -77,7 +77,7 @@
 #' # specify device when saving to a file with unknown extension
 #' # (for example a server supplied temporary file)
 #' file <- tempfile()
-#' ggsave(file, device = "pdf")
+#' ggsave(filename = file, device = "pdf")
 #' unlink(file)
 #'
 #' # save plot to file without using ggsave
@@ -89,12 +89,18 @@
 #' dev.off()
 #'
 #' }
-ggsave <- function(filename, plot = last_plot(),
+ggsave <- function(plot = last_plot(), filename,
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm", "px"),
                    dpi = 300, limitsize = TRUE, bg = NULL,
                    create.dir = FALSE,
                    ...) {
+  if (is.character(plot) && is.ggplot(filename)) {
+    tmp <- filename
+    filename <- plot
+    plot <- tmp
+  }
+
   filename <- check_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)

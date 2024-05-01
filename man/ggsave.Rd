@@ -5,8 +5,8 @@
 \title{Save a ggplot (or other grid object) with sensible defaults}
 \usage{
 ggsave(
-  filename,
   plot = last_plot(),
+  filename,
   device = NULL,
   path = NULL,
   scale = 1,
@@ -21,9 +21,9 @@ ggsave(
 )
 }
 \arguments{
-\item{filename}{File name to create on disk.}
-
 \item{plot}{Plot to save, defaults to last plot displayed.}
+
+\item{filename}{File name to create on disk.}
 
 \item{device}{Device to use. Can either be a device function
 (e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
@@ -93,15 +93,15 @@ ggplot(mtcars, aes(mpg, wt)) +
   geom_point()
 
 # here, the device is inferred from the filename extension
-ggsave("mtcars.pdf")
-ggsave("mtcars.png")
+ggsave(filename = "mtcars.pdf")
+ggsave(filename = "mtcars.png")
 
 # setting dimensions of the plot
-ggsave("mtcars.pdf", width = 4, height = 4)
-ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
+ggsave(filename = "mtcars.pdf", width = 4, height = 4)
+ggsave(filename = "mtcars.pdf", width = 20, height = 20, units = "cm")
 
 # passing device-specific arguments to '...'
-ggsave("mtcars.pdf", colormodel = "cmyk")
+ggsave(filename = "mtcars.pdf", colormodel = "cmyk")
 
 # delete files with base::unlink()
 unlink("mtcars.pdf")
@@ -110,7 +110,7 @@ unlink("mtcars.png")
 # specify device when saving to a file with unknown extension
 # (for example a server supplied temporary file)
 file <- tempfile()
-ggsave(file, device = "pdf")
+ggsave(filename = file, device = "pdf")
 unlink(file)
 
 # save plot to file without using ggsave
