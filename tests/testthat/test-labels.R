@@ -52,13 +52,15 @@ test_that("setting guide labels works", {
 test_that("Labels from default stat mapping are overwritten by default labels", {
   p <- ggplot(mpg, aes(displ, hwy)) +
     geom_density2d()
+  labels <- ggplot_build(p)$plot$labels
 
-  expect_equal(p$labels$colour[1], "colour")
-  expect_true(attr(p$labels$colour, "fallback"))
+  expect_equal(labels$colour[1], "colour")
+  expect_true(attr(labels$colour, "fallback"))
 
-  p <- p + geom_smooth(aes(color = drv))
+  p <- p + geom_smooth(aes(color = drv), method = "lm", formula = y ~ x)
+  labels <- ggplot_build(p)$plot$labels
 
-  expect_equal(p$labels$colour, "drv")
+  expect_equal(labels$colour, "drv")
 })
 
 test_that("alt text is returned", {
