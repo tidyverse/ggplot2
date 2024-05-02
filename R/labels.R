@@ -44,9 +44,8 @@ setup_plot_labels <- function(plot, layers, data) {
       mapping, FUN.VALUE = logical(1),
       function(x) is_quosure(x) && quo_is_symbol(x)
     )
-    symbols <- setNames(nm = names(mapping)[symbolic])
-    symbols <- setdiff(symbols, names(data[[i]]))
-    attribs <- lapply(symbols, function(x) {
+    symbols <- intersect(names(mapping)[symbolic], names(data[[i]]))
+    attribs <- lapply(setNames(nm = symbols), function(x) {
       attr(data[[i]][[x]], "label", exact = TRUE)
     })
     attribs <- attribs[lengths(attribs) > 0]
