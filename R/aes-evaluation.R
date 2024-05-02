@@ -321,7 +321,8 @@ strip_stage <- function(expr) {
 }
 
 # Convert aesthetic mapping into text labels
-make_labels <- function(mapping) {
+make_labels <- function(mapping, data = NULL) {
+  data <- data %|W|% NULL
   default_label <- function(aesthetic, mapping) {
     # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
     if (is.null(mapping) || is.atomic(mapping)) {
@@ -331,6 +332,10 @@ make_labels <- function(mapping) {
     mapping <- strip_dots(mapping, strip_pronoun = TRUE)
     if (is_quosure(mapping) && quo_is_symbol(mapping)) {
       name <- as_string(quo_get_expr(mapping))
+      if (!is.null(data) && name %in% names(data)) {
+        value <- eval_tidy(mapping, data = data)
+        name <- attr(value, "label", exact = TRUE) %||% name
+      }
     } else {
       name <- quo_text(mapping)
       name <- gsub("\n.*$", "...", name)
