@@ -63,6 +63,17 @@ test_that("Labels from default stat mapping are overwritten by default labels", 
   expect_equal(labels$colour, "drv")
 })
 
+test_that("Labels can be extracted from attributes", {
+  df <- mtcars
+  attr(df$mpg, "label") <- "Miles per gallon"
+
+  p <- ggplot(df, aes(mpg, disp)) + geom_point()
+  labels <- ggplot_build(p)$plot$labels
+
+  expect_equal(labels$x, "Miles per gallon")
+  expect_equal(labels$y, "disp")
+})
+
 test_that("alt text is returned", {
   p <- ggplot(mtcars, aes(mpg, disp)) +
     geom_point()
