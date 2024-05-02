@@ -90,6 +90,33 @@ test_that("plot.tag.position rejects invalid input", {
 
 })
 
+test_that("label attributes are being used", {
+
+  label <- "Miles per gallon"
+  df <- mtcars
+  attr(df$mpg, "label") <- label
+
+  # Test constructor
+  p <- ggplot(df, aes(mpg))
+  expect_equal(p$labels, list(x = label))
+
+  # Test when adding mapping separately
+  p <- ggplot(df) + aes(mpg)
+  expect_equal(p$labels, list(x = label))
+
+  # Test it can be derived from self-contained layer
+  p <- ggplot() + geom_point(aes(mpg), data = df)
+  expect_equal(p$labels, list(x = label))
+
+  # Test it can be derived from main data
+  p <- ggplot(df) + geom_point(aes(mpg))
+  expect_equal(p$labels, list(x = label))
+
+  # Limitation: cannot eval global mapping in layer data
+  # p <- ggplot(mapping = aes(mpg)) + geom_point(data = df)
+  # expect_equal(p$labels, list(x = label))
+})
+
 test_that("position axis label hierarchy works as intended", {
   df <- data_frame(foo = c(1e1, 1e5), bar = c(0, 100))
 
