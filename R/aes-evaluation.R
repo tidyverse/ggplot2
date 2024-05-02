@@ -322,7 +322,9 @@ strip_stage <- function(expr) {
 
 # Convert aesthetic mapping into text labels
 make_labels <- function(mapping, data = NULL) {
-  data <- data %|W|% NULL
+  if (is.waive(data) || is.function(data)) {
+    data <- NULL
+  }
   default_label <- function(aesthetic, mapping) {
     # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
     if (is.null(mapping) || is.atomic(mapping)) {
