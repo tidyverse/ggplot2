@@ -134,7 +134,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
 
-  labels <- make_labels(object)
+  labels <- make_labels(object, plot$data)
   names(labels) <- names(object)
   update_labels(plot, labels)
 }

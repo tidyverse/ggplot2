@@ -133,7 +133,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
     layout = ggproto(NULL, Layout)
   ), class = c("gg", "ggplot"))
 
-  p$labels <- make_labels(mapping)
+  p$labels <- make_labels(mapping, data)
 
   set_last_plot(p)
   p

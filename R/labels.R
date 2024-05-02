@@ -17,9 +17,10 @@ update_labels <- function(p, labels) {
 }
 
 label_from_layer <- function(layer, plot) {
-  mapping <- make_labels(layer$mapping)
+  data <- (layer$data %|W|% NULL) %||% plot$data
+  mapping <- make_labels(layer$mapping, data)
   default <- lapply(
-    make_labels(layer$stat$default_aes),
+    make_labels(layer$stat$default_aes, data),
     function(l) {
       attr(l, "fallback") <- TRUE
       l
