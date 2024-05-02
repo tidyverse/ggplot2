@@ -167,19 +167,6 @@ ggplot_add.by <- function(object, plot, object_name) {
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
   plot$layers <- append(plot$layers, object)
-
-  # Add any new labels
-  mapping <- make_labels(object$mapping)
-  default <- lapply(make_labels(object$stat$default_aes), function(l) {
-    attr(l, "fallback") <- TRUE
-    l
-  })
-  new_labels <- defaults(mapping, default)
-  current_labels <- plot$labels
-  current_fallbacks <- vapply(current_labels, function(l) isTRUE(attr(l, "fallback")), logical(1))
-  plot$labels <- defaults(current_labels[!current_fallbacks], new_labels)
-  if (any(current_fallbacks)) {
-    plot$labels <- defaults(plot$labels, current_labels)
-  }
+  plot$labels <- label_from_layer(object, plot)
   plot
 }

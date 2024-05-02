@@ -16,6 +16,24 @@ update_labels <- function(p, labels) {
   p
 }
 
+label_from_layer <- function(layer, plot) {
+  mapping <- make_labels(layer$mapping)
+  default <- lapply(
+    make_labels(layer$stat$default_aes),
+    function(l) {
+      attr(l, "fallback") <- TRUE
+      l
+  })
+  new_labels <- defaults(mapping, default)
+  current_labels <- plot$labels
+  current_fallbacks <- vapply(current_labels, function(l) isTRUE(attr(l, "fallback")), logical(1))
+  labels <- defaults(current_labels[!current_fallbacks], new_labels)
+  if (any(current_fallbacks)) {
+    labels <- defaults(labels, current_labels)
+  }
+  labels
+}
+
 #' Modify axis, legend, and plot labels
 #'
 #' Good labels are critical for making your plots accessible to a wider
