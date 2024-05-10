@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Themes gain an additional `header_family` argument to easily set the font
+  for headers and titles (#5886).
+* The `plot.subtitle` and `plot.caption` theme elements now inherit from the
+  root `text` element instead of the `title` element (#5886).
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
