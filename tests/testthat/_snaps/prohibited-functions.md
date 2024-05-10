@@ -184,34 +184,44 @@
       [1] "contour_var"
       
       $theme_bw
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_classic
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_dark
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_gray
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_grey
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_light
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_linedraw
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_minimal
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_test
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $theme_void
-      [1] "base_size"      "base_family"    "base_line_size" "base_rect_size"
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
       
       $transform_position
       [1] "trans_x" "trans_y"
