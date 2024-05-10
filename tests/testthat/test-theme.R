@@ -583,6 +583,18 @@ test_that("Minor tick length supports biparental inheritance", {
   )
 })
 
+test_that("header_family is passed on correctly", {
+
+  td <- theme_dark(base_family = "x", header_family = "y")
+
+  test <- calc_element("plot.title", td)
+  expect_equal(test$family, "y")
+
+  test <- calc_element("plot.subtitle", td)
+  expect_equal(test$family, "x")
+
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
