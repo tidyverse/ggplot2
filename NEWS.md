@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* In `stat_bin()`, the default `boundary` is now chosen to better adhere to 
+  the `nbin` argument (@teunbrand, #5882, #5036)
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
