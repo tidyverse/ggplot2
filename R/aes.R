@@ -386,7 +386,11 @@ mapped_aesthetics <- function(x) {
   }
 
   is_null <- vapply(x, is.null, logical(1))
-  names(x)[!is_null]
+  # Ignore mappings using after_coord here, because they may use aesthetics that
+  # are not aesthetics externally supported by the geom, but rather aesthetics
+  # generated internally just prior to the after_coord stage. Thus, an aesthetic
+  # using after_coord() should not generate errors about unknown aesthetics.
+  names(x)[!is_null & !is_coord_aes(x)]
 }
 
 

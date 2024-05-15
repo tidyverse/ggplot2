@@ -457,6 +457,13 @@ Layer <- ggproto("Layer", NULL,
       return(rep(list(zeroGrob()), n))
     }
 
+    # this is probably not the best way to pass down coord mappings
+    aesthetics <- self$computed_mapping
+    coord_mapping <- aesthetics[is_coord_aes(aesthetics) | is_staged_aes(aesthetics)]
+    for (i in seq_along(layout$panel_params)) {
+      layout$panel_params[[i]]$coord_mapping <- coord_mapping
+    }
+
     data <- self$geom$handle_na(data, self$computed_geom_params)
     self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
   }

@@ -72,7 +72,7 @@ coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
 #' @export
 CoordFlip <- ggproto("CoordFlip", CoordCartesian,
 
-  transform = function(data, panel_params) {
+  transform_numeric = function(data, panel_params) {
     data <- flip_axis_labels(data)
     CoordCartesian$transform(data, panel_params)
   },

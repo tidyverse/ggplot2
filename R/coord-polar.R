@@ -179,7 +179,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     panel_params
   },
 
-  transform = function(self, data, panel_params) {
+  transform_numeric = function(self, data, panel_params) {
     arc  <- self$start + c(0, 2 * pi)
     dir  <- self$direction
     data <- rename_data(self, data)
