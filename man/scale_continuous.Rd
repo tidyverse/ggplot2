@@ -71,6 +71,7 @@ omitted.}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
 
@@ -229,6 +230,8 @@ p1 + scale_y_continuous(transform = scales::transform_reciprocal())
 }
 \seealso{
 The \link[=aes_position]{position documentation}.
+
+The \href{https://ggplot2-book.org/scales-position#sec-numeric-position-scales}{numeric position scales section} of the online ggplot2 book.
 
 Other position scales: 
 \code{\link{scale_x_binned}()},

@@ -17,17 +17,17 @@ sec_axis(
 
 dup_axis(
   transform = ~.,
-  trans = deprecated(),
   name = derive(),
   breaks = derive(),
   labels = derive(),
-  guide = derive()
+  guide = derive(),
+  trans = deprecated()
 )
 
 derive()
 }
 \arguments{
-\item{transform}{A formula or function of transformation}
+\item{transform}{A formula or function of a strictly monotonic transformation}
 
 \item{name}{The name of the secondary axis}
 

@@ -44,7 +44,8 @@ notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
@@ -52,8 +53,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
 missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
-    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
-that should be used for error messages associated with this scale.}
     \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
@@ -110,4 +109,6 @@ ggplot(df_shapes, aes(0, 0, shape = shape)) +
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
 
 Other shape scales: \code{\link[=scale_shape_manual]{scale_shape_manual()}}, \code{\link[=scale_shape_identity]{scale_shape_identity()}}.
+
+The \href{https://ggplot2-book.org/scales-other#sec-scale-shape}{shape section} of the online ggplot2 book.
 }

@@ -311,7 +311,7 @@
 <text x='372.24' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='14.06px' lengthAdjust='spacingAndGlyphs'>cty</text>
 <text x='372.24' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='14.06px' lengthAdjust='spacingAndGlyphs'>cty</text>
 <text transform='translate(13.05,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='19.57px' lengthAdjust='spacingAndGlyphs'>hwy</text>
-<text transform='translate(704.67,296.65) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='47.69px' lengthAdjust='spacingAndGlyphs'>log2(hwy)</text>
+<text transform='translate(706.95,296.65) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='47.69px' lengthAdjust='spacingAndGlyphs'>log2(hwy)</text>
 <text x='59.71' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='160.70px' lengthAdjust='spacingAndGlyphs'>sec_axis with coord_trans()</text>
 </g>
 </svg>

@@ -10,12 +10,14 @@
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position
+#' @inheritDotParams discrete_scale -expand -position -scale_name
 #' @rdname scale_shape
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
 #' Other shape scales: [scale_shape_manual()], [scale_shape_identity()].
+#'
+#' The `r link_book("shape section", "scales-other#sec-scale-shape")`
 #' @export
 #' @examples
 #' set.seed(596)

@@ -4,7 +4,7 @@ test_that("data is ordered by x", {
   ps <- ggplot(df, aes(x, y))+
     geom_smooth(stat = "identity", se = FALSE)
 
-  expect_equal(layer_data(ps)[c("x", "y")], df[order(df$x), ])
+  expect_equal(layer_data(ps)[c("x", "y")], df[order(df$x), ], ignore_attr = TRUE)
 })
 
 test_that("geom_smooth works in both directions", {

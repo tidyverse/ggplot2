@@ -102,6 +102,16 @@ instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
 breaks are given explicitly.}
+    \item{\code{oob}}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
+\item The default (\code{\link[scales:oob]{scales::squish()}}) squishes out of
+bounds values into range.
+\item \link[scales:oob]{scales::censor} for replacing out of bounds values with \code{NA}.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+}}
     \item{\code{right}}{Should the intervals be closed on the right (\code{TRUE}, default) or
 should the intervals be closed on the left (\code{FALSE})? 'Closed on the right'
 means that values at break positions are part of the lower bin (open on the
@@ -116,6 +126,7 @@ the left (open on the right).}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{labels}}{One of:
@@ -141,26 +152,8 @@ Note that setting limits on positional scales will \strong{remove} data outside 
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
 }}
-    \item{\code{oob}}{One of:
-\itemize{
-\item Function that handles limits outside of the scale limits
-(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
-function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
-}}
     \item{\code{trans}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
 \code{transform}.}
-    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
-to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
-    \item{\code{position}}{For position scales, The position of the axis.
-\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
     \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
@@ -243,10 +236,12 @@ ggplot(df, aes(x, y)) +
   scale_colour_stepsn(colours = terrain.colors(10))
 }
 \seealso{
-\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying
-palette, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
+\code{\link[scales:pal_seq_gradient]{scales::pal_seq_gradient()}} for details on underlying palette,
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}} for continuous scales without binning.
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-colour#sec-binned-colour}{binned colour scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},
