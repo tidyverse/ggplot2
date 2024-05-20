@@ -175,7 +175,7 @@ test_that("palettes work for discrete scales", {
     scale_x_discrete(palette = function(x) values)
 
   # Check limits are translated to correct values
-  ld <- layer_data(p)
+  ld <- get_layer_data(p)
   expect_equal(ld$x, values, ignore_attr = TRUE)
 
   # Check discsrete expansion is applied

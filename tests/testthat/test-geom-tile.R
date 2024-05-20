@@ -42,7 +42,7 @@ test_that("width and height are inferred per panel", {
     f = rep(c("A", "B"), each = 3)
   )
 
-  ld <- layer_data(
+  ld <- get_layer_data(
     ggplot(df, aes(x, y)) + geom_tile() + facet_wrap(~f, scales = "free")
   )
 

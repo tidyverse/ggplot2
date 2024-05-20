@@ -85,7 +85,7 @@ test_that("ribbons can have gradients", {
   p <- ggplot(df, aes(x, ymin = ymin, ymax = ymax, fill = x)) +
     geom_ribbon(outline.type = "full") +
     scale_fill_gradientn(colours = c("red", "blue"))
-  fill <- layer_grob(p)[[1]]$children[[1]]$gp$fill
+  fill <- get_layer_grob(p)[[1]]$children[[1]]$gp$fill
 
   expect_s3_class(fill, "GridLinearGradient")
   expect_equal(fill$colours, alpha(c("red", "blue"), NA))
