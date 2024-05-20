@@ -1,19 +1,6 @@
 # ggplot2 (development version)
 
 * `stat_ecdf()` now has an optional `weight` aesthetic (@teunbrand, #5058).
-* To improve `width` calculation in bar plots with empty factor levels, 
-  `resolution()` considers `mapped_discrete` values as having resolution 1 
-  (@teunbrand, #5211)
-* When `geom_path()` has aesthetics varying within groups, the `arrow()` is
-  applied to groups instead of individual segments (@teunbrand, #4935).
-* The default width of `geom_bar()` is now based on panel-wise resolution of
-  the data, rather than global resolution (@teunbrand, #4336).
-* To apply dodging more consistently in violin plots, `stat_ydensity()` now
-  has a `drop` argument to keep or discard groups with 1 observation.
-* Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
-  documentation (@teunbrand, #5123).
-* A function can be provided to `labs(alt = <...>)` that takes the plot as input
-  and returns text as output (@teunbrand, #4795).
 * Position scales combined with `coord_sf()` can now use functions in the 
  `breaks` argument. In addition, `n.breaks` works as intended and 
  `breaks = NULL` removes grid lines and axes (@teunbrand, #4622).
