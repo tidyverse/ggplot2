@@ -1,9 +1,7 @@
+# ggplot2 (development version)
 
 * `geom_raster()` now falls back to rendering as `geom_rect()` when coordinates
   are not Cartesian (#5503).
-
-# ggplot2 (development version)
-
 * `stat_ecdf()` now has an optional `weight` aesthetic (@teunbrand, #5058).
 * Position scales combined with `coord_sf()` can now use functions in the 
  `breaks` argument. In addition, `n.breaks` works as intended and 
