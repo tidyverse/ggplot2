@@ -44,6 +44,8 @@
 #'     system to manipulate the `layout` data frame which assigns
 #'     data to panels and scales.
 #'
+#' See also the `r link_book("new coords section", "extensions#sec-new-coords")`
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL

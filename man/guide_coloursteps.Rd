@@ -118,6 +118,8 @@ p + scale_fill_binned(guide = guide_coloursteps(show.limits = TRUE))
 p + scale_fill_binned(show.limits = TRUE)
 }
 \seealso{
+The \href{https://ggplot2-book.org/scales-colour#sec-guide-coloursteps}{binned legend section} of the online ggplot2 book.
+
 Other guides: 
 \code{\link{guide_bins}()},
 \code{\link{guide_colourbar}()},

@@ -48,6 +48,7 @@ omitted.}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
 
@@ -128,4 +129,6 @@ p + scale_linewidth_binned()
 }
 \seealso{
 The documentation for \link[=aes_linetype_size_shape]{differentiation related aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-other#sec-scale-linewidth}{line width section} of the online ggplot2 book.
 }
