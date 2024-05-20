@@ -10,6 +10,8 @@
 #' @inheritParams binned_scale
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#'
+#' The `r link_book("line width section", "scales-other#sec-scale-linewidth")`
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @examples

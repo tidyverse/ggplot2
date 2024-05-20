@@ -104,6 +104,8 @@ ggplot(mtcars, aes(mpg, wt)) +
   scale_size_identity()
 }
 \seealso{
+The \href{https://ggplot2-book.org/scales-other#sec-scale-identity}{identity scales section} of the online ggplot2 book.
+
 Other shape scales: \code{\link[=scale_shape]{scale_shape()}}, \code{\link[=scale_shape_manual]{scale_shape_manual()}}.
 
 Other linetype scales: \code{\link[=scale_linetype]{scale_linetype()}}, \code{\link[=scale_linetype_manual]{scale_linetype_manual()}}.

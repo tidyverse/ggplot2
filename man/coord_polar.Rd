@@ -14,9 +14,11 @@ coord_radial(
   expand = TRUE,
   direction = 1,
   clip = "off",
-  r_axis_inside = NULL,
-  rotate_angle = FALSE,
-  donut = 0
+  r.axis.inside = NULL,
+  rotate.angle = FALSE,
+  inner.radius = 0,
+  r_axis_inside = deprecated(),
+  rotate_angle = deprecated()
 )
 }
 \arguments{
@@ -39,17 +41,19 @@ for partial polar coordinates. The default, \code{NULL}, is set to
 the limits to prevent overlap between data and axes. If \code{FALSE}, limits
 are taken directly from the scale.}
 
-\item{r_axis_inside}{If \code{TRUE}, places the radius axis inside the
+\item{r.axis.inside}{If \code{TRUE}, places the radius axis inside the
 panel. If \code{FALSE}, places the radius axis next to the panel. The default,
 \code{NULL}, places the radius axis outside if the \code{start} and \code{end} arguments
 form a full circle.}
 
-\item{rotate_angle}{If \code{TRUE}, transforms the \code{angle} aesthetic in data
+\item{rotate.angle}{If \code{TRUE}, transforms the \code{angle} aesthetic in data
 in accordance with the computed \code{theta} position. If \code{FALSE} (default),
 no such transformation is performed. Can be useful to rotate text geoms in
 alignment with the coordinates.}
 
-\item{donut}{A \code{numeric} between 0 and 1 setting the size of a donut hole.}
+\item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a inner.radius hole.}
+
+\item{r_axis_inside, rotate_angle}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 The polar coordinate system is most commonly used for pie charts, which
@@ -62,7 +66,7 @@ In \code{coord_radial()}, position guides are can be defined by using
 these guides require \code{r} and \code{theta} as available aesthetics. The classic
 \code{guide_axis()} can be used for the \code{r} positions and \code{guide_axis_theta()} can
 be used for the \code{theta} positions. Using the \code{theta.sec} position is only
-sensible when \code{donut > 0}.
+sensible when \code{inner.radius > 0}.
 }
 \examples{
 # NOTE: Use these plots with caution - polar coordinates has
@@ -114,5 +118,8 @@ doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 # A partial polar plot
 ggplot(mtcars, aes(disp, mpg)) +
   geom_point() +
-  coord_radial(start = -0.4 * pi, end = 0.4 * pi, donut = 0.3)
+  coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
+}
+\seealso{
+The \href{https://ggplot2-book.org/coord#polar-coordinates-with-coord_polar}{polar coordinates section} of the online ggplot2 book.
 }

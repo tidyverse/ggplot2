@@ -25,6 +25,8 @@ theme(
   axis.text.y,
   axis.text.y.left,
   axis.text.y.right,
+  axis.text.theta,
+  axis.text.r,
   axis.ticks,
   axis.ticks.x,
   axis.ticks.x.top,
@@ -32,10 +34,14 @@ theme(
   axis.ticks.y,
   axis.ticks.y.left,
   axis.ticks.y.right,
+  axis.ticks.theta,
+  axis.ticks.r,
   axis.minor.ticks.x.top,
   axis.minor.ticks.x.bottom,
   axis.minor.ticks.y.left,
   axis.minor.ticks.y.right,
+  axis.minor.ticks.theta,
+  axis.minor.ticks.r,
   axis.ticks.length,
   axis.ticks.length.x,
   axis.ticks.length.x.top,
@@ -43,6 +49,8 @@ theme(
   axis.ticks.length.y,
   axis.ticks.length.y.left,
   axis.ticks.length.y.right,
+  axis.ticks.length.theta,
+  axis.ticks.length.r,
   axis.minor.ticks.length,
   axis.minor.ticks.length.x,
   axis.minor.ticks.length.x.top,
@@ -50,6 +58,8 @@ theme(
   axis.minor.ticks.length.y,
   axis.minor.ticks.length.y.left,
   axis.minor.ticks.length.y.right,
+  axis.minor.ticks.length.theta,
+  axis.minor.ticks.length.r,
   axis.line,
   axis.line.x,
   axis.line.x.top,
@@ -57,6 +67,8 @@ theme(
   axis.line.y,
   axis.line.y.left,
   axis.line.y.right,
+  axis.line.theta,
+  axis.line.r,
   legend.background,
   legend.margin,
   legend.spacing,
@@ -136,7 +148,7 @@ theme(
 }
 \arguments{
 \item{...}{additional element specifications not part of base ggplot2. In general,
-these should also be defined in the \verb{element tree} argument.}
+these should also be defined in the \verb{element tree} argument. \link[rlang:splice]{Splicing} a list is also supported.}
 
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
 
@@ -156,28 +168,28 @@ for each axis (using \code{axis.title.x.bottom}, \code{axis.title.x.top},
 \verb{axis.title.*} which inherits from \code{axis.title}, which in turn inherits
 from \code{text}}
 
-\item{axis.text, axis.text.x, axis.text.y, axis.text.x.top, axis.text.x.bottom, axis.text.y.left, axis.text.y.right}{tick labels along axes (\code{\link[=element_text]{element_text()}}). Specify all axis tick labels (\code{axis.text}),
+\item{axis.text, axis.text.x, axis.text.y, axis.text.x.top, axis.text.x.bottom, axis.text.y.left, axis.text.y.right, axis.text.theta, axis.text.r}{tick labels along axes (\code{\link[=element_text]{element_text()}}). Specify all axis tick labels (\code{axis.text}),
 tick labels by plane (using \code{axis.text.x} or \code{axis.text.y}), or individually
 for each axis (using \code{axis.text.x.bottom}, \code{axis.text.x.top},
 \code{axis.text.y.left}, \code{axis.text.y.right}). \verb{axis.text.*.*} inherits from
 \verb{axis.text.*} which inherits from \code{axis.text}, which in turn inherits
 from \code{text}}
 
-\item{axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right}{tick marks along axes (\code{\link[=element_line]{element_line()}}). Specify all tick marks (\code{axis.ticks}),
+\item{axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right, axis.ticks.theta, axis.ticks.r}{tick marks along axes (\code{\link[=element_line]{element_line()}}). Specify all tick marks (\code{axis.ticks}),
 ticks by plane (using \code{axis.ticks.x} or \code{axis.ticks.y}), or individually
 for each axis (using \code{axis.ticks.x.bottom}, \code{axis.ticks.x.top},
 \code{axis.ticks.y.left}, \code{axis.ticks.y.right}). \verb{axis.ticks.*.*} inherits from
 \verb{axis.ticks.*} which inherits from \code{axis.ticks}, which in turn inherits
 from \code{line}}
 
-\item{axis.minor.ticks.x.top, axis.minor.ticks.x.bottom, axis.minor.ticks.y.left, axis.minor.ticks.y.right, }{minor tick marks along axes (\code{\link[=element_line]{element_line()}}). \verb{axis.minor.ticks.*.*}
+\item{axis.minor.ticks.x.top, axis.minor.ticks.x.bottom, axis.minor.ticks.y.left, axis.minor.ticks.y.right, axis.minor.ticks.theta, axis.minor.ticks.r, }{minor tick marks along axes (\code{\link[=element_line]{element_line()}}). \verb{axis.minor.ticks.*.*}
 inherit from the corresponding major ticks \verb{axis.ticks.*.*}.}
 
-\item{axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right}{length of tick marks (\code{unit})}
+\item{axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right, axis.ticks.length.theta, axis.ticks.length.r}{length of tick marks (\code{unit})}
 
-\item{axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right}{length of minor tick marks (\code{unit}), or relative to \code{axis.ticks.length} when provided with \code{rel()}.}
+\item{axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right, axis.minor.ticks.length.theta, axis.minor.ticks.length.r}{length of minor tick marks (\code{unit}), or relative to \code{axis.ticks.length} when provided with \code{rel()}.}
 
-\item{axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right}{lines along axes (\code{\link[=element_line]{element_line()}}). Specify lines along all axes (\code{axis.line}),
+\item{axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right, axis.line.theta, axis.line.r}{lines along axes (\code{\link[=element_line]{element_line()}}). Specify lines along all axes (\code{axis.line}),
 lines for each plane (using \code{axis.line.x} or \code{axis.line.y}), or individually
 for each axis (using \code{axis.line.x.bottom}, \code{axis.line.x.top},
 \code{axis.line.y.left}, \code{axis.line.y.right}). \verb{axis.line.*.*} inherits from
@@ -443,7 +455,8 @@ p2 + theme(legend.position = "bottom")
 # Or place legends inside the plot using relative coordinates between 0 and 1
 # legend.justification sets the corner that the position refers to
 p2 + theme(
-  legend.position = c(.95, .95),
+  legend.position = "inside",
+  legend.position.inside = c(.95, .95),
   legend.justification = c("right", "top"),
   legend.box.just = "right",
   legend.margin = margin(6, 6, 6, 6)
@@ -482,4 +495,6 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.
+
+The \href{https://ggplot2-book.org/themes#modifying-theme-components}{modifying theme components} and \href{https://ggplot2-book.org/themes#sec-theme-elements}{theme elements sections} of the online ggplot2 book.
 }

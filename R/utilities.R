@@ -320,7 +320,7 @@ find_args <- function(...) {
   vals <- mget(args, envir = env)
   vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
 
-  modify_list(vals, list2(..., `...` = NULL))
+  modify_list(vals, dots_list(..., `...` = NULL, .ignore_empty = "all"))
 }
 
 # Used in annotations to ensure printed even when no
@@ -476,6 +476,8 @@ switch_orientation <- function(aesthetics) {
 #' @param main_is_optional Is the main axis aesthetic optional and, if not
 #'   given, set to `0`
 #' @param flip Logical. Is the layer flipped.
+#' @param default The logical value to return if no orientation can be discerned
+#'   from the data.
 #'
 #' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
 #' orientation and `FALSE` otherwise. `flip_data()` will return the input
@@ -492,7 +494,7 @@ switch_orientation <- function(aesthetics) {
 has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
                             range_is_orthogonal = NA, group_has_equal = FALSE,
                             ambiguous = FALSE, main_is_continuous = FALSE,
-                            main_is_optional = FALSE) {
+                            main_is_optional = FALSE, default = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
     not_na <- which(!is.na(data$flipped_aes))
@@ -561,8 +563,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  # default to no
-  FALSE
+  isTRUE(default)
 }
 #' @rdname bidirection
 #' @export
@@ -810,4 +811,10 @@ deprecate_soft0 <- function(..., user_env = NULL) {
 deprecate_warn0 <- function(..., user_env = NULL) {
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
   lifecycle::deprecate_warn(..., user_env = user_env)
+}
+
+as_unordered_factor <- function(x) {
+  x <- as.factor(x)
+  class(x) <- setdiff(class(x), "ordered")
+  x
 }

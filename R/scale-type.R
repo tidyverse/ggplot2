@@ -2,7 +2,7 @@ find_scale <- function(aes, x, env = parent.frame()) {
   # Inf is ambiguous; it can be used either with continuous scales or with
   # discrete scales, so just skip in the hope that we will have a better guess
   # with the other layers
-  if (is.null(x) || (is_atomic(x) && all(is.infinite(x)))) {
+  if (is.null(x) || (is_atomic(x) && all(is.infinite(x))) || inherits(x, "AsIs")) {
     return(NULL)
   }
 
@@ -69,9 +69,6 @@ scale_type.default <- function(x) {
 
 #' @export
 scale_type.list <- function(x) "identity"
-
-#' @export
-scale_type.AsIs <- function(x) "identity"
 
 #' @export
 scale_type.logical <- function(x) "discrete"

@@ -4,6 +4,7 @@
 #' package, which implements a much wider range of methods. `fortify()`
 #' may be deprecated in the future.
 #'
+#' @family plotting automation topics
 #' @seealso [fortify.lm()]
 #' @param model model or other R object to convert to data frame
 #' @param data original dataset, if needed

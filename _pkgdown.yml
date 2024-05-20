@@ -50,6 +50,7 @@ reference:
     you will create layers using a `geom_` function, overriding the default
     position and stat if needed.
   contents:
+  - layer_geoms
   - starts_with("geom_")
 
 - subtitle: Stats
@@ -58,6 +59,7 @@ reference:
     drawing attention to the statistical transformation rather than the visual
     appearance. The computed variables can be mapped using `after_stat()`.
   contents:
+  - layer_stats
   - stat_ecdf
   - stat_ellipse
   - stat_function
@@ -74,6 +76,7 @@ reference:
     Override the default by using the `position` argument to the `geom_` or
     `stat_` function.
   contents:
+  - layer_positions
   - starts_with("position_")
 
 - subtitle: Annotations
@@ -241,6 +244,7 @@ reference:
   - autolayer
   - fortify
   - map_data
+  - automatic_plotting
 
 
 articles:
@@ -268,6 +272,8 @@ articles:
 
 news:
   releases:
+  - text: "Version 3.5.0"
+    href: https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/
   - text: "Version 3.4.0"
     href: https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/
   - text: "Version 3.3.0"
