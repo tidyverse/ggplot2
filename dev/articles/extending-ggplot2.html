@@ -949,7 +949,7 @@ to red, but it inherits the existing fill colour:</p>
 <p>To override it completely, use <code>%+replace%</code> instead of
 <code>+</code>:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/theme_get.html">%+replace%</a></span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/get_theme.html">%+replace%</a></span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">new_theme</span><span class="op">$</span><span class="va">legend.key</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
 <span><span class="co">#&gt;  $ fill         : NULL</span></span>

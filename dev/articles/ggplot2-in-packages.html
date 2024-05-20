@@ -349,7 +349,7 @@ package.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @importFrom ggplot2 %+replace%</span></span>
 <span><span class="va">theme_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op"><a href="../reference/theme_get.html">%+replace%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op"><a href="../reference/get_theme.html">%+replace%</a></span> </span>
 <span>    <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>      panel.border <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>      panel.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -390,9 +390,9 @@ to make a test that fails if there are visual changes in
 <code>&lt;ggplot object&gt;</code>. However, you should consider whether
 visual testing is the best strategy because it adds a dependency on how
 ggplot2 performs its rendering which may change between versions. If
-extracting the layer data using <code><a href="../reference/ggplot_build.html">layer_data()</a></code> and testing
-the values directly is possible it is far better as it more directly
-test the behaviour of your own code.</p>
+extracting the layer data using <code><a href="../reference/ggplot_build.html">get_layer_data()</a></code> and
+testing the values directly is possible it is far better as it more
+directly test the behaviour of your own code.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"output of ggplot() is stable"</span>, <span class="op">{</span></span>
 <span>  <span class="fu">vdiffr</span><span class="fu">::</span><span class="fu"><a href="https://vdiffr.r-lib.org/reference/expect_doppelganger.html" class="external-link">expect_doppelganger</a></span><span class="op">(</span><span class="st">"A blank plot"</span>, <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -413,7 +413,7 @@ before it is used:</p>
 <code class="sourceCode R"><span><span class="va">theme_custom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">`%+replace%`</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va">`%+replace%`</span></span>
 <span>  </span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op"><a href="../reference/theme_get.html">%+replace%</a></span> </span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op"><a href="../reference/get_theme.html">%+replace%</a></span> </span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Generally, if you add a method for a ggplot2 generic like

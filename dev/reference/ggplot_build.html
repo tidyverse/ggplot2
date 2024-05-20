@@ -102,11 +102,17 @@ contain all information about axis limits, breaks etc.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggplot_build</span><span class="op">(</span><span class="va">plot</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">layer_data</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="last_plot.html">last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="fu">get_layer_data</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="get_last_plot.html">get_last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">layer_scales</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="last_plot.html">last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span>, j <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="fu">layer_data</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="get_last_plot.html">get_last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">layer_grob</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="last_plot.html">last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">get_panel_scales</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="get_last_plot.html">get_last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span>, j <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">layer_scales</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="get_last_plot.html">get_last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span>, j <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_layer_grob</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="get_last_plot.html">get_last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">layer_grob</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="get_last_plot.html">get_last_plot</a></span><span class="op">(</span><span class="op">)</span>, i <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -116,19 +122,19 @@ contain all information about axis limits, breaks etc.</p>
 
 
 <dt>i</dt>
-<dd><p>An integer. In <code>layer_data()</code>, the data to return (in the order added to the
-plot). In <code>layer_grob()</code>, the grob to return (in the order added to the
-plot). In <code>layer_scales()</code>, the row of a facet to return scales for.</p></dd>
+<dd><p>An integer. In <code>get_layer_data()</code>, the data to return (in the order added to the
+plot). In <code>get_layer_grob()</code>, the grob to return (in the order added to the
+plot). In <code>get_panel_scales()</code>, the row of a facet to return scales for.</p></dd>
 
 
 <dt>j</dt>
-<dd><p>An integer. In <code>layer_scales()</code>, the column of a facet to return
+<dd><p>An integer. In <code>get_panel_scales()</code>, the column of a facet to return
 scales for.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>layer_data()</code>, <code>layer_grob()</code>, and <code>layer_scales()</code> are helper
+    <p><code>get_layer_data()</code>, <code>get_layer_grob()</code>, and <code>get_panel_scales()</code> are helper
 functions that return the data, grob, or scales associated with a given
 layer. These are useful for tests.</p>
     </div>

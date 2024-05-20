@@ -331,6 +331,12 @@
     <loc>https://ggplot2.tidyverse.org/dev/reference/get_guide_data.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/get_last_plot.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/dev/reference/get_theme.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/gg-add.html</loc>
   </url>
   <url>
@@ -443,9 +449,6 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/labs.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/dev/reference/last_plot.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/layer.html</loc>
@@ -656,9 +659,6 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/theme.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/dev/reference/theme_get.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/dev/reference/tidyeval.html</loc>
