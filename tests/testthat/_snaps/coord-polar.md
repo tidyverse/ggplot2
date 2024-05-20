@@ -1,3 +1,7 @@
+# coord_polar throws informative warning about guides
+
+    `coord_polar()` cannot render guide for the aesthetic: theta.
+
 # coord_radial warns about axes
 
     `guide_axis()` cannot be used for theta.

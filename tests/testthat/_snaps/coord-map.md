@@ -6,3 +6,7 @@
 
     `ylim` must be a vector of length 2, not an integer vector of length 3.
 
+# coord_map throws informative warning about guides
+
+    `coord_map()` cannot render guide for the aesthetic: x.
+

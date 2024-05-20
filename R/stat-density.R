@@ -24,6 +24,8 @@
 #' @eval rd_computed_vars(
 #'  density  = "density estimate.",
 #'  count    = "density * number of points - useful for stacked density plots.",
+#'  wdensity = "density * sum of weights. In absence of weights, the same as
+#'  `count`.",
 #'  scaled   = "density estimate, scaled to maximum of 1.",
 #'  n        = "number of points.",
 #'  ndensity = "alias for `scaled`, to mirror the syntax of [`stat_bin()`]."
@@ -113,17 +115,19 @@ StatDensity <- ggproto("StatDensity", Stat,
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
                             kernel = "gaussian", n = 512,
                             bounds = c(-Inf, Inf)) {
-  nx <- length(x)
+  nx <- w_sum <- length(x)
   if (is.null(w)) {
     w <- rep(1 / nx, nx)
   } else {
-    w <- w / sum(w)
+    w_sum <- sum(w)
+    w <- w / w_sum
   }
 
   # Adjust data points and weights to all fit inside bounds
   sample_data <- fit_data_to_bounds(bounds, x, w)
   x <- sample_data$x
   w <- sample_data$w
+  w_sum <- sample_data$w_sum * w_sum
   nx <- length(x)
 
   # if less than 2 points return data frame of NAs and a warning
@@ -135,6 +139,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
       scaled = NA_real_,
       ndensity = NA_real_,
       count = NA_real_,
+      wdensity = NA_real_,
       n = NA_integer_,
       .size = 1
     ))
@@ -143,10 +148,23 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   bw <- precompute_bw(x, bw)
   # Decide whether to use boundary correction
   if (any(is.finite(bounds))) {
-    dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
-                           kernel = kernel, n = n)
+    # To prevent discontinuities, we widen the range before calling the
+    # unbounded estimator (#5641).
+    bounds   <- sort(bounds)
+    range    <- range(from, to)
+    width    <- diff(range)
+    range[1] <- range[1] - width * as.numeric(is.finite(bounds[1]))
+    range[2] <- range[2] + width * as.numeric(is.finite(bounds[2]))
+    n <- n * (sum(is.finite(bounds)) + 1)
 
-    dens <- reflect_density(dens = dens, bounds = bounds, from = from, to = to)
+    dens <- stats::density(
+      x, weights = w, bw = bw, adjust = adjust,
+      kernel = kernel, n = n, from = range[1], to = range[2]
+    )
+    dens <- reflect_density(
+      dens = dens, bounds = bounds,
+      from = range[1], to = range[2]
+    )
   } else {
     dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
                            kernel = kernel, n = n, from = from, to = to)
@@ -158,6 +176,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
     ndensity = dens$y / max(dens$y, na.rm = TRUE),
     count =   dens$y * nx,
+    wdensity = dens$y * w_sum,
     n = nx,
     .size = length(dens$x)
   )
@@ -166,7 +185,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 # Check if all data points are inside bounds. If not, warn and remove them.
 fit_data_to_bounds <- function(bounds, x, w) {
   is_inside_bounds <- (bounds[1] <= x) & (x <= bounds[2])
-
+  w_sum <- 1
   if (!all(is_inside_bounds)) {
     cli::cli_warn("Some data points are outside of `bounds`. Removing them.")
     x <- x[is_inside_bounds]
@@ -177,7 +196,7 @@ fit_data_to_bounds <- function(bounds, x, w) {
     }
   }
 
-  return(list(x = x, w = w))
+  return(list(x = x, w = w, w_sum = w_sum))
 }
 
 # Update density estimation to mitigate boundary effect at known `bounds`:

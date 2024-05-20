@@ -16,7 +16,7 @@ sec_axis(
 )
 
 dup_axis(
-  transform = ~.,
+  transform = identity,
   name = derive(),
   breaks = derive(),
   labels = derive(),
@@ -27,7 +27,7 @@ dup_axis(
 derive()
 }
 \arguments{
-\item{transform}{A formula or function of transformation}
+\item{transform}{A formula or function of a strictly monotonic transformation}
 
 \item{name}{The name of the secondary axis}
 

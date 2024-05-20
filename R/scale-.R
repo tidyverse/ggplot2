@@ -188,7 +188,8 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #'     notation.
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, `TRUE`, uses the levels that appear in the data;
-#'    `FALSE` uses all the levels in the factor.
+#'    `FALSE` includes the levels in the factor. Please note that to display
+#'    every level in a legend, the layer should use `show.legend = TRUE`.
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify `na.translate = FALSE`.
@@ -390,7 +391,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #'   which do not use the default implementation of this method). The output corresponds
 #'   to the transformed data value in aesthetic space (e.g., a color, line width, or size).
 #'
-#' - `rescale()` Rescale transformed data to the the range 0, 1. This is most useful for
+#' - `rescale()` Rescale transformed data to the range 0, 1. This is most useful for
 #'   position scales. For continuous scales, `rescale()` uses the `rescaler` that
 #'   was provided to the constructor. `rescale()` does not apply `self$oob()` to
 #'   its input, which means that discrete values outside `limits` will be `NA`, and
@@ -949,7 +950,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   transform = identity,
 
   map = function(self, x, limits = self$get_limits()) {
-    n <- sum(!is.na(limits))
+    limits <- limits[!is.na(limits)]
+    n <- length(limits)
     if (n < 1) {
       return(rep(self$na.value, length(x)))
     }

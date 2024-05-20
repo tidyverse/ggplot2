@@ -293,7 +293,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_snapshot_error(print(p))
+  expect_snapshot_warning(print(p))
 
   register_theme_elements(
     element_tree = list(blablabla = el_def("character", "text"))
@@ -647,6 +647,19 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
   expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
+})
+
+test_that("setting 'spacing' and 'margins' affect the whole plot", {
+
+  df <- data_frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a) +
+    theme_gray()
+
+  expect_doppelganger("large spacing", plot + theme(spacing = unit(1, "cm")))
+  expect_doppelganger("large margins", plot + theme(margins = margin(1, 1, 1, 1, "cm")))
+
 })
 
 test_that("axes can be styled independently", {

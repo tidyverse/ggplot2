@@ -34,3 +34,18 @@ test_that("accepts linejoin parameter", {
   gp2 <- layer_grob(ggplot(df, aes(x, y)) + geom_tile(linejoin = "round"))[[1]]$gp
   expect_equal(gp2$linejoin, "round")
 })
+
+test_that("width and height are inferred per panel", {
+  df <- data_frame0(
+    x = c(1, 2, 3, 10, 20, 30),
+    y = c(10, 10.5, 11, 100, 200, 300),
+    f = rep(c("A", "B"), each = 3)
+  )
+
+  ld <- layer_data(
+    ggplot(df, aes(x, y)) + geom_tile() + facet_wrap(~f, scales = "free")
+  )
+
+  expect_equal(ld$xmax - ld$xmin, c(1, 1, 1, 10, 10, 10))
+  expect_equal(ld$ymax - ld$ymin, c(0.5, 0.5, 0.5, 100, 100, 100))
+})
