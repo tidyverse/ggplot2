@@ -730,3 +730,28 @@ test_that("Discrete scales with only NAs return `na.value`", {
   sc$train(x)
   expect_equal(sc$map(x), c(NA_real_, NA_real_))
 })
+
+test_that("discrete scales work with NAs in arbitrary positions", {
+  # Prevents intermediate caching of palettes
+  map <- function(x, limits) {
+    sc <- scale_colour_manual(
+      values = c("red", "green", "blue"),
+      na.value = "gray"
+    )
+    sc$map(x, limits)
+  }
+
+  # All inputs should yield output regardless of where NA is
+  input  <- c("A", "B", "C", NA)
+  output <- c("red", "green", "blue", "gray")
+
+  test <- map(input, limits = c("A", "B", "C", NA))
+  expect_equal(test, output)
+
+  test <- map(input, limits = c("A", NA, "B", "C"))
+  expect_equal(test, output)
+
+  test <- map(input, limits = c(NA, "A", "B", "C"))
+  expect_equal(test, output)
+
+})

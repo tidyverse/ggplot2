@@ -131,6 +131,63 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
+  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+    data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
+    # Early exit for e.g. legend data that don't have geometry columns
+    if (!"geometry" %in% names(data)) {
+      return(data)
+    }
+
+    # Devise splitting index for geometry types
+    type <- sf_types[sf::st_geometry_type(data$geometry)]
+    type <- factor(type, c("point", "line", "other", "collection"))
+    index <- split(seq_len(nrow(data)), type)
+
+    # Initialise parts of the data
+    points <- lines <- others <- collections <- NULL
+
+    # Go through every part, applying different defaults
+    if (length(index$point) > 0) {
+      points <- GeomPoint$use_defaults(
+        vec_slice(data, index$point),
+        params, modifiers
+      )
+    }
+    if (length(index$line) > 0) {
+      lines <- GeomLine$use_defaults(
+        vec_slice(data, index$line),
+        params, modifiers
+      )
+    }
+    other_default <- modify_list(
+      GeomPolygon$default_aes,
+      list(fill = "grey90", colour = "grey35", linewidth = 0.2)
+    )
+    if (length(index$other) > 0) {
+      others <- GeomPolygon$use_defaults(
+        vec_slice(data, index$other),
+        params, modifiers,
+        default_aes = other_default
+      )
+    }
+    if (length(index$collection) > 0) {
+      modified <- rename(
+        GeomPoint$default_aes,
+        c(fill = "point_fill")
+      )
+      modified <- modify_list(other_default, modified)
+      collections <- Geom$use_defaults(
+        vec_slice(data, index$collection),
+        params, modifiers,
+        default_aes = modified
+      )
+    }
+
+    # Recombine data in original order
+    data <- vec_c(points, lines, others, collections)
+    vec_slice(data, order(unlist(index)))
+  },
+
   draw_panel = function(self, data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         arrow = NULL, na.rm = TRUE) {
@@ -189,36 +246,24 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
     type_ind <- type_ind[!remove]
     is_collection <- is_collection[!remove]
   }
-  defaults <- list(
-    GeomPoint$default_aes,
-    GeomLine$default_aes,
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35", linewidth = 0.2))
-  )
-  defaults[[4]] <- modify_list(
-    defaults[[3]],
-    rename(GeomPoint$default_aes, c(size = "point_size", fill = "point_fill"))
-  )
-  default_names <- unique0(unlist(lapply(defaults, names)))
-  defaults <- lapply(setNames(default_names, default_names), function(n) {
-    unlist(lapply(defaults, function(def) def[[n]] %||% NA))
-  })
-  alpha <- x$alpha %||% defaults$alpha[type_ind]
-  col <- x$colour %||% defaults$colour[type_ind]
+
+  alpha <- x$alpha %||% NA
+  fill <- fill_alpha(x$fill %||% NA, alpha)
+  col <- x$colour %||% NA
   col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])
-  fill <- x$fill %||% defaults$fill[type_ind]
-  fill <- fill_alpha(fill, alpha)
-  size <- x$size %||% defaults$size[type_ind]
-  linewidth <- x$linewidth %||% defaults$linewidth[type_ind]
+
+  size <- x$size %||% 0.5
+  linewidth <- x$linewidth %||% 0.5
   point_size <- ifelse(
     is_collection,
-    x$size %||% defaults$point_size[type_ind],
+    x$size,
     ifelse(is_point, size, linewidth)
   )
-  stroke <- (x$stroke %||% defaults$stroke[1]) * .stroke / 2
+  stroke <- (x$stroke %||% 0) * .stroke / 2
   fontsize <- point_size * .pt + stroke
   lwd <- ifelse(is_point, stroke, linewidth * .pt)
-  pch <- x$shape %||% defaults$shape[type_ind]
-  lty <- x$linetype %||% defaults$linetype[type_ind]
+  pch <- x$shape
+  lty <- x$linetype
   gp <- gpar(
     col = col, fill = fill, fontsize = fontsize, lwd = lwd, lty = lty,
     lineend = lineend, linejoin = linejoin, linemitre = linemitre

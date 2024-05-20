@@ -326,8 +326,7 @@ GuideBins <- ggproto(
   }
 )
 
-parse_binned_breaks = function(scale, breaks = scale$get_breaks(),
-                               even.steps = TRUE) {
+parse_binned_breaks = function(scale, breaks = scale$get_breaks()) {
 
   breaks <- breaks[!is.na(breaks)]
   if (length(breaks) == 0) {
@@ -343,12 +342,6 @@ parse_binned_breaks = function(scale, breaks = scale$get_breaks(),
     all_breaks <- unique0(c(limits[1], breaks, limits[2]))
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
-    if (isFALSE(even.steps)) {
-      cli::cli_warn(paste0(
-        "{.code even.steps = FALSE} is not supported when used with a ",
-        "discrete scale."
-      ))
-    }
     bin_at <- breaks
     nums   <- as.character(breaks)
     nums   <- strsplit(gsub("\\(|\\)|\\[|\\]", "", nums), ",\\s?")

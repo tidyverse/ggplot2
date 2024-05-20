@@ -7,7 +7,7 @@ test_that("geom_ribbon() checks the aesthetics", {
     geom_ribbon(aes(y = year, xmin = level - 5, xmax = level + 5), orientation = "x")
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(huron) +
-    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, fill = year))
+    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, linewidth = year))
   expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), outline.type = "test"))
@@ -73,4 +73,20 @@ test_that("outline.type option works", {
   expect_s3_class(g_area_default$children[[1]]$children[[1]], "polygon")
   expect_s3_class(g_area_default$children[[1]]$children[[2]], "polyline")
   expect_equal(g_area_default$children[[1]]$children[[2]]$id, rep(1L, each = 4))
+})
+
+test_that("ribbons can have gradients", {
+  skip_if_not(
+    check_device("gradients", action = "test"),
+    "graphics device does not support gradients."
+  )
+
+  df <- data.frame(x = 1:2, ymin = c(-1:-2), ymax = 1:2)
+  p <- ggplot(df, aes(x, ymin = ymin, ymax = ymax, fill = x)) +
+    geom_ribbon(outline.type = "full") +
+    scale_fill_gradientn(colours = c("red", "blue"))
+  fill <- layer_grob(p)[[1]]$children[[1]]$gp$fill
+
+  expect_s3_class(fill, "GridLinearGradient")
+  expect_equal(fill$colours, alpha(c("red", "blue"), NA))
 })

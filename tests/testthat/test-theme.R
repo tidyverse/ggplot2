@@ -649,6 +649,19 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
 })
 
+test_that("setting 'spacing' and 'margins' affect the whole plot", {
+
+  df <- data_frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a) +
+    theme_gray()
+
+  expect_doppelganger("large spacing", plot + theme(spacing = unit(1, "cm")))
+  expect_doppelganger("large margins", plot + theme(margins = margin(1, 1, 1, 1, "cm")))
+
+})
+
 test_that("axes can be styled independently", {
   plot <- ggplot() +
     geom_point(aes(1:10, 1:10)) +
