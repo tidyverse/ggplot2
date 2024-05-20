@@ -34,7 +34,7 @@
 <text x='360.00' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='66.65px' lengthAdjust='spacingAndGlyphs'>x (secondary)</text>
 <text x='360.00' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='52.56px' lengthAdjust='spacingAndGlyphs'>x (primary)</text>
 <text transform='translate(13.05,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='52.56px' lengthAdjust='spacingAndGlyphs'>y (primary)</text>
-<text transform='translate(704.67,296.65) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='66.65px' lengthAdjust='spacingAndGlyphs'>y (secondary)</text>
+<text transform='translate(706.95,296.65) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='66.65px' lengthAdjust='spacingAndGlyphs'>y (secondary)</text>
 <text x='18.07' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='112.27px' lengthAdjust='spacingAndGlyphs'>position guide titles</text>
 </g>
 </svg>

@@ -67,3 +67,6 @@ withr::with_options(
 })
 
 }
+\seealso{
+The \href{https://ggplot2-book.org/scales-colour#sec-colour-discrete}{discrete colour scales section} of the online ggplot2 book.
+}

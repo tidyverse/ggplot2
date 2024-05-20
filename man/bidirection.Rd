@@ -15,7 +15,8 @@ has_flipped_aes(
   group_has_equal = FALSE,
   ambiguous = FALSE,
   main_is_continuous = FALSE,
-  main_is_optional = FALSE
+  main_is_optional = FALSE,
+  default = FALSE
 )
 
 flip_data(data, flip = NULL)
@@ -47,6 +48,9 @@ the continuous one correspond to the main orientation?}
 
 \item{main_is_optional}{Is the main axis aesthetic optional and, if not
 given, set to \code{0}}
+
+\item{default}{The logical value to return if no orientation can be discerned
+from the data.}
 
 \item{flip}{Logical. Is the layer flipped.}
 }

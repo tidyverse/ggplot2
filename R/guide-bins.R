@@ -114,7 +114,6 @@ GuideBins <- ggproto(
     theme = NULL,
     default_axis = element_line("black", linewidth = (0.5 / .pt)),
     default_ticks = element_line(inherit.blank = TRUE),
-    default_tick_length = unit(0.2, "npc"),
 
     direction = NULL,
     override.aes = list(),
@@ -228,7 +227,6 @@ GuideBins <- ggproto(
     theme <- replace_null(
       theme,
       legend.text.position = valid_position[1],
-      legend.ticks.length  = params$default_tick_length,
       legend.axis.line     = params$default_axis,
       legend.ticks         = params$default_ticks
     )
@@ -328,15 +326,15 @@ GuideBins <- ggproto(
   }
 )
 
-parse_binned_breaks = function(scale, breaks = scale$get_breaks(),
-                               even.steps = TRUE) {
+parse_binned_breaks = function(scale, breaks = scale$get_breaks()) {
 
   breaks <- breaks[!is.na(breaks)]
   if (length(breaks) == 0) {
     return(NULL)
   }
-  breaks <- sort(breaks)
+
   if (is.numeric(breaks)) {
+    breaks <- sort(breaks)
     limits <- scale$get_limits()
     if (!is.numeric(scale$breaks)) {
       breaks <- breaks[!breaks %in% limits]
@@ -344,12 +342,6 @@ parse_binned_breaks = function(scale, breaks = scale$get_breaks(),
     all_breaks <- unique0(c(limits[1], breaks, limits[2]))
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
-    if (isFALSE(even.steps)) {
-      cli::cli_warn(paste0(
-        "{.code even.steps = FALSE} is not supported when used with a ",
-        "discrete scale."
-      ))
-    }
     bin_at <- breaks
     nums   <- as.character(breaks)
     nums   <- strsplit(gsub("\\(|\\)|\\[|\\]", "", nums), ",\\s?")

@@ -6,13 +6,15 @@
 #' no inherent order, this use is not advised.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -na.value
+#' @inheritDotParams discrete_scale -expand -position -na.value -scale_name
 #' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
 #' Other linetype scales: [scale_linetype_manual()], [scale_linetype_identity()].
+#'
+#' The `r link_book("line type section", "scales-other#sec-scale-linetype")`
 #' @export
 #' @examples
 #' base <- ggplot(economics_long, aes(date, value01))

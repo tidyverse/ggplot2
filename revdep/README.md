@@ -1,111 +1,34 @@
 # Revdeps
 
-## Failed to check (97)
+## Failed to check (17)
 
-|package         |version |error |warning |note |
-|:---------------|:-------|:-----|:-------|:----|
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|ale             |0.1.0   |1     |        |     |
-|aPEAR           |?       |      |        |     |
-|NA              |?       |      |        |     |
-|bayesdfa        |1.2.0   |1     |        |     |
-|NA              |?       |      |        |     |
-|BrailleR        |1.0.2   |1     |        |     |
-|NA              |?       |      |        |     |
-|CausalImpact    |?       |      |        |     |
-|CensMFM         |?       |      |        |     |
-|cinaR           |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|fdacluster      |0.3.0   |1     |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|genekitr        |?       |      |        |     |
-|NA              |?       |      |        |     |
-|ggPMX           |?       |      |        |     |
-|NA              |?       |      |        |     |
-|grandR          |?       |      |        |     |
-|HeckmanEM       |?       |      |        |     |
-|immcp           |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|loon.ggplot     |?       |      |        |     |
-|MACP            |?       |      |        |     |
-|NA              |?       |      |        |     |
-|MarketMatching  |?       |      |        |     |
-|MARVEL          |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|MSclassifR      |?       |      |        |     |
-|nlmixr2         |?       |      |        |     |
-|nlmixr2extra    |?       |      |        |     |
-|nlmixr2plot     |?       |      |        |     |
-|nlmixr2rpt      |?       |      |        |     |
-|NA              |?       |      |        |     |
-|numbat          |?       |      |        |     |
-|NA              |?       |      |        |     |
-|oHMMed          |?       |      |        |     |
-|OlinkAnalyze    |?       |      |        |     |
-|OpenMx          |?       |      |        |     |
-|phylosem        |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|PsychWordVec    |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|RcppCensSpatial |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|rmsb            |1.0-0   |1     |        |     |
-|rstanarm        |2.26.1  |1     |        |     |
-|NA              |?       |      |        |     |
-|RVA             |?       |      |        |     |
-|NA              |?       |      |        |     |
-|SCpubr          |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|SSVS            |?       |      |        |     |
-|streamDAG       |?       |      |        |     |
-|TestAnaAPP      |?       |      |        |     |
-|tidySEM         |?       |      |        |     |
-|NA              |?       |      |        |     |
-|tinyarray       |?       |      |        |     |
-|TOmicsVis       |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|valse           |0.1-0   |1     |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|vivid           |?       |      |        |     |
-|NA              |?       |      |        |     |
-|NA              |?       |      |        |     |
-|xpose.nlmixr2   |?       |      |        |     |
-|NA              |?       |      |        |     |
+|package          |version |error |warning |note |
+|:----------------|:-------|:-----|:-------|:----|
+|bayesdfa         |1.3.3   |1     |        |     |
+|bmgarch          |2.0.0   |1     |        |     |
+|ctsem            |3.9.1   |1     |        |     |
+|EcoEnsemble      |1.0.5   |1     |        |     |
+|geostan          |0.5.4   |1     |        |     |
+|grandR           |?       |      |        |     |
+|multilevelcoda   |1.2.3   |1     |        |     |
+|multinma         |0.6.1   |1     |        |     |
+|rmsb             |1.1-0   |1     |        |     |
+|rstanarm         |2.32.1  |1     |        |     |
+|Seurat           |?       |      |        |     |
+|streamDAG        |?       |      |        |     |
+|treestats        |1.0.5   |1     |        |     |
+|TriDimRegression |1.0.2   |1     |        |     |
+|triptych         |0.1.2   |1     |        |     |
+|ubms             |1.2.6   |1     |        |     |
+|valse            |0.1-0   |1     |        |     |
 
-## New problems (2)
+## New problems (5)
 
-|package                          |version |error  |warning |note |
-|:--------------------------------|:-------|:------|:-------|:----|
-|[jfa](problems.md#jfa)           |0.7.0   |       |__+1__  |3    |
-|[SCORPIUS](problems.md#scorpius) |1.0.9   |__+1__ |        |     |
+|package                |version |error  |warning |note   |
+|:----------------------|:-------|:------|:-------|:------|
+|[ggh4x](problems.md#ggh4x)|0.2.8   |__+3__ |        |       |
+|[MplusAutomation](problems.md#mplusautomation)|1.1.1   |       |        |__+1__ |
+|[PlasmaMutationDetector](problems.md#plasmamutationdetector)|1.7.2   |       |        |__+1__ |
+|[Superpower](problems.md#superpower)|0.2.0   |__+1__ |        |1      |
+|[xaringanthemer](problems.md#xaringanthemer)|0.4.2   |__+1__ |        |       |
 

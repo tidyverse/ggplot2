@@ -132,3 +132,13 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
 
   c(preamble, fmt_list)
 }
+
+link_book <- function(text = "", section = "",
+                      book = "https://ggplot2-book.org/",
+                      suffix = "of the online ggplot2 book.") {
+  links <- paste0("[", text, "](", book, section, ")")
+  if (length(links) > 1) {
+    links <- oxford_comma(links, final = "and")
+  }
+  paste(links, suffix, sep = " ")
+}

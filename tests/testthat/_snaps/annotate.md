@@ -34,3 +34,7 @@
     Using the `size` aesthetic in this geom was deprecated in ggplot2 3.5.0.
     i Please use `linewidth` instead.
 
+# annotate() warns about `stat` or `position` arguments
+
+    `annotate()` can't accept `stat` or `position` arguments.
+

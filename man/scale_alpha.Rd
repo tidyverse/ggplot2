@@ -42,14 +42,21 @@ that is the most common use of alpha, and it saves a bit of typing.
 p <- ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(alpha = year))
 
+# The default range of 0.1-1.0 leaves all data visible
 p
+
+# Include 0 in the range to make data invisible
+p + scale_alpha(range = c(0, 1))
+
+# Changing the title
 p + scale_alpha("cylinders")
-p + scale_alpha(range = c(0.4, 0.8))
 }
 \seealso{
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
 Other alpha scales: \code{\link[=scale_alpha_manual]{scale_alpha_manual()}}, \code{\link[=scale_alpha_identity]{scale_alpha_identity()}}.
+
+The \href{https://ggplot2-book.org/scales-colour#sec-scales-alpha}{alpha scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_colour_brewer}()},

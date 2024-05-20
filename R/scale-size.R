@@ -19,11 +19,13 @@
 #' @inheritParams binned_scale
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
-#' @seealso [scale_size_area()] if you want 0 values to be mapped
-#'   to points with size 0. [scale_linewidth()] if you want to scale the width
-#'   of lines.
+#' @seealso
+#' [scale_size_area()] if you want 0 values to be mapped to points with size 0.
+#' [scale_linewidth()] if you want to scale the width of lines.
 #'
-#'   The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#'
+#' The `r link_book("size section", "scales-other#sec-scale-size")`
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
 #'    geom_point()
@@ -112,7 +114,7 @@ scale_size_ordinal <- function(name = waiver(), ..., range = c(2, 6)) {
   )
 }
 
-#' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler
+#' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler -expand -position
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size
