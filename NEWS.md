@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Position scales combined with `coord_sf()` can now use functions in the 
+ `breaks` argument. In addition, `n.breaks` works as intended and 
+ `breaks = NULL` removes grid lines and axes (@teunbrand, #4622).
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
