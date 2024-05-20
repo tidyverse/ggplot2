@@ -78,8 +78,9 @@ notation.
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
-\item{palette}{A function that takes the limits as input and provides
-numerical values as output.}
+\item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the numerical values
+that they should take.}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance

@@ -12,8 +12,9 @@
 #'
 #' @inheritDotParams discrete_scale -scale_name
 #' @inheritParams discrete_scale
-#' @param palette A function that takes the limits as input and provides
-#'   numerical values as output.
+#' @param palette A palette function that when called with a single integer
+#'   argument (the number of levels in the scale) returns the numerical values
+#'   that they should take.
 #' @param sec.axis [dup_axis()] is used to specify a secondary axis.
 #' @rdname scale_discrete
 #' @family position scales
