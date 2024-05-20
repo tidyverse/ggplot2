@@ -135,11 +135,44 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique0(data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")])
-    if (nrow(aes) > 1) {
-      cli::cli_abort("Aesthetics can not vary along a ribbon.")
+    aes <- lapply(
+      data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")],
+      unique0
+    )
+    non_constant <- names(aes)[lengths(aes) > 1]
+    if (coord$is_linear()) {
+      if (any(c("fill", "alpha") %in% non_constant)) {
+        check_device("gradients", action = "abort", maybe = TRUE)
+      }
+      # For linear coords, we can make a fill/alpha gradient, so we allow
+      # these to vary
+      non_constant <- setdiff(non_constant, c("fill", "alpha"))
     }
-    aes <- as.list(aes)
+    if (length(non_constant) > 0) {
+      cli::cli_abort(
+        "Aesthetics can not vary along a ribbon: {.and {.field {non_constant}}}."
+      )
+    }
+    if ((length(aes$fill) > 1 || length(aes$alpha) > 1)) {
+      transformed <- coord$transform(flip_data(data, flipped_aes), panel_params)
+      if (flipped_aes) {
+        keep <- is.finite(tranformed$y)
+        args <- list(
+          colours = alpha(data$fill, data$alpha)[keep],
+          stops = rescale(transformed$y)[keep],
+          y1 = 0, y2 = 1, x1 = 0.5, x2 = 0.5
+        )
+      } else {
+        keep <- is.finite(transformed$x)
+        args <- list(
+          colours = alpha(data$fill, data$alpha)[keep],
+          stops = rescale(transformed$x)[keep],
+          x1 = 0, x2 = 1, y1 = 0.5, y2 = 0.5
+        )
+      }
+      aes$fill <- inject(linearGradient(!!!args))
+      aes$alpha <- NA
+    }
 
     # Instead of removing NA values from the data and plotting a single
     # polygon, we want to "stop" plotting the polygon whenever we're
