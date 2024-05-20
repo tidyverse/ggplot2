@@ -47,6 +47,8 @@
   systems (@teunbrand, #4690).
 * `geom_tile()` computes default widths and heights per panel instead of
   per layer (@teunbrand, #5740).
+* The `fill` of the `panel.border` theme setting is ignored and forced to be
+  transparent (#5782).
 
 # ggplot2 3.5.1
 

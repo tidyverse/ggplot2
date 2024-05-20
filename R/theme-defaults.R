@@ -269,7 +269,7 @@ theme_bw <- function(base_size = 11, base_family = "",
     theme(
       # white background and dark border
       panel.background = element_rect(fill = "white", colour = NA),
-      panel.border     = element_rect(fill = NA, colour = "grey20"),
+      panel.border     = element_rect(colour = "grey20"),
       # make gridlines dark, same contrast with white as in theme_grey
       panel.grid = element_line(colour = "grey92"),
       panel.grid.minor = element_line(linewidth = rel(0.5)),
@@ -303,7 +303,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
       #     0.5 clipped looks like 0.25
 
       # pure black panel border and grid lines, but thinner
-      panel.border     = element_rect(fill = NA, colour = "black", linewidth = rel(1)),
+      panel.border     = element_rect(colour = "black", linewidth = rel(1)),
       panel.grid       = element_line(colour = "black"),
       panel.grid.major = element_line(linewidth = rel(0.1)),
       panel.grid.minor = element_line(linewidth = rel(0.05)),
@@ -337,7 +337,7 @@ theme_light <- function(base_size = 11, base_family = "",
     theme(
       # white panel with light grey border
       panel.background = element_rect(fill = "white", colour = NA),
-      panel.border     = element_rect(fill = NA, colour = "grey70", linewidth = rel(1)),
+      panel.border     = element_rect(colour = "grey70", linewidth = rel(1)),
       # light grey, thinner gridlines
       # => make them slightly darker to keep acceptable contrast
       panel.grid       = element_line(colour = "grey87"),
@@ -612,7 +612,7 @@ theme_test <- function(base_size = 11, base_family = "",
     legend.box.spacing = rel(2),
 
     panel.background =   element_rect(fill = "white", colour = NA),
-    panel.border =       element_rect(fill = NA, colour = "grey20"),
+    panel.border =       element_rect(colour = "grey20"),
     panel.grid.major =   element_blank(),
     panel.grid.minor =   element_blank(),
     panel.spacing =      NULL,
