@@ -6,9 +6,11 @@
 \usage{
 guide_axis(
   title = waiver(),
+  theme = NULL,
   check.overlap = FALSE,
-  angle = NULL,
+  angle = waiver(),
   n.dodge = 1,
+  minor.ticks = FALSE,
   cap = "none",
   order = 0,
   position = waiver()
@@ -20,16 +22,28 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
 
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
+
 \item{check.overlap}{silently remove overlapping labels,
 (recursively) prioritizing the first, last, and middle labels.}
 
 \item{angle}{Compared to setting the angle in \code{\link[=theme]{theme()}} / \code{\link[=element_text]{element_text()}},
 this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that
-you probably want.}
+you probably want. Can be one of the following:
+\itemize{
+\item \code{NULL} to take the angles and \code{hjust}/\code{vjust} directly from the theme.
+\item \code{waiver()} to allow reasonable defaults in special cases.
+\item A number representing the text angle in degrees.
+}}
 
 \item{n.dodge}{The number of rows (for vertical axes) or columns (for
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}
+
+\item{minor.ticks}{Whether to draw the minor ticks (\code{TRUE}) or not draw
+minor ticks (\code{FALSE}, default).}
 
 \item{cap}{A \code{character} to cut the axis line back to the last breaks. Can
 be \code{"none"} (default) to draw the axis line along the whole panel, or

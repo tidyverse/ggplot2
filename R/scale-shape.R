@@ -10,12 +10,14 @@
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position
+#' @inheritDotParams discrete_scale -expand -position -scale_name
 #' @rdname scale_shape
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
 #' Other shape scales: [scale_shape_manual()], [scale_shape_identity()].
+#'
+#' The `r link_book("shape section", "scales-other#sec-scale-shape")`
 #' @export
 #' @examples
 #' set.seed(596)
@@ -40,14 +42,14 @@
 #'   scale_shape_identity() +
 #'   facet_wrap(~shape) +
 #'   theme_void()
-scale_shape <- function(..., solid = TRUE) {
-  discrete_scale("shape", palette = shape_pal(solid), ...)
+scale_shape <- function(name = waiver(), ..., solid = TRUE) {
+  discrete_scale("shape", name = name, palette = pal_shape(solid), ...)
 }
 
 #' @rdname scale_shape
 #' @export
-scale_shape_binned <- function(..., solid = TRUE) {
-  binned_scale("shape", palette = binned_pal(shape_pal(solid)), ...)
+scale_shape_binned <- function(name = waiver(), ..., solid = TRUE) {
+  binned_scale("shape", name = name, palette = pal_binned(pal_shape(solid)), ...)
 }
 
 #' @rdname scale_shape
@@ -70,7 +72,7 @@ scale_shape_ordinal <- function(...) {
 #' @usage NULL
 scale_shape_continuous <- function(...) {
   cli::cli_abort(c(
-    "A continuous variable cannot be mapped to the {.field shape} aesthetic",
-    "i" = "choose a different aesthetic or use {.fn scale_shape_binned}"
+    "A continuous variable cannot be mapped to the {.field shape} aesthetic.",
+    "i" = "Choose a different aesthetic or use {.fn scale_shape_binned}."
   ))
 }

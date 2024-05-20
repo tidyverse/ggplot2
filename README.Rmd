@@ -102,7 +102,7 @@ There are two main places to get help with ggplot2:
     questions. It is also a great place to get help, once you have
     created a reproducible example that illustrates your problem.
 
-[community]: https://community.rstudio.com/
+[community]: https://forum.posit.co/
 [ggplot2-book]: https://ggplot2-book.org
 [gg-book]: https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl
 [so]: https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50

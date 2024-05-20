@@ -1,5 +1,10 @@
 #' Annotation: log tick marks
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is superseded by using [`guide_axis_logticks()`].
+#'
 #' This annotation adds log tick marks with diminishing spacing.
 #' These tick marks probably make sense only for base 10.
 #'
@@ -61,8 +66,8 @@
 #' # plotting it. Also hide the minor grid lines.
 #' b <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) +
 #'  geom_point(na.rm = TRUE) +
-#'  scale_x_continuous(name = "body", labels = scales::math_format(10^.x)) +
-#'  scale_y_continuous(name = "brain", labels = scales::math_format(10^.x)) +
+#'  scale_x_continuous(name = "body", labels = scales::label_math(10^.x)) +
+#'  scale_y_continuous(name = "brain", labels = scales::label_math(10^.x)) +
 #'  theme_bw() + theme(panel.grid.minor = element_blank())
 #'
 #' b + annotation_logticks()
@@ -170,14 +175,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         ticks$x_b <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = ggpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
       if (grepl("t", sides) && nrow(xticks) > 0) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = ggpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
     }
@@ -208,14 +213,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         ticks$y_l <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = ggpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
       if (grepl("r", sides) && nrow(yticks) > 0) {
         ticks$y_r <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = ggpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
     }

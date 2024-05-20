@@ -124,9 +124,9 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
       rectGrob(
         x = x, y = y, width = width, height = height,
         hjust = just$hjust, vjust = just$vjust,
-        gp = gpar(fill = "cornsilk", col = NA)
+        gp = ggpar(fill = "cornsilk", col = NA)
       ),
-      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
+      pointsGrob(x, y, pch = 20, gp = ggpar(col = "gold")),
       grob
     )
   } else {
@@ -193,7 +193,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
 
   if (isTRUE(debug)) {
     children <- gList(
-      rectGrob(gp = gpar(fill = "lightcyan", col = NA)),
+      rectGrob(gp = ggpar(fill = "lightcyan", col = NA)),
       grobs
     )
   }
@@ -219,7 +219,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
     #cat("E - hjust, vjust:", c(hjust, vjust), "\n")
     grobTree(
       result_grob,
-      pointsGrob(x, y, pch = 20, gp = gpar(col = "mediumturquoise"))
+      pointsGrob(x, y, pch = 20, gp = ggpar(col = "mediumturquoise"))
     )
   } else {
     result_grob
@@ -252,19 +252,39 @@ rotate_just <- function(angle, hjust, vjust) {
   #vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
 
   angle <- (angle %||% 0) %% 360
-  if (0 <= angle & angle < 90) {
-    hnew <- hjust
-    vnew <- vjust
-  } else if (90 <= angle & angle < 180) {
-    hnew <- 1 - vjust
-    vnew <- hjust
-  } else if (180 <= angle & angle < 270) {
-    hnew <- 1 - hjust
-    vnew <- 1 - vjust
-  } else if (270 <= angle & angle < 360) {
-    hnew <- vjust
-    vnew <- 1 - hjust
+
+  if (is.character(hjust)) {
+    hjust <- match(hjust, c("left", "right")) - 1
+    hjust[is.na(hjust)] <- 0.5
   }
+  if (is.character(vjust)) {
+    vjust <- match(vjust, c("bottom", "top")) - 1
+    vjust[is.na(vjust)] <- 0.5
+  }
+
+  # Apply recycle rules
+  size  <- vec_size_common(angle, hjust, vjust)
+  angle <- vec_recycle(angle, size)
+  hjust <- vec_recycle(hjust, size)
+  vjust <- vec_recycle(vjust, size)
+
+  # Find quadrant on circle
+  case <- findInterval(angle, c(0, 90, 180, 270, 360))
+
+  hnew <- hjust
+  vnew <- vjust
+
+  is_case <- which(case == 2) # 90 <= x < 180
+  hnew[is_case] <- 1 - vjust[is_case]
+  vnew[is_case] <- hjust[is_case]
+
+  is_case <- which(case == 3) # 180 <= x < 270
+  hnew[is_case] <- 1 - hjust[is_case]
+  vnew[is_case] <- 1 - vjust[is_case]
+
+  is_case <- which(case == 4) # 270 <= x < 360
+  hnew[is_case] <- vjust[is_case]
+  vnew[is_case] <- 1 - hjust[is_case]
 
   list(hjust = hnew, vjust = vnew)
 }
@@ -287,7 +307,7 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   if (is.null(descent)) {
     descent <- convertHeight(grobDescent(textGrob(
       label = "gjpqyQ",
-      gp = gpar(
+      gp = ggpar(
         fontsize = size,
         cex = cex,
         fontfamily = family,

@@ -4,6 +4,7 @@
 #' package, which implements a much wider range of methods. `fortify()`
 #' may be deprecated in the future.
 #'
+#' @family plotting automation topics
 #' @seealso [fortify.lm()]
 #' @param model model or other R object to convert to data frame
 #' @param data original dataset, if needed
@@ -17,7 +18,7 @@ fortify.data.frame <- function(model, data, ...) model
 fortify.tbl_df <- function(model, data, ...) model
 #' @export
 fortify.tbl <- function(model, data, ...) {
-  check_installed("dplyr", reason = "to work with `tbl` objects")
+  check_installed("dplyr", reason = "to work with `tbl` objects.")
   dplyr::collect(model)
 }
 #' @export
@@ -29,7 +30,7 @@ fortify.function <- function(model, data, ...) model
 fortify.formula <- function(model, data, ...) as_function(model)
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
-  check_installed("dplyr", reason = "to work with `grouped_df` objects")
+  check_installed("dplyr", reason = "to work with `grouped_df` objects.")
   model$.group <- dplyr::group_indices(model)
   model
 }
@@ -78,8 +79,8 @@ validate_as_data_frame <- function(data) {
 fortify.default <- function(model, data, ...) {
   msg0 <- paste0(
     "{{.arg data}} must be a {{.cls data.frame}}, ",
-    "or an object coercible by {{.code fortify()}}, or a valid ",
-    "{{.cls data.frame}}-like object coercible by {{.code as.data.frame()}}"
+    "or an object coercible by {{.fn fortify}}, or a valid ",
+    "{{.cls data.frame}}-like object coercible by {{.fn as.data.frame}}"
   )
   if (inherits(model, "uneval")) {
     msg <- c(

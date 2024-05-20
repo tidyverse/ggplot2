@@ -4,7 +4,7 @@ df_b <- unique(df["b"])
 df_c <- unique(data_frame(c = 1))
 
 panel_map_one <- function(facet, data, plot_data = data) {
-  layout <- create_layout(facet)
+  layout <- create_layout(facet = facet, coord = CoordCartesian)
   layout$setup(list(data), plot_data)[[1]]
 }
 

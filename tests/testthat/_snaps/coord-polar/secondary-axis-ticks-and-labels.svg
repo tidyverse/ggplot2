@@ -61,7 +61,7 @@
 <text x='628.69' y='79.05' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='17.13px' lengthAdjust='spacingAndGlyphs'>0.30</text>
 <text x='357.55' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
 <text transform='translate(69.16,288.99) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>y</text>
-<text transform='translate(648.55,288.99) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='25.69px' lengthAdjust='spacingAndGlyphs'>sec y</text>
+<text transform='translate(650.84,288.99) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='25.69px' lengthAdjust='spacingAndGlyphs'>sec y</text>
 <text x='91.35' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='182.00px' lengthAdjust='spacingAndGlyphs'>secondary axis ticks and labels</text>
 </g>
 </svg>

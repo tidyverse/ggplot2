@@ -68,7 +68,7 @@
 <text x='692.14' y='218.29' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>45</text>
 <text x='692.14' y='138.67' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>50</text>
 <text x='346.34' y='110.06' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='20.80px' lengthAdjust='spacingAndGlyphs'>long</text>
-<text transform='translate(704.67,309.36) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='11.62px' lengthAdjust='spacingAndGlyphs'>lat</text>
+<text transform='translate(706.95,309.36) rotate(90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='11.62px' lengthAdjust='spacingAndGlyphs'>lat</text>
 <text x='5.48' y='91.99' style='font-size: 13.20px; font-family: sans;' textLength='204.75px' lengthAdjust='spacingAndGlyphs'>coord_map switched scale position</text>
 </g>
 </svg>

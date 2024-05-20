@@ -19,8 +19,8 @@ geom_label <- function(mapping = NULL, data = NULL,
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
-        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
-        "i" = "Only use one approach to alter the position"
+        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
+        "i" = "Choose one approach to alter the position."
       ))
     }
 
@@ -73,12 +73,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     }
 
     data <- coord$transform(data, panel_params)
-    if (is.character(data$vjust)) {
-      data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
-    }
-    if (is.character(data$hjust)) {
-      data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
-    }
+    data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
+    data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
     if (!inherits(label.padding, "margin")) {
       label.padding <- rep(label.padding, length.out = 4)
     }
@@ -94,17 +90,17 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         padding = label.padding,
         r = label.r,
         angle = row$angle,
-        text.gp = gpar(
+        text.gp = ggpar(
           col = row$colour,
           fontsize = row$size * size.unit,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
         ),
-        rect.gp = gpar(
+        rect.gp = ggpar(
           col = if (isTRUE(all.equal(label.size, 0))) NA else row$colour,
-          fill = alpha(row$fill, row$alpha),
-          lwd = label.size * .pt
+          fill = fill_alpha(row$fill, row$alpha),
+          lwd = label.size
         )
       )
     })
@@ -119,10 +115,10 @@ GeomLabel <- ggproto("GeomLabel", Geom,
 labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       just = "center", padding = unit(0.25, "lines"), r = unit(0.1, "snpc"),
                       angle = NULL, default.units = "npc", name = NULL,
-                      text.gp = gpar(), rect.gp = gpar(fill = "white"), vp = NULL) {
+                      text.gp = gpar(), rect.gp = ggpar(fill = "white"), vp = NULL) {
 
   if (length(label) != 1) {
-    cli::cli_abort("{.arg label} must be of length 1")
+    cli::cli_abort("{.arg label} must be of length 1.")
   }
 
   if (!is.unit(x))
@@ -134,7 +130,7 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
     vp <- viewport(
       angle = angle, x = x, y = y,
       width = unit(0, "cm"), height = unit(0, "cm"),
-      gp = gpar(fontsize = text.gp$fontsize)
+      gp = ggpar(fontsize = text.gp$fontsize)
     )
     x <- unit(rep(0.5, length(x)), "npc")
     y <- unit(rep(0.5, length(y)), "npc")
@@ -143,20 +139,27 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   descent <- font_descent(
     text.gp$fontfamily, text.gp$fontface, text.gp$fontsize, text.gp$cex
   )
+  # To balance labels, we ensure the top includes at least the descent height
+  # and subtract the descent height from the bottom padding
+  padding[1] <- unit.pmax(padding[1], descent)
+  padding[3] <- unit.pmax(padding[3] - descent, unit(0, "pt"))
+
   hjust <- resolveHJust(just, NULL)
   vjust <- resolveVJust(just, NULL)
 
   text <- titleGrob(
-    label = label, hjust = hjust, vjust = vjust, x = x, y = y,
+    label = label, hjust = hjust, vjust = vjust, x = x,
+    y = y + (1 - vjust) * descent,
     margin = padding, margin_x = TRUE, margin_y = TRUE,
     gp = text.gp
   )
 
+  height <- heightDetails(text)
   box <- roundrectGrob(
-    x = x, y = y - (1 - vjust) * descent,
+    x = x, y = y + (0.5 - vjust) * height,
     width  = widthDetails(text),
-    height = heightDetails(text),
-    just   = c(hjust, vjust),
+    height = height,
+    just   = c(hjust, 0.5),
     r = r, gp = rect.gp, name = "box"
   )
 

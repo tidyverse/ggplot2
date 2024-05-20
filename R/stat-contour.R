@@ -107,7 +107,7 @@ StatContour <- ggproto("StatContour", Stat,
 
     breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
-    isolines <- xyz_to_isolines(data, breaks)
+    isolines <- withr::with_options(list(OutDec = "."), xyz_to_isolines(data, breaks))
     path_df <- iso_to_path(isolines, data$group[1])
 
     path_df$level <- as.numeric(path_df$level)
@@ -140,7 +140,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
     breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
-    isobands <- xyz_to_isobands(data, breaks)
+    isobands <- withr::with_options(list(OutDec = "."), xyz_to_isobands(data, breaks))
     names(isobands) <- pretty_isoband_levels(names(isobands))
     path_df <- iso_to_polygon(isobands, data$group[1])
 
@@ -172,10 +172,8 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   breaks_fun <- fullseq
   if (is.function(breaks)) {
     breaks_fun <- breaks
-  }
-
-  # If no parameters set, use pretty bins
-  if (is.null(bins) && is.null(binwidth)) {
+  } else if (is.null(bins) && is.null(binwidth)) {
+    # If no parameters set, use pretty bins
     breaks <- pretty(z_range, 10)
     return(breaks)
   }
@@ -206,7 +204,7 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   }
 
   # if we haven't returned yet, compute breaks from binwidth
-  breaks_fun(z_range, binwidth)
+  breaks_fun(z_range, binwidth %||% (diff(z_range) / 10))
 }
 
 #' Compute isoband objects
