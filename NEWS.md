@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 
+  aesthetic (#4852).
 * New function `complete_theme()` to replicate how themes are handled during
   plot building (#5801).
 * Special getter and setter functions have been renamed for consistency, allowing
