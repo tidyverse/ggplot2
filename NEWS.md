@@ -83,6 +83,8 @@
   `geom_bar()` (#3142).
 * Fix a bug in `position_jitterdodge()` where different jitters would be applied
   to different position aesthetics of the same axis (@teunbrand, #5818).
+* In `stat_bin()`, the default `boundary` is now chosen to better adhere to 
+  the `nbin` argument (@teunbrand, #5882, #5036)
 
 # ggplot2 3.5.1
 

@@ -119,6 +119,30 @@ test_that("bins() computes fuzz with non-finite breaks", {
   expect_equal(difference[2], 1000 * .Machine$double.eps, tolerance = 0)
 })
 
+test_that("bins is strictly adhered to", {
+
+  nbins <- c(1, 2, 3, 4, 5, 10, 20, 30, 40, 50)
+
+  # Default case
+  nbreaks <- vapply(nbins, function(bins) {
+    length(bin_breaks_bins(c(0, 10), bins)$breaks)
+  }, numeric(1))
+  expect_equal(nbreaks, nbins + 1)
+
+  # Center is provided
+  nbreaks <- vapply(nbins, function(bins) {
+    length(bin_breaks_bins(c(0, 10), bins, center = 0)$breaks)
+  }, numeric(1))
+  expect_equal(nbreaks, nbins + 1)
+
+  # Boundary is provided
+  nbreaks <- vapply(nbins, function(bins) {
+    length(bin_breaks_bins(c(0, 10), bins, boundary = 0)$breaks)
+  }, numeric(1))
+  expect_equal(nbreaks, nbins + 1)
+
+})
+
 comp_bin <- function(df, ...) {
   plot <- ggplot(df, aes(x = x)) + stat_bin(...)
   get_layer_data(plot)

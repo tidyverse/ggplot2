@@ -117,8 +117,12 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
   } else if (bins == 1) {
     width <- diff(x_range)
     boundary <- x_range[1]
+    center <- NULL
   } else {
     width <- (x_range[2] - x_range[1]) / (bins - 1)
+    if (is.null(center)) {
+      boundary <- boundary %||% x_range[1] - width / 2
+    }
   }
 
   bin_breaks_width(x_range, width, boundary = boundary, center = center,
