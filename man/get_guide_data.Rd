@@ -4,7 +4,7 @@
 \alias{get_guide_data}
 \title{Extract tick information from guides}
 \usage{
-get_guide_data(plot = last_plot(), aesthetic, panel = 1L)
+get_guide_data(plot = get_last_plot(), aesthetic, panel = 1L)
 }
 \arguments{
 \item{plot}{A \code{ggplot} or \code{ggplot_build} object.}

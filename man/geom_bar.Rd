@@ -13,7 +13,6 @@ geom_bar(
   position = "stack",
   ...,
   just = 0.5,
-  width = NULL,
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -26,7 +25,6 @@ geom_col(
   position = "stack",
   ...,
   just = 0.5,
-  width = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -38,7 +36,6 @@ stat_count(
   geom = "bar",
   position = "stack",
   ...,
-  width = NULL,
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -113,9 +110,6 @@ columns to the left/right of axis breaks. Note that this argument may have
 unintended behaviour when used with alternative positions, e.g.
 \code{position_dodge()}.}
 
-\item{width}{Bar width. By default, set to 90\% of the \code{\link[=resolution]{resolution()}} of the
-data.}
-
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -182,6 +176,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{\link[=aes_group_order]{group}}
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
+\item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
@@ -196,6 +191,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \code{\link[=aes_group_order]{group}}
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
+\item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 

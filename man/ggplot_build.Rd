@@ -2,27 +2,36 @@
 % Please edit documentation in R/plot-build.R
 \name{ggplot_build}
 \alias{ggplot_build}
+\alias{get_layer_data}
 \alias{layer_data}
+\alias{get_panel_scales}
 \alias{layer_scales}
+\alias{get_layer_grob}
 \alias{layer_grob}
 \title{Build ggplot for rendering.}
 \usage{
 ggplot_build(plot)
 
-layer_data(plot = last_plot(), i = 1L)
+get_layer_data(plot = get_last_plot(), i = 1L)
 
-layer_scales(plot = last_plot(), i = 1L, j = 1L)
+layer_data(plot = get_last_plot(), i = 1L)
 
-layer_grob(plot = last_plot(), i = 1L)
+get_panel_scales(plot = get_last_plot(), i = 1L, j = 1L)
+
+layer_scales(plot = get_last_plot(), i = 1L, j = 1L)
+
+get_layer_grob(plot = get_last_plot(), i = 1L)
+
+layer_grob(plot = get_last_plot(), i = 1L)
 }
 \arguments{
 \item{plot}{ggplot object}
 
-\item{i}{An integer. In \code{layer_data()}, the data to return (in the order added to the
-plot). In \code{layer_grob()}, the grob to return (in the order added to the
-plot). In \code{layer_scales()}, the row of a facet to return scales for.}
+\item{i}{An integer. In \code{get_layer_data()}, the data to return (in the order added to the
+plot). In \code{get_layer_grob()}, the grob to return (in the order added to the
+plot). In \code{get_panel_scales()}, the row of a facet to return scales for.}
 
-\item{j}{An integer. In \code{layer_scales()}, the column of a facet to return
+\item{j}{An integer. In \code{get_panel_scales()}, the column of a facet to return
 scales for.}
 }
 \description{
@@ -32,7 +41,7 @@ a list of data frames (one for each layer), and a panel object, which
 contain all information about axis limits, breaks etc.
 }
 \details{
-\code{layer_data()}, \code{layer_grob()}, and \code{layer_scales()} are helper
+\code{get_layer_data()}, \code{get_layer_grob()}, and \code{get_panel_scales()} are helper
 functions that return the data, grob, or scales associated with a given
 layer. These are useful for tests.
 }

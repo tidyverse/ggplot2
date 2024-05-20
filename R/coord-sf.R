@@ -222,15 +222,24 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range[2], y_range[2]
     )
 
+    breaks <- sf_breaks(scale_x, scale_y, bbox, params$crs)
+
     # Generate graticule and rescale to plot coords
     graticule <- sf::st_graticule(
       bbox,
       crs = params$crs,
-      lat = scale_y$breaks %|W|% NULL,
-      lon = scale_x$breaks %|W|% NULL,
+      lat = breaks$y %|W|% NULL,
+      lon = breaks$x %|W|% NULL,
       datum = self$datum,
       ndiscr = self$ndiscr
     )
+
+    if (is.null(breaks$x)) {
+      graticule <- vec_slice(graticule, graticule$type != "E")
+    }
+    if (is.null(breaks$y)) {
+      graticule <- vec_slice(graticule, graticule$type != "N")
+    }
 
     # override graticule labels provided by sf::st_graticule() if necessary
     graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
@@ -580,6 +589,53 @@ parse_axes_labeling <- function(x) {
   list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
 }
 
+# This function does two things differently from standard breaks:
+#   1. It does not resolve `waiver()`, unless `n.breaks` is given. In the case
+#      that breaks are `waiver()`, we use the default graticule breaks.
+#   2. It discards non-finite breaks because they are invalid input to the
+#      graticule. This may cause atomic `labels` to be out-of-sync.
+sf_breaks <- function(scale_x, scale_y, bbox, crs) {
+
+  has_x <- !is.null(scale_x$breaks) || !is.null(scale_x$n.breaks)
+  has_y <- !is.null(scale_y$breaks) || !is.null(scale_y$n.breaks)
+
+  x_breaks <- if (has_x) waiver() else NULL
+  y_breaks <- if (has_y) waiver() else NULL
+
+
+  if (has_x || has_y) {
+    if (!is.null(crs)) {
+      # Atomic breaks input are assumed to be in long/lat coordinates.
+      # To preserve that assumption for function breaks, the bounding box
+      # needs to be translated to long/lat coordinates.
+      if (!is_named(bbox)) {
+        names(bbox) <- c("xmin", "ymin", "xmax", "ymax")
+      }
+      # Convert bounding box to long/lat coordinates
+      bbox <- sf::st_as_sfc(sf::st_bbox(bbox, crs = crs))
+      bbox <- sf::st_bbox(sf::st_transform(bbox, 4326))
+      bbox <- as.numeric(bbox)
+
+      # If any bbox is NA the transformation has probably failed.
+      # (.e.g from IGH to long/lat). In this case, just provide full long/lat.
+      bbox[is.na(bbox)] <- c(-180, -90, 180, 90)[is.na(bbox)]
+    }
+
+    if (!(is.waive(scale_x$breaks) && is.null(scale_x$n.breaks))) {
+      x_breaks <- scale_x$get_breaks(limits = bbox[c(1, 3)])
+      finite <- is.finite(x_breaks)
+      x_breaks <- if (any(finite)) x_breaks[finite] else NULL
+    }
+
+    if (!(is.waive(scale_y$breaks) && is.null(scale_y$n.breaks))) {
+      y_breaks <- scale_y$get_breaks(limits = bbox[c(2, 4)])
+      finite <- is.finite(y_breaks)
+      y_breaks <- if (any(finite)) y_breaks[finite] else NULL
+    }
+  }
+
+  list(x = x_breaks, y = y_breaks)
+}
 
 #' ViewScale from graticule
 #'

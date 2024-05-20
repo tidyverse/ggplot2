@@ -125,13 +125,36 @@ The statistic relies on the aesthetics assignment to guess which variable to
 use as the input and which to use as the output. Either x or y must be provided
 and one of them must be unused. The ECDF will be calculated on the given aesthetic
 and will be output on the unused one.
+
+If the \code{weight} aesthetic is provided, a weighted ECDF will be computed. In
+this case, the ECDF is incremented by \code{weight / sum(weight)} instead of
+\code{1 / length(x)} for each observation.
 }
+\section{Aesthetics}{
+
+\code{stat_ecdf()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
 \item \code{after_stat(ecdf)}\cr Cumulative density corresponding to \code{x}.
 \item \code{after_stat(y)}\cr \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} For backward compatibility.
+}
+}
+
+\section{Dropped variables}{
+
+\describe{
+\item{weight}{After calculation, weights of individual observations (if
+supplied), are no longer available.}
 }
 }
 
@@ -151,4 +174,15 @@ ggplot(df, aes(x)) +
 # Multiple ECDFs
 ggplot(df, aes(x, colour = g)) +
   stat_ecdf()
+
+# Using weighted eCDF
+weighted <- data.frame(x = 1:10, weights = c(1:5, 5:1))
+plain <- data.frame(x = rep(weighted$x, weighted$weights))
+
+ggplot(plain, aes(x)) +
+  stat_ecdf(linewidth = 1) +
+  stat_ecdf(
+    aes(weight = weights),
+    data = weighted, colour = "green"
+  )
 }
