@@ -792,9 +792,7 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
   check_string(aesthetic, allow_empty = FALSE)
   aesthetic <- standardise_aes_names(aesthetic)
 
-  if (!inherits(plot, "ggplot_built")) {
-    plot <- ggplot_build(plot)
-  }
+  plot <- ggplot_build(plot)
 
   if (!aesthetic %in% c("x", "y", "x.sec", "y.sec", "theta", "r")) {
     # Non position guides: check if aesthetic in colnames of key

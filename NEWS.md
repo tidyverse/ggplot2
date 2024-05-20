@@ -71,6 +71,8 @@
   alignment is not necessary (#5788).
 * `position_stack()` skips computation when all `x` values are unique and 
   therefore stacking is not necessary (#5788).
+* A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
+  returns input unaltered (@teunbrand, #5800).
 
 # ggplot2 3.5.1
 
