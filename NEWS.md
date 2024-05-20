@@ -1,7 +1,6 @@
 # ggplot2 (development version)
 
-* A function can be provided to `labs(alt = <...>)` that takes the plot as input
-  and returns text as output (@teunbrand, #4795).
+* `stat_ecdf()` now has an optional `weight` aesthetic (@teunbrand, #5058).
 * Position scales combined with `coord_sf()` can now use functions in the 
  `breaks` argument. In addition, `n.breaks` works as intended and 
  `breaks = NULL` removes grid lines and axes (@teunbrand, #4622).
