@@ -63,7 +63,7 @@ test_that("NA's result in warning from stat_bindot", {
 
 test_that("when binning on y-axis, limits depend on the panel", {
    p <- ggplot(mtcars, aes(factor(cyl), mpg)) +
-        geom_dotplot(binaxis='y')
+        geom_dotplot(binaxis='y', binwidth = 1/30 * diff(range(mtcars$mpg)))
 
    b1 <- ggplot_build(p + facet_wrap(~am))
    b2 <- ggplot_build(p + facet_wrap(~am, scales = "free_y"))
@@ -77,10 +77,10 @@ test_that("when binning on y-axis, limits depend on the panel", {
 
 test_that("weight aesthetic is checked", {
   p <- ggplot(mtcars, aes(x = mpg, weight = gear/3)) +
-    geom_dotplot()
+    geom_dotplot(binwidth = 1/30 * diff(range(mtcars$mpg)))
   expect_snapshot_warning(ggplot_build(p))
   p <- ggplot(mtcars, aes(x = mpg, weight = -gear)) +
-    geom_dotplot()
+    geom_dotplot(binwidth = 1/30 * diff(range(mtcars$mpg)))
   expect_snapshot_warning(ggplot_build(p))
 })
 
@@ -154,6 +154,9 @@ test_that("geom_dotplot draws correctly", {
   # Binning along y, with multiple grouping factors
   dat2 <- data_frame(x = rep(factor(LETTERS[1:3]), 30), y = rnorm(90), g = rep(factor(LETTERS[1:2]), 45))
 
+  expect_doppelganger("bin x, three y groups, stack centerwhole",
+    ggplot(dat2, aes(y, x)) + geom_dotplot(binwidth = .25, binaxis = "x", stackdir = "centerwhole")
+  )
   expect_doppelganger("bin y, three x groups, stack centerwhole",
     ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = .25, binaxis = "y", stackdir = "centerwhole")
   )
@@ -196,7 +199,8 @@ test_that("geom_dotplot draws correctly", {
       )
     ) +
       geom_dotplot(binwidth = .4, fill = "red", col = "blue") +
-      continuous_scale("stroke", "scaleName", function(x) scales::rescale(x, to = c(1, 6)))
+      continuous_scale("stroke", palette = function(x) scales::rescale(x, to = c(1, 6))) +
+      guides(linetype = guide_legend(order = 1))
   )
 
   # Stacking groups

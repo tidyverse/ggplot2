@@ -42,14 +42,14 @@
 #'   geom_function(aes(colour = "t, df = 1"), fun = dt, args = list(df = 1))
 #'
 #' # Using a custom anonymous function
-#' base + geom_function(fun = function(x) 0.5*exp(-abs(x)))
-#'
-#' base + geom_function(fun = ~ 0.5*exp(-abs(.x)))
-#'
-#' # Using a custom named function
-#' f <- function(x) 0.5*exp(-abs(x))
-#'
-#' base + geom_function(fun = f)
+#' base + geom_function(fun = function(x) 0.5 * exp(-abs(x)))
+#' # or using lambda syntax:
+#' # base + geom_function(fun = ~ 0.5 * exp(-abs(.x)))
+#' # or in R4.1.0 and above:
+#' # base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))
+#' # or using a custom named function:
+#' # f <- function(x) 0.5 * exp(-abs(x))
+#' # base + geom_function(fun = f)
 #'
 #' # Using xlim to restrict the range of function
 #' ggplot(data.frame(x = rnorm(100)), aes(x)) +

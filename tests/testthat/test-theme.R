@@ -1,5 +1,18 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("dollar subsetting the theme does no partial matching", {
+  t <- theme(foobar = 12)
+  expect_null(t$foo)
+  expect_equal(t$foobar, 12)
+})
+
+test_that("theme argument splicing works", {
+  l <- list(a = 10, b = "c", d = c("foo", "bar"))
+  test <- theme(!!!l)
+  ref  <- theme(a = 10, b = "c", d = c("foo", "bar"))
+  expect_equal(test, ref)
+})
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works
@@ -170,6 +183,16 @@ test_that("calculating theme element inheritance works", {
   e1 <- ggplot2:::calc_element("strip.text.x", theme)
   e2 <- ggplot2:::calc_element("strip.text", theme)
   expect_identical(e1, e2)
+
+  # Check that rel units are computed appropriately
+  theme <- theme_gray() +
+    theme(axis.ticks.length = unit(1, "cm"),
+          axis.ticks.length.x = rel(0.5),
+          axis.ticks.length.x.bottom = rel(4))
+
+  expect_equal(calc_element("axis.ticks.length.y.left", theme), unit(1, "cm"))
+  expect_equal(calc_element("axis.ticks.length.x.top", theme), unit(1, "cm") * 0.5)
+  expect_equal(calc_element("axis.ticks.length.x.bottom", theme), unit(1, "cm") * 0.5 * 4)
 })
 
 test_that("complete and non-complete themes interact correctly with each other", {
@@ -264,12 +287,13 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
+  expect_snapshot_error(theme_set("foo"))
 })
 
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_snapshot_error(print(p))
+  expect_snapshot_warning(print(p))
 
   register_theme_elements(
     element_tree = list(blablabla = el_def("character", "text"))
@@ -486,8 +510,77 @@ test_that("Theme elements are checked during build", {
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.caption.position = "test")
   expect_snapshot_error(ggplotGrob(p))
 
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + theme(plot.tag.position = "test")
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) +
+    theme(plot.tag.position = "test") + labs(tag = "test")
   expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("Theme validation behaves as expected", {
+  tree <- get_element_tree()
+  expect_silent(validate_element(1,  "aspect.ratio", tree))
+  expect_silent(validate_element(1L, "aspect.ratio", tree))
+  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+})
+
+test_that("Element subclasses are inherited", {
+
+  # `rich` is subclass of `poor`
+  poor <- element_line(colour = "red", linetype = 3)
+  rich <- element_line(linetype = 2, linewidth = 2)
+  class(rich) <- c("element_rich", class(rich))
+
+  # `poor` should acquire `rich`
+  test <- combine_elements(poor, rich)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, poor)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+
+  # `sibling` is not strict subclass of `rich`
+  sibling <- poor
+  class(sibling) <- c("element_sibling", class(sibling))
+
+  # `sibling` should stay `sibling`
+  test <- combine_elements(sibling, rich)
+  expect_s3_class(test, "element_sibling")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, sibling)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+})
+
+test_that("Minor tick length supports biparental inheritance", {
+  my_theme <- theme_gray() + theme(
+    axis.ticks.length = unit(1, "cm"),
+    axis.ticks.length.y.left = unit(1, "pt"),
+    axis.minor.ticks.length.y = unit(1, "inch"),
+    axis.minor.ticks.length = rel(0.5)
+  )
+  expect_equal( # Inherits rel(0.5) from minor, 1cm from major
+    calc_element("axis.minor.ticks.length.x.bottom", my_theme),
+    unit(1, "cm") * 0.5
+  )
+  expect_equal( # Inherits 1inch directly from minor
+    calc_element("axis.minor.ticks.length.y.left", my_theme),
+    unit(1, "inch")
+  )
 })
 
 # Visual tests ------------------------------------------------------------
@@ -650,6 +743,38 @@ test_that("plot titles and caption can be aligned to entire plot", {
 
 })
 
+test_that("Legends can on all sides of the plot with custom justification", {
+
+  plot <- ggplot(mtcars) +
+    aes(
+      disp, mpg,
+      colour = hp,
+      fill   = factor(gear),
+      shape  = factor(cyl),
+      size   = drat,
+      alpha = wt
+    ) +
+    geom_point() +
+    guides(
+      shape  = guide_legend(position = "top"),
+      colour = guide_colourbar(position = "bottom"),
+      size   = guide_legend(position = "left"),
+      alpha  = guide_legend(position = "right"),
+      fill   = guide_legend(position = "inside", override.aes = list(shape = 21))
+    ) +
+    theme_test() +
+    theme(
+      legend.justification.top    = "left",
+      legend.justification.bottom = c(1, 0),
+      legend.justification.left   = c(0, 1),
+      legend.justification.right  = "bottom",
+      legend.justification.inside = c(0.75, 0.75),
+      legend.location = "plot"
+    )
+
+  expect_doppelganger("legends at all sides with justification", plot)
+})
+
 test_that("Strips can render custom elements", {
   element_test <- function(...) {
     el <- element_text(...)
@@ -659,10 +784,45 @@ test_that("Strips can render custom elements", {
   element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
     rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
   }
+  registerS3method("element_grob", "element_test", element_grob.element_test)
+
   df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
   plot <- ggplot(df, aes(x, y)) +
     geom_point() +
     facet_wrap(~a) +
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
+})
+
+test_that("legend margins are correct when using relative key sizes", {
+
+  df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
+  p <- ggplot(df, aes(x, y, colour = x, shape = a)) +
+    geom_point() +
+    theme_test() +
+    theme(
+      legend.box.background = element_rect(colour = "blue", fill = NA),
+      legend.background = element_rect(colour = "red", fill = NA)
+    )
+
+  vertical <- p + guides(
+    colour = guide_colourbar(theme = theme(legend.key.height = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.height = unit(1/3, "null")))
+  ) + theme(
+    legend.box.margin = margin(t = 5, b = 10, unit = "mm"),
+    legend.margin = margin(t = 10, b = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched vertical legends", vertical)
+
+  horizontal <- p + guides(
+    colour = guide_colourbar(theme = theme(legend.key.width = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.width = unit(1/3, "null")))
+  ) + theme(
+    legend.position = "top",
+    legend.box.margin = margin(l = 5, r = 10, unit = "mm"),
+    legend.margin = margin(l = 10, r = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched horizontal legends", horizontal)
 })

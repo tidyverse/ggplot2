@@ -147,5 +147,7 @@ GeomAbline <- ggproto("GeomAbline", Geom,
 
   draw_key = draw_key_abline,
 
-  rename_size = TRUE
+  rename_size = TRUE,
+
+  check_constant_aes = FALSE
 )

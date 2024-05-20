@@ -1,66 +1,48 @@
 ## revdepcheck results
 
-We checked 4375 reverse dependencies (4350 from CRAN + 25 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 5021 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 2 new problems
- * We failed to check 46 packages
+ * We saw 5 new problems
+ * We failed to check 17 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* listdown
+* ggh4x
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
+
+* MplusAutomation
+  checking installed package size ... NOTE
+
+* PlasmaMutationDetector
+  checking installed package size ... NOTE
+
+* Superpower
   checking tests ... ERROR
 
-* xpose
+* xaringanthemer
   checking tests ... ERROR
 
 ### Failed to check
 
-* AFM                     (NA)
-* AssetCorr               (NA)
-* bayesnec                (NA)
-* bayesrules              (NA)
-* cinaR                   (NA)
-* eefAnalytics            (NA)
-* escalation              (NA)
-* ESTER                   (NA)
-* genekitr                (NA)
-* ggPMX                   (NA)
-* grandR                  (NA)
-* hmmTMB                  (NA)
-* immcp                   (NA)
-* INSPECTumours           (NA)
-* IRexamples              (NA)
-* loon.ggplot             (NA)
-* MarketMatching          (NA)
-* MARVEL                  (NA)
-* multilevelcoda          (NA)
-* nestedcv                (NA)
-* nlmixr2                 (NA)
-* nlmixr2extra            (NA)
-* nlmixr2plot             (NA)
-* nlmixr2rpt              (NA)
-* numbat                  (NA)
-* OlinkAnalyze            (NA)
-* OpenMx                  (NA)
-* ordbetareg              (NA)
-* PFIM                    (NA)
-* PlasmaMutationDetector2 (NA)
-* Platypus                (NA)
-* RcppCensSpatial         (NA)
-* rdddr                   (NA)
-* rdss                    (NA)
-* rstan                   (NA)
-* RVA                     (NA)
-* SCpubr                  (NA)
-* tidyposterior           (NA)
-* tidySEM                 (NA)
-* tinyarray               (NA)
-* TVMM                    (NA)
-* valse                   (NA)
-* vivid                   (NA)
-* wearables               (NA)
-* webSDM                  (NA)
-* xpose.nlmixr2           (NA)
+* bayesdfa         (NA)
+* bmgarch          (NA)
+* ctsem            (NA)
+* EcoEnsemble      (NA)
+* geostan          (NA)
+* grandR           (NA)
+* multilevelcoda   (NA)
+* multinma         (NA)
+* rmsb             (NA)
+* rstanarm         (NA)
+* Seurat           (NA)
+* streamDAG        (NA)
+* treestats        (NA)
+* TriDimRegression (NA)
+* triptych         (NA)
+* ubms             (NA)
+* valse            (NA)

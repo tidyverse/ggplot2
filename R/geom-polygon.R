@@ -113,7 +113,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
-    munched <- coord_munch(coord, data, panel_params)
+    munched <- coord_munch(coord, data, panel_params, is_closed = TRUE)
 
     if (is.null(munched$subgroup)) {
       # Sort by group to make sure that colors, fill, etc. come in same order
@@ -130,10 +130,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         polygonGrob(
           munched$x, munched$y, default.units = "native",
           id = munched$group,
-          gp = gpar(
+          gp = ggpar(
             col = first_rows$colour,
-            fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            fill = fill_alpha(first_rows$fill, first_rows$alpha),
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -142,8 +142,8 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         )
       )
     } else {
-      if (utils::packageVersion('grid') < "3.6") {
-        cli::cli_abort("Polygons with holes requires R 3.6 or above")
+      if (getRversion() < "3.6") {
+        cli::cli_abort("Polygons with holes requires R 3.6 or above.")
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]
@@ -161,10 +161,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           munched$x, munched$y, default.units = "native",
           id = id, pathId = munched$group,
           rule = rule,
-          gp = gpar(
+          gp = ggpar(
             col = first_rows$colour,
-            fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            fill = fill_alpha(first_rows$fill, first_rows$alpha),
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,

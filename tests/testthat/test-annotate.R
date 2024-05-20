@@ -33,7 +33,6 @@ test_that("annotation_* has dummy data assigned and don't inherit aes", {
   skip_if(packageVersion("base") < "3.5.0")
   custom <- annotation_custom(zeroGrob())
   logtick <- annotation_logticks()
-  library(maps)
   usamap <- map_data("state")
   map <- annotation_map(usamap)
   rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
@@ -76,4 +75,14 @@ test_that("unsupported geoms signal a warning (#4719)", {
 
 test_that("annotate() checks aesthetic lengths match", {
   expect_snapshot_error(annotate("point", 1:3, 1:3, fill = c('red', 'black')))
+})
+
+test_that("annotation_logticks warns about deprecated `size` argument", {
+  expect_snapshot_warning(annotation_logticks(size = 5))
+})
+
+test_that("annotate() warns about `stat` or `position` arguments", {
+  expect_snapshot_warning(
+    annotate("point", 1:3, 1:3, stat = "density", position = "dodge")
+  )
 })

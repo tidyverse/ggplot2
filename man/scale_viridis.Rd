@@ -16,6 +16,7 @@
 \title{Viridis colour scales from viridisLite}
 \usage{
 scale_colour_viridis_d(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -26,6 +27,7 @@ scale_colour_viridis_d(
 )
 
 scale_fill_viridis_d(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -36,6 +38,7 @@ scale_fill_viridis_d(
 )
 
 scale_colour_viridis_c(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -50,6 +53,7 @@ scale_colour_viridis_c(
 )
 
 scale_fill_viridis_c(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -64,6 +68,7 @@ scale_fill_viridis_c(
 )
 
 scale_colour_viridis_b(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -78,6 +83,7 @@ scale_colour_viridis_b(
 )
 
 scale_fill_viridis_b(
+  name = waiver(),
   ...,
   alpha = 1,
   begin = 0,
@@ -92,6 +98,11 @@ scale_fill_viridis_b(
 )
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}},
 \code{\link[=continuous_scale]{continuous_scale()}}, or \code{\link[=binned_scale]{binned_scale()}} to control name, limits, breaks,
 labels and so forth.}
@@ -109,14 +120,14 @@ reversed.}
 \item{option}{A character string indicating the color map option to use.
 Eight options are available:
 \itemize{
- \item "magma" (or "A")
- \item "inferno" (or "B")
- \item "plasma" (or "C")
- \item "viridis" (or "D")
- \item "cividis" (or "E")
- \item "rocket" (or "F")
- \item "mako" (or "G")
- \item "turbo" (or "H")
+\item \code{"magma"} (or \code{"A"})
+\item \code{"inferno"} (or \code{"B"})
+\item \code{"plasma"} (or \code{"C"})
+\item \code{"viridis"} (or \code{"D"})
+\item \code{"cividis"} (or \code{"E"})
+\item \code{"rocket"} (or \code{"F"})
+\item \code{"mako"} (or \code{"G"})
+\item \code{"turbo"} (or \code{"H"})
 }}
 
 \item{aesthetics}{Character string or vector of character strings listing the
@@ -160,7 +171,7 @@ d + scale_colour_viridis_d()
 # Change scale label
 d + scale_colour_viridis_d("City\nCenter")
 
-# Select palette to use, see ?scales::viridis_pal for more details
+# Select palette to use, see ?scales::pal_viridis for more details
 d + scale_colour_viridis_d(option = "plasma")
 d + scale_colour_viridis_d(option = "inferno")
 
@@ -172,7 +183,7 @@ p + scale_fill_viridis_d()
 # the order of colour can be reversed
 p + scale_fill_viridis_d(direction = -1)
 
-# Use viridis_c with continous data
+# Use viridis_c with continuous data
 (v <- ggplot(faithfuld) +
   geom_tile(aes(waiting, eruptions, fill = density)))
 v + scale_fill_viridis_c()

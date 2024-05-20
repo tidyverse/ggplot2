@@ -65,20 +65,59 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
-stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
-\code{"stat_count"})}
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used the override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[=layer_stats]{layer stat} documentation.
+}}
 
-\item{position}{Position adjustment, either as a string naming the adjustment
-(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.}
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[=layer_positions]{layer position} documentation.
+}}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
 
 \item{hjust, vjust}{horizontal and vertical justification of the grob.  Each
 justification value should be a number between 0 and 1.  Defaults to 0.5
@@ -109,7 +148,15 @@ parameterised differently: \code{geom_rect()} uses the locations of the four
 corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
 \code{geom_tile()} uses the center of the tile and its size (\code{x},
 \code{y}, \code{width}, \code{height}). \code{geom_raster()} is a high
-performance special case for when all the tiles are the same size.
+performance special case for when all the tiles are the same size, and no
+pattern fills are applied.
+}
+\details{
+\code{geom_rect()} and \code{geom_tile()}'s respond differently to scale
+transformations due to their parameterisation. In \code{geom_rect()}, the scale
+transformation is applied to the corners of the rectangles. In \code{geom_tile()},
+the transformation is applied only to the centres and its size is determined
+after transformation.
 }
 \section{Aesthetics}{
 
@@ -171,8 +218,8 @@ ggplot(df, aes(x, y, fill = z)) +
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
-cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
+cars + stat_bin_2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+cars + stat_bin_2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 
 cars +
   stat_density(

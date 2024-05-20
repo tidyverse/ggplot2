@@ -39,12 +39,14 @@
 #'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @family colour scales
 #' @rdname scale_colour_continuous
+#' @seealso
+#' The `r link_book("continuous colour scales section", "scales-colour#sec-colour-continuous")`
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with
 #' color vision deficiencies. Using `viridis` type, which is perceptually
 #' uniform in both colour and black-and-white display is an easy option to
-#' ensure good perceptive properties of your visulizations.
+#' ensure good perceptive properties of your visualizations.
 #' The colorspace package offers functionalities
 #' - to generate color palettes with good perceptive properties,
 #' - to analyse a given color palette, like emulating color blindness,
@@ -78,17 +80,22 @@
 scale_colour_continuous <- function(...,
                                     type = getOption("ggplot2.continuous.colour")) {
   type <- type %||% "gradient"
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_colour_continuous", "colour")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_colour_continuous", "colour")
   } else if (identical(type, "gradient")) {
-    scale_colour_gradient(...)
+    exec(scale_colour_gradient, !!!args)
   } else if (identical(type, "viridis")) {
-    scale_colour_viridis_c(...)
+    exec(scale_colour_viridis_c, !!!args)
   } else {
     cli::cli_abort(c(
       "Unknown scale type: {.val {type}}",
-      "i" = "Use either {.val gradient} or {.val viridis}"
+      "i" = "Use either {.val gradient} or {.val viridis}."
     ))
   }
 }
@@ -98,17 +105,22 @@ scale_colour_continuous <- function(...,
 scale_fill_continuous <- function(...,
                                   type = getOption("ggplot2.continuous.fill")) {
   type <- type %||% "gradient"
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_fill_continuous", "fill")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_fill_continuous", "fill")
   } else if (identical(type, "gradient")) {
-    scale_fill_gradient(...)
+    exec(scale_fill_gradient, !!!args)
   } else if (identical(type, "viridis")) {
-    scale_fill_viridis_c(...)
+    exec(scale_fill_viridis_c, !!!args)
   } else {
     cli::cli_abort(c(
       "Unknown scale type: {.val {type}}",
-      "i" = "Use either {.val gradient} or {.val viridis}"
+      "i" = "Use either {.val gradient} or {.val viridis}."
     ))
   }
 }
@@ -117,8 +129,13 @@ scale_fill_continuous <- function(...,
 #' @rdname scale_colour_continuous
 scale_colour_binned <- function(...,
                                 type = getOption("ggplot2.binned.colour")) {
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_colour_binned", "colour")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_colour_binned", "colour")
   } else {
     type_fallback <- getOption("ggplot2.continuous.colour", default = "gradient")
     # don't use fallback from scale_colour_continuous() if it is
@@ -130,13 +147,13 @@ scale_colour_binned <- function(...,
     type <- type %||% type_fallback
 
     if (identical(type, "gradient")) {
-      scale_colour_steps(...)
+      exec(scale_colour_steps, !!!args)
     } else if (identical(type, "viridis")) {
-      scale_colour_viridis_b(...)
+      exec(scale_colour_viridis_b, !!!args)
     } else {
       cli::cli_abort(c(
         "Unknown scale type: {.val {type}}",
-        "i" = "Use either {.val gradient} or {.val viridis}"
+        "i" = "Use either {.val gradient} or {.val viridis}."
       ))
     }
   }
@@ -146,8 +163,13 @@ scale_colour_binned <- function(...,
 #' @rdname scale_colour_continuous
 scale_fill_binned <- function(...,
                               type = getOption("ggplot2.binned.fill")) {
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    check_scale_type(type(...), "scale_fill_binned", "fill")
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
+    check_scale_type(exec(type, !!!args), "scale_fill_binned", "fill")
   } else {
     type_fallback <- getOption("ggplot2.continuous.fill", default = "gradient")
     # don't use fallback from scale_colour_continuous() if it is
@@ -159,13 +181,13 @@ scale_fill_binned <- function(...,
     type <- type %||% type_fallback
 
     if (identical(type, "gradient")) {
-      scale_fill_steps(...)
+      exec(scale_fill_steps, !!!args)
     } else if (identical(type, "viridis")) {
-      scale_fill_viridis_b(...)
+      exec(scale_fill_viridis_b, !!!args)
     } else {
       cli::cli_abort(c(
         "Unknown scale type: {.val {type}}",
-        "i" = "Use either {.val gradient} or {.val viridis}"
+        "i" = "Use either {.val gradient} or {.val viridis}."
       ))
     }
   }
@@ -184,7 +206,7 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
   if (!isTRUE(aesthetic %in% scale$aesthetics)) {
     cli::cli_abort(c(
       "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
-      "x" = "The provided scale works with the following aesthetics: {.field {scale$aesthetics}}"
+      "x" = "The provided scale works with the following aesthetics: {.field {scale$aesthetics}}."
     ), call = call)
   }
   if (isTRUE(scale$is_discrete()) != scale_is_discrete) {

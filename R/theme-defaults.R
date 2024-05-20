@@ -48,6 +48,9 @@
 #'
 #' }
 #'
+#' @seealso
+#' The `r link_book("complete themes section", "themes#sec-themes")`
+#'
 #' @examples
 #' mtcars2 <- within(mtcars, {
 #'   vs <- factor(vs, labels = c("V-shaped", "Straight"))
@@ -139,6 +142,8 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
     axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
+    axis.text.r =        element_text(margin = margin(l = 0.8 * half_line / 2, r = 0.8 * half_line / 2),
+                                      hjust = 0.5),
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  unit(half_line / 2, "pt"),
     axis.ticks.length.x = NULL,
@@ -147,6 +152,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = rel(0.75),
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1
@@ -163,7 +169,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
@@ -171,14 +177,14 @@ theme_grey <- function(base_size = 11, base_family = "",
     legend.spacing.x =    NULL,
     legend.spacing.y =    NULL,
     legend.margin =      margin(half_line, half_line, half_line, half_line),
-    legend.key =         element_rect(fill = "grey95", colour = NA),
+    legend.key =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,
+    legend.key.spacing = unit(half_line, "pt"),
     legend.text =        element_text(size = rel(0.8)),
-    legend.text.align =  NULL,
     legend.title =       element_text(hjust = 0),
-    legend.title.align = NULL,
+    legend.ticks.length = rel(0.2),
     legend.position =    "right",
     legend.direction =   NULL,
     legend.justification = "center",
@@ -267,8 +273,6 @@ theme_bw <- function(base_size = 11, base_family = "",
       panel.grid.minor = element_line(linewidth = rel(0.5)),
       # contour strips to match panel contour
       strip.background = element_rect(fill = "grey85", colour = "grey20"),
-      # match legend key to background
-      legend.key       = element_rect(fill = "white", colour = NA),
 
       complete = TRUE
     )
@@ -341,9 +345,6 @@ theme_light <- function(base_size = 11, base_family = "",
       # match axes ticks thickness to gridlines and colour to panel border
       axis.ticks       = element_line(colour = "grey70", linewidth = rel(0.5)),
 
-      # match legend key to panel.background
-      legend.key       = element_rect(fill = "white", colour = NA),
-
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey70", colour = NA),
       strip.text       = element_text(
@@ -382,9 +383,6 @@ theme_dark <- function(base_size = 11, base_family = "",
 
       # match axes ticks thickness to gridlines
       axis.ticks       = element_line(colour = "grey20", linewidth = rel(0.5)),
-
-      # match legend key to panel.background
-      legend.key       = element_rect(fill = "grey50", colour = NA),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey15", colour = NA),
@@ -443,9 +441,6 @@ theme_classic <- function(base_size = 11, base_family = "",
       # show axes
       axis.line      = element_line(colour = "black", linewidth = rel(1)),
 
-      # match legend key to panel.background
-      legend.key       = element_blank(),
-
       # simple, black and white strips
       strip.background = element_rect(fill = "white", colour = "black", linewidth = rel(2)),
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
@@ -480,11 +475,14 @@ theme_void <- function(base_size = 11, base_family = "",
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = unit(0, "pt"),
     legend.box =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
+    legend.key.spacing = unit(half_line, "pt"),
+    legend.ticks.length = rel(0.2),
     strip.clip =         "inherit",
     strip.text =         element_text(size = rel(0.8)),
     strip.switch.pad.grid = unit(half_line / 2, "pt"),
@@ -561,6 +559,7 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = rel(0.75),
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1
@@ -577,7 +576,7 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
@@ -585,14 +584,16 @@ theme_test <- function(base_size = 11, base_family = "",
     legend.spacing.x =   NULL,
     legend.spacing.y =   NULL,
     legend.margin =      margin(0, 0, 0, 0, "cm"),
-    legend.key =         element_rect(fill = "white", colour=NA),
+    legend.key =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,
+    legend.key.spacing = unit(half_line, "pt"),
+    legend.key.spacing.x = NULL,
+    legend.key.spacing.y = NULL,
     legend.text =        element_text(size = rel(0.8)),
-    legend.text.align =  NULL,
     legend.title =       element_text(hjust = 0),
-    legend.title.align = NULL,
+    legend.ticks.length = rel(0.2),
     legend.position =    "right",
     legend.direction =   NULL,
     legend.justification = "center",

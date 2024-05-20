@@ -4,8 +4,7 @@
 
 # invalid single-string DPI values throw an error
 
-    Unknown `dpi` string
-    i Use either "screen", "print", or "retina"
+    `dpi` must be one of "screen", "print", or "retina", not "abc".
 
 # invalid non-single-string DPI values throw an error
 

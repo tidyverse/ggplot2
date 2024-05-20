@@ -32,6 +32,7 @@ Authors:
   \item Kara Woo (\href{https://orcid.org/0000-0002-5125-4188}{ORCID})
   \item Hiroaki Yutani (\href{https://orcid.org/0000-0002-3385-7233}{ORCID})
   \item Dewey Dunnington (\href{https://orcid.org/0000-0002-9415-4582}{ORCID})
+  \item Teun van den Brand (\href{https://orcid.org/0000-0002-9335-7468}{ORCID})
 }
 
 Other contributors:

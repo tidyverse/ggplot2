@@ -42,7 +42,7 @@
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
-            "Cannot use {.code +} with a single argument",
+            "Cannot use {.code +} with a single argument.",
       "i" = "Did you accidentally put {.code +} on a new line?"
     ))
   }
@@ -55,7 +55,7 @@
   else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
     cli::cli_abort(c(
-      "Cannot add {.cls ggproto} objects together",
+      "Cannot add {.cls ggproto} objects together.",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"
     ))
   }
@@ -125,7 +125,7 @@ ggplot_add.labels <- function(object, plot, object_name) {
   update_labels(plot, object)
 }
 #' @export
-ggplot_add.guides <- function(object, plot, object_name) {
+ggplot_add.Guides <- function(object, plot, object_name) {
   update_guides(plot, object)
 }
 #' @export

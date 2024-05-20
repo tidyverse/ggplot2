@@ -12,7 +12,7 @@
 #' of aesthetics provided via the `aesthetics` argument.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -aesthetics
+#' @inheritDotParams discrete_scale -expand -position -aesthetics -palette -scale_name
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
@@ -35,12 +35,14 @@
 #'
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #'
+#' The `r link_book(c("manual scales", "manual colour scales sections"), c("scales-other#sec-scale-manual", "scales-colour#sec-manual-colour"))`
+#'
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with
 #' color vision deficiencies. Using `viridis` type, which is perceptually
 #' uniform in both colour and black-and-white display is an easy option to
-#' ensure good perceptive properties of your visulizations.
+#' ensure good perceptive properties of your visualizations.
 #' The colorspace package offers functionalities
 #' - to generate color palettes with good perceptive properties,
 #' - to analyse a given color palette, like emulating color blindness,
@@ -141,7 +143,10 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
   manual_scale(aesthetics, values, breaks, ...)
 }
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
+                         name = waiver(), ...,
+                         limits = NULL, call = caller_call()) {
+  call <- call %||% current_call()
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {
@@ -152,7 +157,17 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
 
   if (is.null(limits) && !is.null(names(values))) {
     # Limits as function to access `values` names later on (#4619)
-    limits <- function(x) intersect(x, names(values)) %||% character()
+    force(aesthetic)
+    limits <- function(x) {
+      x <- intersect(x, c(names(values), NA)) %||% character()
+      if (length(x) < 1) {
+        cli::cli_warn(paste0(
+          "No shared levels found between {.code names(values)} of the manual ",
+          "scale and the data's {.field {aesthetic}} values."
+        ))
+      }
+      x
+    }
   }
 
   # order values according to breaks
@@ -171,5 +186,9 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
     }
     values
   }
-  discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
+  discrete_scale(
+    aesthetic, name = name,
+    palette = pal, breaks = breaks, limits = limits,
+    call = call, ...
+  )
 }

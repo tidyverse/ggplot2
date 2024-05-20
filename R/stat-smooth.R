@@ -23,6 +23,9 @@
 #' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
 #'   potentially beyond the data. This does not extend the line into any additional padding
 #'   created by `expansion`.
+#' @param xseq A numeric vector of values at which the smoother is evaluated.
+#'   When `NULL` (default), `xseq` is internally evaluated as a sequence of `n`
+#'   equally spaced points for continuous data.
 #' @param level Level of confidence interval to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
@@ -52,6 +55,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
                         n = 80,
                         span = 0.75,
                         fullrange = FALSE,
+                        xseq = NULL,
                         level = 0.95,
                         method.args = list(),
                         na.rm = FALSE,
@@ -77,6 +81,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
       orientation = orientation,
       method.args = method.args,
       span = span,
+      xseq = xseq,
       ...
     )
   )
@@ -113,7 +118,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       msg <- c(msg, paste0("formula = '", deparse(params$formula), "'"))
     }
     if (identical(params$method, "gam")) {
-      params$method <- mgcv::gam
+      params$method <- gam_method()
     }
 
     if (length(msg) > 0) {
@@ -161,24 +166,35 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
     if (is.character(method)) {
       if (identical(method, "gam")) {
-        method <- mgcv::gam
+        method <- gam_method()
       } else {
         method <- match.fun(method)
       }
     }
     # If gam and gam's method is not specified by the user then use REML
-    if (identical(method, mgcv::gam) && is.null(method.args$method)) {
+    if (identical(method, gam_method()) && is.null(method.args$method)) {
       method.args$method <- "REML"
     }
 
-    model <- inject(method(
-      formula,
-      data = data,
-      weights = weight,
-      !!!method.args
-    ))
+    prediction <- try_fetch(
+      {
+        model <- inject(method(
+          formula,
+          data = data,
+          weights = weight,
+          !!!method.args
+        ))
+        predictdf(model, xseq, se, level)
+      },
+      error = function(cnd) {
+        cli::cli_warn("Failed to fit group {data$group[1]}.", parent = cnd)
+        NULL
+      }
+    )
+    if (is.null(prediction)) {
+      return(NULL)
+    }
 
-    prediction <- predictdf(model, xseq, se, level)
     prediction$flipped_aes <- flipped_aes
     flip_data(prediction, flipped_aes)
   },
@@ -187,3 +203,6 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
   required_aes = c("x", "y")
 )
+
+# This function exists to silence an undeclared import warning
+gam_method <- function() mgcv::gam
