@@ -287,7 +287,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
-  expect_snapshot_error(theme_set("foo"))
+  expect_snapshot_error(set_theme("foo"))
 })
 
 test_that("element tree can be modified", {
@@ -394,7 +394,7 @@ test_that("complete plot themes shouldn't inherit from default", {
 })
 
 test_that("current theme can be updated with new elements", {
-  old <- theme_set(theme_grey())
+  old <- set_theme(theme_grey())
 
   b1 <- ggplot() + theme_grey()
   b2 <- ggplot()
@@ -428,7 +428,7 @@ test_that("current theme can be updated with new elements", {
   expect_identical(e1, e2)
 
   reset_theme_settings()
-  theme_set(old)
+  set_theme(old)
 })
 
 test_that("titleGrob() and margins() work correctly", {
@@ -671,6 +671,19 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
   expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
+})
+
+test_that("setting 'spacing' and 'margins' affect the whole plot", {
+
+  df <- data_frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a) +
+    theme_gray()
+
+  expect_doppelganger("large spacing", plot + theme(spacing = unit(1, "cm")))
+  expect_doppelganger("large margins", plot + theme(margins = margin(1, 1, 1, 1, "cm")))
+
 })
 
 test_that("axes can be styled independently", {

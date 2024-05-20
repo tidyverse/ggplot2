@@ -193,7 +193,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {
@@ -293,9 +293,9 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
                   stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
-                  gp = gpar(col = alpha(tdata$colour, tdata$alpha),
+                  gp = ggpar(col = alpha(tdata$colour, tdata$alpha),
                             fill = fill_alpha(tdata$fill, tdata$alpha),
-                            lwd = tdata$stroke, lty = tdata$linetype,
+                            lwd = tdata$stroke / .pt, lty = tdata$linetype,
                             lineend = lineend))
     )
   },

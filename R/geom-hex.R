@@ -66,7 +66,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     if (!is.null(data$width)) {
       dx <- data$width[1] / 2
     } else {
-      dx <- resolution(data$x, FALSE)
+      dx <- resolution(data$x, FALSE, TRUE)
     }
     # Adjust for difference in width and height of regular hexagon. 1.15 adjusts
     # for the effect of the overlapping range in y-direction on the resolution
@@ -74,7 +74,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     if (!is.null(data$height)) {
       dy <- data$height[1] /  sqrt(3) / 2
     } else {
-      dy <- resolution(data$y, FALSE) / sqrt(3) / 2 * 1.15
+      dy <- resolution(data$y, FALSE, TRUE) / sqrt(3) / 2 * 1.15
     }
 
     hexC <- hexbin::hexcoords(dx, dy, n = 1)
@@ -89,10 +89,10 @@ GeomHex <- ggproto("GeomHex", Geom,
 
     ggname("geom_hex", polygonGrob(
       coords$x, coords$y,
-      gp = gpar(
+      gp = ggpar(
         col = data$colour,
         fill = fill_alpha(data$fill, data$alpha),
-        lwd = data$linewidth * .pt,
+        lwd = data$linewidth,
         lty = data$linetype,
         lineend = lineend,
         linejoin = linejoin,

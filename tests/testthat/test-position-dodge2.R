@@ -32,7 +32,7 @@ test_that("rectangles are dodged", {
   p <- ggplot(df, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)) +
     geom_rect(aes(fill = fill), position = "dodge2", alpha = 0.8)
 
-  expect_false(any(duplicated(find_x_overlaps(layer_data(p)))))
+  expect_false(any(duplicated(find_x_overlaps(get_layer_data(p)))))
 })
 
 test_that("cols at the same x position are dodged", {
@@ -44,7 +44,7 @@ test_that("cols at the same x position are dodged", {
   p <- ggplot(df, aes(1, n, fill = x)) +
     geom_col(position = "dodge2", alpha = 0.5)
 
-  expect_false(any(duplicated(find_x_overlaps(layer_data(p)))))
+  expect_false(any(duplicated(find_x_overlaps(get_layer_data(p)))))
 })
 
 test_that("padding argument controls space between elements", {
@@ -55,8 +55,8 @@ test_that("padding argument controls space between elements", {
   p2 <- ggplot(df, aes(1, value, fill = group)) +
     geom_boxplot(position = position_dodge2(padding = 0.1))
 
-  d1 <- layer_data(p1)
-  d2 <- layer_data(p2)
+  d1 <- get_layer_data(p1)
+  d2 <- get_layer_data(p2)
 
   gaps <- function(df) {
     gap <- vector()
@@ -81,7 +81,7 @@ test_that("boxes in facetted plots keep the correct width", {
     facet_wrap( ~ group) +
     geom_boxplot()
 
-  d <- layer_data(p)
+  d <- get_layer_data(p)
 
   expect_true(all(d$xmax - d$xmin == 0.75))
 })
@@ -97,7 +97,7 @@ test_that("width of groups is computed per facet", {
     geom_col(position = position_dodge2(preserve = "single")) +
     facet_wrap(vars(g1))
 
-  d <- layer_data(p)
+  d <- get_layer_data(p)
   width <- d$xmax - d$xmin
 
   expect_true(all(width == (0.9 / 3) * 0.9))
