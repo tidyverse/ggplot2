@@ -45,7 +45,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
     data <- transform(data,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )

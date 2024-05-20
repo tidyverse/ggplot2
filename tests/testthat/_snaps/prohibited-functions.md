@@ -29,7 +29,7 @@
       [4] "date_minor_breaks"
       
       $discrete_scale
-      [1] "scale_name"
+      [1] "scale_name"   "minor_breaks"
       
       $geom_density2d
       [1] "contour_var"

@@ -117,7 +117,7 @@ GuideCustom <- ggproto(
     )
 
     # Add padding and background
-    gt <- gtable_add_padding(gt, elems$margin)
+    gt <- gtable_add_padding(gt, elems$margin %||% margin())
 
     gt <- gtable_add_grob(
       gt, element_grob(elems$background),

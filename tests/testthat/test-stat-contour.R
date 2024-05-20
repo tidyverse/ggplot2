@@ -26,7 +26,7 @@ test_that("contouring irregularly spaced data works", {
 
   # we're testing for set equality here because contour lines are not
   # guaranteed to start and end at the same point on all architectures
-  d <- layer_data(p)
+  d <- get_layer_data(p)
   d4 <- d[d$level == 4,]
   expect_equal(nrow(d4), 7)
   expect_setequal(d4$x, c(4, 10, 100, 700))
@@ -53,14 +53,14 @@ test_that("geom_contour_filled() and stat_contour_filled() result in identical l
   p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
   p1 <- p + stat_contour_filled()
   p2 <- p + geom_contour_filled()
-  expect_identical(layer_data(p1), layer_data(p2))
+  expect_identical(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("geom_contour() and stat_contour() result in identical layer data", {
   p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
   p1 <- p + stat_contour()
   p2 <- p + geom_contour()
-  expect_identical(layer_data(p1), layer_data(p2))
+  expect_identical(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("basic stat_contour() plot builds", {

@@ -44,7 +44,9 @@ update_labels <- function(p, labels) {
 #' @param tag The text for the tag label which will be displayed at the
 #'        top-left of the plot by default.
 #' @param alt,alt_insight Text used for the generation of alt-text for the plot.
-#'        See [get_alt_text] for examples.
+#'        See [get_alt_text] for examples. `alt` can also be a function that
+#'        takes the plot as input and returns text as output. `alt` also accepts
+#'        rlang [lambda][rlang::as_function()] function notation.
 #' @param ... A list of new name-value pairs. The name should be an aesthetic.
 #' @export
 #'
@@ -76,7 +78,8 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
                  tag = waiver(), alt = waiver(), alt_insight = waiver()) {
   # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
   args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
-    tag = tag, alt = alt, alt_insight = alt_insight, .ignore_empty = "all")
+    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
+    .ignore_empty = "all")
 
   is_waive <- vapply(args, is.waive, logical(1))
   args <- args[!is_waive]
@@ -140,11 +143,15 @@ get_alt_text <- function(p, ...) {
 }
 #' @export
 get_alt_text.ggplot <- function(p, ...) {
-  p$labels[["alt"]] %||% ""
+  alt <- p$labels[["alt"]] %||% ""
+  p$labels[["alt"]] <- NULL
+  if (is.function(alt)) alt(p) else alt
 }
 #' @export
 get_alt_text.ggplot_built <- function(p, ...) {
-  p$plot$labels[["alt"]] %||% ""
+  alt <- p$plot$labels[["alt"]] %||% ""
+  p$plot$labels[["alt"]] <- NULL
+  if (is.function(alt)) alt(p$plot) else alt
 }
 #' @export
 get_alt_text.gtable <- function(p, ...) {
@@ -197,11 +204,16 @@ get_alt_text.gtable <- function(p, ...) {
 #'
 generate_alt_text <- function(p) {
   # Combine titles
-  title <- glue(glue_collapse(
-    sub("\\.?$", "", c(p$labels$title, p$labels$subtitle)),
-    last = ": "
-  ), ". ")
-  title <- safe_string(title)
+  if (!is.null(p$label$title %||% p$labels$subtitle)) {
+    title <- glue(glue_collapse(
+      sub("\\.?$", "", c(p$labels$title, p$labels$subtitle)),
+      last = ": "
+    ), ". ")
+    title <- safe_string(title)
+  } else {
+    title <- ""
+  }
+
 
   # Get axes descriptions
   axes <- glue(" showing ", glue_collapse(
@@ -218,7 +230,7 @@ generate_alt_text <- function(p) {
     if (length(layers) == 1) "a " else "",
     glue_collapse(layers, sep = ", ", last = " and "),
     " layer",
-    if (length(layers) == 1) "" else "s",
+    if (length(layers) == 1) "" else "s"
   )
   layers <- safe_string(layers)
 

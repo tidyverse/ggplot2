@@ -167,11 +167,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     guide_params[["theta"]]$position     <- "theta"
     guide_params[["theta.sec"]]$position <- "theta.sec"
 
+    if (self$theta == "x") {
+      opposite_r <- isTRUE(scales$r$position %in% c("top", "right"))
+    } else {
+      opposite_r <- isTRUE(scales$r$position %in% c("bottom", "left"))
+    }
+
     if (self$r_axis_inside) {
 
       arc <- rad2deg(self$arc)
       r_position <- c("left", "right")
-      if (self$direction == -1) {
+      # If both opposite direction and opposite position, don't flip
+      if (xor(self$direction == -1, opposite_r)) {
         arc <- rev(arc)
         r_position <- rev(r_position)
       }
@@ -182,8 +189,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
       guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
     } else {
-      guide_params[["r"]]$position     <- params$r_axis
-      guide_params[["r.sec"]]$position <- opposite_position(params$r_axis)
+      r_position <- c(params$r_axis, opposite_position(params$r_axis))
+      if (opposite_r) {
+        r_position <- rev(r_position)
+      }
+      guide_params[["r"]]$position     <- r_position[1]
+      guide_params[["r.sec"]]$position <- r_position[2]
     }
 
     guide_params[drop_guides] <- list(NULL)
@@ -315,8 +326,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         y = c(Inf, -Inf, -Inf,  Inf)
       )
       background <- coord_munch(self, background, panel_params, is_closed = TRUE)
-      bg_gp <- gpar(
-        lwd = len0_null(bg_element$linewidth * .pt),
+      bg_gp <- ggpar(
+        lwd = bg_element$linewidth,
         col = bg_element$colour, fill = bg_element$fill,
         lty = bg_element$linetype
       )
@@ -346,11 +357,13 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   render_fg = function(self, panel_params, theme) {
 
+    border <- element_render(theme, "panel.border", fill = NA)
+
     if (!self$r_axis_inside) {
       out <- grobTree(
         panel_guides_grob(panel_params$guides, "theta", theme),
         panel_guides_grob(panel_params$guides, "theta.sec", theme),
-        element_render(theme, "panel.border")
+        border
       )
       return(out)
     }
@@ -370,7 +383,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       panel_guides_grob(panel_params$guides, "theta", theme),
       panel_guides_grob(panel_params$guides, "theta.sec", theme),
       left, right,
-      element_render(theme, "panel.border")
+      border
     )
   },
 
