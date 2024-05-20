@@ -33,6 +33,8 @@
   cannot be transformed (@teunbrand, #3171).
 * `stat_density()` has the new computed variable: `wdensity`, which is
   calculated as the density times the sum of weights (@teunbrand, #4176).
+* `theme()` gets new `spacing` and `margins` arguments that all other spacings
+  and (non-text) margins inherit from (@teunbrand, #5622).
 
 # ggplot2 3.5.1
 
