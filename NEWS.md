@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug where binned guides would keep out-of-bounds breaks 
+  (@teunbrand, #5870).
 * The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 
   aesthetic (#4852).
 * New function `complete_theme()` to replicate how themes are handled during
