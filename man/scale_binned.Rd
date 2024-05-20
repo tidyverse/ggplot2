@@ -17,7 +17,8 @@ scale_x_binned(
   na.value = NA_real_,
   right = TRUE,
   show.limits = FALSE,
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = waiver(),
   position = "bottom"
 )
@@ -34,7 +35,8 @@ scale_y_binned(
   na.value = NA_real_,
   right = TRUE,
   show.limits = FALSE,
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = waiver(),
   position = "left"
 )
@@ -58,10 +60,11 @@ breaks are given explicitly.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
 
@@ -102,20 +105,23 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
 function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item The default (\code{\link[scales:oob]{scales::squish()}}) squishes out of
+bounds values into range.
+\item \link[scales:oob]{scales::censor} for replacing out of bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
 
 \item{na.value}{Missing values will be replaced with this value.}
 
-\item{right}{Should values on the border between bins be part of the right
-(upper) bin?}
+\item{right}{Should the intervals be closed on the right (\code{TRUE}, default) or
+should the intervals be closed on the left (\code{FALSE})? 'Closed on the right'
+means that values at break positions are part of the lower bin (open on the
+left), whereas they are part of the upper bin when intervals are closed on
+the left (open on the right).}
 
 \item{show.limits}{should the limits of the scale appear as ticks}
 
-\item{trans}{For continuous scales, the name of a transformation object
+\item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -123,9 +129,13 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
-transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+are defined in the scales package, and are called \verb{transform_<name>}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
+
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
+\code{transform}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -146,6 +156,10 @@ ggplot(mtcars) +
   scale_x_binned()
 }
 \seealso{
+The \link[=aes_position]{position documentation}.
+
+The \href{https://ggplot2-book.org/scales-position#sec-binned-position}{binned position scales section} of the online ggplot2 book.
+
 Other position scales: 
 \code{\link{scale_x_continuous}()},
 \code{\link{scale_x_date}()},

@@ -11,9 +11,7 @@
 #'   scale. This argument is ignored if `labels` is given as a vector of
 #'   values. If one or both of the limits is also given in `breaks` it will be
 #'   shown irrespective of the value of `show.limits`.
-#' @param ticks A logical specifying if tick marks on the colourbar should be
-#'   visible.
-#' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
+#' @inheritParams guide_colourbar
 #'
 #' @inheritSection guide_bins Use with discrete scale
 #'
@@ -21,6 +19,8 @@
 #' @export
 #'
 #' @family guides
+#' @seealso
+#' The `r link_book("binned legend section", "scales-colour#sec-guide-coloursteps")`
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2
@@ -45,127 +45,181 @@
 #'
 #' # (can also be set in the scale)
 #' p + scale_fill_binned(show.limits = TRUE)
-#'
-guide_coloursteps <- function(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...) {
-  guide <- guide_colourbar(raster = FALSE, ticks = ticks, nbin = 100, ...)
-  guide$even.steps <- even.steps
-  guide$show.limits <- show.limits
-  class(guide) <- c('colorsteps', class(guide))
-  guide
+guide_coloursteps <- function(
+  title = waiver(),
+  theme = NULL,
+  alpha = NA,
+  even.steps  = TRUE,
+  show.limits = NULL,
+  direction = NULL,
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
+  ...
+) {
+
+  theme <- deprecated_guide_args(theme, ...)
+  check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
+
+  new_guide(
+    title = title,
+    theme = theme,
+    alpha = alpha,
+    even.steps  = even.steps,
+    show.limits = show.limits,
+    direction = direction,
+    reverse = reverse,
+    order = order,
+    super = GuideColoursteps
+  )
 }
+
 #' @export
 #' @rdname guide_coloursteps
 guide_colorsteps <- guide_coloursteps
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
-  breaks <- scale$get_breaks()
-  breaks <- breaks[!is.na(breaks)]
-  show_limits <- guide$show.limits %||% scale$show.limits %||% FALSE
-  if (show_limits && (is.character(scale$labels) || is.numeric(scale$labels))) {
-    cli::cli_warn(c(
-      "{.arg show.limits} is ignored when {.arg labels} are given as a character vector",
-      "i" = "Either add the limits to {.arg breaks} or provide a function for {.arg labels}"
-    ))
-    show_limits <- FALSE
-  }
-  if (guide$even.steps || !is.numeric(breaks)) {
-    if (length(breaks) == 0 || all(is.na(breaks))) {
-      return()
+GuideColoursteps <- ggproto(
+  "GuideColoursteps", GuideColourbar,
+
+  params = c(
+    list(even.steps = TRUE, show.limits = NULL),
+    vec_assign(GuideColourbar$params, "default_ticks", list(element_blank()))
+  ),
+
+  extract_key = function(scale, aesthetic, even.steps, ...) {
+
+    breaks <- scale$get_breaks()
+
+    if (!(even.steps || !is.numeric(breaks))) {
+      return(Guide$extract_key(scale, aesthetic))
     }
-    if (is.numeric(breaks)) {
-      limits <- scale$get_limits()
-      if (!is.numeric(scale$breaks)) {
-        breaks <- breaks[!breaks %in% limits]
-      }
-      all_breaks <- unique0(c(limits[1], breaks, limits[2]))
-      bin_at <- all_breaks[-1] - diff(all_breaks) / 2
+
+    parsed <- parse_binned_breaks(scale, breaks)
+    if (is.null(parsed)) {
+      return(parsed)
+    }
+    limits <- parsed$limits
+    breaks <- parsed$breaks
+
+    key <- data_frame0(!!aesthetic := scale$map(breaks))
+    if (even.steps) {
+      key$.value <- seq_along(breaks)
     } else {
-      # If the breaks are not numeric it is used with a discrete scale. We check
-      # if the breaks follow the allowed format "(<lower>, <upper>]", and if it
-      # does we convert it into bin specs
-      if (!guide$even.steps) {
-        cli::cli_warn("{.code even.steps = FALSE} is not supported when used with a discrete scale")
-      }
-      bin_at <- breaks
-      breaks_num <- as.character(breaks)
-      breaks_num <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks_num), ",\\s?")
-      breaks_num <- as.numeric(unlist(breaks_num))
-      if (anyNA(breaks_num)) {
-        cli::cli_abort(c(
-          "Breaks not formatted correctly for a bin legend.",
-          "i" = "Use {.code (<lower>, <upper>]} format to indicate bins"
-        ))
-      }
-      all_breaks <- breaks_num[c(1, seq_along(breaks) * 2)]
-      limits <- all_breaks[c(1, length(all_breaks))]
-      breaks <- all_breaks[-c(1, length(all_breaks))]
+      key$.value <- breaks
     }
-    ticks <- data_frame(
-      scale$map(breaks),
-      .name_repair = ~ aesthetic %||% scale$aesthetics[1]
-    )
-    ticks$.value <- seq_along(breaks) - 0.5
-    ticks$.label <- scale$get_labels(breaks)
-    guide$nbin <- length(breaks) + 1L
+    key$.label <- scale$get_labels(breaks)
+
     if (breaks[1] %in% limits) {
-      ticks$.value <- ticks$.value - 1L
-      ticks[[1]][1] <- NA
-      guide$nbin <- guide$nbin - 1L
+      key$.value  <- key$.value - 1L
+      key[[1]][1] <- NA
     }
     if (breaks[length(breaks)] %in% limits) {
-      ticks[[1]][nrow(ticks)] <- NA
-      guide$nbin <- guide$nbin - 1L
+      key[[1]][nrow(key)] <- NA
     }
-    guide$key <- ticks
-    guide$bar <- data_frame0(
-      colour = scale$map(bin_at),
-      value = seq_along(bin_at) - 1,
-      .size = length(bin_at)
+    # To avoid having to recalculate these variables in other methods, we
+    # attach the parsed values as attributes. It might not be very elegant,
+    # but it works.
+    attr(key, "parsed") <- parsed
+    key
+  },
+
+  extract_decor = function(scale, aesthetic, key,
+                           reverse = FALSE, even.steps = TRUE,
+                           nbin = 100, alpha = NA,...) {
+
+    parsed <- attr(key, "parsed")
+    breaks <- parsed$breaks %||% scale$get_breaks()
+    limits <- parsed$limits %||% scale$get_limits()
+
+    breaks <- sort(unique0(c(limits, breaks)))
+    n      <- length(breaks)
+    bin_at <- parsed$bin_at %||% ((breaks[-1] + breaks[-n]) / 2)
+
+    if (even.steps) {
+      breaks <- seq_len(n) - 1L
+    }
+
+    data_frame0(
+      colour = alpha(scale$map(bin_at), alpha),
+      min    = breaks[-n],
+      max    = breaks[-1],
+      .size  = length(bin_at)
+    )
+  },
+
+  extract_params = function(scale, params, direction = "vertical", title = waiver(), ...) {
+
+    show.limits <- params$show.limits %||% scale$show.limits %||% FALSE
+
+    if (show.limits &&
+        (is.character(scale$labels) || is.numeric(scale$labels))) {
+      cli::cli_warn(c(paste0(
+        "{.arg show.limits} is ignored when {.arg labels} are given as a ",
+        "character vector."
+      ), "i" = paste0(
+        "Either add the limits to {.arg breaks} or provide a function for ",
+        "{.arg labels}."
+      )))
+      show.limits <- FALSE
+    }
+
+    if (show.limits) {
+      key <- params$key
+      limits <- attr(key, "parsed")$limits %||% scale$get_limits()
+      key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
+      n <- nrow(key)
+      key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)
+      key$.label[c(1, n)] <- scale$get_labels(limits)
+      if (key$.value[1] == key$.value[2]) {
+        key <- vec_slice(key, -1)
+        n <- n - 1
+      }
+      if (key$.value[n - 1] == key$.value[n]) {
+        key <- vec_slice(key, -n)
+      }
+      params$key <- key
+    }
+
+    params$title <- scale$make_title(
+      params$title %|W|% scale$name %|W|% title
     )
 
-    if (guide$reverse) {
-      guide$key <- guide$key[nrow(guide$key):1, ]
-      guide$bar <- guide$bar[nrow(guide$bar):1, ]
+    limits <- c(params$decor$min[1], params$decor$max[nrow(params$decor)])
+    if (params$reverse) {
+      limits <- rev(limits)
     }
-    guide$hash <- with(guide, hash(list(title, key$.label, bar, name)))
-  } else {
-    guide <- NextMethod()
-    limits <- scale$get_limits()
-  }
-  if (show_limits) {
-    edges <- rescale(c(0, 1), to = guide$bar$value[c(1, nrow(guide$bar))], from = c(0.5, guide$nbin - 0.5) / guide$nbin)
-    if (guide$reverse) edges <- rev(edges)
-    guide$key <- guide$key[c(NA, seq_len(nrow(guide$key)), NA), , drop = FALSE]
-    guide$key$.value[c(1, nrow(guide$key))] <- edges
-    guide$key$.label[c(1, nrow(guide$key))] <- scale$get_labels(limits)
-    if (guide$key$.value[1] == guide$key$.value[2]) {
-      guide$key <- guide$key[-1,]
-    }
-    if (guide$key$.value[nrow(guide$key)-1] == guide$key$.value[nrow(guide$key)]) {
-      guide$key <- guide$key[-nrow(guide$key),]
-    }
-  }
-  guide
-}
+    params$key$.value <- rescale(params$key$.value, from = limits)
+    params$decor$min  <- rescale(params$decor$min,  from = limits)
+    params$decor$max  <- rescale(params$decor$max,  from = limits)
+    params$key <-
+      vec_slice(params$key, !is.na(oob_censor_any(params$key$.value)))
+    params
+  },
 
-#' Calculate the default hjust and vjust settings depending on legend
-#' direction and position.
-#'
-#' @noRd
-label_just_defaults.colorbar <- function(direction, position) {
-  if (direction == "horizontal") {
-    switch(
-      position,
-      "top" = list(hjust = 0.5, vjust = 0),
-      list(hjust = 0.5, vjust = 1)
-    )
+  build_decor = function(decor, grobs, elements, params) {
+
+    size <- abs(decor$max - decor$min)
+    just <- as.numeric(decor$min > decor$max)
+    gp   <- ggpar(col = NA, fill = decor$colour)
+    if (params$direction == "vertical") {
+      grob <- rectGrob(
+        x = 0, y = decor$min,
+        width = 1, height = size,
+        vjust = just, hjust = 0, gp = gp
+      )
+    } else {
+      grob <- rectGrob(
+        x = decor$min, y = 0,
+        height = 1, width = size,
+        hjust = just, vjust = 0, gp = gp
+      )
+    }
+
+    frame <- element_grob(elements$frame, fill = NA)
+    list(bar = grob, frame = frame, ticks = grobs$ticks)
   }
-  else {
-    switch(
-      position,
-      "left" = list(hjust = 1, vjust = 0.5),
-      list(hjust = 0, vjust = 0.5)
-    )
-  }
-}
+)

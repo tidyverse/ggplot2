@@ -7,3 +7,11 @@ test_that("secondary labels are correctly turned off", {
       coord_flip()
   )
 })
+
+test_that("flip coords throws error when limits are badly specified", {
+  # throws error when limit is a Scale object instead of vector
+  expect_snapshot_error(ggplot() + coord_flip(xlim(1,1)))
+
+  # throws error when limit's length is different than two
+  expect_snapshot_error(ggplot() + coord_flip(ylim=1:3))
+})

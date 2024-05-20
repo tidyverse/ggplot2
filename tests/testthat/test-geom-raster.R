@@ -9,6 +9,13 @@ test_that("geom_raster() checks input and coordinate system", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("geom_raster() fails with pattern fills", {
+  skip_if_not(getRversion() > "4.2", message = "pattern fills are unavailalbe")
+  df <- data.frame(x = 1)
+  p <- ggplot(df, aes(x, x)) + geom_raster(fill = linearGradient())
+  expect_snapshot_error(ggplotGrob(p))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("geom_raster draws correctly", {
@@ -67,5 +74,12 @@ test_that("geom_raster draws correctly", {
   df$col[df$y == 5 & df$col == 0] <- NA
   expect_doppelganger("irregular categorical",
     ggplot(df, aes(x, y, fill = factor(col))) + geom_raster()
+  )
+
+  # Categorical axes -----------------------------------------------------------
+
+  df <- expand.grid(x = c("A", "B"), y = c("C", "D"))
+  expect_doppelganger("discrete positions",
+    ggplot(df, aes(x, y, fill = interaction(x, y))) + geom_raster()
   )
 })

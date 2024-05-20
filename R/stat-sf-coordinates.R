@@ -19,16 +19,15 @@
 #' For the first step, you can use an arbitrary function via `fun.geometry`.
 #' By default, `function(x) sf::st_point_on_surface(sf::st_zm(x))` is used;
 #' `sf::st_point_on_surface()` seems more appropriate than `sf::st_centroid()`
-#' since lables and text usually are intended to be put within the polygon or
+#' since labels and text usually are intended to be put within the polygon or
 #' the line. `sf::st_zm()` is needed to drop Z and M dimension beforehand,
 #' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
 #' dimension.
 #'
-#' @section Computed variables:
-#' \describe{
-#'   \item{x}{X dimension of the simple feature}
-#'   \item{y}{Y dimension of the simple feature}
-#' }
+#' @eval rd_computed_vars(
+#'  x = "X dimension of the simple feature.",
+#'  y = "Y dimension of the simple feature."
+#' )
 #'
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {

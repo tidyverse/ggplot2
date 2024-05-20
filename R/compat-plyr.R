@@ -19,7 +19,7 @@ unrowname <- function(x) {
   } else if (is.matrix(x)) {
     dimnames(x)[1] <- list(NULL)
   } else {
-    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects")
+    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects.")
   }
   x
 }
@@ -74,7 +74,7 @@ id_var <- function(x, drop = FALSE) {
 #' Properties:
 #' - `order(id)` is equivalent to `do.call(order, df)`
 #' - rows containing the same data have the same value
-#' - if `drop = FALSE` then room for all possibilites
+#' - if `drop = FALSE` then room for all possibilities
 #'
 #' @param .variables list of variables
 #' @param drop Should unused factor levels be dropped?
@@ -91,7 +91,7 @@ id <- function(.variables, drop = FALSE) {
     nrows <- nrow(.variables)
     .variables <- unclass(.variables)
   }
-  lengths <- vapply(.variables, length, integer(1))
+  lengths <- lengths(.variables)
   .variables <- .variables[lengths != 0]
   if (length(.variables) == 0) {
     n <- nrows %||% 0L
@@ -124,10 +124,10 @@ id <- function(.variables, drop = FALSE) {
     res
   }
 }
-#' Count number of occurences for each unique combination of variables
+#' Count number of occurrences for each unique combination of variables
 #'
 #' Each unique combination of the variables in `df` given by `vars` will be
-#' identified and their occurences counted. If `wt_var` is given the counts will
+#' identified and their occurrences counted. If `wt_var` is given the counts will
 #' be weighted by the values in this column.
 #'
 #' @param df A data.frame
@@ -193,7 +193,7 @@ revalue <- function(x, replace) {
     lev[match(names(replace), lev)] <- replace
     levels(x) <- lev
   } else if (!is.null(x)) {
-    cli::cli_abort("{.arg x} must be a factor or character vector")
+    stop_input_type(x, "a factor or character vector")
   }
   x
 }
@@ -239,16 +239,14 @@ as.quoted <- function(x, env = parent.frame()) {
   } else if (is.call(x)) {
     as.list(x)[-1]
   } else {
-    cli::cli_abort("Must be a character vector, call, or formula")
+    cli::cli_abort("Must be a character vector, call, or formula.")
   }
   attributes(x) <- list(env = env, class = 'quoted')
   x
 }
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
-  if (!is.numeric(x)) {
-    cli::cli_abort("{.arg x} must be numeric")
-  }
+  check_numeric(x)
   f(x/accuracy) * accuracy
 }
 
