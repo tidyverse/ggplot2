@@ -75,6 +75,8 @@
   therefore stacking is not necessary (#5788).
 * A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
   returns input unaltered (@teunbrand, #5800).
+* `width` is implemented as aesthetic instead of parameter in `geom_col()` and
+  `geom_bar()` (#3142).
 
 # ggplot2 3.5.1
 
