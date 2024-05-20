@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Discrete position scales now expose the `palette` argument, which can be used 
+  to customise spacings between levels (@teunbrand, #5770).
 * The default `se` parameter in layers with `geom = "smooth"` will be `TRUE` 
   when the data has `ymin` and `ymax` parameters and `FALSE` if these are 
   absent. Note that this does not affect the default of `geom_smooth()` or
