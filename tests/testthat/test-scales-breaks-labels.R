@@ -246,7 +246,10 @@ test_that("continuous limits accepts functions", {
   p <- ggplot(mpg, aes(class, hwy)) +
     scale_y_continuous(limits = function(lims) (c(lims[1] - 10, lims[2] + 100)))
 
-  expect_equal(layer_scales(p)$y$get_limits(), c(range(mpg$hwy)[1] - 10, range(mpg$hwy)[2] + 100))
+  expect_equal(
+    get_panel_scales(p)$y$get_limits(),
+    c(range(mpg$hwy)[1] - 10, range(mpg$hwy)[2] + 100)
+  )
 })
 
 test_that("equal length breaks and labels can be passed to ViewScales with limits", {

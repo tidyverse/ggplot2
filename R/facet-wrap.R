@@ -23,7 +23,12 @@ NULL
 #'   either of the four sides by setting \code{strip.position = c("top",
 #'   "bottom", "left", "right")}
 #' @param dir Direction: either `"h"` for horizontal, the default, or `"v"`,
-#'   for vertical.
+#'   for vertical. When `"h"` or `"v"` will be combined with `as.table` to
+#'   set final layout. Alternatively, a combination of `"t"` (top) or
+#'   `"b"` (bottom) with `"l"` (left) or `"r"` (right) to set a layout directly.
+#'   These two letters give the starting position and the first letter gives
+#'   the growing direction. For example `"rt"` will place the first panel in
+#'   the top-right and starts filling in panels right-to-left.
 #' @param axes Determines which axes will be drawn in case of fixed scales.
 #'   When `"margins"` (default), axes will be drawn at the exterior margins.
 #'   `"all_x"` and `"all_y"` will draw the respective axes at the interior
@@ -95,13 +100,29 @@ NULL
 #'   facet_wrap(vars(variable), scales = "free_y", nrow = 2, strip.position = "top") +
 #'   theme(strip.background = element_blank(), strip.placement = "outside")
 #' }
+#'
+#' # The two letters determine the starting position, so 'tr' starts
+#' # in the top-right.
+#' # The first letter determines direction, so 'tr' fills top-to-bottom.
+#' # `dir = "tr"` is equivalent to `dir = "v", as.table = FALSE`
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(vars(class), dir = "tr")
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
                        switch = deprecated(), drop = TRUE, dir = "h",
                        strip.position = 'top', axes = "margins",
                        axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
-  dir <- arg_match0(dir, c("h", "v"))
+  dir <- arg_match0(dir, c("h", "v", "lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))
+  if (nchar(dir) == 1) {
+    dir <- base::switch(
+      dir,
+      h = if (as.table) "lt" else "lb",
+      v = if (as.table) "tl" else "tr"
+    )
+  }
+
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
@@ -149,7 +170,6 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     params = list(
       facets = facets,
       free = free,
-      as.table = as.table,
       strip.position = strip.position,
       drop = drop,
       ncol = ncol,
@@ -189,21 +209,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
-    layout <- data_frame0(
-      PANEL = factor(id, levels = seq_len(n)),
-      ROW = if (params$as.table) {
-        as.integer((id - 1L) %/% dims[2] + 1L)
-      } else {
-        as.integer(dims[1] - (id - 1L) %/% dims[2])
-      },
-      COL = as.integer((id - 1L) %% dims[2] + 1L),
-      .size = length(id)
-    )
-
-    # For vertical direction, flip row and col
-    if (identical(params$dir, "v")) {
-      layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
-    }
+    layout <- wrap_layout(id, dims, params$dir)
 
     panels <- vec_cbind(layout, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -228,8 +234,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     }
 
     facet_vals <- eval_facets(vars, data, params$.possible_columns)
-    facet_vals[] <- lapply(facet_vals[], as.factor)
-    layout[] <- lapply(layout[], as.factor)
+    facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
+    layout[] <- lapply(layout[], as_unordered_factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))
     if (length(missing_facets) > 0) {
@@ -319,10 +325,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
      heights = unit(rep(abs(aspect_ratio), nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
-    panel_table <- gtable_add_col_space(panel_table,
-      theme$panel.spacing.x %||% theme$panel.spacing)
-    panel_table <- gtable_add_row_space(panel_table,
-      theme$panel.spacing.y %||% theme$panel.spacing)
+
+    panel_table <- gtable_add_col_space(panel_table, calc_element("panel.spacing.x", theme))
+    panel_table <- gtable_add_row_space(panel_table, calc_element("panel.spacing.y", theme))
 
     # Add axes
     axis_mat_x_top <- empty_table
@@ -436,7 +441,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     axis_size   <- panel_table$sizes
     panel_table <- panel_table$panels
 
-    strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
+    strip_padding <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
     strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
     strip_mat <- empty_table
     strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
@@ -575,4 +580,32 @@ measure_axes <- function(empty_idx, axis, margin = 1L, shift = 0) {
 
   cm[set_zero] <- 0
   unit(apply(cm, margin, max), "cm")
+}
+
+wrap_layout <- function(id, dims, dir) {
+  as.table <- TRUE
+  n <- attr(id, "n")
+
+  ROW <- switch(
+    dir,
+    lt = , rt = (id - 1L) %/% dims[2] + 1L,
+    tl = , tr = (id - 1L) %%  dims[1] + 1L,
+    lb = , rb = dims[1] - (id - 1L) %/% dims[2],
+    bl = , br = dims[1] - (id - 1L) %%  dims[1]
+  )
+
+  COL <- switch(
+    dir,
+    lt = , lb = (id - 1L) %% dims[2] + 1L,
+    tl = , bl = (id - 1L) %/% dims[1] + 1L,
+    rt = , rb = dims[2] - (id - 1L) %%  dims[2],
+    tr = , br = dims[2] - (id - 1L) %/% dims[1]
+  )
+
+  data_frame0(
+    PANEL = factor(id, levels = seq_len(n)),
+    ROW   = as.integer(ROW),
+    COL   = as.integer(COL),
+    .size = length(id)
+  )
 }

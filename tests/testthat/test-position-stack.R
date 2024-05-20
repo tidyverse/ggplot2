@@ -6,7 +6,7 @@ test_that("data keeps its order after stacking", {
   )
   p <- ggplot(df, aes(x = x, y = y, fill = var)) +
     geom_area(stat = "identity", position = "stack")
-  dat <- layer_data(p)
+  dat <- get_layer_data(p)
   expect_true(all(dat$group == rep(1:3, each = 10)))
   expect_true(all(dat$x == df$x))
 })
@@ -18,7 +18,7 @@ test_that("negative and positive values are handled separately", {
     y = c(1,-1,1,2,-3)
   )
   p <- ggplot(df, aes(x, y, fill = factor(g))) + geom_col()
-  dat <- layer_data(p)
+  dat <- get_layer_data(p)
 
   expect_equal(dat$ymin[dat$x == 1], c(1, -1, 0))
   expect_equal(dat$ymax[dat$x == 1], c(2, 0, 1))
@@ -34,7 +34,7 @@ test_that("can request reverse stacking", {
   )
   p <- ggplot(df, aes(1, y, fill = g)) +
     geom_col(position = position_stack(reverse = TRUE))
-  dat <- layer_data(p)
+  dat <- get_layer_data(p)
   expect_equal(dat$ymin, c(-2, 0, -3, 2))
 })
 
@@ -48,14 +48,14 @@ test_that("data with no extent is stacked correctly", {
   p0 <- base + geom_text(aes(label = y), position = position_stack(vjust = 0))
   p1 <- base + geom_text(aes(label = y), position = position_stack(vjust = 1))
 
-  expect_equal(layer_data(p0)$y, c(-115, -75))
-  expect_equal(layer_data(p1)$y, c(-75, 0))
+  expect_equal(get_layer_data(p0)$y, c(-115, -75))
+  expect_equal(get_layer_data(p1)$y, c(-75, 0))
 })
 
 test_that("position_stack() can stack correctly when ymax is NA", {
   df <- data_frame(x = c(1, 1), y = c(1, 1))
   p <- ggplot(df, aes(x, y, ymax = NA_real_)) + geom_point(position = "stack")
-  expect_equal(layer_data(p)$y, c(1, 2))
+  expect_equal(get_layer_data(p)$y, c(1, 2))
 })
 
 # Visual tests ------------------------------------------------------------
