@@ -86,7 +86,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>The bounded density option in <code><a href="../reference/geom_density.html">stat_density()</a></code> uses a wider range to prevent discontinuities (<a href="https://github.com/tidyverse/ggplot2/issues/5641" class="external-link">#5641</a>).</li>
+<ul><li>The default <code>se</code> parameter in layers with <code>geom = "smooth"</code> will be <code>TRUE</code> when the data has <code>ymin</code> and <code>ymax</code> parameters and <code>FALSE</code> if these are absent. Note that this does not affect the default of <code><a href="../reference/geom_smooth.html">geom_smooth()</a></code> or <code><a href="../reference/geom_smooth.html">stat_smooth()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5572" class="external-link">#5572</a>).</li>
+<li>The bounded density option in <code><a href="../reference/geom_density.html">stat_density()</a></code> uses a wider range to prevent discontinuities (<a href="https://github.com/tidyverse/ggplot2/issues/5641" class="external-link">#5641</a>).</li>
 <li>
 <code><a href="../reference/geom_tile.html">geom_raster()</a></code> now falls back to rendering as <code><a href="../reference/geom_tile.html">geom_rect()</a></code> when coordinates are not Cartesian (<a href="https://github.com/tidyverse/ggplot2/issues/5503" class="external-link">#5503</a>).</li>
 <li>
