@@ -136,6 +136,11 @@ GuideAxis <- ggproto(
 
     if (nrow(major) > 0) {
       major$.type <- "major"
+      if (!vec_is(minor$.value, major$.value)) {
+        # If we have mixed types of values, which may happen in discrete scales,
+        # discard minor values in favour of the major values.
+        minor$.value <- NULL
+      }
       vec_rbind(major, minor)
     } else {
       minor

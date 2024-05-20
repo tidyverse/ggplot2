@@ -313,8 +313,8 @@ GuideLegend <- ggproto(
       arg_match0(title_position, .trbl, arg_nm = "legend.title.position")
 
     # Set default spacing
-    theme$legend.key.spacing <- theme$legend.key.spacing %||% unit(5.5, "pt")
-    gap <- calc_element("legend.key.spacing", theme)
+    theme$legend.key.spacing <- calc_element("legend.key.spacing", theme)
+    gap <- theme$legend.key.spacing
 
     # For backward compatibility, default vertical spacing is no spacing
     if (params$direction == "vertical") {

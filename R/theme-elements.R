@@ -419,11 +419,14 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
   title               = el_def("element_text", "text"),
+  spacing             = el_def("unit"),
+  margins             = el_def("margin"),
+
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
   axis.title          = el_def("element_text", "title"),
   axis.ticks          = el_def("element_line", "line"),
-  legend.key.size     = el_def("unit"),
+  legend.key.size     = el_def(c("unit", "rel"), "spacing"),
   panel.grid          = el_def("element_line", "line"),
   panel.grid.major    = el_def("element_line", "panel.grid"),
   panel.grid.minor    = el_def("element_line", "panel.grid"),
@@ -447,7 +450,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.text.theta     = el_def("element_text", "axis.text.x"),
   axis.text.r         = el_def("element_text", "axis.text.y"),
 
-  axis.ticks.length   = el_def("unit"),
+  axis.ticks.length   = el_def(c("unit", "rel"), "spacing"),
   axis.ticks.length.x = el_def(c("unit", "rel"), "axis.ticks.length"),
   axis.ticks.length.x.top = el_def(c("unit", "rel"), "axis.ticks.length.x"),
   axis.ticks.length.x.bottom = el_def(c("unit", "rel"), "axis.ticks.length.x"),
@@ -503,14 +506,14 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   ),
 
   legend.background   = el_def("element_rect", "rect"),
-  legend.margin       = el_def("margin"),
-  legend.spacing      = el_def("unit"),
+  legend.margin       = el_def(c("margin", "rel"), "margins"),
+  legend.spacing      = el_def(c("unit", "rel"), "spacing"),
   legend.spacing.x     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.spacing.y     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.key          = el_def("element_rect", "panel.background"),
   legend.key.height   = el_def(c("unit", "rel"), "legend.key.size"),
   legend.key.width    = el_def(c("unit", "rel"), "legend.key.size"),
-  legend.key.spacing  = el_def("unit"),
+  legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.frame        = el_def("element_rect", "rect"),
@@ -552,13 +555,13 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
-  legend.box.margin   = el_def("margin"),
+  legend.box.margin   = el_def(c("margin", "rel"), "margins"),
   legend.box.background = el_def("element_rect", "rect"),
-  legend.box.spacing  = el_def("unit"),
+  legend.box.spacing  = el_def(c("unit", "rel"), "spacing"),
 
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),
-  panel.spacing       = el_def("unit"),
+  panel.spacing       = el_def(c("unit", "rel"), "spacing"),
   panel.spacing.x     = el_def(c("unit", "rel"), "panel.spacing"),
   panel.spacing.y     = el_def(c("unit", "rel"), "panel.spacing"),
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
@@ -580,8 +583,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.placement     = el_def("character"),
   strip.placement.x   = el_def("character", "strip.placement"),
   strip.placement.y   = el_def("character", "strip.placement"),
-  strip.switch.pad.grid = el_def("unit"),
-  strip.switch.pad.wrap = el_def("unit"),
+  strip.switch.pad.grid = el_def(c("unit", "rel"), "spacing"),
+  strip.switch.pad.wrap = el_def(c("unit", "rel"), "spacing"),
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
@@ -592,7 +595,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag            = el_def("element_text", "title"),
   plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
   plot.tag.location   = el_def("character"),
-  plot.margin         = el_def("margin"),
+  plot.margin         = el_def(c("margin", "rel"), "margins"),
 
   aspect.ratio        = el_def(c("numeric", "integer"))
 )
