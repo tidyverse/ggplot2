@@ -32,6 +32,44 @@ test_that("grid: includes all combinations", {
   expect_equal(nrow(all), 4)
 })
 
+test_that("wrap: layout sorting is correct", {
+
+  dummy <- list(data_frame0(x = 1:5))
+
+  test <- panel_layout(facet_wrap(~x, dir = "lt"), dummy)
+  expect_equal(test$ROW, rep(c(1,2), c(3, 2)))
+  expect_equal(test$COL, c(1:3, 1:2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "tl"), dummy)
+  expect_equal(test$ROW, c(1, 2, 1, 2, 1))
+  expect_equal(test$COL, c(1, 1, 2, 2, 3))
+
+  test <- panel_layout(facet_wrap(~x, dir = "lb"), dummy)
+  expect_equal(test$ROW, c(2, 2, 2, 1, 1))
+  expect_equal(test$COL, c(1, 2, 3, 1, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "bl"), dummy)
+  expect_equal(test$ROW, c(2, 1, 2, 1, 2))
+  expect_equal(test$COL, c(1, 1, 2, 2, 3))
+
+  test <- panel_layout(facet_wrap(~x, dir = "rt"), dummy)
+  expect_equal(test$ROW, c(1, 1, 1, 2, 2))
+  expect_equal(test$COL, c(3, 2, 1, 3, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "tr"), dummy)
+  expect_equal(test$ROW, c(1, 2, 1, 2, 1))
+  expect_equal(test$COL, c(3, 3, 2, 2, 1))
+
+  test <- panel_layout(facet_wrap(~x, dir = "rb"), dummy)
+  expect_equal(test$ROW, c(2, 2, 2, 1, 1))
+  expect_equal(test$COL, c(3, 2, 1, 3, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "br"), dummy)
+  expect_equal(test$ROW, c(2, 1, 2, 1, 2))
+  expect_equal(test$COL, c(3, 3, 2, 2, 1))
+
+})
+
 test_that("wrap and grid are equivalent for 1d data", {
   rowg <- panel_layout(facet_grid(a~.), list(a))
   roww <- panel_layout(facet_wrap(~a, ncol = 1), list(a))
@@ -100,7 +138,8 @@ test_that("grid: as.table reverses rows", {
 
 a2 <- data_frame(
   a = factor(1:3, levels = 1:4),
-  b = factor(1:3, levels = 4:1)
+  b = factor(1:3, levels = 4:1),
+  c = as.character(c(1:2, NA))
 )
 
 test_that("wrap: drop = FALSE preserves unused levels", {
@@ -111,6 +150,11 @@ test_that("wrap: drop = FALSE preserves unused levels", {
   wrap_b <- panel_layout(facet_wrap(~b, drop = FALSE), list(a2))
   expect_equal(nrow(wrap_b), 4)
   expect_equal(as.character(wrap_b$b), as.character(4:1))
+
+  # NA character should not be dropped or throw errors #5485
+  wrap_c <- panel_layout(facet_wrap(~c, drop = FALSE), list(a2))
+  expect_equal(nrow(wrap_c), 3)
+  expect_equal(wrap_c$c, a2$c)
 })
 
 test_that("grid: drop = FALSE preserves unused levels", {

@@ -226,7 +226,9 @@ base + scale_x_date(limits = c(Sys.Date() - 7, NA))
 
 }
 \seealso{
-\code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
+\code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes.
+
+The \href{https://ggplot2-book.org/scales-position#sec-date-scales}{date-time position scales section} of the online ggplot2 book.
 
 The \link[=aes_position]{position documentation}.
 

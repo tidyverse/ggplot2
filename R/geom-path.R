@@ -200,10 +200,10 @@ GeomPath <- ggproto("GeomPath", Geom,
       segmentsGrob(
         munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
         default.units = "native", arrow = arrow,
-        gp = gpar(
+        gp = ggpar(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$colour, munched$alpha)[!end],
-          lwd = munched$linewidth[!end] * .pt,
+          lwd = munched$linewidth[!end],
           lty = munched$linetype[!end],
           lineend = lineend,
           linejoin = linejoin,
@@ -215,10 +215,10 @@ GeomPath <- ggproto("GeomPath", Geom,
       polylineGrob(
         munched$x, munched$y, id = id,
         default.units = "native", arrow = arrow,
-        gp = gpar(
+        gp = ggpar(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$colour, munched$alpha)[start],
-          lwd = munched$linewidth[start] * .pt,
+          lwd = munched$linewidth[start],
           lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
@@ -322,9 +322,14 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.R
 GeomStep <- ggproto("GeomStep", GeomPath,
-  draw_panel = function(data, panel_params, coord, direction = "hv") {
+  draw_panel = function(data, panel_params, coord,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
+                        direction = "hv") {
     data <- dapply(data, "group", stairstep, direction = direction)
-    GeomPath$draw_panel(data, panel_params, coord)
+    GeomPath$draw_panel(
+      data, panel_params, coord,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+    )
   }
 )
 

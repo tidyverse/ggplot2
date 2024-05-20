@@ -44,6 +44,8 @@
 #' @param environment `r lifecycle::badge("deprecated")` Used prior to tidy
 #'   evaluation.
 #' @export
+#' @seealso
+#' The `r link_book("first steps chapter", "getting-started")`
 #' @examples
 #' # Create a data frame with some sample data, then create a data frame
 #' # containing the mean value for each group in the sample data.

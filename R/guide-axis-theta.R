@@ -74,17 +74,22 @@ GuideAxisTheta <- ggproto(
 
   transform = function(params, coord, panel_params) {
 
-    opposite <- setdiff(c("x", "y"), params$aesthetic)
-    params$key[[opposite]] <- switch(params$position,
-                                     theta.sec = -Inf,
-                                     top = -Inf,
-                                     right = -Inf,
-                                     Inf)
+    if (nrow(params$key) > 0) {
+      opposite <- setdiff(c("x", "y"), params$aesthetic)
+      params$key[[opposite]] <- switch(params$position,
+                                       theta.sec = -Inf,
+                                       top = -Inf,
+                                       right = -Inf,
+                                       Inf)
+    }
 
     params <- GuideAxis$transform(params, coord, panel_params)
 
     key <- params$key
     n <- nrow(key)
+    if (n < 1) {
+      return(params)
+    }
 
     if (!("theta" %in% names(key))) {
       # We likely have a linear coord, so we match the text angles to
@@ -240,6 +245,12 @@ GuideAxisTheta <- ggproto(
     )
 
     grobTree(major, minor, name = "ticks")
+  },
+
+  draw_early_exit = function(self, params, elements) {
+    line <- self$build_decor(decor = params$decor, elements = elements,
+                             params = params)
+    gTree(children = gList(line), offset = unit(0, "cm"))
   },
 
   measure_grobs = function(grobs, params, elements) {

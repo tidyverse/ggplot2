@@ -5,10 +5,12 @@
 #'
 #' @inheritParams scales::pal_grey
 #' @inheritParams scale_colour_hue
-#' @inheritDotParams discrete_scale
+#' @inheritDotParams discrete_scale -expand -position -scale_name
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' The `r link_book("hue and grey scales section", "scales-colour#hue-and-grey-scales")`
 #' @rdname scale_grey
 #' @export
 #' @examples

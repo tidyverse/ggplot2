@@ -69,6 +69,12 @@ test_that("alt text is returned", {
   expect_equal(get_alt_text(p), "An alt text")
 })
 
+test_that("alt text can take a function", {
+  p <- ggplot(mpg, aes(class)) +
+    geom_bar() +
+    labs(alt = ~ generate_alt_text(.x))
+  expect_snapshot(get_alt_text(p))
+})
 
 test_that("plot.tag.position rejects invalid input", {
   p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(tag = "Fig. A)")

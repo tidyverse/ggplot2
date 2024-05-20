@@ -35,7 +35,9 @@
 #'   (`NULL`) uses the timezone encoded in the data.
 #' @family position scales
 #' @seealso
-#' [sec_axis()] for how to specify secondary axes
+#' [sec_axis()] for how to specify secondary axes.
+#'
+#' The `r link_book("date-time position scales section", "scales-position#sec-date-scales")`
 #'
 #' The [position documentation][aes_position].
 #' @examples
