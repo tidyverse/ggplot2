@@ -121,11 +121,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     if (pad) {
       x <- c(-Inf, x, Inf)
     }
-    if (is.null(data$weight)) {
-      data_ecdf <- ecdf(data$x)(x)
-    } else {
-      data_ecdf <- wecdf(data$x, data$weight)(x)
-    }
+    data_ecdf <- wecdf(data$x, data$weight)(x)
 
     df_ecdf <- data_frame0(
       x = x,
