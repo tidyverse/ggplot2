@@ -302,6 +302,21 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   expect_true(all(diff(key$.value) > 0))
 })
 
+test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
+
+  val <- cut(1:10, breaks = c(0, 3, 5, 10), include.lowest = TRUE)
+  scale <- scale_colour_viridis_d()
+  scale$train(val)
+
+  g <- guide_coloursteps(even.steps = TRUE)
+  decor <- g$train(scale = scale, aesthetics = "colour")$decor
+  expect_equal(decor$max - decor$min, rep(1/3, 3))
+
+  g <- guide_coloursteps(even.steps = FALSE)
+  decor <- g$train(scale = scale, aesthetics = "colour")$decor
+  expect_equal(decor$max - decor$min, c(0.3, 0.2, 0.5))
+})
+
 
 test_that("guide_colourbar merging preserves both aesthetics", {
   # See issue 5324
@@ -414,7 +429,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
     guide$train(params, scale, "x")
   }
 
-  guide <- guide_axis_logticks(negative_small = 10)
+  guide <- guide_axis_logticks(negative.small = 10)
   outcome <- c((1:10)*10, (2:10)*100)
 
   # Test the classic log10 transformation
@@ -453,7 +468,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   expect_equal(sort(key$x), log10(outcome[-c(1, length(outcome))]))
 
   # Test with prescaled input
-  guide <- guide_axis_logticks(prescale_base = 2)
+  guide <- guide_axis_logticks(prescale.base = 2)
   scale <- test_scale(limits = log2(c(10, 1000)))
 
   key <- train_guide(guide, scale)$logkey
@@ -499,6 +514,34 @@ test_that("empty guides are dropped", {
 
   # All guide-boxes should be empty
   expect_equal(lengths(guides, use.names = FALSE), rep(0, 5))
+})
+
+test_that("bins can be parsed by guides for all scale types", {
+
+  breaks <- c(90, 100, 200, 300)
+  limits <- c(0, 1000)
+
+  sc <- scale_colour_continuous(breaks = breaks)
+  sc$train(limits)
+
+  expect_equal(parse_binned_breaks(sc)$breaks, breaks)
+
+  sc <- scale_colour_binned(breaks = breaks)
+  sc$train(limits)
+
+  expect_equal(parse_binned_breaks(sc)$breaks, breaks)
+
+  # Note: discrete binned breaks treats outer breaks as limits
+  cut <- cut(c(0, 95, 150, 250, 1000), breaks = breaks)
+
+  sc <- scale_colour_discrete()
+  sc$train(cut)
+
+  parsed <- parse_binned_breaks(sc)
+  expect_equal(
+    sort(c(parsed$limits, parsed$breaks)),
+    breaks
+  )
 })
 
 # Visual tests ------------------------------------------------------------
@@ -750,14 +793,14 @@ test_that("logticks look as they should", {
     guides(
       x = guide_axis_logticks(
         title = "Pseudo-logticks with 1 as smallest tick",
-        negative_small = 1
+        negative.small = 1
       ),
       y = guide_axis_logticks(
         title = "Inverted logticks with swapped tick lengths",
         long = 0.75, short = 2.25
       ),
       x.sec = guide_axis_logticks(
-        negative_small = 0.1,
+        negative.small = 0.1,
         title = "Negative length pseudo-logticks with 0.1 as smallest tick"
       ),
       y.sec = guide_axis_logticks(
@@ -1228,5 +1271,25 @@ test_that("old S3 guides can be implemented", {
         geom_point() +
         guides(x = "circle")
     )
+  )
+})
+
+test_that("guide_custom can be drawn and styled", {
+
+  p <- ggplot() + guides(custom = guide_custom(
+    circleGrob(r = unit(1, "cm")),
+    title = "custom guide"
+  ))
+
+  expect_doppelganger(
+    "stylised guide_custom",
+    p + theme(legend.background = element_rect(fill = "grey50"),
+              legend.title.position = "left",
+              legend.title = element_text(angle = 90, hjust = 0.5))
+  )
+
+  expect_doppelganger(
+    "guide_custom with void theme",
+    p + theme_void()
   )
 })

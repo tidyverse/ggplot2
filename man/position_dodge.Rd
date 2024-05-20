@@ -5,7 +5,7 @@
 \alias{position_dodge2}
 \title{Dodge overlapping objects side-to-side}
 \usage{
-position_dodge(width = NULL, preserve = "total")
+position_dodge(width = NULL, preserve = "total", orientation = "x")
 
 position_dodge2(
   width = NULL,
@@ -21,6 +21,10 @@ geoms. See the examples.}
 
 \item{preserve}{Should dodging preserve the \code{"total"} width of all elements
 at a position, or the width of a \code{"single"} element?}
+
+\item{orientation}{Fallback orientation when the layer or the data does not
+indicate an explicit orientation, like \code{geom_point()}. Can be \code{"x"}
+(default) or \code{"y"}.}
 
 \item{padding}{Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.}

@@ -105,7 +105,9 @@ of the 4 categories below are ignored.
 value and apply to the layer as a whole. For example, \code{colour = "red"}
 or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
 section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}.
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
 \item When constructing a layer using
 a \verb{stat_*()} function, the \code{...} argument can be used to pass on
 parameters to the \code{geom} part of the layer. An example of this is
@@ -145,9 +147,8 @@ stories in your data.
 The bin width of a date variable is the number of days in each time; the
 bin width of a time variable is the number of seconds.}
 
-\item{breaks}{Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}.}
+\item{breaks}{Alternatively, you can supply a numeric vector giving the bin
+boundaries. Overrides \code{binwidth} and \code{bins}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

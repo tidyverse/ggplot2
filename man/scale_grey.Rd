@@ -56,12 +56,11 @@ notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
-that should be used for error messages associated with this scale.}
     \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
@@ -75,14 +74,6 @@ notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
-    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
-to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
-    \item{\code{position}}{For position scales, The position of the axis.
-\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
     \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}

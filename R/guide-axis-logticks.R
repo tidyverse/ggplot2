@@ -10,19 +10,20 @@ NULL
 #'   the (relative) length of the long, middle and short ticks. Numeric values
 #'   are interpreted as [rel()] objects. The [rel()] values are used to multiply
 #'   values of the `axis.ticks.length` theme setting.
-#' @param prescale_base Base of logarithm used to transform data manually. The
+#' @param prescale.base Base of logarithm used to transform data manually. The
 #'   default, `NULL`, will use the scale transformation to calculate positions.
-#'   Only set `prescale_base` if the data has already been log-transformed.
+#'   Only set `prescale.base` if the data has already been log-transformed.
 #'   When using a log-transform in the position scale or in `coord_trans()`,
 #'   keep the default `NULL` argument.
-#' @param negative_small When the scale limits include 0 or negative numbers,
+#' @param negative.small When the scale limits include 0 or negative numbers,
 #'   what should be the smallest absolute value that is marked with a tick?
-#' @param short_theme A theme [element][element_line()] for customising the
+#' @param short.theme A theme [element][element_line()] for customising the
 #'   display of the shortest ticks. Must be a line or blank element, and
 #'   it inherits from the `axis.minor.ticks` setting for the relevant position.
 #' @param expanded Whether the ticks should cover the range after scale
 #'   expansion (`TRUE`, default), or be restricted to the scale limits
 #'   (`FALSE`).
+#' @param prescale_base,negative_small,short_theme `r lifecycle::badge("deprecated")`
 #' @inheritParams guide_axis
 #' @inheritDotParams guide_axis -minor.ticks
 #'
@@ -41,12 +42,12 @@ NULL
 #' p + coord_trans(x = "log10", y = "log10") +
 #'   guides(x = "axis_logticks", y = "axis_logticks")
 #'
-#' # When data is transformed manually, one should provide `prescale_base`
+#' # When data is transformed manually, one should provide `prescale.base`
 #' # Keep in mind that this axis uses log10 space for placement, not log2
 #' p + aes(x = log2(bodywt), y = log10(brainwt)) +
 #'   guides(
-#'     x = guide_axis_logticks(prescale_base = 2),
-#'     y = guide_axis_logticks(prescale_base = 10)
+#'     x = guide_axis_logticks(prescale.base = 2),
+#'     y = guide_axis_logticks(prescale.base = 10)
 #'   )
 #'
 #' # A plot with both positive and negative extremes, pseudo-log transformed
@@ -61,20 +62,42 @@ NULL
 #' # The log ticks are mirrored when 0 is included
 #' p2 + guides(x = "axis_logticks")
 #'
-#' # To control the tick density around 0, one can set `negative_small`
-#' p2 + guides(x = guide_axis_logticks(negative_small = 1))
+#' # To control the tick density around 0, one can set `negative.small`
+#' p2 + guides(x = guide_axis_logticks(negative.small = 1))
 guide_axis_logticks <- function(
   long  = 2.25,
   mid   = 1.5,
   short = 0.75,
-  prescale_base = NULL,
-  negative_small = 0.1,
-  short_theme = element_line(),
+  prescale.base = NULL,
+  negative.small = 0.1,
+  short.theme = element_line(),
   expanded = TRUE,
   cap = "none",
   theme = NULL,
+  prescale_base = deprecated(),
+  negative_small = deprecated(),
+  short_theme = deprecated(),
   ...
 ) {
+  if (lifecycle::is_present(prescale_base)) {
+    deprecate_warn0(
+      "3.5.1", "guide_axis_logticks(prescale_base)", "guide_axis_logticks(prescale.base)"
+    )
+    prescale.base <- prescale_base
+  }
+  if (lifecycle::is_present(negative_small)) {
+    deprecate_warn0(
+      "3.5.1", "guide_axis_logticks(negative_small)", "guide_axis_logticks(negative.small)"
+    )
+    negative.small <- negative_small
+  }
+  if (lifecycle::is_present(short_theme)) {
+    deprecate_warn0(
+      "3.5.1", "guide_axis_logticks(short_theme)", "guide_axis_logticks(short.theme)"
+    )
+    short.theme <- short_theme
+  }
+
   if (is.logical(cap)) {
     check_bool(cap)
     cap <- if (cap) "both" else "none"
@@ -91,24 +114,24 @@ guide_axis_logticks <- function(
   check_object(mid,   check_fun, what)
   check_object(short, check_fun, what)
   check_number_decimal(
-    negative_small, min = 1e-100, # minimal domain of scales::log_trans
+    negative.small, min = 1e-100, # minimal domain of scales::log_trans
     allow_infinite = FALSE,
     allow_null = TRUE
   )
   check_bool(expanded)
-  check_inherits(short_theme, c("element_blank", "element_line"))
+  check_inherits(short.theme, c("element_blank", "element_line"))
 
   new_guide(
     available_aes  = c("x", "y"),
-    prescale_base  = prescale_base,
-    negative_small = negative_small,
+    prescale_base  = prescale.base,
+    negative_small = negative.small,
     expanded       = expanded,
     long  = long,
     mid   = mid,
     short = short,
     cap   = cap,
     minor.ticks = TRUE,
-    short_theme = short_theme,
+    short_theme = short.theme,
     theme = theme,
     ...,
     super = GuideAxisLogticks
@@ -152,7 +175,7 @@ GuideAxisLogticks <- ggproto(
       trans_name <- scale$get_transformation()$name
       if (trans_name != "identity") {
         cli::cli_warn(paste0(
-          "The {.arg prescale_base} argument will override the scale's ",
+          "The {.arg prescale.base} argument will override the scale's ",
           "{.field {trans_name}} transformation in log-tick positioning."
         ))
       }

@@ -162,6 +162,16 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    guide_names <- intersect(
+      names(guides$guides),
+      c("x", "x.sec", "y", "y.sec", "r", "r.sec", "theta", "theta.sec")
+    )
+    if (length(guide_names) > 0) {
+      cli::cli_warn(
+        "{.fn {snake_class(self)}} cannot render {cli::qty(guide_names)} \\
+        guide{?s} for the aesthetic{?s}: {.and {.field {guide_names}}}."
+      )
+    }
     panel_params
   },
 

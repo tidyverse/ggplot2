@@ -109,10 +109,11 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
+    
     data$width <- data$width %||% params$width %||%
-      stats::ave(data$x, data$PANEL, FUN = function(x) resolution(x, FALSE))
+      stats::ave(data$x, data$PANEL, FUN = function(x) resolution(x, FALSE, TRUE))
     data$height <- data$height %||% params$height %||%
-      stats::ave(data$y, data$PANEL, FUN = function(y) resolution(y, FALSE))
+      stats::ave(data$y, data$PANEL, FUN = function(y) resolution(y, FALSE, TRUE))
 
     transform(data,
       xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
