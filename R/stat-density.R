@@ -148,10 +148,23 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   bw <- precompute_bw(x, bw)
   # Decide whether to use boundary correction
   if (any(is.finite(bounds))) {
-    dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
-                           kernel = kernel, n = n)
+    # To prevent discontinuities, we widen the range before calling the
+    # unbounded estimator (#5641).
+    bounds   <- sort(bounds)
+    range    <- range(from, to)
+    width    <- diff(range)
+    range[1] <- range[1] - width * as.numeric(is.finite(bounds[1]))
+    range[2] <- range[2] + width * as.numeric(is.finite(bounds[2]))
+    n <- n * (sum(is.finite(bounds)) + 1)
 
-    dens <- reflect_density(dens = dens, bounds = bounds, from = from, to = to)
+    dens <- stats::density(
+      x, weights = w, bw = bw, adjust = adjust,
+      kernel = kernel, n = n, from = range[1], to = range[2]
+    )
+    dens <- reflect_density(
+      dens = dens, bounds = bounds,
+      from = range[1], to = range[2]
+    )
   } else {
     dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
                            kernel = kernel, n = n, from = from, to = to)

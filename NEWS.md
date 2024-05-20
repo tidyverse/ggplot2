@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The bounded density option in `stat_density()` uses a wider range to
+  prevent discontinuities (#5641).
 * `geom_raster()` now falls back to rendering as `geom_rect()` when coordinates
   are not Cartesian (#5503).
 * `stat_ecdf()` now has an optional `weight` aesthetic (@teunbrand, #5058).
