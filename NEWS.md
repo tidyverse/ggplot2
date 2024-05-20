@@ -3,7 +3,6 @@
 * Discrete scales now support `minor_breaks`. This may only make sense in
   discrete position scales, where it affects the placement of minor ticks
   and minor gridlines (#5434).
-* Fixed performance loss when the `.data` pronoun is used in `aes()` (#5730).
 * Discrete position scales now expose the `palette` argument, which can be used 
   to customise spacings between levels (@teunbrand, #5770).
 * The default `se` parameter in layers with `geom = "smooth"` will be `TRUE` 
