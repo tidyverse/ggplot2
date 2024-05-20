@@ -137,7 +137,7 @@ expand_limits_scale <- function(scale, expand = expansion(0, 0), limits = waiver
   if (scale$is_discrete()) {
     coord_limits <- coord_limits %||% c(NA_real_, NA_real_)
     expand_limits_discrete(
-      limits,
+      scale$map(limits),
       expand,
       coord_limits,
       range_continuous = scale$range_c$range
@@ -201,14 +201,17 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
 expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
                                          coord_limits = c(NA, NA), trans = transform_identity(),
                                          range_continuous = NULL) {
-  if (is.discrete(limits)) {
-    n_discrete_limits <- length(limits)
-  } else {
-    n_discrete_limits <- 0
+  discrete_limits <- NULL
+  if (length(limits) > 0) {
+    if (is.discrete(limits)) {
+      discrete_limits <- c(1, length(limits)) # for backward compatibility
+    } else {
+      discrete_limits <- range(limits)
+    }
   }
 
   is_empty <- is.null(limits) && is.null(range_continuous)
-  is_only_continuous <- n_discrete_limits == 0
+  is_only_continuous <- is.null(discrete_limits)
   is_only_discrete <- is.null(range_continuous)
 
   if (is_empty) {
@@ -216,10 +219,10 @@ expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
   } else if (is_only_continuous) {
     expand_limits_continuous_trans(range_continuous, expand, coord_limits, trans)
   } else if (is_only_discrete) {
-    expand_limits_continuous_trans(c(1, n_discrete_limits), expand, coord_limits, trans)
+    expand_limits_continuous_trans(discrete_limits, expand, coord_limits, trans)
   } else {
     # continuous and discrete
-    limit_info_discrete <- expand_limits_continuous_trans(c(1, n_discrete_limits), expand, coord_limits, trans)
+    limit_info_discrete <- expand_limits_continuous_trans(discrete_limits, expand, coord_limits, trans)
 
     # don't expand continuous range if there is also a discrete range
     limit_info_continuous <- expand_limits_continuous_trans(
