@@ -4,13 +4,16 @@
 \alias{resolution}
 \title{Compute the "resolution" of a numeric vector}
 \usage{
-resolution(x, zero = TRUE)
+resolution(x, zero = TRUE, discrete = FALSE)
 }
 \arguments{
 \item{x}{numeric vector}
 
 \item{zero}{should a zero value be automatically included in the
 computation of resolution}
+
+\item{discrete}{should vectors mapped with a discrete scale be treated as
+having a resolution of 1?}
 }
 \description{
 The resolution is the smallest non-zero distance between adjacent

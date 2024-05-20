@@ -8,17 +8,21 @@
 scale_x_discrete(
   name = waiver(),
   ...,
+  palette = seq_len,
   expand = waiver(),
   guide = waiver(),
-  position = "bottom"
+  position = "bottom",
+  sec.axis = waiver()
 )
 
 scale_y_discrete(
   name = waiver(),
   ...,
+  palette = seq_len,
   expand = waiver(),
   guide = waiver(),
-  position = "left"
+  position = "left",
+  sec.axis = waiver()
 )
 }
 \arguments{
@@ -30,9 +34,6 @@ omitted.}
 \item{...}{
   Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
   \describe{
-    \item{\code{palette}}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
@@ -77,6 +78,10 @@ notation.
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
+\item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the numerical values
+that they should take.}
+
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
@@ -89,6 +94,8 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+
+\item{sec.axis}{\code{\link[=dup_axis]{dup_axis()}} is used to specify a secondary axis.}
 }
 \description{
 \code{scale_x_discrete()} and \code{scale_y_discrete()} are used to set the values for

@@ -65,7 +65,9 @@ Coord <- ggproto("Coord",
     labels
   },
 
-  render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
+  render_fg = function(panel_params, theme) {
+    element_render(theme, "panel.border", fill = NA)
+  },
 
   render_bg = function(self, panel_params, theme) {
     cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_bg} method.")

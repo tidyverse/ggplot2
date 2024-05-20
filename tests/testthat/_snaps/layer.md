@@ -87,7 +87,7 @@
 # layer warns for constant aesthetics
 
     All aesthetics have length 1, but the data has 32 rows.
-    i Did you mean to use `annotate()`?
+    i Please consider using `annotate()` or provide this layer with data containing a single row.
 
 # layer_data returns a data.frame
 
