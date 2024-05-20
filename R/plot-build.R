@@ -267,10 +267,8 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
   # Margins
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[2])
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
+  plot_margin <- calc_element("plot.margin", theme)
+  plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
   if (inherits(theme$plot.background, "element")) {
     plot_table <- gtable_add_grob(plot_table,
@@ -449,7 +447,7 @@ table_add_legends <- function(table, legends, theme) {
   empty <- vapply(legends, is.zero, logical(1))
   widths[!empty]  <- lapply(legends[!empty], gtable_width)
   heights[!empty] <- lapply(legends[!empty], gtable_height)
-  spacing <- theme$legend.box.spacing %||% unit(0.2, "cm")
+  spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
 
   # If legend is missing, set spacing to zero for that legend
   zero    <- unit(0, "pt")

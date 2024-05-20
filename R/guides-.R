@@ -608,7 +608,7 @@ Guides <- ggproto(
     box_xjust <- box_just[1]
     box_yjust <- box_just[2]
 
-    margin <- theme$legend.box.margin %||% margin()
+    margin <- calc_element("legend.box.margin", theme) %||% margin()
 
     # setting that is different for vertical and horizontal guide-boxes.
     if (identical(theme$legend.box, "horizontal")) {

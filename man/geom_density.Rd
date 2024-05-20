@@ -80,7 +80,9 @@ of the 4 categories below are ignored.
 value and apply to the layer as a whole. For example, \code{colour = "red"}
 or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
 section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}.
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
 \item When constructing a layer using
 a \verb{stat_*()} function, the \code{...} argument can be used to pass on
 parameters to the \code{geom} part of the layer. An example of this is
@@ -186,6 +188,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \itemize{
 \item \code{after_stat(density)}\cr density estimate.
 \item \code{after_stat(count)}\cr density * number of points - useful for stacked density plots.
+\item \code{after_stat(wdensity)}\cr density * sum of weights. In absence of weights, the same as \code{count}.
 \item \code{after_stat(scaled)}\cr density estimate, scaled to maximum of 1.
 \item \code{after_stat(n)}\cr number of points.
 \item \code{after_stat(ndensity)}\cr alias for \code{scaled}, to mirror the syntax of \code{\link[=stat_bin]{stat_bin()}}.
