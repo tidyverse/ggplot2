@@ -623,12 +623,14 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
 
     if (!(is.waive(scale_x$breaks) && is.null(scale_x$n.breaks))) {
       x_breaks <- scale_x$get_breaks(limits = bbox[c(1, 3)])
-      x_breaks <- len0_null(x_breaks[is.finite(x_breaks)])
+      finite <- is.finite(x_breaks)
+      x_breaks <- if (any(finite)) x_breaks[finite] else NULL
     }
 
     if (!(is.waive(scale_y$breaks) && is.null(scale_y$n.breaks))) {
       y_breaks <- scale_y$get_breaks(limits = bbox[c(2, 4)])
-      y_breaks <- len0_null(y_breaks[is.finite(y_breaks)])
+      finite <- is.finite(y_breaks)
+      y_breaks <- if (any(finite)) y_breaks[finite] else NULL
     }
   }
 
