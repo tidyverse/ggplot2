@@ -27,7 +27,7 @@
 #' `geom_point(alpha = 0.05)`) or very small (e.g.
 #' `geom_point(shape = ".")`).
 #'
-#' @eval rd_aesthetics("geom", "point")
+#' @eval rd_aesthetics("geom", "point", "The `fill` aesthetic only applies to shapes 21-25.")
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
@@ -40,7 +40,9 @@
 #'     value and apply to the layer as a whole. For example, `colour = "red"`
 #'     or `linewidth = 3`. The geom's documentation has an **Aesthetics**
 #'     section that lists the available options. The 'required' aesthetics
-#'     cannot be passed on to the `params`.
+#'     cannot be passed on to the `params`. Please note that while passing
+#'     unmapped aesthetics as vectors is technically possible, the order and
+#'     required length is not guaranteed to be parallel to the input data.
 #'   * When constructing a layer using
 #'     a `stat_*()` function, the `...` argument can be used to pass on
 #'     parameters to the `geom` part of the layer. An example of this is
@@ -143,18 +145,15 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     }
 
     coords <- coord$transform(data, panel_params)
-    stroke_size <- coords$stroke
-    stroke_size[is.na(stroke_size)] <- 0
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
         pch = coords$shape,
-        gp = gpar(
+        gp = ggpar(
           col = alpha(coords$colour, coords$alpha),
           fill = fill_alpha(coords$fill, coords$alpha),
-          # Stroke is added around the outside of the point
-          fontsize = coords$size * .pt + stroke_size * .stroke / 2,
-          lwd = coords$stroke * .stroke / 2
+          pointsize = coords$size,
+          stroke = coords$stroke
         )
       )
     )

@@ -284,7 +284,7 @@ This stat illustrates another important point. If we want to make this stat usab
 #|  the kernel density estimate of the displacement."
 StatDensityCommon <- ggproto("StatDensity2", Stat, 
   required_aes = "x",
-  default_aes = aes(y = stat(density)),
+  default_aes = aes(y = after_stat(density)),
 
   compute_group = function(data, scales, bandwidth = 1) {
     d <- density(data$x, bw = bandwidth)
@@ -292,7 +292,7 @@ StatDensityCommon <- ggproto("StatDensity2", Stat,
   }  
 )
 
-ggplot(mpg, aes(displ, drv, colour = stat(density))) + 
+ggplot(mpg, aes(displ, drv, colour = after_stat(density))) + 
   stat_density_common(bandwidth = 1, geom = "point")
 ```
 
@@ -322,7 +322,7 @@ This is because each density is computed independently, and the estimated `x`s d
 #| )
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
-  default_aes = aes(y = stat(density)),
+  default_aes = aes(y = after_stat(density)),
 
   setup_params = function(data, params) {
     min <- min(data$x) - 3 * params$bandwidth
@@ -344,7 +344,7 @@ StatDensityCommon <- ggproto("StatDensityCommon", Stat,
 
 ggplot(mpg, aes(displ, fill = drv)) + 
   stat_density_common(bandwidth = 1, geom = "area", position = "stack")
-ggplot(mpg, aes(displ, drv, fill = stat(density))) + 
+ggplot(mpg, aes(displ, drv, fill = after_stat(density))) + 
   stat_density_common(bandwidth = 1, geom = "raster")
 ```
 
@@ -724,11 +724,7 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
     panel_table <- gtable::gtable_matrix("layout", panels, 
       widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
     # Add spacing according to theme
-    panel_spacing <- if (is.null(theme$panel.spacing.x)) {
-      theme$panel.spacing
-    } else {
-      theme$panel.spacing.x
-    }
+    panel_spacing <- calc_element("panel.spacing.x", theme)
     panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
   } else {
     panels <- matrix(panels, ncol = 1)
@@ -909,21 +905,13 @@ FacetTrans <- ggproto("FacetTrans", Facet,
       panel_table <- gtable::gtable_matrix("layout", panels, 
         widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
       # Add spacing according to theme
-      panel_spacing <- if (is.null(theme$panel.spacing.x)) {
-        theme$panel.spacing
-      } else {
-        theme$panel.spacing.x
-      }
+      panel_spacing <- calc_element("panel.spacing.x", theme)
       panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
     } else {
       panels <- matrix(panels, ncol = 1)
       panel_table <- gtable::gtable_matrix("layout", panels, 
         widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on")
-      panel_spacing <- if (is.null(theme$panel.spacing.y)) {
-        theme$panel.spacing
-      } else {
-        theme$panel.spacing.y
-      }
+      panel_spacing <- calc_element("panel.spacing.y", theme)
       panel_table <- gtable::gtable_add_row_space(panel_table, panel_spacing)
     }
     # Name panel grobs so they can be found later
@@ -1054,11 +1042,7 @@ FacetBootstrap <- ggproto("FacetBootstrap", FacetWrap,
     dims <- wrap_dims(params$n, params$nrow, params$ncol)
     layout <- data.frame(PANEL = factor(id))
 
-    if (params$as.table) {
-      layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
-    } else {
-      layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
-    }
+    layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
     layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
 
     layout <- layout[order(layout$PANEL), , drop = FALSE]

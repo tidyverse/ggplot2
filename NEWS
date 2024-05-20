@@ -28,7 +28,7 @@ NEW FEATURES
   `example(position_jitterdodge)` for a potential usage. (@kevinushey, #932)
 
 * Allow specifying only one of the limits in a scale and use the automatic
-  calculation of the other limit by passing NA to to the limit function,
+  calculation of the other limit by passing NA to the limit function,
   `xlim()` or `ylim()` (@jimhester, #557).
 
 * Allow to use brewer palettes for continuous scales, through the new

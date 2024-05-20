@@ -13,7 +13,7 @@
 #' Munsell colour system.
 #'
 #' @inheritParams scale_colour_gradient
-#' @inheritDotParams binned_scale -aesthetics -scale_name -palette -na.value -guide -rescaler
+#' @inheritDotParams binned_scale -aesthetics -scale_name -palette -na.value -guide -rescaler -expand -position
 #'
 #' @seealso
 #' [scales::pal_seq_gradient()] for details on underlying palette,

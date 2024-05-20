@@ -144,10 +144,10 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
     data <- data[data_rows, , drop = FALSE]
 
     polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
-      gp = gpar(
+      gp = ggpar(
         col = data$colour,
         fill = fill_alpha(data$fill, data$alpha),
-        lwd = data$linewidth * .pt,
+        lwd = data$linewidth,
         lineend = lineend,
         linejoin = linejoin,
         linemitre = linemitre
