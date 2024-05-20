@@ -49,6 +49,10 @@
   per layer (@teunbrand, #5740).
 * The `fill` of the `panel.border` theme setting is ignored and forced to be
   transparent (#5782).
+* `stat_align()` skips computation when there is only 1 group and therefore
+  alignment is not necessary (#5788).
+* `position_stack()` skips computation when all `x` values are unique and 
+  therefore stacking is not necessary (#5788).
 
 # ggplot2 3.5.1
 
