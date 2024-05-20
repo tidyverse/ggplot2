@@ -12,6 +12,8 @@
   has a `drop` argument to keep or discard groups with 1 observation.
 * Aesthetics listed in `geom_*()` and `stat_*()` layers now point to relevant
   documentation (@teunbrand, #5123).
+* A function can be provided to `labs(alt = <...>)` that takes the plot as input
+  and returns text as output (@teunbrand, #4795).
 * Position scales combined with `coord_sf()` can now use functions in the 
  `breaks` argument. In addition, `n.breaks` works as intended and 
  `breaks = NULL` removes grid lines and axes (@teunbrand, #4622).
