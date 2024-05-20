@@ -330,11 +330,13 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 GeomStep <- ggproto("GeomStep", GeomPath,
   draw_panel = function(data, panel_params, coord,
                         lineend = "butt", linejoin = "round", linemitre = 10,
+                        arrow = NULL, arrow.fill = NULL,
                         direction = "hv") {
     data <- dapply(data, "group", stairstep, direction = direction)
     GeomPath$draw_panel(
       data, panel_params, coord,
-      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre,
+      arrow = arrow, arrow.fill = arrow.fill
     )
   }
 )
