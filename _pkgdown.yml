@@ -244,6 +244,7 @@ reference:
   - autolayer
   - fortify
   - map_data
+  - automatic_plotting
 
 
 articles:

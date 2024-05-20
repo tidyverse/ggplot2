@@ -14,9 +14,11 @@ coord_radial(
   expand = TRUE,
   direction = 1,
   clip = "off",
-  r_axis_inside = NULL,
-  rotate_angle = FALSE,
-  inner.radius = 0
+  r.axis.inside = NULL,
+  rotate.angle = FALSE,
+  inner.radius = 0,
+  r_axis_inside = deprecated(),
+  rotate_angle = deprecated()
 )
 }
 \arguments{
@@ -39,17 +41,19 @@ for partial polar coordinates. The default, \code{NULL}, is set to
 the limits to prevent overlap between data and axes. If \code{FALSE}, limits
 are taken directly from the scale.}
 
-\item{r_axis_inside}{If \code{TRUE}, places the radius axis inside the
+\item{r.axis.inside}{If \code{TRUE}, places the radius axis inside the
 panel. If \code{FALSE}, places the radius axis next to the panel. The default,
 \code{NULL}, places the radius axis outside if the \code{start} and \code{end} arguments
 form a full circle.}
 
-\item{rotate_angle}{If \code{TRUE}, transforms the \code{angle} aesthetic in data
+\item{rotate.angle}{If \code{TRUE}, transforms the \code{angle} aesthetic in data
 in accordance with the computed \code{theta} position. If \code{FALSE} (default),
 no such transformation is performed. Can be useful to rotate text geoms in
 alignment with the coordinates.}
 
 \item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a inner.radius hole.}
+
+\item{r_axis_inside, rotate_angle}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
 The polar coordinate system is most commonly used for pie charts, which

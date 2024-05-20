@@ -235,6 +235,24 @@ CoordMap <- ggproto("CoordMap", Coord,
     details
   },
 
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    guide_names <- intersect(
+      names(guides$guides),
+      c("x", "x.sec", "y", "y.sec", "r", "r.sec", "theta", "theta.sec")
+    )
+    if (length(guide_names) > 0) {
+      cli::cli_warn(
+        "{.fn {snake_class(self)}} cannot render {cli::qty(guide_names)} \\
+        guide{?s} for the aesthetic{?s}: {.and {.field {guide_names}}}."
+      )
+    }
+    panel_params
+  },
+
+  train_panel_guides = function(self, panel_params, layers, params = list()) {
+    panel_params
+  },
+
   render_bg = function(self, panel_params, theme) {
     xrange <- expand_range(panel_params$x.range, 0.2)
     yrange <- expand_range(panel_params$y.range, 0.2)

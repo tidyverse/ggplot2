@@ -33,6 +33,20 @@ be replaced by swapping the x and y aesthetics, or optionally setting the
 the \code{orientation} setting, and converting the display of y conditional on x,
 to x conditional on y.
 }
+\details{
+Coordinate systems interact with many parts of the plotting system. You can
+expect the following for \code{coord_flip()}:
+\itemize{
+\item It does \emph{not} change the facet order in \code{facet_grid()} or \code{facet_wrap()}.
+\item The \verb{scale_x_*()} functions apply to the vertical direction,
+whereas \verb{scale_y_*()} functions apply to the horizontal direction. The
+same holds for the \code{xlim} and \code{ylim} arguments of \code{coord_flip()} and the
+\code{xlim()} and \code{ylim()} functions.
+\item The x-axis theme settings, such as \code{axis.line.x} apply to the horizontal
+direction. The y-axis theme settings, such as \code{axis.text.y} apply to the
+vertical direction.
+}
+}
 \examples{
 # The preferred method of creating horizontal instead of vertical boxplots
 ggplot(diamonds, aes(price, cut)) +

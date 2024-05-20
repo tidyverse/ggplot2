@@ -10,10 +10,11 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @inheritDotParams discrete_scale
+#' @inheritDotParams discrete_scale -scale_name
 #' @inheritParams discrete_scale
 #' @param palette A function that takes the limits as input and provides
 #'   numerical values as output.
+#' @param sec.axis [dup_axis()] is used to specify a secondary axis.
 #' @rdname scale_discrete
 #' @family position scales
 #' @seealso
@@ -66,8 +67,8 @@
 #'   scale_x_discrete(labels = abbreviate)
 #' }
 scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
-                             expand = waiver(),
-                             guide = waiver(), position = "bottom") {
+                             expand = waiver(), guide = waiver(),
+                             position = "bottom", sec.axis = waiver()) {
   sc <- discrete_scale(
     aesthetics = c("x", "xmin", "xmax", "xend"), name = name,
     palette = palette, ...,
@@ -76,13 +77,13 @@ scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
   )
 
   sc$range_c <- ContinuousRange$new()
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 #' @rdname scale_discrete
 #' @export
 scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
-                             expand = waiver(),
-                             guide = waiver(), position = "left") {
+                             expand = waiver(), guide = waiver(),
+                             position = "left", sec.axis = waiver()) {
   sc <- discrete_scale(
     aesthetics = c("y", "ymin", "ymax", "yend"), name = name,
     palette = palette, ...,
@@ -91,7 +92,7 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
   )
 
   sc$range_c <- ContinuousRange$new()
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 
 # The discrete position scale maintains two separate ranges - one for
@@ -163,6 +164,14 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
     expand_limits_scale(self, expand, limits)
+  },
+
+  sec_name = function(self) {
+    if (is.waive(self$secondary.axis)) {
+      waiver()
+    } else {
+      self$secondary.axis$name
+    }
   },
 
   clone = function(self) {
