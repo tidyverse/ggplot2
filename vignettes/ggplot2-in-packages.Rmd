@@ -58,8 +58,8 @@ To create any graphic using ggplot2 you will probably need to use `aes()` at lea
 ```{r}
 mpg_drv_summary <- function() {
   ggplot(ggplot2::mpg) + 
-    geom_bar(aes(x = drv)) + 
-    coord_flip()
+    geom_bar(aes(y = drv)) + 
+    facet_wrap(vars(year))
 }
 ```
 
@@ -81,33 +81,33 @@ If you already know the mapping in advance (like the above example) you should u
 ```{r}
 mpg_drv_summary <- function() {
   ggplot(ggplot2::mpg) + 
-    geom_bar(aes(x = .data$drv)) + 
-    coord_flip()
+    geom_bar(aes(y = .data$drv)) +
+    facet_wrap(vars(.data$year))
 }
 ```
 
 If you have the column name as a character vector (e.g., `col = "drv"`), use `.data[[col]]`:
 
 ```{r}
-col_summary <- function(df, col) {
+col_summary <- function(df, col, by) {
   ggplot(df) + 
-    geom_bar(aes(x = .data[[col]])) + 
-    coord_flip()
+    geom_bar(aes(y = .data[[col]])) + 
+    facet_wrap(vars(.data[[by]]))
 }
 
-col_summary(mpg, "drv")
+col_summary(mpg, "drv", "year")
 ```
 
 If the column name or expression is supplied by the user, you can also pass it to `aes()` or `vars()` using `{{ col }}`. This tidy eval operator captures the expression supplied by the user and forwards it to another tidy eval-enabled function such as `aes()` or `vars()`.
 
 ```{r, eval = (packageVersion("rlang") >= "0.3.4.9003")}
-col_summary <- function(df, col) {
+col_summary <- function(df, col, by) {
   ggplot(df) + 
-    geom_bar(aes(x = {{ col }})) + 
-    coord_flip()
+    geom_bar(aes(y = {{ col }})) + 
+    facet_wrap(vars({{ by }}))
 }
 
-col_summary(mpg, drv)
+col_summary(mpg, drv, year)
 ```
 
 To summarise:

@@ -48,7 +48,8 @@
 #' @param width Bar width. By default, set to 90% of the [resolution()] of the
 #'   data.
 #' @param geom,stat Override the default connection between `geom_bar()` and
-#'   `stat_count()`.
+#'   `stat_count()`. For more information about overriding these connections,
+#'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
@@ -145,7 +146,7 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (min(vapply(
-        split(data$x, data$PANEL),
+        split(data$x, data$PANEL, drop = TRUE),
         resolution, numeric(1), zero = FALSE
       )) * 0.9)
     data$just <- params$just %||% 0.5

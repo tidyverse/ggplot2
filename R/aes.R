@@ -430,7 +430,7 @@ alternative_aes_extract_usage <- function(x) {
 }
 
 extract_target_is_likely_data <- function(x, data, env) {
-  if (!is.name(x[[2]])) {
+  if (!is.name(x[[2]]) || identical(x[[2]], quote(.data))) {
     return(FALSE)
   }
 

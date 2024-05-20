@@ -12,6 +12,8 @@
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
 #'   means no. For details, please see [`coord_cartesian()`].
 #' @export
+#' @seealso
+#' The `r link_book("polar coordinates section", "coord#polar-coordinates-with-coord_polar")`
 #' @examples
 #' # NOTE: Use these plots with caution - polar coordinates has
 #' # major perceptual problems.  The main point of these examples is
@@ -160,6 +162,16 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    guide_names <- intersect(
+      names(guides$guides),
+      c("x", "x.sec", "y", "y.sec", "r", "r.sec", "theta", "theta.sec")
+    )
+    if (length(guide_names) > 0) {
+      cli::cli_warn(
+        "{.fn {snake_class(self)}} cannot render {cli::qty(guide_names)} \\
+        guide{?s} for the aesthetic{?s}: {.and {.field {guide_names}}}."
+      )
+    }
     panel_params
   },
 

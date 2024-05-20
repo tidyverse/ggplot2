@@ -98,6 +98,12 @@ test_that("coord_polar can have free scales in facets", {
   expect_equal(sc$y$get_limits(), c(0, 1))
 })
 
+test_that("coord_polar throws informative warning about guides", {
+  expect_snapshot_warning(
+    ggplot_build(ggplot() + coord_polar() + guides(theta = guide_axis()))
+  )
+})
+
 test_that("coord_radial warns about axes", {
 
   p <- ggplot(mtcars, aes(disp, mpg)) +
@@ -111,7 +117,7 @@ test_that("coord_radial warns about axes", {
   # If arc doesn't contain the top/bottom/left/right of a circle,
   # axis placement cannot be outside panel
   expect_snapshot_warning(ggplotGrob(
-    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r_axis_inside = FALSE)
+    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r.axis.inside = FALSE)
   ))
 
 })
@@ -121,6 +127,12 @@ test_that("bounding box calculations are sensible", {
   # Full cirle
   expect_equal(
     polar_bbox(arc = c(0, 2 * pi)),
+    list(x = c(0, 1), y = c(0, 1))
+  )
+
+  # Full offset cirle
+  expect_equal(
+    polar_bbox(arc = c(2 * pi, 4 * pi)),
     list(x = c(0, 1), y = c(0, 1))
   )
 
@@ -136,9 +148,9 @@ test_that("bounding box calculations are sensible", {
     list(x = c(0.45, 1), y = c(0.146446609, 0.853553391))
   )
 
-  # Top quarter of circle with donuthole
+  # Top quarter of circle with inner radius
   expect_equal(
-    polar_bbox(arc = c(-0.25 * pi, 0.25 * pi), donut = c(0.2, 0.4)),
+    polar_bbox(arc = c(-0.25 * pi, 0.25 * pi), inner_radius = c(0.2, 0.4)),
     list(x = c(0.146446609, 0.853553391), y = c(0.59142136, 1))
   )
 })
@@ -209,25 +221,32 @@ test_that("coord_radial() draws correctly", {
 
   # Theme to test for axis placement
   theme <- theme(
-    axis.line.x.bottom = element_line(colour = "tomato"),
-    axis.line.x.top    = element_line(colour = "limegreen"),
-    axis.line.y.left   = element_line(colour = "dodgerblue"),
-    axis.line.y.right  = element_line(colour = "orchid")
+    axis.line.theta = element_line(colour = "tomato"),
+    axis.line.r   = element_line(colour = "dodgerblue"),
+  )
+
+  sec_guides <- guides(
+    r.sec = guide_axis(
+      theme = theme(axis.line.r = element_line(colour = "orchid"))
+    ),
+    theta.sec = guide_axis_theta(
+      theme = theme(axis.line.theta = element_line(colour = "limegreen"))
+    )
   )
 
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point() +
     theme
 
-  expect_doppelganger("donut with all axes", {
-    p + coord_radial(donut = 0.3, r_axis_inside = FALSE) +
-      guides(r.sec = "axis", theta.sec = "axis_theta")
+  expect_doppelganger("inner.radius with all axes", {
+    p + coord_radial(inner.radius = 0.3, r.axis.inside = FALSE) +
+      sec_guides
   })
 
   expect_doppelganger("partial with all axes", {
-    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, donut = 0.3,
-                     r_axis_inside = TRUE, theta = "y") +
-      guides(r.sec = "axis", theta.sec = "axis_theta")
+    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, inner.radius = 0.3,
+                     r.axis.inside = TRUE, theta = "y") +
+      sec_guides
   })
 
   df <- data_frame0(
@@ -238,7 +257,7 @@ test_that("coord_radial() draws correctly", {
     geom_text(aes(y = "0 degrees"),  angle = 0) +
     geom_text(aes(y = "90 degrees"), angle = 90) +
     coord_radial(start = 0.5 * pi, end = 1.5 * pi,
-                 rotate_angle = TRUE) +
+                 rotate.angle = TRUE) +
     theme
 
   expect_doppelganger(
@@ -247,7 +266,7 @@ test_that("coord_radial() draws correctly", {
       geom_text(aes(y = "0 degrees"),  angle = 0) +
       geom_text(aes(y = "90 degrees"), angle = 90) +
       coord_radial(start = 0.5 * pi, end = 1.5 * pi,
-                   rotate_angle = TRUE, r_axis_inside = FALSE) +
+                   rotate.angle = TRUE, r.axis.inside = FALSE) +
       theme
   )
 })

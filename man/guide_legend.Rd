@@ -122,6 +122,8 @@ p + guides(col = guide_legend(reverse = TRUE))
 }
 }
 \seealso{
+The \href{https://ggplot2-book.org/scales-colour#sec-guide-legend}{legends section} of the online ggplot2 book.
+
 Other guides: 
 \code{\link{guide_bins}()},
 \code{\link{guide_colourbar}()},

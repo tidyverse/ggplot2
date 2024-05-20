@@ -187,14 +187,6 @@ element_render <- function(theme, element, ..., name = NULL) {
   ggname(paste(element, name, sep = "."), grob)
 }
 
-
-# Returns NULL if x is length 0
-len0_null <- function(x) {
-  if (length(x) == 0)  NULL
-  else                 x
-}
-
-
 #' Generate grid grob from theme element
 #'
 #' @param element Theme element, i.e. `element_rect` or similar.
@@ -220,8 +212,8 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   }
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd = len0_null(linewidth * .pt), col = colour, fill = fill, lty = linetype)
-  element_gp <- gpar(lwd = len0_null(element$linewidth * .pt), col = element$colour,
+  gp <- ggpar(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+  element_gp <- ggpar(lwd = element$linewidth, col = element$colour,
     fill = element$fill, lty = element$linetype)
 
   rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
@@ -244,10 +236,10 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   angle <- angle %||% element$angle %||% 0
 
   # The gp settings can override element_gp
-  gp <- gpar(fontsize = size, col = colour,
+  gp <- ggpar(fontsize = size, col = colour,
     fontfamily = family, fontface = face,
     lineheight = lineheight)
-  element_gp <- gpar(fontsize = element$size, col = element$colour,
+  element_gp <- ggpar(fontsize = element$size, col = element$colour,
     fontfamily = element$family, fontface = element$face,
     lineheight = element$lineheight)
 
@@ -269,13 +261,13 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   }
 
   # The gp settings can override element_gp
-  gp <- gpar(
+  gp <- ggpar(
     col = colour, fill = colour,
-    lwd = len0_null(linewidth * .pt), lty = linetype, lineend = lineend
+    lwd = linewidth, lty = linetype, lineend = lineend
   )
-  element_gp <- gpar(
+  element_gp <- ggpar(
     col = element$colour, fill = element$colour,
-    lwd = len0_null(element$linewidth * .pt), lty = element$linetype,
+    lwd = element$linewidth, lty = element$linetype,
     lineend = element$lineend
   )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
@@ -316,6 +308,8 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'   inheritance relationship of the theme elements. The element tree must be provided as
 #'   a list of named element definitions created with el_def().
 #' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
+#' @seealso
+#' The `r link_book("defining theme elements section", "extensions#sec-defining-theme-elements")`
 #' @examples
 #' # Let's assume a package `ggxyz` wants to provide an easy way to add annotations to
 #' # plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`
@@ -441,6 +435,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.line.y         = el_def("element_line", "axis.line"),
   axis.line.y.left    = el_def("element_line", "axis.line.y"),
   axis.line.y.right   = el_def("element_line", "axis.line.y"),
+  axis.line.theta     = el_def("element_line", "axis.line.x"),
+  axis.line.r         = el_def("element_line", "axis.line.y"),
 
   axis.text.x         = el_def("element_text", "axis.text"),
   axis.text.x.top     = el_def("element_text", "axis.text.x"),
@@ -448,6 +444,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.text.y         = el_def("element_text", "axis.text"),
   axis.text.y.left    = el_def("element_text", "axis.text.y"),
   axis.text.y.right   = el_def("element_text", "axis.text.y"),
+  axis.text.theta     = el_def("element_text", "axis.text.x"),
+  axis.text.r         = el_def("element_text", "axis.text.y"),
 
   axis.ticks.length   = el_def("unit"),
   axis.ticks.length.x = el_def(c("unit", "rel"), "axis.ticks.length"),
@@ -456,6 +454,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.ticks.length.y  = el_def(c("unit", "rel"), "axis.ticks.length"),
   axis.ticks.length.y.left = el_def(c("unit", "rel"), "axis.ticks.length.y"),
   axis.ticks.length.y.right = el_def(c("unit", "rel"), "axis.ticks.length.y"),
+  axis.ticks.length.theta = el_def(c("unit", "rel"), "axis.ticks.length.x"),
+  axis.ticks.length.r = el_def(c("unit", "rel"), "axis.ticks.length.y"),
 
   axis.ticks.x        = el_def("element_line", "axis.ticks"),
   axis.ticks.x.top    = el_def("element_line", "axis.ticks.x"),
@@ -463,6 +463,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.ticks.y        = el_def("element_line", "axis.ticks"),
   axis.ticks.y.left   = el_def("element_line", "axis.ticks.y"),
   axis.ticks.y.right  = el_def("element_line", "axis.ticks.y"),
+  axis.ticks.theta    = el_def("element_line", "axis.ticks.x"),
+  axis.ticks.r        = el_def("element_line", "axis.ticks.y"),
 
   axis.title.x        = el_def("element_text", "axis.title"),
   axis.title.x.top    = el_def("element_text", "axis.title.x"),
@@ -475,6 +477,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.minor.ticks.x.bottom = el_def("element_line", "axis.ticks.x.bottom"),
   axis.minor.ticks.y.left   = el_def("element_line", "axis.ticks.y.left"),
   axis.minor.ticks.y.right  = el_def("element_line", "axis.ticks.y.right"),
+  axis.minor.ticks.theta    = el_def("element_line", "axis.ticks.theta"),
+  axis.minor.ticks.r        = el_def("element_line", "axis.ticks.r"),
 
   axis.minor.ticks.length = el_def(c("unit", "rel")),
   axis.minor.ticks.length.x = el_def(c("unit", "rel"), "axis.minor.ticks.length"),
@@ -491,6 +495,12 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.minor.ticks.length.y.right = el_def(
     c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.y.right")
   ),
+  axis.minor.ticks.length.theta = el_def(
+    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.theta"),
+  ),
+  axis.minor.ticks.length.r = el_def(
+    c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.r")
+  ),
 
   legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("margin"),
@@ -506,7 +516,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.frame        = el_def("element_rect", "rect"),
   legend.axis.line    = el_def("element_line", "line"),
   legend.ticks        = el_def("element_line", "legend.axis.line"),
-  legend.ticks.length = el_def("unit"),
+  legend.ticks.length = el_def(c("rel", "unit"), "legend.key.size"),
   legend.text         = el_def("element_text", "text"),
   legend.text.position = el_def("character"),
   legend.title        = el_def("element_text", "title"),
@@ -602,7 +612,8 @@ validate_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    cli::cli_abort("The {.var {elname}} theme element is not defined in the element hierarchy.", call = call)
+    cli::cli_warn("The {.var {elname}} theme element is not defined in the element hierarchy.", call = call)
+    return()
   }
 
   # NULL values for elements are OK
