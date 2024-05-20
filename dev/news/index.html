@@ -86,7 +86,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p>The size of the <code><a href="../reference/draw_key.html">draw_key_polygon()</a></code> glyph now reflects the <code>linewidth</code> aesthetic (<a href="https://github.com/tidyverse/ggplot2/issues/4852" class="external-link">#4852</a>).</p></li>
+<ul><li><p>Fixed bug where binned guides would keep out-of-bounds breaks (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5870" class="external-link">#5870</a>).</p></li>
+<li><p>The size of the <code><a href="../reference/draw_key.html">draw_key_polygon()</a></code> glyph now reflects the <code>linewidth</code> aesthetic (<a href="https://github.com/tidyverse/ggplot2/issues/4852" class="external-link">#4852</a>).</p></li>
 <li><p>New function <code><a href="../reference/complete_theme.html">complete_theme()</a></code> to replicate how themes are handled during plot building (<a href="https://github.com/tidyverse/ggplot2/issues/5801" class="external-link">#5801</a>).</p></li>
 <li>
 <p>Special getter and setter functions have been renamed for consistency, allowing for better tab-completion with <code>get_*</code>- and <code>set_*</code>-prefixes. The old names remain available for backward compatibility (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5568" class="external-link">#5568</a>).</p>
@@ -137,6 +138,7 @@
 <li><p><code><a href="../reference/position_stack.html">position_stack()</a></code> skips computation when all <code>x</code> values are unique and therefore stacking is not necessary (<a href="https://github.com/tidyverse/ggplot2/issues/5788" class="external-link">#5788</a>).</p></li>
 <li><p>A new <code><a href="../reference/ggplot_build.html">ggplot_build()</a></code> S3 method for <ggplot_built> classes was added, which returns input unaltered (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5800" class="external-link">#5800</a>).</ggplot_built></p></li>
 <li><p><code>width</code> is implemented as aesthetic instead of parameter in <code><a href="../reference/geom_bar.html">geom_col()</a></code> and <code><a href="../reference/geom_bar.html">geom_bar()</a></code> (<a href="https://github.com/tidyverse/ggplot2/issues/3142" class="external-link">#3142</a>).</p></li>
+<li><p>Fix a bug in <code><a href="../reference/position_jitterdodge.html">position_jitterdodge()</a></code> where different jitters would be applied to different position aesthetics of the same axis (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5818" class="external-link">#5818</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.5.1" id="ggplot2-351">ggplot2 3.5.1<a class="anchor" aria-label="anchor" href="#ggplot2-351"></a></h2><p class="text-muted">CRAN release: 2024-04-23</p>
