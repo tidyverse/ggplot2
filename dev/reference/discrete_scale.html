@@ -97,6 +97,7 @@
 <span>  <span class="va">palette</span>,</span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  minor_breaks <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  labels <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  expand <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -141,6 +142,18 @@ omitted.</p></dd>
 <li><p>A function that takes the limits as input and returns breaks
 as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
+</ul></dd>
+
+
+<dt>minor_breaks</dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
+<li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (none for discrete, one minor break
+between each major break for continuous)</p></li>
+<li><p>A numeric vector of positions</p></li>
+<li><p>A function that given the limits returns a vector of minor breaks. Also
+accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.</p></li>
 </ul></dd>
 
 
