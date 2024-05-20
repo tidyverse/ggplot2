@@ -4,21 +4,25 @@
 
 ---
 
-    Theme element `text` must have class <element_text>
+    Theme element `text` must have class <element_text>.
 
 # incorrect theme specifications throw meaningful errors
 
-    Problem merging the `line` theme element
+    Can't merge the `line` theme element.
     Caused by error in `merge_element()`:
-    ! Only elements of the same class can be merged
+    ! Only elements of the same class can be merged.
 
 ---
 
-    Theme element `line` must have class <element_line>
+    Theme element `line` must have class <element_line>.
 
 ---
 
-    Theme element `test` has "NULL" property without default: fill, colour, linewidth, and linetype
+    Theme element `test` has `NULL` property without default: fill, colour, linewidth, and linetype.
+
+---
+
+    `new` must be a <theme> object, not the string "foo".
 
 # element tree can be modified
 
@@ -38,13 +42,18 @@
 
 # Theme elements are checked during build
 
-    `plot.title.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.title.position` must be one of "panel" or "plot", not "test".
 
 ---
 
-    `plot.caption.position` should be either "\"panel\"" or "\"plot\"".
+    `plot.caption.position` must be one of "panel" or "plot", not "test".
 
 ---
 
-    `plot.tag.position` should be a coordinate or one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright"
+    `plot.tag.position` must be one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright", not "test".
+    i Did you mean "left"?
+
+# Theme validation behaves as expected
+
+    The `aspect.ratio` theme element must be a <numeric/integer> object.
 

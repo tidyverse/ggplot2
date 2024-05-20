@@ -50,6 +50,8 @@ NULL
 #'     default values for aesthetics.
 #'   - `setup_data`: Converts width and height to xmin and xmax,
 #'     and ymin and ymax values. It can potentially set other values as well.
+#'
+#' See also the `r link_book("new geoms section", "extensions#sec-new-geoms")`
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -112,8 +114,8 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list(), modifiers = aes()) {
-    default_aes <- self$default_aes
+  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+    default_aes <- default_aes %||% self$default_aes
 
     # Inherit size as linewidth if no linewidth aesthetic and param exist
     if (self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)) {
@@ -126,6 +128,7 @@ Geom <- ggproto("Geom",
       deprecate_soft0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
       default_aes$linewidth <- default_aes$size
     }
+
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(default_aes), names(data))
 
@@ -171,8 +174,15 @@ Geom <- ggproto("Geom",
 
     # Override mappings with params
     aes_params <- intersect(self$aesthetics(), names(params))
-    check_aesthetics(params[aes_params], nrow(data))
-    data[aes_params] <- params[aes_params]
+    new_params <- params[aes_params]
+    check_aesthetics(new_params, nrow(data))
+    data[aes_params] <- new_params
+
+    # Restore any AsIs classes (#5656)
+    is_asis <- which(vapply(new_params, inherits, what = "AsIs", logical(1)))
+    for (i in aes_params[is_asis]) {
+      data[[i]] <- I(data[[i]])
+    }
     data
   },
 
@@ -239,8 +249,8 @@ check_aesthetics <- function(x, n) {
   }
 
   cli::cli_abort(c(
-    "Aesthetics must be either length 1 or the same as the data ({n})",
-    "x" = "Fix the following mappings: {.col {names(which(!good))}}"
+    "Aesthetics must be either length 1 or the same as the data ({n}).",
+    "x" = "Fix the following mappings: {.col {names(which(!good))}}."
   ))
 }
 

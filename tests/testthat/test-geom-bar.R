@@ -5,7 +5,7 @@ test_that("geom_bar removes bars with parts outside the plot limits", {
 
   expect_warning( # warning created at render stage
     ggplotGrob(p + ylim(0, 2.5)),
-    "Removed 1 rows containing missing values"
+    "Removed 1 row containing missing values or values outside the scale range"
   )
 })
 

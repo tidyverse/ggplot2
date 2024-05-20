@@ -95,6 +95,6 @@ test_that("NA linetype is dropped with warning", {
       "NA linetype",
       ggplot(df, aes(x, y)) + geom_path(linetype = NA)
     ),
-    "containing missing values"
+    "containing missing values or values outside the scale range"
   )
 })

@@ -21,7 +21,7 @@
 #'   \item{`z`}{After binning, the z values of individual data points are no longer available.}
 #' }
 #' @seealso [stat_summary_hex()] for hexagonal summarization.
-#'   [stat_bin2d()] for the binning options.
+#'   [stat_bin_2d()] for the binning options.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams stat_bin_2d
@@ -126,7 +126,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
 # Adaptation of tapply that returns a data frame instead of a matrix
 tapply_df <- function(x, index, fun, ..., drop = TRUE) {
-  labels <- lapply(index, ulevels)
+  labels <- lapply(index, ulevels, na.last = NA) # drop NA
   out <- expand.grid(labels, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
 
   grps <- split(x, index)

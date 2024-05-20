@@ -34,7 +34,7 @@ test_that("strip_dots handles tidy evaluation pronouns", {
   expect_identical(quo_get_expr(strip_dots(f(), strip_pronoun = TRUE)), quote(x))
 })
 
-test_that("make_labels() deprases mappings properly", {
+test_that("make_labels() deparses mappings properly", {
   # calculation stripped from labels
   expect_identical(make_labels(aes(x = ..y..)), list(x = "y"))
   expect_identical(make_labels(aes(x = stat(y))), list(x = "y"))

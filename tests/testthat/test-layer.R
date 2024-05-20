@@ -21,18 +21,21 @@ test_that("unknown params create warning", {
   expect_warning(geom_point(blah = "red"), "unknown parameters")
 })
 
-test_that("unknown aesthietcs create warning", {
+test_that("unknown aesthetics create warning", {
   expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
 test_that("invalid aesthetics throws errors", {
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
-  expect_snapshot_error(ggplot_build(p))
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
-  expect_snapshot_error(ggplot_build(p))
+  # We want to test error and ignore the scale search message
+  suppressMessages({
+    p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
+    expect_snapshot_error(ggplot_build(p))
+    p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
+    expect_snapshot_error(ggplot_build(p))
+  })
 })
 
-test_that("unknown NULL asthetic doesn't create warning (#1909)", {
+test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
   expect_warning(geom_point(aes(blah = NULL)), NA)
 })
 
@@ -57,8 +60,12 @@ test_that("missing aesthetics trigger informative error", {
 
 test_that("function aesthetics are wrapped with after_stat()", {
   df <- data_frame(x = 1:10)
-  expect_snapshot_error(
-    ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point())
+  suppressMessages(
+    expect_snapshot_error(
+      ggplot_build(
+        ggplot(df, aes(colour = density, fill = density)) + geom_point()
+      )
+    )
   )
 })
 
@@ -123,7 +130,28 @@ test_that("layer reports the error with correct index etc", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("layer warns for constant aesthetics", {
+  p <- ggplot(mtcars, aes(x = seq_along(mpg))) + geom_point(aes(y = 2))
+  expect_silent(ggplot_build(p))
+
+  p <- ggplot(mtcars, aes(x = 1)) + geom_point(aes(y = 2))
+  expect_snapshot_warning(ggplot_build(p))
+})
+
 # Data extraction ---------------------------------------------------------
+
+test_that("AsIs data passes unmodified", {
+  p <- ggplot() + geom_blank(aes(x = 1:2, y = 1:2))
+  ld <- layer_data(p + geom_point(aes(x = I(0.5), y = I(0.5))), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y, I(0.5))
+  ld <- layer_data(p + geom_point(x = I(0.5), y = I(0.5), data = mtcars), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y[1], I(0.5))
+  ld <- layer_data(p + annotate("point", x = I(0.5), y = I(0.5)), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y, I(0.5))
+})
 
 test_that("layer_data returns a data.frame", {
   l <- geom_point()

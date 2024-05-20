@@ -74,6 +74,8 @@ NULL
 #' parameter which is used to determine if scales are retrained after Stat
 #' transformations has been applied.
 #'
+#' See also the `r link_book("new facets section", "extensions#new-facets")`
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -83,10 +85,10 @@ Facet <- ggproto("Facet", NULL,
   params = list(),
 
   compute_layout = function(data, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   map_data = function(data, layout, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
@@ -101,20 +103,27 @@ Facet <- ggproto("Facet", NULL,
   train_scales = function(x_scales, y_scales, layout, data, params) {
     # loop over each layer, training x and y scales in turn
     for (layer_data in data) {
-      match_id <- match(layer_data$PANEL, layout$PANEL)
+      match_id <- NULL
 
       if (!is.null(x_scales)) {
         x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
-        SCALE_X <- layout$SCALE_X[match_id]
-
-        scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales)
+        if (length(x_vars) > 0) {
+          match_id <- match(layer_data$PANEL, layout$PANEL)
+          SCALE_X <- layout$SCALE_X[match_id]
+          scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales)
+        }
       }
 
       if (!is.null(y_scales)) {
         y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
-        SCALE_Y <- layout$SCALE_Y[match_id]
+        if (length(y_vars) > 0) {
+          if (is.null(match_id)) {
+            match_id <- match(layer_data$PANEL, layout$PANEL)
+          }
+          SCALE_Y <- layout$SCALE_Y[match_id]
 
-        scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
+          scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
+        }
       }
     }
   },
@@ -125,7 +134,7 @@ Facet <- ggproto("Facet", NULL,
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -316,13 +325,13 @@ as_facets_list <- function(x) {
 
 validate_facets <- function(x) {
   if (inherits(x, "uneval")) {
-    cli::cli_abort("Please use {.fn vars} to supply facet variables")
+    cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be
   # expected here, not just ggplot
   if (inherits(x, "gg")) {
     cli::cli_abort(c(
-      "Please use {.fn vars} to supply facet variables",
+      "Please use {.fn vars} to supply facet variables.",
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
@@ -470,7 +479,7 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   mask <- new_data_mask(env)
   mask$.data <- as_data_pronoun(mask)
 
-  tryCatch(
+  try_fetch(
     eval_tidy(facet, mask),
     ggplot2_missing_facet_var = function(e) NULL
   )
@@ -493,7 +502,7 @@ check_layout <- function(x) {
     return()
   }
 
-  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}")
+  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}.")
 }
 
 check_facet_vars <- function(..., name) {
@@ -502,8 +511,8 @@ check_facet_vars <- function(..., name) {
   problems <- intersect(vars_names, reserved_names)
   if (length(problems) != 0) {
     cli::cli_abort(c(
-      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables",
-      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}"
+      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables.",
+      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
     ), call = call2(name))
   }
 }
@@ -624,7 +633,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   }
 
   if (empty(base)) {
-    cli::cli_abort("Faceting variables must have at least one value")
+    cli::cli_abort("Faceting variables must have at least one value.")
   }
 
   base
@@ -693,4 +702,32 @@ render_strips <- function(x = NULL, y = NULL, labeller, theme) {
     x = build_strip(x, labeller, theme, TRUE),
     y = build_strip(y, labeller, theme, FALSE)
   )
+}
+
+
+censor_labels <- function(ranges, layout, labels) {
+  if (labels$x && labels$y) {
+    return(ranges)
+  }
+  draw <- matrix(
+    TRUE, length(ranges), 4,
+    dimnames = list(NULL, c("top", "bottom", "left", "right"))
+  )
+
+  if (!labels$x) {
+    xmax <- stats::ave(layout$ROW, layout$COL, FUN = max)
+    xmin <- stats::ave(layout$ROW, layout$COL, FUN = min)
+    draw[which(layout$ROW != xmax), "bottom"] <- FALSE
+    draw[which(layout$ROW != xmin), "top"] <- FALSE
+  }
+  if (!labels$y) {
+    ymax <- stats::ave(layout$COL, layout$ROW, FUN = max)
+    ymin <- stats::ave(layout$COL, layout$ROW, FUN = min)
+    draw[which(layout$COL != ymax), "right"] <- FALSE
+    draw[which(layout$COL != ymin), "left"] <- FALSE
+  }
+  for (i in seq_along(ranges)) {
+    ranges[[i]]$draw_labels <- as.list(draw[i, ])
+  }
+  ranges
 }

@@ -285,7 +285,7 @@ aes_ <- function(x, y, ...) {
   as_quosure_aes <- function(x) {
     if (is.formula(x) && length(x) == 2) {
       as_quosure(x)
-    } else if (is.call(x) || is.name(x) || is.atomic(x)) {
+    } else if (is.null(x) || is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
       cli::cli_abort("Aesthetic must be a one-sided formula, call, name, or constant.")
@@ -425,18 +425,18 @@ alternative_aes_extract_usage <- function(x) {
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    cli::cli_abort("Don't know how to get alternative usage for {.var {x}}")
+    cli::cli_abort("Don't know how to get alternative usage for {.var {x}}.")
   }
 }
 
 extract_target_is_likely_data <- function(x, data, env) {
-  if (!is.name(x[[2]])) {
+  if (!is.name(x[[2]]) || identical(x[[2]], quote(.data))) {
     return(FALSE)
   }
 
   tryCatch({
     data_eval <- eval_tidy(x[[2]], data, env)
-    identical(data_eval, data)
+    identical(unrowname(data_eval), unrowname(data))
   }, error = function(err) FALSE)
 }
 

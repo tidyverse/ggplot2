@@ -32,7 +32,7 @@ reference:
 - title: Plot basics
   desc: >
     All ggplot2 plots begin with a call to `ggplot()`, supplying default data and
-    aesthethic mappings, specified by `aes()`. You then add layers, scales,
+    aesthetic mappings, specified by `aes()`. You then add layers, scales,
     coords and facets with `+`. To save a plot to disk, use `ggsave()`.
   contents:
   - ggplot
@@ -50,6 +50,7 @@ reference:
     you will create layers using a `geom_` function, overriding the default
     position and stat if needed.
   contents:
+  - layer_geoms
   - starts_with("geom_")
 
 - subtitle: Stats
@@ -58,6 +59,7 @@ reference:
     drawing attention to the statistical transformation rather than the visual
     appearance. The computed variables can be mapped using `after_stat()`.
   contents:
+  - layer_stats
   - stat_ecdf
   - stat_ellipse
   - stat_function
@@ -74,6 +76,7 @@ reference:
     Override the default by using the `position` argument to the `geom_` or
     `stat_` function.
   contents:
+  - layer_positions
   - starts_with("position_")
 
 - subtitle: Annotations
@@ -126,8 +129,12 @@ reference:
   - guide_colourbar
   - guide_legend
   - guide_axis
+  - guide_axis_logticks
+  - guide_axis_stack
+  - guide_axis_theta
   - guide_bins
   - guide_coloursteps
+  - guide_custom
   - guide_none
   - guides
   - sec_axis
@@ -231,12 +238,13 @@ reference:
     for package authors to add methods that work like the base `plot()`
     function, generating useful default plots with little user interaction.
     `fortify()` turns objects into tidy data frames: it has largely been
-    superceded by the [broom package](https://github.com/tidyverse/broom).
+    superseded by the [broom package](https://github.com/tidyverse/broom).
   contents:
   - autoplot
   - autolayer
   - fortify
   - map_data
+  - automatic_plotting
 
 
 articles:
@@ -264,6 +272,10 @@ articles:
 
 news:
   releases:
+  - text: "Version 3.5.0"
+    href: https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/
+  - text: "Version 3.4.0"
+    href: https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/
   - text: "Version 3.3.0"
     href: https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/
   - text: "Version 3.2.0"
@@ -273,17 +285,17 @@ news:
   - text: "Version 3.0.0"
     href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
   - text: "Version 2.2.0"
-    href: https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/
+    href: https://posit.co/blog/ggplot2-2-2-0/
   - text: "Version 2.1.0"
-    href: https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/
+    href: https://posit.co/blog/ggplot2-2-1-0/
   - text: "Version 2.0.0"
-    href: https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/
+    href: https://posit.co/blog/ggplot2-2-0-0/
   - text: "Version 1.0.0"
-    href: https://blog.rstudio.com/2015/01/09/ggplot2-updates/
+    href: https://posit.co/blog/ggplot2-updates/
 
 navbar:
   structure:
-    left: [reference, news, articles, extensions]
+    left: [intro, reference, news, articles, extensions]
   components:
     extensions:
       text: Extensions

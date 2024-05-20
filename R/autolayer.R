@@ -8,12 +8,12 @@
 #' @param ... other arguments passed to specific methods
 #' @return a ggplot layer
 #' @export
-#' @seealso [autoplot()], [ggplot()] and [fortify()]
+#' @family plotting automation topics
 autolayer <- function(object, ...) {
   UseMethod("autolayer")
 }
 
 #' @export
 autolayer.default <- function(object, ...) {
-  cli::cli_abort("No autolayer method avialable for {.cls {class(object)[1]}} objects")
+  cli::cli_abort("No autolayer method available for {.cls {class(object)[1]}} objects.")
 }

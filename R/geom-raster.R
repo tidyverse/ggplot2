@@ -89,17 +89,22 @@ GeomRaster <- ggproto("GeomRaster", Geom,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
       cli::cli_abort(c(
-        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}"
+        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}."
       ))
     }
-    data <- coord$transform(data, panel_params)
 
     # Convert vector of data to raster
     x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
     y_pos <- as.integer((data$y - min(data$y)) / resolution(data$y, FALSE))
 
+    data <- coord$transform(data, panel_params)
+
     nrow <- max(y_pos) + 1
     ncol <- max(x_pos) + 1
+
+    if (is.list(data$fill) && is_pattern(data$fill[[1]])) {
+      cli::cli_abort("{.fn {snake_class(self)}} cannot render pattern fills.")
+    }
 
     raster <- matrix(NA_character_, nrow = nrow, ncol = ncol)
     raster[cbind(nrow - y_pos, x_pos + 1)] <- alpha(data$fill, data$alpha)
