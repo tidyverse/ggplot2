@@ -2,9 +2,6 @@
 
 * (internal) The plot's layout now has a coord parameters that is used to 
   prevent setting up identical panel parameters (#5427)
-
-* Legend titles no longer take up space if they've been removed by setting 
-  `legend.title = element_blank()` (@teunbrand, #3587).
 * Discrete position scales now expose the `palette` argument, which can be used 
   to customise spacings between levels (@teunbrand, #5770).
 * The default `se` parameter in layers with `geom = "smooth"` will be `TRUE` 
