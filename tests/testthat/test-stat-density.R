@@ -5,7 +5,7 @@ test_that("stat_density actually computes density", {
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
 
   plot <- ggplot(mtcars, aes(mpg)) + stat_density()
-  actual_density_fun <- stats::approxfun(layer_data(plot)[, c("x", "y")])
+  actual_density_fun <- stats::approxfun(get_layer_data(plot)[, c("x", "y")])
 
   test_sample <- unique(mtcars$mpg)
   expect_equal(
@@ -25,7 +25,7 @@ test_that("stat_density can make weighted density estimation", {
   )
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
 
-  plot <- layer_data(ggplot(df, aes(mpg, weight = weight)) + stat_density())
+  plot <- get_layer_data(ggplot(df, aes(mpg, weight = weight)) + stat_density())
   actual_density_fun <- stats::approxfun(plot[, c("x", "y")])
 
   test_sample <- unique(df$mpg)
@@ -54,7 +54,7 @@ test_that("stat_density uses `bounds`", {
     )
 
     bounded_plot <- ggplot(mtcars, aes(mpg)) + stat_density(bounds = bounds)
-    bounded_data <- layer_data(bounded_plot)[, c("x", "y")]
+    bounded_data <- get_layer_data(bounded_plot)[, c("x", "y")]
     plot_density <- stats::approxfun(bounded_data, yleft = 0, yright = 0)
 
     test_sample <- seq(mpg_min, mpg_max, by = 0.1)
@@ -81,7 +81,7 @@ test_that("stat_density handles data outside of `bounds`", {
 
   # Both `x` and `weight` should be filtered out for out of `bounds` points
   expect_warning(
-    data_actual <- layer_data(
+    data_actual <- get_layer_data(
       ggplot(mtcars, aes(mpg, weight = cyl)) +
         stat_density(bounds = c(cutoff, Inf))
     ),
@@ -89,7 +89,7 @@ test_that("stat_density handles data outside of `bounds`", {
   )
 
   mtcars_filtered <- mtcars[mtcars$mpg >= cutoff, ]
-  data_expected <- layer_data(
+  data_expected <- get_layer_data(
     ggplot(mtcars_filtered, aes(mpg, weight = cyl)) +
       stat_density(bounds = c(cutoff, Inf))
   )
@@ -104,11 +104,11 @@ test_that("compute_density succeeds when variance is zero", {
 
 test_that("stat_density works in both directions", {
   p <- ggplot(mpg, aes(hwy)) + stat_density()
-  x <- layer_data(p)
+  x <- get_layer_data(p)
   expect_false(x$flipped_aes[1])
 
   p <- ggplot(mpg, aes(y = hwy)) + stat_density()
-  y <- layer_data(p)
+  y <- get_layer_data(p)
   expect_true(y$flipped_aes[1])
 
   x$flipped_aes <- NULL

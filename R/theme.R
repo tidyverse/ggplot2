@@ -561,7 +561,7 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x, default = theme_get()) {
+plot_theme <- function(x, default = get_theme()) {
   theme <- x$theme
 
   # apply theme defaults appropriately if needed
