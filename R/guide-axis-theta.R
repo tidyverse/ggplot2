@@ -41,6 +41,7 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
     angle = angle,
     cap = cap,
     minor.ticks  = minor.ticks,
+    theme = theme,
 
     # parameter
     available_aes = c("x", "y", "theta"),
@@ -73,19 +74,22 @@ GuideAxisTheta <- ggproto(
 
   transform = function(params, coord, panel_params) {
 
-    opposite <- setdiff(c("x", "y"), params$aesthetic)
-    params$key[[opposite]] <- switch(params$position,
-                                     theta.sec = -Inf,
-                                     top = -Inf,
-                                     right = -Inf,
-                                     Inf)
+    if (nrow(params$key) > 0) {
+      opposite <- setdiff(c("x", "y"), params$aesthetic)
+      params$key[[opposite]] <- switch(params$position,
+                                       theta.sec = -Inf,
+                                       top = -Inf,
+                                       right = -Inf,
+                                       Inf)
+    }
 
     params <- GuideAxis$transform(params, coord, panel_params)
 
     key <- params$key
     n <- nrow(key)
-
-    params$theme_aes <- coord$theta %||% params$aesthetic
+    if (n < 1) {
+      return(params)
+    }
 
     if (!("theta" %in% names(key))) {
       # We likely have a linear coord, so we match the text angles to
@@ -129,12 +133,13 @@ GuideAxisTheta <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
 
     axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
     is_char <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
 
-    aes <- switch(
+    aes <- params$theme_suffix %||% switch(
       params$position,
       theta     = "x.bottom",
       theta.sec = "x.top",
@@ -242,6 +247,12 @@ GuideAxisTheta <- ggproto(
     grobTree(major, minor, name = "ticks")
   },
 
+  draw_early_exit = function(self, params, elements) {
+    line <- self$build_decor(decor = params$decor, elements = elements,
+                             params = params)
+    gTree(children = gList(line), offset = unit(0, "cm"))
+  },
+
   measure_grobs = function(grobs, params, elements) {
     # As this guide is expected to be placed in the interior of coord_radial,
     # we don't need to measure grob sizes nor arrange the layout.
@@ -306,7 +317,7 @@ GuideAxisTheta <- ggproto(
     list(offset = max(height))
   },
 
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
     NULL
   },
 
@@ -327,7 +338,7 @@ GuideAxisTheta <- ggproto(
     if (params$position %in% c("top", "bottom")) {
       height <- sum(
         elements$offset,
-        unit(max(height_cm(grobs$labels$children)), "cm")
+        unit(max(height_cm(grobs$labels)), "cm")
       )
       vp <- viewport(
         y = unit(as.numeric(params$position == "bottom"), "npc"),
@@ -337,7 +348,7 @@ GuideAxisTheta <- ggproto(
     } else {
       width <- sum(
         elements$offset,
-        unit(max(width_cm(grobs$labels$children)), "cm")
+        unit(max(width_cm(grobs$labels)), "cm")
       )
       vp <- viewport(
         x = unit(as.numeric(params$position == "left"), "npc"),

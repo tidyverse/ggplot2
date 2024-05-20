@@ -380,3 +380,23 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
   breaks <- scale$break_info()
   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
 })
+
+test_that("discrete scales can have secondary axes", {
+
+  data <- data.frame(x = c("A", "B", "C"), y = c("D", "E", "F"))
+  p <- ggplot(data, aes(x, y)) +
+    geom_point() +
+    scale_x_discrete(sec.axis = dup_axis(labels = c("foo", "bar", "baz"))) +
+    scale_y_discrete(sec.axis = dup_axis(
+      breaks = c(1.5, 2.5), labels = c("grault", "garply")
+    ))
+  b <- ggplot_build(p)
+
+  x <- get_guide_data(b, "x.sec")
+  expect_equal(x$.value, 1:3, ignore_attr = TRUE)
+  expect_equal(x$.label, c("foo", "bar", "baz"))
+
+  y <- get_guide_data(b, "y.sec")
+  expect_equal(y$.value, c(1.5, 2.5), ignore_attr = TRUE)
+  expect_equal(y$.label, c("grault", "garply"))
+})

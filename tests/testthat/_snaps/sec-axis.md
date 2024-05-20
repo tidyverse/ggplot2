@@ -8,5 +8,5 @@
 
 ---
 
-    Transformation for secondary axes must be monotonic.
+    Transformation for secondary axes must be strictly monotonic.
 

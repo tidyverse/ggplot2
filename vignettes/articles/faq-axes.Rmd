@@ -427,7 +427,7 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy))) +
 #| fig.alt = "A scatter plot showing the squared city miles per gallon on the 
 #|  x-axis versus the base 10 logarithm of highway miles per gallon on the 
 #|  y-axis for 234 cars. In the axis titles, the base 10 is indicated in 
-#|  subscript on the y-axis and the power 2 is is indicated in superscript on
+#|  subscript on the y-axis and the power 2 is indicated in superscript on
 #|  the x-axis."
 ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   geom_point() +
@@ -443,7 +443,7 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
 #| fig.alt = "A scatter plot showing the squared city miles per gallon on the 
 #|  x-axis versus the base 10 logarithm of highway miles per gallon on the 
 #|  y-axis for 234 cars. In the axis titles, the base 10 is indicated in 
-#|  subscript on the y-axis and the power 2 is is indicated in superscript on
+#|  subscript on the y-axis and the power 2 is indicated in superscript on
 #|  the x-axis."
 ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   geom_point() +

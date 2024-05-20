@@ -20,6 +20,8 @@
 #'   you must specify at least one of these.
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @seealso
+#' The `r link_book("custom annotations section", "annotations#sec-custom-annotations")`
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
@@ -72,12 +74,19 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   }
 
   data <- data_frame0(!!!position, .size = n)
+
+  params <- list2(na.rm = na.rm, ...)
+  reject <- intersect(names(params), c("position", "stat"))
+  if (length(reject) > 0) {
+    cli::cli_warn(
+      "{.fn annotate} can't accept {.or {.arg {reject}}} argument{?s}."
+    )
+    params <- params[setdiff(names(params), reject)]
+  }
+
   layer(
     geom = geom,
-    params = list(
-      na.rm = na.rm,
-      ...
-    ),
+    params = params,
     stat = StatIdentity,
     position = PositionIdentity,
     data = data,

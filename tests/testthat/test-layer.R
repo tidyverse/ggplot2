@@ -140,6 +140,19 @@ test_that("layer warns for constant aesthetics", {
 
 # Data extraction ---------------------------------------------------------
 
+test_that("AsIs data passes unmodified", {
+  p <- ggplot() + geom_blank(aes(x = 1:2, y = 1:2))
+  ld <- layer_data(p + geom_point(aes(x = I(0.5), y = I(0.5))), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y, I(0.5))
+  ld <- layer_data(p + geom_point(x = I(0.5), y = I(0.5), data = mtcars), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y[1], I(0.5))
+  ld <- layer_data(p + annotate("point", x = I(0.5), y = I(0.5)), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y, I(0.5))
+})
+
 test_that("layer_data returns a data.frame", {
   l <- geom_point()
   expect_equal(l$layer_data(mtcars), unrowname(mtcars))

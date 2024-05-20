@@ -48,6 +48,9 @@
 #'
 #' }
 #'
+#' @seealso
+#' The `r link_book("complete themes section", "themes#sec-themes")`
+#'
 #' @examples
 #' mtcars2 <- within(mtcars, {
 #'   vs <- factor(vs, labels = c("V-shaped", "Straight"))
@@ -141,6 +144,8 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
     axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
+    axis.text.r =        element_text(margin = margin(l = 0.8 * half_line / 2, r = 0.8 * half_line / 2),
+                                      hjust = 0.5),
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  rel(0.5),
     axis.ticks.length.x = NULL,
@@ -166,7 +171,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
@@ -179,9 +184,9 @@ theme_grey <- function(base_size = 11, base_family = "",
     legend.key.height =  NULL,
     legend.key.width =   NULL,
     legend.key.spacing = NULL,
-    legend.ticks.length = rel(0.2),
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
+    legend.ticks.length = rel(0.2),
     legend.position =    "right",
     legend.direction =   NULL,
     legend.justification = "center",
@@ -580,7 +585,7 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
@@ -595,9 +600,9 @@ theme_test <- function(base_size = 11, base_family = "",
     legend.key.spacing = NULL,
     legend.key.spacing.x = NULL,
     legend.key.spacing.y = NULL,
-    legend.ticks.length = rel(0.2),
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
+    legend.ticks.length = rel(0.2),
     legend.position =    "right",
     legend.direction =   NULL,
     legend.justification = "center",

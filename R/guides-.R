@@ -547,7 +547,8 @@ Guides <- ggproto(
         direction = directions[i], params = params[[i]]
       )
     }
-    split(grobs, positions)
+    keep <- !vapply(grobs, is.zero, logical(1))
+    split(grobs[keep], positions[keep])
   },
 
   package_box = function(grobs, position, theme) {

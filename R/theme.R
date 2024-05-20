@@ -36,28 +36,28 @@
 #'   `axis.title.y.left`, `axis.title.y.right`). `axis.title.*.*` inherits from
 #'   `axis.title.*` which inherits from `axis.title`, which in turn inherits
 #'   from `text`
-#' @param axis.text,axis.text.x,axis.text.y,axis.text.x.top,axis.text.x.bottom,axis.text.y.left,axis.text.y.right
+#' @param axis.text,axis.text.x,axis.text.y,axis.text.x.top,axis.text.x.bottom,axis.text.y.left,axis.text.y.right,axis.text.theta,axis.text.r
 #'   tick labels along axes ([element_text()]). Specify all axis tick labels (`axis.text`),
 #'   tick labels by plane (using `axis.text.x` or `axis.text.y`), or individually
 #'   for each axis (using `axis.text.x.bottom`, `axis.text.x.top`,
 #'   `axis.text.y.left`, `axis.text.y.right`). `axis.text.*.*` inherits from
 #'   `axis.text.*` which inherits from `axis.text`, which in turn inherits
 #'   from `text`
-#' @param axis.ticks,axis.ticks.x,axis.ticks.x.top,axis.ticks.x.bottom,axis.ticks.y,axis.ticks.y.left,axis.ticks.y.right
+#' @param axis.ticks,axis.ticks.x,axis.ticks.x.top,axis.ticks.x.bottom,axis.ticks.y,axis.ticks.y.left,axis.ticks.y.right,axis.ticks.theta,axis.ticks.r
 #'   tick marks along axes ([element_line()]). Specify all tick marks (`axis.ticks`),
 #'   ticks by plane (using `axis.ticks.x` or `axis.ticks.y`), or individually
 #'   for each axis (using `axis.ticks.x.bottom`, `axis.ticks.x.top`,
 #'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
-#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,
+#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,axis.minor.ticks.theta,axis.minor.ticks.r,
 #'   minor tick marks along axes ([element_line()]). `axis.minor.ticks.*.*`
 #'   inherit from the corresponding major ticks `axis.ticks.*.*`.
-#' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
+#' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right,axis.ticks.length.theta,axis.ticks.length.r
 #'   length of tick marks (`unit`). `axis.ticks.length` inherits from `spacing`.
-#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right
+#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right,axis.minor.ticks.length.theta,axis.minor.ticks.length.r
 #'   length of minor tick marks (`unit`), or relative to `axis.ticks.length` when provided with `rel()`.
-#' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
+#' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right,axis.line.theta,axis.line.r
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
 #'   for each axis (using `axis.line.x.bottom`, `axis.line.x.top`,
@@ -198,19 +198,21 @@
 #'   axes when strips are switched (`unit`); inherits from `spacing`.
 #'
 #' @param ... additional element specifications not part of base ggplot2. In general,
-#'   these should also be defined in the `element tree` argument.
+#'   these should also be defined in the `element tree` argument. [Splicing][rlang::splice] a list is also supported.
 #' @param complete set this to `TRUE` if this is a complete theme, such as
 #'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @export
 #' @seealso
 #'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
-#' @export
+#'
+#' The `r link_book(c("modifying theme components", "theme elements sections"), c("themes#modifying-theme-components", "themes#sec-theme-elements"))`
 #' @examples
 #' p1 <- ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
@@ -274,7 +276,8 @@
 #' # Or place legends inside the plot using relative coordinates between 0 and 1
 #' # legend.justification sets the corner that the position refers to
 #' p2 + theme(
-#'   legend.position = c(.95, .95),
+#'   legend.position = "inside",
+#'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
 #'   legend.margin = margin(6, 6, 6, 6)
@@ -329,6 +332,8 @@ theme <- function(...,
                   axis.text.y,
                   axis.text.y.left,
                   axis.text.y.right,
+                  axis.text.theta,
+                  axis.text.r,
                   axis.ticks,
                   axis.ticks.x,
                   axis.ticks.x.top,
@@ -336,10 +341,14 @@ theme <- function(...,
                   axis.ticks.y,
                   axis.ticks.y.left,
                   axis.ticks.y.right,
+                  axis.ticks.theta,
+                  axis.ticks.r,
                   axis.minor.ticks.x.top,
                   axis.minor.ticks.x.bottom,
                   axis.minor.ticks.y.left,
                   axis.minor.ticks.y.right,
+                  axis.minor.ticks.theta,
+                  axis.minor.ticks.r,
                   axis.ticks.length,
                   axis.ticks.length.x,
                   axis.ticks.length.x.top,
@@ -347,6 +356,8 @@ theme <- function(...,
                   axis.ticks.length.y,
                   axis.ticks.length.y.left,
                   axis.ticks.length.y.right,
+                  axis.ticks.length.theta,
+                  axis.ticks.length.r,
                   axis.minor.ticks.length,
                   axis.minor.ticks.length.x,
                   axis.minor.ticks.length.x.top,
@@ -354,6 +365,8 @@ theme <- function(...,
                   axis.minor.ticks.length.y,
                   axis.minor.ticks.length.y.left,
                   axis.minor.ticks.length.y.right,
+                  axis.minor.ticks.length.theta,
+                  axis.minor.ticks.length.r,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,
@@ -361,6 +374,8 @@ theme <- function(...,
                   axis.line.y,
                   axis.line.y.left,
                   axis.line.y.right,
+                  axis.line.theta,
+                  axis.line.r,
                   legend.background,
                   legend.margin,
                   legend.spacing,
@@ -535,13 +550,13 @@ is_theme_validate <- function(x) {
   isTRUE(validate %||% TRUE)
 }
 
-validate_theme <- function(theme, tree = get_element_tree()) {
+validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
   mapply(
     validate_element, theme, names(theme),
-    MoreArgs = list(element_tree = tree)
+    MoreArgs = list(element_tree = tree, call = call)
   )
 }
 
@@ -567,6 +582,8 @@ plot_theme <- function(x, default = theme_get()) {
   # Check that all elements have the correct class (element_text, unit, etc)
   validate_theme(theme)
 
+  # Remove elements that are not registered
+  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
   theme
 }
 

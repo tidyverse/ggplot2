@@ -35,7 +35,9 @@
 #'   (`NULL`) uses the timezone encoded in the data.
 #' @family position scales
 #' @seealso
-#' [sec_axis()] for how to specify secondary axes
+#' [sec_axis()] for how to specify secondary axes.
+#'
+#' The `r link_book("date-time position scales section", "scales-position#sec-date-scales")`
 #'
 #' The [position documentation][aes_position].
 #' @examples
@@ -358,7 +360,7 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
     tz <- attr(x, "tzone")
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
-      self$transformation <- transform_time(self$timezone)
+      self$trans <- transform_time(self$timezone)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
@@ -405,7 +407,6 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
       return(NULL)
     }
     breaks <- floor(breaks)
-    breaks[breaks >= limits[1] & breaks <= limits[2]]
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)

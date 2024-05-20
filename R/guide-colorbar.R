@@ -46,6 +46,8 @@ NULL
 #' @return A guide object
 #' @export
 #' @family guides
+#' @seealso
+#' The `r link_book("continuous legend section", "scales-colour#sec-guide-colourbar")`
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2
@@ -223,7 +225,11 @@ GuideColourbar <- ggproto(
       cli::cli_warn("{.fn guide_colourbar} needs continuous scales.")
       return(NULL)
     }
-    Guide$extract_key(scale, aesthetic, ...)
+    key <- Guide$extract_key(scale, aesthetic, ...)
+    if (NROW(key) == 0) {
+      return(NULL)
+    }
+    key
   },
 
   extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, alpha = NA, ...) {
@@ -373,7 +379,7 @@ GuideColourbar <- ggproto(
         vjust = 0, hjust = 0,
         width = width, height = height,
         default.units = "npc",
-        gp = gpar(col = NA, fill = decor$colour)
+        gp = ggpar(col = NA, fill = decor$colour)
       )
     } else if (params$display == "gradient") {
       check_device("gradients", call = expr(guide_colourbar()))
@@ -388,7 +394,7 @@ GuideColourbar <- ggproto(
         vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
       )
       gradient <- inject(linearGradient(decor$colour, value, !!!position))
-      grob <- rectGrob(gp = gpar(fill = gradient, col = NA))
+      grob <- rectGrob(gp = ggpar(fill = gradient, col = NA))
     }
 
     frame <- element_grob(elements$frame, fill = NA)

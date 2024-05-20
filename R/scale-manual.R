@@ -12,7 +12,7 @@
 #' of aesthetics provided via the `aesthetics` argument.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -aesthetics
+#' @inheritDotParams discrete_scale -expand -position -aesthetics -palette -scale_name
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
@@ -34,6 +34,8 @@
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' The `r link_book(c("manual scales", "manual colour scales sections"), c("scales-other#sec-scale-manual", "scales-colour#sec-manual-colour"))`
 #'
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color

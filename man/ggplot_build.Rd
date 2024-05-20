@@ -40,5 +40,7 @@ layer. These are useful for tests.
 \code{\link[=print.ggplot]{print.ggplot()}} and \code{\link[=benchplot]{benchplot()}} for
 functions that contain the complete set of steps for generating
 a ggplot2 plot.
+
+The \href{https://ggplot2-book.org/internals#sec-ggplotbuild}{build step section} of the online ggplot2 book.
 }
 \keyword{internal}

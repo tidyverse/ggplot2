@@ -293,7 +293,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_snapshot_error(print(p))
+  expect_snapshot_warning(print(p))
 
   register_theme_elements(
     element_tree = list(blablabla = el_def("character", "text"))
