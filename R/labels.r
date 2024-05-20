@@ -201,11 +201,16 @@ get_alt_text.gtable <- function(p, ...) {
 #'
 generate_alt_text <- function(p) {
   # Combine titles
-  title <- glue(glue_collapse(
-    sub("\\.?$", "", c(p$labels$title, p$labels$subtitle)),
-    last = ": "
-  ), ". ")
-  title <- safe_string(title)
+  if (!is.null(p$label$title %||% p$labels$subtitle)) {
+    title <- glue(glue_collapse(
+      sub("\\.?$", "", c(p$labels$title, p$labels$subtitle)),
+      last = ": "
+    ), ". ")
+    title <- safe_string(title)
+  } else {
+    title <- ""
+  }
+
 
   # Get axes descriptions
   axes <- glue(" showing ", glue_collapse(
@@ -222,7 +227,7 @@ generate_alt_text <- function(p) {
     if (length(layers) == 1) "a " else "",
     glue_collapse(layers, sep = ", ", last = " and "),
     " layer",
-    if (length(layers) == 1) "" else "s",
+    if (length(layers) == 1) "" else "s"
   )
   layers <- safe_string(layers)
 
