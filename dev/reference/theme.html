@@ -115,6 +115,8 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">rect</span>,</span>
 <span>  <span class="va">text</span>,</span>
 <span>  <span class="va">title</span>,</span>
+<span>  <span class="va">spacing</span>,</span>
+<span>  <span class="va">margins</span>,</span>
 <span>  <span class="va">aspect.ratio</span>,</span>
 <span>  <span class="va">axis.title</span>,</span>
 <span>  <span class="va">axis.title.x</span>,</span>
@@ -276,6 +278,14 @@ these should also be defined in the <code>element tree</code> argument. <a href=
 inherits from <code>text</code>)</p></dd>
 
 
+<dt>spacing</dt>
+<dd><p>all spacings (<code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit()</a></code>)</p></dd>
+
+
+<dt>margins</dt>
+<dd><p>all margins (<code><a href="element.html">margin()</a></code>)</p></dd>
+
+
 <dt>aspect.ratio</dt>
 <dd><p>aspect ratio of the panel</p></dd>
 
@@ -313,7 +323,7 @@ inherit from the corresponding major ticks <code>axis.ticks.*.*</code>.</p></dd>
 
 
 <dt>axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right, axis.ticks.length.theta, axis.ticks.length.r</dt>
-<dd><p>length of tick marks (<code>unit</code>)</p></dd>
+<dd><p>length of tick marks (<code>unit</code>). <code>axis.ticks.length</code> inherits from <code>spacing</code>.</p></dd>
 
 
 <dt>axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right, axis.minor.ticks.length.theta, axis.minor.ticks.length.r</dt>
@@ -335,12 +345,14 @@ from <code>rect</code>)</p></dd>
 
 
 <dt>legend.margin</dt>
-<dd><p>the margin around each legend (<code><a href="element.html">margin()</a></code>)</p></dd>
+<dd><p>the margin around each legend (<code><a href="element.html">margin()</a></code>); inherits
+from <code>margins</code>.</p></dd>
 
 
 <dt>legend.spacing, legend.spacing.x, legend.spacing.y</dt>
 <dd><p>the spacing between legends (<code>unit</code>). <code>legend.spacing.x</code> &amp; <code>legend.spacing.y</code>
-inherit from <code>legend.spacing</code> or can be specified separately</p></dd>
+inherit from <code>legend.spacing</code> or can be specified separately.
+<code>legend.spacing</code> inherits from <code>spacing</code>.</p></dd>
 
 
 <dt>legend.key</dt>
@@ -350,14 +362,15 @@ inherits from <code>rect</code>)</p></dd>
 
 <dt>legend.key.size, legend.key.height, legend.key.width</dt>
 <dd><p>size of legend keys (<code>unit</code>); key background height &amp; width inherit from
-<code>legend.key.size</code> or can be specified separately</p></dd>
+<code>legend.key.size</code> or can be specified separately. In turn <code>legend.key.size</code>
+inherits from <code>spacing</code>.</p></dd>
 
 
 <dt>legend.key.spacing, legend.key.spacing.x, legend.key.spacing.y</dt>
 <dd><p>spacing
 between legend keys given as a <code>unit</code>. Spacing in the horizontal (x) and
 vertical (y) direction inherit from <code>legend.key.spacing</code> or can be
-specified separately.</p></dd>
+specified separately. <code>legend.key.spacing</code> inherits from <code>spacing</code>.</p></dd>
 
 
 <dt>legend.frame</dt>
@@ -369,7 +382,8 @@ specified separately.</p></dd>
 
 
 <dt>legend.ticks.length</dt>
-<dd><p>length of tick marks in legend (<code>unit</code>)</p></dd>
+<dd><p>length of tick marks in legend
+(<code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit()</a></code>); inherits from <code>legend.key.size</code>.</p></dd>
 
 
 <dt>legend.axis.line</dt>
@@ -446,7 +460,7 @@ bounding box, when there are multiple legends ("top", "bottom", "left", or
 
 <dt>legend.box.margin</dt>
 <dd><p>margins around the full legend area, as specified
-using <code><a href="element.html">margin()</a></code></p></dd>
+using <code><a href="element.html">margin()</a></code>; inherits from <code>margins</code>.</p></dd>
 
 
 <dt>legend.box.background</dt>
@@ -456,7 +470,7 @@ inherits from <code>rect</code>)</p></dd>
 
 <dt>legend.box.spacing</dt>
 <dd><p>The spacing between the plotting area and the
-legend box (<code>unit</code>)</p></dd>
+legend box (<code>unit</code>); inherits from <code>spacing</code>.</p></dd>
 
 
 <dt>panel.background</dt>
@@ -474,7 +488,7 @@ it covers tick marks and grid lines. This should be used with
 <dt>panel.spacing, panel.spacing.x, panel.spacing.y</dt>
 <dd><p>spacing between facet
 panels (<code>unit</code>). <code>panel.spacing.x</code> &amp; <code>panel.spacing.y</code> inherit from <code>panel.spacing</code>
-or can be specified separately.</p></dd>
+or can be specified separately. <code>panel.spacing</code> inherits from <code>spacing</code>.</p></dd>
 
 
 <dt>panel.grid, panel.grid.major, panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x, panel.grid.minor.y</dt>
@@ -544,7 +558,7 @@ around the panel space.</p></dd>
 
 <dt>plot.margin</dt>
 <dd><p>margin around entire plot (<code>unit</code> with the sizes of
-the top, right, bottom, and left margins)</p></dd>
+the top, right, bottom, and left margins); inherits from <code>margin</code>.</p></dd>
 
 
 <dt>strip.background, strip.background.x, strip.background.y</dt>
@@ -577,14 +591,9 @@ As a consequence, some theme stylings need to be applied to
 the position-dependent elements rather than to the parent elements</p></dd>
 
 
-<dt>strip.switch.pad.grid</dt>
-<dd><p>space between strips and axes when strips are
-switched (<code>unit</code>)</p></dd>
-
-
-<dt>strip.switch.pad.wrap</dt>
-<dd><p>space between strips and axes when strips are
-switched (<code>unit</code>)</p></dd>
+<dt>strip.switch.pad.grid, strip.switch.pad.wrap</dt>
+<dd><p>space between strips and
+axes when strips are switched (<code>unit</code>); inherits from <code>spacing</code>.</p></dd>
 
 
 <dt>complete</dt>

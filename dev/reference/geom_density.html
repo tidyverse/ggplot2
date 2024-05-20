@@ -301,7 +301,7 @@ outside of bounds are removed with a warning.</p></dd>
 
 <p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>.</p><ul><li><p><code>after_stat(density)</code><br> density estimate.</p></li>
 <li><p><code>after_stat(count)</code><br> density * number of points - useful for stacked density plots.</p></li>
-<li><p><code>after_stat(wdensity)</code><br> density * sum of weights. In absence of weights, the same as <code>count</code></p></li>
+<li><p><code>after_stat(wdensity)</code><br> density * sum of weights. In absence of weights, the same as <code>count</code>.</p></li>
 <li><p><code>after_stat(scaled)</code><br> density estimate, scaled to maximum of 1.</p></li>
 <li><p><code>after_stat(n)</code><br> number of points.</p></li>
 <li><p><code>after_stat(ndensity)</code><br> alias for <code>scaled</code>, to mirror the syntax of <code><a href="geom_histogram.html">stat_bin()</a></code>.</p></li>

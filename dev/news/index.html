@@ -86,7 +86,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li>The bounded density option in <code><a href="../reference/geom_density.html">stat_density()</a></code> uses a wider range to prevent discontinuities (<a href="https://github.com/tidyverse/ggplot2/issues/5641" class="external-link">#5641</a>).</li>
+<li>
 <code><a href="../reference/geom_tile.html">geom_raster()</a></code> now falls back to rendering as <code><a href="../reference/geom_tile.html">geom_rect()</a></code> when coordinates are not Cartesian (<a href="https://github.com/tidyverse/ggplot2/issues/5503" class="external-link">#5503</a>).</li>
 <li>
 <code><a href="../reference/stat_ecdf.html">stat_ecdf()</a></code> now has an optional <code>weight</code> aesthetic (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5058" class="external-link">#5058</a>).</li>
@@ -110,6 +111,8 @@
 <code>scale_{x/y}_discrete()</code> can now accept a <code>sec.axis</code>. It is recommended to only use <code><a href="../reference/sec_axis.html">dup_axis()</a></code> to set custom breaks or labels, as discrete variables cannot be transformed (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/3171" class="external-link">#3171</a>).</li>
 <li>
 <code><a href="../reference/geom_density.html">stat_density()</a></code> has the new computed variable: <code>wdensity</code>, which is calculated as the density times the sum of weights (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4176" class="external-link">#4176</a>).</li>
+<li>
+<code><a href="../reference/theme.html">theme()</a></code> gets new <code>spacing</code> and <code>margins</code> arguments that all other spacings and (non-text) margins inherit from (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5622" class="external-link">#5622</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.5.1" id="ggplot2-351">ggplot2 3.5.1<a class="anchor" aria-label="anchor" href="#ggplot2-351"></a></h2><p class="text-muted">CRAN release: 2024-04-23</p>
