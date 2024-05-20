@@ -100,6 +100,7 @@ and limits, you may wish to use <code><a href="labs.html">labs()</a></code> and 
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_x_discrete</span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  palette <span class="op">=</span> <span class="va">seq_len</span>,</span>
 <span>  expand <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  guide <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
@@ -109,6 +110,7 @@ and limits, you may wish to use <code><a href="labs.html">labs()</a></code> and 
 <span><span class="fu">scale_y_discrete</span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  palette <span class="op">=</span> <span class="va">seq_len</span>,</span>
 <span>  expand <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  guide <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"left"</span>,</span>
@@ -126,12 +128,7 @@ omitted.</p></dd>
 
 
 <dt>...</dt>
-<dd><p>Arguments passed on to <code><a href="discrete_scale.html">discrete_scale</a></code></p><dl><dt><code>palette</code></dt>
-<dd><p>A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href="https://scales.r-lib.org/reference/pal_hue.html" class="external-link">scales::pal_hue()</a></code>).</p></dd>
-
-    <dt><code>breaks</code></dt>
+<dd><p>Arguments passed on to <code><a href="discrete_scale.html">discrete_scale</a></code></p><dl><dt><code>breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (the scale limits)</p></li>
 <li><p>A character vector of breaks</p></li>
@@ -187,6 +184,12 @@ notation.</p></li>
 
   
 </dl></dd>
+
+
+<dt>palette</dt>
+<dd><p>A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the numerical values
+that they should take.</p></dd>
 
 
 <dt>expand</dt>
