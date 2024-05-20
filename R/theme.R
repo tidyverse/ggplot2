@@ -116,8 +116,8 @@
 #' @param legend.box arrangement of multiple legends ("horizontal" or
 #'   "vertical")
 #' @param legend.box.just justification of each legend within the overall
-#'   bounding box, when there are multiple legends ("top", "bottom", "left", or
-#'   "right")
+#'   bounding box, when there are multiple legends ("top", "bottom", "left",
+#'   "right", "center" or "centre")
 #' @param legend.box.margin margins around the full legend area, as specified
 #'   using [margin()]; inherits from `margins`.
 #' @param legend.box.background background of legend area ([element_rect()];

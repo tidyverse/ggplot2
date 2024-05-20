@@ -272,8 +272,8 @@ string. Can be \code{"panel"} (default) to align legends to the panels or
 "vertical")}
 
 \item{legend.box.just}{justification of each legend within the overall
-bounding box, when there are multiple legends ("top", "bottom", "left", or
-"right")}
+bounding box, when there are multiple legends ("top", "bottom", "left",
+"right", "center" or "centre")}
 
 \item{legend.box.margin}{margins around the full legend area, as specified
 using \code{\link[=margin]{margin()}}; inherits from \code{margins}.}
