@@ -132,10 +132,13 @@ GeomPath <- ggproto("GeomPath", Geom,
 
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
+  non_missing_aes = c("linewidth", "colour", "linetype"),
+
   handle_na = function(self, data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    complete <- stats::complete.cases(data[names(data) %in% c("x", "y", "linewidth", "colour", "linetype")])
+    aesthetics <- c(self$required_aes, self$non_missing_aes)
+    complete <- stats::complete.cases(data[names(data) %in% aesthetics])
     kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
@@ -181,7 +184,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid")
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid.")
     }
 
     # Work out grouping variables for grobs
@@ -197,10 +200,10 @@ GeomPath <- ggproto("GeomPath", Geom,
       segmentsGrob(
         munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
         default.units = "native", arrow = arrow,
-        gp = gpar(
+        gp = ggpar(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$colour, munched$alpha)[!end],
-          lwd = munched$linewidth[!end] * .pt,
+          lwd = munched$linewidth[!end],
           lty = munched$linetype[!end],
           lineend = lineend,
           linejoin = linejoin,
@@ -212,10 +215,10 @@ GeomPath <- ggproto("GeomPath", Geom,
       polylineGrob(
         munched$x, munched$y, id = id,
         default.units = "native", arrow = arrow,
-        gp = gpar(
+        gp = ggpar(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$colour, munched$alpha)[start],
-          lwd = munched$linewidth[start] * .pt,
+          lwd = munched$linewidth[start],
           lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
@@ -319,9 +322,14 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.R
 GeomStep <- ggproto("GeomStep", GeomPath,
-  draw_panel = function(data, panel_params, coord, direction = "hv") {
+  draw_panel = function(data, panel_params, coord,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
+                        direction = "hv") {
     data <- dapply(data, "group", stairstep, direction = direction)
-    GeomPath$draw_panel(data, panel_params, coord)
+    GeomPath$draw_panel(
+      data, panel_params, coord,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+    )
   }
 )
 
@@ -348,11 +356,6 @@ stairstep <- function(data, direction = "hv") {
   } else if (direction == "mid") {
     xs <- rep(1:(n-1), each = 2)
     ys <- rep(1:n, each = 2)
-  } else {
-    cli::cli_abort(c(
-      "{.arg direction} is invalid.",
-      "i" = "Use either {.val vh}, {.val hv}, or {.va mid}"
-    ))
   }
 
   if (direction == "mid") {

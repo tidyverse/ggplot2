@@ -1,5 +1,8 @@
 test_that("spatial polygons have correct ordering", {
-  skip_if_not_installed("sp")
+  suppressPackageStartupMessages({
+    skip_if_not_installed("sp")
+  })
+
 
   make_square <- function(x = 0, y = 0, height = 1, width = 1){
     delx <- width/2
@@ -29,10 +32,16 @@ test_that("spatial polygons have correct ordering", {
   polys2 <- rev(polys)
   polys2_sp <- sp::SpatialPolygons(polys2)
   fake_sp2 <- sp::SpatialPolygonsDataFrame(polys2_sp, fake_data)
-  expected <- fortify(fake_sp2)
+  lifecycle::expect_deprecated(
+    # supressing: Regions defined for each Polygons
+    expected <- suppressMessages(fortify(fake_sp2))
+  )
   expected <- expected[order(expected$id, expected$order), ]
 
-  actual <- fortify(fake_sp)
+  lifecycle::expect_deprecated(
+    # supressing: Regions defined for each Polygons
+    actual <- suppressMessages(fortify(fake_sp))
+  )
 
   # the levels are different, so these columns need to be converted to character to compare
   expected$group <- as.character(expected$group)
@@ -40,6 +49,11 @@ test_that("spatial polygons have correct ordering", {
 
   # Use expect_equal(ignore_attr = TRUE) to ignore rownames
   expect_equal(actual, expected, ignore_attr = TRUE)
+
+  lifecycle::expect_deprecated(
+    # fortify() with region is defunct due to maptools' retirement
+    lifecycle::expect_defunct(fortify(fake_sp, region = "foo"))
+  )
 })
 
 test_that("fortify.default proves a helpful error with class uneval", {

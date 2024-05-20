@@ -93,8 +93,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # transform and normalize regular position data
     data <- transform_position(
       sf_transform_xy(data, target_crs, source_crs),
-      function(x) sf_rescale01_x(x, panel_params$x_range),
-      function(x) sf_rescale01_x(x, panel_params$y_range)
+      function(x) rescale(x, from = panel_params$x_range),
+      function(x) rescale(x, from = panel_params$y_range)
     )
 
     transform_position(data, squish_infinite, squish_infinite)
@@ -127,7 +127,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(x_labels) != length(x_breaks)) {
-      cli::cli_abort("Breaks and labels along x direction are different lengths")
+      cli::cli_abort("{.arg breaks} and {.arg labels} along {.code x} direction have different lengths.")
     }
     graticule$degree_label[graticule$type == "E"] <- x_labels
 
@@ -152,7 +152,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(y_labels) != length(y_breaks)) {
-      cli::cli_abort("Breaks and labels along y direction are different lengths")
+      cli::cli_abort("{.arg breaks} and {.arg labels} along {.code y} direction have different lengths.")
     }
     graticule$degree_label[graticule$type == "N"] <- y_labels
 
@@ -203,7 +203,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       if (self$lims_method != "geometry_bbox") {
         cli::cli_warn(c(
                 "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
-          "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
+          "i" = "Consider setting {.code lims_method = {.val geometry_bbox}} or {.code default_crs = NULL}."
         ))
       }
       coord_bbox <- self$params$bbox
@@ -259,24 +259,29 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     # Rescale graticule for panel grid
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
-    graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
-    graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
-    graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
-    graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
+    graticule$x_start <- rescale(graticule$x_start, from = x_range)
+    graticule$x_end   <- rescale(graticule$x_end,   from = x_range)
+    graticule$y_start <- rescale(graticule$y_start, from = y_range)
+    graticule$y_end   <- rescale(graticule$y_end,   from = y_range)
 
-    list(
+    list2(
       x_range = x_range,
       y_range = y_range,
       graticule = graticule,
       crs = params$crs,
       default_crs = params$default_crs,
-      viewscales = viewscales
+      !!!viewscales
     )
   },
 
-  setup_panel_guides = function(self, panel_params, guides, params = list()) {
-    params <- Coord$setup_panel_guides(panel_params$viewscales, guides, params)
-    c(params, panel_params)
+  train_panel_guides = function(self, panel_params, layers, params = list()) {
+    # The guide positions are already in the target CRS, so we mask the default
+    # CRS to prevent a double transformation.
+    panel_params$guides <- ggproto_parent(Coord, self)$train_panel_guides(
+      vec_assign(panel_params, "default_crs", panel_params["crs"]),
+      layers, params
+    )$guides
+    panel_params
   },
 
   backtransform_range = function(self, panel_params) {
@@ -330,9 +335,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (inherits(el, "element_blank")) {
       grobs <- list(element_render(theme, "panel.background"))
     } else {
-      line_gp <- gpar(
+      line_gp <- ggpar(
         col = el$colour,
-        lwd = len0_null(el$linewidth * .pt),
+        lwd = el$linewidth,
         lty = el$linetype
       )
       grobs <- c(
@@ -409,16 +414,11 @@ sf_rescale01 <- function(x, x_range, y_range) {
   sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
 }
 
-# normalize position data (variable x is x or y position)
-sf_rescale01_x <- function(x, range) {
-  (x - range[1]) / diff(range)
-}
-
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (any(!is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
     cli::cli_abort(c(
-            "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}",
+            "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
       "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
     ))
   }
@@ -551,14 +551,12 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes <- parse_axes_labeling(label_axes)
   } else if (!is.list(label_axes)) {
     cli::cli_abort("Panel labeling format not recognized.")
-    label_axes <- list(left = "N", bottom = "E")
   }
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
   } else {
     cli::cli_abort("Graticule labeling format not recognized.")
-    label_graticule <- ""
   }
 
   # switch limit method to "orthogonal" if not specified and default_crs indicates projected coords

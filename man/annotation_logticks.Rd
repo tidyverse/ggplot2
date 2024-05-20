@@ -61,6 +61,10 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 \item{size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is superseded by using \code{\link[=guide_axis_logticks]{guide_axis_logticks()}}.
+
 This annotation adds log tick marks with diminishing spacing.
 These tick marks probably make sense only for base 10.
 }
@@ -92,8 +96,8 @@ a + annotation_logticks(sides = "trbl") + theme(panel.grid.minor = element_blank
 # plotting it. Also hide the minor grid lines.
 b <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) +
  geom_point(na.rm = TRUE) +
- scale_x_continuous(name = "body", labels = scales::math_format(10^.x)) +
- scale_y_continuous(name = "brain", labels = scales::math_format(10^.x)) +
+ scale_x_continuous(name = "body", labels = scales::label_math(10^.x)) +
+ scale_y_continuous(name = "brain", labels = scales::label_math(10^.x)) +
  theme_bw() + theme(panel.grid.minor = element_blank())
 
 b + annotation_logticks()

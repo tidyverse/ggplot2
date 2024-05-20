@@ -167,7 +167,7 @@ ggplot(mpg, aes(cty, hwy)) +
 
 ## Theme
 
-The [theme](https://ggplot2-book.org/polishing.html) system controls almost any visuals of the plot that are not controlled by the data and is therefore important for the look and feel of the plot. You can use the theme for customizations ranging from changing the location of the legends to setting the background color of the plot. Many elements in the theme are hierarchical in that setting the look of the general axis line affects those of the x and y axes simultaneously.
+The [theme](https://ggplot2-book.org/themes) system controls almost any visuals of the plot that are not controlled by the data and is therefore important for the look and feel of the plot. You can use the theme for customizations ranging from changing the location of the legends to setting the background color of the plot. Many elements in the theme are hierarchical in that setting the look of the general axis line affects those of the x and y axes simultaneously.
 
 To tweak the look of the plot, one can use many of the built-in `theme_*()` functions and/or detail specific aspects with the `theme()` function. The `element_*()` functions control the graphical attributes of theme components.
 

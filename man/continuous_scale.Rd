@@ -18,7 +18,8 @@ continuous_scale(
   oob = censor,
   expand = waiver(),
   na.value = NA_real_,
-  trans = "identity",
+  transform = "identity",
+  trans = deprecated(),
   guide = "legend",
   position = "left",
   call = caller_call(),
@@ -33,7 +34,7 @@ that should be used for error messages associated with this scale.}
 
 \item{palette}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}
+(e.g., \code{\link[scales:pal_area]{scales::pal_area()}}).}
 
 \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
@@ -44,10 +45,11 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-\link[scales:trans_new]{transformation object}
+\link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
 
@@ -58,7 +60,9 @@ Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks. Also
-accepts rlang \link[rlang:as_function]{lambda} function notation.
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+breaks.
 }}
 
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
@@ -118,7 +122,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{na.value}{Missing values will be replaced with this value.}
 
-\item{trans}{For continuous scales, the name of a transformation object
+\item{transform}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -126,10 +130,13 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \verb{<name>_trans}. If
+are defined in the scales package, and are called \verb{transform_<name>}. If
 transformations require arguments, you can call them from the scales
-package, e.g. \code{\link[scales:boxcox_trans]{scales::boxcox_trans(p = 2)}}.
-You can create your own transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
+
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
+\code{transform}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -143,5 +150,8 @@ You can create your own transformation with \code{\link[scales:trans_new]{scales
 }
 \description{
 Continuous scale constructor
+}
+\seealso{
+The \href{https://ggplot2-book.org/extensions#sec-new-scales}{new scales section} of the online ggplot2 book.
 }
 \keyword{internal}

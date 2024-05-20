@@ -1,67 +1,48 @@
 ## revdepcheck results
 
-We checked 4503 reverse dependencies (4468 from CRAN + 35 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 5021 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 8 new problems
- * We failed to check 29 packages
+ * We saw 5 new problems
+ * We failed to check 17 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* afex
-  checking re-building of vignette outputs ... WARNING
+* ggh4x
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking re-building of vignette outputs ... ERROR
 
-* dalmatian
-  checking re-building of vignette outputs ... WARNING
+* MplusAutomation
+  checking installed package size ... NOTE
 
-* DriveML
-  checking re-building of vignette outputs ... WARNING
+* PlasmaMutationDetector
+  checking installed package size ... NOTE
 
-* EcoEnsemble
-  checking re-building of vignette outputs ... WARNING
+* Superpower
+  checking tests ... ERROR
 
-* ggtern
-  checking Rd files ... WARNING
-
-* siland
-  checking re-building of vignette outputs ... WARNING
-
-* TCIU
-  checking re-building of vignette outputs ... WARNING
-
-* xpose
+* xaringanthemer
   checking tests ... ERROR
 
 ### Failed to check
 
-* beadplexr       (NA)
-* CausalImpact    (NA)
-* CensMFM         (NA)
-* cinaR           (NA)
-* ctsem           (NA)
-* genekitr        (NA)
-* ggh4x           (NA)
-* glmmPen         (NA)
-* grandR          (NA)
-* immcp           (NA)
-* loon.ggplot     (NA)
-* MACP            (NA)
-* MarketMatching  (NA)
-* MARVEL          (NA)
-* nlmixr2rpt      (NA)
-* numbat          (NA)
-* OlinkAnalyze    (NA)
-* OpenMx          (NA)
-* Platypus        (NA)
-* PsychWordVec    (NA)
-* RcppCensSpatial (NA)
-* rstan           (NA)
-* RVA             (NA)
-* rxode2          (NA)
-* SCpubr          (NA)
-* tidySEM         (NA)
-* tinyarray       (NA)
-* valse           (NA)
-* vivid           (NA)
+* bayesdfa         (NA)
+* bmgarch          (NA)
+* ctsem            (NA)
+* EcoEnsemble      (NA)
+* geostan          (NA)
+* grandR           (NA)
+* multilevelcoda   (NA)
+* multinma         (NA)
+* rmsb             (NA)
+* rstanarm         (NA)
+* Seurat           (NA)
+* streamDAG        (NA)
+* treestats        (NA)
+* TriDimRegression (NA)
+* triptych         (NA)
+* ubms             (NA)
+* valse            (NA)

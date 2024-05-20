@@ -7,31 +7,15 @@
 \usage{
 guide_colourbar(
   title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-  label = TRUE,
-  label.position = NULL,
-  label.theme = NULL,
-  label.hjust = NULL,
-  label.vjust = NULL,
-  barwidth = NULL,
-  barheight = NULL,
-  nbin = 300,
-  raster = TRUE,
-  frame = element_blank(),
-  frame.colour = NULL,
-  frame.linewidth = NULL,
-  frame.linetype = NULL,
-  ticks = element_line(),
-  ticks.colour = NULL,
-  ticks.linewidth = NULL,
-  ticks.length = unit(0.2, "npc"),
+  theme = NULL,
+  nbin = NULL,
+  display = "raster",
+  raster = deprecated(),
+  alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  position = NULL,
   direction = NULL,
-  default.unit = "line",
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -40,31 +24,15 @@ guide_colourbar(
 
 guide_colorbar(
   title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-  label = TRUE,
-  label.position = NULL,
-  label.theme = NULL,
-  label.hjust = NULL,
-  label.vjust = NULL,
-  barwidth = NULL,
-  barheight = NULL,
-  nbin = 300,
-  raster = TRUE,
-  frame = element_blank(),
-  frame.colour = NULL,
-  frame.linewidth = NULL,
-  frame.linetype = NULL,
-  ticks = element_line(),
-  ticks.colour = NULL,
-  ticks.linewidth = NULL,
-  ticks.length = unit(0.2, "npc"),
+  theme = NULL,
+  nbin = NULL,
+  display = "raster",
+  raster = deprecated(),
+  alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  position = NULL,
   direction = NULL,
-  default.unit = "line",
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -77,81 +45,31 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
 
-\item{title.position}{A character string indicating the position of a
-title. One of "top" (default for a vertical guide), "bottom", "left"
-(default for a horizontal guide), or "right."}
-
-\item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.title} in \code{\link[=theme]{theme()}} or theme.}
-
-\item{title.hjust}{A number specifying horizontal justification of the
-title text.}
-
-\item{title.vjust}{A number specifying vertical justification of the title
-text.}
-
-\item{label}{logical. If \code{TRUE} then the labels are drawn. If
-\code{FALSE} then the labels are invisible.}
-
-\item{label.position}{A character string indicating the position of a
-label. One of "top", "bottom" (default for horizontal guide), "left", or
-"right" (default for vertical guide).}
-
-\item{label.theme}{A theme object for rendering the label text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
-
-\item{label.hjust}{A numeric specifying horizontal justification of the
-label text. The default for standard text is 0 (left-aligned) and 1
-(right-aligned) for expressions.}
-
-\item{label.vjust}{A numeric specifying vertical justification of the label
-text.}
-
-\item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the colourbar. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
-
-\item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the colourbar. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
 \item{nbin}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
 
-\item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
-raster object. If \code{FALSE} then the colourbar is rendered as a set of
-rectangles. Note that not all graphics devices are capable of rendering
-raster image.}
+\item{display}{A string indicating a method to display the colourbar. Can be
+one of the following:
+\itemize{
+\item \code{"raster"} to display as a bitmap image.
+\item \code{"rectangles"} to display as a series of rectangles.
+\item \code{"gradient"} to display as a linear gradient.
+}
 
-\item{frame}{A theme object for rendering a frame drawn around the bar.
-Usually, the object of \code{element_rect()} is expected. If \code{element_blank()}
-(default), no frame is drawn.}
+Note that not all devices are able to render rasters and gradients.}
 
-\item{frame.colour}{A string specifying the colour of the frame
-drawn around the bar. For backward compatibility, if this argument is
-not \code{NULL}, the \code{frame} argument will be set to \code{element_rect()}.}
+\item{raster}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}  A logical. If \code{TRUE} then
+the colourbar is rendered as a raster object. If \code{FALSE} then the colourbar
+is rendered as a set of rectangles. Note that not all graphics devices are
+capable of rendering raster image.}
 
-\item{frame.linewidth}{A numeric specifying the width of the frame
-drawn around the bar in millimetres.}
-
-\item{frame.linetype}{A numeric specifying the linetype of the frame
-drawn around the bar.}
-
-\item{ticks}{A theme object for rendering tick marks at the colourbar.
-Usually, the object of \code{element_line()} is expected (default). If
-\code{element_blank()}, no tick marks are drawn. For backward compatibility,
-can also be a logical which translates \code{TRUE} to \code{element_line()} and
-\code{FALSE} to \code{element_blank()}.}
-
-\item{ticks.colour}{A string specifying the colour of the tick marks.}
-
-\item{ticks.linewidth}{A numeric specifying the width of the tick marks in
-millimetres.}
-
-\item{ticks.length}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying the
-length of tick marks at the colourbar.}
+\item{alpha}{A numeric between 0 and 1 setting the colour transparency of
+the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
+(default).}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
 be visible.}
@@ -159,11 +77,11 @@ be visible.}
 \item{draw.llim}{A logical specifying if the lower limit tick marks should
 be visible.}
 
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
+
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
-
-\item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
-for \code{barwidth} and \code{barheight}.}
 
 \item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
@@ -209,19 +127,31 @@ p1 + guides(fill = guide_colourbar())
 # Control styles
 
 # bar size
-p1 + guides(fill = guide_colourbar(barwidth = 0.5, barheight = 10))
+p1 + guides(fill = guide_colourbar(theme = theme(
+  legend.key.width  = unit(0.5, "lines"),
+  legend.key.height = unit(10, "lines")
+)))
+
 
 # no label
-p1 + guides(fill = guide_colourbar(label = FALSE))
+p1 + guides(fill = guide_colourbar(theme = theme(
+  legend.text = element_blank()
+)))
 
 # no tick marks
-p1 + guides(fill = guide_colourbar(ticks = FALSE))
+p1 + guides(fill = guide_colourbar(theme = theme(
+  legend.ticks = element_blank()
+)))
 
 # label position
-p1 + guides(fill = guide_colourbar(label.position = "left"))
+p1 + guides(fill = guide_colourbar(theme = theme(
+  legend.text.position = "left"
+)))
 
 # label theme
-p1 + guides(fill = guide_colourbar(label.theme = element_text(colour = "blue", angle = 0)))
+p1 + guides(fill = guide_colourbar(theme = theme(
+  legend.text = element_text(colour = "blue", angle = 0)
+)))
 
 # small number of bins
 p1 + guides(fill = guide_colourbar(nbin = 3))
@@ -234,7 +164,7 @@ p1 +
   scale_fill_continuous(
     limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
-   )
+  )
 
 # guides can be controlled independently
 p2 +
@@ -243,10 +173,16 @@ p2 +
 p2 + guides(fill = "colourbar", size = "legend")
 
 p2 +
-  scale_fill_continuous(guide = guide_colourbar(direction = "horizontal")) +
-  scale_size(guide = guide_legend(direction = "vertical"))
+  scale_fill_continuous(guide = guide_colourbar(theme = theme(
+    legend.direction = "horizontal"
+  ))) +
+  scale_size(guide = guide_legend(theme = theme(
+    legend.direction = "vertical"
+  )))
 }
 \seealso{
+The \href{https://ggplot2-book.org/scales-colour#sec-guide-colourbar}{continuous legend section} of the online ggplot2 book.
+
 Other guides: 
 \code{\link{guide_bins}()},
 \code{\link{guide_coloursteps}()},

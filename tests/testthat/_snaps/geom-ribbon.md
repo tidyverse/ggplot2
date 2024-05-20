@@ -17,7 +17,7 @@
     Problem while converting geom to grob.
     i Error occurred in the 1st layer.
     Caused by error in `draw_group()`:
-    ! Aesthetics can not vary along a ribbon
+    ! Aesthetics can not vary along a ribbon.
 
 ---
 

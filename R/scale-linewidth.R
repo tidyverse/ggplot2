@@ -10,6 +10,8 @@
 #' @inheritParams binned_scale
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
+#'
+#' The `r link_book("line width section", "scales-other#sec-scale-linewidth")`
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @examples
@@ -29,11 +31,12 @@ NULL
 #' @usage NULL
 scale_linewidth_continuous <- function(name = waiver(), breaks = waiver(),
                                        labels = waiver(), limits = NULL,
-                                       range = c(1, 6), trans = "identity",
+                                       range = c(1, 6), transform = "identity",
+                                       trans = deprecated(),
                                        guide = "legend") {
-  continuous_scale("linewidth", palette = rescale_pal(range), name = name,
-                   breaks = breaks, labels = labels, limits = limits, trans = trans,
-                   guide = guide)
+  continuous_scale("linewidth", palette = pal_rescale(range), name = name,
+                   breaks = breaks, labels = labels, limits = limits,
+                   transform = transform, trans = trans, guide = guide)
 }
 
 #' @rdname scale_linewidth
@@ -44,10 +47,12 @@ scale_linewidth <- scale_linewidth_continuous
 #' @export
 scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
-                              nice.breaks = TRUE, trans = "identity", guide = "bins") {
-  binned_scale("linewidth", palette = rescale_pal(range), name = name,
-               breaks = breaks, labels = labels, limits = limits, trans = trans,
-               n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
+                              nice.breaks = TRUE, transform = "identity",
+                              trans = deprecated(), guide = "bins") {
+  binned_scale("linewidth", palette = pal_rescale(range), name = name,
+               breaks = breaks, labels = labels, limits = limits,
+               transform = transform, trans = trans, n.breaks = n.breaks,
+               nice.breaks = nice.breaks, guide = guide)
 }
 
 #' @rdname scale_linewidth
@@ -63,11 +68,11 @@ scale_linewidth_discrete <- function(...) {
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_ordinal <- function(..., range = c(2, 6)) {
+scale_linewidth_ordinal <- function(name = waiver(), ..., range = c(2, 6)) {
   force(range)
 
   discrete_scale(
-    "linewidth",
+    "linewidth", name = name,
     palette = function(n) seq(range[1], range[2], length.out = n),
     ...
   )
@@ -76,13 +81,19 @@ scale_linewidth_ordinal <- function(..., range = c(2, 6)) {
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_datetime <- function(..., range = c(1, 6)) {
-  datetime_scale("linewidth", "time", palette = rescale_pal(range), ...)
+scale_linewidth_datetime <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale(
+    "linewidth", transform = "time", name = name,
+    palette = pal_rescale(range), ...
+  )
 }
 
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_date <- function(..., range = c(1, 6)) {
-  datetime_scale("linewidth", "date", palette = rescale_pal(range), ...)
+scale_linewidth_date <- function(name = waiver(), ..., range = c(1, 6)) {
+  datetime_scale(
+    "linewidth", transform = "date", name = name,
+    palette = pal_rescale(range), ...
+  )
 }

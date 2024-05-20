@@ -505,6 +505,12 @@ GeomLabel$default_aes$size
 
 You can change the size using the `size` argument in `geom_text()` for a single plot. If you want to use the same updated size, you can set this with `update_geom_defaults()`, e.g. `update_geom_defaults("text", list(size = 6))`.
 
+One tricky thing is that this `size` is in **mm** while the `size` of `element_text()` is in pt.
+If you want to match `geom_text()`'s font size to the theme's size,
+specify `size.unit = "pt"` in `geom_text()` for a single plot,
+or divide the number by the `.pt` constant variable for `update_geom_defaults()`.
+Please refer to ["Font size" section of the aesthetic specifications](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#font-size) for more details.
+
 <details>
 
 <summary>See example</summary>

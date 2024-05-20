@@ -1,6 +1,6 @@
 # input checks work in compat functions
 
-    Can only remove rownames from <data.frame> and <matrix> objects
+    Can only remove rownames from <data.frame> and <matrix> objects.
 
 ---
 
@@ -8,7 +8,7 @@
 
 ---
 
-    Must be a character vector, call, or formula
+    Must be a character vector, call, or formula.
 
 ---
 

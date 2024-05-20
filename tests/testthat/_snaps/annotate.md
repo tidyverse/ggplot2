@@ -3,14 +3,14 @@
     Problem while converting geom to grob.
     i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
-    ! `annotation_raster()` only works with `coord_cartesian()`
+    ! `annotation_raster()` only works with `coord_cartesian()`.
 
 ---
 
     Problem while converting geom to grob.
     i Error occurred in the 1st layer.
     Caused by error in `draw_panel()`:
-    ! `annotation_custom()` only works with `coord_cartesian()`
+    ! `annotation_custom()` only works with `coord_cartesian()`.
 
 # annotation_map() checks the input data
 
@@ -18,7 +18,7 @@
 
 ---
 
-    `map` must have the columns `x`, `y`, and `id`
+    `map` must have the columns `x`, `y`, and `id`.
 
 # unsupported geoms signal a warning (#4719)
 
@@ -33,4 +33,8 @@
 
     Using the `size` aesthetic in this geom was deprecated in ggplot2 3.5.0.
     i Please use `linewidth` instead.
+
+# annotate() warns about `stat` or `position` arguments
+
+    `annotate()` can't accept `stat` or `position` arguments.
 

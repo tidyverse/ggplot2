@@ -10,6 +10,6 @@
 
 ---
 
-    Aesthetics must be either length 1 or the same as the data (4)
-    x Fix the following mappings: `d` and `e`
+    Aesthetics must be either length 1 or the same as the data (4).
+    x Fix the following mappings: `d` and `e`.
 
