@@ -116,7 +116,6 @@ uses <code><a href="stat_identity.html">stat_identity()</a></code>: it leaves th
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  just <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -129,7 +128,6 @@ uses <code><a href="stat_identity.html">stat_identity()</a></code>: it leaves th
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  just <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -141,7 +139,6 @@ uses <code><a href="stat_identity.html">stat_identity()</a></code>: it leaves th
 <span>  geom <span class="op">=</span> <span class="st">"bar"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -221,11 +218,6 @@ unintended behaviour when used with alternative positions, e.g.
 <code><a href="position_dodge.html">position_dodge()</a></code>.</p></dd>
 
 
-<dt>width</dt>
-<dd><p>Bar width. By default, set to 90% of the <code><a href="resolution.html">resolution()</a></code> of the
-data.</p></dd>
-
-
 <dt>na.rm</dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
@@ -294,6 +286,7 @@ bars and then standardising each bar to have the same height.</p>
 <li><p><code><a href="aes_group_order.html">group</a></code></p></li>
 <li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
 <li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
+<li><p><code>width</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
 
 <p><code>geom_col()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code></strong></p></li>
@@ -304,6 +297,7 @@ bars and then standardising each bar to have the same height.</p>
 <li><p><code><a href="aes_group_order.html">group</a></code></p></li>
 <li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
 <li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
+<li><p><code>width</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
 
 <p><code>stat_count()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code> <em>or</em> <code><a href="aes_position.html">y</a></code></strong></p></li>
