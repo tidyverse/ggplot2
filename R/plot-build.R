@@ -5,15 +5,15 @@
 #' a list of data frames (one for each layer), and a panel object, which
 #' contain all information about axis limits, breaks etc.
 #'
-#' `layer_data()`, `layer_grob()`, and `layer_scales()` are helper
+#' `get_layer_data()`, `get_layer_grob()`, and `get_panel_scales()` are helper
 #' functions that return the data, grob, or scales associated with a given
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
-#' @param i An integer. In `layer_data()`, the data to return (in the order added to the
-#'   plot). In `layer_grob()`, the grob to return (in the order added to the
-#'   plot). In `layer_scales()`, the row of a facet to return scales for.
-#' @param j An integer. In `layer_scales()`, the column of a facet to return
+#' @param i An integer. In `get_layer_data()`, the data to return (in the order added to the
+#'   plot). In `get_layer_grob()`, the grob to return (in the order added to the
+#'   plot). In `get_panel_scales()`, the row of a facet to return scales for.
+#' @param j An integer. In `get_panel_scales()`, the column of a facet to return
 #'   scales for.
 #' @seealso
 #' [print.ggplot()] and [benchplot()] for
@@ -28,6 +28,12 @@ ggplot_build <- function(plot) {
   attach_plot_env(plot$plot_env)
 
   UseMethod('ggplot_build')
+}
+
+#' @export
+ggplot_build.ggplot_built <- function(plot) {
+  # This is a no-op
+  plot
 }
 
 #' @export
@@ -125,13 +131,16 @@ ggplot_build.ggplot <- function(plot) {
 
 #' @export
 #' @rdname ggplot_build
-layer_data <- function(plot = last_plot(), i = 1L) {
+get_layer_data <- function(plot = get_last_plot(), i = 1L) {
   ggplot_build(plot)$data[[i]]
 }
+#' @export
+#' @rdname ggplot_build
+layer_data <- get_layer_data
 
 #' @export
 #' @rdname ggplot_build
-layer_scales <- function(plot = last_plot(), i = 1L, j = 1L) {
+get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
   layout <- b$layout$layout
@@ -145,11 +154,19 @@ layer_scales <- function(plot = last_plot(), i = 1L, j = 1L) {
 
 #' @export
 #' @rdname ggplot_build
-layer_grob <- function(plot = last_plot(), i = 1L) {
+layer_scales <- get_panel_scales
+
+#' @export
+#' @rdname ggplot_build
+get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
   b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)
 }
+
+#' @export
+#' @rdname ggplot_build
+layer_grob <- get_layer_grob
 
 #' Build a plot with all the usual bits and pieces.
 #'
@@ -261,10 +278,8 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
   # Margins
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[2])
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
+  plot_margin <- calc_element("plot.margin", theme)
+  plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
   if (inherits(theme$plot.background, "element")) {
     plot_table <- gtable_add_grob(plot_table,
@@ -443,7 +458,7 @@ table_add_legends <- function(table, legends, theme) {
   empty <- vapply(legends, is.zero, logical(1))
   widths[!empty]  <- lapply(legends[!empty], gtable_width)
   heights[!empty] <- lapply(legends[!empty], gtable_height)
-  spacing <- theme$legend.box.spacing %||% unit(0.2, "cm")
+  spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
 
   # If legend is missing, set spacing to zero for that legend
   zero    <- unit(0, "pt")

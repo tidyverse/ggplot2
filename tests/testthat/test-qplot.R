@@ -37,7 +37,7 @@ test_that("qplot() evaluates constants in the right place", {
       qplot(1, 1, colour = I(paste0("re", foo)))
     })
   )
-  expect_identical(layer_data(p)$colour, I("red"))
+  expect_identical(get_layer_data(p)$colour, I("red"))
 })
 
 test_that("qplot() evaluates layers in package environment", {

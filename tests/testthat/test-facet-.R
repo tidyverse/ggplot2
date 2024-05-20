@@ -92,9 +92,9 @@ test_that("facets split up the data", {
   l2 <- p + facet_grid(. ~ z)
   l3 <- p + facet_grid(z ~ .)
 
-  d1 <- layer_data(l1)
-  d2 <- layer_data(l2)
-  d3 <- layer_data(l3)
+  d1 <- get_layer_data(l1)
+  d2 <- get_layer_data(l2)
+  d3 <- get_layer_data(l3)
 
   expect_equal(d1, d2)
   expect_equal(d1, d3)
@@ -105,8 +105,8 @@ test_that("facets split up the data", {
   l4 <- p_empty + facet_wrap(~z)
   l5 <- p_empty + facet_grid(. ~ z)
 
-  d4 <- layer_data(l4)
-  d5 <- layer_data(l5)
+  d4 <- get_layer_data(l4)
+  d5 <- get_layer_data(l5)
 
   expect_equal(d1, d4)
   expect_equal(d1, d5)
@@ -120,7 +120,7 @@ test_that("facet_wrap() accepts vars()", {
   p1 <- p + facet_wrap(~z)
   p2 <- p + facet_wrap(vars(Z = z), labeller = label_both)
 
-  expect_identical(layer_data(p1), layer_data(p2))
+  expect_identical(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("facet_grid() accepts vars()", {
@@ -165,14 +165,14 @@ test_that("facet_wrap()/facet_grid() compact the facet spec, and accept empty sp
 
   # facet_wrap()
   p_wrap <- p + facet_wrap(vars(NULL))
-  d_wrap <- layer_data(p_wrap)
+  d_wrap <- get_layer_data(p_wrap)
 
   expect_equal(d_wrap$PANEL, factor(c(1L, 1L, 1L)))
   expect_equal(d_wrap$group, structure(c(-1L, -1L, -1L), n = 1L))
 
   # facet_grid()
   p_grid <- p + facet_grid(vars(NULL))
-  d_grid <- layer_data(p_grid)
+  d_grid <- get_layer_data(p_grid)
 
   expect_equal(d_grid$PANEL, factor(c(1L, 1L, 1L)))
   expect_equal(d_grid$group, structure(c(-1L, -1L, -1L), n = 1L))

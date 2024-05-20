@@ -17,7 +17,7 @@ test_that("NA's don't appear in breaks", {
 
   # First have to test that scale_breaks_positions will return a vector with NA
   # This is a test to make sure the later tests will be useful!
-  # It's possible that changes to the the way that breaks are calculated will
+  # It's possible that changes to the way that breaks are calculated will
   # make it so that scale_break_positions will no longer give NA for range 1, 12
   expect_true(any(is.na(scale_x$break_positions())))
   expect_true(any(is.na(scale_y$break_positions())))

@@ -608,7 +608,7 @@ Guides <- ggproto(
     box_xjust <- box_just[1]
     box_yjust <- box_just[2]
 
-    margin <- theme$legend.box.margin %||% margin()
+    margin <- calc_element("legend.box.margin", theme) %||% margin()
 
     # setting that is different for vertical and horizontal guide-boxes.
     if (identical(theme$legend.box, "horizontal")) {
@@ -787,14 +787,12 @@ Guides <- ggproto(
 #' # Coord polar doesn't support proper guides, so we get a list
 #' polar <- p + coord_polar()
 #' get_guide_data(polar, "theta", panel = 2)
-get_guide_data <- function(plot = last_plot(), aesthetic, panel = 1L) {
+get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   check_string(aesthetic, allow_empty = FALSE)
   aesthetic <- standardise_aes_names(aesthetic)
 
-  if (!inherits(plot, "ggplot_built")) {
-    plot <- ggplot_build(plot)
-  }
+  plot <- ggplot_build(plot)
 
   if (!aesthetic %in% c("x", "y", "x.sec", "y.sec", "theta", "r")) {
     # Non position guides: check if aesthetic in colnames of key
