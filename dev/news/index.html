@@ -87,6 +87,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
 <ul><li>
+<code><a href="../reference/geom_tile.html">geom_raster()</a></code> now falls back to rendering as <code><a href="../reference/geom_tile.html">geom_rect()</a></code> when coordinates are not Cartesian (<a href="https://github.com/tidyverse/ggplot2/issues/5503" class="external-link">#5503</a>).</li>
+<li>
 <code><a href="../reference/stat_ecdf.html">stat_ecdf()</a></code> now has an optional <code>weight</code> aesthetic (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5058" class="external-link">#5058</a>).</li>
 <li>Position scales combined with <code><a href="../reference/ggsf.html">coord_sf()</a></code> can now use functions in the <code>breaks</code> argument. In addition, <code>n.breaks</code> works as intended and <code>breaks = NULL</code> removes grid lines and axes (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4622" class="external-link">#4622</a>).</li>
 <li>(Internal) Applying defaults in <code><a href="../reference/ggsf.html">geom_sf()</a></code> has moved from the internal <code>sf_grob()</code> to <code>GeomSf$use_defaults()</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</li>
