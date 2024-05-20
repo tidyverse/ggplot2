@@ -42,7 +42,9 @@
 * `theme()` gets new `spacing` and `margins` arguments that all other spacings
   and (non-text) margins inherit from (@teunbrand, #5622).
 * `geom_ribbon()` can have varying `fill` or `alpha` in linear coordinate
-  systems (@teunbrand, #4690)
+  systems (@teunbrand, #4690).
+* `geom_tile()` computes default widths and heights per panel instead of
+  per layer (@teunbrand, #5740).
 
 # ggplot2 3.5.1
 
