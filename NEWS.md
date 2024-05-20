@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New function `complete_theme()` to replicate how themes are handled during
+  plot building (#5801).
 * Special getter and setter functions have been renamed for consistency, allowing
   for better tab-completion with `get_*`- and `set_*`-prefixes. The old names 
   remain available for backward compatibility (@teunbrand, #5568).
