@@ -105,7 +105,21 @@ annotations and to represent rectangular areas.</p>
 geometry that they're used in. These are <code>xintercept</code>, <code>yintercept</code>,
 <code>xmin_final</code>, <code>ymin_final</code>, <code>xmax_final</code>, <code>ymax_final</code>, <code>xlower</code>, <code>lower</code>,
 <code>xmiddle</code>, <code>middle</code>, <code>xupper</code>, <code>upper</code>, <code>x0</code> and <code>y0</code>. Many of these are used
-and automatically computed in <code><a href="geom_boxplot.html">geom_boxplot()</a></code>.</p>
+and automatically computed in <code><a href="geom_boxplot.html">geom_boxplot()</a></code>.</p><div class="section">
+<h3 id="relation-to-width-and-height">Relation to <code>width</code> and <code>height</code><a class="anchor" aria-label="anchor" href="#relation-to-width-and-height"></a></h3>
+
+
+<p>The position aesthetics mentioned above like <code>x</code> and <code>y</code> are all location
+based. The <code>width</code> and <code>height</code> aesthetics are closely related length
+based aesthetics, but are not position aesthetics. Consequently, <code>x</code> and <code>y</code>
+aesthetics respond to scale transformations, whereas the length based
+<code>width</code> and <code>height</code> aesthetics are not transformed by scales. For example,
+if we have the pair <code>x = 10, width = 2</code>, that gets translated to the
+locations <code>xmin = 9, xmax = 11</code> when using the default identity scales.
+However, the same pair becomes <code>xmin = 1, xmax = 100</code> when using log10 scales,
+as <code>width = 2</code> in log10-space spans a 100-fold change.</p>
+</div>
+
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
