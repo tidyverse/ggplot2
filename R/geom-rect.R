@@ -31,8 +31,7 @@ GeomRect <- ggproto("GeomRect", Geom,
   default_aes = aes(colour = NA, fill = "grey35", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
-  optional_aes = c("x", "width", "xmin", "xmax", "y", "height", "ymin", "ymax"),
-  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
+  required_aes = c("x|width|xmin|xmax", "y|height|ymin|ymax"),
 
   setup_data = function(self, data, params) {
     data$xmin <- data$xmin %||% params$xmin
