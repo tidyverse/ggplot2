@@ -19,7 +19,7 @@
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
-#'   One of "horizontal" or "vertical."
+#'   One of "horizontal" or "vertical".
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
 #' @param nrow,ncol The desired number of rows and column of legends
@@ -313,8 +313,8 @@ GuideLegend <- ggproto(
       arg_match0(title_position, .trbl, arg_nm = "legend.title.position")
 
     # Set default spacing
-    theme$legend.key.spacing <- theme$legend.key.spacing %||% unit(5.5, "pt")
-    gap <- calc_element("legend.key.spacing", theme)
+    theme$legend.key.spacing <- calc_element("legend.key.spacing", theme)
+    gap <- theme$legend.key.spacing
 
     # For backward compatibility, default vertical spacing is no spacing
     if (params$direction == "vertical") {

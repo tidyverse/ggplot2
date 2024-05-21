@@ -359,3 +359,38 @@ format.ggproto_method <- function(x, ...) {
 
 # proto2 TODO: better way of getting formals for self$draw
 ggproto_formals <- function(x) formals(environment(x)$f)
+
+#' Debug wrapper for ggproto methods
+#'
+#' @param method A ggproto method or function to debug.
+#' @param debug One of the following:
+#'  * `"once"` for invoking `debugonce()` (default).
+#'  * `"always"` for invoking `debug()`.
+#'  * `"never"` for invoking `undebug()`.
+#' @param ... Arguments passed to the function invoked by the `debug` argument.
+#'
+#' @return `NULL`, this function is called for its side-effects.
+#' @noRd
+#'
+#' @examples
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' if (interactive()) {
+#'   ggproto_debug(GeomPoint$draw_panel)
+#' }
+#'
+#' p
+ggproto_debug <- function(method, debug = c("once", "always", "never"), ...) {
+  if (inherits(method, "ggproto_method")) {
+    method <- environment(method)$f
+  }
+  check_function(method)
+  switch(
+    arg_match0(debug, c("once", "always", "never")),
+    once   = debugonce(method, ...),
+    always = debug(method, ...),
+    never  = undebug(method, ...)
+  )
+}
+

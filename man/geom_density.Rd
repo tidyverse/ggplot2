@@ -188,6 +188,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \itemize{
 \item \code{after_stat(density)}\cr density estimate.
 \item \code{after_stat(count)}\cr density * number of points - useful for stacked density plots.
+\item \code{after_stat(wdensity)}\cr density * sum of weights. In absence of weights, the same as \code{count}.
 \item \code{after_stat(scaled)}\cr density estimate, scaled to maximum of 1.
 \item \code{after_stat(n)}\cr number of points.
 \item \code{after_stat(ndensity)}\cr alias for \code{scaled}, to mirror the syntax of \code{\link[=stat_bin]{stat_bin()}}.

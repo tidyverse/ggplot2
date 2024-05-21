@@ -190,7 +190,7 @@ GeomSf <- ggproto("GeomSf", Geom,
 
   draw_panel = function(self, data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
-                        arrow = NULL, na.rm = TRUE) {
+                        arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
       cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
@@ -198,7 +198,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
     sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-            arrow = arrow, na.rm = na.rm)
+            arrow = arrow, arrow.fill = arrow.fill, na.rm = na.rm)
   },
 
   draw_key = function(data, params, size) {
@@ -224,7 +224,7 @@ default_aesthetics <- function(type) {
 }
 
 sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
-                    arrow = NULL, na.rm = TRUE) {
+                    arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
   type <- sf_types[sf::st_geometry_type(x$geometry)]
   is_point <- type == "point"
   is_line <- type == "line"
@@ -249,6 +249,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
 
   alpha <- x$alpha %||% NA
   fill <- fill_alpha(x$fill %||% NA, alpha)
+  fill[is_line] <- arrow.fill %||% fill[is_line]
   col <- x$colour %||% NA
   col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])
 
