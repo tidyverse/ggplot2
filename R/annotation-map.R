@@ -95,7 +95,7 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
 
     polygonGrob(coords$x, coords$y, default.units = "native",
       id = grob_id,
-      gp = ggpar(
+      gp = gparam(
         col = data$colour, fill = alpha(data$fill, data$alpha),
         lwd = data$linewidth)
       )

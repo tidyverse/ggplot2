@@ -57,7 +57,7 @@ GeomRect <- ggproto("GeomRect", Geom,
         height = coords$ymax - coords$ymin,
         default.units = "native",
         just = c("left", "top"),
-        gp = ggpar(
+        gp = gparam(
           col = coords$colour,
           fill = fill_alpha(coords$fill, coords$alpha),
           lwd = coords$linewidth,

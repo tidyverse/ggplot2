@@ -149,7 +149,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
       pointsGrob(
         coords$x, coords$y,
         pch = coords$shape,
-        gp = ggpar(
+        gp = gparam(
           col = alpha(coords$colour, coords$alpha),
           fill = fill_alpha(coords$fill, coords$alpha),
           pointsize = coords$size,
