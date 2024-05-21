@@ -34,14 +34,20 @@ GeomRect <- ggproto("GeomRect", Geom,
   required_aes = c("x|width|xmin|xmax", "y|height|ymin|ymax"),
 
   setup_data = function(self, data, params) {
-    data$xmin <- data$xmin %||% params$xmin
-    data$xmax <- data$xmax %||% params$xmax
-    data$ymin <- data$ymin %||% params$ymin
-    data$ymax <- data$ymax %||% params$ymax
+    if (all(c("xmin", "xmax", "ymin", "ymax") %in% names(data))) {
+      return(data)
+    }
+
+    # Fill in missing aesthetics from parameters
+    required <- strsplit(self$required_aes, "|", fixed = TRUE)
+    missing  <- setdiff(unlist(required), names(data))
+    default <- params[intersect(missing, names(params))]
+    data[names(default)] <- default
+
     if (is.null(data$xmin) || is.null(data$xmax)) {
       x <- resolve_rect(
         data[["xmin"]], data[["xmax"]],
-        data[["x"]], data[["width"]] %||% params$width
+        data[["x"]], data[["width"]]
       )
       i <- lengths(x) > 1
       data[c("xmin", "xmax")[i]] <- x[i]
@@ -49,7 +55,7 @@ GeomRect <- ggproto("GeomRect", Geom,
     if (is.null(data$ymin) || is.null(data$ymax)) {
       y <- resolve_rect(
         data[["ymin"]], data[["ymax"]],
-        data[["y"]], data[["height"]] %||% params$height
+        data[["y"]], data[["height"]]
       )
       i <- lengths(y) > 1
       data[c("ymin", "ymax")[i]] <- y[i]
