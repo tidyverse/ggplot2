@@ -71,9 +71,9 @@ draw_key_polygon <- function(data, params, size) {
     data$linewidth <- 0.5
   }
 
-  lwd <- min(data$linewidth, min(size) / 4)
+  lwd <- data$linewidth
 
-  rectGrob(
+  grob <- rectGrob(
     width = unit(1, "npc") - unit(lwd, "mm"),
     height = unit(1, "npc") - unit(lwd, "mm"),
     gp = ggpar(
@@ -84,6 +84,12 @@ draw_key_polygon <- function(data, params, size) {
       linejoin = params$linejoin %||% "mitre",
       lineend = params$lineend %||% "butt"
   ))
+
+  # Magic number is 5 because we convert mm to cm (divide by 10) but we
+  # draw two lines in each direction (times 2)
+  attr(grob, "width")  <- lwd / 5
+  attr(grob, "height") <- lwd / 5
+  grob
 }
 
 #' @export

@@ -23,13 +23,13 @@
 #'     Also accepts rlang [lambda][rlang::as_function()] function notation.
 #' @param minor_breaks One of:
 #'   - `NULL` for no minor breaks
-#'   - `waiver()` for the default breaks (one minor break between
-#'     each major break)
+#'   - `waiver()` for the default breaks (none for discrete, one minor break
+#'     between each major break for continuous)
 #'   - A numeric vector of positions
 #'   - A function that given the limits returns a vector of minor breaks. Also
 #'     accepts rlang [lambda][rlang::as_function()] function notation. When
 #'     the function has two arguments, it will be given the limits and major
-#'     breaks.
+#'     break positions.
 #' @param n.breaks An integer guiding the number of major breaks. The algorithm
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
@@ -200,7 +200,8 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 #' The `r link_book("new scales section", "extensions#sec-new-scales")`
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
-                           breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
+                           breaks = waiver(), minor_breaks = waiver(),
+                           labels = waiver(), limits = NULL, expand = waiver(),
                            na.translate = TRUE, na.value = NA, drop = TRUE,
                            guide = "legend", position = "left",
                            call = caller_call(),
@@ -218,6 +219,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   limits <- allow_lambda(limits)
   breaks <- allow_lambda(breaks)
   labels <- allow_lambda(labels)
+  minor_breaks <- allow_lambda(minor_breaks)
 
   if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
     cli::cli_warn(c(
@@ -247,6 +249,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 
     name = name,
     breaks = breaks,
+    minor_breaks = minor_breaks,
     labels = labels,
     drop = drop,
     guide = guide,
@@ -1022,7 +1025,34 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     structure(in_domain, pos = match(in_domain, breaks))
   },
 
-  get_breaks_minor = function(...) NULL,
+  get_breaks_minor = function(self, n = 2, b = self$break_positions(),
+                              limits = self$get_limits()) {
+    breaks <- self$minor_breaks
+    # The default is to draw no minor ticks
+    if (is.null(breaks %|W|% NULL)) {
+      return(NULL)
+    }
+    if (is.function(breaks)) {
+      # Ensure function gets supplied numeric limits and breaks
+      if (!is.numeric(b)) {
+        b <- self$map(b)
+      }
+      if (!is.numeric(limits)) {
+        limits <- self$map(limits)
+        limits <- self$dimension(self$expand, limits)
+      }
+
+      # Allow for two types of minor breaks specifications
+      break_fun <- fetch_ggproto(self, "minor_breaks")
+      arg_names <- fn_fmls_names(break_fun)
+      if (length(arg_names) == 1L) {
+        breaks <- break_fun(limits)
+      } else {
+        breaks <- break_fun(limits, b)
+      }
+    }
+    breaks
+  },
 
   get_labels = function(self, breaks = self$get_breaks()) {
     if (self$is_empty()) {

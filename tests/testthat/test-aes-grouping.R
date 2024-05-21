@@ -4,7 +4,7 @@ df <- data_frame(
   b = c("a", "b", "a", "b")
 )
 
-group <- function(x) as.vector(layer_data(x, 1)$group)
+group <- function(x) as.vector(get_layer_data(x, 1)$group)
 groups <- function(x) vec_unique_count(group(x))
 
 

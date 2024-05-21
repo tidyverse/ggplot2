@@ -89,7 +89,7 @@
 #' dev.off()
 #'
 #' }
-ggsave <- function(filename, plot = last_plot(),
+ggsave <- function(filename, plot = get_last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm", "px"),
                    dpi = 300, limitsize = TRUE, bg = NULL,
