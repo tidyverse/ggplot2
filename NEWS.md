@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `arrow.fill` parameter is now applied to more line-based functions: 
+  `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
+   geometries in `geom_sf()` and `element_line()`.
 * Fixed bug where binned guides would keep out-of-bounds breaks 
   (@teunbrand, #5870).
 * The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 

@@ -16,6 +16,7 @@
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param linewidth Line/border size in mm.
 #' @param size text size in pts.
+#' @param arrow.fill Fill colour for arrows.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
 #'   a blank element among its parents will cause this element to be blank as
@@ -87,18 +88,21 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE, size = deprecated()) {
+  lineend = NULL, color = NULL, arrow = NULL, arrow.fill = NULL,
+  inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
     linewidth <- size
   }
 
-  if (!is.null(color))  colour <- color
-  if (is.null(arrow)) arrow <- FALSE
+  colour <- color %||% colour
+  arrow.fill <- arrow.fill %||% colour
+  arrow <- arrow %||% FALSE
+
   structure(
     list(colour = colour, linewidth = linewidth, linetype = linetype, lineend = lineend,
-      arrow = arrow, inherit.blank = inherit.blank),
+      arrow = arrow, arrow.fill = arrow.fill, inherit.blank = inherit.blank),
     class = c("element_line", "element")
   )
 }
@@ -253,6 +257,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 #' @export
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
+  arrow.fill = NULL,
   default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
@@ -260,21 +265,27 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
     linewidth <- size
   }
 
-  # The gp settings can override element_gp
-  gp <- ggpar(
-    col = colour, fill = colour,
-    lwd = linewidth, lty = linetype, lineend = lineend
-  )
-  element_gp <- ggpar(
-    col = element$colour, fill = element$colour,
-    lwd = element$linewidth, lty = element$linetype,
-    lineend = element$lineend
-  )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
     NULL
   } else {
     element$arrow
   }
+  if (is.null(arrow)) {
+    arrow.fill <- colour
+    element$arrow.fill <- element$colour
+  }
+
+  # The gp settings can override element_gp
+  gp <- ggpar(
+    col = colour, fill = arrow.fill %||% colour,
+    lwd = linewidth, lty = linetype, lineend = lineend
+  )
+  element_gp <- ggpar(
+    col = element$colour, fill = element$arrow.fill %||% element$colour,
+    lwd = element$linewidth, lty = element$linetype,
+    lineend = element$lineend
+  )
+
   polylineGrob(
     x, y, default.units = default.units,
     gp = modify_list(element_gp, gp),
