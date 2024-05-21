@@ -30,7 +30,7 @@ guide overrides, and is combined with, the plot's theme.}
 placed relative to the plot panels.}
 
 \item{direction}{A character string indicating the direction of the guide.
-One of "horizontal" or "vertical."}
+One of "horizontal" or "vertical".}
 
 \item{override.aes}{A list specifying aesthetic parameters of legend key.
 See details and examples.}
