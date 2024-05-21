@@ -6,8 +6,9 @@
 #'
 #' @param base_size base font size, given in pts.
 #' @param base_family base font family
-#' @param header_family font family for titles and headers. Defaults to
-#'   `base_family`.
+#' @param header_family font family for titles and headers. The default, `NULL`,
+#'   uses theme inheritance to set the font. This setting affects axis titles,
+#'   legend titles, the plot title and tag text.
 #' @param base_line_size base size for line elements
 #' @param base_rect_size base size for rect elements
 #'

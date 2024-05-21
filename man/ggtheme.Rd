@@ -16,7 +16,7 @@
 theme_grey(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -24,7 +24,7 @@ theme_grey(
 theme_gray(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -32,7 +32,7 @@ theme_gray(
 theme_bw(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -40,7 +40,7 @@ theme_bw(
 theme_linedraw(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -48,7 +48,7 @@ theme_linedraw(
 theme_light(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -56,7 +56,7 @@ theme_light(
 theme_dark(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -64,7 +64,7 @@ theme_dark(
 theme_minimal(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -72,7 +72,7 @@ theme_minimal(
 theme_classic(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -80,7 +80,7 @@ theme_classic(
 theme_void(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -88,7 +88,7 @@ theme_void(
 theme_test(
   base_size = 11,
   base_family = "",
-  header_family = base_family,
+  header_family = NULL,
   base_line_size = base_size/22,
   base_rect_size = base_size/22
 )
@@ -98,8 +98,9 @@ theme_test(
 
 \item{base_family}{base font family}
 
-\item{header_family}{font family for titles and headers. Defaults to
-\code{base_family}.}
+\item{header_family}{font family for titles and headers. The default, \code{NULL},
+uses theme inheritance to set the font. This setting affects axis titles,
+legend titles, the plot title and tag text.}
 
 \item{base_line_size}{base size for line elements}
 
