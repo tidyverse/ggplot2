@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_rect()` can now derive the required corners positions from `x`/`width`
+  or `y`/`height` parameterisation (@teunbrand, #5861).
 * Fixed bug where binned guides would keep out-of-bounds breaks 
   (@teunbrand, #5870).
 * The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 
