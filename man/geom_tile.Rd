@@ -157,23 +157,18 @@ only after transformation that these aesthetics are applied.
 }
 \section{Aesthetics}{
 
-\code{geom_tile()} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_rect()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
+\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{width} \emph{or} \code{\link[=aes_position]{xmin}} \emph{or} \code{\link[=aes_position]{xmax}}}
+\item \strong{\code{\link[=aes_position]{y}} \emph{or} \code{height} \emph{or} \code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{ymax}}}
 \item \code{\link[=aes_colour_fill_alpha]{alpha}}
 \item \code{\link[=aes_colour_fill_alpha]{colour}}
 \item \code{\link[=aes_colour_fill_alpha]{fill}}
 \item \code{\link[=aes_group_order]{group}}
-\item \code{height}
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
-\item \code{width}
-\item \code{\link[=aes_position]{xmax}}
-\item \code{\link[=aes_position]{xmin}}
-\item \code{\link[=aes_position]{ymax}}
-\item \code{\link[=aes_position]{ymin}}
 }
+\code{geom_tile()} understands only the \code{x}/\code{width} and \code{y}/\code{height} combinations.
 Note that \code{geom_raster()} ignores \code{colour}.
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

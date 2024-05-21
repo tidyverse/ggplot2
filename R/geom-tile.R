@@ -7,7 +7,11 @@
 #' `geom_raster()` is a high performance special case for when all the tiles
 #' are the same size, and no pattern fills are applied.
 #'
-#' @eval rd_aesthetics("geom", "tile", "Note that `geom_raster()` ignores `colour`.")
+#' @eval rd_aesthetics(
+#'   "geom", "rect",
+#'   "`geom_tile()` understands only the `x`/`width` and `y`/`height` combinations.
+#'   Note that `geom_raster()` ignores `colour`."
+#' )
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_segment
