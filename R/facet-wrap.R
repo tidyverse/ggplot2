@@ -115,13 +115,6 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
   dir <- arg_match0(dir, c("h", "v", "lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))
-  if (nchar(dir) == 1) {
-    dir <- base::switch(
-      dir,
-      h = if (as.table) "lt" else "lb",
-      v = if (as.table) "tl" else "tr"
-    )
-  }
 
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -170,6 +163,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     params = list(
       facets = facets,
       free = free,
+      as.table = as.table,
       strip.position = strip.position,
       drop = drop,
       ncol = ncol,
@@ -209,7 +203,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
-    layout <- wrap_layout(id, dims, params$dir)
+    layout <- wrap_layout(id, dims, params$dir, params$as.table)
 
     panels <- vec_cbind(layout, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -582,8 +576,15 @@ measure_axes <- function(empty_idx, axis, margin = 1L, shift = 0) {
   unit(apply(cm, margin, max), "cm")
 }
 
-wrap_layout <- function(id, dims, dir) {
-  as.table <- TRUE
+wrap_layout <- function(id, dims, dir = "h", as.table = NULL) {
+  as.table <- as.table %||% TRUE
+  if (nchar(dir) == 1) {
+    dir <- base::switch(
+      dir,
+      h = if (as.table) "lt" else "lb",
+      v = if (as.table) "tl" else "tr"
+    )
+  }
   n <- attr(id, "n")
 
   ROW <- switch(
