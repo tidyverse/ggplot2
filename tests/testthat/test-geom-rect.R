@@ -31,6 +31,6 @@ test_that("geom_rect can derive corners", {
   test <- full[, c("x", "y")]
   expect_error(
     GeomRect$setup_data(test, NULL),
-    "requires the following missing aesthetics"
+    "requires two of the following aesthetics"
   )
 })
