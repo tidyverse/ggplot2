@@ -272,8 +272,8 @@ string. Can be \code{"panel"} (default) to align legends to the panels or
 "vertical")}
 
 \item{legend.box.just}{justification of each legend within the overall
-bounding box, when there are multiple legends ("top", "bottom", "left", or
-"right")}
+bounding box, when there are multiple legends ("top", "bottom", "left",
+"right", "center" or "centre")}
 
 \item{legend.box.margin}{margins around the full legend area, as specified
 using \code{\link[=margin]{margin()}}; inherits from \code{margins}.}
@@ -412,7 +412,7 @@ p1 + theme(plot.background = element_rect(fill = "green"))
 # Panels --------------------------------------------------------------------
 
 p1 + theme(panel.background = element_rect(fill = "white", colour = "grey50"))
-p1 + theme(panel.border = element_rect(linetype = "dashed", fill = NA))
+p1 + theme(panel.border = element_rect(linetype = "dashed"))
 p1 + theme(panel.grid.major = element_line(colour = "black"))
 p1 + theme(
   panel.grid.major.y = element_blank(),

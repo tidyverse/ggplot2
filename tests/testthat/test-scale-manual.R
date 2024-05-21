@@ -47,7 +47,7 @@ test_that("missing values are replaced with na.value", {
     geom_point() +
     scale_colour_manual(values = c("black", "black"), na.value = "red")
 
-  expect_equal(layer_data(p)$colour, c("black", "black", "red"))
+  expect_equal(get_layer_data(p)$colour, c("black", "black", "red"))
 })
 
 test_that("insufficient values raise an error", {
@@ -80,7 +80,7 @@ test_that("generic scale can be used in place of aesthetic-specific scales", {
     scale_discrete_manual(aesthetics = "colour", values = c("red", "green", "blue")) +
     scale_discrete_manual(aesthetics = "alpha", values = c(0.2, 0.4, 0.6))
 
-  expect_equal(layer_data(p1), layer_data(p2))
+  expect_equal(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("named values do not match with breaks in manual scales", {

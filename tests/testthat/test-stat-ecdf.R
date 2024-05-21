@@ -1,10 +1,10 @@
 test_that("stat_ecdf works in both directions", {
   p <- ggplot(mpg, aes(hwy)) + stat_ecdf()
-  x <- layer_data(p)
+  x <- get_layer_data(p)
   expect_false(x$flipped_aes[1])
 
   p <- ggplot(mpg, aes(y = hwy)) + stat_ecdf()
-  y <- layer_data(p)
+  y <- get_layer_data(p)
   expect_true(y$flipped_aes[1])
 
   x$flipped_aes <- NULL
@@ -69,9 +69,9 @@ test_that("stat_ecdf responds to axis transformations", {
   answer <- c(seq(0, 1, length.out = n + 1), 1)
   p <- ggplot(data_frame0(x = seq_len(n)), aes(x)) + stat_ecdf()
 
-  ld <- layer_data(p)
+  ld <- get_layer_data(p)
   expect_equal(ld$y, answer)
 
-  ld <- layer_data(p + scale_y_sqrt())
+  ld <- get_layer_data(p + scale_y_sqrt())
   expect_equal(ld$y, sqrt(answer))
 })

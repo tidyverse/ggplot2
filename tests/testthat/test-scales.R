@@ -52,7 +52,7 @@ test_that("identity scale preserves input values", {
     scale_shape_identity() +
     scale_size_identity() +
     scale_alpha_identity()
-  d1 <- layer_data(p1)
+  d1 <- get_layer_data(p1)
 
   expect_equal(d1$colour, as.character(df$z))
   expect_equal(d1$fill, as.character(df$z))
@@ -66,7 +66,7 @@ test_that("identity scale preserves input values", {
     geom_point() +
     scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
     scale_continuous_identity(aesthetics = c("size", "alpha"))
-  d2 <- layer_data(p2)
+  d2 <- get_layer_data(p2)
 
   expect_equal(d1, d2)
 })
@@ -258,7 +258,7 @@ test_that("aesthetics can be set independently of scale name", {
   p <- ggplot(df, aes(x, y, fill = y)) +
     scale_colour_manual(values = c("red", "green", "blue"), aesthetics = "fill")
 
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 })
 
 test_that("multiple aesthetics can be set with one function call", {
@@ -272,8 +272,8 @@ test_that("multiple aesthetics can be set with one function call", {
       aesthetics = c("colour", "fill")
     )
 
-  expect_equal(layer_data(p)$colour, c("grey20", "grey40", "grey60"))
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$colour, c("grey20", "grey40", "grey60"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 
   # color order is determined by data order, and breaks are combined where possible
   df <- data_frame(
@@ -286,8 +286,8 @@ test_that("multiple aesthetics can be set with one function call", {
       aesthetics = c("fill", "colour")
     )
 
-  expect_equal(layer_data(p)$colour, c("cyan", "red", "green"))
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$colour, c("cyan", "red", "green"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 })
 
 test_that("limits with NA are replaced with the min/max of the data for continuous scales", {
@@ -459,7 +459,7 @@ test_that("staged aesthetics are backtransformed properly (#4155)", {
     scale_x_sqrt(limits = c(0, 16), breaks = c(2, 4, 8))
 
   # x / 2 should be 16 / 2 = 8, thus the result should be sqrt(8) on scale_x_sqrt()
-  expect_equal(layer_data(p)$x, sqrt(8))
+  expect_equal(get_layer_data(p)$x, sqrt(8))
 })
 
 test_that("numeric scale transforms can produce breaks", {

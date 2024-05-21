@@ -357,11 +357,13 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   render_fg = function(self, panel_params, theme) {
 
+    border <- element_render(theme, "panel.border", fill = NA)
+
     if (!self$r_axis_inside) {
       out <- grobTree(
         panel_guides_grob(panel_params$guides, "theta", theme),
         panel_guides_grob(panel_params$guides, "theta.sec", theme),
-        element_render(theme, "panel.border")
+        border
       )
       return(out)
     }
@@ -381,7 +383,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       panel_guides_grob(panel_params$guides, "theta", theme),
       panel_guides_grob(panel_params$guides, "theta.sec", theme),
       left, right,
-      element_render(theme, "panel.border")
+      border
     )
   },
 

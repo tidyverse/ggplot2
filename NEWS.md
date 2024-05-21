@@ -1,8 +1,34 @@
 # ggplot2 (development version)
 
 * The `arrow.fill` parameter is now applied to more line-based functions: 
-  `geom_path()`, `geom_line()`, `geom_function()`, line geometries in 
-  `geom_sf()` and `element_line()`.
+  `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
+   geometries in `geom_sf()` and `element_line()`.
+* Fixed bug where binned guides would keep out-of-bounds breaks 
+  (@teunbrand, #5870).
+* The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 
+  aesthetic (#4852).
+* New function `complete_theme()` to replicate how themes are handled during
+  plot building (#5801).
+* Special getter and setter functions have been renamed for consistency, allowing
+  for better tab-completion with `get_*`- and `set_*`-prefixes. The old names 
+  remain available for backward compatibility (@teunbrand, #5568).
+  
+  | New name             | Old name          |
+  | -------------------- | ----------------- |
+  | `get_theme()`        | `theme_get()`     |
+  | `set_theme()`        | `theme_set()`     |
+  | `replace_theme()`    | `theme_replace()` |
+  | `update_theme()`     | `theme_update()`  |
+  | `get_last_plot()`    | `last_plot()`     |
+  | `get_layer_data()`   | `layer_data()`    |
+  | `get_layer_grob()`   | `layer_grob()`    |
+  | `get_panel_scales()` | `layer_scales()`  |
+
+* Discrete scales now support `minor_breaks`. This may only make sense in
+  discrete position scales, where it affects the placement of minor ticks
+  and minor gridlines (#5434).
+* Discrete position scales now expose the `palette` argument, which can be used 
+  to customise spacings between levels (@teunbrand, #5770).
 * The default `se` parameter in layers with `geom = "smooth"` will be `TRUE` 
   when the data has `ymin` and `ymax` parameters and `FALSE` if these are 
   absent. Note that this does not affect the default of `geom_smooth()` or
@@ -45,7 +71,23 @@
 * `theme()` gets new `spacing` and `margins` arguments that all other spacings
   and (non-text) margins inherit from (@teunbrand, #5622).
 * `geom_ribbon()` can have varying `fill` or `alpha` in linear coordinate
-  systems (@teunbrand, #4690)
+  systems (@teunbrand, #4690).
+* `geom_tile()` computes default widths and heights per panel instead of
+  per layer (@teunbrand, #5740).
+* The `fill` of the `panel.border` theme setting is ignored and forced to be
+  transparent (#5782).
+* `stat_align()` skips computation when there is only 1 group and therefore
+  alignment is not necessary (#5788).
+* `position_stack()` skips computation when all `x` values are unique and 
+  therefore stacking is not necessary (#5788).
+* A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
+  returns input unaltered (@teunbrand, #5800).
+* `width` is implemented as aesthetic instead of parameter in `geom_col()` and
+  `geom_bar()` (#3142).
+* Fix a bug in `position_jitterdodge()` where different jitters would be applied
+  to different position aesthetics of the same axis (@teunbrand, #5818).
+* In `stat_bin()`, the default `boundary` is now chosen to better adhere to 
+  the `nbin` argument (@teunbrand, #5882, #5036)
 
 # ggplot2 3.5.1
 

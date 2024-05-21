@@ -116,8 +116,8 @@
 #' @param legend.box arrangement of multiple legends ("horizontal" or
 #'   "vertical")
 #' @param legend.box.just justification of each legend within the overall
-#'   bounding box, when there are multiple legends ("top", "bottom", "left", or
-#'   "right")
+#'   bounding box, when there are multiple legends ("top", "bottom", "left",
+#'   "right", "center" or "centre")
 #' @param legend.box.margin margins around the full legend area, as specified
 #'   using [margin()]; inherits from `margins`.
 #' @param legend.box.background background of legend area ([element_rect()];
@@ -226,7 +226,7 @@
 #' # Panels --------------------------------------------------------------------
 #'
 #' p1 + theme(panel.background = element_rect(fill = "white", colour = "grey50"))
-#' p1 + theme(panel.border = element_rect(linetype = "dashed", fill = NA))
+#' p1 + theme(panel.border = element_rect(linetype = "dashed"))
 #' p1 + theme(panel.grid.major = element_line(colour = "black"))
 #' p1 + theme(
 #'   panel.grid.major.y = element_blank(),
@@ -560,8 +560,44 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
   )
 }
 
+#' Complete a theme
+#'
+#' This function takes a theme and completes it so that it can be used
+#' downstream to render theme elements. Missing elements are filled in and
+#' every item is validated to the specifications of the element tree.
+#'
+#' @param theme An incomplete [theme][theme()] object to complete, or `NULL`
+#'   to complete the default theme.
+#' @param default A complete [theme][theme()] to fill in missing pieces.
+#'   Defaults to the global theme settings.
+#'
+#' @keywords internal
+#' @return A [theme][theme()] object.
+#' @export
+#'
+#' @examples
+#' my_theme <- theme(line = element_line(colour = "red"))
+#' complete_theme(my_theme)
+complete_theme <- function(theme = NULL, default = theme_get()) {
+  if (!is_bare_list(theme)) {
+    check_object(theme, is.theme, "a {.cls theme} object", allow_null = TRUE)
+  }
+  check_object(default, is.theme, "a {.cls theme} object")
+  theme <- plot_theme(list(theme = theme), default = default)
+
+  # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
+  # construct a new theme
+  attributes(theme) <- list(names = attr(theme, "names"))
+  structure(
+    theme,
+    class = c("theme", "gg"),
+    complete = TRUE, # This theme is complete and has no missing elements
+    validate = FALSE # Settings have already been validated
+  )
+}
+
 # Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x, default = theme_get()) {
+plot_theme <- function(x, default = get_theme()) {
   theme <- x$theme
 
   # apply theme defaults appropriately if needed
