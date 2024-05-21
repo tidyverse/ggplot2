@@ -126,7 +126,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
 # Adaptation of tapply that returns a data frame instead of a matrix
 tapply_df <- function(x, index, fun, ..., drop = TRUE) {
-  labels <- lapply(index, ulevels)
+  labels <- lapply(index, ulevels, na.last = NA) # drop NA
   out <- expand.grid(labels, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
 
   grps <- split(x, index)

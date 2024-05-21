@@ -300,6 +300,14 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   g <- guide_bins()
   key <- g$train(scale = scale, aesthetics = "colour")$key
   expect_true(all(diff(key$.value) > 0))
+
+  # Out of bound breaks are removed
+  scale <- scale_colour_viridis_c(breaks = c(10, 20, 30, 40, 50), na.value = "grey50")
+  scale$train(c(15, 45))
+
+  g <- guide_colorsteps()
+  key <- g$train(scale = scale, aesthetic = "colour")$key
+  expect_equal(sum(key$colour == "grey50"), 0)
 })
 
 test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
@@ -1271,5 +1279,25 @@ test_that("old S3 guides can be implemented", {
         geom_point() +
         guides(x = "circle")
     )
+  )
+})
+
+test_that("guide_custom can be drawn and styled", {
+
+  p <- ggplot() + guides(custom = guide_custom(
+    circleGrob(r = unit(1, "cm")),
+    title = "custom guide"
+  ))
+
+  expect_doppelganger(
+    "stylised guide_custom",
+    p + theme(legend.background = element_rect(fill = "grey50"),
+              legend.title.position = "left",
+              legend.title = element_text(angle = 90, hjust = 0.5))
+  )
+
+  expect_doppelganger(
+    "guide_custom with void theme",
+    p + theme_void()
   )
 })

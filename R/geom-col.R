@@ -4,7 +4,6 @@ geom_col <- function(mapping = NULL, data = NULL,
                      position = "stack",
                      ...,
                      just = 0.5,
-                     width = NULL,
                      na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -19,7 +18,6 @@ geom_col <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list2(
       just = just,
-      width = width,
       na.rm = na.rm,
       ...
     )

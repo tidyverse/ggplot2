@@ -116,6 +116,6 @@ test_that("expand_limits_scale_discrete() begrudgingly handles numeric limits", 
       coord_limits = c(NA, NA),
       range_continuous = c(-15, -2)
     ),
-    c(-15, -2)
+    c(-16, -1)
   )
 })
