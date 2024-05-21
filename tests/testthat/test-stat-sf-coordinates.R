@@ -1,6 +1,6 @@
 comp_sf_coord <- function(df, ...) {
   plot <- ggplot(df) + stat_sf_coordinates(...)
-  layer_data(plot)
+  get_layer_data(plot)
 }
 
 test_that("stat_sf_coordinates() retrieves coordinates from sf objects", {

@@ -4,7 +4,7 @@ test_that("uses scale limits, not data limits", {
     scale_x_continuous(limits = c(1, 6)) +
     scale_y_continuous(limits = c(5, 40))
 
-  ret <- layer_data(base)
+  ret <- get_layer_data(base)
   # Check that the contour data goes beyond data range.
   # The specific values below are sort of arbitrary; but they go beyond the range
   # of the data
@@ -21,17 +21,17 @@ test_that("stat_density2d can produce contour and raster data", {
   p_contour_bands <- p + stat_density_2d_filled()
   p_raster <- p + stat_density_2d(contour = FALSE)
 
-  d_lines <- layer_data(p_contour_lines)
+  d_lines <- get_layer_data(p_contour_lines)
   expect_true("level" %in% names(d_lines))
   expect_false("level_low" %in% names(d_lines))
   expect_true(is.numeric(d_lines$level))
 
-  d_bands <- layer_data(p_contour_bands)
+  d_bands <- get_layer_data(p_contour_bands)
   expect_true("level" %in% names(d_bands))
   expect_true("level_low" %in% names(d_bands))
   expect_true(is.ordered(d_bands$level))
 
-  d_raster <- layer_data(p_raster)
+  d_raster <- get_layer_data(p_raster)
   expect_true("density" %in% names(d_raster))
   expect_true("ndensity" %in% names(d_raster))
   expect_true("count" %in% names(d_raster))
@@ -41,7 +41,7 @@ test_that("stat_density2d can produce contour and raster data", {
   # stat_density_2d() and stat_density_2d_filled() produce identical
   # density output with `contour = FALSE`
   # (`fill` and `colour` will differ due to different default aesthetic mappings)
-  d_raster2 <- layer_data(p + stat_density_2d_filled(contour = FALSE))
+  d_raster2 <- get_layer_data(p + stat_density_2d_filled(contour = FALSE))
   expect_identical(d_raster$x, d_raster2$x)
   expect_identical(d_raster$y, d_raster2$y)
   expect_identical(d_raster$density, d_raster2$density)
@@ -50,7 +50,7 @@ test_that("stat_density2d can produce contour and raster data", {
 
   # stat_density_2d() with contouring is the same as stat_contour() on calculated density
   p_lines2 <- ggplot(d_raster, aes(x, y, z = density)) + stat_contour()
-  d_lines2 <- layer_data(p_lines2)
+  d_lines2 <- get_layer_data(p_lines2)
   expect_identical(d_lines$x, d_lines2$x)
   expect_identical(d_lines$y, d_lines2$y)
   expect_identical(d_lines$piece, d_lines2$piece)
@@ -59,7 +59,7 @@ test_that("stat_density2d can produce contour and raster data", {
 
   # same for stat_density_2d_filled()
   p_bands2 <- ggplot(d_raster, aes(x, y, z = density)) + stat_contour_filled()
-  d_bands2 <- layer_data(p_bands2)
+  d_bands2 <- get_layer_data(p_bands2)
   expect_identical(d_bands$x, d_bands2$x)
   expect_identical(d_bands$y, d_bands2$y)
   expect_identical(d_bands$piece, d_bands2$piece)
@@ -69,9 +69,9 @@ test_that("stat_density2d can produce contour and raster data", {
 
   # and for contour_var = "ndensity"
   p_contour_lines <- p + stat_density_2d(contour_var = "ndensity")
-  d_lines <- layer_data(p_contour_lines)
+  d_lines <- get_layer_data(p_contour_lines)
   p_lines2 <- ggplot(d_raster, aes(x, y, z = ndensity)) + stat_contour()
-  d_lines2 <- layer_data(p_lines2)
+  d_lines2 <- get_layer_data(p_lines2)
   expect_identical(d_lines$x, d_lines2$x)
   expect_identical(d_lines$y, d_lines2$y)
   expect_identical(d_lines$piece, d_lines2$piece)
@@ -80,9 +80,9 @@ test_that("stat_density2d can produce contour and raster data", {
 
   # and for contour_var = "count"
   p_contour_bands <- p + stat_density_2d_filled(contour_var = "count")
-  d_bands <- layer_data(p_contour_bands)
+  d_bands <- get_layer_data(p_contour_bands)
   p_bands2 <- ggplot(d_raster, aes(x, y, z = count)) + stat_contour_filled()
-  d_bands2 <- layer_data(p_bands2)
+  d_bands2 <- get_layer_data(p_bands2)
   expect_identical(d_bands$x, d_bands2$x)
   expect_identical(d_bands$y, d_bands2$y)
   expect_identical(d_bands$piece, d_bands2$piece)

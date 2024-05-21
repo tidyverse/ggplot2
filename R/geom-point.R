@@ -27,7 +27,7 @@
 #' `geom_point(alpha = 0.05)`) or very small (e.g.
 #' `geom_point(shape = ".")`).
 #'
-#' @eval rd_aesthetics("geom", "point")
+#' @eval rd_aesthetics("geom", "point", "The `fill` aesthetic only applies to shapes 21-25.")
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
@@ -145,18 +145,15 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     }
 
     coords <- coord$transform(data, panel_params)
-    stroke_size <- coords$stroke
-    stroke_size[is.na(stroke_size)] <- 0
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
         pch = coords$shape,
-        gp = gpar(
+        gp = ggpar(
           col = alpha(coords$colour, coords$alpha),
           fill = fill_alpha(coords$fill, coords$alpha),
-          # Stroke is added around the outside of the point
-          fontsize = coords$size * .pt + stroke_size * .stroke / 2,
-          lwd = coords$stroke * .stroke / 2
+          pointsize = coords$size,
+          stroke = coords$stroke
         )
       )
     )

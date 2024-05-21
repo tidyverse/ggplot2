@@ -326,8 +326,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         y = c(Inf, -Inf, -Inf,  Inf)
       )
       background <- coord_munch(self, background, panel_params, is_closed = TRUE)
-      bg_gp <- gpar(
-        lwd = len0_null(bg_element$linewidth * .pt),
+      bg_gp <- ggpar(
+        lwd = bg_element$linewidth,
         col = bg_element$colour, fill = bg_element$fill,
         lty = bg_element$linetype
       )
@@ -357,11 +357,13 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   render_fg = function(self, panel_params, theme) {
 
+    border <- element_render(theme, "panel.border", fill = NA)
+
     if (!self$r_axis_inside) {
       out <- grobTree(
         panel_guides_grob(panel_params$guides, "theta", theme),
         panel_guides_grob(panel_params$guides, "theta.sec", theme),
-        element_render(theme, "panel.border")
+        border
       )
       return(out)
     }
@@ -381,7 +383,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       panel_guides_grob(panel_params$guides, "theta", theme),
       panel_guides_grob(panel_params$guides, "theta.sec", theme),
       left, right,
-      element_render(theme, "panel.border")
+      border
     )
   },
 
