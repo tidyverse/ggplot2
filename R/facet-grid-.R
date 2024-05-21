@@ -412,10 +412,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       panel_widths, panel_heights, respect = respect, clip = coord$clip, z = mtx(1))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
-    panel_table <- gtable_add_col_space(panel_table,
-      theme$panel.spacing.x %||% theme$panel.spacing)
-    panel_table <- gtable_add_row_space(panel_table,
-      theme$panel.spacing.y %||% theme$panel.spacing)
+    spacing_x <- calc_element("panel.spacing.x", theme)
+    spacing_y <- calc_element("panel.spacing.y", theme)
+    panel_table <- gtable_add_col_space(panel_table, spacing_x)
+    panel_table <- gtable_add_row_space(panel_table, spacing_y)
 
     # Add axes
     if (params$draw_axes$x) {
@@ -445,7 +445,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
     inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
     inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
-    strip_padding <- convertUnit(theme$strip.switch.pad.grid, "cm")
+    strip_padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
     panel_pos_col <- panel_cols(panel_table)
     if (switch_x) {
       if (!is.null(strips$x$bottom)) {

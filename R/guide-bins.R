@@ -339,6 +339,7 @@ parse_binned_breaks = function(scale, breaks = scale$get_breaks()) {
     if (!is.numeric(scale$breaks)) {
       breaks <- breaks[!breaks %in% limits]
     }
+    breaks <- oob_discard(breaks, limits)
     all_breaks <- unique0(c(limits[1], breaks, limits[2]))
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {

@@ -76,7 +76,18 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     trans_x <- if (params$jitter.width > 0) function(x) jitter(x, amount = params$jitter.width)
     trans_y <- if (params$jitter.height > 0) function(x) jitter(x, amount = params$jitter.height)
 
-    data <- with_seed_null(params$seed, transform_position(data, trans_x, trans_y))
+    x_aes <- intersect(ggplot_global$x_aes, names(data))
+    y_aes <- intersect(ggplot_global$y_aes, names(data))
+
+    x <- if (length(x_aes) == 0) 0 else data[[x_aes[1]]]
+    y <- if (length(y_aes) == 0) 0 else data[[y_aes[1]]]
+    dummy_data <- data_frame0(x = x, y = y, .size = nrow(data))
+
+    fixed_jitter <- with_seed_null(params$seed, transform_position(dummy_data, trans_x, trans_y))
+    x_jit <- fixed_jitter$x - x
+    y_jit <- fixed_jitter$y - y
+
+    data <- transform_position(data, function(x) x + x_jit, function(x) x + y_jit)
     flip_data(data, params$flipped_aes)
   }
 )

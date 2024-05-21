@@ -15,17 +15,16 @@
 view_scale_primary <- function(scale, limits = scale$get_limits(),
                                continuous_range = scale$dimension(limits = limits)) {
 
+  # continuous_range can be specified in arbitrary order, but
+  # scales expect the one in ascending order.
+  continuous_scale_sorted <- sort(continuous_range)
   if(!scale$is_discrete()) {
-    # continuous_range can be specified in arbitrary order, but
-    # continuous scales expect the one in ascending order.
-    continuous_scale_sorted <- sort(continuous_range)
     breaks <- scale$get_breaks(continuous_scale_sorted)
-    minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_scale_sorted)
     breaks <- censor(breaks, continuous_scale_sorted, only.finite = FALSE)
   } else {
     breaks <- scale$get_breaks(limits)
-    minor_breaks <- scale$get_breaks_minor(b = breaks, limits = limits)
   }
+  minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_scale_sorted)
   minor_breaks <- censor(minor_breaks, continuous_range, only.finite = FALSE)
 
   ggproto(NULL, ViewScale,

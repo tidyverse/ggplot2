@@ -4,6 +4,44 @@
   for headers and titles (#5886).
 * The `plot.subtitle` and `plot.caption` theme elements now inherit from the
   root `text` element instead of the `title` element (#5886).
+* Fixed bug where binned guides would keep out-of-bounds breaks 
+  (@teunbrand, #5870).
+* The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 
+  aesthetic (#4852).
+* New function `complete_theme()` to replicate how themes are handled during
+  plot building (#5801).
+* Special getter and setter functions have been renamed for consistency, allowing
+  for better tab-completion with `get_*`- and `set_*`-prefixes. The old names 
+  remain available for backward compatibility (@teunbrand, #5568).
+  
+  | New name             | Old name          |
+  | -------------------- | ----------------- |
+  | `get_theme()`        | `theme_get()`     |
+  | `set_theme()`        | `theme_set()`     |
+  | `replace_theme()`    | `theme_replace()` |
+  | `update_theme()`     | `theme_update()`  |
+  | `get_last_plot()`    | `last_plot()`     |
+  | `get_layer_data()`   | `layer_data()`    |
+  | `get_layer_grob()`   | `layer_grob()`    |
+  | `get_panel_scales()` | `layer_scales()`  |
+
+* Discrete scales now support `minor_breaks`. This may only make sense in
+  discrete position scales, where it affects the placement of minor ticks
+  and minor gridlines (#5434).
+* Discrete position scales now expose the `palette` argument, which can be used 
+  to customise spacings between levels (@teunbrand, #5770).
+* The default `se` parameter in layers with `geom = "smooth"` will be `TRUE` 
+  when the data has `ymin` and `ymax` parameters and `FALSE` if these are 
+  absent. Note that this does not affect the default of `geom_smooth()` or
+  `stat_smooth()` (@teunbrand, #5572).
+* The bounded density option in `stat_density()` uses a wider range to
+  prevent discontinuities (#5641).
+* `geom_raster()` now falls back to rendering as `geom_rect()` when coordinates
+  are not Cartesian (#5503).
+* `stat_ecdf()` now has an optional `weight` aesthetic (@teunbrand, #5058).
+* Position scales combined with `coord_sf()` can now use functions in the 
+ `breaks` argument. In addition, `n.breaks` works as intended and 
+ `breaks = NULL` removes grid lines and axes (@teunbrand, #4622).
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
@@ -26,6 +64,31 @@
   (@teunbrand, #5856).
 * New helper function `ggpar()` to translate ggplot2's interpretation of 
   graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
+* `scale_{x/y}_discrete()` can now accept a `sec.axis`. It is recommended to
+  only use `dup_axis()` to set custom breaks or labels, as discrete variables 
+  cannot be transformed (@teunbrand, #3171).
+* `stat_density()` has the new computed variable: `wdensity`, which is
+  calculated as the density times the sum of weights (@teunbrand, #4176).
+* `theme()` gets new `spacing` and `margins` arguments that all other spacings
+  and (non-text) margins inherit from (@teunbrand, #5622).
+* `geom_ribbon()` can have varying `fill` or `alpha` in linear coordinate
+  systems (@teunbrand, #4690).
+* `geom_tile()` computes default widths and heights per panel instead of
+  per layer (@teunbrand, #5740).
+* The `fill` of the `panel.border` theme setting is ignored and forced to be
+  transparent (#5782).
+* `stat_align()` skips computation when there is only 1 group and therefore
+  alignment is not necessary (#5788).
+* `position_stack()` skips computation when all `x` values are unique and 
+  therefore stacking is not necessary (#5788).
+* A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
+  returns input unaltered (@teunbrand, #5800).
+* `width` is implemented as aesthetic instead of parameter in `geom_col()` and
+  `geom_bar()` (#3142).
+* Fix a bug in `position_jitterdodge()` where different jitters would be applied
+  to different position aesthetics of the same axis (@teunbrand, #5818).
+* In `stat_bin()`, the default `boundary` is now chosen to better adhere to 
+  the `nbin` argument (@teunbrand, #5882, #5036)
 
 # ggplot2 3.5.1
 
