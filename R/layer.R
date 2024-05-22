@@ -438,7 +438,7 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, layout)
   },
 
-  compute_geom_2 = function(self, data, theme) {
+  compute_geom_2 = function(self, data, theme = NULL) {
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
