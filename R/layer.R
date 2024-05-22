@@ -508,7 +508,7 @@ cleanup_mismatched_data <- function(data, n, fun) {
   failed <- names(data)[failed]
   cli::cli_warn(
     "Failed to apply {.fn {fun}} for the following \\
-    aesthetics: {.field {failed}}."
+    aesthetic{?s}: {.field {failed}}."
   )
 
   data[failed] <- NULL
