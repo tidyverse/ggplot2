@@ -10,17 +10,17 @@ test_that("range is expanded", {
     coord_cartesian(expand = FALSE)
   expand_a <- stats::bw.nrd0(df$y[df$x == "a"]) * 3
   expand_b <- stats::bw.nrd0(df$y[df$x == "b"]) * 3
-  expect_equal(layer_scales(p, 1)$y$dimension(), c(0 - expand_a, 1 + expand_a))
-  expect_equal(layer_scales(p, 2)$y$dimension(), c(0 - expand_b, 2 + expand_b))
+  expect_equal(get_panel_scales(p, 1)$y$dimension(), c(0 - expand_a, 1 + expand_a))
+  expect_equal(get_panel_scales(p, 2)$y$dimension(), c(0 - expand_b, 2 + expand_b))
 })
 
 test_that("geom_violin works in both directions", {
   p <- ggplot(mpg) + geom_violin(aes(drv, hwy))
-  x <- layer_data(p)
+  x <- get_layer_data(p)
   expect_false(x$flipped_aes[1])
 
   p <- ggplot(mpg) + geom_violin(aes(hwy, drv))
-  y <- layer_data(p)
+  y <- get_layer_data(p)
   expect_true(y$flipped_aes[1])
 
   x$flipped_aes <- NULL
@@ -43,7 +43,7 @@ test_that("quantiles do not fail on zero-range data", {
   p <- ggplot(zero.range.data) + geom_violin(aes(1, y), draw_quantiles = 0.5)
 
   # This should return without error and have length one
-  expect_equal(length(layer_grob(p)), 1)
+  expect_equal(length(get_layer_grob(p)), 1)
 })
 
 test_that("quantiles fails outside 0-1 bound", {

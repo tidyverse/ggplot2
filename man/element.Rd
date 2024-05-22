@@ -29,6 +29,7 @@ element_line(
   lineend = NULL,
   color = NULL,
   arrow = NULL,
+  arrow.fill = NULL,
   inherit.blank = FALSE,
   size = deprecated()
 )
@@ -87,6 +88,8 @@ calculating final element state.}
 \item{lineend}{Line end Line end style (round, butt, square)}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
+
+\item{arrow.fill}{Fill colour for arrows.}
 
 \item{family}{Font family}
 

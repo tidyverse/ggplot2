@@ -7,7 +7,7 @@ test_that("geom_ribbon() checks the aesthetics", {
     geom_ribbon(aes(y = year, xmin = level - 5, xmax = level + 5), orientation = "x")
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(huron) +
-    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, fill = year))
+    geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5, linewidth = year))
   expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), outline.type = "test"))
@@ -19,7 +19,7 @@ test_that("NAs are not dropped from the data", {
   p <- ggplot(df, aes(x))+
     geom_ribbon(aes(ymin = y - 1, ymax = y + 1))
 
-  expect_equal(layer_data(p)$ymin, c(0, 0, NA, 0, 0))
+  expect_equal(get_layer_data(p)$ymin, c(0, 0, NA, 0, 0))
 })
 
 test_that("geom_ribbon works in both directions", {
@@ -28,11 +28,11 @@ test_that("geom_ribbon works in both directions", {
                     ymax = c(4, 6, 5, 4.5, 5.2))
 
   p <- ggplot(dat, aes(x, ymin = ymin, ymax = ymax)) + geom_ribbon()
-  x <- layer_data(p)
+  x <- get_layer_data(p)
   expect_false(x$flipped_aes[1])
 
   p <- ggplot(dat, aes(y = x, xmin = ymin, xmax = ymax)) + geom_ribbon()
-  y <- layer_data(p)
+  y <- get_layer_data(p)
   expect_true(y$flipped_aes[1])
 
   x$flipped_aes <- NULL
@@ -45,11 +45,11 @@ test_that("outline.type option works", {
 
   p <- ggplot(df, aes(x, ymin = -y, ymax = y))
 
-  g_ribbon_default <- layer_grob(p + geom_ribbon())[[1]]
-  g_ribbon_upper   <- layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
-  g_ribbon_lower   <- layer_grob(p + geom_ribbon(outline.type = "lower"))[[1]]
-  g_ribbon_full    <- layer_grob(p + geom_ribbon(outline.type = "full"))[[1]]
-  g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area(stat = "identity"))[[1]]
+  g_ribbon_default <- get_layer_grob(p + geom_ribbon())[[1]]
+  g_ribbon_upper   <- get_layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
+  g_ribbon_lower   <- get_layer_grob(p + geom_ribbon(outline.type = "lower"))[[1]]
+  g_ribbon_full    <- get_layer_grob(p + geom_ribbon(outline.type = "full"))[[1]]
+  g_area_default   <- get_layer_grob(ggplot(df, aes(x, y)) + geom_area(stat = "identity"))[[1]]
 
   # default
   expect_s3_class(g_ribbon_default$children[[1]]$children[[1]], "polygon")
@@ -73,4 +73,20 @@ test_that("outline.type option works", {
   expect_s3_class(g_area_default$children[[1]]$children[[1]], "polygon")
   expect_s3_class(g_area_default$children[[1]]$children[[2]], "polyline")
   expect_equal(g_area_default$children[[1]]$children[[2]]$id, rep(1L, each = 4))
+})
+
+test_that("ribbons can have gradients", {
+  skip_if_not(
+    check_device("gradients", action = "test"),
+    "graphics device does not support gradients."
+  )
+
+  df <- data.frame(x = 1:2, ymin = c(-1:-2), ymax = 1:2)
+  p <- ggplot(df, aes(x, ymin = ymin, ymax = ymax, fill = x)) +
+    geom_ribbon(outline.type = "full") +
+    scale_fill_gradientn(colours = c("red", "blue"))
+  fill <- get_layer_grob(p)[[1]]$children[[1]]$gp$fill
+
+  expect_s3_class(fill, "GridLinearGradient")
+  expect_equal(fill$colours, alpha(c("red", "blue"), NA))
 })

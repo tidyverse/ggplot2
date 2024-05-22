@@ -88,9 +88,14 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   draw_panel = function(self, data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
-      cli::cli_abort(c(
-        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}."
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}.",
+        i = "Falling back to drawing as {.fn {snake_class(GeomRect)}}."
       ))
+      data$linewidth <- 0.3 # preventing anti-aliasing artefacts
+      data$colour <- data$fill
+      grob <- GeomRect$draw_panel(data, panel_params, coord)
+      return(grob)
     }
 
     # Convert vector of data to raster

@@ -198,7 +198,7 @@ view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, 
 
   if (scale$is_discrete()) {
     continuous_ranges <- expand_limits_discrete_trans(
-      scale_limits,
+      scale$map(scale_limits),
       expansion,
       coord_limits,
       trans,

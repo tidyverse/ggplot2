@@ -45,8 +45,6 @@
 #'   columns to the left/right of axis breaks. Note that this argument may have
 #'   unintended behaviour when used with alternative positions, e.g.
 #'   `position_dodge()`.
-#' @param width Bar width. By default, set to 90% of the [resolution()] of the
-#'   data.
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`. For more information about overriding these connections,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
@@ -98,7 +96,6 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
                      just = 0.5,
-                     width = NULL,
                      na.rm = FALSE,
                      orientation = NA,
                      show.legend = NA,
@@ -113,7 +110,6 @@ geom_bar <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list2(
       just = just,
-      width = width,
       na.rm = na.rm,
       orientation = orientation,
       ...
@@ -133,6 +129,8 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   # that GeomRect$handle_na() properly removes any bars that fall outside the defined
   # limits, not just those for which x and y are outside the limits
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
+
+  default_aes = aes(!!!GeomRect$default_aes, width = NULL),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
@@ -158,16 +156,5 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
-                        linejoin = "mitre", width = NULL, flipped_aes = FALSE) {
-    # Hack to ensure that width is detected as a parameter
-    ggproto_parent(GeomRect, self)$draw_panel(
-      data,
-      panel_params,
-      coord,
-      lineend = lineend,
-      linejoin = linejoin
-    )
-  },
   rename_size = TRUE
 )

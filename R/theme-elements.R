@@ -17,6 +17,7 @@
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param linewidth Line/border size in mm.
 #' @param size,fontsize text size in pts.
+#' @param arrow.fill Fill colour for arrows.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
 #'   a blank element among its parents will cause this element to be blank as
@@ -96,18 +97,21 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE, size = deprecated()) {
+  lineend = NULL, color = NULL, arrow = NULL, arrow.fill = NULL,
+  inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
     linewidth <- size
   }
 
-  if (!is.null(color))  colour <- color
-  if (is.null(arrow)) arrow <- FALSE
+  colour <- color %||% colour
+  arrow.fill <- arrow.fill %||% colour
+  arrow <- arrow %||% FALSE
+
   structure(
     list(colour = colour, linewidth = linewidth, linetype = linetype, lineend = lineend,
-      arrow = arrow, inherit.blank = inherit.blank),
+      arrow = arrow, arrow.fill = arrow.fill, inherit.blank = inherit.blank),
     class = c("element_line", "element")
   )
 }
@@ -304,6 +308,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 #' @export
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
+  arrow.fill = NULL,
   default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
@@ -311,21 +316,27 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
     linewidth <- size
   }
 
-  # The gp settings can override element_gp
-  gp <- ggpar(
-    col = colour, fill = colour,
-    lwd = linewidth, lty = linetype, lineend = lineend
-  )
-  element_gp <- ggpar(
-    col = element$colour, fill = element$colour,
-    lwd = element$linewidth, lty = element$linetype,
-    lineend = element$lineend
-  )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
     NULL
   } else {
     element$arrow
   }
+  if (is.null(arrow)) {
+    arrow.fill <- colour
+    element$arrow.fill <- element$colour
+  }
+
+  # The gp settings can override element_gp
+  gp <- ggpar(
+    col = colour, fill = arrow.fill %||% colour,
+    lwd = linewidth, lty = linetype, lineend = lineend
+  )
+  element_gp <- ggpar(
+    col = element$colour, fill = element$arrow.fill %||% element$colour,
+    lwd = element$linewidth, lty = element$linetype,
+    lineend = element$lineend
+  )
+
   polylineGrob(
     x, y, default.units = default.units,
     gp = modify_list(element_gp, gp),
@@ -471,11 +482,14 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   text                = el_def("element_text"),
   geom                = el_def("element_geom"),
   title               = el_def("element_text", "text"),
+  spacing             = el_def("unit"),
+  margins             = el_def("margin"),
+
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
   axis.title          = el_def("element_text", "title"),
   axis.ticks          = el_def("element_line", "line"),
-  legend.key.size     = el_def("unit"),
+  legend.key.size     = el_def(c("unit", "rel"), "spacing"),
   panel.grid          = el_def("element_line", "line"),
   panel.grid.major    = el_def("element_line", "panel.grid"),
   panel.grid.minor    = el_def("element_line", "panel.grid"),
@@ -499,7 +513,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.text.theta     = el_def("element_text", "axis.text.x"),
   axis.text.r         = el_def("element_text", "axis.text.y"),
 
-  axis.ticks.length   = el_def("unit"),
+  axis.ticks.length   = el_def(c("unit", "rel"), "spacing"),
   axis.ticks.length.x = el_def(c("unit", "rel"), "axis.ticks.length"),
   axis.ticks.length.x.top = el_def(c("unit", "rel"), "axis.ticks.length.x"),
   axis.ticks.length.x.bottom = el_def(c("unit", "rel"), "axis.ticks.length.x"),
@@ -555,14 +569,14 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   ),
 
   legend.background   = el_def("element_rect", "rect"),
-  legend.margin       = el_def("margin"),
-  legend.spacing      = el_def("unit"),
+  legend.margin       = el_def(c("margin", "rel"), "margins"),
+  legend.spacing      = el_def(c("unit", "rel"), "spacing"),
   legend.spacing.x     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.spacing.y     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.key          = el_def("element_rect", "panel.background"),
   legend.key.height   = el_def(c("unit", "rel"), "legend.key.size"),
   legend.key.width    = el_def(c("unit", "rel"), "legend.key.size"),
-  legend.key.spacing  = el_def("unit"),
+  legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.frame        = el_def("element_rect", "rect"),
@@ -604,13 +618,13 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
-  legend.box.margin   = el_def("margin"),
+  legend.box.margin   = el_def(c("margin", "rel"), "margins"),
   legend.box.background = el_def("element_rect", "rect"),
-  legend.box.spacing  = el_def("unit"),
+  legend.box.spacing  = el_def(c("unit", "rel"), "spacing"),
 
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),
-  panel.spacing       = el_def("unit"),
+  panel.spacing       = el_def(c("unit", "rel"), "spacing"),
   panel.spacing.x     = el_def(c("unit", "rel"), "panel.spacing"),
   panel.spacing.y     = el_def(c("unit", "rel"), "panel.spacing"),
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
@@ -632,8 +646,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.placement     = el_def("character"),
   strip.placement.x   = el_def("character", "strip.placement"),
   strip.placement.y   = el_def("character", "strip.placement"),
-  strip.switch.pad.grid = el_def("unit"),
-  strip.switch.pad.wrap = el_def("unit"),
+  strip.switch.pad.grid = el_def(c("unit", "rel"), "spacing"),
+  strip.switch.pad.wrap = el_def(c("unit", "rel"), "spacing"),
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
@@ -644,7 +658,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag            = el_def("element_text", "title"),
   plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
   plot.tag.location   = el_def("character"),
-  plot.margin         = el_def("margin"),
+  plot.margin         = el_def(c("margin", "rel"), "margins"),
 
   aspect.ratio        = el_def(c("numeric", "integer"))
 )
