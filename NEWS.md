@@ -88,6 +88,8 @@
   to different position aesthetics of the same axis (@teunbrand, #5818).
 * In `stat_bin()`, the default `boundary` is now chosen to better adhere to 
   the `nbin` argument (@teunbrand, #5882, #5036)
+* `after_stat()` and `after_scale()` throw warnings when the computed aesthetics
+  are not of the correct length (#5901).
 
 # ggplot2 3.5.1
 
