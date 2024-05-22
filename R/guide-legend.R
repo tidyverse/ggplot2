@@ -238,17 +238,7 @@ GuideLegend <- ggproto(
         is_modified <- is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)
         modifiers   <- aesthetics[is_modified]
 
-        data <- try_fetch(
-          layer$geom$use_defaults(params$key[matched_aes],
-                                  layer_params, modifiers),
-          error = function(cnd) {
-            cli::cli_warn(
-              "Failed to apply {.fn after_scale} modifications to legend",
-              parent = cnd
-            )
-            layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
-          }
-        )
+        data <- layer$geom$use_defaults(params$key[matched_aes], layer_params, modifiers)
         data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
       } else {
         reps <- rep(1, nrow(params$key))
