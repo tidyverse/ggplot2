@@ -194,8 +194,13 @@ get_alt_text <- function(p, ...) {
 #' @export
 get_alt_text.ggplot <- function(p, ...) {
   alt <- p$labels[["alt"]] %||% ""
+  if (!is.function(alt)) {
+    return(alt)
+  }
   p$labels[["alt"]] <- NULL
-  if (is.function(alt)) alt(p) else alt
+  build <- ggplot_build(p)
+  build$plot$labels[["alt"]] <- alt
+  get_alt_text(build)
 }
 #' @export
 get_alt_text.ggplot_built <- function(p, ...) {
