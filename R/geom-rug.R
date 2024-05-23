@@ -88,20 +88,6 @@ geom_rug <- function(mapping = NULL, data = NULL,
 GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
-  setup_params = function(self, data, params) {
-    self$required_aes <- character()
-
-    if (grepl("b|t", params$sides)) {
-      self$required_aes <- c(self$required_aes, "x")
-    }
-
-    if (grepl("l|r", params$sides)) {
-      self$required_aes <- c(self$required_aes, "y")
-    }
-
-    params
-  },
-
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
     data <- check_linewidth(data, snake_class(self))
@@ -171,5 +157,23 @@ GeomRug <- ggproto("GeomRug", Geom,
 
   draw_key = draw_key_path,
 
-  rename_size = TRUE
+  rename_size = TRUE,
+
+  handle_na = function(self, data, params) {
+    sides_aes <- character()
+
+    if (grepl("b|t", params$sides)) {
+      sides_aes <- c(sides_aes, "x")
+    }
+
+    if (grepl("l|r", params$sides)) {
+      sides_aes <- c(sides_aes, "y")
+    }
+
+    remove_missing(
+      data, params$na.rm,
+      c(sides_aes, self$required_aes, self$non_missing_aes),
+      snake_class(self)
+    )
+  }
 )
