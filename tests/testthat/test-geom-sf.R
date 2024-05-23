@@ -196,6 +196,47 @@ test_that("geom_sf draws correctly", {
   )
 })
 
+test_that("geom_sf data type renders appropriate legends", {
+  skip_if_not_installed("sf")
+  p <- ggplot() + geom_sf(aes(colour = col))
+
+  # Point data
+  data <- sf::st_as_sf(
+    data.frame(lon = c(1, 2), lat = c(3, 4), col = c("foo", "bar")),
+    coords = c("lon", "lat")
+  )
+  expect_doppelganger(
+    "geom_sf point legend",
+    p %+% data
+  )
+
+  # Line data
+  data <- sf::st_as_sf(
+    sf::st_sfc(
+      sf::st_linestring(x = cbind(1:2, 3:4)),
+      sf::st_linestring(x = cbind(3:4, 5:6))
+    ),
+    col = c("foo", "bar")
+  )
+  expect_doppelganger(
+    "geom_sf line legend",
+    p %+% data
+  )
+
+  # Polygon data
+  data <- sf::st_as_sf(
+    sf::st_sfc(
+      sf::st_polygon(list(cbind(c(1, 2, 2, 1), c(3, 3, 4, 3)))),
+      sf::st_polygon(list(cbind(c(3, 3, 4, 3), c(5, 6, 6, 5))))
+    ),
+    col = c("foo", "bar")
+  )
+  expect_doppelganger(
+    "geom_sf polygon legend",
+    p %+% data
+  )
+})
+
 test_that("geom_sf uses combinations of geometry correctly", {
   skip_if_not_installed("sf")
 
