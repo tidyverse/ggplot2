@@ -131,7 +131,8 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+  use_defaults = function(self, data, params = list(), modifiers = aes(),
+                          default_aes = NULL, ...) {
     data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
     # Early exit for e.g. legend data that don't have geometry columns
     if (!"geometry" %in% names(data)) {
@@ -139,7 +140,11 @@ GeomSf <- ggproto("GeomSf", Geom,
     }
 
     # Devise splitting index for geometry types
-    type <- sf_types[sf::st_geometry_type(data$geometry)]
+    type <- if (is.character(data$geometry)) {
+      data$geometry
+    } else {
+      sf_types[sf::st_geometry_type(data$geometry)]
+    }
     type <- factor(type, c("point", "line", "other", "collection"))
     index <- split(seq_len(nrow(data)), type)
 

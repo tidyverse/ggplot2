@@ -69,6 +69,11 @@ LayerSf <- ggproto("LayerSf", Layer,
     # Add legend type after computed_geom_params has been calculated
     self$computed_geom_params$legend <- legend_type
     data
+  },
+
+  compute_geom_2 = function(self, data, params = self$aes_params, ...) {
+    data$geometry <- data$geometry %||% self$computed_geom_params$legend
+    ggproto_parent(Layer, self)$compute_geom_2(data, params, ...)
   }
 )
 
