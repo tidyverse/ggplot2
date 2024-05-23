@@ -239,7 +239,7 @@ GeomText <- ggproto("GeomText", Geom,
       data$x, data$y, default.units = "native",
       hjust = data$hjust, vjust = data$vjust,
       rot = data$angle,
-      gp = gparam(
+      gp = gg_par(
         col = alpha(data$colour, data$alpha),
         fontsize = data$size * size.unit,
         fontfamily = data$family,
