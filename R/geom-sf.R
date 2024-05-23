@@ -195,10 +195,36 @@ GeomSf <- ggproto("GeomSf", Geom,
       cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
 
-    # Need to refactor this to generate one grob per geometry type
-    coord <- coord$transform(data, panel_params)
-    sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-            arrow = arrow, arrow.fill = arrow.fill)
+    data <- coord$transform(data, panel_params)
+
+    type <- sf_types[sf::st_geometry_type(data$geometry)]
+    is_point <- type == "point"
+    is_line  <- type == "line"
+    is_collection <- type == "collection"
+
+    fill <- fill_alpha(data$fill %||% rep(NA, nrow(data)), data$alpha)
+    fill[is_line] <- arrow.fill %||% fill[is_line]
+
+    colour <- data$colour
+    colour[is_point | is_line] <-
+      alpha(colour[is_point | is_line], data$alpha[is_point | is_line])
+
+    point_size <- data$size
+    point_size[!(is_point | is_collection)] <-
+      data$linewidth[!(is_point | is_collection)]
+
+    stroke <- data$stroke * .stroke / 2
+    font_size <- point_size * .pt + stroke
+
+    linewidth <- data$linewidth * .pt
+    linewidth[is_point] <- stroke[is_point]
+
+    gp <- gpar(
+      col = colour, fill = fill, fontsize = font_size, lwd = linewidth,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+    )
+
+    sf::st_as_grob(data$geometry, pch = data$shape, gp = gp, arrow = arrow)
   },
 
   draw_key = function(data, params, size) {
