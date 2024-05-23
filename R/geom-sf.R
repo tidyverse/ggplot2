@@ -278,38 +278,6 @@ default_aesthetics <- function(type) {
   }
 }
 
-sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
-                    arrow = NULL, arrow.fill = NULL, ...) {
-  type <- sf_types[sf::st_geometry_type(x$geometry)]
-  is_point <- type == "point"
-  is_line <- type == "line"
-  is_collection <- type == "collection"
-
-  alpha <- x$alpha %||% NA
-  fill <- fill_alpha(x$fill %||% NA, alpha)
-  fill[is_line] <- arrow.fill %||% fill[is_line]
-  col <- x$colour %||% NA
-  col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])
-
-  size <- x$size %||% 0.5
-  linewidth <- x$linewidth %||% 0.5
-  point_size <- ifelse(
-    is_collection,
-    x$size,
-    ifelse(is_point, size, linewidth)
-  )
-  stroke <- (x$stroke %||% 0) * .stroke / 2
-  fontsize <- point_size * .pt + stroke
-  lwd <- ifelse(is_point, stroke, linewidth * .pt)
-  pch <- x$shape
-  lty <- x$linetype
-  gp <- gpar(
-    col = col, fill = fill, fontsize = fontsize, lwd = lwd, lty = lty,
-    lineend = lineend, linejoin = linejoin, linemitre = linemitre
-  )
-  sf::st_as_grob(x$geometry, pch = pch, gp = gp, arrow = arrow)
-}
-
 #' @export
 #' @rdname ggsf
 #' @inheritParams geom_point
