@@ -225,6 +225,10 @@ GuideLegend <- ggproto(
 
   get_layer_key = function(params, layers, data) {
 
+    if (nrow(params$key) < 1) {
+      return(params)
+    }
+
     decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
       matched_aes <- matched_aes(layer, params)
