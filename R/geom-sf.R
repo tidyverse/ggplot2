@@ -198,7 +198,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
     sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-            arrow = arrow, arrow.fill = arrow.fill, na.rm = na.rm)
+            arrow = arrow, arrow.fill = arrow.fill)
   },
 
   draw_key = function(data, params, size) {
@@ -210,6 +210,35 @@ GeomSf <- ggproto("GeomSf", Geom,
     } else {
       draw_key_polygon(data, params, size)
     }
+  },
+
+  handle_na = function(self, data, params) {
+    remove <- rep(FALSE, nrow(data))
+
+    types <- sf_types[sf::st_geometry_type(data$geometry)]
+    types <- split(seq_along(remove), types)
+
+    get_missing <- function(geom) {
+      detect_missing(data, c(geom$required_aes, geom$non_missing_aes))
+    }
+
+    remove[types$point] <- get_missing(GeomPoint)[types$point]
+    remove[types$line]  <- get_missing(GeomPath)[types$line]
+    remove[types$other] <- get_missing(GeomPolygon)[types$other]
+
+    remove <- remove | get_missing(self)
+
+    if (any(remove)) {
+      data <- vec_slice(data, !remove)
+      if (!isTRUE(params$na.rm)) {
+        cli::cli_warn(
+          "Removed {sum(remove)} row{?s} containing missing values or values \\
+          outside the scale range ({.fn {snake_class(self)}})."
+        )
+      }
+    }
+
+    data
   }
 )
 
@@ -224,28 +253,11 @@ default_aesthetics <- function(type) {
 }
 
 sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
-                    arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
+                    arrow = NULL, arrow.fill = NULL, ...) {
   type <- sf_types[sf::st_geometry_type(x$geometry)]
   is_point <- type == "point"
   is_line <- type == "line"
-  is_other <- type == "other"
   is_collection <- type == "collection"
-  type_ind <- match(type, c("point", "line", "other", "collection"))
-  remove <- rep_len(FALSE, nrow(x))
-  remove[is_point] <- detect_missing(x, c(GeomPoint$required_aes, GeomPoint$non_missing_aes))[is_point]
-  remove[is_line] <- detect_missing(x, c(GeomPath$required_aes, GeomPath$non_missing_aes))[is_line]
-  remove[is_other] <- detect_missing(x, c(GeomPolygon$required_aes, GeomPolygon$non_missing_aes))[is_other]
-  if (any(remove)) {
-    if (!na.rm) {
-      cli::cli_warn(paste0(
-        "Removed {sum(remove)} row{?s} containing missing values or values ",
-        "outside the scale range ({.fn geom_sf})."
-      ))
-    }
-    x <- x[!remove, , drop = FALSE]
-    type_ind <- type_ind[!remove]
-    is_collection <- is_collection[!remove]
-  }
 
   alpha <- x$alpha %||% NA
   fill <- fill_alpha(x$fill %||% NA, alpha)
