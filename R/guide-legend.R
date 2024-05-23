@@ -235,6 +235,7 @@ GuideLegend <- ggproto(
       # Subset key to the column with aesthetic matching the layer
       matched_aes <- matched_aes(layer, params)
       key <- params$key[matched_aes]
+      key$.id <- seq_len(nrow(key))
 
       # Filter static aesthetics to those with single values
       single_params <- lengths(layer$aes_params) == 1L
