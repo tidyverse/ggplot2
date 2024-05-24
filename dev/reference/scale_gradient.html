@@ -395,17 +395,26 @@ palette, <code><a href="scale_steps.html">scale_colour_steps()</a></code> for bi
 <span class="r-in"><span>  <span class="fu">scale_colour_gradientn</span><span class="op">(</span>colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">terrain.colors</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="scale_gradient-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The gradientn scale can be centered by using a rescaler</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">scale_colour_gradientn</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"white"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    rescaler <span class="op">=</span> <span class="op">~</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale_mid.html" class="external-link">rescale_mid</a></span><span class="op">(</span><span class="va">.x</span>, mid <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-plt img"><img src="scale_gradient-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Equivalent fill scales do the same job for the fill aesthetic</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">faithfuld</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">waiting</span>, <span class="va">eruptions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_tile.html">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">density</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">terrain.colors</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="scale_gradient-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="scale_gradient-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Adjust colour choices with low and high</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">scale_colour_gradient</span><span class="op">(</span>low <span class="op">=</span> <span class="st">"white"</span>, high <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="scale_gradient-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="scale_gradient-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Avoid red-green colour contrasts because ~10% of men have difficulty</span></span></span>
 <span class="r-in"><span><span class="co"># seeing them</span></span></span>
 <span class="r-in"><span></span></span>
@@ -413,14 +422,14 @@ palette, <code><a href="scale_steps.html">scale_colour_steps()</a></code> for bi
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_na</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">value</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">z1</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">scale_fill_gradient</span><span class="op">(</span>low <span class="op">=</span> <span class="st">"yellow"</span>, high <span class="op">=</span> <span class="st">"red"</span>, na.value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="scale_gradient-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="scale_gradient-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_na</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">z1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>   <span class="fu">scale_colour_gradient</span><span class="op">(</span>low <span class="op">=</span> <span class="st">"yellow"</span>, high <span class="op">=</span> <span class="st">"red"</span>, na.value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 10 rows containing missing values or values outside the scale</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> range (`geom_point()`).</span>
-<span class="r-plt img"><img src="scale_gradient-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="scale_gradient-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
