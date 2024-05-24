@@ -7,10 +7,14 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor the
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
-#' @param r.axis.inside If `TRUE`, places the radius axis inside the
-#'   panel. If `FALSE`, places the radius axis next to the panel. The default,
-#'   `NULL`, places the radius axis outside if the `start` and `end` arguments
-#'   form a full circle.
+#' @param r.axis.inside One of the following:
+#'   * `NULL` (default) places the axis next to the panel if `start` and
+#'     `end` arguments form a full circle and inside the panel otherwise.
+#'   * `TRUE` to place the radius axis inside the panel.
+#'   * `FALSE` to place the radius axis next to the panel.
+#'   * A numeric value, setting a theta axis value at which
+#'     the axis should be placed inside the panel. Can be given as a length 2
+#'     vector to control primary and secondary axis placement separately.
 #' @param rotate.angle If `TRUE`, transforms the `angle` aesthetic in data
 #'   in accordance with the computed `theta` position. If `FALSE` (default),
 #'   no such transformation is performed. Can be useful to rotate text geoms in
