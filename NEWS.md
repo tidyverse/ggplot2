@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `coord_radial(r.axis.inside)` can now take a numeric value to control 
+  placement of internally placed radius axes (@teunbrand, #5805).
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.
