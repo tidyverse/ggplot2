@@ -216,8 +216,8 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   }
 
   # The gp settings can override element_gp
-  gp <- ggpar(lwd = linewidth, col = colour, fill = fill, lty = linetype)
-  element_gp <- ggpar(lwd = element$linewidth, col = element$colour,
+  gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+  element_gp <- gg_par(lwd = element$linewidth, col = element$colour,
     fill = element$fill, lty = element$linetype)
 
   rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
@@ -240,10 +240,10 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   angle <- angle %||% element$angle %||% 0
 
   # The gp settings can override element_gp
-  gp <- ggpar(fontsize = size, col = colour,
+  gp <- gg_par(fontsize = size, col = colour,
     fontfamily = family, fontface = face,
     lineheight = lineheight)
-  element_gp <- ggpar(fontsize = element$size, col = element$colour,
+  element_gp <- gg_par(fontsize = element$size, col = element$colour,
     fontfamily = element$family, fontface = element$face,
     lineheight = element$lineheight)
 
@@ -276,11 +276,11 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   }
 
   # The gp settings can override element_gp
-  gp <- ggpar(
+  gp <- gg_par(
     col = colour, fill = arrow.fill %||% colour,
     lwd = linewidth, lty = linetype, lineend = lineend
   )
-  element_gp <- ggpar(
+  element_gp <- gg_par(
     col = element$colour, fill = element$arrow.fill %||% element$colour,
     lwd = element$linewidth, lty = element$linetype,
     lineend = element$lineend

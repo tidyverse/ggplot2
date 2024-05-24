@@ -108,7 +108,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       list(min = -1 * length, max = unit(1, "npc") + length)
     }
 
-    gp <- ggpar(
+    gp <- gg_par(
       col = alpha(data$colour, data$alpha),
       lty = data$linetype,
       lwd = data$linewidth,

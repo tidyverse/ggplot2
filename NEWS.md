@@ -61,7 +61,7 @@
   (@teunbrand, #5756).
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
   (@teunbrand, #5856).
-* New helper function `ggpar()` to translate ggplot2's interpretation of 
+* New helper function `gg_par()` to translate ggplot2's interpretation of 
   graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
 * `scale_{x/y}_discrete()` can now accept a `sec.axis`. It is recommended to
   only use `dup_axis()` to set custom breaks or labels, as discrete variables 
