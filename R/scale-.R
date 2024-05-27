@@ -463,40 +463,40 @@ Scale <- ggproto("Scale", NULL,
     title
   },
 
-  new = function(self, aesthetics, palette, name = waiver(), breaks = waiver(),
+  new = function(self, aesthetics = NULL, breaks = waiver(),
                  minor_breaks = waiver(), labels = waiver(), limits = NULL,
-                 expand = waiver(), guide = "legend", position = "left",
+                 guide = NULL, position = NULL,
                  call = caller_call(), ..., super = NULL) {
 
-    call <- call %||% current_call()
-    aesthetics <- standardise_aes_names(aesthetics)
+    super <- super %||% self
+    call <- call %||% super$call() %||% current_call()
+    aesthetics <- standardise_aes_names(aesthetics %||% super$aesthetics)
+    limits <- allow_lambda(limits %||% super$limits)
+    breaks <- allow_lambda(breaks %|W|% super$breaks)
+    labels <- allow_lambda(labels %|W|% super$labels)
+    minor_breaks <- allow_lambda(minor_breaks %|W|% super$minor_breaks)
     check_breaks_labels(breaks, labels, call = call)
-    limits <- allow_lambda(limits)
-    breaks <- allow_lambda(breaks)
-    labels <- allow_lambda(labels)
-    minor_breaks <- allow_lambda(minor_breaks)
-    position <- arg_match0(position, .trbl)
+    position <- arg_match0(position %||% super$position, .trbl)
     if (is.null(breaks) & all(!is_position_aes(aesthetics))) {
       guide <- "none"
     }
 
-    super <- super %||% self
     ggproto(
       NULL, super,
       call = call,
       aesthetics = aesthetics,
-      palette = palette,
       limits = limits,
-      expand = expand,
-      name = name,
       breaks = breaks,
       minor_breaks = minor_breaks,
       labels = labels,
-      guide = guide,
+      guide = guide %||% super$guide,
       position = position,
       ...
     )
+  },
 
+  update = function(self, params) {
+    inject(self$new(!!!params))
   }
 )
 
@@ -811,18 +811,19 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
   },
 
-  new = function(self, rescaler = rescale, oob = censor,
+  new = function(self, rescaler = NULL, oob = NULL,
                  range = ContinuousRange$new(),
-                 transform = "identity", limits = NULL, ...,
+                 transform = NULL, limits = NULL, ...,
                  super = NULL) {
-
-    transform <- as.transform(transform)
-    if (!is.null(limits) && !is.function(limits) && !is.formula(limits)) {
-      limits = transform$transform(limits)
+    super <- super %||% self
+    transform <- as.transform(transform %||% super$trans)
+    limits <- allow_lambda(limits %||% super$limits)
+    if (!is.null(limits) && !is.function(limits)) {
+      limits <- transform$transform(limits)
     }
 
-    rescaler <- allow_lambda(rescaler)
-    oob <- allow_lambda(oob)
+    rescaler <- allow_lambda(rescaler %||% super$rescaler)
+    oob <- allow_lambda(oob %||% super$oob)
 
     ggproto_parent(Scale, self)$new(
       rescaler = rescaler,
@@ -831,8 +832,20 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       trans = transform,
       limits = limits,
       ...,
-      super = super %||% self
+      super = super
     )
+  },
+
+  update = function(self, params) {
+    # We may need to update limits when previously transformed and
+    # a new transformation is coming in
+    if ("transform" %in% names(params) &&
+        self$trans$name != "identity" &&
+        (!"limits" %in% names(params)) &&
+        !is.null(self$limits) && !is.function(self$limits)) {
+      params$limits <- self$trans$inverse(self$limits)
+    }
+    inject(self$new(!!!params))
   }
 )
 

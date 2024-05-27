@@ -8,6 +8,7 @@ scales_list <- function() {
 
 ScalesList <- ggproto("ScalesList", NULL,
   scales = NULL,
+  params = list(),
 
   find = function(self, aesthetic) {
     vapply(self$scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
@@ -21,7 +22,10 @@ ScalesList <- ggproto("ScalesList", NULL,
     if (is.null(scale)) {
       return()
     }
-
+    aes <- intersect(scale$aesthetics, names(self$params))
+    for (i in aes) {
+      scale <- scale$update(self$params[[aes]])
+    }
     prev_aes <- self$find(scale$aesthetics)
     if (any(prev_aes)) {
       # Get only the first aesthetic name in the returned vector -- it can
@@ -167,6 +171,20 @@ ScalesList <- ggproto("ScalesList", NULL,
     for (aes in aesthetics) {
       scale_name <- paste("scale", aes, "continuous", sep = "_")
       self$add(find_global(scale_name, env, mode = "function")())
+    }
+  },
+
+  add_params = function(self, aesthetic, params = NULL) {
+    if (is.null(params) || is.null(aesthetic)) {
+      return()
+    }
+    index <- which(self$find(aesthetic))
+    if (length(index) > 0) {
+      for (i in index) {
+        self$scales[[i]] <- self$scales[[i]]$update(params)
+      }
+    } else {
+      self$params[[aesthetic]] <- defaults(params, self$params[[aesthetic]])
     }
   }
 )
