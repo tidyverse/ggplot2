@@ -71,6 +71,15 @@ test_that("identity scale preserves input values", {
   expect_equal(d1, d2)
 })
 
+test_that("a warning is thrown when a scale is not used", {
+  p <- ggplot(mtcars, aes(disp, mpg)) + geom_point() + scale_colour_discrete()
+
+  expect_warning(
+    ggplot_build(p),
+    "was provided but has no matching data to map"
+  )
+})
+
 test_that("position scales are updated by all position aesthetics", {
   df <- data_frame(x = 1:3, y = 1:3)
 
