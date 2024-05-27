@@ -5,7 +5,8 @@
 #' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
 #' `geom_tile()` uses the center of the tile and its size (`x`,
 #' `y`, `width`, `height`). `geom_raster()` is a high
-#' performance special case for when all the tiles are the same size.
+#' performance special case for when all the tiles are the same size, and no
+#' pattern fills are applied.
 #'
 #' @eval rd_aesthetics("geom", "tile", "Note that `geom_raster()` ignores `colour`.")
 #' @inheritParams layer
@@ -15,7 +16,7 @@
 #'
 #' @details
 #' `geom_rect()` and `geom_tile()`'s respond differently to scale
-#' transformations due to their parametrisation. In `geom_rect()`, the scale
+#' transformations due to their parameterisation. In `geom_rect()`, the scale
 #' transformation is applied to the corners of the rectangles. In `geom_tile()`,
 #' the transformation is applied only to the centres and its size is determined
 #' after transformation.
@@ -60,8 +61,8 @@
 #' # Inspired by the image-density plots of Ken Knoblauch
 #' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 #' cars + geom_point()
-#' cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
-#' cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
+#' cars + stat_bin_2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+#' cars + stat_bin_2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 #'
 #' cars +
 #'   stat_density(
@@ -108,8 +109,11 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
-    data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
-    data$height <- data$height %||% params$height %||% resolution(data$y, FALSE)
+    
+    data$width <- data$width %||% params$width %||%
+      stats::ave(data$x, data$PANEL, FUN = function(x) resolution(x, FALSE, TRUE))
+    data$height <- data$height %||% params$height %||%
+      stats::ave(data$y, data$PANEL, FUN = function(y) resolution(y, FALSE, TRUE))
 
     transform(data,
       xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,

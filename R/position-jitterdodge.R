@@ -46,11 +46,15 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
-    width <- self$jitter.width %||% (resolution(data$x, zero = FALSE) * 0.4)
+    width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
     # Adjust the x transformation based on the number of 'dodge' variables
-    dodgecols <- intersect(c("fill", "colour", "linetype", "shape", "size", "alpha"), colnames(data))
+    possible_dodge <- c("fill", "colour", "linetype", "shape", "size", "alpha")
+    dodgecols <- intersect(possible_dodge, colnames(data))
     if (length(dodgecols) == 0) {
-      cli::cli_abort("{.fn position_jitterdodge} requires at least one aesthetic to dodge by")
+      cli::cli_abort(c(
+        "{.fn position_jitterdodge} requires at least one aesthetic to dodge by.",
+        i = "Use one of {.or {.val {possible_dodge}}} aesthetics."
+        ))
     }
     ndodge    <- lapply(data[dodgecols], levels)  # returns NULL for numeric, i.e. non-dodge layers
     ndodge    <- vec_unique_count(unlist(ndodge))
@@ -72,7 +76,18 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     trans_x <- if (params$jitter.width > 0) function(x) jitter(x, amount = params$jitter.width)
     trans_y <- if (params$jitter.height > 0) function(x) jitter(x, amount = params$jitter.height)
 
-    data <- with_seed_null(params$seed, transform_position(data, trans_x, trans_y))
+    x_aes <- intersect(ggplot_global$x_aes, names(data))
+    y_aes <- intersect(ggplot_global$y_aes, names(data))
+
+    x <- if (length(x_aes) == 0) 0 else data[[x_aes[1]]]
+    y <- if (length(y_aes) == 0) 0 else data[[y_aes[1]]]
+    dummy_data <- data_frame0(x = x, y = y, .size = nrow(data))
+
+    fixed_jitter <- with_seed_null(params$seed, transform_position(dummy_data, trans_x, trans_y))
+    x_jit <- fixed_jitter$x - x
+    y_jit <- fixed_jitter$y - y
+
+    data <- transform_position(data, function(x) x + x_jit, function(x) x + y_jit)
     flip_data(data, params$flipped_aes)
   }
 )

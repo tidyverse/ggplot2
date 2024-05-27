@@ -193,7 +193,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {
@@ -242,12 +242,12 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because y position isn't real.
       # After position code is rewritten, each dot should have its own bounding box.
+      yoffset <- if (is_mapped_discrete(data$y)) data$y else 0
       data$xmin <- data$x - data$binwidth / 2
       data$xmax <- data$x + data$binwidth / 2
-      data$ymin <- stackaxismin
-      data$ymax <- stackaxismax
-      data$y    <- 0
-
+      data$ymin <- stackaxismin + yoffset
+      data$ymax <- stackaxismax + yoffset
+      data$y <- yoffset
     } else if (params$binaxis == "y") {
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because x position isn't real.
@@ -293,10 +293,10 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
                   stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
-                  gp = gpar(col = alpha(tdata$colour, tdata$alpha),
-                            fill = alpha(tdata$fill, tdata$alpha),
-                            lwd = tdata$stroke, lty = tdata$linetype,
-                            lineend = lineend))
+                  gp = gg_par(col = alpha(tdata$colour, tdata$alpha),
+                              fill = fill_alpha(tdata$fill, tdata$alpha),
+                              lwd = tdata$stroke / .pt, lty = tdata$linetype,
+                              lineend = lineend))
     )
   },
 

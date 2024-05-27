@@ -1,10 +1,14 @@
 bins <- function(breaks, closed = "right",
-                 fuzz = 1e-08 * stats::median(diff(breaks))) {
+                 fuzz = NULL) {
   check_numeric(breaks)
   closed <- arg_match0(closed, c("right", "left"))
-
   breaks <- sort(breaks)
+
   # Adapted base::hist - this protects from floating point rounding errors
+  fuzz <- fuzz %||% 1e-08 * stats::median(diff(breaks[is.finite(breaks)]))
+  if (!is.finite(fuzz)) { # happens when 0 or 1 finite breaks are given
+    fuzz <- .Machine$double.eps * 1e3
+  }
   if (closed == "right") {
     fuzzes <- c(-fuzz, rep.int(fuzz, length(breaks) - 1))
   } else {
@@ -51,13 +55,11 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
                              boundary = NULL, closed = c("right", "left")) {
   if (length(x_range) != 2) {
-    cli::cli_abort("{.arg x_range} must have two elements")
+    cli::cli_abort("{.arg x_range} must have two elements.")
   }
 
-  check_number_decimal(width)
-  if (width <= 0) {
-    cli::cli_abort("{.arg binwidth} must be positive")
-  }
+  # binwidth seems to be the argument name supplied to width. (stat-bin and stat-bindot)
+  check_number_decimal(width, min = 0, allow_infinite = FALSE, arg = "binwidth")
 
   if (!is.null(boundary) && !is.null(center)) {
     cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
@@ -105,7 +107,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
                             boundary = NULL, closed = c("right", "left")) {
   if (length(x_range) != 2) {
-    cli::cli_abort("{.arg x_range} must have two elements")
+    cli::cli_abort("{.arg x_range} must have two elements.")
   }
 
   check_number_whole(bins, min = 1)
@@ -115,8 +117,12 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
   } else if (bins == 1) {
     width <- diff(x_range)
     boundary <- x_range[1]
+    center <- NULL
   } else {
     width <- (x_range[2] - x_range[1]) / (bins - 1)
+    if (is.null(center)) {
+      boundary <- boundary %||% x_range[1] - width / 2
+    }
   }
 
   bin_breaks_width(x_range, width, boundary = boundary, center = center,

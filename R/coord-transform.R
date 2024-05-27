@@ -5,12 +5,14 @@
 #' no guarantee that straight lines will continue to be straight.
 #'
 #' Transformations only work with continuous values: see
-#' [scales::trans_new()] for list of transformations, and instructions
+#' [scales::new_transform()] for list of transformations, and instructions
 #' on how to create your own.
 #'
 #' @inheritParams coord_cartesian
 #' @param x,y Transformers for x and y axes or their names.
 #' @param limx,limy `r lifecycle::badge("deprecated")` use `xlim` and `ylim` instead.
+#' @seealso
+#' The `r link_book("coord transformations section", "coord#transformations-with-coord_trans")`
 #' @export
 #' @examples
 #' \donttest{
@@ -60,7 +62,7 @@
 #'   geom_smooth(method = "lm") +
 #'   scale_x_log10() +
 #'   scale_y_log10() +
-#'   coord_trans(x = scales::exp_trans(10), y = scales::exp_trans(10))
+#'   coord_trans(x = scales::transform_exp(10), y = scales::transform_exp(10))
 #'
 #' # cf.
 #' ggplot(diamonds, aes(carat, price)) +
@@ -86,9 +88,12 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
     ylim <- limy
   }
 
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
+
   # resolve transformers
-  if (is.character(x)) x <- as.trans(x)
-  if (is.character(y)) y <- as.trans(y)
+  if (is.character(x)) x <- as.transform(x)
+  if (is.character(y)) y <- as.transform(y)
 
   ggproto(NULL, CoordTrans,
     trans = list(x = x, y = y),
@@ -187,13 +192,13 @@ transform_value <- function(trans, value, range) {
 # TODO: can we merge this with view_scales_from_scale()?
 view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
-  scale_trans <- scale$trans %||% identity_trans()
-  coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
+  transformation <- scale$get_transformation() %||% transform_identity()
+  coord_limits <- coord_limits %||% transformation$inverse(c(NA, NA))
   scale_limits <- scale$get_limits()
 
   if (scale$is_discrete()) {
     continuous_ranges <- expand_limits_discrete_trans(
-      scale_limits,
+      scale$map(scale_limits),
       expansion,
       coord_limits,
       trans,
@@ -201,7 +206,7 @@ view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, 
     )
   } else {
     # transform user-specified limits to scale transformed space
-    coord_limits <- scale$trans$transform(coord_limits)
+    coord_limits <- transformation$transform(coord_limits)
     continuous_ranges <- expand_limits_continuous_trans(
       scale_limits,
       expansion,

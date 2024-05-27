@@ -5,7 +5,7 @@
 #' be specified in the global or `geom_*` layer. Unlike `position_dodge()`,
 #' `position_dodge2()` works without a grouping variable in a layer.
 #' `position_dodge2()` works with bars and rectangles, but is
-#' particulary useful for arranging box plots, which
+#' particularly useful for arranging box plots, which
 #' can have variable widths.
 #'
 #' @param width Dodging width, when different to the width of the individual
@@ -13,6 +13,9 @@
 #'   geoms. See the examples.
 #' @param preserve Should dodging preserve the `"total"` width of all elements
 #'    at a position, or the width of a `"single"` element?
+#' @param orientation Fallback orientation when the layer or the data does not
+#'    indicate an explicit orientation, like `geom_point()`. Can be `"x"`
+#'    (default) or `"y"`.
 #' @family position adjustments
 #' @export
 #' @examples
@@ -79,10 +82,12 @@
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
-position_dodge <- function(width = NULL, preserve = "total", stackOverlap = "no") {
+
+position_dodge <- function(width = NULL, preserve = "total", orientation = "x", stackOverlap = "no") {
   ggproto(NULL, PositionDodge,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
+    orientation = arg_match0(orientation, c("x", "y")),
     stackOverlap = arg_match0(stackOverlap, c("no","byExtent","byCenter"))
   )
 }
@@ -95,8 +100,9 @@ PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
   stackOverlap = "no",
+  orientation = "x",
   setup_params = function(self, data) {
-    flipped_aes <- has_flipped_aes(data)
+    flipped_aes <- has_flipped_aes(data, default = self$orientation == "y")
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       cli::cli_warn(c(

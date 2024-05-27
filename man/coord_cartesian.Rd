@@ -60,13 +60,13 @@ p + coord_cartesian(xlim = c(325, 500))
 # limits. You can set the limits precisely by setting expand = FALSE
 p + coord_cartesian(xlim = c(325, 500), expand = FALSE)
 
-# Simiarly, we can use expand = FALSE to turn off expansion with the
+# Similarly, we can use expand = FALSE to turn off expansion with the
 # default limits
 p + coord_cartesian(expand = FALSE)
 
 # You can see the same thing with this 2d histogram
 d <- ggplot(diamonds, aes(carat, price)) +
-  stat_bin2d(bins = 25, colour = "white")
+  stat_bin_2d(bins = 25, colour = "white")
 d
 
 # When zooming the scale, the we get 25 new bins that are the same

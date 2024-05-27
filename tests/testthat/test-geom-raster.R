@@ -6,6 +6,13 @@ test_that("geom_raster() checks input and coordinate system", {
 
   df <- data_frame(x = rep(c(-1, 1), each = 3), y = rep(-1:1, 2), z = 1:6)
   p <- ggplot(df, aes(x, y, fill = z)) + geom_raster() + coord_polar()
+  expect_message(ggplotGrob(p), "only works with")
+})
+
+test_that("geom_raster() fails with pattern fills", {
+  skip_if_not(getRversion() > "4.2", message = "pattern fills are unavailalbe")
+  df <- data.frame(x = 1)
+  p <- ggplot(df, aes(x, x)) + geom_raster(fill = linearGradient())
   expect_snapshot_error(ggplotGrob(p))
 })
 
@@ -59,6 +66,14 @@ test_that("geom_raster draws correctly", {
       geom_point(colour = "red")
   )
 
+  # In non-linear coordinates
+  df <- data.frame(x = c(1, 2, 1, 2), y = c(1, 1, 2, 2), fill = LETTERS[1:4])
+  suppressMessages(
+    expect_doppelganger("rectangle fallback",
+      ggplot(df, aes(x, y, fill = fill)) + geom_raster() + coord_polar()
+    )
+  )
+
   # Categorical fill, irregular swatches ---------------------------------------
 
   df <- expand.grid(x = 1:10, y = 1:10)
@@ -67,5 +82,12 @@ test_that("geom_raster draws correctly", {
   df$col[df$y == 5 & df$col == 0] <- NA
   expect_doppelganger("irregular categorical",
     ggplot(df, aes(x, y, fill = factor(col))) + geom_raster()
+  )
+
+  # Categorical axes -----------------------------------------------------------
+
+  df <- expand.grid(x = c("A", "B"), y = c("C", "D"))
+  expect_doppelganger("discrete positions",
+    ggplot(df, aes(x, y, fill = interaction(x, y))) + geom_raster()
   )
 })

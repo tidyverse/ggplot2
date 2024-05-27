@@ -5,17 +5,35 @@
 \alias{scale_y_discrete}
 \title{Position scales for discrete data}
 \usage{
-scale_x_discrete(..., expand = waiver(), guide = waiver(), position = "bottom")
+scale_x_discrete(
+  name = waiver(),
+  ...,
+  palette = seq_len,
+  expand = waiver(),
+  guide = waiver(),
+  position = "bottom",
+  sec.axis = waiver()
+)
 
-scale_y_discrete(..., expand = waiver(), guide = waiver(), position = "left")
+scale_y_discrete(
+  name = waiver(),
+  ...,
+  palette = seq_len,
+  expand = waiver(),
+  guide = waiver(),
+  position = "left",
+  sec.axis = waiver()
+)
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
 \item{...}{
   Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
   \describe{
-    \item{\code{palette}}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
@@ -36,7 +54,8 @@ notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
@@ -44,12 +63,17 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
 missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
-    \item{\code{scale_name}}{The name of the scale that should be used for error messages
-associated with this scale.}
-    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
-\code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If \code{NULL}, the legend title will be
-omitted.}
+    \item{\code{minor_breaks}}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.
+}}
     \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
@@ -61,8 +85,13 @@ transformation object
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
 }}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
+
+\item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the numerical values
+that they should take.}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
@@ -76,6 +105,8 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+
+\item{sec.axis}{\code{\link[=dup_axis]{dup_axis()}} is used to specify a secondary axis.}
 }
 \description{
 \code{scale_x_discrete()} and \code{scale_y_discrete()} are used to set the values for
@@ -136,6 +167,8 @@ ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
 }
 \seealso{
 The \link[=aes_position]{position documentation}.
+
+The \href{https://ggplot2-book.org/scales-position#sec-discrete-position}{discrete position scales section} of the online ggplot2 book.
 
 Other position scales: 
 \code{\link{scale_x_binned}()},

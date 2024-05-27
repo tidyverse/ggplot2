@@ -25,7 +25,7 @@ test_that("dup_axis() works", {
       name = "Unit A",
       sec.axis = dup_axis()
     )
-  scale <- layer_scales(p)$x
+  scale <- get_panel_scales(p)$x
   expect_equal(scale$sec_name(), scale$name)
   breaks <- scale$break_info()
   expect_equal(breaks$minor_source, breaks$sec.minor_source_user)
@@ -45,7 +45,7 @@ test_that("sec_axis() works with subtraction", {
     scale_y_continuous(
       sec.axis = sec_axis(~1-.)
     )
-  scale <- layer_scales(p)$y
+  scale <- get_panel_scales(p)$y
   expect_equal(scale$sec_name(), scale$name)
   breaks <- scale$break_info()
   expect_equal(breaks$minor_source, breaks$sec.minor_source_user)
@@ -81,7 +81,7 @@ test_that("sec_axis() breaks work for log-transformed scales", {
     geom_point() +
     scale_y_log10(sec.axis = dup_axis())
 
-  scale <- layer_scales(p)$y
+  scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
 
   # test value
@@ -96,7 +96,7 @@ test_that("sec_axis() breaks work for log-transformed scales", {
     geom_point() +
     scale_y_log10(sec.axis = sec_axis(~ . * 100))
 
-  scale <- layer_scales(p)$y
+  scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
 
   # test value
@@ -113,7 +113,7 @@ test_that("sec_axis() breaks work for log-transformed scales", {
     geom_point() +
     scale_y_log10(breaks = custom_breaks, sec.axis = sec_axis(~ . * 100))
 
-  scale <- layer_scales(p)$y
+  scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
 
   expect_equal(breaks$major_source, log(custom_breaks, base = 10))
@@ -127,11 +127,11 @@ test_that("custom breaks work", {
     scale_x_continuous(
       name = "Unit A",
       sec.axis = sec_axis(
-        trans = y ~ .,
+        transform = y ~ .,
         breaks = custom_breaks
       )
     )
-  scale <- layer_scales(p)$x
+  scale <- get_panel_scales(p)$x
   breaks <- scale$break_info()
   expect_equal(custom_breaks, breaks$sec.major_source_user)
 })
@@ -142,7 +142,7 @@ test_that("sec axis works with skewed transform", {
     ggplot(foo, aes(x, y)) +
       geom_point() +
       scale_x_continuous(
-        name = "Unit A", trans = "log",
+        name = "Unit A", transform = "log",
         breaks = c(0.001, 0.01, 0.1, 1, 10, 100, 1000),
         sec.axis = sec_axis(~ . * 100,
           name = "Unit B",
@@ -175,7 +175,7 @@ test_that("sec axis works with tidy eval", {
 
   p <- f(t, x, y, z)
 
-  scale <- layer_scales(p)$y
+  scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
 
   # test transform
@@ -192,9 +192,9 @@ test_that("sec_axis() handles secondary power transformations", {
   )
   p <- ggplot(df, aes(x, y)) +
     geom_point() +
-    scale_y_continuous(sec.axis = sec_axis(trans = (~ 2^.)))
+    scale_y_continuous(sec.axis = sec_axis(transform = (~ 2^.)))
 
-  scale <- layer_scales(p)$y
+  scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
 
   expect_equal(round(breaks$major[4:6], 2), round(breaks$sec.major[c(1, 2, 4)], 2))
@@ -231,7 +231,7 @@ test_that("sec_axis() respects custom transformations", {
       }
     })
 
-    trans_new(name = "customlog", transform = trans, inverse = inv, domain = c(1e-16, Inf))
+    new_transform(name = "customlog", transform = trans, inverse = inv, domain = c(1e-16, Inf))
   }
 
   # Create data
@@ -244,11 +244,11 @@ test_that("sec_axis() respects custom transformations", {
     ggplot(dat, aes(x = x, y = y)) +
       geom_line(linewidth = 1, na.rm = T) +
       scale_y_continuous(
-        trans =
+        transform =
           magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =
           c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits =
           c(0.001, 1), sec.axis = sec_axis(
-          trans =
+          transform =
             ~ . * (1 / 2), breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
         )
       ) + theme_linedraw()
@@ -274,7 +274,7 @@ test_that("sec_axis works with date/time/datetime scales", {
   dt <- ggplot(df, aes(dx, price)) +
     geom_line() +
     scale_x_datetime(sec.axis = dup_axis())
-  scale <- layer_scales(dt)$x
+  scale <- get_panel_scales(dt)$x
   breaks <- scale$break_info()
   expect_equal(breaks$major_source, breaks$sec.major_source_user)
 
@@ -282,7 +282,7 @@ test_that("sec_axis works with date/time/datetime scales", {
   dt <- ggplot(df, aes(date, price)) +
     geom_line() +
     scale_x_date(sec.axis = dup_axis())
-  scale <- layer_scales(dt)$x
+  scale <- get_panel_scales(dt)$x
   breaks <- scale$break_info()
   expect_equal(breaks$major_source, breaks$sec.major_source_user)
 
@@ -295,7 +295,7 @@ test_that("sec_axis works with date/time/datetime scales", {
         name = "UTC+12"
       )
     )
-  scale <- layer_scales(dt)$x
+  scale <- get_panel_scales(dt)$x
   breaks <- scale$break_info()
 
   expect_equal(
@@ -335,8 +335,8 @@ test_that("sec.axis allows independent trans btwn primary and secondary axes", {
     "sec_axis, independent transformations",
     ggplot(data = data, aes(Probability, Value)) + geom_point() +
       scale_x_continuous(
-        trans = scales::probability_trans(distribution = "norm", lower.tail = FALSE),
-        sec.axis = sec_axis(trans = ~ 1 / ., name = "Return Period")
+        transform = scales::transform_probability(distribution = "norm", lower.tail = FALSE),
+        sec.axis = sec_axis(transform = ~ 1 / ., name = "Return Period")
       ) + theme_linedraw()
   )
 })
@@ -351,7 +351,8 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
     "sec axis monotonicity test",
     ggplot(data, aes(x, y)) +
       geom_line() +
-      scale_y_continuous(trans = "sqrt", sec.axis = dup_axis()) + theme_linedraw()
+      scale_y_continuous(transform = "sqrt", sec.axis = dup_axis()) +
+      theme_linedraw()
   )
 
   testdat <- data_frame(
@@ -360,22 +361,42 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
   )
   p <- ggplot(data = testdat, aes(x = x, y = y)) +
     geom_point() +
-    scale_y_continuous(sec.axis = sec_axis(trans = ~ .^0.5))
-  scale <- layer_scales(p)$y
+    scale_y_continuous(sec.axis = sec_axis(transform = ~ .^0.5))
+  scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
   expect_equal(breaks$major, sqrt(breaks$sec.major), tolerance = .005)
 
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_x_sqrt(sec.axis = dup_axis())
-  scale <- layer_scales(p)$x
+  scale <- get_panel_scales(p)$x
   breaks <- scale$break_info()
   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
 
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_x_sqrt(sec.axis = sec_axis(~ . * 100))
-  scale <- layer_scales(p)$x
+  scale <- get_panel_scales(p)$x
   breaks <- scale$break_info()
   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+})
+
+test_that("discrete scales can have secondary axes", {
+
+  data <- data.frame(x = c("A", "B", "C"), y = c("D", "E", "F"))
+  p <- ggplot(data, aes(x, y)) +
+    geom_point() +
+    scale_x_discrete(sec.axis = dup_axis(labels = c("foo", "bar", "baz"))) +
+    scale_y_discrete(sec.axis = dup_axis(
+      breaks = c(1.5, 2.5), labels = c("grault", "garply")
+    ))
+  b <- ggplot_build(p)
+
+  x <- get_guide_data(b, "x.sec")
+  expect_equal(x$.value, 1:3, ignore_attr = TRUE)
+  expect_equal(x$.label, c("foo", "bar", "baz"))
+
+  y <- get_guide_data(b, "y.sec")
+  expect_equal(y$.value, c(1.5, 2.5), ignore_attr = TRUE)
+  expect_equal(y$.label, c("grault", "garply"))
 })

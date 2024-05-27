@@ -13,11 +13,12 @@ annotation_logticks(
   mid = unit(0.2, "cm"),
   long = unit(0.3, "cm"),
   colour = "black",
-  size = 0.5,
+  linewidth = 0.5,
   linetype = 1,
   alpha = 1,
   color = NULL,
-  ...
+  ...,
+  size = deprecated()
 )
 }
 \arguments{
@@ -47,7 +48,7 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 
 \item{colour}{Colour of the tick marks.}
 
-\item{size}{Thickness of tick marks, in mm.}
+\item{linewidth}{Thickness of tick marks, in mm.}
 
 \item{linetype}{Linetype of tick marks (\code{solid}, \code{dashed}, etc.)}
 
@@ -56,8 +57,14 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 \item{color}{An alias for \code{colour}.}
 
 \item{...}{Other parameters passed on to the layer}
+
+\item{size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is superseded by using \code{\link[=guide_axis_logticks]{guide_axis_logticks()}}.
+
 This annotation adds log tick marks with diminishing spacing.
 These tick marks probably make sense only for base 10.
 }
@@ -89,8 +96,8 @@ a + annotation_logticks(sides = "trbl") + theme(panel.grid.minor = element_blank
 # plotting it. Also hide the minor grid lines.
 b <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) +
  geom_point(na.rm = TRUE) +
- scale_x_continuous(name = "body", labels = scales::math_format(10^.x)) +
- scale_y_continuous(name = "brain", labels = scales::math_format(10^.x)) +
+ scale_x_continuous(name = "body", labels = scales::label_math(10^.x)) +
+ scale_y_continuous(name = "brain", labels = scales::label_math(10^.x)) +
  theme_bw() + theme(panel.grid.minor = element_blank())
 
 b + annotation_logticks()

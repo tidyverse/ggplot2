@@ -130,7 +130,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
 ```
 
 Note that the legend title is no longer aligned with the keys with this approach.
-You can also shift it over with `legend.title.align`.
+You can also shift it over with the `hjust` setting of `legend.title`.
 
 ```{r}
 #| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
@@ -143,8 +143,8 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   theme(
     legend.key.size = unit(1.5, "cm"),
     legend.key = element_rect(color = NA, fill = NA),
-    legend.title.align = 0.5
-    )
+    legend.title = element_text(hjust = 0.5)
+  )
 ```
 
 </details>
@@ -367,11 +367,11 @@ ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
   theme_gray(base_size = 18)
 ```
 
-If you would like all plots within a session/document to use a particular base size, you can set it with `theme_set()`.
+If you would like all plots within a session/document to use a particular base size, you can set it with `set_theme()`.
 Run the following at the beginning of your session or include on top of your R Markdown document.
 
 ```{r eval = FALSE}
-theme_set(theme_gray(base_size = 18))
+set_theme(theme_gray(base_size = 18))
 ```
 
 </details>
@@ -504,6 +504,12 @@ GeomLabel$default_aes$size
 ```
 
 You can change the size using the `size` argument in `geom_text()` for a single plot. If you want to use the same updated size, you can set this with `update_geom_defaults()`, e.g. `update_geom_defaults("text", list(size = 6))`.
+
+One tricky thing is that this `size` is in **mm** while the `size` of `element_text()` is in pt.
+If you want to match `geom_text()`'s font size to the theme's size,
+specify `size.unit = "pt"` in `geom_text()` for a single plot,
+or divide the number by the `.pt` constant variable for `update_geom_defaults()`.
+Please refer to ["Font size" section of the aesthetic specifications](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#font-size) for more details.
 
 <details>
 

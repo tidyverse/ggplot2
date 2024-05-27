@@ -103,7 +103,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
 #' @export
 GeomSegment <- ggproto("GeomSegment", Geom,
   required_aes = c("x", "y", "xend|yend"),
-  non_missing_aes = c("linetype", "linewidth", "shape"),
+  non_missing_aes = c("linetype", "linewidth"),
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
@@ -111,7 +111,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     data$yend <- data$yend %||% data$y
     data <- check_linewidth(data, snake_class(self))
     data <- remove_missing(data, na.rm = na.rm,
-      c("x", "y", "xend", "yend", "linetype", "linewidth", "shape"),
+      c("x", "y", "xend", "yend", "linetype", "linewidth"),
       name = "geom_segment"
     )
 
@@ -122,10 +122,10 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       arrow.fill <- arrow.fill %||% coord$colour
       return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
         default.units = "native",
-        gp = gpar(
+        gp = gg_par(
           col = alpha(coord$colour, coord$alpha),
           fill = alpha(arrow.fill, coord$alpha),
-          lwd = coord$linewidth * .pt,
+          lwd = coord$linewidth,
           lty = coord$linetype,
           lineend = lineend,
           linejoin = linejoin

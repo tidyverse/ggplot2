@@ -4,7 +4,7 @@
 #' useful for displaying the relationship between two continuous variables.
 #' It can be used to compare one continuous and one categorical variable, or
 #' two categorical variables, but a variation like [geom_jitter()],
-#' [geom_count()], or [geom_bin2d()] is usually more
+#' [geom_count()], or [geom_bin_2d()] is usually more
 #' appropriate. A _bubblechart_ is a scatterplot with a third variable
 #' mapped to the size of points.
 #'
@@ -27,14 +27,36 @@
 #' `geom_point(alpha = 0.05)`) or very small (e.g.
 #' `geom_point(shape = ".")`).
 #'
-#' @eval rd_aesthetics("geom", "point")
+#' @eval rd_aesthetics("geom", "point", "The `fill` aesthetic only applies to shapes 21-25.")
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
-#' @param ... Other arguments passed on to [layer()]. These are
-#'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   `colour = "red"` or `size = 3`. They may also be parameters
-#'   to the paired geom/stat.
+#' @param ... Other arguments passed on to [layer()]'s `params` argument. These
+#'   arguments broadly fall into one of 4 categories below. Notably, further
+#'   arguments to the `position` argument, or aesthetics that are required
+#'   can *not* be passed through `...`. Unknown arguments that are not part
+#'   of the 4 categories below are ignored.
+#'   * Static aesthetics that are not mapped to a scale, but are at a fixed
+#'     value and apply to the layer as a whole. For example, `colour = "red"`
+#'     or `linewidth = 3`. The geom's documentation has an **Aesthetics**
+#'     section that lists the available options. The 'required' aesthetics
+#'     cannot be passed on to the `params`. Please note that while passing
+#'     unmapped aesthetics as vectors is technically possible, the order and
+#'     required length is not guaranteed to be parallel to the input data.
+#'   * When constructing a layer using
+#'     a `stat_*()` function, the `...` argument can be used to pass on
+#'     parameters to the `geom` part of the layer. An example of this is
+#'     `stat_density(geom = "area", outline.type = "both")`. The geom's
+#'     documentation lists which parameters it can accept.
+#'   * Inversely, when constructing a layer using a
+#'     `geom_*()` function, the `...` argument can be used to pass on parameters
+#'     to the `stat` part of the layer. An example of this is
+#'     `geom_area(stat = "density", adjust = 0.5)`. The stat's documentation
+#'     lists which parameters it can accept.
+#'   * The `key_glyph` argument of [`layer()`] may also be passed on through
+#'     `...`. This can be one of the functions described as
+#'     [key glyphs][draw_key], to change the display of the layer in the legend.
+#'
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg))
@@ -123,18 +145,15 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     }
 
     coords <- coord$transform(data, panel_params)
-    stroke_size <- coords$stroke
-    stroke_size[is.na(stroke_size)] <- 0
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
         pch = coords$shape,
-        gp = gpar(
+        gp = gg_par(
           col = alpha(coords$colour, coords$alpha),
-          fill = alpha(coords$fill, coords$alpha),
-          # Stroke is added around the outside of the point
-          fontsize = coords$size * .pt + stroke_size * .stroke / 2,
-          lwd = coords$stroke * .stroke / 2
+          fill = fill_alpha(coords$fill, coords$alpha),
+          pointsize = coords$size,
+          stroke = coords$stroke
         )
       )
     )
@@ -203,14 +222,14 @@ translate_shape_string <- function(shape_string) {
 
   if (any(invalid_strings)) {
     bad_string <- unique0(shape_string[invalid_strings])
-    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}")
+    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}.")
   }
 
   if (any(nonunique_strings)) {
     bad_string <- unique0(shape_string[nonunique_strings])
     cli::cli_abort(c(
-      "shape names must be given unambiguously",
-      "i" = "Fix {.val {bad_string}}"
+      "Shape names must be given unambiguously.",
+      "i" = "Fix {.val {bad_string}}."
     ))
   }
 

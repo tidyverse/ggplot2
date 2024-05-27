@@ -52,7 +52,7 @@ test_that("identity scale preserves input values", {
     scale_shape_identity() +
     scale_size_identity() +
     scale_alpha_identity()
-  d1 <- layer_data(p1)
+  d1 <- get_layer_data(p1)
 
   expect_equal(d1$colour, as.character(df$z))
   expect_equal(d1$fill, as.character(df$z))
@@ -66,7 +66,7 @@ test_that("identity scale preserves input values", {
     geom_point() +
     scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
     scale_continuous_identity(aesthetics = c("size", "alpha"))
-  d2 <- layer_data(p2)
+  d2 <- get_layer_data(p2)
 
   expect_equal(d1, d2)
 })
@@ -111,10 +111,14 @@ test_that("oob affects position values", {
   }
   base + scale_y_continuous(limits = c(-0,5))
 
-  expect_warning(low_censor <- cdata(base + y_scale(c(0, 5), censor)),
+  low_censor <- cdata(base + y_scale(c(0, 5), censor))
+  mid_censor <- cdata(base + y_scale(c(3, 7), censor))
+  handle <- GeomBar$handle_na
+
+  expect_warning(low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
     "Removed 1 row containing missing values or values outside the scale range")
-  expect_warning(mid_censor <- cdata(base + y_scale(c(3, 7), censor)),
-    "Removed 2 rows containing missing values or values outside the scale range")
+  expect_warning(mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
+    "Removed 3 rows containing missing values or values outside the scale range")
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
@@ -127,7 +131,7 @@ test_that("oob affects position values", {
 
   # Bars depend on limits and oob
   expect_equal(low_censor[[1]]$y, c(0.2, 1))
-  expect_equal(mid_censor[[1]]$y, c(0.5))
+  expect_equal(mid_censor[[1]]$y, numeric(0))
   expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
   expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
 })
@@ -197,7 +201,7 @@ test_that("scales warn when transforms introduces non-finite values", {
     geom_point(size = 5) +
     scale_y_log10()
 
-  expect_warning(ggplot_build(p), "Transformation introduced infinite values")
+  expect_warning(ggplot_build(p), "log-10 transformation introduced infinite values.")
 })
 
 test_that("size and alpha scales throw appropriate warnings for factors", {
@@ -254,7 +258,7 @@ test_that("aesthetics can be set independently of scale name", {
   p <- ggplot(df, aes(x, y, fill = y)) +
     scale_colour_manual(values = c("red", "green", "blue"), aesthetics = "fill")
 
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 })
 
 test_that("multiple aesthetics can be set with one function call", {
@@ -268,8 +272,8 @@ test_that("multiple aesthetics can be set with one function call", {
       aesthetics = c("colour", "fill")
     )
 
-  expect_equal(layer_data(p)$colour, c("grey20", "grey40", "grey60"))
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$colour, c("grey20", "grey40", "grey60"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 
   # color order is determined by data order, and breaks are combined where possible
   df <- data_frame(
@@ -282,13 +286,13 @@ test_that("multiple aesthetics can be set with one function call", {
       aesthetics = c("fill", "colour")
     )
 
-  expect_equal(layer_data(p)$colour, c("cyan", "red", "green"))
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$colour, c("cyan", "red", "green"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 })
 
 test_that("limits with NA are replaced with the min/max of the data for continuous scales", {
   make_scale <- function(limits = NULL, data = NULL) {
-    scale <- continuous_scale("aesthetic", scale_name = "test", palette = identity, limits = limits)
+    scale <- continuous_scale("aesthetic", palette = identity, limits = limits)
     if (!is.null(data)) {
       scale$train(data)
     }
@@ -455,16 +459,16 @@ test_that("staged aesthetics are backtransformed properly (#4155)", {
     scale_x_sqrt(limits = c(0, 16), breaks = c(2, 4, 8))
 
   # x / 2 should be 16 / 2 = 8, thus the result should be sqrt(8) on scale_x_sqrt()
-  expect_equal(layer_data(p)$x, sqrt(8))
+  expect_equal(get_layer_data(p)$x, sqrt(8))
 })
 
 test_that("numeric scale transforms can produce breaks", {
 
-  test_breaks <- function(trans, limits) {
-    scale <- scale_x_continuous(trans = trans)
+  test_breaks <- function(transform, limits) {
+    scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view <- view_scale_primary(scale)
-    scale$trans$inverse(view$get_breaks())
+    scale$get_transformation()$inverse(view$get_breaks())
   }
 
   expect_equal(test_breaks("asn", limits = c(0, 1)),
@@ -476,13 +480,13 @@ test_that("numeric scale transforms can produce breaks", {
   expect_equal(test_breaks("atanh", limits = c(-0.9, 0.9)),
                c(NA, -0.5, 0, 0.5, NA))
 
-  # Broken, should fix on {scale}'s side
-  # expect_equal(test_breaks(boxcox_trans(0), limits = c(0, 10)), ...)
+  expect_equal(test_breaks(transform_boxcox(0), limits = c(1, 10)),
+               c(NA, 2.5, 5.0, 7.5, 10))
 
-  expect_equal(test_breaks(modulus_trans(0), c(-10, 10)),
+  expect_equal(test_breaks(transform_modulus(0), c(-10, 10)),
                seq(-10, 10, by = 5))
 
-  expect_equal(test_breaks(yj_trans(0), c(-10, 10)),
+  expect_equal(test_breaks(transform_yj(0), c(-10, 10)),
                seq(-10, 10, by = 5))
 
   expect_equal(test_breaks("exp", c(-10, 10)),
@@ -520,4 +524,234 @@ test_that("numeric scale transforms can produce breaks", {
 
   expect_equal(test_breaks("sqrt", limits = c(0, 10)),
                seq(0, 10, by = 2.5))
+})
+
+test_that("scale functions accurately report their calls", {
+
+  construct <- exprs(
+    scale_alpha(),
+    scale_alpha_binned(),
+    scale_alpha_continuous(),
+    scale_alpha_date(),
+    scale_alpha_datetime(),
+    scale_alpha_discrete(),
+    scale_alpha_identity(),
+    scale_alpha_manual(),
+    scale_alpha_ordinal(),
+    # Skipping American spelling of 'color' scales here
+    scale_colour_binned(),
+    scale_colour_brewer(),
+    scale_colour_continuous(),
+    scale_colour_date(),
+    scale_colour_datetime(),
+    scale_colour_discrete(),
+    scale_colour_distiller(),
+    scale_colour_fermenter(),
+    scale_colour_gradient(),
+    scale_colour_gradient2(),
+    # Some scales have required arguments
+    scale_colour_gradientn(colours = c("firebrick", "limegreen")),
+    scale_colour_grey(),
+    scale_colour_hue(),
+    scale_colour_identity(),
+    scale_colour_manual(),
+    scale_colour_ordinal(),
+    scale_colour_steps(),
+    scale_colour_steps2(),
+    scale_colour_stepsn(colours = c("orchid", "tomato")),
+    scale_colour_viridis_b(),
+    scale_colour_viridis_c(),
+    scale_colour_viridis_d(),
+    scale_continuous_identity(aesthetics = "foo"),
+    scale_discrete_identity(aesthetics = "bar"),
+    scale_discrete_manual(aesthetics = "baz"),
+    scale_fill_binned(),
+    scale_fill_brewer(),
+    scale_fill_continuous(),
+    scale_fill_date(),
+    scale_fill_datetime(),
+    scale_fill_discrete(),
+    scale_fill_distiller(),
+    scale_fill_fermenter(),
+    scale_fill_gradient(),
+    scale_fill_gradient2(),
+    scale_fill_gradientn(colours = c("yellow", "green")),
+    scale_fill_grey(),
+    scale_fill_hue(),
+    scale_fill_identity(),
+    scale_fill_manual(),
+    scale_fill_ordinal(),
+    scale_fill_steps(),
+    scale_fill_steps2(),
+    scale_fill_stepsn(colours = c("steelblue", "pink")),
+    scale_fill_viridis_b(),
+    scale_fill_viridis_c(),
+    scale_fill_viridis_d(),
+    scale_linetype(),
+    scale_linetype_binned(),
+    # scale_linetype_continuous(), # designed to throw error
+    scale_linetype_discrete(),
+    scale_linetype_identity(),
+    scale_linetype_manual(),
+    scale_linewidth(),
+    scale_linewidth_binned(),
+    scale_linewidth_continuous(),
+    scale_linewidth_date(),
+    scale_linewidth_datetime(),
+    scale_linewidth_discrete(),
+    scale_linewidth_identity(),
+    scale_linewidth_manual(),
+    scale_linewidth_ordinal(),
+    scale_radius(),
+    scale_shape(),
+    scale_shape_binned(),
+    # scale_shape_continuous(), # designed to throw error
+    scale_shape_discrete(),
+    scale_shape_identity(),
+    scale_shape_manual(),
+    scale_shape_ordinal(),
+    scale_size(),
+    scale_size_area(),
+    scale_size_binned(),
+    scale_size_binned_area(),
+    scale_size_continuous(),
+    scale_size_date(),
+    scale_size_datetime(),
+    scale_size_discrete(),
+    scale_size_identity(),
+    scale_size_manual(),
+    scale_size_ordinal(),
+    scale_x_binned(),
+    scale_x_continuous(),
+    scale_x_date(),
+    scale_x_datetime(),
+    scale_x_discrete(),
+    scale_x_log10(),
+    scale_x_reverse(),
+    scale_x_sqrt(),
+    # scale_x_time(),
+    scale_y_binned(),
+    scale_y_continuous(),
+    scale_y_date(),
+    scale_y_datetime(),
+    scale_y_discrete(),
+    scale_y_log10(),
+    scale_y_reverse(),
+    scale_y_sqrt(),
+    # scale_y_time(),
+    xlim(10, 20),
+    ylim("A", "B")
+  )
+  if (is_installed("hms")) {
+    construct <- c(construct, exprs(scale_x_time(), scale_y_time()))
+  }
+
+  suppressWarnings(
+    calls <- lapply(construct, function(x) eval(x)$call)
+  )
+  expect_equal(calls, construct)
+})
+
+test_that("scale call is found accurately", {
+
+  call_template <- quote(scale_x_continuous(transform = "log10"))
+
+  sc <- do.call("scale_x_continuous", list(transform = "log10"))
+  expect_equal(sc$call, call_template)
+
+  sc <- inject(scale_x_continuous(!!!list(transform = "log10")))
+  expect_equal(sc$call, call_template)
+
+  sc <- exec("scale_x_continuous", transform = "log10")
+  expect_equal(sc$call, call_template)
+
+  foo <- function() scale_x_continuous(transform = "log10")
+  expect_equal(foo()$call, call_template)
+
+  env <- new_environment()
+  env$bar <- function() scale_x_continuous(transform = "log10")
+  expect_equal(env$bar()$call, call_template)
+
+  # Now should recognise the outer function
+  scale_x_new <- function() {
+    scale_x_continuous(transform = "log10")
+  }
+  expect_equal(
+    scale_x_new()$call,
+    quote(scale_x_new())
+  )
+})
+
+test_that("training incorrectly appropriately communicates the offenders", {
+
+  sc <- scale_colour_viridis_d()
+  expect_snapshot_error(
+    sc$train(1:5)
+  )
+
+  sc <- scale_colour_viridis_c()
+  expect_snapshot_error(
+    sc$train(LETTERS[1:5])
+  )
+})
+
+test_that("find_scale appends appropriate calls", {
+
+  expect_equal(
+    find_scale("x", 1)$call,
+    quote(scale_x_continuous())
+  )
+
+  expect_equal(
+    find_scale("colour", "A")$call,
+    quote(scale_colour_discrete())
+  )
+
+})
+
+test_that("Using `scale_name` prompts deprecation message", {
+
+  expect_snapshot_warning(continuous_scale("x", "foobar", pal_identity()))
+  expect_snapshot_warning(discrete_scale("x",   "foobar", pal_identity()))
+  expect_snapshot_warning(binned_scale("x",     "foobar", pal_identity()))
+
+})
+
+# From #5623
+test_that("Discrete scales with only NAs return `na.value`", {
+
+  x <- c(NA, NA)
+
+  sc <- scale_colour_discrete(na.value = "red")
+  sc$train(x)
+  expect_equal(sc$map(x), c("red", "red"))
+
+  sc <- scale_shape(na.value = NA_real_)
+  sc$train(x)
+  expect_equal(sc$map(x), c(NA_real_, NA_real_))
+})
+
+test_that("discrete scales work with NAs in arbitrary positions", {
+  # Prevents intermediate caching of palettes
+  map <- function(x, limits) {
+    sc <- scale_colour_manual(
+      values = c("red", "green", "blue"),
+      na.value = "gray"
+    )
+    sc$map(x, limits)
+  }
+
+  # All inputs should yield output regardless of where NA is
+  input  <- c("A", "B", "C", NA)
+  output <- c("red", "green", "blue", "gray")
+
+  test <- map(input, limits = c("A", "B", "C", NA))
+  expect_equal(test, output)
+
+  test <- map(input, limits = c("A", NA, "B", "C"))
+  expect_equal(test, output)
+
+  test <- map(input, limits = c(NA, "A", "B", "C"))
+  expect_equal(test, output)
+
 })

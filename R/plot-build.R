@@ -5,19 +5,22 @@
 #' a list of data frames (one for each layer), and a panel object, which
 #' contain all information about axis limits, breaks etc.
 #'
-#' `layer_data()`, `layer_grob()`, and `layer_scales()` are helper
+#' `get_layer_data()`, `get_layer_grob()`, and `get_panel_scales()` are helper
 #' functions that return the data, grob, or scales associated with a given
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
-#' @param i An integer. In `layer_data()`, the data to return (in the order added to the
-#'   plot). In `layer_grob()`, the grob to return (in the order added to the
-#'   plot). In `layer_scales()`, the row of a facet to return scales for.
-#' @param j An integer. In `layer_scales()`, the column of a facet to return
+#' @param i An integer. In `get_layer_data()`, the data to return (in the order added to the
+#'   plot). In `get_layer_grob()`, the grob to return (in the order added to the
+#'   plot). In `get_panel_scales()`, the row of a facet to return scales for.
+#' @param j An integer. In `get_panel_scales()`, the column of a facet to return
 #'   scales for.
-#' @seealso [print.ggplot()] and [benchplot()] for
-#'  functions that contain the complete set of steps for generating
-#'  a ggplot2 plot.
+#' @seealso
+#' [print.ggplot()] and [benchplot()] for
+#' functions that contain the complete set of steps for generating
+#' a ggplot2 plot.
+#'
+#' The `r link_book("build step section", "internals#sec-ggplotbuild")`
 #' @keywords internal
 #' @export
 ggplot_build <- function(plot) {
@@ -25,6 +28,12 @@ ggplot_build <- function(plot) {
   attach_plot_env(plot$plot_env)
 
   UseMethod('ggplot_build')
+}
+
+#' @export
+ggplot_build.ggplot_built <- function(plot) {
+  # This is a no-op
+  plot
 }
 
 #' @export
@@ -46,11 +55,12 @@ ggplot_build.ggplot <- function(plot) {
 
   # Initialise panels, add extra data for margins & missing faceting
   # variables, and add on a PANEL variable to data
-  layout <- create_layout(plot$facet, plot$coordinates)
+  layout <- create_layout(plot$facet, plot$coordinates, plot$layout)
   data <- layout$setup(data, plot$data, plot$plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+  data <- .ignore_data(data)
 
   # Transform all scales
   data <- lapply(data, scales$transform_df)
@@ -62,6 +72,7 @@ ggplot_build.ggplot <- function(plot) {
 
   layout$train_position(data, scale_x(), scale_y())
   data <- layout$map_position(data)
+  data <- .expose_data(data)
 
   # Apply and map statistics
   data <- by_layer(function(l, d) l$compute_statistic(d, layout), layers, data, "computing stat")
@@ -79,17 +90,26 @@ ggplot_build.ggplot <- function(plot) {
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what is
   # displayed, or does it include the range of underlying data
+  data <- .ignore_data(data)
   layout$reset_scales()
   layout$train_position(data, scale_x(), scale_y())
   layout$setup_panel_params()
   data <- layout$map_position(data)
 
-  # Train and map non-position scales
+  # Hand off position guides to layout
+  layout$setup_panel_guides(plot$guides, plot$layers)
+
+  # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
+    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)
+  } else {
+    # Only keep custom guides if there are no non-position scales
+    plot$guides <- plot$guides$get_custom()
   }
+  data <- .expose_data(data)
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d), layers, data, "setting up geom aesthetics")
@@ -111,13 +131,16 @@ ggplot_build.ggplot <- function(plot) {
 
 #' @export
 #' @rdname ggplot_build
-layer_data <- function(plot = last_plot(), i = 1L) {
+get_layer_data <- function(plot = get_last_plot(), i = 1L) {
   ggplot_build(plot)$data[[i]]
 }
+#' @export
+#' @rdname ggplot_build
+layer_data <- get_layer_data
 
 #' @export
 #' @rdname ggplot_build
-layer_scales <- function(plot = last_plot(), i = 1L, j = 1L) {
+get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
   layout <- b$layout$layout
@@ -131,11 +154,19 @@ layer_scales <- function(plot = last_plot(), i = 1L, j = 1L) {
 
 #' @export
 #' @rdname ggplot_build
-layer_grob <- function(plot = last_plot(), i = 1L) {
+layer_scales <- get_panel_scales
+
+#' @export
+#' @rdname ggplot_build
+get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
   b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)
 }
+
+#' @export
+#' @rdname ggplot_build
+layer_grob <- get_layer_grob
 
 #' Build a plot with all the usual bits and pieces.
 #'
@@ -145,9 +176,12 @@ layer_grob <- function(plot = last_plot(), i = 1L) {
 #' to (e.g.) make the legend box 2 cm wide, or combine multiple plots into
 #' a single display, preserving aspect ratios across the plots.
 #'
-#' @seealso [print.ggplot()] and [benchplot()] for
-#'  for functions that contain the complete set of steps for generating
-#'  a ggplot2 plot.
+#' @seealso
+#' [print.ggplot()] and [benchplot()] for
+#' for functions that contain the complete set of steps for generating
+#' a ggplot2 plot.
+#'
+#' The `r link_book("gtable step section", "internals#sec-ggplotgtable")`
 #' @return a [gtable()] object
 #' @keywords internal
 #' @param data plot data generated by [ggplot_build()]
@@ -168,108 +202,31 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
 
-  layout$setup_panel_guides(plot$guides, plot$layers)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
-  position <- theme$legend.position %||% "right"
-  if (length(position) == 2) {
-    position <- "manual"
-  }
-
-  legend_box <- plot$guides$build(
-    plot$scales, plot$layers, plot$mapping, position, theme, plot$labels
-  )
-
-  if (is.zero(legend_box)) {
-    position <- "none"
-  } else {
-    # these are a bad hack, since it modifies the contents of viewpoint directly...
-    legend_width  <- gtable_width(legend_box)
-    legend_height <- gtable_height(legend_box)
-
-    # Set the justification of the legend box
-    # First value is xjust, second value is yjust
-    just <- valid.just(theme$legend.justification)
-    xjust <- just[1]
-    yjust <- just[2]
-
-    if (position == "manual") {
-      xpos <- theme$legend.position[1]
-      ypos <- theme$legend.position[2]
-
-      # x and y are specified via theme$legend.position (i.e., coords)
-      legend_box <- editGrob(
-        legend_box,
-        vp = viewport(
-          x = xpos,
-          y = ypos,
-          just = c(xjust, yjust),
-          height = legend_height,
-          width = legend_width
-        )
-      )
-    } else {
-      # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
-      legend_box <- editGrob(
-        legend_box,
-        vp = viewport(
-          x = xjust,
-          y = yjust,
-          just = c(xjust, yjust),
-          height = legend_height,
-          width = legend_width
-        )
-      )
-      legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
-      legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
-      legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
-      legend_box <- gtable_add_cols(legend_box, unit(1 - xjust, 'null'))
-    }
-  }
-
-  panel_dim <-  find_panel(plot_table)
-  # for align-to-device, use this:
-  # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
-
-  theme$legend.box.spacing <- theme$legend.box.spacing %||% unit(0.2, 'cm')
-  if (position == "left") {
-    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = 0)
-    plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
-    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
-      t = panel_dim$t, b = panel_dim$b, l = 1, r = 1, name = "guide-box")
-  } else if (position == "right") {
-    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = -1)
-    plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
-    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
-      t = panel_dim$t, b = panel_dim$b, l = -1, r = -1, name = "guide-box")
-  } else if (position == "bottom") {
-    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = -1)
-    plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
-    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
-      t = -1, b = -1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
-  } else if (position == "top") {
-    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = 0)
-    plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
-    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
-      t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
-  } else if (position == "manual") {
-    # should guide box expand whole region or region without margin?
-    plot_table <- gtable_add_grob(plot_table, legend_box,
-      t = panel_dim$t, b = panel_dim$b, l = panel_dim$l, r = panel_dim$r,
-      clip = "off", name = "guide-box")
-  }
+  legend_box <- plot$guides$assemble(theme)
+  plot_table <- table_add_legends(plot_table, legend_box, theme)
 
   # Title
-  title <- element_render(theme, "plot.title", plot$labels$title, margin_y = TRUE)
+  title <- element_render(
+    theme, "plot.title", plot$labels$title,
+    margin_y = TRUE, margin_x = TRUE
+  )
   title_height <- grobHeight(title)
 
   # Subtitle
-  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, margin_y = TRUE)
+  subtitle <- element_render(
+    theme, "plot.subtitle", plot$labels$subtitle,
+    margin_y = TRUE, margin_x = TRUE
+  )
   subtitle_height <- grobHeight(subtitle)
 
   # whole plot annotation
-  caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
+  caption <- element_render(
+    theme, "plot.caption", plot$labels$caption,
+    margin_y = TRUE, margin_x = TRUE
+  )
   caption_height <- grobHeight(caption)
 
   # positioning of title and subtitle is governed by plot.title.position
@@ -321,10 +278,8 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
   # Margins
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[2])
-  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
-  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
+  plot_margin <- calc_element("plot.margin", theme)
+  plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
   if (inherits(theme$plot.background, "element")) {
     plot_table <- gtable_add_grob(plot_table,
@@ -358,7 +313,12 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c("Problem while {step}.", "i" = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+      cli::cli_abort(c(
+        "Problem while {step}.",
+        "i" = "Error occurred in the {ordinal(i)} layer."),
+        call = layers[[i]]$constructor,
+        parent = cnd
+      )
     }
   )
   out
@@ -387,14 +347,16 @@ table_add_tag <- function(table, label, theme) {
     if (location == "margin") {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
-        "{.code \"margin\"} as {.arg plot.tag.location}."
-      ))
+        "`{.val margin}` as {.arg plot.tag.location}."
+      ),
+      call = expr(theme()))
     }
     if (length(position) != 2) {
       cli::cli_abort(paste0(
         "A {.cls numeric} {.arg plot.tag.position} ",
         "theme setting must have length 2."
-      ))
+      ),
+      call = expr(theme()))
     }
     top <- left <- right <- bottom <- FALSE
   } else {
@@ -403,7 +365,8 @@ table_add_tag <- function(table, label, theme) {
       position[1],
       c("topleft", "top", "topright", "left",
         "right", "bottomleft", "bottom", "bottomright"),
-      arg_nm = "plot.tag.position"
+      arg_nm = "plot.tag.position",
+      error_call = expr(theme())
     )
     top    <- position %in% c("topleft",    "top",    "topright")
     left   <- position %in% c("topleft",    "left",   "bottomleft")
@@ -475,5 +438,96 @@ table_add_tag <- function(table, label, theme) {
   gtable_add_grob(
     table, tag, name = "tag", clip = "off",
     t = place$t, l = place$l, b = place$b, r = place$r
+  )
+}
+
+# Add the legends to the gtable
+table_add_legends <- function(table, legends, theme) {
+
+  if (is.zero(legends)) {
+    legends <- rep(list(zeroGrob()), 5)
+    names(legends) <- c(.trbl, "inside")
+  }
+
+  # Extract sizes
+  widths <- heights <- set_names(
+    rep(list(unit(0, "cm")), length(legends)),
+    names(legends)
+  )
+
+  empty <- vapply(legends, is.zero, logical(1))
+  widths[!empty]  <- lapply(legends[!empty], gtable_width)
+  heights[!empty] <- lapply(legends[!empty], gtable_height)
+  spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
+
+  # If legend is missing, set spacing to zero for that legend
+  zero    <- unit(0, "pt")
+  spacing <- lapply(empty, function(is_empty) if (is_empty) zero else spacing)
+
+  location <- switch(
+    theme$legend.location %||% "panel",
+    "plot" = plot_extent,
+    find_panel
+  )
+
+  place <- location(table)
+
+  # Add right legend
+  table <- gtable_add_cols(table, spacing$right, pos = -1)
+  table <- gtable_add_cols(table, widths$right,  pos = -1)
+  table <- gtable_add_grob(
+    table, legends$right, clip = "off",
+    t = place$t, b = place$b, l = -1, r = -1,
+    name = "guide-box-right"
+  )
+
+  # Add left legend
+  table <- gtable_add_cols(table, spacing$left, pos = 0)
+  table <- gtable_add_cols(table, widths$left,  pos = 0)
+  table <- gtable_add_grob(
+    table, legends$left, clip = "off",
+    t = place$t, b = place$b, l = 1, r = 1,
+    name = "guide-box-left"
+  )
+
+  place <- location(table)
+
+  # Add bottom legend
+  table <- gtable_add_rows(table, spacing$bottom, pos = -1)
+  table <- gtable_add_rows(table, heights$bottom, pos = -1)
+  table <- gtable_add_grob(
+    table, legends$bottom, clip = "off",
+    t = -1, b = -1, l = place$l, r = place$r,
+    name = "guide-box-bottom"
+  )
+
+  # Add top legend
+  table <- gtable_add_rows(table, spacing$top, pos = 0)
+  table <- gtable_add_rows(table, heights$top, pos = 0)
+  table <- gtable_add_grob(
+    table, legends$top, clip = "off",
+    t = 1, b = 1, l = place$l, r = place$r,
+    name = "guide-box-top"
+  )
+
+  # Add manual legend
+  place <- find_panel(table)
+  table <- gtable_add_grob(
+    table, legends$inside, clip = "off",
+    t = place$t, b = place$b, l = place$l, r = place$r,
+    name = "guide-box-inside"
+  )
+
+  table
+}
+
+plot_extent <- function(table) {
+  layout <- table$layout
+  data_frame0(
+    t = min(layout[["t"]]),
+    r = max(layout[["r"]]),
+    b = max(layout[["b"]]),
+    l = min(layout[["l"]]),
+    .size = 1L
   )
 }

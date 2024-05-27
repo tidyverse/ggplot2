@@ -4,17 +4,20 @@
 #' It does not generate colour-blind safe palettes.
 #'
 #' @param na.value Colour to use for missing values
-#' @inheritDotParams discrete_scale -aesthetics
+#' @inheritDotParams discrete_scale -aesthetics -expand -position -scale_name
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
-#' @inheritParams scales::hue_pal
+#' @inheritParams scales::pal_hue
+#' @inheritParams discrete_scale
 #' @rdname scale_hue
 #' @export
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' The `r link_book("hue and grey scales section", "scales-colour#hue-and-grey-scales")`
 #' @examples
 #' \donttest{
 #' set.seed(596)
@@ -53,18 +56,26 @@
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_hue(na.value = "black")
 #' }
-scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                             direction = 1, na.value = "grey50", aesthetics = "colour") {
-  discrete_scale(aesthetics, "hue", hue_pal(h, c, l, h.start, direction),
-    na.value = na.value, ...)
+scale_colour_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
+                             l = 65, h.start = 0, direction = 1,
+                             na.value = "grey50", aesthetics = "colour") {
+  discrete_scale(
+    aesthetics, name = name,
+    palette = pal_hue(h, c, l, h.start, direction),
+    na.value = na.value, ...
+  )
 }
 
 #' @rdname scale_hue
 #' @export
-scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                           direction = 1, na.value = "grey50", aesthetics = "fill") {
-  discrete_scale(aesthetics, "hue", hue_pal(h, c, l, h.start, direction),
-    na.value = na.value, ...)
+scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
+                           l = 65, h.start = 0, direction = 1,
+                           na.value = "grey50", aesthetics = "fill") {
+  discrete_scale(
+    aesthetics, name = name,
+    palette = pal_hue(h, c, l, h.start, direction),
+    na.value = na.value, ...
+  )
 }
 
 
@@ -88,6 +99,8 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 #'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
 #'   [scale_fill_brewer()], etc).
 #' @export
+#' @seealso
+#' The `r link_book("discrete colour scales section", "scales-colour#sec-colour-discrete")`
 #' @examples
 #' # Template function for creating densities grouped by a variable
 #' cty_by_var <- function(var) {
@@ -124,15 +137,21 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
 scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour")) {
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_colour_hue
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+
   if (is.function(type)) {
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
     check_scale_type(
-      type(...),
+      exec(type, !!!args),
       "scale_colour_discrete",
       "colour",
       scale_is_discrete = TRUE
     )
   } else {
-    scale_colour_qualitative(..., type = type)
+    exec(scale_colour_qualitative, !!!args, type = type)
   }
 }
 
@@ -141,30 +160,43 @@ scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour
 scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) {
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_fill_hue
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+
   if (is.function(type)) {
+    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+      args$call <- NULL
+    }
     check_scale_type(
-      type(...),
+      exec(type, !!!args),
       "scale_fill_discrete",
       "fill",
       scale_is_discrete = TRUE
     )
   } else {
-    scale_fill_qualitative(..., type = type)
+    exec(scale_fill_qualitative, !!!args, type = type)
   }
 }
 
-scale_colour_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                     direction = 1, na.value = "grey50", aesthetics = "colour") {
+scale_colour_qualitative <- function(name = waiver(), ..., type = NULL,
+                                     h = c(0, 360) + 15, c = 100, l = 65,
+                                     h.start = 0, direction = 1,
+                                     na.value = "grey50",
+                                     aesthetics = "colour") {
   discrete_scale(
-    aesthetics, "qualitative", qualitative_pal(type, h, c, l, h.start, direction),
+    aesthetics, name = name,
+    palette = pal_qualitative(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
 
-scale_fill_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                   direction = 1, na.value = "grey50", aesthetics = "fill") {
+scale_fill_qualitative <- function(name = waiver(), ..., type = NULL,
+                                   h = c(0, 360) + 15, c = 100, l = 65,
+                                   h.start = 0, direction = 1,
+                                   na.value = "grey50", aesthetics = "fill") {
   discrete_scale(
-    aesthetics, "qualitative", qualitative_pal(type, h, c, l, h.start, direction),
+    aesthetics, name = name,
+    palette = pal_qualitative(type, h, c, l, h.start, direction),
     na.value = na.value, ...
   )
 }
@@ -172,16 +204,16 @@ scale_fill_qualitative <- function(..., type = NULL, h = c(0, 360) + 15, c = 100
 #' Given set(s) of colour codes (i.e., type), find the smallest set that can support n levels
 #' @param type a character vector or a list of character vectors
 #' @noRd
-qualitative_pal <- function(type, h, c, l, h.start, direction) {
+pal_qualitative <- function(type, h, c, l, h.start, direction) {
   function(n) {
     type_list <- if (!is.list(type)) list(type) else type
     if (!all(vapply(type_list, is.character, logical(1)))) {
-      cli::cli_abort("{.arg type} must be a character vector or a list of character vectors")
+      cli::cli_abort("{.arg type} must be a character vector or a list of character vectors.")
     }
     type_lengths <- lengths(type_list)
-    # If there are more levels than color codes default to hue_pal()
+    # If there are more levels than color codes default to pal_hue()
     if (max(type_lengths) < n) {
-      return(scales::hue_pal(h, c, l, h.start, direction)(n))
+      return(scales::pal_hue(h, c, l, h.start, direction)(n))
     }
     # Use the minimum length vector that exceeds the number of levels (n)
     type_list <- type_list[order(type_lengths)]

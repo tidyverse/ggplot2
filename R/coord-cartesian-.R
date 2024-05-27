@@ -43,13 +43,13 @@
 #' # limits. You can set the limits precisely by setting expand = FALSE
 #' p + coord_cartesian(xlim = c(325, 500), expand = FALSE)
 #'
-#' # Simiarly, we can use expand = FALSE to turn off expansion with the
+#' # Similarly, we can use expand = FALSE to turn off expansion with the
 #' # default limits
 #' p + coord_cartesian(expand = FALSE)
 #'
 #' # You can see the same thing with this 2d histogram
 #' d <- ggplot(diamonds, aes(carat, price)) +
-#'   stat_bin2d(bins = 25, colour = "white")
+#'   stat_bin_2d(bins = 25, colour = "white")
 #' d
 #'
 #' # When zooming the scale, the we get 25 new bins that are the same
@@ -61,6 +61,8 @@
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                             default = FALSE, clip = "on") {
+  check_coord_limits(xlim)
+  check_coord_limits(ylim)
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
     expand = expand,
@@ -115,15 +117,27 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   render_axis_h = function(panel_params, theme) {
     list(
-      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
-      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
+      top = panel_guides_grob(
+        panel_params$guides, position = "top",
+        theme = theme, labels = panel_params$draw_labels$top
+      ),
+      bottom = panel_guides_grob(
+        panel_params$guides, position = "bottom",
+        theme = theme, labels = panel_params$draw_labels$bottom
+      )
     )
   },
 
   render_axis_v = function(panel_params, theme) {
     list(
-      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
-      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
+      left = panel_guides_grob(
+        panel_params$guides, position = "left",
+        theme = theme, labels = panel_params$draw_labels$left
+        ),
+      right = panel_guides_grob(
+        panel_params$guides, position = "right",
+        theme = theme, labels = panel_params$draw_labels$right
+      )
     )
   }
 )
@@ -144,38 +158,11 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-panel_guides_grob <- function(guides, position, theme) {
-  pair <- guide_for_position(guides, position) %||%
-    list(guide = guide_none(), params = NULL)
-  pair$guide$draw(theme, pair$params)
-}
-
-guide_for_position <- function(guides, position) {
-  params <- guides$params
-  has_position <- vapply(
-    params, function(p) identical(p$position, position), logical(1)
-  )
-  if (!any(has_position)) {
-    return(NULL)
+panel_guides_grob <- function(guides, position, theme, labels = NULL) {
+  if (!inherits(guides, "Guides")) {
+    return(zeroGrob())
   }
-
-  # Subset guides and parameters
-  guides <- guides$get_guide(has_position)
-  params <- params[has_position]
-  # Pair up guides with parameters
-  pairs <- Map(list, guide = guides, params = params)
-
-  # Early exit, nothing to merge
-  if (length(pairs) == 1) {
-    return(pairs[[1]])
-  }
-
-  # TODO: There must be a smarter way to merge these
-  order <- order(vapply(params, function(p) as.numeric(p$order), numeric(1)))
-  Reduce(
-    function(old, new) {
-      old$guide$merge(old$params, new$guide, new$params)
-    },
-    pairs[order]
-  )
+  pair <- guides$get_position(position)
+  pair$params$draw_label <- labels %||% NULL
+  pair$guide$draw(theme, params = pair$params)
 }

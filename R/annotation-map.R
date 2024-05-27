@@ -63,7 +63,7 @@ annotation_map <- function(map, ...) {
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
   if (!all(c("x", "y", "id") %in% names(map))) {
-    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}")
+    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}.")
   }
 
   layer(
@@ -95,9 +95,9 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
 
     polygonGrob(coords$x, coords$y, default.units = "native",
       id = grob_id,
-      gp = gpar(
+      gp = gg_par(
         col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$linewidth * .pt)
+        lwd = data$linewidth)
       )
   },
 

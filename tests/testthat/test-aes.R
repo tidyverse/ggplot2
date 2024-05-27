@@ -49,18 +49,18 @@ test_that("aes evaluated in environment where plot created", {
   p <- ggplot(df, aes(foo, y)) + geom_point()
 
   # Accessing an undefined variable should result in error
-  expect_error(layer_data(p), "'foo' not found")
+  expect_error(get_layer_data(p), "'foo' not found")
 
   # Once it's defined we should get it back
   foo <- 0
-  expect_equal(layer_data(p)$x, 0)
+  expect_equal(get_layer_data(p)$x, 0)
 
   # And regular variable shadowing should work
   f <- function() {
     foo <- 10
     ggplot(df, aes(foo, y)) + geom_point()
   }
-  expect_equal(layer_data(f())$x, 10)
+  expect_equal(get_layer_data(f())$x, 10)
 })
 
 test_that("constants are not wrapped in quosures", {
@@ -127,6 +127,14 @@ test_that("warn_for_aes_extract_usage() warns for discouraged uses of $ and [[ w
   expect_warning(
     warn_for_aes_extract_usage(aes(df[["x"]]), df),
     'Use of `df\\[\\["x"\\]\\]` is discouraged'
+  )
+
+  # Check that rownames are ignored (#5392)
+  df2 <- df
+  rownames(df2) <- LETTERS[seq_len(nrow(df))]
+  expect_warning(
+    warn_for_aes_extract_usage(aes(df$x), df2),
+    "Use of `df\\$x` is discouraged"
   )
 })
 

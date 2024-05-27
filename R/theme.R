@@ -25,6 +25,8 @@
 #' @param text all text elements ([element_text()])
 #' @param title all title elements: plot, axes, legends ([element_text()];
 #'   inherits from `text`)
+#' @param spacing all spacings ([`unit()`][grid::unit])
+#' @param margins all margins ([margin()])
 #' @param aspect.ratio aspect ratio of the panel
 #'
 #' @param axis.title,axis.title.x,axis.title.y,axis.title.x.top,axis.title.x.bottom,axis.title.y.left,axis.title.y.right
@@ -34,23 +36,28 @@
 #'   `axis.title.y.left`, `axis.title.y.right`). `axis.title.*.*` inherits from
 #'   `axis.title.*` which inherits from `axis.title`, which in turn inherits
 #'   from `text`
-#' @param axis.text,axis.text.x,axis.text.y,axis.text.x.top,axis.text.x.bottom,axis.text.y.left,axis.text.y.right
+#' @param axis.text,axis.text.x,axis.text.y,axis.text.x.top,axis.text.x.bottom,axis.text.y.left,axis.text.y.right,axis.text.theta,axis.text.r
 #'   tick labels along axes ([element_text()]). Specify all axis tick labels (`axis.text`),
 #'   tick labels by plane (using `axis.text.x` or `axis.text.y`), or individually
 #'   for each axis (using `axis.text.x.bottom`, `axis.text.x.top`,
 #'   `axis.text.y.left`, `axis.text.y.right`). `axis.text.*.*` inherits from
 #'   `axis.text.*` which inherits from `axis.text`, which in turn inherits
 #'   from `text`
-#' @param axis.ticks,axis.ticks.x,axis.ticks.x.top,axis.ticks.x.bottom,axis.ticks.y,axis.ticks.y.left,axis.ticks.y.right
+#' @param axis.ticks,axis.ticks.x,axis.ticks.x.top,axis.ticks.x.bottom,axis.ticks.y,axis.ticks.y.left,axis.ticks.y.right,axis.ticks.theta,axis.ticks.r
 #'   tick marks along axes ([element_line()]). Specify all tick marks (`axis.ticks`),
 #'   ticks by plane (using `axis.ticks.x` or `axis.ticks.y`), or individually
 #'   for each axis (using `axis.ticks.x.bottom`, `axis.ticks.x.top`,
 #'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
-#' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
-#'   length of tick marks (`unit`)
-#' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
+#' @param axis.minor.ticks.x.top,axis.minor.ticks.x.bottom,axis.minor.ticks.y.left,axis.minor.ticks.y.right,axis.minor.ticks.theta,axis.minor.ticks.r,
+#'   minor tick marks along axes ([element_line()]). `axis.minor.ticks.*.*`
+#'   inherit from the corresponding major ticks `axis.ticks.*.*`.
+#' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right,axis.ticks.length.theta,axis.ticks.length.r
+#'   length of tick marks (`unit`). `axis.ticks.length` inherits from `spacing`.
+#' @param axis.minor.ticks.length,axis.minor.ticks.length.x,axis.minor.ticks.length.x.top,axis.minor.ticks.length.x.bottom,axis.minor.ticks.length.y,axis.minor.ticks.length.y.left,axis.minor.ticks.length.y.right,axis.minor.ticks.length.theta,axis.minor.ticks.length.r
+#'   length of minor tick marks (`unit`), or relative to `axis.ticks.length` when provided with `rel()`.
+#' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right,axis.line.theta,axis.line.r
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
 #'   for each axis (using `axis.line.x.bottom`, `axis.line.x.top`,
@@ -60,41 +67,63 @@
 #'
 #' @param legend.background background of legend ([element_rect()]; inherits
 #'   from `rect`)
-#' @param legend.margin the margin around each legend ([margin()])
+#' @param legend.margin the margin around each legend ([margin()]); inherits
+#'   from `margins`.
 #' @param legend.spacing,legend.spacing.x,legend.spacing.y
 #'   the spacing between legends (`unit`). `legend.spacing.x` & `legend.spacing.y`
-#'   inherit from `legend.spacing` or can be specified separately
+#'   inherit from `legend.spacing` or can be specified separately.
+#'   `legend.spacing` inherits from `spacing`.
 #' @param legend.key background underneath legend keys ([element_rect()];
 #'   inherits from `rect`)
 #' @param legend.key.size,legend.key.height,legend.key.width
 #'   size of legend keys (`unit`); key background height & width inherit from
-#'   `legend.key.size` or can be specified separately
+#'   `legend.key.size` or can be specified separately. In turn `legend.key.size`
+#'   inherits from `spacing`.
+#' @param legend.key.spacing,legend.key.spacing.x,legend.key.spacing.y spacing
+#'   between legend keys given as a `unit`. Spacing in the horizontal (x) and
+#'   vertical (y) direction inherit from `legend.key.spacing` or can be
+#'   specified separately. `legend.key.spacing` inherits from `spacing`.
+#' @param legend.frame frame drawn around the bar ([element_rect()]).
+#' @param legend.ticks tick marks shown along bars or axes ([element_line()])
+#' @param legend.ticks.length length of tick marks in legend
+#'   ([`unit()`][grid::unit]); inherits from `legend.key.size`.
+#' @param legend.axis.line lines along axes in legends ([element_line()])
 #' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
-#' @param legend.text.align alignment of legend labels (number from 0 (left) to
-#'   1 (right))
+#' @param legend.text.position placement of legend text relative to legend keys
+#'   or bars ("top", "right", "bottom" or "left"). The legend text placement
+#'   might be incompatible with the legend's direction for some guides.
 #' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
-#' @param legend.title.align alignment of legend title (number from 0 (left) to
-#'   1 (right))
-#' @param legend.position the position of legends ("none", "left", "right",
-#'   "bottom", "top", or two-element numeric vector)
+#' @param legend.title.position placement of legend title relative to the main
+#'   legend ("top", "right", "bottom" or "left").
+#' @param legend.position the default position of legends ("none", "left",
+#'   "right", "bottom", "top", "inside")
+#' @param legend.position.inside A numeric vector of length two setting the
+#'   placement of legends that have the `"inside"` position.
 #' @param legend.direction layout of items in legends ("horizontal" or
 #'   "vertical")
+#' @param legend.byrow whether the legend-matrix is filled by columns
+#'   (`FALSE`, the default) or by rows (`TRUE`).
 #' @param legend.justification anchor point for positioning legend inside plot
 #'   ("center" or two-element numeric vector) or the justification according to
 #'   the plot area when positioned outside the plot
+#' @param legend.justification.top,legend.justification.bottom,legend.justification.left,legend.justification.right,legend.justification.inside
+#'   Same as `legend.justification` but specified per `legend.position` option.
+#' @param legend.location Relative placement of legends outside the plot as a
+#'   string. Can be `"panel"` (default) to align legends to the panels or
+#'   `"plot"` to align legends to the plot as a whole.
 #' @param legend.box arrangement of multiple legends ("horizontal" or
 #'   "vertical")
 #' @param legend.box.just justification of each legend within the overall
-#'   bounding box, when there are multiple legends ("top", "bottom", "left", or
-#'   "right")
+#'   bounding box, when there are multiple legends ("top", "bottom", "left",
+#'   "right", "center" or "centre")
 #' @param legend.box.margin margins around the full legend area, as specified
-#'   using [margin()]
+#'   using [margin()]; inherits from `margins`.
 #' @param legend.box.background background of legend area ([element_rect()];
 #'   inherits from `rect`)
 #' @param legend.box.spacing The spacing between the plotting area and the
-#'   legend box (`unit`)
+#'   legend box (`unit`); inherits from `spacing`.
 #'
 #' @param panel.background background of plotting area, drawn underneath plot
 #'   ([element_rect()]; inherits from `rect`)
@@ -104,7 +133,7 @@
 #'   ([element_rect()]; inherits from `rect`)
 #' @param panel.spacing,panel.spacing.x,panel.spacing.y spacing between facet
 #'   panels (`unit`). `panel.spacing.x` & `panel.spacing.y` inherit from `panel.spacing`
-#'   or can be specified separately.
+#'   or can be specified separately. `panel.spacing` inherits from `spacing`.
 #' @param panel.grid,panel.grid.major,panel.grid.minor,panel.grid.major.x,panel.grid.major.y,panel.grid.minor.x,panel.grid.minor.y
 #'   grid lines ([element_line()]). Specify major grid lines,
 #'   or minor grid lines separately (using `panel.grid.major` or `panel.grid.minor`)
@@ -143,7 +172,7 @@
 #'   set the x,y-coordinate relative to the whole plot. The coordinate option
 #'   is unavailable for `plot.tag.location = "margin"`.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
-#'   the top, right, bottom, and left margins)
+#'   the top, right, bottom, and left margins); inherits from `margin`.
 #'
 #' @param strip.background,strip.background.x,strip.background.y
 #'   background of facet labels ([element_rect()];
@@ -165,25 +194,25 @@
 #'   that inherit from `strip.text.x` and `strip.text.y`, respectively.
 #'   As a consequence, some theme stylings need to be applied to
 #'   the position-dependent elements rather than to the parent elements
-#' @param strip.switch.pad.grid space between strips and axes when strips are
-#'   switched (`unit`)
-#' @param strip.switch.pad.wrap space between strips and axes when strips are
-#'   switched (`unit`)
+#' @param strip.switch.pad.grid,strip.switch.pad.wrap space between strips and
+#'   axes when strips are switched (`unit`); inherits from `spacing`.
 #'
 #' @param ... additional element specifications not part of base ggplot2. In general,
-#'   these should also be defined in the `element tree` argument.
+#'   these should also be defined in the `element tree` argument. [Splicing][rlang::splice] a list is also supported.
 #' @param complete set this to `TRUE` if this is a complete theme, such as
 #'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @export
 #' @seealso
 #'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
-#' @export
+#'
+#' The `r link_book(c("modifying theme components", "theme elements sections"), c("themes#modifying-theme-components", "themes#sec-theme-elements"))`
 #' @examples
 #' p1 <- ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
@@ -197,7 +226,7 @@
 #' # Panels --------------------------------------------------------------------
 #'
 #' p1 + theme(panel.background = element_rect(fill = "white", colour = "grey50"))
-#' p1 + theme(panel.border = element_rect(linetype = "dashed", fill = NA))
+#' p1 + theme(panel.border = element_rect(linetype = "dashed"))
 #' p1 + theme(panel.grid.major = element_line(colour = "black"))
 #' p1 + theme(
 #'   panel.grid.major.y = element_blank(),
@@ -247,7 +276,8 @@
 #' # Or place legends inside the plot using relative coordinates between 0 and 1
 #' # legend.justification sets the corner that the position refers to
 #' p2 + theme(
-#'   legend.position = c(.95, .95),
+#'   legend.position = "inside",
+#'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
 #'   legend.margin = margin(6, 6, 6, 6)
@@ -280,10 +310,13 @@
 #' p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 #' p3 + theme(panel.spacing = unit(1, "lines"))
 #' }
-theme <- function(line,
+theme <- function(...,
+                  line,
                   rect,
                   text,
                   title,
+                  spacing,
+                  margins,
                   aspect.ratio,
                   axis.title,
                   axis.title.x,
@@ -299,6 +332,8 @@ theme <- function(line,
                   axis.text.y,
                   axis.text.y.left,
                   axis.text.y.right,
+                  axis.text.theta,
+                  axis.text.r,
                   axis.ticks,
                   axis.ticks.x,
                   axis.ticks.x.top,
@@ -306,6 +341,14 @@ theme <- function(line,
                   axis.ticks.y,
                   axis.ticks.y.left,
                   axis.ticks.y.right,
+                  axis.ticks.theta,
+                  axis.ticks.r,
+                  axis.minor.ticks.x.top,
+                  axis.minor.ticks.x.bottom,
+                  axis.minor.ticks.y.left,
+                  axis.minor.ticks.y.right,
+                  axis.minor.ticks.theta,
+                  axis.minor.ticks.r,
                   axis.ticks.length,
                   axis.ticks.length.x,
                   axis.ticks.length.x.top,
@@ -313,6 +356,17 @@ theme <- function(line,
                   axis.ticks.length.y,
                   axis.ticks.length.y.left,
                   axis.ticks.length.y.right,
+                  axis.ticks.length.theta,
+                  axis.ticks.length.r,
+                  axis.minor.ticks.length,
+                  axis.minor.ticks.length.x,
+                  axis.minor.ticks.length.x.top,
+                  axis.minor.ticks.length.x.bottom,
+                  axis.minor.ticks.length.y,
+                  axis.minor.ticks.length.y.left,
+                  axis.minor.ticks.length.y.right,
+                  axis.minor.ticks.length.theta,
+                  axis.minor.ticks.length.r,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,
@@ -320,6 +374,8 @@ theme <- function(line,
                   axis.line.y,
                   axis.line.y.left,
                   axis.line.y.right,
+                  axis.line.theta,
+                  axis.line.r,
                   legend.background,
                   legend.margin,
                   legend.spacing,
@@ -329,13 +385,28 @@ theme <- function(line,
                   legend.key.size,
                   legend.key.height,
                   legend.key.width,
+                  legend.key.spacing,
+                  legend.key.spacing.x,
+                  legend.key.spacing.y,
+                  legend.frame,
+                  legend.ticks,
+                  legend.ticks.length,
+                  legend.axis.line,
                   legend.text,
-                  legend.text.align,
+                  legend.text.position,
                   legend.title,
-                  legend.title.align,
+                  legend.title.position,
                   legend.position,
+                  legend.position.inside,
                   legend.direction,
+                  legend.byrow,
                   legend.justification,
+                  legend.justification.top,
+                  legend.justification.bottom,
+                  legend.justification.left,
+                  legend.justification.right,
+                  legend.justification.inside,
+                  legend.location,
                   legend.box,
                   legend.box.just,
                   legend.box.margin,
@@ -378,7 +449,6 @@ theme <- function(line,
                   strip.text.y.right,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
-                  ...,
                   complete = FALSE,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
@@ -419,6 +489,40 @@ theme <- function(line,
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
   }
+  if (!is.null(elements$legend.title.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.title.align)",
+      I("theme(legend.title = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.title"]])) {
+      elements$legend.title <- element_text(hjust = elements$legend.title.align)
+    } else {
+      elements$legend.title$hjust <- elements$legend.title$hjust %||%
+        elements$legend.title.align
+    }
+    elements$legend.title.align <- NULL
+  }
+  if (!is.null(elements$legend.text.align)) {
+    deprecate_soft0(
+      "3.5.0", "theme(legend.text.align)",
+      I("theme(legend.text = element_text(hjust))")
+    )
+    if (is.null(elements[["legend.text"]])) {
+      elements$legend.text <- element_text(hjust = elements$legend.text.align)
+    } else {
+      elements$legend.text$hjust <- elements$legend.text$hjust %||%
+        elements$legend.text.align
+    }
+    elements$legend.text.align <- NULL
+  }
+  if (is.numeric(elements[["legend.position"]])) {
+    deprecate_soft0(
+      "3.5.0", I("A numeric `legend.position` argument in `theme()`"),
+      "theme(legend.position.inside)"
+    )
+    elements$legend.position.inside <- elements$legend.position
+    elements$legend.position <- "inside"
+  }
 
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
@@ -443,14 +547,57 @@ is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
 # check whether theme should be validated
 is_theme_validate <- function(x) {
   validate <- attr(x, "validate", exact = TRUE)
-  if (is.null(validate))
-    TRUE # we validate by default
-  else
-    isTRUE(validate)
+  isTRUE(validate %||% TRUE)
+}
+
+validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
+  if (!is_theme_validate(theme)) {
+    return()
+  }
+  mapply(
+    validate_element, theme, names(theme),
+    MoreArgs = list(element_tree = tree, call = call)
+  )
+}
+
+#' Complete a theme
+#'
+#' This function takes a theme and completes it so that it can be used
+#' downstream to render theme elements. Missing elements are filled in and
+#' every item is validated to the specifications of the element tree.
+#'
+#' @param theme An incomplete [theme][theme()] object to complete, or `NULL`
+#'   to complete the default theme.
+#' @param default A complete [theme][theme()] to fill in missing pieces.
+#'   Defaults to the global theme settings.
+#'
+#' @keywords internal
+#' @return A [theme][theme()] object.
+#' @export
+#'
+#' @examples
+#' my_theme <- theme(line = element_line(colour = "red"))
+#' complete_theme(my_theme)
+complete_theme <- function(theme = NULL, default = theme_get()) {
+  if (!is_bare_list(theme)) {
+    check_object(theme, is.theme, "a {.cls theme} object", allow_null = TRUE)
+  }
+  check_object(default, is.theme, "a {.cls theme} object")
+  theme <- plot_theme(list(theme = theme), default = default)
+
+  # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
+  # construct a new theme
+  attributes(theme) <- list(names = attr(theme, "names"))
+  structure(
+    theme,
+    class = c("theme", "gg"),
+    complete = TRUE, # This theme is complete and has no missing elements
+    validate = FALSE # Settings have already been validated
+  )
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x, default = theme_get()) {
+plot_theme <- function(x, default = get_theme()) {
   theme <- x$theme
 
   # apply theme defaults appropriately if needed
@@ -469,13 +616,10 @@ plot_theme <- function(x, default = theme_get()) {
   theme[missing] <- ggplot_global$theme_default[missing]
 
   # Check that all elements have the correct class (element_text, unit, etc)
-  if (is_theme_validate(theme)) {
-    mapply(
-      validate_element, theme, names(theme),
-      MoreArgs = list(element_tree = get_element_tree())
-    )
-  }
+  validate_theme(theme)
 
+  # Remove elements that are not registered
+  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
   theme
 }
 
@@ -509,7 +653,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
       t1[item] <- list(x)
     },
     error = function(cnd) {
-      cli::cli_abort("Problem merging the {.var {item}} theme element", parent = cnd, call = call)
+      cli::cli_abort("Can't merge the {.var {item}} theme element.", parent = cnd, call = call)
     }
   )
 
@@ -549,7 +693,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
 #' t$text
 calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
                          call = caller_env()) {
-  if (verbose) message(element, " --> ", appendLF = FALSE)
+  if (verbose) cli::cli_inform(paste0(element, " --> "))
 
   el_out <- theme[[element]]
 
@@ -559,7 +703,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
-      if (verbose) message("element_blank (no inheritance)")
+      if (verbose) cli::cli_inform("{.fn element_blank} (no inheritance)")
       return(el_out)
     }
   }
@@ -571,7 +715,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
   }
 
   # Get the names of parents from the inheritance tree
@@ -579,7 +723,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
-    if (verbose) message("nothing (top level)")
+    if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
     nullprops <- vapply(el_out, is.null, logical(1))
@@ -594,11 +738,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
       return(el_out) # no null properties remaining, return element
     }
 
-    cli::cli_abort("Theme element {.var {element}} has {.val NULL} property without default: {.field {names(nullprops)[nullprops]}}", call = call)
+    cli::cli_abort("Theme element {.var {element}} has {.code NULL} property without default: {.field {names(nullprops)[nullprops]}}.", call = call)
   }
 
   # Calculate the parent objects' inheritance
-  if (verbose) message(paste(pnames, collapse = ", "))
+  if (verbose) cli::cli_inform("{pnames}")
   parents <- lapply(
     pnames,
     calc_element,
@@ -650,7 +794,7 @@ merge_element.default <- function(new, old) {
   }
 
   # otherwise we can't merge
-  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}")
+  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
 }
 
 #' @rdname merge_element
@@ -670,7 +814,7 @@ merge_element.element <- function(new, old) {
 
   # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
-    cli::cli_abort("Only elements of the same class can be merged")
+    cli::cli_abort("Only elements of the same class can be merged.")
   }
 
   # Override NULL properties of new with the values in old
@@ -704,6 +848,20 @@ combine_elements <- function(e1, e2) {
     return(e2)
   }
 
+  # Inheritance of rel objects
+  if (is.rel(e1)) {
+    # Both e1 and e2 are rel, give product as another rel
+    if (is.rel(e2)) {
+      return(rel(unclass(e1) * unclass(e2)))
+    }
+    # If e2 is a unit/numeric, return modified unit/numeric
+    # Note that unit objects are considered numeric
+    if (is.numeric(e2) || is.unit(e2)) {
+      return(unclass(e1) * e2)
+    }
+    return(e1)
+  }
+
   # If neither of e1 or e2 are element_* objects, return e1
   if (!inherits(e1, "element") && !inherits(e2, "element")) {
     return(e1)
@@ -733,7 +891,19 @@ combine_elements <- function(e1, e2) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
+  # If e2 is 'richer' than e1, fill e2 with e1 parameters
+  if (is.subclass(e2, e1)) {
+    new <- defaults(e1, e2)
+    e2[names(new)] <- new
+    return(e2)
+  }
+
   e1
+}
+
+is.subclass <- function(x, y) {
+  inheritance <- inherits(x, class(y), which = TRUE)
+  !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
 }
 
 #' Reports whether x is a theme object
@@ -741,6 +911,11 @@ combine_elements <- function(e1, e2) {
 #' @export
 #' @keywords internal
 is.theme <- function(x) inherits(x, "theme")
+
+#' @export
+`$.theme` <- function(x, ...) {
+  .subset2(x, ...)
+}
 
 #' @export
 print.theme <- function(x, ...) utils::str(x)

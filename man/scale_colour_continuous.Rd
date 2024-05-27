@@ -62,7 +62,7 @@ Many color palettes derived from RGB combinations (like the "rainbow" color
 palette) are not suitable to support all viewers, especially those with
 color vision deficiencies. Using \code{viridis} type, which is perceptually
 uniform in both colour and black-and-white display is an easy option to
-ensure good perceptive properties of your visulizations.
+ensure good perceptive properties of your visualizations.
 The colorspace package offers functionalities
 \itemize{
 \item to generate color palettes with good perceptive properties,
@@ -103,6 +103,8 @@ options(ggplot2.continuous.fill = tmp) # restore previous setting
 \code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}, \code{\link[=scale_fill_steps]{scale_fill_steps()}}, and \code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}}
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
+
+The \href{https://ggplot2-book.org/scales-colour#sec-colour-continuous}{continuous colour scales section} of the online ggplot2 book.
 
 Other colour scales: 
 \code{\link{scale_alpha}()},

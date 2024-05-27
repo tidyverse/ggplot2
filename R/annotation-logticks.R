@@ -1,5 +1,10 @@
 #' Annotation: log tick marks
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is superseded by using [`guide_axis_logticks()`].
+#'
 #' This annotation adds log tick marks with diminishing spacing.
 #' These tick marks probably make sense only for base 10.
 #'
@@ -21,11 +26,12 @@
 #'   using `scale_y_log10()`. It should be `FALSE` when using
 #'   `coord_trans(y = "log10")`.
 #' @param colour Colour of the tick marks.
-#' @param size Thickness of tick marks, in mm.
+#' @param linewidth Thickness of tick marks, in mm.
 #' @param linetype Linetype of tick marks (`solid`, `dashed`, etc.)
 #' @param alpha The transparency of the tick marks.
 #' @param color An alias for `colour`.
 #' @param ... Other parameters passed on to the layer
+#' @param size `r lifecycle::badge("deprecated")`
 #'
 #' @export
 #' @seealso [scale_y_continuous()], [scale_y_log10()] for log scale
@@ -60,8 +66,8 @@
 #' # plotting it. Also hide the minor grid lines.
 #' b <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) +
 #'  geom_point(na.rm = TRUE) +
-#'  scale_x_continuous(name = "body", labels = scales::math_format(10^.x)) +
-#'  scale_y_continuous(name = "brain", labels = scales::math_format(10^.x)) +
+#'  scale_x_continuous(name = "body", labels = scales::label_math(10^.x)) +
+#'  scale_y_continuous(name = "brain", labels = scales::label_math(10^.x)) +
 #'  theme_bw() + theme(panel.grid.minor = element_blank())
 #'
 #' b + annotation_logticks()
@@ -81,10 +87,16 @@
 #' )
 annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled = TRUE,
     short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
-    colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...)
+    colour = "black", linewidth = 0.5, linetype = 1, alpha = 1, color = NULL, ...,
+    size = deprecated())
 {
   if (!is.null(color))
     colour <- color
+
+  if (lifecycle::is_present(size)) {
+    deprecate_soft0("3.5.0", I("Using the `size` aesthetic in this geom"), I("`linewidth`"))
+    linewidth <- linewidth %||% size
+  }
 
   layer(
     data = dummy_data(),
@@ -103,7 +115,7 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
       mid = mid,
       long = long,
       colour = colour,
-      size = size,
+      linewidth = linewidth,
       linetype = linetype,
       alpha = alpha,
       ...
@@ -163,14 +175,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         ticks$x_b <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
       if (grepl("t", sides) && nrow(xticks) > 0) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
     }
@@ -201,14 +213,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         ticks$y_l <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
       if (grepl("r", sides) && nrow(yticks) > 0) {
         ticks$y_r <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
     }
@@ -216,7 +228,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     gTree(children = inject(gList(!!!ticks)))
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = 1)
 )
 
 

@@ -48,6 +48,9 @@
 #'
 #' }
 #'
+#' @seealso
+#' The `r link_book("complete themes section", "themes#sec-themes")`
+#'
 #' @examples
 #' mtcars2 <- within(mtcars, {
 #'   vs <- factor(vs, labels = c("V-shaped", "Straight"))
@@ -130,6 +133,8 @@ theme_grey <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+    spacing = unit(half_line, "pt"),
+    margins = margin(half_line, half_line, half_line, half_line),
 
     axis.line =          element_blank(),
     axis.line.x =        NULL,
@@ -139,14 +144,17 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
     axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
+    axis.text.r =        element_text(margin = margin(l = 0.8 * half_line / 2, r = 0.8 * half_line / 2),
+                                      hjust = 0.5),
     axis.ticks =         element_line(colour = "grey20"),
-    axis.ticks.length =  unit(half_line / 2, "pt"),
+    axis.ticks.length =  rel(0.5),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = rel(0.75),
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1
@@ -163,35 +171,35 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
-    legend.spacing =     unit(2 * half_line, "pt"),
+    legend.spacing =     rel(2),
     legend.spacing.x =    NULL,
     legend.spacing.y =    NULL,
-    legend.margin =      margin(half_line, half_line, half_line, half_line),
-    legend.key =         element_rect(fill = "grey95", colour = NA),
+    legend.margin =      NULL,
+    legend.key =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,
+    legend.key.spacing = NULL,
     legend.text =        element_text(size = rel(0.8)),
-    legend.text.align =  NULL,
     legend.title =       element_text(hjust = 0),
-    legend.title.align = NULL,
+    legend.ticks.length = rel(0.2),
     legend.position =    "right",
     legend.direction =   NULL,
     legend.justification = "center",
     legend.box =         NULL,
-    legend.box.margin =  margin(0, 0, 0, 0, "cm"),
+    legend.box.margin =  rel(0),
     legend.box.background = element_blank(),
-    legend.box.spacing = unit(2 * half_line, "pt"),
+    legend.box.spacing = rel(2),
 
     panel.background =   element_rect(fill = "grey92", colour = NA),
     panel.border =       element_blank(),
     panel.grid =         element_line(colour = "white"),
     panel.grid.minor =   element_line(linewidth = rel(0.5)),
-    panel.spacing =      unit(half_line, "pt"),
+    panel.spacing =      NULL,
     panel.spacing.x =    NULL,
     panel.spacing.y =    NULL,
     panel.ontop    =     FALSE,
@@ -234,7 +242,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                            hjust = 0.5, vjust = 0.5
                          ),
     plot.tag.position =  'topleft',
-    plot.margin =        margin(half_line, half_line, half_line, half_line),
+    plot.margin =        NULL,
 
     complete = TRUE
   )
@@ -261,14 +269,12 @@ theme_bw <- function(base_size = 11, base_family = "",
     theme(
       # white background and dark border
       panel.background = element_rect(fill = "white", colour = NA),
-      panel.border     = element_rect(fill = NA, colour = "grey20"),
+      panel.border     = element_rect(colour = "grey20"),
       # make gridlines dark, same contrast with white as in theme_grey
       panel.grid = element_line(colour = "grey92"),
       panel.grid.minor = element_line(linewidth = rel(0.5)),
       # contour strips to match panel contour
       strip.background = element_rect(fill = "grey85", colour = "grey20"),
-      # match legend key to background
-      legend.key       = element_rect(fill = "white", colour = NA),
 
       complete = TRUE
     )
@@ -297,7 +303,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
       #     0.5 clipped looks like 0.25
 
       # pure black panel border and grid lines, but thinner
-      panel.border     = element_rect(fill = NA, colour = "black", linewidth = rel(1)),
+      panel.border     = element_rect(colour = "black", linewidth = rel(1)),
       panel.grid       = element_line(colour = "black"),
       panel.grid.major = element_line(linewidth = rel(0.1)),
       panel.grid.minor = element_line(linewidth = rel(0.05)),
@@ -331,7 +337,7 @@ theme_light <- function(base_size = 11, base_family = "",
     theme(
       # white panel with light grey border
       panel.background = element_rect(fill = "white", colour = NA),
-      panel.border     = element_rect(fill = NA, colour = "grey70", linewidth = rel(1)),
+      panel.border     = element_rect(colour = "grey70", linewidth = rel(1)),
       # light grey, thinner gridlines
       # => make them slightly darker to keep acceptable contrast
       panel.grid       = element_line(colour = "grey87"),
@@ -340,9 +346,6 @@ theme_light <- function(base_size = 11, base_family = "",
 
       # match axes ticks thickness to gridlines and colour to panel border
       axis.ticks       = element_line(colour = "grey70", linewidth = rel(0.5)),
-
-      # match legend key to panel.background
-      legend.key       = element_rect(fill = "white", colour = NA),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey70", colour = NA),
@@ -382,9 +385,6 @@ theme_dark <- function(base_size = 11, base_family = "",
 
       # match axes ticks thickness to gridlines
       axis.ticks       = element_line(colour = "grey20", linewidth = rel(0.5)),
-
-      # match legend key to panel.background
-      legend.key       = element_rect(fill = "grey50", colour = NA),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey15", colour = NA),
@@ -443,9 +443,6 @@ theme_classic <- function(base_size = 11, base_family = "",
       # show axes
       axis.line      = element_line(colour = "black", linewidth = rel(1)),
 
-      # match legend key to panel.background
-      legend.key       = element_blank(),
-
       # simple, black and white strips
       strip.background = element_rect(fill = "white", colour = "black", linewidth = rel(2)),
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
@@ -471,27 +468,35 @@ theme_void <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+    spacing =            unit(half_line, "pt"),
+    margins =            margin(half_line, half_line, half_line, half_line),
     axis.text =          element_blank(),
     axis.title =         element_blank(),
-    axis.ticks.length =  unit(0, "pt"),
+    axis.ticks.length =  rel(0),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = NULL,
     legend.box =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
+    legend.key.spacing = rel(1),
+    legend.margin =      rel(0),
+    legend.box.margin =  rel(0),
+    legend.box.spacing = unit(0.2, "cm"),
+    legend.ticks.length = rel(0.2),
     strip.clip =         "inherit",
     strip.text =         element_text(size = rel(0.8)),
-    strip.switch.pad.grid = unit(half_line / 2, "pt"),
-    strip.switch.pad.wrap = unit(half_line / 2, "pt"),
+    strip.switch.pad.grid = rel(0.5),
+    strip.switch.pad.wrap = rel(0.5),
     panel.ontop =        FALSE,
-    panel.spacing =      unit(half_line, "pt"),
-    plot.margin =        unit(c(0, 0, 0, 0), "lines"),
+    panel.spacing =      NULL,
+    plot.margin =        rel(0),
     plot.title =         element_text(
                            size = rel(1.2),
                            hjust = 0, vjust = 1,
@@ -544,6 +549,8 @@ theme_test <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+    spacing = unit(half_line, "pt"),
+    margins = margin(half_line, half_line, half_line, half_line),
 
     axis.line =          element_blank(),
     axis.line.x =        NULL,
@@ -554,13 +561,14 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
     axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
     axis.ticks =         element_line(colour = "grey20"),
-    axis.ticks.length =  unit(half_line / 2, "pt"),
+    axis.ticks.length =  rel(0.5),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
     axis.ticks.length.y = NULL,
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
+    axis.minor.ticks.length = rel(0.75),
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1
@@ -577,35 +585,37 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.title.y.right = element_text(
                            angle = -90,
                            margin = margin(l = half_line / 2),
-                           vjust = 0
+                           vjust = 1
                          ),
 
     legend.background =  element_rect(colour = NA),
-    legend.spacing =     unit(2 * half_line, "pt"),
+    legend.spacing =     rel(2),
     legend.spacing.x =   NULL,
     legend.spacing.y =   NULL,
     legend.margin =      margin(0, 0, 0, 0, "cm"),
-    legend.key =         element_rect(fill = "white", colour=NA),
+    legend.key =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,
+    legend.key.spacing = NULL,
+    legend.key.spacing.x = NULL,
+    legend.key.spacing.y = NULL,
     legend.text =        element_text(size = rel(0.8)),
-    legend.text.align =  NULL,
     legend.title =       element_text(hjust = 0),
-    legend.title.align = NULL,
+    legend.ticks.length = rel(0.2),
     legend.position =    "right",
     legend.direction =   NULL,
     legend.justification = "center",
     legend.box =         NULL,
     legend.box.margin =  margin(0, 0, 0, 0, "cm"),
     legend.box.background = element_blank(),
-    legend.box.spacing = unit(2 * half_line, "pt"),
+    legend.box.spacing = rel(2),
 
     panel.background =   element_rect(fill = "white", colour = NA),
-    panel.border =       element_rect(fill = NA, colour = "grey20"),
+    panel.border =       element_rect(colour = "grey20"),
     panel.grid.major =   element_blank(),
     panel.grid.minor =   element_blank(),
-    panel.spacing =      unit(half_line, "pt"),
+    panel.spacing =      NULL,
     panel.spacing.x =    NULL,
     panel.spacing.y =    NULL,
     panel.ontop    =     FALSE,
@@ -623,8 +633,8 @@ theme_test <- function(base_size = 11, base_family = "",
     strip.placement =    "inside",
     strip.placement.x =  NULL,
     strip.placement.y =  NULL,
-    strip.switch.pad.grid = unit(half_line / 2, "pt"),
-    strip.switch.pad.wrap = unit(half_line / 2, "pt"),
+    strip.switch.pad.grid = rel(0.5),
+    strip.switch.pad.wrap = rel(0.5),
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(
@@ -648,7 +658,7 @@ theme_test <- function(base_size = 11, base_family = "",
                            hjust = 0.5, vjust = 0.5
                          ),
     plot.tag.position =  'topleft',
-    plot.margin =        margin(half_line, half_line, half_line, half_line),
+    plot.margin =        NULL,
 
     complete = TRUE
   )

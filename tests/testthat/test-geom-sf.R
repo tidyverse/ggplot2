@@ -88,7 +88,7 @@ test_that("geom_sf() removes rows containing missing aes", {
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
 
   grob_xy_length <- function(x) {
-    g <- layer_grob(x)[[1]]
+    g <- get_layer_grob(x)[[1]]
     c(length(g$x), length(g$y))
   }
 
@@ -127,7 +127,7 @@ test_that("geom_sf() handles alpha properly", {
   )
   red <- "#FF0000FF"
   p <- ggplot(sfc) + geom_sf(colour = red, fill = red, alpha = 0.5)
-  g <- layer_grob(p)[[1]]
+  g <- get_layer_grob(p)[[1]]
 
   # alpha affects the colour of points and lines
   expect_equal(g[[1]]$gp$col, alpha(red, 0.5))
@@ -149,6 +149,16 @@ test_that("errors are correctly triggered", {
   expect_snapshot_error(ggplotGrob(p))
   expect_snapshot_error(geom_sf_label(position = "jitter", nudge_x = 0.5))
   expect_snapshot_error(geom_sf_text(position = "jitter", nudge_x = 0.5))
+
+  # #5204: missing linewidth should be dropped
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(
+      sf::st_linestring(matrix(c(0, 1, 0, 1), ncol = 2)),
+      sf::st_linestring(matrix(c(0, 1, 1, 0), ncol = 2))
+    ),
+    linewidth = c(1, NA)
+  )
+  expect_snapshot_warning(sf_grob(pts, na.rm = FALSE))
 })
 
 # Visual tests ------------------------------------------------------------
@@ -183,6 +193,43 @@ test_that("geom_sf draws correctly", {
   pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
   expect_doppelganger("spatial points",
     ggplot() + geom_sf(data = pts)
+  )
+})
+
+test_that("geom_sf uses combinations of geometry correctly", {
+  skip_if_not_installed("sf")
+
+  t <- seq(0, 2 *pi, length.out = 10)
+  data <- sf::st_sf(sf::st_sfc(
+    sf::st_multipoint(cbind(1:2, 3:4)),
+    sf::st_multilinestring(list(
+      cbind(c(1, 1.8), c(3.8, 3)),
+      cbind(c(1.2, 2), c(4, 3.2))
+    )),
+    sf::st_polygon(list(
+      cbind(cos(t), zapsmall(sin(t))),
+      cbind(cos(t), zapsmall(sin(t))) + 5
+    )),
+    sf::st_geometrycollection(x = list(
+      sf::st_point(x = c(3, 2)),
+      sf::st_linestring(cbind(c(2, 4, 4), c(1, 1, 3)))
+    )),
+    sf::st_linestring(x = cbind(c(2, 6), c(-1, 3))),
+    sf::st_point(c(5, 0))
+  ))
+
+  update_geom_defaults("point", list(colour = "blue"))
+  update_geom_defaults("line", list(colour = "red"))
+  # Note: polygon defaults are mostly ignored or overridden
+
+  withr::defer({
+    update_geom_defaults("point", NULL)
+    update_geom_defaults("line",  NULL)
+  })
+
+  expect_doppelganger(
+    "mixed geometry types",
+    ggplot(data) + geom_sf()
   )
 })
 

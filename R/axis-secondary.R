@@ -4,7 +4,9 @@
 #' secondary axis, positioned opposite of the primary axis. All secondary
 #' axes must be based on a one-to-one transformation of the primary axes.
 #'
-#' @param trans A formula or function of transformation
+#' @param transform A formula or function of a strictly monotonic transformation
+#'
+#' @param trans `r lifecycle::badge("deprecated")`
 #'
 #' @param name The name of the secondary axis
 #'
@@ -76,7 +78,7 @@
 #'     date_breaks = "6 hour",
 #'     sec.axis = dup_axis(
 #'       name = "Time of Day",
-#'       labels = scales::time_format("%I %p")
+#'       labels = scales::label_time("%I %p")
 #'     )
 #'   )
 #'
@@ -89,19 +91,25 @@
 #'     sec.axis = sec_axis(
 #'       ~ . + 8 * 3600,
 #'       name = "GMT+8",
-#'       labels = scales::time_format("%b %d %I %p")
+#'       labels = scales::label_time("%b %d %I %p")
 #'     )
 #'   )
 #'
 #' @export
-sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
-                     guide = waiver()) {
-  # sec_axis() historically accepted two-sided formula, so be permissive.
-  if (length(trans) > 2) trans <- trans[c(1,3)]
+sec_axis <- function(transform = NULL,
+                     name = waiver(), breaks = waiver(), labels = waiver(),
+                     guide = waiver(), trans = deprecated()) {
+  if (lifecycle::is_present(trans)) {
+    deprecate_soft0("3.5.0", "sec_axis(trans)", "sec_axis(transform)")
+    transform <- trans
+  }
 
-  trans <- as_function(trans)
+  # sec_axis() historically accepted two-sided formula, so be permissive.
+  if (length(transform) > 2) transform <- transform[c(1,3)]
+
+  transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,
-    trans = trans,
+    trans = transform,
     name = name,
     breaks = breaks,
     labels = labels,
@@ -111,8 +119,9 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
-  sec_axis(trans, name, breaks, labels, guide)
+dup_axis <- function(transform = identity, name = derive(), breaks = derive(),
+                     labels = derive(), guide = derive(), trans = deprecated()) {
+  sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
 
 is.sec_axis <- function(x) {
@@ -121,9 +130,14 @@ is.sec_axis <- function(x) {
 
 set_sec_axis <- function(sec.axis, scale) {
   if (!is.waive(sec.axis)) {
+    if (scale$is_discrete()) {
+      if (!identical(.subset2(sec.axis, "trans"), identity)) {
+        cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
+      }
+    }
     if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
     if (!is.sec_axis(sec.axis)) {
-      cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}")
+      cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}.")
     }
     scale$secondary.axis <- sec.axis
   }
@@ -164,12 +178,19 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) {
       return()
     }
-    if (!is.function(self$trans)) {
-      cli::cli_abort("Transformation for secondary axes must be a function")
+    transform <- self$trans
+    if (!is.function(transform)) {
+      cli::cli_abort("Transformation for secondary axes must be a function.")
     }
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
-    if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
+    if (is.waive(self$breaks)) {
+      if (scale$is_discrete()) {
+        self$breaks <- scale$get_breaks()
+      } else {
+        self$breaks <- scale$get_transformation()$breaks
+      }
+    }
     if (is.derived(self$labels)) self$labels <- scale$labels
     if (is.derived(self$guide)) self$guide <- scale$guide
   },
@@ -186,26 +207,35 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       return()
     }
 
+    transformation <- scale$get_transformation()
     along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    old_range <- transformation$inverse(along_range)
 
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
 
     # Test for monotonicity
     if (!is_unique(sign(diff(full_range))))
-      cli::cli_abort("Transformation for secondary axes must be monotonic")
+      cli::cli_abort(
+        "Transformation for secondary axes must be strictly monotonic."
+      )
   },
 
   break_info = function(self, range, scale) {
     if (self$empty()) return()
 
     # Test for monotonicity on unexpanded range
-    self$mono_test(scale)
+    if (!scale$is_discrete()) {
+      self$mono_test(scale)
+      breaks <- self$breaks
+    } else {
+      breaks <- scale$map(self$breaks)
+    }
 
     # Get scale's original range before transformation
+    transformation <- scale$get_transformation() %||% transform_identity()
     along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    old_range <- transformation$inverse(along_range)
 
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
@@ -225,19 +255,19 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # patch for date and datetime scales just to maintain functionality
     # works only for linear secondary transforms that respect the time or date transform
-    if (scale$trans$name %in% c("date", "time")) {
-      temp_scale <- self$create_scale(new_range, trans = scale$trans)
+    if (transformation$name %in% c("date", "time")) {
+      temp_scale <- self$create_scale(new_range, transformation = transformation)
       range_info <- temp_scale$break_info()
       old_val_trans <- rescale(range_info$major, from = c(0, 1), to = range)
       old_val_minor_trans <- rescale(range_info$minor, from = c(0, 1), to = range)
     } else {
-      temp_scale <- self$create_scale(new_range)
+      temp_scale <- self$create_scale(new_range, breaks = breaks)
       range_info <- temp_scale$break_info()
 
       # Map the break values back to their correct position on the primary scale
-      if (!is.null(range_info$major_source)) {
-        old_val <- approx(full_range, old_range, range_info$major_source)$y
-        old_val_trans <- scale$trans$transform(old_val)
+      if (length(range_info$major_source) > 0) {
+        old_val <- stats::approx(full_range, old_range, range_info$major_source)$y
+        old_val_trans <- transformation$transform(old_val)
 
         # rescale values from 0 to 1
         range_info$major[] <- round(
@@ -251,9 +281,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
         old_val_trans <- NULL
       }
 
-      if (!is.null(range_info$minor_source)) {
-        old_val_minor <- approx(full_range, old_range, range_info$minor_source)$y
-        old_val_minor_trans <- scale$trans$transform(old_val_minor)
+      if (length(range_info$minor_source) > 0) {
+        old_val_minor <- stats::approx(full_range, old_range, range_info$minor_source)$y
+        old_val_minor_trans <- transformation$transform(old_val_minor)
 
         range_info$minor[] <- round(
           rescale(
@@ -280,14 +310,15 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range, trans = identity_trans()) {
+  create_scale = function(self, range, transformation = transform_identity(),
+                          breaks = self$breaks) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
                      name = self$name,
-                     breaks = self$breaks,
+                     breaks = breaks,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
-                     trans = trans
+                     trans  = transformation
     )
     scale$train(range)
     scale
