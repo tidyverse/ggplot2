@@ -68,6 +68,20 @@ ScalesList <- ggproto("ScalesList", NULL,
     lapply(self$scales, function(scale) scale$train_df(df = df))
   },
 
+  train_data = function(self, data) {
+    lapply(data, self$train_df)
+    data_names <- unique0(unlist(lapply(data, colnames)))
+    for (scale in self$scales) {
+      if (!any(scale$aesthetics %in% data_names)) {
+        cli::cli_warn(
+          "Scale for {.field {scale$aesthetics}} aesthetic{?s} was provided \\
+          but has no matching data to map.",
+          call = scale$call
+        )
+      }
+    }
+  },
+
   map_df = function(self, df) {
     if (empty(df) || length(self$scales) == 0) {
       return(df)

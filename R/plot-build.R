@@ -102,7 +102,7 @@ ggplot_build.ggplot <- function(plot) {
   # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
-    lapply(data, npscales$train_df)
+    npscales$train_data(data)
     plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)
   } else {
