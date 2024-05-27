@@ -120,6 +120,13 @@ ggplot_add.Scale <- function(object, plot, object_name) {
   plot$scales$add(object)
   plot
 }
+
+#' @export
+ggplot_add.scale_params <- function(object, plot, object_name) {
+  plot$scales$add_params(object$aesthetics, object$params)
+  plot
+}
+
 #' @export
 ggplot_add.labels <- function(object, plot, object_name) {
   update_labels(plot, object)

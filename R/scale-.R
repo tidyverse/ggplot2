@@ -214,6 +214,28 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   inject(super$new(!!!args, call = call %||% current_call()))
 }
 
+
+#' Setting scale parameters
+#'
+#' @param aesthetics The name of the aesthetics for which to update the scale.
+#' @param ... Named arguments to one of the scale constructors,
+#'   [`continuous_scale()`], [`discrete_scale()`] or [`binned_scale()`].
+#'
+#' @return A `scale_params` object that can be added to a plot.
+#' @export
+#'
+#' @examples
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   scale_params("x", limits = c(0, 10)) +
+#'   scale_params("y", transform = "sqrt")
+scale_params <- function(aesthetics, ...) {
+  structure(
+    list(aesthetics = aesthetics, params = list2(...)),
+    class = "scale_params"
+  )
+}
+
 #' @section Scales:
 #'
 #' All `scale_*` functions like [scale_x_continuous()] return a `Scale*`
