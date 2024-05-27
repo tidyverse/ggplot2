@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Scales now throw warnings when no matching data is detected 
+  (@teunbrand, #3743)
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.
