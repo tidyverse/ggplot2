@@ -414,7 +414,7 @@ estimate_contour_angle <- function(x, y) {
     # Find largest edge along hull
     dx <- diff(x[hull])
     dy <- diff(y[hull])
-    i <- which.max(sqrt(dx^2))
+    i <- which.max(sqrt(dx^2 + dy^2))
     # Take angle of largest edge
     angle <- atan2(dy[i], dx[i])
   } else {
