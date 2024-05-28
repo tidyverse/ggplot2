@@ -118,6 +118,31 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     }
     dens$width <- width
 
+    if (!is.null(draw_quantiles)) {
+      if (!(all(draw_quantiles >= 0) && all(draw_quantiles <= 1))) {
+        cli::cli_abort("{.arg draw_quantiles} must be between 0 and 1.")
+      }
+      if (!is.null(data[["weight"]]) || !all(data[["weight"]] == 1)) {
+        cli::cli_warn(
+          "{.arg draw_quantiles} for weighted data is not implemented."
+        )
+      }
+      quants <- quantile(data$y, probs = draw_quantiles)
+      quants <- data_frame0(
+        y = unname(quants),
+        quantile = draw_quantiles
+      )
+
+      # Interpolate other metrics
+      for (var in setdiff(names(dens), names(quants))) {
+        quants[[var]] <-
+          approx(dens$y, dens[[var]], xout = quants$y, ties = "ordered")$y
+      }
+
+      dens <- vec_slice(dens, !dens$y %in% quants$y)
+      dens <- vec_c(dens, quants)
+    }
+
     dens
   },
 
