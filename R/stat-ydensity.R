@@ -26,6 +26,7 @@
 stat_ydensity <- function(mapping = NULL, data = NULL,
                           geom = "violin", position = "dodge",
                           ...,
+                          draw_quantiles = NULL,
                           bw = "nrd0",
                           adjust = 1,
                           kernel = "gaussian",
@@ -56,6 +57,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
       drop  = drop,
       na.rm = na.rm,
       bounds = bounds,
+      draw_quantiles = draw_quantiles,
       ...
     )
   )
@@ -80,7 +82,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                       drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
+                       drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf),
+                       draw_quantiles = NULL) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -121,11 +124,12 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
                            scale = "area", flipped_aes = FALSE, drop = TRUE,
-                           bounds = c(-Inf, Inf)) {
+                           bounds = c(-Inf, Inf), draw_quantiles = NULL) {
     data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
+      draw_quantiles = draw_quantiles
     )
     if (!drop && any(data$n < 2)) {
       cli::cli_warn(
