@@ -7,6 +7,8 @@
 #' @param drop Whether to discard groups with less than 2 observations
 #'   (`TRUE`, default) or keep such groups for position adjustment purposes
 #'   (`FALSE`).
+#' @param draw_quantiles If not `NULL` (default), compute the `quantile` variable
+#'   and draw horizontal lines at the given quantiles in `geom_violin()`.
 #'
 #' @eval rd_computed_vars(
 #'   density = "Density estimate.",
@@ -16,7 +18,8 @@
 #'   violinwidth = "Density scaled for the violin plot, according to area,
 #'   counts or to a constant maximum width.",
 #'   n = "Number of points.",
-#'   width = "Width of violin bounding box."
+#'   width = "Width of violin bounding box.",
+#'   quantile = "Whether the row is part of the `draw_quantiles` computation."
 #' )
 #'
 #' @seealso [geom_violin()] for examples, and [stat_density()]

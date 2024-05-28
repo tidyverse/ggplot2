@@ -10,8 +10,6 @@
 #' @eval rd_aesthetics("geom", "violin")
 #' @inheritParams layer
 #' @inheritParams geom_bar
-#' @param draw_quantiles If `not(NULL)` (default), draw horizontal lines
-#'   at the given quantiles of the density estimate.
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between

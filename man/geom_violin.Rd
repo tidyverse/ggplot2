@@ -11,7 +11,6 @@ geom_violin(
   stat = "ydensity",
   position = "dodge",
   ...,
-  draw_quantiles = NULL,
   trim = TRUE,
   bounds = c(-Inf, Inf),
   scale = "area",
@@ -27,6 +26,7 @@ stat_ydensity(
   geom = "violin",
   position = "dodge",
   ...,
+  draw_quantiles = NULL,
   bw = "nrd0",
   adjust = 1,
   kernel = "gaussian",
@@ -102,9 +102,6 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{draw_quantiles}{If \code{not(NULL)} (default), draw horizontal lines
-at the given quantiles of the density estimate.}
-
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
 
@@ -141,6 +138,9 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{geom_violin()} and \code{stat_ydensity()}. For more information about
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
+
+\item{draw_quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
+and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
@@ -196,6 +196,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(violinwidth)}\cr Density scaled for the violin plot, according to area,  counts or to a constant maximum width.
 \item \code{after_stat(n)}\cr Number of points.
 \item \code{after_stat(width)}\cr Width of violin bounding box.
+\item \code{after_stat(quantile)}\cr Whether the row is part of the \code{draw_quantiles} computation.
 }
 }
 
