@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_contour()` should be able to recognise a rotated grid of points 
+  (@teunbrand, #4320)
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.
