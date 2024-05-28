@@ -91,7 +91,6 @@
 geom_violin <- function(mapping = NULL, data = NULL,
                         stat = "ydensity", position = "dodge",
                         ...,
-                        draw_quantiles = NULL,
                         trim = TRUE,
                         bounds = c(-Inf, Inf),
                         scale = "area",
@@ -110,7 +109,6 @@ geom_violin <- function(mapping = NULL, data = NULL,
     params = list2(
       trim = trim,
       scale = scale,
-      draw_quantiles = draw_quantiles,
       na.rm = na.rm,
       orientation = orientation,
       bounds = bounds,
@@ -144,7 +142,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(self, data, ..., draw_quantiles = NULL, flipped_aes = FALSE) {
+  draw_group = function(self, data, ..., flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     # Find the points for the line to go all the way around
     data <- transform(data,
@@ -164,26 +162,15 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     newdata <- flip_data(newdata, flipped_aes)
 
     # Draw quantiles if requested, so long as there is non-zero y range
-    if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
-      if (!(all(draw_quantiles >= 0) && all(draw_quantiles <= 1))) {
-        cli::cli_abort("{.arg draw_quantiles} must be between 0 and 1.")
-      }
+    if ("quantile" %in% names(newdata)) {
 
-      # Compute the quantile segments and combine with existing aesthetics
-      quantiles <- create_quantile_segment_frame(data, draw_quantiles)
-      aesthetics <- data[
-        rep(1, nrow(quantiles)),
-        setdiff(names(data), c("x", "y", "group")),
-        drop = FALSE
-      ]
-      aesthetics$alpha <- rep(1, nrow(quantiles))
-      both <- vec_cbind(quantiles, aesthetics)
-      both <- both[!is.na(both$group), , drop = FALSE]
-      both <- flip_data(both, flipped_aes)
-      quantile_grob <- if (nrow(both) == 0) {
+      quantiles <- newdata[!is.na(newdata$quantile),]
+      quantiles$group <- match(quantiles$quantile, unique(quantiles$quantile))
+
+      quantile_grob <- if (nrow(quantiles) == 0) {
         zeroGrob()
       } else {
-        GeomPath$draw_panel(both, ...)
+        GeomPath$draw_panel(quantiles, ...)
       }
 
       ggname("geom_violin", grobTree(
