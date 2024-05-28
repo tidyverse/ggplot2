@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* (breaking) `geom_violin(draw_quantiles)` now has actual quantiles based on
+  the data, rather than inferred quantiles based on the computed density. The
+  `draw_quantiles` parameter now belongs to `stat_ydensity()` instead of 
+  `geom_violin()`. (@teunbrand, #4120)
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.
