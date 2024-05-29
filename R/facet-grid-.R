@@ -335,7 +335,54 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+
+  init_panels = function(panels, layout, theme, ranges, params, aspect_ratio, clip = "on") {
+
+    dim   <- c(max(layout$ROW), max(layout$COL))
+    table <- matrix(panels, dim[1], dim[2], byrow = TRUE)
+
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+
+    widths  <- unit(rep(1, dim[2]), "null")
+    heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
+
+    if (space$x) {
+      idx    <- layout$PANEL[layout$ROW == 1]
+      widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
+      widths <- unit(widths, "null")
+    }
+
+    if (space$y) {
+      idx <- layout$PANEL[layout$COL == 1]
+      heights <- vapply(idx, function(i) diff(ranges[[i]]$y.range), numeric(1))
+      heights <- unit(heights, "null")
+    }
+
+    table <- gtable_matrix(
+      "layout", table,
+      widths = widths, heights = heights,
+      respect = !is.null(aspect_ratio),
+      clip = clip, z = matrix(1, dim[1], dim[2])
+    )
+
+    table$layout$name <- paste(
+      "panel",
+      rep(seq_len(dim[2]), dim[1]),
+      rep(seq_len(dim[1]), each = dim[2]),
+      sep = "-"
+    )
+
+    spacing <- lapply(
+      c(x = "panel.spacing.x", y = "panel.spacing.y"),
+      calc_element, theme = theme
+    )
+
+    table <- gtable_add_col_space(table, spacing$x)
+    table <- gtable_add_row_space(table, spacing$y)
+    table
+  },
+
+  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
       cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
@@ -375,47 +422,15 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
       cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
     }
-    aspect_ratio <- aspect_ratio %||% coord$aspect(ranges[[1]])
-    if (is.null(aspect_ratio)) {
-      aspect_ratio <- 1
-      respect <- FALSE
-    } else {
-      respect <- TRUE
-    }
+
+    panel_table <- self$init_panels(
+      panels, layout, theme, ranges, params,
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
+    )
+
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
     mtx <- function(x) matrix(x, nrow = nrow, ncol = ncol, byrow = TRUE)
-    panel_table <- mtx(panels)
-
-    # @kohske
-    # Now size of each panel is calculated using PANEL$ranges, which is given by
-    # coord_train called by train_range.
-    # So here, "scale" need not to be referred.
-    #
-    # In general, panel has all information for building facet.
-    if (params$space_free$x) {
-      ps <- layout$PANEL[layout$ROW == 1]
-      widths <- vapply(ps, function(i) diff(ranges[[i]]$x.range), numeric(1))
-      panel_widths <- unit(widths, "null")
-    } else {
-      panel_widths <- rep(unit(1, "null"), ncol)
-    }
-    if (params$space_free$y) {
-      ps <- layout$PANEL[layout$COL == 1]
-      heights <- vapply(ps, function(i) diff(ranges[[i]]$y.range), numeric(1))
-      panel_heights <- unit(heights, "null")
-    } else {
-      panel_heights <- rep(unit(1 * abs(aspect_ratio), "null"), nrow)
-    }
-
-    panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = mtx(1))
-    panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
-
-    spacing_x <- calc_element("panel.spacing.x", theme)
-    spacing_y <- calc_element("panel.spacing.y", theme)
-    panel_table <- gtable_add_col_space(panel_table, spacing_x)
-    panel_table <- gtable_add_row_space(panel_table, spacing_y)
 
     # Add axes
     if (params$draw_axes$x) {
