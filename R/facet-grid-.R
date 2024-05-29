@@ -411,7 +411,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       table <- weave_axes(
         table,
         lapply(axes$x, function(x) matrix(x[x_order], dim[1], dim[2], byrow = TRUE))
-      )$panels
+      )
     } else {
       table  <- gtable_add_rows(table, max_height(axes$x$top), 0)
       table  <- gtable_add_rows(table, max_height(axes$x$bottom), -1)
@@ -432,7 +432,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       table <- weave_axes(
         table,
         lapply(axes$y, function(y) matrix(y[y_order], dim[1], dim[2], byrow = TRUE))
-      )$panels
+      )
     } else {
       table  <- gtable_add_cols(table, max_width(axes$y$left), 0)
       table  <- gtable_add_cols(table, max_width(axes$y$right), -1)
@@ -452,7 +452,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     table
   },
 
-  attach_strips = function(table, layout, axis_size, params, theme) {
+  attach_strips = function(table, layout, params, theme) {
 
     col_vars <- unique0(layout[names(params$cols)])
     row_vars <- unique0(layout[names(params$rows)])

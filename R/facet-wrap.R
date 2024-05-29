@@ -301,8 +301,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     free        <- params$free        %||% list(x = FALSE, y = FALSE)
 
     # Render individual axes
-    ranges <- censor_labels(ranges, layout, axis_labels)
-    original   <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
+    ranges   <- censor_labels(ranges, layout, axis_labels)
+    original <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
     # Sort axes
     x_order <- if (axis_labels$x) layout$SCALE_X else seq_len(nrow(layout))
@@ -406,7 +406,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     weave_axes(table, axes, empty)
   },
 
-  attach_strips = function(table, layout, axis_size, params, theme) {
+  attach_strips = function(table, layout, params, theme) {
 
     # Format labels
     if (length(params$facets) == 0) {
@@ -426,8 +426,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     # Set position invariant parameters
     padding  <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
     position <- params$strip.position %||% "top"
-    prefix   <- paste0("strip-", substr(position, 1, 1))
-    pad <- axis_size[[position]]
+    pos      <- substr(position, 1, 1)
+    prefix   <- paste0("strip-", pos)
 
     # Setup weaving table
     dim <- c(max(layout$ROW), max(layout$COL))
@@ -444,7 +444,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       inside  <- "strip.placement.y"
       size    <- apply(mat, 2, max_width, value_only = TRUE)
       weave   <- weave_tables_col
-      pad[as.numeric(pad) != 0] <- padding
     }
 
     inside <- (calc_element(inside, theme) %||% "inside") == "inside"
@@ -453,9 +452,15 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     size   <- unit(size, "cm")
 
     table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "on")
+
     if (!inside) {
-      pad[as.numeric(pad) != 0] <- padding
-      table <- weave(table, missing_arg(), shift, pad)
+      axes  <- grepl(paste0("axis-", pos), table$layout$name)
+      has_axes <- !vapply(table$grobs[axes], is.zero, logical(1))
+      has_axes <- split(has_axes, table$layout[[pos]][axes])
+      has_axes <- vapply(has_axes, sum, numeric(1)) > 0
+      padding  <- rep(padding, length(has_axes))
+      padding[!has_axes] <- unit(0, "cm")
+      table <- weave(table, , shift, padding)
     }
 
     table
@@ -493,7 +498,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     panel_table <- self$attach_axes(panel_table, layout, ranges, coord, theme, params)
 
-    self$attach_strips(panel_table$panels, layout, panel_table$sizes, params, theme)
+    self$attach_strips(panel_table, layout, params, theme)
   },
   vars = function(self) {
     names(self$params$facets)
@@ -575,7 +580,7 @@ weave_axes <- function(panels, axes, empty = NULL, z = 3L) {
   for (i in seq_along(axes)) {
     panels <- weave[[i]](panels, axes[[i]], shift[i], sizes[[i]], names[i], z = z)
   }
-  list(panels = panels, sizes = sizes)
+  panels
 }
 
 # Measures the size of axes while ignoring those bordering empty panels
