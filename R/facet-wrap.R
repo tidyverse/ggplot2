@@ -257,6 +257,42 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data
   },
+
+  init_panels = function(panels, layout, theme, aspect_ratio = NULL, clip = "on") {
+
+    dim <- c(max(layout$ROW), max(layout$COL))
+
+    # Initialise matrix of panels
+    table <- matrix(list(zeroGrob()), dim[1], dim[2])
+    table[cbind(layout$ROW, layout$COL)] <- panels
+
+    table <- gtable_matrix(
+      "layout", table,
+      widths  = unit(rep(1, dim[2]), "null"),
+      heights = unit(rep(aspect_ratio %||% 1, dim[1]), "null"),
+      respect = !is.null(aspect_ratio),
+      clip = clip,
+      z = matrix(1, dim[1], dim[2])
+    )
+
+    # Set panel names
+    table$layout$name <- paste(
+      "panel",
+      rep(seq_len(dim[2]), dim[1]),
+      rep(seq_len(dim[1]), each = dim[2]),
+      sep = "-"
+    )
+
+    # Add panel spacing
+    spacing <- lapply(
+      c(x = "panel.spacing.x", y = "panel.spacing.y"),
+      calc_element, theme = theme
+    )
+    table <- gtable_add_col_space(table, spacing$x)
+    table <- gtable_add_row_space(table, spacing$y)
+    table
+  },
+
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
       cli::cli_abort("{.fn {snake_class(self)}} can't use free scales with {.fn {snake_class(coord)}}.")
@@ -281,6 +317,15 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panel_order <- order(layout$ROW, layout$COL)
     layout <- layout[panel_order, ]
     panels <- panels[panel_order]
+
+    panel_table <- self$init_panels(
+      panels, layout, theme,
+      # If user hasn't set aspect ratio, ask the coordinate system if
+      # it wants to specify one
+      aspect_ratio = theme$aspect.ratio %||% coord$aspect(ranges[[1]]),
+      clip = coord$clip
+    )
+
     panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
 
     # Fill missing parameters for backward compatibility
@@ -305,29 +350,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       structure(labels_df, type = "cols"),
       params$labeller, theme)
 
-    # If user hasn't set aspect ratio, ask the coordinate system if
-    # it wants to specify one
-    aspect_ratio <- theme$aspect.ratio %||% coord$aspect(ranges[[1]])
-
-    if (is.null(aspect_ratio)) {
-      aspect_ratio <- 1
-      respect <- FALSE
-    } else {
-      respect <- TRUE
-    }
-
     empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
-    panel_table <- empty_table
-    panel_table[panel_pos] <- panels
-    empties <- apply(panel_table, c(1,2), function(x) is.zero(x[[1]]))
-    panel_table <- gtable_matrix("layout", panel_table,
-     widths = unit(rep(1, ncol), "null"),
-     heights = unit(rep(abs(aspect_ratio), nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
-    panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
-
-
-    panel_table <- gtable_add_col_space(panel_table, calc_element("panel.spacing.x", theme))
-    panel_table <- gtable_add_row_space(panel_table, calc_element("panel.spacing.y", theme))
+    empties <- matrix(TRUE, nrow, ncol)
+    empties[cbind(layout$ROW, layout$COL)] <- vapply(panels, is.zero, logical(1))
 
     # Add axes
     axis_mat_x_top <- empty_table
