@@ -406,6 +406,61 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     weave_axes(table, axes, empty)
   },
 
+  attach_strips = function(table, layout, axis_size, params, theme) {
+
+    # Format labels
+    if (length(params$facets) == 0) {
+      labels <- data_frame0("(all)" = "(all)", .size = 1)
+    } else {
+      labels <- layout[names(params$facets)]
+    }
+    attr(labels, "facet") <- "wrap"
+
+    # Render individual strips
+    strips <- render_strips(
+      x = structure(labels, type = "rows"),
+      y = structure(labels, type = "cols"),
+      params$labeller, theme
+    )
+
+    # Set position invariant parameters
+    padding  <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
+    position <- params$strip.position %||% "top"
+    prefix   <- paste0("strip-", substr(position, 1, 1))
+    pad <- axis_size[[position]]
+
+    # Setup weaving table
+    dim <- c(max(layout$ROW), max(layout$COL))
+    index <- convertInd(layout$ROW, layout$COL, dim[1])
+    mat <- matrix(list(zeroGrob()), dim[1], dim[2])
+    mat[index] <- unlist(unname(strips), recursive = FALSE)[[position]]
+
+    # Setup orientation dependent parameters
+    if (position %in% c("top", "bottom")) {
+      inside  <- "strip.placement.x"
+      size    <- apply(mat, 1, max_height, value_only = TRUE)
+      weave   <- weave_tables_row
+    } else {
+      inside  <- "strip.placement.y"
+      size    <- apply(mat, 2, max_width, value_only = TRUE)
+      weave   <- weave_tables_col
+      pad[as.numeric(pad) != 0] <- padding
+    }
+
+    inside <- (calc_element(inside, theme) %||% "inside") == "inside"
+    shift  <- switch(position, top = , left = c(-1, 2), c(0, 1))
+    shift  <- if (inside) shift[1] else shift[2]
+    size   <- unit(size, "cm")
+
+    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "on")
+    if (!inside) {
+      pad[as.numeric(pad) != 0] <- padding
+      table <- weave(table, missing_arg(), shift, pad)
+    }
+
+    table
+  },
+
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
       cli::cli_abort("{.fn {snake_class(self)}} can't use free scales with {.fn {snake_class(coord)}}.")
@@ -424,9 +479,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       }
     }
 
-    ncol <- max(layout$COL)
-    nrow <- max(layout$ROW)
-    n <- nrow(layout)
     panel_order <- order(layout$ROW, layout$COL)
     layout <- layout[panel_order, ]
     panels <- panels[panel_order]
@@ -439,63 +491,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       clip = coord$clip
     )
 
-    panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
-
-    if (length(params$facets) == 0) {
-      # Add a dummy label
-      labels_df <- data_frame0("(all)" = "(all)", .size = 1)
-    } else {
-      labels_df <- layout[names(params$facets)]
-    }
-    attr(labels_df, "facet") <- "wrap"
-    strips <- render_strips(
-      structure(labels_df, type = "rows"),
-      structure(labels_df, type = "cols"),
-      params$labeller, theme)
-
-    empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
-
     panel_table <- self$attach_axes(panel_table, layout, ranges, coord, theme, params)
-    axis_size   <- panel_table$sizes
-    panel_table <- panel_table$panels
 
-    strip_padding <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
-    strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
-    strip_mat <- empty_table
-    strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
-    if (params$strip.position %in% c("top", "bottom")) {
-      inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
-      if (params$strip.position == "top") {
-        placement <- if (inside_x) -1 else -2
-        strip_pad <- axis_size$top
-      } else {
-        placement <- if (inside_x) 0 else 1
-        strip_pad <- axis_size$bottom
-      }
-      strip_height <- unit(apply(strip_mat, 1, max_height, value_only = TRUE), "cm")
-      panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, coord$clip)
-      if (!inside_x) {
-        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
-        panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
-      }
-    } else {
-      inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
-      if (params$strip.position == "left") {
-        placement <- if (inside_y) -1 else -2
-        strip_pad <- axis_size$left
-      } else {
-        placement <- if (inside_y) 0 else 1
-        strip_pad <- axis_size$right
-      }
-      strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
-      strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
-      panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name, 2, coord$clip)
-      if (!inside_y) {
-        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
-        panel_table <- weave_tables_col(panel_table, col_shift = placement, col_width = strip_pad)
-      }
-    }
-    panel_table
+    self$attach_strips(panel_table$panels, layout, panel_table$sizes, params, theme)
   },
   vars = function(self) {
     names(self$params$facets)
