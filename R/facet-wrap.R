@@ -258,7 +258,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data
   },
 
-  init_panels = function(panels, layout, theme, aspect_ratio = NULL, clip = "on") {
+  init_gtable = function(panels, layout, theme, ranges, params, aspect_ratio = NULL, clip = "on") {
 
     dim <- c(max(layout$ROW), max(layout$COL))
 
@@ -488,8 +488,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     layout <- layout[panel_order, ]
     panels <- panels[panel_order]
 
-    panel_table <- self$init_panels(
-      panels, layout, theme,
+    panel_table <- self$init_gtable(
+      panels, layout, theme, ranges, params,
       # If user hasn't set aspect ratio, ask the coordinate system if
       # it wants to specify one
       aspect_ratio = theme$aspect.ratio %||% coord$aspect(ranges[[1]]),

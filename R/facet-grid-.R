@@ -336,16 +336,18 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     data
   },
 
-  init_panels = function(panels, layout, theme, ranges, params, aspect_ratio, clip = "on") {
+  init_gtable = function(panels, layout, theme, ranges, params, aspect_ratio = NULL, clip = "on") {
 
+    # Initialise matrix of panels
     dim   <- c(max(layout$ROW), max(layout$COL))
     table <- matrix(panels, dim[1], dim[2], byrow = TRUE)
 
-    space <- params$space_free %||% list(x = FALSE, y = FALSE)
-
+    # Set initial sizes
     widths  <- unit(rep(1, dim[2]), "null")
     heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
 
+    # When space are free, let panel parameter limits determine size of panel
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
     if (space$x) {
       idx    <- layout$PANEL[layout$ROW == 1]
       widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
@@ -358,6 +360,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       heights <- unit(heights, "null")
     }
 
+    # Build gtable
     table <- gtable_matrix(
       "layout", table,
       widths = widths, heights = heights,
@@ -365,6 +368,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       clip = clip, z = matrix(1, dim[1], dim[2])
     )
 
+    # Set panel names
     table$layout$name <- paste(
       "panel",
       rep(seq_len(dim[2]), dim[1]),
@@ -372,6 +376,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       sep = "-"
     )
 
+    # Add spacing between panels
     spacing <- lapply(
       c(x = "panel.spacing.x", y = "panel.spacing.y"),
       calc_element, theme = theme
@@ -384,11 +389,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 
-    dim <- c(max(layout$ROW), max(layout$COL))
-
+    # Setup parameters
     draw_axes   <- params$draw_axes   %||% list(x = FALSE, y = FALSE)
     axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
 
+    dim <- c(max(layout$ROW), max(layout$COL))
     if (!axis_labels$x) {
       cols    <- seq_len(nrow(layout))
       x_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
@@ -404,6 +409,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       y_order <- layout$ROW
     }
 
+    # Render individual axes
     ranges <- censor_labels(ranges, layout, axis_labels)
     axes   <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
@@ -543,9 +549,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
     }
 
-    panel_table <- self$init_panels(
+    panel_table <- self$init_gtable(
       panels, layout, theme, ranges, params,
-      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]]),
+      clip = coord$clip
     )
 
     panel_table <- self$attach_axes(
