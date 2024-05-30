@@ -447,7 +447,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     }
 
     inside <- (calc_element(inside, theme) %||% "inside") == "inside"
-    shift  <- switch(position, top = , left = c(-1, 2), c(0, 1))
+    shift  <- switch(position, top = , left = c(-1, -2), c(0, 1))
     shift  <- if (inside) shift[1] else shift[2]
     size   <- unit(size, "cm")
 
