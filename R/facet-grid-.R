@@ -412,47 +412,20 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # Render individual axes
     ranges <- censor_labels(ranges, layout, axis_labels)
     axes   <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
+    mtx    <- function(x, o) matrix(x[o], dim[1], dim[2], byrow = TRUE)
 
     if (draw_axes$x) {
-      table <- weave_axes(
-        table,
-        lapply(axes$x, function(x) matrix(x[x_order], dim[1], dim[2], byrow = TRUE))
-      )
+      table <- weave_axes(table, lapply(axes$x, mtx, o = x_order))
     } else {
-      table  <- gtable_add_rows(table, max_height(axes$x$top), 0)
-      table  <- gtable_add_rows(table, max_height(axes$x$bottom), -1)
-      panels <- panel_cols(table)
-      table  <- gtable_add_grob(
-        table, axes$x$top,
-        t = 1, l = panels$l, clip = "off", z = 3,
-        name = paste0("axis-t-", seq_along(axes$x$top))
-      )
-      table <- gtable_add_grob(
-        table, axes$x$bottom,
-        t = -1, l = panels$l, clip = "off", z = 3,
-        name = paste0("axis-b-", seq_along(axes$x$bottom))
-      )
+      table <- seam_table(table, axes$x$top,    side = "top",    name = "axis-t", z = 3)
+      table <- seam_table(table, axes$x$bottom, side = "bottom", name = "axis-b", z = 3)
     }
 
     if (draw_axes$y) {
-      table <- weave_axes(
-        table,
-        lapply(axes$y, function(y) matrix(y[y_order], dim[1], dim[2], byrow = TRUE))
-      )
+      table <- weave_axes(table, lapply(axes$y, mtx, o = y_order))
     } else {
-      table  <- gtable_add_cols(table, max_width(axes$y$left), 0)
-      table  <- gtable_add_cols(table, max_width(axes$y$right), -1)
-      panels <- panel_rows(table)
-      table  <- gtable_add_grob(
-        table, axes$y$left,
-        t = panels$t, l = 1, clip = "off", z = 3,
-        name = paste0("axis-l-", seq_along(axes$y$left))
-      )
-      table <- gtable_add_grob(
-        table, axes$y$right,
-        t = panels$t, l = -1, clip = "off", z = 3,
-        name = paste0("axis-r-", seq_along(axes$y$right))
-      )
+      table <- seam_table(table, axes$y$left,  side = "left",  name = "axis-l", z = 3)
+      table <- seam_table(table, axes$y$right, side = "right", name = "axis-r", z = 3)
     }
 
     table
@@ -467,74 +440,43 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     attr(col_vars, "facet") <- "grid"
     attr(row_vars, "facet") <- "grid"
 
-    strips <- render_strips(col_vars, row_vars, params$labeller, theme)
-
-    switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
-    switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
-
-    inside_x <- (calc_element("strip.placement.x", theme) %||% "inside") == "inside"
-    inside_y <- (calc_element("strip.placement.y", theme) %||% "inside") == "inside"
-
+    strips  <- render_strips(col_vars, row_vars, params$labeller, theme)
     padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
 
-    args <- list(l = panel_cols(table)$l, clip = "on", z = 2)
+    switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
+    inside_x <- (calc_element("strip.placement.x", theme) %||% "inside") == "inside"
+    shift_x  <- if (inside_x) 1 else 2
+
     if (switch_x) {
-      strip <- strips$x$bottom
-      if (!is.null(strip)) {
-        args[c("name", "t")] <- list(paste0("strip-b-", seq_along(strip)), -2)
-        if (!inside_x) {
-          if (table_has_grob(table, "axis-b")) {
-            table <- gtable_add_rows(table, padding, -1)
-          }
-          args$t <- -1
-        }
-        table <- gtable_add_rows(table, max_height(strip), args$t)
-      }
+      space <- if (!inside_x & table_has_grob(table, "axis-b")) padding
+      table <- seam_table(
+        table, strips$x$bottom, side = "bottom", name = "strip-b",
+        shift = shift_x, z = 2, clip = "on", spacing = space
+      )
     } else {
-      strip <- strips$x$top
-      if (!is.null(strip)) {
-        args[c("name", "t")] <- list(paste0("strip-t-", seq_along(strip)), 2)
-        if (!inside_x) {
-          if (table_has_grob(table, "axis-t")) {
-            table <- gtable_add_rows(table, padding, 0)
-          }
-          args$t <- 1
-        }
-        table <- gtable_add_rows(table, max_height(strip), args$t - 1)
-      }
-    }
-    if (!is.null(strip)) {
-      table <- inject(gtable_add_grob(table, strip, !!!args))
+      space <- if (!inside_x & table_has_grob(table, "axis-t")) padding
+      table <- seam_table(
+        table, strips$x$top, side = "top", name = "strip-t",
+        shift = shift_x, z = 2, clip = "on", spacing = space
+      )
     }
 
-    args <- list(t = panel_rows(table)$t, clip = "on", z = 2)
+    switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
+    inside_y <- (calc_element("strip.placement.y", theme) %||% "inside") == "inside"
+    shift_y  <- if (inside_y) 1 else 2
+
     if (switch_y) {
-      strip <- strips$y$left
-      if (!is.null(strip)) {
-        args[c("name", "l")] <- list(paste0("strip-l-", seq_along(strip)), 2)
-        if (!inside_y) {
-          if (table_has_grob(table, "axis-l")) {
-            table <- gtable_add_cols(table, padding, 0)
-          }
-          args$l <- 1
-        }
-        table <- gtable_add_cols(table, max_width(strip), args$l - 1)
-      }
+      space <- if (!inside_y & table_has_grob(table, "axis-l")) padding
+      table <- seam_table(
+        table, strips$y$left, side = "left", name = "strip-l",
+        shift = shift_y, z = 2, clip = "on", spacing = space
+      )
     } else {
-      strip <- strips$y$right
-      if (!is.null(strip)) {
-        args[c("name", "l")] <- list(paste0("strip-r-", seq_along(strip)), -2)
-        if (!inside_y) {
-          if (table_has_grob(table, "axis-r")) {
-            table <- gtable_add_cols(table, padding, -1)
-          }
-          args$l <- -1
-        }
-        table <- gtable_add_cols(table, max_width(strip), args$l)
-      }
-    }
-    if (!is.null(strip)) {
-      table <- inject(gtable_add_grob(table, strip, !!!args))
+      space <- if (!inside_y & table_has_grob(table, "axis-r")) padding
+      table <- seam_table(
+        table, strips$y$right, side = "right", name = "strip-r",
+        shift = shift_y, z = 2, clip = "on", spacing = space
+      )
     }
     table
   },
@@ -580,4 +522,48 @@ ulevels <- function(x, na.last = TRUE) {
 table_has_grob <- function(table, pattern) {
   grobs <- table$grobs[grep(pattern, table$layout$name)]
   !all(vapply(grobs, is.zero, logical(1)))
+}
+
+seam_table <- function(table, grobs = NULL, side, shift = 1, name, z = 1,
+                       clip = "off", spacing = NULL) {
+  if (is.null(grobs)) {
+    return(table)
+  }
+
+  panel_col <- panel_cols(table)
+  panel_row <- panel_rows(table)
+
+  row <- switch(
+    side,
+    bottom = max(panel_row$b) + shift - 1L,
+    top    = min(panel_row$t) - shift,
+    panel_row$t
+  )
+
+  col <- switch(
+    side,
+    right = max(panel_col$r) + shift - 1L,
+    left  = min(panel_col$l) - shift,
+    panel_col$l
+  )
+
+  if (!is.null(spacing)) {
+    table <- switch(
+      side,
+      bottom = , top = gtable_add_rows(table, spacing, row),
+      left = , right = gtable_add_cols(table, spacing, col)
+    )
+    row <- row + as.numeric(side == "bottom")
+    col <- col + as.numeric(side == "right")
+  }
+
+  table <- switch(
+    side,
+    bottom = , top = gtable_add_rows(table, max_height(grobs), row),
+    left = , right = gtable_add_cols(table, max_width(grobs),  col)
+  )
+  name <- paste(name, seq_along(grobs), sep = "-")
+  row  <- row + as.numeric(side %in% c("top", "bottom"))
+  col  <- col + as.numeric(side %in% c("left", "right"))
+  gtable_add_grob(table, grobs, t = row, l = col, name = name, z = z, clip = clip)
 }
