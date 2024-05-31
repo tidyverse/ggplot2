@@ -127,11 +127,6 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
     guide <- "none"
   }
 
-  transform <- as.transform(transform)
-  if (!is.null(limits) && !is.function(limits)) {
-    limits <- transform$transform(limits)
-  }
-
   # Convert formula to function if appropriate
   limits   <- allow_lambda(limits)
   breaks   <- allow_lambda(breaks)
@@ -139,6 +134,14 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   rescaler <- allow_lambda(rescaler)
   oob      <- allow_lambda(oob)
   minor_breaks <- allow_lambda(minor_breaks)
+
+  transform <- as.transform(transform)
+  if (!is.null(limits) && !is.function(limits)) {
+    limits <- transform$transform(limits)
+    if (!anyNA(limits)) {
+      limits <- sort(limits)
+    }
+  }
 
   ggproto(NULL, super,
     call = call,
