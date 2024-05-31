@@ -52,8 +52,8 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     ndodge <- max(vapply(ndodge, vec_unique_count, integer(1)))
 
     list(
-      dodge.width = self$dodge.width,
-      jitter.height = self$jitter.height,
+      dodge.width = self$dodge.width %||% 0.75,
+      jitter.height = self$jitter.height %||% 0,
       jitter.width = width / (ndodge + 2),
       seed = self$seed,
       flipped_aes = flipped_aes
