@@ -700,7 +700,7 @@ render_axes <- function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
 #'
 #' @keywords internal
 #' @export
-render_strips <- function(x = NULL, y = NULL, labeller, theme) {
+render_strips <- function(x = NULL, y = NULL, labeller = identity, theme) {
   list(
     x = build_strip(x, labeller, theme, TRUE),
     y = build_strip(y, labeller, theme, FALSE)

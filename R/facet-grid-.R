@@ -335,7 +335,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
       cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
     }
@@ -362,14 +362,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     ranges <- censor_labels(ranges, layout, params$axis_labels)
     axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
-    col_vars <- unique0(layout[names(params$cols)])
-    row_vars <- unique0(layout[names(params$rows)])
-    # Adding labels metadata, useful for labellers
-    attr(col_vars, "type") <- "cols"
-    attr(col_vars, "facet") <- "grid"
-    attr(row_vars, "type") <- "rows"
-    attr(row_vars, "facet") <- "grid"
-    strips <- render_strips(col_vars, row_vars, params$labeller, theme)
+    strips <- self$format_strip_labels(layout, params)
+    strips <- render_strips(strips$cols, strips$rows, theme = theme)
 
     aspect_ratio <- theme$aspect.ratio
     if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {

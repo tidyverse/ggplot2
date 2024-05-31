@@ -293,17 +293,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     ranges <- censor_labels(ranges, layout, params$axis_labels)
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
-    if (length(params$facets) == 0) {
-      # Add a dummy label
-      labels_df <- data_frame0("(all)" = "(all)", .size = 1)
-    } else {
-      labels_df <- layout[names(params$facets)]
-    }
-    attr(labels_df, "facet") <- "wrap"
-    strips <- render_strips(
-      structure(labels_df, type = "rows"),
-      structure(labels_df, type = "cols"),
-      params$labeller, theme)
+    strips <- self$format_strip_labels(layout, params)
+    strips <- render_strips(strips$facets, strips$facets, theme = theme)
 
     # If user hasn't set aspect ratio, ask the coordinate system if
     # it wants to specify one
