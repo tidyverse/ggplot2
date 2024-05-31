@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* New function `get_strip_labels()` to retrieve facet labels (@teunbrand, #4979)
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.
