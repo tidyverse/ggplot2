@@ -83,7 +83,7 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
-                           reverse = TRUE) {
+                           reverse = FALSE) {
   check_bool(reverse)
   ggproto(NULL, PositionDodge,
     width = width,
@@ -124,7 +124,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       width = self$width,
       n = n,
       flipped_aes = flipped_aes,
-      reverse = self$reverse %||% TRUE
+      reverse = self$reverse %||% FALSE
     )
   },
 
@@ -145,7 +145,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       strategy = pos_dodge,
       n = params$n,
       check.width = FALSE,
-      reverse = params$reverse
+      reverse = !params$reverse # for consistency with `position_dodge2()`
     )
     flip_data(collided, params$flipped_aes)
   }

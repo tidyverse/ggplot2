@@ -31,9 +31,9 @@ test_that("position_dodge() can reverse the dodge order", {
   # Use label as easy to track identifier
   p <- ggplot(df, aes(x, y = 1, fill = group, label = group))
 
-  ld <- get_layer_data(p + geom_col(position = position_dodge(reverse = FALSE)))
+  ld <- get_layer_data(p + geom_col(position = position_dodge(reverse = TRUE)))
   expect_equal(ld$label[order(ld$x)], c("A", "B", "A", "C", "B"))
 
-  ld <- get_layer_data(p + geom_col(position = position_dodge(reverse = TRUE)))
+  ld <- get_layer_data(p + geom_col(position = position_dodge(reverse = FALSE)))
   expect_equal(ld$label[order(ld$x)], c("A", "A", "B", "B", "C"))
 })

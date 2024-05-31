@@ -20,7 +20,7 @@
 #'   geom_boxplot(outlier.size = 0) +
 #'   geom_point(pch = 21, position = position_jitterdodge())
 position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
-                                 dodge.width = 0.75, reverse = TRUE,
+                                 dodge.width = 0.75, reverse = FALSE,
                                  seed = NA) {
   if (!is.null(seed) && is.na(seed)) {
     seed <- sample.int(.Machine$integer.max, 1L)
@@ -70,14 +70,20 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
       jitter.width = width / (ndodge + 2),
       seed = self$seed,
       flipped_aes = flipped_aes,
-      reverse = self$reverse %||% TRUE
+      reverse = self$reverse %||% FALSE
     )
   },
 
   compute_panel = function(data, params, scales) {
     data <- flip_data(data, params$flipped_aes)
-    data <- collide(data, params$dodge.width, "position_jitterdodge", pos_dodge,
-                    check.width = FALSE, reverse = params$reverse)
+    data <- collide(
+      data,
+      params$dodge.width,
+      "position_jitterdodge",
+      strategy = pos_dodge,
+      check.width = FALSE,
+      reverse = !params$reverse # for consistency with `position_dodge2()`
+    )
 
     trans_x <- if (params$jitter.width > 0) function(x) jitter(x, amount = params$jitter.width)
     trans_y <- if (params$jitter.height > 0) function(x) jitter(x, amount = params$jitter.height)
