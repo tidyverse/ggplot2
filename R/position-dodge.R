@@ -16,6 +16,8 @@
 #' @param orientation Fallback orientation when the layer or the data does not
 #'    indicate an explicit orientation, like `geom_point()`. Can be `"x"`
 #'    (default) or `"y"`.
+#' @param reverse If `TRUE`, will reverse the default stacking order.
+#'   This is useful if you're rotating both the plot and legend.
 #' @family position adjustments
 #' @export
 #' @examples
