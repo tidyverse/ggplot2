@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `position_dodge()` and `position_jitterdodge()` now have a `reverse` argument 
+  (@teunbrand, #3610)
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.
