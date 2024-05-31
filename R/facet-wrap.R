@@ -481,6 +481,22 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   },
   vars = function(self) {
     names(self$params$facets)
+  },
+
+  format_strip_labels = function(layout, params) {
+    if (length(params$facets) == 0) {
+      labels <- data_frame0("(all)" = "(all)", .size = 1)
+    } else {
+      labels <- layout[intersect(names(params$facets), names(layout))]
+    }
+    if (empty(labels)) {
+      return(NULL)
+    }
+    attr(labels, "facet") <- "wrap"
+    attr(labels, "type") <- switch(params$strip.position, left = , right = "rows", "cols")
+
+    labeller <- match.fun(params$labeller)
+    list(facets = data_frame0(!!!labeller(labels)))
   }
 )
 

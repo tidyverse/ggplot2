@@ -506,6 +506,33 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   vars = function(self) {
     names(c(self$params$rows, self$params$cols))
+  },
+
+  format_strip_labels = function(layout, params) {
+
+    labeller <- match.fun(params$labeller)
+
+    cols <- intersect(names(layout), names(params$cols))
+    if (length(cols) > 0) {
+      col_vars <- unique0(layout[cols])
+      attr(col_vars, "type")  <- "cols"
+      attr(col_vars, "facet") <- "grid"
+      cols <- data_frame0(!!!labeller(col_vars))
+    } else {
+      cols <- NULL
+    }
+
+    rows <- intersect(names(layout), names(params$rows))
+    if (length(rows) > 0) {
+      row_vars <- unique0(layout[rows])
+      attr(row_vars, "type")  <- "rows"
+      attr(row_vars, "facet") <- "grid"
+      rows <- data_frame0(!!!labeller(row_vars))
+    } else {
+      rows <- NULL
+    }
+
+    list(cols = cols, rows = rows)
   }
 )
 

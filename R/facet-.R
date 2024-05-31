@@ -175,6 +175,9 @@ Facet <- ggproto("Facet", NULL,
   },
   vars = function() {
     character(0)
+  },
+  format_strip_labels = function(layout, params) {
+    return()
   }
 )
 
