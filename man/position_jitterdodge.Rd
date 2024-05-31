@@ -8,6 +8,7 @@ position_jitterdodge(
   jitter.width = NULL,
   jitter.height = 0,
   dodge.width = 0.75,
+  reverse = FALSE,
   seed = NA
 )
 }
@@ -19,6 +20,9 @@ resolution of the data.}
 
 \item{dodge.width}{the amount to dodge in the x direction. Defaults to 0.75,
 the default \code{position_dodge()} width.}
+
+\item{reverse}{If \code{TRUE}, will reverse the default stacking order.
+This is useful if you're rotating both the plot and legend.}
 
 \item{seed}{A random seed to make the jitter reproducible.
 Useful if you need to apply the same jitter twice, e.g., for a point and
