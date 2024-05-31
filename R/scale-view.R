@@ -35,7 +35,7 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
     name = scale$name,
     scale_is_discrete = scale$is_discrete(),
     limits = limits,
-    continuous_range = continuous_range,
+    continuous_range = continuous_scale_sorted,
     breaks = breaks,
     minor_breaks = minor_breaks
   )
