@@ -48,8 +48,9 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     data <- flip_data(data, flipped_aes)
     width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
 
-    ndodge <- split(data$group, list(data$PANEL, data$x))
-    ndodge <- max(vapply(ndodge, vec_unique_count, integer(1)))
+    ndodge <- vec_unique(data[c("group", "PANEL", "x")])
+    ndodge <- vec_group_id(ndodge[c("PANEL", "x")])
+    ndodge <- max(tabulate(ndodge, attr(ndodge, "n")))
 
     list(
       dodge.width = self$dodge.width %||% 0.75,
