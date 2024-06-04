@@ -366,7 +366,7 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
       x <- self$trans$inverse(x)
       cli::cli_warn(c(
         "A {.cls numeric} value was passed to a {.field Datetime} scale.",
-        i = "The value was converted to a {obj_type_friendly(x)}."
+        i = "The value was converted to {obj_type_friendly(x)}."
       ), call = self$call)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
@@ -413,7 +413,7 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
       x <- self$trans$inverse(x)
       cli::cli_warn(c(
         "A {.cls numeric} value was passed to a {.field Date} scale.",
-        i = "The value was converted to a {obj_type_friendly(x)}."
+        i = "The value was converted to {obj_type_friendly(x)}."
       ), call = self$call)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
