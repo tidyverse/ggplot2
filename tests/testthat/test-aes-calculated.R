@@ -70,6 +70,28 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
   expect_snapshot_warning(ggplot_build(p))
 })
 
+test_that("calculated aesthetics throw warnings when lengths mismatch", {
+
+  df <- data.frame(x = 1:2)
+
+  p <- ggplot(df, aes(x, x))
+
+  expect_warning(
+    ggplot_build(
+      p + geom_point(aes(colour = after_stat(c("A", "B", "C"))))
+    ),
+    "Failed to apply"
+  )
+
+  expect_warning(
+    ggplot_build(
+      p + geom_point(aes(colour = after_scale(c("red", "green", "blue"))))
+    ),
+    "Failed to apply"
+  )
+
+})
+
 test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {
   p1 <- ggplot(NULL, aes(stat(foo)))
   expect_snapshot_warning(b1 <- ggplot_build(p1))

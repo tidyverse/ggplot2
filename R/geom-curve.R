@@ -62,7 +62,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
       default.units = "native",
       curvature = curvature, angle = angle, ncp = ncp,
       square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
-      gp = ggpar(
+      gp = gg_par(
         col = alpha(trans$colour, trans$alpha),
         fill = alpha(arrow.fill, trans$alpha),
         lwd = trans$linewidth,

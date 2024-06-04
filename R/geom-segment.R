@@ -122,7 +122,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       arrow.fill <- arrow.fill %||% coord$colour
       return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
         default.units = "native",
-        gp = ggpar(
+        gp = gg_par(
           col = alpha(coord$colour, coord$alpha),
           fill = alpha(arrow.fill, coord$alpha),
           lwd = coord$linewidth,

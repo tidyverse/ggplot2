@@ -300,6 +300,14 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   g <- guide_bins()
   key <- g$train(scale = scale, aesthetics = "colour")$key
   expect_true(all(diff(key$.value) > 0))
+
+  # Out of bound breaks are removed
+  scale <- scale_colour_viridis_c(breaks = c(10, 20, 30, 40, 50), na.value = "grey50")
+  scale$train(c(15, 45))
+
+  g <- guide_colorsteps()
+  key <- g$train(scale = scale, aesthetic = "colour")$key
+  expect_equal(sum(key$colour == "grey50"), 0)
 })
 
 test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
@@ -541,6 +549,25 @@ test_that("bins can be parsed by guides for all scale types", {
   expect_equal(
     sort(c(parsed$limits, parsed$breaks)),
     breaks
+  )
+})
+
+test_that("legends can be forced to display unrelated geoms", {
+
+  df <- data.frame(x = 1:2)
+
+  p <- ggplot(df, aes(x, x)) +
+    geom_tile(fill = "red", show.legend = TRUE) +
+    scale_colour_discrete(
+      limits = c("A", "B")
+    )
+
+  b <- ggplot_build(p)
+  legend <- b$plot$guides$params[[1]]
+
+  expect_equal(
+    legend$decor[[1]]$data$fill,
+    c("red", "red")
   )
 })
 

@@ -19,7 +19,7 @@
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
-#'   One of "horizontal" or "vertical."
+#'   One of "horizontal" or "vertical".
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
 #' @param nrow,ncol The desired number of rows and column of legends
@@ -225,41 +225,36 @@ GuideLegend <- ggproto(
 
   get_layer_key = function(params, layers, data) {
 
+    # Return empty guides as-is
+    if (nrow(params$key) < 1) {
+      return(params)
+    }
+
     decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
+      # Subset key to the column with aesthetic matching the layer
       matched_aes <- matched_aes(layer, params)
+      key <- params$key[matched_aes]
+      key$.id <- seq_len(nrow(key))
 
+      # Filter static aesthetics to those with single values
+      single_params <- lengths(layer$aes_params) == 1L
+      single_params <- layer$aes_params[single_params]
+
+      # Use layer to populate defaults
+      key <- layer$compute_geom_2(key, single_params)
+
+      # Filter non-existing levels
       if (length(matched_aes) > 0) {
-        # Filter out aesthetics that can't be applied to the legend
-        n <- lengths(layer$aes_params, use.names = FALSE)
-        layer_params <- layer$aes_params[n == 1]
-
-        aesthetics  <- layer$computed_mapping
-        is_modified <- is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)
-        modifiers   <- aesthetics[is_modified]
-
-        data <- try_fetch(
-          layer$geom$use_defaults(params$key[matched_aes],
-                                  layer_params, modifiers),
-          error = function(cnd) {
-            cli::cli_warn(
-              "Failed to apply {.fn after_scale} modifications to legend",
-              parent = cnd
-            )
-            layer$geom$use_defaults(params$key[matched_aes], layer_params, list())
-          }
-        )
-        data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
-      } else {
-        reps <- rep(1, nrow(params$key))
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[reps, ]
+        key$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
       }
 
-      data <- modify_list(data, params$override.aes)
+      # Apply overrides
+      key <- modify_list(key, params$override.aes)
 
       list(
         draw_key = layer$geom$draw_key,
-        data     = data,
+        data     = key,
         params   = c(layer$computed_geom_params, layer$computed_stat_params)
       )
     })

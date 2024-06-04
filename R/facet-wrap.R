@@ -586,6 +586,21 @@ wrap_layout <- function(id, dims, dir) {
   as.table <- TRUE
   n <- attr(id, "n")
 
+  if (nchar(dir) != 2) {
+    # Should only occur when `as.table` was not incorporated into `dir`
+    dir <- switch(dir, h = "lt", v = "tl")
+    deprecate_soft0(
+      "3.5.2",
+      what = I("Internal use of `dir = \"h\"` and `dir = \"v\"` in `facet_wrap()`"),
+      details = I(c(
+        "The `dir` argument should incorporate the `as.table` argument.",
+        paste0("Falling back to `dir = \"", dir, "\"`.")
+      ))
+    )
+  }
+
+  dir <- arg_match0(dir, c("lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))
+
   ROW <- switch(
     dir,
     lt = , rt = (id - 1L) %/% dims[2] + 1L,

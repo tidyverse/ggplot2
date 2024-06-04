@@ -111,9 +111,9 @@ PositionDodge <- ggproto("PositionDodge", Position,
     if (identical(self$preserve, "total")) {
       n <- NULL
     } else {
-      panels <- unname(split(data, data$PANEL))
-      ns <- vapply(panels, function(panel) max(table(panel$xmin)), double(1))
-      n <- max(ns)
+      n <- vec_unique(data[c("group", "PANEL", "xmin")])
+      n <- vec_group_id(n[c("PANEL", "xmin")])
+      n <- max(tabulate(n, attr(n, "n")))
     }
 
     list(

@@ -1,7 +1,37 @@
 # ggplot2 (development version)
 
-* (internal) The plot's layout now has a coord parameters that is used to 
+* (internal) The plot's layout now has a coord parameter that is used to 
   prevent setting up identical panel parameters (#5427)
+* `position_dodge(preserve = "single")` now handles multi-row geoms better,
+  such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
+* `position_jitterdodge()` now dodges by `group` (@teunbrand, #3656)
+* The `arrow.fill` parameter is now applied to more line-based functions: 
+  `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
+   geometries in `geom_sf()` and `element_line()`.
+* Fixed bug where binned guides would keep out-of-bounds breaks 
+  (@teunbrand, #5870).
+* The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 
+  aesthetic (#4852).
+* New function `complete_theme()` to replicate how themes are handled during
+  plot building (#5801).
+* Special getter and setter functions have been renamed for consistency, allowing
+  for better tab-completion with `get_*`- and `set_*`-prefixes. The old names 
+  remain available for backward compatibility (@teunbrand, #5568).
+  
+  | New name             | Old name          |
+  | -------------------- | ----------------- |
+  | `get_theme()`        | `theme_get()`     |
+  | `set_theme()`        | `theme_set()`     |
+  | `replace_theme()`    | `theme_replace()` |
+  | `update_theme()`     | `theme_update()`  |
+  | `get_last_plot()`    | `last_plot()`     |
+  | `get_layer_data()`   | `layer_data()`    |
+  | `get_layer_grob()`   | `layer_grob()`    |
+  | `get_panel_scales()` | `layer_scales()`  |
+
+* Discrete scales now support `minor_breaks`. This may only make sense in
+  discrete position scales, where it affects the placement of minor ticks
+  and minor gridlines (#5434).
 * Discrete position scales now expose the `palette` argument, which can be used 
   to customise spacings between levels (@teunbrand, #5770).
 * The default `se` parameter in layers with `geom = "smooth"` will be `TRUE` 
@@ -19,7 +49,8 @@
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
-  control panel directions (@teunbrand, #5212)
+  control panel directions. Internally `dir = "h"` or `dir = "v"` is deprecated 
+  (@teunbrand, #5212).
 * Prevented `facet_wrap(..., drop = FALSE)` from throwing spurious errors when
   a character facetting variable contained `NA`s (@teunbrand, #5485).
 * When facets coerce the faceting variables to factors, the 'ordered' class
@@ -36,7 +67,7 @@
   (@teunbrand, #5756).
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
   (@teunbrand, #5856).
-* New helper function `ggpar()` to translate ggplot2's interpretation of 
+* New helper function `gg_par()` to translate ggplot2's interpretation of 
   graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
 * `scale_{x/y}_discrete()` can now accept a `sec.axis`. It is recommended to
   only use `dup_axis()` to set custom breaks or labels, as discrete variables 
@@ -51,6 +82,20 @@
   per layer (@teunbrand, #5740).
 * The `fill` of the `panel.border` theme setting is ignored and forced to be
   transparent (#5782).
+* `stat_align()` skips computation when there is only 1 group and therefore
+  alignment is not necessary (#5788).
+* `position_stack()` skips computation when all `x` values are unique and 
+  therefore stacking is not necessary (#5788).
+* A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
+  returns input unaltered (@teunbrand, #5800).
+* `width` is implemented as aesthetic instead of parameter in `geom_col()` and
+  `geom_bar()` (#3142).
+* Fix a bug in `position_jitterdodge()` where different jitters would be applied
+  to different position aesthetics of the same axis (@teunbrand, #5818).
+* In `stat_bin()`, the default `boundary` is now chosen to better adhere to 
+  the `nbin` argument (@teunbrand, #5882, #5036)
+* `after_stat()` and `after_scale()` throw warnings when the computed aesthetics
+  are not of the correct length (#5901).
 
 # ggplot2 3.5.1
 
