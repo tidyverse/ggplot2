@@ -258,41 +258,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data
   },
 
-  init_gtable = function(panels, layout, theme, ranges, params, aspect_ratio = NULL, clip = "on") {
-
-    dim <- c(max(layout$ROW), max(layout$COL))
-
-    # Initialise matrix of panels
-    table <- matrix(list(zeroGrob()), dim[1], dim[2])
-    table[cbind(layout$ROW, layout$COL)] <- panels
-
-    table <- gtable_matrix(
-      "layout", table,
-      widths  = unit(rep(1, dim[2]), "null"),
-      heights = unit(rep(aspect_ratio %||% 1, dim[1]), "null"),
-      respect = !is.null(aspect_ratio),
-      clip = clip,
-      z = matrix(1, dim[1], dim[2])
-    )
-
-    # Set panel names
-    table$layout$name <- paste(
-      "panel",
-      rep(seq_len(dim[2]), dim[1]),
-      rep(seq_len(dim[1]), each = dim[2]),
-      sep = "-"
-    )
-
-    # Add panel spacing
-    spacing <- lapply(
-      c(x = "panel.spacing.x", y = "panel.spacing.y"),
-      calc_element, theme = theme
-    )
-    table <- gtable_add_col_space(table, spacing$x)
-    table <- gtable_add_row_space(table, spacing$y)
-    table
-  },
-
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 
     # Setup parameters

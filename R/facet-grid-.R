@@ -336,57 +336,6 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     data
   },
 
-  init_gtable = function(panels, layout, theme, ranges, params, aspect_ratio = NULL, clip = "on") {
-
-    # Initialise matrix of panels
-    dim   <- c(max(layout$ROW), max(layout$COL))
-    table <- matrix(panels, dim[1], dim[2], byrow = TRUE)
-
-    # Set initial sizes
-    widths  <- unit(rep(1, dim[2]), "null")
-    heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
-
-    # When space are free, let panel parameter limits determine size of panel
-    space <- params$space_free %||% list(x = FALSE, y = FALSE)
-    if (space$x) {
-      idx    <- layout$PANEL[layout$ROW == 1]
-      widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
-      widths <- unit(widths, "null")
-    }
-
-    if (space$y) {
-      idx <- layout$PANEL[layout$COL == 1]
-      heights <- vapply(idx, function(i) diff(ranges[[i]]$y.range), numeric(1))
-      heights <- unit(heights, "null")
-    }
-
-    # Build gtable
-    table <- gtable_matrix(
-      "layout", table,
-      widths = widths, heights = heights,
-      respect = !is.null(aspect_ratio),
-      clip = clip, z = matrix(1, dim[1], dim[2])
-    )
-
-    # Set panel names
-    table$layout$name <- paste(
-      "panel",
-      rep(seq_len(dim[2]), dim[1]),
-      rep(seq_len(dim[1]), each = dim[2]),
-      sep = "-"
-    )
-
-    # Add spacing between panels
-    spacing <- lapply(
-      c(x = "panel.spacing.x", y = "panel.spacing.y"),
-      calc_element, theme = theme
-    )
-
-    table <- gtable_add_col_space(table, spacing$x)
-    table <- gtable_add_row_space(table, spacing$y)
-    table
-  },
-
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 
     # Setup parameters
