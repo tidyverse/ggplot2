@@ -170,10 +170,31 @@ GeomRug <- ggproto("GeomRug", Geom,
       sides_aes <- c(sides_aes, "y")
     }
 
-    remove_missing(
-      data, params$na.rm,
-      c(sides_aes, self$required_aes, self$non_missing_aes),
-      snake_class(self)
-    )
+    if (length(sides_aes) > 0) {
+      df_list <- lapply(
+        sides_aes,
+        function(axis) {
+          remove_missing(
+            data, params$na.rm,
+            c(axis, self$required_aes, self$non_missing_aes),
+            snake_class(self)
+          )
+        }
+      )
+      data <- switch(
+        paste0(sides_aes, collapse = ""),
+        "x" = ,
+        "y" = df_list[[1]],
+        "xy" = dplyr::union(df_list[[1]], df_list[[2]])
+      )
+    } else {
+      data <- remove_missing(
+        data, params$na.rm,
+        c(self$required_aes, self$non_missing_aes),
+        snake_class(self)
+      )
+    }
+
+    data
   }
 )
