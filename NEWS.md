@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* All position scales now use the same definition of `x` and `y` aesthetics.
+  This lets uncommon aesthetics like `xintercept` expand scales as usual.
+  (#3342, #4966, @teunbrand)
+* Bare numeric values provided to Date or Datetime scales get inversely 
+  transformed (cast to Date/POSIXct) with a warning (@teunbrand).
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.

@@ -68,3 +68,18 @@ test_that("datetime colour scales work", {
 
   expect_equal(range(get_layer_data(p)$colour), c("#132B43", "#56B1F7"))
 })
+
+test_that("date(time) scales throw warnings when input is numeric", {
+  p <- ggplot(data.frame(x = 1, y = 1), aes(x, y)) + geom_point()
+
+  expect_warning(
+    ggplot_build(p + scale_x_date()),
+    "The value was converted to a <Date> object."
+  )
+
+  expect_warning(
+    ggplot_build(p + scale_x_datetime()),
+    "The value was converted to a <POSIXt/POSIXct> object."
+  )
+
+})
