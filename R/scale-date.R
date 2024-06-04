@@ -362,6 +362,13 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
       self$timezone <- tz
       self$trans <- transform_time(self$timezone)
     }
+    if (is_bare_numeric(x)) {
+      x <- self$trans$inverse(x)
+      cli::cli_warn(c(
+        "A {.cls numeric} value was passed to a {.field Datetime} scale.",
+        i = "The value was converted to a {obj_type_friendly(x)}."
+      ), call = self$call)
+    }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
   map = function(self, x, limits = self$get_limits()) {
@@ -400,6 +407,16 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
   secondary.axis = waiver(),
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
+  },
+  transform = function(self, x) {
+    if (is_bare_numeric(x)) {
+      x <- self$trans$inverse(x)
+      cli::cli_warn(c(
+        "A {.cls numeric} value was passed to a {.field Date} scale.",
+        i = "The value was converted to a {obj_type_friendly(x)}."
+      ), call = self$call)
+    }
+    ggproto_parent(ScaleContinuous, self)$transform(x)
   },
   get_breaks = function(self, limits = self$get_limits()) {
     breaks <- ggproto_parent(ScaleContinuous, self)$get_breaks(limits)
