@@ -449,7 +449,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "top") {
         placement <- if (inside_x) -1 else -2
-        strip_pad <- axis_size$top
+        # strip_pad <- axis_size$top
+        strip_pad <- rep(strip_padding,ncol)
       } else {
         placement <- if (inside_x) 0 else 1
         strip_pad <- axis_size$bottom
@@ -464,10 +465,12 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "left") {
         placement <- if (inside_y) -1 else -2
-        strip_pad <- axis_size$left
+        # strip_pad <- axis_size$left
+        strip_pad <- rep(strip_padding,ncol)
       } else {
         placement <- if (inside_y) 0 else 1
-        strip_pad <- axis_size$right
+        # strip_pad <- axis_size$right
+        strip_pad <- rep(strip_padding,ncol)
       }
       strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
       strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
