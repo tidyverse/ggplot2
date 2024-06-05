@@ -133,8 +133,32 @@ Facet <- ggproto("Facet", NULL,
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    cli::cli_abort("Not implemented.")
+  draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
+                         ranges, coord, data = NULL, theme, params) {
+
+    free  <- params$free       %||% list(x = FALSE, y = FALSE)
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+
+    if ((free$x || free$y) && !coord$is_free()) {
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} can't use free scales with \\
+        {.fn {snake_class(coord)}}."
+      )
+    }
+
+    aspect_ratio <- theme$aspect.ratio
+    if (!is.null(aspect_ratio) && (space$x || space$y)) {
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
+    }
+
+    table <- self$init_gtable(
+      panels, layout, theme, ranges, params,
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]]),
+      clip = coord$clip
+    )
+
+    table <- self$attach_axes(table, layout, ranges, coord, theme, params)
+    self$attach_strips(table, layout, params, theme)
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -228,7 +252,7 @@ Facet <- ggproto("Facet", NULL,
   attach_axes = function(table, layout, ranges, coord, theme, params) {
     table
   },
-  attach_strip = function(table, layout, params, theme) {
+  attach_strips = function(table, layout, params, theme) {
     table
   },
   vars = function() {

@@ -432,10 +432,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   },
 
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    if ((params$free$x || params$free$y) && !coord$is_free()) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't use free scales with {.fn {snake_class(coord)}}.")
-    }
-
     if (inherits(coord, "CoordFlip")) {
       if (params$free$x) {
         layout$SCALE_X <- seq_len(nrow(layout))
@@ -453,17 +449,11 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     layout <- layout[panel_order, ]
     panels <- panels[panel_order]
 
-    panel_table <- self$init_gtable(
-      panels, layout, theme, ranges, params,
-      # If user hasn't set aspect ratio, ask the coordinate system if
-      # it wants to specify one
-      aspect_ratio = theme$aspect.ratio %||% coord$aspect(ranges[[1]]),
-      clip = coord$clip
+    ggproto_parent(Facet, self)$draw_panels(
+      panels = panels, layout = layout,
+      ranges = ranges, coord = coord,
+      theme = theme, params = params
     )
-
-    panel_table <- self$attach_axes(panel_table, layout, ranges, coord, theme, params)
-
-    self$attach_strips(panel_table, layout, params, theme)
   },
   vars = function(self) {
     names(self$params$facets)

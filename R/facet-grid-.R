@@ -430,28 +430,6 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     table
   },
 
-  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    if ((params$free$x || params$free$y) && !coord$is_free()) {
-      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales.")
-    }
-
-    aspect_ratio <- theme$aspect.ratio
-    if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
-      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
-    }
-
-    panel_table <- self$init_gtable(
-      panels, layout, theme, ranges, params,
-      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]]),
-      clip = coord$clip
-    )
-
-    panel_table <- self$attach_axes(
-      panel_table, layout, ranges, coord, theme, params
-    )
-
-    self$attach_strips(panel_table, layout, params = params, theme = theme)
-  },
   vars = function(self) {
     names(c(self$params$rows, self$params$cols))
   }
