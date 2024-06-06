@@ -1,6 +1,9 @@
 # ggplot2 (development version)
 
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (#5905)
+* `position_dodge(preserve = "single")` now handles multi-row geoms better,
+  such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
+* `position_jitterdodge()` now dodges by `group` (@teunbrand, #3656)
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.
@@ -45,7 +48,8 @@
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
-  control panel directions (@teunbrand, #5212)
+  control panel directions. Internally `dir = "h"` or `dir = "v"` is deprecated 
+  (@teunbrand, #5212).
 * Prevented `facet_wrap(..., drop = FALSE)` from throwing spurious errors when
   a character facetting variable contained `NA`s (@teunbrand, #5485).
 * When facets coerce the faceting variables to factors, the 'ordered' class
@@ -62,7 +66,7 @@
   (@teunbrand, #5756).
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
   (@teunbrand, #5856).
-* New helper function `ggpar()` to translate ggplot2's interpretation of 
+* New helper function `gg_par()` to translate ggplot2's interpretation of 
   graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
 * `scale_{x/y}_discrete()` can now accept a `sec.axis`. It is recommended to
   only use `dup_axis()` to set custom breaks or labels, as discrete variables 
