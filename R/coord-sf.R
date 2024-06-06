@@ -335,7 +335,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (inherits(el, "element_blank")) {
       grobs <- list(element_render(theme, "panel.background"))
     } else {
-      line_gp <- ggpar(
+      line_gp <- gg_par(
         col = el$colour,
         lwd = el$linewidth,
         lty = el$linetype

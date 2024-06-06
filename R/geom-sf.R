@@ -131,15 +131,21 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+  use_defaults = function(self, data, params = list(), modifiers = aes(),
+                          default_aes = NULL, ...) {
     data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
-    # Early exit for e.g. legend data that don't have geometry columns
     if (!"geometry" %in% names(data)) {
       return(data)
     }
 
+    # geometry column is a character if we're populating legend keys
+    type <- if (is.character(data$geometry)) {
+      data$geometry
+    } else {
+      sf_types[sf::st_geometry_type(data$geometry)]
+    }
+
     # Devise splitting index for geometry types
-    type <- sf_types[sf::st_geometry_type(data$geometry)]
     type <- factor(type, c("point", "line", "other", "collection"))
     index <- split(seq_len(nrow(data)), type)
 
@@ -202,26 +208,14 @@ GeomSf <- ggproto("GeomSf", Geom,
   },
 
   draw_key = function(data, params, size) {
-    data <- modify_list(default_aesthetics(params$legend), data)
-    if (params$legend == "point") {
-      draw_key_point(data, params, size)
-    } else if (params$legend == "line") {
-      draw_key_path(data, params, size)
-    } else {
+    switch(
+      params$legend %||% "other",
+      point = draw_key_point(data, params, size),
+      line  = draw_key_path(data, params, size),
       draw_key_polygon(data, params, size)
-    }
+    )
   }
 )
-
-default_aesthetics <- function(type) {
-  if (type == "point") {
-    GeomPoint$default_aes
-  } else if (type == "line") {
-    GeomLine$default_aes
-  } else  {
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
-  }
-}
 
 sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
                     arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
