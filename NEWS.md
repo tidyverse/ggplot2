@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,
   such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
 * `position_jitterdodge()` now dodges by `group` (@teunbrand, #3656)
