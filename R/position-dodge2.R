@@ -142,7 +142,7 @@ find_x_overlaps <- function(df) {
   end     <- vec_fill_missing(df$xmax, "downup")
 
   # For end we take largest end seen so far of previous observation
-  end <- cummax(c(df$xmax[1], df$xmax[-nrow(df)]))
+  end <- cummax(c(end[1], end[-nrow(df)]))
   # Start new group when 'start >= end' for non zero-width ranges
   # For zero-width ranges, start must be strictly larger than end
   overlaps <- cumsum(start > end | (start == end & nonzero))
