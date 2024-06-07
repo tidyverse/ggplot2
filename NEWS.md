@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* `geom_step()` now supports the `orientation` argument (@teunbrand, #5936).
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,
   such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
 * `position_jitterdodge()` now dodges by `group` (@teunbrand, #3656)
