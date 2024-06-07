@@ -138,6 +138,8 @@ find_x_overlaps <- function(df) {
   start   <- df$xmin
   nonzero <- df$xmax != df$xmin
   missing <- is.na(df$xmin) | is.na(df$xmax)
+  start   <- vec_fill_missing(start, "downup")
+  end     <- vec_fill_missing(df$xmax, "downup")
 
   # For end we take largest end seen so far of previous observation
   end <- cummax(c(df$xmax[1], df$xmax[-nrow(df)]))
