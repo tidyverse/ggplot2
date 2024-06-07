@@ -140,6 +140,10 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   map = function(self, x, limits = self$get_limits()) {
     if (is.discrete(x)) {
+      # Guard against old use of having identity palettes
+      if (identical(.subset2(self, "palette"), identity)) {
+        self$palette <- seq_len
+      }
       values <- self$palette(length(limits))
       if (!is.numeric(values)) {
         cli::cli_abort(
