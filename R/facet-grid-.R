@@ -297,12 +297,21 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       return(data)
     }
 
-    # Compute faceting values and add margins
-    margin_vars <- list(intersect(names(rows), names(data)),
-      intersect(names(cols), names(data)))
-    data <- reshape_add_margins(data, margin_vars, params$margins)
-
+    # Compute faceting values
     facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
+    if (nrow(facet_vals) == nrow(data)) {
+      # Margins are computed on evaluated faceting values (#1864).
+      facet_vals <- reshape_add_margins(
+        # We add an index column to track data recycling
+        vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
+        list(intersect(names(rows), names(facet_vals)),
+             intersect(names(cols), names(facet_vals))),
+        params$margins
+      )
+      # Apply recycling on original data to fit margins
+      data <- vec_slice(data, facet_vals$.index)
+      facet_vals$.index <- NULL
+    }
 
     # If any faceting variables are missing, add them in by
     # duplicating the data
