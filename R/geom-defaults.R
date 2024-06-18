@@ -7,6 +7,9 @@
 #'  * A named list of aesthetics to serve as new defaults.
 #'  * `NULL` to reset the defaults.
 #' @keywords internal
+#' @note
+#' Please note that geom defaults can be set *en masse* via the `theme(geom)`
+#' argument.
 #' @export
 #' @examples
 #'

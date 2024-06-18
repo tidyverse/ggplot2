@@ -10,6 +10,7 @@ theme(
   rect,
   text,
   title,
+  geom,
   spacing,
   margins,
   aspect.ratio,
@@ -160,6 +161,8 @@ these should also be defined in the \verb{element tree} argument. \link[rlang:sp
 
 \item{title}{all title elements: plot, axes, legends (\code{\link[=element_text]{element_text()}};
 inherits from \code{text})}
+
+\item{geom}{defaults for geoms (\code{\link[=element_geom]{element_geom()}})}
 
 \item{spacing}{all spacings (\code{\link[grid:unit]{unit()}})}
 
