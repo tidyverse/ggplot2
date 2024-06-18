@@ -6,6 +6,10 @@
     * The `element_geom()` function can be used to populate that argument.
     * The `from_theme()` function allows access to the theme default fields from
       inside the `aes()` function.
+* `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
+* `position_dodge(preserve = "single")` now handles multi-row geoms better,
+  such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
+* `position_jitterdodge()` now dodges by `group` (@teunbrand, #3656)
 * The `arrow.fill` parameter is now applied to more line-based functions: 
   `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
    geometries in `geom_sf()` and `element_line()`.

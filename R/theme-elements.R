@@ -483,7 +483,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   geom                = el_def("element_geom"),
   title               = el_def("element_text", "text"),
   spacing             = el_def("unit"),
-  margins             = el_def("margin"),
+  margins             = el_def(c("margin", "unit")),
 
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
@@ -569,7 +569,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   ),
 
   legend.background   = el_def("element_rect", "rect"),
-  legend.margin       = el_def(c("margin", "rel"), "margins"),
+  legend.margin       = el_def(c("margin", "unit", "rel"), "margins"),
   legend.spacing      = el_def(c("unit", "rel"), "spacing"),
   legend.spacing.x     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.spacing.y     = el_def(c("unit", "rel"), "legend.spacing"),
@@ -618,7 +618,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
-  legend.box.margin   = el_def(c("margin", "rel"), "margins"),
+  legend.box.margin   = el_def(c("margin", "unit", "rel"), "margins"),
   legend.box.background = el_def("element_rect", "rect"),
   legend.box.spacing  = el_def(c("unit", "rel"), "spacing"),
 
@@ -658,7 +658,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag            = el_def("element_text", "title"),
   plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
   plot.tag.location   = el_def("character"),
-  plot.margin         = el_def(c("margin", "rel"), "margins"),
+  plot.margin         = el_def(c("margin", "unit", "rel"), "margins"),
 
   aspect.ratio        = el_def(c("numeric", "integer"))
 )
