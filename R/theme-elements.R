@@ -608,6 +608,11 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag.location   = el_def("character"),
   plot.margin         = el_def(c("margin", "rel"), "margins"),
 
+  palette.colour.discrete = el_def(c("character", "function")),
+  palette.fill.discrete   = el_def(c("character", "function"), "palette.colour.discrete"),
+  palette.colour.continuous = el_def(c("character", "function")),
+  palette.fill.continuous = el_def(c("character", "function"), "palette.colour.continuous"),
+
   aspect.ratio        = el_def(c("numeric", "integer"))
 )
 
