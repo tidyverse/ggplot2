@@ -168,6 +168,40 @@ ScalesList <- ggproto("ScalesList", NULL,
       scale_name <- paste("scale", aes, "continuous", sep = "_")
       self$add(find_global(scale_name, env, mode = "function")())
     }
+  },
+
+  set_palettes = function(self, theme) {
+    for (scale in self$scales) {
+      if (!is.null(scale$palette)) {
+        next
+      }
+      elem <- calc_element(paste0(
+        "palette.", scale$aesthetics[1], ".",
+        if (scale$is_discrete()) "discrete" else "continuous"
+      ), theme)
+      if (is.character(elem)) {
+        if (length(elem) == 1) {
+          # Assume we have a name for a palette, so search for palette function
+          elem <- get0(paste0("pal_", elem), mode = "function")
+          if (is.function(elem)) {
+            elem <- elem()
+          }
+        } else {
+          # We might have a vector of colours
+          if (scale$is_discrete()) {
+            elem <- manual_pal(elem)
+          } else {
+            elem <- gradient_n_pal(elem)
+          }
+        }
+      }
+      if (!is.function(elem)) {
+        cli::cli_warn(
+          "Failed to find palette for {.field {scale$aesthetics[1]}} scale."
+        )
+      }
+      scale$palette <- elem
+    }
   }
 )
 
