@@ -86,6 +86,7 @@ scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
 #' is specified.
 #'
 #' @param ... Additional parameters passed on to the scale type,
+#' @inheritParams discrete_scale
 #' @param type One of the following:
 #'   * A character vector of color codes. The codes are used for a 'manual' color
 #'   scale as long as the number of codes exceeds the number of data levels

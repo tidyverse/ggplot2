@@ -44,6 +44,13 @@ scale_fill_binned(
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
 
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
+
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more information.}
+
+\item{na.value}{Missing values will be replaced with this value.}
+
 \item{type}{One of the following:
 \itemize{
 \item "gradient" (the default)

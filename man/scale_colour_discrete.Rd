@@ -23,6 +23,12 @@ scale_fill_discrete(
 \arguments{
 \item{...}{Additional parameters passed on to the scale type,}
 
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
+
+\item{na.value}{If \code{na.translate = TRUE}, what aesthetic value should the
+missing values be displayed as? Does not apply to position scales
+where \code{NA} is always placed at the far right.}
+
 \item{type}{One of the following:
 \itemize{
 \item A character vector of color codes. The codes are used for a 'manual' color

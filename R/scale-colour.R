@@ -27,6 +27,7 @@
 #' you want to manually set the colors of a scale, consider using
 #' [scale_colour_gradient()] or [scale_colour_steps()].
 #'
+#' @inheritParams continuous_scale
 #' @param ... Additional parameters passed on to the scale type
 #' @param type One of the following:
 #'   * "gradient" (the default)
