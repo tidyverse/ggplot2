@@ -41,7 +41,7 @@ test_that("adding guides doesn't change plot state", {
 
 test_that("colourbar trains without labels", {
   g <- guide_colorbar()
-  sc <- scale_colour_continuous(limits = c(0, 4), labels = NULL)
+  sc <- scale_colour_gradient(limits = c(0, 4), labels = NULL)
 
   out <- g$train(scale = sc)
   expect_equal(names(out$key), c("colour", ".value"))
@@ -178,34 +178,34 @@ test_that("guide merging for guide_legend() works as expected", {
   }
 
   different_limits <- merge_test_guides(
-    scale_colour_discrete(limits = c("a", "b", "c", "d")),
+    scale_colour_hue(limits = c("a", "b", "c", "d")),
     scale_linetype_discrete(limits = c("a", "b", "c"))
   )
   expect_length(different_limits, 2)
 
   same_limits <- merge_test_guides(
-    scale_colour_discrete(limits = c("a", "b", "c")),
+    scale_colour_hue(limits = c("a", "b", "c")),
     scale_linetype_discrete(limits = c("a", "b", "c"))
   )
   expect_length(same_limits, 1)
   expect_equal(same_limits[[1]]$key$.label, c("a", "b", "c"))
 
   same_labels_different_limits <- merge_test_guides(
-    scale_colour_discrete(limits = c("a", "b", "c")),
+    scale_colour_hue(limits = c("a", "b", "c")),
     scale_linetype_discrete(limits = c("one", "two", "three"), labels = c("a", "b", "c"))
   )
   expect_length(same_labels_different_limits, 1)
   expect_equal(same_labels_different_limits[[1]]$key$.label, c("a", "b", "c"))
 
   same_labels_different_scale <- merge_test_guides(
-    scale_colour_continuous(limits = c(0, 4), breaks = 1:3, labels = c("a", "b", "c")),
+    scale_colour_gradient(limits = c(0, 4), breaks = 1:3, labels = c("a", "b", "c")),
     scale_linetype_discrete(limits = c("a", "b", "c"))
   )
   expect_length(same_labels_different_scale, 1)
   expect_equal(same_labels_different_scale[[1]]$key$.label, c("a", "b", "c"))
 
   repeated_identical_labels <- merge_test_guides(
-    scale_colour_discrete(limits = c("one", "two", "three"), labels = c("label1", "label1", "label2")),
+    scale_colour_hue(limits = c("one", "two", "three"), labels = c("label1", "label1", "label2")),
     scale_linetype_discrete(limits = c("1", "2", "3"), labels = c("label1", "label1", "label2"))
   )
   expect_length(repeated_identical_labels, 1)
@@ -270,7 +270,7 @@ test_that("colorsteps and bins checks the breaks format", {
 
 test_that("legend reverse argument reverses the key", {
 
-  scale <- scale_colour_discrete()
+  scale <- scale_colour_hue()
   scale$train(LETTERS[1:4])
 
   guides <- guides_list(NULL)
