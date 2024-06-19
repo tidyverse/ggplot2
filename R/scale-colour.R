@@ -222,3 +222,67 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
 
   scale
 }
+
+# helper function for backwards compatibility through setting defaults
+# scales through `options()` instead of `theme()`.
+scale_backward_compatibility <- function(..., scale, aesthetic, type) {
+  aesthetic <- standardise_aes_names(aesthetic[1])
+
+  args <- list2(...)
+  args$call <- args$call %||% caller_call() %||% current_call()
+
+  if (type == "binned") {
+    fallback <- getOption(
+      paste("ggplot2", type, aesthetic, sep = "."),
+      default = "gradient"
+    )
+    if (is.function(fallback)) {
+      fallback <- "gradient"
+    }
+    scale <- scale %||% fallback
+  }
+
+  if (is_bare_string(scale)) {
+    if (scale == "continuous") {
+      scale <- "gradient"
+    }
+    if (scale == "discrete") {
+      scale <- "hue"
+    }
+    candidates <- paste("scale", aesthetic, scale, sep = "_")
+    for (candi in candidates) {
+      f <- find_global(candi, env = caller_env(), mode = "function")
+      if (!is.null(f)) {
+        scale <- f
+        break
+      }
+    }
+  }
+
+  if (!is.function(scale) && type == "discrete") {
+    args$type <- scale
+    scale <- switch(
+      aesthetic,
+      colour = scale_colour_qualitative,
+      fill   = scale_fill_qualitative
+    )
+  }
+
+  if (is.function(scale)) {
+    if (!any(c("...", "call") %in% fn_fmls_names(scale))) {
+      args$call <- NULL
+    }
+    if (!"..." %in% fn_fmls_names(scale)) {
+      args <- args[intersect(names(args), fn_fmls_names(scale))]
+    }
+    scale <- check_scale_type(
+      exec(scale, !!!args),
+      paste("scale", aesthetic, type, sep = "_"),
+      aesthetic,
+      scale_is_discrete = type == "discrete"
+    )
+    return(scale)
+  }
+
+  cli::cli_abort("Unknown scale type: {.val {scale}}")
+}
