@@ -209,6 +209,12 @@ scale_backward_compatibility <- function(..., scale, aesthetic, type) {
     if (scale == "discrete") {
       scale <- "hue"
     }
+    if (scale == "viridis") {
+      scale <- switch(
+        type, discrete = "viridis_d", binned = "viridis_b", "viridis_c"
+      )
+    }
+
     candidates <- paste("scale", aesthetic, scale, sep = "_")
     for (candi in candidates) {
       f <- find_global(candi, env = caller_env(), mode = "function")
