@@ -518,6 +518,9 @@ Scale <- ggproto("Scale", NULL,
     if (empty(df)) {
       return()
     }
+    if (is.null(self$palette)) {
+      self$palette <- fallback_palette(self$aesthetics[1], self$is_discrete())
+    }
 
     aesthetics <- intersect(self$aesthetics, names(df))
     names(aesthetics) <- aesthetics
