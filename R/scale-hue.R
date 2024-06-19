@@ -134,48 +134,36 @@ scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
 #'   print(cty_by_var(fl))
 #' })
 #'
-scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour")) {
-  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
-  type <- type %||% scale_colour_hue
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
-
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_colour_discrete",
-      "colour",
-      scale_is_discrete = TRUE
+scale_colour_discrete <- function(..., aesthetics = "colour", na.value = "grey50",
+                                  type = getOption("ggplot2.discrete.colour")) {
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
+      aesthetic = "colour", type = "discrete"
     )
-  } else {
-    exec(scale_colour_qualitative, !!!args, type = type)
+    return(scale)
   }
+  discrete_scale(
+    aesthetics, palette = NULL, na.value = na.value,
+    ...
+  )
 }
 
 #' @rdname scale_colour_discrete
 #' @export
-scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) {
-  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
-  type <- type %||% scale_fill_hue
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
-
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_fill_discrete",
-      "fill",
-      scale_is_discrete = TRUE
+scale_fill_discrete <- function(..., aesthetics = "fill", na.value = "grey50",
+                                type = getOption("ggplot2.discrete.fill")) {
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
+      aesthetic = "fill", type = "discrete"
     )
-  } else {
-    exec(scale_fill_qualitative, !!!args, type = type)
+    return(scale)
   }
+  discrete_scale(
+    aesthetics, palette = NULL, na.value = na.value,
+    ...
+  )
 }
 
 scale_colour_qualitative <- function(name = waiver(), ..., type = NULL,
