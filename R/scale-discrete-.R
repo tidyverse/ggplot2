@@ -130,7 +130,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   is_empty = function(self) {
-    is.null(self$range$range) && is.null(self$limits) && is.null(self$range_c$range)
+    is.null(self$range$range) &&
+      (is.null(self$limits) || is.function(self$limits)) &&
+      is.null(self$range_c$range)
   },
 
   reset = function(self) {
