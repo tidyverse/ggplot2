@@ -152,3 +152,27 @@ test_that("limits and breaks (#4619)", {
   expect_equal(s3$map(c("4", "6", "8")), c("a", "b", "c"))
   expect_equal(s3$break_positions(), c("a", "c"))
 })
+
+test_that("NAs from palette are not translated (#5929)", {
+
+  s1 <- scale_colour_manual(
+    values = c("4" = "a", "6" = NA, "8" = "c"),
+    na.translate = TRUE, na.value = "x"
+  )
+  s1$train(c("8", "6", "4"))
+  expect_equal(s1$map(c("4", "6", "8", "10")), c("a", NA, "c", "x"))
+
+  s2 <- scale_colour_manual(
+    values = c("4" = "a", "6" = NA, "8" = "c"),
+    na.translate = TRUE, na.value = NA
+  )
+  s2$train(c("8", "6", "4"))
+  expect_equal(s2$map(c("4", "6", "8", "10")), c("a", NA, "c", NA))
+
+  s3 <- scale_colour_manual(
+    values = c("4" = "a", "6" = NA, "8" = "c"),
+    na.translate = FALSE, na.value = "x"
+  )
+  s3$train(c("8", "6", "4"))
+  expect_equal(s3$map(c("4", "6", "8", "10")), c("a", NA, "c", NA))
+})
