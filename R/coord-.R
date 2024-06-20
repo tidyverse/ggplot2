@@ -209,11 +209,14 @@ Coord <- ggproto("Coord",
     fg <- self$render_fg(params, theme)
     bg <- self$render_bg(params, theme)
     if (isTRUE(theme$panel.ontop)) {
-      panel <- c(panel, list(bg), list(fg))
+      panel <- list2(!!!panel, bg, fg)
     } else {
-      panel <- c(list(bg), panel, list(fg))
+      panel <- list2(bg, !!!panel, fg)
     }
-    gTree(children = inject(gList(!!!panel)))
+    gTree(
+      children = inject(gList(!!!panel)),
+      vp = viewport(clip = self$clip)
+    )
   }
 )
 

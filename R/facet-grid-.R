@@ -409,7 +409,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = mtx(1))
+      panel_widths, panel_heights, respect = respect, z = mtx(1))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
 
     spacing_x <- calc_element("panel.spacing.x", theme)
