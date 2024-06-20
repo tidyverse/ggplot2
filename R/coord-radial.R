@@ -389,7 +389,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
 
   draw_panel = function(self, panel, params, theme) {
-    if (self$clip == "on") {
+    clip_support <- check_device("clippingPaths", "test", maybe = TRUE)
+    if (self$clip == "on" && !isFALSE(clip_support)) {
       clip_path <- data_frame0(
         x = c(Inf, Inf, -Inf, -Inf),
         y = c(Inf, -Inf, -Inf, Inf)
