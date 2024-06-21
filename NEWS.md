@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* (internal) improvements to `pal_qualitative()` (@teunbrand, #5013)
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,
   such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
