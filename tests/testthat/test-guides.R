@@ -164,6 +164,7 @@ test_that("guide merging for guide_legend() works as expected", {
     scales <- scales_list()
     scales$add(scale1)
     scales$add(scale2)
+    scales$set_palettes(NULL)
     scales <- scales$scales
 
     aesthetics <- lapply(scales, `[[`, "aesthetics")
