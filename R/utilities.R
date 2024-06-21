@@ -829,7 +829,7 @@ fallback_palette <- function(aes, discrete) {
       linetype = pal_linetype(),
       shape = pal_shape(),
       size = function(n) sqrt(seq(4, 36, length.out = n)),
-      NULL
+      ggplot_global$theme_default[[paste0("palette.", aes, ".discrete")]]
     )
     return(pal)
   }
@@ -841,6 +841,6 @@ fallback_palette <- function(aes, discrete) {
     linetype = pal_binned(pal_linetype()),
     shape = pal_binned(pal_shape()),
     size = pal_area(),
-    NULL
+    ggplot_global$theme_default[[paste0("palette.", aes, ".continuous")]]
   )
 }
