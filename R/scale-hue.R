@@ -205,22 +205,22 @@ scale_fill_qualitative <- function(name = waiver(), ..., type = NULL,
 #' @param type a character vector or a list of character vectors
 #' @noRd
 pal_qualitative <- function(type, h, c, l, h.start, direction) {
+  type_list <- type
+  if (!is.list(type_list)) {
+    type_list <- list(type_list)
+  }
+  if (!all(vapply(type_list, is.character, logical(1)))) {
+    stop_input_type(type, "a character vector or list of character vectors")
+  }
+  type_lengths <- lengths(type_list)
   function(n) {
-    type_list <- if (!is.list(type)) list(type) else type
-    if (!all(vapply(type_list, is.character, logical(1)))) {
-      cli::cli_abort("{.arg type} must be a character vector or a list of character vectors.")
-    }
-    type_lengths <- lengths(type_list)
     # If there are more levels than color codes default to pal_hue()
     if (max(type_lengths) < n) {
       return(scales::pal_hue(h, c, l, h.start, direction)(n))
     }
     # Use the minimum length vector that exceeds the number of levels (n)
-    type_list <- type_list[order(type_lengths)]
-    i <- 1
-    while (length(type_list[[i]]) < n) {
-      i <- i + 1
-    }
-    type_list[[i]][seq_len(n)]
+    i <- which(type_lengths >= n)
+    i <- i[which.min(type_lengths[i])]
+    type_list[[i]]
   }
 }
