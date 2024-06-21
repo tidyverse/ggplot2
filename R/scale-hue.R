@@ -219,11 +219,8 @@ pal_qualitative <- function(type, h, c, l, h.start, direction) {
       return(scales::pal_hue(h, c, l, h.start, direction)(n))
     }
     # Use the minimum length vector that exceeds the number of levels (n)
-    type_list <- type_list[order(type_lengths)]
-    i <- 1
-    while (length(type_list[[i]]) < n) {
-      i <- i + 1
-    }
-    type_list[[i]][seq_len(n)]
+    i <- which(type_lengths >= n)
+    i <- i[which.min(type_lengths[i])]
+    type_list[[i]]
   }
 }
