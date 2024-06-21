@@ -838,6 +838,8 @@ fallback_palette <- function(aes, discrete) {
     colour = , fill = pal_seq_gradient("#132B43", "#56B1F7"),
     alpha = pal_rescale(c(0.1, 1)),
     linewidth = pal_rescale(c(1, 6)),
+    linetype = pal_binned(pal_linetype()),
+    shape = pal_binned(pal_shape()),
     size = pal_area(),
     NULL
   )
