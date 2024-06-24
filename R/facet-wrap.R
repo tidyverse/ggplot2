@@ -257,11 +257,181 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data
   },
-  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    if ((params$free$x || params$free$y) && !coord$is_free()) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't use free scales with {.fn {snake_class(coord)}}.")
+
+  attach_axes = function(table, layout, ranges, coord, theme, params) {
+
+    # Setup parameters
+    draw_axes   <- params$draw_axes   %||% list(x = FALSE, y = FALSE)
+    axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
+    free        <- params$free        %||% list(x = FALSE, y = FALSE)
+
+    # Render individual axes
+    ranges   <- censor_labels(ranges, layout, axis_labels)
+    original <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
+
+    # Sort axes
+    x_order <- if (axis_labels$x) layout$SCALE_X else seq_len(nrow(layout))
+    y_order <- if (axis_labels$y) layout$SCALE_Y else seq_len(nrow(layout))
+    original$x <- lapply(original$x, `[`, i = x_order)
+    original$y <- lapply(original$y, `[`, i = y_order)
+
+    # Setup matrices for axes
+    dim <- c(max(layout$ROW), max(layout$COL))
+    index <- convertInd(layout$ROW, layout$COL, dim[1])
+    empty <- matrix(list(zeroGrob()), dim[1], dim[2])
+    top <- bottom <- left <- right <- empty
+
+    # Fill axis matrices
+    top[index]    <- original$x$top
+    bottom[index] <- original$x$bottom
+    left[index]   <- original$y$left
+    right[index]  <- original$y$right
+
+    # Suppress interior axes
+    if (!(free$x || draw_axes$x)) {
+      top[-1, ]         <- list(zeroGrob())
+      bottom[-dim[1], ] <- list(zeroGrob())
+    }
+    if (!(free$y || draw_axes$y)) {
+      left[, -1]       <- list(zeroGrob())
+      right[, -dim[2]] <- list(zeroGrob())
     }
 
+    # Check for empty panels and exit early if there are none
+    empty <- matrix(TRUE, dim[1], dim[2])
+    empty[index] <- FALSE
+    if (!any(empty)) {
+      axes <- list(top = top, bottom = bottom, left = left, right = right)
+      return(weave_axes(table, axes, empty))
+    }
+
+    # Match empty table to layout
+    matched <- vec_match(
+      data_frame0(ROW = as.vector(row(empty)), COL = as.vector(col(empty))),
+      layout[, c("ROW", "COL")]
+    )
+
+    # Figure out where axes should be added back
+    empty_bottom <- which(  apply(empty, 2, function(x) c(diff(x) == 1, FALSE)))
+    empty_top    <- which(  apply(empty, 2, function(x) c(FALSE, diff(x) == -1)))
+    empty_right  <- which(t(apply(empty, 1, function(x) c(diff(x) == 1, FALSE))))
+    empty_left   <- which(t(apply(empty, 1, function(x) c(FALSE, diff(x) == -1))))
+
+    # Keep track of potential clashes between strips and axes
+    inside <- (theme$strip.placement %||% "inside") == "inside"
+    strip  <- params$strip.position %||% "top"
+    clash  <- c(top = FALSE, bottom = FALSE, left = FALSE, right = FALSE)
+
+    # Go through every position and place back axes
+    if (length(empty_bottom) > 0) {
+      x_axes <- original$x$bottom[matched[empty_bottom]]
+      clash["bottom"] <- strip == "bottom" && !inside && !free$x &&
+        !all(vapply(x_axes, is.zero, logical(1)))
+      if (!clash["bottom"]) {
+        bottom[empty_bottom] <- x_axes
+      }
+    }
+
+    if (length(empty_top) > 0) {
+      x_axes <- original$x$top[matched[empty_top]]
+      clash["top"] <- strip == "top" && !inside && !free$x &&
+        !all(vapply(x_axes, is.zero, logical(1)))
+      if (!clash["top"]) {
+        top[empty_top] <- x_axes
+      }
+    }
+
+    if (length(empty_right) > 0) {
+      y_axes <- original$y$right[matched[empty_right]]
+      clash["right"]  <- strip == "right" && !inside && !free$y &&
+        !all(vapply(y_axes, is.zero, logical(1)))
+      if (!clash["right"]) {
+        right[empty_right] <- y_axes
+      }
+    }
+
+    if (length(empty_left) > 0) {
+      y_axes <- original$y$left[matched[empty_left]]
+      clash["left"]  <- strip == "left" && !inside && !free$y &&
+        !all(vapply(y_axes, is.zero, logical(1)))
+      if (!clash["left"]) {
+        left[empty_left] <- y_axes
+      }
+    }
+
+    if (any(clash)) {
+      cli::cli_warn(
+        "Suppressing axis rendering when \\
+        {.code strip.position =\"{strip}\"} and \\
+        {.code strip.placement = \"outside\".}"
+      )
+    }
+
+    axes <- list(top = top, bottom = bottom, left = left, right = right)
+    weave_axes(table, axes, empty)
+  },
+
+  attach_strips = function(table, layout, params, theme) {
+
+    # Format labels
+    if (length(params$facets) == 0) {
+      labels <- data_frame0("(all)" = "(all)", .size = 1)
+    } else {
+      labels <- layout[names(params$facets)]
+    }
+    attr(labels, "facet") <- "wrap"
+
+    # Render individual strips
+    strips <- render_strips(
+      x = structure(labels, type = "rows"),
+      y = structure(labels, type = "cols"),
+      params$labeller, theme
+    )
+
+    # Set position invariant parameters
+    padding  <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
+    position <- params$strip.position %||% "top"
+    pos      <- substr(position, 1, 1)
+    prefix   <- paste0("strip-", pos)
+
+    # Setup weaving table
+    dim <- c(max(layout$ROW), max(layout$COL))
+    index <- convertInd(layout$ROW, layout$COL, dim[1])
+    mat <- matrix(list(zeroGrob()), dim[1], dim[2])
+    mat[index] <- unlist(unname(strips), recursive = FALSE)[[position]]
+
+    # Setup orientation dependent parameters
+    if (position %in% c("top", "bottom")) {
+      inside  <- "strip.placement.x"
+      size    <- apply(mat, 1, max_height, value_only = TRUE)
+      weave   <- weave_tables_row
+    } else {
+      inside  <- "strip.placement.y"
+      size    <- apply(mat, 2, max_width, value_only = TRUE)
+      weave   <- weave_tables_col
+    }
+
+    inside <- (calc_element(inside, theme) %||% "inside") == "inside"
+    shift  <- switch(position, top = , left = c(-1, -2), c(0, 1))
+    shift  <- if (inside) shift[1] else shift[2]
+    size   <- unit(size, "cm")
+
+    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "on")
+
+    if (!inside) {
+      axes  <- grepl(paste0("axis-", pos), table$layout$name)
+      has_axes <- !vapply(table$grobs[axes], is.zero, logical(1))
+      has_axes <- split(has_axes, table$layout[[pos]][axes])
+      has_axes <- vapply(has_axes, sum, numeric(1)) > 0
+      padding  <- rep(padding, length(has_axes))
+      padding[!has_axes] <- unit(0, "cm")
+      table <- weave(table, , shift, padding)
+    }
+
+    table
+  },
+
+  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if (inherits(coord, "CoordFlip")) {
       if (params$free$x) {
         layout$SCALE_X <- seq_len(nrow(layout))
@@ -275,209 +445,15 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       }
     }
 
-    ncol <- max(layout$COL)
-    nrow <- max(layout$ROW)
-    n <- nrow(layout)
     panel_order <- order(layout$ROW, layout$COL)
     layout <- layout[panel_order, ]
     panels <- panels[panel_order]
-    panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
 
-    # Fill missing parameters for backward compatibility
-    params$draw_axes   <- params$draw_axes   %||% list(x = FALSE, y = FALSE)
-    params$axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
-
-    x_axis_order <- if (params$axis_labels$x) layout$SCALE_X else seq(n)
-    y_axis_order <- if (params$axis_labels$y) layout$SCALE_Y else seq(n)
-
-    ranges <- censor_labels(ranges, layout, params$axis_labels)
-    axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
-
-    if (length(params$facets) == 0) {
-      # Add a dummy label
-      labels_df <- data_frame0("(all)" = "(all)", .size = 1)
-    } else {
-      labels_df <- layout[names(params$facets)]
-    }
-    attr(labels_df, "facet") <- "wrap"
-    strips <- render_strips(
-      structure(labels_df, type = "rows"),
-      structure(labels_df, type = "cols"),
-      params$labeller, theme)
-
-    # If user hasn't set aspect ratio, ask the coordinate system if
-    # it wants to specify one
-    aspect_ratio <- theme$aspect.ratio %||% coord$aspect(ranges[[1]])
-
-    if (is.null(aspect_ratio)) {
-      aspect_ratio <- 1
-      respect <- FALSE
-    } else {
-      respect <- TRUE
-    }
-
-    empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
-    panel_table <- empty_table
-    panel_table[panel_pos] <- panels
-    empties <- apply(panel_table, c(1,2), function(x) is.zero(x[[1]]))
-    panel_table <- gtable_matrix("layout", panel_table,
-     widths = unit(rep(1, ncol), "null"),
-     heights = unit(rep(abs(aspect_ratio), nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
-    panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
-
-
-    panel_table <- gtable_add_col_space(panel_table, calc_element("panel.spacing.x", theme))
-    panel_table <- gtable_add_row_space(panel_table, calc_element("panel.spacing.y", theme))
-
-    # Add axes
-    axis_mat_x_top <- empty_table
-    axis_mat_x_top[panel_pos] <- axes$x$top[x_axis_order]
-    axis_mat_x_bottom <- empty_table
-    axis_mat_x_bottom[panel_pos] <- axes$x$bottom[x_axis_order]
-    axis_mat_y_left <- empty_table
-    axis_mat_y_left[panel_pos] <- axes$y$left[y_axis_order]
-    axis_mat_y_right <- empty_table
-    axis_mat_y_right[panel_pos] <- axes$y$right[y_axis_order]
-    if (!(params$free$x || params$draw_axes$x)) {
-      axis_mat_x_top[-1,]<- list(zeroGrob())
-      axis_mat_x_bottom[-nrow,]<- list(zeroGrob())
-    }
-    if (!(params$free$y || params$draw_axes$y)) {
-      axis_mat_y_left[, -1] <- list(zeroGrob())
-      axis_mat_y_right[, -ncol] <- list(zeroGrob())
-    }
-
-
-    # Add back missing axes
-    if (any(empties)) {
-      row_ind <- row(empties)
-      col_ind <- col(empties)
-      inside <- (theme$strip.placement %||% "inside") == "inside"
-      empty_bottom <- apply(empties, 2, function(x) c(diff(x) == 1, FALSE))
-      if (any(empty_bottom)) {
-        pos <- which(empty_bottom)
-        panel_loc <- data_frame0(
-          ROW = row_ind[pos],
-          COL = col_ind[pos],
-          .size = length(pos)
-        )
-        panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        x_axes <- axes$x$bottom[x_axis_order[panels]]
-        if (params$strip.position == "bottom" &&
-            !inside &&
-            any(!vapply(x_axes, is.zero, logical(1))) &&
-            !params$free$x) {
-          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"bottom\"} and {.code strip.placement == \"outside\"}")
-        } else {
-          axis_mat_x_bottom[pos] <- x_axes
-        }
-      }
-      empty_top <- apply(empties, 2, function(x) c(FALSE, diff(x) == -1))
-      if (any(empty_top)) {
-        pos <- which(empty_top)
-        panel_loc <- data_frame0(
-          ROW = row_ind[pos],
-          COL = col_ind[pos],
-          .size = length(pos)
-        )
-        panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        x_axes <- axes$x$top[x_axis_order[panels]]
-        if (params$strip.position == "top" &&
-            !inside &&
-            any(!vapply(x_axes, is.zero, logical(1))) &&
-            !params$free$x) {
-          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"top\"} and {.code strip.placement == \"outside\"}")
-        } else {
-          axis_mat_x_top[pos] <- x_axes
-        }
-      }
-      empty_right <- t(apply(empties, 1, function(x) c(diff(x) == 1, FALSE)))
-      if (any(empty_right)) {
-        pos <- which(empty_right)
-        panel_loc <- data_frame0(
-          ROW = row_ind[pos],
-          COL = col_ind[pos],
-          .size = length(pos)
-        )
-        panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        y_axes <- axes$y$right[y_axis_order[panels]]
-        if (params$strip.position == "right" &&
-            !inside &&
-            any(!vapply(y_axes, is.zero, logical(1))) &&
-            !params$free$y) {
-          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"right\"} and {.code strip.placement == \"outside\"}")
-        } else {
-          axis_mat_y_right[pos] <- y_axes
-        }
-      }
-      empty_left <- t(apply(empties, 1, function(x) c(FALSE, diff(x) == -1)))
-      if (any(empty_left)) {
-        pos <- which(empty_left)
-        panel_loc <- data_frame0(
-          ROW = row_ind[pos],
-          COL = col_ind[pos],
-          .size = length(pos)
-        )
-        panels <- vec_match(panel_loc, layout[, c("ROW", "COL")])
-        y_axes <- axes$y$left[y_axis_order[panels]]
-        if (params$strip.position == "left" &&
-            !inside &&
-            any(!vapply(y_axes, is.zero, logical(1))) &&
-            !params$free$y) {
-          cli::cli_warn("Suppressing axis rendering when {.code strip.position = \"left\"} and {.code strip.placement == \"outside\"}")
-        } else {
-          axis_mat_y_left[pos] <- y_axes
-        }
-      }
-    }
-    panel_table <- weave_axes(
-      panel_table,
-      axes = list(
-        top  = axis_mat_x_top,  bottom = axis_mat_x_bottom,
-        left = axis_mat_y_left, right  = axis_mat_y_right
-      ),
-      empty = empties
+    ggproto_parent(Facet, self)$draw_panels(
+      panels = panels, layout = layout,
+      ranges = ranges, coord = coord,
+      theme = theme, params = params
     )
-    axis_size   <- panel_table$sizes
-    panel_table <- panel_table$panels
-
-    strip_padding <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
-    strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
-    strip_mat <- empty_table
-    strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
-    if (params$strip.position %in% c("top", "bottom")) {
-      inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
-      if (params$strip.position == "top") {
-        placement <- if (inside_x) -1 else -2
-        strip_pad <- axis_size$top
-      } else {
-        placement <- if (inside_x) 0 else 1
-        strip_pad <- axis_size$bottom
-      }
-      strip_height <- unit(apply(strip_mat, 1, max_height, value_only = TRUE), "cm")
-      panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, coord$clip)
-      if (!inside_x) {
-        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
-        panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
-      }
-    } else {
-      inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
-      if (params$strip.position == "left") {
-        placement <- if (inside_y) -1 else -2
-        strip_pad <- axis_size$left
-      } else {
-        placement <- if (inside_y) 0 else 1
-        strip_pad <- axis_size$right
-      }
-      strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
-      strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
-      panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name, 2, coord$clip)
-      if (!inside_y) {
-        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
-        panel_table <- weave_tables_col(panel_table, col_shift = placement, col_width = strip_pad)
-      }
-    }
-    panel_table
   },
   vars = function(self) {
     names(self$params$facets)
@@ -559,7 +535,7 @@ weave_axes <- function(panels, axes, empty = NULL, z = 3L) {
   for (i in seq_along(axes)) {
     panels <- weave[[i]](panels, axes[[i]], shift[i], sizes[[i]], names[i], z = z)
   }
-  list(panels = panels, sizes = sizes)
+  panels
 }
 
 # Measures the size of axes while ignoring those bordering empty panels
