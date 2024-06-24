@@ -257,6 +257,9 @@ Facet <- ggproto("Facet", NULL,
   },
   vars = function() {
     character(0)
+  },
+  format_strip_labels = function(layout, params) {
+    return()
   }
 )
 
@@ -321,6 +324,31 @@ vars <- function(...) {
   quos(...)
 }
 
+#' Accessing a plot's facet strip labels
+#'
+#' This functions retrieves labels from facet strips with the labeller applied.
+#'
+#' @param plot A ggplot or build ggplot object.
+#'
+#' @return `NULL` if there are no labels, otherwise a list of data.frames
+#'   containing the labels.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' # Basic plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' get_strip_labels(p) # empty facets
+#' get_strip_labels(p + facet_wrap(year ~ cyl))
+#' get_strip_labels(p + facet_grid(year ~ cyl))
+get_strip_labels <- function(plot = get_last_plot()) {
+  plot   <- ggplot_build(plot)
+  layout <- plot$layout$layout
+  params <- plot$layout$facet_params
+  plot$plot$facet$format_strip_labels(layout, params)
+}
 
 #' Is this object a faceting specification?
 #'
@@ -779,7 +807,7 @@ render_axes <- function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
 #'
 #' @keywords internal
 #' @export
-render_strips <- function(x = NULL, y = NULL, labeller, theme) {
+render_strips <- function(x = NULL, y = NULL, labeller = identity, theme) {
   list(
     x = build_strip(x, labeller, theme, TRUE),
     y = build_strip(y, labeller, theme, FALSE)

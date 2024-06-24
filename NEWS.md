@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* New function `get_strip_labels()` to retrieve facet labels (@teunbrand, #4979)
 * (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,

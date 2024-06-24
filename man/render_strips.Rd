@@ -4,7 +4,7 @@
 \alias{render_strips}
 \title{Render panel strips}
 \usage{
-render_strips(x = NULL, y = NULL, labeller, theme)
+render_strips(x = NULL, y = NULL, labeller = identity, theme)
 }
 \arguments{
 \item{x, y}{A data.frame with a column for each variable and a row for each
