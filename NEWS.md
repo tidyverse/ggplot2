@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* `coord_radial(clip = "on")` clips to the panel area when the graphics device
+  supports clipping paths (@teunbrand, #5952).
+* (internal) Panel clipping responsibility moved from Facet class to Coord 
+  class through new `Coord$draw_panel()` method.
+* `theme(strip.clip)` now defaults to `"on"` and is independent of Coord 
+  clipping (@teunbrand, 5952).
 * (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,

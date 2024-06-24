@@ -153,8 +153,7 @@ Facet <- ggproto("Facet", NULL,
 
     table <- self$init_gtable(
       panels, layout, theme, ranges, params,
-      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]]),
-      clip = coord$clip
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
     )
 
     table <- self$attach_axes(table, layout, ranges, coord, theme, params)
@@ -198,7 +197,7 @@ Facet <- ggproto("Facet", NULL,
     data
   },
   init_gtable = function(panels, layout, theme, ranges, params,
-                         aspect_ratio = NULL, clip = "on") {
+                         aspect_ratio = NULL) {
 
     # Initialise matrix of panels
     dim   <- c(max(layout$ROW), max(layout$COL))
@@ -228,7 +227,7 @@ Facet <- ggproto("Facet", NULL,
       "layout", table,
       widths = widths, heights = heights,
       respect = !is.null(aspect_ratio),
-      clip = clip, z = matrix(1, dim[1], dim[2])
+      clip = "off", z = matrix(1, dim[1], dim[2])
     )
 
     # Set panel names
