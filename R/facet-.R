@@ -133,8 +133,32 @@ Facet <- ggproto("Facet", NULL,
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    cli::cli_abort("Not implemented.")
+  draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
+                         ranges, coord, data = NULL, theme, params) {
+
+    free  <- params$free       %||% list(x = FALSE, y = FALSE)
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+
+    if ((free$x || free$y) && !coord$is_free()) {
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} can't use free scales with \\
+        {.fn {snake_class(coord)}}."
+      )
+    }
+
+    aspect_ratio <- theme$aspect.ratio
+    if (!is.null(aspect_ratio) && (space$x || space$y)) {
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
+    }
+
+    table <- self$init_gtable(
+      panels, layout, theme, ranges, params,
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]]),
+      clip = coord$clip
+    )
+
+    table <- self$attach_axes(table, layout, ranges, coord, theme, params)
+    self$attach_strips(table, layout, params, theme)
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -172,6 +196,64 @@ Facet <- ggproto("Facet", NULL,
   },
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
+  },
+  init_gtable = function(panels, layout, theme, ranges, params,
+                         aspect_ratio = NULL, clip = "on") {
+
+    # Initialise matrix of panels
+    dim   <- c(max(layout$ROW), max(layout$COL))
+    table <- matrix(list(zeroGrob()), dim[1], dim[2])
+    table[cbind(layout$ROW, layout$COL)] <- panels
+
+    # Set initial sizes
+    widths  <- unit(rep(1, dim[2]), "null")
+    heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
+
+    # When space are free, let panel parameter limits determine size of panel
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+    if (space$x) {
+      idx    <- layout$PANEL[layout$ROW == 1]
+      widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
+      widths <- unit(widths, "null")
+    }
+
+    if (space$y) {
+      idx <- layout$PANEL[layout$COL == 1]
+      heights <- vapply(idx, function(i) diff(ranges[[i]]$y.range), numeric(1))
+      heights <- unit(heights, "null")
+    }
+
+    # Build gtable
+    table <- gtable_matrix(
+      "layout", table,
+      widths = widths, heights = heights,
+      respect = !is.null(aspect_ratio),
+      clip = clip, z = matrix(1, dim[1], dim[2])
+    )
+
+    # Set panel names
+    table$layout$name <- paste(
+      "panel",
+      rep(seq_len(dim[2]), dim[1]),
+      rep(seq_len(dim[1]), each = dim[2]),
+      sep = "-"
+    )
+
+    # Add spacing between panels
+    spacing <- lapply(
+      c(x = "panel.spacing.x", y = "panel.spacing.y"),
+      calc_element, theme = theme
+    )
+
+    table <- gtable_add_col_space(table, spacing$x)
+    table <- gtable_add_row_space(table, spacing$y)
+    table
+  },
+  attach_axes = function(table, layout, ranges, coord, theme, params) {
+    table
+  },
+  attach_strips = function(table, layout, params, theme) {
+    table
   },
   vars = function() {
     character(0)

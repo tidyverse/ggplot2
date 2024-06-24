@@ -135,38 +135,54 @@ test_that("strips can be removed", {
   expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
 })
 
-test_that("strips can be removed", {
-  dat <- data_frame(a = rep(LETTERS[1:10], 10), x = rnorm(100), y = rnorm(100))
-  g <- ggplot(dat, aes(x = x, y = y)) +
-    geom_point() +
-    facet_wrap(~a) +
-    theme(strip.background = element_blank(), strip.text = element_blank())
-  g_grobs <- ggplotGrob(g)
-  strip_grobs <- g_grobs$grobs[grepl('strip-', g_grobs$layout$name)]
-  expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
-})
-
 test_that("padding is only added if axis is present", {
   p <- ggplot(data = mpg, aes(x = displ, y = hwy)) +
-    facet_grid(. ~ drv) +
+    facet_grid(year ~ drv) +
     theme(
       strip.placement = "outside",
       strip.switch.pad.grid = unit(10, "mm")
     )
   pg <- ggplotGrob(p)
-  expect_equal(length(pg$heights), 17)
+  expect_equal(length(pg$heights), 19)
+  expect_equal(length(pg$widths), 18)
 
-  pg <- ggplotGrob(p + scale_x_continuous(position = "top"))
-  expect_equal(length(pg$heights), 18)
+  pg <- ggplotGrob(
+    p + scale_x_continuous(position = "top") +
+      scale_y_continuous(position = "right")
+  )
+  expect_equal(length(pg$heights), 20)
   expect_equal(as.character(pg$heights[9]), "1cm")
+  expect_equal(length(pg$widths), 19)
+  expect_equal(as.character(pg$widths[13]), "1cm")
 
   # Also add padding with negative ticks and no text (#5251)
   pg <- ggplotGrob(
     p + scale_x_continuous(labels = NULL, position = "top") +
       theme(axis.ticks.length.x.top = unit(-2, "mm"))
   )
-  expect_equal(length(pg$heights), 18)
+  expect_equal(length(pg$heights), 20)
   expect_equal(as.character(pg$heights[9]), "1cm")
+
+  # Inverse should be true when strips are switched
+  p <- ggplot(data = mpg, aes(x = displ, y = hwy)) +
+    facet_grid(year ~ drv, switch = "both") +
+    theme(
+      strip.placement = "outside",
+      strip.switch.pad.grid = unit(10, "mm")
+    )
+
+  pg <- ggplotGrob(p)
+  expect_equal(length(pg$heights), 20)
+  expect_equal(as.character(pg$heights[13]), "1cm")
+  expect_equal(length(pg$widths), 19)
+  expect_equal(as.character(pg$widths[7]), "1cm")
+
+  pg <- ggplotGrob(
+    p + scale_x_continuous(position = "top") +
+      scale_y_continuous(position = "right")
+  )
+  expect_equal(length(pg$heights), 19)
+  expect_equal(length(pg$widths), 18)
 })
 
 test_that("y strip labels are rotated when strips are switched", {
