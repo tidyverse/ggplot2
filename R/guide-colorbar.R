@@ -32,6 +32,10 @@ NULL
 #' @param alpha A numeric between 0 and 1 setting the colour transparency of
 #'   the bar. Use `NA` to preserve the alpha encoded in the colour itself
 #'   (default).
+#' @param angle Overrules the theme settings to automatically apply appropriate
+#'   `hjust` and `vjust` for angled legend text. Can be a single number
+#'   representing the text angle in degrees, or `NULL` to not overrule the
+#'   settings (default).
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
