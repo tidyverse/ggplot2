@@ -14,6 +14,7 @@ guide_colourbar(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  angle = NULL,
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -31,6 +32,7 @@ guide_colorbar(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  angle = NULL,
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -76,6 +78,11 @@ be visible.}
 
 \item{draw.llim}{A logical specifying if the lower limit tick marks should
 be visible.}
+
+\item{angle}{Overrules the theme settings to automatically apply appropriate
+\code{hjust} and \code{vjust} for angled legend text. Can be a single number
+representing the text angle in degrees, or \code{NULL} to not overrule the
+settings (default).}
 
 \item{position}{A character string indicating where the legend should be
 placed relative to the plot panels.}
