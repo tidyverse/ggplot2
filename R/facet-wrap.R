@@ -109,9 +109,9 @@ NULL
 #'   geom_point() +
 #'   facet_wrap(vars(class), dir = "tr")
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-                       shrink = TRUE, labeller = "label_value", as.table = TRUE,
-                       switch = deprecated(), drop = TRUE, dir = "h",
-                       strip.position = 'top', axes = "margins",
+                       space = "fixed", shrink = TRUE, labeller = "label_value",
+                       as.table = TRUE, switch = deprecated(), drop = TRUE,
+                       dir = "h", strip.position = 'top', axes = "margins",
                        axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
   dir <- arg_match0(dir, c("h", "v", "lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))
@@ -127,6 +127,30 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
+
+  # We cannot have free space in both directions
+  space <- arg_match0(space, c("free_x", "free_y", "fixed"))
+  space_free <- list(x = space == "free_x", y = space == "free_y")
+  if (space_free$x) {
+    if ((nrow %||% 1) != 1 || !is.null(ncol)) {
+      cli::cli_warn(
+        "Cannot use {.code space = \"free_x\"} with custom \\
+        {.arg nrow} or {.arg ncol}."
+      )
+    }
+    ncol <- NULL
+    nrow <- 1L
+  }
+  if (space_free$y) {
+    if ((ncol %||% 1) != 1 || !is.null(nrow)) {
+      cli::cli_warn(
+        "Cannot use {.code space= \"free_y\"} with custom \\
+        {.arg nrow} or {.arg ncol}."
+      )
+    }
+    ncol <- 1L
+    nrow <- NULL
+  }
 
   # If scales are free, always draw the axes
   draw_axes <- arg_match0(axes, c("margins", "all_x", "all_y", "all"))
@@ -174,6 +198,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
       drop = drop,
       ncol = ncol,
       nrow = nrow,
+      space_free = space_free,
       labeller = labeller,
       dir = dir,
       draw_axes = draw_axes,
