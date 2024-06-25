@@ -254,21 +254,8 @@ GuideAxis <- ggproto(
   },
 
   override_elements = function(params, elements, theme) {
-    label <- elements$text
-    if (!inherits(label, "element_text")) {
-      return(elements)
-    }
-    label_overrides <- axis_label_element_overrides(
-      params$position, params$angle
-    )
-    # label_overrides is an element_text, but label_element may not be;
-    # to merge the two elements, we just copy angle, hjust, and vjust
-    # unless their values are NULL
-    label$angle <- label_overrides$angle %||% label$angle
-    label$hjust <- label_overrides$hjust %||% label$hjust
-    label$vjust <- label_overrides$vjust %||% label$vjust
-
-    elements$text <- label
+    elements$text <-
+      label_angle_heuristic(elements$text, params$position, params$angle)
     return(elements)
   },
 
