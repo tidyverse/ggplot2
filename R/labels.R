@@ -16,6 +16,56 @@ update_labels <- function(p, labels) {
   p
 }
 
+# Called in `ggplot_build()` to set default labels not specified by user.
+setup_plot_labels <- function(plot, layers, data) {
+  # Initiate from user-defined labels
+  labels <- plot$labels
+
+  # Find labels from every layer
+  for (i in seq_along(layers)) {
+    layer <- layers[[i]]
+    mapping <- layer$computed_mapping
+    mapping <- strip_stage(mapping)
+    mapping <- strip_dots(mapping, strip_pronoun = TRUE)
+
+    # Acquire default labels
+    mapping_default <- make_labels(mapping)
+    stat_default <- lapply(
+      make_labels(layer$stat$default_aes),
+      function(l) {
+        attr(l, "fallback") <- TRUE
+        l
+      }
+    )
+    default <- defaults(mapping_default, stat_default)
+
+    # Search for label attribute in symbolic mappings
+    symbolic <- vapply(
+      mapping, FUN.VALUE = logical(1),
+      function(x) is_quosure(x) && quo_is_symbol(x)
+    )
+    symbols <- intersect(names(mapping)[symbolic], names(data[[i]]))
+    attribs <- lapply(setNames(nm = symbols), function(x) {
+      attr(data[[i]][[x]], "label", exact = TRUE)
+    })
+    attribs <- attribs[lengths(attribs) > 0]
+    layer_labels <- defaults(attribs, default)
+
+    # Set label priority:
+    # 1. Existing labels that aren't fallback labels
+    # 2. The labels of this layer, including fallback labels
+    # 3. Existing fallback labels
+    current <- labels
+    fallbacks <- vapply(current, function(l) isTRUE(attr(l, "fallback")), logical(1))
+
+    labels <- defaults(current[!fallbacks], layer_labels)
+    if (any(fallbacks)) {
+      labels <- defaults(labels, current)
+    }
+  }
+  labels
+}
+
 #' Modify axis, legend, and plot labels
 #'
 #' Good labels are critical for making your plots accessible to a wider
@@ -144,8 +194,13 @@ get_alt_text <- function(p, ...) {
 #' @export
 get_alt_text.ggplot <- function(p, ...) {
   alt <- p$labels[["alt"]] %||% ""
+  if (!is.function(alt)) {
+    return(alt)
+  }
   p$labels[["alt"]] <- NULL
-  if (is.function(alt)) alt(p) else alt
+  build <- ggplot_build(p)
+  build$plot$labels[["alt"]] <- alt
+  get_alt_text(build)
 }
 #' @export
 get_alt_text.ggplot_built <- function(p, ...) {

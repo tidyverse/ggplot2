@@ -60,6 +60,7 @@ ggplot_build.ggplot <- function(plot) {
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+  plot$labels <- setup_plot_labels(plot, layers, data)
   data <- .ignore_data(data)
 
   # Transform all scales
