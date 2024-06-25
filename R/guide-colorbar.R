@@ -124,6 +124,7 @@ guide_colourbar <- function(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  angle = NULL,
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -151,6 +152,7 @@ guide_colourbar <- function(
     nbin = nbin,
     display = display,
     alpha = alpha,
+    angle = angle,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
     position = position,
     direction = direction,
@@ -193,6 +195,7 @@ GuideColourbar <- ggproto(
     direction = NULL,
     reverse = FALSE,
     order = 0,
+    angle = NULL,
 
     # parameter
     name = "colourbar",

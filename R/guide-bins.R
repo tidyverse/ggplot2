@@ -65,6 +65,7 @@ guide_bins <- function(
   theme = NULL,
 
   # general
+  angle        = NULL,
   position     = NULL,
   direction    = NULL,
   override.aes = list(),
@@ -85,6 +86,7 @@ guide_bins <- function(
     theme = theme,
 
     # general
+    angle = angle,
     position = position,
     direction = direction,
     override.aes = rename_aes(override.aes),
@@ -115,6 +117,7 @@ GuideBins <- ggproto(
     default_axis = element_line("black", linewidth = (0.5 / .pt)),
     default_ticks = element_line(inherit.blank = TRUE),
 
+    angle = NULL,
     direction = NULL,
     override.aes = list(),
     reverse = FALSE,
