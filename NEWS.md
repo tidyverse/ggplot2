@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
+  argument to overrule theme settings, similar to `guide_axis(angle)` 
+  (@teunbrand, #4594).
 * (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,
