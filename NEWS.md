@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `facet_wrap()` can have `space = "free_x"` with 1-row layouts and 
+  `space = "free_y"` with 1-column layouts (@teunbrand)
 * (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,
