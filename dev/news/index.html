@@ -86,7 +86,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p>(internal) rearranged the code of <code>Facet$draw_paensl()</code> method (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</p></li>
+<ul><li><p>(internal) The plot’s layout now has a coord parameter that is used to prevent setting up identical panel parameters (<a href="https://github.com/tidyverse/ggplot2/issues/5427" class="external-link">#5427</a>)</p></li>
+<li><p>(internal) rearranged the code of <code>Facet$draw_panels()</code> method (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</p></li>
 <li><p><code><a href="../reference/geom_rug.html">geom_rug()</a></code> prints a warning when <code>na.rm = FALSE</code>, as per documentation (<a href="https://github.com/pn317" class="external-link">@pn317</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5905" class="external-link">#5905</a>)</p></li>
 <li><p><code>position_dodge(preserve = "single")</code> now handles multi-row geoms better, such as <code><a href="../reference/geom_violin.html">geom_violin()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a> based on <a href="https://github.com/clauswilke" class="external-link">@clauswilke</a>’s work, <a href="https://github.com/tidyverse/ggplot2/issues/2801" class="external-link">#2801</a>).</p></li>
 <li><p><code><a href="../reference/position_jitterdodge.html">position_jitterdodge()</a></code> now dodges by <code>group</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/3656" class="external-link">#3656</a>)</p></li>
