@@ -18,6 +18,12 @@ NULL
 #' @param scales Should scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,
 #'   `"free_y"`)?
+#' @param space If `"fixed"` (default), all panels have the same size and
+#'   the number of rows and columns in the layout can be arbitrary. If
+#'   `"free_x"`, panels have widths proportional to the length of the x-scale,
+#'   but the layout is constrained to one row. If `"free_y"`, panels have
+#'   heights proportional to the length of the y-scale, but the layout is
+#'   constrained to one column.
 #' @param strip.position By default, the labels are displayed on the top of
 #'   the plot. Using `strip.position` it is possible to place the labels on
 #'   either of the four sides by setting \code{strip.position = c("top",
