@@ -33,9 +33,9 @@ test_that("facet_wrap() switches to 'bottom'", {
   wrap_b <- p + facet_wrap(~cyl, strip.position = "bottom")
 
   wrap_b_expected <- list(
-    t = c(4, 4, 4),
+    t = c(5, 5, 5),
     l = c(3, 7, 11),
-    b = c(4, 4, 4),
+    b = c(5, 5, 5),
     r = c(3, 7, 11)
   )
 
@@ -47,9 +47,9 @@ test_that("facet_wrap() switches to 'left'", {
 
   wrap_l_expected <- list(
     t = c(3, 3, 3),
-    l = c(13, 8, 3),
+    l = c(15, 9, 3),
     b = c(3, 3, 3),
-    r = c(13, 8, 3)
+    r = c(15, 9, 3)
   )
 
   expect_equal(strip_layout(wrap_l), wrap_l_expected)
@@ -60,9 +60,9 @@ test_that("facet_wrap() switches to 'right'", {
 
   wrap_r_expected <- list(
     t = c(3, 3, 3),
-    l = c(14, 9, 4),
+    l = c(17, 11, 5),
     b = c(3, 3, 3),
-    r = c(14, 9, 4)
+    r = c(17, 11, 5)
   )
 
   expect_equal(strip_layout(wrap_r), wrap_r_expected)

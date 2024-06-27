@@ -390,6 +390,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     # Set position invariant parameters
     padding  <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
+    spacing  <- convertUnit(calc_element("strip.spacing", theme), "cm")
     position <- params$strip.position %||% "top"
     pos      <- substr(position, 1, 1)
     prefix   <- paste0("strip-", pos)
@@ -418,15 +419,13 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "on")
 
-    if (!inside) {
-      axes  <- grepl(paste0("axis-", pos), table$layout$name)
-      has_axes <- !vapply(table$grobs[axes], is.zero, logical(1))
-      has_axes <- split(has_axes, table$layout[[pos]][axes])
-      has_axes <- vapply(has_axes, sum, numeric(1)) > 0
-      padding  <- rep(padding, length(has_axes))
-      padding[!has_axes] <- unit(0, "cm")
-      table <- weave(table, , shift, padding)
-    }
+    axes  <- grepl(paste0("axis-", pos), table$layout$name)
+    has_axes <- !vapply(table$grobs[axes], is.zero, logical(1))
+    has_axes <- split(has_axes, table$layout[[pos]][axes])
+    has_axes <- vapply(has_axes, sum, numeric(1)) > 0
+    padding  <- rep(padding, length(has_axes))
+    padding[inside | !has_axes] <- unit(0, "cm")
+    table <- weave(table, , shift, padding + spacing)
 
     table
   },
