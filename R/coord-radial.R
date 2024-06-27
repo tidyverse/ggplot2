@@ -327,8 +327,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (length(theta_min) > 0) {
       theta_min <- theta_rescale(theta_min, theta_lim, arc, dir)
     }
-    theta_fine <- seq(self$arc[1], self$arc[2], length.out = 100)
 
+    theta_fine <- theta_rescale(seq(0, 1, length.out = 100), c(0, 1), arc, dir)
     r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
                          panel_params$inner_radius)
 
@@ -369,10 +369,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       theta_grid(theta_min, grid_elems[[2]], inner_radius, bbox),
       element_render(
         theme, majorr, name = "radius",
-        x = rescale(rep(r_fine, each = length(theta_fine)) *
-          rep(sin(theta_fine), length(r_fine)) + 0.5, from = bbox$x),
-        y = rescale(rep(r_fine, each = length(theta_fine)) *
-          rep(cos(theta_fine), length(r_fine)) + 0.5, from = bbox$y),
+        x = rescale(outer(sin(theta_fine), r_fine) + 0.5, from = bbox$x),
+        y = rescale(outer(cos(theta_fine), r_fine) + 0.5, from = bbox$y),
         id.lengths = rep(length(theta_fine), length(r_fine)),
         default.units = "native"
       )
