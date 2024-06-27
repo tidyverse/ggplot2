@@ -270,3 +270,20 @@ test_that("coord_radial() draws correctly", {
       theme
   )
 })
+
+test_that("coord_radial()'s axis internal placement works", {
+
+  df <- data.frame(x = c(0, 360), y = c(1, 14))
+
+  expect_doppelganger(
+    "full circle with axes placed at 90 and 225 degrees",
+    ggplot(df, aes(x, y)) +
+      geom_point() +
+      coord_radial(
+        expand = FALSE,
+        r.axis.inside = c(90, 225)
+      ) +
+      guides(r.sec = "axis") +
+      theme(axis.line = element_line())
+  )
+})

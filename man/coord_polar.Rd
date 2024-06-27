@@ -41,10 +41,16 @@ for partial polar coordinates. The default, \code{NULL}, is set to
 the limits to prevent overlap between data and axes. If \code{FALSE}, limits
 are taken directly from the scale.}
 
-\item{r.axis.inside}{If \code{TRUE}, places the radius axis inside the
-panel. If \code{FALSE}, places the radius axis next to the panel. The default,
-\code{NULL}, places the radius axis outside if the \code{start} and \code{end} arguments
-form a full circle.}
+\item{r.axis.inside}{One of the following:
+\itemize{
+\item \code{NULL} (default) places the axis next to the panel if \code{start} and
+\code{end} arguments form a full circle and inside the panel otherwise.
+\item \code{TRUE} to place the radius axis inside the panel.
+\item \code{FALSE} to place the radius axis next to the panel.
+\item A numeric value, setting a theta axis value at which
+the axis should be placed inside the panel. Can be given as a length 2
+vector to control primary and secondary axis placement separately.
+}}
 
 \item{rotate.angle}{If \code{TRUE}, transforms the \code{angle} aesthetic in data
 in accordance with the computed \code{theta} position. If \code{FALSE} (default),
