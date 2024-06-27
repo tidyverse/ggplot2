@@ -519,6 +519,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            hjust = 0.5, vjust = 0.5
                          ),
     plot.tag.position =  'topleft',
+    strip.spacing = rel(0),
 
     complete = TRUE
   )
