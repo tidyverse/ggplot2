@@ -2,7 +2,9 @@
 
 * `coord_radial(r.axis.inside)` can now take a numeric value to control 
   placement of internally placed radius axes (@teunbrand, #5805).
-* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
+* (internal) The plot's layout now has a coord parameter that is used to 
+  prevent setting up identical panel parameters (#5427)
+* (internal) rearranged the code of `Facet$draw_panels()` method (@teunbrand).
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,
   such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
