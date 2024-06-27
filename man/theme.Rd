@@ -144,6 +144,7 @@ theme(
   strip.text.y.right,
   strip.switch.pad.grid,
   strip.switch.pad.wrap,
+  strip.spacing,
   complete = FALSE,
   validate = TRUE
 )
@@ -368,6 +369,9 @@ the position-dependent elements rather than to the parent elements}
 
 \item{strip.switch.pad.grid, strip.switch.pad.wrap}{space between strips and
 axes when strips are switched (\code{unit}); inherits from \code{spacing}.}
+
+\item{strip.spacing}{Spacing in between panels and strips (\code{unit});
+inherits from \code{spacing}.}
 
 \item{complete}{set this to \code{TRUE} if this is a complete theme, such as
 the one returned by \code{\link[=theme_grey]{theme_grey()}}. Complete themes behave

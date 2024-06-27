@@ -390,6 +390,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     attr(row_vars, "facet") <- "grid"
 
     strips  <- render_strips(col_vars, row_vars, params$labeller, theme)
+    spacing <- convertUnit(calc_element("strip.spacing", theme), "cm")
     padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
 
     switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
@@ -397,16 +398,16 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     shift_x  <- if (inside_x) 1 else 2
 
     if (switch_x) {
-      space <- if (!inside_x & table_has_grob(table, "axis-b")) padding
+      pad <- as.numeric(!inside_x & table_has_grob(table, "axis-b")) * padding
       table <- seam_table(
         table, strips$x$bottom, side = "bottom", name = "strip-b",
-        shift = shift_x, z = 2, clip = "on", spacing = space
+        shift = shift_x, z = 2, clip = "on", spacing = spacing + pad
       )
     } else {
-      space <- if (!inside_x & table_has_grob(table, "axis-t")) padding
+      pad <- as.numeric(!inside_x & table_has_grob(table, "axis-t")) * padding
       table <- seam_table(
         table, strips$x$top, side = "top", name = "strip-t",
-        shift = shift_x, z = 2, clip = "on", spacing = space
+        shift = shift_x, z = 2, clip = "on", spacing = spacing + pad
       )
     }
 
@@ -415,16 +416,16 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     shift_y  <- if (inside_y) 1 else 2
 
     if (switch_y) {
-      space <- if (!inside_y & table_has_grob(table, "axis-l")) padding
+      pad <- as.numeric(!inside_y & table_has_grob(table, "axis-l")) * padding
       table <- seam_table(
         table, strips$y$left, side = "left", name = "strip-l",
-        shift = shift_y, z = 2, clip = "on", spacing = space
+        shift = shift_y, z = 2, clip = "on", spacing = spacing + pad
       )
     } else {
-      space <- if (!inside_y & table_has_grob(table, "axis-r")) padding
+      pad <- as.numeric(!inside_y & table_has_grob(table, "axis-r")) * padding
       table <- seam_table(
         table, strips$y$right, side = "right", name = "strip-r",
-        shift = shift_y, z = 2, clip = "on", spacing = space
+        shift = shift_y, z = 2, clip = "on", spacing = spacing + pad
       )
     }
     table

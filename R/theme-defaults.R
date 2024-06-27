@@ -217,6 +217,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     strip.placement =    "inside",
     strip.placement.x =  NULL,
     strip.placement.y =  NULL,
+    strip.spacing =      rel(0),
     strip.switch.pad.grid = unit(half_line / 2, "pt"),
     strip.switch.pad.wrap = unit(half_line / 2, "pt"),
 
@@ -518,6 +519,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            hjust = 0.5, vjust = 0.5
                          ),
     plot.tag.position =  'topleft',
+    strip.spacing = rel(0),
 
     complete = TRUE
   )
@@ -635,6 +637,7 @@ theme_test <- function(base_size = 11, base_family = "",
     strip.placement.y =  NULL,
     strip.switch.pad.grid = rel(0.5),
     strip.switch.pad.wrap = rel(0.5),
+    strip.spacing = rel(0),
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(

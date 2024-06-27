@@ -33,9 +33,9 @@ test_that("facet_wrap() switches to 'bottom'", {
   wrap_b <- p + facet_wrap(~cyl, strip.position = "bottom")
 
   wrap_b_expected <- list(
-    t = c(4, 4, 4),
+    t = c(5, 5, 5),
     l = c(3, 7, 11),
-    b = c(4, 4, 4),
+    b = c(5, 5, 5),
     r = c(3, 7, 11)
   )
 
@@ -47,9 +47,9 @@ test_that("facet_wrap() switches to 'left'", {
 
   wrap_l_expected <- list(
     t = c(3, 3, 3),
-    l = c(13, 8, 3),
+    l = c(15, 9, 3),
     b = c(3, 3, 3),
-    r = c(13, 8, 3)
+    r = c(15, 9, 3)
   )
 
   expect_equal(strip_layout(wrap_l), wrap_l_expected)
@@ -60,9 +60,9 @@ test_that("facet_wrap() switches to 'right'", {
 
   wrap_r_expected <- list(
     t = c(3, 3, 3),
-    l = c(14, 9, 4),
+    l = c(17, 11, 5),
     b = c(3, 3, 3),
-    r = c(14, 9, 4)
+    r = c(17, 11, 5)
   )
 
   expect_equal(strip_layout(wrap_r), wrap_r_expected)
@@ -85,10 +85,10 @@ test_that("facet_grid() switches to 'x'", {
   grid_x <- p + facet_grid(am ~ cyl, switch = "x")
 
   grid_x_expected <- list(
-    t = c(6, 6, 6, 3, 5),
-    l = c(3, 5, 7, 8, 8),
-    b = c(6, 6, 6, 3, 5),
-    r = c(3, 5, 7, 8, 8)
+    t = c(7, 7, 7, 3, 5),
+    l = c(3, 5, 7, 9, 9),
+    b = c(7, 7, 7, 3, 5),
+    r = c(3, 5, 7, 9, 9)
   )
 
   expect_equal(strip_layout(grid_x), grid_x_expected)
@@ -98,10 +98,10 @@ test_that("facet_grid() switches to 'y'", {
   grid_y <- p + facet_grid(am ~ cyl, switch = "y")
 
   grid_y_expected <- list(
-    t = c(3, 3, 3, 4, 6),
-    l = c(4, 6, 8, 3, 3),
-    b = c(3, 3, 3, 4, 6),
-    r = c(4, 6, 8, 3, 3)
+    t = c(3, 3, 3, 5, 7),
+    l = c(5, 7, 9, 3, 3),
+    b = c(3, 3, 3, 5, 7),
+    r = c(5, 7, 9, 3, 3)
   )
 
   expect_equal(strip_layout(grid_y), grid_y_expected)
@@ -111,10 +111,10 @@ test_that("facet_grid() switches to both 'x' and 'y'", {
   grid_xy <- p + facet_grid(am ~ cyl, switch = "both")
 
   grid_xy_expected <- list(
-    t = c(6, 6, 6, 3, 5),
-    l = c(4, 6, 8, 3, 3),
-    b = c(6, 6, 6, 3, 5),
-    r = c(4, 6, 8, 3, 3)
+    t = c(7, 7, 7, 3, 5),
+    l = c(5, 7, 9, 3, 3),
+    b = c(7, 7, 7, 3, 5),
+    r = c(5, 7, 9, 3, 3)
   )
 
   expect_equal(strip_layout(grid_xy), grid_xy_expected)
@@ -143,8 +143,8 @@ test_that("padding is only added if axis is present", {
       strip.switch.pad.grid = unit(10, "mm")
     )
   pg <- ggplotGrob(p)
-  expect_equal(length(pg$heights), 19)
-  expect_equal(length(pg$widths), 18)
+  expect_equal(length(pg$heights), 20)
+  expect_equal(length(pg$widths), 19)
 
   pg <- ggplotGrob(
     p + scale_x_continuous(position = "top") +
@@ -181,8 +181,8 @@ test_that("padding is only added if axis is present", {
     p + scale_x_continuous(position = "top") +
       scale_y_continuous(position = "right")
   )
-  expect_equal(length(pg$heights), 19)
-  expect_equal(length(pg$widths), 18)
+  expect_equal(length(pg$heights), 20)
+  expect_equal(length(pg$widths), 19)
 })
 
 test_that("y strip labels are rotated when strips are switched", {

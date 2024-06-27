@@ -594,6 +594,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.placement     = el_def("character"),
   strip.placement.x   = el_def("character", "strip.placement"),
   strip.placement.y   = el_def("character", "strip.placement"),
+  strip.spacing       = el_def(c("unit", "rel"), "spacing"),
   strip.switch.pad.grid = el_def(c("unit", "rel"), "spacing"),
   strip.switch.pad.wrap = el_def(c("unit", "rel"), "spacing"),
 

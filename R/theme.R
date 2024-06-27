@@ -196,6 +196,8 @@
 #'   the position-dependent elements rather than to the parent elements
 #' @param strip.switch.pad.grid,strip.switch.pad.wrap space between strips and
 #'   axes when strips are switched (`unit`); inherits from `spacing`.
+#' @param strip.spacing Spacing in between panels and strips (`unit`);
+#'   inherits from `spacing`.
 #'
 #' @param ... additional element specifications not part of base ggplot2. In general,
 #'   these should also be defined in the `element tree` argument. [Splicing][rlang::splice] a list is also supported.
@@ -449,6 +451,7 @@ theme <- function(...,
                   strip.text.y.right,
                   strip.switch.pad.grid,
                   strip.switch.pad.wrap,
+                  strip.spacing,
                   complete = FALSE,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
