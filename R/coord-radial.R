@@ -152,7 +152,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       axis_rotation <- oob_squish(axis_rotation, params$theta.range)
       axis_rotation <- theta_rescale(
         axis_rotation, params$theta.range,
-        params$arc, self$direction
+        params$arc, 1
       )
       params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
     } else {
@@ -199,16 +199,15 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
     if (!isFALSE(self$r_axis_inside)) {
 
-      arc <- rad2deg(panel_params$axis_rotation)
       r_position <- c("left", "right")
       # If both opposite direction and opposite position, don't flip
       if (xor(self$direction == -1, opposite_r)) {
-        arc <- rev(arc)
         r_position <- rev(r_position)
       }
-
-      guide_params[["r"]]$position     <- r_position[1]
-      guide_params[["r.sec"]]$position <- r_position[2]
+      arc <- rad2deg(panel_params$axis_rotation) * self$direction
+      if (opposite_r) {
+        arc <- rev(arc)
+      }
       # Set guide text angles
       guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
       guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
@@ -217,9 +216,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       if (opposite_r) {
         r_position <- rev(r_position)
       }
-      guide_params[["r"]]$position     <- r_position[1]
-      guide_params[["r.sec"]]$position <- r_position[2]
     }
+    guide_params[["r"]]$position     <- r_position[1]
+    guide_params[["r.sec"]]$position <- r_position[2]
 
     guide_params[drop_guides] <- list(NULL)
     guides$update_params(guide_params)
