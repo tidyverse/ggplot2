@@ -159,6 +159,11 @@ GeomRug <- ggproto("GeomRug", Geom,
 
   rename_size = TRUE,
 
+  setup_params = function(data, params) {
+    params$sides <- params$sides %||% "bl"
+    params
+  },
+
   handle_na = function(self, data, params) {
     sides_aes <- character()
 
