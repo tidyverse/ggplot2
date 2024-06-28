@@ -4,6 +4,7 @@
 \name{geom_crossbar}
 \alias{geom_crossbar}
 \alias{geom_errorbar}
+\alias{geom_errorbarh}
 \alias{geom_linerange}
 \alias{geom_pointrange}
 \title{Vertical intervals: lines, crossbars & errorbars}
@@ -29,6 +30,18 @@ geom_errorbar(
   ...,
   na.rm = FALSE,
   orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+geom_errorbarh(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  orientation = "y",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -160,6 +173,10 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 Various ways of representing a vertical interval defined by \code{x},
 \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 }
+\note{
+\code{geom_errorbarh()} is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Use
+\code{geom_errorbar(orientation = "y")} instead.
+}
 \section{Orientation}{
 
 This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
@@ -233,6 +250,5 @@ geom_errorbar(
 }
 \seealso{
 \code{\link[=stat_summary]{stat_summary()}} for examples of these guys in use,
-\code{\link[=geom_smooth]{geom_smooth()}} for continuous analogue,
-\code{\link[=geom_errorbarh]{geom_errorbarh()}} for a horizontal error bar.
+\code{\link[=geom_smooth]{geom_smooth()}} for continuous analogue
 }
