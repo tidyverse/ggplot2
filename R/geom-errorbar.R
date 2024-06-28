@@ -35,6 +35,9 @@ geom_errorbarh <- function(mapping = NULL, data = NULL,
                            na.rm = FALSE,
                            show.legend = NA,
                            inherit.aes = TRUE) {
+  deprecate_soft0(
+    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")"
+  )
   geom_errorbar(
     mapping = mapping,
     data = data,
