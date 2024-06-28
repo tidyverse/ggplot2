@@ -52,21 +52,20 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
 geom_errorbarh <- function(mapping = NULL, data = NULL,
                            stat = "identity", position = "identity",
                            ...,
+                           orientation = "y",
                            na.rm = FALSE,
                            show.legend = NA,
                            inherit.aes = TRUE) {
-  layer(
-    data = data,
+  geom_errorbar(
     mapping = mapping,
+    data = data,
     stat = stat,
-    geom = GeomErrorbarh,
     position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
+    ...,
+    orientation = orientation,
+    na.rm = na.rm,
+    show.legend = NA,
+    inherit.aes = TRUE
   )
 }
 
