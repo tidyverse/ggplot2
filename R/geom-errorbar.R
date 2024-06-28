@@ -23,32 +23,11 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' Horizontal error bars
-#'
-#' A rotated version of [geom_errorbar()].
-#'
-#' @eval rd_aesthetics("geom", "errorbarh")
-#' @inheritParams layer
-#' @inheritParams geom_point
 #' @export
-#' @examples
-#' df <- data.frame(
-#'   trt = factor(c(1, 1, 2, 2)),
-#'   resp = c(1, 5, 3, 4),
-#'   group = factor(c(1, 2, 1, 2)),
-#'   se = c(0.1, 0.3, 0.3, 0.2)
-#' )
-#'
-#' # Define the top and bottom of the errorbars
-#'
-#' p <- ggplot(df, aes(resp, trt, colour = group))
-#' p +
-#'   geom_point() +
-#'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
-#'
-#' p +
-#'   geom_point() +
-#'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
+#' @rdname geom_linerange
+#' @note
+#' `geom_errorbarh()` is `r lifecycle::badge("deprecated")`. Use
+#' `geom_errorbar(orientation = "y")` instead.
 geom_errorbarh <- function(mapping = NULL, data = NULL,
                            stat = "identity", position = "identity",
                            ...,
