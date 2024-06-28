@@ -46,8 +46,8 @@ geom_errorbarh <- function(mapping = NULL, data = NULL,
     ...,
     orientation = orientation,
     na.rm = na.rm,
-    show.legend = NA,
-    inherit.aes = TRUE
+    show.legend = show.legend,
+    inherit.aes = inherit.aes
   )
 }
 
