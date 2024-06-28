@@ -125,36 +125,4 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, height = 0.5,
-                    alpha = NA),
-
-  draw_key = draw_key_path,
-
-  required_aes = c("xmin", "xmax", "y"),
-
-  setup_data = function(data, params) {
-    data$height <- data$height %||%
-      params$height %||% (resolution(data$y, FALSE, TRUE) * 0.9)
-
-    transform(data,
-              ymin = y - height / 2, ymax = y + height / 2, height = NULL
-    )
-  },
-
-  draw_panel = function(self, data, panel_params, coord, height = NULL, lineend = "butt") {
-    data <- check_linewidth(data, snake_class(self))
-    GeomPath$draw_panel(data_frame0(
-      x = vec_interleave(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin),
-      y = vec_interleave(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax),
-      colour = rep(data$colour, each = 8),
-      alpha = rep(data$alpha, each = 8),
-      linewidth = rep(data$linewidth, each = 8),
-      linetype = rep(data$linetype, each = 8),
-      group = rep(1:(nrow(data)), each = 8),
-      .size = nrow(data) * 8
-    ), panel_params, coord, lineend = lineend)
-  },
-
-  rename_size = TRUE
-)
+GeomErrorbarh <- ggproto("GeomErrorbarh", GeomErrorbar)
