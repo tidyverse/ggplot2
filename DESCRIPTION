@@ -151,7 +151,6 @@ Collate:
     'geom-density2d.R'
     'geom-dotplot.R'
     'geom-errorbar.R'
-    'geom-errorbarh.R'
     'geom-freqpoly.R'
     'geom-function.R'
     'geom-hex.R'
