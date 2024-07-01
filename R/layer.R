@@ -128,13 +128,6 @@ layer <- function(geom = NULL, stat = NULL,
   position <- check_subclass(position, "Position", env = parent.frame(), call = call_env)
 
   # Special case for na.rm parameter needed by all layers
-
-  # Special case for key_glyph parameter which is handed in through
-  # params since all geoms/stats forward ... to params
-  if (!is.null(params$key_glyph)) {
-    key_glyph <- params$key_glyph
-    params$key_glyph <- NULL # remove to avoid warning about unknown parameter
-  }
   params$na.rm <- params$na.rm %||% FALSE
 
   # Split up params between aesthetics, geom, and stat
@@ -143,7 +136,8 @@ layer <- function(geom = NULL, stat = NULL,
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
-  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
+  ignore <- "key_glyph"
+  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), ignore)
 
   # Take care of plain patterns provided as aesthetic
   pattern <- vapply(aes_params, is_pattern, logical(1))
@@ -177,7 +171,7 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   # adjust the legend draw key if requested
-  geom <- set_draw_key(geom, key_glyph)
+  geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
 
   fr_call <- layer_class$constructor %||% frame_call(call_env)
 
