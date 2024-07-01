@@ -166,7 +166,9 @@ ggplot_add.by <- function(object, plot, object_name) {
 
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
+  layers_names <- new_layer_names(object, names(plot$layers))
   plot$layers <- append(plot$layers, object)
+  names(plot$layers) <- layers_names
 
   # Add any new labels
   mapping <- make_labels(object$mapping)
