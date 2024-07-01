@@ -1,6 +1,7 @@
 # ggplot2 (development version)
 
 * Layers can have names (@teunbrand, #4066).
+* `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
 * (internal) The plot's layout now has a coord parameter that is used to 
   prevent setting up identical panel parameters (#5427)
 * (internal) rearranged the code of `Facet$draw_panels()` method (@teunbrand).
