@@ -136,7 +136,7 @@ layer <- function(geom = NULL, stat = NULL,
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
-  ignore <- "key_glyph"
+  ignore <- c("key_glyph", "name")
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), ignore)
 
   # Take care of plain patterns provided as aesthetic
@@ -186,7 +186,8 @@ layer <- function(geom = NULL, stat = NULL,
     aes_params = aes_params,
     position = position,
     inherit.aes = inherit.aes,
-    show.legend = show.legend
+    show.legend = show.legend,
+    name = params$name
   )
 }
 
