@@ -128,9 +128,6 @@ layer <- function(geom = NULL, stat = NULL,
   position <- check_subclass(position, "Position", env = parent.frame(), call = call_env)
 
   # Special case for na.rm parameter needed by all layers
-  if (is.null(params$na.rm)) {
-    params$na.rm <- FALSE
-  }
 
   # Special case for key_glyph parameter which is handed in through
   # params since all geoms/stats forward ... to params
@@ -138,6 +135,7 @@ layer <- function(geom = NULL, stat = NULL,
     key_glyph <- params$key_glyph
     params$key_glyph <- NULL # remove to avoid warning about unknown parameter
   }
+  params$na.rm <- params$na.rm %||% FALSE
 
   # Split up params between aesthetics, geom, and stat
   params <- rename_aes(params)
