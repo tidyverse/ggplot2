@@ -4,6 +4,7 @@ NULL
 #' @export
 #' @rdname geom_abline
 geom_hline <- function(mapping = NULL, data = NULL,
+                       position = "identity",
                        ...,
                        yintercept,
                        na.rm = FALSE,
@@ -29,7 +30,7 @@ geom_hline <- function(mapping = NULL, data = NULL,
     mapping = mapping,
     stat = StatIdentity,
     geom = GeomHline,
-    position = PositionIdentity,
+    position = position,
     show.legend = show.legend,
     inherit.aes = FALSE,
     params = list2(
