@@ -183,3 +183,20 @@ ggplot_add.Layer <- function(object, plot, object_name) {
   }
   plot
 }
+
+new_layer_names <- function(layer, existing) {
+  new_name <- layer$name
+  if (is.null(new_name)) {
+    # Construct a name from the layer's call
+    new_name <- call_name(layer$constructor)
+
+    if (new_name %in% existing) {
+      names <- c(existing, new_name)
+      names <- vec_as_names(names, repair = "unique", quiet = TRUE)
+      new_name <- names[length(names)]
+    }
+  }
+
+  names <- c(existing, new_name)
+  vec_as_names(names, repair = "check_unique")
+}
