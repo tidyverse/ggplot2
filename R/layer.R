@@ -173,7 +173,7 @@ layer <- function(geom = NULL, stat = NULL,
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
 
-  fr_call <- layer_class$constructor %||% frame_call(call_env)
+  fr_call <- layer_class$constructor %||% frame_call(call_env) %||% current_call()
 
   ggproto("LayerInstance", layer_class,
     constructor = fr_call,
