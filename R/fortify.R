@@ -17,10 +17,7 @@ fortify.data.frame <- function(model, data, ...) model
 #' @export
 fortify.tbl_df <- function(model, data, ...) model
 #' @export
-fortify.tbl <- function(model, data, ...) {
-  check_installed("dplyr", reason = "to work with `tbl` objects.")
-  dplyr::collect(model)
-}
+fortify.tbl <- function(model, data, ...) as.data.frame(model)
 #' @export
 fortify.NULL <- function(model, data, ...) waiver()
 #' @export
