@@ -138,6 +138,22 @@ test_that("layer warns for constant aesthetics", {
   expect_snapshot_warning(ggplot_build(p))
 })
 
+test_that("layer names can be resolved", {
+
+  p <- ggplot() + geom_point() + geom_point()
+  expect_equal(names(p$layers), c("geom_point", "geom_point...2"))
+
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+  expect_equal(names(p$layers), c("foo", "bar"))
+
+  l <- geom_point(name = "foobar")
+  expect_error(
+    p + l + l,
+    "names are duplicated"
+  )
+})
+
+
 # Data extraction ---------------------------------------------------------
 
 test_that("AsIs data passes unmodified", {
