@@ -102,6 +102,8 @@ ggplot_build.ggplot <- function(plot) {
   # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
+    #TODO: if #5854 gets merged, we shouldn't need `plot_theme()` here
+    npscales$set_palettes(plot_theme(plot))
     lapply(data, npscales$train_df)
     plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
     data <- lapply(data, npscales$map_df)

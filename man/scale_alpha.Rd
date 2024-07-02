@@ -10,15 +10,15 @@
 \alias{scale_alpha_date}
 \title{Alpha transparency scales}
 \usage{
-scale_alpha(name = waiver(), ..., range = c(0.1, 1))
+scale_alpha(name = waiver(), ..., range = NULL)
 
-scale_alpha_continuous(name = waiver(), ..., range = c(0.1, 1))
+scale_alpha_continuous(name = waiver(), ..., range = NULL)
 
-scale_alpha_binned(name = waiver(), ..., range = c(0.1, 1))
+scale_alpha_binned(name = waiver(), ..., range = NULL)
 
 scale_alpha_discrete(...)
 
-scale_alpha_ordinal(name = waiver(), ..., range = c(0.1, 1))
+scale_alpha_ordinal(name = waiver(), ..., range = NULL)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If

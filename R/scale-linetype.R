@@ -38,7 +38,7 @@
 scale_linetype <- function(name = waiver(), ..., na.value = "blank") {
   discrete_scale(
     "linetype", name = name,
-    palette = pal_linetype(),
+    palette = NULL,
     na.value = na.value,
     ...
   )
@@ -49,7 +49,7 @@ scale_linetype <- function(name = waiver(), ..., na.value = "blank") {
 scale_linetype_binned <- function(name = waiver(), ..., na.value = "blank") {
   binned_scale(
     "linetype", name = name,
-    palette = pal_binned(pal_linetype()),
+    palette = NULL,
     na.value = na.value,
     ...
   )

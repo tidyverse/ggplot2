@@ -6,12 +6,28 @@
 \alias{scale_color_discrete}
 \title{Discrete colour scales}
 \usage{
-scale_colour_discrete(..., type = getOption("ggplot2.discrete.colour"))
+scale_colour_discrete(
+  ...,
+  aesthetics = "colour",
+  na.value = "grey50",
+  type = getOption("ggplot2.discrete.colour")
+)
 
-scale_fill_discrete(..., type = getOption("ggplot2.discrete.fill"))
+scale_fill_discrete(
+  ...,
+  aesthetics = "fill",
+  na.value = "grey50",
+  type = getOption("ggplot2.discrete.fill")
+)
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type,}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
+
+\item{na.value}{If \code{na.translate = TRUE}, what aesthetic value should the
+missing values be displayed as? Does not apply to position scales
+where \code{NA} is always placed at the far right.}
 
 \item{type}{One of the following:
 \itemize{

@@ -52,11 +52,12 @@ NULL
 #' @export
 #' @usage NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                                  limits = NULL, range = c(1, 6),
+                                  limits = NULL, range = NULL,
                                   transform = "identity",
                                   trans = deprecated(),
                                   guide = "legend") {
-  continuous_scale("size", palette = pal_area(range), name = name,
+  palette <- if (!is.null(range)) pal_area(range) else NULL
+  continuous_scale("size", palette = palette, name = name,
     breaks = breaks, labels = labels, limits = limits,
     transform = transform, trans = trans, guide = guide)
 }
@@ -79,10 +80,11 @@ scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
 #' @rdname scale_size
 #' @export
 scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                              limits = NULL, range = c(1, 6), n.breaks = NULL,
+                              limits = NULL, range = NULL, n.breaks = NULL,
                               nice.breaks = TRUE, transform = "identity",
                               trans = deprecated(), guide = "bins") {
-  binned_scale("size", palette = pal_area(range), name = name,
+  palette <- if (!is.null(range)) pal_area(range) else NULL
+  binned_scale("size", palette = palette, name = name,
                breaks = breaks, labels = labels, limits = limits,
                transform = transform, trans = trans, n.breaks = n.breaks,
                nice.breaks = nice.breaks, guide = guide)
@@ -101,17 +103,13 @@ scale_size_discrete <- function(...) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_ordinal <- function(name = waiver(), ..., range = c(2, 6)) {
-  force(range)
-
-  discrete_scale(
-    "size", name = name,
-    palette = function(n) {
-      area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
-      sqrt(area)
-    },
-    ...
-  )
+scale_size_ordinal <- function(name = waiver(), ..., range = NULL) {
+  palette <- if (!is.null(range)) {
+    function(n) sqrt(seq(range[1]^2, range[2]^2, length.out = n))
+  } else {
+    NULL
+  }
+  discrete_scale("size", name = name, palette = palette, ...)
 }
 
 #' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler -expand -position
@@ -139,13 +137,15 @@ scale_size_binned_area <- function(name = waiver(), ..., max_size = 6) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_datetime <- function(name = waiver(), ..., range = c(1, 6)) {
-  datetime_scale("size", "time", name = name, palette = pal_area(range), ...)
+scale_size_datetime <- function(name = waiver(), ..., range = NULL) {
+  palette <- if (!is.null(range)) pal_area(range) else NULL
+  datetime_scale("size", "time", name = name, palette = palette, ...)
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_date <- function(name = waiver(), ..., range = c(1, 6)) {
-  datetime_scale("size", "date", name = name, palette = pal_area(range), ...)
+scale_size_date <- function(name = waiver(), ..., range = NULL) {
+  palette <- if (!is.null(range)) pal_area(range) else NULL
+  datetime_scale("size", "date", name = name, palette = palette, ...)
 }
