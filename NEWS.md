@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Secondary axes respect `n.breaks` setting in continuous scales (@teunbrand, #4483).
 * `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
 * (internal) The plot's layout now has a coord parameter that is used to 
   prevent setting up identical panel parameters (#5427)
