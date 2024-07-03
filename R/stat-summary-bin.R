@@ -74,7 +74,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
                            fun.max = NULL, fun.min = NULL, fun.args = list(),
                            bins = 30, binwidth = NULL, breaks = NULL,
                            origin = NULL, right = FALSE, na.rm = FALSE,
-                           flipped_aes = FALSE) {
+                           flipped_aes = FALSE, width = NULL) {
     data <- flip_data(data, flipped_aes)
     fun <- make_summary_fun(fun.data, fun, fun.max, fun.min, fun.args)
     x <- flipped_names(flipped_aes)$x
@@ -85,7 +85,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid
-    out$width <- if (scales[[x]]$is_discrete()) 0.9 else locs$length
+    out$width <- width %||% if (scales[[x]]$is_discrete()) 0.9 else locs$length
     out$flipped_aes <- flipped_aes
     flip_data(out, flipped_aes)
   }
