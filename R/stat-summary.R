@@ -181,18 +181,22 @@ stat_summary <- function(mapping = NULL, data = NULL,
 StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "fun.data", "fun.max", "fun.min", "fun.args"),
+
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
+    params$fun <- make_summary_fun(
+      params$fun.data, params$fun,
+      params$fun.max, params$fun.min,
+      params$fun.args %||% list()
+    )
     params
   },
 
-  compute_panel = function(data, scales, fun.data = NULL, fun = NULL,
-                     fun.max = NULL, fun.min = NULL, fun.args = list(),
-                     na.rm = FALSE, flipped_aes = FALSE) {
+  compute_panel = function(data, scales, fun = NULL,
+                           na.rm = FALSE, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
-    fun <- make_summary_fun(fun.data, fun, fun.max, fun.min, fun.args)
-    summarised <- summarise_by_x(data, fun)
+    summarised <- summarise_by_x(data, fun %||% function(df) mean_se(df$y))
     summarised$flipped_aes <- flipped_aes
     flip_data(summarised, flipped_aes)
   }
