@@ -743,25 +743,21 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(limits[1])
     }
 
-    # Limits in transformed space need to be converted back to data space
-    limits <- transformation$inverse(limits)
-
-    if (is.waive(self$breaks)) {
-      if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
-        breaks <- transformation$breaks(limits, self$n.breaks)
+    if (is.function(breaks)) {
+      # Limits in transformed space need to be converted back to data space
+      limits <- transformation$inverse(limits)
+      if (!is.null(self$n.breaks) && support_nbreaks(breaks)) {
+        breaks <- breaks(limits, n = self$n.breaks)
       } else {
+        breaks <- breaks(limits)
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
-            "Ignoring {.arg n.breaks}. Use a {.cls transform} object that supports setting number of breaks.",
+            "Ignoring {.arg n.breaks}. Use a {.cls transform} object or \\
+            {.arg breaks} function that supports setting number of breaks",
             call = self$call
           )
         }
-        breaks <- transformation$breaks(limits)
       }
-    } else if (is.function(self$breaks)) {
-      breaks <- self$breaks(limits)
-    } else {
-      breaks <- self$breaks
     }
 
     # Breaks in data space need to be converted back to transformed space
