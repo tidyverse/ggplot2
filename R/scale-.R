@@ -717,6 +717,18 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(numeric())
     }
     transformation <- self$get_transformation()
+    breaks <- self$breaks %|W|% transformation$breaks
+
+    if (is.null(breaks)) {
+      return(NULL)
+    }
+    if (identical(breaks, NA)) {
+      cli::cli_abort(
+        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
+        call = self$call
+      )
+    }
+
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(transformation$transform(transformation$domain))
     domain <- sort(domain)
@@ -727,17 +739,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     # Limits in transformed space need to be converted back to data space
     limits <- transformation$inverse(limits)
-
-    if (is.null(self$breaks)) {
-      return(NULL)
-    }
-
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
-    }
 
     # Compute `zero_range()` in transformed space in case `limits` in data space
     # don't support conversion to numeric (#5304)
