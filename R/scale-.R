@@ -745,7 +745,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (zero_range(as.numeric(transformation$transform(limits)))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
-      if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
+      if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
         breaks <- transformation$breaks(limits, self$n.breaks)
       } else {
         if (!is.null(self$n.breaks)) {
@@ -1237,7 +1237,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       )
     } else if (is.waive(self$breaks)) {
       if (self$nice.breaks) {
-        if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
+        if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
         } else {
           if (!is.null(self$n.breaks)) {
@@ -1399,8 +1399,11 @@ check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) 
   cli::cli_warn(msg, call = call)
 }
 
-trans_support_nbreaks <- function(trans) {
-  "n" %in% names(formals(trans$breaks))
+support_nbreaks <- function(fun) {
+  if (inherits(fun, "ggproto_method")) {
+    fun <- environment(fun)$f
+  }
+  "n" %in% fn_fmls_names(fun)
 }
 
 allow_lambda <- function(x) {
