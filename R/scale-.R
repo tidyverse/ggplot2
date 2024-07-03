@@ -737,14 +737,16 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       limits <- oob_squish(limits, domain)
     }
 
+    # Compute `zero_range()` in transformed space in case `limits` in data space
+    # don't support conversion to numeric (#5304)
+    if (zero_range(as.numeric(limits))) {
+      return(limits[1])
+    }
+
     # Limits in transformed space need to be converted back to data space
     limits <- transformation$inverse(limits)
 
-    # Compute `zero_range()` in transformed space in case `limits` in data space
-    # don't support conversion to numeric (#5304)
-    if (zero_range(as.numeric(transformation$transform(limits)))) {
-      breaks <- limits[1]
-    } else if (is.waive(self$breaks)) {
+    if (is.waive(self$breaks)) {
       if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
         breaks <- transformation$breaks(limits, self$n.breaks)
       } else {
