@@ -607,6 +607,12 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
   if (is.null(breaks)) {
     return(TRUE)
   }
+  if (identical(breaks, NA)) {
+    cli::cli_abort(
+      "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
+      call = call
+    )
+  }
   if (is.null(labels)) {
     return(TRUE)
   }
@@ -721,12 +727,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     if (is.null(breaks)) {
       return(NULL)
-    }
-    if (identical(breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
     }
 
     # Ensure limits don't exceed domain (#980)
@@ -1004,13 +1004,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     }
 
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
-    }
-
     if (is.waive(self$breaks)) {
       breaks <- limits
     } else if (is.function(self$breaks)) {
@@ -1228,11 +1221,6 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     if (is.null(self$breaks)) {
       return(NULL)
-    } else if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
     } else if (is.waive(self$breaks)) {
       if (self$nice.breaks) {
         if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {

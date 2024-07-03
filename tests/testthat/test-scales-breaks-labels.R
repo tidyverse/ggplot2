@@ -170,38 +170,12 @@ test_that("suppressing breaks, minor_breask, and labels works", {
 
 test_that("scale_breaks with explicit NA options (deprecated)", {
   # NA is defunct, should throw error
-
-  # X
-  sxc <- scale_x_continuous(breaks = NA)
-  sxc$train(1:3)
-  expect_error(sxc$get_breaks())
-  expect_error(sxc$get_breaks_minor())
-
-  # Y
-  syc <- scale_y_continuous(breaks = NA)
-  syc$train(1:3)
-  expect_error(syc$get_breaks())
-  expect_error(syc$get_breaks_minor())
-
-  # Alpha
-  sac <- scale_alpha_continuous(breaks = NA)
-  sac$train(1:3)
-  expect_error(sac$get_breaks())
-
-  # Size
-  ssc <- scale_size_continuous(breaks = NA)
-  ssc$train(1:3)
-  expect_error(ssc$get_breaks())
-
-  # Fill
-  sfc <- scale_fill_continuous(breaks = NA)
-  sfc$train(1:3)
-  expect_error(sfc$get_breaks())
-
-  # Colour
-  scc <- scale_colour_continuous(breaks = NA)
-  scc$train(1:3)
-  expect_error(scc$get_breaks())
+  expect_error(scale_x_continuous(breaks = NA))
+  expect_error(scale_y_continuous(breaks = NA))
+  expect_error(scale_alpha_continuous(breaks = NA))
+  expect_error(scale_size_continuous(breaks = NA))
+  expect_error(scale_fill_continuous(breaks = NA))
+  expect_error(scale_colour_continuous(breaks = NA))
 })
 
 test_that("breaks can be specified by names of labels", {
