@@ -188,7 +188,13 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       if (scale$is_discrete()) {
         self$breaks <- scale$get_breaks()
       } else {
-        self$breaks <- scale$get_transformation()$breaks
+        breaks <- scale$get_transformation()$breaks
+        n_breaks <- scale$n.breaks
+        if (!is.null(n_breaks) && "n" %in% fn_fmls_names(breaks)) {
+          self$breaks <- function(x) breaks(x, n = n_breaks)
+        } else {
+          self$breaks <- breaks
+        }
       }
     }
     if (is.derived(self$labels)) self$labels <- scale$labels
