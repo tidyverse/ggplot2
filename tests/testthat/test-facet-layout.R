@@ -232,6 +232,23 @@ test_that("facet_grid throws errors at bad layout specs", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("facet_grid can respect coord aspect with free scales/space", {
+  df <- expand.grid(x = letters[1:6], y = LETTERS[1:3])
+  p <- ggplot(df, aes(x, y)) +
+    geom_tile() +
+    facet_grid(
+      rows = vars(y == "C"),
+      cols = vars(x %in% c("e", "f")),
+      scales = "free", space = "free"
+    ) +
+    coord_fixed(3, expand = FALSE)
+  gt <- ggplotGrob(p)
+  width  <- gt$widths[panel_cols(gt)$l]
+  height <- gt$heights[panel_rows(gt)$t]
+  expect_equal(as.numeric(width),  c(4, 2))
+  expect_equal(as.numeric(height), c(6, 3))
+})
+
 test_that("facet_wrap and facet_grid throws errors when using reserved words", {
   mtcars2 <- mtcars
   mtcars2$PANEL <- mtcars2$cyl

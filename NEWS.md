@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
+  (@teunbrand, #4584).
 * `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
 * (internal) The plot's layout now has a coord parameter that is used to 
   prevent setting up identical panel parameters (#5427)
