@@ -44,6 +44,10 @@ update_stat_defaults <- function(stat, new) {
   update_defaults(stat, "Stat", new, env = parent.frame())
 }
 
+reset_geom_defaults <- function() reset_defaults("geom")
+
+reset_stat_defaults <- function() reset_defaults("stat")
+
 cache_defaults <- new_environment()
 
 update_defaults <- function(name, subclass, new, env = parent.frame()) {
@@ -72,4 +76,21 @@ update_defaults <- function(name, subclass, new, env = parent.frame()) {
     invisible(old)
 
   }
+}
+
+reset_defaults <- function(type) {
+  # Lookup matching names in cache
+  prefix <- paste0("^", type, "_")
+  full_names <- grep(prefix, ls(cache_defaults), value = TRUE)
+  # Early exit if there is nothing to reset
+  if (length(full_names) < 1) {
+    return(invisible())
+  }
+  # Format names without prefix
+  short_names <- gsub(prefix, "", full_names)
+  names(short_names) <- full_names
+
+  # Run updates
+  update <- switch(type, geom = update_geom_defaults, update_stat_defaults)
+  invisible(lapply(short_names, update, new = NULL))
 }
