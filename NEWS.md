@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `reset_geom_defaults()` and `reset_stat_defaults()` to restore all geom or
+  stat default aesthetics at once (@teunbrand, #5975).
 * `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
 * (internal) The plot's layout now has a coord parameter that is used to 
   prevent setting up identical panel parameters (#5427)
