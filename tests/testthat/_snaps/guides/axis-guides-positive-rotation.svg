@@ -59,7 +59,7 @@
 <line x1='0.00' y1='60.63' x2='720.00' y2='60.63' style='stroke-width: 0.75; stroke: #FFFFFF;' />
 <line x1='0.00' y1='30.32' x2='720.00' y2='30.32' style='stroke-width: 0.75; stroke: #FFFFFF;' />
 <line x1='0.00' y1='0.00' x2='720.00' y2='0.00' style='stroke-width: 0.75; stroke: #FFFFFF;' />
-<polyline points='36.00,547.20 684.00,547.20 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='36.00,547.20 684.00,547.20 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <polyline points='94.91,544.46 94.91,547.20 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='153.82,544.46 153.82,547.20 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='212.73,544.46 212.73,547.20 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -80,7 +80,7 @@
 <text transform='translate(507.27,542.27) rotate(-45)' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>8,000</text>
 <text transform='translate(566.18,542.27) rotate(-45)' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>9,000</text>
 <text transform='translate(625.09,542.27) rotate(-45)' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='26.92px' lengthAdjust='spacingAndGlyphs'>10,000</text>
-<polyline points='36.00,547.20 36.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='36.00,547.20 36.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <polyline points='38.74,500.07 36.00,500.07 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='38.74,452.95 36.00,452.95 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='38.74,405.82 36.00,405.82 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -101,7 +101,7 @@
 <text transform='translate(45.21,174.46) rotate(-45)' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>8,000</text>
 <text transform='translate(45.21,127.34) rotate(-45)' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>9,000</text>
 <text transform='translate(45.21,80.21) rotate(-45)' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='26.92px' lengthAdjust='spacingAndGlyphs'>10,000</text>
-<polyline points='36.00,28.80 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='36.00,28.80 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <polyline points='94.91,31.54 94.91,28.80 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='153.82,31.54 153.82,28.80 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='212.73,31.54 212.73,28.80 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -122,7 +122,7 @@
 <text transform='translate(511.56,38.01) rotate(-45)' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>8,000</text>
 <text transform='translate(570.46,38.01) rotate(-45)' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>9,000</text>
 <text transform='translate(629.37,38.01) rotate(-45)' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='26.92px' lengthAdjust='spacingAndGlyphs'>10,000</text>
-<polyline points='684.00,547.20 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='684.00,547.20 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <text transform='translate(679.07,500.07) rotate(-45)' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>1,000</text>
 <text transform='translate(679.07,452.95) rotate(-45)' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>2,000</text>
 <text transform='translate(679.07,405.82) rotate(-45)' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.02px' lengthAdjust='spacingAndGlyphs'>3,000</text>

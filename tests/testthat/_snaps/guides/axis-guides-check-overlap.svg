@@ -59,7 +59,7 @@
 <line x1='0.00' y1='60.63' x2='720.00' y2='60.63' style='stroke-width: 0.75; stroke: #FFFFFF;' />
 <line x1='0.00' y1='30.32' x2='720.00' y2='30.32' style='stroke-width: 0.75; stroke: #FFFFFF;' />
 <line x1='0.00' y1='0.00' x2='720.00' y2='0.00' style='stroke-width: 0.75; stroke: #FFFFFF;' />
-<polyline points='36.00,547.20 684.00,547.20 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='36.00,547.20 684.00,547.20 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <polyline points='66.86,544.46 66.86,547.20 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='97.71,544.46 97.71,547.20 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='128.57,544.46 128.57,547.20 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -89,7 +89,7 @@
 <text x='498.86' y='542.27' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>15,000,000,000</text>
 <text x='406.29' y='542.27' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>12,000,000,000</text>
 <text x='560.57' y='542.27' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>17,000,000,000</text>
-<polyline points='36.00,547.20 36.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='36.00,547.20 36.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <polyline points='38.74,522.51 36.00,522.51 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='38.74,497.83 36.00,497.83 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='38.74,473.14 36.00,473.14 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -130,7 +130,7 @@
 <text x='40.93' y='155.26' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>16,000,000,000</text>
 <text x='40.93' y='105.89' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>18,000,000,000</text>
 <text x='40.93' y='81.20' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>19,000,000,000</text>
-<polyline points='36.00,28.80 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='36.00,28.80 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <polyline points='66.86,31.54 66.86,28.80 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='97.71,31.54 97.71,28.80 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='128.57,31.54 128.57,28.80 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -160,7 +160,7 @@
 <text x='498.86' y='39.79' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>15,000,000,000</text>
 <text x='406.29' y='39.79' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>12,000,000,000</text>
 <text x='560.57' y='39.79' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>17,000,000,000</text>
-<polyline points='684.00,547.20 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='684.00,547.20 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <text x='679.07' y='525.54' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='56.28px' lengthAdjust='spacingAndGlyphs'>1,000,000,000</text>
 <text x='679.07' y='56.51' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>20,000,000,000</text>
 <text x='679.07' y='303.37' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='61.17px' lengthAdjust='spacingAndGlyphs'>10,000,000,000</text>

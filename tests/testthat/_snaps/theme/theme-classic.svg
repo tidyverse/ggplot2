@@ -43,7 +43,7 @@
 <text x='350.09' y='34.14' text-anchor='middle' style='font-size: 8.80px; fill: #1A1A1A; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<polyline points='35.24,545.11 664.95,545.11 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='35.24,545.11 664.95,545.11 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <polyline points='63.86,547.85 63.86,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='206.98,547.85 206.98,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='350.09,547.85 350.09,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -54,7 +54,7 @@
 <text x='350.09' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.0</text>
 <text x='493.21' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.5</text>
 <text x='636.33' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>3.0</text>
-<polyline points='35.24,545.11 35.24,39.43 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='35.24,545.11 35.24,39.43 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 <text x='30.31' y='525.16' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.0</text>
 <text x='30.31' y='410.23' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>1.5</text>
 <text x='30.31' y='295.30' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>2.0</text>

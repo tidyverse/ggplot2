@@ -59,9 +59,9 @@
 <line x1='0.00' y1='60.63' x2='720.00' y2='60.63' style='stroke-width: 0.75; stroke: #FFFFFF;' />
 <line x1='0.00' y1='30.32' x2='720.00' y2='30.32' style='stroke-width: 0.75; stroke: #FFFFFF;' />
 <line x1='0.00' y1='0.00' x2='720.00' y2='0.00' style='stroke-width: 0.75; stroke: #FFFFFF;' />
-<polyline points='36.00,547.20 684.00,547.20 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='36.00,547.20 36.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='36.00,28.80 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='684.00,547.20 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='36.00,547.20 684.00,547.20 ' style='stroke-width: 1.07; stroke-linecap: square;' />
+<polyline points='36.00,547.20 36.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
+<polyline points='36.00,28.80 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
+<polyline points='684.00,547.20 684.00,28.80 ' style='stroke-width: 1.07; stroke-linecap: square;' />
 </g>
 </svg>
