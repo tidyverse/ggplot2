@@ -26,7 +26,7 @@ test_that("geom defaults can be set and reset", {
 
   expect_equal(reset$geom_line$colour, "blue")
   expect_equal(reset$geom_point$colour, GeomPoint$default_aes$colour)
-  expect_equal(GeomLine$default_aes$colour, orig$colour)
+  expect_equal(GeomLine$default_aes$colour, inv$colour)
 })
 
 test_that("updating geom aesthetic defaults preserves class and order", {
