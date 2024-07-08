@@ -47,21 +47,14 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
-    # Adjust the x transformation based on the number of 'dodge' variables
-    possible_dodge <- c("fill", "colour", "linetype", "shape", "size", "alpha")
-    dodgecols <- intersect(possible_dodge, colnames(data))
-    if (length(dodgecols) == 0) {
-      cli::cli_abort(c(
-        "{.fn position_jitterdodge} requires at least one aesthetic to dodge by.",
-        i = "Use one of {.or {.val {possible_dodge}}} aesthetics."
-        ))
-    }
-    ndodge    <- lapply(data[dodgecols], levels)  # returns NULL for numeric, i.e. non-dodge layers
-    ndodge    <- vec_unique_count(unlist(ndodge))
+
+    ndodge <- vec_unique(data[c("group", "PANEL", "x")])
+    ndodge <- vec_group_id(ndodge[c("PANEL", "x")])
+    ndodge <- max(tabulate(ndodge, attr(ndodge, "n")))
 
     list(
-      dodge.width = self$dodge.width,
-      jitter.height = self$jitter.height,
+      dodge.width = self$dodge.width %||% 0.75,
+      jitter.height = self$jitter.height %||% 0,
       jitter.width = width / (ndodge + 2),
       seed = self$seed,
       flipped_aes = flipped_aes
