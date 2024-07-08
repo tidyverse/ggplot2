@@ -91,6 +91,7 @@ These are useful for annotating plots.</p>
 <span><span class="fu">geom_hline</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">yintercept</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -100,6 +101,7 @@ These are useful for annotating plots.</p>
 <span><span class="fu">geom_vline</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">xintercept</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -168,6 +170,19 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.</p></dd>
+
+
+<dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
+<dd><p>A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.
+This method allows for passing extra arguments to the position.</p></li>
+<li><p>A string naming the position adjustment. To give the position as a
+string, strip the function name of the <code>position_</code> prefix. For example,
+to use <code><a href="position_jitter.html">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
+<li><p>For more information and other ways to specify the position, see the
+<a href="layer_positions.html">layer position</a> documentation.</p></li>
+</ul></dd>
 
 
 <dt id="arg-xintercept-yintercept-slope-intercept">xintercept, yintercept, slope, intercept<a class="anchor" aria-label="anchor" href="#arg-xintercept-yintercept-slope-intercept"></a></dt>
