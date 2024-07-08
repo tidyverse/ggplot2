@@ -104,6 +104,8 @@
   the `nbin` argument (@teunbrand, #5882, #5036)
 * `after_stat()` and `after_scale()` throw warnings when the computed aesthetics
   are not of the correct length (#5901).
+* `geom_hline()` and `geom_vline()` now have `position` argument
+  (@yutannihilation, #4285).
 
 # ggplot2 3.5.1
 
