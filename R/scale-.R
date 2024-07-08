@@ -232,7 +232,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 
   # If the scale is non-positional, break = NULL means removing the guide
   is_position <- any(is_position_aes(aesthetics))
-  if (is.null(breaks) && !position) {
+  if (is.null(breaks) && !is_position) {
     guide <- "none"
   }
   if (is_position && identical(palette, identity)) {
