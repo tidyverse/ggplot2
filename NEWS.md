@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `theme_classic()` now has black ticks and text instead of dark gray. In 
+  addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
 * All position scales now use the same definition of `x` and `y` aesthetics.
   This lets uncommon aesthetics like `xintercept` expand scales as usual.
   (#3342, #4966, @teunbrand)
