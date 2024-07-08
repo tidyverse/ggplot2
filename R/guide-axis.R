@@ -242,6 +242,8 @@ GuideAxis <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
+    theme$axis.line <- theme$axis.line %||% element_line(inherit.blank = TRUE)
+    theme$axis.line$lineend <- theme$axis.line$lineend %||% "square"
     is_char <- vapply(elements, is.character, logical(1))
     suffix <- params$theme_suffix %||%
       paste(params$aes, params$position, sep = ".")
