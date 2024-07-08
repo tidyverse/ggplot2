@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* All position scales now use the same definition of `x` and `y` aesthetics.
+  This lets uncommon aesthetics like `xintercept` expand scales as usual.
+  (#3342, #4966, @teunbrand)
+* Bare numeric values provided to Date or Datetime scales get inversely 
+  transformed (cast to Date/POSIXct) with a warning (@teunbrand).
 * `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
 * (internal) The plot's layout now has a coord parameter that is used to 
   prevent setting up identical panel parameters (#5427)
