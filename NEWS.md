@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* {tibble} is now suggested instead of imported (@teunbrand, #5986)
 * All position scales now use the same definition of `x` and `y` aesthetics.
   This lets uncommon aesthetics like `xintercept` expand scales as usual.
   (#3342, #4966, @teunbrand)
