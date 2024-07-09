@@ -1,10 +1,9 @@
 # Missing values ----------------------------------------------------------
 
-df <- tibble::tibble(
+df <- data_frame0(
   x1 = c("a", "b", NA),
-  x2 = factor(x1),
-  x3 = addNA(x2),
-
+  x2 = factor(c("a", "b", NA)),
+  x3 = factor(c("a", "b", NA), levels = c("a", "b", NA), exclude = NULL),
   y = 1:3
 )
 

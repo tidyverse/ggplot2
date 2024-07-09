@@ -171,7 +171,7 @@ test_that("sec axis works with tidy eval", {
     g
   }
 
-  t <- tibble(x = letters, y = seq(10, 260, 10), z = 1:26)
+  t <- data_frame0(x = letters, y = seq(10, 260, 10), z = 1:26)
 
   p <- f(t, x, y, z)
 
