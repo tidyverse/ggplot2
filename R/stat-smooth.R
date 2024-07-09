@@ -111,7 +111,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
 
     if (is.null(params$formula)) {
-      if (identical(method, "gam") && is_installed("mgcv")) {
+      if (identical(method, "gam")) {
         params$formula <- y ~ s(x, bs = "cs")
       } else {
         params$formula <- y ~ x
@@ -133,15 +133,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
     # If gam and gam's method is not specified by the user then use REML
     if (identical(method, gam_method())) {
-      if (identical(method, stats::lm)) {
-        cli::cli_warn(c(
-          "The {.pkg mgcv} package must be installed to use \\
-          {.code method = \"gam\"}.",
-          "Falling back to {.code method = \"lm\"}."
-        ))
-      } else {
-        params$method.args$method <- params$method.args$method %||% "REML"
-      }
+      params$method.args$method <- params$method.args$method %||% "REML"
     }
 
     if (length(msg) > 0) {
@@ -212,10 +204,4 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 )
 
 # This function exists to silence an undeclared import warning
-gam_method <- function() {
-  if (is_installed("mgcv")) {
-    mgcv::gam
-  } else {
-    stats::lm
-  }
-}
+gam_method <- function() mgcv::gam
