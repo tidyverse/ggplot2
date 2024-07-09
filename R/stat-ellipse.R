@@ -77,6 +77,14 @@ stat_ellipse <- function(mapping = NULL, data = NULL,
 StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
 
+  setup_params = function(data, params) {
+    params$type <- params$type %||% "t"
+    if (identical(params$type, "t")) {
+      check_installed("MASS", "for calculating ellipses with `type = \"t\"`.")
+    }
+    params
+  },
+
   compute_group = function(data, scales, type = "t", level = 0.95,
                            segments = 51, na.rm = FALSE) {
     calculate_ellipse(data = data, vars = c("x", "y"), type = type,
