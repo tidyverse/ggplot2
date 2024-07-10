@@ -33,7 +33,6 @@ Depends:
     R (>= 3.5)
 Imports: 
     cli,
-    glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),

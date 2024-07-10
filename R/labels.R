@@ -205,10 +205,11 @@ get_alt_text.gtable <- function(p, ...) {
 generate_alt_text <- function(p) {
   # Combine titles
   if (!is.null(p$label$title %||% p$labels$subtitle)) {
-    title <- glue(glue_collapse(
-      sub("\\.?$", "", c(p$labels$title, p$labels$subtitle)),
-      last = ": "
-    ), ". ")
+    title <- sub("\\.?$", "", c(p$labels$title, p$labels$subtitle))
+    if (length(title) == 2) {
+      title <- paste0(title[1], ": ", title[2])
+    }
+    title <- paste0(title, ". ")
     title <- safe_string(title)
   } else {
     title <- ""
@@ -216,29 +217,24 @@ generate_alt_text <- function(p) {
 
 
   # Get axes descriptions
-  axes <- glue(" showing ", glue_collapse(
-    c(scale_description(p, "x"), scale_description(p, "y")),
-    last = " and "
-  ))
+  axes <- paste0(" showing ", scale_description(p, "x"), " and ", scale_description(p, "y"))
   axes <- safe_string(axes)
 
   # Get layer types
   layers <- vapply(p$layers, function(l) snake_class(l$geom), character(1))
   layers <- sub("_", " ", sub("^geom_", "", unique0(layers)))
-  layers <- glue(
-    " using ",
-    if (length(layers) == 1) "a " else "",
-    glue_collapse(layers, sep = ", ", last = " and "),
-    " layer",
-    if (length(layers) == 1) "" else "s"
-  )
+  if (length(layers) == 1) {
+    layers <- paste0(" using a ", layers, " layer")
+  } else {
+    layers <- paste0(" using ", oxford_comma(layers), " layers")
+  }
   layers <- safe_string(layers)
 
   # Combine
-  alt <- glue_collapse(
-    c(glue("{title}A plot{axes}{layers}"), p$labels$alt_insight),
-    last = ". "
-  )
+  alt <- paste0(title, "A plot", axes, layers, ".")
+  if (!is.null(p$labels$alt_insight)) {
+    alt <- paste0(alt, " ", p$labels$alt_insight)
+  }
   as.character(alt)
 }
 safe_string <- function(string) {
@@ -258,5 +254,5 @@ scale_description <- function(p, name) {
   if (is.null(lab)) {
     return(NULL)
   }
-  glue("{lab} on {type} {name}-axis")
+  paste0(lab, " on ", type, " ", name, "-axis")
 }
