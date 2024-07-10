@@ -576,9 +576,14 @@ label_angle_heuristic <- function(element, position, angle) {
   radian <- deg2rad(angle)
   digits <- 3
 
+  # Taking the sign of the (co)sine snaps the value to c(-1, 0, 1)
+  # Doing `x / 2 + 0.5` rescales it to c(0, 0.5, 1), which are good values for justification
+  # The rounding step ensures we can get (co)sine to exact 0 so it can become 0.5
+  # which we need for center-justifications
   cosine <- sign(round(cos(radian), digits)) / 2 + 0.5
   sine   <- sign(round(sin(radian), digits)) / 2 + 0.5
 
+  # Depending on position, we might need to swap or flip justification values
   hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
   vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
 
