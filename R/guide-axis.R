@@ -570,32 +570,17 @@ label_angle_heuristic <- function(element, position, angle) {
       || is.null(angle %|W|% NULL)) {
     return(element)
   }
-  check_number_decimal(angle)
-  angle <- angle %% 360
-
   arg_match0(position, .trbl)
 
-  if (position == "bottom") {
+  check_number_decimal(angle)
+  radian <- deg2rad(angle)
+  digits <- 3
 
-    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+  cosine <- sign(round(cos(radian), digits)) / 2 + 0.5
+  sine   <- sign(round(sin(radian), digits)) / 2 + 0.5
 
-  } else if (position == "left") {
-
-    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
-    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
-
-  } else if (position == "top") {
-
-    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
-    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
-
-  } else if (position == "right") {
-
-    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
-    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-
-  }
+  hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
+  vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
 
   element$angle <- angle %||% element$angle
   element$hjust <- hjust %||% element$hjust
