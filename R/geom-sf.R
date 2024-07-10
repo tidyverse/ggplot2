@@ -131,15 +131,21 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+  use_defaults = function(self, data, params = list(), modifiers = aes(),
+                          default_aes = NULL, ...) {
     data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
-    # Early exit for e.g. legend data that don't have geometry columns
     if (!"geometry" %in% names(data)) {
       return(data)
     }
 
+    # geometry column is a character if we're populating legend keys
+    type <- if (is.character(data$geometry)) {
+      data$geometry
+    } else {
+      sf_types[sf::st_geometry_type(data$geometry)]
+    }
+
     # Devise splitting index for geometry types
-    type <- sf_types[sf::st_geometry_type(data$geometry)]
     type <- factor(type, c("point", "line", "other", "collection"))
     index <- split(seq_len(nrow(data)), type)
 
@@ -190,7 +196,7 @@ GeomSf <- ggproto("GeomSf", Geom,
 
   draw_panel = function(self, data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
-                        arrow = NULL, na.rm = TRUE) {
+                        arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
       cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
@@ -198,33 +204,21 @@ GeomSf <- ggproto("GeomSf", Geom,
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
     sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-            arrow = arrow, na.rm = na.rm)
+            arrow = arrow, arrow.fill = arrow.fill, na.rm = na.rm)
   },
 
   draw_key = function(data, params, size) {
-    data <- modify_list(default_aesthetics(params$legend), data)
-    if (params$legend == "point") {
-      draw_key_point(data, params, size)
-    } else if (params$legend == "line") {
-      draw_key_path(data, params, size)
-    } else {
+    switch(
+      params$legend %||% "other",
+      point = draw_key_point(data, params, size),
+      line  = draw_key_path(data, params, size),
       draw_key_polygon(data, params, size)
-    }
+    )
   }
 )
 
-default_aesthetics <- function(type) {
-  if (type == "point") {
-    GeomPoint$default_aes
-  } else if (type == "line") {
-    GeomLine$default_aes
-  } else  {
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
-  }
-}
-
 sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
-                    arrow = NULL, na.rm = TRUE) {
+                    arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
   type <- sf_types[sf::st_geometry_type(x$geometry)]
   is_point <- type == "point"
   is_line <- type == "line"
@@ -249,6 +243,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
 
   alpha <- x$alpha %||% NA
   fill <- fill_alpha(x$fill %||% NA, alpha)
+  fill[is_line] <- arrow.fill %||% fill[is_line]
   col <- x$colour %||% NA
   col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])
 
