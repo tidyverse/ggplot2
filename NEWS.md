@@ -4,6 +4,18 @@
   argument to overrule theme settings, similar to `guide_axis(angle)` 
   (@teunbrand, #4594).
 * (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
+* ggplot2 no longer imports {glue} (@teunbrand, #5986).
+* `geom_rect()` can now derive the required corners positions from `x`/`width`
+  or `y`/`height` parameterisation (@teunbrand, #5861).
+* All position scales now use the same definition of `x` and `y` aesthetics.
+  This lets uncommon aesthetics like `xintercept` expand scales as usual.
+  (#3342, #4966, @teunbrand)
+* Bare numeric values provided to Date or Datetime scales get inversely 
+  transformed (cast to Date/POSIXct) with a warning (@teunbrand).
+* `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
+* (internal) The plot's layout now has a coord parameter that is used to 
+  prevent setting up identical panel parameters (#5427)
+* (internal) rearranged the code of `Facet$draw_panels()` method (@teunbrand).
 * `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
 * `position_dodge(preserve = "single")` now handles multi-row geoms better,
   such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
@@ -99,6 +111,8 @@
   the `nbin` argument (@teunbrand, #5882, #5036)
 * `after_stat()` and `after_scale()` throw warnings when the computed aesthetics
   are not of the correct length (#5901).
+* `geom_hline()` and `geom_vline()` now have `position` argument
+  (@yutannihilation, #4285).
 
 # ggplot2 3.5.1
 

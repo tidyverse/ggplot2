@@ -22,7 +22,7 @@
 #'   outside the range of the data.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
-#'    and `boundary`.
+#'    and `boundary`. Can also be a function that takes group-wise values as input and returns bin boundaries.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
@@ -146,6 +146,9 @@ StatBin <- ggproto("StatBin", Stat,
                            origin = NULL, right = NULL, drop = NULL) {
     x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
+      if (is.function(breaks)) {
+        breaks <- breaks(data[[x]])
+      }
       if (!scales[[x]]$is_discrete()) {
          breaks <- scales[[x]]$transform(breaks)
       }
