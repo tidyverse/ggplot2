@@ -183,7 +183,7 @@ wecdf <- function(x, weights = NULL) {
   )
 
   # Like `ecdf(x)`, we return an approx function
-  approxfun(
+  stats::approxfun(
     vals,
     cumsum(agg_weights) / total,
     method = "constant",

@@ -231,8 +231,12 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
   # If the scale is non-positional, break = NULL means removing the guide
-  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
+  is_position <- any(is_position_aes(aesthetics))
+  if (is.null(breaks) && !is_position) {
     guide <- "none"
+  }
+  if (is_position && identical(palette, identity)) {
+    palette <- seq_len
   }
 
   ggproto(NULL, super,
