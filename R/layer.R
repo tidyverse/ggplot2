@@ -438,14 +438,14 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, layout)
   },
 
-  compute_geom_2 = function(self, data) {
+  compute_geom_2 = function(self, data, params = self$aes_params, ...) {
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
     aesthetics <- self$computed_mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-    self$geom$use_defaults(data, self$aes_params, modifiers)
+    self$geom$use_defaults(data, params, modifiers, ...)
   },
 
   finish_statistics = function(self, data) {
