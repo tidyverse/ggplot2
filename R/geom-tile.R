@@ -1,25 +1,26 @@
 #' Rectangles
 #'
 #' `geom_rect()` and `geom_tile()` do the same thing, but are
-#' parameterised differently: `geom_rect()` uses the locations of the four
-#' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
-#' `geom_tile()` uses the center of the tile and its size (`x`,
-#' `y`, `width`, `height`). `geom_raster()` is a high
-#' performance special case for when all the tiles are the same size, and no
-#' pattern fills are applied.
+#' parameterised differently: `geom_tile()` uses the center of the tile and its
+#' size (`x`, `y`, `width`, `height`), while `geom_rect()` can use those or the
+#' locations of the corners (`xmin`, `xmax`, `ymin` and `ymax`).
+#' `geom_raster()` is a high performance special case for when all the tiles
+#' are the same size, and no pattern fills are applied.
 #'
-#' @eval rd_aesthetics("geom", "tile", "Note that `geom_raster()` ignores `colour`.")
+#' @eval rd_aesthetics(
+#'   "geom", "rect",
+#'   "`geom_tile()` understands only the `x`/`width` and `y`/`height` combinations.
+#'   Note that `geom_raster()` ignores `colour`."
+#' )
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_segment
 #' @export
 #'
 #' @details
-#' `geom_rect()` and `geom_tile()`'s respond differently to scale
-#' transformations due to their parameterisation. In `geom_rect()`, the scale
-#' transformation is applied to the corners of the rectangles. In `geom_tile()`,
-#' the transformation is applied only to the centres and its size is determined
-#' after transformation.
+#' Please note that the `width` and `height` aesthetics are not true position
+#' aesthetics and therefore are not subject to scale transformation. It is
+#' only after transformation that these aesthetics are applied.
 #'
 #' @examples
 #' # The most common use for rectangles is to draw a surface. You always want

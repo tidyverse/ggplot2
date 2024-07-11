@@ -6,6 +6,9 @@
 #'
 #' @param base_size base font size, given in pts.
 #' @param base_family base font family
+#' @param header_family font family for titles and headers. The default, `NULL`,
+#'   uses theme inheritance to set the font. This setting affects axis titles,
+#'   legend titles, the plot title and tag text.
 #' @param base_line_size base size for line elements
 #' @param base_rect_size base size for rect elements
 #'
@@ -101,6 +104,7 @@ NULL
 #' @export
 #' @rdname ggtheme
 theme_grey <- function(base_size = 11, base_family = "",
+                       header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
 
@@ -133,14 +137,17 @@ theme_grey <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+
+    title =              element_text(family = header_family),
+
     spacing = unit(half_line, "pt"),
     margins = margin(half_line, half_line, half_line, half_line),
 
-    geom =              element_geom(
-                          ink = "black", paper = "white", accent = "#3366FF",
-                          thin = base_line_size, thick = base_line_size * 2,
-                          family = base_family, fontsize = base_size,
-                          pointsize = (base_size / 11) * 1.5, pointshape = 19
+    geom =               element_geom(
+                           ink = "black", paper = "white", accent = "#3366FF",
+                           thin = base_line_size, thick = base_line_size * 2,
+                           family = base_family, fontsize = base_size,
+                           pointsize = (base_size / 11) * 1.5, pointshape = 19
                          ),
 
     axis.line =          element_blank(),
@@ -264,12 +271,14 @@ theme_gray <- theme_grey
 #' @export
 #' @rdname ggtheme
 theme_bw <- function(base_size = 11, base_family = "",
+                     header_family = NULL,
                      base_line_size = base_size / 22,
                      base_rect_size = base_size / 22) {
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
     base_family = base_family,
+    header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size
   ) %+replace%
@@ -290,6 +299,7 @@ theme_bw <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_linedraw <- function(base_size = 11, base_family = "",
+                           header_family = NULL,
                            base_line_size = base_size / 22,
                            base_rect_size = base_size / 22) {
   half_line <- base_size / 2
@@ -299,6 +309,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
   theme_bw(
     base_size = base_size,
     base_family = base_family,
+    header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size
   ) %+replace%
@@ -330,6 +341,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_light <- function(base_size = 11, base_family = "",
+                        header_family = NULL,
                         base_line_size = base_size / 22,
                         base_rect_size = base_size / 22) {
   half_line <- base_size / 2
@@ -338,6 +350,7 @@ theme_light <- function(base_size = 11, base_family = "",
   theme_grey(
     base_size = base_size,
     base_family = base_family,
+    header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size
   ) %+replace%
@@ -370,6 +383,7 @@ theme_light <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_dark <- function(base_size = 11, base_family = "",
+                       header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
   half_line <- base_size / 2
@@ -378,6 +392,7 @@ theme_dark <- function(base_size = 11, base_family = "",
   theme_grey(
     base_size = base_size,
     base_family = base_family,
+    header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size
   ) %+replace%
@@ -408,12 +423,14 @@ theme_dark <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_minimal <- function(base_size = 11, base_family = "",
+                          header_family = NULL,
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22) {
   # Starts with theme_bw and remove most parts
   theme_bw(
     base_size = base_size,
     base_family = base_family,
+    header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size
   ) %+replace%
@@ -433,11 +450,13 @@ theme_minimal <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_classic <- function(base_size = 11, base_family = "",
+                          header_family = NULL,
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22) {
   theme_bw(
     base_size = base_size,
     base_family = base_family,
+    header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size
   ) %+replace%
@@ -461,6 +480,7 @@ theme_classic <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_void <- function(base_size = 11, base_family = "",
+                       header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
   half_line <- base_size / 2
@@ -475,6 +495,7 @@ theme_void <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+    title =              element_text(family = header_family),
     spacing =            unit(half_line, "pt"),
     margins =            margin(half_line, half_line, half_line, half_line),
     axis.text =          element_blank(),
@@ -537,6 +558,7 @@ theme_void <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_test <- function(base_size = 11, base_family = "",
+                       header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
   half_line <- base_size / 2
@@ -556,9 +578,9 @@ theme_test <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
+    title =              element_text(family = header_family),
     spacing = unit(half_line, "pt"),
     margins = margin(half_line, half_line, half_line, half_line),
-
     geom =               element_geom(
                            ink = "black", paper = "white", accent = "#3366FF",
                            thin = base_line_size, thick = base_line_size * 2,
