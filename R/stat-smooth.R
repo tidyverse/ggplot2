@@ -214,4 +214,10 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 )
 
 # This function exists to silence an undeclared import warning
-gam_method <- function() mgcv::gam
+gam_method <- function() {
+  if (is_installed("mgcv")) {
+    mgcv::gam
+  } else {
+    NA
+  }
+}
