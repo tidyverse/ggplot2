@@ -2,8 +2,8 @@
 
 * Themes gain an additional `header_family` argument to easily set the font
   for headers and titles (#5886).
-* The `plot.subtitle` and `plot.caption` theme elements now inherit from the
-  root `text` element instead of the `title` element (#5886).
+* The `plot.subtitle`, `plot.caption` and `plot.tag` theme elements now inherit 
+  from the root `text` element instead of the `title` element (#5886).
 * ggplot2 no longer imports {glue} (@teunbrand, #5986).
 * `geom_rect()` can now derive the required corners positions from `x`/`width`
   or `y`/`height` parameterisation (@teunbrand, #5861).
