@@ -115,7 +115,8 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       cli::cli_inform(c(
         "The {.arg method} was set to {.val gam}, but {.pkg mgcv} is not installed.",
         "!" = "Falling back to {.code method = \"lm\"}.",
-        i = "Change the {.arg method} argument to silence this message."
+        i = "Install {.pkg mgcv} or change the {.arg method} argument to \\
+        resolve this issue."
       ))
       method <- "lm"
     }
