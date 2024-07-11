@@ -12,7 +12,7 @@
 
 ---
 
-    `test()` requires the following missing aesthetics: x and fill or y and fill.
+    `test()` requires the following missing aesthetics: fill and x or y.
 
 # remove_missing checks input
 

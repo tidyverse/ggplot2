@@ -583,6 +583,17 @@ test_that("Minor tick length supports biparental inheritance", {
   )
 })
 
+test_that("header_family is passed on correctly", {
+
+  td <- theme_dark(base_family = "x", header_family = "y")
+
+  test <- calc_element("plot.title", td)
+  expect_equal(test$family, "y")
+
+  test <- calc_element("plot.subtitle", td)
+  expect_equal(test$family, "x")
+})
+
 test_that("complete_theme completes a theme", {
   # `NULL` should match default
   gray <- theme_gray()

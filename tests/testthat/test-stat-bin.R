@@ -60,6 +60,14 @@ test_that("can use breaks argument", {
   expect_equal(out$count, c(1, 2))
 })
 
+test_that("breaks computes bin boundaries for function input", {
+  df <- data.frame(x = c(0, 0, 0, 1:3))
+  out <- layer_data(ggplot(df, aes(x)) +
+                      geom_histogram(breaks = function(x) c(0, 0.5, 2.5, 7.5)))
+
+  expect_equal(out$count, c(3, 2, 1))
+})
+
 test_that("fuzzy breaks are used when cutting", {
   df <- data_frame(x = c(-1, -0.5, -0.4, 0))
   p <- ggplot(df, aes(x)) +
