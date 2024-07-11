@@ -380,16 +380,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     table
   },
 
-  attach_strips = function(table, layout, params, theme) {
+  attach_strips = function(self, table, layout, params, theme) {
 
-    col_vars <- unique0(layout[names(params$cols)])
-    row_vars <- unique0(layout[names(params$rows)])
-    attr(col_vars, "type")  <- "cols"
-    attr(row_vars, "type")  <- "rows"
-    attr(col_vars, "facet") <- "grid"
-    attr(row_vars, "facet") <- "grid"
+    strips <- self$format_strip_labels(layout, params)
+    strips <- render_strips(strips$cols, strips$rows, theme = theme)
 
-    strips  <- render_strips(col_vars, row_vars, params$labeller, theme)
     padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
 
     switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
@@ -432,6 +427,33 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
   vars = function(self) {
     names(c(self$params$rows, self$params$cols))
+  },
+
+  format_strip_labels = function(layout, params) {
+
+    labeller <- match.fun(params$labeller)
+
+    cols <- intersect(names(layout), names(params$cols))
+    if (length(cols) > 0) {
+      col_vars <- unique0(layout[cols])
+      attr(col_vars, "type")  <- "cols"
+      attr(col_vars, "facet") <- "grid"
+      cols <- data_frame0(!!!labeller(col_vars))
+    } else {
+      cols <- NULL
+    }
+
+    rows <- intersect(names(layout), names(params$rows))
+    if (length(rows) > 0) {
+      row_vars <- unique0(layout[rows])
+      attr(row_vars, "type")  <- "rows"
+      attr(row_vars, "facet") <- "grid"
+      rows <- data_frame0(!!!labeller(row_vars))
+    } else {
+      rows <- NULL
+    }
+
+    list(cols = cols, rows = rows)
   }
 )
 

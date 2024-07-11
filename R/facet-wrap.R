@@ -371,22 +371,11 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     weave_axes(table, axes, empty)
   },
 
-  attach_strips = function(table, layout, params, theme) {
+  attach_strips = function(self, table, layout, params, theme) {
 
     # Format labels
-    if (length(params$facets) == 0) {
-      labels <- data_frame0("(all)" = "(all)", .size = 1)
-    } else {
-      labels <- layout[names(params$facets)]
-    }
-    attr(labels, "facet") <- "wrap"
-
-    # Render individual strips
-    strips <- render_strips(
-      x = structure(labels, type = "rows"),
-      y = structure(labels, type = "cols"),
-      params$labeller, theme
-    )
+    strips <- self$format_strip_labels(layout, params)
+    strips <- render_strips(strips$facets, strips$facets, theme = theme)
 
     # Set position invariant parameters
     padding  <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
@@ -457,6 +446,22 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   },
   vars = function(self) {
     names(self$params$facets)
+  },
+
+  format_strip_labels = function(layout, params) {
+    if (length(params$facets) == 0) {
+      labels <- data_frame0("(all)" = "(all)", .size = 1)
+    } else {
+      labels <- layout[intersect(names(params$facets), names(layout))]
+    }
+    if (empty(labels)) {
+      return(NULL)
+    }
+    attr(labels, "facet") <- "wrap"
+    attr(labels, "type") <- switch(params$strip.position, left = , right = "rows", "cols")
+
+    labeller <- match.fun(params$labeller)
+    list(facets = data_frame0(!!!labeller(labels)))
   }
 )
 

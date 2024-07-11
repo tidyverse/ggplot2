@@ -119,6 +119,7 @@
   are not of the correct length (#5901).
 * `geom_hline()` and `geom_vline()` now have `position` argument
   (@yutannihilation, #4285).
+* New function `get_strip_labels()` to retrieve facet labels (@teunbrand, #4979)
 
 # ggplot2 3.5.1
 

@@ -209,3 +209,21 @@ test_that("strip clipping can be set from the theme", {
   expect_equal(strip$x$top[[1]]$layout$clip, "off")
 })
 
+test_that("strip labels can be accessed", {
+
+  expect_null(get_strip_labels(ggplot()))
+
+  expect_equal(
+    get_strip_labels(ggplot() + facet_wrap(vars("X", "Y"))),
+    list(facets = data_frame0(`"X"` = "X", `"Y"` = "Y"))
+  )
+
+  expect_equal(
+    get_strip_labels(ggplot() + facet_grid(vars("X"), vars("Y"))),
+    list(
+      cols = data_frame0(`"Y"` = "Y"),
+      rows = data_frame0(`"X"` = "X")
+    )
+  )
+})
+
