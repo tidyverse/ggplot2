@@ -90,7 +90,12 @@ can have variable widths.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="cn">NULL</span>, preserve <span class="op">=</span> <span class="st">"total"</span>, orientation <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">position_dodge</span><span class="op">(</span></span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  preserve <span class="op">=</span> <span class="st">"total"</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="st">"x"</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">position_dodge2</span><span class="op">(</span></span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -121,14 +126,14 @@ indicate an explicit orientation, like <code><a href="geom_point.html">geom_poin
 (default) or <code>"y"</code>.</p></dd>
 
 
-<dt id="arg-padding">padding<a class="anchor" aria-label="anchor" href="#arg-padding"></a></dt>
-<dd><p>Padding between elements at the same position. Elements are
-shrunk by this proportion to allow space between them. Defaults to 0.1.</p></dd>
-
-
 <dt id="arg-reverse">reverse<a class="anchor" aria-label="anchor" href="#arg-reverse"></a></dt>
 <dd><p>If <code>TRUE</code>, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.</p></dd>
+
+
+<dt id="arg-padding">padding<a class="anchor" aria-label="anchor" href="#arg-padding"></a></dt>
+<dd><p>Padding between elements at the same position. Elements are
+shrunk by this proportion to allow space between them. Defaults to 0.1.</p></dd>
 
 </dl></div>
     <div class="section level2">
