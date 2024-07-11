@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
 * ggplot2 no longer imports {glue} (@teunbrand, #5986).
 * `geom_rect()` can now derive the required corners positions from `x`/`width`
   or `y`/`height` parameterisation (@teunbrand, #5861).
