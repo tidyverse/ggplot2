@@ -325,6 +325,18 @@ test_that("facet_wrap `axes` can draw inner axes.", {
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
 })
 
+test_that("facet_wrap throws deprecation messages", {
+  withr::local_options(lifecycle_verbosity = "warning")
+
+  facet <- facet_wrap(vars(year))
+  facet$params$dir <- "h"
+
+  lifecycle::expect_deprecated(
+    ggplot_build(ggplot(mpg, aes(displ, hwy)) + geom_point() + facet),
+    "Internal use of"
+  )
+})
+
 # Variable combinations ---------------------------------------------------
 
 test_that("zero-length vars in combine_vars() generates zero combinations", {

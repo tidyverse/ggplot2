@@ -114,7 +114,7 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL, ...) {
     default_aes <- default_aes %||% self$default_aes
 
     # Inherit size as linewidth if no linewidth aesthetic and param exist

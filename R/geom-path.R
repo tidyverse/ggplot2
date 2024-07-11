@@ -206,7 +206,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       segmentsGrob(
         munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
         default.units = "native", arrow = arrow,
-        gp = ggpar(
+        gp = gg_par(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$fill, munched$alpha)[!end],
           lwd = munched$linewidth[!end],
@@ -221,7 +221,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       polylineGrob(
         munched$x, munched$y, id = id,
         default.units = "native", arrow = arrow,
-        gp = ggpar(
+        gp = gg_par(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$fill, munched$alpha)[start],
           lwd = munched$linewidth[start],

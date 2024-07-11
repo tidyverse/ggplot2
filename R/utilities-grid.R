@@ -25,7 +25,7 @@ ggname <- function(prefix, grob) {
 #' @return An object of class 'gpar'.
 #' @keywords internal
 #' @export
-ggpar <- function(..., stroke = NULL, pointsize = NULL) {
+gg_par <- function(..., stroke = NULL, pointsize = NULL) {
   args <- list2(...)
   args <- args[lengths(args) > 0]
 

@@ -124,9 +124,9 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
       rectGrob(
         x = x, y = y, width = width, height = height,
         hjust = just$hjust, vjust = just$vjust,
-        gp = ggpar(fill = "cornsilk", col = NA)
+        gp = gg_par(fill = "cornsilk", col = NA)
       ),
-      pointsGrob(x, y, pch = 20, gp = ggpar(col = "gold")),
+      pointsGrob(x, y, pch = 20, gp = gg_par(col = "gold")),
       grob
     )
   } else {
@@ -193,7 +193,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
 
   if (isTRUE(debug)) {
     children <- gList(
-      rectGrob(gp = ggpar(fill = "lightcyan", col = NA)),
+      rectGrob(gp = gg_par(fill = "lightcyan", col = NA)),
       grobs
     )
   }
@@ -219,7 +219,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
     #cat("E - hjust, vjust:", c(hjust, vjust), "\n")
     grobTree(
       result_grob,
-      pointsGrob(x, y, pch = 20, gp = ggpar(col = "mediumturquoise"))
+      pointsGrob(x, y, pch = 20, gp = gg_par(col = "mediumturquoise"))
     )
   } else {
     result_grob
@@ -307,7 +307,7 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   if (is.null(descent)) {
     descent <- convertHeight(grobDescent(textGrob(
       label = "gjpqyQ",
-      gp = ggpar(
+      gp = gg_par(
         fontsize = size,
         cex = cex,
         fontfamily = family,
