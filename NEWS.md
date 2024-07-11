@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
+  argument to overrule theme settings, similar to `guide_axis(angle)` 
+  (@teunbrand, #4594).
+* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
 * ggplot2 no longer imports {glue} (@teunbrand, #5986).
 * `geom_rect()` can now derive the required corners positions from `x`/`width`
   or `y`/`height` parameterisation (@teunbrand, #5861).

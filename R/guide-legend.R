@@ -374,6 +374,9 @@ GuideLegend <- ggproto(
         ggname("legend.key", element_grob(elements$key))
     }
 
+    elements$text <-
+      label_angle_heuristic(elements$text, elements$text_position, params$angle)
+
     elements
   },
 
