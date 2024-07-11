@@ -33,7 +33,7 @@
 
 # facet_grid throws errors at bad layout specs
 
-    `coord_fixed()` doesn't support free scales.
+    `facet_grid()` can't use free scales with `coord_fixed()`.
 
 ---
 

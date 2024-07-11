@@ -552,6 +552,25 @@ test_that("bins can be parsed by guides for all scale types", {
   )
 })
 
+test_that("legends can be forced to display unrelated geoms", {
+
+  df <- data.frame(x = 1:2)
+
+  p <- ggplot(df, aes(x, x)) +
+    geom_tile(fill = "red", show.legend = TRUE) +
+    scale_colour_discrete(
+      limits = c("A", "B")
+    )
+
+  b <- ggplot_build(p)
+  legend <- b$plot$guides$params[[1]]
+
+  expect_equal(
+    legend$decor[[1]]$data$fill,
+    c("red", "red")
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
