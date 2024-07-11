@@ -90,6 +90,8 @@
   the `nbin` argument (@teunbrand, #5882, #5036)
 * `after_stat()` and `after_scale()` throw warnings when the computed aesthetics
   are not of the correct length (#5901).
+* `guide_colourbar()` now correctly hands off `position` and `available_aes`
+  parameters downstream (@teunbrand, #5930)
 
 # ggplot2 3.5.1
 
