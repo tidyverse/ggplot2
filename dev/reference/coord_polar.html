@@ -131,10 +131,14 @@ are taken directly from the scale.</p></dd>
 
 
 <dt id="arg-r-axis-inside">r.axis.inside<a class="anchor" aria-label="anchor" href="#arg-r-axis-inside"></a></dt>
-<dd><p>If <code>TRUE</code>, places the radius axis inside the
-panel. If <code>FALSE</code>, places the radius axis next to the panel. The default,
-<code>NULL</code>, places the radius axis outside if the <code>start</code> and <code>end</code> arguments
-form a full circle.</p></dd>
+<dd><p>One of the following:</p><ul><li><p><code>NULL</code> (default) places the axis next to the panel if <code>start</code> and
+<code>end</code> arguments form a full circle and inside the panel otherwise.</p></li>
+<li><p><code>TRUE</code> to place the radius axis inside the panel.</p></li>
+<li><p><code>FALSE</code> to place the radius axis next to the panel.</p></li>
+<li><p>A numeric value, setting a theta axis value at which
+the axis should be placed inside the panel. Can be given as a length 2
+vector to control primary and secondary axis placement separately.</p></li>
+</ul></dd>
 
 
 <dt id="arg-rotate-angle">rotate.angle<a class="anchor" aria-label="anchor" href="#arg-rotate-angle"></a></dt>
