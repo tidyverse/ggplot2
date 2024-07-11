@@ -151,7 +151,7 @@ test_that("errors are correctly triggered", {
     ),
     linewidth = c(1, NA)
   )
-  expect_snapshot_warning(sf_grob(pts, na.rm = FALSE))
+  expect_snapshot_warning(GeomSf$handle_na(pts, list(na.rm = FALSE)))
 })
 
 # Visual tests ------------------------------------------------------------
