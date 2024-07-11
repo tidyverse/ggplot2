@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `position_dodge()` and `position_jitterdodge()` now have a `reverse` argument 
+  (@teunbrand, #3610)
 * `coord_radial(r.axis.inside)` can now take a numeric value to control 
   placement of internally placed radius axes (@teunbrand, #5805).
 * (internal) default labels are derived in `ggplot_build()` rather than
