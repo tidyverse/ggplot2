@@ -119,6 +119,8 @@
   the `nbin` argument (@teunbrand, #5882, #5036)
 * `after_stat()` and `after_scale()` throw warnings when the computed aesthetics
   are not of the correct length (#5901).
+* `guide_colourbar()` now correctly hands off `position` and `available_aes`
+  parameters downstream (@teunbrand, #5930)
 * `geom_hline()` and `geom_vline()` now have `position` argument
   (@yutannihilation, #4285).
 * New function `get_strip_labels()` to retrieve facet labels (@teunbrand, #4979)
