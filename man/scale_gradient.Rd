@@ -260,6 +260,14 @@ ggplot(df, aes(x, y)) +
   geom_point(aes(colour = z1)) +
   scale_colour_gradientn(colours = terrain.colors(10))
 
+# The gradientn scale can be centered by using a rescaler
+ggplot(df, aes(x, y)) +
+  geom_point(aes(colour = z1)) +
+  scale_colour_gradientn(
+    colours = c("blue", "dodgerblue", "white", "orange", "red"),
+    rescaler = ~ scales::rescale_mid(.x, mid = 0)
+  )
+
 # Equivalent fill scales do the same job for the fill aesthetic
 ggplot(faithfuld, aes(waiting, eruptions)) +
   geom_raster(aes(fill = density)) +
