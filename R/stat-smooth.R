@@ -110,6 +110,16 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       msg <- c(msg, paste0("method = '", method, "'"))
     }
 
+    if (identical(method, "gam") &&
+        !prompt_install("mgcv", "for using {.code method = \"gam\"}")) {
+      cli::cli_inform(c(
+        "The {.arg method} was set to {.val gam}, but {.pkg mgcv} is not installed.",
+        "!" = "Falling back to {.code method = \"lm\"}.",
+        i = "Change the {.arg method} argument to silence this message."
+      ))
+      method <- "lm"
+    }
+
     if (is.null(params$formula)) {
       if (identical(method, "gam")) {
         params$formula <- y ~ s(x, bs = "cs")

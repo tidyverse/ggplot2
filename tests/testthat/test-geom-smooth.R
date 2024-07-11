@@ -98,13 +98,13 @@ test_that("geom_smooth() works when one group fails", {
   expect_gte(nrow(ld), 2)
 })
 
-test_that("a warning is thrown when `method = 'gam'` and {mgcv} is absent", {
+test_that("a fallback message is thrown when `method = 'gam'` and {mgcv} is absent", {
   p <- ggplot(mpg, aes(displ, hwy)) +
     geom_smooth(method = "gam", formula = y ~ x)
 
   with_mocked_bindings(
-    expect_warning(
-      ggplot_build(p), regexp = "package must be installed"
+    expect_message(
+      ggplot_build(p), regexp = "Falling back to `method = \"lm\"`"
     ),
     is_installed = function(...) FALSE
   )
