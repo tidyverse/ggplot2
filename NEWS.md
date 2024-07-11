@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* `geom_step()` now supports the `orientation` argument (@teunbrand, #5936).
 * `position_dodge()` and `position_jitterdodge()` now have a `reverse` argument 
   (@teunbrand, #3610)
 * `coord_radial(r.axis.inside)` can now take a numeric value to control 
