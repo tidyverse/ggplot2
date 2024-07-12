@@ -71,7 +71,7 @@ scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(), guide = waiver(),
                              position = "bottom", sec.axis = waiver()) {
   sc <- discrete_scale(
-    aesthetics = c("x", "xmin", "xmax", "xend"), name = name,
+    aesthetics = ggplot_global$x_aes, name = name,
     palette = palette, ...,
     expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition
@@ -86,7 +86,7 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(), guide = waiver(),
                              position = "left", sec.axis = waiver()) {
   sc <- discrete_scale(
-    aesthetics = c("y", "ymin", "ymax", "yend"), name = name,
+    aesthetics = ggplot_global$y_aes, name = name,
     palette = palette, ...,
     expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition

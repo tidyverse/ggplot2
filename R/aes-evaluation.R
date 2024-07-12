@@ -231,9 +231,9 @@ is_calculated <- function(x, warn = FALSE) {
   } else if (is.symbol(x)) {
     res <- is_dotted_var(as.character(x))
     if (res && warn) {
-      what <- I(glue("The dot-dot notation (`{x}`)"))
+      what <- I(paste0("The dot-dot notation (`", x, "`)"))
       var <- gsub(match_calculated_aes, "\\1", as.character(x))
-      with <- I(glue("`after_stat({var})`"))
+      with <- I(paste0("`after_stat(", var, ")`"))
       deprecate_warn0("3.4.0", what, with, id = "ggplot-warn-aes-dot-dot")
     }
     res
@@ -242,9 +242,9 @@ is_calculated <- function(x, warn = FALSE) {
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(stat))) {
       if (warn) {
-        what <- I(glue("`{expr_deparse(x)}`"))
+        what <- I(paste0("`", expr_deparse(x), "`"))
         x[[1]] <- quote(after_stat)
-        with <- I(glue("`{expr_deparse(x)}`"))
+        with <- I(paste0("`", expr_deparse(x), "`"))
         deprecate_warn0("3.4.0", what, with, id = "ggplot-warn-aes-stat")
       }
       TRUE
