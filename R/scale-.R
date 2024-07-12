@@ -973,23 +973,23 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    if (!is_null(names(pal))) {
+    na_value <- if (self$na.translate) self$na.value else NA
+    pal_names <- names(pal)
+
+    if (!is_null(pal_names)) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
-      idx_nomatch <- is.na(match(names(pal), limits))
-      pal[idx_nomatch] <- NA
-      pal_match <- pal[match(as.character(x), names(pal))]
-      pal_match <- unname(pal_match)
-    } else {
-      # if pal is not named, limit the values directly
-      pal_match <- pal[match(as.character(x), limits)]
+      pal[is.na(match(pal_names, limits))] <- na_value
+      pal <- unname(pal)
+      limits <- pal_names
     }
+    pal <- c(pal, na_value)
+    pal_match <- pal[match(as.character(x), limits, nomatch = length(pal))]
 
-    if (self$na.translate) {
-      ifelse(is.na(x) | is.na(pal_match), self$na.value, pal_match)
-    } else {
-      pal_match
+    if (!is.na(na_value)) {
+      pal_match[is.na(x)] <- na_value
     }
+    pal_match
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = c(1, length(limits))) {

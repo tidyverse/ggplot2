@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Missing values from discrete palettes are no longer translated 
+  (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
   (@teunbrand, #1864).
 * `geom_step()` now supports the `orientation` argument (@teunbrand, #5936).
