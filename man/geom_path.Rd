@@ -41,6 +41,7 @@ geom_step(
   position = "identity",
   direction = "hv",
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE,
   ...

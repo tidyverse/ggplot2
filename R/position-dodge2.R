@@ -2,8 +2,6 @@
 #' @rdname position_dodge
 #' @param padding Padding between elements at the same position. Elements are
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
-#' @param reverse If `TRUE`, will reverse the default stacking order.
-#'   This is useful if you're rotating both the plot and legend.
 position_dodge2 <- function(width = NULL, preserve = "total",
                             padding = 0.1, reverse = FALSE) {
   ggproto(NULL, PositionDodge2,
@@ -134,14 +132,19 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
 
 # Find groups of overlapping elements that need to be dodged from one another
 find_x_overlaps <- function(df) {
-  overlaps <- numeric(nrow(df))
-  overlaps[1] <- counter <- 1
 
-  for (i in seq_asc(2, nrow(df))) {
-    if (is.na(df$xmin[i]) || is.na(df$xmax[i - 1]) || df$xmin[i] >= df$xmax[i - 1]) {
-      counter <- counter + 1
-    }
-    overlaps[i] <- counter
-  }
-  overlaps
+  start   <- df$xmin
+  nonzero <- df$xmax != df$xmin
+  missing <- is.na(df$xmin) | is.na(df$xmax)
+  start   <- vec_fill_missing(start, "downup")
+  end     <- vec_fill_missing(df$xmax, "downup")
+
+  # For end we take largest end seen so far of previous observation
+  end <- cummax(c(end[1], end[-nrow(df)]))
+  # Start new group when 'start >= end' for non zero-width ranges
+  # For zero-width ranges, start must be strictly larger than end
+  overlaps <- cumsum(start > end | (start == end & nonzero))
+  # Missing ranges always get separate group
+  overlaps[missing] <- seq_len(sum(missing)) + max(overlaps, na.rm = TRUE)
+  match(overlaps, unique0(overlaps))
 }
