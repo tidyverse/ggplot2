@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
+  (@teunbrand, #1864).
 * `geom_step()` now supports the `orientation` argument (@teunbrand, #5936).
 * `position_dodge()` and `position_jitterdodge()` now have a `reverse` argument 
   (@teunbrand, #3610)
