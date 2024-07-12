@@ -127,6 +127,8 @@
 * New function `get_strip_labels()` to retrieve facet labels (@teunbrand, #4979)
 * Fixed bug in `position_dodge2()`'s identification of range overlaps 
   (@teunbrand, #5938, #4327).
+* Fixed bug where empty discrete scales weren't recognised as such 
+  (@teunbrand, #5945).
 
 # ggplot2 3.5.1
 
