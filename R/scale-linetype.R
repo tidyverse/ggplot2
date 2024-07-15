@@ -6,7 +6,7 @@
 #' no inherent order, this use is not advised.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -na.value -scale_name
+#' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette
 #' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
 #' @seealso
