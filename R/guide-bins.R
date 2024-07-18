@@ -154,7 +154,7 @@ GuideBins <- ggproto(
     key$.show  <- NA
 
     labels <- scale$get_labels(breaks)
-    if (is.character(scale$labels) || is.numeric(scale$labels)) {
+    if (is.character(scale$labels) || is.numeric(scale$labels) || is.expression(scale$labels)) {
       limit_lab <- c(NA, NA)
     } else {
       limit_lab <- scale$get_labels(limits)
@@ -261,7 +261,7 @@ GuideBins <- ggproto(
 
     list(labels = flip_element_grob(
       elements$text,
-      label = key$.label,
+      label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
       margin_x = FALSE,
       margin_y = TRUE,
