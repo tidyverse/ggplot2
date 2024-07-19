@@ -223,7 +223,7 @@ GuideLegend <- ggproto(
     self$get_layer_key(params, layers[include], data[include], theme)
   },
 
-  get_layer_key = function(params, layers, data, theme) {
+  get_layer_key = function(params, layers, data, theme = NULL) {
 
     # Return empty guides as-is
     if (nrow(params$key) < 1) {
