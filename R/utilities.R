@@ -846,3 +846,29 @@ as_unordered_factor <- function(x) {
   class(x) <- setdiff(class(x), "ordered")
   x
 }
+
+fallback_palette <- function(aes, discrete) {
+  if (discrete) {
+    pal <- switch(
+      aes,
+      colour = , fill = pal_hue(),
+      alpha = function(n) seq(0.1, 1, length.out = n),
+      linewidth = function(n) seq(2, 6, length.out = n),
+      linetype = pal_linetype(),
+      shape = pal_shape(),
+      size = function(n) sqrt(seq(4, 36, length.out = n)),
+      ggplot_global$theme_default[[paste0("palette.", aes, ".discrete")]]
+    )
+    return(pal)
+  }
+  switch(
+    aes,
+    colour = , fill = pal_seq_gradient("#132B43", "#56B1F7"),
+    alpha = pal_rescale(c(0.1, 1)),
+    linewidth = pal_rescale(c(1, 6)),
+    linetype = pal_binned(pal_linetype()),
+    shape = pal_binned(pal_shape()),
+    size = pal_area(),
+    ggplot_global$theme_default[[paste0("palette.", aes, ".continuous")]]
+  )
+}
