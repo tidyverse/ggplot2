@@ -152,6 +152,15 @@ layer <- function(geom = NULL, stat = NULL,
   if (any(pattern)) {
     aes_params[pattern] <- lapply(aes_params[pattern], list)
   }
+  # Drop empty aesthetics
+  empty_aes <- names(aes_params)[lengths(aes_params) == 0]
+  if (length(empty_aes) > 0) {
+    cli::cli_warn(
+      "Ignoring empty aesthetic{?s}: {.arg {empty_aes}}.",
+      call = call_env
+    )
+    aes_params <- aes_params[setdiff(names(aes_params), empty_aes)]
+  }
 
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
