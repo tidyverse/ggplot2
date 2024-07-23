@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Passing empty unmapped aesthetics to layers raises a warning instead of
+  throwing an error (@teunbrand, #6009).
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
