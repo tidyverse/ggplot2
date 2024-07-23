@@ -130,7 +130,8 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
-    layout = ggproto(NULL, Layout)
+    layout = ggproto(NULL, Layout),
+    labels = list()
   ), class = c("gg", "ggplot"))
 
   set_last_plot(p)
