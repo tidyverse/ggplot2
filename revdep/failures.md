@@ -70,82 +70,6 @@ ERROR: lazy loading failed for package ‘abctools’
 
 
 ```
-# AnanseSeurat
-
-<details>
-
-* Version: 1.2.0
-* GitHub: https://github.com/JGASmits/AnanseSeurat
-* Source code: https://github.com/cran/AnanseSeurat
-* Date/Publication: 2023-11-11 21:43:17 UTC
-* Number of recursive dependencies: 201
-
-Run `revdepcheck::cloud_details(, "AnanseSeurat")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/AnanseSeurat/new/AnanseSeurat.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘AnanseSeurat/DESCRIPTION’ ... OK
-...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-Package suggested but not available for checking: ‘Signac’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/AnanseSeurat/old/AnanseSeurat.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘AnanseSeurat/DESCRIPTION’ ... OK
-...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-Package suggested but not available for checking: ‘Signac’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
 # animalEKF
 
 <details>
@@ -216,7 +140,7 @@ ERROR: lazy loading failed for package ‘animalEKF’
 * GitHub: https://github.com/PhilipPallmann/ANOM
 * Source code: https://github.com/cran/ANOM
 * Date/Publication: 2017-04-12 13:32:33 UTC
-* Number of recursive dependencies: 77
+* Number of recursive dependencies: 60
 
 Run `revdepcheck::cloud_details(, "ANOM")` for more info
 
@@ -269,82 +193,6 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘ANOM’
 * removing ‘/tmp/workdir/ANOM/old/ANOM.Rcheck/ANOM’
-
-
-```
-# APackOfTheClones
-
-<details>
-
-* Version: 1.2.0
-* GitHub: https://github.com/Qile0317/APackOfTheClones
-* Source code: https://github.com/cran/APackOfTheClones
-* Date/Publication: 2024-04-16 09:50:02 UTC
-* Number of recursive dependencies: 176
-
-Run `revdepcheck::cloud_details(, "APackOfTheClones")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/APackOfTheClones/new/APackOfTheClones.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘APackOfTheClones/DESCRIPTION’ ... OK
-...
-* this is package ‘APackOfTheClones’ version ‘1.2.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'SeuratObject'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/APackOfTheClones/old/APackOfTheClones.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘APackOfTheClones/DESCRIPTION’ ... OK
-...
-* this is package ‘APackOfTheClones’ version ‘1.2.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'SeuratObject'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
 
 
 ```
@@ -418,7 +266,7 @@ ERROR: lazy loading failed for package ‘atRisk’
 * GitHub: https://github.com/nliulab/AutoScore
 * Source code: https://github.com/cran/AutoScore
 * Date/Publication: 2022-10-15 22:15:26 UTC
-* Number of recursive dependencies: 180
+* Number of recursive dependencies: 170
 
 Run `revdepcheck::cloud_details(, "AutoScore")` for more info
 
@@ -690,15 +538,93 @@ ERROR: lazy loading failed for package ‘BayesianFactorZoo’
 
 
 ```
+# BayesSurvive
+
+<details>
+
+* Version: 0.0.2
+* GitHub: https://github.com/ocbe-uio/BayesSurvive
+* Source code: https://github.com/cran/BayesSurvive
+* Date/Publication: 2024-06-04 13:20:12 UTC
+* Number of recursive dependencies: 128
+
+Run `revdepcheck::cloud_details(, "BayesSurvive")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘BayesSurvive’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/BayesSurvive/new/BayesSurvive.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘BayesSurvive’ ...
+** package ‘BayesSurvive’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether g++ -std=gnu++17 accepts -g... yes
+...
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘BayesSurvive’
+* removing ‘/tmp/workdir/BayesSurvive/new/BayesSurvive.Rcheck/BayesSurvive’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘BayesSurvive’ ...
+** package ‘BayesSurvive’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether g++ -std=gnu++17 accepts -g... yes
+...
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘BayesSurvive’
+* removing ‘/tmp/workdir/BayesSurvive/old/BayesSurvive.Rcheck/BayesSurvive’
+
+
+```
 # BCClong
 
 <details>
 
-* Version: 1.0.2
+* Version: 1.0.3
 * GitHub: NA
 * Source code: https://github.com/cran/BCClong
-* Date/Publication: 2024-02-05 11:50:06 UTC
-* Number of recursive dependencies: 142
+* Date/Publication: 2024-06-24 00:00:02 UTC
+* Number of recursive dependencies: 145
 
 Run `revdepcheck::cloud_details(, "BCClong")` for more info
 
@@ -710,11 +636,6 @@ Run `revdepcheck::cloud_details(, "BCClong")` for more info
     ```
     Installation failed.
     See ‘/tmp/workdir/BCClong/new/BCClong.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘joineRML’
     ```
 
 ## Installation
@@ -733,8 +654,8 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/
 g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c c_which.cpp -o c_which.o
 g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o BCClong.so BCC.o Likelihood.o RcppExports.o c_which.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/opt/R/4.3.1/lib/R/lib -lR
 ...
-installing to /tmp/workdir/BCClong/new/BCClong.Rcheck/00LOCK-BCClong/00new/BCClong/libs
 ** R
+** data
 ** inst
 ** byte-compile and prepare package for lazy loading
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
@@ -760,8 +681,8 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/
 g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c c_which.cpp -o c_which.o
 g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o BCClong.so BCC.o Likelihood.o RcppExports.o c_which.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/opt/R/4.3.1/lib/R/lib -lR
 ...
-installing to /tmp/workdir/BCClong/old/BCClong.Rcheck/00LOCK-BCClong/00new/BCClong/libs
 ** R
+** data
 ** inst
 ** byte-compile and prepare package for lazy loading
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
@@ -770,6 +691,84 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘BCClong’
 * removing ‘/tmp/workdir/BCClong/old/BCClong.Rcheck/BCClong’
+
+
+```
+# BGGM
+
+<details>
+
+* Version: 2.1.3
+* GitHub: https://github.com/donaldRwilliams/BGGM
+* Source code: https://github.com/cran/BGGM
+* Date/Publication: 2024-07-05 20:30:02 UTC
+* Number of recursive dependencies: 208
+
+Run `revdepcheck::cloud_details(, "BGGM")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘BGGM’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/BGGM/new/BGGM.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘BGGM’ ...
+** package ‘BGGM’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ -std=gnu++17 accepts -g... yes
+...
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘BGGM’
+* removing ‘/tmp/workdir/BGGM/new/BGGM.Rcheck/BGGM’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘BGGM’ ...
+** package ‘BGGM’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ -std=gnu++17 accepts -g... yes
+...
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘BGGM’
+* removing ‘/tmp/workdir/BGGM/old/BGGM.Rcheck/BGGM’
 
 
 ```
@@ -839,7 +838,7 @@ ERROR: lazy loading failed for package ‘binsreg’
 * GitHub: https://github.com/sujit-sahu/bmstdr
 * Source code: https://github.com/cran/bmstdr
 * Date/Publication: 2023-12-18 15:00:02 UTC
-* Number of recursive dependencies: 212
+* Number of recursive dependencies: 215
 
 Run `revdepcheck::cloud_details(, "bmstdr")` for more info
 
@@ -917,7 +916,7 @@ ERROR: lazy loading failed for package ‘bmstdr’
 * GitHub: https://github.com/statjs/bspcov
 * Source code: https://github.com/cran/bspcov
 * Date/Publication: 2024-02-06 16:50:08 UTC
-* Number of recursive dependencies: 122
+* Number of recursive dependencies: 121
 
 Run `revdepcheck::cloud_details(, "bspcov")` for more info
 
@@ -971,14 +970,92 @@ ERROR: lazy loading failed for package ‘bspcov’
 
 
 ```
+# BuyseTest
+
+<details>
+
+* Version: 3.0.4
+* GitHub: https://github.com/bozenne/BuyseTest
+* Source code: https://github.com/cran/BuyseTest
+* Date/Publication: 2024-07-01 09:20:02 UTC
+* Number of recursive dependencies: 133
+
+Run `revdepcheck::cloud_details(, "BuyseTest")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘BuyseTest’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/BuyseTest/new/BuyseTest.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘BuyseTest’ ...
+** package ‘BuyseTest’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c FCT_buyseTest.cpp -o FCT_buyseTest.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c FCT_precompute.cpp -o FCT_precompute.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c utils-from-riskRegression.cpp -o utils-from-riskRegression.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o BuyseTest.so FCT_buyseTest.o FCT_precompute.o RcppExports.o utils-from-riskRegression.o -L/opt/R/4.3.1/lib/R/lib -lR
+...
+installing to /tmp/workdir/BuyseTest/new/BuyseTest.Rcheck/00LOCK-BuyseTest/00new/BuyseTest/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Error: unable to load R code in package ‘BuyseTest’
+Execution halted
+ERROR: lazy loading failed for package ‘BuyseTest’
+* removing ‘/tmp/workdir/BuyseTest/new/BuyseTest.Rcheck/BuyseTest’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘BuyseTest’ ...
+** package ‘BuyseTest’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c FCT_buyseTest.cpp -o FCT_buyseTest.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c FCT_precompute.cpp -o FCT_precompute.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include    -fpic  -g -O2  -c utils-from-riskRegression.cpp -o utils-from-riskRegression.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o BuyseTest.so FCT_buyseTest.o FCT_precompute.o RcppExports.o utils-from-riskRegression.o -L/opt/R/4.3.1/lib/R/lib -lR
+...
+installing to /tmp/workdir/BuyseTest/old/BuyseTest.Rcheck/00LOCK-BuyseTest/00new/BuyseTest/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Error: unable to load R code in package ‘BuyseTest’
+Execution halted
+ERROR: lazy loading failed for package ‘BuyseTest’
+* removing ‘/tmp/workdir/BuyseTest/old/BuyseTest.Rcheck/BuyseTest’
+
+
+```
 # CalibrationCurves
 
 <details>
 
-* Version: 2.0.1
+* Version: 2.0.3
 * GitHub: NA
 * Source code: https://github.com/cran/CalibrationCurves
-* Date/Publication: 2024-03-01 10:12:35 UTC
+* Date/Publication: 2024-07-02 08:50:02 UTC
 * Number of recursive dependencies: 78
 
 Run `revdepcheck::cloud_details(, "CalibrationCurves")` for more info
@@ -1033,82 +1110,6 @@ ERROR: lazy loading failed for package ‘CalibrationCurves’
 
 
 ```
-# Canek
-
-<details>
-
-* Version: 0.2.5
-* GitHub: https://github.com/MartinLoza/Canek
-* Source code: https://github.com/cran/Canek
-* Date/Publication: 2023-12-08 05:30:02 UTC
-* Number of recursive dependencies: 220
-
-Run `revdepcheck::cloud_details(, "Canek")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/Canek/new/Canek.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘Canek/DESCRIPTION’ ... OK
-...
-  [ FAIL 1 | WARN 0 | SKIP 0 | PASS 74 ]
-  Error: Test failures
-  Execution halted
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘toy_example.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 ERROR, 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/Canek/old/Canek.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘Canek/DESCRIPTION’ ... OK
-...
-  [ FAIL 1 | WARN 0 | SKIP 0 | PASS 74 ]
-  Error: Test failures
-  Execution halted
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘toy_example.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 ERROR, 1 NOTE
-
-
-
-
-
-```
 # CARBayesST
 
 <details>
@@ -1117,7 +1118,7 @@ Status: 1 ERROR, 1 NOTE
 * GitHub: https://github.com/duncanplee/CARBayesST
 * Source code: https://github.com/cran/CARBayesST
 * Date/Publication: 2023-10-30 16:40:02 UTC
-* Number of recursive dependencies: 118
+* Number of recursive dependencies: 117
 
 Run `revdepcheck::cloud_details(, "CARBayesST")` for more info
 
@@ -1259,82 +1260,6 @@ ERROR: lazy loading failed for package ‘CaseBasedReasoning’
 
 
 ```
-# cellpypes
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/FelixTheStudent/cellpypes
-* Source code: https://github.com/cran/cellpypes
-* Date/Publication: 2024-01-27 07:30:07 UTC
-* Number of recursive dependencies: 183
-
-Run `revdepcheck::cloud_details(, "cellpypes")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/cellpypes/new/cellpypes.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘cellpypes/DESCRIPTION’ ... OK
-...
-* checking contents of ‘data’ directory ... OK
-* checking data for non-ASCII characters ... OK
-* checking LazyData ... OK
-* checking data for ASCII and uncompressed saves ... OK
-* checking examples ... OK
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/cellpypes/old/cellpypes.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘cellpypes/DESCRIPTION’ ... OK
-...
-* checking contents of ‘data’ directory ... OK
-* checking data for non-ASCII characters ... OK
-* checking LazyData ... OK
-* checking data for ASCII and uncompressed saves ... OK
-* checking examples ... OK
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
 # CGPfunctions
 
 <details>
@@ -1396,234 +1321,6 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘CGPfunctions’
 * removing ‘/tmp/workdir/CGPfunctions/old/CGPfunctions.Rcheck/CGPfunctions’
-
-
-```
-# CIARA
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/CIARA
-* Date/Publication: 2022-02-22 20:00:02 UTC
-* Number of recursive dependencies: 181
-
-Run `revdepcheck::cloud_details(, "CIARA")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/CIARA/new/CIARA.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘CIARA/DESCRIPTION’ ... OK
-...
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘CIARA.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... NOTE
-Note: skipping ‘CIARA.Rmd’ due to unavailable dependencies: 'Seurat'
-* DONE
-Status: 3 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/CIARA/old/CIARA.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘CIARA/DESCRIPTION’ ... OK
-...
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘CIARA.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... NOTE
-Note: skipping ‘CIARA.Rmd’ due to unavailable dependencies: 'Seurat'
-* DONE
-Status: 3 NOTEs
-
-
-
-
-
-```
-# ClustAssess
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/Core-Bioinformatics/ClustAssess
-* Source code: https://github.com/cran/ClustAssess
-* Date/Publication: 2022-01-26 16:52:46 UTC
-* Number of recursive dependencies: 164
-
-Run `revdepcheck::cloud_details(, "ClustAssess")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/ClustAssess/new/ClustAssess.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘ClustAssess/DESCRIPTION’ ... OK
-...
---- finished re-building ‘comparing-soft-and-hierarchical.Rmd’
-
-SUMMARY: processing the following file failed:
-  ‘ClustAssess.Rmd’
-
-Error: Vignette re-building failed.
-Execution halted
-
-* DONE
-Status: 1 ERROR, 1 WARNING, 2 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/ClustAssess/old/ClustAssess.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘ClustAssess/DESCRIPTION’ ... OK
-...
---- finished re-building ‘comparing-soft-and-hierarchical.Rmd’
-
-SUMMARY: processing the following file failed:
-  ‘ClustAssess.Rmd’
-
-Error: Vignette re-building failed.
-Execution halted
-
-* DONE
-Status: 1 ERROR, 1 WARNING, 2 NOTEs
-
-
-
-
-
-```
-# clustree
-
-<details>
-
-* Version: 0.5.1
-* GitHub: https://github.com/lazappi/clustree
-* Source code: https://github.com/cran/clustree
-* Date/Publication: 2023-11-05 19:10:02 UTC
-* Number of recursive dependencies: 192
-
-Run `revdepcheck::cloud_details(, "clustree")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/clustree/new/clustree.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘clustree/DESCRIPTION’ ... OK
-...
-* checking tests ... OK
-  Running ‘spelling.R’
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘clustree.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/clustree/old/clustree.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘clustree/DESCRIPTION’ ... OK
-...
-* checking tests ... OK
-  Running ‘spelling.R’
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘clustree.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 NOTE
-
-
-
 
 
 ```
@@ -1689,158 +1386,6 @@ ERROR: lazy loading failed for package ‘cmprskcoxmsm’
 
 
 ```
-# combiroc
-
-<details>
-
-* Version: 0.3.4
-* GitHub: https://github.com/ingmbioinfo/combiroc
-* Source code: https://github.com/cran/combiroc
-* Date/Publication: 2023-07-06 12:53:12 UTC
-* Number of recursive dependencies: 160
-
-Run `revdepcheck::cloud_details(, "combiroc")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/combiroc/new/combiroc.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘combiroc/DESCRIPTION’ ... OK
-...
-
-  When sourcing ‘combiroc_vignette_2.R’:
-Error: Cannot find the file(s): "/tmp/RtmpA38BUi/file1c6675fecb04/vignettes/vignettes/atlas_dimplot.png"
-Execution halted
-
-  ‘combiroc_vignette_1.Rmd’ using ‘UTF-8’... OK
-  ‘combiroc_vignette_2.Rmd’ using ‘UTF-8’... failed
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 ERROR, 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/combiroc/old/combiroc.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘combiroc/DESCRIPTION’ ... OK
-...
-
-  When sourcing ‘combiroc_vignette_2.R’:
-Error: Cannot find the file(s): "/tmp/RtmpD5SHHa/file14446c22f1bc/vignettes/vignettes/atlas_dimplot.png"
-Execution halted
-
-  ‘combiroc_vignette_1.Rmd’ using ‘UTF-8’... OK
-  ‘combiroc_vignette_2.Rmd’ using ‘UTF-8’... failed
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 ERROR, 1 NOTE
-
-
-
-
-
-```
-# conos
-
-<details>
-
-* Version: 1.5.2
-* GitHub: https://github.com/kharchenkolab/conos
-* Source code: https://github.com/cran/conos
-* Date/Publication: 2024-02-26 19:30:05 UTC
-* Number of recursive dependencies: 239
-
-Run `revdepcheck::cloud_details(, "conos")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/conos/new/conos.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘conos/DESCRIPTION’ ... OK
-...
-* checking for GNU extensions in Makefiles ... OK
-* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
-* checking use of PKG_*FLAGS in Makefiles ... OK
-* checking compiled code ... OK
-* checking examples ... OK
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* DONE
-Status: 2 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/conos/old/conos.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘conos/DESCRIPTION’ ... OK
-...
-* checking for GNU extensions in Makefiles ... OK
-* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
-* checking use of PKG_*FLAGS in Makefiles ... OK
-* checking compiled code ... OK
-* checking examples ... OK
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* DONE
-Status: 2 NOTEs
-
-
-
-
-
-```
 # contrast
 
 <details>
@@ -1849,7 +1394,7 @@ Status: 2 NOTEs
 * GitHub: https://github.com/Alanocallaghan/contrast
 * Source code: https://github.com/cran/contrast
 * Date/Publication: 2022-10-05 17:20:09 UTC
-* Number of recursive dependencies: 112
+* Number of recursive dependencies: 111
 
 Run `revdepcheck::cloud_details(, "contrast")` for more info
 
@@ -1905,82 +1450,6 @@ ERROR: lazy loading failed for package ‘contrast’
 
 
 ```
-# countland
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/shchurch/countland
-* Source code: https://github.com/cran/countland
-* Date/Publication: 2024-02-01 18:00:02 UTC
-* Number of recursive dependencies: 199
-
-Run `revdepcheck::cloud_details(, "countland")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/countland/new/countland.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘countland/DESCRIPTION’ ... OK
-...
-   1. └─base::loadNamespace(x) at test-countland_subset.R:2:1
-   2.   └─base::withRestarts(stop(cond), retry_loadNamespace = function() NULL)
-   3.     └─base (local) withOneRestart(expr, restarts[[1L]])
-   4.       └─base (local) doWithOneRestart(return(expr), restart)
-  
-  [ FAIL 7 | WARN 0 | SKIP 0 | PASS 13 ]
-  Error: Test failures
-  Execution halted
-* DONE
-Status: 2 ERRORs, 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/countland/old/countland.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘countland/DESCRIPTION’ ... OK
-...
-   1. └─base::loadNamespace(x) at test-countland_subset.R:2:1
-   2.   └─base::withRestarts(stop(cond), retry_loadNamespace = function() NULL)
-   3.     └─base (local) withOneRestart(expr, restarts[[1L]])
-   4.       └─base (local) doWithOneRestart(return(expr), restart)
-  
-  [ FAIL 7 | WARN 0 | SKIP 0 | PASS 13 ]
-  Error: Test failures
-  Execution halted
-* DONE
-Status: 2 ERRORs, 1 NOTE
-
-
-
-
-
-```
 # coxed
 
 <details>
@@ -1989,7 +1458,7 @@ Status: 2 ERRORs, 1 NOTE
 * GitHub: https://github.com/jkropko/coxed
 * Source code: https://github.com/cran/coxed
 * Date/Publication: 2020-08-02 01:20:07 UTC
-* Number of recursive dependencies: 109
+* Number of recursive dependencies: 95
 
 Run `revdepcheck::cloud_details(, "coxed")` for more info
 
@@ -2051,71 +1520,55 @@ ERROR: lazy loading failed for package ‘coxed’
 * GitHub: https://github.com/khodosevichlab/CRMetrics
 * Source code: https://github.com/cran/CRMetrics
 * Date/Publication: 2023-09-01 09:00:06 UTC
-* Number of recursive dependencies: 235
+* Number of recursive dependencies: 239
 
 Run `revdepcheck::cloud_details(, "CRMetrics")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘CRMetrics’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/CRMetrics/new/CRMetrics.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/CRMetrics/new/CRMetrics.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘CRMetrics/DESCRIPTION’ ... OK
-...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘ggpmisc’
-
-Package suggested but not available for checking: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘CRMetrics’ ...
+** package ‘CRMetrics’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘CRMetrics’
+* removing ‘/tmp/workdir/CRMetrics/new/CRMetrics.Rcheck/CRMetrics’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/CRMetrics/old/CRMetrics.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘CRMetrics/DESCRIPTION’ ... OK
-...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘ggpmisc’
-
-Package suggested but not available for checking: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘CRMetrics’ ...
+** package ‘CRMetrics’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘CRMetrics’
+* removing ‘/tmp/workdir/CRMetrics/old/CRMetrics.Rcheck/CRMetrics’
 
 
 ```
@@ -2127,7 +1580,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/csmpv
 * Date/Publication: 2024-03-01 18:12:44 UTC
-* Number of recursive dependencies: 175
+* Number of recursive dependencies: 178
 
 Run `revdepcheck::cloud_details(, "csmpv")` for more info
 
@@ -2154,7 +1607,6 @@ Run `revdepcheck::cloud_details(, "csmpv")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Warning: replacing previous import ‘ggplot2::ggpar’ by ‘ggpubr::ggpar’ when loading ‘csmpv’
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -2192,7 +1644,7 @@ ERROR: lazy loading failed for package ‘csmpv’
 * GitHub: https://github.com/cdriveraus/ctsem
 * Source code: https://github.com/cran/ctsem
 * Date/Publication: 2024-05-09 14:40:03 UTC
-* Number of recursive dependencies: 159
+* Number of recursive dependencies: 158
 
 Run `revdepcheck::cloud_details(, "ctsem")` for more info
 
@@ -2259,82 +1711,6 @@ compilation terminated.
 make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stanExports_ctsm.o] Error 1
 ERROR: compilation failed for package ‘ctsem’
 * removing ‘/tmp/workdir/ctsem/old/ctsem.Rcheck/ctsem’
-
-
-```
-# CytoSimplex
-
-<details>
-
-* Version: 0.1.1
-* GitHub: https://github.com/welch-lab/CytoSimplex
-* Source code: https://github.com/cran/CytoSimplex
-* Date/Publication: 2023-12-15 09:30:06 UTC
-* Number of recursive dependencies: 177
-
-Run `revdepcheck::cloud_details(, "CytoSimplex")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/CytoSimplex/new/CytoSimplex.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘CytoSimplex/DESCRIPTION’ ... OK
-...
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘CytoSimplex.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 2 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/CytoSimplex/old/CytoSimplex.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘CytoSimplex/DESCRIPTION’ ... OK
-...
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘CytoSimplex.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 2 NOTEs
-
-
-
 
 
 ```
@@ -2416,82 +1792,6 @@ ERROR: lazy loading failed for package ‘DepthProc’
 
 
 ```
-# DIscBIO
-
-<details>
-
-* Version: 1.2.2
-* GitHub: https://github.com/ocbe-uio/DIscBIO
-* Source code: https://github.com/cran/DIscBIO
-* Date/Publication: 2023-11-06 10:50:02 UTC
-* Number of recursive dependencies: 209
-
-Run `revdepcheck::cloud_details(, "DIscBIO")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/DIscBIO/new/DIscBIO.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘DIscBIO/DESCRIPTION’ ... OK
-...
-* checking Rd \usage sections ... OK
-* checking Rd contents ... OK
-* checking for unstated dependencies in examples ... OK
-* checking contents of ‘data’ directory ... OK
-* checking data for non-ASCII characters ... OK
-* checking LazyData ... OK
-* checking data for ASCII and uncompressed saves ... OK
-* checking examples ... OK
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/DIscBIO/old/DIscBIO.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘DIscBIO/DESCRIPTION’ ... OK
-...
-* checking Rd \usage sections ... OK
-* checking Rd contents ... OK
-* checking for unstated dependencies in examples ... OK
-* checking contents of ‘data’ directory ... OK
-* checking data for non-ASCII characters ... OK
-* checking LazyData ... OK
-* checking data for ASCII and uncompressed saves ... OK
-* checking examples ... OK
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
 # DR.SC
 
 <details>
@@ -2500,170 +1800,18 @@ Status: 1 NOTE
 * GitHub: https://github.com/feiyoung/DR.SC
 * Source code: https://github.com/cran/DR.SC
 * Date/Publication: 2024-03-19 08:40:02 UTC
-* Number of recursive dependencies: 150
+* Number of recursive dependencies: 151
 
 Run `revdepcheck::cloud_details(, "DR.SC")` for more info
 
 </details>
 
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/DR.SC/new/DR.SC.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘DR.SC/DESCRIPTION’ ... OK
-...
-* this is package ‘DR.SC’ version ‘3.4’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/DR.SC/old/DR.SC.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘DR.SC/DESCRIPTION’ ... OK
-...
-* this is package ‘DR.SC’ version ‘3.4’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-# dyngen
-
-<details>
-
-* Version: 1.0.5
-* GitHub: https://github.com/dynverse/dyngen
-* Source code: https://github.com/cran/dyngen
-* Date/Publication: 2022-10-12 15:22:39 UTC
-* Number of recursive dependencies: 209
-
-Run `revdepcheck::cloud_details(, "dyngen")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/dyngen/new/dyngen.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘dyngen/DESCRIPTION’ ... OK
-...
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘getting_started.html.asis’ using ‘UTF-8’... OK
-  ‘installation.html.asis’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/dyngen/old/dyngen.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘dyngen/DESCRIPTION’ ... OK
-...
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘getting_started.html.asis’ using ‘UTF-8’... OK
-  ‘installation.html.asis’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
-# EcoEnsemble
-
-<details>
-
-* Version: 1.0.5
-* GitHub: NA
-* Source code: https://github.com/cran/EcoEnsemble
-* Date/Publication: 2023-09-18 11:50:02 UTC
-* Number of recursive dependencies: 91
-
-Run `revdepcheck::cloud_details(, "EcoEnsemble")` for more info
-
-</details>
-
 ## In both
 
-*   checking whether package ‘EcoEnsemble’ can be installed ... ERROR
+*   checking whether package ‘DR.SC’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/EcoEnsemble/new/EcoEnsemble.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/DR.SC/new/DR.SC.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -2671,54 +1819,170 @@ Run `revdepcheck::cloud_details(, "EcoEnsemble")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘EcoEnsemble’ ...
-** package ‘EcoEnsemble’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘DR.SC’ ...
+** package ‘DR.SC’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
 using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
 using C++17
-
-
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.3.1/lib/R/site-library/rstan/include' -I'/opt/R/4.3.1/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c KF_back.cpp -o KF_back.o
-In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c getNB_fast.cpp -o getNB_fast.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c mt_paral_job.cpp -o mt_paral_job.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c mt_paral_job2.cpp -o mt_paral_job2.o
 ...
-/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:654:74: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__m128d’} [-Wignored-attributes]
-  654 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
-      |                                                                          ^~~~~~~~~
-stanExports_ensemble_model_hierarchical.cc:32:1: fatal error: error writing to /tmp/ccqp74mc.s: Cannot allocate memory
-   32 | }
-      | ^
-compilation terminated.
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stanExports_ensemble_model_hierarchical.o] Error 1
-ERROR: compilation failed for package ‘EcoEnsemble’
-* removing ‘/tmp/workdir/EcoEnsemble/new/EcoEnsemble.Rcheck/EcoEnsemble’
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘DR.SC’
+* removing ‘/tmp/workdir/DR.SC/new/DR.SC.Rcheck/DR.SC’
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘EcoEnsemble’ ...
-** package ‘EcoEnsemble’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘DR.SC’ ...
+** package ‘DR.SC’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
 using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
 using C++17
-
-
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.3.1/lib/R/site-library/rstan/include' -I'/opt/R/4.3.1/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c KF_back.cpp -o KF_back.o
-In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c getNB_fast.cpp -o getNB_fast.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c mt_paral_job.cpp -o mt_paral_job.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -DARMA_64BIT_WORD -fpic  -g -O2  -c mt_paral_job2.cpp -o mt_paral_job2.o
 ...
-/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:56:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_ensemble_model_hierarchical_namespace::model_ensemble_model_hierarchical; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
-/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:21:10:   required from here
-/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:654:74: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__m128d’} [-Wignored-attributes]
-  654 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
-      |                                                                          ^~~~~~~~~
-g++: fatal error: Killed signal terminated program cc1plus
-compilation terminated.
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stanExports_ensemble_model_hierarchical.o] Error 1
-ERROR: compilation failed for package ‘EcoEnsemble’
-* removing ‘/tmp/workdir/EcoEnsemble/old/EcoEnsemble.Rcheck/EcoEnsemble’
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘DR.SC’
+* removing ‘/tmp/workdir/DR.SC/old/DR.SC.Rcheck/DR.SC’
+
+
+```
+# DynNom
+
+<details>
+
+* Version: 5.1
+* GitHub: NA
+* Source code: https://github.com/cran/DynNom
+* Date/Publication: 2024-06-07 12:20:21 UTC
+* Number of recursive dependencies: 104
+
+Run `revdepcheck::cloud_details(, "DynNom")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘DynNom’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/DynNom/new/DynNom.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘DynNom’ ...
+** package ‘DynNom’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘DynNom’
+* removing ‘/tmp/workdir/DynNom/new/DynNom.Rcheck/DynNom’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘DynNom’ ...
+** package ‘DynNom’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘DynNom’
+* removing ‘/tmp/workdir/DynNom/old/DynNom.Rcheck/DynNom’
+
+
+```
+# easybgm
+
+<details>
+
+* Version: 0.1.2
+* GitHub: https://github.com/KarolineHuth/easybgm
+* Source code: https://github.com/cran/easybgm
+* Date/Publication: 2024-03-13 13:40:02 UTC
+* Number of recursive dependencies: 174
+
+Run `revdepcheck::cloud_details(, "easybgm")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘easybgm’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/easybgm/new/easybgm.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘easybgm’ ...
+** package ‘easybgm’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘easybgm’
+* removing ‘/tmp/workdir/easybgm/new/easybgm.Rcheck/easybgm’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘easybgm’ ...
+** package ‘easybgm’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘easybgm’
+* removing ‘/tmp/workdir/easybgm/old/easybgm.Rcheck/easybgm’
 
 
 ```
@@ -2926,7 +2190,7 @@ ERROR: lazy loading failed for package ‘evolqg’
 * GitHub: https://github.com/ceweiss/ForecastComb
 * Source code: https://github.com/cran/ForecastComb
 * Date/Publication: 2018-08-07 13:50:08 UTC
-* Number of recursive dependencies: 73
+* Number of recursive dependencies: 74
 
 Run `revdepcheck::cloud_details(, "ForecastComb")` for more info
 
@@ -3072,7 +2336,7 @@ ERROR: lazy loading failed for package ‘gapfill’
 * GitHub: https://github.com/ceweiss/GeomComb
 * Source code: https://github.com/cran/GeomComb
 * Date/Publication: 2016-11-27 16:02:26
-* Number of recursive dependencies: 74
+* Number of recursive dependencies: 75
 
 Run `revdepcheck::cloud_details(, "GeomComb")` for more info
 
@@ -3122,113 +2386,14 @@ ERROR: lazy loading failed for package ‘GeomComb’
 
 
 ```
-# geostan
-
-<details>
-
-* Version: 0.6.1
-* GitHub: https://github.com/ConnorDonegan/geostan
-* Source code: https://github.com/cran/geostan
-* Date/Publication: 2024-05-10 22:23:01 UTC
-* Number of recursive dependencies: 108
-
-Run `revdepcheck::cloud_details(, "geostan")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘geostan’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/geostan/new/geostan.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 129.8Mb
-      sub-directories of 1Mb or more:
-        libs  127.6Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘RcppParallel’ ‘rstantools’
-      All declared Imports should be used.
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘geostan’ ...
-** package ‘geostan’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
-using C++17
-
-
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.3.1/lib/R/site-library/rstan/include' -I'/opt/R/4.3.1/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
-...
-/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:654:74: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__m128d’} [-Wignored-attributes]
-  654 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
-      |                                                                          ^~~~~~~~~
-stanExports_foundation.cc:32:1: fatal error: error writing to /tmp/cccy6wQ6.s: Cannot allocate memory
-   32 | }
-      | ^
-compilation terminated.
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stanExports_foundation.o] Error 1
-ERROR: compilation failed for package ‘geostan’
-* removing ‘/tmp/workdir/geostan/new/geostan.Rcheck/geostan’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘geostan’ ...
-** package ‘geostan’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
-using C++17
-
-
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/opt/R/4.3.1/lib/R/site-library/BH/include' -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -I'/opt/R/4.3.1/lib/R/site-library/rstan/include' -I'/opt/R/4.3.1/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/opt/R/4.3.1/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
-...
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** checking absolute paths in shared objects and dynamic libraries
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (geostan)
-
-
-```
 # ggrcs
 
 <details>
 
-* Version: 0.3.8
+* Version: 0.4.0
 * GitHub: NA
 * Source code: https://github.com/cran/ggrcs
-* Date/Publication: 2024-01-30 03:20:08 UTC
+* Date/Publication: 2024-06-29 02:40:02 UTC
 * Number of recursive dependencies: 78
 
 Run `revdepcheck::cloud_details(, "ggrcs")` for more info
@@ -3347,82 +2512,6 @@ ERROR: lazy loading failed for package ‘ggrisk’
 
 
 ```
-# ggsector
-
-<details>
-
-* Version: 1.6.6
-* GitHub: https://github.com/yanpd01/ggsector
-* Source code: https://github.com/cran/ggsector
-* Date/Publication: 2022-12-05 15:20:02 UTC
-* Number of recursive dependencies: 159
-
-Run `revdepcheck::cloud_details(, "ggsector")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/ggsector/new/ggsector.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘ggsector/DESCRIPTION’ ... OK
-...
-* this is package ‘ggsector’ version ‘1.6.6’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/ggsector/old/ggsector.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘ggsector/DESCRIPTION’ ... OK
-...
-* this is package ‘ggsector’ version ‘1.6.6’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
 # gJLS2
 
 <details>
@@ -3487,82 +2576,6 @@ ERROR: lazy loading failed for package ‘gJLS2’
 
 
 ```
-# grandR
-
-<details>
-
-* Version: 0.2.5
-* GitHub: https://github.com/erhard-lab/grandR
-* Source code: https://github.com/cran/grandR
-* Date/Publication: 2024-02-15 15:30:02 UTC
-* Number of recursive dependencies: 265
-
-Run `revdepcheck::cloud_details(, "grandR")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/grandR/new/grandR.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘grandR/DESCRIPTION’ ... OK
-...
-* checking installed files from ‘inst/doc’ ... OK
-* checking files in ‘vignettes’ ... OK
-* checking examples ... OK
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘getting-started.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/grandR/old/grandR.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘grandR/DESCRIPTION’ ... OK
-...
-* checking installed files from ‘inst/doc’ ... OK
-* checking files in ‘vignettes’ ... OK
-* checking examples ... OK
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘getting-started.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 NOTE
-
-
-
-
-
-```
 # Greg
 
 <details>
@@ -3571,7 +2584,7 @@ Status: 1 NOTE
 * GitHub: https://github.com/gforge/Greg
 * Source code: https://github.com/cran/Greg
 * Date/Publication: 2024-01-29 13:30:21 UTC
-* Number of recursive dependencies: 152
+* Number of recursive dependencies: 151
 
 Run `revdepcheck::cloud_details(, "Greg")` for more info
 
@@ -3680,82 +2693,6 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘greport’
 * removing ‘/tmp/workdir/greport/old/greport.Rcheck/greport’
-
-
-```
-# harmony
-
-<details>
-
-* Version: 1.2.0
-* GitHub: NA
-* Source code: https://github.com/cran/harmony
-* Date/Publication: 2023-11-29 08:30:04 UTC
-* Number of recursive dependencies: 214
-
-Run `revdepcheck::cloud_details(, "harmony")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/harmony/new/harmony.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘harmony/DESCRIPTION’ ... OK
-...
---- finished re-building ‘quickstart.Rmd’
-
-SUMMARY: processing the following file failed:
-  ‘Seurat.Rmd’
-
-Error: Vignette re-building failed.
-Execution halted
-
-* DONE
-Status: 1 WARNING, 3 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/harmony/old/harmony.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘harmony/DESCRIPTION’ ... OK
-...
---- finished re-building ‘quickstart.Rmd’
-
-SUMMARY: processing the following file failed:
-  ‘Seurat.Rmd’
-
-Error: Vignette re-building failed.
-Execution halted
-
-* DONE
-Status: 1 WARNING, 3 NOTEs
-
-
-
 
 
 ```
@@ -3949,6 +2886,66 @@ ERROR: lazy loading failed for package ‘Hmsc’
 
 
 ```
+# inventorize
+
+<details>
+
+* Version: 1.1.1
+* GitHub: NA
+* Source code: https://github.com/cran/inventorize
+* Date/Publication: 2022-05-31 22:20:09 UTC
+* Number of recursive dependencies: 71
+
+Run `revdepcheck::cloud_details(, "inventorize")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking whether package ‘inventorize’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/inventorize/new/inventorize.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘inventorize’ ...
+** package ‘inventorize’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error in pm[[2]] : subscript out of bounds
+Error: unable to load R code in package ‘inventorize’
+Execution halted
+ERROR: lazy loading failed for package ‘inventorize’
+* removing ‘/tmp/workdir/inventorize/new/inventorize.Rcheck/inventorize’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘inventorize’ ...
+** package ‘inventorize’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Warning in qgamma(service_level, alpha, beta) : NaNs produced
+Warning in qgamma(service_level, alpha, beta) : NaNs produced
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (inventorize)
+
+
+```
 # iNZightPlots
 
 <details>
@@ -4017,7 +3014,7 @@ ERROR: lazy loading failed for package ‘iNZightPlots’
 * GitHub: https://github.com/iNZightVIT/iNZightRegression
 * Source code: https://github.com/cran/iNZightRegression
 * Date/Publication: 2024-04-05 02:32:59 UTC
-* Number of recursive dependencies: 154
+* Number of recursive dependencies: 158
 
 Run `revdepcheck::cloud_details(, "iNZightRegression")` for more info
 
@@ -4077,7 +3074,7 @@ ERROR: lazy loading failed for package ‘iNZightRegression’
 * GitHub: https://github.com/vinhdizzo/IRexamples
 * Source code: https://github.com/cran/IRexamples
 * Date/Publication: 2023-10-06 06:40:02 UTC
-* Number of recursive dependencies: 185
+* Number of recursive dependencies: 177
 
 Run `revdepcheck::cloud_details(, "IRexamples")` for more info
 
@@ -4104,6 +3101,11 @@ Run `revdepcheck::cloud_details(, "IRexamples")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -4124,12 +3126,79 @@ ERROR: lazy loading failed for package ‘IRexamples’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘IRexamples’
 * removing ‘/tmp/workdir/IRexamples/old/IRexamples.Rcheck/IRexamples’
+
+
+```
+# jmBIG
+
+<details>
+
+* Version: 0.1.2
+* GitHub: NA
+* Source code: https://github.com/cran/jmBIG
+* Date/Publication: 2024-03-20 23:40:02 UTC
+* Number of recursive dependencies: 184
+
+Run `revdepcheck::cloud_details(, "jmBIG")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘jmBIG’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/jmBIG/new/jmBIG.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘jmBIG’ ...
+** package ‘jmBIG’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘jmBIG’
+* removing ‘/tmp/workdir/jmBIG/new/jmBIG.Rcheck/jmBIG’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘jmBIG’ ...
+** package ‘jmBIG’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘jmBIG’
+* removing ‘/tmp/workdir/jmBIG/old/jmBIG.Rcheck/jmBIG’
 
 
 ```
@@ -4219,7 +3288,7 @@ ERROR: lazy loading failed for package ‘joineRML’
 * GitHub: https://github.com/JWiley/JWileymisc
 * Source code: https://github.com/cran/JWileymisc
 * Date/Publication: 2023-10-05 04:50:02 UTC
-* Number of recursive dependencies: 164
+* Number of recursive dependencies: 167
 
 Run `revdepcheck::cloud_details(, "JWileymisc")` for more info
 
@@ -4246,6 +3315,11 @@ Run `revdepcheck::cloud_details(, "JWileymisc")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -4266,6 +3340,11 @@ ERROR: lazy loading failed for package ‘JWileymisc’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -4419,7 +3498,7 @@ ERROR: lazy loading failed for package ‘L2E’
 * GitHub: NA
 * Source code: https://github.com/cran/llbayesireg
 * Date/Publication: 2019-04-04 16:20:03 UTC
-* Number of recursive dependencies: 61
+* Number of recursive dependencies: 60
 
 Run `revdepcheck::cloud_details(, "llbayesireg")` for more info
 
@@ -4559,7 +3638,7 @@ ERROR: lazy loading failed for package ‘LorenzRegression’
 * GitHub: NA
 * Source code: https://github.com/cran/lsirm12pl
 * Date/Publication: 2023-06-22 14:12:35 UTC
-* Number of recursive dependencies: 123
+* Number of recursive dependencies: 124
 
 Run `revdepcheck::cloud_details(, "lsirm12pl")` for more info
 
@@ -4769,7 +3848,7 @@ ERROR: lazy loading failed for package ‘MendelianRandomization’
 * GitHub: https://github.com/OlajumokeEvangelina/MetabolicSurv
 * Source code: https://github.com/cran/MetabolicSurv
 * Date/Publication: 2021-06-11 08:30:02 UTC
-* Number of recursive dependencies: 142
+* Number of recursive dependencies: 131
 
 Run `revdepcheck::cloud_details(, "MetabolicSurv")` for more info
 
@@ -4833,7 +3912,7 @@ ERROR: lazy loading failed for package ‘MetabolicSurv’
 * GitHub: https://github.com/phargarten2/miWQS
 * Source code: https://github.com/cran/miWQS
 * Date/Publication: 2021-04-02 21:50:02 UTC
-* Number of recursive dependencies: 152
+* Number of recursive dependencies: 151
 
 Run `revdepcheck::cloud_details(, "miWQS")` for more info
 
@@ -4886,70 +3965,6 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘miWQS’
 * removing ‘/tmp/workdir/miWQS/old/miWQS.Rcheck/miWQS’
-
-
-```
-# mlmts
-
-<details>
-
-* Version: 1.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/mlmts
-* Date/Publication: 2023-01-22 21:30:02 UTC
-* Number of recursive dependencies: 241
-
-Run `revdepcheck::cloud_details(, "mlmts")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘mlmts’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/mlmts/new/mlmts.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘mlmts’ ...
-** package ‘mlmts’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : package or namespace load failed for ‘quantspec’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Error: unable to load R code in package ‘mlmts’
-Execution halted
-ERROR: lazy loading failed for package ‘mlmts’
-* removing ‘/tmp/workdir/mlmts/new/mlmts.Rcheck/mlmts’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘mlmts’ ...
-** package ‘mlmts’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : package or namespace load failed for ‘quantspec’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
- namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Error: unable to load R code in package ‘mlmts’
-Execution halted
-ERROR: lazy loading failed for package ‘mlmts’
-* removing ‘/tmp/workdir/mlmts/old/mlmts.Rcheck/mlmts’
 
 
 ```
@@ -5019,7 +4034,7 @@ ERROR: lazy loading failed for package ‘MRZero’
 * GitHub: NA
 * Source code: https://github.com/cran/Multiaovbay
 * Date/Publication: 2023-03-17 17:20:02 UTC
-* Number of recursive dependencies: 161
+* Number of recursive dependencies: 153
 
 Run `revdepcheck::cloud_details(, "Multiaovbay")` for more info
 
@@ -5077,7 +4092,7 @@ ERROR: lazy loading failed for package ‘Multiaovbay’
 * GitHub: https://github.com/JWiley/multilevelTools
 * Source code: https://github.com/cran/multilevelTools
 * Date/Publication: 2020-03-04 09:50:02 UTC
-* Number of recursive dependencies: 164
+* Number of recursive dependencies: 168
 
 Run `revdepcheck::cloud_details(, "multilevelTools")` for more info
 
@@ -5102,6 +4117,11 @@ Run `revdepcheck::cloud_details(, "multilevelTools")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -5120,6 +4140,11 @@ ERROR: lazy loading failed for package ‘multilevelTools’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -5133,10 +4158,10 @@ ERROR: lazy loading failed for package ‘multilevelTools’
 
 <details>
 
-* Version: 0.7.0
+* Version: 0.7.1
 * GitHub: https://github.com/dmphillippo/multinma
 * Source code: https://github.com/cran/multinma
-* Date/Publication: 2024-05-07 15:40:02 UTC
+* Date/Publication: 2024-06-11 12:20:06 UTC
 * Number of recursive dependencies: 152
 
 Run `revdepcheck::cloud_details(, "multinma")` for more info
@@ -5411,7 +4436,7 @@ ERROR: lazy loading failed for package ‘NetworkChange’
 * GitHub: NA
 * Source code: https://github.com/cran/nlmeVPC
 * Date/Publication: 2022-12-22 05:20:02 UTC
-* Number of recursive dependencies: 91
+* Number of recursive dependencies: 77
 
 Run `revdepcheck::cloud_details(, "nlmeVPC")` for more info
 
@@ -5603,7 +4628,7 @@ ERROR: lazy loading failed for package ‘optweight’
 * GitHub: NA
 * Source code: https://github.com/cran/OVtool
 * Date/Publication: 2021-11-02 08:10:07 UTC
-* Number of recursive dependencies: 158
+* Number of recursive dependencies: 157
 
 Run `revdepcheck::cloud_details(, "OVtool")` for more info
 
@@ -5665,7 +4690,7 @@ ERROR: lazy loading failed for package ‘OVtool’
 * GitHub: NA
 * Source code: https://github.com/cran/paths
 * Date/Publication: 2021-06-18 08:40:02 UTC
-* Number of recursive dependencies: 103
+* Number of recursive dependencies: 102
 
 Run `revdepcheck::cloud_details(, "paths")` for more info
 
@@ -5729,7 +4754,7 @@ ERROR: lazy loading failed for package ‘paths’
 * GitHub: NA
 * Source code: https://github.com/cran/PLMIX
 * Date/Publication: 2019-09-04 11:50:02 UTC
-* Number of recursive dependencies: 151
+* Number of recursive dependencies: 138
 
 Run `revdepcheck::cloud_details(, "PLMIX")` for more info
 
@@ -5807,7 +4832,7 @@ ERROR: lazy loading failed for package ‘PLMIX’
 * GitHub: NA
 * Source code: https://github.com/cran/popstudy
 * Date/Publication: 2023-10-17 23:50:02 UTC
-* Number of recursive dependencies: 236
+* Number of recursive dependencies: 240
 
 Run `revdepcheck::cloud_details(, "popstudy")` for more info
 
@@ -5935,7 +4960,7 @@ ERROR: lazy loading failed for package ‘pould’
 * GitHub: https://github.com/mihaiconstantin/powerly
 * Source code: https://github.com/cran/powerly
 * Date/Publication: 2022-09-09 14:10:01 UTC
-* Number of recursive dependencies: 176
+* Number of recursive dependencies: 181
 
 Run `revdepcheck::cloud_details(, "powerly")` for more info
 
@@ -5960,6 +4985,11 @@ Run `revdepcheck::cloud_details(, "powerly")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -5978,6 +5008,11 @@ ERROR: lazy loading failed for package ‘powerly’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -5995,7 +5030,7 @@ ERROR: lazy loading failed for package ‘powerly’
 * GitHub: https://github.com/marjoleinF/pre
 * Source code: https://github.com/cran/pre
 * Date/Publication: 2024-01-12 19:30:02 UTC
-* Number of recursive dependencies: 152
+* Number of recursive dependencies: 151
 
 Run `revdepcheck::cloud_details(, "pre")` for more info
 
@@ -6051,82 +5086,6 @@ ERROR: lazy loading failed for package ‘pre’
 
 
 ```
-# PRECAST
-
-<details>
-
-* Version: 1.6.5
-* GitHub: https://github.com/feiyoung/PRECAST
-* Source code: https://github.com/cran/PRECAST
-* Date/Publication: 2024-03-19 08:30:02 UTC
-* Number of recursive dependencies: 225
-
-Run `revdepcheck::cloud_details(, "PRECAST")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/PRECAST/new/PRECAST.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘PRECAST/DESCRIPTION’ ... OK
-...
-* this is package ‘PRECAST’ version ‘1.6.5’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'DR.SC'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/PRECAST/old/PRECAST.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘PRECAST/DESCRIPTION’ ... OK
-...
-* this is package ‘PRECAST’ version ‘1.6.5’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'DR.SC'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
 # ProFAST
 
 <details>
@@ -6135,7 +5094,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/feiyoung/ProFAST
 * Source code: https://github.com/cran/ProFAST
 * Date/Publication: 2024-03-18 08:10:06 UTC
-* Number of recursive dependencies: 253
+* Number of recursive dependencies: 245
 
 Run `revdepcheck::cloud_details(, "ProFAST")` for more info
 
@@ -6161,7 +5120,7 @@ Run `revdepcheck::cloud_details(, "ProFAST")` for more info
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Packages required but not available: 'DR.SC', 'PRECAST', 'Seurat'
+Packages required but not available: 'DR.SC', 'PRECAST'
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -6191,7 +5150,7 @@ Status: 1 ERROR
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Packages required but not available: 'DR.SC', 'PRECAST', 'Seurat'
+Packages required but not available: 'DR.SC', 'PRECAST'
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -6203,6 +5162,84 @@ Status: 1 ERROR
 
 
 ```
+# psbcSpeedUp
+
+<details>
+
+* Version: 2.0.7
+* GitHub: https://github.com/ocbe-uio/psbcSpeedUp
+* Source code: https://github.com/cran/psbcSpeedUp
+* Date/Publication: 2024-07-01 09:00:02 UTC
+* Number of recursive dependencies: 129
+
+Run `revdepcheck::cloud_details(, "psbcSpeedUp")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘psbcSpeedUp’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/psbcSpeedUp/new/psbcSpeedUp.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘psbcSpeedUp’ ...
+** package ‘psbcSpeedUp’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether g++ -std=gnu++17 accepts -g... yes
+...
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘psbcSpeedUp’
+* removing ‘/tmp/workdir/psbcSpeedUp/new/psbcSpeedUp.Rcheck/psbcSpeedUp’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘psbcSpeedUp’ ...
+** package ‘psbcSpeedUp’ successfully unpacked and MD5 sums checked
+** using staged installation
+checking whether the C++ compiler works... yes
+checking for C++ compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C++... yes
+checking whether g++ -std=gnu++17 accepts -g... yes
+...
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘psbcSpeedUp’
+* removing ‘/tmp/workdir/psbcSpeedUp/old/psbcSpeedUp.Rcheck/psbcSpeedUp’
+
+
+```
 # pscore
 
 <details>
@@ -6211,7 +5248,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/JWiley/score-project
 * Source code: https://github.com/cran/pscore
 * Date/Publication: 2022-05-13 22:30:02 UTC
-* Number of recursive dependencies: 165
+* Number of recursive dependencies: 169
 
 Run `revdepcheck::cloud_details(, "pscore")` for more info
 
@@ -6237,6 +5274,11 @@ Run `revdepcheck::cloud_details(, "pscore")` for more info
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -6256,6 +5298,11 @@ ERROR: lazy loading failed for package ‘pscore’
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -6273,7 +5320,7 @@ ERROR: lazy loading failed for package ‘pscore’
 * GitHub: https://github.com/mwheymans/psfmi
 * Source code: https://github.com/cran/psfmi
 * Date/Publication: 2023-06-17 22:40:02 UTC
-* Number of recursive dependencies: 160
+* Number of recursive dependencies: 164
 
 Run `revdepcheck::cloud_details(, "psfmi")` for more info
 
@@ -6329,14 +5376,74 @@ ERROR: lazy loading failed for package ‘psfmi’
 
 
 ```
+# qPCRtools
+
+<details>
+
+* Version: 1.0.1
+* GitHub: https://github.com/lixiang117423/qPCRtools
+* Source code: https://github.com/cran/qPCRtools
+* Date/Publication: 2023-11-02 13:10:05 UTC
+* Number of recursive dependencies: 106
+
+Run `revdepcheck::cloud_details(, "qPCRtools")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘qPCRtools’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/qPCRtools/new/qPCRtools.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘qPCRtools’ ...
+** package ‘qPCRtools’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘qPCRtools’
+* removing ‘/tmp/workdir/qPCRtools/new/qPCRtools.Rcheck/qPCRtools’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘qPCRtools’ ...
+** package ‘qPCRtools’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘qPCRtools’
+* removing ‘/tmp/workdir/qPCRtools/old/qPCRtools.Rcheck/qPCRtools’
+
+
+```
 # qreport
 
 <details>
 
-* Version: 1.0-0
+* Version: 1.0-1
 * GitHub: NA
 * Source code: https://github.com/cran/qreport
-* Date/Publication: 2023-09-12 22:10:02 UTC
+* Date/Publication: 2024-05-26 21:50:03 UTC
 * Number of recursive dependencies: 77
 
 Run `revdepcheck::cloud_details(, "qreport")` for more info
@@ -6665,7 +5772,7 @@ ERROR: lazy loading failed for package ‘RATest’
 * GitHub: NA
 * Source code: https://github.com/cran/RcmdrPlugin.RiskDemo
 * Date/Publication: 2024-02-06 09:20:02 UTC
-* Number of recursive dependencies: 208
+* Number of recursive dependencies: 200
 
 Run `revdepcheck::cloud_details(, "RcmdrPlugin.RiskDemo")` for more info
 
@@ -6691,6 +5798,11 @@ Run `revdepcheck::cloud_details(, "RcmdrPlugin.RiskDemo")` for more info
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -6710,6 +5822,11 @@ ERROR: lazy loading failed for package ‘RcmdrPlugin.RiskDemo’
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -6727,7 +5844,7 @@ ERROR: lazy loading failed for package ‘RcmdrPlugin.RiskDemo’
 * GitHub: https://github.com/bquast/rddtools
 * Source code: https://github.com/cran/rddtools
 * Date/Publication: 2022-01-10 12:42:49 UTC
-* Number of recursive dependencies: 102
+* Number of recursive dependencies: 106
 
 Run `revdepcheck::cloud_details(, "rddtools")` for more info
 
@@ -6857,91 +5974,15 @@ ERROR: lazy loading failed for package ‘riskRegression’
 
 
 ```
-# rliger
-
-<details>
-
-* Version: 2.0.1
-* GitHub: https://github.com/welch-lab/liger
-* Source code: https://github.com/cran/rliger
-* Date/Publication: 2024-04-04 23:20:02 UTC
-* Number of recursive dependencies: 218
-
-Run `revdepcheck::cloud_details(, "rliger")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/rliger/new/rliger.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘rliger/DESCRIPTION’ ... OK
-...
-  [ FAIL 1 | WARN 0 | SKIP 5 | PASS 1234 ]
-  Error: Test failures
-  Execution halted
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘liger-vignette.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 2 ERRORs, 2 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/rliger/old/rliger.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘rliger/DESCRIPTION’ ... OK
-...
-  [ FAIL 1 | WARN 0 | SKIP 5 | PASS 1234 ]
-  Error: Test failures
-  Execution halted
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... OK
-  ‘liger-vignette.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 2 ERRORs, 2 NOTEs
-
-
-
-
-
-```
 # rms
 
 <details>
 
-* Version: 6.8-0
+* Version: 6.8-1
 * GitHub: https://github.com/harrelfe/rms
 * Source code: https://github.com/cran/rms
-* Date/Publication: 2024-03-11 16:20:02 UTC
-* Number of recursive dependencies: 154
+* Date/Publication: 2024-05-27 12:00:02 UTC
+* Number of recursive dependencies: 145
 
 Run `revdepcheck::cloud_details(, "rms")` for more info
 
@@ -7020,11 +6061,11 @@ ERROR: lazy loading failed for package ‘rms’
 
 <details>
 
-* Version: 1.1-0
+* Version: 1.1-1
 * GitHub: NA
 * Source code: https://github.com/cran/rmsb
-* Date/Publication: 2024-03-12 15:50:02 UTC
-* Number of recursive dependencies: 144
+* Date/Publication: 2024-07-08 11:10:03 UTC
+* Number of recursive dependencies: 135
 
 Run `revdepcheck::cloud_details(, "rmsb")` for more info
 
@@ -7252,26 +6293,26 @@ ERROR: lazy loading failed for package ‘RPPanalyzer’
 
 
 ```
-# rstanarm
+# RQdeltaCT
 
 <details>
 
-* Version: 2.32.1
-* GitHub: https://github.com/stan-dev/rstanarm
-* Source code: https://github.com/cran/rstanarm
-* Date/Publication: 2024-01-18 23:00:03 UTC
-* Number of recursive dependencies: 138
+* Version: 1.3.0
+* GitHub: NA
+* Source code: https://github.com/cran/RQdeltaCT
+* Date/Publication: 2024-04-17 15:50:02 UTC
+* Number of recursive dependencies: 165
 
-Run `revdepcheck::cloud_details(, "rstanarm")` for more info
+Run `revdepcheck::cloud_details(, "RQdeltaCT")` for more info
 
 </details>
 
 ## In both
 
-*   checking whether package ‘rstanarm’ can be installed ... ERROR
+*   checking whether package ‘RQdeltaCT’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/rstanarm/new/rstanarm.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/RQdeltaCT/new/RQdeltaCT.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -7279,54 +6320,40 @@ Run `revdepcheck::cloud_details(, "rstanarm")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘rstanarm’ ...
-** package ‘rstanarm’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘RQdeltaCT’ ...
+** package ‘RQdeltaCT’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
-using C++17
-"/opt/R/4.3.1/lib/R/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/bernoulli.stan
-Wrote C++ file "stan_files/bernoulli.cc"
-
-
-...
-/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:21:10:   required from here
-/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:654:74: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__m128d’} [-Wignored-attributes]
-  654 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
-      |                                                                          ^~~~~~~~~
-g++: fatal error: Killed signal terminated program cc1plus
-compilation terminated.
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stan_files/bernoulli.o] Error 1
-rm stan_files/bernoulli.cc
-ERROR: compilation failed for package ‘rstanarm’
-* removing ‘/tmp/workdir/rstanarm/new/rstanarm.Rcheck/rstanarm’
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘RQdeltaCT’
+* removing ‘/tmp/workdir/RQdeltaCT/new/RQdeltaCT.Rcheck/RQdeltaCT’
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘rstanarm’ ...
-** package ‘rstanarm’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘RQdeltaCT’ ...
+** package ‘RQdeltaCT’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
-using C++17
-"/opt/R/4.3.1/lib/R/bin/Rscript" -e "source(file.path('..', 'tools', 'make_cc.R')); make_cc(commandArgs(TRUE))" stan_files/bernoulli.stan
-Wrote C++ file "stan_files/bernoulli.cc"
-
-
-...
-/opt/R/4.3.1/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:21:10:   required from here
-/opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:654:74: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__m128d’} [-Wignored-attributes]
-  654 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
-      |                                                                          ^~~~~~~~~
-g++: fatal error: Killed signal terminated program cc1plus
-compilation terminated.
-make: *** [/opt/R/4.3.1/lib/R/etc/Makeconf:198: stan_files/bernoulli.o] Error 1
-rm stan_files/bernoulli.cc
-ERROR: compilation failed for package ‘rstanarm’
-* removing ‘/tmp/workdir/rstanarm/old/rstanarm.Rcheck/rstanarm’
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘RQdeltaCT’
+* removing ‘/tmp/workdir/RQdeltaCT/old/RQdeltaCT.Rcheck/RQdeltaCT’
 
 
 ```
@@ -7338,71 +6365,60 @@ ERROR: compilation failed for package ‘rstanarm’
 * GitHub: https://github.com/samuel-marsh/scCustomize
 * Source code: https://github.com/cran/scCustomize
 * Date/Publication: 2024-02-28 19:40:02 UTC
-* Number of recursive dependencies: 274
+* Number of recursive dependencies: 267
 
 Run `revdepcheck::cloud_details(, "scCustomize")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘scCustomize’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/scCustomize/new/scCustomize.Rcheck/00install.out’ for details.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘Nebulosa’
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/scCustomize/new/scCustomize.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scCustomize/DESCRIPTION’ ... OK
-...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'SeuratObject'
-
-Package suggested but not available for checking: ‘Nebulosa’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘scCustomize’ ...
+** package ‘scCustomize’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘scCustomize’
+* removing ‘/tmp/workdir/scCustomize/new/scCustomize.Rcheck/scCustomize’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/scCustomize/old/scCustomize.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scCustomize/DESCRIPTION’ ... OK
-...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'SeuratObject'
-
-Package suggested but not available for checking: ‘Nebulosa’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘scCustomize’ ...
+** package ‘scCustomize’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘scCustomize’
+* removing ‘/tmp/workdir/scCustomize/old/scCustomize.Rcheck/scCustomize’
 
 
 ```
@@ -7414,147 +6430,53 @@ Status: 1 ERROR
 * GitHub: https://github.com/Liuy12/SCdeconR
 * Source code: https://github.com/cran/SCdeconR
 * Date/Publication: 2024-03-22 19:20:02 UTC
-* Number of recursive dependencies: 235
+* Number of recursive dependencies: 236
 
 Run `revdepcheck::cloud_details(, "SCdeconR")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘SCdeconR’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/SCdeconR/new/SCdeconR.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/SCdeconR/new/SCdeconR.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SCdeconR/DESCRIPTION’ ... OK
-...
-* this is package ‘SCdeconR’ version ‘1.0.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘SCdeconR’ ...
+** package ‘SCdeconR’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘SCdeconR’
+* removing ‘/tmp/workdir/SCdeconR/new/SCdeconR.Rcheck/SCdeconR’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/SCdeconR/old/SCdeconR.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SCdeconR/DESCRIPTION’ ... OK
-...
-* this is package ‘SCdeconR’ version ‘1.0.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-# scDiffCom
-
-<details>
-
-* Version: 1.0.0
-* GitHub: NA
-* Source code: https://github.com/cran/scDiffCom
-* Date/Publication: 2023-11-03 18:40:02 UTC
-* Number of recursive dependencies: 259
-
-Run `revdepcheck::cloud_details(, "scDiffCom")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/scDiffCom/new/scDiffCom.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scDiffCom/DESCRIPTION’ ... OK
-...
-* this is package ‘scDiffCom’ version ‘1.0.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/scDiffCom/old/scDiffCom.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scDiffCom/DESCRIPTION’ ... OK
-...
-* this is package ‘scDiffCom’ version ‘1.0.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘SCdeconR’ ...
+** package ‘SCdeconR’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘SCdeconR’
+* removing ‘/tmp/workdir/SCdeconR/old/SCdeconR.Rcheck/SCdeconR’
 
 
 ```
@@ -7566,71 +6488,145 @@ Status: 1 ERROR
 * GitHub: https://github.com/carmonalab/scGate
 * Source code: https://github.com/cran/scGate
 * Date/Publication: 2024-04-23 08:50:02 UTC
-* Number of recursive dependencies: 178
+* Number of recursive dependencies: 179
 
 Run `revdepcheck::cloud_details(, "scGate")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘scGate’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/scGate/new/scGate.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/scGate/new/scGate.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scGate/DESCRIPTION’ ... OK
-...
-* this is package ‘scGate’ version ‘1.6.2’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘scGate’ ...
+** package ‘scGate’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+Warning: namespace ‘Seurat’ is not available and has been replaced
+by .GlobalEnv when processing object ‘query.seurat’
+Warning: namespace ‘Seurat’ is not available and has been replaced
+by .GlobalEnv when processing object ‘query.seurat’
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scGate’
+* removing ‘/tmp/workdir/scGate/new/scGate.Rcheck/scGate’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/scGate/old/scGate.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scGate/DESCRIPTION’ ... OK
+* installing *source* package ‘scGate’ ...
+** package ‘scGate’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+Warning: namespace ‘Seurat’ is not available and has been replaced
+by .GlobalEnv when processing object ‘query.seurat’
+Warning: namespace ‘Seurat’ is not available and has been replaced
+by .GlobalEnv when processing object ‘query.seurat’
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scGate’
+* removing ‘/tmp/workdir/scGate/old/scGate.Rcheck/scGate’
+
+
+```
+# SCIntRuler
+
+<details>
+
+* Version: 0.99.6
+* GitHub: https://github.com/yuelyu21/SCIntRuler
+* Source code: https://github.com/cran/SCIntRuler
+* Date/Publication: 2024-07-12 15:20:08 UTC
+* Number of recursive dependencies: 202
+
+Run `revdepcheck::cloud_details(, "SCIntRuler")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘SCIntRuler’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/SCIntRuler/new/SCIntRuler.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘SCIntRuler’ ...
+** package ‘SCIntRuler’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c crossdist.cpp -o crossdist.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o SCIntRuler.so RcppExports.o crossdist.o -L/opt/R/4.3.1/lib/R/lib -lR
+installing to /tmp/workdir/SCIntRuler/new/SCIntRuler.Rcheck/00LOCK-SCIntRuler/00new/SCIntRuler/libs
+** R
 ...
-* this is package ‘scGate’ version ‘1.6.2’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘SCIntRuler’
+* removing ‘/tmp/workdir/SCIntRuler/new/SCIntRuler.Rcheck/SCIntRuler’
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
 
+```
+### CRAN
 
-
+```
+* installing *source* package ‘SCIntRuler’ ...
+** package ‘SCIntRuler’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c crossdist.cpp -o crossdist.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o SCIntRuler.so RcppExports.o crossdist.o -L/opt/R/4.3.1/lib/R/lib -lR
+installing to /tmp/workdir/SCIntRuler/old/SCIntRuler.Rcheck/00LOCK-SCIntRuler/00new/SCIntRuler/libs
+** R
+...
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘SCIntRuler’
+* removing ‘/tmp/workdir/SCIntRuler/old/SCIntRuler.Rcheck/SCIntRuler’
 
 
 ```
@@ -7642,299 +6638,137 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/scMappR
 * Date/Publication: 2023-06-30 08:40:08 UTC
-* Number of recursive dependencies: 233
+* Number of recursive dependencies: 234
 
 Run `revdepcheck::cloud_details(, "scMappR")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘scMappR’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/scMappR/new/scMappR.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/scMappR/new/scMappR.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scMappR/DESCRIPTION’ ... OK
-...
-* this is package ‘scMappR’ version ‘1.0.11’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘scMappR’ ...
+** package ‘scMappR’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scMappR’
+* removing ‘/tmp/workdir/scMappR/new/scMappR.Rcheck/scMappR’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/scMappR/old/scMappR.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scMappR/DESCRIPTION’ ... OK
-...
-* this is package ‘scMappR’ version ‘1.0.11’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘scMappR’ ...
+** package ‘scMappR’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scMappR’
+* removing ‘/tmp/workdir/scMappR/old/scMappR.Rcheck/scMappR’
 
 
 ```
-# SCORPIUS
+# scpi
 
 <details>
 
-* Version: 1.0.9
-* GitHub: https://github.com/rcannood/SCORPIUS
-* Source code: https://github.com/cran/SCORPIUS
-* Date/Publication: 2023-08-07 17:30:05 UTC
-* Number of recursive dependencies: 202
-
-Run `revdepcheck::cloud_details(, "SCORPIUS")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/SCORPIUS/new/SCORPIUS.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SCORPIUS/DESCRIPTION’ ... OK
-...
-Run `reticulate::py_last_error()` for details.
-Execution halted
-
-  ‘anndata.Rmd’ using ‘UTF-8’... failed
-  ‘ginhoux.Rmd’ using ‘UTF-8’... OK
-  ‘simulated-data.Rmd’ using ‘UTF-8’... OK
-  ‘singlecellexperiment.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 ERROR, 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/SCORPIUS/old/SCORPIUS.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SCORPIUS/DESCRIPTION’ ... OK
-...
-Run `reticulate::py_last_error()` for details.
-Execution halted
-
-  ‘anndata.Rmd’ using ‘UTF-8’... failed
-  ‘ginhoux.Rmd’ using ‘UTF-8’... OK
-  ‘simulated-data.Rmd’ using ‘UTF-8’... OK
-  ‘singlecellexperiment.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 ERROR, 1 NOTE
-
-
-
-
-
-```
-# scpoisson
-
-<details>
-
-* Version: 0.0.1
+* Version: 2.2.5
 * GitHub: NA
-* Source code: https://github.com/cran/scpoisson
-* Date/Publication: 2022-08-17 06:50:02 UTC
-* Number of recursive dependencies: 203
+* Source code: https://github.com/cran/scpi
+* Date/Publication: 2023-11-01 06:10:07 UTC
+* Number of recursive dependencies: 98
 
-Run `revdepcheck::cloud_details(, "scpoisson")` for more info
+Run `revdepcheck::cloud_details(, "scpi")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘scpi’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/scpi/new/scpi.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/scpoisson/new/scpoisson.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scpoisson/DESCRIPTION’ ... OK
+* installing *source* package ‘scpi’ ...
+** package ‘scpi’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "pcorMatrix" of class "ConstVal"; definition not updated
+Warning in .recacheSubclasses(def@className, def, env) :
 ...
-* this is package ‘scpoisson’ version ‘0.0.1’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'SeuratObject'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "pcorMatrix" of class "ConstValORExpr"; definition not updated
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "pcorMatrix" of class "ConstValORNULL"; definition not updated
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scpi’
+* removing ‘/tmp/workdir/scpi/new/scpi.Rcheck/scpi’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/scpoisson/old/scpoisson.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scpoisson/DESCRIPTION’ ... OK
+* installing *source* package ‘scpi’ ...
+** package ‘scpi’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** byte-compile and prepare package for lazy loading
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "pcorMatrix" of class "ConstVal"; definition not updated
+Warning in .recacheSubclasses(def@className, def, env) :
 ...
-* this is package ‘scpoisson’ version ‘0.0.1’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'Seurat', 'SeuratObject'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-# SCpubr
-
-<details>
-
-* Version: 2.0.2
-* GitHub: https://github.com/enblacar/SCpubr
-* Source code: https://github.com/cran/SCpubr
-* Date/Publication: 2023-10-11 09:50:02 UTC
-* Number of recursive dependencies: 306
-
-Run `revdepcheck::cloud_details(, "SCpubr")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/SCpubr/new/SCpubr.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SCpubr/DESCRIPTION’ ... OK
-...
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 2 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/SCpubr/old/SCpubr.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SCpubr/DESCRIPTION’ ... OK
-...
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘testthat.R’
-* checking for unstated dependencies in vignettes ... OK
-* checking package vignettes in ‘inst/doc’ ... OK
-* checking running R code from vignettes ... NONE
-  ‘reference_manual.Rmd’ using ‘UTF-8’... OK
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 2 NOTEs
-
-
-
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "pcorMatrix" of class "ConstValORExpr"; definition not updated
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "pcorMatrix" of class "ConstValORNULL"; definition not updated
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scpi’
+* removing ‘/tmp/workdir/scpi/old/scpi.Rcheck/scpi’
 
 
 ```
@@ -7946,71 +6780,73 @@ Status: 2 NOTEs
 * GitHub: NA
 * Source code: https://github.com/cran/scRNAstat
 * Date/Publication: 2021-09-22 08:10:02 UTC
-* Number of recursive dependencies: 155
+* Number of recursive dependencies: 156
 
 Run `revdepcheck::cloud_details(, "scRNAstat")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘scRNAstat’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/scRNAstat/new/scRNAstat.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/scRNAstat/new/scRNAstat.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scRNAstat/DESCRIPTION’ ... OK
+* installing *source* package ‘scRNAstat’ ...
+** package ‘scRNAstat’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+Warning: namespace ‘Seurat’ is not available and has been replaced
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
+Warning: namespace ‘SeuratObject’ is not available and has been replaced
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 ...
-* this is package ‘scRNAstat’ version ‘0.1.1’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
+Warning: namespace ‘DBI’ is not available and has been replaced
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scRNAstat’
+* removing ‘/tmp/workdir/scRNAstat/new/scRNAstat.Rcheck/scRNAstat’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/scRNAstat/old/scRNAstat.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘scRNAstat/DESCRIPTION’ ... OK
+* installing *source* package ‘scRNAstat’ ...
+** package ‘scRNAstat’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+Warning: namespace ‘Seurat’ is not available and has been replaced
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
+Warning: namespace ‘SeuratObject’ is not available and has been replaced
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 ...
-* this is package ‘scRNAstat’ version ‘0.1.1’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
+Warning: namespace ‘DBI’ is not available and has been replaced
+by .GlobalEnv when processing object ‘AJ064_small_last_sce’
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘scRNAstat’
+* removing ‘/tmp/workdir/scRNAstat/old/scRNAstat.Rcheck/scRNAstat’
 
 
 ```
@@ -8086,7 +6922,7 @@ ERROR: lazy loading failed for package ‘sectorgap’
 * GitHub: NA
 * Source code: https://github.com/cran/SEERaBomb
 * Date/Publication: 2019-12-12 18:50:03 UTC
-* Number of recursive dependencies: 184
+* Number of recursive dependencies: 185
 
 Run `revdepcheck::cloud_details(, "SEERaBomb")` for more info
 
@@ -8222,7 +7058,7 @@ ERROR: lazy loading failed for package ‘semicmprskcoxmsm’
 * GitHub: https://github.com/IbtihelRebhi/SensMap
 * Source code: https://github.com/cran/SensMap
 * Date/Publication: 2022-07-04 19:00:02 UTC
-* Number of recursive dependencies: 146
+* Number of recursive dependencies: 145
 
 Run `revdepcheck::cloud_details(, "SensMap")` for more info
 
@@ -8278,6 +7114,214 @@ ERROR: lazy loading failed for package ‘SensMap’
 
 
 ```
+# Seurat
+
+<details>
+
+* Version: 5.1.0
+* GitHub: https://github.com/satijalab/seurat
+* Source code: https://github.com/cran/Seurat
+* Date/Publication: 2024-05-10 17:23:17 UTC
+* Number of recursive dependencies: 266
+
+Run `revdepcheck::cloud_details(, "Seurat")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘Seurat’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/Seurat/new/Seurat.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘Seurat’ ...
+** package ‘Seurat’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C compiler: ‘gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+using C++17
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppProgress/include' -I/usr/local/include    -fpic  -g -O2  -c ModularityOptimizer.cpp -o ModularityOptimizer.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppProgress/include' -I/usr/local/include    -fpic  -g -O2  -c RModularityOptimizer.cpp -o RModularityOptimizer.o
+In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘Seurat’
+* removing ‘/tmp/workdir/Seurat/new/Seurat.Rcheck/Seurat’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘Seurat’ ...
+** package ‘Seurat’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C compiler: ‘gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+using C++17
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppProgress/include' -I/usr/local/include    -fpic  -g -O2  -c ModularityOptimizer.cpp -o ModularityOptimizer.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppEigen/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppProgress/include' -I/usr/local/include    -fpic  -g -O2  -c RModularityOptimizer.cpp -o RModularityOptimizer.o
+In file included from /opt/R/4.3.1/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘Seurat’
+* removing ‘/tmp/workdir/Seurat/old/Seurat.Rcheck/Seurat’
+
+
+```
+# shinyTempSignal
+
+<details>
+
+* Version: 0.0.8
+* GitHub: https://github.com/YuLab-SMU/shinyTempSignal
+* Source code: https://github.com/cran/shinyTempSignal
+* Date/Publication: 2024-03-06 08:00:02 UTC
+* Number of recursive dependencies: 137
+
+Run `revdepcheck::cloud_details(, "shinyTempSignal")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘shinyTempSignal’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/shinyTempSignal/new/shinyTempSignal.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘shinyTempSignal’ ...
+** package ‘shinyTempSignal’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘shinyTempSignal’
+* removing ‘/tmp/workdir/shinyTempSignal/new/shinyTempSignal.Rcheck/shinyTempSignal’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘shinyTempSignal’ ...
+** package ‘shinyTempSignal’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘shinyTempSignal’
+* removing ‘/tmp/workdir/shinyTempSignal/old/shinyTempSignal.Rcheck/shinyTempSignal’
+
+
+```
+# sievePH
+
+<details>
+
+* Version: 1.1
+* GitHub: https://github.com/mjuraska/sievePH
+* Source code: https://github.com/cran/sievePH
+* Date/Publication: 2024-05-17 23:40:02 UTC
+* Number of recursive dependencies: 72
+
+Run `revdepcheck::cloud_details(, "sievePH")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘sievePH’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/sievePH/new/sievePH.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘sievePH’ ...
+** package ‘sievePH’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c kernel_sievePH_utils.cpp -o kernel_sievePH_utils.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sievePH.so RcppExports.o kernel_sievePH_utils.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/opt/R/4.3.1/lib/R/lib -lR
+installing to /tmp/workdir/sievePH/new/sievePH.Rcheck/00LOCK-sievePH/00new/sievePH/libs
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘sievePH’
+* removing ‘/tmp/workdir/sievePH/new/sievePH.Rcheck/sievePH’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘sievePH’ ...
+** package ‘sievePH’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I'/opt/R/4.3.1/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c kernel_sievePH_utils.cpp -o kernel_sievePH_utils.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sievePH.so RcppExports.o kernel_sievePH_utils.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/opt/R/4.3.1/lib/R/lib -lR
+installing to /tmp/workdir/sievePH/old/sievePH.Rcheck/00LOCK-sievePH/00new/sievePH/libs
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘sievePH’
+* removing ‘/tmp/workdir/sievePH/old/sievePH.Rcheck/sievePH’
+
+
+```
 # Signac
 
 <details>
@@ -8286,71 +7330,73 @@ ERROR: lazy loading failed for package ‘SensMap’
 * GitHub: https://github.com/stuart-lab/signac
 * Source code: https://github.com/cran/Signac
 * Date/Publication: 2024-04-04 02:42:57 UTC
-* Number of recursive dependencies: 249
+* Number of recursive dependencies: 250
 
 Run `revdepcheck::cloud_details(, "Signac")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘Signac’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/Signac/new/Signac.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/Signac/new/Signac.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘Signac/DESCRIPTION’ ... OK
+* installing *source* package ‘Signac’ ...
+** package ‘Signac’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c filter.cpp -o filter.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c group.cpp -o group.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c split.cpp -o split.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c validate.cpp -o validate.o
 ...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘SeuratObject’
-
-Package suggested but not available for checking: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘Signac’
+* removing ‘/tmp/workdir/Signac/new/Signac.Rcheck/Signac’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/Signac/old/Signac.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘Signac/DESCRIPTION’ ... OK
+* installing *source* package ‘Signac’ ...
+** package ‘Signac’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c filter.cpp -o filter.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c group.cpp -o group.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c split.cpp -o split.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/opt/R/4.3.1/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c validate.cpp -o validate.o
 ...
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘SeuratObject’
-
-Package suggested but not available for checking: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘Signac’
+* removing ‘/tmp/workdir/Signac/old/Signac.Rcheck/Signac’
 
 
 ```
@@ -8362,7 +7408,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/arcaldwell49/SimplyAgree
 * Source code: https://github.com/cran/SimplyAgree
 * Date/Publication: 2024-03-21 14:20:06 UTC
-* Number of recursive dependencies: 111
+* Number of recursive dependencies: 115
 
 Run `revdepcheck::cloud_details(, "SimplyAgree")` for more info
 
@@ -8389,6 +7435,11 @@ Run `revdepcheck::cloud_details(, "SimplyAgree")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -8409,6 +7460,11 @@ ERROR: lazy loading failed for package ‘SimplyAgree’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in check_dep_version() :
+  ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
@@ -8550,7 +7606,7 @@ ERROR: lazy loading failed for package ‘SNPassoc’
 * GitHub: NA
 * Source code: https://github.com/cran/snplinkage
 * Date/Publication: 2023-05-04 08:10:02 UTC
-* Number of recursive dependencies: 146
+* Number of recursive dependencies: 145
 
 Run `revdepcheck::cloud_details(, "snplinkage")` for more info
 
@@ -8626,94 +7682,18 @@ Status: 1 ERROR
 * GitHub: https://github.com/constantAmateur/SoupX
 * Source code: https://github.com/cran/SoupX
 * Date/Publication: 2022-11-01 14:00:03 UTC
-* Number of recursive dependencies: 200
+* Number of recursive dependencies: 201
 
 Run `revdepcheck::cloud_details(, "SoupX")` for more info
 
 </details>
 
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/SoupX/new/SoupX.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SoupX/DESCRIPTION’ ... OK
-...
-* this is package ‘SoupX’ version ‘1.6.2’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/SoupX/old/SoupX.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SoupX/DESCRIPTION’ ... OK
-...
-* this is package ‘SoupX’ version ‘1.6.2’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: ‘Seurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-# SpaDES.core
-
-<details>
-
-* Version: 2.0.5
-* GitHub: https://github.com/PredictiveEcology/SpaDES.core
-* Source code: https://github.com/cran/SpaDES.core
-* Date/Publication: 2024-04-25 17:20:02 UTC
-* Number of recursive dependencies: 136
-
-Run `revdepcheck::cloud_details(, "SpaDES.core")` for more info
-
-</details>
-
 ## In both
 
-*   checking whether package ‘SpaDES.core’ can be installed ... ERROR
+*   checking whether package ‘SoupX’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/SpaDES.core/new/SpaDES.core.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/SoupX/new/SoupX.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -8721,38 +7701,40 @@ Run `revdepcheck::cloud_details(, "SpaDES.core")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘SpaDES.core’ ...
-** package ‘SpaDES.core’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘SoupX’ ...
+** package ‘SoupX’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
+** data
+*** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Creating a new generic function for ‘citation’ in package ‘SpaDES.core’
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object '.addingToMemoisedMsg' not found
-Error: unable to load R code in package ‘SpaDES.core’
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
-ERROR: lazy loading failed for package ‘SpaDES.core’
-* removing ‘/tmp/workdir/SpaDES.core/new/SpaDES.core.Rcheck/SpaDES.core’
+ERROR: lazy loading failed for package ‘SoupX’
+* removing ‘/tmp/workdir/SoupX/new/SoupX.Rcheck/SoupX’
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘SpaDES.core’ ...
-** package ‘SpaDES.core’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘SoupX’ ...
+** package ‘SoupX’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** R
+** data
+*** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Creating a new generic function for ‘citation’ in package ‘SpaDES.core’
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object '.addingToMemoisedMsg' not found
-Error: unable to load R code in package ‘SpaDES.core’
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
-ERROR: lazy loading failed for package ‘SpaDES.core’
-* removing ‘/tmp/workdir/SpaDES.core/old/SpaDES.core.Rcheck/SpaDES.core’
+ERROR: lazy loading failed for package ‘SoupX’
+* removing ‘/tmp/workdir/SoupX/old/SoupX.Rcheck/SoupX’
 
 
 ```
@@ -8827,82 +7809,6 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘sparsereg’
 * removing ‘/tmp/workdir/sparsereg/old/sparsereg.Rcheck/sparsereg’
-
-
-```
-# SPECK
-
-<details>
-
-* Version: 1.0.0
-* GitHub: NA
-* Source code: https://github.com/cran/SPECK
-* Date/Publication: 2023-11-17 17:30:02 UTC
-* Number of recursive dependencies: 161
-
-Run `revdepcheck::cloud_details(, "SPECK")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/SPECK/new/SPECK.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SPECK/DESCRIPTION’ ... OK
-...
-Package required but not available: ‘Seurat’
-
-Package required and available but unsuitable version: ‘Matrix’
-
-Package suggested but not available for checking: ‘SeuratObject’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/SPECK/old/SPECK.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘SPECK/DESCRIPTION’ ... OK
-...
-Package required but not available: ‘Seurat’
-
-Package required and available but unsuitable version: ‘Matrix’
-
-Package suggested but not available for checking: ‘SeuratObject’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
 
 
 ```
@@ -8986,7 +7892,7 @@ ERROR: lazy loading failed for package ‘spikeSlabGAM’
 * GitHub: https://github.com/StatsWithR/statsr
 * Source code: https://github.com/cran/statsr
 * Date/Publication: 2021-01-22 20:40:03 UTC
-* Number of recursive dependencies: 98
+* Number of recursive dependencies: 97
 
 Run `revdepcheck::cloud_details(, "statsr")` for more info
 
@@ -9048,7 +7954,7 @@ ERROR: lazy loading failed for package ‘statsr’
 * GitHub: NA
 * Source code: https://github.com/cran/streamDAG
 * Date/Publication: 2023-10-06 18:50:02 UTC
-* Number of recursive dependencies: 133
+* Number of recursive dependencies: 132
 
 Run `revdepcheck::cloud_details(, "streamDAG")` for more info
 
@@ -9326,7 +8232,7 @@ ERROR: lazy loading failed for package ‘tempted’
 * GitHub: https://github.com/YuLab-SMU/tidydr
 * Source code: https://github.com/cran/tidydr
 * Date/Publication: 2023-03-08 09:20:02 UTC
-* Number of recursive dependencies: 71
+* Number of recursive dependencies: 74
 
 Run `revdepcheck::cloud_details(, "tidydr")` for more info
 
@@ -9388,7 +8294,7 @@ ERROR: lazy loading failed for package ‘tidydr’
 * GitHub: NA
 * Source code: https://github.com/cran/tidyEdSurvey
 * Date/Publication: 2024-05-14 20:20:03 UTC
-* Number of recursive dependencies: 107
+* Number of recursive dependencies: 111
 
 Run `revdepcheck::cloud_details(, "tidyEdSurvey")` for more info
 
@@ -9412,8 +8318,13 @@ Run `revdepcheck::cloud_details(, "tidyEdSurvey")` for more info
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘EdSurvey’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1.1 is required
+Error: package or namespace load failed for ‘EdSurvey’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+In addition: Warning message:
+In check_dep_version() : ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Execution halted
 ERROR: lazy loading failed for package ‘tidyEdSurvey’
 * removing ‘/tmp/workdir/tidyEdSurvey/new/tidyEdSurvey.Rcheck/tidyEdSurvey’
@@ -9428,8 +8339,13 @@ ERROR: lazy loading failed for package ‘tidyEdSurvey’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘EdSurvey’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1.1 is required
+Error: package or namespace load failed for ‘EdSurvey’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+In addition: Warning message:
+In check_dep_version() : ABI version mismatch: 
+lme4 was built with Matrix ABI version 1
+Current Matrix ABI version is 0
+Please re-install lme4 from source or restore original ‘Matrix’ package
 Execution halted
 ERROR: lazy loading failed for package ‘tidyEdSurvey’
 * removing ‘/tmp/workdir/tidyEdSurvey/old/tidyEdSurvey.Rcheck/tidyEdSurvey’
@@ -9444,71 +8360,57 @@ ERROR: lazy loading failed for package ‘tidyEdSurvey’
 * GitHub: https://github.com/stemangiola/tidyseurat
 * Source code: https://github.com/cran/tidyseurat
 * Date/Publication: 2024-01-10 04:50:02 UTC
-* Number of recursive dependencies: 206
+* Number of recursive dependencies: 207
 
 Run `revdepcheck::cloud_details(, "tidyseurat")` for more info
 
 </details>
 
-## Error before installation
+## In both
+
+*   checking whether package ‘tidyseurat’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/tidyseurat/new/tidyseurat.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
 
 ### Devel
 
 ```
-* using log directory ‘/tmp/workdir/tidyseurat/new/tidyseurat.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘tidyseurat/DESCRIPTION’ ... OK
-...
-* this is package ‘tidyseurat’ version ‘0.8.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'SeuratObject', 'Seurat'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘tidyseurat’ ...
+** package ‘tidyseurat’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘tidyseurat’
+* removing ‘/tmp/workdir/tidyseurat/new/tidyseurat.Rcheck/tidyseurat’
 
 
 ```
 ### CRAN
 
 ```
-* using log directory ‘/tmp/workdir/tidyseurat/old/tidyseurat.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘tidyseurat/DESCRIPTION’ ... OK
-...
-* this is package ‘tidyseurat’ version ‘0.8.0’
-* package encoding: UTF-8
-* checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Packages required but not available: 'SeuratObject', 'Seurat'
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-* DONE
-Status: 1 ERROR
-
-
-
+* installing *source* package ‘tidyseurat’ ...
+** package ‘tidyseurat’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘SeuratObject’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Execution halted
+ERROR: lazy loading failed for package ‘tidyseurat’
+* removing ‘/tmp/workdir/tidyseurat/old/tidyseurat.Rcheck/tidyseurat’
 
 
 ```
@@ -9573,82 +8475,6 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘tidyvpc’
 * removing ‘/tmp/workdir/tidyvpc/old/tidyvpc.Rcheck/tidyvpc’
-
-
-```
-# treefit
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/hayamizu-lab/treefit-r
-* Source code: https://github.com/cran/treefit
-* Date/Publication: 2022-01-18 07:50:02 UTC
-* Number of recursive dependencies: 159
-
-Run `revdepcheck::cloud_details(, "treefit")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/treefit/new/treefit.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘treefit/DESCRIPTION’ ... OK
-...
-
-  When sourcing ‘working-with-seurat.R’:
-Error: there is no package called ‘Seurat’
-Execution halted
-
-  ‘treefit.Rmd’ using ‘UTF-8’... OK
-  ‘working-with-seurat.Rmd’ using ‘UTF-8’... failed
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 WARNING, 1 NOTE
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/treefit/old/treefit.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* R was compiled by
-    gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-* running under: Ubuntu 22.04.4 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘treefit/DESCRIPTION’ ... OK
-...
-
-  When sourcing ‘working-with-seurat.R’:
-Error: there is no package called ‘Seurat’
-Execution halted
-
-  ‘treefit.Rmd’ using ‘UTF-8’... OK
-  ‘working-with-seurat.Rmd’ using ‘UTF-8’... failed
-* checking re-building of vignette outputs ... OK
-* DONE
-Status: 1 WARNING, 1 NOTE
-
-
-
 
 
 ```
@@ -9856,84 +8682,6 @@ ERROR: lazy loading failed for package ‘twang’
 
 
 ```
-# valse
-
-<details>
-
-* Version: 0.1-0
-* GitHub: NA
-* Source code: https://github.com/cran/valse
-* Date/Publication: 2021-05-31 08:00:02 UTC
-* Number of recursive dependencies: 55
-
-Run `revdepcheck::cloud_details(, "valse")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘valse’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/valse/new/valse.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘valse’ ...
-** package ‘valse’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C compiler: ‘gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c EMGLLF.c -o EMGLLF.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c EMGrank.c -o EMGrank.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c a.EMGLLF.c -o a.EMGLLF.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c a.EMGrank.c -o a.EMGrank.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c valse_init.c -o valse_init.o
-...
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-Error: package or namespace load failed for ‘valse’ in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/tmp/workdir/valse/new/valse.Rcheck/00LOCK-valse/00new/valse/libs/valse.so':
-  /tmp/workdir/valse/new/valse.Rcheck/00LOCK-valse/00new/valse/libs/valse.so: undefined symbol: gsl_permutation_free
-Error: loading failed
-Execution halted
-ERROR: loading failed
-* removing ‘/tmp/workdir/valse/new/valse.Rcheck/valse’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘valse’ ...
-** package ‘valse’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C compiler: ‘gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c EMGLLF.c -o EMGLLF.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c EMGrank.c -o EMGrank.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c a.EMGLLF.c -o a.EMGLLF.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c a.EMGrank.c -o a.EMGrank.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c valse_init.c -o valse_init.o
-...
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-Error: package or namespace load failed for ‘valse’ in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/tmp/workdir/valse/old/valse.Rcheck/00LOCK-valse/00new/valse/libs/valse.so':
-  /tmp/workdir/valse/old/valse.Rcheck/00LOCK-valse/00new/valse/libs/valse.so: undefined symbol: gsl_permutation_free
-Error: loading failed
-Execution halted
-ERROR: loading failed
-* removing ‘/tmp/workdir/valse/old/valse.Rcheck/valse’
-
-
-```
 # vdg
 
 <details>
@@ -10006,6 +8754,70 @@ ERROR: lazy loading failed for package ‘vdg’
 
 
 ```
+# visa
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/kang-yu/visa
+* Source code: https://github.com/cran/visa
+* Date/Publication: 2021-04-20 07:20:02 UTC
+* Number of recursive dependencies: 140
+
+Run `revdepcheck::cloud_details(, "visa")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘visa’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/visa/new/visa.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘visa’ ...
+** package ‘visa’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘visa’
+* removing ‘/tmp/workdir/visa/new/visa.Rcheck/visa’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘visa’ ...
+** package ‘visa’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘visa’
+* removing ‘/tmp/workdir/visa/old/visa.Rcheck/visa’
+
+
+```
 # WRTDStidal
 
 <details>
@@ -10014,7 +8826,7 @@ ERROR: lazy loading failed for package ‘vdg’
 * GitHub: https://github.com/fawda123/WRTDStidal
 * Source code: https://github.com/cran/WRTDStidal
 * Date/Publication: 2023-10-20 09:00:11 UTC
-* Number of recursive dependencies: 140
+* Number of recursive dependencies: 139
 
 Run `revdepcheck::cloud_details(, "WRTDStidal")` for more info
 

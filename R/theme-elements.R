@@ -8,6 +8,7 @@
 #'   - `element_rect()`: borders and backgrounds.
 #'   - `element_line()`: lines.
 #'   - `element_text()`: text.
+#'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
 #' `margin()` is used to specify the margins of elements.
@@ -15,7 +16,7 @@
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param linewidth Line/border size in mm.
-#' @param size text size in pts.
+#' @param size,fontsize text size in pts.
 #' @param arrow.fill Fill colour for arrows.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
@@ -48,6 +49,14 @@
 #'     linewidth = 1
 #'   )
 #' )
+#'
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   geom_smooth(formula = y ~ x, method = "lm") +
+#'   theme(geom = element_geom(
+#'     ink = "red", accent = "black",
+#'     pointsize = 1, thick = 2
+#'   ))
 #' @name element
 #' @aliases NULL
 NULL
@@ -148,6 +157,48 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @param ink Foreground colour.
+#' @param paper Background colour.
+#' @param accent Accent colour.
+#' @param thin,thick Linewidth for thin and thick lines in mm.
+#' @param pointsize Size for points in mm.
+#' @param pointshape Shape for points (1-25).
+#' @export
+#' @rdname element
+element_geom <- function(
+  # colours
+  ink = NULL, paper = NULL, accent = NULL,
+  # linewidth
+  thin = NULL, thick = NULL,
+  # text
+  family = NULL, fontsize = NULL,
+  # points
+  pointsize = NULL, pointshape = NULL
+  ) {
+
+  if (!is.null(fontsize)) {
+    fontsize <- fontsize / .pt
+  }
+
+  structure(
+    list(
+      ink = ink,
+      paper = paper,
+      accent = accent,
+      thin = thin, thick = thick,
+      family = family, fontsize = fontsize,
+      pointsize = pointsize, pointshape = pointshape
+    ),
+    class = c("element_geom", "element")
+  )
+}
+
+.default_geom_element <- element_geom(
+  ink = "black", paper = "white", accent = "#3366FF",
+  thin = 0.5, thick = 2,
+  family = "", fontsize = 11,
+  pointsize = 1.5, pointshape = 19
+)
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
@@ -429,6 +480,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
+  geom                = el_def("element_geom"),
   title               = el_def("element_text", "text"),
   spacing             = el_def("unit"),
   margins             = el_def(c("margin", "unit")),

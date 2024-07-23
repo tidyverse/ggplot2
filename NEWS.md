@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* (Breaking) The defaults for all geoms can be set at one in the theme. 
+  (@teunbrand based on pioneering work by @dpseidel, #2239)
+    * A new `theme(geom)` argument is used to track these defaults.
+    * The `element_geom()` function can be used to populate that argument.
+    * The `from_theme()` function allows access to the theme default fields from
+      inside the `aes()` function.
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
