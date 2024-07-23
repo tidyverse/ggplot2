@@ -74,6 +74,21 @@ test_that("Labels can be extracted from attributes", {
   expect_equal(labels$y, "disp")
 })
 
+test_that("Labels from static aesthetics are ignored (#6003)", {
+
+  df <- data.frame(x = 1, y = 1, f = 1)
+
+  p <- ggplot(df, aes(x, y, colour = f)) + geom_point()
+  labels <- ggplot_build(p)$plot$labels
+
+  expect_equal(labels$colour, "f")
+
+  p <- ggplot(df, aes(x, y, colour = f)) + geom_point(colour = "blue")
+  labels <- ggplot_build(p)$plot$labels
+
+  expect_null(labels$colour)
+})
+
 test_that("alt text is returned", {
   p <- ggplot(mtcars, aes(mpg, disp)) +
     geom_point()
