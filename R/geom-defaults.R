@@ -91,7 +91,7 @@ get_geom_defaults <- function(geom, theme = theme_get()) {
   }
   if (is.layer(geom)) {
     data <- data_frame0(.id = 1L)
-    data <- geom$compute_geom_2(data = data, theme = theme)
+    data <- geom$compute_geom_2(data = data)
     data$.id <- NULL
     return(data)
   }
@@ -99,7 +99,7 @@ get_geom_defaults <- function(geom, theme = theme_get()) {
     geom <- check_subclass(geom, "Geom")
   }
   if (inherits(geom, "Geom")) {
-    out <- geom$use_defaults(data = NULL, theme = theme)
+    out <- geom$use_defaults(data = NULL)
     return(out)
   }
   stop_input_type(geom, as_cli("a layer function, string or {.cls Geom} object"))
