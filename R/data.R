@@ -26,7 +26,7 @@
 #' \url{https://fred.stlouisfed.org/}. `economics` is in "wide"
 #' format, `economics_long` is in "long" format.
 #'
-#' @format A data frame with 574 rows and 6 variables:
+#' @format A data frame with 684 rows and 6 variables:
 #' \describe{
 #'   \item{date}{Month of data collection}
 #'   \item{pce}{personal consumption expenditures, in billions of dollars,
