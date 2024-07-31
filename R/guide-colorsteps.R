@@ -205,24 +205,27 @@ GuideColoursteps <- ggproto(
 
   build_decor = function(decor, grobs, elements, params) {
 
-    size <- abs(decor$max - decor$min)
-    just <- as.numeric(decor$min > decor$max)
-    gp   <- gg_par(col = NA, fill = decor$colour)
+    bar_data <- decor[[1]]
+
+    size <- abs(bar_data$max - bar_data$min)
+    just <- as.numeric(bar_data$min > bar_data$max)
+    gp   <- gg_par(col = NA, fill = bar_data$colour)
     if (params$direction == "vertical") {
       grob <- rectGrob(
-        x = 0, y = decor$min,
+        x = 0, y = bar_data$min,
         width = 1, height = size,
         vjust = just, hjust = 0, gp = gp
       )
     } else {
       grob <- rectGrob(
-        x = decor$min, y = 0,
+        x = bar_data$min, y = 0,
         height = 1, width = size,
         hjust = just, vjust = 0, gp = gp
       )
     }
 
     frame <- element_grob(elements$frame, fill = NA)
-    list(bar = grob, frame = frame, ticks = grobs$ticks)
+    bar <- grobTree(bar = grob, frame = frame, ticks = grobs$ticks)
+    list(bar = bar)
   }
 )

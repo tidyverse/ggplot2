@@ -269,7 +269,15 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers, data = NULL) {
+  get_layer_key = function(params, ...) {
+    if (!anyNA(params$key$.value)) {
+      params$decor <- list(params$decor)
+      return(params)
+    }
+    temp <- params
+    temp$key <- vec_slice(temp$key, is.na(temp$key$.value))
+    missing_decor <- GuideLegend$get_layer_key(temp, ...)$decor
+    params$decor <- c(list(params$decor), missing_decor)
     params
   },
 
@@ -348,11 +356,14 @@ GuideColourbar <- ggproto(
   },
 
   build_decor = function(decor, grobs, elements, params) {
+
+    bar_data <- decor[[1]]
+
     if (params$display == "raster") {
       image <- switch(
         params$direction,
-        "horizontal" = t(decor$colour),
-        "vertical"   = rev(decor$colour)
+        "horizontal" = t(bar_data$colour),
+        "vertical"   = rev(bar_data$colour)
       )
       grob <- rasterGrob(
         image  = image,
@@ -364,14 +375,14 @@ GuideColourbar <- ggproto(
       )
     } else if (params$display == "rectangles") {
       if (params$direction == "horizontal") {
-        width  <- 1 / nrow(decor)
+        width  <- 1 / nrow(bar_data)
         height <- 1
-        x <- (seq(nrow(decor)) - 1) * width
+        x <- (seq(nrow(bar_data)) - 1) * width
         y <- 0
       } else {
         width  <- 1
-        height <- 1 / nrow(decor)
-        y <- (seq(nrow(decor)) - 1) * height
+        height <- 1 / nrow(bar_data)
+        y <- (seq(nrow(bar_data)) - 1) * height
         x <- 0
       }
       grob <- rectGrob(
@@ -379,27 +390,27 @@ GuideColourbar <- ggproto(
         vjust = 0, hjust = 0,
         width = width, height = height,
         default.units = "npc",
-        gp = gg_par(col = NA, fill = decor$colour)
+        gp = gg_par(col = NA, fill = bar_data$colour)
       )
     } else if (params$display == "gradient") {
       check_device("gradients", call = expr(guide_colourbar()))
       value <- if (isTRUE(params$reverse)) {
-        rescale(decor$value, to = c(1, 0))
+        rescale(bar_data$value, to = c(1, 0))
       } else {
-        rescale(decor$value, to = c(0, 1))
+        rescale(bar_data$value, to = c(0, 1))
       }
       position <- switch(
         params$direction,
         horizontal = list(y1 = unit(0.5, "npc"), y2 = unit(0.5, "npc")),
         vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
       )
-      gradient <- inject(linearGradient(decor$colour, value, !!!position))
+      gradient <- inject(linearGradient(bar_data$colour, value, !!!position))
       grob <- rectGrob(gp = gg_par(fill = gradient, col = NA))
     }
 
     frame <- element_grob(elements$frame, fill = NA)
-
-    list(bar = grob, frame = frame, ticks = grobs$ticks)
+    bar <- grobTree(bar = grob, frame = frame, ticks = grobs$ticks)
+    list(bar = bar)
   },
 
   measure_grobs = function(grobs, params, elements) {
