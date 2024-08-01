@@ -415,7 +415,14 @@ as_facets_list <- function(x) {
   # distinct facet dimensions and `+` defines multiple facet variables
   # inside each dimension.
   if (is_formula(x)) {
-    return(f_as_facets_list(x))
+    if (length(x) == 2) {
+      rows <- f_as_facets(NULL)
+      cols <- f_as_facets(x)
+    } else {
+      rows <- f_as_facets(x[-3])
+      cols <- f_as_facets(x[-2])
+    }
+    return(list(rows, cols))
   }
 
   # For backward-compatibility with facet_wrap()
@@ -498,16 +505,6 @@ simplify <- function(x) {
   }
 }
 
-f_as_facets_list <- function(f) {
-  lhs <- function(x) if (length(x) == 2) NULL else x[-3]
-  rhs <- function(x) if (length(x) == 2) x else x[-2]
-
-  rows <- f_as_facets(lhs(f))
-  cols <- f_as_facets(rhs(f))
-
-  list(rows, cols)
-}
-
 as_facets <- function(x) {
   if (is_facets(x)) {
     return(x)
@@ -532,13 +529,10 @@ f_as_facets <- function(f) {
   # as.quoted() handles `+` specifications
   vars <- as.quoted(f)
 
-  # `.` in formulas is ignored
-  vars <- discard_dots(vars)
+  # `.` in formulas is discarded
+  vars <- vars[!vapply(vars, identical, logical(1), as.name("."))]
 
   as_quosures(vars, env, named = TRUE)
-}
-discard_dots <- function(x) {
-  x[!vapply(x, identical, logical(1), as.name("."))]
 }
 
 is_facets <- function(x) {
