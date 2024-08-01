@@ -84,16 +84,6 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
-# Return unique columns
-# This is used for figuring out which columns are constant within a group
-#
-# @keyword internal
-uniquecols <- function(df) {
-  df <- df[1, sapply(df, is_unique), drop = FALSE]
-  rownames(df) <- seq_len(nrow(df))
-  df
-}
-
 #' Convenience function to remove missing values from a data.frame
 #'
 #' Remove all non-complete rows, with a warning if `na.rm = FALSE`.
