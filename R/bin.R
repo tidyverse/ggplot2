@@ -25,8 +25,6 @@ bins <- function(breaks, closed = "right",
   )
 }
 
-is_bins <- function(x) inherits(x, "ggplot2_bins")
-
 #' @export
 print.ggplot2_bins <- function(x, ...) {
   n <- length(x$breaks)
@@ -133,7 +131,7 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 # Compute bins ------------------------------------------------------------
 
 bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
-  check_object(bins, is_bins, "a {.cls ggplot2_bins} object")
+  check_inherits(bins, "ggplot2_bins", "a {.cls ggplot2_bins} object")
 
   if (all(is.na(x))) {
     return(bin_out(length(x), NA, NA, xmin = NA, xmax = NA))
