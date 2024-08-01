@@ -257,7 +257,9 @@ toupper <- function(x) {
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
-  if (first) x <- firstUpper(x)
+  if (first) {
+    x <- paste0(to_upper_ascii(substring(x, 1, 1)), substring(x, 2))
+  }
   x
 }
 
@@ -266,10 +268,6 @@ snakeize <- function(x) {
   x <- gsub(".", "_", x, fixed = TRUE)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   to_lower_ascii(x)
-}
-
-firstUpper <- function(s) {
-  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
 }
 
 snake_class <- function(x) {
