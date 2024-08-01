@@ -172,7 +172,7 @@ Geom <- ggproto("Geom",
 
       modified_aes <- data_frame0(!!!compact(modified_aes))
 
-      data <- cunion(modified_aes, data)
+      data <- data_frame0(!!!defaults(modified_aes, data))
     }
 
     # Override mappings with params

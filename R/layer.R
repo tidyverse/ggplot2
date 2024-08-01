@@ -414,7 +414,7 @@ Layer <- ggproto("Layer", NULL,
     }
     stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
 
-    cunion(stat_data, data)
+    data_frame0(!!!defaults(stat_data, data))
   },
 
   compute_geom_1 = function(self, data) {
