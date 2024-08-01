@@ -644,24 +644,6 @@ is_bang <- function(x) {
   })
 }
 
-is_triple_bang <- function(x) {
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  TRUE
-}
-
 # Restart handler for using vec_rbind with mix of types
 # Ordered is coerced to factor
 # If a character vector is present the other is converted to character

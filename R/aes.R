@@ -448,7 +448,9 @@ arg_enquos <- function(name, frame = caller_env()) {
   quo <- inject(enquo0(!!sym(name)), frame)
   expr <- quo_get_expr(quo)
 
-  if (!is_missing(expr) && is_triple_bang(expr)) {
+  is_triple_bang <- !is_missing(expr) &&
+    is_bang(expr) && is_bang(expr[[2]]) && is_bang(expr[[c(2, 2)]])
+  if (is_triple_bang) {
     # Evaluate `!!!` operand and create a list of quosures
     env <- quo_get_env(quo)
     xs <- eval_bare(expr[[2]][[2]][[2]], env)
