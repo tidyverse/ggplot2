@@ -506,7 +506,9 @@ simplify <- function(x) {
 }
 
 as_facets <- function(x) {
-  if (is_facets(x)) {
+  is_facets <- is.list(x) && length(x) > 0 &&
+    all(vapply(x, is_quosure, logical(1)))
+  if (is_facets) {
     return(x)
   }
 
@@ -534,17 +536,6 @@ f_as_facets <- function(f) {
 
   as_quosures(vars, env, named = TRUE)
 }
-
-is_facets <- function(x) {
-  if (!is.list(x)) {
-    return(FALSE)
-  }
-  if (!length(x)) {
-    return(FALSE)
-  }
-  all(vapply(x, is_quosure, logical(1)))
-}
-
 
 # When evaluating variables in a facet specification, we evaluate bare
 # variables and expressions slightly differently. Bare variables should
