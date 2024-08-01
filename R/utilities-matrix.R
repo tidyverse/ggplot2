@@ -10,16 +10,3 @@ cunion <- function(a, b) {
 
   cbind(a, b[setdiff(names(b), names(a))])
 }
-
-# Interleave (or zip) multiple units into one vector
-interleave <- function(...) UseMethod("interleave")
-#' @export
-interleave.unit <- function(...) {
-  units <- lapply(list(...), as.list)
-  interleaved_list <- interleave.default(!!!units)
-  inject(unit.c(!!!interleaved_list))
-}
-#' @export
-interleave.default <- function(...) {
-  vec_interleave(...)
-}
