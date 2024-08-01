@@ -293,7 +293,7 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   ids <- id(grouping_cols, drop = drop)
   group_rows <- split_with_index(seq_len(nrow(df)), ids)
   result <- lapply(seq_along(group_rows), function(i) {
-    cur_data <- df_rows(df, group_rows[[i]])
+    cur_data <- vec_slice(df, group_rows[[i]])
     apply_fun(cur_data)
   })
   vec_rbind0(!!!result)
