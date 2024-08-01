@@ -208,6 +208,7 @@ GuideColourbar <- ggproto(
     background     = "legend.background",
     margin         = "legend.margin",
     key            = "legend.key",
+    key_size       = "legend.key.size",
     key_height     = "legend.key.height",
     key_width      = "legend.key.width",
     text           = "legend.text",
@@ -217,6 +218,8 @@ GuideColourbar <- ggproto(
     axis_line      = "legend.axis.line",
     ticks          = "legend.ticks",
     ticks_length   = "legend.ticks.length",
+    spacing_x      = "legend.key.spacing.x",
+    spacing_y      = "legend.key.spacing.y",
     frame          = "legend.frame"
   ),
 
@@ -299,6 +302,9 @@ GuideColourbar <- ggproto(
       theme$legend.key.height <- theme$legend.key.height * 5
       valid_position <- c("right", "left")
     }
+    # Ensure legend spacing.y is populated to prevent backward compatibility
+    # in GuideLegend from overruling it
+    theme$legend.key.spacing.y <- theme$legend.key.spacing %||% rel(1)
 
     # Set defaults
     theme <- replace_null(
@@ -357,7 +363,7 @@ GuideColourbar <- ggproto(
 
   build_decor = function(decor, grobs, elements, params) {
 
-    bar_data <- decor[[1]]
+    bar_data    <- decor[[1]]
 
     if (params$display == "raster") {
       image <- switch(
@@ -419,5 +425,37 @@ GuideColourbar <- ggproto(
       heights = elements$height_cm
     )
     GuideLegend$measure_grobs(grobs, params, elements)
+  },
+
+  assemble_drawing = function(self, grobs, layout, sizes, params, elements) {
+
+    if (anyNA(params$key$.value) && length(params$decor) > 1) {
+
+      # Render missing key
+      params$key <- vec_slice(params$key, is.na(params$key$.value))
+      key <- GuideLegend$build_decor(params$decor[-1], list(), elements, params)
+      grobs$decor$missing <- inject(gTree(children = gList(!!!key)))
+
+      # Render missing label
+      label <- GuideLegend$build_labels(params$key, elements, params)
+      grobs$labels$missing <- label[[1]]
+
+      # Adjust layout and sizing
+      new <- vec_slice(layout, 1)
+      if (params$direction == "vertical") {
+        new[c("key_row", "label_row")] <- new[c("key_row", "label_row")] + 2
+        sizes$heights <- c(sizes$heights, elements$spacing_y, height_cm(elements$key_size))
+        sizes$widths[new$label_col] <- max(sizes$widths[new$label_col], width_cm(label))
+      } else {
+        new[c("key_col", "label_col")] <- new[c("key_col", "label_col")] + 2
+        sizes$heights[new$label_row] <- max(sizes$heights[new$label_row], height_cm(label))
+        sizes$widths <- c(sizes$widths, elements$spacing_x, width_cm(elements$key_size))
+      }
+      layout <- vec_c(layout, new)
+    }
+
+    ggproto_parent(GuideLegend, self)$assemble_drawing(
+      grobs, layout, sizes, params, elements
+    )
   }
 )
