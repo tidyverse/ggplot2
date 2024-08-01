@@ -870,19 +870,6 @@ include_layer_in_guide <- function(layer, matched) {
   isTRUE(layer$show.legend)
 }
 
-# Simplify legend position to one of horizontal/vertical/inside
-legend_position <- function(position) {
-  if (length(position) == 1) {
-    if (position %in% c("top", "bottom")) {
-      "horizontal"
-    } else {
-      "vertical"
-    }
-  } else {
-    "inside"
-  }
-}
-
 # resolve the guide from the scale and guides
 resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "none") {
   guides[[aesthetic]] %||% scale$guide %|W|% default %||% null

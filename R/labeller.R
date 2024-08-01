@@ -173,14 +173,6 @@ label_parsed <- function(labels, multi_line = TRUE) {
 }
 class(label_parsed) <- c("function", "labeller")
 
-find_names <- function(expr) {
-  if (is.call(expr)) {
-    unlist(lapply(expr[-1], find_names))
-  } else if (is.name(expr)) {
-    as.character(expr)
-  }
-}
-
 #' Label with mathematical expressions
 #'
 #' `label_bquote()` offers a flexible way of labelling

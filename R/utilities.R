@@ -190,12 +190,6 @@ waiver <- function() structure(list(), class = "waiver")
 
 is.waive <- function(x) inherits(x, "waiver")
 
-
-rescale01 <- function(x) {
-  rng <- range(x, na.rm = TRUE)
-  (x - rng[1]) / (rng[2] - rng[1])
-}
-
 pal_binned <- function(palette) {
   function(x) {
     palette(length(x))
@@ -310,15 +304,6 @@ compact <- function(x) {
 
 is.formula <- function(x) inherits(x, "formula")
 
-deparse2 <- function(x) {
-  y <- deparse(x, backtick = TRUE)
-  if (length(y) == 1) {
-    y
-  } else {
-    paste0(y[[1]], "...")
-  }
-}
-
 dispatch_args <- function(f, ...) {
   args <- list(...)
   formals <- formals(f)
@@ -350,14 +335,6 @@ with_seed_null <- function(seed, code) {
     code
   } else {
     withr::with_seed(seed, code)
-  }
-}
-
-seq_asc <- function(to, from) {
-  if (to > from) {
-    integer()
-  } else {
-    to:from
   }
 }
 

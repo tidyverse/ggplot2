@@ -463,8 +463,6 @@ Layer <- ggproto("Layer", NULL,
   }
 )
 
-is.layer <- function(x) inherits(x, "Layer")
-
 check_subclass <- function(x, subclass,
                            argname = to_lower_ascii(subclass),
                            env = parent.frame(),
