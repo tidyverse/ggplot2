@@ -431,6 +431,8 @@ GuideColourbar <- ggproto(
 
     if (anyNA(params$key$.value) && length(params$decor) > 1) {
 
+      missing_first <- xor(is.na(params$key$.value[1]), isTRUE(params$reverse))
+
       # Render missing key
       params$key <- vec_slice(params$key, is.na(params$key$.value))
       key <- GuideLegend$build_decor(params$decor[-1], list(), elements, params)
@@ -443,14 +445,29 @@ GuideColourbar <- ggproto(
       # Adjust layout and sizing
       new <- vec_slice(layout, 1)
       if (params$direction == "vertical") {
-        new[c("key_row", "label_row")] <- new[c("key_row", "label_row")] + 2
-        sizes$heights <- c(sizes$heights, elements$spacing_y, height_cm(elements$key_size))
+
+        if (missing_first) {
+          layout[c("key_row", "label_row")] <- layout[c("key_row", "label_row")] + 2
+          sizes$heights <- c(height_cm(elements$key_size), elements$spacing_y, sizes$heights)
+        } else {
+          new[c("key_row", "label_row")] <- new[c("key_row", "label_row")] + 2
+          sizes$heights <- c(sizes$heights, elements$spacing_y, height_cm(elements$key_size))
+        }
         sizes$widths[new$label_col] <- max(sizes$widths[new$label_col], width_cm(label))
+
       } else {
-        new[c("key_col", "label_col")] <- new[c("key_col", "label_col")] + 2
+
+        if (missing_first) {
+          layout[c("key_col", "label_col")] <- layout[c("key_col", "label_col")] + 2
+          sizes$widths <- c(width_cm(elements$key_size), elements$spacing_x, sizes$widths)
+        } else {
+          new[c("key_col", "label_col")] <- new[c("key_col", "label_col")] + 2
+          sizes$widths <- c(sizes$widths, elements$spacing_x, width_cm(elements$key_size))
+        }
         sizes$heights[new$label_row] <- max(sizes$heights[new$label_row], height_cm(label))
-        sizes$widths <- c(sizes$widths, elements$spacing_x, width_cm(elements$key_size))
+
       }
+
       layout <- vec_c(layout, new)
     }
 
