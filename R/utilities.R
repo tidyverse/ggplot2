@@ -231,15 +231,6 @@ gg_dep <- function(version, msg) {
   invisible()
 }
 
-has_name <- function(x) {
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(rep(FALSE, length(x)))
-  }
-
-  !is.na(nms) & nms != ""
-}
-
 # Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
 lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
 upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

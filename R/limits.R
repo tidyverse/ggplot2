@@ -80,7 +80,7 @@
 lims <- function(...) {
   args <- list2(...)
 
-  if (!all(has_name(args))) {
+  if (!is_named2(args)) {
     cli::cli_abort("All arguments must be named.")
   }
   env <- current_env()
