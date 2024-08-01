@@ -95,13 +95,14 @@ GuideColoursteps <- ggproto(
 
   extract_key = function(scale, aesthetic, even.steps, ...) {
 
-    breaks <- scale$get_breaks()
+    orig_breaks <- scale$get_breaks()
+    is_missing  <- which(is.na(orig_breaks))
 
-    if (!(even.steps || !is.numeric(breaks))) {
+    if (!(even.steps || !is.numeric(orig_breaks))) {
       return(Guide$extract_key(scale, aesthetic))
     }
 
-    parsed <- parse_binned_breaks(scale, breaks)
+    parsed <- parse_binned_breaks(scale, orig_breaks)
     if (is.null(parsed)) {
       return(parsed)
     }
@@ -114,7 +115,13 @@ GuideColoursteps <- ggproto(
     } else {
       key$.value <- breaks
     }
-    key$.label <- scale$get_labels(breaks)
+
+    orig_labels <- NULL
+    if (length(is_missing) > 0) {
+      is_missing  <- is_missing[1]
+      orig_labels <- scale$get_labels(orig_breaks)[match(breaks, orig_breaks)]
+    }
+    key$.label <- orig_labels %||% scale$get_labels(breaks)
 
     if (breaks[1] %in% limits) {
       key$.value  <- key$.value - 1L
@@ -123,6 +130,20 @@ GuideColoursteps <- ggproto(
     if (breaks[length(breaks)] %in% limits) {
       key[[1]][nrow(key)] <- NA
     }
+
+    if (length(is_missing) > 0) {
+      missing <- data_frame0(
+        !!aesthetic := scale$map(orig_breaks[is_missing]),
+        .value = orig_breaks[is_missing],
+        .label = scale$get_labels(orig_breaks)[is_missing]
+      )
+      if (is_missing == 1) {
+        key <- vec_c(missing, key)
+      } else {
+        key <- vec_c(key, missing)
+      }
+    }
+
     # To avoid having to recalculate these variables in other methods, we
     # attach the parsed values as attributes. It might not be very elegant,
     # but it works.
@@ -170,13 +191,20 @@ GuideColoursteps <- ggproto(
       show.limits <- FALSE
     }
 
+    key <- params$key
     if (show.limits) {
-      key <- params$key
+      # Separate NA-breaks from proper breaks
+      missing <- vec_slice(key,  is.na(key$.value))
+      key     <- vec_slice(key, !is.na(key$.value))
+
+      # Add extra top and bottom rows for limits
       limits <- attr(key, "parsed")$limits %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
       n <- nrow(key)
       key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)
       key$.label[c(1, n)] <- scale$get_labels(limits)
+
+      # Remove duplicates when e.g. outer breaks are included in limits
       if (key$.value[1] == key$.value[2]) {
         key <- vec_slice(key, -1)
         n <- n - 1
@@ -184,7 +212,13 @@ GuideColoursteps <- ggproto(
       if (key$.value[n - 1] == key$.value[n]) {
         key <- vec_slice(key, -n)
       }
-      params$key <- key
+
+      # Reintroduce NA-breaks
+      if (is.na(params$key$.value[1])) {
+        key <- vec_c(missing, key)
+      } else {
+        key <- vec_c(key, missing)
+      }
     }
 
     params$title <- scale$make_title(
@@ -195,11 +229,15 @@ GuideColoursteps <- ggproto(
     if (params$reverse) {
       limits <- rev(limits)
     }
-    params$key$.value <- rescale(params$key$.value, from = limits)
-    params$decor$min  <- rescale(params$decor$min,  from = limits)
-    params$decor$max  <- rescale(params$decor$max,  from = limits)
-    params$key <-
-      vec_slice(params$key, !is.na(oob_censor_any(params$key$.value)))
+    key$.value <- rescale(key$.value, from = limits)
+    params$decor$min <- rescale(params$decor$min, from = limits)
+    params$decor$max <- rescale(params$decor$max, from = limits)
+
+    keep <- !is.na(oob_censor_any(key$.value))
+    if (!is.na(scale$na.value %||% NA)) {
+      keep <- keep | is.na(key$.value) & !is.na(key[[params$aesthetic]])
+    }
+    params$key <- vec_slice(key, keep)
     params
   },
 
