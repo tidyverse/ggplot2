@@ -209,7 +209,12 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   }
 
   # Shortcut when only one group
-  if (all(vapply(grouping_cols, single_value, logical(1)))) {
+  has_single_group <- all(vapply(
+    grouping_cols,
+    function(x) identical(as.character(levels(x) %||% attr(x, "n")), "1"),
+    logical(1)
+  ))
+  if (has_single_group) {
     return(apply_fun(df))
   }
 
@@ -220,18 +225,4 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     apply_fun(cur_data)
   })
   vec_rbind0(!!!result)
-}
-
-single_value <- function(x, ...) {
-  UseMethod("single_value")
-}
-#' @export
-single_value.default <- function(x, ...) {
-  # This is set by id() used in creating the grouping var
-  identical(attr(x, "n"), 1L)
-}
-#' @export
-single_value.factor <- function(x, ...) {
-  # Panels are encoded as factor numbers and can never be missing (NA)
-  identical(levels(x), "1")
 }
