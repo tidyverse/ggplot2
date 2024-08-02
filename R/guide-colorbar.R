@@ -124,6 +124,7 @@ guide_colourbar <- function(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  override.aes = list(),
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -152,6 +153,7 @@ guide_colourbar <- function(
     display = display,
     alpha = alpha,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
+    override.aes = override.aes,
     position = position,
     direction = direction,
     reverse = reverse,
@@ -188,6 +190,7 @@ GuideColourbar <- ggproto(
     alpha = NA,
 
     draw_lim = c(TRUE, TRUE),
+    override.aes = list(),
 
     # general
     direction = NULL,
