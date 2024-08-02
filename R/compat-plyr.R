@@ -166,37 +166,7 @@ join_keys <- function(x, y, by) {
   list(x = keys[seq_len(n_x)], y = keys[n_x + seq_len(n_y)],
        n = attr(keys, "n"))
 }
-#' Replace specified values with new values, in a factor or character vector
-#'
-#' An easy to use substitution of elements in a string-like vector (character or
-#' factor). If `x` is a character vector the matching elements will be replaced
-#' directly and if `x` is a factor the matching levels will be replaced
-#'
-#' @param x A character or factor vector
-#' @param replace A named character vector with the names corresponding to the
-#' elements to replace and the values giving the replacement.
-#'
-#' @return A vector of the same class as `x` with the given values replaced
-#'
-#' @keywords internal
-#' @noRd
-#'
-revalue <- function(x, replace) {
-  if (is.character(x)) {
-    replace <- replace[names(replace) %in% x]
-    if (length(replace) == 0) return(x)
-    x[match(names(replace), x)] <- replace
-  } else if (is.factor(x)) {
-    lev <- levels(x)
-    replace <- replace[names(replace) %in% lev]
-    if (length(replace) == 0) return(x)
-    lev[match(names(replace), lev)] <- replace
-    levels(x) <- lev
-  } else if (!is.null(x)) {
-    stop_input_type(x, "a factor or character vector")
-  }
-  x
-}
+
 # Iterate through a formula and return a quoted version
 simplify_formula <- function(x) {
   if (length(x) == 2 && x[[1]] == as.name("~")) {
