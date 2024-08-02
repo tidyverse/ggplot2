@@ -188,32 +188,7 @@ simplify_formula <- function(x) {
     list(x)
   }
 }
-#' Create a quoted version of x
-#'
-#' This function captures the special meaning of formulas in the context of
-#' facets in ggplot2, where `+` have special meaning. It works as
-#' `plyr::as.quoted` but only for the special cases of `character`, `call`, and
-#' `formula` input as these are the only situations relevant for ggplot2.
-#'
-#' @param x A formula, string, or call to be quoted
-#' @param env The environment to a attach to the quoted expression.
-#'
-#' @keywords internal
-#' @noRd
-#'
-as.quoted <- function(x, env = parent.frame()) {
-  x <- if (is.character(x)) {
-    lapply(x, function(x) parse(text = x)[[1]])
-  } else if (is.formula(x)) {
-    simplify_formula(x)
-  } else if (is.call(x)) {
-    as.list(x)[-1]
-  } else {
-    cli::cli_abort("Must be a character vector, call, or formula.")
-  }
-  attributes(x) <- list(env = env, class = 'quoted')
-  x
-}
+
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   check_numeric(x)

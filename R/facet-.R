@@ -529,7 +529,7 @@ f_as_facets <- function(f) {
   env <- f_env(f) %||% globalenv()
 
   # as.quoted() handles `+` specifications
-  vars <- as.quoted(f)
+  vars <- simplify_formula(f)
 
   # `.` in formulas is discarded
   vars <- vars[!vapply(vars, identical, logical(1), as.name("."))]
