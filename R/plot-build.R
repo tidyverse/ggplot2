@@ -402,11 +402,10 @@ table_add_tag <- function(table, label, theme) {
       x <- unit(position[1], "npc")
       y <- unit(position[2], "npc")
     }
-    # Do manual placement of tag
-    tag <- justify_grobs(
-      tag, x = x, y = y,
-      hjust = element$hjust, vjust = element$vjust,
-      int_angle = element$angle, debug = element$debug
+    # Re-render with manual positions
+    tag <- element_grob(
+      element, x = x, y = y, label = label,
+      margin_y = TRUE, margin_x = TRUE
     )
     if (location == "plot") {
       table <- gtable_add_grob(
