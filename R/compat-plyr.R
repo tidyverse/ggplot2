@@ -167,28 +167,6 @@ join_keys <- function(x, y, by) {
        n = attr(keys, "n"))
 }
 
-# Iterate through a formula and return a quoted version
-simplify_formula <- function(x) {
-  if (length(x) == 2 && x[[1]] == as.name("~")) {
-    return(simplify(x[[2]]))
-  }
-  if (length(x) < 3)
-    return(list(x))
-  op <- x[[1]]
-  a <- x[[2]]
-  b <- x[[3]]
-  if (op == as.name("+") || op == as.name("*") || op ==
-      as.name("~")) {
-    c(simplify(a), simplify(b))
-  }
-  else if (op == as.name("-")) {
-    c(simplify(a), bquote(-.(x), list(x = simplify(b))))
-  }
-  else {
-    list(x)
-  }
-}
-
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   check_numeric(x)
