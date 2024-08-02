@@ -109,19 +109,6 @@ guides <- function(...) {
   NULL
 }
 
-update_guides <- function(p, guides) {
-  p <- plot_clone(p)
-  if (inherits(p$guides, "Guides")) {
-    old <- p$guides
-    new <- ggproto(NULL, old)
-    new$add(guides)
-    p$guides <- new
-  } else {
-    p$guides <- guides
-  }
-  p
-}
-
 # Class -------------------------------------------------------------------
 
 # Guides object encapsulates multiple guides and their state.
