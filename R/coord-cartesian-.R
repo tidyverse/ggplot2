@@ -99,10 +99,9 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-    expand <- parse_coord_expand(self$expand)
     c(
-      view_scales_from_scale(scale_x, self$limits$x, expand[c(4, 2)]),
-      view_scales_from_scale(scale_y, self$limits$y, expand[c(3, 1)])
+      view_scales_from_scale(scale_x, self$limits$x, params$expand[c(4, 2)]),
+      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)])
     )
   },
 

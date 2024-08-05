@@ -184,10 +184,11 @@ Coord <- ggproto("Coord",
   # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
-  setup_params = function(data) {
+  setup_params = function(self, data) {
     list(
       guide_default = guide_axis(),
-      guide_missing = guide_none()
+      guide_missing = guide_none(),
+      expand = parse_coord_expand(self$expand %||% TRUE)
     )
   },
 

@@ -137,11 +137,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
 
-    expand <- parse_coord_expand(self$expand)
-
     params <- c(
-      view_scales_polar(scale_x, self$theta, expand = expand[c(4, 2)]),
-      view_scales_polar(scale_y, self$theta, expand = expand[c(3, 1)]),
+      view_scales_polar(scale_x, self$theta, expand = params$expand[c(4, 2)]),
+      view_scales_polar(scale_y, self$theta, expand = params$expand[c(3, 1)]),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
            arc = self$arc, inner_radius = self$inner_radius)
     )
@@ -449,27 +447,27 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   setup_params = function(self, data) {
-    if (isFALSE(self$r_axis_inside)) {
-      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-      if (place[1]) {
-        return(list(r_axis = "left", fake_arc = c(0, 2) * pi))
-      }
-      if (place[3]) {
-        return(list(r_axis = "left", fake_arc = c(1, 3)* pi))
-      }
-      if (place[2]) {
-        return(list(r_axis = "bottom", fake_arc = c(0.5, 2.5) * pi))
-      }
-      if (place[4]) {
-        return(list(r_axis = "bottom", fake_arc = c(1.5, 3.5) * pi))
-      }
+    params <- ggproto_parent(Coord, self)$setup_params(data)
+    if (!isFALSE(self$r_axis_inside)) {
+      return(params)
+    }
+
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+    if (!any(place)) {
       cli::cli_warn(c(
         "No appropriate placement found for {.arg r_axis_inside}.",
         i = "Axis will be placed at panel edge."
       ))
-      self$r_axis_inside <- TRUE
+      params$r_axis_inside <- TRUE
+      return(params)
     }
-    return(NULL)
+
+    params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+    params$fake_arc <- switch(
+      which(place[c(1, 3, 2, 4)])[1],
+      c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+    ) * pi
+    params
   }
 )
 
