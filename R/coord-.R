@@ -229,6 +229,26 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
   }
 }
 
+# Elaborates an 'expand' argument for every side (top, right, bottom or left)
+parse_coord_expand <- function(expand) {
+  check_logical(expand)
+  if (anyNA(expand)) {
+    cli::cli_abort("{.arg expand} cannot contain missing values.")
+  }
+
+  if (!is_named(expand)) {
+    return(rep_len(expand, 4))
+  }
+
+  # Match by top/right/bottom/left
+  out <- rep(TRUE, 4)
+  i <- match(names(expand), .trbl)
+  if (sum(!is.na(i)) > 0) {
+    out[i] <- unname(expand)[!is.na(i)]
+  }
+  out
+}
+
 # Utility function to check coord limits
 check_coord_limits <- function(
     limits, arg = caller_arg(limits), call = caller_env()
