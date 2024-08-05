@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `coord_*(expand)` can now take a logical vector to control expansion at any
+  side of the panel (top, right, bottom, left) (@teunbrand, #6020)
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
