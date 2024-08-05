@@ -170,8 +170,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # expansion factors for scale limits
-    expansion_x <- default_expansion(scale_x, expand = self$expand)
-    expansion_y <- default_expansion(scale_y, expand = self$expand)
+    expand <- parse_coord_expand(self$expand)
+    expansion_x <- default_expansion(scale_x, expand = expand[c(4, 2)])
+    expansion_y <- default_expansion(scale_y, expand = expand[c(3, 1)])
 
     # get scale limits and coord limits and merge together
     # coord limits take precedence over scale limits

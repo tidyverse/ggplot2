@@ -66,7 +66,6 @@ coord_radial <- function(theta = "x",
     check_bool(r.axis.inside, allow_null = TRUE)
   }
 
-  check_bool(expand)
   check_bool(rotate.angle)
   check_number_decimal(start, allow_infinite = FALSE)
   check_number_decimal(end, allow_infinite = FALSE, allow_null = TRUE)
@@ -138,9 +137,11 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
 
+    expand <- parse_coord_expand(self$expand)
+
     params <- c(
-      view_scales_polar(scale_x, self$theta, expand = self$expand),
-      view_scales_polar(scale_y, self$theta, expand = self$expand),
+      view_scales_polar(scale_x, self$theta, expand = expand[c(4, 2)]),
+      view_scales_polar(scale_y, self$theta, expand = expand[c(3, 1)]),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
            arc = self$arc, inner_radius = self$inner_radius)
     )
