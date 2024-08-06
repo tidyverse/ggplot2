@@ -12,6 +12,11 @@
     * foo = "bar"
     i Did you misspell an argument name?
 
+# warnings are thrown for unknown labels
+
+    Ignoring unknown labels:
+    * `foo = "bar"`
+
 # plot.tag.position rejects invalid input
 
     The `plot.tag.position` theme element must be a <character/numeric/integer> object.
