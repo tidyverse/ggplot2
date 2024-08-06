@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
+  `labs()` and several guides (@teunbrand, #3196).
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
