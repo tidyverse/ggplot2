@@ -166,7 +166,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' text from the information stored in the plot.
 #'
 #' @param p a ggplot object
-#' @param ... Currently ignored
+#' @inheritParams rlang::args_dots_used
 #'
 #' @return A text string
 #'
@@ -189,6 +189,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' get_alt_text(p)
 #'
 get_alt_text <- function(p, ...) {
+  warn_dots_used()
   UseMethod("get_alt_text")
 }
 #' @export
