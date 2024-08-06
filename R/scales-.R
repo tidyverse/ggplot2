@@ -61,11 +61,25 @@ ScalesList <- ggproto("ScalesList", NULL,
     scale[[1]]
   },
 
+  train = function(self, data, drop = FALSE) {
+    if (length(self$scales) == 0) {
+      return()
+    }
+    lapply(data, self$train_df, drop = drop)
+  },
+
   train_df = function(self, df, drop = FALSE) {
     if (empty(df) || length(self$scales) == 0) {
       return()
     }
     lapply(self$scales, function(scale) scale$train_df(df = df))
+  },
+
+  map = function(self, data) {
+    if (length(self$scales) == 0) {
+      return(data)
+    }
+    lapply(data, self$map_df)
   },
 
   map_df = function(self, df) {
