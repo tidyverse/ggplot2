@@ -519,7 +519,8 @@ opposite_position <- function(position) {
     top    = "bottom",
     bottom = "top",
     left   = "right",
-    right  = "left"
+    right  = "left",
+    position
   )
 }
 

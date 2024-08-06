@@ -90,23 +90,6 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
   }
 }
 
-view_scale_empty <- function() {
-  ggproto(NULL, ViewScale,
-    is_empty = function() TRUE,
-    is_discrete = function() NA,
-    dimension = function() c(0, 1),
-    get_limits = function() c(0, 1),
-    get_breaks = function() NULL,
-    get_breaks_minor = function() NULL,
-    get_labels = function(breaks = NULL) breaks,
-    rescale = function(x) cli::cli_abort("Not implemented."),
-    map = function(x) cli::cli_abort("Not implemented."),
-    make_title = function(title) title,
-    break_positions = function() NULL,
-    break_positions_minor = function() NULL
-  )
-}
-
 ViewScale <- ggproto("ViewScale", NULL,
   # map, rescale, and make_title need a reference
   # to the original scale

@@ -166,84 +166,7 @@ join_keys <- function(x, y, by) {
   list(x = keys[seq_len(n_x)], y = keys[n_x + seq_len(n_y)],
        n = attr(keys, "n"))
 }
-#' Replace specified values with new values, in a factor or character vector
-#'
-#' An easy to use substitution of elements in a string-like vector (character or
-#' factor). If `x` is a character vector the matching elements will be replaced
-#' directly and if `x` is a factor the matching levels will be replaced
-#'
-#' @param x A character or factor vector
-#' @param replace A named character vector with the names corresponding to the
-#' elements to replace and the values giving the replacement.
-#'
-#' @return A vector of the same class as `x` with the given values replaced
-#'
-#' @keywords internal
-#' @noRd
-#'
-revalue <- function(x, replace) {
-  if (is.character(x)) {
-    replace <- replace[names(replace) %in% x]
-    if (length(replace) == 0) return(x)
-    x[match(names(replace), x)] <- replace
-  } else if (is.factor(x)) {
-    lev <- levels(x)
-    replace <- replace[names(replace) %in% lev]
-    if (length(replace) == 0) return(x)
-    lev[match(names(replace), lev)] <- replace
-    levels(x) <- lev
-  } else if (!is.null(x)) {
-    stop_input_type(x, "a factor or character vector")
-  }
-  x
-}
-# Iterate through a formula and return a quoted version
-simplify_formula <- function(x) {
-  if (length(x) == 2 && x[[1]] == as.name("~")) {
-    return(simplify(x[[2]]))
-  }
-  if (length(x) < 3)
-    return(list(x))
-  op <- x[[1]]
-  a <- x[[2]]
-  b <- x[[3]]
-  if (op == as.name("+") || op == as.name("*") || op ==
-      as.name("~")) {
-    c(simplify(a), simplify(b))
-  }
-  else if (op == as.name("-")) {
-    c(simplify(a), bquote(-.(x), list(x = simplify(b))))
-  }
-  else {
-    list(x)
-  }
-}
-#' Create a quoted version of x
-#'
-#' This function captures the special meaning of formulas in the context of
-#' facets in ggplot2, where `+` have special meaning. It works as
-#' `plyr::as.quoted` but only for the special cases of `character`, `call`, and
-#' `formula` input as these are the only situations relevant for ggplot2.
-#'
-#' @param x A formula, string, or call to be quoted
-#' @param env The environment to a attach to the quoted expression.
-#'
-#' @keywords internal
-#' @noRd
-#'
-as.quoted <- function(x, env = parent.frame()) {
-  x <- if (is.character(x)) {
-    lapply(x, function(x) parse(text = x)[[1]])
-  } else if (is.formula(x)) {
-    simplify_formula(x)
-  } else if (is.call(x)) {
-    as.list(x)[-1]
-  } else {
-    cli::cli_abort("Must be a character vector, call, or formula.")
-  }
-  attributes(x) <- list(env = env, class = 'quoted')
-  x
-}
+
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   check_numeric(x)
@@ -286,29 +209,20 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   }
 
   # Shortcut when only one group
-  if (all(vapply(grouping_cols, single_value, logical(1)))) {
+  has_single_group <- all(vapply(
+    grouping_cols,
+    function(x) identical(as.character(levels(x) %||% attr(x, "n")), "1"),
+    logical(1)
+  ))
+  if (has_single_group) {
     return(apply_fun(df))
   }
 
   ids <- id(grouping_cols, drop = drop)
   group_rows <- split_with_index(seq_len(nrow(df)), ids)
   result <- lapply(seq_along(group_rows), function(i) {
-    cur_data <- df_rows(df, group_rows[[i]])
+    cur_data <- vec_slice(df, group_rows[[i]])
     apply_fun(cur_data)
   })
   vec_rbind0(!!!result)
-}
-
-single_value <- function(x, ...) {
-  UseMethod("single_value")
-}
-#' @export
-single_value.default <- function(x, ...) {
-  # This is set by id() used in creating the grouping var
-  identical(attr(x, "n"), 1L)
-}
-#' @export
-single_value.factor <- function(x, ...) {
-  # Panels are encoded as factor numbers and can never be missing (NA)
-  identical(levels(x), "1")
 }

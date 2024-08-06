@@ -111,21 +111,17 @@ label_value <- function(labels, multi_line = TRUE) {
 # currently needed for Roxygen
 class(label_value) <- c("function", "labeller")
 
-# Helper for label_both
-label_variable <- function(labels, multi_line = TRUE) {
-  if (multi_line) {
-    row <- as.list(names(labels))
-  } else {
-    row <- list(paste(names(labels), collapse = ", "))
-  }
-  lapply(row, rep, nrow(labels) %||% length(labels[[1]]))
-}
-
 #' @rdname labellers
 #' @export
 label_both <- function(labels, multi_line = TRUE, sep = ": ") {
   value <- label_value(labels, multi_line = multi_line)
-  variable <- label_variable(labels, multi_line = multi_line)
+
+  if (isTRUE(multi_line)) {
+    row <- as.list(names(labels))
+  } else {
+    row <- list(paste(names(labels), collapse = ", "))
+  }
+  variable <- lapply(row, rep, nrow(labels) %||% length(labels[[1]]))
 
   if (multi_line) {
     out <- vector("list", length(value))
@@ -172,14 +168,6 @@ label_parsed <- function(labels, multi_line = TRUE) {
   }
 }
 class(label_parsed) <- c("function", "labeller")
-
-find_names <- function(expr) {
-  if (is.call(expr)) {
-    unlist(lapply(expr[-1], find_names))
-  } else if (is.name(expr)) {
-    as.character(expr)
-  }
-}
 
 #' Label with mathematical expressions
 #'
@@ -236,8 +224,6 @@ label_wrap_gen <- function(width = 25, multi_line = TRUE) {
   }
   structure(fun, class = "labeller")
 }
-
-is_labeller <- function(x) inherits(x, "labeller")
 
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
@@ -300,7 +286,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
     # support it.
     default <- dispatch_args(default, multi_line = multi_line)
 
-    if (is_labeller(x)) {
+    if (inherits(x, "labeller")) {
       x <- dispatch_args(x, multi_line = multi_line)
       x(labels)
     } else if (is.function(x)) {

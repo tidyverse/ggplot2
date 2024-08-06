@@ -109,19 +109,6 @@ guides <- function(...) {
   NULL
 }
 
-update_guides <- function(p, guides) {
-  p <- plot_clone(p)
-  if (inherits(p$guides, "Guides")) {
-    old <- p$guides
-    new <- ggproto(NULL, old)
-    new$add(guides)
-    p$guides <- new
-  } else {
-    p$guides <- guides
-  }
-  p
-}
-
 # Class -------------------------------------------------------------------
 
 # Guides object encapsulates multiple guides and their state.
@@ -350,13 +337,8 @@ Guides <- ggproto(
       # Find guide for aesthetic-scale combination
       # Hierarchy is in the order:
       # plot + guides(XXX) + scale_ZZZ(guide = XXX) > default(i.e., legend)
-      guide <- resolve_guide(
-        aesthetic = aesthetics[idx],
-        scale     = scales[[idx]],
-        guides    = guides,
-        default   = default,
-        null      = missing
-      )
+      guide <- guides[[aesthetics[idx]]] %||% scales[[idx]]$guide %|W|%
+        default %||% missing
 
       if (isFALSE(guide)) {
         deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
@@ -868,24 +850,6 @@ include_layer_in_guide <- function(layer, matched) {
   # This layer does not contribute to the legend.
   # Default is to exclude it, except if it is explicitly turned on
   isTRUE(layer$show.legend)
-}
-
-# Simplify legend position to one of horizontal/vertical/inside
-legend_position <- function(position) {
-  if (length(position) == 1) {
-    if (position %in% c("top", "bottom")) {
-      "horizontal"
-    } else {
-      "vertical"
-    }
-  } else {
-    "inside"
-  }
-}
-
-# resolve the guide from the scale and guides
-resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "none") {
-  guides[[aesthetic]] %||% scale$guide %|W|% default %||% null
 }
 
 # validate guide object

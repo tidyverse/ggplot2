@@ -207,10 +207,6 @@ stage_scaled <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
 # Regex to determine if an identifier refers to a calculated aesthetic
 match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
 
-is_dotted_var <- function(x) {
-  grepl(match_calculated_aes, x)
-}
-
 # Determine if aesthetic is calculated
 is_calculated_aes <- function(aesthetics, warn = FALSE) {
   vapply(aesthetics, is_calculated, warn = warn, logical(1), USE.NAMES = FALSE)
@@ -229,7 +225,8 @@ is_calculated <- function(x, warn = FALSE) {
   if (is.null(x) || is.atomic(x)) {
     FALSE
   } else if (is.symbol(x)) {
-    res <- is_dotted_var(as.character(x))
+    # Test if x is a dotted variable
+    res <- grepl(match_calculated_aes, as.character(x))
     if (res && warn) {
       what <- I(paste0("The dot-dot notation (`", x, "`)"))
       var <- gsub(match_calculated_aes, "\\1", as.character(x))

@@ -276,7 +276,6 @@ Collate:
     'utilities-break.R'
     'utilities-grid.R'
     'utilities-help.R'
-    'utilities-matrix.R'
     'utilities-patterns.R'
     'utilities-resolution.R'
     'utilities-tidy-eval.R'

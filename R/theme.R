@@ -481,7 +481,7 @@ theme <- function(...,
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
-  if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
+  if (is.unit(elements$legend.margin) && !inherits(elements$legend.margin, "margin")) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
       "i" = "For the old behavior use {.var legend.spacing}"
@@ -892,18 +892,15 @@ combine_elements <- function(e1, e2) {
   }
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
-  if (is.subclass(e2, e1)) {
+  is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
+  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1)) > 0)
+  if (is_subclass) {
     new <- defaults(e1, e2)
     e2[names(new)] <- new
     return(e2)
   }
 
   e1
-}
-
-is.subclass <- function(x, y) {
-  inheritance <- inherits(x, class(y), which = TRUE)
-  !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
 }
 
 #' Reports whether x is a theme object

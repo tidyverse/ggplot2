@@ -132,10 +132,6 @@ test_that("cut_*() checks its input and output", {
   expect_snapshot_error(cut_width(1:10, 1, center = 0, boundary = 0.5))
 })
 
-test_that("interleave() checks the vector lengths", {
-  expect_snapshot_error(interleave(1:4, numeric()))
-})
-
 test_that("vec_rbind0 can combined ordered factors", {
 
   withr::local_options(lifecycle_verbosity = "warning")

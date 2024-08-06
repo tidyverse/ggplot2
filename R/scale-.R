@@ -1379,13 +1379,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
-  scale$position <- switch(scale$position,
-    top = "bottom",
-    bottom = "top",
-    left = "right",
-    right = "left",
-    scale$position
-  )
+  scale$position <- opposite_position(scale$position)
   invisible()
 }
 
