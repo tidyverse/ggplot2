@@ -89,6 +89,7 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+    params$expand <- params$expand[c(2, 1, 4, 3)]
     parent <- ggproto_parent(CoordCartesian, self)
     panel_params <- parent$setup_panel_params(scale_x, scale_y, params)
     flip_axis_labels(panel_params)

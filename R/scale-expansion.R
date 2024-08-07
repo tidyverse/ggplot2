@@ -98,11 +98,24 @@ expand_range4 <- function(limits, expand) {
 #'
 default_expansion <- function(scale, discrete = expansion(add = 0.6),
                               continuous = expansion(mult = 0.05), expand = TRUE) {
-  if (!expand) {
-    return(expansion(0, 0))
+  out <- expansion()
+  if (!any(expand)) {
+    return(out)
   }
+  scale_expand <- scale$expand %|W|%
+    if (scale$is_discrete()) discrete else continuous
 
-  scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
+  # for backward compatibility, we ensure expansions have expected length
+  expand <- rep_len(expand, 2L)
+  scale_expand <- rep_len(scale_expand, 4)
+
+  if (expand[1]) {
+    out[1:2] <- scale_expand[1:2]
+  }
+  if (expand[2]) {
+    out[3:4] <- scale_expand[3:4]
+  }
+  out
 }
 
 #' Expand limits in (possibly) transformed space
