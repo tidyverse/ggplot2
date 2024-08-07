@@ -564,7 +564,12 @@ test_that("legends can be forced to display unrelated geoms", {
       limits = c("A", "B")
     )
 
-  b <- ggplot_build(p)
+  # Should complain about useless scale, as it doesn't map anything
+  expect_warning(
+    b <- ggplot_build(p),
+    "Ignoring scale"
+  )
+
   legend <- b$plot$guides$params[[1]]
 
   expect_equal(
