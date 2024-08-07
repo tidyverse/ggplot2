@@ -137,16 +137,13 @@ test_that("guide_none() can be used in non-position scales", {
     geom_point() +
     scale_color_discrete(guide = guide_none())
 
-  built <- ggplot_build(p)
-  plot <- built$plot
-  guides <- guides_list(plot$guides)
-  guides <- guides$build(
-    plot$scales,
-    plot$layers,
-    plot$labels
-  )
+  expect_length(ggplot_build(p)$plot$guides$guides, 0)
 
-  expect_length(guides$guides, 0)
+  p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
+    geom_point() +
+    guides(colour = guide_none())
+
+  expect_length(ggplot_build(p)$plot$guides$guides, 0)
 })
 
 test_that("Using non-position guides for position scales results in an informative error", {
@@ -944,8 +941,8 @@ test_that("guides title and text are positioned correctly", {
     geom_point() +
     # setting the order explicitly removes the risk for failed doppelgangers
     # due to legends switching order
-    guides(shape = guide_legend(order = 1),
-           color = guide_colorbar(order = 2)) +
+    guides(size  = guide_legend(order = 2),
+           color = guide_colorbar(order = 1)) +
     theme_test()
 
   expect_doppelganger("guide title and text positioning and alignment via themes",
