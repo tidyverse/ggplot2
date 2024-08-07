@@ -95,6 +95,11 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
   expect_setequal(axis_label_priority(100), seq_len(100))
 })
 
+test_that("a warning is generated when declaring unused guides", {
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point() + guides(colour = "legend")
+  expect_warning(ggplot_build(plot), "Ignoring unknown guide")
+})
+
 test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
@@ -137,16 +142,13 @@ test_that("guide_none() can be used in non-position scales", {
     geom_point() +
     scale_color_discrete(guide = guide_none())
 
-  built <- ggplot_build(p)
-  plot <- built$plot
-  guides <- guides_list(plot$guides)
-  guides <- guides$build(
-    plot$scales,
-    plot$layers,
-    plot$labels
-  )
+  expect_length(ggplot_build(p)$plot$guides$guides, 0)
 
-  expect_length(guides$guides, 0)
+  p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
+    geom_point() +
+    guides(colour = guide_none())
+
+  expect_length(ggplot_build(p)$plot$guides$guides, 0)
 })
 
 test_that("Using non-position guides for position scales results in an informative error", {
@@ -562,7 +564,12 @@ test_that("legends can be forced to display unrelated geoms", {
       limits = c("A", "B")
     )
 
-  b <- ggplot_build(p)
+  # Should complain about useless scale, as it doesn't map anything
+  expect_warning(
+    b <- ggplot_build(p),
+    "Ignoring scale"
+  )
+
   legend <- b$plot$guides$params[[1]]
 
   expect_equal(
@@ -944,8 +951,8 @@ test_that("guides title and text are positioned correctly", {
     geom_point() +
     # setting the order explicitly removes the risk for failed doppelgangers
     # due to legends switching order
-    guides(shape = guide_legend(order = 1),
-           color = guide_colorbar(order = 2)) +
+    guides(size  = guide_legend(order = 2),
+           color = guide_colorbar(order = 1)) +
     theme_test()
 
   expect_doppelganger("guide title and text positioning and alignment via themes",

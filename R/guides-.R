@@ -292,15 +292,26 @@ Guides <- ggproto(
     no_guides <- custom
 
     # Extract the non-position scales
-    scales <- scales$non_position_scales()$scales
-    if (length(scales) == 0) {
-      return(no_guides)
-    }
+    scales <- scales$scales
 
     # Ensure a 1:1 mapping between aesthetics and scales
     aesthetics <- lapply(scales, `[[`, "aesthetics")
     scales     <- rep.int(scales, lengths(aesthetics))
     aesthetics <- unlist(aesthetics, recursive = FALSE, use.names = FALSE)
+
+    extra_guides <- setdiff(
+      names(self$guides),
+      c(aesthetics, "custom",
+        "x", "y", "x.sec", "y.sec",
+        "r", "theta", "r.sec", "theta.sec")
+    )
+    if (length(extra_guides) > 0) {
+      cli::cli_warn("Ignoring unknown guide{?s}: {.val {extra_guides}}.")
+    }
+
+    if (length(scales) < 1) {
+      return(no_guides)
+    }
 
     # Setup and train scales
     guides <- self$setup(scales, aesthetics = aesthetics)
