@@ -398,7 +398,7 @@ GuideLegend <- ggproto(
       })
       c(list(bg), keys)
     }
-    unlist(lapply(seq_len(params$n_breaks), draw), FALSE)
+    unlist(lapply(seq_len(params$n_breaks %||% nrow(params$key)), draw), FALSE)
   },
 
   build_labels = function(key, elements, params) {

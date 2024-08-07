@@ -11,6 +11,7 @@ guide_coloursteps(
   alpha = NA,
   even.steps = TRUE,
   show.limits = NULL,
+  override.aes = list(),
   direction = NULL,
   position = NULL,
   reverse = FALSE,
@@ -25,6 +26,7 @@ guide_colorsteps(
   alpha = NA,
   even.steps = TRUE,
   show.limits = NULL,
+  override.aes = list(),
   direction = NULL,
   position = NULL,
   reverse = FALSE,
@@ -55,6 +57,9 @@ labels and ticks. Default is \code{NULL} meaning it will take the value from the
 scale. This argument is ignored if \code{labels} is given as a vector of
 values. If one or both of the limits is also given in \code{breaks} it will be
 shown irrespective of the value of \code{show.limits}.}
+
+\item{override.aes}{A list specifying aesthetic parameters of legend key.
+See details and examples.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
