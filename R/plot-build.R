@@ -104,7 +104,7 @@ ggplot_build.ggplot <- function(plot) {
   npscales <- scales$non_position_scales()
   npscales$train(data)
   plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
-  data <- npscales$map(data)
+  data <- npscales$map(data, layers)
   data <- .expose_data(data)
 
   # Fill in defaults etc.
