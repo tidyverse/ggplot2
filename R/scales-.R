@@ -79,6 +79,20 @@ ScalesList <- ggproto("ScalesList", NULL,
     if (length(self$scales) == 0) {
       return(data)
     }
+    aesthetics <- lapply(self$scales, `[[`, "aesthetics")
+    aes <- setNames(rep(FALSE, sum(lengths(aesthetics))), unlist(aesthetics))
+
+    colnames <- unique(unlist(lapply(data, colnames)))
+    aes <- unlist(aesthetics) %in% colnames
+    aes <- vapply(vec_chop(aes, sizes = lengths(aesthetics)), any, logical(1))
+
+    unknown <- unlist(aesthetics[!aes])
+    if (length(unknown) > 0) {
+      cli::cli_warn(
+        "Ignoring scale{?s} for unused aesthetics: {.val {unknown}}."
+      )
+    }
+
     lapply(data, self$map_df)
   },
 
