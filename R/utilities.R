@@ -846,3 +846,15 @@ as_unordered_factor <- function(x) {
   class(x) <- setdiff(class(x), "ordered")
   x
 }
+
+warn_dots_used <- function(env = caller_env(), call = caller_env()) {
+  check_dots_used(
+    env = env, call = call,
+    # Demote from error to warning
+    error = function(cnd) {
+      # cli uses \f as newlines, not \n
+      msg <- gsub("\n", "\f", cnd_message(cnd))
+      cli::cli_warn(msg, call = call)
+    }
+  )
+}

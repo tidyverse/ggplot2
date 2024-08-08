@@ -1,6 +1,7 @@
 test_that("ggplot() throws informative errors", {
   expect_snapshot_error(ggplot(mapping = letters))
   expect_snapshot_error(ggplot(data))
+  expect_snapshot_warning(ggplot(foobar = "nonsense"))
 })
 
 test_that("construction have user friendly errors", {

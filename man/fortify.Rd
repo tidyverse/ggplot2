@@ -11,7 +11,7 @@ fortify(model, data, ...)
 
 \item{data}{original dataset, if needed}
 
-\item{...}{other arguments passed to methods}
+\item{...}{Arguments passed to methods.}
 }
 \description{
 Rather than using this function, I now recommend using the \pkg{broom}

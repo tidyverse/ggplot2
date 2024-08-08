@@ -104,6 +104,15 @@ test_that("alt text can take a function", {
   expect_snapshot(get_alt_text(p))
 })
 
+test_that("get_alt_text checks dots", {
+  expect_snapshot_warning(get_alt_text(ggplot(), foo = "bar"))
+})
+
+test_that("warnings are thrown for unknown labels", {
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(foo = 'bar')
+  expect_snapshot_warning(ggplot_build(p))
+})
+
 test_that("plot.tag.position rejects invalid input", {
   p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(tag = "Fig. A)")
 

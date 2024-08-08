@@ -87,6 +87,15 @@ test_that("show.legend handles named vectors", {
   expect_equal(n_legends(p), 1)
 })
 
+test_that("dots are checked when making guides", {
+  expect_snapshot_warning(
+    new_guide(foo = "bar", super = GuideAxis)
+  )
+  expect_snapshot_warning(
+    guide_legend(foo = "bar")
+  )
+})
+
 test_that("axis_label_overlap_priority always returns the correct number of elements", {
   expect_identical(axis_label_priority(0), numeric(0))
   expect_setequal(axis_label_priority(1), seq_len(1))

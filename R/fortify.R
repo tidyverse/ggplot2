@@ -8,9 +8,12 @@
 #' @seealso [fortify.lm()]
 #' @param model model or other R object to convert to data frame
 #' @param data original dataset, if needed
-#' @param ... other arguments passed to methods
+#' @inheritParams rlang::args_dots_used
 #' @export
-fortify <- function(model, data, ...) UseMethod("fortify")
+fortify <- function(model, data, ...) {
+  warn_dots_used()
+  UseMethod("fortify")
+}
 
 #' @export
 fortify.data.frame <- function(model, data, ...) model

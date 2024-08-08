@@ -8,6 +8,13 @@
     `data` cannot be a function.
     i Have you misspelled the `data` argument in `ggplot()`
 
+---
+
+    Arguments in `...` must be used.
+    x Problematic argument:
+    * foobar = "nonsense"
+    i Did you misspell an argument name?
+
 # construction have user friendly errors
 
     Cannot use `+` with a single argument.
