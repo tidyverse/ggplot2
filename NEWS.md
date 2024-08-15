@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Produces x-axis title automatically when no data added. 
+  (@phispu, #5647).
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
