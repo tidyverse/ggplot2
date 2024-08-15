@@ -172,7 +172,9 @@ to use <code><a href="position_jitter.html">position_jitter()</a></code>, give t
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
     <dt><code>inherit.aes</code></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
