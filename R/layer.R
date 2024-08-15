@@ -58,7 +58,9 @@
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display.
+#'   display.  This option can be used to include color for all levels, even 
+#'   when no data exists, use `TRUE`.  If 'FALSE', all levels are shown in legend, 
+#'   but omitting colors for unobserved levels.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
