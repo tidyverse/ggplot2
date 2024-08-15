@@ -200,6 +200,9 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (!inherits(coord, "CoordSf")) {
       cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
+    if (is.character(data$shape)) {
+      data$shape <- translate_shape_string(data$shape)
+    }
 
     data <- coord$transform(data, panel_params)
 

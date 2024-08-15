@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* geom_sf now accepts shape names (@sierrajohnson, #5808)
 * Added `gg` class to `labs()` (@phispu, #5553).
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
