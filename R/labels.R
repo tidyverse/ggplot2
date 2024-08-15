@@ -139,7 +139,7 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
   args <- args[!duplicated(names(args))]
   args <- rename_aes(args)
 
-  structure(args, class = "labels")
+  structure(args, class = c("labels", "gg"))
 }
 
 #' @rdname labs
