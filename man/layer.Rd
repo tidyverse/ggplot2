@@ -94,7 +94,9 @@ supplied parameters and aesthetics are understood by the \code{geom} or
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{key_glyph}{A legend key drawing function or a string providing the
 function name minus the \code{draw_key_} prefix. See \link{draw_key} for details.}
