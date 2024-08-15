@@ -242,6 +242,7 @@ reflect_density <- function(dens, bounds, from, to) {
 precompute_bw = function(x, bw = "nrd0") {
   bw <- bw[1]
   if (is.character(bw)) {
+    bw <- to_lower_ascii(bw)
     bw <- arg_match0(bw, c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi"))
     bw <- switch(
       to_lower_ascii(bw),
