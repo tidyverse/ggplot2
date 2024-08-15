@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* geom_sf now accepts shape names (@sierrajohnson, #5808)
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
