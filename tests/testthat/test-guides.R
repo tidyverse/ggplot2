@@ -715,7 +715,7 @@ test_that("Axis titles won't be blown away by coord_*()", {
       y.sec = guide_axis(title = "y (secondary)")
     )
 
-  expect_doppelganger("guide titles with coord_trans()", plot + coord_trans())
+  expect_doppelganger("guide titles with coord_transform()", plot + coord_transform())
   # TODO
   # expect_doppelganger("guide titles with coord_polar()", plot + coord_polar())
   # TODO
@@ -812,7 +812,7 @@ test_that("logticks look as they should", {
     scale_x_continuous(
       breaks = c(-100, -10, -1, 0, 1, 10, 100)
     ) +
-    coord_trans(x = transform_pseudo_log()) +
+    coord_transform(x = transform_pseudo_log()) +
     theme_test() +
     theme(axis.line = element_line(colour = "black"),
           panel.border = element_blank(),

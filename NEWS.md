@@ -133,6 +133,7 @@
   (@teunbrand, #5938, #4327).
 * Fixed bug where empty discrete scales weren't recognised as such 
   (@teunbrand, #5945).
+* `coord_trans()` renamed to `coord_transform()` (@nmercadeb, #5825).
 
 # ggplot2 3.5.1
 
@@ -750,7 +751,7 @@ gains in rendering speed.
 
 * `geom_linerange()` now respects the `na.rm` argument (#4927, @thomasp85)
 
-* Improve the support for `guide_axis()` on `coord_trans()` 
+* Improve the support for `guide_axis()` on `coord_transform()` 
   (@yutannihilation, #3959)
   
 * Added `stat_align()` to align data without common x-coordinates prior to
@@ -1194,17 +1195,17 @@ fail.
 
 ## Minor improvements and bug fixes
 
-* `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
+* `coord_transform()` now draws second axes and accepts `xlim`, `ylim`,
   and `expand` arguments to bring it up to feature parity with 
   `coord_cartesian()`. The `xtrans` and `ytrans` arguments that were 
   deprecated in version 1.0.1 in favour of `x` and `y` 
   were removed (@paleolimbot, #2990).
 
-* `coord_trans()` now calculates breaks using the expanded range 
+* `coord_transform()` now calculates breaks using the expanded range 
   (previously these were calculated using the unexpanded range, 
-  which resulted in differences between plots made with `coord_trans()`
+  which resulted in differences between plots made with `coord_transform()`
   and those made with `coord_cartesian()`). The expansion for discrete axes 
-  in `coord_trans()` was also updated such that it behaves identically
+  in `coord_transform()` was also updated such that it behaves identically
   to that in `coord_cartesian()` (@paleolimbot, #3338).
 
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
@@ -1544,7 +1545,7 @@ accompanying issue #2890.
    (@mikmart, #2488).
     
 *   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
-    with `coord_trans()` (@clauswilke, #2149, #2812).
+    with `coord_transform()` (@clauswilke, #2149, #2812).
     
 *   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
     items instead of silently dropping items that are empty expressions, e.g.
@@ -1987,7 +1988,7 @@ accompanying issue #2890.
   (@dylan-stark, #2072), and can draw the radius axis on the right 
   (@thomasp85, #2005).
 
-* `coord_trans()` now generates a warning when a transformation generates 
+* `coord_transform()` now generates a warning when a transformation generates 
   non-finite values (@foo-bar-baz-qux, #2147).
 
 ### Themes
@@ -2816,7 +2817,7 @@ version of ggplot.
 * `coord_cartesian()` applies the same expansion factor to limits as for scales. 
   You can suppress with `expand = FALSE` (#1207).
 
-* `coord_trans()` now works when breaks are suppressed (#1422).
+* `coord_transform()` now works when breaks are suppressed (#1422).
 
 * `cut_number()` gives error message if the number of requested bins can
   be created because there are two few unique values (#1046).

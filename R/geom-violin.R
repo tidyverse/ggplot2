@@ -75,10 +75,10 @@
 #'   scale_y_log10()
 #' m +
 #'   geom_violin() +
-#'   coord_trans(y = "log10")
+#'   coord_transform(y = "log10")
 #' m +
 #'   geom_violin() +
-#'   scale_y_log10() + coord_trans(y = "log10")
+#'   scale_y_log10() + coord_transform(y = "log10")
 #'
 #' # Violin plots with continuous x:
 #' # Use the group aesthetic to group observations in violins

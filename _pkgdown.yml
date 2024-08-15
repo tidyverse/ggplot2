@@ -164,7 +164,7 @@ reference:
     The coordinate system determines how the `x` and `y` aesthetics combine
     to position elements in the plot. The default coordinate system is
     Cartesian (`coord_cartesian()`), which can be tweaked with `coord_map()`,
-    `coord_fixed()`, `coord_flip()`, and `coord_trans()`, or completely
+    `coord_fixed()`, `coord_flip()`, and `coord_transform()`, or completely
     replaced with `coord_polar()`.
   contents:
   - coord_cartesian

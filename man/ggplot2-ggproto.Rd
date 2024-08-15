@@ -213,7 +213,7 @@ See also the \href{https://ggplot2-book.org/extensions#sec-new-geoms}{new geoms 
 \section{Coordinate systems}{
 
 
-All \verb{coord_*()} functions (like \code{coord_trans()}) return a \verb{Coord*}
+All \verb{coord_*()} functions (like \code{coord_transform()}) return a \verb{Coord*}
 object (like \code{CoordTrans}).
 
 Each of the \verb{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object,
@@ -229,7 +229,7 @@ object, you typically will want to implement one or more of the following:
 \item \code{backtransform_range(panel_params)}: Extracts the panel range provided
 in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
 back-transforms to data coordinates. This back-transformation can be needed
-for coords such as \code{coord_trans()} where the range in the transformed
+for coords such as \code{coord_transform()} where the range in the transformed
 coordinates differs from the range in the untransformed coordinates. Returns
 a list of two ranges, \code{x} and \code{y}, and these correspond to the variables
 mapped to the \code{x} and \code{y} aesthetics, even for coords such as \code{coord_flip()}
