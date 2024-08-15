@@ -369,6 +369,10 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
         i = "The value was converted to {obj_type_friendly(x)}."
       ), call = self$call)
     }
+    if (inherits(x, "Date")) {
+     cli::cli_abort("You supplied a {.cls {class(x)}} field.
+                    Did you mean to use {.fn scale_*_date}?", call = self$call)
+    }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
   map = function(self, x, limits = self$get_limits()) {
@@ -415,6 +419,10 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
         "A {.cls numeric} value was passed to a {.field Date} scale.",
         i = "The value was converted to {obj_type_friendly(x)}."
       ), call = self$call)
+    }
+    if (inherits(x, "POSIXct")) {
+      cli::cli_abort("You supplied a {.cls {class(x)}} field.
+                    Did you mean to use {.fn scale_*_datetime}?", call = self$call)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
