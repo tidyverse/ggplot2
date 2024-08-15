@@ -323,7 +323,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #'
 #' This function makes it easy to assign different labellers to
 #' different factors. The labeller can be a function or it can be a
-#' named character vectors that will serve as a lookup table.
+#' named character vector that will serve as a lookup table.
 #'
 #' In case of functions, if the labeller has class `labeller`, it
 #' is directly applied on the data frame of labels. Otherwise, it is
