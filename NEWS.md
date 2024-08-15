@@ -1,6 +1,6 @@
 # ggplot2 (development version)
 
-* Fixed bug in `geom_smooth()` so x-axis title now produced automatically   
+* Fixed bug in `stat_function()` so x-axis title now produced automatically 
   when no data added. 
   (@phispu, #5647).
 * Missing values from discrete palettes are no longer translated 
