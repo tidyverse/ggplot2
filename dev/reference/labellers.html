@@ -196,6 +196,10 @@ function must have the <code>labeller</code> S3 class.</p>
 <span class="r-plt img"><img src="labellers-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl2</span>, labeller <span class="op">=</span> <span class="va">label_parsed</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labellers-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Include optional argument in label function</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span>, labeller <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">label_both</span><span class="op">(</span><span class="va">x</span>, sep <span class="op">=</span> <span class="st">"="</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="labellers-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
