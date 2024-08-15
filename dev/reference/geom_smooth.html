@@ -209,7 +209,7 @@ observations and <code>formula = y ~ s(x, bs = "cs")</code> otherwise.</p></dd>
 
 
 <dt id="arg-se">se<a class="anchor" aria-label="anchor" href="#arg-se"></a></dt>
-<dd><p>Display confidence interval around smooth? (<code>TRUE</code> by default, see
+<dd><p>Display confidence band around smooth? (<code>TRUE</code> by default, see
 <code>level</code> to control.)</p></dd>
 
 
@@ -272,7 +272,7 @@ equally spaced points for continuous data.</p></dd>
 
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
-<dd><p>Level of confidence interval to use (0.95 by default).</p></dd>
+<dd><p>Level of confidence band to use (0.95 by default).</p></dd>
 
 
 <dt id="arg-method-args">method.args<a class="anchor" aria-label="anchor" href="#arg-method-args"></a></dt>
@@ -286,7 +286,7 @@ function defined by <code>method</code>.</p></dd>
 <code>predictdf()</code> generic and its methods.  For most methods the standard
 error bounds are computed using the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method – the
 exceptions are <code><a href="https://rdrr.io/r/stats/loess.html" class="external-link">loess()</a></code>, which uses a t-based approximation, and
-<code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>, where the normal confidence interval is constructed on the link
+<code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>, where the normal confidence band is constructed on the link
 scale and then back-transformed to the response scale.</p>
     </div>
     <div class="section level2">
@@ -317,8 +317,8 @@ scale and then back-transformed to the response scale.</p>
 
 
 <p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>. <code>stat_smooth()</code> provides the following variables, some of  which depend on the orientation:</p><ul><li><p><code>after_stat(y)</code> <em>or</em> <code>after_stat(x)</code><br> Predicted value.</p></li>
-<li><p><code>after_stat(ymin)</code> <em>or</em> <code>after_stat(xmin)</code><br> Lower pointwise confidence interval around the mean.</p></li>
-<li><p><code>after_stat(ymax)</code> <em>or</em> <code>after_stat(xmax)</code><br> Upper pointwise confidence interval around the mean.</p></li>
+<li><p><code>after_stat(ymin)</code> <em>or</em> <code>after_stat(xmin)</code><br> Lower pointwise confidence band around the mean.</p></li>
+<li><p><code>after_stat(ymax)</code> <em>or</em> <code>after_stat(xmax)</code><br> Upper pointwise confidence band around the mean.</p></li>
 <li><p><code>after_stat(se)</code><br> Standard error.</p></li>
 </ul></div>
     <div class="section level2">
