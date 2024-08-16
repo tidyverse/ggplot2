@@ -172,7 +172,7 @@ reference:
   - coord_flip
   - coord_map
   - coord_polar
-  - coord_trans
+  - coord_transform
 
 - title: Themes
   desc: >
