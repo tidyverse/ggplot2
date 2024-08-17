@@ -124,6 +124,7 @@ guide_colourbar <- function(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  override.aes = list(),
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -152,6 +153,7 @@ guide_colourbar <- function(
     display = display,
     alpha = alpha,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
+    override.aes = override.aes,
     position = position,
     direction = direction,
     reverse = reverse,
@@ -188,6 +190,7 @@ GuideColourbar <- ggproto(
     alpha = NA,
 
     draw_lim = c(TRUE, TRUE),
+    override.aes = list(),
 
     # general
     direction = NULL,
@@ -208,6 +211,7 @@ GuideColourbar <- ggproto(
     background     = "legend.background",
     margin         = "legend.margin",
     key            = "legend.key",
+    key_size       = "legend.key.size",
     key_height     = "legend.key.height",
     key_width      = "legend.key.width",
     text           = "legend.text",
@@ -217,6 +221,8 @@ GuideColourbar <- ggproto(
     axis_line      = "legend.axis.line",
     ticks          = "legend.ticks",
     ticks_length   = "legend.ticks.length",
+    spacing_x      = "legend.key.spacing.x",
+    spacing_y      = "legend.key.spacing.y",
     frame          = "legend.frame"
   ),
 
@@ -269,7 +275,15 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers, data = NULL) {
+  get_layer_key = function(params, ...) {
+    if (!anyNA(params$key$.value)) {
+      params$decor <- list(params$decor)
+      return(params)
+    }
+    temp <- params
+    temp$key <- vec_slice(temp$key, is.na(temp$key$.value))
+    missing_decor <- GuideLegend$get_layer_key(temp, ...)$decor
+    params$decor <- c(list(params$decor), missing_decor)
     params
   },
 
@@ -291,6 +305,9 @@ GuideColourbar <- ggproto(
       theme$legend.key.height <- theme$legend.key.height * 5
       valid_position <- c("right", "left")
     }
+    # Ensure legend spacing.y is populated to prevent backward compatibility
+    # in GuideLegend from overruling it
+    theme$legend.key.spacing.y <- theme$legend.key.spacing %||% rel(1)
 
     # Set defaults
     theme <- replace_null(
@@ -348,11 +365,14 @@ GuideColourbar <- ggproto(
   },
 
   build_decor = function(decor, grobs, elements, params) {
+
+    bar_data    <- decor[[1]]
+
     if (params$display == "raster") {
       image <- switch(
         params$direction,
-        "horizontal" = t(decor$colour),
-        "vertical"   = rev(decor$colour)
+        "horizontal" = t(bar_data$colour),
+        "vertical"   = rev(bar_data$colour)
       )
       grob <- rasterGrob(
         image  = image,
@@ -364,14 +384,14 @@ GuideColourbar <- ggproto(
       )
     } else if (params$display == "rectangles") {
       if (params$direction == "horizontal") {
-        width  <- 1 / nrow(decor)
+        width  <- 1 / nrow(bar_data)
         height <- 1
-        x <- (seq(nrow(decor)) - 1) * width
+        x <- (seq(nrow(bar_data)) - 1) * width
         y <- 0
       } else {
         width  <- 1
-        height <- 1 / nrow(decor)
-        y <- (seq(nrow(decor)) - 1) * height
+        height <- 1 / nrow(bar_data)
+        y <- (seq(nrow(bar_data)) - 1) * height
         x <- 0
       }
       grob <- rectGrob(
@@ -379,27 +399,27 @@ GuideColourbar <- ggproto(
         vjust = 0, hjust = 0,
         width = width, height = height,
         default.units = "npc",
-        gp = gg_par(col = NA, fill = decor$colour)
+        gp = gg_par(col = NA, fill = bar_data$colour)
       )
     } else if (params$display == "gradient") {
       check_device("gradients", call = expr(guide_colourbar()))
       value <- if (isTRUE(params$reverse)) {
-        rescale(decor$value, to = c(1, 0))
+        rescale(bar_data$value, to = c(1, 0))
       } else {
-        rescale(decor$value, to = c(0, 1))
+        rescale(bar_data$value, to = c(0, 1))
       }
       position <- switch(
         params$direction,
         horizontal = list(y1 = unit(0.5, "npc"), y2 = unit(0.5, "npc")),
         vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
       )
-      gradient <- inject(linearGradient(decor$colour, value, !!!position))
+      gradient <- inject(linearGradient(bar_data$colour, value, !!!position))
       grob <- rectGrob(gp = gg_par(fill = gradient, col = NA))
     }
 
     frame <- element_grob(elements$frame, fill = NA)
-
-    list(bar = grob, frame = frame, ticks = grobs$ticks)
+    bar <- grobTree(bar = grob, frame = frame, ticks = grobs$ticks)
+    list(bar = bar)
   },
 
   measure_grobs = function(grobs, params, elements) {
@@ -408,5 +428,54 @@ GuideColourbar <- ggproto(
       heights = elements$height_cm
     )
     GuideLegend$measure_grobs(grobs, params, elements)
+  },
+
+  assemble_drawing = function(self, grobs, layout, sizes, params, elements) {
+
+    if (anyNA(params$key$.value) && length(params$decor) > 1) {
+
+      missing_first <- xor(is.na(params$key$.value[1]), isTRUE(params$reverse))
+
+      # Render missing key
+      params$key <- vec_slice(params$key, is.na(params$key$.value))
+      key <- GuideLegend$build_decor(params$decor[-1], list(), elements, params)
+      grobs$decor$missing <- inject(gTree(children = gList(!!!key)))
+
+      # Render missing label
+      label <- GuideLegend$build_labels(params$key, elements, params)
+      grobs$labels$missing <- label[[1]]
+
+      # Adjust layout and sizing
+      new <- vec_slice(layout, 1)
+      if (params$direction == "vertical") {
+
+        if (missing_first) {
+          layout[c("key_row", "label_row")] <- layout[c("key_row", "label_row")] + 2
+          sizes$heights <- c(height_cm(elements$key_size), elements$spacing_y, sizes$heights)
+        } else {
+          new[c("key_row", "label_row")] <- new[c("key_row", "label_row")] + 2
+          sizes$heights <- c(sizes$heights, elements$spacing_y, height_cm(elements$key_size))
+        }
+        sizes$widths[new$label_col] <- max(sizes$widths[new$label_col], width_cm(label))
+
+      } else {
+
+        if (missing_first) {
+          layout[c("key_col", "label_col")] <- layout[c("key_col", "label_col")] + 2
+          sizes$widths <- c(width_cm(elements$key_size), elements$spacing_x, sizes$widths)
+        } else {
+          new[c("key_col", "label_col")] <- new[c("key_col", "label_col")] + 2
+          sizes$widths <- c(sizes$widths, elements$spacing_x, width_cm(elements$key_size))
+        }
+        sizes$heights[new$label_row] <- max(sizes$heights[new$label_row], height_cm(label))
+
+      }
+
+      layout <- vec_c(layout, new)
+    }
+
+    ggproto_parent(GuideLegend, self)$assemble_drawing(
+      grobs, layout, sizes, params, elements
+    )
   }
 )

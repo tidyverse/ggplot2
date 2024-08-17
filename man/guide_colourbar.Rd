@@ -14,6 +14,7 @@ guide_colourbar(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  override.aes = list(),
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -31,6 +32,7 @@ guide_colorbar(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  override.aes = list(),
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -76,6 +78,9 @@ be visible.}
 
 \item{draw.llim}{A logical specifying if the lower limit tick marks should
 be visible.}
+
+\item{override.aes}{A list specifying aesthetic parameters of legend key.
+See details and examples.}
 
 \item{position}{A character string indicating where the legend should be
 placed relative to the plot panels.}

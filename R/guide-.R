@@ -233,7 +233,11 @@ Guide <- ggproto(
 
     if (is.numeric(breaks)) {
       range <- scale$continuous_range %||% scale$get_limits()
-      key <- vec_slice(key, is.finite(oob_censor_any(breaks, range)))
+      keep  <- is.finite(oob_censor_any(breaks, range))
+      if (!is.na(scale$na.value %||% NA)) {
+        keep <- keep | is.na(breaks) & !is.na(mapped)
+      }
+      key   <- vec_slice(key, keep)
     } else {
       key
     }
