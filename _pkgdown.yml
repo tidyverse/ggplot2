@@ -173,6 +173,7 @@ reference:
   - coord_map
   - coord_polar
   - coord_transform
+  - coord_trans
 
 - title: Themes
   desc: >
