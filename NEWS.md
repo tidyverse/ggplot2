@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_contour()` should be able to recognise a rotated grid of points 
+  (@teunbrand, #4320)
 * Fixed bug in `stat_function()` so x-axis title now produced automatically 
   when no data added. (@phispu, #5647).
 * geom_sf now accepts shape names (@sierrajohnson, #5808)
