@@ -180,7 +180,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     attr <- dapply(munched, "group", function(df) {
       linetype <- unique0(df$linetype)
       data_frame0(
-        solid = identical(linetype, 1) || identical(linetype, "solid"),
+        solid = length(linetype) == 1 && (identical(linetype, "solid") || linetype == 1),
         constant = nrow(unique0(df[, names(df) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
         .size = 1
       )
