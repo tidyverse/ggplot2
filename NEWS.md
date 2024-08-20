@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Axis labels are now justified across facet panels (@teunbrand, #5820)
 * Fixed bug in `stat_function()` so x-axis title now produced automatically 
   when no data added. (@phispu, #5647).
 * geom_sf now accepts shape names (@sierrajohnson, #5808)
