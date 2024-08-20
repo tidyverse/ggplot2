@@ -319,8 +319,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     if (length(missing_facets) > 0) {
       to_add <- unique0(layout[missing_facets])
 
-      data_rep <- rep.int(1:nrow(data), nrow(to_add))
-      facet_rep <- rep(1:nrow(to_add), each = nrow(data))
+      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
+      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
 
       data <- unrowname(data[data_rep, , drop = FALSE])
       facet_vals <- unrowname(vec_cbind(
