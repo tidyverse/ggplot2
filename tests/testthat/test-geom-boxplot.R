@@ -73,7 +73,7 @@ test_that("boxes with variable widths do not overlap", {
   d <- get_layer_data(p)[c("xmin", "xmax")]
   xid <- find_x_overlaps(d)
 
-  expect_false(anyDuplicated(xid) > 0)
+  expect_false(any(duplicated(xid)))
 })
 
 test_that("boxplots with a group size >1 error", {

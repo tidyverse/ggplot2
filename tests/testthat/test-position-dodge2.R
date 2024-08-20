@@ -32,7 +32,7 @@ test_that("rectangles are dodged", {
   p <- ggplot(df, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)) +
     geom_rect(aes(fill = fill), position = "dodge2", alpha = 0.8)
 
-  expect_false(anyDuplicated(find_x_overlaps(get_layer_data(p))) > 0)
+  expect_false(any(duplicated(find_x_overlaps(get_layer_data(p)))))
 })
 
 test_that("cols at the same x position are dodged", {
@@ -44,7 +44,7 @@ test_that("cols at the same x position are dodged", {
   p <- ggplot(df, aes(1, n, fill = x)) +
     geom_col(position = "dodge2", alpha = 0.5)
 
-  expect_false(anyDuplicated(find_x_overlaps(get_layer_data(p))) > 0)
+  expect_false(any(duplicated(find_x_overlaps(get_layer_data(p)))))
 })
 
 test_that("padding argument controls space between elements", {
