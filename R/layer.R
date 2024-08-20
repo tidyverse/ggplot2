@@ -58,7 +58,9 @@
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display.
+#'   display. To include legend keys for all levels, even 
+#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend, 
+#'   but unobserved levels are omitted.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
@@ -412,6 +414,7 @@ Layer <- ggproto("Layer", NULL,
     if (self$stat$retransform) {
       stat_data <- plot$scales$transform_df(stat_data)
     }
+    stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
 
     cunion(stat_data, data)
   },
@@ -437,14 +440,14 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, layout)
   },
 
-  compute_geom_2 = function(self, data) {
+  compute_geom_2 = function(self, data, params = self$aes_params, ...) {
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
     aesthetics <- self$computed_mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-    self$geom$use_defaults(data, self$aes_params, modifiers)
+    self$geom$use_defaults(data, params, modifiers, ...)
   },
 
   finish_statistics = function(self, data) {
@@ -498,3 +501,18 @@ set_draw_key <- function(geom, draw_key = NULL) {
   ggproto("", geom, draw_key = draw_key)
 }
 
+cleanup_mismatched_data <- function(data, n, fun) {
+  failed <- !lengths(data) %in% c(0, 1, n)
+  if (!any(failed)) {
+    return(data)
+  }
+
+  failed <- names(data)[failed]
+  cli::cli_warn(
+    "Failed to apply {.fn {fun}} for the following \\
+    aesthetic{?s}: {.field {failed}}."
+  )
+
+  data[failed] <- NULL
+  data
+}

@@ -108,7 +108,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       list(min = -1 * length, max = unit(1, "npc") + length)
     }
 
-    gp <- ggpar(
+    gp <- gg_par(
       col = alpha(data$colour, data$alpha),
       lty = data$linetype,
       lwd = data$linewidth,
@@ -157,5 +157,49 @@ GeomRug <- ggproto("GeomRug", Geom,
 
   draw_key = draw_key_path,
 
-  rename_size = TRUE
+  rename_size = TRUE,
+
+  setup_params = function(data, params) {
+    params$sides <- params$sides %||% "bl"
+    params
+  },
+
+  handle_na = function(self, data, params) {
+    sides_aes <- character()
+
+    if (grepl("b|t", params$sides)) {
+      sides_aes <- c(sides_aes, "x")
+    }
+
+    if (grepl("l|r", params$sides)) {
+      sides_aes <- c(sides_aes, "y")
+    }
+
+    if (length(sides_aes) > 0) {
+      df_list <- lapply(
+        sides_aes,
+        function(axis) {
+          remove_missing(
+            data, params$na.rm,
+            c(axis, self$required_aes, self$non_missing_aes),
+            snake_class(self)
+          )
+        }
+      )
+      data <- switch(
+        paste0(sides_aes, collapse = ""),
+        "x" = ,
+        "y" = df_list[[1]],
+        "xy" = vctrs::vec_set_union(df_list[[1]], df_list[[2]])
+      )
+    } else {
+      data <- remove_missing(
+        data, params$na.rm,
+        c(self$required_aes, self$non_missing_aes),
+        snake_class(self)
+      )
+    }
+
+    data
+  }
 )

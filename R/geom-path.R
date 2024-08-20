@@ -18,6 +18,8 @@
 #' @param linejoin Line join style (round, mitre, bevel).
 #' @param linemitre Line mitre limit (number greater than 1).
 #' @param arrow Arrow specification, as created by [grid::arrow()].
+#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
+#'        means use `colour` aesthetic.
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
@@ -101,6 +103,7 @@ geom_path <- function(mapping = NULL, data = NULL,
                       linejoin = "round",
                       linemitre = 10,
                       arrow = NULL,
+                      arrow.fill = NULL,
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE) {
@@ -117,6 +120,7 @@ geom_path <- function(mapping = NULL, data = NULL,
       linejoin = linejoin,
       linemitre = linemitre,
       arrow = arrow,
+      arrow.fill = arrow.fill,
       na.rm = na.rm,
       ...
     )
@@ -152,7 +156,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     data
   },
 
-  draw_panel = function(self, data, panel_params, coord, arrow = NULL,
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
     data <- check_linewidth(data, snake_class(self))
@@ -193,6 +197,8 @@ GeomPath <- ggproto("GeomPath", Geom,
     start <- c(TRUE, group_diff)
     end <-   c(group_diff, TRUE)
 
+    munched$fill <- arrow.fill %||% munched$colour
+
     if (!constant) {
 
       arrow <- repair_segment_arrow(arrow, munched$group)
@@ -200,9 +206,9 @@ GeomPath <- ggproto("GeomPath", Geom,
       segmentsGrob(
         munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
         default.units = "native", arrow = arrow,
-        gp = ggpar(
+        gp = gg_par(
           col = alpha(munched$colour, munched$alpha)[!end],
-          fill = alpha(munched$colour, munched$alpha)[!end],
+          fill = alpha(munched$fill, munched$alpha)[!end],
           lwd = munched$linewidth[!end],
           lty = munched$linetype[!end],
           lineend = lineend,
@@ -215,9 +221,9 @@ GeomPath <- ggproto("GeomPath", Geom,
       polylineGrob(
         munched$x, munched$y, id = id,
         default.units = "native", arrow = arrow,
-        gp = ggpar(
+        gp = gg_par(
           col = alpha(munched$colour, munched$alpha)[start],
-          fill = alpha(munched$colour, munched$alpha)[start],
+          fill = alpha(munched$fill, munched$alpha)[start],
           lwd = munched$linewidth[start],
           lty = munched$linetype[start],
           lineend = lineend,
@@ -299,7 +305,8 @@ GeomLine <- ggproto("GeomLine", GeomPath,
 #' @rdname geom_path
 geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", direction = "hv",
-                      na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+                      na.rm = FALSE, orientation = NA, show.legend = NA,
+                      inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -310,6 +317,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
     inherit.aes = inherit.aes,
     params = list2(
       direction = direction,
+      orientation = orientation,
       na.rm = na.rm,
       ...
     )
@@ -322,13 +330,25 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.R
 GeomStep <- ggproto("GeomStep", GeomPath,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+  extra_params = c("na.rm", "orientation"),
   draw_panel = function(data, panel_params, coord,
                         lineend = "butt", linejoin = "round", linemitre = 10,
-                        direction = "hv") {
+                        arrow = NULL, arrow.fill = NULL,
+                        direction = "hv", flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+    if (isTRUE(flipped_aes)) {
+      direction <- switch(direction, hv = "vh", vh = "hv", direction)
+    }
     data <- dapply(data, "group", stairstep, direction = direction)
+    data <- flip_data(data, flipped_aes)
     GeomPath$draw_panel(
       data, panel_params, coord,
-      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre,
+      arrow = arrow, arrow.fill = arrow.fill
     )
   }
 )

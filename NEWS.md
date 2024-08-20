@@ -1,5 +1,45 @@
 # ggplot2 (development version)
 
+* Fixed bug in `stat_function()` so x-axis title now produced automatically 
+  when no data added. (@phispu, #5647).
+* geom_sf now accepts shape names (@sierrajohnson, #5808)
+* Added `gg` class to `labs()` (@phispu, #5553).
+* Missing values from discrete palettes are no longer translated 
+  (@teunbrand, #5929).
+* Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
+  (@teunbrand, #1864).
+* `geom_step()` now supports the `orientation` argument (@teunbrand, #5936).
+* `position_dodge()` and `position_jitterdodge()` now have a `reverse` argument 
+  (@teunbrand, #3610)
+* `coord_radial(r.axis.inside)` can now take a numeric value to control 
+  placement of internally placed radius axes (@teunbrand, #5805).
+* (internal) default labels are derived in `ggplot_build()` rather than
+  in `ggplot_add.Layer()` (@teunbrand, #5894)
+* An attempt is made to use a variable's label attribute as default label 
+  (@teunbrand, #4631)
+* Themes gain an additional `header_family` argument to easily set the font
+  for headers and titles (#5886).
+* The `plot.subtitle`, `plot.caption` and `plot.tag` theme elements now inherit 
+  from the root `text` element instead of the `title` element (#5886).
+* ggplot2 no longer imports {glue} (@teunbrand, #5986).
+* `geom_rect()` can now derive the required corners positions from `x`/`width`
+  or `y`/`height` parameterisation (@teunbrand, #5861).
+* All position scales now use the same definition of `x` and `y` aesthetics.
+  This lets uncommon aesthetics like `xintercept` expand scales as usual.
+  (#3342, #4966, @teunbrand)
+* Bare numeric values provided to Date or Datetime scales get inversely 
+  transformed (cast to Date/POSIXct) with a warning (@teunbrand).
+* `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
+* (internal) The plot's layout now has a coord parameter that is used to 
+  prevent setting up identical panel parameters (#5427)
+* (internal) rearranged the code of `Facet$draw_panels()` method (@teunbrand).
+* `geom_rug()` prints a warning when `na.rm = FALSE`, as per documentation (@pn317, #5905)
+* `position_dodge(preserve = "single")` now handles multi-row geoms better,
+  such as `geom_violin()` (@teunbrand based on @clauswilke's work, #2801).
+* `position_jitterdodge()` now dodges by `group` (@teunbrand, #3656)
+* The `arrow.fill` parameter is now applied to more line-based functions: 
+  `geom_path()`, `geom_line()`, `geom_step()` `geom_function()`, line 
+   geometries in `geom_sf()` and `element_line()`.
 * Fixed bug where binned guides would keep out-of-bounds breaks 
   (@teunbrand, #5870).
 * The size of the `draw_key_polygon()` glyph now reflects the `linewidth` 
@@ -41,7 +81,8 @@
 * (Internal) Applying defaults in `geom_sf()` has moved from the internal 
   `sf_grob()` to `GeomSf$use_defaults()` (@teunbrand).
 * `facet_wrap()` has new options for the `dir` argument to more precisely
-  control panel directions (@teunbrand, #5212)
+  control panel directions. Internally `dir = "h"` or `dir = "v"` is deprecated 
+  (@teunbrand, #5212).
 * Prevented `facet_wrap(..., drop = FALSE)` from throwing spurious errors when
   a character facetting variable contained `NA`s (@teunbrand, #5485).
 * When facets coerce the faceting variables to factors, the 'ordered' class
@@ -58,7 +99,7 @@
   (@teunbrand, #5756).
 * Fixed bug in `guide_custom()` that would throw error with `theme_void()` 
   (@teunbrand, #5856).
-* New helper function `ggpar()` to translate ggplot2's interpretation of 
+* New helper function `gg_par()` to translate ggplot2's interpretation of 
   graphical parameters to {grid}'s interpretation (@teunbrand, #5866).
 * `scale_{x/y}_discrete()` can now accept a `sec.axis`. It is recommended to
   only use `dup_axis()` to set custom breaks or labels, as discrete variables 
@@ -85,6 +126,17 @@
   to different position aesthetics of the same axis (@teunbrand, #5818).
 * In `stat_bin()`, the default `boundary` is now chosen to better adhere to 
   the `nbin` argument (@teunbrand, #5882, #5036)
+* `after_stat()` and `after_scale()` throw warnings when the computed aesthetics
+  are not of the correct length (#5901).
+* `guide_colourbar()` now correctly hands off `position` and `available_aes`
+  parameters downstream (@teunbrand, #5930)
+* `geom_hline()` and `geom_vline()` now have `position` argument
+  (@yutannihilation, #4285).
+* New function `get_strip_labels()` to retrieve facet labels (@teunbrand, #4979)
+* Fixed bug in `position_dodge2()`'s identification of range overlaps 
+  (@teunbrand, #5938, #4327).
+* Fixed bug where empty discrete scales weren't recognised as such 
+  (@teunbrand, #5945).
 
 # ggplot2 3.5.1
 

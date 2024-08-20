@@ -103,9 +103,6 @@ omitted.}
   \describe{
     \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
 that should be used for error messages associated with this scale.}
-    \item{\code{palette}}{A palette function that when called with a numeric vector with
-values between 0 and 1 returns the corresponding output values
-(e.g., \code{\link[scales:pal_area]{scales::pal_area()}}).}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
@@ -259,6 +256,14 @@ ggplot(df, aes(x, y)) +
 ggplot(df, aes(x, y)) +
   geom_point(aes(colour = z1)) +
   scale_colour_gradientn(colours = terrain.colors(10))
+
+# The gradientn scale can be centered by using a rescaler
+ggplot(df, aes(x, y)) +
+  geom_point(aes(colour = z1)) +
+  scale_colour_gradientn(
+    colours = c("blue", "dodgerblue", "white", "orange", "red"),
+    rescaler = ~ scales::rescale_mid(.x, mid = 0)
+  )
 
 # Equivalent fill scales do the same job for the fill aesthetic
 ggplot(faithfuld, aes(waiting, eruptions)) +

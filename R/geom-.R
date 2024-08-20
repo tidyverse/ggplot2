@@ -114,7 +114,7 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL) {
+  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL, ...) {
     default_aes <- default_aes %||% self$default_aes
 
     # Inherit size as linewidth if no linewidth aesthetic and param exist
@@ -167,6 +167,9 @@ Geom <- ggproto("Geom",
       }
 
       names(modified_aes) <- names(rename_aes(modifiers))
+
+      modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
+
       modified_aes <- data_frame0(!!!compact(modified_aes))
 
       data <- cunion(modified_aes, data)

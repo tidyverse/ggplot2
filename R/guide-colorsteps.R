@@ -52,6 +52,7 @@ guide_coloursteps <- function(
   even.steps  = TRUE,
   show.limits = NULL,
   direction = NULL,
+  position = NULL,
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -67,9 +68,11 @@ guide_coloursteps <- function(
     alpha = alpha,
     even.steps  = even.steps,
     show.limits = show.limits,
+    position = position,
     direction = direction,
     reverse = reverse,
     order = order,
+    available_aes = available_aes,
     super = GuideColoursteps
   )
 }
@@ -204,7 +207,7 @@ GuideColoursteps <- ggproto(
 
     size <- abs(decor$max - decor$min)
     just <- as.numeric(decor$min > decor$max)
-    gp   <- ggpar(col = NA, fill = decor$colour)
+    gp   <- gg_par(col = NA, fill = decor$colour)
     if (params$direction == "vertical") {
       grob <- rectGrob(
         x = 0, y = decor$min,

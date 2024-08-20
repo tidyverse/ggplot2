@@ -99,6 +99,7 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   },
 
   setup_layout = function(layout, params) {
+    layout <- Coord$setup_layout(layout, params)
     # Switch the scales
     layout[c("SCALE_X", "SCALE_Y")] <- layout[c("SCALE_Y", "SCALE_X")]
     layout
