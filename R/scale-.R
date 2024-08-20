@@ -123,7 +123,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
   # If the scale is non-positional, break = NULL means removing the guide
-  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
+  if (is.null(breaks) && !any(is_position_aes(aesthetics))) {
     guide <- "none"
   }
 

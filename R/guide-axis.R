@@ -592,23 +592,23 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   if (axis_position == "bottom") {
 
-    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+    hjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+    vjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
 
   } else if (axis_position == "left") {
 
-    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
-    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+    hjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+    vjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
 
   } else if (axis_position == "top") {
 
-    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
-    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+    hjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+    vjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
 
   } else if (axis_position == "right") {
 
-    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
-    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+    hjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+    vjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
 
   }
 

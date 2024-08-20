@@ -678,7 +678,7 @@ find_panel <- function(table) {
 }
 #' @rdname find_panel
 #' @export
-panel_cols = function(table) {
+panel_cols <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
   unique0(panels[, c('l', 'r')])
 }
