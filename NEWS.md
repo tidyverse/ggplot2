@@ -6,6 +6,10 @@
     * The `element_geom()` function can be used to populate that argument.
     * The `from_theme()` function allows access to the theme default fields from
       inside the `aes()` function.
+* Missing values from discrete palettes are no longer translated 
+  (@teunbrand, #5929).
+* Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
+  (@teunbrand, #1864).
 * `geom_step()` now supports the `orientation` argument (@teunbrand, #5936).
 * `position_dodge()` and `position_jitterdodge()` now have a `reverse` argument 
   (@teunbrand, #3610)
@@ -133,6 +137,8 @@
 * New function `get_strip_labels()` to retrieve facet labels (@teunbrand, #4979)
 * Fixed bug in `position_dodge2()`'s identification of range overlaps 
   (@teunbrand, #5938, #4327).
+* Fixed bug where empty discrete scales weren't recognised as such 
+  (@teunbrand, #5945).
 
 # ggplot2 3.5.1
 
