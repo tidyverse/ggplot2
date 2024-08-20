@@ -9,7 +9,7 @@
 #' `predictdf()` generic and its methods.  For most methods the standard
 #' error bounds are computed using the [predict()] method -- the
 #' exceptions are `loess()`, which uses a t-based approximation, and
-#' `glm()`, where the normal confidence interval is constructed on the link
+#' `glm()`, where the normal confidence band is constructed on the link
 #' scale and then back-transformed to the response scale.
 #'
 #' @eval rd_orientation()
