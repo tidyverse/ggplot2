@@ -43,7 +43,7 @@ test_that("quantiles do not fail on zero-range data", {
   p <- ggplot(zero.range.data) + geom_violin(aes(1, y), draw_quantiles = 0.5)
 
   # This should return without error and have length one
-  expect_equal(length(get_layer_grob(p)), 1)
+  expect_length(get_layer_grob(p), 1)
 })
 
 test_that("quantiles fails outside 0-1 bound", {
@@ -81,7 +81,7 @@ test_that("quantiles do not issue warning", {
 test_that("geom_violin draws correctly", {
   set.seed(111)
   dat <- data_frame(x = rep(factor(LETTERS[1:3]), 30), y = rnorm(90))
-  dat <- dat[dat$x != "C" | c(T, F),]  # Keep half the C's
+  dat <- dat[dat$x != "C" | c(TRUE, FALSE),]  # Keep half the C's
 
   expect_doppelganger("basic",
     ggplot(dat, aes(x = x, y = y)) + geom_violin()
@@ -90,13 +90,13 @@ test_that("geom_violin draws correctly", {
     ggplot(dat, aes(x = x, y = y)) + geom_violin(scale = "count"),
   )
   expect_doppelganger("narrower (width=.5)",
-    ggplot(dat, aes(x = x, y = y)) + geom_violin(width = .5)
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(width = 0.5)
   )
   expect_doppelganger("with tails and points",
     ggplot(dat, aes(x = x, y = y)) + geom_violin(trim = FALSE) + geom_point(shape = 21)
   )
   expect_doppelganger("with smaller bandwidth and points",
-    ggplot(dat, aes(x = x, y = y)) + geom_violin(adjust = .3) + geom_point(shape = 21)
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(adjust = 0.3) + geom_point(shape = 21)
   )
   expect_doppelganger("dodging",
     ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin()
@@ -126,6 +126,6 @@ test_that("geom_violin draws correctly", {
   )
   expect_doppelganger("grouping on x and fill, dodge width = 0.5",
     ggplot(dat2, aes(x = x, y = y, fill = g)) +
-      geom_violin(position = position_dodge(width = .5))
+      geom_violin(position = position_dodge(width = 0.5))
   )
 })

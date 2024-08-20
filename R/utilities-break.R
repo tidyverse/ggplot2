@@ -24,6 +24,9 @@
 #' table(cut_width(runif(1000), 0.1, center = 0))
 #' table(cut_width(runif(1000), 0.1, labels = FALSE))
 cut_interval <- function(x, n = NULL, length = NULL, ...) {
+  if ((!is.null(n) && !is.null(length)) || (is.null(n) && is.null(length))) {
+    cli::cli_abort("Specify exactly one of {.var n} and {.var length}.")
+  }
   cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
 

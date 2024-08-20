@@ -60,6 +60,7 @@ ggplot_build.ggplot <- function(plot) {
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+  plot$labels <- setup_plot_labels(plot, layers, data)
   data <- .ignore_data(data)
 
   # Transform all scales
@@ -249,18 +250,18 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
   if (title_pos == "panel") {
-    title_l = min(pans$l)
-    title_r = max(pans$r)
+    title_l <- min(pans$l)
+    title_r <- max(pans$r)
   } else {
-    title_l = 1
-    title_r = ncol(plot_table)
+    title_l <- 1
+    title_r <- ncol(plot_table)
   }
   if (caption_pos == "panel") {
-    caption_l = min(pans$l)
-    caption_r = max(pans$r)
+    caption_l <- min(pans$l)
+    caption_r <- max(pans$r)
   } else {
-    caption_l = 1
-    caption_r = ncol(plot_table)
+    caption_l <- 1
+    caption_r <- ncol(plot_table)
   }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)

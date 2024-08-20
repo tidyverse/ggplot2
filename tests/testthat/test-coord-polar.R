@@ -1,7 +1,7 @@
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5))
+    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5))
 
   scales <- list(
     x = scale_x_continuous(limits = c(0, 2*pi)),
@@ -179,7 +179,7 @@ test_that("polar coordinates draw correctly", {
 
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
+    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5),
     g     = 1:8
   )
   expect_doppelganger("Rays, circular arcs, and spiral arcs",
@@ -271,5 +271,22 @@ test_that("coord_radial() draws correctly", {
       coord_radial(start = 0.5 * pi, end = 1.5 * pi,
                    rotate.angle = TRUE, r.axis.inside = FALSE) +
       theme
+  )
+})
+
+test_that("coord_radial()'s axis internal placement works", {
+
+  df <- data.frame(x = c(0, 360), y = c(1, 14))
+
+  expect_doppelganger(
+    "full circle with axes placed at 90 and 225 degrees",
+    ggplot(df, aes(x, y)) +
+      geom_point() +
+      coord_radial(
+        expand = FALSE,
+        r.axis.inside = c(90, 225)
+      ) +
+      guides(r.sec = "axis") +
+      theme(axis.line = element_line())
   )
 })

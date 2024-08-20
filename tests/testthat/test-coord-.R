@@ -37,8 +37,7 @@ test_that("guide names are not removed by `train_panel_guides()`", {
   layout$setup_panel_guides(guides_list(NULL), plot$layers)
 
   # Line showing change in outcome
-  expect_equal(names(layout$panel_params[[1]]$guides$aesthetics),
-               c("x", "y", "x.sec", "y.sec"))
+  expect_named(layout$panel_params[[1]]$guides$aesthetics, c("x", "y", "x.sec", "y.sec"))
 })
 
 test_that("check coord limits errors only on bad inputs", {
@@ -53,3 +52,26 @@ test_that("check coord limits errors only on bad inputs", {
   # Should raise error if vector of wrong length is passed
   expect_error(check_coord_limits(1:3))
 })
+
+test_that("coords append a column to the layout correctly", {
+  layout <- data_frame0(SCALE_X = c(1, 1, 1), SCALE_Y = c(1, 1, 1))
+  test <- Coord$setup_layout(layout)
+  expect_equal(test$COORD, c(1, 1, 1))
+
+  layout <- data_frame0(SCALE_X = c(1, 1, 1), SCALE_Y = c(1, 2, 2))
+  test <- Coord$setup_layout(layout)
+  expect_equal(test$COORD, c(1, 2, 2))
+
+  layout <- data_frame0(SCALE_X = c(1, 2, 3), SCALE_Y = c(1, 1, 1))
+  test <- Coord$setup_layout(layout)
+  expect_equal(test$COORD, c(1, 2, 3))
+
+  layout <- data_frame0(SCALE_X = c(1, 2, 3), SCALE_Y = c(1, 2, 3))
+  test <- Coord$setup_layout(layout)
+  expect_equal(test$COORD, c(1, 2, 3))
+
+  layout <- data_frame0(SCALE_X = c(1, 1, 1), SCALE_Y = c(1, 2, 1))
+  test <- Coord$setup_layout(layout)
+  expect_equal(test$COORD, c(1, 2, 1))
+})
+
