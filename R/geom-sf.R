@@ -126,7 +126,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linewidth = NULL,
-    linetype = 1,
+    linetype = from_theme(linetype),
     alpha = NA,
     stroke = 0.5
   ),

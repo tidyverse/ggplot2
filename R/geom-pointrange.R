@@ -32,7 +32,7 @@ geom_pointrange <- function(mapping = NULL, data = NULL,
 GeomPointrange <- ggproto("GeomPointrange", Geom,
   default_aes = aes(
     colour = from_theme(ink), size = from_theme(pointsize / 3),
-    linewidth = from_theme(thin), linetype = 1,
+    linewidth = from_theme(thin), linetype = from_theme(linetype),
     shape = from_theme(pointshape), fill = NA, alpha = NA, stroke = 1
   ),
 

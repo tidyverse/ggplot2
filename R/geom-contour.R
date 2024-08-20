@@ -128,7 +128,7 @@ GeomContour <- ggproto("GeomContour", GeomPath,
     weight = 1,
     colour = from_theme(accent),
     linewidth = from_theme(thin),
-    linetype = 1,
+    linetype = from_theme(linetype),
     alpha = NA
   )
 )

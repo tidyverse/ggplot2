@@ -202,7 +202,9 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     colour = from_theme(col_mix(ink, paper, 0.2)),
     fill = from_theme(paper),
     linewidth = from_theme(thin),
-    alpha = NA, linetype = "solid"),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
 
   required_aes = c("x", "y"),
 

@@ -134,7 +134,12 @@ geom_path <- function(mapping = NULL, data = NULL,
 GeomPath <- ggproto("GeomPath", Geom,
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour = from_theme(ink), linewidth = from_theme(thin), linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(thin),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
 
   non_missing_aes = c("linewidth", "colour", "linetype"),
 

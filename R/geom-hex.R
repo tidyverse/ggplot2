@@ -109,7 +109,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     colour = NA,
     fill = from_theme(col_mix(ink, paper)),
     linewidth = from_theme(thin),
-    linetype = 1,
+    linetype = from_theme(linetype),
     alpha = NA
   ),
 

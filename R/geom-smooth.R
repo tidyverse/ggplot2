@@ -172,7 +172,8 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
     colour = from_theme(accent),
     fill = from_theme(col_mix(ink, paper, 0.6)),
     linewidth = from_theme(thick),
-    linetype = 1, weight = 1, alpha = 0.4
+    linetype = from_theme(linetype),
+    weight = 1, alpha = 0.4
   ),
 
   rename_size = TRUE

@@ -106,7 +106,12 @@ geom_density2d <- geom_density_2d
 #' @usage NULL
 #' @export
 GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
-  default_aes = aes(colour = from_theme(accent), linewidth = from_theme(thin), linetype = 1, alpha = NA)
+  default_aes = aes(
+    colour = from_theme(accent),
+    linewidth = from_theme(thin),
+    linetype = from_theme(linetype),
+    alpha = NA
+  )
 )
 
 #' @export
