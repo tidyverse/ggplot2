@@ -161,6 +161,10 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 #' @param paper Background colour.
 #' @param accent Accent colour.
 #' @param thin,thick Linewidth for thin and thick lines in mm.
+#' @param linetype Line type. An integer (0:8), a name (blank, solid,
+#'    dashed, dotted, dotdash, longdash, twodash), or a string with
+#'    an even number (up to eight) of hexadecimal digits which give the
+#'    lengths in consecutive positions in the string.
 #' @param pointsize Size for points in mm.
 #' @param pointshape Shape for points (1-25).
 #' @export
@@ -169,7 +173,7 @@ element_geom <- function(
   # colours
   ink = NULL, paper = NULL, accent = NULL,
   # linewidth
-  thin = NULL, thick = NULL,
+  thin = NULL, thick = NULL, linetype = NULL,
   # text
   family = NULL, fontsize = NULL,
   # points
@@ -185,7 +189,7 @@ element_geom <- function(
       ink = ink,
       paper = paper,
       accent = accent,
-      thin = thin, thick = thick,
+      thin = thin, thick = thick, linetype = linetype,
       family = family, fontsize = fontsize,
       pointsize = pointsize, pointshape = pointshape
     ),
@@ -195,7 +199,7 @@ element_geom <- function(
 
 .default_geom_element <- element_geom(
   ink = "black", paper = "white", accent = "#3366FF",
-  thin = 0.5, thick = 2,
+  thin = 0.5, thick = 2, linetype = 1L,
   family = "", fontsize = 11,
   pointsize = 1.5, pointshape = 19
 )

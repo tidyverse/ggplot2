@@ -55,6 +55,7 @@ element_geom(
   accent = NULL,
   thin = NULL,
   thick = NULL,
+  linetype = NULL,
   family = NULL,
   fontsize = NULL,
   pointsize = NULL,
