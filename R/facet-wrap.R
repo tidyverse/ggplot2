@@ -405,7 +405,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     shift  <- if (inside) shift[1] else shift[2]
     size   <- unit(size, "cm")
 
-    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "on")
+    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "off")
 
     if (!inside) {
       axes  <- grepl(paste0("axis-", pos), table$layout$name)

@@ -404,13 +404,13 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       space <- if (!inside_x & table_has_grob(table, "axis-b")) padding
       table <- seam_table(
         table, strips$x$bottom, side = "bottom", name = "strip-b",
-        shift = shift_x, z = 2, clip = "on", spacing = space
+        shift = shift_x, z = 2, clip = "off", spacing = space
       )
     } else {
       space <- if (!inside_x & table_has_grob(table, "axis-t")) padding
       table <- seam_table(
         table, strips$x$top, side = "top", name = "strip-t",
-        shift = shift_x, z = 2, clip = "on", spacing = space
+        shift = shift_x, z = 2, clip = "off", spacing = space
       )
     }
 
@@ -422,13 +422,13 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       space <- if (!inside_y & table_has_grob(table, "axis-l")) padding
       table <- seam_table(
         table, strips$y$left, side = "left", name = "strip-l",
-        shift = shift_y, z = 2, clip = "on", spacing = space
+        shift = shift_y, z = 2, clip = "off", spacing = space
       )
     } else {
       space <- if (!inside_y & table_has_grob(table, "axis-r")) padding
       table <- seam_table(
         table, strips$y$right, side = "right", name = "strip-r",
-        shift = shift_y, z = 2, clip = "on", spacing = space
+        shift = shift_y, z = 2, clip = "off", spacing = space
       )
     }
     table

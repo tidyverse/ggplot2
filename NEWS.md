@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* `coord_radial(clip = "on")` clips to the panel area when the graphics device
+  supports clipping paths (@teunbrand, #5952).
+* (internal) Panel clipping responsibility moved from Facet class to Coord 
+  class through new `Coord$draw_panel()` method.
+* `theme(strip.clip)` now defaults to `"on"` and is independent of Coord 
+  clipping (@teunbrand, 5952).
+* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
 * Axis labels are now justified across facet panels (@teunbrand, #5820)
 * Fixed bug in `stat_function()` so x-axis title now produced automatically 
   when no data added. (@phispu, #5647).

@@ -158,6 +158,9 @@ test_that("bounding box calculations are sensible", {
 
 # Visual tests ------------------------------------------------------------
 
+#TODO: Once {vdiffr} supports non-rectangular clipping paths, we should add a
+# test for `coord_radial(clip = "on")`'s ability to clip to the sector
+
 test_that("polar coordinates draw correctly", {
   theme <- theme_test() +
     theme(
