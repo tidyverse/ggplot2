@@ -4,7 +4,7 @@
 #' It does not generate colour-blind safe palettes.
 #'
 #' @param na.value Colour to use for missing values
-#' @inheritDotParams discrete_scale -aesthetics -expand -position -scale_name
+#' @inheritDotParams discrete_scale -aesthetics -expand -position -scale_name -palette
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the

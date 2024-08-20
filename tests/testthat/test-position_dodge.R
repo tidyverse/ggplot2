@@ -23,3 +23,17 @@ test_that("position_dodge() can dodge points vertically", {
   expect_equal(layer_data(vertical)$y,   c(0.75, 1.25, 1.75, 2.25), ignore_attr = "class")
 
 })
+
+test_that("position_dodge() can reverse the dodge order", {
+
+  df <- data.frame(x = c(1, 2, 2, 3, 3), group = c("A", "A", "B", "B", "C"))
+
+  # Use label as easy to track identifier
+  p <- ggplot(df, aes(x, y = 1, fill = group, label = group))
+
+  ld <- get_layer_data(p + geom_col(position = position_dodge(reverse = TRUE)))
+  expect_equal(ld$label[order(ld$x)], c("A", "B", "A", "C", "B"))
+
+  ld <- get_layer_data(p + geom_col(position = position_dodge(reverse = FALSE)))
+  expect_equal(ld$label[order(ld$x)], c("A", "A", "B", "B", "C"))
+})

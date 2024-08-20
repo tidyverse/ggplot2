@@ -11,7 +11,7 @@ geom_qq_line <- function(mapping = NULL,
                          ...,
                          distribution = stats::qnorm,
                          dparams = list(),
-                         line.p = c(.25, .75),
+                         line.p = c(0.25, 0.75),
                          fullrange = FALSE,
                          na.rm = FALSE,
                          show.legend = NA,
@@ -56,7 +56,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
                            distribution = stats::qnorm,
                            dparams = list(),
                            na.rm = FALSE,
-                           line.p = c(.25, .75),
+                           line.p = c(0.25, 0.75),
                            fullrange = FALSE) {
 
     sample <- sort(data$sample)
