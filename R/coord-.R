@@ -196,6 +196,11 @@ Coord <- ggproto("Coord",
   },
 
   setup_layout = function(layout, params) {
+    # We're appending a COORD variable to the layout that determines the
+    # uniqueness of panel parameters. The layout uses this to prevent redundant
+    # setups of these parameters.
+    scales <- layout[c("SCALE_X", "SCALE_Y")]
+    layout$COORD <- vec_match(scales, unique0(scales))
     layout
   },
 

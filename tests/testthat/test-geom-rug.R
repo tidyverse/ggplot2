@@ -40,3 +40,21 @@ test_that("Rug lengths are correct", {
 
 })
 
+test_that(
+  "geom_rug() warns about missing values when na.rm = FALSE",
+  {
+    df2 <- df
+    n_missing <- 2
+    df2$x[sample(nrow(df2), size = n_missing)] <- NA
+
+    p1 <- ggplot(df2, aes(x = x)) + geom_rug()
+    p2 <- ggplot(df2, aes(x = x)) + geom_rug(na.rm = TRUE)
+
+    expect_warning(
+      ggplotGrob(p1),
+      paste0("Removed ", n_missing, " rows containing missing values or values outside the scale range")
+    )
+
+    expect_no_warning(ggplotGrob(p2))
+  }
+)
