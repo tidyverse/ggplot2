@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* (internal) improvements to `pal_qualitative()` (@teunbrand, #5013)
 * `coord_radial(clip = "on")` clips to the panel area when the graphics device
   supports clipping paths (@teunbrand, #5952).
 * (internal) Panel clipping responsibility moved from Facet class to Coord 
