@@ -400,8 +400,8 @@ contour_deduplicate <- function(data, check = c("x", "y", "group", "PANEL")) {
 
 estimate_contour_angle <- function(x, y) {
 
-  # Compute most frequent angle
-  all_angles <- atan2(diff(y), diff(x))
+  # Compute most frequent angle among first 20 points
+  all_angles <- atan2(diff(head(y, 20L)), diff(head(x, 20L)))
   freq <- tabulate(match(all_angles, unique(all_angles)))
   i <- which.max(freq)
 
