@@ -49,7 +49,7 @@
 #'   can be used in various ways, including to prevent overplotting and
 #'   improving the display. The `position` argument accepts the following:
 #'   * The result of calling a position function, such as `position_jitter()`.
-#'   * A string nameing the position adjustment. To give the position as a
+#'   * A string naming the position adjustment. To give the position as a
 #'     string, strip the function name of the `position_` prefix. For example,
 #'     to use `position_jitter()`, give the position as `"jitter"`.
 #'   * For more information and other ways to specify the position, see the

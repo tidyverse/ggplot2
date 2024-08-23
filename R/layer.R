@@ -36,7 +36,7 @@
 #'     [layer geom][layer_geoms] documentation.
 #' @param stat The statistical transformation to use on the data for this layer.
 #'   When using a `geom_*()` function to construct a layer, the `stat`
-#'   argument can be used the override the default coupling between geoms and
+#'   argument can be used to override the default coupling between geoms and
 #'   stats. The `stat` argument accepts the following:
 #'   * A `Stat` ggproto subclass, for example `StatCount`.
 #'   * A string naming the stat. To give the stat as a string, strip the
