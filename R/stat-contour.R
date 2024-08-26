@@ -142,7 +142,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 
     isobands <- withr::with_options(list(OutDec = "."), xyz_to_isobands(data, breaks))
     names(isobands) <- pretty_isoband_levels(names(isobands))
-    path_df <- iso_to_geom(isobands, data$group[1], "polygon")
+    path_df <- iso_to_geom(isobands, data$group[1], geom = "polygon")
 
     path_df$level <- ordered(path_df$level, levels = names(isobands))
     path_df$level_low <- breaks[as.numeric(path_df$level)]
