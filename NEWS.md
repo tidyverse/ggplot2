@@ -154,6 +154,8 @@
   (@teunbrand, #5945).
 * (internal) The summary function of `stat_summary()` and `stat_summary_bin()` 
   is setup once in total instead of once per group (@teunbrand, #5971)
+* `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
+  (@teunbrand, #4584).
 
 # ggplot2 3.5.1
 
