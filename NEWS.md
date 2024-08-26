@@ -159,6 +159,7 @@
   (@teunbrand, #4584).
 * `theme_classic()` now has black ticks and text instead of dark gray. In 
   addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
+* {tibble} is now suggested instead of imported (@teunbrand, #5986)
 
 # ggplot2 3.5.1
 

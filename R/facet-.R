@@ -564,7 +564,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  data_frame0(tibble::as_tibble(vars))
+  data_frame0(!!!vars)
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically
