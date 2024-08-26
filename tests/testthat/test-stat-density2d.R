@@ -1,3 +1,5 @@
+skip_if_not_installed("MASS")
+
 test_that("uses scale limits, not data limits", {
   base <- ggplot(mtcars, aes(wt, mpg)) +
     stat_density_2d() +
