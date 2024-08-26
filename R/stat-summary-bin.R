@@ -23,15 +23,15 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
                              fun.ymax = deprecated()) {
   if (lifecycle::is_present(fun.y)) {
     deprecate_warn0("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
-    fun = fun %||% fun.y
+    fun <- fun %||% fun.y
   }
   if (lifecycle::is_present(fun.ymin)) {
     deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
-    fun.min = fun.min %||% fun.ymin
+    fun.min <- fun.min %||% fun.ymin
   }
   if (lifecycle::is_present(fun.ymax)) {
     deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
-    fun.max = fun.max %||% fun.ymax
+    fun.max <- fun.max %||% fun.ymax
   }
   layer(
     data = data,

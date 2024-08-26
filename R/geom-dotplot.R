@@ -197,25 +197,25 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {
-      stackdots <- function(a)  a - .5
+      stackdots <- function(a)  a - 0.5
       stackaxismin <- 0
       stackaxismax <- 1
     } else if (params$stackdir == "down") {
-      stackdots <- function(a) -a + .5
+      stackdots <- function(a) -a + 0.5
       stackaxismin <- -1
       stackaxismax <- 0
     } else if (params$stackdir == "center") {
       stackdots <- function(a)  a - 1 - max(a - 1) / 2
-      stackaxismin <- -.5
-      stackaxismax <- .5
+      stackaxismin <- -0.5
+      stackaxismax <- 0.5
     } else if (params$stackdir == "centerwhole") {
       stackdots <- function(a)  a - 1 - floor(max(a - 1) / 2)
-      stackaxismin <- -.5
-      stackaxismax <- .5
+      stackaxismin <- -0.5
+      stackaxismax <- 0.5
     }
 
     # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
-    data <- data[rep(1:nrow(data), data$count), ]
+    data <- data[rep(seq_len(nrow(data)), data$count), ]
 
     # Next part will set the position of each dot within each stack
     # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
@@ -231,7 +231,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
     data <- dapply(data, plyvars, function(xx) {
-      xx$countidx <- 1:nrow(xx)
+      xx$countidx <- seq_len(nrow(xx))
       xx$stackpos <- stackdots(xx$countidx)
       xx
     })
@@ -281,11 +281,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       binaxis <- ifelse(binaxis == "x", "y", "x")
 
     if (binaxis == "x") {
-      stackaxis = "y"
+      stackaxis <- "y"
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$x.range) - min(panel_params$x.range))
 
     } else if (binaxis == "y") {
-      stackaxis = "x"
+      stackaxis <- "x"
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$y.range) - min(panel_params$y.range))
     }
 
