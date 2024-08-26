@@ -165,7 +165,7 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
   }
 
   # Add row for missings
-  if (any(is.na(bins))) {
+  if (anyNA(bins)) {
     bin_count <- c(bin_count, sum(is.na(bins)))
     bin_widths <- c(bin_widths, NA)
     bin_x <- c(bin_x, NA)

@@ -18,7 +18,7 @@
 #'   `y ~ poly(x, 2)`, `y ~ log(x)`. `NULL` by default, in which case
 #'   `method = NULL` implies `formula = y ~ x` when there are fewer than 1,000
 #'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
-#' @param se Display confidence interval around smooth? (`TRUE` by default, see
+#' @param se Display confidence band around smooth? (`TRUE` by default, see
 #'   `level` to control.)
 #' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
 #'   potentially beyond the data. This does not extend the line into any additional padding
@@ -26,7 +26,7 @@
 #' @param xseq A numeric vector of values at which the smoother is evaluated.
 #'   When `NULL` (default), `xseq` is internally evaluated as a sequence of `n`
 #'   equally spaced points for continuous data.
-#' @param level Level of confidence interval to use (0.95 by default).
+#' @param level Level of confidence band to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
 #'   lines. Only used with loess, i.e. when `method = "loess"`,
@@ -40,8 +40,8 @@
 #'   .details = "`stat_smooth()` provides the following variables, some of
 #'   which depend on the orientation:",
 #'   "y|x" = "Predicted value.",
-#'   "ymin|xmin" = "Lower pointwise confidence interval around the mean.",
-#'   "ymax|xmax" = "Upper pointwise confidence interval around the mean.",
+#'   "ymin|xmin" = "Lower pointwise confidence band around the mean.",
+#'   "ymax|xmax" = "Upper pointwise confidence band around the mean.",
 #'   "se" = "Standard error."
 #' )
 #' @export

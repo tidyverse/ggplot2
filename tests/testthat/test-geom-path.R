@@ -1,8 +1,8 @@
 test_that("keep_mid_true drops leading/trailing FALSE", {
-  expect_equal(keep_mid_true(c(F, F)), c(F, F))
-  expect_equal(keep_mid_true(c(F, T, F, T, F)), c(F, T, T, T, F))
-  expect_equal(keep_mid_true(c(T, T, F, T, F)), c(T, T, T, T, F))
-  expect_equal(keep_mid_true(c(F, T, F, T, T)), c(F, T, T, T, T))
+  expect_equal(keep_mid_true(c(FALSE, FALSE)), c(FALSE, FALSE))
+  expect_equal(keep_mid_true(c(FALSE, TRUE, FALSE, TRUE, FALSE)), c(FALSE, TRUE, TRUE, TRUE, FALSE))
+  expect_equal(keep_mid_true(c(TRUE, TRUE, FALSE, TRUE, FALSE)), c(TRUE, TRUE, TRUE, TRUE, FALSE))
+  expect_equal(keep_mid_true(c(FALSE, TRUE, FALSE, TRUE, TRUE)), c(FALSE, TRUE, TRUE, TRUE, TRUE))
 })
 
 test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
