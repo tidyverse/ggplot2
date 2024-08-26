@@ -156,6 +156,8 @@
   is setup once in total instead of once per group (@teunbrand, #5971)
 * `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
   (@teunbrand, #4584).
+* `theme_classic()` now has black ticks and text instead of dark gray. In 
+  addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
 
 # ggplot2 3.5.1
 

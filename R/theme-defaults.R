@@ -460,10 +460,12 @@ theme_classic <- function(base_size = 11, base_family = "",
       panel.grid.minor = element_blank(),
 
       # show axes
-      axis.line      = element_line(colour = "black", linewidth = rel(1)),
+      axis.text  = element_text(size = rel(0.8)),
+      axis.line  = element_line(lineend = "square"),
+      axis.ticks = element_line(),
 
       # simple, black and white strips
-      strip.background = element_rect(fill = "white", colour = "black", linewidth = rel(2)),
+      strip.background = element_rect(linewidth = rel(2)),
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
 
       complete = TRUE
