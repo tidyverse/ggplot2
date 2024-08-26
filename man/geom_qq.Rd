@@ -215,12 +215,10 @@ p + stat_qq() + stat_qq_line()
 # Use fitdistr from MASS to estimate distribution params:
 # params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
 # Here, we use pre-computed params
-if (requireNamespace("MASS", quietly = TRUE)) {
-  params <- list(m = -0.02505057194115, s = 1.122568610124, df = 6.63842653897)
-  ggplot(df, aes(sample = y)) +
-    stat_qq(distribution = qt, dparams = params["df"]) +
-    stat_qq_line(distribution = qt, dparams = params["df"])
-}
+params <- list(m = -0.02505057194115, s = 1.122568610124, df = 6.63842653897)
+ggplot(df, aes(sample = y)) +
+  stat_qq(distribution = qt, dparams = params["df"]) +
+  stat_qq_line(distribution = qt, dparams = params["df"])
 
 # Using to explore the distribution of a variable
 ggplot(mtcars, aes(sample = mpg)) +
