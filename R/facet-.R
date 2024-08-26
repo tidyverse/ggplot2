@@ -139,16 +139,20 @@ Facet <- ggproto("Facet", NULL,
     free  <- params$free       %||% list(x = FALSE, y = FALSE)
     space <- params$space_free %||% list(x = FALSE, y = FALSE)
 
-    if ((free$x || free$y) && !coord$is_free()) {
-      cli::cli_abort(
-        "{.fn {snake_class(self)}} can't use free scales with \\
-        {.fn {snake_class(coord)}}."
-      )
-    }
-
     aspect_ratio <- theme$aspect.ratio
     if (!is.null(aspect_ratio) && (space$x || space$y)) {
       cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
+    }
+
+    if (!coord$is_free()) {
+      if (space$x && space$y) {
+        aspect_ratio <- aspect_ratio %||% coord$ratio
+      } else if (free$x || free$y) {
+        cli::cli_abort(
+          "{.fn {snake_class(self)}} can't use free scales with \\
+          {.fn {snake_class(coord)}}."
+        )
+      }
     }
 
     table <- self$init_gtable(
@@ -219,7 +223,7 @@ Facet <- ggproto("Facet", NULL,
     if (space$y) {
       idx <- layout$PANEL[layout$COL == 1]
       heights <- vapply(idx, function(i) diff(ranges[[i]]$y.range), numeric(1))
-      heights <- unit(heights, "null")
+      heights <- unit(heights * abs(aspect_ratio %||% 1), "null")
     }
 
     # Build gtable
@@ -560,7 +564,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  data_frame0(tibble::as_tibble(vars))
+  data_frame0(!!!vars)
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically

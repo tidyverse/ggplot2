@@ -57,6 +57,8 @@ test_that("default smoothing methods for small and large data sets work", {
     y = x^2 + 0.5 * rnorm(1001)
   )
 
+  skip_if_not_installed("mgcv")
+
   m <- mgcv::gam(y ~ s(x, bs = "cs"), data = df, method = "REML")
   range <- range(df$x, na.rm = TRUE)
   xseq <- seq(range[1], range[2], length.out = 80)
@@ -94,6 +96,18 @@ test_that("geom_smooth() works when one group fails", {
   )
   expect_equal(unique(ld$group), 2)
   expect_gte(nrow(ld), 2)
+})
+
+test_that("a fallback message is thrown when `method = 'gam'` and {mgcv} is absent", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_smooth(method = "gam", formula = y ~ x)
+
+  with_mocked_bindings(
+    expect_message(
+      ggplot_build(p), regexp = "Falling back to `method = \"lm\"`"
+    ),
+    is_installed = function(...) FALSE
+  )
 })
 
 # Visual tests ------------------------------------------------------------

@@ -25,6 +25,13 @@ test_that("unknown aesthetics create warning", {
   expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
+test_that("empty aesthetics create warning", {
+  expect_warning(
+    geom_point(fill = NULL, shape = character()),
+    "Ignoring empty aesthetics"
+  )
+})
+
 test_that("invalid aesthetics throws errors", {
   # We want to test error and ignore the scale search message
   suppressMessages({
