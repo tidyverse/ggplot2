@@ -36,8 +36,9 @@
 #' @examples
 #' # geom_line() is suitable for time series
 #' ggplot(economics, aes(date, unemploy)) + geom_line()
+#' # separate by colour and use "timeseries" legend key glyph
 #' ggplot(economics_long, aes(date, value01, colour = variable)) +
-#'   geom_line()
+#'   geom_line(key_glyph = "timeseries")
 #'
 #' # You can get a timeseries that run vertically by setting the orientation
 #' ggplot(economics, aes(unemploy, date)) + geom_line(orientation = "y")

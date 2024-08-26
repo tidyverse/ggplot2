@@ -409,6 +409,27 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     )
   },
 
+
+  draw_panel = function(self, panel, params, theme) {
+    clip_support <- check_device("clippingPaths", "test", maybe = TRUE)
+    if (self$clip == "on" && !isFALSE(clip_support)) {
+      clip_path <- data_frame0(
+        x = c(Inf, Inf, -Inf, -Inf),
+        y = c(Inf, -Inf, -Inf, Inf)
+      )
+      clip_path <- coord_munch(self, clip_path, params, is_closed = TRUE)
+      clip_path <- polygonGrob(clip_path$x, clip_path$y)
+      # Note that clipping path is applied to panel without coord
+      # foreground/background (added in parent method).
+      # These may contain decorations that needn't be clipped
+      panel <- list(gTree(
+        children = inject(gList(!!!panel)),
+        vp = viewport(clip = clip_path)
+      ))
+    }
+    ggproto_parent(Coord, self)$draw_panel(panel, params, theme)
+  },
+
   labels = function(self, labels, panel_params) {
     # `Layout$resolve_label()` doesn't know to look for theta/r/r.sec guides,
     # so we'll handle title propagation here.

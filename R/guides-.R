@@ -194,7 +194,7 @@ Guides <- ggproto(
     if (is.character(index)) {
       index <- match(index, self$aesthetics)
     }
-    if (any(is.na(index)) || length(index) == 0) {
+    if (anyNA(index) || length(index) == 0) {
       return(NULL)
     }
     if (length(index) == 1) {
@@ -209,7 +209,7 @@ Guides <- ggproto(
     if (is.character(index)) {
       index <- match(index, self$aesthetics)
     }
-    if (any(is.na(index)) || length(index) == 0) {
+    if (anyNA(index) || length(index) == 0) {
       return(NULL)
     }
     if (length(index) == 1) {

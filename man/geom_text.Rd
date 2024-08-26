@@ -62,7 +62,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -79,7 +79,7 @@ can be used in various ways, including to prevent overplotting and
 improving the display. The \code{position} argument accepts the following:
 \itemize{
 \item The result of calling a position function, such as \code{position_jitter()}.
-\item A string nameing the position adjustment. To give the position as a
+\item A string naming the position adjustment. To give the position as a
 string, strip the function name of the \code{position_} prefix. For example,
 to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item For more information and other ways to specify the position, see the
@@ -249,10 +249,11 @@ p + geom_text(aes(colour = factor(cyl))) +
   scale_colour_discrete(l = 40)
 p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 
-p + geom_text(aes(size = wt))
+# Scale size of text, and change legend key glyph from a to point
+p + geom_text(aes(size = wt), key_glyph = "point")
 # Scale height of text, rather than sqrt(height)
 p +
-  geom_text(aes(size = wt)) +
+  geom_text(aes(size = wt), key_glyph = "point") +
   scale_radius(range = c(3,6))
 
 # You can display expressions by setting parse = TRUE.  The

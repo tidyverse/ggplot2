@@ -20,4 +20,29 @@ A modified ggplot object
 This generic allows you to add your own methods for adding custom objects to
 a ggplot with \link{+.gg}.
 }
+\details{
+Custom methods for \code{ggplot_add()} are intended to update the \code{plot} variable
+using information from a custom \code{object}. This can become convenient when
+writing extensions that don't build on the pre-existing grammar like
+layers, facets, coords and themes. The \code{ggplot_add()} function is never
+intended to be used directly, but it is triggered when an object is added
+to a plot via the \code{+} operator. Please note that the full \code{plot} object is
+exposed at this point, which comes with the responsibility of returning
+the plot intact.
+}
+\examples{
+# making a new method for the generic
+# in this example, we apply a text element to the text theme setting
+ggplot_add.element_text <- function(object, plot, object_name) {
+  plot + theme(text = object)
+}
+
+# we can now use `+` to add our object to a plot
+ggplot(mpg, aes(displ, cty)) +
+  geom_point() +
+  element_text(colour = "red")
+
+# clean-up
+rm(ggplot_add.element_text)
+}
 \keyword{internal}

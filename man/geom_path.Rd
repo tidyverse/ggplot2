@@ -70,7 +70,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -205,8 +205,9 @@ the \code{NA} is removed silently, without warning.
 \examples{
 # geom_line() is suitable for time series
 ggplot(economics, aes(date, unemploy)) + geom_line()
+# separate by colour and use "timeseries" legend key glyph
 ggplot(economics_long, aes(date, value01, colour = variable)) +
-  geom_line()
+  geom_line(key_glyph = "timeseries")
 
 # You can get a timeseries that run vertically by setting the orientation
 ggplot(economics, aes(unemploy, date)) + geom_line(orientation = "y")

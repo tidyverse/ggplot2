@@ -153,8 +153,8 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
-    ymin = flipped_names(flipped_aes)$ymin
-    ymax = flipped_names(flipped_aes)$ymax
+    ymin <- flipped_names(flipped_aes)$ymin
+    ymax <- flipped_names(flipped_aes)$ymax
     has_ribbon <- se && !is.null(data[[ymax]]) && !is.null(data[[ymin]])
 
     gList(
