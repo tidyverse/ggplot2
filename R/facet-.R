@@ -153,8 +153,7 @@ Facet <- ggproto("Facet", NULL,
 
     table <- self$init_gtable(
       panels, layout, theme, ranges, params,
-      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]]),
-      clip = coord$clip
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
     )
 
     table <- self$attach_axes(table, layout, ranges, coord, theme, params)
@@ -198,7 +197,7 @@ Facet <- ggproto("Facet", NULL,
     data
   },
   init_gtable = function(panels, layout, theme, ranges, params,
-                         aspect_ratio = NULL, clip = "on") {
+                         aspect_ratio = NULL) {
 
     # Initialise matrix of panels
     dim   <- c(max(layout$ROW), max(layout$COL))
@@ -228,7 +227,7 @@ Facet <- ggproto("Facet", NULL,
       "layout", table,
       widths = widths, heights = heights,
       respect = !is.null(aspect_ratio),
-      clip = clip, z = matrix(1, dim[1], dim[2])
+      clip = "off", z = matrix(1, dim[1], dim[2])
     )
 
     # Set panel names
@@ -257,6 +256,9 @@ Facet <- ggproto("Facet", NULL,
   },
   vars = function() {
     character(0)
+  },
+  format_strip_labels = function(layout, params) {
+    return()
   }
 )
 
@@ -321,6 +323,31 @@ vars <- function(...) {
   quos(...)
 }
 
+#' Accessing a plot's facet strip labels
+#'
+#' This functions retrieves labels from facet strips with the labeller applied.
+#'
+#' @param plot A ggplot or build ggplot object.
+#'
+#' @return `NULL` if there are no labels, otherwise a list of data.frames
+#'   containing the labels.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' # Basic plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' get_strip_labels(p) # empty facets
+#' get_strip_labels(p + facet_wrap(year ~ cyl))
+#' get_strip_labels(p + facet_grid(year ~ cyl))
+get_strip_labels <- function(plot = get_last_plot()) {
+  plot   <- ggplot_build(plot)
+  layout <- plot$layout$layout
+  params <- plot$layout$facet_params
+  plot$plot$facet$format_strip_labels(layout, params)
+}
 
 #' Is this object a faceting specification?
 #'
@@ -650,7 +677,7 @@ find_panel <- function(table) {
 }
 #' @rdname find_panel
 #' @export
-panel_cols = function(table) {
+panel_cols <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
   unique0(panels[, c('l', 'r')])
 }
@@ -779,7 +806,7 @@ render_axes <- function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
 #'
 #' @keywords internal
 #' @export
-render_strips <- function(x = NULL, y = NULL, labeller, theme) {
+render_strips <- function(x = NULL, y = NULL, labeller = identity, theme) {
   list(
     x = build_strip(x, labeller, theme, TRUE),
     y = build_strip(y, labeller, theme, FALSE)

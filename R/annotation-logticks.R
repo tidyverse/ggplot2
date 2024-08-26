@@ -165,7 +165,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(xticks)[names(xticks) == "value"] <- x_name   # Rename to 'x' for coordinates$transform
       xticks <- coord$transform(xticks, panel_params)
-      xticks = xticks[xticks$x <= 1 & xticks$x >= 0,]
+      xticks <- xticks[xticks$x <= 1 & xticks$x >= 0,]
 
       if (outside)
         xticks$end = -xticks$end
@@ -203,7 +203,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(yticks)[names(yticks) == "value"] <- y_name   # Rename to 'y' for coordinates$transform
       yticks <- coord$transform(yticks, panel_params)
-      yticks = yticks[yticks$y <= 1 & yticks$y >= 0,]
+      yticks <- yticks[yticks$y <= 1 & yticks$y >= 0,]
 
       if (outside)
         yticks$end = -yticks$end
@@ -238,7 +238,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 # - start: on the other axis, start position of the line (usually 0)
 # - end: on the other axis, end position of the line (for example, .1, .2, or .3)
 calc_logticks <- function(base = 10, ticks_per_base = base - 1,
-    minpow = 0, maxpow = minpow + 1, start = 0, shortend = .1, midend = .2, longend = .3) {
+    minpow = 0, maxpow = minpow + 1, start = 0, shortend = 0.1, midend = 0.2, longend = 0.3) {
 
   # Number of blocks of tick marks
   reps <- maxpow - minpow
