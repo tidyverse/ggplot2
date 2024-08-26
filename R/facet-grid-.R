@@ -297,12 +297,21 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       return(data)
     }
 
-    # Compute faceting values and add margins
-    margin_vars <- list(intersect(names(rows), names(data)),
-      intersect(names(cols), names(data)))
-    data <- reshape_add_margins(data, margin_vars, params$margins)
-
+    # Compute faceting values
     facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
+    if (nrow(facet_vals) == nrow(data)) {
+      # Margins are computed on evaluated faceting values (#1864).
+      facet_vals <- reshape_add_margins(
+        # We add an index column to track data recycling
+        vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
+        list(intersect(names(rows), names(facet_vals)),
+             intersect(names(cols), names(facet_vals))),
+        params$margins
+      )
+      # Apply recycling on original data to fit margins
+      data <- vec_slice(data, facet_vals$.index)
+      facet_vals$.index <- NULL
+    }
 
     # If any faceting variables are missing, add them in by
     # duplicating the data
@@ -310,8 +319,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     if (length(missing_facets) > 0) {
       to_add <- unique0(layout[missing_facets])
 
-      data_rep <- rep.int(1:nrow(data), nrow(to_add))
-      facet_rep <- rep(1:nrow(to_add), each = nrow(data))
+      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
+      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
 
       data <- unrowname(data[data_rep, , drop = FALSE])
       facet_vals <- unrowname(vec_cbind(
@@ -380,16 +389,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     table
   },
 
-  attach_strips = function(table, layout, params, theme) {
+  attach_strips = function(self, table, layout, params, theme) {
 
-    col_vars <- unique0(layout[names(params$cols)])
-    row_vars <- unique0(layout[names(params$rows)])
-    attr(col_vars, "type")  <- "cols"
-    attr(row_vars, "type")  <- "rows"
-    attr(col_vars, "facet") <- "grid"
-    attr(row_vars, "facet") <- "grid"
+    strips <- self$format_strip_labels(layout, params)
+    strips <- render_strips(strips$cols, strips$rows, theme = theme)
 
-    strips  <- render_strips(col_vars, row_vars, params$labeller, theme)
     padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
 
     switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
@@ -400,13 +404,13 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       space <- if (!inside_x & table_has_grob(table, "axis-b")) padding
       table <- seam_table(
         table, strips$x$bottom, side = "bottom", name = "strip-b",
-        shift = shift_x, z = 2, clip = "on", spacing = space
+        shift = shift_x, z = 2, clip = "off", spacing = space
       )
     } else {
       space <- if (!inside_x & table_has_grob(table, "axis-t")) padding
       table <- seam_table(
         table, strips$x$top, side = "top", name = "strip-t",
-        shift = shift_x, z = 2, clip = "on", spacing = space
+        shift = shift_x, z = 2, clip = "off", spacing = space
       )
     }
 
@@ -418,13 +422,13 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       space <- if (!inside_y & table_has_grob(table, "axis-l")) padding
       table <- seam_table(
         table, strips$y$left, side = "left", name = "strip-l",
-        shift = shift_y, z = 2, clip = "on", spacing = space
+        shift = shift_y, z = 2, clip = "off", spacing = space
       )
     } else {
       space <- if (!inside_y & table_has_grob(table, "axis-r")) padding
       table <- seam_table(
         table, strips$y$right, side = "right", name = "strip-r",
-        shift = shift_y, z = 2, clip = "on", spacing = space
+        shift = shift_y, z = 2, clip = "off", spacing = space
       )
     }
     table
@@ -432,6 +436,33 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
   vars = function(self) {
     names(c(self$params$rows, self$params$cols))
+  },
+
+  format_strip_labels = function(layout, params) {
+
+    labeller <- match.fun(params$labeller)
+
+    cols <- intersect(names(layout), names(params$cols))
+    if (length(cols) > 0) {
+      col_vars <- unique0(layout[cols])
+      attr(col_vars, "type")  <- "cols"
+      attr(col_vars, "facet") <- "grid"
+      cols <- data_frame0(!!!labeller(col_vars))
+    } else {
+      cols <- NULL
+    }
+
+    rows <- intersect(names(layout), names(params$rows))
+    if (length(rows) > 0) {
+      row_vars <- unique0(layout[rows])
+      attr(row_vars, "type")  <- "rows"
+      attr(row_vars, "facet") <- "grid"
+      rows <- data_frame0(!!!labeller(row_vars))
+    } else {
+      rows <- NULL
+    }
+
+    list(cols = cols, rows = rows)
   }
 )
 

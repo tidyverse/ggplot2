@@ -242,7 +242,7 @@ test_that("sec_axis() respects custom transformations", {
   expect_doppelganger(
     "sec_axis, custom transform",
     ggplot(dat, aes(x = x, y = y)) +
-      geom_line(linewidth = 1, na.rm = T) +
+      geom_line(linewidth = 1, na.rm = TRUE) +
       scale_y_continuous(
         transform =
           magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =
@@ -364,21 +364,21 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
     scale_y_continuous(sec.axis = sec_axis(transform = ~ .^0.5))
   scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
-  expect_equal(breaks$major, sqrt(breaks$sec.major), tolerance = .005)
+  expect_equal(breaks$major, sqrt(breaks$sec.major), tolerance = 0.005)
 
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_x_sqrt(sec.axis = dup_axis())
   scale <- get_panel_scales(p)$x
   breaks <- scale$break_info()
-  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+  expect_equal(breaks$major, breaks$sec.major, tolerance = 0.001)
 
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_x_sqrt(sec.axis = sec_axis(~ . * 100))
   scale <- get_panel_scales(p)$x
   breaks <- scale$break_info()
-  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+  expect_equal(breaks$major, breaks$sec.major, tolerance = 0.001)
 })
 
 test_that("discrete scales can have secondary axes", {
