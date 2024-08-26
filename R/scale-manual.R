@@ -176,7 +176,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
     if (length(breaks) <= length(values)) {
       names(values) <- breaks
     } else {
-      names(values) <- breaks[1:length(values)]
+      names(values) <- breaks[seq_along(values)]
     }
   }
 

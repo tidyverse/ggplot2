@@ -197,7 +197,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
 
   dim <- to_inches(dim) * scale
 
-  if (any(is.na(dim))) {
+  if (anyNA(dim)) {
     if (length(grDevices::dev.list()) == 0) {
       default_dim <- c(7, 7)
     } else {

@@ -172,6 +172,25 @@ test_that("grid: drop = FALSE preserves unused levels", {
   expect_equal(as.character(grid_ab$b), as.character(rep(4:1, 4)))
 })
 
+test_that("wrap: space = 'free_x/y' sets panel sizes", {
+
+  df <- data.frame(x = 1:3)
+  p <- ggplot(df, aes(x, x)) +
+    geom_point() +
+    scale_x_continuous(limits = c(0, NA), expand = c(0, 0)) +
+    scale_y_continuous(limits = c(0, NA), expand = c(0, 0))
+
+  # Test free_x
+  gt <- ggplotGrob(p + facet_wrap(~x, scales = "free_x", space = "free_x"))
+  test <- gt$widths[panel_cols(gt)$l]
+  expect_equal(as.numeric(test), 1:3)
+
+  # Test free_y
+  gt <- ggplotGrob(p + facet_wrap(~x, scales = "free_y", space = "free_y"))
+  test <- gt$heights[panel_rows(gt)$t]
+  expect_equal(as.numeric(test), 1:3)
+})
+
 # Missing behaviour ----------------------------------------------------------
 
 a3 <- data_frame(
@@ -206,6 +225,8 @@ test_that("facet_wrap throws errors at bad layout specs", {
   expect_snapshot_error(facet_wrap(~test, nrow = 1:4))
   expect_snapshot_error(facet_wrap(~test, nrow = -1))
   expect_snapshot_error(facet_wrap(~test, nrow = 1.5))
+
+  expect_snapshot_warning(facet_wrap(~test, nrow = 2, space = "free_x"))
 
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp)) +
