@@ -69,7 +69,7 @@ expand_range4 <- function(limits, expand) {
     cli::cli_abort("{.arg expand} must be a numeric vector with 2 or 4 elements.")
   }
 
-  if (all(!is.finite(limits))) {
+  if (!any(is.finite(limits))) {
     return(c(-Inf, Inf))
   }
 

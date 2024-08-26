@@ -143,14 +143,14 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
 
     # Sort weight and x, by x
     weight <- weight[order(x)]
-    x      <- x[order(x)]
+    x      <- sort(x, na.last = TRUE)
 
     cbin    <- 0                      # Current bin ID
     bin     <- rep.int(NA, length(x)) # The bin ID for each observation
     binend  <- -Inf                   # End position of current bin (scan left to right)
 
     # Scan list and put dots in bins
-    for (i in 1:length(x)) {
+    for (i in seq_along(x)) {
         # If past end of bin, start a new bin at this point
         if (x[i] >= binend) {
             binend <- x[i] + binwidth
