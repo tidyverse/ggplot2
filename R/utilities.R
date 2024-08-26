@@ -24,25 +24,53 @@ scales::alpha
 # @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name, call = caller_env()) {
-  if (is.null(required)) return()
+  if (is.null(required)) {
+    return()
+  }
 
   required <- strsplit(required, "|", fixed = TRUE)
-  if (any(lengths(required) > 1)) {
-    required <- lapply(required, rep_len, 2)
-    required <- list(
-      vapply(required, `[`, character(1), 1),
-      vapply(required, `[`, character(1), 2)
+  n <- lengths(required)
+
+  is_present <- vapply(
+    required,
+    function(req) any(req %in% present),
+    logical(1)
+  )
+  if (all(is_present)) {
+    return()
+  }
+
+  # Deal with paired (bidirectional) aesthetics
+  pairs <- character()
+  missing_pairs <- n == 2
+  if (any(missing_pairs)) {
+    pairs <- lapply(required[missing_pairs], rep_len, 2)
+    pairs <- list(
+      vapply(pairs, `[`, character(1), 1),
+      vapply(pairs, `[`, character(1), 2)
     )
-  } else {
-    required <- list(unlist(required))
+    pairs <- lapply(pairs, setdiff, present)
+    pairs <- vapply(pairs, function(x) {
+      as_cli("{.and {.field {x}}}")
+    }, character(1))
+    pairs <- as_cli("{.or {pairs}}")
   }
-  missing_aes <- lapply(required, setdiff, present)
-  if (any(lengths(missing_aes) == 0)) return()
-  message <- "{.fn {name}} requires the following missing aesthetics: {.field {missing_aes[[1]]}}"
-  if (length(missing_aes) > 1) {
-    message <- paste0(message, " {.strong or} {.field {missing_aes[[2]]}}")
+
+  other <- character()
+  missing_other <- !is_present & n != 2
+  if (any(missing_other)) {
+    other <- lapply(required[missing_other], setdiff, present)
+    other <- vapply(other, function(x) {
+      as_cli("{.or {.field {x}}}")
+    }, character(1))
   }
-  cli::cli_abort(paste0(message, "."), call = call)
+
+  missing <- c(other, pairs)
+
+  cli::cli_abort(
+    "{.fn {name}} requires the following missing aesthetics: {.and {missing}}.",
+    call = call
+  )
 }
 
 # Concatenate a named list for output
@@ -813,4 +841,33 @@ as_unordered_factor <- function(x) {
   x <- as.factor(x)
   class(x) <- setdiff(class(x), "ordered")
   x
+}
+
+# TODO: Replace me if rlang/#1730 gets implemented
+# Similar to `rlang::check_installed()` but returns boolean and misses
+# features such as versions, comparisons and using {pak}.
+prompt_install <- function(pkg, reason = NULL) {
+  if (length(pkg) < 1 || is_installed(pkg)) {
+    return(TRUE)
+  }
+  if (!interactive()) {
+    return(FALSE)
+  }
+
+  pkg <- pkg[!vapply(pkg, is_installed, logical(1))]
+
+  message <- "The {.pkg {pkg}} package{?s} {?is/are} required"
+  if (is.null(reason)) {
+    message <- paste0(message, ".")
+  } else {
+    message <- paste0(message, " ", reason)
+  }
+  question <- "Would you like to install {cli::qty(pkg)}{?it/them}?"
+
+  cli::cli_bullets(c("!" = message, "i" = question))
+  if (utils::menu(c("Yes", "No")) != 1) {
+    return(FALSE)
+  }
+  utils::install.packages(pkg)
+  is_installed(pkg)
 }

@@ -33,14 +33,12 @@ Depends:
     R (>= 3.5)
 Imports: 
     cli,
-    glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),
     isoband,
     lifecycle (> 1.0.1),
     MASS,
-    mgcv,
     rlang (>= 1.1.0),
     scales (>= 1.3.0),
     stats,
@@ -55,6 +53,7 @@ Suggests:
     knitr,
     mapproj,
     maps,
+    mgcv,
     multcomp,
     munsell,
     nlme,
@@ -79,7 +78,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Collate: 
     'ggproto.R'
     'ggplot-global.R'

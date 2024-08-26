@@ -143,16 +143,16 @@ test_that("padding is only added if axis is present", {
       strip.switch.pad.grid = unit(10, "mm")
     )
   pg <- ggplotGrob(p)
-  expect_equal(length(pg$heights), 19)
-  expect_equal(length(pg$widths), 18)
+  expect_length(pg$heights, 19)
+  expect_length(pg$widths, 18)
 
   pg <- ggplotGrob(
     p + scale_x_continuous(position = "top") +
       scale_y_continuous(position = "right")
   )
-  expect_equal(length(pg$heights), 20)
+  expect_length(pg$heights, 20)
   expect_equal(as.character(pg$heights[9]), "1cm")
-  expect_equal(length(pg$widths), 19)
+  expect_length(pg$widths, 19)
   expect_equal(as.character(pg$widths[13]), "1cm")
 
   # Also add padding with negative ticks and no text (#5251)
@@ -160,7 +160,7 @@ test_that("padding is only added if axis is present", {
     p + scale_x_continuous(labels = NULL, position = "top") +
       theme(axis.ticks.length.x.top = unit(-2, "mm"))
   )
-  expect_equal(length(pg$heights), 20)
+  expect_length(pg$heights, 20)
   expect_equal(as.character(pg$heights[9]), "1cm")
 
   # Inverse should be true when strips are switched
@@ -172,17 +172,17 @@ test_that("padding is only added if axis is present", {
     )
 
   pg <- ggplotGrob(p)
-  expect_equal(length(pg$heights), 20)
+  expect_length(pg$heights, 20)
   expect_equal(as.character(pg$heights[13]), "1cm")
-  expect_equal(length(pg$widths), 19)
+  expect_length(pg$widths, 19)
   expect_equal(as.character(pg$widths[7]), "1cm")
 
   pg <- ggplotGrob(
     p + scale_x_continuous(position = "top") +
       scale_y_continuous(position = "right")
   )
-  expect_equal(length(pg$heights), 19)
-  expect_equal(length(pg$widths), 18)
+  expect_length(pg$heights, 19)
+  expect_length(pg$widths, 18)
 })
 
 test_that("y strip labels are rotated when strips are switched", {
@@ -207,5 +207,23 @@ test_that("strip clipping can be set from the theme", {
     theme = theme_test() + theme(strip.clip = "off")
   )
   expect_equal(strip$x$top[[1]]$layout$clip, "off")
+})
+
+test_that("strip labels can be accessed", {
+
+  expect_null(get_strip_labels(ggplot()))
+
+  expect_equal(
+    get_strip_labels(ggplot() + facet_wrap(vars("X", "Y"))),
+    list(facets = data_frame0(`"X"` = "X", `"Y"` = "Y"))
+  )
+
+  expect_equal(
+    get_strip_labels(ggplot() + facet_grid(vars("X"), vars("Y"))),
+    list(
+      cols = data_frame0(`"Y"` = "Y"),
+      rows = data_frame0(`"X"` = "X")
+    )
+  )
 })
 

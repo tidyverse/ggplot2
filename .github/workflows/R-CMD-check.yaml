@@ -10,7 +10,9 @@ on:
   pull_request:
     branches: [main, master]
 
-name: R-CMD-check
+name: R-CMD-check.yaml
+
+permissions: read-all
 
 jobs:
   R-CMD-check:
@@ -25,15 +27,15 @@ jobs:
           - {os: macos-latest,   r: 'release'}
 
           - {os: windows-latest, r: 'release'}
-          # use 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: '4.1'}
+          # use 4.0 or 4.1 to check with rtools40's older compiler
+          - {os: windows-latest, r: 'oldrel-4'}
 
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
-          - {os: ubuntu-latest,   r: 'oldrel-2'}
-          - {os: ubuntu-latest,   r: 'oldrel-3'}
-          - {os: ubuntu-latest,   r: 'oldrel-4'}
+          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,  r: 'release'}
+          - {os: ubuntu-latest,  r: 'oldrel-1'}
+          - {os: ubuntu-latest,  r: 'oldrel-2'}
+          - {os: ubuntu-latest,  r: 'oldrel-3'}
+          - {os: ubuntu-latest,  r: 'oldrel-4'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -46,7 +48,7 @@ jobs:
       VDIFFR_LOG_PATH: "../vdiffr.Rout.fail"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -62,9 +64,10 @@ jobs:
           extra-packages: >
             any::rcmdcheck,
             Hmisc=?ignore-before-r=4.1.0,
-            quantreg=?ignore-before-r=4.3.0,
+            quantreg=?ignore-before-r=4.3.0
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'

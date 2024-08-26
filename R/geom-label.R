@@ -81,7 +81,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
 
     size.unit <- resolve_text_unit(size.unit)
 
-    grobs <- lapply(1:nrow(data), function(i) {
+    grobs <- lapply(seq_len(nrow(data)), function(i) {
       row <- data[i, , drop = FALSE]
       labelGrob(lab[i],
         x = unit(row$x, "native"),
