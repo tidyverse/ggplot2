@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (internal) The summary function of `stat_summary()` and `stat_summary_bin()` 
+  is setup once in total instead of once per group (@teunbrand, #5971)
 * `stat_bin()` now accepts functions for argument `breaks` (@aijordan, #4561)
 * (internal) The plot's layout now has a coord parameter that is used to 
   prevent setting up identical panel parameters (#5427)
