@@ -11,6 +11,8 @@
 #'   legend titles, the plot title and tag text.
 #' @param base_line_size base size for line elements
 #' @param base_rect_size base size for rect elements
+#' @param ink colour for foreground elements
+#' @param paper colour for background elements
 #'
 #' @details
 #' \describe{
