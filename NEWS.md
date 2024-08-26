@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
 * New `reset_geom_defaults()` and `reset_stat_defaults()` to restore all geom or
   stat default aesthetics at once (@teunbrand, #5975).
 * `facet_wrap()` can have `space = "free_x"` with 1-row layouts and 
