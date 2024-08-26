@@ -212,7 +212,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = NA),
-    strip.clip =         "inherit",
+    strip.clip =         "on",
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),
@@ -460,10 +460,12 @@ theme_classic <- function(base_size = 11, base_family = "",
       panel.grid.minor = element_blank(),
 
       # show axes
-      axis.line      = element_line(colour = "black", linewidth = rel(1)),
+      axis.text  = element_text(size = rel(0.8)),
+      axis.line  = element_line(lineend = "square"),
+      axis.ticks = element_line(),
 
       # simple, black and white strips
-      strip.background = element_rect(fill = "white", colour = "black", linewidth = rel(2)),
+      strip.background = element_rect(linewidth = rel(2)),
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
 
       complete = TRUE
@@ -511,7 +513,7 @@ theme_void <- function(base_size = 11, base_family = "",
     legend.box.margin =  rel(0),
     legend.box.spacing = unit(0.2, "cm"),
     legend.ticks.length = rel(0.2),
-    strip.clip =         "inherit",
+    strip.clip =         "on",
     strip.text =         element_text(size = rel(0.8)),
     strip.switch.pad.grid = rel(0.5),
     strip.switch.pad.wrap = rel(0.5),
@@ -643,7 +645,7 @@ theme_test <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = "grey20"),
-    strip.clip =         "inherit",
+    strip.clip =         "on",
     strip.text =         element_text(
                            colour = "grey10",
                            size = rel(0.8),

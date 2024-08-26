@@ -487,7 +487,7 @@ Guide <- ggproto(
 
 # Helper function that may facilitate flipping theme elements by
 # swapping x/y related arguments to `element_grob()`
-flip_element_grob = function(..., flip = FALSE) {
+flip_element_grob <- function(..., flip = FALSE) {
   if (!flip) {
     ans <- element_grob(...)
     return(ans)
@@ -499,7 +499,7 @@ flip_element_grob = function(..., flip = FALSE) {
 }
 
 # The flippable arguments for `flip_element_grob()`.
-flip_names = c(
+flip_names <- c(
   "x"        = "y",
   "y"        = "x",
   "width"    = "height",

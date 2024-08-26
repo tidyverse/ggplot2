@@ -631,7 +631,7 @@ keep_key_data <- function(key, data, aes, show) {
   if (isTRUE(any(show)) || length(show) == 0) {
     return(TRUE)
   }
-  if (isTRUE(all(!show))) {
+  if (isTRUE(!any(show))) {
     return(FALSE)
   }
   # Second, we go find if the value is actually present in the data.

@@ -41,7 +41,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(), theme = NULL
   # Check available aesthetics
   available <- lapply(axes, `[[`, name = "available_aes")
   available <- vapply(available, function(x) all(c("x", "y") %in% x), logical(1))
-  if (all(!available)) {
+  if (!any(available)) {
     cli::cli_abort(paste0(
       "{.fn guide_axis_stack} can only use guides that handle {.field x} and ",
       "{.field y} aesthetics."
@@ -49,7 +49,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(), theme = NULL
   }
 
   # Remove guides that don't support x/y aesthetics
-  if (any(!available)) {
+  if (!all(available)) {
     remove  <- which(!available)
     removed <- vapply(axes[remove], snake_class, character(1))
     axes[remove] <- NULL

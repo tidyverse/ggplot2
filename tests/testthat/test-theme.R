@@ -412,7 +412,7 @@ test_that("current theme can be updated with new elements", {
   )
 
   # theme calculation for nonexisting element returns NULL
-  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
+  expect_null(calc_element("abcde", plot_theme(b1)))
 
   # element tree gets merged properly
   register_theme_elements(
@@ -730,12 +730,12 @@ test_that("axes ticks can have independent lengths", {
     scale_x_continuous(sec.axis = dup_axis()) +
     scale_y_continuous(sec.axis = dup_axis()) +
     theme(
-      axis.ticks.length.x.top = unit(-.5, "cm"),
-      axis.ticks.length.x.bottom = unit(-.25, "cm"),
-      axis.ticks.length.y.left = unit(.25, "cm"),
-      axis.ticks.length.y.right = unit(.5, "cm"),
-      axis.text.x.bottom = element_text(margin = margin(t = .25, unit = "cm")),
-      axis.text.x.top = element_text(margin = margin(b = .25, unit = "cm"))
+      axis.ticks.length.x.top = unit(-0.5, "cm"),
+      axis.ticks.length.x.bottom = unit(-0.25, "cm"),
+      axis.ticks.length.y.left = unit(0.25, "cm"),
+      axis.ticks.length.y.right = unit(0.5, "cm"),
+      axis.text.x.bottom = element_text(margin = margin(t = 0.25, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = 0.25, unit = "cm"))
     )
   expect_doppelganger("ticks_length", plot)
 })
