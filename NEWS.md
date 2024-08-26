@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `facet_wrap()` can have `space = "free_x"` with 1-row layouts and 
+  `space = "free_y"` with 1-column layouts (@teunbrand)
 * Secondary axes respect `n.breaks` setting in continuous scales (@teunbrand, #4483).
 * Layers can have names (@teunbrand, #4066).
 * (internal) improvements to `pal_qualitative()` (@teunbrand, #5013)
