@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Passing empty unmapped aesthetics to layers raises a warning instead of
+  throwing an error (@teunbrand, #6009).
 * Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
 * New `reset_geom_defaults()` and `reset_stat_defaults()` to restore all geom or
   stat default aesthetics at once (@teunbrand, #5975).
