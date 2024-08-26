@@ -242,7 +242,7 @@ test_that("sec_axis() respects custom transformations", {
   expect_doppelganger(
     "sec_axis, custom transform",
     ggplot(dat, aes(x = x, y = y)) +
-      geom_line(linewidth = 1, na.rm = T) +
+      geom_line(linewidth = 1, na.rm = TRUE) +
       scale_y_continuous(
         transform =
           magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =
@@ -364,21 +364,21 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
     scale_y_continuous(sec.axis = sec_axis(transform = ~ .^0.5))
   scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
-  expect_equal(breaks$major, sqrt(breaks$sec.major), tolerance = .005)
+  expect_equal(breaks$major, sqrt(breaks$sec.major), tolerance = 0.005)
 
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_x_sqrt(sec.axis = dup_axis())
   scale <- get_panel_scales(p)$x
   breaks <- scale$break_info()
-  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+  expect_equal(breaks$major, breaks$sec.major, tolerance = 0.001)
 
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_x_sqrt(sec.axis = sec_axis(~ . * 100))
   scale <- get_panel_scales(p)$x
   breaks <- scale$break_info()
-  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+  expect_equal(breaks$major, breaks$sec.major, tolerance = 0.001)
 })
 
 test_that("discrete scales can have secondary axes", {
@@ -399,4 +399,23 @@ test_that("discrete scales can have secondary axes", {
   y <- get_guide_data(b, "y.sec")
   expect_equal(y$.value, c(1.5, 2.5), ignore_attr = TRUE)
   expect_equal(y$.label, c("grault", "garply"))
+})
+
+test_that("n.breaks is respected by secondary axes (#4483)", {
+
+  b <- ggplot_build(
+    ggplot(data.frame(x = c(0, 10)), aes(x, x)) +
+      scale_y_continuous(
+        n.breaks = 11,
+        sec.axis = sec_axis(~.x*100)
+      )
+  )
+
+  # We get scale breaks via guide data
+  prim <- get_guide_data(b, "y")
+  sec  <- get_guide_data(b, "y.sec")
+
+  expect_equal(prim$.value, sec$.value) # .value is in primary scale
+  expect_equal(prim$.label, as.character(seq(0, 10, length.out = 11)))
+  expect_equal(sec$.label,  as.character(seq(0, 1000, length.out = 11)))
 })

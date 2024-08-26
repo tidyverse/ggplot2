@@ -2,14 +2,14 @@ test_that("finite_cases.data.frame", {
   finite_cases <- function(x) cases(x, is_finite)
 
   # All finite --------------------------------------------------------------
-  expect_identical(finite_cases(data_frame(x = 4)),              TRUE)          # 1x1
-  expect_identical(finite_cases(data_frame(x = 4, y = 11)),      TRUE)          # 1x2
+  expect_true(finite_cases(data_frame(x = 4)))          # 1x1
+  expect_true(finite_cases(data_frame(x = 4, y = 11)))          # 1x2
   expect_identical(finite_cases(data_frame(x = 4:5)),            c(TRUE, TRUE)) # 2x1
   expect_identical(finite_cases(data_frame(x = 4:5, y = 11:12)), c(TRUE, TRUE)) # 2x2
 
   # Has one NA --------------------------------------------------------------
-  expect_identical(finite_cases(data_frame(x = NA)),                      FALSE)           # 1x1
-  expect_identical(finite_cases(data_frame(x = 4, y = NA)),               FALSE)           # 1x2
+  expect_false(finite_cases(data_frame(x = NA)))           # 1x1
+  expect_false(finite_cases(data_frame(x = 4, y = NA)))           # 1x2
   expect_identical(finite_cases(data_frame(x = c(4, NA))),                c(TRUE,  FALSE)) # 2x1
   expect_identical(finite_cases(data_frame(x = c(4, NA), y = c(11, NA))), c(TRUE,  FALSE)) # 2x2
   expect_identical(finite_cases(data_frame(x = c(4, NA), y = c(NA, 12))), c(FALSE, FALSE)) # 2x2
@@ -17,7 +17,7 @@ test_that("finite_cases.data.frame", {
 
   # Testing NaN and Inf, using miscellaneous data shapes --------------------
   expect_identical(finite_cases(data_frame(x = c(4, NaN))),                c(TRUE, FALSE))
-  expect_identical(finite_cases(data_frame(x = Inf)),                      FALSE)
+  expect_false(finite_cases(data_frame(x = Inf)))
   expect_identical(finite_cases(data_frame(x = c(4, 5), y = c(-Inf, 12))), c(FALSE, TRUE))
 })
 
@@ -87,7 +87,7 @@ test_that("parse_safe works with multi expressions", {
 })
 
 test_that("x and y aesthetics have the same length", {
-  expect_equal(length(ggplot_global$x_aes), length(ggplot_global$y_aes))
+  expect_length(ggplot_global$x_aes, length(ggplot_global$y_aes))
 })
 
 test_that("check_required_aesthetics() errors on missing", {
@@ -189,8 +189,8 @@ test_that("expose/ignore_data() can round-trip a data.frame", {
   # data.frame with ignored columns
   df <- data_frame0(a = 1:3, b = I(4:6), c = LETTERS[1:3], d = I(LETTERS[4:6]))
   test <- .ignore_data(df)[[1]]
-  expect_equal(names(test), c("a", "c", ".ignored"))
-  expect_equal(names(test$.ignored), c("b", "d"))
+  expect_named(test, c("a", "c", ".ignored"))
+  expect_named(test$.ignored, c("b", "d"))
 
   test <- .expose_data(test)[[1]]
   expect_equal(test, df[, c("a", "c", "b", "d")])

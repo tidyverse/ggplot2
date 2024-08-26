@@ -6,7 +6,7 @@ test_that("names surrounded by .. is calculated", {
   expect_equal(is_calculated_aes(aes(..x.., ..x, x..)), c(TRUE, FALSE, FALSE))
 
   # even when nested
-  expect_equal(is_calculated_aes(aes(f(..x..))), TRUE)
+  expect_true(is_calculated_aes(aes(f(..x..))))
 })
 
 test_that("call to stat() is calculated", {

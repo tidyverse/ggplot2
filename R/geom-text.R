@@ -49,7 +49,7 @@
 #'   can be used in various ways, including to prevent overplotting and
 #'   improving the display. The `position` argument accepts the following:
 #'   * The result of calling a position function, such as `position_jitter()`.
-#'   * A string nameing the position adjustment. To give the position as a
+#'   * A string naming the position adjustment. To give the position as a
 #'     string, strip the function name of the `position_` prefix. For example,
 #'     to use `position_jitter()`, give the position as `"jitter"`.
 #'   * For more information and other ways to specify the position, see the
@@ -98,10 +98,11 @@
 #'   scale_colour_discrete(l = 40)
 #' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
-#' p + geom_text(aes(size = wt))
+#' # Scale size of text, and change legend key glyph from a to point
+#' p + geom_text(aes(size = wt), key_glyph = "point")
 #' # Scale height of text, rather than sqrt(height)
 #' p +
-#'   geom_text(aes(size = wt)) +
+#'   geom_text(aes(size = wt), key_glyph = "point") +
 #'   scale_radius(range = c(3,6))
 #'
 #' # You can display expressions by setting parse = TRUE.  The

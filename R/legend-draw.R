@@ -207,7 +207,7 @@ draw_key_vpath <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_dotplot <- function(data, params, size) {
-  pointsGrob(0.5, 0.5, size = unit(.5, "npc"),
+  pointsGrob(0.5, 0.5, size = unit(0.5, "npc"),
     pch = 21,
     gp = gg_par(
       col = alpha(data$colour %||% "black", data$alpha),
