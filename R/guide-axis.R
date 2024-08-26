@@ -424,6 +424,7 @@ GuideAxis <- ggproto(
     # Unlist the 'label' grobs
     z <- if (params$position == "left") c(2, 1, 3) else 1:3
     z <- rep(z, c(1, length(grobs$labels), 1))
+    has_labels <- !is.zero(grobs$labels[[1]])
     grobs  <- c(list(grobs$ticks), grobs$labels, list(grobs$title))
 
     # Initialise empty gtable
@@ -445,9 +446,24 @@ GuideAxis <- ggproto(
     vp <- exec(
       viewport,
       !!params$orth_aes := unit(params$orth_side, "npc"),
-      !!params$orth_size := params$measure_gtable(gt),
+      !!params$orth_size := max(params$measure_gtable(gt), unit(1, "npc")),
       just = params$opposite
     )
+
+    # Add null-unit padding to justify based on eventual gtable cell shape
+    # rather than dimensions of this axis alone.
+    if (has_labels && params$position %in% c("left", "right")) {
+      where <- layout$l[-c(1, length(layout$l))]
+      just <- with(elements$text, rotate_just(angle, hjust, vjust))$hjust %||% 0.5
+      gt <- gtable_add_cols(gt, unit(just, "null"), pos = min(where) - 1)
+      gt <- gtable_add_cols(gt, unit(1 - just, "null"), pos = max(where) + 1)
+    }
+    if (has_labels && params$position %in% c("top", "bottom")) {
+      where <- layout$t[-c(1, length(layout$t))]
+      just <- with(elements$text, rotate_just(angle, hjust, vjust))$vjust %||% 0.5
+      gt <- gtable_add_rows(gt, unit(1 - just, "null"), pos = min(where) - 1)
+      gt <- gtable_add_rows(gt, unit(just, "null"), pos = max(where) + 1)
+    }
 
     # Assemble with axis line
     absoluteGrob(
@@ -592,23 +608,23 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   if (axis_position == "bottom") {
 
-    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+    hjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+    vjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
 
   } else if (axis_position == "left") {
 
-    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
-    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+    hjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+    vjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
 
   } else if (axis_position == "top") {
 
-    hjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
-    vjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+    hjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
+    vjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
 
   } else if (axis_position == "right") {
 
-    hjust = if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
-    vjust = if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
+    hjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
+    vjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
 
   }
 

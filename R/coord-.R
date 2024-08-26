@@ -196,6 +196,11 @@ Coord <- ggproto("Coord",
   },
 
   setup_layout = function(layout, params) {
+    # We're appending a COORD variable to the layout that determines the
+    # uniqueness of panel parameters. The layout uses this to prevent redundant
+    # setups of these parameters.
+    scales <- layout[c("SCALE_X", "SCALE_Y")]
+    layout$COORD <- vec_match(scales, unique0(scales))
     layout
   },
 
@@ -203,6 +208,20 @@ Coord <- ggproto("Coord",
   # used as a fudge for CoordFlip and CoordPolar
   modify_scales = function(scales_x, scales_y) {
     invisible()
+  },
+
+  draw_panel = function(self, panel, params, theme) {
+    fg <- self$render_fg(params, theme)
+    bg <- self$render_bg(params, theme)
+    if (isTRUE(theme$panel.ontop)) {
+      panel <- list2(!!!panel, bg, fg)
+    } else {
+      panel <- list2(bg, !!!panel, fg)
+    }
+    gTree(
+      children = inject(gList(!!!panel)),
+      vp = viewport(clip = self$clip)
+    )
   }
 )
 

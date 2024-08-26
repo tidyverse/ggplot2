@@ -116,7 +116,7 @@ limits.numeric <- function(lims, var, call = caller_env()) {
   if (length(lims) != 2) {
     cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
   }
-  if (!any(is.na(lims)) && lims[1] > lims[2]) {
+  if (!anyNA(lims) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
     trans <- "identity"

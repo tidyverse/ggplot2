@@ -137,7 +137,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$sec.labels <- out$sec.labels
     }
 
-    details = list(
+    details <- list(
       x.range = ret$x$range, y.range = ret$y$range,
       x.major = ret$x$major, y.major = ret$y$major,
       x.minor = ret$x$minor, y.minor = ret$y$minor,

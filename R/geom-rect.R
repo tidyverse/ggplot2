@@ -31,7 +31,39 @@ GeomRect <- ggproto("GeomRect", Geom,
   default_aes = aes(colour = NA, fill = "grey35", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
-  required_aes = c("xmin", "xmax", "ymin", "ymax"),
+  required_aes = c("x|width|xmin|xmax", "y|height|ymin|ymax"),
+
+  setup_data = function(self, data, params) {
+    if (all(c("xmin", "xmax", "ymin", "ymax") %in% names(data))) {
+      return(data)
+    }
+
+    # Fill in missing aesthetics from parameters
+    required <- strsplit(self$required_aes, "|", fixed = TRUE)
+    missing  <- setdiff(unlist(required), names(data))
+    default <- params[intersect(missing, names(params))]
+    data[names(default)] <- default
+
+    if (is.null(data$xmin) || is.null(data$xmax)) {
+      x <- resolve_rect(
+        data[["xmin"]], data[["xmax"]],
+        data[["x"]], data[["width"]],
+        fun = snake_class(self), type = "x"
+      )
+      i <- lengths(x) > 1
+      data[c("xmin", "xmax")[i]] <- x[i]
+    }
+    if (is.null(data$ymin) || is.null(data$ymax)) {
+      y <- resolve_rect(
+        data[["ymin"]], data[["ymax"]],
+        data[["y"]], data[["height"]],
+        fun = snake_class(self), type = "y"
+      )
+      i <- lengths(y) > 1
+      data[c("ymin", "ymax")[i]] <- y[i]
+    }
+    data
+  },
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
     data <- check_linewidth(data, snake_class(self))
@@ -73,3 +105,41 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   rename_size = TRUE
 )
+
+resolve_rect <- function(min = NULL, max = NULL, center = NULL, length = NULL,
+                         fun, type) {
+  absent <- c(is.null(min), is.null(max), is.null(center), is.null(length))
+  if (sum(absent) > 2) {
+    missing <- switch(
+      type,
+      x = c("xmin", "xmax", "x", "width"),
+      y = c("ymin", "ymax", "y", "height")
+    )
+    cli::cli_abort(c(
+      "{.fn {fun}} requires two of the following aesthetics: \\
+      {.or {.field {missing}}}.",
+      i = "Currently, {.field {missing[!absent]}} is present."
+    ))
+  }
+
+  if (absent[1] && absent[2]) {
+    min <- center - 0.5 * length
+    max <- center + 0.5 * length
+    return(list(min = min, max = max))
+  }
+  if (absent[1]) {
+    if (is.null(center)) {
+      min <- max - length
+    } else {
+      min <- max - 2 * (max - center)
+    }
+  }
+  if (absent[2]) {
+    if (is.null(center)) {
+      max <- min + length
+    } else {
+      max <- min + 2 * (center - min)
+    }
+  }
+  list(min = min, max = max)
+}
