@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Layers can have names (@teunbrand, #4066).
 * (internal) improvements to `pal_qualitative()` (@teunbrand, #5013)
 * `coord_radial(clip = "on")` clips to the panel area when the graphics device
   supports clipping paths (@teunbrand, #5952).
