@@ -83,6 +83,7 @@ displays are roughly rectangular.</p>
 <span>  nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  shrink <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  labeller <span class="op">=</span> <span class="st">"label_value"</span>,</span>
 <span>  as.table <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -116,6 +117,15 @@ or a character vector, <code>c("a", "b")</code>.</p></dd>
 <dd><p>Should scales be fixed (<code>"fixed"</code>, the default),
 free (<code>"free"</code>), or free in one dimension (<code>"free_x"</code>,
 <code>"free_y"</code>)?</p></dd>
+
+
+<dt id="arg-space">space<a class="anchor" aria-label="anchor" href="#arg-space"></a></dt>
+<dd><p>If <code>"fixed"</code> (default), all panels have the same size and
+the number of rows and columns in the layout can be arbitrary. If
+<code>"free_x"</code>, panels have widths proportional to the length of the x-scale,
+but the layout is constrained to one row. If <code>"free_y"</code>, panels have
+heights proportional to the length of the y-scale, but the layout is
+constrained to one column.</p></dd>
 
 
 <dt id="arg-shrink">shrink<a class="anchor" aria-label="anchor" href="#arg-shrink"></a></dt>
