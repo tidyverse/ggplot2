@@ -178,8 +178,8 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
   default_aes = aes(
     colour = NA,
     fill = from_theme(col_mix(ink, paper, 0.2)),
-    linewidth = from_theme(thin),
-    linetype = from_theme(linetype),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
     alpha = NA, subgroup = NULL
   ),
 

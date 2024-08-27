@@ -330,8 +330,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   default_aes = aes(
     weight = 1, colour = from_theme(col_mix(ink, paper, 0.2)),
     fill = from_theme(paper), size = from_theme(pointsize),
-    alpha = NA, shape = from_theme(pointshape), linetype = from_theme(linetype),
-    linewidth = from_theme(thin)
+    alpha = NA, shape = from_theme(pointshape), linetype = from_theme(bordertype),
+    linewidth = from_theme(borderwidth)
   ),
 
   required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),

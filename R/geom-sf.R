@@ -173,7 +173,7 @@ GeomSf <- ggproto("GeomSf", Geom,
       aes(
         fill   = from_theme(col_mix(ink, paper, 0.9)),
         colour = from_theme(col_mix(ink, paper, 0.35)),
-        linewidth = 0.2
+        linewidth = from_theme(0.4 * borderwidth)
       )
     )
     if (length(index$other) > 0) {

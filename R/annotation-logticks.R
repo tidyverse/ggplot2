@@ -230,7 +230,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
   default_aes = aes(
     colour = from_theme(ink),
-    linewidth = from_theme(thin),
+    linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
     alpha = 1
   )

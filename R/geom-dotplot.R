@@ -192,7 +192,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     colour = from_theme(ink),
     fill = from_theme(ink),
     alpha = NA,
-    stroke = 1,
+    stroke = from_theme(borderwidth * 2),
     linetype = from_theme(linetype),
     weight = 1
   ),

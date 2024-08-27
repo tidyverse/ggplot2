@@ -201,8 +201,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     weight = 1,
     colour = from_theme(col_mix(ink, paper, 0.2)),
     fill = from_theme(paper),
-    linewidth = from_theme(thin),
-    linetype = from_theme(linetype),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
     alpha = NA
   ),
 
