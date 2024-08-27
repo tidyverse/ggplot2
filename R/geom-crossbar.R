@@ -40,8 +40,13 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
     GeomErrorbar$setup_data(data, params)
   },
 
-  default_aes = aes(colour = "black", fill = NA, linewidth = 0.5, linetype = 1,
-    alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    fill = NA,
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA
+  ),
 
   required_aes = c("x", "y", "ymin|xmin", "ymax|xmax"),
 

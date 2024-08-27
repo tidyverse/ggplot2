@@ -11,7 +11,7 @@ test_that("spatial polygons have correct ordering", {
         y - dely,y - dely,y + dely,y + dely,y - dely), ncol = 2))
   }
 
-  make_hole <- function(x = 0, y = 0, height = .5, width = .5){
+  make_hole <- function(x = 0, y = 0, height = 0.5, width = 0.5){
     p <- make_square(x = x, y = y, height = height, width = width)
     p@hole <- TRUE
     p

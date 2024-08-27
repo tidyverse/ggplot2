@@ -181,7 +181,7 @@ Guides <- ggproto(
     if (is.character(index)) {
       index <- match(index, self$aesthetics)
     }
-    if (any(is.na(index)) || length(index) == 0) {
+    if (anyNA(index) || length(index) == 0) {
       return(NULL)
     }
     if (length(index) == 1) {
@@ -196,7 +196,7 @@ Guides <- ggproto(
     if (is.character(index)) {
       index <- match(index, self$aesthetics)
     }
-    if (any(is.na(index)) || length(index) == 0) {
+    if (anyNA(index) || length(index) == 0) {
       return(NULL)
     }
     if (length(index) == 1) {
@@ -272,7 +272,7 @@ Guides <- ggproto(
   #
   # The resulting guide is then drawn in ggplot_gtable
 
-  build = function(self, scales, layers, labels, layer_data) {
+  build = function(self, scales, layers, labels, layer_data, theme) {
 
     # Empty guides list
     custom <- self$get_custom()
@@ -299,7 +299,7 @@ Guides <- ggproto(
 
     # Merge and process layers
     guides$merge()
-    guides$process_layers(layers, layer_data)
+    guides$process_layers(layers, layer_data, theme)
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
@@ -442,9 +442,9 @@ Guides <- ggproto(
   },
 
   # Loop over guides to let them extract information from layers
-  process_layers = function(self, layers, data = NULL) {
+  process_layers = function(self, layers, data = NULL, theme = NULL) {
     self$params <- Map(
-      function(guide, param) guide$process_layers(param, layers, data),
+      function(guide, param) guide$process_layers(param, layers, data, theme),
       guide = self$guides,
       param = self$params
     )

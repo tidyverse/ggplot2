@@ -63,11 +63,10 @@ FacetNull <- ggproto("FacetNull", Facet,
     grob_widths <- unit.c(grobWidth(axis_v$left), unit(1, "null"), grobWidth(axis_v$right))
     grob_heights <- unit.c(grobHeight(axis_h$top), unit(abs(aspect_ratio), "null"), grobHeight(axis_h$bottom))
     grob_names <- c("spacer", "axis-l", "spacer", "axis-t", "panel", "axis-b", "spacer", "axis-r", "spacer")
-    grob_clip <- c("off", "off", "off", "off", coord$clip, "off", "off", "off", "off")
 
     layout <- gtable_matrix("layout", all,
       widths = grob_widths, heights = grob_heights,
-      respect = respect, clip = grob_clip,
+      respect = respect, clip = "off",
       z = z_matrix
     )
     layout$layout$name <- grob_names

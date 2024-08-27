@@ -114,7 +114,8 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list(), modifiers = aes(), default_aes = NULL, ...) {
+  use_defaults = function(self, data, params = list(), modifiers = aes(),
+                          default_aes = NULL, theme = NULL, ...) {
     default_aes <- default_aes %||% self$default_aes
 
     # Inherit size as linewidth if no linewidth aesthetic and param exist
@@ -131,8 +132,11 @@ Geom <- ggproto("Geom",
 
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(default_aes), names(data))
+    default_aes <- default_aes[missing_aes]
+    themed_defaults <- eval_from_theme(default_aes, theme)
+    default_aes[names(themed_defaults)] <- themed_defaults
 
-    missing_eval <- lapply(default_aes[missing_aes], eval_tidy)
+    missing_eval <- lapply(default_aes, eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 
@@ -140,6 +144,13 @@ Geom <- ggproto("Geom",
       data <- as_gg_data_frame(missing_eval)
     } else {
       data[names(missing_eval)] <- missing_eval
+    }
+
+    themed <- is_themed_aes(modifiers)
+    if (any(themed)) {
+      themed <- eval_from_theme(modifiers[themed], theme)
+      modifiers <- modifiers[setdiff(names(modifiers), names(themed))]
+      data[names(themed)] <- themed
     }
 
     # If any after_scale mappings are detected they will be resolved here
@@ -225,6 +236,15 @@ Geom <- ggproto("Geom",
 
 )
 
+
+eval_from_theme <- function(aesthetics, theme) {
+  themed <- is_themed_aes(aesthetics)
+  if (!any(themed)) {
+    return(aesthetics)
+  }
+  settings <- calc_element("geom", theme) %||% .default_geom_element
+  lapply(aesthetics[themed], eval_tidy, data = settings)
+}
 
 #' Graphical units
 #'

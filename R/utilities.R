@@ -327,10 +327,6 @@ with_seed_null <- function(seed, code) {
   }
 }
 
-# Needed to trigger package loading
-#' @importFrom tibble tibble
-NULL
-
 # Wrapping vctrs data_frame constructor with no name repair
 data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
@@ -779,4 +775,51 @@ as_unordered_factor <- function(x) {
   x <- as.factor(x)
   class(x) <- setdiff(class(x), "ordered")
   x
+}
+
+# Shim for scales/#424
+col_mix <- function(a, b, amount = 0.5) {
+  input <- vec_recycle_common(a = a, b = b, amount = amount)
+  a <- grDevices::col2rgb(input$a, TRUE)
+  b <- grDevices::col2rgb(input$b, TRUE)
+  new <- (a * (1 - input$amount) + b * input$amount)
+  grDevices::rgb(
+    new["red", ], new["green", ], new["blue", ],
+    alpha = new["alpha", ], maxColorValue = 255
+  )
+}
+
+on_load({
+  if ("col_mix" %in% getNamespaceExports("scales")) {
+    col_mix <- scales::col_mix
+  }
+})
+
+# TODO: Replace me if rlang/#1730 gets implemented
+# Similar to `rlang::check_installed()` but returns boolean and misses
+# features such as versions, comparisons and using {pak}.
+prompt_install <- function(pkg, reason = NULL) {
+  if (length(pkg) < 1 || is_installed(pkg)) {
+    return(TRUE)
+  }
+  if (!interactive()) {
+    return(FALSE)
+  }
+
+  pkg <- pkg[!vapply(pkg, is_installed, logical(1))]
+
+  message <- "The {.pkg {pkg}} package{?s} {?is/are} required"
+  if (is.null(reason)) {
+    message <- paste0(message, ".")
+  } else {
+    message <- paste0(message, " ", reason)
+  }
+  question <- "Would you like to install {cli::qty(pkg)}{?it/them}?"
+
+  cli::cli_bullets(c("!" = message, "i" = question))
+  if (utils::menu(c("Yes", "No")) != 1) {
+    return(FALSE)
+  }
+  utils::install.packages(pkg)
+  is_installed(pkg)
 }

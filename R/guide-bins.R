@@ -326,7 +326,7 @@ GuideBins <- ggproto(
   }
 )
 
-parse_binned_breaks = function(scale, breaks = scale$get_breaks()) {
+parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
 
   breaks <- breaks[!is.na(breaks)]
   if (length(breaks) == 0) {

@@ -1,5 +1,33 @@
 # ggplot2 (development version)
 
+* (Breaking) The defaults for all geoms can be set at one in the theme. 
+  (@teunbrand based on pioneering work by @dpseidel, #2239)
+    * A new `theme(geom)` argument is used to track these defaults.
+    * The `element_geom()` function can be used to populate that argument.
+    * The `from_theme()` function allows access to the theme default fields from
+      inside the `aes()` function.
+* Passing empty unmapped aesthetics to layers raises a warning instead of
+  throwing an error (@teunbrand, #6009).
+* Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
+* New `reset_geom_defaults()` and `reset_stat_defaults()` to restore all geom or
+  stat default aesthetics at once (@teunbrand, #5975).
+* `facet_wrap()` can have `space = "free_x"` with 1-row layouts and 
+  `space = "free_y"` with 1-column layouts (@teunbrand)
+* Secondary axes respect `n.breaks` setting in continuous scales (@teunbrand, #4483).
+* Layers can have names (@teunbrand, #4066).
+* (internal) improvements to `pal_qualitative()` (@teunbrand, #5013)
+* `coord_radial(clip = "on")` clips to the panel area when the graphics device
+  supports clipping paths (@teunbrand, #5952).
+* (internal) Panel clipping responsibility moved from Facet class to Coord 
+  class through new `Coord$draw_panel()` method.
+* `theme(strip.clip)` now defaults to `"on"` and is independent of Coord 
+  clipping (@teunbrand, 5952).
+* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
+* Axis labels are now justified across facet panels (@teunbrand, #5820)
+* Fixed bug in `stat_function()` so x-axis title now produced automatically 
+  when no data added. (@phispu, #5647).
+* geom_sf now accepts shape names (@sierrajohnson, #5808)
+* Added `gg` class to `labs()` (@phispu, #5553).
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
@@ -133,6 +161,13 @@
   (@teunbrand, #5938, #4327).
 * Fixed bug where empty discrete scales weren't recognised as such 
   (@teunbrand, #5945).
+* (internal) The summary function of `stat_summary()` and `stat_summary_bin()` 
+  is setup once in total instead of once per group (@teunbrand, #5971)
+* `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
+  (@teunbrand, #4584).
+* `theme_classic()` now has black ticks and text instead of dark gray. In 
+  addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
+* {tibble} is now suggested instead of imported (@teunbrand, #5986)
 
 # ggplot2 3.5.1
 

@@ -30,23 +30,23 @@ test_that("geom_sf() determines the legend type automatically", {
   }
 
   # test the automatic choice
-  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "line")
 
-  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "other")
 
   # test that automatic choice can be overridden manually
-  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 })
 

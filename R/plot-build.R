@@ -100,11 +100,14 @@ ggplot_build.ggplot <- function(plot) {
   # Hand off position guides to layout
   layout$setup_panel_guides(plot$guides, plot$layers)
 
+  # Complete the plot's theme
+  plot$theme <- plot_theme(plot)
+
   # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
-    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
+    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data, plot$theme)
     data <- lapply(data, npscales$map_df)
   } else {
     # Only keep custom guides if there are no non-position scales
@@ -113,7 +116,10 @@ ggplot_build.ggplot <- function(plot) {
   data <- .expose_data(data)
 
   # Fill in defaults etc.
-  data <- by_layer(function(l, d) l$compute_geom_2(d), layers, data, "setting up geom aesthetics")
+  data <- by_layer(
+    function(l, d) l$compute_geom_2(d, theme = plot$theme),
+    layers, data, "setting up geom aesthetics"
+  )
 
   # Let layer stat have a final say before rendering
   data <- by_layer(function(l, d) l$finish_statistics(d), layers, data, "finishing layer stat")
@@ -199,7 +205,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot <- data$plot
   layout <- data$layout
   data <- data$data
-  theme <- plot_theme(plot)
+  theme <- plot$theme
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
 
@@ -250,18 +256,18 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
   if (title_pos == "panel") {
-    title_l = min(pans$l)
-    title_r = max(pans$r)
+    title_l <- min(pans$l)
+    title_r <- max(pans$r)
   } else {
-    title_l = 1
-    title_r = ncol(plot_table)
+    title_l <- 1
+    title_r <- ncol(plot_table)
   }
   if (caption_pos == "panel") {
-    caption_l = min(pans$l)
-    caption_r = max(pans$r)
+    caption_l <- min(pans$l)
+    caption_r <- max(pans$r)
   } else {
-    caption_l = 1
-    caption_r = ncol(plot_table)
+    caption_l <- 1
+    caption_r <- ncol(plot_table)
   }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
