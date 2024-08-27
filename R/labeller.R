@@ -228,6 +228,8 @@ label_wrap_gen <- function(width = 25, multi_line = TRUE) {
   structure(fun, class = "labeller")
 }
 
+is_labeller <- function(x) inherits(x, "labeller")
+
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
     cli::cli_abort("Supply one of {.arg rows} or {.arg cols}.")
@@ -289,7 +291,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
     # support it.
     default <- dispatch_args(default, multi_line = multi_line)
 
-    if (inherits(x, "labeller")) {
+    if (is_labeller(x)) {
       x <- dispatch_args(x, multi_line = multi_line)
       x(labels)
     } else if (is.function(x)) {
