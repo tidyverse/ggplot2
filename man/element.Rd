@@ -53,9 +53,10 @@ element_geom(
   ink = NULL,
   paper = NULL,
   accent = NULL,
-  thin = NULL,
-  thick = NULL,
+  linewidth = NULL,
+  borderwidth = NULL,
   linetype = NULL,
+  bordertype = NULL,
   family = NULL,
   fontsize = NULL,
   pointsize = NULL,
@@ -118,8 +119,6 @@ is anchored.}
 
 \item{accent}{Accent colour.}
 
-\item{thin, thick}{Linewidth for thin and thick lines in mm.}
-
 \item{pointsize}{Size for points in mm.}
 
 \item{pointshape}{Shape for points (1-25).}
@@ -130,6 +129,15 @@ is anchored.}
 
 \item{unit}{Default units of dimensions. Defaults to "pt" so it
 can be most easily scaled with the text.}
+
+\item{linewidth, borderwidth}{Linewidth for plain lines and outlines
+respectively in mm.}
+
+\item{linetype, bordertype}{Line type for plain lines and outlines
+respectively. An integer (0:8), a name (blank, solid,
+dashed, dotted, dotdash, longdash, twodash), or a string with
+an even number (up to eight) of hexadecimal digits which give the
+lengths in consecutive positions in the string.}
 }
 \value{
 An S3 object of class \code{element}, \code{rel}, or \code{margin}.
