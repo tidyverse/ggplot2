@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
 * Passing empty unmapped aesthetics to layers raises a warning instead of
   throwing an error (@teunbrand, #6009).
 * Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
