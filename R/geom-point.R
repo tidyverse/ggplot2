@@ -137,7 +137,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   default_aes = aes(
     shape = from_theme(pointshape),
     colour = from_theme(ink), size = from_theme(pointsize), fill = NA,
-    alpha = NA, stroke = 0.5
+    alpha = NA, stroke = from_theme(borderwidth)
   ),
 
   draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
