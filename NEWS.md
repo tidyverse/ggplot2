@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Fixed bug in out-of-bounds binned breaks (@teunbrand, #6054)
 * Passing empty unmapped aesthetics to layers raises a warning instead of
   throwing an error (@teunbrand, #6009).
 * Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
