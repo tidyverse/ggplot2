@@ -658,6 +658,9 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
 #' @keywords internal
 view_scales_from_graticule <- function(graticule, scale, aesthetic,
                                        label, label_graticule, bbox) {
+  if (empty(graticule)) {
+    return(ggproto(NULL, ViewScale))
+  }
 
   # Setup position specific parameters
   # Note that top/bottom doesn't necessarily mean to label the meridians and
