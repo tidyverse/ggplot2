@@ -145,8 +145,8 @@ theme_grey <- function(base_size = 11, base_family = "",
 
     geom =               element_geom(
                            ink = "black", paper = "white", accent = "#3366FF",
-                           thin = base_line_size, thick = base_line_size * 2,
-                           linetype = 1L,
+                           linewidth = base_line_size, borderwidth = base_line_size,
+                           linetype = 1L, bordertype = 1L,
                            family = base_family, fontsize = base_size,
                            pointsize = (base_size / 11) * 1.5, pointshape = 19
                          ),
@@ -584,7 +584,7 @@ theme_test <- function(base_size = 11, base_family = "",
     margins = margin(half_line, half_line, half_line, half_line),
     geom =               element_geom(
                            ink = "black", paper = "white", accent = "#3366FF",
-                           thin = base_line_size, thick = base_line_size * 2,
+                           linewidth = base_line_size, borderwidth = base_line_size,
                            family = base_family, fontsize = base_size,
                            linetype = 1L,
                            pointsize = (base_size / 11) * 1.5, pointshape = 19

@@ -160,25 +160,28 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 #' @param ink Foreground colour.
 #' @param paper Background colour.
 #' @param accent Accent colour.
-#' @param thin,thick Linewidth for thin and thick lines in mm.
-#' @param linetype Line type. An integer (0:8), a name (blank, solid,
-#'    dashed, dotted, dotdash, longdash, twodash), or a string with
-#'    an even number (up to eight) of hexadecimal digits which give the
-#'    lengths in consecutive positions in the string.
+#' @param linewidth,borderwidth Linewidth for plain lines and outlines
+#'   respectively in mm.
+#' @param linetype,bordertype Line type for plain lines and outlines
+#'   respectively. An integer (0:8), a name (blank, solid,
+#'   dashed, dotted, dotdash, longdash, twodash), or a string with
+#'   an even number (up to eight) of hexadecimal digits which give the
+#'   lengths in consecutive positions in the string.
 #' @param pointsize Size for points in mm.
 #' @param pointshape Shape for points (1-25).
 #' @export
 #' @rdname element
 element_geom <- function(
-  # colours
+    # colours
   ink = NULL, paper = NULL, accent = NULL,
   # linewidth
-  thin = NULL, thick = NULL, linetype = NULL,
+  linewidth = NULL, borderwidth = NULL,
+  # linetype
+  linetype = NULL, bordertype = NULL,
   # text
   family = NULL, fontsize = NULL,
   # points
-  pointsize = NULL, pointshape = NULL
-  ) {
+  pointsize = NULL, pointshape = NULL) {
 
   if (!is.null(fontsize)) {
     fontsize <- fontsize / .pt
@@ -189,7 +192,8 @@ element_geom <- function(
       ink = ink,
       paper = paper,
       accent = accent,
-      thin = thin, thick = thick, linetype = linetype,
+      linewidth = linewidth, borderwidth = borderwidth,
+      linetype = linetype, bordertype = bordertype,
       family = family, fontsize = fontsize,
       pointsize = pointsize, pointshape = pointshape
     ),
@@ -199,7 +203,8 @@ element_geom <- function(
 
 .default_geom_element <- element_geom(
   ink = "black", paper = "white", accent = "#3366FF",
-  thin = 0.5, thick = 2, linetype = 1L,
+  linewidth = 0.5, borderwidth = 0.5,
+  linetype = 1L, bordertype = 1L,
   family = "", fontsize = 11,
   pointsize = 1.5, pointshape = 19
 )
