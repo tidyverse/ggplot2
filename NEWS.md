@@ -1,5 +1,27 @@
 # ggplot2 (development version)
 
+* Passing empty unmapped aesthetics to layers raises a warning instead of
+  throwing an error (@teunbrand, #6009).
+* Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
+* New `reset_geom_defaults()` and `reset_stat_defaults()` to restore all geom or
+  stat default aesthetics at once (@teunbrand, #5975).
+* `facet_wrap()` can have `space = "free_x"` with 1-row layouts and 
+  `space = "free_y"` with 1-column layouts (@teunbrand)
+* Secondary axes respect `n.breaks` setting in continuous scales (@teunbrand, #4483).
+* Layers can have names (@teunbrand, #4066).
+* (internal) improvements to `pal_qualitative()` (@teunbrand, #5013)
+* `coord_radial(clip = "on")` clips to the panel area when the graphics device
+  supports clipping paths (@teunbrand, #5952).
+* (internal) Panel clipping responsibility moved from Facet class to Coord 
+  class through new `Coord$draw_panel()` method.
+* `theme(strip.clip)` now defaults to `"on"` and is independent of Coord 
+  clipping (@teunbrand, 5952).
+* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
+* Axis labels are now justified across facet panels (@teunbrand, #5820)
+* Fixed bug in `stat_function()` so x-axis title now produced automatically 
+  when no data added. (@phispu, #5647).
+* geom_sf now accepts shape names (@sierrajohnson, #5808)
+* Added `gg` class to `labs()` (@phispu, #5553).
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
@@ -133,6 +155,13 @@
   (@teunbrand, #5938, #4327).
 * Fixed bug where empty discrete scales weren't recognised as such 
   (@teunbrand, #5945).
+* (internal) The summary function of `stat_summary()` and `stat_summary_bin()` 
+  is setup once in total instead of once per group (@teunbrand, #5971)
+* `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
+  (@teunbrand, #4584).
+* `theme_classic()` now has black ticks and text instead of dark gray. In 
+  addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
+* {tibble} is now suggested instead of imported (@teunbrand, #5986)
 * `coord_trans()` renamed to `coord_transform()` (@nmercadeb, #5825).
 
 # ggplot2 3.5.1
@@ -751,7 +780,7 @@ gains in rendering speed.
 
 * `geom_linerange()` now respects the `na.rm` argument (#4927, @thomasp85)
 
-* Improve the support for `guide_axis()` on `coord_transform()` 
+* Improve the support for `guide_axis()` on `coord_trans()` 
   (@yutannihilation, #3959)
   
 * Added `stat_align()` to align data without common x-coordinates prior to
@@ -1195,17 +1224,17 @@ fail.
 
 ## Minor improvements and bug fixes
 
-* `coord_transform()` now draws second axes and accepts `xlim`, `ylim`,
+* `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
   and `expand` arguments to bring it up to feature parity with 
   `coord_cartesian()`. The `xtrans` and `ytrans` arguments that were 
   deprecated in version 1.0.1 in favour of `x` and `y` 
   were removed (@paleolimbot, #2990).
 
-* `coord_transform()` now calculates breaks using the expanded range 
+* `coord_trans()` now calculates breaks using the expanded range 
   (previously these were calculated using the unexpanded range, 
-  which resulted in differences between plots made with `coord_transform()`
+  which resulted in differences between plots made with `coord_trans()`
   and those made with `coord_cartesian()`). The expansion for discrete axes 
-  in `coord_transform()` was also updated such that it behaves identically
+  in `coord_trans()` was also updated such that it behaves identically
   to that in `coord_cartesian()` (@paleolimbot, #3338).
 
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
@@ -1545,7 +1574,7 @@ accompanying issue #2890.
    (@mikmart, #2488).
     
 *   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
-    with `coord_transform()` (@clauswilke, #2149, #2812).
+    with `coord_trans()` (@clauswilke, #2149, #2812).
     
 *   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
     items instead of silently dropping items that are empty expressions, e.g.
@@ -1988,7 +2017,7 @@ accompanying issue #2890.
   (@dylan-stark, #2072), and can draw the radius axis on the right 
   (@thomasp85, #2005).
 
-* `coord_transform()` now generates a warning when a transformation generates 
+* `coord_trans()` now generates a warning when a transformation generates 
   non-finite values (@foo-bar-baz-qux, #2147).
 
 ### Themes
@@ -2817,7 +2846,7 @@ version of ggplot.
 * `coord_cartesian()` applies the same expansion factor to limits as for scales. 
   You can suppress with `expand = FALSE` (#1207).
 
-* `coord_transform()` now works when breaks are suppressed (#1422).
+* `coord_trans()` now works when breaks are suppressed (#1422).
 
 * `cut_number()` gives error message if the number of requested bins can
   be created because there are two few unique values (#1046).
