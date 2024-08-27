@@ -8,9 +8,12 @@
 #' [scales::new_transform()] for list of transformations, and instructions
 #' on how to create your own.
 #'
+#' The `coord_trans()` function is deprecated in favour of `coord_transform()`.
+#'
 #' @inheritParams coord_cartesian
 #' @param x,y Transformers for x and y axes or their names.
 #' @param limx,limy `r lifecycle::badge("deprecated")` use `xlim` and `ylim` instead.
+#' @param ... Arguments forwarded to `coord_transform()`.
 #' @seealso
 #' The `r link_book("coord transformations section", "coord#transformations-with-coord_trans")`
 #' @export
@@ -103,99 +106,15 @@ coord_transform <- function(x = "identity", y = "identity", xlim = NULL, ylim = 
   )
 }
 
-#' Transformed Cartesian coordinate system
-#'
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `coord_trans()` is different to scale transformations in that it occurs after
-#' statistical transformation and will affect the visual appearance of geoms - there is
-#' no guarantee that straight lines will continue to be straight.
-#'
-#' Transformations only work with continuous values: see
-#' [scales::new_transform()] for list of transformations, and instructions
-#' on how to create your own.
-#'
-#' @inheritParams coord_cartesian
-#' @param x,y Transformers for x and y axes or their names.
-#' @param limx,limy `r lifecycle::badge("deprecated")` use `xlim` and `ylim` instead.
-#' @seealso
-#' The `r link_book("coord transformations section", "coord#transformations-with-coord_trans")`
+#' @rdname coord_transform
 #' @export
-#' @examples
-#' \donttest{
-#' # See ?geom_boxplot for other examples
-#'
-#' # Three ways of doing transformation in ggplot:
-#' #  * by transforming the data
-#' ggplot(diamonds, aes(log10(carat), log10(price))) +
-#'   geom_point()
-#' #  * by transforming the scales
-#' ggplot(diamonds, aes(carat, price)) +
-#'   geom_point() +
-#'   scale_x_log10() +
-#'   scale_y_log10()
-#' #  * by transforming the coordinate system:
-#' ggplot(diamonds, aes(carat, price)) +
-#'   geom_point() +
-#'   coord_trans(x = "log10", y = "log10")
-#'
-#' # The difference between transforming the scales and
-#' # transforming the coordinate system is that scale
-#' # transformation occurs BEFORE statistics, and coordinate
-#' # transformation afterwards.  Coordinate transformation also
-#' # changes the shape of geoms:
-#'
-#' d <- subset(diamonds, carat > 0.5)
-#'
-#' ggplot(d, aes(carat, price)) +
-#'   geom_point() +
-#'   geom_smooth(method = "lm") +
-#'   scale_x_log10() +
-#'   scale_y_log10()
-#'
-#' ggplot(d, aes(carat, price)) +
-#'   geom_point() +
-#'   geom_smooth(method = "lm") +
-#'   coord_trans(x = "log10", y = "log10")
-#'
-#' # Here I used a subset of diamonds so that the smoothed line didn't
-#' # drop below zero, which obviously causes problems on the log-transformed
-#' # scale
-#'
-#' # With a combination of scale and coordinate transformation, it's
-#' # possible to do back-transformations:
-#' ggplot(diamonds, aes(carat, price)) +
-#'   geom_point() +
-#'   geom_smooth(method = "lm") +
-#'   scale_x_log10() +
-#'   scale_y_log10() +
-#'   coord_trans(x = scales::transform_exp(10), y = scales::transform_exp(10))
-#'
-#' # cf.
-#' ggplot(diamonds, aes(carat, price)) +
-#'   geom_point() +
-#'   geom_smooth(method = "lm")
-#'
-#' # Also works with discrete scales
-#' set.seed(1)
-#' df <- data.frame(a = abs(rnorm(26)),letters)
-#' plot <- ggplot(df,aes(a,letters)) + geom_point()
-#'
-#' plot + coord_trans(x = "log10")
-#' plot + coord_trans(x = "sqrt")
-#' }
-coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
-                        limx = deprecated(), limy = deprecated(), clip = "on", expand = TRUE) {
+coord_trans <- function(...) {
   deprecate_soft0(
     "3.5.2",
     "coord_trans()",
     "coord_transform()"
   )
-
-  coord_transform(
-    x = x, y = y, xlim = xlim, ylim = ylim,
-    limx = limx, limy = limy, clip = clip, expand = expand
-  )
+  coord_transform(...)
 }
 
 #' @rdname ggplot2-ggproto
