@@ -5,6 +5,7 @@ element_blank(): draws nothing, and assigns no space.
 element_rect(): borders and backgrounds.
 element_line(): lines.
 element_text(): text.
+element_geom(): defaults for drawing layers.
 
 
 rel() is used to specify sizes relative to the parent,
@@ -14,6 +15,7 @@ element_blank(): draws nothing, and assigns no space.
 element_rect(): borders and backgrounds.
 element_line(): lines.
 element_text(): text.
+element_geom(): defaults for drawing layers.
 
 
 rel() is used to specify sizes relative to the parent,
@@ -90,6 +92,7 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
 <li><p><code>element_rect()</code>: borders and backgrounds.</p></li>
 <li><p><code>element_line()</code>: lines.</p></li>
 <li><p><code>element_text()</code>: text.</p></li>
+<li><p><code>element_geom()</code>: defaults for drawing layers.</p></li>
 </ul><p><code>rel()</code> is used to specify sizes relative to the parent,
 <code>margin()</code> is used to specify the margins of elements.</p>
     </div>
@@ -135,6 +138,20 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
 <span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">element_geom</span><span class="op">(</span></span>
+<span>  ink <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  paper <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  accent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  borderwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bordertype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fontsize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pointsize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pointshape <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">rel</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">margin</span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0</span>, r <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">0</span>, l <span class="op">=</span> <span class="fl">0</span>, unit <span class="op">=</span> <span class="st">"pt"</span><span class="op">)</span></span></code></pre></div>
@@ -152,15 +169,15 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
 <dd><p>Line/border colour. Color is an alias for colour.</p></dd>
 
 
-<dt id="arg-linewidth">linewidth<a class="anchor" aria-label="anchor" href="#arg-linewidth"></a></dt>
+<dt id="arg-linewidth-borderwidth">linewidth, borderwidth<a class="anchor" aria-label="anchor" href="#arg-linewidth-borderwidth"></a></dt>
 <dd><p>Line/border size in mm.</p></dd>
 
 
-<dt id="arg-linetype">linetype<a class="anchor" aria-label="anchor" href="#arg-linetype"></a></dt>
-<dd><p>Line type. An integer (0:8), a name (blank, solid,
-dashed, dotted, dotdash, longdash, twodash), or a string with
-an even number (up to eight) of hexadecimal digits which give the
-lengths in consecutive positions in the string.</p></dd>
+<dt id="arg-linetype-bordertype">linetype, bordertype<a class="anchor" aria-label="anchor" href="#arg-linetype-bordertype"></a></dt>
+<dd><p>Line type for lines and borders respectively. An
+integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
+twodash), or a string with an even number (up to eight) of hexadecimal
+digits which give the lengths in consecutive positions in the string.</p></dd>
 
 
 <dt id="arg-inherit-blank">inherit.blank<a class="anchor" aria-label="anchor" href="#arg-inherit-blank"></a></dt>
@@ -171,7 +188,7 @@ well. If <code>FALSE</code> any blank parent element will be ignored when
 calculating final element state.</p></dd>
 
 
-<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dt id="arg-size-fontsize">size, fontsize<a class="anchor" aria-label="anchor" href="#arg-size-fontsize"></a></dt>
 <dd><p>text size in pts.</p></dd>
 
 
@@ -223,6 +240,26 @@ rectangle behind the complete text area, and a point where each label
 is anchored.</p></dd>
 
 
+<dt id="arg-ink">ink<a class="anchor" aria-label="anchor" href="#arg-ink"></a></dt>
+<dd><p>Foreground colour.</p></dd>
+
+
+<dt id="arg-paper">paper<a class="anchor" aria-label="anchor" href="#arg-paper"></a></dt>
+<dd><p>Background colour.</p></dd>
+
+
+<dt id="arg-accent">accent<a class="anchor" aria-label="anchor" href="#arg-accent"></a></dt>
+<dd><p>Accent colour.</p></dd>
+
+
+<dt id="arg-pointsize">pointsize<a class="anchor" aria-label="anchor" href="#arg-pointsize"></a></dt>
+<dd><p>Size for points in mm.</p></dd>
+
+
+<dt id="arg-pointshape">pointshape<a class="anchor" aria-label="anchor" href="#arg-pointshape"></a></dt>
+<dd><p>Shape for points (1-25).</p></dd>
+
+
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>A single number specifying size relative to parent element.</p></dd>
 
@@ -271,6 +308,15 @@ can be most easily scaled with the text.</p></dd>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="element-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_smooth.html">geom_smooth</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="fu">element_geom</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    ink <span class="op">=</span> <span class="st">"red"</span>, accent <span class="op">=</span> <span class="st">"black"</span>,</span></span>
+<span class="r-in"><span>    pointsize <span class="op">=</span> <span class="fl">1</span>, linewidth <span class="op">=</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="element-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -101,6 +101,8 @@ should be evaluated.</p>
 <span></span>
 <span><span class="fu">after_scale</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">from_theme</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">stage</span><span class="op">(</span>start <span class="op">=</span> <span class="cn">NULL</span>, after_stat <span class="op">=</span> <span class="cn">NULL</span>, after_scale <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -212,6 +214,16 @@ data column for the stat, but remap it for the geom, you can use the
 <span>    geom <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>    fun.data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre><p></p></div>
+</div>
+
+<div class="section">
+<h3 id="theme-access">Theme access<a class="anchor" aria-label="anchor" href="#theme-access"></a></h3>
+
+
+<p>The <code>from_theme()</code> function can be used to acces the <code><a href="element.html">element_geom()</a></code>
+fields of the <code>theme(geom)</code> argument. Using <code>aes(colour = from_theme(ink))</code>
+and <code>aes(colour = from_theme(accent))</code> allows swapping between foreground and
+accent colours.</p>
 </div>
 
     </div>

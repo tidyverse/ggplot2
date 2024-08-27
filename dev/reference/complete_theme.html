@@ -104,7 +104,7 @@ Defaults to the global theme settings.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">my_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fu"><a href="element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">complete_theme</span><span class="op">(</span><span class="va">my_theme</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 139</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ line                            :List of 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ colour       : chr "red"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ linewidth    : num 0.5</span>
@@ -148,6 +148,20 @@ Defaults to the global theme settings.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ debug        : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ inherit.blank: logi TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "class")= chr [1:2] "element_text" "element"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ geom                            :List of 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ink          : chr "black"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ paper        : chr "white"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ accent       : chr "#3366FF"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ linewidth    : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ borderwidth  : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ linetype     : int 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bordertype   : int 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ family       : chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ fontsize     : num 3.87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ pointsize    : num 1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ pointshape   : num 19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ inherit.blank: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "class")= chr [1:2] "element_geom" "element"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ spacing                         : 'simpleUnit' num 5.5points</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= int 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ margins                         : 'margin' num [1:4] 5.5points 5.5points 5.5points 5.5points</span>
@@ -413,7 +427,6 @@ Defaults to the global theme settings.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.location                 : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.box                      : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.box.just                 : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.box.margin               : 'rel' num 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [list output truncated]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "theme" "gg"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "complete")= logi TRUE</span>
