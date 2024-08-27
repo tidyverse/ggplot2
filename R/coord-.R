@@ -208,6 +208,20 @@ Coord <- ggproto("Coord",
   # used as a fudge for CoordFlip and CoordPolar
   modify_scales = function(scales_x, scales_y) {
     invisible()
+  },
+
+  draw_panel = function(self, panel, params, theme) {
+    fg <- self$render_fg(params, theme)
+    bg <- self$render_bg(params, theme)
+    if (isTRUE(theme$panel.ontop)) {
+      panel <- list2(!!!panel, bg, fg)
+    } else {
+      panel <- list2(bg, !!!panel, fg)
+    }
+    gTree(
+      children = inject(gList(!!!panel)),
+      vp = viewport(clip = self$clip)
+    )
   }
 )
 

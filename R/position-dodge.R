@@ -175,7 +175,7 @@ pos_dodge <- function(df, width, n = NULL) {
   groupidx <- match(df$group, unique0(df$group))
 
   # Find the center for each group, then use that to calculate xmin and xmax
-  df$x <- df$x + width * ((groupidx - 0.5) / n - .5)
+  df$x <- df$x + width * ((groupidx - 0.5) / n - 0.5)
   df$xmin <- df$x - d_width / n / 2
   df$xmax <- df$x + d_width / n / 2
 

@@ -25,6 +25,13 @@ test_that("unknown aesthetics create warning", {
   expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
+test_that("empty aesthetics create warning", {
+  expect_warning(
+    geom_point(fill = NULL, shape = character()),
+    "Ignoring empty aesthetics"
+  )
+})
+
 test_that("invalid aesthetics throws errors", {
   # We want to test error and ignore the scale search message
   suppressMessages({
@@ -80,7 +87,7 @@ test_that("if an aes is mapped to a function that returns NULL, it is removed", 
   df <- data_frame(x = 1:10)
   null <- function(...) NULL
   p <- cdata(ggplot(df, aes(x, null())))
-  expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
+  expect_named(p[[1]], c("x", "PANEL", "group"))
 })
 
 test_that("layers are stateless except for the computed params", {
@@ -137,6 +144,22 @@ test_that("layer warns for constant aesthetics", {
   p <- ggplot(mtcars, aes(x = 1)) + geom_point(aes(y = 2))
   expect_snapshot_warning(ggplot_build(p))
 })
+
+test_that("layer names can be resolved", {
+
+  p <- ggplot() + geom_point() + geom_point()
+  expect_equal(names(p$layers), c("geom_point", "geom_point...2"))
+
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+  expect_equal(names(p$layers), c("foo", "bar"))
+
+  l <- geom_point(name = "foobar")
+  expect_error(
+    p + l + l,
+    "names are duplicated"
+  )
+})
+
 
 # Data extraction ---------------------------------------------------------
 
