@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
+  foreground and background colours respectively (@teunbrand)
 * (Breaking) The defaults for all geoms can be set at one in the theme. 
   (@teunbrand based on pioneering work by @dpseidel, #2239)
     * A new `theme(geom)` argument is used to track these defaults.
