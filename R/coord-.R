@@ -225,12 +225,6 @@ Coord <- ggproto("Coord",
   }
 )
 
-#' Is this object a coordinate system?
-#'
-#' @export is.Coord
-#' @keywords internal
-is.Coord <- function(x) inherits(x, "Coord")
-
 # Renders an axis with the correct orientation or zeroGrob if no axis should be
 # generated
 render_axis <- function(panel_params, axis, scale, position, theme) {

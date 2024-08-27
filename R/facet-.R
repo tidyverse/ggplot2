@@ -353,13 +353,6 @@ get_strip_labels <- function(plot = get_last_plot()) {
   plot$plot$facet$format_strip_labels(layout, params)
 }
 
-#' Is this object a faceting specification?
-#'
-#' @param x object to test
-#' @keywords internal
-#' @export
-is.facet <- function(x) inherits(x, "Facet")
-
 # A "special" value, currently not used but could be used to determine
 # if faceting is active
 NO_PANEL <- -1L

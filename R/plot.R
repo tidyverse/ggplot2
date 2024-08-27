@@ -154,12 +154,6 @@ plot_clone <- function(plot) {
   p
 }
 
-#' Reports whether x is a ggplot object
-#' @param x An object to test
-#' @keywords internal
-#' @export
-is.ggplot <- function(x) inherits(x, "ggplot")
-
 #' Explicitly draw plot
 #'
 #' Generally, you do not need to print or plot a ggplot2 plot explicitly: the

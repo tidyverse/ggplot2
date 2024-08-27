@@ -905,12 +905,6 @@ combine_elements <- function(e1, e2) {
   e1
 }
 
-#' Reports whether x is a theme object
-#' @param x An object to test
-#' @export
-#' @keywords internal
-is.theme <- function(x) inherits(x, "theme")
-
 #' @export
 `$.theme` <- function(x, ...) {
   .subset2(x, ...)

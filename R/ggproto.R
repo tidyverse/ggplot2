@@ -106,11 +106,6 @@ ggproto_parent <- function(parent, self) {
   structure(list(parent = parent, self = self), class = "ggproto_parent")
 }
 
-#' @param x An object to test.
-#' @export
-#' @rdname ggproto
-is.ggproto <- function(x) inherits(x, "ggproto")
-
 fetch_ggproto <- function(x, name) {
   res <- NULL
 
