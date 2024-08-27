@@ -437,7 +437,7 @@ as_facets_list <- function(x) {
 }
 
 validate_facets <- function(x) {
-  if (inherits(x, "uneval")) {
+  if (is.mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be

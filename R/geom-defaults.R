@@ -98,7 +98,7 @@ get_geom_defaults <- function(geom, theme = theme_get()) {
   if (is.character(geom)) {
     geom <- check_subclass(geom, "Geom")
   }
-  if (inherits(geom, "Geom")) {
+  if (is.geom(geom)) {
     out <- geom$use_defaults(data = NULL, theme = theme)
     return(out)
   }

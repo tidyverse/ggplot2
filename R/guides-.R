@@ -69,7 +69,7 @@ NULL
 guides <- function(...) {
   args <- list2(...)
   if (length(args) > 0) {
-    if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
+    if (is.list(args[[1]]) && !is.guide(args[[1]])) args <- args[[1]]
     args <- rename_aes(args)
   }
 
@@ -138,7 +138,7 @@ Guides <- ggproto(
     if (is.null(guides)) {
       return(invisible())
     }
-    if (inherits(guides, "Guides")) {
+    if (is.guides(guides)) {
       guides <- guides$guides
     }
     self$guides <- defaults(guides, self$guides)
@@ -862,7 +862,7 @@ validate_guide <- function(guide) {
       guide <- fun()
     }
   }
-  if (inherits(guide, "Guide")) {
+  if (is.guide(guide)) {
     return(guide)
   }
   if (inherits(guide, "guide") && is.list(guide)) {
