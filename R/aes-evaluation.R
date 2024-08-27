@@ -219,6 +219,8 @@ stage_scaled <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
 }
 
 # Regex to determine if an identifier refers to a calculated aesthetic
+# The pattern includes ye olde '...var...' syntax, which was
+# deprecated in 3.4.0 in favour of `after_stat()`
 match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
 
 # Determine if aesthetic is calculated
