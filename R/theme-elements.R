@@ -15,7 +15,7 @@
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
-#' @param linewidth Line/border size in mm.
+#' @param linewidth,borderwidth Line/border size in mm.
 #' @param size,fontsize text size in pts.
 #' @param arrow.fill Fill colour for arrows.
 #' @param inherit.blank Should this element inherit the existence of an
@@ -90,10 +90,10 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
 
 #' @export
 #' @rdname element
-#' @param linetype Line type. An integer (0:8), a name (blank, solid,
-#'    dashed, dotted, dotdash, longdash, twodash), or a string with
-#'    an even number (up to eight) of hexadecimal digits which give the
-#'    lengths in consecutive positions in the string.
+#' @param linetype,bordertype Line type for lines and borders respectively. An
+#'   integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
+#'   twodash), or a string with an even number (up to eight) of hexadecimal
+#'   digits which give the lengths in consecutive positions in the string.
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
@@ -160,13 +160,6 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 #' @param ink Foreground colour.
 #' @param paper Background colour.
 #' @param accent Accent colour.
-#' @param linewidth,borderwidth Linewidth for plain lines and outlines
-#'   respectively in mm.
-#' @param linetype,bordertype Line type for plain lines and outlines
-#'   respectively. An integer (0:8), a name (blank, solid,
-#'   dashed, dotted, dotdash, longdash, twodash), or a string with
-#'   an even number (up to eight) of hexadecimal digits which give the
-#'   lengths in consecutive positions in the string.
 #' @param pointsize Size for points in mm.
 #' @param pointshape Shape for points (1-25).
 #' @export

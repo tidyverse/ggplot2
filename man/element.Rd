@@ -72,12 +72,12 @@ margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
 
 \item{colour, color}{Line/border colour. Color is an alias for colour.}
 
-\item{linewidth}{Line/border size in mm.}
+\item{linewidth, borderwidth}{Line/border size in mm.}
 
-\item{linetype}{Line type. An integer (0:8), a name (blank, solid,
-dashed, dotted, dotdash, longdash, twodash), or a string with
-an even number (up to eight) of hexadecimal digits which give the
-lengths in consecutive positions in the string.}
+\item{linetype, bordertype}{Line type for lines and borders respectively. An
+integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
+twodash), or a string with an even number (up to eight) of hexadecimal
+digits which give the lengths in consecutive positions in the string.}
 
 \item{inherit.blank}{Should this element inherit the existence of an
 \code{element_blank} among its parents? If \code{TRUE} the existence of
@@ -129,15 +129,6 @@ is anchored.}
 
 \item{unit}{Default units of dimensions. Defaults to "pt" so it
 can be most easily scaled with the text.}
-
-\item{linewidth, borderwidth}{Linewidth for plain lines and outlines
-respectively in mm.}
-
-\item{linetype, bordertype}{Line type for plain lines and outlines
-respectively. An integer (0:8), a name (blank, solid,
-dashed, dotted, dotdash, longdash, twodash), or a string with
-an even number (up to eight) of hexadecimal digits which give the
-lengths in consecutive positions in the string.}
 }
 \value{
 An S3 object of class \code{element}, \code{rel}, or \code{margin}.
