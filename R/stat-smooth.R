@@ -95,36 +95,63 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     msg <- character()
-    if (is.null(params$method) || identical(params$method, "auto")) {
+    method <- params$method
+    if (is.null(method) || identical(method, "auto")) {
       # Use loess for small datasets, gam with a cubic regression basis for
       # larger. Based on size of the _largest_ group to avoid bad memory
       # behaviour of loess
       max_group <- max(table(interaction(data$group, data$PANEL, drop = TRUE)))
 
       if (max_group < 1000) {
-        params$method <- "loess"
+        method <- "loess"
       } else {
-        params$method <- "gam"
+        method <- "gam"
       }
-      msg <- c(msg, paste0("method = '", params$method, "'"))
+      msg <- c(msg, paste0("method = '", method, "'"))
+    }
+
+    if (identical(method, "gam") &&
+        !prompt_install("mgcv", "for using {.code method = \"gam\"}")) {
+      cli::cli_inform(c(
+        "The {.arg method} was set to {.val gam}, but {.pkg mgcv} is not installed.",
+        "!" = "Falling back to {.code method = \"lm\"}.",
+        i = "Install {.pkg mgcv} or change the {.arg method} argument to \\
+        resolve this issue."
+      ))
+      method <- "lm"
     }
 
     if (is.null(params$formula)) {
-      if (identical(params$method, "gam")) {
+      if (identical(method, "gam")) {
         params$formula <- y ~ s(x, bs = "cs")
       } else {
         params$formula <- y ~ x
       }
       msg <- c(msg, paste0("formula = '", deparse(params$formula), "'"))
     }
-    if (identical(params$method, "gam")) {
-      params$method <- gam_method()
+
+    # Special case span because it's the most commonly used model argument
+    if (identical(method, "loess")) {
+      params$method.args$span <- params$span %||% 0.75
+    }
+
+    if (is.character(method)) {
+      if (identical(method, "gam")) {
+        method <- gam_method()
+      } else {
+        method <- match.fun(method)
+      }
+    }
+    # If gam and gam's method is not specified by the user then use REML
+    if (identical(method, gam_method())) {
+      params$method.args$method <- params$method.args$method %||% "REML"
     }
 
     if (length(msg) > 0) {
       cli::cli_inform("{.fn geom_smooth} using {msg}")
     }
 
+    params$method <- method
     params
   },
 
@@ -159,23 +186,6 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       }
     }
 
-    # Special case span because it's the most commonly used model argument
-    if (identical(method, "loess")) {
-      method.args$span <- span
-    }
-
-    if (is.character(method)) {
-      if (identical(method, "gam")) {
-        method <- gam_method()
-      } else {
-        method <- match.fun(method)
-      }
-    }
-    # If gam and gam's method is not specified by the user then use REML
-    if (identical(method, gam_method()) && is.null(method.args$method)) {
-      method.args$method <- "REML"
-    }
-
     prediction <- try_fetch(
       {
         model <- inject(method(
@@ -205,4 +215,10 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 )
 
 # This function exists to silence an undeclared import warning
-gam_method <- function() mgcv::gam
+gam_method <- function() {
+  if (is_installed("mgcv")) {
+    mgcv::gam
+  } else {
+    NA
+  }
+}
