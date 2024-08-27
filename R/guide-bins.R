@@ -330,19 +330,22 @@ GuideBins <- ggproto(
 
 parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
 
-  breaks <- breaks[!is.na(breaks)]
+  if (is.waive(scale$labels) || is.function(scale$labels)) {
+    breaks <- breaks[!is.na(breaks)]
+  }
   if (length(breaks) == 0) {
     return(NULL)
   }
 
   if (is.numeric(breaks)) {
-    breaks <- sort(breaks)
     limits <- scale$get_limits()
     if (!is.numeric(scale$breaks)) {
-      breaks <- breaks[!breaks %in% limits]
+      breaks[breaks %in% limits] <- NA
     }
-    breaks <- oob_discard(breaks, limits)
+    breaks <- oob_censor(breaks, limits)
     all_breaks <- unique0(c(limits[1], breaks, limits[2]))
+    # Sorting drops NAs on purpose here
+    all_breaks <- sort(all_breaks, na.last = NA)
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
     bin_at <- breaks
