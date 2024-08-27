@@ -110,7 +110,7 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
-    
+
     data$width <- data$width %||% params$width %||%
       stats::ave(data$x, data$PANEL, FUN = function(x) resolution(x, FALSE, TRUE))
     data$height <- data$height %||% params$height %||%
@@ -122,8 +122,13 @@ GeomTile <- ggproto("GeomTile", GeomRect,
     )
   },
 
-  default_aes = aes(fill = "grey20", colour = NA, linewidth = 0.1, linetype = 1,
-    alpha = NA, width = NA, height = NA),
+  default_aes = aes(
+    fill = from_theme(col_mix(ink, paper, 0.2)),
+    colour = NA,
+    linewidth = from_theme(0.4 * borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA, width = NA, height = NA
+  ),
 
   required_aes = c("x", "y"),
 

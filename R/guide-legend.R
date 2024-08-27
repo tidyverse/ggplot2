@@ -209,7 +209,7 @@ GuideLegend <- ggproto(
   },
 
   # Arrange common data for vertical and horizontal legends
-  process_layers = function(self, params, layers, data = NULL) {
+  process_layers = function(self, params, layers, data = NULL, theme = NULL) {
 
     include <- vapply(layers, function(layer) {
       aes <- matched_aes(layer, params)
@@ -220,10 +220,10 @@ GuideLegend <- ggproto(
       return(NULL)
     }
 
-    self$get_layer_key(params, layers[include], data[include])
+    self$get_layer_key(params, layers[include], data[include], theme)
   },
 
-  get_layer_key = function(params, layers, data) {
+  get_layer_key = function(params, layers, data, theme = NULL) {
 
     # Return empty guides as-is
     if (nrow(params$key) < 1) {
@@ -242,7 +242,7 @@ GuideLegend <- ggproto(
       single_params <- layer$aes_params[single_params]
 
       # Use layer to populate defaults
-      key <- layer$compute_geom_2(key, single_params)
+      key <- layer$compute_geom_2(key, single_params, theme)
 
       # Filter non-existing levels
       if (length(matched_aes) > 0) {

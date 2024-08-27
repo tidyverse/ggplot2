@@ -293,8 +293,9 @@ Layer <- ggproto("Layer", NULL,
     set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics, warn = TRUE)
     modifiers <- is_scaled_aes(aesthetics)
+    themed <- is_themed_aes(aesthetics)
 
-    aesthetics <- aesthetics[!set & !calculated & !modifiers]
+    aesthetics <- aesthetics[!set & !calculated & !modifiers & !themed]
 
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
@@ -442,14 +443,14 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, layout)
   },
 
-  compute_geom_2 = function(self, data, params = self$aes_params, ...) {
+  compute_geom_2 = function(self, data, params = self$aes_params, theme = NULL, ...) {
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
     aesthetics <- self$computed_mapping
-    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
+    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics) | is_themed_aes(aesthetics)]
 
-    self$geom$use_defaults(data, params, modifiers, ...)
+    self$geom$use_defaults(data, params, modifiers, theme = theme, ...)
   },
 
   finish_statistics = function(self, data) {

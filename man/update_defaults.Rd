@@ -29,6 +29,10 @@ reset_stat_defaults()
 \description{
 Functions to update or reset the default aesthetics of geoms and stats.
 }
+\note{
+Please note that geom defaults can be set \emph{en masse} via the \code{theme(geom)}
+argument.
+}
 \examples{
 
 # updating a geom's default aesthetic settings

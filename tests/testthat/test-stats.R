@@ -47,7 +47,7 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
   # colour is dropped because group a's colour is not constant (GeomBar$default_aes$colour is NA)
   expect_true(all(is.na(b2$data[[1]]$colour)))
   # fill is dropped because group b's fill is not constant
-  expect_true(all(b2$data[[1]]$fill == GeomBar$default_aes$fill))
+  expect_true(all(b2$data[[1]]$fill == "#595959FF"))
 
   # case 2-1) dropped partially with NA
 

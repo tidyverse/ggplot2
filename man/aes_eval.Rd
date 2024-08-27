@@ -5,6 +5,7 @@
 \alias{after_stat}
 \alias{stat}
 \alias{after_scale}
+\alias{from_theme}
 \alias{stage}
 \title{Control aesthetic evaluation}
 \usage{
@@ -15,6 +16,8 @@
 after_stat(x)
 
 after_scale(x)
+
+from_theme(x)
 
 stage(start = NULL, after_stat = NULL, after_scale = NULL)
 }
@@ -126,6 +129,14 @@ ggplot(mpg, aes(class, displ)) +
     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
   )
 }\if{html}{\out{</div>}}
+}
+
+\subsection{Theme access}{
+
+The \code{from_theme()} function can be used to acces the \code{\link[=element_geom]{element_geom()}}
+fields of the \code{theme(geom)} argument. Using \code{aes(colour = from_theme(ink))}
+and \code{aes(colour = from_theme(accent))} allows swapping between foreground and
+accent colours.
 }
 }
 

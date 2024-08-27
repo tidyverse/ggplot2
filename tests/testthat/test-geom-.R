@@ -6,18 +6,34 @@ test_that("aesthetic checking in geom throws correct errors", {
   expect_snapshot_error(check_aesthetics(aes, 4))
 })
 
+test_that("get_geom_defaults can use various sources", {
+
+  test <- get_geom_defaults(geom_point)
+  expect_equal(test$colour, "black")
+
+  test <- get_geom_defaults(geom_point(colour = "red"))
+  expect_equal(test$colour, "red")
+
+  test <- get_geom_defaults("point")
+  expect_equal(test$colour, "black")
+
+  test <- get_geom_defaults(GeomPoint, theme(geom = element_geom("red")))
+  expect_equal(test$colour, "red")
+})
+
 test_that("geom defaults can be set and reset", {
   l <- geom_point()
-  test <- l$geom$use_defaults(data_frame0())
+  orig <- l$geom$default_aes$colour
+  test <- get_geom_defaults(l)
   expect_equal(test$colour, "black")
 
   inv <- update_geom_defaults("point", list(colour = "red"))
-  test <- l$geom$use_defaults(data_frame0())
+  test <- get_geom_defaults(l)
   expect_equal(test$colour, "red")
-  expect_equal(inv$colour, "black")
+  expect_equal(inv$colour, orig)
 
   inv <- update_geom_defaults("point", NULL)
-  test <- l$geom$use_defaults(data_frame0())
+  test <- get_geom_defaults(l)
   expect_equal(test$colour, "black")
   expect_equal(inv$colour, "red")
 

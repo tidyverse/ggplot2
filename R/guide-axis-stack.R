@@ -134,7 +134,7 @@ GuideAxisStack <- ggproto(
   },
 
   # Just loops through guides
-  get_layer_key = function(params, layers) {
+  get_layer_key = function(params, layers, ...) {
     for (i in seq_along(params$guides)) {
       params$guide_params[[i]] <- params$guides[[i]]$get_layer_key(
         params = params$guide_params[[i]],

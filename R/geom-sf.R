@@ -126,14 +126,17 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linewidth = NULL,
-    linetype = 1,
+    linetype = from_theme(linetype),
     alpha = NA,
     stroke = 0.5
   ),
 
   use_defaults = function(self, data, params = list(), modifiers = aes(),
-                          default_aes = NULL, ...) {
-    data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
+                          default_aes = NULL, theme = NULL, ...) {
+    data <- ggproto_parent(Geom, self)$use_defaults(
+      data, params, modifiers, default_aes, theme = theme, ...
+    )
+    # Early exit for e.g. legend data that don't have geometry columns
     if (!"geometry" %in% names(data)) {
       return(data)
     }
@@ -156,24 +159,29 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (length(index$point) > 0) {
       points <- GeomPoint$use_defaults(
         vec_slice(data, index$point),
-        params, modifiers
+        params, modifiers, theme = theme
       )
     }
     if (length(index$line) > 0) {
       lines <- GeomLine$use_defaults(
         vec_slice(data, index$line),
-        params, modifiers
+        params, modifiers, theme = theme
       )
     }
     other_default <- modify_list(
       GeomPolygon$default_aes,
-      list(fill = "grey90", colour = "grey35", linewidth = 0.2)
+      aes(
+        fill   = from_theme(col_mix(ink, paper, 0.9)),
+        colour = from_theme(col_mix(ink, paper, 0.35)),
+        linewidth = from_theme(0.4 * borderwidth)
+      )
     )
     if (length(index$other) > 0) {
       others <- GeomPolygon$use_defaults(
         vec_slice(data, index$other),
         params, modifiers,
-        default_aes = other_default
+        default_aes = other_default,
+        theme = theme
       )
     }
     if (length(index$collection) > 0) {
@@ -185,7 +193,8 @@ GeomSf <- ggproto("GeomSf", Geom,
       collections <- Geom$use_defaults(
         vec_slice(data, index$collection),
         params, modifiers,
-        default_aes = modified
+        default_aes = modified,
+        theme = theme
       )
     }
 
