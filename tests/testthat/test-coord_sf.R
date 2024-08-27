@@ -371,3 +371,27 @@ test_that("coord_sf() throws error when limits are badly specified", {
   # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_sf(ylim=1:3))
 })
+
+test_that("coord_sf() can render with empty graticules", {
+
+  skip_if_not_installed("sf")
+  # Skipping this test on CRAN as changes upstream in {sf} might affect
+  # this test, i.e. when suddenly graticules *do* work
+  skip_on_cran()
+
+  df <- sf::st_sf(
+    g = sf::st_sfc(sf::st_point(
+      # Out of bounds values for lon/lat
+      c(-600, 1200)
+    )),
+    crs = 4326
+  )
+
+  # Double-check graticule is empty, suppressing warnings about oob longlat values
+  grat <- suppressWarnings(sf::st_graticule(df))
+  expect_equal(nrow(grat), 0)
+
+  # Plot should render
+  p <- suppressWarnings(layer_grob(ggplot(df) + geom_sf())[[1]])
+  expect_length(p$x, 1)
+})
