@@ -358,7 +358,7 @@ Layer <- ggproto("Layer", NULL,
 
   compute_statistic = function(self, data, layout) {
     if (empty(data))
-      return(data_frame0())
+      return(data)
 
     self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, self$computed_stat_params)
@@ -366,7 +366,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   map_statistic = function(self, data, plot) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) return(data)
 
     # Make sure data columns are converted to correct names. If not done, a
     # column with e.g. a color name will not be found in an after_stat()
@@ -422,7 +422,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_geom_1 = function(self, data) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) return(data)
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -434,7 +434,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_position = function(self, data, layout) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) return(data)
 
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
