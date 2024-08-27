@@ -187,6 +187,6 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_smooth(formula = y ~ x, method = "lm") +
   theme(geom = element_geom(
     ink = "red", accent = "black",
-    pointsize = 1, thick = 2
+    pointsize = 1, linewidth = 2
   ))
 }
