@@ -98,11 +98,12 @@ coord_transform <- function(x = "identity", y = "identity", xlim = NULL, ylim = 
   if (is.character(x)) x <- as.transform(x)
   if (is.character(y)) y <- as.transform(y)
 
-  ggproto(NULL, CoordTrans,
-          trans = list(x = x, y = y),
-          limits = list(x = xlim, y = ylim),
-          expand = expand,
-          clip = clip
+  ggproto(
+    NULL, CoordTransform,
+    trans = list(x = x, y = y),
+    limits = list(x = xlim, y = ylim),
+    expand = expand,
+    clip = clip
   )
 }
 
@@ -121,80 +122,88 @@ coord_trans <- function(...) {
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordTrans <- ggproto("CoordTrans", Coord,
-                      is_free = function() TRUE,
-                      distance = function(self, x, y, panel_params) {
-                        max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
-                        dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
-                      },
+CoordTransform <- ggproto(
+  "CoordTransform", Coord,
+  is_free = function() TRUE,
+  distance = function(self, x, y, panel_params) {
+    max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
+    dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
+  },
 
-                      backtransform_range = function(self, panel_params) {
-                        list(
-                          x = self$trans$x$inverse(panel_params$x.range),
-                          y = self$trans$y$inverse(panel_params$y.range)
-                        )
-                      },
+  backtransform_range = function(self, panel_params) {
+    list(
+      x = self$trans$x$inverse(panel_params$x.range),
+      y = self$trans$y$inverse(panel_params$y.range)
+    )
+  },
 
-                      range = function(self, panel_params) {
-                        list(
-                          x = panel_params$x.range,
-                          y = panel_params$y.range
-                        )
-                      },
+  range = function(self, panel_params) {
+    list(
+      x = panel_params$x.range,
+      y = panel_params$y.range
+    )
+  },
 
-                      transform = function(self, data, panel_params) {
-                        # trans_x() and trans_y() needs to keep Inf values because this can be called
-                        # in guide_transform.axis()
-                        trans_x <- function(data) {
-                          idx <- !is.infinite(data)
-                          data[idx] <- transform_value(self$trans$x, data[idx], panel_params$x.range)
-                          data
-                        }
-                        trans_y <- function(data) {
-                          idx <- !is.infinite(data)
-                          data[idx] <- transform_value(self$trans$y, data[idx], panel_params$y.range)
-                          data
-                        }
+  transform = function(self, data, panel_params) {
+    # trans_x() and trans_y() needs to keep Inf values because this can be called
+    # in guide_transform.axis()
+    trans_x <- function(data) {
+      idx <- !is.infinite(data)
+      data[idx] <- transform_value(self$trans$x, data[idx], panel_params$x.range)
+      data
+    }
+    trans_y <- function(data) {
+      idx <- !is.infinite(data)
+      data[idx] <- transform_value(self$trans$y, data[idx], panel_params$y.range)
+      data
+    }
 
-                        new_data <- transform_position(data, trans_x, trans_y)
+    new_data <- transform_position(data, trans_x, trans_y)
 
-                        warn_new_infinites(data$x, new_data$x, "x")
-                        warn_new_infinites(data$y, new_data$y, "y")
+    warn_new_infinites(data$x, new_data$x, "x")
+    warn_new_infinites(data$y, new_data$y, "y")
 
-                        transform_position(new_data, squish_infinite, squish_infinite)
-                      },
+    transform_position(new_data, squish_infinite, squish_infinite)
+  },
 
-                      setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-                        c(
-                          view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, self$expand),
-                          view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, self$expand)
-                        )
-                      },
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+    c(
+      view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, self$expand),
+      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, self$expand)
+    )
+  },
 
-                      render_bg = function(panel_params, theme) {
-                        guide_grid(
-                          theme,
-                          panel_params$x.minor,
-                          panel_params$x.major,
-                          panel_params$y.minor,
-                          panel_params$y.major
-                        )
-                      },
+  render_bg = function(panel_params, theme) {
+    guide_grid(
+      theme,
+      panel_params$x.minor,
+      panel_params$x.major,
+      panel_params$y.minor,
+      panel_params$y.major
+    )
+  },
 
-                      render_axis_h = function(panel_params, theme) {
-                        list(
-                          top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
-                          bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
-                        )
-                      },
+  render_axis_h = function(panel_params, theme) {
+    list(
+      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
+      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
+    )
+  },
 
-                      render_axis_v = function(panel_params, theme) {
-                        list(
-                          left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
-                          right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
-                        )
-                      }
+  render_axis_v = function(panel_params, theme) {
+    list(
+      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
+      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
+    )
+  }
 )
+
+# TODO: deprecate this some time in the future
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+CoordTrans <- ggproto("CoordTrans", CoordTransform)
 
 transform_value <- function(trans, value, range) {
   if (is.null(value))
