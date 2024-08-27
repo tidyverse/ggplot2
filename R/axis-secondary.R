@@ -124,6 +124,10 @@ dup_axis <- function(transform = identity, name = derive(), breaks = derive(),
   sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
 
+is.sec_axis <- function(x) {
+  inherits(x, "AxisSecondary")
+}
+
 set_sec_axis <- function(sec.axis, scale) {
   if (!is.waive(sec.axis)) {
     if (scale$is_discrete()) {
@@ -132,7 +136,7 @@ set_sec_axis <- function(sec.axis, scale) {
       }
     }
     if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!inherits(sec.axis, "AxisSecondary")) {
+    if (!is.sec_axis(sec.axis)) {
       cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}.")
     }
     scale$secondary.axis <- sec.axis
