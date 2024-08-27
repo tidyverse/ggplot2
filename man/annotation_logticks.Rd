@@ -35,7 +35,7 @@ of the plot area. Default is off (\code{FALSE}). You will also need to use
 \item{scaled}{is the data already log-scaled? This should be \code{TRUE}
 (default) when the data is already transformed with \code{log10()} or when
 using \code{scale_y_log10()}. It should be \code{FALSE} when using
-\code{coord_trans(y = "log10")}.}
+\code{coord_transform(y = "log10")}.}
 
 \item{short}{a \code{\link[grid:unit]{grid::unit()}} object specifying the length of the
 short tick marks}
@@ -105,7 +105,7 @@ b + annotation_logticks()
 # Using a coordinate transform requires scaled = FALSE
 t <- ggplot(msleep, aes(bodywt, brainwt)) +
   geom_point() +
-  coord_trans(x = "log10", y = "log10") +
+  coord_transform(x = "log10", y = "log10") +
   theme_bw()
 t + annotation_logticks(scaled = FALSE)
 
@@ -120,5 +120,5 @@ a + annotation_logticks(
 \code{\link[=scale_y_continuous]{scale_y_continuous()}}, \code{\link[=scale_y_log10]{scale_y_log10()}} for log scale
 transformations.
 
-\code{\link[=coord_trans]{coord_trans()}} for log coordinate transformations.
+\code{\link[=coord_transform]{coord_transform()}} for log coordinate transformations.
 }

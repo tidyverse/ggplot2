@@ -287,11 +287,11 @@ m +
 # no observations have 0 ratings.
 m +
   geom_histogram(boundary = 0) +
-  coord_trans(x = "log10")
+  coord_transform(x = "log10")
 # Use boundary = 0, to make sure we don't take sqrt of negative values
 m +
   geom_histogram(boundary = 0) +
-  coord_trans(x = "sqrt")
+  coord_transform(x = "sqrt")
 
 # You can also transform the y axis.  Remember that the base of the bars
 # has value 0, so log transformations are not appropriate

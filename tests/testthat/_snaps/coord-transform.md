@@ -1,4 +1,4 @@
-# coord_trans() throws error when limits are badly specified
+# coord_transform() throws error when limits are badly specified
 
     `xlim` must be a vector of length 2, not a <ScaleContinuousPosition> object.
 
