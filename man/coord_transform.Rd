@@ -2,6 +2,7 @@
 % Please edit documentation in R/coord-transform.R
 \name{coord_transform}
 \alias{coord_transform}
+\alias{coord_trans}
 \title{Transformed Cartesian coordinate system}
 \usage{
 coord_transform(
@@ -14,6 +15,8 @@ coord_transform(
   clip = "on",
   expand = TRUE
 )
+
+coord_trans(...)
 }
 \arguments{
 \item{x, y}{Transformers for x and y axes or their names.}
@@ -34,6 +37,8 @@ legend, the plot title, or the plot margins.}
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+
+\item{...}{Arguments forwarded to \code{coord_transform()}.}
 }
 \description{
 \code{coord_transform()} is different to scale transformations in that it occurs after
@@ -44,6 +49,8 @@ no guarantee that straight lines will continue to be straight.
 Transformations only work with continuous values: see
 \code{\link[scales:new_transform]{scales::new_transform()}} for list of transformations, and instructions
 on how to create your own.
+
+The \code{coord_trans()} function is deprecated in favour of \code{coord_transform()}.
 }
 \examples{
 \donttest{

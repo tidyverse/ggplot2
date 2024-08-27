@@ -47,6 +47,7 @@
 \alias{CoordPolar}
 \alias{CoordQuickmap}
 \alias{CoordRadial}
+\alias{CoordTransform}
 \alias{CoordTrans}
 \alias{Facet}
 \alias{FacetGrid}
