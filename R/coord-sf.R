@@ -580,12 +580,12 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   )
 }
 
-parse_axes_labeling <- function(x) {
+parse_axes_labeling <- function(x, call = caller_env()) {
   if (is.character(x)) {
     x <- unlist(strsplit(x, ""))
     x <- list(top = x[1], right = x[2], bottom = x[3], left = x[4])
   } else if (!is.list(x)) {
-    cli::cli_abort("Panel labeling format not recognized.")
+    cli::cli_abort("Panel labeling format not recognized.", call = call)
   }
   x
 }
