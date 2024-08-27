@@ -8,6 +8,11 @@
     * The `element_geom()` function can be used to populate that argument.
     * The `from_theme()` function allows access to the theme default fields from
       inside the `aes()` function.
+* Passing empty unmapped aesthetics to layers raises a warning instead of
+  throwing an error (@teunbrand, #6009).
+* Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
+* New `reset_geom_defaults()` and `reset_stat_defaults()` to restore all geom or
+  stat default aesthetics at once (@teunbrand, #5975).
 * `facet_wrap()` can have `space = "free_x"` with 1-row layouts and 
   `space = "free_y"` with 1-column layouts (@teunbrand)
 * Secondary axes respect `n.breaks` setting in continuous scales (@teunbrand, #4483).
@@ -160,6 +165,11 @@
   (@teunbrand, #5945).
 * (internal) The summary function of `stat_summary()` and `stat_summary_bin()` 
   is setup once in total instead of once per group (@teunbrand, #5971)
+* `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
+  (@teunbrand, #4584).
+* `theme_classic()` now has black ticks and text instead of dark gray. In 
+  addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
+* {tibble} is now suggested instead of imported (@teunbrand, #5986)
 
 # ggplot2 3.5.1
 
