@@ -154,6 +154,8 @@ GuideBins <- ggproto(
     key$.show  <- NA
 
     labels <- scale$get_labels(breaks)
+    labels <- labels[!is.na(breaks)]
+    breaks <- breaks[!is.na(breaks)]
     if (is.character(scale$labels) || is.numeric(scale$labels)) {
       limit_lab <- c(NA, NA)
     } else {
