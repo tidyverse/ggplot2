@@ -67,7 +67,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>
+<ul><li><p><code>coord_*(expand)</code> can now take a logical vector to control expansion at any side of the panel (top, right, bottom, left) (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6020" class="external-link">#6020</a>)</p></li>
+<li>
 <p>(Breaking) The defaults for all geoms can be set at one in the theme. (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a> based on pioneering work by <a href="https://github.com/dpseidel" class="external-link">@dpseidel</a>, <a href="https://github.com/tidyverse/ggplot2/issues/2239" class="external-link">#2239</a>)</p>
 <ul><li>A new <code>theme(geom)</code> argument is used to track these defaults.</li>
 <li>The <code><a href="../reference/element.html">element_geom()</a></code> function can be used to populate that argument.</li>

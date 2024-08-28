@@ -183,7 +183,11 @@ though they would be visible in the final plot region.</p></dd>
 <dt id="arg-expand">expand<a class="anchor" aria-label="anchor" href="#arg-expand"></a></dt>
 <dd><p>If <code>TRUE</code>, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
-limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></dd>
+limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The <code>expand</code> argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. <code>expand = c(bottom = FALSE)</code>.</p></dd>
 
 
 <dt id="arg-crs">crs<a class="anchor" aria-label="anchor" href="#arg-crs"></a></dt>
