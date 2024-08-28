@@ -175,6 +175,7 @@
 * {tibble} is now suggested instead of imported (@teunbrand, #5986)
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
+* `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
 
 # ggplot2 3.5.1
 
