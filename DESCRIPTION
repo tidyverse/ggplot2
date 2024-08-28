@@ -262,6 +262,7 @@ Collate:
     'stat-smooth-methods.R'
     'stat-smooth.R'
     'stat-sum.R'
+    'stat-summarise.R'
     'stat-summary-2d.R'
     'stat-summary-bin.R'
     'stat-summary-hex.R'
