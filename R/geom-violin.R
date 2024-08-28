@@ -131,11 +131,13 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   extra_params = c("na.rm", "orientation", "lineend", "linejoin", "linemitre"),
 
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width
+    )
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
     data <- dapply(data, "group", transform,
       xmin = x - width / 2,
@@ -203,7 +205,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     fill = from_theme(paper),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
-    alpha = NA
+    alpha = NA,
+    width = 0.9
   ),
 
   required_aes = c("x", "y"),
