@@ -108,7 +108,7 @@ StatContour <- ggproto("StatContour", Stat,
     breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isolines <- withr::with_options(list(OutDec = "."), xyz_to_isolines(data, breaks))
-    path_df <- iso_to_path(isolines, data$group[1])
+    path_df <- iso_to_geom(isolines, data$group[1], geom = "path")
 
     path_df$level <- as.numeric(path_df$level)
     path_df$nlevel <- rescale_max(path_df$level)
@@ -142,7 +142,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 
     isobands <- withr::with_options(list(OutDec = "."), xyz_to_isobands(data, breaks))
     names(isobands) <- pretty_isoband_levels(names(isobands))
-    path_df <- iso_to_polygon(isobands, data$group[1])
+    path_df <- iso_to_geom(isobands, data$group[1], geom = "polygon")
 
     path_df$level <- ordered(path_df$level, levels = names(isobands))
     path_df$level_low <- breaks[as.numeric(path_df$level)]
@@ -259,51 +259,17 @@ isoband_z_matrix <- function(data) {
   raster
 }
 
-#' Convert the output of isolines functions
-#'
-#' @param iso the output of [isoband::isolines()]
-#' @param group the name of the group
-#'
-#' @return A data frame that can be passed to [geom_path()].
-#' @noRd
-#'
-iso_to_path <- function(iso, group = 1) {
-  lengths <- vapply(iso, function(x) length(x$x), integer(1))
-
-  if (all(lengths == 0)) {
-    cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
-    return(data_frame0())
-  }
-
-  levels <- names(iso)
-  xs <- unlist(lapply(iso, "[[", "x"), use.names = FALSE)
-  ys <- unlist(lapply(iso, "[[", "y"), use.names = FALSE)
-  ids <- unlist(lapply(iso, "[[", "id"), use.names = FALSE)
-  item_id <- rep(seq_along(iso), lengths)
-
-  # Add leading zeros so that groups can be properly sorted
-  groups <- paste(group, sprintf("%03d", item_id), sprintf("%03d", ids), sep = "-")
-  groups <- factor(groups)
-
-  data_frame0(
-    level = rep(levels, lengths),
-    x = xs,
-    y = ys,
-    piece = as.integer(groups),
-    group = groups,
-    .size = length(xs)
-  )
-}
-
 #' Convert the output of isoband functions
 #'
-#' @param iso the output of [isoband::isobands()]
+#' @param iso the output of [isoband::isobands()] or [isoband::isolines()]
 #' @param group the name of the group
+#' @param geom The type of geometry to return. Either `"path"` or `"polygon"`
+#'   for isolines and isobands respectively.
 #'
-#' @return A data frame that can be passed to [geom_polygon()].
+#' @return A data frame that can be passed to [geom_polygon()] or [geom_path()].
 #' @noRd
 #'
-iso_to_polygon <- function(iso, group = 1) {
+iso_to_geom <- function(iso, group = 1, geom = "path") {
   lengths <- vapply(iso, function(x) length(x$x), integer(1))
 
   if (all(lengths == 0)) {
@@ -319,6 +285,11 @@ iso_to_polygon <- function(iso, group = 1) {
 
   # Add leading zeros so that groups can be properly sorted
   groups <- paste(group, sprintf("%03d", item_id), sep = "-")
+  if (geom == "path") {
+    groups <- paste(groups, sprintf("%03d", ids), sep = "-")
+    ids <- NULL
+  }
+
   groups <- factor(groups)
 
   data_frame0(

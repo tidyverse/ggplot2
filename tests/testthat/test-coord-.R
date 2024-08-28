@@ -37,8 +37,7 @@ test_that("guide names are not removed by `train_panel_guides()`", {
   layout$setup_panel_guides(guides_list(NULL), plot$layers)
 
   # Line showing change in outcome
-  expect_equal(names(layout$panel_params[[1]]$guides$aesthetics),
-               c("x", "y", "x.sec", "y.sec"))
+  expect_named(layout$panel_params[[1]]$guides$aesthetics, c("x", "y", "x.sec", "y.sec"))
 })
 
 test_that("check coord limits errors only on bad inputs", {

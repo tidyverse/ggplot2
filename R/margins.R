@@ -198,7 +198,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
     )
   }
   else {
-    children = gList(grobs)
+    children <- gList(grobs)
   }
 
 
