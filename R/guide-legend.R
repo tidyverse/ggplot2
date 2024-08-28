@@ -688,6 +688,7 @@ deprecated_guide_args <- function(
   default.unit = "line",
   ...,
   .call = caller_call()) {
+  warn_dots_used(call = .call)
 
   args <- names(formals(deprecated_guide_args))
   args <- setdiff(args, c("theme", "default.unit", "...", ".call"))

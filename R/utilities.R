@@ -843,6 +843,18 @@ as_unordered_factor <- function(x) {
   x
 }
 
+warn_dots_used <- function(env = caller_env(), call = caller_env()) {
+  check_dots_used(
+    env = env, call = call,
+    # Demote from error to warning
+    error = function(cnd) {
+      # cli uses \f as newlines, not \n
+      msg <- gsub("\n", "\f", cnd_message(cnd))
+      cli::cli_warn(msg, call = call)
+    }
+  )
+}
+
 # Shim for scales/#424
 col_mix <- function(a, b, amount = 0.5) {
   input <- vec_recycle_common(a = a, b = b, amount = amount)
