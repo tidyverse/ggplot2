@@ -185,10 +185,7 @@ Coord <- ggproto("Coord",
   is_free = function() FALSE,
 
   setup_params = function(data) {
-    list(
-      guide_default = guide_axis(),
-      guide_missing = guide_none()
-    )
+    list()
   },
 
   setup_data = function(data, params = list()) {

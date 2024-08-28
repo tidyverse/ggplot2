@@ -259,10 +259,6 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     # Rescale graticule for panel grid
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
-    graticule$x_start <- rescale(graticule$x_start, from = x_range)
-    graticule$x_end   <- rescale(graticule$x_end,   from = x_range)
-    graticule$y_start <- rescale(graticule$y_start, from = y_range)
-    graticule$y_end   <- rescale(graticule$y_end,   from = y_range)
 
     list2(
       x_range = x_range,
