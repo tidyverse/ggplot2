@@ -24,9 +24,11 @@ setup_plot_labels <- function(plot, layers, data) {
   # Find labels from every layer
   for (i in seq_along(layers)) {
     layer <- layers[[i]]
+    exclude <- names(layer$aes_params)
     mapping <- layer$computed_mapping
     mapping <- strip_stage(mapping)
     mapping <- strip_dots(mapping, strip_pronoun = TRUE)
+    mapping <- mapping[setdiff(names(mapping), exclude)]
 
     # Acquire default labels
     mapping_default <- make_labels(mapping)
@@ -156,7 +158,7 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
   args <- args[!duplicated(names(args))]
   args <- rename_aes(args)
 
-  structure(args, class = "labels")
+  structure(args, class = c("labels", "gg"))
 }
 
 #' @rdname labs

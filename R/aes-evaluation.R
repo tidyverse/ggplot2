@@ -109,6 +109,13 @@
 #'     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
 #'   )
 #' ```
+#'
+#' ## Theme access
+#' The `from_theme()` function can be used to acces the [`element_geom()`]
+#' fields of the `theme(geom)` argument. Using `aes(colour = from_theme(ink))`
+#' and `aes(colour = from_theme(accent))` allows swapping between foreground and
+#' accent colours.
+#'
 #' @rdname aes_eval
 #' @name aes_eval
 #'
@@ -192,6 +199,13 @@ stat <- function(x) {
 after_scale <- function(x) {
   x
 }
+
+#' @rdname aes_eval
+#' @export
+from_theme <- function(x) {
+  x
+}
+
 #' @rdname aes_eval
 #' @export
 stage <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
@@ -220,6 +234,9 @@ is_scaled_aes <- function(aesthetics) {
 }
 is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
+}
+is_themed_aes <- function(aesthetics) {
+  vapply(aesthetics, is_themed, logical(1), USE.NAMES = FALSE)
 }
 is_calculated <- function(x, warn = FALSE) {
   if (is_call(get_expr(x), "after_stat")) {
@@ -262,6 +279,9 @@ is_scaled <- function(x) {
 }
 is_staged <- function(x) {
   is_call(get_expr(x), "stage")
+}
+is_themed <- function(x) {
+  is_call(get_expr(x), "from_theme")
 }
 
 # Strip dots from expressions
