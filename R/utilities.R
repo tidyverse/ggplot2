@@ -889,3 +889,32 @@ prompt_install <- function(pkg, reason = NULL) {
   utils::install.packages(pkg)
   is_installed(pkg)
 }
+
+compute_data_size <- function(data, size, default = 0.9,
+                              target = "width",
+                              panels = c("across", "by", "ignore"),
+                              ...) {
+
+  data[[target]] <- data[[target]] %||% size
+  if (!is.null(data[[target]])) {
+    return(data)
+  }
+
+  var <- if (target == "height") "y" else "x"
+  panels <- arg_match0(panels, c("across", "by", "ignore"))
+
+  if (panels == "across") {
+    res <- split(data[[var]], data$PANEL, drop = FALSE)
+    res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
+    res <- min(res, na.rm = TRUE)
+  } else if (panels == "by") {
+    res <- ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+  } else {
+    res <- resolution(data[[var]], ...)
+  }
+  if (is_quosure(default)) {
+    default <- eval_tidy(default, data = data)
+  }
+  data[[target]] <- res * (default %||% 0.9)
+  data
+}
