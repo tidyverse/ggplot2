@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `coord_*(expand)` can now take a logical vector to control expansion at any
+  side of the panel (top, right, bottom, left) (@teunbrand, #6020)
 * (Breaking) The defaults for all geoms can be set at one in the theme. 
   (@teunbrand based on pioneering work by @dpseidel, #2239)
     * A new `theme(geom)` argument is used to track these defaults.

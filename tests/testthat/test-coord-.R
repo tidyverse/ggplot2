@@ -75,3 +75,19 @@ test_that("coords append a column to the layout correctly", {
   expect_equal(test$COORD, c(1, 2, 1))
 })
 
+test_that("coord expand takes a vector", {
+
+  base <- ggplot() + lims(x = c(0, 10), y = c(0, 10))
+
+  p <- ggplot_build(base + coord_cartesian(expand = c(TRUE, FALSE, FALSE, TRUE)))
+  pp <- p$layout$panel_params[[1]]
+  expect_equal(pp$x.range, c(-0.5, 10))
+  expect_equal(pp$y.range, c(0, 10.5))
+
+  p <- ggplot_build(base + coord_cartesian(expand = c(top = FALSE, left = FALSE)))
+  pp <- p$layout$panel_params[[1]]
+  expect_equal(pp$x.range, c(0, 10.5))
+  expect_equal(pp$y.range, c(-0.5, 10))
+
+})
+
