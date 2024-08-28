@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
+  argument to overrule theme settings, similar to `guide_axis(angle)` 
+  (@teunbrand, #4594).
 * `coord_*(expand)` can now take a logical vector to control expansion at any
   side of the panel (top, right, bottom, left) (@teunbrand, #6020)
 * (Breaking) The defaults for all geoms can be set at one in the theme. 
@@ -24,7 +27,7 @@
   class through new `Coord$draw_panel()` method.
 * `theme(strip.clip)` now defaults to `"on"` and is independent of Coord 
   clipping (@teunbrand, 5952).
-* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
+* (internal) rearranged the code of `Facet$draw_panels()` method (@teunbrand).
 * Axis labels are now justified across facet panels (@teunbrand, #5820)
 * Fixed bug in `stat_function()` so x-axis title now produced automatically 
   when no data added. (@phispu, #5647).
