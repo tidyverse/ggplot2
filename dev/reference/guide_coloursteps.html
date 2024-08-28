@@ -82,6 +82,7 @@ the gradient known from the colourbar counterpart.</p>
 <span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  angle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -96,6 +97,7 @@ the gradient known from the colourbar counterpart.</p>
 <span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  angle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  even.steps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show.limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -128,6 +130,13 @@ guide overrides, and is combined with, the plot's theme.</p></dd>
 <dd><p>A numeric between 0 and 1 setting the colour transparency of
 the bar. Use <code>NA</code> to preserve the alpha encoded in the colour itself
 (default).</p></dd>
+
+
+<dt id="arg-angle">angle<a class="anchor" aria-label="anchor" href="#arg-angle"></a></dt>
+<dd><p>Overrules the theme settings to automatically apply appropriate
+<code>hjust</code> and <code>vjust</code> for angled legend text. Can be a single number
+representing the text angle in degrees, or <code>NULL</code> to not overrule the
+settings (default).</p></dd>
 
 
 <dt id="arg-even-steps">even.steps<a class="anchor" aria-label="anchor" href="#arg-even-steps"></a></dt>

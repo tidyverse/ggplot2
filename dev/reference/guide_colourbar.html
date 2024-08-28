@@ -90,6 +90,7 @@ For more information, see the inspiration for this function:
 <span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  draw.ulim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  draw.llim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  angle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  position <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -107,6 +108,7 @@ For more information, see the inspiration for this function:
 <span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  draw.ulim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  draw.llim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  angle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  position <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -167,6 +169,13 @@ be visible.</p></dd>
 <dt id="arg-draw-llim">draw.llim<a class="anchor" aria-label="anchor" href="#arg-draw-llim"></a></dt>
 <dd><p>A logical specifying if the lower limit tick marks should
 be visible.</p></dd>
+
+
+<dt id="arg-angle">angle<a class="anchor" aria-label="anchor" href="#arg-angle"></a></dt>
+<dd><p>Overrules the theme settings to automatically apply appropriate
+<code>hjust</code> and <code>vjust</code> for angled legend text. Can be a single number
+representing the text angle in degrees, or <code>NULL</code> to not overrule the
+settings (default).</p></dd>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>

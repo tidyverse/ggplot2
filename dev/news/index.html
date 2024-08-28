@@ -67,7 +67,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p><code>coord_*(expand)</code> can now take a logical vector to control expansion at any side of the panel (top, right, bottom, left) (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6020" class="external-link">#6020</a>)</p></li>
+<ul><li><p><code><a href="../reference/guide_bins.html">guide_bins()</a></code>, <code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> and <code><a href="../reference/guide_coloursteps.html">guide_coloursteps()</a></code> gain an <code>angle</code> argument to overrule theme settings, similar to <code>guide_axis(angle)</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4594" class="external-link">#4594</a>).</p></li>
+<li><p><code>coord_*(expand)</code> can now take a logical vector to control expansion at any side of the panel (top, right, bottom, left) (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6020" class="external-link">#6020</a>)</p></li>
 <li>
 <p>(Breaking) The defaults for all geoms can be set at one in the theme. (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a> based on pioneering work by <a href="https://github.com/dpseidel" class="external-link">@dpseidel</a>, <a href="https://github.com/tidyverse/ggplot2/issues/2239" class="external-link">#2239</a>)</p>
 <ul><li>A new <code>theme(geom)</code> argument is used to track these defaults.</li>
@@ -84,7 +85,7 @@
 <li><p><code>coord_radial(clip = "on")</code> clips to the panel area when the graphics device supports clipping paths (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5952" class="external-link">#5952</a>).</p></li>
 <li><p>(internal) Panel clipping responsibility moved from Facet class to Coord class through new <code>Coord$draw_panel()</code> method.</p></li>
 <li><p><code>theme(strip.clip)</code> now defaults to <code>"on"</code> and is independent of Coord clipping (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, 5952).</p></li>
-<li><p>(internal) rearranged the code of <code>Facet$draw_paensl()</code> method (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</p></li>
+<li><p>(internal) rearranged the code of <code>Facet$draw_panels()</code> method (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</p></li>
 <li><p>Axis labels are now justified across facet panels (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5820" class="external-link">#5820</a>)</p></li>
 <li><p>Fixed bug in <code><a href="../reference/geom_function.html">stat_function()</a></code> so x-axis title now produced automatically when no data added. (<a href="https://github.com/phispu" class="external-link">@phispu</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5647" class="external-link">#5647</a>).</p></li>
 <li><p>geom_sf now accepts shape names (<a href="https://github.com/sierrajohnson" class="external-link">@sierrajohnson</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5808" class="external-link">#5808</a>)</p></li>

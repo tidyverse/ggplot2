@@ -90,6 +90,7 @@ guide if they are mapped in the same way.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">guide_bins</span><span class="op">(</span></span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  angle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  position <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  override.aes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -115,6 +116,13 @@ specified in <code><a href="labs.html">labs()</a></code> is used for the title.<
 <dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
 differently from the plot's theme settings. The <code>theme</code> argument in the
 guide overrides, and is combined with, the plot's theme.</p></dd>
+
+
+<dt id="arg-angle">angle<a class="anchor" aria-label="anchor" href="#arg-angle"></a></dt>
+<dd><p>Overrules the theme settings to automatically apply appropriate
+<code>hjust</code> and <code>vjust</code> for angled legend text. Can be a single number
+representing the text angle in degrees, or <code>NULL</code> to not overrule the
+settings (default).</p></dd>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
