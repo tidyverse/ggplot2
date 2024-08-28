@@ -276,7 +276,7 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers, data = NULL) {
+  get_layer_key = function(params, layers, data = NULL, theme = NULL) {
     params
   },
 
@@ -373,12 +373,12 @@ GuideColourbar <- ggproto(
       if (params$direction == "horizontal") {
         width  <- 1 / nrow(decor)
         height <- 1
-        x <- (seq(nrow(decor)) - 1) * width
+        x <- (seq_len(nrow(decor)) - 1) * width
         y <- 0
       } else {
         width  <- 1
         height <- 1 / nrow(decor)
-        y <- (seq(nrow(decor)) - 1) * height
+        y <- (seq_len(nrow(decor)) - 1) * height
         x <- 0
       }
       grob <- rectGrob(

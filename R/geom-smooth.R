@@ -9,7 +9,7 @@
 #' `predictdf()` generic and its methods.  For most methods the standard
 #' error bounds are computed using the [predict()] method -- the
 #' exceptions are `loess()`, which uses a t-based approximation, and
-#' `glm()`, where the normal confidence interval is constructed on the link
+#' `glm()`, where the normal confidence band is constructed on the link
 #' scale and then back-transformed to the response scale.
 #'
 #' @eval rd_orientation()
@@ -153,8 +153,8 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
-    ymin = flipped_names(flipped_aes)$ymin
-    ymax = flipped_names(flipped_aes)$ymax
+    ymin <- flipped_names(flipped_aes)$ymin
+    ymax <- flipped_names(flipped_aes)$ymax
     has_ribbon <- se && !is.null(data[[ymax]]) && !is.null(data[[ymin]])
 
     gList(
@@ -168,8 +168,13 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   required_aes = c("x", "y"),
   optional_aes = c("ymin", "ymax"),
 
-  default_aes = aes(colour = "#3366FF", fill = "grey60", linewidth = 1,
-    linetype = 1, weight = 1, alpha = 0.4),
+  default_aes = aes(
+    colour = from_theme(accent),
+    fill = from_theme(col_mix(ink, paper, 0.6)),
+    linewidth = from_theme(2 * linewidth),
+    linetype = from_theme(linetype),
+    weight = 1, alpha = 0.4
+  ),
 
   rename_size = TRUE
 )

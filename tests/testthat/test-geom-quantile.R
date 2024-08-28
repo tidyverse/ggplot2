@@ -8,7 +8,7 @@ test_that("geom_quantile matches quantile regression", {
 
   set.seed(6531)
   x <- rnorm(10)
-  df <- tibble::tibble(
+  df <- data_frame0(
     x = x,
     y = x^2 + 0.5 * rnorm(10)
   )

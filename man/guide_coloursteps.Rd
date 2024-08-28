@@ -13,6 +13,7 @@ guide_coloursteps(
   even.steps = TRUE,
   show.limits = NULL,
   direction = NULL,
+  position = NULL,
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -27,6 +28,7 @@ guide_colorsteps(
   even.steps = TRUE,
   show.limits = NULL,
   direction = NULL,
+  position = NULL,
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -63,6 +65,9 @@ shown irrespective of the value of \code{show.limits}.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
+
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}

@@ -139,22 +139,25 @@ Facet <- ggproto("Facet", NULL,
     free  <- params$free       %||% list(x = FALSE, y = FALSE)
     space <- params$space_free %||% list(x = FALSE, y = FALSE)
 
-    if ((free$x || free$y) && !coord$is_free()) {
-      cli::cli_abort(
-        "{.fn {snake_class(self)}} can't use free scales with \\
-        {.fn {snake_class(coord)}}."
-      )
-    }
-
     aspect_ratio <- theme$aspect.ratio
     if (!is.null(aspect_ratio) && (space$x || space$y)) {
       cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
     }
 
+    if (!coord$is_free()) {
+      if (space$x && space$y) {
+        aspect_ratio <- aspect_ratio %||% coord$ratio
+      } else if (free$x || free$y) {
+        cli::cli_abort(
+          "{.fn {snake_class(self)}} can't use free scales with \\
+          {.fn {snake_class(coord)}}."
+        )
+      }
+    }
+
     table <- self$init_gtable(
       panels, layout, theme, ranges, params,
-      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]]),
-      clip = coord$clip
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
     )
 
     table <- self$attach_axes(table, layout, ranges, coord, theme, params)
@@ -198,7 +201,7 @@ Facet <- ggproto("Facet", NULL,
     data
   },
   init_gtable = function(panels, layout, theme, ranges, params,
-                         aspect_ratio = NULL, clip = "on") {
+                         aspect_ratio = NULL) {
 
     # Initialise matrix of panels
     dim   <- c(max(layout$ROW), max(layout$COL))
@@ -220,7 +223,7 @@ Facet <- ggproto("Facet", NULL,
     if (space$y) {
       idx <- layout$PANEL[layout$COL == 1]
       heights <- vapply(idx, function(i) diff(ranges[[i]]$y.range), numeric(1))
-      heights <- unit(heights, "null")
+      heights <- unit(heights * abs(aspect_ratio %||% 1), "null")
     }
 
     # Build gtable
@@ -228,7 +231,7 @@ Facet <- ggproto("Facet", NULL,
       "layout", table,
       widths = widths, heights = heights,
       respect = !is.null(aspect_ratio),
-      clip = clip, z = matrix(1, dim[1], dim[2])
+      clip = "off", z = matrix(1, dim[1], dim[2])
     )
 
     # Set panel names
@@ -257,6 +260,9 @@ Facet <- ggproto("Facet", NULL,
   },
   vars = function() {
     character(0)
+  },
+  format_strip_labels = function(layout, params) {
+    return()
   }
 )
 
@@ -321,6 +327,31 @@ vars <- function(...) {
   quos(...)
 }
 
+#' Accessing a plot's facet strip labels
+#'
+#' This functions retrieves labels from facet strips with the labeller applied.
+#'
+#' @param plot A ggplot or build ggplot object.
+#'
+#' @return `NULL` if there are no labels, otherwise a list of data.frames
+#'   containing the labels.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' # Basic plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' get_strip_labels(p) # empty facets
+#' get_strip_labels(p + facet_wrap(year ~ cyl))
+#' get_strip_labels(p + facet_grid(year ~ cyl))
+get_strip_labels <- function(plot = get_last_plot()) {
+  plot   <- ggplot_build(plot)
+  layout <- plot$layout$layout
+  params <- plot$layout$facet_params
+  plot$plot$facet$format_strip_labels(layout, params)
+}
 
 #' Is this object a faceting specification?
 #'
@@ -533,7 +564,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  data_frame0(tibble::as_tibble(vars))
+  data_frame0(!!!vars)
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically
@@ -650,7 +681,7 @@ find_panel <- function(table) {
 }
 #' @rdname find_panel
 #' @export
-panel_cols = function(table) {
+panel_cols <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
   unique0(panels[, c('l', 'r')])
 }
@@ -779,7 +810,7 @@ render_axes <- function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
 #'
 #' @keywords internal
 #' @export
-render_strips <- function(x = NULL, y = NULL, labeller, theme) {
+render_strips <- function(x = NULL, y = NULL, labeller = identity, theme) {
   list(
     x = build_strip(x, labeller, theme, TRUE),
     y = build_strip(y, labeller, theme, FALSE)

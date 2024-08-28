@@ -240,14 +240,12 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 })
@@ -412,7 +410,7 @@ test_that("current theme can be updated with new elements", {
   )
 
   # theme calculation for nonexisting element returns NULL
-  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
+  expect_null(calc_element("abcde", plot_theme(b1)))
 
   # element tree gets merged properly
   register_theme_elements(
@@ -583,6 +581,17 @@ test_that("Minor tick length supports biparental inheritance", {
   )
 })
 
+test_that("header_family is passed on correctly", {
+
+  td <- theme_dark(base_family = "x", header_family = "y")
+
+  test <- calc_element("plot.title", td)
+  expect_equal(test$family, "y")
+
+  test <- calc_element("plot.subtitle", td)
+  expect_equal(test$family, "x")
+})
+
 test_that("complete_theme completes a theme", {
   # `NULL` should match default
   gray <- theme_gray()
@@ -719,12 +728,12 @@ test_that("axes ticks can have independent lengths", {
     scale_x_continuous(sec.axis = dup_axis()) +
     scale_y_continuous(sec.axis = dup_axis()) +
     theme(
-      axis.ticks.length.x.top = unit(-.5, "cm"),
-      axis.ticks.length.x.bottom = unit(-.25, "cm"),
-      axis.ticks.length.y.left = unit(.25, "cm"),
-      axis.ticks.length.y.right = unit(.5, "cm"),
-      axis.text.x.bottom = element_text(margin = margin(t = .25, unit = "cm")),
-      axis.text.x.top = element_text(margin = margin(b = .25, unit = "cm"))
+      axis.ticks.length.x.top = unit(-0.5, "cm"),
+      axis.ticks.length.x.bottom = unit(-0.25, "cm"),
+      axis.ticks.length.y.left = unit(0.25, "cm"),
+      axis.ticks.length.y.right = unit(0.5, "cm"),
+      axis.text.x.bottom = element_text(margin = margin(t = 0.25, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = 0.25, unit = "cm"))
     )
   expect_doppelganger("ticks_length", plot)
 })

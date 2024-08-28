@@ -61,12 +61,12 @@ NULL
 
 #' @rdname summarise_plot
 #' @export
-summarise_layout = function(p) {
+summarise_layout <- function(p) {
   check_inherits(p, "ggplot_built")
   l <- p$layout
 
   layout <- l$layout
-  layout <- tibble(
+  layout <- data_frame0(
     panel = l$layout$PANEL,
     row   = l$layout$ROW,
     col   = l$layout$COL
@@ -98,7 +98,7 @@ summarise_layout = function(p) {
 
 #' @rdname summarise_plot
 #' @export
-summarise_coord = function(p) {
+summarise_coord <- function(p) {
   check_inherits(p, "ggplot_built")
 
   # Given a transform object, find the log base; if the transform object is
@@ -134,7 +134,7 @@ summarise_layers <- function(p) {
 
   # This currently only returns the mappings, but in the future, other
   # information could be added.
-  tibble(
+  data_frame0(
     mapping = layer_mappings
   )
 }

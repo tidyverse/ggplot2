@@ -184,10 +184,11 @@ Coord <- ggproto("Coord",
   # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
-  setup_params = function(data) {
+  setup_params = function(self, data) {
     list(
       guide_default = guide_axis(),
-      guide_missing = guide_none()
+      guide_missing = guide_none(),
+      expand = parse_coord_expand(self$expand %||% TRUE)
     )
   },
 
@@ -208,6 +209,20 @@ Coord <- ggproto("Coord",
   # used as a fudge for CoordFlip and CoordPolar
   modify_scales = function(scales_x, scales_y) {
     invisible()
+  },
+
+  draw_panel = function(self, panel, params, theme) {
+    fg <- self$render_fg(params, theme)
+    bg <- self$render_bg(params, theme)
+    if (isTRUE(theme$panel.ontop)) {
+      panel <- list2(!!!panel, bg, fg)
+    } else {
+      panel <- list2(bg, !!!panel, fg)
+    }
+    gTree(
+      children = inject(gList(!!!panel)),
+      vp = viewport(clip = self$clip)
+    )
   }
 )
 
@@ -227,6 +242,26 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
   } else {
     zeroGrob()
   }
+}
+
+# Elaborates an 'expand' argument for every side (top, right, bottom or left)
+parse_coord_expand <- function(expand) {
+  check_logical(expand)
+  if (anyNA(expand)) {
+    cli::cli_abort("{.arg expand} cannot contain missing values.")
+  }
+
+  if (!is_named(expand)) {
+    return(rep_len(expand, 4))
+  }
+
+  # Match by top/right/bottom/left
+  out <- rep(TRUE, 4)
+  i <- match(names(expand), .trbl)
+  if (sum(!is.na(i)) > 0) {
+    out[i] <- unname(expand)[!is.na(i)]
+  }
+  out
 }
 
 # Utility function to check coord limits

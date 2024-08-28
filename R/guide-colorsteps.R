@@ -53,6 +53,7 @@ guide_coloursteps <- function(
   even.steps  = TRUE,
   show.limits = NULL,
   direction = NULL,
+  position = NULL,
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -69,9 +70,11 @@ guide_coloursteps <- function(
     angle = angle,
     even.steps  = even.steps,
     show.limits = show.limits,
+    position = position,
     direction = direction,
     reverse = reverse,
     order = order,
+    available_aes = available_aes,
     super = GuideColoursteps
   )
 }

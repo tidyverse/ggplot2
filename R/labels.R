@@ -16,6 +16,77 @@ update_labels <- function(p, labels) {
   p
 }
 
+# Called in `ggplot_build()` to set default labels not specified by user.
+setup_plot_labels <- function(plot, layers, data) {
+  # Initiate empty labels
+  labels <- list()
+
+  # Find labels from every layer
+  for (i in seq_along(layers)) {
+    layer <- layers[[i]]
+    exclude <- names(layer$aes_params)
+    mapping <- layer$computed_mapping
+    mapping <- strip_stage(mapping)
+    mapping <- strip_dots(mapping, strip_pronoun = TRUE)
+    mapping <- mapping[setdiff(names(mapping), exclude)]
+
+    # Acquire default labels
+    mapping_default <- make_labels(mapping)
+    stat_default <- lapply(
+      make_labels(layer$stat$default_aes),
+      function(l) {
+        attr(l, "fallback") <- TRUE
+        l
+      }
+    )
+    default <- defaults(mapping_default, stat_default)
+
+    # Search for label attribute in symbolic mappings
+    symbolic <- vapply(
+      mapping, FUN.VALUE = logical(1),
+      function(x) is_quosure(x) && quo_is_symbol(x)
+    )
+    symbols <- intersect(names(mapping)[symbolic], names(data[[i]]))
+    attribs <- lapply(setNames(nm = symbols), function(x) {
+      attr(data[[i]][[x]], "label", exact = TRUE)
+    })
+    attribs <- attribs[lengths(attribs) > 0]
+    layer_labels <- defaults(attribs, default)
+
+    # Set label priority:
+    # 1. Existing labels that aren't fallback labels
+    # 2. The labels of this layer, including fallback labels
+    # 3. Existing fallback labels
+    current <- labels
+    fallbacks <- vapply(current, function(l) isTRUE(attr(l, "fallback")), logical(1))
+
+    labels <- defaults(current[!fallbacks], layer_labels)
+    if (any(fallbacks)) {
+      labels <- defaults(labels, current)
+    }
+  }
+
+  # Warn for spurious labels that don't have a mapping.
+  # Note: sometimes, 'x' and 'y' might not have a mapping, like in
+  # `geom_function()`. We can display these labels anyway, so we include them.
+  plot_labels  <- plot$labels
+  known_labels <- c(names(labels), fn_fmls_names(labs), "x", "y")
+  extra_labels <- setdiff(names(plot_labels), known_labels)
+
+  if (length(extra_labels) > 0) {
+    extra_labels <- paste0(
+      "{.code ", extra_labels, " = \"", plot_labels[extra_labels], "\"}"
+    )
+    names(extra_labels) <- rep("*", length(extra_labels))
+    cli::cli_warn(c(
+      "Ignoring unknown labels:",
+      extra_labels
+    ))
+  }
+
+  defaults(plot_labels, labels)
+}
+
 #' Modify axis, legend, and plot labels
 #'
 #' Good labels are critical for making your plots accessible to a wider
@@ -87,7 +158,7 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
   args <- args[!duplicated(names(args))]
   args <- rename_aes(args)
 
-  structure(args, class = "labels")
+  structure(args, class = c("labels", "gg"))
 }
 
 #' @rdname labs
@@ -116,7 +187,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' text from the information stored in the plot.
 #'
 #' @param p a ggplot object
-#' @param ... Currently ignored
+#' @inheritParams rlang::args_dots_used
 #'
 #' @return A text string
 #'
@@ -139,13 +210,19 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' get_alt_text(p)
 #'
 get_alt_text <- function(p, ...) {
+  warn_dots_used()
   UseMethod("get_alt_text")
 }
 #' @export
 get_alt_text.ggplot <- function(p, ...) {
   alt <- p$labels[["alt"]] %||% ""
+  if (!is.function(alt)) {
+    return(alt)
+  }
   p$labels[["alt"]] <- NULL
-  if (is.function(alt)) alt(p) else alt
+  build <- ggplot_build(p)
+  build$plot$labels[["alt"]] <- alt
+  get_alt_text(build)
 }
 #' @export
 get_alt_text.ggplot_built <- function(p, ...) {

@@ -54,13 +54,13 @@ rename <- function(x, replace) {
 id_var <- function(x, drop = FALSE) {
   if (length(x) == 0) {
     id <- integer()
-    n = 0L
+    n <- 0L
   } else if (!is.null(attr(x, "n")) && !drop) {
     return(x)
   } else if (is.factor(x) && !drop) {
     x <- addNA(x, ifany = TRUE)
     id <- as.integer(x)
-    n <- length(levels(x))
+    n <- nlevels(x)
   } else {
     levels <- sort(unique0(x), na.last = TRUE)
     id <- match(x, levels)

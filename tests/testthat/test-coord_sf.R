@@ -309,8 +309,8 @@ test_that("sf_transform_xy() works", {
   # transform back
   out2 <- sf_transform_xy(out, 4326, 3347)
   expect_identical(data$city, out2$city)
-  expect_true(all(abs(out2$x - data$x) < .01))
-  expect_true(all(abs(out2$y - data$y) < .01))
+  expect_true(all(abs(out2$x - data$x) < 0.01))
+  expect_true(all(abs(out2$y - data$y) < 0.01))
 
 })
 
