@@ -9,6 +9,10 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to ensure that data and axes don't overlap. If `FALSE`,
 #'   limits are taken exactly from the data or `xlim`/`ylim`.
+#'   Giving a logical vector will separately control the expansion for the four
+#'   directions (top, left, bottom and right). The `expand` argument will be
+#'   recycled to length 4 if necessary. Alternatively, can be a named logical
+#'   vector to control a single direction, e.g. `expand = c(bottom = FALSE)`.
 #' @param default Is this the default coordinate system? If `FALSE` (the default),
 #'   then replacing this coordinate system with another one creates a message alerting
 #'   the user that the coordinate system is being replaced. If `TRUE`, that warning
@@ -100,8 +104,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      view_scales_from_scale(scale_x, self$limits$x, self$expand),
-      view_scales_from_scale(scale_y, self$limits$y, self$expand)
+      view_scales_from_scale(scale_x, self$limits$x, params$expand[c(4, 2)]),
+      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)])
     )
   },
 

@@ -17,7 +17,7 @@ test_that("dodging works", {
   ndodge <- 3
 
   # The amount of space allocated within each dodge group
-  dwidth <- .9 / ndodge
+  dwidth <- 0.9 / ndodge
 
   # This should be the x position for each before dodging
   xbase <- ceiling(df$group / ndodge)
@@ -36,20 +36,20 @@ test_that("dodging works", {
 
 test_that("binning works", {
   bp <- ggplot(dat, aes(y)) +
-    geom_dotplot(binwidth = .4, method = "histodot")
+    geom_dotplot(binwidth = 0.4, method = "histodot")
   x <- get_layer_data(bp)$x
 
   # Need ugly hack to make sure mod function doesn't give values like -3.99999
   # due to floating point error
-  expect_true(all(abs((x - min(x) + 1e-7) %% .4) < 1e-6))
+  expect_true(all(abs((x - min(x) + 1e-7) %% 0.4) < 1e-6))
 
   bp <- ggplot(dat, aes(x = y)) +
-    geom_dotplot(binwidth = .4, method = "dotdensity")
+    geom_dotplot(binwidth = 0.4, method = "dotdensity")
   x <- get_layer_data(bp)$x
 
   # This one doesn't ensure that dotdensity works, but it does check that it's not
   # doing fixed bin sizes
-  expect_false(all(abs((x - min(x) + 1e-7) %% .4) < 1e-6))
+  expect_false(all(abs((x - min(x) + 1e-7) %% 0.4) < 1e-6))
 })
 
 test_that("NA's result in warning from stat_bindot", {
@@ -58,7 +58,7 @@ test_that("NA's result in warning from stat_bindot", {
   dat$x[c(2,10)] <- NA
 
   # Need to assign it to a var here so that it doesn't automatically print
-  expect_snapshot_warning(ggplot_build(ggplot(dat, aes(x)) + geom_dotplot(binwidth = .2)))
+  expect_snapshot_warning(ggplot_build(ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.2)))
 })
 
 test_that("when binning on y-axis, limits depend on the panel", {
@@ -92,99 +92,99 @@ test_that("geom_dotplot draws correctly", {
 
   # Basic dotplot with binning along x axis
   expect_doppelganger("basic dotplot with dot-density binning, binwidth = .4",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4)
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4)
   )
   expect_doppelganger("histodot binning (equal bin spacing)",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, method = "histodot")
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, method = "histodot")
   )
   expect_doppelganger("dots stacked closer: stackratio=.5, fill=white",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackratio = .5, fill = "white")
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackratio = 0.5, fill = "white")
   )
   expect_doppelganger("larger dots: dotsize=1.5, fill=white",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, dotsize = 1.4, fill = "white")
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, dotsize = 1.4, fill = "white")
   )
 
   # Stacking methods
   expect_doppelganger("stack up",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "up")
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "up")
   )
   expect_doppelganger("stack down",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "down")
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "down")
   )
   expect_doppelganger("stack center",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "center")
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "center")
   )
   expect_doppelganger("stack centerwhole",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "centerwhole")
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "centerwhole")
   )
 
   # Stacking methods with coord_flip
   expect_doppelganger("stack up with coord_flip",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "up") + coord_flip()
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "up") + coord_flip()
   )
   expect_doppelganger("stack down with coord_flip",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "down") + coord_flip()
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "down") + coord_flip()
   )
   expect_doppelganger("stack center with coord_flip",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "center") + coord_flip()
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "center") + coord_flip()
   )
   expect_doppelganger("stack centerwhole with coord_flip",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, stackdir = "centerwhole") + coord_flip()
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.4, stackdir = "centerwhole") + coord_flip()
   )
 
   # Binning along x, with groups
   expect_doppelganger("multiple groups, bins not aligned",
-    ggplot(dat, aes(x, fill = g)) + geom_dotplot(binwidth = .4, alpha = .4)
+    ggplot(dat, aes(x, fill = g)) + geom_dotplot(binwidth = 0.4, alpha = 0.4)
   )
   expect_doppelganger("multiple groups, bins aligned",
-    ggplot(dat, aes(x, fill = g)) + geom_dotplot(binwidth = .4, alpha = .4, binpositions = "all")
+    ggplot(dat, aes(x, fill = g)) + geom_dotplot(binwidth = 0.4, alpha = 0.4, binpositions = "all")
   )
 
   # Binning along y axis
   expect_doppelganger("bin along y, stack center",
-    ggplot(dat, aes(0, x)) + geom_dotplot(binwidth = .4, binaxis = "y", stackdir = "center")
+    ggplot(dat, aes(0, x)) + geom_dotplot(binwidth = 0.4, binaxis = "y", stackdir = "center")
   )
   expect_doppelganger("bin along y, stack centerwhole",
-    ggplot(dat, aes(0, x)) + geom_dotplot(binwidth = .4, binaxis = "y", stackdir = "centerwhole")
+    ggplot(dat, aes(0, x)) + geom_dotplot(binwidth = 0.4, binaxis = "y", stackdir = "centerwhole")
   )
   expect_doppelganger("bin along y, stack centerwhole, histodot",
-    ggplot(dat, aes(0, x)) + geom_dotplot(binwidth = .4, binaxis = "y", stackdir = "centerwhole", method = "histodot")
+    ggplot(dat, aes(0, x)) + geom_dotplot(binwidth = 0.4, binaxis = "y", stackdir = "centerwhole", method = "histodot")
   )
 
   # Binning along y, with multiple grouping factors
   dat2 <- data_frame(x = rep(factor(LETTERS[1:3]), 30), y = rnorm(90), g = rep(factor(LETTERS[1:2]), 45))
 
   expect_doppelganger("bin x, three y groups, stack centerwhole",
-    ggplot(dat2, aes(y, x)) + geom_dotplot(binwidth = .25, binaxis = "x", stackdir = "centerwhole")
+    ggplot(dat2, aes(y, x)) + geom_dotplot(binwidth = 0.25, binaxis = "x", stackdir = "centerwhole")
   )
   expect_doppelganger("bin y, three x groups, stack centerwhole",
-    ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = .25, binaxis = "y", stackdir = "centerwhole")
+    ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = 0.25, binaxis = "y", stackdir = "centerwhole")
   )
   expect_doppelganger("bin y, three x groups, bins aligned across groups",
-    ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = .25, binaxis = "y", stackdir = "center", binpositions = "all")
+    ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = 0.25, binaxis = "y", stackdir = "center", binpositions = "all")
   )
   expect_doppelganger("bin y, three x groups, bins aligned, coord_flip",
-    ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = .25, binaxis = "y", stackdir = "center", binpositions = "all") +
+    ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = 0.25, binaxis = "y", stackdir = "center", binpositions = "all") +
       coord_flip()
   )
   expect_doppelganger("bin y, dodged",
-    ggplot(dat2, aes("foo", y, fill = x)) + scale_y_continuous(breaks = seq(-4, 4, .4)) +
-      geom_dotplot(binwidth = .25, position = "dodge", binaxis = "y", stackdir = "center")
+    ggplot(dat2, aes("foo", y, fill = x)) + scale_y_continuous(breaks = seq(-4, 4, 0.4)) +
+      geom_dotplot(binwidth = 0.25, position = "dodge", binaxis = "y", stackdir = "center")
   )
   expect_doppelganger("bin y, dodged, coord_flip",
-    ggplot(dat2, aes("foo", y, fill = x)) + scale_y_continuous(breaks = seq(-4, 4, .4)) +
-      geom_dotplot(binwidth = .25, position = "dodge", binaxis = "y", stackdir = "center") +
+    ggplot(dat2, aes("foo", y, fill = x)) + scale_y_continuous(breaks = seq(-4, 4, 0.4)) +
+      geom_dotplot(binwidth = 0.25, position = "dodge", binaxis = "y", stackdir = "center") +
       coord_flip()
   )
   expect_doppelganger("bin y, three x groups, fill and dodge",
-    ggplot(dat2, aes(x, y, fill = g)) + scale_y_continuous(breaks = seq(-4 ,4, .4)) +
-      geom_dotplot(binwidth = .2, position = "dodge", binaxis = "y", stackdir = "center")
+    ggplot(dat2, aes(x, y, fill = g)) + scale_y_continuous(breaks = seq(-4 ,4, 0.4)) +
+      geom_dotplot(binwidth = 0.2, position = "dodge", binaxis = "y", stackdir = "center")
   )
   expect_doppelganger("bin y, continous x-axis, grouping by x",
-    ggplot(dat2, aes(as.numeric(x), y, group = x)) + geom_dotplot(binwidth = .2, binaxis = "y", stackdir = "center")
+    ggplot(dat2, aes(as.numeric(x), y, group = x)) + geom_dotplot(binwidth = 0.2, binaxis = "y", stackdir = "center")
   )
   expect_doppelganger("bin y, continous x-axis, single x group",
-    ggplot(dat2, aes(as.numeric(x), y)) + geom_dotplot(binwidth = .2, binaxis = "y", stackdir = "center")
+    ggplot(dat2, aes(as.numeric(x), y)) + geom_dotplot(binwidth = 0.2, binaxis = "y", stackdir = "center")
   )
 
   # border width and size
@@ -198,31 +198,31 @@ test_that("geom_dotplot draws correctly", {
         stroke = rep(c(1, 2), length.out = nrow(dat))
       )
     ) +
-      geom_dotplot(binwidth = .4, fill = "red", col = "blue") +
+      geom_dotplot(binwidth = 0.4, fill = "red", col = "blue") +
       continuous_scale("stroke", palette = function(x) scales::rescale(x, to = c(1, 6))) +
       guides(linetype = guide_legend(order = 1))
   )
 
   # Stacking groups
   expect_doppelganger("3 stackgroups, dot-density with aligned bins",
-    ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, binpositions = "all", alpha = 0.5)
+    ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = 0.25, stackgroups = TRUE, binpositions = "all", alpha = 0.5)
   )
   expect_doppelganger("3 stackgroups, histodot",
-    ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
+    ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = 0.25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
   )
   expect_doppelganger("3 stackgroups, bin y, histodot",
-    ggplot(dat2, aes(1, y, fill = x)) + geom_dotplot(binaxis = "y", binwidth = .25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
+    ggplot(dat2, aes(1, y, fill = x)) + geom_dotplot(binaxis = "y", binwidth = 0.25, stackgroups = TRUE, method = "histodot", alpha = 0.5)
   )
 
   # This one is currently broken but it would be a really rare case, and it
   # probably requires a really ugly hack to fix
   expect_doppelganger("bin y, dodging, 3 stackgroups, histodot",
     ggplot(dat2, aes(x, y, fill = g)) +
-      geom_dotplot(binaxis = "y", binwidth = .25, stackgroups = TRUE, method = "histodot",
+      geom_dotplot(binaxis = "y", binwidth = 0.25, stackgroups = TRUE, method = "histodot",
                    alpha = 0.5, stackdir = "centerwhole")
   )
   expect_doppelganger("facets, 3 groups, histodot, stackgroups",
-    ggplot(dat2, aes(y, fill = g)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, method = "histodot", alpha = 0.5) +
+    ggplot(dat2, aes(y, fill = g)) + geom_dotplot(binwidth = 0.25, stackgroups = TRUE, method = "histodot", alpha = 0.5) +
       facet_grid(x ~ .)
   )
 
@@ -231,10 +231,10 @@ test_that("geom_dotplot draws correctly", {
   dat2$x[c(1, 10)] <- NA
 
   expect_warning(expect_doppelganger("2 NA values, dot-density binning, binwidth = .4",
-    ggplot(dat2, aes(x)) + geom_dotplot(binwidth = .4)
+    ggplot(dat2, aes(x)) + geom_dotplot(binwidth = 0.4)
   ))
   expect_warning(expect_doppelganger("2 NA values, bin along y, stack center",
-    ggplot(dat2, aes(0, x)) + geom_dotplot(binwidth = .4, binaxis = "y", stackdir = "center")
+    ggplot(dat2, aes(0, x)) + geom_dotplot(binwidth = 0.4, binaxis = "y", stackdir = "center")
   ))
 })
 

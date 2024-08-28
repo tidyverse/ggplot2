@@ -4,6 +4,7 @@ NULL
 #' @export
 #' @rdname geom_abline
 geom_hline <- function(mapping = NULL, data = NULL,
+                       position = "identity",
                        ...,
                        yintercept,
                        na.rm = FALSE,
@@ -29,7 +30,7 @@ geom_hline <- function(mapping = NULL, data = NULL,
     mapping = mapping,
     stat = StatIdentity,
     geom = GeomHline,
-    position = PositionIdentity,
+    position = position,
     show.legend = show.legend,
     inherit.aes = FALSE,
     params = list2(
@@ -55,7 +56,12 @@ GeomHline <- ggproto("GeomHline", Geom,
     GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
   required_aes = "yintercept",
 
   draw_key = draw_key_path,
