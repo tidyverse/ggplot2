@@ -134,6 +134,9 @@ ViewScale <- ggproto("ViewScale", NULL,
   rescale = function(self, x) {
     self$scale$rescale(x, self$limits, self$continuous_range)
   },
+  reverse = function(self, x) {
+    self$scale$rescale(x, rev(self$limits), rev(self$continuous_range))
+  },
   map = function(self, x) {
     if (self$is_discrete()) {
       self$scale$map(x, self$limits)

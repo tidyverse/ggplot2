@@ -60,11 +60,12 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE, clip = "on") {
+                            default = FALSE, clip = "on", reverse = "none") {
   check_coord_limits(xlim)
   check_coord_limits(ylim)
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
+    reverse = reverse,
     expand = expand,
     default = default,
     clip = clip
@@ -93,8 +94,11 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     self$range(panel_params)
   },
 
-  transform = function(data, panel_params) {
-    data <- transform_position(data, panel_params$x$rescale, panel_params$y$rescale)
+  transform = function(self, data, panel_params) {
+    reverse <- self$reverse %||% "none"
+    x <- panel_params$x[[switch(reverse, xy = , x = "reverse", "rescale")]]
+    y <- panel_params$y[[switch(reverse, xy = , y = "reverse", "rescale")]]
+    data <- transform_position(data, x, y)
     transform_position(data, squish_infinite, squish_infinite)
   },
 

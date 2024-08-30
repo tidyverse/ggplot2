@@ -59,6 +59,9 @@ Coord <- ggproto("Coord",
   # "on" = yes, "off" = no
   clip = "on",
 
+  # Should any of the scales be reversed?
+  reverse = "none",
+
   aspect = function(ranges) NULL,
 
   labels = function(self, labels, panel_params) {
