@@ -89,6 +89,9 @@ coord_radial <- function(theta = "x",
 
   r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
 
+  inner.radius <- c(inner.radius, 1) * 0.4
+  inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
+
   ggproto(NULL, CoordRadial,
     theta = theta,
     r = r,
@@ -97,7 +100,7 @@ coord_radial <- function(theta = "x",
     reverse = reverse,
     r_axis_inside = r.axis.inside,
     rotate_angle = rotate.angle,
-    inner_radius = c(inner.radius, 1) * 0.4,
+    inner_radius = inner.radius,
     clip = clip
   )
 }

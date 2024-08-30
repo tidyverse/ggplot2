@@ -65,6 +65,9 @@ GuideAxisTheta <- ggproto(
 
     opposite_var <- setdiff(c("x", "y"), params$aesthetic)
     opposite_value <- switch(params$position, top = , right = , theta.sec = -Inf, Inf)
+    if (is.unsorted(panel_params$inner_radius %||% NA)) {
+      opposite_value <- -opposite_value
+    }
     if (nrow(params$key) > 0) {
       params$key[[opposite_var]] <- opposite_value
     }
