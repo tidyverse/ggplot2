@@ -83,18 +83,22 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     source_crs <- panel_params$default_crs
     target_crs <- panel_params$crs
 
+    # CoordSf doesn't use the viewscale rescaling, so we just flip ranges
+    reverse <- self$reverse %||% "none"
+    x_range <- switch(reverse, xy = , x = rev, identity)(panel_params$x_range)
+    y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y_range)
+
     # normalize geometry data, it should already be in the correct crs here
     data[[ geom_column(data) ]] <- sf_rescale01(
       data[[ geom_column(data) ]],
-      panel_params$x_range,
-      panel_params$y_range
+      x_range, y_range
     )
 
     # transform and normalize regular position data
     data <- transform_position(
       sf_transform_xy(data, target_crs, source_crs),
-      function(x) rescale(x, from = panel_params$x_range),
-      function(x) rescale(x, from = panel_params$y_range)
+      function(x) rescale(x, from = x_range),
+      function(x) rescale(x, from = y_range)
     )
 
     transform_position(data, squish_infinite, squish_infinite)
@@ -257,17 +261,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       )
     )
 
-    # Rescale graticule for panel grid
-    sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
-
-    list2(
+    panel_params <- list2(
       x_range = x_range,
       y_range = y_range,
-      graticule = graticule,
       crs = params$crs,
       default_crs = params$default_crs,
       !!!viewscales
     )
+
+    # Rescale graticule for panel grid
+    panel_params$graticule <- self$transform(graticule, panel_params)
+    panel_params
   },
 
   train_panel_guides = function(self, panel_params, layers, params = list()) {
@@ -402,12 +406,26 @@ sf_transform_xy <- function(data, target_crs, source_crs, authority_compliant = 
 ## helper functions to normalize geometry and position data
 
 # normalize geometry data (variable x is geometry column)
+# this is a wrapper for `sf::st_normalize()`, but deals with empty input and
+# reversed ranges too
 sf_rescale01 <- function(x, x_range, y_range) {
   if (is.null(x)) {
     return(x)
   }
-
-  sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
+  mult <- cbind(1, 1)
+  if (isTRUE(x_range[1] > x_range[2])) {
+    x_range <- sort(x_range)
+    mult[1] <- -1
+  }
+  if (isTRUE(y_range[1] > y_range[2])) {
+    y_range <- sort(y_range)
+    mult[2] <- -1
+  }
+  x <- sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
+  if (all(mult == 1)) {
+    return(x)
+  }
+  x * mult + pmax(-mult, 0)
 }
 
 # different limits methods
@@ -530,7 +548,8 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
                      label_axes = waiver(), lims_method = "cross",
-                     ndiscr = 100, default = FALSE, clip = "on") {
+                     ndiscr = 100, default = FALSE, clip = "on",
+                     reverse = "none") {
 
   if (is.waive(label_graticule) && is.waive(label_axes)) {
     # if both `label_graticule` and `label_axes` are set to waive then we
@@ -574,6 +593,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes = label_axes,
     label_graticule = label_graticule,
     ndiscr = ndiscr,
+    reverse = reverse,
     expand = expand,
     default = default,
     clip = clip
