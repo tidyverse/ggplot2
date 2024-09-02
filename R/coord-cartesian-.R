@@ -21,6 +21,10 @@
 #'   limits are set via `xlim` and `ylim` and some data points fall outside those
 #'   limits, then those data points may show up in places such as the axes, the
 #'   legend, the plot title, or the plot margins.
+#' @param reverse A string giving which directions to reverse. `"none"`
+#'   (default) keeps directions as is. `"x"` and `"y"` can be used to reverse
+#'   their respective directions. `"xy"` can be used to reverse both
+#'   directions.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or

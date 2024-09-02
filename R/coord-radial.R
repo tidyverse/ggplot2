@@ -19,7 +19,11 @@
 #'   in accordance with the computed `theta` position. If `FALSE` (default),
 #'   no such transformation is performed. Can be useful to rotate text geoms in
 #'   alignment with the coordinates.
-#' @param inner.radius A `numeric` between 0 and 1 setting the size of a inner.radius hole.
+#' @param inner.radius A `numeric` between 0 and 1 setting the size of a
+#'   inner radius hole.
+#' @param reverse A string giving which directions to reverse. `"none"`
+#'   (default) keep directions as is. `"theta"` reverses the angle and `"r"`
+#'   reverses the radius. `"thetar"` reverses both the angle and the radius.
 #' @param r_axis_inside,rotate_angle `r lifecycle::badge("deprecated")`
 #'
 #' @note

@@ -12,7 +12,8 @@ coord_trans(
   limx = deprecated(),
   limy = deprecated(),
   clip = "on",
-  expand = TRUE
+  expand = TRUE,
+  reverse = "none"
 )
 }
 \arguments{
@@ -34,6 +35,11 @@ legend, the plot title, or the plot margins.}
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+
+\item{reverse}{A string giving which directions to reverse. \code{"none"}
+(default) keeps directions as is. \code{"x"} and \code{"y"} can be used to reverse
+their respective directions. \code{"xy"} can be used to reverse both
+directions.}
 }
 \description{
 \code{coord_trans()} is different to scale transformations in that it occurs after
