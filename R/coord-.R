@@ -187,7 +187,7 @@ Coord <- ggproto("Coord",
   # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
-  setup_params = function(data) {
+  setup_params = function(self, data) {
     list(expand = parse_coord_expand(self$expand %||% TRUE))
   },
 
