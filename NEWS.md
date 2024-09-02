@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
+  `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
+  and `coord_sf()`. In `coord_radial()`, this replaces the older `direction` 
+  argument (#4021, @teunbrand).
+* `coord_radial()` displays minor gridlines now (@teunbrand).
+* (internal) `continuous_scale()` and `binned_scale()` sort the `limits` 
+  argument internally (@teunbrand).
 * (Breaking) The defaults for all geoms can be set at one in the theme. 
   (@teunbrand based on pioneering work by @dpseidel, #2239)
     * A new `theme(geom)` argument is used to track these defaults.
