@@ -314,69 +314,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   render_bg = function(self, panel_params, theme) {
-
-    bbox  <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
-    arc   <- panel_params$arc  %||% c(0, 2 * pi)
-    inner_radius <- panel_params$inner_radius
-
-    theta_lim <- panel_params$theta.range
-    theta_maj <- panel_params$theta.major
-    theta_min <- setdiff(panel_params$theta.minor, theta_maj)
-
-    if (length(theta_maj) > 0) {
-      theta_maj <- theta_rescale(theta_maj, theta_lim, arc)
-    }
-    if (length(theta_min) > 0) {
-      theta_min <- theta_rescale(theta_min, theta_lim, arc)
-    }
-
-    theta_fine <- theta_rescale(seq(0, 1, length.out = 100), c(0, 1), arc)
-    r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
-                         panel_params$inner_radius)
-
-    # This gets the proper theme element for theta and r grid lines:
-    #   panel.grid.major.x or .y
-    grid_elems <- paste(
-      c("panel.grid.major.", "panel.grid.minor.", "panel.grid.major."),
-      c(self$theta, self$theta, self$r), sep = ""
+    panel_params <- switch(
+      self$theta,
+      x = rename(panel_params, c(theta = "x", r = "y")),
+      y = rename(panel_params, c(theta = "y", r = "x"))
     )
-    grid_elems <- lapply(grid_elems, calc_element, theme = theme)
-    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
-    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
-
-    bg_element <- calc_element("panel.background", theme)
-    if (!inherits(bg_element, "element_blank")) {
-      background <- data_frame0(
-        x = c(Inf,  Inf, -Inf, -Inf),
-        y = c(Inf, -Inf, -Inf,  Inf)
-      )
-      background <- coord_munch(self, background, panel_params, is_closed = TRUE)
-      bg_gp <- gg_par(
-        lwd = bg_element$linewidth,
-        col = bg_element$colour, fill = bg_element$fill,
-        lty = bg_element$linetype
-      )
-      background <- polygonGrob(
-        x = background$x, y = background$y,
-        gp = bg_gp
-      )
-    } else {
-      background <- zeroGrob()
-    }
-
-    ggname("grill", grobTree(
-      background,
-      theta_grid(theta_maj, grid_elems[[1]], inner_radius, bbox),
-      theta_grid(theta_min, grid_elems[[2]], inner_radius, bbox),
-      element_render(
-        theme, majorr, name = "radius",
-        x = rescale(outer(sin(theta_fine), r_fine) + 0.5, from = bbox$x),
-        y = rescale(outer(cos(theta_fine), r_fine) + 0.5, from = bbox$y),
-        id.lengths = rep(length(theta_fine), length(r_fine)),
-        default.units = "native"
-      )
-    ))
+    guide_grid(theme, panel_params, self, square = FALSE)
   },
 
   render_fg = function(self, panel_params, theme) {

@@ -109,14 +109,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     )
   },
 
-  render_bg = function(panel_params, theme) {
-    guide_grid(
-      theme,
-      panel_params$x$break_positions_minor(),
-      panel_params$x$break_positions(),
-      panel_params$y$break_positions_minor(),
-      panel_params$y$break_positions()
-    )
+  render_bg = function(self, panel_params, theme) {
+    guide_grid(theme, panel_params, self)
   },
 
   render_axis_h = function(panel_params, theme) {

@@ -164,22 +164,7 @@ CoordTrans <- ggproto("CoordTrans", Coord,
   },
 
   render_bg = function(self, panel_params, theme) {
-    if (self$reverse %in% c("x", "xy")) {
-      panel_params$x.minor <- 1 - panel_params$x.minor
-      panel_params$x.major <- 1 - panel_params$x.major
-    }
-    if (self$reverse %in% c("y", "xy")) {
-      panel_params$y.minor <- 1 - panel_params$y.minor
-      panel_params$y.major <- 1 - panel_params$y.major
-    }
-
-    guide_grid(
-      theme,
-      panel_params$x.minor,
-      panel_params$x.major,
-      panel_params$y.minor,
-      panel_params$y.major
-    )
+    guide_grid(theme, panel_params, self)
   },
 
   render_axis_h = function(panel_params, theme) {
