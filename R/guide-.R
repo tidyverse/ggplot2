@@ -51,7 +51,7 @@ new_guide <- function(..., available_aes = "any", super) {
   # Validate theme settings
   if (!is.null(params$theme)) {
     check_object(params$theme, is.theme, what = "a {.cls theme} object")
-    validate_theme(params$theme, call = caller_env())
+    check_theme(params$theme, call = caller_env())
     params$direction <- params$direction %||% params$theme$legend.direction
   }
 
