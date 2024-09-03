@@ -140,19 +140,16 @@ scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour
   args <- list2(...)
   args$call <- args$call %||% current_call()
 
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_colour_discrete",
-      "colour",
-      scale_is_discrete = TRUE
-    )
-  } else {
-    exec(scale_colour_qualitative, !!!args, type = type)
+  if (!is.function(type)) {
+    scale <- exec(scale_colour_qualitative, !!!args, type = type)
+    return(scale)
   }
+  if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+    args$call <- NULL
+  }
+  scale <- exec(type, !!!args)
+  check_scale_type(scale, "scale_colour_discrete", "colour", scale_is_discrete = TRUE)
+  return(scale)
 }
 
 #' @rdname scale_colour_discrete
@@ -163,19 +160,17 @@ scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) 
   args <- list2(...)
   args$call <- args$call %||% current_call()
 
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_fill_discrete",
-      "fill",
-      scale_is_discrete = TRUE
-    )
-  } else {
-    exec(scale_fill_qualitative, !!!args, type = type)
+  if (!is.function(type)) {
+    scale <- exec(scale_fill_qualitative, !!!args, type = type)
+    return(scale)
   }
+
+  if (!any(c("...", "call") %in% fn_fmls_names(type))) {
+    args$call <- NULL
+  }
+  scale <- exec(type, !!!args)
+  check_scale_type(scale, "scale_fill_discrete", "fill", scale_is_discrete = TRUE)
+  scale
 }
 
 scale_colour_qualitative <- function(name = waiver(), ..., type = NULL,
