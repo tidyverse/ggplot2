@@ -95,7 +95,7 @@ ggsave <- function(filename, plot = get_last_plot(),
                    dpi = 300, limitsize = TRUE, bg = NULL,
                    create.dir = FALSE,
                    ...) {
-  filename <- check_path(path, filename, create.dir)
+  filename <- validate_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
@@ -116,8 +116,8 @@ ggsave <- function(filename, plot = get_last_plot(),
   invisible(filename)
 }
 
-check_path <- function(path, filename, create.dir,
-                       call = caller_env()) {
+validate_path <- function(path, filename, create.dir,
+                          call = caller_env()) {
 
   if (length(filename) > 1 && is.character(filename)) {
     cli::cli_warn(c(
