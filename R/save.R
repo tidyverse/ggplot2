@@ -98,7 +98,7 @@ ggsave <- function(filename, plot = get_last_plot(),
   filename <- validate_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)
-  dev <- plot_dev(device, filename, dpi = dpi)
+  dev <- validate_device(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
 
@@ -235,7 +235,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
   dim
 }
 
-plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
+validate_device <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   force(filename)
   force(dpi)
 
