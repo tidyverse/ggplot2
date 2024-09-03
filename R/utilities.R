@@ -300,17 +300,29 @@ is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
 
-# This function checks that all columns of a dataframe `x` are data and returns
-# the names of any columns that are not.
-# We define "data" as atomic types or lists, not functions or otherwise.
-# The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
-# and whether they can be expected to follow behavior typical of vectors. See
-# also #3835
-check_nondata_cols <- function(x) {
-  idx <- (vapply(x, function(x) {
-    is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
-  }, logical(1)))
-  names(x)[which(!idx)]
+check_nondata_cols <- function(data, mapping, problem = NULL, hint = NULL) {
+  # We define "data" as atomic types or lists, not functions or otherwise.
+  # The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
+  # and whether they can be expected to follow behaviour typical of vectors. See
+  # also #3835
+  invalid <- which(!vapply(
+    data, FUN.VALUE = logical(1),
+    function(x) is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
+  ))
+  invalid <- names(data)[invalid]
+
+  if (length(invalid) < 1) {
+    return(invisible())
+  }
+
+  mapping <- vapply(mapping[invalid], as_label, character(1))
+  issues <- paste0("{.code ", invalid, " = ", mapping, "}")
+  names(issues) <- rep("*", length(issues))
+  issues <- c(x = "The following aesthetics are invalid:", issues)
+
+  # Using 'call = NULL' here because `by_layer()` does a good job of indicating
+  # the origin of the error
+  cli::cli_abort(c(problem, issues, i = hint), call = NULL)
 }
 
 compact <- function(x) {

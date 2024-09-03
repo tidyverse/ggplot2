@@ -58,8 +58,8 @@
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display. To include legend keys for all levels, even 
-#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend, 
+#'   display. To include legend keys for all levels, even
+#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
 #'   but unobserved levels are omitted.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
@@ -313,17 +313,11 @@ Layer <- ggproto("Layer", NULL,
     warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
 
     # Check aesthetic values
-    nondata_cols <- check_nondata_cols(evaled)
-    if (length(nondata_cols) > 0) {
-      issues <- paste0("{.code ", nondata_cols, " = ", as_label(aesthetics[[nondata_cols]]), "}")
-      names(issues) <- rep("x", length(issues))
-      cli::cli_abort(c(
-        "Aesthetics are not valid data columns.",
-        "x" = "The following aesthetics are invalid:",
-        issues,
-        "i" = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
-      ))
-    }
+    check_nondata_cols(
+      evaled, aesthetics,
+      problem = "Aesthetics are not valid data columns.",
+      hint    = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
+    )
 
     n <- nrow(data)
     aes_n <- lengths(evaled)
@@ -395,17 +389,11 @@ Layer <- ggproto("Layer", NULL,
     stat_data <- lapply(new, eval_tidy, mask, env)
 
     # Check that all columns in aesthetic stats are valid data
-    nondata_stat_cols <- check_nondata_cols(stat_data)
-    if (length(nondata_stat_cols) > 0) {
-      issues <- paste0("{.code ", nondata_stat_cols, " = ", as_label(aesthetics[[nondata_stat_cols]]), "}")
-      names(issues) <- rep("x", length(issues))
-      cli::cli_abort(c(
-        "Aesthetics must be valid computed stats.",
-        "x" = "The following aesthetics are invalid:",
-        issues,
-        "i" = "Did you map your stat in the wrong layer?"
-      ))
-    }
+    check_nondata_cols(
+      stat_data, aesthetics,
+      problem = "Aesthetics must be valid computed stats.",
+      hint    = "Did you map your stat in the wrong layer?"
+    )
 
     names(stat_data) <- names(new)
     stat_data <- data_frame0(!!!compact(stat_data))

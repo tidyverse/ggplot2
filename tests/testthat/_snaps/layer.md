@@ -31,42 +31,42 @@
 
     Problem while computing aesthetics.
     i Error occurred in the 1st layer.
-    Caused by error in `compute_aesthetics()`:
+    Caused by error:
     ! Aesthetics are not valid data columns.
     x The following aesthetics are invalid:
-    x `fill = data`
+    * `fill = data`
     i Did you mistype the name of a data column or forget to add `after_stat()`?
 
 ---
 
     Problem while mapping stat to aesthetics.
     i Error occurred in the 1st layer.
-    Caused by error in `map_statistic()`:
+    Caused by error:
     ! Aesthetics must be valid computed stats.
     x The following aesthetics are invalid:
-    x `fill = after_stat(data)`
+    * `fill = after_stat(data)`
     i Did you map your stat in the wrong layer?
 
 # function aesthetics are wrapped with after_stat()
 
     Problem while computing aesthetics.
     i Error occurred in the 1st layer.
-    Caused by error in `compute_aesthetics()`:
+    Caused by error:
     ! Aesthetics are not valid data columns.
     x The following aesthetics are invalid:
-    x `colour = NULL`
-    x `fill = NULL`
+    * `colour = density`
+    * `fill = density`
     i Did you mistype the name of a data column or forget to add `after_stat()`?
 
 # computed stats are in appropriate layer
 
     Problem while mapping stat to aesthetics.
     i Error occurred in the 1st layer.
-    Caused by error in `map_statistic()`:
+    Caused by error:
     ! Aesthetics must be valid computed stats.
     x The following aesthetics are invalid:
-    x `colour = NULL`
-    x `fill = NULL`
+    * `colour = after_stat(density)`
+    * `fill = after_stat(density)`
     i Did you map your stat in the wrong layer?
 
 # layer reports the error with correct index etc
