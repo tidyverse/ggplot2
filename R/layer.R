@@ -101,12 +101,6 @@ layer <- function(geom = NULL, stat = NULL,
                   show.legend = NA, key_glyph = NULL, layer_class = Layer) {
   call_env <- caller_env()
   user_env <- caller_env(2)
-  if (is.null(geom))
-    cli::cli_abort("Can't create layer without a geom.", call = call_env)
-  if (is.null(stat))
-    cli::cli_abort("Can't create layer without a stat.", call = call_env)
-  if (is.null(position))
-    cli::cli_abort("Can't create layer without a position.", call = call_env)
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
@@ -125,9 +119,9 @@ layer <- function(geom = NULL, stat = NULL,
 
   data <- fortify(data)
 
-  geom <- check_subclass(geom, "Geom", env = parent.frame(), call = call_env)
-  stat <- check_subclass(stat, "Stat", env = parent.frame(), call = call_env)
-  position <- check_subclass(position, "Position", env = parent.frame(), call = call_env)
+  geom <- validate_subclass(geom, "Geom", env = parent.frame(), call = call_env)
+  stat <- validate_subclass(stat, "Stat", env = parent.frame(), call = call_env)
+  position <- validate_subclass(position, "Position", env = parent.frame(), call = call_env)
 
   # Special case for na.rm parameter needed by all layers
   params$na.rm <- params$na.rm %||% FALSE
@@ -458,24 +452,25 @@ Layer <- ggproto("Layer", NULL,
 
 is.layer <- function(x) inherits(x, "Layer")
 
-check_subclass <- function(x, subclass,
-                           argname = to_lower_ascii(subclass),
-                           env = parent.frame(),
-                           call = caller_env()) {
+validate_subclass <- function(x, subclass,
+                              argname = to_lower_ascii(subclass),
+                              x_arg = caller_arg(x),
+                              env = parent.frame(),
+                              call = caller_env()) {
   if (inherits(x, subclass)) {
-    x
+    return(x)
   } else if (is_scalar_character(x)) {
     name <- paste0(subclass, camelize(x, first = TRUE))
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
       cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
-    } else {
-      obj
     }
-  } else {
-    stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"))
+    return(obj)
+  } else if (is.null(x)) {
+    cli::cli_abort("The {.arg {x_arg}} argument cannot be empty.", call = call)
   }
+  stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"))
 }
 
 # helper function to adjust the draw_key slot of a geom

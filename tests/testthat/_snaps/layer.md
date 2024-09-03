@@ -1,14 +1,14 @@
 # layer() checks its input
 
-    Can't create layer without a geom.
+    The `geom` argument cannot be empty.
 
 ---
 
-    Can't create layer without a stat.
+    The `stat` argument cannot be empty.
 
 ---
 
-    Can't create layer without a position.
+    The `position` argument cannot be empty.
 
 ---
 

@@ -19,7 +19,7 @@ NULL
 new_guide <- function(..., available_aes = "any", super) {
 
   pf <- parent.frame()
-  super <- check_subclass(super, "Guide", env = pf)
+  super <- validate_subclass(super, "Guide", env = pf)
 
   args <- list2(...)
 
