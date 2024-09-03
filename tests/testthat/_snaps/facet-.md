@@ -40,7 +40,7 @@
 
     Faceting variables must have at least one value.
 
-# validate_facets() provide meaningful errors
+# check_facet_class() provide meaningful errors
 
     Please use `vars()` to supply facet variables.
 
