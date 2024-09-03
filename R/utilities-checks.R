@@ -69,6 +69,49 @@ check_inherits <- function(x,
   )
 }
 
+check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
+                         arg = caller_arg(x), call = caller_env()) {
+  n <- length(x)
+  if (n %in% length) {
+    return(invisible(NULL))
+  }
+  if (length(length) > 0) {
+    type <- if (length(length) == 1) {
+      switch(as.character(length), "0" = "empty vector", "1" = "scalar", "vector")
+    } else {
+      "vector"
+    }
+    cli::cli_abort(
+      "{.arg {arg}} must be a {type} of length {.or {length}}, not length {n}.",
+      call = call, arg = arg
+    )
+  }
+
+  range <- pmax(range(min, max), 0)
+  if (n >= min & n <= max) {
+    return(invisible(NULL))
+  }
+  if (identical(range[1], range[2])) {
+    check_length(x, range[1], arg = arg, call = call)
+    return(invisible(NULL))
+  }
+
+  type <- if (range[2] == 1) "scalar" else "vector"
+  msg  <- "{.arg {arg}} must be a {type} with "
+
+  if (identical(range[2], Inf)) {
+    msg <- c(msg, "at least length {range[1]}")
+  }
+  if (identical(range[1], 0)) {
+    msg <- c(msg, "at most length {range[2]}")
+  }
+  if (length(msg) == 1) {
+    msg <- c(msg, "a length between {.and {range}}")
+  }
+  msg <- paste0(c(msg, ", not length {n}."), collapse = "")
+  cli::cli_abort(msg, call = call, arg = arg)
+}
+
 #' Check graphics device capabilities
 #'
 #' This function makes an attempt to estimate whether the graphics device is
