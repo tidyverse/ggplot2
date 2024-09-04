@@ -13,6 +13,7 @@ labs(
   subtitle = waiver(),
   caption = waiver(),
   tag = waiver(),
+  dict = waiver(),
   alt = waiver(),
   alt_insight = waiver()
 )
@@ -36,6 +37,10 @@ bottom-right of the plot by default.}
 
 \item{tag}{The text for the tag label which will be displayed at the
 top-left of the plot by default.}
+
+\item{dict}{A named character vector to serve as dictionary. Automatically
+derived labels, such as those based on variables will be matched with
+\code{names(dict)} and replaced by the matching entry in \code{dict}.}
 
 \item{alt, alt_insight}{Text used for the generation of alt-text for the plot.
 See \link{get_alt_text} for examples. \code{alt} can also be a function that
@@ -67,6 +72,14 @@ remove the subtitle from the plot.
 p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
 p + labs(colour = "Cylinders")
 p + labs(x = "New x label")
+
+# Set labels by variable name instead of aesthetic
+p + labs(dict = c(
+  disp = "Displacment", # Not in use
+  cyl  = "Number of cylinders",
+  mpg  = "Miles per gallon",
+  wt   = "Weight (1000 lbs)"
+))
 
 # The plot title appears at the top-left, with the subtitle
 # display in smaller text underneath it
