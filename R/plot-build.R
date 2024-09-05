@@ -68,12 +68,13 @@ ggplot_build.ggplot <- function(plot) {
 
   # Map and train positions so that statistics have access to ranges
   # and all positions are numeric
-  scale_x <- function() scales$get_scales("x")
-  scale_y <- function() scales$get_scales("y")
   pos_aes <- layout$coord$aesthetics %||% c("x", "y")
   pos_aes <- vec_set_names(pos_aes, pos_aes)
+  pos_scales <- lapply(pos_aes, function(aes) {
+    function() scales$get_scales(aes)
+  })
 
-  layout$train_position(data, scale_x(), scale_y())
+  layout$train_position(data, lapply(pos_scales, function(f) f()))
   data <- layout$map_position(data)
   data <- .expose_data(data)
 
@@ -95,7 +96,7 @@ ggplot_build.ggplot <- function(plot) {
   # displayed, or does it include the range of underlying data
   data <- .ignore_data(data)
   layout$reset_scales()
-  layout$train_position(data, scale_x(), scale_y())
+  layout$train_position(data, lapply(pos_scales, function(f) f()))
   layout$setup_panel_params()
   data <- layout$map_position(data)
 
@@ -106,7 +107,7 @@ ggplot_build.ggplot <- function(plot) {
   plot$theme <- plot_theme(plot)
 
   # Train and map non-position scales and guides
-  npscales <- scales$non_position_scales()
+  npscales <- scales$non_position_scales(pos_aes)
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
     plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data, plot$theme)
