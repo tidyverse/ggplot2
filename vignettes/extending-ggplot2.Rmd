@@ -715,7 +715,7 @@ here we first investigate whether we have gotten an empty `data.frame` and if no
 While the two functions above have been deceivingly simple, this last one is going to take some more work. Our goal is to draw two panels beside (or above) each other with axes etc.
 
 ```{r}
-render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
+render <- function(panels, layout, scales, ranges, coord, data,
                    theme, params) {
   # Place panels according to settings
   if (params$horizontal) {
@@ -852,14 +852,13 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     )
   },
   # This is new. We create a new scale with the defined transformation
-  init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
-    scales <- list()
-    if (!is.null(x_scale)) {
-      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
+  init_scales = function(layout, scales, params) {
+    if (!is.null(scales$x)) {
+      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) scales$x$clone())
     }
-    if (!is.null(y_scale)) {
-      y_scale_orig <- y_scale$clone()
-      y_scale_new <- y_scale$clone()
+    if (!is.null(scales$y)) {
+      y_scale_orig <- scales$y$clone()
+      y_scale_new <- scales$y$clone()
       y_scale_new$trans <- params$trans
       # Make sure that oob values are kept
       y_scale_new$oob <- function(x, ...) x
@@ -868,8 +867,9 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     scales
   },
   # We must make sure that the second scale is trained on transformed data
-  train_scales = function(x_scales, y_scales, layout, data, params) {
+  train_scales = function(scales, layout, data, params) {
     # Transform data for second panel prior to scale training
+    y_scales <- scales$y
     if (!is.null(y_scales)) {
       data <- lapply(data, function(layer_data) {
         match_id <- match(layer_data$PANEL, layout$PANEL)
@@ -881,22 +881,22 @@ FacetTrans <- ggproto("FacetTrans", Facet,
         layer_data
       })
     }
-    Facet$train_scales(x_scales, y_scales, layout, data, params)
+    Facet$train_scales(scales, layout, data, params)
   },
   # this is where we actually modify the data. It cannot be done in $map_data as that function
   # doesn't have access to the scales
-  finish_data = function(data, layout, x_scales, y_scales, params) {
+  finish_data = function(data, layout, scales, params) {
     match_id <- match(data$PANEL, layout$PANEL)
-    y_vars <- intersect(y_scales[[1]]$aesthetics, names(data))
+    y_vars <- intersect(scales$y[[1]]$aesthetics, names(data))
     trans_scale <- data$PANEL == 2L
     for (i in y_vars) {
-      data[trans_scale, i] <- y_scales[[2]]$transform(data[trans_scale, i])
+      data[trans_scale, i] <- scales$y[[2]]$transform(data[trans_scale, i])
     }
     data
   },
   # A few changes from before to accommodate that axes are now not duplicate of each other
   # We also add a panel strip to annotate the different panels
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
+  draw_panels = function(panels, layout, scales, ranges, coord,
                          data, theme, params) {
     # Place panels according to settings
     if (params$horizontal) {
