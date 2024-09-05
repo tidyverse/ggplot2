@@ -83,8 +83,7 @@ Layout <- ggproto("Layout", NULL,
     plot_table <- self$facet$draw_panels(
       panels,
       self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
+      self$panel_scales,
       self$panel_params,
       self$coord,
       data,
@@ -94,18 +93,14 @@ Layout <- ggproto("Layout", NULL,
 
     # Draw individual labels, then add to gtable
     labels <- self$coord$labels(
-      list(
-        x = self$resolve_label(self$panel_scales_x[[1]], labels),
-        y = self$resolve_label(self$panel_scales_y[[1]], labels)
-      ),
+      lapply(lapply(self$panel_scales, `[[`, 1), self$resolve_label, labels),
       self$panel_params[[1]]
     )
     labels <- self$render_labels(labels, theme)
     self$facet$draw_labels(
       plot_table,
       self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
+      self$panel_scales,
       self$panel_params,
       self$coord,
       data,
@@ -121,7 +116,7 @@ Layout <- ggproto("Layout", NULL,
     if (is.null(self$panel_scales_x)) {
       self$panel_scales_x <- self$facet$init_scales(layout, x_scale = x_scale,
         params = self$facet_params)$x
-    }
+      }
     if (is.null(self$panel_scales_y)) {
       self$panel_scales_y <- self$facet$init_scales(layout, y_scale = y_scale,
         params = self$facet_params)$y
@@ -142,8 +137,8 @@ Layout <- ggproto("Layout", NULL,
     lapply(data, function(layer_data) {
       match_id <- NULL
 
-      # Loop through each variable, mapping across each scale, then joining
-      # back together
+        # Loop through each variable, mapping across each scale, then joining
+        # back together
       x_vars <- intersect(self$panel_scales_x[[1]]$aesthetics, names(layer_data))
       if (length(x_vars) > 0) {
         match_id <- match(layer_data$PANEL, layout$PANEL)
@@ -170,49 +165,52 @@ Layout <- ggproto("Layout", NULL,
 
   reset_scales = function(self) {
     if (!self$facet$shrink) return()
-    lapply(self$panel_scales_x, function(s) s$reset())
-    lapply(self$panel_scales_y, function(s) s$reset())
+    lapply(self$panel_scales, lapply, function(s) s$reset())
     invisible()
   },
 
   finish_data = function(self, data) {
     lapply(data, self$facet$finish_data,
       layout = self$layout,
-      x_scales = self$panel_scales_x,
-      y_scales = self$panel_scales_y,
+      scales = self$panel_scales,
       params = self$facet_params
     )
   },
 
   get_scales = function(self, i) {
     this_panel <- self$layout[self$layout$PANEL == i, ]
+    aesthetics <- self$coord$aesthetics
 
-    list(
-      x = self$panel_scales_x[[this_panel$SCALE_X]],
-      y = self$panel_scales_y[[this_panel$SCALE_Y]]
+    lapply(
+      vec_set_names(aesthetics, aesthetics),
+      function(aes) {
+        self$panel_scales[[aes]][[this_panel[[paste0("SCALE_", to_upper_ascii(aes))]]]]
+      }
     )
   },
 
   setup_panel_params = function(self) {
     # Fudge for CoordFlip and CoordPolar - in place modification of
     # scales is not elegant, but it is pragmatic
-    self$coord$modify_scales(self$panel_scales_x, self$panel_scales_y)
+    self$coord$modify_scales(self$panel_scales)
 
     # We only need to setup panel params once for unique combinations of x/y
     # scales. These will be repeated for duplicated combinations.
     index <- vec_unique_loc(self$layout$COORD)
     order <- vec_match(self$layout$COORD, self$layout$COORD[index])
 
-    scales_x <- self$panel_scales_x[self$layout$SCALE_X[index]]
-    scales_y <- self$panel_scales_y[self$layout$SCALE_Y[index]]
+    scales <- vector("list", length(index))
+    for (aes in self$coord$aesthetics) {
+      idx <- self$layout[[paste0("SCALE_", to_upper_ascii(aes))]][index]
+      for (i in seq_along(idx)) {
+        scales[[i]][[aes]] <- self$panel_scales[[aes]][[idx[i]]]
+      }
+    }
 
     self$panel_params <- Map(
-      self$coord$setup_panel_params,
-      scales_x, scales_y,
+      self$coord$setup_panel_params, scales,
       MoreArgs = list(params = self$coord_params)
     )[order] # `[order]` does the repeating
-
-    invisible()
   },
 
   setup_panel_guides = function(self, guides, layers) {
