@@ -39,7 +39,7 @@ FacetNull <- ggproto("FacetNull", Facet,
     data$PANEL <- factor(1)
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+  draw_panels = function(panels, layout, scales, ranges, coord, data, theme, params) {
 
     range <- ranges[[1]]
 

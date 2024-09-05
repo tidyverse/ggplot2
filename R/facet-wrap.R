@@ -451,7 +451,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     table
   },
 
-  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+  draw_panels = function(self, panels, layout, scales, ranges, coord, data, theme, params) {
     if (inherits(coord, "CoordFlip")) {
       if (params$free$x) {
         layout$SCALE_X <- seq_len(nrow(layout))

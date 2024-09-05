@@ -29,8 +29,7 @@ Layout <- ggproto("Layout", NULL,
   layout = NULL,
 
   # Per panel scales and params
-  panel_scales_x = NULL,
-  panel_scales_y = NULL,
+  panel_scales = NULL,
   panel_params = NULL,
 
   setup = function(self, data, plot_data = data_frame0(), plot_env = emptyenv()) {
@@ -62,16 +61,14 @@ Layout <- ggproto("Layout", NULL,
   render = function(self, panels, data, theme, labels) {
     facet_bg <- self$facet$draw_back(data,
       self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
+      self$panel_scales,
       theme,
       self$facet_params
     )
     facet_fg <- self$facet$draw_front(
       data,
       self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
+      self$panel_scales,
       theme,
       self$facet_params
     )

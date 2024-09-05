@@ -94,7 +94,7 @@ Facet <- ggproto("Facet", NULL,
     scales <- list()
     if (!is.null(x_scale)) {
       scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
-    }
+      }
     if (!is.null(y_scale)) {
       scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
     }
@@ -127,13 +127,13 @@ Facet <- ggproto("Facet", NULL,
       }
     }
   },
-  draw_back = function(data, layout, x_scales, y_scales, theme, params) {
+  draw_back = function(data, layout, scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_front = function(data, layout, x_scales, y_scales, theme, params) {
+  draw_front = function(data, layout, scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
+  draw_panels = function(self, panels, layout, scales = NULL,
                          ranges, coord, data = NULL, theme, params) {
 
     free  <- params$free       %||% list(x = FALSE, y = FALSE)
@@ -163,7 +163,7 @@ Facet <- ggproto("Facet", NULL,
     table <- self$attach_axes(table, layout, ranges, coord, theme, params)
     self$attach_strips(table, layout, params, theme)
   },
-  draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
+  draw_labels = function(panels, layout, scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
 
     xlab_height_top <- grobHeight(labels$x[[1]])
@@ -197,7 +197,7 @@ Facet <- ggproto("Facet", NULL,
   setup_data = function(data, params) {
     data
   },
-  finish_data = function(data, layout, x_scales, y_scales, params) {
+  finish_data = function(data, layout, scales, params) {
     data
   },
   init_gtable = function(panels, layout, theme, ranges, params,
