@@ -157,8 +157,8 @@ get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
 
   list(
-    x = b$layout$panel_scales_x[[selected$SCALE_X]],
-    y = b$layout$panel_scales_y[[selected$SCALE_Y]]
+    x = b$layout$panel_scales$x[[selected$SCALE_X]],
+    y = b$layout$panel_scales$y[[selected$SCALE_Y]]
   )
 }
 

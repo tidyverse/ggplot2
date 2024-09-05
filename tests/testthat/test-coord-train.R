@@ -23,11 +23,12 @@ test_that("NA's don't appear in breaks", {
   expect_true(anyNA(scale_y$break_positions()))
 
   # Check the various types of coords to make sure they don't have NA breaks
-  expect_false(any_NA_major_minor(coord_polar()$setup_panel_params(scale_x, scale_y)))
-  expect_false(any_NA_major_minor(coord_cartesian()$setup_panel_params(scale_x, scale_y)))
-  expect_false(any_NA_major_minor(coord_trans()$setup_panel_params(scale_x, scale_y)))
-  expect_false(any_NA_major_minor(coord_fixed()$setup_panel_params(scale_x, scale_y)))
+  scales <- list(x = scale_x, y = scale_y)
+  expect_false(any_NA_major_minor(coord_polar()$setup_panel_params(scales)))
+  expect_false(any_NA_major_minor(coord_cartesian()$setup_panel_params(scales)))
+  expect_false(any_NA_major_minor(coord_trans()$setup_panel_params(scales)))
+  expect_false(any_NA_major_minor(coord_fixed()$setup_panel_params(scales)))
 
   skip_if_not_installed("mapproj")
-  expect_false(any_NA_major_minor(coord_map()$setup_panel_params(scale_x, scale_y)))
+  expect_false(any_NA_major_minor(coord_map()$setup_panel_params(scales)))
 })

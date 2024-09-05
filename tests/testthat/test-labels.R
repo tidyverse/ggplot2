@@ -143,11 +143,11 @@ test_that("position axis label hierarchy works as intended", {
 
   # In absence of explicit title, get title from mapping
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$x[[1]], p$plot$labels),
     list(secondary = NULL, primary = "foo")
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$y[[1]], p$plot$labels),
     list(primary = "bar", secondary = NULL)
   )
 
@@ -221,11 +221,11 @@ test_that("moving guide positions lets titles follow", {
     p$plot$layers
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$x[[1]], p$plot$labels),
     list(secondary = NULL, primary = "baz")
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$y[[1]], p$plot$labels),
     list(primary = "qux", secondary = NULL)
   )
 
@@ -238,11 +238,11 @@ test_that("moving guide positions lets titles follow", {
     p$plot$layers
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$x[[1]], p$plot$labels),
     list(primary = "baz", secondary = NULL)
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$y[[1]], p$plot$labels),
     list(secondary = NULL, primary = "qux")
   )
 
@@ -258,11 +258,11 @@ test_that("moving guide positions lets titles follow", {
     p$plot$layers
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$x[[1]], p$plot$labels),
     list(primary = "baz", secondary = "quux")
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
+    p$layout$resolve_label(p$layout$panel_scales$y[[1]], p$plot$labels),
     list(secondary = "corge", primary = "qux")
   )
 })
