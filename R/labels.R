@@ -179,6 +179,11 @@ ggtitle <- function(label, subtitle = waiver()) {
   labs(title = label, subtitle = subtitle)
 }
 
+#' @rdname labs
+#' @export
+#' @param plot A ggplot object
+#' @description
+#' `get_labs()` retrieves completed labels from a plot.
 get_labs <- function(plot = get_last_plot()) {
   plot <- ggplot_build(plot)
 
