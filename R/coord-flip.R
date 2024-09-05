@@ -88,10 +88,10 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     list(x = un_flipped_range$y, y = un_flipped_range$x)
   },
 
-  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scales, params = list()) {
     params$expand <- params$expand[c(2, 1, 4, 3)]
     parent <- ggproto_parent(CoordCartesian, self)
-    panel_params <- parent$setup_panel_params(scale_x, scale_y, params)
+    panel_params <- parent$setup_panel_params(scales, params)
     flip_axis_labels(panel_params)
   },
 
@@ -106,9 +106,8 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     layout
   },
 
-  modify_scales = function(scales_x, scales_y) {
-    lapply(scales_x, scale_flip_axis)
-    lapply(scales_y, scale_flip_axis)
+  modify_scales = function(scales) {
+    lapply(scales, lapply, scale_flip_axis)
   }
 
 )

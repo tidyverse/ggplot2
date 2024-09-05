@@ -95,7 +95,7 @@ Coord <- ggproto("Coord",
     cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn range} method.")
   },
 
-  setup_panel_params = function(scale_x, scale_y, params = list()) {
+  setup_panel_params = function(scales, params = list()) {
     list()
   },
 
@@ -121,12 +121,8 @@ Coord <- ggproto("Coord",
       guide = guide_position[!is_sec],
       scale = scale_position[!is_sec]
     )
-    opposite <- c(
-      "top"  = "bottom", "bottom" = "top",
-      "left" = "right",   "right" = "left"
-    )
     guide_position[is_sec] <- Map(
-      function(sec, prim) sec %|W|% unname(opposite[prim]),
+      function(sec, prim) sec %|W|% opposite_position(prim %||% "top"),
       sec  = guide_position[is_sec],
       prim = guide_position[!is_sec]
     )
@@ -202,14 +198,14 @@ Coord <- ggproto("Coord",
     # We're appending a COORD variable to the layout that determines the
     # uniqueness of panel parameters. The layout uses this to prevent redundant
     # setups of these parameters.
-    scales <- layout[c("SCALE_X", "SCALE_Y")]
+    scales <- layout[grep("^SCALE_", names(layout), value = TRUE)]
     layout$COORD <- vec_match(scales, unique0(scales))
     layout
   },
 
   # Optionally, modify list of x and y scales in place. Currently
   # used as a fudge for CoordFlip and CoordPolar
-  modify_scales = function(scales_x, scales_y) {
+  modify_scales = function(...) {
     invisible()
   },
 

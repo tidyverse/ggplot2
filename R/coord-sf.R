@@ -166,15 +166,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule
   },
 
-  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scales, params = list()) {
     # expansion factors for scale limits
-    expansion_x <- default_expansion(scale_x, expand = params$expand[c(4, 2)])
-    expansion_y <- default_expansion(scale_y, expand = params$expand[c(3, 1)])
+    expansion_x <- default_expansion(scales$x, expand = params$expand[c(4, 2)])
+    expansion_y <- default_expansion(scales$y, expand = params$expand[c(3, 1)])
 
     # get scale limits and coord limits and merge together
     # coord limits take precedence over scale limits
-    scale_xlim <- scale_x$get_limits()
-    scale_ylim <- scale_y$get_limits()
+    scale_xlim <- scales$x$get_limits()
+    scale_ylim <- scales$y$get_limits()
     coord_xlim <- self$limits$x %||% c(NA_real_, NA_real_)
     coord_ylim <- self$limits$y %||% c(NA_real_, NA_real_)
 
@@ -193,7 +193,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     # merge coord bbox into scale limits if scale limits not explicitly set
     if (is.null(self$limits$x) && is.null(self$limits$y) &&
-        is.null(scale_x$limits) && is.null(scale_y$limits)) {
+        is.null(scales$x$limits) && is.null(scales$y$limits)) {
       coord_bbox <- self$params$bbox
       scales_xrange <- range(scales_bbox$x, coord_bbox$xmin, coord_bbox$xmax, na.rm = TRUE)
       scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
@@ -220,7 +220,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range[2], y_range[2]
     )
 
-    breaks <- sf_breaks(scale_x, scale_y, bbox, params$crs)
+    breaks <- sf_breaks(scales$x, scales$y, bbox, params$crs)
 
     # Generate graticule and rescale to plot coords
     graticule <- sf::st_graticule(
@@ -240,12 +240,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     # override graticule labels provided by sf::st_graticule() if necessary
-    graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
+    graticule <- self$fixup_graticule_labels(graticule, scales$x, scales$y, params)
 
     # Convert graticule to viewscales for axis guides
     viewscales <- Map(
       view_scales_from_graticule,
-      scale = list(x = scale_x, y = scale_y, x.sec = scale_x, y.sec = scale_y),
+      scale = list(x = scales$x, y = scales$y, x.sec = scales$x, y.sec = scales$y),
       aesthetic = c("x", "y", "x.sec", "y.sec"),
       label = self$label_axes[c("bottom", "left", "top", "right")],
       MoreArgs = list(

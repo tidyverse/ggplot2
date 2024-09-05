@@ -111,12 +111,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scales, params = list()) {
 
     ret <- list(x = list(), y = list())
     for (n in c("x", "y")) {
 
-      scale <- get(paste0("scale_", n))
+      scale <- scales[[n]]
       limits <- self$limits[[n]]
 
       if (self$theta == n) {
@@ -151,11 +151,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     if (self$theta == "y") {
       names(details) <- gsub("x\\.", "r.", names(details))
       names(details) <- gsub("y\\.", "theta.", names(details))
-      details$r.arrange <- scale_x$axis_order()
+      details$r.arrange <- scales[["x"]]$axis_order()
     } else {
       names(details) <- gsub("x\\.", "theta.", names(details))
       names(details) <- gsub("y\\.", "r.", names(details))
-      details$r.arrange <- scale_y$axis_order()
+      details$r.arrange <- scales[["y"]]$axis_order()
     }
 
     details
@@ -309,12 +309,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     }
   },
 
-  modify_scales = function(self, scales_x, scales_y) {
+  modify_scales = function(self, scales) {
     if (self$theta != "y")
       return()
 
-    lapply(scales_x, scale_flip_position)
-    lapply(scales_y, scale_flip_position)
+    lapply(scales$x, scale_flip_position)
+    lapply(scales$y, scale_flip_position)
   }
 )
 

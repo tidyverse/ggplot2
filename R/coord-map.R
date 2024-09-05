@@ -190,12 +190,12 @@ CoordMap <- ggproto("CoordMap", Coord,
     diff(ranges$y.proj) / diff(ranges$x.proj)
   },
 
-  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scales, params = list()) {
 
     # range in scale
     ranges <- list()
     for (n in c("x", "y")) {
-      scale <- get(paste0("scale_", n))
+      scale <- scales[[n]]
       limits <- self$limits[[n]]
       range <- expand_limits_scale(scale, default_expansion(scale), coord_limits = limits)
       ranges[[n]] <- range
@@ -217,7 +217,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     ret$y$proj <- proj[3:4]
 
     for (n in c("x", "y")) {
-      out <- get(paste0("scale_", n))$break_info(ranges[[n]])
+      out <- scales[[n]]$break_info(ranges[[n]])
       ret[[n]]$range <- out$range
       ret[[n]]$major <- out$major_source
       ret[[n]]$minor <- out$minor_source
@@ -230,7 +230,7 @@ CoordMap <- ggproto("CoordMap", Coord,
       x.proj = ret$x$proj, y.proj = ret$y$proj,
       x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
       y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels,
-      x.arrange = scale_x$axis_order(), y.arrange = scale_y$axis_order()
+      x.arrange = scales$x$axis_order(), y.arrange = scales$y$axis_order()
     )
     details
   },
