@@ -70,6 +70,8 @@ ggplot_build.ggplot <- function(plot) {
   # and all positions are numeric
   scale_x <- function() scales$get_scales("x")
   scale_y <- function() scales$get_scales("y")
+  pos_aes <- layout$coord$aesthetics %||% c("x", "y")
+  pos_aes <- vec_set_names(pos_aes, pos_aes)
 
   layout$train_position(data, scale_x(), scale_y())
   data <- layout$map_position(data)
@@ -80,7 +82,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
 
   # Make sure missing (but required) aesthetics are added
-  plot$scales$add_missing(c("x", "y"), plot$plot_env)
+  plot$scales$add_missing(pos_aes, plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")

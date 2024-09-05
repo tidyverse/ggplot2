@@ -59,6 +59,8 @@ Coord <- ggproto("Coord",
   # "on" = yes, "off" = no
   clip = "on",
 
+  aesthetics = c("x", "y"),
+
   aspect = function(ranges) NULL,
 
   labels = function(self, labels, panel_params) {
@@ -98,7 +100,7 @@ Coord <- ggproto("Coord",
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
-    aesthetics <- c("x", "y", "x.sec", "y.sec")
+    aesthetics <- c(self$aesthetics, paste0(self$aesthetics, ".sec"))
     names(aesthetics) <- aesthetics
     is_sec <- grepl("sec$", aesthetics)
     scales <- panel_params[aesthetics]
@@ -146,7 +148,7 @@ Coord <- ggproto("Coord",
 
   train_panel_guides = function(self, panel_params, layers, params = list()) {
 
-    aesthetics <- c("x", "y", "x.sec", "y.sec")
+    aesthetics <- c(self$aesthetics, paste0(self$aesthetics, ".sec"))
 
     # If the panel_params doesn't contain the scale, there's no guide for the aesthetic
     aesthetics <- intersect(aesthetics, names(panel_params$guides$aesthetics))
