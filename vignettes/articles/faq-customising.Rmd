@@ -52,16 +52,16 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
 If a legend is drawn for multiple aesthetics, you'll want to update the title for all of them.
 
 ```{r}
-#| fig.alt: c(
-#| "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt:
+#| - "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The point shapes and colours 
 #|  indicate three types of drive train. The shapes and colours are displayed in
-#|  separate legends titled 'drv' and 'Drive train' respectively.",
-#| "A scatter plot showing the highway miles per gallon on the x-axis
+#|  separate legends titled 'drv' and 'Drive train' respectively."
+#| - "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The point shapes and colours 
 #|  indicate three types of drive train. The shapes and colours are displayed in
 #|  a single legend titled 'Drive train'."
-#| )
+#|
 # not this
 ggplot(mpg, aes(x = hwy, y = cty, color = drv, shape = drv)) +
   geom_point() +

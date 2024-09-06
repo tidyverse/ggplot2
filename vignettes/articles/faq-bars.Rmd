@@ -85,12 +85,11 @@ By default, the `width` of bars is `0.9` (90% of the resolution of the data).
 You can set this argument to a lower value to get bars that are narrower with more space between them.
 
 ```{r}
-#| fig.alt: c(
-#| "A bar chart showing the number of cars for each of three types
-#|  of drive train. The bars are somewhat narrower than the default.",
-#| "A bar chart showing the number of cars for each of three types
+#| fig.alt:
+#| - "A bar chart showing the number of cars for each of three types
+#|  of drive train. The bars are somewhat narrower than the default."
+#| - "A bar chart showing the number of cars for each of three types
 #|  of drive train. The bars are very narrow."
-#| )
 ggplot(mpg, aes(x = drv)) +
   geom_bar(width = 0.5)
 
@@ -417,14 +416,13 @@ ggplot(df, aes(x = x, y = y)) +
 Also suppose that you want to cut off the bars at `y = 1000` since you know that the variable you're plotting cannot take a value less than 1000, you might use `geom_point()` instead.
 
 ```{r}
-#| fig.alt: c(
-#| "A bar chart showing numbers for 3 arbitrary categories. The y-axis starts
+#| fig.alt:
+#| - "A bar chart showing numbers for 3 arbitrary categories. The y-axis starts
 #|  at 1000 and the bars all look different in height. This is not a recommended
-#|  way of plotting this data.",
-#| "A scatter plot with 3 points showing numbers for 3 arbitrary categories. 
+#|  way of plotting this data."
+#| - "A scatter plot with 3 points showing numbers for 3 arbitrary categories. 
 #|  The y-axis starts at 1000 and the points have visually different values.
 #|  This is a better way of plotting this data."
-#| )
 # don't do this
 ggplot(df, aes(x = x, y = y)) +
   geom_col() +

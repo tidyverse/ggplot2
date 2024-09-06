@@ -245,16 +245,15 @@ df_arranged %>%
 If you wanted to make sure that the observation identified with an asterisk is always plotted on top, regardless of how the data are arranged in the data frame, you can create an additional layer for that observation.
 
 ```{r}
-#| fig.alt: c(
-#| "A scatter plot showing four points at the same y-positions but at four 
+#| fig.alt:
+#| - "A scatter plot showing four points at the same y-positions but at four 
 #|  x-positions, of which two are very distinct. Every point has a distinct shape
 #|  and colour. A yellow triangle is plotted on top of a blue circle. A black 
-#|  asterisk is plotted on top of a red square.",
-#| "A scatter plot showing four points at the same y-positions but at four 
+#|  asterisk is plotted on top of a red square."
+#| - "A scatter plot showing four points at the same y-positions but at four 
 #|  x-positions, of which two are very distinct. Every point has a distinct shape
 #|  and colour. A blue circle is plotted on top of a yellow triangle. A black 
 #|  asterisk is plotted on top of a red square."
-#| )
 
 ggplot(mapping = aes(x = x, y = y, fill = fill, shape = shape)) +
   geom_point(data = df %>% filter(shape != "asterisk"), size = 8) +
