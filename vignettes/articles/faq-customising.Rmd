@@ -497,10 +497,10 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 
 ### What is the default size of `geom_text()` and how can I change the font size of `geom_text()`?
 
-The default font size of `geom_text()` is 3.88.
+The default font size of `geom_text()` is about 3.87.
 
 ```{r}
-GeomLabel$default_aes$size
+get_geom_defaults(geom_text)$size
 ```
 
 You can change the size using the `size` argument in `geom_text()` for a single plot. If you want to use the same updated size, you can set this with `update_geom_defaults()`, e.g. `update_geom_defaults("text", list(size = 6))`.
