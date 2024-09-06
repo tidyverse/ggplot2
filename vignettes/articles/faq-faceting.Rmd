@@ -81,7 +81,7 @@ In the formula notation, you use a `.` to indicate that no faceting should be do
 #| fig.alt:
 #| - "A histogram showing the city miles per gallon distribution. The plot has 
 #|  four panels in a 4-row, 1-column layout, showing four numbers of cylinders."
-#| "A histogram showing the city miles per gallon distribution. The plot has 
+#| - "A histogram showing the city miles per gallon distribution. The plot has 
 #|  four panels in a 1-row, 4-column layout, showing four numbers of cylinders."
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
