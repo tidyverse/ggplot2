@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `guide_axis()` no longer reserves space for blank ticks 
+  (@teunbrand, #4722, #6069).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
   argument to overrule theme settings, similar to `guide_axis(angle)` 
   (@teunbrand, #4594).

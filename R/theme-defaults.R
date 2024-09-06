@@ -436,7 +436,11 @@ theme_minimal <- function(base_size = 11, base_family = "",
     base_rect_size = base_rect_size
   ) %+replace%
     theme(
-      axis.ticks      = element_blank(),
+      axis.ticks         = element_blank(), # Extra margins due to absence ticks
+      axis.text.x.bottom = element_text(margin = margin(t = 0.45 * base_size)),
+      axis.text.x.top    = element_text(margin = margin(b = 0.45 * base_size)),
+      axis.text.y.left   = element_text(margin = margin(r = 0.45 * base_size)),
+      axis.text.y.right  = element_text(margin = margin(l = 0.45 * base_size)),
       legend.background = element_blank(),
       legend.key        = element_blank(),
       panel.background  = element_blank(),
