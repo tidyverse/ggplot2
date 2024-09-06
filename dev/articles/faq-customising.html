@@ -500,12 +500,10 @@ and <code>axis.text.y</code> if you want to set different sizes).</p>
 <h3 id="what-is-the-default-size-of-geom_text-and-how-can-i-change-the-font-size-of-geom_text">What is the default size of <code>geom_text()</code> and how can I
 change the font size of <code>geom_text()</code>?<a class="anchor" aria-label="anchor" href="#what-is-the-default-size-of-geom_text-and-how-can-i-change-the-font-size-of-geom_text"></a>
 </h3>
-<p>The default font size of <code><a href="../reference/geom_text.html">geom_text()</a></code> is 3.88.</p>
+<p>The default font size of <code><a href="../reference/geom_text.html">geom_text()</a></code> is about 3.87.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">GeomLabel</span><span class="op">$</span><span class="va">default_aes</span><span class="op">$</span><span class="va">size</span></span>
-<span><span class="co">#&gt; <span style="font-weight: bold;">&lt;quosure&gt;</span></span></span>
-<span><span class="co">#&gt; expr: <span style="color: #0000BB;">^from_theme(fontsize)</span></span></span>
-<span><span class="co">#&gt; env:  <span style="color: #0000BB;">namespace:ggplot2</span></span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_geom_defaults.html">get_geom_defaults</a></span><span class="op">(</span><span class="va">geom_text</span><span class="op">)</span><span class="op">$</span><span class="va">size</span></span>
+<span><span class="co">#&gt; [1] 3.866058</span></span></code></pre></div>
 <p>You can change the size using the <code>size</code> argument in
 <code><a href="../reference/geom_text.html">geom_text()</a></code> for a single plot. If you want to use the same
 updated size, you can set this with <code><a href="../reference/update_defaults.html">update_geom_defaults()</a></code>,
