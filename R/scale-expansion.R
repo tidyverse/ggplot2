@@ -206,8 +206,8 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
   continuous_range <- ifelse(is.finite(final_scale_limits), final_scale_limits, limits)
 
   list(
-    continuous_range_coord = continuous_range_coord,
-    continuous_range = continuous_range
+    continuous_range_coord = sort(continuous_range_coord),
+    continuous_range = sort(continuous_range)
   )
 }
 

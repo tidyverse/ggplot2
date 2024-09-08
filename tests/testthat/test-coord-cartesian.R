@@ -22,6 +22,19 @@ test_that("cartesian coords throws error when limits are badly specified", {
   expect_snapshot_error(ggplot() + coord_cartesian(ylim=1:3))
 })
 
+test_that("cartesian coords can be reversed", {
+  p <- ggplot(data_frame0(x = c(0, 2), y = c(0, 2))) +
+    aes(x = x, y = y) +
+    geom_point() +
+    coord_cartesian(
+      xlim = c(-1, 3), ylim = c(-1, 3), expand = FALSE,
+      reverse = "xy"
+    )
+  grob <- layer_grob(p)[[1]]
+  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
+  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+})
+
 
 # Visual tests ------------------------------------------------------------
 

@@ -25,7 +25,8 @@ coord_sf(
   lims_method = "cross",
   ndiscr = 100,
   default = FALSE,
-  clip = "on"
+  clip = "on",
+  reverse = "none"
 )
 
 geom_sf(
@@ -178,6 +179,11 @@ drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via \code{xlim} and \code{ylim} and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the
 legend, the plot title, or the plot margins.}
+
+\item{reverse}{A string giving which directions to reverse. \code{"none"}
+(default) keeps directions as is. \code{"x"} and \code{"y"} can be used to reverse
+their respective directions. \code{"xy"} can be used to reverse both
+directions.}
 
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
 \code{inherit.aes = TRUE} (the default), it is combined with the default mapping

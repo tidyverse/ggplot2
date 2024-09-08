@@ -61,26 +61,18 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
 GuideAxisTheta <- ggproto(
   "GuideAxisTheta", GuideAxis,
 
-  extract_decor = function(scale, aesthetic, key, cap = "none", position, ...) {
-    # For theta position, we pretend we're left/right because that will put
-    # the correct opposite aesthetic as the line coordinates.
-    position <- switch(position, theta = "left", theta.sec = "right", position)
-
-    GuideAxis$extract_decor(
-      scale = scale, aesthetic = aesthetic,
-      position = position, key = key, cap = cap
-    )
-  },
-
   transform = function(params, coord, panel_params) {
 
+    opposite_var <- setdiff(c("x", "y"), params$aesthetic)
+    opposite_value <- switch(params$position, top = , right = , theta.sec = -Inf, Inf)
+    if (is.unsorted(panel_params$inner_radius %||% NA)) {
+      opposite_value <- -opposite_value
+    }
     if (nrow(params$key) > 0) {
-      opposite <- setdiff(c("x", "y"), params$aesthetic)
-      params$key[[opposite]] <- switch(params$position,
-                                       theta.sec = -Inf,
-                                       top = -Inf,
-                                       right = -Inf,
-                                       Inf)
+      params$key[[opposite_var]] <- opposite_value
+    }
+    if (nrow(params$decor) > 0) {
+      params$decor[[opposite_var]] <- opposite_value
     }
 
     params <- GuideAxis$transform(params, coord, panel_params)

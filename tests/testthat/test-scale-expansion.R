@@ -65,7 +65,7 @@ test_that("expand_limits_discrete() can override limits with an empty range", {
 test_that("expand_limits_discrete() can override limits with a discrete range", {
   expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(NA, NA)), c(1, 2))
   expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(NA, 3)), c(1, 3))
-  expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(3, NA)), c(3, 2))
+  expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(3, NA)), c(2, 3))
 })
 
 test_that("expand_limits_discrete() can override limits with a continuous range", {
@@ -106,7 +106,7 @@ test_that("expand_limits_continuous_trans() works with inverted transformations"
   )
 
   expect_identical(limit_info$continuous_range, c(0, 3))
-  expect_identical(limit_info$continuous_range_coord, c(0, -3))
+  expect_identical(limit_info$continuous_range_coord, c(-3, 0))
 })
 
 test_that("expand_limits_scale_discrete() begrudgingly handles numeric limits", {

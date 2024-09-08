@@ -59,6 +59,9 @@ Coord <- ggproto("Coord",
   # "on" = yes, "off" = no
   clip = "on",
 
+  # Should any of the scales be reversed?
+  reverse = "none",
+
   aspect = function(ranges) NULL,
 
   labels = function(self, labels, panel_params) {
@@ -185,11 +188,7 @@ Coord <- ggproto("Coord",
   is_free = function() FALSE,
 
   setup_params = function(self, data) {
-    list(
-      guide_default = guide_axis(),
-      guide_missing = guide_none(),
-      expand = parse_coord_expand(self$expand %||% TRUE)
-    )
+    list(expand = parse_coord_expand(self$expand %||% TRUE))
   },
 
   setup_data = function(data, params = list()) {
