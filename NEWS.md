@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
   argument to overrule theme settings, similar to `guide_axis(angle)` 
   (@teunbrand, #4594).
