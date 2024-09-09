@@ -210,7 +210,7 @@ the background colour of the label.
 
 You can modify text alignment with the \code{vjust} and \code{hjust}
 aesthetics. These can either be a number between 0 (left/bottom) and
-1 (top/right) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
+1 (right/top) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
 \code{"center"}, \code{"top"}). There are two special alignments: \code{"inward"} and
 \code{"outward"}. Inward always aligns text towards the center, and outward
 aligns it away from the center.
