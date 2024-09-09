@@ -44,7 +44,7 @@ Classes are ordered alphabetically.
 You might prefer them to be ordered by the number of cars in each class.
 
 ```{r}
-#| fig.alt = "A horizontal bar plot showing counts on the x-axis and seven
+#| fig.alt: "A horizontal bar plot showing counts on the x-axis and seven
 #|  types of cars on the y-axis. From bottom to top, the car types are in
 #|  alphabetical order."
 ggplot(mpg, aes(y = class)) +
@@ -54,7 +54,7 @@ ggplot(mpg, aes(y = class)) +
 To do this, you can use `forcats::fct_infreq()`.
 
 ```{r}
-#| fig.alt = "A horizontal bar plot showing counts on the x-axis and seven
+#| fig.alt: "A horizontal bar plot showing counts on the x-axis and seven
 #|  types of cars on the y-axis. From top to bottom, the car types are ordered
 #|  by increasing number of cars."
 ggplot(mpg, aes(y = forcats::fct_infreq(class))) +
@@ -64,7 +64,7 @@ ggplot(mpg, aes(y = forcats::fct_infreq(class))) +
 If you'd like to plot the highest value first, you can also reverse the order with `forcats::fct_rev()`. You might also want to simplify the axis label.
 
 ```{r}
-#| fig.alt = "A horizontal bar plot showing counts on the x-axis and seven
+#| fig.alt: "A horizontal bar plot showing counts on the x-axis and seven
 #|  types of cars on the y-axis. From top to bottom, the car types are ordered
 #|  in decreasing number of cars."
 ggplot(mpg, aes(y = forcats::fct_rev(forcats::fct_infreq(class)))) +
@@ -86,7 +86,7 @@ The forcats package offers a variety of options for doing this, such as `forcats
 Suppose you have the following stacked bar plot of `clarity` of `diamonds` by their `cut`.
 
 ```{r}
-#| fig.alt = "A stacked bar plot showing counts on the y-axis and five cut 
+#| fig.alt: "A stacked bar plot showing counts on the y-axis and five cut 
 #|  qualities of diamonds on the x-axis. Within every stacked bar, the fill 
 #|  colour indicates an ordinal clarity of the diamond. The worst clarity has
 #|  the darkest colour and the best quality has the lightest colour. The best
@@ -99,7 +99,7 @@ You can reverse the order `clarity` levels are displayed in the bars with `forca
 This will also change the order they're presented in the legend so the two orders match.
 
 ```{r}
-#| fig.alt = "A stacked bar plot showing counts on the y-axis and five cut 
+#| fig.alt: "A stacked bar plot showing counts on the y-axis and five cut 
 #|  qualities of diamonds on the x-axis. Within every stacked bar, the fill 
 #|  colour indicates an ordinal clarity of the diamond. The worst clarity has
 #|  the lightest colour and the best quality has the darkest colour. The worst
@@ -126,7 +126,7 @@ The order of the boxes is determined by the order of the levels of the variable 
 If the faceting variable is character, this order is alphabetical by default.
 
 ```{r}
-#| fig.alt = "A boxplot showing the highway miles per gallon on the y-axis for
+#| fig.alt: "A boxplot showing the highway miles per gallon on the y-axis for
 #|  seven types of car on the x-axis. The car types on the x-axis are in 
 #|  alphabetical order."
 ggplot(mpg, aes(x = class, y = hwy)) +
@@ -138,7 +138,7 @@ You can do this in a data transformation step prior to plotting (e.g. with `dply
 You might then want to customize the x-axis label as well.
 
 ```{r}
-#| fig.alt = "A boxplot showing the highway miles per gallon on the y-axis for
+#| fig.alt: "A boxplot showing the highway miles per gallon on the y-axis for
 #|  seven types of car on the x-axis. The car types on the x-axis sorted from
 #|  left to right by increasing medians."
 ggplot(mpg, aes(x = forcats::fct_reorder(class, hwy, .fun = median), y = hwy)) +
@@ -163,7 +163,7 @@ The order of the panes is determined by the order of the levels of the variable 
 If the faceting variable is character, this order is alphabetical by default.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the engine displacement on the x-axis and
+#| fig.alt: "A scatter plot showing the engine displacement on the x-axis and
 #|  highway miles per gallon on the y-axis of 234 cars. The plot has three 
 #|  panels in a 1-row, 3-column layout for three types of drive train. The drive
 #|  trains are ordered alphabetically in the horizontal direction."
@@ -177,7 +177,7 @@ You can use `forcats::fct_relevel()` to reorder the levels of `drv`.
 You can do this in a data transformation step prior to plotting (e.g. with `dplyr::mutate()`) or you can do it directly in the plotting code as shown below.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the engine displacement on the x-axis and
+#| fig.alt: "A scatter plot showing the engine displacement on the x-axis and
 #|  highway miles per gallon on the y-axis of 234 cars. The plot has three 
 #|  panels in a 1-row, 3-column layout for three types of drive train. The drive
 #|  trains are in the order 'r', 'f' and '4' from left to right."
@@ -215,7 +215,7 @@ Note that the blue circle is partially covered by the yellow triangle since that
 Similarly the black asterisk appears on top of the red square.
 
 ```{r}
-#| fig.alt = "A scatter plot showing four points at the same y-positions but at 
+#| fig.alt: "A scatter plot showing four points at the same y-positions but at 
 #|  four x-positions, of which two are very distinct. Every point has a distinct 
 #|  shape and colour. A yellow triangle is plotted on top of a blue circle. 
 #|  A black asterisk is plotted on top of a red square."
@@ -229,7 +229,7 @@ Suppose you arranged your data in ascending order of the x-coordinates and plott
 Now the blue circle is over the yellow triangle since 0.01 comes after 0 and similarly the red square is over the black asterisk since 1 comes after 0.99.
 
 ```{r}
-#| fig.alt = "A scatter plot showing four points at the same y-positions but at 
+#| fig.alt: "A scatter plot showing four points at the same y-positions but at 
 #|  four x-positions, of which two are very distinct. Every point has a distinct 
 #|  shape and colour. A blue circle is plotted on top of a yellow triangle. A 
 #|  red square is plotted on top of a black asterisk."
@@ -245,16 +245,15 @@ df_arranged %>%
 If you wanted to make sure that the observation identified with an asterisk is always plotted on top, regardless of how the data are arranged in the data frame, you can create an additional layer for that observation.
 
 ```{r}
-#| fig.alt = c(
-#| "A scatter plot showing four points at the same y-positions but at four 
+#| fig.alt:
+#| - "A scatter plot showing four points at the same y-positions but at four 
 #|  x-positions, of which two are very distinct. Every point has a distinct shape
 #|  and colour. A yellow triangle is plotted on top of a blue circle. A black 
-#|  asterisk is plotted on top of a red square.",
-#| "A scatter plot showing four points at the same y-positions but at four 
+#|  asterisk is plotted on top of a red square."
+#| - "A scatter plot showing four points at the same y-positions but at four 
 #|  x-positions, of which two are very distinct. Every point has a distinct shape
 #|  and colour. A blue circle is plotted on top of a yellow triangle. A black 
 #|  asterisk is plotted on top of a red square."
-#| )
 
 ggplot(mapping = aes(x = x, y = y, fill = fill, shape = shape)) +
   geom_point(data = df %>% filter(shape != "asterisk"), size = 8) +
