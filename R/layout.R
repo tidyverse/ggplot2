@@ -94,6 +94,7 @@ Layout <- ggproto("Layout", NULL,
       theme,
       self$facet_params
     )
+    plot_table <- self$set_panel_size(plot_table, theme)
 
     # Draw individual labels, then add to gtable
     labels <- self$coord$labels(
@@ -297,9 +298,47 @@ Layout <- ggproto("Layout", NULL,
     })
     names(label_grobs) <- names(labels)
     label_grobs
+  },
+
+  set_panel_size = function(table, theme) {
+
+    new_widths  <- calc_element("panel.widths",  theme)
+    new_heights <- calc_element("panel.heights", theme)
+
+    if (is.null(new_widths) && is.null(new_heights)) {
+      return(table)
+    }
+
+    rows <- panel_rows(table)
+    cols <- panel_cols(table)
+
+    if (length(new_widths) == 1L && nrow(cols) > 1L) {
+      # Get total size of non-panel widths in between panels
+      extra <- setdiff(seq(min(cols$l), max(cols$r)), union(cols$l, cols$r))
+      extra <- unit(sum(width_cm(table$widths[extra])), "cm")
+      # Distribute width proportionally
+      relative   <- as.numeric(table$widths[cols$l]) # assumed to be simple units
+      new_widths <- (new_widths - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_widths)) {
+      table$widths[cols$l] <- rep(new_widths, length.out = nrow(cols))
+    }
+
+    if (length(new_heights) == 1L && nrow(rows) > 1L) {
+      # Get total size of non-panel heights in between panels
+      extra <- setdiff(seq(min(rows$t), max(rows$t)), union(rows$t, rows$b))
+      extra <- unit(sum(height_cm(table$heights[extra])), "cm")
+      # Distribute height proportionally
+      relative    <- as.numeric(table$heights[rows$t]) # assumed to be simple units
+      new_heights <- (new_heights - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_heights)) {
+      table$heights[rows$t] <- rep(new_heights, length.out = nrow(rows))
+    }
+
+    table
   }
 )
-
 
 # Helpers -----------------------------------------------------------------
 
