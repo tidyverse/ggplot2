@@ -175,8 +175,13 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     }
   },
 
-  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
-    alpha = NA, subgroup = NULL),
+  default_aes = aes(
+    colour = NA,
+    fill = from_theme(col_mix(ink, paper, 0.2)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA, subgroup = NULL
+  ),
 
   handle_na = function(data, params) {
     data

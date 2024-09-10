@@ -18,12 +18,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   setup_params = function(self, data) {
-    crs <- self$determine_crs(data)
+    params <- ggproto_parent(Coord, self)$setup_params(data)
 
-    params <- list(
-      crs = crs,
-      default_crs = self$default_crs
-    )
+    params$crs <- self$determine_crs(data)
+    params$default_crs <- self$default_crs
     self$params <- params
 
     params
@@ -170,8 +168,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # expansion factors for scale limits
-    expansion_x <- default_expansion(scale_x, expand = self$expand)
-    expansion_y <- default_expansion(scale_y, expand = self$expand)
+    expansion_x <- default_expansion(scale_x, expand = params$expand[c(4, 2)])
+    expansion_y <- default_expansion(scale_y, expand = params$expand[c(3, 1)])
 
     # get scale limits and coord limits and merge together
     # coord limits take precedence over scale limits
@@ -416,7 +414,7 @@ sf_rescale01 <- function(x, x_range, y_range) {
 
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
-  if (any(!is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
+  if (!all(is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
     cli::cli_abort(c(
             "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
       "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
@@ -585,7 +583,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 }
 
 parse_axes_labeling <- function(x) {
-  labs = unlist(strsplit(x, ""))
+  labs <- unlist(strsplit(x, ""))
   list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
 }
 

@@ -117,8 +117,8 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          outlier.colour = NULL,
                          outlier.color = NULL,
                          outlier.fill = NULL,
-                         outlier.shape = 19,
-                         outlier.size = 1.5,
+                         outlier.shape = NULL,
+                         outlier.size = NULL,
                          outlier.stroke = 0.5,
                          outlier.alpha = NULL,
                          notch = FALSE,
@@ -223,8 +223,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", fatten = 2, outlier.colour = NULL,
-                        outlier.fill = NULL, outlier.shape = 19,
-                        outlier.size = 1.5, outlier.stroke = 0.5,
+                        outlier.fill = NULL, outlier.shape = NULL,
+                        outlier.size = NULL, outlier.stroke = 0.5,
                         outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
                         staplewidth = 0, varwidth = FALSE, flipped_aes = FALSE) {
     data <- check_linewidth(data, snake_class(self))
@@ -327,8 +327,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   draw_key = draw_key_boxplot,
 
-  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = NULL,
-    alpha = NA, shape = 19, linetype = "solid", linewidth = 0.5),
+  default_aes = aes(
+    weight = 1, colour = from_theme(col_mix(ink, paper, 0.2)),
+    fill = from_theme(paper), size = from_theme(pointsize),
+    alpha = NA, shape = from_theme(pointshape), linetype = from_theme(bordertype),
+    linewidth = from_theme(borderwidth)
+  ),
 
   required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
 

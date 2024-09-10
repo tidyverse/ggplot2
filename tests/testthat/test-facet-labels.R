@@ -157,3 +157,30 @@ test_that("parsed labels are rendered correctly", {
       facet_wrap(~ f, labeller = label_parsed)
   )
 })
+
+test_that("outside-justified labels are justified across panels", {
+
+  df <- data.frame(
+    x = c("X\nX\nX\nX\nX", "X"),
+    y = c("YYYYY", "Y"),
+    f1 = c("A", "B"),
+    f2 = c("C", "D")
+  )
+
+  # By default, axis labels are inside-justified so it doesn't matter whether
+  # justification occurs across panels. This changes for outside-justification.
+  # See #5820
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    facet_grid(f1 ~ f2, scales = "free") +
+    guides(x.sec = "axis", y.sec = "axis") +
+    theme(
+      axis.text.y.left   = element_text(hjust = 0),
+      axis.text.y.right  = element_text(hjust = 1),
+      axis.text.x.top    = element_text(vjust = 1),
+      axis.text.x.bottom = element_text(vjust = 0)
+    )
+
+  expect_doppelganger("outside-justified labels", p)
+})

@@ -6,6 +6,7 @@
 #' the very regular alignment of [geom_bin_2d()].
 #'
 #' @eval rd_aesthetics("geom", "hex")
+#' @eval rd_aesthetics("stat", "binhex")
 #' @seealso [stat_bin_2d()] for rectangular binning
 #' @param geom,stat Override the default connection between `geom_hex()` and
 #'   `stat_bin_hex()`. For more information about overriding these connections,
@@ -107,9 +108,9 @@ GeomHex <- ggproto("GeomHex", Geom,
 
   default_aes = aes(
     colour = NA,
-    fill = "grey50",
-    linewidth = 0.5,
-    linetype = 1,
+    fill = from_theme(col_mix(ink, paper)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
     alpha = NA
   ),
 
