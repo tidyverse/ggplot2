@@ -196,7 +196,7 @@ new_layer_names <- function(layer, existing) {
   new_name <- layer$name
   if (is.null(new_name)) {
     # Construct a name from the layer's call
-    new_name <- call_name(layer$constructor)
+    new_name <- call_name(layer$constructor) %||% snake_class(layer$geom)
 
     if (new_name %in% existing) {
       names <- c(existing, new_name)
