@@ -13,7 +13,7 @@ labs(
   subtitle = waiver(),
   caption = waiver(),
   tag = waiver(),
-  dict = waiver(),
+  dictionary = waiver(),
   alt = waiver(),
   alt_insight = waiver()
 )
@@ -38,9 +38,10 @@ bottom-right of the plot by default.}
 \item{tag}{The text for the tag label which will be displayed at the
 top-left of the plot by default.}
 
-\item{dict}{A named character vector to serve as dictionary. Automatically
-derived labels, such as those based on variables will be matched with
-\code{names(dict)} and replaced by the matching entry in \code{dict}.}
+\item{dictionary}{A named character vector to serve as dictionary.
+Automatically derived labels, such as those based on variables will
+be matched with \code{names(dictionary)} and replaced by the matching
+entry in \code{dictionary}.}
 
 \item{alt, alt_insight}{Text used for the generation of alt-text for the plot.
 See \link{get_alt_text} for examples. \code{alt} can also be a function that

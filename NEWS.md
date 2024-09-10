@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
-* New argument `labs(dict)` to label based on variable name rather than based
-  on aesthetic (@teunbrand, #5178)
+* New argument `labs(dictionary)` to label based on variable name rather than 
+  based on aesthetic (@teunbrand, #5178)
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
   argument to overrule theme settings, similar to `guide_axis(angle)` 
   (@teunbrand, #4594).

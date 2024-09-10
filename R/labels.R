@@ -84,8 +84,8 @@ setup_plot_labels <- function(plot, layers, data) {
     ))
   }
 
-  if (length(plot_labels$dict) > 0) {
-    labels <- lapply(labels, revalue, replace = plot_labels$dict)
+  if (length(plot_labels$dictionary) > 0) {
+    labels <- lapply(labels, revalue, replace = plot_labels$dictionary)
   }
 
   defaults(plot_labels, labels)
@@ -118,9 +118,10 @@ setup_plot_labels <- function(plot, layers, data) {
 #'        bottom-right of the plot by default.
 #' @param tag The text for the tag label which will be displayed at the
 #'        top-left of the plot by default.
-#' @param dict A named character vector to serve as dictionary. Automatically
-#'        derived labels, such as those based on variables will be matched with
-#'        `names(dict)` and replaced by the matching entry in `dict`.
+#' @param dictionary A named character vector to serve as dictionary.
+#'        Automatically derived labels, such as those based on variables will
+#'        be matched with `names(dictionary)` and replaced by the matching
+#'        entry in `dictionary`.
 #' @param alt,alt_insight Text used for the generation of alt-text for the plot.
 #'        See [get_alt_text] for examples. `alt` can also be a function that
 #'        takes the plot as input and returns text as output. `alt` also accepts
@@ -161,12 +162,12 @@ setup_plot_labels <- function(plot, layers, data) {
 #'  labs(title = "title") +
 #'  labs(title = NULL)
 labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
-                 tag = waiver(), dict = waiver(), alt = waiver(),
+                 tag = waiver(), dictionary = waiver(), alt = waiver(),
                  alt_insight = waiver()) {
   # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
   args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
-    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight, dict = dict,
-    .ignore_empty = "all")
+    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
+    dictionary = dictionary, .ignore_empty = "all")
 
   is_waive <- vapply(args, is.waive, logical(1))
   args <- args[!is_waive]

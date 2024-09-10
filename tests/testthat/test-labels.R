@@ -271,7 +271,7 @@ test_that("label dictionaries work", {
 
   p <- ggplot(mtcars, aes(disp, mpg, shape = factor(cyl), size = drat)) +
     geom_point() +
-    labs(dict = c(
+    labs(dictionary = c(
       disp = "Displacement",
       mpg  = "Miles per gallon",
       `factor(cyl)` = "Number of cylinders",
