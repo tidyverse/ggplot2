@@ -311,6 +311,7 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
     minor_breaks <- breaks_width(date_minor_breaks)
   }
   if (!is.waive(date_labels)) {
+    check_string(date_labels)
     labels <- function(self, x) {
       tz <- self$timezone %||% "UTC"
       label_date(date_labels, tz)(x)
