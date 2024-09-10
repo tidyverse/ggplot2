@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Date(time) scales now throw appropriate errors when `date_breaks`, 
+  `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
 * The `summary()` method for ggplots is now more terse about facets 
   (@teunbrand, #5989).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
