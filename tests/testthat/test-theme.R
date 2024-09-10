@@ -650,6 +650,13 @@ test_that("panel.widths and panel.heights works with free-space panels", {
 
 })
 
+test_that("panel.widths and panel.heights appropriately warn about aspect override", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    theme(aspect.ratio = 1, panel.widths = unit(4, "cm"))
+  expect_warning(ggplotGrob(p), "Aspect ratios are overruled")
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
