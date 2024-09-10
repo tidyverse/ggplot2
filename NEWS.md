@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Date(time) scales now throw appropriate errors when `date_breaks`, 
+  `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
 * Missing values from discrete palettes are no longer translated 
   (@teunbrand, #5929).
 * Fixed bug in `facet_grid(margins = TRUE)` when using expresssions 
