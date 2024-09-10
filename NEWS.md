@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
 * The `summary()` method for ggplots is now more terse about facets 
   (@teunbrand, #5989).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`

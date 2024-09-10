@@ -143,6 +143,9 @@
 #'   and x axis grid lines are vertical. `panel.grid.*.*` inherits from
 #'   `panel.grid.*` which inherits from `panel.grid`, which in turn inherits
 #'   from `line`
+#' @param panel.widths,panel.heights Sizes for panels (`units`). Can be a
+#'   single unit to set the total size for the panel area, or a unit vector to
+#'   set the size of individual panels.
 #' @param panel.ontop option to place the panel (background, gridlines) over
 #'   the data layers (`logical`). Usually used with a transparent or blank
 #'   `panel.background`.
@@ -427,6 +430,8 @@ theme <- function(...,
                   panel.grid.minor.x,
                   panel.grid.minor.y,
                   panel.ontop,
+                  panel.widths,
+                  panel.heights,
                   plot.background,
                   plot.title,
                   plot.title.position,

@@ -121,6 +121,8 @@ theme(
   panel.grid.minor.x,
   panel.grid.minor.y,
   panel.ontop,
+  panel.widths,
+  panel.heights,
   plot.background,
   plot.title,
   plot.title.position,
@@ -310,6 +312,10 @@ from \code{line}}
 \item{panel.ontop}{option to place the panel (background, gridlines) over
 the data layers (\code{logical}). Usually used with a transparent or blank
 \code{panel.background}.}
+
+\item{panel.widths, panel.heights}{Sizes for panels (\code{units}). Can be a
+single unit to set the total size for the panel area, or a unit vector to
+set the size of individual panels.}
 
 \item{plot.background}{background of the entire plot (\code{\link[=element_rect]{element_rect()}};
 inherits from \code{rect})}
