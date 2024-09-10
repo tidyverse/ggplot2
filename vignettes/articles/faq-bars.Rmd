@@ -42,7 +42,7 @@ If assigning color based on another variable, map the variable to the `fill` `ae
 You can set all bars to be a given color with the `fill` argument of `geom_bar()`.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. All bars are blue."
 ggplot(mpg, aes(x = drv)) +
   geom_bar(fill = "blue")
@@ -51,7 +51,7 @@ ggplot(mpg, aes(x = drv)) +
 Alternatively, if the colors should be based on a variable, this should be should happen in the `aes()` mapping.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. From left-to-right, the bars appear red, green and blue."
 ggplot(mpg, aes(x = drv, fill = drv)) +
   geom_bar()
@@ -61,7 +61,7 @@ And if you want to then customize the colors, one option is `scale_fill_manual()
 See other `scale_fill_*()` functions for more options for color choices.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. From left-to-right, the bars are purple, orange and dark 
 #|  blue."
 ggplot(mpg, aes(x = drv, fill = drv)) +
@@ -85,12 +85,11 @@ By default, the `width` of bars is `0.9` (90% of the resolution of the data).
 You can set this argument to a lower value to get bars that are narrower with more space between them.
 
 ```{r}
-#| fig.alt = c(
-#| "A bar chart showing the number of cars for each of three types
-#|  of drive train. The bars are somewhat narrower than the default.",
-#| "A bar chart showing the number of cars for each of three types
+#| fig.alt:
+#| - "A bar chart showing the number of cars for each of three types
+#|  of drive train. The bars are somewhat narrower than the default."
+#| - "A bar chart showing the number of cars for each of three types
 #|  of drive train. The bars are very narrow."
-#| )
 ggplot(mpg, aes(x = drv)) +
   geom_bar(width = 0.5)
 
@@ -111,7 +110,7 @@ Adjust the `expand` argument in `scale_y_continuous()`, e.g. add `scale_y_contin
 By default ggplot2 expands the axes so the geoms aren't flush against the edges of the plot.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. No parts of the bars touch the panel edges."
 ggplot(mpg, aes(x = drv)) +
   geom_bar()
@@ -120,7 +119,7 @@ ggplot(mpg, aes(x = drv)) +
 To remove the spacing between the bars and the x-axis, but keep the spacing between the bars and the top of the plot, use the following.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. The bottom of the bars touch the x-axis."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
@@ -131,7 +130,7 @@ To achieve the opposite, switch the values in `mult`.
 Note that the tallest bar is now flush against top of the plot.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. The top of the highest bar touches the top of the panel."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
@@ -142,7 +141,7 @@ To adjust spacing around the x-axis, adjust the `expand` argument in `scale_x_di
 Note that this places the bars flush against the left side and leaves some space on the right side.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. The left of the leftmost bar touches the y-axis."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
@@ -152,7 +151,7 @@ ggplot(mpg, aes(x = drv)) +
 The default look of a bar plot can be achieved with the following.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. No parts of the bars touch the panel edges."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
@@ -173,7 +172,7 @@ Set `position = position_dodge2(preserve = "single")` in `geom_bar()`.
 In the following plot the bars have differing widths within each level of `drv` as there are differing levels of `class` represented.
 
 ```{r}
-#| fig.alt = "A grouped bar chart showing car counts dodged and filled by 7 
+#| fig.alt: "A grouped bar chart showing car counts dodged and filled by 7 
 #|  types of cars for each of three types of drive train. The left group has 
 #|  5 narrower bars, the middle group has 4 bars and the right group has 3 wider
 #|  bars."
@@ -184,7 +183,7 @@ ggplot(mpg, aes(x = drv, fill = class)) +
 You can use `position_dodge2()` with `preserve = "single"` to address this.
 
 ```{r}
-#| fig.alt = "A grouped bar chart showing car counts dodged and filled by 7 
+#| fig.alt: "A grouped bar chart showing car counts dodged and filled by 7 
 #|  types of cars for each of three types of drive train. From left-to-right,
 #|  each groups has respectively 5, 4 and 3 equally wide bars."
 ggplot(mpg, aes(x = drv, fill = class)) +
@@ -207,7 +206,7 @@ If you also want to show percentages on the axis, use `scales::label_percent()`.
 The following plot is useful for comparing counts but not as useful for comparing proportions, which is what you need if you want to be able to make statements like "in this sample, it's more likely to have a two-seater car that has rear-wheel drive than an SUV that has rear-wheel drive".
 
 ```{r}
-#| fig.alt = "A horizontal stacked bar chart showing car counts for 7 types of 
+#| fig.alt: "A horizontal stacked bar chart showing car counts for 7 types of 
 #|  cars, stacked and filled by 3 types of drive train."
 ggplot(mpg, aes(y = class, fill = drv)) +
   geom_bar()
@@ -216,7 +215,7 @@ ggplot(mpg, aes(y = class, fill = drv)) +
 `position = "fill"` will generate a bar plot with bars of equal length and the stacks in each bar will show the proportion of `drv` for that particular `class`.
 
 ```{r}
-#| fig.alt = "A horizontal filled bar chart showing proportions of cars for 7 
+#| fig.alt: "A horizontal filled bar chart showing proportions of cars for 7 
 #|  types of cars. The fill colour represents 3 types of drive train. Every 
 #|  stacked bar spans the width of the panel."
 ggplot(mpg, aes(y = class, fill = drv)) +
@@ -226,7 +225,7 @@ ggplot(mpg, aes(y = class, fill = drv)) +
 If you want to show percentages instead of proportions on the x-axis, you can define this in `scale_x_continuous()` with `scales::label_percent()`.
 
 ```{r}
-#| fig.alt = "A horizontal filled bar chart showing percentages of cars for 7 
+#| fig.alt: "A horizontal filled bar chart showing percentages of cars for 7 
 #|  types of cars. The fill colour represents 3 types of drive train. Every 
 #|  stacked bar spans the width of the panel."
 ggplot(mpg, aes(y = class, fill = drv)) +
@@ -271,7 +270,7 @@ poll_longer
 Then, you can pass this result to `ggplot()` and create a bar for each `party` on the `y` (or `x`, if you prefer vertical bars) axis and fill the bars in with number of responses for each `opinion`.
 
 ```{r}
-#| fig.alt = "A horizontal stacked bar chart showing opinion counts for 3 
+#| fig.alt: "A horizontal stacked bar chart showing opinion counts for 3 
 #|  parties, stacked and filled by 3 types of opinions."
 ggplot(poll_longer, aes(y = party, fill = opinion, x = n)) +
   geom_col()
@@ -280,7 +279,7 @@ ggplot(poll_longer, aes(y = party, fill = opinion, x = n)) +
 To plot proportions (relative frequencies) instead of counts, use `position = "fill"` in `geom_col()`.
 
 ```{r}
-#| fig.alt = "A horizontal filled bar chart showing proportions of opinions for 
+#| fig.alt: "A horizontal filled bar chart showing proportions of opinions for 
 #|  3 parties. The fill colour represents 3 types of opinion. Every 
 #|  stacked bar spans the width of the panel."
 ggplot(poll_longer, aes(y = party, fill = opinion, x = n)) +
@@ -315,7 +314,7 @@ You can do this with `tidyr::pivot_longer()`.
 Then, pass the resulting longer data frame to `ggplot()` group responses for each question together.
 
 ```{r}
-#| fig.alt = "A grouped bar chart showing the number of responses to three 
+#| fig.alt: "A grouped bar chart showing the number of responses to three 
 #|  questions. Within each question, two bars denote an 'Agree' or 'Disagree' 
 #|  response."
 survey %>%
@@ -342,7 +341,7 @@ One option for calculating group means is using `dplyr::group_by()` followed by 
 Then, you can pass the resulting data frame to `ggplot()` and plot bars using `geom_col()`.
 
 ```{r}
-#| fig.alt = "A bar chart showing the average highway miles per gallon for 
+#| fig.alt: "A bar chart showing the average highway miles per gallon for 
 #|  three types of drive train."
 mpg %>%
   group_by(drv) %>%
@@ -354,7 +353,7 @@ mpg %>%
 Alternatively, you can use `stat_summary()` to let ggplot2 calculate and plot the means.
 
 ```{r}
-#| fig.alt = "A bar chart showing the average highway miles per gallon for 
+#| fig.alt: "A bar chart showing the average highway miles per gallon for 
 #|  three types of drive train."
 ggplot(mpg, aes(x = drv, y = hwy)) +
   stat_summary(fun = "mean", geom = "bar")
@@ -379,7 +378,7 @@ Also note that this will result in a deceiving bar plot, which should be avoided
 In the following plot the y-axis is limited to 20 to 120, and hence the bars are not showing up.
 
 ```{r}
-#| fig.alt = "A plot with axes and a panel, but no other geometry."
+#| fig.alt: "A plot with axes and a panel, but no other geometry."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
   ylim(c(20, 120))
@@ -388,7 +387,7 @@ ggplot(mpg, aes(x = drv)) +
 In order to obtain a bar plot with limited y-axis, you need to instead set the limits in `coord_cartesian()`.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. The y-axis starts at 20, and all bars touch the x-axis."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
@@ -400,7 +399,7 @@ If you're using a bar plot to display values that could not take the value of 0,
 For example, if you have the following data and plot.
 
 ```{r}
-#| fig.alt = "A bar chart showing numbers for 3 arbitrary categories. The
+#| fig.alt: "A bar chart showing numbers for 3 arbitrary categories. The
 #|  numbers are far away from the x-axis and visually appear broadly similar 
 #|  in height."
 df <- tibble::tribble(
@@ -417,14 +416,13 @@ ggplot(df, aes(x = x, y = y)) +
 Also suppose that you want to cut off the bars at `y = 1000` since you know that the variable you're plotting cannot take a value less than 1000, you might use `geom_point()` instead.
 
 ```{r}
-#| fig.alt = c(
-#| "A bar chart showing numbers for 3 arbitrary categories. The y-axis starts
+#| fig.alt:
+#| - "A bar chart showing numbers for 3 arbitrary categories. The y-axis starts
 #|  at 1000 and the bars all look different in height. This is not a recommended
-#|  way of plotting this data.",
-#| "A scatter plot with 3 points showing numbers for 3 arbitrary categories. 
+#|  way of plotting this data."
+#| - "A scatter plot with 3 points showing numbers for 3 arbitrary categories. 
 #|  The y-axis starts at 1000 and the points have visually different values.
 #|  This is a better way of plotting this data."
-#| )
 # don't do this
 ggplot(df, aes(x = x, y = y)) +
   geom_col() +
