@@ -315,6 +315,7 @@ Layout <- ggproto("Layout", NULL,
       cli::cli_warn(
         "Aspect ratios are overruled by {.arg {args}} theme element{?s}."
       )
+      table$respect <- FALSE
     }
 
     rows <- panel_rows(table)
