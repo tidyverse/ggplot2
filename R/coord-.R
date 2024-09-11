@@ -246,6 +246,9 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
 
 # Elaborates an 'expand' argument for every side (top, right, bottom or left)
 parse_coord_expand <- function(expand) {
+  if (is.numeric(expand) && all(expand %in% c(0, 1))) {
+    expand <- as.logical(expand)
+  }
   check_logical(expand)
   if (anyNA(expand)) {
     cli::cli_abort("{.arg expand} cannot contain missing values.")
