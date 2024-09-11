@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New argument `labs(dictionary)` to label based on variable name rather than 
+  based on aesthetic (@teunbrand, #5178)
 * The `summary()` method for ggplots is now more terse about facets 
   (@teunbrand, #5989).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
