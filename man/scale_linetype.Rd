@@ -7,13 +7,13 @@
 \alias{scale_linetype_discrete}
 \title{Scale for line patterns}
 \usage{
-scale_linetype(name = waiver(), ..., na.value = "blank")
+scale_linetype(name = waiver(), ..., na.value = NA)
 
-scale_linetype_binned(name = waiver(), ..., na.value = "blank")
+scale_linetype_binned(name = waiver(), ..., na.value = NA)
 
 scale_linetype_continuous(...)
 
-scale_linetype_discrete(name = waiver(), ..., na.value = "blank")
+scale_linetype_discrete(name = waiver(), ..., na.value = NA)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
