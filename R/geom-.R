@@ -63,6 +63,8 @@ Geom <- ggproto("Geom",
 
   default_aes = aes(),
 
+  default_params = NULL,
+
   draw_key = draw_key_point,
 
   handle_na = function(self, data, params) {
@@ -79,7 +81,7 @@ Geom <- ggproto("Geom",
     }
 
     # Trim off extra parameters
-    params <- params[intersect(names(params), self$parameters())]
+    params <- filter_args(params, self$draw_panel)
 
     if (nlevels(as.factor(data$PANEL)) > 1L) {
       data_panels <- split(data, data$PANEL)
@@ -96,8 +98,9 @@ Geom <- ggproto("Geom",
 
   draw_panel = function(self, data, panel_params, coord, ...) {
     groups <- split(data, factor(data$group))
+    params <- filter_args(list2(...), self$draw_group)
     grobs <- lapply(groups, function(group) {
-      self$draw_group(group, panel_params, coord, ...)
+      inject(self$draw_group(group, panel_params = panel_params, coord = coord, !!!params))
     })
 
     ggname(snake_class(self), gTree(
@@ -208,6 +211,9 @@ Geom <- ggproto("Geom",
   extra_params = c("na.rm"),
 
   parameters = function(self, extra = FALSE) {
+    if (!is.null(self$default_params)) {
+      return(names(self$default_params))
+    }
     # Look first in draw_panel. If it contains ... then look in draw groups
     panel_args <- names(ggproto_formals(self$draw_panel))
     group_args <- names(ggproto_formals(self$draw_group))
