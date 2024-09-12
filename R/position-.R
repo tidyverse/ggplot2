@@ -68,6 +68,14 @@ Position <- ggproto("Position",
 
   compute_panel = function(self, data, params, scales) {
     cli::cli_abort("Not implemented.")
+  },
+
+  aesthetics = function(self) {
+    required_aes <- self$required_aes
+    if (!is.null(required_aes)) {
+      required_aes <- unlist(strsplit(self$required_aes, "|", fixed = TRUE))
+    }
+    c(union(required_aes, names(self$default_aes)))
   }
 )
 
