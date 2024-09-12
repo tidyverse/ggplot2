@@ -46,6 +46,8 @@ stat_quantile <- function(mapping = NULL, data = NULL,
 StatQuantile <- ggproto("StatQuantile", Stat,
   required_aes = c("x", "y"),
 
+  default_aes = aes(weight = 1),
+
   compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
                            formula = NULL, xseq = NULL, method = "rq",
                            method.args = list(), lambda = 1, na.rm = FALSE) {
@@ -65,8 +67,6 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       }
       cli::cli_inform("Smoothing formula not specified. Using: {deparse(formula)}")
     }
-
-    if (is.null(data$weight)) data$weight <- 1
 
     if (is.null(xseq)) {
       xmin <- min(data$x, na.rm = TRUE)

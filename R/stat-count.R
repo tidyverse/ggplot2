@@ -70,15 +70,13 @@ StatCount <- ggproto("StatCount", Stat,
 
   compute_group = function(self, data, scales, width = NULL, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
-    x <- data$x
-    weight <- data$weight %||% rep(1, length(x))
 
-    count <- as.vector(rowsum(weight, x, na.rm = TRUE))
+    count <- as.vector(rowsum(data$weight, data$x, na.rm = TRUE))
 
     bars <- data_frame0(
       count = count,
       prop = count / sum(abs(count)),
-      x = sort(unique0(x)),
+      x = sort(unique0(data$x)),
       width = width,
       flipped_aes = flipped_aes,
       .size = length(count)

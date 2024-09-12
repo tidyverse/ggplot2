@@ -48,13 +48,12 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y|x"),
-  non_missing_aes = "weight",
+  default_aes = aes(x = 0, y = 0),
   # either the x or y aesthetic will get dropped during
   # statistical transformation, depending on the orientation
   dropped_aes = c("x", "y", "weight"),
   setup_data = function(self, data, params) {
     data <- flip_data(data, params$flipped_aes)
-    data$x <- data$x %||% 0
     data <- remove_missing(
       data,
       na.rm = params$na.rm,
@@ -118,7 +117,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       n <- sum(!is.na(data$y))
     } else {
       # Sum up weights for non-NA positions of y and weight
-      n <- sum(data$weight[!is.na(data$y) & !is.na(data$weight)])
+    n <- sum(data$weight[!is.na(data$y) & !is.na(data$weight)])
     }
 
     df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)

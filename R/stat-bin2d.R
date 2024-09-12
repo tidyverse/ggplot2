@@ -66,9 +66,6 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
     ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
 
-    if (is.null(data$weight))
-      data$weight <- 1
-
     out <- tapply_df(data$weight, list(xbin = xbin, ybin = ybin), sum, drop = drop)
 
     xdim <- bin_loc(xbreaks, out$xbin)
