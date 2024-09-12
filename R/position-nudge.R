@@ -26,7 +26,7 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   geom_text(aes(label = y), nudge_y = -0.1)
-position_nudge <- function(x = 0, y = 0) {
+position_nudge <- function(x = NULL, y = NULL) {
   ggproto(NULL, PositionNudge,
     x = x,
     y = y
@@ -38,11 +38,16 @@ position_nudge <- function(x = 0, y = 0) {
 #' @usage NULL
 #' @export
 PositionNudge <- ggproto("PositionNudge", Position,
-  x = 0,
-  y = 0,
+  x = NULL,
+  y = NULL,
+
+  default_aes = aes(nudge_x = 0, nudge_y = 0),
 
   setup_params = function(self, data) {
-    list(x = self$x, y = self$y)
+    list(
+      x = self$x %||% data$nudge_x,
+      y = self$y %||% data$nudge_y
+    )
   },
 
   compute_layer = function(self, data, params, layout) {
