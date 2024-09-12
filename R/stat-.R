@@ -215,6 +215,33 @@ Stat <- ggproto("Stat",
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
-  }
+  },
 
+  use_defaults = function(self, data, default_aes = NULL) {
+    default_aes <- default_aes %||% self$default_aes
+    if (length(default_aes) == 0) {
+      return(data)
+    }
+
+    missing_aes <- setdiff(names(default_aes), names(data))
+    default_aes <- default_aes[missing_aes]
+
+    delayed <- is_calculated_aes(default_aes) | is_staged_aes(default_aes) |
+      is_scaled_aes(default_aes)
+    default_aes <- default_aes[!delayed]
+
+    if (length(default_aes) == 0) {
+      return(data)
+    }
+
+    evaled <- compact(lapply(default_aes, eval_tidy))
+
+    if (empty(data)) {
+      data <- as_gg_data_frame(evaled)
+    } else {
+      data[names(evaled)] <- evaled
+    }
+
+    data
+  }
 )

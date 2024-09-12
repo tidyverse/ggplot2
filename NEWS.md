@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Default aesthetics in stats are now evaluated prior to computation 
+  (@teunbrand, #3860).
 * The `summary()` method for ggplots is now more terse about facets 
   (@teunbrand, #5989).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`

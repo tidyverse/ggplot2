@@ -51,8 +51,7 @@ StatBinhex <- ggproto("StatBinhex", Stat,
     check_installed("hexbin", reason = "for `stat_bin_hex()`.")
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
-    wt <- data$weight %||% rep(1L, nrow(data))
-    out <- hexBinSummarise(data$x, data$y, wt, binwidth, sum)
+    out <- hexBinSummarise(data$x, data$y, data$weight, binwidth, sum)
     out$density <- as.vector(out$value / sum(out$value, na.rm = TRUE))
     out$ndensity <- out$density / max(out$density, na.rm = TRUE)
     out$count <- out$value

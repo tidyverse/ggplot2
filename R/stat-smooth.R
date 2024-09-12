@@ -157,6 +157,8 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
   extra_params = c("na.rm", "orientation"),
 
+  default_aes = aes(weight = 1),
+
   compute_group = function(data, scales, method = NULL, formula = NULL,
                            se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
                            xseq = NULL, level = 0.95, method.args = list(),
@@ -166,8 +168,6 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       # Not enough data to perform fit
       return(data_frame0())
     }
-
-    if (is.null(data$weight)) data$weight <- 1
 
     if (is.null(xseq)) {
       if (is.integer(data$x)) {
