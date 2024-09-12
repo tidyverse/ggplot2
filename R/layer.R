@@ -58,8 +58,8 @@
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display. To include legend keys for all levels, even 
-#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend, 
+#'   display. To include legend keys for all levels, even
+#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
 #'   but unobserved levels are omitted.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
@@ -437,6 +437,7 @@ Layer <- ggproto("Layer", NULL,
   compute_position = function(self, data, layout) {
     if (empty(data)) return(data_frame0())
 
+    data <- self$position$use_defaults(data, self$aes_params)
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
 

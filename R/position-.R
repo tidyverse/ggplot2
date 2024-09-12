@@ -76,6 +76,28 @@ Position <- ggproto("Position",
       required_aes <- unlist(strsplit(self$required_aes, "|", fixed = TRUE))
     }
     c(union(required_aes, names(self$default_aes)))
+  },
+
+  use_defaults = function(self, data, params = list()) {
+
+    aes <- self$aesthetics()
+    defaults <- self$default_aes
+
+    params <- params[intersect(names(params), aes)]
+    params <- params[setdiff(names(params), names(data))]
+    defaults <- defaults[setdiff(names(defaults), c(names(params), names(data)))]
+
+    if ((length(params) + length(defaults)) < 1) {
+      return(data)
+    }
+
+    new <- compact(lapply(defaults, eval_tidy, data = data))
+    new[names(params)] <- params
+    check_aesthetics(new, nrow(data))
+
+    data[names(new)] <- new
+    data
+
   }
 )
 
