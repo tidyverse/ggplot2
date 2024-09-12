@@ -46,6 +46,8 @@
 Position <- ggproto("Position",
   required_aes = character(),
 
+  default_aes = aes(),
+
   setup_params = function(self, data) {
     list()
   },
