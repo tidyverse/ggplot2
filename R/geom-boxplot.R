@@ -178,7 +178,13 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   # need to declare `width` here in case this geom is used with a stat that
   # doesn't have a `width` parameter (e.g., `stat_identity`).
-  extra_params = c("na.rm", "width", "orientation", "outliers"),
+  default_params = list(
+    na.rm = FALSE, width = NULL, orientation = NA, outliers = TRUE,
+    lineend = "butt", linejoin = "mitre", fatten = 2, outlier.colour = NULL,
+    outlier.fill = NULL, outlier.shape = NULL, outlier.size = NULL,
+    outlier.stroke = 0.5, outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
+    staplewidth = 0, varwidth = FALSE, flipped_aes = FALSE
+  ),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
