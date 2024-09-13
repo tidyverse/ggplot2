@@ -10,7 +10,7 @@ get_alt_text(p, ...)
 \arguments{
 \item{p}{a ggplot object}
 
-\item{...}{Currently ignored}
+\item{...}{Arguments passed to methods.}
 }
 \value{
 A text string

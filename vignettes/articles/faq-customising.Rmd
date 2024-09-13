@@ -40,7 +40,7 @@ By default your legend label will be the name of the variable that is mapped to 
 You can change the title of your legend using `labs()`.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by three
 #|  types of drive train, which is displayed in a legend with the title 'Drive
 #|  train'."
@@ -52,16 +52,16 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
 If a legend is drawn for multiple aesthetics, you'll want to update the title for all of them.
 
 ```{r}
-#| fig.alt = c(
-#| "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt:
+#| - "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The point shapes and colours 
 #|  indicate three types of drive train. The shapes and colours are displayed in
-#|  separate legends titled 'drv' and 'Drive train' respectively.",
-#| "A scatter plot showing the highway miles per gallon on the x-axis
+#|  separate legends titled 'drv' and 'Drive train' respectively."
+#| - "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The point shapes and colours 
 #|  indicate three types of drive train. The shapes and colours are displayed in
 #|  a single legend titled 'Drive train'."
-#| )
+#|
 # not this
 ggplot(mpg, aes(x = hwy, y = cty, color = drv, shape = drv)) +
   geom_point() +
@@ -89,7 +89,7 @@ You can supply a unit object to this argument, e.g. `unit(1.0, "cm")` for 1 cm s
 See the documentation for `grid::unit()` for more options for units.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by three
 #|  types of drive train, which is displayed in a legend at the bottom of the 
 #|  plot in a horizontal orientation. Legend elements are spaced widely apart."
@@ -104,7 +104,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
 For vertical legends changing `legend.spacing.y` changes the space between the legend title and the keys, but not between the keys, e.g. see the large space between the legend title and keys.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by three
 #|  types of drive train, which is displayed in a legend at the right of the 
 #|  plot. In the legend, there is a large space between the title and keys."
@@ -116,7 +116,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
 In order to change the space between the legend keys, you can first make the key size bigger with `legend.key.size` and then remove the grey background color with `legend.key`.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by three
 #|  types of drive train, which is displayed in a legend at the right of the 
 #|  plot. In the legend, elements are placed widely apart and the title is
@@ -133,7 +133,7 @@ Note that the legend title is no longer aligned with the keys with this approach
 You can also shift it over with the `hjust` setting of `legend.title`.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by three
 #|  types of drive train, which is displayed in a legend at the right of the 
 #|  plot. In the legend, elements are placed widely apart and the title is
@@ -161,7 +161,7 @@ The `labels` argument of `scale_*` functions takes named vectors, which what we 
 Using named lists allows you to declare explicitly which label is assigned to which level, without having to keep track of level order.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by three
 #|  types of drive train, which is displayed in a legend at the right of the 
 #|  plot. The legend items are name '4-wheel drive', 'Front-wheel drive' and
@@ -191,7 +191,7 @@ You can use the following for 14 pts text for legend key labels and 10 pts text 
 (Note that this doesn't result in a visually pleasing legend, by default ggplot2 uses a larger font size for the legend title than the legend text.)
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by seven 
 #|  types of cars, which is displayed in the legend on the right of the plot.
 #|  The labels in the legend have a larger font size than the title."
@@ -206,7 +206,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
 For further customization of legend text, see the documentation for `element_text()`, e.g. you can change font colors or font face as well.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by seven 
 #|  types of cars, which is displayed in the legend on the right of the plot.
 #|  The labels in the legends have a large, red font. The title has a smaller,
@@ -235,7 +235,7 @@ You can set the background colour of the plot with `panel.background` in `theme(
 In the following example the border is made thicker with `linewidth = 3` to
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The panel background of the plot
 #|  is light blue and is outlined in red with a thick stroke."
 ggplot(mpg, aes(x = hwy, y = cty)) +
@@ -246,7 +246,7 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 If you want to change the colour of the plotting area but not the panel where the panel, you can so the same thing with `plot.background`.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The plot background is light blue 
 #|  and is outlined in red with a thick stroke. The panel background remains 
 #|  grey."
@@ -259,7 +259,7 @@ Note that ggplot2 has a variety of [complete themes](https://ggplot2.tidyverse.o
 For example, if you prefer a more minimal look to your plots, without the grey background, you might try `theme_minimal()`.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. There is no visible panel 
 #|  background and grid lines are in light grey."
 ggplot(mpg, aes(x = hwy, y = cty)) +
@@ -270,7 +270,7 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 And you can continue customization based on one of these themes.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. There is no visible panel 
 #|  background and grid lines are in light grey. The plot as a whole is outlined
 #|  by a thick red line."
@@ -309,7 +309,7 @@ df <- tibble::tribble(
 By default, ggplot2 uses grey to represent `NA`s.
 
 ```{r}
-#| fig.alt = "A stacked bar chart showing two groups on the x-axis and counts
+#| fig.alt: "A stacked bar chart showing two groups on the x-axis and counts
 #|  on the y-axis. Within a stacked bar, two different outcomes and 'NA's are 
 #|  distinguished by fill colour."
 ggplot(df, aes(x = group, fill = outcome)) +
@@ -319,7 +319,7 @@ ggplot(df, aes(x = group, fill = outcome)) +
 You can change the color of `NA` with `scale_fill_discrete()` in this case, e.g. make it purple.
 
 ```{r}
-#| fig.alt = "A stacked bar chart showing two groups on the x-axis and counts
+#| fig.alt: "A stacked bar chart showing two groups on the x-axis and counts
 #|  on the y-axis. Within a stacked bar, two different outcomes and 'NA's are 
 #|  distinguished by fill colour. The 'NA' fill colour is purple."
 ggplot(df, aes(x = group, fill = outcome)) +
@@ -332,7 +332,7 @@ In the plot below this is shown with `theme_minimal()` to demonstrate how that l
 Note that while this is possible, setting the colour to transparent as such wouldn't be recommended in this particular case as it gives the appearance of a floating bar.
 
 ```{r}
-#| fig.alt = "A stacked bar chart showing two groups on the x-axis and counts
+#| fig.alt: "A stacked bar chart showing two groups on the x-axis and counts
 #|  on the y-axis. Within a stacked bar, two different outcomes and 'NA's are 
 #|  distinguished by fill colour. The 'NA' fill colour is transparent, giving
 #|  the appearance that one of the stacked bars is floating."
@@ -359,7 +359,7 @@ You can change it with the `base_size` argument in the theme you're using.
 See the [complete theme documentation](https://ggplot2.tidyverse.org/reference/ggtheme.html) for more high level options you can set.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The points are coloured by seven
 #|  types of car. All text sizes in the axes and legend are large."
 ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
@@ -389,7 +389,7 @@ Font characteristics of plot titles and subtitles can be controlled with the `pl
 You can use the following for 20 pts text for the plot title and 15 pts text for the plot subtitle.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The plot has a large title 
 #|  displaying 'This is the plot title' and a less large subtitle displaying 
 #|  'And this is the subtitle' at the top of the plot."
@@ -408,7 +408,7 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 For further customization of plot title and subtitle, see the documentation for `element_text()`, e.g. you can change font colors or font face as well.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The plot has a large red title 
 #|  displaying 'This is the plot title' and a less large subtitle in bold and 
 #|  italic displaying 'And this is the subtitle' at the top of the plot."
@@ -439,7 +439,7 @@ In both cases, set font size in the `size` argument of `element_text()`, e.g. `a
 Font characteristics of axis labels can be controlled with `axis.title.x` or `axis.title.y` (or `axis.title` if you the same settings for both axes).
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The x-axis title displays 
 #|  'This is HUGE' in a large font size, and the y-axis title displays 
 #|  'This is small' in a smaller font size."
@@ -458,7 +458,7 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 For further customization of plot title and subtitle, see the documentation for `element_text()`, e.g. you can change font colors or font face as well.
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. The x-axis title displays 
 #|  'This is HUGE' in a large, red font, and the y-axis title displays 
 #|  'This is tiny' in a smaller, bold and italic font."
@@ -477,7 +477,7 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 You can also change the size of the axis text (e.g. numbers at the axis ticks) using `axis.text` (or `axis.text.x` and `axis.text.y` if you want to set different sizes).
 
 ```{r}
-#| fig.alt = "A scatter plot showing the highway miles per gallon on the x-axis
+#| fig.alt: "A scatter plot showing the highway miles per gallon on the x-axis
 #|  and city miles per gallon on the y-axis. Both the x and the y axis titles
 #|  display 'The axis labels are the same size' in a large font. Both axis 
 #|  labels are displayed in a larger, blue font."
@@ -497,10 +497,10 @@ ggplot(mpg, aes(x = hwy, y = cty)) +
 
 ### What is the default size of `geom_text()` and how can I change the font size of `geom_text()`?
 
-The default font size of `geom_text()` is 3.88.
+The default font size of `geom_text()` is about 3.87.
 
 ```{r}
-GeomLabel$default_aes$size
+get_geom_defaults(geom_text)$size
 ```
 
 You can change the size using the `size` argument in `geom_text()` for a single plot. If you want to use the same updated size, you can set this with `update_geom_defaults()`, e.g. `update_geom_defaults("text", list(size = 6))`.
@@ -518,7 +518,7 @@ Please refer to ["Font size" section of the aesthetic specifications](https://gg
 Suppose you have the following data frame and visualization.
 
 ```{r}
-#| fig.alt = "A plot showing text at diagonal positions with the labels 'two', 
+#| fig.alt: "A plot showing text at diagonal positions with the labels 'two', 
 #| 'three' and 'four'."
 df <- tibble::tribble(
   ~x, ~y, ~name,
@@ -534,7 +534,7 @@ ggplot(df, aes(x = x, y = y, label = name)) +
 You can set the size of the text with the following.
 
 ```{r}
-#| fig.alt = "A plot showing larger text at diagonal positions with the labels 
+#| fig.alt: "A plot showing larger text at diagonal positions with the labels 
 #| 'two', 'three' and 'four'."
 ggplot(df, aes(x = x, y = y, label = name)) +
   geom_text(size = 6)
@@ -543,7 +543,7 @@ ggplot(df, aes(x = x, y = y, label = name)) +
 Or you can map it to the `size` `aes`thetic. In the following size is determined by the `x` value with `scale_size_identity()`.
 
 ```{r}
-#| fig.alt = "A plot showing text at diagonal positions with the labels 'two',
+#| fig.alt: "A plot showing text at diagonal positions with the labels 'two',
 #|  'three' and 'four' that increase in size from left to right."
 ggplot(df, aes(x = x, y = y, label = name)) +
   geom_text(aes(size = x)) +

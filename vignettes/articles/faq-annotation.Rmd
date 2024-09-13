@@ -39,7 +39,7 @@ You should use `annotate(geom = "text")` instead of `geom_text()` for annotation
 In the following visualisation we have annotated a histogram with a red line and red text to mark the mean. Note that both the line and the text appears pixellated/fuzzy.
 
 ```{r}
-#| fig.alt = "Histogram of highway miles per gallon for 234 cars. A red line is
+#| fig.alt: "Histogram of highway miles per gallon for 234 cars. A red line is
 #|  placed at the position 23.44 and is adorned with the label 'mean 23.44'.
 #|  Both the line and the text appear pixellated due to overplotting."
 mean_hwy <- round(mean(mpg$hwy), 2)
@@ -62,7 +62,7 @@ This is because `geom_text()` draws the geom once per each row of the data frame
 
 
 ```{r}
-#| fig.alt = "Histogram of highway miles per gallon for 234 cars. A red line is
+#| fig.alt: "Histogram of highway miles per gallon for 234 cars. A red line is
 #|  placed at the position 23.44 and is adorned with the label 'mean = 23.44'.
 #|  Both the line and the text appear crisp."
 ggplot(mpg, aes(x = hwy)) +
@@ -91,7 +91,7 @@ Set `vjust = "inward"` and `hjust = "inward"` in `geom_text()`.
 Suppose you have the following data frame and visualization. The labels at the edges of the plot are cut off slightly.
 
 ```{r}
-#| fig.alt = "A plot showing the words 'two', 'three' and 'four' arranged 
+#| fig.alt: "A plot showing the words 'two', 'three' and 'four' arranged 
 #|  diagonally. The 'two' and 'four' labels have been clipped to the panel's 
 #|  edge and are not displayed completely."
 df <- tibble::tribble(
@@ -108,7 +108,7 @@ ggplot(df, aes(x = x, y = y, label = name)) +
 You could manually extend axis limits to avoid this, but a more straightforward approach is to set `vjust = "inward"` and `hjust = "inward"` in `geom_text()`.
 
 ```{r}
-#| fig.alt = "A plot showing the words 'two', 'three' and 'four' arranged 
+#| fig.alt: "A plot showing the words 'two', 'three' and 'four' arranged 
 #|  diagonally. The 'two' and 'four' labels are aligned to the top-right and 
 #|  bottom-left relative to their anchor points, and are displayed in their
 #|  entirety."
@@ -129,7 +129,7 @@ Either calculate the counts ahead of time and place them on bars using `geom_tex
 Suppose you have the following bar plot and you want to add the number of cars that fall into each `drv` level on their respective bars.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train."
 ggplot(mpg, aes(x = drv)) +
   geom_bar()
@@ -139,7 +139,7 @@ One option is to calculate the counts with `dplyr::count()` and then pass them t
 Note that we expanded the y axis limit to get the numbers to fit on the plot.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. The count values are displayed on top of the bars as text."
 mpg %>%
   dplyr::count(drv) %>%
@@ -152,7 +152,7 @@ mpg %>%
 Another option is to let `ggplot()` do the counting for you, and access these counts with `after_stat(count)` that is mapped to the labels to be placed on the plot with `stat_count()`.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. The count values are displayed on top of the bars as text."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() + 
@@ -173,7 +173,7 @@ First calculate the counts for each segment (e.g. with `dplyr::count()`) and the
 Suppose you have the following stacked bar plot.
 
 ```{r}
-#| fig.alt = "A stacked bar chart showing the number of cars for each of seven 
+#| fig.alt: "A stacked bar chart showing the number of cars for each of seven 
 #|  types of cars. The fill colour of the bars indicate the type of drive 
 #|  train."
 ggplot(mpg, aes(x = class, fill = drv)) +
@@ -190,7 +190,7 @@ mpg %>%
 You can then pass this result directly to `ggplot()`, draw the segments with appropriate heights with `y = n` in the `aes`thetic mapping and `geom_col()` to draw the bars, and finally place the counts on the plot with `geom_text()`.
 
 ```{r}
-#| fig.alt = "A stacked bar chart showing the number of cars for each of seven 
+#| fig.alt: "A stacked bar chart showing the number of cars for each of seven 
 #|  types of cars. The fill colour of the bars indicate the type of drive 
 #|  train. In the middle of each filled part, the count value is displayed as 
 #|  text."
@@ -214,7 +214,7 @@ Either calculate the proportions ahead of time and place them on bars using `geo
 Suppose you have the following bar plot but you want to display the proportion of cars that fall into each `drv` level, instead of the count.
 
 ```{r}
-#| fig.alt = "A bar chart showing the number of cars for each of three types
+#| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train."
 ggplot(mpg, aes(x = drv)) +
   geom_bar()
@@ -223,7 +223,7 @@ ggplot(mpg, aes(x = drv)) +
 One option is to calculate the proportions with `dplyr::count()` and then use `geom_col()` to draw the bars
 
 ```{r}
-#| fig.alt = "A bar chart showing the proportion of cars for each of three types
+#| fig.alt: "A bar chart showing the proportion of cars for each of three types
 #|  of drive train."
 mpg %>%
   dplyr::count(drv) %>%
@@ -236,7 +236,7 @@ Another option is to let `ggplot()` do the calculation of proportions for you, a
 Note that we also need to the `group = 1` mapping for this option.
 
 ```{r}
-#| fig.alt = "A bar chart showing the proportion of cars for each of three types
+#| fig.alt: "A bar chart showing the proportion of cars for each of three types
 #|  of drive train."
 ggplot(mpg, aes(x = drv, y = ..prop.., group = 1)) +
   geom_bar()

@@ -18,8 +18,8 @@ update_labels <- function(p, labels) {
 
 # Called in `ggplot_build()` to set default labels not specified by user.
 setup_plot_labels <- function(plot, layers, data) {
-  # Initiate from user-defined labels
-  labels <- plot$labels
+  # Initiate empty labels
+  labels <- list()
 
   # Find labels from every layer
   for (i in seq_along(layers)) {
@@ -65,7 +65,26 @@ setup_plot_labels <- function(plot, layers, data) {
       labels <- defaults(labels, current)
     }
   }
-  labels
+
+  # Warn for spurious labels that don't have a mapping.
+  # Note: sometimes, 'x' and 'y' might not have a mapping, like in
+  # `geom_function()`. We can display these labels anyway, so we include them.
+  plot_labels  <- plot$labels
+  known_labels <- c(names(labels), fn_fmls_names(labs), "x", "y")
+  extra_labels <- setdiff(names(plot_labels), known_labels)
+
+  if (length(extra_labels) > 0) {
+    extra_labels <- paste0(
+      "{.code ", extra_labels, " = \"", plot_labels[extra_labels], "\"}"
+    )
+    names(extra_labels) <- rep("*", length(extra_labels))
+    cli::cli_warn(c(
+      "Ignoring unknown labels:",
+      extra_labels
+    ))
+  }
+
+  defaults(plot_labels, labels)
 }
 
 #' Modify axis, legend, and plot labels
@@ -168,7 +187,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' text from the information stored in the plot.
 #'
 #' @param p a ggplot object
-#' @param ... Currently ignored
+#' @inheritParams rlang::args_dots_used
 #'
 #' @return A text string
 #'
@@ -191,6 +210,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' get_alt_text(p)
 #'
 get_alt_text <- function(p, ...) {
+  warn_dots_used()
   UseMethod("get_alt_text")
 }
 #' @export

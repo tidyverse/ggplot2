@@ -86,7 +86,7 @@ stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
 Once we have a layer function we can try our new stat:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hull of all the points is marked by a 
 #|  polygon with no fill."
 ggplot(mpg, aes(displ, hwy)) + 
@@ -99,7 +99,7 @@ ggplot(mpg, aes(displ, hwy)) +
 Once we've written this basic object, ggplot2 gives a lot for free. For example, ggplot2 automatically preserves aesthetics that are constant within each group:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hulls of points, grouped and coloured by 
 #|  three types of drive train, are marked by polygons with no fill but the
 #|  outline matches the colours of the points."
@@ -111,7 +111,7 @@ ggplot(mpg, aes(displ, hwy, colour = drv)) +
 We can also override the default geom to display the convex hull in a different way:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The points that are part of the convex hull of all 
 #|  points are marked with a red outline."
 ggplot(mpg, aes(displ, hwy)) + 
@@ -124,7 +124,7 @@ ggplot(mpg, aes(displ, hwy)) +
 A more complex stat will do some computation. Let's implement a simple version of `geom_smooth()` that adds a line of best fit to a plot. We create a `StatLm` that inherits from `Stat` and a layer function, `stat_lm()`:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. A straight line with a negative slope passes through
 #|  the cloud of points."
 StatLm <- ggproto("StatLm", Stat, 
@@ -159,7 +159,7 @@ ggplot(mpg, aes(displ, hwy)) +
 `StatLm` is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the `compute_group()` method and our wrapper function:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. A wobbly line follows the point cloud over the 
 #|  horizontal direction. 20 points are placed on top of the line with constant
 #|  horizontal intervals."
@@ -224,13 +224,12 @@ Sometimes you have calculations that should be performed once for the complete d
 To do this we override the `setup_params()` method. It's passed the data and a list of params, and returns an updated list.
 
 ```{r}
-#| fig.alt = c(
-#| "A line plot showing three kernel density estimates of engine displacement,
+#| fig.alt:
+#| - "A line plot showing three kernel density estimates of engine displacement,
 #|  coloured for three types of drive trains. The lines are a little bit 
-#|  wobbly.",
-#| "A line plot showing three kernel density estimates of engine displacement,
+#|  wobbly."
+#| - "A line plot showing three kernel density estimates of engine displacement,
 #|  coloured for three types of drive trains. The lines are fairly smooth."
-#| )
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   
@@ -278,7 +277,7 @@ I recommend using `NULL` as a default value. If you pick important parameters au
 This stat illustrates another important point. If we want to make this stat usable with other geoms, we should return a variable called `density` instead of `y`. Then we can set up the `default_aes` to automatically map `density` to `y`, which allows the user to override it to use with different geoms:
 
 ```{r}
-#| fig.alt = "A plot showing the engine displacement versus three types of drive 
+#| fig.alt: "A plot showing the engine displacement versus three types of drive 
 #|  trains. Every drive train is represented by a series of densely packed 
 #|  points that imitate a horizontal line, and their colour intensity indicates
 #|  the kernel density estimate of the displacement."
@@ -299,7 +298,7 @@ ggplot(mpg, aes(displ, drv, colour = after_stat(density))) +
 However, using this stat with the area geom doesn't work quite right. The areas don't stack on top of each other:
 
 ```{r}
-#| fig.alt = "An area plot showing the kernel density estimates of 
+#| fig.alt: "An area plot showing the kernel density estimates of 
 #|  engine displacement. Three areas are shown that indicate the estimates for
 #|  three types of drive trains separately. All areas are floored to the x-axis
 #|  and overlap one another."
@@ -310,16 +309,15 @@ ggplot(mpg, aes(displ, fill = drv)) +
 This is because each density is computed independently, and the estimated `x`s don't line up. We can resolve that issue by computing the range of the data once in `setup_params()`.
 
 ```{r}
-#| fig.alt = c(
-#| "A stacked area plot showing kernel density estimates of engine displacement.
+#| fig.alt:
+#| - "A stacked area plot showing kernel density estimates of engine displacement.
 #|  Three areas are shown that indicate the estimates for three types of drive
 #|  trains separately. The areas are stacked on top of one another and show
-#|  no overlap.",
-#| "A heatmap showing the density of engine displacement for three types of 
+#|  no overlap."
+#| - "A heatmap showing the density of engine displacement for three types of 
 #|  drive trains. The heatmap has three rows for the drive trains, but are
 #|  continuous in the horizontal direction. The fill intensity of the heatmap
 #|  shows the kernel density estimates."   
-#| )
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   default_aes = aes(y = after_stat(density)),
@@ -377,7 +375,7 @@ It's harder to create a new geom than a new stat because you also need to know s
 It's easiest to start with a simple example. The code below is a simplified version of `geom_point()`:
 
 ```{r GeomSimplePoint}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The points are larger than the default."
 GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
   required_aes = c("x", "y"),
@@ -441,7 +439,7 @@ Overriding `draw_panel()` is most appropriate if there is one graphic element pe
 The following code makes a simplified version of `GeomPolygon`:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hulls of points, grouped by 7 types of 
 #|  cars, are displayed as multiple polygons with no fill, but the outer line is 
 #|  coloured by the type."
@@ -512,7 +510,7 @@ You might want to compare this to the real `GeomPolygon`. You'll see it override
 Sometimes you just want to make a small modification to an existing geom. In this case, rather than inheriting from `Geom` you can inherit from an existing subclass. For example, we might want to change the defaults for `GeomPolygon` to work better with `StatChull`:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hull of all the points is marked by a 
 #|  polygon with no fill."
 GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
@@ -628,12 +626,11 @@ title        | `element_text()`  | all text in title elements (plot, axes & lege
 These set default properties that are inherited by more specific settings. These are most useful for setting an overall "background" colour and overall font settings (e.g. family and size).
 
 ```{r axis-line-ex}
-#| fig.alt = c(
-#| "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
-#|  and 'y' are coloured in black",
-#| "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
+#| fig.alt:
+#| - "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
+#|  and 'y' are coloured in black"
+#| - "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
 #|  and 'y' are coloured in red"
-#| )
 df <- data.frame(x = 1:3, y = 1:3)
 base <- ggplot(df, aes(x, y)) + 
   geom_point() + 
@@ -809,11 +806,10 @@ FacetDuplicate <- ggproto("FacetDuplicate", Facet,
 Now with everything assembled, lets test it out:
 
 ```{r}
-#| fig.alt = c(
-#| "Scatterplot showing horsepower against miles per gallon for 32 cars.",
-#| "Scatterplot with two panels showing horsepower against miles per gallon for 
+#| fig.alt:
+#| - "Scatterplot showing horsepower against miles per gallon for 32 cars."
+#| - "Scatterplot with two panels showing horsepower against miles per gallon for 
 #|  32 cars. The left and right panels are identical."
-#| )
 p <- ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point()
 p
 p + facet_duplicate()
@@ -1005,7 +1001,7 @@ As is very apparent, the `draw_panel` method can become very unwieldy once it be
 Enough talk - lets see if our new and powerful faceting extension works:
 
 ```{r}
-#| fig.alt = "Scatterplot with two panels showing horsepower against miles per 
+#| fig.alt: "Scatterplot with two panels showing horsepower against miles per 
 #|  gallon for 32 cars. Both panels show the same datapoints. The left panel is 
 #|  titled 'original' and the right panel is titled 'transformed (sqrt)'. On the 
 #|  right panel, the miles per gallon are displayed on a square root 
@@ -1018,7 +1014,7 @@ ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_trans('sqrt')
 As the rendering part of a facet class is often the difficult development step, it is possible to piggyback on the existing faceting classes to achieve a range of new facetings. Below we will subclass `facet_wrap()` to make a `facet_bootstrap()` class that splits the input data into a number of panels at random.
 
 ```{r}
-#| fig.alt = "Scatterplot with three-by-three panels showing the weight versus
+#| fig.alt: "Scatterplot with three-by-three panels showing the weight versus
 #|  the price of about 10.000 diamonds in every panel. The panels are titled 1
 #|  to 9 and show different points, but are visually similar."
 

@@ -11,6 +11,10 @@ NULL
 #' guide if they are mapped in the same way.
 #'
 #' @inheritParams guide_legend
+#' @param angle Overrules the theme settings to automatically apply appropriate
+#'   `hjust` and `vjust` for angled legend text. Can be a single number
+#'   representing the text angle in degrees, or `NULL` to not overrule the
+#'   settings (default).
 #' @param show.limits Logical. Should the limits of the scale be shown with
 #'   labels and ticks. Default is `NULL` meaning it will take the value from the
 #'   scale. This argument is ignored if `labels` is given as a vector of
@@ -65,6 +69,7 @@ guide_bins <- function(
   theme = NULL,
 
   # general
+  angle        = NULL,
   position     = NULL,
   direction    = NULL,
   override.aes = list(),
@@ -85,6 +90,7 @@ guide_bins <- function(
     theme = theme,
 
     # general
+    angle = angle,
     position = position,
     direction = direction,
     override.aes = rename_aes(override.aes),
@@ -115,6 +121,7 @@ GuideBins <- ggproto(
     default_axis = element_line("black", linewidth = (0.5 / .pt)),
     default_ticks = element_line(inherit.blank = TRUE),
 
+    angle = NULL,
     direction = NULL,
     override.aes = list(),
     reverse = FALSE,

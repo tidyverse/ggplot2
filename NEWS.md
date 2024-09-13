@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* The `summary()` method for ggplots is now more terse about facets 
+  (@teunbrand, #5989).
+* `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
+  argument to overrule theme settings, similar to `guide_axis(angle)` 
+  (@teunbrand, #4594).
+* `coord_*(expand)` can now take a logical vector to control expansion at any
+  side of the panel (top, right, bottom, left) (@teunbrand, #6020)
 * (Breaking) The defaults for all geoms can be set at one in the theme. 
   (@teunbrand based on pioneering work by @dpseidel, #2239)
     * A new `theme(geom)` argument is used to track these defaults.
@@ -22,7 +29,7 @@
   class through new `Coord$draw_panel()` method.
 * `theme(strip.clip)` now defaults to `"on"` and is independent of Coord 
   clipping (@teunbrand, 5952).
-* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
+* (internal) rearranged the code of `Facet$draw_panels()` method (@teunbrand).
 * Axis labels are now justified across facet panels (@teunbrand, #5820)
 * Fixed bug in `stat_function()` so x-axis title now produced automatically 
   when no data added. (@phispu, #5647).
@@ -168,6 +175,9 @@
 * `theme_classic()` now has black ticks and text instead of dark gray. In 
   addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
 * {tibble} is now suggested instead of imported (@teunbrand, #5986)
+* The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
+  `labs()` and several guides (@teunbrand, #3196).
+* `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
 
 # ggplot2 3.5.1
 
