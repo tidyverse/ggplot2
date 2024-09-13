@@ -44,6 +44,8 @@
 #'     system to manipulate the `layout` data frame which assigns
 #'     data to panels and scales.
 #'
+#' See also the `r link_book("new coords section", "extensions#sec-new-coords")`
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -63,30 +65,32 @@ Coord <- ggproto("Coord",
     labels
   },
 
-  render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
+  render_fg = function(panel_params, theme) {
+    element_render(theme, "panel.border", fill = NA)
+  },
 
   render_bg = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_bg} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_bg} method.")
   },
 
   render_axis_h = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_h} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_h} method.")
   },
 
   render_axis_v = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_v} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_v} method.")
   },
 
   # transform range given in transformed coordinates
   # back into range in given in (possibly scale-transformed)
   # data coordinates
   backtransform_range = function(self, panel_params) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn backtransform_range} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn backtransform_range} method.")
   },
 
   # return range stored in panel_params
   range = function(self, panel_params) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn range} method")
+    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn range} method.")
   },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {
@@ -180,10 +184,11 @@ Coord <- ggproto("Coord",
   # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
-  setup_params = function(data) {
+  setup_params = function(self, data) {
     list(
       guide_default = guide_axis(),
-      guide_missing = guide_none()
+      guide_missing = guide_none(),
+      expand = parse_coord_expand(self$expand %||% TRUE)
     )
   },
 
@@ -192,6 +197,11 @@ Coord <- ggproto("Coord",
   },
 
   setup_layout = function(layout, params) {
+    # We're appending a COORD variable to the layout that determines the
+    # uniqueness of panel parameters. The layout uses this to prevent redundant
+    # setups of these parameters.
+    scales <- layout[c("SCALE_X", "SCALE_Y")]
+    layout$COORD <- vec_match(scales, unique0(scales))
     layout
   },
 
@@ -199,6 +209,20 @@ Coord <- ggproto("Coord",
   # used as a fudge for CoordFlip and CoordPolar
   modify_scales = function(scales_x, scales_y) {
     invisible()
+  },
+
+  draw_panel = function(self, panel, params, theme) {
+    fg <- self$render_fg(params, theme)
+    bg <- self$render_bg(params, theme)
+    if (isTRUE(theme$panel.ontop)) {
+      panel <- list2(!!!panel, bg, fg)
+    } else {
+      panel <- list2(bg, !!!panel, fg)
+    }
+    gTree(
+      children = inject(gList(!!!panel)),
+      vp = viewport(clip = self$clip)
+    )
   }
 )
 
@@ -218,6 +242,26 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
   } else {
     zeroGrob()
   }
+}
+
+# Elaborates an 'expand' argument for every side (top, right, bottom or left)
+parse_coord_expand <- function(expand) {
+  check_logical(expand)
+  if (anyNA(expand)) {
+    cli::cli_abort("{.arg expand} cannot contain missing values.")
+  }
+
+  if (!is_named(expand)) {
+    return(rep_len(expand, 4))
+  }
+
+  # Match by top/right/bottom/left
+  out <- rep(TRUE, 4)
+  i <- match(names(expand), .trbl)
+  if (sum(!is.na(i)) > 0) {
+    out[i] <- unname(expand)[!is.na(i)]
+  }
+  out
 }
 
 # Utility function to check coord limits

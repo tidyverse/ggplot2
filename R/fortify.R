@@ -4,22 +4,23 @@
 #' package, which implements a much wider range of methods. `fortify()`
 #' may be deprecated in the future.
 #'
+#' @family plotting automation topics
 #' @seealso [fortify.lm()]
 #' @param model model or other R object to convert to data frame
 #' @param data original dataset, if needed
-#' @param ... other arguments passed to methods
+#' @inheritParams rlang::args_dots_used
 #' @export
-fortify <- function(model, data, ...) UseMethod("fortify")
+fortify <- function(model, data, ...) {
+  warn_dots_used()
+  UseMethod("fortify")
+}
 
 #' @export
 fortify.data.frame <- function(model, data, ...) model
 #' @export
 fortify.tbl_df <- function(model, data, ...) model
 #' @export
-fortify.tbl <- function(model, data, ...) {
-  check_installed("dplyr", reason = "to work with `tbl` objects")
-  dplyr::collect(model)
-}
+fortify.tbl <- function(model, data, ...) as.data.frame(model)
 #' @export
 fortify.NULL <- function(model, data, ...) waiver()
 #' @export
@@ -29,7 +30,7 @@ fortify.function <- function(model, data, ...) model
 fortify.formula <- function(model, data, ...) as_function(model)
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
-  check_installed("dplyr", reason = "to work with `grouped_df` objects")
+  check_installed("dplyr", reason = "to work with `grouped_df` objects.")
   model$.group <- dplyr::group_indices(model)
   model
 }
@@ -76,21 +77,21 @@ validate_as_data_frame <- function(data) {
 
 #' @export
 fortify.default <- function(model, data, ...) {
-  msg0 <- paste0(
-    "{{.arg data}} must be a {{.cls data.frame}}, ",
-    "or an object coercible by {{.code fortify()}}, or a valid ",
-    "{{.cls data.frame}}-like object coercible by {{.code as.data.frame()}}"
+  msg <- paste0(
+    "{.arg data} must be a {.cls data.frame}, ",
+    "or an object coercible by {.fn fortify}, or a valid ",
+    "{.cls data.frame}-like object coercible by {.fn as.data.frame}"
   )
   if (inherits(model, "uneval")) {
     msg <- c(
-      glue(msg0, ", not {obj_type_friendly(model)}."),
+      paste0(msg, ", not ", obj_type_friendly(model), "."),
       "i" = "Did you accidentally pass {.fn aes} to the {.arg data} argument?"
     )
     cli::cli_abort(msg)
   }
-  msg0 <- paste0(msg0, ". ")
+  msg <- paste0(msg, ".")
   try_fetch(
     validate_as_data_frame(model),
-    error = function(cnd) cli::cli_abort(glue(msg0), parent = cnd)
+    error = function(cnd) cli::cli_abort(msg, parent = cnd)
   )
 }

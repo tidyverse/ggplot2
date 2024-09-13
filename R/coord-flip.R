@@ -11,6 +11,19 @@
 #' the `orientation` setting, and converting the display of y conditional on x,
 #' to x conditional on y.
 #'
+#' @details
+#' Coordinate systems interact with many parts of the plotting system. You can
+#' expect the following for `coord_flip()`:
+#'
+#' * It does *not* change the facet order in `facet_grid()` or `facet_wrap()`.
+#' * The `scale_x_*()` functions apply to the vertical direction,
+#'   whereas `scale_y_*()` functions apply to the horizontal direction. The
+#'   same holds for the `xlim` and `ylim` arguments of `coord_flip()` and the
+#'   `xlim()` and `ylim()` functions.
+#' * The x-axis theme settings, such as `axis.line.x` apply to the horizontal
+#'   direction. The y-axis theme settings, such as `axis.text.y` apply to the
+#'   vertical direction.
+#'
 #' @export
 #' @inheritParams coord_cartesian
 #' @examples
@@ -76,6 +89,7 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+    params$expand <- params$expand[c(2, 1, 4, 3)]
     parent <- ggproto_parent(CoordCartesian, self)
     panel_params <- parent$setup_panel_params(scale_x, scale_y, params)
     flip_axis_labels(panel_params)
@@ -86,6 +100,7 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   },
 
   setup_layout = function(layout, params) {
+    layout <- Coord$setup_layout(layout, params)
     # Switch the scales
     layout[c("SCALE_X", "SCALE_Y")] <- layout[c("SCALE_Y", "SCALE_X")]
     layout

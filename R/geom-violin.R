@@ -15,7 +15,9 @@
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
-#'   `geom_violin()` and `stat_ydensity()`.
+#'   `geom_violin()` and `stat_ydensity()`. For more information about
+#'   overriding these connections, see how the [stat][layer_stats] and
+#'   [geom][layer_geoms] arguments work.
 #' @param bounds Known lower and upper bounds for estimated data. Default
 #'   `c(-Inf, Inf)` means that there are no (finite) bounds. If any bound is
 #'   finite, boundary effect of default density estimation will be corrected by
@@ -133,7 +135,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
     data <- dapply(data, "group", transform,
       xmin = x - width / 2,
@@ -164,7 +166,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Draw quantiles if requested, so long as there is non-zero y range
     if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
       if (!(all(draw_quantiles >= 0) && all(draw_quantiles <= 1))) {
-        cli::cli_abort("{.arg draw_quantiles} must be between 0 and 1")
+        cli::cli_abort("{.arg draw_quantiles} must be between 0 and 1.")
       }
 
       # Compute the quantile segments and combine with existing aesthetics
@@ -195,8 +197,14 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw_key = draw_key_polygon,
 
-  default_aes = aes(weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
-    alpha = NA, linetype = "solid"),
+  default_aes = aes(
+    weight = 1,
+    colour = from_theme(col_mix(ink, paper, 0.2)),
+    fill = from_theme(paper),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA
+  ),
 
   required_aes = c("x", "y"),
 

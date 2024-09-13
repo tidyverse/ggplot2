@@ -44,7 +44,7 @@ geom_raster <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
-  default_aes = aes(fill = "grey20", alpha = NA),
+  default_aes = aes(fill = from_theme(col_mix(ink, paper, 0.2)), alpha = NA),
   non_missing_aes = c("fill", "xmin", "xmax", "ymin", "ymax"),
   required_aes = c("x", "y"),
 
@@ -88,9 +88,14 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   draw_panel = function(self, data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
-      cli::cli_abort(c(
-        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}"
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}.",
+        i = "Falling back to drawing as {.fn {snake_class(GeomRect)}}."
       ))
+      data$linewidth <- 0.3 # preventing anti-aliasing artefacts
+      data$colour <- data$fill
+      grob <- GeomRect$draw_panel(data, panel_params, coord)
+      return(grob)
     }
 
     # Convert vector of data to raster
@@ -101,6 +106,10 @@ GeomRaster <- ggproto("GeomRaster", Geom,
 
     nrow <- max(y_pos) + 1
     ncol <- max(x_pos) + 1
+
+    if (is.list(data$fill) && is_pattern(data$fill[[1]])) {
+      cli::cli_abort("{.fn {snake_class(self)}} cannot render pattern fills.")
+    }
 
     raster <- matrix(NA_character_, nrow = nrow, ncol = ncol)
     raster[cbind(nrow - y_pos, x_pos + 1)] <- alpha(data$fill, data$alpha)

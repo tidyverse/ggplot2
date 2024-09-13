@@ -91,7 +91,13 @@ geom_linerange <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomLinerange <- ggproto("GeomLinerange", Geom,
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
 
   draw_key = draw_key_linerange,
 
@@ -101,7 +107,7 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
     params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
     # if flipped_aes == TRUE then y, xmin, xmax is present
     if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))) {
-      cli::cli_abort("Either, {.field x}, {.field ymin}, and {.field ymax} {.emph or} {.field y}, {.field xmin}, and {.field xmax} must be supplied")
+      cli::cli_abort("Either, {.field x}, {.field ymin}, and {.field ymax} {.emph or} {.field y}, {.field xmin}, and {.field xmax} must be supplied.")
     }
     params
   },

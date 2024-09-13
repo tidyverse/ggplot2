@@ -6,9 +6,12 @@
 # This includes managing the parameters for the facet and the coord
 # so that we don't modify the ggproto object in place.
 
-create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
-  ggproto(NULL, Layout, facet = facet, coord = coord)
+create_layout <- function(facet, coord, layout = NULL) {
+  layout <- layout %||% Layout
+  check_inherits(layout, "Layout")
+  ggproto(NULL, layout, facet = facet, coord = coord)
 }
+
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -77,19 +80,8 @@ Layout <- ggproto("Layout", NULL,
     panels <- lapply(seq_along(panels[[1]]), function(i) {
       panel <- lapply(panels, `[[`, i)
       panel <- c(facet_bg[i], panel, facet_fg[i])
-
-      coord_fg <- self$coord$render_fg(self$panel_params[[i]], theme)
-      coord_bg <- self$coord$render_bg(self$panel_params[[i]], theme)
-      if (isTRUE(theme$panel.ontop)) {
-        panel <- c(panel, list(coord_bg), list(coord_fg))
-      } else {
-        panel <- c(list(coord_bg), panel, list(coord_fg))
-      }
-
-      ggname(
-        paste("panel", i, sep = "-"),
-        gTree(children = inject(gList(!!!panel)))
-      )
+      panel <- self$coord$draw_panel(panel, self$panel_params[[i]], theme)
+      ggname(paste("panel", i, sep = "-"), panel)
     })
     plot_table <- self$facet$draw_panels(
       panels,
@@ -209,20 +201,32 @@ Layout <- ggproto("Layout", NULL,
     # scales is not elegant, but it is pragmatic
     self$coord$modify_scales(self$panel_scales_x, self$panel_scales_y)
 
-    scales_x <- self$panel_scales_x[self$layout$SCALE_X]
-    scales_y <- self$panel_scales_y[self$layout$SCALE_Y]
+    # We only need to setup panel params once for unique combinations of x/y
+    # scales. These will be repeated for duplicated combinations.
+    index <- vec_unique_loc(self$layout$COORD)
+    order <- vec_match(self$layout$COORD, self$layout$COORD[index])
 
-    setup_panel_params <- function(scale_x, scale_y) {
-      self$coord$setup_panel_params(scale_x, scale_y, params = self$coord_params)
-    }
-    self$panel_params <- Map(setup_panel_params, scales_x, scales_y)
+    scales_x <- self$panel_scales_x[self$layout$SCALE_X[index]]
+    scales_y <- self$panel_scales_y[self$layout$SCALE_Y[index]]
+
+    self$panel_params <- Map(
+      self$coord$setup_panel_params,
+      scales_x, scales_y,
+      MoreArgs = list(params = self$coord_params)
+    )[order] # `[order]` does the repeating
 
     invisible()
   },
 
   setup_panel_guides = function(self, guides, layers) {
+
+    # Like in `setup_panel_params`, we only need to setup guides for unique
+    # combinations of x/y scales.
+    index <- vec_unique_loc(self$layout$COORD)
+    order <- vec_match(self$layout$COORD, self$layout$COORD[index])
+
     self$panel_params <- lapply(
-      self$panel_params,
+      self$panel_params[index],
       self$coord$setup_panel_guides,
       guides,
       self$coord_params
@@ -233,7 +237,7 @@ Layout <- ggproto("Layout", NULL,
       self$coord$train_panel_guides,
       layers,
       self$coord_params
-    )
+    )[order]
 
     invisible()
   },
@@ -257,11 +261,13 @@ Layout <- ggproto("Layout", NULL,
         guides <- c("x", "x.sec")
       }
       params    <- self$panel_params[[1]]$guides$get_params(guides)
-      primary   <- params[[1]]$title %|W|% primary
-      secondary <- params[[2]]$title %|W|% secondary
-      position  <- params[[1]]$position %||% scale$position
-      if (position != scale$position) {
-        order <- rev(order)
+      if (!is.null(params)) {
+        primary   <- params[[1]]$title %|W|% primary
+        secondary <- params[[2]]$title %|W|% secondary
+        position  <- params[[1]]$position %||% scale$position
+        if (position != scale$position) {
+          order <- rev(order)
+        }
       }
     }
     primary   <- scale$make_title(primary)
@@ -304,8 +310,8 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
-  if (any(is.na(scale_id))) {
-    cli::cli_abort("{.arg scale_id} must not contain any {.val NA}")
+  if (anyNA(scale_id)) {
+    cli::cli_abort("{.arg scale_id} must not contain any {.val NA}.")
   }
 
   scale_index <- split_with_index(seq_along(scale_id), scale_id, length(scales))

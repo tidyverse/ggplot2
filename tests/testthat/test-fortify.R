@@ -1,5 +1,8 @@
 test_that("spatial polygons have correct ordering", {
-  skip_if_not_installed("sp")
+  suppressPackageStartupMessages({
+    skip_if_not_installed("sp")
+  })
+
 
   make_square <- function(x = 0, y = 0, height = 1, width = 1){
     delx <- width/2
@@ -8,7 +11,7 @@ test_that("spatial polygons have correct ordering", {
         y - dely,y - dely,y + dely,y + dely,y - dely), ncol = 2))
   }
 
-  make_hole <- function(x = 0, y = 0, height = .5, width = .5){
+  make_hole <- function(x = 0, y = 0, height = 0.5, width = 0.5){
     p <- make_square(x = x, y = y, height = height, width = width)
     p@hole <- TRUE
     p
@@ -30,12 +33,14 @@ test_that("spatial polygons have correct ordering", {
   polys2_sp <- sp::SpatialPolygons(polys2)
   fake_sp2 <- sp::SpatialPolygonsDataFrame(polys2_sp, fake_data)
   lifecycle::expect_deprecated(
-    expected <- fortify(fake_sp2)
+    # supressing: Regions defined for each Polygons
+    expected <- suppressMessages(fortify(fake_sp2))
   )
   expected <- expected[order(expected$id, expected$order), ]
 
   lifecycle::expect_deprecated(
-    actual <- fortify(fake_sp)
+    # supressing: Regions defined for each Polygons
+    actual <- suppressMessages(fortify(fake_sp))
   )
 
   # the levels are different, so these columns need to be converted to character to compare

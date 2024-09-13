@@ -9,13 +9,16 @@ facet_wrap(
   nrow = NULL,
   ncol = NULL,
   scales = "fixed",
+  space = "fixed",
   shrink = TRUE,
   labeller = "label_value",
   as.table = TRUE,
   switch = deprecated(),
   drop = TRUE,
   dir = "h",
-  strip.position = "top"
+  strip.position = "top",
+  axes = "margins",
+  axis.labels = "all"
 )
 }
 \arguments{
@@ -32,6 +35,13 @@ or a character vector, \code{c("a", "b")}.}
 \item{scales}{Should scales be fixed (\code{"fixed"}, the default),
 free (\code{"free"}), or free in one dimension (\code{"free_x"},
 \code{"free_y"})?}
+
+\item{space}{If \code{"fixed"} (default), all panels have the same size and
+the number of rows and columns in the layout can be arbitrary. If
+\code{"free_x"}, panels have widths proportional to the length of the x-scale,
+but the layout is constrained to one row. If \code{"free_y"}, panels have
+heights proportional to the length of the y-scale, but the layout is
+constrained to one column.}
 
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
 statistics, not raw data. If \code{FALSE}, will be range of raw data
@@ -63,12 +73,29 @@ data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
 
 \item{dir}{Direction: either \code{"h"} for horizontal, the default, or \code{"v"},
-for vertical.}
+for vertical. When \code{"h"} or \code{"v"} will be combined with \code{as.table} to
+set final layout. Alternatively, a combination of \code{"t"} (top) or
+\code{"b"} (bottom) with \code{"l"} (left) or \code{"r"} (right) to set a layout directly.
+These two letters give the starting position and the first letter gives
+the growing direction. For example \code{"rt"} will place the first panel in
+the top-right and starts filling in panels right-to-left.}
 
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
+
+\item{axes}{Determines which axes will be drawn in case of fixed scales.
+When \code{"margins"} (default), axes will be drawn at the exterior margins.
+\code{"all_x"} and \code{"all_y"} will draw the respective axes at the interior
+panels too, whereas \code{"all"} will draw all axes at all panels.}
+
+\item{axis.labels}{Determines whether to draw labels for interior axes when
+the scale is fixed and the \code{axis} argument is not \code{"margins"}. When
+\code{"all"} (default), all interior axes get labels. When \code{"margins"}, only
+the exterior axes get labels, and the interior axes get none. When
+\code{"all_x"} or \code{"all_y"}, only draws the labels at the interior axes in the
+x- or y-direction respectively.}
 }
 \description{
 \code{facet_wrap()} wraps a 1d sequence of panels into 2d. This is generally
@@ -110,6 +137,12 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(vars(class), scales = "free")
 
+# When scales are constant, duplicated axes can be shown with
+# or without labels
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  facet_wrap(vars(class), axes = "all", axis.labels = "all_y")
+
 # To repeat the same data in every panel, simply construct a data frame
 # that does not contain the faceting variable.
 ggplot(mpg, aes(displ, hwy)) +
@@ -126,4 +159,15 @@ ggplot(economics_long, aes(date, value)) +
   facet_wrap(vars(variable), scales = "free_y", nrow = 2, strip.position = "top") +
   theme(strip.background = element_blank(), strip.placement = "outside")
 }
+
+# The two letters determine the starting position, so 'tr' starts
+# in the top-right.
+# The first letter determines direction, so 'tr' fills top-to-bottom.
+# `dir = "tr"` is equivalent to `dir = "v", as.table = FALSE`
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  facet_wrap(vars(class), dir = "tr")
+}
+\seealso{
+The \href{https://ggplot2-book.org/facet#sec-facet-wrap}{facet wrap section} of the online ggplot2 book.
 }

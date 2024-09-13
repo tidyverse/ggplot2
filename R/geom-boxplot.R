@@ -32,7 +32,9 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
-#'   `geom_boxplot()` and `stat_boxplot()`.
+#'   `geom_boxplot()` and `stat_boxplot()`. For more information about
+#'   overriding these connections, see how the [stat][layer_stats] and
+#'   [geom][layer_geoms] arguments work.
 #' @param outliers Whether to display (`TRUE`) or discard (`FALSE`) outliers
 #'   from the plot. Hiding or discarding outliers can be useful when, for
 #'   example, raw data points need to be displayed on top of the boxplot.
@@ -127,8 +129,8 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          outlier.colour = NULL,
                          outlier.color = NULL,
                          outlier.fill = NULL,
-                         outlier.shape = 19,
-                         outlier.size = 1.5,
+                         outlier.shape = NULL,
+                         outlier.size = NULL,
                          outlier.stroke = 0.5,
                          outlier.alpha = NULL,
                          whisker.colour    = NULL,
@@ -247,7 +249,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
 
     if (isFALSE(params$outliers)) {
       data$outliers <- NULL
@@ -289,12 +291,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
       cli::cli_abort(c(
-        "Can only draw one boxplot per group",
+        "Can only draw one boxplot per group.",
         "i"= "Did you forget {.code aes(group = ...)}?"
       ))
     }
 
-    common <- list(fill = alpha(data$fill, data$alpha), group = data$group)
+    common <- list(fill = fill_alpha(data$fill, data$alpha), group = data$group)
 
     whiskers <- data_frame0(
       x = c(data$x, data$x),
@@ -384,14 +386,10 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   draw_key = draw_key_boxplot,
 
   default_aes = aes(
-    weight = 1,
-    colour = "grey20",
-    fill = "white",
-    size = NULL,
-    alpha = NA,
-    shape = 19,
-    linetype = "solid",
-    linewidth = 0.5
+    weight = 1, colour = from_theme(col_mix(ink, paper, 0.2)),
+    fill = from_theme(paper), size = from_theme(pointsize),
+    alpha = NA, shape = from_theme(pointshape), linetype = from_theme(bordertype),
+    linewidth = from_theme(borderwidth)
   ),
 
   required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),

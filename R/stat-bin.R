@@ -1,8 +1,7 @@
 #' @param binwidth The width of the bins. Can be specified as a numeric value
-#'   or as a function that calculates width from unscaled x. Here, "unscaled x"
-#'   refers to the original x values in the data, before application of any
-#'   scale transformation. When specifying a function along with a grouping
-#'   structure, the function will be called once per group.
+#'   or as a function that takes x after scale transformation as input and
+#'   returns a single numeric value. When specifying a function along with a
+#'   grouping structure, the function will be called once per group.
 #'   The default is to use the number of bins in `bins`,
 #'   covering the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
@@ -22,7 +21,7 @@
 #'   outside the range of the data.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
-#'    and `boundary`.
+#'    and `boundary`. Can also be a function that takes group-wise values as input and returns bin boundaries.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
@@ -103,7 +102,7 @@ StatBin <- ggproto("StatBin", Stat,
     x <- flipped_names(params$flipped_aes)$x
     if (is_mapped_discrete(data[[x]])) {
       cli::cli_abort(c(
-        "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic",
+        "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic.",
         "x" = "the {.field {x}} aesthetic is discrete.",
         "i" = "Perhaps you want {.code stat=\"count\"}?"
       ))
@@ -146,6 +145,9 @@ StatBin <- ggproto("StatBin", Stat,
                            origin = NULL, right = NULL, drop = NULL) {
     x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
+      if (is.function(breaks)) {
+        breaks <- breaks(data[[x]])
+      }
       if (!scales[[x]]$is_discrete()) {
          breaks <- scales[[x]]$transform(breaks)
       }

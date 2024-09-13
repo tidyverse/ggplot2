@@ -49,7 +49,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
   compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
                            formula = NULL, xseq = NULL, method = "rq",
                            method.args = list(), lambda = 1, na.rm = FALSE) {
-    check_installed("quantreg", reason = "for `stat_quantile()`")
+    check_installed("quantreg", reason = "for `stat_quantile()`.")
 
     if (is.null(formula)) {
       if (method == "rqss") {

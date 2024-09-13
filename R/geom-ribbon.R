@@ -96,7 +96,11 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRibbon <- ggproto("GeomRibbon", Geom,
-  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
+  default_aes = aes(
+    colour = NA,
+    fill = from_theme(col_mix(ink, paper, 0.2)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
     alpha = NA),
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
@@ -135,11 +139,44 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique0(data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")])
-    if (nrow(aes) > 1) {
-      cli::cli_abort("Aesthetics can not vary along a ribbon")
+    aes <- lapply(
+      data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")],
+      unique0
+    )
+    non_constant <- names(aes)[lengths(aes) > 1]
+    if (coord$is_linear()) {
+      if (any(c("fill", "alpha") %in% non_constant)) {
+        check_device("gradients", action = "abort", maybe = TRUE)
+      }
+      # For linear coords, we can make a fill/alpha gradient, so we allow
+      # these to vary
+      non_constant <- setdiff(non_constant, c("fill", "alpha"))
     }
-    aes <- as.list(aes)
+    if (length(non_constant) > 0) {
+      cli::cli_abort(
+        "Aesthetics can not vary along a ribbon: {.and {.field {non_constant}}}."
+      )
+    }
+    if ((length(aes$fill) > 1 || length(aes$alpha) > 1)) {
+      transformed <- coord$transform(flip_data(data, flipped_aes), panel_params)
+      if (flipped_aes) {
+        keep <- is.finite(tranformed$y)
+        args <- list(
+          colours = alpha(data$fill, data$alpha)[keep],
+          stops = rescale(transformed$y)[keep],
+          y1 = 0, y2 = 1, x1 = 0.5, x2 = 0.5
+        )
+      } else {
+        keep <- is.finite(transformed$x)
+        args <- list(
+          colours = alpha(data$fill, data$alpha)[keep],
+          stops = rescale(transformed$x)[keep],
+          x1 = 0, x2 = 1, y1 = 0.5, y2 = 0.5
+        )
+      }
+      aes$fill <- inject(linearGradient(!!!args))
+      aes$alpha <- NA
+    }
 
     # Instead of removing NA values from the data and plotting a single
     # polygon, we want to "stop" plotting the polygon whenever we're
@@ -182,10 +219,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     g_poly <- polygonGrob(
       munched_poly$x, munched_poly$y, id = munched_poly$id,
       default.units = "native",
-      gp = gpar(
-        fill = alpha(aes$fill, aes$alpha),
+      gp = gg_par(
+        fill = fill_alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
-        lwd = if (is_full_outline) aes$linewidth * .pt else 0,
+        lwd = if (is_full_outline) aes$linewidth else 0,
         lty = if (is_full_outline) aes$linetype else 1,
         lineend = lineend,
         linejoin = linejoin,
@@ -200,21 +237,22 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # Increment the IDs of the lower line so that they will be drawn as separate lines
     munched_lower$id <- munched_lower$id + max(ids, na.rm = TRUE)
 
+    arg_match0(
+      outline.type,
+      c("both", "upper", "lower")
+    )
+
     munched_lines <- switch(outline.type,
       both = vec_rbind0(munched_upper, munched_lower),
       upper = munched_upper,
-      lower = munched_lower,
-      cli::cli_abort(c(
-        "invalid {.arg outline.type}: {.val {outline.type}}",
-        "i" = "use either {.val upper}, {.val lower}, or {.val both}"
-      ))
+      lower = munched_lower
     )
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
       default.units = "native",
-      gp = gpar(
+      gp = gg_par(
         col = aes$colour,
-        lwd = aes$linewidth * .pt,
+        lwd = aes$linewidth,
         lty = aes$linetype,
         lineend = lineend,
         linejoin = linejoin,
@@ -258,8 +296,14 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "align",
 #' @usage NULL
 #' @export
 GeomArea <- ggproto("GeomArea", GeomRibbon,
-  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
-    alpha = NA),
+
+  default_aes = aes(
+    colour = NA,
+    fill = from_theme(col_mix(ink, paper, 0.2)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA
+  ),
 
   required_aes = c("x", "y"),
 

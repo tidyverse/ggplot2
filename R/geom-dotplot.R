@@ -188,34 +188,40 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape"),
 
-  default_aes = aes(colour = "black", fill = "black", alpha = NA,
-                    stroke = 1, linetype = "solid", weight = 1),
+  default_aes = aes(
+    colour = from_theme(ink),
+    fill = from_theme(ink),
+    alpha = NA,
+    stroke = from_theme(borderwidth * 2),
+    linetype = from_theme(linetype),
+    weight = 1
+  ),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {
-      stackdots <- function(a)  a - .5
+      stackdots <- function(a)  a - 0.5
       stackaxismin <- 0
       stackaxismax <- 1
     } else if (params$stackdir == "down") {
-      stackdots <- function(a) -a + .5
+      stackdots <- function(a) -a + 0.5
       stackaxismin <- -1
       stackaxismax <- 0
     } else if (params$stackdir == "center") {
       stackdots <- function(a)  a - 1 - max(a - 1) / 2
-      stackaxismin <- -.5
-      stackaxismax <- .5
+      stackaxismin <- -0.5
+      stackaxismax <- 0.5
     } else if (params$stackdir == "centerwhole") {
       stackdots <- function(a)  a - 1 - floor(max(a - 1) / 2)
-      stackaxismin <- -.5
-      stackaxismax <- .5
+      stackaxismin <- -0.5
+      stackaxismax <- 0.5
     }
 
     # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
-    data <- data[rep(1:nrow(data), data$count), ]
+    data <- data[rep(seq_len(nrow(data)), data$count), ]
 
     # Next part will set the position of each dot within each stack
     # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
@@ -231,7 +237,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
     data <- dapply(data, plyvars, function(xx) {
-      xx$countidx <- 1:nrow(xx)
+      xx$countidx <- seq_len(nrow(xx))
       xx$stackpos <- stackdots(xx$countidx)
       xx
     })
@@ -242,12 +248,12 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because y position isn't real.
       # After position code is rewritten, each dot should have its own bounding box.
+      yoffset <- if (is_mapped_discrete(data$y)) data$y else 0
       data$xmin <- data$x - data$binwidth / 2
       data$xmax <- data$x + data$binwidth / 2
-      data$ymin <- stackaxismin
-      data$ymax <- stackaxismax
-      data$y    <- 0
-
+      data$ymin <- stackaxismin + yoffset
+      data$ymax <- stackaxismax + yoffset
+      data$y <- yoffset
     } else if (params$binaxis == "y") {
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because x position isn't real.
@@ -281,11 +287,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       binaxis <- ifelse(binaxis == "x", "y", "x")
 
     if (binaxis == "x") {
-      stackaxis = "y"
+      stackaxis <- "y"
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$x.range) - min(panel_params$x.range))
 
     } else if (binaxis == "y") {
-      stackaxis = "x"
+      stackaxis <- "x"
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$y.range) - min(panel_params$y.range))
     }
 
@@ -293,10 +299,10 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
                   stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
                   default.units = "npc",
-                  gp = gpar(col = alpha(tdata$colour, tdata$alpha),
-                            fill = alpha(tdata$fill, tdata$alpha),
-                            lwd = tdata$stroke, lty = tdata$linetype,
-                            lineend = lineend))
+                  gp = gg_par(col = alpha(tdata$colour, tdata$alpha),
+                              fill = fill_alpha(tdata$fill, tdata$alpha),
+                              lwd = tdata$stroke / .pt, lty = tdata$linetype,
+                              lineend = lineend))
     )
   },
 

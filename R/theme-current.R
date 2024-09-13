@@ -5,8 +5,8 @@ NULL
 #' Get, set, and modify the active theme
 #'
 #' The current/active theme (see [theme()]) is automatically applied to every
-#' plot you draw. Use `theme_get()` to get the current theme, and `theme_set()` to
-#' completely override it. `theme_update()` and `theme_replace()` are shorthands for
+#' plot you draw. Use `get_theme()` to get the current theme, and `set_theme()` to
+#' completely override it. `update_theme()` and `replace_theme()` are shorthands for
 #' changing individual elements.
 #'
 #' @section Adding on to a theme:
@@ -14,30 +14,30 @@ NULL
 #'   `+` and `%+replace%` can be used to modify elements in themes.
 #'
 #'   `+` updates the elements of e1 that differ from elements specified (not
-#'   NULL) in e2. Thus this operator can be used to incrementally add or modify
+#'   `NULL`) in e2. Thus this operator can be used to incrementally add or modify
 #'   attributes of a ggplot theme.
 #'
 #'   In contrast, `%+replace%` replaces the entire element; any element of a
 #'   theme not specified in e2 will not be present in the resulting theme (i.e.
-#'   NULL). Thus this operator can be used to overwrite an entire theme.
+#'   `NULL`). Thus this operator can be used to overwrite an entire theme.
 #'
-#'   `theme_update()` uses the `+` operator, so that any unspecified values in the
+#'   `update_theme()` uses the `+` operator, so that any unspecified values in the
 #'   theme element will default to the values they are set in the theme.
-#'   `theme_replace()` uses `%+replace%` to completely replace the element, so any
+#'   `replace_theme()` uses `%+replace%` to completely replace the element, so any
 #'   unspecified values will overwrite the current value in the theme with
 #'   `NULL`.
 #'
-#'   In summary, the main differences between `theme_set()`, `theme_update()`,
-#'   and `theme_replace()` are:
-#'   * `theme_set()` completely overrides the current theme.
-#'   * `theme_update()` modifies a particular element of the current theme
+#'   In summary, the main differences between `set_theme()`, `update_theme()`,
+#'   and `replace_theme()` are:
+#'   * `set_theme()` completely overrides the current theme.
+#'   * `update_theme()` modifies a particular element of the current theme
 #'   using the `+` operator.
-#'   * `theme_replace()` modifies a particular element of the current theme
+#'   * `replace_theme()` modifies a particular element of the current theme
 #'   using the `%+replace%` operator.
 #'
 #' @param ... named list of theme settings
 #' @param e1,e2 Theme and element to combine
-#' @return `theme_set()`, `theme_update()`, and `theme_replace()`
+#' @return `set_theme()`, `update_theme()`, and `replace_theme()`
 #'   invisibly return the previous theme so you can easily save it, then
 #'   later restore it.
 #' @seealso [+.gg()]
@@ -47,25 +47,25 @@ NULL
 #'   geom_point()
 #' p
 #'
-#' # Use theme_set() to completely override the current theme.
-#' # theme_update() and theme_replace() are similar except they
+#' # Use set_theme() to completely override the current theme.
+#' # update_theme() and replace_theme() are similar except they
 #' # apply directly to the current/active theme.
-#' # theme_update() modifies a particular element of the current theme.
+#' # update_theme() modifies a particular element of the current theme.
 #' # Here we have the old theme so we can later restore it.
 #' # Note that the theme is applied when the plot is drawn, not
 #' # when it is created.
-#' old <- theme_set(theme_bw())
+#' old <- set_theme(theme_bw())
 #' p
 #'
-#' theme_set(old)
-#' theme_update(panel.grid.minor = element_line(colour = "red"))
+#' set_theme(old)
+#' update_theme(panel.grid.minor = element_line(colour = "red"))
 #' p
 #'
-#' theme_set(old)
-#' theme_replace(panel.grid.minor = element_line(colour = "red"))
+#' set_theme(old)
+#' replace_theme(panel.grid.minor = element_line(colour = "red"))
 #' p
 #'
-#' theme_set(old)
+#' set_theme(old)
 #' p
 #'
 #'
@@ -82,33 +82,49 @@ NULL
 #'   theme(text = element_text(family = "Times"))
 #' rep_el$text
 #'
-theme_get <- function() {
+get_theme <- function() {
   ggplot_global$theme_current
 }
 
-#' @rdname theme_get
+#' @export
+#' @rdname get_theme
+theme_get <- get_theme
+
+#' @rdname get_theme
 #' @param new new theme (a list of theme elements)
 #' @export
-theme_set <- function(new) {
+set_theme <- function(new) {
   check_object(new, is.theme, "a {.cls theme} object")
   old <- ggplot_global$theme_current
   ggplot_global$theme_current <- new
   invisible(old)
 }
 
-#' @rdname theme_get
 #' @export
-theme_update <- function(...) {
-  theme_set(theme_get() + theme(...))
+#' @rdname get_theme
+theme_set <- set_theme
+
+#' @rdname get_theme
+#' @export
+update_theme <- function(...) {
+  set_theme(get_theme() + theme(...))
 }
 
-#' @rdname theme_get
 #' @export
-theme_replace <- function(...) {
-  theme_set(theme_get() %+replace% theme(...))
+#' @rdname get_theme
+theme_update <- update_theme
+
+#' @rdname get_theme
+#' @export
+replace_theme <- function(...) {
+  set_theme(get_theme() %+replace% theme(...))
 }
 
-#' @rdname theme_get
+#' @export
+#' @rdname get_theme
+theme_replace <- replace_theme
+
+#' @rdname get_theme
 #' @export
 "%+replace%" <- function(e1, e2) {
   if (!is.theme(e1) || !is.theme(e2)) {

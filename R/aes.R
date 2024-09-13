@@ -425,12 +425,12 @@ alternative_aes_extract_usage <- function(x) {
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    cli::cli_abort("Don't know how to get alternative usage for {.var {x}}")
+    cli::cli_abort("Don't know how to get alternative usage for {.var {x}}.")
   }
 }
 
 extract_target_is_likely_data <- function(x, data, env) {
-  if (!is.name(x[[2]])) {
+  if (!is.name(x[[2]]) || identical(x[[2]], quote(.data))) {
     return(FALSE)
   }
 

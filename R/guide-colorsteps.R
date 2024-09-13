@@ -11,12 +11,7 @@
 #'   scale. This argument is ignored if `labels` is given as a vector of
 #'   values. If one or both of the limits is also given in `breaks` it will be
 #'   shown irrespective of the value of `show.limits`.
-#' @param ticks A theme object for rendering tick marks at the colourbar.
-#'   Usually, the object of `element_line()` is expected. If `element_blank()`
-#'   (default), no tick marks are drawn. For backward compatibility, can also
-#'   be a logical which translates `TRUE` to `element_line()` and `FALSE` to
-#'   `element_blank()`.
-#' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
+#' @inheritParams guide_colourbar
 #'
 #' @inheritSection guide_bins Use with discrete scale
 #'
@@ -24,6 +19,8 @@
 #' @export
 #'
 #' @family guides
+#' @seealso
+#' The `r link_book("binned legend section", "scales-colour#sec-guide-coloursteps")`
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2
@@ -49,17 +46,36 @@
 #' # (can also be set in the scale)
 #' p + scale_fill_binned(show.limits = TRUE)
 guide_coloursteps <- function(
+  title = waiver(),
+  theme = NULL,
+  alpha = NA,
+  angle = NULL,
   even.steps  = TRUE,
   show.limits = NULL,
-  ticks       = element_blank(),
+  direction = NULL,
+  position = NULL,
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
   ...
 ) {
-  guide_colourbar(
+
+  theme <- deprecated_guide_args(theme, ...)
+  check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
+
+  new_guide(
+    title = title,
+    theme = theme,
+    alpha = alpha,
+    angle = angle,
     even.steps  = even.steps,
     show.limits = show.limits,
-    ticks       = ticks,
-    ...,
-    super       = GuideColoursteps
+    position = position,
+    direction = direction,
+    reverse = reverse,
+    order = order,
+    available_aes = available_aes,
+    super = GuideColoursteps
   )
 }
 
@@ -76,7 +92,7 @@ GuideColoursteps <- ggproto(
 
   params = c(
     list(even.steps = TRUE, show.limits = NULL),
-    GuideColourbar$params
+    vec_assign(GuideColourbar$params, "default_ticks", list(element_blank()))
   ),
 
   extract_key = function(scale, aesthetic, even.steps, ...) {
@@ -87,15 +103,19 @@ GuideColoursteps <- ggproto(
       return(Guide$extract_key(scale, aesthetic))
     }
 
-    parsed <- parse_binned_breaks(scale, breaks, even.steps)
+    parsed <- parse_binned_breaks(scale, breaks)
     if (is.null(parsed)) {
       return(parsed)
     }
     limits <- parsed$limits
     breaks <- parsed$breaks
 
-    key <- data_frame(scale$map(breaks), .name_repair = ~ aesthetic)
-    key$.value <- seq_along(breaks)
+    key <- data_frame0(!!aesthetic := scale$map(breaks))
+    if (even.steps) {
+      key$.value <- seq_along(breaks)
+    } else {
+      key$.value <- breaks
+    }
     key$.label <- scale$get_labels(breaks)
 
     if (breaks[1] %in% limits) {
@@ -106,35 +126,34 @@ GuideColoursteps <- ggproto(
       key[[1]][nrow(key)] <- NA
     }
     # To avoid having to recalculate these variables in other methods, we
-    # attach these as attributes. It might not be very elegant, but it works.
-    attr(key, "limits") <- parsed$limits
-    attr(key, "bin_at") <- parsed$bin_at
-    return(key)
+    # attach the parsed values as attributes. It might not be very elegant,
+    # but it works.
+    attr(key, "parsed") <- parsed
+    key
   },
 
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
-                           nbin = 100, ...) {
+                           nbin = 100, alpha = NA,...) {
+
+    parsed <- attr(key, "parsed")
+    breaks <- parsed$breaks %||% scale$get_breaks()
+    limits <- parsed$limits %||% scale$get_limits()
+
+    breaks <- sort(unique0(c(limits, breaks)))
+    n      <- length(breaks)
+    bin_at <- parsed$bin_at %||% ((breaks[-1] + breaks[-n]) / 2)
+
     if (even.steps) {
-      bin_at <- attr(key, "bin_at", TRUE)
-      bar <- data_frame0(
-        colour = scale$map(bin_at),
-        min    = seq_along(bin_at) - 1,
-        max    = seq_along(bin_at),
-        .size  = length(bin_at)
-      )
-    } else {
-      breaks <- unique(sort(c(scale$get_limits(), scale$get_breaks())))
-      n <- length(breaks)
-      bin_at <- (breaks[-1] + breaks[-n]) / 2
-      bar <- data_frame0(
-        colour = scale$map(bin_at),
-        min    = head(breaks, -1),
-        max    = tail(breaks, -1),
-        .size  = length(bin_at)
-      )
+      breaks <- seq_len(n) - 1L
     }
-    return(bar)
+
+    data_frame0(
+      colour = alpha(scale$map(bin_at), alpha),
+      min    = breaks[-n],
+      max    = breaks[-1],
+      .size  = length(bin_at)
+    )
   },
 
   extract_params = function(scale, params, direction = "vertical", title = waiver(), ...) {
@@ -155,7 +174,7 @@ GuideColoursteps <- ggproto(
 
     if (show.limits) {
       key <- params$key
-      limits <- attr(key, "limits", TRUE) %||% scale$get_limits()
+      limits <- attr(key, "parsed")$limits %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
       n <- nrow(key)
       key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)
@@ -181,6 +200,8 @@ GuideColoursteps <- ggproto(
     params$key$.value <- rescale(params$key$.value, from = limits)
     params$decor$min  <- rescale(params$decor$min,  from = limits)
     params$decor$max  <- rescale(params$decor$max,  from = limits)
+    params$key <-
+      vec_slice(params$key, !is.na(oob_censor_any(params$key$.value)))
     params
   },
 
@@ -188,7 +209,7 @@ GuideColoursteps <- ggproto(
 
     size <- abs(decor$max - decor$min)
     just <- as.numeric(decor$min > decor$max)
-    gp   <- gpar(col = NA, fill = decor$colour)
+    gp   <- gg_par(col = NA, fill = decor$colour)
     if (params$direction == "vertical") {
       grob <- rectGrob(
         x = 0, y = decor$min,

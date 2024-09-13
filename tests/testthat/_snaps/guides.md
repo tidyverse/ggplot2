@@ -1,15 +1,13 @@
-# axis_label_element_overrides errors when angles are outside the range [0, 90]
+# dots are checked when making guides
 
-    `angle` must be a number between -90 and 90, not the number 91.
-
----
-
-    `angle` must be a number between -90 and 90, not the number -91.
+    Ignoring unknown argument to `guide_axis()`: `foo`.
 
 ---
 
-    Unrecognized `axis_position`: "test"
-    i Use one of "top", "bottom", "left" or "right"
+    Arguments in `...` must be used.
+    x Problematic argument:
+    * foo = "bar"
+    i Did you misspell an argument name?
 
 # Using non-position guides for position scales results in an informative error
 
@@ -31,7 +29,7 @@
 
 ---
 
-    `title.position` must be one of "top", "right", "bottom", or "left", not "leftish".
+    `legend.title.position` must be one of "top", "right", "bottom", or "left", not "leftish".
 
 ---
 
@@ -40,20 +38,20 @@
 
 ---
 
-    When `direction` is "vertical", `label.position` must be one of "right" or "left", not "top".
+    When `direction` is "vertical", `legend.text.position` must be one of "right" or "left", not "top".
 
 ---
 
-    When `direction` is "horizontal", `label.position` must be one of "bottom" or "top", not "left".
+    When `direction` is "horizontal", `legend.text.position` must be one of "bottom" or "top", not "left".
 
 ---
 
-    `label.position` must be one of "top", "right", "bottom", or "left", not "test".
+    `legend.text.position` must be one of "top", "right", "bottom", or "left", not "test".
     i Did you mean "left"?
 
 ---
 
-    `nrow` * `ncol` needs to be larger than the number of breaks (5)
+    `nrow` * `ncol` needs to be larger than the number of breaks (5).
 
 # colorsteps and bins checks the breaks format
 
@@ -64,6 +62,10 @@
 
     Breaks are not formatted correctly for a bin legend.
     i Use `(<lower>, <upper>]` format to indicate bins.
+
+# guide_axis_logticks calculates appropriate ticks
+
+    The `prescale.base` argument will override the scale's log-10 transformation in log-tick positioning.
 
 # binning scales understand the different combinations of limits, breaks, labels, and show.limits
 

@@ -6,9 +6,11 @@
 #' the very regular alignment of [geom_bin_2d()].
 #'
 #' @eval rd_aesthetics("geom", "hex")
+#' @eval rd_aesthetics("stat", "binhex")
 #' @seealso [stat_bin_2d()] for rectangular binning
 #' @param geom,stat Override the default connection between `geom_hex()` and
-#'   `stat_bin_hex()`.
+#'   `stat_bin_hex()`. For more information about overriding these connections,
+#'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -65,7 +67,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     if (!is.null(data$width)) {
       dx <- data$width[1] / 2
     } else {
-      dx <- resolution(data$x, FALSE)
+      dx <- resolution(data$x, FALSE, TRUE)
     }
     # Adjust for difference in width and height of regular hexagon. 1.15 adjusts
     # for the effect of the overlapping range in y-direction on the resolution
@@ -73,7 +75,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     if (!is.null(data$height)) {
       dy <- data$height[1] /  sqrt(3) / 2
     } else {
-      dy <- resolution(data$y, FALSE) / sqrt(3) / 2 * 1.15
+      dy <- resolution(data$y, FALSE, TRUE) / sqrt(3) / 2 * 1.15
     }
 
     hexC <- hexbin::hexcoords(dx, dy, n = 1)
@@ -88,10 +90,10 @@ GeomHex <- ggproto("GeomHex", Geom,
 
     ggname("geom_hex", polygonGrob(
       coords$x, coords$y,
-      gp = gpar(
+      gp = gg_par(
         col = data$colour,
-        fill = alpha(data$fill, data$alpha),
-        lwd = data$linewidth * .pt,
+        fill = fill_alpha(data$fill, data$alpha),
+        lwd = data$linewidth,
         lty = data$linetype,
         lineend = lineend,
         linejoin = linejoin,
@@ -106,9 +108,9 @@ GeomHex <- ggproto("GeomHex", Geom,
 
   default_aes = aes(
     colour = NA,
-    fill = "grey50",
-    linewidth = 0.5,
-    linetype = 1,
+    fill = from_theme(col_mix(ink, paper)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
     alpha = NA
   ),
 

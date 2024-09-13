@@ -25,11 +25,21 @@ test_that("unknown aesthetics create warning", {
   expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
+test_that("empty aesthetics create warning", {
+  expect_warning(
+    geom_point(fill = NULL, shape = character()),
+    "Ignoring empty aesthetics"
+  )
+})
+
 test_that("invalid aesthetics throws errors", {
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
-  expect_snapshot_error(ggplot_build(p))
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
-  expect_snapshot_error(ggplot_build(p))
+  # We want to test error and ignore the scale search message
+  suppressMessages({
+    p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = data))
+    expect_snapshot_error(ggplot_build(p))
+    p <- ggplot(mtcars) + geom_point(aes(disp, mpg, fill = after_stat(data)))
+    expect_snapshot_error(ggplot_build(p))
+  })
 })
 
 test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
@@ -40,7 +50,7 @@ test_that("column vectors are allowed (#2609)", {
   df <- data_frame(x = 1:10)
   df$y <- scale(1:10) # Returns a column vector
   p <- ggplot(df, aes(x, y))
-  expect_s3_class(layer_data(p), "data.frame")
+  expect_s3_class(get_layer_data(p), "data.frame")
 })
 
 test_that("missing aesthetics trigger informative error", {
@@ -57,8 +67,12 @@ test_that("missing aesthetics trigger informative error", {
 
 test_that("function aesthetics are wrapped with after_stat()", {
   df <- data_frame(x = 1:10)
-  expect_snapshot_error(
-    ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point())
+  suppressMessages(
+    expect_snapshot_error(
+      ggplot_build(
+        ggplot(df, aes(colour = density, fill = density)) + geom_point()
+      )
+    )
   )
 })
 
@@ -73,7 +87,7 @@ test_that("if an aes is mapped to a function that returns NULL, it is removed", 
   df <- data_frame(x = 1:10)
   null <- function(...) NULL
   p <- cdata(ggplot(df, aes(x, null())))
-  expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
+  expect_named(p[[1]], c("x", "PANEL", "group"))
 })
 
 test_that("layers are stateless except for the computed params", {
@@ -100,12 +114,12 @@ test_that("inherit.aes works", {
 test_that("retransform works on computed aesthetics in `map_statistic`", {
   df <- data.frame(x = rep(c(1,2), c(9, 25)))
   p <- ggplot(df, aes(x)) + geom_bar() + scale_y_sqrt()
-  expect_equal(layer_data(p)$y, c(3, 5))
+  expect_equal(get_layer_data(p)$y, c(3, 5))
 
   # To double check: should be original values when `retransform = FALSE`
   parent <- p$layers[[1]]$stat
   p$layers[[1]]$stat <- ggproto(NULL, parent, retransform = FALSE)
-  expect_equal(layer_data(p)$y, c(9, 25))
+  expect_equal(get_layer_data(p)$y, c(9, 25))
 })
 
 test_that("layer reports the error with correct index etc", {
@@ -131,7 +145,36 @@ test_that("layer warns for constant aesthetics", {
   expect_snapshot_warning(ggplot_build(p))
 })
 
+test_that("layer names can be resolved", {
+
+  p <- ggplot() + geom_point() + geom_point()
+  expect_equal(names(p$layers), c("geom_point", "geom_point...2"))
+
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+  expect_equal(names(p$layers), c("foo", "bar"))
+
+  l <- geom_point(name = "foobar")
+  expect_error(
+    p + l + l,
+    "names are duplicated"
+  )
+})
+
+
 # Data extraction ---------------------------------------------------------
+
+test_that("AsIs data passes unmodified", {
+  p <- ggplot() + geom_blank(aes(x = 1:2, y = 1:2))
+  ld <- get_layer_data(p + geom_point(aes(x = I(0.5), y = I(0.5))), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y, I(0.5))
+  ld <- get_layer_data(p + geom_point(x = I(0.5), y = I(0.5), data = mtcars), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y[1], I(0.5))
+  ld <- get_layer_data(p + annotate("point", x = I(0.5), y = I(0.5)), 2)
+  expect_s3_class(ld$x, "AsIs")
+  expect_equal(ld$y, I(0.5))
+})
 
 test_that("layer_data returns a data.frame", {
   l <- geom_point()

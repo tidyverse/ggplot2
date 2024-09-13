@@ -23,7 +23,7 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
 
 rd_aesthetics_item <- function(x) {
   req <- x$required_aes
-  req <- sub("|", "} \\emph{or} \\code{", req, fixed = TRUE)
+  req <- gsub("|", "} \\emph{or} \\code{", req, fixed = TRUE)
   req_aes <- unlist(strsplit(x$required_aes, "|", fixed = TRUE))
   optional_aes <- setdiff(x$aesthetics(), req_aes)
   all <- union(req, sort(optional_aes))
@@ -131,4 +131,14 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
   fmt_list  <- paste(fmt_items, fmt_descr, sep = "\\cr ")
 
   c(preamble, fmt_list)
+}
+
+link_book <- function(text = "", section = "",
+                      book = "https://ggplot2-book.org/",
+                      suffix = "of the online ggplot2 book.") {
+  links <- paste0("[", text, "](", book, section, ")")
+  if (length(links) > 1) {
+    links <- oxford_comma(links, final = "and")
+  }
+  paste(links, suffix, sep = " ")
 }

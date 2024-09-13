@@ -6,7 +6,7 @@ test_that("names surrounded by .. is calculated", {
   expect_equal(is_calculated_aes(aes(..x.., ..x, x..)), c(TRUE, FALSE, FALSE))
 
   # even when nested
-  expect_equal(is_calculated_aes(aes(f(..x..))), TRUE)
+  expect_true(is_calculated_aes(aes(f(..x..))))
 })
 
 test_that("call to stat() is calculated", {
@@ -68,6 +68,28 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
   )
   # One warning in building due to `stage()`/`after_scale()`
   expect_snapshot_warning(ggplot_build(p))
+})
+
+test_that("calculated aesthetics throw warnings when lengths mismatch", {
+
+  df <- data.frame(x = 1:2)
+
+  p <- ggplot(df, aes(x, x))
+
+  expect_warning(
+    ggplot_build(
+      p + geom_point(aes(colour = after_stat(c("A", "B", "C"))))
+    ),
+    "Failed to apply"
+  )
+
+  expect_warning(
+    ggplot_build(
+      p + geom_point(aes(colour = after_scale(c("red", "green", "blue"))))
+    ),
+    "Failed to apply"
+  )
+
 })
 
 test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {

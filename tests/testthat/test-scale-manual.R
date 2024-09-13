@@ -47,7 +47,7 @@ test_that("missing values are replaced with na.value", {
     geom_point() +
     scale_colour_manual(values = c("black", "black"), na.value = "red")
 
-  expect_equal(layer_data(p)$colour, c("black", "black", "red"))
+  expect_equal(get_layer_data(p)$colour, c("black", "black", "red"))
 })
 
 test_that("insufficient values raise an error", {
@@ -80,7 +80,7 @@ test_that("generic scale can be used in place of aesthetic-specific scales", {
     scale_discrete_manual(aesthetics = "colour", values = c("red", "green", "blue")) +
     scale_discrete_manual(aesthetics = "alpha", values = c(0.2, 0.4, 0.6))
 
-  expect_equal(layer_data(p1), layer_data(p2))
+  expect_equal(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("named values do not match with breaks in manual scales", {
@@ -151,4 +151,28 @@ test_that("limits and breaks (#4619)", {
   s3$train(c("4", "6", "8"))
   expect_equal(s3$map(c("4", "6", "8")), c("a", "b", "c"))
   expect_equal(s3$break_positions(), c("a", "c"))
+})
+
+test_that("NAs from palette are not translated (#5929)", {
+
+  s1 <- scale_colour_manual(
+    values = c("4" = "a", "6" = NA, "8" = "c"),
+    na.translate = TRUE, na.value = "x"
+  )
+  s1$train(c("8", "6", "4"))
+  expect_equal(s1$map(c("4", "6", "8", "10")), c("a", NA, "c", "x"))
+
+  s2 <- scale_colour_manual(
+    values = c("4" = "a", "6" = NA, "8" = "c"),
+    na.translate = TRUE, na.value = NA
+  )
+  s2$train(c("8", "6", "4"))
+  expect_equal(s2$map(c("4", "6", "8", "10")), c("a", NA, "c", NA))
+
+  s3 <- scale_colour_manual(
+    values = c("4" = "a", "6" = NA, "8" = "c"),
+    na.translate = FALSE, na.value = "x"
+  )
+  s3$train(c("8", "6", "4"))
+  expect_equal(s3$map(c("4", "6", "8", "10")), c("a", NA, "c", NA))
 })

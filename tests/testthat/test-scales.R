@@ -2,10 +2,10 @@ test_that("building a plot does not affect its scales", {
   dat <- data_frame(x = rnorm(20), y = rnorm(20))
 
   p <- ggplot(dat, aes(x, y)) + geom_point()
-  expect_equal(length(p$scales$scales), 0)
+  expect_length(p$scales$scales, 0)
 
   ggplot_build(p)
-  expect_equal(length(p$scales$scales), 0)
+  expect_length(p$scales$scales, 0)
 })
 
 test_that("ranges update only for variables listed in aesthetics", {
@@ -52,7 +52,7 @@ test_that("identity scale preserves input values", {
     scale_shape_identity() +
     scale_size_identity() +
     scale_alpha_identity()
-  d1 <- layer_data(p1)
+  d1 <- get_layer_data(p1)
 
   expect_equal(d1$colour, as.character(df$z))
   expect_equal(d1$fill, as.character(df$z))
@@ -66,7 +66,7 @@ test_that("identity scale preserves input values", {
     geom_point() +
     scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
     scale_continuous_identity(aesthetics = c("size", "alpha"))
-  d2 <- layer_data(p2)
+  d2 <- get_layer_data(p2)
 
   expect_equal(d1, d2)
 })
@@ -111,10 +111,14 @@ test_that("oob affects position values", {
   }
   base + scale_y_continuous(limits = c(-0,5))
 
-  expect_warning(low_censor <- cdata(base + y_scale(c(0, 5), censor)),
+  low_censor <- cdata(base + y_scale(c(0, 5), censor))
+  mid_censor <- cdata(base + y_scale(c(3, 7), censor))
+  handle <- GeomBar$handle_na
+
+  expect_warning(low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
     "Removed 1 row containing missing values or values outside the scale range")
-  expect_warning(mid_censor <- cdata(base + y_scale(c(3, 7), censor)),
-    "Removed 2 rows containing missing values or values outside the scale range")
+  expect_warning(mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
+    "Removed 3 rows containing missing values or values outside the scale range")
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
@@ -127,7 +131,7 @@ test_that("oob affects position values", {
 
   # Bars depend on limits and oob
   expect_equal(low_censor[[1]]$y, c(0.2, 1))
-  expect_equal(mid_censor[[1]]$y, c(0.5))
+  expect_equal(mid_censor[[1]]$y, numeric(0))
   expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
   expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
 })
@@ -254,7 +258,7 @@ test_that("aesthetics can be set independently of scale name", {
   p <- ggplot(df, aes(x, y, fill = y)) +
     scale_colour_manual(values = c("red", "green", "blue"), aesthetics = "fill")
 
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 })
 
 test_that("multiple aesthetics can be set with one function call", {
@@ -268,8 +272,8 @@ test_that("multiple aesthetics can be set with one function call", {
       aesthetics = c("colour", "fill")
     )
 
-  expect_equal(layer_data(p)$colour, c("grey20", "grey40", "grey60"))
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$colour, c("grey20", "grey40", "grey60"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 
   # color order is determined by data order, and breaks are combined where possible
   df <- data_frame(
@@ -282,8 +286,8 @@ test_that("multiple aesthetics can be set with one function call", {
       aesthetics = c("fill", "colour")
     )
 
-  expect_equal(layer_data(p)$colour, c("cyan", "red", "green"))
-  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+  expect_equal(get_layer_data(p)$colour, c("cyan", "red", "green"))
+  expect_equal(get_layer_data(p)$fill, c("red", "green", "blue"))
 })
 
 test_that("limits with NA are replaced with the min/max of the data for continuous scales", {
@@ -455,16 +459,16 @@ test_that("staged aesthetics are backtransformed properly (#4155)", {
     scale_x_sqrt(limits = c(0, 16), breaks = c(2, 4, 8))
 
   # x / 2 should be 16 / 2 = 8, thus the result should be sqrt(8) on scale_x_sqrt()
-  expect_equal(layer_data(p)$x, sqrt(8))
+  expect_equal(get_layer_data(p)$x, sqrt(8))
 })
 
 test_that("numeric scale transforms can produce breaks", {
 
-  test_breaks <- function(trans, limits) {
-    scale <- scale_x_continuous(trans = trans)
+  test_breaks <- function(transform, limits) {
+    scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
     view <- view_scale_primary(scale)
-    scale$trans$inverse(view$get_breaks())
+    scale$get_transformation()$inverse(view$get_breaks())
   }
 
   expect_equal(test_breaks("asn", limits = c(0, 1)),
@@ -476,13 +480,13 @@ test_that("numeric scale transforms can produce breaks", {
   expect_equal(test_breaks("atanh", limits = c(-0.9, 0.9)),
                c(NA, -0.5, 0, 0.5, NA))
 
-  # Broken, should fix on {scale}'s side
-  # expect_equal(test_breaks(boxcox_trans(0), limits = c(0, 10)), ...)
+  expect_equal(test_breaks(transform_boxcox(0), limits = c(1, 10)),
+               c(NA, 2.5, 5.0, 7.5, 10))
 
-  expect_equal(test_breaks(modulus_trans(0), c(-10, 10)),
+  expect_equal(test_breaks(transform_modulus(0), c(-10, 10)),
                seq(-10, 10, by = 5))
 
-  expect_equal(test_breaks(yj_trans(0), c(-10, 10)),
+  expect_equal(test_breaks(transform_yj(0), c(-10, 10)),
                seq(-10, 10, by = 5))
 
   expect_equal(test_breaks("exp", c(-10, 10)),
@@ -650,27 +654,27 @@ test_that("scale functions accurately report their calls", {
 
 test_that("scale call is found accurately", {
 
-  call_template <- quote(scale_x_continuous(trans = "log10"))
+  call_template <- quote(scale_x_continuous(transform = "log10"))
 
-  sc <- do.call("scale_x_continuous", list(trans = "log10"))
+  sc <- do.call("scale_x_continuous", list(transform = "log10"))
   expect_equal(sc$call, call_template)
 
-  sc <- inject(scale_x_continuous(!!!list(trans = "log10")))
+  sc <- inject(scale_x_continuous(!!!list(transform = "log10")))
   expect_equal(sc$call, call_template)
 
-  sc <- exec("scale_x_continuous", trans = "log10")
+  sc <- exec("scale_x_continuous", transform = "log10")
   expect_equal(sc$call, call_template)
 
-  foo <- function() scale_x_continuous(trans = "log10")
+  foo <- function() scale_x_continuous(transform = "log10")
   expect_equal(foo()$call, call_template)
 
   env <- new_environment()
-  env$bar <- function() scale_x_continuous(trans = "log10")
+  env$bar <- function() scale_x_continuous(transform = "log10")
   expect_equal(env$bar()$call, call_template)
 
   # Now should recognise the outer function
   scale_x_new <- function() {
-    scale_x_continuous(trans = "log10")
+    scale_x_continuous(transform = "log10")
   }
   expect_equal(
     scale_x_new()$call,
@@ -707,8 +711,47 @@ test_that("find_scale appends appropriate calls", {
 
 test_that("Using `scale_name` prompts deprecation message", {
 
-  expect_snapshot_warning(continuous_scale("x", "foobar", identity_pal()))
-  expect_snapshot_warning(discrete_scale("x",   "foobar", identity_pal()))
-  expect_snapshot_warning(binned_scale("x",     "foobar", identity_pal()))
+  expect_snapshot_warning(continuous_scale("x", "foobar", pal_identity()))
+  expect_snapshot_warning(discrete_scale("x",   "foobar", pal_identity()))
+  expect_snapshot_warning(binned_scale("x",     "foobar", pal_identity()))
+
+})
+
+# From #5623
+test_that("Discrete scales with only NAs return `na.value`", {
+
+  x <- c(NA, NA)
+
+  sc <- scale_colour_discrete(na.value = "red")
+  sc$train(x)
+  expect_equal(sc$map(x), c("red", "red"))
+
+  sc <- scale_shape(na.value = NA_real_)
+  sc$train(x)
+  expect_equal(sc$map(x), c(NA_real_, NA_real_))
+})
+
+test_that("discrete scales work with NAs in arbitrary positions", {
+  # Prevents intermediate caching of palettes
+  map <- function(x, limits) {
+    sc <- scale_colour_manual(
+      values = c("red", "green", "blue"),
+      na.value = "gray"
+    )
+    sc$map(x, limits)
+  }
+
+  # All inputs should yield output regardless of where NA is
+  input  <- c("A", "B", "C", NA)
+  output <- c("red", "green", "blue", "gray")
+
+  test <- map(input, limits = c("A", "B", "C", NA))
+  expect_equal(test, output)
+
+  test <- map(input, limits = c("A", NA, "B", "C"))
+  expect_equal(test, output)
+
+  test <- map(input, limits = c(NA, "A", "B", "C"))
+  expect_equal(test, output)
 
 })

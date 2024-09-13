@@ -1,5 +1,10 @@
 #' Annotation: log tick marks
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is superseded by using [`guide_axis_logticks()`].
+#'
 #' This annotation adds log tick marks with diminishing spacing.
 #' These tick marks probably make sense only for base 10.
 #'
@@ -61,8 +66,8 @@
 #' # plotting it. Also hide the minor grid lines.
 #' b <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) +
 #'  geom_point(na.rm = TRUE) +
-#'  scale_x_continuous(name = "body", labels = scales::math_format(10^.x)) +
-#'  scale_y_continuous(name = "brain", labels = scales::math_format(10^.x)) +
+#'  scale_x_continuous(name = "body", labels = scales::label_math(10^.x)) +
+#'  scale_y_continuous(name = "brain", labels = scales::label_math(10^.x)) +
 #'  theme_bw() + theme(panel.grid.minor = element_blank())
 #'
 #' b + annotation_logticks()
@@ -160,7 +165,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(xticks)[names(xticks) == "value"] <- x_name   # Rename to 'x' for coordinates$transform
       xticks <- coord$transform(xticks, panel_params)
-      xticks = xticks[xticks$x <= 1 & xticks$x >= 0,]
+      xticks <- xticks[xticks$x <= 1 & xticks$x >= 0,]
 
       if (outside)
         xticks$end = -xticks$end
@@ -170,14 +175,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         ticks$x_b <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
       if (grepl("t", sides) && nrow(xticks) > 0) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
     }
@@ -198,7 +203,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(yticks)[names(yticks) == "value"] <- y_name   # Rename to 'y' for coordinates$transform
       yticks <- coord$transform(yticks, panel_params)
-      yticks = yticks[yticks$y <= 1 & yticks$y >= 0,]
+      yticks <- yticks[yticks$y <= 1 & yticks$y >= 0,]
 
       if (outside)
         yticks$end = -yticks$end
@@ -208,14 +213,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         ticks$y_l <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
       if (grepl("r", sides) && nrow(yticks) > 0) {
         ticks$y_r <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),
-          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = linewidth * .pt)
+          gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
     }
@@ -223,7 +228,12 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     gTree(children = inject(gList(!!!ticks)))
   },
 
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = 1)
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = 1
+  )
 )
 
 
@@ -233,7 +243,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 # - start: on the other axis, start position of the line (usually 0)
 # - end: on the other axis, end position of the line (for example, .1, .2, or .3)
 calc_logticks <- function(base = 10, ticks_per_base = base - 1,
-    minpow = 0, maxpow = minpow + 1, start = 0, shortend = .1, midend = .2, longend = .3) {
+    minpow = 0, maxpow = minpow + 1, start = 0, shortend = 0.1, midend = 0.2, longend = 0.3) {
 
   # Number of blocks of tick marks
   reps <- maxpow - minpow

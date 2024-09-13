@@ -1,7 +1,7 @@
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5))
+    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5))
 
   scales <- list(
     x = scale_x_continuous(limits = c(0, 2*pi)),
@@ -79,8 +79,87 @@ test_that("Inf is squished to range", {
   expect_equal(d[[3]]$theta, mapped_discrete(0))
 })
 
+test_that("coord_polar can have free scales in facets", {
+
+  p <- ggplot(data_frame0(x = c(1, 2)), aes(1, x)) +
+    geom_col() +
+    coord_polar(theta = "y")
+
+  sc <- get_panel_scales(p + facet_wrap(~ x), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 2))
+
+  sc <- get_panel_scales(p + facet_wrap(~ x, scales = "free"), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 1))
+
+  sc <- get_panel_scales(p + facet_grid(x ~ .), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 2))
+
+  sc <- get_panel_scales(p + facet_grid(x ~ ., scales = "free"), 1, 1)
+  expect_equal(sc$y$get_limits(), c(0, 1))
+})
+
+test_that("coord_polar throws informative warning about guides", {
+  expect_snapshot_warning(
+    ggplot_build(ggplot() + coord_polar() + guides(theta = guide_axis()))
+  )
+})
+
+test_that("coord_radial warns about axes", {
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point()
+
+  # Cannot use regular axis for theta position
+  expect_snapshot_warning(ggplotGrob(
+    p + coord_radial() + guides(theta = "axis")
+  ))
+
+  # If arc doesn't contain the top/bottom/left/right of a circle,
+  # axis placement cannot be outside panel
+  expect_snapshot_warning(ggplotGrob(
+    p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r.axis.inside = FALSE)
+  ))
+
+})
+
+test_that("bounding box calculations are sensible", {
+
+  # Full cirle
+  expect_equal(
+    polar_bbox(arc = c(0, 2 * pi)),
+    list(x = c(0, 1), y = c(0, 1))
+  )
+
+  # Full offset cirle
+  expect_equal(
+    polar_bbox(arc = c(2 * pi, 4 * pi)),
+    list(x = c(0, 1), y = c(0, 1))
+  )
+
+  # Right half of circle
+  expect_equal(
+    polar_bbox(arc = c(0, pi)),
+    list(x = c(0.45, 1), y = c(0, 1))
+  )
+
+  # Right quarter of circle
+  expect_equal(
+    polar_bbox(arc = c(0.25 * pi, 0.75 * pi)),
+    list(x = c(0.45, 1), y = c(0.146446609, 0.853553391))
+  )
+
+  # Top quarter of circle with inner radius
+  expect_equal(
+    polar_bbox(arc = c(-0.25 * pi, 0.25 * pi), inner_radius = c(0.2, 0.4)),
+    list(x = c(0.146446609, 0.853553391), y = c(0.59142136, 1))
+  )
+})
+
 
 # Visual tests ------------------------------------------------------------
+
+#TODO: Once {vdiffr} supports non-rectangular clipping paths, we should add a
+# test for `coord_radial(clip = "on")`'s ability to clip to the sector
 
 test_that("polar coordinates draw correctly", {
   theme <- theme_test() +
@@ -100,7 +179,7 @@ test_that("polar coordinates draw correctly", {
 
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
+    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5),
     g     = 1:8
   )
   expect_doppelganger("Rays, circular arcs, and spiral arcs",
@@ -138,5 +217,76 @@ test_that("polar coordinates draw correctly", {
       coord_polar() +
       theme_test() +
       theme(axis.text.x = element_blank())
+  )
+})
+
+test_that("coord_radial() draws correctly", {
+
+  # Theme to test for axis placement
+  theme <- theme(
+    axis.line.theta = element_line(colour = "tomato"),
+    axis.line.r   = element_line(colour = "dodgerblue"),
+  )
+
+  sec_guides <- guides(
+    r.sec = guide_axis(
+      theme = theme(axis.line.r = element_line(colour = "orchid"))
+    ),
+    theta.sec = guide_axis_theta(
+      theme = theme(axis.line.theta = element_line(colour = "limegreen"))
+    )
+  )
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    theme
+
+  expect_doppelganger("inner.radius with all axes", {
+    p + coord_radial(inner.radius = 0.3, r.axis.inside = FALSE) +
+      sec_guides
+  })
+
+  expect_doppelganger("partial with all axes", {
+    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, inner.radius = 0.3,
+                     r.axis.inside = TRUE, theta = "y") +
+      sec_guides
+  })
+
+  df <- data_frame0(
+    x = 1:5, lab = c("cat", "strawberry\ncake", "coffee", "window", "fluid")
+  )
+
+  ggplot(df, aes(x, label = lab)) +
+    geom_text(aes(y = "0 degrees"),  angle = 0) +
+    geom_text(aes(y = "90 degrees"), angle = 90) +
+    coord_radial(start = 0.5 * pi, end = 1.5 * pi,
+                 rotate.angle = TRUE) +
+    theme
+
+  expect_doppelganger(
+    "bottom half circle with rotated text",
+    ggplot(df, aes(x, label = lab)) +
+      geom_text(aes(y = "0 degrees"),  angle = 0) +
+      geom_text(aes(y = "90 degrees"), angle = 90) +
+      coord_radial(start = 0.5 * pi, end = 1.5 * pi,
+                   rotate.angle = TRUE, r.axis.inside = FALSE) +
+      theme
+  )
+})
+
+test_that("coord_radial()'s axis internal placement works", {
+
+  df <- data.frame(x = c(0, 360), y = c(1, 14))
+
+  expect_doppelganger(
+    "full circle with axes placed at 90 and 225 degrees",
+    ggplot(df, aes(x, y)) +
+      geom_point() +
+      coord_radial(
+        expand = FALSE,
+        r.axis.inside = c(90, 225)
+      ) +
+      guides(r.sec = "axis") +
+      theme(axis.line = element_line())
   )
 })

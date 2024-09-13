@@ -50,7 +50,7 @@ stat_function <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatFunction <- ggproto("StatFunction", Stat,
-  default_aes = aes(y = after_scale(y)),
+  default_aes = aes(x = NULL, y = after_scale(y)),
 
   compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
     if (is.null(scales$x)) {
@@ -66,7 +66,7 @@ StatFunction <- ggproto("StatFunction", Stat,
       } else {
         # For continuous scales, need to back transform from transformed range
         # to original values
-        x_trans <- scales$x$trans$inverse(xseq)
+        x_trans <- scales$x$get_transformation()$inverse(xseq)
       }
     }
 
@@ -75,7 +75,7 @@ StatFunction <- ggproto("StatFunction", Stat,
     y_out <- inject(fun(x_trans, !!!args))
     if (!is.null(scales$y) && !scales$y$is_discrete()) {
       # For continuous scales, need to apply transform
-      y_out <- scales$y$trans$transform(y_out)
+      y_out <- scales$y$get_transformation()$transform(y_out)
     }
 
     data_frame0(x = xseq, y = y_out)

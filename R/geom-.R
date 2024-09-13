@@ -50,6 +50,8 @@ NULL
 #'     default values for aesthetics.
 #'   - `setup_data`: Converts width and height to xmin and xmax,
 #'     and ymin and ymax values. It can potentially set other values as well.
+#'
+#' See also the `r link_book("new geoms section", "extensions#sec-new-geoms")`
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -112,8 +114,9 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list(), modifiers = aes()) {
-    default_aes <- self$default_aes
+  use_defaults = function(self, data, params = list(), modifiers = aes(),
+                          default_aes = NULL, theme = NULL, ...) {
+    default_aes <- default_aes %||% self$default_aes
 
     # Inherit size as linewidth if no linewidth aesthetic and param exist
     if (self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)) {
@@ -126,10 +129,14 @@ Geom <- ggproto("Geom",
       deprecate_soft0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
       default_aes$linewidth <- default_aes$size
     }
+
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(default_aes), names(data))
+    default_aes <- default_aes[missing_aes]
+    themed_defaults <- eval_from_theme(default_aes, theme)
+    default_aes[names(themed_defaults)] <- themed_defaults
 
-    missing_eval <- lapply(default_aes[missing_aes], eval_tidy)
+    missing_eval <- lapply(default_aes, eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 
@@ -137,6 +144,13 @@ Geom <- ggproto("Geom",
       data <- as_gg_data_frame(missing_eval)
     } else {
       data[names(missing_eval)] <- missing_eval
+    }
+
+    themed <- is_themed_aes(modifiers)
+    if (any(themed)) {
+      themed <- eval_from_theme(modifiers[themed], theme)
+      modifiers <- modifiers[setdiff(names(modifiers), names(themed))]
+      data[names(themed)] <- themed
     }
 
     # If any after_scale mappings are detected they will be resolved here
@@ -164,6 +178,9 @@ Geom <- ggproto("Geom",
       }
 
       names(modified_aes) <- names(rename_aes(modifiers))
+
+      modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
+
       modified_aes <- data_frame0(!!!compact(modified_aes))
 
       data <- cunion(modified_aes, data)
@@ -171,8 +188,15 @@ Geom <- ggproto("Geom",
 
     # Override mappings with params
     aes_params <- intersect(self$aesthetics(), names(params))
-    check_aesthetics(params[aes_params], nrow(data))
-    data[aes_params] <- params[aes_params]
+    new_params <- params[aes_params]
+    check_aesthetics(new_params, nrow(data))
+    data[aes_params] <- new_params
+
+    # Restore any AsIs classes (#5656)
+    is_asis <- which(vapply(new_params, inherits, what = "AsIs", logical(1)))
+    for (i in aes_params[is_asis]) {
+      data[[i]] <- I(data[[i]])
+    }
     data
   },
 
@@ -213,6 +237,15 @@ Geom <- ggproto("Geom",
 )
 
 
+eval_from_theme <- function(aesthetics, theme) {
+  themed <- is_themed_aes(aesthetics)
+  if (!any(themed)) {
+    return(aesthetics)
+  }
+  settings <- calc_element("geom", theme) %||% .default_geom_element
+  lapply(aesthetics[themed], eval_tidy, data = settings)
+}
+
 #' Graphical units
 #'
 #' Multiply size in mm by these constants in order to convert to the units
@@ -239,8 +272,8 @@ check_aesthetics <- function(x, n) {
   }
 
   cli::cli_abort(c(
-    "Aesthetics must be either length 1 or the same as the data ({n})",
-    "x" = "Fix the following mappings: {.col {names(which(!good))}}"
+    "Aesthetics must be either length 1 or the same as the data ({n}).",
+    "x" = "Fix the following mappings: {.col {names(which(!good))}}."
   ))
 }
 

@@ -14,7 +14,9 @@
 #' @inheritParams geom_bar
 #' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between
-#'   `geom_density()` and `stat_density()`.
+#'   `geom_density()` and `stat_density()`. For more information about
+#'   overriding these connections, see how the [stat][layer_stats] and
+#'   [geom][layer_geoms] arguments work.
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
@@ -91,7 +93,7 @@ geom_density <- function(mapping = NULL, data = NULL,
 #' @include geom-ribbon.R
 GeomDensity <- ggproto("GeomDensity", GeomArea,
   default_aes = defaults(
-    aes(fill = NA, weight = 1, colour = "black", alpha = NA),
+    aes(fill = NA, weight = 1, colour = from_theme(ink), alpha = NA),
     GeomArea$default_aes
   )
 )

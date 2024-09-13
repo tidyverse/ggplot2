@@ -37,7 +37,8 @@
 #' @param units One of the following units in which the `width` and `height`
 #'   arguments are expressed: `"in"`, `"cm"`, `"mm"` or `"px"`.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
-#'   "print" (300), or "screen" (72). Applies only to raster output types.
+#'   "print" (300), or "screen" (72). Only applies when converting pixel units,
+#'   as is typical for raster output types.
 #' @param limitsize When `TRUE` (the default), `ggsave()` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
@@ -49,6 +50,9 @@
 #'   a prompt will appear asking to create a new directory when necessary.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
+#'
+#' @seealso
+#' The `r link_book("saving section", "themes#sec-saving")`
 #' @export
 #' @examples
 #' \dontrun{
@@ -85,7 +89,7 @@
 #' dev.off()
 #'
 #' }
-ggsave <- function(filename, plot = last_plot(),
+ggsave <- function(filename, plot = get_last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm", "px"),
                    dpi = 300, limitsize = TRUE, bg = NULL,
@@ -171,14 +175,12 @@ check_path <- function(path, filename, create.dir,
 #' @noRd
 parse_dpi <- function(dpi, call = caller_env()) {
   if (is_scalar_character(dpi)) {
+    arg_match0(dpi, c("screen", "print", "retina"), error_call = call)
+
     switch(dpi,
       screen = 72,
       print = 300,
       retina = 320,
-      cli::cli_abort(c(
-        "Unknown {.arg dpi} string",
-        "i" = "Use either {.val screen}, {.val print}, or {.val retina}"
-      ), call = call)
     )
   } else if (is_scalar_numeric(dpi)) {
     dpi
@@ -195,7 +197,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
 
   dim <- to_inches(dim) * scale
 
-  if (any(is.na(dim))) {
+  if (anyNA(dim)) {
     if (length(grDevices::dev.list()) == 0) {
       default_dim <- c(7, 7)
     } else {
@@ -290,7 +292,10 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   if (is.null(device)) {
     device <- to_lower_ascii(tools::file_ext(filename))
     if (identical(device, "")) {
-      cli::cli_abort("{.arg filename} has no file extension and {.arg device} is {.val NULL}.", call = call)
+      cli::cli_abort(c(
+        "Can't save to {filename}.",
+        i = "Either supply {.arg filename} with a file extension or supply {.arg device}."),
+        call = call)
     }
   }
 

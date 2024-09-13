@@ -49,18 +49,18 @@ test_that("aes evaluated in environment where plot created", {
   p <- ggplot(df, aes(foo, y)) + geom_point()
 
   # Accessing an undefined variable should result in error
-  expect_error(layer_data(p), "'foo' not found")
+  expect_error(get_layer_data(p), "'foo' not found")
 
   # Once it's defined we should get it back
   foo <- 0
-  expect_equal(layer_data(p)$x, 0)
+  expect_equal(get_layer_data(p)$x, 0)
 
   # And regular variable shadowing should work
   f <- function() {
     foo <- 10
     ggplot(df, aes(foo, y)) + geom_point()
   }
-  expect_equal(layer_data(f())$x, 10)
+  expect_equal(get_layer_data(f())$x, 10)
 })
 
 test_that("constants are not wrapped in quosures", {
@@ -94,12 +94,14 @@ test_that("assignment methods pull unwrap constants from quosures", {
 
 test_that("quosures are squashed when creating default label for a mapping", {
   p <- ggplot(mtcars) + aes(!!quo(identity(!!quo(cyl))))
-  expect_identical(p$labels$x, "identity(cyl)")
+  labels <- ggplot_build(p)$plot$labels
+  expect_identical(labels$x, "identity(cyl)")
 })
 
 test_that("labelling doesn't cause error if aesthetic is NULL", {
   p <- ggplot(mtcars) + aes(x = NULL)
-  expect_identical(p$labels$x, "x")
+  labels <- ggplot_build(p)$plot$labels
+  expect_identical(labels$x, "x")
 })
 
 test_that("aes standardises aesthetic names", {

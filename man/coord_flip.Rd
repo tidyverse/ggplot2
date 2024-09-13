@@ -11,7 +11,11 @@ coord_flip(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on")
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
-limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The \code{expand} argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
 
 \item{clip}{Should drawing be clipped to the extent of the plot panel? A
 setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
@@ -32,6 +36,20 @@ be replaced by swapping the x and y aesthetics, or optionally setting the
 \code{coord_flip()} is useful for geoms and statistics that do not support
 the \code{orientation} setting, and converting the display of y conditional on x,
 to x conditional on y.
+}
+\details{
+Coordinate systems interact with many parts of the plotting system. You can
+expect the following for \code{coord_flip()}:
+\itemize{
+\item It does \emph{not} change the facet order in \code{facet_grid()} or \code{facet_wrap()}.
+\item The \verb{scale_x_*()} functions apply to the vertical direction,
+whereas \verb{scale_y_*()} functions apply to the horizontal direction. The
+same holds for the \code{xlim} and \code{ylim} arguments of \code{coord_flip()} and the
+\code{xlim()} and \code{ylim()} functions.
+\item The x-axis theme settings, such as \code{axis.line.x} apply to the horizontal
+direction. The y-axis theme settings, such as \code{axis.text.y} apply to the
+vertical direction.
+}
 }
 \examples{
 # The preferred method of creating horizontal instead of vertical boxplots
