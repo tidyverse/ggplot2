@@ -36,7 +36,8 @@ geom_errorbarh <- function(mapping = NULL, data = NULL,
                            show.legend = NA,
                            inherit.aes = TRUE) {
   deprecate_soft0(
-    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")"
+    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+    id = "no-more-errorbarh"
   )
   geom_errorbar(
     mapping = mapping,
@@ -107,4 +108,13 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomErrorbarh <- ggproto("GeomErrorbarh", GeomErrorbar)
+GeomErrorbarh <- ggproto(
+  "GeomErrorbarh", GeomErrorbar,
+  setup_params = function(data, params) {
+    deprecate_soft0(
+      "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+      id = "no-more-errorbarh"
+    )
+    GeomLinerange$setup_params(data, params)
+  }
+)
