@@ -169,16 +169,30 @@ draw_key_crossbar <- function(data, params, size) {
     lineend = params$lineend %||% "butt",
     linejoin = params$linejoin %||% "mitre"
   )
+
+  middle <- gg_par(
+    col = params$middle_gp$colour,
+    lty = params$middle_gp$linetype,
+    lwd = params$middle_gp$linewidth
+  )
+
+  box <- gg_par(
+    col = params$box_gp$colour,
+    lty = params$box_gp$linetype,
+    lwd = params$box_gp$linewidth
+  )
+
+
   if (isTRUE(params$flipped_aes)) {
     grobTree(
-      rectGrob(height = 0.75, width = 0.5),
-      linesGrob(0.5, c(0.125, 0.875)),
+      rectGrob(height = 0.75, width = 0.5, gp = box),
+      linesGrob(0.5, c(0.125, 0.875), gp = middle),
       gp = gp
     )
   } else {
     grobTree(
-      rectGrob(height = 0.5, width = 0.75),
-      linesGrob(c(0.125, 0.875), 0.5),
+      rectGrob(height = 0.5, width = 0.75, gp = box),
+      linesGrob(c(0.125, 0.875), 0.5, gp = middle),
       gp = gp
     )
   }
