@@ -18,12 +18,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   setup_params = function(self, data) {
-    crs <- self$determine_crs(data)
+    params <- ggproto_parent(Coord, self)$setup_params(data)
 
-    params <- list(
-      crs = crs,
-      default_crs = self$default_crs
-    )
+    params$crs <- self$determine_crs(data)
+    params$default_crs <- self$default_crs
     self$params <- params
 
     params
@@ -170,8 +168,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # expansion factors for scale limits
-    expansion_x <- default_expansion(scale_x, expand = self$expand)
-    expansion_y <- default_expansion(scale_y, expand = self$expand)
+    expansion_x <- default_expansion(scale_x, expand = params$expand[c(4, 2)])
+    expansion_y <- default_expansion(scale_y, expand = params$expand[c(3, 1)])
 
     # get scale limits and coord limits and merge together
     # coord limits take precedence over scale limits

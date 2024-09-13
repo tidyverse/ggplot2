@@ -1,9 +1,9 @@
 ## revdepcheck results
 
-We checked 5166 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 5209 reverse dependencies (5199 from CRAN + 10 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 242 new problems
- * We failed to check 132 packages
+ * We saw 469 new problems
+ * We failed to check 155 packages
 
 Issues with CRAN packages are summarised below.
 
@@ -18,11 +18,24 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* adaptr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * AeRobiology
   checking re-building of vignette outputs ... NOTE
 
 * agricolaeplotr
   checking tests ... ERROR
+
+* alien
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* AlphaPart
+  checking examples ... ERROR
 
 * AnalysisLin
   checking examples ... ERROR
@@ -33,6 +46,28 @@ Issues with CRAN packages are summarised below.
 * ANN2
   checking tests ... ERROR
 
+* AnnoProbe
+  checking examples ... ERROR
+
+* ANOFA
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* ANOPA
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* AntMAN
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* APCI
+  checking tests ... ERROR
+
 * aplot
   checking examples ... ERROR
 
@@ -41,6 +76,10 @@ Issues with CRAN packages are summarised below.
 
 * ASRgenomics
   checking examples ... ERROR
+  checking tests ... ERROR
+
+* autocogs
+  checking tests ... ERROR
 
 * autoplotly
   checking examples ... ERROR
@@ -51,8 +90,24 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* baggr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* banter
+  checking examples ... ERROR
+
 * bartMan
   checking examples ... ERROR
+
+* BasketballAnalyzeR
+  checking examples ... ERROR
+
+* bayefdr
+  checking examples ... ERROR
+  checking tests ... ERROR
 
 * bayesAB
   checking tests ... ERROR
@@ -69,13 +124,37 @@ Issues with CRAN packages are summarised below.
 * BayesMallows
   checking tests ... ERROR
 
+* bayesplay
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * bayesplot
+  checking examples ... ERROR
   checking tests ... ERROR
 
 * bayestestR
   checking examples ... ERROR
 
+* BCEA
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* BDgraph
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* BEAMR
+  checking examples ... ERROR
+
 * beastt
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* BeeGUTS
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
@@ -85,11 +164,25 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* betaclust
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * biclustermd
   checking tests ... ERROR
 
 * biodosetools
   checking tests ... ERROR
+
+* BioPred
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* BlandAltmanLeh
+  checking running R code from vignettes ... ERROR
+
+* bmggum
+  checking examples ... ERROR
 
 * boxly
   checking tests ... ERROR
@@ -97,20 +190,38 @@ Issues with CRAN packages are summarised below.
 * braidReports
   checking examples ... ERROR
 
+* BRcal
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * breathtestcore
   checking tests ... ERROR
 
 * brolgar
   checking examples ... ERROR
 
+* calibrationband
+  checking examples ... ERROR
+
 * cartograflow
   checking examples ... ERROR
 
-* cartographr
-  checking tests ... ERROR
+* cases
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * cats
   checking examples ... ERROR
+
+* ceterisParibus
+  checking tests ... ERROR
+
+* cfda
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * cheem
   checking tests ... ERROR
@@ -119,6 +230,11 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
 
 * chronicle
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* CINNA
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
@@ -140,8 +256,40 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* cloneRate
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* clustEff
+  checking examples ... ERROR
+
+* ClustImpute
+  checking running R code from vignettes ... ERROR
+
+* cmstatr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* codaredistlm
+  checking examples ... ERROR
+
+* coefplot
+  checking examples ... ERROR
+
 * CohortPlat
   checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* complmrob
+  checking examples ... ERROR
+
+* conjoint
+  checking examples ... ERROR
+
+* conquestr
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
@@ -156,13 +304,46 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* corx
+  checking tests ... ERROR
+
+* cosinor2
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* CoSMoS
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * countfitteR
+  checking tests ... ERROR
+
+* coursekata
+  checking examples ... ERROR
   checking tests ... ERROR
 
 * covidcast
   checking tests ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
+
+* Coxmos
+  checking examples ... ERROR
+
+* cpr
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* cpsvote
+  checking running R code from vignettes ... ERROR
+
+* crimeutils
+  checking examples ... ERROR
+
+* crmPack
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
 
 * crosshap
   checking examples ... ERROR
@@ -174,8 +355,37 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* deeptime
+* curtailment
   checking examples ... ERROR
+
+* dabestr
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* DAISIEprep
+  checking tests ... ERROR
+
+* dbmss
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* deeptime
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* descriptio
+  checking examples ... ERROR
+
+* directlabels
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* disto
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * distributional
   checking examples ... ERROR
@@ -184,16 +394,59 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
 
+* dotwhisker
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* DRomics
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* dtwclust
+  checking tests ... ERROR
+
+* duke
+  checking tests ... ERROR
+
+* easysurv
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* EGAnet
+  checking examples ... ERROR
+
 * EGM
   checking tests ... ERROR
+
+* emmeans
+  checking examples ... ERROR
+
+* EMMIXmfa
+  checking examples ... ERROR
 
 * entropart
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* EnvStats
+  checking examples ... ERROR
+
 * epiCleanr
   checking examples ... ERROR
+
+* epiphy
+  checking examples ... ERROR
+
+* EQUALSTATS
+  checking examples ... ERROR
+
+* ergm.multi
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * esci
   checking examples ... ERROR
@@ -215,13 +468,15 @@ Issues with CRAN packages are summarised below.
 * explainer
   checking examples ... ERROR
 
+* exuber
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * ezEDA
   checking tests ... ERROR
 
 * ezplot
   checking examples ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
 
 * fable.prophet
   checking running R code from vignettes ... ERROR
@@ -237,29 +492,67 @@ Issues with CRAN packages are summarised below.
 * fairmodels
   checking tests ... ERROR
 
+* fastR2
+  checking examples ... ERROR
+
+* faux
+  checking re-building of vignette outputs ... NOTE
+
 * fddm
   checking running R code from vignettes ... ERROR
 
 * feasts
   checking tests ... ERROR
 
+* fergm
+  checking examples ... ERROR
+
 * ffp
   checking examples ... ERROR
+
+* fic
+  checking running R code from vignettes ... ERROR
 
 * fido
   checking examples ... ERROR
   checking tests ... ERROR
 
+* fitdistrplus
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* fitlandr
+  checking examples ... ERROR
+
+* flexsurv
+  checking running R code from vignettes ... ERROR
+
 * flipr
   checking re-building of vignette outputs ... NOTE
 
-* foqat
+* FLOPART
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
+
+* fmesher
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* fmf
+  checking examples ... ERROR
 
 * forestly
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
+
+* FossilSim
+  checking examples ... ERROR
+
+* FPDclustering
+  checking examples ... ERROR
 
 * frailtyEM
   checking examples ... ERROR
@@ -267,11 +560,27 @@ Issues with CRAN packages are summarised below.
 * funcharts
   checking examples ... ERROR
 
+* FunnelPlotR
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* genekitr
+  checking examples ... ERROR
+
+* geoheatmap
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * geomtextpath
   checking examples ... ERROR
   checking tests ... ERROR
 
+* geostan
+  checking examples ... ERROR
+
 * GGally
+  checking examples ... ERROR
   checking tests ... ERROR
 
 * gganimate
@@ -288,6 +597,12 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* ggcharts
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * ggdark
   checking examples ... ERROR
   checking tests ... ERROR
@@ -296,9 +611,6 @@ Issues with CRAN packages are summarised below.
   checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... NOTE
-
-* ggDoubleHeat
-  checking examples ... ERROR
 
 * ggeasy
   checking examples ... ERROR
@@ -311,18 +623,38 @@ Issues with CRAN packages are summarised below.
 
 * ggESDA
   checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* ggExtra
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* ggfacto
+  checking examples ... ERROR
 
 * ggfixest
   checking tests ... ERROR
+
+* ggfocus
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * ggforce
   checking examples ... ERROR
 
 * ggformula
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
   checking for code/documentation mismatches ... WARNING
+  checking re-building of vignette outputs ... NOTE
 
 * ggfortify
+  checking examples ... ERROR
   checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * gggenomes
   checking examples ... ERROR
@@ -330,7 +662,6 @@ Issues with CRAN packages are summarised below.
   checking re-building of vignette outputs ... NOTE
 
 * ggh4x
-  checking examples ... ERROR
   checking tests ... ERROR
   checking re-building of vignette outputs ... NOTE
 
@@ -353,6 +684,12 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* ggmatplot
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * ggmice
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
@@ -363,29 +700,48 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* ggnewscale
+* ggpackets
   checking examples ... ERROR
   checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * ggparallel
   checking tests ... ERROR
 
-* ggpicrust2
-  checking examples ... ERROR
-
-* ggpie
+* ggparty
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* ggpicrust2
+  checking examples ... ERROR
+
 * ggplotlyExtra
   checking examples ... ERROR
+
+* ggPMX
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * ggpol
   checking examples ... ERROR
 
-* ggpubr
+* ggprism
+  checking examples ... ERROR
   checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* ggpubr
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* ggrain
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * ggraph
   checking examples ... ERROR
@@ -409,9 +765,15 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking for code/documentation mismatches ... WARNING
 
+* ggsmc
+  checking running R code from vignettes ... ERROR
+
 * ggspatial
   checking examples ... ERROR
   checking tests ... ERROR
+
+* ggstatsplot
+  checking examples ... ERROR
 
 * ggtern
   checking examples ... ERROR
@@ -423,12 +785,39 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* GimmeMyPlot
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* giniVarCI
+  checking examples ... ERROR
+
+* gMCPLite
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* gMOIP
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* GofCens
+  checking examples ... ERROR
+
 * greatR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * Greymodels
   checking examples ... ERROR
+
+* gsDesign
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * gtExtras
   checking tests ... ERROR
@@ -455,11 +844,18 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* hesim
-  checking tests ... ERROR
+* heumilkr
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
-* hidecan
-  checking tests ... ERROR
+* hilldiv
+  checking examples ... ERROR
+
+* hmclearn
+  checking examples ... ERROR
+
+* HTLR
+  checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * HVT
@@ -468,7 +864,17 @@ Issues with CRAN packages are summarised below.
 * hypsoLoop
   checking whether package ‘hypsoLoop’ can be installed ... WARNING
 
-* ICvectorfields
+* ibdsim2
+  checking examples ... ERROR
+
+* ICtest
+  checking examples ... ERROR
+
+* idiogramFISH
+  checking installed package size ... NOTE
+
+* IDMIR
+  checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
@@ -476,7 +882,27 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* inferCSN
+* ihclust
+  checking examples ... ERROR
+
+* immunarch
+  checking examples ... ERROR
+
+* incidental
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* infer
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* injurytools
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* inlabru
   checking examples ... ERROR
 
 * insurancerating
@@ -487,12 +913,42 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* IPV
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* IRon
+  checking examples ... ERROR
+
+* irt
+  checking examples ... ERROR
+
+* isoorbi
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* ivDiag
+  checking examples ... ERROR
+
+* ivreg
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* jarbes
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * karel
   checking examples ... ERROR
   checking tests ... ERROR
 
 * kDGLM
   checking examples ... ERROR
+
+* KMEANS.KNN
+  checking examples ... ERROR
+  checking tests ... ERROR
 
 * latentcor
   checking examples ... ERROR
@@ -512,17 +968,54 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* lgpr
+  checking tests ... ERROR
+
+* LightLogR
+  checking examples ... ERROR
+
 * LMoFit
   checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* lnmixsurv
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* LocalControl
+  checking running R code from vignettes ... ERROR
+
+* LocalCop
+  checking re-building of vignette outputs ... NOTE
+
+* LongDat
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* longreadvqs
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* lpdensity
+  checking examples ... ERROR
+
+* lspartition
+  checking examples ... ERROR
+
+* LSTbook
+  checking tests ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * manydata
   checking tests ... ERROR
 
-* MARVEL
+* manymome
   checking examples ... ERROR
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
+
+* mapbayr
+  checking examples ... ERROR
 
 * MBNMAdose
   checking running R code from vignettes ... ERROR
@@ -531,15 +1024,37 @@ Issues with CRAN packages are summarised below.
 * MBNMAtime
   checking re-building of vignette outputs ... NOTE
 
+* mecoturn
+  checking examples ... ERROR
+
 * MetaNet
   checking examples ... ERROR
 
 * metR
   checking examples ... ERROR
+  checking tests ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* metrica
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* miceRanger
+  checking running R code from vignettes ... ERROR
+
+* microbial
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* MicrobiomeSurv
+  checking examples ... ERROR
+
 * migraph
+  checking tests ... ERROR
+
+* mikropml
   checking tests ... ERROR
 
 * MiMIR
@@ -548,8 +1063,18 @@ Issues with CRAN packages are summarised below.
 * miRetrieve
   checking tests ... ERROR
 
+* MiscMetabar
+  checking examples ... ERROR
+  checking tests ... ERROR
+
 * misspi
   checking examples ... ERROR
+
+* mixpoissonreg
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * mizer
   checking tests ... ERROR
@@ -559,28 +1084,77 @@ Issues with CRAN packages are summarised below.
 
 * mlr3viz
   checking examples ... ERROR
+  checking tests ... ERROR
 
 * modeltime.resample
   checking tests ... ERROR
 
-* move
-  checking installed package size ... NOTE
+* moreparty
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* mosaicCalc
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* mosaicData
+  checking examples ... ERROR
+
+* mosaicModel
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* mppR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* MSCMT
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* mstate
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
 
 * mtb
   checking tests ... ERROR
 
+* mulgar
+  checking examples ... ERROR
+
+* MultivariateAnalysis
+  checking examples ... ERROR
+
+* mxfda
+  checking installed package size ... NOTE
+
 * neatmaps
   checking examples ... ERROR
+
+* neatStats
+  checking examples ... ERROR
+
+* netcom
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * NetFACS
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
 
-* NeuralSens
+* neuroUp
   checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * NHSRplotthedots
   checking tests ... ERROR
+
+* nichetools
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * NIMAA
   checking examples ... ERROR
@@ -588,15 +1162,65 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* nonmem2R
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* nphRCT
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* nprobust
+  checking examples ... ERROR
+
+* nzelect
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * OBIC
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* oceanic
+  checking examples ... ERROR
+
+* oddsratio
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* ofpetrial
+  checking examples ... ERROR
+
 * OmicNavigator
   checking tests ... ERROR
 
+* omu
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* OncoBayes2
+  checking examples ... ERROR
+
 * oncomsm
   checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* OneSampleLogRankTest
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* onpoint
+  checking examples ... ERROR
+
+* ordbetareg
+  checking examples ... ERROR
+
+* packcircles
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
@@ -609,6 +1233,13 @@ Issues with CRAN packages are summarised below.
 * pathviewr
   checking tests ... ERROR
 
+* patientProfilesVis
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* PCADSC
+  checking examples ... ERROR
+
 * pcutils
   checking examples ... ERROR
 
@@ -619,14 +1250,27 @@ Issues with CRAN packages are summarised below.
 * personalized
   checking tests ... ERROR
 
-* phylepic
+* phyloseqGraphTest
+  checking examples ... ERROR
   checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* PieGlyph
+  checking examples ... ERROR
+  checking tests ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * Plasmidprofiler
   checking examples ... ERROR
 
 * platetools
+  checking tests ... ERROR
+
+* PLNmodels
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* plotBart
   checking tests ... ERROR
 
 * plotDK
@@ -652,6 +1296,14 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* PPtreeregViz
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* precintcon
+  checking examples ... ERROR
+
 * precrec
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
@@ -661,24 +1313,58 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* ProAE
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
 * probably
   checking tests ... ERROR
 
 * processmapR
   checking tests ... ERROR
 
+* projpred
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+
 * psborrow
   checking tests ... ERROR
+
+* pubh
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* PUPMSI
+  checking examples ... ERROR
+
+* qacBase
+  checking examples ... ERROR
+
+* qPCRhelper
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * r2dii.plot
   checking tests ... ERROR
 
+* r2spss
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+
+* radiant.basics
+  checking examples ... ERROR
+
+* radiant.data
+  checking examples ... ERROR
+
+* radiant.model
+  checking examples ... ERROR
+
 * Radviz
   checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* randomForestExplainer
+  checking examples ... ERROR
+  checking tests ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
@@ -687,41 +1373,88 @@ Issues with CRAN packages are summarised below.
   checking tests ... ERROR
   checking running R code from vignettes ... ERROR
 
-* REddyProc
-  checking installed package size ... NOTE
+* rater
+  checking tests ... ERROR
+
+* RBesT
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* rddensity
+  checking examples ... ERROR
+
+* RecordTest
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* reda
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * redist
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* reReg
+* registr
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* reliabilitydiag
   checking examples ... ERROR
+
+* relliptical
+  checking examples ... ERROR
+
+* reportRmd
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * reservr
   checking examples ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* rKOMICS
+* RestoreNet
+  checking examples ... ERROR
+
+* rfPermute
   checking examples ... ERROR
 
 * RKorAPClient
   checking tests ... ERROR
 
-* RNAseqQC
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
-
 * roahd
   checking examples ... ERROR
 
+* robCompositions
+  checking examples ... ERROR
+
 * romic
+  checking examples ... ERROR
   checking tests ... ERROR
 
 * roptions
   checking examples ... ERROR
 
+* rSAFE
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * santaR
   checking tests ... ERROR
+
+* saros
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* scatterpie
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * scdtb
   checking tests ... ERROR
@@ -736,10 +1469,30 @@ Issues with CRAN packages are summarised below.
 * SCVA
   checking examples ... ERROR
 
+* sdmTMB
+  checking examples ... ERROR
+
 * SDMtune
   checking tests ... ERROR
 
-* SeaVal
+* sedproxy
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* see
+  checking examples ... ERROR
+
+* seedreg
+  checking examples ... ERROR
+
+* semfindr
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* sensiPhy
   checking examples ... ERROR
 
 * sglg
@@ -751,21 +1504,34 @@ Issues with CRAN packages are summarised below.
 * SHAPforxgboost
   checking examples ... ERROR
 
-* SHELF
+* ShapleyOutlier
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
 * shinipsum
   checking tests ... ERROR
 
-* SimNPH
-  checking tests ... ERROR
+* signatureSurvival
+  checking examples ... ERROR
 
-* smallsets
+* SimCorrMix
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* spbal
+* SimMultiCorrData
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* SimNPH
+  checking tests ... ERROR
+
+* slendr
+  checking examples ... ERROR
+
+* smallsets
+  checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
@@ -775,14 +1541,61 @@ Issues with CRAN packages are summarised below.
 * sport
   checking tests ... ERROR
 
+* spotoroo
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * SqueakR
   checking re-building of vignette outputs ... NOTE
+
+* stability
+  checking examples ... ERROR
 
 * statgenGWAS
   checking tests ... ERROR
 
+* statgenHTP
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* sugrrants
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* superb
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * surveyexplorer
   checking examples ... ERROR
+
+* survivalAnalysis
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* survminer
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* survParamSim
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* survstan
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* SVMMaj
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
 
 * Sysrecon
   checking examples ... ERROR
@@ -790,18 +1603,27 @@ Issues with CRAN packages are summarised below.
 * tabledown
   checking examples ... ERROR
 
+* tcgaViz
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * TCIU
   checking examples ... ERROR
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* tensorEVD
-  checking running R code from vignettes ... ERROR
-  checking re-building of vignette outputs ... NOTE
+* tcpl
+  checking tests ... ERROR
+
+* tern
+  checking examples ... ERROR
 
 * thematic
   checking examples ... ERROR
   checking tests ... ERROR
+
+* Thermistor
+  checking examples ... ERROR
 
 * tidybayes
   checking examples ... ERROR
@@ -818,15 +1640,28 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
+* tidySEM
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * tidytreatment
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
+
+* timeplyr
+  checking examples ... ERROR
 
 * timetk
   checking tests ... ERROR
 
 * tinyarray
   checking examples ... ERROR
+
+* tipmap
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * tornado
   checking examples ... ERROR
@@ -843,6 +1678,21 @@ Issues with CRAN packages are summarised below.
 * TreatmentPatterns
   checking tests ... ERROR
 
+* TreatmentSelection
+  checking examples ... ERROR
+
+* TreeDep
+  checking examples ... ERROR
+
+* TreeDist
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* treeheatr
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
 * trelliscopejs
   checking tests ... ERROR
 
@@ -857,11 +1707,53 @@ Issues with CRAN packages are summarised below.
 * tsnet
   checking tests ... ERROR
 
+* UBayFS
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* Umatrix
+  checking examples ... ERROR
+
 * umiAnalyzer
   checking examples ... ERROR
 
-* valr
+* UnalR
+  checking examples ... ERROR
   checking tests ... ERROR
+
+* unmconf
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* usmap
+  checking examples ... ERROR
+  checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* vannstats
+  checking examples ... ERROR
+
+* vDiveR
+  checking examples ... ERROR
+
+* venn
+  checking examples ... ERROR
+
+* vimpclust
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* vip
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* VirtualPop
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* viscomp
+  checking examples ... ERROR
 
 * vivaldi
   checking examples ... ERROR
@@ -869,14 +1761,34 @@ Issues with CRAN packages are summarised below.
   checking running R code from vignettes ... ERROR
   checking re-building of vignette outputs ... NOTE
 
-* vivid
+* voiceR
+  checking examples ... ERROR
+  checking tests ... ERROR
+
+* volcano3D
+  checking examples ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* voluModel
+  checking examples ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* vsd
   checking examples ... ERROR
 
 * vvshiny
   checking tests ... ERROR
 
-* wilson
+* walker
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
+
+* WVPlots
+  checking examples ... ERROR
   checking tests ... ERROR
+  checking running R code from vignettes ... ERROR
+  checking re-building of vignette outputs ... NOTE
 
 * xaringanthemer
   checking tests ... ERROR
@@ -887,135 +1799,158 @@ Issues with CRAN packages are summarised below.
 
 ### Failed to check
 
-* abctools               (NA)
-* animalEKF              (NA)
-* ANOM                   (NA)
-* atRisk                 (NA)
-* AutoScore              (NA)
-* bayesdfa               (NA)
-* bayesDP                (NA)
-* BayesianFactorZoo      (NA)
-* BayesSurvive           (NA)
-* BCClong                (NA)
-* BGGM                   (NA)
-* binsreg                (NA)
-* bmstdr                 (NA)
-* bspcov                 (NA)
-* BuyseTest              (NA)
-* CalibrationCurves      (NA)
-* CARBayesST             (NA)
-* CaseBasedReasoning     (NA)
-* CGPfunctions           (NA)
-* cmprskcoxmsm           (NA)
-* contrast               (NA)
-* coxed                  (NA)
-* CRMetrics              (NA)
-* csmpv                  (NA)
-* ctsem                  (NA)
-* DepthProc              (NA)
-* DR.SC                  (NA)
-* DynNom                 (NA)
-* easybgm                (NA)
-* ecolottery             (NA)
-* EpiEstim               (NA)
-* evolqg                 (NA)
-* ForecastComb           (NA)
-* gapfill                (NA)
-* GeomComb               (NA)
-* ggrcs                  (NA)
-* ggrisk                 (NA)
-* gJLS2                  (NA)
-* Greg                   (NA)
-* greport                (NA)
-* hettx                  (NA)
-* hIRT                   (NA)
-* Hmsc                   (NA)
-* inventorize            (NA)
-* iNZightPlots           (NA)
-* iNZightRegression      (NA)
-* IRexamples             (NA)
-* jmBIG                  (NA)
-* joineRML               (NA)
-* JWileymisc             (NA)
-* kmc                    (NA)
-* L2E                    (NA)
-* llbayesireg            (NA)
-* LorenzRegression       (NA)
-* lsirm12pl              (NA)
-* mbsts                  (NA)
-* MendelianRandomization (NA)
-* MetabolicSurv          (NA)
-* miWQS                  (NA)
-* MRZero                 (NA)
-* Multiaovbay            (NA)
-* multilevelTools        (NA)
-* multinma               (NA)
-* NCA                    (NA)
-* netcmc                 (NA)
-* NetworkChange          (NA)
-* nlmeVPC                (NA)
-* NMADiagT               (NA)
-* optweight              (NA)
-* OVtool                 (NA)
-* paths                  (NA)
-* PLMIX                  (NA)
-* popstudy               (NA)
-* pould                  (NA)
-* powerly                (NA)
-* pre                    (NA)
-* ProFAST                (NA)
-* psbcSpeedUp            (NA)
-* pscore                 (NA)
-* psfmi                  (NA)
-* qPCRtools              (NA)
-* qreport                (NA)
-* qris                   (NA)
-* qte                    (NA)
-* quid                   (NA)
-* RATest                 (NA)
-* RcmdrPlugin.RiskDemo   (NA)
-* rddtools               (NA)
-* riskRegression         (NA)
-* rms                    (NA)
-* rmsb                   (NA)
-* robmed                 (NA)
-* robmedExtra            (NA)
-* RPPanalyzer            (NA)
-* RQdeltaCT              (NA)
-* scCustomize            (NA)
-* SCdeconR               (NA)
-* scGate                 (NA)
-* SCIntRuler             (NA)
-* scMappR                (NA)
-* scpi                   (NA)
-* scRNAstat              (NA)
-* sectorgap              (NA)
-* SEERaBomb              (NA)
-* semicmprskcoxmsm       (NA)
-* SensMap                (NA)
-* Seurat                 (NA)
-* shinyTempSignal        (NA)
-* sievePH                (NA)
-* Signac                 (NA)
-* SimplyAgree            (NA)
-* sMSROC                 (NA)
-* SNPassoc               (NA)
-* snplinkage             (NA)
-* SoupX                  (NA)
-* sparsereg              (NA)
-* spikeSlabGAM           (NA)
-* statsr                 (NA)
-* streamDAG              (NA)
-* survHE                 (NA)
-* survidm                (NA)
-* tempted                (NA)
-* tidydr                 (NA)
-* tidyEdSurvey           (NA)
-* tidyseurat             (NA)
-* tidyvpc                (NA)
-* TriDimRegression       (NA)
-* TSrepr                 (NA)
-* twang                  (NA)
-* vdg                    (NA)
-* visa                   (NA)
-* WRTDStidal             (NA)
+* abctools                (NA)
+* adjclust                (NA)
+* animalEKF               (NA)
+* ANOM                    (NA)
+* atRisk                  (NA)
+* AutoScore               (NA)
+* baRulho                 (NA)
+* bayesDP                 (NA)
+* BayesianFactorZoo       (NA)
+* BayesSurvive            (NA)
+* BCClong                 (NA)
+* BGGM                    (NA)
+* binsreg                 (NA)
+* bspcov                  (NA)
+* bsub                    (NA)
+* BuyseTest               (NA)
+* CARBayesST              (NA)
+* CGPfunctions            (NA)
+* chemodiv                (NA)
+* cinaR                   (NA)
+* cmprskcoxmsm            (NA)
+* CNVScope                (NA)
+* COMMA                   (NA)
+* conos                   (NA)
+* counterfactuals         (NA)
+* CRMetrics               (NA)
+* crosstalkr              (NA)
+* ctsem                   (NA)
+* DepthProc               (NA)
+* DR.SC                   (NA)
+* easybgm                 (NA)
+* EcoEnsemble             (NA)
+* ecolottery              (NA)
+* EMAS                    (NA)
+* EpiEstim                (NA)
+* evolqg                  (NA)
+* ForecastComb            (NA)
+* GALLO                   (NA)
+* gap                     (NA)
+* gapfill                 (NA)
+* geneHapR                (NA)
+* GeneSelectR             (NA)
+* GeomComb                (NA)
+* gJLS2                   (NA)
+* hettx                   (NA)
+* Hmisc                   (NA)
+* Hmsc                    (NA)
+* iClusterVB              (NA)
+* inventorize             (NA)
+* iNZightPlots            (NA)
+* iNZightRegression       (NA)
+* IRexamples              (NA)
+* jmBIG                   (NA)
+* joineRML                (NA)
+* kibior                  (NA)
+* kmc                     (NA)
+* L2E                     (NA)
+* llbayesireg             (NA)
+* locuszoomr              (NA)
+* LorenzRegression        (NA)
+* lsirm12pl               (NA)
+* MARVEL                  (NA)
+* mbsts                   (NA)
+* MitoHEAR                (NA)
+* miWQS                   (NA)
+* mlmts                   (NA)
+* mlr                     (NA)
+* MOCHA                   (NA)
+* MRZero                  (NA)
+* multilevelTools         (NA)
+* multinma                (NA)
+* NCA                     (NA)
+* netcmc                  (NA)
+* NetworkChange           (NA)
+* nlmeVPC                 (NA)
+* NMADiagT                (NA)
+* ohun                    (NA)
+* optweight               (NA)
+* OVtool                  (NA)
+* pagoda2                 (NA)
+* PAMpal                  (NA)
+* PAMscapes               (NA)
+* paths                   (NA)
+* pcvr                    (NA)
+* PlasmaMutationDetector  (NA)
+* PlasmaMutationDetector2 (NA)
+* PLMIX                   (NA)
+* polyRAD                 (NA)
+* popstudy                (NA)
+* pould                   (NA)
+* PoweREST                (NA)
+* powerly                 (NA)
+* pre                     (NA)
+* ProFAST                 (NA)
+* psbcSpeedUp             (NA)
+* pscore                  (NA)
+* qPCRtools               (NA)
+* qris                    (NA)
+* qte                     (NA)
+* quantilogram            (NA)
+* quid                    (NA)
+* RcmdrPlugin.RiskDemo    (NA)
+* rddtools                (NA)
+* RNAseqQC                (NA)
+* robmed                  (NA)
+* robmedExtra             (NA)
+* RPPanalyzer             (NA)
+* RQdeltaCT               (NA)
+* rstanarm                (NA)
+* RTIGER                  (NA)
+* rTwig                   (NA)
+* RVA                     (NA)
+* scCustomize             (NA)
+* SCdeconR                (NA)
+* scGate                  (NA)
+* SCIntRuler              (NA)
+* scITD                   (NA)
+* scMappR                 (NA)
+* scpi                    (NA)
+* scRNAstat               (NA)
+* sectorgap               (NA)
+* SeedMatchR              (NA)
+* SEERaBomb               (NA)
+* semicmprskcoxmsm        (NA)
+* SensMap                 (NA)
+* sephora                 (NA)
+* Seurat                  (NA)
+* shinyTempSignal         (NA)
+* sievePH                 (NA)
+* sigminer                (NA)
+* Signac                  (NA)
+* SimplyAgree             (NA)
+* SNPassoc                (NA)
+* snplinkage              (NA)
+* SoupX                   (NA)
+* sparsereg               (NA)
+* SpatialDDLS             (NA)
+* spikeSlabGAM            (NA)
+* statsr                  (NA)
+* streamDAG               (NA)
+* survidm                 (NA)
+* tempted                 (NA)
+* TestAnaAPP              (NA)
+* tidydr                  (NA)
+* tidyEdSurvey            (NA)
+* tidyseurat              (NA)
+* tidyvpc                 (NA)
+* TriDimRegression        (NA)
+* TSrepr                  (NA)
+* twang                   (NA)
+* updog                   (NA)
+* valr                    (NA)
+* vdg                     (NA)
+* visa                    (NA)
+* WRTDStidal              (NA)

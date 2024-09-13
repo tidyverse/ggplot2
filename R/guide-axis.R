@@ -254,21 +254,8 @@ GuideAxis <- ggproto(
   },
 
   override_elements = function(params, elements, theme) {
-    label <- elements$text
-    if (!inherits(label, "element_text")) {
-      return(elements)
-    }
-    label_overrides <- axis_label_element_overrides(
-      params$position, params$angle
-    )
-    # label_overrides is an element_text, but label_element may not be;
-    # to merge the two elements, we just copy angle, hjust, and vjust
-    # unless their values are NULL
-    label$angle <- label_overrides$angle %||% label$angle
-    label$hjust <- label_overrides$hjust %||% label$hjust
-    label$vjust <- label_overrides$vjust %||% label$vjust
-
-    elements$text <- label
+    elements$text <-
+      label_angle_heuristic(elements$text, params$position, params$angle)
     return(elements)
   },
 
@@ -584,49 +571,40 @@ axis_label_priority_between <- function(x, y) {
   )
 }
 
-#' Override axis text angle and alignment
+#' Override text angle and alignment
 #'
+#' @param element An `element_text()`
 #' @param axis_position One of bottom, left, top, or right
 #' @param angle The text angle, or NULL to override nothing
 #'
 #' @return An [element_text()] that contains parameters that should be
 #'   overridden from the user- or theme-supplied element.
 #' @noRd
-#'
-axis_label_element_overrides <- function(axis_position, angle = NULL) {
-
-  if (is.null(angle) || is.waive(angle)) {
-    return(element_text(angle = NULL, hjust = NULL, vjust = NULL))
+label_angle_heuristic <- function(element, position, angle) {
+  if (!inherits(element, "element_text")
+      || is.null(position)
+      || is.null(angle %|W|% NULL)) {
+    return(element)
   }
+  arg_match0(position, .trbl)
 
   check_number_decimal(angle)
-  angle <- angle %% 360
-  arg_match0(
-    axis_position,
-    c("bottom", "left", "top", "right")
-  )
+  radian <- deg2rad(angle)
+  digits <- 3
 
-  if (axis_position == "bottom") {
+  # Taking the sign of the (co)sine snaps the value to c(-1, 0, 1)
+  # Doing `x / 2 + 0.5` rescales it to c(0, 0.5, 1), which are good values for justification
+  # The rounding step ensures we can get (co)sine to exact 0 so it can become 0.5
+  # which we need for center-justifications
+  cosine <- sign(round(cos(radian), digits)) / 2 + 0.5
+  sine   <- sign(round(sin(radian), digits)) / 2 + 0.5
 
-    hjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-    vjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
+  # Depending on position, we might need to swap or flip justification values
+  hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
+  vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
 
-  } else if (axis_position == "left") {
-
-    hjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 0 else 1
-    vjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
-
-  } else if (axis_position == "top") {
-
-    hjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 0 else 1
-    vjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
-
-  } else if (axis_position == "right") {
-
-    hjust <- if (angle %in% c(90, 270)) 0.5 else if (angle > 90 & angle < 270) 1 else 0
-    vjust <- if (angle %in% c(0, 180))  0.5 else if (angle < 180) 1 else 0
-
-  }
-
-  element_text(angle = angle, hjust = hjust, vjust = vjust)
+  element$angle <- angle %||% element$angle
+  element$hjust <- hjust %||% element$hjust
+  element$vjust <- vjust %||% element$vjust
+  element
 }

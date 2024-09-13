@@ -138,6 +138,17 @@ the very regular alignment of \code{\link[=geom_bin_2d]{geom_bin_2d()}}.
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{stat_binhex()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
