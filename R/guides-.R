@@ -109,6 +109,10 @@ guides <- function(...) {
   NULL
 }
 
+#' @export
+#' @rdname is_tests
+is.guides <- function(x) inherits(x, "Guides")
+
 # Class -------------------------------------------------------------------
 
 # Guides object encapsulates multiple guides and their state.

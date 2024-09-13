@@ -202,6 +202,10 @@ layer <- function(geom = NULL, stat = NULL,
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.layer <- function(x) inherits(x, "Layer")
+
 validate_mapping <- function(mapping, call = caller_env()) {
   if (!is.mapping(mapping)) {
     msg <- "{.arg mapping} must be created by {.fn aes}."

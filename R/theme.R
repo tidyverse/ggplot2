@@ -543,6 +543,10 @@ theme <- function(...,
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.theme <- function(x) inherits(x, "theme")
+
 # check whether theme is complete
 is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
 

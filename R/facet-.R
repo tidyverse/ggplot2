@@ -266,6 +266,10 @@ Facet <- ggproto("Facet", NULL,
   }
 )
 
+#' @export
+#' @rdname is_tests
+is.facet <- function(x) inherits(x, "Facet")
+
 # Helpers -----------------------------------------------------------------
 
 #' Quote faceting variables

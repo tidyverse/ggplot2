@@ -66,6 +66,10 @@ new_guide <- function(..., available_aes = "any", super) {
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.guide <- function(x) inherits(x, "Guide")
+
 #' @section Guides:
 #'
 #' The `guide_*()` functions, such as `guide_legend()` return an object that

@@ -236,6 +236,9 @@ Geom <- ggproto("Geom",
 
 )
 
+#' @export
+#' @rdname is_tests
+is.geom <- function(x) inherits(x, "Geom")
 
 eval_from_theme <- function(aesthetics, theme) {
   themed <- is_themed_aes(aesthetics)

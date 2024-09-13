@@ -9,6 +9,10 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   u
 }
 
+#' @export
+#' @rdname is_tests
+is.margin <- function(x) inherits(x, "margin")
+
 #' Create a text grob with the proper location and margins
 #'
 #' `titleGrob()` is called when creating titles and labels for axes, legends,

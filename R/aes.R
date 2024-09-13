@@ -102,6 +102,10 @@ aes <- function(x, y, ...) {
   rename_aes(aes)
 }
 
+#' @export
+#' @rdname is_tests
+is.mapping <- function(x) inherits(x, "uneval")
+
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
 new_aesthetic <- function(x, env = globalenv()) {

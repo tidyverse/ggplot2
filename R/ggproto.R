@@ -98,6 +98,9 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e
 }
 
+#' @export
+#' @rdname is_tests
+is.ggproto <- function(x) inherits(x, "ggproto")
 
 #' @export
 #' @rdname ggproto

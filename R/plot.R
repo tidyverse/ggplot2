@@ -147,6 +147,13 @@ ggplot.function <- function(data = NULL, mapping = aes(), ...,
   ))
 }
 
+#' Reports whether x is a type of object
+#' @param x An object to test
+#' @keywords internal
+#' @export
+#' @name is_tests
+is.ggplot <- function(x) inherits(x, "ggplot")
+
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
