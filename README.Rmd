@@ -47,7 +47,7 @@ pak::pak("tidyverse/ggplot2")
 It's hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with `ggplot()`, supply a dataset and aesthetic mapping (with `aes()`). You then add on layers (like `geom_point()` or `geom_histogram()`), scales (like `scale_colour_brewer()`), faceting specifications (like `facet_wrap()`) and coordinate systems (like `coord_flip()`).
 
 ```{r example}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles
 #|  per gallon are inversely correlated."
 library(ggplot2)

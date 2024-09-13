@@ -99,7 +99,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -134,6 +136,17 @@ the very regular alignment of \code{\link[=geom_bin_2d]{geom_bin_2d()}}.
 \item \code{\link[=aes_group_order]{group}}
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{stat_binhex()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
