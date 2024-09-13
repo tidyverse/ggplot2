@@ -840,6 +840,24 @@ test_that("Strips can render custom elements", {
   expect_doppelganger("custom strip elements can render", plot)
 })
 
+test_that("theme ink and paper settings work", {
+
+  p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+    geom_point() +
+    facet_wrap(~"Strip title") +
+    labs(
+      title = "Main title",
+      subtitle = "Subtitle",
+      tag = "A",
+      caption = "Caption"
+    )
+
+  expect_doppelganger(
+    "Theme with inverted colours",
+    p + theme_gray(ink = "white", paper = "black")
+  )
+})
+
 test_that("legend margins are correct when using relative key sizes", {
 
   df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
