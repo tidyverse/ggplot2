@@ -106,6 +106,11 @@ PositionDodge <- ggproto("PositionDodge", Position,
   reverse = NULL,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data, default = self$orientation == "y")
+    check_required_aesthetics(
+      if (flipped_aes) "y|ymin" else "x|xmin",
+      names(data), snake_class(self)
+    )
+
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       cli::cli_warn(c(
