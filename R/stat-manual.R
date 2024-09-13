@@ -62,28 +62,25 @@
 #' if (requireNamespace("dplyr", quietly = TRUE)) {
 #'
 #'   # Get centroids with `summarise()`
-#'   p + geom_point() +
-#'     stat_manual(
-#'       size = 10, shape = 21,
-#'       fun  = dplyr::summarise,
-#'       args = vars(x = mean(x), y = mean(y))
-#'     )
+#'   p + stat_manual(
+#'     size = 10, shape = 21,
+#'     fun  = dplyr::summarise,
+#'     args = vars(x = mean(x), y = mean(y))
+#'   )
 #'
 #'   # Connect to centroid with `mutate`
-#'   p + geom_point() +
-#'     stat_manual(
-#'       geom = "segment",
-#'       fun  = dplyr::mutate,
-#'       args = vars(xend = mean(x), yend = mean(y))
-#'     )
+#'   p + stat_manual(
+#'     geom = "segment",
+#'     fun  = dplyr::mutate,
+#'     args = vars(xend = mean(x), yend = mean(y))
+#'   )
 #'
 #'   # Computing hull with `reframe()`
-#'   p + geom_point() +
-#'     stat_manual(
-#'       geom = "polygon", fill = NA,
-#'       fun  = dplyr::reframe,
-#'       args = vars(hull = chull(x, y), x = x[hull], y = y[hull])
-#'     )
+#'   p + stat_manual(
+#'     geom = "polygon", fill = NA,
+#'     fun  = dplyr::reframe,
+#'     args = vars(hull = chull(x, y), x = x[hull], y = y[hull])
+#'   )
 #' }
 stat_manual <- function(
     mapping = NULL,
