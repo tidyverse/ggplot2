@@ -157,12 +157,9 @@ Geom <- ggproto("Geom",
     # This order means that they will have access to all default aesthetics
     if (length(modifiers) != 0) {
       # Set up evaluation environment
-      env <- child_env(baseenv(), after_scale = after_scale)
-      # Mask stage with stage_scaled so it returns the correct expression
-      stage_mask <- child_env(emptyenv(), stage = stage_scaled)
-      mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
-      mask$.data <- as_data_pronoun(mask)
-      modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, mask, env)
+      set_stage("after_scale")
+      env <- child_env(baseenv())
+      modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, data, env)
 
       # Check that all output are valid data
       nondata_modified <- check_nondata_cols(modified_aes)

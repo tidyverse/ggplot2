@@ -206,16 +206,26 @@ from_theme <- function(x) {
   x
 }
 
+get_stage <- local({
+  stage <- "start"
+  function() {stage}
+})
+
+set_stage <- function(new_stage) {
+  old_stage <- environment(get_stage)$stage
+  environment(get_stage)$stage <- new_stage
+  invisible(old_stage)
+}
+
 #' @rdname aes_eval
 #' @export
 stage <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
-  start
-}
-stage_calculated <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
-  after_stat
-}
-stage_scaled <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
-  after_scale
+  switch(
+    get_stage(),
+    after_stat = after_stat,
+    after_scale = after_scale,
+    start
+  )
 }
 
 # Regex to determine if an identifier refers to a calculated aesthetic

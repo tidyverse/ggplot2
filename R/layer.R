@@ -58,8 +58,8 @@
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display. To include legend keys for all levels, even 
-#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend, 
+#'   display. To include legend keys for all levels, even
+#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
 #'   but unobserved levels are omitted.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
@@ -303,6 +303,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     # Evaluate aesthetics
+    set_stage("start")
     env <- child_env(baseenv(), stage = stage)
     evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
     evaled <- compact(evaled)
@@ -386,13 +387,9 @@ Layer <- ggproto("Layer", NULL,
     data_orig <- plot$scales$backtransform_df(data)
 
     # Add map stat output to aesthetics
-    env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
-    stage_mask <- child_env(emptyenv(), stage = stage_calculated)
-    mask <- new_data_mask(as_environment(data_orig, stage_mask), stage_mask)
-    mask$.data <- as_data_pronoun(mask)
-
+    set_stage("after_stat")
     new <- substitute_aes(new)
-    stat_data <- lapply(new, eval_tidy, mask, env)
+    stat_data <- lapply(new, eval_tidy, data_orig, env)
 
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
