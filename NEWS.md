@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `geom_boxplot()` gains additional arguments to style the colour, linetype and
+  linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+* `ggsave()` no longer sometimes creates new directories, which is now 
+  controlled by the new `create.dir` argument (#5489).
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
   foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 

@@ -43,11 +43,20 @@
 #'   needs to show the full data range, please use `outlier.shape = NA` instead.
 #' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to `NULL` to inherit from the
-#'   aesthetics used for the box.
-#'
-#'   In the unlikely event you specify both US and UK spellings of colour, the
-#'   US spelling will take precedence.
-#'
+#'   data's aesthetics.
+#' @param whisker.colour,whisker.color,whisker.linetype,whisker.linewidth
+#'   Default aesthetics for the whiskers. Set to `NULL` to inherit from the
+#'   data's aesthetics.
+#' @param median.colour,median.color,median.linetype,median.linewidth
+#'   Default aesthetics for the median line. Set to `NULL` to inherit from the
+#'   data's aesthetics.
+#' @param staple.colour,staple.color,staple.linetype,staple.linewidth
+#'   Default aesthetics for the staples. Set to `NULL` to inherit from the
+#'   data's aesthetics. Note that staples don't appear unless the `staplewidth`
+#'   argument is set to a non-zero size.
+#' @param box.colour,box.color,box.linetype,box.linewidth
+#'   Default aesthetics for the boxes. Set to `NULL` to inherit from the
+#'   data's aesthetics.
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -60,6 +69,9 @@
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
 #'   weighted, using the `weight` aesthetic).
+#' @note In the unlikely event you specify both US and UK spellings of colour,
+#'   the US spelling will take precedence.
+#'
 #' @export
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 #'     box plots. The American Statistician 32, 12-16.
@@ -121,6 +133,22 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          outlier.size = NULL,
                          outlier.stroke = 0.5,
                          outlier.alpha = NULL,
+                         whisker.colour    = NULL,
+                         whisker.color     = NULL,
+                         whisker.linetype  = NULL,
+                         whisker.linewidth = NULL,
+                         staple.colour     = NULL,
+                         staple.color      = NULL,
+                         staple.linetype   = NULL,
+                         staple.linewidth  = NULL,
+                         median.colour     = NULL,
+                         median.color      = NULL,
+                         median.linetype   = NULL,
+                         median.linewidth  = NULL,
+                         box.colour        = NULL,
+                         box.color         = NULL,
+                         box.linetype      = NULL,
+                         box.linewidth     = NULL,
                          notch = FALSE,
                          notchwidth = 0.5,
                          staplewidth = 0,
@@ -140,6 +168,39 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     }
   }
 
+  outlier_gp <- list(
+    colour = outlier.color %||% outlier.colour,
+    fill   = outlier.fill,
+    shape  = outlier.shape,
+    size   = outlier.size,
+    stroke = outlier.stroke,
+    alpha  = outlier.alpha
+  )
+
+  whisker_gp <- list(
+    colour    = whisker.color %||% whisker.colour,
+    linetype  = whisker.linetype,
+    linewidth = whisker.linewidth
+  )
+
+  staple_gp <- list(
+    colour    = staple.color %||% staple.colour,
+    linetype  = staple.linetype,
+    linewidth = staple.linewidth
+  )
+
+  median_gp <- list(
+    colour    = median.color %||% median.colour,
+    linetype  = median.linetype,
+    linewidth = median.linewidth
+  )
+
+  box_gp <- list(
+    colour    = box.color %||% box.colour,
+    linetype  = box.linetype,
+    linewidth = box.linewidth
+  )
+
   check_number_decimal(staplewidth)
   check_bool(outliers)
 
@@ -153,12 +214,11 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list2(
       outliers = outliers,
-      outlier.colour = outlier.color %||% outlier.colour,
-      outlier.fill = outlier.fill,
-      outlier.shape = outlier.shape,
-      outlier.size = outlier.size,
-      outlier.stroke = outlier.stroke,
-      outlier.alpha = outlier.alpha,
+      outlier_gp = outlier_gp,
+      whisker_gp = whisker_gp,
+      staple_gp  = staple_gp,
+      median_gp  = median_gp,
+      box_gp     = box_gp,
       notch = notch,
       notchwidth = notchwidth,
       staplewidth = staplewidth,
@@ -222,10 +282,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
-                        linejoin = "mitre", fatten = 2, outlier.colour = NULL,
-                        outlier.fill = NULL, outlier.shape = NULL,
-                        outlier.size = NULL, outlier.stroke = 0.5,
-                        outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
+                        linejoin = "mitre", fatten = 2, outlier_gp = NULL,
+                        whisker_gp = NULL, staple_gp = NULL, median_gp = NULL,
+                        box_gp = NULL, notch = FALSE, notchwidth = 0.5,
                         staplewidth = 0, varwidth = FALSE, flipped_aes = FALSE) {
     data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
@@ -237,36 +296,30 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ))
     }
 
-    common <- list(
-      colour = data$colour,
-      linewidth = data$linewidth,
-      linetype = data$linetype,
-      fill = fill_alpha(data$fill, data$alpha),
-      group = data$group
-    )
+    common <- list(fill = fill_alpha(data$fill, data$alpha), group = data$group)
 
     whiskers <- data_frame0(
       x = c(data$x, data$x),
       xend = c(data$x, data$x),
       y = c(data$upper, data$lower),
       yend = c(data$ymax, data$ymin),
+      colour    = rep(whisker_gp$colour    %||% data$colour,    2),
+      linetype  = rep(whisker_gp$linetype  %||% data$linetype,  2),
+      linewidth = rep(whisker_gp$linewidth %||% data$linewidth, 2),
       alpha = c(NA_real_, NA_real_),
       !!!common,
       .size = 2
     )
     whiskers <- flip_data(whiskers, flipped_aes)
 
-    box <- data_frame0(
-      xmin = data$xmin,
-      xmax = data$xmax,
-      ymin = data$lower,
-      y = data$middle,
-      ymax = data$upper,
-      ynotchlower = ifelse(notch, data$notchlower, NA),
-      ynotchupper = ifelse(notch, data$notchupper, NA),
-      notchwidth = notchwidth,
-      alpha = data$alpha,
-      !!!common
+    box <- transform(
+      data,
+      y = middle,
+      ymax = upper,
+      ymin = lower,
+      ynotchlower = ifelse(notch, notchlower, NA),
+      ynotchupper = ifelse(notch, notchupper, NA),
+      notchwidth = notchwidth
     )
     box <- flip_data(box, flipped_aes)
 
@@ -274,13 +327,13 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       outliers <- data_frame0(
         y = data$outliers[[1]],
         x = data$x[1],
-        colour = outlier.colour %||% data$colour[1],
-        fill = outlier.fill %||% data$fill[1],
-        shape = outlier.shape %||% data$shape[1],
-        size = outlier.size %||% data$size[1],
-        stroke = outlier.stroke %||% data$stroke[1],
+        colour = outlier_gp$colour %||% data$colour[1],
+        fill   = outlier_gp$fill   %||% data$fill[1],
+        shape  = outlier_gp$shape  %||% data$shape[1]  %||% 19,
+        size   = outlier_gp$size   %||% data$size[1]   %||% 1.5,
+        stroke = outlier_gp$stroke %||% data$stroke[1] %||% 0.5,
         fill = NA,
-        alpha = outlier.alpha %||% data$alpha[1],
+        alpha = outlier_gp$alpha %||% data$alpha[1],
         .size = length(data$outliers[[1]])
       )
       outliers <- flip_data(outliers, flipped_aes)
@@ -296,6 +349,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         xend = rep((data$xmax - data$x) * staplewidth + data$x, 2),
         y    = c(data$ymax, data$ymin),
         yend = c(data$ymax, data$ymin),
+        linetype  = rep(staple_gp$linetype  %||% data$linetype, 2),
+        linewidth = rep(staple_gp$linewidth %||% data$linewidth, 2),
+        colour    = rep(staple_gp$colour    %||% data$colour, 2),
         alpha = c(NA_real_, NA_real_),
         !!!common,
         .size = 2
@@ -320,7 +376,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         coord,
         lineend = lineend,
         linejoin = linejoin,
-        flipped_aes = flipped_aes
+        flipped_aes = flipped_aes,
+        middle_gp = median_gp,
+        box_gp = box_gp
       )
     ))
   },

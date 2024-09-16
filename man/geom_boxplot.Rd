@@ -19,6 +19,22 @@ geom_boxplot(
   outlier.size = NULL,
   outlier.stroke = 0.5,
   outlier.alpha = NULL,
+  whisker.colour = NULL,
+  whisker.color = NULL,
+  whisker.linetype = NULL,
+  whisker.linewidth = NULL,
+  staple.colour = NULL,
+  staple.color = NULL,
+  staple.linetype = NULL,
+  staple.linewidth = NULL,
+  median.colour = NULL,
+  median.color = NULL,
+  median.linetype = NULL,
+  median.linewidth = NULL,
+  box.colour = NULL,
+  box.color = NULL,
+  box.linetype = NULL,
+  box.linewidth = NULL,
   notch = FALSE,
   notchwidth = 0.5,
   staplewidth = 0,
@@ -112,10 +128,20 @@ only, not the full data range. If outliers need to be hidden and the axes
 needs to show the full data range, please use \code{outlier.shape = NA} instead.}
 
 \item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
-aesthetics used for the box.
+data's aesthetics.}
 
-In the unlikely event you specify both US and UK spellings of colour, the
-US spelling will take precedence.}
+\item{whisker.colour, whisker.color, whisker.linetype, whisker.linewidth}{Default aesthetics for the whiskers. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
+\item{staple.colour, staple.color, staple.linetype, staple.linewidth}{Default aesthetics for the staples. Set to \code{NULL} to inherit from the
+data's aesthetics. Note that staples don't appear unless the \code{staplewidth}
+argument is set to a non-zero size.}
+
+\item{median.colour, median.color, median.linetype, median.linewidth}{Default aesthetics for the median line. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
+\item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
+data's aesthetics.}
 
 \item{notch}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -165,6 +191,10 @@ overriding these connections, see how the \link[=layer_stats]{stat} and
 The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.
+}
+\note{
+In the unlikely event you specify both US and UK spellings of colour,
+the US spelling will take precedence.
 }
 \section{Orientation}{
 
