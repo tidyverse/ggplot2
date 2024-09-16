@@ -176,3 +176,10 @@ test_that("NAs from palette are not translated (#5929)", {
   s3$train(c("8", "6", "4"))
   expect_equal(s3$map(c("4", "6", "8", "10")), c("a", NA, "c", NA))
 })
+
+test_that("numeric linetype palettes are mapped correctly (#6096)", {
+  x  <- c(LETTERS[1:3], NA)
+  sc <- scale_linetype_manual(values = 1:5)
+  sc$train(x)
+  expect_equal(sc$map(x), c(1L, 2L, 3L, NA))
+})
