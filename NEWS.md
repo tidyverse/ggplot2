@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* New stat: `stat_manual()` for arbitrary computations (@teunbrand, #3501)
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
   foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 

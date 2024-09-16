@@ -254,6 +254,7 @@ Collate:
     'stat-ellipse.R'
     'stat-function.R'
     'stat-identity.R'
+    'stat-manual.R'
     'stat-qq-line.R'
     'stat-qq.R'
     'stat-quantilemethods.R'
