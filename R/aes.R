@@ -208,6 +208,9 @@ standardise_aes_symbols <- function(x) {
 
   # Don't walk through function heads
   x[-1] <- lapply(x[-1], standardise_aes_symbols)
+  if (is_call(x, "stage", ns = "ggplot2")) {
+    x[[1]] <- call("stage")[[1]]
+  }
 
   x
 }
