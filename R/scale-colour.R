@@ -77,8 +77,24 @@
 #' v
 #' options(ggplot2.continuous.fill = tmp) # restore previous setting
 #' @export
-scale_colour_continuous <- function(...,
-                                    type = getOption("ggplot2.continuous.colour")) {
+scale_colour_continuous <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.continuous.colour"),
+    aesthetics = "colour",
+    guide = "colourbar") {
+
+  if (!is.null(palette)) {
+    scale <- continuous_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_continuous_pal(palette),
+      guide = guide,
+      ...
+    )
+    return(scale)
+  }
+
   type <- type %||% "gradient"
   args <- list2(...)
   args$call <- args$call %||% current_call()
@@ -102,8 +118,24 @@ scale_colour_continuous <- function(...,
 
 #' @rdname scale_colour_continuous
 #' @export
-scale_fill_continuous <- function(...,
-                                  type = getOption("ggplot2.continuous.fill")) {
+scale_fill_continuous <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.continuous.fill"),
+    aesthetics = "fill",
+    guide = "colourbar") {
+
+  if (!is.null(palette)) {
+    scale <- continuous_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_continuous_pal(palette),
+      guide = guide,
+      ...
+    )
+    return(scale)
+  }
+
   type <- type %||% "gradient"
   args <- list2(...)
   args$call <- args$call %||% current_call()
@@ -127,9 +159,25 @@ scale_fill_continuous <- function(...,
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_colour_binned <- function(...,
-                                type = getOption("ggplot2.binned.colour")) {
   args <- list2(...)
+scale_colour_binned <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.binned.colour"),
+    aesthetics = "colour",
+    guide = "coloursteps") {
+
+  if (!is.null(palette)) {
+    scale <- binned_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = pal_binned(as_discrete_pal(palette)),
+      guide = guide,
+      ...
+    )
+    return(scale)
+  }
+
   args$call <- args$call %||% current_call()
   if (is.function(type)) {
     if (!any(c("...", "call") %in% fn_fmls_names(type))) {
@@ -161,9 +209,23 @@ scale_colour_binned <- function(...,
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_fill_binned <- function(...,
-                              type = getOption("ggplot2.binned.fill")) {
-  args <- list2(...)
+scale_fill_binned <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.binned.fill"),
+    aesthetics = "fill",
+    guide = "coloursteps") {
+
+  if (!is.null(palette)) {
+    scale <- binned_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = pal_binned(as_discrete_pal(palette)),
+      guide = guide,
+      ...
+    )
+    scale
+  }
   args$call <- args$call %||% current_call()
   if (is.function(type)) {
     if (!any(c("...", "call") %in% fn_fmls_names(type))) {
@@ -248,7 +310,22 @@ scale_fill_binned <- function(...,
 #'   print(cty_by_var(fl))
 #' })
 #'
-scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour")) {
+scale_colour_discrete <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.discrete.colour"),
+    aesthetics = "colour") {
+
+  if (!is.null(palette)) {
+    scale <- discrete_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_discrete_pal(palette),
+      ...
+    )
+    return(scale)
+  }
+
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_colour_hue
   args <- list2(...)
@@ -271,7 +348,22 @@ scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour
 
 #' @rdname scale_colour_discrete
 #' @export
-scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) {
+scale_fill_discrete <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.discrete.fill"),
+    aesthetics = "fill") {
+
+  if (!is.null(palette)) {
+    scale <- discrete_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_discrete_pal(palette),
+      ...
+    )
+    return(scale)
+  }
+
   # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
   type <- type %||% scale_fill_hue
   args <- list2(...)
