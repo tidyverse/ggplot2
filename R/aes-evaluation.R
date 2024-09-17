@@ -359,3 +359,17 @@ make_labels <- function(mapping) {
   }
   Map(default_label, names(mapping), mapping)
 }
+
+eval_aesthetics <- function(aesthetics, data, mask = NULL) {
+
+  env <- child_env(base_env())
+
+  syntax <- list(stage = stage, after_stat = after_stat, after_scale = after_scale)
+  mask <- child_env(empty_env(), !!!defaults(mask, syntax))
+  mask <- new_data_mask(as_environment(data, mask), mask)
+  mask$.data <- as_data_pronoun(mask)
+
+  evaled <- lapply(aesthetics, eval_tidy, data = mask, env = env)
+  names(evaled) <- names(aesthetics)
+  compact(rename_aes(evaled))
+}
