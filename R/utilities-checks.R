@@ -7,6 +7,7 @@ check_object <- function(x,
                          check_fun,
                          what,
                          ...,
+                         allow_na = FALSE,
                          allow_null = FALSE,
                          arg = caller_arg(x),
                          call = caller_env()) {
@@ -16,6 +17,9 @@ check_object <- function(x,
       return(invisible(NULL))
     }
     if (allow_null && is_null(x)) {
+      return(invisible(NULL))
+    }
+    if (allow_na && all(is.na(x))) {
       return(invisible(NULL))
     }
   }
