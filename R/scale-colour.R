@@ -96,12 +96,12 @@ scale_colour_continuous <- function(
   }
 
   type <- type %||% "gradient"
-  args <- list2(...)
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_colour_continuous", "colour")
   } else if (identical(type, "gradient")) {
@@ -137,12 +137,12 @@ scale_fill_continuous <- function(
   }
 
   type <- type %||% "gradient"
-  args <- list2(...)
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_fill_continuous", "fill")
   } else if (identical(type, "gradient")) {
@@ -159,7 +159,6 @@ scale_fill_continuous <- function(
 
 #' @export
 #' @rdname scale_colour_continuous
-  args <- list2(...)
 scale_colour_binned <- function(
     ...,
     palette = NULL,
@@ -178,10 +177,11 @@ scale_colour_binned <- function(
     return(scale)
   }
 
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_colour_binned", "colour")
   } else {
@@ -226,10 +226,12 @@ scale_fill_binned <- function(
     )
     scale
   }
+
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_fill_binned", "fill")
   } else {
@@ -332,8 +334,8 @@ scale_colour_discrete <- function(
   args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(
       exec(type, !!!args),
@@ -370,8 +372,8 @@ scale_fill_discrete <- function(
   args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(
       exec(type, !!!args),
