@@ -14,5 +14,5 @@
 
     Computation failed in `stat_qq_line()`.
     Caused by error in `compute_group()`:
-    ! `line.p` must be a a vector of length 2, not length 1.
+    ! `line.p` must be a vector of length 2, not length 1.
 

@@ -124,7 +124,7 @@ test_that("plot.tag.position rejects invalid input", {
   )
   expect_error(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1))),
-    "must have length 2"
+    "must be a vector of length 2"
   )
   expect_error(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")),
