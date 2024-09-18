@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Position adjustments can now have auxiliary aesthetics (@teunbrand).
+    * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
+    * `position_dodge()` gains `order` aesthetic (#3022, #3345)
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
   foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 
