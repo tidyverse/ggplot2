@@ -38,6 +38,21 @@ test_that("position_dodge() can reverse the dodge order", {
   expect_equal(ld$label[order(ld$x)], c("A", "A", "B", "B", "C"))
 })
 
+test_that("position_dodge() can use the order aesthetic", {
+
+  major <- c(1,1,1,2,2,3,3,4,4,5,6,7)
+  minor <- c(1:3, 1:2, 1, 3, 2:3, 1:3)
+  df <- data_frame0(
+    x = LETTERS[major],
+    g = c("X", "Y", "Z")[minor]
+  )
+  ld <- layer_data(
+    ggplot(df, aes(x, 1, colour = g, order = g)) +
+      geom_point(position = position_dodge(preserve = "single", width = 0.6))
+  )
+  expect_equal(ld$x, major + c(-0.2, 0, 0.2)[minor], ignore_attr = TRUE)
+})
+
 test_that("position_dodge warns about missing required aesthetics", {
 
   # Bit of a contrived geom to not have a required 'x' aesthetic
