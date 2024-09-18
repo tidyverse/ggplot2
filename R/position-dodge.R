@@ -19,6 +19,8 @@
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
 #' @family position adjustments
+#' @eval rd_aesthetics("position", "dodge")
+#'
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
