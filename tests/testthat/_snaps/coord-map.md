@@ -1,6 +1,6 @@
 # coord map throws error when limits are badly specified
 
-    `xlim` must be a <numeric> vector, not a <ScaleContinuousPosition> object.
+    `xlim` must be a vector, not a <ScaleContinuousPosition> object.
 
 ---
 
