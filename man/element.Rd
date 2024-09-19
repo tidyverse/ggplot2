@@ -8,6 +8,7 @@
 \alias{element_geom}
 \alias{rel}
 \alias{margin}
+\alias{part_margin}
 \title{Theme elements}
 \usage{
 element_blank()
@@ -66,6 +67,8 @@ element_geom(
 rel(x)
 
 margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+
+part_margin(t = NA, r = NA, b = NA, l = NA, unit = "pt")
 }
 \arguments{
 \item{fill}{Fill colour.}
@@ -145,7 +148,7 @@ specify the display of how non-data components of the plot are drawn.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,
-\code{margin()} is used to specify the margins of elements.
+\code{margin()} and \code{part_margin()} are used to specify the margins of elements.
 }
 \examples{
 plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()

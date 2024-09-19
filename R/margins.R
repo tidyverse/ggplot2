@@ -8,6 +8,13 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   class(u) <- c("margin", class(u))
   u
 }
+
+#' @rdname element
+#' @export
+part_margin <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
+  margin(t = t, r = r, b = b, l = l, unit = unit)
+}
+
 is.margin <- function(x) {
   inherits(x, "margin")
 }
