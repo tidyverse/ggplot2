@@ -831,6 +831,18 @@ merge_element.element <- function(new, old) {
   new
 }
 
+#' @rdname merge_element
+#' @export
+merge_element.margin <- function(new, old) {
+  if (is.null(old) || inherits(old, "element_blank")) {
+    return(new)
+  }
+  if (anyNA(new)) {
+    new[is.na(new)] <- old[is.na(new)]
+  }
+  new
+}
+
 #' Combine the properties of two elements
 #'
 #' @param e1 An element object
