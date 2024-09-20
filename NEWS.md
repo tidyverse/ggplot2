@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* When `check_subclass()` fails to find a class directly, it tries to retrieve
+  the class via constructor functions.
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
   foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 
