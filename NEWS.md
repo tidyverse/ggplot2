@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* More stability for vctrs-based palettes (@teunbrand, #6117).
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
   foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 

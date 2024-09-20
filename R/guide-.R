@@ -227,7 +227,7 @@ Guide <- ggproto(
       labels <- as.list(labels)
     }
 
-    key <- data_frame(mapped, .name_repair = ~ aesthetic)
+    key <- data_frame(!!aesthetic := mapped)
     key$.value <- breaks
     key$.label <- labels
 
