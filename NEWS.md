@@ -2,6 +2,8 @@
 
 * (internal) removed barriers for using 2D structures as aesthetics 
   (@teunbrand, #4189).
+* Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
+  foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 
   (@teunbrand, #5989).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
