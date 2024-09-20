@@ -160,6 +160,22 @@ test_that("layer names can be resolved", {
   )
 })
 
+test_that("check_subclass can resolve classes via constructors", {
+
+  env <- new_environment(list(
+    geom_foobar = geom_point,
+    stat_foobar = stat_boxplot,
+    position_foobar = position_nudge,
+    guide_foobar = guide_axis_theta
+  ))
+
+  expect_s3_class(check_subclass("foobar", "Geom", env = env), "GeomPoint")
+  expect_s3_class(check_subclass("foobar", "Stat", env = env), "StatBoxplot")
+  expect_s3_class(check_subclass("foobar", "Position", env = env), "PositionNudge")
+  expect_s3_class(check_subclass("foobar", "Guide", env = env), "GuideAxisTheta")
+
+})
+
 
 # Data extraction ---------------------------------------------------------
 
