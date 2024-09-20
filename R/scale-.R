@@ -844,7 +844,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels <- self$labels
     }
 
-    if (length(labels) != length(breaks)) {
+    if (!identical(size0(labels), size0(breaks))) {
       cli::cli_abort(
         "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
