@@ -271,6 +271,6 @@ check_coord_limits <- function(
   if (is.null(limits)) {
     return(invisible(NULL))
   }
-  check_object(limits, is.vector, "a vector", arg = arg, call = call)
+  check_object(limits, is_vector, "a vector", arg = arg, call = call)
   check_length(limits, 2L, arg = arg, call = call)
 }
