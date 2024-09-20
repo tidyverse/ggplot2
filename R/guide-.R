@@ -525,11 +525,12 @@ opposite_position <- function(position) {
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {
-  if (!is.list(labels)) {
+  if (!obj_is_list(labels)) {
     return(labels)
   }
+  labels[lengths(labels) == 0L] <- ""
   if (any(vapply(labels, is.language, logical(1)))) {
-    do.call(expression, labels)
+    inject(expression(!!!labels))
   } else {
     unlist(labels)
   }

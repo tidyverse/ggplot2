@@ -850,20 +850,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         call = self$call
       )
     }
-    if (is.list(labels)) {
-      # Guard against list with empty elements
-      labels[lengths(labels) == 0] <- ""
-      # Make sure each element is scalar
-      labels <- lapply(labels, `[`, 1)
-
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- inject(expression(!!!labels))
-      } else {
-        labels <- unlist(labels)
-      }
-    }
-
-    labels
+    validate_labels(labels)
   },
 
   clone = function(self) {
