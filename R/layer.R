@@ -58,8 +58,8 @@
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display. To include legend keys for all levels, even 
-#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend, 
+#'   display. To include legend keys for all levels, even
+#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
 #'   but unobserved levels are omitted.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
@@ -475,19 +475,42 @@ check_subclass <- function(x, subclass,
                            env = parent.frame(),
                            call = caller_env()) {
   if (inherits(x, subclass)) {
-    x
-  } else if (is_scalar_character(x)) {
-    name <- paste0(subclass, camelize(x, first = TRUE))
-    obj <- find_global(name, env = env)
-
-    if (is.null(obj) || !inherits(obj, subclass)) {
-      cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
-    } else {
-      obj
-    }
-  } else {
+    return(x)
+  }
+  if (!is_scalar_character(x)) {
     stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"))
   }
+
+  # Try getting class object directly
+  name <- paste0(subclass, camelize(x, first = TRUE))
+  obj <- find_global(name, env = env)
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+
+  # Try retrieving class via constructors
+  name <- snakeize(name)
+  obj <- find_global(name, env = env, mode = "function")
+  if (is.function(obj)) {
+    obj <- obj()
+  }
+  # Position constructors return classes directly
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+  # Try prying the class from a layer
+  if (inherits(obj, "Layer")) {
+    obj <- switch(
+      subclass,
+      Geom = obj$geom,
+      Stat = obj$stat,
+      NULL
+    )
+  }
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+  cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
 }
 
 # helper function to adjust the draw_key slot of a geom
