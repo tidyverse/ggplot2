@@ -11,7 +11,7 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
 
 #' @rdname element
 #' @export
-part_margin <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
+margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
   margin(t = t, r = r, b = b, l = l, unit = unit)
 }
 

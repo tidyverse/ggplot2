@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
 * Theme margins can have NA-units to inherit from parent elements. The new
-  function `part_margin()` has NA-units as default (@teunbrand, #6155)
+  function `margin_part()` has NA-units as default (@teunbrand, #6155)
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
   foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 
