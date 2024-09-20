@@ -135,18 +135,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     )
   },
 
-  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scales, params = list()) {
 
     params <- c(
-      view_scales_polar(scale_x, self$theta, expand = params$expand[c(4, 2)]),
-      view_scales_polar(scale_y, self$theta, expand = params$expand[c(3, 1)]),
+      view_scales_polar(scales$x, self$theta, expand = params$expand[c(4, 2)]),
+      view_scales_polar(scales$y, self$theta, expand = params$expand[c(3, 1)]),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
            arc = self$arc, inner_radius = self$inner_radius)
     )
 
     axis_rotation <- self$r_axis_inside
     if (is.numeric(axis_rotation)) {
-      theta_scale <- switch(self$theta, x = scale_x, y = scale_y)
+      theta_scale <- switch(self$theta, x = scales$x, y = scales$y)
       axis_rotation <- theta_scale$transform(axis_rotation)
       axis_rotation <- oob_squish(axis_rotation, params$theta.range)
       axis_rotation <- theta_rescale(
@@ -459,12 +459,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     labels
   },
 
-  modify_scales = function(self, scales_x, scales_y) {
+  modify_scales = function(self, scales) {
     if (self$theta != "y")
       return()
 
-    lapply(scales_x, scale_flip_position)
-    lapply(scales_y, scale_flip_position)
+    lapply(scales$x, scale_flip_position)
+    lapply(scales$y, scale_flip_position)
   },
 
   setup_params = function(self, data) {

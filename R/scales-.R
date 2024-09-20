@@ -51,8 +51,9 @@ ScalesList <- ggproto("ScalesList", NULL,
     ggproto(NULL, self, scales = lapply(self$scales, function(s) s$clone()))
   },
 
-  non_position_scales = function(self) {
-    ggproto(NULL, self, scales = self$scales[!self$find("x") & !self$find("y")])
+  non_position_scales = function(self, positions = c("x", "y")) {
+    keep <- Reduce(`&`, lapply(positions, function(aes) !self$find(aes)))
+    ggproto(NULL, self, scales = self$scales[keep])
   },
 
   get_scales = function(self, output) {

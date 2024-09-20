@@ -102,10 +102,10 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     transform_position(data, squish_infinite, squish_infinite)
   },
 
-  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scales, params = list()) {
     c(
-      view_scales_from_scale(scale_x, self$limits$x, params$expand[c(4, 2)]),
-      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)])
+      view_scales_from_scale(scales$x, self$limits$x, params$expand[c(4, 2)]),
+      view_scales_from_scale(scales$y, self$limits$y, params$expand[c(3, 1)])
     )
   },
 

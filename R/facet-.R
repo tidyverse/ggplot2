@@ -90,50 +90,39 @@ Facet <- ggproto("Facet", NULL,
   map_data = function(data, layout, params) {
     cli::cli_abort("Not implemented.")
   },
-  init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
-    scales <- list()
-    if (!is.null(x_scale)) {
-      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
-    }
-    if (!is.null(y_scale)) {
-      scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
+  init_scales = function(layout, scales, params) {
+    for (aes in names(scales)) {
+      if (is.null(scales[[aes]])) {
+        next
+      }
+      n <- max(layout[[paste0("SCALE_", to_upper_ascii(aes))]])
+      scales[[aes]] <- lapply(seq_len(n), function(i) scales[[aes]]$clone())
     }
     scales
   },
-  train_scales = function(x_scales, y_scales, layout, data, params) {
+  train_scales = function(scales, layout, data, params) {
     # loop over each layer, training x and y scales in turn
     for (layer_data in data) {
       match_id <- NULL
 
-      if (!is.null(x_scales)) {
-        x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
-        if (length(x_vars) > 0) {
-          match_id <- match(layer_data$PANEL, layout$PANEL)
-          SCALE_X <- layout$SCALE_X[match_id]
-          scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales)
+      for (aes in names(scales)) {
+        vars <- intersect(scales[[aes]][[1]]$aesthetics, names(layer_data))
+        if (length(vars) < 1) {
+          next
         }
-      }
-
-      if (!is.null(y_scales)) {
-        y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
-        if (length(y_vars) > 0) {
-          if (is.null(match_id)) {
-            match_id <- match(layer_data$PANEL, layout$PANEL)
-          }
-          SCALE_Y <- layout$SCALE_Y[match_id]
-
-          scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
-        }
+        match_id <- match_id %||% match(layer_data$PANEL, layout$PANEL)
+        SCALE <- layout[[paste0("SCALE_", to_upper_ascii(aes))]][match_id]
+        scale_apply(layer_data, vars, "train", SCALE, scales[[aes]])
       }
     }
   },
-  draw_back = function(data, layout, x_scales, y_scales, theme, params) {
+  draw_back = function(data, layout, scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_front = function(data, layout, x_scales, y_scales, theme, params) {
+  draw_front = function(data, layout, scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
+  draw_panels = function(self, panels, layout, scales = NULL,
                          ranges, coord, data = NULL, theme, params) {
 
     free  <- params$free       %||% list(x = FALSE, y = FALSE)
@@ -163,7 +152,7 @@ Facet <- ggproto("Facet", NULL,
     table <- self$attach_axes(table, layout, ranges, coord, theme, params)
     self$attach_strips(table, layout, params, theme)
   },
-  draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
+  draw_labels = function(panels, layout, scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
 
     xlab_height_top <- grobHeight(labels$x[[1]])
@@ -197,7 +186,7 @@ Facet <- ggproto("Facet", NULL,
   setup_data = function(data, params) {
     data
   },
-  finish_data = function(data, layout, x_scales, y_scales, params) {
+  finish_data = function(data, layout, scales, params) {
     data
   },
   init_gtable = function(panels, layout, theme, ranges, params,

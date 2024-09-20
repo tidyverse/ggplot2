@@ -151,10 +151,10 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     transform_position(new_data, squish_infinite, squish_infinite)
   },
 
-  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scales, params = list()) {
     c(
-      view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, params$expand[c(4, 2)]),
-      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, params$expand[c(3, 1)])
+      view_scales_from_scale_with_coord_trans(scales$x, self$limits$x, self$trans$x, params$expand[c(4, 2)]),
+      view_scales_from_scale_with_coord_trans(scales$y, self$limits$y, self$trans$y, params$expand[c(3, 1)])
     )
   },
 

@@ -68,10 +68,13 @@ ggplot_build.ggplot <- function(plot) {
 
   # Map and train positions so that statistics have access to ranges
   # and all positions are numeric
-  scale_x <- function() scales$get_scales("x")
-  scale_y <- function() scales$get_scales("y")
+  pos_aes <- layout$coord$aesthetics %||% c("x", "y")
+  pos_aes <- vec_set_names(pos_aes, pos_aes)
+  pos_scales <- lapply(pos_aes, function(aes) {
+    function() scales$get_scales(aes)
+  })
 
-  layout$train_position(data, scale_x(), scale_y())
+  layout$train_position(data, lapply(pos_scales, function(f) f()))
   data <- layout$map_position(data)
   data <- .expose_data(data)
 
@@ -80,7 +83,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
 
   # Make sure missing (but required) aesthetics are added
-  plot$scales$add_missing(c("x", "y"), plot$plot_env)
+  plot$scales$add_missing(pos_aes, plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
@@ -93,7 +96,7 @@ ggplot_build.ggplot <- function(plot) {
   # displayed, or does it include the range of underlying data
   data <- .ignore_data(data)
   layout$reset_scales()
-  layout$train_position(data, scale_x(), scale_y())
+  layout$train_position(data, lapply(pos_scales, function(f) f()))
   layout$setup_panel_params()
   data <- layout$map_position(data)
 
@@ -104,7 +107,7 @@ ggplot_build.ggplot <- function(plot) {
   plot$theme <- plot_theme(plot)
 
   # Train and map non-position scales and guides
-  npscales <- scales$non_position_scales()
+  npscales <- scales$non_position_scales(pos_aes)
   if (npscales$n() > 0) {
     lapply(data, npscales$train_df)
     plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data, plot$theme)
@@ -154,8 +157,8 @@ get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
 
   list(
-    x = b$layout$panel_scales_x[[selected$SCALE_X]],
-    y = b$layout$panel_scales_y[[selected$SCALE_Y]]
+    x = b$layout$panel_scales$x[[selected$SCALE_X]],
+    y = b$layout$panel_scales$y[[selected$SCALE_Y]]
   )
 }
 

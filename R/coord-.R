@@ -59,6 +59,8 @@ Coord <- ggproto("Coord",
   # "on" = yes, "off" = no
   clip = "on",
 
+  aesthetics = c("x", "y"),
+
   aspect = function(ranges) NULL,
 
   labels = function(self, labels, panel_params) {
@@ -93,12 +95,12 @@ Coord <- ggproto("Coord",
     cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn range} method.")
   },
 
-  setup_panel_params = function(scale_x, scale_y, params = list()) {
+  setup_panel_params = function(scales, params = list()) {
     list()
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
-    aesthetics <- c("x", "y", "x.sec", "y.sec")
+    aesthetics <- c(self$aesthetics, paste0(self$aesthetics, ".sec"))
     names(aesthetics) <- aesthetics
     is_sec <- grepl("sec$", aesthetics)
     scales <- panel_params[aesthetics]
@@ -119,12 +121,8 @@ Coord <- ggproto("Coord",
       guide = guide_position[!is_sec],
       scale = scale_position[!is_sec]
     )
-    opposite <- c(
-      "top"  = "bottom", "bottom" = "top",
-      "left" = "right",   "right" = "left"
-    )
     guide_position[is_sec] <- Map(
-      function(sec, prim) sec %|W|% unname(opposite[prim]),
+      function(sec, prim) sec %|W|% opposite_position(prim %||% "top"),
       sec  = guide_position[is_sec],
       prim = guide_position[!is_sec]
     )
@@ -146,7 +144,7 @@ Coord <- ggproto("Coord",
 
   train_panel_guides = function(self, panel_params, layers, params = list()) {
 
-    aesthetics <- c("x", "y", "x.sec", "y.sec")
+    aesthetics <- c(self$aesthetics, paste0(self$aesthetics, ".sec"))
 
     # If the panel_params doesn't contain the scale, there's no guide for the aesthetic
     aesthetics <- intersect(aesthetics, names(panel_params$guides$aesthetics))
@@ -200,14 +198,14 @@ Coord <- ggproto("Coord",
     # We're appending a COORD variable to the layout that determines the
     # uniqueness of panel parameters. The layout uses this to prevent redundant
     # setups of these parameters.
-    scales <- layout[c("SCALE_X", "SCALE_Y")]
+    scales <- layout[grep("^SCALE_", names(layout), value = TRUE)]
     layout$COORD <- vec_match(scales, unique0(scales))
     layout
   },
 
   # Optionally, modify list of x and y scales in place. Currently
   # used as a fudge for CoordFlip and CoordPolar
-  modify_scales = function(scales_x, scales_y) {
+  modify_scales = function(...) {
     invisible()
   },
 
