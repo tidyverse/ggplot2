@@ -843,6 +843,16 @@ as_unordered_factor <- function(x) {
   x
 }
 
+size0 <- function(x) {
+  if (obj_is_vector(x)) {
+    vec_size(x)
+  } else if (is.vector(x)) {
+    length(x)
+  } else {
+    NULL
+  }
+}
+
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
     env = env, call = call,
