@@ -29,8 +29,9 @@ summary.ggplot <- function(object, ...) {
     cat("scales:  ", paste(object$scales$input(), collapse = ", "), "\n")
   }
 
-  cat("faceting: ")
-  print(object$facet)
+  vars <- object$facet$vars()
+  vars <- if (length(vars) > 0) paste0("~", vars) else "<empty>"
+  cat("faceting: ", paste0(vars, collapse = ", "), "\n")
 
   if (length(object$layers) > 0)
     cat("-----------------------------------\n")

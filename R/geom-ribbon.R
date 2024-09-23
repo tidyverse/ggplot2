@@ -98,7 +98,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 GeomRibbon <- ggproto("GeomRibbon", Geom,
   default_aes = aes(
     colour = NA,
-    fill = from_theme(col_mix(ink, paper, 0.799)),
+    fill = from_theme(col_mix(ink, paper, 0.2)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
     alpha = NA),

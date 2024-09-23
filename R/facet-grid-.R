@@ -219,8 +219,8 @@ grid_as_facets_list <- function(rows, cols) {
   check_object(cols, is_quosures, "a {.fn vars} specification", allow_null = TRUE)
 
   list(
-    rows = compact_facets(as_facets_list(rows)),
-    cols = compact_facets(as_facets_list(cols))
+    rows = compact_facets(rows),
+    cols = compact_facets(cols)
   )
 }
 

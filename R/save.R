@@ -182,7 +182,7 @@ parse_dpi <- function(dpi, call = caller_env()) {
       print = 300,
       retina = 320,
     )
-  } else if (is_scalar_numeric(dpi)) {
+  } else if (is_bare_numeric(dpi, n = 1L)) {
     dpi
   } else {
     stop_input_type(dpi, "a single number or string", call = call)

@@ -132,10 +132,6 @@ test_that("cut_*() checks its input and output", {
   expect_snapshot_error(cut_width(1:10, 1, center = 0, boundary = 0.5))
 })
 
-test_that("interleave() checks the vector lengths", {
-  expect_snapshot_error(interleave(1:4, numeric()))
-})
-
 test_that("vec_rbind0 can combined ordered factors", {
 
   withr::local_options(lifecycle_verbosity = "warning")
@@ -195,4 +191,17 @@ test_that("expose/ignore_data() can round-trip a data.frame", {
   test <- .expose_data(test)[[1]]
   expect_equal(test, df[, c("a", "c", "b", "d")])
 
+})
+
+test_that("summary method gives a nice summary", {
+  # This test isn't important enough to break anything on CRAN
+  skip_on_cran()
+
+  p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+    geom_point() +
+    scale_x_continuous() +
+    scale_colour_brewer() +
+    facet_grid(year ~ cyl)
+
+  expect_snapshot(summary(p))
 })

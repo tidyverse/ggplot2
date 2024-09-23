@@ -66,6 +66,10 @@ new_guide <- function(..., available_aes = "any", super) {
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.guide <- function(x) inherits(x, "Guide")
+
 #' @section Guides:
 #'
 #' The `guide_*()` functions, such as `guide_legend()` return an object that
@@ -377,7 +381,7 @@ Guide <- ggproto(
   # Renders tickmarks
   build_ticks = function(key, elements, params, position = params$position,
                          length = elements$ticks_length) {
-    if (!inherits(elements, "element")) {
+    if (!is.element(elements)) {
       elements <- elements$ticks
     }
     if (!inherits(elements, "element_line")) {
@@ -519,7 +523,8 @@ opposite_position <- function(position) {
     top    = "bottom",
     bottom = "top",
     left   = "right",
-    right  = "left"
+    right  = "left",
+    position
   )
 }
 

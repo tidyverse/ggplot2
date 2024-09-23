@@ -31,8 +31,8 @@
 #'
 #' @section Alignment:
 #' You can modify text alignment with the `vjust` and `hjust`
-#' aesthetics. These can either be a number between 0 (right/bottom) and
-#' 1 (top/left) or a character (`"left"`, `"middle"`, `"right"`, `"bottom"`,
+#' aesthetics. These can either be a number between 0 (left/bottom) and
+#' 1 (right/top) or a character (`"left"`, `"middle"`, `"right"`, `"bottom"`,
 #' `"center"`, `"top"`). There are two special alignments: `"inward"` and
 #' `"outward"`. Inward always aligns text towards the center, and outward
 #' aligns it away from the center.
