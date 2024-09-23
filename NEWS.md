@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `get_labs()` function for retrieving completed plot labels 
+  (@teunbrand, #6008).
 * A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
   returns input unaltered (@teunbrand, #5800).
 
