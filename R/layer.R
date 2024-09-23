@@ -58,8 +58,8 @@
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display. To include legend keys for all levels, even 
-#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend, 
+#'   display. To include legend keys for all levels, even
+#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
 #'   but unobserved levels are omitted.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
@@ -134,12 +134,12 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Split up params between aesthetics, geom, and stat
   params <- rename_aes(params)
-  aes_params  <- params[intersect(names(params), geom$aesthetics())]
+  aes_params  <- params[intersect(names(params), union(geom$aesthetics(), position$aesthetics()))]
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
   ignore <- c("key_glyph", "name")
-  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), ignore)
+  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), position$aesthetics(), ignore)
 
   # Take care of plain patterns provided as aesthetic
   pattern <- vapply(aes_params, is_pattern, logical(1))
@@ -170,7 +170,7 @@ layer <- function(geom = NULL, stat = NULL,
 
   extra_aes <- setdiff(
     mapped_aesthetics(mapping),
-    c(geom$aesthetics(), stat$aesthetics())
+    c(geom$aesthetics(), stat$aesthetics(), position$aesthetics())
   )
   # Take care of size->linewidth aes renaming
   if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
@@ -437,6 +437,7 @@ Layer <- ggproto("Layer", NULL,
   compute_position = function(self, data, layout) {
     if (empty(data)) return(data_frame0())
 
+    data <- self$position$use_defaults(data, self$aes_params)
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
 
