@@ -307,10 +307,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     # Evaluate aesthetics
-    env <- child_env(baseenv(), stage = stage)
-    evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
-    evaled <- compact(evaled)
-
+    evaled <- eval_aesthetics(aesthetics, data)
     plot$scales$add_defaults(evaled, plot$plot_env)
 
     # Check for discouraged usage in mapping
@@ -390,14 +387,10 @@ Layer <- ggproto("Layer", NULL,
     data_orig <- plot$scales$backtransform_df(data)
 
     # Add map stat output to aesthetics
-    env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
-    stage_mask <- child_env(emptyenv(), stage = stage_calculated)
-    mask <- new_data_mask(as_environment(data_orig, stage_mask), stage_mask)
-    mask$.data <- as_data_pronoun(mask)
-
-    new <- substitute_aes(new)
-    stat_data <- lapply(new, eval_tidy, mask, env)
-
+    stat_data <- eval_aesthetics(
+      substitute_aes(new), data_orig,
+      mask = list(stage = stage_calculated)
+    )
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
     if (length(nondata_stat_cols) > 0) {
@@ -411,8 +404,7 @@ Layer <- ggproto("Layer", NULL,
       ))
     }
 
-    names(stat_data) <- names(new)
-    stat_data <- data_frame0(!!!compact(stat_data))
+    stat_data <- data_frame0(!!!stat_data)
 
     # Add any new scales, if needed
     plot$scales$add_defaults(stat_data, plot$plot_env)
