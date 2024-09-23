@@ -4,12 +4,14 @@ audience. Always ensure the axis and legend labels display the full
 variable name. Use the plot title and subtitle to explain the
 main findings. It's common to use the caption to provide information
 about the data source. tag can be used for adding identification tags
-to differentiate between multiple plots."><meta property="og:description" content="Good labels are critical for making your plots accessible to a wider
+to differentiate between multiple plots.
+get_labs() retrieves completed labels from a plot."><meta property="og:description" content="Good labels are critical for making your plots accessible to a wider
 audience. Always ensure the axis and legend labels display the full
 variable name. Use the plot title and subtitle to explain the
 main findings. It's common to use the caption to provide information
 about the data source. tag can be used for adding identification tags
-to differentiate between multiple plots."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+to differentiate between multiple plots.
+get_labs() retrieves completed labels from a plot."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
 
@@ -83,6 +85,7 @@ variable name. Use the plot <code>title</code> and <code>subtitle</code> to expl
 main findings. It's common to use the <code>caption</code> to provide information
 about the data source. <code>tag</code> can be used for adding identification tags
 to differentiate between multiple plots.</p>
+<p><code>get_labs()</code> retrieves completed labels from a plot.</p>
     </div>
 
     <div class="section level2">
@@ -101,7 +104,9 @@ to differentiate between multiple plots.</p>
 <span></span>
 <span><span class="fu">ylab</span><span class="op">(</span><span class="va">label</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ggtitle</span><span class="op">(</span><span class="va">label</span>, subtitle <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ggtitle</span><span class="op">(</span><span class="va">label</span>, subtitle <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_labs</span><span class="op">(</span>plot <span class="op">=</span> <span class="fu"><a href="get_last_plot.html">get_last_plot</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -141,6 +146,10 @@ rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="extern
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
 <dd><p>The title of the respective axis (for <code>xlab()</code> or <code>ylab()</code>) or
 of the plot (for <code>ggtitle()</code>).</p></dd>
+
+
+<dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
+<dd><p>A ggplot object</p></dd>
 
 </dl></div>
     <div class="section level2">
