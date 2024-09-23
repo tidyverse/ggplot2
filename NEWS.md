@@ -2,6 +2,10 @@
 
 * New `get_labs()` function for retrieving completed plot labels 
   (@teunbrand, #6008).
+* Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
+  foreground and background colours respectively (@teunbrand)
+* The `summary()` method for ggplots is now more terse about facets 
+  (@teunbrand, #5989).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
   argument to overrule theme settings, similar to `guide_axis(angle)` 
   (@teunbrand, #4594).

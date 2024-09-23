@@ -37,3 +37,19 @@ test_that("position_dodge() can reverse the dodge order", {
   ld <- get_layer_data(p + geom_col(position = position_dodge(reverse = FALSE)))
   expect_equal(ld$label[order(ld$x)], c("A", "A", "B", "B", "C"))
 })
+
+test_that("position_dodge warns about missing required aesthetics", {
+
+  # Bit of a contrived geom to not have a required 'x' aesthetic
+  GeomDummy <- ggproto(NULL, GeomPoint, required_aes = NULL, optional_aes = "x")
+
+  p <- ggplot(mtcars, aes(cyl, disp, colour = factor(vs))) +
+    layer(
+      geom = GeomDummy,
+      stat = "identity",
+      position = position_dodge(width = 0.5),
+      mapping = aes(x = NULL)
+    )
+
+  expect_error(ggplot_build(p), "requires the following missing aesthetics")
+})
