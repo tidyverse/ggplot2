@@ -202,8 +202,12 @@ layer <- function(geom = NULL, stat = NULL,
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.layer <- function(x) inherits(x, "Layer")
+
 validate_mapping <- function(mapping, call = caller_env()) {
-  if (!inherits(mapping, "uneval")) {
+  if (!is.mapping(mapping)) {
     msg <- "{.arg mapping} must be created by {.fn aes}."
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
@@ -411,7 +415,7 @@ Layer <- ggproto("Layer", NULL,
     }
     stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
 
-    cunion(stat_data, data)
+    data_frame0(!!!defaults(stat_data, data))
   },
 
   compute_geom_1 = function(self, data) {
@@ -459,8 +463,6 @@ Layer <- ggproto("Layer", NULL,
     self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
   }
 )
-
-is.layer <- function(x) inherits(x, "Layer")
 
 check_subclass <- function(x, subclass,
                            argname = to_lower_ascii(subclass),

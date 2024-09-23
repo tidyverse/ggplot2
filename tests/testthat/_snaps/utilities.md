@@ -50,10 +50,6 @@
 
     Only one of `boundary` and `center` may be specified.
 
-# interleave() checks the vector lengths
-
-    Can't recycle `..1` (size 4) to match `..2` (size 0).
-
 # summary method gives a nice summary
 
     Code
