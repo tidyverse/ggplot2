@@ -163,7 +163,7 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 }
 
 panel_guides_grob <- function(guides, position, theme, labels = NULL) {
-  if (!inherits(guides, "Guides")) {
+  if (!is.guides(guides)) {
     return(zeroGrob())
   }
   pair <- guides$get_position(position)

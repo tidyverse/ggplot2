@@ -266,6 +266,10 @@ Facet <- ggproto("Facet", NULL,
   }
 )
 
+#' @export
+#' @rdname is_tests
+is.facet <- function(x) inherits(x, "Facet")
+
 # Helpers -----------------------------------------------------------------
 
 #' Quote faceting variables
@@ -353,13 +357,6 @@ get_strip_labels <- function(plot = get_last_plot()) {
   plot$plot$facet$format_strip_labels(layout, params)
 }
 
-#' Is this object a faceting specification?
-#'
-#' @param x object to test
-#' @keywords internal
-#' @export
-is.facet <- function(x) inherits(x, "Facet")
-
 # A "special" value, currently not used but could be used to determine
 # if faceting is active
 NO_PANEL <- -1L
@@ -418,7 +415,14 @@ as_facets_list <- function(x) {
   # distinct facet dimensions and `+` defines multiple facet variables
   # inside each dimension.
   if (is_formula(x)) {
-    return(f_as_facets_list(x))
+    if (length(x) == 2) {
+      rows <- f_as_facets(NULL)
+      cols <- f_as_facets(x)
+    } else {
+      rows <- f_as_facets(x[-3])
+      cols <- f_as_facets(x[-2])
+    }
+    return(list(rows, cols))
   }
 
   # For backward-compatibility with facet_wrap()
@@ -437,7 +441,7 @@ as_facets_list <- function(x) {
 }
 
 validate_facets <- function(x) {
-  if (inherits(x, "uneval")) {
+  if (is.mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be
@@ -451,10 +455,9 @@ validate_facets <- function(x) {
   x
 }
 
-
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
-
+  x <- as_facets_list(x)
   proxy   <- vec_proxy(x)
   is_list <- vapply(proxy, vec_is_list, logical(1))
   proxy[is_list]  <- lapply(proxy[is_list],  unclass)
@@ -501,18 +504,10 @@ simplify <- function(x) {
   }
 }
 
-f_as_facets_list <- function(f) {
-  lhs <- function(x) if (length(x) == 2) NULL else x[-3]
-  rhs <- function(x) if (length(x) == 2) x else x[-2]
-
-  rows <- f_as_facets(lhs(f))
-  cols <- f_as_facets(rhs(f))
-
-  list(rows, cols)
-}
-
 as_facets <- function(x) {
-  if (is_facets(x)) {
+  is_facets <- is.list(x) && length(x) > 0 &&
+    all(vapply(x, is_quosure, logical(1)))
+  if (is_facets) {
     return(x)
   }
 
@@ -533,27 +528,13 @@ f_as_facets <- function(f) {
   env <- f_env(f) %||% globalenv()
 
   # as.quoted() handles `+` specifications
-  vars <- as.quoted(f)
+  vars <- simplify(f)
 
-  # `.` in formulas is ignored
-  vars <- discard_dots(vars)
+  # `.` in formulas is discarded
+  vars <- vars[!vapply(vars, identical, logical(1), as.name("."))]
 
   as_quosures(vars, env, named = TRUE)
 }
-discard_dots <- function(x) {
-  x[!vapply(x, identical, logical(1), as.name("."))]
-}
-
-is_facets <- function(x) {
-  if (!is.list(x)) {
-    return(FALSE)
-  }
-  if (!length(x)) {
-    return(FALSE)
-  }
-  all(vapply(x, is_quosure, logical(1)))
-}
-
 
 # When evaluating variables in a facet specification, we evaluate bare
 # variables and expressions slightly differently. Bare variables should

@@ -197,7 +197,7 @@ scale_fill_binned <- function(...,
 # helper function to make sure that the provided scale is of the correct
 # type (i.e., is continuous and works with the provided aesthetic)
 check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, call = caller_env()) {
-  if (!is.ggproto(scale) || !inherits(scale, "Scale")) {
+  if (!is.ggproto(scale) || !is.scale(scale)) {
     cli::cli_abort(c(
       "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
       "x" = "The provided object is not a scale function."
