@@ -69,7 +69,7 @@ and access parent methods/fields with ggproto_parent()."><meta property="og:imag
     </div>
 
     <div class="ref-description section level2">
-    <p>Construct a new object with <code>ggproto()</code>, test with <code>is.ggproto()</code>,
+    <p>Construct a new object with <code>ggproto()</code>, test with <code><a href="is_tests.html">is.ggproto()</a></code>,
 and access parent methods/fields with <code>ggproto_parent()</code>.</p>
     </div>
 
@@ -77,9 +77,7 @@ and access parent methods/fields with <code>ggproto_parent()</code>.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggproto</span><span class="op">(</span>`_class` <span class="op">=</span> <span class="cn">NULL</span>, `_inherit` <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ggproto_parent</span><span class="op">(</span><span class="va">parent</span>, <span class="va">self</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is.ggproto</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ggproto_parent</span><span class="op">(</span><span class="va">parent</span>, <span class="va">self</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -104,10 +102,6 @@ functions that become methods of the class or regular objects.</p></dd>
 
 <dt id="arg-parent-self">parent, self<a class="anchor" aria-label="anchor" href="#arg-parent-self"></a></dt>
 <dd><p>Access parent class <code>parent</code> of object <code>self</code>.</p></dd>
-
-
-<dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>An object to test.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -164,7 +158,7 @@ semantics.</p>
 <span class="r-in"><span>    <span class="va">self</span><span class="op">$</span><span class="va">x</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span> <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">is.ggproto</span><span class="op">(</span><span class="va">Adder</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="is_tests.html">is.ggproto</a></span><span class="op">(</span><span class="va">Adder</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Adder</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
