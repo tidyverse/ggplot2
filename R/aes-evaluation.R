@@ -364,12 +364,34 @@ eval_aesthetics <- function(aesthetics, data, mask = NULL) {
 
   env <- child_env(base_env())
 
-  syntax <- list(stage = stage, after_stat = after_stat, after_scale = after_scale)
-  mask <- child_env(empty_env(), !!!defaults(mask, syntax))
-  mask <- new_data_mask(as_environment(data, mask), mask)
-  mask$.data <- as_data_pronoun(mask)
+  # Here we mask functions, often to replace `stage()` with context appropriate
+  # functions `stage_calculated()`/`stage_scaled()`.
+  if (length(mask) > 0) {
+    aesthetics <- substitute_aes(aesthetics, mask_function, mask = mask)
+  }
 
-  evaled <- lapply(aesthetics, eval_tidy, data = mask, env = env)
+  evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
   names(evaled) <- names(aesthetics)
   compact(rename_aes(evaled))
 }
+
+# `mask` is a list of functions where `names(mask)` indicate names of functions
+# that need to be replaced, and `mask[[i]]` is the function to replace it
+# with.
+mask_function <- function(x, mask) {
+  if (!is.call(x)) {
+    return(x)
+  }
+  nms <- names(mask)
+  x[-1] <- lapply(x[-1], mask_function, mask = mask)
+  if (!is_call(x, nms)) {
+    return(x)
+  }
+  for (nm in nms) {
+    if (is_call(x, nm)) {
+      x[[1]] <- mask[[nm]]
+      return(x)
+    }
+  }
+}
+
