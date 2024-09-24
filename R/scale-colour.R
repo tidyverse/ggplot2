@@ -77,15 +77,31 @@
 #' v
 #' options(ggplot2.continuous.fill = tmp) # restore previous setting
 #' @export
-scale_colour_continuous <- function(...,
-                                    type = getOption("ggplot2.continuous.colour")) {
+scale_colour_continuous <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.continuous.colour"),
+    aesthetics = "colour",
+    guide = "colourbar") {
+
+  if (!is.null(palette)) {
+    scale <- continuous_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_continuous_pal(palette),
+      guide = guide,
+      ...
+    )
+    return(scale)
+  }
+
   type <- type %||% "gradient"
-  args <- list2(...)
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_colour_continuous", "colour")
   } else if (identical(type, "gradient")) {
@@ -102,15 +118,31 @@ scale_colour_continuous <- function(...,
 
 #' @rdname scale_colour_continuous
 #' @export
-scale_fill_continuous <- function(...,
-                                  type = getOption("ggplot2.continuous.fill")) {
+scale_fill_continuous <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.continuous.fill"),
+    aesthetics = "fill",
+    guide = "colourbar") {
+
+  if (!is.null(palette)) {
+    scale <- continuous_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_continuous_pal(palette),
+      guide = guide,
+      ...
+    )
+    return(scale)
+  }
+
   type <- type %||% "gradient"
-  args <- list2(...)
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
 
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_fill_continuous", "fill")
   } else if (identical(type, "gradient")) {
@@ -127,13 +159,29 @@ scale_fill_continuous <- function(...,
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_colour_binned <- function(...,
-                                type = getOption("ggplot2.binned.colour")) {
-  args <- list2(...)
+scale_colour_binned <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.binned.colour"),
+    aesthetics = "colour",
+    guide = "coloursteps") {
+
+  if (!is.null(palette)) {
+    scale <- binned_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = pal_binned(as_discrete_pal(palette)),
+      guide = guide,
+      ...
+    )
+    return(scale)
+  }
+
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_colour_binned", "colour")
   } else {
@@ -161,13 +209,29 @@ scale_colour_binned <- function(...,
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_fill_binned <- function(...,
-                              type = getOption("ggplot2.binned.fill")) {
-  args <- list2(...)
+scale_fill_binned <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.binned.fill"),
+    aesthetics = "fill",
+    guide = "coloursteps") {
+
+  if (!is.null(palette)) {
+    scale <- binned_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = pal_binned(as_discrete_pal(palette)),
+      guide = guide,
+      ...
+    )
+    scale
+  }
+
+  args <- list2(..., aesthetics = aesthetics, guide = guide)
   args$call <- args$call %||% current_call()
   if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
     }
     check_scale_type(exec(type, !!!args), "scale_fill_binned", "fill")
   } else {
@@ -190,6 +254,135 @@ scale_fill_binned <- function(...,
         "i" = "Use either {.val gradient} or {.val viridis}."
       ))
     }
+  }
+}
+
+#' Discrete colour scales
+#'
+#' The default discrete colour scale. Defaults to [scale_fill_hue()]/[scale_fill_brewer()]
+#' unless `type` (which defaults to the `ggplot2.discrete.fill`/`ggplot2.discrete.colour` options)
+#' is specified.
+#'
+#' @param ... Additional parameters passed on to the scale type,
+#' @param type One of the following:
+#'   * A character vector of color codes. The codes are used for a 'manual' color
+#'   scale as long as the number of codes exceeds the number of data levels
+#'   (if there are more levels than codes, [scale_colour_hue()]/[scale_fill_hue()]
+#'   are used to construct the default scale). If this is a named vector, then the color values
+#'   will be matched to levels based on the names of the vectors. Data values that
+#'   don't match will be set as `na.value`.
+#'   * A list of character vectors of color codes. The minimum length vector that exceeds the
+#'   number of data levels is chosen for the color scaling. This is useful if you
+#'   want to change the color palette based on the number of levels.
+#'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
+#'   [scale_fill_brewer()], etc).
+#' @export
+#' @seealso
+#' The `r link_book("discrete colour scales section", "scales-colour#sec-colour-discrete")`
+#' @examples
+#' # Template function for creating densities grouped by a variable
+#' cty_by_var <- function(var) {
+#'   ggplot(mpg, aes(cty, colour = factor({{var}}), fill = factor({{var}}))) +
+#'     geom_density(alpha = 0.2)
+#' }
+#'
+#' # The default, scale_fill_hue(), is not colour-blind safe
+#' cty_by_var(class)
+#'
+#' # (Temporarily) set the default to Okabe-Ito (which is colour-blind safe)
+#' okabe <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+#' withr::with_options(
+#'   list(ggplot2.discrete.fill = okabe),
+#'   print(cty_by_var(class))
+#' )
+#'
+#' # Define a collection of palettes to alter the default based on number of levels to encode
+#' discrete_palettes <- list(
+#'   c("skyblue", "orange"),
+#'   RColorBrewer::brewer.pal(3, "Set2"),
+#'   RColorBrewer::brewer.pal(6, "Accent")
+#' )
+#' withr::with_options(
+#'   list(ggplot2.discrete.fill = discrete_palettes), {
+#'   # 1st palette is used when there 1-2 levels (e.g., year)
+#'   print(cty_by_var(year))
+#'   # 2nd palette is used when there are 3 levels
+#'   print(cty_by_var(drv))
+#'   # 3rd palette is used when there are 4-6 levels
+#'   print(cty_by_var(fl))
+#' })
+#'
+scale_colour_discrete <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.discrete.colour"),
+    aesthetics = "colour") {
+
+  if (!is.null(palette)) {
+    scale <- discrete_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_discrete_pal(palette),
+      ...
+    )
+    return(scale)
+  }
+
+  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
+  type <- type %||% scale_colour_hue
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+
+  if (is.function(type)) {
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
+    }
+    check_scale_type(
+      exec(type, !!!args),
+      "scale_colour_discrete",
+      "colour",
+      scale_is_discrete = TRUE
+    )
+  } else {
+    exec(scale_colour_qualitative, !!!args, type = type)
+  }
+}
+
+#' @rdname scale_colour_discrete
+#' @export
+scale_fill_discrete <- function(
+    ...,
+    palette = NULL,
+    type = getOption("ggplot2.discrete.fill"),
+    aesthetics = "fill") {
+
+  if (!is.null(palette)) {
+    scale <- discrete_scale(
+      aesthetics = aesthetics,
+      scale_name = deprecated(), # to pass `...` to non-deprecated arguments
+      palette = as_discrete_pal(palette),
+      ...
+    )
+    return(scale)
+  }
+
+  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
+  type <- type %||% scale_fill_hue
+  args <- list2(...)
+  args$call <- args$call %||% current_call()
+
+  if (is.function(type)) {
+    if (!any(c("...") %in% fn_fmls_names(type))) {
+      args <- args[intersect(names(args), fn_fmls_names(type))]
+    }
+    check_scale_type(
+      exec(type, !!!args),
+      "scale_fill_discrete",
+      "fill",
+      scale_is_discrete = TRUE
+    )
+  } else {
+    exec(scale_fill_qualitative, !!!args, type = type)
   }
 }
 
