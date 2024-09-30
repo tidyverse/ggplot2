@@ -82,7 +82,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
       alpha = rep(data$alpha, each = 8),
       linewidth = rep(data$linewidth, each = 8),
       linetype = rep(data$linetype, each = 8),
-      group = rep(1:(nrow(data)), each = 8),
+      group = rep(vec_seq_along(data), each = 8),
       .size = nrow(data) * 8
     ), panel_params, coord, lineend = lineend)
   },

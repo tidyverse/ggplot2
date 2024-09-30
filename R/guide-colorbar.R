@@ -252,7 +252,7 @@ GuideColourbar <- ggproto(
       .size  = length(bar)
     )
     if (reverse) {
-      bar <- bar[nrow(bar):1, , drop = FALSE]
+      bar <- vec_slice(bar, rev(vec_seq_along(bar)))
     }
     return(bar)
   },

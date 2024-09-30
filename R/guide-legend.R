@@ -187,7 +187,7 @@ GuideLegend <- ggproto(
                             title = waiver(), ...) {
     params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
     if (isTRUE(params$reverse %||% FALSE)) {
-      params$key <- params$key[nrow(params$key):1, , drop = FALSE]
+      params$key <- vec_slice(params$key, rev(vec_seq_along(params$key)))
     }
     params
   },
