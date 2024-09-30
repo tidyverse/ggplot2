@@ -2,6 +2,8 @@
 
 * Better handling of the `guide_axis_logticks(negative.small)` parameter when
   scale limits have small maximum (@teunbrand, #6121).
+* Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
+  (@teunbrand, #6104).
 * New `get_labs()` function for retrieving completed plot labels 
   (@teunbrand, #6008).
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control

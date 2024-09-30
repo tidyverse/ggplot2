@@ -198,9 +198,12 @@ rename_aes <- function(x) {
   }
   x
 }
-substitute_aes <- function(x) {
+
+# `x` is assumed to be a strict list of quosures;
+# it should have no non-quosure constants in it, even though `aes()` allows it.
+substitute_aes <- function(x, fun = standardise_aes_symbols, ...) {
   x <- lapply(x, function(aesthetic) {
-    as_quosure(standardise_aes_symbols(quo_get_expr(aesthetic)), env = environment(aesthetic))
+    as_quosure(fun(quo_get_expr(aesthetic), ...), env = environment(aesthetic))
   })
   class(x) <- "uneval"
   x
