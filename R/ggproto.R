@@ -207,10 +207,8 @@ make_proto_method <- function(self, f, name) {
 as.list.ggproto <- function(x, inherit = TRUE, ...) {
   res <- list()
 
-  if (inherit) {
-    if (is.function(x$super)) {
-      res <- as.list(x$super())
-    }
+  if (inherit && is.function(x$super)) {
+    res <- as.list(x$super())
   }
 
   current <- as.list.environment(x, ...)

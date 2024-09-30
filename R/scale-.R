@@ -663,16 +663,15 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return()
     }
     # Intercept error here to give examples and mention scale in call
-    if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
+    if ((is.factor(x) || !typeof(x) %in% c("integer", "double")) &&
+        inherits(self$range, "ContinuousRange")) {
       # These assumptions only hold for standard ContinuousRange class, so
       # we skip the error if another range class is used
-      if (inherits(self$range, "ContinuousRange")) {
-        cli::cli_abort(
-          c("Discrete values supplied to continuous scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
+      cli::cli_abort(
+        c("Discrete values supplied to continuous scale.",
+          i = "Example values: {.and {.val {head(x, 5)}}}"),
+        call = self$call
+      )
     }
     self$range$train(x)
   },
@@ -941,16 +940,14 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return()
     }
     # Intercept error here to give examples and mention scale in call
-    if (!is.discrete(x)) {
+    if (!is.discrete(x) && inherits(self$range, "DiscreteRange")) {
       # These assumptions only hold for standard DiscreteRange class, so
       # we skip the error if another range class is used
-      if (inherits(self$range, "DiscreteRange")) {
-        cli::cli_abort(
-          c("Continuous values supplied to discrete scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
+      cli::cli_abort(
+        c("Continuous values supplied to discrete scale.",
+          i = "Example values: {.and {.val {head(x, 5)}}}"),
+        call = self$call
+      )
     }
     self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
   },

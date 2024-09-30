@@ -130,12 +130,12 @@ is.sec_axis <- function(x) {
 
 set_sec_axis <- function(sec.axis, scale) {
   if (!is.waive(sec.axis)) {
-    if (scale$is_discrete()) {
-      if (!identical(.subset2(sec.axis, "trans"), identity)) {
-        cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
-      }
+    if (scale$is_discrete() && !identical(.subset2(sec.axis, "trans"), identity)) {
+      cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
     }
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (is.formula(sec.axis)) {
+      sec.axis <- sec_axis(sec.axis)
+    }
     if (!is.sec_axis(sec.axis)) {
       cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}.")
     }
