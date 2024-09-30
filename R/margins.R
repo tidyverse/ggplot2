@@ -223,7 +223,7 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   } else {
     cache <- TRUE
   }
-  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
+  key <- paste0(cur_dev, ":", family, ":", face, ":", size, ":", cex)
   # we only look up the first result; this function is not vectorized
   key <- key[1]
 
@@ -238,7 +238,7 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
         fontfamily = family,
         fontface = face
       )
-    )), 'inches')
+    )), "inches")
 
     if (cache) {
       descent_cache[[key]] <- descent

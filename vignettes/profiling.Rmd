@@ -34,7 +34,7 @@ profile
 ```
 
 ```{r, eval=FALSE, include=FALSE}
-saveRDS(profile, file.path('profilings', paste0(packageVersion('ggplot2'), '.rds')))
+saveRDS(profile, file.path("profilings", paste0(packageVersion("ggplot2"), ".rds")))
 ```
 
 In general, a minimal plot is used so that profiles are focused on low-level,

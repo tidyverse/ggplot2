@@ -27,7 +27,7 @@ ggplot_build <- function(plot) {
   # Attaching the plot env to be fetched by deprecations etc.
   attach_plot_env(plot$plot_env)
 
-  UseMethod('ggplot_build')
+  UseMethod("ggplot_build")
 }
 
 #' @export
@@ -197,7 +197,7 @@ ggplot_gtable <- function(data) {
   # Attaching the plot env to be fetched by deprecations etc.
   attach_plot_env(data$plot$plot_env)
 
-  UseMethod('ggplot_gtable')
+  UseMethod("ggplot_gtable")
 }
 
 #' @export

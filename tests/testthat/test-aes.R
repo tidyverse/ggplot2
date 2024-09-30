@@ -188,7 +188,7 @@ test_that("aes() supports `!!!` in named arguments (#2675)", {
 })
 
 test_that("alternative_aes_extract_usage() can inspect the call", {
-  x <- quote(test[['var']])
+  x <- quote(test[["var"]])
   expect_identical(alternative_aes_extract_usage(x), ".data[[\"var\"]]")
   x <- quote(test$var)
   expect_identical(alternative_aes_extract_usage(x), "var")

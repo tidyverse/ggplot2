@@ -664,13 +664,13 @@ find_panel <- function(table) {
 #' @export
 panel_cols <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique0(panels[, c('l', 'r')])
+  unique0(panels[, c("l", "r")])
 }
 #' @rdname find_panel
 #' @export
 panel_rows <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique0(panels[, c('t', 'b')])
+  unique0(panels[, c("t", "b")])
 }
 #' Take input data and define a mapping between faceting variables and ROW,
 #' COL and PANEL keys

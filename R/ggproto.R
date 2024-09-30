@@ -259,7 +259,7 @@ format.ggproto <-  function(x, ..., flat = TRUE) {
     classes <- setdiff(class(obj), "ggproto")
     if (length(classes) == 0)
       return("")
-    paste0(": Class ", paste(classes, collapse = ', '))
+    paste0(": Class ", paste(classes, collapse = ", "))
   }
 
   # Get a flat list if requested

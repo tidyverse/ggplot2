@@ -63,7 +63,7 @@ test_that("NA's result in warning from stat_bindot", {
 
 test_that("when binning on y-axis, limits depend on the panel", {
    p <- ggplot(mtcars, aes(factor(cyl), mpg)) +
-        geom_dotplot(binaxis = 'y', binwidth = 1 / 30 * diff(range(mtcars$mpg)))
+        geom_dotplot(binaxis = "y", binwidth = 1 / 30 * diff(range(mtcars$mpg)))
 
    b1 <- ggplot_build(p + facet_wrap(~am))
    b2 <- ggplot_build(p + facet_wrap(~am, scales = "free_y"))

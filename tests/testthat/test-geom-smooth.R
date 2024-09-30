@@ -9,12 +9,12 @@ test_that("data is ordered by x", {
 
 test_that("geom_smooth works in both directions", {
   p <- ggplot(mpg, aes(displ, hwy)) +
-    geom_smooth(method = 'loess', formula = y ~ x)
+    geom_smooth(method = "loess", formula = y ~ x)
   x <- get_layer_data(p)
   expect_false(x$flipped_aes[1])
 
   p <- ggplot(mpg, aes(hwy, displ)) +
-    geom_smooth(orientation = "y", method = 'loess', formula = y ~ x)
+    geom_smooth(orientation = "y", method = "loess", formula = y ~ x)
   y <- get_layer_data(p)
   expect_true(y$flipped_aes[1])
 

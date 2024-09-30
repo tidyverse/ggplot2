@@ -1049,12 +1049,12 @@ test_that("colorbar can be styled", {
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
   expect_doppelganger("white-to-red colorbar, white ticks, no frame",
-    p + scale_color_gradient(low = 'white', high = 'red')
+    p + scale_color_gradient(low = "white", high = "red")
   )
 
   expect_doppelganger("customized colorbar",
     p + scale_color_gradient(
-      low = 'white', high = 'red',
+      low = "white", high = "red",
       guide = guide_colorbar(
         theme = theme(
           legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
@@ -1144,22 +1144,22 @@ test_that("binning scales understand the different combinations of limits, break
   expect_doppelganger("guide_bins understands coinciding limits and bins",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(1999, 2000, 2002, 2004, 2006),
-                           guide = 'bins')
+                           guide = "bins")
   )
   expect_doppelganger("guide_bins understands coinciding limits and bins 2",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(2000, 2002, 2004, 2006, 2008),
-                           guide = 'bins')
+                           guide = "bins")
   )
   expect_doppelganger("guide_bins understands coinciding limits and bins 3",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(1999, 2000, 2002, 2004, 2006),
-                           guide = 'bins', show.limits = TRUE)
+                           guide = "bins", show.limits = TRUE)
   )
   expect_doppelganger("guide_bins sets labels when limits is in breaks",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(1999, 2000, 2002, 2004, 2006),
-                           labels = 1:5, guide = 'bins')
+                           labels = 1:5, guide = "bins")
   )
   expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE, guide = "bins")))
 

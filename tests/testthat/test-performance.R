@@ -30,5 +30,5 @@ test_that("modify_list adds new values", {
 test_that("modify_list erases null elements", {
   res <- modify_list(testlist, testappend)
   expect_null(res$c)
-  expect_named(res, c('a', 'b', 'd'))
+  expect_named(res, c("a", "b", "d"))
 })

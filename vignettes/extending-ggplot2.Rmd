@@ -1006,7 +1006,7 @@ Enough talk - lets see if our new and powerful faceting extension works:
 #|  titled 'original' and the right panel is titled 'transformed (sqrt)'. On the 
 #|  right panel, the miles per gallon are displayed on a square root 
 #|  transformed scale."
-ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_trans('sqrt')
+ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_trans("sqrt")
 ```
 
 ## Extending existing facet function

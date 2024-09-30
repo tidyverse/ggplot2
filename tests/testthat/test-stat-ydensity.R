@@ -8,7 +8,7 @@ test_that("`drop = FALSE` preserves groups with 1 observations", {
   df <- head(data_frame0(
     x = factor(rep(1:2, each = 4)),
     y = rep(1:2, 4),
-    g = rep(c("A", "A", "B", 'B'), 2)
+    g = rep(c("A", "A", "B", "B"), 2)
   ), -1)
 
   p <- ggplot(df, mapping = aes(x, y, fill = g))

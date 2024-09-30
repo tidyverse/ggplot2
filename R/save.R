@@ -250,7 +250,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
       call_args$res <- dpi
     }
     if ("units" %in% names(args)) {
-      call_args$units <- 'in'
+      call_args$units <- "in"
     }
     dev <- function(...) {
       args <- modify_list(list(...), call_args)
@@ -263,7 +263,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
     grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,
       paper = "special")
   }
-  if (requireNamespace('ragg', quietly = TRUE)) {
+  if (requireNamespace("ragg", quietly = TRUE)) {
     png_dev <- absorb_grdevice_args(ragg::agg_png)
     jpeg_dev <- absorb_grdevice_args(ragg::agg_jpeg)
     tiff_dev <- absorb_grdevice_args(ragg::agg_tiff)

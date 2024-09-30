@@ -439,18 +439,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (self$theta == "y") {
       # Need to use single brackets for labels to avoid deleting an element by
       # assigning NULL
-      labels$y['primary']   <- list(titles[[1]] %|W|% labels$y$primary)
-      labels$x['primary']   <- list(titles[[2]] %|W|% labels$x$primary)
-      labels$x['secondary'] <- list(titles[[3]] %|W|% labels$x$secondary)
+      labels$y["primary"]   <- list(titles[[1]] %|W|% labels$y$primary)
+      labels$x["primary"]   <- list(titles[[2]] %|W|% labels$x$primary)
+      labels$x["secondary"] <- list(titles[[3]] %|W|% labels$x$secondary)
       if (any(in_arc(c(0, 1) * pi, panel_params$arc))) {
         labels <- list(x = labels$y, y = labels$x)
       } else {
         labels <- list(x = rev(labels$x), y = rev(labels$y))
       }
     } else {
-      labels$x['primary']   <- list(titles[[1]] %|W|% labels$x$primary)
-      labels$y['primary']   <- list(titles[[2]] %|W|% labels$y$primary)
-      labels$y['secondary'] <- list(titles[[3]] %|W|% labels$y$secondary)
+      labels$x["primary"]   <- list(titles[[1]] %|W|% labels$x$primary)
+      labels$y["primary"]   <- list(titles[[2]] %|W|% labels$y$primary)
+      labels$y["secondary"] <- list(titles[[3]] %|W|% labels$y$secondary)
 
       if (!any(in_arc(c(0, 1) * pi, panel_params$arc))) {
         labels <- list(x = rev(labels$y), y = rev(labels$x))

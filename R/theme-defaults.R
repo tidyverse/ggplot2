@@ -258,7 +258,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
                          ),
-    plot.tag.position =  'topleft',
+    plot.tag.position =  "topleft",
     plot.margin =        NULL,
 
     complete = TRUE
@@ -566,7 +566,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
                          ),
-    plot.tag.position =  'topleft',
+    plot.tag.position =  "topleft",
 
     complete = TRUE
   )
@@ -719,7 +719,7 @@ theme_test <- function(base_size = 11, base_family = "",
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
                          ),
-    plot.tag.position =  'topleft',
+    plot.tag.position =  "topleft",
     plot.margin =        NULL,
 
     complete = TRUE

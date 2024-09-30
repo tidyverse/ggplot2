@@ -102,7 +102,7 @@ GuideAxisTheta <- ggproto(
         right  = 0.5 * pi
       )
     } else {
-      if (params$position == 'theta.sec') {
+      if (params$position == "theta.sec") {
         key$theta <- key$theta + pi
       }
 

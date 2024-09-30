@@ -117,7 +117,7 @@ NULL
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE, labeller = "label_value",
                        as.table = TRUE, switch = deprecated(), drop = TRUE,
-                       dir = "h", strip.position = 'top', axes = "margins",
+                       dir = "h", strip.position = "top", axes = "margins",
                        axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
   dir <- arg_match0(dir, c("h", "v", "lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))

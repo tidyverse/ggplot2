@@ -97,8 +97,8 @@ GeomRug <- ggproto("GeomRug", Geom,
 
     # For coord_flip, coord$transform does not flip the sides where to
     # draw the rugs. We have to flip them.
-    if (inherits(coord, 'CoordFlip')) {
-      sides <- chartr('tblr', 'rlbt', sides)
+    if (inherits(coord, "CoordFlip")) {
+      sides <- chartr("tblr", "rlbt", sides)
     }
 
     # move the rug to outside the main plot space

@@ -18,7 +18,7 @@ test_that("warnings are generated when coord_trans() results in new infinite val
 test_that("no warnings are generated when original data has Inf values, but no new Inf values created from the transformation", {
   p <- ggplot(data_frame(x = c(-Inf, 2, 0), y = c(Inf, 6, 4)), aes(x, y)) +
     geom_point() +
-    coord_trans(x = 'identity')
+    coord_trans(x = "identity")
 
   expect_silent(benchplot(p))
 })

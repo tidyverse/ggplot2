@@ -39,7 +39,7 @@ NULL
 #'   geom_point()
 annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
                               interpolate = FALSE) {
-  if (!inherits(raster, 'nativeRaster'))
+  if (!inherits(raster, "nativeRaster"))
     raster <- grDevices::as.raster(raster)
 
   layer(

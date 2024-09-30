@@ -103,7 +103,7 @@ test_that("get_alt_text checks dots", {
 })
 
 test_that("warnings are thrown for unknown labels", {
-  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(foo = 'bar')
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(foo = "bar")
   expect_snapshot_warning(ggplot_build(p))
 })
 

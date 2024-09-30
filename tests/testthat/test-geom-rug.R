@@ -1,6 +1,6 @@
 n <- 10
 df <- data_frame(x = 1:n, y = (1:n)^3)
-p <- ggplot(df, aes(x, y)) + geom_point() + geom_rug(sides = 'l')
+p <- ggplot(df, aes(x, y)) + geom_point() + geom_rug(sides = "l")
 
 test_that("coord_flip flips the rugs", {
   a <- get_layer_grob(p, 2)
@@ -31,7 +31,7 @@ test_that("Rug lengths are correct", {
   expect_equal(a[[1]]$children[[1]]$x0, unit(0, "npc"))
   expect_equal(a[[1]]$children[[1]]$x1, unit(0.03, "npc"))
 
-  p <- ggplot(df, aes(x, y)) + geom_point() + geom_rug(sides = 'l', length = unit(12, "pt"))
+  p <- ggplot(df, aes(x, y)) + geom_point() + geom_rug(sides = "l", length = unit(12, "pt"))
   b <- get_layer_grob(p, 2)
 
   # Check default length is changed
