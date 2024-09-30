@@ -147,7 +147,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
     path_df$level <- ordered(path_df$level, levels = names(isobands))
     path_df$level_low <- breaks[as.numeric(path_df$level)]
     path_df$level_high <- breaks[as.numeric(path_df$level) + 1]
-    path_df$level_mid <- 0.5*(path_df$level_low + path_df$level_high)
+    path_df$level_mid <- 0.5 * (path_df$level_low + path_df$level_high)
     path_df$nlevel <- rescale_max(path_df$level_high)
 
     path_df
@@ -182,9 +182,9 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   if (!is.null(bins)) {
     # round lower limit down and upper limit up to make sure
     # we generate bins that span the data range nicely
-    accuracy <- signif(diff(z_range), 1)/10
-    z_range[1] <- floor(z_range[1]/accuracy)*accuracy
-    z_range[2] <- ceiling(z_range[2]/accuracy)*accuracy
+    accuracy <- signif(diff(z_range), 1) / 10
+    z_range[1] <- floor(z_range[1] / accuracy) * accuracy
+    z_range[2] <- ceiling(z_range[2] / accuracy) * accuracy
 
     if (bins == 1) {
       return(z_range)

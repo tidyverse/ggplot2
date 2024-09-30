@@ -639,13 +639,13 @@ test_that("aspect ratio is honored", {
     p_a + facet_wrap(~f)
   )
   expect_doppelganger("height is 3 times width, 2 column facets",
-    p_a + facet_grid(.~f)
+    p_a + facet_grid(. ~ f)
   )
   expect_doppelganger("height is 3 times width, 2 row facets",
-    p_a + facet_grid(f~.)
+    p_a + facet_grid(f ~ .)
   )
   expect_doppelganger("height is 3 times width, 2x2 facets",
-    p_a + facet_grid(f1~f2)
+    p_a + facet_grid(f1 ~ f2)
   )
 
 })
@@ -871,7 +871,7 @@ test_that("legend margins are correct when using relative key sizes", {
 
   vertical <- p + guides(
     colour = guide_colourbar(theme = theme(legend.key.height = unit(1, "null"))),
-    shape  = guide_legend(theme = theme(legend.key.height = unit(1/3, "null")))
+    shape  = guide_legend(theme = theme(legend.key.height = unit(1 / 3, "null")))
   ) + theme(
     legend.box.margin = margin(t = 5, b = 10, unit = "mm"),
     legend.margin = margin(t = 10, b = 5, unit = "mm")
@@ -881,7 +881,7 @@ test_that("legend margins are correct when using relative key sizes", {
 
   horizontal <- p + guides(
     colour = guide_colourbar(theme = theme(legend.key.width = unit(1, "null"))),
-    shape  = guide_legend(theme = theme(legend.key.width = unit(1/3, "null")))
+    shape  = guide_legend(theme = theme(legend.key.width = unit(1 / 3, "null")))
   ) + theme(
     legend.position = "top",
     legend.box.margin = margin(l = 5, r = 10, unit = "mm"),

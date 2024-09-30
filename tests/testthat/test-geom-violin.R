@@ -31,7 +31,7 @@ test_that("geom_violin works in both directions", {
 # create_quantile_segment_frame -------------------------------------------------
 
 test_that("create_quantile_segment_frame functions for 3 quantiles", {
-  density.data <- data_frame(y = (1:256)/256, density = 1/256) # uniform density
+  density.data <- data_frame(y = (1:256) / 256, density = 1 / 256) # uniform density
 
   qs <- c(0.25, 0.5, 0.75) # 3 quantiles
   expect_equal(create_quantile_segment_frame(density.data, qs)$y,
@@ -117,7 +117,7 @@ test_that("geom_violin draws correctly", {
     ggplot(dat, aes(x = as.numeric(1), y = y)) + geom_violin()
   )
   expect_doppelganger("quantiles",
-    ggplot(dat, aes(x=x, y=y)) + geom_violin(draw_quantiles=c(0.25,0.5,0.75))
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(draw_quantiles = c(0.25,0.5,0.75))
   )
 
   dat2 <- data_frame(x = rep(factor(LETTERS[1:3]), 30), y = rnorm(90), g = rep(factor(letters[5:6]), 45))

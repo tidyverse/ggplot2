@@ -327,7 +327,7 @@ test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
 
   g <- guide_coloursteps(even.steps = TRUE)
   decor <- g$train(scale = scale, aesthetics = "colour")$decor
-  expect_equal(decor$max - decor$min, rep(1/3, 3))
+  expect_equal(decor$max - decor$min, rep(1 / 3, 3))
 
   g <- guide_coloursteps(even.steps = FALSE)
   decor <- g$train(scale = scale, aesthetics = "colour")$decor
@@ -447,7 +447,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   }
 
   guide <- guide_axis_logticks(negative.small = 10)
-  outcome <- c((1:10)*10, (2:10)*100)
+  outcome <- c((1:10) * 10, (2:10) * 100)
 
   # Test the classic log10 transformation
   scale <- test_scale(transform_log10(), c(10, 1000))
@@ -875,16 +875,16 @@ test_that("guides are positioned correctly", {
     p1 + theme(legend.position = "top")
   )
   expect_doppelganger("facet_grid, legend on left",
-    p1 + facet_grid(x~y) + theme(legend.position = "left")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "left")
   )
   expect_doppelganger("facet_grid, legend on bottom",
-    p1 + facet_grid(x~y) + theme(legend.position = "bottom")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "bottom")
   )
   expect_doppelganger("facet_grid, legend on right",
-    p1 + facet_grid(x~y) + theme(legend.position = "right")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "right")
   )
   expect_doppelganger("facet_grid, legend on top",
-    p1 + facet_grid(x~y) + theme(legend.position = "top")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "top")
   )
   expect_doppelganger("facet_wrap, legend on left",
     p1 + facet_wrap(~ x) + theme(legend.position = "left")

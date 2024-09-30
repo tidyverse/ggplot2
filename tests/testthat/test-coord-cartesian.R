@@ -19,7 +19,7 @@ test_that("cartesian coords throws error when limits are badly specified", {
   expect_snapshot_error(ggplot() + coord_cartesian(xlim(1,1)))
 
   # throws error when limit's length is different than two
-  expect_snapshot_error(ggplot() + coord_cartesian(ylim=1:3))
+  expect_snapshot_error(ggplot() + coord_cartesian(ylim = 1:3))
 })
 
 

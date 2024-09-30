@@ -559,7 +559,7 @@ GuideLegend <- ggproto(
       gt <- gtable_add_grob(
         gt, elements$background,
         name = "background", clip = "off",
-        t = 1, r = -1, b = -1, l =1, z = -Inf
+        t = 1, r = -1, b = -1, l = 1, z = -Inf
       )
     }
     gt

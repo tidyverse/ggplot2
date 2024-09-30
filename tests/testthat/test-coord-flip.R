@@ -13,5 +13,5 @@ test_that("flip coords throws error when limits are badly specified", {
   expect_snapshot_error(ggplot() + coord_flip(xlim(1,1)))
 
   # throws error when limit's length is different than two
-  expect_snapshot_error(ggplot() + coord_flip(ylim=1:3))
+  expect_snapshot_error(ggplot() + coord_flip(ylim = 1:3))
 })

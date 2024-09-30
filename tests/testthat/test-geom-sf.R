@@ -233,7 +233,7 @@ test_that("geom_sf data type renders appropriate legends", {
 test_that("geom_sf uses combinations of geometry correctly", {
   skip_if_not_installed("sf")
 
-  t <- seq(0, 2 *pi, length.out = 10)
+  t <- seq(0, 2 * pi, length.out = 10)
   data <- sf::st_sf(sf::st_sfc(
     sf::st_multipoint(cbind(1:2, 3:4)),
     sf::st_multilinestring(list(

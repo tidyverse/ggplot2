@@ -170,7 +170,7 @@ join_keys <- function(x, y, by) {
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   check_numeric(x)
-  f(x/accuracy) * accuracy
+  f(x / accuracy) * accuracy
 }
 
 #' Apply function to unique subsets of a data.frame

@@ -229,10 +229,10 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
   capable <- switch(
     feature,
     glyphs = version >= "4.3.0",
-    paths =, transformations =, compositing =,
-    patterns =, lumi_masks =, blending =,
+    paths = , transformations = , compositing = ,
+    patterns = , lumi_masks = , blending = ,
     gradients = version >= "4.2.0",
-    alpha_masks =,
+    alpha_masks = ,
     clippingPaths = version >= "4.1.0",
     TRUE
   )

@@ -22,7 +22,7 @@ test_that("finite_cases.data.frame", {
 })
 
 test_that("add_group", {
-  data <- data_frame(f=letters[7:9], x=1:3, y=4:6, group=c(1, -1, 1))
+  data <- data_frame(f = letters[7:9], x = 1:3, y = 4:6, group = c(1, -1, 1))
   expect_true(has_groups(add_group(data[2:4])))  # explicit group column
   expect_true(has_groups(add_group(data[1:3])))  # discrete column
   expect_false(has_groups(add_group(data[2:3]))) # no group or discrete column

@@ -14,7 +14,7 @@ test_that("sec_axis checks the user input", {
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(.))
   expect_snapshot_error(ggplot_build(p))
 
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(./100))
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(. / 100))
   expect_silent(ggplot_build(p))
 })
 
@@ -43,7 +43,7 @@ test_that("sec_axis() works with subtraction", {
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_y_continuous(
-      sec.axis = sec_axis(~1-.)
+      sec.axis = sec_axis(~1 - .)
     )
   scale <- get_panel_scales(p)$y
   expect_equal(scale$sec_name(), scale$name)
@@ -407,7 +407,7 @@ test_that("n.breaks is respected by secondary axes (#4483)", {
     ggplot(data.frame(x = c(0, 10)), aes(x, x)) +
       scale_y_continuous(
         n.breaks = 11,
-        sec.axis = sec_axis(~.x*100)
+        sec.axis = sec_axis(~.x * 100)
       )
   )
 

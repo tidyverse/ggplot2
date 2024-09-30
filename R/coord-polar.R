@@ -275,7 +275,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
-    ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
+    ends_apart <- (theta[length(theta)] - theta[1]) %% (2 * pi)
     if (length(theta) > 0 && ends_apart < 0.05 && !is.null(labels)) {
       n <- length(labels)
       if (is.expression(labels)) {

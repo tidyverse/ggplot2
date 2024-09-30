@@ -107,11 +107,11 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     center <- v$center
     chol_decomp <- chol(shape)
     if (type == "euclid") {
-      radius <- level/max(chol_decomp)
+      radius <- level / max(chol_decomp)
     } else {
       radius <- sqrt(dfn * stats::qf(level, dfn, dfd))
     }
-    angles <- (0:segments) * 2 * pi/segments
+    angles <- (0:segments) * 2 * pi / segments
     unit.circle <- cbind(cos(angles), sin(angles))
     ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
   }

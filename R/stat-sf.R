@@ -28,8 +28,8 @@ StatSf <- ggproto("StatSf", Stat,
       # backtransform
       bbox_trans <- sf_transform_xy(
         list(
-          x = c(rep(0.5*(bbox[["xmin"]] + bbox[["xmax"]]), 2), bbox[["xmin"]], bbox[["xmax"]]),
-          y = c(bbox[["ymin"]], bbox[["ymax"]], rep(0.5*(bbox[["ymin"]] + bbox[["ymax"]]), 2))
+          x = c(rep(0.5 * (bbox[["xmin"]] + bbox[["xmax"]]), 2), bbox[["xmin"]], bbox[["xmax"]]),
+          y = c(bbox[["ymin"]], bbox[["ymax"]], rep(0.5 * (bbox[["ymin"]] + bbox[["ymax"]]), 2))
         ),
         coord$get_default_crs(),
         geometry_crs

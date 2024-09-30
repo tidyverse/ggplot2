@@ -1,10 +1,10 @@
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
-    theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5))
+    theta = c(0, 2 * pi,   2,   6, 6, 1,    1, 0),
+    r     = c(0,      0, 0.5, 0.5, 1, 1, 0.75, 0.5))
 
   scales <- list(
-    x = scale_x_continuous(limits = c(0, 2*pi)),
+    x = scale_x_continuous(limits = c(0, 2 * pi)),
     y = scale_y_continuous(limits = c(0, 1))
   )
   coord <- coord_polar()
@@ -178,8 +178,8 @@ test_that("polar coordinates draw correctly", {
   )
 
   dat <- data_frame(
-    theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5),
+    theta = c(0, 2 * pi,   2,   6, 6, 1,    1, 0),
+    r     = c(0,      0, 0.5, 0.5, 1, 1, 0.75, 0.5),
     g     = 1:8
   )
   expect_doppelganger("Rays, circular arcs, and spiral arcs",

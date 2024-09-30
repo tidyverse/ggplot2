@@ -30,8 +30,8 @@ test_that("dodging works", {
   expect_true(all(abs(df$x - (xbase + xoffset)) < 1e-6))
 
   # Check that xmin and xmax are in the right place
-  expect_true(all(abs(df$xmax - df$x - dwidth/2) < 1e-6))
-  expect_true(all(abs(df$x - df$xmin - dwidth/2) < 1e-6))
+  expect_true(all(abs(df$xmax - df$x - dwidth / 2) < 1e-6))
+  expect_true(all(abs(df$x - df$xmin - dwidth / 2) < 1e-6))
 })
 
 test_that("binning works", {
@@ -63,7 +63,7 @@ test_that("NA's result in warning from stat_bindot", {
 
 test_that("when binning on y-axis, limits depend on the panel", {
    p <- ggplot(mtcars, aes(factor(cyl), mpg)) +
-        geom_dotplot(binaxis='y', binwidth = 1/30 * diff(range(mtcars$mpg)))
+        geom_dotplot(binaxis = 'y', binwidth = 1 / 30 * diff(range(mtcars$mpg)))
 
    b1 <- ggplot_build(p + facet_wrap(~am))
    b2 <- ggplot_build(p + facet_wrap(~am, scales = "free_y"))
@@ -76,11 +76,11 @@ test_that("when binning on y-axis, limits depend on the panel", {
 })
 
 test_that("weight aesthetic is checked", {
-  p <- ggplot(mtcars, aes(x = mpg, weight = gear/3)) +
-    geom_dotplot(binwidth = 1/30 * diff(range(mtcars$mpg)))
+  p <- ggplot(mtcars, aes(x = mpg, weight = gear / 3)) +
+    geom_dotplot(binwidth = 1 / 30 * diff(range(mtcars$mpg)))
   expect_snapshot_warning(ggplot_build(p))
   p <- ggplot(mtcars, aes(x = mpg, weight = -gear)) +
-    geom_dotplot(binwidth = 1/30 * diff(range(mtcars$mpg)))
+    geom_dotplot(binwidth = 1 / 30 * diff(range(mtcars$mpg)))
   expect_snapshot_warning(ggplot_build(p))
 })
 

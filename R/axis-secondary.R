@@ -250,8 +250,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # the transformation is non-monotonic in the expansion. The split ensures
     # the middle duplicated are kept
     duplicates <- c(
-      !duplicated(full_range[seq_len(self$detail/2)], fromLast = TRUE),
-      !duplicated(full_range[-seq_len(self$detail/2)])
+      !duplicated(full_range[seq_len(self$detail / 2)], fromLast = TRUE),
+      !duplicated(full_range[-seq_len(self$detail / 2)])
     )
     old_range <- old_range[duplicates]
     full_range <- full_range[duplicates]

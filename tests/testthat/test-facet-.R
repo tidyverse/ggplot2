@@ -6,7 +6,7 @@ test_that("as_facets_list() coerces formulas", {
   exp <- list(quos(foo = foo, bar = bar), quos(baz = baz, bam = bam))
   expect_identical(as_facets_list(foo + bar ~ baz + bam), exp)
 
-  exp <- list(quos(`foo()`= foo(), `bar()` = bar()), quos(`baz()` = baz(), `bam()` = bam()))
+  exp <- list(quos(`foo()` = foo(), `bar()` = bar()), quos(`baz()` = baz(), `bam()` = bam()))
   expect_identical(as_facets_list(foo() + bar() ~ baz() + bam()), exp)
 })
 
@@ -402,14 +402,14 @@ test_that("combine_vars() generates the correct combinations", {
   expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2, b = 2:3), data.frame(a = 1:2, c = 2:3)),
-      vars = vars(b=b, c=c)
+      vars = vars(b = b, c = c)
     )
   )
 
   expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2), data.frame(b = numeric())),
-      vars = vars(b=b)
+      vars = vars(b = b)
     )
   )
 })

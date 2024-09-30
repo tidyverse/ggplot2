@@ -5,8 +5,8 @@ test_that("spatial polygons have correct ordering", {
 
 
   make_square <- function(x = 0, y = 0, height = 1, width = 1){
-    delx <- width/2
-    dely <- height/2
+    delx <- width / 2
+    dely <- height / 2
     sp::Polygon(matrix(c(x + delx, x - delx,x - delx,x + delx,x + delx ,
         y - dely,y - dely,y + dely,y + dely,y - dely), ncol = 2))
   }
@@ -72,7 +72,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Unhealthy data-frame-like (matrix with no colnames)
 
-  expect_error(fortify(cbind(X, Y, Z, deparse.level=0)))
+  expect_error(fortify(cbind(X, Y, Z, deparse.level = 0)))
 
   # Healthy data-frame-like (matrix with colnames)
 
@@ -92,11 +92,11 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   as.data.frame.foo <- function(x, row.names = NULL, ...) {
     key <- if (is.null(names(x))) rownames(x) else names(x)
-    data.frame(key=key, value=unname(unclass(x)))
+    data.frame(key = key, value = unname(unclass(x)))
   }
   registerS3method("as.data.frame", "foo", as.data.frame.foo)
 
-  expect_identical(fortify(object), data.frame(key=names(object), value=Y))
+  expect_identical(fortify(object), data.frame(key = names(object), value = Y))
 
   # Rejected by fortify.default() because of unhealthy dim() behavior
 
@@ -163,7 +163,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   as.data.frame.foo <- function(x, row.names = NULL, ...) {
     key <- if (is.null(names(x))) rownames(x) else names(x)
-    data.frame(oops=key, value=unname(unclass(x)))
+    data.frame(oops = key, value = unname(unclass(x)))
   }
   registerS3method("as.data.frame", "foo", as.data.frame.foo)
   expect_error(fortify(object))

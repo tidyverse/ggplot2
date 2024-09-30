@@ -6,7 +6,7 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
 })
 
 test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
-  p <- ggplot(economics, aes(unemploy/pop, psavert, colour = pop)) + geom_path(linetype = 2)
+  p <- ggplot(economics, aes(unemploy / pop, psavert, colour = pop)) + geom_path(linetype = 2)
   expect_snapshot_error(ggplotGrob(p))
 })
 
@@ -35,7 +35,7 @@ test_that("stairstep() does not error with too few observations", {
 
 test_that("stairstep() exists with error when an invalid `direction` is given", {
   df <- data_frame(x = 1:3, y = 1:3)
-  expect_error(stairstep(df, direction="invalid"))
+  expect_error(stairstep(df, direction = "invalid"))
 })
 
 test_that("stairstep() output is correct for direction = 'vh'", {

@@ -451,7 +451,7 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
     # rotated in projected space
     #
     # Method "cross" is also the default
-    cross =,
+    cross = ,
     list(
       x = c(rep(mean(xlim), 20), seq(xlim[1], xlim[2], length.out = 20)),
       y = c(seq(ylim[1], ylim[2], length.out = 20), rep(mean(ylim), 20))

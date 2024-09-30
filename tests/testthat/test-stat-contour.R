@@ -30,11 +30,11 @@ test_that("contouring irregularly spaced data works", {
   d4 <- d[d$level == 4,]
   expect_equal(nrow(d4), 7)
   expect_setequal(d4$x, c(4, 10, 100, 700))
-  expect_setequal(d4$y, c(2, 8/3, 4/3))
+  expect_setequal(d4$y, c(2, 8 / 3, 4 / 3))
   d8 <- d[d$level == 8,]
   expect_equal(nrow(d8), 7)
   expect_setequal(d8$x, c(8, 10, 100, 300))
-  expect_setequal(d8$y, c(2, 20/9, 16/9))
+  expect_setequal(d8$y, c(2, 20 / 9, 16 / 9))
 })
 
 test_that("contour breaks can be set manually and by bins and binwidth and a function", {

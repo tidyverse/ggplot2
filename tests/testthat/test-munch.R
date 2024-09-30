@@ -18,7 +18,7 @@ test_that("interp works", {
 })
 
 test_that("munch_data works", {
-    single_munch_test <- function(data, dist=NULL, segment_length = 0.01) {
+    single_munch_test <- function(data, dist = NULL, segment_length = 0.01) {
         md <- munch_data(data, dist, segment_length)
         # all rows of dat are in md
         expect_equal(nrow(merge(md, dat)), nrow(dat))

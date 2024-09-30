@@ -9,7 +9,7 @@ panel_map_one <- function(facet, data, plot_data = data) {
 }
 
 test_that("two col cases with no missings adds a single extra column", {
-  loc <- panel_map_one(facet_grid(cyl~vs), mtcars)
+  loc <- panel_map_one(facet_grid(cyl ~ vs), mtcars)
 
   expect_equal(nrow(loc), nrow(mtcars))
   expect_equal(ncol(loc), ncol(mtcars) + 1)
@@ -19,7 +19,7 @@ test_that("two col cases with no missings adds a single extra column", {
 })
 
 test_that("margins add extra data", {
-  loc <- panel_map_one(facet_grid(a~b, margins = "b"), df)
+  loc <- panel_map_one(facet_grid(a ~ b, margins = "b"), df)
 
   expect_equal(nrow(loc), nrow(df) * 2)
 
@@ -29,7 +29,7 @@ test_that("margins add extra data", {
 })
 
 test_that("grid: missing facet columns are duplicated", {
-  facet <- facet_grid(a~b)
+  facet <- facet_grid(a ~ b)
 
   loc_a <- panel_map_one(facet, df_a, plot_data = df)
   expect_equal(nrow(loc_a), 4)
@@ -45,7 +45,7 @@ test_that("grid: missing facet columns are duplicated", {
 })
 
 test_that("wrap: missing facet columns are duplicated", {
-  facet <- facet_wrap(~a+b, ncol = 1)
+  facet <- facet_wrap(~ a + b, ncol = 1)
 
   loc_a <- panel_map_one(facet, df_a, plot_data = df)
   expect_equal(nrow(loc_a), 4)
@@ -112,11 +112,11 @@ test_that("wrap: missing values are located correctly", {
 })
 
 test_that("grid: missing values are located correctly", {
-  facet <- facet_grid(b~.)
+  facet <- facet_grid(b ~ .)
   loc_b <- panel_map_one(facet, data_frame(b = NA), plot_data = a3)
   expect_equal(as.character(loc_b$PANEL), "4")
 
-  facet <- facet_grid(c~.)
+  facet <- facet_grid(c ~ .)
   loc_c <- panel_map_one(facet, data_frame(c = NA), plot_data = a3)
   expect_equal(as.character(loc_c$PANEL), "4")
 })

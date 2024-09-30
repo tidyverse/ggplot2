@@ -374,19 +374,19 @@ stairstep <- function(data, direction = "hv") {
   }
 
   if (direction == "vh") {
-    xs <- rep(1:n, each = 2)[-2*n]
+    xs <- rep(1:n, each = 2)[-2 * n]
     ys <- c(1, rep(2:n, each = 2))
   } else if (direction == "hv") {
-    ys <- rep(1:n, each = 2)[-2*n]
+    ys <- rep(1:n, each = 2)[-2 * n]
     xs <- c(1, rep(2:n, each = 2))
   } else if (direction == "mid") {
-    xs <- rep(1:(n-1), each = 2)
+    xs <- rep(1:(n - 1), each = 2)
     ys <- rep(1:n, each = 2)
   }
 
   if (direction == "mid") {
     gaps <- data$x[-1] - data$x[-n]
-    mid_x <- data$x[-n] + gaps/2 # map the mid-point between adjacent x-values
+    mid_x <- data$x[-n] + gaps / 2 # map the mid-point between adjacent x-values
     x <- c(data$x[1], mid_x[xs], data$x[n])
     y <- c(data$y[ys])
     data_attr <- data[c(1,xs,n), setdiff(names(data), c("x", "y"))]
