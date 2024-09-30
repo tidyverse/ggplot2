@@ -129,7 +129,7 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   if (!is.unit(y))
     y <- unit(y, default.units)
 
-  if (!is.null(angle) & is.null(vp)) {
+  if (!is.null(angle) && is.null(vp)) {
     vp <- viewport(
       angle = angle, x = x, y = y,
       width = unit(0, "cm"), height = unit(0, "cm"),
