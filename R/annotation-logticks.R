@@ -168,7 +168,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       xticks <- xticks[xticks$x <= 1 & xticks$x >= 0, ]
 
       if (outside)
-        xticks$end = -xticks$end
+        xticks$end <- -xticks$end
 
       # Make the grobs
       if (grepl("b", sides) && nrow(xticks) > 0) {
@@ -206,7 +206,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       yticks <- yticks[yticks$y <= 1 & yticks$y >= 0, ]
 
       if (outside)
-        yticks$end = -yticks$end
+        yticks$end <- -yticks$end
 
       # Make the grobs
       if (grepl("l", sides) && nrow(yticks) > 0) {

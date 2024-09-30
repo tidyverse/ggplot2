@@ -168,7 +168,7 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
       .size = length(x)
     )
     results <- dapply(results, "bin", function(df) {
-      df$bincenter = (min(df$x) + max(df$x)) / 2
+      df$bincenter <- (min(df$x) + max(df$x)) / 2
       return(df)
     })
 
