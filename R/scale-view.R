@@ -18,7 +18,7 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
   # continuous_range can be specified in arbitrary order, but
   # scales expect the one in ascending order.
   continuous_scale_sorted <- sort(continuous_range)
-  if(!scale$is_discrete()) {
+  if (!scale$is_discrete()) {
     breaks <- scale$get_breaks(continuous_scale_sorted)
     breaks <- censor(breaks, continuous_scale_sorted, only.finite = FALSE)
   } else {

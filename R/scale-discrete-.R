@@ -214,7 +214,7 @@ c.mapped_discrete <- function(..., recursive = FALSE) {
   mapped_discrete(NextMethod())
 }
 #' @export
-as.data.frame.mapped_discrete <- function (x, ...) {
+as.data.frame.mapped_discrete <- function(x, ...) {
   as.data.frame.vector(x = unclass(x), ...)
 }
 

@@ -317,7 +317,7 @@ pretty_isoband_levels <- function(isoband_levels, dig.lab = 3) {
 
   breaks <- unique(c(interval_low, interval_high))
 
-  while(anyDuplicated(format(breaks, digits = dig.lab, trim = TRUE))) {
+  while (anyDuplicated(format(breaks, digits = dig.lab, trim = TRUE))) {
     dig.lab <- dig.lab + 1
   }
 
