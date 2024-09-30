@@ -99,4 +99,3 @@ test_that("stat_contour() removes duplicated coordinates", {
   )
   expect_equal(new, df[1:4, ], ignore_attr = TRUE)
 })
-

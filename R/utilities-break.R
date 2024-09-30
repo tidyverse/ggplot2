@@ -112,4 +112,3 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   }
 
 }
-

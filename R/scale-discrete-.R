@@ -254,4 +254,3 @@ vec_cast.mapped_discrete.factor <- function(x, to, ...) mapped_discrete(as.vecto
 vec_cast.factor.mapped_discrete <- function(x, to, ...) factor(as.vector(x), ...)
 #' @export
 vec_cast.mapped_discrete.logical <- function(x, to, ...) mapped_discrete(x)
-

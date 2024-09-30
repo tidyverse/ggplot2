@@ -209,4 +209,3 @@ scale_override_call <- function(call = NULL) {
   }
   !any(startsWith(as.character(call[[1]]), "scale_"))
 }
-

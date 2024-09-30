@@ -212,4 +212,3 @@ StatDensity2dFilled <- ggproto("StatDensity2dFilled", StatDensity2d,
   default_aes = aes(colour = NA, fill = after_stat(level)),
   contour_type = "bands"
 )
-

@@ -391,4 +391,3 @@ ggproto_debug <- function(method, debug = c("once", "always", "never"), ...) {
     never  = undebug(method, ...)
   )
 }
-

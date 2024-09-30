@@ -117,4 +117,3 @@ GuideOld <- ggproto(
     guide_gengrob(params, theme)
   }
 )
-

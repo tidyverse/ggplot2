@@ -112,4 +112,3 @@ pattern_alpha.GridTilingPattern <- function(x, alpha) {
 pattern_alpha.list <- function(x, alpha) {
   Map(pattern_alpha, x = x, alpha = alpha)
 }
-

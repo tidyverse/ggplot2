@@ -65,4 +65,3 @@ StatBinhex <- ggproto("StatBinhex", Stat,
   # weight is no longer available after transformation
   dropped_aes = "weight"
 )
-

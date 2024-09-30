@@ -228,4 +228,3 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
     group = rep(ys, each = 2)
   )
 }
-

@@ -107,4 +107,3 @@ test_that("coord expand takes a vector", {
   expect_equal(pp$y.range, c(-0.5, 10))
 
 })
-

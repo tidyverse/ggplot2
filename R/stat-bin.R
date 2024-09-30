@@ -173,4 +173,3 @@ StatBin <- ggproto("StatBin", Stat,
 
   dropped_aes = "weight" # after statistical transformation, weights are no longer available
 )
-

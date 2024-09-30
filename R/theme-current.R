@@ -141,4 +141,3 @@ theme_replace <- replace_theme
 
   e1
 }
-

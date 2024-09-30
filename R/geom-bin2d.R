@@ -52,4 +52,3 @@ geom_bin_2d <- function(mapping = NULL, data = NULL,
 #' @rdname geom_bin_2d
 #' @usage NULL
 geom_bin2d <- geom_bin_2d
-

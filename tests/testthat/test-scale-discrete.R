@@ -202,4 +202,3 @@ test_that("invalid palettes trigger errors", {
     "must return at least 3 values"
   )
 })
-

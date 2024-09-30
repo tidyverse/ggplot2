@@ -226,4 +226,3 @@ test_that("strip labels can be accessed", {
     )
   )
 })
-

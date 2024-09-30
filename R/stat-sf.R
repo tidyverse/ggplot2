@@ -76,4 +76,3 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
     )
   )
 }
-
