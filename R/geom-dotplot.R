@@ -145,11 +145,13 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
       (identical(position, "stack") || (inherits(position, "PositionStack"))))
     cli::cli_inform("{.code position = \"stack\"} doesn't work properly with {.fn geom_dotplot}. Use {.code stackgroups = TRUE} instead.")
 
-  if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
+  if (stackgroups && method == "dotdensity" && binpositions == "bygroup") {
     cli::cli_inform(c(
-      '{.fn geom_dotplot} called with {.code stackgroups = TRUE} and {.code method = "dotdensity"}.",
-      i = "Do you want {.code binpositions = "all"} instead?'
+      "{.fn geom_dotplot} called with {.code stackgroups = TRUE} and {.code method = \"dotdensity\"}.",
+      i = "Do you want {.code binpositions = \"all\"} instead?"
     ))
+  }
+
 
   stackdir <- arg_match0(stackdir, c("up", "down", "center", "centerwhole"), "stackdir")
   layer(
