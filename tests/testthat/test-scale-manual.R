@@ -29,8 +29,9 @@ col <- c("A" = "red", "B" = "green", "C" = "blue")
 cols <- function(x) ggplot_build(x)$data[[1]][, "fill"]
 
 test_that("named values work regardless of order", {
-  fill_scale <- function(order) scale_fill_manual(values = col[order],
-    na.value = "black")
+  fill_scale <- function(order) {
+    scale_fill_manual(values = col[order], na.value = "black")
+  }
 
   # Order of value vector shouldn't matter
   expect_equal(cols(p + fill_scale(1:3)), c("red", "green"))

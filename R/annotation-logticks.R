@@ -88,8 +88,8 @@
 annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled = TRUE,
     short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
     colour = "black", linewidth = 0.5, linetype = 1, alpha = 1, color = NULL, ...,
-    size = deprecated())
-{
+    size = deprecated()) {
+
   if (!is.null(color))
     colour <- color
 
@@ -135,8 +135,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
   draw_panel = function(data, panel_params, coord, base = 10, sides = "bl",
                         outside = FALSE, scaled = TRUE, short = unit(0.1, "cm"),
-                        mid = unit(0.2, "cm"), long = unit(0.3, "cm"))
-  {
+                        mid = unit(0.2, "cm"), long = unit(0.3, "cm")) {
+
     ticks <- list()
     flipped <- inherits(coord, "CoordFlip")
     x_name <- if (flipped) "y" else "x"

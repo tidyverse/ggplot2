@@ -250,7 +250,8 @@ Layout <- ggproto("Layout", NULL,
       waiver()
     } else {
       scale$sec_name()
-    } %|W|% labels[[paste0("sec.", aes)]]
+    }
+    secondary <- secondary %|W|% labels[[paste0("sec.", aes)]]
     if (is.derived(secondary)) secondary <- primary
     order <- scale$axis_order()
 

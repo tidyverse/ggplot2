@@ -121,7 +121,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
 
     # if self$limits is not NULL and is a function, apply it to range
-    if (is.function(self$limits)){
+    if (is.function(self$limits)) {
       return(self$limits(self$range$range))
     }
 

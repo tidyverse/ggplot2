@@ -313,11 +313,13 @@ test_that("geom_sf draws arrows correctly", {
     sf::st_sfc(
       sf::st_multilinestring(lapply(
         1:(length(sf::st_coordinates(nc)[, 1]) - 1),
-          function(x) rbind(
-            as.numeric(sf::st_coordinates(nc)[x, 1:2]),
-            as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
+          function(x) {
+            rbind(
+              as.numeric(sf::st_coordinates(nc)[x, 1:2]),
+              as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
             )
-        )
+          }
+      )
       )
     ), "LINESTRING"
   )

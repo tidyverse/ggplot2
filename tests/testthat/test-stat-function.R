@@ -133,7 +133,9 @@ test_that("works with formula syntax", {
 test_that("Warn when drawing multiple copies of the same function", {
   df <- data_frame(x = 1:3, y = letters[1:3])
   p <- ggplot(df, aes(x, color = y)) + stat_function(fun = identity)
-  f <- function() {pdf(NULL); print(p); dev.off()}
+  f <- function() {
+    pdf(NULL); print(p); dev.off()
+  }
   expect_warning(f(), "Multiple drawing groups")
 })
 

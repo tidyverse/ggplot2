@@ -6,8 +6,8 @@ dotstackGrob <- function(
     stackposition = 0,        # Position of each dot in the stack, relative to origin
     stackdir = "up",          # Stacking direction ("up", "down", "center", or "centerwhole")
     stackratio = 1,           # Stacking height of dots (.75 means 25% dot overlap)
-    default.units = "npc", name = NULL, gp = gpar(), vp = NULL)
-{
+    default.units = "npc", name = NULL, gp = gpar(), vp = NULL) {
+
     if (!is.unit(x))
         x <- unit(x, default.units)
     if (!is.unit(y))

@@ -37,12 +37,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     for (layer_data in data) {
       if (is_sf(layer_data)) {
         geometry <- sf::st_geometry(layer_data)
-      } else
+      } else {
         next
+      }
 
       crs <- sf::st_crs(geometry)
-      if (is.na(crs))
+      if (is.na(crs)) {
         next
+      }
 
       return(crs)
     }

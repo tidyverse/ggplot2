@@ -175,8 +175,8 @@ geom_text <- function(mapping = NULL, data = NULL,
                       size.unit = "mm",
                       na.rm = FALSE,
                       show.legend = NA,
-                      inherit.aes = TRUE)
-{
+                      inherit.aes = TRUE) {
+
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(

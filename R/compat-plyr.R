@@ -109,16 +109,14 @@ id <- function(.variables, drop = FALSE) {
   if (n > 2^31) {
     char_id <- inject(paste(!!!ids, sep = "\r"))
     res <- match(char_id, unique0(char_id))
-  }
-  else {
+  } else {
     combs <- c(1, cumprod(ndistinct[-p]))
     mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {
     id_var(res, drop = TRUE)
-  }
-  else {
+  } else {
     res <- as.integer(res)
     attr(res, "n") <- n
     res

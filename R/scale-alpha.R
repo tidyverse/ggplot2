@@ -78,7 +78,7 @@ scale_alpha_datetime <- function(name = waiver(), ..., range = c(0.1, 1)) {
 #' @rdname scale_alpha
 #' @export
 #' @usage NULL
-scale_alpha_date <- function(name = waiver(), ..., range = c(0.1, 1)){
+scale_alpha_date <- function(name = waiver(), ..., range = c(0.1, 1)) {
   datetime_scale(
     aesthetics = "alpha", transform = "date", name = name,
     palette = pal_rescale(range),

@@ -205,7 +205,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     self$trans(range)
   },
 
-  mono_test = function(self, scale){
+  mono_test = function(self, scale) {
     range <- scale$range$range
 
     # Check if plot is empty

@@ -16,8 +16,8 @@ geom_raster <- function(mapping = NULL, data = NULL,
                         interpolate = FALSE,
                         na.rm = FALSE,
                         show.legend = NA,
-                        inherit.aes = TRUE)
-{
+                        inherit.aes = TRUE) {
+
   check_number_decimal(hjust)
   check_number_decimal(vjust)
 

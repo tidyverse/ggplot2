@@ -46,7 +46,7 @@ reshape_margins <- function(vars, margins = NULL) {
   indices <- expand.grid(lapply(dims, seq_0), KEEP.OUT.ATTRS = FALSE)
   # indices <- indices[rowSums(indices) > 0, ]
 
-  lapply(seq_len(nrow(indices)), function(i){
+  lapply(seq_len(nrow(indices)), function(i) {
     unlist(mapply("[", dims, indices[i, ], SIMPLIFY = FALSE))
   })
 }

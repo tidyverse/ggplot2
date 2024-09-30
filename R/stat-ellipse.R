@@ -84,7 +84,7 @@ StatEllipse <- ggproto("StatEllipse", Stat,
   }
 )
 
-calculate_ellipse <- function(data, vars, type, level, segments){
+calculate_ellipse <- function(data, vars, type, level, segments) {
   dfn <- 2
   dfd <- nrow(data) - 1
 
