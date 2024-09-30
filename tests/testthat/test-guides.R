@@ -470,6 +470,11 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   expect_equal(unlog, c(-rev(outcome), 0, outcome))
   expect_equal(key$.type, rep(c(1,2,3), c(7, 4, 28)))
 
+  # Test very small pseudo_log (#6121)
+  scale <- test_scale(transform_pseudo_log(sigma = 1e-5), c(0, 1e-10))
+  key   <- train_guide(guide_axis_logticks(), scale)$logkey
+  expect_gte(nrow(key), 1)
+
   # Test expanded argument
   scale <- test_scale(transform_log10(), c(20, 900))
   scale$continuous_range <- c(1, 3)
