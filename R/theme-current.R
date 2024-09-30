@@ -126,7 +126,7 @@ theme_replace <- replace_theme
 
 #' @rdname get_theme
 #' @export
-"%+replace%" <- function(e1, e2) {
+`%+replace%` <- function(e1, e2) {
   if (!is.theme(e1) || !is.theme(e2)) {
     cli::cli_abort("{.code %+replace%} requires two theme objects")
   }

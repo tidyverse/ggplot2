@@ -143,7 +143,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
 
     data$group <- seq_len(nrow(data))
     starts <- subset(data, select = c(-xend, -yend))
-    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
+    ends <- rename(subset(data, select = c(-x, -y)), c(xend = "x", yend = "y"))
 
     pieces <- vec_rbind0(starts, ends)
     pieces <- pieces[order(pieces$group), ]

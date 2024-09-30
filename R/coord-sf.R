@@ -203,7 +203,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       if (self$lims_method != "geometry_bbox") {
         cli::cli_warn(c(
                 "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
-          "i" = "Consider setting {.code lims_method = {.val geometry_bbox}} or {.code default_crs = NULL}."
+          i = "Consider setting {.code lims_method = {.val geometry_bbox}} or {.code default_crs = NULL}."
         ))
       }
       coord_bbox <- self$params$bbox
@@ -419,7 +419,7 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (!all(is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
     cli::cli_abort(c(
             "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
-      "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
+      i = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
     ))
   }
 
@@ -665,10 +665,10 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   # left/right doesn't necessarily mean to label the parallels.
   position <- switch(
     arg_match0(aesthetic, c("x", "x.sec", "y", "y.sec")),
-    "x"     = "bottom",
-    "x.sec" = "top",
-    "y"     = "left",
-    "y.sec" = "right"
+    x     = "bottom",
+    x.sec = "top",
+    y     = "left",
+    y.sec = "right"
   )
   axis <- gsub("\\.sec$", "", aesthetic)
   if (axis == "x") {

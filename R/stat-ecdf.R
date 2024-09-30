@@ -151,7 +151,7 @@ wecdf <- function(x, weights = NULL) {
     cli::cli_warn(c(paste0(
       "The {.field weight} aesthetic does not support non-finite or ",
       "{.code NA} values."
-    ), "i" = "These weights were replaced by {.val 0}."))
+    ), i = "These weights were replaced by {.val 0}."))
     weights[!is.finite(weights)] <- 0
   }
 
@@ -167,7 +167,7 @@ wecdf <- function(x, weights = NULL) {
     }
     cli::cli_warn(c(
       "The sum of the {.field weight} aesthetic is close to {.val 0}.",
-      "i" = "Computed eCDF might be unstable."
+      i = "Computed eCDF might be unstable."
     ))
   }
 

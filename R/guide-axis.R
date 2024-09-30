@@ -224,7 +224,7 @@ GuideAxis <- ggproto(
     if (length(unique(key[[position_aes]][breaks_are_unique])) == 1) {
       cli::cli_warn(c(
         "Position guide is perpendicular to the intended axis.",
-        "i" = "Did you mean to specify a different guide {.arg position}?"
+        i = "Did you mean to specify a different guide {.arg position}?"
       ))
     }
 
@@ -235,7 +235,7 @@ GuideAxis <- ggproto(
     if (!inherits(new_guide, "GuideNone")) {
       cli::cli_warn(c(
         "{.fn {snake_class(self)}}: Discarding guide on merge.",
-        "i" = "Do you have more than one guide with the same {.arg position}?"
+        i = "Do you have more than one guide with the same {.arg position}?"
       ))
     }
     return(list(guide = self, params = params))

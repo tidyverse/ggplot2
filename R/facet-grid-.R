@@ -199,7 +199,7 @@ grid_as_facets_list <- function(rows, cols) {
       if (inherits(rows, "gg")) {
         msg <- c(
           msg,
-          "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+          i = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
         )
       }
       cli::cli_abort(msg)
@@ -240,8 +240,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
       cli::cli_abort(c(
-              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.",
-        "i" = "Duplicated variables: {.val {dups}}"
+        "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.",
+        i = "Duplicated variables: {.val {dups}}"
       ), call = call2(snake_class(self)))
     }
 

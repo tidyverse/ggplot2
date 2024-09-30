@@ -165,7 +165,7 @@ GuideColoursteps <- ggproto(
       cli::cli_warn(c(paste0(
         "{.arg show.limits} is ignored when {.arg labels} are given as a ",
         "character vector."
-      ), "i" = paste0(
+      ), i = paste0(
         "Either add the limits to {.arg breaks} or provide a function for ",
         "{.arg labels}."
       )))

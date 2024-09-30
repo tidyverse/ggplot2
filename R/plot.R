@@ -114,7 +114,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
   if (!missing(mapping) && !is.mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
-      "x" = "You've supplied {.obj_type_friendly {mapping}}."
+      x = "You've supplied {.obj_type_friendly {mapping}}."
     ))
   }
 
@@ -144,7 +144,7 @@ ggplot.function <- function(data = NULL, mapping = aes(), ...,
   # Added to avoid functions end in ggplot.default
   cli::cli_abort(c(
     "{.arg data} cannot be a function.",
-    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+    i = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
   ))
 }
 

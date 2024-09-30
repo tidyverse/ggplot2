@@ -120,8 +120,8 @@ Coord <- ggproto("Coord",
       scale = scale_position[!is_sec]
     )
     opposite <- c(
-      "top"  = "bottom", "bottom" = "top",
-      "left" = "right",   "right" = "left"
+      top  = "bottom", bottom = "top",
+      left = "right",  right  = "left"
     )
     guide_position[is_sec] <- Map(
       function(sec, prim) sec %|W|% unname(opposite[prim]),

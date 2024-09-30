@@ -127,7 +127,7 @@ fetch_ggproto <- function(x, name) {
     } else {
       cli::cli_abort(c(
         "{class(x)[[1]]} was built with an incompatible version of ggproto.",
-        "i" = "Please reinstall the package that provides this extension."
+        i = "Please reinstall the package that provides this extension."
       ))
     }
   }

@@ -73,6 +73,6 @@ scale_shape_ordinal <- function(...) {
 scale_shape_continuous <- function(...) {
   cli::cli_abort(c(
     "A continuous variable cannot be mapped to the {.field shape} aesthetic.",
-    "i" = "Choose a different aesthetic or use {.fn scale_shape_binned}."
+    i = "Choose a different aesthetic or use {.fn scale_shape_binned}."
   ))
 }

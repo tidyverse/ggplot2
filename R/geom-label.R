@@ -20,7 +20,7 @@ geom_label <- function(mapping = NULL, data = NULL,
     if (!missing(position)) {
       cli::cli_abort(c(
         "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Choose one approach to alter the position."
+        i = "Choose one approach to alter the position."
       ))
     }
 

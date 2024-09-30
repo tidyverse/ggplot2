@@ -103,8 +103,8 @@ StatBin <- ggproto("StatBin", Stat,
     if (is_mapped_discrete(data[[x]])) {
       cli::cli_abort(c(
         "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic.",
-        "x" = "the {.field {x}} aesthetic is discrete.",
-        "i" = "Perhaps you want {.code stat=\"count\"}?"
+        x = "the {.field {x}} aesthetic is discrete.",
+        i = "Perhaps you want {.code stat=\"count\"}?"
       ))
     }
 

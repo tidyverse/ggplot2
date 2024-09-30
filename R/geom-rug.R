@@ -193,9 +193,9 @@ GeomRug <- ggproto("GeomRug", Geom,
       )
       data <- switch(
         paste0(sides_aes, collapse = ""),
-        "x" = ,
-        "y" = df_list[[1]],
-        "xy" = vctrs::vec_set_union(df_list[[1]], df_list[[2]])
+        x = ,
+        y = df_list[[1]],
+        xy = vctrs::vec_set_union(df_list[[1]], df_list[[2]])
       )
     } else {
       data <- remove_missing(

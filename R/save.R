@@ -146,7 +146,7 @@ check_path <- function(path, filename, create.dir,
   if (interactive() && !create.dir) {
     cli::cli_bullets(c(
       "Cannot find directory {.path {path}}.",
-      "i" = "Would you like to create a new directory?"
+      i = "Would you like to create a new directory?"
     ))
     create.dir <- utils::menu(c("Yes", "No")) == 1
   }
@@ -228,7 +228,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
     }
     cli::cli_abort(c(
       msg,
-      "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
+      i = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
     "), call = call)
   }
 

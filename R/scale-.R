@@ -224,7 +224,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
     cli::cli_warn(c(
       "Continuous limits supplied to discrete scale.",
-      "i" = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
+      i = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
     ), call = call)
   }
 

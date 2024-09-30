@@ -14,7 +14,7 @@ test_that("names of values used in manual scales", {
    expect_equal(s3$get_limits(), c("4", "8", NA))
 
    # Names do not match data
-   s <- scale_colour_manual(values = c("foo" = "x", "bar" = "y"))
+   s <- scale_colour_manual(values = c(foo = "x", bar = "y"))
    s$train(c("A", "B"))
    expect_snapshot_warning(
      expect_equal(s$get_limits(), character())
@@ -24,7 +24,7 @@ test_that("names of values used in manual scales", {
 
 dat <- data_frame(g = c("B", "A", "A"))
 p <- ggplot(dat, aes(g, fill = g)) + geom_bar()
-col <- c("A" = "red", "B" = "green", "C" = "blue")
+col <- c(A = "red", B = "green", C = "blue")
 
 cols <- function(x) ggplot_build(x)$data[[1]][, "fill"]
 
@@ -86,7 +86,7 @@ test_that("generic scale can be used in place of aesthetic-specific scales", {
 
 test_that("named values do not match with breaks in manual scales", {
   s <- scale_fill_manual(
-    values = c("data_red" = "red", "data_black" = "black"),
+    values = c(data_red = "red", data_black = "black"),
     breaks = c("data_black", "data_red")
   )
   s$train(c("data_black", "data_red"))

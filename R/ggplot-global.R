@@ -29,18 +29,18 @@ ggplot_global$all_aesthetics <- .all_aesthetics
 # (In the future, .base_to_ggplot should be removed in favor
 # of direct assignment to ggplot_global$base_to_ggplot, see below.)
 .base_to_ggplot <- c(
-  "col"   = "colour",
-  "color" = "colour",
-  "pch"   = "shape",
-  "cex"   = "size",
-  "lty"   = "linetype",
-  "lwd"   = "linewidth",
-  "srt"   = "angle",
-  "adj"   = "hjust",
-  "bg"    = "fill",
-  "fg"    = "colour",
-  "min"   = "ymin",
-  "max"   = "ymax"
+  col   = "colour",
+  color = "colour",
+  pch   = "shape",
+  cex   = "size",
+  lty   = "linetype",
+  lwd   = "linewidth",
+  srt   = "angle",
+  adj   = "hjust",
+  bg    = "fill",
+  fg    = "colour",
+  min   = "ymin",
+  max   = "ymax"
 )
 
 ggplot_global$base_to_ggplot <- .base_to_ggplot

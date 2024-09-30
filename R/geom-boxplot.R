@@ -233,7 +233,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     if (nrow(data) != 1) {
       cli::cli_abort(c(
         "Can only draw one boxplot per group.",
-        "i" = "Did you forget {.code aes(group = ...)}?"
+        i = "Did you forget {.code aes(group = ...)}?"
       ))
     }
 

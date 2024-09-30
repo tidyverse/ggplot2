@@ -104,11 +104,11 @@ test_that("keep_draw_key", {
   p <- ggplot(data.frame(x = 1:2), aes(x, x)) +
     geom_point(
       aes(colour = "point", alpha = "point"),
-      show.legend = c("colour" = NA, alpha = FALSE)
+      show.legend = c(colour = NA, alpha = FALSE)
     ) +
     geom_line(
       aes(colour = "line", alpha = "line"),
-      show.legend = c("colour" = NA, alpha = TRUE)
+      show.legend = c(colour = NA, alpha = TRUE)
     ) +
     suppressWarnings(scale_alpha_discrete())
 

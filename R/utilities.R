@@ -7,11 +7,11 @@
 #'   geom_point(colour = alpha("blue", 0.5))
 scales::alpha
 
-"%||%" <- function(a, b) {
+`%||%` <- function(a, b) {
   if (!is.null(a)) a else b
 }
 
-"%|W|%" <- function(a, b) {
+`%|W|%` <- function(a, b) {
   if (!is.waive(a)) a else b
 }
 
@@ -828,7 +828,7 @@ prompt_install <- function(pkg, reason = NULL) {
   }
   question <- "Would you like to install {cli::qty(pkg)}{?it/them}?"
 
-  cli::cli_bullets(c("!" = message, "i" = question))
+  cli::cli_bullets(c("!" = message, i = question))
   if (utils::menu(c("Yes", "No")) != 1) {
     return(FALSE)
   }

@@ -322,7 +322,7 @@ by_layer <- function(f, layers, data, step = NULL) {
     error = function(cnd) {
       cli::cli_abort(c(
         "Problem while {step}.",
-        "i" = "Error occurred in the {ordinal(i)} layer."),
+        i = "Error occurred in the {ordinal(i)} layer."),
         call = layers[[i]]$constructor,
         parent = cnd
       )
@@ -472,7 +472,7 @@ table_add_legends <- function(table, legends, theme) {
 
   location <- switch(
     theme$legend.location %||% "panel",
-    "plot" = plot_extent,
+    plot = plot_extent,
     find_panel
   )
 

@@ -90,7 +90,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   if (isTRUE((max_x - origin) / width > 1e6)) {
     cli::cli_abort(c(
       "The number of histogram bins must be less than 1,000,000.",
-      "i" = "Did you make {.arg binwidth} too small?"
+      i = "Did you make {.arg binwidth} too small?"
     ))
   }
   breaks <- seq(origin, max_x, width)

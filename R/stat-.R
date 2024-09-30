@@ -172,8 +172,8 @@ Stat <- ggproto("Stat",
     if (length(dropped) > 0) {
       cli::cli_warn(c(
         "The following aesthetics were dropped during statistical transformation: {.field {dropped}}.",
-        "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
-        "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
+        i = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
+        i = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
       ))
     }
 

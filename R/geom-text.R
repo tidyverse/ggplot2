@@ -181,7 +181,7 @@ geom_text <- function(mapping = NULL, data = NULL,
     if (!missing(position)) {
       cli::cli_abort(c(
         "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
+        i = "Only use one approach to alter the position."
       ))
     }
 

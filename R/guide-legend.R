@@ -457,8 +457,8 @@ GuideLegend <- ggproto(
     hgap <- elements$spacing_x %||% 0
     widths <- switch(
       elements$text_position,
-      "left"   = list(label_widths, widths, hgap),
-      "right"  = list(widths, label_widths, hgap),
+      left   = list(label_widths, widths, hgap),
+      right  = list(widths, label_widths, hgap),
       list(pmax(label_widths, widths), hgap)
     )
     widths  <- head(vec_interleave(!!!widths),  -1)
@@ -466,8 +466,8 @@ GuideLegend <- ggproto(
     vgap <- elements$spacing_y %||% 0
     heights <- switch(
       elements$text_position,
-      "top"    = list(label_heights, heights, vgap),
-      "bottom" = list(heights, label_heights, vgap),
+      top    = list(label_heights, heights, vgap),
+      bottom = list(heights, label_heights, vgap),
       list(pmax(label_heights, heights), vgap)
     )
     heights <- head(vec_interleave(!!!heights), -1)

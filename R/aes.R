@@ -146,24 +146,24 @@ print.uneval <- function(x, ...) {
 }
 
 #' @export
-"[.uneval" <- function(x, i, ...) {
+`[.uneval` <- function(x, i, ...) {
   new_aes(NextMethod())
 }
 
 # If necessary coerce replacements to quosures for compatibility
 #' @export
-"[[<-.uneval" <- function(x, i, value) {
+`[[<-.uneval` <- function(x, i, value) {
   new_aes(NextMethod())
 }
 #' @export
-"$<-.uneval" <- function(x, i, value) {
+`$<-.uneval` <- function(x, i, value) {
   # Can't use NextMethod() because of a bug in R 3.1
   x <- unclass(x)
   x[[i]] <- value
   new_aes(x)
 }
 #' @export
-"[<-.uneval" <- function(x, i, value) {
+`[<-.uneval` <- function(x, i, value) {
   new_aes(NextMethod())
 }
 
@@ -419,7 +419,7 @@ warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
       good_usage <- alternative_aes_extract_usage(x)
       cli::cli_warn(c(
         "Use of {.code {format(x)}} is discouraged.",
-        "i" = "Use {.code {good_usage}} instead."
+        i = "Use {.code {good_usage}} instead."
       ))
     }
   } else if (is.call(x)) {

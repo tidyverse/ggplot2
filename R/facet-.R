@@ -449,7 +449,7 @@ validate_facets <- function(x) {
   if (inherits(x, "gg")) {
     cli::cli_abort(c(
       "Please use {.fn vars} to supply facet variables.",
-      "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+      i = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
   x
@@ -608,7 +608,7 @@ check_facet_vars <- function(..., name) {
   if (length(problems) != 0) {
     cli::cli_abort(c(
       "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables.",
-      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
+      i = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
     ), call = call2(name))
   }
 }

@@ -263,7 +263,7 @@ Guide <- ggproto(
   transform = function(self, params, coord, ...) {
     cli::cli_abort(c(
       "{.fn {snake_class(self)}} does not implement a {.fn transform} method.",
-      "i" = "Did you mean to use {.fn guide_axis}?"
+      i = "Did you mean to use {.fn guide_axis}?"
     ))
   },
 
@@ -504,14 +504,14 @@ flip_element_grob <- function(..., flip = FALSE) {
 
 # The flippable arguments for `flip_element_grob()`.
 flip_names <- c(
-  "x"        = "y",
-  "y"        = "x",
-  "width"    = "height",
-  "height"   = "width",
-  "hjust"    = "vjust",
-  "vjust"    = "hjust",
-  "margin_x" = "margin_y",
-  "margin_y" = "margin_x"
+  x        = "y",
+  y        = "x",
+  width    = "height",
+  height   = "width",
+  hjust    = "vjust",
+  vjust    = "hjust",
+  margin_x = "margin_y",
+  margin_y = "margin_x"
 )
 
 # Shortcut for position argument matching

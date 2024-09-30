@@ -18,6 +18,6 @@ modify_list <- function(old, new) {
 modifyList <- function(...) {
   cli::cli_abort(c(
     "Please use {.fn modify_list} instead of {.fn modifyList} for better performance.",
-    "i" = "See the vignette {.emph ggplot2 internal programming guidelines} for details."
+    i = "See the vignette {.emph ggplot2 internal programming guidelines} for details."
   ))
 }

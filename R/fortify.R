@@ -85,7 +85,7 @@ fortify.default <- function(model, data, ...) {
   if (is.mapping(model)) {
     msg <- c(
       paste0(msg, ", not ", obj_type_friendly(model), "."),
-      "i" = "Did you accidentally pass {.fn aes} to the {.arg data} argument?"
+      i = "Did you accidentally pass {.fn aes} to the {.arg data} argument?"
     )
     cli::cli_abort(msg)
   }

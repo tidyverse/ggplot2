@@ -60,7 +60,7 @@ scale_linetype_binned <- function(name = waiver(), ..., na.value = NA) {
 scale_linetype_continuous <- function(...) {
   cli::cli_abort(c(
     "A continuous variable cannot be mapped to the {.field linetype} aesthetic.",
-    "i" = "Choose a different aesthetic or use {.fn scale_linetype_binned}."
+    i = "Choose a different aesthetic or use {.fn scale_linetype_binned}."
   ))
 }
 #' @rdname scale_linetype

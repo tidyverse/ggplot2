@@ -39,11 +39,11 @@
 #' # Alternatively, you can add multiple components with a list.
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
-"+.gg" <- function(e1, e2) {
+`+.gg` <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
             "Cannot use {.code +} with a single argument.",
-      "i" = "Did you accidentally put {.code +} on a new line?"
+      i = "Did you accidentally put {.code +} on a new line?"
     ))
   }
 
@@ -56,7 +56,7 @@
   else if (is.ggproto(e1)) {
     cli::cli_abort(c(
       "Cannot add {.cls ggproto} objects together.",
-      "i" = "Did you forget to add this object to a {.cls ggplot} object?"
+      i = "Did you forget to add this object to a {.cls ggplot} object?"
     ))
   }
 }
@@ -64,7 +64,7 @@
 
 #' @rdname gg-add
 #' @export
-"%+%" <- `+.gg`
+`%+%` <- `+.gg`
 
 add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)
@@ -130,7 +130,7 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
 ggplot_add.function <- function(object, plot, object_name) {
   cli::cli_abort(c(
           "Can't add {.var {object_name}} to a {.cls ggplot} object",
-    "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
+    i = "Did you forget to add parentheses, as in {.fn {object_name}}?"
   ))
 }
 #' @export

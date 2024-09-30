@@ -486,7 +486,7 @@ theme <- function(...,
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
-      "i" = "For the old behavior use {.var legend.spacing}"
+      i = "For the old behavior use {.var legend.spacing}"
     ))
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()

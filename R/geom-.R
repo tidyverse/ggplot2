@@ -171,9 +171,9 @@ Geom <- ggproto("Geom",
         names(issues) <- rep("x", length(issues))
         cli::cli_abort(c(
           "Aesthetic modifiers returned invalid values",
-          "x" = "The following mappings are invalid",
+          x = "The following mappings are invalid",
           issues,
-          "i" = "Did you map the modifier in the wrong layer?"
+          i = "Did you map the modifier in the wrong layer?"
         ))
       }
 
@@ -276,7 +276,7 @@ check_aesthetics <- function(x, n) {
 
   cli::cli_abort(c(
     "Aesthetics must be either length 1 or the same as the data ({n}).",
-    "x" = "Fix the following mappings: {.col {names(which(!good))}}."
+    x = "Fix the following mappings: {.col {names(which(!good))}}."
   ))
 }
 
