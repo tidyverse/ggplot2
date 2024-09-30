@@ -17,6 +17,8 @@ NULL
 #'   keep the default `NULL` argument.
 #' @param negative.small When the scale limits include 0 or negative numbers,
 #'   what should be the smallest absolute value that is marked with a tick?
+#'   If `NULL` (default), will be the smallest of 0.1 or 0.1 times the absolute
+#'   scale maximum.
 #' @param short.theme A theme [element][element_line()] for customising the
 #'   display of the shortest ticks. Must be a line or blank element, and
 #'   it inherits from the `axis.minor.ticks` setting for the relevant position.
@@ -69,7 +71,7 @@ guide_axis_logticks <- function(
   mid   = 1.5,
   short = 0.75,
   prescale.base = NULL,
-  negative.small = 0.1,
+  negative.small = NULL,
   short.theme = element_line(),
   expanded = TRUE,
   cap = "none",
@@ -189,7 +191,7 @@ GuideAxisLogticks <- ggproto(
     has_negatives <- any(limits <= 0)
     if (has_negatives) {
       large  <- max(abs(limits))
-      small  <- params$negative_small %||% 0.1
+      small  <- params$negative_small %||% min(c(1, large) * 0.1)
       limits <- sort(c(small * 10, large))
     }
 
