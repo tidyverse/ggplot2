@@ -995,7 +995,7 @@ test_that("guides title and text are positioned correctly", {
       )
     )
 
-  expect_doppelganger("rotated guide titles and labels", p )
+  expect_doppelganger("rotated guide titles and labels", p)
 
   # title justification
   p <- ggplot(data.frame(x = 1:2)) +

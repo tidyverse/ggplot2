@@ -269,7 +269,7 @@ calc_logticks <- function(base = 10, ticks_per_base = base - 1,
   # Where to place the longer tick marks that are between each base
   # For base 10, this will be at each 5
   longtick_after_base <- floor(ticks_per_base / 2)
-  tickend[ cycleIdx == longtick_after_base ] <- midend
+  tickend[cycleIdx == longtick_after_base] <- midend
 
   tickdf <- data_frame0(
     value = ticks,

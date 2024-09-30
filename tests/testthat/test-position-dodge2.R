@@ -78,7 +78,7 @@ test_that("boxes in facetted plots keep the correct width", {
   )
 
   p <- ggplot(df, aes(subgroup, value)) +
-    facet_wrap( ~ group) +
+    facet_wrap(~ group) +
     geom_boxplot()
 
   d <- get_layer_data(p)

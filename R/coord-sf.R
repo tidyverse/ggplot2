@@ -84,8 +84,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     target_crs <- panel_params$crs
 
     # normalize geometry data, it should already be in the correct crs here
-    data[[ geom_column(data) ]] <- sf_rescale01(
-      data[[ geom_column(data) ]],
+    data[[geom_column(data)]] <- sf_rescale01(
+      data[[geom_column(data)]],
       panel_params$x_range,
       panel_params$y_range
     )

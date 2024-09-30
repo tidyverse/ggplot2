@@ -10,7 +10,7 @@ StatSf <- ggproto("StatSf", Stat,
   },
 
   compute_panel = function(data, scales, coord) {
-    geometry_data <- data[[ geom_column(data) ]]
+    geometry_data <- data[[geom_column(data)]]
     geometry_crs <- sf::st_crs(geometry_data)
 
     bbox <- sf::st_bbox(geometry_data)
