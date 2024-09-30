@@ -493,7 +493,9 @@ simplify <- function(x) {
   if (length(x) < 3) {
     return(list(x))
   }
-  op <- x[[1]]; a <- x[[2]]; b <- x[[3]]
+  op <- x[[1]]
+  a  <- x[[2]]
+  b  <- x[[3]]
 
   if (is_symbol(op, c("+", "*", "~"))) {
     c(simplify(a), simplify(b))
@@ -716,7 +718,9 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
 
   # Systematically add on missing combinations
   for (value in values[!has_all]) {
-    if (empty(value)) next;
+    if (empty(value)) {
+      next
+    }
 
     old <- base[setdiff(names(base), names(value))]
     new <- unique0(value[intersect(names(base), names(value))])
