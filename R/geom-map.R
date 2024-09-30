@@ -155,5 +155,5 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
     )
   },
 
-  required_aes = c("map_id")
+  required_aes = "map_id"
 )

@@ -449,22 +449,22 @@ test_that("combine_vars() generates the correct combinations with multiple data 
 })
 
 test_that("eval_facet() is tolerant for missing columns (#2963)", {
-  expect_null(eval_facet(quo(2 * x), data_frame(foo = 1), possible_columns = c("x")))
-  expect_null(eval_facet(quo(2 * .data$x), data_frame(foo = 1), possible_columns = c("x")))
+  expect_null(eval_facet(quo(2 * x), data_frame(foo = 1), possible_columns = "x"))
+  expect_null(eval_facet(quo(2 * .data$x), data_frame(foo = 1), possible_columns = "x"))
 
   # Even if there's the same name of external variable, eval_facet() returns NULL before
   # reaching to the variable
   bar <- 2
-  expect_null(eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = c("bar")))
+  expect_null(eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = "bar"))
   # If there's no same name of columns, the external variable is used
   expect_equal(
-    eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = c("x")),
+    eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = "x"),
     4
   )
 
   # If the expression contains any non-existent variable, it fails
   expect_error(
-    eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
+    eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = "x"),
     "object 'no_such_variable' not found"
   )
 })

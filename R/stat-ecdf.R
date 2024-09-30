@@ -93,7 +93,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatEcdf <- ggproto("StatEcdf", Stat,
-  required_aes = c("x|y"),
+  required_aes = "x|y",
 
   default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf), weight = NULL),
 

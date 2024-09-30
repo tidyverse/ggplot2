@@ -107,7 +107,7 @@ geom_tile <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-rect.R
 GeomTile <- ggproto("GeomTile", GeomRect,
-  extra_params = c("na.rm"),
+  extra_params = "na.rm",
 
   setup_data = function(data, params) {
 

@@ -53,7 +53,7 @@ StatSf <- ggproto("StatSf", Stat,
     data
   },
 
-  required_aes = c("geometry")
+  required_aes = "geometry"
 )
 
 #' @export

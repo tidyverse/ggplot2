@@ -670,7 +670,7 @@ with_ordered_restart <- function(expr, .call) {
         }
       } else if (is.factor(x) || is.factor(y)) {
         restart <- TRUE
-        lev <- c()
+        lev <- NULL
         if (is.factor(x)) {
           lev <- c(lev, levels(x))
         }

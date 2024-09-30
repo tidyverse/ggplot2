@@ -1,6 +1,6 @@
 test_that("data keeps its order after stacking", {
   df <- data_frame(
-    x = rep(c(1:10), 3),
+    x = rep(1:10, 3),
     var = rep(c("a", "b", "c"), 10),
     y = round(runif(30, 1, 5))
   )

@@ -96,7 +96,7 @@ test_that("position scales generate after stats", {
   plot <- ggplot(df, aes(x)) + geom_bar()
   ranges <- pranges(plot)
 
-  expect_equal(ranges$x[[1]], c("1"))
+  expect_equal(ranges$x[[1]], "1")
   expect_equal(ranges$y[[1]], c(0, 3))
 })
 

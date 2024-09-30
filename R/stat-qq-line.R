@@ -46,9 +46,9 @@ stat_qq_line <- geom_qq_line
 StatQqLine <- ggproto("StatQqLine", Stat,
   default_aes = aes(x = after_stat(x), y = after_stat(y)),
 
-  required_aes = c("sample"),
+  required_aes = "sample",
 
-  dropped_aes = c("sample"),
+  dropped_aes = "sample",
 
   compute_group = function(data,
                            scales,

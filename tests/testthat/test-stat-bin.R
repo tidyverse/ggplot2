@@ -184,7 +184,7 @@ test_that("closed left or right", {
   res <- comp_bin(dat, binwidth = 10, boundary = 5, pad = FALSE, closed = "left")
   expect_identical(res$count, c(1, 1))
   res <- comp_bin(dat, binwidth = 10, boundary = 0, pad = FALSE, closed = "left")
-  expect_identical(res$count, c(2))
+  expect_identical(res$count, 2)
   res <- comp_bin(dat, binwidth = 5, boundary = 0, pad = FALSE, closed = "left")
   expect_identical(res$count, c(1, 1))
 })

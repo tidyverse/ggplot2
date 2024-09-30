@@ -47,7 +47,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
-  required_aes = c("y|x"),
+  required_aes = "y|x",
   non_missing_aes = "weight",
   # either the x or y aesthetic will get dropped during
   # statistical transformation, depending on the orientation

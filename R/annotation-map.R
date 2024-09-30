@@ -101,5 +101,5 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
       )
   },
 
-  required_aes = c()
+  required_aes = NULL
 )

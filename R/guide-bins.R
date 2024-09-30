@@ -99,7 +99,7 @@ guide_bins <- function(
     show.limits = show.limits,
 
     # parameter
-    available_aes = c("any"),
+    available_aes = "any",
     ...,
     name = "bins",
     super = GuideBins

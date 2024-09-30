@@ -82,7 +82,7 @@ stat_qq <- geom_qq
 StatQq <- ggproto("StatQq", Stat,
   default_aes = aes(y = after_stat(sample), x = after_stat(theoretical)),
 
-  required_aes = c("sample"),
+  required_aes = "sample",
 
   compute_group = function(self, data, scales, quantiles = NULL,
                            distribution = stats::qnorm, dparams = list(),
