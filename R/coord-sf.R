@@ -550,7 +550,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   label_axes <- parse_axes_labeling(label_axes)
 
   if (is.character(label_graticule)) {
-    label_graticule <- unlist(strsplit(label_graticule, ""))
+    label_graticule <- unlist(strsplit(label_graticule, "", fixed = TRUE))
   } else {
     cli::cli_abort("Graticule labeling format not recognized.")
   }
@@ -582,7 +582,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 
 parse_axes_labeling <- function(x, call = caller_env()) {
   if (is.character(x)) {
-    x <- unlist(strsplit(x, ""))
+    x <- unlist(strsplit(x, "", fixed = TRUE))
     x <- list(top = x[1], right = x[2], bottom = x[3], left = x[4])
   } else if (!is.list(x)) {
     cli::cli_abort("Panel labeling format not recognized.", call = call)

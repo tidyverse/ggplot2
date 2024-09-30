@@ -60,7 +60,7 @@ test_that("Colorbar respects show.legend in layer", {
 test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
-    gb <- grep("guide-box", g$layout$name)
+    gb <- grep("guide-box", g$layout$name, fixed = TRUE)
     n <- vapply(g$grobs[gb], function(x) {
       if (is.zero(x)) return(0)
       length(x$grobs) - 1

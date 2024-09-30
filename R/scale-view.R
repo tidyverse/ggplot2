@@ -55,7 +55,7 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
   } else {
     scale$secondary.axis$init(scale)
     break_info <- scale$secondary.axis$break_info(continuous_range, scale)
-    names(break_info) <- gsub("sec\\.", "", names(break_info))
+    names(break_info) <- gsub("sec.", "", names(break_info), fixed = TRUE)
 
     # flip position from the original scale by default
     # this can (should) be overridden in the guide

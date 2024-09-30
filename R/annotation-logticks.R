@@ -171,14 +171,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         xticks$end <- -xticks$end
 
       # Make the grobs
-      if (grepl("b", sides) && nrow(xticks) > 0) {
+      if (grepl("b", sides, fixed = TRUE) && nrow(xticks) > 0) {
         ticks$x_b <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
           gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
-      if (grepl("t", sides) && nrow(xticks) > 0) {
+      if (grepl("t", sides, fixed = TRUE) && nrow(xticks) > 0) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
@@ -209,14 +209,14 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         yticks$end <- -yticks$end
 
       # Make the grobs
-      if (grepl("l", sides) && nrow(yticks) > 0) {
+      if (grepl("l", sides, fixed = TRUE) && nrow(yticks) > 0) {
         ticks$y_l <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
           gp = gg_par(col = alpha(colour, alpha), lty = linetype, lwd = linewidth)
         ))
       }
-      if (grepl("r", sides) && nrow(yticks) > 0) {
+      if (grepl("r", sides, fixed = TRUE) && nrow(yticks) > 0) {
         ticks$y_r <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),

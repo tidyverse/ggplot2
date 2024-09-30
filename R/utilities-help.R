@@ -118,7 +118,7 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
     "with [delayed evaluation][aes_eval]. "
   )
   if (.skip_intro) intro <- ""
-  preamble <- c(header, paste0(intro, gsub("\n", "", .details)))
+  preamble <- c(header, paste0(intro, gsub("\n", "", .details, fixed = TRUE)))
 
   # Format items
   fmt_items <- gsub(",", ")`, `after_stat(", items, fixed = TRUE)
@@ -127,7 +127,7 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
   fmt_items <- paste0("*  `after_stat(", fmt_items, ")`")
 
   # Compose item-list
-  fmt_descr <- gsub("\n", "", descr)
+  fmt_descr <- gsub("\n", "", descr, fixed = TRUE)
   fmt_list  <- paste(fmt_items, fmt_descr, sep = "\\cr ")
 
   c(preamble, fmt_list)

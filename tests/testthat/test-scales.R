@@ -379,7 +379,7 @@ test_that("All scale_colour_*() have their American versions", {
   color_scale_exports <- grep("export\\(scale_color_.*\\)", exports, value = TRUE)
   expect_equal(
     colour_scale_exports,
-    sub("color", "colour", color_scale_exports)
+    sub("color", "colour", color_scale_exports, fixed = TRUE)
   )
 })
 

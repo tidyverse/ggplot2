@@ -149,12 +149,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
 
     if (self$theta == "y") {
-      names(details) <- gsub("x\\.", "r.", names(details))
-      names(details) <- gsub("y\\.", "theta.", names(details))
+      names(details) <- gsub("x.", "r.", names(details), fixed = TRUE)
+      names(details) <- gsub("y.", "theta.", names(details), fixed = TRUE)
       details$r.arrange <- scale_x$axis_order()
     } else {
-      names(details) <- gsub("x\\.", "theta.", names(details))
-      names(details) <- gsub("y\\.", "r.", names(details))
+      names(details) <- gsub("x.", "theta.", names(details), fixed = TRUE)
+      names(details) <- gsub("y.", "r.", names(details), fixed = TRUE)
       details$r.arrange <- scale_y$axis_order()
     }
 

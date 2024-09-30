@@ -270,7 +270,7 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
   if (!is.null(op) && feature %in% c("blending", "compositing")) {
     op <- arg_match0(op, c(.blend_ops, .compo_ops))
     .blend_ops <- .compo_ops <- op
-    feat_name <- paste0("'", gsub("\\.", " ", op), "' ", feat_name)
+    feat_name <- paste0("'", gsub(".", " ", op, fixed = TRUE), "' ", feat_name)
   }
 
   # The dev.capabilities() approach may work from R 4.2.0 onwards

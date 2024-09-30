@@ -288,16 +288,16 @@ test_that("facet_grid `axes` can draw inner axes.", {
   ctrl <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "margins"))
 
   # 4 x-axes if all axes should be drawn
-  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  bottom <- case$grobs[grepl("axis-b", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
   # 2 x-axes if drawing at the margins
-  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
 
   # Ditto for y-axes
-  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  left <- case$grobs[grepl("axis-l", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
-  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
 })
 
@@ -312,16 +312,16 @@ test_that("facet_wrap `axes` can draw inner axes.", {
   ctrl <- ggplotGrob(p + facet_wrap(vars(facet), axes = "margins"))
 
   # 4 x-axes if all axes should be drawn
-  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  bottom <- case$grobs[grepl("axis-b", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
   # 2 x-axes if drawing at the margins
-  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
 
   # Ditto for y-axes
-  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  left <- case$grobs[grepl("axis-l", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
-  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
 })
 

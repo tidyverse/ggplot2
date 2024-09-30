@@ -783,7 +783,7 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
     # Demote from error to warning
     error = function(cnd) {
       # cli uses \f as newlines, not \n
-      msg <- gsub("\n", "\f", cnd_message(cnd))
+      msg <- gsub("\n", "\f", cnd_message(cnd), fixed = TRUE)
       cli::cli_warn(msg, call = call)
     }
   )

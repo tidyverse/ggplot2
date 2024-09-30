@@ -115,7 +115,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       lineend = lineend
     )
     if (!is.null(data$x)) {
-      if (grepl("b", sides)) {
+      if (grepl("b", sides, fixed = TRUE)) {
         rugs$x_b <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
           y0 = unit(0, "npc"), y1 = rug_length$min,
@@ -123,7 +123,7 @@ GeomRug <- ggproto("GeomRug", Geom,
         )
       }
 
-      if (grepl("t", sides)) {
+      if (grepl("t", sides, fixed = TRUE)) {
         rugs$x_t <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
           y0 = unit(1, "npc"), y1 = rug_length$max,
@@ -133,7 +133,7 @@ GeomRug <- ggproto("GeomRug", Geom,
     }
 
     if (!is.null(data$y)) {
-      if (grepl("l", sides)) {
+      if (grepl("l", sides, fixed = TRUE)) {
         rugs$y_l <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
           x0 = unit(0, "npc"), x1 = rug_length$min,
@@ -141,7 +141,7 @@ GeomRug <- ggproto("GeomRug", Geom,
         )
       }
 
-      if (grepl("r", sides)) {
+      if (grepl("r", sides, fixed = TRUE)) {
         rugs$y_r <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
           x0 = unit(1, "npc"), x1 = rug_length$max,
