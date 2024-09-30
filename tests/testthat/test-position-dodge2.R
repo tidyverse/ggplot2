@@ -111,7 +111,7 @@ test_that("NA values are given their own group", {
   expect_equal(find_x_overlaps(df), seq_len(4))
 })
 
-test_that("groups are different when two blocks have externall touching point",{
+test_that("groups are different when two blocks have externall touching point", {
   df1 <- data.frame(
     xmin = c(0.5, 1.5),
     xmax = c(1.5, 2.5)

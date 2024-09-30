@@ -45,7 +45,7 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major_source, 2:4)
 
   # Limits are specified, and all breaks are out of range
-  sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)], limits = c(2, 4))
+  sc <- scale_x_continuous(breaks = c(1, 5), labels = letters[c(1, 5)], limits = c(2, 4))
   bi <- sc$break_info()
   expect_length(bi$labels, 0)
   expect_length(bi$major, 0)
@@ -69,7 +69,7 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major, c(0, 0.5, 1))
 
   # Limits aren't specified, and all breaks are out of range of data
-  sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
+  sc <- scale_x_continuous(breaks = c(1, 5), labels = letters[c(1, 5)])
   sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_length(bi$labels, 0)

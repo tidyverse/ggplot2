@@ -11,7 +11,7 @@ test_that("geom_path() throws meaningful error on bad combination of varying aes
 })
 
 test_that("repair_segment_arrow() repairs sensibly", {
-  group <- c(1,1,1,1,2,2)
+  group <- c(1, 1, 1, 1, 2, 2)
 
   ans <- repair_segment_arrow(arrow(ends = "last"), group)
   expect_equal(ans$ends, rep(2L, 4))

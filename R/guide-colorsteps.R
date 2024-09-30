@@ -134,7 +134,7 @@ GuideColoursteps <- ggproto(
 
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
-                           nbin = 100, alpha = NA,...) {
+                           nbin = 100, alpha = NA, ...) {
 
     parsed <- attr(key, "parsed")
     breaks <- parsed$breaks %||% scale$get_breaks()

@@ -27,11 +27,11 @@ test_that("contouring irregularly spaced data works", {
   # we're testing for set equality here because contour lines are not
   # guaranteed to start and end at the same point on all architectures
   d <- get_layer_data(p)
-  d4 <- d[d$level == 4,]
+  d4 <- d[d$level == 4, ]
   expect_equal(nrow(d4), 7)
   expect_setequal(d4$x, c(4, 10, 100, 700))
   expect_setequal(d4$y, c(2, 8 / 3, 4 / 3))
-  d8 <- d[d$level == 8,]
+  d8 <- d[d$level == 8, ]
   expect_equal(nrow(d8), 7)
   expect_setequal(d8$x, c(8, 10, 100, 300))
   expect_setequal(d8$y, c(2, 20 / 9, 16 / 9))
@@ -97,6 +97,6 @@ test_that("stat_contour() removes duplicated coordinates", {
     new <- layer$stat$setup_data(transform(df, group = 1)),
     "has duplicated"
   )
-  expect_equal(new, df[1:4,], ignore_attr = TRUE)
+  expect_equal(new, df[1:4, ], ignore_attr = TRUE)
 })
 

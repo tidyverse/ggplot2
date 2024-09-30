@@ -65,7 +65,7 @@ expand_scale <- function(mult = 0, add = 0) {
 #' @noRd
 #'
 expand_range4 <- function(limits, expand) {
-  if (!(is.numeric(expand) && length(expand) %in% c(2,4))) {
+  if (!(is.numeric(expand) && length(expand) %in% c(2, 4))) {
     cli::cli_abort("{.arg expand} must be a numeric vector with 2 or 4 elements.")
   }
 

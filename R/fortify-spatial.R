@@ -25,7 +25,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   if (is.null(region)) {
     # Suppress duplicated warnings
     withr::with_options(list(lifecycle_verbosity = "quiet"), {
-      coords <- lapply(model@polygons,fortify)
+      coords <- lapply(model@polygons, fortify)
     })
     coords <- vec_rbind0(!!!coords)
     cli::cli_inform("Regions defined for each Polygons")

@@ -292,7 +292,7 @@ ggplot_gtable.ggplot_built <- function(data) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
-    plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
+    plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)), ]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
   }
 

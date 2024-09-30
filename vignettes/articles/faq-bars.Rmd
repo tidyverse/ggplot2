@@ -391,7 +391,7 @@ In order to obtain a bar plot with limited y-axis, you need to instead set the l
 #|  of drive train. The y-axis starts at 20, and all bars touch the x-axis."
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
-  coord_cartesian(ylim = c(20,110))
+  coord_cartesian(ylim = c(20, 110))
 ```
 
 This is, indeed, a deceiving plot.

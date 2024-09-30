@@ -16,7 +16,7 @@ test_that("clipping can be turned off and on", {
 
 test_that("cartesian coords throws error when limits are badly specified", {
   # throws error when limit is a Scale object instead of vector
-  expect_snapshot_error(ggplot() + coord_cartesian(xlim(1,1)))
+  expect_snapshot_error(ggplot() + coord_cartesian(xlim(1, 1)))
 
   # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_cartesian(ylim = 1:3))

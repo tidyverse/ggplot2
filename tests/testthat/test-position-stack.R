@@ -13,9 +13,9 @@ test_that("data keeps its order after stacking", {
 
 test_that("negative and positive values are handled separately", {
   df <- data_frame(
-    x = c(1,1,1,2,2),
-    g = c(1,2,3,1,2),
-    y = c(1,-1,1,2,-3)
+    x = c(1, 1, 1, 2, 2),
+    g = c(1, 2, 3, 1, 2),
+    y = c(1, -1, 1, 2, -3)
   )
   p <- ggplot(df, aes(x, y, fill = factor(g))) + geom_col()
   dat <- get_layer_data(p)
@@ -69,7 +69,7 @@ test_that("position_stack() can stack correctly when ymax is NA", {
 test_that("Stacking produces the expected output", {
   data <- data_frame(
     x = rep(1:4, each = 2),
-    category = rep(c("A","B"), 4),
+    category = rep(c("A", "B"), 4),
     value = c(0, 0, 2, 1, 3, 6, -4, 3)
   )
   p <- ggplot(data, aes(x = x, y = value, fill = category)) +

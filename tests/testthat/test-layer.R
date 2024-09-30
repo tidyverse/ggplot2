@@ -112,7 +112,7 @@ test_that("inherit.aes works", {
 })
 
 test_that("retransform works on computed aesthetics in `map_statistic`", {
-  df <- data.frame(x = rep(c(1,2), c(9, 25)))
+  df <- data.frame(x = rep(c(1, 2), c(9, 25)))
   p <- ggplot(df, aes(x)) + geom_bar() + scale_y_sqrt()
   expect_equal(get_layer_data(p)$y, c(3, 5))
 

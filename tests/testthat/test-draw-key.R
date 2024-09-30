@@ -45,8 +45,8 @@ test_that("horizontal key glyphs work", {
     upper = 2:3,
     min = -1:0,
     max = 3:4,
-    group1 = c("a","b"),
-    group2 = c("c","d")
+    group1 = c("a", "b"),
+    group2 = c("c", "d")
   )
 
   p <- ggplot(df, aes(

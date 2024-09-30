@@ -34,7 +34,7 @@ test_that("Inf is squished to range", {
   skip_if(packageVersion("base") < "3.5.0")
   d <- cdata(
     ggplot(data_frame(x = 0, y = 0)) +
-      geom_point(aes(x,y)) +
+      geom_point(aes(x, y)) +
       annotate("text", -Inf, Inf, label = "Top-left") +
       coord_map()
   )
@@ -45,7 +45,7 @@ test_that("Inf is squished to range", {
 
 test_that("coord map throws error when limits are badly specified", {
   # throws error when limit is a Scale object instead of vector
-  expect_snapshot_error(ggplot() + coord_map(xlim = xlim(1,1)))
+  expect_snapshot_error(ggplot() + coord_map(xlim = xlim(1, 1)))
 
   # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_cartesian(ylim = 1:3))

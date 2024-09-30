@@ -37,7 +37,7 @@ test_that("wrap: layout sorting is correct", {
   dummy <- list(data_frame0(x = 1:5))
 
   test <- panel_layout(facet_wrap(~x, dir = "lt"), dummy)
-  expect_equal(test$ROW, rep(c(1,2), c(3, 2)))
+  expect_equal(test$ROW, rep(c(1, 2), c(3, 2)))
   expect_equal(test$COL, c(1:3, 1:2))
 
   test <- panel_layout(facet_wrap(~x, dir = "tl"), dummy)

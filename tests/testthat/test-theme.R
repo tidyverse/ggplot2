@@ -619,7 +619,7 @@ test_that("complete_theme completes a theme", {
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
-  df <- cbind(data_frame(x = 1:8, y = 1:8, f = gl(2,4)), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
+  df <- cbind(data_frame(x = 1:8, y = 1:8, f = gl(2, 4)), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
   p <- ggplot(df, aes(x, y)) +
     geom_point() +
     theme_test() +

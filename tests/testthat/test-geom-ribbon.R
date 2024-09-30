@@ -37,7 +37,7 @@ test_that("geom_ribbon works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 })
 
 test_that("outline.type option works", {

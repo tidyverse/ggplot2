@@ -36,7 +36,7 @@ cut_number <- function(x, n = NULL, ...) {
   brk <- breaks(x, "numbers", n)
   if (anyDuplicated(brk))
     cli::cli_abort("Insufficient data values to produce {n} bins.")
-  cut(x, brk , include.lowest = TRUE, ...)
+  cut(x, brk, include.lowest = TRUE, ...)
 }
 
 #' @export

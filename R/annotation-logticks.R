@@ -165,7 +165,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(xticks)[names(xticks) == "value"] <- x_name   # Rename to 'x' for coordinates$transform
       xticks <- coord$transform(xticks, panel_params)
-      xticks <- xticks[xticks$x <= 1 & xticks$x >= 0,]
+      xticks <- xticks[xticks$x <= 1 & xticks$x >= 0, ]
 
       if (outside)
         xticks$end = -xticks$end
@@ -203,7 +203,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
       names(yticks)[names(yticks) == "value"] <- y_name   # Rename to 'y' for coordinates$transform
       yticks <- coord$transform(yticks, panel_params)
-      yticks <- yticks[yticks$y <= 1 & yticks$y >= 0,]
+      yticks <- yticks[yticks$y <= 1 & yticks$y >= 0, ]
 
       if (outside)
         yticks$end = -yticks$end

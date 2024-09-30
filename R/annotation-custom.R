@@ -85,7 +85,7 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
 
     vp <- viewport(x = mean(x_rng), y = mean(y_rng),
                    width = diff(x_rng), height = diff(y_rng),
-                   just = c("center","center"))
+                   just = c("center", "center"))
     editGrob(grob, vp = vp, name = paste(grob$name, annotation_id()))
   },
 

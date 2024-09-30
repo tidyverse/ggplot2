@@ -1,7 +1,7 @@
 # thanks wch for providing the test code
 test_that("geom_boxplot range includes all outliers", {
   dat <- data_frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )
-  p <- ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot())
+  p <- ggplot_build(ggplot(dat, aes(x, y)) + geom_boxplot())
 
   miny <- p$layout$panel_params[[1]]$y.range[1]
   maxy <- p$layout$panel_params[[1]]$y.range[2]

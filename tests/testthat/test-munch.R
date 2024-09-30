@@ -33,14 +33,14 @@ test_that("munch_data works", {
     single_munch_test(dat, dist, segment_length = 10)
     single_munch_test(dat, dist, segment_length = 100)
     dist <- coord_polar(theta = "x")$distance(dat$x, dat$y,
-                           list(r.range = range(c(0,dat$y)),
+                           list(r.range = range(c(0, dat$y)),
                                 theta.range = range(dat$x)))
     dist[dat$group[-1] != dat$group[-nrow(dat)]] <- NA
     single_munch_test(dat, dist)
     single_munch_test(dat, dist, segment_length = 10)
     single_munch_test(dat, dist, segment_length = 100)
     dist <- coord_polar(theta = "y")$distance(dat$x, dat$y,
-                           list(r.range = range(c(0,dat$x)),
+                           list(r.range = range(c(0, dat$x)),
                                 theta.range = range(dat$y)))
     dist[dat$group[-1] != dat$group[-nrow(dat)]] <- NA
     single_munch_test(dat, dist)

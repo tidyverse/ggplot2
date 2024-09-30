@@ -55,7 +55,7 @@ test_that("binning works", {
 test_that("NA's result in warning from stat_bindot", {
   set.seed(122)
   dat <- data_frame(x = rnorm(20))
-  dat$x[c(2,10)] <- NA
+  dat$x[c(2, 10)] <- NA
 
   # Need to assign it to a var here so that it doesn't automatically print
   expect_snapshot_warning(ggplot_build(ggplot(dat, aes(x)) + geom_dotplot(binwidth = 0.2)))
@@ -177,7 +177,7 @@ test_that("geom_dotplot draws correctly", {
       coord_flip()
   )
   expect_doppelganger("bin y, three x groups, fill and dodge",
-    ggplot(dat2, aes(x, y, fill = g)) + scale_y_continuous(breaks = seq(-4 ,4, 0.4)) +
+    ggplot(dat2, aes(x, y, fill = g)) + scale_y_continuous(breaks = seq(-4, 4, 0.4)) +
       geom_dotplot(binwidth = 0.2, position = "dodge", binaxis = "y", stackdir = "center")
   )
   expect_doppelganger("bin y, continous x-axis, grouping by x",

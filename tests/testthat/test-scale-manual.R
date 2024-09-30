@@ -22,7 +22,7 @@ test_that("names of values used in manual scales", {
 })
 
 
-dat <- data_frame(g = c("B","A","A"))
+dat <- data_frame(g = c("B", "A", "A"))
 p <- ggplot(dat, aes(g, fill = g)) + geom_bar()
 col <- c("A" = "red", "B" = "green", "C" = "blue")
 

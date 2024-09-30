@@ -160,7 +160,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
-    newdata <- vec_rbind0(newdata, newdata[1,])
+    newdata <- vec_rbind0(newdata, newdata[1, ])
     newdata <- flip_data(newdata, flipped_aes)
 
     # Draw quantiles if requested, so long as there is non-zero y range

@@ -146,7 +146,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
 
     pieces <- vec_rbind0(starts, ends)
-    pieces <- pieces[order(pieces$group),]
+    pieces <- pieces[order(pieces$group), ]
 
     GeomPath$draw_panel(pieces, panel_params, coord, arrow = arrow,
       lineend = lineend)

@@ -105,7 +105,7 @@ sec_axis <- function(transform = NULL,
   }
 
   # sec_axis() historically accepted two-sided formula, so be permissive.
-  if (length(transform) > 2) transform <- transform[c(1,3)]
+  if (length(transform) > 2) transform <- transform[c(1, 3)]
 
   transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,

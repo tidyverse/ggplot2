@@ -96,11 +96,11 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     ellipse <- matrix(NA_real_, ncol = 2)
   } else {
     if (type == "t") {
-      v <- MASS::cov.trob(data[,vars])
+      v <- MASS::cov.trob(data[, vars])
     } else if (type == "norm") {
-      v <- stats::cov.wt(data[,vars])
+      v <- stats::cov.wt(data[, vars])
     } else if (type == "euclid") {
-      v <- stats::cov.wt(data[,vars])
+      v <- stats::cov.wt(data[, vars])
       v$cov <- diag(rep(min(diag(v$cov)), 2))
     }
     shape <- v$cov

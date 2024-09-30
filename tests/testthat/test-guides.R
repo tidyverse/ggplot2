@@ -224,7 +224,7 @@ test_that("guide merging for guide_legend() works as expected", {
 test_that("size = NA doesn't throw rendering errors", {
   df <- data.frame(
     x = c(1, 2),
-    group = c("a","b")
+    group = c("a", "b")
   )
   p <- ggplot(df, aes(x = x, y = 0, colour = group)) +
     geom_point(size = NA, na.rm = TRUE)
@@ -454,7 +454,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   key <- train_guide(guide, scale)$logkey
 
   expect_equal(sort(key$x), log10(outcome))
-  expect_equal(key$.type, rep(c(1,2,3), c(3, 2, 14)))
+  expect_equal(key$.type, rep(c(1, 2, 3), c(3, 2, 14)))
 
   # Test compound transformation
   scale <- test_scale(transform_compose(transform_log10(), transform_reverse()), c(10, 1000))
@@ -468,7 +468,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
 
   unlog <- sort(transform_pseudo_log()$inverse(key$x))
   expect_equal(unlog, c(-rev(outcome), 0, outcome))
-  expect_equal(key$.type, rep(c(1,2,3), c(7, 4, 28)))
+  expect_equal(key$.type, rep(c(1, 2, 3), c(7, 4, 28)))
 
   # Test expanded argument
   scale <- test_scale(transform_log10(), c(20, 900))
@@ -915,13 +915,13 @@ test_that("guides are positioned correctly", {
     p2 + theme(legend.position.inside = c(0.5, 0.5))
   )
   expect_doppelganger("legend inside plot, bottom left",
-    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
+    p2 + theme(legend.justification = c(0, 0), legend.position.inside = c(0, 0))
   )
   expect_doppelganger("legend inside plot, top right",
-    p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
+    p2 + theme(legend.justification = c(1, 1), legend.position.inside = c(1, 1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0.5,0.5))
+    p2 + theme(legend.justification = c(0, 0), legend.position.inside = c(0.5, 0.5))
   )
 })
 
