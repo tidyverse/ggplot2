@@ -187,28 +187,27 @@ GuideAxisLogticks <- ggproto(
     # Reconstruct original range
     limits <- transformation$inverse(scale$get_limits())
     has_negatives <- any(limits <= 0)
-
-    if (!has_negatives) {
-      start <- floor(log10(min(limits))) - 1L
-      end   <- ceiling(log10(max(limits))) + 1L
-    } else {
-      params$negative_small <- params$negative_small %||% 0.1
-      start <- floor(log10(abs(params$negative_small)))
-      end   <- ceiling(log10(max(abs(limits)))) + 1L
+    if (has_negatives) {
+      large  <- max(abs(limits))
+      small  <- params$negative_small %||% 0.1
+      limits <- sort(c(small * 10, large))
     }
 
+    start <- floor(log10(min(limits))) - 1L
+    end   <- ceiling(log10(max(limits))) + 1L
+
     # Calculate tick marks
-    tens  <- 10^seq(start, end, by = 1)
+    tens  <- 10^seq(start, end, by = 1L)
     fives <- tens * 5
     ones  <- as.vector(outer(setdiff(2:9, 5), tens))
 
     if (has_negatives) {
       # Filter and mirror ticks around 0
-      tens  <- tens[tens >= params$negative_small]
+      tens  <- tens[tens >= small]
       tens  <- c(tens, -tens, 0)
-      fives <- fives[fives >= params$negative_small]
+      fives <- fives[fives >= small]
       fives <- c(fives, -fives)
-      ones  <- ones[ones >= params$negative_small]
+      ones  <- ones[ones >= small]
       ones  <- c(ones, -ones)
     }
 
