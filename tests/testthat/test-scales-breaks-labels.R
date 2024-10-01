@@ -8,9 +8,9 @@ test_that("labels match breaks, even when outside limits", {
 
 test_that("labels match breaks", {
   expect_error(scale_x_discrete(breaks = 1:3, labels = 1:2),
-    "must have the same length")
+               "must have the same length")
   expect_error(scale_x_continuous(breaks = 1:3, labels = 1:2),
-    "must have the same length")
+               "must have the same length")
 })
 
 test_that("labels don't have to match null breaks", {
@@ -104,8 +104,7 @@ test_that("discrete labels match breaks", {
   expect_length(sc$get_labels(), 5)
   expect_equal(sc$get_labels(), letters[2:6])
 
-  sc <- init_scale(breaks = 0:5 * 10, labels =
-    function(x) paste(x, "-", sep = ""))
+  sc <- init_scale(breaks = 0:5 * 10, labels = function(x) paste(x, "-", sep = ""))
   expect_equal(sc$get_labels(), c("10-", "20-", "30-", "40-", "50-"))
 
   pick_5 <- function(x) sample(x, 5)
@@ -237,7 +236,7 @@ test_that("only finite or NA values for breaks for transformed scales (#871)", {
 
 test_that("minor breaks are transformed by scales", {
   sc <- scale_y_continuous(limits = c(1, 100), transform = "log10",
-    minor_breaks = c(1, 10, 100))
+                           minor_breaks = c(1, 10, 100))
 
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2))
 })

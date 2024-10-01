@@ -36,6 +36,6 @@ test_that("geom_hex works in non-linear coordinate systems", {
     p + coord_trans(y = "sqrt")
   )
   expect_doppelganger("hex bin plot in polar coordinates",
-                      p + coord_polar()
+    p + coord_polar()
   )
 })

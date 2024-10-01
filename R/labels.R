@@ -148,9 +148,11 @@ setup_plot_labels <- function(plot, layers, data) {
 labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
                  tag = waiver(), alt = waiver(), alt_insight = waiver()) {
   # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
-  args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
+  args <- dots_list(
+    ..., title = title, subtitle = subtitle, caption = caption,
     tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
-    .ignore_empty = "all")
+    .ignore_empty = "all"
+  )
 
   is_waive <- vapply(args, is.waive, logical(1))
   args <- args[!is_waive]

@@ -126,7 +126,7 @@ dist_polar <- function(r, theta) {
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
   lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
-    yintercept = "r_int",  xintercept = "t_int"))
+                     yintercept = "r_int",  xintercept = "t_int"))
 
   # Re-normalize the theta values so that intercept for each is 0
   # This is necessary for calculating spiral arc length.
@@ -212,7 +212,8 @@ spiral_arc_length <- function(a, theta1, theta2) {
   # http://mathworld.wolfram.com/ArchimedesSpiral.html
   0.5 * a * (
     (theta1 * sqrt(1 + theta1 * theta1) + asinh(theta1)) -
-    (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2)))
+    (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2))
+  )
 }
 
 # Closes a polygon type data structure by repeating the first-in-group after

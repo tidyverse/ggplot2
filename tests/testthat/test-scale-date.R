@@ -11,7 +11,7 @@ df <- data_frame(
 
 test_that("inherits timezone from data", {
   if (!is.null(attr(df$time1, "tzone")))
-     skip("Local time zone not available")
+    skip("Local time zone not available")
 
   # Local time
   p <- ggplot(df, aes(y = y)) + geom_point(aes(time1))

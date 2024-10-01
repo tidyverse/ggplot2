@@ -271,16 +271,22 @@ ggplot_gtable.ggplot_built <- function(data) {
   }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
-    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table, subtitle, name = "subtitle",
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off"
+  )
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table, title, name = "title",
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off"
+  )
 
   plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
-  plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
-    t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table, caption, name = "caption",
+    t = -1, b = -1, l = caption_l, r = caption_r, clip = "off"
+  )
 
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
@@ -322,10 +328,8 @@ by_layer <- function(f, layers, data, step = NULL) {
     error = function(cnd) {
       cli::cli_abort(c(
         "Problem while {step}.",
-        i = "Error occurred in the {ordinal(i)} layer."),
-        call = layers[[i]]$constructor,
-        parent = cnd
-      )
+        i = "Error occurred in the {ordinal(i)} layer."
+      ), call = layers[[i]]$constructor, parent = cnd)
     }
   )
   out

@@ -263,9 +263,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # works. They're just set to the standard x +- width/2 so that dot clusters
       # can be dodged like other geoms.
       # After position code is rewritten, each dot should have its own bounding box.
-      data <- dapply(data, c("group", "PANEL"), transform,
-            ymin = min(y) - binwidth[1] / 2,
-            ymax = max(y) + binwidth[1] / 2)
+      data <- dapply(
+        data, c("group", "PANEL"), transform,
+        ymin = min(y) - binwidth[1] / 2,
+        ymax = max(y) + binwidth[1] / 2
+      )
 
       data$xmin <- data$x + data$width * stackaxismin
       data$xmax <- data$x + data$width * stackaxismax
@@ -298,13 +300,17 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     }
 
     ggname("geom_dotplot",
-      dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
-                  stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
-                  default.units = "npc",
-                  gp = gg_par(col = alpha(tdata$colour, tdata$alpha),
-                              fill = fill_alpha(tdata$fill, tdata$alpha),
-                              lwd = tdata$stroke / .pt, lty = tdata$linetype,
-                              lineend = lineend))
+      dotstackGrob(
+        stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
+        stackposition = tdata$stackpos, stackdir = stackdir, stackratio = stackratio,
+        default.units = "npc",
+        gp = gg_par(
+          col = alpha(tdata$colour, tdata$alpha),
+          fill = fill_alpha(tdata$fill, tdata$alpha),
+          lwd = tdata$stroke / .pt, lty = tdata$linetype,
+          lineend = lineend
+        )
+      )
     )
   },
 

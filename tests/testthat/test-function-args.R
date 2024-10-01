@@ -34,9 +34,12 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
 
     common_names <- intersect(names(fun_args), names(draw_args))
 
-    expect_identical(fun_args[common_names], draw_args[common_names],
-      info = paste0("Mismatch between arg defaults for ", geom_fun_name,
-        " and ", class(geom_fun()$geom)[1], "'s $draw and/or $draw_group functions.")
+    expect_identical(
+      fun_args[common_names], draw_args[common_names],
+      info = paste0(
+        "Mismatch between arg defaults for ", geom_fun_name, " and ",
+        class(geom_fun()$geom)[1], "'s $draw and/or $draw_group functions."
+      )
     )
   })
 })
@@ -67,9 +70,12 @@ test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
 
     common_names <- intersect(names(fun_args), names(calc_args))
 
-    expect_identical(fun_args[common_names], calc_args[common_names],
-      info = paste0("Mismatch between arg defaults for ", stat_fun_name,
-        " and ", class(stat_fun()$stat)[1], "'s $compute_panel and/or $compute_group functions.")
+    expect_identical(
+      fun_args[common_names], calc_args[common_names],
+      info = paste0(
+        "Mismatch between arg defaults for ", stat_fun_name, " and ",
+        class(stat_fun()$stat)[1], "'s $compute_panel and/or $compute_group functions."
+      )
     )
   })
 })

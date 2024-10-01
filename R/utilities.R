@@ -219,12 +219,12 @@ gg_dep <- function(version, msg) {
   if (cv[[1, 1]] > v[[1, 1]]  ||  cv[[1, 2]] > v[[1, 2]] + 1) {
     cli::cli_abort(text)
 
-  # If minor number differs by one, give warning
   } else if (cv[[1, 2]] > v[[1, 2]]) {
+    # If minor number differs by one, give warning
     cli::cli_warn(text)
 
-  # If only subminor number is greater, give message
   } else if (cv[[1, 3]] > v[[1, 3]]) {
+    # If only subminor number is greater, give message
     cli::cli_inform(text)
   }
 

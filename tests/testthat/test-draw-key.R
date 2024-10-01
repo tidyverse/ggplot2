@@ -9,7 +9,7 @@ test_that("alternative key glyphs work", {
       geom_line(aes(color = "line"), key_glyph = "timeseries") +
       geom_point(aes(fill = z), pch = 21, size = 3, key_glyph = "polygon") +
       guides(fill = guide_legend(order = 1))
-   )
+  )
 
   # specify key glyph by function
   expect_doppelganger("rectangle and dotplot key glyphs",

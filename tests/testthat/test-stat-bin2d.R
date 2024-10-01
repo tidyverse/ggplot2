@@ -39,8 +39,7 @@ test_that("breaks override binwidth", {
 test_that("breaks are transformed by the scale", {
   df <- data_frame(x = c(1, 10, 100, 1000), y = 0:3)
   base <- ggplot(df, aes(x, y)) +
-    stat_bin_2d(
-      breaks = list(x = c(5, 50, 500), y = c(0.5, 1.5, 2.5)))
+    stat_bin_2d(breaks = list(x = c(5, 50, 500), y = c(0.5, 1.5, 2.5)))
 
   out1 <- get_layer_data(base)
   out2 <- get_layer_data(base + scale_x_log10())

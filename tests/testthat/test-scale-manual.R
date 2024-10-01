@@ -1,24 +1,24 @@
 test_that("names of values used in manual scales", {
-   s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"))
-   s1$train(c("4", "6", "8"))
-   expect_equal(s1$map(c("4", "6", "8")), c("a", "b", "c"))
+  s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"))
+  s1$train(c("4", "6", "8"))
+  expect_equal(s1$map(c("4", "6", "8")), c("a", "b", "c"))
 
-   s2 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), na.value = NA)
-   s2$train(c("4", "8"))
-   expect_equal(s2$map(c("4", "6", "8")), c("a", NA, "c"))
-   expect_equal(s2$get_limits(), c("4", "8"))
+  s2 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), na.value = NA)
+  s2$train(c("4", "8"))
+  expect_equal(s2$map(c("4", "6", "8")), c("a", NA, "c"))
+  expect_equal(s2$get_limits(), c("4", "8"))
 
-   s3 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), na.value = "x")
-   s3$train(c("4", "8", NA))
-   expect_equal(s3$map(c("4", "6", "8")), c("a", "x", "c"))
-   expect_equal(s3$get_limits(), c("4", "8", NA))
+  s3 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), na.value = "x")
+  s3$train(c("4", "8", NA))
+  expect_equal(s3$map(c("4", "6", "8")), c("a", "x", "c"))
+  expect_equal(s3$get_limits(), c("4", "8", NA))
 
-   # Names do not match data
-   s <- scale_colour_manual(values = c(foo = "x", bar = "y"))
-   s$train(c("A", "B"))
-   expect_snapshot_warning(
-     expect_equal(s$get_limits(), character())
-   )
+  # Names do not match data
+  s <- scale_colour_manual(values = c(foo = "x", bar = "y"))
+  s$train(c("A", "B"))
+  expect_snapshot_warning(
+    expect_equal(s$get_limits(), character())
+  )
 })
 
 
@@ -55,16 +55,16 @@ test_that("insufficient values raise an error", {
   df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
   p <- ggplot(df, aes(x, y, colour = z)) + geom_point()
 
-  expect_error(ggplot_build(p + scale_colour_manual(values = "black")),
-    "Insufficient values")
+  expect_error(ggplot_build(
+    p + scale_colour_manual(values = "black")
+  ), "Insufficient values")
 
   # Should be sufficient
   ggplot_build(p + scale_colour_manual(values = c("black", "black")))
 })
 
 test_that("values are matched when scale contains more unique values than are in the data", {
-  s <- scale_colour_manual(values = c("8" = "c", "4" = "a",
-    "22" = "d", "6"  = "b"))
+  s <- scale_colour_manual(values = c("8" = "c", "4" = "a", "22" = "d", "6" = "b"))
   s$train(c("4", "6", "8"))
   expect_equal(s$map(c("4", "6", "8")), c("a", "b", "c"))
 })

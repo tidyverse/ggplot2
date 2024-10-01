@@ -188,8 +188,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
       ggname("geom_violin", grobTree(
         GeomPolygon$draw_panel(newdata, ...),
-        quantile_grob)
-      )
+        quantile_grob
+      ))
     } else {
       ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
     }

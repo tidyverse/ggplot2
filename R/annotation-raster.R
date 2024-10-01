@@ -86,8 +86,10 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
 
-    rasterGrob(raster, x_rng[1], y_rng[1],
+    rasterGrob(
+      raster, x_rng[1], y_rng[1],
       diff(x_rng), diff(y_rng), default.units = "native",
-      just = c("left", "bottom"), interpolate = interpolate)
+      just = c("left", "bottom"), interpolate = interpolate
+    )
   }
 )

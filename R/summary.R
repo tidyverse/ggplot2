@@ -21,7 +21,8 @@ summary.ggplot <- function(object, ...) {
     output <- paste(
       "data:     ", paste(names(object$data), collapse = ", "),
       " [", nrow(object$data), "x", ncol(object$data), "] ",
-      "\n", sep = "")
+      "\n", sep = ""
+    )
     cat(wrap(output))
   }
   if (length(object$mapping) > 0) {

@@ -678,20 +678,21 @@ position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
 # Function implementing backward compatibility with the old way of specifying
 # guide styling
 deprecated_guide_args <- function(
-  theme = NULL,
-  title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  label = NULL,
-  label.position = NULL,
-  label.theme = NULL, label.hjust = NULL, label.vjust = NULL,
-  keywidth  = NULL, keyheight = NULL, barwidth  = NULL, barheight = NULL,
-  byrow = NULL,
-  frame.colour = NULL, frame.linewidth = NULL, frame.linetype = NULL,
-  ticks = NULL, ticks.colour = NULL, ticks.linewidth = NULL,
-  axis = NULL, axis.colour = NULL, axis.linewidth = NULL, axis.arrow = NULL,
-  default.unit = "line",
-  ...,
-  .call = caller_call()) {
+    theme = NULL,
+    title.position = NULL,
+    title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
+    label = NULL,
+    label.position = NULL,
+    label.theme = NULL, label.hjust = NULL, label.vjust = NULL,
+    keywidth  = NULL, keyheight = NULL, barwidth  = NULL, barheight = NULL,
+    byrow = NULL,
+    frame.colour = NULL, frame.linewidth = NULL, frame.linetype = NULL,
+    ticks = NULL, ticks.colour = NULL, ticks.linewidth = NULL,
+    axis = NULL, axis.colour = NULL, axis.linewidth = NULL, axis.arrow = NULL,
+    default.unit = "line",
+    ...,
+    .call = caller_call()) {
+
   warn_dots_used(call = .call)
 
   args <- names(formals(deprecated_guide_args))

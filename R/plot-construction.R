@@ -42,7 +42,7 @@
 `+.gg` <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
-            "Cannot use {.code +} with a single argument.",
+      "Cannot use {.code +} with a single argument.",
       i = "Did you accidentally put {.code +} on a new line?"
     ))
   }
@@ -129,7 +129,7 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
 #' @export
 ggplot_add.function <- function(object, plot, object_name) {
   cli::cli_abort(c(
-          "Can't add {.var {object_name}} to a {.cls ggplot} object",
+    "Can't add {.var {object_name}} to a {.cls ggplot} object",
     i = "Did you forget to add parentheses, as in {.fn {object_name}}?"
   ))
 }

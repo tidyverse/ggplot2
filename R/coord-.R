@@ -275,9 +275,9 @@ parse_coord_expand <- function(expand) {
 }
 
 # Utility function to check coord limits
-check_coord_limits <- function(
-    limits, arg = caller_arg(limits), call = caller_env()
-) {
+check_coord_limits <- function(limits, arg = caller_arg(limits),
+                               call = caller_env()) {
+
   if (is.null(limits)) {
     return(invisible(NULL))
   }

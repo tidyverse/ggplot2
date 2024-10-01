@@ -78,13 +78,13 @@ test_that("fuzzy breaks are used when cutting", {
 })
 
 test_that("breaks are transformed by the scale", {
-   df <- data_frame(x = rep(1:4, 1:4))
-   base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
+  df <- data_frame(x = rep(1:4, 1:4))
+  base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
 
-   out1 <- get_layer_data(base)
-   out2 <- get_layer_data(base + scale_x_sqrt())
-   expect_equal(out1$xmin, c(1, 2.5))
-   expect_equal(out2$xmin, sqrt(c(1, 2.5)))
+  out1 <- get_layer_data(base)
+  out2 <- get_layer_data(base + scale_x_sqrt())
+  expect_equal(out1$xmin, c(1, 2.5))
+  expect_equal(out2$xmin, sqrt(c(1, 2.5)))
 })
 
 test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {

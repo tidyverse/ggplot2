@@ -47,8 +47,12 @@ ggplot_global$base_to_ggplot <- .base_to_ggplot
 
 # These two vectors must match in length and position of symmetrical aesthetics
 # xintercept2 is a filler to match to the intercept aesthetic in geom_abline
-ggplot_global$x_aes <- c("x", "xmin", "xmax", "xend", "xintercept",
-  "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0")
+ggplot_global$x_aes <- c(
+  "x", "xmin", "xmax", "xend", "xintercept",
+  "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0"
+)
 
-ggplot_global$y_aes <- c("y", "ymin", "ymax", "yend", "yintercept",
-  "ymin_final", "ymax_final", "lower", "middle", "upper", "y0")
+ggplot_global$y_aes <- c(
+  "y", "ymin", "ymax", "yend", "yintercept",
+  "ymin_final", "ymax_final", "lower", "middle", "upper", "y0"
+)

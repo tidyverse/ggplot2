@@ -4,7 +4,8 @@ test_that("geom_sf() determines the legend type automatically", {
 
   mp <- sf::st_sf(
     geometry = sf::st_sfc(sf::st_multipoint(rbind(c(1, 1), c(2, 2), c(3, 3)))),
-    v = "a")
+    v = "a"
+  )
 
   s1 <- rbind(c(0, 3), c(0, 4), c(1, 5), c(2, 5))
   s2 <- rbind(c(0.2, 3), c(0.2, 4), c(1, 4.8), c(2, 4.8))
@@ -12,7 +13,8 @@ test_that("geom_sf() determines the legend type automatically", {
 
   mls <- sf::st_sf(
     geometry = sf::st_sfc(sf::st_multilinestring(list(s1, s2, s3))),
-    v = "a")
+    v = "a"
+  )
 
   p1 <- rbind(c(0, 0), c(1, 0), c(3, 2), c(2, 4), c(1, 4), c(0, 0))
   p2 <- rbind(c(1, 1), c(1, 2), c(2, 2), c(1, 1))
@@ -22,7 +24,8 @@ test_that("geom_sf() determines the legend type automatically", {
 
   mpol <- sf::st_sf(
     geometry = sf::st_sfc(sf::st_multipolygon(list(list(p1, p2), list(p3, p4), list(p5)))),
-    v = "a")
+    v = "a"
+  )
 
   fun_geom_sf <- function(sf, show.legend) {
     p <- ggplot() + geom_sf(aes(colour = v), data = sf, show.legend = show.legend)
@@ -306,21 +309,20 @@ test_that("geom_sf draws arrows correctly", {
   )
 
   nc <- sf::st_linestring(
-      sf::st_coordinates(sf::st_as_sf(nc_tiny_coords, coords = c("x", "y"), crs = 4326))
-    )
+    sf::st_coordinates(sf::st_as_sf(nc_tiny_coords, coords = c("x", "y"), crs = 4326))
+  )
 
   nc2 <- sf::st_cast(
     sf::st_sfc(
       sf::st_multilinestring(lapply(
         1:(length(sf::st_coordinates(nc)[, 1]) - 1),
-          function(x) {
-            rbind(
-              as.numeric(sf::st_coordinates(nc)[x, 1:2]),
-              as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
-            )
-          }
-      )
-      )
+        function(x) {
+          rbind(
+            as.numeric(sf::st_coordinates(nc)[x, 1:2]),
+            as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
+          )
+        }
+      ))
     ), "LINESTRING"
   )
 

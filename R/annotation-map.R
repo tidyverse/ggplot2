@@ -97,8 +97,9 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
       id = grob_id,
       gp = gg_par(
         col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$linewidth)
+        lwd = data$linewidth
       )
+    )
   },
 
   required_aes = NULL

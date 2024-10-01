@@ -1,7 +1,8 @@
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
     theta = c(0, 2 * pi,   2,   6, 6, 1,    1, 0),
-    r     = c(0,      0, 0.5, 0.5, 1, 1, 0.75, 0.5))
+    r     = c(0,      0, 0.5, 0.5, 1, 1, 0.75, 0.5)
+  )
 
   scales <- list(
     x = scale_x_continuous(limits = c(0, 2 * pi)),
@@ -16,8 +17,10 @@ test_that("polar distance is calculated correctly", {
   maxlen <- spiral_arc_length(1 / (2 * pi), 0, 2 * pi)
 
   # These are the expected lengths. I think they're correct...
-  expect_equal(dists,
-    c(0, -1.225737494, -2, -0.5, -5, -0.25, -0.6736885011) / maxlen)
+  expect_equal(
+    dists,
+    c(0, -1.225737494, -2, -0.5, -5, -0.25, -0.6736885011) / maxlen
+  )
 
   # The picture can be visualized with:
   # ggplot(dat, aes(x=theta, y=r)) + geom_path() +

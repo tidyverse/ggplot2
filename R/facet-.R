@@ -168,25 +168,33 @@ Facet <- ggproto("Facet", NULL,
 
     xlab_height_top <- grobHeight(labels$x[[1]])
     panels <- gtable_add_rows(panels, xlab_height_top, pos = 0)
-    panels <- gtable_add_grob(panels, labels$x[[1]], name = "xlab-t",
-      l = panel_dim$l, r = panel_dim$r, t = 1, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$x[[1]], name = "xlab-t",
+      l = panel_dim$l, r = panel_dim$r, t = 1, clip = "off"
+    )
 
     xlab_height_bottom <- grobHeight(labels$x[[2]])
     panels <- gtable_add_rows(panels, xlab_height_bottom, pos = -1)
-    panels <- gtable_add_grob(panels, labels$x[[2]], name = "xlab-b",
-      l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$x[[2]], name = "xlab-b",
+      l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off"
+    )
 
     panel_dim <-  find_panel(panels)
 
     ylab_width_left <- grobWidth(labels$y[[1]])
     panels <- gtable_add_cols(panels, ylab_width_left, pos = 0)
-    panels <- gtable_add_grob(panels, labels$y[[1]], name = "ylab-l",
-      l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$y[[1]], name = "ylab-l",
+      l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off"
+    )
 
     ylab_width_right <- grobWidth(labels$y[[2]])
     panels <- gtable_add_cols(panels, ylab_width_right, pos = -1)
-    panels <- gtable_add_grob(panels, labels$y[[2]], name = "ylab-r",
-      l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$y[[2]], name = "ylab-r",
+      l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off"
+    )
 
     panels
   },
@@ -365,8 +373,11 @@ unique_combs <- function(df) {
   if (length(df) == 0) return()
 
   unique_values <- lapply(df, ulevels)
-  rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
-    KEEP.OUT.ATTRS = TRUE))
+  rev(expand.grid(
+    rev(unique_values),
+    stringsAsFactors = FALSE,
+    KEEP.OUT.ATTRS = TRUE
+  ))
 }
 
 df.grid <- function(a, b) {

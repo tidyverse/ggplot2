@@ -8,18 +8,18 @@ dotstackGrob <- function(
     stackratio = 1,           # Stacking height of dots (.75 means 25% dot overlap)
     default.units = "npc", name = NULL, gp = gpar(), vp = NULL) {
 
-    if (!is.unit(x))
-        x <- unit(x, default.units)
-    if (!is.unit(y))
-        y <- unit(y, default.units)
-    if (!is.unit(dotdia))
-        dotdia <- unit(dotdia, default.units)
-    if (!unitType(dotdia) == "npc")
-        cli::cli_warn("Unit type of dotdia should be {.val npc}")
+  if (!is.unit(x))
+    x <- unit(x, default.units)
+  if (!is.unit(y))
+    y <- unit(y, default.units)
+  if (!is.unit(dotdia))
+    dotdia <- unit(dotdia, default.units)
+  if (!unitType(dotdia) == "npc")
+    cli::cli_warn("Unit type of dotdia should be {.val npc}")
 
-    grob(x = x, y = y, stackaxis = stackaxis, dotdia = dotdia,
-         stackposition = stackposition, stackdir = stackdir, stackratio = stackratio,
-         name = name, gp = gp, vp = vp, cl = "dotstackGrob")
+  grob(x = x, y = y, stackaxis = stackaxis, dotdia = dotdia,
+       stackposition = stackposition, stackdir = stackdir, stackratio = stackratio,
+       name = name, gp = gp, vp = vp, cl = "dotstackGrob")
 }
 
 #' @export

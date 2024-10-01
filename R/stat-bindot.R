@@ -30,15 +30,19 @@ StatBindot <- ggproto("StatBindot", Stat,
     # for all data before it's split into groups.
     if (method == "dotdensity" && binpositions == "all") {
       if (binaxis == "x") {
-        newdata <- densitybin(x = data$x, weight = data$weight, binwidth = binwidth,
-                      method = method)
+        newdata <- densitybin(
+          x = data$x, weight = data$weight, binwidth = binwidth,
+          method = method
+        )
 
         data    <- data[order(data$x), ]
         newdata <- newdata[order(newdata$x), ]
 
       } else if (binaxis == "y") {
-        newdata <- densitybin(x = data$y, weight = data$weight, binwidth = binwidth,
-                    method = method)
+        newdata <- densitybin(
+          x = data$y, weight = data$weight, binwidth = binwidth,
+          method = method
+        )
 
         data    <- data[order(data$y), ]
         newdata <- newdata[order(newdata$x), ]
@@ -51,10 +55,12 @@ StatBindot <- ggproto("StatBindot", Stat,
 
     }
 
-    ggproto_parent(Stat, self)$compute_panel(data, scales, binwidth = binwidth,
+    ggproto_parent(Stat, self)$compute_panel(
+      data, scales, binwidth = binwidth,
       binaxis = binaxis, method = method, binpositions = binpositions,
       origin = origin, width = width, drop = drop,
-      right = right)
+      right = right
+    )
   },
 
   compute_group = function(self, data, scales, binwidth = NULL, binaxis = "x",
@@ -95,8 +101,10 @@ StatBindot <- ggproto("StatBindot", Stat,
       # If bin centers are found by group instead of by all, find the bin centers
       # (If binpositions=="all", then we'll already have bin centers.)
       if (binpositions == "bygroup")
-        data <- densitybin(x = values, weight = data$weight, binwidth = binwidth,
-                  method = method, range = range)
+        data <- densitybin(
+          x = values, weight = data$weight, binwidth = binwidth,
+          method = method, range = range
+        )
 
       # Collapse each bin and get a count
       data <- dapply(data, "bincenter", function(x) {
@@ -134,43 +142,43 @@ StatBindot <- ggproto("StatBindot", Stat,
 # It returns a data frame with the original data (x), weights, bin #, and the bin centers.
 densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range = NULL) {
 
-    if (length(stats::na.omit(x)) == 0) return(data_frame0())
-    if (is.null(weight))  weight <- rep(1, length(x))
-    weight[is.na(weight)] <- 0
+  if (length(stats::na.omit(x)) == 0) return(data_frame0())
+  if (is.null(weight))  weight <- rep(1, length(x))
+  weight[is.na(weight)] <- 0
 
-    if (is.null(range))    range <- range(x, na.rm = TRUE, finite = TRUE)
-    if (is.null(binwidth)) binwidth <- diff(range) / 30
+  if (is.null(range))    range <- range(x, na.rm = TRUE, finite = TRUE)
+  if (is.null(binwidth)) binwidth <- diff(range) / 30
 
-    # Sort weight and x, by x
-    weight <- weight[order(x)]
-    x      <- sort(x, na.last = TRUE)
+  # Sort weight and x, by x
+  weight <- weight[order(x)]
+  x      <- sort(x, na.last = TRUE)
 
-    cbin    <- 0                      # Current bin ID
-    bin     <- rep.int(NA, length(x)) # The bin ID for each observation
-    binend  <- -Inf                   # End position of current bin (scan left to right)
+  cbin    <- 0                      # Current bin ID
+  bin     <- rep.int(NA, length(x)) # The bin ID for each observation
+  binend  <- -Inf                   # End position of current bin (scan left to right)
 
-    # Scan list and put dots in bins
-    for (i in seq_along(x)) {
-        # If past end of bin, start a new bin at this point
-        if (x[i] >= binend) {
-            binend <- x[i] + binwidth
-            cbin <- cbin + 1
-        }
-
-        bin[i] <- cbin
+  # Scan list and put dots in bins
+  for (i in seq_along(x)) {
+    # If past end of bin, start a new bin at this point
+    if (x[i] >= binend) {
+      binend <- x[i] + binwidth
+      cbin <- cbin + 1
     }
 
-    results <- data_frame0(
-      x = x,
-      bin = bin,
-      binwidth = binwidth,
-      weight = weight,
-      .size = length(x)
-    )
-    results <- dapply(results, "bin", function(df) {
-      df$bincenter <- (min(df$x) + max(df$x)) / 2
-      return(df)
-    })
+    bin[i] <- cbin
+  }
 
-    return(results)
+  results <- data_frame0(
+    x = x,
+    bin = bin,
+    binwidth = binwidth,
+    weight = weight,
+    .size = length(x)
+  )
+  results <- dapply(results, "bin", function(df) {
+    df$bincenter <- (min(df$x) + max(df$x)) / 2
+    return(df)
+  })
+
+  return(results)
 }

@@ -37,15 +37,15 @@ test_that("mapping works", {
 
   expect_equal(
     sc$map_df(data_frame(alpha = c(-10, 11)))[[1]],
-    c(0, 0))
+    c(0, 0)
+  )
 })
 
 test_that("identity scale preserves input values", {
   df <- data_frame(x = 1:3, z = factor(letters[1:3]))
 
   # aesthetic-specific scales
-  p1 <- ggplot(df,
-    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
+  p1 <- ggplot(df, aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
     geom_point() +
     scale_colour_identity() +
     scale_fill_identity() +
@@ -61,8 +61,7 @@ test_that("identity scale preserves input values", {
   expect_equal(d1$alpha, as.numeric(df$z))
 
   # generic scales
-  p2 <- ggplot(df,
-    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
+  p2 <- ggplot(df, aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
     geom_point() +
     scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
     scale_continuous_identity(aesthetics = c("size", "alpha"))
@@ -115,10 +114,14 @@ test_that("oob affects position values", {
   mid_censor <- cdata(base + y_scale(c(3, 7), censor))
   handle <- GeomBar$handle_na
 
-  expect_warning(low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
-    "Removed 1 row containing missing values or values outside the scale range")
-  expect_warning(mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
-    "Removed 3 rows containing missing values or values outside the scale range")
+  expect_warning(
+    low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
+    "Removed 1 row containing missing values or values outside the scale range"
+  )
+  expect_warning(
+    mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
+    "Removed 3 rows containing missing values or values outside the scale range"
+  )
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
@@ -179,8 +182,10 @@ test_that("find_global searches in the right places", {
   testenv <- new.env(parent = globalenv())
 
   # This should find the scale object in the package environment
-  expect_identical(find_global("scale_colour_hue", testenv),
-    ggplot2::scale_colour_hue)
+  expect_identical(
+    find_global("scale_colour_hue", testenv),
+    ggplot2::scale_colour_hue
+  )
 
   # Set an object with the same name in the environment
   testenv$scale_colour_hue <- "foo"
@@ -190,8 +195,10 @@ test_that("find_global searches in the right places", {
 
   # If we search in the empty env, we should end up with the object
   # from the ggplot2 namespace
-  expect_identical(find_global("scale_colour_hue", emptyenv()),
-    ggplot2::scale_colour_hue)
+  expect_identical(
+    find_global("scale_colour_hue", emptyenv()),
+    ggplot2::scale_colour_hue
+  )
 })
 
 test_that("scales warn when transforms introduces non-finite values", {

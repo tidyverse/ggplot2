@@ -74,7 +74,8 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
         fill = alpha(arrow.fill, trans$alpha),
         lwd = trans$linewidth,
         lty = trans$linetype,
-        lineend = lineend),
+        lineend = lineend
+      ),
       arrow = arrow
     )
   }

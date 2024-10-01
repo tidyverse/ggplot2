@@ -243,9 +243,11 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
-  p <- ggplot_build(base +
-    theme(text = element_text(colour = "red")) +
-    theme(text = element_text(face = "italic")))
+  p <- ggplot_build(
+    base +
+      theme(text = element_text(colour = "red")) +
+      theme(text = element_text(face = "italic"))
+  )
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 })

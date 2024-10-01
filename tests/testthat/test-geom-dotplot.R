@@ -62,17 +62,17 @@ test_that("NA's result in warning from stat_bindot", {
 })
 
 test_that("when binning on y-axis, limits depend on the panel", {
-   p <- ggplot(mtcars, aes(factor(cyl), mpg)) +
-        geom_dotplot(binaxis = "y", binwidth = 1 / 30 * diff(range(mtcars$mpg)))
+  p <- ggplot(mtcars, aes(factor(cyl), mpg)) +
+    geom_dotplot(binaxis = "y", binwidth = 1 / 30 * diff(range(mtcars$mpg)))
 
-   b1 <- ggplot_build(p + facet_wrap(~am))
-   b2 <- ggplot_build(p + facet_wrap(~am, scales = "free_y"))
+  b1 <- ggplot_build(p + facet_wrap(~am))
+  b2 <- ggplot_build(p + facet_wrap(~am, scales = "free_y"))
 
-   equal_limits1 <- (b1$layout$panel_params[[1]]$y.range == b1$layout$panel_params[[2]]$y.range)
-   equal_limits2 <- (b2$layout$panel_params[[1]]$y.range == b2$layout$panel_params[[2]]$y.range)
+  equal_limits1 <- (b1$layout$panel_params[[1]]$y.range == b1$layout$panel_params[[2]]$y.range)
+  equal_limits2 <- (b2$layout$panel_params[[1]]$y.range == b2$layout$panel_params[[2]]$y.range)
 
-   expect_true(all(equal_limits1))
-   expect_false(all(equal_limits2))
+  expect_true(all(equal_limits1))
+  expect_false(all(equal_limits2))
 })
 
 test_that("weight aesthetic is checked", {

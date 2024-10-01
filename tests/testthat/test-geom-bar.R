@@ -27,8 +27,10 @@ test_that("geom_bar works in both directions", {
 
 test_that("geom_bar default widths considers panels", {
 
-  dat <- data_frame0(x = c(1:2, 1:2 + 0.1), y = 1,
-                    PANEL = factor(rep(1:2, each = 2)))
+  dat <- data_frame0(
+    x = c(1:2, 1:2 + 0.1), y = 1,
+    PANEL = factor(rep(1:2, each = 2))
+  )
 
   layer  <- geom_bar()
   params <- layer$geom_params

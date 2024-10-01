@@ -72,8 +72,9 @@ element_blank <- function() {
 
 #' @export
 #' @rdname element
-element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
-  linetype = NULL, color = NULL, inherit.blank = FALSE, size = deprecated()) {
+element_rect <- function(
+    fill = NULL, colour = NULL, linewidth = NULL,
+    linetype = NULL, color = NULL, inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
@@ -96,9 +97,10 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
 #'   digits which give the lengths in consecutive positions in the string.
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
-element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL, arrow.fill = NULL,
-  inherit.blank = FALSE, size = deprecated()) {
+element_line <- function(
+    colour = NULL, linewidth = NULL, linetype = NULL,
+    lineend = NULL, color = NULL, arrow = NULL, arrow.fill = NULL,
+    inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
@@ -110,8 +112,10 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
   arrow <- arrow %||% FALSE
 
   structure(
-    list(colour = colour, linewidth = linewidth, linetype = linetype, lineend = lineend,
-      arrow = arrow, arrow.fill = arrow.fill, inherit.blank = inherit.blank),
+    list(
+      colour = colour, linewidth = linewidth, linetype = linetype, lineend = lineend,
+      arrow = arrow, arrow.fill = arrow.fill, inherit.blank = inherit.blank
+    ),
     class = c("element_line", "element")
   )
 }
@@ -131,9 +135,10 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
 #'   is anchored.
 #' @export
 #' @rdname element
-element_text <- function(family = NULL, face = NULL, colour = NULL,
-  size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE) {
+element_text <- function(
+    family = NULL, face = NULL, colour = NULL,
+    size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
+    color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE) {
 
   if (!is.null(color))  colour <- color
 
@@ -150,9 +155,11 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 
 
   structure(
-    list(family = family, face = face, colour = colour, size = size,
+    list(
+      family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
-      margin = margin, debug = debug, inherit.blank = inherit.blank),
+      margin = margin, debug = debug, inherit.blank = inherit.blank
+    ),
     class = c("element_text", "element")
   )
 }
@@ -166,15 +173,15 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 #' @rdname element
 element_geom <- function(
     # colours
-  ink = NULL, paper = NULL, accent = NULL,
-  # linewidth
-  linewidth = NULL, borderwidth = NULL,
-  # linetype
-  linetype = NULL, bordertype = NULL,
-  # text
-  family = NULL, fontsize = NULL,
-  # points
-  pointsize = NULL, pointshape = NULL) {
+    ink = NULL, paper = NULL, accent = NULL,
+    # linewidth
+    linewidth = NULL, borderwidth = NULL,
+    # linetype
+    linetype = NULL, bordertype = NULL,
+    # text
+    family = NULL, fontsize = NULL,
+    # points
+    pointsize = NULL, pointshape = NULL) {
 
   if (!is.null(fontsize)) {
     fontsize <- fontsize / .pt
@@ -263,9 +270,10 @@ element_grob <- function(element, ...) {
 element_grob.element_blank <- function(element, ...)  zeroGrob()
 
 #' @export
-element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
-  width = 1, height = 1,
-  fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL, ..., size = deprecated()) {
+element_grob.element_rect <- function(
+    element, x = 0.5, y = 0.5, width = 1, height = 1,
+    fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL, ...,
+    size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
@@ -274,18 +282,21 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 
   # The gp settings can override element_gp
   gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
-  element_gp <- gg_par(lwd = element$linewidth, col = element$colour,
-    fill = element$fill, lty = element$linetype)
+  element_gp <- gg_par(
+    lwd = element$linewidth, col = element$colour,
+    fill = element$fill, lty = element$linetype
+  )
 
   rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
 }
 
 
 #' @export
-element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
-  family = NULL, face = NULL, colour = NULL, size = NULL,
-  hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  margin = NULL, margin_x = FALSE, margin_y = FALSE, ...) {
+element_grob.element_text <- function(
+    element, label = "", x = NULL, y = NULL,
+    family = NULL, face = NULL, colour = NULL, size = NULL,
+    hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
+    margin = NULL, margin_x = FALSE, margin_y = FALSE, ...) {
 
   if (is.null(label))
     return(zeroGrob())
@@ -297,25 +308,32 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   angle <- angle %||% element$angle %||% 0
 
   # The gp settings can override element_gp
-  gp <- gg_par(fontsize = size, col = colour,
+  gp <- gg_par(
+    fontsize = size, col = colour,
     fontfamily = family, fontface = face,
-    lineheight = lineheight)
-  element_gp <- gg_par(fontsize = element$size, col = element$colour,
+    lineheight = lineheight
+  )
+  element_gp <- gg_par(
+    fontsize = element$size, col = element$colour,
     fontfamily = element$family, fontface = element$face,
-    lineheight = element$lineheight)
+    lineheight = element$lineheight
+  )
 
-  titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
+  titleGrob(
+    label, x, y, hjust = hj, vjust = vj, angle = angle,
     gp = modify_list(element_gp, gp), margin = margin,
-    margin_x = margin_x, margin_y = margin_y, debug = element$debug, ...)
+    margin_x = margin_x, margin_y = margin_y, debug = element$debug, ...
+  )
 }
 
 
 
 #' @export
-element_grob.element_line <- function(element, x = 0:1, y = 0:1,
-  colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
-  arrow.fill = NULL,
-  default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
+element_grob.element_line <- function(
+    element, x = 0:1, y = 0:1,
+    colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
+    arrow.fill = NULL,
+    default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")

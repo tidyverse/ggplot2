@@ -101,7 +101,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     fill = from_theme(col_mix(ink, paper, 0.2)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
-    alpha = NA),
+    alpha = NA
+  ),
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 

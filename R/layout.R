@@ -122,12 +122,14 @@ Layout <- ggproto("Layout", NULL,
     # Initialise scales if needed, and possible.
     layout <- self$layout
     if (is.null(self$panel_scales_x)) {
-      self$panel_scales_x <- self$facet$init_scales(layout, x_scale = x_scale,
-        params = self$facet_params)$x
+      self$panel_scales_x <- self$facet$init_scales(
+        layout, x_scale = x_scale, params = self$facet_params
+      )$x
     }
     if (is.null(self$panel_scales_y)) {
-      self$panel_scales_y <- self$facet$init_scales(layout, y_scale = y_scale,
-        params = self$facet_params)$y
+      self$panel_scales_y <- self$facet$init_scales(
+        layout, y_scale = y_scale, params = self$facet_params
+      )$y
     }
 
     self$facet$train_scales(

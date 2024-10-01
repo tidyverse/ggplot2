@@ -514,9 +514,10 @@ Sometimes you just want to make a small modification to an existing geom. In thi
 #|  gallon, for 234 cars. The convex hull of all the points is marked by a 
 #|  polygon with no fill."
 GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
-  default_aes = aes(colour = "black", fill = NA, linewidth = 0.5, linetype = 1,
-    alpha = NA)
+  default_aes = aes(
+    colour = "black", fill = NA, linewidth = 0.5, linetype = 1, alpha = NA
   )
+)
 geom_chull <- function(mapping = NULL, data = NULL, 
                        position = "identity", na.rm = FALSE, show.legend = NA, 
                        inherit.aes = TRUE, ...) {
@@ -718,15 +719,19 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
   if (params$horizontal) {
     # Put panels in matrix and convert to a gtable
     panels <- matrix(panels, ncol = 2)
-    panel_table <- gtable::gtable_matrix("layout", panels, 
-      widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
+    panel_table <- gtable::gtable_matrix(
+      "layout", panels, 
+      widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on"
+    )
     # Add spacing according to theme
     panel_spacing <- calc_element("panel.spacing.x", theme)
     panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
   } else {
     panels <- matrix(panels, ncol = 1)
-    panel_table <- gtable::gtable_matrix("layout", panels, 
-      widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on")
+    panel_table <- gtable::gtable_matrix(
+      "layout", panels, 
+      widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on"
+    )
     panel_spacing <- if (is.null(theme$panel.spacing.y)) {
       theme$panel.spacing
     } else {
@@ -738,43 +743,50 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
   panel_table$layout$name <- paste0("panel-", c(1, 2))
   
   # Construct the axes
-  axes <- render_axes(ranges[1], ranges[1], coord, theme, 
-    transpose = TRUE)
+  axes <- render_axes(ranges[1], ranges[1], coord, theme, transpose = TRUE)
 
   # Add axes around each panel
   panel_pos_h <- panel_cols(panel_table)$l
   panel_pos_v <- panel_rows(panel_table)$t
   axis_width_l <- unit(grid::convertWidth(
-    grid::grobWidth(axes$y$left[[1]]), "cm", TRUE), "cm")
+    grid::grobWidth(axes$y$left[[1]]), "cm", TRUE
+  ), "cm")
   axis_width_r <- unit(grid::convertWidth(
-    grid::grobWidth(axes$y$right[[1]]), "cm", TRUE), "cm")
+    grid::grobWidth(axes$y$right[[1]]), "cm", TRUE
+  ), "cm")
   ## We do it reverse so we don't change the position of panels when we add axes
   for (i in rev(panel_pos_h)) {
     panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r, i)
-    panel_table <- gtable::gtable_add_grob(panel_table, 
-      rep(axes$y$right, length(panel_pos_v)), t = panel_pos_v, l = i + 1, 
-      clip = "off")
+    panel_table <- gtable::gtable_add_grob(
+      panel_table, rep(axes$y$right, length(panel_pos_v)), 
+      t = panel_pos_v, l = i + 1, clip = "off"
+    )
     panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l, i - 1)
-    panel_table <- gtable::gtable_add_grob(panel_table, 
-      rep(axes$y$left, length(panel_pos_v)), t = panel_pos_v, l = i, 
-      clip = "off")
+    panel_table <- gtable::gtable_add_grob(
+      panel_table, rep(axes$y$left, length(panel_pos_v)), 
+      t = panel_pos_v, l = i, clip = "off"
+    )
   }
   ## Recalculate as gtable has changed
   panel_pos_h <- panel_cols(panel_table)$l
   panel_pos_v <- panel_rows(panel_table)$t
   axis_height_t <- unit(grid::convertHeight(
-    grid::grobHeight(axes$x$top[[1]]), "cm", TRUE), "cm")
+    grid::grobHeight(axes$x$top[[1]]), "cm", TRUE
+  ), "cm")
   axis_height_b <- unit(grid::convertHeight(
-    grid::grobHeight(axes$x$bottom[[1]]), "cm", TRUE), "cm")
+    grid::grobHeight(axes$x$bottom[[1]]), "cm", TRUE
+  ), "cm")
   for (i in rev(panel_pos_v)) {
     panel_table <- gtable::gtable_add_rows(panel_table, axis_height_b, i)
-    panel_table <- gtable::gtable_add_grob(panel_table, 
-      rep(axes$x$bottom, length(panel_pos_h)), t = i + 1, l = panel_pos_h, 
-      clip = "off")
+    panel_table <- gtable::gtable_add_grob(
+      panel_table, rep(axes$x$bottom, length(panel_pos_h)), 
+      t = i + 1, l = panel_pos_h, clip = "off"
+    )
     panel_table <- gtable::gtable_add_rows(panel_table, axis_height_t, i - 1)
-    panel_table <- gtable::gtable_add_grob(panel_table, 
-      rep(axes$x$top, length(panel_pos_h)), t = i, l = panel_pos_h, 
-      clip = "off")
+    panel_table <- gtable::gtable_add_grob(
+      panel_table, rep(axes$x$top, length(panel_pos_h)), 
+      t = i, l = panel_pos_h, clip = "off"
+    )
   }
   panel_table
 }
@@ -898,15 +910,19 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     if (params$horizontal) {
       # Put panels in matrix and convert to a gtable
       panels <- matrix(panels, ncol = 2)
-      panel_table <- gtable::gtable_matrix("layout", panels, 
-        widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
+      panel_table <- gtable::gtable_matrix(
+        "layout", panels, 
+        widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on"
+      )
       # Add spacing according to theme
       panel_spacing <- calc_element("panel.spacing.x", theme)
       panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
     } else {
       panels <- matrix(panels, ncol = 1)
-      panel_table <- gtable::gtable_matrix("layout", panels, 
-        widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on")
+      panel_table <- gtable::gtable_matrix(
+        "layout", panels, 
+        widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on"
+      )
       panel_spacing <- calc_element("panel.spacing.y", theme)
       panel_table <- gtable::gtable_add_row_space(panel_table, panel_spacing)
     }
@@ -914,14 +930,12 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     panel_table$layout$name <- paste0("panel-", c(1, 2))
     
     # Construct the axes
-    axes <- render_axes(ranges[1], ranges, coord, theme, 
-      transpose = TRUE)
+    axes <- render_axes(ranges[1], ranges, coord, theme, transpose = TRUE)
   
     # Add axes around each panel
     grobWidths <- function(x) {
       unit(vapply(x, function(x) {
-        grid::convertWidth(
-          grid::grobWidth(x), "cm", TRUE)
+        grid::convertWidth(grid::grobWidth(x), "cm", TRUE)
       }, numeric(1)), "cm")
     }
     panel_pos_h <- panel_cols(panel_table)$l
@@ -932,61 +946,76 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     if (params$horizontal) {
       for (i in rev(seq_along(panel_pos_h))) {
         panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[i], panel_pos_h[i])
-        panel_table <- gtable::gtable_add_grob(panel_table,
-          axes$y$right[i], t = panel_pos_v, l = panel_pos_h[i] + 1,
-          clip = "off")
+        panel_table <- gtable::gtable_add_grob(
+          panel_table, axes$y$right[i], 
+          t = panel_pos_v, l = panel_pos_h[i] + 1, clip = "off"
+        )
 
         panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[i], panel_pos_h[i] - 1)
-        panel_table <- gtable::gtable_add_grob(panel_table,
-          axes$y$left[i], t = panel_pos_v, l = panel_pos_h[i],
-          clip = "off")
+        panel_table <- gtable::gtable_add_grob(
+          panel_table, axes$y$left[i], 
+          t = panel_pos_v, l = panel_pos_h[i], clip = "off"
+        )
       }
     } else {
-        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[1], panel_pos_h)
-        panel_table <- gtable::gtable_add_grob(panel_table,
-          axes$y$right, t = panel_pos_v, l = panel_pos_h + 1,
-          clip = "off")
-        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[1], panel_pos_h - 1)
-        panel_table <- gtable::gtable_add_grob(panel_table,
-          axes$y$left, t = panel_pos_v, l = panel_pos_h,
-          clip = "off")
-      }
+      panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[1], panel_pos_h)
+      panel_table <- gtable::gtable_add_grob(
+        panel_table, axes$y$right, 
+        t = panel_pos_v, l = panel_pos_h + 1, clip = "off"
+      )
+      panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[1], panel_pos_h - 1)
+      panel_table <- gtable::gtable_add_grob(
+        panel_table, axes$y$left, 
+        t = panel_pos_v, l = panel_pos_h, clip = "off"
+      )
+    }
 
     ## Recalculate as gtable has changed
     panel_pos_h <- panel_cols(panel_table)$l
     panel_pos_v <- panel_rows(panel_table)$t
     axis_height_t <- unit(grid::convertHeight(
-      grid::grobHeight(axes$x$top[[1]]), "cm", TRUE), "cm")
+      grid::grobHeight(axes$x$top[[1]]), "cm", TRUE
+    ), "cm")
     axis_height_b <- unit(grid::convertHeight(
-      grid::grobHeight(axes$x$bottom[[1]]), "cm", TRUE), "cm")
+      grid::grobHeight(axes$x$bottom[[1]]), "cm", TRUE
+    ), "cm")
     for (i in rev(panel_pos_v)) {
       panel_table <- gtable::gtable_add_rows(panel_table, axis_height_b, i)
-      panel_table <- gtable::gtable_add_grob(panel_table, 
-        rep(axes$x$bottom, length(panel_pos_h)), t = i + 1, l = panel_pos_h, 
-        clip = "off")
+      panel_table <- gtable::gtable_add_grob(
+        panel_table, rep(axes$x$bottom, length(panel_pos_h)), 
+        t = i + 1, l = panel_pos_h, clip = "off"
+      )
       panel_table <- gtable::gtable_add_rows(panel_table, axis_height_t, i - 1)
-      panel_table <- gtable::gtable_add_grob(panel_table, 
-        rep(axes$x$top, length(panel_pos_h)), t = i, l = panel_pos_h, 
-        clip = "off")
+      panel_table <- gtable::gtable_add_grob(
+        panel_table, rep(axes$x$top, length(panel_pos_h)), 
+        t = i, l = panel_pos_h, clip = "off"
+      )
     }
     
     # Add strips
     strips <- render_strips(
       x = data.frame(name = c("Original", paste0("Transformed (", params$trans$name, ")"))),
-      labeller = label_value, theme = theme)
+      labeller = label_value, theme = theme
+    )
     
     panel_pos_h <- panel_cols(panel_table)$l
     panel_pos_v <- panel_rows(panel_table)$t
     strip_height <- unit(grid::convertHeight(
-      grid::grobHeight(strips$x$top[[1]]), "cm", TRUE), "cm")
+      grid::grobHeight(strips$x$top[[1]]), 
+      "cm", TRUE
+    ), "cm")
     for (i in rev(seq_along(panel_pos_v))) {
       panel_table <- gtable::gtable_add_rows(panel_table, strip_height, panel_pos_v[i] - 1)
       if (params$horizontal) {
-        panel_table <- gtable::gtable_add_grob(panel_table, strips$x$top, 
-          t = panel_pos_v[i], l = panel_pos_h, clip = "off")
+        panel_table <- gtable::gtable_add_grob(
+          panel_table, strips$x$top, 
+          t = panel_pos_v[i], l = panel_pos_h, clip = "off"
+        )
       } else {
-        panel_table <- gtable::gtable_add_grob(panel_table, strips$x$top[i], 
-          t = panel_pos_v[i], l = panel_pos_h, clip = "off")
+        panel_table <- gtable::gtable_add_grob(
+          panel_table, strips$x$top[i], 
+          t = panel_pos_v[i], l = panel_pos_h, clip = "off"
+        )
       }
     }
     
@@ -1018,11 +1047,14 @@ As the rendering part of a facet class is often the difficult development step, 
 #|  the price of about 10.000 diamonds in every panel. The panels are titled 1
 #|  to 9 and show different points, but are visually similar."
 
-facet_bootstrap <- function(n = 9, prop = 0.2, nrow = NULL, ncol = NULL, 
-  scales = "fixed", shrink = TRUE, strip.position = "top") {
+facet_bootstrap <- function(
+    n = 9, prop = 0.2, nrow = NULL, ncol = NULL, 
+    scales = "fixed", shrink = TRUE, strip.position = "top") {
   
-  facet <- facet_wrap(~.bootstrap, nrow = nrow, ncol = ncol, scales = scales, 
-    shrink = shrink, strip.position = strip.position)
+  facet <- facet_wrap(
+    ~.bootstrap, nrow = nrow, ncol = ncol, scales = scales, 
+    shrink = shrink, strip.position = strip.position
+  )
   facet$params$n <- n
   facet$params$prop <- prop
   ggproto(NULL, FacetBootstrap,

@@ -327,8 +327,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     }
 
     theta_fine <- theta_rescale(seq(0, 1, length.out = 100), c(0, 1), arc, dir)
-    r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
-                         panel_params$inner_radius)
+    r_fine <- r_rescale(
+      panel_params$r.major, panel_params$r.range, panel_params$inner_radius
+    )
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y

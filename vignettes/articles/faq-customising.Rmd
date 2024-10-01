@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
   fig.asp = 0.618,
   fig.width = 6,
   out.width = "80%"
-  )
+)
 ```
 
 ## Legends
@@ -98,7 +98,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   theme(
     legend.position = "bottom", 
     legend.spacing.x = unit(1.0, "cm")
-    )
+  )
 ```
 
 For vertical legends changing `legend.spacing.y` changes the space between the legend title and the keys, but not between the keys, e.g. see the large space between the legend title and keys.
@@ -126,7 +126,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   theme(
     legend.key.size = unit(1.5, "cm"),
     legend.key = element_rect(color = NA, fill = NA)
-    )
+  )
 ```
 
 Note that the legend title is no longer aligned with the keys with this approach.
@@ -172,7 +172,7 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
     labels = c("4" = "4-wheel drive", 
                "f" = "Front-wheel drive", 
                "r" = "Rear-wheel drive")
-    )
+  )
 ```
 
 </details>

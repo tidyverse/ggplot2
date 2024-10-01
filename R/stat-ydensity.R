@@ -79,8 +79,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   extra_params = c("na.rm", "orientation"),
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                       drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
+                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -88,7 +88,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
           i = paste0(
             "Set {.code drop = FALSE} to consider such groups for position ",
             "adjustment purposes."
-        )))
+          )
+        ))
         return(data_frame0())
       }
       ans <- data_frame0(x = data$x, n = nrow(data))

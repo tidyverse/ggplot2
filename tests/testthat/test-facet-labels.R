@@ -84,25 +84,29 @@ test_that("labeller() dispatches labellers", {
   expect_equal(get_labels_matrix(p2), expected_cyl_both)
 
   # facet_wrap() shouldn't get both rows and cols
-  p3 <- p + facet_wrap(~cyl, labeller = labeller(
-    .cols = label_both, .rows = label_both))
+  p3 <- p + facet_wrap(
+    ~cyl, labeller = labeller(.cols = label_both, .rows = label_both)
+  )
   expect_error(ggplotGrob(p3))
 
   # facet_grid() can get both rows and cols
-  p4 <- p + facet_grid(am ~ cyl, labeller = labeller(
-    .cols = label_both, .rows = label_both))
+  p4 <- p + facet_grid(
+    am ~ cyl, labeller = labeller(.cols = label_both, .rows = label_both)
+  )
   expect_equal(get_labels_matrix(p4, "rows"), expected_am_both)
   expect_equal(get_labels_matrix(p4, "cols"), expected_cyl_both)
 
   # Cannot have a specific labeller for a variable which already has a
   # margin-wide labeller
-  p5 <- p + facet_wrap(~cyl, labeller = labeller(
-    .rows = label_both, cyl = label_value))
+  p5 <- p + facet_wrap(
+    ~cyl, labeller = labeller(.rows = label_both, cyl = label_value)
+  )
   expect_error(ggplotGrob(p5))
 
   # Variables can be attributed labellers
-  p6 <- p + facet_grid(am + cyl ~ ., labeller = labeller(
-     am = label_both, cyl = label_both))
+  p6 <- p + facet_grid(
+    am + cyl ~ ., labeller = labeller(am = label_both, cyl = label_both)
+  )
   expect_equal(
     get_labels_matrix(p6, "rows"),
     cbind(
@@ -135,10 +139,11 @@ test_that("old school labellers still work", {
     paste0("var = ", as.character(value))
   }
 
-  expect_warning(p <-
-    ggplot(mtcars, aes(disp, drat)) +
-    geom_point() +
-    facet_grid(~cyl, labeller = my_labeller))
+  expect_warning(
+    p <- ggplot(mtcars, aes(disp, drat)) +
+      geom_point() +
+      facet_grid(~cyl, labeller = my_labeller)
+  )
 
   expected_labels <- cbind(paste("var =", c(4, 6, 8)))
   expect_identical(get_labels_matrix(p, "cols"), expected_labels)

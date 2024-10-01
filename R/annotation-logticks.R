@@ -85,7 +85,8 @@
 #'   mid = unit(3,"mm"),
 #'   long = unit(4,"mm")
 #' )
-annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled = TRUE,
+annotation_logticks <- function(
+    base = 10, sides = "bl", outside = FALSE, scaled = TRUE,
     short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
     colour = "black", linewidth = 0.5, linetype = 1, alpha = 1, color = NULL, ...,
     size = deprecated()) {
@@ -242,8 +243,10 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 # - value: the position of the log tick on the data axis, for example 1, 2, ..., 9, 10, 20, ...
 # - start: on the other axis, start position of the line (usually 0)
 # - end: on the other axis, end position of the line (for example, .1, .2, or .3)
-calc_logticks <- function(base = 10, ticks_per_base = base - 1,
-    minpow = 0, maxpow = minpow + 1, start = 0, shortend = 0.1, midend = 0.2, longend = 0.3) {
+calc_logticks <- function(
+    base = 10, ticks_per_base = base - 1,
+    minpow = 0, maxpow = minpow + 1, start = 0,
+    shortend = 0.1, midend = 0.2, longend = 0.3) {
 
   # Number of blocks of tick marks
   reps <- maxpow - minpow

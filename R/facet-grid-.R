@@ -181,10 +181,12 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
-    params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
+    params = list(
+      rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop,
-      draw_axes = draw_axes, axis_labels = axis_labels)
+      draw_axes = draw_axes, axis_labels = axis_labels
+    )
   )
 }
 
@@ -325,8 +327,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       data <- unrowname(data[data_rep, , drop = FALSE])
       facet_vals <- unrowname(vec_cbind(
         unrowname(facet_vals[data_rep, ,  drop = FALSE]),
-        unrowname(to_add[facet_rep, , drop = FALSE]))
-      )
+        unrowname(to_add[facet_rep, , drop = FALSE])
+      ))
     }
 
     # Add PANEL variable

@@ -318,13 +318,14 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   # Temporary scale for the purpose of calling break_info()
   create_scale = function(self, range, transformation = transform_identity(),
                           breaks = self$breaks) {
-    scale <- ggproto(NULL, ScaleContinuousPosition,
-                     name = self$name,
-                     breaks = breaks,
-                     labels = self$labels,
-                     limits = range,
-                     expand = c(0, 0),
-                     trans  = transformation
+    scale <- ggproto(
+      NULL, ScaleContinuousPosition,
+      name = self$name,
+      breaks = breaks,
+      labels = self$labels,
+      limits = range,
+      expand = c(0, 0),
+      trans  = transformation
     )
     scale$train(range)
     scale

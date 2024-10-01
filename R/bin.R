@@ -125,8 +125,9 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
     }
   }
 
-  bin_breaks_width(x_range, width, boundary = boundary, center = center,
-    closed = closed)
+  bin_breaks_width(
+    x_range, width, boundary = boundary, center = center, closed = closed
+  )
 }
 
 
@@ -145,8 +146,7 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
     weight[is.na(weight)] <- 0
   }
 
-  bin_idx <- cut(x, bins$fuzzy, right = bins$right_closed,
-    include.lowest = TRUE)
+  bin_idx <- cut(x, bins$fuzzy, right = bins$right_closed, include.lowest = TRUE)
   bin_count <- as.numeric(tapply(weight, bin_idx, sum, na.rm = TRUE))
   bin_count[is.na(bin_count)] <- 0
 
@@ -175,7 +175,8 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
 }
 
 bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
-  xmin = x - width / 2, xmax = x + width / 2) {
+                    xmin = x - width / 2, xmax = x + width / 2) {
+
   density <- count / width / sum(abs(count))
 
   data_frame0(

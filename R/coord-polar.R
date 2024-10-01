@@ -279,8 +279,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     if (length(theta) > 0 && ends_apart < 0.05 && !is.null(labels)) {
       n <- length(labels)
       if (is.expression(labels)) {
-        combined <- substitute(paste(a, "/", b),
-          list(a = labels[[1]], b = labels[[n]]))
+        combined <- substitute(
+          paste(a, "/", b),
+          list(a = labels[[1]], b = labels[[n]])
+        )
       } else {
         combined <- paste(labels[1], labels[n], sep = "/")
       }
