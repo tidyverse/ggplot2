@@ -586,7 +586,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
     c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.y.right")
   ),
   axis.minor.ticks.length.theta = el_def(
-    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.theta"),
+    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.theta")
   ),
   axis.minor.ticks.length.r = el_def(
     c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.r")

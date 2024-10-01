@@ -87,7 +87,7 @@ test_that("geom_violin draws correctly", {
     ggplot(dat, aes(x = x, y = y)) + geom_violin()
   )
   expect_doppelganger("scale area to sample size (C is smaller)",
-    ggplot(dat, aes(x = x, y = y)) + geom_violin(scale = "count"),
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(scale = "count")
   )
   expect_doppelganger("narrower (width=.5)",
     ggplot(dat, aes(x = x, y = y)) + geom_violin(width = 0.5)

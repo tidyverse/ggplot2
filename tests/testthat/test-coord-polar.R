@@ -228,7 +228,7 @@ test_that("coord_radial() draws correctly", {
   # Theme to test for axis placement
   theme <- theme(
     axis.line.theta = element_line(colour = "tomato"),
-    axis.line.r   = element_line(colour = "dodgerblue"),
+    axis.line.r   = element_line(colour = "dodgerblue")
   )
 
   sec_guides <- guides(

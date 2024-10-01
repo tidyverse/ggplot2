@@ -126,7 +126,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
-      trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
+      trim = trim, na.rm = na.rm, drop = drop, bounds = bounds
     )
     if (!drop && any(data$n < 2)) {
       cli::cli_warn(
