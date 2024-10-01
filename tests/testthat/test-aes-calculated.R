@@ -17,8 +17,8 @@ test_that("strip_dots remove dots around calculated aesthetics", {
   expect_identical(strip_dots(aes(..density..))$x, quo(density))
   expect_identical(strip_dots(aes(mean(..density..)))$x, quo(mean(density)))
   expect_equal(
-    strip_dots(aes(sapply(..density.., mean))$x),
-    quo(sapply(density, mean))
+    strip_dots(aes(vapply(..density.., mean, numeric(1)))$x),
+    quo(vapply(density, mean, numeric(1)))
   )
 })
 

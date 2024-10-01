@@ -735,11 +735,8 @@ theme_all_null <- function() {
   # We read from `.element_tree` instead of `ggplot_global$element_tree`
   # because we don't want to change our results just because a user
   # has defined new theme elements.
-  elements <- sapply(
-    names(.element_tree),
-    function(x) NULL,
-    simplify = FALSE, USE.NAMES = TRUE
-  )
+  elements <- rep(list(NULL), length.out = length(.element_tree))
+  names(elements) <- names(.element_tree)
 
   args <- c(elements, list(complete = TRUE))
   inject(theme(!!!args))

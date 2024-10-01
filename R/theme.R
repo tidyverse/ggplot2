@@ -560,7 +560,7 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
   if (!is_theme_validate(theme)) {
     return()
   }
-  mapply(
+  Map(
     validate_element, theme, names(theme),
     MoreArgs = list(element_tree = tree, call = call)
   )

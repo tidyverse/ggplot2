@@ -132,7 +132,7 @@ test_that("strips can be removed", {
     theme(strip.background = element_blank(), strip.text = element_blank())
   g_grobs <- ggplotGrob(g)
   strip_grobs <- g_grobs$grobs[grepl("strip-", g_grobs$layout$name, fixed = TRUE)]
-  expect_true(all(sapply(strip_grobs, inherits, "zeroGrob")))
+  expect_true(all(vapply(strip_grobs, inherits, "zeroGrob", FUN.VALUE = logical(1))))
 })
 
 test_that("padding is only added if axis is present", {
