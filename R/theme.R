@@ -899,7 +899,7 @@ combine_elements <- function(e1, e2) {
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
   is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
-  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1)) > 0)
+  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1))) > 0
   if (is_subclass) {
     new <- defaults(e1, e2)
     e2[names(new)] <- new

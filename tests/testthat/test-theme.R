@@ -180,8 +180,8 @@ test_that("calculating theme element inheritance works", {
 
   theme <- theme_gray() +
     theme(strip.text = element_blank(), strip.text.x = element_text(inherit.blank = TRUE))
-  e1 <- ggplot2:::calc_element("strip.text.x", theme)
-  e2 <- ggplot2:::calc_element("strip.text", theme)
+  e1 <- calc_element("strip.text.x", theme)
+  e2 <- calc_element("strip.text", theme)
   expect_identical(e1, e2)
 
   # Check that rel units are computed appropriately
@@ -315,7 +315,7 @@ test_that("element tree can be modified", {
   expect_snapshot_error(ggplotGrob(p1))
 
   # inheritance and final calculation of novel element works
-  final_theme <- ggplot2:::plot_theme(p, theme_gray())
+  final_theme <- plot_theme(p, theme_gray())
   e1 <- calc_element("blablabla", final_theme)
   e2 <- calc_element("text", final_theme)
   expect_identical(e1$family, e2$family)

@@ -128,7 +128,7 @@ Stat <- ggproto("Stat",
     # Record columns that are not constant within groups. We will drop them later.
     non_constant_columns <- character(0)
 
-    stats <- mapply(function(new, old) {
+    stats <- Map(function(new, old) {
       # In this function,
       #
       #   - `new` is the computed result. All the variables will be picked.
@@ -160,7 +160,7 @@ Stat <- ggproto("Stat",
         # one of the group has a constant value (see #4394 for the details).
         old[rep(1, nrow(new)), , drop = FALSE]
       )
-    }, stats, groups, SIMPLIFY = FALSE)
+    }, stats, groups)
 
     non_constant_columns <- unique0(non_constant_columns)
 
