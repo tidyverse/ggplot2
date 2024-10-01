@@ -186,20 +186,20 @@ test_that("facets with free scales scale independently", {
   # facet_wrap()
   l1 <- p + facet_wrap(~z, scales = "free")
   d1 <- cdata(l1)[[1]]
-  expect_true(sd(d1$x) < 1e-10)
-  expect_true(sd(d1$y) < 1e-10)
+  expect_lt(sd(d1$x), 1e-10)
+  expect_lt(sd(d1$y), 1e-10)
 
   # RHS of facet_grid()
   l2 <- p + facet_grid(. ~ z, scales = "free")
   d2 <- cdata(l2)[[1]]
-  expect_true(sd(d2$x) < 1e-10)
+  expect_lt(sd(d2$x), 1e-10)
   expect_length(unique(d2$y), 3)
 
   # LHS of facet_grid()
   l3 <- p + facet_grid(z ~ ., scales = "free")
   d3 <- cdata(l3)[[1]]
   expect_length(unique(d3$x), 3)
-  expect_true(sd(d3$y) < 1e-10)
+  expect_lt(sd(d3$y), 1e-10)
 })
 
 test_that("shrink parameter affects scaling", {

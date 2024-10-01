@@ -56,11 +56,11 @@ test_that("adding theme object to ggplot object with + operator works", {
   ## test with complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point() + theme_grey()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_identical(p$theme$axis.title$size, 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = "red"))
-  expect_true(p$theme$text$colour == "red")
+  expect_identical(p$theme$text$colour, "red")
   tt <- theme_grey()$text
   tt$colour <- "red"
   expect_true(tt$inherit.blank)
@@ -70,11 +70,11 @@ test_that("adding theme object to ggplot object with + operator works", {
   ## test without complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_identical(p$theme$axis.title$size, 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = "red"))
-  expect_true(p$theme$text$colour == "red")
+  expect_identical(p$theme$text$colour, "red")
   expect_null(p$theme$text$family)
   expect_null(p$theme$text$face)
   expect_null(p$theme$text$size)

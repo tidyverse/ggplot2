@@ -22,7 +22,7 @@ test_that("munch_data works", {
     md <- munch_data(data, dist, segment_length)
     # all rows of dat are in md
     expect_equal(nrow(merge(md, dat)), nrow(dat))
-    expect_true(nrow(md) >= nrow(dat))
+    expect_gte(nrow(md), nrow(dat))
   }
   dat <- data_frame(
     x =     c(0,  60, 30, 20, 40, 45),

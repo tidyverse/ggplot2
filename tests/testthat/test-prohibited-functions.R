@@ -59,7 +59,7 @@ test_that("list up R files properly", {
   skip_on_covr()
   skip_on_cran()
 
-  expect_true(length(R_files) > 0)
+  expect_gt(length(R_files), 0)
 })
 
 test_that("do not use stop()", {

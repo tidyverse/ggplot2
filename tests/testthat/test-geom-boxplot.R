@@ -6,8 +6,8 @@ test_that("geom_boxplot range includes all outliers", {
   miny <- p$layout$panel_params[[1]]$y.range[1]
   maxy <- p$layout$panel_params[[1]]$y.range[2]
 
-  expect_true(miny <= min(dat$y))
-  expect_true(maxy >= max(dat$y))
+  expect_lte(miny, min(dat$y))
+  expect_gte(maxy, max(dat$y))
 
   # Unless specifically directed not to
   p <- ggplot_build(ggplot(dat, aes(x, y)) + geom_boxplot(outliers = FALSE))
