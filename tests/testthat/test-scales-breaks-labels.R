@@ -104,7 +104,7 @@ test_that("discrete labels match breaks", {
   expect_length(sc$get_labels(), 5)
   expect_equal(sc$get_labels(), letters[2:6])
 
-  sc <- init_scale(breaks = 0:5 * 10, labels = function(x) paste(x, "-", sep = ""))
+  sc <- init_scale(breaks = 0:5 * 10, labels = function(x) paste0(x, "-"))
   expect_equal(sc$get_labels(), c("10-", "20-", "30-", "40-", "50-"))
 
   pick_5 <- function(x) sample(x, 5)

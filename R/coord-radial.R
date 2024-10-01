@@ -336,14 +336,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
-    grid_elems <- paste(
+    grid_elems <- paste0(
       c("panel.grid.major.", "panel.grid.minor.", "panel.grid.major."),
-      c(self$theta, self$theta, self$r), sep = ""
+      c(self$theta, self$theta, self$r)
     )
     grid_elems <- lapply(grid_elems, calc_element, theme = theme)
-    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
-    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
+    majortheta <- paste0("panel.grid.major.", self$theta)
+    minortheta <- paste0("panel.grid.minor.", self$theta)
+    majorr     <- paste0("panel.grid.major.", self$r)
 
     bg_element <- calc_element("panel.background", theme)
     if (inherits(bg_element, "element_blank")) {

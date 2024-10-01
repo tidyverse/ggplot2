@@ -11,17 +11,13 @@
 #' summary(p)
 summary.ggplot <- function(object, ...) {
   wrap <- function(x) {
-    paste(
-      paste(strwrap(x, exdent = 2), collapse = "\n"),
-      "\n", sep = ""
-    )
+    paste0(paste(strwrap(x, exdent = 2), collapse = "\n"), "\n")
   }
 
   if (!is.null(object$data)) {
-    output <- paste(
+    output <- paste0(
       "data:     ", paste(names(object$data), collapse = ", "),
-      " [", nrow(object$data), "x", ncol(object$data), "] ",
-      "\n", sep = ""
+      " [", nrow(object$data), "x", ncol(object$data), "]\n"
     )
     cat(wrap(output))
   }

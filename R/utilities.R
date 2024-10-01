@@ -81,7 +81,7 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
 #X clist(list(a=1, b=2))
 #X clist(par()[1:5])
 clist <- function(l) {
-  paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
+  paste(names(l), l, sep = " = ", collapse = ", ")
 }
 
 #' Convenience function to remove missing values from a data.frame
@@ -107,7 +107,7 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   if (any(missing)) {
     df <- df[!missing, , drop = FALSE]
     if (!na.rm) {
-      if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
+      if (name != "") name <- paste0(" ({.fn ", name, "})")
       msg <- paste0(
         "Removed {sum(missing)} row{?s} containing ",
         if (finite) "non-finite" else "missing values or values",

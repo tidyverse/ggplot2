@@ -232,9 +232,9 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
-    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
-    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
+    majortheta <- paste0("panel.grid.major.", self$theta)
+    minortheta <- paste0("panel.grid.minor.", self$theta)
+    majorr     <- paste0("panel.grid.major.", self$r)
 
     ggname("grill", grobTree(
       element_render(theme, "panel.background"),

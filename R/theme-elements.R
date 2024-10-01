@@ -225,7 +225,7 @@ rel <- function(x) {
 }
 
 #' @export
-print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
+print.rel <- function(x, ...) print(noquote(paste0(x, " *")))
 
 #' Reports whether x is a rel object
 #' @param x An object to test
