@@ -122,7 +122,6 @@ GuideBins <- ggproto(
     default_ticks = element_line(inherit.blank = TRUE),
 
     angle = NULL,
-    direction = NULL,
     override.aes = list(),
     reverse = FALSE,
     order = 0,
