@@ -391,7 +391,10 @@ table_add_tag <- function(table, label, theme) {
   width  <- grobWidth(tag)
 
   if (location %in% c("plot", "panel")) {
-    if (!is.numeric(position)) {
+    if (is.numeric(position)) {
+      x <- unit(position[1], "npc")
+      y <- unit(position[2], "npc")
+    } else {
       if (right || left) {
         x <- (1 - element$hjust) * width
         if (right) {
@@ -408,9 +411,6 @@ table_add_tag <- function(table, label, theme) {
       } else {
         y <- unit(element$vjust, "npc")
       }
-    } else {
-      x <- unit(position[1], "npc")
-      y <- unit(position[2], "npc")
     }
     # Re-render with manual positions
     tag <- element_grob(

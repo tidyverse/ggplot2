@@ -231,11 +231,11 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) return()
 
     # Test for monotonicity on unexpanded range
-    if (!scale$is_discrete()) {
+    if (scale$is_discrete()) {
+      breaks <- scale$map(self$breaks)
+    } else {
       self$mono_test(scale)
       breaks <- self$breaks
-    } else {
-      breaks <- scale$map(self$breaks)
     }
 
     # Get scale's original range before transformation

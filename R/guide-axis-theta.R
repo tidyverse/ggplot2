@@ -91,17 +91,7 @@ GuideAxisTheta <- ggproto(
       return(params)
     }
 
-    if (!("theta" %in% names(key))) {
-      # We likely have a linear coord, so we match the text angles to
-      # standard axes to be visually similar.
-      key$theta <- switch(
-        params$position,
-        top    = 0,
-        bottom = 1   * pi,
-        left   = 1.5 * pi,
-        right  = 0.5 * pi
-      )
-    } else {
+    if ("theta" %in% names(key)) {
       if (params$position == "theta.sec") {
         key$theta <- key$theta + pi
       }
@@ -121,6 +111,16 @@ GuideAxisTheta <- ggproto(
         key$.label[[n]] <- combined
         key <- vec_slice(key, -1)
       }
+    } else {
+      # We likely have a linear coord, so we match the text angles to
+      # standard axes to be visually similar.
+      key$theta <- switch(
+        params$position,
+        top    = 0,
+        bottom = 1   * pi,
+        left   = 1.5 * pi,
+        right  = 0.5 * pi
+      )
     }
 
     params$key <- key

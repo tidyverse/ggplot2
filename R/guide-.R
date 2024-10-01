@@ -388,11 +388,7 @@ Guide <- ggproto(
       return(zeroGrob())
     }
 
-    if (!is.list(key)) {
-      breaks <- key
-    } else {
-      breaks <- key[[params$aes]]
-    }
+    breaks <- if (is.list(key)) key[[params$aes]] else key
     n_breaks <- length(breaks)
 
     # Early exit if there are no breaks

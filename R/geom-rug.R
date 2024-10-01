@@ -102,10 +102,10 @@ GeomRug <- ggproto("GeomRug", Geom,
     }
 
     # move the rug to outside the main plot space
-    rug_length <- if (!outside) {
-      list(min = length, max = unit(1, "npc") - length)
-    } else {
+    rug_length <- if (outside) {
       list(min = -1 * length, max = unit(1, "npc") + length)
+    } else {
+      list(min = length, max = unit(1, "npc") - length)
     }
 
     gp <- gg_par(

@@ -205,8 +205,22 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     munched$fill <- arrow.fill %||% munched$colour
 
-    if (!constant) {
-
+    if (constant) {
+      id <- match(munched$group, unique0(munched$group))
+      polylineGrob(
+        munched$x, munched$y, id = id,
+        default.units = "native", arrow = arrow,
+        gp = gg_par(
+          col = alpha(munched$colour, munched$alpha)[start],
+          fill = alpha(munched$fill, munched$alpha)[start],
+          lwd = munched$linewidth[start],
+          lty = munched$linetype[start],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        )
+      )
+    } else {
       arrow <- repair_segment_arrow(arrow, munched$group)
 
       segmentsGrob(
@@ -217,21 +231,6 @@ GeomPath <- ggproto("GeomPath", Geom,
           fill = alpha(munched$fill, munched$alpha)[!end],
           lwd = munched$linewidth[!end],
           lty = munched$linetype[!end],
-          lineend = lineend,
-          linejoin = linejoin,
-          linemitre = linemitre
-        )
-      )
-    } else {
-      id <- match(munched$group, unique0(munched$group))
-      polylineGrob(
-        munched$x, munched$y, id = id,
-        default.units = "native", arrow = arrow,
-        gp = gg_par(
-          col = alpha(munched$colour, munched$alpha)[start],
-          fill = alpha(munched$fill, munched$alpha)[start],
-          lwd = munched$linewidth[start],
-          lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
           linemitre = linemitre

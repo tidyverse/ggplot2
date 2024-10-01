@@ -196,7 +196,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       opposite_r <- isTRUE(scales$r$position %in% c("bottom", "left"))
     }
 
-    if (!isFALSE(self$r_axis_inside)) {
+    if (isFALSE(self$r_axis_inside)) {
+
+      r_position <- c(params$r_axis, opposite_position(params$r_axis))
+      if (opposite_r) {
+        r_position <- rev(r_position)
+      }
+
+    } else {
 
       r_position <- c("left", "right")
       # If both opposite direction and opposite position, don't flip
@@ -210,12 +217,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       # Set guide text angles
       guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
       guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
-    } else {
-      r_position <- c(params$r_axis, opposite_position(params$r_axis))
-      if (opposite_r) {
-        r_position <- rev(r_position)
-      }
     }
+
     guide_params[["r"]]$position     <- r_position[1]
     guide_params[["r.sec"]]$position <- r_position[2]
 
@@ -245,15 +248,15 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       gdefs[[t]] <- guides[[t]]$get_layer_key(gdefs[[t]], layers)
     }
 
-    if (!isFALSE(self$r_axis_inside)) {
+    if (isFALSE(self$r_axis_inside)) {
+      # When drawing radial axis outside, we need to pretend that arcs starts
+      # at horizontal or vertical position to have the transform work right.
+      mod <- list(arc = params$fake_arc)
+    } else {
       # For radial axis, we need to pretend that rotation starts at 0 and
       # the bounding box is for circles, otherwise tick positions will be
       # spaced too closely.
       mod <- list(bbox = list(x = c(0, 1), y = c(0, 1)), arc = c(0, 2 * pi))
-    } else {
-      # When drawing radial axis outside, we need to pretend that arcs starts
-      # at horizontal or vertical position to have the transform work right.
-      mod <- list(arc = params$fake_arc)
     }
     temp <- modify_list(panel_params, mod)
 
@@ -343,7 +346,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     majorr     <- paste("panel.grid.major.", self$r,     sep = "")
 
     bg_element <- calc_element("panel.background", theme)
-    if (!inherits(bg_element, "element_blank")) {
+    if (inherits(bg_element, "element_blank")) {
+      background <- zeroGrob()
+    } else {
       background <- data_frame0(
         x = c(Inf,  Inf, -Inf, -Inf),
         y = c(Inf, -Inf, -Inf,  Inf)
@@ -358,8 +363,6 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         x = background$x, y = background$y,
         gp = bg_gp
       )
-    } else {
-      background <- zeroGrob()
     }
 
     ggname("grill", grobTree(

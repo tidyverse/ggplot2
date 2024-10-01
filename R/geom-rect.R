@@ -70,21 +70,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
     data <- check_linewidth(data, snake_class(self))
-    if (!coord$is_linear()) {
-      aesthetics <- setdiff(
-        names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
-      )
-      index <- rep(seq_len(nrow(data)), each = 4)
-
-      new <- data[index, aesthetics, drop = FALSE]
-      new$x <- vec_interleave(data$xmin, data$xmax, data$xmax, data$xmin)
-      new$y <- vec_interleave(data$ymax, data$ymax, data$ymin, data$ymin)
-      new$group <- index
-
-      ggname("geom_rect", GeomPolygon$draw_panel(
-        new, panel_params, coord, lineend = lineend, linejoin = linejoin
-      ))
-    } else {
+    if (coord$is_linear()) {
       coords <- coord$transform(data, panel_params)
       ggname("geom_rect", rectGrob(
         coords$xmin, coords$ymax,
@@ -100,6 +86,20 @@ GeomRect <- ggproto("GeomRect", Geom,
           linejoin = linejoin,
           lineend = lineend
         )
+      ))
+    } else {
+      aesthetics <- setdiff(
+        names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
+      )
+      index <- rep(seq_len(nrow(data)), each = 4)
+
+      new <- data[index, aesthetics, drop = FALSE]
+      new$x <- vec_interleave(data$xmin, data$xmax, data$xmax, data$xmin)
+      new$y <- vec_interleave(data$ymax, data$ymax, data$ymin, data$ymin)
+      new$group <- index
+
+      ggname("geom_rect", GeomPolygon$draw_panel(
+        new, panel_params, coord, lineend = lineend, linejoin = linejoin
       ))
     }
   },

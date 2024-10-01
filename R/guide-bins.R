@@ -166,15 +166,15 @@ GuideBins <- ggproto(
     } else {
       limit_lab <- scale$get_labels(limits)
     }
-    if (!breaks[1] %in% limits) {
-      labels <- c(limit_lab[1], labels)
-    } else {
+    if (breaks[1] %in% limits) {
       key$.show[1] <- TRUE
-    }
-    if (!breaks[length(breaks)] %in% limits) {
-      labels <- c(labels, limit_lab[2])
     } else {
+      labels <- c(limit_lab[1], labels)
+    }
+    if (breaks[length(breaks)] %in% limits) {
       key$.show[nrow(key)] <- TRUE
+    } else {
+      labels <- c(labels, limit_lab[2])
     }
 
     key$.label <- labels

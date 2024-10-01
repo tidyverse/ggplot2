@@ -273,8 +273,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel <- id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
-    rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
-    cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
+    rows <- if (length(names(rows))) id(base[names(rows)], drop = TRUE) else rep(1L, length(panel))
+    cols <- if (length(names(cols))) id(base[names(cols)], drop = TRUE) else rep(1L, length(panel))
 
     panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -354,19 +354,19 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
 
     dim <- c(max(layout$ROW), max(layout$COL))
-    if (!axis_labels$x) {
-      cols    <- seq_len(nrow(layout))
-      x_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
-    } else {
+    if (axis_labels$x) {
       cols    <- which(layout$ROW == 1)
       x_order <- layout$COL
-    }
-    if (!axis_labels$y) {
-      rows    <- seq_len(nrow(layout))
-      y_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
     } else {
+      cols    <- seq_len(nrow(layout))
+      x_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
+    }
+    if (axis_labels$y) {
       rows    <- which(layout$COL == 1)
       y_order <- layout$ROW
+    } else {
+      rows    <- seq_len(nrow(layout))
+      y_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
     }
 
     # Render individual axes
