@@ -380,7 +380,7 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
 
 test_that("discrete scales can have secondary axes", {
 
-  data <- data.frame(x = c("A", "B", "C"), y = c("D", "E", "F"))
+  data <- data_frame0(x = c("A", "B", "C"), y = c("D", "E", "F"))
   p <- ggplot(data, aes(x, y)) +
     geom_point() +
     scale_x_discrete(sec.axis = dup_axis(labels = c("foo", "bar", "baz"))) +

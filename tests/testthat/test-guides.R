@@ -222,7 +222,7 @@ test_that("guide merging for guide_legend() works as expected", {
 })
 
 test_that("size = NA doesn't throw rendering errors", {
-  df <- data.frame(
+  df <- data_frame0(
     x = c(1, 2),
     group = c("a", "b")
   )

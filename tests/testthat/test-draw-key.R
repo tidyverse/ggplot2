@@ -39,7 +39,7 @@ test_that("keys can communicate their size", {
 # Orientation-aware key glyphs --------------------------------------------
 
 test_that("horizontal key glyphs work", {
-  df <- data.frame(
+  df <- data_frame0(
     middle = 1:2,
     lower = 0:1,
     upper = 2:3,

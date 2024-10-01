@@ -165,7 +165,7 @@ test_that("parsed labels are rendered correctly", {
 
 test_that("outside-justified labels are justified across panels", {
 
-  df <- data.frame(
+  df <- data_frame0(
     x = c("X\nX\nX\nX\nX", "X"),
     y = c("YYYYY", "Y"),
     f1 = c("A", "B"),

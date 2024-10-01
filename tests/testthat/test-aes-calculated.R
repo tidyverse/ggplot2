@@ -52,7 +52,7 @@ test_that("make_labels() deparses mappings properly", {
 
 test_that("staged aesthetics warn appropriately for duplicated names", {
   # Test should *not* report `NA` as the duplicated aes (#4707)
-  df <- data.frame(x = 1, y = 1, lab = "test")
+  df <- data_frame0(x = 1, y = 1, lab = "test")
 
   # One warning in plot code due to evaluation of `aes()`
   expect_snapshot_warning(

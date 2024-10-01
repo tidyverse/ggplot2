@@ -198,7 +198,7 @@ test_that("geom_sf data type renders appropriate legends", {
 
   # Point data
   data <- sf::st_as_sf(
-    data.frame(lon = c(1, 2), lat = c(3, 4), col = c("foo", "bar")),
+    data_frame0(lon = c(1, 2), lat = c(3, 4), col = c("foo", "bar")),
     coords = c("lon", "lat")
   )
   expect_doppelganger(
