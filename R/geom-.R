@@ -96,10 +96,10 @@ Geom <- ggproto("Geom",
 
   draw_panel = function(self, data, panel_params, coord, ...) {
     groups <- split(data, factor(data$group))
-    grobs <- lapply(groups, function(group) {
-      self$draw_group(group, panel_params, coord, ...)
-    })
-
+    grobs <- lapply(
+      groups, self$draw_group,
+      panel_params = panel_params, coord = coord, ...
+    )
     ggname(snake_class(self), gTree(
       children = inject(gList(!!!grobs))
     ))

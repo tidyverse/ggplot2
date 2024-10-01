@@ -246,9 +246,8 @@ GuideAxis <- ggproto(
     suffix <- params$theme_suffix %||%
       paste(params$aes, params$position, sep = ".")
     elements[is_char] <- vapply(
-      elements[is_char],
-      function(x) paste(x, suffix, sep = "."),
-      character(1)
+      elements[is_char], paste, suffix, sep = ".",
+      FUN.VALUE = character(1)
     )
     Guide$setup_elements(params, elements, theme)
   },
