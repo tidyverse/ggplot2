@@ -8,7 +8,7 @@
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
-scale_shape(name = waiver(), ..., solid = TRUE)
+scale_shape(name = waiver(), ..., solid = NULL)
 
 scale_shape_binned(name = waiver(), ..., solid = TRUE)
 }
