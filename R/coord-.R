@@ -184,10 +184,11 @@ Coord <- ggproto("Coord",
   # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
-  setup_params = function(data) {
+  setup_params = function(self, data) {
     list(
       guide_default = guide_axis(),
-      guide_missing = guide_none()
+      guide_missing = guide_none(),
+      expand = parse_coord_expand(self$expand %||% TRUE)
     )
   },
 
@@ -196,6 +197,11 @@ Coord <- ggproto("Coord",
   },
 
   setup_layout = function(layout, params) {
+    # We're appending a COORD variable to the layout that determines the
+    # uniqueness of panel parameters. The layout uses this to prevent redundant
+    # setups of these parameters.
+    scales <- layout[c("SCALE_X", "SCALE_Y")]
+    layout$COORD <- vec_match(scales, unique0(scales))
     layout
   },
 
@@ -203,14 +209,35 @@ Coord <- ggproto("Coord",
   # used as a fudge for CoordFlip and CoordPolar
   modify_scales = function(scales_x, scales_y) {
     invisible()
+  },
+
+  draw_panel = function(self, panel, params, theme) {
+    fg <- self$render_fg(params, theme)
+    bg <- self$render_bg(params, theme)
+    if (isTRUE(theme$panel.ontop)) {
+      panel <- list2(!!!panel, bg, fg)
+    } else {
+      panel <- list2(bg, !!!panel, fg)
+    }
+    gTree(
+      children = inject(gList(!!!panel)),
+      vp = viewport(clip = self$clip)
+    )
   }
 )
 
-#' Is this object a coordinate system?
-#'
-#' @export is.Coord
-#' @keywords internal
-is.Coord <- function(x) inherits(x, "Coord")
+
+#' @export
+#' @rdname is_tests
+is.coord <- function(x) inherits(x, "Coord")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.Coord(x) # Deprecated
+is.Coord <- function(x) {
+  deprecate_soft0("3.5.2", "is.Coord()", "is.coord()")
+  is.coord(x)
+}
 
 # Renders an axis with the correct orientation or zeroGrob if no axis should be
 # generated
@@ -222,6 +249,29 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
   } else {
     zeroGrob()
   }
+}
+
+# Elaborates an 'expand' argument for every side (top, right, bottom or left)
+parse_coord_expand <- function(expand) {
+  if (is.numeric(expand) && all(expand %in% c(0, 1))) {
+    expand <- as.logical(expand)
+  }
+  check_logical(expand)
+  if (anyNA(expand)) {
+    cli::cli_abort("{.arg expand} cannot contain missing values.")
+  }
+
+  if (!is_named(expand)) {
+    return(rep_len(expand, 4))
+  }
+
+  # Match by top/right/bottom/left
+  out <- rep(TRUE, 4)
+  i <- match(names(expand), .trbl)
+  if (sum(!is.na(i)) > 0) {
+    out[i] <- unname(expand)[!is.na(i)]
+  }
+  out
 }
 
 # Utility function to check coord limits

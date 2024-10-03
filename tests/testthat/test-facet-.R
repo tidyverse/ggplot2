@@ -21,7 +21,7 @@ test_that("as_facets_list() coerces character vectors", {
 
   expect_identical(as_facets_list("foo"), list(foobar[1]))
   expect_identical(as_facets_list(c("foo", "bar")), list(foobar[1], foobar[2]))
-  expect_identical(wrap_as_facets_list(c("foo", "bar")), foobar)
+  expect_identical(compact_facets(c("foo", "bar")), foobar)
 })
 
 test_that("as_facets_list() coerces lists", {
@@ -47,12 +47,12 @@ test_that("facets reject aes()", {
   expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
 })
 
-test_that("wrap_as_facets_list() returns a quosures object with compacted", {
-  expect_identical(wrap_as_facets_list(vars(foo)), quos(foo = foo))
-  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
+test_that("compact_facets() returns a quosures object with compacted", {
+  expect_identical(compact_facets(vars(foo)), quos(foo = foo))
+  expect_identical(compact_facets(~foo + bar), quos(foo = foo, bar = bar))
 
   f <- function(x) {
-    expect_identical(wrap_as_facets_list(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
+    expect_identical(compact_facets(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
   }
 
   f(NULL)
@@ -71,12 +71,12 @@ test_that("grid_as_facets_list() returns a list of quosures objects with compact
   f()
 })
 
-test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
-  expect_identical(wrap_as_facets_list(NULL), quos())
-  expect_identical(wrap_as_facets_list(list()), quos())
-  expect_identical(wrap_as_facets_list(. ~ .), quos())
-  expect_identical(wrap_as_facets_list(list(. ~ .)), quos())
-  expect_identical(wrap_as_facets_list(list(NULL)), quos())
+test_that("compact_facets() and grid_as_facets_list() accept empty specs", {
+  expect_identical(compact_facets(NULL), quos())
+  expect_identical(compact_facets(list()), quos())
+  expect_identical(compact_facets(. ~ .), quos())
+  expect_identical(compact_facets(list(. ~ .)), quos())
+  expect_identical(compact_facets(list(NULL)), quos())
 
   expect_identical(grid_as_facets_list(list(), NULL), list(rows = quos(), cols = quos()))
   expect_identical(grid_as_facets_list(. ~ ., NULL), list(rows = quos(), cols = quos()))

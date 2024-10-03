@@ -45,9 +45,9 @@
 <polyline points='347.56,483.34 347.56,118.30 ' style='stroke-width: 0.32; stroke-linecap: butt;' />
 <polyline points='457.49,483.34 457.49,118.30 ' style='stroke-width: 0.32; stroke-linecap: butt;' />
 <polyline points='567.42,483.34 567.42,118.30 ' style='stroke-width: 0.32; stroke-linecap: butt;' />
-<circle cx='127.70' cy='466.74' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
-<circle cx='347.56' cy='300.82' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
-<circle cx='567.42' cy='134.89' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='127.70' cy='466.74' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='347.56' cy='300.82' r='5.86' style='stroke-width: 2.13; stroke: #00BFC4; fill: #00BFC4;' />
+<circle cx='567.42' cy='134.89' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
 <rect x='105.71' y='118.30' width='483.69' height='365.04' style='stroke-width: 3.20;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
@@ -87,9 +87,9 @@
 <rect x='622.28' y='237.73' width='81.28' height='126.17' style='stroke-width: 3.20; stroke: none; fill: #FFFFFF;' />
 <text x='638.72' y='280.31' style='font-size: 33.00px; font-family: sans;' textLength='16.51px' lengthAdjust='spacingAndGlyphs'>z</text>
 <rect x='638.72' y='300.17' width='17.28' height='23.65' style='stroke-width: 3.20; stroke: none; fill: #FFFFFF;' />
-<circle cx='647.36' cy='311.99' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='647.36' cy='311.99' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
 <rect x='638.72' y='323.82' width='17.28' height='23.65' style='stroke-width: 3.20; stroke: none; fill: #FFFFFF;' />
-<circle cx='647.36' cy='335.64' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
+<circle cx='647.36' cy='335.64' r='5.86' style='stroke-width: 2.13; stroke: #00BFC4; fill: #00BFC4;' />
 <text x='672.44' y='321.08' style='font-size: 26.40px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>a</text>
 <text x='672.44' y='344.73' style='font-size: 26.40px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>b</text>
 <text x='105.71' y='43.69' style='font-size: 39.60px; font-family: sans;' textLength='389.66px' lengthAdjust='spacingAndGlyphs'>theme_linedraw_large</text>

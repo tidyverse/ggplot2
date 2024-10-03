@@ -182,7 +182,7 @@ check_inherits <- function(x,
 #'
 #' # Possibly throw an error
 #' try(check_device("glyphs", action = "abort"))
-check_device = function(feature, action = "warn", op = NULL, maybe = FALSE,
+check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
                         call = caller_env()) {
 
   check_bool(maybe, allow_na = TRUE)

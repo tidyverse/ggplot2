@@ -182,7 +182,7 @@ parse_dpi <- function(dpi, call = caller_env()) {
       print = 300,
       retina = 320,
     )
-  } else if (is_scalar_numeric(dpi)) {
+  } else if (is_bare_numeric(dpi, n = 1L)) {
     dpi
   } else {
     stop_input_type(dpi, "a single number or string", call = call)
@@ -197,7 +197,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
 
   dim <- to_inches(dim) * scale
 
-  if (any(is.na(dim))) {
+  if (anyNA(dim)) {
     if (length(grDevices::dev.list()) == 0) {
       default_dim <- c(7, 7)
     } else {

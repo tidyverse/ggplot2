@@ -104,7 +104,7 @@ dual_param <- function(x, default = list(x = NULL, y = NULL)) {
 }
 
 bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
-                      bins = 30, right = TRUE) {
+                      bins = 30, closed = "right") {
   # Bins for categorical data should take the width of one level,
   # and should show up centered over their tick marks. All other parameters
   # are ignored.
@@ -138,18 +138,7 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (length(breaks) > 1 && breaks[length(breaks) - 1] >= range[2]) {
     breaks <- breaks[-length(breaks)]
   }
-
-  adjust_breaks(breaks, right)
-}
-
-adjust_breaks <- function(x, right = TRUE) {
-  diddle <- 1e-07 * stats::median(diff(x))
-  if (right) {
-    fuzz <- c(-diddle, rep.int(diddle, length(x) - 1))
-  } else {
-    fuzz <- c(rep.int(-diddle, length(x) - 1), diddle)
-  }
-  sort(x) + fuzz
+  bins(breaks, closed)$fuzzy
 }
 
 bin_loc <- function(x, id) {

@@ -31,8 +31,8 @@
 #'
 #' @section Alignment:
 #' You can modify text alignment with the `vjust` and `hjust`
-#' aesthetics. These can either be a number between 0 (right/bottom) and
-#' 1 (top/left) or a character (`"left"`, `"middle"`, `"right"`, `"bottom"`,
+#' aesthetics. These can either be a number between 0 (left/bottom) and
+#' 1 (right/top) or a character (`"left"`, `"middle"`, `"right"`, `"bottom"`,
 #' `"center"`, `"top"`). There are two special alignments: `"inward"` and
 #' `"outward"`. Inward always aligns text towards the center, and outward
 #' aligns it away from the center.
@@ -49,7 +49,7 @@
 #'   can be used in various ways, including to prevent overplotting and
 #'   improving the display. The `position` argument accepts the following:
 #'   * The result of calling a position function, such as `position_jitter()`.
-#'   * A string nameing the position adjustment. To give the position as a
+#'   * A string naming the position adjustment. To give the position as a
 #'     string, strip the function name of the `position_` prefix. For example,
 #'     to use `position_jitter()`, give the position as `"jitter"`.
 #'   * For more information and other ways to specify the position, see the
@@ -98,10 +98,11 @@
 #'   scale_colour_hue(l = 40)
 #' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
-#' p + geom_text(aes(size = wt))
+#' # Scale size of text, and change legend key glyph from a to point
+#' p + geom_text(aes(size = wt), key_glyph = "point")
 #' # Scale height of text, rather than sqrt(height)
 #' p +
-#'   geom_text(aes(size = wt)) +
+#'   geom_text(aes(size = wt), key_glyph = "point") +
 #'   scale_radius(range = c(3,6))
 #'
 #' # You can display expressions by setting parse = TRUE.  The
@@ -215,8 +216,11 @@ GeomText <- ggproto("GeomText", Geom,
   non_missing_aes = "angle",
 
   default_aes = aes(
-    colour = "black", size = 3.88, angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
+    colour = from_theme(ink),
+    family = from_theme(family),
+    size = from_theme(fontsize),
+    angle = 0, hjust = 0.5,
+    vjust = 0.5, alpha = NA, fontface = 1, lineheight = 1.2
   ),
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,

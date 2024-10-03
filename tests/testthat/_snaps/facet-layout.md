@@ -24,6 +24,10 @@
 
 ---
 
+    Cannot use `space = "free_x"` with custom `nrow` or `ncol`.
+
+---
+
     Need 3 panels, but together `nrow` and `ncol` only provide 1.
     i Please increase `ncol` and/or `nrow`.
 
@@ -33,7 +37,7 @@
 
 # facet_grid throws errors at bad layout specs
 
-    `coord_fixed()` doesn't support free scales.
+    `facet_grid()` can't use free scales with `coord_fixed()`.
 
 ---
 

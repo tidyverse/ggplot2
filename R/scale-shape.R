@@ -10,7 +10,7 @@
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -scale_name
+#' @inheritDotParams discrete_scale -expand -position -scale_name -palette
 #' @rdname scale_shape
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].

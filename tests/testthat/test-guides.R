@@ -44,7 +44,7 @@ test_that("colourbar trains without labels", {
   sc <- scale_colour_gradient(limits = c(0, 4), labels = NULL)
 
   out <- g$train(scale = sc)
-  expect_equal(names(out$key), c("colour", ".value"))
+  expect_named(out$key, c("colour", ".value"))
 })
 
 test_that("Colorbar respects show.legend in layer", {
@@ -85,6 +85,15 @@ test_that("show.legend handles named vectors", {
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20, show.legend = c(shape = FALSE, color = TRUE))
   expect_equal(n_legends(p), 1)
+})
+
+test_that("dots are checked when making guides", {
+  expect_snapshot_warning(
+    new_guide(foo = "bar", super = GuideAxis)
+  )
+  expect_snapshot_warning(
+    guide_legend(foo = "bar")
+  )
 })
 
 test_that("axis_label_overlap_priority always returns the correct number of elements", {
@@ -214,7 +223,7 @@ test_that("guide merging for guide_legend() works as expected", {
 })
 
 test_that("size = NA doesn't throw rendering errors", {
-  df = data.frame(
+  df <- data.frame(
     x = c(1, 2),
     group = c("a","b")
   )
@@ -904,7 +913,7 @@ test_that("guides are positioned correctly", {
   p2 <- p2 + theme(legend.position = "inside")
   # Placement of legend inside
   expect_doppelganger("legend inside plot, centered",
-    p2 + theme(legend.position.inside = c(.5, .5))
+    p2 + theme(legend.position.inside = c(0.5, 0.5))
   )
   expect_doppelganger("legend inside plot, bottom left",
     p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
@@ -913,7 +922,7 @@ test_that("guides are positioned correctly", {
     p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(.5,.5))
+    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0.5,0.5))
   )
 })
 

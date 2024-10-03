@@ -123,7 +123,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
   # If the scale is non-positional, break = NULL means removing the guide
-  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
+  if (is.null(breaks) && !any(is_position_aes(aesthetics))) {
     guide <- "none"
   }
 
@@ -231,8 +231,12 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
   # If the scale is non-positional, break = NULL means removing the guide
-  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
+  is_position <- any(is_position_aes(aesthetics))
+  if (is.null(breaks) && !is_position) {
     guide <- "none"
+  }
+  if (is_position && identical(palette, identity)) {
+    palette <- seq_len
   }
 
   ggproto(NULL, super,
@@ -352,6 +356,10 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
     position = position
   )
 }
+
+#' @export
+#' @rdname is_tests
+is.scale <- function(x) inherits(x, "Scale")
 
 #' @section Scales:
 #'
@@ -972,23 +980,23 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    if (!is_null(names(pal))) {
+    na_value <- if (self$na.translate) self$na.value else NA
+    pal_names <- names(pal)
+
+    if (!is_null(pal_names)) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
-      idx_nomatch <- is.na(match(names(pal), limits))
-      pal[idx_nomatch] <- NA
-      pal_match <- pal[match(as.character(x), names(pal))]
-      pal_match <- unname(pal_match)
-    } else {
-      # if pal is not named, limit the values directly
-      pal_match <- pal[match(as.character(x), limits)]
+      pal[is.na(match(pal_names, limits))] <- na_value
+      pal <- unname(pal)
+      limits <- pal_names
     }
+    pal <- c(pal, na_value)
+    pal_match <- pal[match(as.character(x), limits, nomatch = length(pal))]
 
-    if (self$na.translate) {
-      ifelse(is.na(x) | is.na(pal_match), self$na.value, pal_match)
-    } else {
-      pal_match
+    if (!is.na(na_value)) {
+      pal_match[is.na(x)] <- na_value
     }
+    pal_match
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = c(1, length(limits))) {
@@ -1378,13 +1386,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
-  scale$position <- switch(scale$position,
-    top = "bottom",
-    bottom = "top",
-    left = "right",
-    right = "left",
-    scale$position
-  )
+  scale$position <- opposite_position(scale$position)
   invisible()
 }
 
