@@ -777,7 +777,9 @@ as_unordered_factor <- function(x) {
   x
 }
 
-fallback_palette <- function(aes, discrete) {
+fallback_palette <- function(scale) {
+  aes <- scale$aesthetics[1]
+  discrete <- scale$is_discrete()
   if (discrete) {
     pal <- switch(
       aes,

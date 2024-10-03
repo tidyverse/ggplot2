@@ -199,7 +199,7 @@ ScalesList <- ggproto("ScalesList", NULL,
         }
       }
 
-      elem <- elem %||% fallback_palette(scale$aesthetics[1], scale$is_discrete())
+      elem <- elem %||% fallback_palette(scale)
 
       if (!is.function(elem)) {
         cli::cli_warn(
