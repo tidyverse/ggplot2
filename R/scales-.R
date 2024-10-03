@@ -175,38 +175,31 @@ ScalesList <- ggproto("ScalesList", NULL,
       if (!is.null(scale$palette)) {
         next
       }
-      elem <- calc_element(paste0(
-        "palette.", scale$aesthetics[1], ".",
-        if (scale$is_discrete()) "discrete" else "continuous"
-      ), theme)
 
-      # TODO: ideally {scales} would have some sort of `as_palette()` function
-      # String might be a name for a palette function
-      if (is_bare_string(elem)) {
-        elem <- get0(paste0("pal_", elem), mode = "function")
-        if (is.function(elem)) {
-          elem <- elem()
-        }
-      }
+      # Resolve palette theme setting for this scale
+      type <- if (scale$is_discrete()) "discrete" else "continuous"
+      elem <- paste0("palette.", scale$aesthetics[1], ".", type)
+      elem <- calc_element(elem, theme)
 
-      if (is.atomic(elem) && !is.null(elem)) {
-        if (scale$is_discrete()) {
-          elem <- pal_manual(elem)
-        } else if (is.character(elem)) {
-          elem <- pal_gradient_n(elem)
-        } else {
-          elem <- pal_rescale(range = rep(elem, length.out = 2))
-        }
-      }
-
+      # Resolve the palette itself
       elem <- elem %||% fallback_palette(scale)
-
-      if (!is.function(elem)) {
+      palette <- switch(
+        type,
+        discrete   = as_discrete_pal(elem),
+        continuous = as_continuous_pal(elem)
+      )
+      if (!is.function(palette)) {
         cli::cli_warn(
           "Failed to find palette for {.field {scale$aesthetics[1]}} scale."
         )
       }
-      scale$palette <- elem
+
+      # Set palette to scale
+      # Note: while direct assignment is not ideal, we've already cloned the
+      # scale at the beginning of the plot build method, so it doesn't affect
+      # other plots
+      scale$palette <- palette
+      invisible()
     }
   }
 )
