@@ -332,7 +332,7 @@ strip_stage <- function(expr) {
   } else if (is_call(uq_expr, "stage")) {
     uq_expr <- call_match(uq_expr, stage)
     # Prefer stat mapping if present, otherwise original mapping (fallback to
-    # scale mapping) but there should always be two arguments to stage()
+    # scale mapping)
     uq_expr$after_stat %||% uq_expr$start %||% uq_expr$after_scale
   } else {
     expr
