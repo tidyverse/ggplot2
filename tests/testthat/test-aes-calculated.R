@@ -124,3 +124,27 @@ test_that("functions can be masked", {
   expect_equal(evaled, list(x = 10, y = 30))
 
 })
+
+test_that("stage allows aesthetics that are only mapped to start", {
+
+  df <- data.frame(x = 1:2)
+
+  start_unnamed <- aes(stage(x))
+  expect_equal(
+    eval_aesthetics(start_unnamed, data = df),
+    list(x = 1:2)
+  )
+
+  start_named <- aes(stage(start = x))
+  expect_equal(
+    eval_aesthetics(start_named, data = df),
+    list(x = 1:2)
+  )
+
+  start_nulls <- aes(stage(start = x, after_stat = NULL, after_scale = NULL))
+  expect_equal(
+    eval_aesthetics(start_nulls, data = df),
+    list(x = 1:2)
+  )
+
+})
