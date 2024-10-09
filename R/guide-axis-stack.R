@@ -252,4 +252,3 @@ GuideAxisStack <- ggproto(
     )
   }
 )
-

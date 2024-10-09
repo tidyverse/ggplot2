@@ -105,7 +105,7 @@ sec_axis <- function(transform = NULL,
   }
 
   # sec_axis() historically accepted two-sided formula, so be permissive.
-  if (length(transform) > 2) transform <- transform[c(1,3)]
+  if (length(transform) > 2) transform <- transform[c(1, 3)]
 
   transform <- as_function(transform)
   ggproto(NULL, AxisSecondary,
@@ -130,12 +130,12 @@ is.sec_axis <- function(x) {
 
 set_sec_axis <- function(sec.axis, scale) {
   if (!is.waive(sec.axis)) {
-    if (scale$is_discrete()) {
-      if (!identical(.subset2(sec.axis, "trans"), identity)) {
-        cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
-      }
+    if (scale$is_discrete() && !identical(.subset2(sec.axis, "trans"), identity)) {
+      cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
     }
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (is.formula(sec.axis)) {
+      sec.axis <- sec_axis(sec.axis)
+    }
     if (!is.sec_axis(sec.axis)) {
       cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}.")
     }
@@ -205,7 +205,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     self$trans(range)
   },
 
-  mono_test = function(self, scale){
+  mono_test = function(self, scale) {
     range <- scale$range$range
 
     # Check if plot is empty
@@ -231,11 +231,11 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) return()
 
     # Test for monotonicity on unexpanded range
-    if (!scale$is_discrete()) {
+    if (scale$is_discrete()) {
+      breaks <- scale$map(self$breaks)
+    } else {
       self$mono_test(scale)
       breaks <- self$breaks
-    } else {
-      breaks <- scale$map(self$breaks)
     }
 
     # Get scale's original range before transformation
@@ -250,8 +250,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # the transformation is non-monotonic in the expansion. The split ensures
     # the middle duplicated are kept
     duplicates <- c(
-      !duplicated(full_range[seq_len(self$detail/2)], fromLast = TRUE),
-      !duplicated(full_range[-seq_len(self$detail/2)])
+      !duplicated(full_range[seq_len(self$detail / 2)], fromLast = TRUE),
+      !duplicated(full_range[-seq_len(self$detail / 2)])
     )
     old_range <- old_range[duplicates]
     full_range <- full_range[duplicates]
@@ -318,13 +318,14 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   # Temporary scale for the purpose of calling break_info()
   create_scale = function(self, range, transformation = transform_identity(),
                           breaks = self$breaks) {
-    scale <- ggproto(NULL, ScaleContinuousPosition,
-                     name = self$name,
-                     breaks = breaks,
-                     labels = self$labels,
-                     limits = range,
-                     expand = c(0, 0),
-                     trans  = transformation
+    scale <- ggproto(
+      NULL, ScaleContinuousPosition,
+      name = self$name,
+      breaks = breaks,
+      labels = self$labels,
+      limits = range,
+      expand = c(0, 0),
+      trans  = transformation
     )
     scale$train(range)
     scale

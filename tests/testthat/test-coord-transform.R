@@ -18,7 +18,7 @@ test_that("warnings are generated when coord_trans() results in new infinite val
 test_that("no warnings are generated when original data has Inf values, but no new Inf values created from the transformation", {
   p <- ggplot(data_frame(x = c(-Inf, 2, 0), y = c(Inf, 6, 4)), aes(x, y)) +
     geom_point() +
-    coord_trans(x = 'identity')
+    coord_trans(x = "identity")
 
   expect_silent(benchplot(p))
 })
@@ -126,8 +126,8 @@ test_that("second axes display in coord_trans()", {
 
 test_that("coord_trans() throws error when limits are badly specified", {
   # throws error when limit is a Scale object instead of vector
-  expect_snapshot_error(ggplot() + coord_trans(xlim=xlim(1,1)))
+  expect_snapshot_error(ggplot() + coord_trans(xlim = xlim(1, 1)))
 
   # throws error when limit's length is different than two
-  expect_snapshot_error(ggplot() + coord_trans(ylim=1:3))
+  expect_snapshot_error(ggplot() + coord_trans(ylim = 1:3))
 })

@@ -121,5 +121,5 @@ StatSfCoordinates <- ggproto(
   },
 
   default_aes = aes(x = after_stat(x), y = after_stat(y)),
-  required_aes = c("geometry")
+  required_aes = "geometry"
 )

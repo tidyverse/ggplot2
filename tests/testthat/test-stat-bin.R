@@ -19,7 +19,7 @@ test_that("stat_bin works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 })
 
 test_that("bins specifies the number of bins", {
@@ -78,13 +78,13 @@ test_that("fuzzy breaks are used when cutting", {
 })
 
 test_that("breaks are transformed by the scale", {
-   df <- data_frame(x = rep(1:4, 1:4))
-   base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
+  df <- data_frame(x = rep(1:4, 1:4))
+  base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
 
-   out1 <- get_layer_data(base)
-   out2 <- get_layer_data(base + scale_x_sqrt())
-   expect_equal(out1$xmin, c(1, 2.5))
-   expect_equal(out2$xmin, sqrt(c(1, 2.5)))
+  out1 <- get_layer_data(base)
+  out2 <- get_layer_data(base + scale_x_sqrt())
+  expect_equal(out1$xmin, c(1, 2.5))
+  expect_equal(out2$xmin, sqrt(c(1, 2.5)))
 })
 
 test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
@@ -184,7 +184,7 @@ test_that("closed left or right", {
   res <- comp_bin(dat, binwidth = 10, boundary = 5, pad = FALSE, closed = "left")
   expect_identical(res$count, c(1, 1))
   res <- comp_bin(dat, binwidth = 10, boundary = 0, pad = FALSE, closed = "left")
-  expect_identical(res$count, c(2))
+  expect_identical(res$count, 2)
   res <- comp_bin(dat, binwidth = 5, boundary = 0, pad = FALSE, closed = "left")
   expect_identical(res$count, c(1, 1))
 })
@@ -230,19 +230,19 @@ test_that("stat_count throws error when both x and y aesthetic present", {
 test_that("stat_count preserves x order for continuous and discrete", {
   # x is numeric
   b <- ggplot_build(ggplot(mtcars, aes(carb)) + geom_bar())
-  expect_identical(b$data[[1]]$x, c(1,2,3,4,6,8))
-  expect_identical(b$data[[1]]$y, c(7,10,3,10,1,1))
+  expect_identical(b$data[[1]]$x, c(1, 2, 3, 4, 6, 8))
+  expect_identical(b$data[[1]]$y, c(7, 10, 3, 10, 1, 1))
 
   # x is factor where levels match numeric order
   mtcars$carb2 <- factor(mtcars$carb)
   b <- ggplot_build(ggplot(mtcars, aes(carb2)) + geom_bar())
   expect_identical(b$data[[1]]$x, mapped_discrete(1:6))
-  expect_identical(b$data[[1]]$y, c(7,10,3,10,1,1))
+  expect_identical(b$data[[1]]$y, c(7, 10, 3, 10, 1, 1))
 
   # x is factor levels differ from numeric order
-  mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
+  mtcars$carb3 <- factor(mtcars$carb, levels = c(4, 1, 2, 3, 6, 8))
   b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
   expect_identical(b$data[[1]]$x, mapped_discrete(1:6))
-  expect_identical(b$layout$panel_params[[1]]$x$get_labels(), c("4","1","2","3","6","8"))
-  expect_identical(b$data[[1]]$y, c(10,7,10,3,1,1))
+  expect_identical(b$layout$panel_params[[1]]$x$get_labels(), c("4", "1", "2", "3", "6", "8"))
+  expect_identical(b$data[[1]]$y, c(10, 7, 10, 3, 1, 1))
 })

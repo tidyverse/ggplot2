@@ -92,7 +92,7 @@ NULL
 
 collapse_labels_lines <- function(labels) {
   is_exp <- vapply(labels, function(l) length(l) > 0 && is.expression(l[[1]]), logical(1))
-  out <- inject(mapply(paste, !!!labels, sep = ", ", SIMPLIFY = FALSE))
+  out <- inject(Map(paste, !!!labels, sep = ", "))
   label <- list(unname(unlist(out)))
   if (all(is_exp)) {
     label <- lapply(label, function(l) list(parse(text = paste0("list(", l, ")"))))
@@ -208,7 +208,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
       params <- as_environment(params, call_env)
       eval(substitute(bquote(expr, params), list(expr = quoted)))
     }
-    list(inject(mapply(evaluate, !!!labels, SIMPLIFY = FALSE)))
+    list(inject(Map(evaluate, !!!labels)))
   }
 
   structure(fun, class = "labeller")
@@ -590,7 +590,7 @@ check_labeller <- function(labeller) {
     # TODO Update to lifecycle after next lifecycle release
     cli::cli_warn(c(
       "The {.arg labeller} API has been updated. Labellers taking {.arg variable} and {.arg value} arguments are now deprecated.",
-      "i" = "See labellers documentation."
+      i = "See labellers documentation."
     ))
   }
 

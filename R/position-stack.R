@@ -213,7 +213,7 @@ PositionStack <- ggproto("PositionStack", Position,
       )
     }
 
-    data <- vec_rbind0(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
+    data <- vec_rbind0(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))), ]
     flip_data(data, params$flipped_aes)
   }
 )
@@ -226,7 +226,7 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   if (fill) {
     heights <- heights / abs(heights[length(heights)])
   }
-# We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
+  # We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
   if (!is.null(df$ymin) && !is.null(df$ymax)) {
     max_is_lower <- df$ymax < df$ymin
   } else {
@@ -260,7 +260,7 @@ stack_var <- function(data) {
   } else {
     cli::cli_warn(c(
       "Stacking requires either the {.field ymin} {.emph and} {.field ymax} or the {.field y} aesthetics",
-      "i" = "Maybe you want {.code position = \"identity\"}?"
+      i = "Maybe you want {.code position = \"identity\"}?"
     ))
     NULL
   }

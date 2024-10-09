@@ -121,7 +121,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
 
     # if self$limits is not NULL and is a function, apply it to range
-    if (is.function(self$limits)){
+    if (is.function(self$limits)) {
       return(self$limits(self$range$range))
     }
 
@@ -214,7 +214,7 @@ c.mapped_discrete <- function(..., recursive = FALSE) {
   mapped_discrete(NextMethod())
 }
 #' @export
-as.data.frame.mapped_discrete <- function (x, ...) {
+as.data.frame.mapped_discrete <- function(x, ...) {
   as.data.frame.vector(x = unclass(x), ...)
 }
 
@@ -254,4 +254,3 @@ vec_cast.mapped_discrete.factor <- function(x, to, ...) mapped_discrete(as.vecto
 vec_cast.factor.mapped_discrete <- function(x, to, ...) factor(as.vector(x), ...)
 #' @export
 vec_cast.mapped_discrete.logical <- function(x, to, ...) mapped_discrete(x)
-

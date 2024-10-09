@@ -103,9 +103,11 @@ StatDensity <- ggproto("StatDensity", Stat,
       range <- scales[[flipped_names(flipped_aes)$x]]$dimension()
     }
 
-    density <- compute_density(data$x, data$weight, from = range[1],
+    density <- compute_density(
+      data$x, data$weight, from = range[1],
       to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n,
-      bounds = bounds)
+      bounds = bounds
+    )
     density$flipped_aes <- flipped_aes
     flip_data(density, flipped_aes)
   }

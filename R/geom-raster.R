@@ -16,8 +16,8 @@ geom_raster <- function(mapping = NULL, data = NULL,
                         interpolate = FALSE,
                         na.rm = FALSE,
                         show.legend = NA,
-                        inherit.aes = TRUE)
-{
+                        inherit.aes = TRUE) {
+
   check_number_decimal(hjust)
   check_number_decimal(vjust)
 
@@ -59,7 +59,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     } else if (any(abs(diff(x_diff)) > precision)) {
       cli::cli_warn(c(
         "Raster pixels are placed at uneven horizontal intervals and will be shifted",
-        "i" = "Consider using {.fn geom_tile} instead."
+        i = "Consider using {.fn geom_tile} instead."
       ))
       w <- min(x_diff)
     } else {
@@ -71,7 +71,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     } else if (any(abs(diff(y_diff)) > precision)) {
       cli::cli_warn(c(
         "Raster pixels are placed at uneven horizontal intervals and will be shifted",
-        "i" = "Consider using {.fn geom_tile} instead."
+        i = "Consider using {.fn geom_tile} instead."
       ))
       h <- min(y_diff)
     } else {

@@ -8,10 +8,10 @@ test_that("uses scale limits, not data limits", {
   # Check that the contour data goes beyond data range.
   # The specific values below are sort of arbitrary; but they go beyond the range
   # of the data
-  expect_true(min(ret$x) < 1.2)
-  expect_true(max(ret$x) > 5.8)
-  expect_true(min(ret$y) < 8)
-  expect_true(max(ret$y) > 35)
+  expect_lt(min(ret$x), 1.2)
+  expect_gt(max(ret$x), 5.8)
+  expect_lt(min(ret$y), 8)
+  expect_gt(max(ret$y), 35)
 })
 
 test_that("stat_density2d can produce contour and raster data", {
@@ -35,8 +35,8 @@ test_that("stat_density2d can produce contour and raster data", {
   expect_true("density" %in% names(d_raster))
   expect_true("ndensity" %in% names(d_raster))
   expect_true("count" %in% names(d_raster))
-  expect_true(unique(d_raster$level) == 1)
-  expect_true(unique(d_raster$piece) == 1)
+  expect_identical(unique(d_raster$level), 1)
+  expect_identical(unique(d_raster$piece), 1)
 
   # stat_density_2d() and stat_density_2d_filled() produce identical
   # density output with `contour = FALSE`

@@ -12,7 +12,7 @@ test_that("can control whether to preserve total or individual width", {
 
 test_that("position_dodge() can dodge points vertically", {
 
-  df <- data.frame(x = c(1, 2, 3, 4), y = c("a", "a", "b", "b"))
+  df <- data_frame0(x = c(1, 2, 3, 4), y = c("a", "a", "b", "b"))
 
   horizontal <- ggplot(df, aes(y, x, group = seq_along(x))) +
     geom_point(position = position_dodge(width = 1, orientation = "x"))
@@ -26,7 +26,7 @@ test_that("position_dodge() can dodge points vertically", {
 
 test_that("position_dodge() can reverse the dodge order", {
 
-  df <- data.frame(x = c(1, 2, 2, 3, 3), group = c("A", "A", "B", "B", "C"))
+  df <- data_frame0(x = c(1, 2, 2, 3, 3), group = c("A", "A", "B", "B", "C"))
 
   # Use label as easy to track identifier
   p <- ggplot(df, aes(x, y = 1, fill = group, label = group))

@@ -21,7 +21,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.asp = 0.618,
   fig.width = 6,
-  out.width = "80%")
+  out.width = "80%"
+)
 ```
 
 ## Label placement
@@ -196,7 +197,7 @@ ggplot(sales, aes(x = interaction(quarter, year), y = value, group = 1)) +
     plot.margin = margin(1, 1, 3, 1, "lines"),
     axis.title.x = element_blank(),
     axis.text.x = element_blank()
-    ) +
+  ) +
   annotate(geom = "text", x = seq_len(nrow(sales)), y = 8, label = sales$quarter, size = 3) +
   annotate(geom = "text", x = c(2.5, 6.5), y = 6, label = unique(sales$year), size = 4)
 ```
@@ -218,7 +219,7 @@ ggplot(sales, aes(x = interaction(quarter, year), y = value)) +
     plot.margin = margin(1, 1, 3, 1, "lines"),
     axis.title.x = element_blank(),
     axis.text.x = element_blank()
-    )
+  )
 ```
 
 If it's undesirable to have the bars flush against the edges of the plot, a similar result can be achieved by leveraging faceting and removing the space between facets to create the appearance of a single plot.
@@ -236,7 +237,7 @@ ggplot(sales, aes(x = quarter, y = value)) +
     panel.spacing = unit(0, "lines"), 
     strip.background = element_blank(),
     strip.placement = "outside"
-    ) +
+  ) +
   labs(x = NULL)
 ```
 
@@ -454,7 +455,7 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   theme(
     axis.title.x = ggtext::element_markdown(),
     axis.title.y = ggtext::element_markdown()
-    )
+  )
 ```
 
 </details>

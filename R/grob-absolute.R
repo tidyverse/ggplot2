@@ -6,7 +6,7 @@
 #'
 #' @keywords internal
 absoluteGrob <- function(grob, width = NULL, height = NULL,
-  xmin = NULL, ymin = NULL, vp = NULL) {
+                         xmin = NULL, ymin = NULL, vp = NULL) {
 
   gTree(
     children = grob,

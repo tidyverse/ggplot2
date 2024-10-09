@@ -63,7 +63,8 @@ fortify.confint.glht <- function(model, data, ...) {
 #' @export
 fortify.summary.glht <- function(model, data, ...) {
   coef <- as.data.frame(
-    model$test[c("coefficients", "sigma", "tstat", "pvalues")])
+    model$test[c("coefficients", "sigma", "tstat", "pvalues")]
+  )
   names(coef) <- c("estimate", "se", "t", "p")
 
   base::data.frame(

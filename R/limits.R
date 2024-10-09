@@ -126,7 +126,7 @@ limits.numeric <- function(lims, var, call = caller_env()) {
 }
 
 make_scale <- function(type, var, ..., call = NULL) {
-  name <- paste("scale_", var, "_", type, sep = "")
+  name <- paste0("scale_", var, "_", type)
   scale <- match.fun(name)
   sc <- scale(...)
   sc$call <- call %||% parse_expr(paste0(name, "()"))

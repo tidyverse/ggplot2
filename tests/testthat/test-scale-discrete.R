@@ -166,7 +166,7 @@ test_that("mapped_discrete vectors behaves as predicted", {
 
 test_that("palettes work for discrete scales", {
 
-  df <- data.frame(x = c("A", "B", "C"), y = 1:3)
+  df <- data_frame0(x = c("A", "B", "C"), y = 1:3)
   values <- c(1, 10, 100)
 
   p <- ggplot(df, aes(x, y)) +
@@ -187,7 +187,7 @@ test_that("palettes work for discrete scales", {
 
 test_that("invalid palettes trigger errors", {
 
-  df <- data.frame(x = c("A", "B", "C"), y = 1:3)
+  df <- data_frame0(x = c("A", "B", "C"), y = 1:3)
 
   p <- ggplot(df, aes(x, y)) +
     geom_point()
@@ -202,4 +202,3 @@ test_that("invalid palettes trigger errors", {
     "must return at least 3 values"
   )
 })
-

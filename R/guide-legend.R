@@ -187,7 +187,7 @@ GuideLegend <- ggproto(
                             title = waiver(), ...) {
     params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
     if (isTRUE(params$reverse %||% FALSE)) {
-      params$key <- params$key[nrow(params$key):1, , drop = FALSE]
+      params$key <- vec_slice(params$key, rev(vec_seq_along(params$key)))
     }
     params
   },
@@ -457,8 +457,8 @@ GuideLegend <- ggproto(
     hgap <- elements$spacing_x %||% 0
     widths <- switch(
       elements$text_position,
-      "left"   = list(label_widths, widths, hgap),
-      "right"  = list(widths, label_widths, hgap),
+      left   = list(label_widths, widths, hgap),
+      right  = list(widths, label_widths, hgap),
       list(pmax(label_widths, widths), hgap)
     )
     widths  <- head(vec_interleave(!!!widths),  -1)
@@ -466,8 +466,8 @@ GuideLegend <- ggproto(
     vgap <- elements$spacing_y %||% 0
     heights <- switch(
       elements$text_position,
-      "top"    = list(label_heights, heights, vgap),
-      "bottom" = list(heights, label_heights, vgap),
+      top    = list(label_heights, heights, vgap),
+      bottom = list(heights, label_heights, vgap),
       list(pmax(label_heights, heights), vgap)
     )
     heights <- head(vec_interleave(!!!heights), -1)
@@ -559,7 +559,7 @@ GuideLegend <- ggproto(
       gt <- gtable_add_grob(
         gt, elements$background,
         name = "background", clip = "off",
-        t = 1, r = -1, b = -1, l =1, z = -Inf
+        t = 1, r = -1, b = -1, l = 1, z = -Inf
       )
     }
     gt
@@ -599,7 +599,7 @@ get_key_size <- function(keys, which = "width", n) {
 }
 
 set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
-  if (!is.null(attr(key, "width")) && !is.null(attr(key, 'height'))) {
+  if (!is.null(attr(key, "width")) && !is.null(attr(key, "height"))) {
     return(key)
   }
   if (!is.null(size) || !is.null(linewidth)) {
@@ -678,20 +678,21 @@ position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
 # Function implementing backward compatibility with the old way of specifying
 # guide styling
 deprecated_guide_args <- function(
-  theme = NULL,
-  title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  label = NULL,
-  label.position = NULL,
-  label.theme = NULL, label.hjust = NULL, label.vjust = NULL,
-  keywidth  = NULL, keyheight = NULL, barwidth  = NULL, barheight = NULL,
-  byrow = NULL,
-  frame.colour = NULL, frame.linewidth = NULL, frame.linetype = NULL,
-  ticks = NULL, ticks.colour = NULL, ticks.linewidth = NULL,
-  axis = NULL, axis.colour = NULL, axis.linewidth = NULL, axis.arrow = NULL,
-  default.unit = "line",
-  ...,
-  .call = caller_call()) {
+    theme = NULL,
+    title.position = NULL,
+    title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
+    label = NULL,
+    label.position = NULL,
+    label.theme = NULL, label.hjust = NULL, label.vjust = NULL,
+    keywidth  = NULL, keyheight = NULL, barwidth  = NULL, barheight = NULL,
+    byrow = NULL,
+    frame.colour = NULL, frame.linewidth = NULL, frame.linetype = NULL,
+    ticks = NULL, ticks.colour = NULL, ticks.linewidth = NULL,
+    axis = NULL, axis.colour = NULL, axis.linewidth = NULL, axis.arrow = NULL,
+    default.unit = "line",
+    ...,
+    .call = caller_call()) {
+
   warn_dots_used(call = .call)
 
   args <- names(formals(deprecated_guide_args))

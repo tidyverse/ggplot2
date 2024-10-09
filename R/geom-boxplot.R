@@ -132,9 +132,9 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 
   # varwidth = TRUE is not compatible with preserve = "total"
   if (is.character(position)) {
-    if (varwidth == TRUE) position <- position_dodge2(preserve = "single")
+    if (isTRUE(varwidth)) position <- position_dodge2(preserve = "single")
   } else {
-    if (identical(position$preserve, "total") & varwidth == TRUE) {
+    if (identical(position$preserve, "total") && isTRUE(varwidth)) {
       cli::cli_warn("Can't preserve total widths when {.code varwidth = TRUE}.")
       position$preserve <- "single"
     }
@@ -233,7 +233,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     if (nrow(data) != 1) {
       cli::cli_abort(c(
         "Can only draw one boxplot per group.",
-        "i"= "Did you forget {.code aes(group = ...)}?"
+        i = "Did you forget {.code aes(group = ...)}?"
       ))
     }
 
@@ -279,7 +279,6 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
-        fill = NA,
         alpha = outlier.alpha %||% data$alpha[1],
         .size = length(data$outliers[[1]])
       )

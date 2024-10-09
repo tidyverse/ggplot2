@@ -116,7 +116,7 @@ scale_colour_distiller <- function(name = waiver(), ..., type = "seq",
   if (type == "qual") {
     cli::cli_warn(c(
       "Using a discrete colour palette in a continuous scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
+      i = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }
   continuous_scale(
@@ -138,7 +138,7 @@ scale_fill_distiller <- function(name = waiver(), ..., type = "seq",
   if (type == "qual") {
     cli::cli_warn(c(
       "Using a discrete colour palette in a continuous scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
+      i = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }
   continuous_scale(
@@ -159,7 +159,7 @@ scale_colour_fermenter <- function(name = waiver(), ..., type = "seq",
   if (type == "qual") {
     cli::cli_warn(c(
       "Using a discrete colour palette in a binned scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
+      i = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }
   binned_scale(
@@ -179,7 +179,7 @@ scale_fill_fermenter <- function(name = waiver(), ..., type = "seq", palette = 1
   if (type == "qual") {
     cli::cli_warn(c(
       "Using a discrete colour palette in a binned scale",
-      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
+      i = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
     ))
   }
   binned_scale(

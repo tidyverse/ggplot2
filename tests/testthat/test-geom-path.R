@@ -6,12 +6,12 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
 })
 
 test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
-  p <- ggplot(economics, aes(unemploy/pop, psavert, colour = pop)) + geom_path(linetype = 2)
+  p <- ggplot(economics, aes(unemploy / pop, psavert, colour = pop)) + geom_path(linetype = 2)
   expect_snapshot_error(ggplotGrob(p))
 })
 
 test_that("repair_segment_arrow() repairs sensibly", {
-  group <- c(1,1,1,1,2,2)
+  group <- c(1, 1, 1, 1, 2, 2)
 
   ans <- repair_segment_arrow(arrow(ends = "last"), group)
   expect_equal(ans$ends, rep(2L, 4))
@@ -35,7 +35,7 @@ test_that("stairstep() does not error with too few observations", {
 
 test_that("stairstep() exists with error when an invalid `direction` is given", {
   df <- data_frame(x = 1:3, y = 1:3)
-  expect_error(stairstep(df, direction="invalid"))
+  expect_error(stairstep(df, direction = "invalid"))
 })
 
 test_that("stairstep() output is correct for direction = 'vh'", {
@@ -68,7 +68,7 @@ test_that("geom_path draws correctly", {
   nCategory <- 5
   nItem <- 6
   df <- data_frame(category = rep(LETTERS[1:nCategory], 1, each = nItem),
-                   item = paste("Item#", rep(1:nItem, nCategory, each = 1), sep = ''),
+                   item = paste0("Item#", rep(1:nItem, nCategory, each = 1)),
                    value = rep(1:nItem, nCategory, each = 1) + runif(nCategory * nItem) * 0.8)
 
   df2 <- df[c(1, 2, 7, 8, 13, 14, 3:6, 9:12, 15:nrow(df)), ]

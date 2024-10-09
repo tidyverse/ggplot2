@@ -6,7 +6,7 @@ test_that("as_facets_list() coerces formulas", {
   exp <- list(quos(foo = foo, bar = bar), quos(baz = baz, bam = bam))
   expect_identical(as_facets_list(foo + bar ~ baz + bam), exp)
 
-  exp <- list(quos(`foo()`= foo(), `bar()` = bar()), quos(`baz()` = baz(), `bam()` = bam()))
+  exp <- list(quos(`foo()` = foo(), `bar()` = bar()), quos(`baz()` = baz(), `bam()` = bam()))
   expect_identical(as_facets_list(foo() + bar() ~ baz() + bam()), exp)
 })
 
@@ -186,20 +186,20 @@ test_that("facets with free scales scale independently", {
   # facet_wrap()
   l1 <- p + facet_wrap(~z, scales = "free")
   d1 <- cdata(l1)[[1]]
-  expect_true(sd(d1$x) < 1e-10)
-  expect_true(sd(d1$y) < 1e-10)
+  expect_lt(sd(d1$x), 1e-10)
+  expect_lt(sd(d1$y), 1e-10)
 
   # RHS of facet_grid()
   l2 <- p + facet_grid(. ~ z, scales = "free")
   d2 <- cdata(l2)[[1]]
-  expect_true(sd(d2$x) < 1e-10)
+  expect_lt(sd(d2$x), 1e-10)
   expect_length(unique(d2$y), 3)
 
   # LHS of facet_grid()
   l3 <- p + facet_grid(z ~ ., scales = "free")
   d3 <- cdata(l3)[[1]]
   expect_length(unique(d3$x), 3)
-  expect_true(sd(d3$y) < 1e-10)
+  expect_lt(sd(d3$y), 1e-10)
 })
 
 test_that("shrink parameter affects scaling", {
@@ -288,16 +288,16 @@ test_that("facet_grid `axes` can draw inner axes.", {
   ctrl <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "margins"))
 
   # 4 x-axes if all axes should be drawn
-  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  bottom <- case$grobs[grepl("axis-b", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
   # 2 x-axes if drawing at the margins
-  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
 
   # Ditto for y-axes
-  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  left <- case$grobs[grepl("axis-l", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
-  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
 })
 
@@ -312,16 +312,16 @@ test_that("facet_wrap `axes` can draw inner axes.", {
   ctrl <- ggplotGrob(p + facet_wrap(vars(facet), axes = "margins"))
 
   # 4 x-axes if all axes should be drawn
-  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  bottom <- case$grobs[grepl("axis-b", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
   # 2 x-axes if drawing at the margins
-  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
 
   # Ditto for y-axes
-  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  left <- case$grobs[grepl("axis-l", case$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
-  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name, fixed = TRUE)]
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
 })
 
@@ -402,14 +402,14 @@ test_that("combine_vars() generates the correct combinations", {
   expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2, b = 2:3), data.frame(a = 1:2, c = 2:3)),
-      vars = vars(b=b, c=c)
+      vars = vars(b = b, c = c)
     )
   )
 
   expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2), data.frame(b = numeric())),
-      vars = vars(b=b)
+      vars = vars(b = b)
     )
   )
 })
@@ -449,22 +449,22 @@ test_that("combine_vars() generates the correct combinations with multiple data 
 })
 
 test_that("eval_facet() is tolerant for missing columns (#2963)", {
-  expect_null(eval_facet(quo(2 * x), data_frame(foo = 1), possible_columns = c("x")))
-  expect_null(eval_facet(quo(2 * .data$x), data_frame(foo = 1), possible_columns = c("x")))
+  expect_null(eval_facet(quo(2 * x), data_frame(foo = 1), possible_columns = "x"))
+  expect_null(eval_facet(quo(2 * .data$x), data_frame(foo = 1), possible_columns = "x"))
 
   # Even if there's the same name of external variable, eval_facet() returns NULL before
   # reaching to the variable
   bar <- 2
-  expect_null(eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = c("bar")))
+  expect_null(eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = "bar"))
   # If there's no same name of columns, the external variable is used
   expect_equal(
-    eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = c("x")),
+    eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = "x"),
     4
   )
 
   # If the expression contains any non-existent variable, it fails
   expect_error(
-    eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
+    eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = "x"),
     "object 'no_such_variable' not found"
   )
 })

@@ -84,7 +84,7 @@ StatEllipse <- ggproto("StatEllipse", Stat,
   }
 )
 
-calculate_ellipse <- function(data, vars, type, level, segments){
+calculate_ellipse <- function(data, vars, type, level, segments) {
   dfn <- 2
   dfd <- nrow(data) - 1
 
@@ -96,22 +96,22 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     ellipse <- matrix(NA_real_, ncol = 2)
   } else {
     if (type == "t") {
-      v <- MASS::cov.trob(data[,vars])
+      v <- MASS::cov.trob(data[, vars])
     } else if (type == "norm") {
-      v <- stats::cov.wt(data[,vars])
+      v <- stats::cov.wt(data[, vars])
     } else if (type == "euclid") {
-      v <- stats::cov.wt(data[,vars])
+      v <- stats::cov.wt(data[, vars])
       v$cov <- diag(rep(min(diag(v$cov)), 2))
     }
     shape <- v$cov
     center <- v$center
     chol_decomp <- chol(shape)
     if (type == "euclid") {
-      radius <- level/max(chol_decomp)
+      radius <- level / max(chol_decomp)
     } else {
       radius <- sqrt(dfn * stats::qf(level, dfn, dfd))
     }
-    angles <- (0:segments) * 2 * pi/segments
+    angles <- (0:segments) * 2 * pi / segments
     unit.circle <- cbind(cos(angles), sin(angles))
     ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
   }

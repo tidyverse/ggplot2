@@ -39,7 +39,7 @@ test_that("curved lines in map projections", {
     nzmap + coord_map()
   )
   expect_doppelganger("lines curved in azequalarea",
-    nzmap + coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+    nzmap + coord_map(projection = "azequalarea", orientation = c(-36.92, 174.6, 0))
   )
 })
 

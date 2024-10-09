@@ -37,17 +37,17 @@ reshape_margins <- function(vars, margins = NULL) {
   dims <- lapply(vars, intersect, margins)
 
   # Next, ensure high-level margins include lower-levels
-  dims <- mapply(function(vars, margin) {
+  dims <- Map(function(vars, margin) {
     lapply(margin, downto, vars)
-  }, vars, dims, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  }, vars, dims, USE.NAMES = FALSE)
 
   # Finally, find intersections across all dimensions
   seq_0 <- function(x) c(0, seq_along(x))
   indices <- expand.grid(lapply(dims, seq_0), KEEP.OUT.ATTRS = FALSE)
   # indices <- indices[rowSums(indices) > 0, ]
 
-  lapply(seq_len(nrow(indices)), function(i){
-    unlist(mapply("[", dims, indices[i, ], SIMPLIFY = FALSE))
+  lapply(seq_len(nrow(indices)), function(i) {
+    unlist(Map("[", dims, indices[i, ]))
   })
 }
 
