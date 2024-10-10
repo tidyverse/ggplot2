@@ -361,8 +361,8 @@ Layer <- ggproto("Layer", NULL,
   compute_statistic = function(self, data, layout) {
     if (empty(data))
       return(data_frame0())
-
-    self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
+    params <- defaults(self$stat_params, self$stat$default_params)
+    self$computed_stat_params <- self$stat$setup_params(data, params)
     data <- self$stat$setup_data(data, self$computed_stat_params)
     self$stat$compute_layer(data, self$computed_stat_params, layout)
   },
@@ -426,7 +426,8 @@ Layer <- ggproto("Layer", NULL,
       c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
-    self$computed_geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
+    params <- defaults(c(self$geom_params, self$aes_params), self$geom$default_params)
+    self$computed_geom_params <- self$geom$setup_params(data, params)
     self$geom$setup_data(data, self$computed_geom_params)
   },
 

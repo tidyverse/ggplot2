@@ -162,6 +162,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Needed for coord_polar and such
     newdata <- vec_rbind0(newdata, newdata[1,])
     newdata <- flip_data(newdata, flipped_aes)
+    params <- filter_args(list(...), GeomPolygon$draw_panel)
 
     # Draw quantiles if requested, so long as there is non-zero y range
     if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
@@ -183,15 +184,15 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       quantile_grob <- if (nrow(both) == 0) {
         zeroGrob()
       } else {
-        GeomPath$draw_panel(both, ...)
+        inject(GeomPath$draw_panel(both, !!!params))
       }
 
       ggname("geom_violin", grobTree(
-        GeomPolygon$draw_panel(newdata, ...),
+        inject(GeomPolygon$draw_panel(newdata, !!!params)),
         quantile_grob)
       )
     } else {
-      ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
+      ggname("geom_violin", inject(GeomPolygon$draw_panel(newdata, !!!params)))
     }
   },
 
