@@ -125,19 +125,19 @@ test_that("scale multiplies height & width", {
 # plot_dev ---------------------------------------------------------------------
 
 test_that("unknown device triggers error", {
-  expect_snapshot_error(plot_dev(1))
-  expect_error(plot_dev("xyz"), "Unknown graphics device")
-  expect_error(plot_dev(NULL, "test.xyz"), "Unknown graphics device")
+  expect_snapshot_error(validate_device(1))
+  expect_error(validate_device("xyz"), "Unknown graphics device")
+  expect_error(validate_device(NULL, "test.xyz"), "Unknown graphics device")
 })
 
 
 test_that("text converted to function", {
-  expect_identical(body(plot_dev("png"))[[1]], quote(png_dev))
-  expect_identical(body(plot_dev("pdf"))[[1]], quote(grDevices::pdf))
+  expect_identical(body(validate_device("png"))[[1]], quote(png_dev))
+  expect_identical(body(validate_device("pdf"))[[1]], quote(grDevices::pdf))
 })
 
 test_that("if device is NULL, guess from extension", {
-  expect_identical(body(plot_dev(NULL, "test.png"))[[1]], quote(png_dev))
+  expect_identical(body(validate_device(NULL, "test.png"))[[1]], quote(png_dev))
 })
 
 # parse_dpi ---------------------------------------------------------------

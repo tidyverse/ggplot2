@@ -55,7 +55,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", fatten = 2.5, width = NULL,
                         flipped_aes = FALSE) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- update_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
 
     middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = linewidth * fatten, alpha = NA)
