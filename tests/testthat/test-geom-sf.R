@@ -180,7 +180,7 @@ test_that("geom_sf draws correctly", {
   expect_error(regexp = NA, ggplot_build(plot))
 
   expect_doppelganger("North Carolina county boundaries",
-    ggplot() + geom_sf(data = nc) + coord_sf(datum = 4326)
+    ggplot() + geom_sf(data = nc, linetype = 2) + coord_sf(datum = 4326)
   )
 
   pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
