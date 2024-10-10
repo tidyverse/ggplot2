@@ -1,3 +1,6 @@
+#' @include geom-tile.R
+NULL
+
 #' Heatmap of 2d bin counts
 #'
 #' Divides the plane into rectangles, counts the number of cases in
@@ -37,7 +40,7 @@ geom_bin_2d <- function(mapping = NULL, data = NULL,
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTile,
+    geom = GeomBin2d,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -53,3 +56,8 @@ geom_bin_2d <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 geom_bin2d <- geom_bin_2d
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomBin2d <- ggproto("GeomBin2d", GeomTile)
