@@ -281,14 +281,6 @@ check_coord_limits <- function(
   if (is.null(limits)) {
     return(invisible(NULL))
   }
-  if (!obj_is_vector(limits) || length(limits) != 2) {
-    what <- "{.obj_type_friendly {limits}}"
-    if (is.vector(limits)) {
-      what <- paste0(what, " of length {length(limits)}")
-    }
-    cli::cli_abort(
-      paste0("{.arg {arg}} must be a vector of length 2, not ", what, "."),
-      call = call
-    )
-  }
+  check_object(limits, is_vector, "a vector", arg = arg, call = call)
+  check_length(limits, 2L, arg = arg, call = call)
 }
