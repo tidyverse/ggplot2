@@ -135,7 +135,7 @@ expression using layer aesthetics.</p></dd>
     <h2 id="staging">Staging<a class="anchor" aria-label="anchor" href="#staging"></a></h2>
     <p>Below follows an overview of the three stages of evaluation and how aesthetic
 evaluation can be controlled.</p><div class="section">
-<h3 id="stage-direct-input">Stage 1: direct input<a class="anchor" aria-label="anchor" href="#stage-direct-input"></a></h3>
+<h3 id="stage-direct-input-at-the-start">Stage 1: direct input at the start<a class="anchor" aria-label="anchor" href="#stage-direct-input-at-the-start"></a></h3>
 
 
 <p>The default is to map at the beginning, using the layer data provided by
@@ -195,15 +195,17 @@ aesthetics of the layer (including non-mapped, default aesthetics).</p>
 <h3 id="complex-staging">Complex staging<a class="anchor" aria-label="anchor" href="#complex-staging"></a></h3>
 
 
-<p>If you want to map the same aesthetic multiple times, e.g. map <code>x</code> to a
-data column for the stat, but remap it for the geom, you can use the
-<code>stage()</code> function to collect multiple mappings.</p>
+<p>Sometimes, you may want to map the same aesthetic multiple times, e.g. map
+<code>x</code> to a data column at the start for the layer stat, but remap it later to
+a variable from the stat transformation for the layer geom. The <code>stage()</code>
+function allows you to control multiple mappings for the same aesthetic
+across all three stages of evaluation.</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="co"># Use stage to modify the scaled fill</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="../reference/aes_eval.html">stage</a></span><span class="op">(</span><span class="va">class</span>, after_scale <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">fill</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Using data for computing summary, but placing label elsewhere.</span></span>
-<span><span class="co"># Also, we're making our own computed variable to use for the label.</span></span>
+<span><span class="co"># Also, we're making our own computed variables to use for the label.</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">displ</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_summary.html">stat_summary</a></span><span class="op">(</span></span>
@@ -214,6 +216,10 @@ data column for the stat, but remap it for the geom, you can use the
 <span>    geom <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>    fun.data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre><p></p></div>
+<p>Conceptually, <code>aes(x)</code> is equivalent to <code>aes(stage(start = x))</code>, and
+<code>aes(after_stat(count))</code> is equivalent to <code>aes(stage(after_stat = count))</code>,
+and so on. <code>stage()</code> is most useful when at least two of its arguments are
+specified.</p>
 </div>
 
 <div class="section">
