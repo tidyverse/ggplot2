@@ -212,7 +212,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
     if (inherits(mapping, "gg")) {
-      msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
+      msg <- c(msg, i = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 
     cli::cli_abort(msg, call = call)
@@ -245,10 +245,8 @@ Layer <- ggproto("Layer", NULL,
     if (!is.null(self$mapping)) {
       cat("mapping:", clist(self$mapping), "\n")
     }
-    cat(snakeize(class(self$geom)[[1]]), ": ", clist(self$geom_params), "\n",
-      sep = "")
-    cat(snakeize(class(self$stat)[[1]]), ": ", clist(self$stat_params), "\n",
-      sep = "")
+    cat(snakeize(class(self$geom)[[1]]), ": ", clist(self$geom_params), "\n", sep = "")
+    cat(snakeize(class(self$stat)[[1]]), ": ", clist(self$stat_params), "\n", sep = "")
     cat(snakeize(class(self$position)[[1]]), "\n")
   },
 
@@ -320,9 +318,9 @@ Layer <- ggproto("Layer", NULL,
       names(issues) <- rep("x", length(issues))
       cli::cli_abort(c(
         "Aesthetics are not valid data columns.",
-        "x" = "The following aesthetics are invalid:",
+        x = "The following aesthetics are invalid:",
         issues,
-        "i" = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
+        i = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
       ))
     }
 
@@ -398,9 +396,9 @@ Layer <- ggproto("Layer", NULL,
       names(issues) <- rep("x", length(issues))
       cli::cli_abort(c(
         "Aesthetics must be valid computed stats.",
-        "x" = "The following aesthetics are invalid:",
+        x = "The following aesthetics are invalid:",
         issues,
-        "i" = "Did you map your stat in the wrong layer?"
+        i = "Did you map your stat in the wrong layer?"
       ))
     }
 

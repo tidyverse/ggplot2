@@ -188,13 +188,13 @@ GuideAxisLogticks <- ggproto(
     limits <- transformation$inverse(scale$get_limits())
     has_negatives <- any(limits <= 0)
 
-    if (!has_negatives) {
-      start <- floor(log10(min(limits))) - 1L
-      end   <- ceiling(log10(max(limits))) + 1L
-    } else {
+    if (has_negatives) {
       params$negative_small <- params$negative_small %||% 0.1
       start <- floor(log10(abs(params$negative_small)))
       end   <- ceiling(log10(max(abs(limits)))) + 1L
+    } else {
+      start <- floor(log10(min(limits))) - 1L
+      end   <- ceiling(log10(max(limits))) + 1L
     }
 
     # Calculate tick marks

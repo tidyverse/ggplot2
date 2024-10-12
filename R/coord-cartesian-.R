@@ -137,7 +137,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
       left = panel_guides_grob(
         panel_params$guides, position = "left",
         theme = theme, labels = panel_params$draw_labels$left
-        ),
+      ),
       right = panel_guides_grob(
         panel_params$guides, position = "right",
         theme = theme, labels = panel_params$draw_labels$right

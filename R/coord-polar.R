@@ -149,12 +149,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
 
     if (self$theta == "y") {
-      names(details) <- gsub("x\\.", "r.", names(details))
-      names(details) <- gsub("y\\.", "theta.", names(details))
+      names(details) <- gsub("x.", "r.", names(details), fixed = TRUE)
+      names(details) <- gsub("y.", "theta.", names(details), fixed = TRUE)
       details$r.arrange <- scale_x$axis_order()
     } else {
-      names(details) <- gsub("x\\.", "theta.", names(details))
-      names(details) <- gsub("y\\.", "r.", names(details))
+      names(details) <- gsub("x.", "theta.", names(details), fixed = TRUE)
+      names(details) <- gsub("y.", "r.", names(details), fixed = TRUE)
       details$r.arrange <- scale_y$axis_order()
     }
 
@@ -232,9 +232,9 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
-    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
-    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
+    majortheta <- paste0("panel.grid.major.", self$theta)
+    minortheta <- paste0("panel.grid.minor.", self$theta)
+    majorr     <- paste0("panel.grid.major.", self$r)
 
     ggname("grill", grobTree(
       element_render(theme, "panel.background"),
@@ -275,12 +275,14 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
-    ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
+    ends_apart <- (theta[length(theta)] - theta[1]) %% (2 * pi)
     if (length(theta) > 0 && ends_apart < 0.05 && !is.null(labels)) {
       n <- length(labels)
       if (is.expression(labels)) {
-        combined <- substitute(paste(a, "/", b),
-          list(a = labels[[1]], b = labels[[n]]))
+        combined <- substitute(
+          paste(a, "/", b),
+          list(a = labels[[1]], b = labels[[n]])
+        )
       } else {
         combined <- paste(labels[1], labels[n], sep = "/")
       }
@@ -321,9 +323,9 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
 rename_data <- function(coord, data) {
   if (coord$theta == "y") {
-    rename(data, c("y" = "theta", "x" = "r"))
+    rename(data, c(y = "theta", x = "r"))
   } else {
-    rename(data, c("y" = "r", "x" = "theta"))
+    rename(data, c(y = "r", x = "theta"))
   }
 }
 

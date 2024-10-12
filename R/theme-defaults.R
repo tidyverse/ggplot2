@@ -258,7 +258,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
                          ),
-    plot.tag.position =  'topleft',
+    plot.tag.position =  "topleft",
     plot.margin =        NULL,
 
     complete = TRUE
@@ -566,7 +566,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
                          ),
-    plot.tag.position =  'topleft',
+    plot.tag.position =  "topleft",
 
     complete = TRUE
   )
@@ -719,7 +719,7 @@ theme_test <- function(base_size = 11, base_family = "",
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
                          ),
-    plot.tag.position =  'topleft',
+    plot.tag.position =  "topleft",
     plot.margin =        NULL,
 
     complete = TRUE
@@ -735,11 +735,8 @@ theme_all_null <- function() {
   # We read from `.element_tree` instead of `ggplot_global$element_tree`
   # because we don't want to change our results just because a user
   # has defined new theme elements.
-  elements <- sapply(
-    names(.element_tree),
-    function(x) NULL,
-    simplify = FALSE, USE.NAMES = TRUE
-  )
+  elements <- rep(list(NULL), length.out = length(.element_tree))
+  names(elements) <- names(.element_tree)
 
   args <- c(elements, list(complete = TRUE))
   inject(theme(!!!args))

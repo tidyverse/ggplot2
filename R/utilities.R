@@ -7,11 +7,11 @@
 #'   geom_point(colour = alpha("blue", 0.5))
 scales::alpha
 
-"%||%" <- function(a, b) {
+`%||%` <- function(a, b) {
   if (!is.null(a)) a else b
 }
 
-"%|W|%" <- function(a, b) {
+`%|W|%` <- function(a, b) {
   if (!is.waive(a)) a else b
 }
 
@@ -81,7 +81,7 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
 #X clist(list(a=1, b=2))
 #X clist(par()[1:5])
 clist <- function(l) {
-  paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
+  paste(names(l), l, sep = " = ", collapse = ", ")
 }
 
 #' Convenience function to remove missing values from a data.frame
@@ -107,7 +107,7 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   if (any(missing)) {
     df <- df[!missing, , drop = FALSE]
     if (!na.rm) {
-      if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
+      if (name != "") name <- paste0(" ({.fn ", name, "})")
       msg <- paste0(
         "Removed {sum(missing)} row{?s} containing ",
         if (finite) "non-finite" else "missing values or values",
@@ -216,15 +216,15 @@ gg_dep <- function(version, msg) {
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
   #  give error.
-  if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
+  if (cv[[1, 1]] > v[[1, 1]]  ||  cv[[1, 2]] > v[[1, 2]] + 1) {
     cli::cli_abort(text)
 
-  # If minor number differs by one, give warning
-  } else if (cv[[1,2]] > v[[1,2]]) {
+  } else if (cv[[1, 2]] > v[[1, 2]]) {
+    # If minor number differs by one, give warning
     cli::cli_warn(text)
 
-  # If only subminor number is greater, give message
-  } else if (cv[[1,3]] > v[[1,3]]) {
+  } else if (cv[[1, 3]] > v[[1, 3]]) {
+    # If only subminor number is greater, give message
     cli::cli_inform(text)
   }
 
@@ -670,7 +670,7 @@ with_ordered_restart <- function(expr, .call) {
         }
       } else if (is.factor(x) || is.factor(y)) {
         restart <- TRUE
-        lev <- c()
+        lev <- NULL
         if (is.factor(x)) {
           lev <- c(lev, levels(x))
         }
@@ -783,7 +783,7 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
     # Demote from error to warning
     error = function(cnd) {
       # cli uses \f as newlines, not \n
-      msg <- gsub("\n", "\f", cnd_message(cnd))
+      msg <- gsub("\n", "\f", cnd_message(cnd), fixed = TRUE)
       cli::cli_warn(msg, call = call)
     }
   )
@@ -828,7 +828,7 @@ prompt_install <- function(pkg, reason = NULL) {
   }
   question <- "Would you like to install {cli::qty(pkg)}{?it/them}?"
 
-  cli::cli_bullets(c("!" = message, "i" = question))
+  cli::cli_bullets(c("!" = message, i = question))
   if (utils::menu(c("Yes", "No")) != 1) {
     return(FALSE)
   }

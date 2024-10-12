@@ -59,7 +59,7 @@ test_that("binned scales can calculate breaks with reverse transformation", {
   expect_equal(scale$get_breaks(), 8:2)
 })
 
-test_that('binned scales can calculate breaks on dates', {
+test_that("binned scales can calculate breaks on dates", {
 
   data <- seq(as.Date("2000-01-01"), as.Date("2020-01-01"), length.out = 100)
 
@@ -74,7 +74,7 @@ test_that('binned scales can calculate breaks on dates', {
   )
 })
 
-test_that('binned scales can calculate breaks on date-times', {
+test_that("binned scales can calculate breaks on date-times", {
   data <- seq(
     strptime("2000-01-01", "%Y-%m-%d"),
     strptime("2020-01-01", "%Y-%m-%d"),

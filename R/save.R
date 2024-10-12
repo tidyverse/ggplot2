@@ -99,8 +99,10 @@ ggsave <- function(filename, plot = get_last_plot(),
 
   dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
-  dim <- plot_dim(c(width, height), scale = scale, units = units,
-    limitsize = limitsize, dpi = dpi)
+  dim <- plot_dim(
+    c(width, height), scale = scale, units = units,
+    limitsize = limitsize, dpi = dpi
+  )
 
   if (is_null(bg)) {
     bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
@@ -146,7 +148,7 @@ check_path <- function(path, filename, create.dir,
   if (interactive() && !create.dir) {
     cli::cli_bullets(c(
       "Cannot find directory {.path {path}}.",
-      "i" = "Would you like to create a new directory?"
+      i = "Would you like to create a new directory?"
     ))
     create.dir <- utils::menu(c("Yes", "No")) == 1
   }
@@ -228,8 +230,8 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
     }
     cli::cli_abort(c(
       msg,
-      "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
-    "), call = call)
+      i = "If you're sure you want a plot that big, use {.code limitsize = FALSE}."
+    ), call = call)
   }
 
   dim
@@ -250,7 +252,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
       call_args$res <- dpi
     }
     if ("units" %in% names(args)) {
-      call_args$units <- 'in'
+      call_args$units <- "in"
     }
     dev <- function(...) {
       args <- modify_list(list(...), call_args)
@@ -260,10 +262,12 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   }
 
   eps <- function(filename, ...) {
-    grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,
-      paper = "special")
+    grDevices::postscript(
+      file = filename, ..., onefile = FALSE, horizontal = FALSE,
+      paper = "special"
+    )
   }
-  if (requireNamespace('ragg', quietly = TRUE)) {
+  if (requireNamespace("ragg", quietly = TRUE)) {
     png_dev <- absorb_grdevice_args(ragg::agg_png)
     jpeg_dev <- absorb_grdevice_args(ragg::agg_jpeg)
     tiff_dev <- absorb_grdevice_args(ragg::agg_tiff)
@@ -294,8 +298,8 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
     if (identical(device, "")) {
       cli::cli_abort(c(
         "Can't save to {filename}.",
-        i = "Either supply {.arg filename} with a file extension or supply {.arg device}."),
-        call = call)
+        i = "Either supply {.arg filename} with a file extension or supply {.arg device}."
+      ), call = call)
     }
   }
 

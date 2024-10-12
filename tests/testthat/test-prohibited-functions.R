@@ -59,7 +59,7 @@ test_that("list up R files properly", {
   skip_on_covr()
   skip_on_cran()
 
-  expect_true(length(R_files) > 0)
+  expect_gt(length(R_files), 0)
 })
 
 test_that("do not use stop()", {
@@ -113,7 +113,7 @@ test_that("No new argument names use underscores", {
 
   formals <- lapply(functions, fn_fmls_names)
 
-  underscore_args <- lapply(formals, function(x) x[grep("_", x, fixed = TRUE)])
+  underscore_args <- lapply(formals, grep, pattern = "_", fixed = TRUE, value = TRUE)
   underscore_args <- underscore_args[lengths(underscore_args) > 0]
   underscore_args <- underscore_args[order(names(underscore_args))]
 

@@ -196,7 +196,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       opposite_r <- isTRUE(scales$r$position %in% c("bottom", "left"))
     }
 
-    if (!isFALSE(self$r_axis_inside)) {
+    if (isFALSE(self$r_axis_inside)) {
+
+      r_position <- c(params$r_axis, opposite_position(params$r_axis))
+      if (opposite_r) {
+        r_position <- rev(r_position)
+      }
+
+    } else {
 
       r_position <- c("left", "right")
       # If both opposite direction and opposite position, don't flip
@@ -210,12 +217,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       # Set guide text angles
       guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
       guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
-    } else {
-      r_position <- c(params$r_axis, opposite_position(params$r_axis))
-      if (opposite_r) {
-        r_position <- rev(r_position)
-      }
     }
+
     guide_params[["r"]]$position     <- r_position[1]
     guide_params[["r.sec"]]$position <- r_position[2]
 
@@ -245,15 +248,15 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       gdefs[[t]] <- guides[[t]]$get_layer_key(gdefs[[t]], layers)
     }
 
-    if (!isFALSE(self$r_axis_inside)) {
+    if (isFALSE(self$r_axis_inside)) {
+      # When drawing radial axis outside, we need to pretend that arcs starts
+      # at horizontal or vertical position to have the transform work right.
+      mod <- list(arc = params$fake_arc)
+    } else {
       # For radial axis, we need to pretend that rotation starts at 0 and
       # the bounding box is for circles, otherwise tick positions will be
       # spaced too closely.
       mod <- list(bbox = list(x = c(0, 1), y = c(0, 1)), arc = c(0, 2 * pi))
-    } else {
-      # When drawing radial axis outside, we need to pretend that arcs starts
-      # at horizontal or vertical position to have the transform work right.
-      mod <- list(arc = params$fake_arc)
     }
     temp <- modify_list(panel_params, mod)
 
@@ -327,22 +330,25 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     }
 
     theta_fine <- theta_rescale(seq(0, 1, length.out = 100), c(0, 1), arc, dir)
-    r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
-                         panel_params$inner_radius)
+    r_fine <- r_rescale(
+      panel_params$r.major, panel_params$r.range, panel_params$inner_radius
+    )
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
-    grid_elems <- paste(
+    grid_elems <- paste0(
       c("panel.grid.major.", "panel.grid.minor.", "panel.grid.major."),
-      c(self$theta, self$theta, self$r), sep = ""
+      c(self$theta, self$theta, self$r)
     )
     grid_elems <- lapply(grid_elems, calc_element, theme = theme)
-    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
-    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
+    majortheta <- paste0("panel.grid.major.", self$theta)
+    minortheta <- paste0("panel.grid.minor.", self$theta)
+    majorr     <- paste0("panel.grid.major.", self$r)
 
     bg_element <- calc_element("panel.background", theme)
-    if (!inherits(bg_element, "element_blank")) {
+    if (inherits(bg_element, "element_blank")) {
+      background <- zeroGrob()
+    } else {
       background <- data_frame0(
         x = c(Inf,  Inf, -Inf, -Inf),
         y = c(Inf, -Inf, -Inf,  Inf)
@@ -357,8 +363,6 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         x = background$x, y = background$y,
         gp = bg_gp
       )
-    } else {
-      background <- zeroGrob()
     }
 
     ggname("grill", grobTree(
@@ -439,18 +443,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (self$theta == "y") {
       # Need to use single brackets for labels to avoid deleting an element by
       # assigning NULL
-      labels$y['primary']   <- list(titles[[1]] %|W|% labels$y$primary)
-      labels$x['primary']   <- list(titles[[2]] %|W|% labels$x$primary)
-      labels$x['secondary'] <- list(titles[[3]] %|W|% labels$x$secondary)
+      labels$y["primary"]   <- list(titles[[1]] %|W|% labels$y$primary)
+      labels$x["primary"]   <- list(titles[[2]] %|W|% labels$x$primary)
+      labels$x["secondary"] <- list(titles[[3]] %|W|% labels$x$secondary)
       if (any(in_arc(c(0, 1) * pi, panel_params$arc))) {
         labels <- list(x = labels$y, y = labels$x)
       } else {
         labels <- list(x = rev(labels$x), y = rev(labels$y))
       }
     } else {
-      labels$x['primary']   <- list(titles[[1]] %|W|% labels$x$primary)
-      labels$y['primary']   <- list(titles[[2]] %|W|% labels$y$primary)
-      labels$y['secondary'] <- list(titles[[3]] %|W|% labels$y$secondary)
+      labels$x["primary"]   <- list(titles[[1]] %|W|% labels$x$primary)
+      labels$y["primary"]   <- list(titles[[2]] %|W|% labels$y$primary)
+      labels$y["secondary"] <- list(titles[[3]] %|W|% labels$y$secondary)
 
       if (!any(in_arc(c(0, 1) * pi, panel_params$arc))) {
         labels <- list(x = rev(labels$y), y = rev(labels$x))

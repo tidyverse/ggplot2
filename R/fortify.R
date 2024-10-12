@@ -46,7 +46,7 @@ fortify.grouped_df <- function(model, data, ...) {
 # paranoid mode.
 .prevalidate_data_frame_like_object <- function(data) {
   orig_dims <- dim(data)
-  if (!vec_is(orig_dims, integer(), size=2))
+  if (!vec_is(orig_dims, integer(), size = 2))
     cli::cli_abort(paste0("{.code dim(data)} must return ",
                           "an {.cls integer} of length 2."))
   if (anyNA(orig_dims) || any(orig_dims < 0))  # extra-paranoid mode
@@ -85,7 +85,7 @@ fortify.default <- function(model, data, ...) {
   if (is.mapping(model)) {
     msg <- c(
       paste0(msg, ", not ", obj_type_friendly(model), "."),
-      "i" = "Did you accidentally pass {.fn aes} to the {.arg data} argument?"
+      i = "Did you accidentally pass {.fn aes} to the {.arg data} argument?"
     )
     cli::cli_abort(msg)
   }

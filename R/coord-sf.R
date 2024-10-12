@@ -37,12 +37,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     for (layer_data in data) {
       if (is_sf(layer_data)) {
         geometry <- sf::st_geometry(layer_data)
-      } else
+      } else {
         next
+      }
 
       crs <- sf::st_crs(geometry)
-      if (is.na(crs))
+      if (is.na(crs)) {
         next
+      }
 
       return(crs)
     }
@@ -82,8 +84,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     target_crs <- panel_params$crs
 
     # normalize geometry data, it should already be in the correct crs here
-    data[[ geom_column(data) ]] <- sf_rescale01(
-      data[[ geom_column(data) ]],
+    data[[geom_column(data)]] <- sf_rescale01(
+      data[[geom_column(data)]],
       panel_params$x_range,
       panel_params$y_range
     )
@@ -200,8 +202,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
       if (self$lims_method != "geometry_bbox") {
         cli::cli_warn(c(
-                "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
-          "i" = "Consider setting {.code lims_method = {.val geometry_bbox}} or {.code default_crs = NULL}."
+          "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
+          i = "Consider setting {.code lims_method = {.val geometry_bbox}} or {.code default_crs = NULL}."
         ))
       }
       coord_bbox <- self$params$bbox
@@ -416,8 +418,8 @@ sf_rescale01 <- function(x, x_range, y_range) {
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (!all(is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
     cli::cli_abort(c(
-            "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
-      "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
+      "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
+      i = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
     ))
   }
 
@@ -451,7 +453,7 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
     # rotated in projected space
     #
     # Method "cross" is also the default
-    cross =,
+    cross = ,
     list(
       x = c(rep(mean(xlim), 20), seq(xlim[1], xlim[2], length.out = 20)),
       y = c(seq(ylim[1], ylim[2], length.out = 20), rep(mean(ylim), 20))
@@ -548,7 +550,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   label_axes <- parse_axes_labeling(label_axes)
 
   if (is.character(label_graticule)) {
-    label_graticule <- unlist(strsplit(label_graticule, ""))
+    label_graticule <- unlist(strsplit(label_graticule, "", fixed = TRUE))
   } else {
     cli::cli_abort("Graticule labeling format not recognized.")
   }
@@ -580,7 +582,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 
 parse_axes_labeling <- function(x, call = caller_env()) {
   if (is.character(x)) {
-    x <- unlist(strsplit(x, ""))
+    x <- unlist(strsplit(x, "", fixed = TRUE))
     x <- list(top = x[1], right = x[2], bottom = x[3], left = x[4])
   } else if (!is.list(x)) {
     cli::cli_abort("Panel labeling format not recognized.", call = call)
@@ -663,10 +665,10 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   # left/right doesn't necessarily mean to label the parallels.
   position <- switch(
     arg_match0(aesthetic, c("x", "x.sec", "y", "y.sec")),
-    "x"     = "bottom",
-    "x.sec" = "top",
-    "y"     = "left",
-    "y.sec" = "right"
+    x     = "bottom",
+    x.sec = "top",
+    y     = "left",
+    y.sec = "right"
   )
   axis <- gsub("\\.sec$", "", aesthetic)
   if (axis == "x") {

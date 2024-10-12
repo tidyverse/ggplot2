@@ -1,10 +1,11 @@
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
-    theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5))
+    theta = c(0, 2 * pi,   2,   6, 6, 1,    1, 0),
+    r     = c(0,      0, 0.5, 0.5, 1, 1, 0.75, 0.5)
+  )
 
   scales <- list(
-    x = scale_x_continuous(limits = c(0, 2*pi)),
+    x = scale_x_continuous(limits = c(0, 2 * pi)),
     y = scale_y_continuous(limits = c(0, 1))
   )
   coord <- coord_polar()
@@ -16,8 +17,10 @@ test_that("polar distance is calculated correctly", {
   maxlen <- spiral_arc_length(1 / (2 * pi), 0, 2 * pi)
 
   # These are the expected lengths. I think they're correct...
-  expect_equal(dists,
-    c(0, -1.225737494, -2, -0.5, -5, -0.25, -0.6736885011) / maxlen)
+  expect_equal(
+    dists,
+    c(0, -1.225737494, -2, -0.5, -5, -0.25, -0.6736885011) / maxlen
+  )
 
   # The picture can be visualized with:
   # ggplot(dat, aes(x=theta, y=r)) + geom_path() +
@@ -178,8 +181,8 @@ test_that("polar coordinates draw correctly", {
   )
 
   dat <- data_frame(
-    theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5),
+    theta = c(0, 2 * pi,   2,   6, 6, 1,    1, 0),
+    r     = c(0,      0, 0.5, 0.5, 1, 1, 0.75, 0.5),
     g     = 1:8
   )
   expect_doppelganger("Rays, circular arcs, and spiral arcs",
@@ -225,7 +228,7 @@ test_that("coord_radial() draws correctly", {
   # Theme to test for axis placement
   theme <- theme(
     axis.line.theta = element_line(colour = "tomato"),
-    axis.line.r   = element_line(colour = "dodgerblue"),
+    axis.line.r   = element_line(colour = "dodgerblue")
   )
 
   sec_guides <- guides(

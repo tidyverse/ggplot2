@@ -96,10 +96,10 @@ Geom <- ggproto("Geom",
 
   draw_panel = function(self, data, panel_params, coord, ...) {
     groups <- split(data, factor(data$group))
-    grobs <- lapply(groups, function(group) {
-      self$draw_group(group, panel_params, coord, ...)
-    })
-
+    grobs <- lapply(
+      groups, self$draw_group,
+      panel_params = panel_params, coord = coord, ...
+    )
     ggname(snake_class(self), gTree(
       children = inject(gList(!!!grobs))
     ))
@@ -169,9 +169,9 @@ Geom <- ggproto("Geom",
         names(issues) <- rep("x", length(issues))
         cli::cli_abort(c(
           "Aesthetic modifiers returned invalid values",
-          "x" = "The following mappings are invalid",
+          x = "The following mappings are invalid",
           issues,
-          "i" = "Did you map the modifier in the wrong layer?"
+          i = "Did you map the modifier in the wrong layer?"
         ))
       }
 
@@ -201,7 +201,7 @@ Geom <- ggproto("Geom",
   # for setup_data() or handle_na(). These can not be imputed automatically,
   # so the slightly hacky "extra_params" field is used instead. By
   # default it contains `na.rm`
-  extra_params = c("na.rm"),
+  extra_params = "na.rm",
 
   parameters = function(self, extra = FALSE) {
     # Look first in draw_panel. If it contains ... then look in draw groups
@@ -222,7 +222,7 @@ Geom <- ggproto("Geom",
     if (is.null(self$required_aes)) {
       required_aes <- NULL
     } else {
-      required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+      required_aes <- unlist(strsplit(self$required_aes, "|", fixed = TRUE))
     }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   },
@@ -272,7 +272,7 @@ check_aesthetics <- function(x, n) {
 
   cli::cli_abort(c(
     "Aesthetics must be either length 1 or the same as the data ({n}).",
-    "x" = "Fix the following mappings: {.col {names(which(!good))}}."
+    x = "Fix the following mappings: {.col {names(which(!good))}}."
   ))
 }
 

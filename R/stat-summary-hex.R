@@ -49,7 +49,9 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
     fun <- as_function(fun)
-    hexBinSummarise(data$x, data$y, data$z, binwidth,
-      fun = fun, fun.args = fun.args, drop = drop)
+    hexBinSummarise(
+      data$x, data$y, data$z, binwidth,
+      fun = fun, fun.args = fun.args, drop = drop
+    )
   }
 )

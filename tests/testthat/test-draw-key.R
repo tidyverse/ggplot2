@@ -9,7 +9,7 @@ test_that("alternative key glyphs work", {
       geom_line(aes(color = "line"), key_glyph = "timeseries") +
       geom_point(aes(fill = z), pch = 21, size = 3, key_glyph = "polygon") +
       guides(fill = guide_legend(order = 1))
-   )
+  )
 
   # specify key glyph by function
   expect_doppelganger("rectangle and dotplot key glyphs",
@@ -39,14 +39,14 @@ test_that("keys can communicate their size", {
 # Orientation-aware key glyphs --------------------------------------------
 
 test_that("horizontal key glyphs work", {
-  df <- data.frame(
+  df <- data_frame0(
     middle = 1:2,
     lower = 0:1,
     upper = 2:3,
     min = -1:0,
     max = 3:4,
-    group1 = c("a","b"),
-    group2 = c("c","d")
+    group1 = c("a", "b"),
+    group2 = c("c", "d")
   )
 
   p <- ggplot(df, aes(
@@ -104,11 +104,11 @@ test_that("keep_draw_key", {
   p <- ggplot(data.frame(x = 1:2), aes(x, x)) +
     geom_point(
       aes(colour = "point", alpha = "point"),
-      show.legend = c("colour" = NA, alpha = FALSE)
+      show.legend = c(colour = NA, alpha = FALSE)
     ) +
     geom_line(
       aes(colour = "line", alpha = "line"),
-      show.legend = c("colour" = NA, alpha = TRUE)
+      show.legend = c(colour = NA, alpha = TRUE)
     ) +
     suppressWarnings(scale_alpha_discrete())
 

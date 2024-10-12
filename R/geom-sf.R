@@ -330,7 +330,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
     if (!missing(position)) {
       cli::cli_abort(c(
         "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
+        i = "Only use one approach to alter the position."
       ))
     }
 
@@ -377,7 +377,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
     if (!missing(position)) {
       cli::cli_abort(c(
         "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
+        i = "Only use one approach to alter the position."
       ))
     }
 

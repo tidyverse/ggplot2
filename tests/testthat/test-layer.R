@@ -112,7 +112,7 @@ test_that("inherit.aes works", {
 })
 
 test_that("retransform works on computed aesthetics in `map_statistic`", {
-  df <- data.frame(x = rep(c(1,2), c(9, 25)))
+  df <- data.frame(x = rep(c(1, 2), c(9, 25)))
   p <- ggplot(df, aes(x)) + geom_bar() + scale_y_sqrt()
   expect_equal(get_layer_data(p)$y, c(3, 5))
 
@@ -148,10 +148,10 @@ test_that("layer warns for constant aesthetics", {
 test_that("layer names can be resolved", {
 
   p <- ggplot() + geom_point() + geom_point()
-  expect_equal(names(p$layers), c("geom_point", "geom_point...2"))
+  expect_named(p$layers, c("geom_point", "geom_point...2"))
 
   p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
-  expect_equal(names(p$layers), c("foo", "bar"))
+  expect_named(p$layers, c("foo", "bar"))
 
   l <- geom_point(name = "foobar")
   expect_error(

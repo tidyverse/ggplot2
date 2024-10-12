@@ -10,7 +10,7 @@ StatSf <- ggproto("StatSf", Stat,
   },
 
   compute_panel = function(data, scales, coord) {
-    geometry_data <- data[[ geom_column(data) ]]
+    geometry_data <- data[[geom_column(data)]]
     geometry_crs <- sf::st_crs(geometry_data)
 
     bbox <- sf::st_bbox(geometry_data)
@@ -28,8 +28,8 @@ StatSf <- ggproto("StatSf", Stat,
       # backtransform
       bbox_trans <- sf_transform_xy(
         list(
-          x = c(rep(0.5*(bbox[["xmin"]] + bbox[["xmax"]]), 2), bbox[["xmin"]], bbox[["xmax"]]),
-          y = c(bbox[["ymin"]], bbox[["ymax"]], rep(0.5*(bbox[["ymin"]] + bbox[["ymax"]]), 2))
+          x = c(rep(0.5 * (bbox[["xmin"]] + bbox[["xmax"]]), 2), bbox[["xmin"]], bbox[["xmax"]]),
+          y = c(bbox[["ymin"]], bbox[["ymax"]], rep(0.5 * (bbox[["ymin"]] + bbox[["ymax"]]), 2))
         ),
         coord$get_default_crs(),
         geometry_crs
@@ -53,7 +53,7 @@ StatSf <- ggproto("StatSf", Stat,
     data
   },
 
-  required_aes = c("geometry")
+  required_aes = "geometry"
 )
 
 #' @export
@@ -76,4 +76,3 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
     )
   )
 }
-

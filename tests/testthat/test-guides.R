@@ -60,7 +60,7 @@ test_that("Colorbar respects show.legend in layer", {
 test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
-    gb <- grep("guide-box", g$layout$name)
+    gb <- grep("guide-box", g$layout$name, fixed = TRUE)
     n <- vapply(g$grobs[gb], function(x) {
       if (is.zero(x)) return(0)
       length(x$grobs) - 1
@@ -222,9 +222,9 @@ test_that("guide merging for guide_legend() works as expected", {
 })
 
 test_that("size = NA doesn't throw rendering errors", {
-  df <- data.frame(
+  df <- data_frame0(
     x = c(1, 2),
-    group = c("a","b")
+    group = c("a", "b")
   )
   p <- ggplot(df, aes(x = x, y = 0, colour = group)) +
     geom_point(size = NA, na.rm = TRUE)
@@ -327,7 +327,7 @@ test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
 
   g <- guide_coloursteps(even.steps = TRUE)
   decor <- g$train(scale = scale, aesthetics = "colour")$decor
-  expect_equal(decor$max - decor$min, rep(1/3, 3))
+  expect_equal(decor$max - decor$min, rep(1 / 3, 3))
 
   g <- guide_coloursteps(even.steps = FALSE)
   decor <- g$train(scale = scale, aesthetics = "colour")$decor
@@ -447,14 +447,14 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
   }
 
   guide <- guide_axis_logticks(negative.small = 10)
-  outcome <- c((1:10)*10, (2:10)*100)
+  outcome <- c((1:10) * 10, (2:10) * 100)
 
   # Test the classic log10 transformation
   scale <- test_scale(transform_log10(), c(10, 1000))
   key <- train_guide(guide, scale)$logkey
 
   expect_equal(sort(key$x), log10(outcome))
-  expect_equal(key$.type, rep(c(1,2,3), c(3, 2, 14)))
+  expect_equal(key$.type, rep(c(1, 2, 3), c(3, 2, 14)))
 
   # Test compound transformation
   scale <- test_scale(transform_compose(transform_log10(), transform_reverse()), c(10, 1000))
@@ -468,7 +468,7 @@ test_that("guide_axis_logticks calculates appropriate ticks", {
 
   unlog <- sort(transform_pseudo_log()$inverse(key$x))
   expect_equal(unlog, c(-rev(outcome), 0, outcome))
-  expect_equal(key$.type, rep(c(1,2,3), c(7, 4, 28)))
+  expect_equal(key$.type, rep(c(1, 2, 3), c(7, 4, 28)))
 
   # Test expanded argument
   scale <- test_scale(transform_log10(), c(20, 900))
@@ -875,16 +875,16 @@ test_that("guides are positioned correctly", {
     p1 + theme(legend.position = "top")
   )
   expect_doppelganger("facet_grid, legend on left",
-    p1 + facet_grid(x~y) + theme(legend.position = "left")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "left")
   )
   expect_doppelganger("facet_grid, legend on bottom",
-    p1 + facet_grid(x~y) + theme(legend.position = "bottom")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "bottom")
   )
   expect_doppelganger("facet_grid, legend on right",
-    p1 + facet_grid(x~y) + theme(legend.position = "right")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "right")
   )
   expect_doppelganger("facet_grid, legend on top",
-    p1 + facet_grid(x~y) + theme(legend.position = "top")
+    p1 + facet_grid(x ~ y) + theme(legend.position = "top")
   )
   expect_doppelganger("facet_wrap, legend on left",
     p1 + facet_wrap(~ x) + theme(legend.position = "left")
@@ -915,13 +915,13 @@ test_that("guides are positioned correctly", {
     p2 + theme(legend.position.inside = c(0.5, 0.5))
   )
   expect_doppelganger("legend inside plot, bottom left",
-    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
+    p2 + theme(legend.justification = c(0, 0), legend.position.inside = c(0, 0))
   )
   expect_doppelganger("legend inside plot, top right",
-    p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
+    p2 + theme(legend.justification = c(1, 1), legend.position.inside = c(1, 1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0.5,0.5))
+    p2 + theme(legend.justification = c(0, 0), legend.position.inside = c(0.5, 0.5))
   )
 })
 
@@ -995,7 +995,7 @@ test_that("guides title and text are positioned correctly", {
       )
     )
 
-  expect_doppelganger("rotated guide titles and labels", p )
+  expect_doppelganger("rotated guide titles and labels", p)
 
   # title justification
   p <- ggplot(data.frame(x = 1:2)) +
@@ -1049,12 +1049,12 @@ test_that("colorbar can be styled", {
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
   expect_doppelganger("white-to-red colorbar, white ticks, no frame",
-    p + scale_color_gradient(low = 'white', high = 'red')
+    p + scale_color_gradient(low = "white", high = "red")
   )
 
   expect_doppelganger("customized colorbar",
     p + scale_color_gradient(
-      low = 'white', high = 'red',
+      low = "white", high = "red",
       guide = guide_colorbar(
         theme = theme(
           legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
@@ -1144,22 +1144,22 @@ test_that("binning scales understand the different combinations of limits, break
   expect_doppelganger("guide_bins understands coinciding limits and bins",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(1999, 2000, 2002, 2004, 2006),
-                           guide = 'bins')
+                           guide = "bins")
   )
   expect_doppelganger("guide_bins understands coinciding limits and bins 2",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(2000, 2002, 2004, 2006, 2008),
-                           guide = 'bins')
+                           guide = "bins")
   )
   expect_doppelganger("guide_bins understands coinciding limits and bins 3",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(1999, 2000, 2002, 2004, 2006),
-                           guide = 'bins', show.limits = TRUE)
+                           guide = "bins", show.limits = TRUE)
   )
   expect_doppelganger("guide_bins sets labels when limits is in breaks",
     p + scale_color_binned(limits = c(1999, 2008),
                            breaks = c(1999, 2000, 2002, 2004, 2006),
-                           labels = 1:5, guide = 'bins')
+                           labels = 1:5, guide = "bins")
   )
   expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE, guide = "bins")))
 

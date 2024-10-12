@@ -45,7 +45,7 @@ geom_jitter <- function(mapping = NULL, data = NULL,
     if (!missing(position)) {
       cli::cli_abort(c(
         "Both {.arg position} and {.arg width}/{.arg height} were supplied.",
-        "i" = "Choose a single approach to alter the position."
+        i = "Choose a single approach to alter the position."
       ))
     }
 

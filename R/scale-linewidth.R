@@ -45,10 +45,12 @@ scale_linewidth <- scale_linewidth_continuous
 
 #' @rdname scale_linewidth
 #' @export
-scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                              limits = NULL, range = c(1, 6), n.breaks = NULL,
-                              nice.breaks = TRUE, transform = "identity",
-                              trans = deprecated(), guide = "bins") {
+scale_linewidth_binned <- function(
+    name = waiver(), breaks = waiver(), labels = waiver(),
+    limits = NULL, range = c(1, 6), n.breaks = NULL,
+    nice.breaks = TRUE, transform = "identity",
+    trans = deprecated(), guide = "bins") {
+
   binned_scale("linewidth", palette = pal_rescale(range), name = name,
                breaks = breaks, labels = labels, limits = limits,
                transform = transform, trans = trans, n.breaks = n.breaks,

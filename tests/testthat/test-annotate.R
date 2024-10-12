@@ -1,8 +1,8 @@
 test_that("dates in segment annotation work", {
-  dt <- structure(list(month = structure(c(1364774400, 1377993600),
-      class = c("POSIXct", "POSIXt"), tzone = "UTC"), total = c(-10.3,
-      11.7)), .Names = c("month", "total"), row.names = c(NA, -2L), class =
-      "data.frame")
+  dt <- structure(list(
+    month = structure(c(1364774400, 1377993600), class = c("POSIXct", "POSIXt"), tzone = "UTC"),
+    total = c(-10.3, 11.7)
+  ), .Names = c("month", "total"), row.names = c(NA, -2L), class = "data.frame")
 
   p <- ggplot(dt, aes(month, total)) +
     geom_point() +
@@ -74,7 +74,7 @@ test_that("unsupported geoms signal a warning (#4719)", {
 })
 
 test_that("annotate() checks aesthetic lengths match", {
-  expect_snapshot_error(annotate("point", 1:3, 1:3, fill = c('red', 'black')))
+  expect_snapshot_error(annotate("point", 1:3, 1:3, fill = c("red", "black")))
 })
 
 test_that("annotation_logticks warns about deprecated `size` argument", {

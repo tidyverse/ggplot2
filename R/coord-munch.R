@@ -65,8 +65,8 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   extra[is.na(extra)] <- 1
   # Generate extra pieces for x and y values
   # The final point must be manually inserted at the end
-  x <- c(unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE)), data$x[n])
-  y <- c(unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE)), data$y[n])
+  x <- c(unlist(Map(interp, data$x[-n], data$x[-1], extra)), data$x[n])
+  y <- c(unlist(Map(interp, data$y[-n], data$y[-1], extra)), data$y[n])
 
   # Replicate other aesthetics: defined by start point but also
   # must include final point
@@ -126,7 +126,7 @@ dist_polar <- function(r, theta) {
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
   lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
-    yintercept = "r_int",  xintercept = "t_int"))
+                     yintercept = "r_int",  xintercept = "t_int"))
 
   # Re-normalize the theta values so that intercept for each is 0
   # This is necessary for calculating spiral arc length.
@@ -212,7 +212,8 @@ spiral_arc_length <- function(a, theta1, theta2) {
   # http://mathworld.wolfram.com/ArchimedesSpiral.html
   0.5 * a * (
     (theta1 * sqrt(1 + theta1 * theta1) + asinh(theta1)) -
-    (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2)))
+    (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2))
+  )
 }
 
 # Closes a polygon type data structure by repeating the first-in-group after

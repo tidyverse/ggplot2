@@ -43,7 +43,7 @@ rd_match_docpage <- function(aes) {
   index <- match(
     flat,
     c(
-      "x", "y", "xmin", "xmax", "ymin", "ymax", "xend", 'yend',
+      "x", "y", "xmin", "xmax", "ymin", "ymax", "xend", "yend",
       "colour", "fill", "alpha",
       "group",
       "linetype", "size", "shape", "linewidth"
@@ -67,14 +67,14 @@ rd_orientation <- function() {
   c(
     "@section Orientation: ",
     paste(
-      'This geom treats each axis differently and, thus, can thus have two orientations.',
-      'Often the orientation is easy to deduce from a combination of the given',
-      'mappings and the types of positional scales in use. Thus, ggplot2 will by',
-      'default try to guess which orientation the layer should have. Under rare',
-      'circumstances, the orientation is ambiguous and guessing may fail. In that',
-      'case the orientation can be specified directly using the \\code{orientation} parameter,',
-      'which can be either \\code{"x"} or \\code{"y"}. The value gives the axis that the geom',
-      'should run along, \\code{"x"} being the default orientation you would expect for the geom.'
+      "This geom treats each axis differently and, thus, can thus have two orientations.",
+      "Often the orientation is easy to deduce from a combination of the given",
+      "mappings and the types of positional scales in use. Thus, ggplot2 will by",
+      "default try to guess which orientation the layer should have. Under rare",
+      "circumstances, the orientation is ambiguous and guessing may fail. In that",
+      "case the orientation can be specified directly using the \\code{orientation} parameter,",
+      "which can be either \\code{\"x\"} or \\code{\"y\"}. The value gives the axis that the geom",
+      "should run along, \\code{\"x\"} being the default orientation you would expect for the geom."
     )
   )
 }
@@ -118,7 +118,7 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
     "with [delayed evaluation][aes_eval]. "
   )
   if (.skip_intro) intro <- ""
-  preamble <- c(header, paste0(intro, gsub("\n", "", .details)))
+  preamble <- c(header, paste0(intro, gsub("\n", "", .details, fixed = TRUE)))
 
   # Format items
   fmt_items <- gsub(",", ")`, `after_stat(", items, fixed = TRUE)
@@ -127,7 +127,7 @@ rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
   fmt_items <- paste0("*  `after_stat(", fmt_items, ")`")
 
   # Compose item-list
-  fmt_descr <- gsub("\n", "", descr)
+  fmt_descr <- gsub("\n", "", descr, fixed = TRUE)
   fmt_list  <- paste(fmt_items, fmt_descr, sep = "\\cr ")
 
   c(preamble, fmt_list)

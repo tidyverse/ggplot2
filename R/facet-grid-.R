@@ -181,10 +181,12 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
-    params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
+    params = list(
+      rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop,
-      draw_axes = draw_axes, axis_labels = axis_labels)
+      draw_axes = draw_axes, axis_labels = axis_labels
+    )
   )
 }
 
@@ -199,7 +201,7 @@ grid_as_facets_list <- function(rows, cols) {
       if (inherits(rows, "gg")) {
         msg <- c(
           msg,
-          "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+          i = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
         )
       }
       cli::cli_abort(msg)
@@ -240,8 +242,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
       cli::cli_abort(c(
-              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.",
-        "i" = "Duplicated variables: {.val {dups}}"
+        "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.",
+        i = "Duplicated variables: {.val {dups}}"
       ), call = call2(snake_class(self)))
     }
 
@@ -271,8 +273,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel <- id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
-    rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
-    cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
+    rows <- if (length(names(rows))) id(base[names(rows)], drop = TRUE) else rep(1L, length(panel))
+    cols <- if (length(names(cols))) id(base[names(cols)], drop = TRUE) else rep(1L, length(panel))
 
     panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -325,8 +327,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       data <- unrowname(data[data_rep, , drop = FALSE])
       facet_vals <- unrowname(vec_cbind(
         unrowname(facet_vals[data_rep, ,  drop = FALSE]),
-        unrowname(to_add[facet_rep, , drop = FALSE]))
-      )
+        unrowname(to_add[facet_rep, , drop = FALSE])
+      ))
     }
 
     # Add PANEL variable
@@ -352,19 +354,19 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
 
     dim <- c(max(layout$ROW), max(layout$COL))
-    if (!axis_labels$x) {
-      cols    <- seq_len(nrow(layout))
-      x_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
-    } else {
+    if (axis_labels$x) {
       cols    <- which(layout$ROW == 1)
       x_order <- layout$COL
-    }
-    if (!axis_labels$y) {
-      rows    <- seq_len(nrow(layout))
-      y_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
     } else {
+      cols    <- seq_len(nrow(layout))
+      x_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
+    }
+    if (axis_labels$y) {
       rows    <- which(layout$COL == 1)
       y_order <- layout$ROW
+    } else {
+      rows    <- seq_len(nrow(layout))
+      y_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
     }
 
     # Render individual axes

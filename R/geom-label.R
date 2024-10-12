@@ -20,7 +20,7 @@ geom_label <- function(mapping = NULL, data = NULL,
     if (!missing(position)) {
       cli::cli_abort(c(
         "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Choose one approach to alter the position."
+        i = "Choose one approach to alter the position."
       ))
     }
 
@@ -129,7 +129,7 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   if (!is.unit(y))
     y <- unit(y, default.units)
 
-  if (!is.null(angle) & is.null(vp)) {
+  if (!is.null(angle) && is.null(vp)) {
     vp <- viewport(
       angle = angle, x = x, y = y,
       width = unit(0, "cm"), height = unit(0, "cm"),
