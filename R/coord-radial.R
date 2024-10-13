@@ -180,7 +180,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     # Validate appropriateness of guides
     drop_guides <- character(0)
     for (type in aesthetics) {
-      drop_guides <- check_polar_guide(drop_guides, guides, type)
+      drop_guides <- validate_polar_guide(drop_guides, guides, type)
     }
 
     guide_params <- guides$get_params(aesthetics)
@@ -648,7 +648,7 @@ theta_grid <- function(theta, element, inner_radius = c(0, 0.4),
   )
 }
 
-check_polar_guide <- function(drop_list, guides, type = "theta") {
+validate_polar_guide <- function(drop_list, guides, type = "theta") {
   guide <- guides$get_guide(type)
   primary <- gsub("\\.sec$", "", type)
   if (inherits(guide, "GuideNone") || primary %in% guide$available_aes) {

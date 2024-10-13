@@ -612,11 +612,8 @@ Scale <- ggproto("Scale", NULL,
 )
 
 check_breaks_labels <- function(breaks, labels, call = NULL) {
-  if (is.null(breaks)) {
-    return(TRUE)
-  }
-  if (is.null(labels)) {
-    return(TRUE)
+  if (is.null(breaks) || is.null(labels)) {
+    return(invisible())
   }
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
@@ -628,7 +625,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
     )
   }
 
-  TRUE
+  invisible()
 }
 
 default_transform <- function(self, x) {
