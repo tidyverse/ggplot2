@@ -155,7 +155,7 @@ test_that("A geom can have scaled defaults (#6135)", {
     NULL, GeomPoint,
     default_aes = modify_list(
       GeomPoint$default_aes,
-      aes(colour = after_scale(alpha(fill, 0.5)))
+      aes(colour = after_scale(alpha(fill, 0.5)), fill = "black")
     )
   )
 
@@ -167,4 +167,7 @@ test_that("A geom can have scaled defaults (#6135)", {
   )
 
   expect_equal(ld$colour, c("#FF000080", "#00FF0080", '#0000FF80'))
+
+  defaults <- get_geom_defaults(test_geom)
+  expect_equal(defaults$colour, c("#00000080"))
 })
