@@ -240,7 +240,7 @@ Facet <- ggproto("Facet", NULL,
       rep(seq_len(dim[2]), each = dim[1]),
       rep(seq_len(dim[1]), dim[2]),
       sep = "-"
-    )                        
+    )
 
     # Add spacing between panels
     spacing <- lapply(
