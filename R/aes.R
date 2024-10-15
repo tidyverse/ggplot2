@@ -367,29 +367,7 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  deprecate_warn0("2.0.0", "aes_auto()")
-
-  # detect names of data
-  if (is.null(data)) {
-    cli::cli_abort("{.fn aes_auto} requires a {.cls data.frame} or names of data.frame.")
-  } else if (is.data.frame(data)) {
-    vars <- names(data)
-  } else {
-    vars <- data
-  }
-
-  # automatically detected aes
-  vars <- intersect(ggplot_global$all_aesthetics, vars)
-  names(vars) <- vars
-  aes <- lapply(vars, function(x) parse(text = x)[[1]])
-
-  # explicitly defined aes
-  if (length(match.call()) > 2) {
-    args <- as.list(match.call()[-1])
-    aes <- c(aes, args[names(args) != "data"])
-  }
-
-  structure(rename_aes(aes), class = "uneval")
+  lifecycle::deprecate_stop("2.0.0", "aes_auto()")
 }
 
 mapped_aesthetics <- function(x) {

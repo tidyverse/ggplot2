@@ -456,32 +456,25 @@ theme <- function(...,
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    deprecate_warn0(
+    lifecycle::deprecate_stop(
       "2.0.0", "theme(axis.ticks.margin)",
       details = "Please set `margin` property of `axis.text` instead"
     )
-    elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    deprecate_warn0(
+    lifecycle::deprecate_stop(
       "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
     )
-    elements$panel.spacing <- elements$panel.margin
-    elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    deprecate_warn0(
+    lifecycle::deprecate_stop(
       "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
     )
-    elements$panel.spacing.x <- elements$panel.margin.x
-    elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    deprecate_warn0(
+    lifecycle::deprecate_stop(
       "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
     )
-    elements$panel.spacing.y <- elements$panel.margin.y
-    elements$panel.margin.y <- NULL
   }
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
     cli::cli_warn(c(
