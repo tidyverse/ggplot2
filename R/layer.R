@@ -110,9 +110,9 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    deprecate_warn0("2.0.0", "layer(show_guide)", "layer(show.legend)", user_env = user_env)
-    show.legend <- params$show_guide
-    params$show_guide <- NULL
+    lifecycle::deprecate_stop(
+      "2.0.0", "layer(show_guide)", "layer(show.legend)"
+    )
   }
 
   # we validate mapping before data because in geoms and stats

@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead 
+  of warnings. 
+* Functions and arguments that were soft-deprecated up to ggplot2 3.2.0 now 
+  throw warnings.
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
   (@teunbrand, #6104).
 * New `get_labs()` function for retrieving completed plot labels 
