@@ -283,7 +283,7 @@ is_position_aes <- function(vars) {
 #'
 #' @export
 aes_ <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_()",
     details = "Please use tidy evaluation idioms with `aes()`"
@@ -310,7 +310,7 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_string()",
     details = c(
