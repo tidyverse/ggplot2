@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
+  evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
   (@teunbrand, #6104).
 * New `get_labs()` function for retrieving completed plot labels 

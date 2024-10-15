@@ -136,6 +136,13 @@ Geom <- ggproto("Geom",
     themed_defaults <- eval_from_theme(default_aes, theme)
     default_aes[names(themed_defaults)] <- themed_defaults
 
+    # Mark staged/scaled defaults as modifier (#6135)
+    delayed <- is_scaled_aes(default_aes) | is_staged_aes(default_aes)
+    if (any(delayed)) {
+      modifiers <- defaults(modifiers, default_aes[delayed])
+      default_aes <- default_aes[!delayed]
+    }
+
     missing_eval <- lapply(default_aes, eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
