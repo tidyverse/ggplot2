@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
   (@teunbrand, #6104).
 * New `get_labs()` function for retrieving completed plot labels 
