@@ -26,6 +26,10 @@
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
 #'   frequency polygons touch 0. Defaults to `FALSE`.
+#' @param keep.zeroes Treatment of zero count bins. If `"all"` (default), such
+#'   bins are kept as-is. If `"none"`, all zero count bins are filtered out.
+#'   If `"inner"` only zero count bins at the flanks are filtered out, but not
+#'   in the middle.
 #' @eval rd_computed_vars(
 #'   count    = "number of points in bin.",
 #'   density  = "density of points in bin, scaled to integrate to 1.",
