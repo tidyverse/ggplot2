@@ -118,6 +118,20 @@ test_that("stat_bin() provides width (#3522)", {
   expect_equal(out$xmax - out$xmin, rep(binwidth, 10))
 })
 
+test_that("stat_bin(keep.zeroes) options work as intended", {
+  p <- ggplot(data.frame(x = c(1, 2, 2, 3, 5, 6, 6, 7)), aes(x)) +
+    scale_x_continuous(limits = c(-1, 9))
+
+  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "all"))
+  expect_equal(ld$x, -1:9)
+
+  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "inner"))
+  expect_equal(ld$x, c(1:7))
+
+  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "none"))
+  expect_equal(ld$x, c(1:3, 5:7))
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 test_that("bins() computes fuzz with non-finite breaks", {

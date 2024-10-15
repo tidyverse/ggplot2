@@ -46,6 +46,7 @@ stat_bin(
   closed = c("right", "left"),
   pad = FALSE,
   na.rm = FALSE,
+  keep.zeroes = "all",
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
@@ -172,6 +173,11 @@ or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{keep.zeroes}{Treatment of zero count bins. If \code{"all"} (default), such
+bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
+If \code{"inner"} only zero count bins at the flanks are filtered out, but not
+in the middle.}
 }
 \description{
 Visualise the distribution of a single continuous variable by dividing
