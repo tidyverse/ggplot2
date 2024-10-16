@@ -1,3 +1,45 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.R
+GeomBar <- ggproto("GeomBar", GeomRect,
+  required_aes = c("x", "y"),
+
+  # These aes columns are created by setup_data(). They need to be listed here so
+  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
+  # limits, not just those for which x and y are outside the limits
+  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
+
+  default_aes = aes(!!!GeomRect$default_aes, width = NULL),
+
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params
+  },
+
+  extra_params = c("just", "na.rm", "orientation"),
+
+  setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
+    data$width <- data$width %||%
+      params$width %||% (min(vapply(
+        split(data$x, data$PANEL, drop = TRUE),
+        resolution, numeric(1), zero = FALSE
+      )) * 0.9)
+    data$just <- params$just %||% 0.5
+    data <- transform(data,
+      ymin = pmin(y, 0), ymax = pmax(y, 0),
+      xmin = x - width * just, xmax = x + width * (1 - just),
+      width = NULL, just = NULL
+    )
+    flip_data(data, params$flipped_aes)
+  },
+
+  rename_size = TRUE
+)
+
 #' Bar charts
 #'
 #' There are two types of bar charts: `geom_bar()` and `geom_col()`.
@@ -92,69 +134,7 @@
 #' ggplot(df, aes(x, y)) + geom_col(just = 0.5)
 #' # Columns begin on the first day of the month
 #' ggplot(df, aes(x, y)) + geom_col(just = 1)
-geom_bar <- function(mapping = NULL, data = NULL,
-                     stat = "count", position = "stack",
-                     ...,
-                     just = 0.5,
-                     na.rm = FALSE,
-                     orientation = NA,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomBar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      just = just,
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-rect.R
-GeomBar <- ggproto("GeomBar", GeomRect,
-  required_aes = c("x", "y"),
-
-  # These aes columns are created by setup_data(). They need to be listed here so
-  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
-  # limits, not just those for which x and y are outside the limits
-  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
-
-  default_aes = aes(!!!GeomRect$default_aes, width = NULL),
-
-  setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params)
-    params
-  },
-
-  extra_params = c("just", "na.rm", "orientation"),
-
-  setup_data = function(data, params) {
-    data$flipped_aes <- params$flipped_aes
-    data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (min(vapply(
-        split(data$x, data$PANEL, drop = TRUE),
-        resolution, numeric(1), zero = FALSE
-      )) * 0.9)
-    data$just <- params$just %||% 0.5
-    data <- transform(data,
-      ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width * just, xmax = x + width * (1 - just),
-      width = NULL, just = NULL
-    )
-    flip_data(data, params$flipped_aes)
-  },
-
-  rename_size = TRUE
+geom_bar <- boilerplate(
+  GeomBar, stat = "count", position = "stack",
+  just = 0.5, orientation = NA
 )

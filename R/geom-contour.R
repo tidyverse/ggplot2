@@ -1,3 +1,26 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.R
+GeomContour <- ggproto(
+  "GeomContour", GeomPath,
+  default_aes = aes(
+    weight = 1,
+    colour = from_theme(accent),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  )
+)
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-polygon.R
+GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
+
 #' 2D contours of a 3D surface
 #'
 #' @description
@@ -56,87 +79,15 @@
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
 #' }
-geom_contour <- function(mapping = NULL, data = NULL,
-                         stat = "contour", position = "identity",
-                         ...,
-                         bins = NULL,
-                         binwidth = NULL,
-                         breaks = NULL,
-                         lineend = "butt",
-                         linejoin = "round",
-                         linemitre = 10,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomContour,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
-      lineend = lineend,
-      linejoin = linejoin,
-      linemitre = linemitre,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_contour <- boilerplate(
+  GeomContour, stat = "contour",
+  bins = NULL, binwidth = NULL, breaks = NULL,
+  lineend = "butt", linejoin = "round", linemitre = 10
+)
 
 #' @rdname geom_contour
 #' @export
-geom_contour_filled <- function(mapping = NULL, data = NULL,
-                                stat = "contour_filled", position = "identity",
-                                ...,
-                                bins = NULL,
-                                binwidth = NULL,
-                                breaks = NULL,
-                                na.rm = FALSE,
-                                show.legend = NA,
-                                inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomContourFilled,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-path.R
-GeomContour <- ggproto("GeomContour", GeomPath,
-  default_aes = aes(
-    weight = 1,
-    colour = from_theme(accent),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  )
+geom_contour_filled <- boilerplate(
+  GeomContourFilled, stat = "contour_filled",
+  bins = NULL, binwidth = NULL, breaks = NULL
 )
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-polygon.R
-GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
-

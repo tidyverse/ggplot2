@@ -1,3 +1,47 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomLinerange <- ggproto(
+  "GeomLinerange", Geom,
+
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
+
+  draw_key = draw_key_linerange,
+
+  required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
+
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
+    # if flipped_aes == TRUE then y, xmin, xmax is present
+    if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))) {
+      cli::cli_abort("Either, {.field x}, {.field ymin}, and {.field ymax} {.emph or} {.field y}, {.field xmin}, and {.field xmax} must be supplied.")
+    }
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
+  setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data
+  },
+
+  draw_panel = function(data, panel_params, coord, lineend = "butt", flipped_aes = FALSE, na.rm = FALSE) {
+    data <- flip_data(data, flipped_aes)
+    data <- transform(data, xend = x, y = ymin, yend = ymax)
+    data <- flip_data(data, flipped_aes)
+    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend, na.rm = na.rm))
+  },
+
+  rename_size = TRUE
+)
+
 #' Vertical intervals: lines, crossbars & errorbars
 #'
 #' Various ways of representing a vertical interval defined by `x`,
@@ -63,68 +107,4 @@
 #'   aes(ymin = lower, ymax = upper),
 #'   position = position_dodge2(width = 0.5, padding = 0.5)
 #' )
-geom_linerange <- function(mapping = NULL, data = NULL,
-                           stat = "identity", position = "identity",
-                           ...,
-                           na.rm = FALSE,
-                           orientation = NA,
-                           show.legend = NA,
-                           inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomLinerange,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomLinerange <- ggproto("GeomLinerange", Geom,
-
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
-
-  draw_key = draw_key_linerange,
-
-  required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
-
-  setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
-    # if flipped_aes == TRUE then y, xmin, xmax is present
-    if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))) {
-      cli::cli_abort("Either, {.field x}, {.field ymin}, and {.field ymax} {.emph or} {.field y}, {.field xmin}, and {.field xmax} must be supplied.")
-    }
-    params
-  },
-
-  extra_params = c("na.rm", "orientation"),
-
-  setup_data = function(data, params) {
-    data$flipped_aes <- params$flipped_aes
-    data
-  },
-
-  draw_panel = function(data, panel_params, coord, lineend = "butt", flipped_aes = FALSE, na.rm = FALSE) {
-    data <- flip_data(data, flipped_aes)
-    data <- transform(data, xend = x, y = ymin, yend = ymax)
-    data <- flip_data(data, flipped_aes)
-    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend, na.rm = na.rm))
-  },
-
-  rename_size = TRUE
-)
+geom_linerange <- boilerplate(GeomLinerange, orientation = NA)

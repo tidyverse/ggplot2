@@ -1,3 +1,16 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.R
+GeomQuantile <- ggproto(
+  "GeomQuantile", GeomPath,
+  default_aes = defaults(
+    aes(weight = 1, colour = from_theme(accent)),
+    GeomPath$default_aes
+  )
+)
+
 #' Quantile regression
 #'
 #' This fits a quantile regression to the data and draws the fitted quantiles
@@ -31,42 +44,7 @@
 #'
 #' # Set aesthetics to fixed value
 #' m + geom_quantile(colour = "red", linewidth = 2, alpha = 0.5)
-geom_quantile <- function(mapping = NULL, data = NULL,
-                          stat = "quantile", position = "identity",
-                          ...,
-                          lineend = "butt",
-                          linejoin = "round",
-                          linemitre = 10,
-                          na.rm = FALSE,
-                          show.legend = NA,
-                          inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomQuantile,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      lineend = lineend,
-      linejoin = linejoin,
-      linemitre = linemitre,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-path.R
-GeomQuantile <- ggproto("GeomQuantile", GeomPath,
-  default_aes = defaults(
-    aes(weight = 1, colour = from_theme(accent)),
-    GeomPath$default_aes
-  )
+geom_quantile <- boilerplate(
+  GeomQuantile, stat = "quantile",
+  lineend = "butt", linejoin = "round", linemitre = 10
 )

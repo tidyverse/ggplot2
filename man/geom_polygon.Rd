@@ -9,8 +9,8 @@ geom_polygon(
   data = NULL,
   stat = "identity",
   position = "identity",
-  rule = "evenodd",
   ...,
+  rule = "evenodd",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -63,11 +63,6 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \link[=layer_positions]{layer position} documentation.
 }}
 
-\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
-being drawn (using the \code{subgroup} aesthetic) this argument defines how the
-hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
-an explanation.}
-
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
 arguments broadly fall into one of 4 categories below. Notably, further
 arguments to the \code{position} argument, or aesthetics that are required
@@ -95,6 +90,11 @@ lists which parameters it can accept.
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
+
+\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
+an explanation.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -197,7 +197,6 @@ if (packageVersion("grid") >= "3.6") {
     geom_polygon(aes(fill = value, group = id, subgroup = subid))
   p
 }
-
 }
 \seealso{
 \code{\link[=geom_path]{geom_path()}} for an unfilled polygon,

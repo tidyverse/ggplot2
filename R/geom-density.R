@@ -1,3 +1,16 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-ribbon.R
+GeomDensity <- ggproto(
+  "GeomDensity", GeomArea,
+  default_aes = defaults(
+    aes(fill = NA, weight = 1, colour = from_theme(ink), alpha = NA),
+    GeomArea$default_aes
+  )
+)
+
 #' Smoothed density estimates
 #'
 #' Computes and draws kernel density estimate, which is a smoothed version of
@@ -86,14 +99,4 @@ geom_density <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-ribbon.R
-GeomDensity <- ggproto("GeomDensity", GeomArea,
-  default_aes = defaults(
-    aes(fill = NA, weight = 1, colour = from_theme(ink), alpha = NA),
-    GeomArea$default_aes
-  )
-)
+

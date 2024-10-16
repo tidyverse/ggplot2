@@ -1,124 +1,3 @@
-#' Violin plot
-#'
-#' A violin plot is a compact display of a continuous distribution. It is a
-#' blend of [geom_boxplot()] and [geom_density()]: a
-#' violin plot is a mirrored density plot displayed in the same way as a
-#' boxplot.
-#'
-#' @eval rd_orientation()
-#'
-#' @eval rd_aesthetics("geom", "violin")
-#' @inheritParams layer
-#' @inheritParams geom_bar
-#' @param draw_quantiles If `not(NULL)` (default), draw horizontal lines
-#'   at the given quantiles of the density estimate.
-#' @param trim If `TRUE` (default), trim the tails of the violins
-#'   to the range of the data. If `FALSE`, don't trim the tails.
-#' @param geom,stat Use to override the default connection between
-#'   `geom_violin()` and `stat_ydensity()`. For more information about
-#'   overriding these connections, see how the [stat][layer_stats] and
-#'   [geom][layer_geoms] arguments work.
-#' @param bounds Known lower and upper bounds for estimated data. Default
-#'   `c(-Inf, Inf)` means that there are no (finite) bounds. If any bound is
-#'   finite, boundary effect of default density estimation will be corrected by
-#'   reflecting tails outside `bounds` around their closest edge. Data points
-#'   outside of bounds are removed with a warning.
-#' @export
-#' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
-#' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
-#' @examples
-#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
-#' p + geom_violin()
-#'
-#' # Orientation follows the discrete axis
-#' ggplot(mtcars, aes(mpg, factor(cyl))) +
-#'   geom_violin()
-#'
-#' \donttest{
-#' p + geom_violin() + geom_jitter(height = 0, width = 0.1)
-#'
-#' # Scale maximum width proportional to sample size:
-#' p + geom_violin(scale = "count")
-#'
-#' # Scale maximum width to 1 for all violins:
-#' p + geom_violin(scale = "width")
-#'
-#' # Default is to trim violins to the range of the data. To disable:
-#' p + geom_violin(trim = FALSE)
-#'
-#' # Use a smaller bandwidth for closer density fit (default is 1).
-#' p + geom_violin(adjust = .5)
-#'
-#' # Add aesthetic mappings
-#' # Note that violins are automatically dodged when any aesthetic is
-#' # a factor
-#' p + geom_violin(aes(fill = cyl))
-#' p + geom_violin(aes(fill = factor(cyl)))
-#' p + geom_violin(aes(fill = factor(vs)))
-#' p + geom_violin(aes(fill = factor(am)))
-#'
-#' # Set aesthetics to fixed value
-#' p + geom_violin(fill = "grey80", colour = "#3366FF")
-#'
-#' # Show quartiles
-#' p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
-#'
-#' # Scales vs. coordinate transforms -------
-#' if (require("ggplot2movies")) {
-#' # Scale transformations occur before the density statistics are computed.
-#' # Coordinate transformations occur afterwards.  Observe the effect on the
-#' # number of outliers.
-#' m <- ggplot(movies, aes(y = votes, x = rating, group = cut_width(rating, 0.5)))
-#' m + geom_violin()
-#' m +
-#'   geom_violin() +
-#'   scale_y_log10()
-#' m +
-#'   geom_violin() +
-#'   coord_trans(y = "log10")
-#' m +
-#'   geom_violin() +
-#'   scale_y_log10() + coord_trans(y = "log10")
-#'
-#' # Violin plots with continuous x:
-#' # Use the group aesthetic to group observations in violins
-#' ggplot(movies, aes(year, budget)) +
-#'   geom_violin()
-#' ggplot(movies, aes(year, budget)) +
-#'   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
-#' }
-#' }
-geom_violin <- function(mapping = NULL, data = NULL,
-                        stat = "ydensity", position = "dodge",
-                        ...,
-                        draw_quantiles = NULL,
-                        trim = TRUE,
-                        bounds = c(-Inf, Inf),
-                        scale = "area",
-                        na.rm = FALSE,
-                        orientation = NA,
-                        show.legend = NA,
-                        inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomViolin,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      trim = trim,
-      scale = scale,
-      draw_quantiles = draw_quantiles,
-      na.rm = na.rm,
-      orientation = orientation,
-      bounds = bounds,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -209,6 +88,101 @@ GeomViolin <- ggproto("GeomViolin", Geom,
   required_aes = c("x", "y"),
 
   rename_size = TRUE
+)
+
+#' Violin plot
+#'
+#' A violin plot is a compact display of a continuous distribution. It is a
+#' blend of [geom_boxplot()] and [geom_density()]: a
+#' violin plot is a mirrored density plot displayed in the same way as a
+#' boxplot.
+#'
+#' @eval rd_orientation()
+#'
+#' @eval rd_aesthetics("geom", "violin")
+#' @inheritParams layer
+#' @inheritParams geom_bar
+#' @param draw_quantiles If `not(NULL)` (default), draw horizontal lines
+#'   at the given quantiles of the density estimate.
+#' @param trim If `TRUE` (default), trim the tails of the violins
+#'   to the range of the data. If `FALSE`, don't trim the tails.
+#' @param geom,stat Use to override the default connection between
+#'   `geom_violin()` and `stat_ydensity()`. For more information about
+#'   overriding these connections, see how the [stat][layer_stats] and
+#'   [geom][layer_geoms] arguments work.
+#' @param bounds Known lower and upper bounds for estimated data. Default
+#'   `c(-Inf, Inf)` means that there are no (finite) bounds. If any bound is
+#'   finite, boundary effect of default density estimation will be corrected by
+#'   reflecting tails outside `bounds` around their closest edge. Data points
+#'   outside of bounds are removed with a warning.
+#' @export
+#' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
+#' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
+#' @examples
+#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
+#' p + geom_violin()
+#'
+#' # Orientation follows the discrete axis
+#' ggplot(mtcars, aes(mpg, factor(cyl))) +
+#'   geom_violin()
+#'
+#' \donttest{
+#' p + geom_violin() + geom_jitter(height = 0, width = 0.1)
+#'
+#' # Scale maximum width proportional to sample size:
+#' p + geom_violin(scale = "count")
+#'
+#' # Scale maximum width to 1 for all violins:
+#' p + geom_violin(scale = "width")
+#'
+#' # Default is to trim violins to the range of the data. To disable:
+#' p + geom_violin(trim = FALSE)
+#'
+#' # Use a smaller bandwidth for closer density fit (default is 1).
+#' p + geom_violin(adjust = .5)
+#'
+#' # Add aesthetic mappings
+#' # Note that violins are automatically dodged when any aesthetic is
+#' # a factor
+#' p + geom_violin(aes(fill = cyl))
+#' p + geom_violin(aes(fill = factor(cyl)))
+#' p + geom_violin(aes(fill = factor(vs)))
+#' p + geom_violin(aes(fill = factor(am)))
+#'
+#' # Set aesthetics to fixed value
+#' p + geom_violin(fill = "grey80", colour = "#3366FF")
+#'
+#' # Show quartiles
+#' p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+#'
+#' # Scales vs. coordinate transforms -------
+#' if (require("ggplot2movies")) {
+#' # Scale transformations occur before the density statistics are computed.
+#' # Coordinate transformations occur afterwards.  Observe the effect on the
+#' # number of outliers.
+#' m <- ggplot(movies, aes(y = votes, x = rating, group = cut_width(rating, 0.5)))
+#' m + geom_violin()
+#' m +
+#'   geom_violin() +
+#'   scale_y_log10()
+#' m +
+#'   geom_violin() +
+#'   coord_trans(y = "log10")
+#' m +
+#'   geom_violin() +
+#'   scale_y_log10() + coord_trans(y = "log10")
+#'
+#' # Violin plots with continuous x:
+#' # Use the group aesthetic to group observations in violins
+#' ggplot(movies, aes(year, budget)) +
+#'   geom_violin()
+#' ggplot(movies, aes(year, budget)) +
+#'   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
+#' }
+#' }
+geom_violin <- boilerplate(
+  GeomViolin, stat = "ydensity", position = "dodge",
+  draw_quantiles = NULL, trim = TRUE, bounds = c(-Inf, Inf), scale = "area"
 )
 
 # Returns a data.frame with info needed to draw quantile segments.

@@ -15,8 +15,8 @@ geom_crossbar(
   position = "identity",
   ...,
   fatten = 2.5,
-  na.rm = FALSE,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -27,8 +27,8 @@ geom_errorbar(
   stat = "identity",
   position = "identity",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -39,8 +39,8 @@ geom_linerange(
   stat = "identity",
   position = "identity",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -52,8 +52,8 @@ geom_pointrange(
   position = "identity",
   ...,
   fatten = 4,
-  na.rm = FALSE,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -137,13 +137,13 @@ lists which parameters it can accept.
 middle bar in \code{geom_crossbar()} and the middle point in
 \code{geom_pointrange()}.}
 
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
-
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

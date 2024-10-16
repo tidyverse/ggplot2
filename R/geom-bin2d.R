@@ -1,3 +1,6 @@
+#' @include geom-tile.R
+NULL
+
 #' Heatmap of 2d bin counts
 #'
 #' Divides the plane into rectangles, counts the number of cases in
@@ -26,27 +29,7 @@
 #'
 #' # Or by specifying the width of the bins
 #' d + geom_bin_2d(binwidth = c(0.1, 0.1))
-geom_bin_2d <- function(mapping = NULL, data = NULL,
-                       stat = "bin2d", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomTile,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_bin_2d <- boilerplate(GeomTile, stat = "bin2d")
 
 #' @export
 #' @rdname geom_bin_2d

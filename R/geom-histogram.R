@@ -115,31 +115,7 @@
 #' ggplot(economics_long, aes(value)) +
 #'   facet_wrap(~variable, scales = 'free_x') +
 #'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
-geom_histogram <- function(mapping = NULL, data = NULL,
-                           stat = "bin", position = "stack",
-                           ...,
-                           binwidth = NULL,
-                           bins = NULL,
-                           na.rm = FALSE,
-                           orientation = NA,
-                           show.legend = NA,
-                           inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomBar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      binwidth = binwidth,
-      bins = bins,
-      na.rm = na.rm,
-      orientation = orientation,
-      pad = FALSE,
-      ...
-    )
-  )
-}
+geom_histogram <- boilerplate(
+  GeomBar, stat = "bin", position = "stack",
+  binwidth = NULL, bins = NULL, orientation = NA
+)

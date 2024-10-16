@@ -1,28 +1,3 @@
-#' @export
-#' @rdname geom_tile
-geom_rect <- function(mapping = NULL, data = NULL,
-                      stat = "identity", position = "identity",
-                      ...,
-                      linejoin = "mitre",
-                      na.rm = FALSE,
-                      show.legend = NA,
-                      inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomRect,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      linejoin = linejoin,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -108,6 +83,10 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   rename_size = TRUE
 )
+
+#' @export
+#' @rdname geom_tile
+geom_rect <- boilerplate(GeomRect, linejoin = "mitre")
 
 resolve_rect <- function(min = NULL, max = NULL, center = NULL, length = NULL,
                          fun, type) {

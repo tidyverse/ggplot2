@@ -27,11 +27,11 @@ geom_line(
   data = NULL,
   stat = "identity",
   position = "identity",
-  na.rm = FALSE,
+  ...,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 )
 
 geom_step(
@@ -39,12 +39,12 @@ geom_step(
   data = NULL,
   stat = "identity",
   position = "identity",
+  ...,
   direction = "hv",
-  na.rm = FALSE,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 )
 }
 \arguments{

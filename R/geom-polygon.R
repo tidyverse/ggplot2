@@ -1,106 +1,5 @@
-#' Polygons
-#'
-#' Polygons are very similar to paths (as drawn by [geom_path()])
-#' except that the start and end points are connected and the inside is
-#' coloured by `fill`. The `group` aesthetic determines which cases
-#' are connected together into a polygon. From R 3.6 and onwards it is possible
-#' to draw polygons with holes by providing a subgroup aesthetic that
-#' differentiates the outer ring points from those describing holes in the
-#' polygon.
-#'
-#' @eval rd_aesthetics("geom", "polygon")
-#' @seealso
-#'  [geom_path()] for an unfilled polygon,
-#'  [geom_ribbon()] for a polygon anchored on the x-axis
-#' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
-#' being drawn (using the `subgroup` aesthetic) this argument defines how the
-#' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
-#' an explanation.
-#' @examples
-#' # When using geom_polygon, you will typically need two data frames:
-#' # one contains the coordinates of each polygon (positions),  and the
-#' # other the values associated with each polygon (values).  An id
-#' # variable links the two together
-#'
-#' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
-#'
-#' values <- data.frame(
-#'   id = ids,
-#'   value = c(3, 3.1, 3.1, 3.2, 3.15, 3.5)
-#' )
-#'
-#' positions <- data.frame(
-#'   id = rep(ids, each = 4),
-#'   x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
-#'   0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
-#'   y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
-#'   2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
-#' )
-#'
-#' # Currently we need to manually merge the two together
-#' datapoly <- merge(values, positions, by = c("id"))
-#'
-#' p <- ggplot(datapoly, aes(x = x, y = y)) +
-#'   geom_polygon(aes(fill = value, group = id))
-#' p
-#'
-#' # Which seems like a lot of work, but then it's easy to add on
-#' # other features in this coordinate system, e.g.:
-#'
-#' set.seed(1)
-#' stream <- data.frame(
-#'   x = cumsum(runif(50, max = 0.1)),
-#'   y = cumsum(runif(50,max = 0.1))
-#' )
-#'
-#' p + geom_line(data = stream, colour = "grey30", linewidth = 5)
-#'
-#' # And if the positions are in longitude and latitude, you can use
-#' # coord_map to produce different map projections.
-#'
-#' if (packageVersion("grid") >= "3.6") {
-#'   # As of R version 3.6 geom_polygon() supports polygons with holes
-#'   # Use the subgroup aesthetic to differentiate holes from the main polygon
-#'
-#'   holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
-#'     df$x <- df$x + 0.5 * (mean(df$x) - df$x)
-#'     df$y <- df$y + 0.5 * (mean(df$y) - df$y)
-#'     df
-#'   }))
-#'   datapoly$subid <- 1L
-#'   holes$subid <- 2L
-#'   datapoly <- rbind(datapoly, holes)
-#'
-#'   p <- ggplot(datapoly, aes(x = x, y = y)) +
-#'     geom_polygon(aes(fill = value, group = id, subgroup = subid))
-#'   p
-#' }
-#'
-geom_polygon <- function(mapping = NULL, data = NULL,
-                         stat = "identity", position = "identity",
-                         rule = "evenodd",
-                         ...,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomPolygon,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      rule = rule,
-      ...
-    )
-  )
-}
+#' @include boilerplates.R
+NULL
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -193,6 +92,88 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 
   rename_size = TRUE
 )
+
+#' Polygons
+#'
+#' Polygons are very similar to paths (as drawn by [geom_path()])
+#' except that the start and end points are connected and the inside is
+#' coloured by `fill`. The `group` aesthetic determines which cases
+#' are connected together into a polygon. From R 3.6 and onwards it is possible
+#' to draw polygons with holes by providing a subgroup aesthetic that
+#' differentiates the outer ring points from those describing holes in the
+#' polygon.
+#'
+#' @eval rd_aesthetics("geom", "polygon")
+#' @seealso
+#'  [geom_path()] for an unfilled polygon,
+#'  [geom_ribbon()] for a polygon anchored on the x-axis
+#' @export
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
+#' being drawn (using the `subgroup` aesthetic) this argument defines how the
+#' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
+#' an explanation.
+#' @examples
+#' # When using geom_polygon, you will typically need two data frames:
+#' # one contains the coordinates of each polygon (positions),  and the
+#' # other the values associated with each polygon (values).  An id
+#' # variable links the two together
+#'
+#' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
+#'
+#' values <- data.frame(
+#'   id = ids,
+#'   value = c(3, 3.1, 3.1, 3.2, 3.15, 3.5)
+#' )
+#'
+#' positions <- data.frame(
+#'   id = rep(ids, each = 4),
+#'   x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
+#'   0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
+#'   y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
+#'   2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+#' )
+#'
+#' # Currently we need to manually merge the two together
+#' datapoly <- merge(values, positions, by = c("id"))
+#'
+#' p <- ggplot(datapoly, aes(x = x, y = y)) +
+#'   geom_polygon(aes(fill = value, group = id))
+#' p
+#'
+#' # Which seems like a lot of work, but then it's easy to add on
+#' # other features in this coordinate system, e.g.:
+#'
+#' set.seed(1)
+#' stream <- data.frame(
+#'   x = cumsum(runif(50, max = 0.1)),
+#'   y = cumsum(runif(50,max = 0.1))
+#' )
+#'
+#' p + geom_line(data = stream, colour = "grey30", linewidth = 5)
+#'
+#' # And if the positions are in longitude and latitude, you can use
+#' # coord_map to produce different map projections.
+#'
+#' if (packageVersion("grid") >= "3.6") {
+#'   # As of R version 3.6 geom_polygon() supports polygons with holes
+#'   # Use the subgroup aesthetic to differentiate holes from the main polygon
+#'
+#'   holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
+#'     df$x <- df$x + 0.5 * (mean(df$x) - df$x)
+#'     df$y <- df$y + 0.5 * (mean(df$y) - df$y)
+#'     df
+#'   }))
+#'   datapoly$subid <- 1L
+#'   holes$subid <- 2L
+#'   datapoly <- rbind(datapoly, holes)
+#'
+#'   p <- ggplot(datapoly, aes(x = x, y = y)) +
+#'     geom_polygon(aes(fill = value, group = id, subgroup = subid))
+#'   p
+#' }
+geom_polygon <- boilerplate(GeomPolygon, rule = "evenodd")
 
 # Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
 # do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':
