@@ -40,11 +40,7 @@ GeomSpoke <- ggproto(
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   geom_spoke(aes(angle = angle, radius = speed))
-geom_spoke <- boilerplate(
-  GeomSpoke,
-  lineend = "butt", linejoin = "round",
-  arrow = NULL, arrow.fill = NULL
-)
+geom_spoke <- boilerplate(GeomSpoke)
 
 #' @export
 #' @rdname geom_spoke

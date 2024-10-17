@@ -181,7 +181,4 @@ GeomRug <- ggproto("GeomRug", Geom,
 #' p +
 #'   geom_rug(length = unit(0.05, "npc")) +
 #'   scale_y_continuous(expand = c(0.1, 0.1))
-geom_rug <- boilerplate(
-  GeomRug,
-  outside = FALSE, sides = "bl", length = unit(0.03, "npc"), lineend = "butt"
-)
+geom_rug <- boilerplate(GeomRug)

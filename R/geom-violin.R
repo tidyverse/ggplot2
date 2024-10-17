@@ -182,7 +182,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 #' }
 geom_violin <- boilerplate(
   GeomViolin, stat = "ydensity", position = "dodge",
-  draw_quantiles = NULL, trim = TRUE, bounds = c(-Inf, Inf), scale = "area"
+  # arguments passed to ydensity stat:
+  trim = TRUE, bounds = c(-Inf, Inf), scale = "area"
 )
 
 # Returns a data.frame with info needed to draw quantile segments.

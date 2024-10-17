@@ -109,4 +109,4 @@ GeomLinerange <- ggproto(
 #'   aes(ymin = lower, ymax = upper),
 #'   position = position_dodge2(width = 0.5, padding = 0.5)
 #' )
-geom_linerange <- boilerplate(GeomLinerange, orientation = NA, lineend = "butt")
+geom_linerange <- boilerplate(GeomLinerange, orientation = NA)

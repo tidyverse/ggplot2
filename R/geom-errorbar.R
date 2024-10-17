@@ -58,7 +58,4 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 
 #' @export
 #' @rdname geom_linerange
-geom_errorbar <- boilerplate(
-  GeomErrorbar,
-  orientation = NA, lineend = "butt"
-)
+geom_errorbar <- boilerplate(GeomErrorbar, orientation = NA)

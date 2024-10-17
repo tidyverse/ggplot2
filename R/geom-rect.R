@@ -86,7 +86,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
 #' @export
 #' @rdname geom_tile
-geom_rect <- boilerplate(GeomRect, linejoin = "mitre", lineend = "butt")
+geom_rect <- boilerplate(GeomRect)
 
 resolve_rect <- function(min = NULL, max = NULL, center = NULL, length = NULL,
                          fun, type) {

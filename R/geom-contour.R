@@ -85,16 +85,14 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #' }
 geom_contour <- boilerplate(
   GeomContour, stat = "contour",
-  bins = NULL, binwidth = NULL, breaks = NULL,
-  lineend = "butt", linejoin = "round", linemitre = 10,
-  arrow = NULL, arrow.fill = NULL
+  # Passed to contour stat:
+  bins = NULL, binwidth = NULL, breaks = NULL
 )
 
 #' @rdname geom_contour
 #' @export
 geom_contour_filled <- boilerplate(
   GeomContourFilled, stat = "contour_filled",
-  bins = NULL, binwidth = NULL, breaks = NULL,
-  rule = "evenodd",
-  lineend = "butt", linejoin = "round", linemitre = 10
+  # Passed to contour_filled stat:
+  bins = NULL, binwidth = NULL, breaks = NULL
 )

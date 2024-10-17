@@ -47,9 +47,4 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
 #' @inheritParams grid::curveGrob
 #' @export
 #' @rdname geom_segment
-geom_curve <- boilerplate(
-  GeomCurve,
-  curvature = 0.5, angle = 90, ncp = 5,
-  arrow = NULL, arrow.fill = NULL,
-  lineend = "butt"
-)
+geom_curve <- boilerplate(GeomCurve)

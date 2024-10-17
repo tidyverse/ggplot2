@@ -13,7 +13,6 @@ geom_bar(
   position = "stack",
   ...,
   just = 0.5,
-  orientation = NA,
   lineend = "butt",
   linejoin = "mitre",
   na.rm = FALSE,
@@ -115,11 +114,6 @@ columns to the left/right of axis breaks. Note that this argument may have
 unintended behaviour when used with alternative positions, e.g.
 \code{position_dodge()}.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
-
 \item{lineend}{Line end style (round, butt, square).}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
@@ -143,6 +137,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{geom, stat}{Override the default connection between \code{geom_bar()} and
 \code{stat_count()}. For more information about overriding these connections,
 see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom} arguments work.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 }
 \description{
 There are two types of bar charts: \code{geom_bar()} and \code{geom_col()}.

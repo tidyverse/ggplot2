@@ -23,6 +23,31 @@ boilerplate.Geom <- function(x, ..., env = caller_env()) {
     cli::cli_abort("{.arg geom} is a reserved argument.")
   }
 
+  # Fill in values for parameters from draw functions
+  known_params <-
+    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics()))
+  missing_params <- setdiff(x$parameters(), known_params)
+  if (length(missing_params) > 0) {
+    draw_args <- ggproto_formals(x$draw_panel)
+    if ("..." %in% names(draw_args)) {
+      draw_args <- ggproto_formals(x$draw_group)
+    }
+    params <- intersect(missing_params, names(draw_args))
+    extra_args <- c(extra_args, params)
+    for (param in params) {
+      if (!identical(draw_args[[param]], quote(expr = ))) {
+        args[param] <- draw_args[param]
+      }
+    }
+    missing_params <- setdiff(missing_params, names(args))
+    if (length(missing_params) > 0) {
+      cli::cli_warn(
+        "In {.fn geom_{geom}}: please consider providing default values for: \\
+        {missing_params}."
+      )
+    }
+  }
+
   # Build function formals
   fmls <- list2(
     mapping  = args$mapping,

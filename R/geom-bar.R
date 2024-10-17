@@ -136,8 +136,4 @@ GeomBar <- ggproto("GeomBar", GeomRect,
 #' ggplot(df, aes(x, y)) + geom_col(just = 0.5)
 #' # Columns begin on the first day of the month
 #' ggplot(df, aes(x, y)) + geom_col(just = 1)
-geom_bar <- boilerplate(
-  GeomBar, stat = "count", position = "stack",
-  just = 0.5, orientation = NA,
-  lineend = "butt", linejoin = "mitre"
-)
+geom_bar <- boilerplate(GeomBar, stat = "count", position = "stack", just = 0.5)

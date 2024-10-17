@@ -26,8 +26,8 @@ geom_rect(
   stat = "identity",
   position = "identity",
   ...,
-  linejoin = "mitre",
   lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -144,9 +144,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{linejoin}{Line join style (round, mitre, bevel).}
-
 \item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
 }
 \description{
 \code{geom_rect()} and \code{geom_tile()} do the same thing, but are

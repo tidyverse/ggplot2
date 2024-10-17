@@ -176,10 +176,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'     geom_polygon(aes(fill = value, group = id, subgroup = subid))
 #'   p
 #' }
-geom_polygon <- boilerplate(
-  GeomPolygon, rule = "evenodd",
-  lineend = "butt", linejoin = "round", linemitre = 10
-)
+geom_polygon <- boilerplate(GeomPolygon)
 
 # Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
 # do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':

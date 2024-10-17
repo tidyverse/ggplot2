@@ -266,32 +266,18 @@ GeomStep <- ggproto(
 #' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
 #' }
-geom_path <- boilerplate(
-  GeomPath,
-  lineend = "butt", linejoin = "round", linemitre = 10,
-  arrow = NULL, arrow.fill = NULL
-)
+geom_path <- boilerplate(GeomPath)
 
 #' @export
 #' @rdname geom_path
-geom_line <- boilerplate(
-  GeomLine,
-  orientation = NA,
-  arrow = NULL, arrow.fill = NULL,
-  lineend = "butt", linejoin = "round", linemitre = 10
-)
+geom_line <- boilerplate(GeomLine, orientation = NA)
 
 #' @param direction direction of stairs: 'vh' for vertical then horizontal,
 #'   'hv' for horizontal then vertical, or 'mid' for step half-way between
 #'   adjacent x-values.
 #' @export
 #' @rdname geom_path
-geom_step <- boilerplate(
-  GeomStep,
-  direction = "hv", orientation = NA,
-  arrow = NULL, arrow.fill = NULL,
-  lineend = "butt", linejoin = "round", linemitre = 10
-)
+geom_step <- boilerplate(GeomStep, orientation = NA)
 
 # Trim false values from left and right: keep all values from
 # first TRUE to last TRUE

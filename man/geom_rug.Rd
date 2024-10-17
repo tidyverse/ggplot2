@@ -10,10 +10,10 @@ geom_rug(
   stat = "identity",
   position = "identity",
   ...,
-  outside = FALSE,
-  sides = "bl",
-  length = unit(0.03, "npc"),
   lineend = "butt",
+  sides = "bl",
+  outside = FALSE,
+  length = unit(0.03, "npc"),
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -94,15 +94,15 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{outside}{logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. When set to TRUE, also consider changing the sides argument to "tr". See examples.}
+\item{lineend}{Line end style (round, butt, square).}
 
 \item{sides}{A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.}
+\item{outside}{logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. When set to TRUE, also consider changing the sides argument to "tr". See examples.}
 
-\item{lineend}{Line end style (round, butt, square).}
+\item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

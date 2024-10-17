@@ -31,10 +31,7 @@ NULL
 #'
 #' # Or by specifying the width of the bins
 #' d + geom_bin_2d(binwidth = c(0.1, 0.1))
-geom_bin_2d <- boilerplate(
-  GeomTile, stat = "bin2d",
-  lineend = "butt", linejoin = "mitre"
-)
+geom_bin_2d <- boilerplate(GeomTile, stat = "bin2d")
 
 #' @export
 #' @rdname geom_bin_2d
