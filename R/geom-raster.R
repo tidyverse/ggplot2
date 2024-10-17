@@ -1,44 +1,6 @@
 #' @include geom-.R
 NULL
 
-#' @export
-#' @rdname geom_tile
-#' @param hjust,vjust horizontal and vertical justification of the grob.  Each
-#'   justification value should be a number between 0 and 1.  Defaults to 0.5
-#'   for both, centering each pixel over its data location.
-#' @param interpolate If `TRUE` interpolate linearly, if `FALSE`
-#'   (the default) don't interpolate.
-geom_raster <- function(mapping = NULL, data = NULL,
-                        stat = "identity", position = "identity",
-                        ...,
-                        hjust = 0.5,
-                        vjust = 0.5,
-                        interpolate = FALSE,
-                        na.rm = FALSE,
-                        show.legend = NA,
-                        inherit.aes = TRUE)
-{
-  check_number_decimal(hjust)
-  check_number_decimal(vjust)
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomRaster,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      hjust = hjust,
-      vjust = vjust,
-      interpolate = interpolate,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -125,4 +87,19 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     )
   },
   draw_key = draw_key_rect
+)
+
+#' @export
+#' @rdname geom_tile
+#' @param hjust,vjust horizontal and vertical justification of the grob.  Each
+#'   justification value should be a number between 0 and 1.  Defaults to 0.5
+#'   for both, centering each pixel over its data location.
+#' @param interpolate If `TRUE` interpolate linearly, if `FALSE`
+#'   (the default) don't interpolate.
+geom_raster <- boilerplate(
+  GeomRaster,
+  checks = {
+    check_number_decimal(hjust)
+    check_number_decimal(vjust)
+  }
 )

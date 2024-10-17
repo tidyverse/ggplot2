@@ -8,7 +8,7 @@ boilerplate <- function(x, ...) {
 }
 
 #' @export
-boilerplate.Geom <- function(x, ..., env = caller_env()) {
+boilerplate.Geom <- function(x, ..., checks, env = caller_env()) {
 
   # Check that we can independently find the geom
   geom <- gsub("^geom_", "", snake_class(x))
@@ -83,7 +83,15 @@ boilerplate.Geom <- function(x, ..., env = caller_env()) {
     )
   )
   ")
-  body <- as.call(parse(text = body))[[1]]
+  body <- str2lang(body)
+
+  checks <- substitute(checks)
+  if (!missing(checks)) {
+    if (is_call(checks, "{")) {
+      checks[[1]] <- NULL
+    }
+    body <- inject(quote(`{`(!!!c(checks, body))))
+  }
 
   new_function(fmls, body)
 }

@@ -11,11 +11,13 @@ geom_density(
   stat = "density",
   position = "identity",
   ...,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  outline.type = "both",
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE,
-  outline.type = "upper"
+  inherit.aes = TRUE
 )
 
 stat_density(
@@ -98,13 +100,18 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{linemitre}{Line mitre limit (number greater than 1).}
+
+\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
+upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
+\code{"full"} draws a closed polygon around the area.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
-
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -118,10 +125,6 @@ but unobserved levels are omitted.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
-
-\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
-upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
-\code{"full"} draws a closed polygon around the area.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_density()} and \code{stat_density()}. For more information about
@@ -156,6 +159,11 @@ one plot or if you are manually adjusting the scale limits.}
 finite, boundary effect of default density estimation will be corrected by
 reflecting tails outside \code{bounds} around their closest edge. Data points
 outside of bounds are removed with a warning.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of

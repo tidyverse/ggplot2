@@ -12,9 +12,9 @@ geom_raster(
   stat = "identity",
   position = "identity",
   ...,
+  interpolate = FALSE,
   hjust = 0.5,
   vjust = 0.5,
-  interpolate = FALSE,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -121,12 +121,12 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
+(the default) don't interpolate.}
+
 \item{hjust, vjust}{horizontal and vertical justification of the grob.  Each
 justification value should be a number between 0 and 1.  Defaults to 0.5
 for both, centering each pixel over its data location.}
-
-\item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
-(the default) don't interpolate.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

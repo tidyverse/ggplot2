@@ -72,31 +72,9 @@ GeomDensity <- ggproto(
 #' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL,
-                         stat = "density", position = "identity",
-                         ...,
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE,
-                         outline.type = "upper") {
-  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomDensity,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      outline.type = outline.type,
-      ...
-    )
-  )
-}
-
-
+geom_density <- boilerplate(
+  GeomDensity, stat = "density",
+  checks = {
+    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
+  }
+)

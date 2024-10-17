@@ -1,96 +1,3 @@
-#' Ribbons and area plots
-#'
-#' For each x value, `geom_ribbon()` displays a y interval defined
-#' by `ymin` and `ymax`. `geom_area()` is a special case of
-#' `geom_ribbon()`, where the `ymin` is fixed to 0 and `y` is used instead
-#' of `ymax`.
-#'
-#' An area plot is the continuous analogue of a stacked bar chart (see
-#' [geom_bar()]), and can be used to show how composition of the
-#' whole varies over the range of x. Choosing the order in which different
-#' components is stacked is very important, as it becomes increasing hard to
-#' see the individual pattern as you move up the stack. See
-#' [position_stack()] for the details of stacking algorithm. To facilitate
-#' stacking, the default `stat = "align"` interpolates groups to a common set
-#' of x-coordinates. To turn off this interpolation, `stat = "identity"` can
-#' be used instead.
-#'
-#' @eval rd_orientation()
-#'
-#' @eval rd_aesthetics("geom", "ribbon")
-#' @seealso
-#'   [geom_bar()] for discrete intervals (bars),
-#'   [geom_linerange()] for discrete intervals (lines),
-#'   [geom_polygon()] for general polygons
-#' @inheritParams layer
-#' @inheritParams geom_bar
-#' @param outline.type Type of the outline of the area; `"both"` draws both the
-#'   upper and lower lines, `"upper"`/`"lower"` draws the respective lines only.
-#'   `"full"` draws a closed polygon around the area.
-#' @export
-#' @examples
-#' # Generate data
-#' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
-#' h <- ggplot(huron, aes(year))
-#'
-#' h + geom_ribbon(aes(ymin=0, ymax=level))
-#' h + geom_area(aes(y = level))
-#'
-#' # Orientation cannot be deduced by mapping, so must be given explicitly for
-#' # flipped orientation
-#' h + geom_area(aes(x = level, y = year), orientation = "y")
-#'
-#' # Add aesthetic mappings
-#' h +
-#'   geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
-#'   geom_line(aes(y = level))
-#'
-#' # The underlying stat_align() takes care of unaligned data points
-#' df <- data.frame(
-#'   g = c("a", "a", "a", "b", "b", "b"),
-#'   x = c(1, 3, 5, 2, 4, 6),
-#'   y = c(2, 5, 1, 3, 6, 7)
-#' )
-#' a <- ggplot(df, aes(x, y, fill = g)) +
-#'   geom_area()
-#'
-#' # Two groups have points on different X values.
-#' a + geom_point(size = 8) + facet_grid(g ~ .)
-#'
-#' # stat_align() interpolates and aligns the value so that the areas can stack
-#' # properly.
-#' a + geom_point(stat = "align", position = "stack", size = 8)
-#'
-#' # To turn off the alignment, the stat can be set to "identity"
-#' ggplot(df, aes(x, y, fill = g)) +
-#'   geom_area(stat = "identity")
-geom_ribbon <- function(mapping = NULL, data = NULL,
-                        stat = "identity", position = "identity",
-                        ...,
-                        na.rm = FALSE,
-                        orientation = NA,
-                        show.legend = NA,
-                        inherit.aes = TRUE,
-                        outline.type = "both") {
-  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomRibbon,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      outline.type = outline.type,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -266,31 +173,6 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   rename_size = TRUE
 )
 
-#' @rdname geom_ribbon
-#' @export
-geom_area <- function(mapping = NULL, data = NULL, stat = "align",
-                      position = "stack", na.rm = FALSE, orientation = NA,
-                      show.legend = NA, inherit.aes = TRUE, ...,
-                      outline.type = "upper") {
-  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomArea,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      outline.type = outline.type,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -317,5 +199,90 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
     data <- flip_data(data, params$flipped_aes)
     data <- transform(data[order(data$PANEL, data$group, data$x), ], ymin = 0, ymax = y)
     flip_data(data, params$flipped_aes)
+  }
+)
+
+#' Ribbons and area plots
+#'
+#' For each x value, `geom_ribbon()` displays a y interval defined
+#' by `ymin` and `ymax`. `geom_area()` is a special case of
+#' `geom_ribbon()`, where the `ymin` is fixed to 0 and `y` is used instead
+#' of `ymax`.
+#'
+#' An area plot is the continuous analogue of a stacked bar chart (see
+#' [geom_bar()]), and can be used to show how composition of the
+#' whole varies over the range of x. Choosing the order in which different
+#' components is stacked is very important, as it becomes increasing hard to
+#' see the individual pattern as you move up the stack. See
+#' [position_stack()] for the details of stacking algorithm. To facilitate
+#' stacking, the default `stat = "align"` interpolates groups to a common set
+#' of x-coordinates. To turn off this interpolation, `stat = "identity"` can
+#' be used instead.
+#'
+#' @eval rd_orientation()
+#'
+#' @eval rd_aesthetics("geom", "ribbon")
+#' @seealso
+#'   [geom_bar()] for discrete intervals (bars),
+#'   [geom_linerange()] for discrete intervals (lines),
+#'   [geom_polygon()] for general polygons
+#' @inheritParams layer
+#' @inheritParams geom_bar
+#' @param linemitre Line mitre limit (number greater than 1).
+#' @param outline.type Type of the outline of the area; `"both"` draws both the
+#'   upper and lower lines, `"upper"`/`"lower"` draws the respective lines only.
+#'   `"full"` draws a closed polygon around the area.
+#' @export
+#' @examples
+#' # Generate data
+#' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+#' h <- ggplot(huron, aes(year))
+#'
+#' h + geom_ribbon(aes(ymin=0, ymax=level))
+#' h + geom_area(aes(y = level))
+#'
+#' # Orientation cannot be deduced by mapping, so must be given explicitly for
+#' # flipped orientation
+#' h + geom_area(aes(x = level, y = year), orientation = "y")
+#'
+#' # Add aesthetic mappings
+#' h +
+#'   geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
+#'   geom_line(aes(y = level))
+#'
+#' # The underlying stat_align() takes care of unaligned data points
+#' df <- data.frame(
+#'   g = c("a", "a", "a", "b", "b", "b"),
+#'   x = c(1, 3, 5, 2, 4, 6),
+#'   y = c(2, 5, 1, 3, 6, 7)
+#' )
+#' a <- ggplot(df, aes(x, y, fill = g)) +
+#'   geom_area()
+#'
+#' # Two groups have points on different X values.
+#' a + geom_point(size = 8) + facet_grid(g ~ .)
+#'
+#' # stat_align() interpolates and aligns the value so that the areas can stack
+#' # properly.
+#' a + geom_point(stat = "align", position = "stack", size = 8)
+#'
+#' # To turn off the alignment, the stat can be set to "identity"
+#' ggplot(df, aes(x, y, fill = g)) +
+#'   geom_area(stat = "identity")
+#'
+geom_ribbon <- boilerplate(
+  GeomRibbon, orientation = NA,
+  checks = {
+    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
+  }
+)
+
+#' @rdname geom_ribbon
+#' @export
+geom_area <- boilerplate(
+  GeomArea, stat = "align", position = "stack",
+  orientation = NA, outline.type = "upper",
+  checks = {
+    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   }
 )
