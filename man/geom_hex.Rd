@@ -12,6 +12,9 @@ geom_hex(
   stat = "binhex",
   position = "identity",
   ...,
+  lineend = "butt",
+  linejoin = "mitre",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -91,6 +94,12 @@ lists which parameters it can accept.
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

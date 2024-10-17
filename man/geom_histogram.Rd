@@ -27,6 +27,8 @@ geom_histogram(
   binwidth = NULL,
   bins = NULL,
   orientation = NA,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -147,6 +149,10 @@ bin width of a time variable is the number of seconds.}
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}. For more information

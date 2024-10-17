@@ -14,6 +14,8 @@ geom_bar(
   ...,
   just = 0.5,
   orientation = NA,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -26,6 +28,8 @@ geom_col(
   position = "stack",
   ...,
   just = 0.5,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -115,6 +119,10 @@ unintended behaviour when used with alternative positions, e.g.
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

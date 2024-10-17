@@ -49,6 +49,10 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #'
 #'   Overrides `binwidth` and `bins`. By default, this is a vector of length
 #'   ten with [pretty()] breaks.
+#' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
+#' being drawn (using the `subgroup` aesthetic) this argument defines how the
+#' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
+#' an explanation.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @examples
@@ -82,12 +86,15 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 geom_contour <- boilerplate(
   GeomContour, stat = "contour",
   bins = NULL, binwidth = NULL, breaks = NULL,
-  lineend = "butt", linejoin = "round", linemitre = 10
+  lineend = "butt", linejoin = "round", linemitre = 10,
+  arrow = NULL, arrow.fill = NULL
 )
 
 #' @rdname geom_contour
 #' @export
 geom_contour_filled <- boilerplate(
   GeomContourFilled, stat = "contour_filled",
-  bins = NULL, binwidth = NULL, breaks = NULL
+  bins = NULL, binwidth = NULL, breaks = NULL,
+  rule = "evenodd",
+  lineend = "butt", linejoin = "round", linemitre = 10
 )

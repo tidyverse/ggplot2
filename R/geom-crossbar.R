@@ -93,4 +93,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
 #' @export
 #' @rdname geom_linerange
-geom_crossbar <- boilerplate(GeomCrossbar, fatten = 2.5, orientation = NA)
+geom_crossbar <- boilerplate(
+  GeomCrossbar,
+  fatten = 2.5, orientation = NA, width = NULL,
+  lineend = "butt", linejoin = "mitre"
+)

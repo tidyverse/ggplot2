@@ -11,6 +11,9 @@ geom_polygon(
   position = "identity",
   ...,
   rule = "evenodd",
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -95,6 +98,12 @@ lists which parameters it can accept.
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
 hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
 an explanation.}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

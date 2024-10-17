@@ -29,6 +29,11 @@ geom_line(
   position = "identity",
   ...,
   orientation = NA,
+  arrow = NULL,
+  arrow.fill = NULL,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -42,6 +47,11 @@ geom_step(
   ...,
   direction = "hv",
   orientation = NA,
+  arrow = NULL,
+  arrow.fill = NULL,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE

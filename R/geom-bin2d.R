@@ -17,6 +17,8 @@ NULL
 #'   `geom_bin_2d()` and `stat_bin_2d()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
 #'   arguments work.
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
 #' @seealso [stat_bin_hex()] for hexagonal binning
 #' @examples
 #' d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
@@ -29,7 +31,10 @@ NULL
 #'
 #' # Or by specifying the width of the bins
 #' d + geom_bin_2d(binwidth = c(0.1, 0.1))
-geom_bin_2d <- boilerplate(GeomTile, stat = "bin2d")
+geom_bin_2d <- boilerplate(
+  GeomTile, stat = "bin2d",
+  lineend = "butt", linejoin = "mitre"
+)
 
 #' @export
 #' @rdname geom_bin_2d

@@ -19,6 +19,8 @@ geom_contour(
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
+  arrow = NULL,
+  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -33,6 +35,10 @@ geom_contour_filled(
   bins = NULL,
   binwidth = NULL,
   breaks = NULL,
+  rule = "evenodd",
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -162,6 +168,11 @@ ten with \code{\link[=pretty]{pretty()}} breaks.}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
 
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+
+\item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
+means use \code{colour} aesthetic.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -177,6 +188,11 @@ but unobserved levels are omitted.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
+an explanation.}
 
 \item{geom}{The geometric object to use to display the data for this layer.
 When using a \verb{stat_*()} function to construct a layer, the \code{geom} argument

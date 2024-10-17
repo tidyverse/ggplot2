@@ -110,6 +110,9 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
+#' @param linemitre Line mitre limit (number greater than 1).
 #' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
 #' being drawn (using the `subgroup` aesthetic) this argument defines how the
 #' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
@@ -173,7 +176,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'     geom_polygon(aes(fill = value, group = id, subgroup = subid))
 #'   p
 #' }
-geom_polygon <- boilerplate(GeomPolygon, rule = "evenodd")
+geom_polygon <- boilerplate(
+  GeomPolygon, rule = "evenodd",
+  lineend = "butt", linejoin = "round", linemitre = 10
+)
 
 # Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
 # do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':

@@ -13,6 +13,7 @@ geom_rug(
   outside = FALSE,
   sides = "bl",
   length = unit(0.03, "npc"),
+  lineend = "butt",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -100,6 +101,8 @@ It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
 \item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.}
+
+\item{lineend}{Line end style (round, butt, square).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

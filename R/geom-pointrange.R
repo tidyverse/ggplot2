@@ -47,4 +47,4 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
 #' @export
 #' @rdname geom_linerange
-geom_pointrange <- boilerplate(GeomPointrange, fatten = 4, orientation = NA)
+geom_pointrange <- boilerplate(GeomPointrange, fatten = 4, orientation = NA, lineend = "butt")

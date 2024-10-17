@@ -16,6 +16,9 @@ geom_crossbar(
   ...,
   fatten = 2.5,
   orientation = NA,
+  width = NULL,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -28,6 +31,7 @@ geom_errorbar(
   position = "identity",
   ...,
   orientation = NA,
+  lineend = "butt",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -40,6 +44,7 @@ geom_linerange(
   position = "identity",
   ...,
   orientation = NA,
+  lineend = "butt",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -53,6 +58,7 @@ geom_pointrange(
   ...,
   fatten = 4,
   orientation = NA,
+  lineend = "butt",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -141,6 +147,13 @@ middle bar in \code{geom_crossbar()} and the middle point in
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
+\item{width}{Bar width. By default, set to 90\% of the \code{\link[=resolution]{resolution()}} of
+the data.}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

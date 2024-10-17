@@ -27,6 +27,7 @@ geom_rect(
   position = "identity",
   ...,
   linejoin = "mitre",
+  lineend = "butt",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -38,6 +39,7 @@ geom_tile(
   stat = "identity",
   position = "identity",
   ...,
+  lineend = "butt",
   linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
@@ -143,6 +145,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{lineend}{Line end style (round, butt, square).}
 }
 \description{
 \code{geom_rect()} and \code{geom_tile()} do the same thing, but are

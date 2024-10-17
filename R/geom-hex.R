@@ -82,6 +82,9 @@ GeomHex <- ggproto("GeomHex", Geom,
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
+#' @param linemitre Line mitre limit (number greater than 1).
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))
@@ -97,4 +100,7 @@ GeomHex <- ggproto("GeomHex", Geom,
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
 #' }
-geom_hex <- boilerplate(GeomHex, stat = 'binhex')
+geom_hex <- boilerplate(
+  GeomHex, stat = 'binhex',
+  lineend = "butt", linejoin = "mitre", linemitre = 10
+)

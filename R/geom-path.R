@@ -274,14 +274,24 @@ geom_path <- boilerplate(
 
 #' @export
 #' @rdname geom_path
-geom_line <- boilerplate(GeomLine, orientation = NA)
+geom_line <- boilerplate(
+  GeomLine,
+  orientation = NA,
+  arrow = NULL, arrow.fill = NULL,
+  lineend = "butt", linejoin = "round", linemitre = 10
+)
 
 #' @param direction direction of stairs: 'vh' for vertical then horizontal,
 #'   'hv' for horizontal then vertical, or 'mid' for step half-way between
 #'   adjacent x-values.
 #' @export
 #' @rdname geom_path
-geom_step <- boilerplate(GeomStep, direction = "hv", orientation = NA)
+geom_step <- boilerplate(
+  GeomStep,
+  direction = "hv", orientation = NA,
+  arrow = NULL, arrow.fill = NULL,
+  lineend = "butt", linejoin = "round", linemitre = 10
+)
 
 # Trim false values from left and right: keep all values from
 # first TRUE to last TRUE

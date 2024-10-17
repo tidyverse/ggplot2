@@ -145,6 +145,7 @@ GeomRug <- ggproto("GeomRug", Geom,
 #'   bottom, and left.
 #' @param outside logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use `coord_cartesian(clip = "off")`. When set to TRUE, also consider changing the sides argument to "tr". See examples.
 #' @param length A [grid::unit()] object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.
+#' @param lineend Line end style (round, butt, square).
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) +
@@ -182,5 +183,5 @@ GeomRug <- ggproto("GeomRug", Geom,
 #'   scale_y_continuous(expand = c(0.1, 0.1))
 geom_rug <- boilerplate(
   GeomRug,
-  outside = FALSE, sides = "bl", length = unit(0.03, "npc")
+  outside = FALSE, sides = "bl", length = unit(0.03, "npc"), lineend = "butt"
 )

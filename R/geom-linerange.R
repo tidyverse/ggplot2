@@ -60,6 +60,8 @@ GeomLinerange <- ggproto(
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_bar
+#' @param width Bar width. By default, set to 90% of the [`resolution()`] of
+#'   the data.
 #' @examples
 #' # Create a simple example dataset
 #' df <- data.frame(
@@ -107,4 +109,4 @@ GeomLinerange <- ggproto(
 #'   aes(ymin = lower, ymax = upper),
 #'   position = position_dodge2(width = 0.5, padding = 0.5)
 #' )
-geom_linerange <- boilerplate(GeomLinerange, orientation = NA)
+geom_linerange <- boilerplate(GeomLinerange, orientation = NA, lineend = "butt")

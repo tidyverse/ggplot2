@@ -117,4 +117,4 @@ GeomTile <- ggproto("GeomTile", GeomRect,
 #'     position = "identity"
 #'   )
 #' }
-geom_tile <- boilerplate(GeomTile, linejoin = "mitre")
+geom_tile <- boilerplate(GeomTile, lineend = "butt", linejoin = "mitre")

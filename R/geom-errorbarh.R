@@ -49,6 +49,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 #' @eval rd_aesthetics("geom", "errorbarh")
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param lineend Line end style (round, butt, square).
 #' @export
 #' @examples
 #' df <- data.frame(
@@ -68,4 +69,4 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 #' p +
 #'   geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
-geom_errorbarh <- boilerplate(GeomErrorbarh)
+geom_errorbarh <- boilerplate(GeomErrorbarh, lineend = "butt")

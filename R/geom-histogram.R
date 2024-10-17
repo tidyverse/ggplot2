@@ -117,5 +117,6 @@
 #'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 geom_histogram <- boilerplate(
   GeomBar, stat = "bin", position = "stack",
-  binwidth = NULL, bins = NULL, orientation = NA
+  binwidth = NULL, bins = NULL, orientation = NA,
+  lineend = "butt", linejoin = "mitre"
 )
