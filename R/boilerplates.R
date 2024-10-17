@@ -2,7 +2,39 @@
 #' @include scale-type.R
 NULL
 
+#' Produce boilerplate constructors
+#'
+#' The `boilerplate()` functions sets up a user-facing constructor for ggproto
+#' classes. Currently, `boilerplate()` is implemented for `Geom` classes.
+#'
+#' @param x An object to setup a constructor for.
+#' @param ... Name-value pairs to use as additional arguments in the
+#'   constructor. For layers, these are passed on to [`layer(params)`][layer()].
+#' @param checks Expressions evaluated before construction of the object.
+#'   Can be a `{}` block to include multiple expressions.
+#'
+#' @return A function
 #' @export
+#'
+#' @examples
+#' # For testing purposes, a geom that returns grobs
+#' GeomTest <- ggproto(
+#'   "GeomTest", Geom,
+#'   draw_group = function(..., grob = grid::pointsGrob()) {
+#'     return(grob)
+#'   }
+#' )
+#' # Creating a constructor
+#' geom_test <- boilerplate(GeomTest)
+#'
+#' # Note that `grob` is automatically an argument to the function
+#' names(formals(geom_test))
+#'
+#' # Use in a plot
+#' set.seed(1234)
+#' p <- ggplot(mtcars, aes(disp, mpg))
+#' p + geom_test()
+#' p + geom_test(grob = grid::circleGrob())
 boilerplate <- function(x, ...) {
   UseMethod("boilerplate")
 }
