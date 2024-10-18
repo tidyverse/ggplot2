@@ -79,7 +79,7 @@ test_that("date(time) scales throw warnings when input is numeric", {
 
   expect_warning(
     ggplot_build(p + scale_x_datetime()),
-    "The value was converted to a <POSIXt/POSIXct> object."
+    "The value was converted to a <POSIXt> object."
   )
 
 })
