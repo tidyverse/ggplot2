@@ -235,7 +235,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       self$mono_test(scale)
       breaks <- self$breaks
     } else {
-      breaks <- scale$map(self$breaks)
+      breaks <- setNames(scale$map(self$breaks), names(self$breaks))
     }
 
     # Get scale's original range before transformation
