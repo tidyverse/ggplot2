@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug where binned scales wouldn't simultaneously accept transformations
+  and function-limits (@teunbrand, #6144).
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
   (@teunbrand, #6104).
 * New `get_labs()` function for retrieving completed plot labels 
