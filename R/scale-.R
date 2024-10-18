@@ -1029,7 +1029,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     # Breaks only occur only on values in domain
-    in_domain <- intersect(breaks, limits)
+    in_domain <- vec_set_intersect(breaks, limits)
     structure(in_domain, pos = match(in_domain, breaks))
   },
 
@@ -1083,6 +1083,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     if (is.waive(self$labels)) {
+      if (!is.null(names(breaks))) {
+        return(names(breaks))
+      }
       if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
         format(breaks, justify = "none")
