@@ -115,8 +115,8 @@ boilerplate.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
         with {.fn rlang::exprs}."
       )
     }
-    body <- inject(quote(`{`(!!!c(checks, body))))
+    body <- call2("{", !!!checks, body)
   }
 
-  new_function(fmls, body)
+  new_function(fmls, body, env = caller_env())
 }
