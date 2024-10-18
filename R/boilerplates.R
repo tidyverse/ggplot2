@@ -12,9 +12,11 @@ NULL
 #'   constructor. For layers, these are passed on to [`layer(params)`][layer()].
 #' @param checks A list of calls to be evaluated before construction of the
 #'   object, such as one constructed with [`exprs()`][rlang::exprs()].
+#' @param env An environment to search for the object.
 #'
 #' @return A function
 #' @export
+#' @keywords internal
 #'
 #' @examples
 #' # For testing purposes, a geom that returns grobs
@@ -40,6 +42,7 @@ boilerplate <- function(x, ...) {
 }
 
 #' @export
+#' @rdname boilerplate
 boilerplate.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
 
   # Check that we can independently find the geom

@@ -2,9 +2,12 @@
 % Please edit documentation in R/boilerplates.R
 \name{boilerplate}
 \alias{boilerplate}
+\alias{boilerplate.Geom}
 \title{Produce boilerplate constructors}
 \usage{
 boilerplate(x, ...)
+
+\method{boilerplate}{Geom}(x, ..., checks = NULL, env = caller_env())
 }
 \arguments{
 \item{x}{An object to setup a constructor for.}
@@ -14,6 +17,8 @@ constructor. For layers, these are passed on to \code{\link[=layer]{layer(params
 
 \item{checks}{A list of calls to be evaluated before construction of the
 object, such as one constructed with \code{\link[rlang:defusing-advanced]{exprs()}}.}
+
+\item{env}{An environment to search for the object.}
 }
 \value{
 A function
@@ -42,3 +47,4 @@ p <- ggplot(mtcars, aes(disp, mpg))
 p + geom_test()
 p + geom_test(grob = grid::circleGrob())
 }
+\keyword{internal}
