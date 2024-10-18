@@ -181,7 +181,11 @@ stat_summary <- function(mapping = NULL, data = NULL,
 StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  extra_params = c("na.rm", "orientation", "fun.data", "fun.max", "fun.min", "fun.args"),
+  default_params = list(
+    na.rm = FALSE, orientation = NA,
+    fun.data = NULL, fun = NULL, fun.max = NULL, fun.min = NULL,
+    fun.args = list()
+  ),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
