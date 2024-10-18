@@ -319,7 +319,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   }
 
   transform <- as.transform(transform)
-  if (!is.null(limits)) {
+  if (!is.null(limits) && !is.function(limits)) {
     limits <- transform$transform(limits)
   }
 
