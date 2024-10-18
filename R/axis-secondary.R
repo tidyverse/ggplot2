@@ -186,7 +186,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.waive(self$breaks)) {
       if (scale$is_discrete()) {
-        self$breaks <- scale$get_breaks()
+        self$breaks <- setNames(nm = scale$get_breaks())
       } else {
         breaks <- scale$get_transformation()$breaks
         n_breaks <- scale$n.breaks
