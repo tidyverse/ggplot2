@@ -98,8 +98,8 @@ GeomRaster <- ggproto("GeomRaster", Geom,
 #'   (the default) don't interpolate.
 geom_raster <- boilerplate(
   GeomRaster,
-  checks = {
-    check_number_decimal(hjust)
+  checks = exprs(
+    check_number_decimal(hjust),
     check_number_decimal(vjust)
-  }
+  )
 )

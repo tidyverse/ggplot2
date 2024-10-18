@@ -272,9 +272,9 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 #'
 geom_ribbon <- boilerplate(
   GeomRibbon, orientation = NA,
-  checks = {
+  checks = exprs(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-  }
+  )
 )
 
 #' @rdname geom_ribbon
@@ -282,7 +282,7 @@ geom_ribbon <- boilerplate(
 geom_area <- boilerplate(
   GeomArea, stat = "align", position = "stack",
   orientation = NA, outline.type = "upper",
-  checks = {
+  checks = exprs(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-  }
+  )
 )

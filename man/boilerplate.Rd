@@ -12,8 +12,8 @@ boilerplate(x, ...)
 \item{...}{Name-value pairs to use as additional arguments in the
 constructor. For layers, these are passed on to \code{\link[=layer]{layer(params)}}.}
 
-\item{checks}{Expressions evaluated before construction of the object.
-Can be a \code{{}} block to include multiple expressions.}
+\item{checks}{A list of calls to be evaluated before construction of the
+object, such as one constructed with \code{\link[rlang:defusing-advanced]{exprs()}}.}
 }
 \value{
 A function

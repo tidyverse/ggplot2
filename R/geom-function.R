@@ -87,5 +87,5 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
 #' @export
 geom_function <- boilerplate(
   GeomFunction, stat = "function",
-  checks = {data <- data %||% ensure_nonempty_data}
+  checks = exprs(data <- data %||% ensure_nonempty_data)
 )

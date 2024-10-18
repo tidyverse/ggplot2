@@ -10,8 +10,8 @@ NULL
 #' @param x An object to setup a constructor for.
 #' @param ... Name-value pairs to use as additional arguments in the
 #'   constructor. For layers, these are passed on to [`layer(params)`][layer()].
-#' @param checks Expressions evaluated before construction of the object.
-#'   Can be a `{}` block to include multiple expressions.
+#' @param checks A list of calls to be evaluated before construction of the
+#'   object, such as one constructed with [`exprs()`][rlang::exprs()].
 #'
 #' @return A function
 #' @export
@@ -40,7 +40,7 @@ boilerplate <- function(x, ...) {
 }
 
 #' @export
-boilerplate.Geom <- function(x, ..., checks, env = caller_env()) {
+boilerplate.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
 
   # Check that we can independently find the geom
   geom <- gsub("^geom_", "", snake_class(x))
@@ -81,46 +81,36 @@ boilerplate.Geom <- function(x, ..., checks, env = caller_env()) {
   }
 
   # Build function formals
-  fmls <- rlang::pairlist2(
+  fmls <- pairlist2(
     mapping  = args$mapping,
     data     = args$data,
     stat     = args$stat %||% "identity",
     position = args$position %||% "identity",
-    `...` = rlang::missing_arg(),
+    `...` = missing_arg(),
     !!!args[extra_args],
     na.rm    = args$na.rm %||% FALSE,
     show.legend = args$show.legend %||% NA,
     inherit.aes = args$inherit.aes %||% TRUE
   )
 
-  if (length(extra_args) > 0) {
-    extra_args <- paste0(
-      "\n      ", extra_args, " = ", extra_args, ",", collapse = ""
-    )
-  }
+  # Construct call for the 'layer(params)' argument
+  params <- exprs(!!!syms(c("na.rm", extra_args)), .named = TRUE)
+  params <- call2("list2", !!!params, quote(...))
 
-  body <- paste0("
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = \"", geom, "\",
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,",
-      extra_args, "
-      ...
-    )
-  )
-  ")
-  body <- str2lang(body)
+  # Construct rest of 'layer()' call
+  layer_args <- syms(setdiff(fixed_fmls_names, c("...", "na.rm")))
+  layer_args <- append(layer_args, list(geom = geom), after = 2)
+  layer_args <- exprs(!!!layer_args, params = !!params, .named = TRUE)
+  body <- call2("layer", !!!layer_args)
 
-  checks <- substitute(checks)
+  # Prepend any checks
   if (!missing(checks)) {
-    if (is_call(checks, "{")) {
-      checks[[1]] <- NULL
+    lang <- vapply(checks, is_call, logical(1))
+    if (!all(lang)) {
+      cli::cli_abort(
+        "{.arg checks} must be a list of calls, such as one constructed \\
+        with {.fn rlang::exprs}."
+      )
     }
     body <- inject(quote(`{`(!!!c(checks, body))))
   }

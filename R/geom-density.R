@@ -74,7 +74,8 @@ GeomDensity <- ggproto(
 #' }
 geom_density <- boilerplate(
   GeomDensity, stat = "density",
-  checks = {
+  checks = exprs(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-  }
+  )
 )
+
