@@ -21,10 +21,8 @@
 ---
 
     Unknown scale type: "abc"
-    i Use either "gradient" or "viridis".
 
 ---
 
     Unknown scale type: "abc"
-    i Use either "gradient" or "viridis".
 
