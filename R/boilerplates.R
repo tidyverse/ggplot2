@@ -81,12 +81,12 @@ boilerplate.Geom <- function(x, ..., checks, env = caller_env()) {
   }
 
   # Build function formals
-  fmls <- list2(
+  fmls <- rlang::pairlist2(
     mapping  = args$mapping,
     data     = args$data,
     stat     = args$stat %||% "identity",
     position = args$position %||% "identity",
-    `...` = quote(expr = ),
+    `...` = rlang::missing_arg(),
     !!!args[extra_args],
     na.rm    = args$na.rm %||% FALSE,
     show.legend = args$show.legend %||% NA,
