@@ -215,7 +215,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(density)}\cr density of points in bin, scaled to integrate to 1.
 \item \code{after_stat(ncount)}\cr count, scaled to a maximum of 1.
 \item \code{after_stat(ndensity)}\cr density, scaled to a maximum of 1.
-\item \code{after_stat(width)}\cr widths of bins.
+\item \code{after_stat(width)}\cr widths of bins. Use with \code{after_stat(count / width)} to obtain bars with \emph{areas} representing counts (e.g., with non-equal-width bins). See example.
 }
 }
 
@@ -254,6 +254,18 @@ ggplot(diamonds, aes(price, colour = cut)) +
 # put density on the y axis instead of the default count
 ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
+
+
+# When using the non-equal-width bins, we need to set the area of the bars to
+# represent the counts (not the height).
+# Here we're using 10 equi-probable bins:
+price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram(breaks = price_bins, color = "black") # wrong (height = count)
+
+ggplot(diamonds, aes(price, after_stat(count / width))) +
+  geom_histogram(breaks = price_bins, color = "black") # area = count
 
 if (require("ggplot2movies")) {
 # Often we don't want the height of the bar to represent the
