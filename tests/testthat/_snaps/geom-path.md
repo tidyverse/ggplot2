@@ -5,3 +5,11 @@
     Caused by error in `draw_panel()`:
     ! `geom_path()` can't have varying colour, linewidth, and/or alpha along the line when linetype isn't solid.
 
+# stairstep() exists with error when an invalid `direction` is given
+
+    Code
+      stairstep(df, direction = "invalid")
+    Condition
+      Error in `stairstep()`:
+      ! `direction` must be one of "hv", "vh", or "mid", not "invalid".
+
