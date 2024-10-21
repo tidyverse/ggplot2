@@ -31,7 +31,7 @@
 #'   density  = "density of points in bin, scaled to integrate to 1.",
 #'   ncount   = "count, scaled to a maximum of 1.",
 #'   ndensity = "density, scaled to a maximum of 1.",
-#'   width    = "widths of bins."
+#'   width    = "widths of bins. Use with `after_stat(count / width)` to obtain bars with _areas_ representing counts (e.g., with non-equal-width bins). See example."
 #' )
 #'
 #' @section Dropped variables:

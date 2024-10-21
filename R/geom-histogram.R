@@ -63,6 +63,18 @@
 #' ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
 #'   geom_freqpoly(binwidth = 500)
 #'
+#'
+#' # When using the non-equal-width bins, we need to set the area of the bars to
+#' # represent the counts (not the height).
+#' # Here we're using 10 equi-probable bins:
+#' price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
+#'
+#' ggplot(diamonds, aes(price)) +
+#'   geom_histogram(breaks = price_bins, color = "black") # wrong (height = count)
+#'
+#' ggplot(diamonds, aes(price, after_stat(count / width))) +
+#'   geom_histogram(breaks = price_bins, color = "black") # area = count
+#'
 #' if (require("ggplot2movies")) {
 #' # Often we don't want the height of the bar to represent the
 #' # count of observations, but the sum of some other variable.
