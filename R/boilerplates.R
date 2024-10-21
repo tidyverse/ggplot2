@@ -118,5 +118,8 @@ boilerplate.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
     body <- call2("{", !!!checks, body)
   }
 
-  new_function(fmls, body, env = caller_env())
+  # We encapsulate rlang::list2
+  new_env <- new_environment(list(list2 = list2), env)
+
+  new_function(fmls, body, env = new_env)
 }
