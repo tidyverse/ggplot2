@@ -1029,7 +1029,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     # Breaks only occur only on values in domain
-    in_domain <- vec_set_intersect(breaks, limits)
+    breaks <- setNames(mtfrm(breaks), names(breaks))
+    in_domain <- vec_set_intersect(breaks, mtfrm(limits))
     structure(in_domain, pos = match(in_domain, breaks))
   },
 
