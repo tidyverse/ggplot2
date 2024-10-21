@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* When discrete breaks have names, they'll be used as labels by default 
+  (@teunbrand, #6147).
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
   (@teunbrand, #6104).
 * New `get_labs()` function for retrieving completed plot labels 
