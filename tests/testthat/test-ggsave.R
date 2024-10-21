@@ -16,7 +16,10 @@ test_that("ggsave can create directories", {
 
   p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 
-  expect_snapshot(ggsave(path, p), error = TRUE)
+  expect_snapshot(
+    ggsave(path, p), error = TRUE,
+    transform = function(x) gsub("directory '.*'\\.$", "directory 'PATH'", x)
+  )
   expect_false(dir.exists(dirname(path)))
 
   # 2 messages: 1 for saving and 1 informing about directory creation
@@ -88,7 +91,10 @@ test_that("ggsave warns about empty or multiple filenames", {
 
 test_that("ggsave fails informatively for no-extension filenames", {
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
-  expect_snapshot(ggsave(tempfile(), plot), error = TRUE)
+  expect_snapshot(
+    ggsave(tempfile(), plot), error = TRUE,
+    transform = function(x) gsub("to .*\\.$", "to PATH", x)
+  )
 })
 
 # plot_dim ---------------------------------------------------------------
