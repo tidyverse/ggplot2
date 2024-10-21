@@ -49,7 +49,7 @@ test_that("aes evaluated in environment where plot created", {
   p <- ggplot(df, aes(foo, y)) + geom_point()
 
   # Accessing an undefined variable should result in error
-  expect_error(get_layer_data(p), "'foo' not found")
+  expect_snapshot(get_layer_data(p), error = TRUE)
 
   # Once it's defined we should get it back
   foo <- 0

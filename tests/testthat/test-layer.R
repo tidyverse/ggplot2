@@ -55,13 +55,13 @@ test_that("column vectors are allowed (#2609)", {
 
 test_that("missing aesthetics trigger informative error", {
   df <- data_frame(x = 1:10)
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_line()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_col()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
 })
 
@@ -154,10 +154,7 @@ test_that("layer names can be resolved", {
   expect_equal(names(p$layers), c("foo", "bar"))
 
   l <- geom_point(name = "foobar")
-  expect_error(
-    p + l + l,
-    "names are duplicated"
-  )
+  expect_snapshot(p + l + l, error = TRUE)
 })
 
 
