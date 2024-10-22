@@ -7,7 +7,7 @@
 \usage{
 make_constructor(x, ...)
 
-\method{make_constructor}{Geom}(x, ..., checks = NULL, env = caller_env())
+\method{make_constructor}{Geom}(x, ..., checks = exprs(), env = caller_env())
 }
 \arguments{
 \item{x}{An object to setup a constructor for.}

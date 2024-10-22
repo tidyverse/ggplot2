@@ -44,7 +44,7 @@ make_constructor <- function(x, ...) {
 
 #' @export
 #' @rdname make_constructor
-make_constructor.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
+make_constructor.Geom <- function(x, ..., checks = exprs(), env = caller_env()) {
 
   # Check that we can independently find the geom
   geom <- gsub("^geom_", "", snake_class(x))
@@ -108,7 +108,7 @@ make_constructor.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
   body <- call2("layer", !!!layer_args)
 
   # Prepend any checks
-  if (!missing(checks)) {
+  if (length(exprs) > 0) {
     lang <- vapply(checks, is_call, logical(1))
     if (!all(lang)) {
       cli::cli_abort(
@@ -116,8 +116,8 @@ make_constructor.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
         with {.fn rlang::exprs}."
       )
     }
-    body <- call2("{", !!!checks, body)
   }
+  body <- call2("{", !!!checks, body)
 
   # We encapsulate rlang::list2
   new_env <- new_environment(list(list2 = list2), env)
