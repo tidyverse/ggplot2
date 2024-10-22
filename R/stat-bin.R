@@ -139,10 +139,7 @@ StatBin <- ggproto("StatBin", Stat,
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE,
-                           # The following arguments are not used, but must
-                           # be listed so parameters are computed correctly
-                           origin = NULL, right = NULL, drop = NULL) {
+                           breaks = NULL, flipped_aes = FALSE) {
     x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
       if (is.function(breaks)) {
