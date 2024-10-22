@@ -69,4 +69,4 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 #' p +
 #'   geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
-geom_errorbarh <- boilerplate(GeomErrorbarh)
+geom_errorbarh <- make_constructor(GeomErrorbarh)

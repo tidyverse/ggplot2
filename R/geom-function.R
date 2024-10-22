@@ -85,7 +85,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
 #' geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
 #'
 #' @export
-geom_function <- boilerplate(
+geom_function <- make_constructor(
   GeomFunction, stat = "function",
   checks = exprs(data <- data %||% ensure_nonempty_data)
 )

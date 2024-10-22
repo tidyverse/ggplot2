@@ -96,7 +96,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
 #'   for both, centering each pixel over its data location.
 #' @param interpolate If `TRUE` interpolate linearly, if `FALSE`
 #'   (the default) don't interpolate.
-geom_raster <- boilerplate(
+geom_raster <- make_constructor(
   GeomRaster,
   checks = exprs(
     check_number_decimal(hjust),

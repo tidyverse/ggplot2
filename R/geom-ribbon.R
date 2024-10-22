@@ -270,7 +270,7 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 #' ggplot(df, aes(x, y, fill = g)) +
 #'   geom_area(stat = "identity")
 #'
-geom_ribbon <- boilerplate(
+geom_ribbon <- make_constructor(
   GeomRibbon, orientation = NA,
   checks = exprs(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
@@ -279,7 +279,7 @@ geom_ribbon <- boilerplate(
 
 #' @rdname geom_ribbon
 #' @export
-geom_area <- boilerplate(
+geom_area <- make_constructor(
   GeomArea, stat = "align", position = "stack",
   orientation = NA, outline.type = "upper",
   checks = exprs(

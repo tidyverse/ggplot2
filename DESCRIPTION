@@ -98,7 +98,7 @@ Collate:
     'annotation-logticks.R'
     'scale-type.R'
     'layer.R'
-    'boilerplates.R'
+    'make-constructor.R'
     'geom-polygon.R'
     'geom-map.R'
     'annotation-map.R'

@@ -44,4 +44,4 @@ GeomQuantile <- ggproto(
 #'
 #' # Set aesthetics to fixed value
 #' m + geom_quantile(colour = "red", linewidth = 2, alpha = 0.5)
-geom_quantile <- boilerplate(GeomQuantile, stat = "quantile")
+geom_quantile <- make_constructor(GeomQuantile, stat = "quantile")

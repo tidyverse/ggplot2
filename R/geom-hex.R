@@ -100,4 +100,4 @@ GeomHex <- ggproto("GeomHex", Geom,
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
 #' }
-geom_hex <- boilerplate(GeomHex, stat = 'binhex')
+geom_hex <- make_constructor(GeomHex, stat = 'binhex')

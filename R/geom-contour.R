@@ -83,7 +83,7 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
 #' }
-geom_contour <- boilerplate(
+geom_contour <- make_constructor(
   GeomContour, stat = "contour",
   # Passed to contour stat:
   bins = NULL, binwidth = NULL, breaks = NULL
@@ -91,7 +91,7 @@ geom_contour <- boilerplate(
 
 #' @rdname geom_contour
 #' @export
-geom_contour_filled <- boilerplate(
+geom_contour_filled <- make_constructor(
   GeomContourFilled, stat = "contour_filled",
   # Passed to contour_filled stat:
   bins = NULL, binwidth = NULL, breaks = NULL

@@ -117,4 +117,4 @@ GeomTile <- ggproto("GeomTile", GeomRect,
 #'     position = "identity"
 #'   )
 #' }
-geom_tile <- boilerplate(GeomTile)
+geom_tile <- make_constructor(GeomTile)

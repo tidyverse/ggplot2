@@ -1,4 +1,4 @@
-#' @include boilerplates.R
+#' @include make-constructor.R
 NULL
 
 #' @rdname ggplot2-ggproto
@@ -176,7 +176,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'     geom_polygon(aes(fill = value, group = id, subgroup = subid))
 #'   p
 #' }
-geom_polygon <- boilerplate(GeomPolygon)
+geom_polygon <- make_constructor(GeomPolygon)
 
 # Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
 # do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':

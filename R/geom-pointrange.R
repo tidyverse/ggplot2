@@ -47,4 +47,4 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
 #' @export
 #' @rdname geom_linerange
-geom_pointrange <- boilerplate(GeomPointrange, orientation = NA)
+geom_pointrange <- make_constructor(GeomPointrange, orientation = NA)

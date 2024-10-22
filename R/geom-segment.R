@@ -128,4 +128,4 @@ GeomSegment <- ggproto("GeomSegment", Geom,
 #'
 #' ggplot(counts, aes(x, Freq)) +
 #'   geom_segment(aes(xend = x, yend = 0), linewidth = 10, lineend = "butt")
-geom_segment <- boilerplate(GeomSegment)
+geom_segment <- make_constructor(GeomSegment)

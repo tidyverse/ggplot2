@@ -4,8 +4,9 @@ NULL
 
 #' Produce boilerplate constructors
 #'
-#' The `boilerplate()` functions sets up a user-facing constructor for ggproto
-#' classes. Currently, `boilerplate()` is implemented for `Geom` classes.
+#' The `make_constructor()` functions sets up a user-facing constructor for
+#' ggproto classes. Currently, `make_constructor()` is implemented for
+#' `Geom` classes.
 #'
 #' @param x An object to setup a constructor for.
 #' @param ... Name-value pairs to use as additional arguments in the
@@ -27,7 +28,7 @@ NULL
 #'   }
 #' )
 #' # Creating a constructor
-#' geom_test <- boilerplate(GeomTest)
+#' geom_test <- make_constructor(GeomTest)
 #'
 #' # Note that `grob` is automatically an argument to the function
 #' names(formals(geom_test))
@@ -37,13 +38,13 @@ NULL
 #' p <- ggplot(mtcars, aes(disp, mpg))
 #' p + geom_test()
 #' p + geom_test(grob = grid::circleGrob())
-boilerplate <- function(x, ...) {
-  UseMethod("boilerplate")
+make_constructor <- function(x, ...) {
+  UseMethod("make_constructor")
 }
 
 #' @export
-#' @rdname boilerplate
-boilerplate.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
+#' @rdname make_constructor
+make_constructor.Geom <- function(x, ..., checks = NULL, env = caller_env()) {
 
   # Check that we can independently find the geom
   geom <- gsub("^geom_", "", snake_class(x))

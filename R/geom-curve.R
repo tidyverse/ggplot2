@@ -47,4 +47,4 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
 #' @inheritParams grid::curveGrob
 #' @export
 #' @rdname geom_segment
-geom_curve <- boilerplate(GeomCurve)
+geom_curve <- make_constructor(GeomCurve)

@@ -46,4 +46,4 @@ NULL
 #'   scale_size_area(max_size = 10)
 #' d + geom_count(aes(size = after_stat(prop), group = clarity)) +
 #'   scale_size_area(max_size = 10)
-geom_count <- boilerplate(GeomPoint, stat = "sum")
+geom_count <- make_constructor(GeomPoint, stat = "sum")

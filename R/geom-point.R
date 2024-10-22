@@ -142,7 +142,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 #' ggplot(mtcars2, aes(wt, mpg)) +
 #'   geom_point(na.rm = TRUE)
 #' }
-geom_point <- boilerplate(GeomPoint)
+geom_point <- make_constructor(GeomPoint)
 
 #' Translating shape strings
 #'

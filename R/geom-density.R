@@ -72,7 +72,7 @@ GeomDensity <- ggproto(
 #' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- boilerplate(
+geom_density <- make_constructor(
   GeomDensity, stat = "density",
   checks = exprs(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))

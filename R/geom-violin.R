@@ -180,7 +180,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 #'   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
 #' }
 #' }
-geom_violin <- boilerplate(
+geom_violin <- make_constructor(
   GeomViolin, stat = "ydensity", position = "dodge",
   # arguments passed to ydensity stat:
   trim = TRUE, bounds = c(-Inf, Inf), scale = "area"

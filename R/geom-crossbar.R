@@ -93,4 +93,4 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
 #' @export
 #' @rdname geom_linerange
-geom_crossbar <- boilerplate(GeomCrossbar)
+geom_crossbar <- make_constructor(GeomCrossbar)

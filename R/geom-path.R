@@ -266,18 +266,18 @@ GeomStep <- ggproto(
 #' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
 #' }
-geom_path <- boilerplate(GeomPath)
+geom_path <- make_constructor(GeomPath)
 
 #' @export
 #' @rdname geom_path
-geom_line <- boilerplate(GeomLine, orientation = NA)
+geom_line <- make_constructor(GeomLine, orientation = NA)
 
 #' @param direction direction of stairs: 'vh' for vertical then horizontal,
 #'   'hv' for horizontal then vertical, or 'mid' for step half-way between
 #'   adjacent x-values.
 #' @export
 #' @rdname geom_path
-geom_step <- boilerplate(GeomStep, orientation = NA)
+geom_step <- make_constructor(GeomStep, orientation = NA)
 
 # Trim false values from left and right: keep all values from
 # first TRUE to last TRUE
