@@ -75,6 +75,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
+Config/usethis/last-upkeep: 2024-10-24
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
