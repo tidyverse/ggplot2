@@ -35,7 +35,7 @@ pak::pak("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
 
 ## Usage
 
