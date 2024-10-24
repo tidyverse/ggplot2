@@ -43,6 +43,25 @@ test_that("curved lines in map projections", {
   )
 })
 
+test_that("geom_abline is clipped to x/y ranges", {
+
+  df <- data.frame(slope = c(-0.2, -1, -5, 5, 1, 0.2))
+
+  p <- ggplot(df) +
+    geom_abline(aes(slope = slope, intercept = 0)) +
+    scale_x_continuous(limits = c(-1, 1), expand = FALSE) +
+    scale_y_continuous(limits = c(-1, 1), expand = FALSE) +
+    coord_cartesian(clip = "off")
+
+  data <- layer_grob(p)[[1]]
+
+  x <- c(as.numeric(data$x0), as.numeric(data$x1))
+  expect_true(all(x >= 0 & x <= 1))
+
+  y <- c(as.numeric(data$y0), as.numeric(data$y1))
+  expect_true(all(y >= 0 & y <= 1))
+})
+
 # Warning tests ------------------------------------------------------------
 
 test_that("warnings are thrown when parameters cause mapping and data to be ignored", {
