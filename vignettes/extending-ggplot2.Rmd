@@ -9,7 +9,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 7, fig.align = "center")
 library(ggplot2)
 ```
@@ -28,7 +29,8 @@ It's strange to say, but this is a case where inventing a new OO system was actu
 
 Here's a quick demo of ggproto in action:
 
-```{r ggproto-intro}
+```{r}
+#| label: ggproto-intro
 A <- ggproto("A", NULL,
   x = 1,
   inc = function(self) {
@@ -53,7 +55,8 @@ To create a new geom or stat, you will just create a new ggproto that inherits f
 
 We'll start by creating a very simple stat: one that gives the convex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
 
-```{r chull}
+```{r}
+#| label: chull
 StatChull <- ggproto("StatChull", Stat,
   compute_group = function(data, scales) {
     data[chull(data$x, data$y), , drop = FALSE]
@@ -374,7 +377,8 @@ It's harder to create a new geom than a new stat because you also need to know s
 
 It's easiest to start with a simple example. The code below is a simplified version of `geom_point()`:
 
-```{r GeomSimplePoint}
+```{r}
+#| label: GeomSimplePoint
 #| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The points are larger than the default."
 GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
@@ -625,7 +629,8 @@ title        | `element_text()`  | all text in title elements (plot, axes & lege
 
 These set default properties that are inherited by more specific settings. These are most useful for setting an overall "background" colour and overall font settings (e.g. family and size).
 
-```{r axis-line-ex}
+```{r}
+#| label: axis-line-ex
 #| fig.alt:
 #| - "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
 #|  and 'y' are coloured in black"
@@ -1150,7 +1155,8 @@ guide_key <- function(
 
 Our new guide can now be used inside the `guides()` function or as the `guide` argument in a position scale.
 
-```{r key_example}
+```{r}
+#| label: key_example
 #| fig.alt: >
 #|  Scatterplot of engine displacement versus highway miles per 
 #|  gallon. The x-axis axis ticks are at 2.5, 3.5, 4.5, 5.5 and 6.5.
@@ -1174,7 +1180,8 @@ We'll edit the method so that the labels are drawn with a `colour` set in the ke
 In addition to the `key` and `params` variable we've seen before, we now also have an `elements` variable, which is a list of precomputed theme elements. We can use the `elements$text` element to draw a graphical object (grob) in the style of axis text.
 Perhaps the most finicky thing about drawing guides is that a lot of settings depend on the guide's `position` parameter.
 
-```{r key_ggproto_edit}
+```{r}
+#| label: key_ggproto_edit
 # Same as before
 GuideKey <- ggproto(
   "Guide", GuideAxis,
@@ -1205,7 +1212,8 @@ GuideKey <- ggproto(
 Because we are incorporating the `...` argument to `guide_key()` in the key, adding a `colour` column to the key is straightforward.
 We can check that are guide looks correct in the different positions around the panel.
 
-```{r key_example_2}
+```{r}
+#| label: key_example_2
 #| fig.alt: >
 #|  Scatterplot of engine displacement versus highway miles per 
 #|  gallon. There are two x-axes at the bottom and top of the plot. The bottom

@@ -46,7 +46,7 @@ test_that("qplot() evaluates layers in package environment", {
   }
 
   lifecycle::expect_deprecated(
-    expect_error(p <- qplot(1, 1, geom = "line"), NA)
+    expect_no_error(p <- qplot(1, 1, geom = "line"))
   )
 })
 

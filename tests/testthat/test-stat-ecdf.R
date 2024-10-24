@@ -57,10 +57,7 @@ test_that("weighted ecdf warns about weird weights", {
   )
 
   # Should error when weights sum to 0
-  expect_error(
-    wecdf(1:10, rep(c(-1, 1), 5)),
-    "Cannot compute eCDF"
-  )
+  expect_snapshot(wecdf(1:10, rep(c(-1, 1), 5)), error = TRUE)
 })
 
 # See #5113 and #5112

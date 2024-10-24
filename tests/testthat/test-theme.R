@@ -49,7 +49,7 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
@@ -115,7 +115,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("calculating theme element inheritance works", {
@@ -368,10 +368,7 @@ test_that("elements can be merged", {
     merge_element(element_line(colour = "blue"), line_base),
     element_line(colour = "blue", linewidth = 10)
   )
-  expect_error(
-    merge_element(text_base, rect_base),
-    "Only elements of the same class can be merged"
-  )
+  expect_snapshot(merge_element(text_base, rect_base), error = TRUE)
 })
 
 test_that("theme elements that don't inherit from element can be combined", {

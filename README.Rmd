@@ -4,7 +4,8 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r}
+#| echo: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -12,12 +13,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="ggplot2 website" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/tidyverse/ggplot2/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+[![Codecov test coverage](https://codecov.io/gh/tidyverse/ggplot2/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2)
 <!-- badges: end -->
 
 ## Overview
@@ -26,7 +27,8 @@ ggplot2 is a system for declaratively creating graphics, based on [The Grammar o
 
 ## Installation
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 # The easiest way to get ggplot2 is to install the whole tidyverse:
 install.packages("tidyverse")
 
@@ -40,13 +42,14 @@ pak::pak("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>  
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>  
 
 ## Usage
 
 It's hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with `ggplot()`, supply a dataset and aesthetic mapping (with `aes()`). You then add on layers (like `geom_point()` or `geom_histogram()`), scales (like `scale_colour_brewer()`), faceting specifications (like `facet_wrap()`) and coordinate systems (like `coord_flip()`).
 
-```{r example}
+```{r}
+#| label: example
 #| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles
 #|  per gallon are inversely correlated."

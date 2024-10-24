@@ -7,9 +7,9 @@ test_that("aesthetic parameters match length of data", {
   }
 
   set_colours("red")
-  expect_error(set_colours(rep("red", 2)), "must be either length 1")
-  expect_error(set_colours(rep("red", 3)), "must be either length 1")
-  expect_error(set_colours(rep("red", 4)), "must be either length 1")
+  expect_snapshot(set_colours(rep("red", 2)), error = TRUE)
+  expect_snapshot(set_colours(rep("red", 3)), error = TRUE)
+  expect_snapshot(set_colours(rep("red", 4)), error = TRUE)
   set_colours(rep("red", 5))
 })
 
@@ -31,7 +31,7 @@ test_that("legend filters out aesthetics not of length 1", {
 
   # Ideally would test something in the legend data structure, but
   # that's not easily accessible currently.
-  expect_error(ggplot_gtable(ggplot_build(p)), NA)
+  expect_no_error(ggplot_gtable(ggplot_build(p)))
 })
 
 test_that("alpha affects only fill colour of solid geoms", {

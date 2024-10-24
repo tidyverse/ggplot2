@@ -116,13 +116,13 @@ test_that("plot.tag.position rejects invalid input", {
   expect_snapshot_error(
     ggplotGrob(p + theme(plot.tag.position = "foobar"))
   )
-  expect_error(
+  expect_snapshot(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1))),
-    "must have length 2"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")),
-    "cannot be used with `\"margin\""
+    error = TRUE
   )
 
 })

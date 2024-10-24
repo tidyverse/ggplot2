@@ -43,8 +43,8 @@ test_that("as_facets_list() coerces quosures objectss", {
 })
 
 test_that("facets reject aes()", {
-  expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
-  expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
+  expect_snapshot(facet_wrap(aes(foo)), error = TRUE)
+  expect_snapshot(facet_grid(aes(foo)), error = TRUE)
 })
 
 test_that("compact_facets() returns a quosures object with compacted", {
@@ -353,9 +353,9 @@ test_that("at least one layer must contain all facet variables in combine_vars()
 
 test_that("at least one combination must exist in combine_vars()", {
   df <- data_frame(letter = character(0))
-  expect_error(
+  expect_snapshot(
     combine_vars(list(df), vars = vars(letter = letter)),
-    "Faceting variables must have at least one value"
+    error = TRUE
   )
 })
 
@@ -463,9 +463,9 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
   )
 
   # If the expression contains any non-existent variable, it fails
-  expect_error(
+  expect_snapshot(
     eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
-    "object 'no_such_variable' not found"
+    error = TRUE
   )
 })
 

@@ -1,3 +1,14 @@
+# accessing an undefined variable results in an error
+
+    Code
+      get_layer_data(p)
+    Condition
+      Error in `geom_point()`:
+      ! Problem while computing aesthetics.
+      i Error occurred in the 1st layer.
+      Caused by error:
+      ! object 'foo' not found
+
 # aes evaluation fails with unknown input
 
     Unknown input: <environment>

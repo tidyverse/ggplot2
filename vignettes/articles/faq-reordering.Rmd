@@ -13,7 +13,8 @@ title: "FAQ: Reordering"
   }
 </style>
 ```
-```{r, include = FALSE}
+```{r}
+#| include: false
 library(ggplot2)
 library(dplyr)
 library(tibble)

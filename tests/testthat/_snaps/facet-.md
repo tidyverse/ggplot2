@@ -1,3 +1,19 @@
+# facets reject aes()
+
+    Code
+      facet_wrap(aes(foo))
+    Condition
+      Error in `validate_facets()`:
+      ! Please use `vars()` to supply facet variables.
+
+---
+
+    Code
+      facet_grid(aes(foo))
+    Condition
+      Error in `validate_facets()`:
+      ! Please use `vars()` to supply facet variables.
+
 # facet_grid() fails if passed both a formula and a vars()
 
     `rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list.
@@ -30,6 +46,14 @@
     x Plot is missing `letter`
     Layer is missing `letter`
 
+# at least one combination must exist in combine_vars()
+
+    Code
+      combine_vars(list(df), vars = vars(letter = letter))
+    Condition
+      Error in `combine_vars()`:
+      ! Faceting variables must have at least one value.
+
 # combine_vars() generates the correct combinations
 
     At least one layer must contain all faceting variables: `b` and `c`
@@ -39,6 +63,15 @@
 ---
 
     Faceting variables must have at least one value.
+
+# eval_facet() is tolerant for missing columns (#2963)
+
+    Code
+      eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c(
+        "x"))
+    Condition
+      Error:
+      ! object 'no_such_variable' not found
 
 # validate_facets() provide meaningful errors
 
