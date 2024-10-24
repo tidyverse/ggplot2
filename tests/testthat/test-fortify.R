@@ -100,6 +100,8 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Rejected by fortify.default() because of unhealthy dim() behavior
 
+  skip_if(getRversion() <= "4.4.0")
+
   dim.foo <- function(x) stop("oops!")
   registerS3method("dim", "foo", dim.foo)
   expect_snapshot(fortify(object), error = TRUE)

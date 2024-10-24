@@ -14,7 +14,7 @@
       Error in `combine_vars()`:
       ! Faceting variables must have at least one value.
 
-# empty data overrides plot defaults
+# Should error when totally empty data frame because there's no x and y
 
     Code
       get_layer_data(d)
