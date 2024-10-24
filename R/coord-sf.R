@@ -545,11 +545,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes <- label_axes %|W|% ""
   }
 
-  if (is.character(label_axes)) {
-    label_axes <- parse_axes_labeling(label_axes)
-  } else if (!is.list(label_axes)) {
-    cli::cli_abort("Panel labeling format not recognized.")
-  }
+  label_axes <- parse_axes_labeling(label_axes)
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
@@ -582,9 +578,14 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   )
 }
 
-parse_axes_labeling <- function(x) {
-  labs <- unlist(strsplit(x, ""))
-  list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
+parse_axes_labeling <- function(x, call = caller_env()) {
+  if (is.character(x)) {
+    x <- unlist(strsplit(x, ""))
+    x <- list(top = x[1], right = x[2], bottom = x[3], left = x[4])
+  } else if (!is.list(x)) {
+    cli::cli_abort("Panel labeling format not recognized.", call = call)
+  }
+  x
 }
 
 # This function does two things differently from standard breaks:

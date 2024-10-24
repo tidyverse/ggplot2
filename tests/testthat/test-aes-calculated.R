@@ -99,3 +99,52 @@ test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {
   p2 <- ggplot(NULL, aes(..bar..))
   expect_snapshot_warning(b2 <- ggplot_build(p2))
 })
+
+test_that("functions can be masked", {
+
+  foo <- function(x) x + 10
+  bar <- function(x) x * 10
+
+  data <- data.frame(val = 10)
+  mapping <- aes(x = val, y = foo(20))
+
+  evaled  <- eval_aesthetics(mapping, data = data, mask = list())
+  expect_equal(evaled, list(x = 10, y = 30))
+
+  evaled <- eval_aesthetics(mapping, data = data, mask = list(foo = bar))
+  expect_equal(evaled, list(x = 10, y = 200))
+
+  # Test namespace-prefixed evaluation (#6104)
+  mapping <- aes(x = val, y = ggplot2::stage(10, 20, 30))
+  evaled <- eval_aesthetics(mapping, data = data, mask = list())
+  expect_equal(evaled, list(x = 10, y = 10))
+  evaled <- eval_aesthetics(mapping, data = data, mask = list(stage = stage_calculated))
+  expect_equal(evaled, list(x = 10, y = 20))
+  evaled <- eval_aesthetics(mapping, data = data, mask = list(stage = stage_scaled))
+  expect_equal(evaled, list(x = 10, y = 30))
+
+})
+
+test_that("stage allows aesthetics that are only mapped to start", {
+
+  df <- data.frame(x = 1:2)
+
+  start_unnamed <- aes(stage(x))
+  expect_equal(
+    eval_aesthetics(start_unnamed, data = df),
+    list(x = 1:2)
+  )
+
+  start_named <- aes(stage(start = x))
+  expect_equal(
+    eval_aesthetics(start_named, data = df),
+    list(x = 1:2)
+  )
+
+  start_nulls <- aes(stage(start = x, after_stat = NULL, after_scale = NULL))
+  expect_equal(
+    eval_aesthetics(start_nulls, data = df),
+    list(x = 1:2)
+  )
+
+})

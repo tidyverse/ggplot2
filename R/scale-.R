@@ -357,6 +357,10 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.scale <- function(x) inherits(x, "Scale")
+
 #' @section Scales:
 #'
 #' All `scale_*` functions like [scale_x_continuous()] return a `Scale*`
@@ -1379,13 +1383,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
-  scale$position <- switch(scale$position,
-    top = "bottom",
-    bottom = "top",
-    left = "right",
-    right = "left",
-    scale$position
-  )
+  scale$position <- opposite_position(scale$position)
   invisible()
 }
 

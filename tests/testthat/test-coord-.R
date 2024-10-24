@@ -75,6 +75,23 @@ test_that("coords append a column to the layout correctly", {
   expect_equal(test$COORD, c(1, 2, 1))
 })
 
+test_that("parse_coord_expand parses correctly", {
+
+  p <- parse_coord_expand(FALSE)
+  expect_equal(p, rep(FALSE, 4))
+
+  p <- parse_coord_expand(c(FALSE, TRUE))
+  expect_equal(p, c(FALSE, TRUE, FALSE, TRUE))
+
+  p <- parse_coord_expand(c(top = FALSE, left = FALSE))
+  expect_equal(p, c(FALSE, TRUE, TRUE, FALSE))
+
+  # Dependencies might use `expand = 1`
+  p <- parse_coord_expand(c(1, 0))
+  expect_equal(p, c(TRUE, FALSE, TRUE, FALSE))
+
+})
+
 test_that("coord expand takes a vector", {
 
   base <- ggplot() + lims(x = c(0, 10), y = c(0, 10))
