@@ -1,3 +1,65 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomSmooth <- ggproto(
+  "GeomSmooth", Geom,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE, ambiguous = TRUE)
+    params$se <- params$se %||%
+      if (params$flipped_aes) {
+        all(c("xmin", "xmax") %in% names(data))
+      } else {
+        all(c("ymin", "ymax") %in% names(data))
+      }
+
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
+  setup_data = function(data, params) {
+    GeomLine$setup_data(data, params)
+  },
+
+  # The `se` argument is set to false here to make sure drawing the
+  # geom and drawing the legend is in synch. If the geom is used by a
+  # stat that doesn't set the `se` argument then `se` will be missing
+  # and the legend key won't be drawn. With `se = FALSE` here the
+  # ribbon won't be drawn either in that case, keeping the overall
+  # behavior predictable and sensible. The user will realize that they
+  # need to set `se = TRUE` to obtain the ribbon and the legend key.
+  draw_group = function(data, panel_params, coord, lineend = "butt", linejoin = "round",
+                        linemitre = 10, se = FALSE, flipped_aes = FALSE) {
+    ribbon <- transform(data, colour = NA)
+    path <- transform(data, alpha = NA)
+
+    ymin <- flipped_names(flipped_aes)$ymin
+    ymax <- flipped_names(flipped_aes)$ymax
+    has_ribbon <- se && !is.null(data[[ymax]]) && !is.null(data[[ymin]])
+
+    gList(
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord, flipped_aes = flipped_aes),
+      GeomLine$draw_panel(path, panel_params, coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre)
+    )
+  },
+
+  draw_key = draw_key_smooth,
+
+  required_aes = c("x", "y"),
+  optional_aes = c("ymin", "ymax"),
+
+  default_aes = aes(
+    colour = from_theme(accent),
+    fill = from_theme(col_mix(ink, paper, 0.6)),
+    linewidth = from_theme(2 * linewidth),
+    linetype = from_theme(linetype),
+    weight = 1, alpha = 0.4
+  ),
+
+  rename_size = TRUE
+)
+
 #' Smoothed conditional means
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
@@ -117,64 +179,3 @@ geom_smooth <- function(mapping = NULL, data = NULL,
     params = params
   )
 }
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomSmooth <- ggproto("GeomSmooth", Geom,
-  setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE, ambiguous = TRUE)
-    params$se <- params$se %||%
-      if (params$flipped_aes) {
-        all(c("xmin", "xmax") %in% names(data))
-      } else {
-        all(c("ymin", "ymax") %in% names(data))
-      }
-
-    params
-  },
-
-  extra_params = c("na.rm", "orientation"),
-
-  setup_data = function(data, params) {
-    GeomLine$setup_data(data, params)
-  },
-
-  # The `se` argument is set to false here to make sure drawing the
-  # geom and drawing the legend is in synch. If the geom is used by a
-  # stat that doesn't set the `se` argument then `se` will be missing
-  # and the legend key won't be drawn. With `se = FALSE` here the
-  # ribbon won't be drawn either in that case, keeping the overall
-  # behavior predictable and sensible. The user will realize that they
-  # need to set `se = TRUE` to obtain the ribbon and the legend key.
-  draw_group = function(data, panel_params, coord, lineend = "butt", linejoin = "round",
-                        linemitre = 10, se = FALSE, flipped_aes = FALSE) {
-    ribbon <- transform(data, colour = NA)
-    path <- transform(data, alpha = NA)
-
-    ymin <- flipped_names(flipped_aes)$ymin
-    ymax <- flipped_names(flipped_aes)$ymax
-    has_ribbon <- se && !is.null(data[[ymax]]) && !is.null(data[[ymin]])
-
-    gList(
-      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord, flipped_aes = flipped_aes),
-      GeomLine$draw_panel(path, panel_params, coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre)
-    )
-  },
-
-  draw_key = draw_key_smooth,
-
-  required_aes = c("x", "y"),
-  optional_aes = c("ymin", "ymax"),
-
-  default_aes = aes(
-    colour = from_theme(accent),
-    fill = from_theme(col_mix(ink, paper, 0.6)),
-    linewidth = from_theme(2 * linewidth),
-    linetype = from_theme(linetype),
-    weight = 1, alpha = 0.4
-  ),
-
-  rename_size = TRUE
-)

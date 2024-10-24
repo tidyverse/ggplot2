@@ -1,3 +1,6 @@
+#' @include geom-point.R
+NULL
+
 #' Count overlapping points
 #'
 #' This is a variant [geom_point()] that counts the number of
@@ -43,23 +46,4 @@
 #'   scale_size_area(max_size = 10)
 #' d + geom_count(aes(size = after_stat(prop), group = clarity)) +
 #'   scale_size_area(max_size = 10)
-geom_count <- function(mapping = NULL, data = NULL,
-                       stat = "sum", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomPoint,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_count <- boilerplate(GeomPoint, stat = "sum")

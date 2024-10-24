@@ -1,28 +1,3 @@
-#' @export
-#' @rdname geom_linerange
-geom_errorbar <- function(mapping = NULL, data = NULL,
-                          stat = "identity", position = "identity",
-                          ...,
-                          na.rm = FALSE,
-                          orientation = NA,
-                          show.legend = NA,
-                          inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomErrorbar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -80,3 +55,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 
   rename_size = TRUE
 )
+
+#' @export
+#' @rdname geom_linerange
+geom_errorbar <- boilerplate(GeomErrorbar, orientation = NA)

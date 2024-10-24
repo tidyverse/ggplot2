@@ -12,11 +12,14 @@ geom_ribbon(
   stat = "identity",
   position = "identity",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  outline.type = "both",
+  na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  outline.type = "both"
+  inherit.aes = TRUE
 )
 
 geom_area(
@@ -24,12 +27,15 @@ geom_area(
   data = NULL,
   stat = "align",
   position = "stack",
-  na.rm = FALSE,
-  orientation = NA,
-  show.legend = NA,
-  inherit.aes = TRUE,
   ...,
-  outline.type = "upper"
+  orientation = NA,
+  outline.type = "upper",
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
 )
 
 stat_align(
@@ -118,13 +124,23 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
-
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{linemitre}{Line mitre limit (number greater than 1).}
+
+\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
+upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
+\code{"full"} draws a closed polygon around the area.}
+
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -138,10 +154,6 @@ but unobserved levels are omitted.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
-
-\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
-upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
-\code{"full"} draws a closed polygon around the area.}
 
 \item{geom}{The geometric object to use to display the data for this layer.
 When using a \verb{stat_*()} function to construct a layer, the \code{geom} argument
@@ -231,6 +243,7 @@ a + geom_point(stat = "align", position = "stack", size = 8)
 # To turn off the alignment, the stat can be set to "identity"
 ggplot(df, aes(x, y, fill = g)) +
   geom_area(stat = "identity")
+
 }
 \seealso{
 \code{\link[=geom_bar]{geom_bar()}} for discrete intervals (bars),

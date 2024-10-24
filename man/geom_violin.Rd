@@ -11,12 +11,11 @@ geom_violin(
   stat = "ydensity",
   position = "dodge",
   ...,
-  draw_quantiles = NULL,
   trim = TRUE,
   bounds = c(-Inf, Inf),
   scale = "area",
+  draw_quantiles = NULL,
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -102,9 +101,6 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{draw_quantiles}{If \code{not(NULL)} (default), draw horizontal lines
-at the given quantiles of the density estimate.}
-
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
 
@@ -118,13 +114,11 @@ outside of bounds are removed with a warning.}
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
+\item{draw_quantiles}{If \code{not(NULL)} (default), draw horizontal lines
+at the given quantiles of the density estimate.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
-
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -159,6 +153,11 @@ For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 \item{drop}{Whether to discard groups with less than 2 observations
 (\code{TRUE}, default) or keep such groups for position adjustment purposes
 (\code{FALSE}).}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a

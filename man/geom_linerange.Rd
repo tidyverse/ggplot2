@@ -14,9 +14,11 @@ geom_crossbar(
   stat = "identity",
   position = "identity",
   ...,
+  lineend = "butt",
+  linejoin = "mitre",
   fatten = 2.5,
+  width = NULL,
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -27,8 +29,9 @@ geom_errorbar(
   stat = "identity",
   position = "identity",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -39,8 +42,9 @@ geom_linerange(
   stat = "identity",
   position = "identity",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -51,9 +55,10 @@ geom_pointrange(
   stat = "identity",
   position = "identity",
   ...,
+  orientation = NA,
+  lineend = "butt",
   fatten = 4,
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -133,17 +138,19 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
 \item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{geom_crossbar()} and the middle point in
 \code{geom_pointrange()}.}
 
+\item{width}{Bar width. By default, set to 90\% of the \code{\link[=resolution]{resolution()}} of
+the data.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
-
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -157,6 +164,11 @@ but unobserved levels are omitted.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},
