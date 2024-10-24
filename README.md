@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="ggplot2 website" /></a>
 
 <!-- badges: start -->
 
