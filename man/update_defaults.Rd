@@ -31,7 +31,17 @@ Functions to update or reset the default aesthetics of geoms and stats.
 }
 \note{
 Please note that geom defaults can be set \emph{en masse} via the \code{theme(geom)}
-argument.
+argument. The guidelines for when to use which function are as follows:
+\itemize{
+\item If you want to change defaults for all geoms in all plots, use
+\code{theme_update(geom = element_geom(...))}.
+\item If you want to change defaults for all geoms in a single plot, use
+\code{+ theme(geom = element_geom(...))}.
+\item If you want to change defaults for one geom in all plots, use
+\code{update_geom_defaults()}.
+\item If you want to change settings for one geom in a single plot, use fixed
+aesthetic parameters in a layer, like so: \code{geom_point(colour = "red")}.
+}
 }
 \examples{
 
