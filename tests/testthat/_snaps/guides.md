@@ -63,6 +63,22 @@
     Breaks are not formatted correctly for a bin legend.
     i Use `(<lower>, <upper>]` format to indicate bins.
 
+# get_guide_data retrieves keys appropriately
+
+    Code
+      get_guide_data(b, 1)
+    Condition
+      Error in `get_guide_data()`:
+      ! `aesthetic` must be a single string, not the number 1.
+
+---
+
+    Code
+      get_guide_data(b, "x", panel = "a")
+    Condition
+      Error in `get_guide_data()`:
+      ! `panel` must be a whole number, not the string "a".
+
 # guide_axis_logticks calculates appropriate ticks
 
     The `prescale.base` argument will override the scale's log-10 transformation in log-tick positioning.

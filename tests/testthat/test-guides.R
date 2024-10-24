@@ -381,8 +381,8 @@ test_that("get_guide_data retrieves keys appropriately", {
   # Non-existent panels
   expect_null(get_guide_data(b, "x", panel = 4))
 
-  expect_error(get_guide_data(b, 1), "must be a single string")
-  expect_error(get_guide_data(b, "x", panel = "a"), "must be a whole number")
+  expect_snapshot(get_guide_data(b, 1), error = TRUE)
+  expect_snapshot(get_guide_data(b, "x", panel = "a"), error = TRUE)
 })
 
 test_that("get_guide_data retrieves keys from exotic coords", {

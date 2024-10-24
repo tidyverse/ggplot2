@@ -13,7 +13,7 @@ test_that("plot succeeds even if some computation fails", {
 
 test_that("error message is thrown when aesthetics are missing", {
   p <- ggplot(mtcars) + stat_sum()
-  expect_error(ggplot_build(p), "x and y\\.$")
+  expect_snapshot(ggplot_build(p), error = TRUE)
 })
 
 test_that("erroneously dropped aesthetics are found and issue a warning", {

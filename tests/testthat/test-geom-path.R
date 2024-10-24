@@ -35,7 +35,7 @@ test_that("stairstep() does not error with too few observations", {
 
 test_that("stairstep() exists with error when an invalid `direction` is given", {
   df <- data_frame(x = 1:3, y = 1:3)
-  expect_error(stairstep(df, direction="invalid"))
+  expect_snapshot(stairstep(df, direction = "invalid"), error = TRUE)
 })
 
 test_that("stairstep() output is correct for direction = 'vh'", {
