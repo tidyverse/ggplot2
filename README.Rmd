@@ -4,7 +4,8 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r}
+#| echo: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -26,7 +27,8 @@ ggplot2 is a system for declaratively creating graphics, based on [The Grammar o
 
 ## Installation
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 # The easiest way to get ggplot2 is to install the whole tidyverse:
 install.packages("tidyverse")
 
@@ -46,7 +48,8 @@ pak::pak("tidyverse/ggplot2")
 
 It's hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with `ggplot()`, supply a dataset and aesthetic mapping (with `aes()`). You then add on layers (like `geom_point()` or `geom_histogram()`), scales (like `scale_colour_brewer()`), faceting specifications (like `facet_wrap()`) and coordinate systems (like `coord_flip()`).
 
-```{r example}
+```{r}
+#| label: example
 #| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles
 #|  per gallon are inversely correlated."
