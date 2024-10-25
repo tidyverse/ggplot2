@@ -288,7 +288,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_margin <- calc_element("plot.margin", theme)
   plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
-  if (is.element(theme$plot.background)) {
+  if (is.theme_element(theme$plot.background)) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
