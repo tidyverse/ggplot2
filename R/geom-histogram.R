@@ -64,7 +64,7 @@
 #'   geom_freqpoly(binwidth = 500)
 #'
 #'
-#' # When using the non-equal-width bins, we need to set the area of the bars to
+#' # When using the non-equal-width bins, we should set the area of the bars to
 #' # represent the counts (not the height).
 #' # Here we're using 10 equi-probable bins:
 #' price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
