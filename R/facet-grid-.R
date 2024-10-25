@@ -129,9 +129,9 @@ NULL
 facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,
-                       switch = NULL, drop = TRUE, margins = FALSE,
+                       drop = TRUE, margins = FALSE,
                        axes = "margins", axis.labels = "all",
-                       facets = deprecated()) {
+                       facets = deprecated(), switch = deprecated()) {
   # `facets` is deprecated and renamed to `rows`
   if (lifecycle::is_present(facets)) {
     deprecate_warn0("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
@@ -170,8 +170,12 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     y = !draw_axes$y || any(axis_labels %in% c("all_y", "all"))
   )
 
-  if (!is.null(switch)) {
-    arg_match0(switch, c("both", "x", "y"))
+  if (lifecycle::is_present(switch)) {
+    deprecate_soft0("3.6.0", "facet_grid(switch)", "facet_grid(strip.position)")
+    switch <- arg_match0(switch, c("both", "x", "y"))
+    strip.position <- strip.position %||%
+      base::switch(switch, both = c("bottom", "left"), x = "bottom", y = "left")
+  }
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -183,7 +187,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     shrink = shrink,
     params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
-      as.table = as.table, switch = switch, drop = drop,
+      as.table = as.table, drop = drop,
       draw_axes = draw_axes, axis_labels = axis_labels)
   )
 }
