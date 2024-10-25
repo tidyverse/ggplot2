@@ -39,11 +39,9 @@ NULL
 #' @param as.table If `TRUE`, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If `FALSE`, the
 #'   facets are laid out like a plot with the highest value at the top-right.
-#' @param switch By default, the labels are displayed on the top and
-#'   right of the plot. If `"x"`, the top labels will be
-#'   displayed to the bottom. If `"y"`, the right-hand side
-#'   labels will be displayed to the left. Can also be set to
-#'   `"both"`.
+#' @param strip.position One or more of `"top"`, `"right"`, `"bottom"` and
+#'   `"left"`, indicating where strips should be placed. When `NULL` (default),
+#'   strips are placed on the top and on the right.
 #' @param shrink If `TRUE`, will shrink scales to fit output of
 #'   statistics, not raw data. If `FALSE`, will be range of raw data
 #'   before statistical summary.
@@ -57,6 +55,8 @@ NULL
 #'   default). If `TRUE`, margins are included for all faceting
 #'   variables. If specified as a character vector, it is the names of
 #'   variables for which margins are to be created.
+#' @param switch `r lifecycle::badge("deprecated")` Please use
+#'   `strip.position` instead.
 #' @param facets `r lifecycle::badge("deprecated")` Please use `rows`
 #'   and `cols` instead.
 #' @param axes Determines which axes will be drawn. When `"margins"`
