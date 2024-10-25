@@ -70,7 +70,7 @@
 #' price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
 #'
 #' ggplot(diamonds, aes(price)) +
-#'   geom_histogram(breaks = price_bins, color = "black") # wrong (height = count)
+#'   geom_histogram(breaks = price_bins, color = "black") # misleading (height = count)
 #'
 #' ggplot(diamonds, aes(price, after_stat(count / width))) +
 #'   geom_histogram(breaks = price_bins, color = "black") # area = count
