@@ -192,6 +192,12 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
 
+By default, the \emph{height} of the bars represent the counts within each bin.
+However, there are situations where this behavior might produce misleading
+plots (e.g., when non-equal-width bins are used), in which case it might be
+preferable to have the \emph{area} of the bars represent the counts (by setting
+\code{aes(y = after_stat(count / width))}). See example below.
+
 In addition to \code{geom_histogram()}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
 in between each bar.
@@ -215,7 +221,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(density)}\cr density of points in bin, scaled to integrate to 1.
 \item \code{after_stat(ncount)}\cr count, scaled to a maximum of 1.
 \item \code{after_stat(ndensity)}\cr density, scaled to a maximum of 1.
-\item \code{after_stat(width)}\cr widths of bins. Use with \code{after_stat(count / width)} to obtain bars with \emph{areas} representing counts (e.g., with non-equal-width bins). See example.
+\item \code{after_stat(width)}\cr widths of bins.
 }
 }
 
@@ -256,13 +262,13 @@ ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
 
 
-# When using the non-equal-width bins, we need to set the area of the bars to
+# When using the non-equal-width bins, we should set the area of the bars to
 # represent the counts (not the height).
 # Here we're using 10 equi-probable bins:
 price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
 
 ggplot(diamonds, aes(price)) +
-  geom_histogram(breaks = price_bins, color = "black") # wrong (height = count)
+  geom_histogram(breaks = price_bins, color = "black") # misleading (height = count)
 
 ggplot(diamonds, aes(price, after_stat(count / width))) +
   geom_histogram(breaks = price_bins, color = "black") # area = count

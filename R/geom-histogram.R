@@ -17,6 +17,12 @@
 #' one change at a time. You may need to look at a few options to uncover
 #' the full story behind your data.
 #'
+#' By default, the _height_ of the bars represent the counts within each bin.
+#' However, there are situations where this behavior might produce misleading
+#' plots (e.g., when non-equal-width bins are used), in which case it might be
+#' preferable to have the _area_ of the bars represent the counts (by setting
+#' `aes(y = after_stat(count / width))`). See example below.
+#'
 #' In addition to `geom_histogram()`, you can create a histogram plot by using
 #' `scale_x_binned()` with [geom_bar()]. This method by default plots tick marks
 #' in between each bar.
