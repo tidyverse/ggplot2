@@ -1,19 +1,3 @@
-# dots are checked when making guides
-
-    Ignoring unknown argument to `guide_axis()`: `foo`.
-
----
-
-    Arguments in `...` must be used.
-    x Problematic argument:
-    * foo = "bar"
-    i Did you misspell an argument name?
-
-# Using non-position guides for position scales results in an informative error
-
-    `guide_legend()` cannot be used for x, xmin, xmax, or xend.
-    i Use any non position aesthetic instead.
-
 # guide specifications are properly checked
 
     Unknown guide: test
@@ -53,16 +37,6 @@
 
     `nrow` * `ncol` needs to be larger than the number of breaks (5).
 
-# colorsteps and bins checks the breaks format
-
-    Breaks are not formatted correctly for a bin legend.
-    i Use `(<lower>, <upper>]` format to indicate bins.
-
----
-
-    Breaks are not formatted correctly for a bin legend.
-    i Use `(<lower>, <upper>]` format to indicate bins.
-
 # get_guide_data retrieves keys appropriately
 
     Code
@@ -78,10 +52,6 @@
     Condition
       Error in `get_guide_data()`:
       ! `panel` must be a whole number, not the string "a".
-
-# guide_axis_logticks calculates appropriate ticks
-
-    The `prescale.base` argument will override the scale's log-10 transformation in log-tick positioning.
 
 # binning scales understand the different combinations of limits, breaks, labels, and show.limits
 
