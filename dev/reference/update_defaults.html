@@ -100,8 +100,15 @@
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>Please note that geom defaults can be set <em>en masse</em> via the <code>theme(geom)</code>
-argument.</p>
-    </div>
+argument. The guidelines for when to use which function are as follows:</p><ul><li><p>If you want to change defaults for all geoms in all plots, use
+<code>theme_update(geom = element_geom(...))</code>.</p></li>
+<li><p>If you want to change defaults for all geoms in a single plot, use
+<code>+ theme(geom = element_geom(...))</code>.</p></li>
+<li><p>If you want to change defaults for one geom in all plots, use
+<code>update_geom_defaults()</code>.</p></li>
+<li><p>If you want to change settings for one geom in a single plot, use fixed
+aesthetic parameters in a layer, like so: <code>geom_point(colour = "red")</code>.</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
