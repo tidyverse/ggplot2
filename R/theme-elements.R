@@ -414,6 +414,16 @@ register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
   t <- theme(..., complete = complete)
   ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
 
+  # Check element tree, prevent elements from being their own parent (#6162)
+  bad_parent <- unlist(Map(
+    function(name, el) any(name %in% el$inherit),
+    name = names(element_tree), el = element_tree
+  ))
+  if (any(bad_parent)) {
+    bad_parent <- names(element_tree)[bad_parent]
+    cli::cli_abort("Invalid parent: {.and {.val {bad_parent}}}.")
+  }
+
   # Merge element trees
   ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
 
