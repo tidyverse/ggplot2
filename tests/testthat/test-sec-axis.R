@@ -14,7 +14,7 @@ test_that("sec_axis checks the user input", {
   p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(.))
   expect_snapshot_error(ggplot_build(p))
 
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(./100))
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(. / 100))
   expect_silent(ggplot_build(p))
 })
 
@@ -43,7 +43,7 @@ test_that("sec_axis() works with subtraction", {
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_y_continuous(
-      sec.axis = sec_axis(~1-.)
+      sec.axis = sec_axis(~1 - .)
     )
   scale <- get_panel_scales(p)$y
   expect_equal(scale$sec_name(), scale$name)
@@ -248,8 +248,7 @@ test_that("sec_axis() respects custom transformations", {
           magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =
           c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits =
           c(0.001, 1), sec.axis = sec_axis(
-          transform =
-            ~ . * (1 / 2), breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
+          transform = ~ . * (1 / 2), breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
         )
       ) + theme_linedraw()
   )
@@ -260,12 +259,10 @@ test_that("sec_axis works with date/time/datetime scales", {
   withr::local_locale(c(LC_TIME = "C"))
 
   df <- data_frame(
-    dx = seq(as.POSIXct("2012-02-29 12:00:00",
-      tz = "UTC",
-      format = "%Y-%m-%d %H:%M:%S"
-    ),
-    length.out = 10, by = "4 hour"
-    ),
+    dx = seq(as.POSIXct(
+      "2012-02-29 12:00:00",
+      tz = "UTC", format = "%Y-%m-%d %H:%M:%S"
+    ), length.out = 10, by = "4 hour"),
     price = seq(20, 200000, length.out = 10)
   )
   df$date <- as.Date(df$dx)
@@ -383,7 +380,7 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
 
 test_that("discrete scales can have secondary axes", {
 
-  data <- data.frame(x = c("A", "B", "C"), y = c("D", "E", "F"))
+  data <- data_frame0(x = c("A", "B", "C"), y = c("D", "E", "F"))
   p <- ggplot(data, aes(x, y)) +
     geom_point() +
     scale_x_discrete(sec.axis = dup_axis(labels = c("foo", "bar", "baz"))) +
@@ -407,7 +404,7 @@ test_that("n.breaks is respected by secondary axes (#4483)", {
     ggplot(data.frame(x = c(0, 10)), aes(x, x)) +
       scale_y_continuous(
         n.breaks = 11,
-        sec.axis = sec_axis(~.x*100)
+        sec.axis = sec_axis(~.x * 100)
       )
   )
 

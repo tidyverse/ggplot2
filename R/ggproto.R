@@ -127,7 +127,7 @@ fetch_ggproto <- function(x, name) {
     } else {
       cli::cli_abort(c(
         "{class(x)[[1]]} was built with an incompatible version of ggproto.",
-        "i" = "Please reinstall the package that provides this extension."
+        i = "Please reinstall the package that provides this extension."
       ))
     }
   }
@@ -207,10 +207,8 @@ make_proto_method <- function(self, f, name) {
 as.list.ggproto <- function(x, inherit = TRUE, ...) {
   res <- list()
 
-  if (inherit) {
-    if (is.function(x$super)) {
-      res <- as.list(x$super())
-    }
+  if (inherit && is.function(x$super)) {
+    res <- as.list(x$super())
   }
 
   current <- as.list.environment(x, ...)
@@ -259,7 +257,7 @@ format.ggproto <-  function(x, ..., flat = TRUE) {
     classes <- setdiff(class(obj), "ggproto")
     if (length(classes) == 0)
       return("")
-    paste0(": Class ", paste(classes, collapse = ', '))
+    paste0(": Class ", paste(classes, collapse = ", "))
   }
 
   # Get a flat list if requested
@@ -310,14 +308,14 @@ object_summaries <- function(x, exclude = NULL, flat = TRUE) {
     else paste(class(obj), collapse = ", ")
   }, FUN.VALUE = character(1))
 
-  paste0(obj_names, ": ", values, sep = "", collapse = "\n")
+  paste0(obj_names, ": ", values, collapse = "\n")
 }
 
 # Given a string, indent every line by some number of spaces.
 # The exception is to not add spaces after a trailing \n.
 indent <- function(str, indent = 0) {
   gsub("(\\n|^)(?!$)",
-    paste0("\\1", paste(rep(" ", indent), collapse = "")),
+    paste0("\\1", strrep(" ", indent)),
     str,
     perl = TRUE
   )
@@ -391,4 +389,3 @@ ggproto_debug <- function(method, debug = c("once", "always", "never"), ...) {
     never  = undebug(method, ...)
   )
 }
-

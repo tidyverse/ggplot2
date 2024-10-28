@@ -183,7 +183,7 @@ check_inherits <- function(x,
 #' # Possibly throw an error
 #' try(check_device("glyphs", action = "abort"))
 check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
-                        call = caller_env()) {
+                         call = caller_env()) {
 
   check_bool(maybe, allow_na = TRUE)
 
@@ -229,10 +229,10 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
   capable <- switch(
     feature,
     glyphs = version >= "4.3.0",
-    paths =, transformations =, compositing =,
-    patterns =, lumi_masks =, blending =,
+    paths = , transformations = , compositing = ,
+    patterns = , lumi_masks = , blending = ,
     gradients = version >= "4.2.0",
-    alpha_masks =,
+    alpha_masks = ,
     clippingPaths = version >= "4.1.0",
     TRUE
   )
@@ -270,7 +270,7 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
   if (!is.null(op) && feature %in% c("blending", "compositing")) {
     op <- arg_match0(op, c(.blend_ops, .compo_ops))
     .blend_ops <- .compo_ops <- op
-    feat_name <- paste0("'", gsub("\\.", " ", op), "' ", feat_name)
+    feat_name <- paste0("'", gsub(".", " ", op, fixed = TRUE), "' ", feat_name)
   }
 
   # The dev.capabilities() approach may work from R 4.2.0 onwards

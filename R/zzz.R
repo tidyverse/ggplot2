@@ -35,7 +35,5 @@ on_load(
 }
 
 release_questions <- function() {
-  c(
-    "Have you built the book?"
-  )
+  "Have you built the book?"
 }

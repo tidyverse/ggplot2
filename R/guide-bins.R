@@ -99,7 +99,7 @@ guide_bins <- function(
     show.limits = show.limits,
 
     # parameter
-    available_aes = c("any"),
+    available_aes = "any",
     ...,
     name = "bins",
     super = GuideBins
@@ -122,7 +122,6 @@ GuideBins <- ggproto(
     default_ticks = element_line(inherit.blank = TRUE),
 
     angle = NULL,
-    direction = NULL,
     override.aes = list(),
     reverse = FALSE,
     order = 0,
@@ -166,15 +165,15 @@ GuideBins <- ggproto(
     } else {
       limit_lab <- scale$get_labels(limits)
     }
-    if (!breaks[1] %in% limits) {
-      labels <- c(limit_lab[1], labels)
-    } else {
+    if (breaks[1] %in% limits) {
       key$.show[1] <- TRUE
-    }
-    if (!breaks[length(breaks)] %in% limits) {
-      labels <- c(labels, limit_lab[2])
     } else {
+      labels <- c(limit_lab[1], labels)
+    }
+    if (breaks[length(breaks)] %in% limits) {
       key$.show[nrow(key)] <- TRUE
+    } else {
+      labels <- c(labels, limit_lab[2])
     }
 
     key$.label <- labels
@@ -193,7 +192,7 @@ GuideBins <- ggproto(
       cli::cli_warn(c(paste0(
         "{.arg show.limits} is ignored when {.arg labels} are given as a ",
         "character vector."
-      ), "i" = paste0(
+      ), i = paste0(
         "Either add the limits to {.arg breaks} or provide a function for ",
         "{.arg labels}."
       )))
@@ -226,8 +225,8 @@ GuideBins <- ggproto(
   setup_elements = function(params, elements, theme) {
     valid_position <- switch(
       params$direction,
-      "horizontal" = c("bottom", "top"),
-      "vertical"   = c("right",  "left")
+      horizontal = c("bottom", "top"),
+      vertical   = c("right",  "left")
     )
 
     # Set defaults
@@ -314,10 +313,10 @@ GuideBins <- ggproto(
 
     axis <- switch(
       elements$text_position,
-      "top"    = list(x = c(0, 1), y = c(1, 1)),
-      "bottom" = list(x = c(0, 1), y = c(0, 0)),
-      "left"   = list(x = c(0, 0), y = c(0, 1)),
-      "right"  = list(x = c(1, 1), y = c(0, 1))
+      top    = list(x = c(0, 1), y = c(1, 1)),
+      bottom = list(x = c(0, 1), y = c(0, 0)),
+      left   = list(x = c(0, 0), y = c(0, 1)),
+      right  = list(x = c(1, 1), y = c(0, 1))
     )
     axis <- element_grob(elements$axis_line, x = axis$x, y = axis$y)
 
@@ -358,7 +357,7 @@ parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
     if (anyNA(nums)) {
       cli::cli_abort(c(
         "Breaks are not formatted correctly for a bin legend.",
-        "i" = "Use {.code (<lower>, <upper>]} format to indicate bins."
+        i = "Use {.code (<lower>, <upper>]} format to indicate bins."
       ))
     }
     all_breaks <- nums[c(1, seq_along(breaks) * 2)]

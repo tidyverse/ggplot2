@@ -252,7 +252,7 @@ GuideColourbar <- ggproto(
       .size  = length(bar)
     )
     if (reverse) {
-      bar <- bar[nrow(bar):1, , drop = FALSE]
+      bar <- vec_slice(bar, rev(vec_seq_along(bar)))
     }
     return(bar)
   },
@@ -344,8 +344,8 @@ GuideColourbar <- ggproto(
     if (!params$draw_lim[2]) pos <- pos[-length(pos)]
     position <- switch(
       params$direction,
-      "horizontal" = c("bottom", "top"),
-      "vertical"   = c("right", "left")
+      horizontal = c("bottom", "top"),
+      vertical   = c("right", "left")
     )
     ticks_length <- rep(elements$ticks_length, length.out = 2)
 
@@ -359,8 +359,8 @@ GuideColourbar <- ggproto(
     if (params$display == "raster") {
       image <- switch(
         params$direction,
-        "horizontal" = t(decor$colour),
-        "vertical"   = rev(decor$colour)
+        horizontal = t(decor$colour),
+        vertical   = rev(decor$colour)
       )
       grob <- rasterGrob(
         image  = image,

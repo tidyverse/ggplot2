@@ -29,26 +29,30 @@ ggplot_global$all_aesthetics <- .all_aesthetics
 # (In the future, .base_to_ggplot should be removed in favor
 # of direct assignment to ggplot_global$base_to_ggplot, see below.)
 .base_to_ggplot <- c(
-  "col"   = "colour",
-  "color" = "colour",
-  "pch"   = "shape",
-  "cex"   = "size",
-  "lty"   = "linetype",
-  "lwd"   = "linewidth",
-  "srt"   = "angle",
-  "adj"   = "hjust",
-  "bg"    = "fill",
-  "fg"    = "colour",
-  "min"   = "ymin",
-  "max"   = "ymax"
+  col   = "colour",
+  color = "colour",
+  pch   = "shape",
+  cex   = "size",
+  lty   = "linetype",
+  lwd   = "linewidth",
+  srt   = "angle",
+  adj   = "hjust",
+  bg    = "fill",
+  fg    = "colour",
+  min   = "ymin",
+  max   = "ymax"
 )
 
 ggplot_global$base_to_ggplot <- .base_to_ggplot
 
 # These two vectors must match in length and position of symmetrical aesthetics
 # xintercept2 is a filler to match to the intercept aesthetic in geom_abline
-ggplot_global$x_aes <- c("x", "xmin", "xmax", "xend", "xintercept",
-  "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0")
+ggplot_global$x_aes <- c(
+  "x", "xmin", "xmax", "xend", "xintercept",
+  "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0"
+)
 
-ggplot_global$y_aes <- c("y", "ymin", "ymax", "yend", "yintercept",
-  "ymin_final", "ymax_final", "lower", "middle", "upper", "y0")
+ggplot_global$y_aes <- c(
+  "y", "ymin", "ymax", "yend", "yintercept",
+  "ymin_final", "ymax_final", "lower", "middle", "upper", "y0"
+)

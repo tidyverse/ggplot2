@@ -115,7 +115,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       cli::cli_warn(c(
         "Width not defined",
-        "i" = "Set with {.code position_dodge(width = ...)}"
+        i = "Set with {.code position_dodge(width = ...)}"
       ))
     }
 

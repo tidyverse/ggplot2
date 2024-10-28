@@ -139,4 +139,3 @@ GeomContour <- ggproto("GeomContour", GeomPath,
 #' @export
 #' @include geom-polygon.R
 GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
-

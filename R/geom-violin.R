@@ -160,7 +160,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
-    newdata <- vec_rbind0(newdata, newdata[1,])
+    newdata <- vec_rbind0(newdata, newdata[1, ])
     newdata <- flip_data(newdata, flipped_aes)
 
     # Draw quantiles if requested, so long as there is non-zero y range
@@ -188,8 +188,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
       ggname("geom_violin", grobTree(
         GeomPolygon$draw_panel(newdata, ...),
-        quantile_grob)
-      )
+        quantile_grob
+      ))
     } else {
       ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
     }
@@ -228,4 +228,3 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
     group = rep(ys, each = 2)
   )
 }
-

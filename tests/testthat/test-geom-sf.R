@@ -3,26 +3,29 @@ test_that("geom_sf() determines the legend type automatically", {
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
 
   mp <- sf::st_sf(
-    geometry = sf::st_sfc(sf::st_multipoint(rbind(c(1,1), c(2,2), c(3,3)))),
-    v = "a")
+    geometry = sf::st_sfc(sf::st_multipoint(rbind(c(1, 1), c(2, 2), c(3, 3)))),
+    v = "a"
+  )
 
-  s1 <- rbind(c(0,3),c(0,4),c(1,5),c(2,5))
-  s2 <- rbind(c(0.2,3), c(0.2,4), c(1,4.8), c(2,4.8))
-  s3 <- rbind(c(0,4.4), c(0.6,5))
+  s1 <- rbind(c(0, 3), c(0, 4), c(1, 5), c(2, 5))
+  s2 <- rbind(c(0.2, 3), c(0.2, 4), c(1, 4.8), c(2, 4.8))
+  s3 <- rbind(c(0, 4.4), c(0.6, 5))
 
   mls <- sf::st_sf(
-    geometry = sf::st_sfc(sf::st_multilinestring(list(s1,s2,s3))),
-    v = "a")
+    geometry = sf::st_sfc(sf::st_multilinestring(list(s1, s2, s3))),
+    v = "a"
+  )
 
-  p1 <- rbind(c(0,0), c(1,0), c(3,2), c(2,4), c(1,4), c(0,0))
-  p2 <- rbind(c(1,1), c(1,2), c(2,2), c(1,1))
-  p3 <- rbind(c(3,0), c(4,0), c(4,1), c(3,1), c(3,0))
-  p4 <- rbind(c(3.3,0.3), c(3.8,0.3), c(3.8,0.8), c(3.3,0.8), c(3.3,0.3))[5:1,]
-  p5 <- rbind(c(3,3), c(4,2), c(4,3), c(3,3))
+  p1 <- rbind(c(0, 0), c(1, 0), c(3, 2), c(2, 4), c(1, 4), c(0, 0))
+  p2 <- rbind(c(1, 1), c(1, 2), c(2, 2), c(1, 1))
+  p3 <- rbind(c(3, 0), c(4, 0), c(4, 1), c(3, 1), c(3, 0))
+  p4 <- rbind(c(3.3, 0.3), c(3.8, 0.3), c(3.8, 0.8), c(3.3, 0.8), c(3.3, 0.3))[5:1, ]
+  p5 <- rbind(c(3, 3), c(4, 2), c(4, 3), c(3, 3))
 
   mpol <- sf::st_sf(
-    geometry = sf::st_sfc(sf::st_multipolygon(list(list(p1,p2), list(p3,p4), list(p5)))),
-    v = "a")
+    geometry = sf::st_sfc(sf::st_multipolygon(list(list(p1, p2), list(p3, p4), list(p5)))),
+    v = "a"
+  )
 
   fun_geom_sf <- function(sf, show.legend) {
     p <- ggplot() + geom_sf(aes(colour = v), data = sf, show.legend = show.legend)
@@ -54,10 +57,10 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
   skip_if_not_installed("sf")
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
 
-  p1 <- rbind(c(1,1), c(2,2), c(3,3))
-  s1 <- rbind(c(0,3), c(0,4), c(1,5), c(2,5))
-  s2 <- rbind(c(0.2,3), c(0.2,4), c(1,4.8), c(2,4.8))
-  s3 <- rbind(c(0,4.4), c(0.6,5))
+  p1 <- rbind(c(1, 1), c(2, 2), c(3, 3))
+  s1 <- rbind(c(0, 3), c(0, 4), c(1, 5), c(2, 5))
+  s2 <- rbind(c(0.2, 3), c(0.2, 4), c(1, 4.8), c(2, 4.8))
+  s3 <- rbind(c(0, 4.4), c(0.6, 5))
 
   d_sf <- sf::st_sf(
     g_point = sf::st_sfc(sf::st_multipoint(p1)),
@@ -195,7 +198,7 @@ test_that("geom_sf data type renders appropriate legends", {
 
   # Point data
   data <- sf::st_as_sf(
-    data.frame(lon = c(1, 2), lat = c(3, 4), col = c("foo", "bar")),
+    data_frame0(lon = c(1, 2), lat = c(3, 4), col = c("foo", "bar")),
     coords = c("lon", "lat")
   )
   expect_doppelganger(
@@ -233,7 +236,7 @@ test_that("geom_sf data type renders appropriate legends", {
 test_that("geom_sf uses combinations of geometry correctly", {
   skip_if_not_installed("sf")
 
-  t <- seq(0, 2 *pi, length.out = 10)
+  t <- seq(0, 2 * pi, length.out = 10)
   data <- sf::st_sf(sf::st_sfc(
     sf::st_multipoint(cbind(1:2, 3:4)),
     sf::st_multilinestring(list(
@@ -306,19 +309,20 @@ test_that("geom_sf draws arrows correctly", {
   )
 
   nc <- sf::st_linestring(
-      sf::st_coordinates(sf::st_as_sf(nc_tiny_coords, coords = c("x", "y"), crs = 4326))
-    )
+    sf::st_coordinates(sf::st_as_sf(nc_tiny_coords, coords = c("x", "y"), crs = 4326))
+  )
 
   nc2 <- sf::st_cast(
     sf::st_sfc(
       sf::st_multilinestring(lapply(
         1:(length(sf::st_coordinates(nc)[, 1]) - 1),
-          function(x) rbind(
+        function(x) {
+          rbind(
             as.numeric(sf::st_coordinates(nc)[x, 1:2]),
             as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
-            )
-        )
-      )
+          )
+        }
+      ))
     ), "LINESTRING"
   )
 

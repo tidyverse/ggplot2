@@ -154,7 +154,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
     p <- p + do.call(paste0("geom_", g), params)
   }
 
-  logv <- function(var) var %in% strsplit(log, "")[[1]]
+  logv <- function(var) var %in% strsplit(log, "", fixed = TRUE)[[1]]
 
   if (logv("x")) p <- p + scale_x_log10()
   if (logv("y")) p <- p + scale_y_log10()

@@ -168,25 +168,33 @@ Facet <- ggproto("Facet", NULL,
 
     xlab_height_top <- grobHeight(labels$x[[1]])
     panels <- gtable_add_rows(panels, xlab_height_top, pos = 0)
-    panels <- gtable_add_grob(panels, labels$x[[1]], name = "xlab-t",
-      l = panel_dim$l, r = panel_dim$r, t = 1, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$x[[1]], name = "xlab-t",
+      l = panel_dim$l, r = panel_dim$r, t = 1, clip = "off"
+    )
 
     xlab_height_bottom <- grobHeight(labels$x[[2]])
     panels <- gtable_add_rows(panels, xlab_height_bottom, pos = -1)
-    panels <- gtable_add_grob(panels, labels$x[[2]], name = "xlab-b",
-      l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$x[[2]], name = "xlab-b",
+      l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off"
+    )
 
     panel_dim <-  find_panel(panels)
 
     ylab_width_left <- grobWidth(labels$y[[1]])
     panels <- gtable_add_cols(panels, ylab_width_left, pos = 0)
-    panels <- gtable_add_grob(panels, labels$y[[1]], name = "ylab-l",
-      l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$y[[1]], name = "ylab-l",
+      l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off"
+    )
 
     ylab_width_right <- grobWidth(labels$y[[2]])
     panels <- gtable_add_cols(panels, ylab_width_right, pos = -1)
-    panels <- gtable_add_grob(panels, labels$y[[2]], name = "ylab-r",
-      l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+    panels <- gtable_add_grob(
+      panels, labels$y[[2]], name = "ylab-r",
+      l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off"
+    )
 
     panels
   },
@@ -365,8 +373,11 @@ unique_combs <- function(df) {
   if (length(df) == 0) return()
 
   unique_values <- lapply(df, ulevels)
-  rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
-    KEEP.OUT.ATTRS = TRUE))
+  rev(expand.grid(
+    rev(unique_values),
+    stringsAsFactors = FALSE,
+    KEEP.OUT.ATTRS = TRUE
+  ))
 }
 
 df.grid <- function(a, b) {
@@ -449,7 +460,7 @@ validate_facets <- function(x) {
   if (inherits(x, "gg")) {
     cli::cli_abort(c(
       "Please use {.fn vars} to supply facet variables.",
-      "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+      i = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
   x
@@ -493,7 +504,9 @@ simplify <- function(x) {
   if (length(x) < 3) {
     return(list(x))
   }
-  op <- x[[1]]; a <- x[[2]]; b <- x[[3]]
+  op <- x[[1]]
+  a  <- x[[2]]
+  b  <- x[[3]]
 
   if (is_symbol(op, c("+", "*", "~"))) {
     c(simplify(a), simplify(b))
@@ -606,7 +619,7 @@ check_facet_vars <- function(..., name) {
   if (length(problems) != 0) {
     cli::cli_abort(c(
       "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables.",
-      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
+      i = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
     ), call = call2(name))
   }
 }
@@ -664,13 +677,13 @@ find_panel <- function(table) {
 #' @export
 panel_cols <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique0(panels[, c('l', 'r')])
+  unique0(panels[, c("l", "r")])
 }
 #' @rdname find_panel
 #' @export
 panel_rows <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-  unique0(panels[, c('t', 'b')])
+  unique0(panels[, c("t", "b")])
 }
 #' Take input data and define a mapping between faceting variables and ROW,
 #' COL and PANEL keys
@@ -716,7 +729,9 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
 
   # Systematically add on missing combinations
   for (value in values[!has_all]) {
-    if (empty(value)) next;
+    if (empty(value)) {
+      next
+    }
 
     old <- base[setdiff(names(base), names(value))]
     new <- unique0(value[intersect(names(base), names(value))])

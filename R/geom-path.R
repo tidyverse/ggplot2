@@ -205,8 +205,22 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     munched$fill <- arrow.fill %||% munched$colour
 
-    if (!constant) {
-
+    if (constant) {
+      id <- match(munched$group, unique0(munched$group))
+      polylineGrob(
+        munched$x, munched$y, id = id,
+        default.units = "native", arrow = arrow,
+        gp = gg_par(
+          col = alpha(munched$colour, munched$alpha)[start],
+          fill = alpha(munched$fill, munched$alpha)[start],
+          lwd = munched$linewidth[start],
+          lty = munched$linetype[start],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        )
+      )
+    } else {
       arrow <- repair_segment_arrow(arrow, munched$group)
 
       segmentsGrob(
@@ -217,21 +231,6 @@ GeomPath <- ggproto("GeomPath", Geom,
           fill = alpha(munched$fill, munched$alpha)[!end],
           lwd = munched$linewidth[!end],
           lty = munched$linetype[!end],
-          lineend = lineend,
-          linejoin = linejoin,
-          linemitre = linemitre
-        )
-      )
-    } else {
-      id <- match(munched$group, unique0(munched$group))
-      polylineGrob(
-        munched$x, munched$y, id = id,
-        default.units = "native", arrow = arrow,
-        gp = gg_par(
-          col = alpha(munched$colour, munched$alpha)[start],
-          fill = alpha(munched$fill, munched$alpha)[start],
-          lwd = munched$linewidth[start],
-          lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
           linemitre = linemitre
@@ -374,22 +373,22 @@ stairstep <- function(data, direction = "hv") {
   }
 
   if (direction == "vh") {
-    xs <- rep(1:n, each = 2)[-2*n]
+    xs <- rep(1:n, each = 2)[-2 * n]
     ys <- c(1, rep(2:n, each = 2))
   } else if (direction == "hv") {
-    ys <- rep(1:n, each = 2)[-2*n]
+    ys <- rep(1:n, each = 2)[-2 * n]
     xs <- c(1, rep(2:n, each = 2))
   } else if (direction == "mid") {
-    xs <- rep(1:(n-1), each = 2)
+    xs <- rep(1:(n - 1), each = 2)
     ys <- rep(1:n, each = 2)
   }
 
   if (direction == "mid") {
     gaps <- data$x[-1] - data$x[-n]
-    mid_x <- data$x[-n] + gaps/2 # map the mid-point between adjacent x-values
+    mid_x <- data$x[-n] + gaps / 2 # map the mid-point between adjacent x-values
     x <- c(data$x[1], mid_x[xs], data$x[n])
     y <- c(data$y[ys])
-    data_attr <- data[c(1,xs,n), setdiff(names(data), c("x", "y"))]
+    data_attr <- data[c(1, xs, n), setdiff(names(data), c("x", "y"))]
   } else {
     x <- data$x[xs]
     y <- data$y[ys]

@@ -227,7 +227,7 @@ summarise_by_x <- function(data, summary, ...) {
 #
 # @keyword internal
 uniquecols <- function(df) {
-  df <- df[1, sapply(df, is_unique), drop = FALSE]
+  df <- df[1, vapply(df, is_unique, logical(1)), drop = FALSE]
   attr(df, "row.names") <- .set_row_names(nrow(df))
   df
 }

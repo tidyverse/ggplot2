@@ -1,7 +1,7 @@
 
 # Visual tests ------------------------------------------------------------
 
-skip_if(utils::packageVersion('grid') < "3.6")
+skip_if(utils::packageVersion("grid") < "3.6")
 test_that("geom_polygon draws correctly", {
 
   tbl <- data_frame(

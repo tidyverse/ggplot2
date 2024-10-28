@@ -128,7 +128,7 @@ Stat <- ggproto("Stat",
     # Record columns that are not constant within groups. We will drop them later.
     non_constant_columns <- character(0)
 
-    stats <- mapply(function(new, old) {
+    stats <- Map(function(new, old) {
       # In this function,
       #
       #   - `new` is the computed result. All the variables will be picked.
@@ -160,7 +160,7 @@ Stat <- ggproto("Stat",
         # one of the group has a constant value (see #4394 for the details).
         old[rep(1, nrow(new)), , drop = FALSE]
       )
-    }, stats, groups, SIMPLIFY = FALSE)
+    }, stats, groups)
 
     non_constant_columns <- unique0(non_constant_columns)
 
@@ -172,8 +172,8 @@ Stat <- ggproto("Stat",
     if (length(dropped) > 0) {
       cli::cli_warn(c(
         "The following aesthetics were dropped during statistical transformation: {.field {dropped}}.",
-        "i" = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
-        "i" = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
+        i = "This can happen when ggplot fails to infer the correct grouping structure in the data.",
+        i = "Did you forget to specify a {.code group} aesthetic or to convert a numerical variable into a factor?"
       ))
     }
 
@@ -212,7 +212,7 @@ Stat <- ggproto("Stat",
     if (is.null(self$required_aes)) {
       required_aes <- NULL
     } else {
-      required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+      required_aes <- unlist(strsplit(self$required_aes, "|", fixed = TRUE))
     }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }

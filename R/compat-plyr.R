@@ -109,16 +109,14 @@ id <- function(.variables, drop = FALSE) {
   if (n > 2^31) {
     char_id <- inject(paste(!!!ids, sep = "\r"))
     res <- match(char_id, unique0(char_id))
-  }
-  else {
+  } else {
     combs <- c(1, cumprod(ndistinct[-p]))
     mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {
     id_var(res, drop = TRUE)
-  }
-  else {
+  } else {
     res <- as.integer(res)
     attr(res, "n") <- n
     res
@@ -170,7 +168,7 @@ join_keys <- function(x, y, by) {
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   check_numeric(x)
-  f(x/accuracy) * accuracy
+  f(x / accuracy) * accuracy
 }
 
 #' Apply function to unique subsets of a data.frame

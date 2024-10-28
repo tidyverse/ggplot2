@@ -93,7 +93,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatEcdf <- ggproto("StatEcdf", Stat,
-  required_aes = c("x|y"),
+  required_aes = "x|y",
 
   default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf), weight = NULL),
 
@@ -151,7 +151,7 @@ wecdf <- function(x, weights = NULL) {
     cli::cli_warn(c(paste0(
       "The {.field weight} aesthetic does not support non-finite or ",
       "{.code NA} values."
-    ), "i" = "These weights were replaced by {.val 0}."))
+    ), i = "These weights were replaced by {.val 0}."))
     weights[!is.finite(weights)] <- 0
   }
 
@@ -167,7 +167,7 @@ wecdf <- function(x, weights = NULL) {
     }
     cli::cli_warn(c(
       "The sum of the {.field weight} aesthetic is close to {.val 0}.",
-      "i" = "Computed eCDF might be unstable."
+      i = "Computed eCDF might be unstable."
     ))
   }
 

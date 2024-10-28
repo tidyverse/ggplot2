@@ -83,7 +83,8 @@ draw_key_polygon <- function(data, params, size) {
       lwd = lwd,
       linejoin = params$linejoin %||% "mitre",
       lineend = params$lineend %||% "butt"
-  ))
+    )
+  )
 
   # Magic number is 5 because we convert mm to cm (divide by 10) but we
   # draw two lines in each direction (times 2)

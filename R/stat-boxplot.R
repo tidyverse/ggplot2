@@ -47,7 +47,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
-  required_aes = c("y|x"),
+  required_aes = "y|x",
   non_missing_aes = "weight",
   # either the x or y aesthetic will get dropped during
   # statistical transformation, depending on the orientation
@@ -81,7 +81,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     if (!is_mapped_discrete(data$x) && is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       cli::cli_warn(c(
         "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
-        "i" = "did you forget {.code aes(group = ...)}?"
+        i = "did you forget {.code aes(group = ...)}?"
       ))
     }
 

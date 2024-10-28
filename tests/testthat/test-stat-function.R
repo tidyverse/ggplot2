@@ -23,25 +23,25 @@ test_that("uses scale limits, not data limits", {
 })
 
 test_that("works in plots without any data", {
-  f <- function(x) 2*x
+  f <- function(x) 2 * x
 
   # default limits, 0 to 1
   base <- ggplot() + geom_function(fun = f, n = 6)
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 1, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
 
   # manually set limits with xlim()
   base <- ggplot() + xlim(0, 2) + geom_function(fun = f, n = 6)
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 2, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
 
   # manually set limits with xlim argument
   base <- ggplot() + geom_function(fun = f, n = 6, xlim = c(0, 2))
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 2, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
 
   # mapping of color via aes() works
   base <- ggplot() +
@@ -49,7 +49,7 @@ test_that("works in plots without any data", {
     scale_color_manual(values = c(fun = "#D55E00"))
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 1, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
   expect_identical(ret$colour, rep("#D55E00", 6))
 })
 
@@ -133,7 +133,11 @@ test_that("works with formula syntax", {
 test_that("Warn when drawing multiple copies of the same function", {
   df <- data_frame(x = 1:3, y = letters[1:3])
   p <- ggplot(df, aes(x, color = y)) + stat_function(fun = identity)
-  f <- function() {pdf(NULL); print(p); dev.off()}
+  f <- function() {
+    pdf(NULL)
+    print(p)
+    dev.off()
+  }
   expect_warning(f(), "Multiple drawing groups")
 })
 

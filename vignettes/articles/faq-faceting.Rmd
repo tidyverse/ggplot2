@@ -21,7 +21,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.asp = 0.618,
   fig.width = 6,
-  out.width = "80%")
+  out.width = "80%"
+)
 ```
 
 ## Panes
@@ -322,11 +323,13 @@ With the following you can customize the facet labels first with `as_labeller()`
 #|  the left of each panel. The two y-axes have different ranges."
 ggplot(df, aes(x = year, y = price)) +
   geom_smooth() +
-  facet_wrap(~ country, ncol = 1, scales = "free_y", 
-             labeller = as_labeller(
-               c(US = "US Dollars (USD)", Japan = "Japanese Yens (JPY)")), 
-             strip.position = "left"
-             ) +
+  facet_wrap(
+    ~ country, ncol = 1, scales = "free_y", 
+    strip.position = "left",
+    labeller = as_labeller(
+      c(US = "US Dollars (USD)", Japan = "Japanese Yens (JPY)")
+    )
+  ) +
   scale_x_continuous(breaks = 2011:2020) +
   labs(y = NULL) +
   theme(strip.background = element_blank(), strip.placement = "outside")

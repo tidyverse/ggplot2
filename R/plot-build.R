@@ -27,7 +27,7 @@ ggplot_build <- function(plot) {
   # Attaching the plot env to be fetched by deprecations etc.
   attach_plot_env(plot$plot_env)
 
-  UseMethod('ggplot_build')
+  UseMethod("ggplot_build")
 }
 
 #' @export
@@ -197,7 +197,7 @@ ggplot_gtable <- function(data) {
   # Attaching the plot env to be fetched by deprecations etc.
   attach_plot_env(data$plot$plot_env)
 
-  UseMethod('ggplot_gtable')
+  UseMethod("ggplot_gtable")
 }
 
 #' @export
@@ -271,16 +271,22 @@ ggplot_gtable.ggplot_built <- function(data) {
   }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
-    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table, subtitle, name = "subtitle",
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off"
+  )
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table, title, name = "title",
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off"
+  )
 
   plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
-  plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
-    t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table, caption, name = "caption",
+    t = -1, b = -1, l = caption_l, r = caption_r, clip = "off"
+  )
 
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
@@ -292,7 +298,7 @@ ggplot_gtable.ggplot_built <- function(data) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
-    plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
+    plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)), ]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
   }
 
@@ -322,10 +328,8 @@ by_layer <- function(f, layers, data, step = NULL) {
     error = function(cnd) {
       cli::cli_abort(c(
         "Problem while {step}.",
-        "i" = "Error occurred in the {ordinal(i)} layer."),
-        call = layers[[i]]$constructor,
-        parent = cnd
-      )
+        i = "Error occurred in the {ordinal(i)} layer."
+      ), call = layers[[i]]$constructor, parent = cnd)
     }
   )
   out
@@ -387,7 +391,10 @@ table_add_tag <- function(table, label, theme) {
   width  <- grobWidth(tag)
 
   if (location %in% c("plot", "panel")) {
-    if (!is.numeric(position)) {
+    if (is.numeric(position)) {
+      x <- unit(position[1], "npc")
+      y <- unit(position[2], "npc")
+    } else {
       if (right || left) {
         x <- (1 - element$hjust) * width
         if (right) {
@@ -404,9 +411,6 @@ table_add_tag <- function(table, label, theme) {
       } else {
         y <- unit(element$vjust, "npc")
       }
-    } else {
-      x <- unit(position[1], "npc")
-      y <- unit(position[2], "npc")
     }
     # Re-render with manual positions
     tag <- element_grob(
@@ -472,7 +476,7 @@ table_add_legends <- function(table, legends, theme) {
 
   location <- switch(
     theme$legend.location %||% "panel",
-    "plot" = plot_extent,
+    plot = plot_extent,
     find_panel
   )
 

@@ -17,8 +17,8 @@ test_that("strip_dots remove dots around calculated aesthetics", {
   expect_identical(strip_dots(aes(..density..))$x, quo(density))
   expect_identical(strip_dots(aes(mean(..density..)))$x, quo(mean(density)))
   expect_equal(
-    strip_dots(aes(sapply(..density.., function(x) mean(x)))$x),
-    quo(sapply(density, function(x) mean(x)))
+    strip_dots(aes(vapply(..density.., mean, numeric(1)))$x),
+    quo(vapply(density, mean, numeric(1)))
   )
 })
 
@@ -52,7 +52,7 @@ test_that("make_labels() deparses mappings properly", {
 
 test_that("staged aesthetics warn appropriately for duplicated names", {
   # Test should *not* report `NA` as the duplicated aes (#4707)
-  df <- data.frame(x = 1, y = 1, lab = "test")
+  df <- data_frame0(x = 1, y = 1, lab = "test")
 
   # One warning in plot code due to evaluation of `aes()`
   expect_snapshot_warning(
@@ -94,10 +94,10 @@ test_that("calculated aesthetics throw warnings when lengths mismatch", {
 
 test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {
   p1 <- ggplot(NULL, aes(stat(foo)))
-  expect_snapshot_warning(b1 <- ggplot_build(p1))
+  expect_snapshot_warning(ggplot_build(p1))
 
   p2 <- ggplot(NULL, aes(..bar..))
-  expect_snapshot_warning(b2 <- ggplot_build(p2))
+  expect_snapshot_warning(ggplot_build(p2))
 })
 
 test_that("functions can be masked", {

@@ -1,7 +1,7 @@
 test_that("data is ordered by x", {
   df <- data_frame(x = c(1, 5, 2, 3, 4), y = 1:5)
 
-  ps <- ggplot(df, aes(x, y))+
+  ps <- ggplot(df, aes(x, y)) +
     geom_smooth(stat = "identity", se = FALSE)
 
   expect_equal(get_layer_data(ps)[c("x", "y")], df[order(df$x), ], ignore_attr = TRUE)
@@ -9,18 +9,18 @@ test_that("data is ordered by x", {
 
 test_that("geom_smooth works in both directions", {
   p <- ggplot(mpg, aes(displ, hwy)) +
-    geom_smooth(method = 'loess', formula = y ~ x)
+    geom_smooth(method = "loess", formula = y ~ x)
   x <- get_layer_data(p)
   expect_false(x$flipped_aes[1])
 
   p <- ggplot(mpg, aes(hwy, displ)) +
-    geom_smooth(orientation = "y", method = 'loess', formula = y ~ x)
+    geom_smooth(orientation = "y", method = "loess", formula = y ~ x)
   y <- get_layer_data(p)
   expect_true(y$flipped_aes[1])
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 })
 
 test_that("default smoothing methods for small and large data sets work", {
