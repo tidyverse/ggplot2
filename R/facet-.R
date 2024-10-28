@@ -237,8 +237,8 @@ Facet <- ggproto("Facet", NULL,
     # Set panel names
     table$layout$name <- paste(
       "panel",
-      rep(seq_len(dim[2]), dim[1]),
-      rep(seq_len(dim[1]), each = dim[2]),
+      rep(seq_len(dim[2]), each = dim[1]),
+      rep(seq_len(dim[1]), dim[2]),
       sep = "-"
     )
 
