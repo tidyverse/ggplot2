@@ -381,7 +381,7 @@ Guide <- ggproto(
   # Renders tickmarks
   build_ticks = function(key, elements, params, position = params$position,
                          length = elements$ticks_length) {
-    if (!is.element(elements)) {
+    if (!is.theme_element(elements)) {
       elements <- elements$ticks
     }
     if (!inherits(elements, "element_line")) {
