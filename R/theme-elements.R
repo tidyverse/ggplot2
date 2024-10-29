@@ -414,15 +414,7 @@ register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
   t <- theme(..., complete = complete)
   ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
 
-  # Check element tree, prevent elements from being their own parent (#6162)
-  bad_parent <- unlist(Map(
-    function(name, el) any(name %in% el$inherit),
-    name = names(element_tree), el = element_tree
-  ))
-  if (any(bad_parent)) {
-    bad_parent <- names(element_tree)[bad_parent]
-    cli::cli_abort("Invalid parent: {.and {.val {bad_parent}}}.")
-  }
+  check_element_tree(element_tree)
 
   # Merge element trees
   ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
@@ -467,6 +459,43 @@ on_load({
 #' @export
 get_element_tree <- function() {
   ggplot_global$element_tree
+}
+
+check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
+  check_object(x, is_bare_list, "a bare {.cls list}", arg = arg, call = call)
+  if (length(x) < 1) {
+    return(invisible(NULL))
+  }
+
+  if (!is_named(x)) {
+    cli::cli_abort("{.arg {arg}} must have names.", call = call)
+  }
+
+  # All elements should be constructed with `el_def()`
+  fields <- names(el_def())
+  bad_fields <- !vapply(x, function(el) all(fields %in% names(el)), logical(1))
+  if (any(bad_fields)) {
+    bad_fields <- names(x)[bad_fields]
+    cli::cli_abort(
+      c("{.arg {arg}} must have elements constructed with {.fn el_def}.",
+        i = "Invalid structure: {.and {.val {bad_fields}}}"),
+      call = call
+    )
+  }
+
+  # Check element tree, prevent elements from being their own parent (#6162)
+  bad_parent <- unlist(Map(
+    function(name, el) any(name %in% el$inherit),
+    name = names(x), el = x
+  ))
+  if (any(bad_parent)) {
+    bad_parent <- names(x)[bad_parent]
+    cli::cli_abort(
+      "Invalid parent in {.arg {arg}}: {.and {.val {bad_parent}}}.",
+      call = call
+    )
+  }
+  invisible(NULL)
 }
 
 #' @rdname register_theme_elements
