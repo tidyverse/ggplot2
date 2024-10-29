@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
   and function-limits (@teunbrand, #6144).
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
