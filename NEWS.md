@@ -232,6 +232,7 @@ documentation updates.
 * `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
 * `guide_coloursteps(even.steps = FALSE)` now works with discrete data that has 
   been formatted by `cut()` (@teunbrand, #3877).
+* `ggsave()` now offers to install svglite if needed (@eliocamp, #6166).
 
 # ggplot2 3.5.0
 
