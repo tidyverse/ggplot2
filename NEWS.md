@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
 * Theme margins can have NA-units to inherit from parent elements. The new
-  function `margin_part()` has NA-units as default (@teunbrand, #6155)
+  function `margin_part()` has NA-units as default (@teunbrand, #6115)
 * New `margin_auto()` specification for theme margins.
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
   and function-limits (@teunbrand, #6144).
