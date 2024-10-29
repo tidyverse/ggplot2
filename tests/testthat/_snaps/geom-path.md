@@ -13,3 +13,7 @@
       Error in `stairstep()`:
       ! `direction` must be one of "hv", "vh", or "mid", not "invalid".
 
+# NA linetype is dropped with warning
+
+    Removed 2 rows containing missing values or values outside the scale range (`geom_path()`).
+

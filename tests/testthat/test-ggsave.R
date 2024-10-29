@@ -80,9 +80,9 @@ test_that("ggsave warns about empty or multiple filenames", {
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
 
   withr::with_tempfile(c("file1", "file2"), fileext = ".png", {
-    expect_warning(
-      suppressMessages(ggsave(c(file1, file2), plot)),
-      "`filename` must have length 1"
+    expect_snapshot(
+      x <- suppressMessages(ggsave(c(file1, file2), plot)),
+      transform = function(x) gsub(" \\'.*\\.png\\'", "'PATH'", x)
     )
   })
 

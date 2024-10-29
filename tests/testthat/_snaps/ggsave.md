@@ -10,6 +10,15 @@
 # ggsave warns about empty or multiple filenames
 
     Code
+      x <- suppressMessages(ggsave(c(file1, file2), plot))
+    Condition
+      Warning in `ggsave()`:
+      `filename` must have length 1, not 2.
+      ! Only the first,'PATH', will be used.
+
+---
+
+    Code
       ggsave(character(), plot)
     Condition
       Error in `ggsave()`:

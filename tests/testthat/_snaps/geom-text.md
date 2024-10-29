@@ -3,6 +3,10 @@
     Both `position` and `nudge_x`/`nudge_y` are supplied.
     i Only use one approach to alter the position.
 
+# geom_text() drops missing angles
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_text()`).
+
 # geom_text() rejects exotic units
 
     Code

@@ -27,6 +27,18 @@
 
     `x` must be either a string or a <geom> object, not an environment.
 
+# unknown params create warning
+
+    Ignoring unknown parameters: `blah`
+
+# unknown aesthetics create warning
+
+    Ignoring unknown aesthetics: blah
+
+# empty aesthetics create warning
+
+    Ignoring empty aesthetics: `fill` and `shape`.
+
 # invalid aesthetics throws errors
 
     Problem while computing aesthetics.

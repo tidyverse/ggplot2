@@ -14,6 +14,11 @@
       Error in `scale_x_continuous()`:
       ! `breaks` and `labels` must have the same length.
 
+# passing continuous limits to a discrete scale generates a warning
+
+    Continuous limits supplied to discrete scale.
+    i Did you mean `limits = factor(...)` or `scale_*_continuous()`?
+
 # suppressing breaks, minor_breask, and labels works
 
     Code

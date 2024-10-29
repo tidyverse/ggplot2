@@ -56,7 +56,7 @@ test_that("guide_colourbar warns about discrete scales", {
   s <- scale_colour_discrete()
   s$train(LETTERS[1:3])
 
-  expect_warning(g <- g$train(g$params, s, "colour"), "needs continuous scales")
+  expect_snapshot_warning(g <- g$train(g$params, s, "colour"))
   expect_null(g)
 
 })

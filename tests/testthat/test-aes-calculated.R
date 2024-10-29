@@ -76,18 +76,16 @@ test_that("calculated aesthetics throw warnings when lengths mismatch", {
 
   p <- ggplot(df, aes(x, x))
 
-  expect_warning(
+  expect_snapshot_warning(
     ggplot_build(
       p + geom_point(aes(colour = after_stat(c("A", "B", "C"))))
-    ),
-    "Failed to apply"
+    )
   )
 
-  expect_warning(
+  expect_snapshot_warning(
     ggplot_build(
       p + geom_point(aes(colour = after_scale(c("red", "green", "blue"))))
-    ),
-    "Failed to apply"
+    )
   )
 
 })

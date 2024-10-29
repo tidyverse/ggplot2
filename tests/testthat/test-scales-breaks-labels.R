@@ -135,7 +135,7 @@ test_that("discrete scales with no data have no breaks or labels", {
 })
 
 test_that("passing continuous limits to a discrete scale generates a warning", {
-  expect_warning(scale_x_discrete(limits = 1:3), "Continuous limits supplied to discrete scale")
+  expect_snapshot_warning(scale_x_discrete(limits = 1:3))
 })
 
 test_that("suppressing breaks, minor_breask, and labels works", {

@@ -14,3 +14,8 @@
       Error in `labeller()`:
       ! Conflict between `.cols` and `cyl`.
 
+# old school labellers still work
+
+    The `labeller` API has been updated. Labellers taking `variable` and `value` arguments are now deprecated.
+    i See labellers documentation.
+

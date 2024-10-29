@@ -18,18 +18,15 @@ test_that("aesthetics go in aes_params", {
 })
 
 test_that("unknown params create warning", {
-  expect_warning(geom_point(blah = "red"), "unknown parameters")
+  expect_snapshot_warning(geom_point(blah = "red"))
 })
 
 test_that("unknown aesthetics create warning", {
-  expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
+  expect_snapshot_warning(geom_point(aes(blah = "red")))
 })
 
 test_that("empty aesthetics create warning", {
-  expect_warning(
-    geom_point(fill = NULL, shape = character()),
-    "Ignoring empty aesthetics"
-  )
+  expect_snapshot_warning(geom_point(fill = NULL, shape = character()))
 })
 
 test_that("invalid aesthetics throws errors", {
@@ -43,7 +40,7 @@ test_that("invalid aesthetics throws errors", {
 })
 
 test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
-  expect_warning(geom_point(aes(blah = NULL)), NA)
+  expect_silent(geom_point(aes(blah = NULL)))
 })
 
 test_that("column vectors are allowed (#2609)", {

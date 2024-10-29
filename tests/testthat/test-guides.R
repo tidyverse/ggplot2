@@ -487,23 +487,17 @@ test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
                    y = c(6, 5, 7))
 
   # warn on guide(<scale> = FALSE)
-  expect_warning(g <- guides(colour = FALSE), "The `<scale>` argument of `guides()` cannot be `FALSE`. Use \"none\" instead as of ggplot2 3.3.4.", fixed = TRUE)
+  lifecycle::expect_deprecated(g <- guides(colour = FALSE))
   expect_equal(g$guides[["colour"]], "none")
 
   # warn on scale_*(guide = FALSE)
   p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
-  expect_snapshot_warning(ggplot_build(p))
+  lifecycle::expect_deprecated(ggplot_build(p))
 })
 
 test_that("guides() warns if unnamed guides are provided", {
-  expect_warning(
-    guides("axis"),
-    "All guides are unnamed."
-  )
-  expect_warning(
-    guides(x = "axis", "axis"),
-    "The 2nd guide is unnamed"
-  )
+  expect_snapshot_warning(guides("axis"))
+  expect_snapshot_warning(guides(x = "axis", "axis"))
   expect_null(guides())
 })
 

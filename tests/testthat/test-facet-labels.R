@@ -135,7 +135,7 @@ test_that("old school labellers still work", {
     paste0("var = ", as.character(value))
   }
 
-  expect_warning(p <-
+  expect_snapshot_warning(p <-
     ggplot(mtcars, aes(disp, drat)) +
     geom_point() +
     facet_grid(~cyl, labeller = my_labeller))

@@ -63,10 +63,15 @@
     `show.limits` is ignored when `labels` are given as a character vector.
     i Either add the limits to `breaks` or provide a function for `labels`.
 
-# a warning is generated when guides(<scale> = FALSE) is specified
+# guides() warns if unnamed guides are provided
 
-    The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
-    i Please use "none" instead.
+    Guides provided to `guides()` must be named.
+    i All guides are unnamed.
+
+---
+
+    Guides provided to `guides()` must be named.
+    i The 2nd guide is unnamed.
 
 # old S3 guides can be implemented
 

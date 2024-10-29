@@ -12,7 +12,7 @@ test_that("a warning is generated when guides are drawn at a location that doesn
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
     scale_y_continuous(guide = guide_axis(position = "top"))
-  expect_warning(ggplot_build(plot), "Position guide is perpendicular")
+  expect_snapshot_warning(ggplot_build(plot))
 })
 
 test_that("a warning is not generated when a guide is specified with duplicate breaks", {
@@ -32,7 +32,7 @@ test_that("a warning is generated when more than one position guide is drawn at 
     )
   built <- expect_silent(ggplot_build(plot))
 
-  expect_warning(ggplot_gtable(built), "Discarding guide")
+  expect_snapshot_warning(ggplot_gtable(built))
 })
 
 test_that("a warning is not generated when properly changing the position of a guide_axis()", {
