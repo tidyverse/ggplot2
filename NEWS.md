@@ -2,6 +2,13 @@
 
 * Theme margins can have NA-units to inherit from parent elements. The new
   function `margin_part()` has NA-units as default (@teunbrand, #6155)
+* New `margin_auto()` specification for theme margins.
+* Fixed bug where binned scales wouldn't simultaneously accept transformations
+  and function-limits (@teunbrand, #6144).
+* Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
+  (@teunbrand, #6104).
+* New `get_labs()` function for retrieving completed plot labels 
+  (@teunbrand, #6008).
 * Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
   foreground and background colours respectively (@teunbrand)
 * The `summary()` method for ggplots is now more terse about facets 

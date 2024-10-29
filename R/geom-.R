@@ -157,12 +157,10 @@ Geom <- ggproto("Geom",
     # This order means that they will have access to all default aesthetics
     if (length(modifiers) != 0) {
       # Set up evaluation environment
-      env <- child_env(baseenv(), after_scale = after_scale)
-      # Mask stage with stage_scaled so it returns the correct expression
-      stage_mask <- child_env(emptyenv(), stage = stage_scaled)
-      mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
-      mask$.data <- as_data_pronoun(mask)
-      modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, mask, env)
+      modified_aes <- eval_aesthetics(
+        substitute_aes(modifiers), data,
+        mask = list(stage = stage_scaled)
+      )
 
       # Check that all output are valid data
       nondata_modified <- check_nondata_cols(modified_aes)
@@ -177,13 +175,11 @@ Geom <- ggproto("Geom",
         ))
       }
 
-      names(modified_aes) <- names(rename_aes(modifiers))
-
       modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
 
-      modified_aes <- data_frame0(!!!compact(modified_aes))
+      modified_aes <- data_frame0(!!!modified_aes)
 
-      data <- cunion(modified_aes, data)
+      data <- data_frame0(!!!defaults(modified_aes, data))
     }
 
     # Override mappings with params
@@ -236,6 +232,9 @@ Geom <- ggproto("Geom",
 
 )
 
+#' @export
+#' @rdname is_tests
+is.geom <- function(x) inherits(x, "Geom")
 
 eval_from_theme <- function(aesthetics, theme) {
   themed <- is_themed_aes(aesthetics)

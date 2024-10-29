@@ -204,6 +204,10 @@ element_geom <- function(
 )
 
 #' @export
+#' @rdname is_tests
+is.theme_element <- function(x) inherits(x, "element")
+
+#' @export
 print.element <- function(x, ...) utils::str(x)
 
 
