@@ -40,6 +40,19 @@
 
     The `blablabla` theme element must be a <element_text> object.
 
+---
+
+    `element_tree` must have names.
+
+---
+
+    `element_tree` must have elements constructed with `el_def()`.
+    i Invalid structure: "foo"
+
+---
+
+    Invalid parent in `element_tree`: "foo".
+
 # Theme elements are checked during build
 
     `plot.title.position` must be one of "panel" or "plot", not "test".
