@@ -96,5 +96,5 @@ test_that("guides can handle multiple aesthetics for one scale", {
       option = "B", aesthetics = c("colour", "fill")
     )
 
-  expect_doppelganger("one combined colorbar for colour and fill aesthetics", p)
+  expect_doppelganger("combined colour and fill aesthetics", p)
 })
