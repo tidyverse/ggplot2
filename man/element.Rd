@@ -9,6 +9,7 @@
 \alias{rel}
 \alias{margin}
 \alias{margin_part}
+\alias{margin_auto}
 \title{Theme elements}
 \usage{
 element_blank()
@@ -69,6 +70,8 @@ rel(x)
 margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
 
 margin_part(t = NA, r = NA, b = NA, l = NA, unit = "pt")
+
+margin_auto(t = 0, r = t, b = t, l = r, unit = "pt")
 }
 \arguments{
 \item{fill}{Fill colour.}
@@ -148,7 +151,8 @@ specify the display of how non-data components of the plot are drawn.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,
-\code{margin()} and \code{margin_part()} are used to specify the margins of elements.
+\code{margin()}, \code{margin_part()} and \code{margin_auto()} are all used to specify the
+margins of elements.
 }
 \examples{
 plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()

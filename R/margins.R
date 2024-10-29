@@ -15,6 +15,12 @@ margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
   margin(t = t, r = r, b = b, l = l, unit = unit)
 }
 
+#' @rdname element
+#' @export
+margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
+  margin(t = t, r = r, b = b, l = l, unit)
+}
+
 is.margin <- function(x) {
   inherits(x, "margin")
 }
