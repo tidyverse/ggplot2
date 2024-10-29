@@ -281,14 +281,14 @@
 #'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
-#'   legend.margin = margin(6, 6, 6, 6)
+#'   legend.margin = margin_auto(6)
 #' )
 #'
 #' # The legend.box properties work similarly for the space around
 #' # all the legends
 #' p2 + theme(
 #'   legend.box.background = element_rect(),
-#'   legend.box.margin = margin(6, 6, 6, 6)
+#'   legend.box.margin = margin_auto(6)
 #' )
 #'
 #' # You can also control the display of the keys

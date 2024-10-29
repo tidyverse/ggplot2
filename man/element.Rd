@@ -172,7 +172,7 @@ plot + theme(
 
 plot + theme(
   panel.background = element_rect(fill = "white"),
-  plot.margin = margin(2, 2, 2, 2, "cm"),
+  plot.margin = margin_auto(2, unit = "cm"),
   plot.background = element_rect(
     fill = "grey90",
     colour = "black",
