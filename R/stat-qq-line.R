@@ -71,7 +71,9 @@ StatQqLine <- ggproto("StatQqLine", Stat,
 
     theoretical <- inject(distribution(p = quantiles, !!!dparams))
 
-    check_length(line.p, 2L)
+    if (length(line.p) != 2) {
+      cli::cli_abort("Cannot fit line quantiles {line.p}. {.arg line.p} must have length 2.")
+    }
 
     x_coords <- inject(distribution(p = line.p, !!!dparams))
     y_coords <- stats::quantile(sample, line.p)
