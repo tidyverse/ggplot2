@@ -358,13 +358,10 @@ table_add_tag <- function(table, label, theme) {
       ),
       call = expr(theme()))
     }
-    if (length(position) != 2) {
-      cli::cli_abort(paste0(
-        "A {.cls numeric} {.arg plot.tag.position} ",
-        "theme setting must have length 2."
-      ),
-      call = expr(theme()))
-    }
+    check_length(
+      position, 2L, call = expr(theme()),
+      arg = I("A {.cls numeric} {.arg plot.tag.position}")
+    )
     top <- left <- right <- bottom <- FALSE
   } else {
     # Break position into top/left/right/bottom

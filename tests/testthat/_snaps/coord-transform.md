@@ -8,9 +8,9 @@
 
 # coord_trans() throws error when limits are badly specified
 
-    `xlim` must be a vector of length 2, not a <ScaleContinuousPosition> object.
+    `xlim` must be a vector, not a <ScaleContinuousPosition> object.
 
 ---
 
-    `ylim` must be a vector of length 2, not an integer vector of length 3.
+    `ylim` must be a vector of length 2, not length 3.
 

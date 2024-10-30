@@ -29,7 +29,7 @@
 
 ---
 
-    `x_range` must have two elements.
+    `x_range` must be a vector of length 2, not length 1.
 
 ---
 
@@ -45,7 +45,7 @@
 
 ---
 
-    `x_range` must have two elements.
+    `x_range` must be a vector of length 2, not length 1.
 
 ---
 

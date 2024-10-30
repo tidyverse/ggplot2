@@ -729,6 +729,11 @@ test_that("Discrete scales with only NAs return `na.value`", {
   expect_equal(sc$map(x), c(NA_real_, NA_real_))
 })
 
+test_that("continuous scales warn about faulty `limits`", {
+  expect_snapshot(scale_x_continuous(limits = c("A", "B")), error = TRUE)
+  expect_snapshot(scale_x_continuous(limits = 1:3), error = TRUE)
+})
+
 test_that("discrete scales work with NAs in arbitrary positions", {
   # Prevents intermediate caching of palettes
   map <- function(x, limits) {

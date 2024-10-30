@@ -77,7 +77,7 @@ test_that("out-of-range breaks are dropped", {
 
 test_that("no minor breaks when only one break", {
   sc1 <- scale_x_discrete(limits = "a")
-  sc2 <- scale_x_continuous(limits = 1)
+  sc2 <- scale_x_continuous(limits = c(1, 1))
 
   expect_length(sc1$get_breaks_minor(), 0)
   expect_length(sc2$get_breaks_minor(), 0)
