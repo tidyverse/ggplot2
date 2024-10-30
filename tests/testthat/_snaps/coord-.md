@@ -24,7 +24,7 @@
       check_coord_limits(xlim(1, 2))
     Condition
       Error:
-      ! `xlim(1, 2)` must be a vector of length 2, not a <ScaleContinuousPosition> object.
+      ! `xlim(1, 2)` must be a vector, not a <ScaleContinuousPosition> object.
 
 ---
 
@@ -32,5 +32,5 @@
       check_coord_limits(1:3)
     Condition
       Error:
-      ! `1:3` must be a vector of length 2, not an integer vector of length 3.
+      ! `1:3` must be a vector of length 2, not length 3.
 

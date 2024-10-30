@@ -31,7 +31,7 @@
       ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1)))
     Condition
       Error in `theme()`:
-      ! A <numeric> `plot.tag.position` theme setting must have length 2.
+      ! A <numeric> `plot.tag.position` must be a vector of length 2, not length 3.
 
 ---
 

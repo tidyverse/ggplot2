@@ -99,3 +99,19 @@
 
     The `scale_name` argument of `binned_scale()` is deprecated as of ggplot2 3.5.0.
 
+# continuous scales warn about faulty `limits`
+
+    Code
+      scale_x_continuous(limits = c("A", "B"))
+    Condition
+      Error in `scale_x_continuous()`:
+      ! `limits` must be a <numeric> vector, not a character vector.
+
+---
+
+    Code
+      scale_x_continuous(limits = 1:3)
+    Condition
+      Error in `scale_x_continuous()`:
+      ! `limits` must be a vector of length 2, not length 3.
+
