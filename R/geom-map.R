@@ -22,7 +22,7 @@ NULL
 #' # how `geom_map()` works. It requires two data frames:
 #' # One contains the coordinates of each polygon (`positions`), and is
 #' # provided via the `map` argument. The other contains the
-#' # other the values associated with each polygon (`values`).  An id
+#' # values associated with each polygon (`values`).  An id
 #' # variable links the two together.
 #'
 #' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))

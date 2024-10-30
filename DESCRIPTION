@@ -1,6 +1,6 @@
 Package: ggplot2
-Version: 3.5.1.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
+Version: 3.5.1.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -30,7 +30,7 @@ License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 3.5)
+    R (>= 4.0)
 Imports: 
     cli,
     grDevices,
@@ -75,6 +75,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
+Config/usethis/last-upkeep: 2024-10-24
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

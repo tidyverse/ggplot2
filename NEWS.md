@@ -2,6 +2,10 @@
 
 * When discrete breaks have names, they'll be used as labels by default 
   (@teunbrand, #6147).
+* (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
+  evaluated in the context of data (@teunbrand, #6135)
+* Fixed bug where binned scales wouldn't simultaneously accept transformations
+  and function-limits (@teunbrand, #6144).
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
   (@teunbrand, #6104).
 * New `get_labs()` function for retrieving completed plot labels 
@@ -186,6 +190,7 @@
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
+* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
 
 # ggplot2 3.5.1
 
@@ -232,6 +237,7 @@ documentation updates.
 * `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
 * `guide_coloursteps(even.steps = FALSE)` now works with discrete data that has 
   been formatted by `cut()` (@teunbrand, #3877).
+* `ggsave()` now offers to install svglite if needed (@eliocamp, #6166).
 
 # ggplot2 3.5.0
 

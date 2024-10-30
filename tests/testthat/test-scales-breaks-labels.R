@@ -7,10 +7,8 @@ test_that("labels match breaks, even when outside limits", {
 })
 
 test_that("labels match breaks", {
-  expect_error(scale_x_discrete(breaks = 1:3, labels = 1:2),
-    "must have the same length")
-  expect_error(scale_x_continuous(breaks = 1:3, labels = 1:2),
-    "must have the same length")
+  expect_snapshot(scale_x_discrete(breaks = 1:3, labels = 1:2), error = TRUE)
+  expect_snapshot(scale_x_continuous(breaks = 1:3, labels = 1:2), error = TRUE)
 })
 
 test_that("labels don't have to match null breaks", {
@@ -79,7 +77,7 @@ test_that("out-of-range breaks are dropped", {
 
 test_that("no minor breaks when only one break", {
   sc1 <- scale_x_discrete(limits = "a")
-  sc2 <- scale_x_continuous(limits = 1)
+  sc2 <- scale_x_continuous(limits = c(1, 1))
 
   expect_length(sc1$get_breaks_minor(), 0)
   expect_length(sc2$get_breaks_minor(), 0)
@@ -137,7 +135,7 @@ test_that("discrete scales with no data have no breaks or labels", {
 })
 
 test_that("passing continuous limits to a discrete scale generates a warning", {
-  expect_warning(scale_x_discrete(limits = 1:3), "Continuous limits supplied to discrete scale")
+  expect_snapshot_warning(scale_x_discrete(limits = 1:3))
 })
 
 test_that("suppressing breaks, minor_breask, and labels works", {
@@ -152,20 +150,38 @@ test_that("suppressing breaks, minor_breask, and labels works", {
   lims <- as.Date(c("2000/1/1", "2000/2/1"))
   expect_null(scale_x_date(breaks = NULL, limits = lims)$get_breaks())
   # NA is defunct, should throw error
-  expect_error(scale_x_date(breaks = NA, limits = lims)$get_breaks())
+  expect_snapshot(
+    scale_x_date(breaks = NA, limits = lims)$get_breaks(),
+    error = TRUE
+  )
   expect_null(scale_x_date(labels = NULL, limits = lims)$get_labels())
-  expect_error(scale_x_date(labels = NA, limits = lims)$get_labels())
+  expect_snapshot(
+    scale_x_date(labels = NA, limits = lims)$get_labels(),
+    error = TRUE
+  )
   expect_null(scale_x_date(minor_breaks = NULL, limits = lims)$get_breaks_minor())
-  expect_error(scale_x_date(minor_breaks = NA, limits = lims)$get_breaks_minor())
+  expect_snapshot(
+    scale_x_date(minor_breaks = NA, limits = lims)$get_breaks_minor(),
+    error = TRUE
+  )
 
   # date, datetime
   lims <- as.POSIXct(c("2000/1/1 0:0:0", "2010/1/1 0:0:0"))
   expect_null(scale_x_datetime(breaks = NULL, limits = lims)$get_breaks())
-  expect_error(scale_x_datetime(breaks = NA, limits = lims)$get_breaks())
+  expect_snapshot(
+    scale_x_datetime(breaks = NA, limits = lims)$get_breaks(),
+    error = TRUE
+  )
   expect_null(scale_x_datetime(labels = NULL, limits = lims)$get_labels())
-  expect_error(scale_x_datetime(labels = NA, limits = lims)$get_labels())
+  expect_snapshot(
+    scale_x_datetime(labels = NA, limits = lims)$get_labels(),
+    error = TRUE
+  )
   expect_null(scale_x_datetime(minor_breaks = NULL, limits = lims)$get_breaks_minor())
-  expect_error(scale_x_datetime(minor_breaks = NA, limits = lims)$get_breaks_minor())
+  expect_snapshot(
+    scale_x_datetime(minor_breaks = NA, limits = lims)$get_breaks_minor(),
+    error = TRUE
+  )
 })
 
 test_that("scale_breaks with explicit NA options (deprecated)", {
@@ -174,34 +190,34 @@ test_that("scale_breaks with explicit NA options (deprecated)", {
   # X
   sxc <- scale_x_continuous(breaks = NA)
   sxc$train(1:3)
-  expect_error(sxc$get_breaks())
-  expect_error(sxc$get_breaks_minor())
+  expect_snapshot(sxc$get_breaks(), error = TRUE)
+  expect_snapshot(sxc$get_breaks_minor(), error = TRUE)
 
   # Y
   syc <- scale_y_continuous(breaks = NA)
   syc$train(1:3)
-  expect_error(syc$get_breaks())
-  expect_error(syc$get_breaks_minor())
+  expect_snapshot(syc$get_breaks(), error = TRUE)
+  expect_snapshot(syc$get_breaks_minor(), error = TRUE)
 
   # Alpha
   sac <- scale_alpha_continuous(breaks = NA)
   sac$train(1:3)
-  expect_error(sac$get_breaks())
+  expect_snapshot(sac$get_breaks(), error = TRUE)
 
   # Size
   ssc <- scale_size_continuous(breaks = NA)
   ssc$train(1:3)
-  expect_error(ssc$get_breaks())
+  expect_snapshot(ssc$get_breaks(), error = TRUE)
 
   # Fill
   sfc <- scale_fill_continuous(breaks = NA)
   sfc$train(1:3)
-  expect_error(sfc$get_breaks())
+  expect_snapshot(sfc$get_breaks(), error = TRUE)
 
   # Colour
   scc <- scale_colour_continuous(breaks = NA)
   scc$train(1:3)
-  expect_error(scc$get_breaks())
+  expect_snapshot(scc$get_breaks(), error = TRUE)
 })
 
 test_that("breaks can be specified by names of labels", {
