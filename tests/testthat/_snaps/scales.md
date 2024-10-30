@@ -1,3 +1,31 @@
+# oob affects position values
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_bar()`).
+
+---
+
+    Removed 3 rows containing missing values or values outside the scale range (`geom_bar()`).
+
+# scales warn when transforms introduces non-finite values
+
+    log-10 transformation introduced infinite values.
+
+# size and alpha scales throw appropriate warnings for factors
+
+    Using size for a discrete variable is not advised.
+
+---
+
+    Using alpha for a discrete variable is not advised.
+
+---
+
+    Using linewidth for a discrete variable is not advised.
+
+# shape scale throws appropriate warnings for factors
+
+    Using shapes for an ordinal variable is not advised
+
 # scale_apply preserves class and attributes
 
     `scale_id` must not contain any "NA".
