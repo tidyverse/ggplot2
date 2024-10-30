@@ -146,3 +146,26 @@ test_that("stage allows aesthetics that are only mapped to start", {
   )
 
 })
+
+test_that("A geom can have scaled defaults (#6135)", {
+
+  test_geom <- ggproto(
+    NULL, GeomPoint,
+    default_aes = modify_list(
+      GeomPoint$default_aes,
+      aes(colour = after_scale(alpha(fill, 0.5)), fill = "black")
+    )
+  )
+
+  df <- data.frame(x = 1:3, fill = c("#FF0000", "#00FF00", "#0000FF"))
+
+  ld <- layer_data(
+    ggplot(df, aes(x, x, fill = I(fill))) +
+      stat_identity(geom = test_geom)
+  )
+
+  expect_equal(ld$colour, c("#FF000080", "#00FF0080", '#0000FF80'))
+
+  defaults <- get_geom_defaults(test_geom)
+  expect_equal(defaults$colour, c("#00000080"))
+})
