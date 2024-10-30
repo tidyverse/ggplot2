@@ -134,12 +134,12 @@ test_that("discrete scale defaults can be set globally", {
 
 test_that("Scale is checked in default colour scale", {
   # Check scale type
-  expect_error(scale_colour_discrete(type = scale_colour_gradient))
-  expect_error(scale_fill_discrete(type = scale_fill_gradient))
+  expect_snapshot(scale_colour_discrete(type = scale_colour_gradient), error = TRUE)
+  expect_snapshot(scale_fill_discrete(type = scale_fill_gradient), error = TRUE)
 
   # Check aesthetic
-  expect_error(scale_colour_discrete(type = scale_fill_hue))
-  expect_error(scale_fill_discrete(type = scale_colour_hue))
+  expect_snapshot(scale_colour_discrete(type = scale_fill_hue), error = TRUE)
+  expect_snapshot(scale_fill_discrete(type = scale_colour_hue), error = TRUE)
 })
 
 test_that("Aesthetics with no continuous interpretation fails when called", {
@@ -153,7 +153,7 @@ test_that("mapped_discrete vectors behaves as predicted", {
   expect_null(mapped_discrete(NULL))
   expect_s3_class(mapped_discrete(c(0, 3.5)), "mapped_discrete")
   expect_s3_class(mapped_discrete(seq_len(4)), "mapped_discrete")
-  expect_error(mapped_discrete(letters))
+  expect_snapshot(mapped_discrete(letters), error = TRUE)
 
   x <- mapped_discrete(1:10)
   expect_s3_class(x[2:4], "mapped_discrete")
@@ -192,14 +192,14 @@ test_that("invalid palettes trigger errors", {
   p <- ggplot(df, aes(x, y)) +
     geom_point()
 
-  expect_error(
+  expect_snapshot(
     ggplot_build(p + scale_x_discrete(palette = function(x) LETTERS[1:3])),
-    "must return a .+ vector\\."
+    error = TRUE
   )
 
-  expect_error(
+  expect_snapshot(
     ggplot_build(p + scale_x_discrete(palette = function(x) 1:2)),
-    "must return at least 3 values"
+    error = TRUE
   )
 })
 

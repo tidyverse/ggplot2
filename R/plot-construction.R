@@ -149,7 +149,16 @@ ggplot_add.labels <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Guides <- function(object, plot, object_name) {
-  update_guides(plot, object)
+  if (is.guides(plot$guides)) {
+    # We clone the guides object to prevent modify-in-place of guides
+    old <- plot$guides
+    new <- ggproto(NULL, old)
+    new$add(object)
+    plot$guides <- new
+  } else {
+    plot$guides <- object
+  }
+  plot
 }
 #' @export
 ggplot_add.uneval <- function(object, plot, object_name) {
