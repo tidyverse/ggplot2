@@ -51,5 +51,5 @@ test_that("position_dodge warns about missing required aesthetics", {
       mapping = aes(x = NULL)
     )
 
-  expect_error(ggplot_build(p), "requires the following missing aesthetics")
+  expect_snapshot(ggplot_build(p), error = TRUE)
 })

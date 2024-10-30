@@ -54,8 +54,7 @@ test_that("insufficient values raise an error", {
   df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
   p <- ggplot(df, aes(x, y, colour = z)) + geom_point()
 
-  expect_error(ggplot_build(p + scale_colour_manual(values = "black")),
-    "Insufficient values")
+  expect_snapshot(ggplot_build(p + scale_colour_manual(values = "black")), error = TRUE)
 
   # Should be sufficient
   ggplot_build(p + scale_colour_manual(values = c("black", "black")))
@@ -122,7 +121,7 @@ test_that("fewer values (#3451)", {
   # unnamed character vector
   s2 <- scale_colour_manual(values = c("4", "8"), na.value = NA)
   s2$train(c("4", "6", "8"))
-  expect_error(s2$map(c("4", "6", "8")), "Insufficient values")
+  expect_snapshot(s2$map(c("4", "6", "8")), error = TRUE)
 })
 
 test_that("limits and breaks (#4619)", {
