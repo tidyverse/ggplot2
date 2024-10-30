@@ -188,6 +188,7 @@
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
+* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
 
 # ggplot2 3.5.1
 
