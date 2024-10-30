@@ -80,12 +80,11 @@ test_that("stat_density handles data outside of `bounds`", {
   cutoff <- mtcars$mpg[1]
 
   # Both `x` and `weight` should be filtered out for out of `bounds` points
-  expect_warning(
+  expect_snapshot_warning(
     data_actual <- get_layer_data(
       ggplot(mtcars, aes(mpg, weight = cyl)) +
         stat_density(bounds = c(cutoff, Inf))
-    ),
-    "outside of `bounds`"
+    )
   )
 
   mtcars_filtered <- mtcars[mtcars$mpg >= cutoff, ]
@@ -120,7 +119,7 @@ test_that("stat_density works in both directions", {
 })
 
 test_that("compute_density returns useful df and throws warning when <2 values", {
-  expect_warning(dens <- compute_density(1, NULL, from = 0, to = 0))
+  expect_snapshot_warning(dens <- compute_density(1, NULL, from = 0, to = 0))
 
   expect_equal(nrow(dens), 1)
   expect_named(dens, c("x", "density", "scaled", "ndensity", "count", "wdensity", "n"))

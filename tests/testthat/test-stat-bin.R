@@ -194,7 +194,7 @@ test_that("setting boundary and center", {
   df <- data_frame(x = c(0, 30))
 
   # Error if both boundary and center are specified
-  expect_error(comp_bin(df, boundary = 5, center = 0), "one of `boundary` and `center`")
+  expect_snapshot(comp_bin(df, boundary = 5, center = 0), error = TRUE)
 
   res <- comp_bin(df, binwidth = 10, boundary = 0, pad = FALSE)
   expect_identical(res$count, c(1, 0, 1))
@@ -216,7 +216,7 @@ test_that("weights are added", {
 })
 
 test_that("bin errors at high bin counts", {
-  expect_error(bin_breaks_width(c(1, 2e6), 1), "The number of histogram bins")
+  expect_snapshot(bin_breaks_width(c(1, 2e6), 1), error = TRUE)
 })
 
 # stat_count --------------------------------------------------------------
