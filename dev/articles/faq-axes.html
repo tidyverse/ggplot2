@@ -197,7 +197,7 @@ See example
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msleep</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">order</span>, y <span class="op">=</span> <span class="va">sleep_total</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-2-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The horizontal labels on the x-axis for the orders overlap and are unreadable." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-7-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The horizontal labels on the x-axis for the orders overlap and are unreadable." width="80%"></p>
 <ul>
 <li>Remove x or y axis labels: If you want to modify just one of the
 axes, you can do so by modifying the components of the
@@ -216,7 +216,7 @@ distinction between <code>axis.title</code> and <code>axis.ticks</code>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.ticks.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-3-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The annotation on the x-axis is abent." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-8-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The annotation on the x-axis is abent." width="80%"></p>
 <ul>
 <li>Remove all axis labels: You can use <code><a href="../reference/ggtheme.html">theme_void()</a></code> to
 remove all theming elements. Note that this might remove more features
@@ -226,7 +226,7 @@ than you like. For finer control over the theme, see below.</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msleep</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">order</span>, y <span class="op">=</span> <span class="va">sleep_total</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-4-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The plot has no axes, gridlines or background panel." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-9-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The plot has no axes, gridlines or background panel." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -259,7 +259,7 @@ two years.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">quarter</span>, y <span class="op">=</span> <span class="va">value</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-6-1.png" alt="A line plot with two panels showing value on the y-axis and four quarters on the x-axis. The left panel is labelled '2020' and the right panel is labelled '2021'." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-11-1.png" alt="A line plot with two panels showing value on the y-axis and four quarters on the x-axis. The left panel is labelled '2020' and the right panel is labelled '2021'." width="80%"></p>
 <p>However it might be preferable to plot all points in a single plot
 and indicate on the x-axis that the first Q1 to Q4 are in 2020 and the
 second are in 2021.</p>
@@ -269,7 +269,7 @@ aesthetic.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">quarter</span>, <span class="va">year</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">value</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-7-1.png" alt="A line plot with one panel showing value on the y-axis and eight quarters on the x-axis. The years are appended after each quarter label." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-12-1.png" alt="A line plot with one panel showing value on the y-axis and eight quarters on the x-axis. The years are appended after each quarter label." width="80%"></p>
 <p>This achieves the desired result for the line, however the labeling
 in the x-axis is very busy and difficult to read. To clean this up (1)
 clip the plotting area with <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>, (2) remove
@@ -290,7 +290,7 @@ some logic to calculate their placement.</p>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sales</span><span class="op">)</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">8</span>, label <span class="op">=</span> <span class="va">sales</span><span class="op">$</span><span class="va">quarter</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">6.5</span><span class="op">)</span>, y <span class="op">=</span> <span class="fl">6</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-8-1.png" alt="A line plot with one panel showing value on the y-axis and eight quarters on the x-axis. The years are shown in the middle of the first four and last four quarters. The line touches the panel on the left and right." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-13-1.png" alt="A line plot with one panel showing value on the y-axis and eight quarters on the x-axis. The years are shown in the middle of the first four and last four quarters. The line touches the panel on the left and right." width="80%"></p>
 <p>This approach works with other geoms as well. For example, you might
 can create a bar plot representing the same data using the
 following.</p>
@@ -305,7 +305,7 @@ following.</p>
 <span>    axis.title.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-9-1.png" alt="A bar chart with one panel showing value on the y-axis and eight quarters on the x-axis. The years are shown in the middle of the first four and last four quarters. The outer bars touch the panel on the left and right." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-14-1.png" alt="A bar chart with one panel showing value on the y-axis and eight quarters on the x-axis. The years are shown in the middle of the first four and last four quarters. The outer bars touch the panel on the left and right." width="80%"></p>
 <p>If it’s undesirable to have the bars flush against the edges of the
 plot, a similar result can be achieved by leveraging faceting and
 removing the space between facets to create the appearance of a single
@@ -321,7 +321,7 @@ Q1 is greater than the space between the other bars.</p>
 <span>    strip.placement <span class="op">=</span> <span class="st">"outside"</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-10-1.png" alt="A bar chart showing value on the y-axis and eight quarters on the x-axis. The chart appears as a single panel. The years are shown in the middle of the first four and last four quarters. The outer bars do not touch the panel on the left and right." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-15-1.png" alt="A bar chart showing value on the y-axis and eight quarters on the x-axis. The chart appears as a single panel. The years are shown in the middle of the first four and last four quarters. The outer bars do not touch the panel on the left and right." width="80%"></p>
 </details>
 </div>
 </div>
@@ -341,7 +341,7 @@ drive train.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-11-1.png" alt="A horizontal bar chart showing the number of cars on the x-axis for each of three types of drive trains on the y-axis. The three drive trains are labelled from top-to-bottom as 'r', 'f' and '4'." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-16-1.png" alt="A horizontal bar chart showing the number of cars on the x-axis for each of three types of drive trains on the y-axis. The three drive trains are labelled from top-to-bottom as 'r', 'f' and '4'." width="80%"></p>
 <ul>
 <li>Use the <code>labels</code> argument in the appropriate
 <code>scale_*()</code> function. You can find a list of these functions
@@ -358,7 +358,7 @@ variable was numeric/continuous.</li>
 <span>  <span class="fu"><a href="../reference/scale_discrete.html">scale_y_discrete</a></span><span class="op">(</span></span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Four wheel drive"</span>, <span class="st">"Front wheel drive"</span>, <span class="st">"Rear wheel drive"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-12-1.png" alt="A horizontal bar chart showing the number of cars on the x-axis for each of three types of drive trains on the y-axis. The three drive trains are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' and 'Four wheel drive'." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-17-1.png" alt="A horizontal bar chart showing the number of cars on the x-axis for each of three types of drive trains on the y-axis. The three drive trains are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' and 'Four wheel drive'." width="80%"></p>
 <ul>
 <li>Another approach is to use a named list. This approach not only
 makes the relabelling more explicit, but it also means you don’t need to
@@ -374,7 +374,7 @@ worry about the order of the levels.</li>
 <span>      <span class="st">"4"</span> <span class="op">=</span> <span class="st">"Four wheel drive"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-13-1.png" alt="A horizontal bar chart showing the number of cars on the x-axis for each of three types of drive trains on the y-axis. The three drive trains are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' and 'Four wheel drive'." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-18-1.png" alt="A horizontal bar chart showing the number of cars on the x-axis for each of three types of drive trains on the y-axis. The three drive trains are labelled from top-to-bottom as 'Rear wheel drive', 'Front wheel drive' and 'Four wheel drive'." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -394,7 +394,7 @@ are shown in scientific notation.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 617 rows containing missing values or values outside the scale</span></span>
 <span><span class="co">#&gt; range (`geom_point()`).</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-14-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of both axes are in scientific notation, for example: '1e+09'." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-19-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of both axes are in scientific notation, for example: '1e+09'." width="80%"></p>
 <p>The <a href="https://scales.r-lib.org/" class="external-link"><strong>scales</strong></a>
 package offers a large number of functions to control the formatting of
 axis labels and legend keys. Use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code> to
@@ -409,7 +409,7 @@ digits.</p>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_comma</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 617 rows containing missing values or values outside the scale</span></span>
 <span><span class="co">#&gt; range (`geom_point()`).</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-15-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of the y-axis are written out in full, with commas marking groups of three zeroes. The x-axis labels are written out in full, with spaces marking groups of three zeroes." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-20-1.png" alt="A scatter plot showing the median sale price of housing in Texas on the x-axis and the total volume of sales on the y-axis. The labels of the y-axis are written out in full, with commas marking groups of three zeroes. The x-axis labels are written out in full, with spaces marking groups of three zeroes." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -428,7 +428,7 @@ shown in the axis text in the following plot.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">seals</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delta_long</span>, y <span class="op">=</span> <span class="va">delta_lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-16-1.png" alt="A scatter plot showing the difference in longitude on the x-axis and difference in latitude on the y-axis for seal movements. The x-axis labels have one digit after the decimal place. The y-axis labels have two digits after the decimal place." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-21-1.png" alt="A scatter plot showing the difference in longitude on the x-axis and difference in latitude on the y-axis for seal movements. The x-axis labels have one digit after the decimal place. The y-axis labels have two digits after the decimal place." width="80%"></p>
 <p>The <a href="https://scales.r-lib.org/" class="external-link"><strong>scales</strong></a>
 package offers a large number of functions to control the formatting of
 axis labels and legend keys. Use <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_number()</a></code>
@@ -441,7 +441,7 @@ etc.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">0.0001</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-17-1.png" alt="A scatter plot showing the difference in longitude on the x-axis and difference in latitude on the y-axis for seal movements. The x-axis labels have one digit after the decimal place. The y-axis labels have four digits after the decimal place." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-22-1.png" alt="A scatter plot showing the difference in longitude on the x-axis and difference in latitude on the y-axis for seal movements. The x-axis labels have one digit after the decimal place. The y-axis labels have four digits after the decimal place." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -463,14 +463,14 @@ percentages.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">psavert</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-18-1.png" alt="A lineplot showing the personal savings rate over time from 1967 to 2015." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-23-1.png" alt="A lineplot showing the personal savings rate over time from 1967 to 2015." width="80%"></p>
 <p>With <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code> you can add <code>%</code>s
 after the numbers shown on the axis to make the units more clear.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">economics</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">psavert</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">label_percent</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">1</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-19-1.png" alt="A lineplot showing the personal savings rate over time from 1967 to 2015. The y-axis labels are appended by percentage signs." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-24-1.png" alt="A lineplot showing the personal savings rate over time from 1967 to 2015. The y-axis labels are appended by percentage signs." width="80%"></p>
 <p>where the <code>accuracy</code> argument indicates the number to
 round to, e.g. 0.1 to show 1 decimal place, 0.0001 to show 4 decimal
 places, etc.</p>
@@ -489,7 +489,7 @@ See example
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">^</span><span class="fl">2</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-20-1.png" alt="A scatter plot showing the squared city miles per gallon on the x-axis versus the logarithm of highway miles per gallon on the y-axis for 234 cars." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-25-1.png" alt="A scatter plot showing the squared city miles per gallon on the x-axis versus the logarithm of highway miles per gallon on the y-axis for 234 cars." width="80%"></p>
 <ul>
 <li>Use <code><a href="https://rdrr.io/r/base/bquote.html" class="external-link">bquote()</a></code> function to parse mathematical
 expressions.</li>
@@ -501,7 +501,7 @@ expressions.</li>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/bquote.html" class="external-link">bquote</a></span><span class="op">(</span><span class="va">cty</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,</span>
 <span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/bquote.html" class="external-link">bquote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">log</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span>, <span class="st">"(hwy)"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-21-1.png" alt="A scatter plot showing the squared city miles per gallon on the x-axis versus the base 10 logarithm of highway miles per gallon on the y-axis for 234 cars. In the axis titles, the base 10 is indicated in subscript on the y-axis and the power 2 is indicated in superscript on the x-axis." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-26-1.png" alt="A scatter plot showing the squared city miles per gallon on the x-axis versus the base 10 logarithm of highway miles per gallon on the y-axis for 234 cars. In the axis titles, the base 10 is indicated in subscript on the y-axis and the power 2 is indicated in superscript on the x-axis." width="80%"></p>
 <ul>
 <li>If you’re already familiar with Markdown and HTML, you might prefer
 using the <a href="https://wilkelab.org/ggtext/" class="external-link">ggtext</a> package
@@ -524,7 +524,7 @@ Markdown and not as plain text by setting <code>axis.title.x</code> and
 <span>    axis.title.x <span class="op">=</span> <span class="fu">ggtext</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">element_markdown</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.title.y <span class="op">=</span> <span class="fu">ggtext</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_markdown.html" class="external-link">element_markdown</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-22-1.png" alt="A scatter plot showing the squared city miles per gallon on the x-axis versus the base 10 logarithm of highway miles per gallon on the y-axis for 234 cars. In the axis titles, the base 10 is indicated in subscript on the y-axis and the power 2 is indicated in superscript on the x-axis." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-27-1.png" alt="A scatter plot showing the squared city miles per gallon on the x-axis versus the base 10 logarithm of highway miles per gallon on the y-axis for 234 cars. In the axis titles, the base 10 is indicated in subscript on the y-axis and the power 2 is indicated in superscript on the x-axis." width="80%"></p>
 </details>
 </div>
 </div>
@@ -544,7 +544,7 @@ the x and the y axes of the following plot.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-23-1.png" alt="A scatter plot showing city miles per gallon on the x-axis versus the highway miles per gallon on the y-axis for 234 cars. The distance between axis ticks is constant within each axis." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-28-1.png" alt="A scatter plot showing city miles per gallon on the x-axis versus the highway miles per gallon on the y-axis for 234 cars. The distance between axis ticks is constant within each axis." width="80%"></p>
 <p>You can set <code>breaks</code> and <code>minor_breaks</code> in
 <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> and <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code>
 as desired. For example, on the x-axis we have major and minor grid
@@ -564,7 +564,7 @@ setting <code>minor_breaks</code> to <code>NULL</code>.</p>
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">23</span>, <span class="fl">36</span>, <span class="fl">41</span><span class="op">)</span>,</span>
 <span>    minor_breaks <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-24-1.png" alt="A scatter plot showing city miles per gallon on the x-axis versus the highway miles per gallon on the y-axis for 234 cars. The distance between axis ticks varies within the y-axis. There are no minor horizontal grid lines, and there are three minor vertical gridlines between major ones." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-29-1.png" alt="A scatter plot showing city miles per gallon on the x-axis versus the highway miles per gallon on the y-axis for 234 cars. The distance between axis ticks varies within the y-axis. There are no minor horizontal grid lines, and there are three minor vertical gridlines between major ones." width="80%"></p>
 </details>
 </div>
 <div class="section level3">
@@ -598,7 +598,7 @@ the heat map so it’s flush against the axes.</li>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">faithfuld</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">waiting</span>, <span class="va">eruptions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_tile.html">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">density</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-25-1.png" alt="A heatmap showing a 2D density estimate of the waiting and eruption times of the Old Faithful geyser. The heatmap does not touch the panel edges." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-30-1.png" alt="A heatmap showing a 2D density estimate of the waiting and eruption times of the Old Faithful geyser. The heatmap does not touch the panel edges." width="80%"></p>
 <p>Since both x and y variables are continuous, we set
 <code>expand = c(0, 0)</code> in both <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code>
 and <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code>.</p>
@@ -607,7 +607,7 @@ and <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a><
 <span>  <span class="fu"><a href="../reference/geom_tile.html">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">density</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-26-1.png" alt="A heatmap showing a 2D density estimate of the waiting and eruption times of the Old Faithful geyser. The heatmap touches the panel edges." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-31-1.png" alt="A heatmap showing a 2D density estimate of the waiting and eruption times of the Old Faithful geyser. The heatmap touches the panel edges." width="80%"></p>
 <ul>
 <li>Remove some of the padding: Suppose you want to remove the padding
 below the bars and the x-axis only.</li>
@@ -615,14 +615,14 @@ below the bars and the x-axis only.</li>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-27-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-32-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges." width="80%"></p>
 <p>You would make this adjustment on <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code>
 since that padding is in the vertical direction.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-28-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. All bars touch the bottom of the panel, and the highest bar touches the top of the panel." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-33-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. All bars touch the bottom of the panel, and the highest bar touches the top of the panel." width="80%"></p>
 <p>However note that this removes the padding at the bottom of the bars
 as well as on top. By default, ggplot2 expands the scale by 5% on each
 side for continuous variables and by 0.6 units on each side for discrete
@@ -636,7 +636,7 @@ Given a vector of length 2, the lower limit is expanded by
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-29-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. All bars touch the bottom of the panel, and no bar touches the top of the panel." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-34-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. All bars touch the bottom of the panel, and no bar touches the top of the panel." width="80%"></p>
 </details>
 </div>
 </div>
