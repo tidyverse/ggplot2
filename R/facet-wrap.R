@@ -447,16 +447,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if (inherits(coord, "CoordFlip")) {
-      if (params$free$x) {
-        layout$SCALE_X <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_X <- 1L
-      }
-      if (params$free$y) {
-        layout$SCALE_Y <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_Y <- 1L
-      }
+      # Switch the scales back
+      layout[c("SCALE_X", "SCALE_Y")] <- layout[c("SCALE_Y", "SCALE_X")]
     }
 
     panel_order <- order(layout$ROW, layout$COL)

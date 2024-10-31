@@ -118,6 +118,20 @@ test_that("stat_bin() provides width (#3522)", {
   expect_equal(out$xmax - out$xmin, rep(binwidth, 10))
 })
 
+test_that("stat_bin(keep.zeroes) options work as intended", {
+  p <- ggplot(data.frame(x = c(1, 2, 2, 3, 5, 6, 6, 7)), aes(x)) +
+    scale_x_continuous(limits = c(-1, 9))
+
+  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "all"))
+  expect_equal(ld$x, -1:9)
+
+  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "inner"))
+  expect_equal(ld$x, c(1:7))
+
+  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "none"))
+  expect_equal(ld$x, c(1:3, 5:7))
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 test_that("bins() computes fuzz with non-finite breaks", {
@@ -194,7 +208,7 @@ test_that("setting boundary and center", {
   df <- data_frame(x = c(0, 30))
 
   # Error if both boundary and center are specified
-  expect_error(comp_bin(df, boundary = 5, center = 0), "one of `boundary` and `center`")
+  expect_snapshot(comp_bin(df, boundary = 5, center = 0), error = TRUE)
 
   res <- comp_bin(df, binwidth = 10, boundary = 0, pad = FALSE)
   expect_identical(res$count, c(1, 0, 1))
@@ -216,7 +230,7 @@ test_that("weights are added", {
 })
 
 test_that("bin errors at high bin counts", {
-  expect_error(bin_breaks_width(c(1, 2e6), 1), "The number of histogram bins")
+  expect_snapshot(bin_breaks_width(c(1, 2e6), 1), error = TRUE)
 })
 
 # stat_count --------------------------------------------------------------
