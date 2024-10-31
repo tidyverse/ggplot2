@@ -72,7 +72,7 @@ test_that("quantiles do not issue warning", {
   p <- ggplot(data, aes(x = x, y = y)) +
     geom_violin(draw_quantiles = 0.5)
 
-  expect_warning(plot(p), regexp = NA)
+  expect_silent(plot(p))
 })
 
 
