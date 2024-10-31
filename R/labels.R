@@ -84,8 +84,13 @@ setup_plot_labels <- function(plot, layers, data) {
     ))
   }
 
-  if (length(plot_labels$dictionary) > 0) {
-    labels <- lapply(labels, revalue, replace = plot_labels$dictionary)
+  dict <- plot_labels$dictionary
+  if (length(dict) > 0) {
+    labels <- lapply(labels, function(x) {
+      dict <- dict[names(dict) %in% x]
+      x[match(names(dict), x)] <- dict
+      x
+    })
   }
 
   defaults(plot_labels, labels)
