@@ -18,18 +18,15 @@ test_that("aesthetics go in aes_params", {
 })
 
 test_that("unknown params create warning", {
-  expect_warning(geom_point(blah = "red"), "unknown parameters")
+  expect_snapshot_warning(geom_point(blah = "red"))
 })
 
 test_that("unknown aesthetics create warning", {
-  expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
+  expect_snapshot_warning(geom_point(aes(blah = "red")))
 })
 
 test_that("empty aesthetics create warning", {
-  expect_warning(
-    geom_point(fill = NULL, shape = character()),
-    "Ignoring empty aesthetics"
-  )
+  expect_snapshot_warning(geom_point(fill = NULL, shape = character()))
 })
 
 test_that("invalid aesthetics throws errors", {
@@ -43,7 +40,7 @@ test_that("invalid aesthetics throws errors", {
 })
 
 test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
-  expect_warning(geom_point(aes(blah = NULL)), NA)
+  expect_silent(geom_point(aes(blah = NULL)))
 })
 
 test_that("column vectors are allowed (#2609)", {
@@ -55,13 +52,13 @@ test_that("column vectors are allowed (#2609)", {
 
 test_that("missing aesthetics trigger informative error", {
   df <- data_frame(x = 1:10)
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_line()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_col()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
 })
 
@@ -154,10 +151,7 @@ test_that("layer names can be resolved", {
   expect_equal(names(p$layers), c("foo", "bar"))
 
   l <- geom_point(name = "foobar")
-  expect_error(
-    p + l + l,
-    "names are duplicated"
-  )
+  expect_snapshot(p + l + l, error = TRUE)
 })
 
 

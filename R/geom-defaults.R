@@ -11,7 +11,17 @@
 #' @keywords internal
 #' @note
 #' Please note that geom defaults can be set *en masse* via the `theme(geom)`
-#' argument.
+#' argument. The guidelines for when to use which function are as follows:
+#'
+#' * If you want to change defaults for all geoms in all plots, use
+#'   `theme_update(geom = element_geom(...))`.
+#' * If you want to change defaults for all geoms in a single plot, use
+#'   `+ theme(geom = element_geom(...))`.
+#' * If you want to change defaults for one geom in all plots, use
+#'   `update_geom_defaults()`.
+#' * If you want to change settings for one geom in a single plot, use fixed
+#'   aesthetic parameters in a layer, like so: `geom_point(colour = "red")`.
+#'
 #' @export
 #' @examples
 #'
@@ -98,7 +108,7 @@ get_geom_defaults <- function(geom, theme = theme_get()) {
   if (is.character(geom)) {
     geom <- check_subclass(geom, "Geom")
   }
-  if (inherits(geom, "Geom")) {
+  if (is.geom(geom)) {
     out <- geom$use_defaults(data = NULL, theme = theme)
     return(out)
   }

@@ -128,12 +128,14 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   }
 
   transform <- as.transform(transform)
+  limits   <- allow_lambda(limits)
+
   if (!is.null(limits) && !is.function(limits)) {
     limits <- transform$transform(limits)
   }
+  check_continuous_limits(limits, call = call)
 
   # Convert formula to function if appropriate
-  limits   <- allow_lambda(limits)
   breaks   <- allow_lambda(breaks)
   labels   <- allow_lambda(labels)
   rescaler <- allow_lambda(rescaler)
@@ -319,7 +321,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   }
 
   transform <- as.transform(transform)
-  if (!is.null(limits)) {
+  if (!is.null(limits) && !is.function(limits)) {
     limits <- transform$transform(limits)
   }
 
@@ -356,6 +358,10 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
     position = position
   )
 }
+
+#' @export
+#' @rdname is_tests
+is.scale <- function(x) inherits(x, "Scale")
 
 #' @section Scales:
 #'
@@ -1366,13 +1372,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
-  scale$position <- switch(scale$position,
-    top = "bottom",
-    bottom = "top",
-    left = "right",
-    right = "left",
-    scale$position
-  )
+  scale$position <- opposite_position(scale$position)
   invisible()
 }
 
@@ -1387,6 +1387,16 @@ check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) 
   }
   msg <- paste0("{.field {name}} transformation introduced infinite values", end)
   cli::cli_warn(msg, call = call)
+}
+
+check_continuous_limits <- function(limits, ...,
+                                    arg = caller_arg(limits),
+                                    call = caller_env()) {
+  if (is.null(limits) || is.function(limits)) {
+    return(invisible())
+  }
+  check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
+  check_length(limits, 2L, arg = arg, call = call)
 }
 
 trans_support_nbreaks <- function(trans) {

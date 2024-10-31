@@ -1,3 +1,19 @@
+# modifying theme element properties with + operator works
+
+    Code
+      theme_grey() + "asdf"
+    Condition
+      Error:
+      ! Can't add `"asdf"` to a theme object.
+
+# replacing theme elements with %+replace% operator works
+
+    Code
+      theme_grey() + "asdf"
+    Condition
+      Error:
+      ! Can't add `"asdf"` to a theme object.
+
 # theme validation happens at build stage
 
     The `text` theme element must be a <element_text> object.
@@ -39,6 +55,14 @@
 ---
 
     The `blablabla` theme element must be a <element_text> object.
+
+# elements can be merged
+
+    Code
+      merge_element(text_base, rect_base)
+    Condition
+      Error in `merge_element()`:
+      ! Only elements of the same class can be merged.
 
 # Theme elements are checked during build
 
