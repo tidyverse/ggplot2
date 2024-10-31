@@ -182,12 +182,16 @@ should_stop <- function(expr) {
 #' A waiver is a "flag" object, similar to `NULL`, that indicates the
 #' calling function should just use the default value.  It is used in certain
 #' functions to distinguish between displaying nothing (`NULL`) and
-#' displaying a default value calculated elsewhere (`waiver()`)
+#' displaying a default value calculated elsewhere (`waiver()`).
+#' `is.waive()` reports whether an object is a waiver.
 #'
 #' @export
 #' @keywords internal
 waiver <- function() structure(list(), class = "waiver")
 
+#' @param x An object to test
+#' @export
+#' @rdname waiver
 is.waive <- function(x) inherits(x, "waiver")
 
 pal_binned <- function(palette) {
