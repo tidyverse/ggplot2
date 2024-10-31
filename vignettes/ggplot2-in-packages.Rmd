@@ -9,7 +9,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.show = "hide")
 library(ggplot2)
 ```
@@ -28,7 +29,8 @@ mpg_drv_summary <- function() {
 }
 ```
 
-```{r, include=FALSE}
+```{r}
+#| include: false
 # make sure this function runs!
 mpg_drv_summary()
 ```
@@ -44,7 +46,8 @@ mpg_drv_summary <- function() {
 }
 ```
 
-```{r, include=FALSE}
+```{r}
+#| include: false
 # make sure this function runs!
 mpg_drv_summary()
 ```
@@ -100,7 +103,8 @@ col_summary(mpg, "drv", "year")
 
 If the column name or expression is supplied by the user, you can also pass it to `aes()` or `vars()` using `{{ col }}`. This tidy eval operator captures the expression supplied by the user and forwards it to another tidy eval-enabled function such as `aes()` or `vars()`.
 
-```{r, eval = (packageVersion("rlang") >= "0.3.4.9003")}
+```{r}
+#| eval: !expr (packageVersion("rlang") >= "0.3.4.9003")
 col_summary <- function(df, col, by) {
   ggplot(df) + 
     geom_bar(aes(y = {{ col }})) + 
@@ -225,14 +229,16 @@ theme_custom <- function(...) {
 }
 ```
 
-```{r, include=FALSE}
+```{r}
+#| include: false
 # make sure this function runs!
 mpg_drv_summary() + theme_custom()
 ```
 
 Generally, if you add a method for a ggplot2 generic like `autoplot()`, ggplot2 should be in `Imports`. If for some reason you would like to keep ggplot2 in `Suggests`, it is possible to register your generics only if ggplot2 is installed using `vctrs::s3_register()`. If you do this, you should copy and paste the source of `vctrs::s3_register()` into your own package to avoid adding a [vctrs](https://vctrs.r-lib.org/) dependency.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 .onLoad <- function(...) {
   if (requireNamespace("ggplot2", quietly = TRUE)) {
     vctrs::s3_register("ggplot2::autoplot", "discrete_distr")

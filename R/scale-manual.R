@@ -119,7 +119,7 @@ scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
 #' @seealso
 #' Other linetype scales: [scale_linetype()], [scale_linetype_identity()].
 #' @export
-scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = "blank") {
+scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = NA) {
   manual_scale("linetype", values, breaks, ..., na.value = na.value)
 }
 
