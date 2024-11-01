@@ -70,7 +70,7 @@ test_that("check_device finds device capabilities", {
 
 test_that("check_device finds ragg capabilities", {
   skip_if(
-    getRversion() < "4.2.0" || !is_installed("ragg", version = "1.2.0"),
+    getRversion() < "4.2.0" || !is_installed("ragg", version = "1.2.6"),
     "Cannot test {ragg} capabilities."
   )
   tmp <- withr::local_tempfile(fileext = ".tiff")
