@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The helper function `is.waive()` is now exported to help extensions to work
+  with `waiver()` objects (@arcresu, #6173).
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
   evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
