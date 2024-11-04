@@ -59,6 +59,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
                      closed = c("right", "left"),
                      pad = FALSE,
                      na.rm = FALSE,
+                     follow.scale = FALSE,
                      keep.zeroes = "all",
                      orientation = NA,
                      show.legend = NA,
@@ -81,6 +82,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
       closed = closed,
       pad = pad,
       na.rm = na.rm,
+      follow.scale = follow.scale,
       orientation = orientation,
       keep.zeroes = keep.zeroes,
       ...
@@ -150,11 +152,15 @@ StatBin <- ggproto("StatBin", Stat,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
                            breaks = NULL, flipped_aes = FALSE, keep.zeroes = "all",
+                           follow.scale = FALSE,
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
                            origin = NULL, right = NULL, drop = NULL) {
     x <- flipped_names(flipped_aes)$x
-    if (!is.null(breaks)) {
+    if (follow.scale) {
+      breaks <- scales[[x]]$get_breaks()
+      bins <- bin_breaks(breaks, closed)
+    } else if (!is.null(breaks)) {
       if (is.function(breaks)) {
         breaks <- breaks(data[[x]])
       }
