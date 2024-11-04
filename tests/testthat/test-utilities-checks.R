@@ -84,7 +84,7 @@ test_that("check_device finds ragg capabilities", {
 
 test_that("check_device finds svglite capabilities", {
   skip_if(
-    getRversion() < "4.2.0" || !is_installed("svglite", version = "2.1.0"),
+    getRversion() < "4.2.0" || !is_installed("svglite", version = "2.1.2"),
     "Cannot test {svglite} capabilities."
   )
   tmp <- withr::local_tempfile(fileext = ".svg")
