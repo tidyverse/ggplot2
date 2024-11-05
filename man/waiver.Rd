@@ -2,12 +2,12 @@
 % Please edit documentation in R/utilities.R
 \name{waiver}
 \alias{waiver}
-\alias{is.waive}
+\alias{is.waiver}
 \title{A waiver object.}
 \usage{
 waiver()
 
-is.waive(x)
+is.waiver(x)
 }
 \arguments{
 \item{x}{An object to test}
@@ -17,6 +17,6 @@ A waiver is a "flag" object, similar to \code{NULL}, that indicates the
 calling function should just use the default value.  It is used in certain
 functions to distinguish between displaying nothing (\code{NULL}) and
 displaying a default value calculated elsewhere (\code{waiver()}).
-\code{is.waive()} reports whether an object is a waiver.
+\code{is.waiver()} reports whether an object is a waiver.
 }
 \keyword{internal}

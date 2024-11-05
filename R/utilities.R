@@ -12,7 +12,7 @@ scales::alpha
 }
 
 "%|W|%" <- function(a, b) {
-  if (!is.waive(a)) a else b
+  if (!is.waiver(a)) a else b
 }
 
 # Check required aesthetics are present
@@ -183,7 +183,7 @@ should_stop <- function(expr) {
 #' calling function should just use the default value.  It is used in certain
 #' functions to distinguish between displaying nothing (`NULL`) and
 #' displaying a default value calculated elsewhere (`waiver()`).
-#' `is.waive()` reports whether an object is a waiver.
+#' `is.waiver()` reports whether an object is a waiver.
 #'
 #' @export
 #' @keywords internal
@@ -192,7 +192,7 @@ waiver <- function() structure(list(), class = "waiver")
 #' @param x An object to test
 #' @export
 #' @rdname waiver
-is.waive <- function(x) inherits(x, "waiver")
+is.waiver <- function(x) inherits(x, "waiver")
 
 pal_binned <- function(palette) {
   function(x) {
@@ -270,7 +270,7 @@ snake_class <- function(x) {
 }
 
 empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waive(df)
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waiver(df)
 }
 
 is.discrete <- function(x) {
