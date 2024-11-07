@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
   evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations

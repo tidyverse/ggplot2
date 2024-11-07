@@ -312,6 +312,17 @@ test_that("element tree can be modified", {
   p1 <- ggplot() + theme(blablabla = element_line())
   expect_snapshot_error(ggplotGrob(p1))
 
+  # Expect errors for invalid element trees
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(el_def("rect"), el_def("line")))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = "bar"))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = el_def(inherit = "foo")))
+  )
+
   # inheritance and final calculation of novel element works
   final_theme <- ggplot2:::plot_theme(p, theme_gray())
   e1 <- calc_element("blablabla", final_theme)
