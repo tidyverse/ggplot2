@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Date(time) scales now throw appropriate errors when `date_breaks`, 
+  `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
 * `geom_errorbarh()` is deprecated in favour of 
   `geom_errorbar(orientation = "y")` (@teunbrand, #5961).
 * `geom_contour()` should be able to recognise a rotated grid of points 
