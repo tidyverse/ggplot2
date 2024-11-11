@@ -5,11 +5,11 @@ test_that("date(time) scales coerce data types", {
   datetime <- as.POSIXct(date)
 
   sc <- scale_x_datetime()
-  df <- sc$transform_df(data.frame(x = date))
+  df <- sc$transform_df(data_frame0(x = date))
   expect_equal(df$x, as.numeric(datetime))
 
   sc <- scale_x_date()
-  df <- sc$transform_df(data.frame(x = datetime))
+  df <- sc$transform_df(data_frame0(x = datetime))
   expect_equal(df$x, as.numeric(date))
 
 })
