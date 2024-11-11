@@ -92,6 +92,22 @@ and two whiskers), and all "outlying" points individually.</p>
 <span>  outlier.size <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  outlier.stroke <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  outlier.alpha <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  notch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  notchwidth <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  staplewidth <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -193,9 +209,28 @@ needs to show the full data range, please use <code>outlier.shape = NA</code> in
 
 <dt id="arg-outlier-colour-outlier-color-outlier-fill-outlier-shape-outlier-size-outlier-stroke-outlier-alpha">outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha<a class="anchor" aria-label="anchor" href="#arg-outlier-colour-outlier-color-outlier-fill-outlier-shape-outlier-size-outlier-stroke-outlier-alpha"></a></dt>
 <dd><p>Default aesthetics for outliers. Set to <code>NULL</code> to inherit from the
-aesthetics used for the box.</p>
-<p>In the unlikely event you specify both US and UK spellings of colour, the
-US spelling will take precedence.</p></dd>
+data's aesthetics.</p></dd>
+
+
+<dt id="arg-whisker-colour-whisker-color-whisker-linetype-whisker-linewidth">whisker.colour, whisker.color, whisker.linetype, whisker.linewidth<a class="anchor" aria-label="anchor" href="#arg-whisker-colour-whisker-color-whisker-linetype-whisker-linewidth"></a></dt>
+<dd><p>Default aesthetics for the whiskers. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
+
+
+<dt id="arg-staple-colour-staple-color-staple-linetype-staple-linewidth">staple.colour, staple.color, staple.linetype, staple.linewidth<a class="anchor" aria-label="anchor" href="#arg-staple-colour-staple-color-staple-linetype-staple-linewidth"></a></dt>
+<dd><p>Default aesthetics for the staples. Set to <code>NULL</code> to inherit from the
+data's aesthetics. Note that staples don't appear unless the <code>staplewidth</code>
+argument is set to a non-zero size.</p></dd>
+
+
+<dt id="arg-median-colour-median-color-median-linetype-median-linewidth">median.colour, median.color, median.linetype, median.linewidth<a class="anchor" aria-label="anchor" href="#arg-median-colour-median-color-median-linetype-median-linewidth"></a></dt>
+<dd><p>Default aesthetics for the median line. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
+
+
+<dt id="arg-box-colour-box-color-box-linetype-box-linewidth">box.colour, box.color, box.linetype, box.linewidth<a class="anchor" aria-label="anchor" href="#arg-box-colour-box-color-box-linetype-box-linewidth"></a></dt>
+<dd><p>Default aesthetics for the boxes. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
 
 
 <dt id="arg-notch">notch<a class="anchor" aria-label="anchor" href="#arg-notch"></a></dt>
@@ -262,6 +297,11 @@ overriding these connections, see how the <a href="layer_stats.html">stat</a> an
 <dd><p>Length of the whiskers as multiple of IQR. Defaults to 1.5.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>In the unlikely event you specify both US and UK spellings of colour,
+the US spelling will take precedence.</p>
+    </div>
     <div class="section level2">
     <h2 id="orientation">Orientation<a class="anchor" aria-label="anchor" href="#orientation"></a></h2>
 

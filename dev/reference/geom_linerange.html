@@ -81,6 +81,14 @@ ymin and ymax. Each case draws a single graphical object."><meta property="og:im
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  middle.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  middle.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  middle.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  middle.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fatten <span class="op">=</span> <span class="fl">2.5</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -203,6 +211,16 @@ lists which parameters it can accept.</p></li>
 <code>...</code>. This can be one of the functions described as
 <a href="draw_key.html">key glyphs</a>, to change the display of the layer in the legend.</p></li>
 </ul></dd>
+
+
+<dt id="arg-middle-colour-middle-color-middle-linetype-middle-linewidth">middle.colour, middle.color, middle.linetype, middle.linewidth<a class="anchor" aria-label="anchor" href="#arg-middle-colour-middle-color-middle-linetype-middle-linewidth"></a></dt>
+<dd><p>Default aesthetics for the middle line. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
+
+
+<dt id="arg-box-colour-box-color-box-linetype-box-linewidth">box.colour, box.color, box.linetype, box.linewidth<a class="anchor" aria-label="anchor" href="#arg-box-colour-box-color-box-linetype-box-linewidth"></a></dt>
+<dd><p>Default aesthetics for the boxes. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
 
 
 <dt id="arg-fatten">fatten<a class="anchor" aria-label="anchor" href="#arg-fatten"></a></dt>
