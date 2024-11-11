@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Binned guides now accept expressions as labels (@teunbrand, #6005)
+* (internal) `Scale$get_labels()` format expressions as lists.
 * When discrete breaks have names, they'll be used as labels by default 
   (@teunbrand, #6147).
 * The helper function `is.waiver()` is now exported to help extensions to work
