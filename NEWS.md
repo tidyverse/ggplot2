@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_errorbarh()` is deprecated in favour of 
+  `geom_errorbar(orientation = "y")` (@teunbrand, #5961).
 * `geom_contour()` should be able to recognise a rotated grid of points 
   (@teunbrand, #4320)
 * `geom_boxplot()` gains additional arguments to style the colour, linetype and
