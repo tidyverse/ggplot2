@@ -2,34 +2,34 @@
 % Please edit documentation in R/theme-sub.R
 \name{subtheme}
 \alias{subtheme}
-\alias{theme_axis}
-\alias{theme_axis_x}
-\alias{theme_axis_y}
-\alias{theme_axis_bottom}
-\alias{theme_axis_top}
-\alias{theme_axis_left}
-\alias{theme_axis_right}
-\alias{theme_legend}
-\alias{theme_panel}
-\alias{theme_plot}
-\alias{theme_strip}
+\alias{theme_sub_axis}
+\alias{theme_sub_axis_x}
+\alias{theme_sub_axis_y}
+\alias{theme_sub_axis_bottom}
+\alias{theme_sub_axis_top}
+\alias{theme_sub_axis_left}
+\alias{theme_sub_axis_right}
+\alias{theme_sub_legend}
+\alias{theme_sub_panel}
+\alias{theme_sub_plot}
+\alias{theme_sub_strip}
 \title{Shortcuts for theme settings}
 \usage{
-theme_axis(title, text, ticks, ticks.length, line)
+theme_sub_axis(title, text, ticks, ticks.length, line)
 
-theme_axis_x(title, text, ticks, ticks.length, line)
+theme_sub_axis_x(title, text, ticks, ticks.length, line)
 
-theme_axis_y(title, text, ticks, ticks.length, line)
+theme_sub_axis_y(title, text, ticks, ticks.length, line)
 
-theme_axis_bottom(title, text, ticks, ticks.length, line)
+theme_sub_axis_bottom(title, text, ticks, ticks.length, line)
 
-theme_axis_top(title, text, ticks, ticks.length, line)
+theme_sub_axis_top(title, text, ticks, ticks.length, line)
 
-theme_axis_left(title, text, ticks, ticks.length, line)
+theme_sub_axis_left(title, text, ticks, ticks.length, line)
 
-theme_axis_right(title, text, ticks, ticks.length, line)
+theme_sub_axis_right(title, text, ticks, ticks.length, line)
 
-theme_legend(
+theme_sub_legend(
   background,
   margin,
   spacing,
@@ -51,7 +51,7 @@ theme_legend(
   box.spacing
 )
 
-theme_panel(
+theme_sub_panel(
   background,
   border,
   spacing,
@@ -67,7 +67,7 @@ theme_panel(
   ontop
 )
 
-theme_plot(
+theme_sub_plot(
   background,
   title,
   title.position,
@@ -80,7 +80,7 @@ theme_plot(
   margin
 )
 
-theme_strip(
+theme_sub_strip(
   background,
   background.x,
   background.y,
@@ -110,27 +110,27 @@ keeping theme declarations more organised.
 }
 \section{Functions}{
 \itemize{
-\item \code{theme_axis()}: Theme specification for all axes.
+\item \code{theme_sub_axis()}: Theme specification for all axes.
 
-\item \code{theme_axis_x()}: Theme specification for both x axes.
+\item \code{theme_sub_axis_x()}: Theme specification for both x axes.
 
-\item \code{theme_axis_y()}: Theme specification for both y axes.
+\item \code{theme_sub_axis_y()}: Theme specification for both y axes.
 
-\item \code{theme_axis_bottom()}: Theme specification for the bottom x axis.
+\item \code{theme_sub_axis_bottom()}: Theme specification for the bottom x axis.
 
-\item \code{theme_axis_top()}: Theme specification for the top x axis.
+\item \code{theme_sub_axis_top()}: Theme specification for the top x axis.
 
-\item \code{theme_axis_left()}: Theme specification for the left y axis.
+\item \code{theme_sub_axis_left()}: Theme specification for the left y axis.
 
-\item \code{theme_axis_right()}: Theme specification for the right y axis.
+\item \code{theme_sub_axis_right()}: Theme specification for the right y axis.
 
-\item \code{theme_legend()}: Theme specification for the legend.
+\item \code{theme_sub_legend()}: Theme specification for the legend.
 
-\item \code{theme_panel()}: Theme specification for the panels.
+\item \code{theme_sub_panel()}: Theme specification for the panels.
 
-\item \code{theme_plot()}: Theme specification for the whole plot.
+\item \code{theme_sub_plot()}: Theme specification for the whole plot.
 
-\item \code{theme_strip()}: Theme specification for facet strips.
+\item \code{theme_sub_strip()}: Theme specification for facet strips.
 
 }}
 \examples{
@@ -150,7 +150,7 @@ p + theme(
 )
 
 # Are equivalent to these less verbose theme settings
-p + theme_axis_bottom(
+p + theme_sub_axis_bottom(
   title = red_text,
   text  = red_text,
   line  = red_line,
