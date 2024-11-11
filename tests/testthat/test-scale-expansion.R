@@ -1,6 +1,6 @@
 
 test_that("expand_scale() produces a deprecation warning", {
-  expect_warning(expand_scale(), "deprecated")
+  lifecycle::expect_deprecated(expand_scale())
 })
 
 test_that("expansion() checks input", {
