@@ -80,19 +80,8 @@ Layout <- ggproto("Layout", NULL,
     panels <- lapply(seq_along(panels[[1]]), function(i) {
       panel <- lapply(panels, `[[`, i)
       panel <- c(facet_bg[i], panel, facet_fg[i])
-
-      coord_fg <- self$coord$render_fg(self$panel_params[[i]], theme)
-      coord_bg <- self$coord$render_bg(self$panel_params[[i]], theme)
-      if (isTRUE(theme$panel.ontop)) {
-        panel <- c(panel, list(coord_bg), list(coord_fg))
-      } else {
-        panel <- c(list(coord_bg), panel, list(coord_fg))
-      }
-
-      ggname(
-        paste("panel", i, sep = "-"),
-        gTree(children = inject(gList(!!!panel)))
-      )
+      panel <- self$coord$draw_panel(panel, self$panel_params[[i]], theme)
+      ggname(paste("panel", i, sep = "-"), panel)
     })
     plot_table <- self$facet$draw_panels(
       panels,

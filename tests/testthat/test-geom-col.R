@@ -3,14 +3,9 @@ test_that("geom_col removes columns with parts outside the plot limits", {
 
   p <- ggplot(dat, aes(x, x)) + geom_col()
 
-  expect_warning( # warning created at render stage
-    ggplotGrob(p + ylim(0.5, 4)),
-    "Removed 3 rows containing missing values or values outside the scale range"
-  )
-  expect_warning( # warning created at render stage
-    ggplotGrob(p + ylim(0, 2.5)),
-    "Removed 1 row containing missing values or values outside the scale range"
-  )
+  # warnings created at render stage
+  expect_snapshot_warning(ggplotGrob(p + ylim(0.5, 4)))
+  expect_snapshot_warning(ggplotGrob(p + ylim(0, 2.5)))
 })
 
 test_that("geom_col works in both directions", {

@@ -46,6 +46,7 @@ stat_bin(
   closed = c("right", "left"),
   pad = FALSE,
   na.rm = FALSE,
+  keep.zeroes = "all",
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
@@ -120,7 +121,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -170,6 +173,11 @@ or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{keep.zeroes}{Treatment of zero count bins. If \code{"all"} (default), such
+bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
+If \code{"inner"} only zero count bins at the flanks are filtered out, but not
+in the middle.}
 }
 \description{
 Visualise the distribution of a single continuous variable by dividing
@@ -189,6 +197,12 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 \code{center} or \code{boundary} arguments. \code{binwidth} overrides \code{bins} so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
+
+By default, the \emph{height} of the bars represent the counts within each bin.
+However, there are situations where this behavior might produce misleading
+plots (e.g., when non-equal-width bins are used), in which case it might be
+preferable to have the \emph{area} of the bars represent the counts (by setting
+\code{aes(y = after_stat(count / width))}). See example below.
 
 In addition to \code{geom_histogram()}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
@@ -252,6 +266,18 @@ ggplot(diamonds, aes(price, colour = cut)) +
 # put density on the y axis instead of the default count
 ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
+
+
+# When using the non-equal-width bins, we should set the area of the bars to
+# represent the counts (not the height).
+# Here we're using 10 equi-probable bins:
+price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram(breaks = price_bins, color = "black") # misleading (height = count)
+
+ggplot(diamonds, aes(price, after_stat(count / width))) +
+  geom_histogram(breaks = price_bins, color = "black") # area = count
 
 if (require("ggplot2movies")) {
 # Often we don't want the height of the bar to represent the

@@ -80,7 +80,7 @@
 lims <- function(...) {
   args <- list2(...)
 
-  if (!all(has_name(args))) {
+  if (!is_named2(args)) {
     cli::cli_abort("All arguments must be named.")
   }
   env <- current_env()
@@ -113,10 +113,8 @@ ylim <- function(...) {
 limits <- function(lims, var, call = caller_env()) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
-  if (!any(is.na(lims)) && lims[1] > lims[2]) {
+  check_length(lims, 2L, arg = var, call = call)
+  if (!anyNA(lims) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
     trans <- "identity"
@@ -143,23 +141,17 @@ limits.factor <- function(lims, var, call = caller_env()) {
 }
 #' @export
 limits.Date <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
+  check_length(lims, 2L, arg = var, call = call)
   make_scale("date", var, limits = lims, call = call)
 }
 #' @export
 limits.POSIXct <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
+  check_length(lims, 2L, arg = var, call = call)
   make_scale("datetime", var, limits = lims, call = call)
 }
 #' @export
 limits.POSIXlt <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
+  check_length(lims, 2L, arg = var, call = call)
   make_scale("datetime", var, limits = as.POSIXct(lims), call = call)
 }
 
