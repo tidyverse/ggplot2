@@ -14,6 +14,14 @@ geom_crossbar(
   stat = "identity",
   position = "identity",
   ...,
+  middle.colour = NULL,
+  middle.color = NULL,
+  middle.linetype = NULL,
+  middle.linewidth = NULL,
+  box.colour = NULL,
+  box.color = NULL,
+  box.linetype = NULL,
+  box.linewidth = NULL,
   fatten = 2.5,
   na.rm = FALSE,
   orientation = NA,
@@ -132,6 +140,12 @@ lists which parameters it can accept.
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
+
+\item{middle.colour, middle.color, middle.linetype, middle.linewidth}{Default aesthetics for the middle line. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
+\item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
+data's aesthetics.}
 
 \item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{geom_crossbar()} and the middle point in
