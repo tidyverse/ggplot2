@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The helper function `is.waiver()` is now exported to help extensions to work
+  with `waiver()` objects (@arcresu, #6173).
 * Date(time) scales now throw appropriate errors when `date_breaks`, 
   `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
 * `geom_errorbarh()` is deprecated in favour of 
