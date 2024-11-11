@@ -38,7 +38,6 @@ Imports:
     gtable (>= 0.1.1),
     isoband,
     lifecycle (> 1.0.1),
-    MASS,
     rlang (>= 1.1.0),
     scales (>= 1.3.0),
     stats,
@@ -53,6 +52,7 @@ Suggests:
     knitr,
     mapproj,
     maps,
+    MASS,
     mgcv,
     multcomp,
     munsell,
@@ -151,7 +151,6 @@ Collate:
     'geom-density2d.R'
     'geom-dotplot.R'
     'geom-errorbar.R'
-    'geom-errorbarh.R'
     'geom-freqpoly.R'
     'geom-function.R'
     'geom-hex.R'

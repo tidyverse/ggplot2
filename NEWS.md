@@ -2,6 +2,14 @@
 
 * The helper function `is.waiver()` is now exported to help extensions to work
   with `waiver()` objects (@arcresu, #6173).
+* Date(time) scales now throw appropriate errors when `date_breaks`, 
+  `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
+* `geom_errorbarh()` is deprecated in favour of 
+  `geom_errorbar(orientation = "y")` (@teunbrand, #5961).
+* `geom_contour()` should be able to recognise a rotated grid of points 
+  (@teunbrand, #4320)
+* `geom_boxplot()` gains additional arguments to style the colour, linetype and
+  linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
   evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
