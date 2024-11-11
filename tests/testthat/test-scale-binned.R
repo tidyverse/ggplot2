@@ -44,6 +44,16 @@ test_that("binned limits should not compute out-of-bounds breaks", {
   ))
 })
 
+test_that("binned scales can use limits and transformations simultaneously (#6144)", {
+  s <- scale_x_binned(
+    limits = function(x) x + 1,
+    trans = transform_log10()
+  )
+  s$train(c(0, 1)) # c(1, 10) in untransformed space
+  out <- s$get_limits()
+  expect_equal(s$get_limits(), log10(c(2, 11)))
+})
+
 test_that("binned scales can use NAs in limits", {
   scale <- scale_x_binned(limits = c(NA, 10))
   scale$train(c(-20, 20))

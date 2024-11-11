@@ -18,12 +18,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   setup_params = function(self, data) {
-    crs <- self$determine_crs(data)
+    params <- ggproto_parent(Coord, self)$setup_params(data)
 
-    params <- list(
-      crs = crs,
-      default_crs = self$default_crs
-    )
+    params$crs <- self$determine_crs(data)
+    params$default_crs <- self$default_crs
     self$params <- params
 
     params
@@ -170,8 +168,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # expansion factors for scale limits
-    expansion_x <- default_expansion(scale_x, expand = self$expand)
-    expansion_y <- default_expansion(scale_y, expand = self$expand)
+    expansion_x <- default_expansion(scale_x, expand = params$expand[c(4, 2)])
+    expansion_y <- default_expansion(scale_y, expand = params$expand[c(3, 1)])
 
     # get scale limits and coord limits and merge together
     # coord limits take precedence over scale limits
@@ -547,11 +545,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes <- label_axes %|W|% ""
   }
 
-  if (is.character(label_axes)) {
-    label_axes <- parse_axes_labeling(label_axes)
-  } else if (!is.list(label_axes)) {
-    cli::cli_abort("Panel labeling format not recognized.")
-  }
+  label_axes <- parse_axes_labeling(label_axes)
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
@@ -584,9 +578,14 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   )
 }
 
-parse_axes_labeling <- function(x) {
-  labs <- unlist(strsplit(x, ""))
-  list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
+parse_axes_labeling <- function(x, call = caller_env()) {
+  if (is.character(x)) {
+    x <- unlist(strsplit(x, ""))
+    x <- list(top = x[1], right = x[2], bottom = x[3], left = x[4])
+  } else if (!is.list(x)) {
+    cli::cli_abort("Panel labeling format not recognized.", call = call)
+  }
+  x
 }
 
 # This function does two things differently from standard breaks:

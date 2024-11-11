@@ -5,6 +5,7 @@
 \alias{xlab}
 \alias{ylab}
 \alias{ggtitle}
+\alias{get_labs}
 \title{Modify axis, legend, and plot labels}
 \usage{
 labs(
@@ -22,6 +23,8 @@ xlab(label)
 ylab(label)
 
 ggtitle(label, subtitle = waiver())
+
+get_labs(plot = get_last_plot())
 }
 \arguments{
 \item{...}{A list of new name-value pairs. The name should be an aesthetic.}
@@ -44,6 +47,8 @@ rlang \link[rlang:as_function]{lambda} function notation.}
 
 \item{label}{The title of the respective axis (for \code{xlab()} or \code{ylab()}) or
 of the plot (for \code{ggtitle()}).}
+
+\item{plot}{A ggplot object}
 }
 \description{
 Good labels are critical for making your plots accessible to a wider
@@ -52,6 +57,8 @@ variable name. Use the plot \code{title} and \code{subtitle} to explain the
 main findings. It's common to use the \code{caption} to provide information
 about the data source. \code{tag} can be used for adding identification tags
 to differentiate between multiple plots.
+
+\code{get_labs()} retrieves completed labels from a plot.
 }
 \details{
 You can also set axis and legend labels in the individual scales (using

@@ -79,17 +79,18 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   compute_group = function(data, scales, fun = NULL,
                            bins = 30, binwidth = NULL, breaks = NULL,
                            origin = NULL, right = FALSE, na.rm = FALSE,
-                           flipped_aes = FALSE) {
+                           flipped_aes = FALSE, width = NULL) {
     data <- flip_data(data, flipped_aes)
     x <- flipped_names(flipped_aes)$x
-    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins, right = right)
+    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins,
+                           closed = if (right) "right" else "left")
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
     out <- dapply(data, "bin", fun %||% function(df) mean_se(df$y))
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid
-    out$width <- if (scales[[x]]$is_discrete()) 0.9 else locs$length
+    out$width <- width %||% if (scales[[x]]$is_discrete()) 0.9 else locs$length
     out$flipped_aes <- flipped_aes
     flip_data(out, flipped_aes)
   }

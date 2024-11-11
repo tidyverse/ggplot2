@@ -1,6 +1,36 @@
 # ggplot2 (development version)
 
-* `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
+* Date(time) scales now throw appropriate errors when `date_breaks`, 
+  `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
+* `geom_errorbarh()` is deprecated in favour of 
+  `geom_errorbar(orientation = "y")` (@teunbrand, #5961).
+* `geom_contour()` should be able to recognise a rotated grid of points 
+  (@teunbrand, #4320)
+* `geom_boxplot()` gains additional arguments to style the colour, linetype and
+  linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+* (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
+  evaluated in the context of data (@teunbrand, #6135)
+* Fixed bug where binned scales wouldn't simultaneously accept transformations
+  and function-limits (@teunbrand, #6144).
+* Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
+  (@teunbrand, #6104).
+* New `get_labs()` function for retrieving completed plot labels 
+  (@teunbrand, #6008).
+* Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
+  foreground and background colours respectively (@teunbrand)
+* The `summary()` method for ggplots is now more terse about facets 
+  (@teunbrand, #5989).
+* `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
+  argument to overrule theme settings, similar to `guide_axis(angle)` 
+  (@teunbrand, #4594).
+* `coord_*(expand)` can now take a logical vector to control expansion at any
+  side of the panel (top, right, bottom, left) (@teunbrand, #6020)
+* (Breaking) The defaults for all geoms can be set at one in the theme. 
+  (@teunbrand based on pioneering work by @dpseidel, #2239)
+    * A new `theme(geom)` argument is used to track these defaults.
+    * The `element_geom()` function can be used to populate that argument.
+    * The `from_theme()` function allows access to the theme default fields from
+      inside the `aes()` function.
 * Passing empty unmapped aesthetics to layers raises a warning instead of
   throwing an error (@teunbrand, #6009).
 * Moved {mgcv} from Imports to Suggests (@teunbrand, #5986)
@@ -17,7 +47,7 @@
   class through new `Coord$draw_panel()` method.
 * `theme(strip.clip)` now defaults to `"on"` and is independent of Coord 
   clipping (@teunbrand, 5952).
-* (internal) rearranged the code of `Facet$draw_paensl()` method (@teunbrand).
+* (internal) rearranged the code of `Facet$draw_panels()` method (@teunbrand).
 * Axis labels are now justified across facet panels (@teunbrand, #5820)
 * Fixed bug in `stat_function()` so x-axis title now produced automatically 
   when no data added. (@phispu, #5647).
@@ -163,6 +193,11 @@
 * `theme_classic()` now has black ticks and text instead of dark gray. In 
   addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
 * {tibble} is now suggested instead of imported (@teunbrand, #5986)
+* The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
+  `labs()` and several guides (@teunbrand, #3196).
+* `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
+* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
+* `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
 
 # ggplot2 3.5.1
 
@@ -209,6 +244,7 @@ documentation updates.
 * `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
 * `guide_coloursteps(even.steps = FALSE)` now works with discrete data that has 
   been formatted by `cut()` (@teunbrand, #3877).
+* `ggsave()` now offers to install svglite if needed (@eliocamp, #6166).
 
 # ggplot2 3.5.0
 
