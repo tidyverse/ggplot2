@@ -2,6 +2,8 @@
 
 * `geom_errorbarh()` is deprecated in favour of 
   `geom_errorbar(orientation = "y")` (@teunbrand, #5961).
+* `geom_contour()` should be able to recognise a rotated grid of points 
+  (@teunbrand, #4320)
 * `geom_boxplot()` gains additional arguments to style the colour, linetype and
   linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
