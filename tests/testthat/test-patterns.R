@@ -61,7 +61,7 @@ test_that("fill_alpha works as expected", {
 test_that("geoms can use pattern fills", {
 
   skip_if_not_installed("grid", "4.2.0")
-  skip_if_not_installed("svglite", "2.1.0")
+  skip_if_not_installed("svglite", "2.1.2")
 
   # Workaround for vdiffr's lack of pattern support
   # See also https://github.com/r-lib/vdiffr/issues/132

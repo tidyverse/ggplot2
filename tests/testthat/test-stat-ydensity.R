@@ -13,15 +13,13 @@ test_that("`drop = FALSE` preserves groups with 1 observations", {
 
   p <- ggplot(df, mapping = aes(x, y, fill = g))
 
-  expect_warning(
-    ld <- get_layer_data(p + geom_violin(drop = TRUE)),
-    "Groups with fewer than two datapoints have been dropped"
+  expect_snapshot_warning(
+    ld <- get_layer_data(p + geom_violin(drop = TRUE))
   )
   expect_length(unique(ld$x), 3)
 
-  expect_warning(
-    ld <- get_layer_data(p + geom_violin(drop = FALSE)),
-    "Cannot compute density for groups with fewer than two datapoints"
+  expect_snapshot_warning(
+    ld <- get_layer_data(p + geom_violin(drop = FALSE))
   )
   expect_length(unique(ld$x), 4)
 })

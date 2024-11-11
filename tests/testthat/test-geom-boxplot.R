@@ -42,15 +42,15 @@ test_that("geom_boxplot for continuous x gives warning if more than one x (#992)
     ggplot_build(ggplot(dat, aes) + geom_boxplot(aes) + extra)
   }
 
-  expect_warning(bplot(aes(x, y)), "Continuous x aesthetic")
-  expect_warning(bplot(aes(x, y), facet_wrap(~x)), "Continuous x aesthetic")
-  expect_warning(bplot(aes(Sys.Date() + x, y)), "Continuous x aesthetic")
+  expect_snapshot_warning(bplot(aes(x, y)))
+  expect_snapshot_warning(bplot(aes(x, y), facet_wrap(~x)))
+  expect_snapshot_warning(bplot(aes(Sys.Date() + x, y)))
 
-  expect_warning(bplot(aes(x, group = x, y)), NA)
-  expect_warning(bplot(aes(1, y)), NA)
-  expect_warning(bplot(aes(factor(x), y)), NA)
-  expect_warning(bplot(aes(x == 1, y)), NA)
-  expect_warning(bplot(aes(as.character(x), y)), NA)
+  expect_silent(bplot(aes(x, group = x, y)))
+  expect_silent(bplot(aes(1, y)))
+  expect_silent(bplot(aes(factor(x), y)))
+  expect_silent(bplot(aes(x == 1, y)))
+  expect_silent(bplot(aes(as.character(x), y)))
 })
 
 test_that("can use US spelling of colour", {
