@@ -108,6 +108,18 @@ ymin and ymax. Each case draws a single graphical object."><meta property="og:im
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">geom_errorbarh</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">geom_linerange</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -259,6 +271,11 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 
 </dl></div>
     <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p><code>geom_errorbarh()</code> is <a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>. Use
+<code>geom_errorbar(orientation = "y")</code> instead.</p>
+    </div>
+    <div class="section level2">
     <h2 id="orientation">Orientation<a class="anchor" aria-label="anchor" href="#orientation"></a></h2>
 
 
@@ -282,8 +299,7 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="stat_summary.html">stat_summary()</a></code> for examples of these guys in use,
-<code><a href="geom_smooth.html">geom_smooth()</a></code> for continuous analogue,
-<code><a href="geom_errorbarh.html">geom_errorbarh()</a></code> for a horizontal error bar.</p></div>
+<code><a href="geom_smooth.html">geom_smooth()</a></code> for continuous analogue</p></div>
     </div>
 
     <div class="section level2">
