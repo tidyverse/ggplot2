@@ -861,12 +861,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels[lengths(labels) == 0] <- ""
       # Make sure each element is scalar
       labels <- lapply(labels, `[`, 1)
-
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- inject(expression(!!!labels))
-      } else {
-        labels <- unlist(labels)
-      }
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
 
     labels
@@ -1106,7 +1103,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       labels <- labels[attr(breaks, "pos")]
     }
 
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
+    labels
   },
 
   clone = function(self) {
@@ -1341,6 +1341,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
     labels
   },
