@@ -108,7 +108,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
-    } else if (is.waive(scale_x$labels)) {
+    } else if (is.waiver(scale_x$labels)) {
       x_labels <- graticule$degree_label[graticule$type == "E"]
       needs_autoparsing[graticule$type == "E"] <- TRUE
     } else {
@@ -133,7 +133,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
       y_labels <- rep(NA, length(y_breaks))
-    } else if (is.waive(scale_y$labels)) {
+    } else if (is.waiver(scale_y$labels)) {
       y_labels <- graticule$degree_label[graticule$type == "N"]
       needs_autoparsing[graticule$type == "N"] <- TRUE
     } else {
@@ -534,7 +534,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      label_axes = waiver(), lims_method = "cross",
                      ndiscr = 100, default = FALSE, clip = "on") {
 
-  if (is.waive(label_graticule) && is.waive(label_axes)) {
+  if (is.waiver(label_graticule) && is.waiver(label_axes)) {
     # if both `label_graticule` and `label_axes` are set to waive then we
     # use the default of labels on the left and at the bottom
     label_graticule <- ""
@@ -620,13 +620,13 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
       bbox[is.na(bbox)] <- c(-180, -90, 180, 90)[is.na(bbox)]
     }
 
-    if (!(is.waive(scale_x$breaks) && is.null(scale_x$n.breaks))) {
+    if (!(is.waiver(scale_x$breaks) && is.null(scale_x$n.breaks))) {
       x_breaks <- scale_x$get_breaks(limits = bbox[c(1, 3)])
       finite <- is.finite(x_breaks)
       x_breaks <- if (any(finite)) x_breaks[finite] else NULL
     }
 
-    if (!(is.waive(scale_y$breaks) && is.null(scale_y$n.breaks))) {
+    if (!(is.waiver(scale_y$breaks) && is.null(scale_y$n.breaks))) {
       y_breaks <- scale_y$get_breaks(limits = bbox[c(2, 4)])
       finite <- is.finite(y_breaks)
       y_breaks <- if (any(finite)) y_breaks[finite] else NULL
@@ -657,6 +657,9 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
 #' @keywords internal
 view_scales_from_graticule <- function(graticule, scale, aesthetic,
                                        label, label_graticule, bbox) {
+  if (empty(graticule)) {
+    return(ggproto(NULL, ViewScale))
+  }
 
   # Setup position specific parameters
   # Note that top/bottom doesn't necessarily mean to label the meridians and
