@@ -370,8 +370,7 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
       ), call = self$call)
     }
     if (inherits(x, "Date")) {
-     cli::cli_abort("You supplied a {.cls {class(x)}} field.
-                    Did you mean to use {.fn scale_*_date}?", call = self$call)
+     x <- as.POSIXct(x)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
@@ -421,8 +420,7 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
       ), call = self$call)
     }
     if (inherits(x, "POSIXct")) {
-      cli::cli_abort("You supplied a {.cls {class(x)}} field.
-                    Did you mean to use {.fn scale_*_datetime}?", call = self$call)
+      x <- as.Date(x)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
