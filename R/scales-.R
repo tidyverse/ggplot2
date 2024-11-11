@@ -178,8 +178,8 @@ ScalesList <- ggproto("ScalesList", NULL,
 
       # Resolve palette theme setting for this scale
       type <- if (scale$is_discrete()) "discrete" else "continuous"
-      elem <- paste0("palette.", scale$aesthetics[1], ".", type)
-      elem <- calc_element(elem, theme)
+      elem <- paste0("palette.", scale$aesthetics, ".", type)
+      elem <- compact(lapply(elem, calc_element, theme))[1][[1]]
 
       # Resolve the palette itself
       elem <- elem %||% fallback_palette(scale)
