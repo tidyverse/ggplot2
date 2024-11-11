@@ -106,6 +106,11 @@ PositionDodge <- ggproto("PositionDodge", Position,
   reverse = NULL,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data, default = self$orientation == "y")
+    check_required_aesthetics(
+      if (flipped_aes) "y|ymin" else "x|xmin",
+      names(data), snake_class(self)
+    )
+
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       cli::cli_warn(c(
@@ -117,8 +122,10 @@ PositionDodge <- ggproto("PositionDodge", Position,
     if (identical(self$preserve, "total")) {
       n <- NULL
     } else {
-      n <- vec_unique(data[c("group", "PANEL", "xmin")])
-      n <- vec_group_id(n[c("PANEL", "xmin")])
+      data$xmin <- data$xmin %||% data$x
+      cols <- intersect(colnames(data), c("group", "PANEL", "xmin"))
+      n <- vec_unique(data[cols])
+      n <- vec_group_id(n[setdiff(cols, "group")])
       n <- max(tabulate(n, attr(n, "n")))
     }
 
@@ -175,7 +182,7 @@ pos_dodge <- function(df, width, n = NULL) {
   groupidx <- match(df$group, unique0(df$group))
 
   # Find the center for each group, then use that to calculate xmin and xmax
-  df$x <- df$x + width * ((groupidx - 0.5) / n - .5)
+  df$x <- df$x + width * ((groupidx - 0.5) / n - 0.5)
   df$xmin <- df$x - d_width / n / 2
   df$xmax <- df$x + d_width / n / 2
 

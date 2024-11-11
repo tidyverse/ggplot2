@@ -69,7 +69,7 @@ NULL
 guides <- function(...) {
   args <- list2(...)
   if (length(args) > 0) {
-    if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
+    if (is.list(args[[1]]) && !is.guide(args[[1]])) args <- args[[1]]
     args <- rename_aes(args)
   }
 
@@ -109,18 +109,9 @@ guides <- function(...) {
   NULL
 }
 
-update_guides <- function(p, guides) {
-  p <- plot_clone(p)
-  if (inherits(p$guides, "Guides")) {
-    old <- p$guides
-    new <- ggproto(NULL, old)
-    new$add(guides)
-    p$guides <- new
-  } else {
-    p$guides <- guides
-  }
-  p
-}
+#' @export
+#' @rdname is_tests
+is.guides <- function(x) inherits(x, "Guides")
 
 # Class -------------------------------------------------------------------
 
@@ -151,7 +142,7 @@ Guides <- ggproto(
     if (is.null(guides)) {
       return(invisible())
     }
-    if (inherits(guides, "Guides")) {
+    if (is.guides(guides)) {
       guides <- guides$guides
     }
     self$guides <- defaults(guides, self$guides)
@@ -194,7 +185,7 @@ Guides <- ggproto(
     if (is.character(index)) {
       index <- match(index, self$aesthetics)
     }
-    if (any(is.na(index)) || length(index) == 0) {
+    if (anyNA(index) || length(index) == 0) {
       return(NULL)
     }
     if (length(index) == 1) {
@@ -209,7 +200,7 @@ Guides <- ggproto(
     if (is.character(index)) {
       index <- match(index, self$aesthetics)
     }
-    if (any(is.na(index)) || length(index) == 0) {
+    if (anyNA(index) || length(index) == 0) {
       return(NULL)
     }
     if (length(index) == 1) {
@@ -285,7 +276,7 @@ Guides <- ggproto(
   #
   # The resulting guide is then drawn in ggplot_gtable
 
-  build = function(self, scales, layers, labels, layer_data) {
+  build = function(self, scales, layers, labels, layer_data, theme) {
 
     # Empty guides list
     custom <- self$get_custom()
@@ -312,7 +303,7 @@ Guides <- ggproto(
 
     # Merge and process layers
     guides$merge()
-    guides$process_layers(layers, layer_data)
+    guides$process_layers(layers, layer_data, theme)
     if (length(guides$guides) == 0) {
       return(no_guides)
     }
@@ -350,13 +341,8 @@ Guides <- ggproto(
       # Find guide for aesthetic-scale combination
       # Hierarchy is in the order:
       # plot + guides(XXX) + scale_ZZZ(guide = XXX) > default(i.e., legend)
-      guide <- resolve_guide(
-        aesthetic = aesthetics[idx],
-        scale     = scales[[idx]],
-        guides    = guides,
-        default   = default,
-        null      = missing
-      )
+      guide <- guides[[aesthetics[idx]]] %||% scales[[idx]]$guide %|W|%
+        default %||% missing
 
       if (isFALSE(guide)) {
         deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
@@ -460,9 +446,9 @@ Guides <- ggproto(
   },
 
   # Loop over guides to let them extract information from layers
-  process_layers = function(self, layers, data = NULL) {
+  process_layers = function(self, layers, data = NULL, theme = NULL) {
     self$params <- Map(
-      function(guide, param) guide$process_layers(param, layers, data),
+      function(guide, param) guide$process_layers(param, layers, data, theme),
       guide = self$guides,
       param = self$params
     )
@@ -870,24 +856,6 @@ include_layer_in_guide <- function(layer, matched) {
   isTRUE(layer$show.legend)
 }
 
-# Simplify legend position to one of horizontal/vertical/inside
-legend_position <- function(position) {
-  if (length(position) == 1) {
-    if (position %in% c("top", "bottom")) {
-      "horizontal"
-    } else {
-      "vertical"
-    }
-  } else {
-    "inside"
-  }
-}
-
-# resolve the guide from the scale and guides
-resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "none") {
-  guides[[aesthetic]] %||% scale$guide %|W|% default %||% null
-}
-
 # validate guide object
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
@@ -898,7 +866,7 @@ validate_guide <- function(guide) {
       guide <- fun()
     }
   }
-  if (inherits(guide, "Guide")) {
+  if (is.guide(guide)) {
     return(guide)
   }
   if (inherits(guide, "guide") && is.list(guide)) {

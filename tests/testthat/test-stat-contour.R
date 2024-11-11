@@ -3,7 +3,7 @@ test_that("a warning is issued when there is more than one z per x+y", {
   p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour()
   # Ignore other warnings than the one stat_contour() issued
   suppressWarnings(
-    expect_warning(ggplot_build(p), "Zero contours were generated")
+    expect_snapshot_warning(ggplot_build(p))
   )
 })
 
@@ -14,7 +14,7 @@ test_that("contouring sparse data results in a warning", {
   # TODO: These multiple warnings should be summarized nicely. Until this gets
   #       fixed, this test ignores all the following errors than the first one.
   suppressWarnings(
-    expect_warning(ggplot_build(p), "Zero contours were generated")
+    expect_snapshot_warning(ggplot_build(p))
   )
 })
 
@@ -93,9 +93,8 @@ test_that("stat_contour() removes duplicated coordinates", {
   layer <- stat_contour()
 
   expect_silent(layer$stat$setup_data(df))
-  expect_warning(
-    new <- layer$stat$setup_data(transform(df, group = 1)),
-    "has duplicated"
+  expect_snapshot_warning(
+    new <- layer$stat$setup_data(transform(df, group = 1))
   )
   expect_equal(new, df[1:4,], ignore_attr = TRUE)
 })

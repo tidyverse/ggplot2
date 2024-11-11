@@ -153,7 +153,12 @@ GeomRug <- ggproto("GeomRug", Geom,
     gTree(children = inject(gList(!!!rugs)))
   },
 
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
 
   draw_key = draw_key_path,
 
