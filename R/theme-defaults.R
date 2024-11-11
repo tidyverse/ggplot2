@@ -499,6 +499,35 @@ theme_classic <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
+theme_transparent <- function(base_size = 11, base_family = "",
+                              base_line_size = base_size / 22,
+                              base_rect_size = base_size / 22) {
+  # Based on theme_bw
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
+    theme(
+      panel.background  = element_blank(),
+      plot.background   = element_blank(),
+      legend.background = element_blank(),
+      legend.key        = element_blank(),
+      # theme_bw specifications
+      panel.border      = element_rect(fill = NA, colour = "grey20"),
+      # make gridlines dark, same contrast with white as in theme_grey
+      panel.grid        = element_line(colour = "grey92"),
+      panel.grid.minor  = element_line(linewidth = rel(0.5)),
+      # contour strips to match panel contour
+      strip.background  = element_rect(fill = "grey85", colour = "grey20"),
+
+      complete = TRUE
+    )
+}
+
+#' @export
+#' @rdname ggtheme
 theme_void <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,
@@ -744,34 +773,3 @@ theme_all_null <- function() {
   args <- c(elements, list(complete = TRUE))
   inject(theme(!!!args))
 }
-
-#' @export
-#' @rdname ggtheme
-theme_transparent <- function(base_size = 11, base_family = "",
-                              base_line_size = base_size / 22,
-                              base_rect_size = base_size / 22) {
-  # Based on theme_bw
-  theme_grey(
-    base_size = base_size,
-    base_family = base_family,
-    base_line_size = base_line_size,
-    base_rect_size = base_rect_size
-  ) %+replace%
-    theme(
-      panel.background  = element_blank(),
-      plot.background   = element_blank(),
-      legend.background = element_blank(),
-      legend.key        = element_blank(),
-      # theme_bw specifications
-      panel.border      = element_rect(fill = NA, colour = "grey20"),
-      # make gridlines dark, same contrast with white as in theme_grey
-      panel.grid        = element_line(colour = "grey92"),
-      panel.grid.minor  = element_line(linewidth = rel(0.5)),
-      # contour strips to match panel contour
-      strip.background  = element_rect(fill = "grey85", colour = "grey20"),
-
-      complete = TRUE
-    )
-}
-
-
