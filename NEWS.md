@@ -202,6 +202,7 @@
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
 * Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
+* Added `theme_transparent()` with transparent backgrounds. 
 
 # ggplot2 3.5.1
 
@@ -925,7 +926,6 @@ gains in rendering speed.
 * Updated documentation for `geom_smooth()` to more clearly describe effects of the 
   `fullrange` parameter (@thoolihan, #4399).
   
-* Added `theme_transparent()` with transparent backgrounds. 
 * Updated documentation for `geom_smooth()` to more clearly describe effects of 
   the `fullrange` parameter (@thoolihan, #4399).
 
