@@ -149,7 +149,16 @@ ggplot_add.labels <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Guides <- function(object, plot, object_name) {
-  update_guides(plot, object)
+  if (is.guides(plot$guides)) {
+    # We clone the guides object to prevent modify-in-place of guides
+    old <- plot$guides
+    new <- ggproto(NULL, old)
+    new$add(object)
+    plot$guides <- new
+  } else {
+    plot$guides <- object
+  }
+  plot
 }
 #' @export
 ggplot_add.uneval <- function(object, plot, object_name) {
@@ -196,7 +205,7 @@ new_layer_names <- function(layer, existing) {
   new_name <- layer$name
   if (is.null(new_name)) {
     # Construct a name from the layer's call
-    new_name <- call_name(layer$constructor)
+    new_name <- call_name(layer$constructor) %||% snake_class(layer$geom)
 
     if (new_name %in% existing) {
       names <- c(existing, new_name)

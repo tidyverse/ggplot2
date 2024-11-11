@@ -238,7 +238,8 @@ GeomSf <- ggproto("GeomSf", Geom,
     linewidth[is_point] <- stroke[is_point]
 
     gp <- gpar(
-      col = colour, fill = fill, fontsize = font_size, lwd = linewidth,
+      col = colour, fill = fill, fontsize = font_size,
+      lwd = linewidth, lty = data$linetype,
       lineend = lineend, linejoin = linejoin, linemitre = linemitre
     )
 

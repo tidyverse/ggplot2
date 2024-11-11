@@ -72,29 +72,21 @@ test_that("datetime colour scales work", {
 test_that("date(time) scales throw warnings when input is incorrect", {
   p <- ggplot(data.frame(x = 1, y = 1), aes(x, y)) + geom_point()
 
-  expect_warning(
-    ggplot_build(p + scale_x_date()),
-    "The value was converted to a <Date> object."
-  )
+  expect_snapshot_warning(ggplot_build(p + scale_x_date()))
+  expect_snapshot_warning(ggplot_build(p + scale_x_datetime()))
 
-  expect_warning(
-    ggplot_build(p + scale_x_datetime()),
-    "The value was converted to a <POSIXt/POSIXct> object."
-  )
-
-  expect_error(
+  expect_snapshot(
     ggplot_build(p + scale_x_date(date_breaks = c(11, 12))),
-    "must be a single string"
+    error = TRUE
   )
 
-  expect_error(
+  expect_snapshot(
     ggplot_build(p + scale_x_date(date_minor_breaks = c(11, 12))),
-    "must be a single string"
+    error = TRUE
   )
 
-  expect_error(
+  expect_snapshot(
     ggplot_build(p + scale_x_date(date_labels = c(11, 12))),
-    "must be a single string"
+    error = TRUE
   )
-
 })

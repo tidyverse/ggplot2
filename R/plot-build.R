@@ -288,7 +288,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_margin <- calc_element("plot.margin", theme)
   plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
-  if (inherits(theme$plot.background, "element")) {
+  if (is.theme_element(theme$plot.background)) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
@@ -358,13 +358,10 @@ table_add_tag <- function(table, label, theme) {
       ),
       call = expr(theme()))
     }
-    if (length(position) != 2) {
-      cli::cli_abort(paste0(
-        "A {.cls numeric} {.arg plot.tag.position} ",
-        "theme setting must have length 2."
-      ),
-      call = expr(theme()))
-    }
+    check_length(
+      position, 2L, call = expr(theme()),
+      arg = I("A {.cls numeric} {.arg plot.tag.position}")
+    )
     top <- left <- right <- bottom <- FALSE
   } else {
     # Break position into top/left/right/bottom
@@ -408,11 +405,10 @@ table_add_tag <- function(table, label, theme) {
       x <- unit(position[1], "npc")
       y <- unit(position[2], "npc")
     }
-    # Do manual placement of tag
-    tag <- justify_grobs(
-      tag, x = x, y = y,
-      hjust = element$hjust, vjust = element$vjust,
-      int_angle = element$angle, debug = element$debug
+    # Re-render with manual positions
+    tag <- element_grob(
+      element, x = x, y = y, label = label,
+      margin_y = TRUE, margin_x = TRUE
     )
     if (location == "plot") {
       table <- gtable_add_grob(

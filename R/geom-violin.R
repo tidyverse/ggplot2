@@ -223,7 +223,7 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
 
   # We have two rows per segment drawn. Each segment gets its own group.
   data_frame0(
-    x = interleave(violin.xminvs, violin.xmaxvs),
+    x = vec_interleave(violin.xminvs, violin.xmaxvs),
     y = rep(ys, each = 2),
     group = rep(ys, each = 2)
   )
