@@ -682,7 +682,7 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
   expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
-  expect_doppelganger("theme_transparent", plot + theme_transparent(base_size = 33))
+  expect_doppelganger("theme_transparent_large", plot + theme_transparent(base_size = 33))
 })
 
 test_that("setting 'spacing' and 'margins' affect the whole plot", {
