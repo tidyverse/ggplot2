@@ -62,6 +62,9 @@ test_that("geoms can use pattern fills", {
 
   skip_if_not_installed("grid", "4.2.0")
   skip_if_not_installed("svglite", "2.1.2")
+  # TODO: ideally we should test this on all platforms, but currently they
+  # don't all produce the same result
+  skip_if_not(.Platform$OS.type == "windows")
 
   # Workaround for vdiffr's lack of pattern support
   # See also https://github.com/r-lib/vdiffr/issues/132
