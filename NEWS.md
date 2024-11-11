@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Date scales silently coerce <POSIXct> to <Date> and datetime scales silently
+  coerce <Date> to <POSIXct> (@laurabrianna, #3533)
 * `geom_contour()` should be able to recognise a rotated grid of points 
   (@teunbrand, #4320)
 * `geom_boxplot()` gains additional arguments to style the colour, linetype and
