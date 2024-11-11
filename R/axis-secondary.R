@@ -186,7 +186,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.waiver(self$breaks)) {
       if (scale$is_discrete()) {
-        self$breaks <- scale$get_breaks()
+        self$breaks <- setNames(nm = scale$get_breaks())
       } else {
         breaks <- scale$get_transformation()$breaks
         n_breaks <- scale$n.breaks
@@ -235,7 +235,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       self$mono_test(scale)
       breaks <- self$breaks
     } else {
-      breaks <- scale$map(self$breaks)
+      breaks <- setNames(scale$map(self$breaks), names(self$breaks))
     }
 
     # Get scale's original range before transformation
