@@ -62,7 +62,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -79,7 +79,7 @@ can be used in various ways, including to prevent overplotting and
 improving the display. The \code{position} argument accepts the following:
 \itemize{
 \item The result of calling a position function, such as \code{position_jitter()}.
-\item A string nameing the position adjustment. To give the position as a
+\item A string naming the position adjustment. To give the position as a
 string, strip the function name of the \code{position_} prefix. For example,
 to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item For more information and other ways to specify the position, see the
@@ -138,7 +138,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -207,8 +209,8 @@ the background colour of the label.
 \section{Alignment}{
 
 You can modify text alignment with the \code{vjust} and \code{hjust}
-aesthetics. These can either be a number between 0 (right/bottom) and
-1 (top/left) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
+aesthetics. These can either be a number between 0 (left/bottom) and
+1 (right/top) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
 \code{"center"}, \code{"top"}). There are two special alignments: \code{"inward"} and
 \code{"outward"}. Inward always aligns text towards the center, and outward
 aligns it away from the center.
@@ -247,10 +249,11 @@ p + geom_text(aes(colour = factor(cyl))) +
   scale_colour_discrete(l = 40)
 p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 
-p + geom_text(aes(size = wt))
+# Scale size of text, and change legend key glyph from a to point
+p + geom_text(aes(size = wt), key_glyph = "point")
 # Scale height of text, rather than sqrt(height)
 p +
-  geom_text(aes(size = wt)) +
+  geom_text(aes(size = wt), key_glyph = "point") +
   scale_radius(range = c(3,6))
 
 # You can display expressions by setting parse = TRUE.  The
