@@ -20,11 +20,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Thomas Lin Pedersen \email{thomas.pedersen@rstudio.com} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
+\strong{Maintainer}: Thomas Lin Pedersen \email{thomas.pedersen@posit.co} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
 
 Authors:
 \itemize{
-  \item Hadley Wickham \email{hadley@rstudio.com} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
+  \item Hadley Wickham \email{hadley@posit.co} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
   \item Winston Chang (\href{https://orcid.org/0000-0002-1576-2126}{ORCID})
   \item Lionel Henry
   \item Kohske Takahashi
@@ -32,11 +32,12 @@ Authors:
   \item Kara Woo (\href{https://orcid.org/0000-0002-5125-4188}{ORCID})
   \item Hiroaki Yutani (\href{https://orcid.org/0000-0002-3385-7233}{ORCID})
   \item Dewey Dunnington (\href{https://orcid.org/0000-0002-9415-4582}{ORCID})
+  \item Teun van den Brand (\href{https://orcid.org/0000-0002-9335-7468}{ORCID})
 }
 
 Other contributors:
 \itemize{
-  \item RStudio [copyright holder, funder]
+  \item Posit, PBC [copyright holder, funder]
 }
 
 }

@@ -20,8 +20,8 @@ test_that("stat_summary(_bin) work with lambda expressions", {
     })
 
   expect_equal(
-    layer_data(p1),
-    layer_data(p2)
+    get_layer_data(p1),
+    get_layer_data(p2)
   )
 
 
@@ -34,14 +34,22 @@ test_that("stat_summary(_bin) work with lambda expressions", {
     )
 
   expect_equal(
-    layer_data(p1),
-    layer_data(p3)
+    get_layer_data(p1),
+    get_layer_data(p3)
   )
 
 })
 
+test_that("stat_summary_bin takes user's `width` argument (#4647)", {
+  p <- ggplot(mtcars, aes(mpg, disp)) +
+    stat_summary_bin(
+      fun.data = mean_se, na.rm = TRUE,
+      binwidth = 1, width = 2
+    )
 
-
+  ld <- layer_data(p)
+  expect_equal(unique(ld$width), 2)
+})
 
 test_that("stat_summary_(2d|hex) work with lambda expressions", {
 
@@ -60,14 +68,15 @@ test_that("stat_summary_(2d|hex) work with lambda expressions", {
     stat_summary_2d(fun = ~ mean(.x))
 
   expect_equal(
-    layer_data(p1),
-    layer_data(p2)
+    get_layer_data(p1),
+    get_layer_data(p2)
   )
 
 
 
   # stat_summary_hex
   # this plot is a bit funky, but easy to reason through
+  skip_if_not_installed("hexbin")
   p1 <- ggplot(dat, aes(x, y, z = z)) +
     stat_summary_hex(fun = function(x) mean(x))
 
@@ -75,8 +84,8 @@ test_that("stat_summary_(2d|hex) work with lambda expressions", {
     stat_summary_hex(fun = ~ mean(.x))
 
   expect_equal(
-    layer_data(p1),
-    layer_data(p2)
+    get_layer_data(p1),
+    get_layer_data(p2)
   )
 
 })

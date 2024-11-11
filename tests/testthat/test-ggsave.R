@@ -9,6 +9,24 @@ test_that("ggsave creates file", {
   expect_true(file.exists(path))
 })
 
+test_that("ggsave can create directories", {
+  dir <- tempdir()
+  path <- file.path(dir, "foobar", "tmp.pdf")
+  on.exit(unlink(path))
+
+  p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+
+  expect_snapshot(
+    ggsave(path, p), error = TRUE,
+    transform = function(x) gsub("directory '.*'\\.$", "directory 'PATH'", x)
+  )
+  expect_false(dir.exists(dirname(path)))
+
+  # 2 messages: 1 for saving and 1 informing about directory creation
+  expect_message(expect_message(ggsave(path, p, create.dir = TRUE)))
+  expect_true(dir.exists(dirname(path)))
+})
+
 test_that("ggsave restores previous graphics device", {
   # When multiple devices are open, dev.off() restores the next one in the list,
   # not the previously-active one. (#2363)
@@ -27,6 +45,7 @@ test_that("ggsave restores previous graphics device", {
 })
 
 test_that("ggsave uses theme background as image background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -43,6 +62,7 @@ test_that("ggsave uses theme background as image background", {
 })
 
 test_that("ggsave can handle blank background", {
+  skip_if_not_installed("svglite")
   skip_if_not_installed("xml2")
 
   path <- tempfile()
@@ -56,6 +76,26 @@ test_that("ggsave can handle blank background", {
   expect_true(grepl("fill: none", bg))
 })
 
+test_that("ggsave warns about empty or multiple filenames", {
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+
+  withr::with_tempfile(c("file1", "file2"), fileext = ".png", {
+    expect_snapshot(
+      x <- suppressMessages(ggsave(c(file1, file2), plot)),
+      transform = function(x) gsub(" \\'.*\\.png\\'", "'PATH'", x)
+    )
+  })
+
+  expect_snapshot(ggsave(character(), plot), error = TRUE)
+})
+
+test_that("ggsave fails informatively for no-extension filenames", {
+  plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+  expect_snapshot(
+    ggsave(tempfile(), plot), error = TRUE,
+    transform = function(x) gsub("to .*\\.$", "to PATH", x)
+  )
+})
 
 # plot_dim ---------------------------------------------------------------
 
@@ -68,12 +108,13 @@ test_that("guesses and informs if dim not specified", {
 })
 
 test_that("uses 7x7 if no graphics device open", {
-  expect_equal(plot_dim(), c(7, 7))
+  suppressMessages(expect_equal(plot_dim(), c(7, 7)))
 })
 
 test_that("warned about large plot unless limitsize = FALSE", {
-  expect_error(plot_dim(c(50, 50)), "exceed 50 inches")
+  expect_snapshot(plot_dim(c(50, 50)), error = TRUE)
   expect_equal(plot_dim(c(50, 50), limitsize = FALSE), c(50, 50))
+  expect_snapshot(plot_dim(c(15000, 15000), units = "px"), error = TRUE)
 })
 
 test_that("scale multiplies height & width", {
@@ -85,8 +126,8 @@ test_that("scale multiplies height & width", {
 
 test_that("unknown device triggers error", {
   expect_snapshot_error(plot_dev(1))
-  expect_error(plot_dev("xyz"), "Unknown graphics device")
-  expect_error(plot_dev(NULL, "test.xyz"), "Unknown graphics device")
+  expect_snapshot(plot_dev("xyz"), error = TRUE)
+  expect_snapshot(plot_dev(NULL, "test.xyz"), error = TRUE)
 })
 
 

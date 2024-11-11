@@ -1,14 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
+# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="ggplot2 website" /></a>
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/tidyverse/ggplot2/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/ggplot2/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/tidyverse/ggplot2/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2?branch=main)
+[![R-CMD-check](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverse/ggplot2/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2)
 <!-- badges: end -->
 
 ## Overview
@@ -29,13 +29,13 @@ install.packages("tidyverse")
 install.packages("ggplot2")
 
 # Or the development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidyverse/ggplot2")
+# install.packages("pak")
+pak::pak("tidyverse/ggplot2")
 ```
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
 
 ## Usage
 
@@ -53,7 +53,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
-![](man/figures/README-example-1.png)<!-- -->
+<img src="man/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles per gallon are inversely correlated."  />
 
 ## Lifecycle
 
@@ -76,12 +76,10 @@ If you are new to ggplot2 you are better off starting with a systematic
 introduction, rather than trying to learn from reading individual
 documentation pages. Currently, there are three good places to start:
 
-1.  The [Data
-    Visualisation](https://r4ds.had.co.nz/data-visualisation.html) and
-    [Graphics for
-    communication](https://r4ds.had.co.nz/graphics-for-communication.html)
-    chapters in [R for Data Science](https://r4ds.had.co.nz). R for Data
-    Science is designed to give you a comprehensive introduction to the
+1.  The [Data Visualization](https://r4ds.hadley.nz/data-visualize) and
+    [Communication](https://r4ds.hadley.nz/communication) chapters in [R
+    for Data Science](https://r4ds.hadley.nz). R for Data Science is
+    designed to give you a comprehensive introduction to the
     [tidyverse](https://www.tidyverse.org), and these two chapters will
     get you up to speed with the essentials of ggplot2 as quickly as
     possible.
@@ -110,8 +108,8 @@ specifically tailored to your needs.
 
 There are two main places to get help with ggplot2:
 
-1.  The [RStudio community](https://community.rstudio.com/) is a
-    friendly place to ask any questions about ggplot2.
+1.  The [RStudio community](https://forum.posit.co/) is a friendly place
+    to ask any questions about ggplot2.
 
 2.  [Stack
     Overflow](https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50)

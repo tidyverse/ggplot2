@@ -16,23 +16,23 @@ test_that("date scale draws correctly", {
   expect_doppelganger("dates along x, default breaks",
     dt
   )
-  expect_doppelganger("scale_x_date(breaks = date_breaks(\"2 weeks\"))",
-    dt + scale_x_date(breaks = date_breaks("2 weeks"))
+  expect_doppelganger("scale_x_date(breaks = breaks_width(\"2 weeks\"))",
+    dt + scale_x_date(breaks = breaks_width("2 weeks"))
   )
   expect_doppelganger("scale_x_date(breaks = \"3 weeks\")",
     dt + scale_x_date(date_breaks = "3 weeks")
   )
-  expect_doppelganger("scale_x_date(labels = date_format(\"%m/%d\"))",
-    dt + scale_x_date(labels = date_format("%m/%d"))
+  expect_doppelganger("scale_x_date(labels = label_date(\"%m/%d\"))",
+    dt + scale_x_date(labels = label_date("%m/%d"))
   )
-  expect_doppelganger("scale_x_date(labels = date_format(\"%W\"), \"week\")",
-    dt + scale_x_date(labels = date_format("%W"), "week")
+  expect_doppelganger("scale_x_date(labels = label_date(\"%W\"), \"week\")",
+    dt + scale_x_date(labels = label_date("%W"), "week")
   )
 
   dt <- ggplot(df, aes(price, dx)) + geom_line()
   expect_doppelganger("dates along y, default breaks", dt)
-  expect_doppelganger("scale_y_date(breaks = date_breaks(\"2 weeks\"))",
-    dt + scale_y_date(breaks = date_breaks("2 weeks"))
+  expect_doppelganger("scale_y_date(breaks = breaks_width(\"2 weeks\"))",
+    dt + scale_y_date(breaks = breaks_width("2 weeks"))
   )
   expect_doppelganger("scale_y_date(breaks = \"3 weeks\")",
     dt + scale_y_date(date_breaks = "3 weeks")

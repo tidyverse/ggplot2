@@ -61,14 +61,12 @@ NULL
 
 #' @rdname summarise_plot
 #' @export
-summarise_layout = function(p) {
-  if (!inherits(p, "ggplot_built")) {
-    cli::cli_abort("{.arg p} must be a {.cls ggplot_build} object")
-  }
+summarise_layout <- function(p) {
+  check_inherits(p, "ggplot_built")
   l <- p$layout
 
   layout <- l$layout
-  layout <- tibble(
+  layout <- data_frame0(
     panel = l$layout$PANEL,
     row   = l$layout$ROW,
     col   = l$layout$COL
@@ -100,10 +98,8 @@ summarise_layout = function(p) {
 
 #' @rdname summarise_plot
 #' @export
-summarise_coord = function(p) {
-  if (!inherits(p, "ggplot_built")) {
-    cli::cli_abort("{.arg p} must be a {.cls ggplot_build} object")
-  }
+summarise_coord <- function(p) {
+  check_inherits(p, "ggplot_built")
 
   # Given a transform object, find the log base; if the transform object is
   # NULL, or if it's not a log transform, return NA.
@@ -126,9 +122,7 @@ summarise_coord = function(p) {
 #' @rdname summarise_plot
 #' @export
 summarise_layers <- function(p) {
-  if (!inherits(p, "ggplot_built")) {
-    cli::cli_abort("{.arg p} must be a {.cls ggplot_build} object")
-  }
+  check_inherits(p, "ggplot_built")
 
   # Default mappings. Make sure it's a regular list instead of an uneval
   # object.
@@ -140,7 +134,7 @@ summarise_layers <- function(p) {
 
   # This currently only returns the mappings, but in the future, other
   # information could be added.
-  tibble(
+  data_frame0(
     mapping = layer_mappings
   )
 }

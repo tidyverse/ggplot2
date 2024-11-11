@@ -1,5 +1,7 @@
 #' @rdname stat_summary
 #' @inheritParams stat_bin
+#' @param breaks Alternatively, you can supply a numeric vector giving the bin
+#'   boundaries. Overrides `binwidth` and `bins`.
 #' @export
 stat_summary_bin <- function(mapping = NULL, data = NULL,
                              geom = "pointrange", position = "identity",
@@ -20,16 +22,16 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
                              fun.ymin = deprecated(),
                              fun.ymax = deprecated()) {
   if (lifecycle::is_present(fun.y)) {
-    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
-    fun = fun %||% fun.y
+    deprecate_warn0("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
+    fun <- fun %||% fun.y
   }
   if (lifecycle::is_present(fun.ymin)) {
-    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
-    fun.min = fun.min %||% fun.ymin
+    deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
+    fun.min <- fun.min %||% fun.ymin
   }
   if (lifecycle::is_present(fun.ymax)) {
-    lifecycle::deprecate_warn("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
-    fun.max = fun.max %||% fun.ymax
+    deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
+    fun.max <- fun.max %||% fun.ymax
   }
   layer(
     data = data,
@@ -62,28 +64,33 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
 StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   required_aes = c("x", "y"),
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "fun.data", "fun.max", "fun.min", "fun.args"),
+
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params$fun <- make_summary_fun(
+      params$fun.data, params$fun,
+      params$fun.max, params$fun.min,
+      params$fun.args %||% list()
+    )
     params
   },
 
-  compute_group = function(data, scales, fun.data = NULL, fun = NULL,
-                           fun.max = NULL, fun.min = NULL, fun.args = list(),
+  compute_group = function(data, scales, fun = NULL,
                            bins = 30, binwidth = NULL, breaks = NULL,
                            origin = NULL, right = FALSE, na.rm = FALSE,
-                           flipped_aes = FALSE) {
+                           flipped_aes = FALSE, width = NULL) {
     data <- flip_data(data, flipped_aes)
-    fun <- make_summary_fun(fun.data, fun, fun.max, fun.min, fun.args)
     x <- flipped_names(flipped_aes)$x
-    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins, right = right)
+    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins,
+                           closed = if (right) "right" else "left")
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
-    out <- dapply(data, "bin", fun)
+    out <- dapply(data, "bin", fun %||% function(df) mean_se(df$y))
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid
-    out$width <- if (scales[[x]]$is_discrete()) 0.9 else locs$length
+    out$width <- width %||% if (scales[[x]]$is_discrete()) 0.9 else locs$length
     out$flipped_aes <- flipped_aes
     flip_data(out, flipped_aes)
   }

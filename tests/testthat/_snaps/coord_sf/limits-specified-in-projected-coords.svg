@@ -36,7 +36,7 @@
 </defs>
 <g clip-path='url(#cpMTkzLjkzfDU2My4wNXwyMi43OHw1NDQuOTQ=)'>
 <rect x='193.93' y='22.78' width='369.12' height='522.15' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<path d='M 311.99 646.40 L 631.13 575.70 L 510.46 102.07 L 221.33 166.12 L 311.99 646.40 Z' style='fill-rule: evenodd; stroke-width: 1.07; stroke: #595959; stroke-linecap: butt;' />
+<path d='M 311.99 646.40 L 631.13 575.70 L 510.46 102.07 L 221.33 166.12 L 311.99 646.40 Z' style='fill-rule: evenodd; stroke-width: 0.43; stroke: #595959; stroke-linecap: butt;' />
 <circle cx='311.99' cy='646.40' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='221.33' cy='166.12' r='1.95' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='631.13' cy='575.70' r='1.95' style='stroke-width: 0.71; fill: #000000;' />

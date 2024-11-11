@@ -1,13 +1,29 @@
 test_that("keep_mid_true drops leading/trailing FALSE", {
-  expect_equal(keep_mid_true(c(F, F)), c(F, F))
-  expect_equal(keep_mid_true(c(F, T, F, T, F)), c(F, T, T, T, F))
-  expect_equal(keep_mid_true(c(T, T, F, T, F)), c(T, T, T, T, F))
-  expect_equal(keep_mid_true(c(F, T, F, T, T)), c(F, T, T, T, T))
+  expect_equal(keep_mid_true(c(FALSE, FALSE)), c(FALSE, FALSE))
+  expect_equal(keep_mid_true(c(FALSE, TRUE, FALSE, TRUE, FALSE)), c(FALSE, TRUE, TRUE, TRUE, FALSE))
+  expect_equal(keep_mid_true(c(TRUE, TRUE, FALSE, TRUE, FALSE)), c(TRUE, TRUE, TRUE, TRUE, FALSE))
+  expect_equal(keep_mid_true(c(FALSE, TRUE, FALSE, TRUE, TRUE)), c(FALSE, TRUE, TRUE, TRUE, TRUE))
 })
 
 test_that("geom_path() throws meaningful error on bad combination of varying aesthetics", {
   p <- ggplot(economics, aes(unemploy/pop, psavert, colour = pop)) + geom_path(linetype = 2)
   expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("repair_segment_arrow() repairs sensibly", {
+  group <- c(1,1,1,1,2,2)
+
+  ans <- repair_segment_arrow(arrow(ends = "last"), group)
+  expect_equal(ans$ends, rep(2L, 4))
+  expect_equal(as.numeric(ans$length), c(0, 0, 0.25, 0.25))
+
+  ans <- repair_segment_arrow(arrow(ends = "first"), group)
+  expect_equal(ans$ends, rep(1L, 4))
+  expect_equal(as.numeric(ans$length), c(0.25, 0, 0, 0.25))
+
+  ans <- repair_segment_arrow(arrow(ends = "both"), group)
+  expect_equal(ans$ends, c(1L, 3L, 2L, 3L))
+  expect_equal(as.numeric(ans$length), c(0.25, 0, 0.25, 0.25))
 })
 
 # Tests on stairstep() ------------------------------------------------------------
@@ -19,7 +35,7 @@ test_that("stairstep() does not error with too few observations", {
 
 test_that("stairstep() exists with error when an invalid `direction` is given", {
   df <- data_frame(x = 1:3, y = 1:3)
-  expect_error(stairstep(df, direction="invalid"))
+  expect_snapshot(stairstep(df, direction = "invalid"), error = TRUE)
 })
 
 test_that("stairstep() output is correct for direction = 'vh'", {
@@ -74,11 +90,8 @@ test_that("geom_path draws correctly", {
 test_that("NA linetype is dropped with warning", {
   df <- data_frame(x = 1:2, y = 1:2, z = "a")
 
-  expect_warning(
-    expect_doppelganger(
+  expect_snapshot_warning(expect_doppelganger(
       "NA linetype",
       ggplot(df, aes(x, y)) + geom_path(linetype = NA)
-    ),
-    "containing missing values"
-  )
+  ))
 })

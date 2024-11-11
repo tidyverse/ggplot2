@@ -19,7 +19,7 @@ unrowname <- function(x) {
   } else if (is.matrix(x)) {
     dimnames(x)[1] <- list(NULL)
   } else {
-    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects")
+    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects.")
   }
   x
 }
@@ -54,13 +54,13 @@ rename <- function(x, replace) {
 id_var <- function(x, drop = FALSE) {
   if (length(x) == 0) {
     id <- integer()
-    n = 0L
+    n <- 0L
   } else if (!is.null(attr(x, "n")) && !drop) {
     return(x)
   } else if (is.factor(x) && !drop) {
     x <- addNA(x, ifany = TRUE)
     id <- as.integer(x)
-    n <- length(levels(x))
+    n <- nlevels(x)
   } else {
     levels <- sort(unique0(x), na.last = TRUE)
     id <- match(x, levels)
@@ -74,7 +74,7 @@ id_var <- function(x, drop = FALSE) {
 #' Properties:
 #' - `order(id)` is equivalent to `do.call(order, df)`
 #' - rows containing the same data have the same value
-#' - if `drop = FALSE` then room for all possibilites
+#' - if `drop = FALSE` then room for all possibilities
 #'
 #' @param .variables list of variables
 #' @param drop Should unused factor levels be dropped?
@@ -91,7 +91,7 @@ id <- function(.variables, drop = FALSE) {
     nrows <- nrow(.variables)
     .variables <- unclass(.variables)
   }
-  lengths <- vapply(.variables, length, integer(1))
+  lengths <- lengths(.variables)
   .variables <- .variables[lengths != 0]
   if (length(.variables) == 0) {
     n <- nrows %||% 0L
@@ -124,10 +124,10 @@ id <- function(.variables, drop = FALSE) {
     res
   }
 }
-#' Count number of occurences for each unique combination of variables
+#' Count number of occurrences for each unique combination of variables
 #'
 #' Each unique combination of the variables in `df` given by `vars` will be
-#' identified and their occurences counted. If `wt_var` is given the counts will
+#' identified and their occurrences counted. If `wt_var` is given the counts will
 #' be weighted by the values in this column.
 #'
 #' @param df A data.frame
@@ -159,96 +159,17 @@ count <- function(df, vars = NULL, wt_var = NULL) {
 # Create a shared unique id across two data frames such that common variable
 # combinations in the two data frames gets the same id
 join_keys <- function(x, y, by) {
-  joint <- vec_rbind(x[by], y[by])
+  joint <- vec_rbind0(x[by], y[by])
   keys <- id(joint, drop = TRUE)
   n_x <- nrow(x)
   n_y <- nrow(y)
   list(x = keys[seq_len(n_x)], y = keys[n_x + seq_len(n_y)],
        n = attr(keys, "n"))
 }
-#' Replace specified values with new values, in a factor or character vector
-#'
-#' An easy to use substitution of elements in a string-like vector (character or
-#' factor). If `x` is a character vector the matching elements will be replaced
-#' directly and if `x` is a factor the matching levels will be replaced
-#'
-#' @param x A character or factor vector
-#' @param replace A named character vector with the names corresponding to the
-#' elements to replace and the values giving the replacement.
-#'
-#' @return A vector of the same class as `x` with the given values replaced
-#'
-#' @keywords internal
-#' @noRd
-#'
-revalue <- function(x, replace) {
-  if (is.character(x)) {
-    replace <- replace[names(replace) %in% x]
-    if (length(replace) == 0) return(x)
-    x[match(names(replace), x)] <- replace
-  } else if (is.factor(x)) {
-    lev <- levels(x)
-    replace <- replace[names(replace) %in% lev]
-    if (length(replace) == 0) return(x)
-    lev[match(names(replace), lev)] <- replace
-    levels(x) <- lev
-  } else if (!is.null(x)) {
-    cli::cli_abort("{.arg x} must be a factor or character vector")
-  }
-  x
-}
-# Iterate through a formula and return a quoted version
-simplify_formula <- function(x) {
-  if (length(x) == 2 && x[[1]] == as.name("~")) {
-    return(simplify(x[[2]]))
-  }
-  if (length(x) < 3)
-    return(list(x))
-  op <- x[[1]]
-  a <- x[[2]]
-  b <- x[[3]]
-  if (op == as.name("+") || op == as.name("*") || op ==
-      as.name("~")) {
-    c(simplify(a), simplify(b))
-  }
-  else if (op == as.name("-")) {
-    c(simplify(a), bquote(-.(x), list(x = simplify(b))))
-  }
-  else {
-    list(x)
-  }
-}
-#' Create a quoted version of x
-#'
-#' This function captures the special meaning of formulas in the context of
-#' facets in ggplot2, where `+` have special meaning. It works as
-#' `plyr::as.quoted` but only for the special cases of `character`, `call`, and
-#' `formula` input as these are the only situations relevant for ggplot2.
-#'
-#' @param x A formula, string, or call to be quoted
-#' @param env The environment to a attach to the quoted expression.
-#'
-#' @keywords internal
-#' @noRd
-#'
-as.quoted <- function(x, env = parent.frame()) {
-  x <- if (is.character(x)) {
-    lapply(x, function(x) parse(text = x)[[1]])
-  } else if (is.formula(x)) {
-    simplify_formula(x)
-  } else if (is.call(x)) {
-    as.list(x)[-1]
-  } else {
-    cli::cli_abort("Must be a character vector, call, or formula")
-  }
-  attributes(x) <- list(env = env, class = 'quoted')
-  x
-}
+
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
-  if (!is.numeric(x)) {
-    cli::cli_abort("{.arg x} must be numeric")
-  }
+  check_numeric(x)
   f(x/accuracy) * accuracy
 }
 
@@ -288,29 +209,20 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   }
 
   # Shortcut when only one group
-  if (all(vapply(grouping_cols, single_value, logical(1)))) {
+  has_single_group <- all(vapply(
+    grouping_cols,
+    function(x) identical(as.character(levels(x) %||% attr(x, "n")), "1"),
+    logical(1)
+  ))
+  if (has_single_group) {
     return(apply_fun(df))
   }
 
   ids <- id(grouping_cols, drop = drop)
   group_rows <- split_with_index(seq_len(nrow(df)), ids)
   result <- lapply(seq_along(group_rows), function(i) {
-    cur_data <- df_rows(df, group_rows[[i]])
+    cur_data <- vec_slice(df, group_rows[[i]])
     apply_fun(cur_data)
   })
-  vec_rbind(!!!result)
-}
-
-single_value <- function(x, ...) {
-  UseMethod("single_value")
-}
-#' @export
-single_value.default <- function(x, ...) {
-  # This is set by id() used in creating the grouping var
-  identical(attr(x, "n"), 1L)
-}
-#' @export
-single_value.factor <- function(x, ...) {
-  # Panels are encoded as factor numbers and can never be missing (NA)
-  identical(levels(x), "1")
+  vec_rbind0(!!!result)
 }

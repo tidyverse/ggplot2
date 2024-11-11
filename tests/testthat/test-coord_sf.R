@@ -30,6 +30,20 @@ test_that("graticule lines can be removed via theme", {
   expect_doppelganger("no panel grid", plot)
 })
 
+test_that("graticule lines and axes can be removed via scales", {
+  skip_if_not_installed("sf")
+
+  df <- data_frame(x = c(1, 2, 3), y = c(1, 2, 3))
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    coord_sf() +
+    theme_gray() +
+    scale_x_continuous(breaks = NULL) +
+    scale_y_continuous(breaks = NULL)
+
+  expect_doppelganger("no breaks", plot)
+})
+
 test_that("axis labels are correct for manual breaks", {
   skip_if_not_installed("sf")
 
@@ -295,7 +309,65 @@ test_that("sf_transform_xy() works", {
   # transform back
   out2 <- sf_transform_xy(out, 4326, 3347)
   expect_identical(data$city, out2$city)
-  expect_true(all(abs(out2$x - data$x) < .01))
-  expect_true(all(abs(out2$y - data$y) < .01))
+  expect_true(all(abs(out2$x - data$x) < 0.01))
+  expect_true(all(abs(out2$y - data$y) < 0.01))
 
+})
+
+test_that("coord_sf() can use function breaks and n.breaks", {
+
+  polygon <- sf::st_sfc(
+    sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
+    crs = 4326 # basic long-lat crs
+  )
+  polygon <- sf::st_transform(polygon, crs = 3347)
+
+  p <- ggplot(polygon) + geom_sf(fill = NA) +
+    scale_x_continuous(breaks = breaks_width(0.5)) +
+    scale_y_continuous(n.breaks = 4)
+
+  b <- ggplot_build(p)
+  grat <- b$layout$panel_params[[1]]$graticule
+
+  expect_equal(
+    vec_slice(grat$degree, grat$type == "E"),
+    seq(-81, -74.5, by = 0.5)
+  )
+  expect_equal(
+    vec_slice(grat$degree, grat$type == "N"),
+    seq(34, 40, by = 2)
+  )
+})
+
+test_that("coord_sf() uses the guide system", {
+  skip_if_not_installed("sf")
+  polygon <- sf::st_sfc(
+    sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
+    crs = 4326 # basic long-lat crs
+  )
+  polygon <- sf::st_transform(polygon, crs = 3347)
+
+  p <- ggplot(polygon) + geom_sf(fill = NA) +
+    coord_sf(label_graticule = "NSWE") + # All of the labels
+    scale_x_continuous(guide = guide_none("guide_none() with title")) +
+    scale_y_continuous(guide = guide_axis(angle = 45),
+                       name = "title from scale") +
+    guides(
+      x.sec = guide_axis(angle = -45),
+      y.sec = guide_axis(n.dodge = 2, title = "Secondary guide via `guides()`")
+    )
+
+  expect_doppelganger(
+    "coord_sf() with custom guides",
+    p
+  )
+})
+
+test_that("coord_sf() throws error when limits are badly specified", {
+  skip_if_not_installed("sf")
+  # throws error when limit is a Scale object instead of vector
+  expect_snapshot_error(ggplot() + coord_sf(xlim(1,1)))
+
+  # throws error when limit's length is different than two
+  expect_snapshot_error(ggplot() + coord_sf(ylim=1:3))
 })
