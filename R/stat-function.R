@@ -50,7 +50,7 @@ stat_function <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatFunction <- ggproto("StatFunction", Stat,
-  default_aes = aes(y = after_scale(y)),
+  default_aes = aes(x = NULL, y = after_scale(y)),
 
   compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
     if (is.null(scales$x)) {

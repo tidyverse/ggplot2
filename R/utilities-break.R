@@ -24,6 +24,9 @@
 #' table(cut_width(runif(1000), 0.1, center = 0))
 #' table(cut_width(runif(1000), 0.1, labels = FALSE))
 cut_interval <- function(x, n = NULL, length = NULL, ...) {
+  if ((!is.null(n) && !is.null(length)) || (is.null(n) && is.null(length))) {
+    cli::cli_abort("Specify exactly one of {.var n} and {.var length}.")
+  }
   cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
 
@@ -76,20 +79,14 @@ cut_width <- function(x, width, center = NULL, boundary = NULL, closed = "right"
   }
   boundary <- as.numeric(boundary)
 
-  # Determine bins
-  min_x <- find_origin(x_range, width, boundary)
+  # Determine bins, find origin
+  min_x <- boundary + floor((x_range[1] - boundary) / width) * width
   # Small correction factor so that we don't get an extra bin when, for
   # example, origin = 0, max(x) = 20, width = 10.
   max_x <- max(x, na.rm = TRUE) + (1 - 1e-08) * width
 
   breaks <- seq(min_x, max_x, width)
   cut(x, breaks, include.lowest = TRUE, right = (closed == "right"), ...)
-}
-
-# Find the left side of left-most bin
-find_origin <- function(x_range, width, boundary) {
-  shift <- floor((x_range[1] - boundary) / width)
-  boundary + shift * width
 }
 
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {

@@ -86,7 +86,7 @@ test_that("labeller() dispatches labellers", {
   # facet_wrap() shouldn't get both rows and cols
   p3 <- p + facet_wrap(~cyl, labeller = labeller(
     .cols = label_both, .rows = label_both))
-  expect_error(ggplotGrob(p3))
+  expect_snapshot(ggplotGrob(p3), error = TRUE)
 
   # facet_grid() can get both rows and cols
   p4 <- p + facet_grid(am ~ cyl, labeller = labeller(
@@ -98,7 +98,7 @@ test_that("labeller() dispatches labellers", {
   # margin-wide labeller
   p5 <- p + facet_wrap(~cyl, labeller = labeller(
     .rows = label_both, cyl = label_value))
-  expect_error(ggplotGrob(p5))
+  expect_snapshot(ggplotGrob(p5), error = TRUE)
 
   # Variables can be attributed labellers
   p6 <- p + facet_grid(am + cyl ~ ., labeller = labeller(
@@ -135,7 +135,7 @@ test_that("old school labellers still work", {
     paste0("var = ", as.character(value))
   }
 
-  expect_warning(p <-
+  expect_snapshot_warning(p <-
     ggplot(mtcars, aes(disp, drat)) +
     geom_point() +
     facet_grid(~cyl, labeller = my_labeller))
@@ -156,4 +156,31 @@ test_that("parsed labels are rendered correctly", {
       labs(x = NULL, y = NULL) +
       facet_wrap(~ f, labeller = label_parsed)
   )
+})
+
+test_that("outside-justified labels are justified across panels", {
+
+  df <- data.frame(
+    x = c("X\nX\nX\nX\nX", "X"),
+    y = c("YYYYY", "Y"),
+    f1 = c("A", "B"),
+    f2 = c("C", "D")
+  )
+
+  # By default, axis labels are inside-justified so it doesn't matter whether
+  # justification occurs across panels. This changes for outside-justification.
+  # See #5820
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    facet_grid(f1 ~ f2, scales = "free") +
+    guides(x.sec = "axis", y.sec = "axis") +
+    theme(
+      axis.text.y.left   = element_text(hjust = 0),
+      axis.text.y.right  = element_text(hjust = 1),
+      axis.text.x.top    = element_text(vjust = 1),
+      axis.text.x.bottom = element_text(vjust = 0)
+    )
+
+  expect_doppelganger("outside-justified labels", p)
 })

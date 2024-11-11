@@ -18,6 +18,12 @@ NULL
 #' @param scales Should scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,
 #'   `"free_y"`)?
+#' @param space If `"fixed"` (default), all panels have the same size and
+#'   the number of rows and columns in the layout can be arbitrary. If
+#'   `"free_x"`, panels have widths proportional to the length of the x-scale,
+#'   but the layout is constrained to one row. If `"free_y"`, panels have
+#'   heights proportional to the length of the y-scale, but the layout is
+#'   constrained to one column.
 #' @param strip.position By default, the labels are displayed on the top of
 #'   the plot. Using `strip.position` it is possible to place the labels on
 #'   either of the four sides by setting \code{strip.position = c("top",
@@ -109,9 +115,9 @@ NULL
 #'   geom_point() +
 #'   facet_wrap(vars(class), dir = "tr")
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-                       shrink = TRUE, labeller = "label_value", as.table = TRUE,
-                       switch = deprecated(), drop = TRUE, dir = "h",
-                       strip.position = 'top', axes = "margins",
+                       space = "fixed", shrink = TRUE, labeller = "label_value",
+                       as.table = TRUE, switch = deprecated(), drop = TRUE,
+                       dir = "h", strip.position = 'top', axes = "margins",
                        axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
   dir <- arg_match0(dir, c("h", "v", "lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))
@@ -127,6 +133,30 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
+
+  # We cannot have free space in both directions
+  space <- arg_match0(space, c("free_x", "free_y", "fixed"))
+  space_free <- list(x = space == "free_x", y = space == "free_y")
+  if (space_free$x) {
+    if ((nrow %||% 1) != 1 || !is.null(ncol)) {
+      cli::cli_warn(
+        "Cannot use {.code space = \"free_x\"} with custom \\
+        {.arg nrow} or {.arg ncol}."
+      )
+    }
+    ncol <- NULL
+    nrow <- 1L
+  }
+  if (space_free$y) {
+    if ((ncol %||% 1) != 1 || !is.null(nrow)) {
+      cli::cli_warn(
+        "Cannot use {.code space= \"free_y\"} with custom \\
+        {.arg nrow} or {.arg ncol}."
+      )
+    }
+    ncol <- 1L
+    nrow <- NULL
+  }
 
   # If scales are free, always draw the axes
   draw_axes <- arg_match0(axes, c("margins", "all_x", "all_y", "all"))
@@ -147,7 +177,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   labeller <- check_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
-  facets <- wrap_as_facets_list(facets)
+  facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
     deprecate_warn0("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
@@ -174,18 +204,13 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
       drop = drop,
       ncol = ncol,
       nrow = nrow,
+      space_free = space_free,
       labeller = labeller,
       dir = dir,
       draw_axes = draw_axes,
       axis_labels = axis_labels
     )
   )
-}
-
-# Returns a quosures object
-wrap_as_facets_list <- function(x) {
-  facets_list <- as_facets_list(x)
-  compact_facets(facets_list)
 }
 
 #' @rdname ggplot2-ggproto
@@ -242,8 +267,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
       to_add <- unique0(layout[missing_facets])
 
-      data_rep <- rep.int(1:nrow(data), nrow(to_add))
-      facet_rep <- rep(1:nrow(to_add), each = nrow(data))
+      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
+      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
 
       data <- data[data_rep, , drop = FALSE]
       facet_vals <- vec_cbind(
@@ -371,22 +396,11 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     weave_axes(table, axes, empty)
   },
 
-  attach_strips = function(table, layout, params, theme) {
+  attach_strips = function(self, table, layout, params, theme) {
 
     # Format labels
-    if (length(params$facets) == 0) {
-      labels <- data_frame0("(all)" = "(all)", .size = 1)
-    } else {
-      labels <- layout[names(params$facets)]
-    }
-    attr(labels, "facet") <- "wrap"
-
-    # Render individual strips
-    strips <- render_strips(
-      x = structure(labels, type = "rows"),
-      y = structure(labels, type = "cols"),
-      params$labeller, theme
-    )
+    strips <- self$format_strip_labels(layout, params)
+    strips <- render_strips(strips$facets, strips$facets, theme = theme)
 
     # Set position invariant parameters
     padding  <- convertUnit(calc_element("strip.switch.pad.wrap", theme), "cm")
@@ -416,7 +430,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     shift  <- if (inside) shift[1] else shift[2]
     size   <- unit(size, "cm")
 
-    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "on")
+    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "off")
 
     if (!inside) {
       axes  <- grepl(paste0("axis-", pos), table$layout$name)
@@ -433,16 +447,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if (inherits(coord, "CoordFlip")) {
-      if (params$free$x) {
-        layout$SCALE_X <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_X <- 1L
-      }
-      if (params$free$y) {
-        layout$SCALE_Y <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_Y <- 1L
-      }
+      # Switch the scales back
+      layout[c("SCALE_X", "SCALE_Y")] <- layout[c("SCALE_Y", "SCALE_X")]
     }
 
     panel_order <- order(layout$ROW, layout$COL)
@@ -457,6 +463,22 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   },
   vars = function(self) {
     names(self$params$facets)
+  },
+
+  format_strip_labels = function(layout, params) {
+    if (length(params$facets) == 0) {
+      labels <- data_frame0("(all)" = "(all)", .size = 1)
+    } else {
+      labels <- layout[intersect(names(params$facets), names(layout))]
+    }
+    if (empty(labels)) {
+      return(NULL)
+    }
+    attr(labels, "facet") <- "wrap"
+    attr(labels, "type") <- switch(params$strip.position, left = , right = "rows", "cols")
+
+    labeller <- match.fun(params$labeller)
+    list(facets = data_frame0(!!!labeller(labels)))
   }
 )
 

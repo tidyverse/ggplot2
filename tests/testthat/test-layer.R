@@ -18,11 +18,15 @@ test_that("aesthetics go in aes_params", {
 })
 
 test_that("unknown params create warning", {
-  expect_warning(geom_point(blah = "red"), "unknown parameters")
+  expect_snapshot_warning(geom_point(blah = "red"))
 })
 
 test_that("unknown aesthetics create warning", {
-  expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
+  expect_snapshot_warning(geom_point(aes(blah = "red")))
+})
+
+test_that("empty aesthetics create warning", {
+  expect_snapshot_warning(geom_point(fill = NULL, shape = character()))
 })
 
 test_that("invalid aesthetics throws errors", {
@@ -36,7 +40,7 @@ test_that("invalid aesthetics throws errors", {
 })
 
 test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
-  expect_warning(geom_point(aes(blah = NULL)), NA)
+  expect_silent(geom_point(aes(blah = NULL)))
 })
 
 test_that("column vectors are allowed (#2609)", {
@@ -48,13 +52,13 @@ test_that("column vectors are allowed (#2609)", {
 
 test_that("missing aesthetics trigger informative error", {
   df <- data_frame(x = 1:10)
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_line()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_col()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
 })
 
@@ -80,7 +84,7 @@ test_that("if an aes is mapped to a function that returns NULL, it is removed", 
   df <- data_frame(x = 1:10)
   null <- function(...) NULL
   p <- cdata(ggplot(df, aes(x, null())))
-  expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
+  expect_named(p[[1]], c("x", "PANEL", "group"))
 })
 
 test_that("layers are stateless except for the computed params", {
@@ -137,6 +141,19 @@ test_that("layer warns for constant aesthetics", {
   p <- ggplot(mtcars, aes(x = 1)) + geom_point(aes(y = 2))
   expect_snapshot_warning(ggplot_build(p))
 })
+
+test_that("layer names can be resolved", {
+
+  p <- ggplot() + geom_point() + geom_point()
+  expect_equal(names(p$layers), c("geom_point", "geom_point...2"))
+
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+  expect_equal(names(p$layers), c("foo", "bar"))
+
+  l <- geom_point(name = "foobar")
+  expect_snapshot(p + l + l, error = TRUE)
+})
+
 
 # Data extraction ---------------------------------------------------------
 
