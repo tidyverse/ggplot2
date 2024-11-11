@@ -176,9 +176,6 @@ GuideBins <- ggproto(
     } else {
       key$.show[nrow(key)] <- TRUE
     }
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
 
     key$.label <- labels
     key <- vec_slice(key, !is.na(oob_censor_any(key$.value)))

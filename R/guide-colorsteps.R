@@ -111,16 +111,9 @@ GuideColoursteps <- ggproto(
     breaks <- parsed$breaks
 
     key <- data_frame0(!!aesthetic := scale$map(breaks))
-    if (even.steps) {
-      key$.value <- seq_along(breaks)
-    } else {
-      key$.value <- breaks
-    }
-    labels <- scale$get_labels(breaks)
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
-    key$.label <- labels
+    fmt <- if (even.steps) seq_along else identity
+    key$.value <- fmt(breaks)
+    key$.label <- scale$get_labels(breaks)
 
     if (breaks[1] %in% limits) {
       key$.value  <- key$.value - 1L
