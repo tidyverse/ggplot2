@@ -33,7 +33,11 @@ legend, the plot title, or the plot margins.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
-limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The \code{expand} argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
 }
 \description{
 \code{coord_trans()} is different to scale transformations in that it occurs after
@@ -42,7 +46,7 @@ no guarantee that straight lines will continue to be straight.
 }
 \details{
 Transformations only work with continuous values: see
-\code{\link[scales:trans_new]{scales::trans_new()}} for list of transformations, and instructions
+\code{\link[scales:new_transform]{scales::new_transform()}} for list of transformations, and instructions
 on how to create your own.
 }
 \examples{
@@ -93,7 +97,7 @@ ggplot(diamonds, aes(carat, price)) +
   geom_smooth(method = "lm") +
   scale_x_log10() +
   scale_y_log10() +
-  coord_trans(x = scales::exp_trans(10), y = scales::exp_trans(10))
+  coord_trans(x = scales::transform_exp(10), y = scales::transform_exp(10))
 
 # cf.
 ggplot(diamonds, aes(carat, price)) +
@@ -108,4 +112,7 @@ plot <- ggplot(df,aes(a,letters)) + geom_point()
 plot + coord_trans(x = "log10")
 plot + coord_trans(x = "sqrt")
 }
+}
+\seealso{
+The \href{https://ggplot2-book.org/coord#transformations-with-coord_trans}{coord transformations section} of the online ggplot2 book.
 }

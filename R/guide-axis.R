@@ -10,10 +10,15 @@
 #'   (recursively) prioritizing the first, last, and middle labels.
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
 #'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
-#'   you probably want.
+#'   you probably want. Can be one of the following:
+#'   * `NULL` to take the angles and `hjust`/`vjust` directly from the theme.
+#'   * `waiver()` to allow reasonable defaults in special cases.
+#'   *  A number representing the text angle in degrees.
 #' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
+#' @param minor.ticks Whether to draw the minor ticks (`TRUE`) or not draw
+#'   minor ticks (`FALSE`, default).
 #' @param cap A `character` to cut the axis line back to the last breaks. Can
 #'   be `"none"` (default) to draw the axis line along the whole panel, or
 #'   `"upper"` and `"lower"` to draw the axis to the upper or lower break, or
@@ -41,28 +46,29 @@
 #'
 #' # can also be used to add a duplicate guide
 #' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL,
-                       n.dodge = 1, cap = "none", order = 0,
-                       position = waiver()) {
-
+guide_axis <- function(title = waiver(), theme = NULL, check.overlap = FALSE,
+                       angle = waiver(), n.dodge = 1, minor.ticks = FALSE,
+                       cap = "none", order = 0, position = waiver()) {
+  check_bool(minor.ticks)
   if (is.logical(cap)) {
     check_bool(cap)
     cap <- if (cap) "both" else "none"
   }
   cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
 
-
   new_guide(
     title = title,
+    theme = theme,
 
     # customisations
     check.overlap = check.overlap,
     angle = angle,
     n.dodge = n.dodge,
+    minor.ticks = minor.ticks,
     cap = cap,
 
     # parameter
-    available_aes = c("x", "y"),
+    available_aes = c("x", "y", "r"),
 
     # general
     order = order,
@@ -81,12 +87,14 @@ GuideAxis <- ggproto(
 
   params = list(
     title     = waiver(),
+    theme     = NULL,
     name      = "axis",
     hash      = character(),
     position  = waiver(),
     direction = NULL,
     angle     = NULL,
     n.dodge   = 1,
+    minor.ticks = FALSE,
     cap       = "none",
     order     = 0,
     check.overlap = FALSE
@@ -100,8 +108,44 @@ GuideAxis <- ggproto(
     line  = "axis.line",
     text  = "axis.text",
     ticks = "axis.ticks",
-    ticks_length = "axis.ticks.length"
+    minor = "axis.minor.ticks",
+    major_length = "axis.ticks.length",
+    minor_length = "axis.minor.ticks.length"
   ),
+
+  extract_key = function(scale, aesthetic, minor.ticks = FALSE, ...) {
+    major <- Guide$extract_key(scale, aesthetic, ...)
+    if (is.null(major) && is.null(scale$scale$get_breaks())) {
+      major <- data_frame0()
+    }
+    if (!minor.ticks) {
+      return(major)
+    }
+
+    minor_breaks <- scale$get_breaks_minor()
+    minor_breaks <- setdiff(minor_breaks, major$.value)
+    minor_breaks <- minor_breaks[is.finite(minor_breaks)]
+
+    if (length(minor_breaks) < 1) {
+      return(major)
+    }
+
+    minor <- data_frame0(!!aesthetic := scale$map(minor_breaks))
+    minor$.value <- minor_breaks
+    minor$.type <- "minor"
+
+    if (nrow(major) > 0) {
+      major$.type <- "major"
+      if (!vec_is(minor$.value, major$.value)) {
+        # If we have mixed types of values, which may happen in discrete scales,
+        # discard minor values in favour of the major values.
+        minor$.value <- NULL
+      }
+      vec_rbind(major, minor)
+    } else {
+      minor
+    }
+  },
 
   extract_params = function(scale, params, ...) {
     params$name <- paste0(params$name, "_", params$aesthetic)
@@ -111,10 +155,11 @@ GuideAxis <- ggproto(
   extract_decor = function(scale, aesthetic, position, key, cap = "none", ...) {
 
     value <- c(-Inf, Inf)
-    if (cap %in% c("both", "upper")) {
+    has_key <- !(is.null(key) || nrow(key) < 1)
+    if (cap %in% c("both", "upper") && has_key) {
       value[2] <- max(key[[aesthetic]])
     }
-    if (cap %in% c("both", "lower")) {
+    if (cap %in% c("both", "lower") && has_key) {
       value[1] <- min(key[[aesthetic]])
     }
 
@@ -130,26 +175,33 @@ GuideAxis <- ggproto(
   transform = function(self, params, coord, panel_params) {
     key <- params$key
     position <- params$position
+    check <- FALSE
 
-    if (is.null(position) || nrow(key) == 0) {
+    if (!(is.null(position) || nrow(key) == 0)) {
+      check <- TRUE
+      aesthetics <- names(key)[!grepl("^\\.", names(key))]
+      if (!all(c("x", "y") %in% aesthetics)) {
+        other_aesthetic <- setdiff(c("x", "y"), aesthetics)
+        override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
+        key[[other_aesthetic]] <- override_value
+      }
+      key <- coord$transform(key, panel_params)
+      params$key <- key
+    }
+
+    if (!is.null(params$decor)) {
+      params$decor <- coord_munch(coord, params$decor, panel_params)
+
+      if (!coord$is_linear()) {
+        # For non-linear coords, we hardcode the opposite position
+        params$decor$x <- switch(position, left = 1, right = 0, params$decor$x)
+        params$decor$y <- switch(position, top = 0, bottom = 1, params$decor$y)
+      }
+    }
+
+    if (!check) {
       return(params)
     }
-
-    if (inherits(coord, "CoordSf")) {
-      # Positions already given in target crs
-      panel_params$default_crs <- panel_params$crs
-    }
-
-    aesthetics <- names(key)[!grepl("^\\.", names(key))]
-    if (!all(c("x", "y") %in% aesthetics)) {
-      other_aesthetic <- setdiff(c("x", "y"), aesthetics)
-      override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
-      key[[other_aesthetic]] <- override_value
-    }
-    key <- coord$transform(key, panel_params)
-    params$key <- key
-
-    params$decor <- coord_munch(coord, params$decor, panel_params)
 
     # Ported over from `warn_for_position_guide`
     # This is trying to catch when a user specifies a position perpendicular
@@ -190,35 +242,20 @@ GuideAxis <- ggproto(
   },
 
   setup_elements = function(params, elements, theme) {
-    axis_elem <- c("line", "text", "ticks", "ticks_length")
-    is_char  <- vapply(elements[axis_elem], is.character, logical(1))
-    axis_elem <- axis_elem[is_char]
-    elements[axis_elem] <- lapply(
-      paste(
-        unlist(elements[axis_elem]),
-        params$aes, params$position, sep = "."
-      ),
-      calc_element, theme = theme
+    is_char <- vapply(elements, is.character, logical(1))
+    suffix <- params$theme_suffix %||%
+      paste(params$aes, params$position, sep = ".")
+    elements[is_char] <- vapply(
+      elements[is_char],
+      function(x) paste(x, suffix, sep = "."),
+      character(1)
     )
-    elements
+    Guide$setup_elements(params, elements, theme)
   },
 
   override_elements = function(params, elements, theme) {
-    label <- elements$text
-    if (!inherits(label, "element_text")) {
-      return(elements)
-    }
-    label_overrides <- axis_label_element_overrides(
-      params$position, params$angle
-    )
-    # label_overrides is an element_text, but label_element may not be;
-    # to merge the two elements, we just copy angle, hjust, and vjust
-    # unless their values are NULL
-    label$angle <- label_overrides$angle %||% label$angle
-    label$hjust <- label_overrides$hjust %||% label$hjust
-    label$vjust <- label_overrides$vjust %||% label$vjust
-
-    elements$text <- label
+    elements$text <-
+      label_angle_heuristic(elements$text, params$position, params$angle)
     return(elements)
   },
 
@@ -230,31 +267,22 @@ GuideAxis <- ggproto(
       "horizontal"
     }
 
-    # TODO: delete following comment at some point:
-    # I found the 'position_*'/'non-position_*' and '*_dim' names confusing.
-    # For my own understanding, these have been renamed as follows:
-    # * 'aes' and 'orth_aes' for the aesthetic direction and the direction
-    #   orthogonal to the aesthetic direction, respectively.
-    # * 'para_sizes' and 'orth_size(s)' for the dimension parallel to the
-    #   aesthetic and orthogonal to the aesthetic respectively.
-    # I also tried to trim down the verbosity of the variable names a bit
-
     new_params <- c("aes", "orth_aes", "para_sizes", "orth_size", "orth_sizes",
                     "vertical", "measure_gtable", "measure_text")
     if (direction == "vertical") {
       params[new_params] <- list(
         "y", "x", "heights", "width", "widths",
-        TRUE, gtable_width, grobWidth
+        TRUE, gtable_width, width_cm
       )
     } else {
       params[new_params] <- list(
         "x", "y", "widths", "height", "heights",
-        FALSE, gtable_height, grobHeight
+        FALSE, gtable_height, height_cm
       )
     }
 
     new_params <- list(
-      opposite  = unname(setNames(.trbl, .trbl[c(3,4,1,2)])[position]),
+      opposite  = opposite_position(position),
       secondary = position %in% c("top", "right"),
       lab_first = position %in% c("top", "left"),
       orth_side = if (position %in% c("top", "right")) 0 else 1,
@@ -280,7 +308,32 @@ GuideAxis <- ggproto(
     )
   },
 
+  build_ticks = function(key, elements, params, position = params$opposite) {
+
+    major <- Guide$build_ticks(
+      vec_slice(key, (key$.type %||% "major") == "major"),
+      elements$ticks, params, position,
+      elements$major_length
+    )
+
+    if (!params$minor.ticks) {
+      return(major)
+    }
+
+    minor <- Guide$build_ticks(
+      vec_slice(key, (key$.type %||% "major") == "minor"),
+      elements$minor, params, position,
+      elements$minor_length
+    )
+    grobTree(major, minor, name = "ticks")
+  },
+
   build_labels = function(key, elements, params) {
+
+    if (".type" %in% names(key)) {
+      key <- vec_slice(key, key$.type == "major")
+    }
+
     labels   <- validate_labels(key$.label)
     n_labels <- length(labels)
 
@@ -314,10 +367,20 @@ GuideAxis <- ggproto(
 
     measure <- params$measure_text
 
-    length <- elements$ticks_length
-    spacer <- max(unit(0, "pt"), -1 * length)
-    labels <- do.call(unit.c, lapply(grobs$labels, measure))
-    title  <- measure(grobs$title)
+    # Ticks
+    major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
+    range <- range(0, major_cm)
+    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+      minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
+      range <- range(range, minor_cm)
+    }
+
+    length <- unit(range[2], "cm")
+    spacer <- max(unit(0, "pt"), unit(-1 * diff(range), "cm"))
+
+    # Text
+    labels <- unit(measure(grobs$labels), "cm")
+    title  <- unit(measure(grobs$title), "cm")
 
     sizes <- unit.c(length, spacer, labels, title)
     if (params$lab_first) {
@@ -326,7 +389,7 @@ GuideAxis <- ggproto(
     sizes
   },
 
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
 
     layout <- seq_along(sizes)
 
@@ -348,6 +411,7 @@ GuideAxis <- ggproto(
     # Unlist the 'label' grobs
     z <- if (params$position == "left") c(2, 1, 3) else 1:3
     z <- rep(z, c(1, length(grobs$labels), 1))
+    has_labels <- !is.zero(grobs$labels[[1]])
     grobs  <- c(list(grobs$ticks), grobs$labels, list(grobs$title))
 
     # Initialise empty gtable
@@ -369,9 +433,24 @@ GuideAxis <- ggproto(
     vp <- exec(
       viewport,
       !!params$orth_aes := unit(params$orth_side, "npc"),
-      !!params$orth_size := params$measure_gtable(gt),
+      !!params$orth_size := max(params$measure_gtable(gt), unit(1, "npc")),
       just = params$opposite
     )
+
+    # Add null-unit padding to justify based on eventual gtable cell shape
+    # rather than dimensions of this axis alone.
+    if (has_labels && params$position %in% c("left", "right")) {
+      where <- layout$l[-c(1, length(layout$l))]
+      just <- with(elements$text, rotate_just(angle, hjust, vjust))$hjust %||% 0.5
+      gt <- gtable_add_cols(gt, unit(just, "null"), pos = min(where) - 1)
+      gt <- gtable_add_cols(gt, unit(1 - just, "null"), pos = max(where) + 1)
+    }
+    if (has_labels && params$position %in% c("top", "bottom")) {
+      where <- layout$t[-c(1, length(layout$t))]
+      just <- with(elements$text, rotate_just(angle, hjust, vjust))$vjust %||% 0.5
+      gt <- gtable_add_rows(gt, unit(1 - just, "null"), pos = min(where) - 1)
+      gt <- gtable_add_rows(gt, unit(just, "null"), pos = max(where) + 1)
+    }
 
     # Assemble with axis line
     absoluteGrob(
@@ -434,7 +513,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
     !!aes := c(0, 1),
     !!opp := opp_value
   )
-  guide$draw(theme, params)
+  guide$draw(theme, params = params)
 }
 
 draw_axis_labels <- function(break_positions, break_labels, label_element, is_vertical,
@@ -492,51 +571,40 @@ axis_label_priority_between <- function(x, y) {
   )
 }
 
-#' Override axis text angle and alignment
+#' Override text angle and alignment
 #'
+#' @param element An `element_text()`
 #' @param axis_position One of bottom, left, top, or right
 #' @param angle The text angle, or NULL to override nothing
 #'
 #' @return An [element_text()] that contains parameters that should be
 #'   overridden from the user- or theme-supplied element.
 #' @noRd
-#'
-axis_label_element_overrides <- function(axis_position, angle = NULL) {
-  if (is.null(angle)) {
-    return(element_text(angle = NULL, hjust = NULL, vjust = NULL))
+label_angle_heuristic <- function(element, position, angle) {
+  if (!inherits(element, "element_text")
+      || is.null(position)
+      || is.null(angle %|W|% NULL)) {
+    return(element)
   }
+  arg_match0(position, .trbl)
 
-  # it is not worth the effort to align upside-down labels properly
-  check_number_decimal(angle, min = -90, max = 90)
+  check_number_decimal(angle)
+  radian <- deg2rad(angle)
+  digits <- 3
 
-  if (axis_position == "bottom") {
-    element_text(
-      angle = angle,
-      hjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
-      vjust = if (abs(angle) == 90) 0.5 else 1
-    )
-  } else if (axis_position == "left") {
-    element_text(
-      angle = angle,
-      hjust = if (abs(angle) == 90) 0.5 else 1,
-      vjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
-    )
-  } else if (axis_position == "top") {
-    element_text(
-      angle = angle,
-      hjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
-      vjust = if (abs(angle) == 90) 0.5 else 0
-    )
-  } else if (axis_position == "right") {
-    element_text(
-      angle = angle,
-      hjust = if (abs(angle) == 90) 0.5 else 0,
-      vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
-    )
-  } else {
-    cli::cli_abort(c(
-      "Unrecognized {.arg axis_position}: {.val {axis_position}}",
-      "i" = "Use one of {.val top}, {.val bottom}, {.val left} or {.val right}"
-    ))
-  }
+  # Taking the sign of the (co)sine snaps the value to c(-1, 0, 1)
+  # Doing `x / 2 + 0.5` rescales it to c(0, 0.5, 1), which are good values for justification
+  # The rounding step ensures we can get (co)sine to exact 0 so it can become 0.5
+  # which we need for center-justifications
+  cosine <- sign(round(cos(radian), digits)) / 2 + 0.5
+  sine   <- sign(round(sin(radian), digits)) / 2 + 0.5
+
+  # Depending on position, we might need to swap or flip justification values
+  hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
+  vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
+
+  element$angle <- angle %||% element$angle
+  element$hjust <- hjust %||% element$hjust
+  element$vjust <- vjust %||% element$vjust
+  element
 }

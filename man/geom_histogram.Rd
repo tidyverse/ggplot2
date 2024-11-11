@@ -46,6 +46,7 @@ stat_bin(
   closed = c("right", "left"),
   pad = FALSE,
   na.rm = FALSE,
+  keep.zeroes = "all",
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
@@ -72,15 +73,46 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string naming the adjustment
-(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.}
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[=layer_positions]{layer position} documentation.
+}}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -89,7 +121,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -97,10 +131,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
-or as a function that calculates width from unscaled x. Here, "unscaled x"
-refers to the original x values in the data, before application of any
-scale transformation. When specifying a function along with a grouping
-structure, the function will be called once per group.
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
 The default is to use the number of bins in \code{bins},
 covering the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
@@ -117,7 +150,9 @@ rare event that this fails it can be given explicitly by setting \code{orientati
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
+\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}. For more information
+at overriding these connections, see how the \link[=layer_stats]{stat} and
+\link[=layer_geoms]{geom} arguments work.}
 
 \item{center, boundary}{bin position specifiers. Only one, \code{center} or
 \code{boundary}, may be specified for a single plot. \code{center} specifies the
@@ -131,13 +166,18 @@ outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
 the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}.}
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{keep.zeroes}{Treatment of zero count bins. If \code{"all"} (default), such
+bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
+If \code{"inner"} only zero count bins at the flanks are filtered out, but not
+in the middle.}
 }
 \description{
 Visualise the distribution of a single continuous variable by dividing
@@ -157,6 +197,12 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 \code{center} or \code{boundary} arguments. \code{binwidth} overrides \code{bins} so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
+
+By default, the \emph{height} of the bars represent the counts within each bin.
+However, there are situations where this behavior might produce misleading
+plots (e.g., when non-equal-width bins are used), in which case it might be
+preferable to have the \emph{area} of the bars represent the counts (by setting
+\code{aes(y = after_stat(count / width))}). See example below.
 
 In addition to \code{geom_histogram()}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
@@ -220,6 +266,18 @@ ggplot(diamonds, aes(price, colour = cut)) +
 # put density on the y axis instead of the default count
 ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
+
+
+# When using the non-equal-width bins, we should set the area of the bars to
+# represent the counts (not the height).
+# Here we're using 10 equi-probable bins:
+price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram(breaks = price_bins, color = "black") # misleading (height = count)
+
+ggplot(diamonds, aes(price, after_stat(count / width))) +
+  geom_histogram(breaks = price_bins, color = "black") # area = count
 
 if (require("ggplot2movies")) {
 # Often we don't want the height of the bar to represent the

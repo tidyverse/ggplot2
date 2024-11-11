@@ -11,12 +11,7 @@
 #'   scale. This argument is ignored if `labels` is given as a vector of
 #'   values. If one or both of the limits is also given in `breaks` it will be
 #'   shown irrespective of the value of `show.limits`.
-#' @param ticks A theme object for rendering tick marks at the colourbar.
-#'   Usually, the object of `element_line()` is expected. If `element_blank()`
-#'   (default), no tick marks are drawn. For backward compatibility, can also
-#'   be a logical which translates `TRUE` to `element_line()` and `FALSE` to
-#'   `element_blank()`.
-#' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
+#' @inheritParams guide_colourbar
 #'
 #' @inheritSection guide_bins Use with discrete scale
 #'
@@ -24,6 +19,8 @@
 #' @export
 #'
 #' @family guides
+#' @seealso
+#' The `r link_book("binned legend section", "scales-colour#sec-guide-coloursteps")`
 #' @examples
 #' df <- expand.grid(X1 = 1:10, X2 = 1:10)
 #' df$value <- df$X1 * df$X2
@@ -49,19 +46,36 @@
 #' # (can also be set in the scale)
 #' p + scale_fill_binned(show.limits = TRUE)
 guide_coloursteps <- function(
+  title = waiver(),
+  theme = NULL,
+  alpha = NA,
+  angle = NULL,
   even.steps  = TRUE,
   show.limits = NULL,
-  ticks       = element_blank(),
+  direction = NULL,
+  position = NULL,
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
   ...
 ) {
-  guide_colourbar(
+
+  theme <- deprecated_guide_args(theme, ...)
+  check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
+
+  new_guide(
+    title = title,
+    theme = theme,
+    alpha = alpha,
+    angle = angle,
     even.steps  = even.steps,
     show.limits = show.limits,
-    raster      = FALSE,
-    ticks       = ticks,
-    nbin        = 100,
-    ...,
-    super       = GuideColoursteps
+    position = position,
+    direction = direction,
+    reverse = reverse,
+    order = order,
+    available_aes = available_aes,
+    super = GuideColoursteps
   )
 }
 
@@ -78,7 +92,7 @@ GuideColoursteps <- ggproto(
 
   params = c(
     list(even.steps = TRUE, show.limits = NULL),
-    GuideColourbar$params
+    vec_assign(GuideColourbar$params, "default_ticks", list(element_blank()))
   ),
 
   extract_key = function(scale, aesthetic, even.steps, ...) {
@@ -89,15 +103,19 @@ GuideColoursteps <- ggproto(
       return(Guide$extract_key(scale, aesthetic))
     }
 
-    parsed <- parse_binned_breaks(scale, breaks, even.steps)
+    parsed <- parse_binned_breaks(scale, breaks)
     if (is.null(parsed)) {
       return(parsed)
     }
     limits <- parsed$limits
     breaks <- parsed$breaks
 
-    key <- data_frame(scale$map(breaks), .name_repair = ~ aesthetic)
-    key$.value <- seq_along(breaks) - 0.5
+    key <- data_frame0(!!aesthetic := scale$map(breaks))
+    if (even.steps) {
+      key$.value <- seq_along(breaks)
+    } else {
+      key$.value <- breaks
+    }
     key$.label <- scale$get_labels(breaks)
 
     if (breaks[1] %in% limits) {
@@ -108,40 +126,37 @@ GuideColoursteps <- ggproto(
       key[[1]][nrow(key)] <- NA
     }
     # To avoid having to recalculate these variables in other methods, we
-    # attach these as attributes. It might not be very elegant, but it works.
-    attr(key, "limits") <- parsed$limits
-    attr(key, "bin_at") <- parsed$bin_at
-    return(key)
+    # attach the parsed values as attributes. It might not be very elegant,
+    # but it works.
+    attr(key, "parsed") <- parsed
+    key
   },
 
   extract_decor = function(scale, aesthetic, key,
                            reverse = FALSE, even.steps = TRUE,
-                           nbin = 100, ...) {
-    if (!(even.steps || !is.numeric(scale$get_breaks()))) {
-      return(GuideColourbar$extract_decor(scale, aesthetic, reverse = reverse,
-                                          nbin = nbin))
+                           nbin = 100, alpha = NA,...) {
+
+    parsed <- attr(key, "parsed")
+    breaks <- parsed$breaks %||% scale$get_breaks()
+    limits <- parsed$limits %||% scale$get_limits()
+
+    breaks <- sort(unique0(c(limits, breaks)))
+    n      <- length(breaks)
+    bin_at <- parsed$bin_at %||% ((breaks[-1] + breaks[-n]) / 2)
+
+    if (even.steps) {
+      breaks <- seq_len(n) - 1L
     }
 
-    bin_at <- attr(key, "bin_at", TRUE)
-
-    bar <- data_frame0(
-      colour = scale$map(bin_at),
-      value  = seq_along(bin_at) - 1,
+    data_frame0(
+      colour = alpha(scale$map(bin_at), alpha),
+      min    = breaks[-n],
+      max    = breaks[-1],
       .size  = length(bin_at)
     )
-    if (reverse) {
-      bar <- bar[nrow(bar):1, , drop = FALSE]
-    }
-    return(bar)
   },
 
-  extract_params = function(scale, params, ...) {
-
-    if (params$even.steps) {
-      params$nbin <- nbin <- sum(!is.na(params$key[[1]])) + 1
-    } else {
-      nbin <- params$nbin
-    }
+  extract_params = function(scale, params, direction = "vertical", title = waiver(), ...) {
 
     show.limits <- params$show.limits %||% scale$show.limits %||% FALSE
 
@@ -158,25 +173,58 @@ GuideColoursteps <- ggproto(
     }
 
     if (show.limits) {
-      edges <- rescale(
-        c(0, 1),
-        to   = params$decor$value[c(1, nrow(params$decor))],
-        from = c(0.5, nbin - 0.5) / nbin
-      )
       key <- params$key
-      limits <- attr(key, "limits", TRUE) %||% scale$get_limits()
+      limits <- attr(key, "parsed")$limits %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
-      key$.value[c(1, nrow(key))] <- edges
-      key$.label[c(1, nrow(key))] <- scale$get_labels(limits)
+      n <- nrow(key)
+      key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)
+      key$.label[c(1, n)] <- scale$get_labels(limits)
       if (key$.value[1] == key$.value[2]) {
-        key <- key[-1, , drop = FALSE]
+        key <- vec_slice(key, -1)
+        n <- n - 1
       }
-      if (key$.value[nrow(key) - 1] == key$.value[nrow(key)]) {
-        key <- key[-nrow(key), , drop = FALSE]
+      if (key$.value[n - 1] == key$.value[n]) {
+        key <- vec_slice(key, -n)
       }
       params$key <- key
     }
 
-    GuideColourbar$extract_params(scale, params, ...)
+    params$title <- scale$make_title(
+      params$title %|W|% scale$name %|W|% title
+    )
+
+    limits <- c(params$decor$min[1], params$decor$max[nrow(params$decor)])
+    if (params$reverse) {
+      limits <- rev(limits)
+    }
+    params$key$.value <- rescale(params$key$.value, from = limits)
+    params$decor$min  <- rescale(params$decor$min,  from = limits)
+    params$decor$max  <- rescale(params$decor$max,  from = limits)
+    params$key <-
+      vec_slice(params$key, !is.na(oob_censor_any(params$key$.value)))
+    params
+  },
+
+  build_decor = function(decor, grobs, elements, params) {
+
+    size <- abs(decor$max - decor$min)
+    just <- as.numeric(decor$min > decor$max)
+    gp   <- gg_par(col = NA, fill = decor$colour)
+    if (params$direction == "vertical") {
+      grob <- rectGrob(
+        x = 0, y = decor$min,
+        width = 1, height = size,
+        vjust = just, hjust = 0, gp = gp
+      )
+    } else {
+      grob <- rectGrob(
+        x = decor$min, y = 0,
+        height = 1, width = size,
+        hjust = just, vjust = 0, gp = gp
+      )
+    }
+
+    frame <- element_grob(elements$frame, fill = NA)
+    list(bar = grob, frame = frame, ticks = grobs$ticks)
   }
 )

@@ -23,22 +23,44 @@
 #'    the plot data. The return value must be a `data.frame`, and
 #'    will be used as the layer data. A `function` can be created
 #'    from a `formula` (e.g. `~ head(.x, 10)`).
-#' @param geom The geometric object to use to display the data, either as a
-#'   `ggproto` `Geom` subclass or as a string naming the geom stripped of the
-#'   `geom_` prefix (e.g. `"point"` rather than `"geom_point"`)
-#' @param stat The statistical transformation to use on the data for this
-#'    layer, either as a `ggproto` `Geom` subclass or as a string naming the
-#'    stat stripped of the `stat_` prefix (e.g. `"count"` rather than
-#'    `"stat_count"`)
-#' @param position Position adjustment, either as a string naming the adjustment
-#'   (e.g. `"jitter"` to use `position_jitter`), or the result of a call to a
-#'   position adjustment function. Use the latter if you need to change the
-#'   settings of the adjustment.
+#'
+#' @param geom The geometric object to use to display the data for this layer.
+#'   When using a `stat_*()` function to construct a layer, the `geom` argument
+#'   can be used to override the default coupling between stats and geoms. The
+#'   `geom` argument accepts the following:
+#'   * A `Geom` ggproto subclass, for example `GeomPoint`.
+#'   * A string naming the geom. To give the geom as a string, strip the
+#'     function name of the `geom_` prefix. For example, to use `geom_point()`,
+#'     give the geom as `"point"`.
+#'   * For more information and other ways to specify the geom, see the
+#'     [layer geom][layer_geoms] documentation.
+#' @param stat The statistical transformation to use on the data for this layer.
+#'   When using a `geom_*()` function to construct a layer, the `stat`
+#'   argument can be used to override the default coupling between geoms and
+#'   stats. The `stat` argument accepts the following:
+#'   * A `Stat` ggproto subclass, for example `StatCount`.
+#'   * A string naming the stat. To give the stat as a string, strip the
+#'     function name of the `stat_` prefix. For example, to use `stat_count()`,
+#'     give the stat as `"count"`.
+#'   * For more information and other ways to specify the stat, see the
+#'     [layer stat][layer_stats] documentation.
+#' @param position A position adjustment to use on the data for this layer. This
+#'   can be used in various ways, including to prevent overplotting and
+#'   improving the display. The `position` argument accepts the following:
+#'   * The result of calling a position function, such as `position_jitter()`.
+#'     This method allows for passing extra arguments to the position.
+#'   * A string naming the position adjustment. To give the position as a
+#'     string, strip the function name of the `position_` prefix. For example,
+#'     to use `position_jitter()`, give the position as `"jitter"`.
+#'   * For more information and other ways to specify the position, see the
+#'     [layer position][layer_positions] documentation.
 #' @param show.legend logical. Should this layer be included in the legends?
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
 #'   It can also be a named logical vector to finely select the aesthetics to
-#'   display.
+#'   display. To include legend keys for all levels, even
+#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
+#'   but unobserved levels are omitted.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
@@ -52,6 +74,9 @@
 #' @param layer_class The type of layer object to be constructed. This is
 #'   intended for ggplot2 internal use only.
 #' @keywords internal
+#' @seealso
+#' The `r link_book(c("plot building chapter", "geoms chapter"), c("layers", "individual-geoms"))`
+#' @family layer documentation
 #' @examples
 #' # geom calls are just a short cut for layer
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
@@ -105,16 +130,7 @@ layer <- function(geom = NULL, stat = NULL,
   position <- check_subclass(position, "Position", env = parent.frame(), call = call_env)
 
   # Special case for na.rm parameter needed by all layers
-  if (is.null(params$na.rm)) {
-    params$na.rm <- FALSE
-  }
-
-  # Special case for key_glyph parameter which is handed in through
-  # params since all geoms/stats forward ... to params
-  if (!is.null(params$key_glyph)) {
-    key_glyph <- params$key_glyph
-    params$key_glyph <- NULL # remove to avoid warning about unknown parameter
-  }
+  params$na.rm <- params$na.rm %||% FALSE
 
   # Split up params between aesthetics, geom, and stat
   params <- rename_aes(params)
@@ -122,7 +138,23 @@ layer <- function(geom = NULL, stat = NULL,
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
-  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
+  ignore <- c("key_glyph", "name")
+  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), ignore)
+
+  # Take care of plain patterns provided as aesthetic
+  pattern <- vapply(aes_params, is_pattern, logical(1))
+  if (any(pattern)) {
+    aes_params[pattern] <- lapply(aes_params[pattern], list)
+  }
+  # Drop empty aesthetics
+  empty_aes <- names(aes_params)[lengths(aes_params) == 0]
+  if (length(empty_aes) > 0) {
+    cli::cli_warn(
+      "Ignoring empty aesthetic{?s}: {.arg {empty_aes}}.",
+      call = call_env
+    )
+    aes_params <- aes_params[setdiff(names(aes_params), empty_aes)]
+  }
 
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
@@ -150,9 +182,9 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   # adjust the legend draw key if requested
-  geom <- set_draw_key(geom, key_glyph)
+  geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
 
-  fr_call <- layer_class$constructor %||% frame_call(call_env)
+  fr_call <- layer_class$constructor %||% frame_call(call_env) %||% current_call()
 
   ggproto("LayerInstance", layer_class,
     constructor = fr_call,
@@ -165,13 +197,18 @@ layer <- function(geom = NULL, stat = NULL,
     aes_params = aes_params,
     position = position,
     inherit.aes = inherit.aes,
-    show.legend = show.legend
+    show.legend = show.legend,
+    name = params$name
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.layer <- function(x) inherits(x, "Layer")
+
 validate_mapping <- function(mapping, call = caller_env()) {
-  if (!inherits(mapping, "uneval")) {
-    msg <- paste0("{.arg mapping} must be created by {.fn aes}")
+  if (!is.mapping(mapping)) {
+    msg <- "{.arg mapping} must be created by {.fn aes}."
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
     if (inherits(mapping, "gg")) {
@@ -221,7 +258,7 @@ Layer <- ggproto("Layer", NULL,
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
-        cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}")
+        cli::cli_abort("{.fn layer_data} must return a {.cls data.frame}.")
       }
     } else {
       data <- self$data
@@ -260,20 +297,18 @@ Layer <- ggproto("Layer", NULL,
     set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics, warn = TRUE)
     modifiers <- is_scaled_aes(aesthetics)
+    themed <- is_themed_aes(aesthetics)
 
-    aesthetics <- aesthetics[!set & !calculated & !modifiers]
+    aesthetics <- aesthetics[!set & !calculated & !modifiers & !themed]
 
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
       aesthetics[["group"]] <- self$aes_params$group
     }
 
-    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
-
     # Evaluate aesthetics
-    env <- child_env(baseenv(), stage = stage)
-    evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
-    evaled <- compact(evaled)
+    evaled <- eval_aesthetics(aesthetics, data)
+    plot$scales$add_defaults(evaled, plot$plot_env)
 
     # Check for discouraged usage in mapping
     warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
@@ -305,7 +340,8 @@ Layer <- ggproto("Layer", NULL,
         && length(aes_n) > 0 && all(aes_n == 1) && n > 1) {
       cli::cli_warn(c(
         "All aesthetics have length 1, but the data has {n} rows.",
-        i = "Did you mean to use {.fn annotate}?"
+        i = "Please consider using {.fn annotate} or provide this layer \\
+        with data containing a single row."
       ), call = self$constructor)
     }
     check_aesthetics(evaled, n)
@@ -351,14 +387,10 @@ Layer <- ggproto("Layer", NULL,
     data_orig <- plot$scales$backtransform_df(data)
 
     # Add map stat output to aesthetics
-    env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
-    stage_mask <- child_env(emptyenv(), stage = stage_calculated)
-    mask <- new_data_mask(as_environment(data_orig, stage_mask), stage_mask)
-    mask$.data <- as_data_pronoun(mask)
-
-    new <- substitute_aes(new)
-    stat_data <- lapply(new, eval_tidy, mask, env)
-
+    stat_data <- eval_aesthetics(
+      substitute_aes(new), data_orig,
+      mask = list(stage = stage_calculated)
+    )
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
     if (length(nondata_stat_cols) > 0) {
@@ -372,18 +404,18 @@ Layer <- ggproto("Layer", NULL,
       ))
     }
 
-    names(stat_data) <- names(new)
-    stat_data <- data_frame0(!!!compact(stat_data))
+    stat_data <- data_frame0(!!!stat_data)
 
     # Add any new scales, if needed
-    plot$scales$add_defaults(data, new, plot$plot_env)
+    plot$scales$add_defaults(stat_data, plot$plot_env)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {
       stat_data <- plot$scales$transform_df(stat_data)
     }
+    stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
 
-    cunion(stat_data, data)
+    data_frame0(!!!defaults(stat_data, data))
   },
 
   compute_geom_1 = function(self, data) {
@@ -407,14 +439,14 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, layout)
   },
 
-  compute_geom_2 = function(self, data) {
+  compute_geom_2 = function(self, data, params = self$aes_params, theme = NULL, ...) {
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
     aesthetics <- self$computed_mapping
-    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
+    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics) | is_themed_aes(aesthetics)]
 
-    self$geom$use_defaults(data, self$aes_params, modifiers)
+    self$geom$use_defaults(data, params, modifiers, theme = theme, ...)
   },
 
   finish_statistics = function(self, data) {
@@ -432,8 +464,6 @@ Layer <- ggproto("Layer", NULL,
   }
 )
 
-is.layer <- function(x) inherits(x, "Layer")
-
 check_subclass <- function(x, subclass,
                            argname = to_lower_ascii(subclass),
                            env = parent.frame(),
@@ -445,7 +475,7 @@ check_subclass <- function(x, subclass,
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
-      cli::cli_abort("Can't find {argname} called {.val {x}}", call = call)
+      cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
     } else {
       obj
     }
@@ -468,3 +498,18 @@ set_draw_key <- function(geom, draw_key = NULL) {
   ggproto("", geom, draw_key = draw_key)
 }
 
+cleanup_mismatched_data <- function(data, n, fun) {
+  failed <- !lengths(data) %in% c(0, 1, n)
+  if (!any(failed)) {
+    return(data)
+  }
+
+  failed <- names(data)[failed]
+  cli::cli_warn(
+    "Failed to apply {.fn {fun}} for the following \\
+    aesthetic{?s}: {.field {failed}}."
+  )
+
+  data[failed] <- NULL
+  data
+}

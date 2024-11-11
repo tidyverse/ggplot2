@@ -22,7 +22,7 @@ NULL
 #' # how `geom_map()` works. It requires two data frames:
 #' # One contains the coordinates of each polygon (`positions`), and is
 #' # provided via the `map` argument. The other contains the
-#' # other the values associated with each polygon (`values`).  An id
+#' # values associated with each polygon (`values`).  An id
 #' # variable links the two together.
 #'
 #' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
@@ -102,7 +102,7 @@ geom_map <- function(mapping = NULL, data = NULL,
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
   if (!all(c("x", "y", "id") %in% names(map))) {
-    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}")
+    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}.")
   }
 
   layer(
@@ -144,10 +144,10 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
     data <- data[data_rows, , drop = FALSE]
 
     polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
-      gp = gpar(
+      gp = gg_par(
         col = data$colour,
-        fill = alpha(data$fill, data$alpha),
-        lwd = data$linewidth * .pt,
+        fill = fill_alpha(data$fill, data$alpha),
+        lwd = data$linewidth,
         lineend = lineend,
         linejoin = linejoin,
         linemitre = linemitre

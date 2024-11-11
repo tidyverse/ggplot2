@@ -15,16 +15,17 @@
 view_scale_primary <- function(scale, limits = scale$get_limits(),
                                continuous_range = scale$dimension(limits = limits)) {
 
+  # continuous_range can be specified in arbitrary order, but
+  # scales expect the one in ascending order.
+  continuous_scale_sorted <- sort(continuous_range)
   if(!scale$is_discrete()) {
-    # continuous_range can be specified in arbitrary order, but
-    # continuous scales expect the one in ascending order.
-    continuous_scale_sorted <- sort(continuous_range)
     breaks <- scale$get_breaks(continuous_scale_sorted)
-    minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_scale_sorted)
+    breaks <- censor(breaks, continuous_scale_sorted, only.finite = FALSE)
   } else {
     breaks <- scale$get_breaks(limits)
-    minor_breaks <- scale$get_breaks_minor(b = breaks, limits = limits)
   }
+  minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_scale_sorted)
+  minor_breaks <- censor(minor_breaks, continuous_range, only.finite = FALSE)
 
   ggproto(NULL, ViewScale,
     scale = scale,
@@ -76,7 +77,7 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       aesthetics = scale$aesthetics,
       name = scale$sec_name(),
       make_title = function(self, title) self$scale$make_sec_title(title),
-
+      continuous_range = sort(continuous_range),
       dimension = function(self) self$break_info$range,
       get_limits = function(self) self$break_info$range,
       get_breaks = function(self) self$break_info$major_source,
@@ -87,23 +88,6 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       rescale = function(x) rescale(x, from = break_info$range, to = c(0, 1))
     )
   }
-}
-
-view_scale_empty <- function() {
-  ggproto(NULL, ViewScale,
-    is_empty = function() TRUE,
-    is_discrete = function() NA,
-    dimension = function() c(0, 1),
-    get_limits = function() c(0, 1),
-    get_breaks = function() NULL,
-    get_breaks_minor = function() NULL,
-    get_labels = function(breaks = NULL) breaks,
-    rescale = function(x) cli::cli_abort("Not implemented"),
-    map = function(x) cli::cli_abort("Not implemented"),
-    make_title = function(title) title,
-    break_positions = function() NULL,
-    break_positions_minor = function() NULL
-  )
 }
 
 ViewScale <- ggproto("ViewScale", NULL,
@@ -129,6 +113,7 @@ ViewScale <- ggproto("ViewScale", NULL,
   get_breaks = function(self) self$breaks,
   get_breaks_minor = function(self) self$minor_breaks,
   get_labels = function(self, breaks = self$get_breaks()) self$scale$get_labels(breaks),
+  get_transformation = function(self) self$scale$get_transformation(),
   rescale = function(self, x) {
     self$scale$rescale(x, self$limits, self$continuous_range)
   },

@@ -45,6 +45,8 @@
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
 #'   means no. For details, please see [`coord_cartesian()`].
 #' @export
+#' @seealso
+#' The `r link_book("polygon maps section", "maps#sec-polygonmaps")`
 #' @examples
 #' if (require("maps")) {
 #' nz <- map_data("nz")
@@ -155,7 +157,7 @@ CoordMap <- ggproto("CoordMap", Coord,
 
   transform = function(self, data, panel_params) {
     trans <- mproject(self, data$x, data$y, panel_params$orientation)
-    out <- cunion(trans[c("x", "y")], data)
+    out <- data_frame0(!!!defaults(trans[c("x", "y")], data))
 
     out$x <- rescale(out$x, 0:1, panel_params$x.proj)
     out$y <- rescale(out$y, 0:1, panel_params$y.proj)
@@ -231,6 +233,24 @@ CoordMap <- ggproto("CoordMap", Coord,
       x.arrange = scale_x$axis_order(), y.arrange = scale_y$axis_order()
     )
     details
+  },
+
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    guide_names <- intersect(
+      names(guides$guides),
+      c("x", "x.sec", "y", "y.sec", "r", "r.sec", "theta", "theta.sec")
+    )
+    if (length(guide_names) > 0) {
+      cli::cli_warn(
+        "{.fn {snake_class(self)}} cannot render {cli::qty(guide_names)} \\
+        guide{?s} for the aesthetic{?s}: {.and {.field {guide_names}}}."
+      )
+    }
+    panel_params
+  },
+
+  train_panel_guides = function(self, panel_params, layers, params = list()) {
+    panel_params
   },
 
   render_bg = function(self, panel_params, theme) {
@@ -334,7 +354,7 @@ CoordMap <- ggproto("CoordMap", Coord,
 
 
 mproject <- function(coord, x, y, orientation) {
-  check_installed("mapproj", reason = "for `coord_map()`")
+  check_installed("mapproj", reason = "for `coord_map()`.")
   suppressWarnings(mapproj::mapproject(x, y,
     projection = coord$projection,
     parameters  = coord$params,

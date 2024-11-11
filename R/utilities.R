@@ -24,25 +24,53 @@ scales::alpha
 # @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name, call = caller_env()) {
-  if (is.null(required)) return()
+  if (is.null(required)) {
+    return()
+  }
 
   required <- strsplit(required, "|", fixed = TRUE)
-  if (any(lengths(required) > 1)) {
-    required <- lapply(required, rep_len, 2)
-    required <- list(
-      vapply(required, `[`, character(1), 1),
-      vapply(required, `[`, character(1), 2)
+  n <- lengths(required)
+
+  is_present <- vapply(
+    required,
+    function(req) any(req %in% present),
+    logical(1)
+  )
+  if (all(is_present)) {
+    return()
+  }
+
+  # Deal with paired (bidirectional) aesthetics
+  pairs <- character()
+  missing_pairs <- n == 2
+  if (any(missing_pairs)) {
+    pairs <- lapply(required[missing_pairs], rep_len, 2)
+    pairs <- list(
+      vapply(pairs, `[`, character(1), 1),
+      vapply(pairs, `[`, character(1), 2)
     )
-  } else {
-    required <- list(unlist(required))
+    pairs <- lapply(pairs, setdiff, present)
+    pairs <- vapply(pairs, function(x) {
+      as_cli("{.and {.field {x}}}")
+    }, character(1))
+    pairs <- as_cli("{.or {pairs}}")
   }
-  missing_aes <- lapply(required, setdiff, present)
-  if (any(lengths(missing_aes) == 0)) return()
-  message <- "{.fn {name}} requires the following missing aesthetics: {.field {missing_aes[[1]]}}"
-  if (length(missing_aes) > 1) {
-    message <- paste0(message, " {.strong or} {.field {missing_aes[[2]]}}")
+
+  other <- character()
+  missing_other <- !is_present & n != 2
+  if (any(missing_other)) {
+    other <- lapply(required[missing_other], setdiff, present)
+    other <- vapply(other, function(x) {
+      as_cli("{.or {.field {x}}}")
+    }, character(1))
   }
-  cli::cli_abort(message, call = call)
+
+  missing <- c(other, pairs)
+
+  cli::cli_abort(
+    "{.fn {name}} requires the following missing aesthetics: {.and {missing}}.",
+    call = call
+  )
 }
 
 # Concatenate a named list for output
@@ -54,16 +82,6 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
 #X clist(par()[1:5])
 clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
-}
-
-# Return unique columns
-# This is used for figuring out which columns are constant within a group
-#
-# @keyword internal
-uniquecols <- function(df) {
-  df <- df[1, sapply(df, is_unique), drop = FALSE]
-  rownames(df) <- 1:nrow(df)
-  df
 }
 
 #' Convenience function to remove missing values from a data.frame
@@ -172,13 +190,7 @@ waiver <- function() structure(list(), class = "waiver")
 
 is.waive <- function(x) inherits(x, "waiver")
 
-
-rescale01 <- function(x) {
-  rng <- range(x, na.rm = TRUE)
-  (x - rng[1]) / (rng[2] - rng[1])
-}
-
-binned_pal <- function(palette) {
+pal_binned <- function(palette) {
   function(x) {
     palette(length(x))
   }
@@ -199,7 +211,7 @@ gg_dep <- function(version, msg) {
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
-  text <- "{msg} (Defunct; last used in version {version})"
+  text <- "{msg} (Defunct; last used in version {version})."
 
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
@@ -219,15 +231,6 @@ gg_dep <- function(version, msg) {
   invisible()
 }
 
-has_name <- function(x) {
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(rep(FALSE, length(x)))
-  }
-
-  !is.na(nms) & nms != ""
-}
-
 # Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
 lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
 upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -245,7 +248,9 @@ toupper <- function(x) {
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
-  if (first) x <- firstUpper(x)
+  if (first) {
+    x <- paste0(to_upper_ascii(substring(x, 1, 1)), substring(x, 2))
+  }
   x
 }
 
@@ -254,10 +259,6 @@ snakeize <- function(x) {
   x <- gsub(".", "_", x, fixed = TRUE)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   to_lower_ascii(x)
-}
-
-firstUpper <- function(s) {
-  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
 }
 
 snake_class <- function(x) {
@@ -292,15 +293,6 @@ compact <- function(x) {
 
 is.formula <- function(x) inherits(x, "formula")
 
-deparse2 <- function(x) {
-  y <- deparse(x, backtick = TRUE)
-  if (length(y) == 1) {
-    y
-  } else {
-    paste0(y[[1]], "...")
-  }
-}
-
 dispatch_args <- function(f, ...) {
   args <- list(...)
   formals <- formals(f)
@@ -309,7 +301,6 @@ dispatch_args <- function(f, ...) {
   f
 }
 
-is_missing_arg <- function(x) identical(x, quote(expr = ))
 # Get all arguments in a function as a list. Will fail if an ellipsis argument
 # named .ignore
 # @param ... passed on in case enclosing function uses ellipsis in argument list
@@ -318,9 +309,10 @@ find_args <- function(...) {
   args <- names(formals(sys.function(sys.parent(1))))
 
   vals <- mget(args, envir = env)
-  vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
+  # Remove missing arguments
+  vals <- vals[!vapply(vals, identical, logical(1), y = quote(expr = ))]
 
-  modify_list(vals, list(..., `...` = NULL))
+  modify_list(vals, dots_list(..., `...` = NULL, .ignore_empty = "all"))
 }
 
 # Used in annotations to ensure printed even when no
@@ -335,18 +327,6 @@ with_seed_null <- function(seed, code) {
   }
 }
 
-seq_asc <- function(to, from) {
-  if (to > from) {
-    integer()
-  } else {
-    to:from
-  }
-}
-
-# Needed to trigger package loading
-#' @importFrom tibble tibble
-NULL
-
 # Wrapping vctrs data_frame constructor with no name repair
 data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
@@ -356,22 +336,18 @@ unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 # Code readability checking for uniqueness
 is_unique <- function(x) vec_unique_count(x) == 1L
 
-is_scalar_numeric <- function(x) is_bare_numeric(x, n = 1L)
-
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
-  x <- lapply(x, validate_column_vec)
+  x <- lapply(x, drop_column_vec)
   data_frame0(!!!x)
 }
-validate_column_vec <- function(x) {
-  if (is_column_vec(x)) {
+
+drop_column_vec <- function(x) {
+  dims <- dim(x)
+  if (length(dims) == 2L && dims[[2]] == 1L) {
     dim(x) <- NULL
   }
   x
-}
-is_column_vec <- function(x) {
-  dims <- dim(x)
-  length(dims) == 2L && dims[[2]] == 1L
 }
 
 # Parse takes a vector of n lines and returns m expressions.
@@ -476,6 +452,8 @@ switch_orientation <- function(aesthetics) {
 #' @param main_is_optional Is the main axis aesthetic optional and, if not
 #'   given, set to `0`
 #' @param flip Logical. Is the layer flipped.
+#' @param default The logical value to return if no orientation can be discerned
+#'   from the data.
 #'
 #' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
 #' orientation and `FALSE` otherwise. `flip_data()` will return the input
@@ -492,7 +470,7 @@ switch_orientation <- function(aesthetics) {
 has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
                             range_is_orthogonal = NA, group_has_equal = FALSE,
                             ambiguous = FALSE, main_is_continuous = FALSE,
-                            main_is_optional = FALSE) {
+                            main_is_optional = FALSE, default = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
     not_na <- which(!is.na(data$flipped_aes))
@@ -561,8 +539,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  # default to no
-  FALSE
+  isTRUE(default)
 }
 #' @rdname bidirection
 #' @export
@@ -598,22 +575,67 @@ is_bang <- function(x) {
   is_call(x, "!", n = 1)
 }
 
-is_triple_bang <- function(x) {
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
+# Puts all columns with 'AsIs' type in a '.ignore' column.
 
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
 
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
 
-  TRUE
+#' Ignoring and exposing data
+#'
+#' The `.ignore_data()` function is used to hide `<AsIs>` columns during
+#' scale interactions in `ggplot_build()`. The `.expose_data()` function is
+#' used to restore hidden columns.
+#'
+#' @param data A list of `<data.frame>`s.
+#'
+#' @return A modified list of `<data.frame>s`
+#' @export
+#' @keywords internal
+#' @name ignoring_data
+#'
+#' @examples
+#' data <- list(
+#'   data.frame(x = 1:3, y = I(1:3)),
+#'   data.frame(w = I(1:3), z = 1:3)
+#' )
+#'
+#' ignored <- .ignore_data(data)
+#' str(ignored)
+#'
+#' .expose_data(ignored)
+.ignore_data <- function(data) {
+  if (!is_bare_list(data)) {
+    data <- list(data)
+  }
+  lapply(data, function(df) {
+    is_asis <- vapply(df, inherits, logical(1), what = "AsIs")
+    if (!any(is_asis)) {
+      return(df)
+    }
+    df <- unclass(df)
+    # We trust that 'df' is a valid data.frame with equal length columns etc,
+    # so we can use the more performant `new_data_frame()`
+    new_data_frame(c(
+      df[!is_asis],
+      list(.ignored = new_data_frame(df[is_asis]))
+    ))
+  })
+}
+
+# Restores all columns packed into the '.ignored' column.
+#' @rdname ignoring_data
+#' @export
+.expose_data <- function(data) {
+  if (!is_bare_list(data)) {
+    data <- list(data)
+  }
+  lapply(data, function(df) {
+    is_ignored <- which(names(df) == ".ignored")
+    if (length(is_ignored) == 0) {
+      return(df)
+    }
+    df <- unclass(df)
+    new_data_frame(c(df[-is_ignored], df[[is_ignored[1]]]))
+  })
 }
 
 # Restart handler for using vec_rbind with mix of types
@@ -710,6 +732,25 @@ vec_rbind0 <- function(..., .error_call = current_env(), .call = caller_env()) {
   )
 }
 
+# This function is used to vectorise the following pattern:
+#
+# obj$name1 <- obj$name1 %||% value
+# obj$name2 <- obj$name2 %||% value
+#
+# and express this pattern as:
+#
+# replace_null(obj, name1 = value, name2 = value)
+replace_null <- function(obj, ..., env = caller_env()) {
+  # Collect dots without evaluating
+  dots <- enexprs(...)
+  # Select arguments that are null in `obj`
+  nms  <- names(dots)
+  nms  <- nms[vapply(obj[nms], is.null, logical(1))]
+  # Replace those with the evaluated dots
+  obj[nms] <- inject(list(!!!dots[nms]), env = env)
+  obj
+}
+
 attach_plot_env <- function(env) {
   old_env <- getOption("ggplot2_plot_env")
   options(ggplot2_plot_env = env)
@@ -728,4 +769,69 @@ deprecate_soft0 <- function(..., user_env = NULL) {
 deprecate_warn0 <- function(..., user_env = NULL) {
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
   lifecycle::deprecate_warn(..., user_env = user_env)
+}
+
+as_unordered_factor <- function(x) {
+  x <- as.factor(x)
+  class(x) <- setdiff(class(x), "ordered")
+  x
+}
+
+warn_dots_used <- function(env = caller_env(), call = caller_env()) {
+  check_dots_used(
+    env = env, call = call,
+    # Demote from error to warning
+    error = function(cnd) {
+      # cli uses \f as newlines, not \n
+      msg <- gsub("\n", "\f", cnd_message(cnd))
+      cli::cli_warn(msg, call = call)
+    }
+  )
+}
+
+# Shim for scales/#424
+col_mix <- function(a, b, amount = 0.5) {
+  input <- vec_recycle_common(a = a, b = b, amount = amount)
+  a <- grDevices::col2rgb(input$a, TRUE)
+  b <- grDevices::col2rgb(input$b, TRUE)
+  new <- (a * (1 - input$amount) + b * input$amount)
+  grDevices::rgb(
+    new["red", ], new["green", ], new["blue", ],
+    alpha = new["alpha", ], maxColorValue = 255
+  )
+}
+
+on_load({
+  if ("col_mix" %in% getNamespaceExports("scales")) {
+    col_mix <- scales::col_mix
+  }
+})
+
+# TODO: Replace me if rlang/#1730 gets implemented
+# Similar to `rlang::check_installed()` but returns boolean and misses
+# features such as versions, comparisons and using {pak}.
+prompt_install <- function(pkg, reason = NULL) {
+  if (length(pkg) < 1 || is_installed(pkg)) {
+    return(TRUE)
+  }
+  if (!interactive()) {
+    return(FALSE)
+  }
+
+  pkg <- pkg[!vapply(pkg, is_installed, logical(1))]
+
+  message <- "The {.pkg {pkg}} package{?s} {?is/are} required"
+  if (is.null(reason)) {
+    message <- paste0(message, ".")
+  } else {
+    message <- paste0(message, " ", reason)
+  }
+  question <- "Would you like to install {cli::qty(pkg)}{?it/them}?"
+
+  cli::cli_bullets(c("!" = message, "i" = question))
+  if (utils::menu(c("Yes", "No")) != 1) {
+    return(FALSE)
+  }
+  utils::install.packages(pkg)
+  is_installed(pkg)
 }

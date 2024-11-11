@@ -13,7 +13,7 @@ test_that("dates in segment annotation work", {
       yend = 10
     )
 
-  expect_true(all(c("xend", "yend") %in% names(layer_data(p, 2))))
+  expect_true(all(c("xend", "yend") %in% names(get_layer_data(p, 2))))
 })
 
 test_that("segment annotations transform with scales", {
@@ -79,4 +79,10 @@ test_that("annotate() checks aesthetic lengths match", {
 
 test_that("annotation_logticks warns about deprecated `size` argument", {
   expect_snapshot_warning(annotation_logticks(size = 5))
+})
+
+test_that("annotate() warns about `stat` or `position` arguments", {
+  expect_snapshot_warning(
+    annotate("point", 1:3, 1:3, stat = "density", position = "dodge")
+  )
 })

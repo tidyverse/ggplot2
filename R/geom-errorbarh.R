@@ -51,8 +51,14 @@ geom_errorbarh <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, height = 0.5,
-    alpha = NA),
+
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    height = 0.5,
+    alpha = NA
+  ),
 
   draw_key = draw_key_path,
 
@@ -60,7 +66,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 
   setup_data = function(data, params) {
     data$height <- data$height %||%
-      params$height %||% (resolution(data$y, FALSE) * 0.9)
+      params$height %||% (resolution(data$y, FALSE, TRUE) * 0.9)
 
     transform(data,
       ymin = y - height / 2, ymax = y + height / 2, height = NULL

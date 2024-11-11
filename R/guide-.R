@@ -1,3 +1,6 @@
+#' @include theme-elements.R
+NULL
+
 #' Guide constructor
 #'
 #' A constructor function for guides, which performs some standard compatibility
@@ -25,13 +28,8 @@ new_guide <- function(..., available_aes = "any", super) {
   params <- intersect(names(args), param_names)
   params <- defaults(args[params], super$params)
 
-  # Set elements
-  elems_names <- names(super$elements)
-  elems  <- intersect(names(args), elems_names)
-  elems  <- defaults(args[elems], super$elements)
-
   # Warn about extra arguments
-  extra_args <- setdiff(names(args), union(param_names, elems_names))
+  extra_args <- setdiff(names(args), param_names)
   if (length(extra_args) > 0) {
     cli::cli_warn(paste0(
       "Ignoring unknown {cli::qty(extra_args)} argument{?s} to ",
@@ -50,17 +48,27 @@ new_guide <- function(..., available_aes = "any", super) {
     ))
   }
 
+  # Validate theme settings
+  if (!is.null(params$theme)) {
+    check_object(params$theme, is.theme, what = "a {.cls theme} object")
+    validate_theme(params$theme, call = caller_env())
+    params$direction <- params$direction %||% params$theme$legend.direction
+  }
+
   # Ensure 'order' is length 1 integer
   params$order <- vec_cast(params$order, 0L, x_arg = "order", call = pf)
   vec_assert(params$order, 0L, size = 1L, arg = "order", call = pf)
 
   ggproto(
     NULL, super,
-    params   = params,
-    elements = elems,
+    params = params,
     available_aes = available_aes
   )
 }
+
+#' @export
+#' @rdname is_tests
+is.guide <- function(x) inherits(x, "Guide")
 
 #' @section Guides:
 #'
@@ -117,9 +125,12 @@ new_guide <- function(..., available_aes = "any", super) {
 #'   `params$hash`. This ensures that e.g. `guide_legend()` can display both
 #'   `shape` and `colour` in the same guide.
 #'
-#' - `get_layer_key()` Extract information from layers. This can be used to
-#'   check that the guide's aesthetic is actually in use, or to gather
-#'   information about how legend keys should be displayed.
+#' - `process_layers()` Extract information from layers. This acts mostly
+#'   as a filter for which layers to include and these are then (typically)
+#'   forwarded to `get_layer_key()`.
+#'
+#' - `get_layer_key()` This can be used to gather information about how legend
+#'   keys should be displayed.
 #'
 #' - `setup_params()` Set up parameters at the beginning of drawing stages.
 #'   It can be used to overrule user-supplied parameters or perform checks on
@@ -147,6 +158,9 @@ new_guide <- function(..., available_aes = "any", super) {
 #'   methods, the measurements from `measure_grobs()` and layout from
 #'   `arrange_layout()` to finalise the guide.
 #'
+#' - `add_title` Adds the title to a gtable, taking into account the size
+#'   of the title as well as the gtable size.
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -159,6 +173,7 @@ Guide <- ggproto(
   #  `GuidesList` class.
   params = list(
     title     = waiver(),
+    theme     = NULL,
     name      = character(),
     position  = waiver(),
     direction = NULL,
@@ -221,7 +236,8 @@ Guide <- ggproto(
     key$.label <- labels
 
     if (is.numeric(breaks)) {
-      vec_slice(key, is.finite(breaks))
+      range <- scale$continuous_range %||% scale$get_limits()
+      key <- vec_slice(key, is.finite(oob_censor_any(breaks, range)))
     } else {
       key
     }
@@ -253,7 +269,11 @@ Guide <- ggproto(
 
   # Function for extracting information from the layers.
   # Mostly applies to `guide_legend()` and `guide_binned()`
-  get_layer_key = function(params, layers) {
+  process_layers = function(self, params, layers, data = NULL, theme = NULL) {
+    self$get_layer_key(params, layers, data, theme)
+  },
+
+  get_layer_key = function(params, layers, data = NULL, theme = NULL) {
     return(params)
   },
 
@@ -267,6 +287,7 @@ Guide <- ggproto(
   # Converts the `elements` field to proper elements to be accepted by
   # `element_grob()`. String-interpolates aesthetic/position dependent elements.
   setup_elements = function(params, elements, theme) {
+    theme <- add_theme(theme, params$theme)
     is_char  <- vapply(elements, is.character, logical(1))
     elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements
@@ -280,12 +301,15 @@ Guide <- ggproto(
 
   # Main drawing function that organises more specialised aspects of guide
   # drawing.
-  draw = function(self, theme, params = self$params) {
+  draw = function(self, theme, position = NULL, direction = NULL,
+                  params = self$params) {
 
-    key <- params$key
-
-    # Setup parameters and theme
+    # Setup parameters
+    params <- replace_null(params, position = position, direction = direction)
     params <- self$setup_params(params)
+    key    <- params$key
+
+    # Setup style options
     elems  <- self$setup_elements(params, self$elements, theme)
     elems  <- self$override_elements(params, elems, theme)
 
@@ -298,14 +322,18 @@ Guide <- ggproto(
     # Build grobs
     grobs <- list(
       title  = self$build_title(params$title, elems, params),
-      labels = self$build_labels(key, elems, params),
       ticks  = self$build_ticks(key, elems, params)
     )
+    if (params$draw_label %||% TRUE) {
+      grobs$labels <- self$build_labels(key, elems, params)
+    } else {
+      grobs$labels <- list(zeroGrob())
+    }
     grobs$decor <- self$build_decor(params$decor, grobs, elems, params)
 
     # Arrange and assemble grobs
     sizes  <- self$measure_grobs(grobs, params, elems)
-    layout <- self$arrange_layout(key, sizes, params)
+    layout <- self$arrange_layout(key, sizes, params, elems)
     self$assemble_drawing(grobs, layout, sizes, params, elems)
   },
 
@@ -316,7 +344,7 @@ Guide <- ggproto(
   },
 
   # Takes care of where grobs should be added to the output gtable.
-  arrange_layout = function(key, sizes, params) {
+  arrange_layout = function(key, sizes, params, elements) {
     return(invisible())
   },
 
@@ -351,7 +379,14 @@ Guide <- ggproto(
   },
 
   # Renders tickmarks
-  build_ticks = function(key, elements, params, position = params$position) {
+  build_ticks = function(key, elements, params, position = params$position,
+                         length = elements$ticks_length) {
+    if (!is.theme_element(elements)) {
+      elements <- elements$ticks
+    }
+    if (!inherits(elements, "element_line")) {
+      return(zeroGrob())
+    }
 
     if (!is.list(key)) {
       breaks <- key
@@ -365,8 +400,7 @@ Guide <- ggproto(
       return(zeroGrob())
     }
 
-    tick_len <- rep(elements$ticks_length %||% unit(0.2, "npc"),
-                    length.out = n_breaks)
+    tick_len <- rep(length %||% unit(0.2, "npc"), length.out = n_breaks)
 
     # Resolve mark
     mark <- unit(rep(breaks, each = 2), "npc")
@@ -375,12 +409,12 @@ Guide <- ggproto(
     pos <- unname(c(top = 1, bottom = 0, left = 0, right = 1)[position])
     dir <- -2 * pos + 1
     pos <- unit(rep(pos, 2 * n_breaks), "npc")
-    dir <- rep(vec_interleave(0, dir), n_breaks) * tick_len
+    dir <- rep(vec_interleave(dir, 0), n_breaks) * rep(tick_len, each = 2)
     tick <- pos + dir
 
     # Build grob
     flip_element_grob(
-      elements$ticks,
+      elements,
       x = tick, y = mark,
       id.lengths = rep(2, n_breaks),
       flip = position %in% c("top", "bottom")
@@ -389,12 +423,75 @@ Guide <- ggproto(
 
   draw_early_exit = function(self, params, elements) {
     zeroGrob()
+  },
+
+  add_title = function(gtable, title, position, just) {
+    if (is.zero(title)) {
+      return(gtable)
+    }
+
+    title_width_cm  <- width_cm(title)
+    title_height_cm <- height_cm(title)
+
+    # Add extra row/col for title
+    gtable <- switch(
+      position,
+      top    = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos =  0),
+      right  = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos = -1),
+      bottom = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos = -1),
+      left   = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos =  0)
+    )
+
+    # Add title
+    args <- switch(
+      position,
+      top    = list(t =  1, l =  1, r = -1, b =  1),
+      right  = list(t =  1, l = -1, r = -1, b = -1),
+      bottom = list(t = -1, l =  1, r = -1, b = -1),
+      left   = list(t =  1, l =  1, r =  1, b = -1),
+    )
+    gtable <- inject(gtable_add_grob(
+      x = gtable, grobs = title, !!!args, z = -Inf, name = "title", clip = "off"
+    ))
+
+    if (position %in% c("top", "bottom")) {
+
+      if (any(unitType(gtable$widths) == "null")) {
+        # Don't need to add extra title size for stretchy legends
+        return(gtable)
+      }
+      table_width <- sum(width_cm(gtable$widths))
+      extra_width <- max(0, title_width_cm - table_width)
+      if (extra_width == 0) {
+        return(gtable)
+      }
+      extra_width <- unit((c(1, -1) * just$hjust + c(0, 1)) * extra_width, "cm")
+      gtable <- gtable_add_cols(gtable, extra_width[1], pos =  0)
+      gtable <- gtable_add_cols(gtable, extra_width[2], pos = -1)
+
+    } else {
+
+      if (any(unitType(gtable$heights) == "null")) {
+        # Don't need to add extra title size for stretchy legends
+        return(gtable)
+      }
+      table_height <- sum(height_cm(gtable$heights))
+      extra_height <- max(0, title_height_cm - table_height)
+      if (extra_height == 0) {
+        return(gtable)
+      }
+      extra_height <- unit((c(-1, 1) * just$vjust + c(1, 0)) * extra_height, "cm")
+      gtable <- gtable_add_rows(gtable, extra_height[1], pos =  0)
+      gtable <- gtable_add_rows(gtable, extra_height[2], pos = -1)
+    }
+
+    gtable
   }
 )
 
 # Helper function that may facilitate flipping theme elements by
 # swapping x/y related arguments to `element_grob()`
-flip_element_grob = function(..., flip = FALSE) {
+flip_element_grob <- function(..., flip = FALSE) {
   if (!flip) {
     ans <- element_grob(...)
     return(ans)
@@ -406,7 +503,7 @@ flip_element_grob = function(..., flip = FALSE) {
 }
 
 # The flippable arguments for `flip_element_grob()`.
-flip_names = c(
+flip_names <- c(
   "x"        = "y",
   "y"        = "x",
   "width"    = "height",
@@ -419,6 +516,17 @@ flip_names = c(
 
 # Shortcut for position argument matching
 .trbl <- c("top", "right", "bottom", "left")
+
+opposite_position <- function(position) {
+  switch(
+    position,
+    top    = "bottom",
+    bottom = "top",
+    left   = "right",
+    right  = "left",
+    position
+  )
+}
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {

@@ -28,8 +28,14 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomErrorbar <- ggproto("GeomErrorbar", Geom,
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, width = 0.5,
-    alpha = NA),
+
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    width = 0.5,
+    alpha = NA
+  ),
 
   draw_key = draw_key_path,
 
@@ -45,7 +51,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
     data <- transform(data,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )

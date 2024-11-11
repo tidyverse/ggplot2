@@ -83,6 +83,9 @@
 #' # Interpreting the labels as plotmath expressions
 #' p + facet_grid(. ~ cyl2)
 #' p + facet_grid(. ~ cyl2, labeller = label_parsed)
+#'
+#' # Include optional argument in label function
+#' p + facet_grid(. ~ cyl, labeller = function(x) label_both(x, sep = "="))
 #' }
 #' @name labellers
 NULL
@@ -111,21 +114,17 @@ label_value <- function(labels, multi_line = TRUE) {
 # currently needed for Roxygen
 class(label_value) <- c("function", "labeller")
 
-# Helper for label_both
-label_variable <- function(labels, multi_line = TRUE) {
-  if (multi_line) {
-    row <- as.list(names(labels))
-  } else {
-    row <- list(paste(names(labels), collapse = ", "))
-  }
-  lapply(row, rep, nrow(labels) %||% length(labels[[1]]))
-}
-
 #' @rdname labellers
 #' @export
 label_both <- function(labels, multi_line = TRUE, sep = ": ") {
   value <- label_value(labels, multi_line = multi_line)
-  variable <- label_variable(labels, multi_line = multi_line)
+
+  if (isTRUE(multi_line)) {
+    row <- as.list(names(labels))
+  } else {
+    row <- list(paste(names(labels), collapse = ", "))
+  }
+  variable <- lapply(row, rep, nrow(labels) %||% length(labels[[1]]))
 
   if (multi_line) {
     out <- vector("list", length(value))
@@ -172,14 +171,6 @@ label_parsed <- function(labels, multi_line = TRUE) {
   }
 }
 class(label_parsed) <- c("function", "labeller")
-
-find_names <- function(expr) {
-  if (is.call(expr)) {
-    unlist(lapply(expr[-1], find_names))
-  } else if (is.name(expr)) {
-    as.character(expr)
-  }
-}
 
 #' Label with mathematical expressions
 #'
@@ -241,12 +232,12 @@ is_labeller <- function(x) inherits(x, "labeller")
 
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
-    cli::cli_abort("Supply one of {.arg rows} or {.arg cols}")
+    cli::cli_abort("Supply one of {.arg rows} or {.arg cols}.")
   }
   if (attr(labels, "facet") == "wrap") {
     # Return either rows or cols for facet_wrap()
     if (!is.null(cols) && !is.null(rows)) {
-      cli::cli_abort("Cannot supply both {.arg rows} and {.arg cols} to {.fn facet_wrap}")
+      cli::cli_abort("Cannot supply both {.arg rows} and {.arg cols} to {.fn facet_wrap}.")
     }
     cols %||% rows
   } else {
@@ -320,7 +311,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #'
 #' This function makes it easy to assign different labellers to
 #' different factors. The labeller can be a function or it can be a
-#' named character vectors that will serve as a lookup table.
+#' named character vector that will serve as a lookup table.
 #'
 #' In case of functions, if the labeller has class `labeller`, it
 #' is directly applied on the data frame of labels. Otherwise, it is
@@ -441,7 +432,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        cli::cli_abort("Conflict between {.var {paste0('.', attr(labels, 'type'))}} and {.var {names(dots)}}")
+        cli::cli_abort("Conflict between {.var {paste0('.', attr(labels, 'type'))}} and {.var {names(dots)}}.")
       }
     }
 
@@ -450,7 +441,11 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Apply named labeller one by one
       out <- lapply(names(labels), function(label) {
         if (label %in% names(labellers)) {
-          labellers[[label]](labels[label])[[1]]
+          # Yield custom labels with any NA replaced with original
+          lbls <- labellers[[label]](labels[label])[[1]]
+          ind <- which(is.na(lbls))
+          lbls[ind] <- .default(labels[label])[[1]][ind]
+          lbls
         } else {
           .default(labels[label])[[1]]
         }

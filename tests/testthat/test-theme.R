@@ -1,5 +1,18 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("dollar subsetting the theme does no partial matching", {
+  t <- theme(foobar = 12)
+  expect_null(t$foo)
+  expect_equal(t$foobar, 12)
+})
+
+test_that("theme argument splicing works", {
+  l <- list(a = 10, b = "c", d = c("foo", "bar"))
+  test <- theme(!!!l)
+  ref  <- theme(a = 10, b = "c", d = c("foo", "bar"))
+  expect_equal(test, ref)
+})
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works
@@ -36,7 +49,7 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
@@ -102,7 +115,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("calculating theme element inheritance works", {
@@ -227,14 +240,12 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 })
@@ -274,13 +285,13 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
-  expect_snapshot_error(theme_set("foo"))
+  expect_snapshot_error(set_theme("foo"))
 })
 
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
   p <- ggplot() + theme(blablabla = element_text(colour = "red"))
-  expect_snapshot_error(print(p))
+  expect_snapshot_warning(print(p))
 
   register_theme_elements(
     element_tree = list(blablabla = el_def("character", "text"))
@@ -357,10 +368,7 @@ test_that("elements can be merged", {
     merge_element(element_line(colour = "blue"), line_base),
     element_line(colour = "blue", linewidth = 10)
   )
-  expect_error(
-    merge_element(text_base, rect_base),
-    "Only elements of the same class can be merged"
-  )
+  expect_snapshot(merge_element(text_base, rect_base), error = TRUE)
 })
 
 test_that("theme elements that don't inherit from element can be combined", {
@@ -381,7 +389,7 @@ test_that("complete plot themes shouldn't inherit from default", {
 })
 
 test_that("current theme can be updated with new elements", {
-  old <- theme_set(theme_grey())
+  old <- set_theme(theme_grey())
 
   b1 <- ggplot() + theme_grey()
   b2 <- ggplot()
@@ -399,7 +407,7 @@ test_that("current theme can be updated with new elements", {
   )
 
   # theme calculation for nonexisting element returns NULL
-  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
+  expect_null(calc_element("abcde", plot_theme(b1)))
 
   # element tree gets merged properly
   register_theme_elements(
@@ -415,7 +423,7 @@ test_that("current theme can be updated with new elements", {
   expect_identical(e1, e2)
 
   reset_theme_settings()
-  theme_set(old)
+  set_theme(old)
 })
 
 test_that("titleGrob() and margins() work correctly", {
@@ -535,6 +543,102 @@ test_that("Theme validation behaves as expected", {
   expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
 })
 
+test_that("Element subclasses are inherited", {
+
+  # `rich` is subclass of `poor`
+  poor <- element_line(colour = "red", linetype = 3)
+  rich <- element_line(linetype = 2, linewidth = 2)
+  class(rich) <- c("element_rich", class(rich))
+
+  # `poor` should acquire `rich`
+  test <- combine_elements(poor, rich)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, poor)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+
+  # `sibling` is not strict subclass of `rich`
+  sibling <- poor
+  class(sibling) <- c("element_sibling", class(sibling))
+
+  # `sibling` should stay `sibling`
+  test <- combine_elements(sibling, rich)
+  expect_s3_class(test, "element_sibling")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 3, linewidth = 2)
+  )
+
+  # `rich` should stay `rich`
+  test <- combine_elements(rich, sibling)
+  expect_s3_class(test, "element_rich")
+  expect_equal(
+    test[c("colour", "linetype", "linewidth")],
+    list(colour = "red", linetype = 2, linewidth = 2)
+  )
+})
+
+test_that("Minor tick length supports biparental inheritance", {
+  my_theme <- theme_gray() + theme(
+    axis.ticks.length = unit(1, "cm"),
+    axis.ticks.length.y.left = unit(1, "pt"),
+    axis.minor.ticks.length.y = unit(1, "inch"),
+    axis.minor.ticks.length = rel(0.5)
+  )
+  expect_equal( # Inherits rel(0.5) from minor, 1cm from major
+    calc_element("axis.minor.ticks.length.x.bottom", my_theme),
+    unit(1, "cm") * 0.5
+  )
+  expect_equal( # Inherits 1inch directly from minor
+    calc_element("axis.minor.ticks.length.y.left", my_theme),
+    unit(1, "inch")
+  )
+})
+
+test_that("header_family is passed on correctly", {
+
+  td <- theme_dark(base_family = "x", header_family = "y")
+
+  test <- calc_element("plot.title", td)
+  expect_equal(test$family, "y")
+
+  test <- calc_element("plot.subtitle", td)
+  expect_equal(test$family, "x")
+})
+
+test_that("complete_theme completes a theme", {
+  # `NULL` should match default
+  gray <- theme_gray()
+  new <- complete_theme(NULL, default = gray)
+  expect_equal(new, gray, ignore_attr = "validate")
+
+  # Elements are propagated
+  new <- complete_theme(theme(axis.line = element_line("red")), gray)
+  expect_equal(new$axis.line$colour, "red")
+
+  # Missing elements are filled in if default theme is incomplete
+  new <- complete_theme(default = theme())
+  expect_s3_class(new$axis.line, "element_blank")
+
+  # Registered elements are included
+  register_theme_elements(
+    test = element_text(),
+    element_tree = list(test = el_def("element_text", "text"))
+  )
+  new <- complete_theme(default = gray)
+  expect_s3_class(new$test, "element_text")
+  reset_theme_settings()
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
@@ -601,6 +705,19 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
 })
 
+test_that("setting 'spacing' and 'margins' affect the whole plot", {
+
+  df <- data_frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a) +
+    theme_gray()
+
+  expect_doppelganger("large spacing", plot + theme(spacing = unit(1, "cm")))
+  expect_doppelganger("large margins", plot + theme(margins = margin(1, 1, 1, 1, "cm")))
+
+})
+
 test_that("axes can be styled independently", {
   plot <- ggplot() +
     geom_point(aes(1:10, 1:10)) +
@@ -634,12 +751,12 @@ test_that("axes ticks can have independent lengths", {
     scale_x_continuous(sec.axis = dup_axis()) +
     scale_y_continuous(sec.axis = dup_axis()) +
     theme(
-      axis.ticks.length.x.top = unit(-.5, "cm"),
-      axis.ticks.length.x.bottom = unit(-.25, "cm"),
-      axis.ticks.length.y.left = unit(.25, "cm"),
-      axis.ticks.length.y.right = unit(.5, "cm"),
-      axis.text.x.bottom = element_text(margin = margin(t = .25, unit = "cm")),
-      axis.text.x.top = element_text(margin = margin(b = .25, unit = "cm"))
+      axis.ticks.length.x.top = unit(-0.5, "cm"),
+      axis.ticks.length.x.bottom = unit(-0.25, "cm"),
+      axis.ticks.length.y.left = unit(0.25, "cm"),
+      axis.ticks.length.y.right = unit(0.5, "cm"),
+      axis.text.x.bottom = element_text(margin = margin(t = 0.25, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = 0.25, unit = "cm"))
     )
   expect_doppelganger("ticks_length", plot)
 })
@@ -695,6 +812,38 @@ test_that("plot titles and caption can be aligned to entire plot", {
 
 })
 
+test_that("Legends can on all sides of the plot with custom justification", {
+
+  plot <- ggplot(mtcars) +
+    aes(
+      disp, mpg,
+      colour = hp,
+      fill   = factor(gear),
+      shape  = factor(cyl),
+      size   = drat,
+      alpha = wt
+    ) +
+    geom_point() +
+    guides(
+      shape  = guide_legend(position = "top"),
+      colour = guide_colourbar(position = "bottom"),
+      size   = guide_legend(position = "left"),
+      alpha  = guide_legend(position = "right"),
+      fill   = guide_legend(position = "inside", override.aes = list(shape = 21))
+    ) +
+    theme_test() +
+    theme(
+      legend.justification.top    = "left",
+      legend.justification.bottom = c(1, 0),
+      legend.justification.left   = c(0, 1),
+      legend.justification.right  = "bottom",
+      legend.justification.inside = c(0.75, 0.75),
+      legend.location = "plot"
+    )
+
+  expect_doppelganger("legends at all sides with justification", plot)
+})
+
 test_that("Strips can render custom elements", {
   element_test <- function(...) {
     el <- element_text(...)
@@ -712,4 +861,55 @@ test_that("Strips can render custom elements", {
     facet_wrap(~a) +
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
+})
+
+test_that("theme ink and paper settings work", {
+
+  p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+    geom_point() +
+    facet_wrap(~"Strip title") +
+    labs(
+      title = "Main title",
+      subtitle = "Subtitle",
+      tag = "A",
+      caption = "Caption"
+    )
+
+  expect_doppelganger(
+    "Theme with inverted colours",
+    p + theme_gray(ink = "white", paper = "black")
+  )
+})
+
+test_that("legend margins are correct when using relative key sizes", {
+
+  df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
+  p <- ggplot(df, aes(x, y, colour = x, shape = a)) +
+    geom_point() +
+    theme_test() +
+    theme(
+      legend.box.background = element_rect(colour = "blue", fill = NA),
+      legend.background = element_rect(colour = "red", fill = NA)
+    )
+
+  vertical <- p + guides(
+    colour = guide_colourbar(theme = theme(legend.key.height = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.height = unit(1/3, "null")))
+  ) + theme(
+    legend.box.margin = margin(t = 5, b = 10, unit = "mm"),
+    legend.margin = margin(t = 10, b = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched vertical legends", vertical)
+
+  horizontal <- p + guides(
+    colour = guide_colourbar(theme = theme(legend.key.width = unit(1, "null"))),
+    shape  = guide_legend(theme = theme(legend.key.width = unit(1/3, "null")))
+  ) + theme(
+    legend.position = "top",
+    legend.box.margin = margin(l = 5, r = 10, unit = "mm"),
+    legend.margin = margin(l = 10, r = 5, unit = "mm")
+  )
+
+  expect_doppelganger("stretched horizontal legends", horizontal)
 })

@@ -116,14 +116,12 @@
 #'
 #' # Negative values -----------------------------------------------------------
 #'
-#' df <- tibble::tribble(
-#'   ~x, ~y, ~grp,
-#'   "a", 1,  "x",
-#'   "a", 2,  "y",
-#'   "b", 1,  "x",
-#'   "b", 3,  "y",
-#'   "b", -1, "y"
+#' df <- data.frame(
+#'   x = rep(c("a", "b"), 2:3),
+#'   y = c(1, 2, 1, 3, -1),
+#'   grp = c("x", "y", "x", "y", "y")
 #' )
+#'
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp), position = position_stack(reverse = TRUE)) +
 #'   geom_hline(yintercept = 0)
@@ -155,8 +153,14 @@ PositionStack <- ggproto("PositionStack", Position,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
+    var <- self$var %||% stack_var(data)
+    if (!vec_duplicate_any(data$x)) {
+      # We skip stacking when all data have different x positions so that
+      # there is nothing to stack
+      var <- NULL
+    }
     list(
-      var = self$var %||% stack_var(data),
+      var = var,
       fill = self$fill,
       vjust = self$vjust,
       reverse = self$reverse,
@@ -175,11 +179,10 @@ PositionStack <- ggproto("PositionStack", Position,
       ymax = as.numeric(ifelse(data$ymax == 0, data$ymin, data$ymax))
     )
 
-    data <- remove_missing(
-      data,
-      vars = c("x", "xmin", "xmax", "y"),
-      name = "position_stack"
-    )
+    vars <- intersect(c("x", "xmin", "xmax", "y"), names(data))
+    missing <- detect_missing(data, vars)
+    data[missing, vars] <- NA
+
     flip_data(data, params$flipped_aes)
   },
 
@@ -202,7 +205,7 @@ PositionStack <- ggproto("PositionStack", Position,
         reverse = params$reverse
       )
     }
-    if (any(!negative)) {
+    if (!all(negative)) {
       pos <- collide(pos, NULL, "position_stack", pos_stack,
         vjust = params$vjust,
         fill = params$fill,

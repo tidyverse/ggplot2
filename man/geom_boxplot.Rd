@@ -15,10 +15,26 @@ geom_boxplot(
   outlier.colour = NULL,
   outlier.color = NULL,
   outlier.fill = NULL,
-  outlier.shape = 19,
-  outlier.size = 1.5,
+  outlier.shape = NULL,
+  outlier.size = NULL,
   outlier.stroke = 0.5,
   outlier.alpha = NULL,
+  whisker.colour = NULL,
+  whisker.color = NULL,
+  whisker.linetype = NULL,
+  whisker.linewidth = NULL,
+  staple.colour = NULL,
+  staple.color = NULL,
+  staple.linetype = NULL,
+  staple.linewidth = NULL,
+  median.colour = NULL,
+  median.color = NULL,
+  median.linetype = NULL,
+  median.linewidth = NULL,
+  box.colour = NULL,
+  box.color = NULL,
+  box.linetype = NULL,
+  box.linewidth = NULL,
   notch = FALSE,
   notchwidth = 0.5,
   staplewidth = 0,
@@ -63,15 +79,46 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string naming the adjustment
-(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.}
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[=layer_positions]{layer position} documentation.
+}}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
 
 \item{outliers}{Whether to display (\code{TRUE}) or discard (\code{FALSE}) outliers
 from the plot. Hiding or discarding outliers can be useful when, for
@@ -81,10 +128,20 @@ only, not the full data range. If outliers need to be hidden and the axes
 needs to show the full data range, please use \code{outlier.shape = NA} instead.}
 
 \item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
-aesthetics used for the box.
+data's aesthetics.}
 
-In the unlikely event you specify both US and UK spellings of colour, the
-US spelling will take precedence.}
+\item{whisker.colour, whisker.color, whisker.linetype, whisker.linewidth}{Default aesthetics for the whiskers. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
+\item{staple.colour, staple.color, staple.linetype, staple.linewidth}{Default aesthetics for the staples. Set to \code{NULL} to inherit from the
+data's aesthetics. Note that staples don't appear unless the \code{staplewidth}
+argument is set to a non-zero size.}
+
+\item{median.colour, median.color, median.linetype, median.linewidth}{Default aesthetics for the median line. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
+\item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
+data's aesthetics.}
 
 \item{notch}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -114,7 +171,9 @@ to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more 
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -122,7 +181,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_boxplot()} and \code{stat_boxplot()}.}
+\code{geom_boxplot()} and \code{stat_boxplot()}. For more information about
+overriding these connections, see how the \link[=layer_stats]{stat} and
+\link[=layer_geoms]{geom} arguments work.}
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
 }
@@ -130,6 +191,10 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.
+}
+\note{
+In the unlikely event you specify both US and UK spellings of colour,
+the US spelling will take precedence.
 }
 \section{Orientation}{
 

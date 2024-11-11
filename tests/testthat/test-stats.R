@@ -3,21 +3,17 @@ test_that("plot succeeds even if some computation fails", {
   p1 <- ggplot(df, aes(x, y)) + geom_point()
 
   b1 <- ggplot_build(p1)
-  expect_equal(length(b1$data), 1)
+  expect_length(b1$data, 1)
 
-  p2 <- p1 + geom_smooth()
+  p2 <- p1 + stat_summary(fun = function(x) stop("Failed computation"))
 
-  # TODO: These multiple warnings should be summarized nicely. Until this gets
-  #       fixed, this test ignores all the following errors than the first one.
-  suppressWarnings(
-    expect_warning(b2 <- ggplot_build(p2), "Computation failed")
-  )
-  expect_equal(length(b2$data), 2)
+  expect_snapshot_warning(b2 <- ggplot_build(p2))
+  expect_length(b2$data, 2)
 })
 
 test_that("error message is thrown when aesthetics are missing", {
   p <- ggplot(mtcars) + stat_sum()
-  expect_error(ggplot_build(p), "x and y$")
+  expect_snapshot(ggplot_build(p), error = TRUE)
 })
 
 test_that("erroneously dropped aesthetics are found and issue a warning", {
@@ -33,7 +29,7 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
     g = rep(1:2, each = 5)
   )
   p1 <- ggplot(df1, aes(x, fill = g)) + geom_density()
-  expect_warning(ggplot_build(p1), "aesthetics were dropped")
+  expect_snapshot_warning(ggplot_build(p1))
 
   # case 2-1) dropped partially
 
@@ -44,15 +40,14 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
   )
 
   p2 <- ggplot(df2, aes(id, colour = colour, fill = fill)) + geom_bar()
-  expect_warning(
-    b2 <- ggplot_build(p2),
-    "The following aesthetics were dropped during statistical transformation: .*colour.*, .*fill.*"
+  expect_snapshot_warning(
+    b2 <- ggplot_build(p2)
   )
 
   # colour is dropped because group a's colour is not constant (GeomBar$default_aes$colour is NA)
   expect_true(all(is.na(b2$data[[1]]$colour)))
   # fill is dropped because group b's fill is not constant
-  expect_true(all(b2$data[[1]]$fill == GeomBar$default_aes$fill))
+  expect_true(all(b2$data[[1]]$fill == "#595959FF"))
 
   # case 2-1) dropped partially with NA
 
@@ -64,10 +59,7 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
 
   p3 <- ggplot(df3, aes(id, colour = colour, fill = fill)) + geom_bar() +
     scale_fill_continuous(na.value = "#123")
-  expect_warning(
-    b3 <- ggplot_build(p3),
-    "The following aesthetics were dropped during statistical transformation: .*colour.*"
-  )
+  expect_snapshot_warning(b3 <- ggplot_build(p3))
 
   # colour is dropped because group a's colour is not constant (GeomBar$default_aes$colour is NA)
   expect_true(all(is.na(b3$data[[1]]$colour)))

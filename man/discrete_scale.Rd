@@ -10,6 +10,7 @@ discrete_scale(
   palette,
   name = waiver(),
   breaks = waiver(),
+  minor_breaks = waiver(),
   labels = waiver(),
   limits = NULL,
   expand = waiver(),
@@ -30,7 +31,7 @@ that should be used for error messages associated with this scale.}
 
 \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
+they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
 
 \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
@@ -45,6 +46,18 @@ omitted.}
 \item A function that takes the limits as input and returns breaks
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
+}}
+
+\item{minor_breaks}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.
 }}
 
 \item{labels}{One of:
@@ -86,7 +99,8 @@ where \code{NA} is always placed at the far right.}
 
 \item{drop}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
@@ -100,5 +114,8 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 }
 \description{
 Discrete scale constructor
+}
+\seealso{
+The \href{https://ggplot2-book.org/extensions#sec-new-scales}{new scales section} of the online ggplot2 book.
 }
 \keyword{internal}

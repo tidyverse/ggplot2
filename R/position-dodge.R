@@ -13,6 +13,11 @@
 #'   geoms. See the examples.
 #' @param preserve Should dodging preserve the `"total"` width of all elements
 #'    at a position, or the width of a `"single"` element?
+#' @param orientation Fallback orientation when the layer or the data does not
+#'    indicate an explicit orientation, like `geom_point()`. Can be `"x"`
+#'    (default) or `"y"`.
+#' @param reverse If `TRUE`, will reverse the default stacking order.
+#'   This is useful if you're rotating both the plot and legend.
 #' @family position adjustments
 #' @export
 #' @examples
@@ -79,10 +84,14 @@
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
-position_dodge <- function(width = NULL, preserve = "total") {
+position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
+                           reverse = FALSE) {
+  check_bool(reverse)
   ggproto(NULL, PositionDodge,
     width = width,
-    preserve = arg_match0(preserve, c("total", "single"))
+    preserve = arg_match0(preserve, c("total", "single")),
+    orientation = arg_match0(orientation, c("x", "y")),
+    reverse = reverse
   )
 }
 
@@ -93,8 +102,15 @@ position_dodge <- function(width = NULL, preserve = "total") {
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
+  orientation = "x",
+  reverse = NULL,
   setup_params = function(self, data) {
-    flipped_aes <- has_flipped_aes(data)
+    flipped_aes <- has_flipped_aes(data, default = self$orientation == "y")
+    check_required_aesthetics(
+      if (flipped_aes) "y|ymin" else "x|xmin",
+      names(data), snake_class(self)
+    )
+
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       cli::cli_warn(c(
@@ -106,15 +122,18 @@ PositionDodge <- ggproto("PositionDodge", Position,
     if (identical(self$preserve, "total")) {
       n <- NULL
     } else {
-      panels <- unname(split(data, data$PANEL))
-      ns <- vapply(panels, function(panel) max(table(panel$xmin)), double(1))
-      n <- max(ns)
+      data$xmin <- data$xmin %||% data$x
+      cols <- intersect(colnames(data), c("group", "PANEL", "xmin"))
+      n <- vec_unique(data[cols])
+      n <- vec_group_id(n[setdiff(cols, "group")])
+      n <- max(tabulate(n, attr(n, "n")))
     }
 
     list(
       width = self$width,
       n = n,
-      flipped_aes = flipped_aes
+      flipped_aes = flipped_aes,
+      reverse = self$reverse %||% FALSE
     )
   },
 
@@ -134,7 +153,8 @@ PositionDodge <- ggproto("PositionDodge", Position,
       name = "position_dodge",
       strategy = pos_dodge,
       n = params$n,
-      check.width = FALSE
+      check.width = FALSE,
+      reverse = !params$reverse # for consistency with `position_dodge2()`
     )
     flip_data(collided, params$flipped_aes)
   }
@@ -159,10 +179,10 @@ pos_dodge <- function(df, width, n = NULL) {
 
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n
-  groupidx <- match(df$group, sort(unique0(df$group)))
+  groupidx <- match(df$group, unique0(df$group))
 
   # Find the center for each group, then use that to calculate xmin and xmax
-  df$x <- df$x + width * ((groupidx - 0.5) / n - .5)
+  df$x <- df$x + width * ((groupidx - 0.5) / n - 0.5)
   df$xmin <- df$x - d_width / n / 2
   df$xmax <- df$x + d_width / n / 2
 

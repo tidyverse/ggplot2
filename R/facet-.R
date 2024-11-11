@@ -74,6 +74,8 @@ NULL
 #' parameter which is used to determine if scales are retrained after Stat
 #' transformations has been applied.
 #'
+#' See also the `r link_book("new facets section", "extensions#new-facets")`
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -83,10 +85,10 @@ Facet <- ggproto("Facet", NULL,
   params = list(),
 
   compute_layout = function(data, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   map_data = function(data, layout, params) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
@@ -131,8 +133,35 @@ Facet <- ggproto("Facet", NULL,
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    cli::cli_abort("Not implemented")
+  draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
+                         ranges, coord, data = NULL, theme, params) {
+
+    free  <- params$free       %||% list(x = FALSE, y = FALSE)
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+
+    aspect_ratio <- theme$aspect.ratio
+    if (!is.null(aspect_ratio) && (space$x || space$y)) {
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
+    }
+
+    if (!coord$is_free()) {
+      if (space$x && space$y) {
+        aspect_ratio <- aspect_ratio %||% coord$ratio
+      } else if (free$x || free$y) {
+        cli::cli_abort(
+          "{.fn {snake_class(self)}} can't use free scales with \\
+          {.fn {snake_class(coord)}}."
+        )
+      }
+    }
+
+    table <- self$init_gtable(
+      panels, layout, theme, ranges, params,
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
+    )
+
+    table <- self$attach_axes(table, layout, ranges, coord, theme, params)
+    self$attach_strips(table, layout, params, theme)
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -171,10 +200,75 @@ Facet <- ggproto("Facet", NULL,
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
   },
+  init_gtable = function(panels, layout, theme, ranges, params,
+                         aspect_ratio = NULL) {
+
+    # Initialise matrix of panels
+    dim   <- c(max(layout$ROW), max(layout$COL))
+    table <- matrix(list(zeroGrob()), dim[1], dim[2])
+    table[cbind(layout$ROW, layout$COL)] <- panels
+
+    # Set initial sizes
+    widths  <- unit(rep(1, dim[2]), "null")
+    heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
+
+    # When space are free, let panel parameter limits determine size of panel
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+    if (space$x) {
+      idx    <- layout$PANEL[layout$ROW == 1]
+      widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
+      widths <- unit(widths, "null")
+    }
+
+    if (space$y) {
+      idx <- layout$PANEL[layout$COL == 1]
+      heights <- vapply(idx, function(i) diff(ranges[[i]]$y.range), numeric(1))
+      heights <- unit(heights * abs(aspect_ratio %||% 1), "null")
+    }
+
+    # Build gtable
+    table <- gtable_matrix(
+      "layout", table,
+      widths = widths, heights = heights,
+      respect = !is.null(aspect_ratio),
+      clip = "off", z = matrix(1, dim[1], dim[2])
+    )
+
+    # Set panel names
+    table$layout$name <- paste(
+      "panel",
+      rep(seq_len(dim[2]), each = dim[1]),
+      rep(seq_len(dim[1]), dim[2]),
+      sep = "-"
+    )
+
+    # Add spacing between panels
+    spacing <- lapply(
+      c(x = "panel.spacing.x", y = "panel.spacing.y"),
+      calc_element, theme = theme
+    )
+
+    table <- gtable_add_col_space(table, spacing$x)
+    table <- gtable_add_row_space(table, spacing$y)
+    table
+  },
+  attach_axes = function(table, layout, ranges, coord, theme, params) {
+    table
+  },
+  attach_strips = function(table, layout, params, theme) {
+    table
+  },
   vars = function() {
     character(0)
+  },
+  format_strip_labels = function(layout, params) {
+    return()
   }
 )
+
+#' @export
+#' @rdname is_tests
+is.facet <- function(x) inherits(x, "Facet")
 
 # Helpers -----------------------------------------------------------------
 
@@ -237,13 +331,31 @@ vars <- function(...) {
   quos(...)
 }
 
-
-#' Is this object a faceting specification?
+#' Accessing a plot's facet strip labels
 #'
-#' @param x object to test
-#' @keywords internal
+#' This functions retrieves labels from facet strips with the labeller applied.
+#'
+#' @param plot A ggplot or build ggplot object.
+#'
+#' @return `NULL` if there are no labels, otherwise a list of data.frames
+#'   containing the labels.
 #' @export
-is.facet <- function(x) inherits(x, "Facet")
+#' @keywords internal
+#'
+#' @examples
+#' # Basic plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' get_strip_labels(p) # empty facets
+#' get_strip_labels(p + facet_wrap(year ~ cyl))
+#' get_strip_labels(p + facet_grid(year ~ cyl))
+get_strip_labels <- function(plot = get_last_plot()) {
+  plot   <- ggplot_build(plot)
+  layout <- plot$layout$layout
+  params <- plot$layout$facet_params
+  plot$plot$facet$format_strip_labels(layout, params)
+}
 
 # A "special" value, currently not used but could be used to determine
 # if faceting is active
@@ -303,7 +415,14 @@ as_facets_list <- function(x) {
   # distinct facet dimensions and `+` defines multiple facet variables
   # inside each dimension.
   if (is_formula(x)) {
-    return(f_as_facets_list(x))
+    if (length(x) == 2) {
+      rows <- f_as_facets(NULL)
+      cols <- f_as_facets(x)
+    } else {
+      rows <- f_as_facets(x[-3])
+      cols <- f_as_facets(x[-2])
+    }
+    return(list(rows, cols))
   }
 
   # For backward-compatibility with facet_wrap()
@@ -322,24 +441,23 @@ as_facets_list <- function(x) {
 }
 
 validate_facets <- function(x) {
-  if (inherits(x, "uneval")) {
-    cli::cli_abort("Please use {.fn vars} to supply facet variables")
+  if (is.mapping(x)) {
+    cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be
   # expected here, not just ggplot
   if (inherits(x, "gg")) {
     cli::cli_abort(c(
-      "Please use {.fn vars} to supply facet variables",
+      "Please use {.fn vars} to supply facet variables.",
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
   x
 }
 
-
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
-
+  x <- as_facets_list(x)
   proxy   <- vec_proxy(x)
   is_list <- vapply(proxy, vec_is_list, logical(1))
   proxy[is_list]  <- lapply(proxy[is_list],  unclass)
@@ -386,18 +504,10 @@ simplify <- function(x) {
   }
 }
 
-f_as_facets_list <- function(f) {
-  lhs <- function(x) if (length(x) == 2) NULL else x[-3]
-  rhs <- function(x) if (length(x) == 2) x else x[-2]
-
-  rows <- f_as_facets(lhs(f))
-  cols <- f_as_facets(rhs(f))
-
-  list(rows, cols)
-}
-
 as_facets <- function(x) {
-  if (is_facets(x)) {
+  is_facets <- is.list(x) && length(x) > 0 &&
+    all(vapply(x, is_quosure, logical(1)))
+  if (is_facets) {
     return(x)
   }
 
@@ -418,27 +528,13 @@ f_as_facets <- function(f) {
   env <- f_env(f) %||% globalenv()
 
   # as.quoted() handles `+` specifications
-  vars <- as.quoted(f)
+  vars <- simplify(f)
 
-  # `.` in formulas is ignored
-  vars <- discard_dots(vars)
+  # `.` in formulas is discarded
+  vars <- vars[!vapply(vars, identical, logical(1), as.name("."))]
 
   as_quosures(vars, env, named = TRUE)
 }
-discard_dots <- function(x) {
-  x[!vapply(x, identical, logical(1), as.name("."))]
-}
-
-is_facets <- function(x) {
-  if (!is.list(x)) {
-    return(FALSE)
-  }
-  if (!length(x)) {
-    return(FALSE)
-  }
-  all(vapply(x, is_quosure, logical(1)))
-}
-
 
 # When evaluating variables in a facet specification, we evaluate bare
 # variables and expressions slightly differently. Bare variables should
@@ -449,7 +545,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  data_frame0(tibble::as_tibble(vars))
+  data_frame0(!!!vars)
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically
@@ -477,7 +573,7 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   mask <- new_data_mask(env)
   mask$.data <- as_data_pronoun(mask)
 
-  tryCatch(
+  try_fetch(
     eval_tidy(facet, mask),
     ggplot2_missing_facet_var = function(e) NULL
   )
@@ -500,7 +596,7 @@ check_layout <- function(x) {
     return()
   }
 
-  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}")
+  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}.")
 }
 
 check_facet_vars <- function(..., name) {
@@ -509,8 +605,8 @@ check_facet_vars <- function(..., name) {
   problems <- intersect(vars_names, reserved_names)
   if (length(problems) != 0) {
     cli::cli_abort(c(
-      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables",
-      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}"
+      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables.",
+      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
     ), call = call2(name))
   }
 }
@@ -566,7 +662,7 @@ find_panel <- function(table) {
 }
 #' @rdname find_panel
 #' @export
-panel_cols = function(table) {
+panel_cols <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
   unique0(panels[, c('l', 'r')])
 }
@@ -631,7 +727,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   }
 
   if (empty(base)) {
-    cli::cli_abort("Faceting variables must have at least one value")
+    cli::cli_abort("Faceting variables must have at least one value.")
   }
 
   base
@@ -695,9 +791,37 @@ render_axes <- function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
 #'
 #' @keywords internal
 #' @export
-render_strips <- function(x = NULL, y = NULL, labeller, theme) {
+render_strips <- function(x = NULL, y = NULL, labeller = identity, theme) {
   list(
     x = build_strip(x, labeller, theme, TRUE),
     y = build_strip(y, labeller, theme, FALSE)
   )
+}
+
+
+censor_labels <- function(ranges, layout, labels) {
+  if (labels$x && labels$y) {
+    return(ranges)
+  }
+  draw <- matrix(
+    TRUE, length(ranges), 4,
+    dimnames = list(NULL, c("top", "bottom", "left", "right"))
+  )
+
+  if (!labels$x) {
+    xmax <- stats::ave(layout$ROW, layout$COL, FUN = max)
+    xmin <- stats::ave(layout$ROW, layout$COL, FUN = min)
+    draw[which(layout$ROW != xmax), "bottom"] <- FALSE
+    draw[which(layout$ROW != xmin), "top"] <- FALSE
+  }
+  if (!labels$y) {
+    ymax <- stats::ave(layout$COL, layout$ROW, FUN = max)
+    ymin <- stats::ave(layout$COL, layout$ROW, FUN = min)
+    draw[which(layout$COL != ymax), "right"] <- FALSE
+    draw[which(layout$COL != ymin), "left"] <- FALSE
+  }
+  for (i in seq_along(ranges)) {
+    ranges[[i]]$draw_labels <- as.list(draw[i, ])
+  }
+  ranges
 }

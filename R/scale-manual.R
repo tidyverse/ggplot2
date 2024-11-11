@@ -12,7 +12,7 @@
 #' of aesthetics provided via the `aesthetics` argument.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -aesthetics
+#' @inheritDotParams discrete_scale -expand -position -aesthetics -palette -scale_name
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
@@ -34,6 +34,8 @@
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].
+#'
+#' The `r link_book(c("manual scales", "manual colour scales sections"), c("scales-other#sec-scale-manual", "scales-colour#sec-manual-colour"))`
 #'
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
@@ -117,7 +119,7 @@ scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
 #' @seealso
 #' Other linetype scales: [scale_linetype()], [scale_linetype_identity()].
 #' @export
-scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = "blank") {
+scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = NA) {
   manual_scale("linetype", values, breaks, ..., na.value = na.value)
 }
 
@@ -141,7 +143,8 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
   manual_scale(aesthetics, values, breaks, ...)
 }
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
+                         name = waiver(), ...,
                          limits = NULL, call = caller_call()) {
   call <- call %||% current_call()
   # check for missing `values` parameter, in lieu of providing
@@ -173,7 +176,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     if (length(breaks) <= length(values)) {
       names(values) <- breaks
     } else {
-      names(values) <- breaks[1:length(values)]
+      names(values) <- breaks[seq_along(values)]
     }
   }
 
@@ -183,6 +186,9 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...,
     }
     values
   }
-  discrete_scale(aesthetic, palette = pal, breaks = breaks, limits = limits,
-                 call = call, ...)
+  discrete_scale(
+    aesthetic, name = name,
+    palette = pal, breaks = breaks, limits = limits,
+    call = call, ...
+  )
 }

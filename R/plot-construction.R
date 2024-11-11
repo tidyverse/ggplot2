@@ -42,7 +42,7 @@
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
-            "Cannot use {.code +} with a single argument",
+            "Cannot use {.code +} with a single argument.",
       "i" = "Did you accidentally put {.code +} on a new line?"
     ))
   }
@@ -55,7 +55,7 @@
   else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
     cli::cli_abort(c(
-      "Cannot add {.cls ggproto} objects together",
+      "Cannot add {.cls ggproto} objects together.",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"
     ))
   }
@@ -84,9 +84,32 @@ add_ggplot <- function(p, object, objectname) {
 #' @param object_name The name of the object to add
 #'
 #' @return A modified ggplot object
+#' @details
+#' Custom methods for `ggplot_add()` are intended to update the `plot` variable
+#' using information from a custom `object`. This can become convenient when
+#' writing extensions that don't build on the pre-existing grammar like
+#' layers, facets, coords and themes. The `ggplot_add()` function is never
+#' intended to be used directly, but it is triggered when an object is added
+#' to a plot via the `+` operator. Please note that the full `plot` object is
+#' exposed at this point, which comes with the responsibility of returning
+#' the plot intact.
 #'
 #' @keywords internal
 #' @export
+#' @examples
+#' # making a new method for the generic
+#' # in this example, we apply a text element to the text theme setting
+#' ggplot_add.element_text <- function(object, plot, object_name) {
+#'   plot + theme(text = object)
+#' }
+#'
+#' # we can now use `+` to add our object to a plot
+#' ggplot(mpg, aes(displ, cty)) +
+#'   geom_point() +
+#'   element_text(colour = "red")
+#'
+#' # clean-up
+#' rm(ggplot_add.element_text)
 ggplot_add <- function(object, plot, object_name) {
   UseMethod("ggplot_add")
 }
@@ -126,17 +149,23 @@ ggplot_add.labels <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Guides <- function(object, plot, object_name) {
-  update_guides(plot, object)
+  if (is.guides(plot$guides)) {
+    # We clone the guides object to prevent modify-in-place of guides
+    old <- plot$guides
+    new <- ggproto(NULL, old)
+    new$add(object)
+    plot$guides <- new
+  } else {
+    plot$guides <- object
+  }
+  plot
 }
 #' @export
 ggplot_add.uneval <- function(object, plot, object_name) {
   plot$mapping <- defaults(object, plot$mapping)
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
-
-  labels <- make_labels(object)
-  names(labels) <- names(object)
-  update_labels(plot, labels)
+  plot
 }
 #' @export
 ggplot_add.Coord <- function(object, plot, object_name) {
@@ -155,7 +184,7 @@ ggplot_add.Facet <- function(object, plot, object_name) {
 #' @export
 ggplot_add.list <- function(object, plot, object_name) {
   for (o in object) {
-    plot <- plot %+% o
+    plot <- ggplot_add(o, plot, object_name)
   }
   plot
 }
@@ -166,20 +195,25 @@ ggplot_add.by <- function(object, plot, object_name) {
 
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
+  layers_names <- new_layer_names(object, names(plot$layers))
   plot$layers <- append(plot$layers, object)
-
-  # Add any new labels
-  mapping <- make_labels(object$mapping)
-  default <- lapply(make_labels(object$stat$default_aes), function(l) {
-    attr(l, "fallback") <- TRUE
-    l
-  })
-  new_labels <- defaults(mapping, default)
-  current_labels <- plot$labels
-  current_fallbacks <- vapply(current_labels, function(l) isTRUE(attr(l, "fallback")), logical(1))
-  plot$labels <- defaults(current_labels[!current_fallbacks], new_labels)
-  if (any(current_fallbacks)) {
-    plot$labels <- defaults(plot$labels, current_labels)
-  }
+  names(plot$layers) <- layers_names
   plot
+}
+
+new_layer_names <- function(layer, existing) {
+  new_name <- layer$name
+  if (is.null(new_name)) {
+    # Construct a name from the layer's call
+    new_name <- call_name(layer$constructor) %||% snake_class(layer$geom)
+
+    if (new_name %in% existing) {
+      names <- c(existing, new_name)
+      names <- vec_as_names(names, repair = "unique", quiet = TRUE)
+      new_name <- names[length(names)]
+    }
+  }
+
+  names <- c(existing, new_name)
+  vec_as_names(names, repair = "check_unique")
 }

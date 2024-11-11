@@ -9,7 +9,7 @@
 #' `predictdf()` generic and its methods.  For most methods the standard
 #' error bounds are computed using the [predict()] method -- the
 #' exceptions are `loess()`, which uses a t-based approximation, and
-#' `glm()`, where the normal confidence interval is constructed on the link
+#' `glm()`, where the normal confidence band is constructed on the link
 #' scale and then back-transformed to the response scale.
 #'
 #' @eval rd_orientation()
@@ -18,7 +18,9 @@
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
-#'   `geom_smooth()` and `stat_smooth()`.
+#'   `geom_smooth()` and `stat_smooth()`. For more information about overriding
+#'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
+#'   arguments work.
 #' @seealso See individual modelling functions for more details:
 #'   [lm()] for linear smooths,
 #'   [glm()] for generalised linear smooths, and
@@ -123,6 +125,13 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 GeomSmooth <- ggproto("GeomSmooth", Geom,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE, ambiguous = TRUE)
+    params$se <- params$se %||%
+      if (params$flipped_aes) {
+        all(c("xmin", "xmax") %in% names(data))
+      } else {
+        all(c("ymin", "ymax") %in% names(data))
+      }
+
     params
   },
 
@@ -144,8 +153,8 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
-    ymin = flipped_names(flipped_aes)$ymin
-    ymax = flipped_names(flipped_aes)$ymax
+    ymin <- flipped_names(flipped_aes)$ymin
+    ymax <- flipped_names(flipped_aes)$ymax
     has_ribbon <- se && !is.null(data[[ymax]]) && !is.null(data[[ymin]])
 
     gList(
@@ -159,8 +168,13 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   required_aes = c("x", "y"),
   optional_aes = c("ymin", "ymax"),
 
-  default_aes = aes(colour = "#3366FF", fill = "grey60", linewidth = 1,
-    linetype = 1, weight = 1, alpha = 0.4),
+  default_aes = aes(
+    colour = from_theme(accent),
+    fill = from_theme(col_mix(ink, paper, 0.6)),
+    linewidth = from_theme(2 * linewidth),
+    linetype = from_theme(linetype),
+    weight = 1, alpha = 0.4
+  ),
 
   rename_size = TRUE
 )

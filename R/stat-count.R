@@ -13,7 +13,6 @@
 stat_count <- function(mapping = NULL, data = NULL,
                        geom = "bar", position = "stack",
                        ...,
-                       width = NULL,
                        na.rm = FALSE,
                        orientation = NA,
                        show.legend = NA,
@@ -22,7 +21,6 @@ stat_count <- function(mapping = NULL, data = NULL,
   params <- list2(
     na.rm = na.rm,
     orientation = orientation,
-    width = width,
     ...
   )
 
@@ -62,7 +60,7 @@ StatCount <- ggproto("StatCount", Stat,
 
     if (is.null(params$width)) {
       x <- if (params$flipped_aes) "y" else "x"
-      params$width <- resolution(data[[x]]) * 0.9
+      params$width <- resolution(data[[x]], discrete = TRUE) * 0.9
     }
 
     params
@@ -75,8 +73,7 @@ StatCount <- ggproto("StatCount", Stat,
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
 
-    count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
-    count[is.na(count)] <- 0
+    count <- as.vector(rowsum(weight, x, na.rm = TRUE))
 
     bars <- data_frame0(
       count = count,

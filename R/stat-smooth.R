@@ -18,12 +18,15 @@
 #'   `y ~ poly(x, 2)`, `y ~ log(x)`. `NULL` by default, in which case
 #'   `method = NULL` implies `formula = y ~ x` when there are fewer than 1,000
 #'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
-#' @param se Display confidence interval around smooth? (`TRUE` by default, see
+#' @param se Display confidence band around smooth? (`TRUE` by default, see
 #'   `level` to control.)
 #' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
 #'   potentially beyond the data. This does not extend the line into any additional padding
 #'   created by `expansion`.
-#' @param level Level of confidence interval to use (0.95 by default).
+#' @param xseq A numeric vector of values at which the smoother is evaluated.
+#'   When `NULL` (default), `xseq` is internally evaluated as a sequence of `n`
+#'   equally spaced points for continuous data.
+#' @param level Level of confidence band to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
 #'   lines. Only used with loess, i.e. when `method = "loess"`,
@@ -37,8 +40,8 @@
 #'   .details = "`stat_smooth()` provides the following variables, some of
 #'   which depend on the orientation:",
 #'   "y|x" = "Predicted value.",
-#'   "ymin|xmin" = "Lower pointwise confidence interval around the mean.",
-#'   "ymax|xmax" = "Upper pointwise confidence interval around the mean.",
+#'   "ymin|xmin" = "Lower pointwise confidence band around the mean.",
+#'   "ymax|xmax" = "Upper pointwise confidence band around the mean.",
 #'   "se" = "Standard error."
 #' )
 #' @export
@@ -52,6 +55,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
                         n = 80,
                         span = 0.75,
                         fullrange = FALSE,
+                        xseq = NULL,
                         level = 0.95,
                         method.args = list(),
                         na.rm = FALSE,
@@ -77,6 +81,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
       orientation = orientation,
       method.args = method.args,
       span = span,
+      xseq = xseq,
       ...
     )
   )
@@ -90,36 +95,63 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     msg <- character()
-    if (is.null(params$method) || identical(params$method, "auto")) {
+    method <- params$method
+    if (is.null(method) || identical(method, "auto")) {
       # Use loess for small datasets, gam with a cubic regression basis for
       # larger. Based on size of the _largest_ group to avoid bad memory
       # behaviour of loess
       max_group <- max(table(interaction(data$group, data$PANEL, drop = TRUE)))
 
       if (max_group < 1000) {
-        params$method <- "loess"
+        method <- "loess"
       } else {
-        params$method <- "gam"
+        method <- "gam"
       }
-      msg <- c(msg, paste0("method = '", params$method, "'"))
+      msg <- c(msg, paste0("method = '", method, "'"))
+    }
+
+    if (identical(method, "gam") &&
+        !prompt_install("mgcv", "for using {.code method = \"gam\"}")) {
+      cli::cli_inform(c(
+        "The {.arg method} was set to {.val gam}, but {.pkg mgcv} is not installed.",
+        "!" = "Falling back to {.code method = \"lm\"}.",
+        i = "Install {.pkg mgcv} or change the {.arg method} argument to \\
+        resolve this issue."
+      ))
+      method <- "lm"
     }
 
     if (is.null(params$formula)) {
-      if (identical(params$method, "gam")) {
+      if (identical(method, "gam")) {
         params$formula <- y ~ s(x, bs = "cs")
       } else {
         params$formula <- y ~ x
       }
       msg <- c(msg, paste0("formula = '", deparse(params$formula), "'"))
     }
-    if (identical(params$method, "gam")) {
-      params$method <- gam_method()
+
+    # Special case span because it's the most commonly used model argument
+    if (identical(method, "loess")) {
+      params$method.args$span <- params$span %||% 0.75
+    }
+
+    if (is.character(method)) {
+      if (identical(method, "gam")) {
+        method <- gam_method()
+      } else {
+        method <- match.fun(method)
+      }
+    }
+    # If gam and gam's method is not specified by the user then use REML
+    if (identical(method, gam_method())) {
+      params$method.args$method <- params$method.args$method %||% "REML"
     }
 
     if (length(msg) > 0) {
       cli::cli_inform("{.fn geom_smooth} using {msg}")
     }
 
+    params$method <- method
     params
   },
 
@@ -154,31 +186,25 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       }
     }
 
-    # Special case span because it's the most commonly used model argument
-    if (identical(method, "loess")) {
-      method.args$span <- span
-    }
-
-    if (is.character(method)) {
-      if (identical(method, "gam")) {
-        method <- gam_method()
-      } else {
-        method <- match.fun(method)
+    prediction <- try_fetch(
+      {
+        model <- inject(method(
+          formula,
+          data = data,
+          weights = weight,
+          !!!method.args
+        ))
+        predictdf(model, xseq, se, level)
+      },
+      error = function(cnd) {
+        cli::cli_warn("Failed to fit group {data$group[1]}.", parent = cnd)
+        NULL
       }
-    }
-    # If gam and gam's method is not specified by the user then use REML
-    if (identical(method, gam_method()) && is.null(method.args$method)) {
-      method.args$method <- "REML"
+    )
+    if (is.null(prediction)) {
+      return(NULL)
     }
 
-    model <- inject(method(
-      formula,
-      data = data,
-      weights = weight,
-      !!!method.args
-    ))
-
-    prediction <- predictdf(model, xseq, se, level)
     prediction$flipped_aes <- flipped_aes
     flip_data(prediction, flipped_aes)
   },
@@ -189,4 +215,10 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 )
 
 # This function exists to silence an undeclared import warning
-gam_method <- function() mgcv::gam
+gam_method <- function() {
+  if (is_installed("mgcv")) {
+    mgcv::gam
+  } else {
+    NA
+  }
+}

@@ -1,9 +1,9 @@
 # geom_label() throws meaningful errors
 
-    both `position` and `nudge_x`/`nudge_y` are supplied
-    i Only use one approach to alter the position
+    Both `position` and `nudge_x`/`nudge_y` are supplied.
+    i Choose one approach to alter the position.
 
 ---
 
-    `label` must be of length 1
+    `label` must be of length 1.
 

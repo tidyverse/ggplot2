@@ -1,21 +1,3 @@
-# axis_label_element_overrides errors when angles are outside the range [0, 90]
-
-    `angle` must be a number between -90 and 90, not the number 91.
-
----
-
-    `angle` must be a number between -90 and 90, not the number -91.
-
----
-
-    Unrecognized `axis_position`: "test"
-    i Use one of "top", "bottom", "left" or "right"
-
-# Using non-position guides for position scales results in an informative error
-
-    `guide_legend()` cannot be used for x, xmin, xmax, or xend.
-    i Use any non position aesthetic instead.
-
 # guide specifications are properly checked
 
     Unknown guide: test
@@ -31,7 +13,7 @@
 
 ---
 
-    `title.position` must be one of "top", "right", "bottom", or "left", not "leftish".
+    `legend.title.position` must be one of "top", "right", "bottom", or "left", not "leftish".
 
 ---
 
@@ -40,30 +22,36 @@
 
 ---
 
-    When `direction` is "vertical", `label.position` must be one of "right" or "left", not "top".
+    When `direction` is "vertical", `legend.text.position` must be one of "right" or "left", not "top".
 
 ---
 
-    When `direction` is "horizontal", `label.position` must be one of "bottom" or "top", not "left".
+    When `direction` is "horizontal", `legend.text.position` must be one of "bottom" or "top", not "left".
 
 ---
 
-    `label.position` must be one of "top", "right", "bottom", or "left", not "test".
+    `legend.text.position` must be one of "top", "right", "bottom", or "left", not "test".
     i Did you mean "left"?
 
 ---
 
-    `nrow` * `ncol` needs to be larger than the number of breaks (5)
+    `nrow` * `ncol` needs to be larger than the number of breaks (5).
 
-# colorsteps and bins checks the breaks format
+# get_guide_data retrieves keys appropriately
 
-    Breaks are not formatted correctly for a bin legend.
-    i Use `(<lower>, <upper>]` format to indicate bins.
+    Code
+      get_guide_data(b, 1)
+    Condition
+      Error in `get_guide_data()`:
+      ! `aesthetic` must be a single string, not the number 1.
 
 ---
 
-    Breaks are not formatted correctly for a bin legend.
-    i Use `(<lower>, <upper>]` format to indicate bins.
+    Code
+      get_guide_data(b, "x", panel = "a")
+    Condition
+      Error in `get_guide_data()`:
+      ! `panel` must be a whole number, not the string "a".
 
 # binning scales understand the different combinations of limits, breaks, labels, and show.limits
 
@@ -75,10 +63,15 @@
     `show.limits` is ignored when `labels` are given as a character vector.
     i Either add the limits to `breaks` or provide a function for `labels`.
 
-# a warning is generated when guides(<scale> = FALSE) is specified
+# guides() warns if unnamed guides are provided
 
-    The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
-    i Please use "none" instead.
+    Guides provided to `guides()` must be named.
+    i All guides are unnamed.
+
+---
+
+    Guides provided to `guides()` must be named.
+    i The 2nd guide is unnamed.
 
 # old S3 guides can be implemented
 

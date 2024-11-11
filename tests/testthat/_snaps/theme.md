@@ -1,24 +1,40 @@
+# modifying theme element properties with + operator works
+
+    Code
+      theme_grey() + "asdf"
+    Condition
+      Error:
+      ! Can't add `"asdf"` to a theme object.
+
+# replacing theme elements with %+replace% operator works
+
+    Code
+      theme_grey() + "asdf"
+    Condition
+      Error:
+      ! Can't add `"asdf"` to a theme object.
+
 # theme validation happens at build stage
 
     The `text` theme element must be a <element_text> object.
 
 ---
 
-    Theme element `text` must have class <element_text>
+    Theme element `text` must have class <element_text>.
 
 # incorrect theme specifications throw meaningful errors
 
-    Problem merging the `line` theme element
+    Can't merge the `line` theme element.
     Caused by error in `merge_element()`:
-    ! Only elements of the same class can be merged
+    ! Only elements of the same class can be merged.
 
 ---
 
-    Theme element `line` must have class <element_line>
+    Theme element `line` must have class <element_line>.
 
 ---
 
-    Theme element `test` has "NULL" property without default: fill, colour, linewidth, and linetype
+    Theme element `test` has `NULL` property without default: fill, colour, linewidth, and linetype.
 
 ---
 
@@ -39,6 +55,14 @@
 ---
 
     The `blablabla` theme element must be a <element_text> object.
+
+# elements can be merged
+
+    Code
+      merge_element(text_base, rect_base)
+    Condition
+      Error in `merge_element()`:
+      ! Only elements of the same class can be merged.
 
 # Theme elements are checked during build
 

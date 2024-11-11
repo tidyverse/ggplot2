@@ -4,7 +4,7 @@ df_b <- unique(df["b"])
 df_c <- unique(data_frame(c = 1))
 
 panel_map_one <- function(facet, data, plot_data = data) {
-  layout <- create_layout(facet)
+  layout <- create_layout(facet = facet, coord = CoordCartesian)
   layout$setup(list(data), plot_data)[[1]]
 }
 
@@ -22,6 +22,10 @@ test_that("margins add extra data", {
   loc <- panel_map_one(facet_grid(a~b, margins = "b"), df)
 
   expect_equal(nrow(loc), nrow(df) * 2)
+
+  # For variables including computation (#1864)
+  loc <- panel_map_one(facet_grid(a ~ I(b + 1), margins = TRUE), df)
+  expect_equal(nrow(loc), nrow(df) * 4)
 })
 
 test_that("grid: missing facet columns are duplicated", {

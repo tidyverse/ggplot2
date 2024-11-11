@@ -13,17 +13,15 @@ test_that("`drop = FALSE` preserves groups with 1 observations", {
 
   p <- ggplot(df, mapping = aes(x, y, fill = g))
 
-  expect_warning(
-    ld <- layer_data(p + geom_violin(drop = TRUE)),
-    "Groups with fewer than two datapoints have been dropped"
+  expect_snapshot_warning(
+    ld <- get_layer_data(p + geom_violin(drop = TRUE))
   )
-  expect_equal(length(unique(ld$x)), 3)
+  expect_length(unique(ld$x), 3)
 
-  expect_warning(
-    ld <- layer_data(p + geom_violin(drop = FALSE)),
-    "Cannot compute density for groups with fewer than two datapoints"
+  expect_snapshot_warning(
+    ld <- get_layer_data(p + geom_violin(drop = FALSE))
   )
-  expect_equal(length(unique(ld$x)), 4)
+  expect_length(unique(ld$x), 4)
 })
 
 test_that("mapped_discrete class is preserved", {
@@ -33,7 +31,7 @@ test_that("mapped_discrete class is preserved", {
     y = 1:6
   )
 
-  ld <- layer_data(
+  ld <- get_layer_data(
     ggplot(df, aes(x, y)) + geom_violin() +
       scale_x_discrete(drop = FALSE)
   )

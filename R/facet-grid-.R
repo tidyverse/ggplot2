@@ -59,7 +59,19 @@ NULL
 #'   variables for which margins are to be created.
 #' @param facets `r lifecycle::badge("deprecated")` Please use `rows`
 #'   and `cols` instead.
+#' @param axes Determines which axes will be drawn. When `"margins"`
+#'   (default), axes will be drawn at the exterior margins. `"all_x"` and
+#'   `"all_y"` will draw the respective axes at the interior panels too, whereas
+#'   `"all"` will draw all axes at all panels.
+#' @param axis.labels Determines whether to draw labels for interior axes when
+#'   the `axes` argument is not `"margins"`. When `"all"` (default), all
+#'   interior axes get labels. When `"margins"`, only the exterior axes get
+#'   labels and the interior axes get none. When `"all_x"` or `"all_y"`, only
+#'   draws the labels at the interior axes in the x- or y-direction
+#'   respectively.
 #' @export
+#' @seealso
+#' The `r link_book("facet grid section", "facet#facet-grid")`
 #' @examples
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 #'
@@ -78,6 +90,12 @@ NULL
 #' p +
 #'   facet_grid(cols = vars(cyl)) +
 #'   geom_point(data = df, colour = "red", size = 2)
+#'
+#' # When scales are constant, duplicated axes can be shown with
+#' # or without labels
+#' ggplot(mpg, aes(cty, hwy)) +
+#'   geom_point() +
+#'   facet_grid(year ~ drv, axes = "all", axis.labels = "all_x")
 #'
 #' # Free scales -------------------------------------------------------
 #' # You can also choose whether the scales should be constant
@@ -112,6 +130,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,
                        switch = NULL, drop = TRUE, margins = FALSE,
+                       axes = "margins", axis.labels = "all",
                        facets = deprecated()) {
   # `facets` is deprecated and renamed to `rows`
   if (lifecycle::is_present(facets)) {
@@ -137,8 +156,22 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     y = any(space %in% c("free_y", "free"))
   )
 
-  if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    cli::cli_abort("{.arg switch} must be either {.val both}, {.val x}, or {.val y}")
+  draw_axes <- arg_match0(axes, c("margins", "all_x", "all_y", "all"))
+  draw_axes <- list(
+    x = any(draw_axes %in% c("all_x", "all")),
+    y = any(draw_axes %in% c("all_y", "all"))
+  )
+
+  # Omitting labels is special-cased internally, so even when no internal axes
+  # are to be drawn, register as labelled.
+  axis_labels <- arg_match0(axis.labels, c("margins", "all_x", "all_y", "all"))
+  axis_labels <- list(
+    x = !draw_axes$x || any(axis_labels %in% c("all_x", "all")),
+    y = !draw_axes$y || any(axis_labels %in% c("all_y", "all"))
+  )
+
+  if (!is.null(switch)) {
+    arg_match0(switch, c("both", "x", "y"))
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -150,7 +183,8 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     shrink = shrink,
     params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
-      as.table = as.table, switch = switch, drop = drop)
+      as.table = as.table, switch = switch, drop = drop,
+      draw_axes = draw_axes, axis_labels = axis_labels)
   )
 }
 
@@ -159,7 +193,7 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      msg <- "{.arg rows} must be {.val NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list"
+      msg <- "{.arg rows} must be {.code NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list."
       # Native pipe have higher precedence than + so any type of gg object can be
       # expected here, not just ggplot
       if (inherits(rows, "gg")) {
@@ -173,7 +207,7 @@ grid_as_facets_list <- function(rows, cols) {
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
     if (length(facets_list) > 2L) {
-      cli::cli_abort("A grid facet specification can't have more than two dimensions")
+      cli::cli_abort("A grid facet specification can't have more than two dimensions.")
     }
     # Fill with empty quosures
     facets <- list(rows = quos(), cols = quos())
@@ -185,8 +219,8 @@ grid_as_facets_list <- function(rows, cols) {
   check_object(cols, is_quosures, "a {.fn vars} specification", allow_null = TRUE)
 
   list(
-    rows = compact_facets(as_facets_list(rows)),
-    cols = compact_facets(as_facets_list(cols))
+    rows = compact_facets(rows),
+    cols = compact_facets(cols)
   )
 }
 
@@ -206,7 +240,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
       cli::cli_abort(c(
-              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.\n",
+              "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.",
         "i" = "Duplicated variables: {.val {dups}}"
       ), call = call2(snake_class(self)))
     }
@@ -263,12 +297,21 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       return(data)
     }
 
-    # Compute faceting values and add margins
-    margin_vars <- list(intersect(names(rows), names(data)),
-      intersect(names(cols), names(data)))
-    data <- reshape_add_margins(data, margin_vars, params$margins)
-
+    # Compute faceting values
     facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
+    if (nrow(facet_vals) == nrow(data)) {
+      # Margins are computed on evaluated faceting values (#1864).
+      facet_vals <- reshape_add_margins(
+        # We add an index column to track data recycling
+        vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
+        list(intersect(names(rows), names(facet_vals)),
+             intersect(names(cols), names(facet_vals))),
+        params$margins
+      )
+      # Apply recycling on original data to fit margins
+      data <- vec_slice(data, facet_vals$.index)
+      facet_vals$.index <- NULL
+    }
 
     # If any faceting variables are missing, add them in by
     # duplicating the data
@@ -276,8 +319,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     if (length(missing_facets) > 0) {
       to_add <- unique0(layout[missing_facets])
 
-      data_rep <- rep.int(1:nrow(data), nrow(to_add))
-      facet_rep <- rep(1:nrow(to_add), each = nrow(data))
+      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
+      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
 
       data <- unrowname(data[data_rep, , drop = FALSE])
       facet_vals <- unrowname(vec_cbind(
@@ -291,9 +334,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       # Special case of no faceting
       data$PANEL <- NO_PANEL
     } else {
-      facet_vals[] <- lapply(facet_vals[], as.factor)
+      facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
-      layout[] <- lapply(layout[], as.factor)
+      layout[] <- lapply(layout[], as_unordered_factor)
 
       keys <- join_keys(facet_vals, layout, by = vars)
 
@@ -301,152 +344,184 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    if ((params$free$x || params$free$y) && !coord$is_free()) {
-      cli::cli_abort("{.fn {snake_class(coord)}} doesn't support free scales")
-    }
 
-    cols <- which(layout$ROW == 1)
-    rows <- which(layout$COL == 1)
-    axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
+  attach_axes = function(table, layout, ranges, coord, theme, params) {
 
-    col_vars <- unique0(layout[names(params$cols)])
-    row_vars <- unique0(layout[names(params$rows)])
-    # Adding labels metadata, useful for labellers
-    attr(col_vars, "type") <- "cols"
-    attr(col_vars, "facet") <- "grid"
-    attr(row_vars, "type") <- "rows"
-    attr(row_vars, "facet") <- "grid"
-    strips <- render_strips(col_vars, row_vars, params$labeller, theme)
+    # Setup parameters
+    draw_axes   <- params$draw_axes   %||% list(x = FALSE, y = FALSE)
+    axis_labels <- params$axis_labels %||% list(x = TRUE,  y = TRUE)
 
-    aspect_ratio <- theme$aspect.ratio
-    if (!is.null(aspect_ratio) && (params$space_free$x || params$space_free$y)) {
-      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio")
-    }
-    if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
-      aspect_ratio <- coord$aspect(ranges[[1]])
-    }
-    if (is.null(aspect_ratio)) {
-      aspect_ratio <- 1
-      respect <- FALSE
+    dim <- c(max(layout$ROW), max(layout$COL))
+    if (!axis_labels$x) {
+      cols    <- seq_len(nrow(layout))
+      x_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
     } else {
-      respect <- TRUE
+      cols    <- which(layout$ROW == 1)
+      x_order <- layout$COL
     }
-    ncol <- max(layout$COL)
-    nrow <- max(layout$ROW)
-    panel_table <- matrix(panels, nrow = nrow, ncol = ncol, byrow = TRUE)
-
-    # @kohske
-    # Now size of each panel is calculated using PANEL$ranges, which is given by
-    # coord_train called by train_range.
-    # So here, "scale" need not to be referred.
-    #
-    # In general, panel has all information for building facet.
-    if (params$space_free$x) {
-      ps <- layout$PANEL[layout$ROW == 1]
-      widths <- vapply(ps, function(i) diff(ranges[[i]]$x.range), numeric(1))
-      panel_widths <- unit(widths, "null")
+    if (!axis_labels$y) {
+      rows    <- seq_len(nrow(layout))
+      y_order <- as.integer(layout$PANEL[order(layout$ROW, layout$COL)])
     } else {
-      panel_widths <- rep(unit(1, "null"), ncol)
+      rows    <- which(layout$COL == 1)
+      y_order <- layout$ROW
     }
-    if (params$space_free$y) {
-      ps <- layout$PANEL[layout$COL == 1]
-      heights <- vapply(ps, function(i) diff(ranges[[i]]$y.range), numeric(1))
-      panel_heights <- unit(heights, "null")
+
+    # Render individual axes
+    ranges <- censor_labels(ranges, layout, axis_labels)
+    axes   <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
+    mtx    <- function(x, o) matrix(x[o], dim[1], dim[2], byrow = TRUE)
+
+    if (draw_axes$x) {
+      table <- weave_axes(table, lapply(axes$x, mtx, o = x_order))
     } else {
-      panel_heights <- rep(unit(1 * abs(aspect_ratio), "null"), nrow)
+      table <- seam_table(table, axes$x$top,    side = "top",    name = "axis-t", z = 3)
+      table <- seam_table(table, axes$x$bottom, side = "bottom", name = "axis-b", z = 3)
     }
 
-    panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
-    panel_table$layout$name <- paste0('panel-', rep(seq_len(nrow), ncol), '-', rep(seq_len(ncol), each = nrow))
-
-    panel_table <- gtable_add_col_space(panel_table,
-      theme$panel.spacing.x %||% theme$panel.spacing)
-    panel_table <- gtable_add_row_space(panel_table,
-      theme$panel.spacing.y %||% theme$panel.spacing)
-
-    # Add axes
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top),     0)
-    panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left),     0)
-    panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right),   -1)
-    panel_pos_col <- panel_cols(panel_table)
-    panel_pos_rows <- panel_rows(panel_table)
-
-    panel_table <- gtable_add_grob(panel_table, axes$x$top, 1, panel_pos_col$l, clip = "off", name = paste0("axis-t-", seq_along(axes$x$top)), z = 3)
-    panel_table <- gtable_add_grob(panel_table, axes$x$bottom, -1, panel_pos_col$l, clip = "off", name = paste0("axis-b-", seq_along(axes$x$bottom)), z = 3)
-    panel_table <- gtable_add_grob(panel_table, axes$y$left, panel_pos_rows$t, 1, clip = "off", name = paste0("axis-l-", seq_along(axes$y$left)), z = 3)
-    panel_table <- gtable_add_grob(panel_table, axes$y$right, panel_pos_rows$t, -1, clip = "off", name = paste0("axis-r-", seq_along(axes$y$right)), z= 3)
-
-    # Add strips
-    switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
-    switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
-    inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
-    inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
-    strip_padding <- convertUnit(theme$strip.switch.pad.grid, "cm")
-    panel_pos_col <- panel_cols(panel_table)
-    if (switch_x) {
-      if (!is.null(strips$x$bottom)) {
-        if (inside_x || all(vapply(axes$x$bottom, is.zero, logical(1)))) {
-          panel_table <- gtable_add_rows(panel_table, max_height(strips$x$bottom), -2)
-          panel_table <- gtable_add_grob(panel_table, strips$x$bottom, -2, panel_pos_col$l, clip = "on", name = paste0("strip-b-", seq_along(strips$x$bottom)), z = 2)
-        } else {
-          panel_table <- gtable_add_rows(panel_table, strip_padding, -1)
-          panel_table <- gtable_add_rows(panel_table, max_height(strips$x$bottom), -1)
-          panel_table <- gtable_add_grob(panel_table, strips$x$bottom, -1, panel_pos_col$l, clip = "on", name = paste0("strip-b-", seq_along(strips$x$bottom)), z = 2)
-        }
-      }
+    if (draw_axes$y) {
+      table <- weave_axes(table, lapply(axes$y, mtx, o = y_order))
     } else {
-      if (!is.null(strips$x$top)) {
-        if (inside_x || all(vapply(axes$x$top, is.zero, logical(1)))) {
-          panel_table <- gtable_add_rows(panel_table, max_height(strips$x$top), 1)
-          panel_table <- gtable_add_grob(panel_table, strips$x$top, 2, panel_pos_col$l, clip = "on", name = paste0("strip-t-", seq_along(strips$x$top)), z = 2)
-        } else {
-          panel_table <- gtable_add_rows(panel_table, strip_padding, 0)
-          panel_table <- gtable_add_rows(panel_table, max_height(strips$x$top), 0)
-          panel_table <- gtable_add_grob(panel_table, strips$x$top, 1, panel_pos_col$l, clip = "on", name = paste0("strip-t-", seq_along(strips$x$top)), z = 2)
-        }
-      }
+      table <- seam_table(table, axes$y$left,  side = "left",  name = "axis-l", z = 3)
+      table <- seam_table(table, axes$y$right, side = "right", name = "axis-r", z = 3)
     }
-    panel_pos_rows <- panel_rows(panel_table)
-    if (switch_y) {
-      if (!is.null(strips$y$left)) {
-        if (inside_y || all(vapply(axes$y$left, is.zero, logical(1)))) {
-          panel_table <- gtable_add_cols(panel_table, max_width(strips$y$left), 1)
-          panel_table <- gtable_add_grob(panel_table, strips$y$left, panel_pos_rows$t, 2, clip = "on", name = paste0("strip-l-", seq_along(strips$y$left)), z = 2)
-        } else {
-          panel_table <- gtable_add_cols(panel_table, strip_padding, 0)
-          panel_table <- gtable_add_cols(panel_table, max_width(strips$y$left), 0)
-          panel_table <- gtable_add_grob(panel_table, strips$y$left, panel_pos_rows$t, 1, clip = "on", name = paste0("strip-l-", seq_along(strips$y$left)), z = 2)
-        }
-      }
-    } else {
-      if (!is.null(strips$y$right)) {
-        if (inside_y || all(vapply(axes$y$right, is.zero, logical(1)))) {
-          panel_table <- gtable_add_cols(panel_table, max_width(strips$y$right), -2)
-          panel_table <- gtable_add_grob(panel_table, strips$y$right, panel_pos_rows$t, -2, clip = "on", name = paste0("strip-r-", seq_along(strips$y$right)), z = 2)
-        } else {
-          panel_table <- gtable_add_cols(panel_table, strip_padding, -1)
-          panel_table <- gtable_add_cols(panel_table, max_width(strips$y$right), -1)
-          panel_table <- gtable_add_grob(panel_table, strips$y$right, panel_pos_rows$t, -1, clip = "on", name = paste0("strip-r-", seq_along(strips$y$right)), z = 2)
-        }
-      }
-    }
-    panel_table
+
+    table
   },
+
+  attach_strips = function(self, table, layout, params, theme) {
+
+    strips <- self$format_strip_labels(layout, params)
+    strips <- render_strips(strips$cols, strips$rows, theme = theme)
+
+    padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
+
+    switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
+    inside_x <- (calc_element("strip.placement.x", theme) %||% "inside") == "inside"
+    shift_x  <- if (inside_x) 1 else 2
+
+    if (switch_x) {
+      space <- if (!inside_x & table_has_grob(table, "axis-b")) padding
+      table <- seam_table(
+        table, strips$x$bottom, side = "bottom", name = "strip-b",
+        shift = shift_x, z = 2, clip = "off", spacing = space
+      )
+    } else {
+      space <- if (!inside_x & table_has_grob(table, "axis-t")) padding
+      table <- seam_table(
+        table, strips$x$top, side = "top", name = "strip-t",
+        shift = shift_x, z = 2, clip = "off", spacing = space
+      )
+    }
+
+    switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
+    inside_y <- (calc_element("strip.placement.y", theme) %||% "inside") == "inside"
+    shift_y  <- if (inside_y) 1 else 2
+
+    if (switch_y) {
+      space <- if (!inside_y & table_has_grob(table, "axis-l")) padding
+      table <- seam_table(
+        table, strips$y$left, side = "left", name = "strip-l",
+        shift = shift_y, z = 2, clip = "off", spacing = space
+      )
+    } else {
+      space <- if (!inside_y & table_has_grob(table, "axis-r")) padding
+      table <- seam_table(
+        table, strips$y$right, side = "right", name = "strip-r",
+        shift = shift_y, z = 2, clip = "off", spacing = space
+      )
+    }
+    table
+  },
+
   vars = function(self) {
     names(c(self$params$rows, self$params$cols))
+  },
+
+  format_strip_labels = function(layout, params) {
+
+    labeller <- match.fun(params$labeller)
+
+    cols <- intersect(names(layout), names(params$cols))
+    if (length(cols) > 0) {
+      col_vars <- unique0(layout[cols])
+      attr(col_vars, "type")  <- "cols"
+      attr(col_vars, "facet") <- "grid"
+      cols <- data_frame0(!!!labeller(col_vars))
+    } else {
+      cols <- NULL
+    }
+
+    rows <- intersect(names(layout), names(params$rows))
+    if (length(rows) > 0) {
+      row_vars <- unique0(layout[rows])
+      attr(row_vars, "type")  <- "rows"
+      attr(row_vars, "facet") <- "grid"
+      rows <- data_frame0(!!!labeller(row_vars))
+    } else {
+      rows <- NULL
+    }
+
+    list(cols = cols, rows = rows)
   }
 )
 
 # Helpers -----------------------------------------------------------------
 
-ulevels <- function(x) {
+ulevels <- function(x, na.last = TRUE) {
   if (is.factor(x)) {
     x <- addNA(x, TRUE)
     factor(levels(x), levels(x), exclude = NULL)
   } else {
-    sort(unique0(x))
+    sort(unique0(x), na.last = na.last)
   }
+}
+
+table_has_grob <- function(table, pattern) {
+  grobs <- table$grobs[grep(pattern, table$layout$name)]
+  !all(vapply(grobs, is.zero, logical(1)))
+}
+
+seam_table <- function(table, grobs = NULL, side, shift = 1, name, z = 1,
+                       clip = "off", spacing = NULL) {
+  if (is.null(grobs)) {
+    return(table)
+  }
+
+  panel_col <- panel_cols(table)
+  panel_row <- panel_rows(table)
+
+  row <- switch(
+    side,
+    bottom = max(panel_row$b) + shift - 1L,
+    top    = min(panel_row$t) - shift,
+    panel_row$t
+  )
+
+  col <- switch(
+    side,
+    right = max(panel_col$r) + shift - 1L,
+    left  = min(panel_col$l) - shift,
+    panel_col$l
+  )
+
+  if (!is.null(spacing)) {
+    table <- switch(
+      side,
+      bottom = , top = gtable_add_rows(table, spacing, row),
+      left = , right = gtable_add_cols(table, spacing, col)
+    )
+    row <- row + as.numeric(side == "bottom")
+    col <- col + as.numeric(side == "right")
+  }
+
+  table <- switch(
+    side,
+    bottom = , top = gtable_add_rows(table, max_height(grobs), row),
+    left = , right = gtable_add_cols(table, max_width(grobs),  col)
+  )
+  name <- paste(name, seq_along(grobs), sep = "-")
+  row  <- row + as.numeric(side %in% c("top", "bottom"))
+  col  <- col + as.numeric(side %in% c("left", "right"))
+  gtable_add_grob(table, grobs, t = row, l = col, name = name, z = z, clip = clip)
 }

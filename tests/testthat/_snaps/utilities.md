@@ -1,22 +1,26 @@
 # check_required_aesthetics() errors on missing
 
-    `test()` requires the following missing aesthetics: y
+    `test()` requires the following missing aesthetics: y.
 
 ---
 
-    `test()` requires the following missing aesthetics: x and y
+    `test()` requires the following missing aesthetics: x and y.
 
 ---
 
-    `test()` requires the following missing aesthetics: x or y
+    `test()` requires the following missing aesthetics: x or y.
 
 ---
 
-    `test()` requires the following missing aesthetics: x and fill or y and fill
+    `test()` requires the following missing aesthetics: fill and x or y.
 
 # remove_missing checks input
 
     `na.rm` must be `TRUE` or `FALSE`, not an integer vector.
+
+# characters survive remove_missing
+
+    Removed 1 row containing non-finite outside the scale range.
 
 # tolower() and toupper() has been masked
 
@@ -44,13 +48,25 @@
 
 ---
 
-    Specify exactly one of `n` and `width`
+    Specify exactly one of `n` and `width`.
 
 ---
 
     Only one of `boundary` and `center` may be specified.
 
-# interleave() checks the vector lengths
+# summary method gives a nice summary
 
-    Can't recycle `..1` (size 4) to match `..2` (size 0).
+    Code
+      summary(p)
+    Output
+      data: manufacturer, model, displ, year, cyl, trans, drv, cty, hwy, fl,
+        class [234x11]
+      mapping:  x = ~displ, y = ~hwy, colour = ~drv
+      scales:   x, xmin, xmax, xend, xintercept, xmin_final, xmax_final, xlower, xmiddle, xupper, x0, colour 
+      faceting:  ~year, ~cyl 
+      -----------------------------------
+      geom_point: na.rm = FALSE
+      stat_identity: na.rm = FALSE
+      position_identity 
+      
 

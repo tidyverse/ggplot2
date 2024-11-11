@@ -130,10 +130,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         polygonGrob(
           munched$x, munched$y, default.units = "native",
           id = munched$group,
-          gp = gpar(
+          gp = gg_par(
             col = first_rows$colour,
-            fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            fill = fill_alpha(first_rows$fill, first_rows$alpha),
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -142,8 +142,8 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         )
       )
     } else {
-      if (utils::packageVersion('grid') < "3.6") {
-        cli::cli_abort("Polygons with holes requires R 3.6 or above")
+      if (getRversion() < "3.6") {
+        cli::cli_abort("Polygons with holes requires R 3.6 or above.")
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]
@@ -161,10 +161,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           munched$x, munched$y, default.units = "native",
           id = id, pathId = munched$group,
           rule = rule,
-          gp = gpar(
+          gp = gg_par(
             col = first_rows$colour,
-            fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            fill = fill_alpha(first_rows$fill, first_rows$alpha),
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -175,8 +175,13 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     }
   },
 
-  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
-    alpha = NA, subgroup = NULL),
+  default_aes = aes(
+    colour = NA,
+    fill = from_theme(col_mix(ink, paper, 0.2)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA, subgroup = NULL
+  ),
 
   handle_na = function(data, params) {
     data

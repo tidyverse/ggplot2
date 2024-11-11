@@ -9,7 +9,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 7, fig.align = "center")
 library(ggplot2)
 ```
@@ -28,7 +29,8 @@ It's strange to say, but this is a case where inventing a new OO system was actu
 
 Here's a quick demo of ggproto in action:
 
-```{r ggproto-intro}
+```{r}
+#| label: ggproto-intro
 A <- ggproto("A", NULL,
   x = 1,
   inc = function(self) {
@@ -53,7 +55,8 @@ To create a new geom or stat, you will just create a new ggproto that inherits f
 
 We'll start by creating a very simple stat: one that gives the convex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
 
-```{r chull}
+```{r}
+#| label: chull
 StatChull <- ggproto("StatChull", Stat,
   compute_group = function(data, scales) {
     data[chull(data$x, data$y), , drop = FALSE]
@@ -86,7 +89,7 @@ stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
 Once we have a layer function we can try our new stat:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hull of all the points is marked by a 
 #|  polygon with no fill."
 ggplot(mpg, aes(displ, hwy)) + 
@@ -99,7 +102,7 @@ ggplot(mpg, aes(displ, hwy)) +
 Once we've written this basic object, ggplot2 gives a lot for free. For example, ggplot2 automatically preserves aesthetics that are constant within each group:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hulls of points, grouped and coloured by 
 #|  three types of drive train, are marked by polygons with no fill but the
 #|  outline matches the colours of the points."
@@ -111,7 +114,7 @@ ggplot(mpg, aes(displ, hwy, colour = drv)) +
 We can also override the default geom to display the convex hull in a different way:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The points that are part of the convex hull of all 
 #|  points are marked with a red outline."
 ggplot(mpg, aes(displ, hwy)) + 
@@ -124,7 +127,7 @@ ggplot(mpg, aes(displ, hwy)) +
 A more complex stat will do some computation. Let's implement a simple version of `geom_smooth()` that adds a line of best fit to a plot. We create a `StatLm` that inherits from `Stat` and a layer function, `stat_lm()`:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. A straight line with a negative slope passes through
 #|  the cloud of points."
 StatLm <- ggproto("StatLm", Stat, 
@@ -159,7 +162,7 @@ ggplot(mpg, aes(displ, hwy)) +
 `StatLm` is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the `compute_group()` method and our wrapper function:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. A wobbly line follows the point cloud over the 
 #|  horizontal direction. 20 points are placed on top of the line with constant
 #|  horizontal intervals."
@@ -224,13 +227,12 @@ Sometimes you have calculations that should be performed once for the complete d
 To do this we override the `setup_params()` method. It's passed the data and a list of params, and returns an updated list.
 
 ```{r}
-#| fig.alt = c(
-#| "A line plot showing three kernel density estimates of engine displacement,
+#| fig.alt:
+#| - "A line plot showing three kernel density estimates of engine displacement,
 #|  coloured for three types of drive trains. The lines are a little bit 
-#|  wobbly.",
-#| "A line plot showing three kernel density estimates of engine displacement,
+#|  wobbly."
+#| - "A line plot showing three kernel density estimates of engine displacement,
 #|  coloured for three types of drive trains. The lines are fairly smooth."
-#| )
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   
@@ -278,13 +280,13 @@ I recommend using `NULL` as a default value. If you pick important parameters au
 This stat illustrates another important point. If we want to make this stat usable with other geoms, we should return a variable called `density` instead of `y`. Then we can set up the `default_aes` to automatically map `density` to `y`, which allows the user to override it to use with different geoms:
 
 ```{r}
-#| fig.alt = "A plot showing the engine displacement versus three types of drive 
+#| fig.alt: "A plot showing the engine displacement versus three types of drive 
 #|  trains. Every drive train is represented by a series of densely packed 
 #|  points that imitate a horizontal line, and their colour intensity indicates
 #|  the kernel density estimate of the displacement."
 StatDensityCommon <- ggproto("StatDensity2", Stat, 
   required_aes = "x",
-  default_aes = aes(y = stat(density)),
+  default_aes = aes(y = after_stat(density)),
 
   compute_group = function(data, scales, bandwidth = 1) {
     d <- density(data$x, bw = bandwidth)
@@ -292,14 +294,14 @@ StatDensityCommon <- ggproto("StatDensity2", Stat,
   }  
 )
 
-ggplot(mpg, aes(displ, drv, colour = stat(density))) + 
+ggplot(mpg, aes(displ, drv, colour = after_stat(density))) + 
   stat_density_common(bandwidth = 1, geom = "point")
 ```
 
 However, using this stat with the area geom doesn't work quite right. The areas don't stack on top of each other:
 
 ```{r}
-#| fig.alt = "An area plot showing the kernel density estimates of 
+#| fig.alt: "An area plot showing the kernel density estimates of 
 #|  engine displacement. Three areas are shown that indicate the estimates for
 #|  three types of drive trains separately. All areas are floored to the x-axis
 #|  and overlap one another."
@@ -310,19 +312,18 @@ ggplot(mpg, aes(displ, fill = drv)) +
 This is because each density is computed independently, and the estimated `x`s don't line up. We can resolve that issue by computing the range of the data once in `setup_params()`.
 
 ```{r}
-#| fig.alt = c(
-#| "A stacked area plot showing kernel density estimates of engine displacement.
+#| fig.alt:
+#| - "A stacked area plot showing kernel density estimates of engine displacement.
 #|  Three areas are shown that indicate the estimates for three types of drive
 #|  trains separately. The areas are stacked on top of one another and show
-#|  no overlap.",
-#| "A heatmap showing the density of engine displacement for three types of 
+#|  no overlap."
+#| - "A heatmap showing the density of engine displacement for three types of 
 #|  drive trains. The heatmap has three rows for the drive trains, but are
 #|  continuous in the horizontal direction. The fill intensity of the heatmap
 #|  shows the kernel density estimates."   
-#| )
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
-  default_aes = aes(y = stat(density)),
+  default_aes = aes(y = after_stat(density)),
 
   setup_params = function(data, params) {
     min <- min(data$x) - 3 * params$bandwidth
@@ -344,7 +345,7 @@ StatDensityCommon <- ggproto("StatDensityCommon", Stat,
 
 ggplot(mpg, aes(displ, fill = drv)) + 
   stat_density_common(bandwidth = 1, geom = "area", position = "stack")
-ggplot(mpg, aes(displ, drv, fill = stat(density))) + 
+ggplot(mpg, aes(displ, drv, fill = after_stat(density))) + 
   stat_density_common(bandwidth = 1, geom = "raster")
 ```
 
@@ -376,8 +377,9 @@ It's harder to create a new geom than a new stat because you also need to know s
 
 It's easiest to start with a simple example. The code below is a simplified version of `geom_point()`:
 
-```{r GeomSimplePoint}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+```{r}
+#| label: GeomSimplePoint
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The points are larger than the default."
 GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
   required_aes = c("x", "y"),
@@ -441,7 +443,7 @@ Overriding `draw_panel()` is most appropriate if there is one graphic element pe
 The following code makes a simplified version of `GeomPolygon`:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hulls of points, grouped by 7 types of 
 #|  cars, are displayed as multiple polygons with no fill, but the outer line is 
 #|  coloured by the type."
@@ -512,7 +514,7 @@ You might want to compare this to the real `GeomPolygon`. You'll see it override
 Sometimes you just want to make a small modification to an existing geom. In this case, rather than inheriting from `Geom` you can inherit from an existing subclass. For example, we might want to change the defaults for `GeomPolygon` to work better with `StatChull`:
 
 ```{r}
-#| fig.alt = "Scatterplot of engine displacement versus highway miles per
+#| fig.alt: "Scatterplot of engine displacement versus highway miles per
 #|  gallon, for 234 cars. The convex hull of all the points is marked by a 
 #|  polygon with no fill."
 GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
@@ -627,13 +629,13 @@ title        | `element_text()`  | all text in title elements (plot, axes & lege
 
 These set default properties that are inherited by more specific settings. These are most useful for setting an overall "background" colour and overall font settings (e.g. family and size).
 
-```{r axis-line-ex}
-#| fig.alt = c(
-#| "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
-#|  and 'y' are coloured in black",
-#| "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
+```{r}
+#| label: axis-line-ex
+#| fig.alt:
+#| - "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
+#|  and 'y' are coloured in black"
+#| - "Scatterplot of three observations arranged diagonally. The axis titles 'x' 
 #|  and 'y' are coloured in red"
-#| )
 df <- data.frame(x = 1:3, y = 1:3)
 base <- ggplot(df, aes(x, y)) + 
   geom_point() + 
@@ -724,11 +726,7 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
     panel_table <- gtable::gtable_matrix("layout", panels, 
       widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
     # Add spacing according to theme
-    panel_spacing <- if (is.null(theme$panel.spacing.x)) {
-      theme$panel.spacing
-    } else {
-      theme$panel.spacing.x
-    }
+    panel_spacing <- calc_element("panel.spacing.x", theme)
     panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
   } else {
     panels <- matrix(panels, ncol = 1)
@@ -813,11 +811,10 @@ FacetDuplicate <- ggproto("FacetDuplicate", Facet,
 Now with everything assembled, lets test it out:
 
 ```{r}
-#| fig.alt = c(
-#| "Scatterplot showing horsepower against miles per gallon for 32 cars.",
-#| "Scatterplot with two panels showing horsepower against miles per gallon for 
+#| fig.alt:
+#| - "Scatterplot showing horsepower against miles per gallon for 32 cars."
+#| - "Scatterplot with two panels showing horsepower against miles per gallon for 
 #|  32 cars. The left and right panels are identical."
-#| )
 p <- ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point()
 p
 p + facet_duplicate()
@@ -834,7 +831,7 @@ facet_trans <- function(trans, horizontal = TRUE, shrink = TRUE) {
   ggproto(NULL, FacetTrans,
     shrink = shrink,
     params = list(
-      trans = scales::as.trans(trans),
+      trans = scales::as.transform(trans),
       horizontal = horizontal
     )
   )
@@ -909,21 +906,13 @@ FacetTrans <- ggproto("FacetTrans", Facet,
       panel_table <- gtable::gtable_matrix("layout", panels, 
         widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
       # Add spacing according to theme
-      panel_spacing <- if (is.null(theme$panel.spacing.x)) {
-        theme$panel.spacing
-      } else {
-        theme$panel.spacing.x
-      }
+      panel_spacing <- calc_element("panel.spacing.x", theme)
       panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
     } else {
       panels <- matrix(panels, ncol = 1)
       panel_table <- gtable::gtable_matrix("layout", panels, 
         widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on")
-      panel_spacing <- if (is.null(theme$panel.spacing.y)) {
-        theme$panel.spacing
-      } else {
-        theme$panel.spacing.y
-      }
+      panel_spacing <- calc_element("panel.spacing.y", theme)
       panel_table <- gtable::gtable_add_row_space(panel_table, panel_spacing)
     }
     # Name panel grobs so they can be found later
@@ -1017,7 +1006,7 @@ As is very apparent, the `draw_panel` method can become very unwieldy once it be
 Enough talk - lets see if our new and powerful faceting extension works:
 
 ```{r}
-#| fig.alt = "Scatterplot with two panels showing horsepower against miles per 
+#| fig.alt: "Scatterplot with two panels showing horsepower against miles per 
 #|  gallon for 32 cars. Both panels show the same datapoints. The left panel is 
 #|  titled 'original' and the right panel is titled 'transformed (sqrt)'. On the 
 #|  right panel, the miles per gallon are displayed on a square root 
@@ -1030,7 +1019,7 @@ ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_trans('sqrt')
 As the rendering part of a facet class is often the difficult development step, it is possible to piggyback on the existing faceting classes to achieve a range of new facetings. Below we will subclass `facet_wrap()` to make a `facet_bootstrap()` class that splits the input data into a number of panels at random.
 
 ```{r}
-#| fig.alt = "Scatterplot with three-by-three panels showing the weight versus
+#| fig.alt: "Scatterplot with three-by-three panels showing the weight versus
 #|  the price of about 10.000 diamonds in every panel. The panels are titled 1
 #|  to 9 and show different points, but are visually similar."
 
@@ -1054,11 +1043,7 @@ FacetBootstrap <- ggproto("FacetBootstrap", FacetWrap,
     dims <- wrap_dims(params$n, params$nrow, params$ncol)
     layout <- data.frame(PANEL = factor(id))
 
-    if (params$as.table) {
-      layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
-    } else {
-      layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
-    }
+    layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
     layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
 
     layout <- layout[order(layout$PANEL), , drop = FALSE]
@@ -1095,3 +1080,164 @@ What we are doing above is to intercept the `compute_layout` and `map_data` meth
 2. Based on the FacetWrap implementation rewrite FacetTrans to take the strip.placement theme setting into account.
 3. Think about which caveats there are in FacetBootstrap specifically related to adding multiple layers with the same data.
 
+## Creating new guides
+
+Guides are closely related to scales and aesthetics, so an important part of guides is taking information from the scale and translating it to a graphic.
+This information is passed around inside guides as a `key` dataframe.
+For existing guides, you can glance at what a key contains by using the `get_guide_data()` function.
+Typical variables you may see in guides are the aesthetic mapped by the scale, such as the hexadecimal colours in the example below, what those aesthetic represent in the `.value` column and how they should be labelled in the `.label` column. 
+Sometimes, the aesthetic is used in computations. 
+To avoid interpreting the values and labels as aesthetics, it is customary to prefix these with `.`.
+
+```{r}
+p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+  geom_point() +
+  scale_colour_discrete(
+    labels = c("4-wheel drive", "front wheel drive", "rear wheel drive")
+  )
+
+get_guide_data(p, "colour")
+```
+
+### Overriding scale extraction
+
+Let's now make a first guide extension by adjusting the guide's key.
+Axes are most straightforward to extend, because they are the least complicated.
+We'll build an axis that accepts custom values for the guide's `key`.
+We can begin by making a custom ggproto class that inherits from the axis guide.
+An important extension point is the `extract_key()` method, which determines how break information is transferred from the scale to the guide.
+In our class, we reject the scale's reality and substitute our own.
+
+```{r}
+GuideKey <- ggproto(
+  "Guide", GuideAxis,
+  
+  # Some parameters are required, so it is easiest to copy the base Guide's
+  # parameters into our new parameters.
+  # We add a new 'key' parameter for our own guide.
+  params = c(GuideAxis$params, list(key = NULL)),
+  
+  # It is important for guides to have a mapped aesthetic with the correct name
+  extract_key = function(scale, aesthetic, key, ...) {
+    key$aesthetic <- scale$map(key$aesthetic)
+    names(key)[names(key) == "aesthetic"] <- aesthetic
+    key
+  }
+)
+```
+
+### Guide constructors
+
+Now we can make a guide constructor that creates a custom key to pass along on.
+The `new_guide()` function instantiates a new guide with the given parameters.
+This function automatically rejects any parameters that are not in the class' `params` field, so it is important to declare these.
+
+```{r}
+guide_key <- function(
+  aesthetic, value = aesthetic, label = as.character(aesthetic),
+  ...,
+  # Standard guide arguments
+  theme = NULL, title = waiver(), order = 0, position = waiver()
+) {
+  
+  key <- data.frame(aesthetic, .value = value, .label = label, ...)
+  
+  new_guide(
+    # Arguments passed on to the GuideKey$params field
+    key = key, theme = theme, title = title, order = order, position = position,
+    # Declare which aesthetics are supported
+    available_aes = c("x", "y"),
+    # Set the guide class
+    super = GuideKey
+  )
+}
+```
+
+Our new guide can now be used inside the `guides()` function or as the `guide` argument in a position scale.
+
+```{r}
+#| label: key_example
+#| fig.alt: >
+#|  Scatterplot of engine displacement versus highway miles per 
+#|  gallon. The x-axis axis ticks are at 2.5, 3.5, 4.5, 5.5 and 6.5.
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  scale_x_continuous(
+    guide = guide_key(aesthetic = 2:6 + 0.5)
+  )
+```
+
+### Custom drawings
+
+If we are feeling more adventurous, we can also alter they way guides are drawn.
+The majority of drawing code is in the `Guide$build_*()` methods, which is all orchestrated by the `Guide$draw()` method.
+For derived guides, such as the custom key guide we're extending here, overriding a `Guide$build_*()` method should be sufficient.
+If you are writing a completely novel guide that does not resemble the structure of any existing guide, overriding the `Guide$draw()` method might be wise.
+
+In this example, we are changing the way the labels are drawn, so we should edit the `Guide$build_labels()` method.
+We'll edit the method so that the labels are drawn with a `colour` set in the key.
+In addition to the `key` and `params` variable we've seen before, we now also have an `elements` variable, which is a list of precomputed theme elements. We can use the `elements$text` element to draw a graphical object (grob) in the style of axis text.
+Perhaps the most finicky thing about drawing guides is that a lot of settings depend on the guide's `position` parameter.
+
+```{r}
+#| label: key_ggproto_edit
+# Same as before
+GuideKey <- ggproto(
+  "Guide", GuideAxis,
+  params = c(GuideAxis$params, list(key = NULL)),
+  extract_key = function(scale, aesthetic, key, ...) {
+    key$aesthetic <- scale$map(key$aesthetic)
+    names(key)[names(key) == "aesthetic"] <- aesthetic
+    key
+  },
+  
+  # New method to draw labels
+  build_labels = function(key, elements, params) {
+    position <- params$position
+    # Downstream code expects a list of labels
+    list(element_grob(
+      elements$text,
+      label = key$.label,
+      x = switch(position, left = 1, right = 0, key$x),
+      y = switch(position, top = 0, bottom = 1, key$y),
+      margin_x = position %in% c("left", "right"),
+      margin_y = position %in% c("top", "bottom"),
+      colour = key$colour
+    ))
+  }
+)
+```
+
+Because we are incorporating the `...` argument to `guide_key()` in the key, adding a `colour` column to the key is straightforward.
+We can check that are guide looks correct in the different positions around the panel.
+
+```{r}
+#| label: key_example_2
+#| fig.alt: >
+#|  Scatterplot of engine displacement versus highway miles per 
+#|  gallon. There are two x-axes at the bottom and top of the plot. The bottom
+#|  has labels alternating in red and gray, and the top has red, green and blue
+#|  labels.
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  guides(
+    x = guide_key(
+      aesthetic = 2:6 + 0.5,
+      colour = c("red", "grey", "red", "grey", "red")
+    ),
+    x.sec = guide_key(
+      aesthetic = c(2, 4, 6), 
+      colour = c("tomato", "limegreen", "dodgerblue")
+    )
+  )
+```
+
+### Exercises
+
+* Extend `guide_key()` to also pass on `family`, `face` and `size` aesthetics from the key to the labels.
+* Override the `GuideKey$build_ticks()` method to also pass on `colour` and `linewidth` settings to the tick marks. 
+  Looking at `Guide$build_ticks()` is a good starting point.
+* Compare `GuideKey$extract_key()` to `Guide$extract_key()`. 
+  What steps have been skimmed over in the example?

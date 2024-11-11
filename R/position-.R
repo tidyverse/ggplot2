@@ -37,6 +37,8 @@
 #'   - `required_aes`: a character vector giving the aesthetics
 #'      that must be present for this position adjustment to work.
 #'
+#' See also the `r link_book("new positions section", "extensions#new-positions")`
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -63,9 +65,13 @@ Position <- ggproto("Position",
   },
 
   compute_panel = function(self, data, params, scales) {
-    cli::cli_abort("Not implemented")
+    cli::cli_abort("Not implemented.")
   }
 )
+
+#' @export
+#' @rdname is_tests
+is.position <- function(x) inherits(x, "Position")
 
 #' Convenience function to transform all position variables.
 #'

@@ -20,5 +20,9 @@ particular class in a single command. This defines the S3 generic that
 other classes and packages can extend.
 }
 \seealso{
-\code{\link[=autolayer]{autolayer()}}, \code{\link[=ggplot]{ggplot()}} and \code{\link[=fortify]{fortify()}}
+Other plotting automation topics: 
+\code{\link{autolayer}()},
+\code{\link{automatic_plotting}},
+\code{\link{fortify}()}
 }
+\concept{plotting automation topics}

@@ -3,13 +3,13 @@ test_that("aesthetic parameters match length of data", {
   p <- ggplot(df, aes(x, y))
 
   set_colours <- function(colours) {
-    layer_data(p + geom_point(colour = colours))
+    get_layer_data(p + geom_point(colour = colours))
   }
 
   set_colours("red")
-  expect_error(set_colours(rep("red", 2)), "must be either length 1")
-  expect_error(set_colours(rep("red", 3)), "must be either length 1")
-  expect_error(set_colours(rep("red", 4)), "must be either length 1")
+  expect_snapshot(set_colours(rep("red", 2)), error = TRUE)
+  expect_snapshot(set_colours(rep("red", 3)), error = TRUE)
+  expect_snapshot(set_colours(rep("red", 4)), error = TRUE)
   set_colours(rep("red", 5))
 })
 
@@ -19,7 +19,7 @@ test_that("Length 1 aesthetics are recycled to 0", {
 
   expect_silent(plot(p))
 
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_equal(nrow(data), 0)
 })
@@ -31,7 +31,7 @@ test_that("legend filters out aesthetics not of length 1", {
 
   # Ideally would test something in the legend data structure, but
   # that's not easily accessible currently.
-  expect_error(ggplot_gtable(ggplot_build(p)), NA)
+  expect_no_error(ggplot_gtable(ggplot_build(p)))
 })
 
 test_that("alpha affects only fill colour of solid geoms", {
@@ -45,11 +45,11 @@ test_that("alpha affects only fill colour of solid geoms", {
   ribb <- ggplot(df, aes(x = x, ymin = 1, ymax = y + 1)) +
     geom_ribbon(fill = "red", colour = "red", alpha = 0.5)
 
-  expect_equal(layer_grob(poly)[[1]]$gp$col[[1]], "red")
-  expect_equal(layer_grob(rect)[[1]]$gp$col[[1]], "red")
-  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$children[[2]]$gp$col[[1]], "red")
+  expect_equal(get_layer_grob(poly)[[1]]$gp$col[[1]], "red")
+  expect_equal(get_layer_grob(rect)[[1]]$gp$col[[1]], "red")
+  expect_equal(get_layer_grob(ribb)[[1]]$children[[1]]$children[[2]]$gp$col[[1]], "red")
 
-  expect_equal(layer_grob(poly)[[1]]$gp$fill[[1]], "#FF000080")
-  expect_equal(layer_grob(rect)[[1]]$gp$fill[[1]], "#FF000080")
-  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(get_layer_grob(poly)[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(get_layer_grob(rect)[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(get_layer_grob(ribb)[[1]]$children[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
 })

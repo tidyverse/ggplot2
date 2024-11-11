@@ -1,14 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="ggplot2 website" /></a>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/tidyverse/ggplot2/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverse/ggplot2/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2)
 <!-- badges: end -->
 
 ## Overview
@@ -35,7 +35,7 @@ pak::pak("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
 
 ## Usage
 
@@ -108,8 +108,8 @@ specifically tailored to your needs.
 
 There are two main places to get help with ggplot2:
 
-1.  The [RStudio community](https://community.rstudio.com/) is a
-    friendly place to ask any questions about ggplot2.
+1.  The [RStudio community](https://forum.posit.co/) is a friendly place
+    to ask any questions about ggplot2.
 
 2.  [Stack
     Overflow](https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50)

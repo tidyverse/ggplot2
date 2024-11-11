@@ -4,7 +4,7 @@ c <- data_frame(b = 3)
 empty <- data_frame()
 
 panel_layout <- function(facet, data) {
-  layout <- create_layout(facet)
+  layout <- create_layout(facet = facet, coord = CoordCartesian)
   layout$setup(data)
   layout$layout
 }
@@ -30,6 +30,44 @@ test_that("grid: includes all combinations", {
   all <- panel_layout(facet_grid(a~b), list(d))
 
   expect_equal(nrow(all), 4)
+})
+
+test_that("wrap: layout sorting is correct", {
+
+  dummy <- list(data_frame0(x = 1:5))
+
+  test <- panel_layout(facet_wrap(~x, dir = "lt"), dummy)
+  expect_equal(test$ROW, rep(c(1,2), c(3, 2)))
+  expect_equal(test$COL, c(1:3, 1:2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "tl"), dummy)
+  expect_equal(test$ROW, c(1, 2, 1, 2, 1))
+  expect_equal(test$COL, c(1, 1, 2, 2, 3))
+
+  test <- panel_layout(facet_wrap(~x, dir = "lb"), dummy)
+  expect_equal(test$ROW, c(2, 2, 2, 1, 1))
+  expect_equal(test$COL, c(1, 2, 3, 1, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "bl"), dummy)
+  expect_equal(test$ROW, c(2, 1, 2, 1, 2))
+  expect_equal(test$COL, c(1, 1, 2, 2, 3))
+
+  test <- panel_layout(facet_wrap(~x, dir = "rt"), dummy)
+  expect_equal(test$ROW, c(1, 1, 1, 2, 2))
+  expect_equal(test$COL, c(3, 2, 1, 3, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "tr"), dummy)
+  expect_equal(test$ROW, c(1, 2, 1, 2, 1))
+  expect_equal(test$COL, c(3, 3, 2, 2, 1))
+
+  test <- panel_layout(facet_wrap(~x, dir = "rb"), dummy)
+  expect_equal(test$ROW, c(2, 2, 2, 1, 1))
+  expect_equal(test$COL, c(3, 2, 1, 3, 2))
+
+  test <- panel_layout(facet_wrap(~x, dir = "br"), dummy)
+  expect_equal(test$ROW, c(2, 1, 2, 1, 2))
+  expect_equal(test$COL, c(3, 3, 2, 2, 1))
+
 })
 
 test_that("wrap and grid are equivalent for 1d data", {
@@ -100,7 +138,8 @@ test_that("grid: as.table reverses rows", {
 
 a2 <- data_frame(
   a = factor(1:3, levels = 1:4),
-  b = factor(1:3, levels = 4:1)
+  b = factor(1:3, levels = 4:1),
+  c = as.character(c(1:2, NA))
 )
 
 test_that("wrap: drop = FALSE preserves unused levels", {
@@ -111,6 +150,11 @@ test_that("wrap: drop = FALSE preserves unused levels", {
   wrap_b <- panel_layout(facet_wrap(~b, drop = FALSE), list(a2))
   expect_equal(nrow(wrap_b), 4)
   expect_equal(as.character(wrap_b$b), as.character(4:1))
+
+  # NA character should not be dropped or throw errors #5485
+  wrap_c <- panel_layout(facet_wrap(~c, drop = FALSE), list(a2))
+  expect_equal(nrow(wrap_c), 3)
+  expect_equal(wrap_c$c, a2$c)
 })
 
 test_that("grid: drop = FALSE preserves unused levels", {
@@ -126,6 +170,25 @@ test_that("grid: drop = FALSE preserves unused levels", {
   expect_equal(nrow(grid_ab), 16)
   expect_equal(as.character(grid_ab$a), as.character(rep(1:4, each = 4)))
   expect_equal(as.character(grid_ab$b), as.character(rep(4:1, 4)))
+})
+
+test_that("wrap: space = 'free_x/y' sets panel sizes", {
+
+  df <- data.frame(x = 1:3)
+  p <- ggplot(df, aes(x, x)) +
+    geom_point() +
+    scale_x_continuous(limits = c(0, NA), expand = c(0, 0)) +
+    scale_y_continuous(limits = c(0, NA), expand = c(0, 0))
+
+  # Test free_x
+  gt <- ggplotGrob(p + facet_wrap(~x, scales = "free_x", space = "free_x"))
+  test <- gt$widths[panel_cols(gt)$l]
+  expect_equal(as.numeric(test), 1:3)
+
+  # Test free_y
+  gt <- ggplotGrob(p + facet_wrap(~x, scales = "free_y", space = "free_y"))
+  test <- gt$heights[panel_rows(gt)$t]
+  expect_equal(as.numeric(test), 1:3)
 })
 
 # Missing behaviour ----------------------------------------------------------
@@ -163,6 +226,8 @@ test_that("facet_wrap throws errors at bad layout specs", {
   expect_snapshot_error(facet_wrap(~test, nrow = -1))
   expect_snapshot_error(facet_wrap(~test, nrow = 1.5))
 
+  expect_snapshot_warning(facet_wrap(~test, nrow = 2, space = "free_x"))
+
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp)) +
     facet_wrap(~gear, ncol = 1, nrow = 1)
@@ -186,6 +251,23 @@ test_that("facet_grid throws errors at bad layout specs", {
     facet_grid(.~gear, space = "free") +
     theme(aspect.ratio = 1)
   expect_snapshot_error(ggplotGrob(p))
+})
+
+test_that("facet_grid can respect coord aspect with free scales/space", {
+  df <- expand.grid(x = letters[1:6], y = LETTERS[1:3])
+  p <- ggplot(df, aes(x, y)) +
+    geom_tile() +
+    facet_grid(
+      rows = vars(y == "C"),
+      cols = vars(x %in% c("e", "f")),
+      scales = "free", space = "free"
+    ) +
+    coord_fixed(3, expand = FALSE)
+  gt <- ggplotGrob(p)
+  width  <- gt$widths[panel_cols(gt)$l]
+  height <- gt$heights[panel_rows(gt)$t]
+  expect_equal(as.numeric(width),  c(4, 2))
+  expect_equal(as.numeric(height), c(6, 3))
 })
 
 test_that("facet_wrap and facet_grid throws errors when using reserved words", {

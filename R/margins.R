@@ -8,9 +8,10 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   class(u) <- c("margin", class(u))
   u
 }
-is.margin <- function(x) {
-  inherits(x, "margin")
-}
+
+#' @export
+#' @rdname is_tests
+is.margin <- function(x) inherits(x, "margin")
 
 #' Create a text grob with the proper location and margins
 #'
@@ -124,9 +125,9 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
       rectGrob(
         x = x, y = y, width = width, height = height,
         hjust = just$hjust, vjust = just$vjust,
-        gp = gpar(fill = "cornsilk", col = NA)
+        gp = gg_par(fill = "cornsilk", col = NA)
       ),
-      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
+      pointsGrob(x, y, pch = 20, gp = gg_par(col = "gold")),
       grob
     )
   } else {
@@ -150,82 +151,6 @@ widthDetails.titleGrob <- function(x) {
 heightDetails.titleGrob <- function(x) {
   sum(x$heights)
 }
-
-#' Justifies a grob within a larger drawing area
-#'
-#' `justify_grobs()` can be used to take one or more grobs and draw them justified inside a larger
-#' drawing area, such as the cell in a gtable. It is needed to correctly place [`titleGrob`]s
-#' with margins.
-#'
-#' @param grobs The single grob or list of grobs to justify.
-#' @param x,y x and y location of the reference point relative to which justification
-#'   should be performed. If `NULL`, justification will be done relative to the
-#'   enclosing drawing area (i.e., `x = hjust` and `y = vjust`).
-#' @param hjust,vjust Horizontal and vertical justification of the grob relative to `x` and `y`.
-#' @param int_angle Internal angle of the grob to be justified. When justifying a text
-#'   grob with rotated text, this argument can be used to make `hjust` and `vjust` operate
-#'   relative to the direction of the text.
-#' @param debug If `TRUE`, aids visual debugging by drawing a solid
-#'   rectangle behind the complete grob area.
-#'
-#' @noRd
-justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
-                          int_angle = 0, debug = FALSE) {
-  if (!inherits(grobs, "grob")) {
-    if (is.list(grobs)) {
-      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, int_angle, debug))
-    }
-    else {
-      stop_input_type(grobs, as_cli("an individual {.cls grob} or list of {.cls grob} objects"))
-    }
-  }
-
-  if (inherits(grobs, "zeroGrob")) {
-    return(grobs)
-  }
-
-  # adjust hjust and vjust according to internal angle
-  just <- rotate_just(int_angle, hjust, vjust)
-
-  x <- x %||% unit(just$hjust, "npc")
-  y <- y %||% unit(just$vjust, "npc")
-
-
-  if (isTRUE(debug)) {
-    children <- gList(
-      rectGrob(gp = gpar(fill = "lightcyan", col = NA)),
-      grobs
-    )
-  }
-  else {
-    children = gList(grobs)
-  }
-
-
-  result_grob <- gTree(
-    children = children,
-    vp = viewport(
-      x = x,
-      y = y,
-      width = grobWidth(grobs),
-      height = grobHeight(grobs),
-      just = unlist(just)
-    )
-  )
-
-
-  if (isTRUE(debug)) {
-    #cat("x, y:", c(x, y), "\n")
-    #cat("E - hjust, vjust:", c(hjust, vjust), "\n")
-    grobTree(
-      result_grob,
-      pointsGrob(x, y, pch = 20, gp = gpar(col = "mediumturquoise"))
-    )
-  } else {
-    result_grob
-  }
-}
-
 
 #' Rotate justification parameters counter-clockwise
 #'
@@ -252,19 +177,39 @@ rotate_just <- function(angle, hjust, vjust) {
   #vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
 
   angle <- (angle %||% 0) %% 360
-  if (0 <= angle & angle < 90) {
-    hnew <- hjust
-    vnew <- vjust
-  } else if (90 <= angle & angle < 180) {
-    hnew <- 1 - vjust
-    vnew <- hjust
-  } else if (180 <= angle & angle < 270) {
-    hnew <- 1 - hjust
-    vnew <- 1 - vjust
-  } else if (270 <= angle & angle < 360) {
-    hnew <- vjust
-    vnew <- 1 - hjust
+
+  if (is.character(hjust)) {
+    hjust <- match(hjust, c("left", "right")) - 1
+    hjust[is.na(hjust)] <- 0.5
   }
+  if (is.character(vjust)) {
+    vjust <- match(vjust, c("bottom", "top")) - 1
+    vjust[is.na(vjust)] <- 0.5
+  }
+
+  # Apply recycle rules
+  size  <- vec_size_common(angle, hjust, vjust)
+  angle <- vec_recycle(angle, size)
+  hjust <- vec_recycle(hjust, size)
+  vjust <- vec_recycle(vjust, size)
+
+  # Find quadrant on circle
+  case <- findInterval(angle, c(0, 90, 180, 270, 360))
+
+  hnew <- hjust
+  vnew <- vjust
+
+  is_case <- which(case == 2) # 90 <= x < 180
+  hnew[is_case] <- 1 - vjust[is_case]
+  vnew[is_case] <- hjust[is_case]
+
+  is_case <- which(case == 3) # 180 <= x < 270
+  hnew[is_case] <- 1 - hjust[is_case]
+  vnew[is_case] <- 1 - vjust[is_case]
+
+  is_case <- which(case == 4) # 270 <= x < 360
+  hnew[is_case] <- vjust[is_case]
+  vnew[is_case] <- 1 - hjust[is_case]
 
   list(hjust = hnew, vjust = vnew)
 }
@@ -287,7 +232,7 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   if (is.null(descent)) {
     descent <- convertHeight(grobDescent(textGrob(
       label = "gjpqyQ",
-      gp = gpar(
+      gp = gg_par(
         fontsize = size,
         cex = cex,
         fontfamily = family,

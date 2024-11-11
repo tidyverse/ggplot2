@@ -9,6 +9,10 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to ensure that data and axes don't overlap. If `FALSE`,
 #'   limits are taken exactly from the data or `xlim`/`ylim`.
+#'   Giving a logical vector will separately control the expansion for the four
+#'   directions (top, left, bottom and right). The `expand` argument will be
+#'   recycled to length 4 if necessary. Alternatively, can be a named logical
+#'   vector to control a single direction, e.g. `expand = c(bottom = FALSE)`.
 #' @param default Is this the default coordinate system? If `FALSE` (the default),
 #'   then replacing this coordinate system with another one creates a message alerting
 #'   the user that the coordinate system is being replaced. If `TRUE`, that warning
@@ -49,7 +53,7 @@
 #'
 #' # You can see the same thing with this 2d histogram
 #' d <- ggplot(diamonds, aes(carat, price)) +
-#'   stat_bin2d(bins = 25, colour = "white")
+#'   stat_bin_2d(bins = 25, colour = "white")
 #' d
 #'
 #' # When zooming the scale, the we get 25 new bins that are the same
@@ -100,8 +104,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      view_scales_from_scale(scale_x, self$limits$x, self$expand),
-      view_scales_from_scale(scale_y, self$limits$y, self$expand)
+      view_scales_from_scale(scale_x, self$limits$x, params$expand[c(4, 2)]),
+      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)])
     )
   },
 
@@ -117,15 +121,27 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   render_axis_h = function(panel_params, theme) {
     list(
-      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
-      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
+      top = panel_guides_grob(
+        panel_params$guides, position = "top",
+        theme = theme, labels = panel_params$draw_labels$top
+      ),
+      bottom = panel_guides_grob(
+        panel_params$guides, position = "bottom",
+        theme = theme, labels = panel_params$draw_labels$bottom
+      )
     )
   },
 
   render_axis_v = function(panel_params, theme) {
     list(
-      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
-      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
+      left = panel_guides_grob(
+        panel_params$guides, position = "left",
+        theme = theme, labels = panel_params$draw_labels$left
+        ),
+      right = panel_guides_grob(
+        panel_params$guides, position = "right",
+        theme = theme, labels = panel_params$draw_labels$right
+      )
     )
   }
 )
@@ -146,10 +162,11 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-panel_guides_grob <- function(guides, position, theme) {
-  if (!inherits(guides, "Guides")) {
+panel_guides_grob <- function(guides, position, theme, labels = NULL) {
+  if (!is.guides(guides)) {
     return(zeroGrob())
   }
   pair <- guides$get_position(position)
-  pair$guide$draw(theme, pair$params)
+  pair$params$draw_label <- labels %||% NULL
+  pair$guide$draw(theme, params = pair$params)
 }

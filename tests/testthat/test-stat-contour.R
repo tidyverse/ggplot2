@@ -3,7 +3,7 @@ test_that("a warning is issued when there is more than one z per x+y", {
   p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour()
   # Ignore other warnings than the one stat_contour() issued
   suppressWarnings(
-    expect_warning(ggplot_build(p), "Zero contours were generated")
+    expect_snapshot_warning(ggplot_build(p))
   )
 })
 
@@ -14,7 +14,7 @@ test_that("contouring sparse data results in a warning", {
   # TODO: These multiple warnings should be summarized nicely. Until this gets
   #       fixed, this test ignores all the following errors than the first one.
   suppressWarnings(
-    expect_warning(ggplot_build(p), "Zero contours were generated")
+    expect_snapshot_warning(ggplot_build(p))
   )
 })
 
@@ -26,7 +26,7 @@ test_that("contouring irregularly spaced data works", {
 
   # we're testing for set equality here because contour lines are not
   # guaranteed to start and end at the same point on all architectures
-  d <- layer_data(p)
+  d <- get_layer_data(p)
   d4 <- d[d$level == 4,]
   expect_equal(nrow(d4), 7)
   expect_setequal(d4$x, c(4, 10, 100, 700))
@@ -53,14 +53,14 @@ test_that("geom_contour_filled() and stat_contour_filled() result in identical l
   p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
   p1 <- p + stat_contour_filled()
   p2 <- p + geom_contour_filled()
-  expect_identical(layer_data(p1), layer_data(p2))
+  expect_identical(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("geom_contour() and stat_contour() result in identical layer data", {
   p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
   p1 <- p + stat_contour()
   p2 <- p + geom_contour()
-  expect_identical(layer_data(p1), layer_data(p2))
+  expect_identical(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("basic stat_contour() plot builds", {
@@ -93,9 +93,8 @@ test_that("stat_contour() removes duplicated coordinates", {
   layer <- stat_contour()
 
   expect_silent(layer$stat$setup_data(df))
-  expect_warning(
-    new <- layer$stat$setup_data(transform(df, group = 1)),
-    "has duplicated"
+  expect_snapshot_warning(
+    new <- layer$stat$setup_data(transform(df, group = 1))
   )
   expect_equal(new, df[1:4,], ignore_attr = TRUE)
 })
