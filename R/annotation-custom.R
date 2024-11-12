@@ -99,3 +99,17 @@ annotation_id <- local({
     i
   }
 })
+
+ranges_annotation <- function(coord, panel_params, x, y, fun) {
+  if (!inherits(coord, "CoordCartesian")) {
+    cli::cli_abort("{.fn {fun}} only works with {.fn coord_cartesian}.")
+  }
+  if (!inherits(x, "AsIs")) {
+    x <- panel_params$x$scale$transform(x)
+  }
+  if (!inherits(y, "AsIs")) {
+    y <- panel_params$y$scale$transform(y)
+  }
+  data <- coord$transform(data_frame0(x = x, y = y, .size = 2), panel_params)
+  list(x = range(data$x, na.rm = TRUE), y = range(data$y, na.rm = TRUE))
+}
