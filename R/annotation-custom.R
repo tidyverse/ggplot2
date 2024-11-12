@@ -71,7 +71,7 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
   draw_panel = function(data, panel_params, coord, grob, xmin, xmax,
                         ymin, ymax) {
     range <- ranges_annotation(
-      coord, panel_params, vec_c(xmin, xmax), vec_c(ymin, ymax),
+      coord, panel_params, xmin, xmax, ymin, ymax,
       fun = "annotation_custom"
     )
     vp <- viewport(x = mean(range$x), y = mean(range$y),
@@ -91,16 +91,20 @@ annotation_id <- local({
   }
 })
 
-ranges_annotation <- function(coord, panel_params, x, y, fun) {
+ranges_annotation <- function(coord, panel_params, xmin, xmax, ymin, ymax, fun) {
   if (!inherits(coord, "CoordCartesian")) {
     cli::cli_abort("{.fn {fun}} only works with {.fn coord_cartesian}.")
   }
-  if (!inherits(x, "AsIs")) {
-    x <- panel_params$x$scale$transform(x)
-  }
-  if (!inherits(y, "AsIs")) {
-    y <- panel_params$y$scale$transform(y)
-  }
-  data <- coord$transform(data_frame0(x = x, y = y, .size = 2), panel_params)
-  list(x = range(data$x, na.rm = TRUE), y = range(data$y, na.rm = TRUE))
+  data <- data_frame0(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
+  data <- .ignore_data(data)[[1]]
+  x <- panel_params$x$scale$transform_df(data)
+  data[names(x)] <- x
+  y <- panel_params$y$scale$transform_df(data)
+  data[names(y)] <- y
+  data <- .expose_data(data)[[1]]
+  data <- coord$transform(data, panel_params)
+  list(
+    x = range(data$xmin, data$xmax, na.rm = TRUE),
+    y = range(data$ymin, data$ymax, na.rm = TRUE)
+  )
 }
