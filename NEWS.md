@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Custom and raster annotation now respond to scale transformations 
+  (@teunbrand based on @yutannihilation's prior work, #3120)
 * When discrete breaks have names, they'll be used as labels by default 
   (@teunbrand, #6147).
 * The helper function `is.waiver()` is now exported to help extensions to work
