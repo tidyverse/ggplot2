@@ -74,7 +74,7 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
   draw_panel = function(data, panel_params, coord, raster, xmin, xmax,
                         ymin, ymax, interpolate = FALSE) {
     range <- ranges_annotation(
-      coord, panel_params, c(xmin, xmax), c(ymin, ymax),
+      coord, panel_params, vec_c(xmin, xmax), vec_c(ymin, ymax),
       fun = "annotation_raster"
     )
     rasterGrob(raster, range$x[1], range$y[1],

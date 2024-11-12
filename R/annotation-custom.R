@@ -71,7 +71,7 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
   draw_panel = function(data, panel_params, coord, grob, xmin, xmax,
                         ymin, ymax) {
     range <- ranges_annotation(
-      coord, panel_params, c(xmin, xmax), c(ymin, ymax),
+      coord, panel_params, vec_c(xmin, xmax), vec_c(ymin, ymax),
       fun = "annotation_custom"
     )
     vp <- viewport(x = mean(range$x), y = mean(range$y),
