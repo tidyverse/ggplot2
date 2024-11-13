@@ -208,7 +208,9 @@ GuideBins <- ggproto(
     params$show.limits <- show.limits
 
     if (params$reverse) {
-      key <- key[rev(seq_len(nrow(key))), , drop = FALSE]
+      ord <- seq_len(nrow(key))
+      key <- vec_slice(key, rev(ord))
+      key[params$aesthetic] <- vec_slice(key[params$aesthetic], c(ord[-1], ord[1]))
       key$.value <- 1 - key$.value
     }
 
