@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Added `weight` aesthetic for `stat_ellipse()` (@teunbrand, #5272)
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
