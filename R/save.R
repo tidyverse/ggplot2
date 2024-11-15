@@ -102,7 +102,7 @@ ggsave <- function(filename, plot = get_last_plot(),
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
 
-  if (is_null(bg)) {
+  if (is_null(bg) && is.ggplot(plot)) {
     bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
   }
   old_dev <- grDevices::dev.cur()
@@ -111,7 +111,10 @@ ggsave <- function(filename, plot = get_last_plot(),
     grDevices::dev.off()
     if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device
   }))
-  grid.draw(plot)
+  if (!is_bare_list(plot)) {
+    plot <- list(plot)
+  }
+  lapply(plot, grid.draw)
 
   invisible(filename)
 }
