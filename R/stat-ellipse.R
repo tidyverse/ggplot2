@@ -20,6 +20,7 @@
 #' @param segments The number of segments to be used in drawing the ellipse.
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @eval rd_aesthetics("stat", "ellipse")
 #' @export
 #' @examples
 #' ggplot(faithful, aes(waiting, eruptions)) +
