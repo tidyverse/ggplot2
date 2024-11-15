@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
 * When discrete breaks have names, they'll be used as labels by default 
   (@teunbrand, #6147).
 * The helper function `is.waiver()` is now exported to help extensions to work
