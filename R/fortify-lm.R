@@ -79,6 +79,9 @@
 #'   geom_point(aes(size = .cooksd / .hat)) +
 #'   scale_size_area()
 fortify.lm <- function(model, data = model$model, ...) {
+  lifecycle::deprecate_warn(
+    "3.6.0", I("`fortify(<lm>)`"), I("`broom::augment(<lm>)`")
+  )
   infl <- stats::influence(model, do.coef = FALSE)
   data$.hat <- infl$hat
   data$.sigma <- infl$sigma
