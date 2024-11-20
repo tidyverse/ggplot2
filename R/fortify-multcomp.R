@@ -1,5 +1,11 @@
 #' Fortify methods for objects produced by \pkg{multcomp}
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function is deprecated because using `broom::tidy()` is a better
+#' solution to convert model objects.
+#'
 #' @param model an object of class `glht`, `confint.glht`,
 #'  `summary.glht` or [multcomp::cld()]
 #' @param data,... other arguments to the generic ignored in this method.

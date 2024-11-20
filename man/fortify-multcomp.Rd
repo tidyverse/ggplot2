@@ -23,7 +23,10 @@
 \item{data, ...}{other arguments to the generic ignored in this method.}
 }
 \description{
-Fortify methods for objects produced by \pkg{multcomp}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function is deprecated because using \code{broom::tidy()} is a better
+solution to convert model objects.
 }
 \examples{
 if (require("multcomp")) {

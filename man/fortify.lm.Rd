@@ -24,6 +24,10 @@ corresponding observation is dropped from model}
 \item{.stdresid}{Standardised residuals}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This method is deprecated because using \code{broom::augment()} is a better
+solution to supplement data from a linear model.
 If you have missing values in your model data, you may need to refit
 the model with \code{na.action = na.exclude}.
 }

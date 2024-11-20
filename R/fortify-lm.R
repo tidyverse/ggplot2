@@ -1,5 +1,10 @@
 #' Supplement the data fitted to a linear model with model fit statistics.
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This method is deprecated because using `broom::augment()` is a better
+#' solution to supplement data from a linear model.
 #' If you have missing values in your model data, you may need to refit
 #' the model with `na.action = na.exclude`.
 #'
