@@ -11,28 +11,35 @@
 #' @param data,... other arguments to the generic ignored in this method.
 #' @name fortify-multcomp
 #' @keywords internal
-#' @examples
-#' if (require("multcomp")) {
+#' @examplesIf require("multcomp") && require("broom")
 #' amod <- aov(breaks ~ wool + tension, data = warpbreaks)
-#' wht <- glht(amod, linfct = mcp(tension = "Tukey"))
+#' wht <- multcomp::glht(amod, linfct = multcomp::mcp(tension = "Tukey"))
 #'
+#' tidy(wht) # recommended
 #' fortify(wht)
-#' ggplot(wht, aes(lhs, estimate)) + geom_point()
 #'
-#' CI <- confint(wht)
-#' fortify(CI)
-#' ggplot(CI, aes(lhs, estimate, ymin = lwr, ymax = upr)) +
+#' ggplot(tidy(wht), aes(contrast, estimate)) + geom_point()
+#'
+#' ci <- confint(wht)
+#' tidy(ci) # recommended
+#' fortify(ci)
+#'
+#' ggplot(tidy(confint(wht)),
+#'        aes(contrast, estimate, ymin = conf.low, ymax = conf.high)) +
 #'    geom_pointrange()
 #'
-#' fortify(summary(wht))
-#' ggplot(mapping = aes(lhs, estimate)) +
-#'    geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) +
-#'    geom_point(aes(size = p), data = summary(wht)) +
+#' smry <- summary(wht)
+#' tidy(smry) # recommended
+#' fortify(smry)
+#'
+#' ggplot(mapping = aes(contrast, estimate)) +
+#'    geom_linerange(aes(ymin = conf.low, ymax = conf.high), data = tidy(ci)) +
+#'    geom_point(aes(size = adj.p.value), data = tidy(smry)) +
 #'    scale_size(transform = "reverse")
 #'
-#' cld <- cld(wht)
+#' cld <- multcomp::cld(wht)
+#' tidy(cld) # recommended
 #' fortify(cld)
-#' }
 NULL
 
 #' @method fortify glht

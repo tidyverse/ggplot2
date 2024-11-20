@@ -29,26 +29,35 @@ This function is deprecated because using \code{broom::tidy()} is a better
 solution to convert model objects.
 }
 \examples{
-if (require("multcomp")) {
+\dontshow{if (require("multcomp") && require("broom")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 amod <- aov(breaks ~ wool + tension, data = warpbreaks)
-wht <- glht(amod, linfct = mcp(tension = "Tukey"))
+wht <- multcomp::glht(amod, linfct = multcomp::mcp(tension = "Tukey"))
 
+tidy(wht) # recommended
 fortify(wht)
-ggplot(wht, aes(lhs, estimate)) + geom_point()
 
-CI <- confint(wht)
-fortify(CI)
-ggplot(CI, aes(lhs, estimate, ymin = lwr, ymax = upr)) +
+ggplot(tidy(wht), aes(contrast, estimate)) + geom_point()
+
+ci <- confint(wht)
+tidy(ci) # recommended
+fortify(ci)
+
+ggplot(tidy(confint(wht)),
+       aes(contrast, estimate, ymin = conf.low, ymax = conf.high)) +
    geom_pointrange()
 
-fortify(summary(wht))
-ggplot(mapping = aes(lhs, estimate)) +
-   geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) +
-   geom_point(aes(size = p), data = summary(wht)) +
+smry <- summary(wht)
+tidy(smry) # recommended
+fortify(smry)
+
+ggplot(mapping = aes(contrast, estimate)) +
+   geom_linerange(aes(ymin = conf.low, ymax = conf.high), data = tidy(ci)) +
+   geom_point(aes(size = adj.p.value), data = tidy(smry)) +
    scale_size(transform = "reverse")
 
-cld <- cld(wht)
+cld <- multcomp::cld(wht)
+tidy(cld) # recommended
 fortify(cld)
-}
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}
