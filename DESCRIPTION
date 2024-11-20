@@ -44,6 +44,7 @@ Imports:
     vctrs (>= 0.6.0),
     withr (>= 2.5.0)
 Suggests:
+    broom,
     covr,
     dplyr,
     ggplot2movies,
