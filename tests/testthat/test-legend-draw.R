@@ -6,6 +6,8 @@ test_that("all keys can be drawn without 'params'", {
   size <- size * 10 # cm to mm
 
   # Render every key
+  # If we're to develop new legend keys, we can keep appending this pattern
+  # for new keys and layout should adjust automatically
   keys <- list(
     point      = draw_key_point(GeomPoint$use_defaults(NULL),           params, size),
     abline     = draw_key_abline(GeomAbline$use_defaults(NULL),         params, size),
