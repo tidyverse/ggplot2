@@ -7,7 +7,8 @@ test_that("all keys can be drawn without 'params'", {
 
   # Render every key
   # If we're to develop new legend keys, we can keep appending this pattern
-  # for new keys and layout should adjust automatically
+  # for new keys and layout should adjust automatically.
+  # This is also an implicit test whether the key can be constructed without errors
   keys <- list(
     point      = draw_key_point(GeomPoint$use_defaults(NULL),           params, size),
     abline     = draw_key_abline(GeomAbline$use_defaults(NULL),         params, size),
@@ -15,7 +16,7 @@ test_that("all keys can be drawn without 'params'", {
     polygon    = draw_key_polygon(GeomPolygon$use_defaults(NULL),       params, size),
     blank      = draw_key_blank(GeomBlank$use_defaults(NULL),           params, size),
     boxplot    = draw_key_boxplot(GeomBoxplot$use_defaults(NULL),       params, size),
-    crosssbar  = draw_key_crossbar(GeomCrossbar$use_defaults(NULL),     params, size),
+    crossbar   = draw_key_crossbar(GeomCrossbar$use_defaults(NULL),     params, size),
     path       = draw_key_path(GeomPath$use_defaults(NULL),             params, size),
     vpath      = draw_key_vpath(GeomPath$use_defaults(NULL),            params, size),
     dotplot    = draw_key_dotplot(GeomDotplot$use_defaults(NULL),       params, size),
@@ -28,8 +29,14 @@ test_that("all keys can be drawn without 'params'", {
     timeseries = draw_key_timeseries(GeomPath$use_defaults(NULL),       params, size)
   )
 
+  # Test that we've covered all exported keys above
+  nse <- getNamespaceExports(asNamespace("ggplot2"))
+  nse <- grep("^draw_key", nse, value = TRUE)
+  nse <- gsub("^draw_key_", "", nse)
+  expect_in(nse, names(keys))
+
+  # Add title to every key
   template <- gtable(width = unit(size, "mm"), heights = unit(c(1, size), c("lines", "mm")))
-  # Add names
   keys <- Map(
     function(key, name) {
       text <- textGrob(name, gp = gpar(fontsize = 8))
@@ -38,12 +45,14 @@ test_that("all keys can be drawn without 'params'", {
     key = keys, name = names(keys)
   )
 
+  # Set layout
   n <- length(keys)
   nrow <- ceiling(n / 5)
   ncol <- ceiling(n / nrow)
   mtx <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
   mtx[seq_along(keys)] <- keys
 
+  # Render as gtable
   gt <- gtable_matrix(
     name = "layout", grobs = mtx,
     widths  = unit(rep(size, ncol(mtx)), "mm"),
@@ -54,5 +63,4 @@ test_that("all keys can be drawn without 'params'", {
   gt <- gtable_add_row_space(gt, unit(1, "cm"))
 
   expect_doppelganger("all legend keys", gt)
-
 })

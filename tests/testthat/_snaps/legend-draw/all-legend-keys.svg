@@ -34,7 +34,7 @@
 <polyline points='307.89,265.19 320.85,265.19 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt; stroke-linejoin: miter;' />
 <polyline points='314.37,272.10 314.37,272.10 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt; stroke-linejoin: miter;' />
 <polyline points='314.37,258.27 314.37,258.27 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt; stroke-linejoin: miter;' />
-<text x='314.37' y='312.13' text-anchor='middle' style='font-size: 8.00px; font-family: sans;' textLength='34.69px' lengthAdjust='spacingAndGlyphs'>crosssbar</text>
+<text x='314.37' y='312.13' text-anchor='middle' style='font-size: 8.00px; font-family: sans;' textLength='30.69px' lengthAdjust='spacingAndGlyphs'>crossbar</text>
 <rect x='307.89' y='320.89' width='12.96' height='8.64' style='stroke-width: 1.07; stroke-linecap: butt; stroke-linejoin: miter;' />
 <polyline points='307.89,325.21 320.85,325.21 ' style='stroke-width: 1.07; stroke-linecap: butt; stroke-linejoin: miter;' />
 <text x='314.37' y='372.15' text-anchor='middle' style='font-size: 8.00px; font-family: sans;' textLength='15.57px' lengthAdjust='spacingAndGlyphs'>path</text>
