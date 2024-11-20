@@ -414,8 +414,8 @@ Layer <- ggproto("Layer", NULL,
       stat_data <- plot$scales$transform_df(stat_data)
     }
     stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
-
-    data_frame0(!!!defaults(stat_data, data))
+    data[names(stat_data)] <- stat_data
+    data
   },
 
   compute_geom_1 = function(self, data) {
@@ -499,6 +499,10 @@ set_draw_key <- function(geom, draw_key = NULL) {
 }
 
 cleanup_mismatched_data <- function(data, n, fun) {
+  if (vec_duplicate_any(names(data))) {
+    data <- data[unique0(names(data))]
+  }
+
   failed <- !lengths(data) %in% c(0, 1, n)
   if (!any(failed)) {
     return(data)

@@ -78,7 +78,8 @@ ScalesList <- ggproto("ScalesList", NULL,
       function(scale) scale$map_df(df = df)
     ), recursive = FALSE)
 
-    data_frame0(!!!mapped, df[setdiff(names(df), names(mapped))])
+    df[names(mapped)] <- mapped
+    df
   },
 
   transform_df = function(self, df) {
