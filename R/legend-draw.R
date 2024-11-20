@@ -128,7 +128,7 @@ draw_key_boxplot <- function(data, params, size) {
     lwd = params$box_gp$linewidth
   )
 
-  staple_size <- 0.5 + c(0.375, -0.375) * params$staplewidth
+  staple_size <- 0.5 + c(0.375, -0.375) * (params$staplewidth %||% 0)
   staple <- gg_par(
     col = params$staple_gp$colour,
     lty = params$staple_gp$linetype,
