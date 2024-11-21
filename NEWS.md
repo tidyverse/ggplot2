@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (internal) layer data can be attenuated with parameter attributes 
+  (@teunbrand, #3175).
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
