@@ -249,6 +249,14 @@ toupper <- function(x) {
   cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
+merge_attrs <- function(new, old) {
+  new_attr <- attributes(new)
+  new <- vec_restore(new, old) # copies old attributes to new
+  new_attr <- new_attr[setdiff(names(new_attr), names(attributes(new)))]
+  attributes(new) <- c(attributes(new), new_attr)
+  new
+}
+
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
