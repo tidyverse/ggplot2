@@ -1103,10 +1103,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     )
   },
 
-  new = function(self, aesthetics, palette = NULL, limits = NULL, call = caller_call(),
+  new = function(self, aesthetics = NULL, palette = NULL, limits = NULL, call = caller_call(),
                  range = DiscreteRange$new(),
                  ..., super = NULL) {
     call <- call %||% current_call()
+    super <- super %||% self
     limits <- allow_lambda(limits)
     if (!is.function(limits) && (length(limits) > 0 && !is.discrete(limits))) {
       cli::cli_warn(c(
@@ -1114,6 +1115,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
         i = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
       ), call = call)
     }
+    aesthetics <- aesthetics %||% super$aesthetics
+    palette <- palette %||% .subset2(super, "palette")
     if (identical(palette, identity) && any(is_position_aes(aesthetics))) {
       palette <- seq_len
     }
