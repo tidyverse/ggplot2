@@ -54,9 +54,7 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
 
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
                              boundary = NULL, closed = c("right", "left")) {
-  if (length(x_range) != 2) {
-    cli::cli_abort("{.arg x_range} must have two elements.")
-  }
+  check_length(x_range, 2L)
 
   # binwidth seems to be the argument name supplied to width. (stat-bin and stat-bindot)
   check_number_decimal(width, min = 0, allow_infinite = FALSE, arg = "binwidth")
@@ -106,9 +104,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
                             boundary = NULL, closed = c("right", "left")) {
-  if (length(x_range) != 2) {
-    cli::cli_abort("{.arg x_range} must have two elements.")
-  }
+  check_length(x_range, 2L)
 
   check_number_whole(bins, min = 1)
   if (zero_range(x_range)) {
@@ -165,7 +161,7 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
   }
 
   # Add row for missings
-  if (any(is.na(bins))) {
+  if (anyNA(bins)) {
     bin_count <- c(bin_count, sum(is.na(bins)))
     bin_widths <- c(bin_widths, NA)
     bin_x <- c(bin_x, NA)

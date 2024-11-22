@@ -236,6 +236,10 @@ scale_params <- function(aesthetics, ...) {
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.scale <- function(x) inherits(x, "Scale")
+
 #' @section Scales:
 #'
 #' All `scale_*` functions like [scale_x_continuous()] return a `Scale*`
@@ -491,7 +495,7 @@ Scale <- ggproto("Scale", NULL,
                  call = caller_call(), ..., super = NULL) {
 
     super <- super %||% self
-    call <- call %||% super$call() %||% current_call()
+    call <- call %||% super$call %||% current_call()
     aesthetics <- standardise_aes_names(aesthetics %||% super$aesthetics)
     limits <- allow_lambda(limits %||% super$limits)
     breaks <- allow_lambda(breaks %|W|% super$breaks)
@@ -499,7 +503,7 @@ Scale <- ggproto("Scale", NULL,
     minor_breaks <- allow_lambda(minor_breaks %|W|% super$minor_breaks)
     check_breaks_labels(breaks, labels, call = call)
     position <- arg_match0(position %||% super$position, .trbl)
-    if (is.null(breaks) & all(!is_position_aes(aesthetics))) {
+    if (is.null(breaks) & !any(is_position_aes(aesthetics))) {
       guide <- "none"
     }
 
@@ -662,7 +666,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # don't support conversion to numeric (#5304)
     if (zero_range(as.numeric(transformation$transform(limits)))) {
       breaks <- limits[1]
-    } else if (is.waive(self$breaks)) {
+    } else if (is.waiver(self$breaks)) {
       if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
         breaks <- transformation$breaks(limits, self$n.breaks)
       } else {
@@ -704,7 +708,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     b <- b[is.finite(b)]
 
     transformation <- self$get_transformation()
-    if (is.waive(self$minor_breaks)) {
+    if (is.waiver(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
       } else {
@@ -751,7 +755,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       )
     }
 
-    if (is.waive(self$labels)) {
+    if (is.waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
@@ -836,13 +840,14 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   new = function(self, rescaler = NULL, oob = NULL,
                  range = ContinuousRange$new(),
                  transform = NULL, limits = NULL, ...,
-                 super = NULL) {
+                 call = NULL, super = NULL) {
     super <- super %||% self
     transform <- as.transform(transform %||% super$trans)
     limits <- allow_lambda(limits %||% super$limits)
     if (!is.null(limits) && !is.function(limits)) {
       limits <- transform$transform(limits)
     }
+    check_continuous_limits(limits, call = call)
 
     rescaler <- allow_lambda(rescaler %||% super$rescaler)
     oob <- allow_lambda(oob %||% super$oob)
@@ -853,6 +858,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       oob = oob,
       trans = transform,
       limits = limits,
+      call = call,
       ...,
       super = super
     )
@@ -924,23 +930,23 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    if (!is_null(names(pal))) {
+    na_value <- if (self$na.translate) self$na.value else NA
+    pal_names <- names(pal)
+
+    if (!is_null(pal_names)) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
-      idx_nomatch <- is.na(match(names(pal), limits))
-      pal[idx_nomatch] <- NA
-      pal_match <- pal[match(as.character(x), names(pal))]
-      pal_match <- unname(pal_match)
-    } else {
-      # if pal is not named, limit the values directly
-      pal_match <- pal[match(as.character(x), limits)]
+      pal[is.na(match(pal_names, limits))] <- na_value
+      pal <- unname(pal)
+      limits <- pal_names
     }
+    pal <- c(pal, na_value)
+    pal_match <- pal[match(as.character(x), limits, nomatch = length(pal))]
 
-    if (self$na.translate) {
-      ifelse(is.na(x) | is.na(pal_match), self$na.value, pal_match)
-    } else {
-      pal_match
+    if (!is.na(na_value)) {
+      pal_match[is.na(x)] <- na_value
     }
+    pal_match
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = c(1, length(limits))) {
@@ -967,7 +973,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       )
     }
 
-    if (is.waive(self$breaks)) {
+    if (is.waiver(self$breaks)) {
       breaks <- limits
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -976,7 +982,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     # Breaks only occur only on values in domain
-    in_domain <- intersect(breaks, limits)
+    breaks <- setNames(as.character(breaks), names(breaks))
+    in_domain <- vec_set_intersect(breaks, as.character(limits))
     structure(in_domain, pos = match(in_domain, breaks))
   },
 
@@ -1029,7 +1036,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       )
     }
 
-    if (is.waive(self$labels)) {
+    if (is.waiver(self$labels)) {
+      if (!is.null(names(breaks))) {
+        return(names(breaks))
+      }
       if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
         format(breaks, justify = "none")
@@ -1093,7 +1103,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     )
   },
 
-  new = function(self, limits = NULL, call = caller_call(),
+  new = function(self, aesthetics, palette = NULL, limits = NULL, call = caller_call(),
                  range = DiscreteRange$new(),
                  ..., super = NULL) {
     call <- call %||% current_call()
@@ -1104,10 +1114,16 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
         i = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
       ), call = call)
     }
+    if (identical(palette, identity) && any(is_position_aes(aesthetics))) {
+      palette <- seq_len
+    }
+
     ggproto_parent(Scale, self)$new(
       limits = limits,
       range = range,
       call = call,
+      aesthetics = aesthetics,
+      palette = palette,
       ...,
       super = super %||% self
     )
@@ -1209,7 +1225,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
-    } else if (is.waive(self$breaks)) {
+    } else if (is.waiver(self$breaks)) {
       if (self$nice.breaks) {
         if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
@@ -1299,7 +1315,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
-    } else if (is.waive(self$labels)) {
+    } else if (is.waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
@@ -1354,13 +1370,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
-  scale$position <- switch(scale$position,
-    top = "bottom",
-    bottom = "top",
-    left = "right",
-    right = "left",
-    scale$position
-  )
+  scale$position <- opposite_position(scale$position)
   invisible()
 }
 
@@ -1375,6 +1385,16 @@ check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) 
   }
   msg <- paste0("{.field {name}} transformation introduced infinite values", end)
   cli::cli_warn(msg, call = call)
+}
+
+check_continuous_limits <- function(limits, ...,
+                                    arg = caller_arg(limits),
+                                    call = caller_env()) {
+  if (is.null(limits) || is.function(limits)) {
+    return(invisible())
+  }
+  check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
+  check_length(limits, 2L, arg = arg, call = call)
 }
 
 trans_support_nbreaks <- function(trans) {

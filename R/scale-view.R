@@ -45,7 +45,7 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
 view_scale_secondary <- function(scale, limits = scale$get_limits(),
                                  continuous_range = scale$dimension(limits = limits)) {
 
-  if (is.null(scale$secondary.axis) || is.waive(scale$secondary.axis) || scale$secondary.axis$empty()) {
+  if (is.null(scale$secondary.axis) || is.waiver(scale$secondary.axis) || scale$secondary.axis$empty()) {
     # if there is no second axis, return the primary scale with no guide
     # this guide can be overridden using guides()
     primary_scale <- view_scale_primary(scale, limits, continuous_range)
@@ -88,23 +88,6 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       rescale = function(x) rescale(x, from = break_info$range, to = c(0, 1))
     )
   }
-}
-
-view_scale_empty <- function() {
-  ggproto(NULL, ViewScale,
-    is_empty = function() TRUE,
-    is_discrete = function() NA,
-    dimension = function() c(0, 1),
-    get_limits = function() c(0, 1),
-    get_breaks = function() NULL,
-    get_breaks_minor = function() NULL,
-    get_labels = function(breaks = NULL) breaks,
-    rescale = function(x) cli::cli_abort("Not implemented."),
-    map = function(x) cli::cli_abort("Not implemented."),
-    make_title = function(title) title,
-    break_positions = function() NULL,
-    break_positions_minor = function() NULL
-  )
 }
 
 ViewScale <- ggproto("ViewScale", NULL,
