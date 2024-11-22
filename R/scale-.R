@@ -522,6 +522,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   update = function(self, params) {
+    check_update_params(self, params)
     inject(self$new(!!!params))
   }
 )
@@ -544,6 +545,29 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
   }
 
   TRUE
+}
+
+check_update_params <- function(scale, params) {
+  if (inherits(scale, "ScaleContinuous")) {
+    args <- fn_fmls_names(continuous_scale)
+  } else if (inherits(scale, "ScaleDiscrete")) {
+    args <- fn_fmls_names(discrete_scale)
+  } else if (inherits(scale, "ScaleBinned")) {
+    args <- fn_fmls_names(binned_scale)
+  } else {
+    # We don't know what valid parameters are of custom scale types
+    return(invisible(NULL))
+  }
+  extra <- setdiff(names(params), args)
+  if (length(extra) == 0) {
+    return(invisible(NULL))
+  }
+  extra <- paste0("{.val ", extra, "}")
+  names(extra) <- rep("*", length(extra))
+  cli::cli_abort(
+    c("Cannot update scale with the unknown {cli::qty(extra)} argument{?s}:", extra),
+    call = scale$call
+  )
 }
 
 default_transform <- function(self, x) {
@@ -865,6 +889,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   },
 
   update = function(self, params) {
+    check_update_params(self, params)
     # We may need to update limits when previously transformed and
     # a new transformation is coming in
     if ("transform" %in% names(params) &&
