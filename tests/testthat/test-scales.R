@@ -758,3 +758,37 @@ test_that("discrete scales work with NAs in arbitrary positions", {
   expect_equal(test, output)
 
 })
+
+test_that("scale updating mechanism works", {
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl), shape = factor(gear))) +
+    geom_point(na.rm = TRUE)
+
+  scales <- get_panel_scales(
+    p +
+      scale_params("y", name = "Miles per gallon") +
+      scale_params("y", limits = c(10, 40)) +
+      scale_y_continuous(transform = "sqrt") +
+      scale_params("y", expand = expansion())
+  )
+  y <- scales$y
+  expect_equal(y$get_limits(), sqrt(c(10, 40)))
+  expect_equal(y$expand, c(0, 0, 0, 0))
+  expect_equal(y$name, "Miles per gallon")
+
+  b <- ggplot_build(
+    p +
+      scale_params("colour", labels = identity, breaks = c(8, 4, 6)) +
+      scale_params(c("colour", "shape"), labels = function(x) as.character(as.roman(x))) +
+      scale_params("shape", limits = as.character(c(3, 5)), labels = identity)
+  )
+
+  # Roman label should override identity labels
+  # Order should be unnatural
+  l <- get_guide_data(b, "colour")
+  expect_equal(l$.label, c("VIII", "IV", "VI"))
+
+  # Identity labels should override roman labels
+  # gear = 4 should be missing from legend
+  l <- get_guide_data(b, "shape")
+  expect_equal(l$.label, as.character(c(3, 5)), ignore_attr = "pos")
+})
