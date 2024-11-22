@@ -867,10 +867,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
                  call = NULL, super = NULL) {
     super <- super %||% self
     transform <- as.transform(transform %||% super$trans)
-    limits <- allow_lambda(limits %||% super$limits)
+    limits <- allow_lambda(limits)
     if (!is.null(limits) && !is.function(limits)) {
       limits <- transform$transform(limits)
     }
+    limits <- limits %||% super$limits
     check_continuous_limits(limits, call = call)
 
     rescaler <- allow_lambda(rescaler %||% super$rescaler)
