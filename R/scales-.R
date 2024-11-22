@@ -184,7 +184,9 @@ ScalesList <- ggproto("ScalesList", NULL,
         self$scales[[i]] <- self$scales[[i]]$update(params)
       }
     } else {
-      self$params[[aesthetic]] <- defaults(params, self$params[[aesthetic]])
+      for (i in aesthetic) {
+        self$params[[i]] <- defaults(params, self$params[[i]])
+      }
     }
   }
 )
