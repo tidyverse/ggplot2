@@ -604,12 +604,27 @@ Scale <- ggproto("Scale", NULL,
     ord
   },
 
-  make_title = function(title) {
+  make_title = function(self, guide_title = waiver(), scale_title = waiver(), label_title = waiver()) {
+    title <- allow_lambda(label_title)
+    title <- if (is.function(title)) title() else title
+
+    scale_title <- allow_lambda(scale_title)
+    if (is.function(scale_title)) {
+      title <- scale_title(title)
+    } else {
+      title <- scale_title %|W|% title
+    }
+    guide_title <- allow_lambda(guide_title)
+    if (is.function(guide_title)) {
+      title <- guide_title(title)
+    } else {
+      title <- guide_title %|W|% title
+    }
     title
   },
 
-  make_sec_title = function(title) {
-    title
+  make_sec_title = function(self, ...) {
+    self$make_title(...)
   }
 )
 
