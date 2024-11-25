@@ -16,8 +16,8 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Axes">
 <meta name="robots" content="noindex">
 <script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
@@ -158,7 +158,7 @@ e.g. <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a
 etc., and customise the <code>guide</code> argument with the
 <code><a href="../reference/guide_axis.html">guide_axis()</a></code> function. In this case we want to customise
 the x-axis, and the variable on the x-axis is discrete, so we’ll use
-<code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code>. In the <code>guide</code> argument we
+<code><a href="../reference/scale_discrete.html">scale_x_discrete()</a></code>. In the <code>guide</code> argument we
 use the <code><a href="../reference/guide_axis.html">guide_axis()</a></code> and specify how many rows to dodge the
 labels into with <code>n.dodge</code>. This is likely a trial-and-error
 exercise, depending on the lengths of your labels and the width of your
@@ -216,7 +216,7 @@ distinction between <code>axis.title</code> and <code>axis.ticks</code>
 <span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.ticks.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="faq-axes_files/figure-html/unnamed-chunk-8-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The annotation on the x-axis is abent." width="80%"></p>
+<p><img src="faq-axes_files/figure-html/unnamed-chunk-8-1.png" alt="A boxplot showing the total amount of sleep on the y-axis for 19 taxonomical orders of mammals on the x-axis. The annotation on the x-axis is absent." width="80%"></p>
 <ul>
 <li>Remove all axis labels: You can use <code><a href="../reference/ggtheme.html">theme_void()</a></code> to
 remove all theming elements. Note that this might remove more features
