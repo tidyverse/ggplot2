@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
