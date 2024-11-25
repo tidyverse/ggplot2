@@ -605,9 +605,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   make_title = function(self, guide_title = waiver(), scale_title = waiver(), label_title = waiver()) {
-    title <- allow_lambda(label_title)
-    title <- if (is.function(title)) title() else title
-
+    title <- label_title
     scale_title <- allow_lambda(scale_title)
     if (is.function(scale_title)) {
       title <- scale_title(title)

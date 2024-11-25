@@ -84,6 +84,15 @@ setup_plot_labels <- function(plot, layers, data) {
     ))
   }
 
+  # User labels can be functions, so apply these to the default labels
+  plot_labels <- lapply(setNames(nm = names(plot_labels)), function(nm) {
+    label <- plot_labels[[nm]]
+    if (!is.function(label)) {
+      return(label)
+    }
+    label(labels[[nm]] %||% "")
+  })
+
   defaults(plot_labels, labels)
 }
 
