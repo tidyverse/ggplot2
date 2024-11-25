@@ -49,7 +49,7 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
@@ -115,7 +115,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("calculating theme element inheritance works", {
@@ -240,14 +240,12 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 })
@@ -370,10 +368,7 @@ test_that("elements can be merged", {
     merge_element(element_line(colour = "blue"), line_base),
     element_line(colour = "blue", linewidth = 10)
   )
-  expect_error(
-    merge_element(text_base, rect_base),
-    "Only elements of the same class can be merged"
-  )
+  expect_snapshot(merge_element(text_base, rect_base), error = TRUE)
 })
 
 test_that("theme elements that don't inherit from element can be combined", {
@@ -412,7 +407,7 @@ test_that("current theme can be updated with new elements", {
   )
 
   # theme calculation for nonexisting element returns NULL
-  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
+  expect_null(calc_element("abcde", plot_theme(b1)))
 
   # element tree gets merged properly
   register_theme_elements(
@@ -730,12 +725,12 @@ test_that("axes ticks can have independent lengths", {
     scale_x_continuous(sec.axis = dup_axis()) +
     scale_y_continuous(sec.axis = dup_axis()) +
     theme(
-      axis.ticks.length.x.top = unit(-.5, "cm"),
-      axis.ticks.length.x.bottom = unit(-.25, "cm"),
-      axis.ticks.length.y.left = unit(.25, "cm"),
-      axis.ticks.length.y.right = unit(.5, "cm"),
-      axis.text.x.bottom = element_text(margin = margin(t = .25, unit = "cm")),
-      axis.text.x.top = element_text(margin = margin(b = .25, unit = "cm"))
+      axis.ticks.length.x.top = unit(-0.5, "cm"),
+      axis.ticks.length.x.bottom = unit(-0.25, "cm"),
+      axis.ticks.length.y.left = unit(0.25, "cm"),
+      axis.ticks.length.y.right = unit(0.5, "cm"),
+      axis.text.x.bottom = element_text(margin = margin(t = 0.25, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = 0.25, unit = "cm"))
     )
   expect_doppelganger("ticks_length", plot)
 })
@@ -840,6 +835,24 @@ test_that("Strips can render custom elements", {
     facet_wrap(~a) +
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
+})
+
+test_that("theme ink and paper settings work", {
+
+  p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+    geom_point() +
+    facet_wrap(~"Strip title") +
+    labs(
+      title = "Main title",
+      subtitle = "Subtitle",
+      tag = "A",
+      caption = "Caption"
+    )
+
+  expect_doppelganger(
+    "Theme with inverted colours",
+    p + theme_gray(ink = "white", paper = "black")
+  )
 })
 
 test_that("legend margins are correct when using relative key sizes", {

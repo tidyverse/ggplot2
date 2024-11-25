@@ -38,7 +38,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -126,7 +126,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 # how `geom_map()` works. It requires two data frames:
 # One contains the coordinates of each polygon (`positions`), and is
 # provided via the `map` argument. The other contains the
-# other the values associated with each polygon (`values`).  An id
+# values associated with each polygon (`values`).  An id
 # variable links the two together.
 
 ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))

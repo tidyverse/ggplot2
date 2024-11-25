@@ -153,8 +153,8 @@ CoordTrans <- ggproto("CoordTrans", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, self$expand),
-      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, self$expand)
+      view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, params$expand[c(4, 2)]),
+      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, params$expand[c(3, 1)])
     )
   },
 

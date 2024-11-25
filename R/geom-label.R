@@ -56,8 +56,11 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   required_aes = c("x", "y", "label"),
 
   default_aes = aes(
-    colour = "black", fill = "white", size = 3.88, angle = 0,
-    hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
+    colour = from_theme(ink), fill = from_theme(paper),
+    family = from_theme(family),
+    size = from_theme(fontsize),
+    angle = 0,
+    hjust = 0.5, vjust = 0.5, alpha = NA, fontface = 1,
     lineheight = 1.2
   ),
 
@@ -75,13 +78,13 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     data <- coord$transform(data, panel_params)
     data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
     data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
-    if (!inherits(label.padding, "margin")) {
+    if (!is.margin("margin")) {
       label.padding <- rep(label.padding, length.out = 4)
     }
 
     size.unit <- resolve_text_unit(size.unit)
 
-    grobs <- lapply(1:nrow(data), function(i) {
+    grobs <- lapply(seq_len(nrow(data)), function(i) {
       row <- data[i, , drop = FALSE]
       labelGrob(lab[i],
         x = unit(row$x, "native"),

@@ -10,8 +10,8 @@ test_that("warnings are generated when coord_trans() results in new infinite val
   # TODO: These multiple warnings should be summarized nicely. Until this gets
   #       fixed, this test ignores all the following errors than the first one.
   suppressWarnings({
-    expect_warning(ggplot_gtable(ggplot_build(p)), "Transformation introduced infinite values in y-axis")
-    expect_warning(ggplot_gtable(ggplot_build(p2)), "Transformation introduced infinite values in x-axis")
+    expect_snapshot_warning(ggplot_gtable(ggplot_build(p)))
+    expect_snapshot_warning(ggplot_gtable(ggplot_build(p2)))
   })
 })
 

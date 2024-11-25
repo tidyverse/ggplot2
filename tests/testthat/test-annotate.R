@@ -86,3 +86,32 @@ test_that("annotate() warns about `stat` or `position` arguments", {
     annotate("point", 1:3, 1:3, stat = "density", position = "dodge")
   )
 })
+
+test_that("annotation_custom() and annotation_raster() adhere to scale transforms", {
+  rast <- matrix(rainbow(10), nrow = 1)
+
+  p <- ggplot() +
+    annotation_raster(rast, 1, 10, 1, 9) +
+    scale_x_continuous(transform = "log10", limits = c(0.1, 100), expand = FALSE) +
+    scale_y_continuous(limits = c(0, 10), expand = FALSE)
+  ann <- get_layer_grob(p)[[1]]
+
+  expect_equal(as.numeric(ann$x), 1/3)
+  expect_equal(as.numeric(ann$y), 1/10)
+  expect_equal(as.numeric(ann$width), 1/3)
+  expect_equal(as.numeric(ann$height), 8/10)
+
+  rast <- rasterGrob(rast, width = 1, height = 1)
+
+  p <- ggplot() +
+    annotation_custom(rast, 1, 10, 1, 9) +
+    scale_x_continuous(transform = "log10", limits = c(0.1, 100), expand = FALSE) +
+    scale_y_continuous(limits = c(0, 10), expand = FALSE)
+  ann <- get_layer_grob(p)[[1]]$vp
+
+  expect_equal(as.numeric(ann$x), 1/2)
+  expect_equal(as.numeric(ann$y), 1/2)
+  expect_equal(as.numeric(ann$width), 1/3)
+  expect_equal(as.numeric(ann$height), 8/10)
+
+})

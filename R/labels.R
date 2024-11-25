@@ -18,8 +18,8 @@ update_labels <- function(p, labels) {
 
 # Called in `ggplot_build()` to set default labels not specified by user.
 setup_plot_labels <- function(plot, layers, data) {
-  # Initiate from user-defined labels
-  labels <- plot$labels
+  # Initiate empty labels
+  labels <- list()
 
   # Find labels from every layer
   for (i in seq_along(layers)) {
@@ -65,7 +65,26 @@ setup_plot_labels <- function(plot, layers, data) {
       labels <- defaults(labels, current)
     }
   }
-  labels
+
+  # Warn for spurious labels that don't have a mapping.
+  # Note: sometimes, 'x' and 'y' might not have a mapping, like in
+  # `geom_function()`. We can display these labels anyway, so we include them.
+  plot_labels  <- plot$labels
+  known_labels <- c(names(labels), fn_fmls_names(labs), "x", "y")
+  extra_labels <- setdiff(names(plot_labels), known_labels)
+
+  if (length(extra_labels) > 0) {
+    extra_labels <- paste0(
+      "{.code ", extra_labels, " = \"", plot_labels[extra_labels], "\"}"
+    )
+    names(extra_labels) <- rep("*", length(extra_labels))
+    cli::cli_warn(c(
+      "Ignoring unknown labels:",
+      extra_labels
+    ))
+  }
+
+  defaults(plot_labels, labels)
 }
 
 #' Modify axis, legend, and plot labels
@@ -133,7 +152,7 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
     tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
     .ignore_empty = "all")
 
-  is_waive <- vapply(args, is.waive, logical(1))
+  is_waive <- vapply(args, is.waiver, logical(1))
   args <- args[!is_waive]
   # remove duplicated arguments
   args <- args[!duplicated(names(args))]
@@ -160,6 +179,39 @@ ggtitle <- function(label, subtitle = waiver()) {
   labs(title = label, subtitle = subtitle)
 }
 
+#' @rdname labs
+#' @export
+#' @param plot A ggplot object
+#' @description
+#' `get_labs()` retrieves completed labels from a plot.
+get_labs <- function(plot = get_last_plot()) {
+  plot <- ggplot_build(plot)
+
+  labs <- plot$plot$labels
+
+  xy_labs <- rename(
+    c(x = plot$layout$resolve_label(plot$layout$panel_scales_x[[1]], labs),
+      y = plot$layout$resolve_label(plot$layout$panel_scales_y[[1]], labs)),
+    c(x.primary = "x", x.secondary = "x.sec",
+      y.primary = "y", y.secondary = "y.sec")
+  )
+
+  labs <- defaults(xy_labs, labs)
+
+  guides <- plot$plot$guides
+  if (length(guides$aesthetics) == 0) {
+    return(labs)
+  }
+
+  for (aes in guides$aesthetics) {
+    param <- guides$get_params(aes)
+    aes   <- param$aesthetic # Can have length > 1 when guide was merged
+    title <- vec_set_names(rep(list(param$title), length(aes)), aes)
+    labs  <- defaults(title, labs)
+  }
+  labs
+}
+
 #' Extract alt text from a plot
 #'
 #' This function returns a text that can be used as alt-text in webpages etc.
@@ -168,7 +220,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' text from the information stored in the plot.
 #'
 #' @param p a ggplot object
-#' @param ... Currently ignored
+#' @inheritParams rlang::args_dots_used
 #'
 #' @return A text string
 #'
@@ -191,6 +243,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' get_alt_text(p)
 #'
 get_alt_text <- function(p, ...) {
+  warn_dots_used()
   UseMethod("get_alt_text")
 }
 #' @export
