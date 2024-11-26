@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Fixed a bug where the `guide_custom(order)` wasn't working (@teunbrand, #6195)
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
