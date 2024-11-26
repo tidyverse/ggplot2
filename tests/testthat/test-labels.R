@@ -199,6 +199,29 @@ test_that("position axis label hierarchy works as intended", {
   )
 })
 
+test_that("labels can be derived using functions", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, colour = drat, shape = factor(cyl))) +
+    geom_point() +
+    labs(
+      y = to_upper_ascii,
+      shape = function(x) gsub("factor", "foo", x)
+    ) +
+    scale_shape_discrete(
+      name = to_upper_ascii,
+      guide = guide_legend(title = function(x) paste0(x, "!!!"))
+    ) +
+    scale_x_continuous(name = to_upper_ascii) +
+    guides(colour = guide_colourbar(title = to_upper_ascii))
+
+  labs <- get_labs(p)
+  expect_equal(labs$shape,  "FOO(CYL)!!!")
+  expect_equal(labs$colour, "DRAT")
+  expect_equal(labs$x,      "DISP")
+  expect_equal(labs$y,      "MPG")
+
+})
+
 test_that("moving guide positions lets titles follow", {
   df <- data_frame(foo = c(1e1, 1e5), bar = c(0, 100))
 

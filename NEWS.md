@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Scale names, guide titles and aesthetic labels can now accept functions 
+  (@teunbrand, #4313)
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
