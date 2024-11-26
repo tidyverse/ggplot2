@@ -44,6 +44,7 @@ Imports:
     vctrs (>= 0.6.0),
     withr (>= 2.5.0)
 Suggests:
+    broom,
     covr,
     dplyr,
     ggplot2movies,
@@ -126,9 +127,8 @@ Collate:
     'facet-grid-.R'
     'facet-null.R'
     'facet-wrap.R'
-    'fortify-lm.R'
     'fortify-map.R'
-    'fortify-multcomp.R'
+    'fortify-models.R'
     'fortify-spatial.R'
     'fortify.R'
     'stat-.R'
