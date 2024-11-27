@@ -14,5 +14,5 @@
 
 # when both x and y are AsIs, they are not transformed
 
-    `coord_name()` cannot respect the <AsIs> class of `x` when `y` is not also <AsIs>.
+    `coord_radial()` cannot respect the <AsIs> class of `x` when `y` is not also <AsIs>.
 
