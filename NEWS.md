@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
+  `coord_radial()`), using 'AsIs' variables escape transformation when
+  both `x` and `y` is an 'AsIs' variable (@teunbrand, #6205).
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
