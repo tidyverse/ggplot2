@@ -77,7 +77,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
-    if (inherits(data$x, "AsIs") && inherits(data$y, "AsIs")) {
+    if (is_transform_immune(data, snake_class(self))) {
       return(data)
     }
 

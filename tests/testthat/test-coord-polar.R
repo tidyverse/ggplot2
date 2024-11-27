@@ -170,6 +170,15 @@ test_that("when both x and y are AsIs, they are not transformed", {
   location <- c(as.numeric(grob$x), as.numeric(grob$y))
   expect_equal(location, c(0.75, 0.25))
 
+  # Check warning is thrown if only one is AsIs
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = 2.5, label = "foo") +
+    scale_x_continuous(limits = c(0, 10)) +
+    scale_y_continuous(limits = c(0, 10)) +
+    coord_radial()
+
+  expect_snapshot_warning(ggplotGrob(p))
+
 })
 
 # Visual tests ------------------------------------------------------------
