@@ -180,6 +180,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   transform = function(self, data, panel_params) {
+    if (inherits(data$x, "AsIs") && inherits(data$y, "AsIs")) {
+      return(data)
+    }
+
     arc  <- self$start + c(0, 2 * pi)
     dir  <- self$direction
     data <- rename_data(self, data)

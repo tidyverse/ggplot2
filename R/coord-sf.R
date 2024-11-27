@@ -77,6 +77,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
+    if (inherits(data$x, "AsIs") && inherits(data$y, "AsIs")) {
+      return(data)
+    }
+
     # we need to transform all non-sf data into the correct coordinate system
     source_crs <- panel_params$default_crs
     target_crs <- panel_params$crs
