@@ -75,6 +75,7 @@ make_constructor.Geom <- function(x, ..., checks = exprs(), env = caller_env()) 
         args[param] <- draw_args[param]
       }
     }
+    extra_args <- intersect(extra_args, names(args))
     missing_params <- setdiff(missing_params, names(args))
     if (length(missing_params) > 0) {
       cli::cli_warn(
@@ -122,5 +123,90 @@ make_constructor.Geom <- function(x, ..., checks = exprs(), env = caller_env()) 
   # We encapsulate rlang::list2
   new_env <- new_environment(list(list2 = list2), env)
 
-  new_function(fmls, body, env = new_env)
+  new_function(fmls, body, new_env)
 }
+
+#' @export
+#' @rdname make_constructor
+make_constructor.Stat <- function(x, ..., checks = exprs(), env = caller_env()) {
+  # Check that we can independently find the stat
+  stat <- gsub("^stat_", "", snake_class(x))
+  check_subclass(stat, "Stat", env = env)
+
+  # Split additional arguments into required and extra ones
+  args <- enexprs(...)
+  fixed_fmls_names <- c("mapping", "data", "geom", "position", "...",
+                        "na.rm", "show.legend", "inherit.aes")
+  extra_args <- setdiff(names(args), fixed_fmls_names)
+  if ("stat" %in% extra_args) {
+    cli::cli_abort("{.arg stat} is a reversed argument.")
+  }
+
+  known_params <-
+    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics()))
+  missing_params <- setdiff(x$parameters(), known_params)
+
+  # Fill in missing parameters from the compute methods
+  if (length(missing_params) > 0) {
+    compute_args <- ggproto_formals(x$compute_panel)
+    if ("..." %in% names(compute_args)) {
+      compute_args <- ggproto_formals(x$compute_group)
+    }
+    params <- intersect(missing_params, names(compute_args))
+    extra_args <- c(extra_args, params)
+    for (param in params) {
+      if (!identical(compute_args[[param]], missing_arg())) {
+        args[param] <- compute_args[param]
+      }
+    }
+    extra_args <- intersect(extra_args, names(args))
+    missing_params <- setdiff(missing_params, names(args))
+    if (length(missing_params) > 0) {
+      cli::cli_warn(
+        "In {.fn stat_{stat}}: please consider providing default values for: \\
+        {missing_params}."
+      )
+    }
+  }
+
+  # Build function formals
+  fmls <- pairlist2(
+    mapping  = args$mapping,
+    data     = args$data,
+    geom     = args$geom %||% cli::cli_abort("{.arg geom} is required."),
+    position = args$position %||% "identity",
+    `...`    = missing_arg(),
+    !!!args[extra_args],
+    na.rm = args$na.rm %||% FALSE,
+    show.legend = args$show.legend %||% NA,
+    inherit.aes = args$inherit.aes %||% TRUE
+  )
+
+  # Construct params for the `layer(params)` argument
+  params <- exprs(!!!syms(c("na.rm", extra_args)), .named = TRUE)
+  params <- call2("list2", !!!params, quote(...))
+
+  # Construct rest of `layer()` call
+  layer_args <- syms(setdiff(fixed_fmls_names, c("...", "na.rm")))
+  layer_args <- append(layer_args, list(stat = stat), after = 3)
+  layer_args <- exprs(!!!layer_args, params = !!params, .named = TRUE)
+  body <- call2("layer", !!!layer_args)
+
+  # Prepend any checks
+  if (length(exprs) > 0) {
+    lang <- vapply(checks, is_call, logical(1))
+    if (!all(lang)) {
+      cli::cli_abort(
+        "{.arg checks} must be a list of calls, such as one constructed \\
+        with {.fn rlang::exprs}."
+      )
+    }
+  }
+  body <- call2("{", !!!checks, body)
+
+  # We encapsulate rlang::list2
+  new_env <- new_environment(list(list2 = list2), env)
+
+  new_function(fmls, body, new_env)
+}
+
