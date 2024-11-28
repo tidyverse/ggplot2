@@ -57,7 +57,10 @@ StatBin2d <- ggproto(
 #'   ncount   = "count, scaled to maximum of 1.",
 #'   ndensity = "density, scaled to a maximum of 1."
 #' )
-stat_bin_2d <- make_constructor(StatBin2d, geom = "tile")
+stat_bin_2d <- make_constructor(
+  StatBin2d, geom = "tile",
+  omit = c("breaks", "origin")
+)
 
 #' @export
 #' @rdname geom_bin_2d

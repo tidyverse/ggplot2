@@ -82,5 +82,5 @@ StatAlign <- ggproto(
 #' @rdname geom_ribbon
 stat_align <- make_constructor(
   StatAlign, geom = "area",
-  exclude = c("unique_loc", "adjust")
+  omit = c("unique_loc", "adjust")
 )

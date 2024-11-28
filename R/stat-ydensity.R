@@ -116,7 +116,8 @@ StatYdensity <- ggproto(
 #' @rdname geom_violin
 stat_ydensity <- make_constructor(
   StatYdensity, geom = "violin", position = "dodge",
-  checks = exprs(scale <- arg_match0(scale, c("area", "count", "width")))
+  checks = exprs(scale <- arg_match0(scale, c("area", "count", "width"))),
+  orientation = NA, omit = "width"
 )
 
 calc_bw <- function(x, bw) {

@@ -73,7 +73,10 @@ StatQuantile <- ggproto(
 #' )
 #' @export
 #' @rdname geom_quantile
-stat_quantile <- make_constructor(StatQuantile, geom = "quantile")
+stat_quantile <- make_constructor(
+  StatQuantile, geom = "quantile",
+  omit = c("xseq", "lambda")
+)
 
 quant_pred <- function(quantile, data, method, formula, weight, grid,
                        method.args = method.args) {

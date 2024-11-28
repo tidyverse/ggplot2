@@ -100,11 +100,17 @@ StatContourFilled <- ggproto(
 #'
 #'
 #' @rdname geom_contour
-stat_contour <- make_constructor(StatContour, geom = "contour")
+stat_contour <- make_constructor(
+  StatContour, geom = "contour",
+  omit = "z.range"
+)
 
 #' @rdname geom_contour
 #' @export
-stat_contour_filled <- make_constructor(StatContourFilled, geom = "contour_filled")
+stat_contour_filled <- make_constructor(
+  StatContourFilled, geom = "contour_filled",
+  omit = "z.range"
+)
 
 #' Calculate the breaks used for contouring
 #'

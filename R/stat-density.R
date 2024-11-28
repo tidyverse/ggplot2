@@ -76,7 +76,10 @@ StatDensity <- ggproto(
 #' )
 #' @export
 #' @rdname geom_density
-stat_density <- make_constructor(StatDensity, geom = "area", position = "stack")
+stat_density <- make_constructor(
+  StatDensity, geom = "area", position = "stack",
+  orientation = NA
+)
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
                             kernel = "gaussian", n = 512,

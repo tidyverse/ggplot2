@@ -56,7 +56,7 @@ StatQqLine <- ggproto(
 #' defaults to `c(.25, .75)`.
 #' @param fullrange Should the q-q line span the full range of the plot, or just
 #'   the data
-geom_qq_line <- make_constructor(StatQqLine, geom = "path")
+geom_qq_line <- make_constructor(StatQqLine, geom = "path", omit = "quantiles")
 
 #' @export
 #' @rdname geom_qq

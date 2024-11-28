@@ -66,5 +66,5 @@ StatCount <- ggproto(
 #' @rdname geom_bar
 stat_count <- make_constructor(
   StatCount, geom = "bar", position = "stack",
-  orientation = NA
+  orientation = NA, omit = "width"
 )

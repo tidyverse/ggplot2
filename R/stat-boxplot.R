@@ -108,5 +108,5 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 #' )
 stat_boxplot <- make_constructor(
   StatBoxplot, geom = "boxplot", position = "dodge2",
-  orientation = NA
+  orientation = NA, omit = "width"
 )

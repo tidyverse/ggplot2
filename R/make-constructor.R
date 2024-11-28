@@ -44,7 +44,8 @@ make_constructor <- function(x, ...) {
 
 #' @export
 #' @rdname make_constructor
-make_constructor.Geom <- function(x, ..., checks = exprs(), env = caller_env()) {
+make_constructor.Geom <- function(x, ..., checks = exprs(), omit = character(),
+                                  env = caller_env()) {
 
   # Check that we can independently find the geom
   geom <- gsub("^geom_", "", snake_class(x))
@@ -61,7 +62,7 @@ make_constructor.Geom <- function(x, ..., checks = exprs(), env = caller_env()) 
 
   # Fill in values for parameters from draw functions
   known_params <-
-    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics()))
+    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics(), omit))
   missing_params <- setdiff(x$parameters(), known_params)
   if (length(missing_params) > 0) {
     draw_args <- ggproto_formals(x$draw_panel)
@@ -128,7 +129,8 @@ make_constructor.Geom <- function(x, ..., checks = exprs(), env = caller_env()) 
 
 #' @export
 #' @rdname make_constructor
-make_constructor.Stat <- function(x, ..., checks = exprs(), env = caller_env()) {
+make_constructor.Stat <- function(x, ..., checks = exprs(), omit = character(),
+                                  env = caller_env()) {
   # Check that we can independently find the stat
   stat <- gsub("^stat_", "", snake_class(x))
   check_subclass(stat, "Stat", env = env)
@@ -143,7 +145,7 @@ make_constructor.Stat <- function(x, ..., checks = exprs(), env = caller_env()) 
   }
 
   known_params <-
-    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics()))
+    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics(), omit))
   missing_params <- setdiff(x$parameters(), known_params)
 
   # Fill in missing parameters from the compute methods

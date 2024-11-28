@@ -86,7 +86,10 @@ StatSummary2d <- ggproto(
 #' d + stat_summary_hex()
 #' d + stat_summary_hex(fun = ~ sum(.x^2))
 #' }
-stat_summary_2d <- make_constructor(StatSummary2d, geom = "tile")
+stat_summary_2d <- make_constructor(
+  StatSummary2d, geom = "tile",
+  omit = c("breaks", "origin")
+)
 
 #' @export
 #' @rdname stat_summary_2d

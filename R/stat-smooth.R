@@ -174,7 +174,7 @@ StatSmooth <- ggproto(
 #' )
 #' @export
 #' @rdname geom_smooth
-stat_smooth <- make_constructor(StatSmooth, geom = "smooth")
+stat_smooth <- make_constructor(StatSmooth, geom = "smooth", orientation = NA)
 
 # This function exists to silence an undeclared import warning
 gam_method <- function() {
