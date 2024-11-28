@@ -1,55 +1,9 @@
-#' @param fun Function to use. Either 1) an anonymous function in the base or
-#'   rlang formula syntax (see [rlang::as_function()])
-#'   or 2) a quoted or character name referencing a function; see examples. Must
-#'   be vectorised.
-#' @param n Number of points to interpolate along the x axis.
-#' @param args List of additional arguments passed on to the function defined by `fun`.
-#' @param xlim Optionally, specify the range of the function.
-#' @eval rd_computed_vars(
-#'   x = "`x` values along a grid.",
-#'   y = "values of the function evaluated at corresponding `x`."
-#' )
-#' @seealso [rlang::as_function()]
-#' @export
-#' @rdname geom_function
-stat_function <- function(mapping = NULL, data = NULL,
-                          geom = "function", position = "identity",
-                          ...,
-                          fun,
-                          xlim = NULL,
-                          n = 101,
-                          args = list(),
-                          na.rm = FALSE,
-                          show.legend = NA,
-                          inherit.aes = TRUE) {
-  if (is.null(data)) {
-    data <- ensure_nonempty_data
-  }
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatFunction,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      fun = fun,
-      n = n,
-      args = args,
-      na.rm = na.rm,
-      xlim = xlim,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatFunction <- ggproto("StatFunction", Stat,
+StatFunction <- ggproto(
+  "StatFunction", Stat,
   default_aes = aes(x = NULL, y = after_scale(y)),
 
   compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
@@ -80,6 +34,25 @@ StatFunction <- ggproto("StatFunction", Stat,
 
     data_frame0(x = xseq, y = y_out)
   }
+)
+
+#' @param fun Function to use. Either 1) an anonymous function in the base or
+#'   rlang formula syntax (see [rlang::as_function()])
+#'   or 2) a quoted or character name referencing a function; see examples. Must
+#'   be vectorised.
+#' @param n Number of points to interpolate along the x axis.
+#' @param args List of additional arguments passed on to the function defined by `fun`.
+#' @param xlim Optionally, specify the range of the function.
+#' @eval rd_computed_vars(
+#'   x = "`x` values along a grid.",
+#'   y = "values of the function evaluated at corresponding `x`."
+#' )
+#' @seealso [rlang::as_function()]
+#' @export
+#' @rdname geom_function
+stat_function <- make_constructor(
+  StatFunction, geom = "function", fun = ,
+  checks = exprs(data <- data %||% ensure_nonempty_data)
 )
 
 # Convenience function used by `stat_function()` and

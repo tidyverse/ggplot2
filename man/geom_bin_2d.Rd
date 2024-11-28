@@ -13,6 +13,8 @@ geom_bin_2d(
   stat = "bin2d",
   position = "identity",
   ...,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -24,8 +26,8 @@ stat_bin_2d(
   geom = "tile",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
+  bins = 30,
   drop = TRUE,
   na.rm = FALSE,
   show.legend = NA,
@@ -94,6 +96,10 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -115,11 +121,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 these connections, see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom}
 arguments work.}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
-
 \item{binwidth}{Numeric vector giving bin width in both vertical and
 horizontal directions. Overrides \code{bins} if both set.}
+
+\item{bins}{numeric vector giving number of bins in both vertical and
+horizontal directions. Set to 30 by default.}
 
 \item{drop}{if \code{TRUE} removes all cells with 0 counts.}
 }

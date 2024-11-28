@@ -1,3 +1,52 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatEcdf <- ggproto(
+  "StatEcdf", Stat,
+  required_aes = c("x|y"),
+
+  default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf), weight = NULL),
+
+  setup_params = function(self, data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
+    }
+
+    params
+  },
+
+  compute_group = function(data, scales, n = NULL, pad = TRUE, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+    # If n is NULL, use raw values; otherwise interpolate
+    if (is.null(n)) {
+      x <- unique0(data$x)
+    } else {
+      x <- seq(min(data$x), max(data$x), length.out = n)
+    }
+
+    if (pad) {
+      x <- c(-Inf, x, Inf)
+    }
+    data_ecdf <- wecdf(data$x, data$weight)(x)
+
+    df_ecdf <- data_frame0(
+      x = x,
+      y = data_ecdf,
+      ecdf = data_ecdf,
+      .size = length(x)
+    )
+    df_ecdf$flipped_aes <- flipped_aes
+    flip_data(df_ecdf, flipped_aes)
+  },
+
+  dropped_aes = "weight"
+)
+
 #' Compute empirical cumulative distribution
 #'
 #' The empirical cumulative distribution function (ECDF) provides an alternative
@@ -62,79 +111,7 @@
 #'     aes(weight = weights),
 #'     data = weighted, colour = "green"
 #'   )
-stat_ecdf <- function(mapping = NULL, data = NULL,
-                      geom = "step", position = "identity",
-                      ...,
-                      n = NULL,
-                      pad = TRUE,
-                      na.rm = FALSE,
-                      show.legend = NA,
-                      inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatEcdf,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      n = n,
-      pad = pad,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-StatEcdf <- ggproto("StatEcdf", Stat,
-  required_aes = c("x|y"),
-
-  default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf), weight = NULL),
-
-  setup_params = function(self, data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
-
-    has_x <- !(is.null(data$x) && is.null(params$x))
-    has_y <- !(is.null(data$y) && is.null(params$y))
-    if (!has_x && !has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
-    }
-
-    params
-  },
-
-  compute_group = function(data, scales, n = NULL, pad = TRUE, flipped_aes = FALSE) {
-    data <- flip_data(data, flipped_aes)
-    # If n is NULL, use raw values; otherwise interpolate
-    if (is.null(n)) {
-      x <- unique0(data$x)
-    } else {
-      x <- seq(min(data$x), max(data$x), length.out = n)
-    }
-
-    if (pad) {
-      x <- c(-Inf, x, Inf)
-    }
-    data_ecdf <- wecdf(data$x, data$weight)(x)
-
-    df_ecdf <- data_frame0(
-      x = x,
-      y = data_ecdf,
-      ecdf = data_ecdf,
-      .size = length(x)
-    )
-    df_ecdf$flipped_aes <- flipped_aes
-    flip_data(df_ecdf, flipped_aes)
-  },
-
-  dropped_aes = "weight"
-)
+stat_ecdf <- make_constructor(StatEcdf, geom = "step")
 
 # Weighted eCDF function
 wecdf <- function(x, weights = NULL) {
