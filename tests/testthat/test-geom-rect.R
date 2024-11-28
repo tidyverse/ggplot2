@@ -29,8 +29,5 @@ test_that("geom_rect can derive corners", {
   expect_equal(full[, corners], test[, corners])
 
   test <- full[, c("x", "y")]
-  expect_error(
-    GeomRect$setup_data(test, NULL),
-    "requires two of the following aesthetics"
-  )
+  expect_snapshot(GeomRect$setup_data(test, NULL), error = TRUE)
 })

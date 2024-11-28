@@ -5,11 +5,11 @@
 %   R/coord-cartesian-.R, R/coord-fixed.R, R/coord-flip.R, R/coord-map.R,
 %   R/coord-polar.R, R/coord-quickmap.R, R/coord-radial.R, R/coord-transform.R,
 %   R/facet-.R, R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
-%   R/geom-abline.R, R/geom-rect.R, R/geom-bar.R, R/geom-tile.R, R/geom-blank.R,
-%   R/geom-boxplot.R, R/geom-col.R, R/geom-path.R, R/geom-contour.R,
-%   R/geom-point.R, R/geom-crossbar.R, R/geom-segment.R, R/geom-curve.R,
-%   R/geom-ribbon.R, R/geom-density.R, R/geom-density2d.R, R/geom-dotplot.R,
-%   R/geom-errorbar.R, R/geom-errorbarh.R, R/geom-function.R, R/geom-hex.R,
+%   R/geom-abline.R, R/geom-rect.R, R/geom-bar.R, R/geom-tile.R, R/geom-bin2d.R,
+%   R/geom-blank.R, R/geom-boxplot.R, R/geom-col.R, R/geom-path.R,
+%   R/geom-contour.R, R/geom-point.R, R/geom-crossbar.R, R/geom-segment.R,
+%   R/geom-curve.R, R/geom-ribbon.R, R/geom-density.R, R/geom-density2d.R,
+%   R/geom-dotplot.R, R/geom-errorbar.R, R/geom-function.R, R/geom-hex.R,
 %   R/geom-hline.R, R/geom-label.R, R/geom-linerange.R, R/geom-pointrange.R,
 %   R/geom-quantile.R, R/geom-rug.R, R/geom-smooth.R, R/geom-spoke.R,
 %   R/geom-text.R, R/geom-violin.R, R/geom-vline.R, R/guide-.R, R/guide-axis.R,
@@ -56,6 +56,7 @@
 \alias{GeomRect}
 \alias{GeomBar}
 \alias{GeomTile}
+\alias{GeomBin2d}
 \alias{GeomBlank}
 \alias{GeomBoxplot}
 \alias{GeomCol}

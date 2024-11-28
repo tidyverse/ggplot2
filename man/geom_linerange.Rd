@@ -4,6 +4,7 @@
 \name{geom_crossbar}
 \alias{geom_crossbar}
 \alias{geom_errorbar}
+\alias{geom_errorbarh}
 \alias{geom_linerange}
 \alias{geom_pointrange}
 \title{Vertical intervals: lines, crossbars & errorbars}
@@ -14,11 +15,17 @@ geom_crossbar(
   stat = "identity",
   position = "identity",
   ...,
-  lineend = "butt",
-  linejoin = "mitre",
+  middle.colour = NULL,
+  middle.color = NULL,
+  middle.linetype = NULL,
+  middle.linewidth = NULL,
+  box.colour = NULL,
+  box.color = NULL,
+  box.linetype = NULL,
+  box.linewidth = NULL,
   fatten = 2.5,
-  width = NULL,
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -35,6 +42,8 @@ geom_errorbar(
   show.legend = NA,
   inherit.aes = TRUE
 )
+
+geom_errorbarh(..., orientation = "y")
 
 geom_linerange(
   mapping = NULL,
@@ -138,19 +147,23 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{lineend}{Line end style (round, butt, square).}
+\item{middle.colour, middle.color, middle.linetype, middle.linewidth}{Default aesthetics for the middle line. Set to \code{NULL} to inherit from the
+data's aesthetics.}
 
-\item{linejoin}{Line join style (round, mitre, bevel).}
+\item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
+data's aesthetics.}
 
 \item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{geom_crossbar()} and the middle point in
 \code{geom_pointrange()}.}
 
-\item{width}{Bar width. By default, set to 90\% of the \code{\link[=resolution]{resolution()}} of
-the data.}
-
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -165,14 +178,18 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{width}{Bar width. By default, set to 90\% of the \code{\link[=resolution]{resolution()}} of
+the data.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},
 \code{ymin} and \code{ymax}. Each case draws a single graphical object.
+}
+\note{
+\code{geom_errorbarh()} is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Use
+\code{geom_errorbar(orientation = "y")} instead.
 }
 \section{Orientation}{
 
@@ -247,6 +264,5 @@ geom_errorbar(
 }
 \seealso{
 \code{\link[=stat_summary]{stat_summary()}} for examples of these guys in use,
-\code{\link[=geom_smooth]{geom_smooth()}} for continuous analogue,
-\code{\link[=geom_errorbarh]{geom_errorbarh()}} for a horizontal error bar.
+\code{\link[=geom_smooth]{geom_smooth()}} for continuous analogue
 }

@@ -128,12 +128,14 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   }
 
   transform <- as.transform(transform)
+  limits   <- allow_lambda(limits)
+
   if (!is.null(limits) && !is.function(limits)) {
     limits <- transform$transform(limits)
   }
+  check_continuous_limits(limits, call = call)
 
   # Convert formula to function if appropriate
-  limits   <- allow_lambda(limits)
   breaks   <- allow_lambda(breaks)
   labels   <- allow_lambda(labels)
   rescaler <- allow_lambda(rescaler)
@@ -319,7 +321,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   }
 
   transform <- as.transform(transform)
-  if (!is.null(limits)) {
+  if (!is.null(limits) && !is.function(limits)) {
     limits <- transform$transform(limits)
   }
 
@@ -751,7 +753,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # don't support conversion to numeric (#5304)
     if (zero_range(as.numeric(transformation$transform(limits)))) {
       breaks <- limits[1]
-    } else if (is.waive(self$breaks)) {
+    } else if (is.waiver(self$breaks)) {
       if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
         breaks <- transformation$breaks(limits, self$n.breaks)
       } else {
@@ -793,7 +795,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     b <- b[is.finite(b)]
 
     transformation <- self$get_transformation()
-    if (is.waive(self$minor_breaks)) {
+    if (is.waiver(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
       } else {
@@ -840,7 +842,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       )
     }
 
-    if (is.waive(self$labels)) {
+    if (is.waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
@@ -1020,7 +1022,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       )
     }
 
-    if (is.waive(self$breaks)) {
+    if (is.waiver(self$breaks)) {
       breaks <- limits
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -1029,7 +1031,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     # Breaks only occur only on values in domain
-    in_domain <- intersect(breaks, limits)
+    breaks <- setNames(as.character(breaks), names(breaks))
+    in_domain <- vec_set_intersect(breaks, as.character(limits))
     structure(in_domain, pos = match(in_domain, breaks))
   },
 
@@ -1082,7 +1085,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       )
     }
 
-    if (is.waive(self$labels)) {
+    if (is.waiver(self$labels)) {
+      if (!is.null(names(breaks))) {
+        return(names(breaks))
+      }
       if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
         format(breaks, justify = "none")
@@ -1242,7 +1248,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
-    } else if (is.waive(self$breaks)) {
+    } else if (is.waiver(self$breaks)) {
       if (self$nice.breaks) {
         if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
@@ -1332,7 +1338,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
-    } else if (is.waive(self$labels)) {
+    } else if (is.waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
@@ -1398,6 +1404,16 @@ check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) 
   }
   msg <- paste0("{.field {name}} transformation introduced infinite values", end)
   cli::cli_warn(msg, call = call)
+}
+
+check_continuous_limits <- function(limits, ...,
+                                    arg = caller_arg(limits),
+                                    call = caller_env()) {
+  if (is.null(limits) || is.function(limits)) {
+    return(invisible())
+  }
+  check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
+  check_length(limits, 2L, arg = arg, call = call)
 }
 
 trans_support_nbreaks <- function(trans) {

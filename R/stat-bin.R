@@ -6,6 +6,10 @@ StatBin <- ggproto(
   "StatBin", Stat,
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+    params$keep.zeroes <- arg_match0(
+      params$keep.zeroes %||% "all",
+      c("all", "none", "inner"), arg_nm = "keep.zeroes"
+    )
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
@@ -56,7 +60,8 @@ StatBin <- ggproto(
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE) {
+                           breaks = NULL, flipped_aes = FALSE,
+                           keep.zeroes = "all") {
     x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
       if (is.function(breaks)) {
@@ -77,6 +82,14 @@ StatBin <- ggproto(
         boundary = boundary, closed = closed)
     }
     bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
+
+    keep <- switch(
+      keep.zeroes,
+      none  = bins$count != 0,
+      inner = inner_runs(bins$count != 0),
+      TRUE
+    )
+    bins <- vec_slice(bins, keep)
     bins$flipped_aes <- flipped_aes
     flip_data(bins, flipped_aes)
   },
@@ -116,6 +129,10 @@ StatBin <- ggproto(
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
 #'   frequency polygons touch 0. Defaults to `FALSE`.
+#' @param keep.zeroes Treatment of zero count bins. If `"all"` (default), such
+#'   bins are kept as-is. If `"none"`, all zero count bins are filtered out.
+#'   If `"inner"` only zero count bins at the flanks are filtered out, but not
+#'   in the middle.
 #' @eval rd_computed_vars(
 #'   count    = "number of points in bin.",
 #'   density  = "density of points in bin, scaled to integrate to 1.",
@@ -138,3 +155,12 @@ stat_bin <- make_constructor(
   StatBin, geom = "bar", position = "stack",
   orientation = NA
 )
+
+inner_runs <- function(x) {
+  rle <- vec_unrep(x)
+  nruns <- nrow(rle)
+  inner <- rep(TRUE, nruns)
+  i <- unique(c(1, nruns))
+  inner[i] <- inner[i] & rle$key[i]
+  rep(inner, rle$times)
+}

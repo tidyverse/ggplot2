@@ -275,6 +275,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     data <- rename_data(self, data)
     bbox <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
     arc  <- panel_params$arc  %||% c(0, 2 * pi)

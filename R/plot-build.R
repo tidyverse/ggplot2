@@ -288,7 +288,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_margin <- calc_element("plot.margin", theme)
   plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
-  if (is.element(theme$plot.background)) {
+  if (is.theme_element(theme$plot.background)) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
@@ -358,13 +358,10 @@ table_add_tag <- function(table, label, theme) {
       ),
       call = expr(theme()))
     }
-    if (length(position) != 2) {
-      cli::cli_abort(paste0(
-        "A {.cls numeric} {.arg plot.tag.position} ",
-        "theme setting must have length 2."
-      ),
-      call = expr(theme()))
-    }
+    check_length(
+      position, 2L, call = expr(theme()),
+      arg = I("A {.cls numeric} {.arg plot.tag.position}")
+    )
     top <- left <- right <- bottom <- FALSE
   } else {
     # Break position into top/left/right/bottom
