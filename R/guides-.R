@@ -517,9 +517,8 @@ Guides <- ggproto(
     positions <- vapply(
       params,
       function(p) p$position[1] %||% default_position,
-      character(1)
+      character(1), USE.NAMES = FALSE
     )
-    positions <- factor(positions, levels = c(.trbl, "inside"))
 
     directions <- rep(direction %||% "vertical", length(positions))
     if (is.null(direction)) {
@@ -529,11 +528,26 @@ Guides <- ggproto(
     grobs <- vector("list", length(guides))
     for (i in seq_along(grobs)) {
       grobs[[i]] <- guides[[i]]$draw(
-        theme = theme, position = as.character(positions[i]),
+        theme = theme, position = positions[i],
         direction = directions[i], params = params[[i]]
       )
+      if (identical(positions[i], "inside")) {
+        positions[i] <- paste(
+          "inside",
+          paste(attr(.subset2(grobs, i), "inside_position"), collapse = "_"),
+          paste(attr(.subset2(grobs, i), "inside_justification"), 
+            collapse = "_"
+          ),
+          sep = "_"
+        )
+      }
     }
-    keep <- !vapply(grobs, is.zero, logical(1))
+
+    # move inside legends to the last
+    positions <- factor(positions, 
+      levels = c(.trbl, unique(positions[startsWith(positions, "inside")]))
+    )
+    keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
     split(grobs[keep], positions[keep])
   },
 
@@ -546,8 +560,10 @@ Guides <- ggproto(
     # Determine default direction
     direction <- switch(
       position,
-      inside = , left = , right = "vertical",
-      top = , bottom = "horizontal"
+      left = , right = "vertical",
+      top = , bottom = "horizontal",
+      # for all inside guide legends
+      "vertical"
     )
 
     # Populate missing theme arguments
@@ -569,16 +585,22 @@ Guides <- ggproto(
     # Global justification of the complete legend box
     global_just <- paste0("legend.justification.", position)
     global_just <- valid.just(calc_element(global_just, theme))
-
-    if (position == "inside") {
+    if (startsWith(position, "inside")) {
       # The position of inside legends are set by their justification
-      inside_position <- theme$legend.position.inside %||% global_just
-      global_xjust  <- inside_position[1]
-      global_yjust  <- inside_position[2]
-      global_margin <- margin()
-    } else {
+      global_just <- attr(.subset2(grobs, 1L), "inside_justification") %||%
+        # fallback to original method of ggplot2 <=3.3.5
+        global_just
+      inside_position <- attr(.subset2(grobs, 1L), "inside_position") %||%
+        # fallback to original method of ggplot2 <=3.3.5
+        .subset2(theme, "legend.position.inside") %||% global_just
       global_xjust  <- global_just[1]
       global_yjust  <- global_just[2]
+      x <- inside_position[1]
+      y <- inside_position[2]
+      global_margin <- margin()
+    } else {
+      x <- global_xjust  <- global_just[1]
+      y <- global_yjust  <- global_just[2]
       # Legends to the side of the plot need a margin for justification
       # relative to the plot panel
       global_margin <- margin(
@@ -620,7 +642,7 @@ Guides <- ggproto(
 
       # Set global justification
       vp <- viewport(
-        x = global_xjust, y = global_yjust, just = global_just,
+        x = x, y = y, just = global_just,
         height = max(heights),
         width  = vp_width
       )
@@ -658,7 +680,7 @@ Guides <- ggproto(
 
       # Set global justification
       vp <- viewport(
-        x = global_xjust, y = global_yjust, just = global_just,
+        x = x, y = y, just = global_just,
         height = vp_height,
         width =  max(widths)
       )

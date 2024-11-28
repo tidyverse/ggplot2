@@ -169,18 +169,20 @@ GuideLegend <- ggproto(
   hashables = exprs(title, key$.label, name),
 
   elements = list(
-    background     = "legend.background",
-    margin         = "legend.margin",
-    key            = "legend.key",
-    key_height     = "legend.key.height",
-    key_width      = "legend.key.width",
-    text           = "legend.text",
-    theme.title    = "legend.title",
-    spacing_x      = "legend.key.spacing.x",
-    spacing_y      = "legend.key.spacing.y",
-    text_position  = "legend.text.position",
-    title_position = "legend.title.position",
-    byrow          = "legend.byrow"
+    background           = "legend.background",
+    margin               = "legend.margin",
+    key                  = "legend.key",
+    key_height           = "legend.key.height",
+    key_width            = "legend.key.width",
+    text                 = "legend.text",
+    theme.title          = "legend.title",
+    spacing_x            = "legend.key.spacing.x",
+    spacing_y            = "legend.key.spacing.y",
+    text_position        = "legend.text.position",
+    title_position       = "legend.title.position",
+    byrow                = "legend.byrow",
+    inside_position      = "legend.position.inside",
+    inside_justification = "legend.justification.inside"
   ),
 
   extract_params = function(scale, params,
@@ -342,7 +344,14 @@ GuideLegend <- ggproto(
       )
     )
     elements$text <- calc_element("legend.text", add_theme(theme, text))
-    Guide$setup_elements(params, elements, theme)
+    ans <- Guide$setup_elements(params, elements, theme)
+    ans$inside_justification <- .subset2(
+      theme, "legend.justification.inside"
+    ) %||% .subset2(ans, "inside_position")
+    ans$inside_justification <- valid.just(.subset2(
+      ans, "inside_justification"
+    ))
+    ans
   },
 
   override_elements = function(params, elements, theme) {
@@ -559,7 +568,14 @@ GuideLegend <- ggproto(
       gt <- gtable_add_grob(
         gt, elements$background,
         name = "background", clip = "off",
-        t = 1, r = -1, b = -1, l =1, z = -Inf
+        t = 1, r = -1, b = -1, l = 1, z = -Inf
+      )
+    }
+    # attach the `position` and `justification` for the inside legends
+    if (identical(.subset2(params, "position"), "inside")) {
+      attr(gt, "inside_position") <- .subset2(elements, "inside_position")
+      attr(gt, "inside_justification") <- .subset2(
+        elements, "inside_justification"
       )
     }
     gt

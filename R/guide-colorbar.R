@@ -212,19 +212,21 @@ GuideColourbar <- ggproto(
   hashables = exprs(title, key$.label, decor, name),
 
   elements = list(
-    background     = "legend.background",
-    margin         = "legend.margin",
-    key            = "legend.key",
-    key_height     = "legend.key.height",
-    key_width      = "legend.key.width",
-    text           = "legend.text",
-    theme.title    = "legend.title",
-    text_position  = "legend.text.position",
-    title_position = "legend.title.position",
-    axis_line      = "legend.axis.line",
-    ticks          = "legend.ticks",
-    ticks_length   = "legend.ticks.length",
-    frame          = "legend.frame"
+    background           = "legend.background",
+    margin               = "legend.margin",
+    key                  = "legend.key",
+    key_height           = "legend.key.height",
+    key_width            = "legend.key.width",
+    text                 = "legend.text",
+    theme.title          = "legend.title",
+    text_position        = "legend.text.position",
+    title_position       = "legend.title.position",
+    axis_line            = "legend.axis.line",
+    ticks                = "legend.ticks",
+    ticks_length         = "legend.ticks.length",
+    frame                = "legend.frame",
+    inside_position      = "legend.position.inside",
+    inside_justification = "legend.justification.inside"
   ),
 
   extract_key = function(scale, aesthetic, ...) {
