@@ -26,8 +26,8 @@ stat_bin_hex(
   geom = "hex",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
+  bins = 30,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -121,11 +121,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{stat_bin_hex()}. For more information about overriding these connections,
 see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom} arguments work.}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
-
 \item{binwidth}{Numeric vector giving bin width in both vertical and
 horizontal directions. Overrides \code{bins} if both set.}
+
+\item{bins}{numeric vector giving number of bins in both vertical and
+horizontal directions. Set to 30 by default.}
 }
 \description{
 Divides the plane into regular hexagons, counts the number of cases in

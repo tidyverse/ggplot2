@@ -40,8 +40,8 @@ stat_count(
   geom = "bar",
   position = "stack",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )

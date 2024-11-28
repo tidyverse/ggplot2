@@ -26,14 +26,14 @@ stat_density(
   geom = "area",
   position = "stack",
   ...,
+  orientation = NA,
   bw = "nrd0",
   adjust = 1,
   kernel = "gaussian",
   n = 512,
   trim = FALSE,
-  na.rm = FALSE,
   bounds = c(-Inf, Inf),
-  orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -131,6 +131,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
 
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
@@ -159,11 +164,6 @@ one plot or if you are manually adjusting the scale limits.}
 finite, boundary effect of default density estimation will be corrected by
 reflecting tails outside \code{bounds} around their closest edge. Data points
 outside of bounds are removed with a warning.}
-
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of

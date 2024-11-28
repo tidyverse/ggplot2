@@ -12,8 +12,8 @@ stat_summary_2d(
   geom = "tile",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
+  bins = 30,
   drop = TRUE,
   fun = "mean",
   fun.args = list(),
@@ -28,8 +28,8 @@ stat_summary_hex(
   geom = "hex",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
+  bins = 30,
   drop = TRUE,
   fun = "mean",
   fun.args = list(),
@@ -113,11 +113,11 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
-
 \item{binwidth}{Numeric vector giving bin width in both vertical and
 horizontal directions. Overrides \code{bins} if both set.}
+
+\item{bins}{numeric vector giving number of bins in both vertical and
+horizontal directions. Set to 30 by default.}
 
 \item{drop}{drop if the output of \code{fun} is \code{NA}.}
 

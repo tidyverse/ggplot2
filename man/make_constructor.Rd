@@ -3,11 +3,26 @@
 \name{make_constructor}
 \alias{make_constructor}
 \alias{make_constructor.Geom}
+\alias{make_constructor.Stat}
 \title{Produce boilerplate constructors}
 \usage{
 make_constructor(x, ...)
 
-\method{make_constructor}{Geom}(x, ..., checks = exprs(), env = caller_env())
+\method{make_constructor}{Geom}(
+  x,
+  ...,
+  checks = exprs(),
+  omit = character(),
+  env = caller_env()
+)
+
+\method{make_constructor}{Stat}(
+  x,
+  ...,
+  checks = exprs(),
+  omit = character(),
+  env = caller_env()
+)
 }
 \arguments{
 \item{x}{An object to setup a constructor for.}
@@ -17,6 +32,10 @@ constructor. For layers, these are passed on to \code{\link[=layer]{layer(params
 
 \item{checks}{A list of calls to be evaluated before construction of the
 object, such as one constructed with \code{\link[rlang:defusing-advanced]{exprs()}}.}
+
+\item{omit}{A character vector of automatically retrieved argument names
+that should not be converted to user-facing arguments. Useful for
+internally computed variables.}
 
 \item{env}{An environment to search for the object.}
 }

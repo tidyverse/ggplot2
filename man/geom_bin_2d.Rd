@@ -26,8 +26,8 @@ stat_bin_2d(
   geom = "tile",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
+  bins = 30,
   drop = TRUE,
   na.rm = FALSE,
   show.legend = NA,
@@ -121,11 +121,11 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 these connections, see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom}
 arguments work.}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
-
 \item{binwidth}{Numeric vector giving bin width in both vertical and
 horizontal directions. Overrides \code{bins} if both set.}
+
+\item{bins}{numeric vector giving number of bins in both vertical and
+horizontal directions. Set to 30 by default.}
 
 \item{drop}{if \code{TRUE} removes all cells with 0 counts.}
 }

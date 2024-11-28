@@ -13,6 +13,9 @@ NULL
 #'   constructor. For layers, these are passed on to [`layer(params)`][layer()].
 #' @param checks A list of calls to be evaluated before construction of the
 #'   object, such as one constructed with [`exprs()`][rlang::exprs()].
+#' @param omit A character vector of automatically retrieved argument names
+#'   that should not be converted to user-facing arguments. Useful for
+#'   internally computed variables.
 #' @param env An environment to search for the object.
 #'
 #' @return A function

@@ -40,15 +40,15 @@ stat_bin(
   geom = "bar",
   position = "stack",
   ...,
+  orientation = NA,
   binwidth = NULL,
   bins = NULL,
   center = NULL,
   boundary = NULL,
-  breaks = NULL,
   closed = c("right", "left"),
   pad = FALSE,
+  breaks = NULL,
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -169,15 +169,15 @@ if \code{0} is outside the range of the data. Alternatively, this same alignment
 can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
 
-\item{breaks}{Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
-
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 }
 \description{
 Visualise the distribution of a single continuous variable by dividing
