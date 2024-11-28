@@ -179,9 +179,6 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{lineend}{Line end style (round, butt, square).}
-
-\item{width}{Bar width. By default, set to 90\% of the \code{\link[=resolution]{resolution()}} of
-the data.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},

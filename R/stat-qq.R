@@ -80,7 +80,7 @@ StatQq <- ggproto(
 #'   stat_qq() +
 #'   stat_qq_line()
 #' }
-geom_qq <- make_constructor(StatQq, geom = "point")
+geom_qq <- make_constructor(StatQq, geom = "point", omit = "quantiles")
 
 #' @export
 #' @rdname geom_qq
