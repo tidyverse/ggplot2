@@ -1,97 +1,9 @@
-#' @param method Smoothing method (function) to use, accepts either
-#'   `NULL` or a character vector, e.g. `"lm"`, `"glm"`, `"gam"`, `"loess"`
-#'   or a function, e.g. `MASS::rlm` or `mgcv::gam`, `stats::lm`, or `stats::loess`.
-#'   `"auto"` is also accepted for backwards compatibility.  It is equivalent to
-#'   `NULL`.
-#'
-#'   For `method = NULL` the smoothing method is chosen based on the
-#'   size of the largest group (across all panels). [stats::loess()] is
-#'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
-#'   used with `formula = y ~ s(x, bs = "cs")` with `method = "REML"`. Somewhat anecdotally,
-#'   `loess` gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
-#'   so does not work for larger datasets.
-#'
-#'   If you have fewer than 1,000 observations but want to use the same `gam()`
-#'   model that `method = NULL` would use, then set
-#'   `method = "gam", formula = y ~ s(x, bs = "cs")`.
-#' @param formula Formula to use in smoothing function, eg. `y ~ x`,
-#'   `y ~ poly(x, 2)`, `y ~ log(x)`. `NULL` by default, in which case
-#'   `method = NULL` implies `formula = y ~ x` when there are fewer than 1,000
-#'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
-#' @param se Display confidence band around smooth? (`TRUE` by default, see
-#'   `level` to control.)
-#' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
-#'   potentially beyond the data. This does not extend the line into any additional padding
-#'   created by `expansion`.
-#' @param xseq A numeric vector of values at which the smoother is evaluated.
-#'   When `NULL` (default), `xseq` is internally evaluated as a sequence of `n`
-#'   equally spaced points for continuous data.
-#' @param level Level of confidence band to use (0.95 by default).
-#' @param span Controls the amount of smoothing for the default loess smoother.
-#'   Smaller numbers produce wigglier lines, larger numbers produce smoother
-#'   lines. Only used with loess, i.e. when `method = "loess"`,
-#'   or when `method = NULL` (the default) and there are fewer than 1,000
-#'   observations.
-#' @param n Number of points at which to evaluate smoother.
-#' @param method.args List of additional arguments passed on to the modelling
-#'   function defined by `method`.
-#'
-#' @eval rd_computed_vars(
-#'   .details = "`stat_smooth()` provides the following variables, some of
-#'   which depend on the orientation:",
-#'   "y|x" = "Predicted value.",
-#'   "ymin|xmin" = "Lower pointwise confidence band around the mean.",
-#'   "ymax|xmax" = "Upper pointwise confidence band around the mean.",
-#'   "se" = "Standard error."
-#' )
-#' @export
-#' @rdname geom_smooth
-stat_smooth <- function(mapping = NULL, data = NULL,
-                        geom = "smooth", position = "identity",
-                        ...,
-                        method = NULL,
-                        formula = NULL,
-                        se = TRUE,
-                        n = 80,
-                        span = 0.75,
-                        fullrange = FALSE,
-                        xseq = NULL,
-                        level = 0.95,
-                        method.args = list(),
-                        na.rm = FALSE,
-                        orientation = NA,
-                        show.legend = NA,
-                        inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatSmooth,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      method = method,
-      formula = formula,
-      se = se,
-      n = n,
-      fullrange = fullrange,
-      level = level,
-      na.rm = na.rm,
-      orientation = orientation,
-      method.args = method.args,
-      span = span,
-      xseq = xseq,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatSmooth <- ggproto("StatSmooth", Stat,
+StatSmooth <- ggproto(
+  "StatSmooth", Stat,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     msg <- character()
@@ -213,6 +125,56 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
   required_aes = c("x", "y")
 )
+
+#' @param method Smoothing method (function) to use, accepts either
+#'   `NULL` or a character vector, e.g. `"lm"`, `"glm"`, `"gam"`, `"loess"`
+#'   or a function, e.g. `MASS::rlm` or `mgcv::gam`, `stats::lm`, or `stats::loess`.
+#'   `"auto"` is also accepted for backwards compatibility.  It is equivalent to
+#'   `NULL`.
+#'
+#'   For `method = NULL` the smoothing method is chosen based on the
+#'   size of the largest group (across all panels). [stats::loess()] is
+#'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
+#'   used with `formula = y ~ s(x, bs = "cs")` with `method = "REML"`. Somewhat anecdotally,
+#'   `loess` gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
+#'   so does not work for larger datasets.
+#'
+#'   If you have fewer than 1,000 observations but want to use the same `gam()`
+#'   model that `method = NULL` would use, then set
+#'   `method = "gam", formula = y ~ s(x, bs = "cs")`.
+#' @param formula Formula to use in smoothing function, eg. `y ~ x`,
+#'   `y ~ poly(x, 2)`, `y ~ log(x)`. `NULL` by default, in which case
+#'   `method = NULL` implies `formula = y ~ x` when there are fewer than 1,000
+#'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
+#' @param se Display confidence band around smooth? (`TRUE` by default, see
+#'   `level` to control.)
+#' @param fullrange If `TRUE`, the smoothing line gets expanded to the range of the plot,
+#'   potentially beyond the data. This does not extend the line into any additional padding
+#'   created by `expansion`.
+#' @param xseq A numeric vector of values at which the smoother is evaluated.
+#'   When `NULL` (default), `xseq` is internally evaluated as a sequence of `n`
+#'   equally spaced points for continuous data.
+#' @param level Level of confidence band to use (0.95 by default).
+#' @param span Controls the amount of smoothing for the default loess smoother.
+#'   Smaller numbers produce wigglier lines, larger numbers produce smoother
+#'   lines. Only used with loess, i.e. when `method = "loess"`,
+#'   or when `method = NULL` (the default) and there are fewer than 1,000
+#'   observations.
+#' @param n Number of points at which to evaluate smoother.
+#' @param method.args List of additional arguments passed on to the modelling
+#'   function defined by `method`.
+#'
+#' @eval rd_computed_vars(
+#'   .details = "`stat_smooth()` provides the following variables, some of
+#'   which depend on the orientation:",
+#'   "y|x" = "Predicted value.",
+#'   "ymin|xmin" = "Lower pointwise confidence band around the mean.",
+#'   "ymax|xmax" = "Upper pointwise confidence band around the mean.",
+#'   "se" = "Standard error."
+#' )
+#' @export
+#' @rdname geom_smooth
+stat_smooth <- make_constructor(StatSmooth, geom = "smooth")
 
 # This function exists to silence an undeclared import warning
 gam_method <- function() {

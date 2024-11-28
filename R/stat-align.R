@@ -1,33 +1,9 @@
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @export
-#' @rdname geom_ribbon
-stat_align <- function(mapping = NULL, data = NULL,
-                       geom = "area", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatAlign,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatAlign <- ggproto("StatAlign", Stat,
+StatAlign <- ggproto(
+  "StatAlign", Stat,
   extra_params = c("na.rm", "orientation"),
   required_aes = c("x", "y"),
 
@@ -98,4 +74,13 @@ StatAlign <- ggproto("StatAlign", Stat,
     )
     flip_data(data_aligned, flipped_aes)
   }
+)
+
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @export
+#' @rdname geom_ribbon
+stat_align <- make_constructor(
+  StatAlign, geom = "area",
+  exclude = c("unique_loc", "adjust")
 )

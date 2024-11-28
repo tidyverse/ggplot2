@@ -1,3 +1,18 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatEllipse <- ggproto(
+  "StatEllipse", Stat,
+  required_aes = c("x", "y"),
+
+  compute_group = function(data, scales, type = "t", level = 0.95,
+                           segments = 51, na.rm = FALSE) {
+    calculate_ellipse(data = data, vars = c("x", "y"), type = type,
+                      level = level, segments = segments)
+  }
+)
+
 #' Compute normal data ellipses
 #'
 #' The method for calculating the ellipses has been modified from
@@ -43,46 +58,7 @@
 #'
 #' ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
 #'   stat_ellipse(geom = "polygon")
-stat_ellipse <- function(mapping = NULL, data = NULL,
-                         geom = "path", position = "identity",
-                         ...,
-                         type = "t",
-                         level = 0.95,
-                         segments = 51,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatEllipse,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      type = type,
-      level = level,
-      segments = segments,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-StatEllipse <- ggproto("StatEllipse", Stat,
-  required_aes = c("x", "y"),
-
-  compute_group = function(data, scales, type = "t", level = 0.95,
-                           segments = 51, na.rm = FALSE) {
-    calculate_ellipse(data = data, vars = c("x", "y"), type = type,
-                      level = level, segments = segments)
-  }
-)
+stat_ellipse <- make_constructor(StatEllipse, geom = "path")
 
 calculate_ellipse <- function(data, vars, type, level, segments){
   dfn <- 2

@@ -1,47 +1,10 @@
-#' @eval rd_computed_vars(
-#'   count = "number of points in bin.",
-#'   prop  = "groupwise proportion"
-#' )
-#' @seealso [stat_bin()], which bins data in ranges and counts the
-#'   cases in each range. It differs from `stat_count()`, which counts the
-#'   number of cases at each `x` position (without binning into ranges).
-#'   [stat_bin()] requires continuous `x` data, whereas
-#'   `stat_count()` can be used for both discrete and continuous `x` data.
-#'
-#' @export
-#' @rdname geom_bar
-stat_count <- function(mapping = NULL, data = NULL,
-                       geom = "bar", position = "stack",
-                       ...,
-                       na.rm = FALSE,
-                       orientation = NA,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-
-  params <- list2(
-    na.rm = na.rm,
-    orientation = orientation,
-    ...
-  )
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatCount,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = params
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
 #' @include stat-.R
-StatCount <- ggproto("StatCount", Stat,
+StatCount <- ggproto(
+  "StatCount", Stat,
   required_aes = "x|y",
 
   default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
@@ -87,4 +50,21 @@ StatCount <- ggproto("StatCount", Stat,
   },
 
   dropped_aes = "weight"
+)
+
+#' @eval rd_computed_vars(
+#'   count = "number of points in bin.",
+#'   prop  = "groupwise proportion"
+#' )
+#' @seealso [stat_bin()], which bins data in ranges and counts the
+#'   cases in each range. It differs from `stat_count()`, which counts the
+#'   number of cases at each `x` position (without binning into ranges).
+#'   [stat_bin()] requires continuous `x` data, whereas
+#'   `stat_count()` can be used for both discrete and continuous `x` data.
+#'
+#' @export
+#' @rdname geom_bar
+stat_count <- make_constructor(
+  StatCount, geom = "bar", position = "stack",
+  orientation = NA
 )

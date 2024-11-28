@@ -1,49 +1,9 @@
-#' @param quantiles conditional quantiles of y to calculate and display
-#' @param formula formula relating y variables to x variables
-#' @param method Quantile regression method to use. Available options are `"rq"` (for
-#'    [`quantreg::rq()`]) and `"rqss"` (for [`quantreg::rqss()`]).
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @eval rd_computed_vars(
-#'   quantile = "Quantile of distribution."
-#' )
-#' @export
-#' @rdname geom_quantile
-stat_quantile <- function(mapping = NULL, data = NULL,
-                          geom = "quantile", position = "identity",
-                          ...,
-                          quantiles = c(0.25, 0.5, 0.75),
-                          formula = NULL,
-                          method = "rq",
-                          method.args = list(),
-                          na.rm = FALSE,
-                          show.legend = NA,
-                          inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatQuantile,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      quantiles = quantiles,
-      formula = formula,
-      method = method,
-      method.args = method.args,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatQuantile <- ggproto("StatQuantile", Stat,
+StatQuantile <- ggproto(
+  "StatQuantile", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
@@ -101,6 +61,19 @@ StatQuantile <- ggproto("StatQuantile", Stat,
   # weight is no longer available after transformation
   dropped_aes = "weight"
 )
+
+#' @param quantiles conditional quantiles of y to calculate and display
+#' @param formula formula relating y variables to x variables
+#' @param method Quantile regression method to use. Available options are `"rq"` (for
+#'    [`quantreg::rq()`]) and `"rqss"` (for [`quantreg::rqss()`]).
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @eval rd_computed_vars(
+#'   quantile = "Quantile of distribution."
+#' )
+#' @export
+#' @rdname geom_quantile
+stat_quantile <- make_constructor(StatQuantile, geom = "quantile")
 
 quant_pred <- function(quantile, data, method, formula, weight, grid,
                        method.args = method.args) {

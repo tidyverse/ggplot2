@@ -1,126 +1,9 @@
-#' @export
-#' @rdname geom_density_2d
-#' @param contour If `TRUE`, contour the results of the 2d density
-#'   estimation.
-#' @param contour_var Character string identifying the variable to contour
-#'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
-#'   on computed variables for details.
-#' @inheritDotParams geom_contour bins binwidth breaks
-#' @param n Number of grid points in each direction.
-#' @param h Bandwidth (vector of length two). If `NULL`, estimated
-#'   using [MASS::bandwidth.nrd()].
-#' @param adjust A multiplicative bandwidth adjustment to be used if 'h' is
-#'    'NULL'. This makes it possible to adjust the bandwidth while still
-#'    using the a bandwidth estimator. For example, `adjust = 1/2` means
-#'    use half of the default bandwidth.
-#' @eval rd_computed_vars(
-#'   .details = "`stat_density_2d()` and `stat_density_2d_filled()` compute
-#'   different variables depending on whether contouring is turned on or off.
-#'   With contouring off (`contour = FALSE`), both stats behave the same, and
-#'   the following variables are provided:",
-#'   density  = "The density estimate.",
-#'   ndensity = "Density estimate, scaled to a maximum of 1.",
-#'   count    = "Density estimate * number of observations in group.",
-#'   n        = "Number of observations in each group."
-#' )
-#'
-#' @section Computed variables:
-#' With contouring on (`contour = TRUE`), either [stat_contour()] or
-#' [stat_contour_filled()] (for contour lines or contour bands,
-#' respectively) is run after the density estimate has been obtained,
-#' and the computed variables are determined by these stats.
-#' Contours are calculated for one of the three types of density estimates
-#' obtained before contouring, `density`, `ndensity`, and `count`. Which
-#' of those should be used is determined by the `contour_var` parameter.
-#'
-#' @section Dropped variables:
-#' \describe{
-#'   \item{`z`}{After density estimation, the z values of individual data points are no longer available.}
-#' }
-#'
-#' If contouring is enabled, then similarly `density`, `ndensity`, and `count`
-#' are no longer available after the contouring pass.
-#'
-stat_density_2d <- function(mapping = NULL, data = NULL,
-                            geom = "density_2d", position = "identity",
-                            ...,
-                            contour = TRUE,
-                            contour_var = "density",
-                            n = 100,
-                            h = NULL,
-                            adjust = c(1, 1),
-                            na.rm = FALSE,
-                            show.legend = NA,
-                            inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatDensity2d,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      contour = contour,
-      contour_var = contour_var,
-      n = n,
-      h = h,
-      adjust = adjust,
-      ...
-    )
-  )
-}
-
-#' @rdname geom_density_2d
-#' @usage NULL
-#' @export
-stat_density2d <- stat_density_2d
-
-#' @rdname geom_density_2d
-#' @export
-stat_density_2d_filled <- function(mapping = NULL, data = NULL,
-                                   geom = "density_2d_filled", position = "identity",
-                                   ...,
-                                   contour = TRUE,
-                                   contour_var = "density",
-                                   n = 100,
-                                   h = NULL,
-                                   adjust = c(1, 1),
-                                   na.rm = FALSE,
-                                   show.legend = NA,
-                                   inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatDensity2dFilled,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      contour = contour,
-      contour_var = contour_var,
-      n = n,
-      h = h,
-      adjust = adjust,
-      ...
-    )
-  )
-}
-
-#' @rdname geom_density_2d
-#' @usage NULL
-#' @export
-stat_density2d_filled <- stat_density_2d_filled
-
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatDensity2d <- ggproto("StatDensity2d", Stat,
+StatDensity2d <- ggproto(
+  "StatDensity2d", Stat,
   default_aes = aes(colour = "#3366FF", size = 0.5),
 
   required_aes = c("x", "y"),
@@ -202,14 +85,77 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   }
 )
 
-
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatDensity2dFilled <- ggproto("StatDensity2dFilled", StatDensity2d,
+StatDensity2dFilled <- ggproto(
+  "StatDensity2dFilled", StatDensity2d,
   default_aes = aes(colour = NA, fill = after_stat(level)),
   contour_type = "bands"
 )
 
+#' @export
+#' @rdname geom_density_2d
+#' @param contour If `TRUE`, contour the results of the 2d density
+#'   estimation.
+#' @param contour_var Character string identifying the variable to contour
+#'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
+#'   on computed variables for details.
+#' @inheritDotParams geom_contour bins binwidth breaks
+#' @param n Number of grid points in each direction.
+#' @param h Bandwidth (vector of length two). If `NULL`, estimated
+#'   using [MASS::bandwidth.nrd()].
+#' @param adjust A multiplicative bandwidth adjustment to be used if 'h' is
+#'    'NULL'. This makes it possible to adjust the bandwidth while still
+#'    using the a bandwidth estimator. For example, `adjust = 1/2` means
+#'    use half of the default bandwidth.
+#' @eval rd_computed_vars(
+#'   .details = "`stat_density_2d()` and `stat_density_2d_filled()` compute
+#'   different variables depending on whether contouring is turned on or off.
+#'   With contouring off (`contour = FALSE`), both stats behave the same, and
+#'   the following variables are provided:",
+#'   density  = "The density estimate.",
+#'   ndensity = "Density estimate, scaled to a maximum of 1.",
+#'   count    = "Density estimate * number of observations in group.",
+#'   n        = "Number of observations in each group."
+#' )
+#'
+#' @section Computed variables:
+#' With contouring on (`contour = TRUE`), either [stat_contour()] or
+#' [stat_contour_filled()] (for contour lines or contour bands,
+#' respectively) is run after the density estimate has been obtained,
+#' and the computed variables are determined by these stats.
+#' Contours are calculated for one of the three types of density estimates
+#' obtained before contouring, `density`, `ndensity`, and `count`. Which
+#' of those should be used is determined by the `contour_var` parameter.
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`z`}{After density estimation, the z values of individual data points are no longer available.}
+#' }
+#'
+#' If contouring is enabled, then similarly `density`, `ndensity`, and `count`
+#' are no longer available after the contouring pass.
+#'
+stat_density_2d <- make_constructor(
+  StatDensity2d, geom = "density_2d",
+  contour = TRUE, contour_var = "density"
+)
+
+#' @rdname geom_density_2d
+#' @usage NULL
+#' @export
+stat_density2d <- stat_density_2d
+
+#' @rdname geom_density_2d
+#' @export
+stat_density_2d_filled <- make_constructor(
+  StatDensity2dFilled, geom = "density_2d_filled",
+  contour = TRUE, contour_var = "density"
+)
+
+#' @rdname geom_density_2d
+#' @usage NULL
+#' @export
+stat_density2d_filled <- stat_density_2d_filled

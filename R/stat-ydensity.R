@@ -1,72 +1,9 @@
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams stat_density
-#' @param scale if "area" (default), all violins have the same area (before trimming
-#'   the tails). If "count", areas are scaled proportionally to the number of
-#'   observations. If "width", all violins have the same maximum width.
-#' @param drop Whether to discard groups with less than 2 observations
-#'   (`TRUE`, default) or keep such groups for position adjustment purposes
-#'   (`FALSE`).
-#'
-#' @eval rd_computed_vars(
-#'   density = "Density estimate.",
-#'   scaled  = "Density estimate, scaled to a maximum of 1.",
-#'   count   = "Density * number of points - probably useless for violin
-#'   plots.",
-#'   violinwidth = "Density scaled for the violin plot, according to area,
-#'   counts or to a constant maximum width.",
-#'   n = "Number of points.",
-#'   width = "Width of violin bounding box."
-#' )
-#'
-#' @seealso [geom_violin()] for examples, and [stat_density()]
-#'   for examples with data along the x axis.
-#' @export
-#' @rdname geom_violin
-stat_ydensity <- function(mapping = NULL, data = NULL,
-                          geom = "violin", position = "dodge",
-                          ...,
-                          bw = "nrd0",
-                          adjust = 1,
-                          kernel = "gaussian",
-                          trim = TRUE,
-                          scale = "area",
-                          drop  = TRUE,
-                          na.rm = FALSE,
-                          orientation = NA,
-                          show.legend = NA,
-                          inherit.aes = TRUE,
-                          bounds = c(-Inf, Inf)) {
-  scale <- arg_match0(scale, c("area", "count", "width"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatYdensity,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bw = bw,
-      adjust = adjust,
-      kernel = kernel,
-      trim = trim,
-      scale = scale,
-      drop  = drop,
-      na.rm = na.rm,
-      bounds = bounds,
-      ...
-    )
-  )
-}
-
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatYdensity <- ggproto("StatYdensity", Stat,
+StatYdensity <- ggproto(
+  "StatYdensity", Stat,
   required_aes = c("x", "y"),
   non_missing_aes = "weight",
 
@@ -79,8 +16,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   extra_params = c("na.rm", "orientation"),
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                       drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
+                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf)) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -88,7 +25,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
           i = paste0(
             "Set {.code drop = FALSE} to consider such groups for position ",
             "adjustment purposes."
-        )))
+          )))
         return(data_frame0())
       }
       ans <- data_frame0(x = data$x, n = nrow(data))
@@ -135,21 +72,51 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
     # choose how violins are scaled relative to each other
     data$violinwidth <- switch(scale,
-      # area : keep the original densities but scale them to a max width of 1
-      #        for plotting purposes only
-      area = data$density / max(data$density, na.rm = TRUE),
-      # count: use the original densities scaled to a maximum of 1 (as above)
-      #        and then scale them according to the number of observations
-      count = data$density / max(data$density, na.rm = TRUE) *
-        data$n / max(data$n),
-      # width: constant width (density scaled to a maximum of 1)
-      width = data$scaled
+                               # area : keep the original densities but scale them to a max width of 1
+                               #        for plotting purposes only
+                               area = data$density / max(data$density, na.rm = TRUE),
+                               # count: use the original densities scaled to a maximum of 1 (as above)
+                               #        and then scale them according to the number of observations
+                               count = data$density / max(data$density, na.rm = TRUE) *
+                                 data$n / max(data$n),
+                               # width: constant width (density scaled to a maximum of 1)
+                               width = data$scaled
     )
     data$flipped_aes <- flipped_aes
     flip_data(data, flipped_aes)
   },
 
   dropped_aes = "weight"
+)
+
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @inheritParams stat_density
+#' @param scale if "area" (default), all violins have the same area (before trimming
+#'   the tails). If "count", areas are scaled proportionally to the number of
+#'   observations. If "width", all violins have the same maximum width.
+#' @param drop Whether to discard groups with less than 2 observations
+#'   (`TRUE`, default) or keep such groups for position adjustment purposes
+#'   (`FALSE`).
+#'
+#' @eval rd_computed_vars(
+#'   density = "Density estimate.",
+#'   scaled  = "Density estimate, scaled to a maximum of 1.",
+#'   count   = "Density * number of points - probably useless for violin
+#'   plots.",
+#'   violinwidth = "Density scaled for the violin plot, according to area,
+#'   counts or to a constant maximum width.",
+#'   n = "Number of points.",
+#'   width = "Width of violin bounding box."
+#' )
+#'
+#' @seealso [geom_violin()] for examples, and [stat_density()]
+#'   for examples with data along the x axis.
+#' @export
+#' @rdname geom_violin
+stat_ydensity <- make_constructor(
+  StatYdensity, geom = "violin", position = "dodge",
+  checks = exprs(scale <- arg_match0(scale, c("area", "count", "width")))
 )
 
 calc_bw <- function(x, bw) {

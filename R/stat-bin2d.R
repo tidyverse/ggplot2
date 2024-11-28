@@ -1,54 +1,9 @@
-#' @param bins numeric vector giving number of bins in both vertical and
-#'   horizontal directions. Set to 30 by default.
-#' @param binwidth Numeric vector giving bin width in both vertical and
-#'   horizontal directions. Overrides `bins` if both set.
-#' @param drop if `TRUE` removes all cells with 0 counts.
-#' @export
-#' @rdname geom_bin_2d
-#' @eval rd_computed_vars(
-#'   count    = "number of points in bin.",
-#'   density  = "density of points in bin, scaled to integrate to 1.",
-#'   ncount   = "count, scaled to maximum of 1.",
-#'   ndensity = "density, scaled to a maximum of 1."
-#' )
-stat_bin_2d <- function(mapping = NULL, data = NULL,
-                        geom = "tile", position = "identity",
-                        ...,
-                        bins = 30,
-                        binwidth = NULL,
-                        drop = TRUE,
-                        na.rm = FALSE,
-                        show.legend = NA,
-                        inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatBin2d,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      drop = drop,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-
-#' @export
-#' @rdname geom_bin_2d
-#' @usage NULL
-stat_bin2d <- stat_bin_2d
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatBin2d <- ggproto("StatBin2d", Stat,
+StatBin2d <- ggproto(
+  "StatBin2d", Stat,
   default_aes = aes(weight = 1, fill = after_stat(count)),
   required_aes = c("x", "y"),
 
@@ -88,6 +43,26 @@ StatBin2d <- ggproto("StatBin2d", Stat,
 
   dropped_aes = "weight" # No longer available after transformation
 )
+
+#' @param bins numeric vector giving number of bins in both vertical and
+#'   horizontal directions. Set to 30 by default.
+#' @param binwidth Numeric vector giving bin width in both vertical and
+#'   horizontal directions. Overrides `bins` if both set.
+#' @param drop if `TRUE` removes all cells with 0 counts.
+#' @export
+#' @rdname geom_bin_2d
+#' @eval rd_computed_vars(
+#'   count    = "number of points in bin.",
+#'   density  = "density of points in bin, scaled to integrate to 1.",
+#'   ncount   = "count, scaled to maximum of 1.",
+#'   ndensity = "density, scaled to a maximum of 1."
+#' )
+stat_bin_2d <- make_constructor(StatBin2d, geom = "tile")
+
+#' @export
+#' @rdname geom_bin_2d
+#' @usage NULL
+stat_bin2d <- stat_bin_2d
 
 dual_param <- function(x, default = list(x = NULL, y = NULL)) {
   if (is.null(x)) {

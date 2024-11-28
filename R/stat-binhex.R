@@ -1,47 +1,9 @@
-#' @export
-#' @rdname geom_hex
-#' @inheritParams stat_bin_2d
-#' @eval rd_computed_vars(
-#'   count    = "number of points in bin.",
-#'   density  = "density of points in bin, scaled to integrate to 1.",
-#'   ncount   = "count, scaled to maximum of 1.",
-#'   ndensity = "density, scaled to maximum of 1."
-#' )
-stat_bin_hex <- function(mapping = NULL, data = NULL,
-                         geom = "hex", position = "identity",
-                         ...,
-                         bins = 30,
-                         binwidth = NULL,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatBinhex,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @export
-#' @rdname geom_hex
-#' @usage NULL
-stat_binhex <- stat_bin_hex
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatBinhex <- ggproto("StatBinhex", Stat,
+StatBinhex <- ggproto(
+  "StatBinhex", Stat,
   default_aes = aes(weight = 1, fill = after_stat(count)),
 
   required_aes = c("x", "y"),
@@ -66,3 +28,18 @@ StatBinhex <- ggproto("StatBinhex", Stat,
   dropped_aes = "weight"
 )
 
+#' @export
+#' @rdname geom_hex
+#' @inheritParams stat_bin_2d
+#' @eval rd_computed_vars(
+#'   count    = "number of points in bin.",
+#'   density  = "density of points in bin, scaled to integrate to 1.",
+#'   ncount   = "count, scaled to maximum of 1.",
+#'   ndensity = "density, scaled to maximum of 1."
+#' )
+stat_bin_hex <- make_constructor(StatBinhex, geom = "hex")
+
+#' @export
+#' @rdname geom_hex
+#' @usage NULL
+stat_binhex <- stat_bin_hex
