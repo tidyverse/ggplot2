@@ -146,13 +146,7 @@ guide_colourbar <- function(
 
   theme <- deprecated_guide_args(theme, ...)
   if (!is.null(position)) {
-    if (is.numeric(position)) {
-       if (length(position) != 2L) {
-         cli::cli_abort("{.arg position} must be a numeric of length 2")
-       }
-    } else {
-       position <- arg_match0(position, c(.trbl, "inside"))
-    }
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
   check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
 
@@ -218,20 +212,19 @@ GuideColourbar <- ggproto(
   hashables = exprs(title, key$.label, decor, name),
 
   elements = list(
-    background           = "legend.background",
-    margin               = "legend.margin",
-    key                  = "legend.key",
-    key_height           = "legend.key.height",
-    key_width            = "legend.key.width",
-    text                 = "legend.text",
-    theme.title          = "legend.title",
-    text_position        = "legend.text.position",
-    title_position       = "legend.title.position",
-    axis_line            = "legend.axis.line",
-    ticks                = "legend.ticks",
-    ticks_length         = "legend.ticks.length",
-    frame                = "legend.frame",
-    inside_position      = "legend.position.inside"
+    background     = "legend.background",
+    margin         = "legend.margin",
+    key            = "legend.key",
+    key_height     = "legend.key.height",
+    key_width      = "legend.key.width",
+    text           = "legend.text",
+    theme.title    = "legend.title",
+    text_position  = "legend.text.position",
+    title_position = "legend.title.position",
+    axis_line      = "legend.axis.line",
+    ticks          = "legend.ticks",
+    ticks_length   = "legend.ticks.length",
+    frame          = "legend.frame"
   ),
 
   extract_key = function(scale, aesthetic, ...) {
