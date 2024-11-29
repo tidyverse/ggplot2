@@ -479,7 +479,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_cols(table, spacing$right, pos = -1)
   table <- gtable_add_cols(table, widths$right,  pos = -1)
   table <- gtable_add_grob(
-    table, legends$right, clip = "off",
+    table, legends$right %||% zeroGrob(), clip = "off",
     t = place$t, b = place$b, l = -1, r = -1,
     name = "guide-box-right"
   )
@@ -488,7 +488,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_cols(table, spacing$left, pos = 0)
   table <- gtable_add_cols(table, widths$left,  pos = 0)
   table <- gtable_add_grob(
-    table, legends$left, clip = "off",
+    table, legends$left %||% zeroGrob(), clip = "off",
     t = place$t, b = place$b, l = 1, r = 1,
     name = "guide-box-left"
   )
@@ -499,7 +499,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$bottom, pos = -1)
   table <- gtable_add_rows(table, heights$bottom, pos = -1)
   table <- gtable_add_grob(
-    table, legends$bottom, clip = "off",
+    table, legends$bottom %||% zeroGrob(), clip = "off",
     t = -1, b = -1, l = place$l, r = place$r,
     name = "guide-box-bottom"
   )
@@ -508,7 +508,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$top, pos = 0)
   table <- gtable_add_rows(table, heights$top, pos = 0)
   table <- gtable_add_grob(
-    table, legends$top, clip = "off",
+    table, legends$top %||% zeroGrob(), clip = "off",
     t = 1, b = 1, l = place$l, r = place$r,
     name = "guide-box-top"
   )
@@ -519,7 +519,7 @@ table_add_legends <- function(table, legends, theme) {
   if (length(inside_legends)) {
     for (i in seq_along(inside_legends)) {
       table <- gtable_add_grob(
-        table, .subset2(inside_legends, i), clip = "off",
+        table, inside_legends[[i]], clip = "off",
         t = place$t, b = place$b, l = place$l, r = place$r,
         name = paste("guide-box-inside", i, sep = "-")
       )

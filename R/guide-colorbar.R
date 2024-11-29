@@ -146,7 +146,13 @@ guide_colourbar <- function(
 
   theme <- deprecated_guide_args(theme, ...)
   if (!is.null(position)) {
-    position <- arg_match0(position, c(.trbl, "inside"))
+    if (is.numeric(position)) {
+       if (length(position) != 2L) {
+         cli::cli_abort("{.arg position} must be a numeric of length 2")
+       }
+    } else {
+       position <- arg_match0(position, c(.trbl, "inside"))
+    }
   }
   check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
 

@@ -471,7 +471,7 @@ Guides <- ggproto(
   #      for every position, collect all individual guides and arrange them
   #      into a guide box which will be inserted into the main gtable
   # Combining multiple guides in a guide box
-  assemble = function(self, theme) {
+  assemble = function(self, theme, params = self$params, guides = self$guides) {
 
     if (length(self$guides) < 1) {
       return(zeroGrob())
@@ -485,15 +485,61 @@ Guides <- ggproto(
       return(zeroGrob())
     }
 
+    # extract the guide position
+    positions <- vapply(
+      params,
+      function(p) p$position[1] %||% default_position,
+      character(1), USE.NAMES = FALSE
+    )
+
     # Populate key sizes
     theme$legend.key.width  <- calc_element("legend.key.width",  theme)
     theme$legend.key.height <- calc_element("legend.key.height", theme)
 
-    grobs <- self$draw(theme, default_position, theme$legend.direction)
+    grobs <- self$draw(theme, positions, theme$legend.direction)
+    keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
+    grobs <- grobs[keep]
     if (length(grobs) < 1) {
       return(zeroGrob())
     }
-    grobs <- grobs[order(names(grobs))]
+
+    # prepare the position of inside legends
+    default_inside_position <- calc_element(
+      "legend.position.inside", theme
+    ) %||% valid.just(calc_element("legend.justification.inside", theme))
+    inside_positions <- vector("list", length(positions))
+
+    # we'll merge inside legends with same coordinate into same guide box
+    # we grouped the legends by the positions, for inside legends, they'll be
+    # splitted by the actual inside coordinate
+    groups <- positions
+    for (i in seq_along(positions)) {
+      if (identical(positions[i], "inside")) {
+        # the actual inside position can be set in each guide by `theme`
+        # argument
+        inside_positions[[i]] <- calc_element(
+          "legend.position.inside", params[[i]]$theme
+        ) %||% default_inside_position
+        groups[i] <- paste0("inside_", 
+          paste(inside_positions[[i]], collapse = "_")
+        )
+      }
+    }
+    positions <- positions[keep]
+    inside_positions <- inside_positions[keep]
+    groups <- groups[keep]
+
+    # we group the guide legends
+    locs <- vec_group_loc(groups)
+    indices <- locs$loc
+    grobs <- vec_chop(grobs, indices = indices)
+    names(grobs) <- locs$key
+
+    # for each group, they share the same locations,
+    # so we only extract the first one of `positions` and `inside_positions`
+    first_indice <- lapply(indices, `[[`, 1L)
+    positions <- vec_chop(positions, indices = first_indice)
+    inside_positions <- vec_chop(inside_positions, indices = first_indice)
 
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing %||% unit(0.5, "lines")
@@ -502,27 +548,24 @@ Guides <- ggproto(
 
     Map(
       grobs    = grobs,
-      position = names(grobs),
+      position = positions,
+      inside_position = inside_positions,
       self$package_box,
       MoreArgs = list(theme = theme)
     )
   },
 
   # Render the guides into grobs
-  draw = function(self, theme,
-                  default_position = "right",
-                  direction = NULL,
+  draw = function(self, theme, positions, direction = NULL,
                   params = self$params,
                   guides = self$guides) {
-    positions <- vapply(
-      params,
-      function(p) p$position[1] %||% default_position,
-      character(1), USE.NAMES = FALSE
-    )
-
-    directions <- rep(direction %||% "vertical", length(positions))
     if (is.null(direction)) {
-      directions[positions %in% c("top", "bottom")] <- "horizontal"
+      directions <- ifelse(
+        positions %in% c("top", "bottom"), 
+        "horizontal", "vertical"
+      )
+    } else {
+      directions <- rep(direction, length(positions))
     }
 
     grobs <- vector("list", length(guides))
@@ -531,30 +574,13 @@ Guides <- ggproto(
         theme = theme, position = positions[i],
         direction = directions[i], params = params[[i]]
       )
-      # we'll merge inside legends with same coordinate into same guide box
-      # here, we define the groups of the inside legends
-      if (identical(positions[i], "inside")) {
-        positions[i] <- paste(
-          "inside",
-          paste(attr(.subset2(grobs, i), "inside_position"), collapse = "_"),
-          sep = "_"
-        )
-      }
     }
-
-    # move inside legends to the last
-    positions <- factor(positions, 
-      levels = c(.trbl, unique(positions[startsWith(positions, "inside")]))
-    )
-    keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
-
-    # we grouped the legends by the positions
-    # for inside legends, they'll be splitted by the actual inside coordinate
-    split(grobs[keep], positions[keep])
+    grobs
   },
 
-  package_box = function(grobs, position, theme) {
-
+  # here, we put `inside_position` in the last, so that it won't break current
+  # implement of patchwork
+  package_box = function(grobs, position, theme, inside_position = NULL) {
     if (is.zero(grobs) || length(grobs) == 0) {
       return(zeroGrob())
     }
@@ -562,10 +588,8 @@ Guides <- ggproto(
     # Determine default direction
     direction <- switch(
       position,
-      left = , right = "vertical",
-      top = , bottom = "horizontal",
-      # for all inside guide legends
-      "vertical"
+      inside = , left = , right = "vertical",
+      top = , bottom = "horizontal"
     )
 
     # Populate missing theme arguments
@@ -584,25 +608,24 @@ Guides <- ggproto(
     stretch_x <- any(unlist(lapply(widths,  unitType)) == "null")
     stretch_y <- any(unlist(lapply(heights, unitType)) == "null")
 
-    if (startsWith(position, "inside")) {
-      # Global justification of the complete legend box
-      global_just <- valid.just(calc_element(
-        "legend.justification.inside", theme
-      ))
-      # for inside guide legends, the position was attached in
-      # each grob of the input grobs (which should share the same position)
-      inside_position <- attr(.subset2(grobs, 1L), "inside_position") %||%
-        # fallback to original method of ggplot2 <=3.5.1
-        .subset2(theme, "legend.position.inside") %||% global_just
-      global_xjust  <- global_just[1]
-      global_yjust  <- global_just[2]
-      x <- inside_position[1]
-      y <- inside_position[2]
+    # Global justification of the complete legend box
+    global_just <- paste0("legend.justification.", position)
+    global_just <- valid.just(calc_element(global_just, theme))
+
+    if (position == "inside") {
+      # The position of inside legends are set by their justification
+      inside_just <- theme$legend.position.inside %||% global_just
+      global_xjust  <- inside_just[1]
+      global_yjust  <- inside_just[2]
       global_margin <- margin()
+      if (is.null(inside_position)) { # for backward compatibility
+        x <- global_xjust
+        y <- global_yjust
+      } else {
+        x <- inside_position[1L]
+        y <- inside_position[2L]
+      }
     } else {
-      # Global justification of the complete legend box
-      global_just <- paste0("legend.justification.", position)
-      global_just <- valid.just(calc_element(global_just, theme))
       x <- global_xjust  <- global_just[1]
       y <- global_yjust  <- global_just[2]
       # Legends to the side of the plot need a margin for justification
@@ -684,7 +707,7 @@ Guides <- ggproto(
 
       # Set global justification
       vp <- viewport(
-        x = x, y = y, just = global_just,
+        x = global_xjust, y = global_yjust, just = global_just,
         height = vp_height,
         width =  max(widths)
       )

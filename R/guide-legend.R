@@ -17,7 +17,8 @@
 #'   differently from the plot's theme settings. The `theme` argument in the
 #'   guide overrides, and is combined with, the plot's theme.
 #' @param position A character string indicating where the legend should be
-#'   placed relative to the plot panels.
+#'   placed relative to the plot panels, or a numeric value of length two
+#'   setting the placement of legends.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical".
 #' @param override.aes A list specifying aesthetic parameters of legend key.
@@ -116,7 +117,13 @@ guide_legend <- function(
   theme <- deprecated_guide_args(theme, ...)
 
   if (!is.null(position)) {
-    position <- arg_match0(position, c(.trbl, "inside"))
+    if (is.numeric(position)) {
+       if (length(position) != 2L) {
+         cli::cli_abort("{.arg position} must be a numeric of length 2")
+       }
+    } else {
+       position <- arg_match0(position, c(.trbl, "inside"))
+    }
   }
 
   new_guide(
@@ -180,8 +187,7 @@ GuideLegend <- ggproto(
     spacing_y            = "legend.key.spacing.y",
     text_position        = "legend.text.position",
     title_position       = "legend.title.position",
-    byrow                = "legend.byrow",
-    inside_position      = "legend.position.inside"
+    byrow                = "legend.byrow"
   ),
 
   extract_params = function(scale, params,
@@ -564,12 +570,6 @@ GuideLegend <- ggproto(
       )
     }
 
-    # for inside guide legends, we also save the position values 
-    # in this way, we can identify legends with same position
-    # and then merge them into same guide box in `Guides$draw()`
-    if (identical(.subset2(params, "position"), "inside")) {
-      attr(gt, "inside_position") <- .subset2(elements, "inside_position")
-    }
     gt
   }
 )
