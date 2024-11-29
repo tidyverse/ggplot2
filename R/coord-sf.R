@@ -77,6 +77,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     # we need to transform all non-sf data into the correct coordinate system
     source_crs <- panel_params$default_crs
     target_crs <- panel_params$crs

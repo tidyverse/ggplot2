@@ -2,6 +2,13 @@
 
 * (internal) layer data can be attenuated with parameter attributes 
   (@teunbrand, #3175).
+* In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
+  `coord_radial()`), using 'AsIs' variables escape transformation when
+  both `x` and `y` is an 'AsIs' variable (@teunbrand, #6205).
+* The following methods have been deprecated: `fortify.lm()`, `fortify.glht()`,
+  `fortify.confint.glht()`, `fortify.summary.glht()` and `fortify.cld()`. It
+  is recommend to use `broom::augment()` and `broom::tidy()` instead 
+  (@teunbrand, #3816).
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
