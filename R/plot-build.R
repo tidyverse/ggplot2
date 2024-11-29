@@ -516,11 +516,19 @@ table_add_legends <- function(table, legends, theme) {
   # Add manual legend
   place <- find_panel(table)
   inside_legends <- .subset(legends, startsWith(names(legends), "inside"))
-  for (i in seq_along(inside_legends)) {
+  if (length(inside_legends)) {
+    for (i in seq_along(inside_legends)) {
+      table <- gtable_add_grob(
+        table, .subset2(inside_legends, i), clip = "off",
+        t = place$t, b = place$b, l = place$l, r = place$r,
+        name = paste("guide-box-inside", i, sep = "-")
+      )
+    }
+  } else { # to be consistent with original gtable layout
     table <- gtable_add_grob(
-      table, .subset2(inside_legends, i), clip = "off",
-      t = place$t, b = place$b, l = place$l, r = place$r,
-      name = paste("guide-box-inside", i, sep = "-")
+      table, zeroGrob(), clip = "off",
+      t = 1, b = 1, l = place$l, r = place$r,
+      name = "guide-box-inside"
     )
   }
   table
