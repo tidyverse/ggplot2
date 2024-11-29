@@ -527,7 +527,7 @@ table_add_legends <- function(table, legends, theme) {
   } else { # to be consistent with original gtable layout
     table <- gtable_add_grob(
       table, zeroGrob(), clip = "off",
-      t = 1, b = 1, l = place$l, r = place$r,
+      t = place$t, b = place$b, l = place$l, r = place$r,
       name = "guide-box-inside"
     )
   }
