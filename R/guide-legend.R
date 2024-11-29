@@ -181,8 +181,7 @@ GuideLegend <- ggproto(
     text_position        = "legend.text.position",
     title_position       = "legend.title.position",
     byrow                = "legend.byrow",
-    inside_position      = "legend.position.inside",
-    inside_justification = "legend.justification.inside"
+    inside_position      = "legend.position.inside"
   ),
 
   extract_params = function(scale, params,
@@ -344,14 +343,7 @@ GuideLegend <- ggproto(
       )
     )
     elements$text <- calc_element("legend.text", add_theme(theme, text))
-    ans <- Guide$setup_elements(params, elements, theme)
-    ans$inside_justification <- .subset2(
-      theme, "legend.justification.inside"
-    ) %||% .subset2(ans, "inside_position")
-    ans$inside_justification <- valid.just(.subset2(
-      ans, "inside_justification"
-    ))
-    ans
+    Guide$setup_elements(params, elements, theme)
   },
 
   override_elements = function(params, elements, theme) {
@@ -571,12 +563,12 @@ GuideLegend <- ggproto(
         t = 1, r = -1, b = -1, l = 1, z = -Inf
       )
     }
-    # attach the `position` and `justification` for the inside legends
+
+    # for inside guide legends, we also save the position values 
+    # in this way, we can identify legends with same position
+    # and then merge them into same guide box in `Guides$draw()`
     if (identical(.subset2(params, "position"), "inside")) {
       attr(gt, "inside_position") <- .subset2(elements, "inside_position")
-      attr(gt, "inside_justification") <- .subset2(
-        elements, "inside_justification"
-      )
     }
     gt
   }

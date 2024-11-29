@@ -225,8 +225,7 @@ GuideColourbar <- ggproto(
     ticks                = "legend.ticks",
     ticks_length         = "legend.ticks.length",
     frame                = "legend.frame",
-    inside_position      = "legend.position.inside",
-    inside_justification = "legend.justification.inside"
+    inside_position      = "legend.position.inside"
   ),
 
   extract_key = function(scale, aesthetic, ...) {

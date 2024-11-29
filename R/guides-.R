@@ -531,13 +531,12 @@ Guides <- ggproto(
         theme = theme, position = positions[i],
         direction = directions[i], params = params[[i]]
       )
+      # we'll merge inside legends with same coordinate into same guide box
+      # here, we define the groups of the inside legends
       if (identical(positions[i], "inside")) {
         positions[i] <- paste(
           "inside",
           paste(attr(.subset2(grobs, i), "inside_position"), collapse = "_"),
-          paste(attr(.subset2(grobs, i), "inside_justification"), 
-            collapse = "_"
-          ),
           sep = "_"
         )
       }
@@ -548,6 +547,9 @@ Guides <- ggproto(
       levels = c(.trbl, unique(positions[startsWith(positions, "inside")]))
     )
     keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
+
+    # we grouped the legends by the positions
+    # for inside legends, they'll be splitted by the actual inside coordinate
     split(grobs[keep], positions[keep])
   },
 
@@ -586,10 +588,8 @@ Guides <- ggproto(
     global_just <- paste0("legend.justification.", position)
     global_just <- valid.just(calc_element(global_just, theme))
     if (startsWith(position, "inside")) {
-      # The position of inside legends are set by their justification
-      global_just <- attr(.subset2(grobs, 1L), "inside_justification") %||%
-        # fallback to original method of ggplot2 <=3.3.5
-        global_just
+      # for inside guide legends, the position was attached in
+      # each grob of the input grobs (which should share the same position)
       inside_position <- attr(.subset2(grobs, 1L), "inside_position") %||%
         # fallback to original method of ggplot2 <=3.3.5
         .subset2(theme, "legend.position.inside") %||% global_just
