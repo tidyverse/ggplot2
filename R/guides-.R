@@ -618,7 +618,10 @@ Guides <- ggproto(
       global_xjust  <- inside_just[1]
       global_yjust  <- inside_just[2]
       global_margin <- margin()
-      if (is.null(inside_position)) { # for backward compatibility
+      # # for backward compatibility, no `inside_position` input
+      if (is.null(inside_position) ||
+          # `inside_position` is a list of length one
+          is.null(inside_position <- inside_position[[1L]])) {
         x <- global_xjust
         y <- global_yjust
       } else {
@@ -707,7 +710,7 @@ Guides <- ggproto(
 
       # Set global justification
       vp <- viewport(
-        x = global_xjust, y = global_yjust, just = global_just,
+        x = x, y = y, just = global_just,
         height = vp_height,
         width =  max(widths)
       )
