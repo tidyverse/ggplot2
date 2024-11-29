@@ -268,6 +268,25 @@ test_that("guides are positioned correctly", {
   expect_doppelganger("legend inside plot, bottom left of legend at center",
     p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0.5,0.5))
   )
+  expect_doppelganger("legend inside plot, multiple positions",
+    p2 +
+      guides(
+          colour = guide_colourbar(
+              position = "inside",
+              theme = theme(
+                legend.position.inside = c(0, 1),
+                legend.justification.inside = c(0, 1)
+              )
+          ),
+          fill = guide_legend(
+              position = "inside",
+              theme = theme(
+                legend.position.inside = c(1, 0),
+                legend.justification.inside = c(1, 0)
+              )
+          )
+      )
+  )
 })
 
 test_that("guides title and text are positioned correctly", {
