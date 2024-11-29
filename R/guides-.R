@@ -509,7 +509,6 @@ Guides <- ggproto(
     ) %||% valid.just(calc_element("legend.justification.inside", theme))
     inside_positions <- vector("list", length(positions))
 
-    # we'll merge inside legends with same coordinate into same guide box
     # we grouped the legends by the positions, for inside legends, they'll be
     # splitted by the actual inside coordinate
     groups <- positions
@@ -556,9 +555,14 @@ Guides <- ggproto(
   },
 
   # Render the guides into grobs
-  draw = function(self, theme, positions, direction = NULL,
+  draw = function(self, theme, positions = NULL, direction = NULL,
                   params = self$params,
                   guides = self$guides) {
+    positions <- positions %||% vapply(
+      params,
+      function(p) p$position[1] %||% "right",
+      character(1), USE.NAMES = FALSE
+    )
     if (is.null(direction)) {
       directions <- ifelse(
         positions %in% c("top", "bottom"), 
