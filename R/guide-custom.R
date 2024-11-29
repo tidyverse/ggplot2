@@ -50,16 +50,6 @@ guide_custom <- function(
     cli::cli_abort("{.arg height} must be a single {.cls unit}, not a unit vector.")
   }
 
-  if (!is.null(position)) {
-    if (is.numeric(position)) {
-       if (length(position) != 2L) {
-         cli::cli_abort("{.arg position} must be a numeric of length 2")
-       }
-    } else {
-       position <- arg_match0(position, c(.trbl, "inside"))
-    }
-  }
-
   new_guide(
     grob = grob,
     width = width,
