@@ -17,8 +17,7 @@
 #'   differently from the plot's theme settings. The `theme` argument in the
 #'   guide overrides, and is combined with, the plot's theme.
 #' @param position A character string indicating where the legend should be
-#'   placed relative to the plot panels, or a numeric value of length two
-#'   setting the placement of legends.
+#'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical".
 #' @param override.aes A list specifying aesthetic parameters of legend key.
@@ -117,13 +116,7 @@ guide_legend <- function(
   theme <- deprecated_guide_args(theme, ...)
 
   if (!is.null(position)) {
-    if (is.numeric(position)) {
-       if (length(position) != 2L) {
-         cli::cli_abort("{.arg position} must be a numeric of length 2")
-       }
-    } else {
-       position <- arg_match0(position, c(.trbl, "inside"))
-    }
+    position <- arg_match0(position, c(.trbl, "inside"))
   }
 
   new_guide(
@@ -176,18 +169,18 @@ GuideLegend <- ggproto(
   hashables = exprs(title, key$.label, name),
 
   elements = list(
-    background           = "legend.background",
-    margin               = "legend.margin",
-    key                  = "legend.key",
-    key_height           = "legend.key.height",
-    key_width            = "legend.key.width",
-    text                 = "legend.text",
-    theme.title          = "legend.title",
-    spacing_x            = "legend.key.spacing.x",
-    spacing_y            = "legend.key.spacing.y",
-    text_position        = "legend.text.position",
-    title_position       = "legend.title.position",
-    byrow                = "legend.byrow"
+    background     = "legend.background",
+    margin         = "legend.margin",
+    key            = "legend.key",
+    key_height     = "legend.key.height",
+    key_width      = "legend.key.width",
+    text           = "legend.text",
+    theme.title    = "legend.title",
+    spacing_x      = "legend.key.spacing.x",
+    spacing_y      = "legend.key.spacing.y",
+    text_position  = "legend.text.position",
+    title_position = "legend.title.position",
+    byrow          = "legend.byrow"
   ),
 
   extract_params = function(scale, params,
@@ -569,7 +562,6 @@ GuideLegend <- ggproto(
         t = 1, r = -1, b = -1, l = 1, z = -Inf
       )
     }
-
     gt
   }
 )
