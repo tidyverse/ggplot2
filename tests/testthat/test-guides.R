@@ -159,7 +159,7 @@ test_that("empty guides are dropped", {
   guides <- p$plot$guides$draw(theme_gray(), direction = "vertical")
 
   # All guide-boxes should be empty
-  expect_equal(lengths(guides, use.names = FALSE), rep(0, 5))
+  expect_equal(lengths(guides, use.names = FALSE), rep(0, 4))
 })
 
 test_that("bins can be parsed by guides for all scale types", {
