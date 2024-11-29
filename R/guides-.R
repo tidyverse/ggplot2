@@ -584,14 +584,15 @@ Guides <- ggproto(
     stretch_x <- any(unlist(lapply(widths,  unitType)) == "null")
     stretch_y <- any(unlist(lapply(heights, unitType)) == "null")
 
-    # Global justification of the complete legend box
-    global_just <- paste0("legend.justification.", position)
-    global_just <- valid.just(calc_element(global_just, theme))
     if (startsWith(position, "inside")) {
+      # Global justification of the complete legend box
+      global_just <- valid.just(calc_element(
+        "legend.justification.inside", theme
+      ))
       # for inside guide legends, the position was attached in
       # each grob of the input grobs (which should share the same position)
       inside_position <- attr(.subset2(grobs, 1L), "inside_position") %||%
-        # fallback to original method of ggplot2 <=3.3.5
+        # fallback to original method of ggplot2 <=3.5.1
         .subset2(theme, "legend.position.inside") %||% global_just
       global_xjust  <- global_just[1]
       global_yjust  <- global_just[2]
@@ -599,6 +600,9 @@ Guides <- ggproto(
       y <- inside_position[2]
       global_margin <- margin()
     } else {
+      # Global justification of the complete legend box
+      global_just <- paste0("legend.justification.", position)
+      global_just <- valid.just(calc_element(global_just, theme))
       x <- global_xjust  <- global_just[1]
       y <- global_yjust  <- global_just[2]
       # Legends to the side of the plot need a margin for justification
