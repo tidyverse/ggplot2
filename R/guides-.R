@@ -599,8 +599,9 @@ Guides <- ggproto(
     grobs
   },
 
-  # here, we put `inside_position` in the last, so that it won't break current
-  # implement of patchwork
+  # here, we put `inside_position` and `inside_just` in the last, so that it
+  # won't break current implement of patchwork, which depends on the top three
+  # arguments to collect guides
   package_box = function(grobs, position, theme,
                          inside_position = NULL, inside_just = NULL) {
     if (is.zero(grobs) || length(grobs) == 0) {
