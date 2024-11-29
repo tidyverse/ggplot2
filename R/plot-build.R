@@ -448,8 +448,8 @@ table_add_tag <- function(table, label, theme) {
 table_add_legends <- function(table, legends, theme) {
 
   if (is.zero(legends)) {
-    legends <- rep(list(zeroGrob()), 5)
-    names(legends) <- c(.trbl, "inside")
+    legends <- rep(list(zeroGrob()), 4)
+    names(legends) <- .trbl
   }
 
   # Extract sizes
@@ -515,7 +515,7 @@ table_add_legends <- function(table, legends, theme) {
 
   # Add manual legend
   place <- find_panel(table)
-  inside_legends <- .subset(legends, startsWith(names(legends), "inside"))
+  inside_legends <- legends[startsWith(names(legends), "inside")]
   if (length(inside_legends)) {
     for (i in seq_along(inside_legends)) {
       table <- gtable_add_grob(
