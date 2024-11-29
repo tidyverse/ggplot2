@@ -518,13 +518,18 @@ Guides <- ggproto(
     for (i in seq_along(positions)) {
       if (identical(positions[i], "inside")) {
         # the actual inside position and justification can be set in each guide
-        # by `theme` argument
-        inside_justs[[i]] <- valid.just(calc_element(
-          "legend.justification.inside", params[[i]]$theme
-        )) %||% default_inside_just
-        inside_positions[[i]] <- calc_element(
-          "legend.position.inside", params[[i]]$theme
-        ) %||% default_inside_position %||% inside_justs[[i]]
+        # by `theme` argument, here, we won't use `calc_element()` which will
+        # use inherits from `legend.justification` or `legend.position`, we only
+        # follow the inside elements from the guide theme
+        inside_just <- params[[i]]$theme[["legend.justification.inside"]]
+        if (is.null(inside_just)) {
+          inside_justs[[i]] <- default_inside_just
+        } else {
+          inside_justs[[i]] <- valid.just(inside_just)
+        }
+        inside_positions[[i]] <- params[[i]]$theme[[
+          "legend.position.inside"
+        ]] %||% default_inside_position %||% inside_justs[[i]]
         groups[i] <- paste("inside", 
           paste(inside_positions[[i]], collapse = "_"),
           paste(inside_justs[[i]], collapse = "_"),
@@ -532,6 +537,7 @@ Guides <- ggproto(
         )
       }
     }
+
     positions <- positions[keep]
     inside_positions <- inside_positions[keep]
     inside_justs <- inside_justs[keep]
@@ -595,7 +601,7 @@ Guides <- ggproto(
 
   # here, we put `inside_position` in the last, so that it won't break current
   # implement of patchwork
-  package_box = function(grobs, position, theme, 
+  package_box = function(grobs, position, theme,
                          inside_position = NULL, inside_just = NULL) {
     if (is.zero(grobs) || length(grobs) == 0) {
       return(zeroGrob())
