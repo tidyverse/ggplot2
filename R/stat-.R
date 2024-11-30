@@ -73,6 +73,8 @@ Stat <- ggproto("Stat",
 
   optional_aes = character(),
 
+  default_params = NULL,
+
   setup_params = function(data, params) {
     params
   },
@@ -102,7 +104,7 @@ Stat <- ggproto("Stat",
     )
 
     # Trim off extra parameters
-    params <- params[intersect(names(params), self$parameters())]
+    params <- filter_args(params, self$compute_panel)
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     dapply(data, "PANEL", function(data) {
@@ -121,8 +123,11 @@ Stat <- ggproto("Stat",
     if (empty(data)) return(data_frame0())
 
     groups <- split(data, data$group)
+
+    params <- filter_args(list2(...), self$compute_group)
+
     stats <- lapply(groups, function(group) {
-      self$compute_group(data = group, scales = scales, ...)
+      inject(self$compute_group(data = group, scales = scales, !!!params))
     })
 
     # Record columns that are not constant within groups. We will drop them later.
@@ -194,6 +199,10 @@ Stat <- ggproto("Stat",
   # See discussion at Geom$parameters()
   extra_params = "na.rm",
   parameters = function(self, extra = FALSE) {
+    if (!is.null(self$default_params)) {
+      return(names(self$default_params))
+    }
+
     # Look first in compute_panel. If it contains ... then look in compute_group
     panel_args <- names(ggproto_formals(self$compute_panel))
     group_args <- names(ggproto_formals(self$compute_group))
