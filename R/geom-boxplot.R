@@ -236,21 +236,21 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 #' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
-  # need to declare `width` here in case this geom is used with a stat that
-  # doesn't have a `width` parameter (e.g., `stat_identity`).
-  extra_params = c("na.rm", "width", "orientation", "outliers"),
+  extra_params = c("na.rm", "orientation", "outliers"),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
     params
   },
 
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
-
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width,
+      zero = FALSE, discrete = TRUE
+    )
     if (isFALSE(params$outliers)) {
       data$outliers <- NULL
     }
@@ -389,7 +389,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     weight = 1, colour = from_theme(col_mix(ink, paper, 0.2)),
     fill = from_theme(paper), size = from_theme(pointsize),
     alpha = NA, shape = from_theme(pointshape), linetype = from_theme(bordertype),
-    linewidth = from_theme(borderwidth)
+    linewidth = from_theme(borderwidth),
+    width = 0.9
   ),
 
   required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
