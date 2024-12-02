@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Binned guides now accept expressions as labels (@teunbrand, #6005)
+* (internal) `Scale$get_labels()` format expressions as lists.
 * In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
   `coord_radial()`), using 'AsIs' variables escape transformation when
   both `x` and `y` is an 'AsIs' variable (@teunbrand, #6205).
