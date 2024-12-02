@@ -116,7 +116,6 @@ GuideColoursteps <- ggproto(
     } else {
       key$.value <- breaks
     }
-    key$.value <- fmt(breaks)
     key$.label <- scale$get_labels(breaks)
 
     if (breaks[1] %in% limits) {
