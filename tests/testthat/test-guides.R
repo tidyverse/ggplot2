@@ -192,7 +192,7 @@ test_that("bins can be parsed by guides for all scale types", {
 
 test_that("binned breaks can have hardcoded labels when oob", {
 
-  sc <- scale_colour_binned(breaks = 1:3, labels = as.character(1:3))
+  sc <- scale_colour_steps(breaks = 1:3, labels = as.character(1:3))
   sc$train(c(1, 2))
 
   g <- guide_bins()
