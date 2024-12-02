@@ -126,14 +126,17 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linewidth = NULL,
-    linetype = 1,
+    linetype = from_theme(linetype),
     alpha = NA,
     stroke = 0.5
   ),
 
   use_defaults = function(self, data, params = list(), modifiers = aes(),
-                          default_aes = NULL, ...) {
-    data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
+                          default_aes = NULL, theme = NULL, ...) {
+    data <- ggproto_parent(Geom, self)$use_defaults(
+      data, params, modifiers, default_aes, theme = theme, ...
+    )
+    # Early exit for e.g. legend data that don't have geometry columns
     if (!"geometry" %in% names(data)) {
       return(data)
     }
@@ -156,24 +159,29 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (length(index$point) > 0) {
       points <- GeomPoint$use_defaults(
         vec_slice(data, index$point),
-        params, modifiers
+        params, modifiers, theme = theme
       )
     }
     if (length(index$line) > 0) {
       lines <- GeomLine$use_defaults(
         vec_slice(data, index$line),
-        params, modifiers
+        params, modifiers, theme = theme
       )
     }
     other_default <- modify_list(
       GeomPolygon$default_aes,
-      list(fill = "grey90", colour = "grey35", linewidth = 0.2)
+      aes(
+        fill   = from_theme(col_mix(ink, paper, 0.9)),
+        colour = from_theme(col_mix(ink, paper, 0.35)),
+        linewidth = from_theme(0.4 * borderwidth)
+      )
     )
     if (length(index$other) > 0) {
       others <- GeomPolygon$use_defaults(
         vec_slice(data, index$other),
         params, modifiers,
-        default_aes = other_default
+        default_aes = other_default,
+        theme = theme
       )
     }
     if (length(index$collection) > 0) {
@@ -185,7 +193,8 @@ GeomSf <- ggproto("GeomSf", Geom,
       collections <- Geom$use_defaults(
         vec_slice(data, index$collection),
         params, modifiers,
-        default_aes = modified
+        default_aes = modified,
+        theme = theme
       )
     }
 
@@ -200,11 +209,41 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (!inherits(coord, "CoordSf")) {
       cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
+    if (is.character(data$shape)) {
+      data$shape <- translate_shape_string(data$shape)
+    }
 
-    # Need to refactor this to generate one grob per geometry type
-    coord <- coord$transform(data, panel_params)
-    sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-            arrow = arrow, arrow.fill = arrow.fill, na.rm = na.rm)
+    data <- coord$transform(data, panel_params)
+
+    type <- sf_types[sf::st_geometry_type(data$geometry)]
+    is_point <- type == "point"
+    is_line  <- type == "line"
+    is_collection <- type == "collection"
+
+    fill <- fill_alpha(data$fill %||% rep(NA, nrow(data)), data$alpha)
+    fill[is_line] <- arrow.fill %||% fill[is_line]
+
+    colour <- data$colour
+    colour[is_point | is_line] <-
+      alpha(colour[is_point | is_line], data$alpha[is_point | is_line])
+
+    point_size <- data$size
+    point_size[!(is_point | is_collection)] <-
+      data$linewidth[!(is_point | is_collection)]
+
+    stroke <- (data$stroke %||% rep(0.5, nrow(data))) * .stroke / 2
+    font_size <- point_size * .pt + stroke
+
+    linewidth <- data$linewidth * .pt
+    linewidth[is_point] <- stroke[is_point]
+
+    gp <- gpar(
+      col = colour, fill = fill, fontsize = font_size,
+      lwd = linewidth, lty = data$linetype,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+    )
+
+    sf::st_as_grob(data$geometry, pch = data$shape, gp = gp, arrow = arrow)
   },
 
   draw_key = function(data, params, size) {
@@ -214,57 +253,37 @@ GeomSf <- ggproto("GeomSf", Geom,
       line  = draw_key_path(data, params, size),
       draw_key_polygon(data, params, size)
     )
+  },
+
+  handle_na = function(self, data, params) {
+    remove <- rep(FALSE, nrow(data))
+
+    types <- sf_types[sf::st_geometry_type(data$geometry)]
+    types <- split(seq_along(remove), types)
+
+    get_missing <- function(geom) {
+      detect_missing(data, c(geom$required_aes, geom$non_missing_aes))
+    }
+
+    remove[types$point] <- get_missing(GeomPoint)[types$point]
+    remove[types$line]  <- get_missing(GeomPath)[types$line]
+    remove[types$other] <- get_missing(GeomPolygon)[types$other]
+
+    remove <- remove | get_missing(self)
+
+    if (any(remove)) {
+      data <- vec_slice(data, !remove)
+      if (!isTRUE(params$na.rm)) {
+        cli::cli_warn(
+          "Removed {sum(remove)} row{?s} containing missing values or values \\
+          outside the scale range ({.fn {snake_class(self)}})."
+        )
+      }
+    }
+
+    data
   }
 )
-
-sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10,
-                    arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
-  type <- sf_types[sf::st_geometry_type(x$geometry)]
-  is_point <- type == "point"
-  is_line <- type == "line"
-  is_other <- type == "other"
-  is_collection <- type == "collection"
-  type_ind <- match(type, c("point", "line", "other", "collection"))
-  remove <- rep_len(FALSE, nrow(x))
-  remove[is_point] <- detect_missing(x, c(GeomPoint$required_aes, GeomPoint$non_missing_aes))[is_point]
-  remove[is_line] <- detect_missing(x, c(GeomPath$required_aes, GeomPath$non_missing_aes))[is_line]
-  remove[is_other] <- detect_missing(x, c(GeomPolygon$required_aes, GeomPolygon$non_missing_aes))[is_other]
-  if (any(remove)) {
-    if (!na.rm) {
-      cli::cli_warn(paste0(
-        "Removed {sum(remove)} row{?s} containing missing values or values ",
-        "outside the scale range ({.fn geom_sf})."
-      ))
-    }
-    x <- x[!remove, , drop = FALSE]
-    type_ind <- type_ind[!remove]
-    is_collection <- is_collection[!remove]
-  }
-
-  alpha <- x$alpha %||% NA
-  fill <- fill_alpha(x$fill %||% NA, alpha)
-  fill[is_line] <- arrow.fill %||% fill[is_line]
-  col <- x$colour %||% NA
-  col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])
-
-  size <- x$size %||% 0.5
-  linewidth <- x$linewidth %||% 0.5
-  point_size <- ifelse(
-    is_collection,
-    x$size,
-    ifelse(is_point, size, linewidth)
-  )
-  stroke <- (x$stroke %||% 0) * .stroke / 2
-  fontsize <- point_size * .pt + stroke
-  lwd <- ifelse(is_point, stroke, linewidth * .pt)
-  pch <- x$shape
-  lty <- x$linetype
-  gp <- gpar(
-    col = col, fill = fill, fontsize = fontsize, lwd = lwd, lty = lty,
-    lineend = lineend, linejoin = linejoin, linemitre = linemitre
-  )
-  sf::st_as_grob(x$geometry, pch = pch, gp = gp, arrow = arrow)
-}
 
 #' @export
 #' @rdname ggsf

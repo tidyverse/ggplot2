@@ -71,7 +71,7 @@ fortify.Polygons <- function(model, data, ...) {
   })
   pieces <- vec_rbind0(!!!pieces)
 
-  pieces$order <- 1:nrow(pieces)
+  pieces$order <- seq_len(nrow(pieces))
   pieces$id <- model@ID
   pieces$piece <- factor(pieces$piece)
   pieces$group <- interaction(pieces$id, pieces$piece)
@@ -89,7 +89,7 @@ fortify.Polygon <- function(model, data, ...) {
 
   df <- as.data.frame(model@coords)
   names(df) <- c("long", "lat")
-  df$order <- 1:nrow(df)
+  df$order <- seq_len(nrow(df))
   df$hole <- model@hole
   df
 }
@@ -124,7 +124,7 @@ fortify.Lines <- function(model, data, ...) {
   })
   pieces <- vec_rbind0(!!!pieces)
 
-  pieces$order <- 1:nrow(pieces)
+  pieces$order <- seq_len(nrow(pieces))
   pieces$id <- model@ID
   pieces$piece <- factor(pieces$piece)
   pieces$group <- interaction(pieces$id, pieces$piece)
@@ -142,7 +142,7 @@ fortify.Line <- function(model, data, ...) {
 
   df <- as.data.frame(model@coords)
   names(df) <- c("long", "lat")
-  df$order <- 1:nrow(df)
+  df$order <- seq_len(nrow(df))
   df
 }
 

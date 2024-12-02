@@ -182,7 +182,7 @@ parse_dpi <- function(dpi, call = caller_env()) {
       print = 300,
       retina = 320,
     )
-  } else if (is_scalar_numeric(dpi)) {
+  } else if (is_bare_numeric(dpi, n = 1L)) {
     dpi
   } else {
     stop_input_type(dpi, "a single number or string", call = call)
@@ -197,7 +197,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
 
   dim <- to_inches(dim) * scale
 
-  if (any(is.na(dim))) {
+  if (anyNA(dim)) {
     if (length(grDevices::dev.list()) == 0) {
       default_dim <- c(7, 7)
     } else {
@@ -277,7 +277,10 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
     ps =   eps,
     tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
     pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
-    svg =  function(filename, ...) svglite::svglite(file = filename, ...),
+    svg =  function(filename, ...) {
+      check_installed("svglite", reason = "to save as SVG.")
+      svglite::svglite(file = filename, ...)
+    },
     # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
     emf =  function(..., bg = NULL) grDevices::win.metafile(...),
     wmf =  function(..., bg = NULL) grDevices::win.metafile(...),

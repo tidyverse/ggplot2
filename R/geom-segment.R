@@ -104,7 +104,14 @@ geom_segment <- function(mapping = NULL, data = NULL,
 GeomSegment <- ggproto("GeomSegment", Geom,
   required_aes = c("x", "y", "xend|yend"),
   non_missing_aes = c("linetype", "linewidth"),
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
+
   draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
     data$xend <- data$xend %||% data$x
@@ -134,7 +141,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       ))
     }
 
-    data$group <- 1:nrow(data)
+    data$group <- seq_len(nrow(data))
     starts <- subset(data, select = c(-xend, -yend))
     ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
 

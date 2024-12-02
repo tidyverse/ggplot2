@@ -5,7 +5,7 @@
 #'
 #' @inheritParams scales::pal_grey
 #' @inheritParams scale_colour_hue
-#' @inheritDotParams discrete_scale -expand -position -scale_name
+#' @inheritDotParams discrete_scale -expand -position -scale_name -palette
 #' @family colour scales
 #' @seealso
 #' The documentation on [colour aesthetics][aes_colour_fill_alpha].

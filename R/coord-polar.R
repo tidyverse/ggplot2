@@ -137,7 +137,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$sec.labels <- out$sec.labels
     }
 
-    details = list(
+    details <- list(
       x.range = ret$x$range, y.range = ret$y$range,
       x.major = ret$x$major, y.major = ret$y$major,
       x.minor = ret$x$minor, y.minor = ret$y$minor,
@@ -180,6 +180,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     arc  <- self$start + c(0, 2 * pi)
     dir  <- self$direction
     data <- rename_data(self, data)

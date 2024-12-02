@@ -60,6 +60,7 @@ ggplot_build.ggplot <- function(plot) {
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+  plot$labels <- setup_plot_labels(plot, layers, data)
   data <- .ignore_data(data)
 
   # Transform all scales
@@ -99,11 +100,15 @@ ggplot_build.ggplot <- function(plot) {
   # Hand off position guides to layout
   layout$setup_panel_guides(plot$guides, plot$layers)
 
+  # Complete the plot's theme
+  plot$theme <- plot_theme(plot)
+
   # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
+    npscales$set_palettes(plot$theme)
     lapply(data, npscales$train_df)
-    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data)
+    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data, plot$theme)
     data <- lapply(data, npscales$map_df)
   } else {
     # Only keep custom guides if there are no non-position scales
@@ -112,7 +117,10 @@ ggplot_build.ggplot <- function(plot) {
   data <- .expose_data(data)
 
   # Fill in defaults etc.
-  data <- by_layer(function(l, d) l$compute_geom_2(d), layers, data, "setting up geom aesthetics")
+  data <- by_layer(
+    function(l, d) l$compute_geom_2(d, theme = plot$theme),
+    layers, data, "setting up geom aesthetics"
+  )
 
   # Let layer stat have a final say before rendering
   data <- by_layer(function(l, d) l$finish_statistics(d), layers, data, "finishing layer stat")
@@ -198,7 +206,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot <- data$plot
   layout <- data$layout
   data <- data$data
-  theme <- plot_theme(plot)
+  theme <- plot$theme
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
 
@@ -249,18 +257,18 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
   if (title_pos == "panel") {
-    title_l = min(pans$l)
-    title_r = max(pans$r)
+    title_l <- min(pans$l)
+    title_r <- max(pans$r)
   } else {
-    title_l = 1
-    title_r = ncol(plot_table)
+    title_l <- 1
+    title_r <- ncol(plot_table)
   }
   if (caption_pos == "panel") {
-    caption_l = min(pans$l)
-    caption_r = max(pans$r)
+    caption_l <- min(pans$l)
+    caption_r <- max(pans$r)
   } else {
-    caption_l = 1
-    caption_r = ncol(plot_table)
+    caption_l <- 1
+    caption_r <- ncol(plot_table)
   }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
@@ -281,7 +289,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_margin <- calc_element("plot.margin", theme)
   plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
-  if (inherits(theme$plot.background, "element")) {
+  if (is.theme_element(theme$plot.background)) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
@@ -351,13 +359,10 @@ table_add_tag <- function(table, label, theme) {
       ),
       call = expr(theme()))
     }
-    if (length(position) != 2) {
-      cli::cli_abort(paste0(
-        "A {.cls numeric} {.arg plot.tag.position} ",
-        "theme setting must have length 2."
-      ),
-      call = expr(theme()))
-    }
+    check_length(
+      position, 2L, call = expr(theme()),
+      arg = I("A {.cls numeric} {.arg plot.tag.position}")
+    )
     top <- left <- right <- bottom <- FALSE
   } else {
     # Break position into top/left/right/bottom
@@ -401,11 +406,10 @@ table_add_tag <- function(table, label, theme) {
       x <- unit(position[1], "npc")
       y <- unit(position[2], "npc")
     }
-    # Do manual placement of tag
-    tag <- justify_grobs(
-      tag, x = x, y = y,
-      hjust = element$hjust, vjust = element$vjust,
-      int_angle = element$angle, debug = element$debug
+    # Re-render with manual positions
+    tag <- element_grob(
+      element, x = x, y = y, label = label,
+      margin_y = TRUE, margin_x = TRUE
     )
     if (location == "plot") {
       table <- gtable_add_grob(

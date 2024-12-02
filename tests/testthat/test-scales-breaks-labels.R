@@ -7,10 +7,8 @@ test_that("labels match breaks, even when outside limits", {
 })
 
 test_that("labels match breaks", {
-  expect_error(scale_x_discrete(breaks = 1:3, labels = 1:2),
-    "must have the same length")
-  expect_error(scale_x_continuous(breaks = 1:3, labels = 1:2),
-    "must have the same length")
+  expect_snapshot(scale_x_discrete(breaks = 1:3, labels = 1:2), error = TRUE)
+  expect_snapshot(scale_x_continuous(breaks = 1:3, labels = 1:2), error = TRUE)
 })
 
 test_that("labels don't have to match null breaks", {
@@ -47,9 +45,9 @@ test_that("out-of-range breaks are dropped", {
   # Limits are specified, and all breaks are out of range
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)], limits = c(2, 4))
   bi <- sc$break_info()
-  expect_equal(length(bi$labels), 0)
-  expect_equal(length(bi$major), 0)
-  expect_equal(length(bi$major_source), 0)
+  expect_length(bi$labels, 0)
+  expect_length(bi$major, 0)
+  expect_length(bi$major_source, 0)
 
   # limits aren't specified, automatic labels
   # limits are set by the data
@@ -72,36 +70,36 @@ test_that("out-of-range breaks are dropped", {
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
   sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
-  expect_equal(length(bi$labels), 0)
-  expect_equal(length(bi$major), 0)
-  expect_equal(length(bi$major_source), 0)
+  expect_length(bi$labels, 0)
+  expect_length(bi$major, 0)
+  expect_length(bi$major_source, 0)
 })
 
 test_that("no minor breaks when only one break", {
   sc1 <- scale_x_discrete(limits = "a")
-  sc2 <- scale_x_continuous(limits = 1)
+  sc2 <- scale_x_continuous(limits = c(1, 1))
 
-  expect_equal(length(sc1$get_breaks_minor()), 0)
-  expect_equal(length(sc2$get_breaks_minor()), 0)
+  expect_length(sc1$get_breaks_minor(), 0)
+  expect_length(sc2$get_breaks_minor(), 0)
 })
 
 init_scale <- function(...) {
   sc <- scale_x_discrete(...)
   sc$train(factor(1:100))
-  expect_equal(length(sc$get_limits()), 100)
+  expect_length(sc$get_limits(), 100)
   sc
 }
 
 test_that("discrete labels match breaks", {
 
   sc <- init_scale(breaks = 0:5 * 10)
-  expect_equal(length(sc$get_breaks()), 5)
-  expect_equal(length(sc$get_labels()), 5)
+  expect_length(sc$get_breaks(), 5)
+  expect_length(sc$get_labels(), 5)
   expect_equal(sc$get_labels(), sc$get_breaks(), ignore_attr = TRUE)
 
   sc <- init_scale(breaks = 0:5 * 10, labels = letters[1:6])
-  expect_equal(length(sc$get_breaks()), 5)
-  expect_equal(length(sc$get_labels()), 5)
+  expect_length(sc$get_breaks(), 5)
+  expect_length(sc$get_labels(), 5)
   expect_equal(sc$get_labels(), letters[2:6])
 
   sc <- init_scale(breaks = 0:5 * 10, labels =
@@ -110,8 +108,8 @@ test_that("discrete labels match breaks", {
 
   pick_5 <- function(x) sample(x, 5)
   sc <- init_scale(breaks = pick_5)
-  expect_equal(length(sc$get_breaks()), 5)
-  expect_equal(length(sc$get_labels()), 5)
+  expect_length(sc$get_breaks(), 5)
+  expect_length(sc$get_labels(), 5)
 })
 
 test_that("scale breaks work with numeric log transformation", {
@@ -137,35 +135,53 @@ test_that("discrete scales with no data have no breaks or labels", {
 })
 
 test_that("passing continuous limits to a discrete scale generates a warning", {
-  expect_warning(scale_x_discrete(limits = 1:3), "Continuous limits supplied to discrete scale")
+  expect_snapshot_warning(scale_x_discrete(limits = 1:3))
 })
 
 test_that("suppressing breaks, minor_breask, and labels works", {
-  expect_equal(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
-  expect_equal(scale_x_discrete(breaks = NULL, limits = c("one", "three"))$get_breaks(), NULL)
-  expect_equal(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor(), NULL)
+  expect_null(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks())
+  expect_null(scale_x_discrete(breaks = NULL, limits = c("one", "three"))$get_breaks())
+  expect_null(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor())
 
-  expect_equal(scale_x_continuous(labels = NULL, limits = c(1, 3))$get_labels(), NULL)
-  expect_equal(scale_x_discrete(labels = NULL, limits = c("one", "three"))$get_labels(), NULL)
+  expect_null(scale_x_continuous(labels = NULL, limits = c(1, 3))$get_labels())
+  expect_null(scale_x_discrete(labels = NULL, limits = c("one", "three"))$get_labels())
 
   # date, datetime
   lims <- as.Date(c("2000/1/1", "2000/2/1"))
-  expect_equal(scale_x_date(breaks = NULL, limits = lims)$get_breaks(), NULL)
+  expect_null(scale_x_date(breaks = NULL, limits = lims)$get_breaks())
   # NA is defunct, should throw error
-  expect_error(scale_x_date(breaks = NA, limits = lims)$get_breaks())
-  expect_equal(scale_x_date(labels = NULL, limits = lims)$get_labels(), NULL)
-  expect_error(scale_x_date(labels = NA, limits = lims)$get_labels())
-  expect_equal(scale_x_date(minor_breaks = NULL, limits = lims)$get_breaks_minor(), NULL)
-  expect_error(scale_x_date(minor_breaks = NA, limits = lims)$get_breaks_minor())
+  expect_snapshot(
+    scale_x_date(breaks = NA, limits = lims)$get_breaks(),
+    error = TRUE
+  )
+  expect_null(scale_x_date(labels = NULL, limits = lims)$get_labels())
+  expect_snapshot(
+    scale_x_date(labels = NA, limits = lims)$get_labels(),
+    error = TRUE
+  )
+  expect_null(scale_x_date(minor_breaks = NULL, limits = lims)$get_breaks_minor())
+  expect_snapshot(
+    scale_x_date(minor_breaks = NA, limits = lims)$get_breaks_minor(),
+    error = TRUE
+  )
 
   # date, datetime
   lims <- as.POSIXct(c("2000/1/1 0:0:0", "2010/1/1 0:0:0"))
-  expect_equal(scale_x_datetime(breaks = NULL, limits = lims)$get_breaks(), NULL)
-  expect_error(scale_x_datetime(breaks = NA, limits = lims)$get_breaks())
-  expect_equal(scale_x_datetime(labels = NULL, limits = lims)$get_labels(), NULL)
-  expect_error(scale_x_datetime(labels = NA, limits = lims)$get_labels())
-  expect_equal(scale_x_datetime(minor_breaks = NULL, limits = lims)$get_breaks_minor(), NULL)
-  expect_error(scale_x_datetime(minor_breaks = NA, limits = lims)$get_breaks_minor())
+  expect_null(scale_x_datetime(breaks = NULL, limits = lims)$get_breaks())
+  expect_snapshot(
+    scale_x_datetime(breaks = NA, limits = lims)$get_breaks(),
+    error = TRUE
+  )
+  expect_null(scale_x_datetime(labels = NULL, limits = lims)$get_labels())
+  expect_snapshot(
+    scale_x_datetime(labels = NA, limits = lims)$get_labels(),
+    error = TRUE
+  )
+  expect_null(scale_x_datetime(minor_breaks = NULL, limits = lims)$get_breaks_minor())
+  expect_snapshot(
+    scale_x_datetime(minor_breaks = NA, limits = lims)$get_breaks_minor(),
+    error = TRUE
+  )
 })
 
 test_that("scale_breaks with explicit NA options (deprecated)", {
@@ -245,6 +261,17 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
   test_view_scale_rev <- view_scale_primary(test_scale, limits = rev(test_scale$get_limits()))
   expect_identical(test_view_scale_rev$get_breaks(), c(NA, 20, NA))
   expect_identical(test_view_scale_rev$get_labels(), c(c("0", "20", "40")))
+})
+
+test_that("break names are returned as labels", {
+
+  sc <- scale_x_continuous(breaks = c(A = 10, B = 20, C = 30))
+  sc$train(c(10, 30))
+  expect_equal(sc$get_labels(), c("A", "B", "C"))
+
+  sc <- scale_x_discrete(breaks = c(foo = "A", bar = "B", qux = "C"))
+  sc$train(c(LETTERS[1:3]))
+  expect_equal(sc$get_labels(), c("foo", "bar", "qux"))
 })
 
 # Visual tests ------------------------------------------------------------
