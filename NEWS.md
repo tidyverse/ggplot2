@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (internal) layer data can be attenuated with parameter attributes 
+  (@teunbrand, #3175).
 * New argument `labs(dictionary)` to label based on variable name rather than 
   based on aesthetic (@teunbrand, #5178)
 * Fixed bug in out-of-bounds binned breaks (@teunbrand, #6054)
