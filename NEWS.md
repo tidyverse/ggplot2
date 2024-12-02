@@ -219,6 +219,8 @@
 * New theme elements `palette.{aes}.discrete` and `palette.{aes}.continuous`. 
   Theme palettes replace palettes in scales where `palette = NULL`, which is 
   the new default in many scales (@teunbrand, #4696).
+* `guide_axis()` no longer reserves space for blank ticks 
+  (@teunbrand, #4722, #6069).
 
 # ggplot2 3.5.1
 
