@@ -314,6 +314,22 @@ test_that("sf_transform_xy() works", {
 
 })
 
+test_that("when both x and y are AsIs, they are not transformed", {
+
+  skip_if_not_installed("sf")
+
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = I(0.25), label = "foo") +
+    scale_x_continuous(limits = c(-180, 180)) +
+    scale_y_continuous(limits = c(-80, 80)) +
+    coord_sf(default_crs = 4326, crs = 3857)
+
+  grob <- get_layer_grob(p)[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
+
+})
+
 test_that("coord_sf() can use function breaks and n.breaks", {
 
   polygon <- sf::st_sfc(
