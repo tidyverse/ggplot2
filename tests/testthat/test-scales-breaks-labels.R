@@ -289,6 +289,17 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
   expect_identical(test_view_scale_rev$get_labels(), c(c("0", "20", "40")))
 })
 
+test_that("break names are returned as labels", {
+
+  sc <- scale_x_continuous(breaks = c(A = 10, B = 20, C = 30))
+  sc$train(c(10, 30))
+  expect_equal(sc$get_labels(), c("A", "B", "C"))
+
+  sc <- scale_x_discrete(breaks = c(foo = "A", bar = "B", qux = "C"))
+  sc$train(c(LETTERS[1:3]))
+  expect_equal(sc$get_labels(), c("foo", "bar", "qux"))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("minor breaks draw correctly", {

@@ -666,6 +666,21 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag.location   = el_def("character"),
   plot.margin         = el_def(c("margin", "unit", "rel"), "margins"),
 
+  palette.colour.discrete   = el_def(c("character", "function")),
+  palette.colour.continuous = el_def(c("character", "function")),
+  palette.fill.discrete   = el_def(c("character", "function"), "palette.colour.discrete"),
+  palette.fill.continuous = el_def(c("character", "function"), "palette.colour.continuous"),
+  palette.alpha.discrete   = el_def(c("character", "numeric", "integer", "function")),
+  palette.alpha.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.continuous = el_def(c("character", "numeric", "integer", "function")),
+
   aspect.ratio        = el_def(c("numeric", "integer"))
 )
 

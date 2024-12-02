@@ -174,7 +174,7 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
     tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
     dictionary = dictionary, .ignore_empty = "all")
 
-  is_waive <- vapply(args, is.waive, logical(1))
+  is_waive <- vapply(args, is.waiver, logical(1))
   args <- args[!is_waive]
   # remove duplicated arguments
   args <- args[!duplicated(names(args))]
