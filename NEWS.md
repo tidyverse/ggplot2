@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New argument `labs(dictionary)` to label based on variable name rather than 
+  based on aesthetic (@teunbrand, #5178)
 * Fixed bug in out-of-bounds binned breaks (@teunbrand, #6054)
 * Binned guides now accept expressions as labels (@teunbrand, #6005)
 * (internal) `Scale$get_labels()` format expressions as lists.
