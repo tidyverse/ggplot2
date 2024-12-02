@@ -213,6 +213,9 @@
 * Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
 * Added `theme_transparent()` with transparent backgrounds (@topepo).
+* New theme elements `palette.{aes}.discrete` and `palette.{aes}.continuous`. 
+  Theme palettes replace palettes in scales where `palette = NULL`, which is 
+  the new default in many scales (@teunbrand, #4696).
 
 # ggplot2 3.5.1
 
