@@ -92,7 +92,7 @@ test_that("geom_smooth() works when one group fails", {
     geom_smooth(method = "loess", formula = y ~ x)
 
   suppressWarnings(
-    expect_warning(ld <- get_layer_data(p), "Failed to fit group 1")
+    expect_snapshot_warning(ld <- get_layer_data(p))
   )
   expect_equal(unique(ld$group), 2)
   expect_gte(nrow(ld), 2)

@@ -153,8 +153,14 @@ PositionStack <- ggproto("PositionStack", Position,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
+    var <- self$var %||% stack_var(data)
+    if (!vec_duplicate_any(data$x)) {
+      # We skip stacking when all data have different x positions so that
+      # there is nothing to stack
+      var <- NULL
+    }
     list(
-      var = self$var %||% stack_var(data),
+      var = var,
       fill = self$fill,
       vjust = self$vjust,
       reverse = self$reverse,
@@ -184,10 +190,6 @@ PositionStack <- ggproto("PositionStack", Position,
     data <- flip_data(data, params$flipped_aes)
     if (is.null(params$var)) {
       return(data)
-    }
-    if (!vec_duplicate_any(data$x)) {
-      # Every x is unique, nothing to stack here
-      return(flip_data(data, params$flipped_aes))
     }
 
     negative <- data$ymax < 0

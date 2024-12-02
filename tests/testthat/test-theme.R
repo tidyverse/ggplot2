@@ -49,7 +49,7 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
@@ -115,7 +115,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("calculating theme element inheritance works", {
@@ -240,14 +240,12 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 })
@@ -352,6 +350,7 @@ test_that("all elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_linedraw()))
   expect_true(inherit_blanks(theme_minimal()))
   expect_true(inherit_blanks(theme_void()))
+  expect_true(inherit_blanks(theme_transparent()))
 })
 
 test_that("elements can be merged", {
@@ -370,10 +369,7 @@ test_that("elements can be merged", {
     merge_element(element_line(colour = "blue"), line_base),
     element_line(colour = "blue", linewidth = 10)
   )
-  expect_error(
-    merge_element(text_base, rect_base),
-    "Only elements of the same class can be merged"
-  )
+  expect_snapshot(merge_element(text_base, rect_base), error = TRUE)
 })
 
 test_that("theme elements that don't inherit from element can be combined", {
@@ -500,6 +496,9 @@ test_that("provided themes explicitly define all elements", {
   expect_true(all(names(t) %in% elements))
 
   t <- theme_test()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_transparent()
   expect_true(all(names(t) %in% elements))
 })
 
@@ -666,6 +665,7 @@ test_that("themes don't change without acknowledgement", {
   expect_doppelganger("theme_light", plot + theme_light())
   expect_doppelganger("theme_void", plot + theme_void())
   expect_doppelganger("theme_linedraw", plot + theme_linedraw())
+  expect_doppelganger("theme_transparent", plot + theme_transparent())
 })
 
 test_that("themes look decent at larger base sizes", {
@@ -682,6 +682,7 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
   expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
+  expect_doppelganger("theme_transparent_large", plot + theme_transparent(base_size = 33))
 })
 
 test_that("setting 'spacing' and 'margins' affect the whole plot", {
@@ -840,6 +841,24 @@ test_that("Strips can render custom elements", {
     facet_wrap(~a) +
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
+})
+
+test_that("theme ink and paper settings work", {
+
+  p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+    geom_point() +
+    facet_wrap(~"Strip title") +
+    labs(
+      title = "Main title",
+      subtitle = "Subtitle",
+      tag = "A",
+      caption = "Caption"
+    )
+
+  expect_doppelganger(
+    "Theme with inverted colours",
+    p + theme_gray(ink = "white", paper = "black")
+  )
 })
 
 test_that("legend margins are correct when using relative key sizes", {

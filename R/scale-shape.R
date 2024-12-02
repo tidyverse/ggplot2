@@ -42,14 +42,16 @@
 #'   scale_shape_identity() +
 #'   facet_wrap(~shape) +
 #'   theme_void()
-scale_shape <- function(name = waiver(), ..., solid = TRUE) {
-  discrete_scale("shape", name = name, palette = pal_shape(solid), ...)
+scale_shape <- function(name = waiver(), ..., solid = NULL) {
+  palette <- if (!is.null(solid)) pal_shape(solid) else NULL
+  discrete_scale("shape", name = name, palette = palette, ...)
 }
 
 #' @rdname scale_shape
 #' @export
 scale_shape_binned <- function(name = waiver(), ..., solid = TRUE) {
-  binned_scale("shape", name = name, palette = pal_binned(pal_shape(solid)), ...)
+  palette <- if (!is.null(solid)) pal_binned(pal_shape(solid)) else NULL
+  binned_scale("shape", name = name, palette = palette, ...)
 }
 
 #' @rdname scale_shape

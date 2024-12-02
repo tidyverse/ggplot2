@@ -9,6 +9,7 @@ guide_coloursteps(
   title = waiver(),
   theme = NULL,
   alpha = NA,
+  angle = NULL,
   even.steps = TRUE,
   show.limits = NULL,
   direction = NULL,
@@ -23,6 +24,7 @@ guide_colorsteps(
   title = waiver(),
   theme = NULL,
   alpha = NA,
+  angle = NULL,
   even.steps = TRUE,
   show.limits = NULL,
   direction = NULL,
@@ -46,6 +48,11 @@ guide overrides, and is combined with, the plot's theme.}
 \item{alpha}{A numeric between 0 and 1 setting the colour transparency of
 the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
 (default).}
+
+\item{angle}{Overrules the theme settings to automatically apply appropriate
+\code{hjust} and \code{vjust} for angled legend text. Can be a single number
+representing the text angle in degrees, or \code{NULL} to not overrule the
+settings (default).}
 
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}

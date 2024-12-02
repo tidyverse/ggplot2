@@ -129,7 +129,7 @@ is.sec_axis <- function(x) {
 }
 
 set_sec_axis <- function(sec.axis, scale) {
-  if (!is.waive(sec.axis)) {
+  if (!is.waiver(sec.axis)) {
     if (scale$is_discrete()) {
       if (!identical(.subset2(sec.axis, "trans"), identity)) {
         cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
@@ -182,11 +182,11 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (!is.function(transform)) {
       cli::cli_abort("Transformation for secondary axes must be a function.")
     }
-    if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
+    if (is.derived(self$name) && !is.waiver(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
-    if (is.waive(self$breaks)) {
+    if (is.waiver(self$breaks)) {
       if (scale$is_discrete()) {
-        self$breaks <- scale$get_breaks()
+        self$breaks <- setNames(nm = scale$get_breaks())
       } else {
         breaks <- scale$get_transformation()$breaks
         n_breaks <- scale$n.breaks
@@ -235,7 +235,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       self$mono_test(scale)
       breaks <- self$breaks
     } else {
-      breaks <- scale$map(self$breaks)
+      breaks <- setNames(scale$map(self$breaks), names(self$breaks))
     }
 
     # Get scale's original range before transformation

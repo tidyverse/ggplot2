@@ -9,6 +9,19 @@
 #'  * A named list of aesthetics to serve as new defaults.
 #'  * `NULL` to reset the defaults.
 #' @keywords internal
+#' @note
+#' Please note that geom defaults can be set *en masse* via the `theme(geom)`
+#' argument. The guidelines for when to use which function are as follows:
+#'
+#' * If you want to change defaults for all geoms in all plots, use
+#'   `theme_update(geom = element_geom(...))`.
+#' * If you want to change defaults for all geoms in a single plot, use
+#'   `+ theme(geom = element_geom(...))`.
+#' * If you want to change defaults for one geom in all plots, use
+#'   `update_geom_defaults()`.
+#' * If you want to change settings for one geom in a single plot, use fixed
+#'   aesthetic parameters in a layer, like so: `geom_point(colour = "red")`.
+#'
 #' @export
 #' @examples
 #'
@@ -49,6 +62,57 @@ update_geom_defaults <- function(geom, new) {
 #' @export
 update_stat_defaults <- function(stat, new) {
   update_defaults(stat, "Stat", new, env = parent.frame())
+}
+
+#' Resolve and get geom defaults
+#'
+#' @param geom Some definition of a geom:
+#' * A `function` that creates a layer, e.g. `geom_path()`.
+#' * A layer created by such function
+#' * A string naming a geom class in snake case without the `geom_`-prefix,
+#'   e.g. `"contour_filled"`.
+#' * A geom class object.
+#' @param theme A [`theme`] object. Defaults to the current global theme.
+#'
+#' @return A list of aesthetics
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' # Using a function
+#' get_geom_defaults(geom_raster)
+#'
+#' # Using a layer includes static aesthetics as default
+#' get_geom_defaults(geom_tile(fill = "white"))
+#'
+#' # Using a class name
+#' get_geom_defaults("density_2d")
+#'
+#' # Using a class
+#' get_geom_defaults(GeomPoint)
+#'
+#' # Changed theme
+#' get_geom_defaults("point", theme(geom = element_geom(ink = "purple")))
+get_geom_defaults <- function(geom, theme = theme_get()) {
+  theme <- theme %||% list(geom = .default_geom_element)
+
+  if (is.function(geom)) {
+    geom <- geom()
+  }
+  if (is.layer(geom)) {
+    data <- data_frame0(.id = 1L)
+    data <- geom$compute_geom_2(data = data, theme = theme)
+    data$.id <- NULL
+    return(data)
+  }
+  if (is.character(geom)) {
+    geom <- check_subclass(geom, "Geom")
+  }
+  if (is.geom(geom)) {
+    out <- geom$use_defaults(data = NULL, theme = theme)
+    return(out)
+  }
+  stop_input_type(geom, as_cli("a layer function, string or {.cls Geom} object"))
 }
 
 #' @rdname update_defaults
