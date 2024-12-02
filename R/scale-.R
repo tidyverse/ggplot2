@@ -528,6 +528,7 @@ Scale <- ggproto("Scale", NULL,
     if (empty(df)) {
       return()
     }
+    self$palette <- self$palette %||% fallback_palette(self)
 
     aesthetics <- intersect(self$aesthetics, names(df))
     names(aesthetics) <- aesthetics
@@ -861,12 +862,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels[lengths(labels) == 0] <- ""
       # Make sure each element is scalar
       labels <- lapply(labels, `[`, 1)
-
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- inject(expression(!!!labels))
-      } else {
-        labels <- unlist(labels)
-      }
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
 
     labels
@@ -1074,48 +1072,42 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     }
 
-    if (is.null(self$labels)) {
+    labels <- self$labels
+    if (is.null(labels)) {
       return(NULL)
     }
 
-    if (identical(self$labels, NA)) {
+    if (identical(labels, NA)) {
       cli::cli_abort(
         "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
 
-    if (is.waiver(self$labels)) {
+    if (is.waiver(labels)) {
       if (!is.null(names(breaks))) {
-        return(names(breaks))
-      }
-      if (is.numeric(breaks)) {
+        labels <- names(breaks)
+      } else if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
-        format(breaks, justify = "none")
+        labels <- format(breaks, justify = "none")
       } else {
-        as.character(breaks)
+        labels <- as.character(breaks)
       }
-    } else if (is.function(self$labels)) {
-      self$labels(breaks)
-    } else {
-      if (!is.null(names(self$labels))) {
-        # If labels have names, use them to match with breaks
-        labels <- breaks
-
-        map <- match(names(self$labels), labels, nomatch = 0)
-        labels[map] <- self$labels[map != 0]
-        labels
-      } else {
-        labels <- self$labels
-
-        # Need to ensure that if breaks were dropped, corresponding labels are too
-        pos <- attr(breaks, "pos")
-        if (!is.null(pos)) {
-          labels <- labels[pos]
-        }
-        labels
-      }
+    } else if (is.function(labels)) {
+      labels <- labels(breaks)
+    } else if (!is.null(names(labels))) {
+      # If labels have names, use them to match with breaks
+      map <- match(names(self$labels), breaks, nomatch = 0)
+      labels <- replace(breaks, map, labels[map != 0])
+    } else if (!is.null(attr(breaks, "pos"))) {
+      # Need to ensure that if breaks were dropped, corresponding labels are too
+      labels <- labels[attr(breaks, "pos")]
     }
+
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
+    }
+    labels
   },
 
   clone = function(self) {
@@ -1315,9 +1307,6 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       breaks <- self$breaks
     }
 
-    # Breaks must be within limits
-    breaks <- oob_discard(breaks, sort(limits))
-
     self$breaks <- breaks
 
     transformation$transform(breaks)
@@ -1350,6 +1339,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
     labels
   },

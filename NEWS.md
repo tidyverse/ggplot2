@@ -2,6 +2,11 @@
 
 * (internal) layer data can be attenuated with parameter attributes 
   (@teunbrand, #3175).
+* New argument `labs(dictionary)` to label based on variable name rather than 
+  based on aesthetic (@teunbrand, #5178)
+* Fixed bug in out-of-bounds binned breaks (@teunbrand, #6054)
+* Binned guides now accept expressions as labels (@teunbrand, #6005)
+* (internal) `Scale$get_labels()` format expressions as lists.
 * In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
   `coord_radial()`), using 'AsIs' variables escape transformation when
   both `x` and `y` is an 'AsIs' variable (@teunbrand, #6205).
@@ -214,6 +219,12 @@
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
 * Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
+* Added `theme_transparent()` with transparent backgrounds (@topepo).
+* New theme elements `palette.{aes}.discrete` and `palette.{aes}.continuous`. 
+  Theme palettes replace palettes in scales where `palette = NULL`, which is 
+  the new default in many scales (@teunbrand, #4696).
+* `guide_axis()` no longer reserves space for blank ticks 
+  (@teunbrand, #4722, #6069).
 
 # ggplot2 3.5.1
 

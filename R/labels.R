@@ -84,6 +84,15 @@ setup_plot_labels <- function(plot, layers, data) {
     ))
   }
 
+  dict <- plot_labels$dictionary
+  if (length(dict) > 0) {
+    labels <- lapply(labels, function(x) {
+      dict <- dict[names(dict) %in% x]
+      x[match(names(dict), x)] <- dict
+      x
+    })
+  }
+
   defaults(plot_labels, labels)
 }
 
@@ -114,6 +123,10 @@ setup_plot_labels <- function(plot, layers, data) {
 #'        bottom-right of the plot by default.
 #' @param tag The text for the tag label which will be displayed at the
 #'        top-left of the plot by default.
+#' @param dictionary A named character vector to serve as dictionary.
+#'        Automatically derived labels, such as those based on variables will
+#'        be matched with `names(dictionary)` and replaced by the matching
+#'        entry in `dictionary`.
 #' @param alt,alt_insight Text used for the generation of alt-text for the plot.
 #'        See [get_alt_text] for examples. `alt` can also be a function that
 #'        takes the plot as input and returns text as output. `alt` also accepts
@@ -127,6 +140,14 @@ setup_plot_labels <- function(plot, layers, data) {
 #' p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
 #' p + labs(colour = "Cylinders")
 #' p + labs(x = "New x label")
+#'
+#' # Set labels by variable name instead of aesthetic
+#' p + labs(dict = c(
+#'   disp = "Displacment", # Not in use
+#'   cyl  = "Number of cylinders",
+#'   mpg  = "Miles per gallon",
+#'   wt   = "Weight (1000 lbs)"
+#' ))
 #'
 #' # The plot title appears at the top-left, with the subtitle
 #' # display in smaller text underneath it
@@ -146,11 +167,12 @@ setup_plot_labels <- function(plot, layers, data) {
 #'  labs(title = "title") +
 #'  labs(title = NULL)
 labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
-                 tag = waiver(), alt = waiver(), alt_insight = waiver()) {
+                 tag = waiver(), dictionary = waiver(), alt = waiver(),
+                 alt_insight = waiver()) {
   # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
   args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
     tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
-    .ignore_empty = "all")
+    dictionary = dictionary, .ignore_empty = "all")
 
   is_waive <- vapply(args, is.waiver, logical(1))
   args <- args[!is_waive]
