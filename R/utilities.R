@@ -781,6 +781,34 @@ as_unordered_factor <- function(x) {
   x
 }
 
+fallback_palette <- function(scale) {
+  aes <- scale$aesthetics[1]
+  discrete <- scale$is_discrete()
+  if (discrete) {
+    pal <- switch(
+      aes,
+      colour = , fill = pal_hue(),
+      alpha = function(n) seq(0.1, 1, length.out = n),
+      linewidth = function(n) seq(2, 6, length.out = n),
+      linetype = pal_linetype(),
+      shape = pal_shape(),
+      size = function(n) sqrt(seq(4, 36, length.out = n)),
+      ggplot_global$theme_default[[paste0("palette.", aes, ".discrete")]]
+    )
+    return(pal)
+  }
+  switch(
+    aes,
+    colour = , fill = pal_seq_gradient("#132B43", "#56B1F7"),
+    alpha = pal_rescale(c(0.1, 1)),
+    linewidth = pal_rescale(c(1, 6)),
+    linetype = pal_binned(pal_linetype()),
+    shape = pal_binned(pal_shape()),
+    size = pal_area(),
+    ggplot_global$theme_default[[paste0("palette.", aes, ".continuous")]]
+  )
+}
+
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
     env = env, call = call,
@@ -793,6 +821,8 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   )
 }
 
+# TODO: delete shims when {scales} releases >1.3.0.9000
+# and bump {scales} version requirements
 # Shim for scales/#424
 col_mix <- function(a, b, amount = 0.5) {
   input <- vec_recycle_common(a = a, b = b, amount = amount)
@@ -805,9 +835,39 @@ col_mix <- function(a, b, amount = 0.5) {
   )
 }
 
+# Shim for scales/#427
+as_discrete_pal <- function(x, ...) {
+  if (is.function(x)) {
+    return(x)
+  }
+  pal_manual(x)
+}
+
+# Shim for scales/#427
+as_continuous_pal <- function(x, ...) {
+  if (is.function(x)) {
+    return(x)
+  }
+  is_color <- grepl("^#(([[:xdigit:]]{2}){3,4}|([[:xdigit:]]){3,4})$", x) |
+    x %in% grDevices::colours()
+  if (all(is_color)) {
+    colour_ramp(x)
+  } else {
+    approxfun(seq(0, 1, length.out = length(x)), x)
+  }
+}
+
+# Replace shims by actual scales function when available
 on_load({
-  if ("col_mix" %in% getNamespaceExports("scales")) {
+  nse <- getNamespaceExports("scales")
+  if ("col_mix" %in% nse) {
     col_mix <- scales::col_mix
+  }
+  if ("as_discrete_pal" %in% nse) {
+    as_discrete_pal <- scales::as_discrete_pal
+  }
+  if ("as_continuous_pal" %in% nse) {
+    as_continuous_pal <- scales::as_continuous_pal
   }
 })
 
