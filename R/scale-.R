@@ -1387,7 +1387,7 @@ scale_flip_position <- function(scale) {
 }
 
 check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) {
-  if (!any(is.finite(x) != is.finite(transformed))) {
+  if (!any(is_finite(x) != is_finite(transformed))) {
     return(invisible())
   }
   if (is.null(arg)) {
