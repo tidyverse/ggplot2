@@ -111,7 +111,7 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
-  if (!missing(mapping) && !inherits(mapping, "uneval")) {
+  if (!missing(mapping) && !is.mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
       "x" = "You've supplied {.obj_type_friendly {mapping}}."
@@ -130,7 +130,8 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
-    layout = ggproto(NULL, Layout)
+    layout = ggproto(NULL, Layout),
+    labels = list()
   ), class = c("gg", "ggplot"))
 
   set_last_plot(p)
@@ -147,18 +148,19 @@ ggplot.function <- function(data = NULL, mapping = aes(), ...,
   ))
 }
 
+#' Reports whether x is a type of object
+#' @param x An object to test
+#' @keywords internal
+#' @export
+#' @name is_tests
+is.ggplot <- function(x) inherits(x, "ggplot")
+
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
 
   p
 }
-
-#' Reports whether x is a ggplot object
-#' @param x An object to test
-#' @keywords internal
-#' @export
-is.ggplot <- function(x) inherits(x, "ggplot")
 
 #' Explicitly draw plot
 #'

@@ -1,7 +1,41 @@
 # ggplot2 (development version)
 
-* `guide_axis()` no longer reserves space for blank ticks 
-  (@teunbrand, #4722, #6069).
+* Binned guides now accept expressions as labels (@teunbrand, #6005)
+* (internal) `Scale$get_labels()` format expressions as lists.
+* In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
+  `coord_radial()`), using 'AsIs' variables escape transformation when
+  both `x` and `y` is an 'AsIs' variable (@teunbrand, #6205).
+* The following methods have been deprecated: `fortify.lm()`, `fortify.glht()`,
+  `fortify.confint.glht()`, `fortify.summary.glht()` and `fortify.cld()`. It
+  is recommend to use `broom::augment()` and `broom::tidy()` instead 
+  (@teunbrand, #3816).
+* Custom and raster annotation now respond to scale transformations, and can
+  use AsIs variables for relative placement (@teunbrand based on 
+  @yutannihilation's prior work, #3120)
+* When discrete breaks have names, they'll be used as labels by default 
+  (@teunbrand, #6147).
+* The helper function `is.waiver()` is now exported to help extensions to work
+  with `waiver()` objects (@arcresu, #6173).
+* Date(time) scales now throw appropriate errors when `date_breaks`, 
+  `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
+* `geom_errorbarh()` is deprecated in favour of 
+  `geom_errorbar(orientation = "y")` (@teunbrand, #5961).
+* `geom_contour()` should be able to recognise a rotated grid of points 
+  (@teunbrand, #4320)
+* `geom_boxplot()` gains additional arguments to style the colour, linetype and
+  linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+* (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
+  evaluated in the context of data (@teunbrand, #6135)
+* Fixed bug where binned scales wouldn't simultaneously accept transformations
+  and function-limits (@teunbrand, #6144).
+* Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
+  (@teunbrand, #6104).
+* New `get_labs()` function for retrieving completed plot labels 
+  (@teunbrand, #6008).
+* Built-in `theme_*()` functions now have `ink` and `paper` arguments to control
+  foreground and background colours respectively (@teunbrand)
+* The `summary()` method for ggplots is now more terse about facets 
+  (@teunbrand, #5989).
 * `guide_bins()`, `guide_colourbar()` and `guide_coloursteps()` gain an `angle`
   argument to overrule theme settings, similar to `guide_axis(angle)` 
   (@teunbrand, #4594).
@@ -178,6 +212,14 @@
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
+* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
+* `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
+* Added `theme_transparent()` with transparent backgrounds (@topepo).
+* New theme elements `palette.{aes}.discrete` and `palette.{aes}.continuous`. 
+  Theme palettes replace palettes in scales where `palette = NULL`, which is 
+  the new default in many scales (@teunbrand, #4696).
+* `guide_axis()` no longer reserves space for blank ticks 
+  (@teunbrand, #4722, #6069).
 
 # ggplot2 3.5.1
 
@@ -224,6 +266,7 @@ documentation updates.
 * `annotate()` now warns about `stat` or `position` arguments (@teunbrand, #5151)
 * `guide_coloursteps(even.steps = FALSE)` now works with discrete data that has 
   been formatted by `cut()` (@teunbrand, #3877).
+* `ggsave()` now offers to install svglite if needed (@eliocamp, #6166).
 
 # ggplot2 3.5.0
 

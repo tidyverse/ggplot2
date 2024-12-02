@@ -177,7 +177,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   labeller <- check_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
-  facets <- wrap_as_facets_list(facets)
+  facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
     deprecate_warn0("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
@@ -211,12 +211,6 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
       axis_labels = axis_labels
     )
   )
-}
-
-# Returns a quosures object
-wrap_as_facets_list <- function(x) {
-  facets_list <- as_facets_list(x)
-  compact_facets(facets_list)
 }
 
 #' @rdname ggplot2-ggproto
@@ -453,16 +447,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if (inherits(coord, "CoordFlip")) {
-      if (params$free$x) {
-        layout$SCALE_X <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_X <- 1L
-      }
-      if (params$free$y) {
-        layout$SCALE_Y <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_Y <- 1L
-      }
+      # Switch the scales back
+      layout[c("SCALE_X", "SCALE_Y")] <- layout[c("SCALE_Y", "SCALE_X")]
     }
 
     panel_order <- order(layout$ROW, layout$COL)

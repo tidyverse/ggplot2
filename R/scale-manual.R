@@ -119,7 +119,7 @@ scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
 #' @seealso
 #' Other linetype scales: [scale_linetype()], [scale_linetype_identity()].
 #' @export
-scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = "blank") {
+scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = NA) {
   manual_scale("linetype", values, breaks, ..., na.value = na.value)
 }
 
@@ -171,7 +171,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
   }
 
   # order values according to breaks
-  if (is.vector(values) && is.null(names(values)) && !is.waive(breaks) &&
+  if (is.vector(values) && is.null(names(values)) && !is.waiver(breaks) &&
       !is.null(breaks) && !is.function(breaks)) {
     if (length(breaks) <= length(values)) {
       names(values) <- breaks
