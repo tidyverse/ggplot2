@@ -1307,9 +1307,6 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       breaks <- self$breaks
     }
 
-    # Breaks must be within limits
-    breaks <- oob_discard(breaks, sort(limits))
-
     self$breaks <- breaks
 
     transformation$transform(breaks)

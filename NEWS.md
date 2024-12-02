@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Fixed bug in out-of-bounds binned breaks (@teunbrand, #6054)
 * Binned guides now accept expressions as labels (@teunbrand, #6005)
 * (internal) `Scale$get_labels()` format expressions as lists.
 * In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
