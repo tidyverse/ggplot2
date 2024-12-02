@@ -96,6 +96,7 @@ to differentiate between multiple plots.</p>
 <span>  subtitle <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  caption <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  tag <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  dictionary <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  alt <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  alt_insight <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -134,6 +135,13 @@ bottom-right of the plot by default.</p></dd>
 <dt id="arg-tag">tag<a class="anchor" aria-label="anchor" href="#arg-tag"></a></dt>
 <dd><p>The text for the tag label which will be displayed at the
 top-left of the plot by default.</p></dd>
+
+
+<dt id="arg-dictionary">dictionary<a class="anchor" aria-label="anchor" href="#arg-dictionary"></a></dt>
+<dd><p>A named character vector to serve as dictionary.
+Automatically derived labels, such as those based on variables will
+be matched with <code>names(dictionary)</code> and replaced by the matching
+entry in <code>dictionary</code>.</p></dd>
 
 
 <dt id="arg-alt-alt-insight">alt, alt_insight<a class="anchor" aria-label="anchor" href="#arg-alt-alt-insight"></a></dt>
@@ -175,28 +183,40 @@ remove the subtitle from the plot.</p>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"New x label"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labs-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Set labels by variable name instead of aesthetic</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>dict <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  disp <span class="op">=</span> <span class="st">"Displacment"</span>, <span class="co"># Not in use</span></span></span>
+<span class="r-in"><span>  cyl  <span class="op">=</span> <span class="st">"Number of cylinders"</span>,</span></span>
+<span class="r-in"><span>  mpg  <span class="op">=</span> <span class="st">"Miles per gallon"</span>,</span></span>
+<span class="r-in"><span>  wt   <span class="op">=</span> <span class="st">"Weight (1000 lbs)"</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown labels:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `dict = "c(disp = "Displacment", cyl = "Number of cylinders", mpg =</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   "Miles per gallon", wt = "Weight (1000 lbs)")"`</span>
+<span class="r-plt img"><img src="labs-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The plot title appears at the top-left, with the subtitle</span></span></span>
 <span class="r-in"><span><span class="co"># display in smaller text underneath it</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"New plot title"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="labs-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"New plot title"</span>, subtitle <span class="op">=</span> <span class="st">"A subtitle"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="labs-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"New plot title"</span>, subtitle <span class="op">=</span> <span class="st">"A subtitle"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="labs-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The caption appears in the bottom-right, and is often used for</span></span></span>
 <span class="r-in"><span><span class="co"># sources, notes or copyright</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"(based on data from ...)"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="labs-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="labs-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The plot tag appears at the top-left, and is typically used</span></span></span>
 <span class="r-in"><span><span class="co"># for labelling a subplot with a letter.</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"title"</span>, tag <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="labs-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="labs-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If you want to remove a label, set it to NULL.</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="labs-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="labs-8.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
