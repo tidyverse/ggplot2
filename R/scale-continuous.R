@@ -146,21 +146,21 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
-    if (!(is.waive(self$secondary.axis) || self$secondary.axis$empty())) {
+    if (!(is.waiver(self$secondary.axis) || self$secondary.axis$empty())) {
       self$secondary.axis$init(self)
       breaks <- c(breaks, self$secondary.axis$break_info(breaks$range, self))
     }
     breaks
   },
   sec_name = function(self) {
-    if (is.waive(self$secondary.axis)) {
+    if (is.waiver(self$secondary.axis)) {
       waiver()
     } else {
       self$secondary.axis$name
     }
   },
   make_sec_title = function(self, title) {
-    if (!is.waive(self$secondary.axis)) {
+    if (!is.waiver(self$secondary.axis)) {
       self$secondary.axis$make_title(title)
     } else {
       ggproto_parent(ScaleContinuous, self)$make_sec_title(title)

@@ -499,6 +499,41 @@ theme_classic <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
+theme_transparent <- function(base_size = 11, base_family = "",
+                              header_family = NULL,
+                              base_line_size = base_size / 22,
+                              base_rect_size = base_size / 22,
+                              ink = "black", paper = alpha(ink, 0)) {
+  force(ink)
+  # Based on theme_bw
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    header_family = header_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size,
+    ink = ink, paper = paper
+  ) %+replace%
+    theme(
+      panel.background  = element_blank(),
+      plot.background   = element_blank(),
+      legend.background = element_blank(),
+      legend.key        = element_blank(),
+      # theme_bw specifications
+      panel.border      = element_rect(fill = NA, colour = col_mix(ink, paper, 0.20)),
+      # make gridlines dark, same contrast with white as in theme_grey
+      panel.grid        = element_line(colour = col_mix(ink, paper, 0.92)),
+      # contour strips to match panel contour
+      strip.background  = element_rect(
+        fill = col_mix(ink, paper, 0.85),
+        colour = col_mix(ink, paper, 0.20),
+      ),
+      complete = TRUE
+    )
+}
+
+#' @export
+#' @rdname ggtheme
 theme_void <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,

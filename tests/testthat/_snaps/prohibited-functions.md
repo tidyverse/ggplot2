@@ -219,6 +219,10 @@
       [1] "base_size"      "base_family"    "header_family"  "base_line_size"
       [5] "base_rect_size"
       
+      $theme_transparent
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
+      
       $theme_void
       [1] "base_size"      "base_family"    "header_family"  "base_line_size"
       [5] "base_rect_size"
