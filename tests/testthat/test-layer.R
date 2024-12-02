@@ -172,7 +172,8 @@ test_that("attributes on layer data are preserved", {
   })
   # At the end of plot building, we want to retrieve that metric
   ld <- layer_data(
-    ggplot(mpg, aes(drv, hwy, colour = factor(year))) + new + facet_grid(~year)
+    ggplot(mpg, aes(drv, hwy, colour = factor(year))) + new + facet_grid(~year) +
+      scale_y_sqrt()
   )
   expect_equal(attr(ld, "test"), "preserve me")
 })
