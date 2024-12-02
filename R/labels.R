@@ -152,7 +152,7 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
     tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
     .ignore_empty = "all")
 
-  is_waive <- vapply(args, is.waive, logical(1))
+  is_waive <- vapply(args, is.waiver, logical(1))
   args <- args[!is_waive]
   # remove duplicated arguments
   args <- args[!duplicated(names(args))]
@@ -177,6 +177,39 @@ ylab <- function(label) {
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
   labs(title = label, subtitle = subtitle)
+}
+
+#' @rdname labs
+#' @export
+#' @param plot A ggplot object
+#' @description
+#' `get_labs()` retrieves completed labels from a plot.
+get_labs <- function(plot = get_last_plot()) {
+  plot <- ggplot_build(plot)
+
+  labs <- plot$plot$labels
+
+  xy_labs <- rename(
+    c(x = plot$layout$resolve_label(plot$layout$panel_scales_x[[1]], labs),
+      y = plot$layout$resolve_label(plot$layout$panel_scales_y[[1]], labs)),
+    c(x.primary = "x", x.secondary = "x.sec",
+      y.primary = "y", y.secondary = "y.sec")
+  )
+
+  labs <- defaults(xy_labs, labs)
+
+  guides <- plot$plot$guides
+  if (length(guides$aesthetics) == 0) {
+    return(labs)
+  }
+
+  for (aes in guides$aesthetics) {
+    param <- guides$get_params(aes)
+    aes   <- param$aesthetic # Can have length > 1 when guide was merged
+    title <- vec_set_names(rep(list(param$title), length(aes)), aes)
+    labs  <- defaults(title, labs)
+  }
+  labs
 }
 
 #' Extract alt text from a plot

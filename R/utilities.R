@@ -12,7 +12,7 @@ scales::alpha
 }
 
 "%|W|%" <- function(a, b) {
-  if (!is.waive(a)) a else b
+  if (!is.waiver(a)) a else b
 }
 
 # Check required aesthetics are present
@@ -82,16 +82,6 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
 #X clist(par()[1:5])
 clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
-}
-
-# Return unique columns
-# This is used for figuring out which columns are constant within a group
-#
-# @keyword internal
-uniquecols <- function(df) {
-  df <- df[1, sapply(df, is_unique), drop = FALSE]
-  rownames(df) <- seq_len(nrow(df))
-  df
 }
 
 #' Convenience function to remove missing values from a data.frame
@@ -192,19 +182,17 @@ should_stop <- function(expr) {
 #' A waiver is a "flag" object, similar to `NULL`, that indicates the
 #' calling function should just use the default value.  It is used in certain
 #' functions to distinguish between displaying nothing (`NULL`) and
-#' displaying a default value calculated elsewhere (`waiver()`)
+#' displaying a default value calculated elsewhere (`waiver()`).
+#' `is.waiver()` reports whether an object is a waiver.
 #'
 #' @export
 #' @keywords internal
 waiver <- function() structure(list(), class = "waiver")
 
-is.waive <- function(x) inherits(x, "waiver")
-
-
-rescale01 <- function(x) {
-  rng <- range(x, na.rm = TRUE)
-  (x - rng[1]) / (rng[2] - rng[1])
-}
+#' @param x An object to test
+#' @export
+#' @rdname waiver
+is.waiver <- function(x) inherits(x, "waiver")
 
 pal_binned <- function(palette) {
   function(x) {
@@ -247,15 +235,6 @@ gg_dep <- function(version, msg) {
   invisible()
 }
 
-has_name <- function(x) {
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(rep(FALSE, length(x)))
-  }
-
-  !is.na(nms) & nms != ""
-}
-
 # Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
 lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
 upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -273,7 +252,9 @@ toupper <- function(x) {
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
-  if (first) x <- firstUpper(x)
+  if (first) {
+    x <- paste0(to_upper_ascii(substring(x, 1, 1)), substring(x, 2))
+  }
   x
 }
 
@@ -284,16 +265,12 @@ snakeize <- function(x) {
   to_lower_ascii(x)
 }
 
-firstUpper <- function(s) {
-  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
-}
-
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
 
 empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waive(df)
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waiver(df)
 }
 
 is.discrete <- function(x) {
@@ -320,15 +297,6 @@ compact <- function(x) {
 
 is.formula <- function(x) inherits(x, "formula")
 
-deparse2 <- function(x) {
-  y <- deparse(x, backtick = TRUE)
-  if (length(y) == 1) {
-    y
-  } else {
-    paste0(y[[1]], "...")
-  }
-}
-
 dispatch_args <- function(f, ...) {
   args <- list(...)
   formals <- formals(f)
@@ -337,7 +305,6 @@ dispatch_args <- function(f, ...) {
   f
 }
 
-is_missing_arg <- function(x) identical(x, quote(expr = ))
 # Get all arguments in a function as a list. Will fail if an ellipsis argument
 # named .ignore
 # @param ... passed on in case enclosing function uses ellipsis in argument list
@@ -346,7 +313,8 @@ find_args <- function(...) {
   args <- names(formals(sys.function(sys.parent(1))))
 
   vals <- mget(args, envir = env)
-  vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
+  # Remove missing arguments
+  vals <- vals[!vapply(vals, identical, logical(1), y = quote(expr = ))]
 
   modify_list(vals, dots_list(..., `...` = NULL, .ignore_empty = "all"))
 }
@@ -363,14 +331,6 @@ with_seed_null <- function(seed, code) {
   }
 }
 
-seq_asc <- function(to, from) {
-  if (to > from) {
-    integer()
-  } else {
-    to:from
-  }
-}
-
 # Wrapping vctrs data_frame constructor with no name repair
 data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
@@ -380,22 +340,18 @@ unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 # Code readability checking for uniqueness
 is_unique <- function(x) vec_unique_count(x) == 1L
 
-is_scalar_numeric <- function(x) is_bare_numeric(x, n = 1L)
-
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
-  x <- lapply(x, validate_column_vec)
+  x <- lapply(x, drop_column_vec)
   data_frame0(!!!x)
 }
-validate_column_vec <- function(x) {
-  if (is_column_vec(x)) {
+
+drop_column_vec <- function(x) {
+  dims <- dim(x)
+  if (length(dims) == 2L && dims[[2]] == 1L) {
     dim(x) <- NULL
   }
   x
-}
-is_column_vec <- function(x) {
-  dims <- dim(x)
-  length(dims) == 2L && dims[[2]] == 1L
 }
 
 # Parse takes a vector of n lines and returns m expressions.
@@ -684,24 +640,6 @@ is_bang <- function(x) {
     df <- unclass(df)
     new_data_frame(c(df[-is_ignored], df[[is_ignored[1]]]))
   })
-}
-
-is_triple_bang <- function(x) {
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  TRUE
 }
 
 # Restart handler for using vec_rbind with mix of types

@@ -45,22 +45,13 @@ test_that("weighted ecdf computes sensible results", {
 test_that("weighted ecdf warns about weird weights", {
 
   # Should warn when provided with illegal weights
-  expect_warning(
-    wecdf(1:10, c(NA, rep(1, 9))),
-    "does not support non-finite"
-  )
+  expect_snapshot_warning(wecdf(1:10, c(NA, rep(1, 9))))
 
   # Should warn when provided with near-0 weights
-  expect_warning(
-    wecdf(1:10, .Machine$double.eps),
-    "might be unstable"
-  )
+  expect_snapshot_warning(wecdf(1:10, .Machine$double.eps))
 
   # Should error when weights sum to 0
-  expect_error(
-    wecdf(1:10, rep(c(-1, 1), 5)),
-    "Cannot compute eCDF"
-  )
+  expect_snapshot(wecdf(1:10, rep(c(-1, 1), 5)), error = TRUE)
 })
 
 # See #5113 and #5112

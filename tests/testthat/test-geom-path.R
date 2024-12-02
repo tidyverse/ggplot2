@@ -35,7 +35,7 @@ test_that("stairstep() does not error with too few observations", {
 
 test_that("stairstep() exists with error when an invalid `direction` is given", {
   df <- data_frame(x = 1:3, y = 1:3)
-  expect_error(stairstep(df, direction="invalid"))
+  expect_snapshot(stairstep(df, direction = "invalid"), error = TRUE)
 })
 
 test_that("stairstep() output is correct for direction = 'vh'", {
@@ -90,11 +90,8 @@ test_that("geom_path draws correctly", {
 test_that("NA linetype is dropped with warning", {
   df <- data_frame(x = 1:2, y = 1:2, z = "a")
 
-  expect_warning(
-    expect_doppelganger(
+  expect_snapshot_warning(expect_doppelganger(
       "NA linetype",
       ggplot(df, aes(x, y)) + geom_path(linetype = NA)
-    ),
-    "containing missing values or values outside the scale range"
-  )
+  ))
 })
