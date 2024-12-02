@@ -212,7 +212,7 @@
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
 * Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
-* Added `theme_transparent()` with transparent backgrounds. 
+* Added `theme_transparent()` with transparent backgrounds (@topepo).
 
 # ggplot2 3.5.1
 
@@ -932,9 +932,6 @@ gains in rendering speed.
 
 * Key glyphs for `geom_boxplot()`, `geom_crossbar()`, `geom_pointrange()`, and
   `geom_linerange()` are now orientation-aware (@mjskay, #4732)
-  
-* Updated documentation for `geom_smooth()` to more clearly describe effects of the 
-  `fullrange` parameter (@thoolihan, #4399).
   
 * Updated documentation for `geom_smooth()` to more clearly describe effects of 
   the `fullrange` parameter (@thoolihan, #4399).
