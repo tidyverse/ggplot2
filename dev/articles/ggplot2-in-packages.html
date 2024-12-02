@@ -344,18 +344,13 @@ package.</p>
 <span></span>
 <span><span class="fu">mpg_drv_summary</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_custom</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>It is important that the theme be calculated after the package is
-loaded. If not, the theme object is stored in the compiled bytecode of
-the built package, which may or may not align with the installed version
-of ggplot2! If your package has a default theme for its visualizations,
-the correct way to load it is to have a function that returns the
-default theme:</p>
+loaded. If not, a theme object —stored as a variable in the built
+package— may or may not align with the installed version of ggplot2! If
+your package has a default theme for its visualizations, the correct way
+to apply this theme is by calling the constructor:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">default_theme</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">theme_custom</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">mpg_drv_summary2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">mpg_drv_summary</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">default_theme</span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">mpg_drv_summary2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">mpg_drv_summary</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_custom</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
