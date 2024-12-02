@@ -736,9 +736,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(domain) == 2 && !zero_range(domain)) {
       limits <- oob_squish(limits, domain)
     }
-
-    # Compute `zero_range()` in transformed space in case `limits` in data space
-    # don't support conversion to numeric (#5304)
     if (zero_range(as.numeric(limits))) {
       return(limits[1])
     }
