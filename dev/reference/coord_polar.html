@@ -85,11 +85,12 @@ options.</p>
 <span>  start <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  end <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  expand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  direction <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  clip <span class="op">=</span> <span class="st">"off"</span>,</span>
 <span>  r.axis.inside <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rotate.angle <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  inner.radius <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>  r_axis_inside <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  rotate_angle <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -149,7 +150,14 @@ alignment with the coordinates.</p></dd>
 
 
 <dt id="arg-inner-radius">inner.radius<a class="anchor" aria-label="anchor" href="#arg-inner-radius"></a></dt>
-<dd><p>A <code>numeric</code> between 0 and 1 setting the size of a inner.radius hole.</p></dd>
+<dd><p>A <code>numeric</code> between 0 and 1 setting the size of a
+inner radius hole.</p></dd>
+
+
+<dt id="arg-reverse">reverse<a class="anchor" aria-label="anchor" href="#arg-reverse"></a></dt>
+<dd><p>A string giving which directions to reverse. <code>"none"</code>
+(default) keep directions as is. <code>"theta"</code> reverses the angle and <code>"r"</code>
+reverses the radius. <code>"thetar"</code> reverses both the angle and the radius.</p></dd>
 
 
 <dt id="arg-r-axis-inside-rotate-angle">r_axis_inside, rotate_angle<a class="anchor" aria-label="anchor" href="#arg-r-axis-inside-rotate-angle"></a></dt>

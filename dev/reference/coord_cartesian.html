@@ -86,7 +86,8 @@ change the underlying data like setting limits on a scale will.</p>
 <span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  expand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  default <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  clip <span class="op">=</span> <span class="st">"on"</span></span>
+<span>  clip <span class="op">=</span> <span class="st">"on"</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="st">"none"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -124,6 +125,13 @@ drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the
 legend, the plot title, or the plot margins.</p></dd>
+
+
+<dt id="arg-reverse">reverse<a class="anchor" aria-label="anchor" href="#arg-reverse"></a></dt>
+<dd><p>A string giving which directions to reverse. <code>"none"</code>
+(default) keeps directions as is. <code>"x"</code> and <code>"y"</code> can be used to reverse
+their respective directions. <code>"xy"</code> can be used to reverse both
+directions.</p></dd>
 
 </dl></div>
 
