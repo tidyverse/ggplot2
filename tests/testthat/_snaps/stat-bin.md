@@ -61,7 +61,7 @@
       Error in `stat_bin()`:
       ! Problem while computing stat.
       i Error occurred in the 1st layer.
-      Caused by error in `setup_params()`:
+      Caused by error in `fix_bin_params()`:
       ! Only one of `boundary` and `center` may be specified in `stat_bin()`.
 
 # bin errors at high bin counts

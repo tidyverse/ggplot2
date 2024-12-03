@@ -118,29 +118,7 @@ StatBin <- ggproto("StatBin", Stat,
       ))
     }
 
-    if (!is.null(params$drop)) {
-      deprecate_warn0("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
-      params$drop <- NULL
-    }
-    if (!is.null(params$origin)) {
-      deprecate_warn0("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
-      params$boundary <- params$origin
-      params$origin <- NULL
-    }
-    if (!is.null(params$right)) {
-      deprecate_warn0("2.1.0", "stat_bin(right)", "stat_bin(closed)")
-      params$closed <- if (params$right) "right" else "left"
-      params$right <- NULL
-    }
-    if (!is.null(params$boundary) && !is.null(params$center)) {
-      cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
-    }
-
-    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
-      cli::cli_inform("{.fn {snake_class(self)}} using {.code bins = 30}. Pick better value with {.arg binwidth}.")
-      params$bins <- 30
-    }
-
+    params <- fix_bin_params(params, fun = snake_class(self), version = "2.1.0")
     params
   },
 

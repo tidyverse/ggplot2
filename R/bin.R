@@ -186,3 +186,42 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
     .size = length(count)
   )
 }
+
+fix_bin_params = function(params, fun, version) {
+
+  if (!is.null(params$drop)) {
+    args <- paste0(fun, c("(drop)", "(pad)"))
+    deprecate_warn0(version, args[1], args[2])
+    params$drop <- NULL
+  }
+
+  if (!is.null(params$origin)) {
+    args <- paste0(fun, c("(origin)", "(boundary)"))
+    deprecate_warn0(version, args[1], args[2])
+    params$boudnary <- params$origin
+    params$origin <- NULL
+  }
+
+  if (!is.null(params$right)) {
+    args <- paste0(fun, c("(right)", "(closed)"))
+    deprecate_warn0(version, args[1], args[2])
+    params$closed <- if (isTRUE(params$right)) "right" else "left"
+    params$right <- NULL
+  }
+
+  if (!is.null(params$boundary) && !is.null(params$center)) {
+    cli::cli_abort(
+      "Only one of {.arg boundary} and {.arg center} may be specified \\
+      in {.fn {fun}}."
+    )
+  }
+
+  if (is.null(params$breaks %||% params$binwidth %||% params$bins)) {
+    cli::cli_inform(
+      "{.fn {fun}} using {.code bins = 30}. Pick better value {.arg binwidth}."
+    )
+    params$bins <- 30
+  }
+
+  params
+}
