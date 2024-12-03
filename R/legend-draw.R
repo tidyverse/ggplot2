@@ -320,7 +320,7 @@ draw_key_text <- function(data, params, size) {
       fontface   = data$fontface %||% 1,
       fontsize   = (data$size %||% 3.88) * .pt
     ),
-    margin = margin(0.1, 0.1, 0.1, 0.1, unit = "lines"),
+    margin = margin_auto(0.1, unit = "lines"),
     margin_x = TRUE, margin_y = TRUE
   )
   attr(grob, "width")  <- convertWidth(grobWidth(grob),   "cm", valueOnly = TRUE)

@@ -284,14 +284,14 @@
 #'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
-#'   legend.margin = margin(6, 6, 6, 6)
+#'   legend.margin = margin_auto(6)
 #' )
 #'
 #' # The legend.box properties work similarly for the space around
 #' # all the legends
 #' p2 + theme(
 #'   legend.box.background = element_rect(),
-#'   legend.box.margin = margin(6, 6, 6, 6)
+#'   legend.box.margin = margin_auto(6)
 #' )
 #'
 #' # You can also control the display of the keys
@@ -840,6 +840,18 @@ merge_element.element <- function(new, old) {
   new
 }
 
+#' @rdname merge_element
+#' @export
+merge_element.margin <- function(new, old) {
+  if (is.null(old) || inherits(old, "element_blank")) {
+    return(new)
+  }
+  if (anyNA(new)) {
+    new[is.na(new)] <- old[is.na(new)]
+  }
+  new
+}
+
 #' Combine the properties of two elements
 #'
 #' @param e1 An element object
@@ -873,6 +885,15 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
+  if (inherits(e1, "margin") && inherits(e2, "margin")) {
+    if (anyNA(e2)) {
+      e2[is.na(e2)] <- unit(0, "pt")
+    }
+    if (anyNA(e1)) {
+      e1[is.na(e1)] <- e2[is.na(e1)]
+    }
+  }
+
   # If neither of e1 or e2 are element_* objects, return e1
   if (!inherits(e1, "element") && !inherits(e2, "element")) {
     return(e1)
@@ -900,6 +921,10 @@ combine_elements <- function(e1, e2) {
   # Calculate relative linewidth
   if (is.rel(e1$linewidth)) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+  }
+
+  if (inherits(e1, "element_text")) {
+    e1$margin <- combine_elements(e1$margin, e2$margin)
   }
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters

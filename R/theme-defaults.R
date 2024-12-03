@@ -143,7 +143,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     title =              element_text(family = header_family),
 
     spacing = unit(half_line, "pt"),
-    margins = margin(half_line, half_line, half_line, half_line),
+    margins = margin_auto(half_line),
 
     geom =               element_geom(
                            ink = ink, paper = paper, accent = "#3366FF",
@@ -226,7 +226,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     strip.text =         element_text(
                            colour = col_mix(ink, paper, 0.105),
                            size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+                           margin = margin_auto(0.8 * half_line)
                          ),
     strip.text.x =       NULL,
     strip.text.y =       element_text(angle = -90),
@@ -341,7 +341,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
       strip.text       = element_text(
                            colour = paper,
                            size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+                           margin = margin_auto(0.8 * half_line)
                          ),
 
       complete = TRUE
@@ -384,7 +384,7 @@ theme_light <- function(base_size = 11, base_family = "",
       strip.text       = element_text(
                            colour = paper,
                            size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+                           margin = margin_auto(0.8 * half_line)
                          ),
 
       complete = TRUE
@@ -427,7 +427,7 @@ theme_dark <- function(base_size = 11, base_family = "",
       strip.text       = element_text(
                            colour = col_mix(ink, paper, 0.9),
                            size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+                           margin = margin_auto(0.8 * half_line)
                          ),
 
       complete = TRUE
@@ -451,7 +451,11 @@ theme_minimal <- function(base_size = 11, base_family = "",
     ink = ink, paper = paper
   ) %+replace%
     theme(
-      axis.ticks        = element_blank(),
+      axis.ticks         = element_blank(), # Extra margins due to absence ticks
+      axis.text.x.bottom = element_text(margin = margin(t = 0.45 * base_size)),
+      axis.text.x.top    = element_text(margin = margin(b = 0.45 * base_size)),
+      axis.text.y.left   = element_text(margin = margin(r = 0.45 * base_size)),
+      axis.text.y.right  = element_text(margin = margin(l = 0.45 * base_size)),
       legend.background = element_blank(),
       legend.key        = element_blank(),
       panel.background  = element_blank(),
@@ -553,7 +557,7 @@ theme_void <- function(base_size = 11, base_family = "",
                          ),
     title =              element_text(family = header_family),
     spacing =            unit(half_line, "pt"),
-    margins =            margin(half_line, half_line, half_line, half_line),
+    margins =            margin_auto(half_line),
     axis.text =          element_blank(),
     axis.title =         element_blank(),
     axis.ticks.length =  rel(0),
@@ -637,7 +641,7 @@ theme_test <- function(base_size = 11, base_family = "",
                          ),
     title =              element_text(family = header_family),
     spacing = unit(half_line, "pt"),
-    margins = margin(half_line, half_line, half_line, half_line),
+    margins = margin_auto(half_line),
     geom =               element_geom(
                            ink = ink, paper = paper, accent = "#3366FF",
                            linewidth = base_line_size, borderwidth = base_line_size,
@@ -686,7 +690,7 @@ theme_test <- function(base_size = 11, base_family = "",
     legend.spacing =     rel(2),
     legend.spacing.x =   NULL,
     legend.spacing.y =   NULL,
-    legend.margin =      margin(0, 0, 0, 0, "cm"),
+    legend.margin =      margin_auto(0, unit = "cm"),
     legend.key =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
@@ -701,7 +705,7 @@ theme_test <- function(base_size = 11, base_family = "",
     legend.direction =   NULL,
     legend.justification = "center",
     legend.box =         NULL,
-    legend.box.margin =  margin(0, 0, 0, 0, "cm"),
+    legend.box.margin =  margin_auto(0, unit = "cm"),
     legend.box.background = element_blank(),
     legend.box.spacing = rel(2),
 
@@ -722,7 +726,7 @@ theme_test <- function(base_size = 11, base_family = "",
     strip.text =         element_text(
                            colour = col_mix(ink, paper, 0.105),
                            size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+                           margin = margin_auto(0.8 * half_line)
                          ),
     strip.text.x =       NULL,
     strip.text.y =       element_text(angle = -90),

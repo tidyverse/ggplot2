@@ -388,6 +388,20 @@ test_that("coord_sf() throws error when limits are badly specified", {
   expect_snapshot_error(ggplot() + coord_sf(ylim=1:3))
 })
 
+test_that("sf coords can be reversed", {
+  skip_if_not_installed("sf")
+
+  p <- ggplot(sf::st_multipoint(cbind(c(0, 2), c(0, 2)))) +
+    geom_sf() +
+    coord_sf(
+      xlim = c(-1, 3), ylim = c(-1, 3), expand = FALSE,
+      reverse = "xy"
+    )
+  grob <- layer_grob(p)[[1]]
+  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
+  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+})
+
 test_that("coord_sf() can render with empty graticules", {
 
   skip_if_not_installed("sf")

@@ -658,6 +658,21 @@ test_that("panel.widths and panel.heights appropriately warn about aspect overri
   expect_warning(ggplotGrob(p), "Aspect ratios are overruled")
 })
 
+test_that("margin_part() mechanics work as expected", {
+
+  t <- theme_gray() +
+    theme(plot.margin = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+
+  t <- theme_gray() +
+    theme(margins = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
