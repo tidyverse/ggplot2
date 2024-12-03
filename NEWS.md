@@ -223,6 +223,8 @@
   the new default in many scales (@teunbrand, #4696).
 * `guide_axis()` no longer reserves space for blank ticks 
   (@teunbrand, #4722, #6069).
+* `geom_abline()` clips to the panel range in the vertical direction too
+  (@teunbrand, #6086).
 
 # ggplot2 3.5.1
 
