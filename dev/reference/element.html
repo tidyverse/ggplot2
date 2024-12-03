@@ -9,7 +9,8 @@ element_geom(): defaults for drawing layers.
 
 
 rel() is used to specify sizes relative to the parent,
-margin() is used to specify the margins of elements."><meta property="og:description" content="In conjunction with the theme system, the element_ functions
+margin(), margin_part() and margin_auto() are all used to specify the
+margins of elements."><meta property="og:description" content="In conjunction with the theme system, the element_ functions
 specify the display of how non-data components of the plot are drawn.
 element_blank(): draws nothing, and assigns no space.
 element_rect(): borders and backgrounds.
@@ -19,7 +20,8 @@ element_geom(): defaults for drawing layers.
 
 
 rel() is used to specify sizes relative to the parent,
-margin() is used to specify the margins of elements."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+margin(), margin_part() and margin_auto() are all used to specify the
+margins of elements."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
 
@@ -94,7 +96,8 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
 <li><p><code>element_text()</code>: text.</p></li>
 <li><p><code>element_geom()</code>: defaults for drawing layers.</p></li>
 </ul><p><code>rel()</code> is used to specify sizes relative to the parent,
-<code>margin()</code> is used to specify the margins of elements.</p>
+<code>margin()</code>, <code>margin_part()</code> and <code>margin_auto()</code> are all used to specify the
+margins of elements.</p>
     </div>
 
     <div class="section level2">
@@ -154,7 +157,11 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
 <span></span>
 <span><span class="fu">rel</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">margin</span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0</span>, r <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">0</span>, l <span class="op">=</span> <span class="fl">0</span>, unit <span class="op">=</span> <span class="st">"pt"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">margin</span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0</span>, r <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">0</span>, l <span class="op">=</span> <span class="fl">0</span>, unit <span class="op">=</span> <span class="st">"pt"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">margin_part</span><span class="op">(</span>t <span class="op">=</span> <span class="cn">NA</span>, r <span class="op">=</span> <span class="cn">NA</span>, b <span class="op">=</span> <span class="cn">NA</span>, l <span class="op">=</span> <span class="cn">NA</span>, unit <span class="op">=</span> <span class="st">"pt"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">margin_auto</span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0</span>, r <span class="op">=</span> <span class="va">t</span>, b <span class="op">=</span> <span class="va">t</span>, l <span class="op">=</span> <span class="va">r</span>, unit <span class="op">=</span> <span class="st">"pt"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -300,7 +307,7 @@ can be most easily scaled with the text.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">plot</span> <span class="op">+</span> <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  panel.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  plot.margin <span class="op">=</span> <span class="fu">margin</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="st">"cm"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  plot.margin <span class="op">=</span> <span class="fu">margin_auto</span><span class="op">(</span><span class="fl">2</span>, unit <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  plot.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    fill <span class="op">=</span> <span class="st">"grey90"</span>,</span></span>
 <span class="r-in"><span>    colour <span class="op">=</span> <span class="st">"black"</span>,</span></span>
