@@ -12,12 +12,13 @@ facet_grid(
   shrink = TRUE,
   labeller = "label_value",
   as.table = TRUE,
-  switch = NULL,
+  strip.position = NULL,
   drop = TRUE,
   margins = FALSE,
   axes = "margins",
   axis.labels = "all",
-  facets = deprecated()
+  facets = deprecated(),
+  switch = deprecated()
 )
 }
 \arguments{
@@ -61,11 +62,9 @@ check it for more details and pointers to other options.}
 a table with highest values at the bottom-right. If \code{FALSE}, the
 facets are laid out like a plot with the highest value at the top-right.}
 
-\item{switch}{By default, the labels are displayed on the top and
-right of the plot. If \code{"x"}, the top labels will be
-displayed to the bottom. If \code{"y"}, the right-hand side
-labels will be displayed to the left. Can also be set to
-\code{"both"}.}
+\item{strip.position}{One or more of \code{"top"}, \code{"right"}, \code{"bottom"} and
+\code{"left"}, indicating where strips should be placed. When \code{NULL} (default),
+strips are placed on the top and on the right.}
 
 \item{drop}{If \code{TRUE}, the default, all factor levels not used in the
 data will automatically be dropped. If \code{FALSE}, all factor levels
@@ -93,6 +92,9 @@ respectively.}
 
 \item{facets}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{rows}
 and \code{cols} instead.}
+
+\item{switch}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use
+\code{strip.position} instead.}
 }
 \description{
 \code{facet_grid()} forms a matrix of panels defined by row and column
