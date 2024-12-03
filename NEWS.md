@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* New stat: `stat_manual()` for arbitrary computations (@teunbrand, #3501)
 * Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
   `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
   and `coord_sf()`. In `coord_radial()`, this replaces the older `direction` 
