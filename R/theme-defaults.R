@@ -451,7 +451,11 @@ theme_minimal <- function(base_size = 11, base_family = "",
     ink = ink, paper = paper
   ) %+replace%
     theme(
-      axis.ticks        = element_blank(),
+      axis.ticks         = element_blank(), # Extra margins due to absence ticks
+      axis.text.x.bottom = element_text(margin = margin(t = 0.45 * base_size)),
+      axis.text.x.top    = element_text(margin = margin(b = 0.45 * base_size)),
+      axis.text.y.left   = element_text(margin = margin(r = 0.45 * base_size)),
+      axis.text.y.right  = element_text(margin = margin(l = 0.45 * base_size)),
       legend.background = element_blank(),
       legend.key        = element_blank(),
       panel.background  = element_blank(),
@@ -493,6 +497,41 @@ theme_classic <- function(base_size = 11, base_family = "",
       strip.background = element_rect(linewidth = rel(2)),
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
 
+      complete = TRUE
+    )
+}
+
+#' @export
+#' @rdname ggtheme
+theme_transparent <- function(base_size = 11, base_family = "",
+                              header_family = NULL,
+                              base_line_size = base_size / 22,
+                              base_rect_size = base_size / 22,
+                              ink = "black", paper = alpha(ink, 0)) {
+  force(ink)
+  # Based on theme_bw
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    header_family = header_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size,
+    ink = ink, paper = paper
+  ) %+replace%
+    theme(
+      panel.background  = element_blank(),
+      plot.background   = element_blank(),
+      legend.background = element_blank(),
+      legend.key        = element_blank(),
+      # theme_bw specifications
+      panel.border      = element_rect(fill = NA, colour = col_mix(ink, paper, 0.20)),
+      # make gridlines dark, same contrast with white as in theme_grey
+      panel.grid        = element_line(colour = col_mix(ink, paper, 0.92)),
+      # contour strips to match panel contour
+      strip.background  = element_rect(
+        fill = col_mix(ink, paper, 0.85),
+        colour = col_mix(ink, paper, 0.20),
+      ),
       complete = TRUE
     )
 }

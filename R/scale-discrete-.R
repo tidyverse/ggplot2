@@ -170,7 +170,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   sec_name = function(self) {
-    if (is.waive(self$secondary.axis)) {
+    if (is.waiver(self$secondary.axis)) {
       waiver()
     } else {
       self$secondary.axis$name

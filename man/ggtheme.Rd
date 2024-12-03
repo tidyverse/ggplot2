@@ -9,6 +9,7 @@
 \alias{theme_dark}
 \alias{theme_minimal}
 \alias{theme_classic}
+\alias{theme_transparent}
 \alias{theme_void}
 \alias{theme_test}
 \title{Complete themes}
@@ -91,6 +92,16 @@ theme_classic(
   base_rect_size = base_size/22,
   ink = "black",
   paper = "white"
+)
+
+theme_transparent(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size/22,
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = alpha(ink, 0)
 )
 
 theme_void(
