@@ -281,14 +281,14 @@
 #'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
-#'   legend.margin = margin(6, 6, 6, 6)
+#'   legend.margin = margin_auto(6)
 #' )
 #'
 #' # The legend.box properties work similarly for the space around
 #' # all the legends
 #' p2 + theme(
 #'   legend.box.background = element_rect(),
-#'   legend.box.margin = margin(6, 6, 6, 6)
+#'   legend.box.margin = margin_auto(6)
 #' )
 #'
 #' # You can also control the display of the keys
@@ -529,7 +529,7 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (inherits(el, "element") && !inherits(el, "element_blank")) {
+      if (is.theme_element(el) && !inherits(el, "element_blank")) {
         el$inherit.blank <- TRUE
       }
       el
@@ -542,6 +542,10 @@ theme <- function(...,
     validate = validate
   )
 }
+
+#' @export
+#' @rdname is_tests
+is.theme <- function(x) inherits(x, "theme")
 
 # check whether theme is complete
 is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
@@ -831,6 +835,18 @@ merge_element.element <- function(new, old) {
   new
 }
 
+#' @rdname merge_element
+#' @export
+merge_element.margin <- function(new, old) {
+  if (is.null(old) || inherits(old, "element_blank")) {
+    return(new)
+  }
+  if (anyNA(new)) {
+    new[is.na(new)] <- old[is.na(new)]
+  }
+  new
+}
+
 #' Combine the properties of two elements
 #'
 #' @param e1 An element object
@@ -864,6 +880,15 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
+  if (inherits(e1, "margin") && inherits(e2, "margin")) {
+    if (anyNA(e2)) {
+      e2[is.na(e2)] <- unit(0, "pt")
+    }
+    if (anyNA(e1)) {
+      e1[is.na(e1)] <- e2[is.na(e1)]
+    }
+  }
+
   # If neither of e1 or e2 are element_* objects, return e1
   if (!inherits(e1, "element") && !inherits(e2, "element")) {
     return(e1)
@@ -893,8 +918,14 @@ combine_elements <- function(e1, e2) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
+  if (inherits(e1, "element_text")) {
+    e1$margin <- combine_elements(e1$margin, e2$margin)
+  }
+
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
-  if (is.subclass(e2, e1)) {
+  is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
+  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1)) > 0)
+  if (is_subclass) {
     new <- defaults(e1, e2)
     e2[names(new)] <- new
     return(e2)
@@ -902,17 +933,6 @@ combine_elements <- function(e1, e2) {
 
   e1
 }
-
-is.subclass <- function(x, y) {
-  inheritance <- inherits(x, class(y), which = TRUE)
-  !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
-}
-
-#' Reports whether x is a theme object
-#' @param x An object to test
-#' @export
-#' @keywords internal
-is.theme <- function(x) inherits(x, "theme")
 
 #' @export
 `$.theme` <- function(x, ...) {

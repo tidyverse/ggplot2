@@ -283,7 +283,7 @@ Layout <- ggproto("Layout", NULL,
         } else {
           switch(label, x = ".bottom", y = ".right")
         }
-        if (is.null(labels[[label]][[i]]) || is.waive(labels[[label]][[i]]))
+        if (is.null(labels[[label]][[i]]) || is.waiver(labels[[label]][[i]]))
           return(zeroGrob())
 
         element_render(
@@ -318,7 +318,7 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
-      scales[[i]][[method]](data[[var]][scale_index[[i]]])
+      scales[[i]][[method]](vec_slice(data[[var]], scale_index[[i]]))
     })
     # Remove empty vectors to avoid coercion issues with vctrs
     pieces[lengths(pieces) == 0] <- NULL
