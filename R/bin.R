@@ -227,12 +227,6 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
 
 fix_bin_params = function(params, fun, version) {
 
-  if (!is.null(params$drop)) {
-    args <- paste0(fun, c("(drop)", "(pad)"))
-    deprecate_warn0(version, args[1], args[2])
-    params$drop <- NULL
-  }
-
   if (!is.null(params$origin)) {
     args <- paste0(fun, c("(origin)", "(boundary)"))
     deprecate_warn0(version, args[1], args[2])

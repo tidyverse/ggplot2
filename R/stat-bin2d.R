@@ -53,8 +53,12 @@ StatBin2d <- ggproto("StatBin2d", Stat,
   required_aes = c("x", "y"),
 
   setup_params = function(self, data, params) {
-    params <- fix_bin_params(params, fun = snake_class(self), version = "3.5.2")
 
+    if (is.character(params$drop)) {
+      params$drop <- !identical(params$drop, "none")
+    }
+
+    params <- fix_bin_params(params, fun = snake_class(self), version = "3.5.2")
     vars <- c("origin", "binwidth", "breaks", "center", "boundary")
     params[vars] <- lapply(params[vars], dual_param)
     params$closed <- dual_param(params$closed, list(x = "right", y = "right"))
