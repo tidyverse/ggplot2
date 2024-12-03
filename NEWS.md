@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
+  `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
+  and `coord_sf()`. In `coord_radial()`, this replaces the older `direction` 
+  argument (#4021, @teunbrand).
+* `coord_radial()` displays minor gridlines now (@teunbrand).
+* (internal) `continuous_scale()` and `binned_scale()` sort the `limits` 
+  argument internally (@teunbrand).
 * Theme margins can have NA-units to inherit from parent elements. The new
   function `margin_part()` has NA-units as default (@teunbrand, #6115)
 * New `margin_auto()` specification for theme margins.

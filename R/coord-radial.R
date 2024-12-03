@@ -19,7 +19,11 @@
 #'   in accordance with the computed `theta` position. If `FALSE` (default),
 #'   no such transformation is performed. Can be useful to rotate text geoms in
 #'   alignment with the coordinates.
-#' @param inner.radius A `numeric` between 0 and 1 setting the size of a inner.radius hole.
+#' @param inner.radius A `numeric` between 0 and 1 setting the size of a
+#'   inner radius hole.
+#' @param reverse A string giving which directions to reverse. `"none"`
+#'   (default) keep directions as is. `"theta"` reverses the angle and `"r"`
+#'   reverses the radius. `"thetar"` reverses both the angle and the radius.
 #' @param r_axis_inside,rotate_angle `r lifecycle::badge("deprecated")`
 #'
 #' @note
@@ -39,11 +43,12 @@
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
                          expand = TRUE,
-                         direction = 1,
+                         direction = deprecated(),
                          clip = "off",
                          r.axis.inside = NULL,
                          rotate.angle = FALSE,
                          inner.radius = 0,
+                         reverse = "none",
                          r_axis_inside = deprecated(),
                          rotate_angle = deprecated()) {
 
@@ -59,34 +64,46 @@ coord_radial <- function(theta = "x",
     )
     rotate.angle <- rotate_angle
   }
+  if (lifecycle::is_present(direction)) {
+    deprecate_warn0(
+      "3.5.2", "coord_radial(direction)", "coord_radial(reverse)"
+    )
+    reverse <- switch(reverse, "r" = "thetar", "theta")
+  }
 
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
   if (!is.numeric(r.axis.inside)) {
     check_bool(r.axis.inside, allow_null = TRUE)
   }
+  reverse <- arg_match0(reverse, c("theta", "thetar", "r", "none"))
 
   check_bool(rotate.angle)
   check_number_decimal(start, allow_infinite = FALSE)
   check_number_decimal(end, allow_infinite = FALSE, allow_null = TRUE)
   check_number_decimal(inner.radius, min = 0, max = 1, allow_infinite = FALSE)
 
-  end <- end %||% (start + 2 * pi)
-  if (start > end) {
-    n_rotate <- ((start - end) %/% (2 * pi)) + 1
-    start <- start - n_rotate * 2 * pi
+  arc <- c(start, end %||% (start + 2 * pi))
+  if (arc[1] > arc[2]) {
+    n_rotate <- ((arc[1] - arc[2]) %/% (2 * pi)) + 1
+    arc[1] <- arc[1] - n_rotate * 2 * pi
   }
-  r.axis.inside <- r.axis.inside %||% !(abs(end - start) >= 1.999 * pi)
+  arc <- switch(reverse, thetar = , theta = rev(arc), arc)
+
+  r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
+
+  inner.radius <- c(inner.radius, 1) * 0.4
+  inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
 
   ggproto(NULL, CoordRadial,
     theta = theta,
     r = r,
-    arc = c(start, end),
+    arc = arc,
     expand = expand,
-    direction = sign(direction),
+    reverse = reverse,
     r_axis_inside = r.axis.inside,
     rotate_angle = rotate.angle,
-    inner_radius = c(inner.radius, 1) * 0.4,
+    inner_radius = inner.radius,
     clip = clip
   )
 }
@@ -107,16 +124,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range, to = self$inner_radius / 0.4)
-      theta <- theta_rescale_no_clip(
-        x, details$theta.range,
-        arc, self$direction
-      )
+      theta <- theta_rescale_no_clip(x, details$theta.range, arc)
     } else {
       r <- rescale(x, from = details$r.range, to = self$inner_radius / 0.4)
-      theta <- theta_rescale_no_clip(
-        y, details$theta.range,
-        arc, self$direction
-      )
+      theta <- theta_rescale_no_clip(y, details$theta.range, arc)
     }
 
     dist_polar(r, theta)
@@ -200,10 +211,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
       r_position <- c("left", "right")
       # If both opposite direction and opposite position, don't flip
-      if (xor(self$direction == -1, opposite_r)) {
+      if (xor(self$reverse %in% c("thetar", "theta"), opposite_r)) {
         r_position <- rev(r_position)
       }
-      arc <- rad2deg(panel_params$axis_rotation) * self$direction
+      arc <- rad2deg(panel_params$axis_rotation)
       if (opposite_r) {
         arc <- rev(arc)
       }
@@ -284,10 +295,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     arc  <- panel_params$arc  %||% c(0, 2 * pi)
 
     data$r  <- r_rescale(data$r, panel_params$r.range, panel_params$inner_radius)
-    data$theta <- theta_rescale(
-      data$theta, panel_params$theta.range,
-      arc, self$direction
-    )
+    data$theta <- theta_rescale(data$theta, panel_params$theta.range, arc)
     data$x <- rescale(data$r * sin(data$theta) + 0.5, from = bbox$x)
     data$y <- rescale(data$r * cos(data$theta) + 0.5, from = bbox$y)
 
@@ -313,70 +321,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   render_bg = function(self, panel_params, theme) {
-
-    bbox  <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
-    arc   <- panel_params$arc  %||% c(0, 2 * pi)
-    dir   <- self$direction
-    inner_radius <- panel_params$inner_radius
-
-    theta_lim <- panel_params$theta.range
-    theta_maj <- panel_params$theta.major
-    theta_min <- setdiff(panel_params$theta.minor, theta_maj)
-
-    if (length(theta_maj) > 0) {
-      theta_maj <- theta_rescale(theta_maj, theta_lim, arc, dir)
-    }
-    if (length(theta_min) > 0) {
-      theta_min <- theta_rescale(theta_min, theta_lim, arc, dir)
-    }
-
-    theta_fine <- theta_rescale(seq(0, 1, length.out = 100), c(0, 1), arc, dir)
-    r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
-                         panel_params$inner_radius)
-
-    # This gets the proper theme element for theta and r grid lines:
-    #   panel.grid.major.x or .y
-    grid_elems <- paste(
-      c("panel.grid.major.", "panel.grid.minor.", "panel.grid.major."),
-      c(self$theta, self$theta, self$r), sep = ""
+    panel_params <- switch(
+      self$theta,
+      x = rename(panel_params, c(theta = "x", r = "y")),
+      y = rename(panel_params, c(theta = "y", r = "x"))
     )
-    grid_elems <- lapply(grid_elems, calc_element, theme = theme)
-    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
-    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
-
-    bg_element <- calc_element("panel.background", theme)
-    if (!inherits(bg_element, "element_blank")) {
-      background <- data_frame0(
-        x = c(Inf,  Inf, -Inf, -Inf),
-        y = c(Inf, -Inf, -Inf,  Inf)
-      )
-      background <- coord_munch(self, background, panel_params, is_closed = TRUE)
-      bg_gp <- gg_par(
-        lwd = bg_element$linewidth,
-        col = bg_element$colour, fill = bg_element$fill,
-        lty = bg_element$linetype
-      )
-      background <- polygonGrob(
-        x = background$x, y = background$y,
-        gp = bg_gp
-      )
-    } else {
-      background <- zeroGrob()
-    }
-
-    ggname("grill", grobTree(
-      background,
-      theta_grid(theta_maj, grid_elems[[1]], inner_radius, bbox),
-      theta_grid(theta_min, grid_elems[[2]], inner_radius, bbox),
-      element_render(
-        theme, majorr, name = "radius",
-        x = rescale(outer(sin(theta_fine), r_fine) + 0.5, from = bbox$x),
-        y = rescale(outer(cos(theta_fine), r_fine) + 0.5, from = bbox$y),
-        id.lengths = rep(length(theta_fine), length(r_fine)),
-        default.units = "native"
-      )
-    ))
+    guide_grid(theme, panel_params, self, square = FALSE)
   },
 
   render_fg = function(self, panel_params, theme) {
@@ -395,8 +345,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     bbox <- panel_params$bbox
     dir  <- self$direction
     rot  <- panel_params$axis_rotation
-    rot  <- if (dir == 1) rot else rev(rot)
-    rot  <- dir * rad2deg(-rot)
+    rot  <- switch(self$reverse, thetar = , theta = rev(rot), rot)
+    rot  <- rad2deg(-rot)
 
     left <- panel_guides_grob(panel_params$guides, position = "left", theme)
     left <- rotate_r_axis(left, rot[1], bbox, "left")
@@ -540,6 +490,7 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
   if (abs(diff(arc)) >= 2 * pi) {
     return(list(x = c(0, 1), y = c(0, 1)))
   }
+  arc <- sort(arc)
 
   # X and Y position of the sector arc ends
   xmax <- 0.5 * sin(arc) + 0.5
