@@ -47,67 +47,34 @@ stat_bin_2d <- function(mapping = NULL, data = NULL,
 stat_bin2d <- stat_bin_2d
 
 #' @rdname ggplot2-ggproto
+#' @include stat-summary-2d.R
 #' @format NULL
 #' @usage NULL
 #' @export
-StatBin2d <- ggproto("StatBin2d", Stat,
+StatBin2d <- ggproto(
+  "StatBin2d", StatSummary2d,
   default_aes = aes(weight = 1, fill = after_stat(count)),
   required_aes = c("x", "y"),
 
-  setup_params = function(self, data, params) {
+  compute_group = function(self, data, scales, binwidth = NULL, bins = 30,
+                           breaks = NULL, origin = NULL, drop = TRUE,
+                           boundary = 0, closed = NULL, center = NULL) {
 
-    if (is.character(params$drop)) {
-      params$drop <- !identical(params$drop, "none")
-    }
+    data$z <- data$weight %||% 1
+    data$weight <- NULL
 
-    params <- fix_bin_params(params, fun = snake_class(self), version = "3.5.2")
-    vars <- c("origin", "binwidth", "breaks", "center", "boundary")
-    params[vars] <- lapply(params[vars], dual_param)
-    params$closed <- dual_param(params$closed, list(x = "right", y = "right"))
-
-    params
-  },
-
-  compute_group = function(data, scales, binwidth = NULL,
-                           bins = 30, breaks = NULL,
-                           center = NULL, boundary = 0, closed = NULL,
-                           origin = NULL, drop = TRUE) {
-
-    bins <- dual_param(bins, list(x = 30, y = 30))
-
-    xbin <- compute_bins(
-      data$x, scales$x, breaks$x, binwidth$x, bins$x,
-      center$x, boundary$x, closed$x
+    out <- StatSummary2d$compute_group(
+      data, scales, binwidth = binwidth, bins = bins, breaks = breaks,
+      drop = drop, fun = "sum", boundary = boundary, closed = closed,
+      center = center
     )
-    ybin <- compute_bins(
-      data$y, scales$y, breaks$y, binwidth$y, bins$y,
-      center$y, boundary$y, closed$y
-    )
-
-    data$weight <- data$weight %||% 1
-
-    cut_id <- list(
-      xbin = as.integer(bin_cut(data$x, xbin)),
-      ybin = as.integer(bin_cut(data$y, ybin))
-    )
-    out <- tapply_df(data$weight, cut_id, sum, drop = drop)
-
-    xdim <- bin_loc(xbin$breaks, out$xbin)
-    out$x <- xdim$mid
-    out$width <- xdim$length
-
-    ydim <- bin_loc(ybin$breaks, out$ybin)
-    out$y <- ydim$mid
-    out$height <- ydim$length
 
     out$count <- out$value
     out$ncount <- out$count / max(out$count, na.rm = TRUE)
     out$density <- out$count / sum(out$count, na.rm = TRUE)
     out$ndensity <- out$density / max(out$density, na.rm = TRUE)
     out
-  },
-
-  dropped_aes = "weight" # No longer available after transformation
+  }
 )
 
 dual_param <- function(x, default = list(x = NULL, y = NULL)) {
