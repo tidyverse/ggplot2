@@ -128,6 +128,41 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 
 # Compute bins ------------------------------------------------------------
 
+compute_bins <- function(x, scale, breaks = NULL, binwidth = NULL, bins = NULL,
+                         center = NULL, boundary = NULL,
+                         closed = c("right", "left")) {
+
+  if (!is.null(breaks)) {
+    if (is.function(breaks)) {
+      breaks <- breaks(x)
+    }
+    if (!scale$is_discrete()) {
+      breaks <- scale$transform(breaks)
+    }
+    bins <- bin_breaks(breaks, closed)
+    return(bins)
+  }
+
+  if (!is.null(binwidth)) {
+    if (is.function(binwidth)) {
+      binwidth <- binwidth(x)
+    }
+    bins <- bin_breaks_width(
+      scale$dimension(), binwidth,
+      center = center, boundary = boundary, closed = closed
+    )
+    return(bins)
+  }
+
+  if (is.function(bins)) {
+    bins <- bins(x)
+  }
+  bin_breaks_bins(
+    scale$dimension(), bins,
+    center = center, boundary = boundary, closed = closed
+  )
+}
+
 bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
   check_object(bins, is_bins, "a {.cls ggplot2_bins} object")
 

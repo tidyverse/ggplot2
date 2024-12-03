@@ -132,24 +132,11 @@ StatBin <- ggproto("StatBin", Stat,
                            # be listed so parameters are computed correctly
                            origin = NULL, right = NULL, drop = NULL) {
     x <- flipped_names(flipped_aes)$x
-    if (!is.null(breaks)) {
-      if (is.function(breaks)) {
-        breaks <- breaks(data[[x]])
-      }
-      if (!scales[[x]]$is_discrete()) {
-         breaks <- scales[[x]]$transform(breaks)
-      }
-      bins <- bin_breaks(breaks, closed)
-    } else if (!is.null(binwidth)) {
-      if (is.function(binwidth)) {
-        binwidth <- binwidth(data[[x]])
-      }
-      bins <- bin_breaks_width(scales[[x]]$dimension(), binwidth,
-        center = center, boundary = boundary, closed = closed)
-    } else {
-      bins <- bin_breaks_bins(scales[[x]]$dimension(), bins, center = center,
-        boundary = boundary, closed = closed)
-    }
+    bins <- compute_bins(
+      data[[x]], scales[[x]],
+      breaks = breaks, binwidth = binwidth, bins = bins,
+      center = center, boundary = boundary, closed = closed
+    )
     bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
 
     keep <- switch(
