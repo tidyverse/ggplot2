@@ -314,6 +314,22 @@ test_that("sf_transform_xy() works", {
 
 })
 
+test_that("when both x and y are AsIs, they are not transformed", {
+
+  skip_if_not_installed("sf")
+
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = I(0.25), label = "foo") +
+    scale_x_continuous(limits = c(-180, 180)) +
+    scale_y_continuous(limits = c(-80, 80)) +
+    coord_sf(default_crs = 4326, crs = 3857)
+
+  grob <- get_layer_grob(p)[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
+
+})
+
 test_that("coord_sf() can use function breaks and n.breaks", {
 
   polygon <- sf::st_sfc(
@@ -384,4 +400,28 @@ test_that("sf coords can be reversed", {
   grob <- layer_grob(p)[[1]]
   expect_equal(as.numeric(grob$x), c(0.75, 0.25))
   expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+})
+
+test_that("coord_sf() can render with empty graticules", {
+
+  skip_if_not_installed("sf")
+  # Skipping this test on CRAN as changes upstream in {sf} might affect
+  # this test, i.e. when suddenly graticules *do* work
+  skip_on_cran()
+
+  df <- sf::st_sf(
+    g = sf::st_sfc(sf::st_point(
+      # Out of bounds values for lon/lat
+      c(-600, 1200)
+    )),
+    crs = 4326
+  )
+
+  # Double-check graticule is empty, suppressing warnings about oob longlat values
+  grat <- suppressWarnings(sf::st_graticule(df))
+  expect_equal(nrow(grat), 0)
+
+  # Plot should render
+  p <- suppressWarnings(layer_grob(ggplot(df) + geom_sf())[[1]])
+  expect_length(p$x, 1)
 })

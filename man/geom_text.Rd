@@ -209,8 +209,8 @@ the background colour of the label.
 \section{Alignment}{
 
 You can modify text alignment with the \code{vjust} and \code{hjust}
-aesthetics. These can either be a number between 0 (right/bottom) and
-1 (top/left) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
+aesthetics. These can either be a number between 0 (left/bottom) and
+1 (right/top) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
 \code{"center"}, \code{"top"}). There are two special alignments: \code{"inward"} and
 \code{"outward"}. Inward always aligns text towards the center, and outward
 aligns it away from the center.
@@ -246,7 +246,7 @@ p +
 # Add aesthetic mappings
 p + geom_text(aes(colour = factor(cyl)))
 p + geom_text(aes(colour = factor(cyl))) +
-  scale_colour_discrete(l = 40)
+  scale_colour_hue(l = 40)
 p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 
 # Scale size of text, and change legend key glyph from a to point

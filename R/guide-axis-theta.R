@@ -102,7 +102,7 @@ GuideAxisTheta <- ggproto(
       # labels of these positions
       ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
       if (n > 0 && ends_apart < 0.05 && !is.null(key$.label)) {
-        if (is.expression(key$.label)) {
+        if (is.expression(key$.label[[1]])) {
           combined <- substitute(
             paste(a, "/", b),
             list(a = key$.label[[1]], b = key$.label[[n]])
@@ -192,7 +192,7 @@ GuideAxisTheta <- ggproto(
     }
 
     # Resolve text angle
-    if (is.waive(params$angle) || is.null(params$angle)) {
+    if (is.waiver(params$angle) || is.null(params$angle)) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
@@ -268,7 +268,7 @@ GuideAxisTheta <- ggproto(
     }
 
     # Resolve text angle
-    if (is.waive(params$angle %||% waiver())) {
+    if (is.waiver(params$angle %||% waiver())) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))

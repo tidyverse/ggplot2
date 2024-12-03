@@ -11,7 +11,8 @@
 #'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
-#' `margin()` is used to specify the margins of elements.
+#' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
+#' margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
@@ -42,7 +43,7 @@
 #'
 #' plot + theme(
 #'   panel.background = element_rect(fill = "white"),
-#'   plot.margin = margin(2, 2, 2, 2, "cm"),
+#'   plot.margin = margin_auto(2, unit = "cm"),
 #'   plot.background = element_rect(
 #'     fill = "grey90",
 #'     colour = "black",
@@ -201,6 +202,10 @@ element_geom <- function(
   family = "", fontsize = 11,
   pointsize = 1.5, pointshape = 19
 )
+
+#' @export
+#' @rdname is_tests
+is.theme_element <- function(x) inherits(x, "element")
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
@@ -661,6 +666,21 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
   plot.tag.location   = el_def("character"),
   plot.margin         = el_def(c("margin", "unit", "rel"), "margins"),
+
+  palette.colour.discrete   = el_def(c("character", "function")),
+  palette.colour.continuous = el_def(c("character", "function")),
+  palette.fill.discrete   = el_def(c("character", "function"), "palette.colour.discrete"),
+  palette.fill.continuous = el_def(c("character", "function"), "palette.colour.continuous"),
+  palette.alpha.discrete   = el_def(c("character", "numeric", "integer", "function")),
+  palette.alpha.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.continuous = el_def(c("character", "numeric", "integer", "function")),
 
   aspect.ratio        = el_def(c("numeric", "integer"))
 )
