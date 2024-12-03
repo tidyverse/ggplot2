@@ -617,6 +617,47 @@ test_that("complete_theme completes a theme", {
   reset_theme_settings()
 })
 
+test_that("panel.widths and panel.heights works with free-space panels", {
+
+  df <- data.frame(x = c(1, 1, 2, 1, 3), g = c("A", "B", "B", "C", "C"))
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      scale_x_continuous(expand = expansion(add = 1)) +
+      facet_grid(~ g, scales = "free_x", space = "free_x") +
+      theme(
+        panel.widths = unit(11, "cm"),
+        panel.spacing.x = unit(1, "cm")
+      )
+  )
+
+  idx <- range(panel_cols(p)$l)
+  expect_equal(as.numeric(p$widths[seq(idx[1], idx[2])]), c(2, 1, 3, 1, 4))
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      scale_y_continuous(expand = expansion(add = 1)) +
+      facet_grid(g ~ ., scales = "free_y", space = "free_y") +
+      theme(
+        panel.heights = unit(11, "cm"),
+        panel.spacing.y = unit(1, "cm")
+      )
+  )
+
+  idx <- range(panel_rows(p)$t)
+  expect_equal(as.numeric(p$heights[seq(idx[1], idx[2])]), c(2, 1, 3, 1, 4))
+
+})
+
+test_that("panel.widths and panel.heights appropriately warn about aspect override", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    theme(aspect.ratio = 1, panel.widths = unit(4, "cm"))
+  expect_warning(ggplotGrob(p), "Aspect ratios are overruled")
+})
+
 test_that("margin_part() mechanics work as expected", {
 
   t <- theme_gray() +
@@ -630,7 +671,6 @@ test_that("margin_part() mechanics work as expected", {
 
   test <- calc_element("plot.margin", t)
   expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
-
 })
 
 # Visual tests ------------------------------------------------------------

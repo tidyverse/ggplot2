@@ -238,6 +238,7 @@
   (@teunbrand, #4722, #6069).
 * `geom_abline()` clips to the panel range in the vertical direction too
   (@teunbrand, #6086).
+* Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
 
 # ggplot2 3.5.1
 
