@@ -52,30 +52,45 @@ StatBin2d <- ggproto("StatBin2d", Stat,
   default_aes = aes(weight = 1, fill = after_stat(count)),
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           breaks = NULL, origin = NULL, drop = TRUE) {
+  setup_params = function(self, data, params) {
+    params <- fix_bin_params(params, fun = snake_class(self), version = "3.5.2")
 
-    origin <- dual_param(origin, list(NULL, NULL))
-    binwidth <- dual_param(binwidth, list(NULL, NULL))
-    breaks <- dual_param(breaks, list(NULL, NULL))
+    vars <- c("origin", "binwidth", "breaks", "center", "boundary")
+    params[vars] <- lapply(params[vars], dual_param)
+    params$closed <- dual_param(params$closed, list(x = "right", y = "right"))
+
+    params
+  },
+
+  compute_group = function(data, scales, binwidth = NULL,
+                           bins = 30, breaks = NULL,
+                           center = NULL, boundary = NULL, closed = NULL,
+                           origin = NULL, drop = TRUE) {
+
     bins <- dual_param(bins, list(x = 30, y = 30))
 
-    xbreaks <- bin2d_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
-    ybreaks <- bin2d_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
+    xbin <- compute_bins(
+      data$x, scales$x, breaks$x, binwidth$x, bins$x,
+      center$x, boundary$x, closed$x
+    )
+    ybin <- compute_bins(
+      data$y, scales$y, breaks$y, binwidth$y, bins$y,
+      center$y, boundary$y, closed$y
+    )
 
-    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
-    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
+    data$weight <- data$weight %||% 1
 
-    if (is.null(data$weight))
-      data$weight <- 1
+    cut_id <- list(
+      xbin = as.integer(bin_cut(data$x, xbin)),
+      ybin = as.integer(bin_cut(data$y, ybin))
+    )
+    out <- tapply_df(data$weight, cut_id, sum, drop = drop)
 
-    out <- tapply_df(data$weight, list(xbin = xbin, ybin = ybin), sum, drop = drop)
-
-    xdim <- bin_loc(xbreaks, out$xbin)
+    xdim <- bin_loc(xbin$breaks, out$xbin)
     out$x <- xdim$mid
     out$width <- xdim$length
 
-    ydim <- bin_loc(ybreaks, out$ybin)
+    ydim <- bin_loc(ybin$breaks, out$ybin)
     out$y <- ydim$mid
     out$height <- ydim$length
 
