@@ -16,7 +16,10 @@ test_that("ggsave can create directories", {
 
   p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 
-  expect_error(ggsave(path, p))
+  expect_snapshot(
+    ggsave(path, p), error = TRUE,
+    transform = function(x) gsub("directory '.*'\\.$", "directory 'PATH'", x)
+  )
   expect_false(dir.exists(dirname(path)))
 
   # 2 messages: 1 for saving and 1 informing about directory creation
@@ -77,23 +80,20 @@ test_that("ggsave warns about empty or multiple filenames", {
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
 
   withr::with_tempfile(c("file1", "file2"), fileext = ".png", {
-    expect_warning(
-      suppressMessages(ggsave(c(file1, file2), plot)),
-      "`filename` must have length 1"
+    expect_snapshot(
+      x <- suppressMessages(ggsave(c(file1, file2), plot)),
+      transform = function(x) gsub(" \\'.*\\.png\\'", "'PATH'", x)
     )
   })
 
-  expect_error(
-    ggsave(character(), plot),
-    "`filename` must be a single string"
-  )
+  expect_snapshot(ggsave(character(), plot), error = TRUE)
 })
 
 test_that("ggsave fails informatively for no-extension filenames", {
   plot <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
-  expect_error(
-    ggsave(tempfile(), plot),
-    "Can't save to"
+  expect_snapshot(
+    ggsave(tempfile(), plot), error = TRUE,
+    transform = function(x) gsub("to .*\\.$", "to PATH", x)
   )
 })
 
@@ -112,9 +112,9 @@ test_that("uses 7x7 if no graphics device open", {
 })
 
 test_that("warned about large plot unless limitsize = FALSE", {
-  expect_error(plot_dim(c(50, 50)), "exceed 50 inches")
+  expect_snapshot(plot_dim(c(50, 50)), error = TRUE)
   expect_equal(plot_dim(c(50, 50), limitsize = FALSE), c(50, 50))
-  expect_error(plot_dim(c(15000, 15000), units = "px"), "in pixels).")
+  expect_snapshot(plot_dim(c(15000, 15000), units = "px"), error = TRUE)
 })
 
 test_that("scale multiplies height & width", {
@@ -126,8 +126,8 @@ test_that("scale multiplies height & width", {
 
 test_that("unknown device triggers error", {
   expect_snapshot_error(plot_dev(1))
-  expect_error(plot_dev("xyz"), "Unknown graphics device")
-  expect_error(plot_dev(NULL, "test.xyz"), "Unknown graphics device")
+  expect_snapshot(plot_dev("xyz"), error = TRUE)
+  expect_snapshot(plot_dev(NULL, "test.xyz"), error = TRUE)
 })
 
 

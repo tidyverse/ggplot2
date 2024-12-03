@@ -9,7 +9,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 library(ggplot2)
 knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
 ```
@@ -106,7 +107,9 @@ with this mistake.
 *   The appearance of the line end is controlled by the `lineend` paramter,
     and can be one of "round", "butt" (the default), or "square".
 
-    ```{r, out.width = "30%", fig.show = "hold"}
+    ```{r}
+    #| out-width: 30%
+    #| fig-show: hold
     #| fig.alt:
     #| - "A plot showing a line with an angle. A thinner red line is placed over
     #|  a thicker black line. The black line ends where the red line ends."
@@ -134,7 +137,9 @@ with this mistake.
 *   The appearance of line joins is controlled by `linejoin` and can be one of 
     "round" (the default), "mitre", or "bevel".
 
-    ```{r, out.width = "30%", fig.show = "hold"}
+    ```{r}
+    #| out-width: 30%
+    #| fig-show: hold
     #| fig.alt:
     #| - "A plot showing a thin red line on top of a thick black line shaped like 
     #|  the letter 'V'. The corner in the black V-shape is rounded."
@@ -192,7 +197,10 @@ Shapes take five types of values:
    
 *   The __name__ of the shape:
      
-    ```{r out.width = "90%", fig.asp = 0.4, fig.width = 8}
+    ```{r}
+    #| out-width: 90%
+    #| fig-asp: 0.4
+    #| fig-width: 8
     #| fig.alt: "An irregular 6-by-7 grid of point symbols annotated by the 
     #|  names that can be used to represent the symbols. Broadly, from top to 
     #|  bottom, the symbols are circles, squares, diamonds, triangles and 

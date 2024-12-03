@@ -529,7 +529,7 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (is.element(el) && !inherits(el, "element_blank")) {
+      if (is.theme_element(el) && !inherits(el, "element_blank")) {
         el$inherit.blank <- TRUE
       }
       el
