@@ -219,6 +219,8 @@
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
 * Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
+* (internal) removed barriers for using 2D structures as aesthetics 
+  (@teunbrand, #4189).
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
 * Added `theme_transparent()` with transparent backgrounds (@topepo).
 * New theme elements `palette.{aes}.discrete` and `palette.{aes}.continuous`. 

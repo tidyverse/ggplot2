@@ -327,7 +327,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     n <- nrow(data)
-    aes_n <- lengths(evaled)
+    aes_n <- list_sizes(evaled)
     if (n == 0) {
       # No data, so look at longest evaluated aesthetic
       if (length(evaled) == 0) {
@@ -352,7 +352,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       evaled$PANEL <- data$PANEL
     }
-    evaled <- lapply(evaled, unname)
+    evaled <- lapply(evaled, vec_set_names, names = NULL)
     evaled <- as_gg_data_frame(evaled)
     evaled <- add_group(evaled)
     evaled

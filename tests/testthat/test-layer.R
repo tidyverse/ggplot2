@@ -182,3 +182,20 @@ test_that("layer_data returns a data.frame", {
   l <- geom_point(data = nrow)
   expect_snapshot_error(l$layer_data(mtcars))
 })
+
+test_that("data.frames and matrix aesthetics survive the build stage", {
+  df <- data_frame0(
+    x = 1:2,
+    g = matrix(1:4, 2),
+    f = data_frame0(a = 1:2, b = c("c", "d"))
+  )
+
+  p <- layer_data(
+    ggplot(df, aes(x, x, colour = g, shape = f)) +
+      geom_point() +
+      scale_colour_identity() +
+      scale_shape_identity()
+  )
+  expect_vector(p$colour, matrix(NA_integer_, nrow = 0, ncol = 2), size = 2)
+  expect_vector(p$shape,  data_frame0(a = integer(), b = character()), size = 2)
+})

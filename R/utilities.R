@@ -781,6 +781,16 @@ as_unordered_factor <- function(x) {
   x
 }
 
+size0 <- function(x) {
+  if (obj_is_vector(x)) {
+    vec_size(x)
+  } else if (is.vector(x)) {
+    length(x)
+  } else {
+    NULL
+  }
+}
+
 fallback_palette <- function(scale) {
   aes <- scale$aesthetics[1]
   discrete <- scale$is_discrete()
