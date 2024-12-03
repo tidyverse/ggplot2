@@ -617,6 +617,22 @@ test_that("complete_theme completes a theme", {
   reset_theme_settings()
 })
 
+test_that("margin_part() mechanics work as expected", {
+
+  t <- theme_gray() +
+    theme(plot.margin = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+
+  t <- theme_gray() +
+    theme(margins = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {

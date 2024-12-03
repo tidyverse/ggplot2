@@ -9,6 +9,18 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   u
 }
 
+#' @rdname element
+#' @export
+margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
+  margin(t = t, r = r, b = b, l = l, unit = unit)
+}
+
+#' @rdname element
+#' @export
+margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
+  margin(t = t, r = r, b = b, l = l, unit)
+}
+
 #' @export
 #' @rdname is_tests
 is.margin <- function(x) inherits(x, "margin")

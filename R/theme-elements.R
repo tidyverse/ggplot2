@@ -11,7 +11,8 @@
 #'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
-#' `margin()` is used to specify the margins of elements.
+#' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
+#' margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
@@ -42,7 +43,7 @@
 #'
 #' plot + theme(
 #'   panel.background = element_rect(fill = "white"),
-#'   plot.margin = margin(2, 2, 2, 2, "cm"),
+#'   plot.margin = margin_auto(2, unit = "cm"),
 #'   plot.background = element_rect(
 #'     fill = "grey90",
 #'     colour = "black",
