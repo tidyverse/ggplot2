@@ -190,6 +190,20 @@ test_that("bins can be parsed by guides for all scale types", {
   )
 })
 
+test_that("binned breaks can have hardcoded labels when oob", {
+
+  sc <- scale_colour_steps(breaks = 1:3, labels = as.character(1:3))
+  sc$train(c(1, 2))
+
+  g <- guide_bins()
+  key <- g$train(scale = sc, aesthetic = "colour")$key
+  expect_equal(key$.label, c("1", "2"))
+
+  g <- guide_coloursteps()
+  key <- g$train(scale = sc, aesthetic = "colour")$key
+  expect_equal(key$.label, c("1", "2"))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("guides are positioned correctly", {

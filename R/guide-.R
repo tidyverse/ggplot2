@@ -225,13 +225,8 @@ Guide <- ggproto(
 
     mapped <- scale$map(breaks)
     labels <- scale$get_labels(breaks)
-    # {vctrs} doesn't play nice with expressions, convert to list.
-    # see also https://github.com/r-lib/vctrs/issues/559
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
 
-    key <- data_frame(mapped, .name_repair = ~ aesthetic)
+    key <- data_frame(!!aesthetic := mapped)
     key$.value <- breaks
     key$.label <- labels
 
@@ -530,11 +525,12 @@ opposite_position <- function(position) {
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {
-  if (!is.list(labels)) {
+  if (!obj_is_list(labels)) {
     return(labels)
   }
+  labels[lengths(labels) == 0L] <- ""
   if (any(vapply(labels, is.language, logical(1)))) {
-    do.call(expression, labels)
+    inject(expression(!!!labels))
   } else {
     unlist(labels)
   }

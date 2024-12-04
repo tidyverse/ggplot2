@@ -3,7 +3,7 @@
     Code
       scale_colour_discrete(type = scale_colour_gradient)
     Condition
-      Error in `scale_colour_discrete()`:
+      Error in `scale_backward_compatibility()`:
       ! The `type` argument must return a discrete scale for the colour aesthetic.
       x The provided scale is continuous.
 
@@ -12,7 +12,7 @@
     Code
       scale_fill_discrete(type = scale_fill_gradient)
     Condition
-      Error in `scale_fill_discrete()`:
+      Error in `scale_backward_compatibility()`:
       ! The `type` argument must return a discrete scale for the fill aesthetic.
       x The provided scale is continuous.
 
@@ -21,7 +21,7 @@
     Code
       scale_colour_discrete(type = scale_fill_hue)
     Condition
-      Error in `scale_colour_discrete()`:
+      Error in `scale_backward_compatibility()`:
       ! The `type` argument must return a continuous scale for the colour aesthetic.
       x The provided scale works with the following aesthetics: fill.
 
@@ -30,7 +30,7 @@
     Code
       scale_fill_discrete(type = scale_colour_hue)
     Condition
-      Error in `scale_fill_discrete()`:
+      Error in `scale_backward_compatibility()`:
       ! The `type` argument must return a continuous scale for the fill aesthetic.
       x The provided scale works with the following aesthetics: colour.
 

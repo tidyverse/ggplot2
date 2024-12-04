@@ -128,19 +128,22 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   }
 
   transform <- as.transform(transform)
-  limits   <- allow_lambda(limits)
-
-  if (!is.null(limits) && !is.function(limits)) {
-    limits <- transform$transform(limits)
-  }
-  check_continuous_limits(limits, call = call)
 
   # Convert formula to function if appropriate
+  limits   <- allow_lambda(limits)
   breaks   <- allow_lambda(breaks)
   labels   <- allow_lambda(labels)
   rescaler <- allow_lambda(rescaler)
   oob      <- allow_lambda(oob)
   minor_breaks <- allow_lambda(minor_breaks)
+
+  if (!is.null(limits) && !is.function(limits)) {
+    limits <- transform$transform(limits)
+    if (!anyNA(limits)) {
+      limits <- sort(limits)
+    }
+  }
+  check_continuous_limits(limits, call = call)
 
   ggproto(NULL, super,
     call = call,
@@ -321,9 +324,6 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   }
 
   transform <- as.transform(transform)
-  if (!is.null(limits) && !is.function(limits)) {
-    limits <- transform$transform(limits)
-  }
 
   # Convert formula input to function if appropriate
   limits   <- allow_lambda(limits)
@@ -331,6 +331,13 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   labels   <- allow_lambda(labels)
   rescaler <- allow_lambda(rescaler)
   oob      <- allow_lambda(oob)
+
+  if (!is.null(limits) && !is.function(limits)) {
+    limits <- transform$transform(limits)
+    if (!anyNA(limits)) {
+      limits <- sort(limits)
+    }
+  }
 
   ggproto(NULL, super,
     call = call,
@@ -528,6 +535,7 @@ Scale <- ggproto("Scale", NULL,
     if (empty(df)) {
       return()
     }
+    self$palette <- self$palette %||% fallback_palette(self)
 
     aesthetics <- intersect(self$aesthetics, names(df))
     names(aesthetics) <- aesthetics
@@ -850,23 +858,21 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels <- self$labels
     }
 
-    if (length(labels) != length(breaks)) {
+    if (!identical(size0(labels), size0(breaks))) {
       cli::cli_abort(
         "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
     }
-    if (is.list(labels)) {
+
+    if (obj_is_list(labels)) {
       # Guard against list with empty elements
       labels[lengths(labels) == 0] <- ""
       # Make sure each element is scalar
       labels <- lapply(labels, `[`, 1)
-
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- inject(expression(!!!labels))
-      } else {
-        labels <- unlist(labels)
-      }
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
 
     labels
@@ -1074,48 +1080,42 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     }
 
-    if (is.null(self$labels)) {
+    labels <- self$labels
+    if (is.null(labels)) {
       return(NULL)
     }
 
-    if (identical(self$labels, NA)) {
+    if (identical(labels, NA)) {
       cli::cli_abort(
         "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
 
-    if (is.waiver(self$labels)) {
+    if (is.waiver(labels)) {
       if (!is.null(names(breaks))) {
-        return(names(breaks))
-      }
-      if (is.numeric(breaks)) {
+        labels <- names(breaks)
+      } else if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
-        format(breaks, justify = "none")
+        labels <- format(breaks, justify = "none")
       } else {
-        as.character(breaks)
+        labels <- as.character(breaks)
       }
-    } else if (is.function(self$labels)) {
-      self$labels(breaks)
-    } else {
-      if (!is.null(names(self$labels))) {
-        # If labels have names, use them to match with breaks
-        labels <- breaks
-
-        map <- match(names(self$labels), labels, nomatch = 0)
-        labels[map] <- self$labels[map != 0]
-        labels
-      } else {
-        labels <- self$labels
-
-        # Need to ensure that if breaks were dropped, corresponding labels are too
-        pos <- attr(breaks, "pos")
-        if (!is.null(pos)) {
-          labels <- labels[pos]
-        }
-        labels
-      }
+    } else if (is.function(labels)) {
+      labels <- labels(breaks)
+    } else if (!is.null(names(labels))) {
+      # If labels have names, use them to match with breaks
+      map <- match(names(self$labels), breaks, nomatch = 0)
+      labels <- replace(breaks, map, labels[map != 0])
+    } else if (!is.null(attr(breaks, "pos"))) {
+      # Need to ensure that if breaks were dropped, corresponding labels are too
+      labels <- labels[attr(breaks, "pos")]
     }
+
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
+    }
+    labels
   },
 
   clone = function(self) {
@@ -1315,9 +1315,6 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       breaks <- self$breaks
     }
 
-    # Breaks must be within limits
-    breaks <- oob_discard(breaks, sort(limits))
-
     self$breaks <- breaks
 
     transformation$transform(breaks)
@@ -1350,6 +1347,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
     labels
   },
@@ -1394,7 +1394,7 @@ scale_flip_position <- function(scale) {
 }
 
 check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) {
-  if (!any(is.finite(x) != is.finite(transformed))) {
+  if (!any(is_finite(x) != is_finite(transformed))) {
     return(invisible())
   }
   if (is.null(arg)) {
