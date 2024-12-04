@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `guide_*()` can now accept two inside legend theme elements:
+  "legend.position.inside" and "legend.justification.inside", allowing inside
+  legends to be placed at different positions. Only inside legends with the same
+  position and justification will be merged. (@Yunuuuu, #6210)
 * In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
   `coord_radial()`), using 'AsIs' variables escape transformation when
   both `x` and `y` is an 'AsIs' variable (@teunbrand, #6205).
