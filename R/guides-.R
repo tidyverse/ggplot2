@@ -514,7 +514,7 @@ Guides <- ggproto(
 
     # we grouped the legends by the positions, for inside legends, they'll be
     # splitted by the actual inside coordinate
-    for (i in seq_along(positions)[positions == "inside"]) {
+    for (i in which(positions == "inside")) {
         # the actual inside position and justification can be set in each guide
         # by `theme` argument, here, we won't use `calc_element()` which will
         # use inherits from `legend.justification` or `legend.position`, we only
@@ -528,8 +528,8 @@ Guides <- ggproto(
             "legend.position.inside"
           ]] %||% default_inside_position %||% inside_justs[[i]]
         )
-      }
     }
+    
 
     positions <- positions[keep]
     inside_positions <- inside_positions[keep]
