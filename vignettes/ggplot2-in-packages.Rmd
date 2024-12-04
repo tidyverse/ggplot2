@@ -105,6 +105,26 @@ col_summary <- function(df, col, by) {
 col_summary(mpg, "drv", "year")
 ```
 
+When using this strategy, you may need some extra care in passing optional arguments. 
+You can use optional arguments by setting `NULL` as a default value, and treating non-null input with `rlang::data_syms`.
+Thereafter, these arguments can be spliced using the `!!!` operation.
+
+```{r}
+col_summary <- function(df, col, by = NULL, fill = NULL, ...) {
+  
+  optional  <- list(fill = fill, ...)
+  is_symbol <- lengths(optional) > 0
+  optional  <- c(data_syms(optional[is_symbol]), optional[!is_symbol])
+
+  by <- if (!is.null(by)) facet_wrap(vars(.data[[by]]))
+  
+  ggplot(df) +
+    geom_bar(aes(y = .data[[col]], !!!optional)) +
+    by
+}
+
+col_summary(mpg, "drv", colour = "class")
+```
 ### Non-standard evaluation
 
 If the column name or expression is supplied by the user, you can also pass it to `aes()` or `vars()` using `{{ col }}`. This tidy eval operator captures the expression supplied by the user and forwards it to another tidy eval-enabled function such as `aes()` or `vars()`.
