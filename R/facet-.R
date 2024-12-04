@@ -263,6 +263,53 @@ Facet <- ggproto("Facet", NULL,
   },
   format_strip_labels = function(layout, params) {
     return()
+  },
+  set_panel_size = function(table, theme) {
+
+    new_widths  <- calc_element("panel.widths",  theme)
+    new_heights <- calc_element("panel.heights", theme)
+
+    if (is.null(new_widths) && is.null(new_heights)) {
+      return(table)
+    }
+
+    if (isTRUE(table$respect)) {
+      args <- !c(is.null(new_widths), is.null(new_heights))
+      args <- c("panel.widths", "panel.heights")[args]
+      cli::cli_warn(
+        "Aspect ratios are overruled by {.arg {args}} theme element{?s}."
+      )
+      table$respect <- FALSE
+    }
+
+    rows <- panel_rows(table)
+    cols <- panel_cols(table)
+
+    if (length(new_widths) == 1L && nrow(cols) > 1L) {
+      # Get total size of non-panel widths in between panels
+      extra <- setdiff(seq(min(cols$l), max(cols$r)), union(cols$l, cols$r))
+      extra <- unit(sum(width_cm(table$widths[extra])), "cm")
+      # Distribute width proportionally
+      relative   <- as.numeric(table$widths[cols$l]) # assumed to be simple units
+      new_widths <- (new_widths - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_widths)) {
+      table$widths[cols$l] <- rep(new_widths, length.out = nrow(cols))
+    }
+
+    if (length(new_heights) == 1L && nrow(rows) > 1L) {
+      # Get total size of non-panel heights in between panels
+      extra <- setdiff(seq(min(rows$t), max(rows$t)), union(rows$t, rows$b))
+      extra <- unit(sum(height_cm(table$heights[extra])), "cm")
+      # Distribute height proportionally
+      relative    <- as.numeric(table$heights[rows$t]) # assumed to be simple units
+      new_heights <- (new_heights - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_heights)) {
+      table$heights[rows$t] <- rep(new_heights, length.out = nrow(rows))
+    }
+
+    table
   }
 )
 

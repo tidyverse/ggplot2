@@ -94,6 +94,7 @@ Layout <- ggproto("Layout", NULL,
       theme,
       self$facet_params
     )
+    plot_table <- self$facet$set_panel_size(plot_table, theme)
 
     # Draw individual labels, then add to gtable
     labels <- self$coord$labels(
@@ -299,7 +300,6 @@ Layout <- ggproto("Layout", NULL,
     label_grobs
   }
 )
-
 
 # Helpers -----------------------------------------------------------------
 
