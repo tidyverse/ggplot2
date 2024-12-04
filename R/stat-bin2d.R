@@ -128,15 +128,3 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   }
   bins(breaks, closed)$fuzzy
 }
-
-bin_loc <- function(x, id) {
-  left <- x[-length(x)]
-  right <- x[-1]
-
-  list(
-    left = left[id],
-    right = right[id],
-    mid = ((left + right) / 2)[id],
-    length = diff(x)[id]
-  )
-}

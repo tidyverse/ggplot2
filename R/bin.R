@@ -225,6 +225,18 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
   )
 }
 
+bin_loc <- function(x, id) {
+  left <- x[-length(x)]
+  right <- x[-1]
+
+  list(
+    left = left[id],
+    right = right[id],
+    mid = ((left + right) / 2)[id],
+    length = diff(x)[id]
+  )
+}
+
 fix_bin_params = function(params, fun, version) {
 
   if (!is.null(params$origin)) {
