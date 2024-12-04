@@ -522,11 +522,7 @@ Guides <- ggproto(
         # use inherits from `legend.justification` or `legend.position`, we only
         # follow the inside elements from the guide theme
         inside_just <- params[[i]]$theme[["legend.justification.inside"]]
-        if (is.null(inside_just)) {
-          inside_justs[[i]] <- default_inside_just
-        } else {
-          inside_justs[[i]] <- valid.just(inside_just)
-        }
+        inside_justs[[i]] <- valid.just(inside_just %||% default_inside_just)
         inside_positions[[i]] <- params[[i]]$theme[[
           "legend.position.inside"
         ]] %||% default_inside_position %||% inside_justs[[i]]
