@@ -56,7 +56,7 @@ StatBin2d <- ggproto(
   default_aes = aes(weight = 1, fill = after_stat(count)),
   required_aes = c("x", "y"),
 
-  compute_group = function(self, data, scales, binwidth = NULL, bins = 30,
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
                            boundary = 0, closed = NULL, center = NULL) {
 
