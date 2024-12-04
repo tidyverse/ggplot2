@@ -114,7 +114,7 @@ col_summary <- function(df, col, by = NULL, fill = NULL, ...) {
   
   optional  <- list(fill = fill, ...)
   is_symbol <- lengths(optional) > 0
-  optional  <- c(data_syms(optional[is_symbol]), optional[!is_symbol])
+  optional  <- c(rlang::data_syms(optional[is_symbol]), optional[!is_symbol])
 
   by <- if (!is.null(by)) facet_wrap(vars(.data[[by]]))
   
