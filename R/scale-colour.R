@@ -88,7 +88,7 @@ scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
                                     guide = "colourbar", na.value = "grey50",
                                     type = getOption("ggplot2.continuous.colour")) {
 
-  if (!is.null(type)) {
+  if (!is.null(type) && is.null(palette)) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "continuous"
@@ -108,7 +108,7 @@ scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guid
                                   na.value = "grey50",
                                   type = getOption("ggplot2.continuous.fill")) {
 
-  if (!is.null(type)) {
+  if (!is.null(type) && is.null(palette)) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "continuous"
@@ -127,7 +127,7 @@ scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guid
 scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guide = "coloursteps",
                                 na.value = "grey50",
                                 type = getOption("ggplot2.binned.colour")) {
-  if (!is.null(type)) {
+  if (!is.null(type) && is.null(palette)) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "binned"
@@ -146,7 +146,7 @@ scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guid
 scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = "coloursteps",
                               na.value = "grey50",
                               type = getOption("ggplot2.binned.fill")) {
-  if (!is.null(type)) {
+  if (!is.null(type) && is.null(palette)) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "binned"
@@ -224,7 +224,7 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'
 scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na.value = "grey50",
                                   type = getOption("ggplot2.discrete.colour")) {
-  if (!is.null(type)) {
+  if (!is.null(type) && is.null(palette)) {
     scale <- scale_backward_compatibility(
       ..., na.value = na.value, scale = type,
       aesthetic = "colour", type = "discrete"
@@ -242,7 +242,7 @@ scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na
 #' @export
 scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.value = "grey50",
                                 type = getOption("ggplot2.discrete.fill")) {
-  if (!is.null(type)) {
+  if (!is.null(type) && is.null(palette)) {
     scale <- scale_backward_compatibility(
       ..., na.value = na.value, scale = type,
       aesthetic = "fill", type = "discrete"
