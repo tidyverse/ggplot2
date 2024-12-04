@@ -95,7 +95,7 @@ scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
     )
     return(scale)
   }
-  pal <- if (!is.null(palette)) as_continuous_pal(palette)
+  palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
     aesthetics, palette = palette, guide = guide, na.value = na.value,
     ...
