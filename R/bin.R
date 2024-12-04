@@ -124,6 +124,7 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
   check_length(range, 2L)
 
   if (!is.null(breaks)) {
+    breaks <- allow_lambda(breaks)
     if (is.function(breaks)) {
       breaks <- breaks(x)
     }
@@ -142,6 +143,7 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
   }
 
   if (!is.null(binwidth)) {
+    binwidth <- allow_lambda(binwidth)
     if (is.function(binwidth)) {
       binwidth <- binwidth(x)
     }
@@ -153,6 +155,7 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
     return(bins)
   }
 
+  bins <- allow_lambda(bins)
   if (is.function(bins)) {
     bins <- bins(x)
   }
