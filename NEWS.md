@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* All binning stats now use the `boundary`/`center` parametrisation rather
+  than `origin`, following in `stat_bin()`'s footsteps (@teunbrand).
+* `stat_summary_2d()` and `stat_bin_2d()` now deal with zero-range data
+  more elegantly (@teunbrand, #6207).
 * New stat: `stat_manual()` for arbitrary computations (@teunbrand, #3501)
 * Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
   `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
