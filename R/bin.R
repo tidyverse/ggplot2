@@ -54,19 +54,12 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
 
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
                              boundary = NULL, closed = c("right", "left")) {
-  check_length(x_range, 2L)
 
-  # binwidth seems to be the argument name supplied to width. (stat-bin and stat-bindot)
-  check_number_decimal(width, min = 0, allow_infinite = FALSE, arg = "binwidth")
-
-  if (!is.null(boundary) && !is.null(center)) {
-    cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
-  } else if (is.null(boundary)) {
+  if (is.null(boundary)) {
     if (is.null(center)) {
       # If neither edge nor center given, compute both using tile layer's
       # algorithm. This puts min and max of data in outer half of their bins.
       boundary <- width / 2
-
     } else {
       # If center given but not boundary, compute boundary.
       boundary <- center - width / 2
@@ -75,9 +68,6 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 
   # Find the left side of left-most bin: inputs could be Dates or POSIXct, so
   # coerce to numeric first.
-  x_range <- as.numeric(x_range)
-  width <- as.numeric(width)
-  boundary <- as.numeric(boundary)
   shift <- floor((x_range[1] - boundary) / width)
   origin <- boundary + shift * width
 
@@ -104,9 +94,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
 
 bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
                             boundary = NULL, closed = c("right", "left")) {
-  check_length(x_range, 2L)
 
-  check_number_whole(bins, min = 1)
   if (zero_range(x_range)) {
     # 0.1 is the same width as the expansion `default_expansion()` gives for 0-width data
     width <- 0.1
@@ -128,27 +116,38 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 
 # Compute bins ------------------------------------------------------------
 
-compute_bins <- function(x, scale, breaks = NULL, binwidth = NULL, bins = NULL,
+compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins = NULL,
                          center = NULL, boundary = NULL,
                          closed = c("right", "left")) {
+
+  range <- if (is.scale(scale)) scale$dimension() else range(x)
+  check_length(range, 2L)
 
   if (!is.null(breaks)) {
     if (is.function(breaks)) {
       breaks <- breaks(x)
     }
-    if (!scale$is_discrete()) {
+    if (is.scale(scale) && !scale$is_discrete()) {
       breaks <- scale$transform(breaks)
     }
+    check_numeric(breaks)
     bins <- bin_breaks(breaks, closed)
     return(bins)
+  }
+
+  check_number_decimal(boundary, allow_infinite = FALSE, allow_null = TRUE)
+  check_number_decimal(center, allow_infinite = FALSE, allow_null = TRUE)
+  if (!is.null(boundary) && !is.null(center)) {
+    cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
   }
 
   if (!is.null(binwidth)) {
     if (is.function(binwidth)) {
       binwidth <- binwidth(x)
     }
+    check_number_decimal(binwidth, min = 0, allow_infinite = FALSE)
     bins <- bin_breaks_width(
-      scale$dimension(), binwidth,
+      range, binwidth,
       center = center, boundary = boundary, closed = closed
     )
     return(bins)
@@ -157,8 +156,9 @@ compute_bins <- function(x, scale, breaks = NULL, binwidth = NULL, bins = NULL,
   if (is.function(bins)) {
     bins <- bins(x)
   }
+  check_number_whole(bins, min = 1, allow_infinite = FALSE)
   bin_breaks_bins(
-    scale$dimension(), bins,
+    range, bins,
     center = center, boundary = boundary, closed = closed
   )
 }
@@ -251,13 +251,6 @@ fix_bin_params = function(params, fun, version) {
     deprecate_warn0(version, args[1], args[2])
     params$closed <- if (isTRUE(params$right)) "right" else "left"
     params$right <- NULL
-  }
-
-  if (!is.null(params$boundary) && !is.null(params$center)) {
-    cli::cli_abort(
-      "Only one of {.arg boundary} and {.arg center} may be specified \\
-      in {.fn {fun}}."
-    )
   }
 
   if (is.null(params$breaks %||% params$binwidth %||% params$bins)) {
