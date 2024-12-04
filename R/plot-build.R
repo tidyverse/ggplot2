@@ -448,8 +448,8 @@ table_add_tag <- function(table, label, theme) {
 table_add_legends <- function(table, legends, theme) {
 
   if (is.zero(legends)) {
-    legends <- rep(list(zeroGrob()), 4)
-    names(legends) <- .trbl
+    legends <- rep(list(zeroGrob()), 5)
+    names(legends) <- c(.trbl, "inside")
   }
 
   # Extract sizes
@@ -479,7 +479,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_cols(table, spacing$right, pos = -1)
   table <- gtable_add_cols(table, widths$right,  pos = -1)
   table <- gtable_add_grob(
-    table, legends$right %||% zeroGrob(), clip = "off",
+    table, legends$right, clip = "off",
     t = place$t, b = place$b, l = -1, r = -1,
     name = "guide-box-right"
   )
@@ -488,7 +488,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_cols(table, spacing$left, pos = 0)
   table <- gtable_add_cols(table, widths$left,  pos = 0)
   table <- gtable_add_grob(
-    table, legends$left %||% zeroGrob(), clip = "off",
+    table, legends$left, clip = "off",
     t = place$t, b = place$b, l = 1, r = 1,
     name = "guide-box-left"
   )
@@ -499,7 +499,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$bottom, pos = -1)
   table <- gtable_add_rows(table, heights$bottom, pos = -1)
   table <- gtable_add_grob(
-    table, legends$bottom %||% zeroGrob(), clip = "off",
+    table, legends$bottom, clip = "off",
     t = -1, b = -1, l = place$l, r = place$r,
     name = "guide-box-bottom"
   )
@@ -508,7 +508,7 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$top, pos = 0)
   table <- gtable_add_rows(table, heights$top, pos = 0)
   table <- gtable_add_grob(
-    table, legends$top %||% zeroGrob(), clip = "off",
+    table, legends$top, clip = "off",
     t = 1, b = 1, l = place$l, r = place$r,
     name = "guide-box-top"
   )
@@ -516,10 +516,11 @@ table_add_legends <- function(table, legends, theme) {
   # Add manual legend
   place <- find_panel(table)
   table <- gtable_add_grob(
-    table, legends$inside %||% zeroGrob(), clip = "off",
+    table, legends$inside, clip = "off",
     t = place$t, b = place$b, l = place$l, r = place$r,
     name = "guide-box-inside"
   )
+
   table
 }
 
