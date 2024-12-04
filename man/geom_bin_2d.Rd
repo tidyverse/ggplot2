@@ -26,6 +26,7 @@ stat_bin_2d(
   ...,
   bins = 30,
   binwidth = NULL,
+  boundary = 0,
   drop = TRUE,
   na.rm = FALSE,
   show.legend = NA,
