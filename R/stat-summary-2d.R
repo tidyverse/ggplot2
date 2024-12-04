@@ -100,7 +100,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
     params <- fix_bin_params(params, fun = snake_class(self), version = "3.5.2")
     vars <- c("origin", "binwidth", "breaks", "center", "boundary")
-    params[vars] <- lapply(params[vars], dual_param)
+    params[vars] <- lapply(params[vars], dual_param, default = NULL)
     params$closed <- dual_param(params$closed, list(x = "right", y = "right"))
 
     params

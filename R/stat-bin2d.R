@@ -16,7 +16,6 @@ stat_bin_2d <- function(mapping = NULL, data = NULL,
                         ...,
                         bins = 30,
                         binwidth = NULL,
-                        boundary = 0,
                         drop = TRUE,
                         na.rm = FALSE,
                         show.legend = NA,
@@ -33,7 +32,6 @@ stat_bin_2d <- function(mapping = NULL, data = NULL,
       bins = bins,
       binwidth = binwidth,
       drop = drop,
-      boundary = boundary,
       na.rm = na.rm,
       ...
     )
@@ -58,10 +56,13 @@ StatBin2d <- ggproto(
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
-                           boundary = 0, closed = NULL, center = NULL) {
+                           boundary = NULL, closed = NULL, center = NULL) {
 
     data$z <- data$weight %||% 1
     data$weight <- NULL
+
+    # For backward compatibility, boundary defaults to 0
+    boundary <- boundary %||% if (is.null(center)) list(x = 0, y = 0)
 
     out <- StatSummary2d$compute_group(
       data, scales, binwidth = binwidth, bins = bins, breaks = breaks,
