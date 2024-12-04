@@ -11,6 +11,7 @@
 \usage{
 scale_colour_continuous(
   ...,
+  palette = NULL,
   aesthetics = "colour",
   guide = "colourbar",
   na.value = "grey50",
@@ -19,6 +20,7 @@ scale_colour_continuous(
 
 scale_fill_continuous(
   ...,
+  palette = NULL,
   aesthetics = "fill",
   guide = "colourbar",
   na.value = "grey50",
@@ -27,6 +29,7 @@ scale_fill_continuous(
 
 scale_colour_binned(
   ...,
+  palette = NULL,
   aesthetics = "colour",
   guide = "coloursteps",
   na.value = "grey50",
@@ -35,6 +38,7 @@ scale_colour_binned(
 
 scale_fill_binned(
   ...,
+  palette = NULL,
   aesthetics = "fill",
   guide = "coloursteps",
   na.value = "grey50",
@@ -43,6 +47,15 @@ scale_fill_binned(
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
+
+\item{palette}{One of the following:
+\itemize{
+\item \code{NULL} for the default palette stored in the theme.
+\item a character vector of colours.
+\item a single string naming a palette.
+\item a palette function that when called with a numeric vector with values
+between 0 and 1 returns the corresponding output values.
+}}
 
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
 

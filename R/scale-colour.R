@@ -28,6 +28,12 @@
 #' [scale_colour_gradient()] or [scale_colour_steps()].
 #'
 #' @inheritParams continuous_scale
+#' @param palette One of the following:
+#'   * `NULL` for the default palette stored in the theme.
+#'   * a character vector of colours.
+#'   * a single string naming a palette.
+#'   * a palette function that when called with a numeric vector with values
+#'     between 0 and 1 returns the corresponding output values.
 #' @param ... Additional parameters passed on to the scale type
 #' @param type One of the following:
 #'   * "gradient" (the default)
@@ -160,6 +166,12 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #' unless `type` (which defaults to the `ggplot2.discrete.fill`/`ggplot2.discrete.colour` options)
 #' is specified.
 #'
+#' @param palette One of the following:
+#'   * `NULL` for the default palette stored in the theme.
+#'   * a character vector of colours.
+#'   * a single string naming a palette.
+#'   * a palette function that when called with a single integer argument (the
+#'     number of levels in the scale) returns the values that they should take.
 #' @param ... Additional parameters passed on to the scale type,
 #' @inheritParams discrete_scale
 #' @param type One of the following:
