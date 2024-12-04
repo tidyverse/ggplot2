@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The default colour and fill scales have a new `palette` argument 
+  (@teunbrand, #6064).
 * New stat: `stat_manual()` for arbitrary computations (@teunbrand, #3501)
 * Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
   `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
