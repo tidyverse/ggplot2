@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* All binning stats now use the `boundary`/`center` parametrisation rather
+  than `origin`, following in `stat_bin()`'s footsteps (@teunbrand).
+* `stat_summary_2d()` and `stat_bin_2d()` now deal with zero-range data
+  more elegantly (@teunbrand, #6207).
 * New stat: `stat_manual()` for arbitrary computations (@teunbrand, #3501)
 * Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
   `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
@@ -226,7 +230,7 @@
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
-* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
+* Reintroduced `drop` argument to `stat_bin()` (@teunbrand, #3449)
 * (internal) removed barriers for using 2D structures as aesthetics 
   (@teunbrand, #4189).
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)

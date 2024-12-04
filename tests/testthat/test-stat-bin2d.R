@@ -14,7 +14,7 @@ test_that("binwidth is respected", {
   expect_snapshot_warning(ggplot_build(p))
 
   p <- ggplot(df, aes(x, y)) +
-    stat_bin_2d(geom = "tile", origin = c(0.25, 0.5, 0.75))
+    stat_bin_2d(geom = "tile", boundary = c(0.25, 0.5, 0.75))
   expect_snapshot_warning(ggplot_build(p))
 })
 
