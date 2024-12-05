@@ -204,6 +204,7 @@ GuideLegend <- ggproto(
       cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
     }
     params$override.aes <- params$override.aes[!duplicated(nms)]
+    params$aesthetic <- union(params$aesthetic, new_params$aesthetic)
 
     list(guide = self, params = params)
   },

@@ -49,7 +49,7 @@ should be evaluated.
 \section{Staging}{
 Below follows an overview of the three stages of evaluation and how aesthetic
 evaluation can be controlled.
-\subsection{Stage 1: direct input}{
+\subsection{Stage 1: direct input at the start}{
 
 The default is to map at the beginning, using the layer data provided by
 the user. If you want to map directly from the layer data you should not do
@@ -108,16 +108,18 @@ ggplot(mpg, aes(cty, colour = factor(cyl))) +
 
 \subsection{Complex staging}{
 
-If you want to map the same aesthetic multiple times, e.g. map \code{x} to a
-data column for the stat, but remap it for the geom, you can use the
-\code{stage()} function to collect multiple mappings.
+Sometimes, you may want to map the same aesthetic multiple times, e.g. map
+\code{x} to a data column at the start for the layer stat, but remap it later to
+a variable from the stat transformation for the layer geom. The \code{stage()}
+function allows you to control multiple mappings for the same aesthetic
+across all three stages of evaluation.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Use stage to modify the scaled fill
 ggplot(mpg, aes(class, hwy)) +
   geom_boxplot(aes(fill = stage(class, after_scale = alpha(fill, 0.4))))
 
 # Using data for computing summary, but placing label elsewhere.
-# Also, we're making our own computed variable to use for the label.
+# Also, we're making our own computed variables to use for the label.
 ggplot(mpg, aes(class, displ)) +
   geom_violin() +
   stat_summary(
@@ -129,6 +131,11 @@ ggplot(mpg, aes(class, displ)) +
     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
   )
 }\if{html}{\out{</div>}}
+
+Conceptually, \code{aes(x)} is equivalent to \code{aes(stage(start = x))}, and
+\code{aes(after_stat(count))} is equivalent to \code{aes(stage(after_stat = count))},
+and so on. \code{stage()} is most useful when at least two of its arguments are
+specified.
 }
 
 \subsection{Theme access}{

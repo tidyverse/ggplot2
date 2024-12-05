@@ -231,14 +231,15 @@ GeomSf <- ggproto("GeomSf", Geom,
     point_size[!(is_point | is_collection)] <-
       data$linewidth[!(is_point | is_collection)]
 
-    stroke <- data$stroke * .stroke / 2
+    stroke <- (data$stroke %||% rep(0.5, nrow(data))) * .stroke / 2
     font_size <- point_size * .pt + stroke
 
     linewidth <- data$linewidth * .pt
     linewidth[is_point] <- stroke[is_point]
 
     gp <- gpar(
-      col = colour, fill = fill, fontsize = font_size, lwd = linewidth,
+      col = colour, fill = fill, fontsize = font_size,
+      lwd = linewidth, lty = data$linetype,
       lineend = lineend, linejoin = linejoin, linemitre = linemitre
     )
 

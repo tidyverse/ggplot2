@@ -1,3 +1,15 @@
+# geom_sf() removes rows containing missing aes
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_sf()`).
+
+---
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_sf()`).
+
+---
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_sf()`).
+
 # errors are correctly triggered
 
     Problem while converting geom to grob.

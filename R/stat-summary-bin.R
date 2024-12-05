@@ -82,7 +82,8 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
                            flipped_aes = FALSE, width = NULL) {
     data <- flip_data(data, flipped_aes)
     x <- flipped_names(flipped_aes)$x
-    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins, right = right)
+    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins,
+                           closed = if (right) "right" else "left")
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
     out <- dapply(data, "bin", fun %||% function(df) mean_se(df$y))

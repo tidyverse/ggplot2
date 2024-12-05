@@ -12,10 +12,7 @@ test_that("geom_text() drops missing angles", {
   )
 
   df$angle <- NA
-  expect_warning(
-    geom$geom$handle_na(df, geom$geom_params),
-    "Removed 1 row"
-  )
+  expect_snapshot_warning(geom$geom$handle_na(df, geom$geom_params))
 })
 
 test_that("geom_text() accepts mm and pt size units", {
@@ -30,9 +27,9 @@ test_that("geom_text() accepts mm and pt size units", {
 
 test_that("geom_text() rejects exotic units", {
   p <- ggplot(data_frame0(x = 1, y = 1, label = "A"), aes(x, y, label = label))
-  expect_error(
+  expect_snapshot(
     ggplotGrob(p + geom_text(size = 10, size.unit = "npc")),
-    "must be one of"
+    error = TRUE
   )
 })
 
