@@ -46,10 +46,10 @@ fortify.map <- function(model, data, ...) {
 #' for plotting with ggplot2.
 #'
 #' @param map name of map provided by the \pkg{maps} package. These
-#'   include [maps::county()], [maps::france()],
-#'   [maps::italy()], [maps::nz()],
-#'   [maps::state()], [maps::usa()],
-#'   [maps::world()], [maps::world2()].
+#'   include [`"county"`][maps::county], [`"france"`][maps::france],
+#'   [`"italy"`][maps::italy], [`"nz"`][maps::nz],
+#'   [`"state"`][maps::state], [`"usa"`][maps::usa],
+#'   [`"world"`][maps::world], or [`"world2"`][maps::world2].
 #' @param region name(s) of subregion(s) to include. Defaults to `.` which
 #'   includes all subregions. See documentation for [maps::map()]
 #'   for more details.
