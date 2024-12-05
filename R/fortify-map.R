@@ -80,7 +80,23 @@ fortify.map <- function(model, data, ...) {
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   check_installed("maps", reason = "for `map_data()`.")
   map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
-  fortify(map_obj)
+
+  if (!inherits(map_obj, "map")) {
+    return(fortify(map_obj))
+  }
+
+  df <- data_frame0(
+    long  = map_obj$x,
+    lat   = map_obj$y,
+    group = cumsum(is.na(map_obj$x) & is.na(map_obj$y)) + 1,
+    order = seq_along(map_obj$x),
+    .size = length(map_obj$x)
+  )
+
+  names <- lapply(strsplit(map_obj$names, "[:,]"), "[", 1:2)
+  names <- vec_rbind(!!!names, .name_repair = ~ c("region", "subregion"))
+  df[names(names)] <- vec_slice(names, df$group)
+  vec_slice(df, stats::complete.cases(df$lat, df$long))
 }
 
 #' Create a layer of map borders
