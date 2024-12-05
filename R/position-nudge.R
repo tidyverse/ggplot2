@@ -8,6 +8,7 @@
 #' @family position adjustments
 #' @param x,y Amount of vertical and horizontal distance to move.
 #' @export
+#' @eval rd_aesthetics("position", "nudge")
 #' @examples
 #' df <- data.frame(
 #'   x = c(1,3,2,5),
@@ -26,7 +27,7 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   geom_text(aes(label = y), nudge_y = -0.1)
-position_nudge <- function(x = 0, y = 0) {
+position_nudge <- function(x = NULL, y = NULL) {
   ggproto(NULL, PositionNudge,
     x = x,
     y = y
@@ -38,25 +39,21 @@ position_nudge <- function(x = 0, y = 0) {
 #' @usage NULL
 #' @export
 PositionNudge <- ggproto("PositionNudge", Position,
-  x = 0,
-  y = 0,
+  x = NULL,
+  y = NULL,
+
+  default_aes = aes(nudge_x = 0, nudge_y = 0),
 
   setup_params = function(self, data) {
-    list(x = self$x, y = self$y)
+    list(
+      x = self$x %||% data$nudge_x,
+      y = self$y %||% data$nudge_y
+    )
   },
 
   compute_layer = function(self, data, params, layout) {
-    # transform only the dimensions for which non-zero nudging is requested
-    if (any(params$x != 0)) {
-      if (any(params$y != 0)) {
-        transform_position(data, function(x) x + params$x, function(y) y + params$y)
-      } else {
-        transform_position(data, function(x) x + params$x, NULL)
-      }
-    } else if (any(params$y != 0)) {
-      transform_position(data, NULL, function(y) y + params$y)
-    } else {
-      data # if both x and y are 0 we don't need to transform
-    }
+    trans_x <- if (any(params$x != 0)) function(x) x + params$x
+    trans_y <- if (any(params$y != 0)) function(y) y + params$y
+    transform_position(data, trans_x, trans_y)
   }
 )

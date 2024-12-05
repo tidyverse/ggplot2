@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Position adjustments can now have auxiliary aesthetics (@teunbrand).
+    * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
+    * `position_dodge()` gains `order` aesthetic (#3022, #3345)
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same

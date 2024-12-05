@@ -41,19 +41,6 @@
 #' @inheritParams geom_point
 #' @param parse If `TRUE`, the labels will be parsed into expressions and
 #'   displayed as described in `?plotmath`.
-#' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
-#'   Useful for offsetting text from points, particularly on discrete scales.
-#'   Cannot be jointly specified with `position`.
-#' @param position A position adjustment to use on the data for this layer.
-#'   Cannot be jointy specified with `nudge_x` or `nudge_y`. This
-#'   can be used in various ways, including to prevent overplotting and
-#'   improving the display. The `position` argument accepts the following:
-#'   * The result of calling a position function, such as `position_jitter()`.
-#'   * A string naming the position adjustment. To give the position as a
-#'     string, strip the function name of the `position_` prefix. For example,
-#'     to use `position_jitter()`, give the position as `"jitter"`.
-#'   * For more information and other ways to specify the position, see the
-#'     [layer position][layer_positions] documentation.
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted. `check_overlap` happens at draw time and in
 #'   the order of the data. Therefore data should be arranged by the label
@@ -166,28 +153,15 @@
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 #' }
 geom_text <- function(mapping = NULL, data = NULL,
-                      stat = "identity", position = "identity",
+                      stat = "identity", position = "nudge",
                       ...,
                       parse = FALSE,
-                      nudge_x = 0,
-                      nudge_y = 0,
                       check_overlap = FALSE,
                       size.unit = "mm",
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE)
 {
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
-
   layer(
     data = data,
     mapping = mapping,
