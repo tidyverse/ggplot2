@@ -22,7 +22,7 @@ NULL
 #' @export
 #'
 #' @examples
-#' #' # A standard plot
+#' # A standard plot
 #' p <- ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   theme(axis.line = element_line())
