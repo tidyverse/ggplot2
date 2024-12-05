@@ -1,5 +1,8 @@
 #' Fortify method for map objects
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' This function turns a map into a data frame that can more easily be
 #' plotted with ggplot2.
 #'
