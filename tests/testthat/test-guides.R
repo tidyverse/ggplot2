@@ -156,10 +156,10 @@ test_that("empty guides are dropped", {
   expect_equal(nrow(gd), 0)
 
   # Draw guides
-  guides <- p$plot$guides$draw(theme_gray(), direction = "vertical")
+  guides <- p$plot$guides$assemble(theme_gray())
 
   # All guide-boxes should be empty
-  expect_equal(lengths(guides, use.names = FALSE), rep(0, 5))
+  expect_true(is.zero(guides))
 })
 
 test_that("bins can be parsed by guides for all scale types", {
@@ -281,6 +281,25 @@ test_that("guides are positioned correctly", {
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
     p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0.5,0.5))
+  )
+  expect_doppelganger("legend inside plot, multiple positions",
+    p2 +
+      guides(
+          colour = guide_colourbar(
+              position = "inside",
+              theme = theme(
+                legend.position.inside = c(0, 1),
+                legend.justification.inside = c(0, 1)
+              )
+          ),
+          fill = guide_legend(
+              position = "inside",
+              theme = theme(
+                legend.position.inside = c(1, 0),
+                legend.justification.inside = c(1, 0)
+              )
+          )
+      )
   )
 })
 
