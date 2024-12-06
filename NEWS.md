@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New default `geom_qq_line(geom = "abline")` for better clipping in the 
+  vertical direction. In addition, `slope` and `intercept` are new computed
+  variables in `stat_qq_line()` (@teunbrand, #6087).
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
