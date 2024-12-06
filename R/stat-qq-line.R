@@ -6,7 +6,7 @@
 #'   the data
 geom_qq_line <- function(mapping = NULL,
                          data = NULL,
-                         geom = "path",
+                         geom = "abline",
                          position = "identity",
                          ...,
                          distribution = stats::qnorm,
@@ -86,6 +86,9 @@ StatQqLine <- ggproto("StatQqLine", Stat,
       x <- range(theoretical)
     }
 
-    data_frame0(x = x, y = slope * x + intercept)
+    data_frame0(
+      x = x, y = slope * x + intercept,
+      slope = slope, intercept = intercept
+    )
   }
 )
