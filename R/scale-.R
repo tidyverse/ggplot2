@@ -1286,9 +1286,17 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
             new_limits[1] <- breaks[1]
             breaks <- breaks[-1]
           }
-        } else {
+        } else if (nbreaks == 1) {
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
           new_limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
+        } else {
+          new_limits <- limits
+          if (zero_range(new_limits)) {
+            # 0.1 is the same width as the expansion `default_expansion()`
+            # gives for 0-width data
+            new_limits <- new_limits + c(-0.05, 0.05)
+          }
+          breaks <- new_limits
         }
         new_limits_trans <- suppressWarnings(transformation$transform(new_limits))
         limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
