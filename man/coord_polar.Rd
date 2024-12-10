@@ -12,11 +12,12 @@ coord_radial(
   start = 0,
   end = NULL,
   expand = TRUE,
-  direction = 1,
+  direction = deprecated(),
   clip = "off",
   r.axis.inside = NULL,
   rotate.angle = FALSE,
   inner.radius = 0,
+  reverse = "none",
   r_axis_inside = deprecated(),
   rotate_angle = deprecated()
 )
@@ -57,7 +58,12 @@ in accordance with the computed \code{theta} position. If \code{FALSE} (default)
 no such transformation is performed. Can be useful to rotate text geoms in
 alignment with the coordinates.}
 
-\item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a inner.radius hole.}
+\item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a
+inner radius hole.}
+
+\item{reverse}{A string giving which directions to reverse. \code{"none"}
+(default) keep directions as is. \code{"theta"} reverses the angle and \code{"r"}
+reverses the radius. \code{"thetar"} reverses both the angle and the radius.}
 
 \item{r_axis_inside, rotate_angle}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
@@ -80,7 +86,7 @@ sensible when \code{inner.radius > 0}.
 # to demonstrate how these common plots can be described in the
 # grammar.  Use with EXTREME caution.
 
-#' # A pie chart = stacked bar chart + polar coordinates
+# A pie chart = stacked bar chart + polar coordinates
 pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
  geom_bar(width = 1)
 pie + coord_polar(theta = "y")

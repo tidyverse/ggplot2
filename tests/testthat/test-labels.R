@@ -52,15 +52,13 @@ test_that("setting guide labels works", {
 test_that("Labels from default stat mapping are overwritten by default labels", {
   p <- ggplot(mpg, aes(displ, hwy)) +
     geom_density2d()
-  labels <- ggplot_build(p)$plot$labels
 
+  labels <- get_labs(p)
   expect_equal(labels$colour[1], "colour")
   expect_true(attr(labels$colour, "fallback"))
 
   p <- p + geom_smooth(aes(color = drv), method = "lm", formula = y ~ x)
-  labels <- ggplot_build(p)$plot$labels
-
-  expect_equal(labels$colour, "drv")
+  expect_equal(get_labs(p)$colour, "drv")
 })
 
 test_that("Labels can be extracted from attributes", {
@@ -68,8 +66,8 @@ test_that("Labels can be extracted from attributes", {
   attr(df$mpg, "label") <- "Miles per gallon"
 
   p <- ggplot(df, aes(mpg, disp)) + geom_point()
-  labels <- ggplot_build(p)$plot$labels
 
+  labels <- get_labs(p)
   expect_equal(labels$x, "Miles per gallon")
   expect_equal(labels$y, "disp")
 })
@@ -79,14 +77,10 @@ test_that("Labels from static aesthetics are ignored (#6003)", {
   df <- data.frame(x = 1, y = 1, f = 1)
 
   p <- ggplot(df, aes(x, y, colour = f)) + geom_point()
-  labels <- ggplot_build(p)$plot$labels
-
-  expect_equal(labels$colour, "f")
+  expect_equal(get_labs(p)$colour, "f")
 
   p <- ggplot(df, aes(x, y, colour = f)) + geom_point(colour = "blue")
-  labels <- ggplot_build(p)$plot$labels
-
-  expect_null(labels$colour)
+  expect_null(get_labs(p)$colour)
 })
 
 test_that("alt text is returned", {
@@ -104,6 +98,15 @@ test_that("alt text can take a function", {
   expect_snapshot(get_alt_text(p))
 })
 
+test_that("get_alt_text checks dots", {
+  expect_snapshot_warning(get_alt_text(ggplot(), foo = "bar"))
+})
+
+test_that("warnings are thrown for unknown labels", {
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(foo = 'bar')
+  expect_snapshot_warning(ggplot_build(p))
+})
+
 test_that("plot.tag.position rejects invalid input", {
   p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(tag = "Fig. A)")
 
@@ -113,13 +116,13 @@ test_that("plot.tag.position rejects invalid input", {
   expect_snapshot_error(
     ggplotGrob(p + theme(plot.tag.position = "foobar"))
   )
-  expect_error(
+  expect_snapshot(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1))),
-    "must have length 2"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")),
-    "cannot be used with `\"margin\""
+    error = TRUE
   )
 
 })
@@ -131,24 +134,25 @@ test_that("position axis label hierarchy works as intended", {
     geom_point(size = 5)
 
   p <- ggplot_build(p)
+  resolve_label <- function(x) p$layout$resolve_label(x, p$plot$labels)
 
   # In absence of explicit title, get title from mapping
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
+    resolve_label(p$layout$panel_scales_x[[1]]),
     list(secondary = NULL, primary = "foo")
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
+    resolve_label(p$layout$panel_scales_y[[1]]),
     list(primary = "bar", secondary = NULL)
   )
 
   # Scale name overrules mapping label
   expect_identical(
-    p$layout$resolve_label(scale_x_continuous("Baz"), p$plot$labels),
+    resolve_label(scale_x_continuous("Baz")),
     list(secondary = NULL, primary = "Baz")
   )
   expect_identical(
-    p$layout$resolve_label(scale_y_continuous("Qux"), p$plot$labels),
+    resolve_label(scale_y_continuous("Qux")),
     list(primary = "Qux", secondary = NULL)
   )
 
@@ -158,23 +162,23 @@ test_that("position axis label hierarchy works as intended", {
     p$plot$layers
   )
   expect_identical(
-    p$layout$resolve_label(scale_x_continuous("Baz"), p$plot$labels),
+    resolve_label(scale_x_continuous("Baz")),
     list(secondary = NULL, primary = "quuX")
   )
   expect_identical(
-    p$layout$resolve_label(scale_y_continuous("Qux"), p$plot$labels),
+    resolve_label(scale_y_continuous("Qux")),
     list(primary = "corgE", secondary = NULL)
   )
 
   # Secondary axis names work
   xsec <- scale_x_continuous("Baz", sec.axis = dup_axis(name = "grault"))
   expect_identical(
-    p$layout$resolve_label(xsec, p$plot$labels),
+    resolve_label(xsec),
     list(secondary = "grault", primary = "quuX")
   )
   ysec <- scale_y_continuous("Qux", sec.axis = dup_axis(name = "garply"))
   expect_identical(
-    p$layout$resolve_label(ysec, p$plot$labels),
+    resolve_label(ysec),
     list(primary = "corgE", secondary = "garply")
   )
 
@@ -185,12 +189,12 @@ test_that("position axis label hierarchy works as intended", {
     p$plot$layers
   )
   expect_identical(
-    p$layout$resolve_label(xsec, p$plot$labels),
+    resolve_label(xsec),
     list(secondary = "waldo", primary = "quuX")
   )
   ysec <- scale_y_continuous("Qux", sec.axis = dup_axis(name = "garply"))
   expect_identical(
-    p$layout$resolve_label(ysec, p$plot$labels),
+    resolve_label(ysec),
     list(primary = "corgE", secondary = "fred")
   )
 })
@@ -211,16 +215,11 @@ test_that("moving guide positions lets titles follow", {
     ),
     p$plot$layers
   )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
-    list(secondary = NULL, primary = "baz")
-  )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
-    list(primary = "qux", secondary = NULL)
-  )
+  labs <- get_labs(p)
+  expect <- list(x = "baz", x.sec = NULL, y = "qux", y.sec = NULL)
+  expect_identical(labs[names(expect)], expect)
 
-  # Guides at secondary positions (changes order of primary/secondary)
+  # Guides at secondary positions
   p$layout$setup_panel_guides(
     guides_list(
       list(x = guide_axis("baz", position = "top"),
@@ -228,14 +227,8 @@ test_that("moving guide positions lets titles follow", {
     ),
     p$plot$layers
   )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
-    list(primary = "baz", secondary = NULL)
-  )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
-    list(secondary = NULL, primary = "qux")
-  )
+  labs <- get_labs(p)
+  expect_identical(labs[names(expect)], expect)
 
   # Primary guides at secondary positions with
   # secondary guides at primary positions
@@ -248,14 +241,34 @@ test_that("moving guide positions lets titles follow", {
     ),
     p$plot$layers
   )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
-    list(primary = "baz", secondary = "quux")
-  )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
-    list(secondary = "corge", primary = "qux")
-  )
+  labs <- get_labs(p)
+  expect[c("x.sec", "y.sec")] <- list("quux", "corge")
+  expect_identical(labs[names(expect)], expect)
+})
+
+test_that("label dictionaries work", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, shape = factor(cyl), size = drat)) +
+    geom_point() +
+    labs(dictionary = c(
+      disp = "Displacement",
+      mpg  = "Miles per gallon",
+      `factor(cyl)` = "Number of cylinders",
+      drat = "Rear axle ratio"
+    ))
+  p <- ggplot_build(p)
+
+  x <- p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels)
+  expect_equal(x$primary, "Displacement")
+
+  y <- p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels)
+  expect_equal(y$primary, "Miles per gallon")
+
+  shape <- p$plot$guides$get_params("shape")$title
+  expect_equal(shape, "Number of cylinders")
+
+  size <- p$plot$guides$get_params("size")$title
+  expect_equal(size, "Rear axle ratio")
 })
 
 # Visual tests ------------------------------------------------------------

@@ -204,6 +204,7 @@ GuideLegend <- ggproto(
       cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
     }
     params$override.aes <- params$override.aes[!duplicated(nms)]
+    params$aesthetic <- union(params$aesthetic, new_params$aesthetic)
 
     list(guide = self, params = params)
   },
@@ -373,6 +374,9 @@ GuideLegend <- ggproto(
       elements$key <-
         ggname("legend.key", element_grob(elements$key))
     }
+
+    elements$text <-
+      label_angle_heuristic(elements$text, elements$text_position, params$angle)
 
     elements
   },
@@ -688,6 +692,7 @@ deprecated_guide_args <- function(
   default.unit = "line",
   ...,
   .call = caller_call()) {
+  warn_dots_used(call = .call)
 
   args <- names(formals(deprecated_guide_args))
   args <- setdiff(args, c("theme", "default.unit", "...", ".call"))

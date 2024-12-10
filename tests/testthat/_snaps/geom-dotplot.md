@@ -14,3 +14,11 @@
     Caused by error in `compute_group()`:
     ! `weight` must be nonnegative integers, not a double vector.
 
+# geom_dotplot draws correctly
+
+    Removed 2 rows containing missing values or values outside the scale range (`stat_bindot()`).
+
+---
+
+    Removed 2 rows containing missing values or values outside the scale range (`stat_bindot()`).
+

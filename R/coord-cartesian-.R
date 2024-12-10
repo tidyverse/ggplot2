@@ -9,6 +9,10 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to ensure that data and axes don't overlap. If `FALSE`,
 #'   limits are taken exactly from the data or `xlim`/`ylim`.
+#'   Giving a logical vector will separately control the expansion for the four
+#'   directions (top, left, bottom and right). The `expand` argument will be
+#'   recycled to length 4 if necessary. Alternatively, can be a named logical
+#'   vector to control a single direction, e.g. `expand = c(bottom = FALSE)`.
 #' @param default Is this the default coordinate system? If `FALSE` (the default),
 #'   then replacing this coordinate system with another one creates a message alerting
 #'   the user that the coordinate system is being replaced. If `TRUE`, that warning
@@ -21,6 +25,10 @@
 #'   limits are set via `xlim` and `ylim` and some data points fall outside those
 #'   limits, then those data points may show up in places such as the axes, the
 #'   legend, the plot title, or the plot margins.
+#' @param reverse A string giving which directions to reverse. `"none"`
+#'   (default) keeps directions as is. `"x"` and `"y"` can be used to reverse
+#'   their respective directions. `"xy"` can be used to reverse both
+#'   directions.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -60,11 +68,12 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE, clip = "on") {
+                            default = FALSE, clip = "on", reverse = "none") {
   check_coord_limits(xlim)
   check_coord_limits(ylim)
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
+    reverse = reverse,
     expand = expand,
     default = default,
     clip = clip
@@ -93,26 +102,23 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     self$range(panel_params)
   },
 
-  transform = function(data, panel_params) {
-    data <- transform_position(data, panel_params$x$rescale, panel_params$y$rescale)
+  transform = function(self, data, panel_params) {
+    reverse <- self$reverse %||% "none"
+    x <- panel_params$x[[switch(reverse, xy = , x = "reverse", "rescale")]]
+    y <- panel_params$y[[switch(reverse, xy = , y = "reverse", "rescale")]]
+    data <- transform_position(data, x, y)
     transform_position(data, squish_infinite, squish_infinite)
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      view_scales_from_scale(scale_x, self$limits$x, self$expand),
-      view_scales_from_scale(scale_y, self$limits$y, self$expand)
+      view_scales_from_scale(scale_x, self$limits$x, params$expand[c(4, 2)]),
+      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)])
     )
   },
 
-  render_bg = function(panel_params, theme) {
-    guide_grid(
-      theme,
-      panel_params$x$break_positions_minor(),
-      panel_params$x$break_positions(),
-      panel_params$y$break_positions_minor(),
-      panel_params$y$break_positions()
-    )
+  render_bg = function(self, panel_params, theme) {
+    guide_grid(theme, panel_params, self)
   },
 
   render_axis_h = function(panel_params, theme) {
@@ -159,7 +165,7 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 }
 
 panel_guides_grob <- function(guides, position, theme, labels = NULL) {
-  if (!inherits(guides, "Guides")) {
+  if (!is.guides(guides)) {
     return(zeroGrob())
   }
   pair <- guides$get_position(position)

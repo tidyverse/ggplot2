@@ -5,6 +5,7 @@
 \alias{merge_element.default}
 \alias{merge_element.element_blank}
 \alias{merge_element.element}
+\alias{merge_element.margin}
 \title{Merge a parent element into a child element}
 \usage{
 merge_element(new, old)
@@ -14,6 +15,8 @@ merge_element(new, old)
 \method{merge_element}{element_blank}(new, old)
 
 \method{merge_element}{element}(new, old)
+
+\method{merge_element}{margin}(new, old)
 }
 \arguments{
 \item{new}{The child element in the theme hierarchy}

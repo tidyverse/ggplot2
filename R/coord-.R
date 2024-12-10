@@ -59,6 +59,9 @@ Coord <- ggproto("Coord",
   # "on" = yes, "off" = no
   clip = "on",
 
+  # Should any of the scales be reversed?
+  reverse = "none",
+
   aspect = function(ranges) NULL,
 
   labels = function(self, labels, panel_params) {
@@ -184,11 +187,8 @@ Coord <- ggproto("Coord",
   # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
-  setup_params = function(data) {
-    list(
-      guide_default = guide_axis(),
-      guide_missing = guide_none()
-    )
+  setup_params = function(self, data) {
+    list(expand = parse_coord_expand(self$expand %||% TRUE))
   },
 
   setup_data = function(data, params = list()) {
@@ -225,11 +225,18 @@ Coord <- ggproto("Coord",
   }
 )
 
-#' Is this object a coordinate system?
-#'
-#' @export is.Coord
-#' @keywords internal
-is.Coord <- function(x) inherits(x, "Coord")
+
+#' @export
+#' @rdname is_tests
+is.coord <- function(x) inherits(x, "Coord")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.Coord(x) # Deprecated
+is.Coord <- function(x) {
+  deprecate_soft0("3.5.2", "is.Coord()", "is.coord()")
+  is.coord(x)
+}
 
 # Renders an axis with the correct orientation or zeroGrob if no axis should be
 # generated
@@ -243,6 +250,29 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
   }
 }
 
+# Elaborates an 'expand' argument for every side (top, right, bottom or left)
+parse_coord_expand <- function(expand) {
+  if (is.numeric(expand) && all(expand %in% c(0, 1))) {
+    expand <- as.logical(expand)
+  }
+  check_logical(expand)
+  if (anyNA(expand)) {
+    cli::cli_abort("{.arg expand} cannot contain missing values.")
+  }
+
+  if (!is_named(expand)) {
+    return(rep_len(expand, 4))
+  }
+
+  # Match by top/right/bottom/left
+  out <- rep(TRUE, 4)
+  i <- match(names(expand), .trbl)
+  if (sum(!is.na(i)) > 0) {
+    out[i] <- unname(expand)[!is.na(i)]
+  }
+  out
+}
+
 # Utility function to check coord limits
 check_coord_limits <- function(
     limits, arg = caller_arg(limits), call = caller_env()
@@ -250,14 +280,27 @@ check_coord_limits <- function(
   if (is.null(limits)) {
     return(invisible(NULL))
   }
-  if (!obj_is_vector(limits) || length(limits) != 2) {
-    what <- "{.obj_type_friendly {limits}}"
-    if (is.vector(limits)) {
-      what <- paste0(what, " of length {length(limits)}")
-    }
-    cli::cli_abort(
-      paste0("{.arg {arg}} must be a vector of length 2, not ", what, "."),
-      call = call
-    )
+  check_object(limits, is_vector, "a vector", arg = arg, call = call)
+  check_length(limits, 2L, arg = arg, call = call)
+}
+
+is_transform_immune <- function(data, coord_name) {
+  x <- inherits(data$x, "AsIs")
+  y <- inherits(data$y, "AsIs")
+  if (!(x || y)) {
+    # Neither variable is AsIs, so we need to transform
+    return(FALSE)
   }
+  if (x && y) {
+    # Both variables are AsIs, so no need to transform
+    return(TRUE)
+  }
+  # We're now in the `xor(x, y)` case
+  var <- if (x) "x" else "y"
+  alt <- if (x) "y" else "x"
+  cli::cli_warn(
+    "{.fn {coord_name}} cannot respect the {.cls AsIs} class of {.var {var}} \\
+    when {.var {alt}} is not also {.cls AsIs}."
+  )
+  return(FALSE)
 }
