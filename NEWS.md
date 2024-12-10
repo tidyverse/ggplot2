@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Binned scales with zero-width data expand the default limits by 0.1 
+  (@teunbrand, #5066)
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
