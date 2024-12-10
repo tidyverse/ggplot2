@@ -88,7 +88,11 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
   map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
 
   if (!inherits(map_obj, "map")) {
-    return(fortify(map_obj))
+    cli::cli_abort(c(
+      "{.fn maps::map} must return an object of type {.cls map}, not \\
+      {obj_type_friendly(map_obj)}.",
+      i = "Did you pass the right arguments?"
+    ))
   }
 
   df <- data_frame0(
