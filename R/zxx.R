@@ -36,9 +36,10 @@ scale_colour_datetime <- function(name = waiver(), ...,
                                   high = "#56B1F7",
                                   space = "Lab",
                                   na.value = "grey50",
-                                  guide = "colourbar") {
+                                  guide = "colourbar",
+                                  aesthetics = "colour") {
   datetime_scale(
-    aesthetics = "colour", transform = "time", name = name,
+    aesthetics = aesthetics, transform = "time", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,
@@ -60,9 +61,10 @@ scale_colour_date <- function(name = waiver(),
                               high = "#56B1F7",
                               space = "Lab",
                               na.value = "grey50",
-                              guide = "colourbar") {
+                              guide = "colourbar",
+                              aesthetics = "colour") {
   datetime_scale(
-    aesthetics = "colour", transform = "date", name = name,
+    aesthetics = aesthetics, transform = "date", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,
@@ -114,9 +116,10 @@ scale_fill_datetime <- function(name = waiver(), ...,
                                 high = "#56B1F7",
                                 space = "Lab",
                                 na.value = "grey50",
-                                guide = "colourbar") {
+                                guide = "colourbar",
+                                aesthetics = "fill") {
   datetime_scale(
-    aesthetics = "fill", transform = "time", name = name,
+    aesthetics = aesthetics, transform = "time", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,
@@ -132,9 +135,10 @@ scale_fill_date <- function(name = waiver(), ...,
                             high = "#56B1F7",
                             space = "Lab",
                             na.value = "grey50",
-                            guide = "colourbar") {
+                            guide = "colourbar",
+                            aesthetics = "fill") {
   datetime_scale(
-    aesthetics = "fill", transform = "date", name = name,
+    aesthetics = aesthetics, transform = "date", name = name,
     palette = pal_seq_gradient(low, high, space),
     na.value = na.value,
     guide = guide,

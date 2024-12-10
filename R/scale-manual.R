@@ -11,7 +11,7 @@
 #' `scale_discrete_manual()` is a generic scale that can work with any aesthetic or set
 #' of aesthetics provided via the `aesthetics` argument.
 #'
-#' @inheritParams scale_x_discrete
+#' @inheritParams discrete_scale
 #' @inheritDotParams discrete_scale -expand -position -aesthetics -palette -scale_name
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
@@ -103,38 +103,38 @@ scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver(
 #' @seealso
 #' Other size scales: [scale_size()], [scale_size_identity()].
 #' @export
-scale_size_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  manual_scale("size", values, breaks, ..., na.value = na.value)
+scale_size_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "size") {
+  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @seealso
 #' Other shape scales: [scale_shape()], [scale_shape_identity()].
 #' @export
-scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  manual_scale("shape", values, breaks, ..., na.value = na.value)
+scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "shape") {
+  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @seealso
 #' Other linetype scales: [scale_linetype()], [scale_linetype_identity()].
 #' @export
-scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  manual_scale("linetype", values, breaks, ..., na.value = na.value)
+scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "linetype") {
+  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @seealso
 #' Other alpha scales: [scale_alpha()], [scale_alpha_identity()].
 #' @export
-scale_linewidth_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  manual_scale("linewidth", values, breaks, ..., na.value = na.value)
+scale_linewidth_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "linewidth") {
+  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  manual_scale("alpha", values, breaks, ..., na.value = na.value)
+scale_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "alpha") {
+  manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
