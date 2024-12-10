@@ -120,7 +120,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   is_free = function() TRUE,
 
-  distance = function(self, x, y, details) {
+  distance = function(self, x, y, details, boost = 0.75) {
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range, to = self$inner_radius / 0.4)
@@ -129,8 +129,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       r <- rescale(x, from = details$r.range, to = self$inner_radius / 0.4)
       theta <- theta_rescale_no_clip(y, details$theta.range, arc)
     }
-
-    dist_polar(r, theta)
+    # The ^boost boosts detailed munching when r is small
+    dist_polar(r^boost, theta)
   },
 
   backtransform_range = function(self, panel_params) {
