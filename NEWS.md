@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
 * Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
   center (@teunbrand, #5023)
 * `guide_*()` can now accept two inside legend theme elements:
