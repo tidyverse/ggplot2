@@ -11,7 +11,7 @@
 #' `scale_discrete_manual()` is a generic scale that can work with any aesthetic or set
 #' of aesthetics provided via the `aesthetics` argument.
 #'
-#' @inheritParams scale_x_discrete
+#' @inheritParams discrete_scale
 #' @inheritDotParams discrete_scale -expand -position -aesthetics -palette -scale_name
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for

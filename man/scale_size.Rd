@@ -21,7 +21,8 @@ scale_size(
   range = NULL,
   transform = "identity",
   trans = deprecated(),
-  guide = "legend"
+  guide = "legend",
+  aesthetics = "size"
 )
 
 scale_radius(
@@ -32,7 +33,8 @@ scale_radius(
   range = c(1, 6),
   transform = "identity",
   trans = deprecated(),
-  guide = "legend"
+  guide = "legend",
+  aesthetics = "size"
 )
 
 scale_size_binned(
@@ -45,12 +47,13 @@ scale_size_binned(
   nice.breaks = TRUE,
   transform = "identity",
   trans = deprecated(),
-  guide = "bins"
+  guide = "bins",
+  aesthetics = "size"
 )
 
-scale_size_area(name = waiver(), ..., max_size = 6)
+scale_size_area(name = waiver(), ..., max_size = 6, aesthetics = "size")
 
-scale_size_binned_area(name = waiver(), ..., max_size = 6)
+scale_size_binned_area(name = waiver(), ..., max_size = 6, aesthetics = "size")
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -116,6 +119,8 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
 
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will

@@ -9,7 +9,7 @@
 #'
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
-#' @inheritParams scale_x_discrete
+#' @inheritParams discrete_scale
 #' @inheritDotParams discrete_scale -expand -position -scale_name -palette
 #' @rdname scale_shape
 #' @seealso

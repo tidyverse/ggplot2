@@ -8,9 +8,9 @@
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
-scale_shape(name = waiver(), ..., solid = NULL)
+scale_shape(name = waiver(), ..., solid = NULL, aesthetics = "shape")
 
-scale_shape_binned(name = waiver(), ..., solid = TRUE)
+scale_shape_binned(name = waiver(), ..., solid = TRUE, aesthetics = "shape")
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -49,7 +49,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
     \item{\code{na.value}}{If \code{na.translate = TRUE}, what aesthetic value should the
 missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-    \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{minor_breaks}}{One of:
 \itemize{
 \item \code{NULL} for no minor breaks
@@ -80,6 +79,8 @@ notation.
 
 \item{solid}{Should the shapes be solid, \code{TRUE}, or hollow,
 \code{FALSE}?}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
 }
 \description{
 \code{scale_shape()} maps discrete variables to six easily discernible shapes.
