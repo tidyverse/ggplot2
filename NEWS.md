@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `position_connect()` to change how points on a line a connected 
+  (@teunbrand, #6228).
 * Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
   center (@teunbrand, #5023)
 * `guide_*()` can now accept two inside legend theme elements:
