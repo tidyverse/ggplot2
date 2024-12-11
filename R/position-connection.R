@@ -3,7 +3,7 @@
 position_connect <- function(connection = "hv") {
   ggproto(
     NULL, PositionConnect,
-    connection = validate_connection(connection)
+    connection = connection
   )
 }
 
@@ -12,19 +12,26 @@ PositionConnect <- ggproto(
   connection = "hv",
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data, ambiguous = TRUE)
-    connection <- self$connection
+    connection <- validate_connection(
+      self$connection,
+      call = expr(position_connect())
+    )
     if (isTRUE(flipped_aes)) {
       connection <- connection[, 2:1]
     }
     list(flipped_aes = flipped_aes, connection = connection)
   },
   compute_panel = function(data, params, scales) {
+    if (is.null(params$connection)) {
+      return(data)
+    }
     data <- flip_data(data, params$flipped_aes)
     data <- dapply(data, "group", build_connection, connection = params$connection)
     flip_data(data, params$flipped_aes)
   }
 )
 
+# Ensures connection is a 2D numerical matrix with 2 columns
 validate_connection <- function(connection, call = caller_env()) {
   if (is.character(connection)) {
     check_string(connection)
@@ -41,13 +48,23 @@ validate_connection <- function(connection, call = caller_env()) {
       !identical(dim(connection)[2], 2L)) {
     extra <- ""
     if (!is.null(dim(connection)[2])) {
-      extra <- " with {dim(connection)[2]} columns"
+      extra <- paste0(" with ", dim(connection)[2], " columns")
     }
     cli::cli_abort(
       paste0("{.arg connection} must be a numeric {.cls matrix} with 2 columns, \\
-      not {.obj_type_friendly {connection}}", extra, "."),
+      not {.obj_type_friendly {connection}}{extra}."),
       call = call
     )
+  }
+  if (any(!is.finite(connection))) {
+    cli::cli_abort(
+      "{.arg connection} cannot contain missing or other non-finite values.",
+      call = call
+    )
+  }
+
+  if (nrow(connection) < 1) {
+    return(NULL)
   }
   connection
 }
