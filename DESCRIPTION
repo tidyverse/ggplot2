@@ -207,6 +207,7 @@ Collate:
     'plot.R'
     'position-.R'
     'position-collide.R'
+    'position-connection.R'
     'position-dodge.R'
     'position-dodge2.R'
     'position-identity.R'

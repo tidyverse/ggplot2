@@ -113,6 +113,7 @@ ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 }
 \seealso{
 Other position adjustments: 
+\code{\link{position_connect}()},
 \code{\link{position_identity}()},
 \code{\link{position_jitter}()},
 \code{\link{position_jitterdodge}()},
