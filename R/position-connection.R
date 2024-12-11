@@ -1,5 +1,45 @@
-
-
+#' Connect observations
+#'
+#' A line connecting two points is usually drawn as a straight segment. This
+#' position adjustment gives additional options for how two points are connected.
+#'
+#' @param connection
+#' A specification of how to points are connected. Can be one of the following:
+#' * A string giving a named connection. These options are:
+#'     * `"hv"` to first jump horizontally, then vertically.
+#'     * `"vh"` to first jump vertically, then horizontally.
+#'     * `"mid"` to step half-way between adjacent x-values.
+#'     * `"linear"` to use a straight segment.
+#' * A numeric matrix with two columns giving x and y coordinates respectively.
+#'   The coordinates should describe points on a path that connect point A at
+#'   location (0, 0) to point B at location (1, 1). At least one of these two
+#'   points is expected to be included in the coordinates.
+#'
+#' @family position adjustments
+#' @export
+#'
+#' @examples
+#' # Mirroring `geom_step()`
+#' ggplot(head(economics, 20), aes(date, unemploy)) +
+#'   geom_line(position = "connect")
+#'
+#' # Making a histogram without bars
+#' ggplot(faithful, aes(waiting)) +
+#'   geom_area(
+#'     stat = "bin", bins = 20, pad = TRUE,
+#'     position = position_connect("mid")
+#'   )
+#'
+#' # Using custom connections with a matrix.
+#' # Note that point A at (0, 0) is not included, but point B at (1, 1) is.
+#' zigzag <- cbind(c(0.4, 0.6, 1), c(0.75, 0.25, 1))
+#' x <- seq(0, 1, length.out = 20)[-1]
+#' smooth <- cbind(x, scales::rescale(1 / (1 + exp(-(x * 10 - 5)))))
+#'
+#' ggplot(head(huron, 10), aes(year, level)) +
+#'   geom_line(position = position_connect(zigzag), aes(colour = "zigzag")) +
+#'   geom_line(position = position_connect(smooth), aes(colour = "smooth")) +
+#'   geom_point()
 position_connect <- function(connection = "hv") {
   ggproto(
     NULL, PositionConnect,
@@ -7,6 +47,10 @@ position_connect <- function(connection = "hv") {
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 PositionConnect <- ggproto(
   "PositionConnect", Position,
   connection = "hv",
@@ -69,6 +113,7 @@ validate_connection <- function(connection, call = caller_env()) {
   connection
 }
 
+# Interpolates between every point and the next
 build_connection <- function(data, connection) {
 
   n <- nrow(data)

@@ -146,6 +146,7 @@ See \code{\link[=geom_bar]{geom_bar()}} and \code{\link[=geom_area]{geom_area()}
 more examples.
 
 Other position adjustments: 
+\code{\link{position_connect}()},
 \code{\link{position_dodge}()},
 \code{\link{position_identity}()},
 \code{\link{position_jitter}()},
