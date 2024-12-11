@@ -727,7 +727,7 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
     straight <-
       abs(graticule$angle_start - subtract) < eps &
       abs(graticule$angle_end   - subtract) < eps
-    accept_start <- accept_end <- straight
+    accept_start <- straight
   }
 
   # Parsing the information of the `label_axes` argument:
