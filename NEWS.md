@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Axis labels are now preserved better when using `coord_sf(expand = TRUE)` and
+  graticule lines are straight but do not meet the edge (@teunbrand, #2985).
 * Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
   center (@teunbrand, #5023)
 * `guide_*()` can now accept two inside legend theme elements:
