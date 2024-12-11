@@ -36,7 +36,7 @@
 #' x <- seq(0, 1, length.out = 20)[-1]
 #' smooth <- cbind(x, scales::rescale(1 / (1 + exp(-(x * 10 - 5)))))
 #'
-#' ggplot(head(huron, 10), aes(year, level)) +
+#' ggplot(head(economics, 10), aes(date, unemploy)) +
 #'   geom_line(position = position_connect(zigzag), aes(colour = "zigzag")) +
 #'   geom_line(position = position_connect(smooth), aes(colour = "smooth")) +
 #'   geom_point()
