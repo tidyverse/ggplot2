@@ -27,10 +27,10 @@
 #' @param r_axis_inside,rotate_angle `r lifecycle::badge("deprecated")`
 #'
 #' @note
-#' In `coord_radial()`, position guides are can be defined by using
+#' In `coord_radial()`, position guides can be defined by using
 #' `guides(r = ..., theta = ..., r.sec = ..., theta.sec = ...)`. Note that
 #' these guides require `r` and `theta` as available aesthetics. The classic
-#' `guide_axis()` can be used for the `r` positions and `guide_axis_theta()` can
+#' [guide_axis()] can be used for the `r` positions and [guide_axis_theta()] can
 #' be used for the `theta` positions. Using the `theta.sec` position is only
 #' sensible when `inner.radius > 0`.
 #'
