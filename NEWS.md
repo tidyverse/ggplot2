@@ -1,7 +1,5 @@
 # ggplot2 (development version)
 
-* Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
-  center (@teunbrand, #5023)
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
