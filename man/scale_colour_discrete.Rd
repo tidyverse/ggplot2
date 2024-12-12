@@ -66,13 +66,13 @@ p <- ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 
 # You can use the scale to give a palette directly
-p + scale_colour_discrete(palette = pal_brewer(palette = "Dark2"))
+p + scale_colour_discrete(palette = scales::pal_brewer(palette = "Dark2"))
 
 # The default colours are encoded into the theme
-p + theme(palette.colour.discrete = pal_grey())
+p + theme(palette.colour.discrete = scales::pal_grey())
 
 # You can globally set default colour palette via the theme
-old <- update_theme(palette.colour.discrete = pal_viridis())
+old <- update_theme(palette.colour.discrete = scales::pal_viridis())
 
 # Plot now shows new global default
 p
