@@ -17,7 +17,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
                           box.color         = NULL,
                           box.linetype      = NULL,
                           box.linewidth     = NULL,
-                          fatten = 2.5,
+                          fatten = deprecated(),
                           na.rm = FALSE,
                           orientation = NA,
                           show.legend = NA,
@@ -60,6 +60,15 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
 #' @export
 GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   setup_params = function(data, params) {
+    if (lifecycle::is_present(params$fatten)) {
+      deprecate_soft0(
+        "3.6.0", "geom_crossbar(fatten)",
+        "geom_crossbar(middle.linewidth)"
+      )
+    } else {
+      # For backward compatibility reasons
+      params$fatten <- 2.5
+    }
     GeomErrorbar$setup_params(data, params)
   },
 
