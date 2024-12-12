@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `fatten` argument has been deprecated in `geom_boxplot()`, 
+  `geom_crossbar()` and `geom_pointrange()` (@teunbrand, #4881).
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
