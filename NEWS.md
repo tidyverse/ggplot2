@@ -2,6 +2,10 @@
 
 * The default colour and fill scales have a new `palette` argument 
   (@teunbrand, #6064).
+* `guide_*()` can now accept two inside legend theme elements:
+  `legend.position.inside` and `legend.justification.inside`, allowing inside
+  legends to be placed at different positions. Only inside legends with the same
+  position and justification will be merged (@Yunuuuu, #6210).
 * New stat: `stat_manual()` for arbitrary computations (@teunbrand, #3501)
 * Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
   `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
