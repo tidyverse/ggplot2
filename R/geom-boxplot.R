@@ -241,7 +241,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   extra_params = c("na.rm", "width", "orientation", "outliers"),
 
   setup_params = function(data, params) {
-    if (lifecycle::is_present(params$fatten)) {
+    if ("fatten" %in% names(params)) {
       deprecate_soft0(
         "3.6.0", "geom_boxplot(fatten)",
         "geom_boxplot(median.linewidth)"
