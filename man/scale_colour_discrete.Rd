@@ -61,38 +61,24 @@ unless \code{type} (which defaults to the \code{ggplot2.discrete.fill}/\code{ggp
 is specified.
 }
 \examples{
-# Template function for creating densities grouped by a variable
-cty_by_var <- function(var) {
-  ggplot(mpg, aes(cty, colour = factor({{var}}), fill = factor({{var}}))) +
-    geom_density(alpha = 0.2)
-}
+# A standard plot
+p <- ggplot(mpg, aes(displ, hwy, colour = class)) +
+  geom_point()
 
-# The default, scale_fill_hue(), is not colour-blind safe
-cty_by_var(class)
+# You can use the scale to give a palette directly
+p + scale_colour_discrete(palette = pal_brewer(palette = "Dark2"))
 
-# (Temporarily) set the default to Okabe-Ito (which is colour-blind safe)
-okabe <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-withr::with_options(
-  list(ggplot2.discrete.fill = okabe),
-  print(cty_by_var(class))
-)
+# The default colours are encoded into the theme
+p + theme(palette.colour.discrete = pal_grey())
 
-# Define a collection of palettes to alter the default based on number of levels to encode
-discrete_palettes <- list(
-  c("skyblue", "orange"),
-  RColorBrewer::brewer.pal(3, "Set2"),
-  RColorBrewer::brewer.pal(6, "Accent")
-)
-withr::with_options(
-  list(ggplot2.discrete.fill = discrete_palettes), {
-  # 1st palette is used when there 1-2 levels (e.g., year)
-  print(cty_by_var(year))
-  # 2nd palette is used when there are 3 levels
-  print(cty_by_var(drv))
-  # 3rd palette is used when there are 4-6 levels
-  print(cty_by_var(fl))
-})
+# You can globally set default colour palette via the theme
+old <- update_theme(palette.colour.discrete = pal_viridis())
 
+# Plot now shows new global default
+p
+
+# Restoring the previous theme
+theme_set(old)
 }
 \seealso{
 The \href{https://ggplot2-book.org/scales-colour#sec-colour-discrete}{discrete colour scales section} of the online ggplot2 book.

@@ -63,26 +63,28 @@
 #' see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
 #' and references therein.
 #' @examples
-#' v <- ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
-#' geom_tile()
-#' v
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy, colour = cty)) +
+#'   geom_point()
 #'
-#' v + scale_fill_continuous(type = "gradient")
-#' v + scale_fill_continuous(type = "viridis")
+#' # You can use the scale to give a palette directly
+#' p + scale_colour_continuous(palette = c("#FEE0D2", "#FC9272", "#DE2D26"))
 #'
-#' # The above are equivalent to
-#' v + scale_fill_gradient()
-#' v + scale_fill_viridis_c()
+#' # The default colours are encoded into the theme
+#' p + theme(palette.colour.continuous = c("#DEEBF7", "#9ECAE1", "#3182BD"))
 #'
-#' # To make a binned version of this plot
-#' v + scale_fill_binned(type = "viridis")
+#' # You can globally set default colour palette via the theme
+#' old <- update_theme(palette.colour.continuous = c("#E5F5E0", "#A1D99B", "#31A354"))
 #'
-#' # Set a different default scale using the options
-#' # mechanism
-#' tmp <- getOption("ggplot2.continuous.fill") # store current setting
-#' options(ggplot2.continuous.fill = scale_fill_distiller)
-#' v
-#' options(ggplot2.continuous.fill = tmp) # restore previous setting
+#' # Plot now shows new global default
+#' p
+#'
+#' # The default binned colour scale uses the continuous palette
+#' p + scale_colour_binned() +
+#'   theme(palette.colour.continuous = c("#EFEDF5", "#BCBDDC", "#756BB1"))
+#'
+#' # Restoring the previous theme
+#' theme_set(old)
 #' @export
 scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
                                     guide = "colourbar", na.value = "grey50",
@@ -190,38 +192,24 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #' @seealso
 #' The `r link_book("discrete colour scales section", "scales-colour#sec-colour-discrete")`
 #' @examples
-#' # Template function for creating densities grouped by a variable
-#' cty_by_var <- function(var) {
-#'   ggplot(mpg, aes(cty, colour = factor({{var}}), fill = factor({{var}}))) +
-#'     geom_density(alpha = 0.2)
-#' }
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy, colour = class)) +
+#'   geom_point()
 #'
-#' # The default, scale_fill_hue(), is not colour-blind safe
-#' cty_by_var(class)
+#' # You can use the scale to give a palette directly
+#' p + scale_colour_discrete(palette = pal_brewer(palette = "Dark2"))
 #'
-#' # (Temporarily) set the default to Okabe-Ito (which is colour-blind safe)
-#' okabe <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-#' withr::with_options(
-#'   list(ggplot2.discrete.fill = okabe),
-#'   print(cty_by_var(class))
-#' )
+#' # The default colours are encoded into the theme
+#' p + theme(palette.colour.discrete = pal_grey())
 #'
-#' # Define a collection of palettes to alter the default based on number of levels to encode
-#' discrete_palettes <- list(
-#'   c("skyblue", "orange"),
-#'   RColorBrewer::brewer.pal(3, "Set2"),
-#'   RColorBrewer::brewer.pal(6, "Accent")
-#' )
-#' withr::with_options(
-#'   list(ggplot2.discrete.fill = discrete_palettes), {
-#'   # 1st palette is used when there 1-2 levels (e.g., year)
-#'   print(cty_by_var(year))
-#'   # 2nd palette is used when there are 3 levels
-#'   print(cty_by_var(drv))
-#'   # 3rd palette is used when there are 4-6 levels
-#'   print(cty_by_var(fl))
-#' })
+#' # You can globally set default colour palette via the theme
+#' old <- update_theme(palette.colour.discrete = pal_viridis())
 #'
+#' # Plot now shows new global default
+#' p
+#'
+#' # Restoring the previous theme
+#' theme_set(old)
 scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na.value = "grey50",
                                   type = getOption("ggplot2.discrete.colour")) {
   if (!is.null(type) && is.null(palette)) {
