@@ -1,2 +1,4 @@
 *.html
 *.R
+**/figure-html/
+**/libs/
