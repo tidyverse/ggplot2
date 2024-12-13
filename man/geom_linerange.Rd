@@ -23,7 +23,7 @@ geom_crossbar(
   box.color = NULL,
   box.linetype = NULL,
   box.linewidth = NULL,
-  fatten = 2.5,
+  fatten = deprecated(),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -72,7 +72,7 @@ geom_pointrange(
   stat = "identity",
   position = "identity",
   ...,
-  fatten = 4,
+  fatten = deprecated(),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -160,9 +160,9 @@ data's aesthetics.}
 \item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
 data's aesthetics.}
 
-\item{fatten}{A multiplicative factor used to increase the size of the
-middle bar in \code{geom_crossbar()} and the middle point in
-\code{geom_pointrange()}.}
+\item{fatten}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}  A multiplicative factor
+used to increase the size of the middle bar in \code{geom_crossbar()} and the
+middle point in \code{geom_pointrange()}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
