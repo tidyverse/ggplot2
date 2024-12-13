@@ -251,7 +251,7 @@ ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) +
   scale_size_identity()
 ```
 
-Because most shapes are not filled, mapping the `fill` aesthetic of points is considered an advanced feature. Additional steps may be required to produce sensible results, such as overriding the shape used in the `fill` guide (refer to `geom_point()` for an example of this).
+Because points are not typically filled, you may need to change some default settings when using these shapes and mapping `fill`. In particular, discrete `fill` guides will be drawn with an unfilled shape unless overridden (refer to `geom_point()` for an example of this).
 
 ## Text
 
