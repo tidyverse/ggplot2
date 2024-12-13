@@ -60,9 +60,9 @@ Suggests:
     nlme,
     profvis,
     quantreg,
+    quarto,
     ragg (>= 1.2.6),
     RColorBrewer,
-    rmarkdown,
     rpart,
     sf (>= 0.7-3),
     svglite (>= 2.1.2),
@@ -73,7 +73,7 @@ Suggests:
 Enhances: 
     sp
 VignetteBuilder: 
-    knitr
+    quarto
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2024-10-24
