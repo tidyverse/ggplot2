@@ -182,6 +182,13 @@ d + geom_point(alpha = 1/100)
 ggplot(mtcars, aes(wt, mpg)) +
   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 
+# The default shape in legends is not filled, but you can override the shape
+# in the guide to reflect the fill in the legend
+ggplot(mtcars, aes(wt, mpg, fill = factor(carb), shape = factor(cyl))) +
+  geom_point(size = 5, stroke = 1) +
+  scale_shape_manual(values = 21:25) +
+  scale_fill_ordinal(guide = guide_legend(override.aes = list(shape = 21)))
+
 \donttest{
 # You can create interesting shapes by layering multiple points of
 # different sizes
