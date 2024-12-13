@@ -338,6 +338,11 @@ constant along the diagonal in the following figure.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_size_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-9-1.png" alt="A plot showing a 4-by-4 grid of red points, the top 12 points with black outlines. The size of the points increases horizontally. The stroke of the outlines of the points increases vertically. A white diagonal line with a negative slope marks that the 'stroke' versus 'size' trade-off has similar total sizes." width="700"></p>
+<p>Because points are not typically filled, you may need to change some
+default settings when using these shapes and mapping <code>fill</code>.
+In particular, discrete <code>fill</code> guides will be drawn with an
+unfilled shape unless overridden (refer to <code><a href="../reference/geom_point.html">geom_point()</a></code> for
+an example of this).</p>
 </div>
 </div>
 <div class="section level2">
