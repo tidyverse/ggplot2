@@ -155,6 +155,48 @@ test_that("bounding box calculations are sensible", {
   )
 })
 
+test_that("when both x and y are AsIs, they are not transformed", {
+
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = I(0.25), label = "foo") +
+    scale_x_continuous(limits = c(0, 10)) +
+    scale_y_continuous(limits = c(0, 10))
+
+  grob <- get_layer_grob(p + coord_polar())[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
+
+  grob <- get_layer_grob(p + coord_radial())[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
+
+  # Check warning is thrown if only one is AsIs
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = 2.5, label = "foo") +
+    scale_x_continuous(limits = c(0, 10)) +
+    scale_y_continuous(limits = c(0, 10)) +
+    coord_radial()
+
+  expect_snapshot_warning(ggplotGrob(p))
+
+})
+
+test_that("radial coords can be reversed", {
+  p <- ggplot(data_frame0(x = c(0, 2), y = c(0, 2))) +
+    aes(x = x, y = y) +
+    geom_point() +
+    scale_x_continuous(limits = c(-1, 3), expand = c(0, 0)) +
+    scale_y_continuous(limits = c(-1, 3), expand = c(0, 0))
+  fwd <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "none")
+  rev <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "thetar")
+
+  fwd <- layer_grob(p + fwd)[[1]]
+  rev <- layer_grob(p + rev)[[1]]
+
+  expect_equal(as.numeric(fwd$x), rev(as.numeric(rev$x)))
+  expect_equal(as.numeric(fwd$y), rev(as.numeric(rev$y)))
+})
+
 
 # Visual tests ------------------------------------------------------------
 

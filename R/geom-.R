@@ -270,7 +270,7 @@ NULL
 .stroke <- 96 / 25.4
 
 check_aesthetics <- function(x, n) {
-  ns <- lengths(x)
+  ns <- list_sizes(x)
   good <- ns == 1L | ns == n
 
   if (all(good)) {

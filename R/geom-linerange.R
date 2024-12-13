@@ -11,8 +11,7 @@
 #'   `geom_pointrange()`.
 #' @seealso
 #'  [stat_summary()] for examples of these guys in use,
-#'  [geom_smooth()] for continuous analogue,
-#'  [geom_errorbarh()] for a horizontal error bar.
+#'  [geom_smooth()] for continuous analogue
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_bar
