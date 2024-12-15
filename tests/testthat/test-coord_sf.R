@@ -425,3 +425,15 @@ test_that("coord_sf() can render with empty graticules", {
   p <- suppressWarnings(layer_grob(ggplot(df) + geom_sf())[[1]])
   expect_length(p$x, 1)
 })
+
+test_that("coord_sf() can calculate breaks when expansion is on", {
+  skip_if_not_installed("sf")
+  df <- sf::st_multipoint(cbind(c(-180, 180), c(-90, 90)))
+  df <- sf::st_sfc(df, crs = 4326)
+  b <- ggplot_build(ggplot(df) + geom_sf())
+
+  x <- get_guide_data(b, "x")
+  y <- get_guide_data(b, "y")
+  expect_equal(nrow(x), 5L)
+  expect_equal(nrow(y), 3L)
+})
