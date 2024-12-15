@@ -657,9 +657,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   minor_breaks = waiver(),
   n.breaks = NULL,
   trans = transform_identity(),
-  freeze_breaks = FALSE,
-  frozen_breaks = NULL,
-  frozen_minor_breaks = NULL,
 
   is_discrete = function() FALSE,
 
@@ -752,14 +749,10 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       )
     }
 
-    breaks_are_frozen <- !is.null(self$frozen_breaks)
-
     # Compute `zero_range()` in transformed space in case `limits` in data space
     # don't support conversion to numeric (#5304)
     if (zero_range(as.numeric(transformation$transform(limits)))) {
       breaks <- limits[1]
-    } else if (self$freeze_breaks && breaks_are_frozen) {
-      breaks <- self$frozen_breaks
     } else if (is.waive(self$breaks)) {
       if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
         breaks <- transformation$breaks(limits, self$n.breaks)
@@ -776,10 +769,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       breaks <- self$breaks(limits)
     } else {
       breaks <- self$breaks
-    }
-
-    if (self$freeze_breaks && !breaks_are_frozen) {
-      self$frozen_breaks <- breaks
     }
 
     # Breaks in data space need to be converted back to transformed space
@@ -805,12 +794,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # some transforms assume finite major breaks
     b <- b[is.finite(b)]
 
-    breaks_are_frozen <- !is.null(self$frozen_minor_breaks)
-
     transformation <- self$get_transformation()
-    if (self$freeze_breaks && breaks_are_frozen) {
-      breaks <- self$frozen_minor_breaks
-    } else if (is.waive(self$minor_breaks)) {
+    if (is.waive(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
       } else {
@@ -832,10 +817,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       breaks <- transformation$transform(breaks)
     } else {
       breaks <- transformation$transform(self$minor_breaks)
-    }
-
-    if (self$freeze_breaks && !breaks_are_frozen) {
-      self$frozen_minor_breaks <- breaks
     }
 
     # Any minor breaks outside the dimensions need to be thrown away
@@ -894,8 +875,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   clone = function(self) {
     new <- ggproto(NULL, self)
     new$range <- ContinuousRange$new()
-    new$frozen_breaks <- NULL
-    new$frozen_minor_breaks <- NULL
     new
   },
 
