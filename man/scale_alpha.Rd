@@ -10,15 +10,20 @@
 \alias{scale_alpha_date}
 \title{Alpha transparency scales}
 \usage{
-scale_alpha(name = waiver(), ..., range = NULL)
+scale_alpha(name = waiver(), ..., range = NULL, aesthetics = "alpha")
 
-scale_alpha_continuous(name = waiver(), ..., range = NULL)
+scale_alpha_continuous(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "alpha"
+)
 
-scale_alpha_binned(name = waiver(), ..., range = NULL)
+scale_alpha_binned(name = waiver(), ..., range = NULL, aesthetics = "alpha")
 
 scale_alpha_discrete(...)
 
-scale_alpha_ordinal(name = waiver(), ..., range = NULL)
+scale_alpha_ordinal(name = waiver(), ..., range = NULL, aesthetics = "alpha")
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -31,6 +36,8 @@ or \code{\link[=discrete_scale]{discrete_scale()}} as appropriate, to control na
 breaks, labels and so forth.}
 
 \item{range}{Output range of alpha values. Must lie between 0 and 1.}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
 }
 \description{
 Alpha-transparency scales are not tremendously useful, but can be a
