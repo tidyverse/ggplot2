@@ -109,6 +109,7 @@ Collate:
     'backports.R'
     'bench.R'
     'bin.R'
+    'breaks_cached.R'
     'coord-.R'
     'coord-cartesian-.R'
     'coord-fixed.R'
