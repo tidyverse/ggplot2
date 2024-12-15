@@ -84,7 +84,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
   is_free = function() TRUE,
 
-  distance = function(self, x, y, details) {
+  distance = function(self, x, y, details, boost = 0.75) {
     arc <- self$start + c(0, 2 * pi)
     dir <- self$direction
     if (self$theta == "x") {
@@ -94,8 +94,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       r <- rescale(x, from = details$r.range)
       theta <- theta_rescale_no_clip(y, details$theta.range, arc, dir)
     }
-
-    dist_polar(r, theta)
+    # The ^boost boosts detailed munching when r is small
+    dist_polar(r^boost, theta)
   },
 
   backtransform_range = function(self, panel_params) {
