@@ -625,6 +625,12 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
   if (is.null(breaks)) {
     return(TRUE)
   }
+  if (identical(breaks, NA)) {
+    cli::cli_abort(
+      "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
+      call = call
+    )
+  }
   if (is.null(labels)) {
     return(TRUE)
   }
@@ -735,6 +741,12 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(numeric())
     }
     transformation <- self$get_transformation()
+    breaks <- self$breaks %|W|% transformation$breaks
+
+    if (is.null(breaks)) {
+      return(NULL)
+    }
+
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(transformation$transform(transformation$domain))
     domain <- sort(domain)
@@ -742,41 +754,25 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(domain) == 2 && !zero_range(domain)) {
       limits <- oob_squish(limits, domain)
     }
-
-    # Limits in transformed space need to be converted back to data space
-    limits <- transformation$inverse(limits)
-
-    if (is.null(self$breaks)) {
-      return(NULL)
+    if (zero_range(as.numeric(limits))) {
+      return(limits[1])
     }
 
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
-    }
-
-    # Compute `zero_range()` in transformed space in case `limits` in data space
-    # don't support conversion to numeric (#5304)
-    if (zero_range(as.numeric(transformation$transform(limits)))) {
-      breaks <- limits[1]
-    } else if (is.waiver(self$breaks)) {
-      if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
-        breaks <- transformation$breaks(limits, self$n.breaks)
+    if (is.function(breaks)) {
+      # Limits in transformed space need to be converted back to data space
+      limits <- transformation$inverse(limits)
+      if (!is.null(self$n.breaks) && support_nbreaks(breaks)) {
+        breaks <- breaks(limits, n = self$n.breaks)
       } else {
+        breaks <- breaks(limits)
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
-            "Ignoring {.arg n.breaks}. Use a {.cls transform} object that supports setting number of breaks.",
+            "Ignoring {.arg n.breaks}. Use a {.cls transform} object or \\
+            {.arg breaks} function that supports setting number of breaks",
             call = self$call
           )
         }
-        breaks <- transformation$breaks(limits)
       }
-    } else if (is.function(self$breaks)) {
-      breaks <- self$breaks(limits)
-    } else {
-      breaks <- self$breaks
     }
 
     # Breaks in data space need to be converted back to transformed space
@@ -1021,13 +1017,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     }
 
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
-    }
-
     if (is.waiver(self$breaks)) {
       breaks <- limits
     } else if (is.function(self$breaks)) {
@@ -1243,14 +1232,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     if (is.null(self$breaks)) {
       return(NULL)
-    } else if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
     } else if (is.waiver(self$breaks)) {
       if (self$nice.breaks) {
-        if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
+        if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
         } else {
           if (!is.null(self$n.breaks)) {
@@ -1406,6 +1390,14 @@ check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) 
   cli::cli_warn(msg, call = call)
 }
 
+
+support_nbreaks <- function(fun) {
+  if (inherits(fun, "ggproto_method")) {
+    fun <- environment(fun)$f
+  }
+  "n" %in% fn_fmls_names(fun)
+}
+
 check_continuous_limits <- function(limits, ...,
                                     arg = caller_arg(limits),
                                     call = caller_env()) {
@@ -1414,10 +1406,6 @@ check_continuous_limits <- function(limits, ...,
   }
   check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
   check_length(limits, 2L, arg = arg, call = call)
-}
-
-trans_support_nbreaks <- function(trans) {
-  "n" %in% names(formals(trans$breaks))
 }
 
 allow_lambda <- function(x) {
