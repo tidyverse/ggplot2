@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
