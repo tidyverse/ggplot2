@@ -734,6 +734,30 @@ test_that("continuous scales warn about faulty `limits`", {
   expect_snapshot(scale_x_continuous(limits = 1:3), error = TRUE)
 })
 
+test_that("populating palettes works", {
+
+  scl <- scales_list()
+  scl$add(scale_colour_discrete(aesthetics = c("colour", "fill")))
+
+  my_theme <- theme(
+    palette.colour.discrete = c("white", "black"),
+    palette.fill.discrete = c("red", "blue")
+  )
+
+  scl$set_palettes(my_theme)
+  expect_equal(scl$scales[[1]]$palette(2), c("white", "black"))
+
+  # Scales with >1 aesthetic
+  scl <- scales_list()
+  scl$add(scale_colour_discrete(aesthetics = c("colour", "fill")))
+
+  my_theme$palette.colour.discrete <- NULL
+
+  scl$set_palettes(my_theme)
+  expect_equal(scl$scales[[1]]$palette(2), c("red", "blue"))
+
+})
+
 test_that("discrete scales work with NAs in arbitrary positions", {
   # Prevents intermediate caching of palettes
   map <- function(x, limits) {

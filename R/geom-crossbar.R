@@ -1,13 +1,40 @@
 #' @export
 #' @rdname geom_linerange
+#' @param middle.colour,middle.color,middle.linetype,middle.linewidth
+#'   Default aesthetics for the middle line. Set to `NULL` to inherit from the
+#'   data's aesthetics.
+#' @param box.colour,box.color,box.linetype,box.linewidth
+#'   Default aesthetics for the boxes. Set to `NULL` to inherit from the
+#'   data's aesthetics.
 geom_crossbar <- function(mapping = NULL, data = NULL,
                           stat = "identity", position = "identity",
                           ...,
+                          middle.colour     = NULL,
+                          middle.color      = NULL,
+                          middle.linetype   = NULL,
+                          middle.linewidth  = NULL,
+                          box.colour        = NULL,
+                          box.color         = NULL,
+                          box.linetype      = NULL,
+                          box.linewidth     = NULL,
                           fatten = 2.5,
                           na.rm = FALSE,
                           orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
+
+  middle_gp <- list(
+    colour    = middle.color %||% middle.colour,
+    linetype  = middle.linetype,
+    linewidth = middle.linewidth
+  )
+
+  box_gp <- list(
+    colour    = box.color %||% box.colour,
+    linetype  = box.linetype,
+    linewidth = box.linewidth
+  )
+
   layer(
     data = data,
     mapping = mapping,
@@ -17,6 +44,8 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list2(
+      middle_gp = middle_gp,
+      box_gp = box_gp,
       fatten = fatten,
       na.rm = na.rm,
       orientation = orientation,
@@ -54,11 +83,13 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", fatten = 2.5, width = NULL,
-                        flipped_aes = FALSE) {
+                        flipped_aes = FALSE, middle_gp = NULL, box_gp = NULL) {
+
     data <- check_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
 
     middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = linewidth * fatten, alpha = NA)
+    middle <- data_frame0(!!!defaults(compact(middle_gp), middle))
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
@@ -87,9 +118,9 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
           data$ymax
         ),
         alpha = rep(data$alpha, 11),
-        colour = rep(data$colour, 11),
+        colour = rep(data$colour,    11),
         linewidth = rep(data$linewidth, 11),
-        linetype = rep(data$linetype, 11),
+        linetype  = rep(data$linetype,  11),
         fill = rep(data$fill, 11),
         group = rep(seq_len(nrow(data)), 11)
       )
@@ -99,13 +130,14 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
         y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
         alpha = rep(data$alpha, 5),
-        colour = rep(data$colour, 5),
+        colour = rep(data$colour,    5),
         linewidth = rep(data$linewidth, 5),
-        linetype = rep(data$linetype, 5),
+        linetype = rep(data$linetype,  5),
         fill = rep(data$fill, 5),
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       )
     }
+    box <- data_frame0(!!!defaults(compact(box_gp), box))
     box <- flip_data(box, flipped_aes)
     middle <- flip_data(middle, flipped_aes)
 

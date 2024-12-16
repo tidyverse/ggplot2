@@ -121,6 +121,8 @@ theme(
   panel.grid.minor.x,
   panel.grid.minor.y,
   panel.ontop,
+  panel.widths,
+  panel.heights,
   plot.background,
   plot.title,
   plot.title.position,
@@ -311,6 +313,10 @@ from \code{line}}
 the data layers (\code{logical}). Usually used with a transparent or blank
 \code{panel.background}.}
 
+\item{panel.widths, panel.heights}{Sizes for panels (\code{units}). Can be a
+single unit to set the total size for the panel area, or a unit vector to
+set the size of individual panels.}
+
 \item{plot.background}{background of the entire plot (\code{\link[=element_rect]{element_rect()}};
 inherits from \code{rect})}
 
@@ -469,14 +475,14 @@ p2 + theme(
   legend.position.inside = c(.95, .95),
   legend.justification = c("right", "top"),
   legend.box.just = "right",
-  legend.margin = margin(6, 6, 6, 6)
+  legend.margin = margin_auto(6)
 )
 
 # The legend.box properties work similarly for the space around
 # all the legends
 p2 + theme(
   legend.box.background = element_rect(),
-  legend.box.margin = margin(6, 6, 6, 6)
+  legend.box.margin = margin_auto(6)
 )
 
 # You can also control the display of the keys

@@ -77,22 +77,30 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     # we need to transform all non-sf data into the correct coordinate system
     source_crs <- panel_params$default_crs
     target_crs <- panel_params$crs
 
+    # CoordSf doesn't use the viewscale rescaling, so we just flip ranges
+    reverse <- self$reverse %||% "none"
+    x_range <- switch(reverse, xy = , x = rev, identity)(panel_params$x_range)
+    y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y_range)
+
     # normalize geometry data, it should already be in the correct crs here
     data[[ geom_column(data) ]] <- sf_rescale01(
       data[[ geom_column(data) ]],
-      panel_params$x_range,
-      panel_params$y_range
+      x_range, y_range
     )
 
     # transform and normalize regular position data
     data <- transform_position(
       sf_transform_xy(data, target_crs, source_crs),
-      function(x) rescale(x, from = panel_params$x_range),
-      function(x) rescale(x, from = panel_params$y_range)
+      function(x) rescale(x, from = x_range),
+      function(x) rescale(x, from = y_range)
     )
 
     transform_position(data, squish_infinite, squish_infinite)
@@ -108,7 +116,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
-    } else if (is.waive(scale_x$labels)) {
+    } else if (is.waiver(scale_x$labels)) {
       x_labels <- graticule$degree_label[graticule$type == "E"]
       needs_autoparsing[graticule$type == "E"] <- TRUE
     } else {
@@ -133,7 +141,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
       y_labels <- rep(NA, length(y_breaks))
-    } else if (is.waive(scale_y$labels)) {
+    } else if (is.waiver(scale_y$labels)) {
       y_labels <- graticule$degree_label[graticule$type == "N"]
       needs_autoparsing[graticule$type == "N"] <- TRUE
     } else {
@@ -255,21 +263,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       )
     )
 
-    # Rescale graticule for panel grid
-    sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
-    graticule$x_start <- rescale(graticule$x_start, from = x_range)
-    graticule$x_end   <- rescale(graticule$x_end,   from = x_range)
-    graticule$y_start <- rescale(graticule$y_start, from = y_range)
-    graticule$y_end   <- rescale(graticule$y_end,   from = y_range)
-
-    list2(
+    panel_params <- list2(
       x_range = x_range,
       y_range = y_range,
-      graticule = graticule,
       crs = params$crs,
       default_crs = params$default_crs,
       !!!viewscales
     )
+
+    # Rescale graticule for panel grid
+    panel_params$graticule <- self$transform(graticule, panel_params)
+    panel_params
   },
 
   train_panel_guides = function(self, panel_params, layers, params = list()) {
@@ -404,12 +408,26 @@ sf_transform_xy <- function(data, target_crs, source_crs, authority_compliant = 
 ## helper functions to normalize geometry and position data
 
 # normalize geometry data (variable x is geometry column)
+# this is a wrapper for `sf::st_normalize()`, but deals with empty input and
+# reversed ranges too
 sf_rescale01 <- function(x, x_range, y_range) {
   if (is.null(x)) {
     return(x)
   }
-
-  sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
+  mult <- cbind(1, 1)
+  if (isTRUE(x_range[1] > x_range[2])) {
+    x_range <- sort(x_range)
+    mult[1] <- -1
+  }
+  if (isTRUE(y_range[1] > y_range[2])) {
+    y_range <- sort(y_range)
+    mult[2] <- -1
+  }
+  x <- sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
+  if (all(mult == 1)) {
+    return(x)
+  }
+  x * mult + pmax(-mult, 0)
 }
 
 # different limits methods
@@ -532,9 +550,10 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
                      label_axes = waiver(), lims_method = "cross",
-                     ndiscr = 100, default = FALSE, clip = "on") {
+                     ndiscr = 100, default = FALSE, clip = "on",
+                     reverse = "none") {
 
-  if (is.waive(label_graticule) && is.waive(label_axes)) {
+  if (is.waiver(label_graticule) && is.waiver(label_axes)) {
     # if both `label_graticule` and `label_axes` are set to waive then we
     # use the default of labels on the left and at the bottom
     label_graticule <- ""
@@ -572,6 +591,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes = label_axes,
     label_graticule = label_graticule,
     ndiscr = ndiscr,
+    reverse = reverse,
     expand = expand,
     default = default,
     clip = clip
@@ -620,13 +640,13 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
       bbox[is.na(bbox)] <- c(-180, -90, 180, 90)[is.na(bbox)]
     }
 
-    if (!(is.waive(scale_x$breaks) && is.null(scale_x$n.breaks))) {
+    if (!(is.waiver(scale_x$breaks) && is.null(scale_x$n.breaks))) {
       x_breaks <- scale_x$get_breaks(limits = bbox[c(1, 3)])
       finite <- is.finite(x_breaks)
       x_breaks <- if (any(finite)) x_breaks[finite] else NULL
     }
 
-    if (!(is.waive(scale_y$breaks) && is.null(scale_y$n.breaks))) {
+    if (!(is.waiver(scale_y$breaks) && is.null(scale_y$n.breaks))) {
       y_breaks <- scale_y$get_breaks(limits = bbox[c(2, 4)])
       finite <- is.finite(y_breaks)
       y_breaks <- if (any(finite)) y_breaks[finite] else NULL
@@ -657,6 +677,9 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
 #' @keywords internal
 view_scales_from_graticule <- function(graticule, scale, aesthetic,
                                        label, label_graticule, bbox) {
+  if (empty(graticule)) {
+    return(ggproto(NULL, ViewScale))
+  }
 
   # Setup position specific parameters
   # Note that top/bottom doesn't necessarily mean to label the meridians and
