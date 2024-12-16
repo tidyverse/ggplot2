@@ -45,7 +45,7 @@ stat_bin(
   breaks = NULL,
   closed = c("right", "left"),
   pad = FALSE,
-  follow.scale = c("off", "minor", "major"),
+  follow.scale = "off",
   na.rm = FALSE,
   keep.zeroes = "all",
   orientation = NA,
@@ -176,7 +176,11 @@ or left edges of bins are included in the bin.}
 frequency polygons touch 0. Defaults to \code{FALSE}.}
 
 \item{follow.scale}{Alternatively, the bin edges can be copied from the scale
-breaks, either \code{"major"} or \code{"minor"}. Ignored when \code{"off"}. Note that if}
+breaks, either \code{"major"} or \code{"minor"}. Ignored when \code{"off"}. Note that if
+the scale's limits are updated by other layers or expansions then its
+breaks are recomputed and might end up different to the value copied for
+the bin edges. This is not an issue when the scale uses a fixed breaks
+vector.}
 
 \item{keep.zeroes}{Treatment of zero count bins. If \code{"all"} (default), such
 bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
