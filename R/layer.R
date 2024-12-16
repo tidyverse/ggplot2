@@ -253,7 +253,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   layer_data = function(self, plot_data) {
-    if (is.waive(self$data)) {
+    if (is.waiver(self$data)) {
       data <- plot_data
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
@@ -263,7 +263,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       data <- self$data
     }
-    if (is.null(data) || is.waive(data)) data else unrowname(data)
+    if (is.null(data) || is.waiver(data)) data else unrowname(data)
   },
 
   # hook to allow a layer access to the final layer data
@@ -327,7 +327,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     n <- nrow(data)
-    aes_n <- lengths(evaled)
+    aes_n <- list_sizes(evaled)
     if (n == 0) {
       # No data, so look at longest evaluated aesthetic
       if (length(evaled) == 0) {
@@ -352,7 +352,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       evaled$PANEL <- data$PANEL
     }
-    evaled <- lapply(evaled, unname)
+    evaled <- lapply(evaled, vec_set_names, names = NULL)
     evaled <- as_gg_data_frame(evaled)
     evaled <- add_group(evaled)
     evaled

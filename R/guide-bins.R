@@ -161,7 +161,10 @@ GuideBins <- ggproto(
     key$.show  <- NA
 
     labels <- scale$get_labels(breaks)
-    if (is.character(scale$labels) || is.numeric(scale$labels)) {
+    labels <- labels[!is.na(breaks)]
+    breaks <- breaks[!is.na(breaks)]
+
+    if (is.character(scale$labels) || is.numeric(scale$labels) || is.expression(scale$labels)) {
       limit_lab <- c(NA, NA)
     } else {
       limit_lab <- scale$get_labels(limits)
@@ -265,7 +268,7 @@ GuideBins <- ggproto(
 
     list(labels = flip_element_grob(
       elements$text,
-      label = key$.label,
+      label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
       margin_x = FALSE,
       margin_y = TRUE,
@@ -335,19 +338,22 @@ GuideBins <- ggproto(
 
 parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
 
-  breaks <- breaks[!is.na(breaks)]
+  if (is.waiver(scale$labels) || is.function(scale$labels)) {
+    breaks <- breaks[!is.na(breaks)]
+  }
   if (length(breaks) == 0) {
     return(NULL)
   }
 
   if (is.numeric(breaks)) {
-    breaks <- sort(breaks)
     limits <- scale$get_limits()
     if (!is.numeric(scale$breaks)) {
-      breaks <- breaks[!breaks %in% limits]
+      breaks[breaks %in% limits] <- NA
     }
-    breaks <- oob_discard(breaks, limits)
+    breaks <- oob_censor(breaks, limits)
     all_breaks <- unique0(c(limits[1], breaks, limits[2]))
+    # Sorting drops NAs on purpose here
+    all_breaks <- sort(all_breaks, na.last = NA)
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
     bin_at <- breaks

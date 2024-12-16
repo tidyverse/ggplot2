@@ -61,26 +61,18 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
 GuideAxisTheta <- ggproto(
   "GuideAxisTheta", GuideAxis,
 
-  extract_decor = function(scale, aesthetic, key, cap = "none", position, ...) {
-    # For theta position, we pretend we're left/right because that will put
-    # the correct opposite aesthetic as the line coordinates.
-    position <- switch(position, theta = "left", theta.sec = "right", position)
-
-    GuideAxis$extract_decor(
-      scale = scale, aesthetic = aesthetic,
-      position = position, key = key, cap = cap
-    )
-  },
-
   transform = function(params, coord, panel_params) {
 
+    opposite_var <- setdiff(c("x", "y"), params$aesthetic)
+    opposite_value <- switch(params$position, top = , right = , theta.sec = -Inf, Inf)
+    if (is.unsorted(panel_params$inner_radius %||% NA)) {
+      opposite_value <- -opposite_value
+    }
     if (nrow(params$key) > 0) {
-      opposite <- setdiff(c("x", "y"), params$aesthetic)
-      params$key[[opposite]] <- switch(params$position,
-                                       theta.sec = -Inf,
-                                       top = -Inf,
-                                       right = -Inf,
-                                       Inf)
+      params$key[[opposite_var]] <- opposite_value
+    }
+    if (nrow(params$decor) > 0) {
+      params$decor[[opposite_var]] <- opposite_value
     }
 
     params <- GuideAxis$transform(params, coord, panel_params)
@@ -110,7 +102,7 @@ GuideAxisTheta <- ggproto(
       # labels of these positions
       ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
       if (n > 0 && ends_apart < 0.05 && !is.null(key$.label)) {
-        if (is.expression(key$.label)) {
+        if (is.expression(key$.label[[1]])) {
           combined <- substitute(
             paste(a, "/", b),
             list(a = key$.label[[1]], b = key$.label[[n]])
@@ -200,7 +192,7 @@ GuideAxisTheta <- ggproto(
     }
 
     # Resolve text angle
-    if (is.waive(params$angle) || is.null(params$angle)) {
+    if (is.waiver(params$angle) || is.null(params$angle)) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
@@ -276,7 +268,7 @@ GuideAxisTheta <- ggproto(
     }
 
     # Resolve text angle
-    if (is.waive(params$angle %||% waiver())) {
+    if (is.waiver(params$angle %||% waiver())) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))

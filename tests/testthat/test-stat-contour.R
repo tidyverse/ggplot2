@@ -99,3 +99,26 @@ test_that("stat_contour() removes duplicated coordinates", {
   expect_equal(new, df[1:4,], ignore_attr = TRUE)
 })
 
+test_that("stat_contour() can infer rotations", {
+  df <- data_frame0(
+    x = c(0, 1, 2, 1),
+    y = c(1, 2, 1, 0),
+    z = c(1, 1, 2, 2)
+  )
+
+  ld <- layer_data(
+    ggplot(df, aes(x, y, z = z)) + geom_contour(breaks = 1.5)
+  )
+  expect_equal(ld$x, c(1.5, 0.5))
+  expect_equal(ld$y, c(1.5, 0.5))
+
+  # Also for unordered data
+  df <- df[c(1, 4, 2, 3), ]
+
+  ld <- layer_data(
+    ggplot(df, aes(x, y, z = z)) + geom_contour(breaks = 1.5)
+  )
+
+  expect_equal(ld$x, c(0.5, 1.5))
+  expect_equal(ld$y, c(0.5, 1.5))
+})

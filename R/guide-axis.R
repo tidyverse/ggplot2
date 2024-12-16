@@ -256,6 +256,12 @@ GuideAxis <- ggproto(
   override_elements = function(params, elements, theme) {
     elements$text <-
       label_angle_heuristic(elements$text, params$position, params$angle)
+    if (inherits(elements$ticks, "element_blank")) {
+      elements$major_length <- unit(0, "cm")
+    }
+    if (inherits(elements$minor, "element_blank") || isFALSE(params$minor.ticks)) {
+      elements$minor_length <- unit(0, "cm")
+    }
     return(elements)
   },
 

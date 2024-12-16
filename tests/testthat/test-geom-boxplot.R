@@ -96,4 +96,16 @@ test_that("boxplot draws correctly", {
   expect_doppelganger("staples",
     ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(staplewidth = 0.5)
   )
+  expect_doppelganger(
+    "customised style",
+    ggplot(mpg, aes(class, displ, colour = class)) +
+      geom_boxplot(
+        outlier.shape = 6,
+        whisker.linetype = 2,
+        median.colour = "red",
+        box.colour    = "black",
+        staple.linewidth = 1,
+        staplewidth = 0.25
+      )
+  )
 })

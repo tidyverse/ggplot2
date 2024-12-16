@@ -168,6 +168,39 @@ ScalesList <- ggproto("ScalesList", NULL,
       scale_name <- paste("scale", aes, "continuous", sep = "_")
       self$add(find_global(scale_name, env, mode = "function")())
     }
+  },
+
+  set_palettes = function(self, theme) {
+    for (scale in self$scales) {
+      if (!is.null(scale$palette)) {
+        next
+      }
+
+      # Resolve palette theme setting for this scale
+      type <- if (scale$is_discrete()) "discrete" else "continuous"
+      elem <- paste0("palette.", scale$aesthetics, ".", type)
+      elem <- compact(lapply(elem, calc_element, theme))[1][[1]]
+
+      # Resolve the palette itself
+      elem <- elem %||% fallback_palette(scale)
+      palette <- switch(
+        type,
+        discrete   = as_discrete_pal(elem),
+        continuous = as_continuous_pal(elem)
+      )
+      if (!is.function(palette)) {
+        cli::cli_warn(
+          "Failed to find palette for {.field {scale$aesthetics[1]}} scale."
+        )
+      }
+
+      # Set palette to scale
+      # Note: while direct assignment is not ideal, we've already cloned the
+      # scale at the beginning of the plot build method, so it doesn't affect
+      # other plots
+      scale$palette <- palette
+      invisible()
+    }
   }
 )
 
