@@ -3,7 +3,7 @@
     Code
       facet_wrap(aes(foo))
     Condition
-      Error in `validate_facets()`:
+      Error in `check_vars()`:
       ! Please use `vars()` to supply facet variables.
 
 ---
@@ -11,7 +11,7 @@
     Code
       facet_grid(aes(foo))
     Condition
-      Error in `validate_facets()`:
+      Error in `check_vars()`:
       ! Please use `vars()` to supply facet variables.
 
 # facet_grid() fails if passed both a formula and a vars()
@@ -73,7 +73,7 @@
       Error:
       ! object 'no_such_variable' not found
 
-# validate_facets() provide meaningful errors
+# check_vars() provide meaningful errors
 
     Please use `vars()` to supply facet variables.
 

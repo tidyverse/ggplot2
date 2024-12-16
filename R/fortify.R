@@ -44,34 +44,46 @@ fortify.grouped_df <- function(model, data, ...) {
 # There are a lot of ways that dim(), colnames(), or as.data.frame() could
 # do non-sensical things (they are not even guaranteed to work!) hence the
 # paranoid mode.
-.prevalidate_data_frame_like_object <- function(data) {
+check_data_frame_like <- function(data) {
   orig_dims <- dim(data)
-  if (!vec_is(orig_dims, integer(), size=2))
-    cli::cli_abort(paste0("{.code dim(data)} must return ",
-                          "an {.cls integer} of length 2."))
-  if (anyNA(orig_dims) || any(orig_dims < 0))  # extra-paranoid mode
-    cli::cli_abort(paste0("{.code dim(data)} can't have {.code NA}s ",
-                          "or negative values."))
+  if (!vec_is(orig_dims, integer(), size = 2)) {
+    cli::cli_abort(
+      "{.code dim(data)} must return an {.cls integer} of length 2."
+    )
+  }
+  if (anyNA(orig_dims) || any(orig_dims < 0)) { # extra-paranoid mode
+    cli::cli_abort(
+      "{.code dim(data)} can't have {.code NA}s or negative values."
+    )
+  }
   orig_colnames <- colnames(data)
-  if (!vec_is(orig_colnames, character(), size = ncol(data)))
-    cli::cli_abort(paste0("{.code colnames(data)} must return a ",
-                          "{.cls character} of length {.code ncol(data)}."))
+  if (!vec_is(orig_colnames, character(), size = ncol(data))) {
+    cli::cli_abort(
+      "{.code colnames(data)} must return a {.cls character} of length {.code ncol(data)}."
+    )
+  }
+  invisible()
 }
-.postvalidate_data_frame_like_object <- function(df, data) {
+check_data_frame_conversion <- function(new, old) {
   msg0 <- "{.code as.data.frame(data)} must "
-  if (!is.data.frame(df))
+  if (!is.data.frame(new)) {
     cli::cli_abort(paste0(msg0, "return a {.cls data.frame}."))
-  if (!identical(dim(df), dim(data)))
+  }
+  if (!identical(dim(new), dim(old))) {
     cli::cli_abort(paste0(msg0, "preserve dimensions."))
-  if (!identical(colnames(df), colnames(data)))
+  }
+  if (!identical(colnames(new), colnames(old))) {
     cli::cli_abort(paste0(msg0, "preserve column names."))
+  }
+  invisible()
 }
 validate_as_data_frame <- function(data) {
-  if (is.data.frame(data))
+  if (is.data.frame(data)) {
     return(data)
-  .prevalidate_data_frame_like_object(data)
+  }
+  check_data_frame_like(data)
   df <- as.data.frame(data)
-  .postvalidate_data_frame_like_object(df, data)
+  check_data_frame_conversion(df, data)
   df
 }
 

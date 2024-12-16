@@ -165,7 +165,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     if (!anyDuplicated(data$group)) {
       cli::cli_inform(c(
         "{.fn {snake_class(self)}}: Each group consists of only one observation.",

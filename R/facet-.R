@@ -443,7 +443,7 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 as_facets_list <- function(x) {
-  x <- validate_facets(x)
+  check_vars(x)
   if (is_quosures(x)) {
     x <- quos_auto_name(x)
     return(list(x))
@@ -487,7 +487,7 @@ as_facets_list <- function(x) {
   x
 }
 
-validate_facets <- function(x) {
+check_vars <- function(x) {
   if (is.mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
@@ -499,7 +499,7 @@ validate_facets <- function(x) {
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
-  x
+  invisible()
 }
 
 # Flatten a list of quosures objects to a quosures object, and compact it

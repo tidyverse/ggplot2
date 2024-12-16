@@ -16,6 +16,6 @@
 
 # old school labellers still work
 
-    The `labeller` API has been updated. Labellers taking `variable` and `value` arguments are now deprecated.
-    i See labellers documentation.
+    The `labeller` argument of `facet_()` is deprecated as of ggplot2 2.0.0.
+    i Modern labellers do not take `variable` and `value` arguments anymore.
 
