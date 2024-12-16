@@ -1,3 +1,31 @@
+# oob affects position values
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_bar()`).
+
+---
+
+    Removed 3 rows containing missing values or values outside the scale range (`geom_bar()`).
+
+# scales warn when transforms introduces non-finite values
+
+    log-10 transformation introduced infinite values.
+
+# size and alpha scales throw appropriate warnings for factors
+
+    Using size for a discrete variable is not advised.
+
+---
+
+    Using alpha for a discrete variable is not advised.
+
+---
+
+    Using linewidth for a discrete variable is not advised.
+
+# shape scale throws appropriate warnings for factors
+
+    Using shapes for an ordinal variable is not advised
+
 # scale_apply preserves class and attributes
 
     `scale_id` must not contain any "NA".
@@ -70,4 +98,20 @@
 ---
 
     The `scale_name` argument of `binned_scale()` is deprecated as of ggplot2 3.5.0.
+
+# continuous scales warn about faulty `limits`
+
+    Code
+      scale_x_continuous(limits = c("A", "B"))
+    Condition
+      Error in `scale_x_continuous()`:
+      ! `limits` must be a <numeric> vector, not a character vector.
+
+---
+
+    Code
+      scale_x_continuous(limits = 1:3)
+    Condition
+      Error in `scale_x_continuous()`:
+      ! `limits` must be a vector of length 2, not length 3.
 

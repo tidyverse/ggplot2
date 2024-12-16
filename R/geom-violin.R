@@ -182,8 +182,14 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw_key = draw_key_polygon,
 
-  default_aes = aes(weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
-    alpha = NA, linetype = "solid"),
+  default_aes = aes(
+    weight = 1,
+    colour = from_theme(col_mix(ink, paper, 0.2)),
+    fill = from_theme(paper),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA
+  ),
 
   required_aes = c("x", "y"),
 
@@ -202,7 +208,7 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
 
   # We have two rows per segment drawn. Each segment gets its own group.
   data_frame0(
-    x = interleave(violin.xminvs, violin.xmaxvs),
+    x = vec_interleave(violin.xminvs, violin.xmaxvs),
     y = rep(ys, each = 2),
     group = rep(ys, each = 2)
   )

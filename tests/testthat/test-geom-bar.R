@@ -3,10 +3,8 @@ test_that("geom_bar removes bars with parts outside the plot limits", {
 
   p <- ggplot(dat, aes(x)) + geom_bar()
 
-  expect_warning( # warning created at render stage
-    ggplotGrob(p + ylim(0, 2.5)),
-    "Removed 1 row containing missing values or values outside the scale range"
-  )
+  # warning created at render stage
+  expect_snapshot_warning(ggplotGrob(p + ylim(0, 2.5)))
 })
 
 test_that("geom_bar works in both directions", {

@@ -30,23 +30,23 @@ test_that("geom_sf() determines the legend type automatically", {
   }
 
   # test the automatic choice
-  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "line")
 
-  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "polygon")
+  expect_true(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend)
+  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "other")
 
   # test that automatic choice can be overridden manually
-  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_true(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend)
   expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
 })
 
@@ -74,13 +74,6 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
     ggplot(d_sf) + geom_sf(aes(geometry = g_line, colour = "a"))
   )
   expect_identical(p$plot$layers[[1]]$computed_geom_params$legend, "line")
-
-  # If `geometry` is not a symbol, `LayerSf$setup_layer()` gives up guessing
-  # the legend type, and falls back to "polygon"
-  p <- ggplot_build(
-    ggplot(d_sf) + geom_sf(aes(geometry = identity(g_point), colour = "a"))
-  )
-  expect_identical(p$plot$layers[[1]]$computed_geom_params$legend, "polygon")
 })
 
 test_that("geom_sf() removes rows containing missing aes", {
@@ -100,19 +93,16 @@ test_that("geom_sf() removes rows containing missing aes", {
   )
 
   p <- ggplot(pts)
-  expect_warning(
-    expect_identical(grob_xy_length(p + geom_sf(aes(size = size))), c(1L, 1L)),
-    "Removed 1 row containing missing values or values outside the scale range"
+  expect_snapshot_warning(
+    expect_identical(grob_xy_length(p + geom_sf(aes(size = size))), c(1L, 1L))
   )
-  expect_warning(
-    expect_identical(grob_xy_length(p + geom_sf(aes(shape = shape))), c(1L, 1L)),
-    "Removed 1 row containing missing values or values outside the scale range"
+  expect_snapshot_warning(
+    expect_identical(grob_xy_length(p + geom_sf(aes(shape = shape))), c(1L, 1L))
   )
   # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
-  expect_warning(
+  expect_snapshot_warning(
     expect_identical(grob_xy_length(p + geom_sf(aes(colour = colour)) + scale_colour_identity()),
-                     c(1L, 1L)),
-    "Removed 1 row containing missing values or values outside the scale range"
+                     c(1L, 1L))
   )
 })
 
@@ -158,7 +148,7 @@ test_that("errors are correctly triggered", {
     ),
     linewidth = c(1, NA)
   )
-  expect_snapshot_warning(sf_grob(pts, na.rm = FALSE))
+  expect_snapshot_warning(GeomSf$handle_na(pts, list(na.rm = FALSE)))
 })
 
 # Visual tests ------------------------------------------------------------
@@ -184,15 +174,56 @@ test_that("geom_sf draws correctly", {
   # Perform minimal tests
   pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
   plot <- ggplot() + geom_sf(data = pts)
-  expect_error(regexp = NA, ggplot_build(plot))
+  expect_no_error(ggplot_build(plot))
 
   expect_doppelganger("North Carolina county boundaries",
-    ggplot() + geom_sf(data = nc) + coord_sf(datum = 4326)
+    ggplot() + geom_sf(data = nc, linetype = 2) + coord_sf(datum = 4326)
   )
 
   pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
   expect_doppelganger("spatial points",
     ggplot() + geom_sf(data = pts)
+  )
+})
+
+test_that("geom_sf data type renders appropriate legends", {
+  skip_if_not_installed("sf")
+  p <- ggplot() + geom_sf(aes(colour = col))
+
+  # Point data
+  data <- sf::st_as_sf(
+    data.frame(lon = c(1, 2), lat = c(3, 4), col = c("foo", "bar")),
+    coords = c("lon", "lat")
+  )
+  expect_doppelganger(
+    "geom_sf point legend",
+    p %+% data
+  )
+
+  # Line data
+  data <- sf::st_as_sf(
+    sf::st_sfc(
+      sf::st_linestring(x = cbind(1:2, 3:4)),
+      sf::st_linestring(x = cbind(3:4, 5:6))
+    ),
+    col = c("foo", "bar")
+  )
+  expect_doppelganger(
+    "geom_sf line legend",
+    p %+% data
+  )
+
+  # Polygon data
+  data <- sf::st_as_sf(
+    sf::st_sfc(
+      sf::st_polygon(list(cbind(c(1, 2, 2, 1), c(3, 3, 4, 3)))),
+      sf::st_polygon(list(cbind(c(3, 3, 4, 3), c(5, 6, 6, 5))))
+    ),
+    col = c("foo", "bar")
+  )
+  expect_doppelganger(
+    "geom_sf polygon legend",
+    p %+% data
   )
 })
 

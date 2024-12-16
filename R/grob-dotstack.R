@@ -14,15 +14,13 @@ dotstackGrob <- function(
         y <- unit(y, default.units)
     if (!is.unit(dotdia))
         dotdia <- unit(dotdia, default.units)
-    if (!is_npc(dotdia))
+    if (!unitType(dotdia) == "npc")
         cli::cli_warn("Unit type of dotdia should be {.val npc}")
 
     grob(x = x, y = y, stackaxis = stackaxis, dotdia = dotdia,
          stackposition = stackposition, stackdir = stackdir, stackratio = stackratio,
          name = name, gp = gp, vp = vp, cl = "dotstackGrob")
 }
-# Only cross-version reliable way to check the unit of a unit object
-is_npc <- function(x) isTRUE(grepl('^[^+^-^\\*]*[^s]npc$', as.character(x)))
 
 #' @export
 makeContext.dotstackGrob <- function(x) {

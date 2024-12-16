@@ -204,12 +204,13 @@ GuideLegend <- ggproto(
       cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
     }
     params$override.aes <- params$override.aes[!duplicated(nms)]
+    params$aesthetic <- union(params$aesthetic, new_params$aesthetic)
 
     list(guide = self, params = params)
   },
 
   # Arrange common data for vertical and horizontal legends
-  process_layers = function(self, params, layers, data = NULL) {
+  process_layers = function(self, params, layers, data = NULL, theme = NULL) {
 
     include <- vapply(layers, function(layer) {
       aes <- matched_aes(layer, params)
@@ -220,36 +221,41 @@ GuideLegend <- ggproto(
       return(NULL)
     }
 
-    self$get_layer_key(params, layers[include], data[include])
+    self$get_layer_key(params, layers[include], data[include], theme)
   },
 
-  get_layer_key = function(params, layers, data) {
+  get_layer_key = function(params, layers, data, theme = NULL) {
+
+    # Return empty guides as-is
+    if (nrow(params$key) < 1) {
+      return(params)
+    }
 
     decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
+      # Subset key to the column with aesthetic matching the layer
       matched_aes <- matched_aes(layer, params)
+      key <- params$key[matched_aes]
+      key$.id <- seq_len(nrow(key))
 
+      # Filter static aesthetics to those with single values
+      single_params <- lengths(layer$aes_params) == 1L
+      single_params <- layer$aes_params[single_params]
+
+      # Use layer to populate defaults
+      key <- layer$compute_geom_2(key, single_params, theme)
+
+      # Filter non-existing levels
       if (length(matched_aes) > 0) {
-        # Filter out aesthetics that can't be applied to the legend
-        n <- lengths(layer$aes_params, use.names = FALSE)
-        layer_params <- layer$aes_params[n == 1]
-
-        aesthetics  <- layer$computed_mapping
-        is_modified <- is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)
-        modifiers   <- aesthetics[is_modified]
-
-        data <- layer$geom$use_defaults(params$key[matched_aes], layer_params, modifiers)
-        data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
-      } else {
-        reps <- rep(1, nrow(params$key))
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[reps, ]
+        key$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
       }
 
-      data <- modify_list(data, params$override.aes)
+      # Apply overrides
+      key <- modify_list(key, params$override.aes)
 
       list(
         draw_key = layer$geom$draw_key,
-        data     = data,
+        data     = key,
         params   = c(layer$computed_geom_params, layer$computed_stat_params)
       )
     })
@@ -368,6 +374,9 @@ GuideLegend <- ggproto(
       elements$key <-
         ggname("legend.key", element_grob(elements$key))
     }
+
+    elements$text <-
+      label_angle_heuristic(elements$text, elements$text_position, params$angle)
 
     elements
   },
@@ -626,7 +635,7 @@ keep_key_data <- function(key, data, aes, show) {
   if (isTRUE(any(show)) || length(show) == 0) {
     return(TRUE)
   }
-  if (isTRUE(all(!show))) {
+  if (isTRUE(!any(show))) {
     return(FALSE)
   }
   # Second, we go find if the value is actually present in the data.
@@ -683,6 +692,7 @@ deprecated_guide_args <- function(
   default.unit = "line",
   ...,
   .call = caller_call()) {
+  warn_dots_used(call = .call)
 
   args <- names(formals(deprecated_guide_args))
   args <- setdiff(args, c("theme", "default.unit", "...", ".call"))

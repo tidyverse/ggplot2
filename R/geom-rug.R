@@ -45,7 +45,7 @@
 #' p +
 #'   geom_rug(outside = TRUE, sides = "tr") +
 #'   coord_cartesian(clip = "off") +
-#'   theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+#'   theme(plot.margin = margin_auto(1, unit = "cm"))
 #'
 #' # increase the line length and
 #' # expand axis to avoid overplotting
@@ -153,9 +153,58 @@ GeomRug <- ggproto("GeomRug", Geom,
     gTree(children = inject(gList(!!!rugs)))
   },
 
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
 
   draw_key = draw_key_path,
 
-  rename_size = TRUE
+  rename_size = TRUE,
+
+  setup_params = function(data, params) {
+    params$sides <- params$sides %||% "bl"
+    params
+  },
+
+  handle_na = function(self, data, params) {
+    sides_aes <- character()
+
+    if (grepl("b|t", params$sides)) {
+      sides_aes <- c(sides_aes, "x")
+    }
+
+    if (grepl("l|r", params$sides)) {
+      sides_aes <- c(sides_aes, "y")
+    }
+
+    if (length(sides_aes) > 0) {
+      df_list <- lapply(
+        sides_aes,
+        function(axis) {
+          remove_missing(
+            data, params$na.rm,
+            c(axis, self$required_aes, self$non_missing_aes),
+            snake_class(self)
+          )
+        }
+      )
+      data <- switch(
+        paste0(sides_aes, collapse = ""),
+        "x" = ,
+        "y" = df_list[[1]],
+        "xy" = vctrs::vec_set_union(df_list[[1]], df_list[[2]])
+      )
+    } else {
+      data <- remove_missing(
+        data, params$na.rm,
+        c(self$required_aes, self$non_missing_aes),
+        snake_class(self)
+      )
+    }
+
+    data
+  }
 )

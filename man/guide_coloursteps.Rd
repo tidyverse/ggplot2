@@ -9,9 +9,11 @@ guide_coloursteps(
   title = waiver(),
   theme = NULL,
   alpha = NA,
+  angle = NULL,
   even.steps = TRUE,
   show.limits = NULL,
   direction = NULL,
+  position = NULL,
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -22,9 +24,11 @@ guide_colorsteps(
   title = waiver(),
   theme = NULL,
   alpha = NA,
+  angle = NULL,
   even.steps = TRUE,
   show.limits = NULL,
   direction = NULL,
+  position = NULL,
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -45,6 +49,11 @@ guide overrides, and is combined with, the plot's theme.}
 the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
 (default).}
 
+\item{angle}{Overrules the theme settings to automatically apply appropriate
+\code{hjust} and \code{vjust} for angled legend text. Can be a single number
+representing the text angle in degrees, or \code{NULL} to not overrule the
+settings (default).}
+
 \item{even.steps}{Should the rendered size of the bins be equal, or should
 they be proportional to their length in the data space? Defaults to \code{TRUE}}
 
@@ -56,6 +65,9 @@ shown irrespective of the value of \code{show.limits}.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
+
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}

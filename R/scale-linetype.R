@@ -6,7 +6,7 @@
 #' no inherent order, this use is not advised.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -na.value -scale_name
+#' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette
 #' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
 #' @seealso
@@ -35,10 +35,10 @@
 #'   scale_linetype_identity() +
 #'   facet_grid(linetype ~ .) +
 #'   theme_void(20)
-scale_linetype <- function(name = waiver(), ..., na.value = "blank") {
+scale_linetype <- function(name = waiver(), ..., na.value = NA) {
   discrete_scale(
     "linetype", name = name,
-    palette = pal_linetype(),
+    palette = NULL,
     na.value = na.value,
     ...
   )
@@ -46,10 +46,10 @@ scale_linetype <- function(name = waiver(), ..., na.value = "blank") {
 
 #' @rdname scale_linetype
 #' @export
-scale_linetype_binned <- function(name = waiver(), ..., na.value = "blank") {
+scale_linetype_binned <- function(name = waiver(), ..., na.value = NA) {
   binned_scale(
     "linetype", name = name,
-    palette = pal_binned(pal_linetype()),
+    palette = NULL,
     na.value = na.value,
     ...
   )

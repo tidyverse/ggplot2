@@ -132,17 +132,27 @@ GeomAbline <- ggproto("GeomAbline", Geom,
       # Ensure the line extends well outside the panel to avoid visible line
       # ending for thick lines
       ranges$x <- ranges$x + c(-1, 1) * diff(ranges$x)
+      ranges$y <- ranges$y + c(-1, 1) * diff(ranges$y)
     }
 
-    data$x    <- ranges$x[1]
-    data$xend <- ranges$x[2]
-    data$y    <- ranges$x[1] * data$slope + data$intercept
-    data$yend <- ranges$x[2] * data$slope + data$intercept
+    # Restrict 'x' to where 'y' is in range: x = (y - intercept) / slope
+    x <- sweep(outer(ranges$y, data$intercept, FUN = "-"), 2, data$slope, FUN = "/")
+
+    data$x    <- pmax(ranges$x[1], pmin(x[1, ], x[2, ]))
+    data$xend <- pmin(ranges$x[2], pmax(x[1, ], x[2, ]))
+    data$y    <- data$x    * data$slope + data$intercept
+    data$yend <- data$xend * data$slope + data$intercept
 
     GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
+
   required_aes = c("slope", "intercept"),
 
   draw_key = draw_key_abline,

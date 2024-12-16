@@ -309,8 +309,24 @@ test_that("sf_transform_xy() works", {
   # transform back
   out2 <- sf_transform_xy(out, 4326, 3347)
   expect_identical(data$city, out2$city)
-  expect_true(all(abs(out2$x - data$x) < .01))
-  expect_true(all(abs(out2$y - data$y) < .01))
+  expect_true(all(abs(out2$x - data$x) < 0.01))
+  expect_true(all(abs(out2$y - data$y) < 0.01))
+
+})
+
+test_that("when both x and y are AsIs, they are not transformed", {
+
+  skip_if_not_installed("sf")
+
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = I(0.25), label = "foo") +
+    scale_x_continuous(limits = c(-180, 180)) +
+    scale_y_continuous(limits = c(-80, 80)) +
+    coord_sf(default_crs = 4326, crs = 3857)
+
+  grob <- get_layer_grob(p)[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
 
 })
 
@@ -370,4 +386,42 @@ test_that("coord_sf() throws error when limits are badly specified", {
 
   # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_sf(ylim=1:3))
+})
+
+test_that("sf coords can be reversed", {
+  skip_if_not_installed("sf")
+
+  p <- ggplot(sf::st_multipoint(cbind(c(0, 2), c(0, 2)))) +
+    geom_sf() +
+    coord_sf(
+      xlim = c(-1, 3), ylim = c(-1, 3), expand = FALSE,
+      reverse = "xy"
+    )
+  grob <- layer_grob(p)[[1]]
+  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
+  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+})
+
+test_that("coord_sf() can render with empty graticules", {
+
+  skip_if_not_installed("sf")
+  # Skipping this test on CRAN as changes upstream in {sf} might affect
+  # this test, i.e. when suddenly graticules *do* work
+  skip_on_cran()
+
+  df <- sf::st_sf(
+    g = sf::st_sfc(sf::st_point(
+      # Out of bounds values for lon/lat
+      c(-600, 1200)
+    )),
+    crs = 4326
+  )
+
+  # Double-check graticule is empty, suppressing warnings about oob longlat values
+  grat <- suppressWarnings(sf::st_graticule(df))
+  expect_equal(nrow(grat), 0)
+
+  # Plot should render
+  p <- suppressWarnings(layer_grob(ggplot(df) + geom_sf())[[1]])
+  expect_length(p$x, 1)
 })

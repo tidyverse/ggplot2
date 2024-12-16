@@ -133,8 +133,35 @@ Facet <- ggproto("Facet", NULL,
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    cli::cli_abort("Not implemented.")
+  draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
+                         ranges, coord, data = NULL, theme, params) {
+
+    free  <- params$free       %||% list(x = FALSE, y = FALSE)
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+
+    aspect_ratio <- theme$aspect.ratio
+    if (!is.null(aspect_ratio) && (space$x || space$y)) {
+      cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
+    }
+
+    if (!coord$is_free()) {
+      if (space$x && space$y) {
+        aspect_ratio <- aspect_ratio %||% coord$ratio
+      } else if (free$x || free$y) {
+        cli::cli_abort(
+          "{.fn {snake_class(self)}} can't use free scales with \\
+          {.fn {snake_class(coord)}}."
+        )
+      }
+    }
+
+    table <- self$init_gtable(
+      panels, layout, theme, ranges, params,
+      aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
+    )
+
+    table <- self$attach_axes(table, layout, ranges, coord, theme, params)
+    self$attach_strips(table, layout, params, theme)
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
@@ -173,10 +200,122 @@ Facet <- ggproto("Facet", NULL,
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
   },
+  init_gtable = function(panels, layout, theme, ranges, params,
+                         aspect_ratio = NULL) {
+
+    # Initialise matrix of panels
+    dim   <- c(max(layout$ROW), max(layout$COL))
+    table <- matrix(list(zeroGrob()), dim[1], dim[2])
+    table[cbind(layout$ROW, layout$COL)] <- panels
+
+    # Set initial sizes
+    widths  <- unit(rep(1, dim[2]), "null")
+    heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
+
+    # When space are free, let panel parameter limits determine size of panel
+    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+    if (space$x) {
+      idx    <- layout$PANEL[layout$ROW == 1]
+      widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
+      widths <- unit(widths, "null")
+    }
+
+    if (space$y) {
+      idx <- layout$PANEL[layout$COL == 1]
+      heights <- vapply(idx, function(i) diff(ranges[[i]]$y.range), numeric(1))
+      heights <- unit(heights * abs(aspect_ratio %||% 1), "null")
+    }
+
+    # Build gtable
+    table <- gtable_matrix(
+      "layout", table,
+      widths = widths, heights = heights,
+      respect = !is.null(aspect_ratio),
+      clip = "off", z = matrix(1, dim[1], dim[2])
+    )
+
+    # Set panel names
+    table$layout$name <- paste(
+      "panel",
+      rep(seq_len(dim[2]), each = dim[1]),
+      rep(seq_len(dim[1]), dim[2]),
+      sep = "-"
+    )
+
+    # Add spacing between panels
+    spacing <- lapply(
+      c(x = "panel.spacing.x", y = "panel.spacing.y"),
+      calc_element, theme = theme
+    )
+
+    table <- gtable_add_col_space(table, spacing$x)
+    table <- gtable_add_row_space(table, spacing$y)
+    table
+  },
+  attach_axes = function(table, layout, ranges, coord, theme, params) {
+    table
+  },
+  attach_strips = function(table, layout, params, theme) {
+    table
+  },
   vars = function() {
     character(0)
+  },
+  format_strip_labels = function(layout, params) {
+    return()
+  },
+  set_panel_size = function(table, theme) {
+
+    new_widths  <- calc_element("panel.widths",  theme)
+    new_heights <- calc_element("panel.heights", theme)
+
+    if (is.null(new_widths) && is.null(new_heights)) {
+      return(table)
+    }
+
+    if (isTRUE(table$respect)) {
+      args <- !c(is.null(new_widths), is.null(new_heights))
+      args <- c("panel.widths", "panel.heights")[args]
+      cli::cli_warn(
+        "Aspect ratios are overruled by {.arg {args}} theme element{?s}."
+      )
+      table$respect <- FALSE
+    }
+
+    rows <- panel_rows(table)
+    cols <- panel_cols(table)
+
+    if (length(new_widths) == 1L && nrow(cols) > 1L) {
+      # Get total size of non-panel widths in between panels
+      extra <- setdiff(seq(min(cols$l), max(cols$r)), union(cols$l, cols$r))
+      extra <- unit(sum(width_cm(table$widths[extra])), "cm")
+      # Distribute width proportionally
+      relative   <- as.numeric(table$widths[cols$l]) # assumed to be simple units
+      new_widths <- (new_widths - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_widths)) {
+      table$widths[cols$l] <- rep(new_widths, length.out = nrow(cols))
+    }
+
+    if (length(new_heights) == 1L && nrow(rows) > 1L) {
+      # Get total size of non-panel heights in between panels
+      extra <- setdiff(seq(min(rows$t), max(rows$t)), union(rows$t, rows$b))
+      extra <- unit(sum(height_cm(table$heights[extra])), "cm")
+      # Distribute height proportionally
+      relative    <- as.numeric(table$heights[rows$t]) # assumed to be simple units
+      new_heights <- (new_heights - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_heights)) {
+      table$heights[rows$t] <- rep(new_heights, length.out = nrow(rows))
+    }
+
+    table
   }
 )
+
+#' @export
+#' @rdname is_tests
+is.facet <- function(x) inherits(x, "Facet")
 
 # Helpers -----------------------------------------------------------------
 
@@ -239,13 +378,31 @@ vars <- function(...) {
   quos(...)
 }
 
-
-#' Is this object a faceting specification?
+#' Accessing a plot's facet strip labels
 #'
-#' @param x object to test
-#' @keywords internal
+#' This functions retrieves labels from facet strips with the labeller applied.
+#'
+#' @param plot A ggplot or build ggplot object.
+#'
+#' @return `NULL` if there are no labels, otherwise a list of data.frames
+#'   containing the labels.
 #' @export
-is.facet <- function(x) inherits(x, "Facet")
+#' @keywords internal
+#'
+#' @examples
+#' # Basic plot
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#'
+#' get_strip_labels(p) # empty facets
+#' get_strip_labels(p + facet_wrap(year ~ cyl))
+#' get_strip_labels(p + facet_grid(year ~ cyl))
+get_strip_labels <- function(plot = get_last_plot()) {
+  plot   <- ggplot_build(plot)
+  layout <- plot$layout$layout
+  params <- plot$layout$facet_params
+  plot$plot$facet$format_strip_labels(layout, params)
+}
 
 # A "special" value, currently not used but could be used to determine
 # if faceting is active
@@ -305,7 +462,14 @@ as_facets_list <- function(x) {
   # distinct facet dimensions and `+` defines multiple facet variables
   # inside each dimension.
   if (is_formula(x)) {
-    return(f_as_facets_list(x))
+    if (length(x) == 2) {
+      rows <- f_as_facets(NULL)
+      cols <- f_as_facets(x)
+    } else {
+      rows <- f_as_facets(x[-3])
+      cols <- f_as_facets(x[-2])
+    }
+    return(list(rows, cols))
   }
 
   # For backward-compatibility with facet_wrap()
@@ -324,7 +488,7 @@ as_facets_list <- function(x) {
 }
 
 validate_facets <- function(x) {
-  if (inherits(x, "uneval")) {
+  if (is.mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be
@@ -338,10 +502,9 @@ validate_facets <- function(x) {
   x
 }
 
-
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
-
+  x <- as_facets_list(x)
   proxy   <- vec_proxy(x)
   is_list <- vapply(proxy, vec_is_list, logical(1))
   proxy[is_list]  <- lapply(proxy[is_list],  unclass)
@@ -388,18 +551,10 @@ simplify <- function(x) {
   }
 }
 
-f_as_facets_list <- function(f) {
-  lhs <- function(x) if (length(x) == 2) NULL else x[-3]
-  rhs <- function(x) if (length(x) == 2) x else x[-2]
-
-  rows <- f_as_facets(lhs(f))
-  cols <- f_as_facets(rhs(f))
-
-  list(rows, cols)
-}
-
 as_facets <- function(x) {
-  if (is_facets(x)) {
+  is_facets <- is.list(x) && length(x) > 0 &&
+    all(vapply(x, is_quosure, logical(1)))
+  if (is_facets) {
     return(x)
   }
 
@@ -420,27 +575,13 @@ f_as_facets <- function(f) {
   env <- f_env(f) %||% globalenv()
 
   # as.quoted() handles `+` specifications
-  vars <- as.quoted(f)
+  vars <- simplify(f)
 
-  # `.` in formulas is ignored
-  vars <- discard_dots(vars)
+  # `.` in formulas is discarded
+  vars <- vars[!vapply(vars, identical, logical(1), as.name("."))]
 
   as_quosures(vars, env, named = TRUE)
 }
-discard_dots <- function(x) {
-  x[!vapply(x, identical, logical(1), as.name("."))]
-}
-
-is_facets <- function(x) {
-  if (!is.list(x)) {
-    return(FALSE)
-  }
-  if (!length(x)) {
-    return(FALSE)
-  }
-  all(vapply(x, is_quosure, logical(1)))
-}
-
 
 # When evaluating variables in a facet specification, we evaluate bare
 # variables and expressions slightly differently. Bare variables should
@@ -451,7 +592,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
   vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
-  data_frame0(tibble::as_tibble(vars))
+  data_frame0(!!!vars)
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
   # Treat the case when `facet` is a quosure of a symbol specifically
@@ -568,7 +709,7 @@ find_panel <- function(table) {
 }
 #' @rdname find_panel
 #' @export
-panel_cols = function(table) {
+panel_cols <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
   unique0(panels[, c('l', 'r')])
 }
@@ -697,7 +838,7 @@ render_axes <- function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
 #'
 #' @keywords internal
 #' @export
-render_strips <- function(x = NULL, y = NULL, labeller, theme) {
+render_strips <- function(x = NULL, y = NULL, labeller = identity, theme) {
   list(
     x = build_strip(x, labeller, theme, TRUE),
     y = build_strip(y, labeller, theme, FALSE)

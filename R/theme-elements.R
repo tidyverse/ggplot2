@@ -8,14 +8,16 @@
 #'   - `element_rect()`: borders and backgrounds.
 #'   - `element_line()`: lines.
 #'   - `element_text()`: text.
+#'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
-#' `margin()` is used to specify the margins of elements.
+#' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
+#' margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
-#' @param linewidth Line/border size in mm.
-#' @param size text size in pts.
+#' @param linewidth,borderwidth Line/border size in mm.
+#' @param size,fontsize text size in pts.
 #' @param arrow.fill Fill colour for arrows.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
@@ -41,13 +43,21 @@
 #'
 #' plot + theme(
 #'   panel.background = element_rect(fill = "white"),
-#'   plot.margin = margin(2, 2, 2, 2, "cm"),
+#'   plot.margin = margin_auto(2, unit = "cm"),
 #'   plot.background = element_rect(
 #'     fill = "grey90",
 #'     colour = "black",
 #'     linewidth = 1
 #'   )
 #' )
+#'
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   geom_smooth(formula = y ~ x, method = "lm") +
+#'   theme(geom = element_geom(
+#'     ink = "red", accent = "black",
+#'     pointsize = 1, linewidth = 2
+#'   ))
 #' @name element
 #' @aliases NULL
 NULL
@@ -81,10 +91,10 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
 
 #' @export
 #' @rdname element
-#' @param linetype Line type. An integer (0:8), a name (blank, solid,
-#'    dashed, dotted, dotdash, longdash, twodash), or a string with
-#'    an even number (up to eight) of hexadecimal digits which give the
-#'    lengths in consecutive positions in the string.
+#' @param linetype,bordertype Line type for lines and borders respectively. An
+#'   integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
+#'   twodash), or a string with an even number (up to eight) of hexadecimal
+#'   digits which give the lengths in consecutive positions in the string.
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
@@ -148,6 +158,54 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @param ink Foreground colour.
+#' @param paper Background colour.
+#' @param accent Accent colour.
+#' @param pointsize Size for points in mm.
+#' @param pointshape Shape for points (1-25).
+#' @export
+#' @rdname element
+element_geom <- function(
+    # colours
+  ink = NULL, paper = NULL, accent = NULL,
+  # linewidth
+  linewidth = NULL, borderwidth = NULL,
+  # linetype
+  linetype = NULL, bordertype = NULL,
+  # text
+  family = NULL, fontsize = NULL,
+  # points
+  pointsize = NULL, pointshape = NULL) {
+
+  if (!is.null(fontsize)) {
+    fontsize <- fontsize / .pt
+  }
+
+  structure(
+    list(
+      ink = ink,
+      paper = paper,
+      accent = accent,
+      linewidth = linewidth, borderwidth = borderwidth,
+      linetype = linetype, bordertype = bordertype,
+      family = family, fontsize = fontsize,
+      pointsize = pointsize, pointshape = pointshape
+    ),
+    class = c("element_geom", "element")
+  )
+}
+
+.default_geom_element <- element_geom(
+  ink = "black", paper = "white", accent = "#3366FF",
+  linewidth = 0.5, borderwidth = 0.5,
+  linetype = 1L, bordertype = 1L,
+  family = "", fontsize = 11,
+  pointsize = 1.5, pointshape = 19
+)
+
+#' @export
+#' @rdname is_tests
+is.theme_element <- function(x) inherits(x, "element")
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
@@ -429,9 +487,10 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
+  geom                = el_def("element_geom"),
   title               = el_def("element_text", "text"),
   spacing             = el_def("unit"),
-  margins             = el_def("margin"),
+  margins             = el_def(c("margin", "unit")),
 
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
@@ -517,7 +576,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   ),
 
   legend.background   = el_def("element_rect", "rect"),
-  legend.margin       = el_def(c("margin", "rel"), "margins"),
+  legend.margin       = el_def(c("margin", "unit", "rel"), "margins"),
   legend.spacing      = el_def(c("unit", "rel"), "spacing"),
   legend.spacing.x     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.spacing.y     = el_def(c("unit", "rel"), "legend.spacing"),
@@ -566,7 +625,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
-  legend.box.margin   = el_def(c("margin", "rel"), "margins"),
+  legend.box.margin   = el_def(c("margin", "unit", "rel"), "margins"),
   legend.box.background = el_def("element_rect", "rect"),
   legend.box.spacing  = el_def(c("unit", "rel"), "spacing"),
 
@@ -580,6 +639,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
   panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
   panel.ontop         = el_def("logical"),
+  panel.widths        = el_def("unit"),
+  panel.heights       = el_def("unit"),
 
   strip.background    = el_def("element_rect", "rect"),
   strip.background.x  = el_def("element_rect", "strip.background"),
@@ -600,13 +661,28 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
   plot.title.position = el_def("character"),
-  plot.subtitle       = el_def("element_text", "title"),
-  plot.caption        = el_def("element_text", "title"),
+  plot.subtitle       = el_def("element_text", "text"),
+  plot.caption        = el_def("element_text", "text"),
   plot.caption.position = el_def("character"),
-  plot.tag            = el_def("element_text", "title"),
+  plot.tag            = el_def("element_text", "text"),
   plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
   plot.tag.location   = el_def("character"),
-  plot.margin         = el_def(c("margin", "rel"), "margins"),
+  plot.margin         = el_def(c("margin", "unit", "rel"), "margins"),
+
+  palette.colour.discrete   = el_def(c("character", "function")),
+  palette.colour.continuous = el_def(c("character", "function")),
+  palette.fill.discrete   = el_def(c("character", "function"), "palette.colour.discrete"),
+  palette.fill.continuous = el_def(c("character", "function"), "palette.colour.continuous"),
+  palette.alpha.discrete   = el_def(c("character", "numeric", "integer", "function")),
+  palette.alpha.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.continuous = el_def(c("character", "numeric", "integer", "function")),
 
   aspect.ratio        = el_def(c("numeric", "integer"))
 )

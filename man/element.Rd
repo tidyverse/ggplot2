@@ -5,8 +5,11 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
+\alias{element_geom}
 \alias{rel}
 \alias{margin}
+\alias{margin_part}
+\alias{margin_auto}
 \title{Theme elements}
 \usage{
 element_blank()
@@ -48,21 +51,39 @@ element_text(
   inherit.blank = FALSE
 )
 
+element_geom(
+  ink = NULL,
+  paper = NULL,
+  accent = NULL,
+  linewidth = NULL,
+  borderwidth = NULL,
+  linetype = NULL,
+  bordertype = NULL,
+  family = NULL,
+  fontsize = NULL,
+  pointsize = NULL,
+  pointshape = NULL
+)
+
 rel(x)
 
 margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+
+margin_part(t = NA, r = NA, b = NA, l = NA, unit = "pt")
+
+margin_auto(t = 0, r = t, b = t, l = r, unit = "pt")
 }
 \arguments{
 \item{fill}{Fill colour.}
 
 \item{colour, color}{Line/border colour. Color is an alias for colour.}
 
-\item{linewidth}{Line/border size in mm.}
+\item{linewidth, borderwidth}{Line/border size in mm.}
 
-\item{linetype}{Line type. An integer (0:8), a name (blank, solid,
-dashed, dotted, dotdash, longdash, twodash), or a string with
-an even number (up to eight) of hexadecimal digits which give the
-lengths in consecutive positions in the string.}
+\item{linetype, bordertype}{Line type for lines and borders respectively. An
+integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
+twodash), or a string with an even number (up to eight) of hexadecimal
+digits which give the lengths in consecutive positions in the string.}
 
 \item{inherit.blank}{Should this element inherit the existence of an
 \code{element_blank} among its parents? If \code{TRUE} the existence of
@@ -70,7 +91,7 @@ a blank element among its parents will cause this element to be blank as
 well. If \code{FALSE} any blank parent element will be ignored when
 calculating final element state.}
 
-\item{size}{text size in pts.}
+\item{size, fontsize}{text size in pts.}
 
 \item{lineend}{Line end Line end style (round, butt, square)}
 
@@ -98,6 +119,16 @@ side of the text facing towards the center of the plot.}
 rectangle behind the complete text area, and a point where each label
 is anchored.}
 
+\item{ink}{Foreground colour.}
+
+\item{paper}{Background colour.}
+
+\item{accent}{Accent colour.}
+
+\item{pointsize}{Size for points in mm.}
+
+\item{pointshape}{Shape for points (1-25).}
+
 \item{x}{A single number specifying size relative to parent element.}
 
 \item{t, r, b, l}{Dimensions of each margin. (To remember order, think trouble).}
@@ -116,10 +147,12 @@ specify the display of how non-data components of the plot are drawn.
 \item \code{element_rect()}: borders and backgrounds.
 \item \code{element_line()}: lines.
 \item \code{element_text()}: text.
+\item \code{element_geom()}: defaults for drawing layers.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,
-\code{margin()} is used to specify the margins of elements.
+\code{margin()}, \code{margin_part()} and \code{margin_auto()} are all used to specify the
+margins of elements.
 }
 \examples{
 plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
@@ -139,11 +172,19 @@ plot + theme(
 
 plot + theme(
   panel.background = element_rect(fill = "white"),
-  plot.margin = margin(2, 2, 2, 2, "cm"),
+  plot.margin = margin_auto(2, unit = "cm"),
   plot.background = element_rect(
     fill = "grey90",
     colour = "black",
     linewidth = 1
   )
 )
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  theme(geom = element_geom(
+    ink = "red", accent = "black",
+    pointsize = 1, linewidth = 2
+  ))
 }

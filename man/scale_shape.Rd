@@ -8,7 +8,7 @@
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
-scale_shape(name = waiver(), ..., solid = TRUE)
+scale_shape(name = waiver(), ..., solid = NULL)
 
 scale_shape_binned(name = waiver(), ..., solid = TRUE)
 }
@@ -21,9 +21,6 @@ omitted.}
 \item{...}{
   Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
   \describe{
-    \item{\code{palette}}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks

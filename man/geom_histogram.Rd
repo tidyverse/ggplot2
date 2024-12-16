@@ -46,6 +46,7 @@ stat_bin(
   closed = c("right", "left"),
   pad = FALSE,
   na.rm = FALSE,
+  keep.zeroes = "all",
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
@@ -120,7 +121,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -128,10 +131,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
-or as a function that calculates width from unscaled x. Here, "unscaled x"
-refers to the original x values in the data, before application of any
-scale transformation. When specifying a function along with a grouping
-structure, the function will be called once per group.
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
 The default is to use the number of bins in \code{bins},
 covering the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
@@ -164,13 +166,18 @@ outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
 the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}.}
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{keep.zeroes}{Treatment of zero count bins. If \code{"all"} (default), such
+bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
+If \code{"inner"} only zero count bins at the flanks are filtered out, but not
+in the middle.}
 }
 \description{
 Visualise the distribution of a single continuous variable by dividing
@@ -190,6 +197,12 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 \code{center} or \code{boundary} arguments. \code{binwidth} overrides \code{bins} so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
+
+By default, the \emph{height} of the bars represent the counts within each bin.
+However, there are situations where this behavior might produce misleading
+plots (e.g., when non-equal-width bins are used), in which case it might be
+preferable to have the \emph{area} of the bars represent the counts (by setting
+\code{aes(y = after_stat(count / width))}). See example below.
 
 In addition to \code{geom_histogram()}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
@@ -253,6 +266,18 @@ ggplot(diamonds, aes(price, colour = cut)) +
 # put density on the y axis instead of the default count
 ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
+
+
+# When using the non-equal-width bins, we should set the area of the bars to
+# represent the counts (not the height).
+# Here we're using 10 equi-probable bins:
+price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
+
+ggplot(diamonds, aes(price)) +
+  geom_histogram(breaks = price_bins, color = "black") # misleading (height = count)
+
+ggplot(diamonds, aes(price, after_stat(count / width))) +
+  geom_histogram(breaks = price_bins, color = "black") # area = count
 
 if (require("ggplot2movies")) {
 # Often we don't want the height of the bar to represent the

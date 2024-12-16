@@ -49,9 +49,11 @@ guide_coloursteps <- function(
   title = waiver(),
   theme = NULL,
   alpha = NA,
+  angle = NULL,
   even.steps  = TRUE,
   show.limits = NULL,
   direction = NULL,
+  position = NULL,
   reverse = FALSE,
   order = 0,
   available_aes = c("colour", "color", "fill"),
@@ -65,11 +67,14 @@ guide_coloursteps <- function(
     title = title,
     theme = theme,
     alpha = alpha,
+    angle = angle,
     even.steps  = even.steps,
     show.limits = show.limits,
+    position = position,
     direction = direction,
     reverse = reverse,
     order = order,
+    available_aes = available_aes,
     super = GuideColoursteps
   )
 }
@@ -107,11 +112,13 @@ GuideColoursteps <- ggproto(
 
     key <- data_frame0(!!aesthetic := scale$map(breaks))
     if (even.steps) {
-      key$.value <- seq_along(breaks)
+      key$.value <- NA_integer_
+      key$.value[!is.na(breaks)] <- seq_along(breaks[!is.na(breaks)])
     } else {
       key$.value <- breaks
     }
     key$.label <- scale$get_labels(breaks)
+    key <- vec_slice(key, !is.na(breaks))
 
     if (breaks[1] %in% limits) {
       key$.value  <- key$.value - 1L

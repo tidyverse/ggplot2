@@ -7,22 +7,30 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor the
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
-#' @param r.axis.inside If `TRUE`, places the radius axis inside the
-#'   panel. If `FALSE`, places the radius axis next to the panel. The default,
-#'   `NULL`, places the radius axis outside if the `start` and `end` arguments
-#'   form a full circle.
+#' @param r.axis.inside One of the following:
+#'   * `NULL` (default) places the axis next to the panel if `start` and
+#'     `end` arguments form a full circle and inside the panel otherwise.
+#'   * `TRUE` to place the radius axis inside the panel.
+#'   * `FALSE` to place the radius axis next to the panel.
+#'   * A numeric value, setting a theta axis value at which
+#'     the axis should be placed inside the panel. Can be given as a length 2
+#'     vector to control primary and secondary axis placement separately.
 #' @param rotate.angle If `TRUE`, transforms the `angle` aesthetic in data
 #'   in accordance with the computed `theta` position. If `FALSE` (default),
 #'   no such transformation is performed. Can be useful to rotate text geoms in
 #'   alignment with the coordinates.
-#' @param inner.radius A `numeric` between 0 and 1 setting the size of a inner.radius hole.
+#' @param inner.radius A `numeric` between 0 and 1 setting the size of a
+#'   inner radius hole.
+#' @param reverse A string giving which directions to reverse. `"none"`
+#'   (default) keep directions as is. `"theta"` reverses the angle and `"r"`
+#'   reverses the radius. `"thetar"` reverses both the angle and the radius.
 #' @param r_axis_inside,rotate_angle `r lifecycle::badge("deprecated")`
 #'
 #' @note
-#' In `coord_radial()`, position guides are can be defined by using
+#' In `coord_radial()`, position guides can be defined by using
 #' `guides(r = ..., theta = ..., r.sec = ..., theta.sec = ...)`. Note that
 #' these guides require `r` and `theta` as available aesthetics. The classic
-#' `guide_axis()` can be used for the `r` positions and `guide_axis_theta()` can
+#' [guide_axis()] can be used for the `r` positions and [guide_axis_theta()] can
 #' be used for the `theta` positions. Using the `theta.sec` position is only
 #' sensible when `inner.radius > 0`.
 #'
@@ -35,11 +43,12 @@
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
                          expand = TRUE,
-                         direction = 1,
+                         direction = deprecated(),
                          clip = "off",
                          r.axis.inside = NULL,
                          rotate.angle = FALSE,
                          inner.radius = 0,
+                         reverse = "none",
                          r_axis_inside = deprecated(),
                          rotate_angle = deprecated()) {
 
@@ -55,32 +64,46 @@ coord_radial <- function(theta = "x",
     )
     rotate.angle <- rotate_angle
   }
+  if (lifecycle::is_present(direction)) {
+    deprecate_warn0(
+      "3.5.2", "coord_radial(direction)", "coord_radial(reverse)"
+    )
+    reverse <- switch(reverse, "r" = "thetar", "theta")
+  }
 
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
-  check_bool(r.axis.inside, allow_null = TRUE)
-  check_bool(expand)
+  if (!is.numeric(r.axis.inside)) {
+    check_bool(r.axis.inside, allow_null = TRUE)
+  }
+  reverse <- arg_match0(reverse, c("theta", "thetar", "r", "none"))
+
   check_bool(rotate.angle)
   check_number_decimal(start, allow_infinite = FALSE)
   check_number_decimal(end, allow_infinite = FALSE, allow_null = TRUE)
   check_number_decimal(inner.radius, min = 0, max = 1, allow_infinite = FALSE)
 
-  end <- end %||% (start + 2 * pi)
-  if (start > end) {
-    n_rotate <- ((start - end) %/% (2 * pi)) + 1
-    start <- start - n_rotate * 2 * pi
+  arc <- c(start, end %||% (start + 2 * pi))
+  if (arc[1] > arc[2]) {
+    n_rotate <- ((arc[1] - arc[2]) %/% (2 * pi)) + 1
+    arc[1] <- arc[1] - n_rotate * 2 * pi
   }
-  r.axis.inside <- r.axis.inside %||% !(abs(end - start) >= 1.999 * pi)
+  arc <- switch(reverse, thetar = , theta = rev(arc), arc)
+
+  r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
+
+  inner.radius <- c(inner.radius, 1) * 0.4
+  inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
 
   ggproto(NULL, CoordRadial,
     theta = theta,
     r = r,
-    arc = c(start, end),
+    arc = arc,
     expand = expand,
-    direction = sign(direction),
+    reverse = reverse,
     r_axis_inside = r.axis.inside,
     rotate_angle = rotate.angle,
-    inner_radius = c(inner.radius, 1) * 0.4,
+    inner_radius = inner.radius,
     clip = clip
   )
 }
@@ -101,16 +124,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range, to = self$inner_radius / 0.4)
-      theta <- theta_rescale_no_clip(
-        x, details$theta.range,
-        arc, self$direction
-      )
+      theta <- theta_rescale_no_clip(x, details$theta.range, arc)
     } else {
       r <- rescale(x, from = details$r.range, to = self$inner_radius / 0.4)
-      theta <- theta_rescale_no_clip(
-        y, details$theta.range,
-        arc, self$direction
-      )
+      theta <- theta_rescale_no_clip(y, details$theta.range, arc)
     }
 
     dist_polar(r, theta)
@@ -130,12 +147,29 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-    c(
-      view_scales_polar(scale_x, self$theta, expand = self$expand),
-      view_scales_polar(scale_y, self$theta, expand = self$expand),
+
+    params <- c(
+      view_scales_polar(scale_x, self$theta, expand = params$expand[c(4, 2)]),
+      view_scales_polar(scale_y, self$theta, expand = params$expand[c(3, 1)]),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
            arc = self$arc, inner_radius = self$inner_radius)
     )
+
+    axis_rotation <- self$r_axis_inside
+    if (is.numeric(axis_rotation)) {
+      theta_scale <- switch(self$theta, x = scale_x, y = scale_y)
+      axis_rotation <- theta_scale$transform(axis_rotation)
+      axis_rotation <- oob_squish(axis_rotation, params$theta.range)
+      axis_rotation <- theta_rescale(
+        axis_rotation, params$theta.range,
+        params$arc, 1
+      )
+      params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
+    } else {
+      params$axis_rotation <- params$arc
+    }
+
+    params
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
@@ -173,18 +207,17 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       opposite_r <- isTRUE(scales$r$position %in% c("bottom", "left"))
     }
 
-    if (self$r_axis_inside) {
+    if (!isFALSE(self$r_axis_inside)) {
 
-      arc <- rad2deg(self$arc)
       r_position <- c("left", "right")
       # If both opposite direction and opposite position, don't flip
-      if (xor(self$direction == -1, opposite_r)) {
-        arc <- rev(arc)
+      if (xor(self$reverse %in% c("thetar", "theta"), opposite_r)) {
         r_position <- rev(r_position)
       }
-
-      guide_params[["r"]]$position     <- r_position[1]
-      guide_params[["r.sec"]]$position <- r_position[2]
+      arc <- rad2deg(panel_params$axis_rotation)
+      if (opposite_r) {
+        arc <- rev(arc)
+      }
       # Set guide text angles
       guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
       guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
@@ -193,9 +226,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       if (opposite_r) {
         r_position <- rev(r_position)
       }
-      guide_params[["r"]]$position     <- r_position[1]
-      guide_params[["r.sec"]]$position <- r_position[2]
     }
+    guide_params[["r"]]$position     <- r_position[1]
+    guide_params[["r.sec"]]$position <- r_position[2]
 
     guide_params[drop_guides] <- list(NULL)
     guides$update_params(guide_params)
@@ -223,7 +256,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       gdefs[[t]] <- guides[[t]]$get_layer_key(gdefs[[t]], layers)
     }
 
-    if (self$r_axis_inside) {
+    if (!isFALSE(self$r_axis_inside)) {
       # For radial axis, we need to pretend that rotation starts at 0 and
       # the bounding box is for circles, otherwise tick positions will be
       # spaced too closely.
@@ -253,15 +286,16 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     data <- rename_data(self, data)
     bbox <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
     arc  <- panel_params$arc  %||% c(0, 2 * pi)
 
     data$r  <- r_rescale(data$r, panel_params$r.range, panel_params$inner_radius)
-    data$theta <- theta_rescale(
-      data$theta, panel_params$theta.range,
-      arc, self$direction
-    )
+    data$theta <- theta_rescale(data$theta, panel_params$theta.range, arc)
     data$x <- rescale(data$r * sin(data$theta) + 0.5, from = bbox$x)
     data$y <- rescale(data$r * cos(data$theta) + 0.5, from = bbox$y)
 
@@ -273,93 +307,33 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   render_axis_v = function(self, panel_params, theme) {
-    if (self$r_axis_inside) {
+    if (!isFALSE(self$r_axis_inside)) {
       return(list(left = zeroGrob(), right = zeroGrob()))
     }
     CoordCartesian$render_axis_v(panel_params, theme)
   },
 
   render_axis_h = function(self, panel_params, theme) {
-    if (self$r_axis_inside) {
+    if (!isFALSE(self$r_axis_inside)) {
       return(list(top = zeroGrob(), bottom = zeroGrob()))
     }
     CoordCartesian$render_axis_h(panel_params, theme)
   },
 
   render_bg = function(self, panel_params, theme) {
-
-    bbox  <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
-    arc   <- panel_params$arc  %||% c(0, 2 * pi)
-    dir   <- self$direction
-    inner_radius <- panel_params$inner_radius
-
-    theta_lim <- panel_params$theta.range
-    theta_maj <- panel_params$theta.major
-    theta_min <- setdiff(panel_params$theta.minor, theta_maj)
-
-    if (length(theta_maj) > 0) {
-      theta_maj <- theta_rescale(theta_maj, theta_lim, arc, dir)
-    }
-    if (length(theta_min) > 0) {
-      theta_min <- theta_rescale(theta_min, theta_lim, arc, dir)
-    }
-    theta_fine <- seq(self$arc[1], self$arc[2], length.out = 100)
-
-    r_fine <- r_rescale(panel_params$r.major, panel_params$r.range,
-                         panel_params$inner_radius)
-
-    # This gets the proper theme element for theta and r grid lines:
-    #   panel.grid.major.x or .y
-    grid_elems <- paste(
-      c("panel.grid.major.", "panel.grid.minor.", "panel.grid.major."),
-      c(self$theta, self$theta, self$r), sep = ""
+    panel_params <- switch(
+      self$theta,
+      x = rename(panel_params, c(theta = "x", r = "y")),
+      y = rename(panel_params, c(theta = "y", r = "x"))
     )
-    grid_elems <- lapply(grid_elems, calc_element, theme = theme)
-    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
-    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
-
-    bg_element <- calc_element("panel.background", theme)
-    if (!inherits(bg_element, "element_blank")) {
-      background <- data_frame0(
-        x = c(Inf,  Inf, -Inf, -Inf),
-        y = c(Inf, -Inf, -Inf,  Inf)
-      )
-      background <- coord_munch(self, background, panel_params, is_closed = TRUE)
-      bg_gp <- gg_par(
-        lwd = bg_element$linewidth,
-        col = bg_element$colour, fill = bg_element$fill,
-        lty = bg_element$linetype
-      )
-      background <- polygonGrob(
-        x = background$x, y = background$y,
-        gp = bg_gp
-      )
-    } else {
-      background <- zeroGrob()
-    }
-
-    ggname("grill", grobTree(
-      background,
-      theta_grid(theta_maj, grid_elems[[1]], inner_radius, bbox),
-      theta_grid(theta_min, grid_elems[[2]], inner_radius, bbox),
-      element_render(
-        theme, majorr, name = "radius",
-        x = rescale(rep(r_fine, each = length(theta_fine)) *
-          rep(sin(theta_fine), length(r_fine)) + 0.5, from = bbox$x),
-        y = rescale(rep(r_fine, each = length(theta_fine)) *
-          rep(cos(theta_fine), length(r_fine)) + 0.5, from = bbox$y),
-        id.lengths = rep(length(theta_fine), length(r_fine)),
-        default.units = "native"
-      )
-    ))
+    guide_grid(theme, panel_params, self, square = FALSE)
   },
 
   render_fg = function(self, panel_params, theme) {
 
     border <- element_render(theme, "panel.border", fill = NA)
 
-    if (!self$r_axis_inside) {
+    if (isFALSE(self$r_axis_inside)) {
       out <- grobTree(
         panel_guides_grob(panel_params$guides, "theta", theme),
         panel_guides_grob(panel_params$guides, "theta.sec", theme),
@@ -370,14 +344,15 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
     bbox <- panel_params$bbox
     dir  <- self$direction
-    arc  <- if (dir == 1) self$arc else rev(self$arc)
-    arc  <- dir * rad2deg(-arc)
+    rot  <- panel_params$axis_rotation
+    rot  <- switch(self$reverse, thetar = , theta = rev(rot), rot)
+    rot  <- rad2deg(-rot)
 
     left <- panel_guides_grob(panel_params$guides, position = "left", theme)
-    left <- rotate_r_axis(left, arc[1], bbox, "left")
+    left <- rotate_r_axis(left, rot[1], bbox, "left")
 
     right <- panel_guides_grob(panel_params$guides, position = "right", theme)
-    right <- rotate_r_axis(right, arc[2], bbox, "right")
+    right <- rotate_r_axis(right, rot[2], bbox, "right")
 
     grobTree(
       panel_guides_grob(panel_params$guides, "theta", theme),
@@ -385,6 +360,27 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       left, right,
       border
     )
+  },
+
+
+  draw_panel = function(self, panel, params, theme) {
+    clip_support <- check_device("clippingPaths", "test", maybe = TRUE)
+    if (self$clip == "on" && !isFALSE(clip_support)) {
+      clip_path <- data_frame0(
+        x = c(Inf, Inf, -Inf, -Inf),
+        y = c(Inf, -Inf, -Inf, Inf)
+      )
+      clip_path <- coord_munch(self, clip_path, params, is_closed = TRUE)
+      clip_path <- polygonGrob(clip_path$x, clip_path$y)
+      # Note that clipping path is applied to panel without coord
+      # foreground/background (added in parent method).
+      # These may contain decorations that needn't be clipped
+      panel <- list(gTree(
+        children = inject(gList(!!!panel)),
+        vp = viewport(clip = clip_path)
+      ))
+    }
+    ggproto_parent(Coord, self)$draw_panel(panel, params, theme)
   },
 
   labels = function(self, labels, panel_params) {
@@ -426,27 +422,27 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   setup_params = function(self, data) {
-    if (!self$r_axis_inside) {
-      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-      if (place[1]) {
-        return(list(r_axis = "left", fake_arc = c(0, 2) * pi))
-      }
-      if (place[3]) {
-        return(list(r_axis = "left", fake_arc = c(1, 3)* pi))
-      }
-      if (place[2]) {
-        return(list(r_axis = "bottom", fake_arc = c(0.5, 2.5) * pi))
-      }
-      if (place[4]) {
-        return(list(r_axis = "bottom", fake_arc = c(1.5, 3.5) * pi))
-      }
+    params <- ggproto_parent(Coord, self)$setup_params(data)
+    if (!isFALSE(self$r_axis_inside)) {
+      return(params)
+    }
+
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+    if (!any(place)) {
       cli::cli_warn(c(
         "No appropriate placement found for {.arg r_axis_inside}.",
         i = "Axis will be placed at panel edge."
       ))
-      self$r_axis_inside <- TRUE
+      params$r_axis_inside <- TRUE
+      return(params)
     }
-    return(NULL)
+
+    params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+    params$fake_arc <- switch(
+      which(place[c(1, 3, 2, 4)])[1],
+      c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+    ) * pi
+    params
   }
 )
 
@@ -494,6 +490,7 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
   if (abs(diff(arc)) >= 2 * pi) {
     return(list(x = c(0, 1), y = c(0, 1)))
   }
+  arc <- sort(arc)
 
   # X and Y position of the sector arc ends
   xmax <- 0.5 * sin(arc) + 0.5

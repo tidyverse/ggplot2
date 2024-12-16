@@ -66,6 +66,10 @@ new_guide <- function(..., available_aes = "any", super) {
   )
 }
 
+#' @export
+#' @rdname is_tests
+is.guide <- function(x) inherits(x, "Guide")
+
 #' @section Guides:
 #'
 #' The `guide_*()` functions, such as `guide_legend()` return an object that
@@ -221,13 +225,8 @@ Guide <- ggproto(
 
     mapped <- scale$map(breaks)
     labels <- scale$get_labels(breaks)
-    # {vctrs} doesn't play nice with expressions, convert to list.
-    # see also https://github.com/r-lib/vctrs/issues/559
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
 
-    key <- data_frame(mapped, .name_repair = ~ aesthetic)
+    key <- data_frame(!!aesthetic := mapped)
     key$.value <- breaks
     key$.label <- labels
 
@@ -265,11 +264,11 @@ Guide <- ggproto(
 
   # Function for extracting information from the layers.
   # Mostly applies to `guide_legend()` and `guide_binned()`
-  process_layers = function(self, params, layers, data = NULL) {
-    self$get_layer_key(params, layers, data)
+  process_layers = function(self, params, layers, data = NULL, theme = NULL) {
+    self$get_layer_key(params, layers, data, theme)
   },
 
-  get_layer_key = function(params, layers, data = NULL) {
+  get_layer_key = function(params, layers, data = NULL, theme = NULL) {
     return(params)
   },
 
@@ -377,7 +376,7 @@ Guide <- ggproto(
   # Renders tickmarks
   build_ticks = function(key, elements, params, position = params$position,
                          length = elements$ticks_length) {
-    if (!inherits(elements, "element")) {
+    if (!is.theme_element(elements)) {
       elements <- elements$ticks
     }
     if (!inherits(elements, "element_line")) {
@@ -487,7 +486,7 @@ Guide <- ggproto(
 
 # Helper function that may facilitate flipping theme elements by
 # swapping x/y related arguments to `element_grob()`
-flip_element_grob = function(..., flip = FALSE) {
+flip_element_grob <- function(..., flip = FALSE) {
   if (!flip) {
     ans <- element_grob(...)
     return(ans)
@@ -499,7 +498,7 @@ flip_element_grob = function(..., flip = FALSE) {
 }
 
 # The flippable arguments for `flip_element_grob()`.
-flip_names = c(
+flip_names <- c(
   "x"        = "y",
   "y"        = "x",
   "width"    = "height",
@@ -519,17 +518,19 @@ opposite_position <- function(position) {
     top    = "bottom",
     bottom = "top",
     left   = "right",
-    right  = "left"
+    right  = "left",
+    position
   )
 }
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {
-  if (!is.list(labels)) {
+  if (!obj_is_list(labels)) {
     return(labels)
   }
+  labels[lengths(labels) == 0L] <- ""
   if (any(vapply(labels, is.language, logical(1)))) {
-    do.call(expression, labels)
+    inject(expression(!!!labels))
   } else {
     unlist(labels)
   }
