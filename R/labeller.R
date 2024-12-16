@@ -577,8 +577,8 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   })
 }
 
-# Check for old school labeller
-update_labeller <- function(labeller) {
+# Repair old school labeller
+fix_labeller <- function(labeller) {
   labeller <- match.fun(labeller)
   is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
 
