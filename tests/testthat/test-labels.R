@@ -116,13 +116,13 @@ test_that("plot.tag.position rejects invalid input", {
   expect_snapshot_error(
     ggplotGrob(p + theme(plot.tag.position = "foobar"))
   )
-  expect_error(
+  expect_snapshot(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1))),
-    "must have length 2"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")),
-    "cannot be used with `\"margin\""
+    error = TRUE
   )
 
 })
@@ -244,6 +244,31 @@ test_that("moving guide positions lets titles follow", {
   labs <- get_labs(p)
   expect[c("x.sec", "y.sec")] <- list("quux", "corge")
   expect_identical(labs[names(expect)], expect)
+})
+
+test_that("label dictionaries work", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, shape = factor(cyl), size = drat)) +
+    geom_point() +
+    labs(dictionary = c(
+      disp = "Displacement",
+      mpg  = "Miles per gallon",
+      `factor(cyl)` = "Number of cylinders",
+      drat = "Rear axle ratio"
+    ))
+  p <- ggplot_build(p)
+
+  x <- p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels)
+  expect_equal(x$primary, "Displacement")
+
+  y <- p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels)
+  expect_equal(y$primary, "Miles per gallon")
+
+  shape <- p$plot$guides$get_params("shape")$title
+  expect_equal(shape, "Number of cylinders")
+
+  size <- p$plot$guides$get_params("size")$title
+  expect_equal(size, "Rear axle ratio")
 })
 
 # Visual tests ------------------------------------------------------------

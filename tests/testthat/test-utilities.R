@@ -106,9 +106,7 @@ test_that("remove_missing checks input", {
 
 test_that("characters survive remove_missing", {
   data <- data_frame0(x = c("A", NA))
-  expect_warning(
-    new <- remove_missing(data, finite = TRUE)
-  )
+  expect_snapshot_warning(new <- remove_missing(data, finite = TRUE))
   expect_equal(new, data_frame0(x = "A"))
 })
 
@@ -140,20 +138,17 @@ test_that("vec_rbind0 can combined ordered factors", {
   # However, it was technically challenging to reduce the numbers of warnings
   # See #5139 for more details
 
-  expect_warning(
-    expect_warning(
-      expect_warning(
+  lifecycle::expect_deprecated(
+    lifecycle::expect_deprecated(
+      lifecycle::expect_deprecated(
         {
           test <- vec_rbind0(
             data_frame0(a = factor(c("A", "B"), ordered = TRUE)),
             data_frame0(a = factor(c("B", "C"), ordered = TRUE))
           )
-        },
-        "<ordered> and <ordered>", class = "lifecycle_warning_deprecated"
-      ),
-      "<ordered> and <factor>", class = "lifecycle_warning_deprecated"
-    ),
-    "<ordered> and <factor>", class = "lifecycle_warning_deprecated"
+        }
+      )
+    )
   )
 
   # Should be <factor> not <ordered/factor>, hence the 'exact'

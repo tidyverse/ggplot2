@@ -53,7 +53,7 @@ The \code{first} guide will be placed closest to the panel and any subsequent
 guides provided through \code{...} will follow in the given order.
 }
 \examples{
-#' # A standard plot
+# A standard plot
 p <- ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   theme(axis.line = element_line())

@@ -23,6 +23,35 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @export
+#' @rdname geom_linerange
+#' @note
+#' `geom_errorbarh()` is `r lifecycle::badge("deprecated")`. Use
+#' `geom_errorbar(orientation = "y")` instead.
+geom_errorbarh <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           orientation = "y",
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
+  deprecate_soft0(
+    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+    id = "no-more-errorbarh"
+  )
+  geom_errorbar(
+    mapping = mapping,
+    data = data,
+    stat = stat,
+    position = position,
+    ...,
+    orientation = orientation,
+    na.rm = na.rm,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes
+  )
+}
+
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -79,4 +108,19 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
   },
 
   rename_size = TRUE
+)
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomErrorbarh <- ggproto(
+  "GeomErrorbarh", GeomErrorbar,
+  setup_params = function(data, params) {
+    deprecate_soft0(
+      "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+      id = "no-more-errorbarh"
+    )
+    GeomLinerange$setup_params(data, params)
+  }
 )

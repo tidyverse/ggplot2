@@ -7,6 +7,7 @@ check_object <- function(x,
                          check_fun,
                          what,
                          ...,
+                         allow_na = FALSE,
                          allow_null = FALSE,
                          arg = caller_arg(x),
                          call = caller_env()) {
@@ -16,6 +17,9 @@ check_object <- function(x,
       return(invisible(NULL))
     }
     if (allow_null && is_null(x)) {
+      return(invisible(NULL))
+    }
+    if (allow_na && all(is.na(x))) {
       return(invisible(NULL))
     }
   }
@@ -71,23 +75,33 @@ check_inherits <- function(x,
 
 check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
                          arg = caller_arg(x), call = caller_env()) {
+  if (missing(x)) {
+    stop_input_type(x, "a vector", arg = arg, call = call)
+  }
+
   n <- length(x)
   if (n %in% length) {
     return(invisible(NULL))
   }
+  fmt <- if (inherits(arg, "AsIs")) identity else function(x) sprintf("`%s`", x)
   if (length(length) > 0) {
-    type <- if (length(length) == 1) {
-      switch(as.character(length), "0" = "empty vector", "1" = "scalar", "vector")
-    } else {
-      "vector"
+    type <- paste0("a vector of length ", oxford_comma(length))
+    if (length(length) == 1) {
+      type <- switch(
+        sprintf("%d", length),
+        "0" = "an empty vector",
+        "1" = "a scalar of length 1",
+        type
+      )
     }
-    cli::cli_abort(
-      "{.arg {arg}} must be a {type} of length {.or {length}}, not length {n}.",
-      call = call, arg = arg
+    msg <- sprintf(
+      "%s must be %s, not length %d.",
+      fmt(arg), type, n
     )
+    cli::cli_abort(msg, call = call, arg = arg)
   }
 
-  range <- pmax(range(min, max), 0)
+  range <- pmax(range(min, max, na.rm = TRUE), 0)
   if (n >= min & n <= max) {
     return(invisible(NULL))
   }
@@ -97,18 +111,19 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
   }
 
   type <- if (range[2] == 1) "scalar" else "vector"
-  msg  <- "{.arg {arg}} must be a {type} with "
 
+  what <- paste0("a length between ", range[1], " and ", range[2])
   if (identical(range[2], Inf)) {
-    msg <- c(msg, "at least length {range[1]}")
+    what <- paste0("at least length ", range[1])
   }
   if (identical(range[1], 0)) {
-    msg <- c(msg, "at most length {range[2]}")
+    what <- paste0("at most length ", range[2])
   }
-  if (length(msg) == 1) {
-    msg <- c(msg, "a length between {.and {range}}")
-  }
-  msg <- paste0(c(msg, ", not length {n}."), collapse = "")
+
+  msg <- sprintf(
+    "`%s` must be a %s with %s, not length %d.",
+    fmt(arg), type, what, n
+  )
   cli::cli_abort(msg, call = call, arg = arg)
 }
 

@@ -15,7 +15,7 @@ scale_linewidth(
   breaks = waiver(),
   labels = waiver(),
   limits = NULL,
-  range = c(1, 6),
+  range = NULL,
   transform = "identity",
   trans = deprecated(),
   guide = "legend"
@@ -26,7 +26,7 @@ scale_linewidth_binned(
   breaks = waiver(),
   labels = waiver(),
   limits = NULL,
-  range = c(1, 6),
+  range = NULL,
   n.breaks = NULL,
   nice.breaks = TRUE,
   transform = "identity",

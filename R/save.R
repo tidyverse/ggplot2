@@ -277,7 +277,10 @@ validate_device <- function(device, filename = NULL, dpi = 300, call = caller_en
     ps =   eps,
     tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
     pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
-    svg =  function(filename, ...) svglite::svglite(file = filename, ...),
+    svg =  function(filename, ...) {
+      check_installed("svglite", reason = "to save as SVG.")
+      svglite::svglite(file = filename, ...)
+    },
     # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
     emf =  function(..., bg = NULL) grDevices::win.metafile(...),
     wmf =  function(..., bg = NULL) grDevices::win.metafile(...),
