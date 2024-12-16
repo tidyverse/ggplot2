@@ -469,9 +469,9 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
   )
 })
 
-test_that("check_facet_class() provide meaningful errors", {
-  expect_snapshot_error(check_facet_class(aes(var)))
-  expect_snapshot_error(check_facet_class(ggplot()))
+test_that("check_vars() provide meaningful errors", {
+  expect_snapshot_error(check_vars(aes(var)))
+  expect_snapshot_error(check_vars(ggplot()))
 })
 
 test_that("check_layout() throws meaningful errors", {

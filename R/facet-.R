@@ -443,7 +443,7 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 as_facets_list <- function(x) {
-  check_facet_class(x)
+  check_vars(x)
   if (is_quosures(x)) {
     x <- quos_auto_name(x)
     return(list(x))
@@ -487,7 +487,7 @@ as_facets_list <- function(x) {
   x
 }
 
-check_facet_class <- function(x) {
+check_vars <- function(x) {
   if (is.mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
