@@ -116,6 +116,7 @@ reference:
   - expansion
   - starts_with("scale_")
   - get_alt_text
+  - breaks_cached
 
 - title: "Guides: axes and legends"
   desc: >

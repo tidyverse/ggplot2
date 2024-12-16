@@ -22,6 +22,12 @@
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
 #'    and `boundary`. Can also be a function that takes group-wise values as input and returns bin boundaries.
+#' @param follow.scale Alternatively, the bin edges can be copied from the scale
+#'    breaks, either `"major"` or `"minor"`. Ignored when `"off"`. Note that if
+#.    the scale's limits are updated by other layers or expansions then its
+#.    breaks are recomputed and might end up different to the value copied for
+#.    the bin edges. This is not an issue when the scale uses a fixed breaks
+#.    vector.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
@@ -58,8 +64,8 @@ stat_bin <- function(mapping = NULL, data = NULL,
                      breaks = NULL,
                      closed = c("right", "left"),
                      pad = FALSE,
+                     follow.scale = c("off", "minor", "major"),
                      na.rm = FALSE,
-                     follow.scale = FALSE,
                      keep.zeroes = "all",
                      orientation = NA,
                      show.legend = NA,
@@ -81,8 +87,8 @@ stat_bin <- function(mapping = NULL, data = NULL,
       breaks = breaks,
       closed = closed,
       pad = pad,
-      na.rm = na.rm,
       follow.scale = follow.scale,
+      na.rm = na.rm,
       orientation = orientation,
       keep.zeroes = keep.zeroes,
       ...
@@ -138,7 +144,15 @@ StatBin <- ggproto("StatBin", Stat,
       cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
     }
 
-    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
+    if (!is.null(params$follow.scale)) {
+      params$follow.scale <- match.arg(params$follow.scale, c("off", "minor", "major"))
+      if (params$follow.scale == "off") params$follow.scale <- NULL
+    }
+    if (!is.null(params$follow.scale) && !is.null(params$breaks)) {
+      cli::cli_abort("Only one of {.arg follow.scale} and {.arg breaks} may be specified in {.fn {snake_class(self)}}.")
+    }
+
+    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins) && is.null(params$follow.scale)) {
       cli::cli_inform("{.fn {snake_class(self)}} using {.code bins = 30}. Pick better value with {.arg binwidth}.")
       params$bins <- 30
     }
@@ -152,13 +166,15 @@ StatBin <- ggproto("StatBin", Stat,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
                            breaks = NULL, flipped_aes = FALSE, keep.zeroes = "all",
-                           follow.scale = FALSE,
+                           follow.scale = NULL,
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
                            origin = NULL, right = NULL, drop = NULL) {
     x <- flipped_names(flipped_aes)$x
-    if (follow.scale) {
-      breaks <- scales[[x]]$get_breaks()
+    if (!is.null(follow.scale)) {
+      breaks <- switch(follow.scale,
+                       minor = scales[[x]]$get_breaks_minor(),
+                       major = scales[[x]]$get_breaks())
       bins <- bin_breaks(breaks, closed)
     } else if (!is.null(breaks)) {
       if (is.function(breaks)) {
