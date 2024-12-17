@@ -46,6 +46,11 @@
   (@teunbrand, #4320)
 * `geom_boxplot()` gains additional arguments to style the colour, linetype and
   linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+* `geom_violin()` gains additional arguments to style the colour, linetype and
+  linewidths of the quantiles, which replace the now-deprecated `draw_quantiles` 
+  argument (#5912).
+* (breaking) `stat_ydensity(quantiles)` now draws observation-based quantiles 
+  instead of estimates (@teunbrand, #4120).
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
   evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
