@@ -2,11 +2,11 @@
 
     Computation failed in `stat_ydensity()`.
     Caused by error in `compute_group()`:
-    ! `draw_quantiles` must be between 0 and 1.
+    ! `quantiles` must be between 0 and 1.
 
 ---
 
     Computation failed in `stat_ydensity()`.
     Caused by error in `compute_group()`:
-    ! `draw_quantiles` must be between 0 and 1.
+    ! `quantiles` must be between 0 and 1.
 

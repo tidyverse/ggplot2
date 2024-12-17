@@ -46,7 +46,7 @@ test_that("quantiles are based on actual data (#4120)", {
   q <- seq(0.1, 0.9, by = 0.1)
 
   p <- ggplot(df, aes("X", y)) +
-    stat_ydensity(draw_quantiles = q)
+    stat_ydensity(quantiles = q)
   ld <- get_layer_data(p)
 
   expect_equal(ld$y[!is.na(ld$quantile)], 1:9)

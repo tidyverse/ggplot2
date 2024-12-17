@@ -55,6 +55,9 @@
       $geom_text
       [1] "nudge_x"       "nudge_y"       "check_overlap"
       
+      $geom_violin
+      [1] "draw_quantiles"
+      
       $ggplot_add
       [1] "object_name"
       
@@ -179,9 +182,6 @@
       
       $stat_density_2d_filled
       [1] "contour_var"
-      
-      $stat_ydensity
-      [1] "draw_quantiles"
       
       $theme_bw
       [1] "base_size"      "base_family"    "header_family"  "base_line_size"
