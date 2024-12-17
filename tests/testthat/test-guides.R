@@ -577,12 +577,16 @@ test_that("old S3 guides can be implemented", {
 
   withr::local_environment(my_env)
 
+  my_guides <- guides(x = guide_circle())
+  expect_length(my_guides$guides, 1)
+  expect_s3_class(my_guides$guides[[1]], "guide")
+
   expect_snapshot_warning(
     expect_doppelganger(
       "old S3 guide drawing a circle",
       ggplot(mtcars, aes(disp, mpg)) +
         geom_point() +
-        guides(x = "circle")
+        my_guides
     )
   )
 })
