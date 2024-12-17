@@ -387,12 +387,20 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 element_grob.element_polygon <- function(element, x = c(0, 0.5, 1, 0.5),
                                          y = c(0.5, 1, 0.5, 0), fill = NULL,
                                          colour = NULL, linewidth = NULL,
-                                         linetype = NULL, ...) {
+                                         linetype = NULL, ...,
+                                         id = NULL, id.lengths = NULL,
+                                         pathId = NULL, pathId.lengths = NULL) {
 
   gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
   element_gp <- gg_par(lwd = element$linewidth, col = element$colour,
                        fill = element$fill, lty = element$linetype)
-  pathGrob(x = x, y = y, gp = modify_list(element_gp, gp), ...)
+  pathGrob(
+    x = x, y = y, gp = modify_list(element_gp, gp), ...,
+    # We swap the id logic so that `id` is always the (super)group id
+    # (consistent with `polygonGrob()`) and `pathId` always the subgroup id.
+    pathId = id, pathId.lengths = id.lengths,
+    id = pathId, id.lengths = pathId.lengths
+  )
 }
 
 #' @export
