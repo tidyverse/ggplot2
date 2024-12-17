@@ -1,9 +1,5 @@
 # ggplot2 (development version)
 
-* (breaking) `geom_violin(draw_quantiles)` now has actual quantiles based on
-  the data, rather than inferred quantiles based on the computed density. The
-  `draw_quantiles` parameter now belongs to `stat_ydensity()` instead of 
-  `geom_violin()`. (@teunbrand, #4120)
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
@@ -49,8 +45,10 @@
 * `geom_violin()` gains additional arguments to style the colour, linetype and
   linewidths of the quantiles, which replace the now-deprecated `draw_quantiles` 
   argument (#5912).
-* (breaking) `stat_ydensity(quantiles)` now draws observation-based quantiles 
-  instead of estimates (@teunbrand, #4120).
+* (breaking) `geom_violin(quantiles)` now has actual quantiles based on
+  the data, rather than inferred quantiles based on the computed density. The
+  `quantiles` parameter that replaces `draw_quantiles` now belongs to 
+  `stat_ydensity()` instead of `geom_violin()` (@teunbrand, #4120).
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
   evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
