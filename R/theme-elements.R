@@ -545,6 +545,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
+  point               = el_def("element_point"),
+  polygon             = el_def("element_polygon"),
   geom                = el_def("element_geom"),
   title               = el_def("element_text", "text"),
   spacing             = el_def("unit"),
