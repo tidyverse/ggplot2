@@ -70,7 +70,7 @@ If you are looking for innovation, look to ggplot2's rich ecosystem of extension
 
 ## Learning ggplot2
 
-If you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are three good places to start:
+If you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are several good places to start:
 
 1.  The [Data Visualization][r4ds-vis] and
     [Communication][r4ds-comm] chapters in 
@@ -92,7 +92,12 @@ If you are new to ggplot2 you are better off starting with a systematic introduc
     by Winston Chang. It provides a set of recipes to solve common
     graphics problems.
     
-If you've mastered the basics and want to learn more, read [ggplot2: Elegant Graphics for Data Analysis][ggplot2-book]. It describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. This book helps you understand the theory that underpins ggplot2, and will help you create new types of graphics specifically tailored to your needs.
+1.  If you've mastered the basics and want to learn more, read [ggplot2: Elegant Graphics for Data Analysis][ggplot2-book]. 
+    It describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. 
+    This book helps you understand the theory that underpins ggplot2, 
+    and will help you create new types of graphics specifically tailored to your needs.
+    
+1.  For articles about announcements and deep-dives you can visit the [tidyverse blog][blog].
 
 ## Getting help
 
@@ -114,3 +119,4 @@ There are two main places to get help with ggplot2:
 [r4ds-vis]: https://r4ds.hadley.nz/data-visualize
 [r4ds-comm]: https://r4ds.hadley.nz/communication
 [oreilly]: https://learning.oreilly.com/videos/data-visualization-in/9781491963661/
+[blog]: https://www.tidyverse.org/tags/ggplot2/
