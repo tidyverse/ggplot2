@@ -7,7 +7,7 @@
 #' @param drop Whether to discard groups with less than 2 observations
 #'   (`TRUE`, default) or keep such groups for position adjustment purposes
 #'   (`FALSE`).
-#' @param draw_quantiles If not `NULL` (default), compute the `quantile` variable
+#' @param quantiles If not `NULL` (default), compute the `quantile` variable
 #'   and draw horizontal lines at the given quantiles in `geom_violin()`.
 #'
 #' @eval rd_computed_vars(
@@ -19,7 +19,7 @@
 #'   counts or to a constant maximum width.",
 #'   n = "Number of points.",
 #'   width = "Width of violin bounding box.",
-#'   quantile = "Whether the row is part of the `draw_quantiles` computation."
+#'   quantile = "Whether the row is part of the `quantiles` computation."
 #' )
 #'
 #' @seealso [geom_violin()] for examples, and [stat_density()]
@@ -29,7 +29,7 @@
 stat_ydensity <- function(mapping = NULL, data = NULL,
                           geom = "violin", position = "dodge",
                           ...,
-                          draw_quantiles = NULL,
+                          quantiles = c(0.25, 0.50, 0.75),
                           bw = "nrd0",
                           adjust = 1,
                           kernel = "gaussian",
@@ -60,7 +60,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
       drop  = drop,
       na.rm = na.rm,
       bounds = bounds,
-      draw_quantiles = draw_quantiles,
+      quantiles = quantiles,
       ...
     )
   )
@@ -86,7 +86,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE,
                        drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf),
-                       draw_quantiles = NULL) {
+                       quantiles = c(0.25, 0.50, 0.75)) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -121,19 +121,19 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     }
     dens$width <- width
 
-    if (!is.null(draw_quantiles)) {
-      if (!(all(draw_quantiles >= 0) && all(draw_quantiles <= 1))) {
-        cli::cli_abort("{.arg draw_quantiles} must be between 0 and 1.")
+    if (!is.null(quantiles)) {
+      if (!(all(quantiles >= 0) && all(quantiles <= 1))) {
+        cli::cli_abort("{.arg quantiles} must be between 0 and 1.")
       }
       if (!is.null(data[["weight"]]) || !all(data[["weight"]] == 1)) {
         cli::cli_warn(
-          "{.arg draw_quantiles} for weighted data is not implemented."
+          "{.arg quantiles} for weighted data is not implemented."
         )
       }
-      quants <- quantile(data$y, probs = draw_quantiles)
+      quants <- quantile(data$y, probs = quantiles)
       quants <- data_frame0(
         y = unname(quants),
-        quantile = draw_quantiles
+        quantile = quantiles
       )
 
       # Interpolate other metrics
@@ -152,12 +152,12 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
                            scale = "area", flipped_aes = FALSE, drop = TRUE,
-                           bounds = c(-Inf, Inf), draw_quantiles = NULL) {
+                           bounds = c(-Inf, Inf), quantiles = c(0.25, 0.50, 0.75)) {
     data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
-      draw_quantiles = draw_quantiles
+      quantiles = quantiles
     )
     if (!drop && any(data$n < 2)) {
       cli::cli_warn(
