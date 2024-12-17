@@ -13,6 +13,11 @@ geom_violin(
   ...,
   trim = TRUE,
   bounds = c(-Inf, Inf),
+  quantile.colour = NULL,
+  quantile.color = NULL,
+  quantile.linetype = 0L,
+  quantile.linewidth = NULL,
+  draw_quantiles = deprecated(),
   scale = "area",
   na.rm = FALSE,
   orientation = NA,
@@ -26,7 +31,7 @@ stat_ydensity(
   geom = "violin",
   position = "dodge",
   ...,
-  draw_quantiles = NULL,
+  quantiles = c(0.25, 0.5, 0.75),
   bw = "nrd0",
   adjust = 1,
   kernel = "gaussian",
@@ -111,6 +116,13 @@ finite, boundary effect of default density estimation will be corrected by
 reflecting tails outside \code{bounds} around their closest edge. Data points
 outside of bounds are removed with a warning.}
 
+\item{quantile.colour, quantile.color, quantile.linewidth, quantile.linetype}{Default aesthetics for the quantile lines. Set to \code{NULL} to inherit from
+the data's aesthetics. By default, quantile lines are hidden and can be
+turned on by changing \code{quantile.linetype}.}
+
+\item{draw_quantiles}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Previous
+specification of drawing quantiles.}
+
 \item{scale}{if "area" (default), all violins have the same area (before trimming
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
@@ -141,7 +153,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
 
-\item{draw_quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
+\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
 and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
@@ -198,7 +210,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(violinwidth)}\cr Density scaled for the violin plot, according to area,  counts or to a constant maximum width.
 \item \code{after_stat(n)}\cr Number of points.
 \item \code{after_stat(width)}\cr Width of violin bounding box.
-\item \code{after_stat(quantile)}\cr Whether the row is part of the \code{draw_quantiles} computation.
+\item \code{after_stat(quantile)}\cr Whether the row is part of the \code{quantiles} computation.
 }
 }
 

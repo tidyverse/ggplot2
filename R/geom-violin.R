@@ -23,7 +23,10 @@
 #'   outside of bounds are removed with a warning.
 #' @param quantile.colour,quantile.color,quantile.linewidth,quantile.linetype
 #'   Default aesthetics for the quantile lines. Set to `NULL` to inherit from
-#'   the data's aesthetics. Set `quantile.linetype = 1` for regular quantiles.
+#'   the data's aesthetics. By default, quantile lines are hidden and can be
+#'   turned on by changing `quantile.linetype`.
+#' @param draw_quantiles `r lifecycle::badge("deprecated")` Previous
+#'   specification of drawing quantiles.
 #' @export
 #' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 #' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
