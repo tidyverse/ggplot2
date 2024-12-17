@@ -8,6 +8,8 @@
 #'   - `element_rect()`: borders and backgrounds.
 #'   - `element_line()`: lines.
 #'   - `element_text()`: text.
+#'   - `element_polygon()`: polygons.
+#'   - `element_point()`: points.
 #'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
@@ -16,8 +18,13 @@
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
-#' @param linewidth,borderwidth Line/border size in mm.
-#' @param size,fontsize text size in pts.
+#' @param linewidth,borderwidth,stroke Line/border size in mm.
+#' @param size,fontsize,pointsize text size in pts, point size in mm.
+#' @param linetype,bordertype Line type for lines and borders respectively. An
+#'   integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
+#'   twodash), or a string with an even number (up to eight) of hexadecimal
+#'   digits which give the lengths in consecutive positions in the string.
+#' @param shape,pointshape Shape for points (1-25).
 #' @param arrow.fill Fill colour for arrows.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
@@ -25,6 +32,10 @@
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
 #' @return An S3 object of class `element`, `rel`, or `margin`.
+#' @details
+#' The `element_polygon()` and `element_point()` functions are not rendered
+#' in standard plots and just serve as extension points.
+#'
 #' @examples
 #' plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #'
@@ -91,10 +102,6 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
 
 #' @export
 #' @rdname element
-#' @param linetype,bordertype Line type for lines and borders respectively. An
-#'   integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
-#'   twodash), or a string with an even number (up to eight) of hexadecimal
-#'   digits which give the lengths in consecutive positions in the string.
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
@@ -158,6 +165,8 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @export
+#' @rdname element
 element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
                             linetype = NULL, color = NULL,
                             inherit.blank = FALSE) {
@@ -171,6 +180,7 @@ element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
 }
 
 #' @export
+#' @rdname element
 element_point <- function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
                           stroke = NULL, color = NULL, inherit.blank = FALSE) {
   structure(
@@ -185,8 +195,6 @@ element_point <- function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
 #' @param ink Foreground colour.
 #' @param paper Background colour.
 #' @param accent Accent colour.
-#' @param pointsize Size for points in mm.
-#' @param pointshape Shape for points (1-25).
 #' @export
 #' @rdname element
 element_geom <- function(
