@@ -1,5 +1,6 @@
 ---
 title: "FAQ: Customising"
+format: html
 ---
 
 ```{=html}

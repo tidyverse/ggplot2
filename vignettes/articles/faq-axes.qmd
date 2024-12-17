@@ -1,5 +1,6 @@
 ---
 title: "FAQ: Axes"
+format: html
 ---
 
 ```{=html}

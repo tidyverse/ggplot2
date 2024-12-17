@@ -1,11 +1,10 @@
 ---
 title: "Introduction to ggplot2"
-output: rmarkdown::html_vignette
 description: |
   An overview of the layered grammar of graphics.
 vignette: >
   %\VignetteIndexEntry{Introduction to ggplot2}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
