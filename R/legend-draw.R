@@ -24,11 +24,7 @@ NULL
 #' @export
 #' @rdname draw_key
 draw_key_point <- function(data, params, size) {
-  if (is.null(data$shape)) {
-    data$shape <- 19
-  } else if (is.character(data$shape)) {
-    data$shape <- translate_shape_string(data$shape)
-  }
+  data$shape <- translate_shape_string(data$shape %||% 19)
 
   # NULL means the default stroke size, and NA means no stroke.
   pointsGrob(0.5, 0.5,
