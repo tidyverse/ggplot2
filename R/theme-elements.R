@@ -383,6 +383,32 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   )
 }
 
+#' @export
+element_grob.element_polygon <- function(element, x = c(0, 0.5, 1, 0.5),
+                                         y = c(0.5, 1, 0.5, 0), fill = NULL,
+                                         colour = NULL, linewidth = NULL,
+                                         linetype = NULL, ...) {
+
+  gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+  element_gp <- gg_par(lwd = element$linewidth, col = element$colour,
+                       fill = element$fill, lty = element$linetype)
+  pathGrob(x = x, y = y, gp = modify_list(element_gp, gp), ...)
+}
+
+#' @export
+element_grob.element_point <- function(element, x = 0.5, y = 0.5, colour = NULL,
+                                       shape = NULL, fill = NULL, size = NULL,
+                                       stroke = NULL, ...,
+                                       default.units = "npc") {
+
+  gp <- gg_par(col = colour, fill = fill, pointsize = size, stroke = stroke)
+  element_gp <- gg_par(col = element$colour, fill = element$fill,
+                       pointsize = element$size, stroke = element$stroke)
+  shape <- translate_shape_string(shape %||% element$shape %||% 19)
+  pointsGrob(x = x, y = y, pch = shape, gp = modify_list(element_gp, gp),
+             default.units = default.units, ...)
+}
+
 #' Define and register new theme elements
 #'
 #' The underlying structure of a ggplot2 theme is defined via the element tree, which
