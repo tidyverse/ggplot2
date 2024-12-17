@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `element_point()` and `element_polygon()` that can be given to 
+  `theme(point, polygon)` as an extension point (@teunbrand, #6248).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
   (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:

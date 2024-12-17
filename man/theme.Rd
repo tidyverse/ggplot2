@@ -10,6 +10,8 @@ theme(
   rect,
   text,
   title,
+  point,
+  polygon,
   geom,
   spacing,
   margins,
@@ -163,6 +165,10 @@ these should also be defined in the \verb{element tree} argument. \link[rlang:sp
 
 \item{title}{all title elements: plot, axes, legends (\code{\link[=element_text]{element_text()}};
 inherits from \code{text})}
+
+\item{point}{all point elements (\code{\link[=element_point]{element_point()}})}
+
+\item{polygon}{all polygon elements (\code{\link[=element_polygon]{element_polygon()}})}
 
 \item{geom}{defaults for geoms (\code{\link[=element_geom]{element_geom()}})}
 
