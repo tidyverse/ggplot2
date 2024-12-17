@@ -158,6 +158,30 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
+                            linetype = NULL, color = NULL,
+                            inherit.blank = FALSE) {
+  structure(
+    list(
+      fill = fill, colour = color %||% colour, linewidth = linewidth,
+      linetype = linetype, inherit.blank = inherit.blank
+    ),
+    class = c("element_polygon", "element")
+  )
+}
+
+#' @export
+element_point <- function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
+                          stroke = NULL, color = NULL, inherit.blank = FALSE) {
+  structure(
+    list(
+      colour = color %||% colour, fill = fill, shape = shape, size = size,
+      stroke = stroke, inherit.blank = inherit.blank
+    ),
+    class = c("element_point", "element")
+  )
+}
+
 #' @param ink Foreground colour.
 #' @param paper Background colour.
 #' @param accent Accent colour.
