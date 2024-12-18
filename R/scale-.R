@@ -34,7 +34,9 @@
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
 #'   number of breaks given by the transformation.
-#' @param labels One of:
+#' @param labels One of the options below. Please note that when `labels` is a
+#'   vector, it is highly recommended to also set the `breaks` argument as a
+#'   vector to protect against unintended mismatches.
 #'   - `NULL` for no labels
 #'   - `waiver()` for the default labels computed by the
 #'     transformation object
