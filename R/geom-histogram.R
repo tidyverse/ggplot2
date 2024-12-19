@@ -133,6 +133,13 @@
 #' ggplot(economics_long, aes(value)) +
 #'   facet_wrap(~variable, scales = 'free_x') +
 #'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
+#'
+#' # If you've already got your scale breaks set up how you want them, you can
+#' # tell stat_bin() to align bin edges with the breaks. This works best when
+#' # your scale uses fixed breaks, otherwise the breaks can be updated later
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram(follow.scale = "minor") +
+#'   scale_x_continuous(breaks = seq(0, 5, 0.5))
 geom_histogram <- function(mapping = NULL, data = NULL,
                            stat = "bin", position = "stack",
                            ...,

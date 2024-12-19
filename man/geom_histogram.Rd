@@ -45,6 +45,7 @@ stat_bin(
   breaks = NULL,
   closed = c("right", "left"),
   pad = FALSE,
+  follow.scale = "off",
   na.rm = FALSE,
   keep.zeroes = "all",
   orientation = NA,
@@ -173,6 +174,13 @@ or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{follow.scale}{Alternatively, the bin edges can be copied from the scale
+breaks, either \code{"major"} or \code{"minor"}. Ignored when \code{"off"}. Note that if
+the scale's limits are updated by other layers or expansions then its
+breaks are recomputed and might end up different to the value copied for
+the bin edges. This is not an issue when the scale uses a fixed breaks
+vector.}
 
 \item{keep.zeroes}{Treatment of zero count bins. If \code{"all"} (default), such
 bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
@@ -331,6 +339,13 @@ m +
 ggplot(economics_long, aes(value)) +
   facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
+
+# If you've already got your scale breaks set up how you want them, you can
+# tell stat_bin() to align bin edges with the breaks. This works best when
+# your scale uses fixed breaks, otherwise the breaks can be updated later
+ggplot(diamonds, aes(carat)) +
+  geom_histogram(follow.scale = "minor") +
+  scale_x_continuous(breaks = seq(0, 5, 0.5))
 }
 \seealso{
 \code{\link[=stat_count]{stat_count()}}, which counts the number of cases at each x
