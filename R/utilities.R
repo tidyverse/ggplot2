@@ -909,3 +909,16 @@ prompt_install <- function(pkg, reason = NULL) {
   utils::install.packages(pkg)
   is_installed(pkg)
 }
+
+filter_args <- function(args, fun) {
+  fmls <- if (inherits(fun, "ggproto_method")) {
+    names(ggproto_formals(fun))
+  } else {
+    names(formals(fun))
+  }
+  if ("..." %in% fmls) {
+    return(args)
+  }
+  args[intersect(names(args), fmls)]
+}
+
