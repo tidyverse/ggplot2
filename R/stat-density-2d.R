@@ -143,7 +143,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     data <- ggproto_parent(Stat, self)$compute_layer(data, params, layout)
 
     # if we're not contouring we're done
-    if (!isTRUE(params$contour)) return(data)
+    if (!isTRUE(params$contour %||% TRUE)) return(data)
 
     # set up data and parameters for contouring
     contour_var <- params$contour_var %||% "density"
