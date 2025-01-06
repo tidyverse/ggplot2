@@ -136,6 +136,13 @@ test_that("legends can be forced to display unrelated geoms", {
   )
 })
 
+test_that("unresolved, modified expressions throw a warning (#6264)", {
+  p <- ggplot(mpg, aes(drv)) +
+    geom_bar(
+      aes(fill = stage(drv, after_scale = alpha(fill, prop)))
+    )
+  expect_snapshot_warning(ggplot_build(p))
+})
 
 # Visual tests ------------------------------------------------------------
 
