@@ -17,14 +17,14 @@ edition_get <- function(.env = parent.frame(), default = 2024L) {
   }
 
   # Try to query package description
-  desc <- find_description(path = ".", package = pkg)
-  if (is.null(desc)) {
+  desc_file <- find_description(path = ".", package = pkg)
+  if (is.null(desc_file)) {
     return(default)
   }
 
   # Look up edition from the description
   field_name <- "Config/ggplot2/edition"
-  edition <- as.integer(desc$get_field(field_name, default = default))
+  edition <- as.integer(read.dcf(desc_file, fields = field_name))
 
   # Cache result
   env_bind(ggplot_edition, !!pkg := edition)
@@ -53,13 +53,14 @@ edition_require <- function(edition, what, .env = parent.frame()) {
 
 find_description <- function(path, package = NULL) {
   if (!is.null(package)) {
-    return(desc::desc(package = package))
+    path <- system.file(package = package, "DESCRIPTION")
   } else {
-    try_fetch(
-      pkgload::pkg_desc(path),
-      error = function(e) NULL
-    )
+    path <- file.path(path, "DESCRIPTION")
   }
+  if (!file.exists(path)) {
+    return(NULL)
+  }
+  path
 }
 
 get_pkg_name <- function(env = parent.frame()) {
