@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `linetype = NA` is now interpreted to mean 'no line' instead of raising errors
+  (@teunbrand, #6269).
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
