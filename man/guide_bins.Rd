@@ -25,7 +25,11 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide overrides, and is combined with, the plot's theme.}
+guide partially overrides, and is combined with, the plot's theme.
+Arguments that apply to a single legend are respected, most of which have
+the \code{legend}-prefix. Arguments that apply to combined legends
+(the legend box) are ignored, including \code{legend.position},
+\verb{legend.justification.*}, \code{legend.location} and \verb{legend.box.*}.}
 
 \item{angle}{Overrules the theme settings to automatically apply appropriate
 \code{hjust} and \code{vjust} for angled legend text. Can be a single number
