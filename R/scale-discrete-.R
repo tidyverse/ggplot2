@@ -69,7 +69,8 @@
 #' }
 scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(), guide = waiver(),
-                             position = "bottom", sec.axis = waiver()) {
+                             position = "bottom", sec.axis = waiver(),
+                             continuous.limits = NULL) {
   sc <- discrete_scale(
     aesthetics = ggplot_global$x_aes, name = name,
     palette = palette, ...,
@@ -78,13 +79,15 @@ scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
   )
 
   sc$range_c <- ContinuousRange$new()
+  sc$continuous_limits <- continuous.limits
   set_sec_axis(sec.axis, sc)
 }
 #' @rdname scale_discrete
 #' @export
 scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(), guide = waiver(),
-                             position = "left", sec.axis = waiver()) {
+                             position = "left", sec.axis = waiver(),
+                             continuous.limits = NULL) {
   sc <- discrete_scale(
     aesthetics = ggplot_global$y_aes, name = name,
     palette = palette, ...,
@@ -93,6 +96,7 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
   )
 
   sc$range_c <- ContinuousRange$new()
+  sc$continuous_limits <- continuous.limits
   set_sec_axis(sec.axis, sc)
 }
 
@@ -106,6 +110,8 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
 #' @usage NULL
 #' @export
 ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
+  continuous_limits = NULL,
+
   train = function(self, x) {
     if (is.discrete(x)) {
       self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
