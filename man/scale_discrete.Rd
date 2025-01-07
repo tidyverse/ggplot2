@@ -114,7 +114,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 \itemize{
 \item \code{NULL} to use the default scale range
 \item A numeric vector of length two providing a display range for the scale.
-\item A function that accepts the existing discrete limits and returns a
+\item A function that accepts the existing continuous limits and returns a
 numeric vector of length two.
 }}
 }

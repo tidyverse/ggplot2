@@ -19,7 +19,7 @@
 #' @param continuous.limits One of:
 #'   * `NULL` to use the default scale range
 #'   * A numeric vector of length two providing a display range for the scale.
-#'   * A function that accepts the existing discrete limits and returns a
+#'   * A function that accepts the existing continuous limits and returns a
 #'     numeric vector of length two.
 #' @rdname scale_discrete
 #' @family position scales
