@@ -81,9 +81,7 @@ expand_range4 <- function(limits, expand) {
 
   # Calculate separate range expansion for the lower and
   # upper range limits, and then combine them into one vector
-  lower <- expand_range(limits, expand[1], expand[2])[1]
-  upper <- expand_range(limits, expand[3], expand[4])[2]
-  c(lower, upper)
+  expand_range(limits, expand[c(1, 3)], expand[c(2, 4)])
 }
 
 #' Calculate the default expansion for a scale
