@@ -146,20 +146,13 @@ expand_limits_scale <- function(scale, expand = expansion(0, 0), limits = waiver
   limits <- limits %|W|% scale$get_limits()
 
   if (scale$is_discrete()) {
-    continuous_limits <- scale$continuous_limits
-    if (is.function(continuous_limits)) {
-      continuous_limits <- continuous_limits(limits)
-    }
-    if (!is.null(continuous_limits)) {
-      continuous_limits <- range(continuous_limits)
-      check_numeric(continuous_limits, call = scale$call, arg = "continuous.limits")
-    }
     coord_limits <- coord_limits %||% c(NA_real_, NA_real_)
     expand_limits_discrete(
-      continuous_limits %||% scale$map(limits),
+      scale$map(limits),
       expand,
       coord_limits,
-      range_continuous = continuous_limits %||% scale$range_c$range
+      range_continuous = scale$range_c$range,
+      continuous_limits = scale$continuous_limits
     )
   } else {
     # using the inverse transform to resolve the NA value is needed for date/datetime/time
@@ -176,7 +169,21 @@ expand_limits_continuous <- function(limits, expand = expansion(0, 0), coord_lim
 }
 
 expand_limits_discrete <- function(limits, expand = expansion(0, 0), coord_limits = c(NA, NA),
-                                   range_continuous = NULL) {
+                                   range_continuous = NULL, continuous_limits = NULL) {
+  if (is.function(continuous_limits)) {
+    continuous_limits <- continuous_limits(limits)
+  }
+  if (!is.null(continuous_limits)) {
+    if (!anyNA(continuous_limits)) {
+      continuous_limits <- range(continuous_limits)
+    }
+    check_numeric(continuous_limits, arg = "continuous.limits")
+    check_length(continuous_limits, 2L, arg = "continuous.limits")
+    missing <- is.na(continuous_limits)
+    limits       <- range(ifelse(missing, limits, continuous_limits))
+    coord_limits <- range(ifelse(missing, coord_limits, continuous_limits))
+  }
+
   limit_info <- expand_limits_discrete_trans(
     limits,
     expand,
