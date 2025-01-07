@@ -2,6 +2,8 @@
 
 * `coord_radial()` now displays no axis instead of throwing an error when
   a scale has no breaks (@teunbrand, #6271).
+* `geom_ribbon()` now appropriately warns about, and removes, missing values 
+  (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
