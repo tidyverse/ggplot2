@@ -471,7 +471,7 @@ Guides <- ggproto(
   #      for every position, collect all individual guides and arrange them
   #      into a guide box which will be inserted into the main gtable
   # Combining multiple guides in a guide box
-  assemble = function(self, theme) {
+  assemble = function(self, theme, params = self$params, guides = self$guides) {
 
     if (length(self$guides) < 1) {
       return(zeroGrob())
@@ -485,42 +485,95 @@ Guides <- ggproto(
       return(zeroGrob())
     }
 
+    # extract the guide position
+    positions <- vapply(
+      params,
+      function(p) p$position[1] %||% default_position,
+      character(1), USE.NAMES = FALSE
+    )
+
     # Populate key sizes
     theme$legend.key.width  <- calc_element("legend.key.width",  theme)
     theme$legend.key.height <- calc_element("legend.key.height", theme)
 
-    grobs <- self$draw(theme, default_position, theme$legend.direction)
+    grobs <- self$draw(theme, positions, theme$legend.direction)
+    keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
+    grobs <- grobs[keep]
     if (length(grobs) < 1) {
       return(zeroGrob())
     }
-    grobs <- grobs[order(names(grobs))]
+
+    # prepare the position of inside legends
+    default_inside_just <- calc_element("legend.justification.inside", theme)
+    default_inside_position <- calc_element("legend.position.inside", theme)
+
+    groups <- data_frame0(
+      positions = positions,
+      justs     = list(NULL),
+      coords    = list(NULL)
+    )
+
+    # we grouped the legends by the positions, for inside legends, they'll be
+    # splitted by the actual inside coordinate
+    for (i in which(positions == "inside")) {
+      # the actual inside position and justification can be set in each guide
+      # by `theme` argument, here, we won't use `calc_element()` which will
+      # use inherits from `legend.justification` or `legend.position`, we only
+      # follow the inside elements from the guide theme
+      just <- params[[i]]$theme[["legend.justification.inside"]]
+      just <- valid.just(just %||% default_inside_just)
+      coord <- params[[i]]$theme[["legend.position.inside"]]
+      coord <- coord %||% default_inside_position %||% just
+
+      groups$justs[[i]] <- just
+      groups$coord[[i]] <- coord
+    }
+
+    groups <- vec_group_loc(vec_slice(groups, keep))
+    grobs <- vec_chop(grobs, indices = groups$loc)
+    names(grobs) <- groups$key$positions
 
     # Set spacing
     theme$legend.spacing   <- theme$legend.spacing %||% unit(0.5, "lines")
     theme$legend.spacing.y <- calc_element("legend.spacing.y", theme)
     theme$legend.spacing.x <- calc_element("legend.spacing.x", theme)
 
-    Map(
-      grobs    = grobs,
-      position = names(grobs),
-      self$package_box,
-      MoreArgs = list(theme = theme)
-    )
+    # prepare output
+    for (i in vec_seq_along(groups)) {
+      adjust <- NULL
+      position <- groups$key$position[i]
+      if (position == "inside") {
+        adjust <- theme(
+          legend.position.inside = groups$key$coord[[i]],
+          legend.justification.inside = groups$key$justs[[i]]
+        )
+      }
+      grobs[[i]] <- self$package_box(grobs[[i]], position, theme + adjust)
+    }
+
+    # merge inside grobs into single gtable
+    is_inside <- names(grobs) == "inside"
+    if (sum(is_inside) > 1) {
+      inside <- gtable(unit(1, "npc"), unit(1, "npc"))
+      inside <- gtable_add_grob(
+        inside, grobs[is_inside],
+        t = 1, l = 1, clip = "off",
+        name = paste0("guide-box-inside-", seq_len(sum(is_inside)))
+      )
+      grobs <- grobs[!is_inside]
+      grobs$inside <- inside
+    }
+
+    # fill in missing guides
+    grobs[setdiff(c(.trbl, "inside"), names(grobs))] <- list(zeroGrob())
+
+    grobs
   },
 
   # Render the guides into grobs
-  draw = function(self, theme,
-                  default_position = "right",
-                  direction = NULL,
+  draw = function(self, theme, positions, direction = NULL,
                   params = self$params,
                   guides = self$guides) {
-    positions <- vapply(
-      params,
-      function(p) p$position[1] %||% default_position,
-      character(1)
-    )
-    positions <- factor(positions, levels = c(.trbl, "inside"))
-
     directions <- rep(direction %||% "vertical", length(positions))
     if (is.null(direction)) {
       directions[positions %in% c("top", "bottom")] <- "horizontal"
@@ -529,14 +582,16 @@ Guides <- ggproto(
     grobs <- vector("list", length(guides))
     for (i in seq_along(grobs)) {
       grobs[[i]] <- guides[[i]]$draw(
-        theme = theme, position = as.character(positions[i]),
+        theme = theme, position = positions[i],
         direction = directions[i], params = params[[i]]
       )
     }
-    keep <- !vapply(grobs, is.zero, logical(1))
-    split(grobs[keep], positions[keep])
+    grobs
   },
 
+  # here, we put `inside_position` and `inside_just` in the last, so that it
+  # won't break current implement of patchwork, which depends on the top three
+  # arguments to collect guides
   package_box = function(grobs, position, theme) {
 
     if (is.zero(grobs) || length(grobs) == 0) {
@@ -699,7 +754,6 @@ Guides <- ggproto(
     guides$name <- "guide-box"
     guides
   },
-
   ## Utilities -----------------------------------------------------------------
 
   print = function(self) {
