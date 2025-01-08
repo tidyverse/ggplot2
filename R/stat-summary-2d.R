@@ -28,6 +28,7 @@
 #' @param drop drop if the output of `fun` is `NA`.
 #' @param fun function for summary.
 #' @param fun.args A list of extra arguments to pass to `fun`
+#' @inheritSection stat_bin_2d Controlling binning parameters for the x and y directions
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))

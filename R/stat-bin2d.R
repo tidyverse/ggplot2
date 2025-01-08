@@ -1,7 +1,4 @@
-#' @param bins numeric vector giving number of bins in both vertical and
-#'   horizontal directions. Set to 30 by default.
-#' @param binwidth Numeric vector giving bin width in both vertical and
-#'   horizontal directions. Overrides `bins` if both set.
+#' @inheritParams stat_bin
 #' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin_2d
@@ -11,11 +8,21 @@
 #'   ncount   = "count, scaled to maximum of 1.",
 #'   ndensity = "density, scaled to a maximum of 1."
 #' )
+#' @section Controlling binning parameters for the x and y directions:
+#' The arguments `bins`, `binwidth`, `breaks`, `center`, and `boundary` can
+#' be set separately for the x and y directions. When given as a scalar, one
+#' value applies to both directions. When given as a vector of length two,
+#' the first is applied to the x direction and the second to the y direction.
+#' Alternatively, these can be a named list containing `x` and `y` elements,
+#' for example `list(x = 10, y = 20)`.
 stat_bin_2d <- function(mapping = NULL, data = NULL,
                         geom = "tile", position = "identity",
                         ...,
                         bins = 30,
                         binwidth = NULL,
+                        center = NULL,
+                        boundary = NULL,
+                        breaks = NULL,
                         drop = TRUE,
                         na.rm = FALSE,
                         show.legend = NA,
@@ -31,6 +38,9 @@ stat_bin_2d <- function(mapping = NULL, data = NULL,
     params = list2(
       bins = bins,
       binwidth = binwidth,
+      center = center,
+      boundary = boundary,
+      breaks = breaks,
       drop = drop,
       na.rm = na.rm,
       ...
