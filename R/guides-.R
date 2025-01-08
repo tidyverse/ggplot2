@@ -541,7 +541,7 @@ Guides <- ggproto(
     # prepare output
     for (i in vec_seq_along(groups)) {
       adjust <- NULL
-      position <- groups$key$position[i]
+      position <- groups$key$positions[i]
       if (position == "inside") {
         adjust <- theme(
           legend.position.inside = groups$key$coord[[i]],
