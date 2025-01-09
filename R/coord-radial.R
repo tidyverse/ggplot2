@@ -4,7 +4,7 @@
 #' @param end Position from 12 o'clock in radians where plot ends, to allow
 #'   for partial polar coordinates. The default, `NULL`, is set to
 #'   `start + 2 * pi`.
-#' @param expand If `TRUE`, the default, adds a small expansion factor the
+#' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
 #' @param r.axis.inside One of the following:
