@@ -169,7 +169,7 @@ Geom <- ggproto("Geom",
           mask = list(stage = stage_scaled)
         ),
         error = function(cnd) {
-          cli::cli_warn("Unable to apply legend modifications.", parent = cnd)
+          cli::cli_warn("Unable to apply staged modifications.", parent = cnd)
           data_frame0()
         }
       )
