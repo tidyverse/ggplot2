@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `theme(legend.key.justification)` to control the alignment of legend keys 
+  (@teunbrand, #3669).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
   (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:
