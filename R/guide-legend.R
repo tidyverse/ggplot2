@@ -174,6 +174,7 @@ GuideLegend <- ggproto(
     key            = "legend.key",
     key_height     = "legend.key.height",
     key_width      = "legend.key.width",
+    key_just       = "legend.key.justification",
     text           = "legend.text",
     theme.title    = "legend.title",
     spacing_x      = "legend.key.spacing.x",
@@ -373,6 +374,9 @@ GuideLegend <- ggproto(
       elements$key <-
         ggname("legend.key", element_grob(elements$key))
     }
+    if (!is.null(elements$key_just)) {
+      elements$key_just <- valid.just(elements$key_just)
+    }
 
     elements$text <-
       label_angle_heuristic(elements$text, elements$text_position, params$angle)
@@ -387,6 +391,7 @@ GuideLegend <- ggproto(
   build_decor = function(decor, grobs, elements, params) {
 
     key_size <- c(elements$width_cm, elements$height_cm)
+    just <- elements$key_just
     idx <- seq_len(params$n_breaks)
 
     key_glyphs <- lapply(idx, function(i) {
@@ -404,7 +409,15 @@ GuideLegend <- ggproto(
       height <- vapply(glyph, get_attr, which = "height", default = 0, numeric(1))
       height <- max(height, 0, key_size[2], na.rm = TRUE)
 
-      grob <- gTree(children = inject(gList(elements$key, !!!glyph)))
+      vp <- NULL
+      if (!is.null(just)) {
+        vp <- viewport(
+          x = just[1], y = just[2], just = just,
+          width = unit(width, "cm"), height = unit(height, "cm")
+        )
+      }
+
+      grob <- gTree(children = inject(gList(elements$key, !!!glyph)), vp = vp)
       attr(grob, "width")  <- width
       attr(grob, "height") <- height
       grob
