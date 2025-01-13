@@ -341,7 +341,7 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
       transform,
       date = ScaleContinuousDate,
       time = ScaleContinuousDatetime,
-      ScaleContinuous
+      ScaleContinuousPosition
     )
   } else {
     scale_class <- ScaleContinuous
