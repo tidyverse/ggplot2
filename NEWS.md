@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Turned off fallback for `size` to `linewidth` translation in 
+  `geom_bar()`/`geom_col()` (#4848).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
   (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:
