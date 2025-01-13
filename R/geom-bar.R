@@ -156,5 +156,5 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     flip_data(data, params$flipped_aes)
   },
 
-  rename_size = TRUE
+  rename_size = FALSE
 )
