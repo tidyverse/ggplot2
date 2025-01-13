@@ -48,6 +48,7 @@ test_that("not cached across calls", {
 })
 
 test_that("time scale date breaks and labels work", {
+  skip_if_not_installed("hms")
 
   d <- c(base_time(), base_time() + 5 * 24 * 3600) - base_time()
 
