@@ -526,7 +526,7 @@ Guides <- ggproto(
       coord <- coord %||% default_inside_position %||% just
 
       groups$justs[[i]] <- just
-      groups$coord[[i]] <- coord
+      groups$coords[[i]] <- coord
     }
 
     groups <- vec_group_loc(vec_slice(groups, keep))
@@ -544,7 +544,7 @@ Guides <- ggproto(
       position <- groups$key$positions[i]
       if (position == "inside") {
         adjust <- theme(
-          legend.position.inside = groups$key$coord[[i]],
+          legend.position.inside = groups$key$coords[[i]],
           legend.justification.inside = groups$key$justs[[i]]
         )
       }
