@@ -324,7 +324,8 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
     scale_class <- switch(
       transform,
       date = ScaleContinuousDate,
-      time = ScaleContinuousDatetime
+      time = ScaleContinuousDatetime,
+      ScaleContinuous
     )
   } else {
     scale_class <- ScaleContinuous
@@ -332,7 +333,8 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
 
   transform <- switch(transform,
     date = transform_date(),
-    time = transform_time(timezone)
+    time = transform_time(timezone),
+    hms  = transform_hms()
   )
 
   sc <- continuous_scale(
