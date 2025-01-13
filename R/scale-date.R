@@ -328,9 +328,13 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
   }
   if (!is.waiver(date_labels)) {
     check_string(date_labels)
-    labels <- function(self, x) {
-      tz <- self$timezone %||% "UTC"
-      label_date(date_labels, tz)(x)
+    if (transform == "hms") {
+      labels <- label_time(date_labels)
+    } else {
+      labels <- function(self, x) {
+        tz <- self$timezone %||% "UTC"
+        label_date(date_labels, tz)(x)
+      }
     }
   }
 
