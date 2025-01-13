@@ -236,20 +236,25 @@ scale_x_time <- function(name = waiver(),
                          position = "bottom",
                          sec.axis = waiver()) {
 
-  scale_x_continuous(
+  sc <- datetime_scale(
+    ggplot_global$x_aes,
+    "hms",
     name = name,
+    palette = identity,
     breaks = breaks,
+    date_breaks = date_breaks,
     labels = labels,
+    date_labels = date_labels,
     minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    guide = guide,
     limits = limits,
     expand = expand,
     oob = oob,
-    na.value = na.value,
-    guide = guide,
-    position = position,
-    transform = scales::transform_hms(),
-    sec.axis = sec.axis
+    position = position
   )
+
+  set_sec_axis(sec.axis, sc)
 }
 
 
@@ -270,20 +275,25 @@ scale_y_time <- function(name = waiver(),
                          position = "left",
                          sec.axis = waiver()) {
 
-  scale_y_continuous(
+  sc <- datetime_scale(
+    ggplot_global$y_aes,
+    "hms",
     name = name,
+    palette = identity,
     breaks = breaks,
+    date_breaks = date_breaks,
     labels = labels,
+    date_labels = date_labels,
     minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    guide = guide,
     limits = limits,
     expand = expand,
     oob = oob,
-    na.value = na.value,
-    guide = guide,
-    position = position,
-    transform = scales::transform_hms(),
-    sec.axis = sec.axis
+    position = position
   )
+
+  set_sec_axis(sec.axis, sc)
 }
 
 #' Date/time scale constructor
