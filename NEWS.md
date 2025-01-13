@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
+  (@teunbrand, #4335).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
   (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:
