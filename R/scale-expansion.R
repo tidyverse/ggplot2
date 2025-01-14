@@ -180,8 +180,7 @@ expand_limits_discrete <- function(limits, expand = expansion(0, 0), coord_limit
     check_numeric(continuous_limits, arg = "continuous.limits")
     check_length(continuous_limits, 2L, arg = "continuous.limits")
     missing <- is.na(continuous_limits)
-    limits       <- range(ifelse(missing, limits, continuous_limits))
-    coord_limits <- range(ifelse(missing, coord_limits, continuous_limits))
+    limits  <- ifelse(missing, range(limits), continuous_limits)
   }
 
   limit_info <- expand_limits_discrete_trans(

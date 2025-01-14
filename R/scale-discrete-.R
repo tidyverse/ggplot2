@@ -19,8 +19,9 @@
 #' @param continuous.limits One of:
 #'   * `NULL` to use the default scale range
 #'   * A numeric vector of length two providing a display range for the scale.
-#'   * A function that accepts the existing continuous limits and returns a
-#'     numeric vector of length two.
+#'   Use `NA` to refer to the existing minimum or maximum.
+#'   * A function that accepts the limits and returns a numeric vector of
+#'   length two.
 #' @rdname scale_discrete
 #' @family position scales
 #' @seealso
