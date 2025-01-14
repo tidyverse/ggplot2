@@ -14,8 +14,10 @@
 #' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
 #' margins of elements.
 #'
-#' @param fill Fill colour.
+#' @param fill Fill colour. `fill_alpha()` can be used to set the transparency
+#'   of the fill.
 #' @param colour,color Line/border colour. Color is an alias for colour.
+#'   `alpha()` can be used to set the transparency of the colour.
 #' @param linewidth,borderwidth Line/border size in mm.
 #' @param size,fontsize text size in pts.
 #' @param arrow.fill Fill colour for arrows.
