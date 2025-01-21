@@ -673,6 +673,26 @@ test_that("margin_part() mechanics work as expected", {
   expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
 })
 
+test_that("geom elements are inherited correctly", {
+
+  GeomFoo <- ggproto("GeomFoo", GeomPoint)
+  GeomBar <- ggproto("GeomBar", GeomFoo)
+
+  p <- ggplot(data.frame(x = 1), aes(x, x)) +
+    stat_identity(geom = GeomBar) +
+    theme(
+      geom = element_geom(pointshape = 15),
+      geom.point = element_geom(borderwidth = 2, ink = "blue"),
+      geom.foo = element_geom(pointsize = 2),
+      geom.bar = element_geom(ink = "red")
+    )
+  p <- layer_data(p)
+  expect_equal(p$shape, 15)
+  expect_equal(p$stroke, 2)
+  expect_equal(p$size, 2)
+  expect_equal(p$colour, "red")
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
