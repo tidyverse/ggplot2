@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (internal) The ViewScale class has a `freeze()` method to permit copying
+  trained position scales (#3441).
 * `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
   display range of discrete scales (@teunbrand, #4174, #6259).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
