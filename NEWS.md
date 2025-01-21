@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
+  display range of discrete scales (@teunbrand, #4174, #6259).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
   (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:
