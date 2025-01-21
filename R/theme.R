@@ -565,8 +565,11 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
   if (!is_theme_validate(theme)) {
     return()
   }
+  elnames <- names(theme)
+  elnames[startsWith(elnames, "geom.")] <- "geom"
+
   mapply(
-    validate_element, theme, names(theme),
+    validate_element, theme, elnames,
     MoreArgs = list(element_tree = tree, call = call)
   )
 }
@@ -630,7 +633,10 @@ plot_theme <- function(x, default = get_theme()) {
   validate_theme(theme)
 
   # Remove elements that are not registered
-  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
+  # We accept unregistered `geom.*` elements
+  remove <- setdiff(names(theme), names(get_element_tree()))
+  remove <- remove[!startsWith(remove, "geom.")]
+  theme[remove] <- NULL
   theme
 }
 
