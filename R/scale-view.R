@@ -152,15 +152,25 @@ ViewScale <- ggproto("ViewScale", NULL,
     self$rescale(b)
   },
   freeze = function(self) {
+    breaks <- self$get_breaks()
+    minor  <- self$get_breaks_minor()
+    transform <- self$scale$get_transformation()
+
     if (self$scale$is_discrete()) {
       limits <- self$get_limits()
     } else {
       limits <- self$continuous_range
     }
+
+    if (!is.null(transform)) {
+      breaks <- transform$inverse(breaks)
+      minor  <- transform$inverse(minor)
+    }
+
     ggproto(
       NULL, self$scale,
-      breaks = self$get_breaks(),
-      minor_breaks = self$get_breaks_minor(),
+      breaks = breaks,
+      minor_breaks = minor,
       limits = limits,
       expand = c(0, 0, 0, 0),
       continuous_limits = self$continuous_range,
