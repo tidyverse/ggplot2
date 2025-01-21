@@ -85,7 +85,8 @@ and limits, you may wish to use <code><a href="labs.html">labs()</a></code> and 
 <span>  expand <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  guide <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
-<span>  sec.axis <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  sec.axis <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  continuous.limits <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_y_discrete</span><span class="op">(</span></span>
@@ -95,7 +96,8 @@ and limits, you may wish to use <code><a href="labs.html">labs()</a></code> and 
 <span>  expand <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  guide <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>  sec.axis <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  sec.axis <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  continuous.limits <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -207,6 +209,15 @@ expand the scale by 5% on each side for continuous variables, and by
 
 <dt id="arg-sec-axis">sec.axis<a class="anchor" aria-label="anchor" href="#arg-sec-axis"></a></dt>
 <dd><p><code><a href="sec_axis.html">dup_axis()</a></code> is used to specify a secondary axis.</p></dd>
+
+
+<dt id="arg-continuous-limits">continuous.limits<a class="anchor" aria-label="anchor" href="#arg-continuous-limits"></a></dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale range</p></li>
+<li><p>A numeric vector of length two providing a display range for the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum.</p></li>
+<li><p>A function that accepts the limits and returns a numeric vector of
+length two.</p></li>
+</ul></dd>
 
 </dl></div>
     <div class="section level2">
