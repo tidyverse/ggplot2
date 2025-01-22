@@ -799,7 +799,7 @@ merge_element.default <- function(new, old) {
     # If old is NULL or element_blank, then just return new
     return(new)
   } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
-             is.logical(new)) {
+             is.logical(new) || is.function(new)) {
     # If new is NULL, or a string, numeric vector, unit, or logical, just return it
     return(new)
   }

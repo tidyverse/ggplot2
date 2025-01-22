@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The default colour and fill scales have a new `palette` argument 
+  (@teunbrand, #6064).
 * `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
   display range of discrete scales (@teunbrand, #4174, #6259).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
