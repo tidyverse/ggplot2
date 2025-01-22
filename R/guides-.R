@@ -546,7 +546,8 @@ Guides <- ggproto(
           legend.justification.inside = groups$key$justs[[i]]
         )
       }
-      grobs[[i]] <- self$package_box(grobs[[i]], position, theme + adjust)
+      adjust <- add_theme(theme, adjust, "internal theme settings")
+      grobs[[i]] <- self$package_box(grobs[[i]], position, adjust)
     }
 
     # merge inside grobs into single gtable
