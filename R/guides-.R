@@ -479,7 +479,7 @@ Guides <- ggproto(
     if (length(default_position) == 2) {
       default_position <- "inside"
     }
-    if (default_position == "none") {
+    if (!default_position %in% c(.trbl, "inside")) {
       return(zeroGrob())
     }
 
@@ -598,11 +598,7 @@ Guides <- ggproto(
     }
 
     # Determine default direction
-    direction <- switch(
-      position,
-      inside = , left = , right = "vertical",
-      top = , bottom = "horizontal"
-    )
+    direction <- switch(position, top = , bottom = "horizontal", "vertical")
 
     # Populate missing theme arguments
     theme$legend.box       <- theme$legend.box       %||% direction
