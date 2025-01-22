@@ -309,7 +309,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
         params$margins
       )
       # Apply recycling on original data to fit margins
-      data <- vec_slice(data, facet_vals$.index)
+      # We're using base subsetting here because `data` might have a superclass
+      # that isn't handled well by vctrs::vec_slice
+      data <- data[facet_vals$.index, , drop = FALSE]
       facet_vals$.index <- NULL
     }
 
