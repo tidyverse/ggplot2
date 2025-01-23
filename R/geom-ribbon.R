@@ -132,7 +132,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       strsplit(self$required_aes, "|", fixed = TRUE),
       `[[`, i = 1, character(1)
     )
-    if (params$flipped_aes || any(data$flipped_aes) %||% FALSE) {
+    if (isTRUE(params$flipped_aes || any(data$flipped_aes) %||% FALSE)) {
       vars <- switch_orientation(vars)
     }
     vars <- c(vars, self$non_missing_aes)
