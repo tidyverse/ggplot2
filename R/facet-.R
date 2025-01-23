@@ -213,7 +213,8 @@ Facet <- ggproto("Facet", NULL,
     heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
 
     # When space are free, let panel parameter limits determine size of panel
-    space <- params$space_free %||% list(x = FALSE, y = FALSE)
+    space <- dual_param(params$space_free, default = list(x = FALSE, y = FALSE))
+
     if (space$x) {
       idx    <- layout$PANEL[layout$ROW == 1]
       widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
