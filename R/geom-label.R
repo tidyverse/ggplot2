@@ -67,7 +67,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     angle = 0,
     hjust = 0.5, vjust = 0.5, alpha = NA, fontface = 1,
     lineheight = 1.2,
-    linewidth = from_theme(borderwidth)
+    linewidth = from_theme(borderwidth),
+    linetype  = from_theme(bordertype)
   ),
 
   draw_panel = function(self, data, panel_params, coord, parse = FALSE,
@@ -108,7 +109,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         rect.gp = gg_par(
           col = if (isTRUE(all.equal(row$linewidth, 0))) NA else row$colour,
           fill = fill_alpha(row$fill, row$alpha),
-          lwd = row$linewidth
+          lwd = row$linewidth,
+          lty = row$linetype
         )
       )
     })
