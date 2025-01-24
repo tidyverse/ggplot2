@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
+  * The `linewidth` aesthetic is now applied and replaces the `label.size` 
+    argument.
+  * The `linetype` aesthetic is now applied.
+  * New `border.colour` argument to set the colour of borders.
+  * New `text.colour` argument to set the colour of text.
 * `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
   display range of discrete scales (@teunbrand, #4174, #6259).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
