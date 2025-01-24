@@ -12,6 +12,10 @@ geom_label <- function(mapping = NULL, data = NULL,
                        label.padding = unit(0.25, "lines"),
                        label.r = unit(0.15, "lines"),
                        label.size = deprecated(),
+                       border.colour = NULL,
+                       border.color = NULL,
+                       text.colour = NULL,
+                       text.color = NULL,
                        size.unit = "mm",
                        na.rm = FALSE,
                        show.legend = NA,
@@ -46,6 +50,8 @@ geom_label <- function(mapping = NULL, data = NULL,
       label.padding = label.padding,
       label.r = label.r,
       size.unit = size.unit,
+      border.colour = border.color %||% border.colour,
+      text.colour = text.color %||% text.colour,
       na.rm = na.rm,
       !!!extra_args
     )
@@ -75,6 +81,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
+                        border.colour = NULL,
+                        text.colour = NULL,
                         size.unit = "mm") {
     lab <- data$label
     if (parse) {
@@ -89,6 +97,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     }
 
     size.unit <- resolve_text_unit(size.unit)
+    data$border.colour <- border.colour %||% data$colour
+    data$text.colour   <- text.colour %||% data$colour
 
     grobs <- lapply(seq_len(nrow(data)), function(i) {
       row <- data[i, , drop = FALSE]
@@ -100,14 +110,14 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         r = label.r,
         angle = row$angle,
         text.gp = gg_par(
-          col = row$colour,
+          col = row$text.colour,
           fontsize = row$size * size.unit,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
         ),
         rect.gp = gg_par(
-          col = if (isTRUE(all.equal(row$linewidth, 0))) NA else row$colour,
+          col = if (isTRUE(all.equal(row$linewidth, 0))) NA else row$border.colour,
           fill = fill_alpha(row$fill, row$alpha),
           lwd = row$linewidth,
           lty = row$linetype
