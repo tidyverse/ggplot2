@@ -321,7 +321,11 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
                           nudge_y = 0,
                           label.padding = unit(0.25, "lines"),
                           label.r = unit(0.15, "lines"),
-                          label.size = 0.25,
+                          label.size = deprecated(),
+                          border.colour = NULL,
+                          border.color = NULL,
+                          text.colour = NULL,
+                          text.color = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE,
@@ -338,6 +342,12 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
     position <- position_nudge(nudge_x, nudge_y)
   }
 
+  extra_args <- list2(...)
+  if (lifecycle::is_present(label.size)) {
+    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    extra_args$linewidth <- extra_args$linewidth %||% label.size
+  }
+
   layer_sf(
     data = data,
     mapping = mapping,
@@ -350,10 +360,11 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
-      label.size = label.size,
       na.rm = na.rm,
       fun.geometry = fun.geometry,
-      ...
+      border.colour = border.color %||% border.colour,
+      text.colour = text.color %||% text.colour,
+      !!!extra_args
     )
   )
 }
