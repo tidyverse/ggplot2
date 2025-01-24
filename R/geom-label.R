@@ -2,7 +2,14 @@
 #' @rdname geom_text
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
-#' @param label.size Size of label border, in mm.
+#' @param label.size `r lifecycle::badge("deprecated")` Replaced by the
+#'   `linewidth` aesthetic. Size of label border, in mm.
+#' @param border.colour,border.color Colour of label border. When `NULL`
+#'   (default), the `colour` aesthetic determines the colour of the label border.
+#'   `border.color` is an alias for `border.colour`.
+#' @param text.colour,text.color Colour of the text. When `NULL` (default), the
+#'   `colour` aesthetic determines the colour of the text. `text.color` is an
+#'   alias for `text.colour`.
 geom_label <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
                        ...,
