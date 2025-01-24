@@ -73,7 +73,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     angle = 0,
     hjust = 0.5, vjust = 0.5, alpha = NA, fontface = 1,
     lineheight = 1.2,
-    linewidth = from_theme(borderwidth),
+    linewidth = from_theme(borderwidth * 0.5),
     linetype  = from_theme(bordertype)
   ),
 
