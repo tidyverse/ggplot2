@@ -11,7 +11,7 @@ geom_label <- function(mapping = NULL, data = NULL,
                        nudge_y = 0,
                        label.padding = unit(0.25, "lines"),
                        label.r = unit(0.15, "lines"),
-                       label.size = 0.25,
+                       label.size = deprecated(),
                        size.unit = "mm",
                        na.rm = FALSE,
                        show.legend = NA,
@@ -27,6 +27,12 @@ geom_label <- function(mapping = NULL, data = NULL,
     position <- position_nudge(nudge_x, nudge_y)
   }
 
+  extra_args <- list2(...)
+  if (lifecycle::is_present(label.size)) {
+    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    extra_args$linewidth <- extra_args$linewidth %||% label.size
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -39,10 +45,9 @@ geom_label <- function(mapping = NULL, data = NULL,
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
-      label.size = label.size,
       size.unit = size.unit,
       na.rm = na.rm,
-      ...
+      !!!extra_args
     )
   )
 }
@@ -61,14 +66,14 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     size = from_theme(fontsize),
     angle = 0,
     hjust = 0.5, vjust = 0.5, alpha = NA, fontface = 1,
-    lineheight = 1.2
+    lineheight = 1.2,
+    linewidth = from_theme(borderwidth)
   ),
 
   draw_panel = function(self, data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
-                        label.size = 0.25,
                         size.unit = "mm") {
     lab <- data$label
     if (parse) {
@@ -101,9 +106,9 @@ GeomLabel <- ggproto("GeomLabel", Geom,
           lineheight = row$lineheight
         ),
         rect.gp = gg_par(
-          col = if (isTRUE(all.equal(label.size, 0))) NA else row$colour,
+          col = if (isTRUE(all.equal(row$linewidth, 0))) NA else row$colour,
           fill = fill_alpha(row$fill, row$alpha),
-          lwd = label.size
+          lwd = row$linewidth
         )
       )
     })
