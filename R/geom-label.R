@@ -97,8 +97,12 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     }
 
     size.unit <- resolve_text_unit(size.unit)
-    data$border.colour <- border.colour %||% data$colour
     data$text.colour   <- text.colour %||% data$colour
+    data$border.colour <- border.colour %||% data$colour
+    data$border.colour[data$linewidth == 0] <- NA
+    data$fill <- fill_alpha(data$fill, data$alpha)
+    data$size <- data$size * size.unit
+
 
     grobs <- lapply(seq_len(nrow(data)), function(i) {
       row <- data[i, , drop = FALSE]
@@ -111,14 +115,14 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         angle = row$angle,
         text.gp = gg_par(
           col = row$text.colour,
-          fontsize = row$size * size.unit,
+          fontsize = row$size,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
         ),
         rect.gp = gg_par(
-          col = if (isTRUE(all.equal(row$linewidth, 0))) NA else row$border.colour,
-          fill = fill_alpha(row$fill, row$alpha),
+          col = row$border.colour,
+          fill = row$fill,
           lwd = row$linewidth,
           lty = row$linetype
         )
