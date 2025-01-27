@@ -108,6 +108,14 @@ quosures or constants.</p>
 R names to ggplot names (e.g., <code>pch</code> to <code>shape</code> and <code>cex</code> to <code>size</code>).</p>
     </div>
     <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>Using <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to create objects of class 'AsIs' causes scales to ignore the
+variable and assumes the wrapped variable is direct input for the grid
+package. Please be aware that variables are sometimes combined, like in
+some stats or position adjustments, that may yield unexpected results with
+'AsIs' variables.</p>
+    </div>
+    <div class="section level2">
     <h2 id="quasiquotation">Quasiquotation<a class="anchor" aria-label="anchor" href="#quasiquotation"></a></h2>
 
 
