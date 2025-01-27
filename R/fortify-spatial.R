@@ -1,5 +1,8 @@
 #' Fortify method for classes from the sp package.
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' To figure out the correct variable name for region, inspect
 #' `as.data.frame(model)`.
 #'

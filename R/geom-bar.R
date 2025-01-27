@@ -130,7 +130,7 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   # limits, not just those for which x and y are outside the limits
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  default_aes = aes(!!!GeomRect$default_aes, width = NULL),
+  default_aes = aes(!!!GeomRect$default_aes, width = 0.9),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
@@ -139,14 +139,13 @@ GeomBar <- ggproto("GeomBar", GeomRect,
 
   extra_params = c("just", "na.rm", "orientation"),
 
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (min(vapply(
-        split(data$x, data$PANEL, drop = TRUE),
-        resolution, numeric(1), zero = FALSE
-      )) * 0.9)
+    data <- compute_data_size(
+      data, size = params$width,
+      default = self$default_aes$width, zero = FALSE
+    )
     data$just <- params$just %||% 0.5
     data <- transform(data,
       ymin = pmin(y, 0), ymax = pmax(y, 0),

@@ -25,7 +25,8 @@ coord_sf(
   lims_method = "cross",
   ndiscr = 100,
   default = FALSE,
-  clip = "on"
+  clip = "on",
+  reverse = "none"
 )
 
 geom_sf(
@@ -43,11 +44,9 @@ geom_sf_label(
   mapping = aes(),
   data = NULL,
   stat = "sf_coordinates",
-  position = "identity",
+  position = "nudge",
   ...,
   parse = FALSE,
-  nudge_x = 0,
-  nudge_y = 0,
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
   label.size = 0.25,
@@ -61,11 +60,9 @@ geom_sf_text(
   mapping = aes(),
   data = NULL,
   stat = "sf_coordinates",
-  position = "identity",
+  position = "nudge",
   ...,
   parse = FALSE,
-  nudge_x = 0,
-  nudge_y = 0,
   check_overlap = FALSE,
   na.rm = FALSE,
   show.legend = NA,
@@ -179,6 +176,11 @@ limits are set via \code{xlim} and \code{ylim} and some data points fall outside
 limits, then those data points may show up in places such as the axes, the
 legend, the plot title, or the plot margins.}
 
+\item{reverse}{A string giving which directions to reverse. \code{"none"}
+(default) keeps directions as is. \code{"x"} and \code{"y"} can be used to reverse
+their respective directions. \code{"xy"} can be used to reverse both
+directions.}
+
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
 \code{inherit.aes = TRUE} (the default), it is combined with the default mapping
 at the top level of the plot. You must supply \code{mapping} if there is no plot
@@ -270,10 +272,6 @@ lists which parameters it can accept.
 
 \item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
 displayed as described in \code{?plotmath}.}
-
-\item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointly specified with \code{position}.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 

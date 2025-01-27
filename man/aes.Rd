@@ -30,6 +30,13 @@ This function also standardises aesthetic names by converting \code{color} to \c
 (also in substrings, e.g., \code{point_color} to \code{point_colour}) and translating old style
 R names to ggplot names (e.g., \code{pch} to \code{shape} and \code{cex} to \code{size}).
 }
+\note{
+Using \code{I()} to create objects of class 'AsIs' causes scales to ignore the
+variable and assumes the wrapped variable is direct input for the grid
+package. Please be aware that variables are sometimes combined, like in
+some stats or position adjustments, that may yield unexpected results with
+'AsIs' variables.
+}
 \section{Quasiquotation}{
 
 

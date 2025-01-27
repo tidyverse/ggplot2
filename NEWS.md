@@ -2,6 +2,52 @@
 
 * Scale names, guide titles and aesthetic labels can now accept functions 
   (@teunbrand, #4313)
+* Binned scales with zero-width data expand the default limits by 0.1 
+  (@teunbrand, #5066)
+* New default `geom_qq_line(geom = "abline")` for better clipping in the 
+  vertical direction. In addition, `slope` and `intercept` are new computed
+  variables in `stat_qq_line()` (@teunbrand, #6087).
+* Position adjustments can now have auxiliary aesthetics (@teunbrand).
+    * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
+    * `position_dodge()` gains `order` aesthetic (#3022, #3345)
+* More stability for vctrs-based palettes (@teunbrand, #6117).
+* Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
+* New function family for setting parts of a theme. For example, you can now use 
+  `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for
+  `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This
+  should allow slightly terser and more organised theme declarations 
+  (@teunbrand, #5301).
+* `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
+  display range of discrete scales (@teunbrand, #4174, #6259).
+* `geom_ribbon()` now appropriately warns about, and removes, missing values 
+  (@teunbrand, #6243).
+* `guide_*()` can now accept two inside legend theme elements:
+  `legend.position.inside` and `legend.justification.inside`, allowing inside
+  legends to be placed at different positions. Only inside legends with the same
+  position and justification will be merged (@Yunuuuu, #6210).
+* New stat: `stat_manual()` for arbitrary computations (@teunbrand, #3501)
+* Reversal of a dimension, typically 'x' or 'y', is now controlled by the 
+  `reverse` argument in `coord_cartesian()`, `coord_fixed()`, `coord_radial()`
+  and `coord_sf()`. In `coord_radial()`, this replaces the older `direction` 
+  argument (#4021, @teunbrand).
+* `coord_radial()` displays minor gridlines now (@teunbrand).
+* (internal) `continuous_scale()` and `binned_scale()` sort the `limits` 
+  argument internally (@teunbrand).
+* Theme margins can have NA-units to inherit from parent elements. The new
+  function `margin_part()` has NA-units as default (@teunbrand, #6115)
+* New `margin_auto()` specification for theme margins.
+* New argument `labs(dictionary)` to label based on variable name rather than 
+  based on aesthetic (@teunbrand, #5178)
+* Fixed bug in out-of-bounds binned breaks (@teunbrand, #6054)
+* Binned guides now accept expressions as labels (@teunbrand, #6005)
+* (internal) `Scale$get_labels()` format expressions as lists.
+* In non-orthogonal coordinate systems (`coord_sf()`, `coord_polar()` and 
+  `coord_radial()`), using 'AsIs' variables escape transformation when
+  both `x` and `y` is an 'AsIs' variable (@teunbrand, #6205).
+* The following methods have been deprecated: `fortify.lm()`, `fortify.glht()`,
+  `fortify.confint.glht()`, `fortify.summary.glht()` and `fortify.cld()`. It
+  is recommend to use `broom::augment()` and `broom::tidy()` instead 
+  (@teunbrand, #3816).
 * Custom and raster annotation now respond to scale transformations, and can
   use AsIs variables for relative placement (@teunbrand based on 
   @yutannihilation's prior work, #3120)
@@ -17,6 +63,13 @@
   (@teunbrand, #4320)
 * `geom_boxplot()` gains additional arguments to style the colour, linetype and
   linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+* `geom_violin()` gains additional arguments to style the colour, linetype and
+  linewidths of the quantiles, which replace the now-deprecated `draw_quantiles` 
+  argument (#5912).
+* (breaking) `geom_violin(quantiles)` now has actual quantiles based on
+  the data, rather than inferred quantiles based on the computed density. The
+  `quantiles` parameter that replaces `draw_quantiles` now belongs to 
+  `stat_ydensity()` instead of `geom_violin()` (@teunbrand, #4120).
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
   evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
@@ -205,8 +258,28 @@
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
-* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
+* Reintroduced `drop` argument to `stat_bin()` (@teunbrand, #3449)
+* (internal) removed barriers for using 2D structures as aesthetics 
+  (@teunbrand, #4189).
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
+* Added `theme_transparent()` with transparent backgrounds (@topepo).
+* New theme elements `palette.{aes}.discrete` and `palette.{aes}.continuous`. 
+  Theme palettes replace palettes in scales where `palette = NULL`, which is 
+  the new default in many scales (@teunbrand, #4696).
+* `guide_axis()` no longer reserves space for blank ticks 
+  (@teunbrand, #4722, #6069).
+* `geom_abline()` clips to the panel range in the vertical direction too
+  (@teunbrand, #6086).
+* Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
+* Standardised the calculation of `width`, which are now implemented as
+  aesthetics (@teunbrand, #2800).
+* Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
+* Added `weight` aesthetic for `stat_ellipse()` (@teunbrand, #5272)
+* Fixed a bug where the `guide_custom(order)` wasn't working (@teunbrand, #6195)
+* All binning stats now use the `boundary`/`center` parametrisation rather
+  than `origin`, following in `stat_bin()`'s footsteps (@teunbrand).
+* `stat_summary_2d()` and `stat_bin_2d()` now deal with zero-range data
+  more elegantly (@teunbrand, #6207).
 
 # ggplot2 3.5.1
 

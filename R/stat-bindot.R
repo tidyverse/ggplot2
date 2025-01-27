@@ -77,13 +77,11 @@ StatBindot <- ggproto("StatBindot", Stat,
     }
 
     if (method == "histodot") {
-      closed <- if (right) "right" else "left"
-      if (!is.null(binwidth)) {
-        bins <- bin_breaks_width(range, binwidth, boundary = origin, closed = closed)
-      } else {
-        bins <- bin_breaks_bins(range, 30, boundary = origin, closed = closed)
-      }
-
+      bins <- compute_bins(
+        values, scales[[binaxis]],
+        breaks = NULL, binwidth = binwidth, bins = 30, center = NULL,
+        boundary = origin, closed = if (right) "right" else "left"
+      )
       data <- bin_vector(values, bins, weight = data$weight, pad = FALSE)
 
       # Change "width" column to "binwidth" for consistency
