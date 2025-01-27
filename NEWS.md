@@ -268,6 +268,7 @@
   aesthetics (@teunbrand, #2800).
 * Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
 * Added `weight` aesthetic for `stat_ellipse()` (@teunbrand, #5272)
+* Fixed a bug where the `guide_custom(order)` wasn't working (@teunbrand, #6195)
 
 # ggplot2 3.5.1
 

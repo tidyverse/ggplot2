@@ -306,8 +306,9 @@ Guides <- ggproto(
       return(no_guides)
     }
 
-    guides$guides <- c(guides$guides, custom$guides)
-    guides$params <- c(guides$params, custom$params)
+    ord <- order(c(names(guides$guides), names(custom$guides)))
+    guides$guides <- c(guides$guides, custom$guides)[ord]
+    guides$params <- c(guides$params, custom$params)[ord]
 
     guides
   },
