@@ -186,6 +186,7 @@ reference:
   - theme
   - theme_bw
   - theme_update
+  - subtheme
   - element_line
   - margin
 

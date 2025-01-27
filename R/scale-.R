@@ -622,11 +622,8 @@ Scale <- ggproto("Scale", NULL,
 )
 
 check_breaks_labels <- function(breaks, labels, call = NULL) {
-  if (is.null(breaks)) {
-    return(TRUE)
-  }
-  if (is.null(labels)) {
-    return(TRUE)
+  if (is.null(breaks) || is.null(labels)) {
+    return(invisible())
   }
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
@@ -638,7 +635,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
     )
   }
 
-  TRUE
+  invisible()
 }
 
 default_transform <- function(self, x) {
@@ -966,10 +963,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   transform = identity,
 
   map = function(self, x, limits = self$get_limits()) {
-    limits <- limits[!is.na(limits)]
-    n <- length(limits)
+    limits <- vec_slice(limits, !is.na(limits))
+    n <- vec_size(limits)
     if (n < 1) {
-      return(rep(self$na.value, length(x)))
+      return(vec_rep(self$na.value, vec_size(x)))
     }
     if (!is.null(self$n.breaks.cache) && self$n.breaks.cache == n) {
       pal <- self$palette.cache
@@ -985,21 +982,30 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    na_value <- if (self$na.translate) self$na.value else NA
-    pal_names <- names(pal)
+    na_value <- NA
+    if (self$na.translate) {
+      na_value <- self$na.value
+      if (obj_is_list(pal) && !obj_is_list(na_value)) {
+        # We prevent a casting error that occurs when mapping grid patterns
+        na_value <- list(na_value)
+      }
+    }
+
+    pal_names <- vec_names(pal)
 
     if (!is_null(pal_names)) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
-      pal[is.na(match(pal_names, limits))] <- na_value
-      pal <- unname(pal)
+      vec_slice(pal, is.na(match(pal_names, limits))) <- na_value
+      pal <- vec_set_names(pal, NULL)
       limits <- pal_names
     }
-    pal <- c(pal, na_value)
-    pal_match <- pal[match(as.character(x), limits, nomatch = length(pal))]
+    pal <- vec_c(pal, na_value)
+    pal_match <-
+      vec_slice(pal, match(as.character(x), limits, nomatch = vec_size(pal)))
 
     if (!is.na(na_value)) {
-      pal_match[is.na(x)] <- na_value
+      vec_slice(pal_match, is.na(x)) <- na_value
     }
     pal_match
   },
@@ -1286,9 +1292,17 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
             new_limits[1] <- breaks[1]
             breaks <- breaks[-1]
           }
-        } else {
+        } else if (nbreaks == 1) {
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
           new_limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
+        } else {
+          new_limits <- limits
+          if (zero_range(new_limits)) {
+            # 0.1 is the same width as the expansion `default_expansion()`
+            # gives for 0-width data
+            new_limits <- new_limits + c(-0.05, 0.05)
+          }
+          breaks <- new_limits
         }
         new_limits_trans <- suppressWarnings(transformation$transform(new_limits))
         limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]

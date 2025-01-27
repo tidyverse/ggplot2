@@ -38,7 +38,7 @@ means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian(
 for partial polar coordinates. The default, \code{NULL}, is set to
 \code{start + 2 * pi}.}
 
-\item{expand}{If \code{TRUE}, the default, adds a small expansion factor the
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to prevent overlap between data and axes. If \code{FALSE}, limits
 are taken directly from the scale.}
 
@@ -73,10 +73,10 @@ are a stacked bar chart in polar coordinates. \code{coord_radial()} has extended
 options.
 }
 \note{
-In \code{coord_radial()}, position guides are can be defined by using
+In \code{coord_radial()}, position guides can be defined by using
 \code{guides(r = ..., theta = ..., r.sec = ..., theta.sec = ...)}. Note that
 these guides require \code{r} and \code{theta} as available aesthetics. The classic
-\code{guide_axis()} can be used for the \code{r} positions and \code{guide_axis_theta()} can
+\code{\link[=guide_axis]{guide_axis()}} can be used for the \code{r} positions and \code{\link[=guide_axis_theta]{guide_axis_theta()}} can
 be used for the \code{theta} positions. Using the \code{theta.sec} position is only
 sensible when \code{inner.radius > 0}.
 }
