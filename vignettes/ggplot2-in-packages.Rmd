@@ -194,15 +194,11 @@ theme_custom <- function(...) {
 mpg_drv_summary() + theme_custom()
 ```
 
-It is important that the theme be calculated after the package is loaded. If not, the theme object is stored in the compiled bytecode of the built package, which may or may not align with the installed version of ggplot2! If your package has a default theme for its visualizations, the correct way to load it is to have a function that returns the default theme:
+It is important that the theme be calculated after the package is loaded. If not, a theme object —stored as a variable in the built package— may or may not align with the installed version of ggplot2! If your package has a default theme for its visualizations, the correct way to apply this theme is by calling the constructor:
 
 ```{r}
-default_theme <- function() {
-  theme_custom()
-}
-
 mpg_drv_summary2 <- function() {
-  mpg_drv_summary() + default_theme()
+  mpg_drv_summary() + theme_custom()
 }
 ```
 

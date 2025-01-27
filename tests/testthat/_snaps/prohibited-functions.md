@@ -43,17 +43,11 @@
       $geom_density_2d_filled
       [1] "contour_var"
       
-      $geom_label
-      [1] "nudge_x" "nudge_y"
-      
-      $geom_sf_label
-      [1] "nudge_x" "nudge_y"
-      
       $geom_sf_text
-      [1] "nudge_x"       "nudge_y"       "check_overlap"
+      [1] "check_overlap"
       
       $geom_text
-      [1] "nudge_x"       "nudge_y"       "check_overlap"
+      [1] "check_overlap"
       
       $geom_violin
       [1] "draw_quantiles"
@@ -216,6 +210,10 @@
       [5] "base_rect_size"
       
       $theme_test
+      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
+      [5] "base_rect_size"
+      
+      $theme_transparent
       [1] "base_size"      "base_family"    "header_family"  "base_line_size"
       [5] "base_rect_size"
       
