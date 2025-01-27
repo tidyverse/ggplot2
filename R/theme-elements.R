@@ -11,7 +11,8 @@
 #'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
-#' `margin()` is used to specify the margins of elements.
+#' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
+#' margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
@@ -42,7 +43,7 @@
 #'
 #' plot + theme(
 #'   panel.background = element_rect(fill = "white"),
-#'   plot.margin = margin(2, 2, 2, 2, "cm"),
+#'   plot.margin = margin_auto(2, unit = "cm"),
 #'   plot.background = element_rect(
 #'     fill = "grey90",
 #'     colour = "black",
@@ -414,6 +415,8 @@ register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
   t <- theme(..., complete = complete)
   ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
 
+  check_element_tree(element_tree)
+
   # Merge element trees
   ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
 
@@ -457,6 +460,43 @@ on_load({
 #' @export
 get_element_tree <- function() {
   ggplot_global$element_tree
+}
+
+check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
+  check_object(x, is_bare_list, "a bare {.cls list}", arg = arg, call = call)
+  if (length(x) < 1) {
+    return(invisible(NULL))
+  }
+
+  if (!is_named(x)) {
+    cli::cli_abort("{.arg {arg}} must have names.", call = call)
+  }
+
+  # All elements should be constructed with `el_def()`
+  fields <- names(el_def())
+  bad_fields <- !vapply(x, function(el) all(fields %in% names(el)), logical(1))
+  if (any(bad_fields)) {
+    bad_fields <- names(x)[bad_fields]
+    cli::cli_abort(
+      c("{.arg {arg}} must have elements constructed with {.fn el_def}.",
+        i = "Invalid structure: {.and {.val {bad_fields}}}"),
+      call = call
+    )
+  }
+
+  # Check element tree, prevent elements from being their own parent (#6162)
+  bad_parent <- unlist(Map(
+    function(name, el) any(name %in% el$inherit),
+    name = names(x), el = x
+  ))
+  if (any(bad_parent)) {
+    bad_parent <- names(x)[bad_parent]
+    cli::cli_abort(
+      "Invalid parent in {.arg {arg}}: {.and {.val {bad_parent}}}.",
+      call = call
+    )
+  }
+  invisible(NULL)
 }
 
 #' @rdname register_theme_elements
@@ -638,6 +678,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
   panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
   panel.ontop         = el_def("logical"),
+  panel.widths        = el_def("unit"),
+  panel.heights       = el_def("unit"),
 
   strip.background    = el_def("element_rect", "rect"),
   strip.background.x  = el_def("element_rect", "strip.background"),
@@ -695,7 +737,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 # @param element_tree the element tree to validate against
-validate_element <- function(el, elname, element_tree, call = caller_env()) {
+check_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {

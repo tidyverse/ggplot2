@@ -156,10 +156,10 @@ test_that("empty guides are dropped", {
   expect_equal(nrow(gd), 0)
 
   # Draw guides
-  guides <- p$plot$guides$draw(theme_gray(), direction = "vertical")
+  guides <- p$plot$guides$assemble(theme_gray())
 
   # All guide-boxes should be empty
-  expect_equal(lengths(guides, use.names = FALSE), rep(0, 5))
+  expect_true(is.zero(guides))
 })
 
 test_that("bins can be parsed by guides for all scale types", {
@@ -282,6 +282,25 @@ test_that("guides are positioned correctly", {
   expect_doppelganger("legend inside plot, bottom left of legend at center",
     p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0.5,0.5))
   )
+  expect_doppelganger("legend inside plot, multiple positions",
+    p2 +
+      guides(
+          colour = guide_colourbar(
+              position = "inside",
+              theme = theme(
+                legend.position.inside = c(0, 1),
+                legend.justification.inside = c(0, 1)
+              )
+          ),
+          fill = guide_legend(
+              position = "inside",
+              theme = theme(
+                legend.position.inside = c(1, 0),
+                legend.justification.inside = c(1, 0)
+              )
+          )
+      )
+  )
 })
 
 test_that("guides title and text are positioned correctly", {
@@ -390,6 +409,22 @@ test_that("guides title and text are positioned correctly", {
       )
     )
   expect_doppelganger("legends with all title justifications", p)
+})
+
+test_that("bin guide can be reversed", {
+
+  p <- ggplot(data.frame(x = c(0, 100)), aes(x, x, colour = x, fill = x)) +
+    geom_point() +
+    guides(
+      colour = guide_bins(reverse = TRUE, show.limits = TRUE,  order = 1),
+      fill   = guide_bins(
+        reverse = TRUE, show.limits = FALSE, order = 2,
+        override.aes = list(shape = 21)
+      )
+    )
+
+  expect_doppelganger("reversed guide_bins", p)
+
 })
 
 test_that("bin guide can be styled correctly", {
@@ -558,12 +593,16 @@ test_that("old S3 guides can be implemented", {
 
   withr::local_environment(my_env)
 
+  my_guides <- guides(x = guide_circle())
+  expect_length(my_guides$guides, 1)
+  expect_s3_class(my_guides$guides[[1]], "guide")
+
   expect_snapshot_warning(
     expect_doppelganger(
       "old S3 guide drawing a circle",
       ggplot(mtcars, aes(disp, mpg)) +
         geom_point() +
-        guides(x = "circle")
+        my_guides
     )
   )
 })

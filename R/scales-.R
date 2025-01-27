@@ -154,6 +154,7 @@ ScalesList <- ggproto("ScalesList", NULL,
       return()
     }
 
+
     for (aes in new_aesthetics) {
       self$add(find_scale(aes, data[[aes]], env))
     }

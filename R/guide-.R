@@ -19,7 +19,7 @@ NULL
 new_guide <- function(..., available_aes = "any", super) {
 
   pf <- parent.frame()
-  super <- check_subclass(super, "Guide", env = pf)
+  super <- validate_subclass(super, "Guide", env = pf)
 
   args <- list2(...)
 
@@ -51,7 +51,7 @@ new_guide <- function(..., available_aes = "any", super) {
   # Validate theme settings
   if (!is.null(params$theme)) {
     check_object(params$theme, is.theme, what = "a {.cls theme} object")
-    validate_theme(params$theme, call = caller_env())
+    check_theme(params$theme, call = caller_env())
     params$direction <- params$direction %||% params$theme$legend.direction
   }
 
@@ -525,11 +525,12 @@ opposite_position <- function(position) {
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {
-  if (!is.list(labels)) {
+  if (!obj_is_list(labels)) {
     return(labels)
   }
+  labels[lengths(labels) == 0L] <- ""
   if (any(vapply(labels, is.language, logical(1)))) {
-    do.call(expression, labels)
+    inject(expression(!!!labels))
   } else {
     unlist(labels)
   }

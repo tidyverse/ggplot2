@@ -314,11 +314,9 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
 #' @inheritParams geom_label
 #' @inheritParams stat_sf_coordinates
 geom_sf_label <- function(mapping = aes(), data = NULL,
-                          stat = "sf_coordinates", position = "identity",
+                          stat = "sf_coordinates", position = "nudge",
                           ...,
                           parse = FALSE,
-                          nudge_x = 0,
-                          nudge_y = 0,
                           label.padding = unit(0.25, "lines"),
                           label.r = unit(0.15, "lines"),
                           label.size = 0.25,
@@ -326,17 +324,6 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
                           show.legend = NA,
                           inherit.aes = TRUE,
                           fun.geometry = NULL) {
-
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
 
   layer_sf(
     data = data,
@@ -363,27 +350,14 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 #' @inheritParams geom_text
 #' @inheritParams stat_sf_coordinates
 geom_sf_text <- function(mapping = aes(), data = NULL,
-                         stat = "sf_coordinates", position = "identity",
+                         stat = "sf_coordinates", position = "nudge",
                          ...,
                          parse = FALSE,
-                         nudge_x = 0,
-                         nudge_y = 0,
                          check_overlap = FALSE,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE,
                          fun.geometry = NULL) {
-
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
 
   layer_sf(
     data = data,

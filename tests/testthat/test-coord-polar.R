@@ -181,6 +181,23 @@ test_that("when both x and y are AsIs, they are not transformed", {
 
 })
 
+test_that("radial coords can be reversed", {
+  p <- ggplot(data_frame0(x = c(0, 2), y = c(0, 2))) +
+    aes(x = x, y = y) +
+    geom_point() +
+    scale_x_continuous(limits = c(-1, 3), expand = c(0, 0)) +
+    scale_y_continuous(limits = c(-1, 3), expand = c(0, 0))
+  fwd <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "none")
+  rev <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "thetar")
+
+  fwd <- layer_grob(p + fwd)[[1]]
+  rev <- layer_grob(p + rev)[[1]]
+
+  expect_equal(as.numeric(fwd$x), rev(as.numeric(rev$x)))
+  expect_equal(as.numeric(fwd$y), rev(as.numeric(rev$y)))
+})
+
+
 # Visual tests ------------------------------------------------------------
 
 #TODO: Once {vdiffr} supports non-rectangular clipping paths, we should add a
