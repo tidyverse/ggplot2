@@ -67,7 +67,14 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p>More stability for vctrs-based palettes (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6117" class="external-link">#6117</a>).</p></li>
+<ul><li>
+<p>Position adjustments can now have auxiliary aesthetics (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</p>
+<ul><li>
+<code><a href="../reference/position_nudge.html">position_nudge()</a></code> gains <code>nudge_x</code> and <code>nudge_y</code> aesthetics (<a href="https://github.com/tidyverse/ggplot2/issues/3026" class="external-link">#3026</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5445" class="external-link">#5445</a>).</li>
+<li>
+<code><a href="../reference/position_dodge.html">position_dodge()</a></code> gains <code>order</code> aesthetic (<a href="https://github.com/tidyverse/ggplot2/issues/3022" class="external-link">#3022</a>, <a href="https://github.com/tidyverse/ggplot2/issues/3345" class="external-link">#3345</a>)</li>
+</ul></li>
+<li><p>More stability for vctrs-based palettes (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6117" class="external-link">#6117</a>).</p></li>
 <li><p>Fixed regression in <code>guide_bins(reverse = TRUE)</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6183" class="external-link">#6183</a>).</p></li>
 <li><p>New function family for setting parts of a theme. For example, you can now use <code>theme_sub_axis(line, text, ticks, ticks.length, line)</code> as a substitute for <code>theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)</code>. This should allow slightly terser and more organised theme declarations (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5301" class="external-link">#5301</a>).</p></li>
 <li><p><code>scale_{x/y}_discrete(continuous.limits)</code> is a new argument to control the display range of discrete scales (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4174" class="external-link">#4174</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6259" class="external-link">#6259</a>).</p></li>

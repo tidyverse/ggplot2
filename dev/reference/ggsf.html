@@ -121,11 +121,9 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
 <span>  mapping <span class="op">=</span> <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stat <span class="op">=</span> <span class="st">"sf_coordinates"</span>,</span>
-<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"nudge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  nudge_x <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  nudge_y <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  label.padding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span>  label.r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span>  label.size <span class="op">=</span> <span class="fl">0.25</span>,</span>
@@ -139,11 +137,9 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
 <span>  mapping <span class="op">=</span> <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stat <span class="op">=</span> <span class="st">"sf_coordinates"</span>,</span>
-<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"nudge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  nudge_x <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  nudge_y <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -386,12 +382,6 @@ lists which parameters it can accept.</p></li>
 <dt id="arg-parse">parse<a class="anchor" aria-label="anchor" href="#arg-parse"></a></dt>
 <dd><p>If <code>TRUE</code>, the labels will be parsed into expressions and
 displayed as described in <code><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">?plotmath</a></code>.</p></dd>
-
-
-<dt id="arg-nudge-x-nudge-y">nudge_x, nudge_y<a class="anchor" aria-label="anchor" href="#arg-nudge-x-nudge-y"></a></dt>
-<dd><p>Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointly specified with <code>position</code>.</p></dd>
 
 
 <dt id="arg-label-padding">label.padding<a class="anchor" aria-label="anchor" href="#arg-label-padding"></a></dt>

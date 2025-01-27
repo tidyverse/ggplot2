@@ -88,11 +88,9 @@ easier to read.</p>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
-<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"nudge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  nudge_x <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  nudge_y <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  label.padding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span>  label.r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span>  label.size <span class="op">=</span> <span class="fl">0.25</span>,</span>
@@ -106,11 +104,9 @@ easier to read.</p>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
-<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"nudge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  nudge_x <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  nudge_y <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  size.unit <span class="op">=</span> <span class="st">"mm"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -158,10 +154,10 @@ give the stat as <code>"count"</code>.</p></li>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
-<dd><p>A position adjustment to use on the data for this layer.
-Cannot be jointy specified with <code>nudge_x</code> or <code>nudge_y</code>. This
+<dd><p>A position adjustment to use on the data for this layer. This
 can be used in various ways, including to prevent overplotting and
-improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.</p></li>
+improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.
+This method allows for passing extra arguments to the position.</p></li>
 <li><p>A string naming the position adjustment. To give the position as a
 string, strip the function name of the <code>position_</code> prefix. For example,
 to use <code><a href="position_jitter.html">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
@@ -201,12 +197,6 @@ lists which parameters it can accept.</p></li>
 <dt id="arg-parse">parse<a class="anchor" aria-label="anchor" href="#arg-parse"></a></dt>
 <dd><p>If <code>TRUE</code>, the labels will be parsed into expressions and
 displayed as described in <code><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">?plotmath</a></code>.</p></dd>
-
-
-<dt id="arg-nudge-x-nudge-y">nudge_x, nudge_y<a class="anchor" aria-label="anchor" href="#arg-nudge-x-nudge-y"></a></dt>
-<dd><p>Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointly specified with <code>position</code>.</p></dd>
 
 
 <dt id="arg-label-padding">label.padding<a class="anchor" aria-label="anchor" href="#arg-label-padding"></a></dt>
