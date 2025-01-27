@@ -940,7 +940,7 @@ compute_data_size <- function(data, size, default = 0.9,
     res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
     res <- min(res, na.rm = TRUE)
   } else if (panels == "by") {
-    res <- ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+    res <- stats::ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
   } else {
     res <- resolution(data[[var]], ...)
   }
