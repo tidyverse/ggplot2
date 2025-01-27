@@ -110,7 +110,7 @@ GuideAxisTheta <- ggproto(
       # labels of these positions
       ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
       if (n > 0 && ends_apart < 0.05 && !is.null(key$.label)) {
-        if (is.expression(key$.label)) {
+        if (is.expression(key$.label[[1]])) {
           combined <- substitute(
             paste(a, "/", b),
             list(a = key$.label[[1]], b = key$.label[[n]])
