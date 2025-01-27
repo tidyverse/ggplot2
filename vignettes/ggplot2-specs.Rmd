@@ -251,6 +251,8 @@ ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) +
   scale_size_identity()
 ```
 
+Because points are not typically filled, you may need to change some default settings when using these shapes and mapping `fill`. In particular, discrete `fill` guides will be drawn with an unfilled shape unless overridden (refer to `geom_point()` for an example of this).
+
 ## Text
 
 ### Font family

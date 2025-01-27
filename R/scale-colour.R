@@ -27,6 +27,7 @@
 #' you want to manually set the colors of a scale, consider using
 #' [scale_colour_gradient()] or [scale_colour_steps()].
 #'
+#' @inheritParams continuous_scale
 #' @param ... Additional parameters passed on to the scale type
 #' @param type One of the following:
 #'   * "gradient" (the default)
@@ -77,122 +78,81 @@
 #' v
 #' options(ggplot2.continuous.fill = tmp) # restore previous setting
 #' @export
-scale_colour_continuous <- function(...,
+scale_colour_continuous <- function(..., aesthetics = "colour",
+                                    guide = "colourbar", na.value = "grey50",
                                     type = getOption("ggplot2.continuous.colour")) {
-  type <- type %||% "gradient"
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
 
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(exec(type, !!!args), "scale_colour_continuous", "colour")
-  } else if (identical(type, "gradient")) {
-    exec(scale_colour_gradient, !!!args)
-  } else if (identical(type, "viridis")) {
-    exec(scale_colour_viridis_c, !!!args)
-  } else {
-    cli::cli_abort(c(
-      "Unknown scale type: {.val {type}}",
-      "i" = "Use either {.val gradient} or {.val viridis}."
-    ))
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
+      aesthetic = "colour", type = "continuous"
+    )
+    return(scale)
   }
+
+  continuous_scale(
+    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    ...
+  )
 }
 
 #' @rdname scale_colour_continuous
 #' @export
-scale_fill_continuous <- function(...,
+scale_fill_continuous <- function(..., aesthetics = "fill", guide = "colourbar",
+                                  na.value = "grey50",
                                   type = getOption("ggplot2.continuous.fill")) {
-  type <- type %||% "gradient"
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
 
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(exec(type, !!!args), "scale_fill_continuous", "fill")
-  } else if (identical(type, "gradient")) {
-    exec(scale_fill_gradient, !!!args)
-  } else if (identical(type, "viridis")) {
-    exec(scale_fill_viridis_c, !!!args)
-  } else {
-    cli::cli_abort(c(
-      "Unknown scale type: {.val {type}}",
-      "i" = "Use either {.val gradient} or {.val viridis}."
-    ))
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
+      aesthetic = "fill", type = "continuous"
+    )
+    return(scale)
   }
+
+  continuous_scale(
+    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    ...
+  )
 }
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_colour_binned <- function(...,
+scale_colour_binned <- function(..., aesthetics = "colour", guide = "coloursteps",
+                                na.value = "grey50",
                                 type = getOption("ggplot2.binned.colour")) {
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(exec(type, !!!args), "scale_colour_binned", "colour")
-  } else {
-    type_fallback <- getOption("ggplot2.continuous.colour", default = "gradient")
-    # don't use fallback from scale_colour_continuous() if it is
-    # a function, since that would change the type of the color
-    # scale from binned to continuous
-    if (is.function(type_fallback)) {
-      type_fallback <- "gradient"
-    }
-    type <- type %||% type_fallback
-
-    if (identical(type, "gradient")) {
-      exec(scale_colour_steps, !!!args)
-    } else if (identical(type, "viridis")) {
-      exec(scale_colour_viridis_b, !!!args)
-    } else {
-      cli::cli_abort(c(
-        "Unknown scale type: {.val {type}}",
-        "i" = "Use either {.val gradient} or {.val viridis}."
-      ))
-    }
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
+      aesthetic = "colour", type = "binned"
+    )
+    return(scale)
   }
+
+  binned_scale(
+    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    ...
+  )
 }
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_fill_binned <- function(...,
+scale_fill_binned <- function(..., aesthetics = "fill", guide = "coloursteps",
+                              na.value = "grey50",
                               type = getOption("ggplot2.binned.fill")) {
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(exec(type, !!!args), "scale_fill_binned", "fill")
-  } else {
-    type_fallback <- getOption("ggplot2.continuous.fill", default = "gradient")
-    # don't use fallback from scale_colour_continuous() if it is
-    # a function, since that would change the type of the color
-    # scale from binned to continuous
-    if (is.function(type_fallback)) {
-      type_fallback <- "gradient"
-    }
-    type <- type %||% type_fallback
-
-    if (identical(type, "gradient")) {
-      exec(scale_fill_steps, !!!args)
-    } else if (identical(type, "viridis")) {
-      exec(scale_fill_viridis_b, !!!args)
-    } else {
-      cli::cli_abort(c(
-        "Unknown scale type: {.val {type}}",
-        "i" = "Use either {.val gradient} or {.val viridis}."
-      ))
-    }
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
+      aesthetic = "fill", type = "binned"
+    )
+    return(scale)
   }
-}
 
+  binned_scale(
+    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    ...
+  )
+}
 
 # helper function to make sure that the provided scale is of the correct
 # type (i.e., is continuous and works with the provided aesthetic)
@@ -221,4 +181,74 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
   }
 
   scale
+}
+
+# helper function for backwards compatibility through setting defaults
+# scales through `options()` instead of `theme()`.
+scale_backward_compatibility <- function(..., scale, aesthetic, type) {
+  aesthetic <- standardise_aes_names(aesthetic[1])
+
+  args <- list2(...)
+  args$call <- args$call %||% caller_call() %||% current_call()
+
+  if (type == "binned") {
+    fallback <- getOption(
+      paste("ggplot2", type, aesthetic, sep = "."),
+      default = "gradient"
+    )
+    if (is.function(fallback)) {
+      fallback <- "gradient"
+    }
+    scale <- scale %||% fallback
+  }
+
+  if (is_bare_string(scale)) {
+    if (scale == "continuous") {
+      scale <- "gradient"
+    }
+    if (scale == "discrete") {
+      scale <- "hue"
+    }
+    if (scale == "viridis") {
+      scale <- switch(
+        type, discrete = "viridis_d", binned = "viridis_b", "viridis_c"
+      )
+    }
+
+    candidates <- paste("scale", aesthetic, scale, sep = "_")
+    for (candi in candidates) {
+      f <- find_global(candi, env = caller_env(), mode = "function")
+      if (!is.null(f)) {
+        scale <- f
+        break
+      }
+    }
+  }
+
+  if (!is.function(scale) && type == "discrete") {
+    args$type <- scale
+    scale <- switch(
+      aesthetic,
+      colour = scale_colour_qualitative,
+      fill   = scale_fill_qualitative
+    )
+  }
+
+  if (is.function(scale)) {
+    if (!any(c("...", "call") %in% fn_fmls_names(scale))) {
+      args$call <- NULL
+    }
+    if (!"..." %in% fn_fmls_names(scale)) {
+      args <- args[intersect(names(args), fn_fmls_names(scale))]
+    }
+    scale <- check_scale_type(
+      exec(scale, !!!args),
+      paste("scale", aesthetic, type, sep = "_"),
+      aesthetic,
+      scale_is_discrete = type == "discrete"
+    )
+    return(scale)
+  }
+
+  cli::cli_abort("Unknown scale type: {.val {scale}}")
 }

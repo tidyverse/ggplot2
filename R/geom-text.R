@@ -95,7 +95,7 @@
 #' # Add aesthetic mappings
 #' p + geom_text(aes(colour = factor(cyl)))
 #' p + geom_text(aes(colour = factor(cyl))) +
-#'   scale_colour_discrete(l = 40)
+#'   scale_colour_hue(l = 40)
 #' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
 #' # Scale size of text, and change legend key glyph from a to point
