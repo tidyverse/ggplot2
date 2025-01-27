@@ -12,7 +12,8 @@ scale_x_discrete(
   expand = waiver(),
   guide = waiver(),
   position = "bottom",
-  sec.axis = waiver()
+  sec.axis = waiver(),
+  continuous.limits = NULL
 )
 
 scale_y_discrete(
@@ -22,7 +23,8 @@ scale_y_discrete(
   expand = waiver(),
   guide = waiver(),
   position = "left",
-  sec.axis = waiver()
+  sec.axis = waiver(),
+  continuous.limits = NULL
 )
 }
 \arguments{
@@ -107,6 +109,15 @@ expand the scale by 5\% on each side for continuous variables, and by
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 
 \item{sec.axis}{\code{\link[=dup_axis]{dup_axis()}} is used to specify a secondary axis.}
+
+\item{continuous.limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing a display range for the scale.
+Use \code{NA} to refer to the existing minimum or maximum.
+\item A function that accepts the limits and returns a numeric vector of
+length two.
+}}
 }
 \description{
 \code{scale_x_discrete()} and \code{scale_y_discrete()} are used to set the values for

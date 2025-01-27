@@ -206,7 +206,7 @@ mpg %>%
 
 ### How can I display proportions (relative frequencies) instead of counts on a bar plot?
 
-Either calculate the proportions ahead of time and place them on bars using `geom_text()` or let `ggplot()` calculate them for you and then add them to the plot using `stat_coun()` with `geom = "text"`.
+Either calculate the proportions ahead of time and place them on bars using `geom_text()` or let `ggplot()` calculate them for you and then add them to the plot using `stat_count()` with `geom = "text"`.
 
 <details>
 

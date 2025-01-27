@@ -20,7 +20,7 @@
 #' # to demonstrate how these common plots can be described in the
 #' # grammar.  Use with EXTREME caution.
 #'
-#' #' # A pie chart = stacked bar chart + polar coordinates
+#' # A pie chart = stacked bar chart + polar coordinates
 #' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
 #'  geom_bar(width = 1)
 #' pie + coord_polar(theta = "y")
@@ -180,6 +180,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     arc  <- self$start + c(0, 2 * pi)
     dir  <- self$direction
     data <- rename_data(self, data)

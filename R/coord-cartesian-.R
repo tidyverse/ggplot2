@@ -25,6 +25,10 @@
 #'   limits are set via `xlim` and `ylim` and some data points fall outside those
 #'   limits, then those data points may show up in places such as the axes, the
 #'   legend, the plot title, or the plot margins.
+#' @param reverse A string giving which directions to reverse. `"none"`
+#'   (default) keeps directions as is. `"x"` and `"y"` can be used to reverse
+#'   their respective directions. `"xy"` can be used to reverse both
+#'   directions.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -64,11 +68,12 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE, clip = "on") {
+                            default = FALSE, clip = "on", reverse = "none") {
   check_coord_limits(xlim)
   check_coord_limits(ylim)
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
+    reverse = reverse,
     expand = expand,
     default = default,
     clip = clip
@@ -97,8 +102,11 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     self$range(panel_params)
   },
 
-  transform = function(data, panel_params) {
-    data <- transform_position(data, panel_params$x$rescale, panel_params$y$rescale)
+  transform = function(self, data, panel_params) {
+    reverse <- self$reverse %||% "none"
+    x <- panel_params$x[[switch(reverse, xy = , x = "reverse", "rescale")]]
+    y <- panel_params$y[[switch(reverse, xy = , y = "reverse", "rescale")]]
+    data <- transform_position(data, x, y)
     transform_position(data, squish_infinite, squish_infinite)
   },
 
@@ -109,14 +117,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     )
   },
 
-  render_bg = function(panel_params, theme) {
-    guide_grid(
-      theme,
-      panel_params$x$break_positions_minor(),
-      panel_params$x$break_positions(),
-      panel_params$y$break_positions_minor(),
-      panel_params$y$break_positions()
-    )
+  render_bg = function(self, panel_params, theme) {
+    guide_grid(theme, panel_params, self)
   },
 
   render_axis_h = function(panel_params, theme) {

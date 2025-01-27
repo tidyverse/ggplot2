@@ -10,7 +10,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `dim(data)` must return an <integer> of length 2.
 
 ---
@@ -20,7 +20,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `dim(data)` must return an <integer> of length 2.
 
 ---
@@ -30,7 +30,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `colnames(data)` must return a <character> of length `ncol(data)`.
 
 ---
@@ -50,7 +50,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `dim(data)` must return an <integer> of length 2.
 
 ---
@@ -60,7 +60,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `dim(data)` must return an <integer> of length 2.
 
 ---
@@ -70,7 +70,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `dim(data)` can't have `NA`s or negative values.
 
 ---
@@ -80,7 +80,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `dim(data)` can't have `NA`s or negative values.
 
 ---
@@ -100,7 +100,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `colnames(data)` must return a <character> of length `ncol(data)`.
 
 ---
@@ -110,7 +110,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.prevalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_like()`:
       ! `colnames(data)` must return a <character> of length `ncol(data)`.
 
 ---
@@ -130,7 +130,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.postvalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_conversion()`:
       ! `as.data.frame(data)` must return a <data.frame>.
 
 ---
@@ -140,7 +140,7 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.postvalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_conversion()`:
       ! `as.data.frame(data)` must preserve dimensions.
 
 ---
@@ -150,6 +150,6 @@
     Condition
       Error in `fortify()`:
       ! `data` must be a <data.frame>, or an object coercible by `fortify()`, or a valid <data.frame>-like object coercible by `as.data.frame()`.
-      Caused by error in `.postvalidate_data_frame_like_object()`:
+      Caused by error in `check_data_frame_conversion()`:
       ! `as.data.frame(data)` must preserve column names.
 
