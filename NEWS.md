@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Binned scales with zero-width data expand the default limits by 0.1 
+  (@teunbrand, #5066)
 * New default `geom_qq_line(geom = "abline")` for better clipping in the 
   vertical direction. In addition, `slope` and `intercept` are new computed
   variables in `stat_qq_line()` (@teunbrand, #6087).
