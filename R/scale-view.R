@@ -117,6 +117,9 @@ ViewScale <- ggproto("ViewScale", NULL,
   rescale = function(self, x) {
     self$scale$rescale(x, self$limits, self$continuous_range)
   },
+  reverse = function(self, x) {
+    self$scale$rescale(x, rev(self$limits), rev(self$continuous_range))
+  },
   map = function(self, x) {
     if (self$is_discrete()) {
       self$scale$map(x, self$limits)
@@ -126,6 +129,16 @@ ViewScale <- ggproto("ViewScale", NULL,
   },
   make_title = function(self, title) {
     self$scale$make_title(title)
+  },
+  mapped_breaks = function(self) {
+    self$map(self$get_breaks())
+  },
+  mapped_breaks_minor = function(self) {
+    b <- self$get_breaks_minor()
+    if (is.null(b)) {
+      return(NULL)
+    }
+    self$map(b)
   },
   break_positions = function(self) {
     self$rescale(self$get_breaks())

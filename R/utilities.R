@@ -277,17 +277,29 @@ is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
 
-# This function checks that all columns of a dataframe `x` are data and returns
-# the names of any columns that are not.
-# We define "data" as atomic types or lists, not functions or otherwise.
-# The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
-# and whether they can be expected to follow behavior typical of vectors. See
-# also #3835
-check_nondata_cols <- function(x) {
-  idx <- (vapply(x, function(x) {
-    is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
-  }, logical(1)))
-  names(x)[which(!idx)]
+check_nondata_cols <- function(data, mapping, problem = NULL, hint = NULL) {
+  # We define "data" as atomic types or lists, not functions or otherwise.
+  # The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
+  # and whether they can be expected to follow behaviour typical of vectors. See
+  # also #3835
+  invalid <- which(!vapply(
+    data, FUN.VALUE = logical(1),
+    function(x) is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
+  ))
+  invalid <- names(data)[invalid]
+
+  if (length(invalid) < 1) {
+    return(invisible())
+  }
+
+  mapping <- vapply(mapping[invalid], as_label, character(1))
+  issues <- paste0("{.code ", invalid, " = ", mapping, "}")
+  names(issues) <- rep("*", length(issues))
+  issues <- c(x = "The following aesthetics are invalid:", issues)
+
+  # Using 'call = NULL' here because `by_layer()` does a good job of indicating
+  # the origin of the error
+  cli::cli_abort(c(problem, issues, i = hint), call = NULL)
 }
 
 compact <- function(x) {
@@ -781,6 +793,44 @@ as_unordered_factor <- function(x) {
   x
 }
 
+size0 <- function(x) {
+  if (obj_is_vector(x)) {
+    vec_size(x)
+  } else if (is.vector(x)) {
+    length(x)
+  } else {
+    NULL
+  }
+}
+
+fallback_palette <- function(scale) {
+  aes <- scale$aesthetics[1]
+  discrete <- scale$is_discrete()
+  if (discrete) {
+    pal <- switch(
+      aes,
+      colour = , fill = pal_hue(),
+      alpha = function(n) seq(0.1, 1, length.out = n),
+      linewidth = function(n) seq(2, 6, length.out = n),
+      linetype = pal_linetype(),
+      shape = pal_shape(),
+      size = function(n) sqrt(seq(4, 36, length.out = n)),
+      ggplot_global$theme_default[[paste0("palette.", aes, ".discrete")]]
+    )
+    return(pal)
+  }
+  switch(
+    aes,
+    colour = , fill = pal_seq_gradient("#132B43", "#56B1F7"),
+    alpha = pal_rescale(c(0.1, 1)),
+    linewidth = pal_rescale(c(1, 6)),
+    linetype = pal_binned(pal_linetype()),
+    shape = pal_binned(pal_shape()),
+    size = pal_area(),
+    ggplot_global$theme_default[[paste0("palette.", aes, ".continuous")]]
+  )
+}
+
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
     env = env, call = call,
@@ -793,6 +843,8 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   )
 }
 
+# TODO: delete shims when {scales} releases >1.3.0.9000
+# and bump {scales} version requirements
 # Shim for scales/#424
 col_mix <- function(a, b, amount = 0.5) {
   input <- vec_recycle_common(a = a, b = b, amount = amount)
@@ -805,9 +857,39 @@ col_mix <- function(a, b, amount = 0.5) {
   )
 }
 
+# Shim for scales/#427
+as_discrete_pal <- function(x, ...) {
+  if (is.function(x)) {
+    return(x)
+  }
+  pal_manual(x)
+}
+
+# Shim for scales/#427
+as_continuous_pal <- function(x, ...) {
+  if (is.function(x)) {
+    return(x)
+  }
+  is_color <- grepl("^#(([[:xdigit:]]{2}){3,4}|([[:xdigit:]]){3,4})$", x) |
+    x %in% grDevices::colours()
+  if (all(is_color)) {
+    colour_ramp(x)
+  } else {
+    approxfun(seq(0, 1, length.out = length(x)), x)
+  }
+}
+
+# Replace shims by actual scales function when available
 on_load({
-  if ("col_mix" %in% getNamespaceExports("scales")) {
+  nse <- getNamespaceExports("scales")
+  if ("col_mix" %in% nse) {
     col_mix <- scales::col_mix
+  }
+  if ("as_discrete_pal" %in% nse) {
+    as_discrete_pal <- scales::as_discrete_pal
+  }
+  if ("as_continuous_pal" %in% nse) {
+    as_continuous_pal <- scales::as_continuous_pal
   }
 })
 
@@ -838,4 +920,33 @@ prompt_install <- function(pkg, reason = NULL) {
   }
   utils::install.packages(pkg)
   is_installed(pkg)
+}
+
+compute_data_size <- function(data, size, default = 0.9,
+                              target = "width",
+                              panels = c("across", "by", "ignore"),
+                              ...) {
+
+  data[[target]] <- data[[target]] %||% size
+  if (!is.null(data[[target]])) {
+    return(data)
+  }
+
+  var <- if (target == "height") "y" else "x"
+  panels <- arg_match0(panels, c("across", "by", "ignore"))
+
+  if (panels == "across") {
+    res <- split(data[[var]], data$PANEL, drop = FALSE)
+    res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
+    res <- min(res, na.rm = TRUE)
+  } else if (panels == "by") {
+    res <- ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+  } else {
+    res <- resolution(data[[var]], ...)
+  }
+  if (is_quosure(default)) {
+    default <- eval_tidy(default, data = data)
+  }
+  data[[target]] <- res * (default %||% 0.9)
+  data
 }
