@@ -781,15 +781,15 @@ stat that doesn’t handle orientation (often
 <span><span class="co">#&gt; &lt;ggproto method&gt;</span></span>
 <span><span class="co">#&gt;   &lt;Wrapper function&gt;</span></span>
 <span><span class="co">#&gt;     function (...) </span></span>
-<span><span class="co">#&gt; setup_data(...)</span></span>
+<span><span class="co">#&gt; setup_data(..., self = self)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   &lt;Inner function (f)&gt;</span></span>
-<span><span class="co">#&gt;     function (data, params) </span></span>
+<span><span class="co">#&gt;     function (self, data, params) </span></span>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     data$flipped_aes &lt;- params$flipped_aes</span></span>
 <span><span class="co">#&gt;     data &lt;- flip_data(data, params$flipped_aes)</span></span>
-<span><span class="co">#&gt;     data$width &lt;- data$width %||% params$width %||% (resolution(data$x, </span></span>
-<span><span class="co">#&gt;         FALSE, TRUE) * 0.9)</span></span>
+<span><span class="co">#&gt;     data &lt;- compute_data_size(data, params$width, default = self$default_aes$width, </span></span>
+<span><span class="co">#&gt;         zero = FALSE, discrete = TRUE)</span></span>
 <span><span class="co">#&gt;     if (isFALSE(params$outliers)) {</span></span>
 <span><span class="co">#&gt;         data$outliers &lt;- NULL</span></span>
 <span><span class="co">#&gt;     }</span></span>
