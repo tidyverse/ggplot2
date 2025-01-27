@@ -1,6 +1,8 @@
 # ggplot2 (development version)
 
-* Added `weight` aesthetic for `stat_ellipse()` (@teunbrand, #5272)
+* Position adjustments can now have auxiliary aesthetics (@teunbrand).
+    * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
+    * `position_dodge()` gains `order` aesthetic (#3022, #3345)
 * More stability for vctrs-based palettes (@teunbrand, #6117).
 * Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
 * New function family for setting parts of a theme. For example, you can now use 
@@ -265,6 +267,7 @@
 * Standardised the calculation of `width`, which are now implemented as
   aesthetics (@teunbrand, #2800).
 * Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
+* Added `weight` aesthetic for `stat_ellipse()` (@teunbrand, #5272)
 
 # ggplot2 3.5.1
 
