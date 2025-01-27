@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* More stability for vctrs-based palettes (@teunbrand, #6117).
 * Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
 * New function family for setting parts of a theme. For example, you can now use 
   `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for

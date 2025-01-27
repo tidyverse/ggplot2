@@ -747,3 +747,32 @@ test_that("discrete scales work with NAs in arbitrary positions", {
   expect_equal(test, output)
 
 })
+
+test_that("discrete scales can map to 2D structures", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
+    geom_point()
+
+  # Test it can map to a vctrs rcrd class
+  rcrd <- new_rcrd(list(a = LETTERS[1:3], b = 3:1))
+
+  ld <- layer_data(p + scale_colour_manual(values = rcrd, na.value = NA))
+  expect_s3_class(ld$colour, "vctrs_rcrd")
+  expect_length(ld$colour, nrow(mtcars))
+
+  # Test it can map to data.frames
+  df <- data_frame0(a = LETTERS[1:3], b = 3:1)
+  my_pal <- function(n) vec_slice(df, seq_len(n))
+
+  ld <- layer_data(p + discrete_scale("colour", palette = my_pal))
+  expect_s3_class(ld$colour, "data.frame")
+  expect_equal(dim(ld$colour), c(nrow(mtcars), ncol(df)))
+
+  # Test it can map to matrices
+  mtx <- cbind(a = LETTERS[1:3], b = LETTERS[4:6])
+  my_pal <- function(n) vec_slice(mtx, seq_len(n))
+
+  ld <- layer_data(p + discrete_scale("colour", palette = my_pal))
+  expect_true(is.matrix(ld$colour))
+  expect_equal(dim(ld$colour), c(nrow(mtcars), ncol(df)))
+})
