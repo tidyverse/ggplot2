@@ -347,12 +347,13 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_statistic = function(self, data, layout) {
-    if (empty(data))
-      return(data_frame0())
+    if (empty(data)) return(data_frame0())
 
+    ptype <- vec_ptype(data)
     self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, self$computed_stat_params)
-    self$stat$compute_layer(data, self$computed_stat_params, layout)
+    data <- self$stat$compute_layer(data, self$computed_stat_params, layout)
+    merge_attrs(data, ptype)
   },
 
   map_statistic = function(self, data, plot) {
@@ -396,12 +397,13 @@ Layer <- ggproto("Layer", NULL,
       stat_data <- plot$scales$transform_df(stat_data)
     }
     stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
-
-    data_frame0(!!!defaults(stat_data, data))
+    data[names(stat_data)] <- stat_data
+    data
   },
 
   compute_geom_1 = function(self, data) {
     if (empty(data)) return(data_frame0())
+    ptype <- vec_ptype(data)
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -409,17 +411,18 @@ Layer <- ggproto("Layer", NULL,
       snake_class(self$geom)
     )
     self$computed_geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
-    self$geom$setup_data(data, self$computed_geom_params)
+    data <- self$geom$setup_data(data, self$computed_geom_params)
+    merge_attrs(data, ptype)
   },
 
   compute_position = function(self, data, layout) {
     if (empty(data)) return(data_frame0())
-
+    ptype <- vec_ptype(data)
     data <- self$position$use_defaults(data, self$aes_params)
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
-
-    self$position$compute_layer(data, params, layout)
+    data <- self$position$compute_layer(data, params, layout)
+    merge_attrs(data, ptype)
   },
 
   compute_geom_2 = function(self, data, params = self$aes_params, theme = NULL, ...) {
@@ -484,6 +487,10 @@ set_draw_key <- function(geom, draw_key = NULL) {
 }
 
 cleanup_mismatched_data <- function(data, n, fun) {
+  if (vec_duplicate_any(names(data))) {
+    data <- data[unique0(names(data))]
+  }
+
   failed <- !lengths(data) %in% c(0, 1, n)
   if (!any(failed)) {
     return(data)

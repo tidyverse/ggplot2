@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (internal) layer data can be attenuated with parameter attributes 
+  (@teunbrand, #3175).
 * Position adjustments can now have auxiliary aesthetics (@teunbrand).
     * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
     * `position_dodge()` gains `order` aesthetic (#3022, #3345)
