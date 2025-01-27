@@ -196,6 +196,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{weight}
+\item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Position adjustments can now have auxiliary aesthetics (@teunbrand).
+    * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
+    * `position_dodge()` gains `order` aesthetic (#3022, #3345)
 * More stability for vctrs-based palettes (@teunbrand, #6117).
 * Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
 * New function family for setting parts of a theme. For example, you can now use 

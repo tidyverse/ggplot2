@@ -46,6 +46,15 @@ be specified in the global or \verb{geom_*} layer. Unlike \code{position_dodge()
 particularly useful for arranging box plots, which
 can have variable widths.
 }
+\section{Aesthetics}{
+
+\code{position_dodge()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \code{order}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge2")

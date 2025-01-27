@@ -384,7 +384,7 @@ differently when added to a ggplot object. Also, when setting
 \code{complete = TRUE} all elements will be set to inherit from blank
 elements.}
 
-\item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
+\item{validate}{\code{TRUE} to run \code{check_element()}, \code{FALSE} to bypass checks.}
 }
 \description{
 Themes are a powerful way to customize the non-data components of your plots:
