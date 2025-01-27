@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
 * New function family for setting parts of a theme. For example, you can now use 
   `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for
   `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This

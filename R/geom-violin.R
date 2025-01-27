@@ -118,7 +118,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
     check_numeric(draw_quantiles)
 
     # Pass on to stat when stat accepts 'quantiles'
-    stat <- check_subclass(stat, "Stat", current_call(), caller_env())
+    stat <- validate_subclass(stat, "Stat", current_call(), caller_env())
     if ("quantiles" %in% stat$parameters()) {
       extra$quantiles <- draw_quantiles
     }
