@@ -250,7 +250,7 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_equal(p$plot$theme$text$face, "italic")
 })
 
-test_that("theme(validate=FALSE) means do not validate_element", {
+test_that("theme(validate=FALSE) means do not check_element", {
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   bw <- p + theme_bw()
   red.text <- theme(text = element_text(colour = "red"))
@@ -350,6 +350,7 @@ test_that("all elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_linedraw()))
   expect_true(inherit_blanks(theme_minimal()))
   expect_true(inherit_blanks(theme_void()))
+  expect_true(inherit_blanks(theme_transparent()))
 })
 
 test_that("elements can be merged", {
@@ -496,6 +497,9 @@ test_that("provided themes explicitly define all elements", {
 
   t <- theme_test()
   expect_true(all(names(t) %in% elements))
+
+  t <- theme_transparent()
+  expect_true(all(names(t) %in% elements))
 })
 
 test_that("Theme elements are checked during build", {
@@ -510,11 +514,37 @@ test_that("Theme elements are checked during build", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("subtheme functions rename arguments as intended", {
+
+  line <- element_line(colour = "red")
+  rect <- element_rect(colour = "red")
+
+  expect_equal(theme_sub_axis(ticks = line),        theme(axis.ticks = line))
+  expect_equal(theme_sub_axis_x(ticks = line),      theme(axis.ticks.x = line))
+  expect_equal(theme_sub_axis_y(ticks = line),      theme(axis.ticks.y = line))
+  expect_equal(theme_sub_axis_top(ticks = line),    theme(axis.ticks.x.top = line))
+  expect_equal(theme_sub_axis_bottom(ticks = line), theme(axis.ticks.x.bottom = line))
+  expect_equal(theme_sub_axis_left(ticks = line),   theme(axis.ticks.y.left = line))
+  expect_equal(theme_sub_axis_right(ticks = line),  theme(axis.ticks.y.right = line))
+  expect_equal(theme_sub_legend(key = rect),        theme(legend.key = rect))
+  expect_equal(theme_sub_panel(border = rect),      theme(panel.border = rect))
+  expect_equal(theme_sub_plot(background = rect),   theme(plot.background = rect))
+  expect_equal(theme_sub_strip(background = rect),  theme(strip.background = rect))
+
+  # Test rejection of unknown theme elements
+  expect_snapshot_warning(
+    expect_equal(
+      subtheme(list(foo = 1, bar = 2, axis.line = line)),
+      theme(axis.line = line)
+    )
+  )
+})
+
 test_that("Theme validation behaves as expected", {
   tree <- get_element_tree()
-  expect_silent(validate_element(1,  "aspect.ratio", tree))
-  expect_silent(validate_element(1L, "aspect.ratio", tree))
-  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+  expect_silent(check_element(1,  "aspect.ratio", tree))
+  expect_silent(check_element(1L, "aspect.ratio", tree))
+  expect_snapshot_error(check_element("A", "aspect.ratio", tree))
 })
 
 test_that("Element subclasses are inherited", {
@@ -613,6 +643,62 @@ test_that("complete_theme completes a theme", {
   reset_theme_settings()
 })
 
+test_that("panel.widths and panel.heights works with free-space panels", {
+
+  df <- data.frame(x = c(1, 1, 2, 1, 3), g = c("A", "B", "B", "C", "C"))
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      scale_x_continuous(expand = expansion(add = 1)) +
+      facet_grid(~ g, scales = "free_x", space = "free_x") +
+      theme(
+        panel.widths = unit(11, "cm"),
+        panel.spacing.x = unit(1, "cm")
+      )
+  )
+
+  idx <- range(panel_cols(p)$l)
+  expect_equal(as.numeric(p$widths[seq(idx[1], idx[2])]), c(2, 1, 3, 1, 4))
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      scale_y_continuous(expand = expansion(add = 1)) +
+      facet_grid(g ~ ., scales = "free_y", space = "free_y") +
+      theme(
+        panel.heights = unit(11, "cm"),
+        panel.spacing.y = unit(1, "cm")
+      )
+  )
+
+  idx <- range(panel_rows(p)$t)
+  expect_equal(as.numeric(p$heights[seq(idx[1], idx[2])]), c(2, 1, 3, 1, 4))
+
+})
+
+test_that("panel.widths and panel.heights appropriately warn about aspect override", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    theme(aspect.ratio = 1, panel.widths = unit(4, "cm"))
+  expect_warning(ggplotGrob(p), "Aspect ratios are overruled")
+})
+
+test_that("margin_part() mechanics work as expected", {
+
+  t <- theme_gray() +
+    theme(plot.margin = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+
+  t <- theme_gray() +
+    theme(margins = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
@@ -661,6 +747,7 @@ test_that("themes don't change without acknowledgement", {
   expect_doppelganger("theme_light", plot + theme_light())
   expect_doppelganger("theme_void", plot + theme_void())
   expect_doppelganger("theme_linedraw", plot + theme_linedraw())
+  expect_doppelganger("theme_transparent", plot + theme_transparent())
 })
 
 test_that("themes look decent at larger base sizes", {
@@ -677,6 +764,7 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
   expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
+  expect_doppelganger("theme_transparent_large", plot + theme_transparent(base_size = 33))
 })
 
 test_that("setting 'spacing' and 'margins' affect the whole plot", {

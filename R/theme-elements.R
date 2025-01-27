@@ -11,7 +11,8 @@
 #'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
-#' `margin()` is used to specify the margins of elements.
+#' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
+#' margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
@@ -42,7 +43,7 @@
 #'
 #' plot + theme(
 #'   panel.background = element_rect(fill = "white"),
-#'   plot.margin = margin(2, 2, 2, 2, "cm"),
+#'   plot.margin = margin_auto(2, unit = "cm"),
 #'   plot.background = element_rect(
 #'     fill = "grey90",
 #'     colour = "black",
@@ -638,6 +639,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
   panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
   panel.ontop         = el_def("logical"),
+  panel.widths        = el_def("unit"),
+  panel.heights       = el_def("unit"),
 
   strip.background    = el_def("element_rect", "rect"),
   strip.background.x  = el_def("element_rect", "strip.background"),
@@ -666,6 +669,21 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.tag.location   = el_def("character"),
   plot.margin         = el_def(c("margin", "unit", "rel"), "margins"),
 
+  palette.colour.discrete   = el_def(c("character", "function")),
+  palette.colour.continuous = el_def(c("character", "function")),
+  palette.fill.discrete   = el_def(c("character", "function"), "palette.colour.discrete"),
+  palette.fill.continuous = el_def(c("character", "function"), "palette.colour.continuous"),
+  palette.alpha.discrete   = el_def(c("character", "numeric", "integer", "function")),
+  palette.alpha.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linewidth.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.size.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.shape.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.discrete = el_def(c("character", "numeric", "integer", "function")),
+  palette.linetype.continuous = el_def(c("character", "numeric", "integer", "function")),
+
   aspect.ratio        = el_def(c("numeric", "integer"))
 )
 
@@ -680,7 +698,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 # @param element_tree the element tree to validate against
-validate_element <- function(el, elname, element_tree, call = caller_env()) {
+check_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {

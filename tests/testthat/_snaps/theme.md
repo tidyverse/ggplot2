@@ -77,6 +77,10 @@
     `plot.tag.position` must be one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright", not "test".
     i Did you mean "left"?
 
+# subtheme functions rename arguments as intended
+
+    Ignoring unknown `theme()` elements: foo and bar.
+
 # Theme validation behaves as expected
 
     The `aspect.ratio` theme element must be a <numeric/integer> object.

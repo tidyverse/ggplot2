@@ -44,6 +44,7 @@ Imports:
     vctrs (>= 0.6.0),
     withr (>= 2.5.0)
 Suggests:
+    broom,
     covr,
     dplyr,
     ggplot2movies,
@@ -126,15 +127,15 @@ Collate:
     'facet-grid-.R'
     'facet-null.R'
     'facet-wrap.R'
-    'fortify-lm.R'
     'fortify-map.R'
-    'fortify-multcomp.R'
+    'fortify-models.R'
     'fortify-spatial.R'
     'fortify.R'
     'stat-.R'
     'geom-abline.R'
     'geom-rect.R'
     'geom-bar.R'
+    'geom-tile.R'
     'geom-bin2d.R'
     'geom-blank.R'
     'geom-boxplot.R'
@@ -167,7 +168,6 @@ Collate:
     'geom-smooth.R'
     'geom-spoke.R'
     'geom-text.R'
-    'geom-tile.R'
     'geom-violin.R'
     'geom-vline.R'
     'ggplot2-package.R'
@@ -254,6 +254,7 @@ Collate:
     'stat-ellipse.R'
     'stat-function.R'
     'stat-identity.R'
+    'stat-manual.R'
     'stat-qq-line.R'
     'stat-qq.R'
     'stat-quantilemethods.R'
@@ -273,6 +274,7 @@ Collate:
     'theme.R'
     'theme-defaults.R'
     'theme-current.R'
+    'theme-sub.R'
     'utilities-break.R'
     'utilities-grid.R'
     'utilities-help.R'
