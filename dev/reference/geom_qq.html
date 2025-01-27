@@ -81,7 +81,7 @@ points at specified quartiles of the theoretical and sample distributions.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">geom_qq_line</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  geom <span class="op">=</span> <span class="st">"path"</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"abline"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  distribution <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span>,</span>
@@ -96,7 +96,7 @@ points at specified quartiles of the theoretical and sample distributions.</p>
 <span><span class="fu">stat_qq_line</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  geom <span class="op">=</span> <span class="st">"path"</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"abline"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  distribution <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></span>,</span>
@@ -279,6 +279,8 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 <li><p><code>after_stat(theoretical)</code><br> Theoretical quantiles.</p></li>
 </ul><p>Variables computed by <code>stat_qq_line()</code>:</p><ul><li><p><code>after_stat(x)</code><br> x-coordinates of the endpoints of the line segment connecting the  points at the chosen quantiles of the theoretical and the sample  distributions.</p></li>
 <li><p><code>after_stat(y)</code><br> y-coordinates of the endpoints.</p></li>
+<li><p><code>after_stat(slope)</code><br> Amount of change in <code>y</code> across 1 unit of <code>x</code>.</p></li>
+<li><p><code>after_stat(intercept)</code><br> Value of <code>y</code> at <code>x == 0</code>.</p></li>
 </ul></div>
 
     <div class="section level2">
