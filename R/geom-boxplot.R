@@ -286,7 +286,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         whisker_gp = NULL, staple_gp = NULL, median_gp = NULL,
                         box_gp = NULL, notch = FALSE, notchwidth = 0.5,
                         staplewidth = 0, varwidth = FALSE, flipped_aes = FALSE) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
