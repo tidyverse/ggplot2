@@ -194,12 +194,16 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     alpha = NA,
     stroke = from_theme(borderwidth * 2),
     linetype = from_theme(linetype),
-    weight = 1
+    weight = 1,
+    width = 0.9
   ),
 
-  setup_data = function(data, params) {
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
+  setup_data = function(self, data, params) {
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width,
+      zero = FALSE, discrete = TRUE
+    )
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {

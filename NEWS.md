@@ -1,5 +1,14 @@
 # ggplot2 (development version)
 
+* New function family for setting parts of a theme. For example, you can now use 
+  `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for
+  `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This
+  should allow slightly terser and more organised theme declarations 
+  (@teunbrand, #5301).
+* `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
+  display range of discrete scales (@teunbrand, #4174, #6259).
+* `geom_ribbon()` now appropriately warns about, and removes, missing values 
+  (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
@@ -250,6 +259,8 @@
 * `geom_abline()` clips to the panel range in the vertical direction too
   (@teunbrand, #6086).
 * Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
+* Standardised the calculation of `width`, which are now implemented as
+  aesthetics (@teunbrand, #2800).
 
 # ggplot2 3.5.1
 
