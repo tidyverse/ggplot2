@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+* New function family for setting parts of a theme. For example, you can now use 
+  `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for
+  `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This
+  should allow slightly terser and more organised theme declarations 
+  (@teunbrand, #5301).
 * `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
   display range of discrete scales (@teunbrand, #4174, #6259).
 * `geom_ribbon()` now appropriately warns about, and removes, missing values 
