@@ -8,8 +8,8 @@ test_that("layer() checks its input", {
   expect_snapshot_error(layer("point", "identity", mapping = 1:4, position = "identity"))
   expect_snapshot_error(layer("point", "identity", mapping = ggplot(), position = "identity"))
 
-  expect_snapshot_error(check_subclass("test", "geom"))
-  expect_snapshot_error(check_subclass(environment(), "geom"))
+  expect_snapshot_error(validate_subclass("test", "geom"))
+  expect_snapshot_error(validate_subclass(environment(), "geom"))
 })
 
 test_that("aesthetics go in aes_params", {

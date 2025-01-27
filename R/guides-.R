@@ -68,10 +68,13 @@ NULL
 #' }
 guides <- function(...) {
   args <- list2(...)
-  if (length(args) > 0) {
-    if (is.list(args[[1]]) && !is.guide(args[[1]])) args <- args[[1]]
-    args <- rename_aes(args)
+  # If there are no guides do nothing
+  if (length(args) == 0) {
+    return(NULL)
   }
+
+  if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
+  args <- rename_aes(args)
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
@@ -82,11 +85,6 @@ guides <- function(...) {
   # The good path
   if (is_named(args)) {
     return(guides_list(guides = args))
-  }
-
-  # If there are no guides, do nothing
-  if (length(args) == 0) {
-    return(NULL)
   }
 
   # Raise warning about unnamed guides
