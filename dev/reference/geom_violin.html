@@ -87,9 +87,13 @@ boxplot.</p>
 <span>  stat <span class="op">=</span> <span class="st">"ydensity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  draw_quantiles <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>  quantile.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  quantile.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  quantile.linetype <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  quantile.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  draw_quantiles <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  scale <span class="op">=</span> <span class="st">"area"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -103,6 +107,7 @@ boxplot.</p>
 <span>  geom <span class="op">=</span> <span class="st">"violin"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>  bw <span class="op">=</span> <span class="st">"nrd0"</span>,</span>
 <span>  adjust <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  kernel <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
@@ -183,11 +188,6 @@ lists which parameters it can accept.</p></li>
 </ul></dd>
 
 
-<dt id="arg-draw-quantiles">draw_quantiles<a class="anchor" aria-label="anchor" href="#arg-draw-quantiles"></a></dt>
-<dd><p>If <code>not(NULL)</code> (default), draw horizontal lines
-at the given quantiles of the density estimate.</p></dd>
-
-
 <dt id="arg-trim">trim<a class="anchor" aria-label="anchor" href="#arg-trim"></a></dt>
 <dd><p>If <code>TRUE</code> (default), trim the tails of the violins
 to the range of the data. If <code>FALSE</code>, don't trim the tails.</p></dd>
@@ -199,6 +199,17 @@ to the range of the data. If <code>FALSE</code>, don't trim the tails.</p></dd>
 finite, boundary effect of default density estimation will be corrected by
 reflecting tails outside <code>bounds</code> around their closest edge. Data points
 outside of bounds are removed with a warning.</p></dd>
+
+
+<dt id="arg-quantile-colour-quantile-color-quantile-linewidth-quantile-linetype">quantile.colour, quantile.color, quantile.linewidth, quantile.linetype<a class="anchor" aria-label="anchor" href="#arg-quantile-colour-quantile-color-quantile-linewidth-quantile-linetype"></a></dt>
+<dd><p>Default aesthetics for the quantile lines. Set to <code>NULL</code> to inherit from
+the data's aesthetics. By default, quantile lines are hidden and can be
+turned on by changing <code>quantile.linetype</code>.</p></dd>
+
+
+<dt id="arg-draw-quantiles">draw_quantiles<a class="anchor" aria-label="anchor" href="#arg-draw-quantiles"></a></dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Previous
+specification of drawing quantiles.</p></dd>
 
 
 <dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
@@ -241,6 +252,11 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 <code>geom_violin()</code> and <code>stat_ydensity()</code>. For more information about
 overriding these connections, see how the <a href="layer_stats.html">stat</a> and
 <a href="layer_geoms.html">geom</a> arguments work.</p></dd>
+
+
+<dt id="arg-quantiles">quantiles<a class="anchor" aria-label="anchor" href="#arg-quantiles"></a></dt>
+<dd><p>If not <code>NULL</code> (default), compute the <code>quantile</code> variable
+and draw horizontal lines at the given quantiles in <code>geom_violin()</code>.</p></dd>
 
 
 <dt id="arg-bw">bw<a class="anchor" aria-label="anchor" href="#arg-bw"></a></dt>
@@ -298,6 +314,7 @@ For example, <code>adjust = 1/2</code> means use half of the default bandwidth.<
 <li><p><code>after_stat(violinwidth)</code><br> Density scaled for the violin plot, according to area,  counts or to a constant maximum width.</p></li>
 <li><p><code>after_stat(n)</code><br> Number of points.</p></li>
 <li><p><code>after_stat(width)</code><br> Width of violin bounding box.</p></li>
+<li><p><code>after_stat(quantile)</code><br> Whether the row is part of the <code>quantiles</code> computation.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -362,7 +379,10 @@ for examples with data along the x axis.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show quartiles</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_violin</span><span class="op">(</span>draw_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_violin-13.png" alt="" width="700" height="433"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `draw_quantiles` argument of `geom_violin()` is deprecated as of</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> ggplot2 3.6.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use the `quantiles.linetype` argument instead.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_subclass(stat, "Stat", current_call(), caller_env()):</span> could not find function "check_subclass"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Scales vs. coordinate transforms -------</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"ggplot2movies"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -393,7 +413,7 @@ for examples with data along the x axis.</p></div>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Groups with fewer than two datapoints have been dropped.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Set `drop = FALSE` to consider such groups for position adjustment</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   purposes.</span>
-<span class="r-plt img"><img src="geom_violin-14.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_violin-13.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
