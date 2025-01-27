@@ -274,6 +274,7 @@ Collate:
     'theme.R'
     'theme-defaults.R'
     'theme-current.R'
+    'theme-sub.R'
     'utilities-break.R'
     'utilities-grid.R'
     'utilities-help.R'
