@@ -3,14 +3,11 @@
 \name{ggproto}
 \alias{ggproto}
 \alias{ggproto_parent}
-\alias{is.ggproto}
 \title{Create a new ggproto object}
 \usage{
 ggproto(`_class` = NULL, `_inherit` = NULL, ...)
 
 ggproto_parent(parent, self)
-
-is.ggproto(x)
 }
 \arguments{
 \item{_class}{Class name to assign to the object. This is stored as the class
@@ -24,8 +21,6 @@ inherit from any object.}
 functions that become methods of the class or regular objects.}
 
 \item{parent, self}{Access parent class \code{parent} of object \code{self}.}
-
-\item{x}{An object to test.}
 }
 \description{
 Construct a new object with \code{ggproto()}, test with \code{is.ggproto()},

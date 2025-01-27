@@ -1,6 +1,6 @@
 
 test_that("expand_scale() produces a deprecation warning", {
-  expect_warning(expand_scale(), "deprecated")
+  lifecycle::expect_deprecated(expand_scale())
 })
 
 test_that("expansion() checks input", {
@@ -65,7 +65,7 @@ test_that("expand_limits_discrete() can override limits with an empty range", {
 test_that("expand_limits_discrete() can override limits with a discrete range", {
   expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(NA, NA)), c(1, 2))
   expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(NA, 3)), c(1, 3))
-  expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(3, NA)), c(3, 2))
+  expect_identical(expand_limits_discrete(c("one", "two"), coord_limits = c(3, NA)), c(2, 3))
 })
 
 test_that("expand_limits_discrete() can override limits with a continuous range", {
@@ -96,6 +96,27 @@ test_that("expand_limits_discrete() can override limits with a both discrete and
     expand_limits_discrete(c("one", "two"), coord_limits = c(0, NA), range_continuous = c(1, 2)),
     c(0, 2)
   )
+  expect_identical(
+    expand_limits_discrete(1:2, range_continuous = c(1, 2), continuous_limits = c(0, 3)),
+    c(0, 3)
+  )
+  expect_identical(
+    expand_limits_discrete(1:2, range_continuous = c(1, 2), continuous_limits = c(NA, 4)),
+    c(1, 4)
+  )
+  expect_identical(
+    expand_limits_discrete(1:2, range_continuous = c(1, 2), continuous_limits = c(0, NA)),
+    c(0, 2)
+  )
+  expect_identical(
+    expand_limits_discrete(1:2, range_continuous = c(1, 2), continuous_limits = c(NA_real_, NA_real_)),
+    c(1, 2)
+  )
+  expect_identical(
+    expand_limits_discrete(1:2, range_continuous = 1:2,
+                           continuous_limits = function(x) x + c(-1, 1)),
+    c(0, 3)
+  )
 })
 
 test_that("expand_limits_continuous_trans() works with inverted transformations", {
@@ -106,7 +127,7 @@ test_that("expand_limits_continuous_trans() works with inverted transformations"
   )
 
   expect_identical(limit_info$continuous_range, c(0, 3))
-  expect_identical(limit_info$continuous_range_coord, c(0, -3))
+  expect_identical(limit_info$continuous_range_coord, c(-3, 0))
 })
 
 test_that("expand_limits_scale_discrete() begrudgingly handles numeric limits", {

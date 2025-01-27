@@ -126,16 +126,39 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   draw_key = draw_key_polygon,
 
-  handle_na = function(data, params) {
+  handle_na = function(self, data, params) {
+
+    vars <- vapply(
+      strsplit(self$required_aes, "|", fixed = TRUE),
+      `[[`, i = 1, character(1)
+    )
+    if (params$flipped_aes || any(data$flipped_aes) %||% FALSE) {
+      vars <- switch_orientation(vars)
+    }
+    vars <- c(vars, self$non_missing_aes)
+
+    missing <- detect_missing(data, vars, finite = FALSE)
+    if (!any(missing)) {
+      return(data)
+    }
+    # We're rearranging groups to account for missing values
+    data$group <- vec_identify_runs(data_frame0(missing, data$group))
+    data <- vec_slice(data, !missing)
+
+    if (!params$na.rm) {
+      cli::cli_warn(
+        "Removed {sum(missing)} row{?s} containing missing values or values \\
+          outside the scale range ({.fn {snake_class(self)}})."
+      )
+    }
     data
   },
 
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "round", linemitre = 10, na.rm = FALSE,
                         flipped_aes = FALSE, outline.type = "both") {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
-    if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant

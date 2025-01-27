@@ -222,6 +222,16 @@ summarise_by_x <- function(data, summary, ...) {
   merge(summary, unique, by = c("x", "group"), sort = FALSE)
 }
 
+# Return unique columns
+# This is used for figuring out which columns are constant within a group
+#
+# @keyword internal
+uniquecols <- function(df) {
+  df <- df[1, sapply(df, is_unique), drop = FALSE]
+  attr(df, "row.names") <- .set_row_names(nrow(df))
+  df
+}
+
 #' A selection of summary functions from Hmisc
 #'
 #' @description

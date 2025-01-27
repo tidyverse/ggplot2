@@ -114,21 +114,17 @@ label_value <- function(labels, multi_line = TRUE) {
 # currently needed for Roxygen
 class(label_value) <- c("function", "labeller")
 
-# Helper for label_both
-label_variable <- function(labels, multi_line = TRUE) {
-  if (multi_line) {
-    row <- as.list(names(labels))
-  } else {
-    row <- list(paste(names(labels), collapse = ", "))
-  }
-  lapply(row, rep, nrow(labels) %||% length(labels[[1]]))
-}
-
 #' @rdname labellers
 #' @export
 label_both <- function(labels, multi_line = TRUE, sep = ": ") {
   value <- label_value(labels, multi_line = multi_line)
-  variable <- label_variable(labels, multi_line = multi_line)
+
+  if (isTRUE(multi_line)) {
+    row <- as.list(names(labels))
+  } else {
+    row <- list(paste(names(labels), collapse = ", "))
+  }
+  variable <- lapply(row, rep, nrow(labels) %||% length(labels[[1]]))
 
   if (multi_line) {
     out <- vector("list", length(value))
@@ -175,14 +171,6 @@ label_parsed <- function(labels, multi_line = TRUE) {
   }
 }
 class(label_parsed) <- c("function", "labeller")
-
-find_names <- function(expr) {
-  if (is.call(expr)) {
-    unlist(lapply(expr[-1], find_names))
-  } else if (is.name(expr)) {
-    as.character(expr)
-  }
-}
 
 #' Label with mathematical expressions
 #'
@@ -589,21 +577,21 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   })
 }
 
-# Check for old school labeller
-check_labeller <- function(labeller) {
+# Repair old school labeller
+fix_labeller <- function(labeller) {
   labeller <- match.fun(labeller)
   is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
 
   if (is_deprecated) {
+    deprecate_warn0(
+      "2.0.0", what = "facet_(labeller)",
+      details =
+      "Modern labellers do not take `variable` and `value` arguments anymore."
+    )
     old_labeller <- labeller
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    # TODO Update to lifecycle after next lifecycle release
-    cli::cli_warn(c(
-      "The {.arg labeller} API has been updated. Labellers taking {.arg variable} and {.arg value} arguments are now deprecated.",
-      "i" = "See labellers documentation."
-    ))
   }
 
   labeller

@@ -115,10 +115,12 @@ test_that("oob affects position values", {
   mid_censor <- cdata(base + y_scale(c(3, 7), censor))
   handle <- GeomBar$handle_na
 
-  expect_warning(low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
-    "Removed 1 row containing missing values or values outside the scale range")
-  expect_warning(mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
-    "Removed 3 rows containing missing values or values outside the scale range")
+  expect_snapshot_warning(
+    low_censor[[1]] <- handle(low_censor[[1]], list(na.rm = FALSE)),
+  )
+  expect_snapshot_warning(
+    mid_censor[[1]] <- handle(mid_censor[[1]], list(na.rm = FALSE)),
+  )
 
   low_squish <- cdata(base + y_scale(c(0, 5), squish))
   mid_squish <- cdata(base + y_scale(c(3, 7), squish))
@@ -201,7 +203,7 @@ test_that("scales warn when transforms introduces non-finite values", {
     geom_point(size = 5) +
     scale_y_log10()
 
-  expect_warning(ggplot_build(p), "log-10 transformation introduced infinite values.")
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("size and alpha scales throw appropriate warnings for factors", {
@@ -214,21 +216,18 @@ test_that("size and alpha scales throw appropriate warnings for factors", {
   p <- ggplot(df, aes(x, y))
 
   # There should be warnings when unordered factors are mapped to size/alpha
-  expect_warning(
-    ggplot_build(p + geom_point(aes(size = d))),
-    "Using size for a discrete variable is not advised."
+  expect_snapshot_warning(
+    ggplot_build(p + geom_point(aes(size = d)))
   )
-  expect_warning(
-    ggplot_build(p + geom_point(aes(alpha = d))),
-    "Using alpha for a discrete variable is not advised."
+  expect_snapshot_warning(
+    ggplot_build(p + geom_point(aes(alpha = d)))
   )
-  expect_warning(
-    ggplot_build(p + geom_line(aes(linewidth = d, group = 1))),
-    "Using linewidth for a discrete variable is not advised."
+  expect_snapshot_warning(
+    ggplot_build(p + geom_line(aes(linewidth = d, group = 1)))
   )
   # There should be no warnings for ordered factors
-  expect_warning(ggplot_build(p + geom_point(aes(size = o))), NA)
-  expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA)
+  expect_no_warning(ggplot_build(p + geom_point(aes(size = o))))
+  expect_no_warning(ggplot_build(p + geom_point(aes(alpha = o))))
 })
 
 test_that("shape scale throws appropriate warnings for factors", {
@@ -241,12 +240,11 @@ test_that("shape scale throws appropriate warnings for factors", {
   p <- ggplot(df, aes(x, y))
 
   # There should be no warnings when unordered factors are mapped to shape
-  expect_warning(ggplot_build(p + geom_point(aes(shape = d))), NA)
+  expect_no_warning(ggplot_build(p + geom_point(aes(shape = d))))
 
   # There should be warnings for ordered factors
-  expect_warning(
-    ggplot_build(p + geom_point(aes(shape = o))),
-    "Using shapes for an ordinal variable is not advised"
+  expect_snapshot_warning(
+    ggplot_build(p + geom_point(aes(shape = o)))
   )
 })
 
@@ -471,59 +469,24 @@ test_that("numeric scale transforms can produce breaks", {
     scale$get_transformation()$inverse(view$get_breaks())
   }
 
-  expect_equal(test_breaks("asn", limits = c(0, 1)),
-               seq(0, 1, by = 0.25))
-
-  expect_equal(test_breaks("sqrt", limits = c(0, 10)),
-               seq(0, 10, by = 2.5))
-
-  expect_equal(test_breaks("atanh", limits = c(-0.9, 0.9)),
-               c(NA, -0.5, 0, 0.5, NA))
-
-  expect_equal(test_breaks(transform_boxcox(0), limits = c(1, 10)),
-               c(NA, 2.5, 5.0, 7.5, 10))
-
-  expect_equal(test_breaks(transform_modulus(0), c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks(transform_yj(0), c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("exp", c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("identity", limits = c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  # irrational numbers, so snapshot values
+  expect_snapshot(test_breaks("asn", limits = c(0, 1)))
+  expect_snapshot(test_breaks("sqrt", limits = c(0, 10)))
+  expect_snapshot(test_breaks("atanh", limits = c(-0.9, 0.9)))
+  expect_snapshot(test_breaks(transform_boxcox(0), limits = c(1, 10)))
+  expect_snapshot(test_breaks(transform_modulus(0), c(-10, 10)))
+  expect_snapshot(test_breaks(transform_yj(0), c(-10, 10)))
+  expect_snapshot(test_breaks("exp", c(-10, 10)))
+  expect_snapshot(test_breaks("identity", limits = c(-10, 10)))
   expect_snapshot(test_breaks("log", limits = c(0.1, 1000)))
-
-  expect_equal(test_breaks("log10", limits = c(0.1, 1000)),
-               10 ^ seq(-1, 3))
-
-  expect_equal(test_breaks("log2", limits = c(0.5, 32)),
-               c(0.5, 2, 8, 32))
-
-  expect_equal(test_breaks("log1p", limits = c(0, 10)),
-               seq(0, 10, by = 2.5))
-
-  expect_equal(test_breaks("pseudo_log", limits = c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("logit", limits = c(0.001, 0.999)),
-               c(NA, 0.25, 0.5, 0.75, NA))
-
-  expect_equal(test_breaks("probit", limits = c(0.001, 0.999)),
-               c(NA, 0.25, 0.5, 0.75, NA))
-
-  expect_equal(test_breaks("reciprocal", limits = c(1, 10)),
-               c(NA, 2.5, 5, 7.5, 10))
-
-  expect_equal(test_breaks("reverse", limits = c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("sqrt", limits = c(0, 10)),
-               seq(0, 10, by = 2.5))
+  expect_snapshot(test_breaks("log10", limits = c(0.1, 1000)))
+  expect_snapshot(test_breaks("log2", limits = c(0.5, 32)))
+  expect_snapshot(test_breaks("log1p", limits = c(0, 10)))
+  expect_snapshot(test_breaks("pseudo_log", limits = c(-10, 10)))
+  expect_snapshot(test_breaks("logit", limits = c(0.001, 0.999)))
+  expect_snapshot(test_breaks("probit", limits = c(0.001, 0.999)))
+  expect_snapshot(test_breaks("reciprocal", limits = c(1, 10)))
+  expect_snapshot(test_breaks("reverse", limits = c(-10, 10)))
+  expect_snapshot(test_breaks("sqrt", limits = c(0, 10)))
 })
 
 test_that("scale functions accurately report their calls", {
@@ -729,6 +692,35 @@ test_that("Discrete scales with only NAs return `na.value`", {
   sc <- scale_shape(na.value = NA_real_)
   sc$train(x)
   expect_equal(sc$map(x), c(NA_real_, NA_real_))
+})
+
+test_that("continuous scales warn about faulty `limits`", {
+  expect_snapshot(scale_x_continuous(limits = c("A", "B")), error = TRUE)
+  expect_snapshot(scale_x_continuous(limits = 1:3), error = TRUE)
+})
+
+test_that("populating palettes works", {
+
+  scl <- scales_list()
+  scl$add(scale_colour_discrete(aesthetics = c("colour", "fill")))
+
+  my_theme <- theme(
+    palette.colour.discrete = c("white", "black"),
+    palette.fill.discrete = c("red", "blue")
+  )
+
+  scl$set_palettes(my_theme)
+  expect_equal(scl$scales[[1]]$palette(2), c("white", "black"))
+
+  # Scales with >1 aesthetic
+  scl <- scales_list()
+  scl$add(scale_colour_discrete(aesthetics = c("colour", "fill")))
+
+  my_theme$palette.colour.discrete <- NULL
+
+  scl$set_palettes(my_theme)
+  expect_equal(scl$scales[[1]]$palette(2), c("red", "blue"))
+
 })
 
 test_that("discrete scales work with NAs in arbitrary positions", {

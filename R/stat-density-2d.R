@@ -138,6 +138,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   contour_type = "lines",
 
   compute_layer = function(self, data, params, layout) {
+    check_installed("MASS", reason = "for calculating 2D density.")
     # first run the regular layer calculation to infer densities
     data <- ggproto_parent(Stat, self)$compute_layer(data, params, layout)
 

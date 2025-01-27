@@ -58,7 +58,7 @@ geom_hex <- function(mapping = NULL, data = NULL,
 GeomHex <- ggproto("GeomHex", Geom,
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", linemitre = 10) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     if (empty(data)) {
       return(zeroGrob())
     }
@@ -118,34 +118,3 @@ GeomHex <- ggproto("GeomHex", Geom,
 
   rename_size = TRUE
 )
-
-
-# Draw hexagon grob
-# Modified from code by Nicholas Lewin-Koh and Martin Maechler
-#
-# @param x positions of hex centres
-# @param y positions
-# @param size vector of hex sizes
-# @param gp graphical parameters
-# @keyword internal
-#
-# THIS IS NO LONGER USED BUT LEFT IF CODE SOMEWHERE ELSE RELIES ON IT
-hexGrob <- function(x, y, size = rep(1, length(x)), gp = gpar()) {
-  if (length(y) != length(x)) {
-    cli::cli_abort("{.arg x} and {.arg y} must have the same length")
-  }
-
-  dx <- resolution(x, FALSE)
-  dy <- resolution(y, FALSE) / sqrt(3) / 2 * 1.15
-
-  hexC <- hexbin::hexcoords(dx, dy, n = 1)
-
-  n <- length(x)
-
-  polygonGrob(
-    x = rep.int(hexC$x, n) * rep(size, each = 6) + rep(x, each = 6),
-    y = rep.int(hexC$y, n) * rep(size, each = 6) + rep(y, each = 6),
-    default.units = "native",
-    id.lengths = rep(6, n), gp = gp
-  )
-}

@@ -45,7 +45,7 @@
 #' p +
 #'   geom_rug(outside = TRUE, sides = "tr") +
 #'   coord_cartesian(clip = "off") +
-#'   theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+#'   theme(plot.margin = margin_auto(1, unit = "cm"))
 #'
 #' # increase the line length and
 #' # expand axis to avoid overplotting
@@ -90,7 +90,7 @@ GeomRug <- ggproto("GeomRug", Geom,
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     check_inherits(length, "unit")
     rugs <- list()
     data <- coord$transform(data, panel_params)

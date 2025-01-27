@@ -4,7 +4,9 @@
 #' scales. By default, any values outside the limits specified are replaced with
 #' `NA`. Be warned that this will remove data outside the limits and this can
 #' produce unintended results. For changing x or y axis limits \strong{without}
-#' dropping data observations, see [coord_cartesian()].
+#' dropping data observations, see
+#' [`coord_cartesian(xlim, ylim)`][coord_cartesian], or use a full scale with
+#' [`oob = scales::oob_keep`][scales::oob_keep].
 #'
 #' @param ... For `xlim()` and `ylim()`: Two numeric values, specifying the left/lower
 #'  limit and the right/upper limit of the scale. If the larger value is given first,
@@ -80,7 +82,7 @@
 lims <- function(...) {
   args <- list2(...)
 
-  if (!all(has_name(args))) {
+  if (!is_named2(args)) {
     cli::cli_abort("All arguments must be named.")
   }
   env <- current_env()
@@ -113,9 +115,7 @@ ylim <- function(...) {
 limits <- function(lims, var, call = caller_env()) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
+  check_length(lims, 2L, arg = var, call = call)
   if (!anyNA(lims) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
@@ -143,23 +143,17 @@ limits.factor <- function(lims, var, call = caller_env()) {
 }
 #' @export
 limits.Date <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
+  check_length(lims, 2L, arg = var, call = call)
   make_scale("date", var, limits = lims, call = call)
 }
 #' @export
 limits.POSIXct <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
+  check_length(lims, 2L, arg = var, call = call)
   make_scale("datetime", var, limits = lims, call = call)
 }
 #' @export
 limits.POSIXlt <- function(lims, var, call = caller_env()) {
-  if (length(lims) != 2) {
-    cli::cli_abort("{.arg {var}} must be a two-element vector.", call = call)
-  }
+  check_length(lims, 2L, arg = var, call = call)
   make_scale("datetime", var, limits = as.POSIXct(lims), call = call)
 }
 

@@ -95,10 +95,10 @@ ggsave <- function(filename, plot = get_last_plot(),
                    dpi = 300, limitsize = TRUE, bg = NULL,
                    create.dir = FALSE,
                    ...) {
-  filename <- check_path(path, filename, create.dir)
+  filename <- validate_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)
-  dev <- plot_dev(device, filename, dpi = dpi)
+  dev <- validate_device(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
 
@@ -116,8 +116,8 @@ ggsave <- function(filename, plot = get_last_plot(),
   invisible(filename)
 }
 
-check_path <- function(path, filename, create.dir,
-                       call = caller_env()) {
+validate_path <- function(path, filename, create.dir,
+                          call = caller_env()) {
 
   if (length(filename) > 1 && is.character(filename)) {
     cli::cli_warn(c(
@@ -182,7 +182,7 @@ parse_dpi <- function(dpi, call = caller_env()) {
       print = 300,
       retina = 320,
     )
-  } else if (is_scalar_numeric(dpi)) {
+  } else if (is_bare_numeric(dpi, n = 1L)) {
     dpi
   } else {
     stop_input_type(dpi, "a single number or string", call = call)
@@ -235,7 +235,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
   dim
 }
 
-plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
+validate_device <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   force(filename)
   force(dpi)
 
@@ -277,7 +277,10 @@ plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
     ps =   eps,
     tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
     pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
-    svg =  function(filename, ...) svglite::svglite(file = filename, ...),
+    svg =  function(filename, ...) {
+      check_installed("svglite", reason = "to save as SVG.")
+      svglite::svglite(file = filename, ...)
+    },
     # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
     emf =  function(..., bg = NULL) grDevices::win.metafile(...),
     wmf =  function(..., bg = NULL) grDevices::win.metafile(...),

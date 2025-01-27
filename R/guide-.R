@@ -19,7 +19,7 @@ NULL
 new_guide <- function(..., available_aes = "any", super) {
 
   pf <- parent.frame()
-  super <- check_subclass(super, "Guide", env = pf)
+  super <- validate_subclass(super, "Guide", env = pf)
 
   args <- list2(...)
 
@@ -51,7 +51,7 @@ new_guide <- function(..., available_aes = "any", super) {
   # Validate theme settings
   if (!is.null(params$theme)) {
     check_object(params$theme, is.theme, what = "a {.cls theme} object")
-    validate_theme(params$theme, call = caller_env())
+    check_theme(params$theme, call = caller_env())
     params$direction <- params$direction %||% params$theme$legend.direction
   }
 
@@ -65,6 +65,10 @@ new_guide <- function(..., available_aes = "any", super) {
     available_aes = available_aes
   )
 }
+
+#' @export
+#' @rdname is_tests
+is.guide <- function(x) inherits(x, "Guide")
 
 #' @section Guides:
 #'
@@ -221,11 +225,6 @@ Guide <- ggproto(
 
     mapped <- scale$map(breaks)
     labels <- scale$get_labels(breaks)
-    # {vctrs} doesn't play nice with expressions, convert to list.
-    # see also https://github.com/r-lib/vctrs/issues/559
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
 
     key <- data_frame(!!aesthetic := mapped)
     key$.value <- breaks
@@ -377,7 +376,7 @@ Guide <- ggproto(
   # Renders tickmarks
   build_ticks = function(key, elements, params, position = params$position,
                          length = elements$ticks_length) {
-    if (!inherits(elements, "element")) {
+    if (!is.theme_element(elements)) {
       elements <- elements$ticks
     }
     if (!inherits(elements, "element_line")) {
@@ -519,17 +518,19 @@ opposite_position <- function(position) {
     top    = "bottom",
     bottom = "top",
     left   = "right",
-    right  = "left"
+    right  = "left",
+    position
   )
 }
 
 # Ensure that labels aren't a list of expressions, but proper expressions
 validate_labels <- function(labels) {
-  if (!is.list(labels)) {
+  if (!obj_is_list(labels)) {
     return(labels)
   }
+  labels[lengths(labels) == 0L] <- ""
   if (any(vapply(labels, is.language, logical(1)))) {
-    do.call(expression, labels)
+    inject(expression(!!!labels))
   } else {
     unlist(labels)
   }

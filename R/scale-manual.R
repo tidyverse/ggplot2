@@ -171,7 +171,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
   }
 
   # order values according to breaks
-  if (is.vector(values) && is.null(names(values)) && !is.waive(breaks) &&
+  if (is.vector(values) && is.null(names(values)) && !is.waiver(breaks) &&
       !is.null(breaks) && !is.function(breaks)) {
     if (length(breaks) <= length(values)) {
       names(values) <- breaks

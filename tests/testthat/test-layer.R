@@ -8,8 +8,8 @@ test_that("layer() checks its input", {
   expect_snapshot_error(layer("point", "identity", mapping = 1:4, position = "identity"))
   expect_snapshot_error(layer("point", "identity", mapping = ggplot(), position = "identity"))
 
-  expect_snapshot_error(check_subclass("test", "geom"))
-  expect_snapshot_error(check_subclass(environment(), "geom"))
+  expect_snapshot_error(validate_subclass("test", "geom"))
+  expect_snapshot_error(validate_subclass(environment(), "geom"))
 })
 
 test_that("aesthetics go in aes_params", {
@@ -18,18 +18,15 @@ test_that("aesthetics go in aes_params", {
 })
 
 test_that("unknown params create warning", {
-  expect_warning(geom_point(blah = "red"), "unknown parameters")
+  expect_snapshot_warning(geom_point(blah = "red"))
 })
 
 test_that("unknown aesthetics create warning", {
-  expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
+  expect_snapshot_warning(geom_point(aes(blah = "red")))
 })
 
 test_that("empty aesthetics create warning", {
-  expect_warning(
-    geom_point(fill = NULL, shape = character()),
-    "Ignoring empty aesthetics"
-  )
+  expect_snapshot_warning(geom_point(fill = NULL, shape = character()))
 })
 
 test_that("invalid aesthetics throws errors", {
@@ -43,7 +40,7 @@ test_that("invalid aesthetics throws errors", {
 })
 
 test_that("unknown NULL aesthetic doesn't create warning (#1909)", {
-  expect_warning(geom_point(aes(blah = NULL)), NA)
+  expect_silent(geom_point(aes(blah = NULL)))
 })
 
 test_that("column vectors are allowed (#2609)", {
@@ -55,13 +52,13 @@ test_that("column vectors are allowed (#2609)", {
 
 test_that("missing aesthetics trigger informative error", {
   df <- data_frame(x = 1:10)
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_line()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
-  expect_error(
+  expect_snapshot(
     ggplot_build(ggplot(df) + geom_col()),
-    "requires the following missing aesthetics:"
+    error = TRUE
   )
 })
 
@@ -154,10 +151,7 @@ test_that("layer names can be resolved", {
   expect_equal(names(p$layers), c("foo", "bar"))
 
   l <- geom_point(name = "foobar")
-  expect_error(
-    p + l + l,
-    "names are duplicated"
-  )
+  expect_snapshot(p + l + l, error = TRUE)
 })
 
 
@@ -187,4 +181,21 @@ test_that("layer_data returns a data.frame", {
   expect_equal(l$layer_data(mtcars), head(unrowname(mtcars), 10))
   l <- geom_point(data = nrow)
   expect_snapshot_error(l$layer_data(mtcars))
+})
+
+test_that("data.frames and matrix aesthetics survive the build stage", {
+  df <- data_frame0(
+    x = 1:2,
+    g = matrix(1:4, 2),
+    f = data_frame0(a = 1:2, b = c("c", "d"))
+  )
+
+  p <- layer_data(
+    ggplot(df, aes(x, x, colour = g, shape = f)) +
+      geom_point() +
+      scale_colour_identity() +
+      scale_shape_identity()
+  )
+  expect_vector(p$colour, matrix(NA_integer_, nrow = 0, ncol = 2), size = 2)
+  expect_vector(p$shape,  data_frame0(a = integer(), b = character()), size = 2)
 })
