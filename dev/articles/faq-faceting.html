@@ -133,7 +133,7 @@ a single categorical variable.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-2-1.png" alt="A histogram showing the city miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout." width="80%"></p>
 <p>And <code><a href="../reference/facet_grid.html">facet_grid()</a></code> is commonly used to facet by a plot by
 two categorical variables.</p>
@@ -141,7 +141,7 @@ two categorical variables.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-3-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction, and four numbers of cylinders in the vertical direction. Several panels have no data." width="80%"></p>
 <p>Notice that this results in some empty panes (e.g. 4-wheel drive and
 5 cylinders) as there are no cars in the <code>mpg</code> dataset that
@@ -153,7 +153,7 @@ the levels of variables for which data exists.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-4-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has nine panels in a 3-row, 3-column layout, showing all existing combinations of three types of drive train, and four numbers of cylinders." width="80%"></p>
 <p>In <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> you can control the number of rows
 and/or columns of the resulting plot layout using the <code>nrow</code>
@@ -170,14 +170,14 @@ row).</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 4-row, 1-column layout, showing four numbers of cylinders." width="50%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
 <p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-2.png" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 1-row, 4-column layout, showing four numbers of cylinders." width="50%"></p>
 </details>
 </div>

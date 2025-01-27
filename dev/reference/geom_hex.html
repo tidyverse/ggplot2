@@ -201,13 +201,20 @@ see how the <a href="layer_stats.html">stat</a> and <a href="layer_geoms.html">g
 
 
 <dt id="arg-bins">bins<a class="anchor" aria-label="anchor" href="#arg-bins"></a></dt>
-<dd><p>numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.</p></dd>
+<dd><p>Number of bins. Overridden by <code>binwidth</code>. Defaults to 30.</p></dd>
 
 
 <dt id="arg-binwidth">binwidth<a class="anchor" aria-label="anchor" href="#arg-binwidth"></a></dt>
-<dd><p>Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
+<dd><p>The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in <code>bins</code>,
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.</p>
+<p>The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -240,6 +247,17 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
 <li><p><code>after_stat(ncount)</code><br> count, scaled to maximum of 1.</p></li>
 <li><p><code>after_stat(ndensity)</code><br> density, scaled to maximum of 1.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="controlling-binning-parameters-for-the-x-and-y-directions">Controlling binning parameters for the x and y directions<a class="anchor" aria-label="anchor" href="#controlling-binning-parameters-for-the-x-and-y-directions"></a></h2>
+
+
+<p>The arguments <code>bins</code> and <code>binwidth</code> can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing <code>x</code> and <code>y</code> elements,
+for example <code>list(x = 10, y = 20)</code>.</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="geom_bin_2d.html">stat_bin_2d()</a></code> for rectangular binning</p></div>

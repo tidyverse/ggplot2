@@ -100,6 +100,9 @@ in the presence of overplotting.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  bins <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>  binwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  boundary <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -203,13 +206,38 @@ arguments work.</p></dd>
 
 
 <dt id="arg-bins">bins<a class="anchor" aria-label="anchor" href="#arg-bins"></a></dt>
-<dd><p>numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.</p></dd>
+<dd><p>Number of bins. Overridden by <code>binwidth</code>. Defaults to 30.</p></dd>
 
 
 <dt id="arg-binwidth">binwidth<a class="anchor" aria-label="anchor" href="#arg-binwidth"></a></dt>
-<dd><p>Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
+<dd><p>The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in <code>bins</code>,
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.</p>
+<p>The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.</p></dd>
+
+
+<dt id="arg-center-boundary">center, boundary<a class="anchor" aria-label="anchor" href="#arg-center-boundary"></a></dt>
+<dd><p>bin position specifiers. Only one, <code>center</code> or
+<code>boundary</code>, may be specified for a single plot. <code>center</code> specifies the
+center of one of the bins. <code>boundary</code> specifies the boundary between two
+bins. Note that if either is above or below the range of the data, things
+will be shifted by the appropriate integer multiple of <code>binwidth</code>.
+For example, to center on integers use <code>binwidth = 1</code> and <code>center = 0</code>, even
+if <code>0</code> is outside the range of the data. Alternatively, this same alignment
+can be specified with <code>binwidth = 1</code> and <code>boundary = 0.5</code>, even if <code>0.5</code> is
+outside the range of the data.</p></dd>
+
+
+<dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
+<dd><p>Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides <code>binwidth</code>, <code>bins</code>, <code>center</code>,
+and <code>boundary</code>. Can also be a function that takes group-wise values as input and returns bin boundaries.</p></dd>
 
 
 <dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>
@@ -237,6 +265,17 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
 <li><p><code>after_stat(ndensity)</code><br> density, scaled to a maximum of 1.</p></li>
 </ul></div>
     <div class="section level2">
+    <h2 id="controlling-binning-parameters-for-the-x-and-y-directions">Controlling binning parameters for the x and y directions<a class="anchor" aria-label="anchor" href="#controlling-binning-parameters-for-the-x-and-y-directions"></a></h2>
+
+
+<p>The arguments <code>bins</code>, <code>binwidth</code>, <code>breaks</code>, <code>center</code>, and <code>boundary</code> can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing <code>x</code> and <code>y</code> elements,
+for example <code>list(x = 10, y = 20)</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="geom_hex.html">stat_bin_hex()</a></code> for hexagonal binning</p></div>
     </div>
@@ -245,6 +284,7 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="lims.html">xlim</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="lims.html">ylim</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values or values outside the scale</span>
@@ -256,13 +296,13 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 6 rows containing missing values or values outside the scale</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values or values outside the scale</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> range (`geom_bin2d()`).</span>
 <span class="r-plt img"><img src="geom_bin_2d-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">30</span>, y <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values or values outside the scale</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 6 rows containing missing values or values outside the scale</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> range (`geom_bin2d()`).</span>
 <span class="r-plt img"><img src="geom_bin_2d-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -270,8 +310,6 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values or values outside the scale</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> range (`geom_bin2d()`).</span>
 <span class="r-plt img"><img src="geom_bin_2d-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
