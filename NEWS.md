@@ -262,6 +262,7 @@
 * Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
 * Standardised the calculation of `width`, which are now implemented as
   aesthetics (@teunbrand, #2800).
+* Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
 
 # ggplot2 3.5.1
 

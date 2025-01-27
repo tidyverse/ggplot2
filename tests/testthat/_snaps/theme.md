@@ -56,6 +56,19 @@
 
     The `blablabla` theme element must be a <element_text> object.
 
+---
+
+    `element_tree` must have names.
+
+---
+
+    `element_tree` must have elements constructed with `el_def()`.
+    i Invalid structure: "foo"
+
+---
+
+    Invalid parent in `element_tree`: "foo".
+
 # elements can be merged
 
     Code
