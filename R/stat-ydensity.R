@@ -78,10 +78,21 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
+    if (!is.null(params$draw_quantiles)) {
+      deprecate_soft0(
+        "3.6.0",
+        what = "stat_ydensity(draw_quantiles)",
+        with = "stat_ydensity(quantiles)"
+      )
+      params$quantiles <- params$draw_quantiles
+      check_numeric(params$quantiles, arg = "quantiles")
+    }
+
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  # `draw_quantiles` is here for deprecation repair reasons
+  extra_params = c("na.rm", "orientation", "draw_quantiles"),
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE,
