@@ -7,7 +7,8 @@
 translate_shape_string(shape_string)
 }
 \arguments{
-\item{shape_string}{A character vector giving point shapes.}
+\item{shape_string}{A character vector giving point shapes. Non-character
+input will be returned.}
 }
 \value{
 An integer vector with translated shapes.

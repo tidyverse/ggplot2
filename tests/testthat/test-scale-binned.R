@@ -104,3 +104,9 @@ test_that('binned scales can calculate breaks on date-times', {
     )))
   )
 })
+
+test_that("binned scales can calculate breaks for zero-width data", {
+  scale <- scale_x_binned()
+  scale$train(c(1, 1))
+  expect_equal(scale$get_breaks(), c(0.95, 1.05))
+})

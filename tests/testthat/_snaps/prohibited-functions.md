@@ -43,17 +43,11 @@
       $geom_density_2d_filled
       [1] "contour_var"
       
-      $geom_label
-      [1] "nudge_x" "nudge_y"
-      
-      $geom_sf_label
-      [1] "nudge_x" "nudge_y"
-      
       $geom_sf_text
-      [1] "nudge_x"       "nudge_y"       "check_overlap"
+      [1] "check_overlap"
       
       $geom_text
-      [1] "nudge_x"       "nudge_y"       "check_overlap"
+      [1] "check_overlap"
       
       $geom_violin
       [1] "draw_quantiles"
@@ -149,7 +143,8 @@
       [4] "date_minor_breaks"
       
       $scale_x_time
-      [1] "minor_breaks"
+      [1] "date_breaks"       "minor_breaks"      "date_minor_breaks"
+      [4] "date_labels"      
       
       $scale_y_continuous
       [1] "minor_breaks"
@@ -163,7 +158,8 @@
       [4] "date_minor_breaks"
       
       $scale_y_time
-      [1] "minor_breaks"
+      [1] "date_breaks"       "minor_breaks"      "date_minor_breaks"
+      [4] "date_labels"      
       
       $sf_transform_xy
       [1] "target_crs"          "source_crs"          "authority_compliant"

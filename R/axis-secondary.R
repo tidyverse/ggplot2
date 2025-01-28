@@ -329,7 +329,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     scale$train(range)
     scale
   },
-  make_title = function(title) {
-    title
+  make_title = function(...) {
+    ScaleContinuous$make_title(...)
   }
 )

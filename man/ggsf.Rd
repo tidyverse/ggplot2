@@ -44,14 +44,16 @@ geom_sf_label(
   mapping = aes(),
   data = NULL,
   stat = "sf_coordinates",
-  position = "identity",
+  position = "nudge",
   ...,
   parse = FALSE,
-  nudge_x = 0,
-  nudge_y = 0,
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
-  label.size = 0.25,
+  label.size = deprecated(),
+  border.colour = NULL,
+  border.color = NULL,
+  text.colour = NULL,
+  text.color = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
@@ -62,11 +64,9 @@ geom_sf_text(
   mapping = aes(),
   data = NULL,
   stat = "sf_coordinates",
-  position = "identity",
+  position = "nudge",
   ...,
   parse = FALSE,
-  nudge_x = 0,
-  nudge_y = 0,
   check_overlap = FALSE,
   na.rm = FALSE,
   show.legend = NA,
@@ -277,15 +277,20 @@ lists which parameters it can accept.
 \item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
 displayed as described in \code{?plotmath}.}
 
-\item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointly specified with \code{position}.}
-
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
-\item{label.size}{Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Replaced by the
+\code{linewidth} aesthetic. Size of label border, in mm.}
+
+\item{border.colour, border.color}{Colour of label border. When \code{NULL}
+(default), the \code{colour} aesthetic determines the colour of the label border.
+\code{border.color} is an alias for \code{border.colour}.}
+
+\item{text.colour, text.color}{Colour of the text. When \code{NULL} (default), the
+\code{colour} aesthetic determines the colour of the text. \code{text.color} is an
+alias for \code{text.colour}.}
 
 \item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
 same length as the input. If \code{NULL}, \code{function(x) sf::st_point_on_surface(sf::st_zm(x))}

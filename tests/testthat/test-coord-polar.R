@@ -9,7 +9,7 @@ test_that("polar distance is calculated correctly", {
   )
   coord <- coord_polar()
   panel_params <- coord$setup_panel_params(scales$x, scales$y)
-  dists <- coord$distance(dat$theta, dat$r, panel_params)
+  dists <- coord$distance(dat$theta, dat$r, panel_params, boost = 1)
 
   # dists is normalized by dividing by this value, so we'll add it back
   # The maximum length of a spiral arc, from (t,r) = (0,0) to (2*pi,1)
@@ -197,6 +197,18 @@ test_that("radial coords can be reversed", {
   expect_equal(as.numeric(fwd$y), rev(as.numeric(rev$y)))
 })
 
+test_that("coord_radial can deal with empty breaks (#6271)", {
+  p <- ggplot_build(
+    ggplot(mtcars, aes(mpg, disp)) +
+      geom_point() +
+      coord_radial() +
+      scale_x_continuous(breaks = numeric()) +
+      scale_y_continuous(breaks = numeric())
+  )
+  guides <- p$layout$panel_params[[1]]$guides$guides
+  is_none <- vapply(guides, inherits, logical(1), what = "GuideNone")
+  expect_true(all(is_none))
+})
 
 # Visual tests ------------------------------------------------------------
 

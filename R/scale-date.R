@@ -223,8 +223,11 @@ scale_y_datetime <- function(name = waiver(),
 #' @rdname scale_date
 scale_x_time <- function(name = waiver(),
                          breaks = waiver(),
+                         date_breaks = waiver(),
                          minor_breaks = waiver(),
+                         date_minor_breaks = waiver(),
                          labels = waiver(),
+                         date_labels = waiver(),
                          limits = NULL,
                          expand = waiver(),
                          oob = censor,
@@ -233,20 +236,25 @@ scale_x_time <- function(name = waiver(),
                          position = "bottom",
                          sec.axis = waiver()) {
 
-  scale_x_continuous(
+  sc <- datetime_scale(
+    ggplot_global$x_aes,
+    "hms",
     name = name,
+    palette = identity,
     breaks = breaks,
+    date_breaks = date_breaks,
     labels = labels,
+    date_labels = date_labels,
     minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    guide = guide,
     limits = limits,
     expand = expand,
     oob = oob,
-    na.value = na.value,
-    guide = guide,
-    position = position,
-    transform = scales::transform_hms(),
-    sec.axis = sec.axis
+    position = position
   )
+
+  set_sec_axis(sec.axis, sc)
 }
 
 
@@ -254,8 +262,11 @@ scale_x_time <- function(name = waiver(),
 #' @export
 scale_y_time <- function(name = waiver(),
                          breaks = waiver(),
+                         date_breaks = waiver(),
                          minor_breaks = waiver(),
+                         date_minor_breaks = waiver(),
                          labels = waiver(),
+                         date_labels = waiver(),
                          limits = NULL,
                          expand = waiver(),
                          oob = censor,
@@ -264,20 +275,25 @@ scale_y_time <- function(name = waiver(),
                          position = "left",
                          sec.axis = waiver()) {
 
-  scale_y_continuous(
+  sc <- datetime_scale(
+    ggplot_global$y_aes,
+    "hms",
     name = name,
+    palette = identity,
     breaks = breaks,
+    date_breaks = date_breaks,
     labels = labels,
+    date_labels = date_labels,
     minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    guide = guide,
     limits = limits,
     expand = expand,
     oob = oob,
-    na.value = na.value,
-    guide = guide,
-    position = position,
-    transform = scales::transform_hms(),
-    sec.axis = sec.axis
+    position = position
   )
+
+  set_sec_axis(sec.axis, sc)
 }
 
 #' Date/time scale constructor
@@ -312,9 +328,13 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
   }
   if (!is.waiver(date_labels)) {
     check_string(date_labels)
-    labels <- function(self, x) {
-      tz <- self$timezone %||% "UTC"
-      label_date(date_labels, tz)(x)
+    if (transform == "hms") {
+      labels <- label_time(date_labels)
+    } else {
+      labels <- function(self, x) {
+        tz <- self$timezone %||% "UTC"
+        label_date(date_labels, tz)(x)
+      }
     }
   }
 
@@ -324,7 +344,8 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
     scale_class <- switch(
       transform,
       date = ScaleContinuousDate,
-      time = ScaleContinuousDatetime
+      time = ScaleContinuousDatetime,
+      ScaleContinuousPosition
     )
   } else {
     scale_class <- ScaleContinuous
@@ -332,7 +353,8 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
 
   transform <- switch(transform,
     date = transform_date(),
-    time = transform_time(timezone)
+    time = transform_time(timezone),
+    hms  = transform_hms()
   )
 
   sc <- continuous_scale(
@@ -392,11 +414,11 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
       self$secondary.axis$name
     }
   },
-  make_sec_title = function(self, title) {
+  make_sec_title = function(self, ...) {
     if (!is.waiver(self$secondary.axis)) {
-      self$secondary.axis$make_title(title)
+      self$secondary.axis$make_title(...)
     } else {
-      ggproto_parent(ScaleContinuous, self)$make_sec_title(title)
+      ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
     }
   }
 
@@ -443,11 +465,11 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
       self$secondary.axis$name
     }
   },
-  make_sec_title = function(self, title) {
+  make_sec_title = function(self, ...) {
     if (!is.waiver(self$secondary.axis)) {
-      self$secondary.axis$make_title(title)
+      self$secondary.axis$make_title(...)
     } else {
-      ggproto_parent(ScaleContinuous, self)$make_sec_title(title)
+      ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
     }
   }
 )

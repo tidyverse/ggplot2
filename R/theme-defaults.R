@@ -145,6 +145,17 @@ theme_grey <- function(base_size = 11, base_family = "",
     spacing = unit(half_line, "pt"),
     margins = margin_auto(half_line),
 
+    point =              element_point(
+                           colour = ink, shape = 19, fill = paper,
+                           size = (base_size / 11) * 1.5,
+                           stroke = base_line_size
+                         ),
+
+    polygon =            element_polygon(
+                           fill = paper, colour = ink,
+                           linewidth = base_rect_size, linetype = 1
+                         ),
+
     geom =               element_geom(
                            ink = ink, paper = paper, accent = "#3366FF",
                            linewidth = base_line_size, borderwidth = base_line_size,
@@ -549,6 +560,8 @@ theme_void <- function(base_size = 11, base_family = "",
   t <- theme(
     line =               element_blank(),
     rect =               element_blank(),
+    polygon =            element_blank(),
+    point =              element_blank(),
     text =               element_text(
                             family = base_family, face = "plain",
                             colour = ink, size = base_size,
@@ -638,6 +651,15 @@ theme_test <- function(base_size = 11, base_family = "",
                             colour = ink, size = base_size,
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
+                         ),
+    point =              element_point(
+                           colour = ink, shape = 19, fill = paper,
+                           size = (base_size / 11) * 1.5,
+                           stroke = base_line_size
+                         ),
+    polygon =            element_polygon(
+                           fill = paper, colour = ink,
+                           linewidth = base_rect_size, linetype = 1
                          ),
     title =              element_text(family = header_family),
     spacing = unit(half_line, "pt"),
