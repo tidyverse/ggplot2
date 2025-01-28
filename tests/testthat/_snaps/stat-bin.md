@@ -23,51 +23,30 @@
 
 # inputs to binning are checked
 
-    Computation failed in `stat_bin()`.
-    Caused by error in `bins()`:
-    ! `breaks` must be a <numeric> vector, not a character vector.
+    `breaks` must be a <numeric> vector, not a character vector.
 
 ---
 
-    `x_range` must be a vector of length 2, not length 1.
+    `binwidth` must be a number, not a character vector.
 
 ---
 
-    Computation failed in `stat_bin()`.
-    Caused by error in `bin_breaks_width()`:
-    ! `binwidth` must be a number, not a character vector.
+    `binwidth` must be a number larger than or equal to 0, not the number -4.
 
 ---
 
-    Computation failed in `stat_bin()`.
-    Caused by error in `bin_breaks_width()`:
-    ! `binwidth` must be a number larger than or equal to 0, not the number -4.
-
----
-
-    `x_range` must be a vector of length 2, not length 1.
-
----
-
-    Computation failed in `stat_bin()`.
-    Caused by error in `bin_breaks_bins()`:
-    ! `bins` must be a whole number larger than or equal to 1, not the number -4.
+    `bins` must be a whole number larger than or equal to 1, not the number -4.
 
 # setting boundary and center
 
-    Code
-      comp_bin(df, boundary = 5, center = 0)
-    Condition
-      Error in `stat_bin()`:
-      ! Problem while computing stat.
-      i Error occurred in the 1st layer.
-      Caused by error in `setup_params()`:
-      ! Only one of `boundary` and `center` may be specified in `stat_bin()`.
+    Computation failed in `stat_bin()`.
+    Caused by error in `compute_bins()`:
+    ! Only one of `boundary` and `center` may be specified.
 
 # bin errors at high bin counts
 
     Code
-      bin_breaks_width(c(1, 2e+06), 1)
+      compute_bins(c(1, 2e+06), binwidth = 1)
     Condition
       Error in `bin_breaks_width()`:
       ! The number of histogram bins must be less than 1,000,000.

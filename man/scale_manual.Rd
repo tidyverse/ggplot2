@@ -28,15 +28,45 @@ scale_fill_manual(
   na.value = "grey50"
 )
 
-scale_size_manual(..., values, breaks = waiver(), na.value = NA)
+scale_size_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "size"
+)
 
-scale_shape_manual(..., values, breaks = waiver(), na.value = NA)
+scale_shape_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "shape"
+)
 
-scale_linetype_manual(..., values, breaks = waiver(), na.value = NA)
+scale_linetype_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "linetype"
+)
 
-scale_linewidth_manual(..., values, breaks = waiver(), na.value = NA)
+scale_linewidth_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "linewidth"
+)
 
-scale_alpha_manual(..., values, breaks = waiver(), na.value = NA)
+scale_alpha_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "alpha"
+)
 
 scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 }
@@ -75,7 +105,9 @@ accepts rlang \link[rlang:as_function]{lambda} function notation. When
 the function has two arguments, it will be given the limits and major
 break positions.
 }}
-    \item{\code{labels}}{One of:
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the

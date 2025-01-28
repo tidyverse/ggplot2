@@ -68,10 +68,13 @@ NULL
 #' }
 guides <- function(...) {
   args <- list2(...)
-  if (length(args) > 0) {
-    if (is.list(args[[1]]) && !is.guide(args[[1]])) args <- args[[1]]
-    args <- rename_aes(args)
+  # If there are no guides do nothing
+  if (length(args) == 0) {
+    return(NULL)
   }
+
+  if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
+  args <- rename_aes(args)
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
@@ -82,11 +85,6 @@ guides <- function(...) {
   # The good path
   if (is_named(args)) {
     return(guides_list(guides = args))
-  }
-
-  # If there are no guides, do nothing
-  if (length(args) == 0) {
-    return(NULL)
   }
 
   # Raise warning about unnamed guides
@@ -308,8 +306,9 @@ Guides <- ggproto(
       return(no_guides)
     }
 
-    guides$guides <- c(guides$guides, custom$guides)
-    guides$params <- c(guides$params, custom$params)
+    ord <- order(c(names(guides$guides), names(custom$guides)))
+    guides$guides <- c(guides$guides, custom$guides)[ord]
+    guides$params <- c(guides$params, custom$params)[ord]
 
     guides
   },
@@ -526,7 +525,7 @@ Guides <- ggproto(
       coord <- coord %||% default_inside_position %||% just
 
       groups$justs[[i]] <- just
-      groups$coord[[i]] <- coord
+      groups$coords[[i]] <- coord
     }
 
     groups <- vec_group_loc(vec_slice(groups, keep))
@@ -541,10 +540,10 @@ Guides <- ggproto(
     # prepare output
     for (i in vec_seq_along(groups)) {
       adjust <- NULL
-      position <- groups$key$position[i]
+      position <- groups$key$positions[i]
       if (position == "inside") {
         adjust <- theme(
-          legend.position.inside = groups$key$coord[[i]],
+          legend.position.inside = groups$key$coords[[i]],
           legend.justification.inside = groups$key$justs[[i]]
         )
       }
