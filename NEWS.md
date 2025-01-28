@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `coord_radial()` now displays no axis instead of throwing an error when
+  a scale has no breaks (@teunbrand, #6271).
 * The `fatten` argument has been deprecated in `geom_boxplot()`, 
   `geom_crossbar()` and `geom_pointrange()` (@teunbrand, #4881).
 * Axis labels are now preserved better when using `coord_sf(expand = TRUE)` and
