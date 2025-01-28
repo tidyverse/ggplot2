@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Turned off fallback for `size` to `linewidth` translation in 
+  `geom_bar()`/`geom_col()` (#4848).
 * `coord_radial()` now displays no axis instead of throwing an error when
   a scale has no breaks (@teunbrand, #6271).
 * The `fatten` argument has been deprecated in `geom_boxplot()`, 
