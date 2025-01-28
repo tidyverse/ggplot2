@@ -625,6 +625,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
+  legend.key.justification = el_def(c("character", "numeric", "integer")),
   legend.frame        = el_def("element_rect", "rect"),
   legend.axis.line    = el_def("element_line", "line"),
   legend.ticks        = el_def("element_line", "legend.axis.line"),

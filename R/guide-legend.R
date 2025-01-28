@@ -178,6 +178,7 @@ GuideLegend <- ggproto(
     key            = "legend.key",
     key_height     = "legend.key.height",
     key_width      = "legend.key.width",
+    key_just       = "legend.key.justification",
     text           = "legend.text",
     theme.title    = "legend.title",
     spacing_x      = "legend.key.spacing.x",
@@ -275,7 +276,6 @@ GuideLegend <- ggproto(
       c("horizontal", "vertical"), arg_nm = "direction"
     )
     params$n_breaks <- n_breaks <- nrow(params$key)
-    params$n_key_layers <- length(params$decor) + 1 # +1 is key background
 
     # Resolve shape
     if (!is.null(params$nrow) && !is.null(params$ncol) &&
@@ -378,6 +378,9 @@ GuideLegend <- ggproto(
       elements$key <-
         ggname("legend.key", element_grob(elements$key))
     }
+    if (!is.null(elements$key_just)) {
+      elements$key_just <- valid.just(elements$key_just)
+    }
 
     elements$text <-
       label_angle_heuristic(elements$text, elements$text_position, params$angle)
@@ -391,22 +394,39 @@ GuideLegend <- ggproto(
 
   build_decor = function(decor, grobs, elements, params) {
 
-    key_size <- c(elements$width_cm, elements$height_cm) * 10
+    key_size <- c(elements$width_cm, elements$height_cm)
+    just <- elements$key_just
+    idx <- seq_len(params$n_breaks)
 
-    draw <- function(i) {
-      bg <- elements$key
-      keys <- lapply(decor, function(g) {
-        data <- vec_slice(g$data, i)
-        if (data$.draw %||% TRUE) {
-          key <- g$draw_key(data, g$params, key_size)
-          set_key_size(key, data$linewidth, data$size, key_size / 10)
-        } else {
-          zeroGrob()
+    key_glyphs <- lapply(idx, function(i) {
+      glyph <- lapply(decor, function(dec) {
+        data <- vec_slice(dec$data, i)
+        if (!(data$.draw %||% TRUE)) {
+          return(zeroGrob())
         }
+        key <- dec$draw_key(data, dec$params, key_size * 10)
+        set_key_size(key, data$linewidth, data$size, key_size)
       })
-      c(list(bg), keys)
-    }
-    unlist(lapply(seq_len(params$n_breaks), draw), FALSE)
+
+      width  <- vapply(glyph, get_attr, which = "width", default = 0, numeric(1))
+      width  <- max(width, 0, key_size[1], na.rm = TRUE)
+      height <- vapply(glyph, get_attr, which = "height", default = 0, numeric(1))
+      height <- max(height, 0, key_size[2], na.rm = TRUE)
+
+      vp <- NULL
+      if (!is.null(just)) {
+        vp <- viewport(
+          x = just[1], y = just[2], just = just,
+          width = unit(width, "cm"), height = unit(height, "cm")
+        )
+      }
+
+      grob <- gTree(children = inject(gList(elements$key, !!!glyph)), vp = vp)
+      attr(grob, "width")  <- width
+      attr(grob, "height") <- height
+      grob
+    })
+    key_glyphs
   },
 
   build_labels = function(key, elements, params) {
@@ -794,4 +814,8 @@ deprecated_guide_args <- function(
     theme <- inject(theme(!!!theme))
   }
   theme
+}
+
+get_attr <- function(x, which, exact = TRUE, default = NULL) {
+  attr(x, which = which, exact = exact) %||% default
 }

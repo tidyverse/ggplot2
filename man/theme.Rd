@@ -84,6 +84,7 @@ theme(
   legend.key.spacing,
   legend.key.spacing.x,
   legend.key.spacing.y,
+  legend.key.justification,
   legend.frame,
   legend.ticks,
   legend.ticks.length,
@@ -228,6 +229,11 @@ inherits from \code{spacing}.}
 between legend keys given as a \code{unit}. Spacing in the horizontal (x) and
 vertical (y) direction inherit from \code{legend.key.spacing} or can be
 specified separately. \code{legend.key.spacing} inherits from \code{spacing}.}
+
+\item{legend.key.justification}{Justification for positioning legend keys
+when more space is available than needed for display. The default, \code{NULL},
+stretches keys into the available space. Can be a location like \code{"center"}
+or \code{"top"}, or a two-element numeric vector.}
 
 \item{legend.frame}{frame drawn around the bar (\code{\link[=element_rect]{element_rect()}}).}
 
