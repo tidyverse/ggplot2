@@ -170,6 +170,7 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">legend.key.spacing</span>,</span>
 <span>  <span class="va">legend.key.spacing.x</span>,</span>
 <span>  <span class="va">legend.key.spacing.y</span>,</span>
+<span>  <span class="va">legend.key.justification</span>,</span>
 <span>  <span class="va">legend.frame</span>,</span>
 <span>  <span class="va">legend.ticks</span>,</span>
 <span>  <span class="va">legend.ticks.length</span>,</span>
@@ -361,6 +362,13 @@ inherits from <code>spacing</code>.</p></dd>
 between legend keys given as a <code>unit</code>. Spacing in the horizontal (x) and
 vertical (y) direction inherit from <code>legend.key.spacing</code> or can be
 specified separately. <code>legend.key.spacing</code> inherits from <code>spacing</code>.</p></dd>
+
+
+<dt id="arg-legend-key-justification">legend.key.justification<a class="anchor" aria-label="anchor" href="#arg-legend-key-justification"></a></dt>
+<dd><p>Justification for positioning legend keys
+when more space is available than needed for display. The default, <code>NULL</code>,
+stretches keys into the available space. Can be a location like <code>"center"</code>
+or <code>"top"</code>, or a two-element numeric vector.</p></dd>
 
 
 <dt id="arg-legend-frame">legend.frame<a class="anchor" aria-label="anchor" href="#arg-legend-frame"></a></dt>
