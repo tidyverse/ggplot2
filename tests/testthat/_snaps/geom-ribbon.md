@@ -23,3 +23,7 @@
 
     `outline.type` must be one of "both", "upper", "lower", or "full", not "test".
 
+# NAs are dropped from the data
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_ribbon()`).
+

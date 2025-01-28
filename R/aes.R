@@ -38,6 +38,13 @@ NULL
 #'
 #'   [Delayed evaluation][aes_eval] for working with computed variables.
 #'
+#' @note
+#' Using `I()` to create objects of class 'AsIs' causes scales to ignore the
+#' variable and assumes the wrapped variable is direct input for the grid
+#' package. Please be aware that variables are sometimes combined, like in
+#' some stats or position adjustments, that may yield unexpected results with
+#' 'AsIs' variables.
+#'
 #' @family aesthetics documentation
 #' @return A list with class `uneval`. Components of the list are either
 #'   quosures or constants.

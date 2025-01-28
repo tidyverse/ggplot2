@@ -81,9 +81,7 @@ expand_range4 <- function(limits, expand) {
 
   # Calculate separate range expansion for the lower and
   # upper range limits, and then combine them into one vector
-  lower <- expand_range(limits, expand[1], expand[2])[1]
-  upper <- expand_range(limits, expand[3], expand[4])[2]
-  c(lower, upper)
+  expand_range(limits, expand[c(1, 3)], expand[c(2, 4)])
 }
 
 #' Calculate the default expansion for a scale
@@ -153,7 +151,8 @@ expand_limits_scale <- function(scale, expand = expansion(0, 0), limits = waiver
       scale$map(limits),
       expand,
       coord_limits,
-      range_continuous = scale$range_c$range
+      range_continuous = scale$range_c$range,
+      continuous_limits = scale$continuous_limits
     )
   } else {
     # using the inverse transform to resolve the NA value is needed for date/datetime/time
@@ -170,7 +169,20 @@ expand_limits_continuous <- function(limits, expand = expansion(0, 0), coord_lim
 }
 
 expand_limits_discrete <- function(limits, expand = expansion(0, 0), coord_limits = c(NA, NA),
-                                   range_continuous = NULL) {
+                                   range_continuous = NULL, continuous_limits = NULL) {
+  if (is.function(continuous_limits)) {
+    continuous_limits <- continuous_limits(limits)
+  }
+  if (!is.null(continuous_limits)) {
+    if (!anyNA(continuous_limits)) {
+      continuous_limits <- range(continuous_limits)
+    }
+    check_numeric(continuous_limits, arg = "continuous.limits")
+    check_length(continuous_limits, 2L, arg = "continuous.limits")
+    missing <- is.na(continuous_limits)
+    limits  <- ifelse(missing, range(limits), continuous_limits)
+  }
+
   limit_info <- expand_limits_discrete_trans(
     limits,
     expand,

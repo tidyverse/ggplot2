@@ -118,17 +118,17 @@ test_that("stat_bin() provides width (#3522)", {
   expect_equal(out$xmax - out$xmin, rep(binwidth, 10))
 })
 
-test_that("stat_bin(keep.zeroes) options work as intended", {
+test_that("stat_bin(drop) options work as intended", {
   p <- ggplot(data.frame(x = c(1, 2, 2, 3, 5, 6, 6, 7)), aes(x)) +
     scale_x_continuous(limits = c(-1, 9))
 
-  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "all"))
+  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "all"))
   expect_equal(ld$x, -1:9)
 
-  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "inner"))
+  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "inner"))
   expect_equal(ld$x, c(1:7))
 
-  ld <- layer_data(p + geom_histogram(binwidth = 1, keep.zeroes = "none"))
+  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "none"))
   expect_equal(ld$x, c(1:3, 5:7))
 })
 
@@ -147,19 +147,19 @@ test_that("bins is strictly adhered to", {
 
   # Default case
   nbreaks <- vapply(nbins, function(bins) {
-    length(bin_breaks_bins(c(0, 10), bins)$breaks)
+    length(compute_bins(c(0, 10), bins = bins)$breaks)
   }, numeric(1))
   expect_equal(nbreaks, nbins + 1)
 
   # Center is provided
   nbreaks <- vapply(nbins, function(bins) {
-    length(bin_breaks_bins(c(0, 10), bins, center = 0)$breaks)
+    length(compute_bins(c(0, 10), bins = bins, center = 0)$breaks)
   }, numeric(1))
   expect_equal(nbreaks, nbins + 1)
 
   # Boundary is provided
   nbreaks <- vapply(nbins, function(bins) {
-    length(bin_breaks_bins(c(0, 10), bins, boundary = 0)$breaks)
+    length(compute_bins(c(0, 10), bins = bins, boundary = 0)$breaks)
   }, numeric(1))
   expect_equal(nbreaks, nbins + 1)
 
@@ -172,13 +172,10 @@ comp_bin <- function(df, ...) {
 
 test_that("inputs to binning are checked", {
   dat <- data_frame(x = c(0, 10))
-  expect_snapshot_error(comp_bin(dat, breaks = letters))
-  expect_snapshot_error(bin_breaks_width(3))
-  expect_snapshot_error(comp_bin(dat, binwidth = letters))
-  expect_snapshot_error(comp_bin(dat, binwidth = -4))
-
-  expect_snapshot_error(bin_breaks_bins(3))
-  expect_snapshot_error(comp_bin(dat, bins = -4))
+  expect_snapshot_error(compute_bins(dat, breaks = letters))
+  expect_snapshot_error(compute_bins(dat, binwidth = letters))
+  expect_snapshot_error(compute_bins(dat, binwidth = -4))
+  expect_snapshot_error(compute_bins(dat, bins = -4))
 })
 
 test_that("closed left or right", {
@@ -208,14 +205,14 @@ test_that("setting boundary and center", {
   df <- data_frame(x = c(0, 30))
 
   # Error if both boundary and center are specified
-  expect_snapshot(comp_bin(df, boundary = 5, center = 0), error = TRUE)
+  expect_snapshot_warning(comp_bin(df, boundary = 5, center = 0, bins = 30))
 
   res <- comp_bin(df, binwidth = 10, boundary = 0, pad = FALSE)
   expect_identical(res$count, c(1, 0, 1))
   expect_identical(res$xmin[1], 0)
   expect_identical(res$xmax[3], 30)
 
-  res <- comp_bin(df, binwidth = 10, center = 0, pad = FALSE)
+  res <- comp_bin(df, binwidth = 10, center = 0, boundary = NULL, pad = FALSE)
   expect_identical(res$count, c(1, 0, 0, 1))
   expect_identical(res$xmin[1], df$x[1] - 5)
   expect_identical(res$xmax[4], df$x[2] + 5)
@@ -230,7 +227,7 @@ test_that("weights are added", {
 })
 
 test_that("bin errors at high bin counts", {
-  expect_snapshot(bin_breaks_width(c(1, 2e6), 1), error = TRUE)
+  expect_snapshot(compute_bins(c(1, 2e6), binwidth =  1), error = TRUE)
 })
 
 # stat_count --------------------------------------------------------------

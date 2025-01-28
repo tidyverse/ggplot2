@@ -39,3 +39,15 @@ test_that("mapped_discrete class is preserved", {
   expect_s3_class(ld$x, "mapped_discrete")
   expect_equal(unique(ld$x), c(1, 3))
 })
+
+test_that("quantiles are based on actual data (#4120)", {
+
+  df <- data.frame(y = 0:10)
+  q <- seq(0.1, 0.9, by = 0.1)
+
+  p <- ggplot(df, aes("X", y)) +
+    stat_ydensity(quantiles = q)
+  ld <- get_layer_data(p)
+
+  expect_equal(ld$y[!is.na(ld$quantile)], 1:9)
+})
