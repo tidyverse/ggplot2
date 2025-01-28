@@ -126,7 +126,11 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
 <span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  label.padding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span>  label.r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
-<span>  label.size <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>  label.size <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  border.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  border.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  text.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  text.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -393,7 +397,20 @@ displayed as described in <code><a href="https://rdrr.io/r/grDevices/plotmath.ht
 
 
 <dt id="arg-label-size">label.size<a class="anchor" aria-label="anchor" href="#arg-label-size"></a></dt>
-<dd><p>Size of label border, in mm.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Replaced by the
+<code>linewidth</code> aesthetic. Size of label border, in mm.</p></dd>
+
+
+<dt id="arg-border-colour-border-color">border.colour, border.color<a class="anchor" aria-label="anchor" href="#arg-border-colour-border-color"></a></dt>
+<dd><p>Colour of label border. When <code>NULL</code>
+(default), the <code>colour</code> aesthetic determines the colour of the label border.
+<code>border.color</code> is an alias for <code>border.colour</code>.</p></dd>
+
+
+<dt id="arg-text-colour-text-color">text.colour, text.color<a class="anchor" aria-label="anchor" href="#arg-text-colour-text-color"></a></dt>
+<dd><p>Colour of the text. When <code>NULL</code> (default), the
+<code>colour</code> aesthetic determines the colour of the text. <code>text.color</code> is an
+alias for <code>text.colour</code>.</p></dd>
 
 
 <dt id="arg-fun-geometry">fun.geometry<a class="anchor" aria-label="anchor" href="#arg-fun-geometry"></a></dt>
