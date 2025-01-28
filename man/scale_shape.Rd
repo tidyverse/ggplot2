@@ -8,9 +8,9 @@
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
-scale_shape(name = waiver(), ..., solid = NULL)
+scale_shape(name = waiver(), ..., solid = NULL, aesthetics = "shape")
 
-scale_shape_binned(name = waiver(), ..., solid = TRUE)
+scale_shape_binned(name = waiver(), ..., solid = TRUE, aesthetics = "shape")
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -49,7 +49,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
     \item{\code{na.value}}{If \code{na.translate = TRUE}, what aesthetic value should the
 missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-    \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{minor_breaks}}{One of:
 \itemize{
 \item \code{NULL} for no minor breaks
@@ -61,7 +60,9 @@ accepts rlang \link[rlang:as_function]{lambda} function notation. When
 the function has two arguments, it will be given the limits and major
 break positions.
 }}
-    \item{\code{labels}}{One of:
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -80,6 +81,8 @@ notation.
 
 \item{solid}{Should the shapes be solid, \code{TRUE}, or hollow,
 \code{FALSE}?}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
 }
 \description{
 \code{scale_shape()} maps discrete variables to six easily discernible shapes.
@@ -88,6 +91,13 @@ seventh and subsequent levels will not appear on the plot. Use
 \code{\link[=scale_shape_manual]{scale_shape_manual()}} to supply your own values. You can not map
 a continuous variable to shape unless \code{scale_shape_binned()} is used. Still,
 as shape has no inherent order, this use is not advised.
+}
+\details{
+Shapes can be referred to by number or name. Shapes in [0, 20] do not
+support a fill aesthetic, whereas shapes in [21, 25] do.
+
+\if{html}{\figure{shape_table.svg}{All shapes by number and name}}
+\if{latex}{\figure{shape_table.pdf}}
 }
 \examples{
 set.seed(596)

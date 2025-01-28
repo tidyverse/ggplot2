@@ -1,7 +1,30 @@
 # ggplot2 (development version)
 
-* Staged expressions are handled more gracefully if legends cannot resolve them 
-  (@teunbrand, #6264).
+* Axis labels are now preserved better when using `coord_sf(expand = TRUE)` and
+  graticule lines are straight but do not meet the edge (@teunbrand, #2985).
+* Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
+  center (@teunbrand, #5023)
+* Scale names, guide titles and aesthetic labels can now accept functions 
+  (@teunbrand, #4313)
+* Binned scales with zero-width data expand the default limits by 0.1 
+  (@teunbrand, #5066)
+* New default `geom_qq_line(geom = "abline")` for better clipping in the 
+  vertical direction. In addition, `slope` and `intercept` are new computed
+  variables in `stat_qq_line()` (@teunbrand, #6087).
+* Position adjustments can now have auxiliary aesthetics (@teunbrand).
+    * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
+    * `position_dodge()` gains `order` aesthetic (#3022, #3345)
+* More stability for vctrs-based palettes (@teunbrand, #6117).
+* Fixed regression in `guide_bins(reverse = TRUE)` (@teunbrand, #6183).
+* New function family for setting parts of a theme. For example, you can now use 
+  `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for
+  `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This
+  should allow slightly terser and more organised theme declarations 
+  (@teunbrand, #5301).
+* `scale_{x/y}_discrete(continuous.limits)` is a new argument to control the
+  display range of discrete scales (@teunbrand, #4174, #6259).
+* `geom_ribbon()` now appropriately warns about, and removes, missing values 
+  (@teunbrand, #6243).
 * `guide_*()` can now accept two inside legend theme elements:
   `legend.position.inside` and `legend.justification.inside`, allowing inside
   legends to be placed at different positions. Only inside legends with the same
@@ -44,6 +67,13 @@
   (@teunbrand, #4320)
 * `geom_boxplot()` gains additional arguments to style the colour, linetype and
   linewidths of the box, whiskers, median line and staples (@teunbrand, #5126)
+* `geom_violin()` gains additional arguments to style the colour, linetype and
+  linewidths of the quantiles, which replace the now-deprecated `draw_quantiles` 
+  argument (#5912).
+* (breaking) `geom_violin(quantiles)` now has actual quantiles based on
+  the data, rather than inferred quantiles based on the computed density. The
+  `quantiles` parameter that replaces `draw_quantiles` now belongs to 
+  `stat_ydensity()` instead of `geom_violin()` (@teunbrand, #4120).
 * (internal) Using `after_scale()` in the `Geom*$default_aes()` field is now
   evaluated in the context of data (@teunbrand, #6135)
 * Fixed bug where binned scales wouldn't simultaneously accept transformations
@@ -232,7 +262,7 @@
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
-* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
+* Reintroduced `drop` argument to `stat_bin()` (@teunbrand, #3449)
 * (internal) removed barriers for using 2D structures as aesthetics 
   (@teunbrand, #4189).
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
@@ -245,6 +275,21 @@
 * `geom_abline()` clips to the panel range in the vertical direction too
   (@teunbrand, #6086).
 * Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
+* Standardised the calculation of `width`, which are now implemented as
+  aesthetics (@teunbrand, #2800).
+* Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
+* Added `weight` aesthetic for `stat_ellipse()` (@teunbrand, #5272)
+* Fixed a bug where the `guide_custom(order)` wasn't working (@teunbrand, #6195)
+* All binning stats now use the `boundary`/`center` parametrisation rather
+  than `origin`, following in `stat_bin()`'s footsteps (@teunbrand).
+* `stat_summary_2d()` and `stat_bin_2d()` now deal with zero-range data
+  more elegantly (@teunbrand, #6207).
+* Munching in `coord_polar()` and `coord_radial()` now adds more detail, 
+  particularly for data-points with a low radius near the center 
+  (@teunbrand, #5023).
+* All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
+* Staged expressions are handled more gracefully if legends cannot resolve them 
+  (@teunbrand, #6264).
 
 # ggplot2 3.5.1
 

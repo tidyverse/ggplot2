@@ -191,9 +191,7 @@ GuideColoursteps <- ggproto(
       params$key <- key
     }
 
-    params$title <- scale$make_title(
-      params$title %|W|% scale$name %|W|% title
-    )
+    params$title <- scale$make_title(params$title, scale$name, title)
 
     limits <- c(params$decor$min[1], params$decor$max[nrow(params$decor)])
     if (params$reverse) {

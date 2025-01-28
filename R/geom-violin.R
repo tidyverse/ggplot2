@@ -10,8 +10,6 @@
 #' @eval rd_aesthetics("geom", "violin")
 #' @inheritParams layer
 #' @inheritParams geom_bar
-#' @param draw_quantiles If `not(NULL)` (default), draw horizontal lines
-#'   at the given quantiles of the density estimate.
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
@@ -23,6 +21,12 @@
 #'   finite, boundary effect of default density estimation will be corrected by
 #'   reflecting tails outside `bounds` around their closest edge. Data points
 #'   outside of bounds are removed with a warning.
+#' @param quantile.colour,quantile.color,quantile.linewidth,quantile.linetype
+#'   Default aesthetics for the quantile lines. Set to `NULL` to inherit from
+#'   the data's aesthetics. By default, quantile lines are hidden and can be
+#'   turned on by changing `quantile.linetype`.
+#' @param draw_quantiles `r lifecycle::badge("deprecated")` Previous
+#'   specification of drawing quantiles.
 #' @export
 #' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 #' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
@@ -91,14 +95,46 @@
 geom_violin <- function(mapping = NULL, data = NULL,
                         stat = "ydensity", position = "dodge",
                         ...,
-                        draw_quantiles = NULL,
                         trim = TRUE,
                         bounds = c(-Inf, Inf),
+                        quantile.colour = NULL,
+                        quantile.color = NULL,
+                        quantile.linetype = 0L,
+                        quantile.linewidth = NULL,
+                        draw_quantiles = deprecated(),
                         scale = "area",
                         na.rm = FALSE,
                         orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
+
+  extra <- list()
+  if (lifecycle::is_present(draw_quantiles)) {
+    deprecate_soft0(
+      "3.6.0",
+      what = "geom_violin(draw_quantiles)",
+      with = "geom_violin(quantiles.linetype)"
+    )
+    check_numeric(draw_quantiles)
+
+    # Pass on to stat when stat accepts 'quantiles'
+    stat <- validate_subclass(stat, "Stat", current_call(), caller_env())
+    if ("quantiles" %in% stat$parameters()) {
+      extra$quantiles <- draw_quantiles
+    }
+
+    # Turn on quantile lines
+    if (!is.null(quantile.linetype)) {
+      quantile.linetype <- max(quantile.linetype, 1)
+    }
+  }
+
+  quantile_gp <- list(
+    colour    = quantile.color %||% quantile.colour,
+    linetype  = quantile.linetype,
+    linewidth = quantile.linewidth
+  )
+
   layer(
     data = data,
     mapping = mapping,
@@ -110,10 +146,11 @@ geom_violin <- function(mapping = NULL, data = NULL,
     params = list2(
       trim = trim,
       scale = scale,
-      draw_quantiles = draw_quantiles,
       na.rm = na.rm,
       orientation = orientation,
       bounds = bounds,
+      quantile_gp = quantile_gp,
+      !!!extra,
       ...
     )
   )
@@ -131,11 +168,13 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   extra_params = c("na.rm", "orientation", "lineend", "linejoin", "linemitre"),
 
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width
+    )
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
     data <- dapply(data, "group", transform,
       xmin = x - width / 2,
@@ -144,7 +183,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(self, data, ..., draw_quantiles = NULL, flipped_aes = FALSE) {
+  draw_group = function(self, data, ..., quantile_gp = list(linetype = 0), flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     # Find the points for the line to go all the way around
     data <- transform(data,
@@ -163,36 +202,28 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     newdata <- vec_rbind0(newdata, newdata[1,])
     newdata <- flip_data(newdata, flipped_aes)
 
-    # Draw quantiles if requested, so long as there is non-zero y range
-    if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
-      if (!(all(draw_quantiles >= 0) && all(draw_quantiles <= 1))) {
-        cli::cli_abort("{.arg draw_quantiles} must be between 0 and 1.")
-      }
+    violin_grob <- GeomPolygon$draw_panel(newdata, ...)
 
-      # Compute the quantile segments and combine with existing aesthetics
-      quantiles <- create_quantile_segment_frame(data, draw_quantiles)
-      aesthetics <- data[
-        rep(1, nrow(quantiles)),
-        setdiff(names(data), c("x", "y", "group")),
-        drop = FALSE
-      ]
-      aesthetics$alpha <- rep(1, nrow(quantiles))
-      both <- vec_cbind(quantiles, aesthetics)
-      both <- both[!is.na(both$group), , drop = FALSE]
-      both <- flip_data(both, flipped_aes)
-      quantile_grob <- if (nrow(both) == 0) {
-        zeroGrob()
-      } else {
-        GeomPath$draw_panel(both, ...)
-      }
-
-      ggname("geom_violin", grobTree(
-        GeomPolygon$draw_panel(newdata, ...),
-        quantile_grob)
-      )
-    } else {
-      ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
+    if (!"quantile" %in% names(newdata) ||
+        all(quantile_gp$linetype == 0) ||
+        all(quantile_gp$linetype == "blank")) {
+      return(ggname("geom_violin", violin_grob))
     }
+
+    # Draw quantiles if requested, so long as there is non-zero y range
+    quantiles <- newdata[!is.na(newdata$quantile),]
+    quantiles$group <- match(quantiles$quantile, unique(quantiles$quantile))
+    quantiles$linetype  <- quantile_gp$linetype  %||% quantiles$linetype
+    quantiles$linewidth <- quantile_gp$linewidth %||% quantiles$linewidth
+    quantiles$colour    <- quantile_gp$colour    %||% quantiles$colour
+
+    quantile_grob <- if (nrow(quantiles) == 0) {
+      zeroGrob()
+    } else {
+      GeomPath$draw_panel(quantiles, ...)
+    }
+
+    ggname("geom_violin", grobTree(violin_grob, quantile_grob))
   },
 
   draw_key = draw_key_polygon,
@@ -203,7 +234,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     fill = from_theme(paper),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
-    alpha = NA
+    alpha = NA,
+    width = 0.9
   ),
 
   required_aes = c("x", "y"),
