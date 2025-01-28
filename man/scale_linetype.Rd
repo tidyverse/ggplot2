@@ -86,6 +86,13 @@ University of Manchester. Continuous values can not be mapped to
 line types unless \code{scale_linetype_binned()} is used. Still, as linetypes has
 no inherent order, this use is not advised.
 }
+\details{
+Lines can be referred to by number, name or hex code. Contrary to base R
+graphics, \code{NA}s are interpreted as blanks.
+
+\if{html}{\figure{linetype_table.svg}{Named linetypes by number and name}}
+\if{latex}{\figure{linetype_table.pdf}}
+}
 \examples{
 base <- ggplot(economics_long, aes(date, value01))
 base + geom_line(aes(group = variable))

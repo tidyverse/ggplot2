@@ -9,6 +9,14 @@
 #' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette
 #' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
+#' @details
+#' Lines can be referred to by number, name or hex code. Contrary to base R
+#' graphics, `NA`s are interpreted as blanks.
+#'
+#' \if{html}{\figure{linetype_table.svg}{Named linetypes by number and name}}
+#' \if{latex}{\figure{linetype_table.pdf}}
+#'
+#'
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
