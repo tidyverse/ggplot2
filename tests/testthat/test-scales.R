@@ -748,7 +748,7 @@ test_that("discrete scales work with NAs in arbitrary positions", {
 
 })
 
-test_that("ViewScales can be frozen", {
+test_that("ViewScales can make fixed copies", {
 
   p1 <- ggplot(mpg, aes(drv, displ)) +
     geom_boxplot() +
@@ -761,8 +761,8 @@ test_that("ViewScales can be frozen", {
   p2 <- ggplot(mpg, aes(drv, cyl)) +
     geom_violin() +
     annotate("point", x = 15, y = 100) +
-    b1$x$freeze() +
-    b1$y$freeze()
+    b1$x$make_fixed_copy() +
+    b1$y$make_fixed_copy()
   b2 <- ggplot_build(p2)
 
   # Breaks and labels should respect p1's limits

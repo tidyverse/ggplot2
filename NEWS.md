@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
-* (internal) The ViewScale class has a `freeze()` method to permit copying
-  trained position scales (#3441).
+* (internal) The ViewScale class has a `make_fixed_copy()` method to permit 
+  copying trained position scales (#3441).
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.

@@ -151,7 +151,7 @@ ViewScale <- ggproto("ViewScale", NULL,
 
     self$rescale(b)
   },
-  freeze = function(self) {
+  make_fixed_copy = function(self) {
     breaks <- self$get_breaks()
     minor  <- self$get_breaks_minor()
     transform <- self$scale$get_transformation()
