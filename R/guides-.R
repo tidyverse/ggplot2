@@ -480,7 +480,7 @@ Guides <- ggproto(
     if (length(default_position) == 2) {
       default_position <- "inside"
     }
-    if (default_position == "none") {
+    if (!default_position %in% c(.trbl, "inside")) {
       return(zeroGrob())
     }
 
@@ -547,7 +547,8 @@ Guides <- ggproto(
           legend.justification.inside = groups$key$justs[[i]]
         )
       }
-      grobs[[i]] <- self$package_box(grobs[[i]], position, theme + adjust)
+      adjust <- add_theme(theme, adjust, "internal theme settings")
+      grobs[[i]] <- self$package_box(grobs[[i]], position, adjust)
     }
 
     # merge inside grobs into single gtable
@@ -598,11 +599,7 @@ Guides <- ggproto(
     }
 
     # Determine default direction
-    direction <- switch(
-      position,
-      inside = , left = , right = "vertical",
-      top = , bottom = "horizontal"
-    )
+    direction <- switch(position, top = , bottom = "horizontal", "vertical")
 
     # Populate missing theme arguments
     theme$legend.box       <- theme$legend.box       %||% direction
