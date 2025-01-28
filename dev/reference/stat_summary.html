@@ -388,6 +388,9 @@ display summarised data</p></div>
 <span class="r-in"><span><span class="co"># The crossbar geom needs grouping to be specified when used with</span></span></span>
 <span class="r-in"><span><span class="co"># a continuous x axis.</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">stat_sum_df</span><span class="op">(</span><span class="st">"mean_cl_boot"</span>, mapping <span class="op">=</span> <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `fatten` argument of `geom_crossbar()` is deprecated as of ggplot2</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> 3.6.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use the `middle.linewidth` argument instead.</span>
 <span class="r-plt img"><img src="stat_summary-13.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">stat_sum_df</span><span class="op">(</span><span class="st">"mean_sdl"</span>, mapping <span class="op">=</span> <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="stat_summary-14.png" alt="" width="700" height="433"></span>
