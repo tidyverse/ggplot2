@@ -2,18 +2,35 @@
 #' @rdname geom_text
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
-#' @param label.size Size of label border, in mm.
+#' @param label.size `r lifecycle::badge("deprecated")` Replaced by the
+#'   `linewidth` aesthetic. Size of label border, in mm.
+#' @param border.colour,border.color Colour of label border. When `NULL`
+#'   (default), the `colour` aesthetic determines the colour of the label border.
+#'   `border.color` is an alias for `border.colour`.
+#' @param text.colour,text.color Colour of the text. When `NULL` (default), the
+#'   `colour` aesthetic determines the colour of the text. `text.color` is an
+#'   alias for `text.colour`.
 geom_label <- function(mapping = NULL, data = NULL,
                        stat = "identity", position = "nudge",
                        ...,
                        parse = FALSE,
                        label.padding = unit(0.25, "lines"),
                        label.r = unit(0.15, "lines"),
-                       label.size = 0.25,
+                       label.size = deprecated(),
+                       border.colour = NULL,
+                       border.color = NULL,
+                       text.colour = NULL,
+                       text.color = NULL,
                        size.unit = "mm",
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
+
+  extra_args <- list2(...)
+  if (lifecycle::is_present(label.size)) {
+    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    extra_args$linewidth <- extra_args$linewidth %||% label.size
+  }
 
   layer(
     data = data,
@@ -27,10 +44,11 @@ geom_label <- function(mapping = NULL, data = NULL,
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
-      label.size = label.size,
       size.unit = size.unit,
+      border.colour = border.color %||% border.colour,
+      text.colour = text.color %||% text.colour,
       na.rm = na.rm,
-      ...
+      !!!extra_args
     )
   )
 }
@@ -49,14 +67,17 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     size = from_theme(fontsize),
     angle = 0,
     hjust = 0.5, vjust = 0.5, alpha = NA, fontface = 1,
-    lineheight = 1.2
+    lineheight = 1.2,
+    linewidth = from_theme(borderwidth * 0.5),
+    linetype  = from_theme(bordertype)
   ),
 
   draw_panel = function(self, data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
-                        label.size = 0.25,
+                        border.colour = NULL,
+                        text.colour = NULL,
                         size.unit = "mm") {
     lab <- data$label
     if (parse) {
@@ -71,6 +92,12 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     }
 
     size.unit <- resolve_text_unit(size.unit)
+    data$text.colour   <- text.colour %||% data$colour
+    data$border.colour <- border.colour %||% data$colour
+    data$border.colour[data$linewidth == 0] <- NA
+    data$fill <- fill_alpha(data$fill, data$alpha)
+    data$size <- data$size * size.unit
+
 
     grobs <- lapply(seq_len(nrow(data)), function(i) {
       row <- data[i, , drop = FALSE]
@@ -82,16 +109,17 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         r = label.r,
         angle = row$angle,
         text.gp = gg_par(
-          col = row$colour,
-          fontsize = row$size * size.unit,
+          col = row$text.colour,
+          fontsize = row$size,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
         ),
         rect.gp = gg_par(
-          col = if (isTRUE(all.equal(label.size, 0))) NA else row$colour,
-          fill = fill_alpha(row$fill, row$alpha),
-          lwd = label.size
+          col = row$border.colour,
+          fill = row$fill,
+          lwd = row$linewidth,
+          lty = row$linetype
         )
       )
     })

@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
+  * The `linewidth` aesthetic is now applied and replaces the `label.size` 
+    argument.
+  * The `linetype` aesthetic is now applied.
+  * New `border.colour` argument to set the colour of borders.
+  * New `text.colour` argument to set the colour of text.
 * New `element_point()` and `element_polygon()` that can be given to 
   `theme(point, polygon)` as an extension point (@teunbrand, #6248).
 * Turned off fallback for `size` to `linewidth` translation in 
