@@ -5,6 +5,8 @@ element_blank(): draws nothing, and assigns no space.
 element_rect(): borders and backgrounds.
 element_line(): lines.
 element_text(): text.
+element_polygon(): polygons.
+element_point(): points.
 element_geom(): defaults for drawing layers.
 
 
@@ -16,6 +18,8 @@ element_blank(): draws nothing, and assigns no space.
 element_rect(): borders and backgrounds.
 element_line(): lines.
 element_text(): text.
+element_polygon(): polygons.
+element_point(): points.
 element_geom(): defaults for drawing layers.
 
 
@@ -94,6 +98,8 @@ specify the display of how non-data components of the plot are drawn.</p><ul><li
 <li><p><code>element_rect()</code>: borders and backgrounds.</p></li>
 <li><p><code>element_line()</code>: lines.</p></li>
 <li><p><code>element_text()</code>: text.</p></li>
+<li><p><code>element_polygon()</code>: polygons.</p></li>
+<li><p><code>element_point()</code>: points.</p></li>
 <li><p><code>element_geom()</code>: defaults for drawing layers.</p></li>
 </ul><p><code>rel()</code> is used to specify sizes relative to the parent,
 <code>margin()</code>, <code>margin_part()</code> and <code>margin_auto()</code> are all used to specify the
@@ -141,6 +147,25 @@ margins of elements.</p>
 <span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">element_polygon</span><span class="op">(</span></span>
+<span>  fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">element_point</span><span class="op">(</span></span>
+<span>  colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stroke <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">element_geom</span><span class="op">(</span></span>
 <span>  ink <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  paper <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -178,7 +203,7 @@ of the fill.</p></dd>
 <code><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha()</a></code> can be used to set the transparency of the colour.</p></dd>
 
 
-<dt id="arg-linewidth-borderwidth">linewidth, borderwidth<a class="anchor" aria-label="anchor" href="#arg-linewidth-borderwidth"></a></dt>
+<dt id="arg-linewidth-borderwidth-stroke">linewidth, borderwidth, stroke<a class="anchor" aria-label="anchor" href="#arg-linewidth-borderwidth-stroke"></a></dt>
 <dd><p>Line/border size in mm.</p></dd>
 
 
@@ -197,8 +222,8 @@ well. If <code>FALSE</code> any blank parent element will be ignored when
 calculating final element state.</p></dd>
 
 
-<dt id="arg-size-fontsize">size, fontsize<a class="anchor" aria-label="anchor" href="#arg-size-fontsize"></a></dt>
-<dd><p>text size in pts.</p></dd>
+<dt id="arg-size-fontsize-pointsize">size, fontsize, pointsize<a class="anchor" aria-label="anchor" href="#arg-size-fontsize-pointsize"></a></dt>
+<dd><p>text size in pts, point size in mm.</p></dd>
 
 
 <dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
@@ -249,6 +274,10 @@ rectangle behind the complete text area, and a point where each label
 is anchored.</p></dd>
 
 
+<dt id="arg-shape-pointshape">shape, pointshape<a class="anchor" aria-label="anchor" href="#arg-shape-pointshape"></a></dt>
+<dd><p>Shape for points (1-25).</p></dd>
+
+
 <dt id="arg-ink">ink<a class="anchor" aria-label="anchor" href="#arg-ink"></a></dt>
 <dd><p>Foreground colour.</p></dd>
 
@@ -259,14 +288,6 @@ is anchored.</p></dd>
 
 <dt id="arg-accent">accent<a class="anchor" aria-label="anchor" href="#arg-accent"></a></dt>
 <dd><p>Accent colour.</p></dd>
-
-
-<dt id="arg-pointsize">pointsize<a class="anchor" aria-label="anchor" href="#arg-pointsize"></a></dt>
-<dd><p>Size for points in mm.</p></dd>
-
-
-<dt id="arg-pointshape">pointshape<a class="anchor" aria-label="anchor" href="#arg-pointshape"></a></dt>
-<dd><p>Shape for points (1-25).</p></dd>
 
 
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
@@ -285,6 +306,11 @@ can be most easily scaled with the text.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>An S3 object of class <code>element</code>, <code>rel</code>, or <code>margin</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The <code>element_polygon()</code> and <code>element_point()</code> functions are not rendered
+in standard plots and just serve as extension points.</p>
     </div>
 
     <div class="section level2">

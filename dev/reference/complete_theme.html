@@ -104,7 +104,7 @@ Defaults to the global theme settings.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">my_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fu"><a href="element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">complete_theme</span><span class="op">(</span><span class="va">my_theme</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 144</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ line                            :List of 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ colour       : chr "red"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ linewidth    : num 0.5</span>
@@ -148,6 +148,21 @@ Defaults to the global theme settings.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ debug        : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ inherit.blank: logi TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "class")= chr [1:2] "element_text" "element"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ point                           :List of 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ colour       : chr "black"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ fill         : chr "white"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ shape        : num 19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ size         : num 1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ stroke       : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ inherit.blank: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "class")= chr [1:2] "element_point" "element"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ polygon                         :List of 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ fill         : chr "white"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ colour       : chr "black"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ linewidth    : num 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ linetype     : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ inherit.blank: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "class")= chr [1:2] "element_polygon" "element"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geom                            :List of 12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ink          : chr "black"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ paper        : chr "white"</span>
@@ -425,8 +440,6 @@ Defaults to the global theme settings.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.justification.left       : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.justification.right      : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.justification.inside     : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.location                 : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ legend.box                      : NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [list output truncated]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "theme" "gg"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "complete")= logi TRUE</span>
