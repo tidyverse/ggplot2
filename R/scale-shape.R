@@ -9,9 +9,16 @@
 #'
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
-#' @inheritParams scale_x_discrete
+#' @inheritParams discrete_scale
 #' @inheritDotParams discrete_scale -expand -position -scale_name -palette
 #' @rdname scale_shape
+#' @details
+#' Shapes can be referred to by number or name. Shapes in \[0, 20\] do not
+#' support a fill aesthetic, whereas shapes in \[21, 25\] do.
+#'
+#' \if{html}{\figure{shape_table.svg}{All shapes by number and name}}
+#' \if{latex}{\figure{shape_table.pdf}}
+#'
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
@@ -42,16 +49,16 @@
 #'   scale_shape_identity() +
 #'   facet_wrap(~shape) +
 #'   theme_void()
-scale_shape <- function(name = waiver(), ..., solid = NULL) {
+scale_shape <- function(name = waiver(), ..., solid = NULL, aesthetics = "shape") {
   palette <- if (!is.null(solid)) pal_shape(solid) else NULL
-  discrete_scale("shape", name = name, palette = palette, ...)
+  discrete_scale(aesthetics, name = name, palette = palette, ...)
 }
 
 #' @rdname scale_shape
 #' @export
-scale_shape_binned <- function(name = waiver(), ..., solid = TRUE) {
+scale_shape_binned <- function(name = waiver(), ..., solid = TRUE, aesthetics = "shape") {
   palette <- if (!is.null(solid)) pal_binned(pal_shape(solid)) else NULL
-  binned_scale("shape", name = name, palette = palette, ...)
+  binned_scale(aesthetics, name = name, palette = palette, ...)
 }
 
 #' @rdname scale_shape

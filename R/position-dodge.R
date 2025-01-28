@@ -19,6 +19,8 @@
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
 #' @family position adjustments
+#' @eval rd_aesthetics("position", "dodge")
+#'
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
@@ -104,7 +106,10 @@ PositionDodge <- ggproto("PositionDodge", Position,
   preserve = "total",
   orientation = "x",
   reverse = NULL,
+  default_aes = aes(order = NULL),
+
   setup_params = function(self, data) {
+
     flipped_aes <- has_flipped_aes(data, default = self$orientation == "y")
     check_required_aesthetics(
       if (flipped_aes) "y|ymin" else "x|xmin",
@@ -139,8 +144,21 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
   setup_data = function(self, data, params) {
     data <- flip_data(data, params$flipped_aes)
+
     if (!"x" %in% names(data) && all(c("xmin", "xmax") %in% names(data))) {
       data$x <- (data$xmin + data$xmax) / 2
+    }
+
+    data$order <- xtfrm( # xtfrm makes anything 'sortable'
+      data$order %||% ave(data$group, data$x, data$PANEL, FUN = match_sorted)
+    )
+    if (params$reverse) {
+      data$order <- -data$order
+    }
+    if (is.null(params$n)) { # preserve = "total"
+      data$order <- ave(data$order, data$x, data$PANEL, FUN = match_sorted)
+    } else { # preserve = "single"
+      data$order <- match_sorted(data$order)
     }
     flip_data(data, params$flipped_aes)
   },
@@ -179,7 +197,7 @@ pos_dodge <- function(df, width, n = NULL) {
 
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n
-  groupidx <- match(df$group, unique0(df$group))
+  groupidx <- df$order %||% match_sorted(df$group)
 
   # Find the center for each group, then use that to calculate xmin and xmax
   df$x <- df$x + width * ((groupidx - 0.5) / n - 0.5)
@@ -187,4 +205,8 @@ pos_dodge <- function(df, width, n = NULL) {
   df$xmax <- df$x + d_width / n / 2
 
   df
+}
+
+match_sorted <- function(x, y = x, ...) {
+  vec_match(x, vec_sort(unique0(y), ...))
 }

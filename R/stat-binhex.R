@@ -7,6 +7,13 @@
 #'   ncount   = "count, scaled to maximum of 1.",
 #'   ndensity = "density, scaled to maximum of 1."
 #' )
+#' @section Controlling binning parameters for the x and y directions:
+#' The arguments `bins` and `binwidth` can
+#' be set separately for the x and y directions. When given as a scalar, one
+#' value applies to both directions. When given as a vector of length two,
+#' the first is applied to the x direction and the second to the y direction.
+#' Alternatively, these can be a named list containing `x` and `y` elements,
+#' for example `list(x = 10, y = 20)`.
 stat_bin_hex <- function(mapping = NULL, data = NULL,
                          geom = "hex", position = "identity",
                          ...,

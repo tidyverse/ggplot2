@@ -38,7 +38,7 @@ means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian(
 for partial polar coordinates. The default, \code{NULL}, is set to
 \code{start + 2 * pi}.}
 
-\item{expand}{If \code{TRUE}, the default, adds a small expansion factor the
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to prevent overlap between data and axes. If \code{FALSE}, limits
 are taken directly from the scale.}
 

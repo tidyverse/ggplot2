@@ -26,6 +26,9 @@ stat_bin_2d(
   ...,
   bins = 30,
   binwidth = NULL,
+  center = NULL,
+  boundary = NULL,
+  breaks = NULL,
   drop = TRUE,
   na.rm = FALSE,
   show.legend = NA,
@@ -115,11 +118,33 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 these connections, see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom}
 arguments work.}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{binwidth}{Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides \code{bins} if both set.}
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.
+
+The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.}
+
+\item{center, boundary}{bin position specifiers. Only one, \code{center} or
+\code{boundary}, may be specified for a single plot. \code{center} specifies the
+center of one of the bins. \code{boundary} specifies the boundary between two
+bins. Note that if either is above or below the range of the data, things
+will be shifted by the appropriate integer multiple of \code{binwidth}.
+For example, to center on integers use \code{binwidth = 1} and \code{center = 0}, even
+if \code{0} is outside the range of the data. Alternatively, this same alignment
+can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+outside the range of the data.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{drop}{if \code{TRUE} removes all cells with 0 counts.}
 }
@@ -153,6 +178,16 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 }
 }
 
+\section{Controlling binning parameters for the x and y directions}{
+
+The arguments \code{bins}, \code{binwidth}, \code{breaks}, \code{center}, and \code{boundary} can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing \code{x} and \code{y} elements,
+for example \code{list(x = 10, y = 20)}.
+}
+
 \examples{
 d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
 d + geom_bin_2d()
@@ -160,7 +195,7 @@ d + geom_bin_2d()
 # You can control the size of the bins by specifying the number of
 # bins in each direction:
 d + geom_bin_2d(bins = 10)
-d + geom_bin_2d(bins = 30)
+d + geom_bin_2d(bins = list(x = 30, y = 10))
 
 # Or by specifying the width of the bins
 d + geom_bin_2d(binwidth = c(0.1, 0.1))
