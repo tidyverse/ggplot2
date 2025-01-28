@@ -239,6 +239,15 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   extra_params = c("na.rm", "orientation", "outliers"),
 
   setup_params = function(data, params) {
+    if ("fatten" %in% names(params)) {
+      deprecate_soft0(
+        "3.6.0", "geom_boxplot(fatten)",
+        "geom_boxplot(median.linewidth)"
+      )
+    } else {
+      # For backward compatibility reasons
+      params$fatten <- 2
+    }
     params$flipped_aes <- has_flipped_aes(data, params)
     params
   },
