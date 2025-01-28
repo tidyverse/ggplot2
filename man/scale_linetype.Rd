@@ -80,8 +80,6 @@ notation.
   }}
 
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
-
-\item{na.value}{The linetype to use for \code{NA} values.}
 }
 \description{
 Default line types based on a set supplied by Richard Pearson,

@@ -7,7 +7,6 @@
 #'
 #' @inheritParams discrete_scale
 #' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette
-#' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
 #' @details
 #' Lines can be referred to by number, name or hex code. Contrary to base R
