@@ -76,7 +76,7 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       # different breaks and labels in a different data space
       aesthetics = scale$aesthetics,
       name = scale$sec_name(),
-      make_title = function(self, title) self$scale$make_sec_title(title),
+      make_title = function(self, ...) self$scale$make_sec_title(...),
       continuous_range = sort(continuous_range),
       dimension = function(self) self$break_info$range,
       get_limits = function(self) self$break_info$range,
@@ -127,8 +127,8 @@ ViewScale <- ggproto("ViewScale", NULL,
       x
     }
   },
-  make_title = function(self, title) {
-    self$scale$make_title(title)
+  make_title = function(self, ...) {
+    self$scale$make_title(...)
   },
   mapped_breaks = function(self) {
     self$map(self$get_breaks())

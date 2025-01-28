@@ -185,7 +185,7 @@ GuideLegend <- ggproto(
 
   extract_params = function(scale, params,
                             title = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }

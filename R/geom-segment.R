@@ -116,7 +116,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
     data$xend <- data$xend %||% data$x
     data$yend <- data$yend %||% data$y
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- remove_missing(data, na.rm = na.rm,
       c("x", "y", "xend", "yend", "linetype", "linewidth"),
       name = "geom_segment"

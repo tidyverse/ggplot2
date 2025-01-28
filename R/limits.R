@@ -4,7 +4,9 @@
 #' scales. By default, any values outside the limits specified are replaced with
 #' `NA`. Be warned that this will remove data outside the limits and this can
 #' produce unintended results. For changing x or y axis limits \strong{without}
-#' dropping data observations, see [coord_cartesian()].
+#' dropping data observations, see
+#' [`coord_cartesian(xlim, ylim)`][coord_cartesian], or use a full scale with
+#' [`oob = scales::oob_keep`][scales::oob_keep].
 #'
 #' @param ... For `xlim()` and `ylim()`: Two numeric values, specifying the left/lower
 #'  limit and the right/upper limit of the scale. If the larger value is given first,

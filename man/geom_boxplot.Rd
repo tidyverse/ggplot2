@@ -240,6 +240,7 @@ See McGill et al. (1978) for more details.
 \item \code{\link[=aes_linetype_size_shape]{shape}}
 \item \code{\link[=aes_linetype_size_shape]{size}}
 \item \code{weight}
+\item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

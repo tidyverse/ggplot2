@@ -89,6 +89,13 @@ seventh and subsequent levels will not appear on the plot. Use
 a continuous variable to shape unless \code{scale_shape_binned()} is used. Still,
 as shape has no inherent order, this use is not advised.
 }
+\details{
+Shapes can be referred to by number or name. Shapes in [0, 20] do not
+support a fill aesthetic, whereas shapes in [21, 25] do.
+
+\if{html}{\figure{shape_table.svg}{All shapes by number and name}}
+\if{latex}{\figure{shape_table.pdf}}
+}
 \examples{
 set.seed(596)
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]

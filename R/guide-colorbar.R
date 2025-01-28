@@ -259,7 +259,7 @@ GuideColourbar <- ggproto(
 
   extract_params = function(scale, params,
                             title  = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     limits <- params$decor$value[c(1L, nrow(params$decor))]
     to <- switch(
       params$display,
