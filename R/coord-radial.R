@@ -4,7 +4,7 @@
 #' @param end Position from 12 o'clock in radians where plot ends, to allow
 #'   for partial polar coordinates. The default, `NULL`, is set to
 #'   `start + 2 * pi`.
-#' @param expand If `TRUE`, the default, adds a small expansion factor the
+#' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
 #' @param r.axis.inside One of the following:
@@ -120,7 +120,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   is_free = function() TRUE,
 
-  distance = function(self, x, y, details) {
+  distance = function(self, x, y, details, boost = 0.75) {
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range, to = self$inner_radius / 0.4)
@@ -129,8 +129,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       r <- rescale(x, from = details$r.range, to = self$inner_radius / 0.4)
       theta <- theta_rescale_no_clip(y, details$theta.range, arc)
     }
-
-    dist_polar(r, theta)
+    # The ^boost boosts detailed munching when r is small
+    dist_polar(r^boost, theta)
   },
 
   backtransform_range = function(self, panel_params) {
@@ -191,7 +191,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     # Validate appropriateness of guides
     drop_guides <- character(0)
     for (type in aesthetics) {
-      drop_guides <- check_polar_guide(drop_guides, guides, type)
+      drop_guides <- validate_polar_guide(drop_guides, guides, type)
     }
 
     guide_params <- guides$get_params(aesthetics)
@@ -611,7 +611,7 @@ theta_grid <- function(theta, element, inner_radius = c(0, 0.4),
   )
 }
 
-check_polar_guide <- function(drop_list, guides, type = "theta") {
+validate_polar_guide <- function(drop_list, guides, type = "theta") {
   guide <- guides$get_guide(type)
   primary <- gsub("\\.sec$", "", type)
   if (inherits(guide, "GuideNone") || primary %in% guide$available_aes) {

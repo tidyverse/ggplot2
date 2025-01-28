@@ -15,7 +15,11 @@
 #'   specified in [labs()] is used for the title.
 #' @param theme A [`theme`][theme()] object to style the guide individually or
 #'   differently from the plot's theme settings. The `theme` argument in the
-#'   guide overrides, and is combined with, the plot's theme.
+#'   guide partially overrides, and is combined with, the plot's theme.
+#'   Arguments that apply to a single legend are respected, most of which have
+#'   the `legend`-prefix. Arguments that apply to combined legends
+#'   (the legend box) are ignored, including `legend.position`,
+#'   `legend.justification.*`, `legend.location` and `legend.box.*`.
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
@@ -185,7 +189,7 @@ GuideLegend <- ggproto(
 
   extract_params = function(scale, params,
                             title = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }
