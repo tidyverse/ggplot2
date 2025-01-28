@@ -287,6 +287,7 @@
 * Munching in `coord_polar()` and `coord_radial()` now adds more detail, 
   particularly for data-points with a low radius near the center 
   (@teunbrand, #5023).
+* All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
 
 # ggplot2 3.5.1
 

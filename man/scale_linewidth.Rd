@@ -18,7 +18,8 @@ scale_linewidth(
   range = NULL,
   transform = "identity",
   trans = deprecated(),
-  guide = "legend"
+  guide = "legend",
+  aesthetics = "linewidth"
 )
 
 scale_linewidth_binned(
@@ -31,7 +32,8 @@ scale_linewidth_binned(
   nice.breaks = TRUE,
   transform = "identity",
   trans = deprecated(),
-  guide = "bins"
+  guide = "bins",
+  aesthetics = "linewidth"
 )
 }
 \arguments{
@@ -98,6 +100,8 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
 
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
