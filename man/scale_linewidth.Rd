@@ -18,7 +18,8 @@ scale_linewidth(
   range = NULL,
   transform = "identity",
   trans = deprecated(),
-  guide = "legend"
+  guide = "legend",
+  aesthetics = "linewidth"
 )
 
 scale_linewidth_binned(
@@ -31,7 +32,8 @@ scale_linewidth_binned(
   nice.breaks = TRUE,
   transform = "identity",
   trans = deprecated(),
-  guide = "bins"
+  guide = "bins",
+  aesthetics = "linewidth"
 )
 }
 \arguments{
@@ -52,7 +54,9 @@ Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
 
-\item{labels}{One of:
+\item{labels}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -98,6 +102,8 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
 
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will

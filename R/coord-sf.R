@@ -721,6 +721,14 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
     accept_start <- graticule[[orth_start]] < thres
     accept_end   <- graticule[[orth_end]]   < thres
   }
+  if (!any(accept_start | accept_end)) {
+    eps <- sqrt(.Machine$double.xmin)
+    subtract <- switch(position, top = , bottom = 90, 0)
+    straight <-
+      abs(graticule$angle_start - subtract) < eps &
+      abs(graticule$angle_end   - subtract) < eps
+    accept_start <- straight
+  }
 
   # Parsing the information of the `label_axes` argument:
   # should we label the meridians ("E") or parallels ("N")?

@@ -6,6 +6,9 @@
 #' [scale_(x|y)_discrete()][scale_x_discrete()].
 #'
 #' @inheritParams guide_legend
+#' @param theme A [`theme`][theme()] object to style the guide individually or
+#'   differently from the plot's theme settings. The `theme` argument in the
+#'   guide partially overrides, and is combined with, the plot's theme.
 #' @param check.overlap silently remove overlapping labels,
 #'   (recursively) prioritizing the first, last, and middle labels.
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
