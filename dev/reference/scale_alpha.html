@@ -81,15 +81,20 @@ that is the most common use of alpha, and it saves a bit of typing.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_alpha</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, range <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_alpha</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, range <span class="op">=</span> <span class="cn">NULL</span>, aesthetics <span class="op">=</span> <span class="st">"alpha"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_alpha_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, range <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">scale_alpha_continuous</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  range <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"alpha"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_alpha_binned</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, range <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">scale_alpha_binned</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, range <span class="op">=</span> <span class="cn">NULL</span>, aesthetics <span class="op">=</span> <span class="st">"alpha"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_alpha_discrete</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_alpha_ordinal</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, range <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">scale_alpha_ordinal</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, range <span class="op">=</span> <span class="cn">NULL</span>, aesthetics <span class="op">=</span> <span class="st">"alpha"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -111,6 +116,10 @@ breaks, labels and so forth.</p></dd>
 
 <dt id="arg-range">range<a class="anchor" aria-label="anchor" href="#arg-range"></a></dt>
 <dd><p>Output range of alpha values. Must lie between 0 and 1.</p></dd>
+
+
+<dt id="arg-aesthetics">aesthetics<a class="anchor" aria-label="anchor" href="#arg-aesthetics"></a></dt>
+<dd><p>The names of the aesthetics that this scale works with.</p></dd>
 
 </dl></div>
     <div class="section level2">

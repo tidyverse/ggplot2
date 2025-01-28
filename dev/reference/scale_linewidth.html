@@ -89,7 +89,8 @@ aesthetics from stroke width aesthetics.</p>
 <span>  range <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  trans <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  guide <span class="op">=</span> <span class="st">"legend"</span></span>
+<span>  guide <span class="op">=</span> <span class="st">"legend"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"linewidth"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_linewidth_binned</span><span class="op">(</span></span>
@@ -102,7 +103,8 @@ aesthetics from stroke width aesthetics.</p>
 <span>  nice.breaks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  trans <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  guide <span class="op">=</span> <span class="st">"bins"</span></span>
+<span>  guide <span class="op">=</span> <span class="st">"bins"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"linewidth"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -130,7 +132,9 @@ Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" 
 
 
 <dt id="arg-labels">labels<a class="anchor" aria-label="anchor" href="#arg-labels"></a></dt>
-<dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
+<dd><p>One of the options below. Please note that when <code>labels</code> is a
+vector, it is highly recommended to also set the <code>breaks</code> argument as a
+vector to protect against unintended mismatches.</p><ul><li><p><code>NULL</code> for no labels</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
@@ -181,6 +185,10 @@ You can create your own transformation with <code><a href="https://scales.r-lib.
 <dt id="arg-guide">guide<a class="anchor" aria-label="anchor" href="#arg-guide"></a></dt>
 <dd><p>A function used to create a guide or its name. See
 <code><a href="guides.html">guides()</a></code> for more information.</p></dd>
+
+
+<dt id="arg-aesthetics">aesthetics<a class="anchor" aria-label="anchor" href="#arg-aesthetics"></a></dt>
+<dd><p>The names of the aesthetics that this scale works with.</p></dd>
 
 
 <dt id="arg-n-breaks">n.breaks<a class="anchor" aria-label="anchor" href="#arg-n-breaks"></a></dt>

@@ -87,9 +87,9 @@ as shape has no inherent order, this use is not advised.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_shape</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, solid <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_shape</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, solid <span class="op">=</span> <span class="cn">NULL</span>, aesthetics <span class="op">=</span> <span class="st">"shape"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_shape_binned</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, solid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">scale_shape_binned</span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, solid <span class="op">=</span> <span class="cn">TRUE</span>, aesthetics <span class="op">=</span> <span class="st">"shape"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -138,9 +138,6 @@ from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
 missing values be displayed as? Does not apply to position scales
 where <code>NA</code> is always placed at the far right.</p></dd>
 
-    <dt><code>aesthetics</code></dt>
-<dd><p>The names of the aesthetics that this scale works with.</p></dd>
-
     <dt><code>minor_breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (none for discrete, one minor break
@@ -153,7 +150,9 @@ break positions.</p></li>
 </ul></dd>
 
     <dt><code>labels</code></dt>
-<dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
+<dd><p>One of the options below. Please note that when <code>labels</code> is a
+vector, it is highly recommended to also set the <code>breaks</code> argument as a
+vector to protect against unintended mismatches.</p><ul><li><p><code>NULL</code> for no labels</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
@@ -180,6 +179,10 @@ notation.</p></li>
 <dt id="arg-solid">solid<a class="anchor" aria-label="anchor" href="#arg-solid"></a></dt>
 <dd><p>Should the shapes be solid, <code>TRUE</code>, or hollow,
 <code>FALSE</code>?</p></dd>
+
+
+<dt id="arg-aesthetics">aesthetics<a class="anchor" aria-label="anchor" href="#arg-aesthetics"></a></dt>
+<dd><p>The names of the aesthetics that this scale works with.</p></dd>
 
 </dl></div>
     <div class="section level2">
