@@ -274,7 +274,7 @@ Guides <- ggproto(
   #
   # The resulting guide is then drawn in ggplot_gtable
 
-  build = function(self, scales, layers, labels, layer_data, theme) {
+  build = function(self, scales, layers, labels, layer_data, theme = theme()) {
 
     # Empty guides list
     custom <- self$get_custom()
