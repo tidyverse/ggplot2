@@ -211,11 +211,14 @@ GuideBins <- ggproto(
     params$show.limits <- show.limits
 
     if (params$reverse) {
-      key <- key[rev(seq_len(nrow(key))), , drop = FALSE]
+      ord <- seq_len(nrow(key))
+      key <- vec_slice(key, rev(ord))
+      # Put NA back in the trailing position
+      key[params$aesthetic] <- vec_slice(key[params$aesthetic], c(ord[-1], ord[1]))
       key$.value <- 1 - key$.value
     }
 
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     params$key <- key
     params
   },

@@ -90,7 +90,7 @@ GeomRug <- ggproto("GeomRug", Geom,
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     check_inherits(length, "unit")
     rugs <- list()
     data <- coord$transform(data, panel_params)
