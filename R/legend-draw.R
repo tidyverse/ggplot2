@@ -24,11 +24,7 @@ NULL
 #' @export
 #' @rdname draw_key
 draw_key_point <- function(data, params, size) {
-  if (is.null(data$shape)) {
-    data$shape <- 19
-  } else if (is.character(data$shape)) {
-    data$shape <- translate_shape_string(data$shape)
-  }
+  data$shape <- translate_shape_string(data$shape %||% 19)
 
   # NULL means the default stroke size, and NA means no stroke.
   pointsGrob(0.5, 0.5,
@@ -128,7 +124,7 @@ draw_key_boxplot <- function(data, params, size) {
     lwd = params$box_gp$linewidth
   )
 
-  staple_size <- 0.5 + c(0.375, -0.375) * params$staplewidth
+  staple_size <- 0.5 + c(0.375, -0.375) * (params$staplewidth %||% 0)
   staple <- gg_par(
     col = params$staple_gp$colour,
     lty = params$staple_gp$linetype,

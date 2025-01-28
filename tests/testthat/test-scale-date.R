@@ -47,6 +47,20 @@ test_that("not cached across calls", {
   expect_equal(get_panel_scales(p2)$x$timezone, "Australia/Lord_Howe")
 })
 
+test_that("time scale date breaks and labels work", {
+  skip_if_not_installed("hms")
+
+  d <- c(base_time(), base_time() + 5 * 24 * 3600) - base_time()
+
+  sc <- scale_x_time(date_breaks = "1 day", date_labels = "%d")
+  sc$train(d)
+
+  breaks <- sc$get_breaks()
+  expect_length(breaks, 6)
+  labels <- sc$get_labels(breaks)
+  expect_equal(labels, paste0("0", 1:6))
+})
+
 test_that("datetime size scales work", {
   p <- ggplot(df, aes(y = y)) + geom_point(aes(time1, size = time1))
 
