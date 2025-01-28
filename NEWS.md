@@ -296,6 +296,8 @@
 * All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
 * New `theme(legend.key.justification)` to control the alignment of legend keys 
   (@teunbrand, #3669). 
+* Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
+  (@teunbrand, #4335).
 
 # ggplot2 3.5.1
 

@@ -78,8 +78,11 @@ scale_y_datetime(
 scale_x_time(
   name = waiver(),
   breaks = waiver(),
+  date_breaks = waiver(),
   minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
   labels = waiver(),
+  date_labels = waiver(),
   limits = NULL,
   expand = waiver(),
   oob = censor,
@@ -92,8 +95,11 @@ scale_x_time(
 scale_y_time(
   name = waiver(),
   breaks = waiver(),
+  date_breaks = waiver(),
   minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
   labels = waiver(),
+  date_labels = waiver(),
   limits = NULL,
   expand = waiver(),
   oob = censor,
