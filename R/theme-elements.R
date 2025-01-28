@@ -16,8 +16,10 @@
 #' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
 #' margins of elements.
 #'
-#' @param fill Fill colour.
+#' @param fill Fill colour. `fill_alpha()` can be used to set the transparency
+#'   of the fill.
 #' @param colour,color Line/border colour. Color is an alias for colour.
+#'   `alpha()` can be used to set the transparency of the colour.
 #' @param linewidth,borderwidth,stroke Line/border size in mm.
 #' @param size,fontsize,pointsize text size in pts, point size in mm.
 #' @param linetype,bordertype Line type for lines and borders respectively. An
@@ -37,17 +39,21 @@
 #' in standard plots and just serve as extension points.
 #'
 #' @examples
+#' # A standard plot
 #' plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #'
+#' # Turning off theme elements by setting them to blank
 #' plot + theme(
 #'   panel.background = element_blank(),
 #'   axis.text = element_blank()
 #' )
 #'
+#' # Text adjustments
 #' plot + theme(
 #'   axis.text = element_text(colour = "red", size = rel(1.5))
 #' )
 #'
+#' # Turning on the axis line with an arrow
 #' plot + theme(
 #'   axis.line = element_line(arrow = arrow())
 #' )
@@ -481,6 +487,8 @@ register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
   t <- theme(..., complete = complete)
   ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
 
+  check_element_tree(element_tree)
+
   # Merge element trees
   ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
 
@@ -524,6 +532,43 @@ on_load({
 #' @export
 get_element_tree <- function() {
   ggplot_global$element_tree
+}
+
+check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
+  check_object(x, is_bare_list, "a bare {.cls list}", arg = arg, call = call)
+  if (length(x) < 1) {
+    return(invisible(NULL))
+  }
+
+  if (!is_named(x)) {
+    cli::cli_abort("{.arg {arg}} must have names.", call = call)
+  }
+
+  # All elements should be constructed with `el_def()`
+  fields <- names(el_def())
+  bad_fields <- !vapply(x, function(el) all(fields %in% names(el)), logical(1))
+  if (any(bad_fields)) {
+    bad_fields <- names(x)[bad_fields]
+    cli::cli_abort(
+      c("{.arg {arg}} must have elements constructed with {.fn el_def}.",
+        i = "Invalid structure: {.and {.val {bad_fields}}}"),
+      call = call
+    )
+  }
+
+  # Check element tree, prevent elements from being their own parent (#6162)
+  bad_parent <- unlist(Map(
+    function(name, el) any(name %in% el$inherit),
+    name = names(x), el = x
+  ))
+  if (any(bad_parent)) {
+    bad_parent <- names(x)[bad_parent]
+    cli::cli_abort(
+      "Invalid parent in {.arg {arg}}: {.and {.val {bad_parent}}}.",
+      call = call
+    )
+  }
+  invisible(NULL)
 }
 
 #' @rdname register_theme_elements
@@ -654,6 +699,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
+  legend.key.justification = el_def(c("character", "numeric", "integer")),
   legend.frame        = el_def("element_rect", "rect"),
   legend.axis.line    = el_def("element_line", "line"),
   legend.ticks        = el_def("element_line", "legend.axis.line"),
@@ -766,7 +812,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 # @param element_tree the element tree to validate against
-validate_element <- function(el, elname, element_tree, call = caller_env()) {
+check_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {

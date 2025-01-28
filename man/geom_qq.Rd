@@ -10,7 +10,7 @@
 geom_qq_line(
   mapping = NULL,
   data = NULL,
-  geom = "path",
+  geom = "abline",
   position = "identity",
   ...,
   distribution = stats::qnorm,
@@ -25,7 +25,7 @@ geom_qq_line(
 stat_qq_line(
   mapping = NULL,
   data = NULL,
-  geom = "path",
+  geom = "abline",
   position = "identity",
   ...,
   distribution = stats::qnorm,
@@ -205,6 +205,8 @@ Variables computed by \code{stat_qq_line()}:
 \itemize{
 \item \code{after_stat(x)}\cr x-coordinates of the endpoints of the line segment connecting the  points at the chosen quantiles of the theoretical and the sample  distributions.
 \item \code{after_stat(y)}\cr y-coordinates of the endpoints.
+\item \code{after_stat(slope)}\cr Amount of change in \code{y} across 1 unit of \code{x}.
+\item \code{after_stat(intercept)}\cr Value of \code{y} at \code{x == 0}.
 }
 }
 

@@ -4,7 +4,7 @@
 #' @param end Position from 12 o'clock in radians where plot ends, to allow
 #'   for partial polar coordinates. The default, `NULL`, is set to
 #'   `start + 2 * pi`.
-#' @param expand If `TRUE`, the default, adds a small expansion factor the
+#' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
 #' @param r.axis.inside One of the following:
@@ -120,7 +120,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   is_free = function() TRUE,
 
-  distance = function(self, x, y, details) {
+  distance = function(self, x, y, details, boost = 0.75) {
     arc <- details$arc %||% c(0, 2 * pi)
     if (self$theta == "x") {
       r <- rescale(y, from = details$r.range, to = self$inner_radius / 0.4)
@@ -129,8 +129,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       r <- rescale(x, from = details$r.range, to = self$inner_radius / 0.4)
       theta <- theta_rescale_no_clip(y, details$theta.range, arc)
     }
-
-    dist_polar(r, theta)
+    # The ^boost boosts detailed munching when r is small
+    dist_polar(r^boost, theta)
   },
 
   backtransform_range = function(self, panel_params) {
@@ -191,7 +191,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     # Validate appropriateness of guides
     drop_guides <- character(0)
     for (type in aesthetics) {
-      drop_guides <- check_polar_guide(drop_guides, guides, type)
+      drop_guides <- validate_polar_guide(drop_guides, guides, type)
     }
 
     guide_params <- guides$get_params(aesthetics)
@@ -250,11 +250,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     names(gdefs) <- aesthetics
 
     # Train theta guide
-    for (t in intersect(c("theta", "theta.sec"), aesthetics[!empty])) {
-      gdefs[[t]] <- guides[[t]]$train(gdefs[[t]], panel_params[[t]])
-      gdefs[[t]] <- guides[[t]]$transform(gdefs[[t]], self, panel_params)
-      gdefs[[t]] <- guides[[t]]$get_layer_key(gdefs[[t]], layers)
-    }
+    t <- intersect(c("theta", "theta.sec"), aesthetics[!empty])
+    gdefs[t] <- Map(
+      function(guide, guide_param, scale) {
+        guide_param$theme_suffix <- "theta"
+        guide_param <- guide$train(guide_param, scale)
+        guide_param <- guide$transform(guide_param, self, panel_params)
+        guide_param <- guide$get_layer_key(guide_param, layers)
+      },
+      guide = guides[t],
+      guide_param = gdefs[t],
+      scale = panel_params[t]
+    )
 
     if (!isFALSE(self$r_axis_inside)) {
       # For radial axis, we need to pretend that rotation starts at 0 and
@@ -269,17 +276,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     temp <- modify_list(panel_params, mod)
 
     # Train radial guide
-    for (r in intersect(c("r", "r.sec"), aesthetics[!empty])) {
-      gdefs[[r]] <- guides[[r]]$train(gdefs[[r]], panel_params[[r]])
-      gdefs[[r]] <- guides[[r]]$transform(gdefs[[r]], self, temp) # Use temp
-      gdefs[[r]] <- guides[[r]]$get_layer_key(gdefs[[r]], layers)
-    }
-
-    # Set theme suffixes
-    gdefs$theta$theme_suffix     <- "theta"
-    gdefs$theta.sec$theme_suffix <- "theta"
-    gdefs$r$theme_suffix         <- "r"
-    gdefs$r.sec$theme_suffix     <- "r"
+    r <- intersect(c("r", "r.sec"), aesthetics[!empty])
+    gdefs[r] <- Map(
+      function(guide, guide_param, scale) {
+        guide_param$theme_suffix <- "r"
+        guide_param <- guide$train(guide_param, scale)
+        guide_param <- guide$transform(guide_param, self, temp)
+        guide_param <- guide$get_layer_key(guide_param, layers)
+      },
+      guide = guides[r],
+      guide_param = gdefs[r],
+      scale = panel_params[r]
+    )
 
     panel_params$guides$update_params(gdefs)
     panel_params
@@ -603,7 +611,7 @@ theta_grid <- function(theta, element, inner_radius = c(0, 0.4),
   )
 }
 
-check_polar_guide <- function(drop_list, guides, type = "theta") {
+validate_polar_guide <- function(drop_list, guides, type = "theta") {
   guide <- guides$get_guide(type)
   primary <- gsub("\\.sec$", "", type)
   if (inherits(guide, "GuideNone") || primary %in% guide$available_aes) {

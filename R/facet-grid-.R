@@ -177,7 +177,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   facets_list <- grid_as_facets_list(rows, cols)
 
   # Check for deprecated labellers
-  labeller <- check_labeller(labeller)
+  labeller <- fix_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,

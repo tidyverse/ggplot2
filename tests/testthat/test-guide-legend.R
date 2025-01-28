@@ -212,3 +212,19 @@ test_that("legend.byrow works in `guide_legend()`", {
   expect_doppelganger("legend.byrow = TRUE", p)
 })
 
+test_that("legend.key.justification works as intended", {
+
+  p <- ggplot(mtcars, aes(mpg, disp, colour = factor(cyl), size = drat)) +
+    geom_point() +
+    scale_size_continuous(
+      range = c(0, 20), breaks = c(3, 4, 5), limits = c(2.5, 5)
+    ) +
+    scale_colour_discrete(
+      labels = c("one line", "up\nto\nfour\nlines", "up\nto\nfive\nwhole\nlines")
+    ) +
+    theme(legend.key.justification = c(1, 0))
+
+  expect_doppelganger("legend key justification", p)
+
+})
+
