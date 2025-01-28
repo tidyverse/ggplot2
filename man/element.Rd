@@ -74,9 +74,11 @@ margin_part(t = NA, r = NA, b = NA, l = NA, unit = "pt")
 margin_auto(t = 0, r = t, b = t, l = r, unit = "pt")
 }
 \arguments{
-\item{fill}{Fill colour.}
+\item{fill}{Fill colour. \code{fill_alpha()} can be used to set the transparency
+of the fill.}
 
-\item{colour, color}{Line/border colour. Color is an alias for colour.}
+\item{colour, color}{Line/border colour. Color is an alias for colour.
+\code{alpha()} can be used to set the transparency of the colour.}
 
 \item{linewidth, borderwidth}{Line/border size in mm.}
 
@@ -155,17 +157,21 @@ specify the display of how non-data components of the plot are drawn.
 margins of elements.
 }
 \examples{
+# A standard plot
 plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 
+# Turning off theme elements by setting them to blank
 plot + theme(
   panel.background = element_blank(),
   axis.text = element_blank()
 )
 
+# Text adjustments
 plot + theme(
   axis.text = element_text(colour = "red", size = rel(1.5))
 )
 
+# Turning on the axis line with an arrow
 plot + theme(
   axis.line = element_line(arrow = arrow())
 )
