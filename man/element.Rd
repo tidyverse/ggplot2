@@ -5,6 +5,8 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
+\alias{element_polygon}
+\alias{element_point}
 \alias{element_geom}
 \alias{rel}
 \alias{margin}
@@ -51,6 +53,25 @@ element_text(
   inherit.blank = FALSE
 )
 
+element_polygon(
+  fill = NULL,
+  colour = NULL,
+  linewidth = NULL,
+  linetype = NULL,
+  color = NULL,
+  inherit.blank = FALSE
+)
+
+element_point(
+  colour = NULL,
+  shape = NULL,
+  size = NULL,
+  fill = NULL,
+  stroke = NULL,
+  color = NULL,
+  inherit.blank = FALSE
+)
+
 element_geom(
   ink = NULL,
   paper = NULL,
@@ -80,7 +101,7 @@ of the fill.}
 \item{colour, color}{Line/border colour. Color is an alias for colour.
 \code{alpha()} can be used to set the transparency of the colour.}
 
-\item{linewidth, borderwidth}{Line/border size in mm.}
+\item{linewidth, borderwidth, stroke}{Line/border size in mm.}
 
 \item{linetype, bordertype}{Line type for lines and borders respectively. An
 integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
@@ -93,7 +114,7 @@ a blank element among its parents will cause this element to be blank as
 well. If \code{FALSE} any blank parent element will be ignored when
 calculating final element state.}
 
-\item{size, fontsize}{text size in pts.}
+\item{size, fontsize, pointsize}{text size in pts, point size in mm.}
 
 \item{lineend}{Line end Line end style (round, butt, square)}
 
@@ -121,15 +142,13 @@ side of the text facing towards the center of the plot.}
 rectangle behind the complete text area, and a point where each label
 is anchored.}
 
+\item{shape, pointshape}{Shape for points (1-25).}
+
 \item{ink}{Foreground colour.}
 
 \item{paper}{Background colour.}
 
 \item{accent}{Accent colour.}
-
-\item{pointsize}{Size for points in mm.}
-
-\item{pointshape}{Shape for points (1-25).}
 
 \item{x}{A single number specifying size relative to parent element.}
 
@@ -149,12 +168,18 @@ specify the display of how non-data components of the plot are drawn.
 \item \code{element_rect()}: borders and backgrounds.
 \item \code{element_line()}: lines.
 \item \code{element_text()}: text.
+\item \code{element_polygon()}: polygons.
+\item \code{element_point()}: points.
 \item \code{element_geom()}: defaults for drawing layers.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,
 \code{margin()}, \code{margin_part()} and \code{margin_auto()} are all used to specify the
 margins of elements.
+}
+\details{
+The \code{element_polygon()} and \code{element_point()} functions are not rendered
+in standard plots and just serve as extension points.
 }
 \examples{
 # A standard plot
