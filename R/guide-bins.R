@@ -218,7 +218,7 @@ GuideBins <- ggproto(
       key$.value <- 1 - key$.value
     }
 
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     params$key <- key
     params
   },

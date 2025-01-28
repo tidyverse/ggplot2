@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Scale names, guide titles and aesthetic labels can now accept functions 
+  (@teunbrand, #4313)
 * Binned scales with zero-width data expand the default limits by 0.1 
   (@teunbrand, #5066)
 * New default `geom_qq_line(geom = "abline")` for better clipping in the 
