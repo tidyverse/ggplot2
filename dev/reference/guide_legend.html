@@ -103,7 +103,11 @@ specified in <code><a href="labs.html">labs()</a></code> is used for the title.<
 <dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
 <dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
 differently from the plot's theme settings. The <code>theme</code> argument in the
-guide overrides, and is combined with, the plot's theme.</p></dd>
+guide partially overrides, and is combined with, the plot's theme.
+Arguments that apply to a single legend are respected, most of which have
+the <code>legend</code>-prefix. Arguments that apply to combined legends
+(the legend box) are ignored, including <code>legend.position</code>,
+<code>legend.justification.*</code>, <code>legend.location</code> and <code>legend.box.*</code>.</p></dd>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
