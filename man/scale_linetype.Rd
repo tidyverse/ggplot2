@@ -7,23 +7,13 @@
 \alias{scale_linetype_discrete}
 \title{Scale for line patterns}
 \usage{
-scale_linetype(name = waiver(), ..., na.value = NA, aesthetics = "linetype")
+scale_linetype(name = waiver(), ..., aesthetics = "linetype")
 
-scale_linetype_binned(
-  name = waiver(),
-  ...,
-  na.value = NA,
-  aesthetics = "linetype"
-)
+scale_linetype_binned(name = waiver(), ..., aesthetics = "linetype")
 
 scale_linetype_continuous(...)
 
-scale_linetype_discrete(
-  name = waiver(),
-  ...,
-  na.value = NA,
-  aesthetics = "linetype"
-)
+scale_linetype_discrete(name = waiver(), ..., aesthetics = "linetype")
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -89,9 +79,9 @@ notation.
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
-\item{na.value}{The linetype to use for \code{NA} values.}
-
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
+
+\item{na.value}{The linetype to use for \code{NA} values.}
 }
 \description{
 Default line types based on a set supplied by Richard Pearson,
