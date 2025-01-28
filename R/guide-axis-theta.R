@@ -63,22 +63,26 @@ GuideAxisTheta <- ggproto(
 
   transform = function(params, coord, panel_params) {
 
-    opposite_var <- setdiff(c("x", "y"), params$aesthetic)
-    opposite_value <- switch(params$position, top = , right = , theta.sec = -Inf, Inf)
-    if (is.unsorted(panel_params$inner_radius %||% NA)) {
-      opposite_value <- -opposite_value
-    }
-    if (nrow(params$key) > 0) {
-      params$key[[opposite_var]] <- opposite_value
-    }
-    if (nrow(params$decor) > 0) {
-      params$decor[[opposite_var]] <- opposite_value
+    position <- params$position
+
+    if (!is.null(position)) {
+      opposite_var <- setdiff(c("x", "y"), params$aesthetic)
+      opposite_value <- switch(position, top = , right = , theta.sec = -Inf, Inf)
+      if (is.unsorted(panel_params$inner_radius %||% NA)) {
+        opposite_value <- -opposite_value
+      }
+      if (nrow(params$key) > 0) {
+        params$key[[opposite_var]] <- opposite_value
+      }
+      if (nrow(params$decor) > 0) {
+        params$decor[[opposite_var]] <- opposite_value
+      }
     }
 
     params <- GuideAxis$transform(params, coord, panel_params)
 
     key <- params$key
-    n <- nrow(key)
+    n <- vec_size(key)
     if (n < 1) {
       return(params)
     }

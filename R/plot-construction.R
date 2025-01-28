@@ -195,13 +195,20 @@ ggplot_add.by <- function(object, plot, object_name) {
 
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
-  layers_names <- new_layer_names(object, names(plot$layers))
+  layers_names <- new_layer_names(object, names2(plot$layers))
   plot$layers <- append(plot$layers, object)
   names(plot$layers) <- layers_names
   plot
 }
 
 new_layer_names <- function(layer, existing) {
+
+  empty <- !nzchar(existing)
+  if (any(empty)) {
+    existing[empty] <- "unknown"
+    existing <- vec_as_names(existing, repair = "unique", quiet = TRUE)
+  }
+
   new_name <- layer$name
   if (is.null(new_name)) {
     # Construct a name from the layer's call
