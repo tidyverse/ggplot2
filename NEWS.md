@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Axis labels are now preserved better when using `coord_sf(expand = TRUE)` and
+  graticule lines are straight but do not meet the edge (@teunbrand, #2985).
+* Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
+  center (@teunbrand, #5023)
 * Scale names, guide titles and aesthetic labels can now accept functions 
   (@teunbrand, #4313)
 * Binned scales with zero-width data expand the default limits by 0.1 
