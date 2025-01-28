@@ -112,11 +112,19 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{stat_bin_hex()}. For more information about overriding these connections,
 see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom} arguments work.}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{binwidth}{Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides \code{bins} if both set.}
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.
+
+The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.}
 }
 \description{
 Divides the plane into regular hexagons, counts the number of cases in
@@ -160,6 +168,16 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(ncount)}\cr count, scaled to maximum of 1.
 \item \code{after_stat(ndensity)}\cr density, scaled to maximum of 1.
 }
+}
+
+\section{Controlling binning parameters for the x and y directions}{
+
+The arguments \code{bins} and \code{binwidth} can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing \code{x} and \code{y} elements,
+for example \code{list(x = 10, y = 20)}.
 }
 
 \examples{

@@ -89,9 +89,10 @@ scale_fill_identity <- function(name = waiver(), ..., guide = "none",
 #' @seealso
 #' Other shape scales: [scale_shape()], [scale_shape_manual()].
 #' @export
-scale_shape_identity <- function(name = waiver(), ..., guide = "none") {
+scale_shape_identity <- function(name = waiver(), ..., guide = "none",
+                                 aesthetics = "shape") {
   continuous_scale(
-    "shape", name = name,
+    aesthetics, name = name,
     palette = pal_identity(), ..., guide = guide,
     super = ScaleContinuousIdentity
   )
@@ -101,9 +102,10 @@ scale_shape_identity <- function(name = waiver(), ..., guide = "none") {
 #' @seealso
 #' Other linetype scales: [scale_linetype()], [scale_linetype_manual()].
 #' @export
-scale_linetype_identity <- function(name = waiver(), ..., guide = "none") {
+scale_linetype_identity <- function(name = waiver(), ..., guide = "none",
+                                    aesthetics = "linetype") {
   discrete_scale(
-    "linetype", name = name,
+    aesthetics, name = name,
     palette = pal_identity(), ..., guide = guide,
     super = ScaleDiscreteIdentity
   )
@@ -113,9 +115,10 @@ scale_linetype_identity <- function(name = waiver(), ..., guide = "none") {
 #' @seealso
 #' Other alpha scales: [scale_alpha()], [scale_alpha_manual()].
 #' @export
-scale_linewidth_identity <- function(name = waiver(), ..., guide = "none") {
+scale_linewidth_identity <- function(name = waiver(), ..., guide = "none",
+                                     aesthetics = "linewidth") {
   continuous_scale(
-    "linewidth", name = name,
+    aesthetics, name = name,
     palette = pal_identity(), ...,
     guide = guide, super = ScaleContinuousIdentity
   )
@@ -123,9 +126,10 @@ scale_linewidth_identity <- function(name = waiver(), ..., guide = "none") {
 
 #' @rdname scale_identity
 #' @export
-scale_alpha_identity <- function(name = waiver(), ..., guide = "none") {
+scale_alpha_identity <- function(name = waiver(), ..., guide = "none",
+                                 aesthetics = "alpha") {
   continuous_scale(
-    "alpha", name = name,
+    aesthetics, name = name,
     palette = pal_identity(), ..., guide = guide,
     super = ScaleContinuousIdentity
   )
@@ -135,9 +139,10 @@ scale_alpha_identity <- function(name = waiver(), ..., guide = "none") {
 #' @seealso
 #' Other size scales: [scale_size()], [scale_size_manual()].
 #' @export
-scale_size_identity <- function(name = waiver(), ..., guide = "none") {
+scale_size_identity <- function(name = waiver(), ..., guide = "none",
+                                aesthetics = "size") {
   continuous_scale(
-    "size", name = name,
+    aesthetics, name = name,
     palette = pal_identity(), ..., guide = guide,
     super = ScaleContinuousIdentity
   )

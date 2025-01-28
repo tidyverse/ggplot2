@@ -22,15 +22,35 @@ scale_colour_identity(
 
 scale_fill_identity(name = waiver(), ..., guide = "none", aesthetics = "fill")
 
-scale_shape_identity(name = waiver(), ..., guide = "none")
+scale_shape_identity(
+  name = waiver(),
+  ...,
+  guide = "none",
+  aesthetics = "shape"
+)
 
-scale_linetype_identity(name = waiver(), ..., guide = "none")
+scale_linetype_identity(
+  name = waiver(),
+  ...,
+  guide = "none",
+  aesthetics = "linetype"
+)
 
-scale_linewidth_identity(name = waiver(), ..., guide = "none")
+scale_linewidth_identity(
+  name = waiver(),
+  ...,
+  guide = "none",
+  aesthetics = "linewidth"
+)
 
-scale_alpha_identity(name = waiver(), ..., guide = "none")
+scale_alpha_identity(
+  name = waiver(),
+  ...,
+  guide = "none",
+  aesthetics = "alpha"
+)
 
-scale_size_identity(name = waiver(), ..., guide = "none")
+scale_size_identity(name = waiver(), ..., guide = "none", aesthetics = "size")
 
 scale_discrete_identity(aesthetics, name = waiver(), ..., guide = "none")
 

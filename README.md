@@ -74,7 +74,7 @@ extensions. See a community maintained list at
 
 If you are new to ggplot2 you are better off starting with a systematic
 introduction, rather than trying to learn from reading individual
-documentation pages. Currently, there are three good places to start:
+documentation pages. Currently, there are several good places to start:
 
 1.  The [Data Visualization](https://r4ds.hadley.nz/data-visualize) and
     [Communication](https://r4ds.hadley.nz/communication) chapters in [R
@@ -97,12 +97,15 @@ documentation pages. Currently, there are three good places to start:
     Cookbook](https://r-graphics.org) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.
 
-If you’ve mastered the basics and want to learn more, read [ggplot2:
-Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
-describes the theoretical underpinnings of ggplot2 and shows you how all
-the pieces fit together. This book helps you understand the theory that
-underpins ggplot2, and will help you create new types of graphics
-specifically tailored to your needs.
+5.  If you’ve mastered the basics and want to learn more, read [ggplot2:
+    Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
+    describes the theoretical underpinnings of ggplot2 and shows you how
+    all the pieces fit together. This book helps you understand the
+    theory that underpins ggplot2, and will help you create new types of
+    graphics specifically tailored to your needs.
+
+6.  For articles about announcements and deep-dives you can visit the
+    [tidyverse blog](https://www.tidyverse.org/tags/ggplot2/).
 
 ## Getting help
 

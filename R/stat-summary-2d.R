@@ -28,6 +28,7 @@
 #' @param drop drop if the output of `fun` is `NA`.
 #' @param fun function for summary.
 #' @param fun.args A list of extra arguments to pass to `fun`
+#' @inheritSection stat_bin_2d Controlling binning parameters for the x and y directions
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))
@@ -92,31 +93,50 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
   required_aes = c("x", "y", "z"),
   dropped_aes = "z", # z gets dropped during statistical transformation
 
+  setup_params = function(self, data, params) {
+
+    if (is.character(params$drop)) {
+      params$drop <- !identical(params$drop, "none")
+    }
+
+    params <- fix_bin_params(params, fun = snake_class(self), version = "3.5.2")
+    vars <- c("origin", "binwidth", "breaks", "center", "boundary")
+    params[vars] <- lapply(params[vars], dual_param, default = NULL)
+    params$closed <- dual_param(params$closed, list(x = "right", y = "right"))
+
+    params
+  },
+
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
-                           fun = "mean", fun.args = list()) {
-    origin <- dual_param(origin, list(NULL, NULL))
-    binwidth <- dual_param(binwidth, list(NULL, NULL))
-    breaks <- dual_param(breaks, list(NULL, NULL))
+                           fun = "mean", fun.args = list(),
+                           boundary = 0, closed = NULL, center = NULL) {
     bins <- dual_param(bins, list(x = 30, y = 30))
 
-    xbreaks <- bin2d_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
-    ybreaks <- bin2d_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
-
-    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
-    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
+    xbin <- compute_bins(
+      data$x, scales$x, breaks$x, binwidth$x, bins$x,
+      center$x, boundary$x, closed$x
+    )
+    ybin <- compute_bins(
+      data$y, scales$y, breaks$y, binwidth$y, bins$y,
+      center$y, boundary$y, closed$y
+    )
+    cut_id <- list(
+      xbin = as.integer(bin_cut(data$x, xbin)),
+      ybin = as.integer(bin_cut(data$y, ybin))
+    )
 
     fun <- as_function(fun)
     f <- function(x) {
       inject(fun(x, !!!fun.args))
     }
-    out <- tapply_df(data$z, list(xbin = xbin, ybin = ybin), f, drop = drop)
+    out <- tapply_df(data$z, cut_id, f, drop = drop)
 
-    xdim <- bin_loc(xbreaks, out$xbin)
+    xdim <- bin_loc(xbin$breaks, out$xbin)
     out$x <- xdim$mid
     out$width <- xdim$length
 
-    ydim <- bin_loc(ybreaks, out$ybin)
+    ydim <- bin_loc(ybin$breaks, out$ybin)
     out$y <- ydim$mid
     out$height <- ydim$length
 
