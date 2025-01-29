@@ -469,27 +469,6 @@ theme <- function(...,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
 
-  if (!is.null(elements$axis.ticks.margin)) {
-    lifecycle::deprecate_stop(
-      "2.0.0", "theme(axis.ticks.margin)",
-      details = "Please set `margin` property of `axis.text` instead"
-    )
-  }
-  if (!is.null(elements$panel.margin)) {
-    lifecycle::deprecate_stop(
-      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
-    )
-  }
-  if (!is.null(elements$panel.margin.x)) {
-    lifecycle::deprecate_stop(
-      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
-    )
-  }
-  if (!is.null(elements$panel.margin.y)) {
-    lifecycle::deprecate_stop(
-      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
-    )
-  }
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
