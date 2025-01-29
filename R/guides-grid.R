@@ -3,32 +3,54 @@
 # be converted to `'native'` units by polylineGrob() downstream
 #
 # Any minor lines coinciding with major lines will be removed
-guide_grid <- function(theme, x.minor, x.major, y.minor, y.major) {
+guide_grid <- function(theme, panel_params, coord, square = TRUE) {
 
-  x.minor <- setdiff(x.minor, x.major)
-  y.minor <- setdiff(y.minor, y.major)
+  x_major <- panel_params$x$mapped_breaks()
+  x_minor <- setdiff(panel_params$x$mapped_breaks_minor(), x_major)
 
-  ggname("grill", grobTree(
-    element_render(theme, "panel.background"),
-    if (length(y.minor) > 0) element_render(
-      theme, "panel.grid.minor.y",
-      x = rep(0:1, length(y.minor)), y = rep(y.minor, each = 2),
-      id.lengths = rep(2, length(y.minor))
-    ),
-    if (length(x.minor) > 0) element_render(
-      theme, "panel.grid.minor.x",
-      x = rep(x.minor, each = 2), y = rep(0:1, length(x.minor)),
-      id.lengths = rep(2, length(x.minor))
-    ),
-    if (length(y.major) > 0) element_render(
-      theme, "panel.grid.major.y",
-      x = rep(0:1, length(y.major)), y = rep(y.major, each = 2),
-      id.lengths = rep(2, length(y.major))
-    ),
-    if (length(x.major) > 0) element_render(
-      theme, "panel.grid.major.x",
-      x = rep(x.major, each = 2), y = rep(0:1, length(x.major)),
-      id.lengths = rep(2, length(x.major))
-    )
-  ))
+  y_major <- panel_params$y$mapped_breaks()
+  y_minor <- setdiff(panel_params$y$mapped_breaks_minor(), y_major)
+
+  transform <- if (isTRUE(square)) {
+    function(x) coord$transform(x, panel_params)
+  } else {
+    function(x) coord_munch(coord, x, panel_params)
+  }
+
+  grill <- Map(
+    f = breaks_as_grid,
+    var = list(y_minor, x_minor, y_major, x_major),
+    type = c("minor.y", "minor.x", "major.y", "major.x"),
+    MoreArgs = list(theme = theme, transform = transform)
+  )
+  grill <- compact(grill)
+
+  background <- element_render(theme, "panel.background")
+  if (!isTRUE(square) && !is.zero(background)) {
+    gp <- background$gp
+    background <- data_frame0(x = c(1, 1, -1, -1), y = c(1, -1, -1, 1)) * Inf
+    background <- coord_munch(coord, background, panel_params, is_closed = TRUE)
+    background <- polygonGrob(x = background$x, y = background$y, gp = gp)
+  }
+
+  ggname("grill", inject(grobTree(background, !!!grill)))
+}
+
+breaks_as_grid <- function(var, type, transform, theme) {
+  n <- length(var)
+  if (n < 1) {
+    return(NULL)
+  }
+  df <- data_frame0(
+    var   = rep(var, each = 2),
+    alt   = rep(c(-Inf, Inf), n),
+    group = rep(seq_along(var), each = 2)
+  )
+  colnames(df)[1:2] <-
+    switch(type, major.y = , minor.y = c("y", "x"), c("x", "y"))
+  df <- transform(df)
+  element_render(
+    theme, paste0("panel.grid.", type), x = df$x, y = df$y,
+    id.lengths = vec_unrep(df$group)$times
+  )
 }

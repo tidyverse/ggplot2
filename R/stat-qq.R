@@ -22,7 +22,9 @@
 #'   x = "x-coordinates of the endpoints of the line segment connecting the
 #'   points at the chosen quantiles of the theoretical and the sample
 #'   distributions.",
-#'   y = "y-coordinates of the endpoints."
+#'   y = "y-coordinates of the endpoints.",
+#'   slope     = "Amount of change in `y` across 1 unit of `x`.",
+#'   intercept = "Value of `y` at `x == 0`."
 #' )
 #'
 #' @export
@@ -32,8 +34,12 @@
 #' p <- ggplot(df, aes(sample = y))
 #' p + stat_qq() + stat_qq_line()
 #'
-#' # Use fitdistr from MASS to estimate distribution params
-#' params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
+#' # Use fitdistr from MASS to estimate distribution params:
+#' # if (requireNamespace("MASS", quietly = TRUE)) {
+#' #   params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
+#' # }
+#' # Here, we use pre-computed params
+#' params <- list(m = -0.02505057194115, s = 1.122568610124, df = 6.63842653897)
 #' ggplot(df, aes(sample = y)) +
 #'   stat_qq(distribution = qt, dparams = params["df"]) +
 #'   stat_qq_line(distribution = qt, dparams = params["df"])

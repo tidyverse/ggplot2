@@ -125,6 +125,18 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 The method for calculating the ellipses has been modified from
 \code{car::dataEllipse} (Fox and Weisberg 2011, Friendly and Monette 2013)
 }
+\section{Aesthetics}{
+
+\code{stat_ellipse()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_group_order]{group}}
+\item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \examples{
 ggplot(faithful, aes(waiting, eruptions)) +
   geom_point() +
@@ -151,7 +163,7 @@ ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
 \references{
 John Fox and Sanford Weisberg (2011). An \R Companion to
 Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
-\url{https://socialsciences.mcmaster.ca/jfox/Books/Companion/}
+\url{https://www.john-fox.ca/Companion/}
 
 Michael Friendly. Georges Monette. John Fox. "Elliptical Insights: Understanding Statistical Methods through Elliptical Geometry."
 Statist. Sci. 28 (1) 1 - 39, February 2013. URL: \url{https://projecteuclid.org/journals/statistical-science/volume-28/issue-1/Elliptical-Insights-Understanding-Statistical-Methods-through-Elliptical-Geometry/10.1214/12-STS402.full}

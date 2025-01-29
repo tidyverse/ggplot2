@@ -136,6 +136,13 @@ Geom <- ggproto("Geom",
     themed_defaults <- eval_from_theme(default_aes, theme)
     default_aes[names(themed_defaults)] <- themed_defaults
 
+    # Mark staged/scaled defaults as modifier (#6135)
+    delayed <- is_scaled_aes(default_aes) | is_staged_aes(default_aes)
+    if (any(delayed)) {
+      modifiers <- defaults(modifiers, default_aes[delayed])
+      default_aes <- default_aes[!delayed]
+    }
+
     missing_eval <- lapply(default_aes, eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
@@ -163,17 +170,11 @@ Geom <- ggproto("Geom",
       )
 
       # Check that all output are valid data
-      nondata_modified <- check_nondata_cols(modified_aes)
-      if (length(nondata_modified) > 0) {
-        issues <- paste0("{.code ", nondata_modified, " = ", as_label(modifiers[[nondata_modified]]), "}")
-        names(issues) <- rep("x", length(issues))
-        cli::cli_abort(c(
-          "Aesthetic modifiers returned invalid values",
-          "x" = "The following mappings are invalid",
-          issues,
-          "i" = "Did you map the modifier in the wrong layer?"
-        ))
-      }
+      check_nondata_cols(
+        modified_aes, modifiers,
+        problem = "Aesthetic modifiers returned invalid values.",
+        hint    = "Did you map the modifier in the wrong layer?"
+      )
 
       modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
 
@@ -263,7 +264,7 @@ NULL
 .stroke <- 96 / 25.4
 
 check_aesthetics <- function(x, n) {
-  ns <- lengths(x)
+  ns <- list_sizes(x)
   good <- ns == 1L | ns == n
 
   if (all(good)) {
@@ -276,7 +277,7 @@ check_aesthetics <- function(x, n) {
   ))
 }
 
-check_linewidth <- function(data, name) {
+fix_linewidth <- function(data, name) {
   if (is.null(data$linewidth) && !is.null(data$size)) {
     deprecate_soft0("3.4.0", I(paste0("Using the `size` aesthetic with ", name)), I("the `linewidth` aesthetic"))
     data$linewidth <- data$size

@@ -6,6 +6,9 @@
 #' [scale_(x|y)_discrete()][scale_x_discrete()].
 #'
 #' @inheritParams guide_legend
+#' @param theme A [`theme`][theme()] object to style the guide individually or
+#'   differently from the plot's theme settings. The `theme` argument in the
+#'   guide partially overrides, and is combined with, the plot's theme.
 #' @param check.overlap silently remove overlapping labels,
 #'   (recursively) prioritizing the first, last, and middle labels.
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
@@ -256,6 +259,12 @@ GuideAxis <- ggproto(
   override_elements = function(params, elements, theme) {
     elements$text <-
       label_angle_heuristic(elements$text, params$position, params$angle)
+    if (inherits(elements$ticks, "element_blank")) {
+      elements$major_length <- unit(0, "cm")
+    }
+    if (inherits(elements$minor, "element_blank") || isFALSE(params$minor.ticks)) {
+      elements$minor_length <- unit(0, "cm")
+    }
     return(elements)
   },
 

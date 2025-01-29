@@ -70,21 +70,12 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
 
   draw_panel = function(data, panel_params, coord, grob, xmin, xmax,
                         ymin, ymax) {
-    if (!inherits(coord, "CoordCartesian")) {
-      cli::cli_abort("{.fn annotation_custom} only works with {.fn coord_cartesian}.")
-    }
-    corners <- data_frame0(
-      x = c(xmin, xmax),
-      y = c(ymin, ymax),
-      .size = 2
+    range <- ranges_annotation(
+      coord, panel_params, xmin, xmax, ymin, ymax,
+      fun = "annotation_custom"
     )
-    data <- coord$transform(corners, panel_params)
-
-    x_rng <- range(data$x, na.rm = TRUE)
-    y_rng <- range(data$y, na.rm = TRUE)
-
-    vp <- viewport(x = mean(x_rng), y = mean(y_rng),
-                   width = diff(x_rng), height = diff(y_rng),
+    vp <- viewport(x = mean(range$x), y = mean(range$y),
+                   width = diff(range$x), height = diff(range$y),
                    just = c("center","center"))
     editGrob(grob, vp = vp, name = paste(grob$name, annotation_id()))
   },
@@ -99,3 +90,21 @@ annotation_id <- local({
     i
   }
 })
+
+ranges_annotation <- function(coord, panel_params, xmin, xmax, ymin, ymax, fun) {
+  if (!inherits(coord, "CoordCartesian")) {
+    cli::cli_abort("{.fn {fun}} only works with {.fn coord_cartesian}.")
+  }
+  data <- data_frame0(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)
+  data <- .ignore_data(data)[[1]]
+  x <- panel_params$x$scale$transform_df(data)
+  data[names(x)] <- x
+  y <- panel_params$y$scale$transform_df(data)
+  data[names(y)] <- y
+  data <- .expose_data(data)[[1]]
+  data <- coord$transform(data, panel_params)
+  list(
+    x = range(data$xmin, data$xmax, na.rm = TRUE),
+    y = range(data$ymin, data$ymax, na.rm = TRUE)
+  )
+}

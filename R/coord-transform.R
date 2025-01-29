@@ -78,7 +78,8 @@
 #' plot + coord_trans(x = "sqrt")
 #' }
 coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
-                        limx = deprecated(), limy = deprecated(), clip = "on", expand = TRUE) {
+                        limx = deprecated(), limy = deprecated(), clip = "on",
+                        expand = TRUE, reverse = "none") {
   if (lifecycle::is_present(limx)) {
     deprecate_warn0("3.3.0", "coord_trans(limx)", "coord_trans(xlim)")
     xlim <- limx
@@ -99,6 +100,7 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
     trans = list(x = x, y = y),
     limits = list(x = xlim, y = ylim),
     expand = expand,
+    reverse = reverse,
     clip = clip
   )
 }
@@ -132,14 +134,17 @@ CoordTrans <- ggproto("CoordTrans", Coord,
   transform = function(self, data, panel_params) {
     # trans_x() and trans_y() needs to keep Inf values because this can be called
     # in guide_transform.axis()
+    reverse <- self$reverse %||% "none"
+    x_range <- switch(reverse, xy = , x = rev, identity)(panel_params$x.range)
+    y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y.range)
     trans_x <- function(data) {
       idx <- !is.infinite(data)
-      data[idx] <- transform_value(self$trans$x, data[idx], panel_params$x.range)
+      data[idx] <- transform_value(self$trans$x, data[idx], x_range)
       data
     }
     trans_y <- function(data) {
       idx <- !is.infinite(data)
-      data[idx] <- transform_value(self$trans$y, data[idx], panel_params$y.range)
+      data[idx] <- transform_value(self$trans$y, data[idx], y_range)
       data
     }
 
@@ -158,14 +163,8 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     )
   },
 
-  render_bg = function(panel_params, theme) {
-    guide_grid(
-      theme,
-      panel_params$x.minor,
-      panel_params$x.major,
-      panel_params$y.minor,
-      panel_params$y.major
-    )
+  render_bg = function(self, panel_params, theme) {
+    guide_grid(theme, panel_params, self)
   },
 
   render_axis_h = function(panel_params, theme) {

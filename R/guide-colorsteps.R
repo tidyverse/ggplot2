@@ -112,11 +112,13 @@ GuideColoursteps <- ggproto(
 
     key <- data_frame0(!!aesthetic := scale$map(breaks))
     if (even.steps) {
-      key$.value <- seq_along(breaks)
+      key$.value <- NA_integer_
+      key$.value[!is.na(breaks)] <- seq_along(breaks[!is.na(breaks)])
     } else {
       key$.value <- breaks
     }
     key$.label <- scale$get_labels(breaks)
+    key <- vec_slice(key, !is.na(breaks))
 
     if (breaks[1] %in% limits) {
       key$.value  <- key$.value - 1L
@@ -189,9 +191,7 @@ GuideColoursteps <- ggproto(
       params$key <- key
     }
 
-    params$title <- scale$make_title(
-      params$title %|W|% scale$name %|W|% title
-    )
+    params$title <- scale$make_title(params$title, scale$name, title)
 
     limits <- c(params$decor$min[1], params$decor$max[nrow(params$decor)])
     if (params$reverse) {

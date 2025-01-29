@@ -47,10 +47,10 @@ test_that("check coord limits errors only on bad inputs", {
   expect_null(check_coord_limits(c(1,2)))
 
   # Should raise error if Scale object is passed
-  expect_error(check_coord_limits(xlim(1,2)))
+  expect_snapshot(check_coord_limits(xlim(1,2)), error = TRUE)
 
   # Should raise error if vector of wrong length is passed
-  expect_error(check_coord_limits(1:3))
+  expect_snapshot(check_coord_limits(1:3), error = TRUE)
 })
 
 test_that("coords append a column to the layout correctly", {

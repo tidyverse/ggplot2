@@ -18,6 +18,10 @@
 
     `na.rm` must be `TRUE` or `FALSE`, not an integer vector.
 
+# characters survive remove_missing
+
+    Removed 1 row containing non-finite outside the scale range.
+
 # tolower() and toupper() has been masked
 
     Please use `to_lower_ascii()`, which works fine in all locales.

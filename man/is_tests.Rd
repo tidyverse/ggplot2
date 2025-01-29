@@ -10,7 +10,7 @@
 \alias{is.Coord}
 \alias{is.facet}
 \alias{is.stat}
-\alias{is.element}
+\alias{is.theme_element}
 \alias{is.guide}
 \alias{is.layer}
 \alias{is.guides}
@@ -36,7 +36,7 @@ is.facet(x)
 
 is.stat(x)
 
-is.element(x)
+is.theme_element(x)
 
 is.guide(x)
 

@@ -170,7 +170,7 @@ p +
 p +
   geom_rug(outside = TRUE, sides = "tr") +
   coord_cartesian(clip = "off") +
-  theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+  theme(plot.margin = margin_auto(1, unit = "cm"))
 
 # increase the line length and
 # expand axis to avoid overplotting

@@ -9,16 +9,47 @@
 \alias{scale_color_binned}
 \title{Continuous and binned colour scales}
 \usage{
-scale_colour_continuous(..., type = getOption("ggplot2.continuous.colour"))
+scale_colour_continuous(
+  ...,
+  aesthetics = "colour",
+  guide = "colourbar",
+  na.value = "grey50",
+  type = getOption("ggplot2.continuous.colour")
+)
 
-scale_fill_continuous(..., type = getOption("ggplot2.continuous.fill"))
+scale_fill_continuous(
+  ...,
+  aesthetics = "fill",
+  guide = "colourbar",
+  na.value = "grey50",
+  type = getOption("ggplot2.continuous.fill")
+)
 
-scale_colour_binned(..., type = getOption("ggplot2.binned.colour"))
+scale_colour_binned(
+  ...,
+  aesthetics = "colour",
+  guide = "coloursteps",
+  na.value = "grey50",
+  type = getOption("ggplot2.binned.colour")
+)
 
-scale_fill_binned(..., type = getOption("ggplot2.binned.fill"))
+scale_fill_binned(
+  ...,
+  aesthetics = "fill",
+  guide = "coloursteps",
+  na.value = "grey50",
+  type = getOption("ggplot2.binned.fill")
+)
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
+
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more information.}
+
+\item{na.value}{Missing values will be replaced with this value.}
 
 \item{type}{One of the following:
 \itemize{

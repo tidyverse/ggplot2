@@ -4,7 +4,7 @@
 \alias{position_nudge}
 \title{Nudge points a fixed distance}
 \usage{
-position_nudge(x = 0, y = 0)
+position_nudge(x = NULL, y = NULL)
 }
 \arguments{
 \item{x, y}{Amount of vertical and horizontal distance to move.}
@@ -15,6 +15,16 @@ items on discrete scales by a small amount. Nudging is built in to
 \code{\link[=geom_text]{geom_text()}} because it's so useful for moving labels a small
 distance from what they're labelling.
 }
+\section{Aesthetics}{
+
+\code{position_nudge()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \code{nudge_x}
+\item \code{nudge_y}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \examples{
 df <- data.frame(
   x = c(1,3,2,5),
