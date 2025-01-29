@@ -153,6 +153,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   map = function(self, x, limits = self$get_limits()) {
+    if (inherits(x, "AsIs")) {
+      return(x)
+    }
     if (is.discrete(x)) {
       values <- self$palette(length(limits))
       if (!is.numeric(values)) {
