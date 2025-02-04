@@ -1,11 +1,10 @@
 ---
 title: "Aesthetic specifications"
-output: rmarkdown::html_vignette
 description: |
   Customising how aesthetic specifications are represented on your plot.
 vignette: >
   %\VignetteIndexEntry{Aesthetic specifications}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 

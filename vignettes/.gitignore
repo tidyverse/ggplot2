@@ -1,2 +1,5 @@
 *.html
 *.R
+**/figure-html/
+**/libs/
+/.quarto/
