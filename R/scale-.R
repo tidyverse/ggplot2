@@ -532,6 +532,12 @@ Scale <- ggproto("Scale", NULL,
     )
   },
 
+  updatable_params = c(
+    "aesthetics", "scale_name", "palette", "name", "breaks", "labels",
+    "limits", "expand", "na.value", "guide", "position", "call",
+    "super"
+  ),
+
   update = function(self, params) {
     check_update_params(self, params)
     inject(self$new(!!!params))
@@ -560,16 +566,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
 }
 
 check_update_params <- function(scale, params) {
-  if (inherits(scale, "ScaleContinuous")) {
-    args <- fn_fmls_names(continuous_scale)
-  } else if (inherits(scale, "ScaleDiscrete")) {
-    args <- fn_fmls_names(discrete_scale)
-  } else if (inherits(scale, "ScaleBinned")) {
-    args <- fn_fmls_names(binned_scale)
-  } else {
-    # We don't know what valid parameters are of custom scale types
-    return(invisible(NULL))
-  }
+  args  <- scale$updatable_params
   extra <- setdiff(names(params), args)
   if (length(extra) == 0) {
     return(invisible(NULL))
@@ -902,6 +899,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     )
   },
 
+  updatable_params = c(
+    Scale$updatable_params,
+    "minor_breaks", "n.breaks", "rescaler", "oob", "transform"
+  ),
+
   update = function(self, params) {
     check_update_params(self, params)
     # We may need to update limits when previously transformed and
@@ -1144,6 +1146,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       minor_source = NULL
     )
   },
+
+  updatable_params = c(
+    Scale$updatable_params,
+    "minor_breaks", "na.translate", "drop"
+  ),
 
   new = function(self, aesthetics = NULL, palette = NULL, limits = NULL, call = caller_call(),
                  range = DiscreteRange$new(),
@@ -1415,6 +1422,12 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
          major = pal, minor = NULL,
          major_source = major, minor_source = NULL)
   },
+
+  updatable_params = c(
+    Scale$updatable_params,
+    "rescaler", "oob", "n.breaks", "nice.breaks",
+    "right", "transform", "show.limits"
+  ),
 
   new = function(self, ..., super = NULL) {
     ggproto_parent(ScaleContinuous, self)$new(..., super = super %||% self)
