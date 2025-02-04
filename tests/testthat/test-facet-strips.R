@@ -82,7 +82,7 @@ test_that("facet_grid() builds correct output", {
 })
 
 test_that("facet_grid() switches to 'x'", {
-  grid_x <- p + facet_grid(am ~ cyl, switch = "x")
+  grid_x <- p + facet_grid(am ~ cyl, strip.position = "bottom")
 
   grid_x_expected <- list(
     t = c(6, 6, 6, 3, 5),
@@ -95,7 +95,7 @@ test_that("facet_grid() switches to 'x'", {
 })
 
 test_that("facet_grid() switches to 'y'", {
-  grid_y <- p + facet_grid(am ~ cyl, switch = "y")
+  grid_y <- p + facet_grid(am ~ cyl, strip.position = "left")
 
   grid_y_expected <- list(
     t = c(3, 3, 3, 4, 6),
@@ -108,7 +108,7 @@ test_that("facet_grid() switches to 'y'", {
 })
 
 test_that("facet_grid() switches to both 'x' and 'y'", {
-  grid_xy <- p + facet_grid(am ~ cyl, switch = "both")
+  grid_xy <- p + facet_grid(am ~ cyl, strip.position = c("bottom", "left"))
 
   grid_xy_expected <- list(
     t = c(6, 6, 6, 3, 5),
@@ -121,7 +121,7 @@ test_that("facet_grid() switches to both 'x' and 'y'", {
 })
 
 test_that("facet_grid() warns about bad switch input", {
-  expect_snapshot_error(facet_grid(am ~ cyl, switch = "z"))
+  expect_snapshot_error(facet_grid(am ~ cyl, strip.position = "z"))
 })
 
 test_that("strips can be removed", {
@@ -165,7 +165,7 @@ test_that("padding is only added if axis is present", {
 
   # Inverse should be true when strips are switched
   p <- ggplot(data = mpg, aes(x = displ, y = hwy)) +
-    facet_grid(year ~ drv, switch = "both") +
+    facet_grid(year ~ drv, strip.position = c("bottom", "left")) +
     theme(
       strip.placement = "outside",
       strip.switch.pad.grid = unit(10, "mm")
@@ -186,7 +186,7 @@ test_that("padding is only added if axis is present", {
 })
 
 test_that("y strip labels are rotated when strips are switched", {
-  switched <- p + facet_grid(am ~ cyl, switch = "both")
+  switched <- p + facet_grid(am ~ cyl, strip.position = c("bottom", "left"))
 
   expect_doppelganger("switched facet strips", switched)
 })
