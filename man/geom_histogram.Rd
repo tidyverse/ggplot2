@@ -49,8 +49,6 @@ stat_bin(
   pad = FALSE,
   breaks = NULL,
   drop = "all",
-  origin = NULL,
-  right = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE

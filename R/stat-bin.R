@@ -37,15 +37,12 @@ StatBin <- ggproto(
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "origin", "right"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE, drop = "all",
-                           # The following arguments are not used, but must
-                           # be listed so parameters are computed correctly
-                           origin = NULL, right = NULL) {
+                           breaks = NULL, flipped_aes = FALSE, drop = "all") {
     x <- flipped_names(flipped_aes)$x
     bins <- compute_bins(
       data[[x]], scales[[x]],

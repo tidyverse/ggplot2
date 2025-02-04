@@ -23,8 +23,10 @@ StatSummary2d <- ggproto(
     params
   },
 
+  extra_params = c("na.rm", "origin"),
+
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           breaks = NULL, origin = NULL, drop = TRUE,
+                           breaks = NULL, drop = TRUE,
                            fun = "mean", fun.args = list(),
                            boundary = 0, closed = NULL, center = NULL) {
     bins <- dual_param(bins, list(x = 30, y = 30))
@@ -106,10 +108,7 @@ StatSummary2d <- ggproto(
 #' d + stat_summary_hex()
 #' d + stat_summary_hex(fun = ~ sum(.x^2))
 #' }
-stat_summary_2d <- make_constructor(
-  StatSummary2d, geom = "tile",
-  omit = c("breaks", "origin")
-)
+stat_summary_2d <- make_constructor(StatSummary2d, geom = "tile")
 
 #' @export
 #' @rdname stat_summary_2d

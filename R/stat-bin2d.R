@@ -9,7 +9,7 @@ StatBin2d <- ggproto(
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           breaks = NULL, origin = NULL, drop = TRUE,
+                           breaks = NULL, drop = TRUE,
                            boundary = NULL, closed = NULL, center = NULL) {
 
     data$z <- data$weight %||% 1

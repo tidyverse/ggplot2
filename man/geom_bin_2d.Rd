@@ -29,7 +29,6 @@ stat_bin_2d(
   binwidth = NULL,
   bins = 30,
   breaks = NULL,
-  origin = NULL,
   drop = TRUE,
   boundary = NULL,
   closed = NULL,

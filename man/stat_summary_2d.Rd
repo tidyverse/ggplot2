@@ -14,6 +14,7 @@ stat_summary_2d(
   ...,
   binwidth = NULL,
   bins = 30,
+  breaks = NULL,
   drop = TRUE,
   fun = "mean",
   fun.args = list(),
@@ -129,6 +130,10 @@ The bin width of a date variable is the number of days in each time; the
 bin width of a time variable is the number of seconds.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{drop}{drop if the output of \code{fun} is \code{NA}.}
 
