@@ -302,6 +302,8 @@
   particularly for data-points with a low radius near the center 
   (@teunbrand, #5023).
 * All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
+* Staged expressions are handled more gracefully if legends cannot resolve them 
+  (@teunbrand, #6264).
 * New `theme(legend.key.justification)` to control the alignment of legend keys 
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 

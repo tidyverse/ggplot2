@@ -163,10 +163,15 @@ Geom <- ggproto("Geom",
     # If any after_scale mappings are detected they will be resolved here
     # This order means that they will have access to all default aesthetics
     if (length(modifiers) != 0) {
-      # Set up evaluation environment
-      modified_aes <- eval_aesthetics(
-        substitute_aes(modifiers), data,
-        mask = list(stage = stage_scaled)
+      modified_aes <- try_fetch(
+        eval_aesthetics(
+          substitute_aes(modifiers), data,
+          mask = list(stage = stage_scaled)
+        ),
+        error = function(cnd) {
+          cli::cli_warn("Unable to apply staged modifications.", parent = cnd)
+          data_frame0()
+        }
       )
 
       # Check that all output are valid data
