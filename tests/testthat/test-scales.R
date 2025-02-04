@@ -792,6 +792,27 @@ test_that("scale updating mechanism works", {
   expect_equal(l$.label, as.character(c(3, 5)), ignore_attr = "pos")
 })
 
+test_that("scale updateable params is consistent with constructors", {
+
+  # Note: 'trans' is deprecated in favour of 'transform'
+  constr_params <- function(fun) setdiff(fn_fmls_names(fun), "trans")
+
+  expect_setequal(
+    ScaleContinuous$updatable_params,
+    constr_params(continuous_scale)
+  )
+
+  expect_setequal(
+    ScaleDiscrete$updatable_params,
+    constr_params(discrete_scale)
+  )
+
+  expect_setequal(
+    ScaleBinned$updatable_params,
+    constr_params(binned_scale)
+  )
+})
+
 test_that("discrete scales can map to 2D structures", {
 
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
