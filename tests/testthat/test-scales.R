@@ -748,6 +748,16 @@ test_that("discrete scales work with NAs in arbitrary positions", {
 
 })
 
+test_that("continuous scales update limits when changing transforms", {
+
+  x <- scale_x_continuous(limits = c(10, 100), trans = "sqrt")
+  expect_equal(x$limits, sqrt(c(10, 100)))
+
+  x <- x$update(list(transform = "log10"))
+  expect_equal(x$limits, c(1, 2))
+
+})
+
 test_that("scale updating mechanism works", {
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl), shape = factor(gear))) +
     geom_point(na.rm = TRUE)
