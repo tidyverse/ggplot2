@@ -274,7 +274,7 @@ Guides <- ggproto(
   #
   # The resulting guide is then drawn in ggplot_gtable
 
-  build = function(self, scales, layers, labels, layer_data, theme) {
+  build = function(self, scales, layers, labels, layer_data, theme = theme()) {
 
     # Empty guides list
     custom <- self$get_custom()
@@ -480,7 +480,7 @@ Guides <- ggproto(
     if (length(default_position) == 2) {
       default_position <- "inside"
     }
-    if (default_position == "none") {
+    if (!default_position %in% c(.trbl, "inside")) {
       return(zeroGrob())
     }
 
@@ -525,7 +525,7 @@ Guides <- ggproto(
       coord <- coord %||% default_inside_position %||% just
 
       groups$justs[[i]] <- just
-      groups$coord[[i]] <- coord
+      groups$coords[[i]] <- coord
     }
 
     groups <- vec_group_loc(vec_slice(groups, keep))
@@ -540,14 +540,15 @@ Guides <- ggproto(
     # prepare output
     for (i in vec_seq_along(groups)) {
       adjust <- NULL
-      position <- groups$key$position[i]
+      position <- groups$key$positions[i]
       if (position == "inside") {
         adjust <- theme(
-          legend.position.inside = groups$key$coord[[i]],
+          legend.position.inside = groups$key$coords[[i]],
           legend.justification.inside = groups$key$justs[[i]]
         )
       }
-      grobs[[i]] <- self$package_box(grobs[[i]], position, theme + adjust)
+      adjust <- add_theme(theme, adjust, "internal theme settings")
+      grobs[[i]] <- self$package_box(grobs[[i]], position, adjust)
     }
 
     # merge inside grobs into single gtable
@@ -598,11 +599,7 @@ Guides <- ggproto(
     }
 
     # Determine default direction
-    direction <- switch(
-      position,
-      inside = , left = , right = "vertical",
-      top = , bottom = "horizontal"
-    )
+    direction <- switch(position, top = , bottom = "horizontal", "vertical")
 
     # Populate missing theme arguments
     theme$legend.box       <- theme$legend.box       %||% direction

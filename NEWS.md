@@ -1,5 +1,19 @@
 # ggplot2 (development version)
 
+* New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
+  * The `linewidth` aesthetic is now applied and replaces the `label.size` 
+    argument.
+  * The `linetype` aesthetic is now applied.
+  * New `border.colour` argument to set the colour of borders.
+  * New `text.colour` argument to set the colour of text.
+* New `element_point()` and `element_polygon()` that can be given to 
+  `theme(point, polygon)` as an extension point (@teunbrand, #6248).
+* Turned off fallback for `size` to `linewidth` translation in 
+  `geom_bar()`/`geom_col()` (#4848).
+* `coord_radial()` now displays no axis instead of throwing an error when
+  a scale has no breaks (@teunbrand, #6271).
+* The `fatten` argument has been deprecated in `geom_boxplot()`, 
+  `geom_crossbar()` and `geom_pointrange()` (@teunbrand, #4881).
 * Axis labels are now preserved better when using `coord_sf(expand = TRUE)` and
   graticule lines are straight but do not meet the edge (@teunbrand, #2985).
 * Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
@@ -290,6 +304,10 @@
 * All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
 * Staged expressions are handled more gracefully if legends cannot resolve them 
   (@teunbrand, #6264).
+* New `theme(legend.key.justification)` to control the alignment of legend keys 
+  (@teunbrand, #3669). 
+* Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
+  (@teunbrand, #4335).
 
 # ggplot2 3.5.1
 

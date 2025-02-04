@@ -24,11 +24,7 @@ NULL
 #' @export
 #' @rdname draw_key
 draw_key_point <- function(data, params, size) {
-  if (is.null(data$shape)) {
-    data$shape <- 19
-  } else if (is.character(data$shape)) {
-    data$shape <- translate_shape_string(data$shape)
-  }
+  data$shape <- translate_shape_string(data$shape %||% 19)
 
   # NULL means the default stroke size, and NA means no stroke.
   pointsGrob(0.5, 0.5,
@@ -332,7 +328,6 @@ draw_key_text <- function(data, params, size) {
 #' @rdname draw_key
 draw_key_label <- function(data, params, size) {
   data <- replace_null(unclass(data), label = "a", angle = 0)
-  params$label.size <- params$label.size %||% 0.25
   hjust <- compute_just(data$hjust %||% 0.5)
   vjust <- compute_just(data$vjust %||% 0.5)
   just  <- rotate_just(data$angle, hjust, vjust)
@@ -342,6 +337,7 @@ draw_key_label <- function(data, params, size) {
     face = data$fontface %||% 1,
     size = data$size %||% 3.88
   )
+  lwd <- data$linewidth %||% 0.25
   grob <- labelGrob(
     data$label,
     x = unit(just$hjust, "npc"),
@@ -351,15 +347,16 @@ draw_key_label <- function(data, params, size) {
     padding = padding,
     r = params$label.r %||% unit(0.15, "lines"),
     text.gp = gg_par(
-      col = data$colour %||% "black",
+      col = params$text.colour %||% data$colour %||% "black",
       fontfamily = data$family   %||% "",
       fontface   = data$fontface %||% 1,
       fontsize   = (data$size %||% 3.88) * .pt
     ),
     rect.gp = gg_par(
-      col  = if (isTRUE(all.equal(params$label.size, 0))) NA else data$colour,
+      col  = if (isTRUE(all.equal(lwd, 0))) NA else params$border.colour %||% data$colour %||% "black",
       fill = alpha(data$fill %||% "white", data$alpha),
-      lwd  = params$label.size
+      lwd  = lwd,
+      lty  = data$linetype %||% 1L
     )
   )
   angle  <- deg2rad(data$angle %||% 0)

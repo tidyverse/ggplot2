@@ -25,6 +25,8 @@
 #' @param text all text elements ([element_text()])
 #' @param title all title elements: plot, axes, legends ([element_text()];
 #'   inherits from `text`)
+#' @param point all point elements ([element_point()])
+#' @param polygon all polygon elements ([element_polygon()])
 #' @param geom defaults for geoms ([element_geom()])
 #' @param spacing all spacings ([`unit()`][grid::unit])
 #' @param margins all margins ([margin()])
@@ -84,6 +86,10 @@
 #'   between legend keys given as a `unit`. Spacing in the horizontal (x) and
 #'   vertical (y) direction inherit from `legend.key.spacing` or can be
 #'   specified separately. `legend.key.spacing` inherits from `spacing`.
+#' @param legend.key.justification Justification for positioning legend keys
+#'   when more space is available than needed for display. The default, `NULL`,
+#'   stretches keys into the available space. Can be a location like `"center"`
+#'   or `"top"`, or a two-element numeric vector.
 #' @param legend.frame frame drawn around the bar ([element_rect()]).
 #' @param legend.ticks tick marks shown along bars or axes ([element_line()])
 #' @param legend.ticks.length length of tick marks in legend
@@ -319,6 +325,8 @@ theme <- function(...,
                   rect,
                   text,
                   title,
+                  point,
+                  polygon,
                   geom,
                   spacing,
                   margins,
@@ -393,6 +401,7 @@ theme <- function(...,
                   legend.key.spacing,
                   legend.key.spacing.x,
                   legend.key.spacing.y,
+                  legend.key.justification,
                   legend.frame,
                   legend.ticks,
                   legend.ticks.length,
