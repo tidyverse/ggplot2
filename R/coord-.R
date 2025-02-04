@@ -159,11 +159,13 @@ Coord <- ggproto("Coord",
     empty  <- vapply(guides, inherits, logical(1), "GuideNone")
     guide_params <- panel_params$guides$get_params(aesthetics)
     aesthetics <- aesthetics[!empty]
+    # Guides are not subject to reverse logic
+    temp_params <- modify_list(panel_params, list(reverse = "none"))
 
     guide_params[!empty] <- Map(
       function(guide, guide_param, scale) {
         guide_param <- guide$train(guide_param, scale)
-        guide_param <- guide$transform(guide_param, self, panel_params)
+        guide_param <- guide$transform(guide_param, self, temp_params)
         guide_param <- guide$get_layer_key(guide_param, layers)
         guide_param
       },
