@@ -34,7 +34,9 @@
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
 #'   number of breaks given by the transformation.
-#' @param labels One of:
+#' @param labels One of the options below. Please note that when `labels` is a
+#'   vector, it is highly recommended to also set the `breaks` argument as a
+#'   vector to protect against unintended mismatches.
 #'   - `NULL` for no labels
 #'   - `waiver()` for the default labels computed by the
 #'     transformation object
@@ -213,7 +215,6 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   args <- find_args(call = NULL, scale_name = NULL, trans = NULL)
   inject(super$new(!!!args, call = call %||% current_call()))
 }
-
 
 #' Setting scale parameters
 #'
@@ -405,6 +406,7 @@ Scale <- ggproto("Scale", NULL,
     if (empty(df)) {
       return()
     }
+    self$palette <- self$palette %||% fallback_palette(self)
 
     aesthetics <- intersect(self$aesthetics, names(df))
     names(aesthetics) <- aesthetics
@@ -481,11 +483,20 @@ Scale <- ggproto("Scale", NULL,
     ord
   },
 
-  make_title = function(title) {
-    title
-  },
-
-  make_sec_title = function(title) {
+  make_title = function(self, guide_title = waiver(), scale_title = waiver(), label_title = waiver()) {
+    title <- label_title
+    scale_title <- allow_lambda(scale_title)
+    if (is.function(scale_title)) {
+      title <- scale_title(title)
+    } else {
+      title <- scale_title %|W|% title
+    }
+    guide_title <- allow_lambda(guide_title)
+    if (is.function(guide_title)) {
+      title <- guide_title(title)
+    } else {
+      title <- guide_title %|W|% title
+    }
     title
   },
 
@@ -524,15 +535,16 @@ Scale <- ggproto("Scale", NULL,
   update = function(self, params) {
     check_update_params(self, params)
     inject(self$new(!!!params))
+  },
+
+  make_sec_title = function(self, ...) {
+    self$make_title(...)
   }
 )
 
 check_breaks_labels <- function(breaks, labels, call = NULL) {
-  if (is.null(breaks)) {
-    return(TRUE)
-  }
-  if (is.null(labels)) {
-    return(TRUE)
+  if (is.null(breaks) || is.null(labels)) {
+    return(invisible())
   }
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
@@ -544,7 +556,7 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
     )
   }
 
-  TRUE
+  invisible()
 }
 
 check_update_params <- function(scale, params) {
@@ -787,23 +799,21 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels <- self$labels
     }
 
-    if (length(labels) != length(breaks)) {
+    if (!identical(size0(labels), size0(breaks))) {
       cli::cli_abort(
         "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
     }
-    if (is.list(labels)) {
+
+    if (obj_is_list(labels)) {
       # Guard against list with empty elements
       labels[lengths(labels) == 0] <- ""
       # Make sure each element is scalar
       labels <- lapply(labels, `[`, 1)
-
-      if (any(vapply(labels, is.language, logical(1)))) {
-        labels <- inject(expression(!!!labels))
-      } else {
-        labels <- unlist(labels)
-      }
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
 
     labels
@@ -870,6 +880,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     limits <- allow_lambda(limits)
     if (!is.null(limits) && !is.function(limits)) {
       limits <- transform$transform(limits)
+      if (!anyNA(limits)) {
+        limits <- sort(limits)
+      }
     }
     limits <- limits %||% super$limits
     check_continuous_limits(limits, call = call)
@@ -937,10 +950,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   transform = identity,
 
   map = function(self, x, limits = self$get_limits()) {
-    limits <- limits[!is.na(limits)]
-    n <- length(limits)
+    limits <- vec_slice(limits, !is.na(limits))
+    n <- vec_size(limits)
     if (n < 1) {
-      return(rep(self$na.value, length(x)))
+      return(vec_rep(self$na.value, vec_size(x)))
     }
     if (!is.null(self$n.breaks.cache) && self$n.breaks.cache == n) {
       pal <- self$palette.cache
@@ -956,21 +969,30 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       self$n.breaks.cache <- n
     }
 
-    na_value <- if (self$na.translate) self$na.value else NA
-    pal_names <- names(pal)
+    na_value <- NA
+    if (self$na.translate) {
+      na_value <- self$na.value
+      if (obj_is_list(pal) && !obj_is_list(na_value)) {
+        # We prevent a casting error that occurs when mapping grid patterns
+        na_value <- list(na_value)
+      }
+    }
+
+    pal_names <- vec_names(pal)
 
     if (!is_null(pal_names)) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
-      pal[is.na(match(pal_names, limits))] <- na_value
-      pal <- unname(pal)
+      vec_slice(pal, is.na(match(pal_names, limits))) <- na_value
+      pal <- vec_set_names(pal, NULL)
       limits <- pal_names
     }
-    pal <- c(pal, na_value)
-    pal_match <- pal[match(as.character(x), limits, nomatch = length(pal))]
+    pal <- vec_c(pal, na_value)
+    pal_match <-
+      vec_slice(pal, match(as.character(x), limits, nomatch = vec_size(pal)))
 
     if (!is.na(na_value)) {
-      pal_match[is.na(x)] <- na_value
+      vec_slice(pal_match, is.na(x)) <- na_value
     }
     pal_match
   },
@@ -1051,48 +1073,42 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     }
 
-    if (is.null(self$labels)) {
+    labels <- self$labels
+    if (is.null(labels)) {
       return(NULL)
     }
 
-    if (identical(self$labels, NA)) {
+    if (identical(labels, NA)) {
       cli::cli_abort(
         "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
     }
 
-    if (is.waiver(self$labels)) {
+    if (is.waiver(labels)) {
       if (!is.null(names(breaks))) {
-        return(names(breaks))
-      }
-      if (is.numeric(breaks)) {
+        labels <- names(breaks)
+      } else if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
-        format(breaks, justify = "none")
+        labels <- format(breaks, justify = "none")
       } else {
-        as.character(breaks)
+        labels <- as.character(breaks)
       }
-    } else if (is.function(self$labels)) {
-      self$labels(breaks)
-    } else {
-      if (!is.null(names(self$labels))) {
-        # If labels have names, use them to match with breaks
-        labels <- breaks
-
-        map <- match(names(self$labels), labels, nomatch = 0)
-        labels[map] <- self$labels[map != 0]
-        labels
-      } else {
-        labels <- self$labels
-
-        # Need to ensure that if breaks were dropped, corresponding labels are too
-        pos <- attr(breaks, "pos")
-        if (!is.null(pos)) {
-          labels <- labels[pos]
-        }
-        labels
-      }
+    } else if (is.function(labels)) {
+      labels <- labels(breaks)
+    } else if (!is.null(names(labels))) {
+      # If labels have names, use them to match with breaks
+      map <- match(names(self$labels), breaks, nomatch = 0)
+      labels <- replace(breaks, map, labels[map != 0])
+    } else if (!is.null(attr(breaks, "pos"))) {
+      # Need to ensure that if breaks were dropped, corresponding labels are too
+      labels <- labels[attr(breaks, "pos")]
     }
+
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
+    }
+    labels
   },
 
   clone = function(self) {
@@ -1292,9 +1308,17 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
             new_limits[1] <- breaks[1]
             breaks <- breaks[-1]
           }
-        } else {
+        } else if (nbreaks == 1) {
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
           new_limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
+        } else {
+          new_limits <- limits
+          if (zero_range(new_limits)) {
+            # 0.1 is the same width as the expansion `default_expansion()`
+            # gives for 0-width data
+            new_limits <- new_limits + c(-0.05, 0.05)
+          }
+          breaks <- new_limits
         }
         new_limits_trans <- suppressWarnings(transformation$transform(new_limits))
         limits[is.finite(new_limits_trans)] <- new_limits[is.finite(new_limits_trans)]
@@ -1320,9 +1344,6 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     } else {
       breaks <- self$breaks
     }
-
-    # Breaks must be within limits
-    breaks <- oob_discard(breaks, sort(limits))
 
     self$breaks <- breaks
 
@@ -1356,6 +1377,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "{.arg breaks} and {.arg labels} have different lengths.",
         call = self$call
       )
+    }
+    if (is.expression(labels)) {
+      labels <- as.list(labels)
     }
     labels
   },
@@ -1404,7 +1428,7 @@ scale_flip_position <- function(scale) {
 }
 
 check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) {
-  if (!any(is.finite(x) != is.finite(transformed))) {
+  if (!any(is_finite(x) != is_finite(transformed))) {
     return(invisible())
   }
   if (is.null(arg)) {

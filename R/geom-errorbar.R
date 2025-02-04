@@ -62,7 +62,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     colour = from_theme(ink),
     linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
-    width = 0.5,
+    width = 0.9,
     alpha = NA
   ),
 
@@ -76,20 +76,24 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 
   extra_params = c("na.rm", "orientation"),
 
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width,
+      zero = FALSE, discrete = TRUE
+    )
     data <- transform(data,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
     flip_data(data, params$flipped_aes)
   },
 
+  # Note: `width` is vestigial
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         width = NULL, flipped_aes = FALSE) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     x <- vec_interleave(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)
     y <- vec_interleave(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)
