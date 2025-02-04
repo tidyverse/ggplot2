@@ -52,7 +52,9 @@ StatQq <- ggproto(
 #'   x = "x-coordinates of the endpoints of the line segment connecting the
 #'   points at the chosen quantiles of the theoretical and the sample
 #'   distributions.",
-#'   y = "y-coordinates of the endpoints."
+#'   y = "y-coordinates of the endpoints.",
+#'   slope     = "Amount of change in `y` across 1 unit of `x`.",
+#'   intercept = "Value of `y` at `x == 0`."
 #' )
 #'
 #' @export

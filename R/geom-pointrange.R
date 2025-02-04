@@ -15,6 +15,12 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
   required_aes = c("x", "y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
+    if (lifecycle::is_present(params$fatten)) {
+      deprecate_soft0("3.6.0", "geom_pointrange(fatten)", I("the `size` aesthetic"))
+    } else {
+      # For backward compatibility reasons
+      params$fatten <- 4
+    }
     GeomLinerange$setup_params(data, params)
   },
 
@@ -47,4 +53,7 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
 #' @export
 #' @rdname geom_linerange
-geom_pointrange <- make_constructor(GeomPointrange, orientation = NA)
+geom_pointrange <- make_constructor(
+  GeomPointrange,
+  orientation = NA, fatten = deprecated()
+)

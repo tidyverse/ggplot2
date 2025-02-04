@@ -159,11 +159,11 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
       self$secondary.axis$name
     }
   },
-  make_sec_title = function(self, title) {
+  make_sec_title = function(self, ...) {
     if (!is.waiver(self$secondary.axis)) {
-      self$secondary.axis$make_title(title)
+      self$secondary.axis$make_title(...)
     } else {
-      ggproto_parent(ScaleContinuous, self)$make_sec_title(title)
+      ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
     }
   }
 )

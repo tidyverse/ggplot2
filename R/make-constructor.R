@@ -52,7 +52,7 @@ make_constructor.Geom <- function(x, ..., checks = exprs(), omit = character(),
 
   # Check that we can independently find the geom
   geom <- gsub("^geom_", "", snake_class(x))
-  check_subclass(geom, "Geom", env = env)
+  validate_subclass(geom, "Geom", env = env)
 
   # Split additional arguments into required and extra ones
   args <- enexprs(...)
@@ -136,7 +136,7 @@ make_constructor.Stat <- function(x, ..., checks = exprs(), omit = character(),
                                   env = caller_env()) {
   # Check that we can independently find the stat
   stat <- gsub("^stat_", "", snake_class(x))
-  check_subclass(stat, "Stat", env = env)
+  validate_subclass(stat, "Stat", env = env)
 
   # Split additional arguments into required and extra ones
   args <- enexprs(...)

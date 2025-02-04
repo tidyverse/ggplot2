@@ -13,9 +13,14 @@ geom_violin(
   ...,
   trim = TRUE,
   bounds = c(-Inf, Inf),
+  quantile.colour = NULL,
+  quantile.color = NULL,
+  quantile.linetype = 0L,
+  quantile.linewidth = NULL,
+  draw_quantiles = deprecated(),
   scale = "area",
-  draw_quantiles = NULL,
   na.rm = FALSE,
+  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -34,6 +39,7 @@ stat_ydensity(
   scale = "area",
   drop = TRUE,
   bounds = c(-Inf, Inf),
+  quantiles = c(0.25, 0.5, 0.75),
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -110,15 +116,24 @@ finite, boundary effect of default density estimation will be corrected by
 reflecting tails outside \code{bounds} around their closest edge. Data points
 outside of bounds are removed with a warning.}
 
+\item{quantile.colour, quantile.color, quantile.linewidth, quantile.linetype}{Default aesthetics for the quantile lines. Set to \code{NULL} to inherit from
+the data's aesthetics. By default, quantile lines are hidden and can be
+turned on by changing \code{quantile.linetype}.}
+
+\item{draw_quantiles}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Previous
+specification of drawing quantiles.}
+
 \item{scale}{if "area" (default), all violins have the same area (before trimming
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
-\item{draw_quantiles}{If \code{not(NULL)} (default), draw horizontal lines
-at the given quantiles of the density estimate.}
-
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -138,11 +153,6 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
-
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
@@ -158,6 +168,9 @@ For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 \item{drop}{Whether to discard groups with less than 2 observations
 (\code{TRUE}, default) or keep such groups for position adjustment purposes
 (\code{FALSE}).}
+
+\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
+and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a
@@ -183,6 +196,7 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{\link[=aes_linetype_size_shape]{linewidth}}
 \item \code{weight}
+\item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -197,6 +211,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(violinwidth)}\cr Density scaled for the violin plot, according to area,  counts or to a constant maximum width.
 \item \code{after_stat(n)}\cr Number of points.
 \item \code{after_stat(width)}\cr Width of violin bounding box.
+\item \code{after_stat(quantile)}\cr Whether the row is part of the \code{quantiles} computation.
 }
 }
 

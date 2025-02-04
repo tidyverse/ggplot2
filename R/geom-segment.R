@@ -2,7 +2,8 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomSegment <- ggproto("GeomSegment", Geom,
+GeomSegment <- ggproto(
+  "GeomSegment", Geom,
   required_aes = c("x", "y", "xend|yend"),
   non_missing_aes = c("linetype", "linewidth"),
 
@@ -17,10 +18,10 @@ GeomSegment <- ggproto("GeomSegment", Geom,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
     data$xend <- data$xend %||% data$x
     data$yend <- data$yend %||% data$y
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- remove_missing(data, na.rm = na.rm,
-      c("x", "y", "xend", "yend", "linetype", "linewidth"),
-      name = "geom_segment"
+                           c("x", "y", "xend", "yend", "linetype", "linewidth"),
+                           name = "geom_segment"
     )
 
     if (empty(data)) return(zeroGrob())
@@ -29,16 +30,16 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       coord <- coord$transform(data, panel_params)
       arrow.fill <- arrow.fill %||% coord$colour
       return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
-        default.units = "native",
-        gp = gg_par(
-          col = alpha(coord$colour, coord$alpha),
-          fill = alpha(arrow.fill, coord$alpha),
-          lwd = coord$linewidth,
-          lty = coord$linetype,
-          lineend = lineend,
-          linejoin = linejoin
-        ),
-        arrow = arrow
+                          default.units = "native",
+                          gp = gg_par(
+                            col = alpha(coord$colour, coord$alpha),
+                            fill = alpha(arrow.fill, coord$alpha),
+                            lwd = coord$linewidth,
+                            lty = coord$linetype,
+                            lineend = lineend,
+                            linejoin = linejoin
+                          ),
+                          arrow = arrow
       ))
     }
 
@@ -50,7 +51,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     pieces <- pieces[order(pieces$group),]
 
     GeomPath$draw_panel(pieces, panel_params, coord, arrow = arrow,
-      lineend = lineend)
+                        lineend = lineend)
   },
 
   draw_key = draw_key_path,

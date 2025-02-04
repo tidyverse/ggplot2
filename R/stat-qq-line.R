@@ -46,7 +46,10 @@ StatQqLine <- ggproto(
       x <- range(theoretical)
     }
 
-    data_frame0(x = x, y = slope * x + intercept)
+    data_frame0(
+      x = x, y = slope * x + intercept,
+      slope = slope, intercept = intercept
+    )
   }
 )
 
@@ -56,7 +59,7 @@ StatQqLine <- ggproto(
 #' defaults to `c(.25, .75)`.
 #' @param fullrange Should the q-q line span the full range of the plot, or just
 #'   the data
-geom_qq_line <- make_constructor(StatQqLine, geom = "path", omit = "quantiles")
+geom_qq_line <- make_constructor(StatQqLine, geom = "abline", omit = "quantiles")
 
 #' @export
 #' @rdname geom_qq

@@ -2,7 +2,8 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomPoint <- ggproto("GeomPoint", Geom,
+GeomPoint <- ggproto(
+  "GeomPoint", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = aes(
@@ -12,12 +13,10 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   ),
 
   draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
-    if (is.character(data$shape)) {
-      data$shape <- translate_shape_string(data$shape)
-    }
-
+    data$shape <- translate_shape_string(data$shape)
     coords <- coord$transform(data, panel_params)
-    ggname("geom_point",
+    ggname(
+      "geom_point",
       pointsGrob(
         coords$x, coords$y,
         pch = coords$shape,
@@ -121,6 +120,13 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 #'
+#' # The default shape in legends is not filled, but you can override the shape
+#' # in the guide to reflect the fill in the legend
+#' ggplot(mtcars, aes(wt, mpg, fill = factor(carb), shape = factor(cyl))) +
+#'   geom_point(size = 5, stroke = 1) +
+#'   scale_shape_manual(values = 21:25) +
+#'   scale_fill_ordinal(guide = guide_legend(override.aes = list(shape = 21)))
+#'
 #' \donttest{
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
@@ -150,7 +156,8 @@ geom_point <- make_constructor(GeomPoint)
 #' given as a character vector into integers that are interpreted by the
 #' grid system.
 #'
-#' @param shape_string A character vector giving point shapes.
+#' @param shape_string A character vector giving point shapes. Non-character
+#'   input will be returned.
 #'
 #' @return An integer vector with translated shapes.
 #' @export
@@ -162,6 +169,9 @@ geom_point <- make_constructor(GeomPoint)
 #' # Strings with 1 or less characters are interpreted as symbols
 #' translate_shape_string(c("a", "b", "?"))
 translate_shape_string <- function(shape_string) {
+  if (!is.character(shape_string)) {
+    return(shape_string)
+  }
   # strings of length 0 or 1 are interpreted as symbols by grid
   if (nchar(shape_string[1]) <= 1) {
     return(shape_string)

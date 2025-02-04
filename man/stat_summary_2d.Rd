@@ -17,6 +17,9 @@ stat_summary_2d(
   drop = TRUE,
   fun = "mean",
   fun.args = list(),
+  boundary = 0,
+  closed = NULL,
+  center = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -113,17 +116,38 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{binwidth}{Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides \code{bins} if both set.}
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
+The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
 \item{drop}{drop if the output of \code{fun} is \code{NA}.}
 
 \item{fun}{function for summary.}
 
 \item{fun.args}{A list of extra arguments to pass to \code{fun}}
+
+\item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
+or left edges of bins are included in the bin.}
+
+\item{center, boundary}{bin position specifiers. Only one, \code{center} or
+\code{boundary}, may be specified for a single plot. \code{center} specifies the
+center of one of the bins. \code{boundary} specifies the boundary between two
+bins. Note that if either is above or below the range of the data, things
+will be shifted by the appropriate integer multiple of \code{binwidth}.
+For example, to center on integers use \code{binwidth = 1} and \code{center = 0}, even
+if \code{0} is outside the range of the data. Alternatively, this same alignment
+can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+outside the range of the data.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -171,6 +195,16 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \describe{
 \item{\code{z}}{After binning, the z values of individual data points are no longer available.}
 }
+}
+
+\section{Controlling binning parameters for the x and y directions}{
+
+The arguments \code{bins}, \code{binwidth}, \code{breaks}, \code{center}, and \code{boundary} can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing \code{x} and \code{y} elements,
+for example \code{list(x = 10, y = 20)}.
 }
 
 \examples{

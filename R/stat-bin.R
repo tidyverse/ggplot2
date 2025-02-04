@@ -6,9 +6,13 @@ StatBin <- ggproto(
   "StatBin", Stat,
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
-    params$keep.zeroes <- arg_match0(
-      params$keep.zeroes %||% "all",
-      c("all", "none", "inner"), arg_nm = "keep.zeroes"
+
+    if (is.logical(params$drop)) {
+      params$drop <- if (isTRUE(params$drop)) "all" else "none"
+    }
+    params$drop <- arg_match0(
+      params$drop %||% "all",
+      c("all", "none", "inner"), arg_nm = "drop"
     )
 
     has_x <- !(is.null(data$x) && is.null(params$x))
@@ -29,29 +33,7 @@ StatBin <- ggproto(
       ))
     }
 
-    if (!is.null(params$drop)) {
-      deprecate_warn0("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
-      params$drop <- NULL
-    }
-    if (!is.null(params$origin)) {
-      deprecate_warn0("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
-      params$boundary <- params$origin
-      params$origin <- NULL
-    }
-    if (!is.null(params$right)) {
-      deprecate_warn0("2.1.0", "stat_bin(right)", "stat_bin(closed)")
-      params$closed <- if (params$right) "right" else "left"
-      params$right <- NULL
-    }
-    if (!is.null(params$boundary) && !is.null(params$center)) {
-      cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
-    }
-
-    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
-      cli::cli_inform("{.fn {snake_class(self)}} using {.code bins = 30}. Pick better value with {.arg binwidth}.")
-      params$bins <- 30
-    }
-
+    params <- fix_bin_params(params, fun = snake_class(self), version = "2.1.0")
     params
   },
 
@@ -60,31 +42,20 @@ StatBin <- ggproto(
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE,
-                           keep.zeroes = "all") {
+                           breaks = NULL, flipped_aes = FALSE, drop = "all",
+                           # The following arguments are not used, but must
+                           # be listed so parameters are computed correctly
+                           origin = NULL, right = NULL) {
     x <- flipped_names(flipped_aes)$x
-    if (!is.null(breaks)) {
-      if (is.function(breaks)) {
-        breaks <- breaks(data[[x]])
-      }
-      if (!scales[[x]]$is_discrete()) {
-         breaks <- scales[[x]]$transform(breaks)
-      }
-      bins <- bin_breaks(breaks, closed)
-    } else if (!is.null(binwidth)) {
-      if (is.function(binwidth)) {
-        binwidth <- binwidth(data[[x]])
-      }
-      bins <- bin_breaks_width(scales[[x]]$dimension(), binwidth,
-        center = center, boundary = boundary, closed = closed)
-    } else {
-      bins <- bin_breaks_bins(scales[[x]]$dimension(), bins, center = center,
-        boundary = boundary, closed = closed)
-    }
+    bins <- compute_bins(
+      data[[x]], scales[[x]],
+      breaks = breaks, binwidth = binwidth, bins = bins,
+      center = center, boundary = boundary, closed = closed
+    )
     bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
 
     keep <- switch(
-      keep.zeroes,
+      drop,
       none  = bins$count != 0,
       inner = inner_runs(bins$count != 0),
       TRUE
@@ -129,10 +100,11 @@ StatBin <- ggproto(
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
 #'   frequency polygons touch 0. Defaults to `FALSE`.
-#' @param keep.zeroes Treatment of zero count bins. If `"all"` (default), such
+#' @param drop Treatment of zero count bins. If `"all"` (default), such
 #'   bins are kept as-is. If `"none"`, all zero count bins are filtered out.
 #'   If `"inner"` only zero count bins at the flanks are filtered out, but not
-#'   in the middle.
+#'   in the middle. `TRUE` is shorthand for `"all"` and `FALSE` is shorthand
+#'   for `"none"`.
 #' @eval rd_computed_vars(
 #'   count    = "number of points in bin.",
 #'   density  = "density of points in bin, scaled to integrate to 1.",

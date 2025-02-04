@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 #' @include geom-rect.R
-GeomBar <- ggproto("GeomBar", GeomRect,
+GeomBar <- ggproto(
+  "GeomBar", GeomRect,
   required_aes = c("x", "y"),
 
   # These aes columns are created by setup_data(). They need to be listed here so
@@ -11,7 +12,7 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   # limits, not just those for which x and y are outside the limits
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  default_aes = aes(!!!GeomRect$default_aes, width = NULL),
+  default_aes = aes(!!!GeomRect$default_aes, width = 0.9),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
@@ -20,24 +21,23 @@ GeomBar <- ggproto("GeomBar", GeomRect,
 
   extra_params = c("just", "na.rm", "orientation"),
 
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (min(vapply(
-        split(data$x, data$PANEL, drop = TRUE),
-        resolution, numeric(1), zero = FALSE
-      )) * 0.9)
+    data <- compute_data_size(
+      data, size = params$width,
+      default = self$default_aes$width, zero = FALSE
+    )
     data$just <- params$just %||% 0.5
     data <- transform(data,
-      ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width * just, xmax = x + width * (1 - just),
-      width = NULL, just = NULL
+                      ymin = pmin(y, 0), ymax = pmax(y, 0),
+                      xmin = x - width * just, xmax = x + width * (1 - just),
+                      width = NULL, just = NULL
     )
     flip_data(data, params$flipped_aes)
   },
 
-  rename_size = TRUE
+  rename_size = FALSE
 )
 
 #' Bar charts
