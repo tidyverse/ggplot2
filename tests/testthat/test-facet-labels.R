@@ -130,18 +130,12 @@ test_that("as_labeller() deals with non-labellers", {
   expect_equal(get_labels_matrix(p2), cbind(c("0-foo", "1-foo")))
 })
 
-test_that("old school labellers still work", {
+test_that("old school labellers are deprecated", {
   my_labeller <- function(variable, value) {
     paste0("var = ", as.character(value))
   }
 
-  expect_snapshot_warning(p <-
-    ggplot(mtcars, aes(disp, drat)) +
-    geom_point() +
-    facet_grid(~cyl, labeller = my_labeller))
-
-  expected_labels <- cbind(paste("var =", c(4, 6, 8)))
-  expect_identical(get_labels_matrix(p, "cols"), expected_labels)
+  lifecycle::expect_defunct(facet_grid(~cyl, labeller = my_labeller))
 })
 
 

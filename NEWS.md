@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead 
+  of warnings. 
+* Functions and arguments that were soft-deprecated up to ggplot2 3.4.0 now 
+  throw warnings.
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.

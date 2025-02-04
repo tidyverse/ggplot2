@@ -159,6 +159,6 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 borders <- function(database = "world", regions = ".", fill = NA,
                     colour = "grey50", xlim = NULL, ylim = NULL, ...) {
   df <- map_data(database, regions, xlim = xlim, ylim = ylim)
-  geom_polygon(aes_(~long, ~lat, group = ~group), data = df,
+  geom_polygon(aes(.data$long, .data$lat, group = .data$group), data = df,
     fill = fill, colour = colour, ..., inherit.aes = FALSE)
 }
