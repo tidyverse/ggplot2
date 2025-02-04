@@ -66,5 +66,20 @@ set.seed(1234)
 p <- ggplot(mtcars, aes(disp, mpg))
 p + geom_test()
 p + geom_test(grob = grid::circleGrob())
+
+# The `checks` argument can be used to evaluate arbitrary expressions in
+# the constructor before building the layer.
+geom_path2 <- make_constructor(
+  GeomPath, checks = rlang::exprs(
+    match.arg(lineend, c("butt", "round", "square")),
+    match.arg(linejoin, c("round", "mitre", "bevel"))
+  )
+)
+
+# Note the inclusion of the expressions
+print(geom_path2)
+
+# Argument mismatch is detected
+try(geom_path2(linejoin = "foo"))
 }
 \keyword{internal}
