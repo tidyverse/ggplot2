@@ -495,9 +495,8 @@ theme_classic <- function(base_size = 11, base_family = "",
   ) %+replace%
     theme(
       # no background and no grid
-      panel.border     = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      panel.grid   = element_blank(),
 
       # show axes
       axis.text  = element_text(size = rel(0.8)),
