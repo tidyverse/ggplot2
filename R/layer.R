@@ -210,6 +210,8 @@ validate_mapping <- function(mapping, call = caller_env()) {
     }
 
     cli::cli_abort(msg, call = call)
+  } else {
+    return(mapping)
   }
 
   # For backward compatibility with pre-tidy-eval layers
