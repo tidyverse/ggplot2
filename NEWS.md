@@ -270,8 +270,11 @@
   is setup once in total instead of once per group (@teunbrand, #5971)
 * `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
   (@teunbrand, #4584).
-* `theme_classic()` now has black ticks and text instead of dark gray. In 
-  addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
+* `theme_classic()` has the following changes (@teunbrand, #5978 & #6320):
+    * Axis ticks are now black (`ink`-coloured) instead of dark gray.
+    * Axis line ends are now `"square"`.
+    * The panel grid is now blank at the `panel.grid` hierarchy level instead of 
+    the `panel.grid.major` and `panel.grid.minor` levels.
 * {tibble} is now suggested instead of imported (@teunbrand, #5986)
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
