@@ -46,7 +46,7 @@ stat_bin(
   closed = c("right", "left"),
   pad = FALSE,
   na.rm = FALSE,
-  drop = "all",
+  drop = "none",
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
