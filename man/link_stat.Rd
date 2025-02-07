@@ -34,3 +34,4 @@ mappings.
 \seealso{
 \code{\link[=stat_chain]{stat_chain()}}
 }
+\keyword{internal}

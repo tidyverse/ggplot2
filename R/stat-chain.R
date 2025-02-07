@@ -75,6 +75,7 @@ stat_chain <- function(
 #' @seealso [stat_chain()]
 #' @returns A list bundling the stat, parameters and mapping.
 #' @export
+#' @keywords internal
 #'
 #' @examples
 #' # See `?stat_chain`
