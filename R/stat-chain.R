@@ -1,3 +1,37 @@
+#' Chain statistic computation
+#'
+#' This statistic layer can take multiple stats and chain these together
+#' to transform the data in a series of computations.
+#'
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @param stats A character vector or list of statistical transformations to use
+#'   for this layer. Every element needs to be one of the following:
+#'   * A `Stat` ggproto subclass, for example `StatCount`
+#'   * A string naming the stat. To give the stat as a string, strip the
+#'     function name of the `stat_` prefix. For example, to use `stat_count()`,
+#'     give the stat as `"count"`.
+#' @param stat.params A list of parameters parallel to the `stats` argument.
+#'   Use `NULL` elements to declare no parameters.
+#' @param redirect A list of mappings parallel to the `stats` argument that
+#'   are evaluated after the stat has been computed.
+#'
+#' @export
+#'
+#' @examples
+#' p <- ggplot(mpg, aes(displ, colour = drv))
+#' # Binning unique observations
+#' p + stat_chain(stats = c("unique", "bin"))
+#' # Controlling parameters
+#' p + stat_chain(
+#'   stats = c("unique", "bin"),
+#'   stat.params = list(NULL, list(bins = 10))
+#' )
+#' # Evaluate expressions after computing stats
+#' p + stat_chain(
+#'   stats = c("unique", "bin"),
+#'   redirect = list(aes(x = x + 1), aes(y = density))
+#' )
 stat_chain <- function(
     mapping = NULL,
     data = NULL,
@@ -29,6 +63,10 @@ stat_chain <- function(
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatChain <- ggproto(
   "StatChain", Stat,
 
