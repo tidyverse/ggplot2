@@ -4,16 +4,13 @@ test_that("stat_chain can chain multiple stats", {
 
   p <- ggplot(df, aes(x)) +
     stat_chain(
-      stats = "bin", stat.params = list(list(breaks = c(0.5:3.5)))
+      stats = list(link_stat("bin", breaks = 0.5:3.5))
     ) +
     stat_chain(
-      stats = c("unique", "bin"),
-      stat.params = list(NULL, list(breaks = 0.5:3.5))
+      stats = list("unique", link_stat("bin", breaks = 0.5:3.5)),
     ) +
     stat_chain(
-      stats = c("unique", "bin"),
-      stat.params = list(NULL, list(breaks = 0.5:3.5)),
-      redirect = list(NULL, aes(y = -count))
+      stats = list("unique", link_stat("bin", breaks = 0.5:3.5, mapping = aes(y = -count)))
     )
   p <- ggplot_build(p)
 

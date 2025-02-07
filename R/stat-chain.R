@@ -11,11 +11,9 @@
 #'   * A string naming the stat. To give the stat as a string, strip the
 #'     function name of the `stat_` prefix. For example, to use `stat_count()`,
 #'     give the stat as `"count"`.
-#' @param stat.params A list of parameters parallel to the `stats` argument.
-#'   Use `NULL` elements to declare no parameters.
-#' @param redirect A list of mappings parallel to the `stats` argument that
-#'   are evaluated after the stat has been computed.
+#'   * The result of [`link_stat()`] to pass parameters or mapping instructions.
 #'
+#' @seealso [link_stat()]
 #' @export
 #'
 #' @examples
@@ -39,8 +37,6 @@ stat_chain <- function(
     position = "identity",
     ...,
     stats = "identity",
-    stat.params = list(),
-    redirect = list(),
     na.rm = FALSE,
     show.legend = NA,
     inherit.aes = TRUE) {
@@ -56,10 +52,49 @@ stat_chain <- function(
     params = list2(
       na.rm = na.rm,
       stats = stats,
-      stat.params = stat.params,
-      redirect = redirect,
       ...
     )
+  )
+}
+
+#' Parameterise a statistic computation
+#'
+#' This is a helper function for [`stat_chain()`] to pass parameters and declare
+#' mappings.
+#'
+#' @param stat The statistical transformation to use on the data. The `stat`
+#'   argument accepts the following:
+#'   * A `Stat` ggproto subclass, for example `StatCount`.
+#'   * A string naming the stat. To give the stat as a string, strip the
+#'   function name of the `stat_` prefix. For example, for `stat_count()`, give
+#'   the string `"count"`.
+#' @param ... Other arguments passed to the stat as a parameter.
+#' @param mapping Set of aesthetic mappings created by [`aes()`] to be
+#'   evaluated only after the stat has been computed.
+#'
+#' @seealso [stat_chain()]
+#' @returns A list bundling the stat, parameters and mapping.
+#' @export
+#'
+#' @examples
+#' # See `?stat_chain`
+link_stat <- function(stat, ..., mapping = aes()) {
+  if (inherits(stat, "linked_stat")) {
+    return(stat)
+  }
+
+  stat <- validate_subclass(stat, "Stat")
+
+  params <- list2(...)
+  extra <- setdiff(names(params), stat$parameters(TRUE))
+  if (length(extra) > 0) {
+    cli::cli_warn("Ignoring unknown parameters: {.arg {extra}}.")
+    params <- params[setdiff(names(params), extra)]
+  }
+
+  structure(
+    list(stat = stat, params = params, mapping = validate_mapping(mapping)),
+    class = "linked_stat"
   )
 }
 
@@ -70,46 +105,28 @@ stat_chain <- function(
 StatChain <- ggproto(
   "StatChain", Stat,
 
-  extra_params = c("na.rm", "stats", "stat.params", "redirect"),
+  extra_params = c("na.rm", "stats"),
 
   setup_params = function(data, params) {
-    params$stats <- lapply(params$stats, validate_subclass, subclass = "Stat")
-    n_stats <- length(params$stats)
+    if (inherits(params$stats, "linked_stat")) {
+      # When a single linked stat is passed outside a list, repair to list
+      # When using a single stat, using the appropriate `stat_*()` constructor
+      # is better, but we should consider programmatic use too.
+      params$stats <- list(params$stats)
+    }
 
-    params$stat.params <- force_length(
-      params$stat.params, n_stats,
-      warn_longer = TRUE, arg = "stat.params"
-    )
-
-    params$redirect <- force_length(
-      params$redirect, n_stats,
-      warn_longer = TRUE, arg = "redirect"
-    )
-
+    params$stats <- lapply(params$stats, link_stat)
     params
   },
 
   compute_layer = function(self, data, params, layout) {
 
-    n_stats <- length(params$stats)
-
-    for (i in seq_len(n_stats)) {
-      stat <- params$stats[[i]]
-      param <- params$stat.params[[i]]
-
-      # We repeat the `layer()` duty of rejecting unknown parameters
-      valid <- stat$parameters(TRUE)
-      extra_param <- setdiff(names(param), valid)
-      if (length(extra_param) > 0) {
-        cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}.")
-      }
-      param <- param[intersect(names(param), valid)]
-      if (length(param) < 1) {
-        param <- list()
-      }
+    for (i in seq_along(params$stats)) {
+      link <- params$stats[[i]]
+      stat <- link$stat
 
       # Repeat `Layer$compute_statistic()` duty
-      computed_param <- stat$setup_params(data, param)
+      computed_param <- stat$setup_params(data, link$params)
       computed_param$na.rm <- computed_param$na.rm %||% params$na.rm
       data <- stat$setup_data(data, computed_param)
       data <- stat$compute_layer(data, computed_param, layout)
@@ -119,8 +136,10 @@ StatChain <- ggproto(
 
       # Repeat `Layer$map_statistic()` duty, skipping backtransforms and such
       aes <- stat$default_aes[is_calculated_aes(stat$default_aes)]
+      # TODO: ideally we'd have access to Layer$computed_mapping to properly
+      # not touch user-specified mappings.
       aes <- aes[setdiff(names(aes), names(data))]
-      aes <- compact(defaults(params$redirect[[i]], aes))
+      aes <- compact(defaults(link$mapping, aes))
       if (length(aes) == 0) {
         next
       }
@@ -136,30 +155,3 @@ StatChain <- ggproto(
     data
   }
 )
-
-force_length <- function(x, n = length(x), padding = list(NULL),
-                         warn_longer = FALSE, warn_shorter = FALSE,
-                         arg = caller_arg(x)) {
-  force(arg)
-  nx <- length(x)
-  if (nx == n) {
-    return(x)
-  }
-  n_pad <- n - nx
-  if (n_pad > 0) {
-    x <- c(x, rep(padding, length = n_pad))
-    if (isTRUE(warn_shorter)) {
-      cli::cli_warn(
-        "Padded {.arg {arg}} with {n_pad} element{?s}."
-      )
-    }
-  } else if (n_pad < 0) {
-    x <- x[seq_len(n)]
-    if (isTRUE(warn_longer)) {
-      cli::cli_warn(
-        "Dropped {abs(n_pad)} excess element{?s} from {.arg {arg}}."
-      )
-    }
-  }
-  x
-}

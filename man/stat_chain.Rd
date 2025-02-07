@@ -11,8 +11,6 @@ stat_chain(
   position = "identity",
   ...,
   stats = "identity",
-  stat.params = list(),
-  redirect = list(),
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -100,13 +98,8 @@ for this layer. Every element needs to be one of the following:
 \item A string naming the stat. To give the stat as a string, strip the
 function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
 give the stat as \code{"count"}.
+\item The result of \code{\link[=link_stat]{link_stat()}} to pass parameters or mapping instructions.
 }}
-
-\item{stat.params}{A list of parameters parallel to the \code{stats} argument.
-Use \code{NULL} elements to declare no parameters.}
-
-\item{redirect}{A list of mappings parallel to the \code{stats} argument that
-are evaluated after the stat has been computed.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -142,4 +135,7 @@ p + stat_chain(
   stats = c("unique", "bin"),
   redirect = list(aes(x = x + 1), aes(y = density))
 )
+}
+\seealso{
+\code{\link[=link_stat]{link_stat()}}
 }
