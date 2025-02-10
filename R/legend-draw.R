@@ -67,11 +67,8 @@ draw_key_rect <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_polygon <- function(data, params, size) {
-  if (is.null(data$linewidth)) {
-    data$linewidth <- 0.5
-  }
 
-  lwd <- data$linewidth
+  lwd <- data$linewidth %||% 0
 
   grob <- rectGrob(
     width = unit(1, "npc") - unit(lwd, "mm"),
