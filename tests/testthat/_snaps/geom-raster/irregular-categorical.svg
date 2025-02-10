@@ -56,11 +56,11 @@
 <rect x='665.61' y='250.36' width='48.91' height='67.17' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='665.61' y='259.07' style='font-size: 11.00px; font-family: sans;' textLength='48.91px' lengthAdjust='spacingAndGlyphs'>factor(col)</text>
 <rect x='665.61' y='265.69' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='665.61' y='265.69' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #F8766D;' />
+<rect x='665.61' y='265.69' width='17.28' height='17.28' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #F8766D;' />
 <rect x='665.61' y='282.97' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='665.61' y='282.97' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #00BFC4;' />
+<rect x='665.61' y='282.97' width='17.28' height='17.28' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00BFC4;' />
 <rect x='665.61' y='300.25' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='665.61' y='300.25' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #7F7F7F;' />
+<rect x='665.61' y='300.25' width='17.28' height='17.28' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #7F7F7F;' />
 <text x='688.37' y='277.36' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='688.37' y='294.64' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='688.37' y='311.92' style='font-size: 8.80px; font-family: sans;' textLength='12.23px' lengthAdjust='spacingAndGlyphs'>NA</text>

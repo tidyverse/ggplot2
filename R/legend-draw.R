@@ -54,20 +54,18 @@ draw_key_abline <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_rect <- function(data, params, size) {
+  colour <- if (is.na(data$fill %||% NA)) data$colour
   rectGrob(gp = gg_par(
     col = NA,
-    fill = fill_alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+    fill = fill_alpha(colour %||% "grey20", data$alpha),
     lty = data$linetype %||% 1
   ))
 }
 #' @export
 #' @rdname draw_key
 draw_key_polygon <- function(data, params, size) {
-  if (is.null(data$linewidth)) {
-    data$linewidth <- 0.5
-  }
 
-  lwd <- data$linewidth
+  lwd <- data$linewidth %||% 0
 
   grob <- rectGrob(
     width = unit(1, "npc") - unit(lwd, "mm"),
