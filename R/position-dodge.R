@@ -18,6 +18,10 @@
 #'    (default) or `"y"`.
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
+#' @param stack_overlap Specifies if and how to stack the dodged geoms. Possible
+#' values are `"no"` (default), `"by_extent"` or `"by_center"`. This parameter
+#' implements the dodge and stack functionality together. Use `"by_extent"` for 
+#' columns and `"by_center"` for errorbars.
 #' @family position adjustments
 #' @eval rd_aesthetics("position", "dodge")
 #'
@@ -175,6 +179,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       strategy = pos_dodge,
       n = params$n,
       check.width = FALSE,
+      stack_overlap = params$stack_overlap,
       reverse = !params$reverse # for consistency with `position_dodge2()`
     )
     flip_data(collided, params$flipped_aes)
