@@ -178,13 +178,37 @@ pos_dodge <- function(df, width, n = NULL, stackOverlap = "no") {
   df$xmax <- df$x + d_width / n / 2
   
   if (stackOverlap == "byExtent") {
-    tmp = df %>% group_by(group) %>% mutate(ymaxx = cumsum(ymax)) %>% mutate(ymin = ymaxx-ymax, ymax = ymaxx)
-    df$ymin = tmp$ymin
-    df$ymax = tmp$ymax
+    # The code chunk below is just to implement the following line without tidyverse functions, as ggplot2 can be imported without that
+    # df %>% group_by(group) %>% mutate(ymaxx = cumsum(ymax)) %>% mutate(ymin = ymaxx-ymax, ymax = ymaxx)
+    
+    df$ymaxx = NA # Initialize the variable. This will store the desired top of the group
+    groupIDs = unique(df$group) # Collect the unique groupIDs. Thi
+    for (gid in groupIDs) {
+      df$ymaxx[df$group == gid] = cumsum(df$ymax[df$group == gid])
+    }
+    # Create the new y placements
+    df$ymin = df$ymaxx-df$ymax
+    df$ymax = df$ymaxx
+    
+    df$ymaxx = NULL # Remove the extra variable
+    
   } else if (stackOverlap == "byCenter") {
-    tmp = df %>% group_by(group) %>% mutate(extent = ymax-ymin, ymaxx = cumsum((ymax+ymin)/2)) %>% mutate(ymin = ymaxx-extent/2, ymax = ymaxx+extent/2)
-    df$ymin = tmp$ymin
-    df$ymax = tmp$ymax
+    # Similarly to above, the complicated code below is just to do the next line without tidyverse
+    # df %>% group_by(group) %>% mutate(extent = ymax-ymin, ymaxx = cumsum((ymax+ymin)/2)) %>% mutate(ymin = ymaxx-extent/2, ymax = ymaxx+extent/2)
+    
+    df$ymaxx = NA # Initialize the variable. This will store the desired top of the group
+    df$extent = NA # Initialize the variable storing the extent of the geom
+    groupIDs = unique(df$group) # Collect the unique groupIDs. Thi
+    for (gid in groupIDs) {
+      df$ymaxx[df$group == gid] = cumsum((df$ymax[df$group == gid] + df$ymin[df$group == gid])/2)
+    }
+    df$extent = df$ymax - df$ymin
+    # Create the new y placements
+    df$ymin = df$ymaxx-df$extent/2
+    df$ymax = df$ymaxx+df$extent/2
+
+    df$ymaxx = NULL # Remove the extra variable
+    df$extent = NULL # Remove the extra variable
   }
 
   df
