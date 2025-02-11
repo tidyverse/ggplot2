@@ -87,13 +87,13 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
-                           reverse = FALSE, stackOverlap = "no") {
+                           reverse = FALSE, stack_overlap = "no") {
   check_bool(reverse)
   ggproto(NULL, PositionDodge,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
     orientation = arg_match0(orientation, c("x", "y")),
-    stackOverlap = arg_match0(stackOverlap, c("no","byExtent","byCenter")),
+    stack_overlap = arg_match0(stack_overlap, c("no","by_extent","by_center")),
     reverse = reverse
   )
 }
@@ -105,7 +105,7 @@ position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
-  stackOverlap = "no",
+  stack_overlap = "no",
   orientation = "x",
   reverse = NULL,
   default_aes = aes(order = NULL),
@@ -138,7 +138,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
     list(
       width = self$width,
-      stackOverlap = self$stackOverlap,
+      stack_overlap = self$stack_overlap,
       n = n,
       flipped_aes = flipped_aes,
       reverse = self$reverse %||% FALSE
@@ -183,7 +183,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
 # Dodge overlapping interval.
 # Assumes that each set has the same horizontal position.
-pos_dodge <- function(df, width, n = NULL, stackOverlap = "no") {
+pos_dodge <- function(df, width, n = NULL, stack_overlap = "no") {
   if (is.null(n)) {
     n <- vec_unique_count(df$group)
   }
@@ -208,13 +208,13 @@ pos_dodge <- function(df, width, n = NULL, stackOverlap = "no") {
   df$xmin <- df$x - d_width / n / 2
   df$xmax <- df$x + d_width / n / 2
   
-  if (stackOverlap == "byExtent") {
+  if (stack_overlap == "by_extent") {
     # The code chunk below is just to implement the following line without tidyverse functions, as ggplot2 can be imported without that
     # df %>% group_by(group) %>% mutate(ymaxx = cumsum(ymax)) %>% mutate(ymin = ymaxx-ymax, ymax = ymaxx)
     
     df$ymaxx = NA # Initialize the variable. This will store the desired top of the group
-    groupIDs = unique(df$group) # Collect the unique groupIDs. Thi
-    for (gid in groupIDs) {
+    group_ids = unique(df$group) # Collect the unique groupIDs. Thi
+    for (gid in group_ids) {
       df$ymaxx[df$group == gid] = cumsum(df$ymax[df$group == gid])
     }
     # Create the new y placements
@@ -223,14 +223,14 @@ pos_dodge <- function(df, width, n = NULL, stackOverlap = "no") {
     
     df$ymaxx = NULL # Remove the extra variable
     
-  } else if (stackOverlap == "byCenter") {
+  } else if (stack_overlap == "by_center") {
     # Similarly to above, the complicated code below is just to do the next line without tidyverse
     # df %>% group_by(group) %>% mutate(extent = ymax-ymin, ymaxx = cumsum((ymax+ymin)/2)) %>% mutate(ymin = ymaxx-extent/2, ymax = ymaxx+extent/2)
     
     df$ymaxx = NA # Initialize the variable. This will store the desired top of the group
     df$extent = NA # Initialize the variable storing the extent of the geom
-    groupIDs = unique(df$group) # Collect the unique groupIDs. Thi
-    for (gid in groupIDs) {
+    group_ids = unique(df$group) # Collect the unique groupIDs. Thi
+    for (gid in group_ids) {
       df$ymaxx[df$group == gid] = cumsum((df$ymax[df$group == gid] + df$ymin[df$group == gid])/2)
     }
     df$extent = df$ymax - df$ymin
