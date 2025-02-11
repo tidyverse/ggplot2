@@ -9,7 +9,8 @@ position_dodge(
   width = NULL,
   preserve = "total",
   orientation = "x",
-  reverse = FALSE
+  reverse = FALSE,
+  stack_overlap = "no"
 )
 
 position_dodge2(
@@ -33,6 +34,11 @@ indicate an explicit orientation, like \code{geom_point()}. Can be \code{"x"}
 
 \item{reverse}{If \code{TRUE}, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.}
+
+\item{stack_overlap}{Specifies if and how to stack the dodged geoms. Possible
+values are \code{"no"} (default), \code{"by_extent"} or \code{"by_center"}. This parameter
+implements the dodge and stack functionality together. Use \code{"by_extent"} for
+columns and \code{"by_center"} for errorbars.}
 
 \item{padding}{Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.}
