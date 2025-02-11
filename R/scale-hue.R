@@ -4,7 +4,7 @@
 #' It does not generate colour-blind safe palettes.
 #'
 #' @param na.value Colour to use for missing values
-#' @inheritDotParams discrete_scale -aesthetics -expand -position -scale_name
+#' @inheritDotParams discrete_scale -aesthetics -expand -position -scale_name -palette
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
@@ -86,6 +86,7 @@ scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
 #' is specified.
 #'
 #' @param ... Additional parameters passed on to the scale type,
+#' @inheritParams discrete_scale
 #' @param type One of the following:
 #'   * A character vector of color codes. The codes are used for a 'manual' color
 #'   scale as long as the number of codes exceeds the number of data levels
@@ -134,48 +135,36 @@ scale_fill_hue <- function(name = waiver(), ..., h = c(0, 360) + 15, c = 100,
 #'   print(cty_by_var(fl))
 #' })
 #'
-scale_colour_discrete <- function(..., type = getOption("ggplot2.discrete.colour")) {
-  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
-  type <- type %||% scale_colour_hue
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
-
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_colour_discrete",
-      "colour",
-      scale_is_discrete = TRUE
+scale_colour_discrete <- function(..., aesthetics = "colour", na.value = "grey50",
+                                  type = getOption("ggplot2.discrete.colour")) {
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
+      aesthetic = "colour", type = "discrete"
     )
-  } else {
-    exec(scale_colour_qualitative, !!!args, type = type)
+    return(scale)
   }
+  discrete_scale(
+    aesthetics, palette = NULL, na.value = na.value,
+    ...
+  )
 }
 
 #' @rdname scale_colour_discrete
 #' @export
-scale_fill_discrete <- function(..., type = getOption("ggplot2.discrete.fill")) {
-  # TODO: eventually `type` should default to a set of colour-blind safe color codes (e.g. Okabe-Ito)
-  type <- type %||% scale_fill_hue
-  args <- list2(...)
-  args$call <- args$call %||% current_call()
-
-  if (is.function(type)) {
-    if (!any(c("...", "call") %in% fn_fmls_names(type))) {
-      args$call <- NULL
-    }
-    check_scale_type(
-      exec(type, !!!args),
-      "scale_fill_discrete",
-      "fill",
-      scale_is_discrete = TRUE
+scale_fill_discrete <- function(..., aesthetics = "fill", na.value = "grey50",
+                                type = getOption("ggplot2.discrete.fill")) {
+  if (!is.null(type)) {
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
+      aesthetic = "fill", type = "discrete"
     )
-  } else {
-    exec(scale_fill_qualitative, !!!args, type = type)
+    return(scale)
   }
+  discrete_scale(
+    aesthetics, palette = NULL, na.value = na.value,
+    ...
+  )
 }
 
 scale_colour_qualitative <- function(name = waiver(), ..., type = NULL,
@@ -205,22 +194,22 @@ scale_fill_qualitative <- function(name = waiver(), ..., type = NULL,
 #' @param type a character vector or a list of character vectors
 #' @noRd
 pal_qualitative <- function(type, h, c, l, h.start, direction) {
+  type_list <- type
+  if (!is.list(type_list)) {
+    type_list <- list(type_list)
+  }
+  if (!all(vapply(type_list, is.character, logical(1)))) {
+    stop_input_type(type, "a character vector or list of character vectors")
+  }
+  type_lengths <- lengths(type_list)
   function(n) {
-    type_list <- if (!is.list(type)) list(type) else type
-    if (!all(vapply(type_list, is.character, logical(1)))) {
-      cli::cli_abort("{.arg type} must be a character vector or a list of character vectors.")
-    }
-    type_lengths <- lengths(type_list)
     # If there are more levels than color codes default to pal_hue()
     if (max(type_lengths) < n) {
       return(scales::pal_hue(h, c, l, h.start, direction)(n))
     }
     # Use the minimum length vector that exceeds the number of levels (n)
-    type_list <- type_list[order(type_lengths)]
-    i <- 1
-    while (length(type_list[[i]]) < n) {
-      i <- i + 1
-    }
-    type_list[[i]][seq_len(n)]
+    i <- which(type_lengths >= n)
+    i <- i[which.min(type_lengths[i])]
+    type_list[[i]]
   }
 }

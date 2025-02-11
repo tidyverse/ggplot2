@@ -118,3 +118,11 @@ test_that("groups are different when two blocks have externall touching point",{
   )
   expect_equal(find_x_overlaps(df1), seq_len(2))
 })
+
+test_that("overlaps are identified correctly", {
+  df <- data.frame(
+    xmin = c(1, 2, 3, 5),
+    xmax = c(4, 3, 4, 6)
+  )
+  expect_equal(find_x_overlaps(df), c(1, 1, 1, 2))
+})

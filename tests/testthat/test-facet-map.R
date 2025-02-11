@@ -22,6 +22,10 @@ test_that("margins add extra data", {
   loc <- panel_map_one(facet_grid(a~b, margins = "b"), df)
 
   expect_equal(nrow(loc), nrow(df) * 2)
+
+  # For variables including computation (#1864)
+  loc <- panel_map_one(facet_grid(a ~ I(b + 1), margins = TRUE), df)
+  expect_equal(nrow(loc), nrow(df) * 4)
 })
 
 test_that("grid: missing facet columns are duplicated", {

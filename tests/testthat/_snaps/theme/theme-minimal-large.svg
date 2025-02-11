@@ -43,9 +43,9 @@
 <polyline points='347.56,483.34 347.56,118.30 ' style='stroke-width: 3.20; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='457.49,483.34 457.49,118.30 ' style='stroke-width: 3.20; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='567.42,483.34 567.42,118.30 ' style='stroke-width: 3.20; stroke: #EBEBEB; stroke-linecap: butt;' />
-<circle cx='127.70' cy='466.74' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
-<circle cx='347.56' cy='300.82' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
-<circle cx='567.42' cy='134.89' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='127.70' cy='466.74' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='347.56' cy='300.82' r='5.86' style='stroke-width: 2.13; stroke: #00BFC4; fill: #00BFC4;' />
+<circle cx='567.42' cy='134.89' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
@@ -71,8 +71,8 @@
 <text x='347.56' y='552.71' text-anchor='middle' style='font-size: 33.00px; font-family: sans;' textLength='16.51px' lengthAdjust='spacingAndGlyphs'>x</text>
 <text transform='translate(39.15,300.82) rotate(-90)' text-anchor='middle' style='font-size: 33.00px; font-family: sans;' textLength='16.51px' lengthAdjust='spacingAndGlyphs'>y</text>
 <text x='638.72' y='280.31' style='font-size: 33.00px; font-family: sans;' textLength='16.51px' lengthAdjust='spacingAndGlyphs'>z</text>
-<circle cx='647.36' cy='311.99' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
-<circle cx='647.36' cy='335.64' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
+<circle cx='647.36' cy='311.99' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='647.36' cy='335.64' r='5.86' style='stroke-width: 2.13; stroke: #00BFC4; fill: #00BFC4;' />
 <text x='672.44' y='321.08' style='font-size: 26.40px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>a</text>
 <text x='672.44' y='344.73' style='font-size: 26.40px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>b</text>
 <text x='105.71' y='43.69' style='font-size: 39.60px; font-family: sans;' textLength='378.62px' lengthAdjust='spacingAndGlyphs'>theme_minimal_large</text>

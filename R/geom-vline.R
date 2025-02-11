@@ -4,6 +4,7 @@ NULL
 #' @export
 #' @rdname geom_abline
 geom_vline <- function(mapping = NULL, data = NULL,
+                       position = "identity",
                        ...,
                        xintercept,
                        na.rm = FALSE,
@@ -29,7 +30,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
     mapping = mapping,
     stat = StatIdentity,
     geom = GeomVline,
-    position = PositionIdentity,
+    position = position,
     show.legend = show.legend,
     inherit.aes = FALSE,
     params = list2(
@@ -55,7 +56,13 @@ GeomVline <- ggproto("GeomVline", Geom,
     GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
+
   required_aes = "xintercept",
 
   draw_key = draw_key_vline,

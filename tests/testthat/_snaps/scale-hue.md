@@ -1,4 +1,4 @@
 # scale_hue() checks the type input
 
-    `type` must be a character vector or a list of character vectors.
+    `type` must be a character vector or list of character vectors, not an integer vector.
 

@@ -104,15 +104,20 @@ StatContour <- ggproto("StatContour", Stat,
 
   compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL,
                            breaks = NULL, na.rm = FALSE) {
+    # Undo data rotation
+    rotation <- estimate_contour_angle(data$x, data$y)
+    data[c("x", "y")] <- rotate_xy(data$x, data$y, -rotation)
 
     breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isolines <- withr::with_options(list(OutDec = "."), xyz_to_isolines(data, breaks))
-    path_df <- iso_to_path(isolines, data$group[1])
+    path_df <- iso_to_geom(isolines, data$group[1], geom = "path")
 
     path_df$level <- as.numeric(path_df$level)
     path_df$nlevel <- rescale_max(path_df$level)
 
+    # Re-apply data rotation
+    path_df[c("x", "y")] <- rotate_xy(path_df$x, path_df$y, rotation)
     path_df
   }
 )
@@ -138,17 +143,24 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   },
 
   compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
+
+    # Undo data rotation
+    rotation <- estimate_contour_angle(data$x, data$y)
+    data[c("x", "y")] <- rotate_xy(data$x, data$y, -rotation)
+
     breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
     isobands <- withr::with_options(list(OutDec = "."), xyz_to_isobands(data, breaks))
     names(isobands) <- pretty_isoband_levels(names(isobands))
-    path_df <- iso_to_polygon(isobands, data$group[1])
+    path_df <- iso_to_geom(isobands, data$group[1], geom = "polygon")
 
     path_df$level <- ordered(path_df$level, levels = names(isobands))
     path_df$level_low <- breaks[as.numeric(path_df$level)]
     path_df$level_high <- breaks[as.numeric(path_df$level) + 1]
     path_df$level_mid <- 0.5*(path_df$level_low + path_df$level_high)
     path_df$nlevel <- rescale_max(path_df$level_high)
+    # Re-apply data rotation
+    path_df[c("x", "y")] <- rotate_xy(path_df$x, path_df$y, rotation)
 
     path_df
   }
@@ -259,51 +271,17 @@ isoband_z_matrix <- function(data) {
   raster
 }
 
-#' Convert the output of isolines functions
-#'
-#' @param iso the output of [isoband::isolines()]
-#' @param group the name of the group
-#'
-#' @return A data frame that can be passed to [geom_path()].
-#' @noRd
-#'
-iso_to_path <- function(iso, group = 1) {
-  lengths <- vapply(iso, function(x) length(x$x), integer(1))
-
-  if (all(lengths == 0)) {
-    cli::cli_warn("{.fn stat_contour}: Zero contours were generated")
-    return(data_frame0())
-  }
-
-  levels <- names(iso)
-  xs <- unlist(lapply(iso, "[[", "x"), use.names = FALSE)
-  ys <- unlist(lapply(iso, "[[", "y"), use.names = FALSE)
-  ids <- unlist(lapply(iso, "[[", "id"), use.names = FALSE)
-  item_id <- rep(seq_along(iso), lengths)
-
-  # Add leading zeros so that groups can be properly sorted
-  groups <- paste(group, sprintf("%03d", item_id), sprintf("%03d", ids), sep = "-")
-  groups <- factor(groups)
-
-  data_frame0(
-    level = rep(levels, lengths),
-    x = xs,
-    y = ys,
-    piece = as.integer(groups),
-    group = groups,
-    .size = length(xs)
-  )
-}
-
 #' Convert the output of isoband functions
 #'
-#' @param iso the output of [isoband::isobands()]
+#' @param iso the output of [isoband::isobands()] or [isoband::isolines()]
 #' @param group the name of the group
+#' @param geom The type of geometry to return. Either `"path"` or `"polygon"`
+#'   for isolines and isobands respectively.
 #'
-#' @return A data frame that can be passed to [geom_polygon()].
+#' @return A data frame that can be passed to [geom_polygon()] or [geom_path()].
 #' @noRd
 #'
-iso_to_polygon <- function(iso, group = 1) {
+iso_to_geom <- function(iso, group = 1, geom = "path") {
   lengths <- vapply(iso, function(x) length(x$x), integer(1))
 
   if (all(lengths == 0)) {
@@ -319,6 +297,11 @@ iso_to_polygon <- function(iso, group = 1) {
 
   # Add leading zeros so that groups can be properly sorted
   groups <- paste(group, sprintf("%03d", item_id), sep = "-")
+  if (geom == "path") {
+    groups <- paste(groups, sprintf("%03d", ids), sep = "-")
+    ids <- NULL
+  }
+
   groups <- factor(groups)
 
   data_frame0(
@@ -384,4 +367,50 @@ contour_deduplicate <- function(data, check = c("x", "y", "group", "PANEL")) {
     ))
   }
   data
+}
+
+estimate_contour_angle <- function(x, y) {
+
+  # Compute most frequent angle among first 20 points
+  all_angles <- atan2(diff(head(y, 20L)), diff(head(x, 20L)))
+  freq <- tabulate(match(all_angles, unique(all_angles)))
+  i <- which.max(freq)
+
+  # If this angle represents less than half of the angles, we probably
+  # have unordered data, in which case the approach above is invalid
+  if ((freq[i] / sum(freq)) < 0.5) {
+    # In such case, try approach with convex hull
+    hull <- grDevices::chull(x, y)
+    hull <- c(hull, hull[1])
+    # Find largest edge along hull
+    dx <- diff(x[hull])
+    dy <- diff(y[hull])
+    i <- which.max(sqrt(dx^2 + dy^2))
+    # Take angle of largest edge
+    angle <- atan2(dy[i], dx[i])
+  } else {
+    angle <- all_angles[i]
+  }
+
+  # No need to rotate contour data when angle is straight
+  straight <- abs(angle - c(-1, -0.5, 0, 0.5, 1) * pi) < sqrt(.Machine$double.eps)
+  if (any(straight)) {
+    return(0)
+  }
+  angle
+}
+
+rotate_xy <- function(x, y, angle) {
+  # Skip rotation if angle was straight
+  if (angle == 0) {
+    return(list(x = x, y = y))
+  }
+  cos <- cos(angle)
+  sin <- sin(angle)
+  # Using zapsmall to make `unique0` later recognise values that may have
+  # rounding errors.
+  list(
+    x = zapsmall(cos * x - sin * y, digits = 13),
+    y = zapsmall(sin * x + cos * y, digits = 13)
+  )
 }

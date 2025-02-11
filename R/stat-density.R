@@ -239,9 +239,10 @@ reflect_density <- function(dens, bounds, from, to) {
 # Similar to stats::density.default
 # Once R4.3.0 is the lowest supported version, this function can be replaced by
 # using `density(..., warnWbw = FALSE)`.
-precompute_bw = function(x, bw = "nrd0") {
+precompute_bw <- function(x, bw = "nrd0") {
   bw <- bw[1]
   if (is.character(bw)) {
+    bw <- to_lower_ascii(bw)
     bw <- arg_match0(bw, c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi"))
     bw <- switch(
       to_lower_ascii(bw),

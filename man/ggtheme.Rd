@@ -9,6 +9,7 @@
 \alias{theme_dark}
 \alias{theme_minimal}
 \alias{theme_classic}
+\alias{theme_transparent}
 \alias{theme_void}
 \alias{theme_test}
 \title{Complete themes}
@@ -16,71 +17,111 @@
 theme_grey(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_gray(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_bw(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_linedraw(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_light(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_dark(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_minimal(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_classic(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
+)
+
+theme_transparent(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size/22,
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = alpha(ink, 0)
 )
 
 theme_void(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 
 theme_test(
   base_size = 11,
   base_family = "",
+  header_family = NULL,
   base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_rect_size = base_size/22,
+  ink = "black",
+  paper = "white"
 )
 }
 \arguments{
@@ -88,9 +129,15 @@ theme_test(
 
 \item{base_family}{base font family}
 
+\item{header_family}{font family for titles and headers. The default, \code{NULL},
+uses theme inheritance to set the font. This setting affects axis titles,
+legend titles, the plot title and tag text.}
+
 \item{base_line_size}{base size for line elements}
 
 \item{base_rect_size}{base size for rect elements}
+
+\item{ink, paper}{colour for foreground and background elements respectively.}
 }
 \description{
 These are complete themes which control all non-data display. Use

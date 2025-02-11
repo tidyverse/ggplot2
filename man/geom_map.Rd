@@ -38,7 +38,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -89,7 +89,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -124,7 +126,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 # how `geom_map()` works. It requires two data frames:
 # One contains the coordinates of each polygon (`positions`), and is
 # provided via the `map` argument. The other contains the
-# other the values associated with each polygon (`values`).  An id
+# values associated with each polygon (`values`).  An id
 # variable links the two together.
 
 ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))

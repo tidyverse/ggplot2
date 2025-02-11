@@ -14,7 +14,7 @@ test_that("binwidth is respected", {
   expect_snapshot_warning(ggplot_build(p))
 
   p <- ggplot(df, aes(x, y)) +
-    stat_bin_2d(geom = "tile", origin = c(0.25, 0.5, 0.75))
+    stat_bin_2d(geom = "tile", boundary = c(0.25, 0.5, 0.75))
   expect_snapshot_warning(ggplot_build(p))
 })
 
@@ -32,8 +32,8 @@ test_that("breaks override binwidth", {
     )
 
   out <- get_layer_data(base)
-  expect_equal(out$xbin, cut(df$x, adjust_breaks(integer_breaks), include.lowest = TRUE, labels = FALSE))
-  expect_equal(out$ybin, cut(df$y, adjust_breaks(half_breaks), include.lowest = TRUE, labels = FALSE))
+  expect_equal(out$xbin, cut(df$x, bins(integer_breaks)$fuzzy, include.lowest = TRUE, labels = FALSE))
+  expect_equal(out$ybin, cut(df$y, bins(half_breaks)$fuzzy, include.lowest = TRUE, labels = FALSE))
 })
 
 test_that("breaks are transformed by the scale", {

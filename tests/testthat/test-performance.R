@@ -12,7 +12,7 @@ testappend <- list(
 )
 
 test_that("modifyList is masked", {
-  expect_error(modifyList(testlist, testappend))
+  expect_snapshot(modifyList(testlist, testappend), error = TRUE)
 })
 
 test_that("modify_list retains unreferenced elements", {

@@ -25,6 +25,12 @@ test_that("negative and positive values are handled separately", {
 
   expect_equal(dat$ymin[dat$x == 2], c(0, -3))
   expect_equal(dat$ymax[dat$x == 2], c(2, 0))
+
+  # Test only negatives #6088
+  df <- data_frame0(x = c(1, 1, 2, 2), y = c(-1, -1, -1, -1), g = LETTERS[1:4])
+  dat <- get_layer_data(ggplot(df, aes(x, y, fill = factor(g))) + geom_col())
+  expect_equal(dat$ymax, dat$ymin + 1)
+  expect_equal(dat$ymin, c(-2, -1, -2, -1))
 })
 
 test_that("can request reverse stacking", {

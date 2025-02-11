@@ -15,7 +15,11 @@
 #'   specified in [labs()] is used for the title.
 #' @param theme A [`theme`][theme()] object to style the guide individually or
 #'   differently from the plot's theme settings. The `theme` argument in the
-#'   guide overrides, and is combined with, the plot's theme.
+#'   guide partially overrides, and is combined with, the plot's theme.
+#'   Arguments that apply to a single legend are respected, most of which have
+#'   the `legend`-prefix. Arguments that apply to combined legends
+#'   (the legend box) are ignored, including `legend.position`,
+#'   `legend.justification.*`, `legend.location` and `legend.box.*`.
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
 #' @param direction  A character string indicating the direction of the guide.
@@ -174,6 +178,7 @@ GuideLegend <- ggproto(
     key            = "legend.key",
     key_height     = "legend.key.height",
     key_width      = "legend.key.width",
+    key_just       = "legend.key.justification",
     text           = "legend.text",
     theme.title    = "legend.title",
     spacing_x      = "legend.key.spacing.x",
@@ -185,7 +190,7 @@ GuideLegend <- ggproto(
 
   extract_params = function(scale, params,
                             title = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }
@@ -204,12 +209,13 @@ GuideLegend <- ggproto(
       cli::cli_warn("Duplicated {.arg override.aes} is ignored.")
     }
     params$override.aes <- params$override.aes[!duplicated(nms)]
+    params$aesthetic <- union(params$aesthetic, new_params$aesthetic)
 
     list(guide = self, params = params)
   },
 
   # Arrange common data for vertical and horizontal legends
-  process_layers = function(self, params, layers, data = NULL) {
+  process_layers = function(self, params, layers, data = NULL, theme = NULL) {
 
     include <- vapply(layers, function(layer) {
       aes <- matched_aes(layer, params)
@@ -220,36 +226,41 @@ GuideLegend <- ggproto(
       return(NULL)
     }
 
-    self$get_layer_key(params, layers[include], data[include])
+    self$get_layer_key(params, layers[include], data[include], theme)
   },
 
-  get_layer_key = function(params, layers, data) {
+  get_layer_key = function(params, layers, data, theme = NULL) {
+
+    # Return empty guides as-is
+    if (nrow(params$key) < 1) {
+      return(params)
+    }
 
     decor <- Map(layer = layers, df = data, f = function(layer, df) {
 
+      # Subset key to the column with aesthetic matching the layer
       matched_aes <- matched_aes(layer, params)
+      key <- params$key[matched_aes]
+      key$.id <- seq_len(nrow(key))
 
+      # Filter static aesthetics to those with single values
+      single_params <- lengths(layer$aes_params) == 1L
+      single_params <- layer$aes_params[single_params]
+
+      # Use layer to populate defaults
+      key <- layer$compute_geom_2(key, single_params, theme)
+
+      # Filter non-existing levels
       if (length(matched_aes) > 0) {
-        # Filter out aesthetics that can't be applied to the legend
-        n <- lengths(layer$aes_params, use.names = FALSE)
-        layer_params <- layer$aes_params[n == 1]
-
-        aesthetics  <- layer$computed_mapping
-        is_modified <- is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)
-        modifiers   <- aesthetics[is_modified]
-
-        data <- layer$geom$use_defaults(params$key[matched_aes], layer_params, modifiers)
-        data$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
-      } else {
-        reps <- rep(1, nrow(params$key))
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[reps, ]
+        key$.draw <- keep_key_data(params$key, df, matched_aes, layer$show.legend)
       }
 
-      data <- modify_list(data, params$override.aes)
+      # Apply overrides
+      key <- modify_list(key, params$override.aes)
 
       list(
         draw_key = layer$geom$draw_key,
-        data     = data,
+        data     = key,
         params   = c(layer$computed_geom_params, layer$computed_stat_params)
       )
     })
@@ -265,7 +276,6 @@ GuideLegend <- ggproto(
       c("horizontal", "vertical"), arg_nm = "direction"
     )
     params$n_breaks <- n_breaks <- nrow(params$key)
-    params$n_key_layers <- length(params$decor) + 1 # +1 is key background
 
     # Resolve shape
     if (!is.null(params$nrow) && !is.null(params$ncol) &&
@@ -368,6 +378,12 @@ GuideLegend <- ggproto(
       elements$key <-
         ggname("legend.key", element_grob(elements$key))
     }
+    if (!is.null(elements$key_just)) {
+      elements$key_just <- valid.just(elements$key_just)
+    }
+
+    elements$text <-
+      label_angle_heuristic(elements$text, elements$text_position, params$angle)
 
     elements
   },
@@ -378,22 +394,39 @@ GuideLegend <- ggproto(
 
   build_decor = function(decor, grobs, elements, params) {
 
-    key_size <- c(elements$width_cm, elements$height_cm) * 10
+    key_size <- c(elements$width_cm, elements$height_cm)
+    just <- elements$key_just
+    idx <- seq_len(params$n_breaks)
 
-    draw <- function(i) {
-      bg <- elements$key
-      keys <- lapply(decor, function(g) {
-        data <- vec_slice(g$data, i)
-        if (data$.draw %||% TRUE) {
-          key <- g$draw_key(data, g$params, key_size)
-          set_key_size(key, data$linewidth, data$size, key_size / 10)
-        } else {
-          zeroGrob()
+    key_glyphs <- lapply(idx, function(i) {
+      glyph <- lapply(decor, function(dec) {
+        data <- vec_slice(dec$data, i)
+        if (!(data$.draw %||% TRUE)) {
+          return(zeroGrob())
         }
+        key <- dec$draw_key(data, dec$params, key_size * 10)
+        set_key_size(key, data$linewidth, data$size, key_size)
       })
-      c(list(bg), keys)
-    }
-    unlist(lapply(seq_len(params$n_breaks), draw), FALSE)
+
+      width  <- vapply(glyph, get_attr, which = "width", default = 0, numeric(1))
+      width  <- max(width, 0, key_size[1], na.rm = TRUE)
+      height <- vapply(glyph, get_attr, which = "height", default = 0, numeric(1))
+      height <- max(height, 0, key_size[2], na.rm = TRUE)
+
+      vp <- NULL
+      if (!is.null(just)) {
+        vp <- viewport(
+          x = just[1], y = just[2], just = just,
+          width = unit(width, "cm"), height = unit(height, "cm")
+        )
+      }
+
+      grob <- gTree(children = inject(gList(elements$key, !!!glyph)), vp = vp)
+      attr(grob, "width")  <- width
+      attr(grob, "height") <- height
+      grob
+    })
+    key_glyphs
   },
 
   build_labels = function(key, elements, params) {
@@ -626,7 +659,7 @@ keep_key_data <- function(key, data, aes, show) {
   if (isTRUE(any(show)) || length(show) == 0) {
     return(TRUE)
   }
-  if (isTRUE(all(!show))) {
+  if (isTRUE(!any(show))) {
     return(FALSE)
   }
   # Second, we go find if the value is actually present in the data.
@@ -683,6 +716,7 @@ deprecated_guide_args <- function(
   default.unit = "line",
   ...,
   .call = caller_call()) {
+  warn_dots_used(call = .call)
 
   args <- names(formals(deprecated_guide_args))
   args <- setdiff(args, c("theme", "default.unit", "...", ".call"))
@@ -780,4 +814,8 @@ deprecated_guide_args <- function(
     theme <- inject(theme(!!!theme))
   }
   theme
+}
+
+get_attr <- function(x, which, exact = TRUE, default = NULL) {
+  attr(x, which = which, exact = exact) %||% default
 }

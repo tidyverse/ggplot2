@@ -6,12 +6,12 @@
 #'   the data
 geom_qq_line <- function(mapping = NULL,
                          data = NULL,
-                         geom = "path",
+                         geom = "abline",
                          position = "identity",
                          ...,
                          distribution = stats::qnorm,
                          dparams = list(),
-                         line.p = c(.25, .75),
+                         line.p = c(0.25, 0.75),
                          fullrange = FALSE,
                          na.rm = FALSE,
                          show.legend = NA,
@@ -56,7 +56,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
                            distribution = stats::qnorm,
                            dparams = list(),
                            na.rm = FALSE,
-                           line.p = c(.25, .75),
+                           line.p = c(0.25, 0.75),
                            fullrange = FALSE) {
 
     sample <- sort(data$sample)
@@ -86,6 +86,9 @@ StatQqLine <- ggproto("StatQqLine", Stat,
       x <- range(theoretical)
     }
 
-    data_frame0(x = x, y = slope * x + intercept)
+    data_frame0(
+      x = x, y = slope * x + intercept,
+      slope = slope, intercept = intercept
+    )
   }
 )

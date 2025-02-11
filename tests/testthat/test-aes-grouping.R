@@ -26,7 +26,7 @@ test_that("no error for aes(groupS)", {
   g <- add_group(df2)
 
   expect_equal(nrow(g), nrow(df2))
-  expect_equal(names(g), c("x", "y", "groupS", "group"))
+  expect_named(g, c("x", "y", "groupS", "group"))
 })
 
 test_that("label is not used as a grouping var", {

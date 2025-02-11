@@ -3,11 +3,17 @@
 \name{update_geom_defaults}
 \alias{update_geom_defaults}
 \alias{update_stat_defaults}
+\alias{reset_geom_defaults}
+\alias{reset_stat_defaults}
 \title{Modify geom/stat aesthetic defaults for future plots}
 \usage{
 update_geom_defaults(geom, new)
 
 update_stat_defaults(stat, new)
+
+reset_geom_defaults()
+
+reset_stat_defaults()
 }
 \arguments{
 \item{new}{One of the following:
@@ -21,7 +27,21 @@ update_stat_defaults(stat, new)
 \code{StatBin}).}
 }
 \description{
-Modify geom/stat aesthetic defaults for future plots
+Functions to update or reset the default aesthetics of geoms and stats.
+}
+\note{
+Please note that geom defaults can be set \emph{en masse} via the \code{theme(geom)}
+argument. The guidelines for when to use which function are as follows:
+\itemize{
+\item If you want to change defaults for all geoms in all plots, use
+\code{theme_update(geom = element_geom(...))}.
+\item If you want to change defaults for all geoms in a single plot, use
+\code{+ theme(geom = element_geom(...))}.
+\item If you want to change defaults for one geom in all plots, use
+\code{update_geom_defaults()}.
+\item If you want to change settings for one geom in a single plot, use fixed
+aesthetic parameters in a layer, like so: \code{geom_point(colour = "red")}.
+}
 }
 \examples{
 
@@ -32,9 +52,11 @@ update_geom_defaults("point", aes(color = "red"))
 GeomPoint$default_aes
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
 
-# reset default
+# reset single default
 update_geom_defaults("point", NULL)
 
+# reset all defaults
+reset_geom_defaults()
 
 # updating a stat's default aesthetic settings
 # example: change stat_bin()'s default y-axis to the density scale
@@ -45,8 +67,11 @@ ggplot(data.frame(x = rnorm(1e3)), aes(x)) +
   geom_histogram() +
   geom_function(fun = dnorm, color = "red")
 
-# reset default
+# reset single default
 update_stat_defaults("bin", NULL)
+
+# reset all defaults
+reset_stat_defaults()
 
 }
 \keyword{internal}

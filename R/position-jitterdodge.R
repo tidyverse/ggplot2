@@ -11,6 +11,7 @@
 #' @param dodge.width the amount to dodge in the x direction. Defaults to 0.75,
 #'   the default `position_dodge()` width.
 #' @inheritParams position_jitter
+#' @inheritParams position_dodge
 #' @export
 #' @examples
 #' set.seed(596)
@@ -19,15 +20,18 @@
 #'   geom_boxplot(outlier.size = 0) +
 #'   geom_point(pch = 21, position = position_jitterdodge())
 position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
-                                 dodge.width = 0.75, seed = NA) {
+                                 dodge.width = 0.75, reverse = FALSE,
+                                 seed = NA) {
   if (!is.null(seed) && is.na(seed)) {
     seed <- sample.int(.Machine$integer.max, 1L)
   }
+  check_bool(reverse)
 
   ggproto(NULL, PositionJitterdodge,
     jitter.width = jitter.width,
     jitter.height = jitter.height,
     dodge.width = dodge.width,
+    reverse = reverse,
     seed = seed
   )
 }
@@ -40,6 +44,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   jitter.width = NULL,
   jitter.height = NULL,
   dodge.width = NULL,
+  reverse = NULL,
 
   required_aes = c("x", "y"),
 
@@ -47,31 +52,31 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
-    # Adjust the x transformation based on the number of 'dodge' variables
-    possible_dodge <- c("fill", "colour", "linetype", "shape", "size", "alpha")
-    dodgecols <- intersect(possible_dodge, colnames(data))
-    if (length(dodgecols) == 0) {
-      cli::cli_abort(c(
-        "{.fn position_jitterdodge} requires at least one aesthetic to dodge by.",
-        i = "Use one of {.or {.val {possible_dodge}}} aesthetics."
-        ))
-    }
-    ndodge    <- lapply(data[dodgecols], levels)  # returns NULL for numeric, i.e. non-dodge layers
-    ndodge    <- vec_unique_count(unlist(ndodge))
+
+    ndodge <- vec_unique(data[c("group", "PANEL", "x")])
+    ndodge <- vec_group_id(ndodge[c("PANEL", "x")])
+    ndodge <- max(tabulate(ndodge, attr(ndodge, "n")))
 
     list(
-      dodge.width = self$dodge.width,
-      jitter.height = self$jitter.height,
+      dodge.width = self$dodge.width %||% 0.75,
+      jitter.height = self$jitter.height %||% 0,
       jitter.width = width / (ndodge + 2),
       seed = self$seed,
-      flipped_aes = flipped_aes
+      flipped_aes = flipped_aes,
+      reverse = self$reverse %||% FALSE
     )
   },
 
   compute_panel = function(data, params, scales) {
     data <- flip_data(data, params$flipped_aes)
-    data <- collide(data, params$dodge.width, "position_jitterdodge", pos_dodge,
-      check.width = FALSE)
+    data <- collide(
+      data,
+      params$dodge.width,
+      "position_jitterdodge",
+      strategy = pos_dodge,
+      check.width = FALSE,
+      reverse = !params$reverse # for consistency with `position_dodge2()`
+    )
 
     trans_x <- if (params$jitter.width > 0) function(x) jitter(x, amount = params$jitter.width)
     trans_y <- if (params$jitter.height > 0) function(x) jitter(x, amount = params$jitter.height)

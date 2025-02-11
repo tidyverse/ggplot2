@@ -40,8 +40,16 @@ test_that("stat_summary(_bin) work with lambda expressions", {
 
 })
 
+test_that("stat_summary_bin takes user's `width` argument (#4647)", {
+  p <- ggplot(mtcars, aes(mpg, disp)) +
+    stat_summary_bin(
+      fun.data = mean_se, na.rm = TRUE,
+      binwidth = 1, width = 2
+    )
 
-
+  ld <- layer_data(p)
+  expect_equal(unique(ld$width), 2)
+})
 
 test_that("stat_summary_(2d|hex) work with lambda expressions", {
 

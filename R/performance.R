@@ -10,13 +10,6 @@ mat_2_df <- function(x, col_names = colnames(x)) {
   data_frame0(!!!cols, .size = nrow(x))
 }
 
-df_col <- function(x, name) .subset2(x, name)
-
-df_rows <- function(x, i) {
-  cols <- lapply(x, `[`, i = i)
-  data_frame0(!!!cols, .size = length(i))
-}
-
 # More performant modifyList without recursion
 modify_list <- function(old, new) {
   for (i in names(new)) old[[i]] <- new[[i]]

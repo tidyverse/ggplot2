@@ -30,7 +30,7 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide overrides, and is combined with, the plot's theme.}
+guide partially overrides, and is combined with, the plot's theme.}
 
 \item{spacing}{A \code{\link[=unit]{unit()}} objects that determines how far separate guides are
 spaced apart.}
@@ -53,7 +53,7 @@ The \code{first} guide will be placed closest to the panel and any subsequent
 guides provided through \code{...} will follow in the given order.
 }
 \examples{
-#' # A standard plot
+# A standard plot
 p <- ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   theme(axis.line = element_line())

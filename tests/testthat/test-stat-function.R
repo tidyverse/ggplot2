@@ -18,8 +18,8 @@ test_that("uses scale limits, not data limits", {
   expect_equal(ret$y[c(1, 101)], ret_log$y[c(1, 101)])
   expect_equal(range(ret$x), c(0.1, 100))
   expect_equal(range(ret_log$x), c(-1, 2))
-  expect_false(any(is.na(ret$y)))
-  expect_false(any(is.na(ret_log$y)))
+  expect_false(anyNA(ret$y))
+  expect_false(anyNA(ret_log$y))
 })
 
 test_that("works in plots without any data", {
@@ -134,7 +134,7 @@ test_that("Warn when drawing multiple copies of the same function", {
   df <- data_frame(x = 1:3, y = letters[1:3])
   p <- ggplot(df, aes(x, color = y)) + stat_function(fun = identity)
   f <- function() {pdf(NULL); print(p); dev.off()}
-  expect_warning(f(), "Multiple drawing groups")
+  expect_snapshot_warning(f())
 })
 
 test_that("Line style can be changed via provided data", {
