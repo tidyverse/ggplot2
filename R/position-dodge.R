@@ -18,7 +18,7 @@
 #'    (default) or `"y"`.
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
-#' @param stack_overlap Specifies if and how to stack the dodged geoms. Possible
+#' @param stack.overlap Specifies if and how to stack the dodged geoms. Possible
 #' values are `"no"` (default), `"by_extent"` or `"by_center"`. This parameter
 #' implements the dodge and stack functionality together. Use `"by_extent"` for 
 #' columns and `"by_center"` for errorbars.
@@ -91,13 +91,13 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
-                           reverse = FALSE, stack_overlap = "no") {
+                           reverse = FALSE, stack.overlap = "no") {
   check_bool(reverse)
   ggproto(NULL, PositionDodge,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
     orientation = arg_match0(orientation, c("x", "y")),
-    stack_overlap = arg_match0(stack_overlap, c("no","by_extent","by_center")),
+    stack.overlap = arg_match0(stack.overlap, c("no","by_extent","by_center")),
     reverse = reverse
   )
 }
@@ -109,7 +109,7 @@ position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
-  stack_overlap = "no",
+  stack.overlap = "no",
   orientation = "x",
   reverse = NULL,
   default_aes = aes(order = NULL),
@@ -142,7 +142,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
     list(
       width = self$width,
-      stack_overlap = self$stack_overlap,
+      stack.overlap = self$stack.overlap,
       n = n,
       flipped_aes = flipped_aes,
       reverse = self$reverse %||% FALSE
@@ -179,7 +179,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       strategy = pos_dodge,
       n = params$n,
       check.width = FALSE,
-      stack_overlap = params$stack_overlap,
+      stack.overlap = params$stack.overlap,
       reverse = !params$reverse # for consistency with `position_dodge2()`
     )
     flip_data(collided, params$flipped_aes)
@@ -188,7 +188,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
 # Dodge overlapping interval.
 # Assumes that each set has the same horizontal position.
-pos_dodge <- function(df, width, n = NULL, stack_overlap = "no") {
+pos_dodge <- function(df, width, n = NULL, stack.overlap = "no") {
   if (is.null(n)) {
     n <- vec_unique_count(df$group)
   }
@@ -213,7 +213,7 @@ pos_dodge <- function(df, width, n = NULL, stack_overlap = "no") {
   df$xmin <- df$x - d_width / n / 2
   df$xmax <- df$x + d_width / n / 2
   
-  if (stack_overlap == "by_extent") {
+  if (stack.overlap == "by_extent") {
     # The code chunk below is just to implement the following line without tidyverse functions, as ggplot2 can be imported without that
     # df %>% group_by(group) %>% mutate(ymaxx = cumsum(ymax)) %>% mutate(ymin = ymaxx-ymax, ymax = ymaxx)
     
@@ -228,7 +228,7 @@ pos_dodge <- function(df, width, n = NULL, stack_overlap = "no") {
     
     df$ymaxx = NULL # Remove the extra variable
     
-  } else if (stack_overlap == "by_center") {
+  } else if (stack.overlap == "by_center") {
     # Similarly to above, the complicated code below is just to do the next line without tidyverse
     # df %>% group_by(group) %>% mutate(extent = ymax-ymin, ymaxx = cumsum((ymax+ymin)/2)) %>% mutate(ymin = ymaxx-extent/2, ymax = ymaxx+extent/2)
     
