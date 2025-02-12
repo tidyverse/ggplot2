@@ -130,8 +130,8 @@ Connect successive points with lines of different shapes.
 
 \code{stat_connect()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
+\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{xmin}} \emph{or} \code{\link[=aes_position]{xmax}}}
+\item \strong{\code{\link[=aes_position]{y}} \emph{or} \code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{ymax}}}
 \item \code{\link[=aes_group_order]{group}}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
