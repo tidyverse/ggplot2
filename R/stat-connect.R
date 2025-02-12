@@ -68,7 +68,10 @@ StatConnect <- ggproto(
   required_aes = c("x|xmin|xmax", "y|ymin|ymax"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, ambiguous = TRUE)
+    params$flipped_aes <- has_flipped_aes(
+      data, params,
+      range_is_orthogonal = TRUE, ambiguous = TRUE
+    )
 
     connection <- params$connection %||% "hv"
 
