@@ -157,16 +157,16 @@ or left edges of bins are included in the bin.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">cut_interval</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    [1,10.9] (10.9,20.8] (20.8,30.7] (30.7,40.6] (40.6,50.5] (50.5,60.4] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          10          10          10          10          10          10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (60.4,70.3] (70.3,80.2] (80.2,90.1]  (90.1,100] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          10          10          10          10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    [1,10.9] (10.9,20.8] (20.8,30.7] (30.7,40.6] (40.6,50.5] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          10          10          10          10          10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (50.5,60.4] (60.4,70.3] (70.3,80.2] (80.2,90.1]  (90.1,100] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          10          10          10          10          10 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">cut_interval</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1,10]  (10,19]  (19,28]  (28,37]  (37,46]  (46,55]  (55,64]  (64,73] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       10        9        9        9        9        9        9        9 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  (73,82]  (82,91] (91,100] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        9        9        9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1,10]  (10,19]  (19,28]  (28,37]  (37,46]  (46,55]  (55,64] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       10        9        9        9        9        9        9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  (64,73]  (73,82]  (82,91] (91,100] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        9        9        9        9 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
