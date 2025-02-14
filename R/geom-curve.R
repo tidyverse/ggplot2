@@ -66,11 +66,8 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
     if (flip) {
       trans <- rename(trans, c(x = "xend", xend = "x", y = "yend", yend = "y"))
       if (!is.null(arrow)) {
-        # Flip end where arrow appears
-        last_end  <- arrow$ends == 2L
-        first_end <- arrow$ends == 1L
-        arrow$ends[last_end]  <- 1L
-        arrow$ends[first_end] <- 2L
+        # Flip end where arrow appears (2 = last, 1 = first, 3 = both)
+        arrow$ends <- match(arrow$ends, c(2, 1, 3))
       }
     }
 
