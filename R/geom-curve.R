@@ -62,6 +62,11 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
 
     trans <- coord$transform(data, panel_params)
 
+    flip <- flip_segment(trans, coord, panel_params)
+    if (flip) {
+      trans <- rename(trans, c(x = "xend", xend = "x", y = "yend", yend = "y"))
+    }
+
     arrow.fill <- arrow.fill %||% trans$colour
 
     curveGrob(
