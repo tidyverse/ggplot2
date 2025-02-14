@@ -62,9 +62,16 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
 
     trans <- coord$transform(data, panel_params)
 
-    flip <- flip_segment(trans, coord, panel_params)
+    flip <- flip_curve(trans, coord, panel_params)
     if (flip) {
       trans <- rename(trans, c(x = "xend", xend = "x", y = "yend", yend = "y"))
+      if (!is.null(arrow)) {
+        # Flip end where arrow appears
+        last_end  <- arrow$ends == 2L
+        first_end <- arrow$ends == 1L
+        arrow$ends[last_end]  <- 1L
+        arrow$ends[first_end] <- 2L
+      }
     }
 
     arrow.fill <- arrow.fill %||% trans$colour
@@ -85,9 +92,9 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
   }
 )
 
-# Helper function for swapping segment ends to keep curvature consistent over
-# transformations
-flip_segment <- function(data, coord, params) {
+# Helper function for determining whether curves should swap segment ends to
+# keep curvature consistent over transformations
+flip_curve <- function(data, coord, params) {
   flip <- FALSE
 
   # Figure implicit flipping transformations in coords
