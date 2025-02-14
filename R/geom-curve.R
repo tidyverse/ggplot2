@@ -79,3 +79,41 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
     )
   }
 )
+
+# Helper function for swapping segment ends to keep curvature consistent over
+# transformations
+flip_segment <- function(data, coord, params) {
+  flip <- FALSE
+
+  # Figure implicit flipping transformations in coords
+  if (inherits(coord, "CoordFlip")) {
+    flip <- !flip
+  } else if (inherits(coord, "CoordTrans")) {
+    if (identical(coord$trans$x$name, "reverse")) {
+      flip <- !flip
+    }
+    if (identical(coord$trans$y$name, "reverse")) {
+      flip <- !flip
+    }
+  }
+
+  # We don't flip when none or both directions are reversed
+  if ((coord$reverse %||% "none") %in% c("x", "y")) {
+    flip <- !flip
+  }
+
+  # Check scales for reverse transforms
+  # Note that polar coords do not have x/y scales, but these are unsupported
+  # anyway
+  fn <- params$x$get_transformation
+  if (is.function(fn) && identical(fn()$name, "reverse")) {
+    flip <- !flip
+  }
+
+  fn <- params$y$get_transformation
+  if (is.function(fn) && identical(fn()$name, "reverse")) {
+    flip <- !flip
+  }
+
+  flip
+}
