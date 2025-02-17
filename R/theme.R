@@ -470,6 +470,7 @@ theme <- function(...,
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   elements <- fix_theme_deprecations(elements)
+  elements <- validate_theme_palettes(elements)
 
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
@@ -559,6 +560,45 @@ fix_theme_deprecations <- function(elements) {
     elements$legend.position.inside <- elements$legend.position
     elements$legend.position <- "inside"
   }
+  elements
+}
+
+validate_theme_palettes <- function(elements) {
+
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous",
+            "palette.color.discrete",  "palette.color.continuous")
+  if (!any(pals %in% names(elements))) {
+    return(elements)
+  }
+
+  # Standardise spelling
+  elements <- replace_null(
+    elements,
+    palette.colour.discrete   = elements$palette.color.discrete,
+    palette.colour.continuous = elements$palette.color.continuous
+  )
+  elements$palette.color.discrete   <- NULL
+  elements$palette.color.continuous <- NULL
+
+  # Check for incompatible options
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous")
+  opts <- c("ggplot2.discrete.colour", "ggplot2.continuous.colour",
+            "ggplot2.discrete.fill",   "ggplot2.continuous.fill")
+  index <- which(pals %in% names(elements))
+
+  for (i in index) {
+    if (is.null(getOption(opts[i]))) {
+      next
+    }
+    cli::cli_warn(c(
+      "The {.code options('{opts[i]}')} setting is incompatible with the \\
+        {.arg {pals[i]}} theme setting.",
+      i = "You can set {.code options({opts[i]} = NULL)}."
+    ))
+  }
+
   elements
 }
 
