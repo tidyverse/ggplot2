@@ -469,6 +469,26 @@ theme <- function(...,
                   validate = TRUE) {
   elements <- find_args(..., complete = NULL, validate = NULL)
 
+  elements <- fix_theme_deprecations(elements)
+
+  # If complete theme set all non-blank elements to inherit from blanks
+  if (complete) {
+    elements <- lapply(elements, function(el) {
+      if (is.theme_element(el) && !inherits(el, "element_blank")) {
+        el$inherit.blank <- TRUE
+      }
+      el
+    })
+  }
+  structure(
+    elements,
+    class = c("theme", "gg"),
+    complete = complete,
+    validate = validate
+  )
+}
+
+fix_theme_deprecations <- function(elements) {
   if (!is.null(elements$axis.ticks.margin)) {
     deprecate_warn0(
       "2.0.0", "theme(axis.ticks.margin)",
@@ -539,22 +559,7 @@ theme <- function(...,
     elements$legend.position.inside <- elements$legend.position
     elements$legend.position <- "inside"
   }
-
-  # If complete theme set all non-blank elements to inherit from blanks
-  if (complete) {
-    elements <- lapply(elements, function(el) {
-      if (is.theme_element(el) && !inherits(el, "element_blank")) {
-        el$inherit.blank <- TRUE
-      }
-      el
-    })
-  }
-  structure(
-    elements,
-    class = c("theme", "gg"),
-    complete = complete,
-    validate = validate
-  )
+  elements
 }
 
 #' @export
