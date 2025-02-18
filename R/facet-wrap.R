@@ -246,50 +246,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     panels
   },
-  map_data = function(data, layout, params) {
-    if (empty(data)) {
-      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
-    }
-
-    vars <- params$facets
-
-    if (length(vars) == 0) {
-      data$PANEL <- layout$PANEL
-      return(data)
-    }
-
-    layer_layout <- attr(data, "layout")
-    if (identical(layer_layout, "fixed")) {
-      n <- vec_size(data)
-      data <- vec_rep(data, nrow(layout))
-      data$PANEL <- vec_rep_each(layout$PANEL, n)
-      return(data)
-    }
-
-    facet_vals <- eval_facets(vars, data, params$.possible_columns)
-    facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
-    layout[] <- lapply(layout[], as_unordered_factor)
-
-    missing_facets <- setdiff(names(vars), names(facet_vals))
-    if (length(missing_facets) > 0) {
-
-      to_add <- unique0(layout[missing_facets])
-
-      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
-      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
-
-      data <- data[data_rep, , drop = FALSE]
-      facet_vals <- vec_cbind(
-        facet_vals[data_rep, ,  drop = FALSE],
-        to_add[facet_rep, , drop = FALSE]
-      )
-    }
-
-    keys <- join_keys(facet_vals, layout, by = names(vars))
-
-    data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
-    data
-  },
 
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 

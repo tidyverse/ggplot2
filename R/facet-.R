@@ -88,7 +88,69 @@ Facet <- ggproto("Facet", NULL,
     cli::cli_abort("Not implemented.")
   },
   map_data = function(data, layout, params) {
-    cli::cli_abort("Not implemented.")
+
+    if (empty(data)) {
+      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
+    }
+
+    vars <- params$facet %||% c(params$rows, params$cols)
+
+    if (length(vars) == 0) {
+      data$PANEL <- layout$PANEL
+      return(data)
+    }
+
+    layer_layout <- attr(data, "layout")
+    if (identical(layer_layout, "fixed")) {
+      n <- vec_size(data)
+      data <- vec_rep(data, vec_size(layout))
+      data$PANEL <- vec_rep_each(layout$PANEL, n)
+      return(data)
+    }
+
+    facet_vals <- eval_facets(vars, data, params$.possible_columns)
+
+    include_margins <- !isFALSE(params$margin %||% FALSE) &&
+      nrow(facet_vals) == nrow(data) &&
+      all(c("rows", "cols") %in% names(params))
+    if (include_margins) {
+      facet_vals <- reshape_add_margins(
+        vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
+        list(intersect(names(params$rows), names(facet_vals)),
+             intersect(names(params$cols), names(facet_vals))),
+        params$margins %||% FALSE
+      )
+      data <- data[facet_vals$.index, , drop = FALSE]
+      facet_vals$.index <- NULL
+    }
+
+    missing_facets <- setdiff(names(vars), names(facet_vals))
+    if (length(missing_facets) > 0) {
+
+      to_add <- unique0(layout[missing_facets])
+
+      data_rep  <- rep.int(seq_len(nrow(data)), nrow(to_add))
+      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
+
+      data <- unrowname(data[data_rep, , drop = FALSE])
+      facet_vals <- unrowname(vec_cbind(
+        unrowname(facet_vals[data_rep, , drop = FALSE]),
+        unrowname(to_add[facet_rep, , drop = FALSE])
+      ))
+    }
+
+    if (nrow(facet_vals) < 1) {
+      data$PANEL <- NO_PANEL
+      return(data)
+    }
+
+    facet_vals[] <- lapply(facet_vals, as_unordered_factor)
+    facet_vals[] <- lapply(facet_vals, addNA, ifany = TRUE)
+    layout[] <- lapply(layout, as_unordered_factor)
+
+    keys <- join_keys(facet_vals, layout, by = names(vars))
+    data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
+    data
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
