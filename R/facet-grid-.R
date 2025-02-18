@@ -297,6 +297,14 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       return(data)
     }
 
+    layer_layout <- attr(data, "layout")
+    if (identical(layer_layout, "fixed")) {
+      n <- vec_size(data)
+      data <- vec_rep(data, nrow(layout))
+      data$PANEL <- vec_rep_each(layout$PANEL, n)
+      return(data)
+    }
+
     # Compute faceting values
     facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
     if (nrow(facet_vals) == nrow(data)) {

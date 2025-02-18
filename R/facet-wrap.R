@@ -258,6 +258,14 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       return(data)
     }
 
+    layer_layout <- attr(data, "layout")
+    if (identical(layer_layout, "fixed")) {
+      n <- vec_size(data)
+      data <- vec_rep(data, nrow(layout))
+      data$PANEL <- vec_rep_each(layout$PANEL, n)
+      return(data)
+    }
+
     facet_vals <- eval_facets(vars, data, params$.possible_columns)
     facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
     layout[] <- lapply(layout[], as_unordered_factor)
