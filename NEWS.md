@@ -306,6 +306,8 @@
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
   (@teunbrand, #4335).
+* (internal) `legend.key.width` and `legend.key.height` calculations are no
+  longer precomputed before guides are drawn (@teunbrand, #6339)
 
 # ggplot2 3.5.1
 
