@@ -163,8 +163,8 @@ Coord <- ggproto("Coord",
     guide_params[!empty] <- Map(
       function(guide, guide_param, scale) {
         guide_param <- guide$train(guide_param, scale)
+        guide_param <- guide$get_layer_key(guide_param, layers, data)
         guide_param <- guide$transform(guide_param, self, panel_params)
-        guide_param <- guide$get_layer_key(guide_param, layers)
         guide_param
       },
       guide = guides[!empty],
