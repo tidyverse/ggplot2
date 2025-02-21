@@ -276,7 +276,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, params = list()) {
+  train_panel_guides = function(self, panel_params, layers, params = list(), data = NULL) {
     # The guide positions are already in the target CRS, so we mask the default
     # CRS to prevent a double transformation.
     panel_params$guides <- ggproto_parent(Coord, self)$train_panel_guides(

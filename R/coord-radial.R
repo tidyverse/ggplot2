@@ -237,7 +237,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, params = list()) {
+  train_panel_guides = function(self, panel_params, layers, params = list(), data = NULL) {
 
     aesthetics <- c("r", "theta", "r.sec", "theta.sec")
     aesthetics <- intersect(aesthetics, names(panel_params$guides$aesthetics))

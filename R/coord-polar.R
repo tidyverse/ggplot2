@@ -175,7 +175,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
+  train_panel_guides = function(self, panel_params, ...) {
     panel_params
   },
 

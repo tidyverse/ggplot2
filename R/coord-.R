@@ -147,7 +147,7 @@ Coord <- ggproto("Coord",
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, params = list()) {
+  train_panel_guides = function(self, panel_params, layers, params = list(), data = NULL) {
 
     aesthetics <- c("x", "y", "x.sec", "y.sec")
 
