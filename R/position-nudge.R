@@ -31,7 +31,7 @@
 #' # For each text individually
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
-#'   geom_text(aes(label = y), nudge_y = c(-0.1, 0.1, -0.1, 0.1))
+#'   geom_text(aes(label = y, nudge_y = c(-0.1, 0.1, -0.1, 0.1)))
 position_nudge <- function(x = NULL, y = NULL) {
   ggproto(NULL, PositionNudge,
     x = x,
