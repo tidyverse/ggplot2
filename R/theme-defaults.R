@@ -472,7 +472,7 @@ theme_minimal <- function(base_size = 11, base_family = "",
       panel.background  = element_blank(),
       panel.border      = element_blank(),
       strip.background  = element_blank(),
-      plot.background   = element_blank(),
+      plot.background   = element_rect(fill = paper, colour = NA),
 
       complete = TRUE
     )
@@ -553,7 +553,7 @@ theme_void <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22,
-                       ink = "black", paper = "white") {
+                       ink = "black", paper = alpha(ink, 0)) {
   half_line <- base_size / 2
 
   # Only keep indispensable text: legend and plot titles
@@ -621,6 +621,13 @@ theme_void <- function(base_size = 11, base_family = "",
     plot.tag.position =  'topleft',
 
     complete = TRUE
+  ) + theme(
+    # Contrary to default behaviour, we do not want to inherit the plot
+    # background from a blank root element
+    plot.background = element_rect(
+      fill = paper, colour = NA, linewidth = 0, linetype = 1,
+      inherit.blank = FALSE
+    )
   )
 
   # make sure all elements are set to NULL if not explicitly defined
