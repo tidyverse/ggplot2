@@ -12,7 +12,11 @@ guide_grid <- function(theme, panel_params, coord, square = TRUE) {
   y_minor <- setdiff(panel_params$y$mapped_breaks_minor(), y_major)
 
   transform <- if (isTRUE(square)) {
-    function(x) coord$transform(x, panel_params)
+    if (inherits(coord, "CoordFlip")) {
+      function(x) coord$transform(flip_axis_labels(x), panel_params)
+    } else {
+      function(x) coord$transform(x, panel_params)
+    }
   } else {
     function(x) coord_munch(coord, x, panel_params)
   }
