@@ -26,6 +26,7 @@ stat_smooth(
   geom = "smooth",
   position = "identity",
   ...,
+  orientation = NA,
   method = NULL,
   formula = NULL,
   se = TRUE,
@@ -36,7 +37,6 @@ stat_smooth(
   level = 0.95,
   method.args = list(),
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )

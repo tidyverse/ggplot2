@@ -1,3 +1,16 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-ribbon.R
+GeomDensity <- ggproto(
+  "GeomDensity", GeomArea,
+  default_aes = defaults(
+    aes(fill = NA, weight = 1, colour = from_theme(ink), alpha = NA),
+    GeomArea$default_aes
+  )
+)
+
 #' Smoothed density estimates
 #'
 #' Computes and draws kernel density estimate, which is a smoothed version of
@@ -59,41 +72,10 @@
 #' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL,
-                         stat = "density", position = "identity",
-                         ...,
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE,
-                         outline.type = "upper") {
-  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomDensity,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      outline.type = outline.type,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-ribbon.R
-GeomDensity <- ggproto("GeomDensity", GeomArea,
-  default_aes = defaults(
-    aes(fill = NA, weight = 1, colour = from_theme(ink), alpha = NA),
-    GeomArea$default_aes
+geom_density <- make_constructor(
+  GeomDensity, stat = "density",
+  checks = exprs(
+    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   )
 )
+
