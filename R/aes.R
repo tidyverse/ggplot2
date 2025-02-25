@@ -360,7 +360,7 @@ aes_all <- function(vars) {
   # refer to the data mask
   structure(
     lapply(vars, function(x) new_quosure(as.name(x), emptyenv())),
-    class = "uneval"
+    class = c("unlabelled_uneval", "uneval")
   )
 }
 

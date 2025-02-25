@@ -83,6 +83,13 @@ test_that("Labels from static aesthetics are ignored (#6003)", {
   expect_null(get_labs(p)$colour)
 })
 
+test_that("Labels from annotations are ignored (#6316)", {
+  df <- data.frame(a = 1, b = 2)
+  p <- ggplot(df, aes(a, b)) + annotate("point", x = 1, y = 2) + geom_point()
+  labs <- get_labs(p)
+  expect_equal(labs[c("x", "y")], list(x = "a", y = "b"))
+})
+
 test_that("alt text is returned", {
   p <- ggplot(mtcars, aes(mpg, disp)) +
     geom_point()
