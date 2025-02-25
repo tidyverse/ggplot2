@@ -249,7 +249,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, params = list()) {
+  train_panel_guides = function(self, panel_params, layers, params = list(), data = NULL) {
     panel_params
   },
 
