@@ -109,7 +109,6 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
                              guide = "legend", position = "left",
                              call = caller_call(),
                              super = ScaleContinuous) {
-  call <- call %||% current_call()
   if (lifecycle::is_present(scale_name)) {
     deprecate_soft0("3.5.0", "continuous_scale(scale_name)")
   }
@@ -117,59 +116,8 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
     deprecate_soft0("3.5.0", "continuous_scale(trans)", "continuous_scale(transform)")
     transform <- trans
   }
-
-  aesthetics <- standardise_aes_names(aesthetics)
-
-  check_breaks_labels(breaks, labels, call = call)
-
-  position <- arg_match0(position, c("left", "right", "top", "bottom"))
-
-  # If the scale is non-positional, break = NULL means removing the guide
-  if (is.null(breaks) && !any(is_position_aes(aesthetics))) {
-    guide <- "none"
-  }
-
-  transform <- as.transform(transform)
-
-  # Convert formula to function if appropriate
-  limits   <- allow_lambda(limits)
-  breaks   <- allow_lambda(breaks)
-  labels   <- allow_lambda(labels)
-  rescaler <- allow_lambda(rescaler)
-  oob      <- allow_lambda(oob)
-  minor_breaks <- allow_lambda(minor_breaks)
-
-  if (!is.null(limits) && !is.function(limits)) {
-    limits <- transform$transform(limits)
-    if (!anyNA(limits)) {
-      limits <- sort(limits)
-    }
-  }
-  check_continuous_limits(limits, call = call)
-
-  ggproto(NULL, super,
-    call = call,
-
-    aesthetics = aesthetics,
-    palette = palette,
-
-    range = ContinuousRange$new(),
-    limits = limits,
-    trans = transform,
-    na.value = na.value,
-    expand = expand,
-    rescaler = rescaler,
-    oob = oob,
-
-    name = name,
-    breaks = breaks,
-    minor_breaks = minor_breaks,
-    n.breaks = n.breaks,
-
-    labels = labels,
-    guide = guide,
-    position = position
-  )
+  args <- find_args(call = NULL, scale_name = NULL, trans = NULL)
+  inject(super$new(!!!args, call = call %||% current_call()))
 }
 
 #' Discrete scale constructor
@@ -213,59 +161,11 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
                            guide = "legend", position = "left",
                            call = caller_call(),
                            super = ScaleDiscrete) {
-  call <- call %||% current_call()
   if (lifecycle::is_present(scale_name)) {
     deprecate_soft0("3.5.0", "discrete_scale(scale_name)")
   }
-
-  aesthetics <- standardise_aes_names(aesthetics)
-
-  check_breaks_labels(breaks, labels, call = call)
-
-  # Convert formula input to function if appropriate
-  limits <- allow_lambda(limits)
-  breaks <- allow_lambda(breaks)
-  labels <- allow_lambda(labels)
-  minor_breaks <- allow_lambda(minor_breaks)
-
-  if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
-    cli::cli_warn(c(
-      "Continuous limits supplied to discrete scale.",
-      "i" = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
-    ), call = call)
-  }
-
-  position <- arg_match0(position, c("left", "right", "top", "bottom"))
-
-  # If the scale is non-positional, break = NULL means removing the guide
-  is_position <- any(is_position_aes(aesthetics))
-  if (is.null(breaks) && !is_position) {
-    guide <- "none"
-  }
-  if (is_position && identical(palette, identity)) {
-    palette <- seq_len
-  }
-
-  ggproto(NULL, super,
-    call = call,
-
-    aesthetics = aesthetics,
-    palette = palette,
-
-    range = DiscreteRange$new(),
-    limits = limits,
-    na.value = na.value,
-    na.translate = na.translate,
-    expand = expand,
-
-    name = name,
-    breaks = breaks,
-    minor_breaks = minor_breaks,
-    labels = labels,
-    drop = drop,
-    guide = guide,
-    position = position
-  )
+  args <- find_args(call = NULL, scale_name = NULL)
+  inject(super$new(!!!args, call = call %||% current_call()))
 }
 
 #' Binning scale constructor
@@ -312,59 +212,28 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
     deprecate_soft0("3.5.0", "binned_scale(trans)", "binned_scale(transform)")
     transform <- trans
   }
+  args <- find_args(call = NULL, scale_name = NULL, trans = NULL)
+  inject(super$new(!!!args, call = call %||% current_call()))
+}
 
-  call <- call %||% current_call()
-
-  aesthetics <- standardise_aes_names(aesthetics)
-
-  check_breaks_labels(breaks, labels, call = call)
-
-  position <- arg_match0(position, c("left", "right", "top", "bottom"))
-
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
-    guide <- "none"
-  }
-
-  transform <- as.transform(transform)
-
-  # Convert formula input to function if appropriate
-  limits   <- allow_lambda(limits)
-  breaks   <- allow_lambda(breaks)
-  labels   <- allow_lambda(labels)
-  rescaler <- allow_lambda(rescaler)
-  oob      <- allow_lambda(oob)
-
-  if (!is.null(limits) && !is.function(limits)) {
-    limits <- transform$transform(limits)
-    if (!anyNA(limits)) {
-      limits <- sort(limits)
-    }
-  }
-
-  ggproto(NULL, super,
-    call = call,
-
-    aesthetics = aesthetics,
-    palette = palette,
-
-    range = ContinuousRange$new(),
-    limits = limits,
-    trans = transform,
-    na.value = na.value,
-    expand = expand,
-    rescaler = rescaler,
-    oob = oob,
-    n.breaks = n.breaks,
-    nice.breaks = nice.breaks,
-    right = right,
-    show.limits = show.limits,
-
-    name = name,
-    breaks = breaks,
-
-    labels = labels,
-    guide = guide,
-    position = position
+#' Setting scale parameters
+#'
+#' @param aesthetics The name of the aesthetics for which to update the scale.
+#' @param ... Named arguments to one of the scale constructors,
+#'   [`continuous_scale()`], [`discrete_scale()`] or [`binned_scale()`].
+#'
+#' @return A `scale_params` object that can be added to a plot.
+#' @export
+#'
+#' @examples
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   scale_params("x", limits = c(0, 10)) +
+#'   scale_params("y", transform = "sqrt")
+scale_params <- function(aesthetics, ...) {
+  structure(
+    list(aesthetics = aesthetics, params = list2(...)),
+    class = "scale_params"
   )
 }
 
@@ -631,6 +500,49 @@ Scale <- ggproto("Scale", NULL,
     title
   },
 
+  new = function(self, aesthetics = NULL, breaks = waiver(),
+                 minor_breaks = waiver(), labels = waiver(), limits = NULL,
+                 guide = NULL, position = NULL,
+                 call = caller_call(), ..., super = NULL) {
+
+    super <- super %||% self
+    call <- call %||% super$call %||% current_call()
+    aesthetics <- standardise_aes_names(aesthetics %||% super$aesthetics)
+    limits <- allow_lambda(limits %||% super$limits)
+    breaks <- allow_lambda(breaks %|W|% super$breaks)
+    labels <- allow_lambda(labels %|W|% super$labels)
+    minor_breaks <- allow_lambda(minor_breaks %|W|% super$minor_breaks)
+    check_breaks_labels(breaks, labels, call = call)
+    position <- arg_match0(position %||% super$position, .trbl)
+    if (is.null(breaks) & !any(is_position_aes(aesthetics))) {
+      guide <- "none"
+    }
+
+    ggproto(
+      NULL, super,
+      call = call,
+      aesthetics = aesthetics,
+      limits = limits,
+      breaks = breaks,
+      minor_breaks = minor_breaks,
+      labels = labels,
+      guide = guide %||% super$guide,
+      position = position,
+      ...
+    )
+  },
+
+  updatable_params = c(
+    "aesthetics", "scale_name", "palette", "name", "breaks", "labels",
+    "limits", "expand", "na.value", "guide", "position", "call",
+    "super"
+  ),
+
+  update = function(self, params) {
+    check_update_params(self, params)
+    inject(self$new(!!!params))
+  },
+
   make_sec_title = function(self, ...) {
     self$make_title(...)
   }
@@ -651,6 +563,20 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
   }
 
   invisible()
+}
+
+check_update_params <- function(scale, params) {
+  args  <- scale$updatable_params
+  extra <- setdiff(names(params), args)
+  if (length(extra) == 0) {
+    return(invisible(NULL))
+  }
+  extra <- paste0("{.val ", extra, "}")
+  names(extra) <- rep("*", length(extra))
+  cli::cli_abort(
+    c("Cannot update scale with the unknown {cli::qty(extra)} argument{?s}:", extra),
+    call = scale$call
+  )
 }
 
 default_transform <- function(self, x) {
@@ -940,9 +866,57 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     } else {
       cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
     }
+  },
+
+  new = function(self, rescaler = NULL, oob = NULL,
+                 range = ContinuousRange$new(),
+                 transform = NULL, limits = NULL, ...,
+                 call = NULL, super = NULL) {
+    super <- super %||% self
+    transform <- as.transform(transform %||% super$trans)
+    limits <- allow_lambda(limits)
+    if (!is.null(limits) && !is.function(limits)) {
+      limits <- transform$transform(limits)
+      if (!anyNA(limits)) {
+        limits <- sort(limits)
+      }
+    }
+    limits <- limits %||% super$limits
+    check_continuous_limits(limits, call = call)
+
+    rescaler <- allow_lambda(rescaler %||% super$rescaler)
+    oob <- allow_lambda(oob %||% super$oob)
+
+    ggproto_parent(Scale, self)$new(
+      rescaler = rescaler,
+      range = range,
+      oob = oob,
+      trans = transform,
+      limits = limits,
+      call = call,
+      ...,
+      super = super
+    )
+  },
+
+  updatable_params = c(
+    Scale$updatable_params,
+    "minor_breaks", "n.breaks", "rescaler", "oob", "transform"
+  ),
+
+  update = function(self, params) {
+    check_update_params(self, params)
+    # We may need to update limits when previously transformed and
+    # a new transformation is coming in
+    if ("transform" %in% names(params) &&
+        self$trans$name != "identity" &&
+        (!"limits" %in% names(params)) &&
+        !is.null(self$limits) && !is.function(self$limits)) {
+      params$limits <- self$trans$inverse(self$limits)
+    }
+    inject(self$new(!!!params))
   }
 )
-
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -1170,6 +1144,40 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       minor = NULL,
       major_source = major,
       minor_source = NULL
+    )
+  },
+
+  updatable_params = c(
+    Scale$updatable_params,
+    "minor_breaks", "na.translate", "drop"
+  ),
+
+  new = function(self, aesthetics = NULL, palette = NULL, limits = NULL, call = caller_call(),
+                 range = DiscreteRange$new(),
+                 ..., super = NULL) {
+    call <- call %||% current_call()
+    super <- super %||% self
+    limits <- allow_lambda(limits)
+    if (!is.function(limits) && (length(limits) > 0 && !is.discrete(limits))) {
+      cli::cli_warn(c(
+        "Continuous limits supplied to discrete scale.",
+        i = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
+      ), call = call)
+    }
+    aesthetics <- aesthetics %||% super$aesthetics
+    palette <- palette %||% .subset2(super, "palette")
+    if (identical(palette, identity) && any(is_position_aes(aesthetics))) {
+      palette <- seq_len
+    }
+
+    ggproto_parent(Scale, self)$new(
+      limits = limits,
+      range = range,
+      call = call,
+      aesthetics = aesthetics,
+      palette = palette,
+      ...,
+      super = super %||% self
     )
   }
 )
@@ -1413,6 +1421,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     list(range = range, labels = labels,
          major = pal, minor = NULL,
          major_source = major, minor_source = NULL)
+  },
+
+  updatable_params = c(
+    Scale$updatable_params,
+    "rescaler", "oob", "n.breaks", "nice.breaks",
+    "right", "transform", "show.limits"
+  ),
+
+  new = function(self, ..., super = NULL) {
+    ggproto_parent(ScaleContinuous, self)$new(..., super = super %||% self)
   }
 )
 
