@@ -240,18 +240,24 @@ bin_loc <- function(x, id) {
   )
 }
 
-fix_bin_params = function(params, fun, version) {
+fix_bin_params <- function(params, fun, version) {
+
+  if (package_version(version) < "3.0.0") {
+    deprecate <- lifecycle::deprecate_stop
+  } else {
+    deprecate <- deprecate_warn0
+  }
 
   if (!is.null(params$origin)) {
     args <- paste0(fun, c("(origin)", "(boundary)"))
-    deprecate_warn0(version, args[1], args[2])
-    params$boudnary <- params$origin
+    deprecate(version, args[1], args[2])
+    params$boundary <- params$origin
     params$origin <- NULL
   }
 
   if (!is.null(params$right)) {
     args <- paste0(fun, c("(right)", "(closed)"))
-    deprecate_warn0(version, args[1], args[2])
+    deprecate(version, args[1], args[2])
     params$closed <- if (isTRUE(params$right)) "right" else "left"
     params$right <- NULL
   }
