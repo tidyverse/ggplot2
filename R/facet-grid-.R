@@ -39,11 +39,9 @@ NULL
 #' @param as.table If `TRUE`, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If `FALSE`, the
 #'   facets are laid out like a plot with the highest value at the top-right.
-#' @param switch By default, the labels are displayed on the top and
-#'   right of the plot. If `"x"`, the top labels will be
-#'   displayed to the bottom. If `"y"`, the right-hand side
-#'   labels will be displayed to the left. Can also be set to
-#'   `"both"`.
+#' @param strip.position One or more of `"top"`, `"right"`, `"bottom"` and
+#'   `"left"`, indicating where strips should be placed. When `NULL` (default),
+#'   strips are placed on the top and on the right.
 #' @param shrink If `TRUE`, will shrink scales to fit output of
 #'   statistics, not raw data. If `FALSE`, will be range of raw data
 #'   before statistical summary.
@@ -57,6 +55,8 @@ NULL
 #'   default). If `TRUE`, margins are included for all faceting
 #'   variables. If specified as a character vector, it is the names of
 #'   variables for which margins are to be created.
+#' @param switch `r lifecycle::badge("deprecated")` Please use
+#'   `strip.position` instead.
 #' @param facets `r lifecycle::badge("deprecated")` Please use `rows`
 #'   and `cols` instead.
 #' @param axes Determines which axes will be drawn. When `"margins"`
@@ -129,9 +129,9 @@ NULL
 facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,
-                       switch = NULL, drop = TRUE, margins = FALSE,
+                       strip.position = NULL, drop = TRUE, margins = FALSE,
                        axes = "margins", axis.labels = "all",
-                       facets = deprecated()) {
+                       facets = deprecated(), switch = deprecated()) {
   # `facets` is deprecated and renamed to `rows`
   if (lifecycle::is_present(facets)) {
     deprecate_warn0("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
@@ -170,8 +170,21 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     y = !draw_axes$y || any(axis_labels %in% c("all_y", "all"))
   )
 
-  if (!is.null(switch)) {
-    arg_match0(switch, c("both", "x", "y"))
+  if (lifecycle::is_present(switch)) {
+    deprecate_soft0("3.6.0", "facet_grid(switch)", "facet_grid(strip.position)")
+    switch <- arg_match0(switch, c("both", "x", "y"))
+    strip.position <- strip.position %||%
+      base::switch(switch, both = c("bottom", "left"), x = "bottom", y = "left")
+  }
+  check_character(strip.position, allow_null = TRUE)
+  if (!is.waive(strip.position) && !all(strip.position %in% .trbl)) {
+    cli::cli_abort("{.arg strip.position} can only contain {.or {.val {(.trbl)}}}.")
+  }
+  if (!any(c("top", "bottom") %in% strip.position)) {
+    strip.position <- c(strip.position, "top")
+  }
+  if (!any(c("left", "right") %in% strip.position)) {
+    strip.position <- c(strip.position, "right")
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -183,7 +196,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     shrink = shrink,
     params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
-      as.table = as.table, switch = switch, drop = drop,
+      as.table = as.table, drop = drop, strip.position = strip.position,
       draw_axes = draw_axes, axis_labels = axis_labels)
   )
 }
@@ -398,17 +411,17 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     padding <- convertUnit(calc_element("strip.switch.pad.grid", theme), "cm")
 
-    switch_x <- !is.null(params$switch) && params$switch %in% c("both", "x")
     inside_x <- (calc_element("strip.placement.x", theme) %||% "inside") == "inside"
     shift_x  <- if (inside_x) 1 else 2
 
-    if (switch_x) {
+    if ("bottom" %in% params$strip.position) {
       space <- if (!inside_x & table_has_grob(table, "axis-b")) padding
       table <- seam_table(
         table, strips$x$bottom, side = "bottom", name = "strip-b",
         shift = shift_x, z = 2, clip = "off", spacing = space
       )
-    } else {
+    }
+    if ("top" %in% params$strip.position) {
       space <- if (!inside_x & table_has_grob(table, "axis-t")) padding
       table <- seam_table(
         table, strips$x$top, side = "top", name = "strip-t",
@@ -416,17 +429,17 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       )
     }
 
-    switch_y <- !is.null(params$switch) && params$switch %in% c("both", "y")
     inside_y <- (calc_element("strip.placement.y", theme) %||% "inside") == "inside"
     shift_y  <- if (inside_y) 1 else 2
 
-    if (switch_y) {
+    if ("left" %in% params$strip.position) {
       space <- if (!inside_y & table_has_grob(table, "axis-l")) padding
       table <- seam_table(
         table, strips$y$left, side = "left", name = "strip-l",
         shift = shift_y, z = 2, clip = "off", spacing = space
       )
-    } else {
+    }
+    if ("right" %in% params$strip.position) {
       space <- if (!inside_y & table_has_grob(table, "axis-r")) padding
       table <- seam_table(
         table, strips$y$right, side = "right", name = "strip-r",
