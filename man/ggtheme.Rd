@@ -111,7 +111,7 @@ theme_void(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = alpha(ink, 0)
 )
 
 theme_test(
