@@ -44,13 +44,13 @@
 <rect x='639.32' y='241.72' width='75.20' height='84.45' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='639.32' y='250.43' style='font-size: 11.00px; font-family: sans;' textLength='75.20px' lengthAdjust='spacingAndGlyphs'>interaction(x, y)</text>
 <rect x='639.32' y='257.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='639.32' y='257.05' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #F8766D;' />
+<rect x='639.32' y='257.05' width='17.28' height='17.28' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #F8766D;' />
 <rect x='639.32' y='274.33' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='639.32' y='274.33' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #7CAE00;' />
+<rect x='639.32' y='274.33' width='17.28' height='17.28' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #7CAE00;' />
 <rect x='639.32' y='291.61' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='639.32' y='291.61' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #00BFC4;' />
+<rect x='639.32' y='291.61' width='17.28' height='17.28' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00BFC4;' />
 <rect x='639.32' y='308.89' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='639.32' y='308.89' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #C77CFF;' />
+<rect x='639.32' y='308.89' width='17.28' height='17.28' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #C77CFF;' />
 <text x='662.08' y='268.72' style='font-size: 8.80px; font-family: sans;' textLength='14.67px' lengthAdjust='spacingAndGlyphs'>A.C</text>
 <text x='662.08' y='286.00' style='font-size: 8.80px; font-family: sans;' textLength='14.67px' lengthAdjust='spacingAndGlyphs'>B.C</text>
 <text x='662.08' y='303.28' style='font-size: 8.80px; font-family: sans;' textLength='14.67px' lengthAdjust='spacingAndGlyphs'>A.D</text>
