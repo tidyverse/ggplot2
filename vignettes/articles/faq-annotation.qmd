@@ -1,5 +1,6 @@
 ---
 title: "FAQ: Annotation"
+format: html
 ---
 
 ```{=html}

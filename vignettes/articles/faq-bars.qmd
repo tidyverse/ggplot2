@@ -1,5 +1,6 @@
 ---
 title: "FAQ: Barplots"
+format: html
 ---
 
 ```{=html}
