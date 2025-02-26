@@ -6,6 +6,9 @@ NULL
 #' @inheritParams facet_grid
 #' @keywords internal
 #' @export
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_null()` is
+#' completely ignored.
 #' @examples
 #' # facet_null is the default faceting specification if you
 #' # don't override it with facet_grid or facet_wrap

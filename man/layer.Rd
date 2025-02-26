@@ -16,6 +16,7 @@ layer(
   check.param = TRUE,
   show.legend = NA,
   key_glyph = NULL,
+  layout = NULL,
   layer_class = Layer
 )
 }
@@ -100,6 +101,9 @@ but unobserved levels are omitted.}
 
 \item{key_glyph}{A legend key drawing function or a string providing the
 function name minus the \code{draw_key_} prefix. See \link{draw_key} for details.}
+
+\item{layout}{Argument to control layout at the layer level. Consult the
+faceting documentation to view appropriate values.}
 
 \item{layer_class}{The type of layer object to be constructed. This is
 intended for ggplot2 internal use only.}
