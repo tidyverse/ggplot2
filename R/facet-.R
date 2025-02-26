@@ -100,6 +100,7 @@ Facet <- ggproto("Facet", NULL,
       return(data)
     }
 
+    grid_layout <- all(c("rows", "cols") %in% names(params))
     layer_layout <- attr(data, "layout")
     if (identical(layer_layout, "fixed")) {
       n <- vec_size(data)
@@ -112,8 +113,7 @@ Facet <- ggproto("Facet", NULL,
     facet_vals <- eval_facets(vars, data, params$.possible_columns)
 
     include_margins <- !isFALSE(params$margin %||% FALSE) &&
-      nrow(facet_vals) == nrow(data) &&
-      all(c("rows", "cols") %in% names(params))
+      nrow(facet_vals) == nrow(data) && grid_layout
     if (include_margins) {
       # Margins are computed on evaluated faceting values (#1864).
       facet_vals <- reshape_add_margins(
@@ -127,6 +127,17 @@ Facet <- ggproto("Facet", NULL,
       # that isn't handled well by vctrs::vec_slice
       data <- data[facet_vals$.index, , drop = FALSE]
       facet_vals$.index <- NULL
+    }
+
+    # If we need to fix rows or columns, we make the corresponding faceting
+    # variables missing on purpose
+    if (grid_layout) {
+      if (identical(layer_layout, "fixed_rows")) {
+        facet_vals <- facet_vals[setdiff(names(facet_vals), names(params$cols))]
+      }
+      if (identical(layer_layout, "fixed_cols")) {
+        facet_vals <- facet_vals[setdiff(names(facet_vals), names(params$rows))]
+      }
     }
 
     # If any faceting variables are missing, add them in by
