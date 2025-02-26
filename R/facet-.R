@@ -108,22 +108,29 @@ Facet <- ggproto("Facet", NULL,
       return(data)
     }
 
+    # Compute faceting values
     facet_vals <- eval_facets(vars, data, params$.possible_columns)
 
     include_margins <- !isFALSE(params$margin %||% FALSE) &&
       nrow(facet_vals) == nrow(data) &&
       all(c("rows", "cols") %in% names(params))
     if (include_margins) {
+      # Margins are computed on evaluated faceting values (#1864).
       facet_vals <- reshape_add_margins(
         vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
         list(intersect(names(params$rows), names(facet_vals)),
              intersect(names(params$cols), names(facet_vals))),
         params$margins %||% FALSE
       )
+      # Apply recycling on original data to fit margins
+      # We're using base subsetting here because `data` might have a superclass
+      # that isn't handled well by vctrs::vec_slice
       data <- data[facet_vals$.index, , drop = FALSE]
       facet_vals$.index <- NULL
     }
 
+    # If any faceting variables are missing, add them in by
+    # duplicating the data
     missing_facets <- setdiff(names(vars), names(facet_vals))
     if (length(missing_facets) > 0) {
 
@@ -140,6 +147,7 @@ Facet <- ggproto("Facet", NULL,
     }
 
     if (nrow(facet_vals) < 1) {
+      # Add PANEL variable
       data$PANEL <- NO_PANEL
       return(data)
     }
@@ -148,6 +156,7 @@ Facet <- ggproto("Facet", NULL,
     facet_vals[] <- lapply(facet_vals, addNA, ifany = TRUE)
     layout[] <- lapply(layout, as_unordered_factor)
 
+    # Add PANEL variable
     keys <- join_keys(facet_vals, layout, by = names(vars))
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data
