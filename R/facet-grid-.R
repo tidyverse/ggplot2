@@ -69,6 +69,17 @@ NULL
 #'   labels and the interior axes get none. When `"all_x"` or `"all_y"`, only
 #'   draws the labels at the interior axes in the x- or y-direction
 #'   respectively.
+#'
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_grid()` can take
+#' the following values:
+#' * `NULL` (default) to use the faceting variables to assign panels.
+#' * An integer vector to include selected panels. Panel numbers not included in
+#'   the integer vector are excluded.
+#' * `"fixed"` to repeat data across every panel.
+#' * `"fixed_rows"` to repeat data across rows.
+#' * `"fixed_cols"` to repeat data across columns.
+#'
 #' @export
 #' @seealso
 #' The `r link_book("facet grid section", "facet#facet-grid")`

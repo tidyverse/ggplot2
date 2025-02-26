@@ -45,6 +45,15 @@ NULL
 #'   the exterior axes get labels, and the interior axes get none. When
 #'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
 #'   x- or y-direction respectively.
+#'
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_wrap()` can take
+#' the following values:
+#' * `NULL` (default) to use the faceting variables to assign panels.
+#' * An integer vector to include selected panels. Panel numbers not included in
+#'   the integer vector are excluded.
+#' * `"fixed"` to repeat data across every panel.
+#'
 #' @inheritParams facet_grid
 #' @seealso
 #' The `r link_book("facet wrap section", "facet#sec-facet-wrap")`
