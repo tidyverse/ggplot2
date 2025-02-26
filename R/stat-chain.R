@@ -69,7 +69,7 @@ stat_chain <- function(
 #'   function name of the `stat_` prefix. For example, for `stat_count()`, give
 #'   the string `"count"`.
 #' @param ... Other arguments passed to the stat as a parameter.
-#' @param mapping Set of aesthetic mappings created by [`aes()`] to be
+#' @param after.stat Set of aesthetic mappings created by [`aes()`] to be
 #'   evaluated only after the stat has been computed.
 #'
 #' @seealso [stat_chain()]
@@ -79,7 +79,7 @@ stat_chain <- function(
 #'
 #' @examples
 #' # See `?stat_chain`
-link_stat <- function(stat, ..., mapping = aes()) {
+link_stat <- function(stat, ..., after.stat = aes()) {
   if (inherits(stat, "linked_stat")) {
     return(stat)
   }
@@ -94,7 +94,7 @@ link_stat <- function(stat, ..., mapping = aes()) {
   }
 
   structure(
-    list(stat = stat, params = params, mapping = validate_mapping(mapping)),
+    list(stat = stat, params = params, after_stat = validate_mapping(after.stat)),
     class = "linked_stat"
   )
 }
@@ -140,7 +140,7 @@ StatChain <- ggproto(
       # TODO: ideally we'd have access to Layer$computed_mapping to properly
       # not touch user-specified mappings.
       aes <- aes[setdiff(names(aes), names(data))]
-      aes <- compact(defaults(link$mapping, aes))
+      aes <- compact(defaults(link$after_stat, aes))
       if (length(aes) == 0) {
         next
       }

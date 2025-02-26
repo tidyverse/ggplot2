@@ -4,7 +4,7 @@
 \alias{link_stat}
 \title{Parameterise a statistic computation}
 \usage{
-link_stat(stat, ..., mapping = aes())
+link_stat(stat, ..., after.stat = aes())
 }
 \arguments{
 \item{stat}{The statistical transformation to use on the data. The \code{stat}
@@ -18,7 +18,7 @@ the string \code{"count"}.
 
 \item{...}{Other arguments passed to the stat as a parameter.}
 
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} to be
+\item{after.stat}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} to be
 evaluated only after the stat has been computed.}
 }
 \value{
