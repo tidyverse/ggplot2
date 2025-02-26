@@ -170,6 +170,12 @@ Facet <- ggproto("Facet", NULL,
     # Add PANEL variable
     keys <- join_keys(facet_vals, layout, by = names(vars))
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
+
+    # Filter panels when layer_layout is an integer
+    if (is_integerish(layer_layout)) {
+      data <- vec_slice(data, data$PANEL %in% layer_layout)
+    }
+
     data
   },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
