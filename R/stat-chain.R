@@ -37,13 +37,19 @@
 #' p + stat_chain(stats = c("unique", "bin"))
 #' # Controlling parameters
 #' p + stat_chain(
-#'   stats = c("unique", "bin"),
-#'   stat.params = list(NULL, list(bins = 10))
+#'   stats = list("unique", link_stat("bin", bins = 10))
 #' )
 #' # Evaluate expressions after computing stats
+#' p + stat_chain(stats = list(
+#'   link_stat("unique",  after.stat = aes(x = x + 1)),
+#'   link_stat("density", after.stat = aes(y = density))
+#' ))
+#' # Note that the last `after.stat` argument serves the same role as the
+#' # `after_stat()` function in the layer mapping, so the following is
+#' # equivalent to the previous plot
 #' p + stat_chain(
-#'   stats = c("unique", "bin"),
-#'   redirect = list(aes(x = x + 1), aes(y = density))
+#'   mapping = aes(y = after_stat(density)),
+#'   stats = list(link_stat("unique", after.stat = aes(x = x + 1)), "density")
 #' )
 stat_chain <- function(
     mapping = NULL,
