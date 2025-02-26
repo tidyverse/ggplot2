@@ -14,6 +14,21 @@
 #'   * The result of [`link_stat()`] to pass parameters or mapping instructions.
 #'
 #' @seealso [link_stat()]
+#' @details
+#' The procedure in which stats are chained are as follows. First, the
+#' layer-level, undelayed aesthetics in the `mapping` argument are evaluated.
+#' The data that results from that evaluation is passed to the first stat in
+#' the `stats` argument to perform that stat's computation. If that first stat
+#' is a [`link_stat`] with an `after.stat` component, the `after.stat` component
+#' is evaluated before passing on the data to the next stat in the `stats`
+#' argument. The next components in the `stats` argument work the same: the
+#' data is passed on to compute the stat, then `after.stat` is evaluated. In
+#' essence, the `after.stat` allows control over how computed variables are
+#' passed to the next stat in the chain. Finally, once all components in the
+#' `stats` arguments have been handled, the staged after stat components of
+#' the layer-level `mapping` is evaluated. Per usual, the data are then handled
+#' by the position and geom parts of a layer.
+#'
 #' @export
 #'
 #' @examples
