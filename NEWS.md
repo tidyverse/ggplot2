@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed regression with incorrectly drawn gridlines when using `coord_flip()` 
+  (@teunbrand, #6293).
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.
