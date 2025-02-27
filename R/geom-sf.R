@@ -209,9 +209,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (!inherits(coord, "CoordSf")) {
       cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
-    if (is.character(data$shape)) {
-      data$shape <- translate_shape_string(data$shape)
-    }
+    data$shape <- translate_shape_string(data$shape)
 
     data <- coord$transform(data, panel_params)
 
@@ -314,28 +312,25 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
 #' @inheritParams geom_label
 #' @inheritParams stat_sf_coordinates
 geom_sf_label <- function(mapping = aes(), data = NULL,
-                          stat = "sf_coordinates", position = "identity",
+                          stat = "sf_coordinates", position = "nudge",
                           ...,
                           parse = FALSE,
-                          nudge_x = 0,
-                          nudge_y = 0,
                           label.padding = unit(0.25, "lines"),
                           label.r = unit(0.15, "lines"),
-                          label.size = 0.25,
+                          label.size = deprecated(),
+                          border.colour = NULL,
+                          border.color = NULL,
+                          text.colour = NULL,
+                          text.color = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE,
                           fun.geometry = NULL) {
 
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
+  extra_args <- list2(...)
+  if (lifecycle::is_present(label.size)) {
+    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    extra_args$linewidth <- extra_args$linewidth %||% label.size
   }
 
   layer_sf(
@@ -350,10 +345,11 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
-      label.size = label.size,
       na.rm = na.rm,
       fun.geometry = fun.geometry,
-      ...
+      border.colour = border.color %||% border.colour,
+      text.colour = text.color %||% text.colour,
+      !!!extra_args
     )
   )
 }
@@ -363,27 +359,14 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 #' @inheritParams geom_text
 #' @inheritParams stat_sf_coordinates
 geom_sf_text <- function(mapping = aes(), data = NULL,
-                         stat = "sf_coordinates", position = "identity",
+                         stat = "sf_coordinates", position = "nudge",
                          ...,
                          parse = FALSE,
-                         nudge_x = 0,
-                         nudge_y = 0,
                          check_overlap = FALSE,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE,
                          fun.geometry = NULL) {
-
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
 
   layer_sf(
     data = data,

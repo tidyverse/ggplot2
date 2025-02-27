@@ -163,24 +163,23 @@ Geom <- ggproto("Geom",
     # If any after_scale mappings are detected they will be resolved here
     # This order means that they will have access to all default aesthetics
     if (length(modifiers) != 0) {
-      # Set up evaluation environment
-      modified_aes <- eval_aesthetics(
-        substitute_aes(modifiers), data,
-        mask = list(stage = stage_scaled)
+      modified_aes <- try_fetch(
+        eval_aesthetics(
+          substitute_aes(modifiers), data,
+          mask = list(stage = stage_scaled)
+        ),
+        error = function(cnd) {
+          cli::cli_warn("Unable to apply staged modifications.", parent = cnd)
+          data_frame0()
+        }
       )
 
       # Check that all output are valid data
-      nondata_modified <- check_nondata_cols(modified_aes)
-      if (length(nondata_modified) > 0) {
-        issues <- paste0("{.code ", nondata_modified, " = ", as_label(modifiers[[nondata_modified]]), "}")
-        names(issues) <- rep("x", length(issues))
-        cli::cli_abort(c(
-          "Aesthetic modifiers returned invalid values",
-          "x" = "The following mappings are invalid",
-          issues,
-          "i" = "Did you map the modifier in the wrong layer?"
-        ))
-      }
+      check_nondata_cols(
+        modified_aes, modifiers,
+        problem = "Aesthetic modifiers returned invalid values.",
+        hint    = "Did you map the modifier in the wrong layer?"
+      )
 
       modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
 
@@ -303,7 +302,7 @@ check_aesthetics <- function(x, n) {
   ))
 }
 
-check_linewidth <- function(data, name) {
+fix_linewidth <- function(data, name) {
   if (is.null(data$linewidth) && !is.null(data$size)) {
     deprecate_soft0("3.4.0", I(paste0("Using the `size` aesthetic with ", name)), I("the `linewidth` aesthetic"))
     data$linewidth <- data$size

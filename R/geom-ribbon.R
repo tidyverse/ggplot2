@@ -132,7 +132,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       strsplit(self$required_aes, "|", fixed = TRUE),
       `[[`, i = 1, character(1)
     )
-    if (params$flipped_aes || any(data$flipped_aes) %||% FALSE) {
+    if (isTRUE(params$flipped_aes || any(data$flipped_aes) %||% FALSE)) {
       vars <- switch_orientation(vars)
     }
     vars <- c(vars, self$non_missing_aes)
@@ -157,7 +157,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "round", linemitre = 10, na.rm = FALSE,
                         flipped_aes = FALSE, outline.type = "both") {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     data <- data[order(data$group), ]
 

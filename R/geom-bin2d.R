@@ -25,7 +25,7 @@ NULL
 #' # You can control the size of the bins by specifying the number of
 #' # bins in each direction:
 #' d + geom_bin_2d(bins = 10)
-#' d + geom_bin_2d(bins = 30)
+#' d + geom_bin_2d(bins = list(x = 30, y = 10))
 #'
 #' # Or by specifying the width of the bins
 #' d + geom_bin_2d(binwidth = c(0.1, 0.1))

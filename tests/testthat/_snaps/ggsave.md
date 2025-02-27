@@ -58,7 +58,7 @@
 ---
 
     Code
-      plot_dev("xyz")
+      validate_device("xyz")
     Condition
       Error:
       ! Unknown graphics device "xyz"
@@ -66,7 +66,7 @@
 ---
 
     Code
-      plot_dev(NULL, "test.xyz")
+      validate_device(NULL, "test.xyz")
     Condition
       Error:
       ! Unknown graphics device "xyz"
