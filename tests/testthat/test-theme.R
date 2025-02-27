@@ -250,7 +250,7 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_equal(p$plot$theme$text$face, "italic")
 })
 
-test_that("theme(validate=FALSE) means do not validate_element", {
+test_that("theme(validate=FALSE) means do not check_element", {
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   bw <- p + theme_bw()
   red.text <- theme(text = element_text(colour = "red"))
@@ -311,6 +311,17 @@ test_that("element tree can be modified", {
 
   p1 <- ggplot() + theme(blablabla = element_line())
   expect_snapshot_error(ggplotGrob(p1))
+
+  # Expect errors for invalid element trees
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(el_def("rect"), el_def("line")))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = "bar"))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = el_def(inherit = "foo")))
+  )
 
   # inheritance and final calculation of novel element works
   final_theme <- ggplot2:::plot_theme(p, theme_gray())
@@ -514,11 +525,37 @@ test_that("Theme elements are checked during build", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("subtheme functions rename arguments as intended", {
+
+  line <- element_line(colour = "red")
+  rect <- element_rect(colour = "red")
+
+  expect_equal(theme_sub_axis(ticks = line),        theme(axis.ticks = line))
+  expect_equal(theme_sub_axis_x(ticks = line),      theme(axis.ticks.x = line))
+  expect_equal(theme_sub_axis_y(ticks = line),      theme(axis.ticks.y = line))
+  expect_equal(theme_sub_axis_top(ticks = line),    theme(axis.ticks.x.top = line))
+  expect_equal(theme_sub_axis_bottom(ticks = line), theme(axis.ticks.x.bottom = line))
+  expect_equal(theme_sub_axis_left(ticks = line),   theme(axis.ticks.y.left = line))
+  expect_equal(theme_sub_axis_right(ticks = line),  theme(axis.ticks.y.right = line))
+  expect_equal(theme_sub_legend(key = rect),        theme(legend.key = rect))
+  expect_equal(theme_sub_panel(border = rect),      theme(panel.border = rect))
+  expect_equal(theme_sub_plot(background = rect),   theme(plot.background = rect))
+  expect_equal(theme_sub_strip(background = rect),  theme(strip.background = rect))
+
+  # Test rejection of unknown theme elements
+  expect_snapshot_warning(
+    expect_equal(
+      subtheme(list(foo = 1, bar = 2, axis.line = line)),
+      theme(axis.line = line)
+    )
+  )
+})
+
 test_that("Theme validation behaves as expected", {
   tree <- get_element_tree()
-  expect_silent(validate_element(1,  "aspect.ratio", tree))
-  expect_silent(validate_element(1L, "aspect.ratio", tree))
-  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+  expect_silent(check_element(1,  "aspect.ratio", tree))
+  expect_silent(check_element(1L, "aspect.ratio", tree))
+  expect_snapshot_error(check_element("A", "aspect.ratio", tree))
 })
 
 test_that("Element subclasses are inherited", {
@@ -674,6 +711,47 @@ test_that("margin_part() mechanics work as expected", {
 })
 
 # Visual tests ------------------------------------------------------------
+
+test_that("element_polygon() can render a grob", {
+
+  t <- theme_gray() + theme(polygon = element_polygon(fill = "orchid"))
+  e <- calc_element("polygon", t)
+  g <- element_grob(
+    e,
+    x  = c(0, 0.5, 1, 0.5, 0.15, 0.85, 0.85, 0.15),
+    y  = c(0.5, 0, 0.5, 1, 0.15, 0.15, 0.85, 0.85),
+    id = c(1, 1, 1, 1, 2, 2, 2, 2),
+    colour = c("orange", "limegreen")
+  )
+
+  expect_s3_class(g, "pathgrob")
+  expect_equal(g$gp$fill, "orchid")
+
+  expect_doppelganger(
+    "polygon elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
+
+test_that("element_point() can render a grob", {
+
+  t <- theme_gray() + theme(point = element_point(shape = 21, size = 5))
+  e <- calc_element("point", t)
+  g <- element_grob(
+    e,
+    x = seq(0.1, 0.9, length.out = 5),
+    y = seq(0.9, 0.1, length.out = 5),
+    fill = c("orange", "limegreen", "orchid", "turquoise", "grey")
+  )
+
+  expect_s3_class(g, "points")
+  expect_equal(g$pch, 21)
+
+  expect_doppelganger(
+    "point elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
 
 test_that("aspect ratio is honored", {
   df <- cbind(data_frame(x = 1:8, y = 1:8, f = gl(2,4)), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))

@@ -284,8 +284,7 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
       "x" = "The provided scale is {scale_types[2]}."
     ), call = call)
   }
-
-  scale
+  invisible()
 }
 
 # helper function for backwards compatibility through setting defaults
@@ -346,8 +345,9 @@ scale_backward_compatibility <- function(..., scale, aesthetic, type) {
     if (!"..." %in% fn_fmls_names(scale)) {
       args <- args[intersect(names(args), fn_fmls_names(scale))]
     }
-    scale <- check_scale_type(
-      exec(scale, !!!args),
+    scale <- exec(scale, !!!args)
+    check_scale_type(
+      scale,
       paste("scale", aesthetic, type, sep = "_"),
       aesthetic,
       scale_is_discrete = type == "discrete"
