@@ -92,7 +92,7 @@ scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
 
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
-  if (has_old_args || !is.null(type) && is.null(palette)) {
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "continuous"
@@ -114,7 +114,7 @@ scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guid
 
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
-  if (has_old_args || !is.null(type) && is.null(palette)) {
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "continuous"
@@ -136,7 +136,7 @@ scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guid
 
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
-  if (has_old_args || !is.null(type) && is.null(palette)) {
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "binned"
@@ -157,7 +157,7 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
                               type = getOption("ggplot2.binned.fill")) {
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
-  if (has_old_args || !is.null(type) && is.null(palette)) {
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "binned"
