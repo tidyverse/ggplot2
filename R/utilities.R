@@ -195,6 +195,7 @@ waiver <- function() structure(list(), class = "waiver")
 is.waiver <- function(x) inherits(x, "waiver")
 
 pal_binned <- function(palette) {
+  force(palette)
   function(x) {
     palette(length(x))
   }

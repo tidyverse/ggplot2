@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The default colour and fill scales have a new `palette` argument 
+  (@teunbrand, #6064).
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.
