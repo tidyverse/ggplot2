@@ -543,8 +543,8 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (is.theme_element(el) && !inherits(el, "element_blank")) {
-        el$inherit.blank <- TRUE
+      if (is.theme_element(el) && S7::prop_exists(el, "inherit.blank")) {
+        S7::prop(el, "inherit.blank") <- TRUE
       }
       el
     })

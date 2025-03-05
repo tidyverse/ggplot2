@@ -81,55 +81,63 @@ NULL
 
 #' @export
 #' @rdname element
-element_blank <- function() {
-  structure(
-    list(),
-    class = c("element_blank", "element")
-  )
-}
+element <- S7::new_class("element", abstract = TRUE)
 
 #' @export
 #' @rdname element
-element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
-  linetype = NULL, color = NULL, inherit.blank = FALSE, size = deprecated()) {
+element_blank <- S7::new_class("element_blank", parent = element)
 
-  if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
-    linewidth <- size
+#' @include properties.R
+
+#' @export
+#' @rdname element
+element_rect <- S7::new_class(
+  "element_rect", parent = element,
+  properties = element_props[c("fill", "colour", "linewidth", "linetype", "inherit.blank")],
+  constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
+                         linetype = NULL, color = NULL, inherit.blank = FALSE,
+                         size = deprecated()){
+    if (lifecycle::is_present(size)) {
+      deprecate_soft0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
+      linewidth <- size
+    }
+    S7::new_object(
+      S7::S7_object(),
+      fill = fill, colour = color %||% colour,
+      linewidth = linewidth, linetype = linetype,
+      inherit.blank = inherit.blank
+    )
   }
-
-  if (!is.null(color))  colour <- color
-  structure(
-    list(fill = fill, colour = colour, linewidth = linewidth, linetype = linetype,
-         inherit.blank = inherit.blank),
-    class = c("element_rect", "element")
-  )
-}
+)
 
 #' @export
 #' @rdname element
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
-element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL, arrow.fill = NULL,
-  inherit.blank = FALSE, size = deprecated()) {
-
-  if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
-    linewidth <- size
+element_line <- S7::new_class(
+  "element_line", parent = element,
+  properties = element_props[c(
+    "colour", "linewidth", "linetype", "lineend", "arrow", "arrow.fill",
+    "inherit.blank"
+  )],
+  constructor = function(colour = NULL, linewidth = NULL, linetype = NULL,
+                         lineend = NULL, color = NULL, arrow = NULL,
+                         arrow.fill = NULL, inherit.blank = FALSE, size = deprecated()) {
+    if (lifecycle::is_present(size)) {
+      deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
+      linewidth <- size
+    }
+    colour <- color %||% colour
+    S7::new_object(
+      S7::S7_object(),
+      colour = colour,
+      linewidth = linewidth, linetype = linetype, lineend = lineend,
+      arrow = arrow %||% FALSE,
+      arrow.fill = arrow.fill %||% colour,
+      inherit.blank = inherit.blank
+    )
   }
-
-  colour <- color %||% colour
-  arrow.fill <- arrow.fill %||% colour
-  arrow <- arrow %||% FALSE
-
-  structure(
-    list(colour = colour, linewidth = linewidth, linetype = linetype, lineend = lineend,
-      arrow = arrow, arrow.fill = arrow.fill, inherit.blank = inherit.blank),
-    class = c("element_line", "element")
-  )
-}
-
+)
 
 #' @param family Font family
 #' @param face Font face ("plain", "italic", "bold", "bold.italic")
@@ -145,93 +153,116 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
 #'   is anchored.
 #' @export
 #' @rdname element
-element_text <- function(family = NULL, face = NULL, colour = NULL,
-  size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE) {
+element_text <- S7::new_class(
+  "element_text", parent = element,
+  properties = element_props[c(
+    "family", "face", "colour", "size", "hjust", "vjust", "angle", "lineheight",
+    "margin", "debug", "inherit.blank"
+  )],
+  constructor = function(family = NULL, face = NULL, colour = NULL,
+                         size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
+                         lineheight = NULL, color = NULL, margin = NULL,
+                         debug = NULL, inherit.blank = FALSE) {
+    n <- max(
+      length(family), length(face), length(colour), length(size),
+      length(hjust), length(vjust), length(angle), length(lineheight)
+    )
+    if (n > 1) {
+      cli::cli_warn(c(
+        "Vectorized input to {.fn element_text} is not officially supported.",
+        "i" = "Results may be unexpected or may change in future versions of ggplot2."
+      ))
+    }
 
-  if (!is.null(color))  colour <- color
-
-  n <- max(
-    length(family), length(face), length(colour), length(size),
-    length(hjust), length(vjust), length(angle), length(lineheight)
-  )
-  if (n > 1) {
-    cli::cli_warn(c(
-      "Vectorized input to {.fn element_text} is not officially supported.",
-      "i" = "Results may be unexpected or may change in future versions of ggplot2."
-    ))
-  }
-
-
-  structure(
-    list(family = family, face = face, colour = colour, size = size,
+    colour <- color %||% colour
+    S7::new_object(
+      S7::S7_object(),
+      family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
-      margin = margin, debug = debug, inherit.blank = inherit.blank),
-    class = c("element_text", "element")
-  )
-}
+      margin = margin, debug = debug, inherit.blank = inherit.blank
+    )
+  }
+)
 
 #' @export
 #' @rdname element
-element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
-                            linetype = NULL, color = NULL,
-                            inherit.blank = FALSE) {
-  structure(
-    list(
+element_polygon <- S7::new_class(
+  "element_polygon", parent = element,
+  properties = element_props[c(
+    "fill", "colour", "linewidth", "linetype", "inherit.blank"
+  )],
+  constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
+                         linetype = NULL, color = NULL, inherit.blank = FALSE) {
+    colour <- color %||% colour
+    S7::new_object(
+      S7::S7_object(),
       fill = fill, colour = color %||% colour, linewidth = linewidth,
       linetype = linetype, inherit.blank = inherit.blank
-    ),
-    class = c("element_polygon", "element")
-  )
-}
+    )
+  }
+)
 
 #' @export
 #' @rdname element
-element_point <- function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
-                          stroke = NULL, color = NULL, inherit.blank = FALSE) {
-  structure(
-    list(
+element_point <- S7::new_class(
+  "element_point", parent = element,
+  properties = rename(
+    element_props[c(
+      "colour", "shape", "size", "fill", "linewidth", "inherit.blank"
+    )],
+    c("linewidth" = "stroke")
+  ),
+  constructor = function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
+                         stroke = NULL, color = NULL, inherit.blank = FALSE) {
+    S7::new_object(
+      S7::S7_object(),
       colour = color %||% colour, fill = fill, shape = shape, size = size,
       stroke = stroke, inherit.blank = inherit.blank
-    ),
-    class = c("element_point", "element")
-  )
-}
+    )
+  }
+)
 
 #' @param ink Foreground colour.
 #' @param paper Background colour.
 #' @param accent Accent colour.
 #' @export
 #' @rdname element
-element_geom <- function(
-    # colours
-  ink = NULL, paper = NULL, accent = NULL,
-  # linewidth
-  linewidth = NULL, borderwidth = NULL,
-  # linetype
-  linetype = NULL, bordertype = NULL,
-  # text
-  family = NULL, fontsize = NULL,
-  # points
-  pointsize = NULL, pointshape = NULL) {
+element_geom <- S7::new_class(
+  "element_geom", parent = element,
+  properties = list(
+    ink = element_props$colour,
+    paper = element_props$colour,
+    accent = element_props$colour,
+    linewidth = element_props$linewidth,
+    borderwidth = element_props$linewidth,
+    linetype = element_props$linetype,
+    bordertype = element_props$linetype,
+    family = element_props$family,
+    fontsize = element_props$size,
+    pointsize = element_props$size,
+    pointshape = element_props$shape
+  ),
+  constructor = function(
+    ink = NULL, paper = NULL, accent = NULL,
+    linewidth = NULL, borderwidth = NULL,
+    linetype = NULL, bordertype = NULL,
+    family = NULL, fontsize = NULL,
+    pointsize = NULL, pointshape = NULL) {
 
-  if (!is.null(fontsize)) {
-    fontsize <- fontsize / .pt
-  }
+    if (!is.null(fontsize)) {
+      fontsize <- fontsize / .pt
+    }
 
-  structure(
-    list(
-      ink = ink,
-      paper = paper,
-      accent = accent,
+    S7::new_object(
+      S7::S7_object(),
+      ink = ink, paper = paper, accent = accent,
       linewidth = linewidth, borderwidth = borderwidth,
       linetype = linetype, bordertype = bordertype,
       family = family, fontsize = fontsize,
       pointsize = pointsize, pointshape = pointshape
-    ),
-    class = c("element_geom", "element")
-  )
-}
+    )
+  }
+)
 
 .default_geom_element <- element_geom(
   ink = "black", paper = "white", accent = "#3366FF",
@@ -243,11 +274,7 @@ element_geom <- function(
 
 #' @export
 #' @rdname is_tests
-is.theme_element <- function(x) inherits(x, "element")
-
-#' @export
-print.element <- function(x, ...) utils::str(x)
-
+is.theme_element <- function(x) S7::S7_inherits(x, element)
 
 #' @param x A single number specifying size relative to parent element.
 #' @rdname element
