@@ -176,6 +176,7 @@ Collate:
     'grob-dotstack.R'
     'grob-null.R'
     'grouping.R'
+    'properties.R'
     'theme-elements.R'
     'guide-.R'
     'guide-axis.R'
