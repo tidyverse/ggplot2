@@ -321,134 +321,127 @@ element_render <- function(theme, element, ..., name = NULL) {
 #'   usually at least position. See the source code for individual methods.
 #' @keywords internal
 #' @export
-element_grob <- function(element, ...) {
-  UseMethod("element_grob")
-}
+element_grob <- S7::new_generic("element_grob", "element")
 
-#' @export
-element_grob.element_blank <- function(element, ...)  zeroGrob()
+S7::method(element_grob, element_blank) <- function(element, ...) zeroGrob()
 
-#' @export
-element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
-  width = 1, height = 1,
-  fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL, ..., size = deprecated()) {
+S7::method(element_grob, element_rect) <-
+  function(element, x = 0.5, y = 0.5, width = 1, height = 1,
+           fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL,
+           ..., size = deprecated()) {
 
-  if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
-    linewidth <- size
+    if (lifecycle::is_present(size)) {
+      deprecate_soft0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+      linewidth <- size
+    }
+
+    gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+    element_gp <- gg_par(lwd = element@linewidth, col = element@colour,
+                         fill = element@fill, lty = element@linetype)
+
+    rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
   }
 
-  # The gp settings can override element_gp
-  gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
-  element_gp <- gg_par(lwd = element$linewidth, col = element$colour,
-    fill = element$fill, lty = element$linetype)
+S7::method(element_grob, element_text) <-
+  function(element, label = "", x = NULL, y = NULL,
+           family = NULL, face = NULL, colour = NULL, size = NULL,
+           hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
+           margin = NULL, margin_x = FALSE, margin_y = FALSE, ...) {
 
-  rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
-}
+    if (is.null(label))
+      return(zeroGrob())
 
+    vj <- vjust %||% element@vjust
+    hj <- hjust %||% element@hjust
+    margin <- margin %||% element@margin
 
-#' @export
-element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
-  family = NULL, face = NULL, colour = NULL, size = NULL,
-  hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  margin = NULL, margin_x = FALSE, margin_y = FALSE, ...) {
+    angle <- angle %||% element@angle %||% 0
 
-  if (is.null(label))
-    return(zeroGrob())
+    # The gp settings can override element_gp
+    gp <- gg_par(fontsize = size, col = colour,
+                 fontfamily = family, fontface = face,
+                 lineheight = lineheight)
+    element_gp <- gg_par(fontsize = element@size, col = element@colour,
+                         fontfamily = element@family, fontface = element@face,
+                         lineheight = element@lineheight)
 
-  vj <- vjust %||% element$vjust
-  hj <- hjust %||% element$hjust
-  margin <- margin %||% element$margin
-
-  angle <- angle %||% element$angle %||% 0
-
-  # The gp settings can override element_gp
-  gp <- gg_par(fontsize = size, col = colour,
-    fontfamily = family, fontface = face,
-    lineheight = lineheight)
-  element_gp <- gg_par(fontsize = element$size, col = element$colour,
-    fontfamily = element$family, fontface = element$face,
-    lineheight = element$lineheight)
-
-  titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
-    gp = modify_list(element_gp, gp), margin = margin,
-    margin_x = margin_x, margin_y = margin_y, debug = element$debug, ...)
-}
-
-
-
-#' @export
-element_grob.element_line <- function(element, x = 0:1, y = 0:1,
-  colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
-  arrow.fill = NULL,
-  default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
-
-  if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
-    linewidth <- size
+    titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
+              gp = modify_list(element_gp, gp), margin = margin,
+              margin_x = margin_x, margin_y = margin_y, debug = element@debug, ...)
   }
 
-  arrow <- if (is.logical(element$arrow) && !element$arrow) {
-    NULL
-  } else {
-    element$arrow
+S7::method(element_grob, element_line) <-
+  function(element, x = 0:1, y = 0:1,
+           colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
+           arrow.fill = NULL,
+           default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
+
+    if (lifecycle::is_present(size)) {
+      deprecate_soft0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+      linewidth <- size
+    }
+
+    arrow <- if (is.logical(element@arrow) && !element@arrow) {
+      NULL
+    } else {
+      element@arrow
+    }
+    if (is.null(arrow)) {
+      arrow.fill <- colour
+      element@arrow.fill <- element@colour
+    }
+
+    # The gp settings can override element_gp
+    gp <- gg_par(
+      col = colour, fill = arrow.fill %||% colour,
+      lwd = linewidth, lty = linetype, lineend = lineend
+    )
+    element_gp <- gg_par(
+      col = element@colour, fill = element@arrow.fill %||% element@colour,
+      lwd = element@linewidth, lty = element@linetype,
+      lineend = element@lineend
+    )
+
+    polylineGrob(
+      x, y, default.units = default.units,
+      gp = modify_list(element_gp, gp),
+      id.lengths = id.lengths, arrow = arrow, ...
+    )
   }
-  if (is.null(arrow)) {
-    arrow.fill <- colour
-    element$arrow.fill <- element$colour
+
+S7::method(element_grob, element_polygon) <-
+  function(element, x = c(0, 0.5, 1, 0.5),
+           y = c(0.5, 1, 0.5, 0), fill = NULL,
+           colour = NULL, linewidth = NULL,
+           linetype = NULL, ...,
+           id = NULL, id.lengths = NULL,
+           pathId = NULL, pathId.lengths = NULL) {
+
+    gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+    element_gp <- gg_par(lwd = element@linewidth, col = element@colour,
+                         fill = element@fill, lty = element@linetype)
+    pathGrob(
+      x = x, y = y, gp = modify_list(element_gp, gp), ...,
+      # We swap the id logic so that `id` is always the (super)group id
+      # (consistent with `polygonGrob()`) and `pathId` always the subgroup id.
+      pathId = id, pathId.lengths = id.lengths,
+      id = pathId, id.lengths = pathId.lengths
+    )
   }
 
-  # The gp settings can override element_gp
-  gp <- gg_par(
-    col = colour, fill = arrow.fill %||% colour,
-    lwd = linewidth, lty = linetype, lineend = lineend
-  )
-  element_gp <- gg_par(
-    col = element$colour, fill = element$arrow.fill %||% element$colour,
-    lwd = element$linewidth, lty = element$linetype,
-    lineend = element$lineend
-  )
+S7::method(element_grob, element_point) <-
+  function(element, x = 0.5, y = 0.5, colour = NULL,
+           shape = NULL, fill = NULL, size = NULL,
+           stroke = NULL, ...,
+           default.units = "npc") {
 
-  polylineGrob(
-    x, y, default.units = default.units,
-    gp = modify_list(element_gp, gp),
-    id.lengths = id.lengths, arrow = arrow, ...
-  )
-}
-
-#' @export
-element_grob.element_polygon <- function(element, x = c(0, 0.5, 1, 0.5),
-                                         y = c(0.5, 1, 0.5, 0), fill = NULL,
-                                         colour = NULL, linewidth = NULL,
-                                         linetype = NULL, ...,
-                                         id = NULL, id.lengths = NULL,
-                                         pathId = NULL, pathId.lengths = NULL) {
-
-  gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
-  element_gp <- gg_par(lwd = element$linewidth, col = element$colour,
-                       fill = element$fill, lty = element$linetype)
-  pathGrob(
-    x = x, y = y, gp = modify_list(element_gp, gp), ...,
-    # We swap the id logic so that `id` is always the (super)group id
-    # (consistent with `polygonGrob()`) and `pathId` always the subgroup id.
-    pathId = id, pathId.lengths = id.lengths,
-    id = pathId, id.lengths = pathId.lengths
-  )
-}
-
-#' @export
-element_grob.element_point <- function(element, x = 0.5, y = 0.5, colour = NULL,
-                                       shape = NULL, fill = NULL, size = NULL,
-                                       stroke = NULL, ...,
-                                       default.units = "npc") {
-
-  gp <- gg_par(col = colour, fill = fill, pointsize = size, stroke = stroke)
-  element_gp <- gg_par(col = element$colour, fill = element$fill,
-                       pointsize = element$size, stroke = element$stroke)
-  shape <- translate_shape_string(shape %||% element$shape %||% 19)
-  pointsGrob(x = x, y = y, pch = shape, gp = modify_list(element_gp, gp),
-             default.units = default.units, ...)
-}
+    gp <- gg_par(col = colour, fill = fill, pointsize = size, stroke = stroke)
+    element_gp <- gg_par(col = element@colour, fill = element@fill,
+                         pointsize = element@size, stroke = element@stroke)
+    shape <- translate_shape_string(shape %||% element@shape %||% 19)
+    pointsGrob(x = x, y = y, pch = shape, gp = modify_list(element_gp, gp),
+               default.units = default.units, ...)
+  }
 
 #' Define and register new theme elements
 #'
