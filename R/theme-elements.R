@@ -483,7 +483,7 @@ element_grob.element_point <- function(element, x = 0.5, y = 0.5, colour = NULL,
 #' # plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`
 #' register_theme_elements(
 #'   ggxyz.panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
-#'   element_tree = list(ggxyz.panel.annotation = el_def("element_text", "text"))
+#'   element_tree = list(ggxyz.panel.annotation = el_def(element_text, "text"))
 #' )
 #'
 #' # Now the package can define a new coord that includes a panel annotation
@@ -602,8 +602,8 @@ check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
 #' @details
 #' The function `el_def()` is used to define new or modified element types and
 #' element inheritance relationships for the element tree.
-#' @param class The name of the element class. Examples are "element_line" or
-#'  "element_text" or "unit", or one of the two reserved keywords "character" or
+#' @param class The name of the element class. Examples are `element_line` or
+#'  `element_text` or "unit", or one of the two reserved keywords "character" or
 #'  "margin". The reserved keyword "character" implies a character
 #'  or numeric vector, not a class called "character". The keyword
 #'  "margin" implies a unit vector of length 4, as created by [margin()].
@@ -622,43 +622,43 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # among them. It should not be read from directly, since users may modify the
 # current element tree stored in ggplot_global$element_tree
 .element_tree <- list(
-  line                = el_def("element_line"),
-  rect                = el_def("element_rect"),
-  text                = el_def("element_text"),
-  point               = el_def("element_point"),
-  polygon             = el_def("element_polygon"),
-  geom                = el_def("element_geom"),
-  title               = el_def("element_text", "text"),
+  line                = el_def(element_line),
+  rect                = el_def(element_rect),
+  text                = el_def(element_text),
+  point               = el_def(element_point),
+  polygon             = el_def(element_polygon),
+  geom                = el_def(element_geom),
+  title               = el_def(element_text, "text"),
   spacing             = el_def("unit"),
   margins             = el_def(c("margin", "unit")),
 
-  axis.line           = el_def("element_line", "line"),
-  axis.text           = el_def("element_text", "text"),
-  axis.title          = el_def("element_text", "title"),
-  axis.ticks          = el_def("element_line", "line"),
+  axis.line           = el_def(element_line, "line"),
+  axis.text           = el_def(element_text, "text"),
+  axis.title          = el_def(element_text, "title"),
+  axis.ticks          = el_def(element_line, "line"),
   legend.key.size     = el_def(c("unit", "rel"), "spacing"),
-  panel.grid          = el_def("element_line", "line"),
-  panel.grid.major    = el_def("element_line", "panel.grid"),
-  panel.grid.minor    = el_def("element_line", "panel.grid"),
-  strip.text          = el_def("element_text", "text"),
+  panel.grid          = el_def(element_line, "line"),
+  panel.grid.major    = el_def(element_line, "panel.grid"),
+  panel.grid.minor    = el_def(element_line, "panel.grid"),
+  strip.text          = el_def(element_text, "text"),
 
-  axis.line.x         = el_def("element_line", "axis.line"),
-  axis.line.x.top     = el_def("element_line", "axis.line.x"),
-  axis.line.x.bottom  = el_def("element_line", "axis.line.x"),
-  axis.line.y         = el_def("element_line", "axis.line"),
-  axis.line.y.left    = el_def("element_line", "axis.line.y"),
-  axis.line.y.right   = el_def("element_line", "axis.line.y"),
-  axis.line.theta     = el_def("element_line", "axis.line.x"),
-  axis.line.r         = el_def("element_line", "axis.line.y"),
+  axis.line.x         = el_def(element_line, "axis.line"),
+  axis.line.x.top     = el_def(element_line, "axis.line.x"),
+  axis.line.x.bottom  = el_def(element_line, "axis.line.x"),
+  axis.line.y         = el_def(element_line, "axis.line"),
+  axis.line.y.left    = el_def(element_line, "axis.line.y"),
+  axis.line.y.right   = el_def(element_line, "axis.line.y"),
+  axis.line.theta     = el_def(element_line, "axis.line.x"),
+  axis.line.r         = el_def(element_line, "axis.line.y"),
 
-  axis.text.x         = el_def("element_text", "axis.text"),
-  axis.text.x.top     = el_def("element_text", "axis.text.x"),
-  axis.text.x.bottom  = el_def("element_text", "axis.text.x"),
-  axis.text.y         = el_def("element_text", "axis.text"),
-  axis.text.y.left    = el_def("element_text", "axis.text.y"),
-  axis.text.y.right   = el_def("element_text", "axis.text.y"),
-  axis.text.theta     = el_def("element_text", "axis.text.x"),
-  axis.text.r         = el_def("element_text", "axis.text.y"),
+  axis.text.x         = el_def(element_text, "axis.text"),
+  axis.text.x.top     = el_def(element_text, "axis.text.x"),
+  axis.text.x.bottom  = el_def(element_text, "axis.text.x"),
+  axis.text.y         = el_def(element_text, "axis.text"),
+  axis.text.y.left    = el_def(element_text, "axis.text.y"),
+  axis.text.y.right   = el_def(element_text, "axis.text.y"),
+  axis.text.theta     = el_def(element_text, "axis.text.x"),
+  axis.text.r         = el_def(element_text, "axis.text.y"),
 
   axis.ticks.length   = el_def(c("unit", "rel"), "spacing"),
   axis.ticks.length.x = el_def(c("unit", "rel"), "axis.ticks.length"),
@@ -670,28 +670,28 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.ticks.length.theta = el_def(c("unit", "rel"), "axis.ticks.length.x"),
   axis.ticks.length.r = el_def(c("unit", "rel"), "axis.ticks.length.y"),
 
-  axis.ticks.x        = el_def("element_line", "axis.ticks"),
-  axis.ticks.x.top    = el_def("element_line", "axis.ticks.x"),
-  axis.ticks.x.bottom = el_def("element_line", "axis.ticks.x"),
-  axis.ticks.y        = el_def("element_line", "axis.ticks"),
-  axis.ticks.y.left   = el_def("element_line", "axis.ticks.y"),
-  axis.ticks.y.right  = el_def("element_line", "axis.ticks.y"),
-  axis.ticks.theta    = el_def("element_line", "axis.ticks.x"),
-  axis.ticks.r        = el_def("element_line", "axis.ticks.y"),
+  axis.ticks.x        = el_def(element_line, "axis.ticks"),
+  axis.ticks.x.top    = el_def(element_line, "axis.ticks.x"),
+  axis.ticks.x.bottom = el_def(element_line, "axis.ticks.x"),
+  axis.ticks.y        = el_def(element_line, "axis.ticks"),
+  axis.ticks.y.left   = el_def(element_line, "axis.ticks.y"),
+  axis.ticks.y.right  = el_def(element_line, "axis.ticks.y"),
+  axis.ticks.theta    = el_def(element_line, "axis.ticks.x"),
+  axis.ticks.r        = el_def(element_line, "axis.ticks.y"),
 
-  axis.title.x        = el_def("element_text", "axis.title"),
-  axis.title.x.top    = el_def("element_text", "axis.title.x"),
-  axis.title.x.bottom = el_def("element_text", "axis.title.x"),
-  axis.title.y        = el_def("element_text", "axis.title"),
-  axis.title.y.left   = el_def("element_text", "axis.title.y"),
-  axis.title.y.right  = el_def("element_text", "axis.title.y"),
+  axis.title.x        = el_def(element_text, "axis.title"),
+  axis.title.x.top    = el_def(element_text, "axis.title.x"),
+  axis.title.x.bottom = el_def(element_text, "axis.title.x"),
+  axis.title.y        = el_def(element_text, "axis.title"),
+  axis.title.y.left   = el_def(element_text, "axis.title.y"),
+  axis.title.y.right  = el_def(element_text, "axis.title.y"),
 
-  axis.minor.ticks.x.top    = el_def("element_line", "axis.ticks.x.top"),
-  axis.minor.ticks.x.bottom = el_def("element_line", "axis.ticks.x.bottom"),
-  axis.minor.ticks.y.left   = el_def("element_line", "axis.ticks.y.left"),
-  axis.minor.ticks.y.right  = el_def("element_line", "axis.ticks.y.right"),
-  axis.minor.ticks.theta    = el_def("element_line", "axis.ticks.theta"),
-  axis.minor.ticks.r        = el_def("element_line", "axis.ticks.r"),
+  axis.minor.ticks.x.top    = el_def(element_line, "axis.ticks.x.top"),
+  axis.minor.ticks.x.bottom = el_def(element_line, "axis.ticks.x.bottom"),
+  axis.minor.ticks.y.left   = el_def(element_line, "axis.ticks.y.left"),
+  axis.minor.ticks.y.right  = el_def(element_line, "axis.ticks.y.right"),
+  axis.minor.ticks.theta    = el_def(element_line, "axis.ticks.theta"),
+  axis.minor.ticks.r        = el_def(element_line, "axis.ticks.r"),
 
   axis.minor.ticks.length = el_def(c("unit", "rel")),
   axis.minor.ticks.length.x = el_def(c("unit", "rel"), "axis.minor.ticks.length"),
@@ -715,25 +715,25 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
     c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.r")
   ),
 
-  legend.background   = el_def("element_rect", "rect"),
+  legend.background   = el_def(element_rect, "rect"),
   legend.margin       = el_def(c("margin", "unit", "rel"), "margins"),
   legend.spacing      = el_def(c("unit", "rel"), "spacing"),
   legend.spacing.x     = el_def(c("unit", "rel"), "legend.spacing"),
   legend.spacing.y     = el_def(c("unit", "rel"), "legend.spacing"),
-  legend.key          = el_def("element_rect", "panel.background"),
+  legend.key          = el_def(element_rect, "panel.background"),
   legend.key.height   = el_def(c("unit", "rel"), "legend.key.size"),
   legend.key.width    = el_def(c("unit", "rel"), "legend.key.size"),
   legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.justification = el_def(c("character", "numeric", "integer")),
-  legend.frame        = el_def("element_rect", "rect"),
-  legend.axis.line    = el_def("element_line", "line"),
-  legend.ticks        = el_def("element_line", "legend.axis.line"),
+  legend.frame        = el_def(element_rect, "rect"),
+  legend.axis.line    = el_def(element_line, "line"),
+  legend.ticks        = el_def(element_line, "legend.axis.line"),
   legend.ticks.length = el_def(c("rel", "unit"), "legend.key.size"),
-  legend.text         = el_def("element_text", "text"),
+  legend.text         = el_def(element_text, "text"),
   legend.text.position = el_def("character"),
-  legend.title        = el_def("element_text", "title"),
+  legend.title        = el_def(element_text, "title"),
   legend.title.position = el_def("character"),
   legend.byrow        = el_def("logical"),
   legend.position     = el_def("character"),
@@ -767,45 +767,45 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
   legend.box.margin   = el_def(c("margin", "unit", "rel"), "margins"),
-  legend.box.background = el_def("element_rect", "rect"),
+  legend.box.background = el_def(element_rect, "rect"),
   legend.box.spacing  = el_def(c("unit", "rel"), "spacing"),
 
-  panel.background    = el_def("element_rect", "rect"),
-  panel.border        = el_def("element_rect", "rect"),
+  panel.background    = el_def(element_rect, "rect"),
+  panel.border        = el_def(element_rect, "rect"),
   panel.spacing       = el_def(c("unit", "rel"), "spacing"),
   panel.spacing.x     = el_def(c("unit", "rel"), "panel.spacing"),
   panel.spacing.y     = el_def(c("unit", "rel"), "panel.spacing"),
-  panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
-  panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
-  panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
-  panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
+  panel.grid.major.x  = el_def(element_line, "panel.grid.major"),
+  panel.grid.major.y  = el_def(element_line, "panel.grid.major"),
+  panel.grid.minor.x  = el_def(element_line, "panel.grid.minor"),
+  panel.grid.minor.y  = el_def(element_line, "panel.grid.minor"),
   panel.ontop         = el_def("logical"),
   panel.widths        = el_def("unit"),
   panel.heights       = el_def("unit"),
 
-  strip.background    = el_def("element_rect", "rect"),
-  strip.background.x  = el_def("element_rect", "strip.background"),
-  strip.background.y  = el_def("element_rect", "strip.background"),
+  strip.background    = el_def(element_rect, "rect"),
+  strip.background.x  = el_def(element_rect, "strip.background"),
+  strip.background.y  = el_def(element_rect, "strip.background"),
   strip.clip          = el_def("character"),
-  strip.text.x        = el_def("element_text", "strip.text"),
-  strip.text.x.top    = el_def("element_text", "strip.text.x"),
-  strip.text.x.bottom = el_def("element_text", "strip.text.x"),
-  strip.text.y        = el_def("element_text", "strip.text"),
-  strip.text.y.left   = el_def("element_text", "strip.text.y"),
-  strip.text.y.right  = el_def("element_text", "strip.text.y"),
+  strip.text.x        = el_def(element_text, "strip.text"),
+  strip.text.x.top    = el_def(element_text, "strip.text.x"),
+  strip.text.x.bottom = el_def(element_text, "strip.text.x"),
+  strip.text.y        = el_def(element_text, "strip.text"),
+  strip.text.y.left   = el_def(element_text, "strip.text.y"),
+  strip.text.y.right  = el_def(element_text, "strip.text.y"),
   strip.placement     = el_def("character"),
   strip.placement.x   = el_def("character", "strip.placement"),
   strip.placement.y   = el_def("character", "strip.placement"),
   strip.switch.pad.grid = el_def(c("unit", "rel"), "spacing"),
   strip.switch.pad.wrap = el_def(c("unit", "rel"), "spacing"),
 
-  plot.background     = el_def("element_rect", "rect"),
-  plot.title          = el_def("element_text", "title"),
+  plot.background     = el_def(element_rect, "rect"),
+  plot.title          = el_def(element_text, "title"),
   plot.title.position = el_def("character"),
-  plot.subtitle       = el_def("element_text", "text"),
-  plot.caption        = el_def("element_text", "text"),
+  plot.subtitle       = el_def(element_text, "text"),
+  plot.caption        = el_def(element_text, "text"),
   plot.caption.position = el_def("character"),
-  plot.tag            = el_def("element_text", "text"),
+  plot.tag            = el_def(element_text, "text"),
   plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
   plot.tag.location   = el_def("character"),
   plot.margin         = el_def(c("margin", "unit", "rel"), "margins"),
@@ -849,11 +849,18 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
 
   # NULL values for elements are OK
   if (is.null(el)) return()
+  class <- eldef$class
+  if (inherits(class, "S7_class") && S7::S7_inherits(el)) {
+    if (S7::S7_inherits(el, class) ||
+        (S7::S7_inherits(el, element) && S7::S7_inherits(el, element_blank))) {
+      return()
+    }
+  }
 
-  if ("margin" %in% eldef$class) {
+  if ("margin" %in% class) {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
-  } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
+  } else if (!inherits(el, class) && !inherits(el, "element_blank")) {
     cli::cli_abort("The {.var {elname}} theme element must be a {.cls {eldef$class}} object.", call = call)
   }
   invisible()
