@@ -942,7 +942,8 @@ combine_elements <- function(e1, e2) {
   e1
 }
 
-#' @export
+# Prevents bug described in S7/#390
+#' @rawNamespace S3method(base::`$`, theme)
 `$.theme` <- function(x, ...) {
   .subset2(x, ...)
 }

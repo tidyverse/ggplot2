@@ -83,6 +83,14 @@ NULL
 #' @rdname element
 element <- S7::new_class("element", abstract = TRUE)
 
+S7::method(`$`, element) <-
+  function(x, i) {
+    if (!S7::prop_exists(x, i)) {
+      return(NULL)
+    }
+    S7::prop(x, i)
+  }
+
 #' @export
 #' @rdname element
 element_blank <- S7::new_class("element_blank", parent = element)
