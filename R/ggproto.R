@@ -152,8 +152,7 @@ fetch_ggproto <- function(x, name) {
 
 }
 
-# Prevents bug described in S7/#390
-#' @rawNamespace S3method(base::`$`, ggproto)
+#' @export
 `$.ggproto` <- function(x, name) {
   res <- fetch_ggproto(x, name)
   if (!is.function(res)) {
@@ -163,7 +162,7 @@ fetch_ggproto <- function(x, name) {
   make_proto_method(x, res, name)
 }
 
-#' @rawNamespace S3method(base::`$`, ggproto_parent)
+#' @export
 `$.ggproto_parent` <- function(x, name) {
   res <- fetch_ggproto(.subset2(x, "parent"), name)
   if (!is.function(res)) {
