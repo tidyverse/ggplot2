@@ -346,7 +346,7 @@ test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
     all(vapply(theme, function(el) {
       if (inherits(el, "element") && !S7::S7_inherits(el, element_blank)) {
-        el$inherit.blank
+        el@inherit.blank
       } else {
         TRUE
       }

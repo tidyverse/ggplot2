@@ -779,15 +779,22 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # Calculate the parent objects' inheritance
   if (verbose) cli::cli_inform("{pnames}")
+
+  # once we've started skipping blanks, we continue doing so until the end of the
+  # recursion; we initiate skipping blanks if we encounter an element that
+  # doesn't inherit blank.
+  skip_blank <- skip_blank ||
+    (!is.null(el_out) &&
+       !isTRUE(S7::S7_inherits(el_out) &&
+               S7::prop_exists(el_out, "inherit.blank") &&
+               el_out@inherit.blank))
+
   parents <- lapply(
     pnames,
     calc_element,
     theme,
     verbose = verbose,
-    # once we've started skipping blanks, we continue doing so until the end of the
-    # recursion; we initiate skipping blanks if we encounter an element that
-    # doesn't inherit blank.
-    skip_blank = skip_blank || (!is.null(el_out) && !isTRUE(el_out$inherit.blank)),
+    skip_blank = skip_blank,
     call = call
   )
 
