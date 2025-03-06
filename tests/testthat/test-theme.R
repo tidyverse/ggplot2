@@ -21,8 +21,8 @@ test_that("modifying theme element properties with + operator works", {
   # Make sure the theme class didn't change or get dropped
   expect_true(is.theme(t))
   # Make sure the element class didn't change or get dropped
-  expect_true(inherits(t$axis.title.x, "element"))
-  expect_true(inherits(t$axis.title.x, "element_text"))
+  expect_s3_class(t$axis.title.x, "ggplot2::element")
+  expect_s3_class(t$axis.title.x, "ggplot2::element_text")
 
   # Modifying an intermediate node works
   t <- theme_grey() + theme(axis.title = element_text(colour = 'red'))
@@ -346,7 +346,7 @@ test_that("element tree can be modified", {
 test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
     all(vapply(theme, function(el) {
-      if (inherits(el, "element") && !inherits(el, "element_blank")) {
+      if (inherits(el, "element") && !S7::S7_inherits(el, element_blank)) {
         el$inherit.blank
       } else {
         TRUE
@@ -642,7 +642,7 @@ test_that("complete_theme completes a theme", {
 
   # Missing elements are filled in if default theme is incomplete
   new <- complete_theme(default = theme())
-  expect_s3_class(new$axis.line, "element_blank")
+  expect_s3_class(new$axis.line, "ggplot2::element_blank")
 
   # Registered elements are included
   register_theme_elements(
@@ -650,7 +650,7 @@ test_that("complete_theme completes a theme", {
     element_tree = list(test = el_def("element_text", "text"))
   )
   new <- complete_theme(default = gray)
-  expect_s3_class(new$test, "element_text")
+  expect_s3_class(new$test, "ggplot2::element_text")
   reset_theme_settings()
 })
 

@@ -719,7 +719,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
   # and otherwise we don't inherit anything from parents
-  if (inherits(el_out, "element_blank")) {
+  if (S7::S7_inherits(el_out, element_blank)) {
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
@@ -733,9 +733,17 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in element_tree
-  if (!is.null(el_out) &&
-      !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
+  if (!is.null(el_out)) {
+    class <- element_tree[[element]]$class
+    if (inherits(class, "S7_class")) {
+      if (!S7::S7_inherits(el_out, class)) {
+        cli::cli_abort("Theme element {.var {element}} must have class {.cls {class@name}}.", call = call)
+      }
+    } else {
+      if (!inherits(el_out, class)) {
+        cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
+      }
+    }
   }
 
   # Get the names of parents from the inheritance tree

@@ -259,10 +259,10 @@ GuideAxis <- ggproto(
   override_elements = function(params, elements, theme) {
     elements$text <-
       label_angle_heuristic(elements$text, params$position, params$angle)
-    if (inherits(elements$ticks, "element_blank")) {
+    if (S7::S7_inherits(elements$ticks, element_blank)) {
       elements$major_length <- unit(0, "cm")
     }
-    if (inherits(elements$minor, "element_blank") || isFALSE(params$minor.ticks)) {
+    if (S7::S7_inherits(elements$minor, element_blank) || isFALSE(params$minor.ticks)) {
       elements$minor_length <- unit(0, "cm")
     }
     return(elements)
@@ -379,7 +379,7 @@ GuideAxis <- ggproto(
     # Ticks
     major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
     range <- range(0, major_cm)
-    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+    if (params$minor.ticks && !S7::S7_inherits(elements$minor, element_blank)) {
       minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
       range <- range(range, minor_cm)
     }
@@ -590,7 +590,7 @@ axis_label_priority_between <- function(x, y) {
 #'   overridden from the user- or theme-supplied element.
 #' @noRd
 label_angle_heuristic <- function(element, position, angle) {
-  if (!inherits(element, "element_text")
+  if (!S7::S7_inherits(element, element_text)
       || is.null(position)
       || is.null(angle %|W|% NULL)) {
     return(element)

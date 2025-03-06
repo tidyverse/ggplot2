@@ -379,7 +379,7 @@ Guide <- ggproto(
     if (!is.theme_element(elements)) {
       elements <- elements$ticks
     }
-    if (!inherits(elements, "element_line")) {
+    if (!S7::S7_inherits(elements, element_line)) {
       return(zeroGrob())
     }
 
