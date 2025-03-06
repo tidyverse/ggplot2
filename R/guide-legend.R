@@ -690,13 +690,15 @@ keep_key_data <- function(key, data, aes, show) {
 
 position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
   margin <- margin %||% margin()
-  switch(
+  margin <- switch(
     position,
     top    = replace(margin, 3, margin[3] + gap),
     bottom = replace(margin, 1, margin[1] + gap),
     left   = replace(margin, 2, margin[2] + gap),
     right  = replace(margin, 4, margin[4] + gap)
   )
+  class(margin) <- union("margin", class(margin))
+  margin
 }
 
 # Function implementing backward compatibility with the old way of specifying

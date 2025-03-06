@@ -858,7 +858,7 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
     }
   }
 
-  if ("margin" %in% class) {
+  if (is.character(class) && "margin" %in% class) {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
   } else if (!inherits(el, class) && !S7::S7_inherits(el, element_blank)) {

@@ -142,12 +142,10 @@ test_that("calculating theme element inheritance works", {
   expect_identical(calc_element('axis.title.x', t), element_blank())
 
   # Check that inheritance from derived class works
-  element_dummyrect <- function(dummy) { # like element_rect but w/ dummy argument
-    structure(list(
-      fill = NULL, colour = NULL, dummy = dummy, linewidth = NULL,
-      linetype = NULL, inherit.blank = FALSE
-    ), class = c("element_dummyrect", "element_rect", "element"))
-  }
+  element_dummyrect <- S7::new_class(
+    "element_dummyrect", parent = element_rect,
+    properties = c(element_rect@properties, list(dummy = S7::class_any))
+  )
 
   e <- calc_element(
     "panel.background",
@@ -160,10 +158,10 @@ test_that("calculating theme element inheritance works", {
 
   expect_identical(
     e,
-    structure(list(
+    element_dummyrect(
       fill = "white", colour = "black", dummy = 5, linewidth = 0.5, linetype = 1,
       inherit.blank = TRUE # this is true because we're requesting a complete theme
-    ), class = c("element_dummyrect", "element_rect", "element"))
+    )
   )
 
   # Check that blank elements are skipped in inheritance tree if and only if elements
@@ -283,9 +281,10 @@ test_that("theme validation happens at build stage", {
 test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(add_theme(theme_grey(), theme(line = element_rect())))
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
-  register_theme_elements(element_tree = list(test = el_def("element_rect")))
+  register_theme_elements(element_tree = list(test = el_def(element_rect)))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
   expect_snapshot_error(set_theme("foo"))
+  reset_theme_settings()
 })
 
 test_that("element tree can be modified", {
@@ -305,7 +304,7 @@ test_that("element tree can be modified", {
 
   # things work once we add a new element to the element tree
   register_theme_elements(
-    element_tree = list(blablabla = el_def("element_text", "text"))
+    element_tree = list(blablabla = el_def(element_text, "text"))
   )
   expect_silent(ggplotGrob(p))
 
@@ -334,13 +333,13 @@ test_that("element tree can be modified", {
   expect_identical(e1@colour, "red") # not inherited from element_text
 
   # existing elements can be overwritten
-  ed <- el_def("element_rect", "rect")
+  ed <- el_def(element_rect, "rect")
   register_theme_elements(
     element_tree = list(axis.title = ed)
   )
   expect_identical(get_element_tree()$axis.title, ed)
 
-  reset_theme_settings(reset_current = FALSE) # revert back to defaults
+  reset_theme_settings() # revert back to defaults
 })
 
 test_that("all elements in complete themes have inherit.blank=TRUE", {
@@ -424,7 +423,7 @@ test_that("current theme can be updated with new elements", {
   # element tree gets merged properly
   register_theme_elements(
     abcde = element_text(color = "blue", hjust = 0, vjust = 1),
-    element_tree = list(abcde = el_def("element_text", "text"))
+    element_tree = list(abcde = el_def(element_text, "text"))
   )
 
   e1 <- calc_element("abcde", plot_theme(b2))
@@ -647,7 +646,7 @@ test_that("complete_theme completes a theme", {
   # Registered elements are included
   register_theme_elements(
     test = element_text(),
-    element_tree = list(test = el_def("element_text", "text"))
+    element_tree = list(test = el_def(element_text, "text"))
   )
   new <- complete_theme(default = gray)
   expect_s3_class(new$test, "ggplot2::element_text")
@@ -959,15 +958,11 @@ test_that("Legends can on all sides of the plot with custom justification", {
 })
 
 test_that("Strips can render custom elements", {
-  element_test <- function(...) {
-    el <- element_text(...)
-    class(el) <- c('element_test', 'element_text', 'element')
-    el
-  }
-  element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
-    rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
-  }
-  registerS3method("element_grob", "element_test", element_grob.element_test)
+  element_test <- S7::new_class("element_test", element_text)
+  S7::method(element_grob, element_test) <-
+    function(element, label = "", x = NULL, y = NULL, ...) {
+      rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
+    }
 
   df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
   plot <- ggplot(df, aes(x, y)) +
