@@ -325,7 +325,7 @@ GuideLegend <- ggproto(
     # Resolve title. The trick here is to override the main text element, so
     # that any settings declared in `legend.title` will be honoured but we have
     # custom defaults for the guide.
-    margin <- calc_element("text", theme)$margin
+    margin <- calc_element("text", theme)@margin
     title <- theme(text = element_text(
       hjust = 0, vjust = 0.5,
       margin = position_margin(title_position, margin, gap)
@@ -573,7 +573,7 @@ GuideLegend <- ggproto(
 
     gt <- self$add_title(
       gt, grobs$title, elements$title_position,
-      with(elements$title, rotate_just(angle, hjust, vjust))
+      with(S7::props(elements$title), rotate_just(angle, hjust, vjust))
     )
 
     gt <- gtable_add_padding(gt, unit(elements$padding, "cm"))

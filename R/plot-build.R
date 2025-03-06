@@ -387,20 +387,20 @@ table_add_tag <- function(table, label, theme) {
   if (location %in% c("plot", "panel")) {
     if (!is.numeric(position)) {
       if (right || left) {
-        x <- (1 - element$hjust) * width
+        x <- (1 - element@hjust) * width
         if (right) {
           x <- unit(1, "npc") - x
         }
       } else {
-        x <- unit(element$hjust, "npc")
+        x <- unit(element@hjust, "npc")
       }
       if (top || bottom) {
-        y <- (1 - element$vjust) * height
+        y <- (1 - element@vjust) * height
         if (top) {
           y <- unit(1, "npc") - y
         }
       } else {
-        y <- unit(element$vjust, "npc")
+        y <- unit(element@vjust, "npc")
       }
     } else {
       x <- unit(position[1], "npc")

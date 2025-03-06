@@ -746,14 +746,22 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
-    nullprops <- vapply(el_out, is.null, logical(1))
+    if (inherits(el_out, "ggplot2::element")) {
+      nullprops <- lengths(S7::props(el_out)) == 0
+    } else {
+      nullprops <- vapply(el_out, is.null, logical(1))
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties, return element as is
     }
 
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
-    nullprops <- vapply(el_out, is.null, logical(1))
+    if (inherits(el_out, "ggplot2::element")) {
+      nullprops <- lengths(S7::props(el_out)) == 0
+    } else {
+      nullprops <- vapply(el_out, is.null, logical(1))
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
     }

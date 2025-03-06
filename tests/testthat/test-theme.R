@@ -30,10 +30,10 @@ test_that("modifying theme element properties with + operator works", {
 
   # Modifying a root node changes only the specified properties
   t <- theme_grey() + theme(text = element_text(colour = 'red'))
-  expect_identical(t$text$colour, 'red')
-  expect_identical(t$text$family, theme_grey()$text$family)
-  expect_identical(t$text$face,   theme_grey()$text$face)
-  expect_identical(t$text$size,   theme_grey()$text$size)
+  expect_identical(t$text@colour, 'red')
+  expect_identical(t$text@family, theme_grey()$text@family)
+  expect_identical(t$text@face,   theme_grey()$text@face)
+  expect_identical(t$text@size,   theme_grey()$text@size)
   # Descendent is unchanged
   expect_identical(t$axis.title.x, theme_grey()$axis.title.x)
 
@@ -56,34 +56,34 @@ test_that("adding theme object to ggplot object with + operator works", {
   ## test with complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point() + theme_grey()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_true(p$theme$axis.title@size == 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = 'red'))
-  expect_true(p$theme$text$colour == 'red')
+  expect_true(p$theme$text@colour == 'red')
   tt <- theme_grey()$text
-  tt$colour <- 'red'
-  expect_true(tt$inherit.blank)
-  tt$inherit.blank <- FALSE
+  tt@colour <- 'red'
+  expect_true(tt@inherit.blank)
+  tt@inherit.blank <- FALSE
   expect_identical(p$theme$text, tt)
 
   ## test without complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_true(p$theme$axis.title@size == 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = 'red'))
-  expect_true(p$theme$text$colour == 'red')
-  expect_null(p$theme$text$family)
-  expect_null(p$theme$text$face)
-  expect_null(p$theme$text$size)
-  expect_null(p$theme$text$hjust)
-  expect_null(p$theme$text$vjust)
-  expect_null(p$theme$text$angle)
-  expect_null(p$theme$text$lineheight)
-  expect_null(p$theme$text$margin)
-  expect_null(p$theme$text$debug)
+  expect_true(p$theme$text@colour == 'red')
+  expect_null(p$theme$text@family)
+  expect_null(p$theme$text@face)
+  expect_null(p$theme$text@size)
+  expect_null(p$theme$text@hjust)
+  expect_null(p$theme$text@vjust)
+  expect_null(p$theme$text@angle)
+  expect_null(p$theme$text@lineheight)
+  expect_null(p$theme$text@margin)
+  expect_null(p$theme$text@debug)
 
   ## stepwise addition of partial themes is identical to one-step addition
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
@@ -123,19 +123,19 @@ test_that("calculating theme element inheritance works", {
 
   # Check that properties are passed along from axis.title to axis.title.x
   e <- calc_element('axis.title.x', t)
-  expect_identical(e$colour, 'red')
-  expect_false(is.null(e$family))
-  expect_false(is.null(e$face))
-  expect_false(is.null(e$size))
+  expect_identical(e@colour, 'red')
+  expect_false(is.null(e@family))
+  expect_false(is.null(e@face))
+  expect_false(is.null(e@size))
 
   # Check that rel() works for relative sizing, and is applied at each level
   t <- theme_grey(base_size = 12) +
     theme(axis.title   = element_text(size = rel(0.5))) +
     theme(axis.title.x = element_text(size = rel(0.5)))
   e <- calc_element('axis.title', t)
-  expect_identical(e$size, 6)
+  expect_identical(e@size, 6)
   ex <- calc_element('axis.title.x', t)
-  expect_identical(ex$size, 3)
+  expect_identical(ex@size, 3)
 
   # Check that a theme_blank in a parent node gets passed along to children
   t <- theme_grey() + theme(text = element_blank())
@@ -175,7 +175,7 @@ test_that("calculating theme element inheritance works", {
     )
   e1 <- calc_element("strip.text.x", t)
   e2 <- calc_element("text", t)
-  e2$inherit.blank <- FALSE # b/c inherit.blank = TRUE for complete themes
+  e2@inherit.blank <- FALSE # b/c inherit.blank = TRUE for complete themes
   expect_identical(e1, e2)
 
   theme <- theme_gray() +
@@ -201,18 +201,18 @@ test_that("complete and non-complete themes interact correctly with each other",
   # But for _element properties_, the one on the right modifies the one on the left.
   t <- theme_bw() + theme(text = element_text(colour = 'red'))
   expect_true(attr(t, "complete"))
-  expect_equal(t$text$colour, 'red')
+  expect_equal(t$text@colour, 'red')
 
   # A complete theme object (like theme_bw) always trumps a non-complete theme object
   t <- theme(text = element_text(colour = 'red')) + theme_bw()
   expect_true(attr(t, "complete"))
-  expect_equal(t$text$colour, theme_bw()$text$colour)
+  expect_equal(t$text@colour, theme_bw()$text@colour)
 
   # Adding two non-complete themes: the one on the right modifies the one on the left.
   t <- theme(text = element_text(colour = 'blue')) +
     theme(text = element_text(colour = 'red'))
   expect_false(attr(t, "complete"))
-  expect_equal(t$text$colour, 'red')
+  expect_equal(t$text@colour, 'red')
 })
 
 test_that("complete and non-complete themes interact correctly with ggplot objects", {
@@ -240,14 +240,14 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_equal(p$plot$theme$text$colour, "red")
-  expect_equal(p$plot$theme$text$face, "italic")
+  expect_equal(p$plot$theme$text@colour, "red")
+  expect_equal(p$plot$theme$text@face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_equal(p$plot$theme$text$colour, "red")
-  expect_equal(p$plot$theme$text$face, "italic")
+  expect_equal(p$plot$theme$text@colour, "red")
+  expect_equal(p$plot$theme$text@face, "italic")
 })
 
 test_that("theme(validate=FALSE) means do not check_element", {
@@ -327,11 +327,11 @@ test_that("element tree can be modified", {
   final_theme <- ggplot2:::plot_theme(p, theme_gray())
   e1 <- calc_element("blablabla", final_theme)
   e2 <- calc_element("text", final_theme)
-  expect_identical(e1$family, e2$family)
-  expect_identical(e1$face, e2$face)
-  expect_identical(e1$size, e2$size)
-  expect_identical(e1$lineheight, e2$lineheight)
-  expect_identical(e1$colour, "red") # not inherited from element_text
+  expect_identical(e1@family, e2@family)
+  expect_identical(e1@face, e2@face)
+  expect_identical(e1@size, e2@size)
+  expect_identical(e1@lineheight, e2@lineheight)
+  expect_identical(e1@colour, "red") # not inherited from element_text
 
   # existing elements can be overwritten
   ed <- el_def("element_rect", "rect")
@@ -394,7 +394,7 @@ test_that("complete plot themes shouldn't inherit from default", {
   base <- ggplot(data.frame(x = 1), aes(x, x)) + geom_point()
 
   ptheme <- plot_theme(base + theme(axis.text.x = element_text(colour = "blue")), default_theme)
-  expect_equal(ptheme$axis.text.x$colour, "blue")
+  expect_equal(ptheme$axis.text.x@colour, "blue")
 
   ptheme <- plot_theme(base + theme_void(), default_theme)
   expect_null(ptheme$axis.text.x)
@@ -429,9 +429,9 @@ test_that("current theme can be updated with new elements", {
 
   e1 <- calc_element("abcde", plot_theme(b2))
   e2 <- calc_element("text", plot_theme(b2))
-  e2$colour <- "blue"
-  e2$hjust <- 0
-  e2$vjust <- 1
+  e2@colour <- "blue"
+  e2@hjust <- 0
+  e2@vjust <- 1
   expect_identical(e1, e2)
 
   reset_theme_settings()
@@ -569,7 +569,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(poor, rich)
   expect_s3_class(test, "element_rich")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 3, linewidth = 2)
   )
 
@@ -577,7 +577,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(rich, poor)
   expect_s3_class(test, "element_rich")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 2, linewidth = 2)
   )
 
@@ -589,7 +589,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(sibling, rich)
   expect_s3_class(test, "element_sibling")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 3, linewidth = 2)
   )
 
@@ -597,7 +597,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(rich, sibling)
   expect_s3_class(test, "element_rich")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 2, linewidth = 2)
   )
 })
@@ -624,10 +624,10 @@ test_that("header_family is passed on correctly", {
   td <- theme_dark(base_family = "x", header_family = "y")
 
   test <- calc_element("plot.title", td)
-  expect_equal(test$family, "y")
+  expect_equal(test@family, "y")
 
   test <- calc_element("plot.subtitle", td)
-  expect_equal(test$family, "x")
+  expect_equal(test@family, "x")
 })
 
 test_that("complete_theme completes a theme", {
@@ -638,7 +638,7 @@ test_that("complete_theme completes a theme", {
 
   # Elements are propagated
   new <- complete_theme(theme(axis.line = element_line("red")), gray)
-  expect_equal(new$axis.line$colour, "red")
+  expect_equal(new$axis.line@colour, "red")
 
   # Missing elements are filled in if default theme is incomplete
   new <- complete_theme(default = theme())

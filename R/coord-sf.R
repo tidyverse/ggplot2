@@ -334,13 +334,13 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     # we don't draw the graticules if the major panel grid is
     # turned off
-    if (inherits(el, "element_blank")) {
+    if (S7::S7_inherits(el, element_blank)) {
       grobs <- list(element_render(theme, "panel.background"))
     } else {
       line_gp <- gg_par(
-        col = el$colour,
-        lwd = el$linewidth,
-        lty = el$linetype
+        col = el@colour,
+        lwd = el@linewidth,
+        lty = el@linetype
       )
       grobs <- c(
         list(element_render(theme, "panel.background")),
