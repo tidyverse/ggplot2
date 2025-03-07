@@ -697,7 +697,9 @@ position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
     left   = replace(margin, 2, margin[2] + gap),
     right  = replace(margin, 4, margin[4] + gap)
   )
-  class(margin) <- union("margin", class(margin))
+  # We have to manually reconstitute the class because the 'simpleUnit' class
+  # might be dropped by the replacement operation.
+  class(margin) <- c("ggplot2::margin", class(margin), "S7_object")
   margin
 }
 

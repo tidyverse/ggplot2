@@ -1,13 +1,23 @@
+#' @include properties.R
+
 #' @param t,r,b,l Dimensions of each margin. (To remember order, think trouble).
 #' @param unit Default units of dimensions. Defaults to "pt" so it
 #'   can be most easily scaled with the text.
 #' @rdname element
 #' @export
-margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
-  u <- unit(c(t, r, b, l), unit)
-  class(u) <- c("margin", class(u))
-  u
-}
+margin <- S7::new_class(
+  "margin", parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
+  constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
+    u <- unit(c(t, r, b, l), unit)
+    S7::new_object(u)
+  },
+  properties = list(
+    top    = property_index(1L),
+    right  = property_index(2L),
+    bottom = property_index(3L),
+    left   = property_index(4L)
+  )
+)
 
 #' @rdname element
 #' @export
@@ -23,7 +33,7 @@ margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
 
 #' @export
 #' @rdname is_tests
-is.margin <- function(x) inherits(x, "margin")
+is.margin <- function(x) S7::S7_inherits(x, margin)
 
 #' Create a text grob with the proper location and margins
 #'

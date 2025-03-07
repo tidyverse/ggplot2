@@ -867,7 +867,7 @@ S7::method(merge_element, list(element, S7::class_any)) <-
     new
 }
 
-S7::method(merge_element, list(S7::new_S3_class("margin"), S7::class_any)) <-
+S7::method(merge_element, list(margin, S7::class_any)) <-
   function(new, old, ...) {
     if (is.null(old) || S7::S7_inherits(old, element_blank)) {
       return(new)
@@ -911,7 +911,7 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
-  if (inherits(e1, "margin") && inherits(e2, "margin")) {
+  if (is.margin(e1) && is.margin(e2)) {
     if (anyNA(e2)) {
       e2[is.na(e2)] <- unit(0, "pt")
     }
@@ -921,7 +921,7 @@ combine_elements <- function(e1, e2) {
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!S7::S7_inherits(e1, element) && !S7::S7_inherits(e2, element)) {
+  if (!is.theme_element(e1) && !is.theme_element(e2)) {
     return(e1)
   }
 
@@ -949,7 +949,7 @@ combine_elements <- function(e1, e2) {
     e1@linewidth <- e2@linewidth * unclass(e1@linewidth)
   }
 
-  if (inherits(e1, "element_text")) {
+  if (S7::S7_inherits(e1, element_text)) {
     e1@margin <- combine_elements(e1@margin, e2@margin)
   }
 

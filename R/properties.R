@@ -43,3 +43,16 @@ property_nullable <- function(class = S7::class_any, ...) {
     ...
   )
 }
+
+property_index <- function(i) {
+  force(i)
+  S7::new_property(
+    getter = function(self) {
+      self[i]
+    },
+    setter = function(self, value) {
+      self[i] <- value
+      self
+    }
+  )
+}

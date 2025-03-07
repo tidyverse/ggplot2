@@ -87,8 +87,11 @@ element <- S7::new_class("element", abstract = TRUE)
 #' @rdname element
 element_blank <- S7::new_class("element_blank", parent = element)
 
+
 # All properties are listed here so they can easily be recycled in the different
 # element classes
+#' @include properties.R
+#' @include margins.R
 element_props <- list(
   fill       = property_nullable(S7::class_character | S7::new_S3_class("GridPattern") | S7::class_logical),
   colour     = property_nullable(S7::class_character | S7::class_logical),
