@@ -183,7 +183,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     if ((length(aes$fill) > 1 || length(aes$alpha) > 1)) {
       transformed <- coord$transform(flip_data(data, flipped_aes), panel_params)
       if (flipped_aes) {
-        keep <- is.finite(tranformed$y)
+        keep <- is.finite(transformed$y)
         args <- list(
           colours = alpha(data$fill, data$alpha)[keep],
           stops = rescale(transformed$y)[keep],
