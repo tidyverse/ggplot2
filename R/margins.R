@@ -10,13 +10,7 @@ margin <- S7::new_class(
   constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
     u <- unit(c(t, r, b, l), unit)
     S7::new_object(u)
-  },
-  properties = list(
-    top    = property_index(1L),
-    right  = property_index(2L),
-    bottom = property_index(3L),
-    left   = property_index(4L)
-  )
+  }
 )
 
 #' @rdname element
