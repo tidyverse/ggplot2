@@ -32,17 +32,17 @@ the plot intact.
 }
 \examples{
 # making a new method for the generic
-# in this example, we apply a text element to the text theme setting
-ggplot_add.element_text <- function(object, plot, object_name) {
-  plot + theme(text = object)
+# in this example, we apply a colour to the plot background
+ggplot_add.character <- function(object, plot, object_name) {
+  plot + theme(plot.background = element_rect(fill = object))
 }
 
 # we can now use `+` to add our object to a plot
 ggplot(mpg, aes(displ, cty)) +
   geom_point() +
-  element_text(colour = "red")
+  "cornsilk"
 
 # clean-up
-rm(ggplot_add.element_text)
+rm(ggplot_add.character)
 }
 \keyword{internal}
