@@ -87,7 +87,28 @@ element <- S7::new_class("element", abstract = TRUE)
 #' @rdname element
 element_blank <- S7::new_class("element_blank", parent = element)
 
-#' @include properties.R
+# All properties are listed here so they can easily be recycled in the different
+# element classes
+element_props <- list(
+  fill       = property_nullable(S7::class_character | S7::new_S3_class("GridPattern") | S7::class_logical),
+  colour     = property_nullable(S7::class_character | S7::class_logical),
+  family     = property_nullable(S7::class_character),
+  hjust      = property_nullable(S7::class_numeric),
+  vjust      = property_nullable(S7::class_numeric),
+  angle      = property_nullable(S7::class_numeric),
+  size       = property_nullable(S7::class_numeric),
+  lineheight = property_nullable(S7::class_numeric),
+  margin     = property_nullable(margin),
+  face       = property_choice(c("plain", "bold", "italic", "oblique", "bold.italic"), allow_null = TRUE),
+  linewidth  = property_nullable(S7::class_numeric),
+  linetype   = property_nullable(S7::class_numeric | S7::class_character),
+  lineend    = property_choice(c("round", "butt", "square"), allow_null = TRUE),
+  shape      = property_nullable(S7::class_numeric | S7::class_character),
+  arrow      = property_nullable(S7::new_S3_class("arrow") | S7::class_logical),
+  arrow.fill = property_nullable(S7::class_character | S7::class_logical),
+  debug      = property_boolean(allow_null = TRUE, default = NULL),
+  inherit.blank = property_boolean(default = FALSE)
+)
 
 #' @export
 #' @rdname element
