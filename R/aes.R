@@ -46,8 +46,8 @@ NULL
 #' 'AsIs' variables.
 #'
 #' @family aesthetics documentation
-#' @return A list with class `uneval`. Components of the list are either
-#'   quosures or constants.
+#' @return An S7 object representing a list with class `mapping`. Components of
+#'   the list are either quosures or constants.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -105,13 +105,21 @@ aes <- function(x, y, ...) {
     inject(aes(!!!args))
   })
 
-  aes <- new_aes(args, env = parent.frame())
-  rename_aes(aes)
+  mapping(rename_aes(args), env = parent.frame())
 }
+
+mapping <- S7::new_class(
+  "mapping", parent = S7::new_S3_class("gg"),
+  constructor = function(x, env = globalenv()) {
+    check_object(x, is.list, "a {.cls list}")
+    x <- lapply(x, new_aesthetic, env = env)
+    S7::new_object(x)
+  }
+)
 
 #' @export
 #' @rdname is_tests
-is.mapping <- function(x) inherits(x, "uneval")
+is.mapping <- function(x) S7::S7_inherits(x, mapping)
 
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
@@ -130,14 +138,9 @@ new_aesthetic <- function(x, env = globalenv()) {
 
   x
 }
-new_aes <- function(x, env = globalenv()) {
-  check_object(x, is.list, "a {.cls list}")
-  x <- lapply(x, new_aesthetic, env = env)
-  structure(x, class = "uneval")
-}
 
 #' @export
-print.uneval <- function(x, ...) {
+`print.ggplot2::mapping` <- function(x, ...) {
   cat("Aesthetic mapping: \n")
 
   if (length(x) == 0) {
@@ -153,25 +156,22 @@ print.uneval <- function(x, ...) {
 }
 
 #' @export
-"[.uneval" <- function(x, i, ...) {
-  new_aes(NextMethod())
+"[.ggplot2::mapping" <- function(x, i, ...) {
+  mapping(NextMethod())
 }
 
 # If necessary coerce replacements to quosures for compatibility
 #' @export
-"[[<-.uneval" <- function(x, i, value) {
-  new_aes(NextMethod())
+"[[<-.ggplot2::mapping" <- function(x, i, value) {
+  mapping(NextMethod())
 }
 #' @export
-"$<-.uneval" <- function(x, i, value) {
-  # Can't use NextMethod() because of a bug in R 3.1
-  x <- unclass(x)
-  x[[i]] <- value
-  new_aes(x)
+"$<-.ggplot2::mapping" <- function(x, i, value) {
+  mapping(NextMethod())
 }
 #' @export
-"[<-.uneval" <- function(x, i, value) {
-  new_aes(NextMethod())
+"[<-.ggplot2::mapping" <- function(x, i, value) {
+  mapping(NextMethod())
 }
 
 #' Standardise aesthetic names
@@ -212,8 +212,7 @@ substitute_aes <- function(x, fun = standardise_aes_symbols, ...) {
   x <- lapply(x, function(aesthetic) {
     as_quosure(fun(quo_get_expr(aesthetic), ...), env = environment(aesthetic))
   })
-  class(x) <- "uneval"
-  x
+  mapping(x)
 }
 # x is a quoted expression from inside aes()
 standardise_aes_symbols <- function(x) {
@@ -311,7 +310,7 @@ aes_ <- function(x, y, ...) {
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
-  structure(rename_aes(mapping), class = "uneval")
+  mapping(rename_aes(mapping))
 }
 
 #' @rdname aes_
@@ -337,7 +336,7 @@ aes_string <- function(x, y, ...) {
     new_aesthetic(x, env = caller_env)
   })
 
-  structure(rename_aes(mapping), class = "uneval")
+  mapping(rename_aes(mapping))
 }
 
 #' @export
@@ -358,10 +357,7 @@ aes_all <- function(vars) {
 
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
-  structure(
-    lapply(vars, function(x) new_quosure(as.name(x), emptyenv())),
-    class = "uneval"
-  )
+  mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
 }
 
 #' Automatic aesthetic mapping
@@ -396,7 +392,7 @@ aes_auto <- function(data = NULL, ...) {
     aes <- c(aes, args[names(args) != "data"])
   }
 
-  structure(rename_aes(aes), class = "uneval")
+  mapping(rename_aes(aes))
 }
 
 mapped_aesthetics <- function(x) {

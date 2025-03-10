@@ -213,7 +213,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
   }
 
   # For backward compatibility with pre-tidy-eval layers
-  new_aes(mapping)
+  mapping(mapping)
 }
 
 Layer <- ggproto("Layer", NULL,
@@ -265,7 +265,7 @@ Layer <- ggproto("Layer", NULL,
   setup_layer = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (isTRUE(self$inherit.aes)) {
-      self$computed_mapping <- defaults(self$mapping, plot$mapping)
+      self$computed_mapping <- mapping(defaults(self$mapping, plot$mapping))
 
       # Inherit size as linewidth from global mapping
       if (self$geom$rename_size &&
@@ -275,8 +275,6 @@ Layer <- ggproto("Layer", NULL,
         self$computed_mapping$size <- plot$mapping$size
         deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
       }
-      # defaults() strips class, but it needs to be preserved for now
-      class(self$computed_mapping) <- "uneval"
     } else {
       self$computed_mapping <- self$mapping
     }

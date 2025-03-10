@@ -124,7 +124,7 @@ summarise_coord <- function(p) {
 summarise_layers <- function(p) {
   check_inherits(p, "ggplot_built")
 
-  # Default mappings. Make sure it's a regular list instead of an uneval
+  # Default mappings. Make sure it's a regular list instead of a mapping
   # object.
   default_mapping <- unclass(p$plot$mapping)
 

@@ -156,11 +156,8 @@ ggplot_add.Guides <- function(object, plot, object_name) {
   }
   plot
 }
-#' @export
-ggplot_add.uneval <- function(object, plot, object_name) {
-  plot$mapping <- defaults(object, plot$mapping)
-  # defaults() doesn't copy class, so copy it.
-  class(plot$mapping) <- class(object)
+S7::method(ggplot_add, mapping) <- function(object, plot, object_name) {
+  plot$mapping <- mapping(defaults(object, plot$mapping))
   plot
 }
 #' @export

@@ -67,7 +67,7 @@ test_that("aes evaluated in environment where plot created", {
 
 test_that("constants are not wrapped in quosures", {
   aes <- aes(1L, "foo", 1.5)
-  expect_identical(unclass(aes), list(x = 1L, y = "foo", 1.5))
+  expect_identical(S7::S7_data(aes), list(x = 1L, y = "foo", 1.5))
 })
 
 test_that("assignment methods wrap symbolic objects in quosures", {
@@ -195,8 +195,8 @@ test_that("alternative_aes_extract_usage() can inspect the call", {
   expect_snapshot_error(alternative_aes_extract_usage(x))
 })
 
-test_that("new_aes() checks its inputs", {
-  expect_snapshot_error(new_aes(1:5))
+test_that("mapping() checks its inputs", {
+  expect_snapshot_error(mapping(1:5))
 })
 
 # Visual tests ------------------------------------------------------------
