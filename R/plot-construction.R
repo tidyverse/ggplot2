@@ -133,11 +133,7 @@ ggplot_add.function <- function(object, plot, object_name) {
     "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
   ))
 }
-#' @export
-ggplot_add.theme <- function(object, plot, object_name) {
-  plot$theme <- add_theme(plot$theme, object)
-  plot
-}
+
 #' @export
 ggplot_add.Scale <- function(object, plot, object_name) {
   plot$scales$add(object)

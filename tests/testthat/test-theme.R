@@ -634,7 +634,7 @@ test_that("complete_theme completes a theme", {
   # `NULL` should match default
   gray <- theme_gray()
   new <- complete_theme(NULL, default = gray)
-  expect_equal(new, gray, ignore_attr = "validate")
+  expect_equal(S7::S7_data(new), S7::S7_data(gray))
 
   # Elements are propagated
   new <- complete_theme(theme(axis.line = element_line("red")), gray)
