@@ -175,22 +175,24 @@ setup_plot_labels <- function(plot, layers, data) {
 #' p +
 #'  labs(title = "title") +
 #'  labs(title = NULL)
-labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
-                 tag = waiver(), dictionary = waiver(), alt = waiver(),
-                 alt_insight = waiver()) {
-  # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
-  args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
-    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
-    dictionary = dictionary, .ignore_empty = "all")
+labs <- S7::new_class(
+  "labels", parent = S7::new_S3_class("gg"),
+  constructor = function(..., title = waiver(), subtitle = waiver(),
+                         caption = waiver(), tag = waiver(), dictionary = waiver(),
+                         alt = waiver(), alt_insight = waiver()) {
+    # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
+    args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
+                      tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
+                      dictionary = dictionary, .ignore_empty = "all")
 
-  is_waive <- vapply(args, is.waiver, logical(1))
-  args <- args[!is_waive]
-  # remove duplicated arguments
-  args <- args[!duplicated(names(args))]
-  args <- rename_aes(args)
-
-  structure(args, class = c("labels", "gg"))
-}
+    is_waive <- vapply(args, is.waiver, logical(1))
+    args <- args[!is_waive]
+    # remove duplicated arguments
+    args <- args[!duplicated(names(args))]
+    args <- rename_aes(args)
+    S7::new_object(args)
+  }
+)
 
 #' @rdname labs
 #' @export

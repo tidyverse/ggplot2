@@ -139,8 +139,7 @@ ggplot_add.Scale <- function(object, plot, object_name) {
   plot$scales$add(object)
   plot
 }
-#' @export
-ggplot_add.labels <- function(object, plot, object_name) {
+S7::method(ggplot_add, labs) <- function(object, plot, object_name) {
   update_labels(plot, object)
 }
 #' @export
