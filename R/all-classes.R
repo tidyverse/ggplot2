@@ -1,0 +1,10 @@
+
+class_gg     <- S7::new_class("gg", abstract = TRUE)
+class_scale  <- S7::new_S3_class("Scale")
+class_guides <- S7::new_S3_class("Guides")
+class_coord  <- S7::new_S3_class("Coord")
+class_facet  <- S7::new_S3_class("Facet")
+class_layer  <- S7::new_S3_class("Layer")
+class_scales_list <- S7::new_S3_class("ScalesList")
+class_layout <- S7::new_S3_class("Layout")
+class_ggproto <- S7::new_S3_class("ggproto")

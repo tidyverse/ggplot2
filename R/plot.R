@@ -1,3 +1,23 @@
+#' @include all-classes.R
+#' @include theme.R
+
+class_ggplot <- S7::new_class(
+  name = "ggplot", parent = class_gg,
+  properties = list(
+    data    = S7::class_any,
+    layers  = S7::class_list,
+    scales  = class_scales_list,
+    guides  = class_guides,
+    mapping = mapping,
+    theme   = theme,
+    coordinates = class_coord,
+    facet   = class_facet,
+    layout  = class_layout,
+    labels  = labs,
+    plot_env = S7::class_environment
+  )
+)
+
 #' Create a new ggplot
 #'
 #' `ggplot()` initializes a ggplot object. It can be used to
@@ -120,19 +140,19 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 
   data <- fortify(data, ...)
 
-  p <- structure(list(
+  p <- class_ggplot(
     data = data,
     layers = list(),
     scales = scales_list(),
     guides = guides_list(),
     mapping = mapping,
-    theme = list(),
+    theme = theme(),
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
     layout = ggproto(NULL, Layout),
-    labels = list()
-  ), class = c("gg", "ggplot"))
+    labels = labs()
+  )
 
   set_last_plot(p)
   p
@@ -153,7 +173,7 @@ ggplot.function <- function(data = NULL, mapping = aes(), ...,
 #' @keywords internal
 #' @export
 #' @name is_tests
-is.ggplot <- function(x) inherits(x, "ggplot")
+is.ggplot <- function(x) S7::S7_inherits(x, class_ggplot)
 
 plot_clone <- function(plot) {
   p <- plot
