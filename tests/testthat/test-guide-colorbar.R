@@ -12,10 +12,10 @@ test_that("Colorbar respects show.legend in layer", {
   df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
-  expect_length(ggplot_build(p)$plot$guides$guides, 0L)
+  expect_length(ggplot_build(p)$plot@guides$guides, 0L)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = TRUE)
-  expect_length(ggplot_build(p)$plot$guides$guides, 1L)
+  expect_length(ggplot_build(p)$plot@guides$guides, 1L)
 })
 
 test_that("colorsteps and bins checks the breaks format", {

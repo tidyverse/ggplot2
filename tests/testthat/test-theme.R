@@ -56,34 +56,34 @@ test_that("adding theme object to ggplot object with + operator works", {
   ## test with complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point() + theme_grey()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_true(p@theme$axis.title$size == 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = 'red'))
-  expect_true(p$theme$text$colour == 'red')
+  expect_true(p@theme$text$colour == 'red')
   tt <- theme_grey()$text
   tt$colour <- 'red'
   expect_true(tt$inherit.blank)
   tt$inherit.blank <- FALSE
-  expect_identical(p$theme$text, tt)
+  expect_identical(p@theme$text, tt)
 
   ## test without complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_true(p@theme$axis.title$size == 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = 'red'))
-  expect_true(p$theme$text$colour == 'red')
-  expect_null(p$theme$text$family)
-  expect_null(p$theme$text$face)
-  expect_null(p$theme$text$size)
-  expect_null(p$theme$text$hjust)
-  expect_null(p$theme$text$vjust)
-  expect_null(p$theme$text$angle)
-  expect_null(p$theme$text$lineheight)
-  expect_null(p$theme$text$margin)
-  expect_null(p$theme$text$debug)
+  expect_true(p@theme$text$colour == 'red')
+  expect_null(p@theme$text$family)
+  expect_null(p@theme$text$face)
+  expect_null(p@theme$text$size)
+  expect_null(p@theme$text$hjust)
+  expect_null(p@theme$text$vjust)
+  expect_null(p@theme$text$angle)
+  expect_null(p@theme$text$lineheight)
+  expect_null(p@theme$text$margin)
+  expect_null(p@theme$text$debug)
 
   ## stepwise addition of partial themes is identical to one-step addition
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
@@ -95,7 +95,7 @@ test_that("adding theme object to ggplot object with + operator works", {
     theme(axis.line.x = element_line(color = "blue"),
           axis.ticks.x = element_line(color = "red"))
 
-  expect_identical(p1$theme, p2$theme)
+  expect_identical(p1@theme, p2@theme)
 })
 
 test_that("replacing theme elements with %+replace% operator works", {
@@ -221,33 +221,33 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   # Check that adding two theme successive theme objects to a ggplot object
   # works like adding the two theme object to each other
   p <- ggplot_build(base + theme_bw() + theme(text = element_text(colour = 'red')))
-  expect_true(attr(p$plot$theme, "complete"))
+  expect_true(attr(p$plot@theme, "complete"))
 
   # Compare the theme objects, after sorting the items, because item order can differ
-  pt <- p$plot$theme
+  pt <- p$plot@theme
   tt <- theme_bw() + theme(text = element_text(colour = 'red'))
   pt <- pt[order(names(pt))]
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red')) + theme_bw())
-  expect_true(attr(p$plot$theme, "complete"))
+  expect_true(attr(p$plot@theme, "complete"))
   # Compare the theme objects, after sorting the items, because item order can differ
-  pt <- p$plot$theme
+  pt <- p$plot@theme
   tt <- theme(text = element_text(colour = 'red')) + theme_bw()
   pt <- pt[order(names(pt))]
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_equal(p$plot$theme$text$colour, "red")
-  expect_equal(p$plot$theme$text$face, "italic")
+  expect_equal(p$plot@theme$text$colour, "red")
+  expect_equal(p$plot@theme$text$face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_equal(p$plot$theme$text$colour, "red")
-  expect_equal(p$plot$theme$text$face, "italic")
+  expect_equal(p$plot@theme$text$colour, "red")
+  expect_equal(p$plot@theme$text$face, "italic")
 })
 
 test_that("theme(validate=FALSE) means do not check_element", {
@@ -255,16 +255,16 @@ test_that("theme(validate=FALSE) means do not check_element", {
   bw <- p + theme_bw()
   red.text <- theme(text = element_text(colour = "red"))
   bw.before <- bw + theme(animint.width = 500, validate = FALSE)
-  expect_equal(bw.before$theme$animint.width, 500)
+  expect_equal(bw.before@theme$animint.width, 500)
 
   bw.after <- p + theme(animint.width = 500, validate = FALSE) + theme_bw()
-  expect_null(bw.after$theme$animint.width)
+  expect_null(bw.after@theme$animint.width)
 
   red.after <- p + theme(animint.width = 500, validate = FALSE) + red.text
-  expect_equal(red.after$theme$animint.width, 500)
+  expect_equal(red.after@theme$animint.width, 500)
 
   red.before <- p + red.text + theme(animint.width = 500, validate = FALSE)
-  expect_equal(red.before$theme$animint.width, 500)
+  expect_equal(red.before@theme$animint.width, 500)
 })
 
 test_that("theme validation happens at build stage", {

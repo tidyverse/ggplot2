@@ -625,7 +625,12 @@ complete_theme <- function(theme = NULL, default = theme_get()) {
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = get_theme()) {
-  theme <- x$theme
+  if (S7::S7_inherits(x)) {
+    theme <- x@theme
+  } else {
+    theme <- x$theme
+  }
+
 
   # apply theme defaults appropriately if needed
   if (is_theme_complete(theme)) {

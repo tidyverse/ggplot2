@@ -40,7 +40,7 @@ test_that("geom_polygon is closed before munching", {
     coord_polar()
 
   built <- ggplot_build(p)
-  coord <- built$plot$coordinates
+  coord <- built$plot@coordinates
   data  <- built$data[[1]]
   param <- built$layout$panel_params[[1]]
 

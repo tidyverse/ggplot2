@@ -265,14 +265,14 @@ Layer <- ggproto("Layer", NULL,
   setup_layer = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (isTRUE(self$inherit.aes)) {
-      self$computed_mapping <- mapping(defaults(self$mapping, plot$mapping))
+      self$computed_mapping <- mapping(defaults(self$mapping, plot@mapping))
 
       # Inherit size as linewidth from global mapping
       if (self$geom$rename_size &&
-          "size" %in% names(plot$mapping) &&
+          "size" %in% names(plot@mapping) &&
           !"linewidth" %in% names(self$computed_mapping) &&
           "linewidth" %in% self$geom$aesthetics()) {
-        self$computed_mapping$size <- plot$mapping$size
+        self$computed_mapping$size <- plot@mapping$size
         deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
       }
     } else {
@@ -300,7 +300,7 @@ Layer <- ggproto("Layer", NULL,
 
     # Evaluate aesthetics
     evaled <- eval_aesthetics(aesthetics, data)
-    plot$scales$add_defaults(evaled, plot$plot_env)
+    plot@scales$add_defaults(evaled, plot@plot_env)
 
     # Check for discouraged usage in mapping
     warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
@@ -370,7 +370,7 @@ Layer <- ggproto("Layer", NULL,
     if (length(new) == 0) return(data)
 
     # data needs to be non-scaled
-    data_orig <- plot$scales$backtransform_df(data)
+    data_orig <- plot@scales$backtransform_df(data)
 
     # Add map stat output to aesthetics
     stat_data <- eval_aesthetics(
@@ -387,11 +387,11 @@ Layer <- ggproto("Layer", NULL,
     stat_data <- data_frame0(!!!stat_data)
 
     # Add any new scales, if needed
-    plot$scales$add_defaults(stat_data, plot$plot_env)
+    plot@scales$add_defaults(stat_data, plot@plot_env)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {
-      stat_data <- plot$scales$transform_df(stat_data)
+      stat_data <- plot@scales$transform_df(stat_data)
     }
     stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
 

@@ -4,7 +4,7 @@
 \alias{ggplot_add}
 \title{Add custom objects to ggplot}
 \usage{
-ggplot_add(object, plot, object_name)
+ggplot_add(object, plot, ...)
 }
 \arguments{
 \item{object}{An object to add to the plot}

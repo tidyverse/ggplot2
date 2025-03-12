@@ -126,9 +126,9 @@ summarise_layers <- function(p) {
 
   # Default mappings. Make sure it's a regular list instead of a mapping
   # object.
-  default_mapping <- unclass(p$plot$mapping)
+  default_mapping <- unclass(p$plot@mapping)
 
-  layer_mappings <- lapply(p$plot$layers, function(layer) {
+  layer_mappings <- lapply(p$plot@layers, function(layer) {
     defaults(layer$mapping, default_mapping)
   })
 

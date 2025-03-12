@@ -15,27 +15,27 @@ summary.ggplot <- function(object, ...) {
     "\n", sep = ""
     )
 
-  if (!is.null(object$data)) {
+  if (!is.null(object@data)) {
     output <- paste(
-      "data:     ", paste(names(object$data), collapse = ", "),
-      " [", nrow(object$data), "x", ncol(object$data), "] ",
+      "data:     ", paste(names(object@data), collapse = ", "),
+      " [", nrow(object@data), "x", ncol(object@data), "] ",
       "\n", sep = "")
     cat(wrap(output))
   }
-  if (length(object$mapping) > 0) {
-    cat("mapping:  ", clist(object$mapping), "\n", sep = "")
+  if (length(object@mapping) > 0) {
+    cat("mapping:  ", clist(object@mapping), "\n", sep = "")
   }
-  if (object$scales$n() > 0) {
-    cat("scales:  ", paste(object$scales$input(), collapse = ", "), "\n")
+  if (object@scales$n() > 0) {
+    cat("scales:  ", paste(object@scales$input(), collapse = ", "), "\n")
   }
 
-  vars <- object$facet$vars()
+  vars <- object@facet$vars()
   vars <- if (length(vars) > 0) paste0("~", vars) else "<empty>"
   cat("faceting: ", paste0(vars, collapse = ", "), "\n")
 
-  if (length(object$layers) > 0)
+  if (length(object@layers) > 0)
     cat("-----------------------------------\n")
-  invisible(lapply(object$layers, function(x) {
+  invisible(lapply(object@layers, function(x) {
     print(x)
     cat("\n")
   }))

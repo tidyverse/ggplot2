@@ -832,7 +832,7 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   if (!aesthetic %in% c("x", "y", "x.sec", "y.sec", "theta", "r")) {
     # Non position guides: check if aesthetic in colnames of key
-    keys <- lapply(plot$plot$guides$params, `[[`, "key")
+    keys <- lapply(plot$plot@guides$params, `[[`, "key")
     keep <- vapply(keys, function(x) any(colnames(x) %in% aesthetic), logical(1))
     keys <- switch(sum(keep) + 1, NULL, keys[[which(keep)]], keys[keep])
     return(keys)

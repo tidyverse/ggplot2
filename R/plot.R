@@ -177,8 +177,7 @@ is.ggplot <- function(x) S7::S7_inherits(x, class_ggplot)
 
 plot_clone <- function(plot) {
   p <- plot
-  p$scales <- plot$scales$clone()
-
+  p@scales <- plot@scales$clone()
   p
 }
 

@@ -123,7 +123,7 @@ ggplot_add.NULL <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.data.frame <- function(object, plot, object_name) {
-  plot$data <- object
+  plot@data <- object
   plot
 }
 #' @export
@@ -136,7 +136,7 @@ ggplot_add.function <- function(object, plot, object_name) {
 
 #' @export
 ggplot_add.Scale <- function(object, plot, object_name) {
-  plot$scales$add(object)
+  plot@scales$add(object)
   plot
 }
 S7::method(ggplot_add, labs) <- function(object, plot, object_name) {
@@ -144,33 +144,33 @@ S7::method(ggplot_add, labs) <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Guides <- function(object, plot, object_name) {
-  if (is.guides(plot$guides)) {
+  if (is.guides(plot@guides)) {
     # We clone the guides object to prevent modify-in-place of guides
-    old <- plot$guides
+    old <- plot@guides
     new <- ggproto(NULL, old)
     new$add(object)
-    plot$guides <- new
+    plot@guides <- new
   } else {
-    plot$guides <- object
+    plot@guides <- object
   }
   plot
 }
 S7::method(ggplot_add, mapping) <- function(object, plot, object_name) {
-  plot$mapping <- mapping(defaults(object, plot$mapping))
+  plot@mapping <- mapping(defaults(object, plot@mapping))
   plot
 }
 #' @export
 ggplot_add.Coord <- function(object, plot, object_name) {
-  if (!isTRUE(plot$coordinates$default)) {
+  if (!isTRUE(plot@coordinates$default)) {
     cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
   }
 
-  plot$coordinates <- object
+  plot@coordinates <- object
   plot
 }
 #' @export
 ggplot_add.Facet <- function(object, plot, object_name) {
-  plot$facet <- object
+  plot@facet <- object
   plot
 }
 #' @export
@@ -187,9 +187,9 @@ ggplot_add.by <- function(object, plot, object_name) {
 
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
-  layers_names <- new_layer_names(object, names2(plot$layers))
-  plot$layers <- append(plot$layers, object)
-  names(plot$layers) <- layers_names
+  layers_names <- new_layer_names(object, names2(plot@layers))
+  plot@layers <- append(plot@layers, object)
+  names(plot@layers) <- layers_names
   plot
 }
 
