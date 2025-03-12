@@ -4,6 +4,7 @@
 #' @param end Position from 12 o'clock in radians where plot ends, to allow
 #'   for partial polar coordinates. The default, `NULL`, is set to
 #'   `start + 2 * pi`.
+#' @inheritParams coord_cartesian
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
@@ -40,9 +41,21 @@
 #' ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
 #'   coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
+#' 
+#' # Similar with coord_cartesian(), you can set limtis, but note the `clip` 
+#' # area is not the same with the circle track area.
+#' ggplot(mtcars, aes(disp, mpg)) +
+#'     geom_point() +
+#'     coord_radial(
+#'         start = -0.4 * pi,
+#'         end = 0.4 * pi, inner.radius = 0.3,
+#'         xlim = c(200, 300),
+#'         ylim = c(15, 30),
+#'         clip = "on"
+#'     )
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
-                         expand = TRUE,
+                         xlim = NULL, ylim = NULL, expand = TRUE,
                          direction = deprecated(),
                          clip = "off",
                          r.axis.inside = NULL,
@@ -96,6 +109,7 @@ coord_radial <- function(theta = "x",
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
 
   ggproto(NULL, CoordRadial,
+    limits = list(x = xlim, y = ylim),
     theta = theta,
     r = r,
     arc = arc,
@@ -149,8 +163,12 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
 
     params <- c(
-      view_scales_polar(scale_x, self$theta, expand = params$expand[c(4, 2)]),
-      view_scales_polar(scale_y, self$theta, expand = params$expand[c(3, 1)]),
+      view_scales_polar(scale_x, self$theta, self$limits$x,
+        expand = params$expand[c(4, 2)]
+      ),
+      view_scales_polar(scale_y, self$theta, self$limits$y, 
+        expand = params$expand[c(3, 1)]
+      ),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
            arc = self$arc, inner_radius = self$inner_radius)
     )
@@ -454,7 +472,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   }
 )
 
-view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
+view_scales_polar <- function(scale, theta = "x", coord_limits = NULL, 
+                              expand = TRUE) {
 
   aesthetic <- scale$aesthetics[1]
   is_theta  <- theta == aesthetic
@@ -462,7 +481,10 @@ view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
 
   expansion <- default_expansion(scale, expand = expand)
   limits <- scale$get_limits()
-  continuous_range <- expand_limits_scale(scale, expansion, limits)
+  continuous_range <- expand_limits_scale(
+    scale, expansion, limits,
+    coord_limits
+  )
 
   primary <- view_scale_primary(scale, limits, continuous_range)
   view_scales <- list(

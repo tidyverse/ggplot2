@@ -11,6 +11,8 @@ coord_radial(
   theta = "x",
   start = 0,
   end = NULL,
+  xlim = NULL,
+  ylim = NULL,
   expand = TRUE,
   direction = deprecated(),
   clip = "off",
@@ -37,6 +39,8 @@ means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian(
 \item{end}{Position from 12 o'clock in radians where plot ends, to allow
 for partial polar coordinates. The default, \code{NULL}, is set to
 \code{start + 2 * pi}.}
+
+\item{xlim, ylim}{Limits for the x and y axes.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to prevent overlap between data and axes. If \code{FALSE}, limits
@@ -131,6 +135,18 @@ doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 ggplot(mtcars, aes(disp, mpg)) +
   geom_point() +
   coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
+
+# Similar with coord_cartesian(), you can set limtis, but note the `clip` 
+# area is not the same with the circle track area.
+ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    coord_radial(
+        start = -0.4 * pi,
+        end = 0.4 * pi, inner.radius = 0.3,
+        xlim = c(200, 300),
+        ylim = c(15, 30),
+        clip = "on"
+    )
 }
 \seealso{
 The \href{https://ggplot2-book.org/coord#polar-coordinates-with-coord_polar}{polar coordinates section} of the online ggplot2 book.
