@@ -4,7 +4,7 @@
 \alias{summary.ggplot}
 \title{Displays a useful description of a ggplot object}
 \usage{
-\method{summary}{ggplot}(object, ...)
+summary(object, ...)
 }
 \arguments{
 \item{object}{ggplot2 object to summarise}

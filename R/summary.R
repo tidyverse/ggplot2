@@ -3,13 +3,13 @@
 #' @param object ggplot2 object to summarise
 #' @param ... other arguments ignored (for compatibility with generic)
 #' @keywords internal
-#' @method summary ggplot
-#' @export
+#' @name summary.ggplot
+#' @usage summary(object, ...)
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point()
 #' summary(p)
-summary.ggplot <- function(object, ...) {
+S7::method(summary, class_ggplot) <- function(object, ...) {
   wrap <- function(x) paste(
     paste(strwrap(x, exdent = 2), collapse = "\n"),
     "\n", sep = ""

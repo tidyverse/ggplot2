@@ -959,5 +959,4 @@ combine_elements <- function(e1, e2) {
   .subset2(x, ...)
 }
 
-#' @export
-print.theme <- function(x, ...) utils::str(x)
+S7::method(print, theme) <- function(x, ...) utils::str(x)

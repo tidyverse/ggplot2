@@ -2,12 +2,10 @@
 % Please edit documentation in R/plot.R
 \name{print.ggplot}
 \alias{print.ggplot}
-\alias{plot.ggplot}
 \title{Explicitly draw plot}
 \usage{
-\method{print}{ggplot}(x, newpage = is.null(vp), vp = NULL, ...)
-
-\method{plot}{ggplot}(x, newpage = is.null(vp), vp = NULL, ...)
+print(x, newpage = is.null(vp), vp = NULL, ...)
+plot(x, newpage = is.null(vp), vp = NULL, ...)
 }
 \arguments{
 \item{x}{plot to display}
