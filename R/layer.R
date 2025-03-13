@@ -205,7 +205,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
     msg <- "{.arg mapping} must be created by {.fn aes}."
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
-    if (inherits(mapping, "gg")) {
+    if (S7::S7_inherits(mapping, class_gg)) {
       msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 

@@ -153,6 +153,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
     layout = ggproto(NULL, Layout),
     labels = labs()
   )
+  class(p) <- union("ggplot", class(p))
 
   set_last_plot(p)
   p
@@ -243,3 +244,38 @@ S7::method(print, class_ggplot) <-
 
   invisible(x)
 }
+
+#' @export
+`$.ggplot2::ggplot` <- function(x, i) {
+  `[[`(S7::props(x), i)
+}
+
+#' @export
+`$<-.ggplot2::ggplot` <- function(x, i, value) {
+  S7::props(x) <- `$<-`(S7::props(x), i, value)
+  x
+}
+
+#' @export
+`[.ggplot2::ggplot` <- function(x, i) {
+  `[`(S7::props(x), i)
+}
+
+#' @export
+`[<-.ggplot2::ggplot` <- function(x, i, value) {
+  S7::props(x) <- `[<-`(S7::props(x), i, value)
+  x
+}
+
+#' @export
+`[[.ggplot2::ggplot` <- function(x, i) {
+  `[[`(S7::props(x), i)
+}
+
+#' @export
+`[[<-.ggplot2::ggplot` <- function(x, i, value) {
+  S7::props(x) <- `[[<-`(S7::props(x), i, value)
+  x
+}
+
+

@@ -493,7 +493,7 @@ check_vars <- function(x) {
   }
   # Native pipe have higher precedence than + so any type of gg object can be
   # expected here, not just ggplot
-  if (inherits(x, "gg")) {
+  if (S7::S7_inherits(x, class_gg)) {
     cli::cli_abort(c(
       "Please use {.fn vars} to supply facet variables.",
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
