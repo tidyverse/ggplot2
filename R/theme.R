@@ -565,11 +565,6 @@ theme <- S7::new_class(
   constructor = theme
 )
 
-S7::method(ggplot_add, theme) <- function(object, plot, object_name, ...) {
-  plot$theme <- add_theme(plot$theme, object)
-  plot
-}
-
 #' @export
 #' @rdname is_tests
 is.theme <- function(x) S7::S7_inherits(x, theme)

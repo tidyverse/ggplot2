@@ -52,9 +52,6 @@
       $geom_violin
       [1] "draw_quantiles"
       
-      $ggplot_add
-      [1] "object_name"
-      
       $ggproto
       [1] "_class"   "_inherit"
       
