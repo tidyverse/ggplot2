@@ -1,3 +1,14 @@
+#' @include plot.R
+
+class_ggplot_built <- S7::new_class(
+  "ggplot_built",
+  properties = list(
+    data = S7::class_list,
+    layout = class_layout,
+    plot = class_ggplot
+  )
+)
+
 #' Build ggplot for rendering.
 #'
 #' `ggplot_build()` takes the plot object, and performs all steps necessary
@@ -131,16 +142,13 @@ ggplot_build.ggplot <- function(plot) {
   # Consolidate alt-text
   plot@labels$alt <- get_alt_text(plot)
 
-  structure(
-    list(data = data, layout = layout, plot = plot),
-    class = "ggplot_built"
-  )
+  class_ggplot_built(data = data, layout = layout, plot = plot)
 }
 
 #' @export
 #' @rdname ggplot_build
 get_layer_data <- function(plot = get_last_plot(), i = 1L) {
-  ggplot_build(plot)$data[[i]]
+  ggplot_build(plot)@data[[i]]
 }
 #' @export
 #' @rdname ggplot_build
@@ -151,12 +159,12 @@ layer_data <- get_layer_data
 get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
-  layout <- b$layout$layout
+  layout <- b@layout$layout
   selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
 
   list(
-    x = b$layout$panel_scales_x[[selected$SCALE_X]],
-    y = b$layout$panel_scales_y[[selected$SCALE_Y]]
+    x = b@layout$panel_scales_x[[selected$SCALE_X]],
+    y = b@layout$panel_scales_y[[selected$SCALE_Y]]
   )
 }
 
@@ -169,7 +177,7 @@ layer_scales <- get_panel_scales
 get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
-  b$plot@layers[[i]]$draw_geom(b$data[[i]], b$layout)
+  b@plot@layers[[i]]$draw_geom(b@data[[i]], b@layout)
 }
 
 #' @export
@@ -203,9 +211,9 @@ ggplot_gtable <- function(data) {
 
 #' @export
 ggplot_gtable.ggplot_built <- function(data) {
-  plot <- data$plot
-  layout <- data$layout
-  data <- data$data
+  plot <- data@plot
+  layout <- data@layout
+  data <- data@data
   theme <- plot@theme
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot@layers, data, "converting geom to grob")

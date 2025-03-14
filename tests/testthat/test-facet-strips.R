@@ -1,8 +1,8 @@
 strip_layout <- function(p) {
   data <- ggplot_build(p)
-  plot <- data$plot
-  layout <- data$layout
-  data <- data$data
+  plot <- data@plot
+  layout <- data@layout
+  data <- data@data
   theme <- plot_theme(plot)
 
   geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot@layers, data)

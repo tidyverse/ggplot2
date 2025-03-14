@@ -221,33 +221,33 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   # Check that adding two theme successive theme objects to a ggplot object
   # works like adding the two theme object to each other
   p <- ggplot_build(base + theme_bw() + theme(text = element_text(colour = 'red')))
-  expect_true(attr(p$plot@theme, "complete"))
+  expect_true(attr(p@plot@theme, "complete"))
 
   # Compare the theme objects, after sorting the items, because item order can differ
-  pt <- p$plot@theme
+  pt <- p@plot@theme
   tt <- theme_bw() + theme(text = element_text(colour = 'red'))
   pt <- pt[order(names(pt))]
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red')) + theme_bw())
-  expect_true(attr(p$plot@theme, "complete"))
+  expect_true(attr(p@plot@theme, "complete"))
   # Compare the theme objects, after sorting the items, because item order can differ
-  pt <- p$plot@theme
+  pt <- p@plot@theme
   tt <- theme(text = element_text(colour = 'red')) + theme_bw()
   pt <- pt[order(names(pt))]
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_equal(p$plot@theme$text$colour, "red")
-  expect_equal(p$plot@theme$text$face, "italic")
+  expect_equal(p@plot@theme$text$colour, "red")
+  expect_equal(p@plot@theme$text$face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_equal(p$plot@theme$text$colour, "red")
-  expect_equal(p$plot@theme$text$face, "italic")
+  expect_equal(p@plot@theme$text$colour, "red")
+  expect_equal(p@plot@theme$text$face, "italic")
 })
 
 test_that("theme(validate=FALSE) means do not check_element", {

@@ -55,11 +55,11 @@ test_that("polar distance calculation ignores NA's", {
 test_that("clipping can be turned off and on", {
   # clip can be turned on and off
   p <- ggplot() + coord_polar()
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "on")
 
   p <- ggplot() + coord_polar(clip = "off")
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "off")
 })
 
@@ -205,7 +205,7 @@ test_that("coord_radial can deal with empty breaks (#6271)", {
       scale_x_continuous(breaks = numeric()) +
       scale_y_continuous(breaks = numeric())
   )
-  guides <- p$layout$panel_params[[1]]$guides$guides
+  guides <- p@layout$panel_params[[1]]$guides$guides
   is_none <- vapply(guides, inherits, logical(1), what = "GuideNone")
   expect_true(all(is_none))
 })

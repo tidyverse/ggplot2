@@ -2,7 +2,7 @@
 df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("there is one data frame for each layer", {
-  nlayers <- function(x) length(ggplot_build(x)$data)
+  nlayers <- function(x) length(ggplot_build(x)@data)
 
   l1 <- ggplot(df, aes(x, y)) + geom_point()
   l2 <- ggplot(df, aes(x, y)) + geom_point() + geom_line()

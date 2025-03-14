@@ -8,7 +8,7 @@ test_that("Coord errors on missing methods", {
 
 test_that("clipping is on by default", {
   p <- ggplot()
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "on")
 })
 
@@ -30,9 +30,9 @@ test_that("guide names are not removed by `train_panel_guides()`", {
   data <- ggplot_build(gg)
 
   # Excerpt from ggplot_gtable.ggplot_built
-  plot <- data$plot
-  layout <- data$layout
-  data <- data$data
+  plot <- data@plot
+  layout <- data@layout
+  data <- data@data
 
   layout$setup_panel_guides(guides_list(NULL), plot@layers)
 
@@ -97,12 +97,12 @@ test_that("coord expand takes a vector", {
   base <- ggplot() + lims(x = c(0, 10), y = c(0, 10))
 
   p <- ggplot_build(base + coord_cartesian(expand = c(TRUE, FALSE, FALSE, TRUE)))
-  pp <- p$layout$panel_params[[1]]
+  pp <- p@layout$panel_params[[1]]
   expect_equal(pp$x.range, c(-0.5, 10))
   expect_equal(pp$y.range, c(0, 10.5))
 
   p <- ggplot_build(base + coord_cartesian(expand = c(top = FALSE, left = FALSE)))
-  pp <- p$layout$panel_params[[1]]
+  pp <- p@layout$panel_params[[1]]
   expect_equal(pp$x.range, c(0, 10.5))
   expect_equal(pp$y.range, c(-0.5, 10))
 

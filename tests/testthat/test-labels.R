@@ -134,15 +134,15 @@ test_that("position axis label hierarchy works as intended", {
     geom_point(size = 5)
 
   p <- ggplot_build(p)
-  resolve_label <- function(x) p$layout$resolve_label(x, p$plot@labels)
+  resolve_label <- function(x) p@layout$resolve_label(x, p@plot@labels)
 
   # In absence of explicit title, get title from mapping
   expect_identical(
-    resolve_label(p$layout$panel_scales_x[[1]]),
+    resolve_label(p@layout$panel_scales_x[[1]]),
     list(secondary = NULL, primary = "foo")
   )
   expect_identical(
-    resolve_label(p$layout$panel_scales_y[[1]]),
+    resolve_label(p@layout$panel_scales_y[[1]]),
     list(primary = "bar", secondary = NULL)
   )
 
@@ -157,9 +157,9 @@ test_that("position axis label hierarchy works as intended", {
   )
 
   # Guide titles overrule scale names
-  p$layout$setup_panel_guides(
+  p@layout$setup_panel_guides(
     guides_list(list(x = guide_axis("quuX"), y = guide_axis("corgE"))),
-    p$plot@layers
+    p@plot@layers
   )
   expect_identical(
     resolve_label(scale_x_continuous("Baz")),
@@ -183,10 +183,10 @@ test_that("position axis label hierarchy works as intended", {
   )
 
   # Secondary guide titles override secondary axis names
-  p$layout$setup_panel_guides(
+  p@layout$setup_panel_guides(
     guides_list(list(x = guide_axis("quuX"), y = guide_axis("corgE"),
                      x.sec = guide_axis("waldo"), y.sec = guide_axis("fred"))),
-    p$plot@layers
+    p@plot@layers
   )
   expect_identical(
     resolve_label(xsec),
@@ -231,38 +231,38 @@ test_that("moving guide positions lets titles follow", {
   p <- ggplot_build(p)
 
   # Default guide positions
-  p$layout$setup_panel_guides(
+  p@layout$setup_panel_guides(
     guides_list(
       list(x = guide_axis("baz", position = "bottom"),
            y = guide_axis("qux", position = "left"))
     ),
-    p$plot@layers
+    p@plot@layers
   )
   labs <- get_labs(p)
   expect <- list(x = "baz", x.sec = NULL, y = "qux", y.sec = NULL)
   expect_identical(labs[names(expect)], expect)
 
   # Guides at secondary positions
-  p$layout$setup_panel_guides(
+  p@layout$setup_panel_guides(
     guides_list(
       list(x = guide_axis("baz", position = "top"),
            y = guide_axis("qux", position = "right"))
     ),
-    p$plot@layers
+    p@plot@layers
   )
   labs <- get_labs(p)
   expect_identical(labs[names(expect)], expect)
 
   # Primary guides at secondary positions with
   # secondary guides at primary positions
-  p$layout$setup_panel_guides(
+  p@layout$setup_panel_guides(
     guides_list(
       list(x = guide_axis("baz", position = "top"),
            y = guide_axis("qux", position = "right"),
            x.sec = guide_axis("quux"),
            y.sec = guide_axis("corge"))
     ),
-    p$plot@layers
+    p@plot@layers
   )
   labs <- get_labs(p)
   expect[c("x.sec", "y.sec")] <- list("quux", "corge")
@@ -281,16 +281,16 @@ test_that("label dictionaries work", {
     ))
   p <- ggplot_build(p)
 
-  x <- p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot@labels)
+  x <- p@layout$resolve_label(p@layout$panel_scales_x[[1]], p@plot@labels)
   expect_equal(x$primary, "Displacement")
 
-  y <- p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot@labels)
+  y <- p@layout$resolve_label(p@layout$panel_scales_y[[1]], p@plot@labels)
   expect_equal(y$primary, "Miles per gallon")
 
-  shape <- p$plot@guides$get_params("shape")$title
+  shape <- p@plot@guides$get_params("shape")$title
   expect_equal(shape, "Number of cylinders")
 
-  size <- p$plot@guides$get_params("size")$title
+  size <- p@plot@guides$get_params("size")$title
   expect_equal(size, "Rear axle ratio")
 })
 

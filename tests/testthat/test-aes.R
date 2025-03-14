@@ -96,13 +96,13 @@ test_that("assignment methods pull unwrap constants from quosures", {
 
 test_that("quosures are squashed when creating default label for a mapping", {
   p <- ggplot(mtcars) + aes(!!quo(identity(!!quo(cyl))))
-  labels <- ggplot_build(p)$plot@labels
+  labels <- ggplot_build(p)@plot@labels
   expect_identical(labels$x, "identity(cyl)")
 })
 
 test_that("labelling doesn't cause error if aesthetic is NULL", {
   p <- ggplot(mtcars) + aes(x = NULL)
-  labels <- ggplot_build(p)$plot@labels
+  labels <- ggplot_build(p)@plot@labels
   expect_identical(labels$x, "x")
 })
 
