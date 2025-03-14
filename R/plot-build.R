@@ -320,6 +320,9 @@ ggplotGrob <- function(x) {
   ggplot_gtable(ggplot_build(x))
 }
 
+S7::method(as.gtable, class_ggplot) <- ggplotGrob
+S7::method(as.gtable, class_ggplot_built) <- ggplotGrob
+
 # Apply function to layer and matching data
 by_layer <- function(f, layers, data, step = NULL) {
   ordinal <- label_ordinal()
