@@ -105,10 +105,20 @@ aes <- function(x, y, ...) {
     inject(aes(!!!args))
   })
 
-  mapping(rename_aes(args), env = parent.frame())
+  class_mapping(rename_aes(args), env = parent.frame())
 }
 
-mapping <- S7::new_class(
+#' The mapping class
+#'
+#' The mapping class holds a list of quoted expressions
+#' ([quosures][rlang::topic-quosure]) or constants. An object is typically
+#' constructed using the [`aes()`] function.
+#'
+#' @param x A list of quosures and constants.
+#' @param env An environment for symbols that are not quosures or constants.
+#'
+#' @export
+class_mapping <- S7::new_class(
   "mapping", parent = S7::new_S3_class("gg"),
   constructor = function(x, env = globalenv()) {
     check_object(x, is.list, "a {.cls list}")
@@ -119,7 +129,7 @@ mapping <- S7::new_class(
 
 #' @export
 #' @rdname is_tests
-is.mapping <- function(x) S7::S7_inherits(x, mapping)
+is.mapping <- function(x) S7::S7_inherits(x, class_mapping)
 
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
@@ -157,21 +167,21 @@ new_aesthetic <- function(x, env = globalenv()) {
 
 #' @export
 "[.ggplot2::mapping" <- function(x, i, ...) {
-  mapping(NextMethod())
+  class_mapping(NextMethod())
 }
 
 # If necessary coerce replacements to quosures for compatibility
 #' @export
 "[[<-.ggplot2::mapping" <- function(x, i, value) {
-  mapping(NextMethod())
+  class_mapping(NextMethod())
 }
 #' @export
 "$<-.ggplot2::mapping" <- function(x, i, value) {
-  mapping(NextMethod())
+  class_mapping(NextMethod())
 }
 #' @export
 "[<-.ggplot2::mapping" <- function(x, i, value) {
-  mapping(NextMethod())
+  class_mapping(NextMethod())
 }
 
 #' Standardise aesthetic names
@@ -212,7 +222,7 @@ substitute_aes <- function(x, fun = standardise_aes_symbols, ...) {
   x <- lapply(x, function(aesthetic) {
     as_quosure(fun(quo_get_expr(aesthetic), ...), env = environment(aesthetic))
   })
-  mapping(x)
+  class_mapping(x)
 }
 # x is a quoted expression from inside aes()
 standardise_aes_symbols <- function(x) {
@@ -310,7 +320,7 @@ aes_ <- function(x, y, ...) {
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
-  mapping(rename_aes(mapping))
+  class_mapping(rename_aes(mapping))
 }
 
 #' @rdname aes_
@@ -336,7 +346,7 @@ aes_string <- function(x, y, ...) {
     new_aesthetic(x, env = caller_env)
   })
 
-  mapping(rename_aes(mapping))
+  class_mapping(rename_aes(mapping))
 }
 
 #' @export
@@ -357,7 +367,7 @@ aes_all <- function(vars) {
 
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
-  mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
+  class_mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
 }
 
 #' Automatic aesthetic mapping
@@ -392,7 +402,7 @@ aes_auto <- function(data = NULL, ...) {
     aes <- c(aes, args[names(args) != "data"])
   }
 
-  mapping(rename_aes(aes))
+  class_mapping(rename_aes(aes))
 }
 
 mapped_aesthetics <- function(x) {

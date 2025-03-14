@@ -54,7 +54,7 @@
 
     Don't know how to get alternative usage for `foo`.
 
-# mapping() checks its inputs
+# class_mapping() checks its inputs
 
     `x` must be a <list>, not an integer vector.
 

@@ -195,8 +195,8 @@ test_that("alternative_aes_extract_usage() can inspect the call", {
   expect_snapshot_error(alternative_aes_extract_usage(x))
 })
 
-test_that("mapping() checks its inputs", {
-  expect_snapshot_error(mapping(1:5))
+test_that("class_mapping() checks its inputs", {
+  expect_snapshot_error(class_mapping(1:5))
 })
 
 # Visual tests ------------------------------------------------------------

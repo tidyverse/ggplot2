@@ -78,7 +78,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   is_constant <- (!names(exprs) %in% ggplot_global$all_aesthetics) |
     vapply(exprs, quo_is_call, logical(1), name = "I")
 
-  mapping <- mapping(exprs[!is_missing & !is_constant], env = parent.frame())
+  mapping <- class_mapping(exprs[!is_missing & !is_constant], env = parent.frame())
 
   consts <- exprs[is_constant]
 

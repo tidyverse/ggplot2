@@ -156,9 +156,9 @@ S7::method(ggplot_add, list(class_guides, class_ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(mapping, class_ggplot)) <-
+S7::method(ggplot_add, list(class_mapping, class_ggplot)) <-
   function(object, plot, ...) {
-    S7::set_props(plot, mapping = mapping(defaults(object, plot@mapping)))
+    S7::set_props(plot, mapping = class_mapping(defaults(object, plot@mapping)))
   }
 
 S7::method(ggplot_add, list(theme, class_ggplot)) <-

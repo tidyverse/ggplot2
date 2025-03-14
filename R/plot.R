@@ -8,7 +8,7 @@ class_ggplot <- S7::new_class(
     layers  = S7::class_list,
     scales  = class_scales_list,
     guides  = class_guides,
-    mapping = mapping,
+    mapping = class_mapping,
     theme   = theme,
     coordinates = class_coord,
     facet   = class_facet,
