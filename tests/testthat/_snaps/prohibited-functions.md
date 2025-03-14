@@ -12,6 +12,9 @@
       $calc_element
       [1] "skip_blank"
       
+      $class_ggplot
+      [1] "plot_env"
+      
       $continuous_scale
       [1] "scale_name"   "minor_breaks"
       

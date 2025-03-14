@@ -1,6 +1,27 @@
 #' @include all-classes.R
 #' @include theme.R
+NULL
 
+#' The ggplot class
+#'
+#' The ggplot class collects the needed information to render a plot.
+#' This class can be constructed using the [`ggplot()`] function.
+#'
+#' @param data A property containing any data coerced by [`fortify()`].
+#' @param layers A list of layer instances created by [`layer()`].
+#' @param scales A ScalesList ggproto object.
+#' @param guides A Guides ggproto object created by [`guides()`].
+#' @param mapping A mapping class object created by [`aes()`].
+#' @param theme A theme class object created by [`theme()`].
+#' @param coordinates A Coord ggproto object created by `coord_*()` family of
+#'   functions.
+#' @param facet A Facet ggproto object created by `facet_*()` family of
+#'   functions.
+#' @param layout A Layout ggproto object.
+#' @param labels A labels object created by [`labs()`].
+#' @param plot_env An environment.
+#'
+#' @export
 class_ggplot <- S7::new_class(
   name = "ggplot", parent = class_gg,
   properties = list(
@@ -15,7 +36,23 @@ class_ggplot <- S7::new_class(
     layout  = class_layout,
     labels  = labs,
     plot_env = S7::class_environment
-  )
+  ),
+  constructor = function(data = waiver(), layers = list(), scales = NULL,
+                         guides = NULL, mapping = aes(), theme = NULL,
+                         coordinates = coord_cartesian(default = TRUE),
+                         facet = facet_null(), layout = NULL,
+                         labels = labs(), plot_env = parent.frame()) {
+    S7::new_object(
+      S7::S7_object(),
+      data = data, layers = layers,
+      scales = scales %||% scales_list(),
+      guides = guides %||% guides_list(),
+      mapping = mapping, theme = theme %||% theme(),
+      coordinates = coordinates, facet = facet,
+      layout = layout %||% ggproto(NULL, Layout),
+      labels = labels, plot_env = plot_env
+    )
+  }
 )
 
 #' Create a new ggplot
@@ -123,35 +160,32 @@ class_ggplot <- S7::new_class(
 #'     mapping = aes(x = group, y = group_mean), data = group_means_df,
 #'     colour = 'red', size = 3
 #'   )
-ggplot <- function(data = NULL, mapping = aes(), ...,
-                   environment = parent.frame()) {
-  UseMethod("ggplot")
-}
+ggplot <- S7::new_generic(
+  "ggplot2", "data",
+  fun = function(data, mapping = aes(), ..., environment = parent.frame()) {
+    S7::S7_dispatch()
+  }
+)
 
-#' @export
-ggplot.default <- function(data = NULL, mapping = aes(), ...,
-                           environment = parent.frame()) {
+S7::method(ggplot, S7::class_any) <- function(
+    data, mapping = aes(), ...,
+    environment = parent.frame()) {
   if (!missing(mapping) && !is.mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
       "x" = "You've supplied {.obj_type_friendly {mapping}}."
     ))
   }
+  if (missing(data)) {
+    data <- NULL
+  }
 
   data <- fortify(data, ...)
 
   p <- class_ggplot(
     data = data,
-    layers = list(),
-    scales = scales_list(),
-    guides = guides_list(),
     mapping = mapping,
-    theme = theme(),
-    coordinates = coord_cartesian(default = TRUE),
-    facet = facet_null(),
-    plot_env = environment,
-    layout = ggproto(NULL, Layout),
-    labels = labs()
+    plot_env = environment
   )
   class(p) <- union("ggplot", class(p))
 
@@ -159,15 +193,15 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
   p
 }
 
-#' @export
-ggplot.function <- function(data = NULL, mapping = aes(), ...,
-                            environment = parent.frame()) {
-  # Added to avoid functions end in ggplot.default
-  cli::cli_abort(c(
-    "{.arg data} cannot be a function.",
-    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
-  ))
-}
+S7::method(ggplot, S7::class_function) <-
+  function(data, mapping = aes(), ...,
+           environment = parent.frame()) {
+    # Added to avoid functions end in ggplot.default
+    cli::cli_abort(c(
+      "{.arg data} cannot be a function.",
+      "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+    ))
+  }
 
 #' Reports whether x is a type of object
 #' @param x An object to test
