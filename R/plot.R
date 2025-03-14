@@ -280,34 +280,34 @@ S7::method(print, class_ggplot) <-
 }
 
 #' @export
-`$.ggplot2::ggplot` <- function(x, i) {
+`$.ggplot2::gg` <- function(x, i) {
   `[[`(S7::props(x), i)
 }
 
 #' @export
-`$<-.ggplot2::ggplot` <- function(x, i, value) {
+`$<-.ggplot2::gg` <- function(x, i, value) {
   S7::props(x) <- `$<-`(S7::props(x), i, value)
   x
 }
 
 #' @export
-`[.ggplot2::ggplot` <- function(x, i) {
+`[.ggplot2::gg` <- function(x, i) {
   `[`(S7::props(x), i)
 }
 
 #' @export
-`[<-.ggplot2::ggplot` <- function(x, i, value) {
+`[<-.ggplot2::gg` <- function(x, i, value) {
   S7::props(x) <- `[<-`(S7::props(x), i, value)
   x
 }
 
 #' @export
-`[[.ggplot2::ggplot` <- function(x, i) {
+`[[.ggplot2::gg` <- function(x, i) {
   `[[`(S7::props(x), i)
 }
 
 #' @export
-`[[<-.ggplot2::ggplot` <- function(x, i, value) {
+`[[<-.ggplot2::gg` <- function(x, i, value) {
   S7::props(x) <- `[[<-`(S7::props(x), i, value)
   x
 }
