@@ -229,7 +229,8 @@ plot_clone <- function(plot) {
 #' @param ... other arguments not used by this method
 #' @keywords hplot
 #' @return Invisibly returns the original plot.
-#' @name print.ggplot
+#' @export
+#' @method print ggplot2::ggplot
 #' @usage
 #' print(x, newpage = is.null(vp), vp = NULL, ...)
 #' plot(x, newpage = is.null(vp), vp = NULL, ...)
@@ -247,7 +248,7 @@ plot_clone <- function(plot) {
 #'   print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
 #'     geom_point())
 #' }
-S7::method(print, class_ggplot) <-
+`print.ggplot2::ggplot` <-
   S7::method(plot, class_ggplot) <-
   function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)

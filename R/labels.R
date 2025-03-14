@@ -280,7 +280,7 @@ get_alt_text <- function(p, ...) {
   UseMethod("get_alt_text")
 }
 #' @export
-get_alt_text.ggplot <- function(p, ...) {
+`get_alt_text.ggplot2::ggplot` <- function(p, ...) {
   alt <- p@labels[["alt"]] %||% ""
   if (!is.function(alt)) {
     return(alt)
@@ -291,7 +291,7 @@ get_alt_text.ggplot <- function(p, ...) {
   get_alt_text(build)
 }
 #' @export
-get_alt_text.ggplot_built <- function(p, ...) {
+`get_alt_text.ggplot2::ggplot_built` <- function(p, ...) {
   alt <- p@plot@labels[["alt"]] %||% ""
   p@plot@labels[["alt"]] <- NULL
   if (is.function(alt)) alt(p@plot) else alt
