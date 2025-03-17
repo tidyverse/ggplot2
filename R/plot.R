@@ -163,6 +163,7 @@ class_ggplot <- S7::new_class(
 ggplot <- S7::new_generic(
   "ggplot2", "data",
   fun = function(data, mapping = aes(), ..., environment = parent.frame()) {
+    force(mapping)
     S7::S7_dispatch()
   }
 )
