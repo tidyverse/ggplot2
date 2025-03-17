@@ -549,25 +549,39 @@ theme <- function(...,
       el
     })
   }
-  S7::new_object(
-    elements,
-    complete = complete,
-    validate = validate
-  )
+  class_theme(elements, complete = complete, validate = validate)
 }
 
-theme <- S7::new_class(
+#' The theme class
+#'
+#' The theme class holds information on how non-data elements of the plot
+#' should be rendered. The preferred way to construct an object of this class
+#' is through the [`theme()`] function.
+#'
+#' @param elements A named list containing theme elements.
+#' @param complete A boolean value stating whether a theme is complete.
+#' @param validate A boolean value stating whether a theme should still be
+#'   validated.
+#'
+#' @export
+class_theme <- S7::new_class(
   "theme", S7::new_S3_class("gg"),
   properties = list(
     complete = S7::class_logical,
     validate = S7::class_logical
   ),
-  constructor = theme
+  constructor = function(elements, complete, validate) {
+    S7::new_object(
+      elements,
+      complete = complete,
+      validate = validate
+    )
+  }
 )
 
 #' @export
 #' @rdname is_tests
-is.theme <- function(x) S7::S7_inherits(x, theme)
+is.theme <- function(x) S7::S7_inherits(x, class_theme)
 
 # check whether theme is complete
 is_theme_complete <- function(x) {

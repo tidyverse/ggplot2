@@ -68,7 +68,7 @@ S7::method(`+`, list(class_ggplot, S7::class_any)) <- function(e1, e2) {
   add_ggplot(e1, e2, e2name)
 }
 
-S7::method(`+`, list(theme, S7::class_any)) <- function(e1, e2) {
+S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
   e2name <- deparse(substitute(e2, env = caller_env(2)))
   add_theme(e1, e2, e2name)
 }
@@ -164,7 +164,7 @@ S7::method(ggplot_add, list(class_mapping, class_ggplot)) <-
     S7::set_props(plot, mapping = class_mapping(defaults(object, plot@mapping)))
   }
 
-S7::method(ggplot_add, list(theme, class_ggplot)) <-
+S7::method(ggplot_add, list(class_theme, class_ggplot)) <-
   function(object, plot, ...) {
     S7::set_props(plot, theme = add_theme(plot@theme, object))
   }

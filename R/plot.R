@@ -30,7 +30,7 @@ class_ggplot <- S7::new_class(
     scales  = class_scales_list,
     guides  = class_guides,
     mapping = class_mapping,
-    theme   = theme,
+    theme   = class_theme,
     coordinates = class_coord,
     facet   = class_facet,
     layout  = class_layout,
