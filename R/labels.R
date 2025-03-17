@@ -175,22 +175,49 @@ setup_plot_labels <- function(plot, layers, data) {
 #' p +
 #'  labs(title = "title") +
 #'  labs(title = NULL)
-labs <- S7::new_class(
-  "labels", parent = S7::new_S3_class("gg"),
-  constructor = function(..., title = waiver(), subtitle = waiver(),
-                         caption = waiver(), tag = waiver(), dictionary = waiver(),
-                         alt = waiver(), alt_insight = waiver()) {
-    # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
-    args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
-                      tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
-                      dictionary = dictionary, .ignore_empty = "all")
+labs <- function(..., title = waiver(), subtitle = waiver(),
+                 caption = waiver(), tag = waiver(), dictionary = waiver(),
+                 alt = waiver(), alt_insight = waiver()) {
+  # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
+  args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
+                    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
+                    dictionary = dictionary, .ignore_empty = "all")
 
-    is_waive <- vapply(args, is.waiver, logical(1))
-    args <- args[!is_waive]
-    # remove duplicated arguments
-    args <- args[!duplicated(names(args))]
-    args <- rename_aes(args)
-    S7::new_object(args)
+  is_waive <- vapply(args, is.waiver, logical(1))
+  args <- args[!is_waive]
+  # remove duplicated arguments
+  args <- args[!duplicated(names(args))]
+  args <- rename_aes(args)
+  class_labels(args)
+}
+
+#' The labels class
+#'
+#' The labels class holds a list with label information to display as titles
+#' of plot components. The preferred way to construct an object of the labels
+#' class is to use the [`labs()`] function.
+#'
+#' @param labels A named list.
+#'
+#' @export
+class_labels <- S7::new_class(
+  "labels", parent = S7::new_S3_class("gg"),
+  constructor = function(labels) {
+    S7::new_object(labels)
+  },
+  validator = function(self) {
+    if (!is.list(self)) {
+      return("labels must be a list.")
+    }
+    if (!is_named2(self)) {
+      return("every label must be named.")
+    }
+    dups <- unique(names(self)[duplicated(names(self))])
+    if (length(dups) > 0) {
+      dups <- oxford_comma(dups, final = "and")
+      return(paste0("labels cannot contain duplicate names (", dups, ")."))
+    }
+    return(NULL)
   }
 )
 

@@ -147,7 +147,7 @@ S7::method(ggplot_add, list(class_scale, class_ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(labs, class_ggplot)) <-
+S7::method(ggplot_add, list(class_labels, class_ggplot)) <-
   function(object, plot, ...) { update_labels(plot, object) }
 
 S7::method(ggplot_add, list(class_guides, class_ggplot)) <-

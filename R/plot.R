@@ -34,7 +34,7 @@ class_ggplot <- S7::new_class(
     coordinates = class_coord,
     facet   = class_facet,
     layout  = class_layout,
-    labels  = labs,
+    labels  = class_labels,
     plot_env = S7::class_environment
   ),
   constructor = function(data = waiver(), layers = list(), scales = NULL,
