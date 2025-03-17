@@ -272,12 +272,12 @@ get_labs <- function(plot = get_last_plot()) {
 #'
 #' get_alt_text(p)
 #'
-get_alt_text <- function(p, ...) {
+get_alt_text <- S7::new_generic("get_alt_text", "p", fun = function(p, ...) {
   warn_dots_used()
-  UseMethod("get_alt_text")
-}
-#' @export
-`get_alt_text.ggplot2::ggplot` <- function(p, ...) {
+  S7::S7_dispatch()
+})
+
+S7::method(get_alt_text, class_ggplot) <- function(p, ...) {
   alt <- p@labels[["alt"]] %||% ""
   if (!is.function(alt)) {
     return(alt)
@@ -287,14 +287,14 @@ get_alt_text <- function(p, ...) {
   build@plot@labels[["alt"]] <- alt
   get_alt_text(build)
 }
-#' @export
-`get_alt_text.ggplot2::ggplot_built` <- function(p, ...) {
+
+S7::method(get_alt_text, class_ggplot_built) <- function(p, ...) {
   alt <- p@plot@labels[["alt"]] %||% ""
   p@plot@labels[["alt"]] <- NULL
   if (is.function(alt)) alt(p@plot) else alt
 }
-#' @export
-get_alt_text.gtable <- function(p, ...) {
+
+S7::method(get_alt_text, class_gtable) <- function(p, ...) {
   attr(p, "alt-label") %||% ""
 }
 
