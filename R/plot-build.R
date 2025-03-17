@@ -1,39 +1,6 @@
 #' @include plot.R
 NULL
 
-#' The ggplot built class
-#'
-#' The ggplot built class is an intermediate class and represents a processed
-#' ggplot object ready for rendering. It is constructed by calling
-#' [`ggplot_build()`] on a [ggplot][class_ggplot] object and is not meant to be
-#' instantiated directly. The class can be rendered to a gtable object by
-#' calling the [`ggplot_gtable()`] function on a ggplot built class object.
-#'
-#' @param data A list of plain data frames; one for each layer.
-#' @param layout A Layout ggproto object.
-#' @param plot A completed ggplot class object.
-#'
-#' @export
-class_ggplot_built <- S7::new_class(
-  "ggplot_built",
-  properties = list(
-    data   = S7::class_list,
-    layout = class_layout,
-    plot   = class_ggplot
-  ),
-  constructor = function(data = NULL, layout = NULL, plot = NULL) {
-    if (is.null(data) || is.null(layout) || is.null(plot)) {
-      cli::cli_abort(
-        "The {.cls ggplot_built} class should be constructed by {.fn ggplot_build}."
-      )
-    }
-    S7::new_object(
-      S7::S7_object(),
-      data = data, layout = layout, plot = plot
-    )
-  }
-)
-
 #' Build ggplot for rendering.
 #'
 #' `ggplot_build()` takes the plot object, and performs all steps necessary

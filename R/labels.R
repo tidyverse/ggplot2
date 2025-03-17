@@ -191,36 +191,6 @@ labs <- function(..., title = waiver(), subtitle = waiver(),
   class_labels(args)
 }
 
-#' The labels class
-#'
-#' The labels class holds a list with label information to display as titles
-#' of plot components. The preferred way to construct an object of the labels
-#' class is to use the [`labs()`] function.
-#'
-#' @param labels A named list.
-#'
-#' @export
-class_labels <- S7::new_class(
-  "labels", parent = S7::new_S3_class("gg"),
-  constructor = function(labels) {
-    S7::new_object(labels)
-  },
-  validator = function(self) {
-    if (!is.list(self)) {
-      return("labels must be a list.")
-    }
-    if (!is_named2(self)) {
-      return("every label must be named.")
-    }
-    dups <- unique(names(self)[duplicated(names(self))])
-    if (length(dups) > 0) {
-      dups <- oxford_comma(dups, final = "and")
-      return(paste0("labels cannot contain duplicate names (", dups, ")."))
-    }
-    return(NULL)
-  }
-)
-
 #' @rdname labs
 #' @export
 xlab <- function(label) {

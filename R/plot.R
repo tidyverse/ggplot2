@@ -2,59 +2,6 @@
 #' @include theme.R
 NULL
 
-#' The ggplot class
-#'
-#' The ggplot class collects the needed information to render a plot.
-#' This class can be constructed using the [`ggplot()`] function.
-#'
-#' @param data A property containing any data coerced by [`fortify()`].
-#' @param layers A list of layer instances created by [`layer()`].
-#' @param scales A ScalesList ggproto object.
-#' @param guides A Guides ggproto object created by [`guides()`].
-#' @param mapping A mapping class object created by [`aes()`].
-#' @param theme A theme class object created by [`theme()`].
-#' @param coordinates A Coord ggproto object created by `coord_*()` family of
-#'   functions.
-#' @param facet A Facet ggproto object created by `facet_*()` family of
-#'   functions.
-#' @param layout A Layout ggproto object.
-#' @param labels A labels object created by [`labs()`].
-#' @param plot_env An environment.
-#'
-#' @export
-class_ggplot <- S7::new_class(
-  name = "ggplot", parent = class_gg,
-  properties = list(
-    data    = S7::class_any,
-    layers  = S7::class_list,
-    scales  = class_scales_list,
-    guides  = class_guides,
-    mapping = class_mapping,
-    theme   = class_theme,
-    coordinates = class_coord,
-    facet   = class_facet,
-    layout  = class_layout,
-    labels  = class_labels,
-    plot_env = S7::class_environment
-  ),
-  constructor = function(data = waiver(), layers = list(), scales = NULL,
-                         guides = NULL, mapping = aes(), theme = NULL,
-                         coordinates = coord_cartesian(default = TRUE),
-                         facet = facet_null(), layout = NULL,
-                         labels = labs(), plot_env = parent.frame()) {
-    S7::new_object(
-      S7::S7_object(),
-      data = data, layers = layers,
-      scales = scales %||% scales_list(),
-      guides = guides %||% guides_list(),
-      mapping = mapping, theme = theme %||% theme(),
-      coordinates = coordinates, facet = facet,
-      layout = layout %||% ggproto(NULL, Layout),
-      labels = labels, plot_env = plot_env
-    )
-  }
-)
-
 #' Create a new ggplot
 #'
 #' `ggplot()` initializes a ggplot object. It can be used to

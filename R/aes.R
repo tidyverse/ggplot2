@@ -108,25 +108,6 @@ aes <- function(x, y, ...) {
   class_mapping(rename_aes(args), env = parent.frame())
 }
 
-#' The mapping class
-#'
-#' The mapping class holds a list of quoted expressions
-#' ([quosures][rlang::topic-quosure]) or constants. An object is typically
-#' constructed using the [`aes()`] function.
-#'
-#' @param x A list of quosures and constants.
-#' @param env An environment for symbols that are not quosures or constants.
-#'
-#' @export
-class_mapping <- S7::new_class(
-  "mapping", parent = S7::new_S3_class("gg"),
-  constructor = function(x, env = globalenv()) {
-    check_object(x, is.list, "a {.cls list}")
-    x <- lapply(x, new_aesthetic, env = env)
-    S7::new_object(x)
-  }
-)
-
 #' @export
 #' @rdname is_tests
 is.mapping <- function(x) S7::S7_inherits(x, class_mapping)
