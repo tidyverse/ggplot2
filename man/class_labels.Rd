@@ -14,3 +14,4 @@ The labels class holds a list with label information to display as titles
 of plot components. The preferred way to construct an object of the labels
 class is to use the \code{\link[=labs]{labs()}} function.
 }
+\keyword{internal}

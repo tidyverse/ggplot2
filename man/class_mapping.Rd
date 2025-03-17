@@ -16,3 +16,4 @@ The mapping class holds a list of quoted expressions
 (\link[rlang:topic-quosure]{quosures}) or constants. An object is typically
 constructed using the \code{\link[=aes]{aes()}} function.
 }
+\keyword{internal}

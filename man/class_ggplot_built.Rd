@@ -20,3 +20,4 @@ ggplot object ready for rendering. It is constructed by calling
 instantiated directly. The class can be rendered to a gtable object by
 calling the \code{\link[=ggplot_gtable]{ggplot_gtable()}} function on a ggplot built class object.
 }
+\keyword{internal}

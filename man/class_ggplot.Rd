@@ -47,3 +47,4 @@ functions.}
 The ggplot class collects the needed information to render a plot.
 This class can be constructed using the \code{\link[=ggplot]{ggplot()}} function.
 }
+\keyword{internal}

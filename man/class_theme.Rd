@@ -19,3 +19,4 @@ The theme class holds information on how non-data elements of the plot
 should be rendered. The preferred way to construct an object of this class
 is through the \code{\link[=theme]{theme()}} function.
 }
+\keyword{internal}
