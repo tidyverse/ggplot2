@@ -22,6 +22,7 @@ class_gtable <- S7::new_S3_class("gtable")
 #' @param validate A boolean value stating whether a theme should still be
 #'   validated.
 #'
+#' @keywords internal
 #' @export
 class_theme <- S7::new_class(
   "theme", class_S3_gg,
@@ -46,6 +47,7 @@ class_theme <- S7::new_class(
 #'
 #' @param labels A named list.
 #'
+#' @keywords internal
 #' @export
 class_labels <- S7::new_class(
   "labels", parent = class_S3_gg,
@@ -75,6 +77,7 @@ class_labels <- S7::new_class(
 #' @param x A list of quosures and constants.
 #' @param env An environment for symbols that are not quosures or constants.
 #'
+#' @keywords internal
 #' @export
 class_mapping <- S7::new_class(
   "mapping", parent = class_S3_gg,
@@ -104,6 +107,7 @@ class_mapping <- S7::new_class(
 #' @param labels A labels object created by [`labs()`].
 #' @param plot_env An environment.
 #'
+#' @keywords internal
 #' @export
 class_ggplot <- S7::new_class(
   name = "ggplot", parent = class_gg,
@@ -150,6 +154,7 @@ class_ggplot <- S7::new_class(
 #' @param layout A Layout ggproto object.
 #' @param plot A completed ggplot class object.
 #'
+#' @keywords internal
 #' @export
 class_ggplot_built <- S7::new_class(
   "ggplot_built",
