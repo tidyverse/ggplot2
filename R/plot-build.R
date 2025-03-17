@@ -340,8 +340,8 @@ ggplotGrob <- function(x) {
   ggplot_gtable(ggplot_build(x))
 }
 
-S7::method(as.gtable, class_ggplot) <- ggplotGrob
-S7::method(as.gtable, class_ggplot_built) <- ggplotGrob
+S7::method(as.gtable, class_ggplot) <- function(x, ...) ggplotGrob(x)
+S7::method(as.gtable, class_ggplot_built) <- function(x, ...) ggplotGrob(x)
 
 # Apply function to layer and matching data
 by_layer <- function(f, layers, data, step = NULL) {

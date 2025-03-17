@@ -68,6 +68,11 @@ S7::method(`+`, list(class_ggplot, S7::class_any)) <- function(e1, e2) {
   add_ggplot(e1, e2, e2name)
 }
 
+S7::method(`+`, list(theme, S7::class_any)) <- function(e1, e2) {
+  e2name <- deparse(substitute(e2, env = caller_env(2)))
+  add_theme(e1, e2, e2name)
+}
+
 
 #' @rdname gg-add
 #' @export
@@ -88,7 +93,6 @@ add_ggplot <- function(p, object, objectname) {
 #'
 #' @param object An object to add to the plot
 #' @param plot The ggplot object to add `object` to
-#' @param object_name The name of the object to add
 #'
 #' @return A modified ggplot object
 #' @details
@@ -104,11 +108,10 @@ add_ggplot <- function(p, object, objectname) {
 #' @keywords internal
 #' @export
 #' @examples
-#' # making a new method for the generic
-#' # in this example, we apply a text element to the text theme setting
-#' ggplot_add.element_text <- function(object, plot, object_name) {
-#'   plot + theme(text = object)
-#' }
+#' S7::method(ggplot_add, list(S7::new_S3_class("element_text"), class_ggplot)) <-
+#'   function(object, plot, ...) {
+#'     plot + theme(text = object)
+#'   }
 #'
 #' # we can now use `+` to add our object to a plot
 #' ggplot(mpg, aes(displ, cty)) +
@@ -116,7 +119,7 @@ add_ggplot <- function(p, object, objectname) {
 #'   element_text(colour = "red")
 #'
 #' # clean-up
-#' rm(ggplot_add.element_text)
+#' rm("element_text", envir = ggplot_add@methods)
 ggplot_add <- S7::new_generic("ggplot_add", c("object", "plot"))
 
 S7::method(ggplot_add, list(S7::class_any, class_ggplot)) <-

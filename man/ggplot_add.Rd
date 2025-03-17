@@ -10,8 +10,6 @@ ggplot_add(object, plot, ...)
 \item{object}{An object to add to the plot}
 
 \item{plot}{The ggplot object to add \code{object} to}
-
-\item{object_name}{The name of the object to add}
 }
 \value{
 A modified ggplot object
@@ -31,11 +29,10 @@ exposed at this point, which comes with the responsibility of returning
 the plot intact.
 }
 \examples{
-# making a new method for the generic
-# in this example, we apply a text element to the text theme setting
-ggplot_add.element_text <- function(object, plot, object_name) {
-  plot + theme(text = object)
-}
+S7::method(ggplot_add, list(S7::new_S3_class("element_text"), class_ggplot)) <-
+  function(object, plot, ...) {
+    plot + theme(text = object)
+  }
 
 # we can now use `+` to add our object to a plot
 ggplot(mpg, aes(displ, cty)) +
@@ -43,6 +40,6 @@ ggplot(mpg, aes(displ, cty)) +
   element_text(colour = "red")
 
 # clean-up
-rm(ggplot_add.element_text)
+rm("element_text", envir = ggplot_add@methods)
 }
 \keyword{internal}

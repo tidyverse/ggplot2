@@ -1,9 +1,11 @@
 #' Displays a useful description of a ggplot object
 #'
+#' @noRd
 #' @param object ggplot2 object to summarise
 #' @param ... other arguments ignored (for compatibility with generic)
 #' @keywords internal
 #' @name summary.ggplot
+#' @aliases summary.ggplot summary.ggplot2::ggplot
 #' @usage summary(object, ...)
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
