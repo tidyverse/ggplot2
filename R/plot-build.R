@@ -1,6 +1,3 @@
-#' @include plot.R
-NULL
-
 #' Build ggplot for rendering.
 #'
 #' `ggplot_build()` takes the plot object, and performs all steps necessary

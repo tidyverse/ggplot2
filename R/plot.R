@@ -1,7 +1,3 @@
-#' @include all-classes.R
-#' @include theme.R
-NULL
-
 #' Create a new ggplot
 #'
 #' `ggplot()` initializes a ggplot object. It can be used to

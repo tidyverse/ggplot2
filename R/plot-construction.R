@@ -1,6 +1,3 @@
-#' @include plot.R
-NULL
-
 #' Add components to a plot
 #'
 #' `+` is the key to constructing sophisticated ggplot2 graphics. It
