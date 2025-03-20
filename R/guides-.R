@@ -927,7 +927,7 @@ validate_guide <- function(guide) {
 
 redistribute_null_units <- function(units, spacing, margin, type = "width") {
 
-  has_null <- vapply(units, function(x) any(unitType(x) == "null"), logical(1))
+  has_null <- vapply(units, has_null_unit, logical(1))
 
   # Early exit when we needn't bother with null units
   if (!any(has_null)) {

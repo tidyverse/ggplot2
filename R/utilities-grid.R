@@ -67,3 +67,7 @@ height_cm <- function(x) {
     cli::cli_abort("Don't know how to get height of {.cls {class(x)}} object")
   }
 }
+
+has_null_unit <- function(x) {
+  any(unlist(unitType(x, recurse = TRUE), use.names = FALSE) == "null")
+}
