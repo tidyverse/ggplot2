@@ -99,8 +99,12 @@ ggsave <- function(filename, plot = get_last_plot(),
 
   dpi <- parse_dpi(dpi)
   dev <- validate_device(device, filename, dpi = dpi)
-  dim <- plot_dim(c(width, height), scale = scale, units = units,
-    limitsize = limitsize, dpi = dpi)
+  dim <- plot_dim(
+    width = width, height = height,
+    scale = scale, units = units,
+    limitsize = limitsize, dpi = dpi,
+    plot = plot
+  )
 
   if (is_null(bg)) {
     bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
@@ -189,12 +193,44 @@ parse_dpi <- function(dpi, call = caller_env()) {
   }
 }
 
-plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
-                     limitsize = TRUE, dpi = 300, call = caller_env()) {
+plot_dim <- function(width = NA, height = NA, scale = 1, units = "in",
+                     limitsize = TRUE, dpi = 300, plot = NULL, call = caller_env()) {
   units <- arg_match0(units, c("in", "cm", "mm", "px"))
-  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
+  to_inches   <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
   from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
 
+  if (is.derived(width) || is.derived(height)) {
+    if (is.ggplot(plot)) {
+      plot <- ggplotGrob(plot)
+    }
+    if (!inherits(plot, "gtable")) {
+      cli::cli_abort(
+        "Cannot derive size of plot when {.arg plot} is \\
+        {.obj_type_friendly {plot}}.",
+        call = call
+      )
+    }
+    width  <- if (is.derived(width))  gtable_width(plot)  else width
+    height <- if (is.derived(height)) gtable_height(plot) else height
+  }
+
+  if (is.unit(width)) {
+    if (has_null_unit(width)) {
+      width <- NA
+    } else {
+      width <- from_inches(convertWidth(width, "in", valueOnly = TRUE))
+    }
+  }
+
+  if (is.unit(height)) {
+    if (has_null_unit(height)) {
+      height <- NA
+    } else {
+      height <- from_inches(convertHeight(height, "in", valueOnly = TRUE))
+    }
+  }
+
+  dim <- c(width, height)
   dim <- to_inches(dim) * scale
 
   if (anyNA(dim)) {

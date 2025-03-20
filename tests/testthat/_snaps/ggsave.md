@@ -36,7 +36,7 @@
 # warned about large plot unless limitsize = FALSE
 
     Code
-      plot_dim(c(50, 50))
+      plot_dim(50, 50)
     Condition
       Error:
       ! Dimensions exceed 50 inches (`height` and `width` are specified in inches not pixels).
@@ -45,7 +45,7 @@
 ---
 
     Code
-      plot_dim(c(15000, 15000), units = "px")
+      plot_dim(15000, 15000, units = "px")
     Condition
       Error:
       ! Dimensions exceed 50 inches (`height` and `width` are specified in pixels).

@@ -112,14 +112,15 @@ test_that("uses 7x7 if no graphics device open", {
 })
 
 test_that("warned about large plot unless limitsize = FALSE", {
-  expect_snapshot(plot_dim(c(50, 50)), error = TRUE)
-  expect_equal(plot_dim(c(50, 50), limitsize = FALSE), c(50, 50))
-  expect_snapshot(plot_dim(c(15000, 15000), units = "px"), error = TRUE)
+  expect_snapshot(plot_dim(50, 50), error = TRUE)
+  expect_equal(plot_dim(50, 50, limitsize = FALSE), c(50, 50))
+  expect_snapshot(plot_dim(15000, 15000, units = "px"), error = TRUE)
 })
 
 test_that("scale multiplies height & width", {
-  expect_equal(plot_dim(c(10, 10), scale = 1), c(10, 10))
-  expect_equal(plot_dim(c(5, 5), scale = 2), c(10, 10))
+  expect_equal(plot_dim(10, 10, scale = 1), c(10, 10))
+  expect_equal(plot_dim(5, 5, scale = 2), c(10, 10))
+})
 })
 
 # plot_dev ---------------------------------------------------------------------
