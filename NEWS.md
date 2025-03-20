@@ -289,6 +289,9 @@
 * `geom_abline()` clips to the panel range in the vertical direction too
   (@teunbrand, #6086).
 * Added `panel.widths` and `panel.heights` to `theme()` (#5338, @teunbrand).
+* New options `ggsave(..., width = derive(), height = derive())` to tailor
+  output size to absolute dimensions set with 
+  `theme(panel.widths, panel.heights)` (#).
 * Standardised the calculation of `width`, which are now implemented as
   aesthetics (@teunbrand, #2800).
 * Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
