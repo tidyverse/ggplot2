@@ -37,7 +37,10 @@ working directory.}
 \item{scale}{Multiplicative scaling factor.}
 
 \item{width, height}{Plot size in units expressed by the \code{units} argument.
-If not supplied, uses the size of the current graphics device.}
+If not supplied, uses the size of the current graphics device.
+Alternatively, these can be set to \code{derived()} in order to use innate
+plot dimensions for output. This is useful when the
+\code{theme(panel.widths, panel.heights)} options are set to absolute units.}
 
 \item{units}{One of the following units in which the \code{width} and \code{height}
 arguments are expressed: \code{"in"}, \code{"cm"}, \code{"mm"} or \code{"px"}.}

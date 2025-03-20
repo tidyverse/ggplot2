@@ -34,6 +34,9 @@
 #' @param scale Multiplicative scaling factor.
 #' @param width,height Plot size in units expressed by the `units` argument.
 #'   If not supplied, uses the size of the current graphics device.
+#'   Alternatively, these can be set to `derived()` in order to use innate
+#'   plot dimensions for output. This is useful when the
+#'   `theme(panel.widths, panel.heights)` options are set to absolute units.
 #' @param units One of the following units in which the `width` and `height`
 #'   arguments are expressed: `"in"`, `"cm"`, `"mm"` or `"px"`.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
@@ -200,6 +203,8 @@ plot_dim <- function(width = NA, height = NA, scale = 1, units = "in",
   from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
 
   if (is.derived(width) || is.derived(height)) {
+    # To size from plot if width or height are derived
+    # TODO: use gtable::as.gtable when implemented
     if (is.ggplot(plot)) {
       plot <- ggplotGrob(plot)
     }
@@ -216,6 +221,7 @@ plot_dim <- function(width = NA, height = NA, scale = 1, units = "in",
 
   if (is.unit(width)) {
     if (has_null_unit(width)) {
+      # When plot has no absolute dimensions, fall back to device size
       width <- NA
     } else {
       width <- from_inches(convertWidth(width, "in", valueOnly = TRUE))
@@ -224,6 +230,7 @@ plot_dim <- function(width = NA, height = NA, scale = 1, units = "in",
 
   if (is.unit(height)) {
     if (has_null_unit(height)) {
+      # When plot has no absolute dimensions, fall back to device size
       height <- NA
     } else {
       height <- from_inches(convertHeight(height, "in", valueOnly = TRUE))
