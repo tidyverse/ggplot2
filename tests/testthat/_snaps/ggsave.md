@@ -51,6 +51,14 @@
       ! Dimensions exceed 50 inches (`height` and `width` are specified in pixels).
       i If you're sure you want a plot that big, use `limitsize = FALSE`.
 
+# derives dimensions from plot
+
+    Code
+      plot_dim(width = derive(), height = derive(), plot = theme())
+    Condition
+      Error:
+      ! Cannot derive size of plot when `plot` is a <theme> object.
+
 # unknown device triggers error
 
     `device` must be a string, function or `NULL`, not the number 1.

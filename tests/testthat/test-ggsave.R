@@ -121,6 +121,20 @@ test_that("scale multiplies height & width", {
   expect_equal(plot_dim(10, 10, scale = 1), c(10, 10))
   expect_equal(plot_dim(5, 5, scale = 2), c(10, 10))
 })
+
+test_that("derives dimensions from plot", {
+
+  plot <- gtable(widths = unit(1, "null"), heights = unit(1, "in"))
+  dim  <- suppressMessages(plot_dim(width = derive(), height = derive(), plot = plot))
+  expect_equal(unname(dim), c(7, 1))
+
+  plot <- gtable(widths = unit(12.7, "cm"), heights = unit(1, "null"))
+  dim  <- suppressMessages(plot_dim(width = derive(), height = derive(), plot = plot))
+  expect_equal(unname(dim), c(5, 7))
+
+  # Cannot derive from non-plot objects
+  expect_snapshot(plot_dim(width = derive(), height = derive(), plot = theme()), error = TRUE)
+
 })
 
 # plot_dev ---------------------------------------------------------------------
