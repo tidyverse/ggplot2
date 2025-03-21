@@ -67,3 +67,15 @@ height_cm <- function(x) {
     cli::cli_abort("Don't know how to get height of {.cls {class(x)}} object")
   }
 }
+
+#' @export
+widthDetails.ggplot <- function(x) widthDetails(ggplotGrob(x))
+
+#' @export
+widthDetails.ggplot_built <- widthDetails.ggplot
+
+#' @export
+heightDetails.ggplot <- function(x) heightDetails(ggplotGrob(x))
+
+#' @export
+heightDetails.ggplot_built <- heightDetails.ggplot
