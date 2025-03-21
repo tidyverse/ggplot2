@@ -141,6 +141,9 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     check_installed("MASS", reason = "for calculating 2D density.")
     # first run the regular layer calculation to infer densities
     data <- ggproto_parent(Stat, self)$compute_layer(data, params, layout)
+    if (empty(data)) {
+      return(data_frame0())
+    }
 
     # if we're not contouring we're done
     if (!isTRUE(params$contour %||% TRUE)) return(data)
