@@ -182,6 +182,12 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
       h <- h * adjust
     }
+    if (any(is.na(h) | h <= 0)) {
+      cli::cli_abort(c(
+        "The bandwidth argument {.arg h} must contain numbers larger than 0.",
+        i = "Please set the {.arg h} argument to stricly positive numbers manually."
+      ))
+    }
 
     # calculate density
     dens <- MASS::kde2d(
