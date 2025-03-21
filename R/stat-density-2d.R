@@ -181,8 +181,17 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
                            n = 100, ...) {
+
     if (is.null(h)) {
+      # Note: MASS::bandwidth.nrd is equivalent to stats::bw.nrd * 4
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
+      # Handle case when when IQR == 0 and thus regular nrd bandwidth fails
+      if (h[1] == 0) {
+        h[1] <- bw.nrd0(data$x) * 4
+      }
+      if (h[2] == 0) {
+        h[2] <- bw.nrd0(data$y) * 4
+      }
       h <- h * adjust
     }
     if (any(is.na(h) | h <= 0)) {
