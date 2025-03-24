@@ -471,7 +471,16 @@ validate_subclass <- function(x, subclass,
   name <- snakeize(name)
   obj <- find_global(name, env = env, mode = "function")
   if (is.function(obj)) {
-    obj <- obj()
+    obj <- try_fetch(
+      obj(),
+      error = function(cnd) {
+        # replace `obj()` call with name of actual constructor
+        cnd$call <- call(name)
+        cli::cli_abort(
+          "Failed to retrieve a {.cls {subclass}} object from {.fn {name}}.",
+          parent = cnd, call = call
+        )
+      })
   }
   # Position constructors return classes directly
   if (inherits(obj, subclass)) {

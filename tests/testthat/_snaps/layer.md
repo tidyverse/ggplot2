@@ -27,6 +27,12 @@
 
     `environment()` must be either a string or a <geom> object, not an environment.
 
+---
+
+    Failed to retrieve a <Geom> object from `geom_foo()`.
+    Caused by error in `geom_foo()`:
+    ! This function is unconstructable.
+
 # unknown params create warning
 
     Ignoring unknown parameters: `blah`

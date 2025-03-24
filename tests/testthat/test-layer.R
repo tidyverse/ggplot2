@@ -10,6 +10,9 @@ test_that("layer() checks its input", {
 
   expect_snapshot_error(validate_subclass("test", "geom"))
   expect_snapshot_error(validate_subclass(environment(), "geom"))
+
+  geom_foo <- function(...) stop("This function is unconstructable.")
+  expect_snapshot_error(layer("foo", "identity", position = "identity"))
 })
 
 test_that("aesthetics go in aes_params", {
