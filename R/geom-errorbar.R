@@ -23,6 +23,35 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @export
+#' @rdname geom_linerange
+#' @note
+#' `geom_errorbarh()` is `r lifecycle::badge("deprecated")`. Use
+#' `geom_errorbar(orientation = "y")` instead.
+geom_errorbarh <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           orientation = "y",
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
+  deprecate_soft0(
+    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+    id = "no-more-errorbarh"
+  )
+  geom_errorbar(
+    mapping = mapping,
+    data = data,
+    stat = stat,
+    position = position,
+    ...,
+    orientation = orientation,
+    na.rm = na.rm,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes
+  )
+}
+
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -33,7 +62,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     colour = from_theme(ink),
     linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
-    width = 0.5,
+    width = 0.9,
     alpha = NA
   ),
 
@@ -47,20 +76,24 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 
   extra_params = c("na.rm", "orientation"),
 
-  setup_data = function(data, params) {
+  setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width,
+      zero = FALSE, discrete = TRUE
+    )
     data <- transform(data,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
     flip_data(data, params$flipped_aes)
   },
 
+  # Note: `width` is vestigial
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         width = NULL, flipped_aes = FALSE) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     x <- vec_interleave(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)
     y <- vec_interleave(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)
@@ -79,4 +112,19 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
   },
 
   rename_size = TRUE
+)
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomErrorbarh <- ggproto(
+  "GeomErrorbarh", GeomErrorbar,
+  setup_params = function(data, params) {
+    deprecate_soft0(
+      "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+      id = "no-more-errorbarh"
+    )
+    GeomLinerange$setup_params(data, params)
+  }
 )

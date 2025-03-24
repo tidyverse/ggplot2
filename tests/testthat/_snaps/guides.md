@@ -1,19 +1,3 @@
-# dots are checked when making guides
-
-    Ignoring unknown argument to `guide_axis()`: `foo`.
-
----
-
-    Arguments in `...` must be used.
-    x Problematic argument:
-    * foo = "bar"
-    i Did you misspell an argument name?
-
-# Using non-position guides for position scales results in an informative error
-
-    `guide_legend()` cannot be used for x, xmin, xmax, or xend.
-    i Use any non position aesthetic instead.
-
 # guide specifications are properly checked
 
     Unknown guide: test
@@ -53,19 +37,21 @@
 
     `nrow` * `ncol` needs to be larger than the number of breaks (5).
 
-# colorsteps and bins checks the breaks format
+# get_guide_data retrieves keys appropriately
 
-    Breaks are not formatted correctly for a bin legend.
-    i Use `(<lower>, <upper>]` format to indicate bins.
+    Code
+      get_guide_data(b, 1)
+    Condition
+      Error in `get_guide_data()`:
+      ! `aesthetic` must be a single string, not the number 1.
 
 ---
 
-    Breaks are not formatted correctly for a bin legend.
-    i Use `(<lower>, <upper>]` format to indicate bins.
-
-# guide_axis_logticks calculates appropriate ticks
-
-    The `prescale.base` argument will override the scale's log-10 transformation in log-tick positioning.
+    Code
+      get_guide_data(b, "x", panel = "a")
+    Condition
+      Error in `get_guide_data()`:
+      ! `panel` must be a whole number, not the string "a".
 
 # binning scales understand the different combinations of limits, breaks, labels, and show.limits
 
@@ -77,10 +63,15 @@
     `show.limits` is ignored when `labels` are given as a character vector.
     i Either add the limits to `breaks` or provide a function for `labels`.
 
-# a warning is generated when guides(<scale> = FALSE) is specified
+# guides() warns if unnamed guides are provided
 
-    The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in ggplot2 3.3.4.
-    i Please use "none" instead.
+    Guides provided to `guides()` must be named.
+    i All guides are unnamed.
+
+---
+
+    Guides provided to `guides()` must be named.
+    i The 2nd guide is unnamed.
 
 # old S3 guides can be implemented
 

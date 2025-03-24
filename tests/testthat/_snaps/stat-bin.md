@@ -23,35 +23,34 @@
 
 # inputs to binning are checked
 
-    Computation failed in `stat_bin()`.
-    Caused by error in `bins()`:
-    ! `breaks` must be a <numeric> vector, not a character vector.
+    `breaks` must be a <numeric> vector, not a character vector.
 
 ---
 
-    `x_range` must have two elements.
+    `binwidth` must be a number, not a character vector.
 
 ---
 
-    Computation failed in `stat_bin()`.
-    Caused by error in `bin_breaks_width()`:
-    ! `binwidth` must be a number, not a character vector.
+    `binwidth` must be a number larger than or equal to 0, not the number -4.
 
 ---
 
-    Computation failed in `stat_bin()`.
-    Caused by error in `bin_breaks_width()`:
-    ! `binwidth` must be a number larger than or equal to 0, not the number -4.
+    `bins` must be a whole number larger than or equal to 1, not the number -4.
 
----
-
-    `x_range` must have two elements.
-
----
+# setting boundary and center
 
     Computation failed in `stat_bin()`.
-    Caused by error in `bin_breaks_bins()`:
-    ! `bins` must be a whole number larger than or equal to 1, not the number -4.
+    Caused by error in `compute_bins()`:
+    ! Only one of `boundary` and `center` may be specified.
+
+# bin errors at high bin counts
+
+    Code
+      compute_bins(c(1, 2e+06), binwidth = 1)
+    Condition
+      Error in `bin_breaks_width()`:
+      ! The number of histogram bins must be less than 1,000,000.
+      i Did you make `binwidth` too small?
 
 # stat_count throws error when both x and y aesthetic present
 

@@ -149,7 +149,16 @@ ggplot_add.labels <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Guides <- function(object, plot, object_name) {
-  update_guides(plot, object)
+  if (is.guides(plot$guides)) {
+    # We clone the guides object to prevent modify-in-place of guides
+    old <- plot$guides
+    new <- ggproto(NULL, old)
+    new$add(object)
+    plot$guides <- new
+  } else {
+    plot$guides <- object
+  }
+  plot
 }
 #' @export
 ggplot_add.uneval <- function(object, plot, object_name) {
@@ -186,13 +195,20 @@ ggplot_add.by <- function(object, plot, object_name) {
 
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
-  layers_names <- new_layer_names(object, names(plot$layers))
+  layers_names <- new_layer_names(object, names2(plot$layers))
   plot$layers <- append(plot$layers, object)
   names(plot$layers) <- layers_names
   plot
 }
 
 new_layer_names <- function(layer, existing) {
+
+  empty <- !nzchar(existing)
+  if (any(empty)) {
+    existing[empty] <- "unknown"
+    existing <- vec_as_names(existing, repair = "unique", quiet = TRUE)
+  }
+
   new_name <- layer$name
   if (is.null(new_name)) {
     # Construct a name from the layer's call

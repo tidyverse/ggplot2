@@ -2,8 +2,9 @@
 # Geoms and there's some difference among their aesthetics).
 rd_aesthetics <- function(type, name, extra_note = NULL) {
   obj <- switch(type,
-    geom = check_subclass(name, "Geom", env = globalenv()),
-    stat = check_subclass(name, "Stat", env = globalenv())
+    geom = validate_subclass(name, "Geom", env = globalenv()),
+    stat = validate_subclass(name, "Stat", env = globalenv()),
+    position = validate_subclass(name, "Position", env = globalenv())
   )
   aes <- rd_aesthetics_item(obj)
 

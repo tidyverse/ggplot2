@@ -177,7 +177,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   facets_list <- grid_as_facets_list(rows, cols)
 
   # Check for deprecated labellers
-  labeller <- check_labeller(labeller)
+  labeller <- fix_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
@@ -219,8 +219,8 @@ grid_as_facets_list <- function(rows, cols) {
   check_object(cols, is_quosures, "a {.fn vars} specification", allow_null = TRUE)
 
   list(
-    rows = compact_facets(as_facets_list(rows)),
-    cols = compact_facets(as_facets_list(cols))
+    rows = compact_facets(rows),
+    cols = compact_facets(cols)
   )
 }
 
@@ -309,7 +309,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
         params$margins
       )
       # Apply recycling on original data to fit margins
-      data <- vec_slice(data, facet_vals$.index)
+      # We're using base subsetting here because `data` might have a superclass
+      # that isn't handled well by vctrs::vec_slice
+      data <- data[facet_vals$.index, , drop = FALSE]
       facet_vals$.index <- NULL
     }
 

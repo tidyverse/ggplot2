@@ -259,7 +259,7 @@ GuideColourbar <- ggproto(
 
   extract_params = function(scale, params,
                             title  = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     limits <- params$decor$value[c(1L, nrow(params$decor))]
     to <- switch(
       params$display,
@@ -273,6 +273,7 @@ GuideColourbar <- ggproto(
   merge = function(self, params, new_guide, new_params) {
     new_params$key$.label <- new_params$key$.value <- NULL
     params$key <- vec_cbind(params$key, new_params$key)
+    params$aesthetic <- union(params$aesthetic, new_params$aesthetic)
     return(list(guide = self, params = params))
   },
 
