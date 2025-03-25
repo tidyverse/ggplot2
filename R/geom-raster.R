@@ -127,5 +127,5 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       default.units = "native", interpolate = interpolate
     )
   },
-  draw_key = draw_key_rect
+  draw_key = draw_key_polygon
 )
