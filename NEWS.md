@@ -331,6 +331,8 @@
 * (internal) The ViewScale class has a `make_fixed_copy()` method to permit 
   copying trained position scales (#3441).
 * Improved consistency of curve direction in `geom_curve()` (@teunbrand, #5069)
+* `linetype = NA` is now interpreted to mean 'no line' instead of raising errors
+  (@teunbrand, #6269).
 
 # ggplot2 3.5.1
 
