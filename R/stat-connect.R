@@ -1,63 +1,3 @@
-#' Connect observations
-#'
-#' Connect successive points with lines of different shapes.
-#'
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param connection A specification of how two points are connected. Can be one
-#'  of the folloing:
-#'  * A string giving a named connection. These options are:
-#'      * `"hv"` to first jump horizontally, then vertically.
-#'      * `"vh"` to first jump vertically, then horizontally.
-#'      * `"mid"` to step half-way between adjacent x-values.
-#'      * `"linear"` to use a straight segment.
-#'  * A numeric matrix with two columns giving x and y coordinates respectively.
-#'    The coordinates should describe points on a path that connect point A
-#'    at location (0, 0) and point B at location (1, 1). At least one of these
-#'    two points is expected to be included in the coordinates.
-#'
-#' @eval rd_aesthetics("stat", "connect")
-#' @export
-#'
-#' @examples
-#' ggplot(head(economics, 20), aes(date, unemploy)) +
-#'   stat_connect(connection = "hv")
-#'
-#' # Setup custom connections
-#' x <- seq(0, 1, length.out = 20)[-1]
-#' smooth <- cbind(x, scales::rescale(1 / (1 + exp(-(x * 10 - 5)))))
-#' zigzag <- cbind(c(0.4, 0.6, 1), c(0.75, 0.25, 1))
-#'
-#' ggplot(head(economics, 10), aes(date, unemploy)) +
-#'   geom_point() +
-#'   stat_connect(aes(colour = "zigzag"), connection = zigzag) +
-#'   stat_connect(aes(colour = "smooth"), connection = smooth)
-stat_connect <- function(
-    mapping = NULL,
-    data = NULL,
-    geom = "path",
-    position = "identity",
-    ...,
-    connection = "hv",
-    na.rm = FALSE,
-    show.legend = NA,
-    inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatConnect,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      connection = connection,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -160,3 +100,39 @@ StatConnect <- ggproto(
   }
 
 )
+
+#' Connect observations
+#'
+#' Connect successive points with lines of different shapes.
+#'
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @param connection A specification of how two points are connected. Can be one
+#'  of the folloing:
+#'  * A string giving a named connection. These options are:
+#'      * `"hv"` to first jump horizontally, then vertically.
+#'      * `"vh"` to first jump vertically, then horizontally.
+#'      * `"mid"` to step half-way between adjacent x-values.
+#'      * `"linear"` to use a straight segment.
+#'  * A numeric matrix with two columns giving x and y coordinates respectively.
+#'    The coordinates should describe points on a path that connect point A
+#'    at location (0, 0) and point B at location (1, 1). At least one of these
+#'    two points is expected to be included in the coordinates.
+#'
+#' @eval rd_aesthetics("stat", "connect")
+#' @export
+#'
+#' @examples
+#' ggplot(head(economics, 20), aes(date, unemploy)) +
+#'   stat_connect(connection = "hv")
+#'
+#' # Setup custom connections
+#' x <- seq(0, 1, length.out = 20)[-1]
+#' smooth <- cbind(x, scales::rescale(1 / (1 + exp(-(x * 10 - 5)))))
+#' zigzag <- cbind(c(0.4, 0.6, 1), c(0.75, 0.25, 1))
+#'
+#' ggplot(head(economics, 10), aes(date, unemploy)) +
+#'   geom_point() +
+#'   stat_connect(aes(colour = "zigzag"), connection = zigzag) +
+#'   stat_connect(aes(colour = "smooth"), connection = smooth)
+stat_connect <- make_constructor(StatConnect, geom = "path")
