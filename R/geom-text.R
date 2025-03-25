@@ -190,7 +190,7 @@ GeomText <- ggproto("GeomText", Geom,
   non_missing_aes = "angle",
 
   default_aes = aes(
-    colour = from_theme(ink),
+    colour = from_theme(colour %||% ink),
     family = from_theme(family),
     size = from_theme(fontsize),
     angle = 0, hjust = 0.5,

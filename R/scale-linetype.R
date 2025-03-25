@@ -7,8 +7,15 @@
 #'
 #' @inheritParams discrete_scale
 #' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette
-#' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
+#' @details
+#' Lines can be referred to by number, name or hex code. Contrary to base R
+#' graphics, `NA`s are interpreted as blanks.
+#'
+#' \if{html}{\figure{linetype_table.svg}{Named linetypes by number and name}}
+#' \if{latex}{\figure{linetype_table.pdf}}
+#'
+#'
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
@@ -35,22 +42,20 @@
 #'   scale_linetype_identity() +
 #'   facet_grid(linetype ~ .) +
 #'   theme_void(20)
-scale_linetype <- function(name = waiver(), ..., na.value = NA, aesthetics = "linetype") {
+scale_linetype <- function(name = waiver(), ..., aesthetics = "linetype") {
   discrete_scale(
     aesthetics, name = name,
     palette = NULL,
-    na.value = na.value,
     ...
   )
 }
 
 #' @rdname scale_linetype
 #' @export
-scale_linetype_binned <- function(name = waiver(), ..., na.value = NA, aesthetics = "linetype") {
+scale_linetype_binned <- function(name = waiver(), ..., aesthetics = "linetype") {
   binned_scale(
     aesthetics, name = name,
     palette = NULL,
-    na.value = na.value,
     ...
   )
 }

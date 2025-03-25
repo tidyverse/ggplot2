@@ -1,5 +1,19 @@
 # ggplot2 (development version)
 
+* `position_fill()` avoids stacking observations of zero (@teunbrand, #6338)
+* New `layer(layout)` argument to interact with facets (@teunbrand, #3062)
+* New `stat_connect()` to connect points via steps or other shapes 
+  (@teunbrand, #6228)
+* Fixed regression with incorrectly drawn gridlines when using `coord_flip()` 
+  (@teunbrand, #6293).
+* Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead 
+  of warnings. 
+* Functions and arguments that were soft-deprecated up to ggplot2 3.4.0 now 
+  throw warnings.
+* (internal) layer data can be attenuated with parameter attributes 
+  (@teunbrand, #3175).
+* Date scales silently coerce <POSIXct> to <Date> and datetime scales silently
+  coerce <Date> to <POSIXct> (@laurabrianna, #3533)
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.
@@ -239,8 +253,8 @@
   and (non-text) margins inherit from (@teunbrand, #5622).
 * `geom_ribbon()` can have varying `fill` or `alpha` in linear coordinate
   systems (@teunbrand, #4690).
-* `geom_tile()` computes default widths and heights per panel instead of
-  per layer (@teunbrand, #5740).
+* `geom_tile()` and `position_jitter()` computes default widths and heights 
+  per panel instead of per layer (@teunbrand, #5740, #3722).
 * The `fill` of the `panel.border` theme setting is ignored and forced to be
   transparent (#5782).
 * `stat_align()` skips computation when there is only 1 group and therefore
@@ -270,8 +284,11 @@
   is setup once in total instead of once per group (@teunbrand, #5971)
 * `facet_grid(space = "free")` can now be combined with `coord_fixed()` 
   (@teunbrand, #4584).
-* `theme_classic()` now has black ticks and text instead of dark gray. In 
-  addition, `theme_classic()`'s axis line end is `"square"` (@teunbrand, #5978).
+* `theme_classic()` has the following changes (@teunbrand, #5978 & #6320):
+    * Axis ticks are now black (`ink`-coloured) instead of dark gray.
+    * Axis line ends are now `"square"`.
+    * The panel grid is now blank at the `panel.grid` hierarchy level instead of 
+    the `panel.grid.major` and `panel.grid.minor` levels.
 * {tibble} is now suggested instead of imported (@teunbrand, #5986)
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
@@ -302,10 +319,23 @@
   particularly for data-points with a low radius near the center 
   (@teunbrand, #5023).
 * All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
+* Staged expressions are handled more gracefully if legends cannot resolve them 
+  (@teunbrand, #6264).
 * New `theme(legend.key.justification)` to control the alignment of legend keys 
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
   (@teunbrand, #4335).
+* (internal) `legend.key.width` and `legend.key.height` calculations are no
+  longer precomputed before guides are drawn (@teunbrand, #6339)
+* `ggsave()` can write a multi-page pdf file when provided with a list of plots 
+  (@teunbrand, #5093).
+* (internal) When `validate_subclass()` fails to find a class directly, it tries 
+  to retrieve the class via constructor functions (@teunbrand).
+* (internal) The ViewScale class has a `make_fixed_copy()` method to permit 
+  copying trained position scales (#3441).
+* Improved consistency of curve direction in `geom_curve()` (@teunbrand, #5069)
+* `linetype = NA` is now interpreted to mean 'no line' instead of raising errors
+  (@teunbrand, #6269).
 
 # ggplot2 3.5.1
 

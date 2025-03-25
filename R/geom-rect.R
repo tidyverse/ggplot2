@@ -4,7 +4,8 @@
 #' @export
 GeomRect <- ggproto("GeomRect", Geom,
   default_aes = aes(
-    colour = NA, fill = from_theme(col_mix(ink, paper, 0.35)),
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.35)),
     linewidth = from_theme(borderwidth), linetype = from_theme(bordertype),
     alpha = NA
   ),

@@ -5,10 +5,10 @@
 #' @include geom-path.R
 GeomQuantile <- ggproto(
   "GeomQuantile", GeomPath,
-  default_aes = defaults(
-    aes(weight = 1, colour = from_theme(accent)),
+  default_aes = aes(!!!defaults(
+    aes(weight = 1, colour = from_theme(colour %||% accent)),
     GeomPath$default_aes
-  )
+  ))
 )
 
 #' Quantile regression

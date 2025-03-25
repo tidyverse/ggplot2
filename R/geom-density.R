@@ -5,9 +5,13 @@
 #' @include geom-ribbon.R
 GeomDensity <- ggproto(
   "GeomDensity", GeomArea,
-  default_aes = defaults(
-    aes(fill = NA, weight = 1, colour = from_theme(ink), alpha = NA),
-    GeomArea$default_aes
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    fill   = from_theme(fill %||% NA),
+    weight = 1,
+    alpha  = NA,
+    linewidth = from_theme(borderwidth),
+    linetype  = from_theme(bordertype)
   )
 )
 
@@ -78,4 +82,3 @@ geom_density <- make_constructor(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   )
 )
-

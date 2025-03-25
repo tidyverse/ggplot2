@@ -199,8 +199,6 @@ draw_key_crossbar <- function(data, params, size) {
 draw_key_path <- function(data, params, size) {
   if (is.null(data$linetype)) {
     data$linetype <- 0
-  } else {
-    data$linetype[is.na(data$linetype)] <- 0
   }
   grob <- segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gg_par(
@@ -388,8 +386,6 @@ draw_key_vline <- function(data, params, size) {
 draw_key_timeseries <- function(data, params, size) {
   if (is.null(data$linetype)) {
     data$linetype <- 0
-  } else {
-    data$linetype[is.na(data$linetype)] <- 0
   }
 
   grid::linesGrob(

@@ -361,7 +361,6 @@ test_that("all elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_linedraw()))
   expect_true(inherit_blanks(theme_minimal()))
   expect_true(inherit_blanks(theme_void()))
-  expect_true(inherit_blanks(theme_transparent()))
 })
 
 test_that("elements can be merged", {
@@ -507,9 +506,6 @@ test_that("provided themes explicitly define all elements", {
   expect_true(all(names(t) %in% elements))
 
   t <- theme_test()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_transparent()
   expect_true(all(names(t) %in% elements))
 })
 
@@ -710,6 +706,36 @@ test_that("margin_part() mechanics work as expected", {
   expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
 })
 
+test_that("theme() warns about conflicting palette options", {
+  expect_silent(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+  local_options(ggplot2.discrete.colour = c("red", "purple"))
+  expect_snapshot_warning(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+})
+
+test_that("geom elements are inherited correctly", {
+
+  GeomFoo <- ggproto("GeomFoo", GeomPoint)
+  GeomBar <- ggproto("GeomBar", GeomFoo)
+
+  p <- ggplot(data.frame(x = 1), aes(x, x)) +
+    stat_identity(geom = GeomBar) +
+    theme(
+      geom = element_geom(pointshape = 15),
+      geom.point = element_geom(borderwidth = 2, ink = "blue"),
+      geom.foo = element_geom(pointsize = 2),
+      geom.bar = element_geom(ink = "red")
+    )
+  p <- layer_data(p)
+  expect_equal(p$shape, 15)
+  expect_equal(p$stroke, 2)
+  expect_equal(p$size, 2)
+  expect_equal(p$colour, "red")
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("element_polygon() can render a grob", {
@@ -799,7 +825,6 @@ test_that("themes don't change without acknowledgement", {
   expect_doppelganger("theme_light", plot + theme_light())
   expect_doppelganger("theme_void", plot + theme_void())
   expect_doppelganger("theme_linedraw", plot + theme_linedraw())
-  expect_doppelganger("theme_transparent", plot + theme_transparent())
 })
 
 test_that("themes look decent at larger base sizes", {
@@ -816,7 +841,6 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
   expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
-  expect_doppelganger("theme_transparent_large", plot + theme_transparent(base_size = 33))
 })
 
 test_that("setting 'spacing' and 'margins' affect the whole plot", {

@@ -95,3 +95,10 @@ test_that("stat_density2d can produce contour and raster data", {
   # error on incorrect contouring variable
   expect_snapshot_error(ggplot_build(p + stat_density_2d(contour_var = "abcd")))
 })
+
+test_that("stat_density_2d handles faulty bandwidth", {
+  p <- ggplot(faithful, aes(eruptions, waiting)) +
+    stat_density_2d(h = c(0, NA))
+  expect_snapshot_warning(b <- ggplot_build(p))
+  expect_s3_class(layer_grob(b)[[1]], "zeroGrob")
+})

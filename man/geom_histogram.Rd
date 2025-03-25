@@ -48,7 +48,9 @@ stat_bin(
   closed = c("right", "left"),
   pad = FALSE,
   breaks = NULL,
-  drop = "all",
+  drop = "none",
+  origin = NULL,
+  right = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -180,10 +182,10 @@ frequency polygons touch 0. Defaults to \code{FALSE}.}
 the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
 and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
-\item{drop}{Treatment of zero count bins. If \code{"all"} (default), such
-bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
-If \code{"inner"} only zero count bins at the flanks are filtered out, but not
-in the middle. \code{TRUE} is shorthand for \code{"all"} and \code{FALSE} is shorthand
+\item{drop}{Treatment of zero count bins. If \code{"none"} (default), such
+bins are kept as-is. If \code{"all"}, all zero count bins are filtered out.
+If \code{"extremes"} only zero count bins at the flanks are filtered out, but
+not in the middle. \code{TRUE} is shorthand for \code{"all"} and \code{FALSE} is shorthand
 for \code{"none"}.}
 }
 \description{

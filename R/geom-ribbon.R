@@ -3,12 +3,14 @@
 #' @usage NULL
 #' @export
 GeomRibbon <- ggproto("GeomRibbon", Geom,
+
   default_aes = aes(
-    colour = NA,
-    fill = from_theme(col_mix(ink, paper, 0.2)),
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
-    alpha = NA),
+    alpha = NA
+  ),
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
@@ -90,7 +92,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     if ((length(aes$fill) > 1 || length(aes$alpha) > 1)) {
       transformed <- coord$transform(flip_data(data, flipped_aes), panel_params)
       if (flipped_aes) {
-        keep <- is.finite(tranformed$y)
+        keep <- is.finite(transformed$y)
         args <- list(
           colours = alpha(data$fill, data$alpha)[keep],
           stops = rescale(transformed$y)[keep],
@@ -201,14 +203,6 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 #' @usage NULL
 #' @export
 GeomArea <- ggproto("GeomArea", GeomRibbon,
-
-  default_aes = aes(
-    colour = NA,
-    fill = from_theme(col_mix(ink, paper, 0.2)),
-    linewidth = from_theme(borderwidth),
-    linetype = from_theme(bordertype),
-    alpha = NA
-  ),
 
   required_aes = c("x", "y"),
 

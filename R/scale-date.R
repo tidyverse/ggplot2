@@ -394,6 +394,9 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
         i = "The value was converted to {obj_type_friendly(x)}."
       ), call = self$call)
     }
+    if (inherits(x, "Date")) {
+      x <- as.POSIXct(x)
+    }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
   map = function(self, x, limits = self$get_limits()) {
@@ -440,6 +443,9 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
         "A {.cls numeric} value was passed to a {.field Date} scale.",
         i = "The value was converted to {obj_type_friendly(x)}."
       ), call = self$call)
+    }
+    if (inherits(x, "POSIXct")) {
+      x <- as.Date(x)
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },

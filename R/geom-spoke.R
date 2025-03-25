@@ -46,6 +46,5 @@ geom_spoke <- make_constructor(GeomSpoke)
 #' @rdname geom_spoke
 #' @usage NULL
 stat_spoke <- function(...) {
-  deprecate_warn0("2.0.0", "stat_spoke()", "geom_spoke()")
-  geom_spoke(...)
+  lifecycle::deprecate_stop("2.0.0", "stat_spoke()", "geom_spoke()")
 }
