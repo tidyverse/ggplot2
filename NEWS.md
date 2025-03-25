@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead 
+  of warnings. 
+* Functions and arguments that were soft-deprecated up to ggplot2 3.4.0 now 
+  throw warnings.
 * (internal) layer data can be attenuated with parameter attributes 
   (@teunbrand, #3175).
 * Date scales silently coerce <POSIXct> to <Date> and datetime scales silently
