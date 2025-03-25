@@ -105,12 +105,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   required_aes = c("x", "y", "xend|yend"),
   non_missing_aes = c("linetype", "linewidth"),
 
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
+  default_aes = GeomPath$default_aes,
 
   draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {

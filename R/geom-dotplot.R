@@ -189,8 +189,8 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   non_missing_aes = c("size", "shape"),
 
   default_aes = aes(
-    colour = from_theme(ink),
-    fill = from_theme(ink),
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% ink),
     alpha = NA,
     stroke = from_theme(borderwidth * 2),
     linetype = from_theme(linetype),
