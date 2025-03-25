@@ -336,6 +336,8 @@
 * Improved consistency of curve direction in `geom_curve()` (@teunbrand, #5069)
 * `linetype = NA` is now interpreted to mean 'no line' instead of raising errors
   (@teunbrand, #6269).
+* The default colour and fill scales have a new `palette` argument 
+  (@teunbrand, #6064).
 
 # ggplot2 3.5.1
 
