@@ -69,6 +69,7 @@ reference:
   - stat_unique
   - stat_sf_coordinates
   - stat_manual
+  - stat_chain
   - after_stat
 
 - subtitle: Position adjustment
