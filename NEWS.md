@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* New `layer(layout)` argument to interact with facets (@teunbrand, #3062)
 * New `stat_connect()` to connect points via steps or other shapes 
   (@teunbrand, #6228)
 * Fixed regression with incorrectly drawn gridlines when using `coord_flip()` 

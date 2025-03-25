@@ -71,6 +71,8 @@
 #' @param params Additional parameters to the `geom` and `stat`.
 #' @param key_glyph A legend key drawing function or a string providing the
 #'   function name minus the `draw_key_` prefix. See [draw_key] for details.
+#' @param layout Argument to control layout at the layer level. Consult the
+#'   faceting documentation to view appropriate values.
 #' @param layer_class The type of layer object to be constructed. This is
 #'   intended for ggplot2 internal use only.
 #' @keywords internal
@@ -98,7 +100,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  show.legend = NA, key_glyph = NULL, layer_class = Layer) {
+                  show.legend = NA, key_glyph = NULL, layout = NULL, layer_class = Layer) {
   call_env <- caller_env()
   user_env <- caller_env(2)
 
@@ -132,7 +134,7 @@ layer <- function(geom = NULL, stat = NULL,
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
-  ignore <- c("key_glyph", "name")
+  ignore <- c("key_glyph", "name", "layout")
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), position$aesthetics(), ignore)
 
   # Take care of plain patterns provided as aesthetic
@@ -192,7 +194,8 @@ layer <- function(geom = NULL, stat = NULL,
     position = position,
     inherit.aes = inherit.aes,
     show.legend = show.legend,
-    name = params$name
+    name = params$name,
+    layout = layout %||% params$layout
   )
 }
 
@@ -282,6 +285,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       self$computed_mapping <- self$mapping
     }
+    attr(data, "layout") <- self$layout
 
     data
   },

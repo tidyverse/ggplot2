@@ -102,6 +102,18 @@ x- or y-direction respectively.}
 a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} because most
 displays are roughly rectangular.
 }
+\section{Layer layout}{
+
+The \code{\link[=layer]{layer(layout)}} argument in context of \code{facet_wrap()} can take
+the following values:
+\itemize{
+\item \code{NULL} (default) to use the faceting variables to assign panels.
+\item An integer vector to include selected panels. Panel numbers not included in
+the integer vector are excluded.
+\item \code{"fixed"} to repeat data across every panel.
+}
+}
+
 \examples{
 p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 
