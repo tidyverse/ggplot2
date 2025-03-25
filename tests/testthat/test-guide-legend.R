@@ -136,6 +136,15 @@ test_that("legends can be forced to display unrelated geoms", {
   )
 })
 
+test_that("unresolved, modified expressions throw a warning (#6264)", {
+  # Snapshot is unstable in lesser R versions
+  skip_if_not(getRversion() >= "4.3.0")
+  p <- ggplot(mpg, aes(drv)) +
+    geom_bar(
+      aes(fill = stage(drv, after_scale = alpha(fill, prop)))
+    )
+  expect_snapshot_warning(ggplot_build(p))
+})
 
 # Visual tests ------------------------------------------------------------
 

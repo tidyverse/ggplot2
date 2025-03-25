@@ -124,13 +124,7 @@ geom_contour_filled <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-path.R
 GeomContour <- ggproto("GeomContour", GeomPath,
-  default_aes = aes(
-    weight = 1,
-    colour = from_theme(accent),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  )
+  default_aes = aes(weight = 1, !!!GeomPath$default_aes)
 )
 
 #' @rdname ggplot2-ggproto
