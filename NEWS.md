@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
-* When `check_subclass()` fails to find a class directly, it tries to retrieve
-  the class via constructor functions.
+* Date scales silently coerce <POSIXct> to <Date> and datetime scales silently
+  coerce <Date> to <POSIXct> (@laurabrianna, #3533)
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.
@@ -310,6 +310,10 @@
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
   (@teunbrand, #4335).
+* `ggsave()` can write a multi-page pdf file when provided with a list of plots 
+  (@teunbrand, #5093).
+* (internal) When `validate_subclass()` fails to find a class directly, it tries 
+  to retrieve the class via constructor functions (@teunbrand).
 
 # ggplot2 3.5.1
 
