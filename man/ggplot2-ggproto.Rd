@@ -21,11 +21,11 @@
 %   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
 %   R/scale-date.R, R/scale-discrete-.R, R/scale-identity.R, R/stat-align.R,
 %   R/stat-bin.R, R/stat-summary-2d.R, R/stat-bin2d.R, R/stat-bindot.R,
-%   R/stat-binhex.R, R/stat-boxplot.R, R/stat-contour.R, R/stat-count.R,
-%   R/stat-density-2d.R, R/stat-density.R, R/stat-ecdf.R, R/stat-ellipse.R,
-%   R/stat-function.R, R/stat-identity.R, R/stat-manual.R, R/stat-qq-line.R,
-%   R/stat-qq.R, R/stat-quantilemethods.R, R/stat-smooth.R, R/stat-sum.R,
-%   R/stat-summary-bin.R, R/stat-summary-hex.R, R/stat-summary.R,
+%   R/stat-binhex.R, R/stat-boxplot.R, R/stat-connect.R, R/stat-contour.R,
+%   R/stat-count.R, R/stat-density-2d.R, R/stat-density.R, R/stat-ecdf.R,
+%   R/stat-ellipse.R, R/stat-function.R, R/stat-identity.R, R/stat-manual.R,
+%   R/stat-qq-line.R, R/stat-qq.R, R/stat-quantilemethods.R, R/stat-smooth.R,
+%   R/stat-sum.R, R/stat-summary-bin.R, R/stat-summary-hex.R, R/stat-summary.R,
 %   R/stat-unique.R, R/stat-ydensity.R
 \docType{data}
 \name{ggplot2-ggproto}
@@ -131,6 +131,7 @@
 \alias{StatBindot}
 \alias{StatBinhex}
 \alias{StatBoxplot}
+\alias{StatConnect}
 \alias{StatContour}
 \alias{StatContourFilled}
 \alias{StatCount}

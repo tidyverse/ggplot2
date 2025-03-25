@@ -35,7 +35,7 @@ Imports:
     cli,
     grDevices,
     grid,
-    gtable (>= 0.1.1),
+    gtable (>= 0.3.6),
     isoband,
     lifecycle (> 1.0.1),
     rlang (>= 1.1.0),
@@ -247,6 +247,7 @@ Collate:
     'stat-bindot.R'
     'stat-binhex.R'
     'stat-boxplot.R'
+    'stat-connect.R'
     'stat-contour.R'
     'stat-count.R'
     'stat-density-2d.R'

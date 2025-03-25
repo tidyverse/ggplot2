@@ -69,6 +69,17 @@ NULL
 #'   labels and the interior axes get none. When `"all_x"` or `"all_y"`, only
 #'   draws the labels at the interior axes in the x- or y-direction
 #'   respectively.
+#'
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_grid()` can take
+#' the following values:
+#' * `NULL` (default) to use the faceting variables to assign panels.
+#' * An integer vector to include selected panels. Panel numbers not included in
+#'   the integer vector are excluded.
+#' * `"fixed"` to repeat data across every panel.
+#' * `"fixed_rows"` to repeat data across rows.
+#' * `"fixed_cols"` to repeat data across columns.
+#'
 #' @export
 #' @seealso
 #' The `r link_book("facet grid section", "facet#facet-grid")`
@@ -132,10 +143,9 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        switch = NULL, drop = TRUE, margins = FALSE,
                        axes = "margins", axis.labels = "all",
                        facets = deprecated()) {
-  # `facets` is deprecated and renamed to `rows`
+  # `facets` is deprecated
   if (lifecycle::is_present(facets)) {
-    deprecate_warn0("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
-    rows <- facets
+    lifecycle::deprecate_stop("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
   }
 
   # Should become a warning in a future release
@@ -177,7 +187,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   facets_list <- grid_as_facets_list(rows, cols)
 
   # Check for deprecated labellers
-  labeller <- fix_labeller(labeller)
+  check_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
@@ -283,69 +293,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     panels
   },
-  map_data = function(data, layout, params) {
-    if (empty(data)) {
-      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
-    }
 
-    rows <- params$rows
-    cols <- params$cols
-    vars <- c(names(rows), names(cols))
-
-    if (length(vars) == 0) {
-      data$PANEL <- layout$PANEL
-      return(data)
-    }
-
-    # Compute faceting values
-    facet_vals <- eval_facets(c(rows, cols), data, params$.possible_columns)
-    if (nrow(facet_vals) == nrow(data)) {
-      # Margins are computed on evaluated faceting values (#1864).
-      facet_vals <- reshape_add_margins(
-        # We add an index column to track data recycling
-        vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
-        list(intersect(names(rows), names(facet_vals)),
-             intersect(names(cols), names(facet_vals))),
-        params$margins
-      )
-      # Apply recycling on original data to fit margins
-      # We're using base subsetting here because `data` might have a superclass
-      # that isn't handled well by vctrs::vec_slice
-      data <- data[facet_vals$.index, , drop = FALSE]
-      facet_vals$.index <- NULL
-    }
-
-    # If any faceting variables are missing, add them in by
-    # duplicating the data
-    missing_facets <- setdiff(vars, names(facet_vals))
-    if (length(missing_facets) > 0) {
-      to_add <- unique0(layout[missing_facets])
-
-      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
-      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
-
-      data <- unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- unrowname(vec_cbind(
-        unrowname(facet_vals[data_rep, ,  drop = FALSE]),
-        unrowname(to_add[facet_rep, , drop = FALSE]))
-      )
-    }
-
-    # Add PANEL variable
-    if (nrow(facet_vals) == 0) {
-      # Special case of no faceting
-      data$PANEL <- NO_PANEL
-    } else {
-      facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
-      facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
-      layout[] <- lapply(layout[], as_unordered_factor)
-
-      keys <- join_keys(facet_vals, layout, by = vars)
-
-      data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
-    }
-    data
-  },
+  map_data = map_facet_data,
 
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 

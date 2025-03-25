@@ -141,6 +141,9 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     check_installed("MASS", reason = "for calculating 2D density.")
     # first run the regular layer calculation to infer densities
     data <- ggproto_parent(Stat, self)$compute_layer(data, params, layout)
+    if (empty(data)) {
+      return(data_frame0())
+    }
 
     # if we're not contouring we're done
     if (!isTRUE(params$contour %||% TRUE)) return(data)
@@ -178,10 +181,8 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
                            n = 100, ...) {
-    if (is.null(h)) {
-      h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
-      h <- h * adjust
-    }
+
+    h <- precompute_2d_bw(data$x, data$y, h = h, adjust = adjust)
 
     # calculate density
     dens <- MASS::kde2d(
@@ -213,4 +214,28 @@ StatDensity2dFilled <- ggproto("StatDensity2dFilled", StatDensity2d,
   default_aes = aes(colour = NA, fill = after_stat(level)),
   contour_type = "bands"
 )
+
+precompute_2d_bw <- function(x, y, h = NULL, adjust = 1) {
+
+  if (is.null(h)) {
+    # Note: MASS::bandwidth.nrd is equivalent to stats::bw.nrd * 4
+    h <- c(MASS::bandwidth.nrd(x), MASS::bandwidth.nrd(y))
+    # Handle case when when IQR == 0 and thus regular nrd bandwidth fails
+    if (h[1] == 0 && length(x) > 1) h[1] <- bw.nrd0(x) * 4
+    if (h[2] == 0 && length(y) > 1) h[2] <- bw.nrd0(y) * 4
+    h <- h * adjust
+  }
+
+  check_numeric(h)
+  check_length(h, 2L)
+
+  if (any(is.na(h) | h <= 0)) {
+    cli::cli_abort(c(
+      "The bandwidth argument {.arg h} must contain numbers larger than 0.",
+      i = "Please set the {.arg h} argument to stricly positive numbers manually."
+    ))
+  }
+
+  h
+}
 

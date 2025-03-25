@@ -467,36 +467,29 @@ theme <- function(...,
                   strip.switch.pad.wrap,
                   complete = FALSE,
                   validate = TRUE) {
-  elements <- find_args(..., complete = NULL, validate = NULL)
 
-  if (!is.null(elements$axis.ticks.margin)) {
-    deprecate_warn0(
-      "2.0.0", "theme(axis.ticks.margin)",
-      details = "Please set `margin` property of `axis.text` instead"
-    )
-    elements$axis.ticks.margin <- NULL
+  elements <- find_args(..., complete = NULL, validate = NULL)
+  elements <- fix_theme_deprecations(elements)
+  elements <- validate_theme_palettes(elements)
+
+  # If complete theme set all non-blank elements to inherit from blanks
+  if (complete) {
+    elements <- lapply(elements, function(el) {
+      if (is.theme_element(el) && !inherits(el, "element_blank")) {
+        el$inherit.blank <- TRUE
+      }
+      el
+    })
   }
-  if (!is.null(elements$panel.margin)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
-    )
-    elements$panel.spacing <- elements$panel.margin
-    elements$panel.margin <- NULL
-  }
-  if (!is.null(elements$panel.margin.x)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
-    )
-    elements$panel.spacing.x <- elements$panel.margin.x
-    elements$panel.margin.x <- NULL
-  }
-  if (!is.null(elements$panel.margin.y)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
-    )
-    elements$panel.spacing.y <- elements$panel.margin.y
-    elements$panel.margin.y <- NULL
-  }
+  structure(
+    elements,
+    class = c("theme", "gg"),
+    complete = complete,
+    validate = validate
+  )
+}
+
+fix_theme_deprecations <- function(elements) {
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
@@ -539,22 +532,46 @@ theme <- function(...,
     elements$legend.position.inside <- elements$legend.position
     elements$legend.position <- "inside"
   }
+  elements
+}
 
-  # If complete theme set all non-blank elements to inherit from blanks
-  if (complete) {
-    elements <- lapply(elements, function(el) {
-      if (is.theme_element(el) && !inherits(el, "element_blank")) {
-        el$inherit.blank <- TRUE
-      }
-      el
-    })
+validate_theme_palettes <- function(elements) {
+
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous",
+            "palette.color.discrete",  "palette.color.continuous")
+  if (!any(pals %in% names(elements))) {
+    return(elements)
   }
-  structure(
+
+  # Standardise spelling
+  elements <- replace_null(
     elements,
-    class = c("theme", "gg"),
-    complete = complete,
-    validate = validate
+    palette.colour.discrete   = elements$palette.color.discrete,
+    palette.colour.continuous = elements$palette.color.continuous
   )
+  elements$palette.color.discrete   <- NULL
+  elements$palette.color.continuous <- NULL
+
+  # Check for incompatible options
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous")
+  opts <- c("ggplot2.discrete.colour", "ggplot2.continuous.colour",
+            "ggplot2.discrete.fill",   "ggplot2.continuous.fill")
+  index <- which(pals %in% names(elements))
+
+  for (i in index) {
+    if (is.null(getOption(opts[i]))) {
+      next
+    }
+    cli::cli_warn(c(
+      "The {.code options('{opts[i]}')} setting is incompatible with the \\
+        {.arg {pals[i]}} theme setting.",
+      i = "You can set {.code options({opts[i]} = NULL)}."
+    ))
+  }
+
+  elements
 }
 
 #' @export
@@ -574,8 +591,11 @@ check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
+  elnames <- names(theme)
+  elnames[startsWith(elnames, "geom.")] <- "geom"
+
   mapply(
-    check_element, theme, names(theme),
+    check_element, theme, elnames,
     MoreArgs = list(element_tree = tree, call = call)
   )
 }
@@ -639,7 +659,10 @@ plot_theme <- function(x, default = get_theme()) {
   check_theme(theme)
 
   # Remove elements that are not registered
-  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
+  # We accept unregistered `geom.*` elements
+  remove <- setdiff(names(theme), names(get_element_tree()))
+  remove <- remove[!startsWith(remove, "geom.")]
+  theme[remove] <- NULL
   theme
 }
 
@@ -754,6 +777,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
+    if (inherits(el_out, "element_geom")) {
+      # Geom elements are expected to have NULL fill/colour, so allow these
+      # to be missing
+      nullprops[c("colour", "fill")] <- FALSE
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
     }
