@@ -130,8 +130,8 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   },
 
   default_aes = aes(
-    fill = from_theme(col_mix(ink, paper, 0.2)),
-    colour = NA,
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    colour = from_theme(colour %||% NA),
     linewidth = from_theme(0.4 * borderwidth),
     linetype = from_theme(bordertype),
     alpha = NA, width = 1, height = 1

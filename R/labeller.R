@@ -411,7 +411,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
                      keep.as.numeric = deprecated(), .multi_line = TRUE,
                      .default = label_value) {
   if (lifecycle::is_present(keep.as.numeric)) {
-    deprecate_warn0("2.0.0", "labeller(keep.as.numeric)")
+    lifecycle::deprecate_stop("2.0.0", "labeller(keep.as.numeric)")
   }
   dots <- list2(...)
   .default <- as_labeller(.default)
@@ -577,22 +577,18 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   })
 }
 
-# Repair old school labeller
-fix_labeller <- function(labeller) {
+# Reject old school labeller
+check_labeller <- function(labeller) {
+
   labeller <- match.fun(labeller)
   is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
 
-  if (is_deprecated) {
-    deprecate_warn0(
-      "2.0.0", what = "facet_(labeller)",
-      details =
-      "Modern labellers do not take `variable` and `value` arguments anymore."
-    )
-    old_labeller <- labeller
-    labeller <- function(labels) {
-      Map(old_labeller, names(labels), labels)
-    }
+  if (!is_deprecated) {
+    return(invisible())
   }
 
-  labeller
+  lifecycle::deprecate_stop(
+    "2.0.0",
+    what = I("Providing a labeller with `variable` and `value` arguments")
+  )
 }
