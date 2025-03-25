@@ -325,6 +325,8 @@
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
   (@teunbrand, #4335).
+* (internal) `legend.key.width` and `legend.key.height` calculations are no
+  longer precomputed before guides are drawn (@teunbrand, #6339)
 * `ggsave()` can write a multi-page pdf file when provided with a list of plots 
   (@teunbrand, #5093).
 * (internal) When `validate_subclass()` fails to find a class directly, it tries 
