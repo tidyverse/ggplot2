@@ -111,9 +111,9 @@ Remove duplicates
 }
 \section{Aesthetics}{
 
-\code{stat_unique()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \code{\link[=aes_group_order]{group}}
+\code{stat_unique()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

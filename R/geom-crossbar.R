@@ -79,8 +79,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   },
 
   default_aes = aes(
-    colour = from_theme(ink),
-    fill = NA,
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% NA),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
     alpha = NA

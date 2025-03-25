@@ -546,8 +546,11 @@ check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
+  elnames <- names(theme)
+  elnames[startsWith(elnames, "geom.")] <- "geom"
+
   mapply(
-    check_element, theme, names(theme),
+    check_element, theme, elnames,
     MoreArgs = list(element_tree = tree, call = call)
   )
 }
@@ -611,7 +614,10 @@ plot_theme <- function(x, default = get_theme()) {
   check_theme(theme)
 
   # Remove elements that are not registered
-  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
+  # We accept unregistered `geom.*` elements
+  remove <- setdiff(names(theme), names(get_element_tree()))
+  remove <- remove[!startsWith(remove, "geom.")]
+  theme[remove] <- NULL
   theme
 }
 
@@ -726,6 +732,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
+    if (inherits(el_out, "element_geom")) {
+      # Geom elements are expected to have NULL fill/colour, so allow these
+      # to be missing
+      nullprops[c("colour", "fill")] <- FALSE
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
     }

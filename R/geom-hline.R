@@ -57,7 +57,7 @@ GeomHline <- ggproto("GeomHline", Geom,
   },
 
   default_aes = aes(
-    colour = from_theme(ink),
+    colour = from_theme(colour %||% ink),
     linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
     alpha = NA
