@@ -249,8 +249,8 @@
   and (non-text) margins inherit from (@teunbrand, #5622).
 * `geom_ribbon()` can have varying `fill` or `alpha` in linear coordinate
   systems (@teunbrand, #4690).
-* `geom_tile()` computes default widths and heights per panel instead of
-  per layer (@teunbrand, #5740).
+* `geom_tile()` and `position_jitter()` computes default widths and heights 
+  per panel instead of per layer (@teunbrand, #5740, #3722).
 * The `fill` of the `panel.border` theme setting is ignored and forced to be
   transparent (#5782).
 * `stat_align()` skips computation when there is only 1 group and therefore
