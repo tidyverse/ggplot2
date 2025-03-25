@@ -154,6 +154,29 @@ test_that("layer names can be resolved", {
   expect_snapshot(p + l + l, error = TRUE)
 })
 
+test_that("attributes on layer data are preserved", {
+  # This is a good layer for testing because:
+  # * It needs to compute a statistic at the group level
+  # * It needs to setup data to reshape x/y/width/height into xmin/xmax/ymin/ymax
+  # * It needs to use a position adjustment
+  # * It has an `after_stat()` so it enters the map_statistic method
+  old <- stat_summary(
+    aes(fill = after_stat(y)),
+    fun = mean, geom = "col", position = "dodge"
+  )
+  # We modify the compute aesthetics method to append a test attribute
+  new <- ggproto(NULL, old, compute_aesthetics = function(self, data, plot) {
+    data <- ggproto_parent(old, self)$compute_aesthetics(data, plot)
+    attr(data, "test") <- "preserve me"
+    data
+  })
+  # At the end of plot building, we want to retrieve that metric
+  ld <- layer_data(
+    ggplot(mpg, aes(drv, hwy, colour = factor(year))) + new + facet_grid(~year) +
+      scale_y_sqrt()
+  )
+  expect_equal(attr(ld, "test"), "preserve me")
+})
 
 # Data extraction ---------------------------------------------------------
 

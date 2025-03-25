@@ -2,6 +2,10 @@
 
 * `linetype = NA` is now interpreted to mean 'no line' instead of raising errors
   (@teunbrand, #6269).
+* (internal) layer data can be attenuated with parameter attributes 
+  (@teunbrand, #3175).
+* Date scales silently coerce <POSIXct> to <Date> and datetime scales silently
+  coerce <Date> to <POSIXct> (@laurabrianna, #3533)
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.
@@ -304,10 +308,14 @@
   particularly for data-points with a low radius near the center 
   (@teunbrand, #5023).
 * All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
+* Staged expressions are handled more gracefully if legends cannot resolve them 
+  (@teunbrand, #6264).
 * New `theme(legend.key.justification)` to control the alignment of legend keys 
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
   (@teunbrand, #4335).
+* `ggsave()` can write a multi-page pdf file when provided with a list of plots 
+  (@teunbrand, #5093).
 
 # ggplot2 3.5.1
 
