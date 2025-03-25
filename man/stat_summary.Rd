@@ -186,11 +186,11 @@ This geom treats each axis differently and, thus, can thus have two orientations
 
 \section{Aesthetics}{
 
-\code{stat_summary()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_group_order]{group}}
+\code{stat_summary()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -98,3 +98,8 @@
 
     The `aspect.ratio` theme element must be a <numeric/integer> object.
 
+# theme() warns about conflicting palette options
+
+    The `options('ggplot2.discrete.colour')` setting is incompatible with the `palette.colour.discrete` theme setting.
+    i You can set `options(ggplot2.discrete.colour = NULL)`.
+

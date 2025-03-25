@@ -12,11 +12,10 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
     "@section Aesthetics:",
     paste0(
       "\\code{", type, "_", name, "()} ",
-      "understands the following aesthetics (required aesthetics are in bold):"
+      "understands the following aesthetics. Required aesthetics are displayed",
+      " in bold and defaults are displayed for optional aesthetics:"
     ),
-    "\\itemize{",
-    paste0("  \\item ", aes),
-    "}",
+    "\\tabular{rll}{", aes, "}",
     if (!is.null(extra_note)) paste0(extra_note, "\n"),
     "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
@@ -29,11 +28,34 @@ rd_aesthetics_item <- function(x) {
   optional_aes <- setdiff(x$aesthetics(), req_aes)
   all <- union(req, sort(optional_aes))
   docs <- rd_match_docpage(all)
+  defaults <- rd_defaults(x, all)
 
   item <- ifelse(all %in% req,
     paste0("\\strong{\\code{", docs, "}}"),
     paste0("\\code{", docs, "}")
   )
+  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr\\cr")
+}
+
+rd_defaults <- function(layer, aesthetics) {
+  defaults <- layer$default_aes
+
+  out <- rep("", length(aesthetics))
+
+  themed <- vapply(defaults, FUN.VALUE = logical(1), function(x) {
+    is_quosure(x) && quo_is_call(x, name = "from_theme")
+  })
+  defaults <- lapply(defaults, quo_text)
+  defaults[themed] <- "via \\code{theme()}"
+  defaults[!themed] <- paste0("\\code{", defaults[!themed], "}")
+
+  i <- intersect(aesthetics, names(defaults))
+  out[match(i, aesthetics)] <- defaults[i]
+  empty <- !nzchar(out)
+  out[!empty] <- paste0("\u2192 ", out[!empty])
+  out[empty] <- " "
+  out[empty & aesthetics == "group"] <- "\u2192 inferred"
+  out
 }
 
 rd_match_docpage <- function(aes) {

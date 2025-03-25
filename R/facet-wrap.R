@@ -45,6 +45,15 @@ NULL
 #'   the exterior axes get labels, and the interior axes get none. When
 #'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
 #'   x- or y-direction respectively.
+#'
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_wrap()` can take
+#' the following values:
+#' * `NULL` (default) to use the faceting variables to assign panels.
+#' * An integer vector to include selected panels. Panel numbers not included in
+#'   the integer vector are excluded.
+#' * `"fixed"` to repeat data across every panel.
+#'
 #' @inheritParams facet_grid
 #' @seealso
 #' The `r link_book("facet wrap section", "facet#sec-facet-wrap")`
@@ -174,14 +183,15 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 
   # Check for deprecated labellers
-  labeller <- fix_labeller(labeller)
+  check_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
   facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
-    deprecate_warn0("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
-    strip.position <- if (switch == "x") "bottom" else "left"
+    lifecycle::deprecate_stop(
+      "2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)"
+    )
   }
   strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))
 
@@ -246,42 +256,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     panels
   },
-  map_data = function(data, layout, params) {
-    if (empty(data)) {
-      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
-    }
 
-    vars <- params$facets
-
-    if (length(vars) == 0) {
-      data$PANEL <- layout$PANEL
-      return(data)
-    }
-
-    facet_vals <- eval_facets(vars, data, params$.possible_columns)
-    facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
-    layout[] <- lapply(layout[], as_unordered_factor)
-
-    missing_facets <- setdiff(names(vars), names(facet_vals))
-    if (length(missing_facets) > 0) {
-
-      to_add <- unique0(layout[missing_facets])
-
-      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
-      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
-
-      data <- data[data_rep, , drop = FALSE]
-      facet_vals <- vec_cbind(
-        facet_vals[data_rep, ,  drop = FALSE],
-        to_add[facet_rep, , drop = FALSE]
-      )
-    }
-
-    keys <- join_keys(facet_vals, layout, by = names(vars))
-
-    data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
-    data
-  },
+  map_data = map_facet_data,
 
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 

@@ -395,8 +395,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   draw_key = draw_key_boxplot,
 
   default_aes = aes(
-    weight = 1, colour = from_theme(col_mix(ink, paper, 0.2)),
-    fill = from_theme(paper), size = from_theme(pointsize),
+    weight = 1, colour = from_theme(colour %||% col_mix(ink, paper, 0.2)),
+    fill = from_theme(fill %||% paper), size = from_theme(pointsize),
     alpha = NA, shape = from_theme(pointshape), linetype = from_theme(bordertype),
     linewidth = from_theme(borderwidth),
     width = 0.9

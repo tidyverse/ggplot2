@@ -94,7 +94,7 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
   linetype = NULL, color = NULL, inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
+    deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
     linewidth <- size
   }
 
@@ -115,7 +115,7 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
   inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
+    deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
     linewidth <- size
   }
 
@@ -213,7 +213,9 @@ element_geom <- function(
   # text
   family = NULL, fontsize = NULL,
   # points
-  pointsize = NULL, pointshape = NULL) {
+  pointsize = NULL, pointshape = NULL,
+
+  colour = NULL, color = NULL, fill = NULL) {
 
   if (!is.null(fontsize)) {
     fontsize <- fontsize / .pt
@@ -227,7 +229,9 @@ element_geom <- function(
       linewidth = linewidth, borderwidth = borderwidth,
       linetype = linetype, bordertype = bordertype,
       family = family, fontsize = fontsize,
-      pointsize = pointsize, pointshape = pointshape
+      pointsize = pointsize, pointshape = pointshape,
+      colour = color %||% colour,
+      fill = fill
     ),
     class = c("element_geom", "element")
   )
@@ -238,7 +242,8 @@ element_geom <- function(
   linewidth = 0.5, borderwidth = 0.5,
   linetype = 1L, bordertype = 1L,
   family = "", fontsize = 11,
-  pointsize = 1.5, pointshape = 19
+  pointsize = 1.5, pointshape = 19,
+  fill = NULL, colour = NULL
 )
 
 #' @export
@@ -307,7 +312,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+    deprecate_warn0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
     linewidth <- size
   }
 
@@ -357,7 +362,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+    deprecate_warn0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
     linewidth <- size
   }
 

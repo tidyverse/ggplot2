@@ -41,13 +41,6 @@ geom_curve <- function(mapping = NULL, data = NULL,
 #' @export
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
 
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
-
   draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
                         ncp = 5, arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
 
@@ -61,6 +54,15 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
     )
 
     trans <- coord$transform(data, panel_params)
+
+    flip <- flip_curve(trans, coord, panel_params)
+    if (flip) {
+      trans <- rename(trans, c(x = "xend", xend = "x", y = "yend", yend = "y"))
+      if (!is.null(arrow)) {
+        # Flip end where arrow appears (2 = last, 1 = first, 3 = both)
+        arrow$ends <- match(arrow$ends, c(2, 1, 3))
+      }
+    }
 
     arrow.fill <- arrow.fill %||% trans$colour
 
@@ -79,3 +81,41 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
     )
   }
 )
+
+# Helper function for determining whether curves should swap segment ends to
+# keep curvature consistent over transformations
+flip_curve <- function(data, coord, params) {
+  flip <- FALSE
+
+  # Figure implicit flipping transformations in coords
+  if (inherits(coord, "CoordFlip")) {
+    flip <- !flip
+  } else if (inherits(coord, "CoordTrans")) {
+    if (identical(coord$trans$x$name, "reverse")) {
+      flip <- !flip
+    }
+    if (identical(coord$trans$y$name, "reverse")) {
+      flip <- !flip
+    }
+  }
+
+  # We don't flip when none or both directions are reversed
+  if ((coord$reverse %||% "none") %in% c("x", "y")) {
+    flip <- !flip
+  }
+
+  # Check scales for reverse transforms
+  # Note that polar coords do not have x/y scales, but these are unsupported
+  # anyway
+  fn <- params$x$get_transformation
+  if (is.function(fn) && identical(fn()$name, "reverse")) {
+    flip <- !flip
+  }
+
+  fn <- params$y$get_transformation
+  if (is.function(fn) && identical(fn()$name, "reverse")) {
+    flip <- !flip
+  }
+
+  flip
+}

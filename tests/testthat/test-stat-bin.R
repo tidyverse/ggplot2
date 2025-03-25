@@ -122,13 +122,13 @@ test_that("stat_bin(drop) options work as intended", {
   p <- ggplot(data.frame(x = c(1, 2, 2, 3, 5, 6, 6, 7)), aes(x)) +
     scale_x_continuous(limits = c(-1, 9))
 
-  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "all"))
+  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "none"))
   expect_equal(ld$x, -1:9)
 
-  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "inner"))
+  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "extremes"))
   expect_equal(ld$x, c(1:7))
 
-  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "none"))
+  ld <- layer_data(p + geom_histogram(binwidth = 1, drop = "all"))
   expect_equal(ld$x, c(1:3, 5:7))
 })
 
