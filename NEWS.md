@@ -327,6 +327,8 @@
   to retrieve the class via constructor functions (@teunbrand).
 * (internal) The ViewScale class has a `make_fixed_copy()` method to permit 
   copying trained position scales (#3441).
+* `draw_key_rect()` replaces a `NA` fill by the `colour` aesthetic and 
+  `draw_key_polygon()` has 0 linewidth as internal default (@teunbrand, #5385).
 
 # ggplot2 3.5.1
 
