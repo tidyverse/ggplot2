@@ -314,6 +314,8 @@
   (@teunbrand, #4335).
 * `ggsave()` can write a multi-page pdf file when provided with a list of plots 
   (@teunbrand, #5093).
+* (internal) When `validate_subclass()` fails to find a class directly, it tries 
+  to retrieve the class via constructor functions (@teunbrand).
 
 # ggplot2 3.5.1
 

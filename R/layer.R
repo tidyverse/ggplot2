@@ -458,18 +458,50 @@ validate_subclass <- function(x, subclass,
 
   if (inherits(x, subclass)) {
     return(x)
-  } else if (is_scalar_character(x)) {
-    name <- paste0(subclass, camelize(x, first = TRUE))
-    obj <- find_global(name, env = env)
-
-    if (is.null(obj) || !inherits(obj, subclass)) {
-      cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
-    }
-    return(obj)
-  } else if (is.null(x)) {
-    cli::cli_abort("The {.arg {x_arg}} argument cannot be empty.", call = call)
   }
-  stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"))
+  if (!is_scalar_character(x)) {
+    stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"), arg = x_arg)
+  }
+
+  # Try getting class object directly
+  name <- paste0(subclass, camelize(x, first = TRUE))
+  obj <- find_global(name, env = env)
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+
+  # Try retrieving class via constructors
+  name <- snakeize(name)
+  obj <- find_global(name, env = env, mode = "function")
+  if (is.function(obj)) {
+    obj <- try_fetch(
+      obj(),
+      error = function(cnd) {
+        # replace `obj()` call with name of actual constructor
+        cnd$call <- call(name)
+        cli::cli_abort(
+          "Failed to retrieve a {.cls {subclass}} object from {.fn {name}}.",
+          parent = cnd, call = call
+        )
+      })
+  }
+  # Position constructors return classes directly
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+  # Try prying the class from a layer
+  if (inherits(obj, "Layer")) {
+    obj <- switch(
+      subclass,
+      Geom = obj$geom,
+      Stat = obj$stat,
+      NULL
+    )
+  }
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+  cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
 }
 
 # helper function to adjust the draw_key slot of a geom
