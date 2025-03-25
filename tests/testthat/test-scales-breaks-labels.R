@@ -12,8 +12,8 @@ test_that("labels match breaks", {
 })
 
 test_that("labels don't have to match null breaks", {
-  expect_true(check_breaks_labels(breaks = 1:3, labels = NULL))
-  expect_true(check_breaks_labels(breaks = NULL, labels = 1:2))
+  expect_silent(check_breaks_labels(breaks = 1:3, labels = NULL))
+  expect_silent(check_breaks_labels(breaks = NULL, labels = 1:2))
 })
 
 test_that("labels don't have extra spaces", {
@@ -287,6 +287,17 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
   test_view_scale_rev <- view_scale_primary(test_scale, limits = rev(test_scale$get_limits()))
   expect_identical(test_view_scale_rev$get_breaks(), c(NA, 20, NA))
   expect_identical(test_view_scale_rev$get_labels(), c(c("0", "20", "40")))
+})
+
+test_that("break names are returned as labels", {
+
+  sc <- scale_x_continuous(breaks = c(A = 10, B = 20, C = 30))
+  sc$train(c(10, 30))
+  expect_equal(sc$get_labels(), c("A", "B", "C"))
+
+  sc <- scale_x_discrete(breaks = c(foo = "A", bar = "B", qux = "C"))
+  sc$train(c(LETTERS[1:3]))
+  expect_equal(sc$get_labels(), c("foo", "bar", "qux"))
 })
 
 # Visual tests ------------------------------------------------------------

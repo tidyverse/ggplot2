@@ -47,7 +47,7 @@ test_that("binned limits should not compute out-of-bounds breaks", {
 test_that("binned scales can use limits and transformations simultaneously (#6144)", {
   s <- scale_x_binned(
     limits = function(x) x + 1,
-    trans = transform_log10()
+    transform = transform_log10()
   )
   s$train(c(0, 1)) # c(1, 10) in untransformed space
   out <- s$get_limits()
@@ -103,4 +103,10 @@ test_that('binned scales can calculate breaks on date-times', {
       "%Y-%m-%d"
     )))
   )
+})
+
+test_that("binned scales can calculate breaks for zero-width data", {
+  scale <- scale_x_binned()
+  scale$train(c(1, 1))
+  expect_equal(scale$get_breaks(), c(0.95, 1.05))
 })

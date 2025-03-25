@@ -15,10 +15,11 @@ scale_linewidth(
   breaks = waiver(),
   labels = waiver(),
   limits = NULL,
-  range = c(1, 6),
+  range = NULL,
   transform = "identity",
   trans = deprecated(),
-  guide = "legend"
+  guide = "legend",
+  aesthetics = "linewidth"
 )
 
 scale_linewidth_binned(
@@ -26,12 +27,13 @@ scale_linewidth_binned(
   breaks = waiver(),
   labels = waiver(),
   limits = NULL,
-  range = c(1, 6),
+  range = NULL,
   n.breaks = NULL,
   nice.breaks = TRUE,
   transform = "identity",
   trans = deprecated(),
-  guide = "bins"
+  guide = "bins",
+  aesthetics = "linewidth"
 )
 }
 \arguments{
@@ -52,7 +54,9 @@ Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
 
-\item{labels}{One of:
+\item{labels}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -99,6 +103,8 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
 
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
+
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
 only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
@@ -113,7 +119,7 @@ breaks are given explicitly.}
 \description{
 \code{scale_linewidth} scales the width of lines and polygon strokes. Due to
 historical reasons, it is also possible to control this with the \code{size}
-aesthetic, but using \code{linewidth} is encourage to clearly differentiate area
+aesthetic, but using \code{linewidth} is encouraged to clearly differentiate area
 aesthetics from stroke width aesthetics.
 }
 \examples{

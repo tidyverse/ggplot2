@@ -69,7 +69,7 @@ ggplot(msleep, aes(y = order, x = sleep_total)) +
   geom_boxplot()
 ```
 
--   Dodge axis labels: Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc., and customise the `guide` argument with the `guide_axis()` function. In this case we want to customise the x-axis, and the variable on the x-axis is discrete, so we'll use `scale_x_continuous()`. In the `guide` argument we use the `guide_axis()` and specify how many rows to dodge the labels into with `n.dodge`. This is likely a trial-and-error exercise, depending on the lengths of your labels and the width of your plot. In this case we've settled on 3 rows to render the labels.
+-   Dodge axis labels: Add a `scale_*()` layer, e.g. `scale_x_continuous()`, `scale_y_discrete()`, etc., and customise the `guide` argument with the `guide_axis()` function. In this case we want to customise the x-axis, and the variable on the x-axis is discrete, so we'll use `scale_x_discrete()`. In the `guide` argument we use the `guide_axis()` and specify how many rows to dodge the labels into with `n.dodge`. This is likely a trial-and-error exercise, depending on the lengths of your labels and the width of your plot. In this case we've settled on 3 rows to render the labels.
 
 ```{r}
 #| label: msleep-order-sleep-total-dodge
@@ -115,9 +115,9 @@ Suppose we want to remove the axis labels entirely.
 -   Remove x or y axis labels: If you want to modify just one of the axes, you can do so by modifying the components of the `theme()`, setting the elements you want to remove to `element_blank()`. You would replace `x` with `y` for applying the same update to the y-axis. Note the distinction between `axis.title` and `axis.ticks` -- `axis.title` is the name of the variable and `axis.text` is the text accompanying each of the ticks.
 
 ```{r}
-#| fig.alt: "A boxplot showing the total amount of sleep on the y-axis for 19 
+#| fig.alt: "A boxplot showing the total amount of sleep on the y-axis for 19
 #|  taxonomical orders of mammals on the x-axis. The annotation on the x-axis
-#|  is abent."
+#|  is absent."
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   theme(

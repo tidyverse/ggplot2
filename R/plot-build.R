@@ -106,6 +106,7 @@ ggplot_build.ggplot <- function(plot) {
   # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
+    npscales$set_palettes(plot$theme)
     lapply(data, npscales$train_df)
     plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data, plot$theme)
     data <- lapply(data, npscales$map_df)
@@ -285,7 +286,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
   # Margins
-  plot_margin <- calc_element("plot.margin", theme)
+  plot_margin <- calc_element("plot.margin", theme) %||% margin()
   plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
   if (is.theme_element(theme$plot.background)) {

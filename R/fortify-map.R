@@ -1,5 +1,8 @@
 #' Fortify method for map objects
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' This function turns a map into a data frame that can more easily be
 #' plotted with ggplot2.
 #'
@@ -24,6 +27,9 @@
 #'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
+  lifecycle::deprecate_warn(
+    "3.6.0", I("`fortify(<map>)`"), "map_data()"
+  )
   df <- data_frame0(
     long = model$x,
     lat = model$y,
@@ -46,10 +52,10 @@ fortify.map <- function(model, data, ...) {
 #' for plotting with ggplot2.
 #'
 #' @param map name of map provided by the \pkg{maps} package. These
-#'   include [maps::county()], [maps::france()],
-#'   [maps::italy()], [maps::nz()],
-#'   [maps::state()], [maps::usa()],
-#'   [maps::world()], [maps::world2()].
+#'   include [`"county"`][maps::county], [`"france"`][maps::france],
+#'   [`"italy"`][maps::italy], [`"nz"`][maps::nz],
+#'   [`"state"`][maps::state], [`"usa"`][maps::usa],
+#'   [`"world"`][maps::world], or [`"world2"`][maps::world2].
 #' @param region name(s) of subregion(s) to include. Defaults to `.` which
 #'   includes all subregions. See documentation for [maps::map()]
 #'   for more details.
@@ -80,7 +86,27 @@ fortify.map <- function(model, data, ...) {
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   check_installed("maps", reason = "for `map_data()`.")
   map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
-  fortify(map_obj)
+
+  if (!inherits(map_obj, "map")) {
+    cli::cli_abort(c(
+      "{.fn maps::map} must return an object of type {.cls map}, not \\
+      {obj_type_friendly(map_obj)}.",
+      i = "Did you pass the right arguments?"
+    ))
+  }
+
+  df <- data_frame0(
+    long  = map_obj$x,
+    lat   = map_obj$y,
+    group = cumsum(is.na(map_obj$x) & is.na(map_obj$y)) + 1,
+    order = seq_along(map_obj$x),
+    .size = length(map_obj$x)
+  )
+
+  names <- lapply(strsplit(map_obj$names, "[:,]"), "[", 1:2)
+  names <- vec_rbind(!!!names, .name_repair = ~ c("region", "subregion"))
+  df[names(names)] <- vec_slice(names, df$group)
+  vec_slice(df, stats::complete.cases(df$lat, df$long))
 }
 
 #' Create a layer of map borders

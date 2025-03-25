@@ -211,7 +211,7 @@ df <- tibble::tribble(
 )
 ```
 
-By default, this is how a scatterplot of these looks.
+By default, this is how a scatter plot of these looks.
 Note that the blue circle is partially covered by the yellow triangle since that observation comes later in the dataset.
 Similarly the black asterisk appears on top of the red square.
 

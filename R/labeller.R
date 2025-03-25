@@ -577,21 +577,21 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   })
 }
 
-# Check for old school labeller
-check_labeller <- function(labeller) {
+# Repair old school labeller
+fix_labeller <- function(labeller) {
   labeller <- match.fun(labeller)
   is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
 
   if (is_deprecated) {
+    deprecate_warn0(
+      "2.0.0", what = "facet_(labeller)",
+      details =
+      "Modern labellers do not take `variable` and `value` arguments anymore."
+    )
     old_labeller <- labeller
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    # TODO Update to lifecycle after next lifecycle release
-    cli::cli_warn(c(
-      "The {.arg labeller} API has been updated. Labellers taking {.arg variable} and {.arg value} arguments are now deprecated.",
-      "i" = "See labellers documentation."
-    ))
   }
 
   labeller
