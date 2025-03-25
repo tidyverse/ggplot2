@@ -310,6 +310,8 @@
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
   (@teunbrand, #4335).
+* `ggsave()` can write a multi-page pdf file when provided with a list of plots 
+  (@teunbrand, #5093).
 
 # ggplot2 3.5.1
 
