@@ -294,6 +294,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panels
   },
 
+  map_data = map_facet_data,
+
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 
     # Setup parameters
