@@ -14,7 +14,11 @@ geom_label(
   parse = FALSE,
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
-  label.size = 0.25,
+  label.size = deprecated(),
+  border.colour = NULL,
+  border.color = NULL,
+  text.colour = NULL,
+  text.color = NULL,
   size.unit = "mm",
   na.rm = FALSE,
   show.legend = NA,
@@ -117,7 +121,16 @@ displayed as described in \code{?plotmath}.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
-\item{label.size}{Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Replaced by the
+\code{linewidth} aesthetic. Size of label border, in mm.}
+
+\item{border.colour, border.color}{Colour of label border. When \code{NULL}
+(default), the \code{colour} aesthetic determines the colour of the label border.
+\code{border.color} is an alias for \code{border.colour}.}
+
+\item{text.colour, text.color}{Colour of the text. When \code{NULL} (default), the
+\code{colour} aesthetic determines the colour of the text. \code{text.color} is an
+alias for \code{text.colour}.}
 
 \item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
 (\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),

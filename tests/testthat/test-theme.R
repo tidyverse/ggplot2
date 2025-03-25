@@ -712,6 +712,47 @@ test_that("margin_part() mechanics work as expected", {
 
 # Visual tests ------------------------------------------------------------
 
+test_that("element_polygon() can render a grob", {
+
+  t <- theme_gray() + theme(polygon = element_polygon(fill = "orchid"))
+  e <- calc_element("polygon", t)
+  g <- element_grob(
+    e,
+    x  = c(0, 0.5, 1, 0.5, 0.15, 0.85, 0.85, 0.15),
+    y  = c(0.5, 0, 0.5, 1, 0.15, 0.15, 0.85, 0.85),
+    id = c(1, 1, 1, 1, 2, 2, 2, 2),
+    colour = c("orange", "limegreen")
+  )
+
+  expect_s3_class(g, "pathgrob")
+  expect_equal(g$gp$fill, "orchid")
+
+  expect_doppelganger(
+    "polygon elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
+
+test_that("element_point() can render a grob", {
+
+  t <- theme_gray() + theme(point = element_point(shape = 21, size = 5))
+  e <- calc_element("point", t)
+  g <- element_grob(
+    e,
+    x = seq(0.1, 0.9, length.out = 5),
+    y = seq(0.9, 0.1, length.out = 5),
+    fill = c("orange", "limegreen", "orchid", "turquoise", "grey")
+  )
+
+  expect_s3_class(g, "points")
+  expect_equal(g$pch, 21)
+
+  expect_doppelganger(
+    "point elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
+
 test_that("aspect ratio is honored", {
   df <- cbind(data_frame(x = 1:8, y = 1:8, f = gl(2,4)), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
   p <- ggplot(df, aes(x, y)) +

@@ -136,6 +136,15 @@ test_that("legends can be forced to display unrelated geoms", {
   )
 })
 
+test_that("unresolved, modified expressions throw a warning (#6264)", {
+  # Snapshot is unstable in lesser R versions
+  skip_if_not(getRversion() >= "4.3.0")
+  p <- ggplot(mpg, aes(drv)) +
+    geom_bar(
+      aes(fill = stage(drv, after_scale = alpha(fill, prop)))
+    )
+  expect_snapshot_warning(ggplot_build(p))
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -210,5 +219,21 @@ test_that("legend.byrow works in `guide_legend()`", {
     )
 
   expect_doppelganger("legend.byrow = TRUE", p)
+})
+
+test_that("legend.key.justification works as intended", {
+
+  p <- ggplot(mtcars, aes(mpg, disp, colour = factor(cyl), size = drat)) +
+    geom_point() +
+    scale_size_continuous(
+      range = c(0, 20), breaks = c(3, 4, 5), limits = c(2.5, 5)
+    ) +
+    scale_colour_discrete(
+      labels = c("one line", "up\nto\nfour\nlines", "up\nto\nfive\nwhole\nlines")
+    ) +
+    theme(legend.key.justification = c(1, 0))
+
+  expect_doppelganger("legend key justification", p)
+
 })
 

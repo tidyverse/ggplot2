@@ -2,6 +2,33 @@
 
 * (internal) layer data can be attenuated with parameter attributes 
   (@teunbrand, #3175).
+* Date scales silently coerce <POSIXct> to <Date> and datetime scales silently
+  coerce <Date> to <POSIXct> (@laurabrianna, #3533)
+* New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
+  * The `linewidth` aesthetic is now applied and replaces the `label.size` 
+    argument.
+  * The `linetype` aesthetic is now applied.
+  * New `border.colour` argument to set the colour of borders.
+  * New `text.colour` argument to set the colour of text.
+* New `element_point()` and `element_polygon()` that can be given to 
+  `theme(point, polygon)` as an extension point (@teunbrand, #6248).
+* Turned off fallback for `size` to `linewidth` translation in 
+  `geom_bar()`/`geom_col()` (#4848).
+* `coord_radial()` now displays no axis instead of throwing an error when
+  a scale has no breaks (@teunbrand, #6271).
+* The `fatten` argument has been deprecated in `geom_boxplot()`, 
+  `geom_crossbar()` and `geom_pointrange()` (@teunbrand, #4881).
+* Axis labels are now preserved better when using `coord_sf(expand = TRUE)` and
+  graticule lines are straight but do not meet the edge (@teunbrand, #2985).
+* Attempt to boost detail in `coord_polar()` and `coord_radial()` near the 
+  center (@teunbrand, #5023)
+* Scale names, guide titles and aesthetic labels can now accept functions 
+  (@teunbrand, #4313)
+* Binned scales with zero-width data expand the default limits by 0.1 
+  (@teunbrand, #5066)
+* New default `geom_qq_line(geom = "abline")` for better clipping in the 
+  vertical direction. In addition, `slope` and `intercept` are new computed
+  variables in `stat_qq_line()` (@teunbrand, #6087).
 * Position adjustments can now have auxiliary aesthetics (@teunbrand).
     * `position_nudge()` gains `nudge_x` and `nudge_y` aesthetics (#3026, #5445).
     * `position_dodge()` gains `order` aesthetic (#3022, #3345)
@@ -253,7 +280,7 @@
 * The ellipsis argument is now checked in `fortify()`, `get_alt_text()`, 
   `labs()` and several guides (@teunbrand, #3196).
 * `stat_summary_bin()` no longer ignores `width` parameter (@teunbrand, #4647).
-* Added `keep.zeroes` argument to `stat_bin()` (@teunbrand, #3449)
+* Reintroduced `drop` argument to `stat_bin()` (@teunbrand, #3449)
 * (internal) removed barriers for using 2D structures as aesthetics 
   (@teunbrand, #4189).
 * `coord_sf()` no longer errors when dealing with empty graticules (@teunbrand, #6052)
@@ -270,6 +297,21 @@
   aesthetics (@teunbrand, #2800).
 * Stricter check on `register_theme_elements(element_tree)` (@teunbrand, #6162)
 * Added `weight` aesthetic for `stat_ellipse()` (@teunbrand, #5272)
+* Fixed a bug where the `guide_custom(order)` wasn't working (@teunbrand, #6195)
+* All binning stats now use the `boundary`/`center` parametrisation rather
+  than `origin`, following in `stat_bin()`'s footsteps (@teunbrand).
+* `stat_summary_2d()` and `stat_bin_2d()` now deal with zero-range data
+  more elegantly (@teunbrand, #6207).
+* Munching in `coord_polar()` and `coord_radial()` now adds more detail, 
+  particularly for data-points with a low radius near the center 
+  (@teunbrand, #5023).
+* All scales now expose the `aesthetics` parameter (@teunbrand, #5841)
+* Staged expressions are handled more gracefully if legends cannot resolve them 
+  (@teunbrand, #6264).
+* New `theme(legend.key.justification)` to control the alignment of legend keys 
+  (@teunbrand, #3669). 
+* Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
+  (@teunbrand, #4335).
 
 # ggplot2 3.5.1
 

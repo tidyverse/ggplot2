@@ -7,13 +7,23 @@
 \alias{scale_linetype_discrete}
 \title{Scale for line patterns}
 \usage{
-scale_linetype(name = waiver(), ..., na.value = NA)
+scale_linetype(name = waiver(), ..., na.value = NA, aesthetics = "linetype")
 
-scale_linetype_binned(name = waiver(), ..., na.value = NA)
+scale_linetype_binned(
+  name = waiver(),
+  ...,
+  na.value = NA,
+  aesthetics = "linetype"
+)
 
 scale_linetype_continuous(...)
 
-scale_linetype_discrete(name = waiver(), ..., na.value = NA)
+scale_linetype_discrete(
+  name = waiver(),
+  ...,
+  na.value = NA,
+  aesthetics = "linetype"
+)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -49,7 +59,6 @@ every level in a legend, the layer should use \code{show.legend = TRUE}.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
     \item{\code{minor_breaks}}{One of:
 \itemize{
 \item \code{NULL} for no minor breaks
@@ -61,7 +70,9 @@ accepts rlang \link[rlang:as_function]{lambda} function notation. When
 the function has two arguments, it will be given the limits and major
 break positions.
 }}
-    \item{\code{labels}}{One of:
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -79,6 +90,8 @@ notation.
   }}
 
 \item{na.value}{The linetype to use for \code{NA} values.}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with.}
 }
 \description{
 Default line types based on a set supplied by Richard Pearson,

@@ -10,6 +10,8 @@ theme(
   rect,
   text,
   title,
+  point,
+  polygon,
   geom,
   spacing,
   margins,
@@ -84,6 +86,7 @@ theme(
   legend.key.spacing,
   legend.key.spacing.x,
   legend.key.spacing.y,
+  legend.key.justification,
   legend.frame,
   legend.ticks,
   legend.ticks.length,
@@ -164,6 +167,10 @@ these should also be defined in the \verb{element tree} argument. \link[rlang:sp
 \item{title}{all title elements: plot, axes, legends (\code{\link[=element_text]{element_text()}};
 inherits from \code{text})}
 
+\item{point}{all point elements (\code{\link[=element_point]{element_point()}})}
+
+\item{polygon}{all polygon elements (\code{\link[=element_polygon]{element_polygon()}})}
+
 \item{geom}{defaults for geoms (\code{\link[=element_geom]{element_geom()}})}
 
 \item{spacing}{all spacings (\code{\link[grid:unit]{unit()}})}
@@ -228,6 +235,11 @@ inherits from \code{spacing}.}
 between legend keys given as a \code{unit}. Spacing in the horizontal (x) and
 vertical (y) direction inherit from \code{legend.key.spacing} or can be
 specified separately. \code{legend.key.spacing} inherits from \code{spacing}.}
+
+\item{legend.key.justification}{Justification for positioning legend keys
+when more space is available than needed for display. The default, \code{NULL},
+stretches keys into the available space. Can be a location like \code{"center"}
+or \code{"top"}, or a two-element numeric vector.}
 
 \item{legend.frame}{frame drawn around the bar (\code{\link[=element_rect]{element_rect()}}).}
 
