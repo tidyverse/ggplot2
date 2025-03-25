@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed regression with incorrectly drawn gridlines when using `coord_flip()` 
+  (@teunbrand, #6293).
 * Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead 
   of warnings. 
 * Functions and arguments that were soft-deprecated up to ggplot2 3.4.0 now 
