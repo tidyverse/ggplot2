@@ -145,6 +145,17 @@ theme_grey <- function(base_size = 11, base_family = "",
     spacing = unit(half_line, "pt"),
     margins = margin_auto(half_line),
 
+    point =              element_point(
+                           colour = ink, shape = 19, fill = paper,
+                           size = (base_size / 11) * 1.5,
+                           stroke = base_line_size
+                         ),
+
+    polygon =            element_polygon(
+                           fill = paper, colour = ink,
+                           linewidth = base_rect_size, linetype = 1
+                         ),
+
     geom =               element_geom(
                            ink = ink, paper = paper, accent = "#3366FF",
                            linewidth = base_line_size, borderwidth = base_line_size,
@@ -484,9 +495,8 @@ theme_classic <- function(base_size = 11, base_family = "",
   ) %+replace%
     theme(
       # no background and no grid
-      panel.border     = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      panel.grid   = element_blank(),
 
       # show axes
       axis.text  = element_text(size = rel(0.8)),
@@ -497,41 +507,6 @@ theme_classic <- function(base_size = 11, base_family = "",
       strip.background = element_rect(linewidth = rel(2)),
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
 
-      complete = TRUE
-    )
-}
-
-#' @export
-#' @rdname ggtheme
-theme_transparent <- function(base_size = 11, base_family = "",
-                              header_family = NULL,
-                              base_line_size = base_size / 22,
-                              base_rect_size = base_size / 22,
-                              ink = "black", paper = alpha(ink, 0)) {
-  force(ink)
-  # Based on theme_bw
-  theme_grey(
-    base_size = base_size,
-    base_family = base_family,
-    header_family = header_family,
-    base_line_size = base_line_size,
-    base_rect_size = base_rect_size,
-    ink = ink, paper = paper
-  ) %+replace%
-    theme(
-      panel.background  = element_blank(),
-      plot.background   = element_blank(),
-      legend.background = element_blank(),
-      legend.key        = element_blank(),
-      # theme_bw specifications
-      panel.border      = element_rect(fill = NA, colour = col_mix(ink, paper, 0.20)),
-      # make gridlines dark, same contrast with white as in theme_grey
-      panel.grid        = element_line(colour = col_mix(ink, paper, 0.92)),
-      # contour strips to match panel contour
-      strip.background  = element_rect(
-        fill = col_mix(ink, paper, 0.85),
-        colour = col_mix(ink, paper, 0.20),
-      ),
       complete = TRUE
     )
 }
@@ -549,6 +524,8 @@ theme_void <- function(base_size = 11, base_family = "",
   t <- theme(
     line =               element_blank(),
     rect =               element_blank(),
+    polygon =            element_blank(),
+    point =              element_blank(),
     text =               element_text(
                             family = base_family, face = "plain",
                             colour = ink, size = base_size,
@@ -638,6 +615,15 @@ theme_test <- function(base_size = 11, base_family = "",
                             colour = ink, size = base_size,
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
+                         ),
+    point =              element_point(
+                           colour = ink, shape = 19, fill = paper,
+                           size = (base_size / 11) * 1.5,
+                           stroke = base_line_size
+                         ),
+    polygon =            element_polygon(
+                           fill = paper, colour = ink,
+                           linewidth = base_rect_size, linetype = 1
                          ),
     title =              element_text(family = header_family),
     spacing = unit(half_line, "pt"),

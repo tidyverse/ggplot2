@@ -83,6 +83,13 @@ test_that("Labels from static aesthetics are ignored (#6003)", {
   expect_null(get_labs(p)$colour)
 })
 
+test_that("Labels from annotations are ignored (#6316)", {
+  df <- data.frame(a = 1, b = 2)
+  p <- ggplot(df, aes(a, b)) + annotate("point", x = 1, y = 2) + geom_point()
+  labs <- get_labs(p)
+  expect_equal(labs[c("x", "y")], list(x = "a", y = "b"))
+})
+
 test_that("alt text is returned", {
   p <- ggplot(mtcars, aes(mpg, disp)) +
     geom_point()
@@ -197,6 +204,29 @@ test_that("position axis label hierarchy works as intended", {
     resolve_label(ysec),
     list(primary = "corgE", secondary = "fred")
   )
+})
+
+test_that("labels can be derived using functions", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, colour = drat, shape = factor(cyl))) +
+    geom_point() +
+    labs(
+      y = to_upper_ascii,
+      shape = function(x) gsub("factor", "foo", x)
+    ) +
+    scale_shape_discrete(
+      name = to_upper_ascii,
+      guide = guide_legend(title = function(x) paste0(x, "!!!"))
+    ) +
+    scale_x_continuous(name = to_upper_ascii) +
+    guides(colour = guide_colourbar(title = to_upper_ascii))
+
+  labs <- get_labs(p)
+  expect_equal(labs$shape,  "FOO(CYL)!!!")
+  expect_equal(labs$colour, "DRAT")
+  expect_equal(labs$x,      "DISP")
+  expect_equal(labs$y,      "MPG")
+
 })
 
 test_that("moving guide positions lets titles follow", {

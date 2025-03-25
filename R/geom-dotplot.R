@@ -189,17 +189,21 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   non_missing_aes = c("size", "shape"),
 
   default_aes = aes(
-    colour = from_theme(ink),
-    fill = from_theme(ink),
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% ink),
     alpha = NA,
     stroke = from_theme(borderwidth * 2),
     linetype = from_theme(linetype),
-    weight = 1
+    weight = 1,
+    width = 0.9
   ),
 
-  setup_data = function(data, params) {
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
+  setup_data = function(self, data, params) {
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width,
+      zero = FALSE, discrete = TRUE
+    )
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {

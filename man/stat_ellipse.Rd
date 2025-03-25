@@ -125,6 +125,18 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 The method for calculating the ellipses has been modified from
 \code{car::dataEllipse} (Fox and Weisberg 2011, Friendly and Monette 2013)
 }
+\section{Aesthetics}{
+
+\code{stat_ellipse()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{weight} \tab   \cr\cr
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \examples{
 ggplot(faithful, aes(waiting, eruptions)) +
   geom_point() +

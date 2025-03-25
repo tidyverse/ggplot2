@@ -469,59 +469,24 @@ test_that("numeric scale transforms can produce breaks", {
     scale$get_transformation()$inverse(view$get_breaks())
   }
 
-  expect_equal(test_breaks("asn", limits = c(0, 1)),
-               seq(0, 1, by = 0.25))
-
-  expect_equal(test_breaks("sqrt", limits = c(0, 10)),
-               seq(0, 10, by = 2.5))
-
-  expect_equal(test_breaks("atanh", limits = c(-0.9, 0.9)),
-               c(NA, -0.5, 0, 0.5, NA))
-
-  expect_equal(test_breaks(transform_boxcox(0), limits = c(1, 10)),
-               c(NA, 2.5, 5.0, 7.5, 10))
-
-  expect_equal(test_breaks(transform_modulus(0), c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks(transform_yj(0), c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("exp", c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("identity", limits = c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  # irrational numbers, so snapshot values
+  expect_snapshot(test_breaks("asn", limits = c(0, 1)))
+  expect_snapshot(test_breaks("sqrt", limits = c(0, 10)))
+  expect_snapshot(test_breaks("atanh", limits = c(-0.9, 0.9)))
+  expect_snapshot(test_breaks(transform_boxcox(0), limits = c(1, 10)))
+  expect_snapshot(test_breaks(transform_modulus(0), c(-10, 10)))
+  expect_snapshot(test_breaks(transform_yj(0), c(-10, 10)))
+  expect_snapshot(test_breaks("exp", c(-10, 10)))
+  expect_snapshot(test_breaks("identity", limits = c(-10, 10)))
   expect_snapshot(test_breaks("log", limits = c(0.1, 1000)))
-
-  expect_equal(test_breaks("log10", limits = c(0.1, 1000)),
-               10 ^ seq(-1, 3))
-
-  expect_equal(test_breaks("log2", limits = c(0.5, 32)),
-               c(0.5, 2, 8, 32))
-
-  expect_equal(test_breaks("log1p", limits = c(0, 10)),
-               seq(0, 10, by = 2.5))
-
-  expect_equal(test_breaks("pseudo_log", limits = c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("logit", limits = c(0.001, 0.999)),
-               c(NA, 0.25, 0.5, 0.75, NA))
-
-  expect_equal(test_breaks("probit", limits = c(0.001, 0.999)),
-               c(NA, 0.25, 0.5, 0.75, NA))
-
-  expect_equal(test_breaks("reciprocal", limits = c(1, 10)),
-               c(NA, 2.5, 5, 7.5, 10))
-
-  expect_equal(test_breaks("reverse", limits = c(-10, 10)),
-               seq(-10, 10, by = 5))
-
-  expect_equal(test_breaks("sqrt", limits = c(0, 10)),
-               seq(0, 10, by = 2.5))
+  expect_snapshot(test_breaks("log10", limits = c(0.1, 1000)))
+  expect_snapshot(test_breaks("log2", limits = c(0.5, 32)))
+  expect_snapshot(test_breaks("log1p", limits = c(0, 10)))
+  expect_snapshot(test_breaks("pseudo_log", limits = c(-10, 10)))
+  expect_snapshot(test_breaks("logit", limits = c(0.001, 0.999)))
+  expect_snapshot(test_breaks("probit", limits = c(0.001, 0.999)))
+  expect_snapshot(test_breaks("reciprocal", limits = c(1, 10)))
+  expect_snapshot(test_breaks("reverse", limits = c(-10, 10)))
+  expect_snapshot(test_breaks("sqrt", limits = c(0, 10)))
 })
 
 test_that("scale functions accurately report their calls", {
@@ -781,4 +746,59 @@ test_that("discrete scales work with NAs in arbitrary positions", {
   test <- map(input, limits = c(NA, "A", "B", "C"))
   expect_equal(test, output)
 
+})
+
+test_that("ViewScales can make fixed copies", {
+
+  p1 <- ggplot(mpg, aes(drv, displ)) +
+    geom_boxplot() +
+    annotate("point", x = 5, y = 10) +
+    scale_x_discrete(labels = c("four-wheel", "forward", "reverse"))
+
+  b1 <- ggplot_build(p1)$layout$panel_params[[1]]
+
+  # We build a second plot with the first plot's scales
+  p2 <- ggplot(mpg, aes(drv, cyl)) +
+    geom_violin() +
+    annotate("point", x = 15, y = 100) +
+    b1$x$make_fixed_copy() +
+    b1$y$make_fixed_copy()
+  b2 <- ggplot_build(p2)
+
+  # Breaks and labels should respect p1's limits
+  x <- get_guide_data(b2, "x")
+  expect_equal(x$x, 0.6:2.6 / diff(b1$x.range))
+  expect_equal(x$.label, c("four-wheel", "forward", "reverse"))
+
+  y <- get_guide_data(b2, "y")
+  expect_equal(y$y, rescale(seq(2.5, 10, by = 2.5), from = b1$y.range))
+})
+
+test_that("discrete scales can map to 2D structures", {
+
+  p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
+    geom_point()
+
+  # Test it can map to a vctrs rcrd class
+  rcrd <- new_rcrd(list(a = LETTERS[1:3], b = 3:1))
+
+  ld <- layer_data(p + scale_colour_manual(values = rcrd, na.value = NA))
+  expect_s3_class(ld$colour, "vctrs_rcrd")
+  expect_length(ld$colour, nrow(mtcars))
+
+  # Test it can map to data.frames
+  df <- data_frame0(a = LETTERS[1:3], b = 3:1)
+  my_pal <- function(n) vec_slice(df, seq_len(n))
+
+  ld <- layer_data(p + discrete_scale("colour", palette = my_pal))
+  expect_s3_class(ld$colour, "data.frame")
+  expect_equal(dim(ld$colour), c(nrow(mtcars), ncol(df)))
+
+  # Test it can map to matrices
+  mtx <- cbind(a = LETTERS[1:3], b = LETTERS[4:6])
+  my_pal <- function(n) vec_slice(mtx, seq_len(n))
+
+  ld <- layer_data(p + discrete_scale("colour", palette = my_pal))
+  expect_true(is.matrix(ld$colour))
+  expect_equal(dim(ld$colour), c(nrow(mtcars), ncol(df)))
 })

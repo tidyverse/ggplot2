@@ -13,13 +13,19 @@ test_that("geom_ribbon() checks the aesthetics", {
   expect_snapshot_error(geom_ribbon(aes(year, ymin = level - 5, ymax = level + 5), outline.type = "test"))
 })
 
-test_that("NAs are not dropped from the data", {
+test_that("NAs are dropped from the data", {
   df <- data_frame(x = 1:5, y = c(1, 1, NA, 1, 1))
 
   p <- ggplot(df, aes(x))+
     geom_ribbon(aes(ymin = y - 1, ymax = y + 1))
+  p <- ggplot_build(p)
 
   expect_equal(get_layer_data(p)$ymin, c(0, 0, NA, 0, 0))
+  expect_snapshot_warning(
+    grob <- get_layer_grob(p)[[1]]
+  )
+  # We expect the ribbon to be broken up into 2 parts
+  expect_length(grob$children, 2)
 })
 
 test_that("geom_ribbon works in both directions", {

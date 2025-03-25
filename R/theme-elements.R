@@ -8,16 +8,25 @@
 #'   - `element_rect()`: borders and backgrounds.
 #'   - `element_line()`: lines.
 #'   - `element_text()`: text.
+#'   - `element_polygon()`: polygons.
+#'   - `element_point()`: points.
 #'   - `element_geom()`: defaults for drawing layers.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
 #' `margin()`, `margin_part()` and `margin_auto()` are all used to specify the
 #' margins of elements.
 #'
-#' @param fill Fill colour.
+#' @param fill Fill colour. `fill_alpha()` can be used to set the transparency
+#'   of the fill.
 #' @param colour,color Line/border colour. Color is an alias for colour.
-#' @param linewidth,borderwidth Line/border size in mm.
-#' @param size,fontsize text size in pts.
+#'   `alpha()` can be used to set the transparency of the colour.
+#' @param linewidth,borderwidth,stroke Line/border size in mm.
+#' @param size,fontsize,pointsize text size in pts, point size in mm.
+#' @param linetype,bordertype Line type for lines and borders respectively. An
+#'   integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
+#'   twodash), or a string with an even number (up to eight) of hexadecimal
+#'   digits which give the lengths in consecutive positions in the string.
+#' @param shape,pointshape Shape for points (1-25).
 #' @param arrow.fill Fill colour for arrows.
 #' @param inherit.blank Should this element inherit the existence of an
 #'   `element_blank` among its parents? If `TRUE` the existence of
@@ -25,18 +34,26 @@
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
 #' @return An S3 object of class `element`, `rel`, or `margin`.
+#' @details
+#' The `element_polygon()` and `element_point()` functions are not rendered
+#' in standard plots and just serve as extension points.
+#'
 #' @examples
+#' # A standard plot
 #' plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #'
+#' # Turning off theme elements by setting them to blank
 #' plot + theme(
 #'   panel.background = element_blank(),
 #'   axis.text = element_blank()
 #' )
 #'
+#' # Text adjustments
 #' plot + theme(
 #'   axis.text = element_text(colour = "red", size = rel(1.5))
 #' )
 #'
+#' # Turning on the axis line with an arrow
 #' plot + theme(
 #'   axis.line = element_line(arrow = arrow())
 #' )
@@ -77,7 +94,7 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
   linetype = NULL, color = NULL, inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
+    deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
     linewidth <- size
   }
 
@@ -91,10 +108,6 @@ element_rect <- function(fill = NULL, colour = NULL, linewidth = NULL,
 
 #' @export
 #' @rdname element
-#' @param linetype,bordertype Line type for lines and borders respectively. An
-#'   integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
-#'   twodash), or a string with an even number (up to eight) of hexadecimal
-#'   digits which give the lengths in consecutive positions in the string.
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
@@ -102,7 +115,7 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
   inherit.blank = FALSE, size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
+    deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
     linewidth <- size
   }
 
@@ -158,11 +171,36 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @export
+#' @rdname element
+element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
+                            linetype = NULL, color = NULL,
+                            inherit.blank = FALSE) {
+  structure(
+    list(
+      fill = fill, colour = color %||% colour, linewidth = linewidth,
+      linetype = linetype, inherit.blank = inherit.blank
+    ),
+    class = c("element_polygon", "element")
+  )
+}
+
+#' @export
+#' @rdname element
+element_point <- function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
+                          stroke = NULL, color = NULL, inherit.blank = FALSE) {
+  structure(
+    list(
+      colour = color %||% colour, fill = fill, shape = shape, size = size,
+      stroke = stroke, inherit.blank = inherit.blank
+    ),
+    class = c("element_point", "element")
+  )
+}
+
 #' @param ink Foreground colour.
 #' @param paper Background colour.
 #' @param accent Accent colour.
-#' @param pointsize Size for points in mm.
-#' @param pointshape Shape for points (1-25).
 #' @export
 #' @rdname element
 element_geom <- function(
@@ -175,7 +213,9 @@ element_geom <- function(
   # text
   family = NULL, fontsize = NULL,
   # points
-  pointsize = NULL, pointshape = NULL) {
+  pointsize = NULL, pointshape = NULL,
+
+  colour = NULL, color = NULL, fill = NULL) {
 
   if (!is.null(fontsize)) {
     fontsize <- fontsize / .pt
@@ -189,7 +229,9 @@ element_geom <- function(
       linewidth = linewidth, borderwidth = borderwidth,
       linetype = linetype, bordertype = bordertype,
       family = family, fontsize = fontsize,
-      pointsize = pointsize, pointshape = pointshape
+      pointsize = pointsize, pointshape = pointshape,
+      colour = color %||% colour,
+      fill = fill
     ),
     class = c("element_geom", "element")
   )
@@ -200,7 +242,8 @@ element_geom <- function(
   linewidth = 0.5, borderwidth = 0.5,
   linetype = 1L, bordertype = 1L,
   family = "", fontsize = 11,
-  pointsize = 1.5, pointshape = 19
+  pointsize = 1.5, pointshape = 19,
+  fill = NULL, colour = NULL
 )
 
 #' @export
@@ -269,7 +312,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+    deprecate_warn0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
     linewidth <- size
   }
 
@@ -319,7 +362,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+    deprecate_warn0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
     linewidth <- size
   }
 
@@ -349,6 +392,40 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
     gp = modify_list(element_gp, gp),
     id.lengths = id.lengths, arrow = arrow, ...
   )
+}
+
+#' @export
+element_grob.element_polygon <- function(element, x = c(0, 0.5, 1, 0.5),
+                                         y = c(0.5, 1, 0.5, 0), fill = NULL,
+                                         colour = NULL, linewidth = NULL,
+                                         linetype = NULL, ...,
+                                         id = NULL, id.lengths = NULL,
+                                         pathId = NULL, pathId.lengths = NULL) {
+
+  gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+  element_gp <- gg_par(lwd = element$linewidth, col = element$colour,
+                       fill = element$fill, lty = element$linetype)
+  pathGrob(
+    x = x, y = y, gp = modify_list(element_gp, gp), ...,
+    # We swap the id logic so that `id` is always the (super)group id
+    # (consistent with `polygonGrob()`) and `pathId` always the subgroup id.
+    pathId = id, pathId.lengths = id.lengths,
+    id = pathId, id.lengths = pathId.lengths
+  )
+}
+
+#' @export
+element_grob.element_point <- function(element, x = 0.5, y = 0.5, colour = NULL,
+                                       shape = NULL, fill = NULL, size = NULL,
+                                       stroke = NULL, ...,
+                                       default.units = "npc") {
+
+  gp <- gg_par(col = colour, fill = fill, pointsize = size, stroke = stroke)
+  element_gp <- gg_par(col = element$colour, fill = element$fill,
+                       pointsize = element$size, stroke = element$stroke)
+  shape <- translate_shape_string(shape %||% element$shape %||% 19)
+  pointsGrob(x = x, y = y, pch = shape, gp = modify_list(element_gp, gp),
+             default.units = default.units, ...)
 }
 
 #' Define and register new theme elements
@@ -415,6 +492,8 @@ register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
   t <- theme(..., complete = complete)
   ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
 
+  check_element_tree(element_tree)
+
   # Merge element trees
   ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
 
@@ -460,6 +539,43 @@ get_element_tree <- function() {
   ggplot_global$element_tree
 }
 
+check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
+  check_object(x, is_bare_list, "a bare {.cls list}", arg = arg, call = call)
+  if (length(x) < 1) {
+    return(invisible(NULL))
+  }
+
+  if (!is_named(x)) {
+    cli::cli_abort("{.arg {arg}} must have names.", call = call)
+  }
+
+  # All elements should be constructed with `el_def()`
+  fields <- names(el_def())
+  bad_fields <- !vapply(x, function(el) all(fields %in% names(el)), logical(1))
+  if (any(bad_fields)) {
+    bad_fields <- names(x)[bad_fields]
+    cli::cli_abort(
+      c("{.arg {arg}} must have elements constructed with {.fn el_def}.",
+        i = "Invalid structure: {.and {.val {bad_fields}}}"),
+      call = call
+    )
+  }
+
+  # Check element tree, prevent elements from being their own parent (#6162)
+  bad_parent <- unlist(Map(
+    function(name, el) any(name %in% el$inherit),
+    name = names(x), el = x
+  ))
+  if (any(bad_parent)) {
+    bad_parent <- names(x)[bad_parent]
+    cli::cli_abort(
+      "Invalid parent in {.arg {arg}}: {.and {.val {bad_parent}}}.",
+      call = call
+    )
+  }
+  invisible(NULL)
+}
+
 #' @rdname register_theme_elements
 #' @details
 #' The function `el_def()` is used to define new or modified element types and
@@ -487,6 +603,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
+  point               = el_def("element_point"),
+  polygon             = el_def("element_polygon"),
   geom                = el_def("element_geom"),
   title               = el_def("element_text", "text"),
   spacing             = el_def("unit"),
@@ -586,6 +704,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
+  legend.key.justification = el_def(c("character", "numeric", "integer")),
   legend.frame        = el_def("element_rect", "rect"),
   legend.axis.line    = el_def("element_line", "line"),
   legend.ticks        = el_def("element_line", "legend.axis.line"),
@@ -698,7 +817,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 # @param element_tree the element tree to validate against
-validate_element <- function(el, elname, element_tree, call = caller_env()) {
+check_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {

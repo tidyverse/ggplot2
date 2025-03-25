@@ -95,29 +95,30 @@ ggsave <- function(filename, plot = get_last_plot(),
                    dpi = 300, limitsize = TRUE, bg = NULL,
                    create.dir = FALSE,
                    ...) {
-  filename <- check_path(path, filename, create.dir)
+  filename <- validate_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)
-  dev <- plot_dev(device, filename, dpi = dpi)
+  dev <- validate_device(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
+  bg  <- get_plot_background(plot, bg)
 
-  if (is_null(bg)) {
-    bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
-  }
   old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
     if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device
   }))
-  grid.draw(plot)
+  if (!is_bare_list(plot)) {
+    plot <- list(plot)
+  }
+  lapply(plot, grid.draw)
 
   invisible(filename)
 }
 
-check_path <- function(path, filename, create.dir,
-                       call = caller_env()) {
+validate_path <- function(path, filename, create.dir,
+                          call = caller_env()) {
 
   if (length(filename) > 1 && is.character(filename)) {
     cli::cli_warn(c(
@@ -235,7 +236,18 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
   dim
 }
 
-plot_dev <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
+get_plot_background <- function(plot, bg = NULL, default = "transparent") {
+  if (!is.null(bg)) {
+    return(bg)
+  }
+  plot <- if (is_bare_list(plot)) plot[[1]] else plot
+  if (!is.ggplot(plot)) {
+    return(default)
+  }
+  calc_element("plot.background", plot_theme(plot))$fill %||% default
+}
+
+validate_device <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
   force(filename)
   force(dpi)
 
