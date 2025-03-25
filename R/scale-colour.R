@@ -224,7 +224,7 @@ scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na
 
   has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
 
-  if (has_old_args || !is.null(type) && is.null(palette)) {
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., na.value = na.value, scale = type,
       aesthetic = "colour", type = "discrete"
@@ -245,7 +245,7 @@ scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.val
 
   has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
 
-  if (has_old_args || !is.null(type) && is.null(palette)) {
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., na.value = na.value, scale = type,
       aesthetic = "fill", type = "discrete"
