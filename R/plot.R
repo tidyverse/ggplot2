@@ -103,62 +103,60 @@
 #'     mapping = aes(x = group, y = group_mean), data = group_means_df,
 #'     colour = 'red', size = 3
 #'   )
-ggplot <- function(data = NULL, mapping = aes(), ...,
-                   environment = parent.frame()) {
-  UseMethod("ggplot")
-}
+ggplot <- S7::new_generic(
+  "ggplot2", "data",
+  fun = function(data, mapping = aes(), ..., environment = parent.frame()) {
+    force(mapping)
+    S7::S7_dispatch()
+  }
+)
 
-#' @export
-ggplot.default <- function(data = NULL, mapping = aes(), ...,
-                           environment = parent.frame()) {
+S7::method(ggplot, S7::class_any) <- function(
+    data, mapping = aes(), ...,
+    environment = parent.frame()) {
   if (!missing(mapping) && !is.mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
       "x" = "You've supplied {.obj_type_friendly {mapping}}."
     ))
   }
+  if (missing(data)) {
+    data <- NULL
+  }
 
   data <- fortify(data, ...)
 
-  p <- structure(list(
+  p <- class_ggplot(
     data = data,
-    layers = list(),
-    scales = scales_list(),
-    guides = guides_list(),
     mapping = mapping,
-    theme = list(),
-    coordinates = coord_cartesian(default = TRUE),
-    facet = facet_null(),
-    plot_env = environment,
-    layout = ggproto(NULL, Layout),
-    labels = list()
-  ), class = c("gg", "ggplot"))
+    plot_env = environment
+  )
+  class(p) <- union("ggplot", class(p))
 
   set_last_plot(p)
   p
 }
 
-#' @export
-ggplot.function <- function(data = NULL, mapping = aes(), ...,
-                            environment = parent.frame()) {
-  # Added to avoid functions end in ggplot.default
-  cli::cli_abort(c(
-    "{.arg data} cannot be a function.",
-    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
-  ))
-}
+S7::method(ggplot, S7::class_function) <-
+  function(data, mapping = aes(), ...,
+           environment = parent.frame()) {
+    # Added to avoid functions end in ggplot.default
+    cli::cli_abort(c(
+      "{.arg data} cannot be a function.",
+      "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+    ))
+  }
 
 #' Reports whether x is a type of object
 #' @param x An object to test
 #' @keywords internal
 #' @export
 #' @name is_tests
-is.ggplot <- function(x) inherits(x, "ggplot")
+is.ggplot <- function(x) S7::S7_inherits(x, class_ggplot)
 
 plot_clone <- function(plot) {
   p <- plot
-  p$scales <- plot$scales$clone()
-
+  p@scales <- plot@scales$clone()
   p
 }
 
@@ -176,7 +174,9 @@ plot_clone <- function(plot) {
 #' @keywords hplot
 #' @return Invisibly returns the original plot.
 #' @export
-#' @method print ggplot
+#' @method print ggplot2::ggplot
+#' @name print.ggplot
+#' @aliases print.ggplot2::ggplot plot.ggplot2::ggplot
 #' @examples
 #' colours <- list(~class, ~drv, ~fl)
 #'
@@ -191,7 +191,7 @@ plot_clone <- function(plot) {
 #'   print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
 #'     geom_point())
 #' }
-print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
+`print.ggplot2::ggplot` <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
   if (newpage) grid.newpage()
 
@@ -220,7 +220,40 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
 
   invisible(x)
 }
-#' @rdname print.ggplot
-#' @method plot ggplot
+
+S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
+
 #' @export
-plot.ggplot <- print.ggplot
+`$.ggplot2::gg` <- function(x, i) {
+  `[[`(S7::props(x), i)
+}
+
+#' @export
+`$<-.ggplot2::gg` <- function(x, i, value) {
+  S7::props(x) <- `$<-`(S7::props(x), i, value)
+  x
+}
+
+#' @export
+`[.ggplot2::gg` <- function(x, i) {
+  `[`(S7::props(x), i)
+}
+
+#' @export
+`[<-.ggplot2::gg` <- function(x, i, value) {
+  S7::props(x) <- `[<-`(S7::props(x), i, value)
+  x
+}
+
+#' @export
+`[[.ggplot2::gg` <- function(x, i) {
+  `[[`(S7::props(x), i)
+}
+
+#' @export
+`[[<-.ggplot2::gg` <- function(x, i, value) {
+  S7::props(x) <- `[[<-`(S7::props(x), i, value)
+  x
+}
+
+
