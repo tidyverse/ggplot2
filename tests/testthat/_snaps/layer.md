@@ -1,14 +1,14 @@
 # layer() checks its input
 
-    The `geom` argument cannot be empty.
+    `geom` must be either a string or a <Geom> object, not `NULL`.
 
 ---
 
-    The `stat` argument cannot be empty.
+    `stat` must be either a string or a <Stat> object, not `NULL`.
 
 ---
 
-    The `position` argument cannot be empty.
+    `position` must be either a string or a <Position> object, not `NULL`.
 
 ---
 
@@ -25,7 +25,13 @@
 
 ---
 
-    `x` must be either a string or a <geom> object, not an environment.
+    `environment()` must be either a string or a <geom> object, not an environment.
+
+---
+
+    Failed to retrieve a <Geom> object from `geom_foo()`.
+    Caused by error in `geom_foo()`:
+    ! This function is unconstructable.
 
 # unknown params create warning
 

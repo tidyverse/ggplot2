@@ -180,17 +180,17 @@ This geom treats each axis differently and, thus, can thus have two orientations
 
 \section{Aesthetics}{
 
-\code{geom_ribbon()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}}
-\item \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}}
-\item \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_colour_fill_alpha]{fill}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{linetype}}
-\item \code{\link[=aes_linetype_size_shape]{linewidth}}
+\code{geom_ribbon()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

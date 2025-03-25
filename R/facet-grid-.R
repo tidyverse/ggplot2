@@ -143,10 +143,9 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        switch = NULL, drop = TRUE, margins = FALSE,
                        axes = "margins", axis.labels = "all",
                        facets = deprecated()) {
-  # `facets` is deprecated and renamed to `rows`
+  # `facets` is deprecated
   if (lifecycle::is_present(facets)) {
-    deprecate_warn0("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
-    rows <- facets
+    lifecycle::deprecate_stop("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
   }
 
   # Should become a warning in a future release
@@ -188,7 +187,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   facets_list <- grid_as_facets_list(rows, cols)
 
   # Check for deprecated labellers
-  labeller <- fix_labeller(labeller)
+  check_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
