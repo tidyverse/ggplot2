@@ -27,8 +27,8 @@ a list of named element definitions created with el_def().}
 \item{reset_current}{If \code{TRUE} (the default), the currently active theme is
 reset to the default theme.}
 
-\item{class}{The name of the element class. Examples are "element_line" or
-"element_text" or "unit", or one of the two reserved keywords "character" or
+\item{class}{The name of the element class. Examples are \code{element_line} or
+\code{element_text} or "unit", or one of the two reserved keywords "character" or
 "margin". The reserved keyword "character" implies a character
 or numeric vector, not a class called "character". The keyword
 "margin" implies a unit vector of length 4, as created by \code{\link[=margin]{margin()}}.}
@@ -76,7 +76,7 @@ element inheritance relationships for the element tree.
 # plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`
 register_theme_elements(
   ggxyz.panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
-  element_tree = list(ggxyz.panel.annotation = el_def("element_text", "text"))
+  element_tree = list(ggxyz.panel.annotation = el_def(element_text, "text"))
 )
 
 # Now the package can define a new coord that includes a panel annotation

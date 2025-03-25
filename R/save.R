@@ -103,7 +103,9 @@ ggsave <- function(filename, plot = get_last_plot(),
     limitsize = limitsize, dpi = dpi)
 
   if (is_null(bg)) {
-    bg <- calc_element("plot.background", plot_theme(plot))$fill %||% "transparent"
+    bg <- calc_element("plot.background", plot_theme(plot))
+    bg <- if (S7::prop_exists(bg, "fill")) bg@fill else NULL
+    bg <- bg %||% "transparent"
   }
   old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)

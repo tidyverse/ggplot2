@@ -248,7 +248,7 @@ eval_from_theme <- function(aesthetics, theme) {
     return(aesthetics)
   }
   settings <- calc_element("geom", theme) %||% .default_geom_element
-  lapply(aesthetics[themed], eval_tidy, data = settings)
+  lapply(aesthetics[themed], eval_tidy, data = S7::props(settings))
 }
 
 #' Graphical units
