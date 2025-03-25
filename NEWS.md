@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Date scales silently coerce <POSIXct> to <Date> and datetime scales silently
+  coerce <Date> to <POSIXct> (@laurabrianna, #3533)
 * New parameters for `geom_label()` (@teunbrand and @steveharoz, #5365):
   * The `linewidth` aesthetic is now applied and replaces the `label.size` 
     argument.
