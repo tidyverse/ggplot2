@@ -132,7 +132,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       strsplit(self$required_aes, "|", fixed = TRUE),
       `[[`, i = 1, character(1)
     )
-    if (params$flipped_aes || any(data$flipped_aes) %||% FALSE) {
+    if (isTRUE(params$flipped_aes || any(data$flipped_aes) %||% FALSE)) {
       vars <- switch_orientation(vars)
     }
     vars <- c(vars, self$non_missing_aes)
@@ -183,7 +183,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     if ((length(aes$fill) > 1 || length(aes$alpha) > 1)) {
       transformed <- coord$transform(flip_data(data, flipped_aes), panel_params)
       if (flipped_aes) {
-        keep <- is.finite(tranformed$y)
+        keep <- is.finite(transformed$y)
         args <- list(
           colours = alpha(data$fill, data$alpha)[keep],
           stops = rescale(transformed$y)[keep],

@@ -148,10 +148,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   ),
 
   draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
-    if (is.character(data$shape)) {
-      data$shape <- translate_shape_string(data$shape)
-    }
-
+    data$shape <- translate_shape_string(data$shape)
     coords <- coord$transform(data, panel_params)
     ggname("geom_point",
       pointsGrob(
@@ -176,7 +173,8 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 #' given as a character vector into integers that are interpreted by the
 #' grid system.
 #'
-#' @param shape_string A character vector giving point shapes.
+#' @param shape_string A character vector giving point shapes. Non-character
+#'   input will be returned.
 #'
 #' @return An integer vector with translated shapes.
 #' @export
@@ -188,6 +186,9 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 #' # Strings with 1 or less characters are interpreted as symbols
 #' translate_shape_string(c("a", "b", "?"))
 translate_shape_string <- function(shape_string) {
+  if (!is.character(shape_string)) {
+    return(shape_string)
+  }
   # strings of length 0 or 1 are interpreted as symbols by grid
   if (nchar(shape_string[1]) <= 1) {
     return(shape_string)
