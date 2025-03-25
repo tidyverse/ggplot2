@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `position_fill()` avoids stacking observations of zero (@teunbrand, #6338)
+* New `layer(layout)` argument to interact with facets (@teunbrand, #3062)
+* New `stat_connect()` to connect points via steps or other shapes 
+  (@teunbrand, #6228)
 * Fixed regression with incorrectly drawn gridlines when using `coord_flip()` 
   (@teunbrand, #6293).
 * Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead 
@@ -249,8 +253,8 @@
   and (non-text) margins inherit from (@teunbrand, #5622).
 * `geom_ribbon()` can have varying `fill` or `alpha` in linear coordinate
   systems (@teunbrand, #4690).
-* `geom_tile()` computes default widths and heights per panel instead of
-  per layer (@teunbrand, #5740).
+* `geom_tile()` and `position_jitter()` computes default widths and heights 
+  per panel instead of per layer (@teunbrand, #5740, #3722).
 * The `fill` of the `panel.border` theme setting is ignored and forced to be
   transparent (#5782).
 * `stat_align()` skips computation when there is only 1 group and therefore
@@ -321,6 +325,8 @@
   (@teunbrand, #3669). 
 * Added `scale_{x/y}_time(date_breaks, date_minor_breaks, date_labels)` 
   (@teunbrand, #4335).
+* (internal) `legend.key.width` and `legend.key.height` calculations are no
+  longer precomputed before guides are drawn (@teunbrand, #6339)
 * `ggsave()` can write a multi-page pdf file when provided with a list of plots 
   (@teunbrand, #5093).
 * (internal) When `validate_subclass()` fails to find a class directly, it tries 
@@ -329,6 +335,11 @@
   copying trained position scales (#3441).
 * `draw_key_rect()` replaces a `NA` fill by the `colour` aesthetic and 
   `draw_key_polygon()` has 0 linewidth as internal default (@teunbrand, #5385).
+* Improved consistency of curve direction in `geom_curve()` (@teunbrand, #5069)
+* `linetype = NA` is now interpreted to mean 'no line' instead of raising errors
+  (@teunbrand, #6269).
+* The default colour and fill scales have a new `palette` argument 
+  (@teunbrand, #6064).
 
 # ggplot2 3.5.1
 

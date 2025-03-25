@@ -28,6 +28,12 @@
 #' [scale_colour_gradient()] or [scale_colour_steps()].
 #'
 #' @inheritParams continuous_scale
+#' @param palette One of the following:
+#'   * `NULL` for the default palette stored in the theme.
+#'   * a character vector of colours.
+#'   * a single string naming a palette.
+#'   * a palette function that when called with a numeric vector with values
+#'     between 0 and 1 returns the corresponding output values.
 #' @param ... Additional parameters passed on to the scale type
 #' @param type One of the following:
 #'   * "gradient" (the default)
@@ -57,98 +63,198 @@
 #' see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
 #' and references therein.
 #' @examples
-#' v <- ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
-#' geom_tile()
-#' v
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy, colour = cty)) +
+#'   geom_point()
 #'
-#' v + scale_fill_continuous(type = "gradient")
-#' v + scale_fill_continuous(type = "viridis")
+#' # You can use the scale to give a palette directly
+#' p + scale_colour_continuous(palette = c("#FEE0D2", "#FC9272", "#DE2D26"))
 #'
-#' # The above are equivalent to
-#' v + scale_fill_gradient()
-#' v + scale_fill_viridis_c()
+#' # The default colours are encoded into the theme
+#' p + theme(palette.colour.continuous = c("#DEEBF7", "#9ECAE1", "#3182BD"))
 #'
-#' # To make a binned version of this plot
-#' v + scale_fill_binned(type = "viridis")
+#' # You can globally set default colour palette via the theme
+#' old <- update_theme(palette.colour.continuous = c("#E5F5E0", "#A1D99B", "#31A354"))
 #'
-#' # Set a different default scale using the options
-#' # mechanism
-#' tmp <- getOption("ggplot2.continuous.fill") # store current setting
-#' options(ggplot2.continuous.fill = scale_fill_distiller)
-#' v
-#' options(ggplot2.continuous.fill = tmp) # restore previous setting
+#' # Plot now shows new global default
+#' p
+#'
+#' # The default binned colour scale uses the continuous palette
+#' p + scale_colour_binned() +
+#'   theme(palette.colour.continuous = c("#EFEDF5", "#BCBDDC", "#756BB1"))
+#'
+#' # Restoring the previous theme
+#' theme_set(old)
 #' @export
-scale_colour_continuous <- function(..., aesthetics = "colour",
+scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
                                     guide = "colourbar", na.value = "grey50",
                                     type = getOption("ggplot2.continuous.colour")) {
-  if (!is.null(type)) {
+
+  has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
+
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "continuous"
     )
     return(scale)
   }
-
+  palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    aesthetics, palette = palette, guide = guide, na.value = na.value,
     ...
   )
 }
 
 #' @rdname scale_colour_continuous
 #' @export
-scale_fill_continuous <- function(..., aesthetics = "fill", guide = "colourbar",
+scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guide = "colourbar",
                                   na.value = "grey50",
                                   type = getOption("ggplot2.continuous.fill")) {
 
-  if (!is.null(type)) {
+  has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
+
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "continuous"
     )
     return(scale)
   }
-
+  palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    aesthetics, palette = palette, guide = guide, na.value = na.value,
     ...
   )
 }
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_colour_binned <- function(..., aesthetics = "colour", guide = "coloursteps",
+scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guide = "coloursteps",
                                 na.value = "grey50",
                                 type = getOption("ggplot2.binned.colour")) {
-  if (!is.null(type)) {
+
+  has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
+
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "binned"
     )
     return(scale)
   }
-
+  palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    aesthetics, palette = palette, guide = guide, na.value = na.value,
     ...
   )
 }
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_fill_binned <- function(..., aesthetics = "fill", guide = "coloursteps",
+scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = "coloursteps",
                               na.value = "grey50",
                               type = getOption("ggplot2.binned.fill")) {
-  if (!is.null(type)) {
+  has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
+
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
       ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "binned"
     )
     return(scale)
   }
-
+  palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = NULL, guide = guide, na.value = na.value,
+    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    ...
+  )
+}
+
+#' Discrete colour scales
+#'
+#' The default discrete colour scale. Defaults to [scale_fill_hue()]/[scale_fill_brewer()]
+#' unless `type` (which defaults to the `ggplot2.discrete.fill`/`ggplot2.discrete.colour` options)
+#' is specified.
+#'
+#' @param palette One of the following:
+#'   * `NULL` for the default palette stored in the theme.
+#'   * a character vector of colours.
+#'   * a single string naming a palette.
+#'   * a palette function that when called with a single integer argument (the
+#'     number of levels in the scale) returns the values that they should take.
+#' @param ... Additional parameters passed on to the scale type,
+#' @inheritParams discrete_scale
+#' @param type One of the following:
+#'   * A character vector of color codes. The codes are used for a 'manual' color
+#'   scale as long as the number of codes exceeds the number of data levels
+#'   (if there are more levels than codes, [scale_colour_hue()]/[scale_fill_hue()]
+#'   are used to construct the default scale). If this is a named vector, then the color values
+#'   will be matched to levels based on the names of the vectors. Data values that
+#'   don't match will be set as `na.value`.
+#'   * A list of character vectors of color codes. The minimum length vector that exceeds the
+#'   number of data levels is chosen for the color scaling. This is useful if you
+#'   want to change the color palette based on the number of levels.
+#'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
+#'   [scale_fill_brewer()], etc).
+#' @export
+#' @seealso
+#' The `r link_book("discrete colour scales section", "scales-colour#sec-colour-discrete")`
+#' @examples
+#' # A standard plot
+#' p <- ggplot(mpg, aes(displ, hwy, colour = class)) +
+#'   geom_point()
+#'
+#' # You can use the scale to give a palette directly
+#' p + scale_colour_discrete(palette = scales::pal_brewer(palette = "Dark2"))
+#'
+#' # The default colours are encoded into the theme
+#' p + theme(palette.colour.discrete = scales::pal_grey())
+#'
+#' # You can globally set default colour palette via the theme
+#' old <- update_theme(palette.colour.discrete = scales::pal_viridis())
+#'
+#' # Plot now shows new global default
+#' p
+#'
+#' # Restoring the previous theme
+#' theme_set(old)
+scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na.value = "grey50",
+                                  type = getOption("ggplot2.discrete.colour")) {
+
+  has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
+
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
+      aesthetic = "colour", type = "discrete"
+    )
+    return(scale)
+  }
+  palette <- if (!is.null(palette)) as_discrete_pal(palette)
+  discrete_scale(
+    aesthetics, palette = palette, na.value = na.value,
+    ...
+  )
+}
+
+#' @rdname scale_colour_discrete
+#' @export
+scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.value = "grey50",
+                                type = getOption("ggplot2.discrete.fill")) {
+
+  has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
+
+  if (has_old_args || (!is.null(type) && is.null(palette))) {
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
+      aesthetic = "fill", type = "discrete"
+    )
+    return(scale)
+  }
+  palette <- if (!is.null(palette)) as_discrete_pal(palette)
+  discrete_scale(
+    aesthetics, palette = palette, na.value = na.value,
     ...
   )
 }

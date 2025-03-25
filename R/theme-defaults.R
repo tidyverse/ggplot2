@@ -472,7 +472,7 @@ theme_minimal <- function(base_size = 11, base_family = "",
       panel.background  = element_blank(),
       panel.border      = element_blank(),
       strip.background  = element_blank(),
-      plot.background   = element_blank(),
+      plot.background   = element_rect(fill = paper, colour = NA),
 
       complete = TRUE
     )
@@ -517,13 +517,16 @@ theme_void <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22,
-                       ink = "black", paper = "white") {
+                       ink = "black", paper = alpha(ink, 0)) {
   half_line <- base_size / 2
 
   # Only keep indispensable text: legend and plot titles
   t <- theme(
     line =               element_blank(),
-    rect =               element_blank(),
+    rect =               element_rect(
+                           fill = paper, colour = NA, linewidth = 0, linetype = 1,
+                           inherit.blank = FALSE
+                         ),
     polygon =            element_blank(),
     point =              element_blank(),
     text =               element_text(
@@ -555,12 +558,18 @@ theme_void <- function(base_size = 11, base_family = "",
     legend.box.margin =  rel(0),
     legend.box.spacing = unit(0.2, "cm"),
     legend.ticks.length = rel(0.2),
+    legend.background =  element_blank(),
+    legend.frame =       element_blank(),
+    legend.box.background = element_blank(),
     strip.clip =         "on",
     strip.text =         element_text(size = rel(0.8)),
     strip.switch.pad.grid = rel(0.5),
     strip.switch.pad.wrap = rel(0.5),
+    strip.background =   element_blank(),
     panel.ontop =        FALSE,
     panel.spacing =      NULL,
+    panel.background =   element_blank(),
+    panel.border =       element_blank(),
     plot.margin =        rel(0),
     plot.title =         element_text(
                            size = rel(1.2),
@@ -583,6 +592,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            hjust = 0.5, vjust = 0.5
                          ),
     plot.tag.position =  'topleft',
+    plot.background =    element_rect(),
 
     complete = TRUE
   )

@@ -706,6 +706,16 @@ test_that("margin_part() mechanics work as expected", {
   expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
 })
 
+test_that("theme() warns about conflicting palette options", {
+  expect_silent(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+  local_options(ggplot2.discrete.colour = c("red", "purple"))
+  expect_snapshot_warning(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+})
+
 test_that("geom elements are inherited correctly", {
 
   GeomFoo <- ggproto("GeomFoo", GeomPoint)
