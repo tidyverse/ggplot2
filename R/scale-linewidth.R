@@ -2,7 +2,7 @@
 #'
 #' `scale_linewidth` scales the width of lines and polygon strokes. Due to
 #' historical reasons, it is also possible to control this with the `size`
-#' aesthetic, but using `linewidth` is encourage to clearly differentiate area
+#' aesthetic, but using `linewidth` is encouraged to clearly differentiate area
 #' aesthetics from stroke width aesthetics.
 #'
 #' @name scale_linewidth
