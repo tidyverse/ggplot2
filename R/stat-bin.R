@@ -26,10 +26,10 @@
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
 #'   frequency polygons touch 0. Defaults to `FALSE`.
-#' @param drop Treatment of zero count bins. If `"all"` (default), such
-#'   bins are kept as-is. If `"none"`, all zero count bins are filtered out.
-#'   If `"inner"` only zero count bins at the flanks are filtered out, but not
-#'   in the middle. `TRUE` is shorthand for `"all"` and `FALSE` is shorthand
+#' @param drop Treatment of zero count bins. If `"none"` (default), such
+#'   bins are kept as-is. If `"all"`, all zero count bins are filtered out.
+#'   If `"extremes"` only zero count bins at the flanks are filtered out, but
+#'   not in the middle. `TRUE` is shorthand for `"all"` and `FALSE` is shorthand
 #'   for `"none"`.
 #' @eval rd_computed_vars(
 #'   count    = "number of points in bin.",
@@ -60,7 +60,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
                      closed = c("right", "left"),
                      pad = FALSE,
                      na.rm = FALSE,
-                     drop = "all",
+                     drop = "none",
                      orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -100,9 +100,10 @@ StatBin <- ggproto("StatBin", Stat,
     if (is.logical(params$drop)) {
       params$drop <- if (isTRUE(params$drop)) "all" else "none"
     }
+    drop <- params$drop
     params$drop <- arg_match0(
-      params$drop %||% "all",
-      c("all", "none", "inner"), arg_nm = "drop"
+      params$drop %||% "none",
+      c("all", "none", "extremes"), arg_nm = "drop"
     )
 
     has_x <- !(is.null(data$x) && is.null(params$x))
@@ -132,7 +133,7 @@ StatBin <- ggproto("StatBin", Stat,
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE, drop = "all",
+                           breaks = NULL, flipped_aes = FALSE, drop = "none",
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
                            origin = NULL, right = NULL) {
@@ -146,8 +147,8 @@ StatBin <- ggproto("StatBin", Stat,
 
     keep <- switch(
       drop,
-      none  = bins$count != 0,
-      inner = inner_runs(bins$count != 0),
+      all = bins$count != 0,
+      extremes = inner_runs(bins$count != 0),
       TRUE
     )
     bins <- vec_slice(bins, keep)
