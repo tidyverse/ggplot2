@@ -185,21 +185,21 @@ package.
 }
 \section{Aesthetics}{
 
-\code{geom_text()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \strong{\code{label}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{angle}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{family}
-\item \code{fontface}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{hjust}
-\item \code{lineheight}
-\item \code{\link[=aes_linetype_size_shape]{size}}
-\item \code{vjust}
+\code{geom_text()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \strong{\code{label}} \tab   \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+• \tab \code{angle} \tab → \code{0} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+• \tab \code{family} \tab → via \code{theme()} \cr\cr
+• \tab \code{fontface} \tab → \code{1} \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{hjust} \tab → \code{0.5} \cr\cr
+• \tab \code{lineheight} \tab → \code{1.2} \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+• \tab \code{vjust} \tab → \code{0.5} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

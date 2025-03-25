@@ -104,9 +104,9 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    deprecate_warn0("2.0.0", "layer(show_guide)", "layer(show.legend)", user_env = user_env)
-    show.legend <- params$show_guide
-    params$show_guide <- NULL
+    lifecycle::deprecate_stop(
+      "2.0.0", "layer(show_guide)", "layer(show.legend)"
+    )
   }
 
   # we validate mapping before data because in geoms and stats
@@ -156,7 +156,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
     aes_params <- c(aes_params, params["size"])
     extra_param <- setdiff(extra_param, "size")
-    deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.param && length(extra_param) > 0) {
     cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
@@ -169,7 +169,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Take care of size->linewidth aes renaming
   if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
     extra_aes <- setdiff(extra_aes, "size")
-    deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
@@ -273,7 +273,7 @@ Layer <- ggproto("Layer", NULL,
           !"linewidth" %in% names(self$computed_mapping) &&
           "linewidth" %in% self$geom$aesthetics()) {
         self$computed_mapping$size <- plot$mapping$size
-        deprecate_soft0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
+        deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
       }
       # defaults() strips class, but it needs to be preserved for now
       class(self$computed_mapping) <- "uneval"
@@ -347,12 +347,13 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_statistic = function(self, data, layout) {
-    if (empty(data))
-      return(data_frame0())
+    if (empty(data)) return(data_frame0())
 
+    ptype <- vec_ptype(data)
     self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, self$computed_stat_params)
-    self$stat$compute_layer(data, self$computed_stat_params, layout)
+    data <- self$stat$compute_layer(data, self$computed_stat_params, layout)
+    merge_attrs(data, ptype)
   },
 
   map_statistic = function(self, data, plot) {
@@ -396,12 +397,13 @@ Layer <- ggproto("Layer", NULL,
       stat_data <- plot$scales$transform_df(stat_data)
     }
     stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
-
-    data_frame0(!!!defaults(stat_data, data))
+    data[names(stat_data)] <- stat_data
+    data
   },
 
   compute_geom_1 = function(self, data) {
     if (empty(data)) return(data_frame0())
+    ptype <- vec_ptype(data)
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -409,17 +411,18 @@ Layer <- ggproto("Layer", NULL,
       snake_class(self$geom)
     )
     self$computed_geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
-    self$geom$setup_data(data, self$computed_geom_params)
+    data <- self$geom$setup_data(data, self$computed_geom_params)
+    merge_attrs(data, ptype)
   },
 
   compute_position = function(self, data, layout) {
     if (empty(data)) return(data_frame0())
-
+    ptype <- vec_ptype(data)
     data <- self$position$use_defaults(data, self$aes_params)
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
-
-    self$position$compute_layer(data, params, layout)
+    data <- self$position$compute_layer(data, params, layout)
+    merge_attrs(data, ptype)
   },
 
   compute_geom_2 = function(self, data, params = self$aes_params, theme = NULL, ...) {
@@ -455,18 +458,50 @@ validate_subclass <- function(x, subclass,
 
   if (inherits(x, subclass)) {
     return(x)
-  } else if (is_scalar_character(x)) {
-    name <- paste0(subclass, camelize(x, first = TRUE))
-    obj <- find_global(name, env = env)
-
-    if (is.null(obj) || !inherits(obj, subclass)) {
-      cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
-    }
-    return(obj)
-  } else if (is.null(x)) {
-    cli::cli_abort("The {.arg {x_arg}} argument cannot be empty.", call = call)
   }
-  stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"))
+  if (!is_scalar_character(x)) {
+    stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"), arg = x_arg)
+  }
+
+  # Try getting class object directly
+  name <- paste0(subclass, camelize(x, first = TRUE))
+  obj <- find_global(name, env = env)
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+
+  # Try retrieving class via constructors
+  name <- snakeize(name)
+  obj <- find_global(name, env = env, mode = "function")
+  if (is.function(obj)) {
+    obj <- try_fetch(
+      obj(),
+      error = function(cnd) {
+        # replace `obj()` call with name of actual constructor
+        cnd$call <- call(name)
+        cli::cli_abort(
+          "Failed to retrieve a {.cls {subclass}} object from {.fn {name}}.",
+          parent = cnd, call = call
+        )
+      })
+  }
+  # Position constructors return classes directly
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+  # Try prying the class from a layer
+  if (inherits(obj, "Layer")) {
+    obj <- switch(
+      subclass,
+      Geom = obj$geom,
+      Stat = obj$stat,
+      NULL
+    )
+  }
+  if (inherits(obj, subclass)) {
+    return(obj)
+  }
+  cli::cli_abort("Can't find {argname} called {.val {x}}.", call = call)
 }
 
 # helper function to adjust the draw_key slot of a geom
@@ -484,6 +519,10 @@ set_draw_key <- function(geom, draw_key = NULL) {
 }
 
 cleanup_mismatched_data <- function(data, n, fun) {
+  if (vec_duplicate_any(names(data))) {
+    data <- data[unique0(names(data))]
+  }
+
   failed <- !lengths(data) %in% c(0, 1, n)
   if (!any(failed)) {
     return(data)
