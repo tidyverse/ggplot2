@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `stat_connect()` to connect points via steps or other shapes 
+  (@teunbrand, #6228)
 * Fixed regression with incorrectly drawn gridlines when using `coord_flip()` 
   (@teunbrand, #6293).
 * Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead 
