@@ -467,8 +467,8 @@ theme <- function(...,
                   strip.switch.pad.wrap,
                   complete = FALSE,
                   validate = TRUE) {
-  elements <- find_args(..., complete = NULL, validate = NULL)
 
+  elements <- find_args(..., complete = NULL, validate = NULL)
   elements <- fix_theme_deprecations(elements)
   elements <- validate_theme_palettes(elements)
 
@@ -490,34 +490,6 @@ theme <- function(...,
 }
 
 fix_theme_deprecations <- function(elements) {
-  if (!is.null(elements$axis.ticks.margin)) {
-    deprecate_warn0(
-      "2.0.0", "theme(axis.ticks.margin)",
-      details = "Please set `margin` property of `axis.text` instead"
-    )
-    elements$axis.ticks.margin <- NULL
-  }
-  if (!is.null(elements$panel.margin)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
-    )
-    elements$panel.spacing <- elements$panel.margin
-    elements$panel.margin <- NULL
-  }
-  if (!is.null(elements$panel.margin.x)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
-    )
-    elements$panel.spacing.x <- elements$panel.margin.x
-    elements$panel.margin.x <- NULL
-  }
-  if (!is.null(elements$panel.margin.y)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
-    )
-    elements$panel.spacing.y <- elements$panel.margin.y
-    elements$panel.margin.y <- NULL
-  }
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
@@ -619,8 +591,11 @@ check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
+  elnames <- names(theme)
+  elnames[startsWith(elnames, "geom.")] <- "geom"
+
   mapply(
-    check_element, theme, names(theme),
+    check_element, theme, elnames,
     MoreArgs = list(element_tree = tree, call = call)
   )
 }
@@ -684,7 +659,10 @@ plot_theme <- function(x, default = get_theme()) {
   check_theme(theme)
 
   # Remove elements that are not registered
-  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
+  # We accept unregistered `geom.*` elements
+  remove <- setdiff(names(theme), names(get_element_tree()))
+  remove <- remove[!startsWith(remove, "geom.")]
+  theme[remove] <- NULL
   theme
 }
 
@@ -799,6 +777,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
+    if (inherits(el_out, "element_geom")) {
+      # Geom elements are expected to have NULL fill/colour, so allow these
+      # to be missing
+      nullprops[c("colour", "fill")] <- FALSE
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
     }

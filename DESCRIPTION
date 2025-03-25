@@ -247,6 +247,7 @@ Collate:
     'stat-bindot.R'
     'stat-binhex.R'
     'stat-boxplot.R'
+    'stat-connect.R'
     'stat-contour.R'
     'stat-count.R'
     'stat-density-2d.R'

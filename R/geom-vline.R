@@ -56,12 +56,7 @@ GeomVline <- ggproto("GeomVline", Geom,
     GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
+  default_aes = GeomPath$default_aes,
 
   required_aes = "xintercept",
 
