@@ -182,10 +182,7 @@ Geom <- ggproto("Geom",
       )
 
       modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
-
-      modified_aes <- data_frame0(!!!modified_aes)
-
-      data <- data_frame0(!!!defaults(modified_aes, data))
+      data[names(modified_aes)] <- modified_aes
     }
 
     # Override mappings with params
