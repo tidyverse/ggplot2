@@ -126,7 +126,7 @@ across the levels of a categorical variable.</p>
 <span>  closed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>  pad <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  drop <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  drop <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -281,10 +281,10 @@ frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>
-<dd><p>Treatment of zero count bins. If <code>"all"</code> (default), such
-bins are kept as-is. If <code>"none"</code>, all zero count bins are filtered out.
-If <code>"inner"</code> only zero count bins at the flanks are filtered out, but not
-in the middle. <code>TRUE</code> is shorthand for <code>"all"</code> and <code>FALSE</code> is shorthand
+<dd><p>Treatment of zero count bins. If <code>"none"</code> (default), such
+bins are kept as-is. If <code>"all"</code>, all zero count bins are filtered out.
+If <code>"extremes"</code> only zero count bins at the flanks are filtered out, but
+not in the middle. <code>TRUE</code> is shorthand for <code>"all"</code> and <code>FALSE</code> is shorthand
 for <code>"none"</code>.</p></dd>
 
 </dl></div>
