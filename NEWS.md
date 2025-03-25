@@ -323,6 +323,8 @@
   (@teunbrand, #5093).
 * (internal) When `validate_subclass()` fails to find a class directly, it tries 
   to retrieve the class via constructor functions (@teunbrand).
+* (internal) The ViewScale class has a `make_fixed_copy()` method to permit 
+  copying trained position scales (#3441).
 
 # ggplot2 3.5.1
 
