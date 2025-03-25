@@ -24,10 +24,16 @@ setup_plot_labels <- function(plot, layers, data) {
   # Find labels from every layer
   for (i in seq_along(layers)) {
     layer <- layers[[i]]
-    exclude <- names(layer$aes_params)
+
     mapping <- layer$computed_mapping
+    if (inherits(mapping, "unlabelled_uneval")) {
+      next
+    }
+
     mapping <- strip_stage(mapping)
     mapping <- strip_dots(mapping, strip_pronoun = TRUE)
+
+    exclude <- names(layer$aes_params)
     mapping <- mapping[setdiff(names(mapping), exclude)]
 
     # Acquire default labels

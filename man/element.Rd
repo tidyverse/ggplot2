@@ -83,7 +83,10 @@ element_geom(
   family = NULL,
   fontsize = NULL,
   pointsize = NULL,
-  pointshape = NULL
+  pointshape = NULL,
+  colour = NULL,
+  color = NULL,
+  fill = NULL
 )
 
 rel(x)

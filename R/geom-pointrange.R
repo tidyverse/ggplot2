@@ -31,9 +31,9 @@ geom_pointrange <- function(mapping = NULL, data = NULL,
 #' @export
 GeomPointrange <- ggproto("GeomPointrange", Geom,
   default_aes = aes(
-    colour = from_theme(ink), size = from_theme(pointsize / 3),
+    colour = from_theme(colour %||% ink), size = from_theme(pointsize / 3),
     linewidth = from_theme(linewidth), linetype = from_theme(linetype),
-    shape = from_theme(pointshape), fill = NA, alpha = NA,
+    shape = from_theme(pointshape), fill = from_theme(fill %||% NA), alpha = NA,
     stroke = from_theme(borderwidth * 2)
   ),
 

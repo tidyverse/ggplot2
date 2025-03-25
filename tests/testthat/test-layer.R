@@ -10,6 +10,9 @@ test_that("layer() checks its input", {
 
   expect_snapshot_error(validate_subclass("test", "geom"))
   expect_snapshot_error(validate_subclass(environment(), "geom"))
+
+  geom_foo <- function(...) stop("This function is unconstructable.")
+  expect_snapshot_error(layer("foo", "identity", position = "identity"))
 })
 
 test_that("aesthetics go in aes_params", {
@@ -152,6 +155,22 @@ test_that("layer names can be resolved", {
 
   l <- geom_point(name = "foobar")
   expect_snapshot(p + l + l, error = TRUE)
+})
+
+test_that("check_subclass can resolve classes via constructors", {
+
+  env <- new_environment(list(
+    geom_foobar = geom_point,
+    stat_foobar = stat_boxplot,
+    position_foobar = position_nudge,
+    guide_foobar = guide_axis_theta
+  ))
+
+  expect_s3_class(validate_subclass("foobar", "Geom", env = env), "GeomPoint")
+  expect_s3_class(validate_subclass("foobar", "Stat", env = env), "StatBoxplot")
+  expect_s3_class(validate_subclass("foobar", "Position", env = env), "PositionNudge")
+  expect_s3_class(validate_subclass("foobar", "Guide", env = env), "GuideAxisTheta")
+
 })
 
 test_that("attributes on layer data are preserved", {

@@ -46,7 +46,7 @@ stat_bin(
   closed = c("right", "left"),
   pad = FALSE,
   na.rm = FALSE,
-  drop = "all",
+  drop = "none",
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
@@ -174,10 +174,10 @@ or left edges of bins are included in the bin.}
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
 
-\item{drop}{Treatment of zero count bins. If \code{"all"} (default), such
-bins are kept as-is. If \code{"none"}, all zero count bins are filtered out.
-If \code{"inner"} only zero count bins at the flanks are filtered out, but not
-in the middle. \code{TRUE} is shorthand for \code{"all"} and \code{FALSE} is shorthand
+\item{drop}{Treatment of zero count bins. If \code{"none"} (default), such
+bins are kept as-is. If \code{"all"}, all zero count bins are filtered out.
+If \code{"extremes"} only zero count bins at the flanks are filtered out, but
+not in the middle. \code{TRUE} is shorthand for \code{"all"} and \code{FALSE} is shorthand
 for \code{"none"}.}
 }
 \description{
