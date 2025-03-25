@@ -252,15 +252,7 @@ only after transformation that these aesthetics are applied.</p>
     <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
 
 
-<p><code>geom_rect()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code> <em>or</em> <code>width</code> <em>or</em> <code><a href="aes_position.html">xmin</a></code> <em>or</em> <code><a href="aes_position.html">xmax</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">y</a></code> <em>or</em> <code>height</code> <em>or</em> <code><a href="aes_position.html">ymin</a></code> <em>or</em> <code><a href="aes_position.html">ymax</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">fill</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-</ul><p><code>geom_tile()</code> understands only the <code>x</code>/<code>width</code> and <code>y</code>/<code>height</code> combinations.
+<p><code>geom_rect()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code> <em>or</em> <code>width</code> <em>or</em> <code><a href="aes_position.html">xmin</a></code> <em>or</em> <code><a href="aes_position.html">xmax</a></code></strong></td><td></td></tr><tr><td></td><td>•</td><td><strong><code><a href="aes_position.html">y</a></code> <em>or</em> <code>height</code> <em>or</em> <code><a href="aes_position.html">ymin</a></code> <em>or</em> <code><a href="aes_position.html">ymax</a></code></strong></td></tr><tr><td></td><td></td><td>•</td></tr><tr><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td></tr><tr><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td><td>•</td></tr><tr><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td><td></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td></tr><tr><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td><td></td></tr></table><p><code>geom_tile()</code> understands only the <code>x</code>/<code>width</code> and <code>y</code>/<code>height</code> combinations.
 Note that <code>geom_raster()</code> ignores <code>colour</code>.</p>
 <p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
