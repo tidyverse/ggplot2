@@ -1316,9 +1316,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         }
       }
     } else if (is.function(self$breaks)) {
-      if ("n.breaks" %in% names(formals(environment(self$breaks)$f))) {
+      fmls <- names(formals(environment(self$breaks)$f))
+      if (any(c("n", "n.breaks") %in% fmls)) {
         n.breaks <- self$n.breaks %||% 5 # same default as trans objects
-        breaks <- self$breaks(limits, n.breaks = n.breaks)
+        # TODO: we should only allow `n` argument and not `n.breaks` to be
+        # consistent with other scales. We should start deprecation at some point.
+        if ("n.breaks" %in% fmls) {
+          breaks <- self$breaks(limits, n.breaks = n.breaks)
+        } else {
+          breaks <- self$breaks(limits, n = n.breaks)
+        }
       } else {
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
