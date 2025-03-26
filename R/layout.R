@@ -219,26 +219,24 @@ Layout <- ggproto("Layout", NULL,
     invisible()
   },
 
-  setup_panel_guides = function(self, guides, layers) {
-
-    # Like in `setup_panel_params`, we only need to setup guides for unique
-    # combinations of x/y scales.
-    index <- vec_unique_loc(self$layout$COORD)
-    order <- vec_match(self$layout$COORD, self$layout$COORD[index])
+  setup_panel_guides = function(self, guides, layers, data = NULL) {
 
     self$panel_params <- lapply(
-      self$panel_params[index],
+      self$panel_params,
       self$coord$setup_panel_guides,
       guides,
       self$coord_params
     )
 
-    self$panel_params <- lapply(
-      self$panel_params,
-      self$coord$train_panel_guides,
-      layers,
-      self$coord_params
-    )[order]
+    self$panel_params <- Map(
+      function(params, data) {
+        self$coord$train_panel_guides(params, layers, self$coord_params, data = data)
+      },
+      params = self$panel_params,
+      data = lapply(levels(self$layout$PANEL), function(i) {
+        lapply(data, function(x) vec_slice(x, x$PANEL == i))
+      })
+    )
 
     invisible()
   },
