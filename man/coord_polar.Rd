@@ -11,8 +11,8 @@ coord_radial(
   theta = "x",
   start = 0,
   end = NULL,
-  xlim = NULL,
-  ylim = NULL,
+  thetalim = NULL,
+  rlim = NULL,
   expand = TRUE,
   direction = deprecated(),
   clip = "off",
@@ -40,7 +40,7 @@ means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian(
 for partial polar coordinates. The default, \code{NULL}, is set to
 \code{start + 2 * pi}.}
 
-\item{xlim, ylim}{Limits for the x and y axes.}
+\item{thetalim, rlim}{Limits for the theta and r axes.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to prevent overlap between data and axes. If \code{FALSE}, limits
@@ -143,8 +143,8 @@ ggplot(mtcars, aes(disp, mpg)) +
     coord_radial(
         start = -0.4 * pi,
         end = 0.4 * pi, inner.radius = 0.3,
-        xlim = c(200, 300),
-        ylim = c(15, 30),
+        thetalim = c(200, 300),
+        rlim = c(15, 30),
         clip = "on"
     )
 }
