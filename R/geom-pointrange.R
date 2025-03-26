@@ -3,7 +3,7 @@
 geom_pointrange <- function(mapping = NULL, data = NULL,
                             stat = "identity", position = "identity",
                             ...,
-                            fatten = 4,
+                            fatten = deprecated(),
                             na.rm = FALSE,
                             orientation = NA,
                             show.legend = NA,
@@ -31,9 +31,9 @@ geom_pointrange <- function(mapping = NULL, data = NULL,
 #' @export
 GeomPointrange <- ggproto("GeomPointrange", Geom,
   default_aes = aes(
-    colour = from_theme(ink), size = from_theme(pointsize / 3),
+    colour = from_theme(colour %||% ink), size = from_theme(pointsize / 3),
     linewidth = from_theme(linewidth), linetype = from_theme(linetype),
-    shape = from_theme(pointshape), fill = NA, alpha = NA,
+    shape = from_theme(pointshape), fill = from_theme(fill %||% NA), alpha = NA,
     stroke = from_theme(borderwidth * 2)
   ),
 
@@ -42,6 +42,12 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
   required_aes = c("x", "y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
+    if (lifecycle::is_present(params$fatten %||% deprecated())) {
+      deprecate_soft0("3.6.0", "geom_pointrange(fatten)", I("the `size` aesthetic"))
+    } else {
+      # For backward compatibility reasons
+      params$fatten <- 4
+    }
     GeomLinerange$setup_params(data, params)
   },
 

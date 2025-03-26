@@ -94,6 +94,7 @@ Layout <- ggproto("Layout", NULL,
       theme,
       self$facet_params
     )
+    plot_table <- self$facet$set_panel_size(plot_table, theme)
 
     # Draw individual labels, then add to gtable
     labels <- self$coord$labels(
@@ -243,35 +244,39 @@ Layout <- ggproto("Layout", NULL,
   },
 
   resolve_label = function(self, scale, labels) {
-    # General order is: guide title > scale name > labels
-    aes       <- scale$aesthetics[[1]]
-    primary   <- scale$name %|W|% labels[[aes]]
-    secondary <- if (is.null(scale$secondary.axis)) {
-      waiver()
-    } else {
-      scale$sec_name()
-    } %|W|% labels[[paste0("sec.", aes)]]
-    if (is.derived(secondary)) secondary <- primary
+    aes <- scale$aesthetics[[1]]
+
+    prim_scale <- scale$name
+    seco_scale <- (scale$sec_name %||% waiver)()
+
+    prim_label <- labels[[aes]]
+    seco_label <- labels[[paste0("sec. aes")]]
+
+    prim_guide <- seco_guide <- waiver()
+
     order <- scale$axis_order()
 
-    if (!is.null(self$panel_params[[1]]$guides)) {
-      if ((scale$position) %in% c("left", "right")) {
-        guides <- c("y", "y.sec")
-      } else {
-        guides <- c("x", "x.sec")
-      }
-      params    <- self$panel_params[[1]]$guides$get_params(guides)
+    panel <- self$panel_params[[1]]$guides
+    if (!is.null(panel)) {
+      position <- scale$position
+      aes <- switch(position, left = , right = "y", "x")
+      params <- panel$get_params(paste0(aes, c("", ".sec")))
       if (!is.null(params)) {
-        primary   <- params[[1]]$title %|W|% primary
-        secondary <- params[[2]]$title %|W|% secondary
-        position  <- params[[1]]$position %||% scale$position
-        if (position != scale$position) {
+        prim_guide <- params[[1]]$title
+        seco_guide <- params[[2]]$title
+        position   <- scale$position
+        if ((params[[1]]$position %||% position) != position) {
           order <- rev(order)
         }
       }
     }
-    primary   <- scale$make_title(primary)
-    secondary <- scale$make_sec_title(secondary)
+
+    primary   <- scale$make_title(prim_guide, prim_scale, prim_label)
+    secondary <- scale$make_sec_title(seco_guide, seco_scale, seco_label)
+    if (is.derived(secondary)) {
+      secondary <- primary
+    }
+
     list(primary = primary, secondary = secondary)[order]
   },
 
@@ -300,7 +305,6 @@ Layout <- ggproto("Layout", NULL,
   }
 )
 
-
 # Helpers -----------------------------------------------------------------
 
 # Function for applying scale method to multiple variables in a given
@@ -318,7 +322,7 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
-      scales[[i]][[method]](data[[var]][scale_index[[i]]])
+      scales[[i]][[method]](vec_slice(data[[var]], scale_index[[i]]))
     })
     # Remove empty vectors to avoid coercion issues with vctrs
     pieces[lengths(pieces) == 0] <- NULL

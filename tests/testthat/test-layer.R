@@ -8,8 +8,11 @@ test_that("layer() checks its input", {
   expect_snapshot_error(layer("point", "identity", mapping = 1:4, position = "identity"))
   expect_snapshot_error(layer("point", "identity", mapping = ggplot(), position = "identity"))
 
-  expect_snapshot_error(check_subclass("test", "geom"))
-  expect_snapshot_error(check_subclass(environment(), "geom"))
+  expect_snapshot_error(validate_subclass("test", "geom"))
+  expect_snapshot_error(validate_subclass(environment(), "geom"))
+
+  geom_foo <- function(...) stop("This function is unconstructable.")
+  expect_snapshot_error(layer("foo", "identity", position = "identity"))
 })
 
 test_that("aesthetics go in aes_params", {
@@ -154,6 +157,45 @@ test_that("layer names can be resolved", {
   expect_snapshot(p + l + l, error = TRUE)
 })
 
+test_that("check_subclass can resolve classes via constructors", {
+
+  env <- new_environment(list(
+    geom_foobar = geom_point,
+    stat_foobar = stat_boxplot,
+    position_foobar = position_nudge,
+    guide_foobar = guide_axis_theta
+  ))
+
+  expect_s3_class(validate_subclass("foobar", "Geom", env = env), "GeomPoint")
+  expect_s3_class(validate_subclass("foobar", "Stat", env = env), "StatBoxplot")
+  expect_s3_class(validate_subclass("foobar", "Position", env = env), "PositionNudge")
+  expect_s3_class(validate_subclass("foobar", "Guide", env = env), "GuideAxisTheta")
+
+})
+
+test_that("attributes on layer data are preserved", {
+  # This is a good layer for testing because:
+  # * It needs to compute a statistic at the group level
+  # * It needs to setup data to reshape x/y/width/height into xmin/xmax/ymin/ymax
+  # * It needs to use a position adjustment
+  # * It has an `after_stat()` so it enters the map_statistic method
+  old <- stat_summary(
+    aes(fill = after_stat(y)),
+    fun = mean, geom = "col", position = "dodge"
+  )
+  # We modify the compute aesthetics method to append a test attribute
+  new <- ggproto(NULL, old, compute_aesthetics = function(self, data, plot) {
+    data <- ggproto_parent(old, self)$compute_aesthetics(data, plot)
+    attr(data, "test") <- "preserve me"
+    data
+  })
+  # At the end of plot building, we want to retrieve that metric
+  ld <- layer_data(
+    ggplot(mpg, aes(drv, hwy, colour = factor(year))) + new + facet_grid(~year) +
+      scale_y_sqrt()
+  )
+  expect_equal(attr(ld, "test"), "preserve me")
+})
 
 # Data extraction ---------------------------------------------------------
 
@@ -181,4 +223,21 @@ test_that("layer_data returns a data.frame", {
   expect_equal(l$layer_data(mtcars), head(unrowname(mtcars), 10))
   l <- geom_point(data = nrow)
   expect_snapshot_error(l$layer_data(mtcars))
+})
+
+test_that("data.frames and matrix aesthetics survive the build stage", {
+  df <- data_frame0(
+    x = 1:2,
+    g = matrix(1:4, 2),
+    f = data_frame0(a = 1:2, b = c("c", "d"))
+  )
+
+  p <- layer_data(
+    ggplot(df, aes(x, x, colour = g, shape = f)) +
+      geom_point() +
+      scale_colour_identity() +
+      scale_shape_identity()
+  )
+  expect_vector(p$colour, matrix(NA_integer_, nrow = 0, ncol = 2), size = 2)
+  expect_vector(p$shape,  data_frame0(a = integer(), b = character()), size = 2)
 })

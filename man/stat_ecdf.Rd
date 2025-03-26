@@ -134,11 +134,11 @@ this case, the ECDF is incremented by \code{weight / sum(weight)} instead of
 }
 \section{Aesthetics}{
 
-\code{stat_ecdf()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{weight}
+\code{stat_ecdf()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{weight} \tab → \code{NULL} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

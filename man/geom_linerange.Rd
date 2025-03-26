@@ -23,7 +23,7 @@ geom_crossbar(
   box.color = NULL,
   box.linetype = NULL,
   box.linewidth = NULL,
-  fatten = 2.5,
+  fatten = deprecated(),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -72,7 +72,7 @@ geom_pointrange(
   stat = "identity",
   position = "identity",
   ...,
-  fatten = 4,
+  fatten = deprecated(),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -160,9 +160,9 @@ data's aesthetics.}
 \item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
 data's aesthetics.}
 
-\item{fatten}{A multiplicative factor used to increase the size of the
-middle bar in \code{geom_crossbar()} and the middle point in
-\code{geom_pointrange()}.}
+\item{fatten}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}  A multiplicative factor
+used to increase the size of the middle bar in \code{geom_crossbar()} and the
+middle point in \code{geom_pointrange()}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -200,16 +200,16 @@ This geom treats each axis differently and, thus, can thus have two orientations
 
 \section{Aesthetics}{
 
-\code{geom_linerange()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}}
-\item \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}}
-\item \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{linetype}}
-\item \code{\link[=aes_linetype_size_shape]{linewidth}}
+\code{geom_linerange()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
 }
 Note that \code{geom_pointrange()} also understands \code{size} for the size of the points.
 

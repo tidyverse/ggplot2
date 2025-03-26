@@ -259,7 +259,7 @@ GuideColourbar <- ggproto(
 
   extract_params = function(scale, params,
                             title  = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     limits <- params$decor$value[c(1L, nrow(params$decor))]
     to <- switch(
       params$display,
@@ -293,10 +293,10 @@ GuideColourbar <- ggproto(
     # We set the defaults in `theme` so that the `params$theme` can still
     # overrule defaults given here
     if (params$direction == "horizontal") {
-      theme$legend.key.width  <- theme$legend.key.width * 5
+      theme$legend.key.width <- rel(5)
       valid_position <- c("bottom", "top")
     } else {
-      theme$legend.key.height <- theme$legend.key.height * 5
+      theme$legend.key.height <- rel(5)
       valid_position <- c("right", "left")
     }
 

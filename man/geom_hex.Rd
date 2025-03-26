@@ -112,11 +112,19 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{stat_bin_hex()}. For more information about overriding these connections,
 see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom} arguments work.}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{binwidth}{Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides \code{bins} if both set.}
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.
+
+The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.}
 }
 \description{
 Divides the plane into regular hexagons, counts the number of cases in
@@ -126,27 +134,27 @@ the very regular alignment of \code{\link[=geom_bin_2d]{geom_bin_2d()}}.
 }
 \section{Aesthetics}{
 
-\code{geom_hex()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_colour_fill_alpha]{fill}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{linetype}}
-\item \code{\link[=aes_linetype_size_shape]{linewidth}}
+\code{geom_hex()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 
-\code{stat_binhex()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_colour_fill_alpha]{fill}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{weight}
+\code{stat_binhex()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → \code{after_stat(count)} \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{weight} \tab → \code{1} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -160,6 +168,16 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(ncount)}\cr count, scaled to maximum of 1.
 \item \code{after_stat(ndensity)}\cr density, scaled to maximum of 1.
 }
+}
+
+\section{Controlling binning parameters for the x and y directions}{
+
+The arguments \code{bins} and \code{binwidth} can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing \code{x} and \code{y} elements,
+for example \code{list(x = 10, y = 20)}.
 }
 
 \examples{

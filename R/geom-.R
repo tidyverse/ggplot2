@@ -126,14 +126,14 @@ Geom <- ggproto("Geom",
     # Take care of subclasses setting the wrong default when inheriting from
     # a geom with rename_size = TRUE
     if (self$rename_size && is.null(default_aes$linewidth)) {
-      deprecate_soft0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
+      deprecate_warn0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
       default_aes$linewidth <- default_aes$size
     }
 
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(default_aes), names(data))
     default_aes <- default_aes[missing_aes]
-    themed_defaults <- eval_from_theme(default_aes, theme)
+    themed_defaults <- eval_from_theme(default_aes, theme, class(self))
     default_aes[names(themed_defaults)] <- themed_defaults
 
     # Mark staged/scaled defaults as modifier (#6135)
@@ -163,30 +163,26 @@ Geom <- ggproto("Geom",
     # If any after_scale mappings are detected they will be resolved here
     # This order means that they will have access to all default aesthetics
     if (length(modifiers) != 0) {
-      # Set up evaluation environment
-      modified_aes <- eval_aesthetics(
-        substitute_aes(modifiers), data,
-        mask = list(stage = stage_scaled)
+      modified_aes <- try_fetch(
+        eval_aesthetics(
+          substitute_aes(modifiers), data,
+          mask = list(stage = stage_scaled)
+        ),
+        error = function(cnd) {
+          cli::cli_warn("Unable to apply staged modifications.", parent = cnd)
+          data_frame0()
+        }
       )
 
       # Check that all output are valid data
-      nondata_modified <- check_nondata_cols(modified_aes)
-      if (length(nondata_modified) > 0) {
-        issues <- paste0("{.code ", nondata_modified, " = ", as_label(modifiers[[nondata_modified]]), "}")
-        names(issues) <- rep("x", length(issues))
-        cli::cli_abort(c(
-          "Aesthetic modifiers returned invalid values",
-          "x" = "The following mappings are invalid",
-          issues,
-          "i" = "Did you map the modifier in the wrong layer?"
-        ))
-      }
+      check_nondata_cols(
+        modified_aes, modifiers,
+        problem = "Aesthetic modifiers returned invalid values.",
+        hint    = "Did you map the modifier in the wrong layer?"
+      )
 
       modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
-
-      modified_aes <- data_frame0(!!!modified_aes)
-
-      data <- data_frame0(!!!defaults(modified_aes, data))
+      data[names(modified_aes)] <- modified_aes
     }
 
     # Override mappings with params
@@ -243,13 +239,33 @@ Geom <- ggproto("Geom",
 #' @rdname is_tests
 is.geom <- function(x) inherits(x, "Geom")
 
-eval_from_theme <- function(aesthetics, theme) {
+eval_from_theme <- function(aesthetics, theme, class = NULL) {
   themed <- is_themed_aes(aesthetics)
   if (!any(themed)) {
     return(aesthetics)
   }
-  settings <- calc_element("geom", theme) %||% .default_geom_element
-  lapply(aesthetics[themed], eval_tidy, data = settings)
+
+  element <- calc_element("geom", theme) %||% .default_geom_element
+  class <- setdiff(class, c("Geom", "ggproto", "gg"))
+
+  if (length(class) > 0) {
+
+    # CamelCase to dot.case
+    class <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1.\\2\\3", class)
+    class <- gsub("([a-z])([A-Z])", "\\1.\\2", class)
+    class <- to_lower_ascii(class)
+
+    class <- class[class %in% names(theme)]
+
+    # Inherit up to parent geom class
+    if (length(class) > 0) {
+      for (cls in rev(class)) {
+        element <- combine_elements(theme[[cls]], element)
+      }
+    }
+  }
+
+  lapply(aesthetics[themed], eval_tidy, data = element)
 }
 
 #' Graphical units
@@ -270,7 +286,7 @@ NULL
 .stroke <- 96 / 25.4
 
 check_aesthetics <- function(x, n) {
-  ns <- lengths(x)
+  ns <- list_sizes(x)
   good <- ns == 1L | ns == n
 
   if (all(good)) {
@@ -283,9 +299,9 @@ check_aesthetics <- function(x, n) {
   ))
 }
 
-check_linewidth <- function(data, name) {
+fix_linewidth <- function(data, name) {
   if (is.null(data$linewidth) && !is.null(data$size)) {
-    deprecate_soft0("3.4.0", I(paste0("Using the `size` aesthetic with ", name)), I("the `linewidth` aesthetic"))
+    deprecate_warn0("3.4.0", I(paste0("Using the `size` aesthetic with ", name)), I("the `linewidth` aesthetic"))
     data$linewidth <- data$size
   }
   data

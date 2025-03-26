@@ -286,7 +286,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
 
   # Margins
-  plot_margin <- calc_element("plot.margin", theme)
+  plot_margin <- calc_element("plot.margin", theme) %||% margin()
   plot_table  <- gtable_add_padding(plot_table, plot_margin)
 
   if (is.theme_element(theme$plot.background)) {
@@ -311,6 +311,12 @@ ggplot_gtable.ggplot_built <- function(data) {
 ggplotGrob <- function(x) {
   ggplot_gtable(ggplot_build(x))
 }
+
+#' @export
+as.gtable.ggplot <- function(x, ...) ggplotGrob(x)
+
+#' @export
+as.gtable.ggplot_built <- function(x, ...) ggplot_gtable(x)
 
 # Apply function to layer and matching data
 by_layer <- function(f, layers, data, step = NULL) {

@@ -142,7 +142,10 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
   # can tell the difference between continuous and discrete data.
   map = function(self, x, limits = self$get_limits()) {
     scaled <- as.numeric(self$oob(x, limits))
-    ifelse(!is.na(scaled), scaled, self$na.value)
+    if (!anyNA(scaled)) {
+      return(scaled)
+    }
+    vec_assign(scaled, is.na(scaled), self$na.value)
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
@@ -159,11 +162,11 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
       self$secondary.axis$name
     }
   },
-  make_sec_title = function(self, title) {
+  make_sec_title = function(self, ...) {
     if (!is.waiver(self$secondary.axis)) {
-      self$secondary.axis$make_title(title)
+      self$secondary.axis$make_title(...)
     } else {
-      ggproto_parent(ScaleContinuous, self)$make_sec_title(title)
+      ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
     }
   }
 )

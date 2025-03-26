@@ -263,6 +263,53 @@ Facet <- ggproto("Facet", NULL,
   },
   format_strip_labels = function(layout, params) {
     return()
+  },
+  set_panel_size = function(table, theme) {
+
+    new_widths  <- calc_element("panel.widths",  theme)
+    new_heights <- calc_element("panel.heights", theme)
+
+    if (is.null(new_widths) && is.null(new_heights)) {
+      return(table)
+    }
+
+    if (isTRUE(table$respect)) {
+      args <- !c(is.null(new_widths), is.null(new_heights))
+      args <- c("panel.widths", "panel.heights")[args]
+      cli::cli_warn(
+        "Aspect ratios are overruled by {.arg {args}} theme element{?s}."
+      )
+      table$respect <- FALSE
+    }
+
+    rows <- panel_rows(table)
+    cols <- panel_cols(table)
+
+    if (length(new_widths) == 1L && nrow(cols) > 1L) {
+      # Get total size of non-panel widths in between panels
+      extra <- setdiff(seq(min(cols$l), max(cols$r)), union(cols$l, cols$r))
+      extra <- unit(sum(width_cm(table$widths[extra])), "cm")
+      # Distribute width proportionally
+      relative   <- as.numeric(table$widths[cols$l]) # assumed to be simple units
+      new_widths <- (new_widths - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_widths)) {
+      table$widths[cols$l] <- rep(new_widths, length.out = nrow(cols))
+    }
+
+    if (length(new_heights) == 1L && nrow(rows) > 1L) {
+      # Get total size of non-panel heights in between panels
+      extra <- setdiff(seq(min(rows$t), max(rows$t)), union(rows$t, rows$b))
+      extra <- unit(sum(height_cm(table$heights[extra])), "cm")
+      # Distribute height proportionally
+      relative    <- as.numeric(table$heights[rows$t]) # assumed to be simple units
+      new_heights <- (new_heights - extra) * (relative / sum(relative))
+    }
+    if (!is.null(new_heights)) {
+      table$heights[rows$t] <- rep(new_heights, length.out = nrow(rows))
+    }
+
+    table
   }
 )
 
@@ -396,7 +443,7 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 as_facets_list <- function(x) {
-  x <- validate_facets(x)
+  check_vars(x)
   if (is_quosures(x)) {
     x <- quos_auto_name(x)
     return(list(x))
@@ -440,7 +487,7 @@ as_facets_list <- function(x) {
   x
 }
 
-validate_facets <- function(x) {
+check_vars <- function(x) {
   if (is.mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
@@ -452,7 +499,7 @@ validate_facets <- function(x) {
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
     ))
   }
-  x
+  invisible()
 }
 
 # Flatten a list of quosures objects to a quosures object, and compact it
@@ -824,4 +871,96 @@ censor_labels <- function(ranges, layout, labels) {
     ranges[[i]]$draw_labels <- as.list(draw[i, ])
   }
   ranges
+}
+
+map_facet_data <- function(data, layout, params) {
+
+  if (empty(data)) {
+    return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
+  }
+
+  vars <- params$facet %||% c(params$rows, params$cols)
+
+  if (length(vars) == 0) {
+    data$PANEL <- layout$PANEL
+    return(data)
+  }
+
+  grid_layout <- all(c("rows", "cols") %in% names(params))
+  layer_layout <- attr(data, "layout")
+  if (identical(layer_layout, "fixed")) {
+    n <- vec_size(data)
+    data <- vec_rep(data, vec_size(layout))
+    data$PANEL <- vec_rep_each(layout$PANEL, n)
+    return(data)
+  }
+
+  # Compute faceting values
+  facet_vals <- eval_facets(vars, data, params$.possible_columns)
+
+  include_margins <- !isFALSE(params$margin %||% FALSE) &&
+    nrow(facet_vals) == nrow(data) && grid_layout
+  if (include_margins) {
+    # Margins are computed on evaluated faceting values (#1864).
+    facet_vals <- reshape_add_margins(
+      vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
+      list(intersect(names(params$rows), names(facet_vals)),
+           intersect(names(params$cols), names(facet_vals))),
+      params$margins %||% FALSE
+    )
+    # Apply recycling on original data to fit margins
+    # We're using base subsetting here because `data` might have a superclass
+    # that isn't handled well by vctrs::vec_slice
+    data <- data[facet_vals$.index, , drop = FALSE]
+    facet_vals$.index <- NULL
+  }
+
+  # If we need to fix rows or columns, we make the corresponding faceting
+  # variables missing on purpose
+  if (grid_layout) {
+    if (identical(layer_layout, "fixed_rows")) {
+      facet_vals <- facet_vals[setdiff(names(facet_vals), names(params$cols))]
+    }
+    if (identical(layer_layout, "fixed_cols")) {
+      facet_vals <- facet_vals[setdiff(names(facet_vals), names(params$rows))]
+    }
+  }
+
+  # If any faceting variables are missing, add them in by
+  # duplicating the data
+  missing_facets <- setdiff(names(vars), names(facet_vals))
+  if (length(missing_facets) > 0) {
+
+    to_add <- unique0(layout[missing_facets])
+
+    data_rep  <- rep.int(seq_len(nrow(data)), nrow(to_add))
+    facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
+
+    data <- unrowname(data[data_rep, , drop = FALSE])
+    facet_vals <- unrowname(vec_cbind(
+      unrowname(facet_vals[data_rep, , drop = FALSE]),
+      unrowname(to_add[facet_rep, , drop = FALSE])
+    ))
+  }
+
+  if (nrow(facet_vals) < 1) {
+    # Add PANEL variable
+    data$PANEL <- NO_PANEL
+    return(data)
+  }
+
+  facet_vals[] <- lapply(facet_vals, as_unordered_factor)
+  facet_vals[] <- lapply(facet_vals, addNA, ifany = TRUE)
+  layout[] <- lapply(layout, as_unordered_factor)
+
+  # Add PANEL variable
+  keys <- join_keys(facet_vals, layout, by = names(vars))
+  data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
+
+  # Filter panels when layer_layout is an integer
+  if (is_integerish(layer_layout)) {
+    data <- vec_slice(data, data$PANEL %in% layer_layout)
+  }
+
+  data
 }
