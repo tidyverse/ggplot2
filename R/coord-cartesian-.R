@@ -102,8 +102,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     self$range(panel_params)
   },
 
-  transform = function(self, data, panel_params) {
-    reverse <- self$reverse %||% "none"
+  transform = function(data, panel_params) {
+    reverse <- panel_params$reverse %||% "none"
     x <- panel_params$x[[switch(reverse, xy = , x = "reverse", "rescale")]]
     y <- panel_params$y[[switch(reverse, xy = , y = "reverse", "rescale")]]
     data <- transform_position(data, x, y)
@@ -113,7 +113,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
       view_scales_from_scale(scale_x, self$limits$x, params$expand[c(4, 2)]),
-      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)])
+      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)]),
+      reverse = self$reverse %||% "none"
     )
   },
 
