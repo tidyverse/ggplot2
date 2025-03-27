@@ -86,7 +86,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     target_crs <- panel_params$crs
 
     # CoordSf doesn't use the viewscale rescaling, so we just flip ranges
-    reverse <- self$reverse %||% "none"
+    reverse <- panel_params$reverse %||% "none"
     x_range <- switch(reverse, xy = , x = rev, identity)(panel_params$x_range)
     y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y_range)
 
@@ -268,7 +268,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       y_range = y_range,
       crs = params$crs,
       default_crs = params$default_crs,
-      !!!viewscales
+      !!!viewscales,
+      reverse = self$reverse %||% "none"
     )
 
     # Rescale graticule for panel grid
