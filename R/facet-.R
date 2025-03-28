@@ -872,3 +872,95 @@ censor_labels <- function(ranges, layout, labels) {
   }
   ranges
 }
+
+map_facet_data <- function(data, layout, params) {
+
+  if (empty(data)) {
+    return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
+  }
+
+  vars <- params$facet %||% c(params$rows, params$cols)
+
+  if (length(vars) == 0) {
+    data$PANEL <- layout$PANEL
+    return(data)
+  }
+
+  grid_layout <- all(c("rows", "cols") %in% names(params))
+  layer_layout <- attr(data, "layout")
+  if (identical(layer_layout, "fixed")) {
+    n <- vec_size(data)
+    data <- vec_rep(data, vec_size(layout))
+    data$PANEL <- vec_rep_each(layout$PANEL, n)
+    return(data)
+  }
+
+  # Compute faceting values
+  facet_vals <- eval_facets(vars, data, params$.possible_columns)
+
+  include_margins <- !isFALSE(params$margin %||% FALSE) &&
+    nrow(facet_vals) == nrow(data) && grid_layout
+  if (include_margins) {
+    # Margins are computed on evaluated faceting values (#1864).
+    facet_vals <- reshape_add_margins(
+      vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
+      list(intersect(names(params$rows), names(facet_vals)),
+           intersect(names(params$cols), names(facet_vals))),
+      params$margins %||% FALSE
+    )
+    # Apply recycling on original data to fit margins
+    # We're using base subsetting here because `data` might have a superclass
+    # that isn't handled well by vctrs::vec_slice
+    data <- data[facet_vals$.index, , drop = FALSE]
+    facet_vals$.index <- NULL
+  }
+
+  # If we need to fix rows or columns, we make the corresponding faceting
+  # variables missing on purpose
+  if (grid_layout) {
+    if (identical(layer_layout, "fixed_rows")) {
+      facet_vals <- facet_vals[setdiff(names(facet_vals), names(params$cols))]
+    }
+    if (identical(layer_layout, "fixed_cols")) {
+      facet_vals <- facet_vals[setdiff(names(facet_vals), names(params$rows))]
+    }
+  }
+
+  # If any faceting variables are missing, add them in by
+  # duplicating the data
+  missing_facets <- setdiff(names(vars), names(facet_vals))
+  if (length(missing_facets) > 0) {
+
+    to_add <- unique0(layout[missing_facets])
+
+    data_rep  <- rep.int(seq_len(nrow(data)), nrow(to_add))
+    facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
+
+    data <- unrowname(data[data_rep, , drop = FALSE])
+    facet_vals <- unrowname(vec_cbind(
+      unrowname(facet_vals[data_rep, , drop = FALSE]),
+      unrowname(to_add[facet_rep, , drop = FALSE])
+    ))
+  }
+
+  if (nrow(facet_vals) < 1) {
+    # Add PANEL variable
+    data$PANEL <- NO_PANEL
+    return(data)
+  }
+
+  facet_vals[] <- lapply(facet_vals, as_unordered_factor)
+  facet_vals[] <- lapply(facet_vals, addNA, ifany = TRUE)
+  layout[] <- lapply(layout, as_unordered_factor)
+
+  # Add PANEL variable
+  keys <- join_keys(facet_vals, layout, by = names(vars))
+  data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
+
+  # Filter panels when layer_layout is an integer
+  if (is_integerish(layer_layout)) {
+    data <- vec_slice(data, data$PANEL %in% layer_layout)
+  }
+
+  data
+}

@@ -69,3 +69,22 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
     c(TRUE, FALSE, FALSE)
   )
 })
+
+test_that("stats can modify persistent attributes", {
+
+  StatTest <- ggproto(
+    "StatTest", Stat,
+    compute_layer = function(self, data, params, layout) {
+      attr(data, "foo") <- "bar"
+      data
+    }
+  )
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point(stat = StatTest) +
+    facet_wrap(~cyl)
+
+  ld <- layer_data(p)
+  expect_equal(attr(ld, "foo"), "bar")
+
+})

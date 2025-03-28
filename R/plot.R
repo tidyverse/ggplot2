@@ -178,18 +178,17 @@ plot_clone <- function(plot) {
 #' @name print.ggplot
 #' @aliases print.ggplot2::ggplot plot.ggplot2::ggplot
 #' @examples
-#' colours <- list(~class, ~drv, ~fl)
+#' colours <- c("class", "drv", "fl")
 #'
 #' # Doesn't seem to do anything!
 #' for (colour in colours) {
-#'   ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+#'   ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
 #'     geom_point()
 #' }
 #'
-#' # Works when we explicitly print the plots
 #' for (colour in colours) {
-#'   print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
-#'     geom_point())
+#'   print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
+#'           geom_point())
 #' }
 `print.ggplot2::ggplot` <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)

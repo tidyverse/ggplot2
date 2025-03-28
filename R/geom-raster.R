@@ -44,7 +44,10 @@ geom_raster <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
-  default_aes = aes(fill = from_theme(col_mix(ink, paper, 0.2)), alpha = NA),
+  default_aes = aes(
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    alpha = NA
+  ),
   non_missing_aes = c("fill", "xmin", "xmax", "ymin", "ymax"),
   required_aes = c("x", "y"),
 
@@ -124,5 +127,5 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       default.units = "native", interpolate = interpolate
     )
   },
-  draw_key = draw_key_rect
+  draw_key = draw_key_polygon
 )

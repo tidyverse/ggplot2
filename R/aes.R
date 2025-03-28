@@ -280,7 +280,7 @@ is_position_aes <- function(vars) {
 #'
 #' @export
 aes_ <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_()",
     details = "Please use tidy evaluation idioms with `aes()`"
@@ -307,7 +307,7 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_string()",
     details = c(
@@ -348,7 +348,9 @@ aes_all <- function(vars) {
 
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
-  class_mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
+  x <- class_mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
+  class(x) <- union("unlabelled", class(x))
+  x
 }
 
 #' Automatic aesthetic mapping
@@ -361,29 +363,7 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  deprecate_warn0("2.0.0", "aes_auto()")
-
-  # detect names of data
-  if (is.null(data)) {
-    cli::cli_abort("{.fn aes_auto} requires a {.cls data.frame} or names of data.frame.")
-  } else if (is.data.frame(data)) {
-    vars <- names(data)
-  } else {
-    vars <- data
-  }
-
-  # automatically detected aes
-  vars <- intersect(ggplot_global$all_aesthetics, vars)
-  names(vars) <- vars
-  aes <- lapply(vars, function(x) parse(text = x)[[1]])
-
-  # explicitly defined aes
-  if (length(match.call()) > 2) {
-    args <- as.list(match.call()[-1])
-    aes <- c(aes, args[names(args) != "data"])
-  }
-
-  class_mapping(rename_aes(aes))
+  lifecycle::deprecate_stop("2.0.0", "aes_auto()")
 }
 
 mapped_aesthetics <- function(x) {

@@ -93,6 +93,67 @@ test_that("wrap and grid can facet by a POSIXct variable", {
   expect_equal(loc_grid_row$PANEL, factor(1:3))
 })
 
+test_that("wrap: layer layout is respected", {
+
+  df <- expand.grid(x = LETTERS[1:2], y = 1:3)
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point(colour = "red", layout = "fixed") +
+    geom_point() +
+    geom_point(colour = "blue", layout = 5) +
+    facet_wrap(~ x  + y)
+  b <- ggplot_build(p)
+
+  expect_equal(
+    table(get_layer_data(b, i = 1L)$PANEL),
+    table(rep(1:6, 6))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 2L)$PANEL),
+    table(1:6)
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 3L)$PANEL),
+    table(factor(5, levels = 1:6))
+  )
+})
+
+test_that("grid: layer layout is respected", {
+
+  df <- expand.grid(x = LETTERS[1:2], y = 1:3)
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point(colour = "red", layout = "fixed") +
+    geom_point(colour = "green", layout = "fixed_rows") +
+    geom_point(colour = "purple", layout = "fixed_cols") +
+    geom_point() +
+    geom_point(colour = "blue", layout = 5) +
+    facet_grid(x ~ y)
+  b <- ggplot_build(p)
+
+  expect_equal(
+    table(get_layer_data(b, i = 1L)$PANEL),
+    table(rep(1:6, 6))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 2L)$PANEL),
+    table(rep(1:6, 3))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 3L)$PANEL),
+    table(rep(1:6, 2))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 4L)$PANEL),
+    table(1:6)
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 5L)$PANEL),
+    table(factor(5, levels = 1:6))
+  )
+})
+
+
 # Missing behaviour ----------------------------------------------------------
 
 a3 <- data_frame(

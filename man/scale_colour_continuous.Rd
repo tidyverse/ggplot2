@@ -11,6 +11,7 @@
 \usage{
 scale_colour_continuous(
   ...,
+  palette = NULL,
   aesthetics = "colour",
   guide = "colourbar",
   na.value = "grey50",
@@ -19,6 +20,7 @@ scale_colour_continuous(
 
 scale_fill_continuous(
   ...,
+  palette = NULL,
   aesthetics = "fill",
   guide = "colourbar",
   na.value = "grey50",
@@ -27,6 +29,7 @@ scale_fill_continuous(
 
 scale_colour_binned(
   ...,
+  palette = NULL,
   aesthetics = "colour",
   guide = "coloursteps",
   na.value = "grey50",
@@ -35,6 +38,7 @@ scale_colour_binned(
 
 scale_fill_binned(
   ...,
+  palette = NULL,
   aesthetics = "fill",
   guide = "coloursteps",
   na.value = "grey50",
@@ -43,6 +47,15 @@ scale_fill_binned(
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
+
+\item{palette}{One of the following:
+\itemize{
+\item \code{NULL} for the default palette stored in the theme.
+\item a character vector of colours.
+\item a single string naming a palette.
+\item a palette function that when called with a numeric vector with values
+between 0 and 1 returns the corresponding output values.
+}}
 
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
 
@@ -107,26 +120,28 @@ and references therein.
 }
 
 \examples{
-v <- ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
-geom_tile()
-v
+# A standard plot
+p <- ggplot(mpg, aes(displ, hwy, colour = cty)) +
+  geom_point()
 
-v + scale_fill_continuous(type = "gradient")
-v + scale_fill_continuous(type = "viridis")
+# You can use the scale to give a palette directly
+p + scale_colour_continuous(palette = c("#FEE0D2", "#FC9272", "#DE2D26"))
 
-# The above are equivalent to
-v + scale_fill_gradient()
-v + scale_fill_viridis_c()
+# The default colours are encoded into the theme
+p + theme(palette.colour.continuous = c("#DEEBF7", "#9ECAE1", "#3182BD"))
 
-# To make a binned version of this plot
-v + scale_fill_binned(type = "viridis")
+# You can globally set default colour palette via the theme
+old <- update_theme(palette.colour.continuous = c("#E5F5E0", "#A1D99B", "#31A354"))
 
-# Set a different default scale using the options
-# mechanism
-tmp <- getOption("ggplot2.continuous.fill") # store current setting
-options(ggplot2.continuous.fill = scale_fill_distiller)
-v
-options(ggplot2.continuous.fill = tmp) # restore previous setting
+# Plot now shows new global default
+p
+
+# The default binned colour scale uses the continuous palette
+p + scale_colour_binned() +
+  theme(palette.colour.continuous = c("#EFEDF5", "#BCBDDC", "#756BB1"))
+
+# Restoring the previous theme
+theme_set(old)
 }
 \seealso{
 \code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_viridis_c]{scale_colour_viridis_c()}},

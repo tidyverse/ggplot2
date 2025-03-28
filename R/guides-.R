@@ -491,10 +491,6 @@ Guides <- ggproto(
       character(1), USE.NAMES = FALSE
     )
 
-    # Populate key sizes
-    theme$legend.key.width  <- calc_element("legend.key.width",  theme)
-    theme$legend.key.height <- calc_element("legend.key.height", theme)
-
     grobs <- self$draw(theme, positions, theme$legend.direction)
     keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
     grobs <- grobs[keep]
