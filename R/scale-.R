@@ -1454,5 +1454,5 @@ trans_support_nbreaks <- function(trans) {
 }
 
 allow_lambda <- function(x) {
-  if (is_formula(x)) as_function(x) else x
+  if (is_formula(x, lhs = FALSE)) as_function(x) else x
 }
