@@ -49,7 +49,11 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
 
-  expect_snapshot(theme_grey() + "asdf", error = TRUE)
+  expect_snapshot(
+    theme_grey() + "asdf",
+    error = TRUE,
+    variant = substr(as.character(getRversion()), start = 1, stop = 3)
+  )
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
@@ -114,8 +118,6 @@ test_that("replacing theme elements with %+replace% operator works", {
   # Adding empty theme() has no effect
   t <- theme_grey() %+replace% theme()
   expect_identical(t, theme_grey())
-
-  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("calculating theme element inheritance works", {
