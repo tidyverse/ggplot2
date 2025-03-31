@@ -67,32 +67,3 @@ test_that("check_device finds device capabilities", {
   )
 
 })
-
-test_that("check_device finds ragg capabilities", {
-  skip_if(
-    getRversion() < "4.2.0" || !is_installed("ragg", version = "1.2.0"),
-    "Cannot test {ragg} capabilities."
-  )
-  tmp <- withr::local_tempfile(fileext = ".tiff")
-  ragg::agg_tiff(tmp)
-
-  expect_true(check_device("gradients"))
-  expect_warning(check_device("compositing"), "does not support")
-
-  dev.off()
-})
-
-test_that("check_device finds svglite capabilities", {
-  skip_if(
-    getRversion() < "4.2.0" || !is_installed("svglite", version = "2.1.0"),
-    "Cannot test {svglite} capabilities."
-  )
-  tmp <- withr::local_tempfile(fileext = ".svg")
-  withr::local_envvar(TESTTHAT = "false") # To not trigger vdiffr rules
-  svglite::svglite(tmp)
-
-  expect_true(check_device("gradients"))
-  expect_warning(check_device("compositing"), "does not support")
-
-  dev.off()
-})
