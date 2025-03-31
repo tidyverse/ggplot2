@@ -24,8 +24,6 @@
 #' @param e1 An object of class [ggplot()] or a [theme()].
 #' @param e2 A plot component, as described below.
 #' @seealso [theme()]
-#' @export
-#' @method + gg
 #' @rdname gg-add
 #' @examples
 #' base <-
@@ -39,7 +37,7 @@
 #' # Alternatively, you can add multiple components with a list.
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
-"+.gg" <- function(e1, e2) {
+add_gg <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
             "Cannot use {.code +} with a single argument.",
@@ -52,12 +50,18 @@
   e2name <- deparse(substitute(e2))
 
   if      (is.theme(e1))  add_theme(e1, e2, e2name)
+  # The `add_ggplot()` branch here is for backward compatibility with R < 4.3.0
+  else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
     cli::cli_abort(c(
       "Cannot add {.cls ggproto} objects together.",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"
     ))
   }
+}
+
+if (getRversion() < "4.3.0") {
+  S7::method(`+`, list(class_S3_gg, S7::class_any)) <- add_gg
 }
 
 S7::method(`+`, list(class_ggplot, S7::class_any)) <- function(e1, e2) {
@@ -73,7 +77,13 @@ S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
 
 #' @rdname gg-add
 #' @export
-"%+%" <- function(e1, e2) e1 + e2
+"%+%" <- function(e1, e2) {
+  if (getRversion() < "4.3.0") {
+    add_gg(e1, e2)
+  } else {
+    `+`(e1, e2)
+  }
+}
 
 add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)

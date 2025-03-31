@@ -30,6 +30,9 @@ on_load(
     vars <- dplyr::vars
   }
 )
+on_load(
+  if (getRversion() > "4.3.0") registerS3method("+", "gg", add_gg)
+)
 on_load(S7::methods_register())
 .onLoad <- function(...) {
   run_on_load()
