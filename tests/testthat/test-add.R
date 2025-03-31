@@ -1,4 +1,4 @@
-test_that("mapping class is preserved when adding uneval objects", {
+test_that("mapping class is preserved when adding mapping objects", {
   p <- ggplot(mtcars) + aes(wt, mpg)
-  expect_identical(class(p$mapping), "uneval")
+  expect_s7_class(p@mapping, class_mapping)
 })

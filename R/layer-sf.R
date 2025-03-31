@@ -45,7 +45,7 @@ LayerSf <- ggproto("LayerSf", Layer,
     # automatically determine the name of the geometry column
     # and add the mapping if it doesn't exist
     if ((isTRUE(self$inherit.aes) && is.null(self$computed_mapping$geometry) &&
-         is.null(plot$computed_mapping$geometry)) ||
+         is.null(self$computed_mapping$geometry)) ||
         (!isTRUE(self$inherit.aes) && is.null(self$computed_mapping$geometry))) {
       if (is_sf(data)) {
         geometry_col <- attr(data, "sf_column")
