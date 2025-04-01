@@ -110,6 +110,7 @@ guides <- function(...) {
 }
 
 #' @export
+#' @rdname is_tests
 is_guides <- function(x) inherits(x, "Guides")
 
 update_guides <- function(p, guides) {

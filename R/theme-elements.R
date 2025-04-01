@@ -21,6 +21,8 @@
 #'   a blank element among its parents will cause this element to be blank as
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
+#' @param type For testing elements: the type of element to expect. One of
+#'   `"blank"`, `"rect"`, `"line"` or `"text"`.
 #' @return An S3 object of class `element`, `rel`, or `margin`.
 #' @examples
 #' plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
@@ -145,6 +147,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 #' @export
+#' @rdname element
 is_element <- function(x, type = "any") {
   switch(
     type %||% "any",

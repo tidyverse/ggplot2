@@ -5,6 +5,7 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
+\alias{is_element}
 \alias{rel}
 \alias{margin}
 \title{Theme elements}
@@ -46,6 +47,8 @@ element_text(
   debug = NULL,
   inherit.blank = FALSE
 )
+
+is_element(x, type = "any")
 
 rel(x)
 
@@ -96,6 +99,9 @@ rectangle behind the complete text area, and a point where each label
 is anchored.}
 
 \item{x}{A single number specifying size relative to parent element.}
+
+\item{type}{For testing elements: the type of element to expect. One of
+\code{"blank"}, \code{"rect"}, \code{"line"} or \code{"text"}.}
 
 \item{t, r, b, l}{Dimensions of each margin. (To remember order, think trouble).}
 

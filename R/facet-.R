@@ -240,9 +240,11 @@ vars <- function(...) {
 }
 
 #' @export
+#' @rdname is_tests
 is_facet <- function(x) inherits(x, "Facet")
 
 #' @export
+#' @rdname is_tests
 #' @usage is.facet(x) # Deprecated
 is.facet <- function(x) {
   deprecate_soft0("3.5.2", "is.facet()", "is_facet()")

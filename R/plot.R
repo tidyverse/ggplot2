@@ -160,9 +160,11 @@ plot_clone <- function(plot) {
 #' @param x An object to test
 #' @keywords internal
 #' @export
+#' @name is_tests
 is_ggplot <- function(x) inherits(x, "ggplot")
 
 #' @export
+#' @rdname is_tests
 #' @usage is.ggplot(x) # Deprecated
 is.ggplot <- function(x) {
   deprecate_soft0("3.5.2", "is.ggplot", "is_ggplot")

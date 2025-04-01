@@ -10,6 +10,7 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
 }
 
 #' @export
+#' @rdname is_tests
 is_margin <- function(x) {
   inherits(x, "margin")
 }

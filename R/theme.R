@@ -866,9 +866,11 @@ is.subclass <- function(x, y) {
 
 
 #' @export
+#' @rdname is_tests
 is_theme <- function(x) inherits(x, "theme")
 
 #' @export
+#' @rdname is_tests
 #' @usage is.theme(x) # Deprecated
 is.theme <- function(x) {
   deprecate_soft0("3.5.2", "is.theme", "is_theme")

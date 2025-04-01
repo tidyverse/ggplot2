@@ -70,6 +70,7 @@ Position <- ggproto("Position",
 )
 
 #' @export
+#' @rdname is_tests
 is_position <- function(x) inherits(x, "Position")
 
 #' Convenience function to transform all position variables.

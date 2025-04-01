@@ -463,6 +463,7 @@ Layer <- ggproto("Layer", NULL,
 )
 
 #' @export
+#' @rdname is_tests
 is_layer <- function(x) inherits(x, "Layer")
 
 check_subclass <- function(x, subclass,

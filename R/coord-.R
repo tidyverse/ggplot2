@@ -205,9 +205,11 @@ Coord <- ggproto("Coord",
 )
 
 #' @export
+#' @rdname is_tests
 is_coord <- function(x) inheritS(x, "Coord")
 
 #' @export
+#' @rdname is_tests
 #' @usage is.Coord(x) # Deprecated
 is.Coord <- function(x) {
   deprecate_soft0("3.5.2", "is.Coord()", "is_coord()")

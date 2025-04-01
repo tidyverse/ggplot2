@@ -107,9 +107,11 @@ ggproto_parent <- function(parent, self) {
 }
 
 #' @export
+#' @rdname is_tests
 is_ggproto <- function(x) inherits(x, "ggproto")
 
 #' @export
+#' @rdname is_tests
 #' @usage is.ggproto(x) # Deprecated
 is.ggproto <- function(x) {
   deprecate_soft0("3.5.2", "is.ggproto()", "is_ggproto()")

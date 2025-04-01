@@ -67,6 +67,7 @@ new_guide <- function(..., available_aes = "any", super) {
 }
 
 #' @export
+#' @rdname is_tests
 is_guide <- function(x) inherits(x, "Guide")
 
 #' @section Guides:
