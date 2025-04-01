@@ -239,13 +239,15 @@ vars <- function(...) {
   quos(...)
 }
 
-
-#' Is this object a faceting specification?
-#'
-#' @param x object to test
-#' @keywords internal
 #' @export
-is.facet <- function(x) inherits(x, "Facet")
+is_facet <- function(x) inherits(x, "Facet")
+
+#' @export
+#' @usage is.facet(x) # Deprecated
+is.facet <- function(x) {
+  deprecate_soft0("3.5.2", "is.facet()", "is_facet()")
+  is_facet(x)
+}
 
 # A "special" value, currently not used but could be used to determine
 # if faceting is active
