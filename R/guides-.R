@@ -109,9 +109,12 @@ guides <- function(...) {
   NULL
 }
 
+#' @export
+is_guides <- function(x) inherits(x, "Guides")
+
 update_guides <- function(p, guides) {
   p <- plot_clone(p)
-  if (inherits(p$guides, "Guides")) {
+  if (is_guides(p$guides)) {
     old <- p$guides
     new <- ggproto(NULL, old)
     new$add(guides)
@@ -151,7 +154,7 @@ Guides <- ggproto(
     if (is.null(guides)) {
       return(invisible())
     }
-    if (inherits(guides, "Guides")) {
+    if (is_guides(guides)) {
       guides <- guides$guides
     }
     self$guides <- defaults(guides, self$guides)
