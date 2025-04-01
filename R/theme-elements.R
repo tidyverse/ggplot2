@@ -144,6 +144,18 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @export
+is_element <- function(x, type = any) {
+  switch(
+    type %||% "any",
+    any   = inherits(x, "element"),
+    rect  = inherits(x, "element_rect"),
+    line  = inherits(x, "element_line"),
+    text  = inherits(x, "element_text"),
+    blank = inherits(x, "element_blank"),
+    FALSE
+  )
+}
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
