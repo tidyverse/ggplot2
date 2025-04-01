@@ -88,7 +88,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
 
   super <- find_super()
   if (!is.null(super)) {
-    check_object(super, is.ggproto, "a {.cls ggproto} object", arg = "_inherit")
+    check_object(super, is_ggproto, "a {.cls ggproto} object", arg = "_inherit")
     e$super <- find_super
     class(e) <- c(`_class`, class(super))
   } else {
