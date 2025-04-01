@@ -153,7 +153,7 @@ GuideAxisTheta <- ggproto(
     }
 
     offset <- max(unit(0, "pt"), elements$major_length, elements$minor_length)
-    elements$offset <- offset + max(elements$text$margin %||% unit(0, "pt"))
+    elements$offset <- offset + max(elements$text@margin %||% unit(0, "pt"))
     elements
   },
 
@@ -183,7 +183,7 @@ GuideAxisTheta <- ggproto(
 
   build_labels = function(key, elements, params) {
 
-    if (inherits(elements$text, "element_blank")) {
+    if (S7::S7_inherits(elements$text, element_blank)) {
       return(zeroGrob())
     }
 
@@ -197,7 +197,7 @@ GuideAxisTheta <- ggproto(
 
     # Resolve text angle
     if (is.waiver(params$angle) || is.null(params$angle)) {
-      angle <- elements$text$angle
+      angle <- elements$text@angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
     }
@@ -267,20 +267,20 @@ GuideAxisTheta <- ggproto(
     key <- params$key
     key <- vec_slice(key, !is.na(key$.label) & nzchar(key$.label))
     labels <- validate_labels(key$.label)
-    if (length(labels) == 0 || inherits(elements$text, "element_blank")) {
+    if (length(labels) == 0 || S7::S7_inherits(elements$text, element_blank)) {
       return(list(offset = offset))
     }
 
     # Resolve text angle
     if (is.waiver(params$angle %||% waiver())) {
-      angle <- elements$text$angle
+      angle <- elements$text@angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
     }
     angle <- key$theta + deg2rad(angle)
 
     # Set margin
-    margin <- rep(max(elements$text$margin), length.out = 4)
+    margin <- rep(max(elements$text@margin), length.out = 4)
 
     # Measure size of each individual label
     single_labels <- lapply(labels, function(lab) {
@@ -364,7 +364,7 @@ GuideAxisTheta <- ggproto(
 
 theta_tickmarks <- function(key, element, length, offset = NULL) {
   n_breaks <- nrow(key)
-  if (n_breaks < 1 || inherits(element, "element_blank")) {
+  if (n_breaks < 1 || S7::S7_inherits(element, element_blank)) {
     return(zeroGrob())
   }
 

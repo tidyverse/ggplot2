@@ -475,12 +475,13 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (is.theme_element(el) && !inherits(el, "element_blank")) {
-        el$inherit.blank <- TRUE
+      if (is.theme_element(el) && S7::prop_exists(el, "inherit.blank")) {
+        S7::prop(el, "inherit.blank") <- TRUE
       }
       el
     })
   }
+
   structure(
     elements,
     class = c("theme", "gg"),
@@ -742,7 +743,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
   # and otherwise we don't inherit anything from parents
-  if (inherits(el_out, "element_blank")) {
+  if (S7::S7_inherits(el_out, element_blank)) {
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
@@ -756,9 +757,17 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in element_tree
-  if (!is.null(el_out) &&
-      !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
+  if (!is.null(el_out)) {
+    class <- element_tree[[element]]$class
+    if (inherits(class, "S7_class")) {
+      if (!S7::S7_inherits(el_out, class)) {
+        cli::cli_abort("Theme element {.var {element}} must have class {.cls {class@name}}.", call = call)
+      }
+    } else {
+      if (!inherits(el_out, class)) {
+        cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
+      }
+    }
   }
 
   # Get the names of parents from the inheritance tree
@@ -769,15 +778,23 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
-    nullprops <- vapply(el_out, is.null, logical(1))
+    if (inherits(el_out, "ggplot2::element")) {
+      nullprops <- lengths(S7::props(el_out)) == 0
+    } else {
+      nullprops <- vapply(el_out, is.null, logical(1))
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties, return element as is
     }
 
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
-    nullprops <- vapply(el_out, is.null, logical(1))
-    if (inherits(el_out, "element_geom")) {
+    if (is.theme_element(el_out)) {
+      nullprops <- lengths(S7::props(el_out)) == 0
+    } else {
+      nullprops <- vapply(el_out, is.null, logical(1))
+    }
+    if (S7::S7_inherits(el_out, element_geom)) {
       # Geom elements are expected to have NULL fill/colour, so allow these
       # to be missing
       nullprops[c("colour", "fill")] <- FALSE
@@ -791,15 +808,22 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # Calculate the parent objects' inheritance
   if (verbose) cli::cli_inform("{pnames}")
+
+  # once we've started skipping blanks, we continue doing so until the end of the
+  # recursion; we initiate skipping blanks if we encounter an element that
+  # doesn't inherit blank.
+  skip_blank <- skip_blank ||
+    (!is.null(el_out) &&
+       !isTRUE(S7::S7_inherits(el_out) &&
+               S7::prop_exists(el_out, "inherit.blank") &&
+               el_out@inherit.blank))
+
   parents <- lapply(
     pnames,
     calc_element,
     theme,
     verbose = verbose,
-    # once we've started skipping blanks, we continue doing so until the end of the
-    # recursion; we initiate skipping blanks if we encounter an element that
-    # doesn't inherit blank.
-    skip_blank = skip_blank || (!is.null(el_out) && !isTRUE(el_out$inherit.blank)),
+    skip_blank = skip_blank,
     call = call
   )
 
@@ -825,69 +849,63 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 #' # Adopt size but ignore colour
 #' merge_element(new, old)
 #'
-merge_element <- function(new, old) {
-  UseMethod("merge_element")
-}
+merge_element <- S7::new_generic("merge_element", c("new", "old"))
 
-#' @rdname merge_element
-#' @export
-merge_element.default <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
-    # If old is NULL or element_blank, then just return new
-    return(new)
-  } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
-             is.logical(new) || is.function(new)) {
-    # If new is NULL, or a string, numeric vector, unit, or logical, just return it
-    return(new)
+S7::method(merge_element, list(S7::class_any, S7::class_any))  <-
+  function(new, old, ...) {
+    if (is.null(old) || S7::S7_inherits(old, element_blank)) {
+      # If old is NULL or element_blank, then just return new
+      return(new)
+    } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
+               is.logical(new) || is.function(new)) {
+      # If new is NULL, or a string, numeric vector, unit, or logical, just return it
+      return(new)
+    }
+
+    # otherwise we can't merge
+    cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
   }
 
-  # otherwise we can't merge
-  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
-}
-
-#' @rdname merge_element
-#' @export
-merge_element.element_blank <- function(new, old) {
-  # If new is element_blank, just return it
-  new
-}
-
-#' @rdname merge_element
-#' @export
-merge_element.element <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
-    # If old is NULL or element_blank, then just return new
-    return(new)
+S7::method(merge_element, list(element_blank, S7::class_any)) <-
+  function(new, old, ...) {
+    # If new is element_blank, just return it
+    new
   }
 
-  # actual merging can only happen if classes match
-  if (!inherits(new, class(old)[1])) {
-    cli::cli_abort("Only elements of the same class can be merged.")
-  }
+S7::method(merge_element, list(element, S7::class_any)) <-
+  function(new, old, ...) {
+    if (is.null(old) || S7::S7_inherits(old, element_blank)) {
+      # If old is NULL or element_blank, then just return new
+      return(new)
+    }
 
-  # Override NULL properties of new with the values in old
-  # Get logical vector of NULL properties in new
-  idx <- vapply(new, is.null, logical(1))
-  # Get the names of TRUE items
-  idx <- names(idx[idx])
+    # actual merging can only happen if classes match
+    if (!inherits(new, class(old)[1])) {
+      cli::cli_abort("Only elements of the same class can be merged.")
+    }
 
-  # Update non-NULL items
-  new[idx] <- old[idx]
+    # Override NULL properties of new with the values in old
+    # Get logical vector of NULL properties in new
+    idx <- lengths(S7::props(new)) == 0
+    # Get the names of TRUE items
+    idx <- names(idx[idx])
 
-  new
+    # Update non-NULL items
+    S7::props(new)[idx] <- S7::props(old, idx)
+
+    new
 }
 
-#' @rdname merge_element
-#' @export
-merge_element.margin <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
-    return(new)
+S7::method(merge_element, list(margin, S7::class_any)) <-
+  function(new, old, ...) {
+    if (is.null(old) || S7::S7_inherits(old, element_blank)) {
+      return(new)
+    }
+    if (anyNA(new)) {
+      new[is.na(new)] <- old[is.na(new)]
+    }
+    new
   }
-  if (anyNA(new)) {
-    new[is.na(new)] <- old[is.na(new)]
-  }
-  new
-}
 
 #' Combine the properties of two elements
 #'
@@ -899,7 +917,7 @@ merge_element.margin <- function(new, old) {
 combine_elements <- function(e1, e2) {
 
   # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || inherits(e1, "element_blank")) {
+  if (is.null(e2) || S7::S7_inherits(e1, element_blank)) {
     return(e1)
   }
 
@@ -922,7 +940,7 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
-  if (inherits(e1, "margin") && inherits(e2, "margin")) {
+  if (is.margin(e1) && is.margin(e2)) {
     if (anyNA(e2)) {
       e2[is.na(e2)] <- unit(0, "pt")
     }
@@ -932,14 +950,14 @@ combine_elements <- function(e1, e2) {
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!inherits(e1, "element") && !inherits(e2, "element")) {
+  if (!is.theme_element(e1) && !is.theme_element(e2)) {
     return(e1)
   }
 
   # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
   # otherwise ignore e2
-  if (inherits(e2, "element_blank")) {
-    if (e1$inherit.blank) {
+  if (S7::S7_inherits(e2, element_blank)) {
+    if (S7::prop_exists(e1, "inherit.blank") && e1@inherit.blank) {
       return(e2)
     } else {
       return(e1)
@@ -947,29 +965,29 @@ combine_elements <- function(e1, e2) {
   }
 
   # If e1 has any NULL properties, inherit them from e2
-  n <- names(e1)[vapply(e1, is.null, logical(1))]
-  e1[n] <- e2[n]
+  n <- S7::prop_names(e1)[lengths(S7::props(e1)) == 0]
+  S7::props(e1)[n] <- S7::props(e2)[n]
 
   # Calculate relative sizes
-  if (is.rel(e1$size)) {
-    e1$size <- e2$size * unclass(e1$size)
+  if (S7::prop_exists(e1, "size") && is.rel(e1@size)) {
+    e1@size <- e2@size * unclass(e1@size)
   }
 
   # Calculate relative linewidth
-  if (is.rel(e1$linewidth)) {
-    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+  if (S7::prop_exists(e1, "linewidth") && is.rel(e1@linewidth)) {
+    e1@linewidth <- e2@linewidth * unclass(e1@linewidth)
   }
 
-  if (inherits(e1, "element_text")) {
-    e1$margin <- combine_elements(e1$margin, e2$margin)
+  if (S7::S7_inherits(e1, element_text)) {
+    e1@margin <- combine_elements(e1@margin, e2@margin)
   }
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
   is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
   is_subclass <- is_subclass && length(setdiff(class(e2), class(e1)) > 0)
   if (is_subclass) {
-    new <- defaults(e1, e2)
-    e2[names(new)] <- new
+    new <- defaults(S7::props(e1), S7::props(e2))
+    S7::props(e2)[names(new)] <- new
     return(e2)
   }
 
