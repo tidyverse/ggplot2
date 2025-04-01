@@ -21,7 +21,7 @@
 
 # coord_sf() throws error when limits are badly specified
 
-    `xlim` must be a vector of length 2, not a <ScaleContinuousPosition/ScaleContinuous/Scale/ggproto/gg> object.
+    `xlim` must be a vector of length 2, not a <ScaleContinuousPosition> object.
 
 ---
 
