@@ -87,7 +87,6 @@ element <- S7::new_class("element", abstract = TRUE)
 #' @rdname element
 element_blank <- S7::new_class("element_blank", parent = element)
 
-
 # All properties are listed here so they can easily be recycled in the different
 # element classes
 #' @include properties.R
@@ -122,7 +121,7 @@ element_rect <- S7::new_class(
                          linetype = NULL, color = NULL, inherit.blank = FALSE,
                          size = deprecated()){
     if (lifecycle::is_present(size)) {
-      deprecate_soft0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
+      deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
     }
     S7::new_object(
@@ -148,7 +147,7 @@ element_line <- S7::new_class(
                          lineend = NULL, color = NULL, arrow = NULL,
                          arrow.fill = NULL, inherit.blank = FALSE, size = deprecated()) {
     if (lifecycle::is_present(size)) {
-      deprecate_soft0("3.4.0", "element_line(size)", "element_line(linewidth)")
+      deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
       linewidth <- size
     }
     colour <- color %||% colour
@@ -264,14 +263,17 @@ element_geom <- S7::new_class(
     family = element_props$family,
     fontsize = element_props$size,
     pointsize = element_props$size,
-    pointshape = element_props$shape
+    pointshape = element_props$shape,
+    colour = element_props$colour,
+    fill = element_props$fill
   ),
   constructor = function(
     ink = NULL, paper = NULL, accent = NULL,
     linewidth = NULL, borderwidth = NULL,
     linetype = NULL, bordertype = NULL,
     family = NULL, fontsize = NULL,
-    pointsize = NULL, pointshape = NULL) {
+    pointsize = NULL, pointshape = NULL,
+    colour = NULL, color = NULL, fill = NULL) {
 
     if (!is.null(fontsize)) {
       fontsize <- fontsize / .pt
@@ -283,7 +285,8 @@ element_geom <- S7::new_class(
       linewidth = linewidth, borderwidth = borderwidth,
       linetype = linetype, bordertype = bordertype,
       family = family, fontsize = fontsize,
-      pointsize = pointsize, pointshape = pointshape
+      pointsize = pointsize, pointshape = pointshape,
+      colour = color %||% colour, fill = fill
     )
   }
 )
@@ -293,7 +296,8 @@ element_geom <- S7::new_class(
   linewidth = 0.5, borderwidth = 0.5,
   linetype = 1L, bordertype = 1L,
   family = "", fontsize = 11,
-  pointsize = 1.5, pointshape = 19
+  pointsize = 1.5, pointshape = 19,
+  fill = NULL, colour = NULL
 )
 
 #' @export
@@ -355,7 +359,7 @@ S7::method(element_grob, element_rect) <-
            ..., size = deprecated()) {
 
     if (lifecycle::is_present(size)) {
-      deprecate_soft0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+      deprecate_warn0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
       linewidth <- size
     }
 
@@ -401,7 +405,7 @@ S7::method(element_grob, element_line) <-
            default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
     if (lifecycle::is_present(size)) {
-      deprecate_soft0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+      deprecate_warn0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
       linewidth <- size
     }
 

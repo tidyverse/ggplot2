@@ -312,6 +312,12 @@ ggplotGrob <- function(x) {
   ggplot_gtable(ggplot_build(x))
 }
 
+#' @export
+as.gtable.ggplot <- function(x, ...) ggplotGrob(x)
+
+#' @export
+as.gtable.ggplot_built <- function(x, ...) ggplot_gtable(x)
+
 # Apply function to layer and matching data
 by_layer <- function(f, layers, data, step = NULL) {
   ordinal <- label_ordinal()

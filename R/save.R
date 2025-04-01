@@ -101,19 +101,18 @@ ggsave <- function(filename, plot = get_last_plot(),
   dev <- validate_device(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize, dpi = dpi)
+  bg  <- get_plot_background(plot, bg)
 
-  if (is_null(bg)) {
-    bg <- calc_element("plot.background", plot_theme(plot))
-    bg <- if (S7::prop_exists(bg, "fill")) bg@fill else NULL
-    bg <- bg %||% "transparent"
-  }
   old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
     if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device
   }))
-  grid.draw(plot)
+  if (!is_bare_list(plot)) {
+    plot <- list(plot)
+  }
+  lapply(plot, grid.draw)
 
   invisible(filename)
 }
@@ -235,6 +234,19 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
   }
 
   dim
+}
+
+get_plot_background <- function(plot, bg = NULL, default = "transparent") {
+  if (!is.null(bg)) {
+    return(bg)
+  }
+  plot <- if (is_bare_list(plot)) plot[[1]] else plot
+  if (!is.ggplot(plot)) {
+    return(default)
+  }
+  bg <- calc_element("plot.background", plot_theme(plot))
+  bg <- if (S7::prop_exists(bg, "fill")) bg@fill else NULL
+  bg %||% "transparent"
 }
 
 validate_device <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
