@@ -1,3 +1,10 @@
+# ggplot2 (development version)
+
+* Standardised test functions for important classes: `is_ggproto()`, 
+ `is_ggplot()`, `is_mapping()`, `is_layer()`, `is_geom()`, `is_stat()`, 
+ `is_position()`, `is_coord()`, `is_facet()`, `is_scale()`, `is_guide()`, 
+ `is_guides()`, `is_margin()`, `is_element()` and `is_theme()`.
+
 # ggplot2 3.5.1
 
 This is a small release focusing on fixing regressions from 3.5.0 and 
