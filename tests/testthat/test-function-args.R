@@ -22,7 +22,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   lapply(geom_fun_names, function(geom_fun_name) {
     geom_fun    <- ggplot2_ns[[geom_fun_name]]
     geom <- geom_fun()$geom
-    if (!inherits(geom, "Geom")) # for geoms that return more than one thing
+    if (!is_geom(geom)) # for geoms that return more than one thing
       return()
 
     fun_args <- formals(geom_fun)

@@ -222,6 +222,8 @@ Geom <- ggproto("Geom",
 
 )
 
+#' @export
+is_geom <- function(x) inherits(x, "Geom")
 
 #' Graphical units
 #'
