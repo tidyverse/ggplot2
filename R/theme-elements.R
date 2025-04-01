@@ -145,7 +145,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 #' @export
-is_element <- function(x, type = any) {
+is_element <- function(x, type = "any") {
   switch(
     type %||% "any",
     any   = inherits(x, "element"),
@@ -153,6 +153,9 @@ is_element <- function(x, type = any) {
     line  = inherits(x, "element_line"),
     text  = inherits(x, "element_text"),
     blank = inherits(x, "element_blank"),
+    # TODO: ideally we accept more elements from extensions. We need to
+    # consider how this will work with S7 classes, where ggplot2 doesn't know
+    # about the extension's class objects.
     FALSE
   )
 }
