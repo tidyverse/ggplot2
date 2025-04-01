@@ -864,11 +864,16 @@ is.subclass <- function(x, y) {
   !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
 }
 
-#' Reports whether x is a theme object
-#' @param x An object to test
+
 #' @export
-#' @keywords internal
-is.theme <- function(x) inherits(x, "theme")
+is_theme <- function(x) inherits(x, "theme")
+
+#' @export
+#' @usage is.theme(x) # Deprecated
+is.theme <- function(x) {
+  deprecate_soft0("3.5.2", "is.theme", "is_theme")
+  is_theme(x)
+}
 
 #' @export
 `$.theme` <- function(x, ...) {

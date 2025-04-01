@@ -19,7 +19,7 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme(axis.title.x = element_text(colour = 'red', margin = margin()))
   expect_identical(t$axis.title.x, element_text(colour = 'red', margin = margin(), vjust = 1))
   # Make sure the theme class didn't change or get dropped
-  expect_true(is.theme(t))
+  expect_s3_class(t, "theme")
   # Make sure the element class didn't change or get dropped
   expect_s3_class(t$axis.title.x, "element")
   expect_s3_class(t$axis.title.x, "element_text")
@@ -103,7 +103,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme(axis.title.x = element_text(colour = 'red'))
   expect_identical(t$axis.title.x, element_text(colour = 'red'))
   # Make sure the class didn't change or get dropped
-  expect_true(is.theme(t))
+  expect_s3_class(t, "theme")
 
   # Changing an intermediate node works
   t <- theme_grey() %+replace% theme(axis.title = element_text(colour = 'red'))
