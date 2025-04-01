@@ -218,3 +218,6 @@ Stat <- ggproto("Stat",
   }
 
 )
+
+#' @export
+is_stat <- function(x) inherits(x, "Stat")
