@@ -156,11 +156,18 @@ plot_clone <- function(plot) {
   p
 }
 
-#' Reports whether x is a ggplot object
+#' Reports wether `x` is a type of object
 #' @param x An object to test
 #' @keywords internal
 #' @export
-is.ggplot <- function(x) inherits(x, "ggplot")
+is_ggplot <- function(x) inherits(x, "ggplot")
+
+#' @export
+#' @usage is.ggplot(x) # Deprecated
+is.ggplot <- function(x) {
+  deprecate_soft0("3.5.2", "is.ggplot", "is_ggplot")
+  is_ggplot(x)
+}
 
 #' Explicitly draw plot
 #'
