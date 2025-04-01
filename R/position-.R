@@ -69,6 +69,9 @@ Position <- ggproto("Position",
   }
 )
 
+#' @export
+is_position <- function(x) inherits(x, "Position")
+
 #' Convenience function to transform all position variables.
 #'
 #' @param trans_x,trans_y Transformation functions for x and y aesthetics.
