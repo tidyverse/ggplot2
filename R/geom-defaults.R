@@ -80,16 +80,13 @@ update_stat_defaults <- function(stat, new) {
 #'
 #' # Using a class
 #' get_geom_defaults(GeomPoint)
-#'
-#' # Changed theme
-#' get_geom_defaults("point", theme(geom = element_geom(ink = "purple")))
 get_geom_defaults <- function(geom, theme = theme_get()) {
-  theme <- theme %||% list(geom = .default_geom_element)
+  theme <- theme %||% list()
 
   if (is.function(geom)) {
     geom <- geom()
   }
-  if (is.layer(geom)) {
+  if (is_layer(geom)) {
     data <- data_frame0(.id = 1L)
     data <- geom$compute_geom_2(data = data)
     data$.id <- NULL

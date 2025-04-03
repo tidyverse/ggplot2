@@ -110,7 +110,7 @@ ggtitle <- function(label, subtitle = waiver()) {
 #' @param plot A ggplot object
 #' @description
 #' `get_labs()` retrieves completed labels from a plot.
-get_labs <- function(plot = get_last_plot()) {
+get_labs <- function(plot = last_plot()) {
   plot <- ggplot_build(plot)
 
   labs <- plot$plot$labels

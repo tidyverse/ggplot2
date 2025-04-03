@@ -24,7 +24,7 @@ ylab(label)
 
 ggtitle(label, subtitle = waiver())
 
-get_labs(plot = get_last_plot())
+get_labs(plot = last_plot())
 }
 \arguments{
 \item{...}{A list of new name-value pairs. The name should be an aesthetic.}

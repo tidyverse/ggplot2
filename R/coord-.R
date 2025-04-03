@@ -206,7 +206,7 @@ Coord <- ggproto("Coord",
 
 #' @export
 #' @rdname is_tests
-is_coord <- function(x) inheritS(x, "Coord")
+is_coord <- function(x) inherits(x, "Coord")
 
 #' @export
 #' @rdname is_tests
