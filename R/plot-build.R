@@ -31,6 +31,12 @@ ggplot_build <- function(plot) {
 }
 
 #' @export
+ggplot_build.ggplot_built <- function(plot) {
+  # This is a no-op
+  plot
+}
+
+#' @export
 ggplot_build.ggplot <- function(plot) {
   plot <- plot_clone(plot)
   if (length(plot$layers) == 0) {
