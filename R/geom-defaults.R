@@ -80,9 +80,6 @@ update_stat_defaults <- function(stat, new) {
 #'
 #' # Using a class
 #' get_geom_defaults(GeomPoint)
-#'
-#' # Changed theme
-#' get_geom_defaults("point", theme(geom = element_geom(ink = "purple")))
 get_geom_defaults <- function(geom, theme = theme_get()) {
   theme <- theme %||% list(geom = .default_geom_element)
 

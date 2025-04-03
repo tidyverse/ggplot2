@@ -36,8 +36,5 @@ get_geom_defaults("density_2d")
 
 # Using a class
 get_geom_defaults(GeomPoint)
-
-# Changed theme
-get_geom_defaults("point", theme(geom = element_geom(ink = "purple")))
 }
 \keyword{internal}
