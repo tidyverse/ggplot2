@@ -199,7 +199,7 @@ layer <- function(geom = NULL, stat = NULL,
 }
 
 validate_mapping <- function(mapping, call = caller_env()) {
-  if (!inherits(mapping, "uneval")) {
+  if (!is_mapping(mapping)) {
     msg <- "{.arg mapping} must be created by {.fn aes}."
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
@@ -462,7 +462,9 @@ Layer <- ggproto("Layer", NULL,
   }
 )
 
-is.layer <- function(x) inherits(x, "Layer")
+#' @export
+#' @rdname is_tests
+is_layer <- function(x) inherits(x, "Layer")
 
 check_subclass <- function(x, subclass,
                            argname = to_lower_ascii(subclass),

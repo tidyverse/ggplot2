@@ -204,11 +204,17 @@ Coord <- ggproto("Coord",
   }
 )
 
-#' Is this object a coordinate system?
-#'
-#' @export is.Coord
-#' @keywords internal
-is.Coord <- function(x) inherits(x, "Coord")
+#' @export
+#' @rdname is_tests
+is_coord <- function(x) inheritS(x, "Coord")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.Coord(x) # Deprecated
+is.Coord <- function(x) {
+  deprecate_soft0("3.5.2", "is.Coord()", "is_coord()")
+  is_coord(x)
+}
 
 # Renders an axis with the correct orientation or zeroGrob if no axis should be
 # generated

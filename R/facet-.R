@@ -239,13 +239,17 @@ vars <- function(...) {
   quos(...)
 }
 
-
-#' Is this object a faceting specification?
-#'
-#' @param x object to test
-#' @keywords internal
 #' @export
-is.facet <- function(x) inherits(x, "Facet")
+#' @rdname is_tests
+is_facet <- function(x) inherits(x, "Facet")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.facet(x) # Deprecated
+is.facet <- function(x) {
+  deprecate_soft0("3.5.2", "is.facet()", "is_facet()")
+  is_facet(x)
+}
 
 # A "special" value, currently not used but could be used to determine
 # if faceting is active
@@ -324,7 +328,7 @@ as_facets_list <- function(x) {
 }
 
 validate_facets <- function(x) {
-  if (inherits(x, "uneval")) {
+  if (is_mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be

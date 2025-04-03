@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* Standardised test functions for important classes: `is_ggproto()`, 
+ `is_ggplot()`, `is_mapping()`, `is_layer()`, `is_geom()`, `is_stat()`, 
+ `is_position()`, `is_coord()`, `is_facet()`, `is_scale()`, `is_guide()`, 
+ `is_guides()`, `is_margin()`, `is_element()` and `is_theme()`.
 * New `get_labs()` function for retrieving completed plot labels 
   (@teunbrand, #6008).
 * New `get_geom_defaults()` for retrieving resolved default aesthetics.

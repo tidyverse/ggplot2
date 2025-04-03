@@ -475,7 +475,7 @@ theme <- function(...,
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
-  if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
+  if (is.unit(elements$legend.margin) && !is_margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
       "i" = "For the old behavior use {.var legend.spacing}"
@@ -521,7 +521,7 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (inherits(el, "element") && !inherits(el, "element_blank")) {
+      if (is_element(el) && !is_element(el, "blank")) {
         el$inherit.blank <- TRUE
       }
       el
@@ -821,7 +821,7 @@ combine_elements <- function(e1, e2) {
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!inherits(e1, "element") && !inherits(e2, "element")) {
+  if (!is_element(e1) && !is_element(e2)) {
     return(e1)
   }
 
@@ -864,11 +864,18 @@ is.subclass <- function(x, y) {
   !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
 }
 
-#' Reports whether x is a theme object
-#' @param x An object to test
+
 #' @export
-#' @keywords internal
-is.theme <- function(x) inherits(x, "theme")
+#' @rdname is_tests
+is_theme <- function(x) inherits(x, "theme")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.theme(x) # Deprecated
+is.theme <- function(x) {
+  deprecate_soft0("3.5.2", "is.theme", "is_theme")
+  is_theme(x)
+}
 
 #' @export
 `$.theme` <- function(x, ...) {

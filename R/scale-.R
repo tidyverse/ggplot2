@@ -350,6 +350,10 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   )
 }
 
+#' @export
+#' @rdname is_tests
+is_scale <- function(x) inherits(x, "Scale")
+
 #' @section Scales:
 #'
 #' All `scale_*` functions like [scale_x_continuous()] return a `Scale*`
