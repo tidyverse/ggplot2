@@ -161,12 +161,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-
+    if (self$theta == "x") {
+      xlimits <- self$limits$theta
+      ylimits <- self$limits$r
+    } else {
+      xlimits <- self$limits$r
+      ylimits <- self$limits$theta
+    }
     params <- c(
-      view_scales_polar(scale_x, self$theta, self$limits$theta,
+      view_scales_polar(scale_x, self$theta, xlimits,
         expand = params$expand[c(4, 2)]
       ),
-      view_scales_polar(scale_y, self$theta, self$limits$r, 
+      view_scales_polar(scale_y, self$theta, ylimits,
         expand = params$expand[c(3, 1)]
       ),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
