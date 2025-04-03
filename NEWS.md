@@ -4,6 +4,11 @@
  `is_ggplot()`, `is_mapping()`, `is_layer()`, `is_geom()`, `is_stat()`, 
  `is_position()`, `is_coord()`, `is_facet()`, `is_scale()`, `is_guide()`, 
  `is_guides()`, `is_margin()`, `is_element()` and `is_theme()`.
+* New `get_labs()` function for retrieving completed plot labels 
+  (@teunbrand, #6008).
+* New `get_geom_defaults()` for retrieving resolved default aesthetics.
+* A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
+  returns input unaltered (@teunbrand, #5800).
 
 # ggplot2 3.5.1
 

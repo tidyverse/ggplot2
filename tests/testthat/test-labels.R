@@ -53,12 +53,12 @@ test_that("Labels from default stat mapping are overwritten by default labels", 
   p <- ggplot(mpg, aes(displ, hwy)) +
     geom_density2d()
 
-  expect_equal(p$labels$colour[1], "colour")
-  expect_true(attr(p$labels$colour, "fallback"))
+  labels <- get_labs(p)
+  expect_equal(labels$colour[1], "colour")
+  expect_true(attr(labels$colour, "fallback"))
 
-  p <- p + geom_smooth(aes(color = drv))
-
-  expect_equal(p$labels$colour, "drv")
+  p <- p + geom_smooth(aes(color = drv), method = "lm", formula = y ~ x)
+  expect_equal(get_labs(p)$colour, "drv")
 })
 
 test_that("alt text is returned", {
@@ -97,24 +97,25 @@ test_that("position axis label hierarchy works as intended", {
     geom_point(size = 5)
 
   p <- ggplot_build(p)
+  resolve_label <- function(x) p$layout$resolve_label(x, p$plot$labels)
 
   # In absence of explicit title, get title from mapping
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
+    resolve_label(p$layout$panel_scales_x[[1]]),
     list(secondary = NULL, primary = "foo")
   )
   expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
+    resolve_label(p$layout$panel_scales_y[[1]]),
     list(primary = "bar", secondary = NULL)
   )
 
   # Scale name overrules mapping label
   expect_identical(
-    p$layout$resolve_label(scale_x_continuous("Baz"), p$plot$labels),
+    resolve_label(scale_x_continuous("Baz")),
     list(secondary = NULL, primary = "Baz")
   )
   expect_identical(
-    p$layout$resolve_label(scale_y_continuous("Qux"), p$plot$labels),
+    resolve_label(scale_y_continuous("Qux")),
     list(primary = "Qux", secondary = NULL)
   )
 
@@ -124,23 +125,23 @@ test_that("position axis label hierarchy works as intended", {
     p$plot$layers
   )
   expect_identical(
-    p$layout$resolve_label(scale_x_continuous("Baz"), p$plot$labels),
+    resolve_label(scale_x_continuous("Baz")),
     list(secondary = NULL, primary = "quuX")
   )
   expect_identical(
-    p$layout$resolve_label(scale_y_continuous("Qux"), p$plot$labels),
+    resolve_label(scale_y_continuous("Qux")),
     list(primary = "corgE", secondary = NULL)
   )
 
   # Secondary axis names work
   xsec <- scale_x_continuous("Baz", sec.axis = dup_axis(name = "grault"))
   expect_identical(
-    p$layout$resolve_label(xsec, p$plot$labels),
+    resolve_label(xsec),
     list(secondary = "grault", primary = "quuX")
   )
   ysec <- scale_y_continuous("Qux", sec.axis = dup_axis(name = "garply"))
   expect_identical(
-    p$layout$resolve_label(ysec, p$plot$labels),
+    resolve_label(ysec),
     list(primary = "corgE", secondary = "garply")
   )
 
@@ -151,12 +152,12 @@ test_that("position axis label hierarchy works as intended", {
     p$plot$layers
   )
   expect_identical(
-    p$layout$resolve_label(xsec, p$plot$labels),
+    resolve_label(xsec),
     list(secondary = "waldo", primary = "quuX")
   )
   ysec <- scale_y_continuous("Qux", sec.axis = dup_axis(name = "garply"))
   expect_identical(
-    p$layout$resolve_label(ysec, p$plot$labels),
+    resolve_label(ysec),
     list(primary = "corgE", secondary = "fred")
   )
 })
@@ -177,16 +178,11 @@ test_that("moving guide positions lets titles follow", {
     ),
     p$plot$layers
   )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
-    list(secondary = NULL, primary = "baz")
-  )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
-    list(primary = "qux", secondary = NULL)
-  )
+  labs <- get_labs(p)
+  expect <- list(x = "baz", x.sec = NULL, y = "qux", y.sec = NULL)
+  expect_identical(labs[names(expect)], expect)
 
-  # Guides at secondary positions (changes order of primary/secondary)
+  # Guides at secondary positions
   p$layout$setup_panel_guides(
     guides_list(
       list(x = guide_axis("baz", position = "top"),
@@ -194,14 +190,8 @@ test_that("moving guide positions lets titles follow", {
     ),
     p$plot$layers
   )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
-    list(primary = "baz", secondary = NULL)
-  )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
-    list(secondary = NULL, primary = "qux")
-  )
+  labs <- get_labs(p)
+  expect_identical(labs[names(expect)], expect)
 
   # Primary guides at secondary positions with
   # secondary guides at primary positions
@@ -214,14 +204,9 @@ test_that("moving guide positions lets titles follow", {
     ),
     p$plot$layers
   )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_x[[1]], p$plot$labels),
-    list(primary = "baz", secondary = "quux")
-  )
-  expect_identical(
-    p$layout$resolve_label(p$layout$panel_scales_y[[1]], p$plot$labels),
-    list(secondary = "corge", primary = "qux")
-  )
+  labs <- get_labs(p)
+  expect[c("x.sec", "y.sec")] <- list("quux", "corge")
+  expect_identical(labs[names(expect)], expect)
 })
 
 # Visual tests ------------------------------------------------------------
