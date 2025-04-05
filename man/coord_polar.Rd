@@ -136,8 +136,7 @@ ggplot(mtcars, aes(disp, mpg)) +
   geom_point() +
   coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
 
-# Similar with coord_cartesian(), you can set limtis, but note the `clip` 
-# area is not the same with the circle track area.
+# Similar with coord_cartesian(), you can set limits.
 ggplot(mtcars, aes(disp, mpg)) +
     geom_point() +
     coord_radial(
