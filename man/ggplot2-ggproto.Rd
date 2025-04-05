@@ -309,6 +309,8 @@ In addition to the methods described above, it is also possible to override
 the default behaviour of one or more of the following methods:
 \itemize{
 \item \code{setup_params}:
+\item \code{setup_panel_params}: modifies the x and y ranges for each panel. This is
+used to allow the \code{Facet} to interact with the \code{panel_params}.
 \item \code{init_scales}: Given a master scale for x and y, create panel
 specific scales for each panel defined in the layout. The default is to
 simply clone the master scale.
