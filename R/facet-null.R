@@ -42,8 +42,13 @@ FacetNull <- ggproto("FacetNull", Facet,
     data$PANEL <- factor(1)
     data
   },
-  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+  draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
 
+    facet_bg <- self$draw_back(data, layout, x_scales, y_scales, theme, params)
+    facet_fg <- self$draw_front(data, layout, x_scales, y_scales, theme, params)
+
+    # For FacetNull, we always merege the panel area
+    panels <- merge_panels(panels, facet_bg, facet_fg, ranges, theme, coord)
     range <- ranges[[1]]
 
     # Figure out aspect ratio

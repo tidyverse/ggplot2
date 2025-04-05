@@ -370,7 +370,6 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     )
   },
 
-
   draw_panel = function(self, panel, params, theme) {
     clip_support <- check_device("clippingPaths", "test", maybe = TRUE)
     if (self$clip == "on" && !isFALSE(clip_support)) {
@@ -383,10 +382,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       # Note that clipping path is applied to panel without coord
       # foreground/background (added in parent method).
       # These may contain decorations that needn't be clipped
-      panel <- list(gTree(
-        children = inject(gList(!!!panel)),
-        vp = viewport(clip = clip_path)
-      ))
+      panel <- insert_vp(panel, viewport(clip = clip_path))
     }
     ggproto_parent(Coord, self)$draw_panel(panel, params, theme)
   },

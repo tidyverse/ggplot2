@@ -60,29 +60,7 @@ Layout <- ggproto("Layout", NULL,
   # Assemble the facet fg & bg, the coord fg & bg, and the layers
   # Returns a gtable
   render = function(self, panels, data, theme, labels) {
-    facet_bg <- self$facet$draw_back(data,
-      self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
-      theme,
-      self$facet_params
-    )
-    facet_fg <- self$facet$draw_front(
-      data,
-      self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
-      theme,
-      self$facet_params
-    )
-
     # Draw individual panels, then assemble into gtable
-    panels <- lapply(seq_along(panels[[1]]), function(i) {
-      panel <- lapply(panels, `[[`, i)
-      panel <- c(facet_bg[i], panel, facet_fg[i])
-      panel <- self$coord$draw_panel(panel, self$panel_params[[i]], theme)
-      ggname(paste("panel", i, sep = "-"), panel)
-    })
     plot_table <- self$facet$draw_panels(
       panels,
       self$layout,

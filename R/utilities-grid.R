@@ -70,3 +70,11 @@ height_cm <- function(x) {
     cli::cli_abort("Don't know how to get height of {.cls {class(x)}} object")
   }
 }
+
+insert_vp <- function(grob, vp) {
+  if (is.null(grob$vp)) {
+    grid::editGrob(grob, vp = vp)
+  } else {
+    grid::editGrob(grob, vp = grid::vpStack(grob$vp, vp))
+  }
+}

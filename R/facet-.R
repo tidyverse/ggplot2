@@ -155,8 +155,12 @@ Facet <- ggproto("Facet", NULL,
       }
     }
 
+    facet_bg <- self$draw_back(data, layout, x_scales, y_scales, theme, params)
+    facet_fg <- self$draw_front(data, layout, x_scales, y_scales, theme, params)
+
     table <- self$init_gtable(
-      panels, layout, theme, ranges, params,
+      panels, facet_bg, facet_fg, 
+      coord, layout, theme, ranges, params,
       aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
     )
 
@@ -200,13 +204,12 @@ Facet <- ggproto("Facet", NULL,
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
   },
-  init_gtable = function(panels, layout, theme, ranges, params,
+  init_gtable = function(panels, facet_bg, facet_fg, 
+                         coord, layout, theme, ranges, params, 
                          aspect_ratio = NULL) {
 
-    # Initialise matrix of panels
+    # gtable dimentions
     dim   <- c(max(layout$ROW), max(layout$COL))
-    table <- matrix(list(zeroGrob()), dim[1], dim[2])
-    table[cbind(layout$ROW, layout$COL)] <- panels
 
     # Set initial sizes
     widths  <- unit(rep(1, dim[2]), "null")
@@ -227,20 +230,56 @@ Facet <- ggproto("Facet", NULL,
     }
 
     # Build gtable
-    table <- gtable_matrix(
-      "layout", table,
-      widths = widths, heights = heights,
-      respect = !is.null(aspect_ratio),
-      clip = "off", z = matrix(1, dim[1], dim[2])
+    table <- gtable(widths = widths, heights = heights, 
+        name = "layout", respect = !is.null(aspect_ratio)
     )
+    if (isTRUE(theme$panel.merge %||% TRUE)) {
+      panels <- merge_panels(panels, facet_bg, facet_fg, ranges, theme, coord)
+      table <- gtable_add_grob(
+        table, panels,
+        t = layout$ROW,
+        l = layout$COL,
+        z = 1,
+        name = paste("panel", layout$COL, layout$ROW, sep = "-")
+      )
+    } else {
+      coord_fg <- lapply(seq_along(panels[[1]]), function(i) {
+        coord_fg <- coord$render_fg(ranges[[i]], theme)
+        ggproto_parent(Coord, coord)$draw_panel(coord_fg, ranges[[i]], theme)
+      })
+      coord_bg <- lapply(seq_along(panels[[1]]), function(i) {
+        coord_bg <- coord$render_bg(ranges[[i]], theme)
+        ggproto_parent(Coord, coord)$draw_panel(coord_bg, ranges[[i]], theme)
+      })
+      names <- paste("layer", seq_along(panels), sep = "-")
+      panels <- c(list(facet_bg), panels, list(facet_fg))
+      names <- c("facet-bg", names, "facet-fg")
+      panels <- lapply(panels, function(panel) {
+        # let Coord modify the panel
+        lapply(seq_along(panel), function(i) {
+          coord$draw_panel(panel[[i]], ranges[[i]], theme)
+        })
+      })
 
-    # Set panel names
-    table$layout$name <- paste(
-      "panel",
-      rep(seq_len(dim[2]), each = dim[1]),
-      rep(seq_len(dim[1]), dim[2]),
-      sep = "-"
-    )
+      if (isTRUE(theme$panel.ontop)) {
+        panels <- c(panels, list(coord_bg), list(coord_fg))
+        names <- c(names, "coord-bg", "coord-fg")
+      } else {
+        panels <- c(list(coord_bg), panels, list(coord_fg))
+        names <- c("coord-bg", names, "coord-fg")
+      }
+      for (i in seq_along(panels)) {
+        table <- gtable_add_grob(
+          table, panels[[i]],
+          t = layout$ROW,
+          l = layout$COL,
+          # when drawing, the grob with the same `z` will be drawn in the
+          # ordering they added
+          z = 1,
+          name = paste("panel", layout$COL, layout$ROW, names[[i]], sep = "-")
+        )
+      }
+    }
 
     # Add spacing between panels
     spacing <- lapply(
@@ -898,7 +937,7 @@ map_facet_data <- function(data, layout, params) {
   # Compute faceting values
   facet_vals <- eval_facets(vars, data, params$.possible_columns)
 
-  include_margins <- !isFALSE(params$margin %||% FALSE) &&
+  include_margins <- !isFALSE(params$margins %||% FALSE) &&
     nrow(facet_vals) == nrow(data) && grid_layout
   if (include_margins) {
     # Margins are computed on evaluated faceting values (#1864).
@@ -963,4 +1002,34 @@ map_facet_data <- function(data, layout, params) {
   }
 
   data
+}
+
+merge_panels <- function(panels, facet_bg, facet_fg, ranges, theme, coord) {
+  lapply(seq_along(panels[[1]]), function(i) {
+    # merge panel
+    panel <- lapply(panels, `[[`, i)
+    panel <- c(facet_bg[i], panel, facet_fg[i])
+    panel <- gTree(children = inject(gList(!!!panel)))
+    
+    # let Coord modify the panel
+    panel <- coord$draw_panel(panel, ranges[[i]], theme)
+    
+    # in the end, we add foreground and background
+    # we always ensure the `fg` and `bg` follow the Coord `clip` argument
+    coord_fg <- coord$render_fg(ranges[[i]], theme)
+    coord_fg <- ggproto_parent(Coord, coord)$draw_panel(
+      coord_fg, ranges[[i]], theme
+    )
+    coord_bg <- coord$render_bg(ranges[[i]], theme)
+    coord_bg <- ggproto_parent(Coord, coord)$draw_panel(
+      coord_bg, ranges[[i]], theme
+    )
+    if (isTRUE(theme$panel.ontop)) {
+      panel <- list(panel, coord_bg, coord_fg)
+    } else {
+      panel <- list(coord_bg, panel, coord_fg)
+    }
+    panel <- gTree(children = inject(gList(!!!panel)))
+    ggname(paste("panel", i, sep = "-"), panel)
+  })
 }
