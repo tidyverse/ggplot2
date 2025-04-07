@@ -64,9 +64,6 @@ test_that("updating geom aesthetic defaults preserves class and order", {
 
 })
 
-
-
-
 test_that("updating stat aesthetic defaults preserves class and order", {
 
   original_defaults <- StatBin$default_aes
@@ -85,4 +82,9 @@ test_that("updating stat aesthetic defaults preserves class and order", {
 
   update_stat_defaults("bin", NULL)
 
+})
+
+test_that("Geom throws lifecycle signals", {
+  test <- ggproto(NULL, GeomPoint, optional_aes = "foo")
+  lifecycle::expect_deprecated(stat_identity(geom = test))
 })
