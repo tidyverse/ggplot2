@@ -86,7 +86,6 @@ geom_rug <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRug <- ggproto("GeomRug", Geom,
-  optional_aes = c("x", "y"),
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
@@ -153,7 +152,7 @@ GeomRug <- ggproto("GeomRug", Geom,
     gTree(children = inject(gList(!!!rugs)))
   },
 
-  default_aes = GeomPath$default_aes,
+  default_aes = aes(x = NULL, y = NULL, !!!GeomPath$default_aes),
 
   draw_key = draw_key_path,
 

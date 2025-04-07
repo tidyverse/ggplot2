@@ -166,9 +166,9 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   draw_key = draw_key_smooth,
 
   required_aes = c("x", "y"),
-  optional_aes = c("ymin", "ymax"),
 
   default_aes = aes(
+    ymin = NULL, ymax = NULL,
     colour = from_theme(colour %||% accent),
     fill = from_theme(fill %||% col_mix(ink, paper, 0.6)),
     linewidth = from_theme(2 * linewidth),
