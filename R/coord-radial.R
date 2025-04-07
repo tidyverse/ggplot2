@@ -44,14 +44,13 @@
 #'
 #' # Similar with coord_cartesian(), you can set limits.
 #' ggplot(mtcars, aes(disp, mpg)) +
-#'     geom_point() +
-#'     coord_radial(
-#'         start = -0.4 * pi,
-#'         end = 0.4 * pi, inner.radius = 0.3,
-#'         thetalim = c(200, 300),
-#'         rlim = c(15, 30),
-#'         clip = "on"
-#'     )
+#'   geom_point() +
+#'   coord_radial(
+#'     start = -0.4 * pi,
+#'     end = 0.4 * pi, inner.radius = 0.3,
+#'     thetalim = c(200, 300),
+#'     rlim = c(15, 30),
+#'   )
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
                          thetalim = NULL, rlim = NULL, expand = TRUE,
