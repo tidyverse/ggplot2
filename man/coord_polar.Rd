@@ -19,6 +19,7 @@ coord_radial(
   r.axis.inside = NULL,
   rotate.angle = FALSE,
   inner.radius = 0,
+  panel.margin = NULL,
   reverse = "none",
   r_axis_inside = deprecated(),
   rotate_angle = deprecated()
@@ -64,6 +65,10 @@ alignment with the coordinates.}
 
 \item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a
 inner radius hole.}
+
+\item{panel.margin}{A single \link[grid:unit]{unit} object indicating the margin
+around the panel area. Reducing this value decreases the spacing between the
+panel area and the axes.}
 
 \item{reverse}{A string giving which directions to reverse. \code{"none"}
 (default) keep directions as is. \code{"theta"} reverses the angle and \code{"r"}
@@ -138,14 +143,13 @@ ggplot(mtcars, aes(disp, mpg)) +
 
 # Similar with coord_cartesian(), you can set limits.
 ggplot(mtcars, aes(disp, mpg)) +
-    geom_point() +
-    coord_radial(
-        start = -0.4 * pi,
-        end = 0.4 * pi, inner.radius = 0.3,
-        thetalim = c(200, 300),
-        rlim = c(15, 30),
-        clip = "on"
-    )
+  geom_point() +
+  coord_radial(
+    start = -0.4 * pi,
+    end = 0.4 * pi, inner.radius = 0.3,
+    thetalim = c(200, 300),
+    rlim = c(15, 30),
+  )
 }
 \seealso{
 The \href{https://ggplot2-book.org/coord#polar-coordinates-with-coord_polar}{polar coordinates section} of the online ggplot2 book.
