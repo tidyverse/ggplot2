@@ -873,7 +873,7 @@ is_theme <- function(x) inherits(x, "theme")
 #' @rdname is_tests
 #' @usage is.theme(x) # Deprecated
 is.theme <- function(x) {
-  deprecate_soft0("3.5.2", "is.theme", "is_theme")
+  deprecate_soft0("3.5.2", "is.theme()", "is_theme()")
   is_theme(x)
 }
 
