@@ -359,14 +359,36 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (!isFALSE(self$r_axis_inside)) {
       return(list(left = zeroGrob(), right = zeroGrob()))
     }
-    CoordCartesian$render_axis_v(panel_params, theme)
+    axis <- CoordCartesian$render_axis_v(panel_params, theme)
+
+    # align the axis with the panel area
+    panel_margin <- panel_params$panel_margin
+    vp <- viewport(height = unit(1, "npc") - panel_margin * 2L)
+    lapply(axis, function(g) {
+      if (is.null(g$vp)) {
+        editGrob(g, vp = vp)
+      } else {
+        editGrob(g, vp = vpStack(vp, g$vp))
+      }
+    })
   },
 
   render_axis_h = function(self, panel_params, theme) {
     if (!isFALSE(self$r_axis_inside)) {
       return(list(top = zeroGrob(), bottom = zeroGrob()))
     }
-    CoordCartesian$render_axis_h(panel_params, theme)
+    axis <- CoordCartesian$render_axis_h(panel_params, theme)
+
+    # align the axis with the panel area
+    panel_margin <- panel_params$panel_margin
+    vp <- viewport(width = unit(1, "npc") - panel_margin * 2L)
+    lapply(axis, function(g) {
+      if (is.null(g$vp)) {
+        editGrob(g, vp = vp)
+      } else {
+        editGrob(g, vp = vpStack(vp, g$vp))
+      }
+    })
   },
 
   render_bg = function(self, panel_params, theme) {
