@@ -240,7 +240,7 @@ GuideAxis <- ggproto(
 
   override_elements = function(params, elements, theme) {
     label <- elements$text
-    if (!is_element(label, "text")) {
+    if (!is_theme_element(label, "text")) {
       return(elements)
     }
     label_overrides <- axis_label_element_overrides(

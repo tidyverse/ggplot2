@@ -148,7 +148,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 
 #' @export
 #' @rdname element
-is_element <- function(x, type = "any") {
+is_theme_element <- function(x, type = "any") {
   switch(
     type %||% "any",
     any   = inherits(x, "element"),

@@ -381,10 +381,10 @@ Guide <- ggproto(
   # Renders tickmarks
   build_ticks = function(key, elements, params, position = params$position,
                          length = elements$ticks_length) {
-    if (!is_element(elements)) {
+    if (!is_theme_element(elements)) {
       elements <- elements$ticks
     }
-    if (!is_element(elements, "line")) {
+    if (!is_theme_element(elements, "line")) {
       return(zeroGrob())
     }
 

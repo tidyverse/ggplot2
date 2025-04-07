@@ -272,7 +272,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
   plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
 
-  if (is_element(theme$plot.background)) {
+  if (is_theme_element(theme$plot.background)) {
     plot_table <- gtable_add_grob(plot_table,
       element_render(theme, "plot.background"),
       t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)

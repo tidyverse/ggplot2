@@ -521,7 +521,7 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (is_element(el) && !is_element(el, "blank")) {
+      if (is_theme_element(el) && !is_theme_element(el, "blank")) {
         el$inherit.blank <- TRUE
       }
       el
@@ -821,7 +821,7 @@ combine_elements <- function(e1, e2) {
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!is_element(e1) && !is_element(e2)) {
+  if (!is_theme_element(e1) && !is_theme_element(e2)) {
     return(e1)
   }
 

@@ -5,7 +5,7 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
-\alias{is_element}
+\alias{is_theme_element}
 \alias{rel}
 \alias{margin}
 \title{Theme elements}
@@ -48,7 +48,7 @@ element_text(
   inherit.blank = FALSE
 )
 
-is_element(x, type = "any")
+is_theme_element(x, type = "any")
 
 rel(x)
 
