@@ -84,6 +84,8 @@ options.</p>
 <span>  theta <span class="op">=</span> <span class="st">"x"</span>,</span>
 <span>  start <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  end <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  thetalim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  expand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  direction <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  clip <span class="op">=</span> <span class="st">"off"</span>,</span>
@@ -123,6 +125,10 @@ means no. For details, please see <code><a href="coord_cartesian.html">coord_car
 <dd><p>Position from 12 o'clock in radians where plot ends, to allow
 for partial polar coordinates. The default, <code>NULL</code>, is set to
 <code>start + 2 * pi</code>.</p></dd>
+
+
+<dt id="arg-thetalim-rlim">thetalim, rlim<a class="anchor" aria-label="anchor" href="#arg-thetalim-rlim"></a></dt>
+<dd><p>Limits for the theta and r axes.</p></dd>
 
 
 <dt id="arg-expand">expand<a class="anchor" aria-label="anchor" href="#arg-expand"></a></dt>
@@ -238,6 +244,18 @@ sensible when <code>inner.radius &gt; 0</code>.</p>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">coord_radial</span><span class="op">(</span>start <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>, end <span class="op">=</span> <span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>, inner.radius <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="coord_polar-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Similar with coord_cartesian(), you can set limits.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>    <span class="fu">coord_radial</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        start <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>,</span></span>
+<span class="r-in"><span>        end <span class="op">=</span> <span class="fl">0.4</span> <span class="op">*</span> <span class="va">pi</span>, inner.radius <span class="op">=</span> <span class="fl">0.3</span>,</span></span>
+<span class="r-in"><span>        thetalim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">300</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        rlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">30</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        clip <span class="op">=</span> <span class="st">"on"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-plt img"><img src="coord_polar-8.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
