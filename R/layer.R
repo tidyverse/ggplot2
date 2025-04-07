@@ -64,7 +64,7 @@
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. [borders()].
+#'   the default plot specification, e.g. [annotation_borders()].
 #' @param check.aes,check.param If `TRUE`, the default, will check that
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.

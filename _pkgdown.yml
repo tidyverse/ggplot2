@@ -92,7 +92,7 @@ reference:
   - annotation_logticks
   - annotation_map
   - annotation_raster
-  - borders
+  - annotation_borders
 
 - title: Aesthetics
   desc: >

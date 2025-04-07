@@ -115,3 +115,9 @@ test_that("annotation_custom() and annotation_raster() adhere to scale transform
   expect_equal(as.numeric(ann$height), 8/10)
 
 })
+
+test_that("annotation_borders() can create a map", {
+  skip_if_not_installed("maps")
+  lifecycle::expect_deprecated(utah <- borders("state", "utah"))
+  expect_doppelganger("annotation_borders utah", ggplot() + utah)
+})
