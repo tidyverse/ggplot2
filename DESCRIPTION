@@ -93,6 +93,7 @@ Collate:
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'annotation-borders.R'
     'utilities-checks.R'
     'legend-draw.R'
     'geom-.R'
