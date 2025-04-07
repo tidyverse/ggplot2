@@ -77,7 +77,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL,
 #' @export
 StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
-  optional_aes = "weight",
+  default_aes = aes(weight = NULL),
   dropped_aes = "weight",
 
   setup_params = function(data, params) {

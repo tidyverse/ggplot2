@@ -209,12 +209,19 @@ Stat <- ggproto("Stat",
   },
 
   aesthetics = function(self) {
-    if (is.null(self$required_aes)) {
-      required_aes <- NULL
-    } else {
+    required_aes <- self$required_aes
+    if (!is.null(self$required_aes)) {
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
-    c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
+    optional_aes <- self$optional_aes
+    if (length(optional_aes) > 0) {
+      deprecate_soft0(
+        "4.0.0",
+        I("The `optional_aes` field"),
+        I("NULL-aesthetics in `default_aes`")
+      )
+    }
+    c(union(required_aes, names(self$default_aes)), optional_aes, "group")
   }
 
 )
