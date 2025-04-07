@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `optional_aes` field in `Geom` and `Stat` classes is now deprecated in
+  favour of using `default_aes = aes(foo = NULL)` to mark the 'foo' aesthetic
+  as optional (@teunbrand, #6393).
 * `position_fill()` avoids stacking observations of zero (@teunbrand, #6338)
 * New `layer(layout)` argument to interact with facets (@teunbrand, #3062)
 * New `stat_connect()` to connect points via steps or other shapes 
