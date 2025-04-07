@@ -214,7 +214,7 @@ Stat <- ggproto("Stat",
       required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
     }
     optional_aes <- self$optional_aes
-    if (length(optional_aes) > 1) {
+    if (length(optional_aes) > 0) {
       deprecate_soft0(
         "4.0.0",
         I("The `optional_aes` field"),
