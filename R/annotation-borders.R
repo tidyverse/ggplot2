@@ -51,3 +51,11 @@ annotation_borders <- function(database = "world", regions = ".", fill = NA,
   geom_polygon(aes(.data$long, .data$lat, group = .data$group), data = df,
                fill = fill, colour = colour, ..., inherit.aes = FALSE)
 }
+
+#' @export
+#' @rdname annotation_borders
+#' @usage borders(...) # Deprecated
+borders <- function(...) {
+  deprecate_soft0("4.0.0", "borders()", "annotation_borders()")
+  annotation_borders(...)
+}
