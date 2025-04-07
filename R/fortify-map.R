@@ -7,7 +7,7 @@
 #' plotted with ggplot2.
 #'
 #' @export
-#' @seealso [map_data()] and [borders()]
+#' @seealso [map_data()] and [annotation_borders()]
 #' @param model map object
 #' @param data not used by this method
 #' @param ... not used by this method
