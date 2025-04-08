@@ -31,12 +31,7 @@
 #'
 #' @export
 #' @format NULL
-#' @usage
-#' # Creating new subclass
-#' PositionNew <- ggproto("PositionNew", Position, ...)
-#'
-#' # Usage in the `layer()` function
-#' layer(position = PositionNew)
+#' @usage NULL
 #' @seealso The `r link_book("new positions section", "extensions#new-positions")`
 #' @examples
 #' # Extending the class

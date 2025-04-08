@@ -39,12 +39,7 @@ NULL
 #'
 #' @export
 #' @format NULL
-#' @usage
-#' # Creating a new subclass
-#' GeomNew <- ggproto("GeomNew", Geom, ...)
-#'
-#' # Usage in the `layer()` function
-#' layer(geom = GeomNew, ...)
+#' @usage NULL
 #' @seealso The `r link_book("new geoms section", "extensions#sec-new-geoms")`
 #' @seealso Run `vignette("extending-ggplot2")`, in particular the "Creating a
 #' new geom" section.
@@ -188,11 +183,10 @@ Geom <- ggproto(
   #'   \item{`data`}{A data frame of the layer's data, coming from the
   #'   `setup_data()` method. Can be `NULL`, in which case resolved defaults
   #'   should be returned.}
-  #'   \item{`params`}{A list of layer parameters, coming from the
-  #'   `setup_params()` method}
-  #'   \item{`modifiers`}{A [mapping][`aes()`] with delayed evaluations.}
-  #'   \item{`default_aes`}{A [mapping][`aes()`] with default aesthetics.}
-  #'   \item{`theme`}{A [completed theme][`complete_theme()`]}
+  #'   \item{`params`}{A list of fixed aesthetic parameters}
+  #'   \item{`modifiers`}{A [mapping][aes()] with delayed evaluations.}
+  #'   \item{`default_aes`}{A [mapping][aes()] with default aesthetics.}
+  #'   \item{`theme`}{A [completed theme][complete_theme()]}
   #' }
   #'
   #' **Value**
@@ -385,7 +379,7 @@ Geom <- ggproto(
   #'   `coord$transform(data, panel_params)`. When working with non-linear
   #'   coordinate systems, data should be converted to fit a primitive geom
   #'   (e.g. point, path or polygon) and passed on to the corresponding draw
-  #'   method for [munching][`coord_munch()`].}
+  #'   method for [munching][coord_munch()].}
   #'   \item{`...`}{Reserved for extensions. By default, this is passed on to
   #'   the `draw_group()` method.}
   #' }

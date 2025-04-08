@@ -59,13 +59,6 @@
 \alias{GeomViolin}
 \alias{GeomVline}
 \title{Geoms}
-\usage{
-# Creating a new subclass
-GeomNew <- ggproto("GeomNew", Geom, ...)
-
-# Usage in the `layer()` function
-layer(geom = GeomNew, ...)
-}
 \description{
 All \verb{geom_*()} functions (like \code{geom_point()}) return a layer that
 contains a \verb{Geom*} object (like \code{GeomPoint}). The \verb{Geom*}
@@ -181,11 +174,10 @@ evaluation.
 \item{\code{data}}{A data frame of the layer's data, coming from the
 \code{setup_data()} method. Can be \code{NULL}, in which case resolved defaults
 should be returned.}
-\item{\code{params}}{A list of layer parameters, coming from the
-\code{setup_params()} method}
-\item{\code{modifiers}}{A \link[=`aes()`]{mapping} with delayed evaluations.}
-\item{\code{default_aes}}{A \link[=`aes()`]{mapping} with default aesthetics.}
-\item{\code{theme}}{A \link[=`complete_theme()`]{completed theme}}
+\item{\code{params}}{A list of fixed aesthetic parameters}
+\item{\code{modifiers}}{A \link[=aes]{mapping} with delayed evaluations.}
+\item{\code{default_aes}}{A \link[=aes]{mapping} with default aesthetics.}
+\item{\code{theme}}{A \link[=complete_theme]{completed theme}}
 }
 
 \strong{Value}
@@ -265,7 +257,7 @@ position data, one should always call
 \code{coord$transform(data, panel_params)}. When working with non-linear
 coordinate systems, data should be converted to fit a primitive geom
 (e.g. point, path or polygon) and passed on to the corresponding draw
-method for \link[=`coord_munch()`]{munching}.}
+method for \link[=coord_munch]{munching}.}
 \item{\code{...}}{Reserved for extensions. By default, this is passed on to
 the \code{draw_group()} method.}
 }

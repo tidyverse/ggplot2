@@ -14,13 +14,6 @@
 \alias{PositionStack}
 \alias{PositionFill}
 \title{Positions}
-\usage{
-# Creating new subclass
-PositionNew <- ggproto("PositionNew", Position, ...)
-
-# Usage in the `layer()` function
-layer(position = PositionNew)
-}
 \description{
 All \verb{position_*()} functions (like \code{position_dodge()}) return a
 \verb{Position*} object (like \code{PositionDodge}). The \verb{Position*}

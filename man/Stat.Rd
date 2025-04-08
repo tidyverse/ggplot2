@@ -40,13 +40,6 @@
 \alias{StatUnique}
 \alias{StatYdensity}
 \title{Stats}
-\usage{
-# Creating a new subclass
-StatNew <- ggproto("StatNew", Stat, ...)
-
-# Usage in the `layer()` function
-layer(stat = StatNew)
-}
 \description{
 All \verb{stat_*()} functions (like \code{stat_bin()}) return a layer that
 contains a \verb{Stat*} object (like \code{StatBin}). The \verb{Stat*}
@@ -181,9 +174,9 @@ Stat$compute_group(data, scales, ...)
 \strong{Arguments}
 \describe{
 \item{\code{data}}{A data frame with the layer's data.}
-\item{\code{scales}}{A list containing pre-trained \code{x} and \code{y} scales.
-Note that these are global scales trained on all data, not panel-specific
-scales.}
+\item{\code{scales}}{A list of pre-trained \code{x} and \code{y} scales. Note that the
+position scales are not finalised at this point and reflect the initial
+data range before computing stats.}
 \item{\code{...}}{Reserved for extensions. By default, this passes parameters
 to the \code{compute_group()} method.}
 }
@@ -254,7 +247,7 @@ class name. Stat class names are in UpperCamelCase and start with the \verb{Stat
 prefix, like \code{StatNew}.
 
 A constructor function is usually paired wih a Stat class. The constructor
-wraps a call t o \code{layer()}, where e.g. \code{layer(stat = StatNew)}. The
+wraps a call to \code{layer()}, where e.g. \code{layer(stat = StatNew)}. The
 constructor function name is formatted by taking the Stat class name and
 formatting it with snake_case, so that \code{StatNew} becomes \code{stat_new()}.
 }
