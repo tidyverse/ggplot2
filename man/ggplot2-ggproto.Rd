@@ -6,9 +6,7 @@
 %   R/guide-axis.R, R/guide-axis-logticks.R, R/guide-axis-stack.R,
 %   R/guide-axis-theta.R, R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R,
 %   R/guide-colorsteps.R, R/guide-custom.R, R/guide-none.R, R/guide-old.R,
-%   R/layout.R, R/position-dodge.R, R/position-dodge2.R, R/position-identity.R,
-%   R/position-jitter.R, R/position-jitterdodge.R, R/position-nudge.R,
-%   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
+%   R/layout.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
 %   R/scale-date.R, R/scale-discrete-.R, R/scale-identity.R
 \docType{data}
 \name{ggplot2-ggproto}
@@ -40,14 +38,6 @@
 \alias{GuideNone}
 \alias{GuideOld}
 \alias{Layout}
-\alias{PositionDodge}
-\alias{PositionDodge2}
-\alias{PositionIdentity}
-\alias{PositionJitter}
-\alias{PositionJitterdodge}
-\alias{PositionNudge}
-\alias{PositionStack}
-\alias{PositionFill}
 \alias{Scale}
 \alias{ScaleContinuous}
 \alias{ScaleDiscrete}
