@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+This is a small release focusing on providing infrastructure for other packages
+to gracefully prepare for changes in the next major release.
+
+## Improvements
+
 * Standardised test functions for important classes: `is_ggproto()`,
  `is_ggplot()`, `is_mapping()`, `is_layer()`, `is_geom()`, `is_stat()`,
  `is_position()`, `is_coord()`, `is_facet()`, `is_scale()`, `is_guide()`,
