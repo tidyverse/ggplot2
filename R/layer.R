@@ -465,6 +465,7 @@ Layer <- ggproto("Layer", NULL,
 #' @export
 #' @rdname is_tests
 is_layer <- function(x) inherits(x, "Layer")
+is.layer <- function(x) lifecycle::deprecate_stop("3.5.2", "is.layer()", "is_layer()")
 
 check_subclass <- function(x, subclass,
                            argname = to_lower_ascii(subclass),

@@ -14,6 +14,7 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
 is_margin <- function(x) {
   inherits(x, "margin")
 }
+is.margin <- function(x) lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
 
 #' Create a text grob with the proper location and margins
 #'
