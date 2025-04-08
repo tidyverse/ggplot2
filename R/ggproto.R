@@ -1,6 +1,6 @@
 #' Create a new ggproto object
 #'
-#' Construct a new object with `ggproto()`, test with `is.ggproto()`,
+#' Construct a new object with `ggproto()`, test with `is_ggproto()`,
 #' and access parent methods/fields with `ggproto_parent()`.
 #'
 #' ggproto implements a protype based OO system which blurs the lines between

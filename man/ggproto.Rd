@@ -23,7 +23,7 @@ functions that become methods of the class or regular objects.}
 \item{parent, self}{Access parent class \code{parent} of object \code{self}.}
 }
 \description{
-Construct a new object with \code{ggproto()}, test with \code{is.ggproto()},
+Construct a new object with \code{ggproto()}, test with \code{is_ggproto()},
 and access parent methods/fields with \code{ggproto_parent()}.
 }
 \details{
