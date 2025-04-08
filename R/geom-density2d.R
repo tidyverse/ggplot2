@@ -101,7 +101,7 @@ geom_density_2d <- function(mapping = NULL, data = NULL,
 geom_density2d <- geom_density_2d
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -145,7 +145,7 @@ geom_density_2d_filled <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 geom_density2d_filled <- geom_density_2d_filled
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
