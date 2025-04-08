@@ -103,7 +103,7 @@ A guide object
 Colour bar guide shows continuous colour scales mapped onto values.
 Colour bar is available with \code{scale_fill} and \code{scale_colour}.
 For more information, see the inspiration for this function:
-\href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
+\href{https://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 }
 \details{
 Guides can be specified in each \verb{scale_*} or in \code{\link[=guides]{guides()}}.
