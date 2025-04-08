@@ -6,11 +6,10 @@
 %   R/guide-axis.R, R/guide-axis-logticks.R, R/guide-axis-stack.R,
 %   R/guide-axis-theta.R, R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R,
 %   R/guide-colorsteps.R, R/guide-custom.R, R/guide-none.R, R/guide-old.R,
-%   R/layout.R, R/position-.R, R/position-dodge.R, R/position-dodge2.R,
-%   R/position-identity.R, R/position-jitter.R, R/position-jitterdodge.R,
-%   R/position-nudge.R, R/position-stack.R, R/scale-.R, R/scale-binned.R,
-%   R/scale-continuous.R, R/scale-date.R, R/scale-discrete-.R,
-%   R/scale-identity.R
+%   R/layout.R, R/position-dodge.R, R/position-dodge2.R, R/position-identity.R,
+%   R/position-jitter.R, R/position-jitterdodge.R, R/position-nudge.R,
+%   R/position-stack.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
+%   R/scale-date.R, R/scale-discrete-.R, R/scale-identity.R
 \docType{data}
 \name{ggplot2-ggproto}
 \alias{ggplot2-ggproto}
@@ -41,7 +40,6 @@
 \alias{GuideNone}
 \alias{GuideOld}
 \alias{Layout}
-\alias{Position}
 \alias{PositionDodge}
 \alias{PositionDodge2}
 \alias{PositionIdentity}
@@ -265,51 +263,6 @@ methods, the measurements from \code{measure_grobs()} and layout from
 \item \code{add_title} Adds the title to a gtable, taking into account the size
 of the title as well as the gtable size.
 }
-}
-
-\section{Positions}{
-
-
-All \verb{position_*()} functions (like \code{position_dodge()}) return a
-\verb{Position*} object (like \code{PositionDodge}). The \verb{Position*}
-object is responsible for adjusting the position of overlapping geoms.
-
-The way that the \verb{position_*} functions work is slightly different from
-the \verb{geom_*} and \verb{stat_*} functions, because a \verb{position_*}
-function actually "instantiates" the \verb{Position*} object by creating a
-descendant, and returns that.
-
-Each of the \verb{Position*} objects is a \code{\link[=ggproto]{ggproto()}} object,
-descended from the top-level \code{Position}, and each implements the
-following methods:
-\itemize{
-\item \code{compute_layer(self, data, params, panel)} is called once
-per layer. \code{panel} is currently an internal data structure, so
-this method should not be overridden.
-\item \code{compute_panel(self, data, params, scales)} is called once per
-panel and should return a modified data frame.
-
-\code{data} is a data frame containing the variables named according
-to the aesthetics that they're mapped to. \code{scales} is a list
-containing the \code{x} and \code{y} scales. There functions are called
-before the facets are trained, so they are global scales, not local
-to the individual panels. \code{params} contains the parameters returned by
-\code{setup_params()}.
-\item \code{setup_params(data, params)}: called once for each layer.
-Used to setup defaults that need to complete dataset, and to inform
-the user of important choices. Should return list of parameters.
-\item \code{setup_data(data, params)}: called once for each layer,
-after \code{setup_params()}. Should return modified \code{data}.
-Default checks that required aesthetics are present.
-}
-
-And the following fields
-\itemize{
-\item \code{required_aes}: a character vector giving the aesthetics
-that must be present for this position adjustment to work.
-}
-
-See also the \href{https://ggplot2-book.org/extensions#new-positions}{new positions section} of the online ggplot2 book.
 }
 
 \section{Scales}{
