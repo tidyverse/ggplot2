@@ -267,7 +267,7 @@ profvis = (function() {
       rows.append("td")
         .attr("class", "code r")
         .text(function(d) { return d.content; })
-        .each(function() { hljs.highlightBlock(this); });
+        .each(function() { hljs.highlightElement(this); });
 
       rows.append("td")
         .attr("class", "table-memory memory")
