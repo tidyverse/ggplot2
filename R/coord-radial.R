@@ -166,7 +166,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       xlimits <- self$limits$r
       ylimits <- self$limits$theta
     }
-    panel_params <- c(
+    params <- c(
       view_scales_polar(scale_x, self$theta, xlimits,
         expand = params$expand[c(4, 2)]
       ),
@@ -177,7 +177,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
            arc = self$arc, inner_radius = self$inner_radius)
     )
 
-    panel_params$r_axis_inside <- self$r_axis_inside
+    params$r_axis_inside <- self$r_axis_inside
     if (isFALSE(self$r_axis_inside)) {
       place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
       if (!any(place)) {
@@ -185,31 +185,31 @@ CoordRadial <- ggproto("CoordRadial", Coord,
           "No appropriate placement found for {.arg r_axis_inside}.",
           i = "Axis will be placed at panel edge."
         ))
-        panel_params$r_axis_inside <- TRUE
+        params$r_axis_inside <- TRUE
       } else {
-        panel_params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
-        panel_params$fake_arc <- switch(
+        params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+        params$fake_arc <- switch(
           which(place[c(1, 3, 2, 4)])[1],
           c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
         ) * pi
       }
     }
 
-    axis_rotation <- panel_params$r_axis_inside
+    axis_rotation <- params$r_axis_inside
     if (is.numeric(axis_rotation)) {
       theta_scale <- switch(self$theta, x = scale_x, y = scale_y)
       axis_rotation <- theta_scale$transform(axis_rotation)
-      axis_rotation <- oob_squish(axis_rotation, panel_params$theta.range)
+      axis_rotation <- oob_squish(axis_rotation, params$theta.range)
       axis_rotation <- theta_rescale(
-        axis_rotation, panel_params$theta.range,
-        panel_params$arc, 1
+        axis_rotation, params$theta.range,
+        params$arc, 1
       )
-      panel_params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
+      params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
     } else {
-      panel_params$axis_rotation <- panel_params$arc
+      params$axis_rotation <- params$arc
     }
 
-    panel_params
+    params
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
