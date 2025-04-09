@@ -892,7 +892,7 @@ map_facet_data <- function(data, layout, params) {
     return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
   }
 
-  vars <- params$facet %||% c(params$rows, params$cols)
+  vars <- params$facets %||% c(params$rows, params$cols)
 
   if (length(vars) == 0) {
     data$PANEL <- layout$PANEL
@@ -911,7 +911,7 @@ map_facet_data <- function(data, layout, params) {
   # Compute faceting values
   facet_vals <- eval_facets(vars, data, params$.possible_columns)
 
-  include_margins <- !isFALSE(params$margin %||% FALSE) &&
+  include_margins <- !isFALSE(params$margins %||% FALSE) &&
     nrow(facet_vals) == nrow(data) && grid_layout
   if (include_margins) {
     # Margins are computed on evaluated faceting values (#1864).

@@ -36,7 +36,7 @@ test_that("all keys can be drawn without 'params'", {
   expect_in(nse, names(keys))
 
   # Add title to every key
-  template <- gtable(width = unit(size, "mm"), heights = unit(c(1, size), c("lines", "mm")))
+  template <- gtable(widths = unit(size, "mm"), heights = unit(c(1, size), c("lines", "mm")))
   keys <- Map(
     function(key, name) {
       text <- textGrob(name, gp = gpar(fontsize = 8))
