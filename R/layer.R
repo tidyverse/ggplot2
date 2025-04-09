@@ -132,7 +132,9 @@ layer <- function(geom = NULL, stat = NULL,
   params <- rename_aes(params)
   aes_params  <- params[intersect(names(params), union(geom$aesthetics(), position$aesthetics()))]
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
+  geom_params <- new_params(geom_params)
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
+  stat_params <- new_params(stat_params)
 
   ignore <- c("key_glyph", "name", "layout")
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), position$aesthetics(), ignore)
@@ -543,3 +545,11 @@ cleanup_mismatched_data <- function(data, n, fun) {
   data[failed] <- NULL
   data
 }
+
+new_params <- function(params) structure(params, class = "ggplot2_parameters")
+
+#' @export
+`$.ggplot2_parameters` <- function(x, i) .subset2(x, i)
+
+#' @export
+`[[.ggplot2_parameters` <- function(x, i) .subset2(x, i)
