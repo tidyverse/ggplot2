@@ -1,3 +1,5 @@
+# ggplot2 (development version)
+
 # ggplot2 3.5.2
 
 This is a small release focusing on providing infrastructure for other packages
