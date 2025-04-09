@@ -9,8 +9,8 @@ NULL
 #' rendered.
 #'
 #' Extending facets can range from the simple modifications of current facets,
-#' to very laborious rewrites with a lot of [gtable()] manipulation.
-#' For some examples of both, please see the extension vignette.
+#' to very laborious rewrites with a lot of [`gtable()`][gtable::gtable()]
+#' manipulation. For some examples of both, please see the extension vignette.
 #'
 #' `Facet` subclasses, like other extendible ggproto classes, have a range
 #' of methods that can be modified. Some of these are required for all new
