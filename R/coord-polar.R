@@ -20,7 +20,7 @@
 #' # to demonstrate how these common plots can be described in the
 #' # grammar.  Use with EXTREME caution.
 #'
-#' #' # A pie chart = stacked bar chart + polar coordinates
+#' # A pie chart = stacked bar chart + polar coordinates
 #' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
 #'  geom_bar(width = 1)
 #' pie + coord_polar(theta = "y")
@@ -84,7 +84,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
   is_free = function() TRUE,
 
-  distance = function(self, x, y, details) {
+  distance = function(self, x, y, details, boost = 0.75) {
     arc <- self$start + c(0, 2 * pi)
     dir <- self$direction
     if (self$theta == "x") {
@@ -94,8 +94,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       r <- rescale(x, from = details$r.range)
       theta <- theta_rescale_no_clip(y, details$theta.range, arc, dir)
     }
-
-    dist_polar(r, theta)
+    # The ^boost boosts detailed munching when r is small
+    dist_polar(r^boost, theta)
   },
 
   backtransform_range = function(self, panel_params) {
@@ -137,7 +137,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$sec.labels <- out$sec.labels
     }
 
-    details = list(
+    details <- list(
       x.range = ret$x$range, y.range = ret$y$range,
       x.major = ret$x$major, y.major = ret$y$major,
       x.minor = ret$x$minor, y.minor = ret$y$minor,
@@ -180,6 +180,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     arc  <- self$start + c(0, 2 * pi)
     dir  <- self$direction
     data <- rename_data(self, data)
@@ -265,7 +269,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
   render_fg = function(self, panel_params, theme) {
     if (is.null(panel_params$theta.major)) {
-      return(element_render(theme, "panel.border"))
+      return(element_render(theme, "panel.border", fill = NA))
     }
     arc <- self$start + c(0, 2 * pi)
     dir <- self$direction
@@ -297,7 +301,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
         unit(0.45 * cos(theta) + 0.5, "native"),
         hjust = 0.5, vjust = 0.5
       ),
-      element_render(theme, "panel.border")
+      element_render(theme, "panel.border", fill = NA)
     )
   },
 

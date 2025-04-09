@@ -22,6 +22,10 @@ test_that("margins add extra data", {
   loc <- panel_map_one(facet_grid(a~b, margins = "b"), df)
 
   expect_equal(nrow(loc), nrow(df) * 2)
+
+  # For variables including computation (#1864)
+  loc <- panel_map_one(facet_grid(a ~ I(b + 1), margins = TRUE), df)
+  expect_equal(nrow(loc), nrow(df) * 4)
 })
 
 test_that("grid: missing facet columns are duplicated", {
@@ -88,6 +92,67 @@ test_that("wrap and grid can facet by a POSIXct variable", {
   loc_grid_row <- panel_map_one(grid_row, date_df)
   expect_equal(loc_grid_row$PANEL, factor(1:3))
 })
+
+test_that("wrap: layer layout is respected", {
+
+  df <- expand.grid(x = LETTERS[1:2], y = 1:3)
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point(colour = "red", layout = "fixed") +
+    geom_point() +
+    geom_point(colour = "blue", layout = 5) +
+    facet_wrap(~ x  + y)
+  b <- ggplot_build(p)
+
+  expect_equal(
+    table(get_layer_data(b, i = 1L)$PANEL),
+    table(rep(1:6, 6))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 2L)$PANEL),
+    table(1:6)
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 3L)$PANEL),
+    table(factor(5, levels = 1:6))
+  )
+})
+
+test_that("grid: layer layout is respected", {
+
+  df <- expand.grid(x = LETTERS[1:2], y = 1:3)
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point(colour = "red", layout = "fixed") +
+    geom_point(colour = "green", layout = "fixed_rows") +
+    geom_point(colour = "purple", layout = "fixed_cols") +
+    geom_point() +
+    geom_point(colour = "blue", layout = 5) +
+    facet_grid(x ~ y)
+  b <- ggplot_build(p)
+
+  expect_equal(
+    table(get_layer_data(b, i = 1L)$PANEL),
+    table(rep(1:6, 6))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 2L)$PANEL),
+    table(rep(1:6, 3))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 3L)$PANEL),
+    table(rep(1:6, 2))
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 4L)$PANEL),
+    table(1:6)
+  )
+  expect_equal(
+    table(get_layer_data(b, i = 5L)$PANEL),
+    table(factor(5, levels = 1:6))
+  )
+})
+
 
 # Missing behaviour ----------------------------------------------------------
 

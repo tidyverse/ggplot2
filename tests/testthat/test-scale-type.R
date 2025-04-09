@@ -1,9 +1,9 @@
 test_that("no scale for NULL aesthetic", {
-  expect_equal(find_scale("colour", NULL), NULL)
+  expect_null(find_scale("colour", NULL))
 })
 
 test_that("no scale for Inf aesthetic", {
-  expect_equal(find_scale("colour", Inf), NULL)
+  expect_null(find_scale("colour", Inf))
 })
 
 test_that("message + continuous for unknown type", {

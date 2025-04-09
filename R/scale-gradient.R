@@ -16,7 +16,7 @@
 #' @param low,high Colours for low and high ends of the gradient.
 #' @param guide Type of legend. Use `"colourbar"` for continuous
 #'   colour bar, or `"legend"` for discrete colour legend.
-#' @inheritDotParams continuous_scale -na.value -guide -aesthetics -expand -position
+#' @inheritDotParams continuous_scale -na.value -guide -aesthetics -expand -position -palette
 #' @seealso [scales::pal_seq_gradient()] for details on underlying
 #'   palette, [scale_colour_steps()] for binned variants of these scales.
 #'
@@ -53,6 +53,14 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z1)) +
 #'   scale_colour_gradientn(colours = terrain.colors(10))
+#'
+#' # The gradientn scale can be centered by using a rescaler
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z1)) +
+#'   scale_colour_gradientn(
+#'     colours = c("blue", "dodgerblue", "white", "orange", "red"),
+#'     rescaler = ~ scales::rescale_mid(.x, mid = 0)
+#'   )
 #'
 #' # Equivalent fill scales do the same job for the fill aesthetic
 #' ggplot(faithfuld, aes(waiting, eruptions)) +

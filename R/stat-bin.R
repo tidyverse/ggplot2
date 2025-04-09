@@ -1,8 +1,7 @@
 #' @param binwidth The width of the bins. Can be specified as a numeric value
-#'   or as a function that calculates width from unscaled x. Here, "unscaled x"
-#'   refers to the original x values in the data, before application of any
-#'   scale transformation. When specifying a function along with a grouping
-#'   structure, the function will be called once per group.
+#'   or as a function that takes x after scale transformation as input and
+#'   returns a single numeric value. When specifying a function along with a
+#'   grouping structure, the function will be called once per group.
 #'   The default is to use the number of bins in `bins`,
 #'   covering the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
@@ -22,11 +21,16 @@
 #'   outside the range of the data.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
-#'    and `boundary`.
+#'    and `boundary`. Can also be a function that takes group-wise values as input and returns bin boundaries.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
 #' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
 #'   frequency polygons touch 0. Defaults to `FALSE`.
+#' @param drop Treatment of zero count bins. If `"none"` (default), such
+#'   bins are kept as-is. If `"all"`, all zero count bins are filtered out.
+#'   If `"extremes"` only zero count bins at the flanks are filtered out, but
+#'   not in the middle. `TRUE` is shorthand for `"all"` and `FALSE` is shorthand
+#'   for `"none"`.
 #' @eval rd_computed_vars(
 #'   count    = "number of points in bin.",
 #'   density  = "density of points in bin, scaled to integrate to 1.",
@@ -56,6 +60,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
                      closed = c("right", "left"),
                      pad = FALSE,
                      na.rm = FALSE,
+                     drop = "none",
                      orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -78,6 +83,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
       pad = pad,
       na.rm = na.rm,
       orientation = orientation,
+      drop = drop,
       ...
     )
   )
@@ -90,6 +96,15 @@ stat_bin <- function(mapping = NULL, data = NULL,
 StatBin <- ggproto("StatBin", Stat,
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+
+    if (is.logical(params$drop)) {
+      params$drop <- if (isTRUE(params$drop)) "all" else "none"
+    }
+    drop <- params$drop
+    params$drop <- arg_match0(
+      params$drop %||% "none",
+      c("all", "none", "extremes"), arg_nm = "drop"
+    )
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
@@ -109,29 +124,7 @@ StatBin <- ggproto("StatBin", Stat,
       ))
     }
 
-    if (!is.null(params$drop)) {
-      deprecate_warn0("2.1.0", "stat_bin(drop)", "stat_bin(pad)")
-      params$drop <- NULL
-    }
-    if (!is.null(params$origin)) {
-      deprecate_warn0("2.1.0", "stat_bin(origin)", "stat_bin(boundary)")
-      params$boundary <- params$origin
-      params$origin <- NULL
-    }
-    if (!is.null(params$right)) {
-      deprecate_warn0("2.1.0", "stat_bin(right)", "stat_bin(closed)")
-      params$closed <- if (params$right) "right" else "left"
-      params$right <- NULL
-    }
-    if (!is.null(params$boundary) && !is.null(params$center)) {
-      cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified in {.fn {snake_class(self)}}.")
-    }
-
-    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
-      cli::cli_inform("{.fn {snake_class(self)}} using {.code bins = 30}. Pick better value with {.arg binwidth}.")
-      params$bins <- 30
-    }
-
+    params <- fix_bin_params(params, fun = snake_class(self), version = "2.1.0")
     params
   },
 
@@ -140,27 +133,25 @@ StatBin <- ggproto("StatBin", Stat,
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE,
+                           breaks = NULL, flipped_aes = FALSE, drop = "none",
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
-                           origin = NULL, right = NULL, drop = NULL) {
+                           origin = NULL, right = NULL) {
     x <- flipped_names(flipped_aes)$x
-    if (!is.null(breaks)) {
-      if (!scales[[x]]$is_discrete()) {
-         breaks <- scales[[x]]$transform(breaks)
-      }
-      bins <- bin_breaks(breaks, closed)
-    } else if (!is.null(binwidth)) {
-      if (is.function(binwidth)) {
-        binwidth <- binwidth(data[[x]])
-      }
-      bins <- bin_breaks_width(scales[[x]]$dimension(), binwidth,
-        center = center, boundary = boundary, closed = closed)
-    } else {
-      bins <- bin_breaks_bins(scales[[x]]$dimension(), bins, center = center,
-        boundary = boundary, closed = closed)
-    }
+    bins <- compute_bins(
+      data[[x]], scales[[x]],
+      breaks = breaks, binwidth = binwidth, bins = bins,
+      center = center, boundary = boundary, closed = closed
+    )
     bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
+
+    keep <- switch(
+      drop,
+      all = bins$count != 0,
+      extremes = inner_runs(bins$count != 0),
+      TRUE
+    )
+    bins <- vec_slice(bins, keep)
     bins$flipped_aes <- flipped_aes
     flip_data(bins, flipped_aes)
   },
@@ -171,4 +162,13 @@ StatBin <- ggproto("StatBin", Stat,
 
   dropped_aes = "weight" # after statistical transformation, weights are no longer available
 )
+
+inner_runs <- function(x) {
+  rle <- vec_unrep(x)
+  nruns <- nrow(rle)
+  inner <- rep(TRUE, nruns)
+  i <- unique(c(1, nruns))
+  inner[i] <- inner[i] & rle$key[i]
+  rep(inner, rle$times)
+}
 

@@ -10,7 +10,7 @@
 geom_qq_line(
   mapping = NULL,
   data = NULL,
-  geom = "path",
+  geom = "abline",
   position = "identity",
   ...,
   distribution = stats::qnorm,
@@ -25,7 +25,7 @@ geom_qq_line(
 stat_qq_line(
   mapping = NULL,
   data = NULL,
-  geom = "path",
+  geom = "abline",
   position = "identity",
   ...,
   distribution = stats::qnorm,
@@ -156,7 +156,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -170,22 +172,22 @@ points at specified quartiles of the theoretical and sample distributions.
 }
 \section{Aesthetics}{
 
-\code{stat_qq()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{sample}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_position]{x}}
-\item \code{\link[=aes_position]{y}}
+\code{stat_qq()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{sample}} \tab   \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{\link[=aes_position]{x}} \tab → \code{after_stat(theoretical)} \cr\cr
+• \tab \code{\link[=aes_position]{y}} \tab → \code{after_stat(sample)} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 
-\code{stat_qq_line()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{sample}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_position]{x}}
-\item \code{\link[=aes_position]{y}}
+\code{stat_qq_line()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{sample}} \tab   \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{\link[=aes_position]{x}} \tab → \code{after_stat(x)} \cr\cr
+• \tab \code{\link[=aes_position]{y}} \tab → \code{after_stat(y)} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -203,6 +205,8 @@ Variables computed by \code{stat_qq_line()}:
 \itemize{
 \item \code{after_stat(x)}\cr x-coordinates of the endpoints of the line segment connecting the  points at the chosen quantiles of the theoretical and the sample  distributions.
 \item \code{after_stat(y)}\cr y-coordinates of the endpoints.
+\item \code{after_stat(slope)}\cr Amount of change in \code{y} across 1 unit of \code{x}.
+\item \code{after_stat(intercept)}\cr Value of \code{y} at \code{x == 0}.
 }
 }
 
@@ -212,8 +216,12 @@ df <- data.frame(y = rt(200, df = 5))
 p <- ggplot(df, aes(sample = y))
 p + stat_qq() + stat_qq_line()
 
-# Use fitdistr from MASS to estimate distribution params
-params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
+# Use fitdistr from MASS to estimate distribution params:
+# if (requireNamespace("MASS", quietly = TRUE)) {
+#   params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
+# }
+# Here, we use pre-computed params
+params <- list(m = -0.02505057194115, s = 1.122568610124, df = 6.63842653897)
 ggplot(df, aes(sample = y)) +
   stat_qq(distribution = qt, dparams = params["df"]) +
   stat_qq_line(distribution = qt, dparams = params["df"])

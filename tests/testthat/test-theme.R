@@ -49,7 +49,7 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
@@ -115,7 +115,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme()
   expect_identical(t, theme_grey())
 
-  expect_error(theme_grey() + "asdf")
+  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("calculating theme element inheritance works", {
@@ -240,19 +240,17 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 })
 
-test_that("theme(validate=FALSE) means do not validate_element", {
+test_that("theme(validate=FALSE) means do not check_element", {
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   bw <- p + theme_bw()
   red.text <- theme(text = element_text(colour = "red"))
@@ -287,7 +285,7 @@ test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
   register_theme_elements(element_tree = list(test = el_def("element_rect")))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
-  expect_snapshot_error(theme_set("foo"))
+  expect_snapshot_error(set_theme("foo"))
 })
 
 test_that("element tree can be modified", {
@@ -313,6 +311,17 @@ test_that("element tree can be modified", {
 
   p1 <- ggplot() + theme(blablabla = element_line())
   expect_snapshot_error(ggplotGrob(p1))
+
+  # Expect errors for invalid element trees
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(el_def("rect"), el_def("line")))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = "bar"))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = el_def(inherit = "foo")))
+  )
 
   # inheritance and final calculation of novel element works
   final_theme <- ggplot2:::plot_theme(p, theme_gray())
@@ -370,10 +379,7 @@ test_that("elements can be merged", {
     merge_element(element_line(colour = "blue"), line_base),
     element_line(colour = "blue", linewidth = 10)
   )
-  expect_error(
-    merge_element(text_base, rect_base),
-    "Only elements of the same class can be merged"
-  )
+  expect_snapshot(merge_element(text_base, rect_base), error = TRUE)
 })
 
 test_that("theme elements that don't inherit from element can be combined", {
@@ -394,7 +400,7 @@ test_that("complete plot themes shouldn't inherit from default", {
 })
 
 test_that("current theme can be updated with new elements", {
-  old <- theme_set(theme_grey())
+  old <- set_theme(theme_grey())
 
   b1 <- ggplot() + theme_grey()
   b2 <- ggplot()
@@ -412,7 +418,7 @@ test_that("current theme can be updated with new elements", {
   )
 
   # theme calculation for nonexisting element returns NULL
-  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
+  expect_null(calc_element("abcde", plot_theme(b1)))
 
   # element tree gets merged properly
   register_theme_elements(
@@ -428,7 +434,7 @@ test_that("current theme can be updated with new elements", {
   expect_identical(e1, e2)
 
   reset_theme_settings()
-  theme_set(old)
+  set_theme(old)
 })
 
 test_that("titleGrob() and margins() work correctly", {
@@ -515,11 +521,37 @@ test_that("Theme elements are checked during build", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("subtheme functions rename arguments as intended", {
+
+  line <- element_line(colour = "red")
+  rect <- element_rect(colour = "red")
+
+  expect_equal(theme_sub_axis(ticks = line),        theme(axis.ticks = line))
+  expect_equal(theme_sub_axis_x(ticks = line),      theme(axis.ticks.x = line))
+  expect_equal(theme_sub_axis_y(ticks = line),      theme(axis.ticks.y = line))
+  expect_equal(theme_sub_axis_top(ticks = line),    theme(axis.ticks.x.top = line))
+  expect_equal(theme_sub_axis_bottom(ticks = line), theme(axis.ticks.x.bottom = line))
+  expect_equal(theme_sub_axis_left(ticks = line),   theme(axis.ticks.y.left = line))
+  expect_equal(theme_sub_axis_right(ticks = line),  theme(axis.ticks.y.right = line))
+  expect_equal(theme_sub_legend(key = rect),        theme(legend.key = rect))
+  expect_equal(theme_sub_panel(border = rect),      theme(panel.border = rect))
+  expect_equal(theme_sub_plot(background = rect),   theme(plot.background = rect))
+  expect_equal(theme_sub_strip(background = rect),  theme(strip.background = rect))
+
+  # Test rejection of unknown theme elements
+  expect_snapshot_warning(
+    expect_equal(
+      subtheme(list(foo = 1, bar = 2, axis.line = line)),
+      theme(axis.line = line)
+    )
+  )
+})
+
 test_that("Theme validation behaves as expected", {
   tree <- get_element_tree()
-  expect_silent(validate_element(1,  "aspect.ratio", tree))
-  expect_silent(validate_element(1L, "aspect.ratio", tree))
-  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+  expect_silent(check_element(1,  "aspect.ratio", tree))
+  expect_silent(check_element(1L, "aspect.ratio", tree))
+  expect_snapshot_error(check_element("A", "aspect.ratio", tree))
 })
 
 test_that("Element subclasses are inherited", {
@@ -583,7 +615,169 @@ test_that("Minor tick length supports biparental inheritance", {
   )
 })
 
+test_that("header_family is passed on correctly", {
+
+  td <- theme_dark(base_family = "x", header_family = "y")
+
+  test <- calc_element("plot.title", td)
+  expect_equal(test$family, "y")
+
+  test <- calc_element("plot.subtitle", td)
+  expect_equal(test$family, "x")
+})
+
+test_that("complete_theme completes a theme", {
+  # `NULL` should match default
+  gray <- theme_gray()
+  new <- complete_theme(NULL, default = gray)
+  expect_equal(new, gray, ignore_attr = "validate")
+
+  # Elements are propagated
+  new <- complete_theme(theme(axis.line = element_line("red")), gray)
+  expect_equal(new$axis.line$colour, "red")
+
+  # Missing elements are filled in if default theme is incomplete
+  new <- complete_theme(default = theme())
+  expect_s3_class(new$axis.line, "element_blank")
+
+  # Registered elements are included
+  register_theme_elements(
+    test = element_text(),
+    element_tree = list(test = el_def("element_text", "text"))
+  )
+  new <- complete_theme(default = gray)
+  expect_s3_class(new$test, "element_text")
+  reset_theme_settings()
+})
+
+test_that("panel.widths and panel.heights works with free-space panels", {
+
+  df <- data.frame(x = c(1, 1, 2, 1, 3), g = c("A", "B", "B", "C", "C"))
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      scale_x_continuous(expand = expansion(add = 1)) +
+      facet_grid(~ g, scales = "free_x", space = "free_x") +
+      theme(
+        panel.widths = unit(11, "cm"),
+        panel.spacing.x = unit(1, "cm")
+      )
+  )
+
+  idx <- range(panel_cols(p)$l)
+  expect_equal(as.numeric(p$widths[seq(idx[1], idx[2])]), c(2, 1, 3, 1, 4))
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      scale_y_continuous(expand = expansion(add = 1)) +
+      facet_grid(g ~ ., scales = "free_y", space = "free_y") +
+      theme(
+        panel.heights = unit(11, "cm"),
+        panel.spacing.y = unit(1, "cm")
+      )
+  )
+
+  idx <- range(panel_rows(p)$t)
+  expect_equal(as.numeric(p$heights[seq(idx[1], idx[2])]), c(2, 1, 3, 1, 4))
+
+})
+
+test_that("panel.widths and panel.heights appropriately warn about aspect override", {
+  p <- ggplot(mpg, aes(displ, hwy)) +
+    geom_point() +
+    theme(aspect.ratio = 1, panel.widths = unit(4, "cm"))
+  expect_warning(ggplotGrob(p), "Aspect ratios are overruled")
+})
+
+test_that("margin_part() mechanics work as expected", {
+
+  t <- theme_gray() +
+    theme(plot.margin = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+
+  t <- theme_gray() +
+    theme(margins = margin_part(b = 11))
+
+  test <- calc_element("plot.margin", t)
+  expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
+})
+
+test_that("theme() warns about conflicting palette options", {
+  expect_silent(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+  local_options(ggplot2.discrete.colour = c("red", "purple"))
+  expect_snapshot_warning(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+})
+
+test_that("geom elements are inherited correctly", {
+
+  GeomFoo <- ggproto("GeomFoo", GeomPoint)
+  GeomBar <- ggproto("GeomBar", GeomFoo)
+
+  p <- ggplot(data.frame(x = 1), aes(x, x)) +
+    stat_identity(geom = GeomBar) +
+    theme(
+      geom = element_geom(pointshape = 15),
+      geom.point = element_geom(borderwidth = 2, ink = "blue"),
+      geom.foo = element_geom(pointsize = 2),
+      geom.bar = element_geom(ink = "red")
+    )
+  p <- layer_data(p)
+  expect_equal(p$shape, 15)
+  expect_equal(p$stroke, 2)
+  expect_equal(p$size, 2)
+  expect_equal(p$colour, "red")
+})
+
 # Visual tests ------------------------------------------------------------
+
+test_that("element_polygon() can render a grob", {
+
+  t <- theme_gray() + theme(polygon = element_polygon(fill = "orchid"))
+  e <- calc_element("polygon", t)
+  g <- element_grob(
+    e,
+    x  = c(0, 0.5, 1, 0.5, 0.15, 0.85, 0.85, 0.15),
+    y  = c(0.5, 0, 0.5, 1, 0.15, 0.15, 0.85, 0.85),
+    id = c(1, 1, 1, 1, 2, 2, 2, 2),
+    colour = c("orange", "limegreen")
+  )
+
+  expect_s3_class(g, "pathgrob")
+  expect_equal(g$gp$fill, "orchid")
+
+  expect_doppelganger(
+    "polygon elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
+
+test_that("element_point() can render a grob", {
+
+  t <- theme_gray() + theme(point = element_point(shape = 21, size = 5))
+  e <- calc_element("point", t)
+  g <- element_grob(
+    e,
+    x = seq(0.1, 0.9, length.out = 5),
+    y = seq(0.9, 0.1, length.out = 5),
+    fill = c("orange", "limegreen", "orchid", "turquoise", "grey")
+  )
+
+  expect_s3_class(g, "points")
+  expect_equal(g$pch, 21)
+
+  expect_doppelganger(
+    "point elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
 
 test_that("aspect ratio is honored", {
   df <- cbind(data_frame(x = 1:8, y = 1:8, f = gl(2,4)), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
@@ -649,6 +843,19 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
 })
 
+test_that("setting 'spacing' and 'margins' affect the whole plot", {
+
+  df <- data_frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a) +
+    theme_gray()
+
+  expect_doppelganger("large spacing", plot + theme(spacing = unit(1, "cm")))
+  expect_doppelganger("large margins", plot + theme(margins = margin(1, 1, 1, 1, "cm")))
+
+})
+
 test_that("axes can be styled independently", {
   plot <- ggplot() +
     geom_point(aes(1:10, 1:10)) +
@@ -682,12 +889,12 @@ test_that("axes ticks can have independent lengths", {
     scale_x_continuous(sec.axis = dup_axis()) +
     scale_y_continuous(sec.axis = dup_axis()) +
     theme(
-      axis.ticks.length.x.top = unit(-.5, "cm"),
-      axis.ticks.length.x.bottom = unit(-.25, "cm"),
-      axis.ticks.length.y.left = unit(.25, "cm"),
-      axis.ticks.length.y.right = unit(.5, "cm"),
-      axis.text.x.bottom = element_text(margin = margin(t = .25, unit = "cm")),
-      axis.text.x.top = element_text(margin = margin(b = .25, unit = "cm"))
+      axis.ticks.length.x.top = unit(-0.5, "cm"),
+      axis.ticks.length.x.bottom = unit(-0.25, "cm"),
+      axis.ticks.length.y.left = unit(0.25, "cm"),
+      axis.ticks.length.y.right = unit(0.5, "cm"),
+      axis.text.x.bottom = element_text(margin = margin(t = 0.25, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = 0.25, unit = "cm"))
     )
   expect_doppelganger("ticks_length", plot)
 })
@@ -792,6 +999,24 @@ test_that("Strips can render custom elements", {
     facet_wrap(~a) +
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
+})
+
+test_that("theme ink and paper settings work", {
+
+  p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
+    geom_point() +
+    facet_wrap(~"Strip title") +
+    labs(
+      title = "Main title",
+      subtitle = "Subtitle",
+      tag = "A",
+      caption = "Caption"
+    )
+
+  expect_doppelganger(
+    "Theme with inverted colours",
+    p + theme_gray(ink = "white", paper = "black")
+  )
 })
 
 test_that("legend margins are correct when using relative key sizes", {

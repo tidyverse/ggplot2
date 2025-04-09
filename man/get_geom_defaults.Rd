@@ -4,7 +4,7 @@
 \alias{get_geom_defaults}
 \title{Resolve and get geom defaults}
 \usage{
-get_geom_defaults(geom, theme = theme_get())
+get_geom_defaults(geom, theme = get_theme())
 }
 \arguments{
 \item{geom}{Some definition of a geom:
@@ -36,5 +36,8 @@ get_geom_defaults("density_2d")
 
 # Using a class
 get_geom_defaults(GeomPoint)
+
+# Changed theme
+get_geom_defaults("point", theme(geom = element_geom(ink = "purple")))
 }
 \keyword{internal}

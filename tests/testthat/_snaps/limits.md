@@ -4,5 +4,5 @@
 
 ---
 
-    `linewidth` must be a two-element vector.
+    `linewidth` must be a vector of length 2, not length 1.
 

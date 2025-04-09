@@ -10,7 +10,7 @@ test_that("stat_count() respects uniqueness of `x`", {
   # if they are retained
   df <- data_frame0(x = c(1, 2, 1, 2) + rep(c(0, 1.01 * .Machine$double.eps), each = 2))
   p <- ggplot(df, aes(x)) + stat_count(position = "identity")
-  data <- layer_data(p)
+  data <- get_layer_data(p)
 
   expect_length(vec_unique(df$x), 4)
   expect_equal(data$y, rep(1, 4))

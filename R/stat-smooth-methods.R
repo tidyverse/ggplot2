@@ -60,7 +60,7 @@ predictdf.loess <- function(model, xseq, se, level) {
 
   if (se) {
     y <- pred$fit
-    ci <- pred$se.fit * stats::qt(level / 2 + .5, pred$df)
+    ci <- pred$se.fit * stats::qt(level / 2 + 0.5, pred$df)
     ymin <- y - ci
     ymax <- y + ci
     base::data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
@@ -79,7 +79,7 @@ predictdf.locfit <- function(model, xseq, se, level) {
 
   if (se) {
     y <- pred$fit
-    ci <- pred$se.fit * stats::qt(level / 2 + .5, model$dp["df2"])
+    ci <- pred$se.fit * stats::qt(level / 2 + 0.5, model$dp["df2"])
     ymin <- y - ci
     ymax <- y + ci
     base::data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)

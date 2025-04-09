@@ -17,9 +17,13 @@
     Problem while converting geom to grob.
     i Error occurred in the 1st layer.
     Caused by error in `draw_group()`:
-    ! Aesthetics can not vary along a ribbon.
+    ! Aesthetics can not vary along a ribbon: linewidth.
 
 ---
 
     `outline.type` must be one of "both", "upper", "lower", or "full", not "test".
+
+# NAs are dropped from the data
+
+    Removed 1 row containing missing values or values outside the scale range (`geom_ribbon()`).
 
