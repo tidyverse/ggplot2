@@ -405,10 +405,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       # Note that clipping path is applied to panel without coord
       # foreground/background (added in parent method).
       # These may contain decorations that needn't be clipped
-      panel <- list(gTree(
-        children = inject(gList(!!!panel)),
-        vp = viewport(clip = clip_path)
-      ))
+      panel <- editGrob(panel, vp = viewport(clip = clip_path))
     }
     ggproto_parent(Coord, self)$draw_panel(panel, params, theme)
   },

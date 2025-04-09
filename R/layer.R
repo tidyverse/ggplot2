@@ -452,7 +452,11 @@ Layer <- ggproto("Layer", NULL,
     }
 
     data <- self$geom$handle_na(data, self$computed_geom_params)
-    self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
+    grobs <- self$geom$draw_layer(data, 
+      self$computed_geom_params, 
+      layout, layout$coord
+    )
+    lapply(grobs, ensure_grob)
   }
 )
 

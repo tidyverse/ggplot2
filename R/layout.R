@@ -78,8 +78,12 @@ Layout <- ggproto("Layout", NULL,
 
     # Draw individual panels, then assemble into gtable
     panels <- lapply(seq_along(panels[[1]]), function(i) {
-      panel <- lapply(panels, `[[`, i)
-      panel <- c(facet_bg[i], panel, facet_fg[i])
+      panel <- gTree(children = inject(gList(!!!lapply(panels, `[[`, i))))
+      panel <- gTree(children = gList(
+        ensure_grob(facet_bg[[i]]),
+        panel,
+        ensure_grob(facet_fg[[i]])
+      ))
       panel <- self$coord$draw_panel(panel, self$panel_params[[i]], theme)
       ggname(paste("panel", i, sep = "-"), panel)
     })

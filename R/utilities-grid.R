@@ -4,6 +4,13 @@ grid::unit
 #' @export
 grid::arrow
 
+# helper function to ensure the object is a grob
+# This will simply return a `zeroGrob()` for non-grob object
+ensure_grob <- function(x) {
+  if (inherits(x, "gList")) x <- gTree(children = x)
+  if (is.grob(x)) x else zeroGrob()
+}
+
 # Name ggplot grid object
 # Convenience function to name grid objects
 #
