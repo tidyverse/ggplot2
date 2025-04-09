@@ -210,11 +210,14 @@ Layout <- ggproto("Layout", NULL,
     scales_x <- self$panel_scales_x[self$layout$SCALE_X[index]]
     scales_y <- self$panel_scales_y[self$layout$SCALE_Y[index]]
 
-    self$panel_params <- Map(
+    panel_params <- Map(
       self$coord$setup_panel_params,
       scales_x, scales_y,
       MoreArgs = list(params = self$coord_params)
     )[order] # `[order]` does the repeating
+
+    # Let Facet modify `panel_params` for each panel
+    self$panel_params <- self$facet$setup_panel_params(panel_params, self$coord)
 
     invisible()
   },
