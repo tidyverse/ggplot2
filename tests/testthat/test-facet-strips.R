@@ -1,13 +1,13 @@
 strip_layout <- function(p) {
   data <- ggplot_build(p)
-  plot <- data$plot
-  layout <- data$layout
-  data <- data$data
+  plot <- data@plot
+  layout <- data@layout
+  data <- data@data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot@layers, data)
 
-  facet <- layout$render(geom_grobs, data, theme, plot$labels)
+  facet <- layout$render(geom_grobs, data, theme, plot@labels)
   layout <- facet$layout
   strip_layout <- layout[grepl("^strip", layout$name), 1:4]
   as.list(strip_layout)

@@ -1,19 +1,3 @@
-# modifying theme element properties with + operator works
-
-    Code
-      theme_grey() + "asdf"
-    Condition
-      Error:
-      ! Can't add `"asdf"` to a theme object.
-
-# replacing theme elements with %+replace% operator works
-
-    Code
-      theme_grey() + "asdf"
-    Condition
-      Error:
-      ! Can't add `"asdf"` to a theme object.
-
 # theme validation happens at build stage
 
     The `text` theme element must be a <element_text> object.
