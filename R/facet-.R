@@ -46,6 +46,10 @@ NULL
 #' the default behaviour of one or more of the following methods:
 #'
 #'   - `setup_params`:
+#'
+#'   - `setup_panel_params`: modifies the x and y ranges for each panel. This is
+#'     used to allow the `Facet` to interact with the `panel_params`.
+#' 
 #'   - `init_scales`: Given a master scale for x and y, create panel
 #'   specific scales for each panel defined in the layout. The default is to
 #'   simply clone the master scale.
@@ -90,6 +94,7 @@ Facet <- ggproto("Facet", NULL,
   map_data = function(data, layout, params) {
     cli::cli_abort("Not implemented.")
   },
+  setup_panel_params = function(self, panel_params, coord, ...) panel_params,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {

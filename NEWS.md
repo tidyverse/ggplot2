@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Facet gains a new method `setup_panel_params` to interact with the panel_params setted by Coord object (@Yunuuuu, #6397, #6380)
 * `position_fill()` avoids stacking observations of zero (@teunbrand, #6338)
 * New `layer(layout)` argument to interact with facets (@teunbrand, #3062)
 * New `stat_connect()` to connect points via steps or other shapes 
