@@ -130,12 +130,26 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Split up params between aesthetics, geom, and stat
   params <- rename_aes(params)
-  aes_params  <- params[intersect(names(params), union(geom$aesthetics(), position$aesthetics()))]
-  geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
-  stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
+  aes_params  <- params[
+    intersect(names(params), union(geom$aesthetics(), position$aesthetics()))
+  ]
+
+  # make sure all required parameters have a default value `NULL`
+  geom_parameters <- geom$parameters(TRUE)
+  geom_params <- vector("list", length(geom_parameters))
+  names(geom_params) <- geom_parameters
+  geom_params[intersect(names(params), geom_parameters)] <- params[
+    intersect(names(params), geom_parameters)
+  ]
+  stat_parameters <- stat$parameters(TRUE)
+  stat_params <- vector("list", length(stat_parameters))
+  names(stat_params) <- stat_parameters
+  stat_params[intersect(names(params), stat_parameters)] <- params[
+    intersect(names(params), stat_parameters)
+  ]
 
   ignore <- c("key_glyph", "name", "layout")
-  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), position$aesthetics(), ignore)
+  all <- c(geom_parameters, stat_parameters, geom$aesthetics(), position$aesthetics(), ignore)
 
   # Take care of plain patterns provided as aesthetic
   pattern <- vapply(aes_params, is_pattern, logical(1))
