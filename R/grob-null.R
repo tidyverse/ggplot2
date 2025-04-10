@@ -23,4 +23,9 @@ grobHeight.zeroGrob <- function(x) unit(0, "cm")
 #' @method drawDetails zeroGrob
 drawDetails.zeroGrob <- function(x, recording) {}
 
-is.zero <- function(x) is.null(x) || inherits(x, "zeroGrob")
+is_zero <- function(x) is.null(x) || inherits(x, "zeroGrob")
+
+is.zero <- function(x) {
+  deprecate_warn("4.0.0", "is.zero()", "is_zero()")
+  is_zero(x)
+}

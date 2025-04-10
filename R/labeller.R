@@ -546,7 +546,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+  if (length(grobs) == 0 || is_zero(grobs[[1]])) {
     # Subsets matrix of zeroGrobs to correct length (#4050)
     grobs <- grobs[seq_len(NROW(grobs))]
     return(grobs)
