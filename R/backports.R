@@ -15,6 +15,10 @@ if (getRversion() < "3.3") {
   backport_unit_methods <- function() {}
 }
 
+# enable usage of <S7_object>@name in package code
+#' @rawNamespace if (getRversion() < "4.3.0") importFrom("S7", "@")
+NULL
+
 on_load(backport_unit_methods())
 
 unitType <- function(x) {

@@ -244,7 +244,9 @@ get_plot_background <- function(plot, bg = NULL, default = "transparent") {
   if (!is_ggplot(plot)) {
     return(default)
   }
-  calc_element("plot.background", plot_theme(plot))$fill %||% default
+  bg <- calc_element("plot.background", plot_theme(plot))
+  bg <- if (S7::prop_exists(bg, "fill")) bg@fill else NULL
+  bg %||% "transparent"
 }
 
 validate_device <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
