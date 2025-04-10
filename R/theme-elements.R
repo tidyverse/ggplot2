@@ -280,7 +280,12 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 #' Reports whether x is a rel object
 #' @param x An object to test
 #' @keywords internal
-is.rel <- function(x) inherits(x, "rel")
+is_rel <- function(x) inherits(x, "rel")
+
+is.rel <- function(x) {
+  deprecate_warn0("4.0.0", "is.rel()", "is_rel()")
+  is_rel(x)
+}
 
 #' Render a specified theme element into a grob
 #'

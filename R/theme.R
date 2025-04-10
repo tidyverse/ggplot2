@@ -904,9 +904,9 @@ combine_elements <- function(e1, e2) {
   }
 
   # Inheritance of rel objects
-  if (is.rel(e1)) {
+  if (is_rel(e1)) {
     # Both e1 and e2 are rel, give product as another rel
-    if (is.rel(e2)) {
+    if (is_rel(e2)) {
       return(rel(unclass(e1) * unclass(e2)))
     }
     # If e2 is a unit/numeric, return modified unit/numeric
@@ -946,12 +946,12 @@ combine_elements <- function(e1, e2) {
   e1[n] <- e2[n]
 
   # Calculate relative sizes
-  if (is.rel(e1$size)) {
+  if (is_rel(e1$size)) {
     e1$size <- e2$size * unclass(e1$size)
   }
 
   # Calculate relative linewidth
-  if (is.rel(e1$linewidth)) {
+  if (is_rel(e1$linewidth)) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
