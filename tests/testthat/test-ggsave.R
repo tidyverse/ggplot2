@@ -58,6 +58,9 @@ test_that("ggsave uses theme background as image background", {
   img <- xml2::read_xml(path)
   # Find background rect in svg
   bg <- as.character(xml2::xml_find_first(img, xpath = "d1:rect/@style"))
+  if (is.na(bg)) {
+    bg <- as.character(xml2::xml_find_first(img, xpath = "d1:g/d1:rect/@style"))
+  }
   expect_true(grepl("fill: #00CCCC", bg))
 })
 
@@ -73,6 +76,9 @@ test_that("ggsave can handle blank background", {
   ggsave(path, p, device = "svg", width = 5, height = 5)
   img <- xml2::read_xml(path)
   bg <- as.character(xml2::xml_find_first(img, xpath = "d1:rect/@style"))
+  if (is.na(bg)) {
+    bg <- as.character(xml2::xml_find_first(img, xpath = "d1:g/d1:rect/@style"))
+  }
   expect_true(grepl("fill: none", bg))
 })
 

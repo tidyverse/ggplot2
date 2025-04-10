@@ -12,6 +12,7 @@
 \alias{element_polygon}
 \alias{element_point}
 \alias{element_geom}
+\alias{is_theme_element}
 \alias{rel}
 \title{Theme elements}
 \usage{
@@ -98,6 +99,8 @@ element_geom(
   fill = NULL
 )
 
+is_theme_element(x, type = "any")
+
 rel(x)
 }
 \arguments{
@@ -162,6 +165,9 @@ is anchored.}
 \item{accent}{Accent colour.}
 
 \item{x}{A single number specifying size relative to parent element.}
+
+\item{type}{For testing elements: the type of element to expect. One of
+\code{"blank"}, \code{"rect"}, \code{"line"} or \code{"text"}.}
 }
 \value{
 An S3 object of class \code{element}, \code{rel}, or \code{margin}.

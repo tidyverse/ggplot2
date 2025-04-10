@@ -4,7 +4,7 @@
 \alias{get_geom_defaults}
 \title{Resolve and get geom defaults}
 \usage{
-get_geom_defaults(geom, theme = theme_get())
+get_geom_defaults(geom, theme = get_theme())
 }
 \arguments{
 \item{geom}{Some definition of a geom:

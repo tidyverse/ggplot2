@@ -111,7 +111,7 @@ aes <- function(x, y, ...) {
 
 #' @export
 #' @rdname is_tests
-is.mapping <- function(x) inherits(x, "uneval")
+is_mapping <- function(x) inherits(x, "uneval")
 
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility

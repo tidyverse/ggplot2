@@ -15,9 +15,9 @@ coverage](https://codecov.io/gh/tidyverse/ggplot2/graph/badge.svg)](https://app.
 
 ggplot2 is a system for declaratively creating graphics, based on [The
 Grammar of
-Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl).
-You provide the data, tell ggplot2 how to map variables to aesthetics,
-what graphical primitives to use, and it takes care of the details.
+Graphics](https://link.springer.com/book/10.1007/0-387-28695-0). You
+provide the data, tell ggplot2 how to map variables to aesthetics, what
+graphical primitives to use, and it takes care of the details.
 
 ## Installation
 
@@ -49,11 +49,13 @@ then add on layers (like `geom_point()` or `geom_histogram()`), scales
 ``` r
 library(ggplot2)
 
-ggplot(mpg, aes(displ, hwy, colour = class)) + 
+ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
-<img src="man/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles per gallon are inversely correlated."  />
+<img src="man/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles
+ per gallon are inversely correlated."  />
 
 ## Lifecycle
 
