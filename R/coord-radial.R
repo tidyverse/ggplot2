@@ -102,6 +102,16 @@ coord_radial <- function(theta = "x",
   arc <- switch(reverse, thetar = , theta = rev(arc), arc)
 
   r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
+  if (isFALSE(r.axis.inside)) {
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, arc)
+    if (!any(place)) {
+      cli::cli_warn(c(
+        "No appropriate placement found for {.arg r.axis.inside}.",
+        i = "Will use {.code r.axis.inside = TRUE} instead"
+      ))
+      r.axis.inside <- TRUE
+    }
+  }
 
   inner.radius <- c(inner.radius, 1) * 0.4
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
@@ -174,23 +184,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         expand = params$expand[c(3, 1)]
       ),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
-           arc = self$arc, inner_radius = self$inner_radius,
-           r_axis_inside = params$r_axis_inside)
+           arc = self$arc, inner_radius = self$inner_radius)
     )
 
-    if (isFALSE(panel_params$r_axis_inside)) {
-      if (any(params$place[c(1, 3)])) {
-        panel_params$r_axis <- "left"
-      } else {
-        panel_params$r_axis <- "bottom"
-      }
-      panel_params$fake_arc <- switch(
-        which(params$place[c(1, 3, 2, 4)])[1],
-        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
-      ) * pi
-    }
-
-    axis_rotation <- panel_params$r_axis_inside
+    axis_rotation <- self$r_axis_inside
     if (is.numeric(axis_rotation)) {
       theta_scale <- switch(self$theta, x = scale_x, y = scale_y)
       axis_rotation <- theta_scale$transform(axis_rotation)
@@ -242,7 +239,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       opposite_r <- isTRUE(scales$r$position %in% c("bottom", "left"))
     }
 
-    if (!isFALSE(panel_params$r_axis_inside)) {
+    if (!isFALSE(self$r_axis_inside)) {
 
       r_position <- c("left", "right")
       # If both opposite direction and opposite position, don't flip
@@ -257,9 +254,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
       guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
     } else {
-      r_position <- c(panel_params$r_axis, 
-        opposite_position(panel_params$r_axis)
-      )
+      r_position <- c(params$r_axis, opposite_position(params$r_axis))
       if (opposite_r) {
         r_position <- rev(r_position)
       }
@@ -300,7 +295,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       scale = panel_params[t]
     )
 
-    if (!isFALSE(panel_params$r_axis_inside)) {
+    if (!isFALSE(self$r_axis_inside)) {
       # For radial axis, we need to pretend that rotation starts at 0 and
       # the bounding box is for circles, otherwise tick positions will be
       # spaced too closely.
@@ -308,7 +303,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     } else {
       # When drawing radial axis outside, we need to pretend that arcs starts
       # at horizontal or vertical position to have the transform work right.
-      mod <- list(arc = panel_params$fake_arc)
+      mod <- list(arc = params$fake_arc)
     }
     temp <- modify_list(panel_params, mod)
 
@@ -352,14 +347,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   render_axis_v = function(self, panel_params, theme) {
-    if (!isFALSE(panel_params$r_axis_inside)) {
+    if (!isFALSE(self$r_axis_inside)) {
       return(list(left = zeroGrob(), right = zeroGrob()))
     }
     CoordCartesian$render_axis_v(panel_params, theme)
   },
 
   render_axis_h = function(self, panel_params, theme) {
-    if (!isFALSE(panel_params$r_axis_inside)) {
+    if (!isFALSE(self$r_axis_inside)) {
       return(list(top = zeroGrob(), bottom = zeroGrob()))
     }
     CoordCartesian$render_axis_h(panel_params, theme)
@@ -378,7 +373,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
     border <- element_render(theme, "panel.border", fill = NA)
 
-    if (isFALSE(panel_params$r_axis_inside)) {
+    if (isFALSE(self$r_axis_inside)) {
       out <- grobTree(
         panel_guides_grob(panel_params$guides, "theta", theme),
         panel_guides_grob(panel_params$guides, "theta.sec", theme),
@@ -468,20 +463,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   setup_params = function(self, data) {
     params <- ggproto_parent(Coord, self)$setup_params(data)
-    params$r_axis_inside <- self$r_axis_inside
-    if (!isFALSE(params$r_axis_inside)) {
-      return(params)
+    if (isFALSE(self$r_axis_inside)) {
+      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+      params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+      params$fake_arc <- switch(
+        which(place[c(1, 3, 2, 4)])[1],
+        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+      ) * pi
     }
-
-    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-    if (!any(place)) {
-      cli::cli_warn(c(
-        "No appropriate placement found for {.arg r_axis_inside}.",
-        i = "Axis will be placed at panel edge."
-      ))
-      params$r_axis_inside <- TRUE
-    }
-    params$place <- place
     params
   }
 )
