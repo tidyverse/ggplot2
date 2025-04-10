@@ -276,7 +276,7 @@ Layout <- ggproto("Layout", NULL,
 
     primary   <- scale$make_title(prim_guide, prim_scale, prim_label)
     secondary <- scale$make_sec_title(seco_guide, seco_scale, seco_label)
-    if (is.derived(secondary)) {
+    if (is_derived(secondary)) {
       secondary <- primary
     }
 

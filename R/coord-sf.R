@@ -769,7 +769,7 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   if (scale$position != position) {
     # Try to use secondary axis' guide
     guide <- scale$secondary.axis$guide %||% waiver()
-    if (is.derived(guide)) {
+    if (is_derived(guide)) {
       guide <- scale$guide
     }
   } else {
