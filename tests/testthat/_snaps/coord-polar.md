@@ -9,7 +9,7 @@
 
 ---
 
-    No appropriate placement found for `r.axis.inside`.
+    No appropriate placement found for outside r.axis.
     i Will use `r.axis.inside = TRUE` instead
 
 # when both x and y are AsIs, they are not transformed
