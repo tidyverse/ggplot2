@@ -173,6 +173,8 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @export
+#' @rdname element
 element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
                             linetype = NULL, color = NULL,
                             inherit.blank = FALSE) {

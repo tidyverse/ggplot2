@@ -5,6 +5,7 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
+\alias{element_polygon}
 \alias{element_point}
 \alias{element_geom}
 \alias{is_theme_element}
@@ -50,6 +51,15 @@ element_text(
   color = NULL,
   margin = NULL,
   debug = NULL,
+  inherit.blank = FALSE
+)
+
+element_polygon(
+  fill = NULL,
+  colour = NULL,
+  linewidth = NULL,
+  linetype = NULL,
+  color = NULL,
   inherit.blank = FALSE
 )
 
