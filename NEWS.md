@@ -1,24 +1,5 @@
 # ggplot2 (development version)
 
-# ggplot2 3.5.2
-
-This is a small release focusing on providing infrastructure for other packages
-to gracefully prepare for changes in the next major release.
-
-## Improvements
-
-* Standardised test functions for important classes: `is_ggproto()`,
- `is_ggplot()`, `is_mapping()`, `is_layer()`, `is_geom()`, `is_stat()`,
- `is_position()`, `is_coord()`, `is_facet()`, `is_scale()`, `is_guide()`,
- `is_guides()`, `is_margin()`, `is_theme_element()` and `is_theme()`.
-* New `get_labs()` function for retrieving completed plot labels
-  (@teunbrand, #6008).
-* New `get_geom_defaults()` for retrieving resolved default aesthetics.
-* A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
-  returns input unaltered (@teunbrand, #5800).
-
-# ggplot2 3.5.1
-
 This is a small release focusing on fixing regressions from 3.5.0 and
 * Facet gains a new method `setup_panel_params` to interact with the panel_params setted by Coord object (@Yunuuuu, #6397, #6380)
 * `position_fill()` avoids stacking observations of zero (@teunbrand, #6338)
@@ -361,6 +342,23 @@ This is a small release focusing on fixing regressions from 3.5.0 and
   (@teunbrand, #6269).
 * The default colour and fill scales have a new `palette` argument 
   (@teunbrand, #6064).
+  
+# ggplot2 3.5.2
+
+This is a small release focusing on providing infrastructure for other packages
+to gracefully prepare for changes in the next major release.
+
+## Improvements
+
+* Standardised test functions for important classes: `is_ggproto()`,
+ `is_ggplot()`, `is_mapping()`, `is_layer()`, `is_geom()`, `is_stat()`,
+ `is_position()`, `is_coord()`, `is_facet()`, `is_scale()`, `is_guide()`,
+ `is_guides()`, `is_margin()`, `is_theme_element()` and `is_theme()`.
+* New `get_labs()` function for retrieving completed plot labels
+  (@teunbrand, #6008).
+* New `get_geom_defaults()` for retrieving resolved default aesthetics.
+* A new `ggplot_build()` S3 method for <ggplot_built> classes was added, which
+  returns input unaltered (@teunbrand, #5800).
 
 # ggplot2 3.5.1
 
