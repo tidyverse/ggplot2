@@ -140,8 +140,8 @@ test_that("transformed coords can be reversed", {
       x = "log10", y = "log10",
       xlim = c(0.1, 1000), ylim = c(0.1, 1000), expand = FALSE,
       reverse = "xy"
-    )
-  grob <- layer_grob(p)[[1]]
-  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
-  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+    ) +
+    theme_test() +
+    theme(axis.line = element_line())
+  expect_doppelganger("reversed transformed coords", p)
 })
