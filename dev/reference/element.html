@@ -33,7 +33,7 @@ margins of elements."><meta property="og:image" content="https://ggplot2.tidyver
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -147,15 +147,6 @@ margins of elements.</p>
 <span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">element_polygon</span><span class="op">(</span></span>
-<span>  fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inherit.blank <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">element_point</span><span class="op">(</span></span>
 <span>  colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  shape <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -182,6 +173,8 @@ margins of elements.</p>
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fill <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_theme_element</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"any"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">rel</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
@@ -295,6 +288,11 @@ is anchored.</p></dd>
 
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>A single number specifying size relative to parent element.</p></dd>
+
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>For testing elements: the type of element to expect. One of
+<code>"blank"</code>, <code>"rect"</code>, <code>"line"</code> or <code>"text"</code>.</p></dd>
 
 
 <dt id="arg-t-r-b-l">t, r, b, l<a class="anchor" aria-label="anchor" href="#arg-t-r-b-l"></a></dt>
