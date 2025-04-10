@@ -78,7 +78,7 @@ ERROR: lazy loading failed for package ‘abctools’
 * GitHub: https://github.com/RobinDenz1/adjustedCurves
 * Source code: https://github.com/cran/adjustedCurves
 * Date/Publication: 2024-07-29 14:30:02 UTC
-* Number of recursive dependencies: 177
+* Number of recursive dependencies: 178
 
 Run `revdepcheck::cloud_details(, "adjustedCurves")` for more info
 
@@ -272,6 +272,82 @@ ERROR: lazy loading failed for package ‘ANOM’
 
 
 ```
+# aorsf
+
+<details>
+
+* Version: 0.1.5
+* GitHub: https://github.com/ropensci/aorsf
+* Source code: https://github.com/cran/aorsf
+* Date/Publication: 2024-05-30 03:40:02 UTC
+* Number of recursive dependencies: 174
+
+Run `revdepcheck::cloud_details(, "aorsf")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/aorsf/new/aorsf.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘aorsf/DESCRIPTION’ ... OK
+...
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+  ‘aorsf.Rmd’ using ‘UTF-8’... OK
+  ‘fast.Rmd’ using ‘UTF-8’... OK
+  ‘oobag.Rmd’ using ‘UTF-8’... OK
+  ‘pd.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/aorsf/old/aorsf.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘aorsf/DESCRIPTION’ ... OK
+...
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+  ‘aorsf.Rmd’ using ‘UTF-8’... OK
+  ‘fast.Rmd’ using ‘UTF-8’... OK
+  ‘oobag.Rmd’ using ‘UTF-8’... OK
+  ‘pd.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 NOTE
+
+
+
+
+
+```
 # atRisk
 
 <details>
@@ -342,7 +418,7 @@ ERROR: lazy loading failed for package ‘atRisk’
 * GitHub: https://github.com/cardiomoon/autoReg
 * Source code: https://github.com/cran/autoReg
 * Date/Publication: 2023-11-14 05:53:27 UTC
-* Number of recursive dependencies: 215
+* Number of recursive dependencies: 218
 
 Run `revdepcheck::cloud_details(, "autoReg")` for more info
 
@@ -418,7 +494,7 @@ Status: OK
 * GitHub: https://github.com/nliulab/AutoScore
 * Source code: https://github.com/cran/AutoScore
 * Date/Publication: 2022-10-15 22:15:26 UTC
-* Number of recursive dependencies: 173
+* Number of recursive dependencies: 174
 
 Run `revdepcheck::cloud_details(, "AutoScore")` for more info
 
@@ -486,26 +562,26 @@ Status: 1 ERROR
 
 
 ```
-# bartMan
+# bayesdfa
 
 <details>
 
-* Version: 0.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/bartMan
-* Date/Publication: 2024-07-24 12:10:02 UTC
-* Number of recursive dependencies: 135
+* Version: 1.3.4
+* GitHub: https://github.com/fate-ewi/bayesdfa
+* Source code: https://github.com/cran/bayesdfa
+* Date/Publication: 2025-03-22 20:30:21 UTC
+* Number of recursive dependencies: 87
 
-Run `revdepcheck::cloud_details(, "bartMan")` for more info
+Run `revdepcheck::cloud_details(, "bayesdfa")` for more info
 
 </details>
 
-## Newly broken
+## In both
 
-*   checking whether package ‘bartMan’ can be installed ... ERROR
+*   checking whether package ‘bayesdfa’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/tmp/workdir/bartMan/new/bartMan.Rcheck/00install.out’ for details.
+    See ‘/tmp/workdir/bayesdfa/new/bayesdfa.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -513,38 +589,28 @@ Run `revdepcheck::cloud_details(, "bartMan")` for more info
 ### Devel
 
 ```
-* installing *source* package ‘bartMan’ ...
-** package ‘bartMan’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘bayesdfa’ ...
+** package ‘bayesdfa’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** byte-compile and prepare package for lazy loading
-Error in eval(exprs[i], envir) : object 'justify_grobs' not found
-Error: unable to load R code in package ‘bartMan’
+Error in loadNamespace(x) : there is no package called ‘rstantools’
+Calls: loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
-ERROR: lazy loading failed for package ‘bartMan’
-* removing ‘/tmp/workdir/bartMan/new/bartMan.Rcheck/bartMan’
+ERROR: configuration failed for package ‘bayesdfa’
+* removing ‘/tmp/workdir/bayesdfa/new/bayesdfa.Rcheck/bayesdfa’
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘bartMan’ ...
-** package ‘bartMan’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘bayesdfa’ ...
+** package ‘bayesdfa’ successfully unpacked and MD5 sums checked
 ** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (bartMan)
+Error in loadNamespace(x) : there is no package called ‘rstantools’
+Calls: loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: configuration failed for package ‘bayesdfa’
+* removing ‘/tmp/workdir/bayesdfa/old/bayesdfa.Rcheck/bayesdfa’
 
 
 ```
@@ -622,6 +688,84 @@ ERROR: lazy loading failed for package ‘bayesDP’
 
 
 ```
+# BayesGrowth
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/jonathansmart/BayesGrowth
+* Source code: https://github.com/cran/BayesGrowth
+* Date/Publication: 2023-11-21 18:10:08 UTC
+* Number of recursive dependencies: 109
+
+Run `revdepcheck::cloud_details(, "BayesGrowth")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘BayesGrowth’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/BayesGrowth/new/BayesGrowth.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘BayesGrowth’ ...
+** package ‘BayesGrowth’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
+using C++17
+
+
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/usr/local/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/usr/local/lib/R/site-library/BH/include' -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppEigen/include' -I'/usr/local/lib/R/site-library/RcppParallel/include' -I'/usr/local/lib/R/site-library/rstan/include' -I'/usr/local/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/usr/local/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+...
+Warning: namespace ‘BayesGrowth’ is not available and has been replaced
+by .GlobalEnv when processing object ‘MCMC_example_results’
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘MuMIn’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘BayesGrowth’
+* removing ‘/tmp/workdir/BayesGrowth/new/BayesGrowth.Rcheck/BayesGrowth’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘BayesGrowth’ ...
+** package ‘BayesGrowth’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
+using C++17
+
+
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I"../inst/include" -I"/usr/local/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/usr/local/lib/R/site-library/BH/include' -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppEigen/include' -I'/usr/local/lib/R/site-library/RcppParallel/include' -I'/usr/local/lib/R/site-library/rstan/include' -I'/usr/local/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/usr/local/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+...
+Warning: namespace ‘BayesGrowth’ is not available and has been replaced
+by .GlobalEnv when processing object ‘MCMC_example_results’
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called ‘MuMIn’
+Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
+Execution halted
+ERROR: lazy loading failed for package ‘BayesGrowth’
+* removing ‘/tmp/workdir/BayesGrowth/old/BayesGrowth.Rcheck/BayesGrowth’
+
+
+```
 # BayesianFactorZoo
 
 <details>
@@ -690,11 +834,11 @@ ERROR: lazy loading failed for package ‘BayesianFactorZoo’
 
 <details>
 
-* Version: 0.0.2
+* Version: 0.1.0
 * GitHub: https://github.com/ocbe-uio/BayesSurvive
 * Source code: https://github.com/cran/BayesSurvive
-* Date/Publication: 2024-06-04 13:20:12 UTC
-* Number of recursive dependencies: 118
+* Date/Publication: 2025-03-25 22:50:23 UTC
+* Number of recursive dependencies: 130
 
 Run `revdepcheck::cloud_details(, "BayesSurvive")` for more info
 
@@ -716,7 +860,7 @@ Run `revdepcheck::cloud_details(, "BayesSurvive")` for more info
 * using option ‘--no-manual’
 * checking for file ‘BayesSurvive/DESCRIPTION’ ... OK
 ...
-* this is package ‘BayesSurvive’ version ‘0.0.2’
+* this is package ‘BayesSurvive’ version ‘0.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -746,7 +890,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘BayesSurvive/DESCRIPTION’ ... OK
 ...
-* this is package ‘BayesSurvive’ version ‘0.0.2’
+* this is package ‘BayesSurvive’ version ‘0.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -770,7 +914,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/BCClong
 * Date/Publication: 2024-06-24 00:00:02 UTC
-* Number of recursive dependencies: 148
+* Number of recursive dependencies: 149
 
 Run `revdepcheck::cloud_details(, "BCClong")` for more info
 
@@ -984,7 +1128,7 @@ ERROR: lazy loading failed for package ‘binsreg’
 * GitHub: https://github.com/statjs/bspcov
 * Source code: https://github.com/cran/bspcov
 * Date/Publication: 2024-11-13 20:10:02 UTC
-* Number of recursive dependencies: 111
+* Number of recursive dependencies: 112
 
 Run `revdepcheck::cloud_details(, "bspcov")` for more info
 
@@ -1042,11 +1186,11 @@ ERROR: lazy loading failed for package ‘bspcov’
 
 <details>
 
-* Version: 1.0.1
+* Version: 2.0.0
 * GitHub: https://github.com/SumanM47/BSTZINB
 * Source code: https://github.com/cran/BSTZINB
-* Date/Publication: 2024-10-31 22:50:02 UTC
-* Number of recursive dependencies: 110
+* Date/Publication: 2025-01-30 17:50:07 UTC
+* Number of recursive dependencies: 111
 
 Run `revdepcheck::cloud_details(, "BSTZINB")` for more info
 
@@ -1106,10 +1250,10 @@ ERROR: lazy loading failed for package ‘BSTZINB’
 
 <details>
 
-* Version: 3.0.5
+* Version: 3.1.0
 * GitHub: https://github.com/bozenne/BuyseTest
 * Source code: https://github.com/cran/BuyseTest
-* Date/Publication: 2024-10-13 21:40:02 UTC
+* Date/Publication: 2025-03-04 14:40:02 UTC
 * Number of recursive dependencies: 132
 
 Run `revdepcheck::cloud_details(, "BuyseTest")` for more info
@@ -1132,7 +1276,7 @@ Run `revdepcheck::cloud_details(, "BuyseTest")` for more info
 * using option ‘--no-manual’
 * checking for file ‘BuyseTest/DESCRIPTION’ ... OK
 ...
-* this is package ‘BuyseTest’ version ‘3.0.5’
+* this is package ‘BuyseTest’ version ‘3.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -1162,7 +1306,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘BuyseTest/DESCRIPTION’ ... OK
 ...
-* this is package ‘BuyseTest’ version ‘3.0.5’
+* this is package ‘BuyseTest’ version ‘3.1.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -1182,11 +1326,11 @@ Status: 1 ERROR
 
 <details>
 
-* Version: 0.1.0
+* Version: 0.2.2
 * GitHub: https://github.com/XiaoZhangryy/CAESAR.Suite
 * Source code: https://github.com/cran/CAESAR.Suite
-* Date/Publication: 2024-09-16 14:20:06 UTC
-* Number of recursive dependencies: 269
+* Date/Publication: 2025-04-01 09:00:07 UTC
+* Number of recursive dependencies: 255
 
 Run `revdepcheck::cloud_details(, "CAESAR.Suite")` for more info
 
@@ -1208,7 +1352,7 @@ Run `revdepcheck::cloud_details(, "CAESAR.Suite")` for more info
 * using option ‘--no-manual’
 * checking for file ‘CAESAR.Suite/DESCRIPTION’ ... OK
 ...
-* this is package ‘CAESAR.Suite’ version ‘0.1.0’
+* this is package ‘CAESAR.Suite’ version ‘0.2.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -1238,7 +1382,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘CAESAR.Suite/DESCRIPTION’ ... OK
 ...
-* this is package ‘CAESAR.Suite’ version ‘0.1.0’
+* this is package ‘CAESAR.Suite’ version ‘0.2.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -1334,7 +1478,7 @@ ERROR: lazy loading failed for package ‘CARBayesST’
 * GitHub: NA
 * Source code: https://github.com/cran/Certara.VPCResults
 * Date/Publication: 2024-12-02 15:30:02 UTC
-* Number of recursive dependencies: 141
+* Number of recursive dependencies: 142
 
 Run `revdepcheck::cloud_details(, "Certara.VPCResults")` for more info
 
@@ -1485,6 +1629,70 @@ Run `revdepcheck::cloud_details(, "cia")` for more info
 
 
 ```
+# CIDER
+
+<details>
+
+* Version: 0.99.4
+* GitHub: https://github.com/zhiyuan-hu-lab/CIDER
+* Source code: https://github.com/cran/CIDER
+* Date/Publication: 2025-02-07 09:50:14 UTC
+* Number of recursive dependencies: 168
+
+Run `revdepcheck::cloud_details(, "CIDER")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘CIDER’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/CIDER/new/CIDER.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘CIDER’ ...
+** package ‘CIDER’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘CIDER’
+* removing ‘/tmp/workdir/CIDER/new/CIDER.Rcheck/CIDER’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘CIDER’ ...
+** package ‘CIDER’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘CIDER’
+* removing ‘/tmp/workdir/CIDER/old/CIDER.Rcheck/CIDER’
+
+
+```
 # cinaR
 
 <details>
@@ -1493,7 +1701,7 @@ Run `revdepcheck::cloud_details(, "cia")` for more info
 * GitHub: https://github.com/eonurk/cinaR
 * Source code: https://github.com/cran/cinaR
 * Date/Publication: 2022-05-18 14:00:09 UTC
-* Number of recursive dependencies: 171
+* Number of recursive dependencies: 172
 
 Run `revdepcheck::cloud_details(, "cinaR")` for more info
 
@@ -1550,6 +1758,82 @@ Status: 1 ERROR
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
 Packages required but not available: 'ChIPseeker', 'fgsea'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+# ClusterGVis
+
+<details>
+
+* Version: 0.1.2
+* GitHub: https://github.com/junjunlab/ClusterGVis
+* Source code: https://github.com/cran/ClusterGVis
+* Date/Publication: 2025-02-14 14:30:13 UTC
+* Number of recursive dependencies: 297
+
+Run `revdepcheck::cloud_details(, "ClusterGVis")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/ClusterGVis/new/ClusterGVis.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘ClusterGVis/DESCRIPTION’ ... OK
+...
+* this is package ‘ClusterGVis’ version ‘0.1.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/ClusterGVis/old/ClusterGVis.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘ClusterGVis/DESCRIPTION’ ... OK
+...
+* this is package ‘ClusterGVis’ version ‘0.1.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Package required but not available: ‘clusterProfiler’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -1631,7 +1915,7 @@ ERROR: lazy loading failed for package ‘cmprskcoxmsm’
 * GitHub: NA
 * Source code: https://github.com/cran/COMMA
 * Date/Publication: 2024-12-13 21:10:02 UTC
-* Number of recursive dependencies: 72
+* Number of recursive dependencies: 73
 
 Run `revdepcheck::cloud_details(, "COMMA")` for more info
 
@@ -1695,7 +1979,7 @@ ERROR: lazy loading failed for package ‘COMMA’
 * GitHub: https://github.com/RobinDenz1/contsurvplot
 * Source code: https://github.com/cran/contsurvplot
 * Date/Publication: 2023-08-15 08:00:03 UTC
-* Number of recursive dependencies: 156
+* Number of recursive dependencies: 157
 
 Run `revdepcheck::cloud_details(, "contsurvplot")` for more info
 
@@ -1771,7 +2055,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/dandls/counterfactuals
 * Source code: https://github.com/cran/counterfactuals
 * Date/Publication: 2024-10-17 12:00:06 UTC
-* Number of recursive dependencies: 217
+* Number of recursive dependencies: 218
 
 Run `revdepcheck::cloud_details(, "counterfactuals")` for more info
 
@@ -1847,7 +2131,7 @@ Status: 1 NOTE
 * GitHub: https://github.com/khodosevichlab/CRMetrics
 * Source code: https://github.com/cran/CRMetrics
 * Date/Publication: 2024-11-08 00:20:06 UTC
-* Number of recursive dependencies: 242
+* Number of recursive dependencies: 243
 
 Run `revdepcheck::cloud_details(, "CRMetrics")` for more info
 
@@ -1977,15 +2261,50 @@ ERROR: compilation failed for package ‘ctsem’
 
 
 ```
+# DamageDetective
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/DamageDetective
+* Number of recursive dependencies: 177
+
+Run `revdepcheck::cloud_details(, "DamageDetective")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # dartR.base
 
 <details>
 
-* Version: 0.98
+* Version: 1.0.5
 * GitHub: NA
 * Source code: https://github.com/cran/dartR.base
-* Date/Publication: 2024-09-19 13:20:02 UTC
-* Number of recursive dependencies: 288
+* Date/Publication: 2025-03-04 03:40:02 UTC
+* Number of recursive dependencies: 289
 
 Run `revdepcheck::cloud_details(, "dartR.base")` for more info
 
@@ -2007,7 +2326,7 @@ Run `revdepcheck::cloud_details(, "dartR.base")` for more info
 * using option ‘--no-manual’
 * checking for file ‘dartR.base/DESCRIPTION’ ... OK
 ...
-* this is package ‘dartR.base’ version ‘0.98’
+* this is package ‘dartR.base’ version ‘1.0.5’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -2037,7 +2356,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘dartR.base/DESCRIPTION’ ... OK
 ...
-* this is package ‘dartR.base’ version ‘0.98’
+* this is package ‘dartR.base’ version ‘1.0.5’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -2057,11 +2376,11 @@ Status: 1 ERROR
 
 <details>
 
-* Version: 0.75
+* Version: 1.0.2
 * GitHub: NA
 * Source code: https://github.com/cran/dartR.captive
-* Date/Publication: 2023-11-27 17:10:09 UTC
-* Number of recursive dependencies: 152
+* Date/Publication: 2025-02-18 08:20:05 UTC
+* Number of recursive dependencies: 166
 
 Run `revdepcheck::cloud_details(, "dartR.captive")` for more info
 
@@ -2083,11 +2402,11 @@ Run `revdepcheck::cloud_details(, "dartR.captive")` for more info
 * using option ‘--no-manual’
 * checking for file ‘dartR.captive/DESCRIPTION’ ... OK
 ...
-* this is package ‘dartR.captive’ version ‘0.75’
+* this is package ‘dartR.captive’ version ‘1.0.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Package required but not available: ‘dartR.base’
+Packages required but not available: 'dartR.base', 'dartR.sim'
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -2113,11 +2432,11 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘dartR.captive/DESCRIPTION’ ... OK
 ...
-* this is package ‘dartR.captive’ version ‘0.75’
+* this is package ‘dartR.captive’ version ‘1.0.2’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
-Package required but not available: ‘dartR.base’
+Packages required but not available: 'dartR.base', 'dartR.sim'
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -2213,7 +2532,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/dartR.sexlinked
 * Date/Publication: 2024-06-24 15:40:02 UTC
-* Number of recursive dependencies: 120
+* Number of recursive dependencies: 125
 
 Run `revdepcheck::cloud_details(, "dartR.sexlinked")` for more info
 
@@ -2289,7 +2608,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/green-striped-gecko/dartR.sim
 * Source code: https://github.com/cran/dartR.sim
 * Date/Publication: 2023-11-20 19:30:02 UTC
-* Number of recursive dependencies: 133
+* Number of recursive dependencies: 138
 
 Run `revdepcheck::cloud_details(, "dartR.sim")` for more info
 
@@ -2365,7 +2684,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/dartR.spatial
 * Date/Publication: 2023-11-15 00:50:02 UTC
-* Number of recursive dependencies: 168
+* Number of recursive dependencies: 171
 
 Run `revdepcheck::cloud_details(, "dartR.spatial")` for more info
 
@@ -2441,7 +2760,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/zzawadz/DepthProc
 * Source code: https://github.com/cran/DepthProc
 * Date/Publication: 2022-02-03 20:30:02 UTC
-* Number of recursive dependencies: 133
+* Number of recursive dependencies: 131
 
 Run `revdepcheck::cloud_details(, "DepthProc")` for more info
 
@@ -2515,10 +2834,10 @@ ERROR: lazy loading failed for package ‘DepthProc’
 
 <details>
 
-* Version: 0.2.0
+* Version: 0.3.0
 * GitHub: https://github.com/MohmedSoudy/DFD
 * Source code: https://github.com/cran/DFD
-* Date/Publication: 2024-08-28 18:20:02 UTC
+* Date/Publication: 2025-02-11 13:50:11 UTC
 * Number of recursive dependencies: 207
 
 Run `revdepcheck::cloud_details(, "DFD")` for more info
@@ -2541,7 +2860,7 @@ Run `revdepcheck::cloud_details(, "DFD")` for more info
 * using option ‘--no-manual’
 * checking for file ‘DFD/DESCRIPTION’ ... OK
 ...
-* this is package ‘DFD’ version ‘0.2.0’
+* this is package ‘DFD’ version ‘0.3.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -2571,7 +2890,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘DFD/DESCRIPTION’ ... OK
 ...
-* this is package ‘DFD’ version ‘0.2.0’
+* this is package ‘DFD’ version ‘0.3.0’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -2587,6 +2906,41 @@ Status: 1 ERROR
 
 
 ```
+# discoveR
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/discoveR
+* Number of recursive dependencies: 175
+
+Run `revdepcheck::cloud_details(, "discoveR")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # dMrs
 
 <details>
@@ -2595,7 +2949,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/dMrs
 * Date/Publication: 2025-01-21 15:40:05 UTC
-* Number of recursive dependencies: 137
+* Number of recursive dependencies: 139
 
 Run `revdepcheck::cloud_details(, "dMrs")` for more info
 
@@ -2667,10 +3021,10 @@ Status: OK
 
 <details>
 
-* Version: 3.4
+* Version: 3.5
 * GitHub: https://github.com/feiyoung/DR.SC
 * Source code: https://github.com/cran/DR.SC
-* Date/Publication: 2024-03-19 08:40:02 UTC
+* Date/Publication: 2025-03-29 15:10:02 UTC
 * Number of recursive dependencies: 151
 
 Run `revdepcheck::cloud_details(, "DR.SC")` for more info
@@ -2824,7 +3178,7 @@ Status: OK
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/DynForest
-* Number of recursive dependencies: 143
+* Number of recursive dependencies: 142
 
 Run `revdepcheck::cloud_details(, "DynForest")` for more info
 
@@ -2914,10 +3268,10 @@ ERROR: lazy loading failed for package ‘easybgm’
 
 <details>
 
-* Version: 1.1.0
+* Version: 1.1.2
 * GitHub: https://github.com/CefasRepRes/EcoEnsemble
 * Source code: https://github.com/cran/EcoEnsemble
-* Date/Publication: 2024-08-19 17:20:06 UTC
+* Date/Publication: 2025-03-18 18:20:02 UTC
 * Number of recursive dependencies: 90
 
 Run `revdepcheck::cloud_details(, "EcoEnsemble")` for more info
@@ -3219,6 +3573,126 @@ Run `revdepcheck::cloud_details(, "EWSmethods")` for more info
 
 
 ```
+# FARS
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/FARS
+* Date/Publication: 2025-04-03 15:10:10 UTC
+* Number of recursive dependencies: 139
+
+Run `revdepcheck::cloud_details(, "FARS")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘FARS’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/FARS/new/FARS.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘FARS’ ...
+** package ‘FARS’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘FARS’
+* removing ‘/tmp/workdir/FARS/new/FARS.Rcheck/FARS’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘FARS’ ...
+** package ‘FARS’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘FARS’
+* removing ‘/tmp/workdir/FARS/old/FARS.Rcheck/FARS’
+
+
+```
+# fio
+
+<details>
+
+* Version: 0.1.6
+* GitHub: https://github.com/albersonmiranda/fio
+* Source code: https://github.com/cran/fio
+* Date/Publication: 2025-04-06 07:50:02 UTC
+* Number of recursive dependencies: 90
+
+Run `revdepcheck::cloud_details(, "fio")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘fio’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/fio/new/fio.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘fio’ ...
+** package ‘fio’ successfully unpacked and MD5 sums checked
+** using staged installation
+Error in eval(ei, envir) : 
+------------------ [UNSUPPORTED RUST VERSION]------------------
+- Minimum supported Rust version is 1.77.
+- Installed Rust version is 1.75.0.
+---------------------------------------------------------------
+Calls: source -> withVisible -> eval -> eval
+Execution halted
+ERROR: configuration failed for package ‘fio’
+* removing ‘/tmp/workdir/fio/new/fio.Rcheck/fio’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘fio’ ...
+** package ‘fio’ successfully unpacked and MD5 sums checked
+** using staged installation
+Error in eval(ei, envir) : 
+------------------ [UNSUPPORTED RUST VERSION]------------------
+- Minimum supported Rust version is 1.77.
+- Installed Rust version is 1.75.0.
+---------------------------------------------------------------
+Calls: source -> withVisible -> eval -> eval
+Execution halted
+ERROR: configuration failed for package ‘fio’
+* removing ‘/tmp/workdir/fio/old/fio.Rcheck/fio’
+
+
+```
 # flexrsurv
 
 <details>
@@ -3227,7 +3701,7 @@ Run `revdepcheck::cloud_details(, "EWSmethods")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/flexrsurv
 * Date/Publication: 2024-02-09 16:10:02 UTC
-* Number of recursive dependencies: 129
+* Number of recursive dependencies: 130
 
 Run `revdepcheck::cloud_details(, "flexrsurv")` for more info
 
@@ -3389,6 +3863,82 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘ForecastComb’
 * removing ‘/tmp/workdir/ForecastComb/old/ForecastComb.Rcheck/ForecastComb’
+
+
+```
+# gaawr2
+
+<details>
+
+* Version: 0.0.3
+* GitHub: https://github.com/jinghuazhao/gaawr2
+* Source code: https://github.com/cran/gaawr2
+* Date/Publication: 2025-03-24 15:00:09 UTC
+* Number of recursive dependencies: 229
+
+Run `revdepcheck::cloud_details(, "gaawr2")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/gaawr2/new/gaawr2.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘gaawr2/DESCRIPTION’ ... OK
+...
+--- finished re-building ‘web.Rmd’
+
+SUMMARY: processing the following file failed:
+  ‘gaawr2.Rmd’
+
+Error: Vignette re-building failed.
+Execution halted
+
+* DONE
+Status: 1 WARNING, 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/gaawr2/old/gaawr2.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘gaawr2/DESCRIPTION’ ... OK
+...
+--- finished re-building ‘web.Rmd’
+
+SUMMARY: processing the following file failed:
+  ‘gaawr2.Rmd’
+
+Error: Vignette re-building failed.
+Execution halted
+
+* DONE
+Status: 1 WARNING, 2 NOTEs
+
+
+
 
 
 ```
@@ -3832,153 +4382,6 @@ Run `revdepcheck::cloud_details(, "GeoTox")` for more info
 
 
 ```
-# ggtern
-
-<details>
-
-* Version: 3.5.0
-* GitHub: NA
-* Source code: https://github.com/cran/ggtern
-* Date/Publication: 2024-03-24 21:50:02 UTC
-* Number of recursive dependencies: 42
-
-Run `revdepcheck::cloud_details(, "ggtern")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘ggtern’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/ggtern/new/ggtern.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘chemometrics’
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘sp’
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggtern’ ...
-** package ‘ggtern’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'update_guides' not found
-Error: unable to load R code in package ‘ggtern’
-Execution halted
-ERROR: lazy loading failed for package ‘ggtern’
-* removing ‘/tmp/workdir/ggtern/new/ggtern.Rcheck/ggtern’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggtern’ ...
-** package ‘ggtern’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (ggtern)
-
-
-```
-# ggThemeAssist
-
-<details>
-
-* Version: 0.1.5
-* GitHub: https://github.com/calligross/ggthemeassist
-* Source code: https://github.com/cran/ggThemeAssist
-* Date/Publication: 2016-08-13 16:50:55
-* Number of recursive dependencies: 57
-
-Run `revdepcheck::cloud_details(, "ggThemeAssist")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘ggThemeAssist’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/ggThemeAssist/new/ggThemeAssist.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggThemeAssist’ ...
-** package ‘ggThemeAssist’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in is.element("extrafont", installed.packages()[, 1]) : 
-  unused argument (installed.packages()[, 1])
-Error: unable to load R code in package ‘ggThemeAssist’
-Execution halted
-ERROR: lazy loading failed for package ‘ggThemeAssist’
-* removing ‘/tmp/workdir/ggThemeAssist/new/ggThemeAssist.Rcheck/ggThemeAssist’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggThemeAssist’ ...
-** package ‘ggThemeAssist’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (ggThemeAssist)
-
-
-```
 # gJLS2
 
 <details>
@@ -3987,7 +4390,7 @@ ERROR: lazy loading failed for package ‘ggThemeAssist’
 * GitHub: NA
 * Source code: https://github.com/cran/gJLS2
 * Date/Publication: 2021-09-30 09:00:05 UTC
-* Number of recursive dependencies: 45
+* Number of recursive dependencies: 46
 
 Run `revdepcheck::cloud_details(, "gJLS2")` for more info
 
@@ -4051,7 +4454,7 @@ ERROR: lazy loading failed for package ‘gJLS2’
 * GitHub: https://github.com/erhard-lab/grandR
 * Source code: https://github.com/cran/grandR
 * Date/Publication: 2025-01-22 22:10:02 UTC
-* Number of recursive dependencies: 265
+* Number of recursive dependencies: 266
 
 Run `revdepcheck::cloud_details(, "grandR")` for more info
 
@@ -4195,6 +4598,64 @@ Status: 1 ERROR
 
 
 ```
+# HetSeq
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/erhard-lab/HetSeq
+* Source code: https://github.com/cran/HetSeq
+* Date/Publication: 2025-02-03 18:00:05 UTC
+* Number of recursive dependencies: 185
+
+Run `revdepcheck::cloud_details(, "HetSeq")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘HetSeq’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/HetSeq/new/HetSeq.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘HetSeq’ ...
+** package ‘HetSeq’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘HetSeq’
+* removing ‘/tmp/workdir/HetSeq/new/HetSeq.Rcheck/HetSeq’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘HetSeq’ ...
+** package ‘HetSeq’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘HetSeq’
+* removing ‘/tmp/workdir/HetSeq/old/HetSeq.Rcheck/HetSeq’
+
+
+```
 # hettx
 
 <details>
@@ -4263,11 +4724,11 @@ ERROR: lazy loading failed for package ‘hettx’
 
 <details>
 
-* Version: 5.2-2
+* Version: 5.2-3
 * GitHub: NA
 * Source code: https://github.com/cran/Hmisc
-* Date/Publication: 2025-01-10 23:30:03 UTC
-* Number of recursive dependencies: 173
+* Date/Publication: 2025-03-16 15:40:02 UTC
+* Number of recursive dependencies: 174
 
 Run `revdepcheck::cloud_details(, "Hmisc")` for more info
 
@@ -4407,7 +4868,7 @@ ERROR: lazy loading failed for package ‘Hmsc’
 * GitHub: https://github.com/AbdalkarimA/iClusterVB
 * Source code: https://github.com/cran/iClusterVB
 * Date/Publication: 2024-12-09 19:50:06 UTC
-* Number of recursive dependencies: 128
+* Number of recursive dependencies: 129
 
 Run `revdepcheck::cloud_details(, "iClusterVB")` for more info
 
@@ -4553,74 +5014,14 @@ Status: 1 ERROR
 
 
 ```
-# inventorize
-
-<details>
-
-* Version: 1.1.1
-* GitHub: NA
-* Source code: https://github.com/cran/inventorize
-* Date/Publication: 2022-05-31 22:20:09 UTC
-* Number of recursive dependencies: 71
-
-Run `revdepcheck::cloud_details(, "inventorize")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘inventorize’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/inventorize/new/inventorize.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘inventorize’ ...
-** package ‘inventorize’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-Error in pm[[2]] : subscript out of bounds
-Error: unable to load R code in package ‘inventorize’
-Execution halted
-ERROR: lazy loading failed for package ‘inventorize’
-* removing ‘/tmp/workdir/inventorize/new/inventorize.Rcheck/inventorize’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘inventorize’ ...
-** package ‘inventorize’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-Warning in qgamma(service_level, alpha, beta) : NaNs produced
-Warning in qgamma(service_level, alpha, beta) : NaNs produced
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (inventorize)
-
-
-```
 # invivoPKfit
 
 <details>
 
-* Version: 2.0.0
+* Version: 2.0.1
 * GitHub: NA
 * Source code: https://github.com/cran/invivoPKfit
-* Date/Publication: 2025-01-09 14:30:02 UTC
+* Date/Publication: 2025-03-24 16:00:02 UTC
 * Number of recursive dependencies: 172
 
 Run `revdepcheck::cloud_details(, "invivoPKfit")` for more info
@@ -4681,7 +5082,7 @@ ERROR: lazy loading failed for package ‘invivoPKfit’
 * GitHub: https://github.com/iNZightVIT/iNZightPlots
 * Source code: https://github.com/cran/iNZightPlots
 * Date/Publication: 2023-10-14 05:00:02 UTC
-* Number of recursive dependencies: 161
+* Number of recursive dependencies: 162
 
 Run `revdepcheck::cloud_details(, "iNZightPlots")` for more info
 
@@ -4741,7 +5142,7 @@ ERROR: lazy loading failed for package ‘iNZightPlots’
 * GitHub: https://github.com/iNZightVIT/iNZightRegression
 * Source code: https://github.com/cran/iNZightRegression
 * Date/Publication: 2024-04-05 02:32:59 UTC
-* Number of recursive dependencies: 162
+* Number of recursive dependencies: 163
 
 Run `revdepcheck::cloud_details(, "iNZightRegression")` for more info
 
@@ -4801,7 +5202,7 @@ ERROR: lazy loading failed for package ‘iNZightRegression’
 * GitHub: https://github.com/vinhdizzo/IRexamples
 * Source code: https://github.com/cran/IRexamples
 * Date/Publication: 2023-10-06 06:40:02 UTC
-* Number of recursive dependencies: 180
+* Number of recursive dependencies: 181
 
 Run `revdepcheck::cloud_details(, "IRexamples")` for more info
 
@@ -4875,7 +5276,7 @@ ERROR: lazy loading failed for package ‘IRexamples’
 * GitHub: NA
 * Source code: https://github.com/cran/jmBIG
 * Date/Publication: 2025-01-19 21:00:02 UTC
-* Number of recursive dependencies: 187
+* Number of recursive dependencies: 189
 
 Run `revdepcheck::cloud_details(, "jmBIG")` for more info
 
@@ -4947,10 +5348,10 @@ Status: 1 ERROR
 
 <details>
 
-* Version: 0.4.6
+* Version: 0.4.7
 * GitHub: https://github.com/graemeleehickey/joineRML
 * Source code: https://github.com/cran/joineRML
-* Date/Publication: 2023-01-20 04:50:02 UTC
+* Date/Publication: 2025-02-04 16:30:02 UTC
 * Number of recursive dependencies: 93
 
 Run `revdepcheck::cloud_details(, "joineRML")` for more info
@@ -4974,12 +5375,12 @@ Run `revdepcheck::cloud_details(, "joineRML")` for more info
 ** package ‘joineRML’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-using C compiler: ‘gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
 using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-using C++11
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c expW.cpp -o expW.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c gammaUpdate.cpp -o gammaUpdate.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c expW.cpp -o expW.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c gammaUpdate.cpp -o gammaUpdate.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c gammaUpdate_approx.cpp -o gammaUpdate_approx.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c lambdaUpdate.cpp -o lambdaUpdate.o
 ...
 ** data
 *** moving datasets to lazyload DB
@@ -5001,12 +5402,12 @@ ERROR: lazy loading failed for package ‘joineRML’
 ** package ‘joineRML’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-using C compiler: ‘gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
 using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-using C++11
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c expW.cpp -o expW.o
-g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c gammaUpdate.cpp -o gammaUpdate.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c expW.cpp -o expW.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c gammaUpdate.cpp -o gammaUpdate.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c gammaUpdate_approx.cpp -o gammaUpdate_approx.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp -fpic  -g -O2  -c lambdaUpdate.cpp -o lambdaUpdate.o
 ...
 ** data
 *** moving datasets to lazyload DB
@@ -5025,10 +5426,10 @@ ERROR: lazy loading failed for package ‘joineRML’
 
 <details>
 
-* Version: 1.6.1
+* Version: 1.6.4
 * GitHub: https://github.com/jinseob2kim/jsmodule
 * Source code: https://github.com/cran/jsmodule
-* Date/Publication: 2025-01-08 13:10:02 UTC
+* Date/Publication: 2025-03-10 06:20:02 UTC
 * Number of recursive dependencies: 241
 
 Run `revdepcheck::cloud_details(, "jsmodule")` for more info
@@ -5179,7 +5580,7 @@ ERROR: lazy loading failed for package ‘kmc’
 * GitHub: https://github.com/ellessenne/KMunicate-package
 * Source code: https://github.com/cran/KMunicate
 * Date/Publication: 2024-05-16 11:50:08 UTC
-* Number of recursive dependencies: 171
+* Number of recursive dependencies: 172
 
 Run `revdepcheck::cloud_details(, "KMunicate")` for more info
 
@@ -5531,7 +5932,7 @@ ERROR: lazy loading failed for package ‘llbayesireg’
 * GitHub: NA
 * Source code: https://github.com/cran/lnmixsurv
 * Date/Publication: 2024-09-03 15:20:08 UTC
-* Number of recursive dependencies: 195
+* Number of recursive dependencies: 196
 
 Run `revdepcheck::cloud_details(, "lnmixsurv")` for more info
 
@@ -5553,16 +5954,16 @@ Run `revdepcheck::cloud_details(, "lnmixsurv")` for more info
 * using option ‘--no-manual’
 * checking for file ‘lnmixsurv/DESCRIPTION’ ... OK
 ...
---- finished re-building ‘parallel_computation.Rmd’
-
-SUMMARY: processing the following file failed:
-  ‘expectation_maximization.Rmd’
-
-Error: Vignette re-building failed.
-Execution halted
-
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+  ‘compare.Rmd’ using ‘UTF-8’... OK
+  ‘expectation_maximization.Rmd’ using ‘UTF-8’... OK
+  ‘intercept_only.Rmd’ using ‘UTF-8’... OK
+  ‘lnmixsurv.Rmd’ using ‘UTF-8’... OK
+  ‘parallel_computation.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
 * DONE
-Status: 2 ERRORs, 5 NOTEs
+Status: 4 NOTEs
 
 
 
@@ -5607,7 +6008,7 @@ Status: 4 NOTEs
 * GitHub: https://github.com/AlJacq/LorenzRegression
 * Source code: https://github.com/cran/LorenzRegression
 * Date/Publication: 2024-10-11 16:50:02 UTC
-* Number of recursive dependencies: 83
+* Number of recursive dependencies: 84
 
 Run `revdepcheck::cloud_details(, "LorenzRegression")` for more info
 
@@ -5681,10 +6082,10 @@ ERROR: lazy loading failed for package ‘LorenzRegression’
 
 <details>
 
-* Version: 1.3.3
+* Version: 1.3.4
 * GitHub: NA
 * Source code: https://github.com/cran/lsirm12pl
-* Date/Publication: 2024-08-28 23:00:02 UTC
+* Date/Publication: 2025-03-06 10:40:06 UTC
 * Number of recursive dependencies: 123
 
 Run `revdepcheck::cloud_details(, "lsirm12pl")` for more info
@@ -5762,9 +6163,44 @@ ERROR: lazy loading failed for package ‘lsirm12pl’
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/MantaID
-* Number of recursive dependencies: 157
+* Number of recursive dependencies: 158
 
 Run `revdepcheck::cloud_details(, "MantaID")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# manymodelr
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/manymodelr
+* Number of recursive dependencies: 129
+
+Run `revdepcheck::cloud_details(, "manymodelr")` for more info
 
 </details>
 
@@ -5798,7 +6234,7 @@ Run `revdepcheck::cloud_details(, "MantaID")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/MARVEL
 * Date/Publication: 2022-10-31 10:22:50 UTC
-* Number of recursive dependencies: 229
+* Number of recursive dependencies: 230
 
 Run `revdepcheck::cloud_details(, "MARVEL")` for more info
 
@@ -6062,75 +6498,6 @@ ERROR: lazy loading failed for package ‘MendelianRandomization’
 
 
 ```
-# miWQS
-
-<details>
-
-* Version: 0.4.4
-* GitHub: https://github.com/phargarten2/miWQS
-* Source code: https://github.com/cran/miWQS
-* Date/Publication: 2021-04-02 21:50:02 UTC
-* Number of recursive dependencies: 151
-
-Run `revdepcheck::cloud_details(, "miWQS")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘miWQS’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/miWQS/new/miWQS.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘wqs’
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘miWQS’ ...
-** package ‘miWQS’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘miWQS’
-* removing ‘/tmp/workdir/miWQS/new/miWQS.Rcheck/miWQS’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘miWQS’ ...
-** package ‘miWQS’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘miWQS’
-* removing ‘/tmp/workdir/miWQS/old/miWQS.Rcheck/miWQS’
-
-
-```
 # mlmts
 
 <details>
@@ -6203,7 +6570,7 @@ ERROR: lazy loading failed for package ‘mlmts’
 * GitHub: https://github.com/mlr-org/mlr
 * Source code: https://github.com/cran/mlr
 * Date/Publication: 2024-06-12 10:50:02 UTC
-* Number of recursive dependencies: 365
+* Number of recursive dependencies: 364
 
 Run `revdepcheck::cloud_details(, "mlr")` for more info
 
@@ -6234,7 +6601,7 @@ Run `revdepcheck::cloud_details(, "mlr")` for more info
   ‘mlr.Rmd’ using ‘UTF-8’... OK
 * checking re-building of vignette outputs ... OK
 * DONE
-Status: 1 WARNING, 3 NOTEs
+Status: 2 NOTEs
 
 
 
@@ -6337,7 +6704,7 @@ ERROR: lazy loading failed for package ‘MRZero’
 * GitHub: https://github.com/hputter/mstate
 * Source code: https://github.com/cran/mstate
 * Date/Publication: 2024-07-11 21:30:06 UTC
-* Number of recursive dependencies: 113
+* Number of recursive dependencies: 114
 
 Run `revdepcheck::cloud_details(, "mstate")` for more info
 
@@ -6405,85 +6772,15 @@ Status: 1 NOTE
 
 
 ```
-# multilevelTools
-
-<details>
-
-* Version: 0.1.1
-* GitHub: https://github.com/JWiley/multilevelTools
-* Source code: https://github.com/cran/multilevelTools
-* Date/Publication: 2020-03-04 09:50:02 UTC
-* Number of recursive dependencies: 170
-
-Run `revdepcheck::cloud_details(, "multilevelTools")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘multilevelTools’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/multilevelTools/new/multilevelTools.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘multilevelTools’ ...
-** package ‘multilevelTools’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning in check_dep_version() :
-  ABI version mismatch: 
-lme4 was built with Matrix ABI version 1
-Current Matrix ABI version is 0
-Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘multilevelTools’
-* removing ‘/tmp/workdir/multilevelTools/new/multilevelTools.Rcheck/multilevelTools’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘multilevelTools’ ...
-** package ‘multilevelTools’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning in check_dep_version() :
-  ABI version mismatch: 
-lme4 was built with Matrix ABI version 1
-Current Matrix ABI version is 0
-Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘multilevelTools’
-* removing ‘/tmp/workdir/multilevelTools/old/multilevelTools.Rcheck/multilevelTools’
-
-
-```
 # multinma
 
 <details>
 
-* Version: 0.7.2
+* Version: 0.8.0
 * GitHub: https://github.com/dmphillippo/multinma
 * Source code: https://github.com/cran/multinma
-* Date/Publication: 2024-09-16 12:20:02 UTC
-* Number of recursive dependencies: 151
+* Date/Publication: 2025-03-25 22:50:16 UTC
+* Number of recursive dependencies: 150
 
 Run `revdepcheck::cloud_details(, "multinma")` for more info
 
@@ -6561,7 +6858,7 @@ ERROR: compilation failed for package ‘multinma’
 * GitHub: NA
 * Source code: https://github.com/cran/multipleOutcomes
 * Date/Publication: 2024-05-30 15:00:03 UTC
-* Number of recursive dependencies: 176
+* Number of recursive dependencies: 177
 
 Run `revdepcheck::cloud_details(, "multipleOutcomes")` for more info
 
@@ -6637,7 +6934,7 @@ Status: OK
 * GitHub: NA
 * Source code: https://github.com/cran/MuPETFlow
 * Date/Publication: 2025-01-15 19:40:19 UTC
-* Number of recursive dependencies: 85
+* Number of recursive dependencies: 86
 
 Run `revdepcheck::cloud_details(, "MuPETFlow")` for more info
 
@@ -7035,111 +7332,6 @@ ERROR: lazy loading failed for package ‘NMADiagT’
 
 
 ```
-# NMF
-
-<details>
-
-* Version: 0.28
-* GitHub: NA
-* Source code: https://github.com/cran/NMF
-* Date/Publication: 2024-08-22 16:20:01 UTC
-* Number of recursive dependencies: 132
-
-Run `revdepcheck::cloud_details(, "NMF")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘NMF’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/NMF/new/NMF.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘NMF-vignette.Rnw’ using knitr
-    Error in citation(x) : there is no package called 'doMC'
-    Converted 9 of 10 package citations to BibTeX
-    Writing 11 Bibtex entries ... OK
-    Results written to file 'Rpackages.bib'
-    Error: processing vignette 'NMF-vignette.Rnw' failed with diagnostics:
-    Running 'texi2dvi' on 'NMF-vignette.tex' failed.
-    LaTeX errors:
-    ! LaTeX Error: File `a4wide.sty' not found.
-    ...
-    l.62 \usepackage
-                    {xspace}^^M
-    !  ==> Fatal error occurred, no output PDF file produced!
-    --- failed re-building ‘heatmaps.Rnw’
-    
-    SUMMARY: processing the following files failed:
-      ‘NMF-vignette.Rnw’ ‘heatmaps.Rnw’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘NMF’ ...
-** package ‘NMF’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C compiler: ‘gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c distance.cpp -o distance.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c divergence.cpp -o divergence.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c euclidean.cpp -o euclidean.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c registerDynamicSymbol.c -o registerDynamicSymbol.o
-...
-Creating meta registry in package 'NMF' ... OK
-Creating registry 'extra_handler' in package 'NMF' ... OK
-Creating registry 'extra_action' in package 'NMF' ... OK
-Registering extra handler 'install.packages' [function] ... OK
-Creating registry 'algorithm' in package 'NMF' ... OK
-Error in is.element("...", n.update) : unused argument (n.update)
-Error: unable to load R code in package ‘NMF’
-Execution halted
-ERROR: lazy loading failed for package ‘NMF’
-* removing ‘/tmp/workdir/NMF/new/NMF.Rcheck/NMF’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘NMF’ ...
-** package ‘NMF’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C compiler: ‘gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c distance.cpp -o distance.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c divergence.cpp -o divergence.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c euclidean.cpp -o euclidean.o
-gcc -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c registerDynamicSymbol.c -o registerDynamicSymbol.o
-...
-Registering NMF seeding method 'nndsvd' [NMFSeed] ... OK
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** checking absolute paths in shared objects and dynamic libraries
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (NMF)
-
-
-```
 # obliqueRSF
 
 <details>
@@ -7220,11 +7412,11 @@ Status: OK
 
 <details>
 
-* Version: 4.0.2
+* Version: 4.2.0
 * GitHub: https://github.com/Olink-Proteomics/OlinkRPackage
 * Source code: https://github.com/cran/OlinkAnalyze
-* Date/Publication: 2024-11-22 16:20:02 UTC
-* Number of recursive dependencies: 210
+* Date/Publication: 2025-02-24 21:40:08 UTC
+* Number of recursive dependencies: 211
 
 Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
 
@@ -7246,16 +7438,16 @@ Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
 * using option ‘--no-manual’
 * checking for file ‘OlinkAnalyze/DESCRIPTION’ ... OK
 ...
---- finished re-building ‘plate_randomizer.Rmd’
-
-SUMMARY: processing the following file failed:
-  ‘Vignett.Rmd’
-
-Error: Vignette re-building failed.
-Execution halted
-
+* checking running R code from vignettes ... OK
+  ‘LOD.Rmd’ using ‘UTF-8’... OK
+  ‘OutlierExclusion.Rmd’ using ‘UTF-8’... OK
+  ‘Vignett.Rmd’ using ‘UTF-8’... OK
+  ‘bridging_crossproduct.Rmd’ using ‘UTF-8’... OK
+  ‘bridging_introduction.Rmd’ using ‘UTF-8’... OK
+  ‘plate_randomizer.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
 * DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 NOTE
 
 
 
@@ -7276,16 +7468,16 @@ Status: 1 ERROR, 2 NOTEs
 * using option ‘--no-manual’
 * checking for file ‘OlinkAnalyze/DESCRIPTION’ ... OK
 ...
---- finished re-building ‘plate_randomizer.Rmd’
-
-SUMMARY: processing the following file failed:
-  ‘Vignett.Rmd’
-
-Error: Vignette re-building failed.
-Execution halted
-
+* checking running R code from vignettes ... OK
+  ‘LOD.Rmd’ using ‘UTF-8’... OK
+  ‘OutlierExclusion.Rmd’ using ‘UTF-8’... OK
+  ‘Vignett.Rmd’ using ‘UTF-8’... OK
+  ‘bridging_crossproduct.Rmd’ using ‘UTF-8’... OK
+  ‘bridging_introduction.Rmd’ using ‘UTF-8’... OK
+  ‘plate_randomizer.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
 * DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 NOTE
 
 
 
@@ -7347,6 +7539,41 @@ Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
 ERROR: lazy loading failed for package ‘optweight’
 * removing ‘/tmp/workdir/optweight/old/optweight.Rcheck/optweight’
+
+
+```
+# ordinalsimr
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/ordinalsimr
+* Number of recursive dependencies: 120
+
+Run `revdepcheck::cloud_details(, "ordinalsimr")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
 
 
 ```
@@ -7416,11 +7643,11 @@ ERROR: lazy loading failed for package ‘OVtool’
 
 <details>
 
-* Version: 0.5.93
+* Version: 0.7.3
 * GitHub: https://github.com/adibender/pammtools
 * Source code: https://github.com/cran/pammtools
-* Date/Publication: 2024-02-25 10:10:02 UTC
-* Number of recursive dependencies: 124
+* Date/Publication: 2025-03-24 15:20:02 UTC
+* Number of recursive dependencies: 126
 
 Run `revdepcheck::cloud_details(, "pammtools")` for more info
 
@@ -7482,6 +7709,82 @@ Status: OK
   Running ‘testthat.R’
 * DONE
 Status: OK
+
+
+
+
+
+```
+# parameters
+
+<details>
+
+* Version: 0.24.2
+* GitHub: https://github.com/easystats/parameters
+* Source code: https://github.com/cran/parameters
+* Date/Publication: 2025-03-04 14:50:06 UTC
+* Number of recursive dependencies: 474
+
+Run `revdepcheck::cloud_details(, "parameters")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/parameters/new/parameters.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘parameters/DESCRIPTION’ ... OK
+...
+  • equivalence_test/equivalence-test-5.svg
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+  ‘overview_of_vignettes.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 2 ERRORs, 2 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/parameters/old/parameters.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘parameters/DESCRIPTION’ ... OK
+...
+  • equivalence_test/equivalence-test-5.svg
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+  ‘overview_of_vignettes.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 2 ERRORs, 2 NOTEs
 
 
 
@@ -7595,7 +7898,7 @@ Run `revdepcheck::cloud_details(, "PathwaySpace")` for more info
 * GitHub: https://github.com/danforthcenter/pcvr
 * Source code: https://github.com/cran/pcvr
 * Date/Publication: 2024-11-06 20:50:02 UTC
-* Number of recursive dependencies: 192
+* Number of recursive dependencies: 193
 
 Run `revdepcheck::cloud_details(, "pcvr")` for more info
 
@@ -7735,67 +8038,38 @@ ERROR: lazy loading failed for package ‘PLMIX’
 
 
 ```
-# popstudy
+# Polychrome
 
 <details>
 
-* Version: 1.0.1
+* Version: NA
 * GitHub: NA
-* Source code: https://github.com/cran/popstudy
-* Date/Publication: 2023-10-17 23:50:02 UTC
-* Number of recursive dependencies: 242
+* Source code: https://github.com/cran/Polychrome
+* Number of recursive dependencies: 50
 
-Run `revdepcheck::cloud_details(, "popstudy")` for more info
+Run `revdepcheck::cloud_details(, "Polychrome")` for more info
 
 </details>
 
-## In both
-
-*   checking whether package ‘popstudy’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/popstudy/new/popstudy.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘popstudy’ ...
-** package ‘popstudy’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘popstudy’
-* removing ‘/tmp/workdir/popstudy/new/popstudy.Rcheck/popstudy’
+
+
+
+
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘popstudy’ ...
-** package ‘popstudy’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘popstudy’
-* removing ‘/tmp/workdir/popstudy/old/popstudy.Rcheck/popstudy’
+
+
+
+
 
 
 ```
@@ -7883,7 +8157,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/PoweREST
 * Date/Publication: 2024-09-09 09:30:02 UTC
-* Number of recursive dependencies: 171
+* Number of recursive dependencies: 183
 
 Run `revdepcheck::cloud_details(, "PoweREST")` for more info
 
@@ -8017,7 +8291,7 @@ ERROR: lazy loading failed for package ‘powerly’
 * GitHub: https://github.com/marjoleinF/pre
 * Source code: https://github.com/cran/pre
 * Date/Publication: 2024-01-12 19:30:02 UTC
-* Number of recursive dependencies: 153
+* Number of recursive dependencies: 154
 
 Run `revdepcheck::cloud_details(, "pre")` for more info
 
@@ -8077,11 +8351,11 @@ ERROR: lazy loading failed for package ‘pre’
 
 <details>
 
-* Version: 1.4
+* Version: 1.6
 * GitHub: https://github.com/feiyoung/ProFAST
 * Source code: https://github.com/cran/ProFAST
-* Date/Publication: 2024-03-18 08:10:06 UTC
-* Number of recursive dependencies: 248
+* Date/Publication: 2025-03-27 14:40:02 UTC
+* Number of recursive dependencies: 246
 
 Run `revdepcheck::cloud_details(, "ProFAST")` for more info
 
@@ -8103,7 +8377,7 @@ Run `revdepcheck::cloud_details(, "ProFAST")` for more info
 * using option ‘--no-manual’
 * checking for file ‘ProFAST/DESCRIPTION’ ... OK
 ...
-* this is package ‘ProFAST’ version ‘1.4’
+* this is package ‘ProFAST’ version ‘1.6’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -8133,7 +8407,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘ProFAST/DESCRIPTION’ ... OK
 ...
-* this is package ‘ProFAST’ version ‘1.4’
+* this is package ‘ProFAST’ version ‘1.6’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -8222,78 +8496,6 @@ Status: 1 ERROR
 
 
 
-
-
-```
-# pscore
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/JWiley/score-project
-* Source code: https://github.com/cran/pscore
-* Date/Publication: 2022-05-13 22:30:02 UTC
-* Number of recursive dependencies: 171
-
-Run `revdepcheck::cloud_details(, "pscore")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘pscore’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/pscore/new/pscore.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘pscore’ ...
-** package ‘pscore’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Warning in check_dep_version() :
-  ABI version mismatch: 
-lme4 was built with Matrix ABI version 1
-Current Matrix ABI version is 0
-Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘pscore’
-* removing ‘/tmp/workdir/pscore/new/pscore.Rcheck/pscore’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘pscore’ ...
-** package ‘pscore’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Warning in check_dep_version() :
-  ABI version mismatch: 
-lme4 was built with Matrix ABI version 1
-Current Matrix ABI version is 0
-Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
-Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
-Execution halted
-ERROR: lazy loading failed for package ‘pscore’
-* removing ‘/tmp/workdir/pscore/old/pscore.Rcheck/pscore’
 
 
 ```
@@ -8478,7 +8680,7 @@ ERROR: lazy loading failed for package ‘qris’
 * GitHub: NA
 * Source code: https://github.com/cran/qte
 * Date/Publication: 2022-09-01 14:30:02 UTC
-* Number of recursive dependencies: 123
+* Number of recursive dependencies: 124
 
 Run `revdepcheck::cloud_details(, "qte")` for more info
 
@@ -8660,6 +8862,41 @@ ERROR: lazy loading failed for package ‘quid’
 
 
 ```
+# RcensusPkg
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/RcensusPkg
+* Number of recursive dependencies: 118
+
+Run `revdepcheck::cloud_details(, "RcensusPkg")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # RcmdrPlugin.RiskDemo
 
 <details>
@@ -8796,11 +9033,11 @@ ERROR: lazy loading failed for package ‘rddtools’
 
 <details>
 
-* Version: 2.3-1
+* Version: 2.3-2
 * GitHub: NA
 * Source code: https://github.com/cran/relsurv
-* Date/Publication: 2025-01-20 15:40:01 UTC
-* Number of recursive dependencies: 112
+* Date/Publication: 2025-01-28 15:50:02 UTC
+* Number of recursive dependencies: 113
 
 Run `revdepcheck::cloud_details(, "relsurv")` for more info
 
@@ -9062,7 +9299,7 @@ Status: 1 ERROR
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/rmlnomogram
-* Number of recursive dependencies: 181
+* Number of recursive dependencies: 182
 
 Run `revdepcheck::cloud_details(, "rmlnomogram")` for more info
 
@@ -9097,7 +9334,7 @@ Run `revdepcheck::cloud_details(, "rmlnomogram")` for more info
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/rms
-* Number of recursive dependencies: 148
+* Number of recursive dependencies: 151
 
 Run `revdepcheck::cloud_details(, "rms")` for more info
 
@@ -9133,7 +9370,7 @@ Run `revdepcheck::cloud_details(, "rms")` for more info
 * GitHub: https://github.com/Chabert-Liddell/robber
 * Source code: https://github.com/cran/robber
 * Date/Publication: 2024-02-07 13:50:02 UTC
-* Number of recursive dependencies: 143
+* Number of recursive dependencies: 144
 
 Run `revdepcheck::cloud_details(, "robber")` for more info
 
@@ -9205,10 +9442,10 @@ Status: OK
 
 <details>
 
-* Version: 1.2.0
+* Version: 1.2.1
 * GitHub: https://github.com/aalfons/robmed
 * Source code: https://github.com/cran/robmed
-* Date/Publication: 2024-12-10 00:00:02 UTC
+* Date/Publication: 2025-02-08 22:50:06 UTC
 * Number of recursive dependencies: 59
 
 Run `revdepcheck::cloud_details(, "robmed")` for more info
@@ -9323,6 +9560,148 @@ ERROR: lazy loading failed for package ‘robmedExtra’
 
 
 ```
+# ROKET
+
+<details>
+
+* Version: 1.0.0
+* GitHub: NA
+* Source code: https://github.com/cran/ROKET
+* Date/Publication: 2025-03-06 17:00:02 UTC
+* Number of recursive dependencies: 172
+
+Run `revdepcheck::cloud_details(, "ROKET")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘ROKET’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/ROKET/new/ROKET.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘ROKET’ ...
+** package ‘ROKET’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp  -fpic  -g -O2  -c ROKET.cpp -o ROKET.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp  -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o ROKET.so ROKET.o RcppExports.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/opt/R/4.3.1/lib/R/lib -lR
+installing to /tmp/workdir/ROKET/new/ROKET.Rcheck/00LOCK-ROKET/00new/ROKET/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘ROKET’
+* removing ‘/tmp/workdir/ROKET/new/ROKET.Rcheck/ROKET’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘ROKET’ ...
+** package ‘ROKET’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp  -fpic  -g -O2  -c ROKET.cpp -o ROKET.o
+g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppArmadillo/include' -I/usr/local/include   -fopenmp  -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o ROKET.so ROKET.o RcppExports.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/opt/R/4.3.1/lib/R/lib -lR
+installing to /tmp/workdir/ROKET/old/ROKET.Rcheck/00LOCK-ROKET/00new/ROKET/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘ROKET’
+* removing ‘/tmp/workdir/ROKET/old/ROKET.Rcheck/ROKET’
+
+
+```
+# rplec
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/rplec
+* Number of recursive dependencies: 122
+
+Run `revdepcheck::cloud_details(, "rplec")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# RplotterPkg
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/RplotterPkg
+* Number of recursive dependencies: 123
+
+Run `revdepcheck::cloud_details(, "RplotterPkg")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # RPPanalyzer
 
 <details>
@@ -9389,10 +9768,10 @@ ERROR: lazy loading failed for package ‘RPPanalyzer’
 
 <details>
 
-* Version: 1.3.0
+* Version: 1.3.2
 * GitHub: NA
 * Source code: https://github.com/cran/RQdeltaCT
-* Date/Publication: 2024-04-17 15:50:02 UTC
+* Date/Publication: 2025-02-13 12:02:01 UTC
 * Number of recursive dependencies: 163
 
 Run `revdepcheck::cloud_details(, "RQdeltaCT")` for more info
@@ -9484,6 +9863,84 @@ Run `revdepcheck::cloud_details(, "RRPP")` for more info
 
 
 ```
+# rshift
+
+<details>
+
+* Version: 3.1.2
+* GitHub: https://github.com/alexhroom/rshift
+* Source code: https://github.com/cran/rshift
+* Date/Publication: 2025-04-06 18:40:02 UTC
+* Number of recursive dependencies: 37
+
+Run `revdepcheck::cloud_details(, "rshift")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘rshift’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/rshift/new/rshift.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘rshift’ ...
+** package ‘rshift’ successfully unpacked and MD5 sums checked
+** using staged installation
+Using cargo 1.75.0
+Using rustc 1.75.0 (82e1608df 2023-12-21) (built from a source tarball)
+Building for CRAN.
+Writing `src/Makevars`.
+`tools/config.R` has finished.
+** libs
+using C compiler: ‘gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
+...
+export CARGO_HOME=/tmp/workdir/rshift/new/rshift.Rcheck/00_pkg_src/rshift/src/.cargo && \
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.cargo/bin" && \
+RUSTFLAGS=" --print=native-static-libs" cargo build -j 2 --offline --lib --release --manifest-path=./rust/Cargo.toml --target-dir ./rust/target
+error: failed to parse lock file at: /tmp/workdir/rshift/new/rshift.Rcheck/00_pkg_src/rshift/src/rust/Cargo.lock
+
+Caused by:
+  lock file version 4 requires `-Znext-lockfile-bump`
+make: *** [Makevars:28: rust/target/release/librshift.a] Error 101
+ERROR: compilation failed for package ‘rshift’
+* removing ‘/tmp/workdir/rshift/new/rshift.Rcheck/rshift’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘rshift’ ...
+** package ‘rshift’ successfully unpacked and MD5 sums checked
+** using staged installation
+Using cargo 1.75.0
+Using rustc 1.75.0 (82e1608df 2023-12-21) (built from a source tarball)
+Building for CRAN.
+Writing `src/Makevars`.
+`tools/config.R` has finished.
+** libs
+using C compiler: ‘gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
+...
+export CARGO_HOME=/tmp/workdir/rshift/old/rshift.Rcheck/00_pkg_src/rshift/src/.cargo && \
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.cargo/bin" && \
+RUSTFLAGS=" --print=native-static-libs" cargo build -j 2 --offline --lib --release --manifest-path=./rust/Cargo.toml --target-dir ./rust/target
+error: failed to parse lock file at: /tmp/workdir/rshift/old/rshift.Rcheck/00_pkg_src/rshift/src/rust/Cargo.lock
+
+Caused by:
+  lock file version 4 requires `-Znext-lockfile-bump`
+make: *** [Makevars:28: rust/target/release/librshift.a] Error 101
+ERROR: compilation failed for package ‘rshift’
+* removing ‘/tmp/workdir/rshift/old/rshift.Rcheck/rshift’
+
+
+```
 # rstanarm
 
 <details>
@@ -9492,7 +9949,7 @@ Run `revdepcheck::cloud_details(, "RRPP")` for more info
 * GitHub: https://github.com/stan-dev/rstanarm
 * Source code: https://github.com/cran/rstanarm
 * Date/Publication: 2024-01-18 23:00:03 UTC
-* Number of recursive dependencies: 140
+* Number of recursive dependencies: 141
 
 Run `revdepcheck::cloud_details(, "rstanarm")` for more info
 
@@ -9566,11 +10023,11 @@ ERROR: compilation failed for package ‘rstanarm’
 
 <details>
 
-* Version: 1.3.0
+* Version: 1.4.0
 * GitHub: https://github.com/aidanmorales/rTwig
 * Source code: https://github.com/cran/rTwig
-* Date/Publication: 2024-11-21 21:30:02 UTC
-* Number of recursive dependencies: 141
+* Date/Publication: 2025-03-03 17:10:09 UTC
+* Number of recursive dependencies: 143
 
 Run `revdepcheck::cloud_details(, "rTwig")` for more info
 
@@ -9648,7 +10105,7 @@ ERROR: lazy loading failed for package ‘rTwig’
 * GitHub: https://github.com/THERMOSTATS/RVA
 * Source code: https://github.com/cran/RVA
 * Date/Publication: 2021-11-01 21:40:02 UTC
-* Number of recursive dependencies: 210
+* Number of recursive dependencies: 211
 
 Run `revdepcheck::cloud_details(, "RVA")` for more info
 
@@ -9724,7 +10181,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/S4DM
 * Date/Publication: 2025-01-10 21:00:02 UTC
-* Number of recursive dependencies: 138
+* Number of recursive dependencies: 134
 
 Run `revdepcheck::cloud_details(, "S4DM")` for more info
 
@@ -10121,10 +10578,10 @@ ERROR: lazy loading failed for package ‘scMappR’
 
 <details>
 
-* Version: 2.2.6
+* Version: 3.0.0
 * GitHub: NA
 * Source code: https://github.com/cran/scpi
-* Date/Publication: 2024-11-11 23:40:02 UTC
+* Date/Publication: 2025-01-31 19:40:02 UTC
 * Number of recursive dependencies: 96
 
 Run `revdepcheck::cloud_details(, "scpi")` for more info
@@ -10275,11 +10732,11 @@ Status: 2 NOTEs
 
 <details>
 
-* Version: 0.1.1
+* Version: 0.1.1.1
 * GitHub: NA
 * Source code: https://github.com/cran/scRNAstat
-* Date/Publication: 2021-09-22 08:10:02 UTC
-* Number of recursive dependencies: 156
+* Date/Publication: 2025-03-08 08:58:55 UTC
+* Number of recursive dependencies: 157
 
 Run `revdepcheck::cloud_details(, "scRNAstat")` for more info
 
@@ -10304,14 +10761,6 @@ Run `revdepcheck::cloud_details(, "scRNAstat")` for more info
 ** R
 ** data
 *** moving datasets to lazyload DB
-Warning: namespace ‘Seurat’ is not available and has been replaced
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
-Warning: namespace ‘SeuratObject’ is not available and has been replaced
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
-...
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
-Warning: namespace ‘DBI’ is not available and has been replaced
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 ** byte-compile and prepare package for lazy loading
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
@@ -10331,14 +10780,6 @@ ERROR: lazy loading failed for package ‘scRNAstat’
 ** R
 ** data
 *** moving datasets to lazyload DB
-Warning: namespace ‘Seurat’ is not available and has been replaced
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
-Warning: namespace ‘SeuratObject’ is not available and has been replaced
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
-...
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
-Warning: namespace ‘DBI’ is not available and has been replaced
-by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 ** byte-compile and prepare package for lazy loading
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
@@ -10691,6 +11132,66 @@ ERROR: lazy loading failed for package ‘Seurat’
 
 
 ```
+# SeuratExplorer
+
+<details>
+
+* Version: 0.1.0
+* GitHub: NA
+* Source code: https://github.com/cran/SeuratExplorer
+* Date/Publication: 2025-03-13 13:10:05 UTC
+* Number of recursive dependencies: 236
+
+Run `revdepcheck::cloud_details(, "SeuratExplorer")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘SeuratExplorer’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/SeuratExplorer/new/SeuratExplorer.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘SeuratExplorer’ ...
+** package ‘SeuratExplorer’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘SeuratExplorer’
+* removing ‘/tmp/workdir/SeuratExplorer/new/SeuratExplorer.Rcheck/SeuratExplorer’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘SeuratExplorer’ ...
+** package ‘SeuratExplorer’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
+Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘SeuratExplorer’
+* removing ‘/tmp/workdir/SeuratExplorer/old/SeuratExplorer.Rcheck/SeuratExplorer’
+
+
+```
 # shinyTempSignal
 
 <details>
@@ -10899,97 +11400,6 @@ ERROR: lazy loading failed for package ‘SiFINeT’
 
 
 ```
-# sigminer
-
-<details>
-
-* Version: 2.3.1
-* GitHub: https://github.com/ShixiangWang/sigminer
-* Source code: https://github.com/cran/sigminer
-* Date/Publication: 2024-05-11 08:50:02 UTC
-* Number of recursive dependencies: 212
-
-Run `revdepcheck::cloud_details(, "sigminer")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘sigminer’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/sigminer/new/sigminer.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.9Mb
-      sub-directories of 1Mb or more:
-        R         1.0Mb
-        data      2.0Mb
-        extdata   1.0Mb
-        help      1.7Mb
-        libs      1.3Mb
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘sigminer’ ...
-** package ‘sigminer’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c calc_cosine.cpp -o calc_cosine.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c get_intersect_size.cpp -o get_intersect_size.o
-g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sigminer.so RcppExports.o calc_cosine.o get_intersect_size.o -L/opt/R/4.3.1/lib/R/lib -lR
-installing to /tmp/workdir/sigminer/new/sigminer.Rcheck/00LOCK-sigminer/00new/sigminer/libs
-...
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'NMF', details:
-  call: is.element(models, models.wraps)
-  error: unused argument (models.wraps)
-Execution halted
-ERROR: lazy loading failed for package ‘sigminer’
-* removing ‘/tmp/workdir/sigminer/new/sigminer.Rcheck/sigminer’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sigminer’ ...
-** package ‘sigminer’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 13.2.0-23ubuntu4) 13.2.0’
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c calc_cosine.cpp -o calc_cosine.o
-g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/site-library/Rcpp/include' -I/usr/local/include    -fpic  -g -O2  -c get_intersect_size.cpp -o get_intersect_size.o
-g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sigminer.so RcppExports.o calc_cosine.o get_intersect_size.o -L/opt/R/4.3.1/lib/R/lib -lR
-installing to /tmp/workdir/sigminer/old/sigminer.Rcheck/00LOCK-sigminer/00new/sigminer/libs
-...
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** checking absolute paths in shared objects and dynamic libraries
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (sigminer)
-
-
-```
 # Signac
 
 <details>
@@ -11072,10 +11482,10 @@ ERROR: lazy loading failed for package ‘Signac’
 
 <details>
 
-* Version: 0.2.0
+* Version: 0.2.1
 * GitHub: https://github.com/arcaldwell49/SimplyAgree
 * Source code: https://github.com/cran/SimplyAgree
-* Date/Publication: 2024-03-21 14:20:06 UTC
+* Date/Publication: 2025-02-24 16:40:11 UTC
 * Number of recursive dependencies: 118
 
 Run `revdepcheck::cloud_details(, "SimplyAgree")` for more info
@@ -11541,78 +11951,6 @@ ERROR: lazy loading failed for package ‘sparsereg’
 
 
 ```
-# spectralAnalysis
-
-<details>
-
-* Version: 4.3.3
-* GitHub: NA
-* Source code: https://github.com/cran/spectralAnalysis
-* Date/Publication: 2024-01-30 08:50:02 UTC
-* Number of recursive dependencies: 117
-
-Run `revdepcheck::cloud_details(, "spectralAnalysis")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘spectralAnalysis’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/spectralAnalysis/new/spectralAnalysis.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.0Mb
-      sub-directories of 1Mb or more:
-        doc   4.6Mb
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘spectralAnalysis’ ...
-** package ‘spectralAnalysis’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'NMF', details:
-  call: is.element(models, models.wraps)
-  error: unused argument (models.wraps)
-Execution halted
-ERROR: lazy loading failed for package ‘spectralAnalysis’
-* removing ‘/tmp/workdir/spectralAnalysis/new/spectralAnalysis.Rcheck/spectralAnalysis’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘spectralAnalysis’ ...
-** package ‘spectralAnalysis’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Creating a new generic function for ‘smooth’ in package ‘spectralAnalysis’
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (spectralAnalysis)
-
-
-```
 # spikeSlabGAM
 
 <details>
@@ -11693,7 +12031,7 @@ ERROR: lazy loading failed for package ‘spikeSlabGAM’
 * GitHub: NA
 * Source code: https://github.com/cran/stabiliser
 * Date/Publication: 2023-05-17 11:00:05 UTC
-* Number of recursive dependencies: 151
+* Number of recursive dependencies: 153
 
 Run `revdepcheck::cloud_details(, "stabiliser")` for more info
 
@@ -11891,7 +12229,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/ModelOriented/survex
 * Source code: https://github.com/cran/survex
 * Date/Publication: 2023-10-24 18:50:07 UTC
-* Number of recursive dependencies: 182
+* Number of recursive dependencies: 183
 
 Run `revdepcheck::cloud_details(, "survex")` for more info
 
@@ -11963,10 +12301,10 @@ Status: 1 ERROR, 1 NOTE
 
 <details>
 
-* Version: 2.0.2
+* Version: 2.0.3
 * GitHub: https://github.com/giabaio/survHE
 * Source code: https://github.com/cran/survHE
-* Date/Publication: 2024-10-04 09:50:02 UTC
+* Date/Publication: 2025-03-03 17:40:02 UTC
 * Number of recursive dependencies: 129
 
 Run `revdepcheck::cloud_details(, "survHE")` for more info
@@ -12109,6 +12447,82 @@ ERROR: lazy loading failed for package ‘survidm’
 
 
 ```
+# SurvMetrics
+
+<details>
+
+* Version: 0.5.1
+* GitHub: https://github.com/whcsu/SurvMetrics
+* Source code: https://github.com/cran/SurvMetrics
+* Date/Publication: 2025-02-05 11:50:28 UTC
+* Number of recursive dependencies: 194
+
+Run `revdepcheck::cloud_details(, "SurvMetrics")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/SurvMetrics/new/SurvMetrics.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SurvMetrics/DESCRIPTION’ ... OK
+...
+  [ FAIL 4 | WARN 0 | SKIP 0 | PASS 38 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+  ‘SurvMetrics-vignette.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/SurvMetrics/old/SurvMetrics.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* R was compiled by
+    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘SurvMetrics/DESCRIPTION’ ... OK
+...
+  [ FAIL 4 | WARN 0 | SKIP 0 | PASS 38 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking running R code from vignettes ... OK
+  ‘SurvMetrics-vignette.Rmd’ using ‘UTF-8’... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # tempted
 
 <details>
@@ -12179,7 +12593,7 @@ ERROR: lazy loading failed for package ‘tempted’
 * GitHub: https://github.com/jiangyouxiang/TestAnaAPP
 * Source code: https://github.com/cran/TestAnaAPP
 * Date/Publication: 2024-11-09 04:00:02 UTC
-* Number of recursive dependencies: 255
+* Number of recursive dependencies: 254
 
 Run `revdepcheck::cloud_details(, "TestAnaAPP")` for more info
 
@@ -12244,68 +12658,6 @@ Status: 1 ERROR
 
 
 
-
-
-```
-# tidydr
-
-<details>
-
-* Version: 0.0.5
-* GitHub: https://github.com/YuLab-SMU/tidydr
-* Source code: https://github.com/cran/tidydr
-* Date/Publication: 2023-03-08 09:20:02 UTC
-* Number of recursive dependencies: 79
-
-Run `revdepcheck::cloud_details(, "tidydr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘tidydr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/tidydr/new/tidydr.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘tidydr’ ...
-** package ‘tidydr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object 'len0_null' not found
-Error: unable to load R code in package ‘tidydr’
-Execution halted
-ERROR: lazy loading failed for package ‘tidydr’
-* removing ‘/tmp/workdir/tidydr/new/tidydr.Rcheck/tidydr’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘tidydr’ ...
-** package ‘tidydr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (tidydr)
 
 
 ```
@@ -12383,7 +12735,7 @@ ERROR: lazy loading failed for package ‘tidyEdSurvey’
 * GitHub: https://github.com/stemangiola/tidyseurat
 * Source code: https://github.com/cran/tidyseurat
 * Date/Publication: 2024-01-10 04:50:02 UTC
-* Number of recursive dependencies: 196
+* Number of recursive dependencies: 197
 
 Run `revdepcheck::cloud_details(, "tidyseurat")` for more info
 
@@ -12445,7 +12797,7 @@ ERROR: lazy loading failed for package ‘tidyseurat’
 * GitHub: https://github.com/certara/tidyvpc
 * Source code: https://github.com/cran/tidyvpc
 * Date/Publication: 2024-11-21 23:10:02 UTC
-* Number of recursive dependencies: 180
+* Number of recursive dependencies: 181
 
 Run `revdepcheck::cloud_details(, "tidyvpc")` for more info
 
@@ -12505,11 +12857,11 @@ ERROR: lazy loading failed for package ‘tidyvpc’
 
 <details>
 
-* Version: 2.4.2
+* Version: 2.4.3
 * GitHub: https://github.com/xjsun1221/tinyarray
 * Source code: https://github.com/cran/tinyarray
-* Date/Publication: 2024-06-13 14:20:02 UTC
-* Number of recursive dependencies: 250
+* Date/Publication: 2025-03-05 13:20:02 UTC
+* Number of recursive dependencies: 251
 
 Run `revdepcheck::cloud_details(, "tinyarray")` for more info
 
@@ -12531,7 +12883,7 @@ Run `revdepcheck::cloud_details(, "tinyarray")` for more info
 * using option ‘--no-manual’
 * checking for file ‘tinyarray/DESCRIPTION’ ... OK
 ...
-* this is package ‘tinyarray’ version ‘2.4.2’
+* this is package ‘tinyarray’ version ‘2.4.3’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -12561,7 +12913,7 @@ Status: 1 ERROR
 * using option ‘--no-manual’
 * checking for file ‘tinyarray/DESCRIPTION’ ... OK
 ...
-* this is package ‘tinyarray’ version ‘2.4.2’
+* this is package ‘tinyarray’ version ‘2.4.3’
 * package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... ERROR
@@ -12859,6 +13211,41 @@ ERROR: lazy loading failed for package ‘twang’
 
 
 ```
+# ubair
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/ubair
+* Number of recursive dependencies: 111
+
+Run `revdepcheck::cloud_details(, "ubair")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # vdg
 
 <details>
@@ -12970,11 +13357,11 @@ Run `revdepcheck::cloud_details(, "VecDep")` for more info
 
 <details>
 
-* Version: 0.1.0
+* Version: 1.0.0
 * GitHub: https://github.com/kang-yu/visa
 * Source code: https://github.com/cran/visa
-* Date/Publication: 2021-04-20 07:20:02 UTC
-* Number of recursive dependencies: 139
+* Date/Publication: 2025-03-19 19:50:02 UTC
+* Number of recursive dependencies: 144
 
 Run `revdepcheck::cloud_details(, "visa")` for more info
 
@@ -13037,7 +13424,7 @@ ERROR: lazy loading failed for package ‘visa’
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/VisualizeSimon2Stage
-* Number of recursive dependencies: 36
+* Number of recursive dependencies: 75
 
 Run `revdepcheck::cloud_details(, "VisualizeSimon2Stage")` for more info
 
@@ -13065,69 +13452,6 @@ Run `revdepcheck::cloud_details(, "VisualizeSimon2Stage")` for more info
 
 
 ```
-# wppExplorer
-
-<details>
-
-* Version: 2.3-4
-* GitHub: NA
-* Source code: https://github.com/cran/wppExplorer
-* Date/Publication: 2020-04-09 09:10:02 UTC
-* Number of recursive dependencies: 99
-
-Run `revdepcheck::cloud_details(, "wppExplorer")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘wppExplorer’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/wppExplorer/new/wppExplorer.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘wppExplorer’ ...
-** package ‘wppExplorer’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error in is.element(wpp.data.env$iso3166$uncode, wpp.data.env$popM$country_code) : 
-  unused argument (wpp.data.env$popM$country_code)
-Error: unable to load R code in package ‘wppExplorer’
-Execution halted
-ERROR: lazy loading failed for package ‘wppExplorer’
-* removing ‘/tmp/workdir/wppExplorer/new/wppExplorer.Rcheck/wppExplorer’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘wppExplorer’ ...
-** package ‘wppExplorer’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (wppExplorer)
-
-
-```
 # WRTDStidal
 
 <details>
@@ -13136,7 +13460,7 @@ ERROR: lazy loading failed for package ‘wppExplorer’
 * GitHub: https://github.com/fawda123/WRTDStidal
 * Source code: https://github.com/cran/WRTDStidal
 * Date/Publication: 2023-10-20 09:00:11 UTC
-* Number of recursive dependencies: 139
+* Number of recursive dependencies: 141
 
 Run `revdepcheck::cloud_details(, "WRTDStidal")` for more info
 

@@ -93,13 +93,13 @@ update_stat_defaults <- function(stat, new) {
 #'
 #' # Changed theme
 #' get_geom_defaults("point", theme(geom = element_geom(ink = "purple")))
-get_geom_defaults <- function(geom, theme = theme_get()) {
+get_geom_defaults <- function(geom, theme = get_theme()) {
   theme <- theme %||% list(geom = .default_geom_element)
 
   if (is.function(geom)) {
     geom <- geom()
   }
-  if (is.layer(geom)) {
+  if (is_layer(geom)) {
     data <- data_frame0(.id = 1L)
     data <- geom$compute_geom_2(data = data, theme = theme)
     data$.id <- NULL
@@ -108,7 +108,7 @@ get_geom_defaults <- function(geom, theme = theme_get()) {
   if (is.character(geom)) {
     geom <- validate_subclass(geom, "Geom")
   }
-  if (is.geom(geom)) {
+  if (is_geom(geom)) {
     out <- geom$use_defaults(data = NULL, theme = theme)
     return(out)
   }

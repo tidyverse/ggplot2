@@ -33,6 +33,8 @@
 #'   a blank element among its parents will cause this element to be blank as
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
+#' @param type For testing elements: the type of element to expect. One of
+#'   `"blank"`, `"rect"`, `"line"` or `"text"`.
 #' @return An S3 object of class `element`, `rel`, or `margin`.
 #' @details
 #' The `element_polygon()` and `element_point()` functions are not rendered
@@ -171,8 +173,6 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
-#' @export
-#' @rdname element
 element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
                             linetype = NULL, color = NULL,
                             inherit.blank = FALSE) {
@@ -247,8 +247,18 @@ element_geom <- function(
 )
 
 #' @export
-#' @rdname is_tests
-is.theme_element <- function(x) inherits(x, "element")
+#' @rdname element
+is_theme_element <- function(x, type = "any") {
+  switch(
+    type %||% "any",
+    any   = inherits(x, "element"),
+    rect  = inherits(x, "element_rect"),
+    line  = inherits(x, "element_line"),
+    text  = inherits(x, "element_text"),
+    blank = inherits(x, "element_blank"),
+    FALSE
+  )
+}
 
 #' @export
 print.element <- function(x, ...) utils::str(x)

@@ -5,9 +5,9 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
-\alias{element_polygon}
 \alias{element_point}
 \alias{element_geom}
+\alias{is_theme_element}
 \alias{rel}
 \alias{margin}
 \alias{margin_part}
@@ -53,15 +53,6 @@ element_text(
   inherit.blank = FALSE
 )
 
-element_polygon(
-  fill = NULL,
-  colour = NULL,
-  linewidth = NULL,
-  linetype = NULL,
-  color = NULL,
-  inherit.blank = FALSE
-)
-
 element_point(
   colour = NULL,
   shape = NULL,
@@ -88,6 +79,8 @@ element_geom(
   color = NULL,
   fill = NULL
 )
+
+is_theme_element(x, type = "any")
 
 rel(x)
 
@@ -154,6 +147,9 @@ is anchored.}
 \item{accent}{Accent colour.}
 
 \item{x}{A single number specifying size relative to parent element.}
+
+\item{type}{For testing elements: the type of element to expect. One of
+\code{"blank"}, \code{"rect"}, \code{"line"} or \code{"text"}.}
 
 \item{t, r, b, l}{Dimensions of each margin. (To remember order, think trouble).}
 
