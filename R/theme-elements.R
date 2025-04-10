@@ -251,11 +251,14 @@ element_geom <- function(
 is_theme_element <- function(x, type = "any") {
   switch(
     type %||% "any",
-    any   = inherits(x, "element"),
-    rect  = inherits(x, "element_rect"),
-    line  = inherits(x, "element_line"),
-    text  = inherits(x, "element_text"),
-    blank = inherits(x, "element_blank"),
+    any     = inherits(x, "element"),
+    rect    = inherits(x, "element_rect"),
+    line    = inherits(x, "element_line"),
+    text    = inherits(x, "element_text"),
+    blank   = inherits(x, "element_blank"),
+    polygon = inherits(x, "element_polygon"),
+    point   = inherits(x, "element_point"),
+    geom    = inherits(x, "element_geom"),
     FALSE
   )
 }
