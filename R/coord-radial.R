@@ -106,7 +106,7 @@ coord_radial <- function(theta = "x",
     place <- in_arc(c(0, 0.5, 1, 1.5) * pi, arc)
     if (!any(place)) {
       cli::cli_warn(c(
-        "No appropriate placement found for {.arg r.axis.inside}.",
+        "No appropriate placement found for outside {.field r.axis}.",
         i = "Will use {.code r.axis.inside = TRUE} instead"
       ))
       r.axis.inside <- TRUE
@@ -176,7 +176,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       xlimits <- self$limits$r
       ylimits <- self$limits$theta
     }
-    panel_params <- c(
+    params <- c(
       view_scales_polar(scale_x, self$theta, xlimits,
         expand = params$expand[c(4, 2)]
       ),
@@ -191,17 +191,17 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (is.numeric(axis_rotation)) {
       theta_scale <- switch(self$theta, x = scale_x, y = scale_y)
       axis_rotation <- theta_scale$transform(axis_rotation)
-      axis_rotation <- oob_squish(axis_rotation, panel_params$theta.range)
+      axis_rotation <- oob_squish(axis_rotation, params$theta.range)
       axis_rotation <- theta_rescale(
-        axis_rotation, panel_params$theta.range,
-        panel_params$arc, 1
+        axis_rotation, params$theta.range,
+        params$arc, 1
       )
-      panel_params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
+      params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
     } else {
-      panel_params$axis_rotation <- panel_params$arc
+      params$axis_rotation <- params$arc
     }
 
-    panel_params
+    params
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
