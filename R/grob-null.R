@@ -26,6 +26,6 @@ drawDetails.zeroGrob <- function(x, recording) {}
 is_zero <- function(x) is.null(x) || inherits(x, "zeroGrob")
 
 is.zero <- function(x) {
-  deprecate_warn("4.0.0", "is.zero()", "is_zero()")
+  deprecate_warn0("4.0.0", "is.zero()", "is_zero()")
   is_zero(x)
 }
