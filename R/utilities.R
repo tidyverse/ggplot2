@@ -321,8 +321,6 @@ compact <- function(x) {
   x[!null]
 }
 
-is.formula <- function(x) inherits(x, "formula")
-
 dispatch_args <- function(f, ...) {
   args <- list(...)
   formals <- formals(f)
