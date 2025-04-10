@@ -119,7 +119,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   continuous_limits = NULL,
 
   train = function(self, x) {
-    if (is.discrete(x)) {
+    if (is_discrete(x)) {
       self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
     } else {
       self$range_c$train(x)
@@ -156,7 +156,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     if (inherits(x, "AsIs")) {
       return(x)
     }
-    if (is.discrete(x)) {
+    if (is_discrete(x)) {
       values <- self$palette(length(limits))
       if (!is.numeric(values)) {
         cli::cli_abort(

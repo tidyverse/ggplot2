@@ -287,8 +287,13 @@ empty <- function(df) {
   is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is_waiver(df)
 }
 
-is.discrete <- function(x) {
+is_discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
+}
+
+is.discrete <- function(x) {
+  deprecate_warn0("4.0.0", "is.discrete()", "is_discrete()")
+  is_discrete(x)
 }
 
 check_nondata_cols <- function(data, mapping, problem = NULL, hint = NULL) {
