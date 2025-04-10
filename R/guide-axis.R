@@ -379,7 +379,7 @@ GuideAxis <- ggproto(
     # Ticks
     major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
     range <- range(0, major_cm)
-    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+    if (params$minor.ticks && !is_theme_element(elements$minor, "blank")) {
       minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
       range <- range(range, minor_cm)
     }
@@ -590,7 +590,7 @@ axis_label_priority_between <- function(x, y) {
 #'   overridden from the user- or theme-supplied element.
 #' @noRd
 label_angle_heuristic <- function(element, position, angle) {
-  if (!inherits(element, "element_text")
+  if (!is_theme_element(element, "text")
       || is.null(position)
       || is.null(angle %|W|% NULL)) {
     return(element)

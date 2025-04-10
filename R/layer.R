@@ -497,7 +497,7 @@ validate_subclass <- function(x, subclass,
     return(obj)
   }
   # Try prying the class from a layer
-  if (inherits(obj, "Layer")) {
+  if (is_layer(obj)) {
     obj <- switch(
       subclass,
       Geom = obj$geom,
