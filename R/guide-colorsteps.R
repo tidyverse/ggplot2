@@ -83,7 +83,7 @@ guide_coloursteps <- function(
 #' @rdname guide_coloursteps
 guide_colorsteps <- guide_coloursteps
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export

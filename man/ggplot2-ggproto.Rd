@@ -2,12 +2,9 @@
 % Please edit documentation in R/aaa-.R, R/axis-secondary.R, R/coord-.R,
 %   R/coord-cartesian-.R, R/coord-fixed.R, R/coord-flip.R, R/coord-map.R,
 %   R/coord-polar.R, R/coord-quickmap.R, R/coord-radial.R, R/coord-transform.R,
-%   R/facet-.R, R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/guide-.R,
-%   R/guide-axis.R, R/guide-axis-logticks.R, R/guide-axis-stack.R,
-%   R/guide-axis-theta.R, R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R,
-%   R/guide-colorsteps.R, R/guide-custom.R, R/guide-none.R, R/guide-old.R,
-%   R/layout.R, R/scale-.R, R/scale-binned.R, R/scale-continuous.R,
-%   R/scale-date.R, R/scale-discrete-.R, R/scale-identity.R
+%   R/facet-.R, R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/layout.R,
+%   R/scale-.R, R/scale-binned.R, R/scale-continuous.R, R/scale-date.R,
+%   R/scale-discrete-.R, R/scale-identity.R
 \docType{data}
 \name{ggplot2-ggproto}
 \alias{ggplot2-ggproto}
@@ -25,18 +22,6 @@
 \alias{FacetGrid}
 \alias{FacetNull}
 \alias{FacetWrap}
-\alias{Guide}
-\alias{GuideAxis}
-\alias{GuideAxisLogticks}
-\alias{GuideAxisStack}
-\alias{GuideAxisTheta}
-\alias{GuideLegend}
-\alias{GuideBins}
-\alias{GuideColourbar}
-\alias{GuideColoursteps}
-\alias{GuideCustom}
-\alias{GuideNone}
-\alias{GuideOld}
 \alias{Layout}
 \alias{Scale}
 \alias{ScaleContinuous}
@@ -178,83 +163,6 @@ parameter which is used to determine if scales are retrained after Stat
 transformations has been applied.
 
 See also the \href{https://ggplot2-book.org/extensions#new-facets}{new facets section} of the online ggplot2 book.
-}
-
-\section{Guides}{
-
-
-The \verb{guide_*()} functions, such as \code{guide_legend()} return an object that
-is responsible for displaying how objects in the plotting panel are related
-to actual values.
-
-Each of the \verb{Guide*} object is a \code{\link[=ggproto]{ggproto()}} object, descended from the
-top-level \code{Guide}, and each implements their own methods for drawing.
-
-To create a new type of Guide object, you typically will want to override
-one or more of the following:
-
-Properties:
-\itemize{
-\item \code{available_aes} A \code{character} vector with aesthetics that this guide
-supports. The value \code{"any"} indicates all non-position aesthetics.
-\item \code{params} A named \code{list} of parameters that the guide needs to function.
-It has the following roles:
-\itemize{
-\item \code{params} provides the defaults for a guide.
-\item \code{names(params)} determines what are valid arguments to \code{new_guide()}.
-Some parameters are \emph{required} to render the guide. These are: \code{title},
-\code{name}, \code{position}, \code{direction}, \code{order} and \code{hash}.
-\item During build stages, \code{params} holds information about the guide.
-}
-\item \code{elements} A named list of \code{character}s, giving the name of theme elements
-that should be retrieved automatically, for example \code{"legend.text"}.
-\item \code{hashables} An \code{expression} that can be evaluated in the context of
-\code{params}. The hash of the evaluated expression determines the merge
-compatibility of guides, and is stored in \code{params$hash}.
-}
-
-Methods:
-\itemize{
-\item \code{extract_key()} Returns a \code{data.frame} with (mapped) breaks and labels
-extracted from the scale, which will be stored in \code{params$key}.
-\item \code{extract_decor()} Returns a \code{data.frame} containing other structured
-information extracted from the scale, which will be stored in
-\code{params$decor}. The \code{decor} has a guide-specific  meaning: it is the bar in
-\code{guide_colourbar()}, but specifies the \code{axis.line} in \code{guide_axis()}.
-\item \code{extract_params()} Updates the \code{params} with other, unstructured
-information from the scale. An example of this is inheriting the guide's
-title from the \code{scale$name} field.
-\item \code{transform()} Updates the \code{params$key} based on the coordinates. This
-applies to position guides, as it rescales the aesthetic to the [0, 1]
-range.
-\item \code{merge()} Combines information from multiple guides with the same
-\code{params$hash}. This ensures that e.g. \code{guide_legend()} can display both
-\code{shape} and \code{colour} in the same guide.
-\item \code{process_layers()} Extract information from layers. This acts mostly
-as a filter for which layers to include and these are then (typically)
-forwarded to \code{get_layer_key()}.
-\item \code{get_layer_key()} This can be used to gather information about how legend
-keys should be displayed.
-\item \code{setup_params()} Set up parameters at the beginning of drawing stages.
-It can be used to overrule user-supplied parameters or perform checks on
-the \code{params} property.
-\item \code{override_elements()} Take populated theme elements derived from the
-\code{elements} property and allows overriding these theme settings.
-\item \code{build_title()} Render the guide's title.
-\item \code{build_labels()} Render the guide's labels.
-\item \code{build_decor()} Render the \code{params$decor}, which is different for every
-guide.
-\item \code{build_ticks()} Render tick marks.
-\item \code{measure_grobs()} Measure dimensions of the graphical objects produced
-by the \verb{build_*()} methods to be used in the layout or assembly.
-\item \code{arrange_layout()} Set up a layout for how graphical objects produced by
-the \verb{build_*()} methods should be arranged.
-\item \code{assemble_drawing()} Take the graphical objects produced by the \verb{build_*()}
-methods, the measurements from \code{measure_grobs()} and layout from
-\code{arrange_layout()} to finalise the guide.
-\item \code{add_title} Adds the title to a gtable, taking into account the size
-of the title as well as the gtable size.
-}
 }
 
 \section{Scales}{

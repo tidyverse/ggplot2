@@ -75,7 +75,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(), theme = NULL
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
