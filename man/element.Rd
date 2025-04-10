@@ -5,9 +5,9 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
-\alias{is_theme_element}
 \alias{element_point}
 \alias{element_geom}
+\alias{is_theme_element}
 \alias{rel}
 \alias{margin}
 \alias{margin_part}
@@ -53,8 +53,6 @@ element_text(
   inherit.blank = FALSE
 )
 
-is_theme_element(x, type = "any")
-
 element_point(
   colour = NULL,
   shape = NULL,
@@ -81,6 +79,8 @@ element_geom(
   color = NULL,
   fill = NULL
 )
+
+is_theme_element(x, type = "any")
 
 rel(x)
 
@@ -138,11 +138,6 @@ side of the text facing towards the center of the plot.}
 rectangle behind the complete text area, and a point where each label
 is anchored.}
 
-\item{x}{A single number specifying size relative to parent element.}
-
-\item{type}{For testing elements: the type of element to expect. One of
-\code{"blank"}, \code{"rect"}, \code{"line"} or \code{"text"}.}
-
 \item{shape, pointshape}{Shape for points (1-25).}
 
 \item{ink}{Foreground colour.}
@@ -150,6 +145,11 @@ is anchored.}
 \item{paper}{Background colour.}
 
 \item{accent}{Accent colour.}
+
+\item{x}{A single number specifying size relative to parent element.}
+
+\item{type}{For testing elements: the type of element to expect. One of
+\code{"blank"}, \code{"rect"}, \code{"line"} or \code{"text"}.}
 
 \item{t, r, b, l}{Dimensions of each margin. (To remember order, think trouble).}
 

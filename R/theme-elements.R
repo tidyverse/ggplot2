@@ -173,20 +173,6 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
-#' @export
-#' @rdname element
-is_theme_element <- function(x, type = "any") {
-  switch(
-    type %||% "any",
-    any   = inherits(x, "element"),
-    rect  = inherits(x, "element_rect"),
-    line  = inherits(x, "element_line"),
-    text  = inherits(x, "element_text"),
-    blank = inherits(x, "element_blank"),
-    FALSE
-  )
-}
-
 element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
                             linetype = NULL, color = NULL,
                             inherit.blank = FALSE) {
@@ -259,6 +245,20 @@ element_geom <- function(
   pointsize = 1.5, pointshape = 19,
   fill = NULL, colour = NULL
 )
+
+#' @export
+#' @rdname element
+is_theme_element <- function(x, type = "any") {
+  switch(
+    type %||% "any",
+    any   = inherits(x, "element"),
+    rect  = inherits(x, "element_rect"),
+    line  = inherits(x, "element_line"),
+    text  = inherits(x, "element_text"),
+    blank = inherits(x, "element_blank"),
+    FALSE
+  )
+}
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
