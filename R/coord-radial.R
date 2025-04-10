@@ -166,7 +166,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       xlimits <- self$limits$r
       ylimits <- self$limits$theta
     }
-    params <- c(
+    panel_params <- c(
       view_scales_polar(scale_x, self$theta, xlimits,
         expand = params$expand[c(4, 2)]
       ),
@@ -174,42 +174,37 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         expand = params$expand[c(3, 1)]
       ),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
-           arc = self$arc, inner_radius = self$inner_radius)
+           arc = self$arc, inner_radius = self$inner_radius,
+           r_axis_inside = params$r_axis_inside)
     )
 
-    params$r_axis_inside <- self$r_axis_inside
-    if (isFALSE(self$r_axis_inside)) {
-      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-      if (!any(place)) {
-        cli::cli_warn(c(
-          "No appropriate placement found for {.arg r_axis_inside}.",
-          i = "Axis will be placed at panel edge."
-        ))
-        params$r_axis_inside <- TRUE
+    if (isFALSE(panel_params$r_axis_inside)) {
+      if (any(params$place[c(1, 3)])) {
+        panel_params$r_axis <- "left"
       } else {
-        params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
-        params$fake_arc <- switch(
-          which(place[c(1, 3, 2, 4)])[1],
-          c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
-        ) * pi
+        panel_params$r_axis <- "bottom"
       }
+      panel_params$fake_arc <- switch(
+        which(params$place[c(1, 3, 2, 4)])[1],
+        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+      ) * pi
     }
 
-    axis_rotation <- params$r_axis_inside
+    axis_rotation <- panel_params$r_axis_inside
     if (is.numeric(axis_rotation)) {
       theta_scale <- switch(self$theta, x = scale_x, y = scale_y)
       axis_rotation <- theta_scale$transform(axis_rotation)
-      axis_rotation <- oob_squish(axis_rotation, params$theta.range)
+      axis_rotation <- oob_squish(axis_rotation, panel_params$theta.range)
       axis_rotation <- theta_rescale(
-        axis_rotation, params$theta.range,
-        params$arc, 1
+        axis_rotation, panel_params$theta.range,
+        panel_params$arc, 1
       )
-      params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
+      panel_params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
     } else {
-      params$axis_rotation <- params$arc
+      panel_params$axis_rotation <- panel_params$arc
     }
 
-    params
+    panel_params
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
@@ -469,6 +464,25 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
     lapply(scales_x, scale_flip_position)
     lapply(scales_y, scale_flip_position)
+  },
+
+  setup_params = function(self, data) {
+    params <- ggproto_parent(Coord, self)$setup_params(data)
+    params$r_axis_inside <- self$r_axis_inside
+    if (!isFALSE(params$r_axis_inside)) {
+      return(params)
+    }
+
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+    if (!any(place)) {
+      cli::cli_warn(c(
+        "No appropriate placement found for {.arg r_axis_inside}.",
+        i = "Axis will be placed at panel edge."
+      ))
+      params$r_axis_inside <- TRUE
+    }
+    params$place <- place
+    params
   }
 )
 
