@@ -28,15 +28,45 @@ scale_fill_manual(
   na.value = "grey50"
 )
 
-scale_size_manual(..., values, breaks = waiver(), na.value = NA)
+scale_size_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "size"
+)
 
-scale_shape_manual(..., values, breaks = waiver(), na.value = NA)
+scale_shape_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "shape"
+)
 
-scale_linetype_manual(..., values, breaks = waiver(), na.value = "blank")
+scale_linetype_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "linetype"
+)
 
-scale_linewidth_manual(..., values, breaks = waiver(), na.value = NA)
+scale_linewidth_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "linewidth"
+)
 
-scale_alpha_manual(..., values, breaks = waiver(), na.value = NA)
+scale_alpha_manual(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "alpha"
+)
 
 scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 }
@@ -64,7 +94,20 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
-    \item{\code{labels}}{One of:
+    \item{\code{minor_breaks}}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.
+}}
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the

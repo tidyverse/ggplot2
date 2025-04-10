@@ -62,7 +62,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
 
-  deprecate_soft0("3.4.0", "qplot()")
+  deprecate_warn0("3.4.0", "qplot()")
 
   caller_env <- parent.frame()
 
@@ -173,8 +173,3 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 #' @export
 #' @rdname qplot
 quickplot <- qplot
-
-is.constant <- function(x) {
-  is_I_call <- function(x) is.call(x) && identical(x[[1]], quote(I))
-  vapply(x, is_I_call, logical(1))
-}

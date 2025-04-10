@@ -2,8 +2,9 @@
 # Geoms and there's some difference among their aesthetics).
 rd_aesthetics <- function(type, name, extra_note = NULL) {
   obj <- switch(type,
-    geom = check_subclass(name, "Geom", env = globalenv()),
-    stat = check_subclass(name, "Stat", env = globalenv())
+    geom = validate_subclass(name, "Geom", env = globalenv()),
+    stat = validate_subclass(name, "Stat", env = globalenv()),
+    position = validate_subclass(name, "Position", env = globalenv())
   )
   aes <- rd_aesthetics_item(obj)
 
@@ -11,11 +12,10 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
     "@section Aesthetics:",
     paste0(
       "\\code{", type, "_", name, "()} ",
-      "understands the following aesthetics (required aesthetics are in bold):"
+      "understands the following aesthetics. Required aesthetics are displayed",
+      " in bold and defaults are displayed for optional aesthetics:"
     ),
-    "\\itemize{",
-    paste0("  \\item ", aes),
-    "}",
+    "\\tabular{rll}{", aes, "}",
     if (!is.null(extra_note)) paste0(extra_note, "\n"),
     "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
@@ -23,16 +23,39 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
 
 rd_aesthetics_item <- function(x) {
   req <- x$required_aes
-  req <- sub("|", "} \\emph{or} \\code{", req, fixed = TRUE)
+  req <- gsub("|", "} \\emph{or} \\code{", req, fixed = TRUE)
   req_aes <- unlist(strsplit(x$required_aes, "|", fixed = TRUE))
   optional_aes <- setdiff(x$aesthetics(), req_aes)
   all <- union(req, sort(optional_aes))
   docs <- rd_match_docpage(all)
+  defaults <- rd_defaults(x, all)
 
   item <- ifelse(all %in% req,
     paste0("\\strong{\\code{", docs, "}}"),
     paste0("\\code{", docs, "}")
   )
+  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr\\cr")
+}
+
+rd_defaults <- function(layer, aesthetics) {
+  defaults <- layer$default_aes
+
+  out <- rep("", length(aesthetics))
+
+  themed <- vapply(defaults, FUN.VALUE = logical(1), function(x) {
+    is_quosure(x) && quo_is_call(x, name = "from_theme")
+  })
+  defaults <- lapply(defaults, quo_text)
+  defaults[themed] <- "via \\code{theme()}"
+  defaults[!themed] <- paste0("\\code{", defaults[!themed], "}")
+
+  i <- intersect(aesthetics, names(defaults))
+  out[match(i, aesthetics)] <- defaults[i]
+  empty <- !nzchar(out)
+  out[!empty] <- paste0("\u2192 ", out[!empty])
+  out[empty] <- " "
+  out[empty & aesthetics == "group"] <- "\u2192 inferred"
+  out
 }
 
 rd_match_docpage <- function(aes) {

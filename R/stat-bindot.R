@@ -77,13 +77,11 @@ StatBindot <- ggproto("StatBindot", Stat,
     }
 
     if (method == "histodot") {
-      closed <- if (right) "right" else "left"
-      if (!is.null(binwidth)) {
-        bins <- bin_breaks_width(range, binwidth, boundary = origin, closed = closed)
-      } else {
-        bins <- bin_breaks_bins(range, 30, boundary = origin, closed = closed)
-      }
-
+      bins <- compute_bins(
+        values, scales[[binaxis]],
+        breaks = NULL, binwidth = binwidth, bins = 30, center = NULL,
+        boundary = origin, closed = if (right) "right" else "left"
+      )
       data <- bin_vector(values, bins, weight = data$weight, pad = FALSE)
 
       # Change "width" column to "binwidth" for consistency
@@ -143,14 +141,14 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
 
     # Sort weight and x, by x
     weight <- weight[order(x)]
-    x      <- x[order(x)]
+    x      <- sort(x, na.last = TRUE)
 
     cbin    <- 0                      # Current bin ID
     bin     <- rep.int(NA, length(x)) # The bin ID for each observation
     binend  <- -Inf                   # End position of current bin (scan left to right)
 
     # Scan list and put dots in bins
-    for (i in 1:length(x)) {
+    for (i in seq_along(x)) {
         # If past end of bin, start a new bin at this point
         if (x[i] >= binend) {
             binend <- x[i] + binwidth

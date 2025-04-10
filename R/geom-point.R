@@ -27,7 +27,7 @@
 #' `geom_point(alpha = 0.05)`) or very small (e.g.
 #' `geom_point(shape = ".")`).
 #'
-#' @eval rd_aesthetics("geom", "point")
+#' @eval rd_aesthetics("geom", "point", "The `fill` aesthetic only applies to shapes 21-25.")
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
@@ -85,6 +85,13 @@
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 #'
+#' # The default shape in legends is not filled, but you can override the shape
+#' # in the guide to reflect the fill in the legend
+#' ggplot(mtcars, aes(wt, mpg, fill = factor(carb), shape = factor(cyl))) +
+#'   geom_point(size = 5, stroke = 1) +
+#'   scale_shape_manual(values = 21:25) +
+#'   scale_fill_ordinal(guide = guide_legend(override.aes = list(shape = 21)))
+#'
 #' \donttest{
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
@@ -135,28 +142,26 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = aes(
-    shape = 19, colour = "black", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5
+    shape = from_theme(pointshape),
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% NA),
+    size = from_theme(pointsize),
+    alpha = NA,
+    stroke = from_theme(borderwidth)
   ),
 
   draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
-    if (is.character(data$shape)) {
-      data$shape <- translate_shape_string(data$shape)
-    }
-
+    data$shape <- translate_shape_string(data$shape)
     coords <- coord$transform(data, panel_params)
-    stroke_size <- coords$stroke
-    stroke_size[is.na(stroke_size)] <- 0
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
         pch = coords$shape,
-        gp = gpar(
+        gp = gg_par(
           col = alpha(coords$colour, coords$alpha),
           fill = fill_alpha(coords$fill, coords$alpha),
-          # Stroke is added around the outside of the point
-          fontsize = coords$size * .pt + stroke_size * .stroke / 2,
-          lwd = coords$stroke * .stroke / 2
+          pointsize = coords$size,
+          stroke = coords$stroke
         )
       )
     )
@@ -171,7 +176,8 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 #' given as a character vector into integers that are interpreted by the
 #' grid system.
 #'
-#' @param shape_string A character vector giving point shapes.
+#' @param shape_string A character vector giving point shapes. Non-character
+#'   input will be returned.
 #'
 #' @return An integer vector with translated shapes.
 #' @export
@@ -183,6 +189,9 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 #' # Strings with 1 or less characters are interpreted as symbols
 #' translate_shape_string(c("a", "b", "?"))
 translate_shape_string <- function(shape_string) {
+  if (!is.character(shape_string)) {
+    return(shape_string)
+  }
   # strings of length 0 or 1 are interpreted as symbols by grid
   if (nchar(shape_string[1]) <= 1) {
     return(shape_string)

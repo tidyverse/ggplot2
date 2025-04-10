@@ -5,7 +5,12 @@
 \alias{position_dodge2}
 \title{Dodge overlapping objects side-to-side}
 \usage{
-position_dodge(width = NULL, preserve = "total")
+position_dodge(
+  width = NULL,
+  preserve = "total",
+  orientation = "x",
+  reverse = FALSE
+)
 
 position_dodge2(
   width = NULL,
@@ -22,11 +27,15 @@ geoms. See the examples.}
 \item{preserve}{Should dodging preserve the \code{"total"} width of all elements
 at a position, or the width of a \code{"single"} element?}
 
-\item{padding}{Padding between elements at the same position. Elements are
-shrunk by this proportion to allow space between them. Defaults to 0.1.}
+\item{orientation}{Fallback orientation when the layer or the data does not
+indicate an explicit orientation, like \code{geom_point()}. Can be \code{"x"}
+(default) or \code{"y"}.}
 
 \item{reverse}{If \code{TRUE}, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.}
+
+\item{padding}{Padding between elements at the same position. Elements are
+shrunk by this proportion to allow space between them. Defaults to 0.1.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
@@ -37,6 +46,15 @@ be specified in the global or \verb{geom_*} layer. Unlike \code{position_dodge()
 particularly useful for arranging box plots, which
 can have variable widths.
 }
+\section{Aesthetics}{
+
+\code{position_dodge()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \code{order} \tab → \code{NULL} \cr\cr
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge2")

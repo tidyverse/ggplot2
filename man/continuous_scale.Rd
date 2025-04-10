@@ -56,13 +56,13 @@ Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 \item{minor_breaks}{One of:
 \itemize{
 \item \code{NULL} for no minor breaks
-\item \code{waiver()} for the default breaks (one minor break between
-each major break)
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks. Also
 accepts rlang \link[rlang:as_function]{lambda} function notation. When
 the function has two arguments, it will be given the limits and major
-breaks.
+break positions.
 }}
 
 \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
@@ -70,7 +70,9 @@ may choose a slightly different number to ensure nice break labels. Will
 only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
 number of breaks given by the transformation.}
 
-\item{labels}{One of:
+\item{labels}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the

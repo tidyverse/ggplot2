@@ -20,6 +20,7 @@
 #' @param segments The number of segments to be used in drawing the ellipse.
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @eval rd_aesthetics("stat", "ellipse")
 #' @export
 #' @examples
 #' ggplot(faithful, aes(waiting, eruptions)) +
@@ -76,6 +77,16 @@ stat_ellipse <- function(mapping = NULL, data = NULL,
 #' @export
 StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
+  optional_aes = "weight",
+  dropped_aes = "weight",
+
+  setup_params = function(data, params) {
+    params$type <- params$type %||% "t"
+    if (identical(params$type, "t")) {
+      check_installed("MASS", "for calculating ellipses with `type = \"t\"`.")
+    }
+    params
+  },
 
   compute_group = function(data, scales, type = "t", level = 0.95,
                            segments = 51, na.rm = FALSE) {
@@ -88,6 +99,9 @@ calculate_ellipse <- function(data, vars, type, level, segments){
   dfn <- 2
   dfd <- nrow(data) - 1
 
+  weight <- data$weight %||% rep(1, nrow(data))
+  weight <- weight / sum(weight)
+
   if (!type %in% c("t", "norm", "euclid")) {
     cli::cli_inform("Unrecognized ellipse type")
     ellipse <- matrix(NA_real_, ncol = 2)
@@ -96,11 +110,12 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     ellipse <- matrix(NA_real_, ncol = 2)
   } else {
     if (type == "t") {
-      v <- MASS::cov.trob(data[,vars])
+      # Prone to convergence problems when `sum(weight) != nrow(data)`
+      v <- MASS::cov.trob(data[,vars], wt = weight * nrow(data))
     } else if (type == "norm") {
-      v <- stats::cov.wt(data[,vars])
+      v <- stats::cov.wt(data[,vars], wt = weight)
     } else if (type == "euclid") {
-      v <- stats::cov.wt(data[,vars])
+      v <- stats::cov.wt(data[,vars], wt = weight)
       v$cov <- diag(rep(min(diag(v$cov)), 2))
     }
     shape <- v$cov

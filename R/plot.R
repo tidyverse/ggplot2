@@ -130,10 +130,9 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
-    layout = ggproto(NULL, Layout)
+    layout = ggproto(NULL, Layout),
+    labels = list()
   ), class = c("gg", "ggplot"))
-
-  p$labels <- make_labels(mapping)
 
   set_last_plot(p)
   p
@@ -187,18 +186,17 @@ is.ggplot <- function(x) {
 #' @export
 #' @method print ggplot
 #' @examples
-#' colours <- list(~class, ~drv, ~fl)
+#' colours <- c("class", "drv", "fl")
 #'
 #' # Doesn't seem to do anything!
 #' for (colour in colours) {
-#'   ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+#'   ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
 #'     geom_point()
 #' }
 #'
-#' # Works when we explicitly print the plots
 #' for (colour in colours) {
-#'   print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
-#'     geom_point())
+#'   print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
+#'           geom_point())
 #' }
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)

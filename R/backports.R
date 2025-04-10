@@ -67,6 +67,6 @@ on_load({
     as.mask <- grid::as.mask
   }
   if ("linearGradient" %in% getNamespaceExports("grid")) {
-    linearGradient <- grid::linearGradient()
+    linearGradient <- grid::linearGradient
   }
 })

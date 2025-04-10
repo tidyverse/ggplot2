@@ -109,7 +109,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 GeomPolygon <- ggproto("GeomPolygon", Geom,
   draw_panel = function(self, data, panel_params, coord, rule = "evenodd",
                         lineend = "butt", linejoin = "round", linemitre = 10) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
@@ -130,10 +130,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         polygonGrob(
           munched$x, munched$y, default.units = "native",
           id = munched$group,
-          gp = gpar(
+          gp = gg_par(
             col = first_rows$colour,
             fill = fill_alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -161,10 +161,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           munched$x, munched$y, default.units = "native",
           id = id, pathId = munched$group,
           rule = rule,
-          gp = gpar(
+          gp = gg_par(
             col = first_rows$colour,
             fill = fill_alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$linewidth * .pt,
+            lwd = first_rows$linewidth,
             lty = first_rows$linetype,
             lineend = lineend,
             linejoin = linejoin,
@@ -175,8 +175,13 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     }
   },
 
-  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
-    alpha = NA, subgroup = NULL),
+  default_aes = aes(
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA, subgroup = NULL
+  ),
 
   handle_na = function(data, params) {
     data

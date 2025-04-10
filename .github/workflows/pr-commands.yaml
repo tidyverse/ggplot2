@@ -4,7 +4,9 @@ on:
   issue_comment:
     types: [created]
 
-name: Commands
+name: pr-commands.yaml
+
+permissions: read-all
 
 jobs:
   document:
@@ -13,8 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/pr-fetch@v2
         with:
@@ -50,8 +54,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/pr-fetch@v2
         with:

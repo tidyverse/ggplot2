@@ -61,20 +61,19 @@ Each of these steps are described in more detail below. This might feel
 overwhelming the first time you get set up, but it gets easier with practice. 
 If you get stuck at any point, please reach out for help on the [ggplot2-dev](https://groups.google.com/forum/#!forum/ggplot2-dev) mailing list.
 
-If you're not familiar with git or github, please start by reading <http://r-pkgs.had.co.nz/git.html>
+If you're not familiar with git or github, please start by reading <https://r-pkgs.org/software-development-practices.html>
 
 <!--
 * [ ] Motivate the change in one paragraph, and include it in NEWS.
       In parentheses, reference your github user name and this issue:
       `(@hadley, #1234)`
 * [ ] Check pull request only includes relevant changes.
-* [ ] Use the [official style](http://adv-r.had.co.nz/Style.html).
+* [ ] Use the [official style](https://style.tidyverse.org).
 * [ ] Update documentation and re-run roxygen2
 * [ ] Add test, if bug in non-graphical function
 * [ ] Add visual test, if bug in graphical function
 * [ ] Add minimal example, if new graphical feature
 
-See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 --->
 
 Pull requests will be evaluated against a seven point checklist:
@@ -100,19 +99,15 @@ Pull requests will be evaluated against a seven point checklist:
     and don't submit any others until the first one has been processed.
 
 1.  __Use ggplot2 coding style__. Please follow the
-    [official tidyverse style](http://style.tidyverse.org). Maintaining
+    [official tidyverse style](https://style.tidyverse.org). Maintaining
     a consistent style across the whole code base makes it much easier to
     jump into the code. If you're modifying existing ggplot2 code that
     doesn't follow the style guide, a separate pull request to fix the
     style would be greatly appreciated.
 
 1.  If you're adding new parameters or a new function, you'll also need
-    to document them with [roxygen](https://github.com/klutometis/roxygen).
+    to document them with [roxygen2](https://github.com/r-lib/roxygen2).
     Make sure to re-run `devtools::document()` on the code before submitting.
-
-    Currently, ggplot2 uses the development version of roxygen2, which you
-    can get with `install_github("klutometis/roxygen")`. This will be
-    available on CRAN in the near future.
 
 1.  If fixing a bug or adding a new feature to a non-graphical function,
     please add a [testthat](https://github.com/r-lib/testthat) unit test.

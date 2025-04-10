@@ -18,12 +18,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   setup_params = function(self, data) {
-    crs <- self$determine_crs(data)
+    params <- ggproto_parent(Coord, self)$setup_params(data)
 
-    params <- list(
-      crs = crs,
-      default_crs = self$default_crs
-    )
+    params$crs <- self$determine_crs(data)
+    params$default_crs <- self$default_crs
     self$params <- params
 
     params
@@ -79,22 +77,30 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
+    if (is_transform_immune(data, snake_class(self))) {
+      return(data)
+    }
+
     # we need to transform all non-sf data into the correct coordinate system
     source_crs <- panel_params$default_crs
     target_crs <- panel_params$crs
 
+    # CoordSf doesn't use the viewscale rescaling, so we just flip ranges
+    reverse <- self$reverse %||% "none"
+    x_range <- switch(reverse, xy = , x = rev, identity)(panel_params$x_range)
+    y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y_range)
+
     # normalize geometry data, it should already be in the correct crs here
     data[[ geom_column(data) ]] <- sf_rescale01(
       data[[ geom_column(data) ]],
-      panel_params$x_range,
-      panel_params$y_range
+      x_range, y_range
     )
 
     # transform and normalize regular position data
     data <- transform_position(
       sf_transform_xy(data, target_crs, source_crs),
-      function(x) rescale(x, from = panel_params$x_range),
-      function(x) rescale(x, from = panel_params$y_range)
+      function(x) rescale(x, from = x_range),
+      function(x) rescale(x, from = y_range)
     )
 
     transform_position(data, squish_infinite, squish_infinite)
@@ -110,7 +116,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
-    } else if (is.waive(scale_x$labels)) {
+    } else if (is.waiver(scale_x$labels)) {
       x_labels <- graticule$degree_label[graticule$type == "E"]
       needs_autoparsing[graticule$type == "E"] <- TRUE
     } else {
@@ -135,7 +141,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
       y_labels <- rep(NA, length(y_breaks))
-    } else if (is.waive(scale_y$labels)) {
+    } else if (is.waiver(scale_y$labels)) {
       y_labels <- graticule$degree_label[graticule$type == "N"]
       needs_autoparsing[graticule$type == "N"] <- TRUE
     } else {
@@ -170,8 +176,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # expansion factors for scale limits
-    expansion_x <- default_expansion(scale_x, expand = self$expand)
-    expansion_y <- default_expansion(scale_y, expand = self$expand)
+    expansion_x <- default_expansion(scale_x, expand = params$expand[c(4, 2)])
+    expansion_y <- default_expansion(scale_y, expand = params$expand[c(3, 1)])
 
     # get scale limits and coord limits and merge together
     # coord limits take precedence over scale limits
@@ -222,15 +228,24 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range[2], y_range[2]
     )
 
+    breaks <- sf_breaks(scale_x, scale_y, bbox, params$crs)
+
     # Generate graticule and rescale to plot coords
     graticule <- sf::st_graticule(
       bbox,
       crs = params$crs,
-      lat = scale_y$breaks %|W|% NULL,
-      lon = scale_x$breaks %|W|% NULL,
+      lat = breaks$y %|W|% NULL,
+      lon = breaks$x %|W|% NULL,
       datum = self$datum,
       ndiscr = self$ndiscr
     )
+
+    if (is.null(breaks$x)) {
+      graticule <- vec_slice(graticule, graticule$type != "E")
+    }
+    if (is.null(breaks$y)) {
+      graticule <- vec_slice(graticule, graticule$type != "N")
+    }
 
     # override graticule labels provided by sf::st_graticule() if necessary
     graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
@@ -248,21 +263,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       )
     )
 
-    # Rescale graticule for panel grid
-    sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
-    graticule$x_start <- rescale(graticule$x_start, from = x_range)
-    graticule$x_end   <- rescale(graticule$x_end,   from = x_range)
-    graticule$y_start <- rescale(graticule$y_start, from = y_range)
-    graticule$y_end   <- rescale(graticule$y_end,   from = y_range)
-
-    list2(
+    panel_params <- list2(
       x_range = x_range,
       y_range = y_range,
-      graticule = graticule,
       crs = params$crs,
       default_crs = params$default_crs,
       !!!viewscales
     )
+
+    # Rescale graticule for panel grid
+    panel_params$graticule <- self$transform(graticule, panel_params)
+    panel_params
   },
 
   train_panel_guides = function(self, panel_params, layers, params = list()) {
@@ -326,9 +337,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (inherits(el, "element_blank")) {
       grobs <- list(element_render(theme, "panel.background"))
     } else {
-      line_gp <- gpar(
+      line_gp <- gg_par(
         col = el$colour,
-        lwd = len0_null(el$linewidth * .pt),
+        lwd = el$linewidth,
         lty = el$linetype
       )
       grobs <- c(
@@ -397,17 +408,31 @@ sf_transform_xy <- function(data, target_crs, source_crs, authority_compliant = 
 ## helper functions to normalize geometry and position data
 
 # normalize geometry data (variable x is geometry column)
+# this is a wrapper for `sf::st_normalize()`, but deals with empty input and
+# reversed ranges too
 sf_rescale01 <- function(x, x_range, y_range) {
   if (is.null(x)) {
     return(x)
   }
-
-  sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
+  mult <- cbind(1, 1)
+  if (isTRUE(x_range[1] > x_range[2])) {
+    x_range <- sort(x_range)
+    mult[1] <- -1
+  }
+  if (isTRUE(y_range[1] > y_range[2])) {
+    y_range <- sort(y_range)
+    mult[2] <- -1
+  }
+  x <- sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
+  if (all(mult == 1)) {
+    return(x)
+  }
+  x * mult + pmax(-mult, 0)
 }
 
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
-  if (any(!is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
+  if (!all(is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
     cli::cli_abort(c(
             "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
       "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
@@ -525,9 +550,10 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
                      label_axes = waiver(), lims_method = "cross",
-                     ndiscr = 100, default = FALSE, clip = "on") {
+                     ndiscr = 100, default = FALSE, clip = "on",
+                     reverse = "none") {
 
-  if (is.waive(label_graticule) && is.waive(label_axes)) {
+  if (is.waiver(label_graticule) && is.waiver(label_axes)) {
     # if both `label_graticule` and `label_axes` are set to waive then we
     # use the default of labels on the left and at the bottom
     label_graticule <- ""
@@ -538,11 +564,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes <- label_axes %|W|% ""
   }
 
-  if (is.character(label_axes)) {
-    label_axes <- parse_axes_labeling(label_axes)
-  } else if (!is.list(label_axes)) {
-    cli::cli_abort("Panel labeling format not recognized.")
-  }
+  label_axes <- parse_axes_labeling(label_axes)
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
@@ -569,17 +591,70 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_axes = label_axes,
     label_graticule = label_graticule,
     ndiscr = ndiscr,
+    reverse = reverse,
     expand = expand,
     default = default,
     clip = clip
   )
 }
 
-parse_axes_labeling <- function(x) {
-  labs = unlist(strsplit(x, ""))
-  list(top = labs[1], right = labs[2], bottom = labs[3], left = labs[4])
+parse_axes_labeling <- function(x, call = caller_env()) {
+  if (is.character(x)) {
+    x <- unlist(strsplit(x, ""))
+    x <- list(top = x[1], right = x[2], bottom = x[3], left = x[4])
+  } else if (!is.list(x)) {
+    cli::cli_abort("Panel labeling format not recognized.", call = call)
+  }
+  x
 }
 
+# This function does two things differently from standard breaks:
+#   1. It does not resolve `waiver()`, unless `n.breaks` is given. In the case
+#      that breaks are `waiver()`, we use the default graticule breaks.
+#   2. It discards non-finite breaks because they are invalid input to the
+#      graticule. This may cause atomic `labels` to be out-of-sync.
+sf_breaks <- function(scale_x, scale_y, bbox, crs) {
+
+  has_x <- !is.null(scale_x$breaks) || !is.null(scale_x$n.breaks)
+  has_y <- !is.null(scale_y$breaks) || !is.null(scale_y$n.breaks)
+
+  x_breaks <- if (has_x) waiver() else NULL
+  y_breaks <- if (has_y) waiver() else NULL
+
+
+  if (has_x || has_y) {
+    if (!is.null(crs)) {
+      # Atomic breaks input are assumed to be in long/lat coordinates.
+      # To preserve that assumption for function breaks, the bounding box
+      # needs to be translated to long/lat coordinates.
+      if (!is_named(bbox)) {
+        names(bbox) <- c("xmin", "ymin", "xmax", "ymax")
+      }
+      # Convert bounding box to long/lat coordinates
+      bbox <- sf::st_as_sfc(sf::st_bbox(bbox, crs = crs))
+      bbox <- sf::st_bbox(sf::st_transform(bbox, 4326))
+      bbox <- as.numeric(bbox)
+
+      # If any bbox is NA the transformation has probably failed.
+      # (.e.g from IGH to long/lat). In this case, just provide full long/lat.
+      bbox[is.na(bbox)] <- c(-180, -90, 180, 90)[is.na(bbox)]
+    }
+
+    if (!(is.waiver(scale_x$breaks) && is.null(scale_x$n.breaks))) {
+      x_breaks <- scale_x$get_breaks(limits = bbox[c(1, 3)])
+      finite <- is.finite(x_breaks)
+      x_breaks <- if (any(finite)) x_breaks[finite] else NULL
+    }
+
+    if (!(is.waiver(scale_y$breaks) && is.null(scale_y$n.breaks))) {
+      y_breaks <- scale_y$get_breaks(limits = bbox[c(2, 4)])
+      finite <- is.finite(y_breaks)
+      y_breaks <- if (any(finite)) y_breaks[finite] else NULL
+    }
+  }
+
+  list(x = x_breaks, y = y_breaks)
+}
 
 #' ViewScale from graticule
 #'
@@ -602,6 +677,9 @@ parse_axes_labeling <- function(x) {
 #' @keywords internal
 view_scales_from_graticule <- function(graticule, scale, aesthetic,
                                        label, label_graticule, bbox) {
+  if (empty(graticule)) {
+    return(ggproto(NULL, ViewScale))
+  }
 
   # Setup position specific parameters
   # Note that top/bottom doesn't necessarily mean to label the meridians and
@@ -642,6 +720,14 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
     thres <- thres[1] + 0.001 * diff(thres)
     accept_start <- graticule[[orth_start]] < thres
     accept_end   <- graticule[[orth_end]]   < thres
+  }
+  if (!any(accept_start | accept_end)) {
+    eps <- sqrt(.Machine$double.xmin)
+    subtract <- switch(position, top = , bottom = 90, 0)
+    straight <-
+      abs(graticule$angle_start - subtract) < eps &
+      abs(graticule$angle_end   - subtract) < eps
+    accept_start <- straight
   }
 
   # Parsing the information of the `label_axes` argument:

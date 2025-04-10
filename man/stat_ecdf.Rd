@@ -105,7 +105,9 @@ a warning.  If \code{TRUE} silently removes missing values.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -125,13 +127,36 @@ The statistic relies on the aesthetics assignment to guess which variable to
 use as the input and which to use as the output. Either x or y must be provided
 and one of them must be unused. The ECDF will be calculated on the given aesthetic
 and will be output on the unused one.
+
+If the \code{weight} aesthetic is provided, a weighted ECDF will be computed. In
+this case, the ECDF is incremented by \code{weight / sum(weight)} instead of
+\code{1 / length(x)} for each observation.
 }
+\section{Aesthetics}{
+
+\code{stat_ecdf()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{weight} \tab → \code{NULL} \cr\cr
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
 \itemize{
 \item \code{after_stat(ecdf)}\cr Cumulative density corresponding to \code{x}.
 \item \code{after_stat(y)}\cr \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} For backward compatibility.
+}
+}
+
+\section{Dropped variables}{
+
+\describe{
+\item{weight}{After calculation, weights of individual observations (if
+supplied), are no longer available.}
 }
 }
 
@@ -151,4 +176,15 @@ ggplot(df, aes(x)) +
 # Multiple ECDFs
 ggplot(df, aes(x, colour = g)) +
   stat_ecdf()
+
+# Using weighted eCDF
+weighted <- data.frame(x = 1:10, weights = c(1:5, 5:1))
+plain <- data.frame(x = rep(weighted$x, weighted$weights))
+
+ggplot(plain, aes(x)) +
+  stat_ecdf(linewidth = 1) +
+  stat_ecdf(
+    aes(weight = weights),
+    data = weighted, colour = "green"
+  )
 }

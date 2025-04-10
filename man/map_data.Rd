@@ -8,10 +8,10 @@ map_data(map, region = ".", exact = FALSE, ...)
 }
 \arguments{
 \item{map}{name of map provided by the \pkg{maps} package. These
-include \code{\link[maps:county]{maps::county()}}, \code{\link[maps:france]{maps::france()}},
-\code{\link[maps:italy]{maps::italy()}}, \code{\link[maps:nz]{maps::nz()}},
-\code{\link[maps:state]{maps::state()}}, \code{\link[maps:usa]{maps::usa()}},
-\code{\link[maps:world]{maps::world()}}, \code{\link[maps:world2]{maps::world2()}}.}
+include \code{\link[maps:county]{"county"}}, \code{\link[maps:france]{"france"}},
+\code{\link[maps:italy]{"italy"}}, \code{\link[maps:nz]{"nz"}},
+\code{\link[maps:state]{"state"}}, \code{\link[maps:usa]{"usa"}},
+\code{\link[maps:world]{"world"}}, or \code{\link[maps:world2]{"world2"}}.}
 
 \item{region}{name(s) of subregion(s) to include. Defaults to \code{.} which
 includes all subregions. See documentation for \code{\link[maps:map]{maps::map()}}
