@@ -1,37 +1,9 @@
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @eval rd_computed_vars(
-#'   n = "Number of observations at position.",
-#'   prop = "Percent of points in that panel at that position."
-#' )
-#' @export
-#' @rdname geom_count
-stat_sum <- function(mapping = NULL, data = NULL,
-                     geom = "point", position = "identity",
-                     ...,
-                     na.rm = FALSE,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatSum,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
-StatSum <- ggproto("StatSum", Stat,
+StatSum <- ggproto(
+  "StatSum", Stat,
   default_aes = aes(size = after_stat(n), weight = 1),
 
   required_aes = c("x", "y"),
@@ -47,3 +19,13 @@ StatSum <- ggproto("StatSum", Stat,
     counts
   }
 )
+
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @eval rd_computed_vars(
+#'   n = "Number of observations at position.",
+#'   prop = "Percent of points in that panel at that position."
+#' )
+#' @export
+#' @rdname geom_count
+stat_sum <- make_constructor(StatSum, geom = "point")
