@@ -33,7 +33,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,7 +106,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>ggplot2 is a system for declaratively creating graphics, based on <a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl" class="external-link">The Grammar of Graphics</a>. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p>
+<p>ggplot2 is a system for declaratively creating graphics, based on <a href="https://link.springer.com/book/10.1007/0-387-28695-0" class="external-link">The Grammar of Graphics</a>. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -134,9 +134,11 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu"><a href="reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles per gallon are inversely correlated."></p>
+<p><img src="reference/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per
+ gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles
+ per gallon are inversely correlated."></p>
 </div>
 <div class="section level2">
 <h2 id="lifecycle">Lifecycle<a class="anchor" aria-label="anchor" href="#lifecycle"></a>
