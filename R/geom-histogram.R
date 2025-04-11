@@ -17,6 +17,12 @@
 #' one change at a time. You may need to look at a few options to uncover
 #' the full story behind your data.
 #'
+#' By default, the _height_ of the bars represent the counts within each bin.
+#' However, there are situations where this behavior might produce misleading
+#' plots (e.g., when non-equal-width bins are used), in which case it might be
+#' preferable to have the _area_ of the bars represent the counts (by setting
+#' `aes(y = after_stat(count / width))`). See example below.
+#'
 #' In addition to `geom_histogram()`, you can create a histogram plot by using
 #' `scale_x_binned()` with [geom_bar()]. This method by default plots tick marks
 #' in between each bar.
@@ -62,6 +68,18 @@
 #' # put density on the y axis instead of the default count
 #' ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
 #'   geom_freqpoly(binwidth = 500)
+#'
+#'
+#' # When using the non-equal-width bins, we should set the area of the bars to
+#' # represent the counts (not the height).
+#' # Here we're using 10 equi-probable bins:
+#' price_bins <- quantile(diamonds$price, probs = seq(0, 1, length = 11))
+#'
+#' ggplot(diamonds, aes(price)) +
+#'   geom_histogram(breaks = price_bins, color = "black") # misleading (height = count)
+#'
+#' ggplot(diamonds, aes(price, after_stat(count / width))) +
+#'   geom_histogram(breaks = price_bins, color = "black") # area = count
 #'
 #' if (require("ggplot2movies")) {
 #' # Often we don't want the height of the bar to represent the

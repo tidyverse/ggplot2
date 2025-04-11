@@ -44,7 +44,10 @@ geom_raster <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
-  default_aes = aes(fill = "grey20", alpha = NA),
+  default_aes = aes(
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    alpha = NA
+  ),
   non_missing_aes = c("fill", "xmin", "xmax", "ymin", "ymax"),
   required_aes = c("x", "y"),
 
@@ -88,9 +91,14 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   draw_panel = function(self, data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
-      cli::cli_abort(c(
-        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}."
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}.",
+        i = "Falling back to drawing as {.fn {snake_class(GeomRect)}}."
       ))
+      data$linewidth <- 0.3 # preventing anti-aliasing artefacts
+      data$colour <- data$fill
+      grob <- GeomRect$draw_panel(data, panel_params, coord)
+      return(grob)
     }
 
     # Convert vector of data to raster
@@ -119,5 +127,5 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       default.units = "native", interpolate = interpolate
     )
   },
-  draw_key = draw_key_rect
+  draw_key = draw_key_polygon
 )

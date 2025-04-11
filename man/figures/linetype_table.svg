@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='288.00pt' viewBox='0 0 432.00 288.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA='>
+    <rect x='0.00' y='0.00' width='432.00' height='288.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpNC45OHw0MjcuMDJ8MzYuMDJ8MjgzLjAy'>
+    <rect x='4.98' y='36.02' width='422.04' height='247.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNC45OHw0MjcuMDJ8MzYuMDJ8MjgzLjAy)'>
+<text x='88.11' y='51.19' style='font-size: 11.00px; font-family: "Arial";'>"blank"/NA</text>
+<text x='88.11' y='88.61' style='font-size: 11.00px; font-family: "Arial";'>"solid"</text>
+<text x='88.11' y='126.04' style='font-size: 11.00px; font-family: "Arial";'>"dashed"</text>
+<text x='88.11' y='163.46' style='font-size: 11.00px; font-family: "Arial";'>"dotted"</text>
+<text x='88.11' y='200.88' style='font-size: 11.00px; font-family: "Arial";'>"dotdash"</text>
+<text x='88.11' y='238.31' style='font-size: 11.00px; font-family: "Arial";'>"longdash"</text>
+<text x='88.11' y='275.73' style='font-size: 11.00px; font-family: "Arial";'>"twodash"</text>
+<text x='24.16' y='51.19' style='font-size: 11.00px; font-family: "Arial";'>0/NA</text>
+<text x='24.16' y='88.61' style='font-size: 11.00px; font-family: "Arial";'>1</text>
+<text x='24.16' y='126.04' style='font-size: 11.00px; font-family: "Arial";'>2</text>
+<text x='24.16' y='163.46' style='font-size: 11.00px; font-family: "Arial";'>3</text>
+<text x='24.16' y='200.88' style='font-size: 11.00px; font-family: "Arial";'>4</text>
+<text x='24.16' y='238.31' style='font-size: 11.00px; font-family: "Arial";'>5</text>
+<text x='24.16' y='275.73' style='font-size: 11.00px; font-family: "Arial";'>6</text>
+<text x='152.05' y='126.04' style='font-size: 11.00px; font-family: "Arial";'>"44"</text>
+<text x='152.05' y='163.46' style='font-size: 11.00px; font-family: "Arial";'>"13"</text>
+<text x='152.05' y='200.88' style='font-size: 11.00px; font-family: "Arial";'>"1343"</text>
+<text x='152.05' y='238.31' style='font-size: 11.00px; font-family: "Arial";'>"73"</text>
+<text x='152.05' y='275.73' style='font-size: 11.00px; font-family: "Arial";'>"2262"</text>
+<line x1='216.00' y1='84.67' x2='407.84' y2='84.67' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='216.00' y1='122.10' x2='407.84' y2='122.10' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
+<line x1='216.00' y1='159.52' x2='407.84' y2='159.52' style='stroke-width: 1.07; stroke-dasharray: 1.42,4.27; stroke-linecap: butt;' />
+<line x1='216.00' y1='196.94' x2='407.84' y2='196.94' style='stroke-width: 1.07; stroke-dasharray: 1.42,4.27,5.69,4.27; stroke-linecap: butt;' />
+<line x1='216.00' y1='234.37' x2='407.84' y2='234.37' style='stroke-width: 1.07; stroke-dasharray: 9.96,4.27; stroke-linecap: butt;' />
+<line x1='216.00' y1='271.79' x2='407.84' y2='271.79' style='stroke-width: 1.07; stroke-dasharray: 2.85,2.85,8.54,2.85; stroke-linecap: butt;' />
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
+<text x='24.16' y='24.80' style='font-size: 12.00px; font-family: "Arial";'>Number</text>
+<text x='88.11' y='24.80' style='font-size: 12.00px; font-family: "Arial";'>Name</text>
+<text x='152.05' y='24.80' style='font-size: 12.00px; font-family: "Arial";'>Hex code</text>
+<text x='216.00' y='24.80' style='font-size: 12.00px; font-family: "Arial";'>Display</text>
+</g>
+</svg>

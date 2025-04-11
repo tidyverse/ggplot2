@@ -10,6 +10,7 @@ discrete_scale(
   palette,
   name = waiver(),
   breaks = waiver(),
+  minor_breaks = waiver(),
   labels = waiver(),
   limits = NULL,
   expand = waiver(),
@@ -47,7 +48,21 @@ as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
 }}
 
-\item{labels}{One of:
+\item{minor_breaks}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.
+}}
+
+\item{labels}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the

@@ -110,7 +110,9 @@ to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more 
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -167,17 +169,17 @@ This geom treats each axis differently and, thus, can thus have two orientations
 
 \section{Aesthetics}{
 
-\code{geom_density()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_colour_fill_alpha]{fill}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{linetype}}
-\item \code{\link[=aes_linetype_size_shape]{linewidth}}
-\item \code{weight}
+\code{geom_density()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+• \tab \code{weight} \tab → \code{1} \cr\cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -188,6 +190,7 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \itemize{
 \item \code{after_stat(density)}\cr density estimate.
 \item \code{after_stat(count)}\cr density * number of points - useful for stacked density plots.
+\item \code{after_stat(wdensity)}\cr density * sum of weights. In absence of weights, the same as \code{count}.
 \item \code{after_stat(scaled)}\cr density estimate, scaled to maximum of 1.
 \item \code{after_stat(n)}\cr number of points.
 \item \code{after_stat(ndensity)}\cr alias for \code{scaled}, to mirror the syntax of \code{\link[=stat_bin]{stat_bin()}}.

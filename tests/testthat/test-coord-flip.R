@@ -4,7 +4,12 @@ test_that("secondary labels are correctly turned off", {
     ggplot(mtcars, aes(x = mpg, y = cyl)) +
       geom_point() +
       scale_x_continuous(sec.axis = dup_axis(guide = guide_axis(title = NULL))) +
-      coord_flip()
+      coord_flip() +
+      theme_test() +
+      theme(
+        panel.grid.major.y = element_line(colour = "grey80"),
+        panel.grid.major.x = element_line(colour = "grey90")
+      )
   )
 })
 

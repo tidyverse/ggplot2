@@ -11,6 +11,10 @@ NULL
 #' guide if they are mapped in the same way.
 #'
 #' @inheritParams guide_legend
+#' @param angle Overrules the theme settings to automatically apply appropriate
+#'   `hjust` and `vjust` for angled legend text. Can be a single number
+#'   representing the text angle in degrees, or `NULL` to not overrule the
+#'   settings (default).
 #' @param show.limits Logical. Should the limits of the scale be shown with
 #'   labels and ticks. Default is `NULL` meaning it will take the value from the
 #'   scale. This argument is ignored if `labels` is given as a vector of
@@ -65,6 +69,7 @@ guide_bins <- function(
   theme = NULL,
 
   # general
+  angle        = NULL,
   position     = NULL,
   direction    = NULL,
   override.aes = list(),
@@ -85,6 +90,7 @@ guide_bins <- function(
     theme = theme,
 
     # general
+    angle = angle,
     position = position,
     direction = direction,
     override.aes = rename_aes(override.aes),
@@ -115,6 +121,7 @@ GuideBins <- ggproto(
     default_axis = element_line("black", linewidth = (0.5 / .pt)),
     default_ticks = element_line(inherit.blank = TRUE),
 
+    angle = NULL,
     direction = NULL,
     override.aes = list(),
     reverse = FALSE,
@@ -154,7 +161,10 @@ GuideBins <- ggproto(
     key$.show  <- NA
 
     labels <- scale$get_labels(breaks)
-    if (is.character(scale$labels) || is.numeric(scale$labels)) {
+    labels <- labels[!is.na(breaks)]
+    breaks <- breaks[!is.na(breaks)]
+
+    if (is.character(scale$labels) || is.numeric(scale$labels) || is.expression(scale$labels)) {
       limit_lab <- c(NA, NA)
     } else {
       limit_lab <- scale$get_labels(limits)
@@ -201,11 +211,14 @@ GuideBins <- ggproto(
     params$show.limits <- show.limits
 
     if (params$reverse) {
-      key <- key[rev(seq_len(nrow(key))), , drop = FALSE]
+      ord <- seq_len(nrow(key))
+      key <- vec_slice(key, rev(ord))
+      # Put NA back in the trailing position
+      key[params$aesthetic] <- vec_slice(key[params$aesthetic], c(ord[-1], ord[1]))
       key$.value <- 1 - key$.value
     }
 
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     params$key <- key
     params
   },
@@ -258,7 +271,7 @@ GuideBins <- ggproto(
 
     list(labels = flip_element_grob(
       elements$text,
-      label = key$.label,
+      label = validate_labels(key$.label),
       x = unit(key$.value, "npc"),
       margin_x = FALSE,
       margin_y = TRUE,
@@ -326,20 +339,24 @@ GuideBins <- ggproto(
   }
 )
 
-parse_binned_breaks = function(scale, breaks = scale$get_breaks()) {
+parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
 
-  breaks <- breaks[!is.na(breaks)]
+  if (is.waiver(scale$labels) || is.function(scale$labels)) {
+    breaks <- breaks[!is.na(breaks)]
+  }
   if (length(breaks) == 0) {
     return(NULL)
   }
 
   if (is.numeric(breaks)) {
-    breaks <- sort(breaks)
     limits <- scale$get_limits()
     if (!is.numeric(scale$breaks)) {
-      breaks <- breaks[!breaks %in% limits]
+      breaks[breaks %in% limits] <- NA
     }
+    breaks <- oob_censor(breaks, limits)
     all_breaks <- unique0(c(limits[1], breaks, limits[2]))
+    # Sorting drops NAs on purpose here
+    all_breaks <- sort(all_breaks, na.last = NA)
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
     bin_at <- breaks

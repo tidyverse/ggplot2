@@ -21,7 +21,7 @@ test_that("as_facets_list() coerces character vectors", {
 
   expect_identical(as_facets_list("foo"), list(foobar[1]))
   expect_identical(as_facets_list(c("foo", "bar")), list(foobar[1], foobar[2]))
-  expect_identical(wrap_as_facets_list(c("foo", "bar")), foobar)
+  expect_identical(compact_facets(c("foo", "bar")), foobar)
 })
 
 test_that("as_facets_list() coerces lists", {
@@ -43,16 +43,16 @@ test_that("as_facets_list() coerces quosures objectss", {
 })
 
 test_that("facets reject aes()", {
-  expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
-  expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
+  expect_snapshot(facet_wrap(aes(foo)), error = TRUE)
+  expect_snapshot(facet_grid(aes(foo)), error = TRUE)
 })
 
-test_that("wrap_as_facets_list() returns a quosures object with compacted", {
-  expect_identical(wrap_as_facets_list(vars(foo)), quos(foo = foo))
-  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
+test_that("compact_facets() returns a quosures object with compacted", {
+  expect_identical(compact_facets(vars(foo)), quos(foo = foo))
+  expect_identical(compact_facets(~foo + bar), quos(foo = foo, bar = bar))
 
   f <- function(x) {
-    expect_identical(wrap_as_facets_list(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
+    expect_identical(compact_facets(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
   }
 
   f(NULL)
@@ -71,12 +71,12 @@ test_that("grid_as_facets_list() returns a list of quosures objects with compact
   f()
 })
 
-test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
-  expect_identical(wrap_as_facets_list(NULL), quos())
-  expect_identical(wrap_as_facets_list(list()), quos())
-  expect_identical(wrap_as_facets_list(. ~ .), quos())
-  expect_identical(wrap_as_facets_list(list(. ~ .)), quos())
-  expect_identical(wrap_as_facets_list(list(NULL)), quos())
+test_that("compact_facets() and grid_as_facets_list() accept empty specs", {
+  expect_identical(compact_facets(NULL), quos())
+  expect_identical(compact_facets(list()), quos())
+  expect_identical(compact_facets(. ~ .), quos())
+  expect_identical(compact_facets(list(. ~ .)), quos())
+  expect_identical(compact_facets(list(NULL)), quos())
 
   expect_identical(grid_as_facets_list(list(), NULL), list(rows = quos(), cols = quos()))
   expect_identical(grid_as_facets_list(. ~ ., NULL), list(rows = quos(), cols = quos()))
@@ -92,9 +92,9 @@ test_that("facets split up the data", {
   l2 <- p + facet_grid(. ~ z)
   l3 <- p + facet_grid(z ~ .)
 
-  d1 <- layer_data(l1)
-  d2 <- layer_data(l2)
-  d3 <- layer_data(l3)
+  d1 <- get_layer_data(l1)
+  d2 <- get_layer_data(l2)
+  d3 <- get_layer_data(l3)
 
   expect_equal(d1, d2)
   expect_equal(d1, d3)
@@ -105,8 +105,8 @@ test_that("facets split up the data", {
   l4 <- p_empty + facet_wrap(~z)
   l5 <- p_empty + facet_grid(. ~ z)
 
-  d4 <- layer_data(l4)
-  d5 <- layer_data(l5)
+  d4 <- get_layer_data(l4)
+  d5 <- get_layer_data(l5)
 
   expect_equal(d1, d4)
   expect_equal(d1, d5)
@@ -120,7 +120,7 @@ test_that("facet_wrap() accepts vars()", {
   p1 <- p + facet_wrap(~z)
   p2 <- p + facet_wrap(vars(Z = z), labeller = label_both)
 
-  expect_identical(layer_data(p1), layer_data(p2))
+  expect_identical(get_layer_data(p1), get_layer_data(p2))
 })
 
 test_that("facet_grid() accepts vars()", {
@@ -165,14 +165,14 @@ test_that("facet_wrap()/facet_grid() compact the facet spec, and accept empty sp
 
   # facet_wrap()
   p_wrap <- p + facet_wrap(vars(NULL))
-  d_wrap <- layer_data(p_wrap)
+  d_wrap <- get_layer_data(p_wrap)
 
   expect_equal(d_wrap$PANEL, factor(c(1L, 1L, 1L)))
   expect_equal(d_wrap$group, structure(c(-1L, -1L, -1L), n = 1L))
 
   # facet_grid()
   p_grid <- p + facet_grid(vars(NULL))
-  d_grid <- layer_data(p_grid)
+  d_grid <- get_layer_data(p_grid)
 
   expect_equal(d_grid$PANEL, factor(c(1L, 1L, 1L)))
   expect_equal(d_grid$group, structure(c(-1L, -1L, -1L), n = 1L))
@@ -325,6 +325,18 @@ test_that("facet_wrap `axes` can draw inner axes.", {
   expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
 })
 
+test_that("facet_wrap throws deprecation messages", {
+  withr::local_options(lifecycle_verbosity = "warning")
+
+  facet <- facet_wrap(vars(year))
+  facet$params$dir <- "h"
+
+  lifecycle::expect_deprecated(
+    ggplot_build(ggplot(mpg, aes(displ, hwy)) + geom_point() + facet),
+    "Internal use of"
+  )
+})
+
 # Variable combinations ---------------------------------------------------
 
 test_that("zero-length vars in combine_vars() generates zero combinations", {
@@ -341,9 +353,9 @@ test_that("at least one layer must contain all facet variables in combine_vars()
 
 test_that("at least one combination must exist in combine_vars()", {
   df <- data_frame(letter = character(0))
-  expect_error(
+  expect_snapshot(
     combine_vars(list(df), vars = vars(letter = letter)),
-    "Faceting variables must have at least one value"
+    error = TRUE
   )
 })
 
@@ -451,15 +463,15 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
   )
 
   # If the expression contains any non-existent variable, it fails
-  expect_error(
+  expect_snapshot(
     eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
-    "object 'no_such_variable' not found"
+    error = TRUE
   )
 })
 
-test_that("validate_facets() provide meaningful errors", {
-  expect_snapshot_error(validate_facets(aes(var)))
-  expect_snapshot_error(validate_facets(ggplot()))
+test_that("check_vars() provide meaningful errors", {
+  expect_snapshot_error(check_vars(aes(var)))
+  expect_snapshot_error(check_vars(ggplot()))
 })
 
 test_that("check_layout() throws meaningful errors", {

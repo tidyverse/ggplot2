@@ -30,6 +30,20 @@ test_that("graticule lines can be removed via theme", {
   expect_doppelganger("no panel grid", plot)
 })
 
+test_that("graticule lines and axes can be removed via scales", {
+  skip_if_not_installed("sf")
+
+  df <- data_frame(x = c(1, 2, 3), y = c(1, 2, 3))
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    coord_sf() +
+    theme_gray() +
+    scale_x_continuous(breaks = NULL) +
+    scale_y_continuous(breaks = NULL)
+
+  expect_doppelganger("no breaks", plot)
+})
+
 test_that("axis labels are correct for manual breaks", {
   skip_if_not_installed("sf")
 
@@ -295,9 +309,50 @@ test_that("sf_transform_xy() works", {
   # transform back
   out2 <- sf_transform_xy(out, 4326, 3347)
   expect_identical(data$city, out2$city)
-  expect_true(all(abs(out2$x - data$x) < .01))
-  expect_true(all(abs(out2$y - data$y) < .01))
+  expect_true(all(abs(out2$x - data$x) < 0.01))
+  expect_true(all(abs(out2$y - data$y) < 0.01))
 
+})
+
+test_that("when both x and y are AsIs, they are not transformed", {
+
+  skip_if_not_installed("sf")
+
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = I(0.25), label = "foo") +
+    scale_x_continuous(limits = c(-180, 180)) +
+    scale_y_continuous(limits = c(-80, 80)) +
+    coord_sf(default_crs = 4326, crs = 3857)
+
+  grob <- get_layer_grob(p)[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
+
+})
+
+test_that("coord_sf() can use function breaks and n.breaks", {
+
+  polygon <- sf::st_sfc(
+    sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
+    crs = 4326 # basic long-lat crs
+  )
+  polygon <- sf::st_transform(polygon, crs = 3347)
+
+  p <- ggplot(polygon) + geom_sf(fill = NA) +
+    scale_x_continuous(breaks = breaks_width(0.5)) +
+    scale_y_continuous(n.breaks = 4)
+
+  b <- ggplot_build(p)
+  grat <- b$layout$panel_params[[1]]$graticule
+
+  expect_equal(
+    vec_slice(grat$degree, grat$type == "E"),
+    seq(-81, -74.5, by = 0.5)
+  )
+  expect_equal(
+    vec_slice(grat$degree, grat$type == "N"),
+    seq(34, 40, by = 2)
+  )
 })
 
 test_that("coord_sf() uses the guide system", {
@@ -331,4 +386,54 @@ test_that("coord_sf() throws error when limits are badly specified", {
 
   # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_sf(ylim=1:3))
+})
+
+test_that("sf coords can be reversed", {
+  skip_if_not_installed("sf")
+
+  p <- ggplot(sf::st_multipoint(cbind(c(0, 2), c(0, 2)))) +
+    geom_sf() +
+    coord_sf(
+      xlim = c(-1, 3), ylim = c(-1, 3), expand = FALSE,
+      reverse = "xy"
+    )
+  grob <- layer_grob(p)[[1]]
+  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
+  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+})
+
+test_that("coord_sf() can render with empty graticules", {
+
+  skip_if_not_installed("sf")
+  # Skipping this test on CRAN as changes upstream in {sf} might affect
+  # this test, i.e. when suddenly graticules *do* work
+  skip_on_cran()
+
+  df <- sf::st_sf(
+    g = sf::st_sfc(sf::st_point(
+      # Out of bounds values for lon/lat
+      c(-600, 1200)
+    )),
+    crs = 4326
+  )
+
+  # Double-check graticule is empty, suppressing warnings about oob longlat values
+  grat <- suppressWarnings(sf::st_graticule(df))
+  expect_equal(nrow(grat), 0)
+
+  # Plot should render
+  p <- suppressWarnings(layer_grob(ggplot(df) + geom_sf())[[1]])
+  expect_length(p$x, 1)
+})
+
+test_that("coord_sf() can calculate breaks when expansion is on", {
+  skip_if_not_installed("sf")
+  df <- sf::st_multipoint(cbind(c(-180, 180), c(-90, 90)))
+  df <- sf::st_sfc(df, crs = 4326)
+  b <- ggplot_build(ggplot(df) + geom_sf())
+
+  x <- get_guide_data(b, "x")
+  y <- get_guide_data(b, "y")
+  expect_equal(nrow(x), 5L)
+  expect_equal(nrow(y), 3L)
 })

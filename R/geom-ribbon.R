@@ -96,8 +96,14 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRibbon <- ggproto("GeomRibbon", Geom,
-  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
-    alpha = NA),
+
+  default_aes = aes(
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA
+  ),
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
@@ -122,24 +128,80 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   draw_key = draw_key_polygon,
 
-  handle_na = function(data, params) {
+  handle_na = function(self, data, params) {
+
+    vars <- vapply(
+      strsplit(self$required_aes, "|", fixed = TRUE),
+      `[[`, i = 1, character(1)
+    )
+    if (isTRUE(params$flipped_aes || any(data$flipped_aes) %||% FALSE)) {
+      vars <- switch_orientation(vars)
+    }
+    vars <- c(vars, self$non_missing_aes)
+
+    missing <- detect_missing(data, vars, finite = FALSE)
+    if (!any(missing)) {
+      return(data)
+    }
+    # We're rearranging groups to account for missing values
+    data$group <- vec_identify_runs(data_frame0(missing, data$group))
+    data <- vec_slice(data, !missing)
+
+    if (!params$na.rm) {
+      cli::cli_warn(
+        "Removed {sum(missing)} row{?s} containing missing values or values \\
+          outside the scale range ({.fn {snake_class(self)}})."
+      )
+    }
     data
   },
 
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "round", linemitre = 10, na.rm = FALSE,
                         flipped_aes = FALSE, outline.type = "both") {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
-    if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique0(data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")])
-    if (nrow(aes) > 1) {
-      cli::cli_abort("Aesthetics can not vary along a ribbon.")
+    aes <- lapply(
+      data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")],
+      unique0
+    )
+    non_constant <- names(aes)[lengths(aes) > 1]
+    if (coord$is_linear()) {
+      if (any(c("fill", "alpha") %in% non_constant)) {
+        check_device("gradients", action = "abort", maybe = TRUE)
+      }
+      # For linear coords, we can make a fill/alpha gradient, so we allow
+      # these to vary
+      non_constant <- setdiff(non_constant, c("fill", "alpha"))
     }
-    aes <- as.list(aes)
+    if (length(non_constant) > 0) {
+      cli::cli_abort(
+        "Aesthetics can not vary along a ribbon: {.and {.field {non_constant}}}."
+      )
+    }
+    if ((length(aes$fill) > 1 || length(aes$alpha) > 1)) {
+      transformed <- coord$transform(flip_data(data, flipped_aes), panel_params)
+      if (flipped_aes) {
+        keep <- is.finite(transformed$y)
+        args <- list(
+          colours = alpha(data$fill, data$alpha)[keep],
+          stops = rescale(transformed$y)[keep],
+          y1 = 0, y2 = 1, x1 = 0.5, x2 = 0.5
+        )
+      } else {
+        keep <- is.finite(transformed$x)
+        args <- list(
+          colours = alpha(data$fill, data$alpha)[keep],
+          stops = rescale(transformed$x)[keep],
+          x1 = 0, x2 = 1, y1 = 0.5, y2 = 0.5
+        )
+      }
+      aes$fill <- inject(linearGradient(!!!args))
+      aes$alpha <- NA
+    }
 
     # Instead of removing NA values from the data and plotting a single
     # polygon, we want to "stop" plotting the polygon whenever we're
@@ -182,10 +244,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     g_poly <- polygonGrob(
       munched_poly$x, munched_poly$y, id = munched_poly$id,
       default.units = "native",
-      gp = gpar(
+      gp = gg_par(
         fill = fill_alpha(aes$fill, aes$alpha),
         col = if (is_full_outline) aes$colour else NA,
-        lwd = if (is_full_outline) aes$linewidth * .pt else 0,
+        lwd = if (is_full_outline) aes$linewidth else 0,
         lty = if (is_full_outline) aes$linetype else 1,
         lineend = lineend,
         linejoin = linejoin,
@@ -213,9 +275,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
       default.units = "native",
-      gp = gpar(
+      gp = gg_par(
         col = aes$colour,
-        lwd = aes$linewidth * .pt,
+        lwd = aes$linewidth,
         lty = aes$linetype,
         lineend = lineend,
         linejoin = linejoin,
@@ -259,8 +321,6 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "align",
 #' @usage NULL
 #' @export
 GeomArea <- ggproto("GeomArea", GeomRibbon,
-  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
-    alpha = NA),
 
   required_aes = c("x", "y"),
 

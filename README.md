@@ -1,14 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# ggplot2 <a href="https://ggplot2.tidyverse.org"><img src="man/figures/logo.png" align="right" height="138" alt="ggplot2 website" /></a>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/ggplot2/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/tidyverse/ggplot2/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2?branch=main)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+[![Codecov test
+coverage](https://codecov.io/gh/tidyverse/ggplot2/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/ggplot2)
 <!-- badges: end -->
 
 ## Overview
@@ -35,7 +35,7 @@ pak::pak("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
 
 ## Usage
 
@@ -76,7 +76,7 @@ extensions. See a community maintained list at
 
 If you are new to ggplot2 you are better off starting with a systematic
 introduction, rather than trying to learn from reading individual
-documentation pages. Currently, there are three good places to start:
+documentation pages. Currently, there are several good places to start:
 
 1.  The [Data Visualization](https://r4ds.hadley.nz/data-visualize) and
     [Communication](https://r4ds.hadley.nz/communication) chapters in [R
@@ -99,12 +99,15 @@ documentation pages. Currently, there are three good places to start:
     Cookbook](https://r-graphics.org) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.
 
-If you’ve mastered the basics and want to learn more, read [ggplot2:
-Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
-describes the theoretical underpinnings of ggplot2 and shows you how all
-the pieces fit together. This book helps you understand the theory that
-underpins ggplot2, and will help you create new types of graphics
-specifically tailored to your needs.
+5.  If you’ve mastered the basics and want to learn more, read [ggplot2:
+    Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
+    describes the theoretical underpinnings of ggplot2 and shows you how
+    all the pieces fit together. This book helps you understand the
+    theory that underpins ggplot2, and will help you create new types of
+    graphics specifically tailored to your needs.
+
+6.  For articles about announcements and deep-dives you can visit the
+    [tidyverse blog](https://www.tidyverse.org/tags/ggplot2/).
 
 ## Getting help
 

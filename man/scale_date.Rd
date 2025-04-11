@@ -78,8 +78,11 @@ scale_y_datetime(
 scale_x_time(
   name = waiver(),
   breaks = waiver(),
+  date_breaks = waiver(),
   minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
   labels = waiver(),
+  date_labels = waiver(),
   limits = NULL,
   expand = waiver(),
   oob = censor,
@@ -92,8 +95,11 @@ scale_x_time(
 scale_y_time(
   name = waiver(),
   breaks = waiver(),
+  date_breaks = waiver(),
   minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
   labels = waiver(),
+  date_labels = waiver(),
   limits = NULL,
   expand = waiver(),
   oob = censor,
@@ -122,7 +128,9 @@ weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
 specified, \code{date_breaks} wins. Valid specifications are 'sec', 'min',
 'hour', 'day', 'week', 'month' or 'year', optionally followed by 's'.}
 
-\item{labels}{One of:
+\item{labels}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the

@@ -18,6 +18,18 @@
 #' `xmiddle`, `middle`, `xupper`, `upper`, `x0` and `y0`. Many of these are used
 #' and automatically computed in [`geom_boxplot()`].
 #'
+#' ## Relation to `width` and `height`
+#'
+#' The position aesthetics mentioned above like `x` and `y` are all location
+#' based. The `width` and `height` aesthetics are closely related length
+#' based aesthetics, but are not position aesthetics. Consequently, `x` and `y`
+#' aesthetics respond to scale transformations, whereas the length based
+#' `width` and `height` aesthetics are not transformed by scales. For example,
+#' if we have the pair `x = 10, width = 2`, that gets translated to the
+#' locations `xmin = 9, xmax = 11` when using the default identity scales.
+#' However, the same pair becomes `xmin = 1, xmax = 100` when using log10 scales,
+#' as `width = 2` in log10-space spans a 100-fold change.
+#'
 #' @name aes_position
 #' @aliases x y xmin xmax ymin ymax xend yend
 #'

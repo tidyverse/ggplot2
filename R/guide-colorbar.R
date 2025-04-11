@@ -30,6 +30,10 @@ NULL
 #' @param alpha A numeric between 0 and 1 setting the colour transparency of
 #'   the bar. Use `NA` to preserve the alpha encoded in the colour itself
 #'   (default).
+#' @param angle Overrules the theme settings to automatically apply appropriate
+#'   `hjust` and `vjust` for angled legend text. Can be a single number
+#'   representing the text angle in degrees, or `NULL` to not overrule the
+#'   settings (default).
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -122,6 +126,7 @@ guide_colourbar <- function(
   alpha = NA,
   draw.ulim = TRUE,
   draw.llim = TRUE,
+  angle = NULL,
   position = NULL,
   direction = NULL,
   reverse = FALSE,
@@ -149,6 +154,7 @@ guide_colourbar <- function(
     nbin = nbin,
     display = display,
     alpha = alpha,
+    angle = angle,
     draw_lim = c(isTRUE(draw.llim), isTRUE(draw.ulim)),
     position = position,
     direction = direction,
@@ -191,6 +197,7 @@ GuideColourbar <- ggproto(
     direction = NULL,
     reverse = FALSE,
     order = 0,
+    angle = NULL,
 
     # parameter
     name = "colourbar",
@@ -250,7 +257,7 @@ GuideColourbar <- ggproto(
 
   extract_params = function(scale, params,
                             title  = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     limits <- params$decor$value[c(1L, nrow(params$decor))]
     to <- switch(
       params$display,
@@ -268,7 +275,7 @@ GuideColourbar <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers, data = NULL) {
+  get_layer_key = function(params, layers, data = NULL, theme = NULL) {
     params
   },
 
@@ -284,10 +291,10 @@ GuideColourbar <- ggproto(
     # We set the defaults in `theme` so that the `params$theme` can still
     # overrule defaults given here
     if (params$direction == "horizontal") {
-      theme$legend.key.width  <- theme$legend.key.width * 5
+      theme$legend.key.width <- rel(5)
       valid_position <- c("bottom", "top")
     } else {
-      theme$legend.key.height <- theme$legend.key.height * 5
+      theme$legend.key.height <- rel(5)
       valid_position <- c("right", "left")
     }
 
@@ -365,12 +372,12 @@ GuideColourbar <- ggproto(
       if (params$direction == "horizontal") {
         width  <- 1 / nrow(decor)
         height <- 1
-        x <- (seq(nrow(decor)) - 1) * width
+        x <- (seq_len(nrow(decor)) - 1) * width
         y <- 0
       } else {
         width  <- 1
         height <- 1 / nrow(decor)
-        y <- (seq(nrow(decor)) - 1) * height
+        y <- (seq_len(nrow(decor)) - 1) * height
         x <- 0
       }
       grob <- rectGrob(
@@ -378,7 +385,7 @@ GuideColourbar <- ggproto(
         vjust = 0, hjust = 0,
         width = width, height = height,
         default.units = "npc",
-        gp = gpar(col = NA, fill = decor$colour)
+        gp = gg_par(col = NA, fill = decor$colour)
       )
     } else if (params$display == "gradient") {
       check_device("gradients", call = expr(guide_colourbar()))
@@ -393,7 +400,7 @@ GuideColourbar <- ggproto(
         vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
       )
       gradient <- inject(linearGradient(decor$colour, value, !!!position))
-      grob <- rectGrob(gp = gpar(fill = gradient, col = NA))
+      grob <- rectGrob(gp = gg_par(fill = gradient, col = NA))
     }
 
     frame <- element_grob(elements$frame, fill = NA)
