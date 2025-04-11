@@ -177,7 +177,7 @@ Coord <- ggproto("Coord",
     panel_params
   },
 
-  transform = function(data, range) NULL,
+  transform = function(data, panel_params) NULL,
 
   distance = function(x, y, panel_params) NULL,
 
