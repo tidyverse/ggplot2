@@ -30,9 +30,9 @@ FacetNull <- ggproto("FacetNull", Facet,
     layout_null()
   },
   map_data = function(data, layout, params) {
-    # Need the is.waiver check for special case where no data, but aesthetics
+    # Need the is_waiver check for special case where no data, but aesthetics
     # are mapped to vectors
-    if (is.waiver(data))
+    if (is_waiver(data))
       return(data_frame0(PANEL = factor()))
 
     if (empty(data))

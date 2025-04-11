@@ -228,7 +228,7 @@ expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
                                          range_continuous = NULL) {
   discrete_limits <- NULL
   if (length(limits) > 0) {
-    if (is.discrete(limits)) {
+    if (is_discrete(limits)) {
       discrete_limits <- c(1, length(limits)) # for backward compatibility
     } else {
       discrete_limits <- range(limits)

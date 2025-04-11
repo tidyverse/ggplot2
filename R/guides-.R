@@ -109,7 +109,7 @@ guides <- function(...) {
 
 #' @export
 #' @rdname is_tests
-is.guides <- function(x) inherits(x, "Guides")
+is_guides <- function(x) inherits(x, "Guides")
 
 # Class -------------------------------------------------------------------
 
@@ -140,7 +140,7 @@ Guides <- ggproto(
     if (is.null(guides)) {
       return(invisible())
     }
-    if (is.guides(guides)) {
+    if (is_guides(guides)) {
       guides <- guides$guides
     }
     self$guides <- defaults(guides, self$guides)
@@ -492,7 +492,7 @@ Guides <- ggproto(
     )
 
     grobs <- self$draw(theme, positions, theme$legend.direction)
-    keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
+    keep <- !vapply(grobs, is_zero, logical(1), USE.NAMES = FALSE)
     grobs <- grobs[keep]
     if (length(grobs) < 1) {
       return(zeroGrob())
@@ -590,7 +590,7 @@ Guides <- ggproto(
   # arguments to collect guides
   package_box = function(grobs, position, theme) {
 
-    if (is.zero(grobs) || length(grobs) == 0) {
+    if (is_zero(grobs) || length(grobs) == 0) {
       return(zeroGrob())
     }
 
@@ -912,7 +912,7 @@ validate_guide <- function(guide) {
       guide <- fun()
     }
   }
-  if (is.guide(guide)) {
+  if (is_guide(guide)) {
     return(guide)
   }
   if (inherits(guide, "guide") && is.list(guide)) {

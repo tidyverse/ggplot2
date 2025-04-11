@@ -12,7 +12,7 @@ scales::alpha
 }
 
 "%|W|%" <- function(a, b) {
-  if (!is.waiver(a)) a else b
+  if (!is_waiver(a)) a else b
 }
 
 # Check required aesthetics are present
@@ -183,7 +183,7 @@ should_stop <- function(expr) {
 #' calling function should just use the default value.  It is used in certain
 #' functions to distinguish between displaying nothing (`NULL`) and
 #' displaying a default value calculated elsewhere (`waiver()`).
-#' `is.waiver()` reports whether an object is a waiver.
+#' `is_waiver()` reports whether an object is a waiver.
 #'
 #' @export
 #' @keywords internal
@@ -192,7 +192,12 @@ waiver <- function() structure(list(), class = "waiver")
 #' @param x An object to test
 #' @export
 #' @rdname waiver
-is.waiver <- function(x) inherits(x, "waiver")
+is_waiver <- function(x) inherits(x, "waiver")
+
+is.waiver <- function(x) {
+  deprecate_warn0("4.0.0", "is.waiver()", "is_waiver()")
+  is_waiver(x)
+}
 
 pal_binned <- function(palette) {
   force(palette)
@@ -279,11 +284,16 @@ snake_class <- function(x) {
 }
 
 empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waiver(df)
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is_waiver(df)
+}
+
+is_discrete <- function(x) {
+  is.factor(x) || is.character(x) || is.logical(x)
 }
 
 is.discrete <- function(x) {
-  is.factor(x) || is.character(x) || is.logical(x)
+  deprecate_warn0("4.0.0", "is.discrete()", "is_discrete()")
+  is_discrete(x)
 }
 
 check_nondata_cols <- function(data, mapping, problem = NULL, hint = NULL) {
@@ -315,8 +325,6 @@ compact <- function(x) {
   null <- vapply(x, is.null, logical(1))
   x[!null]
 }
-
-is.formula <- function(x) inherits(x, "formula")
 
 dispatch_args <- function(f, ...) {
   args <- list(...)

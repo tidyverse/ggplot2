@@ -8,6 +8,7 @@
 \alias{element_polygon}
 \alias{element_point}
 \alias{element_geom}
+\alias{is_theme_element}
 \alias{rel}
 \alias{margin}
 \alias{margin_part}
@@ -89,6 +90,8 @@ element_geom(
   fill = NULL
 )
 
+is_theme_element(x, type = "any")
+
 rel(x)
 
 margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
@@ -154,6 +157,9 @@ is anchored.}
 \item{accent}{Accent colour.}
 
 \item{x}{A single number specifying size relative to parent element.}
+
+\item{type}{For testing elements: the type of element to expect. One of
+\code{"blank"}, \code{"rect"}, \code{"line"} or \code{"text"}.}
 
 \item{t, r, b, l}{Dimensions of each margin. (To remember order, think trouble).}
 

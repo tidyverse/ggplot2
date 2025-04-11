@@ -228,7 +228,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   labels <- allow_lambda(labels)
   minor_breaks <- allow_lambda(minor_breaks)
 
-  if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
+  if (!is.function(limits) && (length(limits) > 0) && !is_discrete(limits)) {
     cli::cli_warn(c(
       "Continuous limits supplied to discrete scale.",
       "i" = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
@@ -370,7 +370,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
 #' @export
 #' @rdname is_tests
-is.scale <- function(x) inherits(x, "Scale")
+is_scale <- function(x) inherits(x, "Scale")
 
 #' @section Scales:
 #'
@@ -777,7 +777,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     # don't support conversion to numeric (#5304)
     if (zero_range(as.numeric(transformation$transform(limits)))) {
       breaks <- limits[1]
-    } else if (is.waiver(self$breaks)) {
+    } else if (is_waiver(self$breaks)) {
       if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
         breaks <- transformation$breaks(limits, self$n.breaks)
       } else {
@@ -819,7 +819,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     b <- b[is.finite(b)]
 
     transformation <- self$get_transformation()
-    if (is.waiver(self$minor_breaks)) {
+    if (is_waiver(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
       } else {
@@ -866,7 +866,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       )
     }
 
-    if (is.waiver(self$labels)) {
+    if (is_waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
@@ -965,7 +965,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return()
     }
     # Intercept error here to give examples and mention scale in call
-    if (!is.discrete(x)) {
+    if (!is_discrete(x)) {
       # These assumptions only hold for standard DiscreteRange class, so
       # we skip the error if another range class is used
       if (inherits(self$range, "DiscreteRange")) {
@@ -1053,7 +1053,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       )
     }
 
-    if (is.waiver(self$breaks)) {
+    if (is_waiver(self$breaks)) {
       breaks <- limits
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -1117,7 +1117,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       )
     }
 
-    if (is.waiver(labels)) {
+    if (is_waiver(labels)) {
       if (!is.null(names(breaks))) {
         labels <- names(breaks)
       } else if (is.numeric(breaks)) {
@@ -1273,7 +1273,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
-    } else if (is.waiver(self$breaks)) {
+    } else if (is_waiver(self$breaks)) {
       if (self$nice.breaks) {
         if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
@@ -1368,7 +1368,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
-    } else if (is.waiver(self$labels)) {
+    } else if (is_waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)

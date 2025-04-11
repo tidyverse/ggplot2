@@ -9,8 +9,8 @@ NULL
 #' rendered.
 #'
 #' Extending facets can range from the simple modifications of current facets,
-#' to very laborious rewrites with a lot of [gtable()] manipulation.
-#' For some examples of both, please see the extension vignette.
+#' to very laborious rewrites with a lot of [`gtable()`][gtable::gtable()]
+#' manipulation. For some examples of both, please see the extension vignette.
 #'
 #' `Facet` subclasses, like other extendible ggproto classes, have a range
 #' of methods that can be modified. Some of these are required for all new
@@ -49,7 +49,7 @@ NULL
 #'
 #'   - `setup_panel_params`: modifies the x and y ranges for each panel. This is
 #'     used to allow the `Facet` to interact with the `panel_params`.
-#' 
+#'
 #'   - `init_scales`: Given a master scale for x and y, create panel
 #'   specific scales for each panel defined in the layout. The default is to
 #'   simply clone the master scale.
@@ -318,10 +318,6 @@ Facet <- ggproto("Facet", NULL,
   }
 )
 
-#' @export
-#' @rdname is_tests
-is.facet <- function(x) inherits(x, "Facet")
-
 # Helpers -----------------------------------------------------------------
 
 #' Quote faceting variables
@@ -381,6 +377,18 @@ is.facet <- function(x) inherits(x, "Facet")
 #' p + wrap_cut(drat)
 vars <- function(...) {
   quos(...)
+}
+
+#' @export
+#' @rdname is_tests
+is_facet <- function(x) inherits(x, "Facet")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.facet(x) # Deprecated
+is.facet <- function(x) {
+  deprecate_soft0("3.5.2", "is.facet()", "is_facet()")
+  is_facet(x)
 }
 
 #' Accessing a plot's facet strip labels
@@ -493,7 +501,7 @@ as_facets_list <- function(x) {
 }
 
 check_vars <- function(x) {
-  if (is.mapping(x)) {
+  if (is_mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be

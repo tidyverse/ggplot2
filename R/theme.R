@@ -475,7 +475,7 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (is.theme_element(el) && !inherits(el, "element_blank")) {
+      if (is_theme_element(el) && !is_theme_element(el, "blank")) {
         el$inherit.blank <- TRUE
       }
       el
@@ -490,7 +490,7 @@ theme <- function(...,
 }
 
 fix_theme_deprecations <- function(elements) {
-  if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
+  if (is.unit(elements$legend.margin) && !is_margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
       "i" = "For the old behavior use {.var legend.spacing}"
@@ -574,10 +574,6 @@ validate_theme_palettes <- function(elements) {
   elements
 }
 
-#' @export
-#' @rdname is_tests
-is.theme <- function(x) inherits(x, "theme")
-
 # check whether theme is complete
 is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
 
@@ -620,9 +616,8 @@ check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
 #' complete_theme(my_theme)
 complete_theme <- function(theme = NULL, default = theme_get()) {
   if (!is_bare_list(theme)) {
-    check_object(theme, is.theme, "a {.cls theme} object", allow_null = TRUE)
+    check_object(theme, is_theme, "a {.cls theme} object", allow_null = TRUE)
   }
-  check_object(default, is.theme, "a {.cls theme} object")
   theme <- plot_theme(list(theme = theme), default = default)
 
   # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
@@ -742,7 +737,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
   # and otherwise we don't inherit anything from parents
-  if (inherits(el_out, "element_blank")) {
+  if (is_theme_element(el_out, "blank")) {
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
@@ -777,7 +772,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
-    if (inherits(el_out, "element_geom")) {
+    if (is_theme_element(el_out, "geom")) {
       # Geom elements are expected to have NULL fill/colour, so allow these
       # to be missing
       nullprops[c("colour", "fill")] <- FALSE
@@ -832,7 +827,7 @@ merge_element <- function(new, old) {
 #' @rdname merge_element
 #' @export
 merge_element.default <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
+  if (is.null(old) || is_theme_element(old, "blank")) {
     # If old is NULL or element_blank, then just return new
     return(new)
   } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
@@ -855,7 +850,7 @@ merge_element.element_blank <- function(new, old) {
 #' @rdname merge_element
 #' @export
 merge_element.element <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
+  if (is.null(old) || is_theme_element(old, "blank")) {
     # If old is NULL or element_blank, then just return new
     return(new)
   }
@@ -880,7 +875,7 @@ merge_element.element <- function(new, old) {
 #' @rdname merge_element
 #' @export
 merge_element.margin <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
+  if (is.null(old) || is_theme_element(old, "blank")) {
     return(new)
   }
   if (anyNA(new)) {
@@ -899,7 +894,7 @@ merge_element.margin <- function(new, old) {
 combine_elements <- function(e1, e2) {
 
   # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || inherits(e1, "element_blank")) {
+  if (is.null(e2) || is_theme_element(e1, "blank")) {
     return(e1)
   }
 
@@ -909,9 +904,9 @@ combine_elements <- function(e1, e2) {
   }
 
   # Inheritance of rel objects
-  if (is.rel(e1)) {
+  if (is_rel(e1)) {
     # Both e1 and e2 are rel, give product as another rel
-    if (is.rel(e2)) {
+    if (is_rel(e2)) {
       return(rel(unclass(e1) * unclass(e2)))
     }
     # If e2 is a unit/numeric, return modified unit/numeric
@@ -922,7 +917,7 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
-  if (inherits(e1, "margin") && inherits(e2, "margin")) {
+  if (is_margin(e1) && is_margin(e2)) {
     if (anyNA(e2)) {
       e2[is.na(e2)] <- unit(0, "pt")
     }
@@ -932,13 +927,13 @@ combine_elements <- function(e1, e2) {
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!inherits(e1, "element") && !inherits(e2, "element")) {
+  if (!is_theme_element(e1) && !is_theme_element(e2)) {
     return(e1)
   }
 
   # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
   # otherwise ignore e2
-  if (inherits(e2, "element_blank")) {
+  if (is_theme_element(e2, "blank")) {
     if (e1$inherit.blank) {
       return(e2)
     } else {
@@ -951,16 +946,16 @@ combine_elements <- function(e1, e2) {
   e1[n] <- e2[n]
 
   # Calculate relative sizes
-  if (is.rel(e1$size)) {
+  if (is_rel(e1$size)) {
     e1$size <- e2$size * unclass(e1$size)
   }
 
   # Calculate relative linewidth
-  if (is.rel(e1$linewidth)) {
+  if (is_rel(e1$linewidth)) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
-  if (inherits(e1, "element_text")) {
+  if (is_theme_element(e1, "text")) {
     e1$margin <- combine_elements(e1$margin, e2$margin)
   }
 
@@ -974,6 +969,18 @@ combine_elements <- function(e1, e2) {
   }
 
   e1
+}
+
+#' @export
+#' @rdname is_tests
+is_theme <- function(x) inherits(x, "theme")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.theme(x) # Deprecated
+is.theme <- function(x) {
+  deprecate_soft0("3.5.2", "is.theme()", "is_theme()")
+  is_theme(x)
 }
 
 #' @export

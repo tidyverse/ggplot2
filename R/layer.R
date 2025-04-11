@@ -199,12 +199,8 @@ layer <- function(geom = NULL, stat = NULL,
   )
 }
 
-#' @export
-#' @rdname is_tests
-is.layer <- function(x) inherits(x, "Layer")
-
 validate_mapping <- function(mapping, call = caller_env()) {
-  if (!is.mapping(mapping)) {
+  if (!is_mapping(mapping)) {
     msg <- "{.arg mapping} must be created by {.fn aes}."
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
@@ -252,7 +248,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   layer_data = function(self, plot_data) {
-    if (is.waiver(self$data)) {
+    if (is_waiver(self$data)) {
       data <- plot_data
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
@@ -262,7 +258,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       data <- self$data
     }
-    if (is.null(data) || is.waiver(data)) data else unrowname(data)
+    if (is.null(data) || is_waiver(data)) data else unrowname(data)
   },
 
   # hook to allow a layer access to the final layer data
@@ -456,6 +452,11 @@ Layer <- ggproto("Layer", NULL,
   }
 )
 
+#' @export
+#' @rdname is_tests
+is_layer <- function(x) inherits(x, "Layer")
+is.layer <- function(x) lifecycle::deprecate_stop("3.5.2", "is.layer()", "is_layer()")
+
 validate_subclass <- function(x, subclass,
                               argname = to_lower_ascii(subclass),
                               x_arg = caller_arg(x),
@@ -496,7 +497,7 @@ validate_subclass <- function(x, subclass,
     return(obj)
   }
   # Try prying the class from a layer
-  if (inherits(obj, "Layer")) {
+  if (is_layer(obj)) {
     obj <- switch(
       subclass,
       Geom = obj$geom,

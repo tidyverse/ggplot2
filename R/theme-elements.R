@@ -33,6 +33,8 @@
 #'   a blank element among its parents will cause this element to be blank as
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
+#' @param type For testing elements: the type of element to expect. One of
+#'   `"blank"`, `"rect"`, `"line"` or `"text"`.
 #' @return An S3 object of class `element`, `rel`, or `margin`.
 #' @details
 #' The `element_polygon()` and `element_point()` functions are not rendered
@@ -247,8 +249,21 @@ element_geom <- function(
 )
 
 #' @export
-#' @rdname is_tests
-is.theme_element <- function(x) inherits(x, "element")
+#' @rdname element
+is_theme_element <- function(x, type = "any") {
+  switch(
+    type %||% "any",
+    any     = inherits(x, "element"),
+    rect    = inherits(x, "element_rect"),
+    line    = inherits(x, "element_line"),
+    text    = inherits(x, "element_text"),
+    blank   = inherits(x, "element_blank"),
+    polygon = inherits(x, "element_polygon"),
+    point   = inherits(x, "element_point"),
+    geom    = inherits(x, "element_geom"),
+    FALSE
+  )
+}
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
@@ -267,7 +282,12 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 #' Reports whether x is a rel object
 #' @param x An object to test
 #' @keywords internal
-is.rel <- function(x) inherits(x, "rel")
+is_rel <- function(x) inherits(x, "rel")
+
+is.rel <- function(x) {
+  deprecate_warn0("4.0.0", "is.rel()", "is_rel()")
+  is_rel(x)
+}
 
 #' Render a specified theme element into a grob
 #'
@@ -831,7 +851,7 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   if ("margin" %in% eldef$class) {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
-  } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
+  } else if (!inherits(el, eldef$class) && !is_theme_element(el, "blank")) {
     cli::cli_abort("The {.var {elname}} theme element must be a {.cls {eldef$class}} object.", call = call)
   }
   invisible()
