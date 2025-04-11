@@ -50,7 +50,7 @@ new_guide <- function(..., available_aes = "any", super) {
 
   # Validate theme settings
   if (!is.null(params$theme)) {
-    check_object(params$theme, is.theme, what = "a {.cls theme} object")
+    check_object(params$theme, is_theme, what = "a {.cls theme} object")
     check_theme(params$theme, call = caller_env())
     params$direction <- params$direction %||% params$theme$legend.direction
   }
@@ -68,7 +68,7 @@ new_guide <- function(..., available_aes = "any", super) {
 
 #' @export
 #' @rdname is_tests
-is.guide <- function(x) inherits(x, "Guide")
+is_guide <- function(x) inherits(x, "Guide")
 
 #' @section Guides:
 #'
@@ -376,10 +376,10 @@ Guide <- ggproto(
   # Renders tickmarks
   build_ticks = function(key, elements, params, position = params$position,
                          length = elements$ticks_length) {
-    if (!is.theme_element(elements)) {
+    if (!is_theme_element(elements)) {
       elements <- elements$ticks
     }
-    if (!inherits(elements, "element_line")) {
+    if (!is_theme_element(elements, "line")) {
       return(zeroGrob())
     }
 

@@ -172,6 +172,25 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 #' @export
+#' @param type For testing elements: the type of element to expect. One of
+#'   `"blank"`, `"rect"`, `"line"` or `"text"`.
+#' @rdname is_tests
+is_theme_element <- function(x, type = "any") {
+  switch(
+    type %||% "any",
+    any   = inherits(x, "element"),
+    rect  = inherits(x, "element_rect"),
+    line  = inherits(x, "element_line"),
+    text  = inherits(x, "element_text"),
+    blank = inherits(x, "element_blank"),
+    # TODO: ideally we accept more elements from extensions. We need to
+    # consider how this will work with S7 classes, where ggplot2 doesn't know
+    # about the extension's class objects.
+    FALSE
+  )
+}
+
+#' @export
 #' @rdname element
 element_polygon <- function(fill = NULL, colour = NULL, linewidth = NULL,
                             linetype = NULL, color = NULL,
@@ -245,10 +264,6 @@ element_geom <- function(
   pointsize = 1.5, pointshape = 19,
   fill = NULL, colour = NULL
 )
-
-#' @export
-#' @rdname is_tests
-is.theme_element <- function(x) inherits(x, "element")
 
 #' @export
 print.element <- function(x, ...) utils::str(x)

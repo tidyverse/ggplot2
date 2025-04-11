@@ -262,7 +262,7 @@ scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.val
 # helper function to make sure that the provided scale is of the correct
 # type (i.e., is continuous and works with the provided aesthetic)
 check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, call = caller_env()) {
-  if (!is.ggproto(scale) || !is.scale(scale)) {
+  if (!is_ggproto(scale) || !is_scale(scale)) {
     cli::cli_abort(c(
       "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
       "x" = "The provided object is not a scale function."

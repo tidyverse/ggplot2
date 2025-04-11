@@ -241,7 +241,7 @@ get_plot_background <- function(plot, bg = NULL, default = "transparent") {
     return(bg)
   }
   plot <- if (is_bare_list(plot)) plot[[1]] else plot
-  if (!is.ggplot(plot)) {
+  if (!is_ggplot(plot)) {
     return(default)
   }
   calc_element("plot.background", plot_theme(plot))$fill %||% default
