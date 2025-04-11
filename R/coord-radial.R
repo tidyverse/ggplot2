@@ -120,7 +120,7 @@ coord_radial <- function(theta = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

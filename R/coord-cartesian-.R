@@ -80,7 +80,7 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export
