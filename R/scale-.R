@@ -637,35 +637,17 @@ Scale <- ggproto("Scale", NULL,
   }
 )
 
-check_breaks_labels <- function(breaks, labels, call = NULL) {
-  if (is.null(breaks) || is.null(labels)) {
-    return(invisible())
-  }
 
-  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
-    length(breaks) != length(labels)
-  if (bad_labels) {
-    cli::cli_abort(
-      "{.arg breaks} and {.arg labels} must have the same length.",
-      call = call
-    )
-  }
 
-  invisible()
-}
+# ScaleContinuous ---------------------------------------------------------
 
+# This needs to be defined prior to the Scale subclasses.
 default_transform <- function(self, x) {
   transformation <- self$get_transformation()
   new_x <- transformation$transform(x)
   check_transformation(x, new_x, transformation$name, call = self$call)
   new_x
 }
-
-has_default_transform <- function(scale) {
-  transform_method <- environment(scale$transform)$f
-  identical(default_transform, transform_method) || identical(identity, transform_method)
-}
-# ScaleContinuous ---------------------------------------------------------
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -1426,6 +1408,29 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 )
 
 # Helpers -----------------------------------------------------------------
+
+check_breaks_labels <- function(breaks, labels, call = NULL) {
+  if (is.null(breaks) || is.null(labels)) {
+    return(invisible())
+  }
+
+  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
+    length(breaks) != length(labels)
+  if (bad_labels) {
+    cli::cli_abort(
+      "{.arg breaks} and {.arg labels} must have the same length.",
+      call = call
+    )
+  }
+
+  invisible()
+}
+
+has_default_transform <- function(scale) {
+  transform_method <- environment(scale$transform)$f
+  identical(default_transform, transform_method) || identical(identity, transform_method)
+}
+
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
   scale$position <- opposite_position(scale$position)
