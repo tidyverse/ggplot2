@@ -984,7 +984,7 @@ default_transform <- function(self, x) {
   new_x
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -1268,7 +1268,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
 # ScaleDiscrete -----------------------------------------------------------
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -1500,7 +1500,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
 # ScaleBinned -------------------------------------------------------------
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
