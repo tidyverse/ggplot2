@@ -201,7 +201,7 @@ that \code{GuideAxis$transform()} does not handle well.
 \strong{Arguments}
 \describe{
 \item{\code{params}}{A list of parameters initiated by the \code{params} field.}
-\item{\code{coord}}{A list of current parameters}
+\item{\code{coord}}{A \verb{<Coord>} ggproto object.}
 \item{\code{...}}{Optional arguments, typically \code{panel_params} for most
 position guides.}
 }

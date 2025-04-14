@@ -367,7 +367,7 @@ Guide <- ggproto(
   #' **Arguments**
   #' \describe{
   #'   \item{`params`}{A list of parameters initiated by the `params` field.}
-  #'   \item{`coord`}{A list of current parameters}
+  #'   \item{`coord`}{A `<Coord>` ggproto object.}
   #'   \item{`...`}{Optional arguments, typically `panel_params` for most
   #'   position guides.}
   #' }

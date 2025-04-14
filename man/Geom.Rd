@@ -122,7 +122,7 @@ data. The default method returns the parameters unaltered.
 \strong{Arguments}
 \describe{
 \item{\code{data}}{A data frame with the layer's data.}
-\item{\code{params}}{A list of current parameters}
+\item{\code{params}}{A list of current parameters.}
 }
 
 \strong{Value}
@@ -143,7 +143,7 @@ defaults. The default method returns data unaltered.
 \describe{
 \item{\code{data}}{A data frame with the layer's data.}
 \item{\code{params}}{A list of parameters coming from the \code{setup_params()}
-method}
+method.}
 }
 
 \strong{Value}
@@ -177,7 +177,7 @@ should be returned.}
 \item{\code{params}}{A list of fixed aesthetic parameters}
 \item{\code{modifiers}}{A \link[=aes]{mapping} with delayed evaluations.}
 \item{\code{default_aes}}{A \link[=aes]{mapping} with default aesthetics.}
-\item{\code{theme}}{A \link[=complete_theme]{completed theme}}
+\item{\code{theme}}{A \link[=complete_theme]{completed theme}.}
 }
 
 \strong{Value}
@@ -264,7 +264,9 @@ the \code{draw_group()} method.}
 
 \strong{Value}
 
-A single grob or \code{\link[=zeroGrob]{zeroGrob()}} when there is nothing to draw.}
+A single grob or \code{\link[=zeroGrob]{zeroGrob()}} when there is nothing to draw. For
+\code{draw_panel()} this can be a \link[grid:grid.grob]{gTree} holding individual grobs
+from the \code{draw_group()} method.}
 
 \item{\code{parameters}}{\strong{Description}
 

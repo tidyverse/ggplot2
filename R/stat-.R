@@ -313,7 +313,9 @@ Stat <- ggproto(
     data_new[, !names(data_new) %in% non_constant_columns, drop = FALSE]
   },
 
-  compute_group = not_implemented("compute_group"),
+  compute_group = function(self, data, scales) {
+    cli::cli_abort("Not implemented.")
+  },
 
   # finish_statistics -------------------------------------------------------
 

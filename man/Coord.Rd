@@ -105,7 +105,7 @@ input on the layout computed by facets.
 \strong{Arguments}
 \describe{
 \item{\code{layout}}{A data frame computed by \code{Facet$compute_layout()}.
-Typically contains the facetting variables, \code{ROW}, \code{COL}, \code{PANEL},
+Typically contains the faceting variables, \code{ROW}, \code{COL}, \code{PANEL},
 \code{SCALE_X} and \code{SCALE_Y} variables.}
 \item{\code{params}}{A list of parameters coming from the \code{setup_params()}
 method.}
@@ -489,7 +489,7 @@ class name. Coord class names are in UpperCamelCase and start with the
 
 A constructor function is usually paired with a Coord class. The constructor
 copies the coord class and populates parameters. The constructor function name
-is formatted by taking the Coord class name and formatting it with snake_case,
+should take the Coord class name and be formatted with snake_case,
 so that \code{CoordNew} becomes \code{coord_new()}.
 }
 

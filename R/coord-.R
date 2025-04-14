@@ -28,7 +28,7 @@
 #'
 #' A constructor function is usually paired with a Coord class. The constructor
 #' copies the coord class and populates parameters. The constructor function name
-#' is formatted by taking the Coord class name and formatting it with snake_case,
+#' should take the Coord class name and be formatted with snake_case,
 #' so that `CoordNew` becomes `coord_new()`.
 #'
 #' @export
@@ -153,7 +153,7 @@ Coord <- ggproto("Coord",
   #' **Arguments**
   #' \describe{
   #'   \item{`layout`}{A data frame computed by `Facet$compute_layout()`.
-  #'   Typically contains the facetting variables, `ROW`, `COL`, `PANEL`,
+  #'   Typically contains the faceting variables, `ROW`, `COL`, `PANEL`,
   #'   `SCALE_X` and `SCALE_Y` variables.}
   #'   \item{`params`}{A list of parameters coming from the `setup_params()`
   #'   method.}

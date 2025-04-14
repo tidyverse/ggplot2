@@ -125,7 +125,7 @@ Geom <- ggproto(
   #' **Arguments**
   #' \describe{
   #'   \item{`data`}{A data frame with the layer's data.}
-  #'   \item{`params`}{A list of current parameters}
+  #'   \item{`params`}{A list of current parameters.}
   #' }
   #'
   #' **Value**
@@ -149,7 +149,7 @@ Geom <- ggproto(
   #' \describe{
   #'   \item{`data`}{A data frame with the layer's data.}
   #'   \item{`params`}{A list of parameters coming from the `setup_params()`
-  #'   method}
+  #'   method.}
   #' }
   #'
   #' **Value**
@@ -186,7 +186,7 @@ Geom <- ggproto(
   #'   \item{`params`}{A list of fixed aesthetic parameters}
   #'   \item{`modifiers`}{A [mapping][aes()] with delayed evaluations.}
   #'   \item{`default_aes`}{A [mapping][aes()] with default aesthetics.}
-  #'   \item{`theme`}{A [completed theme][complete_theme()]}
+  #'   \item{`theme`}{A [completed theme][complete_theme()].}
   #' }
   #'
   #' **Value**
@@ -386,7 +386,9 @@ Geom <- ggproto(
   #'
   #' **Value**
   #'
-  #' A single grob or [`zeroGrob()`] when there is nothing to draw.
+  #' A single grob or [`zeroGrob()`] when there is nothing to draw. For
+  #' `draw_panel()` this can be a [gTree][grid::grob] holding individual grobs
+  #' from the `draw_group()` method.
   draw_panel = function(self, data, panel_params, coord, ...) {
     groups <- split(data, factor(data$group))
     grobs <- lapply(groups, function(group) {

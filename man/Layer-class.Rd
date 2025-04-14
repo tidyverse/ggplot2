@@ -420,4 +420,7 @@ Layer$draw_geom()
 }\if{html}{\out{</div>}}
 }
 
+\examples{
+# None: Layer is not intended to be extended
+}
 \keyword{datasets}
