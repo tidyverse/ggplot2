@@ -460,6 +460,7 @@ is.scale <- function(x) inherits(x, "Scale")
 #'   `self$rescaler`), `minor` (the rescaled value of `minor_source`, ignoring
 #'   `self$rescaler`), `range` (the range that was passed in to `break_info()`),
 #'   `labels` (the label values, one for each element in `breaks`).
+# Scale -------------------------------------------------------------------
 #'
 #' - `axis_order()` One of `c("primary", "secondary")` or `c("secondary", "primary")`
 #'
@@ -664,6 +665,7 @@ has_default_transform <- function(scale) {
   transform_method <- environment(scale$transform)$f
   identical(default_transform, transform_method) || identical(identity, transform_method)
 }
+# ScaleContinuous ---------------------------------------------------------
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -947,6 +949,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   }
 )
 
+# ScaleDiscrete -----------------------------------------------------------
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -1177,6 +1180,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     )
   }
 )
+
+# ScaleBinned -------------------------------------------------------------
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -1420,6 +1425,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   }
 )
 
+# Helpers -----------------------------------------------------------------
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
   scale$position <- opposite_position(scale$position)
