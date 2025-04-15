@@ -933,26 +933,20 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
   }
 
   # Get spacing between guides and margins in absolute units
-  size    <- switch(type, width = convertWidth, height = convertHeight)
-  spacing <- size(spacing, "cm", valueOnly = TRUE)
-  spacing <- sum(rep(spacing, length(units) - 1))
+  size    <- switch(type, width = width_cm, height = height_cm)
+  spacing <- sum(rep(spacing, length.out = length(units) - 1))
   margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
-  margin  <- sum(size(margin, "cm", valueOnly = TRUE))
+  margin  <- sum(size(margin))
 
   # Get the absolute parts of the unit
-  absolute <- vapply(units, function(u) {
-    u <- absolute.size(u)
-    u <- size(u, "cm", valueOnly = TRUE)
-    sum(u)
-  }, numeric(1))
-  absolute_sum <- sum(absolute) + spacing + margin
+  absolute <- vapply(units, function(u) sum(size(absolute.size(u))), numeric(1))
+  absolute_sum <- sum(absolute) + sum(size(spacing)) + margin
 
   # Get the null parts of the unit
+  num_null <- function(x) sum(as.numeric(x)[unitType(x) == "null"])
   relative <- rep(0, length(units))
-  relative[has_null] <- vapply(units[has_null], function(u) {
-    sum(as.numeric(u)[unitType(u) == "null"])
-  }, numeric(1))
-  relative_sum <- sum(relative)
+  relative[has_null] <- vapply(units[has_null], num_null, numeric(1))
+  relative_sum <- sum(relative) + num_null(spacing)
 
   if (relative_sum == 0) {
     return(unit(absolute, "cm"))
