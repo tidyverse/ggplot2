@@ -197,7 +197,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df$group <- data$group[1]
     df$ndensity <- df$density / max(df$density, na.rm = TRUE)
     df$count <- nx * df$density
-    df$n <- nx
+    df[["n"]] <- nx
     df$level <- 1
     df$piece <- 1
     df

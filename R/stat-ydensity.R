@@ -170,7 +170,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
       quantiles = quantiles
     )
-    if (!drop && any(data$n < 2)) {
+    if (!drop && any(data[["n"]] < 2)) {
       cli::cli_warn(
         "Cannot compute density for groups with fewer than two datapoints."
       )
@@ -184,7 +184,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       # count: use the original densities scaled to a maximum of 1 (as above)
       #        and then scale them according to the number of observations
       count = data$density / max(data$density, na.rm = TRUE) *
-        data$n / max(data$n),
+        data[["n"]] / max(data[["n"]]),
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )
