@@ -742,10 +742,10 @@ Guides <- ggproto(
     )
 
     # Set global margin
-    if (stretch_x) {
+    if (stretch_x || stretch_spacing) {
       global_margin[c(2, 4)] <- unit(0, "cm")
     }
-    if (stretch_y) {
+    if (stretch_y || stretch_spacing) {
       global_margin[c(1, 3)] <- unit(0, "cm")
     }
     guides <- gtable_add_padding(guides, global_margin)
