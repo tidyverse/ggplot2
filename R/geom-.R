@@ -40,6 +40,7 @@ NULL
 #' @export
 #' @format NULL
 #' @usage NULL
+#' @family Layer components
 #' @seealso The `r link_book("new geoms section", "extensions#sec-new-geoms")`
 #' @seealso Run `vignette("extending-ggplot2")`, in particular the "Creating a
 #' new geom" section.

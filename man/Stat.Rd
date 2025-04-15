@@ -290,5 +290,11 @@ The \href{https://ggplot2-book.org/extensions#sec-new-stats}{new stats section} 
 
 Run \code{vignette("extending-ggplot2")}, in particular the "Creating a
 new stat" section.
+
+Other Layer components: 
+\code{\link{Geom}},
+\code{\link{Layer-class}},
+\code{\link{Position}}
 }
+\concept{Layer components}
 \keyword{datasets}

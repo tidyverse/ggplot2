@@ -549,5 +549,10 @@ The the \href{https://ggplot2-book.org/extensions#new-facets}{new facets section
 
 Run \code{vignette("extending-ggplot2")}, in particular the "Creating a
 new faceting" section.
+
+Other Layout components: 
+\code{\link{Coord}},
+\code{\link{Layout}}
 }
+\concept{Layout components}
 \keyword{datasets}

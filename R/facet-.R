@@ -54,6 +54,7 @@ NULL
 #' @export
 #' @format NULL
 #' @usage NULL
+#' @family Layout components
 #' @seealso The the `r link_book("new facets section", "extensions#new-facets")`
 #' @seealso Run `vignette("extending-ggplot2")`, in particular the "Creating a
 #' new faceting" section.

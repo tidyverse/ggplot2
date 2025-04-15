@@ -529,5 +529,10 @@ ggplot(mpg, aes(drv, displ)) +
 }
 \seealso{
 The \href{https://ggplot2-book.org/extensions#sec-new-coords}{new coords section} of the online ggplot2 book.
+
+Other Layout components: 
+\code{\link{Facet}},
+\code{\link{Layout}}
 }
+\concept{Layout components}
 \keyword{datasets}

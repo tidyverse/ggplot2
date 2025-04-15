@@ -295,4 +295,14 @@ coord <- coord_cartesian()
 # Use in custom `ggplot_build()` methods
 layout <- ggproto(NULL, Layout, facet = facet, coord = coord)
 }
+\seealso{
+Other Layout components: 
+\code{\link{Coord}},
+\code{\link{Facet}}
+
+Other chaperone classes: 
+\code{\link{Layer-class}}
+}
+\concept{Layout components}
+\concept{chaperone classes}
 \keyword{datasets}

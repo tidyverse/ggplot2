@@ -348,5 +348,11 @@ The \href{https://ggplot2-book.org/extensions#sec-new-geoms}{new geoms section} 
 
 Run \code{vignette("extending-ggplot2")}, in particular the "Creating a
 new geom" section.
+
+Other Layer components: 
+\code{\link{Layer-class}},
+\code{\link{Position}},
+\code{\link{Stat}}
 }
+\concept{Layer components}
 \keyword{datasets}

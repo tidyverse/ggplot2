@@ -34,6 +34,8 @@ create_layout <- function(facet, coord, layout = NULL) {
 #'
 #' @format NULL
 #' @usage NULL
+#' @family Layout components
+#' @family chaperone classes
 #' @export
 #' @examples
 #' # Some dummy layout components

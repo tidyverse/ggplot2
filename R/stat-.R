@@ -32,6 +32,7 @@
 #' formatting it with snake_case, so that `StatNew` becomes `stat_new()`.
 #'
 #' @export
+#' @family Layer components
 #' @format NULL
 #' @usage NULL
 #' @seealso The `r link_book("new stats section", "extensions#sec-new-stats")`.

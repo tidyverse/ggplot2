@@ -34,6 +34,7 @@
 #'
 #' @export
 #' @format NULL
+#' @family Layout components
 #' @usage NULL
 #' @seealso The `r link_book("new coords section", "extensions#sec-new-coords")`
 #' @examples

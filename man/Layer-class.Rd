@@ -423,4 +423,15 @@ Layer$draw_geom()
 \examples{
 # None: Layer is not intended to be extended
 }
+\seealso{
+Other Layer components: 
+\code{\link{Geom}},
+\code{\link{Position}},
+\code{\link{Stat}}
+
+Other chaperone classes: 
+\code{\link{Layout}}
+}
+\concept{Layer components}
+\concept{chaperone classes}
 \keyword{datasets}

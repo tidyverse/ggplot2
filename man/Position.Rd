@@ -207,5 +207,11 @@ ggplot(mpg, aes(drv, displ)) +
 }
 \seealso{
 The \href{https://ggplot2-book.org/extensions#new-positions}{new positions section} of the online ggplot2 book.
+
+Other Layer components: 
+\code{\link{Geom}},
+\code{\link{Layer-class}},
+\code{\link{Stat}}
 }
+\concept{Layer components}
 \keyword{datasets}

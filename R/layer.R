@@ -374,6 +374,8 @@ validate_mapping <- function(mapping, call = caller_env()) {
 #' ```
 #' @usage NULL
 #' @format NULL
+#' @family Layer components
+#' @family chaperone classes
 #' @examples
 #' # None: Layer is not intended to be extended
 Layer <- ggproto("Layer", NULL,
