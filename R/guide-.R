@@ -112,6 +112,7 @@ is_guide <- function(x) inherits(x, "Guide")
 #' @export
 #' @format NULL
 #' @usage NULL
+#' @keywords internal
 #' @seealso Run `vignette("extending-ggplot2")`, in particular the "Creating
 #' new guides" section.
 #' @examples

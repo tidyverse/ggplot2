@@ -33,6 +33,7 @@
 #' @format NULL
 #' @usage NULL
 #' @seealso The `r link_book("new positions section", "extensions#new-positions")`
+#' @keywords internal
 #' @family Layer components
 #' @examples
 #' # Extending the class

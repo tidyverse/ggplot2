@@ -305,4 +305,4 @@ Other chaperone classes:
 }
 \concept{Layout components}
 \concept{chaperone classes}
-\keyword{datasets}
+\keyword{internal}

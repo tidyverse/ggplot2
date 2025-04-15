@@ -35,6 +35,7 @@
 #' @family Layer components
 #' @format NULL
 #' @usage NULL
+#' @keywords internal
 #' @seealso The `r link_book("new stats section", "extensions#sec-new-stats")`.
 #' @seealso Run `vignette("extending-ggplot2")`, in particular the "Creating a
 #' new stat" section.

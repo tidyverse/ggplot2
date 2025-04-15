@@ -670,3 +670,4 @@ Run \code{vignette("extending-ggplot2")}, in particular the "Creating
 new guides" section.
 }
 \keyword{datasets}
+\keyword{internal}
