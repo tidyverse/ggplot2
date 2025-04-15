@@ -13,6 +13,7 @@ NULL
 #' Extending facets can range from the simple modifications of current facets,
 #' to very laborious rewrites with a lot of [gtable()] manipulation.
 #' For some examples of both, please see the extension vignette.
+#' The object and its parameters are chaperoned by the [Layout] class.
 #'
 #' `Facet` subclasses, like other extendible ggproto classes, have a range
 #' of methods that can be modified. Some of these are required for all new

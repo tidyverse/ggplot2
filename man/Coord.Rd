@@ -22,6 +22,7 @@ coordinate systems in ggplot2.
 \details{
 Each of the \verb{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended from the
 top-level \code{Coord}, and each implements various methods and fields.
+The object and its parameters are chaperoned by the \link{Layout} class.
 
 To create a new type of Coord object, it is recommended
 to extend not the base \code{Coord} class, but one of its children like

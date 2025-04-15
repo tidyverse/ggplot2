@@ -9,7 +9,7 @@
 #' The way that the `position_*` functions work is slightly different from
 #' the `geom_*` and `stat_*` functions, because a `position_*`
 #' function actually "instantiates" the `Position*` object by creating a
-#' descendant, and returns that.
+#' descendant, and returns that. The object is chaperoned by the [Layer] class.
 #'
 #' To create a new type of Position object, you typically will want to override
 #' one or more of the following:

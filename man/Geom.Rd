@@ -67,7 +67,7 @@ object is responsible for rendering the data in the plot.
 \details{
 Each of the \verb{Geom*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
 from the top-level \code{Geom}, and each implements various methods and
-fields.
+fields. The object and its parameters are chaperoned by the \link{Layer} class.
 
 Compared to \code{Stat} and \code{Position}, \code{Geom} is a little
 different because the execution of the setup and compute functions is

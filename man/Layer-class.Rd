@@ -7,7 +7,7 @@
 \title{Layers}
 \description{
 The Layer class is a chaperone class not available for extension. The class
-fullfills the following tasks. The class houses the Geom, Stat and Position
+fulfils the following tasks. The class houses the Geom, Stat and Position
 trinity and tracks their stateful parameters. Furthermore, its methods are
 responsible for managing the layer data and exposing it to other components
 of the plot at the right time.
@@ -19,7 +19,7 @@ LayerInstance class, which inherits from Layer, but has relevant fields
 populated.
 
 The class is mostly used in \code{ggplot_build()}, with the notable exception
-of the \code{draw_geom()} method.
+of the \code{draw_geom()} method, which is used in \code{ggplot_gtable()} instead.
 }
 \section{Fields}{
 

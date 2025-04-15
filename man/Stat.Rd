@@ -48,7 +48,7 @@ object is responsible for rendering the data in the plot.
 \details{
 Each of the \verb{Stat*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
 from the top-level \code{Stat}, and each implements various methods and
-fields.
+fields. The object and its parameters are chaperoned by the \link{Layer} class.
 
 To create a new type of Stat object, you typically will want to
 override one or more of the following:

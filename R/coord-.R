@@ -8,6 +8,7 @@
 #' @details
 #' Each of the `Coord*` objects is a [ggproto()] object, descended from the
 #' top-level `Coord`, and each implements various methods and fields.
+#' The object and its parameters are chaperoned by the [Layout] class.
 #'
 #' To create a new type of Coord object, it is recommended
 #' to extend not the base `Coord` class, but one of its children like

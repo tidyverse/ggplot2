@@ -12,7 +12,7 @@ NULL
 #' @details
 #' Each of the `Geom*` objects is a [ggproto()] object, descended
 #' from the top-level `Geom`, and each implements various methods and
-#' fields.
+#' fields. The object and its parameters are chaperoned by the [Layer] class.
 #'
 #' Compared to `Stat` and `Position`, `Geom` is a little
 #' different because the execution of the setup and compute functions is

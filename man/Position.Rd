@@ -23,7 +23,7 @@ object is responsible for adjusting the position of overlapping geoms.
 The way that the \verb{position_*} functions work is slightly different from
 the \verb{geom_*} and \verb{stat_*} functions, because a \verb{position_*}
 function actually "instantiates" the \verb{Position*} object by creating a
-descendant, and returns that.
+descendant, and returns that. The object is chaperoned by the \link{Layer} class.
 
 To create a new type of Position object, you typically will want to override
 one or more of the following:
