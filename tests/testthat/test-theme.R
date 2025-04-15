@@ -1051,3 +1051,25 @@ test_that("legend margins are correct when using relative key sizes", {
 
   expect_doppelganger("stretched horizontal legends", horizontal)
 })
+
+test_that("legends are placed correctly when using stretchy spacing", {
+
+  df <- data.frame(x = 1:3, y = 1:3, a = letters[1:3])
+
+  p <- ggplot(df, aes(x, y, colour = a, shape = factor(x))) +
+    geom_point() +
+    theme(
+      legend.box.background = element_rect(colour = "blue", fill = NA),
+      legend.background = element_rect(colour = "red", fill = NA)
+    )
+
+  expect_doppelganger(
+    "vertical legends placed apart",
+    p + theme(legend.position = "right", legend.spacing.y = unit(1, "null"))
+  )
+
+  expect_doppelganger(
+    "horizontal legends placed apart",
+    p + theme(legend.position = "right", legend.spacing.y = unit(1, "null"))
+  )
+})
