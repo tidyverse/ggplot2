@@ -434,6 +434,7 @@ is_scale <- function(x) inherits(x, "Scale")
 #' @export
 #' @format NULL
 #' @usage NULL
+#' @keywords internal
 #' @examples
 #' # TODO: find easy to digest example
 #' NULL
