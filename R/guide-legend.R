@@ -810,7 +810,7 @@ deprecated_guide_args <- function(
 
   # Set as theme
   theme <- compact(theme)
-  if (!is.theme(theme)) {
+  if (!is_theme(theme)) {
     theme <- inject(theme(!!!theme))
   }
   theme

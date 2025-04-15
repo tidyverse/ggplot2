@@ -11,8 +11,8 @@ NULL
 #'
 #' @details
 #' Extending facets can range from the simple modifications of current facets,
-#' to very laborious rewrites with a lot of [gtable()] manipulation.
-#' For some examples of both, please see the extension vignette.
+#' to very laborious rewrites with a lot of [`gtable()`][gtable::gtable()]
+#' manipulation.For some examples of both, please see the extension vignette.
 #' The object and its parameters are chaperoned by the [Layout] class.
 #'
 #' `Facet` subclasses, like other extendible ggproto classes, have a range
@@ -424,7 +424,7 @@ Facet <- ggproto("Facet", NULL,
   #'
   #' **Value**
   #'
-  #' A [gtable][gtable::gtable] object.
+  #' A [`gtable`][gtable::gtable()] object.
   draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
                          ranges, coord, data = NULL, theme, params) {
 
@@ -482,7 +482,7 @@ Facet <- ggproto("Facet", NULL,
   #'
   #' **Value**
   #'
-  #' A [gtable][gtable::gtable] object containing panel grobs prefixed with
+  #' A [`gtable`][gtable::gtable()] object containing panel grobs prefixed with
   #' `"panel"`.
   init_gtable = function(panels, layout, theme, ranges, params,
                          aspect_ratio = NULL) {
@@ -549,7 +549,7 @@ Facet <- ggproto("Facet", NULL,
   #' ```
   #' **Arguments**
   #' \describe{
-  #'   \item{`table`}{A [gtable][gtable()] object populated with panels from the
+  #'   \item{`table`}{A [`gtable`][gtable::gtable()] object populated with panels from the
   #'   `init_gtable()` method.}
   #'   \item{`layout`}{A data frame computed by the `compute_layout()` method.
   #'   Typically contains the faceting variables, `ROW`, `COL`, `PANEL`,
@@ -564,7 +564,7 @@ Facet <- ggproto("Facet", NULL,
   #'
   #' **Value**
   #'
-  #' A [gtable][gtable::gtable] object.
+  #' A [`gtable`][gtable::gtable()] object.
   attach_axes = function(table, layout, ranges, coord, theme, params) {
     table
   },
@@ -582,7 +582,7 @@ Facet <- ggproto("Facet", NULL,
   #' ```
   #' **Arguments**
   #' \describe{
-  #'   \item{`table`}{A [gtable][gtable()] object from the `attach_axes()`
+  #'   \item{`table`}{A [`gtable`][gtable::gtable()] object from the `attach_axes()`
   #'   method.}
   #'   \item{`layout`}{A data frame computed by the `compute_layout()` method.
   #'   Typically contains the faceting variables, `ROW`, `COL`, `PANEL`,
@@ -594,7 +594,7 @@ Facet <- ggproto("Facet", NULL,
   #'
   #' **Value**
   #'
-  #' A [gtable][gtable::gtable] object.
+  #' A [`gtable`][gtable::gtable()] object.
   attach_strips = function(table, layout, params, theme) {
     table
   },
@@ -638,7 +638,7 @@ Facet <- ggproto("Facet", NULL,
   #' ```
   #' **Arguments**
   #' \describe{
-  #'   \item{`table`}{A [gtable][gtable()] object populated by the
+  #'   \item{`table`}{A [`gtable`][gtable::gtable()] object populated by the
   #'   `draw_panels()` method.}
   #'   \item{`theme`}{A [complete theme][complete_theme()] object.}
   #' }
@@ -719,7 +719,7 @@ Facet <- ggproto("Facet", NULL,
   #' ```
   #' **Arguments**
   #' \describe{
-  #'   \item{`panels`}{A [gtable][gtable()] object initiated by the
+  #'   \item{`panels`}{A [`gtable`][gtable::gtable()] object initiated by the
   #'   `draw_panels()` method.}
   #'   \item{`layout`}{A data frame computed by the `compute_layout()` method.
   #'   Typically contains the faceting variables, `ROW`, `COL`, `PANEL`,
@@ -739,7 +739,7 @@ Facet <- ggproto("Facet", NULL,
   #'
   #' **Value**
   #'
-  #' A [gtable][gtable::gtable] object.
+  #' A [`gtable`][gtable::gtable()] object.
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
     panel_dim <-  find_panel(panels)
 
@@ -788,10 +788,6 @@ Facet <- ggproto("Facet", NULL,
     character(0)
   }
 )
-
-#' @export
-#' @rdname is_tests
-is.facet <- function(x) inherits(x, "Facet")
 
 # Helpers -----------------------------------------------------------------
 
@@ -852,6 +848,18 @@ is.facet <- function(x) inherits(x, "Facet")
 #' p + wrap_cut(drat)
 vars <- function(...) {
   quos(...)
+}
+
+#' @export
+#' @rdname is_tests
+is_facet <- function(x) inherits(x, "Facet")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.facet(x) # Deprecated
+is.facet <- function(x) {
+  deprecate_soft0("3.5.2", "is.facet()", "is_facet()")
+  is_facet(x)
 }
 
 #' Accessing a plot's facet strip labels
@@ -964,7 +972,7 @@ as_facets_list <- function(x) {
 }
 
 check_vars <- function(x) {
-  if (is.mapping(x)) {
+  if (is_mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be

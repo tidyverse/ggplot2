@@ -16,8 +16,8 @@ rendered.
 }
 \details{
 Extending facets can range from the simple modifications of current facets,
-to very laborious rewrites with a lot of \code{\link[=gtable]{gtable()}} manipulation.
-For some examples of both, please see the extension vignette.
+to very laborious rewrites with a lot of \code{\link[gtable:gtable]{gtable()}}
+manipulation.For some examples of both, please see the extension vignette.
 The object and its parameters are chaperoned by the \link{Layout} class.
 
 \code{Facet} subclasses, like other extendible ggproto classes, have a range
@@ -333,7 +333,7 @@ method.}
 
 \strong{Value}
 
-A \link[gtable:gtable]{gtable} object.}
+A \code{\link[gtable:gtable]{gtable}} object.}
 
 \item{\code{init_gtable}}{\strong{Description}
 
@@ -361,7 +361,7 @@ Typically contains the faceting variables, \code{ROW}, \code{COL}, \code{PANEL},
 
 \strong{Value}
 
-A \link[gtable:gtable]{gtable} object containing panel grobs prefixed with
+A \code{\link[gtable:gtable]{gtable}} object containing panel grobs prefixed with
 \code{"panel"}.}
 
 \item{\code{attach_axes}}{\strong{Description}
@@ -376,7 +376,7 @@ to the gtable with panels. The default method returns the gtable unaltered.
 
 \strong{Arguments}
 \describe{
-\item{\code{table}}{A \link[=gtable]{gtable} object populated with panels from the
+\item{\code{table}}{A \code{\link[gtable:gtable]{gtable}} object populated with panels from the
 \code{init_gtable()} method.}
 \item{\code{layout}}{A data frame computed by the \code{compute_layout()} method.
 Typically contains the faceting variables, \code{ROW}, \code{COL}, \code{PANEL},
@@ -391,7 +391,7 @@ method.}
 
 \strong{Value}
 
-A \link[gtable:gtable]{gtable} object.}
+A \code{\link[gtable:gtable]{gtable}} object.}
 
 \item{\code{attach_strips}}{\strong{Description}
 
@@ -406,7 +406,7 @@ the strip text. The default method returns the gtable unaltered.
 
 \strong{Arguments}
 \describe{
-\item{\code{table}}{A \link[=gtable]{gtable} object from the \code{attach_axes()}
+\item{\code{table}}{A \code{\link[gtable:gtable]{gtable}} object from the \code{attach_axes()}
 method.}
 \item{\code{layout}}{A data frame computed by the \code{compute_layout()} method.
 Typically contains the faceting variables, \code{ROW}, \code{COL}, \code{PANEL},
@@ -418,7 +418,7 @@ method.}
 
 \strong{Value}
 
-A \link[gtable:gtable]{gtable} object.}
+A \code{\link[gtable:gtable]{gtable}} object.}
 
 \item{\code{format_strip_labels}}{\strong{Description}
 
@@ -456,7 +456,7 @@ theme settings.
 
 \strong{Arguments}
 \describe{
-\item{\code{table}}{A \link[=gtable]{gtable} object populated by the
+\item{\code{table}}{A \code{\link[gtable:gtable]{gtable}} object populated by the
 \code{draw_panels()} method.}
 \item{\code{theme}}{A \link[=complete_theme]{complete theme} object.}
 }
@@ -490,7 +490,7 @@ and presence of axes.
 
 \strong{Arguments}
 \describe{
-\item{\code{panels}}{A \link[=gtable]{gtable} object initiated by the
+\item{\code{panels}}{A \code{\link[gtable:gtable]{gtable}} object initiated by the
 \code{draw_panels()} method.}
 \item{\code{layout}}{A data frame computed by the \code{compute_layout()} method.
 Typically contains the faceting variables, \code{ROW}, \code{COL}, \code{PANEL},
@@ -510,7 +510,7 @@ method.}
 
 \strong{Value}
 
-A \link[gtable:gtable]{gtable} object.}
+A \code{\link[gtable:gtable]{gtable}} object.}
 
 \item{\code{vars}}{\strong{Description}
 
