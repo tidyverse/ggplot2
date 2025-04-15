@@ -653,11 +653,14 @@ Guides <- ggproto(
                         height = heightDetails(grobs[[i]]))
         )
       }
-
-      spacing <- convertWidth(theme$legend.spacing.x, "cm")
+      spacing <- theme$legend.spacing.x
+      stretch_spacing <- any(unitType(spacing) == "null")
+      if (!stretch_spacing) {
+        spacing <- convertWidth(spacing, "cm")
+      }
       heights <- unit(height_cm(lapply(heights, sum)), "cm")
 
-      if (stretch_x) {
+      if (stretch_x || stretch_spacing) {
         widths   <- redistribute_null_units(widths, spacing, margin, "width")
         vp_width <- unit(1, "npc")
       } else {
@@ -692,10 +695,14 @@ Guides <- ggproto(
         )
       }
 
-      spacing <- convertHeight(theme$legend.spacing.y, "cm")
+      spacing <- theme$legend.spacing.y
+      stretch_spacing <- any(unitType(spacing) == "null")
+      if (!stretch_spacing) {
+        spacing <- convertWidth(spacing, "cm")
+      }
       widths  <- unit(width_cm(lapply(widths, sum)), "cm")
 
-      if (stretch_y) {
+      if (stretch_y || stretch_spacing) {
         heights   <- redistribute_null_units(heights, spacing, margin, "height")
         vp_height <- unit(1, "npc")
       } else {
