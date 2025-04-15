@@ -44,8 +44,11 @@
 #'   # Methods
 #'   setup_params = function(self, data) list(width = self$width),
 #'   compute_panel = function(data, params, scales) {
-#'     width  <- params$width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
-#'     rank   <- ave(data$y, data$group, FUN = rank)
+#'     width <- params$width
+#'     if (is.null(width)) {
+#'       width <- resolution(data$x, zero = FALSE, TRUE) * 0.4
+#'     }
+#'     rank   <- stats::ave(data$y, data$group, FUN = rank)
 #'     rank   <- scales::rescale(rank, to = c(-width, width) / 2)
 #'     data$x <- data$x + rank
 #'     data
