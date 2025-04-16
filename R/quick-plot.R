@@ -121,7 +121,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
       geom[geom == "auto"] <- "qq"
     } else if (missing(y)) {
       x <- eval_tidy(mapping$x, data, caller_env)
-      if (is.discrete(x)) {
+      if (is_discrete(x)) {
         geom[geom == "auto"] <- "bar"
       } else {
         geom[geom == "auto"] <- "histogram"

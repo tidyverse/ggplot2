@@ -228,7 +228,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   labels <- allow_lambda(labels)
   minor_breaks <- allow_lambda(minor_breaks)
 
-  if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
+  if (!is.function(limits) && (length(limits) > 0) && !is_discrete(limits)) {
     cli::cli_warn(c(
       "Continuous limits supplied to discrete scale.",
       "i" = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
@@ -965,7 +965,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return()
     }
     # Intercept error here to give examples and mention scale in call
-    if (!is.discrete(x)) {
+    if (!is_discrete(x)) {
       # These assumptions only hold for standard DiscreteRange class, so
       # we skip the error if another range class is used
       if (inherits(self$range, "DiscreteRange")) {

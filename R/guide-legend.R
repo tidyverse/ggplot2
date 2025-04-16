@@ -647,7 +647,7 @@ set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
 keep_key_data <- function(key, data, aes, show) {
   # First, can we exclude based on anything else than actually checking the
   # data that we should include or drop the key?
-  if (!is.discrete(key$.value)) {
+  if (!is_discrete(key$.value)) {
     return(TRUE)
   }
   if (is_named(show)) {
