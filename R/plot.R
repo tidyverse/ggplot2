@@ -198,6 +198,7 @@ is.ggplot <- function(x) {
 #'   print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
 #'           geom_point())
 #' }
+# TODO: should convert to proper S7 method once bug in S7 is resolved
 `print.ggplot2::ggplot` <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
   if (newpage) grid.newpage()
@@ -229,6 +230,10 @@ is.ggplot <- function(x) {
 }
 
 S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
+
+# The following extractors and subassignment operators are for a smooth
+# transition and should be deprecated in the release cycle after 4.0.0
+# TODO: should convert to proper S7 method once bug in S7 is resolved
 
 #' @export
 `$.ggplot2::gg` <- function(x, i) {

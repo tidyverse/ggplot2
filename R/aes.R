@@ -131,6 +131,7 @@ new_aesthetic <- function(x, env = globalenv()) {
 }
 
 #' @export
+# TODO: should convert to proper S7 method once bug in S7 is resolved
 `print.ggplot2::mapping` <- function(x, ...) {
   cat("Aesthetic mapping: \n")
 
@@ -146,6 +147,7 @@ new_aesthetic <- function(x, env = globalenv()) {
   invisible(x)
 }
 
+# TODO: should convert to proper S7 method once bug in S7 is resolved
 #' @export
 "[.ggplot2::mapping" <- function(x, i, ...) {
   class_mapping(NextMethod())

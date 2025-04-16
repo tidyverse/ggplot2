@@ -1,6 +1,17 @@
+# S3 classes --------------------------------------------------------------
 
-class_gg     <- S7::new_class("gg", abstract = TRUE)
-class_S3_gg  <- S7::new_S3_class("gg")
+# Meta classes:
+# TODO: These should be replaced once R 4.3.0 is the minimum version as `+`
+# dispatch should work as intended.
+class_gg    <- S7::new_class("gg", abstract = TRUE)
+class_S3_gg <- S7::new_S3_class("gg")
+
+# Proper S3 classes we need awareness for
+class_ggproto <- S7::new_S3_class("ggproto")
+class_gtable  <- S7::new_S3_class("gtable")
+
+# The important ggproto classes that we treat as S3 classes in S7 even though
+# they are their own thing.
 class_scale  <- S7::new_S3_class("Scale")
 class_guides <- S7::new_S3_class("Guides")
 class_coord  <- S7::new_S3_class("Coord")
@@ -8,8 +19,8 @@ class_facet  <- S7::new_S3_class("Facet")
 class_layer  <- S7::new_S3_class("Layer")
 class_layout <- S7::new_S3_class("Layout")
 class_scales_list <- S7::new_S3_class("ScalesList")
-class_ggproto <- S7::new_S3_class("ggproto")
-class_gtable <- S7::new_S3_class("gtable")
+
+# User facing classes -----------------------------------------------------
 
 #' The theme class
 #'
