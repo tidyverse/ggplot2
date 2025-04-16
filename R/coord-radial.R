@@ -575,7 +575,7 @@ deg2rad <- function(deg) deg * pi / 180
 # Function to rotate a radius axis through viewport
 rotate_r_axis <- function(axis, angle, bbox, position = "left") {
 
-  if (inherits(axis, "zeroGrob")) {
+  if (is_zero(axis)) {
     return(axis)
   }
 
