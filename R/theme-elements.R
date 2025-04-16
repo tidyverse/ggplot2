@@ -948,21 +948,36 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
 
   # NULL values for elements are OK
   if (is.null(el)) return()
+
   class <- eldef$class
-  if (inherits(class, "S7_class") && S7::S7_inherits(el)) {
-    if (S7::S7_inherits(el, class) || is_theme_element(el, "blank")) {
-      return()
-    }
+  if (inherits(class, "S7_class")) {
+    inherit_ok <- S7::S7_inherits(el, class)
+  } else {
+    inherit_ok <- inherits(el, class)
   }
 
-  if (is.character(class) && "margin" %in% class) {
-    if (!is.unit(el) && length(el) == 4)
-      cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
-  } else if (!inherits(el, class) && !is_theme_element(el, "blank")) {
-    if (inherits(class, "S7_class")) {
-      class <- class@name
+  if (is.character(class) && any(c("margin", "ggplot2::margin") %in% class)) {
+    if ("rel" %in% class && is.rel(el)) {
+      return()
     }
-    cli::cli_abort("The {.var {elname}} theme element must be a {.cls {class}} object.", call = call)
+    if (is.unit(el) && length(el) == 4) {
+      return()
+    }
+    cli::cli_abort(
+      "The {.var {elname}} theme element must be a {.cls unit} vector of length 4",
+      call = call
+    )
   }
-  invisible()
+
+  # Maybe we should check that `class` is an element class before approving of
+  # blank elements?
+  if (inherit_ok || is_theme_element(el, "blank")) {
+    return()
+  }
+
+  class_name <- if (inherits(class, "S7_class")) class@name else class
+  cli::cli_abort(
+    "The {.var {elname}} theme element must be a {.cls {class_name}} object.",
+    call = call
+  )
 }
