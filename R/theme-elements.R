@@ -847,7 +847,7 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   if ("margin" %in% eldef$class) {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
-  } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
+  } else if (!inherits(el, eldef$class) && !is_theme_element(el, "blank")) {
     cli::cli_abort("The {.var {elname}} theme element must be a {.cls {eldef$class}} object.", call = call)
   }
   invisible()
