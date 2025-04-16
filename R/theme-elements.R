@@ -692,6 +692,27 @@ check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
 #' @keywords internal
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
+  if (is.character(class) && length(class) == 1) {
+    # Swap S3 class name for S7 class object
+    class <- switch(
+      class,
+      element = element,
+      element_blank   = element_blank,
+      element_rect    = element_rect,
+      element_line    = element_line,
+      element_text    = element_text,
+      element_polygon = element_polygon,
+      element_point   = element_point,
+      element_geom    = element_geom,
+      margin          = margin,
+      class
+    )
+  }
+  # margins often occur in c("unit", "margin", "rel"), we cannot use the
+  # S7 class here because we don't support heterogeneous lists
+  if (is.character(class) && length(class) > 1) {
+    class[class == "margin"] <- "ggplot2::margin"
+  }
   list(class = class, inherit = inherit, description = description)
 }
 
