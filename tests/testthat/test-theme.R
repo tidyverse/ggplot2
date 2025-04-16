@@ -344,13 +344,11 @@ test_that("element tree can be modified", {
 
 test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
-    all(vapply(theme, function(el) {
-      if (is_theme_element(el) && S7::prop_exists(el, "inherit.blank")) {
-        el@inherit.blank
-      } else {
-        TRUE
-      }
-    }, logical(1)))
+    all(vapply(
+      theme, try_prop,
+      name = "inherit.blank", default = TRUE,
+      logical(1)
+    ))
   }
   expect_true(inherit_blanks(theme_grey()))
   expect_true(inherit_blanks(theme_bw()))

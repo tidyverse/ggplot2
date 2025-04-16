@@ -821,10 +821,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
   # recursion; we initiate skipping blanks if we encounter an element that
   # doesn't inherit blank.
   skip_blank <- skip_blank ||
-    (!is.null(el_out) &&
-       !isTRUE(S7::S7_inherits(el_out) &&
-               S7::prop_exists(el_out, "inherit.blank") &&
-               el_out@inherit.blank))
+    (!is.null(el_out) && !isTRUE(try_prop(el_out, "inherit.blank")))
 
   parents <- lapply(
     pnames,
@@ -964,8 +961,8 @@ combine_elements <- function(e1, e2) {
 
   # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
   # otherwise ignore e2
-  if (S7::S7_inherits(e2, element_blank)) {
-    if (S7::prop_exists(e1, "inherit.blank") && e1@inherit.blank) {
+  if (is_theme_element(e2, "blank")) {
+    if (isTRUE(try_prop(e1, "inherit.blank"))) {
       return(e2)
     } else {
       return(e1)
@@ -977,12 +974,12 @@ combine_elements <- function(e1, e2) {
   S7::props(e1)[n] <- S7::props(e2)[n]
 
   # Calculate relative sizes
-  if (S7::prop_exists(e1, "size") && is.rel(e1@size)) {
+  if (is.rel(try_prop(e1, "size"))) {
     e1@size <- e2@size * unclass(e1@size)
   }
 
   # Calculate relative linewidth
-  if (S7::prop_exists(e1, "linewidth") && is.rel(e1@linewidth)) {
+  if (is.rel(try_prop(e1, "linewidth"))) {
     e1@linewidth <- e2@linewidth * unclass(e1@linewidth)
   }
 
