@@ -70,7 +70,7 @@ is.theme(x) # Deprecated
 \item{x}{An object to test}
 
 \item{type}{For testing elements: the type of element to expect. One of
-\code{"blank"}, \code{"rect"}, \code{"line"} or \code{"text"}.}
+\code{"blank"}, \code{"rect"}, \code{"line"}, \code{"text"}, \code{"polygon"}, \code{"point"} or \code{"geom"}.}
 }
 \description{
 Reports wether \code{x} is a type of object

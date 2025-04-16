@@ -751,7 +751,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
   # and otherwise we don't inherit anything from parents
-  if (S7::S7_inherits(el_out, element_blank)) {
+  if (is_theme_element(el_out, "blank")) {
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
@@ -786,7 +786,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
-    if (inherits(el_out, "ggplot2::element")) {
+    if (is_theme_element(el_out)) {
       nullprops <- lengths(S7::props(el_out)) == 0
     } else {
       nullprops <- vapply(el_out, is.null, logical(1))
@@ -797,12 +797,12 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
-    if (is.theme_element(el_out)) {
+    if (is_theme_element(el_out)) {
       nullprops <- lengths(S7::props(el_out)) == 0
     } else {
       nullprops <- vapply(el_out, is.null, logical(1))
     }
-    if (S7::S7_inherits(el_out, element_geom)) {
+    if (is_theme_element(el_out, "geom")) {
       # Geom elements are expected to have NULL fill/colour, so allow these
       # to be missing
       nullprops[c("colour", "fill")] <- FALSE
@@ -861,7 +861,7 @@ merge_element <- S7::new_generic("merge_element", c("new", "old"))
 
 S7::method(merge_element, list(S7::class_any, S7::class_any))  <-
   function(new, old, ...) {
-    if (is.null(old) || S7::S7_inherits(old, element_blank)) {
+    if (is.null(old) || is_theme_element(old, "blank")) {
       # If old is NULL or element_blank, then just return new
       return(new)
     } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
@@ -882,7 +882,7 @@ S7::method(merge_element, list(element_blank, S7::class_any)) <-
 
 S7::method(merge_element, list(element, S7::class_any)) <-
   function(new, old, ...) {
-    if (is.null(old) || S7::S7_inherits(old, element_blank)) {
+    if (is.null(old) || is_theme_element(old, "blank")) {
       # If old is NULL or element_blank, then just return new
       return(new)
     }
@@ -906,7 +906,7 @@ S7::method(merge_element, list(element, S7::class_any)) <-
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
   function(new, old, ...) {
-    if (is.null(old) || S7::S7_inherits(old, element_blank)) {
+    if (is.null(old) || is_theme_element(old, "blank")) {
       return(new)
     }
     if (anyNA(new)) {
@@ -925,7 +925,7 @@ S7::method(merge_element, list(margin, S7::class_any)) <-
 combine_elements <- function(e1, e2) {
 
   # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || S7::S7_inherits(e1, element_blank)) {
+  if (is.null(e2) || is_theme_element(e1, "blank")) {
     return(e1)
   }
 
@@ -948,7 +948,7 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
-  if (is.margin(e1) && is.margin(e2)) {
+  if (is_margin(e1) && is_margin(e2)) {
     if (anyNA(e2)) {
       e2[is.na(e2)] <- unit(0, "pt")
     }
@@ -986,7 +986,7 @@ combine_elements <- function(e1, e2) {
     e1@linewidth <- e2@linewidth * unclass(e1@linewidth)
   }
 
-  if (S7::S7_inherits(e1, element_text)) {
+  if (is_theme_element(e1, "text")) {
     e1@margin <- combine_elements(e1@margin, e2@margin)
   }
 

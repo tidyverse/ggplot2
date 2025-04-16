@@ -348,7 +348,7 @@ table_add_tag <- function(table, label, theme) {
     return(table)
   }
   element <- calc_element("plot.tag", theme)
-  if (S7::S7_inherits(element, element_blank)) {
+  if (is_theme_element(element, "blank")) {
     return(table)
   }
 

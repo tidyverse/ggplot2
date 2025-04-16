@@ -208,25 +208,6 @@ element_text <- S7::new_class(
 )
 
 #' @export
-#' @param type For testing elements: the type of element to expect. One of
-#'   `"blank"`, `"rect"`, `"line"` or `"text"`.
-#' @rdname is_tests
-is_theme_element <- function(x, type = "any") {
-  switch(
-    type %||% "any",
-    any   = inherits(x, "element"),
-    rect  = inherits(x, "element_rect"),
-    line  = inherits(x, "element_line"),
-    text  = inherits(x, "element_text"),
-    blank = inherits(x, "element_blank"),
-    # TODO: ideally we accept more elements from extensions. We need to
-    # consider how this will work with S7 classes, where ggplot2 doesn't know
-    # about the extension's class objects.
-    FALSE
-  )
-}
-
-#' @export
 #' @rdname element
 element_polygon <- S7::new_class(
   "element_polygon", parent = element,
@@ -321,6 +302,25 @@ element_geom <- S7::new_class(
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
+
+#' @export
+#' @param type For testing elements: the type of element to expect. One of
+#'   `"blank"`, `"rect"`, `"line"`, `"text"`, `"polygon"`, `"point"` or `"geom"`.
+#' @rdname is_tests
+is_theme_element <- function(x, type = "any") {
+  switch(
+    type %||% "any",
+    any     = S7::S7_inherits(x, element),
+    blank   = S7::S7_inherits(x, element_blank),
+    rect    = S7::S7_inherits(x, element_rect),
+    line    = S7::S7_inherits(x, element_line),
+    text    = S7::S7_inherits(x, element_text),
+    polygon = S7::S7_inherits(x, element_polygon),
+    point   = S7::S7_inherits(x, element_point),
+    geom    = S7::S7_inherits(x, element_geom),
+    FALSE
+  )
+}
 
 #' @param x A single number specifying size relative to parent element.
 #' @rdname element
@@ -890,8 +890,7 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   if (is.null(el)) return()
   class <- eldef$class
   if (inherits(class, "S7_class") && S7::S7_inherits(el)) {
-    if (S7::S7_inherits(el, class) ||
-        (S7::S7_inherits(el, element) && S7::S7_inherits(el, element_blank))) {
+    if (S7::S7_inherits(el, class) || is_theme_element(el, "blank")) {
       return()
     }
   }
@@ -899,7 +898,7 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   if (is.character(class) && "margin" %in% class) {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
-  } else if (!inherits(el, class) && !S7::S7_inherits(el, element_blank)) {
+  } else if (!inherits(el, class) && !is_theme_element(el, "blank")) {
     if (inherits(class, "S7_class")) {
       class <- class@name
     }
