@@ -296,7 +296,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       x(labels)
     } else if (is.function(x)) {
       default(lapply(labels, x))
-    } else if (is.formula(x)) {
+    } else if (is_formula(x)) {
       default(lapply(labels, as_function(x)))
     } else if (is.character(x)) {
       default(lapply(labels, function(label) x[label]))

@@ -135,7 +135,7 @@ set_sec_axis <- function(sec.axis, scale) {
         cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
       }
     }
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (is_formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
     if (!is.sec_axis(sec.axis)) {
       cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}.")
     }

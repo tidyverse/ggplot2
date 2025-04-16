@@ -139,7 +139,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   if (is.null(facets)) {
     p <- p + facet_null()
-  } else if (is.formula(facets) && length(facets) == 2) {
+  } else if (is_formula(facets) && length(facets) == 2) {
     p <- p + facet_wrap(facets)
   } else {
     p <- p + facet_grid(rows = deparse(facets), margins = margins)
