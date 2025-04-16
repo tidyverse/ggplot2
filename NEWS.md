@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `theme(legend.spacing.{x/y})` setting now accepts `null`-units 
+  (@teunbrand, #6417).
 * Facet gains a new method `setup_panel_params` to interact with the
   panel_params setted by Coord object (@Yunuuuu, #6397, #6380)
 * `position_fill()` avoids stacking observations of zero (@teunbrand, #6338)
