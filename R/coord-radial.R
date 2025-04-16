@@ -102,6 +102,16 @@ coord_radial <- function(theta = "x",
   arc <- switch(reverse, thetar = , theta = rev(arc), arc)
 
   r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
+  if (isFALSE(r.axis.inside)) {
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, arc)
+    if (!any(place)) {
+      cli::cli_warn(c(
+        "No appropriate placement found for outside {.field r.axis}.",
+        i = "Will use {.code r.axis.inside = TRUE} instead"
+      ))
+      r.axis.inside <- TRUE
+    }
+  }
 
   inner.radius <- c(inner.radius, 1) * 0.4
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
@@ -453,25 +463,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   setup_params = function(self, data) {
     params <- ggproto_parent(Coord, self)$setup_params(data)
-    if (!isFALSE(self$r_axis_inside)) {
-      return(params)
+    if (isFALSE(self$r_axis_inside)) {
+      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+      params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+      params$fake_arc <- switch(
+        which(place[c(1, 3, 2, 4)])[1],
+        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+      ) * pi
     }
-
-    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-    if (!any(place)) {
-      cli::cli_warn(c(
-        "No appropriate placement found for {.arg r_axis_inside}.",
-        i = "Axis will be placed at panel edge."
-      ))
-      params$r_axis_inside <- TRUE
-      return(params)
-    }
-
-    params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
-    params$fake_arc <- switch(
-      which(place[c(1, 3, 2, 4)])[1],
-      c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
-    ) * pi
     params
   }
 )
