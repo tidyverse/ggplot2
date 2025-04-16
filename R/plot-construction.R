@@ -49,10 +49,10 @@ add_gg <- function(e1, e2) {
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
 
-  if      (is.theme(e1))  add_theme(e1, e2, e2name)
+  if      (is_theme(e1))  add_theme(e1, e2, e2name)
   # The `add_ggplot()` branch here is for backward compatibility with R < 4.3.0
-  else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
-  else if (is.ggproto(e1)) {
+  else if (is_ggplot(e1)) add_ggplot(e1, e2, e2name)
+  else if (is_ggproto(e1)) {
     cli::cli_abort(c(
       "Cannot add {.cls ggproto} objects together.",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"

@@ -109,7 +109,7 @@ guides <- function(...) {
 
 #' @export
 #' @rdname is_tests
-is.guides <- function(x) inherits(x, "Guides")
+is_guides <- function(x) inherits(x, "Guides")
 
 # Class -------------------------------------------------------------------
 
@@ -140,7 +140,7 @@ Guides <- ggproto(
     if (is.null(guides)) {
       return(invisible())
     }
-    if (is.guides(guides)) {
+    if (is_guides(guides)) {
       guides <- guides$guides
     }
     self$guides <- defaults(guides, self$guides)
@@ -912,7 +912,7 @@ validate_guide <- function(guide) {
       guide <- fun()
     }
   }
-  if (is.guide(guide)) {
+  if (is_guide(guide)) {
     return(guide)
   }
   if (inherits(guide, "guide") && is.list(guide)) {

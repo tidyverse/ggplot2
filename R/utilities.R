@@ -884,7 +884,7 @@ as_continuous_pal <- function(x, ...) {
   if (all(is_color)) {
     colour_ramp(x)
   } else {
-    approxfun(seq(0, 1, length.out = length(x)), x)
+    stats::approxfun(seq(0, 1, length.out = length(x)), x)
   }
 }
 

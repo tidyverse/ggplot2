@@ -120,7 +120,7 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
                          center = NULL, boundary = NULL,
                          closed = c("right", "left")) {
 
-  range <- if (is.scale(scale)) scale$dimension() else range(x)
+  range <- if (is_scale(scale)) scale$dimension() else range(x)
   check_length(range, 2L)
 
   if (!is.null(breaks)) {
@@ -128,7 +128,7 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
     if (is.function(breaks)) {
       breaks <- breaks(x)
     }
-    if (is.scale(scale) && !scale$is_discrete()) {
+    if (is_scale(scale) && !scale$is_discrete()) {
       breaks <- scale$transform(breaks)
     }
     check_numeric(breaks)
