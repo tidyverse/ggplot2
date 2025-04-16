@@ -62,8 +62,8 @@ NULL
 #' @rdname summarise_plot
 #' @export
 summarise_layout <- function(p) {
-  check_inherits(p, "ggplot_built")
-  l <- p$layout
+  check_inherits(p, "ggplot2::ggplot_built")
+  l <- p@layout
 
   layout <- l$layout
   layout <- data_frame0(
@@ -99,7 +99,7 @@ summarise_layout <- function(p) {
 #' @rdname summarise_plot
 #' @export
 summarise_coord <- function(p) {
-  check_inherits(p, "ggplot_built")
+  check_inherits(p, "ggplot2::ggplot_built")
 
   # Given a transform object, find the log base; if the transform object is
   # NULL, or if it's not a log transform, return NA.
@@ -112,9 +112,9 @@ summarise_coord <- function(p) {
   }
 
   list(
-    xlog = trans_get_log_base(p$layout$coord$trans$x),
-    ylog = trans_get_log_base(p$layout$coord$trans$y),
-    flip = inherits(p$layout$coord, "CoordFlip")
+    xlog = trans_get_log_base(p@layout$coord$trans$x),
+    ylog = trans_get_log_base(p@layout$coord$trans$y),
+    flip = inherits(p@layout$coord, "CoordFlip")
   )
 }
 
@@ -122,13 +122,13 @@ summarise_coord <- function(p) {
 #' @rdname summarise_plot
 #' @export
 summarise_layers <- function(p) {
-  check_inherits(p, "ggplot_built")
+  check_inherits(p, "ggplot2::ggplot_built")
 
-  # Default mappings. Make sure it's a regular list instead of an uneval
+  # Default mappings. Make sure it's a regular list instead of a mapping
   # object.
-  default_mapping <- unclass(p$plot$mapping)
+  default_mapping <- unclass(p@plot@mapping)
 
-  layer_mappings <- lapply(p$plot$layers, function(layer) {
+  layer_mappings <- lapply(p@plot@layers, function(layer) {
     defaults(layer$mapping, default_mapping)
   })
 

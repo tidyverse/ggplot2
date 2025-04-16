@@ -56,7 +56,7 @@ test_that("axis labels are correct for manual breaks", {
       scale_x_continuous(breaks = c(1000, 2000, 3000)) +
       scale_y_continuous(breaks = c(1000, 1500, 2000))
   )
-  graticule <- b$layout$panel_params[[1]]$graticule
+  graticule <- b@layout$panel_params[[1]]$graticule
   expect_identical(
     graticule[graticule$type == "E", ]$degree_label,
     c("1000", "2000", "3000")
@@ -85,7 +85,7 @@ test_that("axis labels can be set manually", {
         labels = c("D", "E", "F")
       )
   )
-  graticule <- b$layout$panel_params[[1]]$graticule
+  graticule <- b@layout$panel_params[[1]]$graticule
   expect_identical(
     graticule[graticule$type == "E", ]$degree_label,
     c("A", "B", "C")
@@ -128,7 +128,7 @@ test_that("factors are treated like character labels and are not parsed", {
         labels = factor(c("1 * degree * N", "1.5 * degree * N", "2 * degree * N"))
       )
   )
-  graticule <- b$layout$panel_params[[1]]$graticule
+  graticule <- b@layout$panel_params[[1]]$graticule
   expect_identical(
     graticule[graticule$type == "E", ]$degree_label,
     c("A", "B", "C")
@@ -156,7 +156,7 @@ test_that("expressions can be mixed with character labels", {
         labels = parse(text = c("10^3", "1.5 %*% 10^3", "2 %*% 10^3"))
       )
   )
-  graticule <- b$layout$panel_params[[1]]$graticule
+  graticule <- b@layout$panel_params[[1]]$graticule
   expect_identical(
     graticule[graticule$type == "E", ]$degree_label,
     as.list(c("A", "B", "C"))
@@ -180,7 +180,7 @@ test_that("expressions can be mixed with character labels", {
         labels = parse(text = c("10^3", "1.5 %*% 10^3", "2 %*% 10^3"))
       )
   )
-  graticule <- b$layout$panel_params[[1]]$graticule
+  graticule <- b@layout$panel_params[[1]]$graticule
   expect_identical(
     graticule[graticule$type == "N", ]$degree_label,
     as.list(c("A", "B", "C"))
@@ -207,7 +207,7 @@ test_that("degree labels are automatically parsed", {
       scale_y_continuous(breaks = c(10, 15, 20))
   )
 
-  graticule <- b$layout$panel_params[[1]]$graticule
+  graticule <- b@layout$panel_params[[1]]$graticule
   expect_setequal(
     graticule[graticule$type == "N", ]$degree,
     c(10, 15, 20)
@@ -343,7 +343,7 @@ test_that("coord_sf() can use function breaks and n.breaks", {
     scale_y_continuous(n.breaks = 4)
 
   b <- ggplot_build(p)
-  grat <- b$layout$panel_params[[1]]$graticule
+  grat <- b@layout$panel_params[[1]]$graticule
 
   expect_equal(
     vec_slice(grat$degree, grat$type == "E"),
