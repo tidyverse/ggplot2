@@ -120,11 +120,13 @@ test_that("geom_sf() handles alpha properly", {
   g <- get_layer_grob(p)[[1]]
 
   # alpha affects the colour of points and lines
-  expect_equal(g[[1]]$gp$col, alpha(red, 0.5))
-  expect_equal(g[[2]]$gp$col, alpha(red, 0.5))
+  # geom_sf() will use `gList()` which is not a grob
+  # and will be wrapped into a `gTree()`.
+  expect_equal(g$children[[1]]$gp$col, alpha(red, 0.5))
+  expect_equal(g$children[[2]]$gp$col, alpha(red, 0.5))
   # alpha doesn't affect the colour of polygons, but the fill
-  expect_equal(g[[3]]$gp$col, alpha(red, 1.0))
-  expect_equal(g[[3]]$gp$fill, alpha(red, 0.5))
+  expect_equal(g$children[[3]]$gp$col, alpha(red, 1.0))
+  expect_equal(g$children[[3]]$gp$fill, alpha(red, 0.5))
 })
 
 test_that("errors are correctly triggered", {
