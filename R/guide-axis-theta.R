@@ -197,7 +197,7 @@ GuideAxisTheta <- ggproto(
     }
 
     # Resolve text angle
-    if (is.waiver(params$angle) || is.null(params$angle)) {
+    if (is_waiver(params$angle) || is.null(params$angle)) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
@@ -273,7 +273,7 @@ GuideAxisTheta <- ggproto(
     }
 
     # Resolve text angle
-    if (is.waiver(params$angle %||% waiver())) {
+    if (is_waiver(params$angle %||% waiver())) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))

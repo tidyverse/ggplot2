@@ -291,7 +291,7 @@ Layout <- ggproto("Layout", NULL,
         } else {
           switch(label, x = ".bottom", y = ".right")
         }
-        if (is.null(labels[[label]][[i]]) || is.waiver(labels[[label]][[i]]))
+        if (is.null(labels[[label]][[i]]) || is_waiver(labels[[label]][[i]]))
           return(zeroGrob())
 
         element_render(
