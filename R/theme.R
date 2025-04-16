@@ -584,12 +584,12 @@ is.theme <- function(x) {
 
 # check whether theme is complete
 is_theme_complete <- function(x) {
-  is.theme(x) && isTRUE(x@complete)
+  is_theme(x) && isTRUE(x@complete)
 }
 
 # check whether theme should be validated
 is_theme_validate <- function(x) {
-  !is.theme(x) || isTRUE(x@validate)
+  !is_theme(x) || isTRUE(x@validate)
 }
 
 check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
@@ -703,7 +703,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
     }
   )
 
-  if (!is.theme(t1) && is.list(t1)) {
+  if (!is_theme(t1) && is.list(t1)) {
     t1 <- theme(!!!t1)
   }
 
