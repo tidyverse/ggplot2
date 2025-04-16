@@ -108,7 +108,7 @@ guide_axis_logticks <- function(
   if (is_bare_numeric(mid))    mid  <- rel(mid)
   if (is_bare_numeric(short)) short <- rel(short)
 
-  check_fun <- function(x) (is.rel(x) || is.unit(x)) && length(x) == 1
+  check_fun <- function(x) (is_rel(x) || is.unit(x)) && length(x) == 1
   what <- "a {.cls rel} or {.cls unit} object of length 1"
   check_object(long,  check_fun, what)
   check_object(mid,   check_fun, what)

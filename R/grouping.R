@@ -12,7 +12,7 @@ add_group <- function(data) {
   if (empty(data)) return(data)
 
   if (is.null(data[["group"]])) {
-    disc <- vapply(data, is.discrete, logical(1))
+    disc <- vapply(data, is_discrete, logical(1))
     disc[names(disc) %in% c("label", "PANEL")] <- FALSE
 
     if (any(disc)) {
