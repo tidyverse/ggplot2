@@ -259,10 +259,10 @@ GuideAxis <- ggproto(
   override_elements = function(params, elements, theme) {
     elements$text <-
       label_angle_heuristic(elements$text, params$position, params$angle)
-    if (inherits(elements$ticks, "element_blank")) {
+    if (is_theme_element(elements$ticks, "blank")) {
       elements$major_length <- unit(0, "cm")
     }
-    if (inherits(elements$minor, "element_blank") || isFALSE(params$minor.ticks)) {
+    if (is_theme_element(elements$minor, "blank") || isFALSE(params$minor.ticks)) {
       elements$minor_length <- unit(0, "cm")
     }
     return(elements)
@@ -379,7 +379,7 @@ GuideAxis <- ggproto(
     # Ticks
     major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
     range <- range(0, major_cm)
-    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+    if (params$minor.ticks && !is_theme_element(elements$minor, "blank")) {
       minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
       range <- range(range, minor_cm)
     }
@@ -450,13 +450,13 @@ GuideAxis <- ggproto(
     # rather than dimensions of this axis alone.
     if (has_labels && params$position %in% c("left", "right")) {
       where <- layout$l[-c(1, length(layout$l))]
-      just <- with(elements$text, rotate_just(angle, hjust, vjust))$hjust %||% 0.5
+      just <- with(S7::props(elements$text), rotate_just(angle, hjust, vjust))$hjust %||% 0.5
       gt <- gtable_add_cols(gt, unit(just, "null"), pos = min(where) - 1)
       gt <- gtable_add_cols(gt, unit(1 - just, "null"), pos = max(where) + 1)
     }
     if (has_labels && params$position %in% c("top", "bottom")) {
       where <- layout$t[-c(1, length(layout$t))]
-      just <- with(elements$text, rotate_just(angle, hjust, vjust))$vjust %||% 0.5
+      just <- with(S7::props(elements$text), rotate_just(angle, hjust, vjust))$vjust %||% 0.5
       gt <- gtable_add_rows(gt, unit(1 - just, "null"), pos = min(where) - 1)
       gt <- gtable_add_rows(gt, unit(just, "null"), pos = max(where) + 1)
     }
@@ -590,7 +590,7 @@ axis_label_priority_between <- function(x, y) {
 #'   overridden from the user- or theme-supplied element.
 #' @noRd
 label_angle_heuristic <- function(element, position, angle) {
-  if (!inherits(element, "element_text")
+  if (!is_theme_element(element, "text")
       || is.null(position)
       || is.null(angle %|W|% NULL)) {
     return(element)
@@ -612,8 +612,8 @@ label_angle_heuristic <- function(element, position, angle) {
   hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
   vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
 
-  element$angle <- angle %||% element$angle
-  element$hjust <- hjust %||% element$hjust
-  element$vjust <- vjust %||% element$vjust
+  element@angle <- angle %||% element@angle
+  element@hjust <- hjust %||% element@hjust
+  element@vjust <- vjust %||% element@vjust
   element
 }

@@ -119,7 +119,7 @@ guide_axis_logticks <- function(
     allow_null = TRUE
   )
   check_bool(expanded)
-  check_inherits(short.theme, c("element_blank", "element_line"))
+  check_inherits(short.theme, c("ggplot2::element_blank", "ggplot2::element_line"))
 
   new_guide(
     available_aes  = c("x", "y"),
