@@ -200,7 +200,7 @@ form an equally spaced grid, and each combination of \code{x} and \code{y} appea
 once. Missing values of \code{z} are allowed, but contouring will only work for
 grid points where all four corners are non-missing. If you have irregular
 data, you'll need to first interpolate on to a grid before visualising,
-using \code{\link[interp:interp]{interp::interp()}}, \code{\link[akima:bilinear]{akima::bilinear()}}, or similar.
+using \code{interp::interp()}, \code{akima::bilinear()}, or similar.
 }
 \section{Aesthetics}{
 
