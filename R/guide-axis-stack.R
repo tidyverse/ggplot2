@@ -195,7 +195,7 @@ GuideAxisStack <- ggproto(
     }
 
     # Remove empty grobs
-    grobs <- grobs[!vapply(grobs, is.zero, logical(1))]
+    grobs <- grobs[!vapply(grobs, is_zero, logical(1))]
     if (length(grobs) == 0) {
       return(zeroGrob())
     }
