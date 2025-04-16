@@ -13,6 +13,11 @@ margin <- S7::new_class(
   }
 )
 
+#' @export
+#' @rdname is_tests
+is_margin <- function(x) S7::S7_inherits(x, margin)
+is.margin <- function(x) lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
+
 #' @rdname element
 #' @export
 margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
@@ -24,10 +29,6 @@ margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
 margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
   margin(t = t, r = r, b = b, l = l, unit)
 }
-
-#' @export
-#' @rdname is_tests
-is.margin <- function(x) S7::S7_inherits(x, margin)
 
 #' Create a text grob with the proper location and margins
 #'

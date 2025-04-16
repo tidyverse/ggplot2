@@ -19,10 +19,10 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme(axis.title.x = element_text(colour = 'red', margin = margin()))
   expect_identical(t$axis.title.x, element_text(colour = 'red', margin = margin(), vjust = 1))
   # Make sure the theme class didn't change or get dropped
-  expect_true(is.theme(t))
+  expect_s3_class(t, "theme")
   # Make sure the element class didn't change or get dropped
-  expect_s3_class(t$axis.title.x, "ggplot2::element")
-  expect_s3_class(t$axis.title.x, "ggplot2::element_text")
+  expect_s7_class(t$axis.title.x, element)
+  expect_s7_class(t$axis.title.x, element_text)
 
   # Modifying an intermediate node works
   t <- theme_grey() + theme(axis.title = element_text(colour = 'red'))
@@ -103,7 +103,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme(axis.title.x = element_text(colour = 'red'))
   expect_identical(t$axis.title.x, element_text(colour = 'red'))
   # Make sure the class didn't change or get dropped
-  expect_true(is.theme(t))
+  expect_s3_class(t, "theme")
 
   # Changing an intermediate node works
   t <- theme_grey() %+replace% theme(axis.title = element_text(colour = 'red'))
@@ -345,7 +345,7 @@ test_that("element tree can be modified", {
 test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
     all(vapply(theme, function(el) {
-      if (inherits(el, "element") && !S7::S7_inherits(el, element_blank)) {
+      if (is_theme_element(el) && !is_theme_element(el, "blank")) {
         el@inherit.blank
       } else {
         TRUE

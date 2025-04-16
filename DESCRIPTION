@@ -1,6 +1,6 @@
 Package: ggplot2
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Version: 3.5.1.9000
+Version: 3.5.2.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -31,7 +31,7 @@ URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
     R (>= 4.0)
-Imports: 
+Imports:
     cli,
     grDevices,
     grid,
@@ -71,9 +71,9 @@ Suggests:
     tibble,
     vdiffr (>= 1.0.6),
     xml2
-Enhances: 
+Enhances:
     sp
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
@@ -82,7 +82,7 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Collate: 
+Collate:
     'ggproto.R'
     'ggplot-global.R'
     'aaa-.R'

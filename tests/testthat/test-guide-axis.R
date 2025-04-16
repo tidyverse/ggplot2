@@ -382,6 +382,13 @@ test_that("guide_axis_theta sets relative angle", {
   expect_doppelganger("guide_axis_theta with angle adapting to theta", p)
 })
 
+test_that("guide_axis_theta with only one axis key", {
+  p <- ggplot(data.frame(x = "a", y = 1:3), aes(x, y)) +
+    geom_point() +
+    coord_radial()
+  expect_identical(get_guide_data(p, "theta")$.label, "a")
+})
+
 test_that("guide_axis_theta can be used in cartesian coordinates", {
 
   p <- ggplot(mtcars, aes(disp, mpg)) +

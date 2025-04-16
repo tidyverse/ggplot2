@@ -475,7 +475,7 @@ theme <- function(...,
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
-      if (is.theme_element(el) && S7::prop_exists(el, "inherit.blank")) {
+      if (is_theme_element(el) && S7::prop_exists(el, "inherit.blank")) {
         S7::prop(el, "inherit.blank") <- TRUE
       }
       el
@@ -491,7 +491,7 @@ theme <- function(...,
 }
 
 fix_theme_deprecations <- function(elements) {
-  if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
+  if (is.unit(elements$legend.margin) && !is_margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
       "i" = "For the old behavior use {.var legend.spacing}"
@@ -577,7 +577,15 @@ validate_theme_palettes <- function(elements) {
 
 #' @export
 #' @rdname is_tests
-is.theme <- function(x) inherits(x, "theme")
+is_theme <- function(x) inherits(x, "theme")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.theme(x) # Deprecated
+is.theme <- function(x) {
+  deprecate_soft0("3.5.2", "is.theme()", "is_theme()")
+  is_theme(x)
+}
 
 # check whether theme is complete
 is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
@@ -621,9 +629,9 @@ check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
 #' complete_theme(my_theme)
 complete_theme <- function(theme = NULL, default = theme_get()) {
   if (!is_bare_list(theme)) {
-    check_object(theme, is.theme, "a {.cls theme} object", allow_null = TRUE)
+    check_object(theme, is_theme, "a {.cls theme} object", allow_null = TRUE)
   }
-  check_object(default, is.theme, "a {.cls theme} object")
+  check_object(default, is_theme, "a {.cls theme} object")
   theme <- plot_theme(list(theme = theme), default = default)
 
   # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
@@ -950,7 +958,7 @@ combine_elements <- function(e1, e2) {
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!is.theme_element(e1) && !is.theme_element(e2)) {
+  if (!is_theme_element(e1) && !is_theme_element(e2)) {
     return(e1)
   }
 

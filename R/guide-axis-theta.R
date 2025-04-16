@@ -104,8 +104,9 @@ GuideAxisTheta <- ggproto(
 
       # If the first and last positions are close together, we merge the
       # labels of these positions
-      ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
-      if (n > 0 && ends_apart < 0.05 && !is.null(key$.label)) {
+      if (n > 1L &&
+        (key$theta[n] - key$theta[1]) %% (2 * pi) < 0.05 &&
+        !is.null(key$.label)) {
         if (is.expression(key$.label[[1]])) {
           combined <- substitute(
             paste(a, "/", b),
