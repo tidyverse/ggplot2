@@ -207,11 +207,11 @@ draw_key_path <- function(data, params, size) {
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
-    arrow = params$arrow
+    arrow = params[["arrow"]]
   )
-  if (!is.null(params$arrow)) {
-    angle <- deg2rad(params$arrow$angle)
-    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+  if (!is.null(params[["arrow"]])) {
+    angle <- deg2rad(params[["arrow"]]$angle)
+    length <- convertUnit(params[["arrow"]]$length, "cm", valueOnly = TRUE)
     attr(grob, "width")  <- cos(angle) * length * 1.25
     attr(grob, "height") <- sin(angle) * length * 2
   }
@@ -228,11 +228,11 @@ draw_key_vpath <- function(data, params, size) {
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
-    arrow = params$arrow
+    arrow = params[["arrow"]]
   )
-  if (!is.null(params$arrow)) {
-    angle <- deg2rad(params$arrow$angle)
-    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+  if (!is.null(params[["arrow"]])) {
+    angle <- deg2rad(params[["arrow"]]$angle)
+    length <- convertUnit(params[["arrow"]]$length, "cm", valueOnly = TRUE)
     attr(grob, "width")  <- sin(angle) * length * 2
     attr(grob, "height") <- cos(angle) * length * 1.25
   }
