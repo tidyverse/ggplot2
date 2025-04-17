@@ -11,7 +11,7 @@ coord_quickmap <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on")
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

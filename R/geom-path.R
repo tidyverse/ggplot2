@@ -128,7 +128,7 @@ geom_path <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -283,7 +283,7 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -330,7 +330,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

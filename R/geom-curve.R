@@ -34,7 +34,7 @@ geom_curve <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @include geom-segment.R
 #' @format NULL
 #' @usage NULL

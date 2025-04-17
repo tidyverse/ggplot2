@@ -170,7 +170,7 @@ guide_colourbar <- function(
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export

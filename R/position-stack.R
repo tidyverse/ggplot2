@@ -140,7 +140,7 @@ position_fill <- function(vjust = 1, reverse = FALSE) {
   ggproto(NULL, PositionFill, vjust = vjust, reverse = reverse)
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -244,7 +244,7 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
 }
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export

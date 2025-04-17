@@ -81,7 +81,7 @@ guide_axis <- function(title = waiver(), theme = NULL, check.overlap = FALSE,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export

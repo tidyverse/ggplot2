@@ -54,7 +54,7 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export

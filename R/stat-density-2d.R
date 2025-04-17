@@ -116,7 +116,7 @@ stat_density_2d_filled <- function(mapping = NULL, data = NULL,
 stat_density2d_filled <- stat_density_2d_filled
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -204,9 +204,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   }
 )
 
-
-
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export

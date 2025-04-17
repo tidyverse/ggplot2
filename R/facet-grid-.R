@@ -234,7 +234,7 @@ grid_as_facets_list <- function(rows, cols) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export

@@ -61,7 +61,7 @@ scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export

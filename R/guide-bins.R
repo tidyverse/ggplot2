@@ -106,7 +106,7 @@ guide_bins <- function(
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export

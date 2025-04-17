@@ -39,7 +39,7 @@ geom_qq_line <- function(mapping = NULL,
 #' @rdname geom_qq
 stat_qq_line <- geom_qq_line
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
