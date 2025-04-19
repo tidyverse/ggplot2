@@ -98,7 +98,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- layout$map_position(data)
 
   # Hand off position guides to layout
-  layout$setup_panel_guides(plot$guides, plot$layers)
+  layout$setup_panel_guides(plot$guides, plot$layers, data = data)
 
   # Complete the plot's theme
   plot$theme <- plot_theme(plot)
