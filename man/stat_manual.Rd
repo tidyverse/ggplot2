@@ -120,13 +120,6 @@ every group.
 }
 \section{Aesthetics}{
 
-\code{stat_manual()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
 Input aesthetics are determined by the \code{fun} argument. Output aesthetics must
 include those required by \code{geom}. Any aesthetic that is constant within a
 group will be preserved even if dropped by \code{fun}.
@@ -196,4 +189,13 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
     args = vars(hull = chull(x, y), x = x[hull], y = y[hull])
   )
 }
+}
+\section{Aesthetics}{
+
+\code{stat_manual()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

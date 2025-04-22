@@ -46,15 +46,6 @@ be specified in the global or \verb{geom_*} layer. Unlike \code{position_dodge()
 particularly useful for arranging box plots, which
 can have variable widths.
 }
-\section{Aesthetics}{
-
-\code{position_dodge()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \code{order} \tab → \code{NULL} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge2")
@@ -129,3 +120,12 @@ Other position adjustments:
 \code{\link{position_stack}()}
 }
 \concept{position adjustments}
+\section{Aesthetics}{
+
+\code{position_dodge()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \code{order} \tab → \code{NULL} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}

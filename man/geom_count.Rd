@@ -115,23 +115,6 @@ This is a variant \code{\link[=geom_point]{geom_point()}} that counts the number
 observations at each location, then maps the count to point area. It
 useful when you have discrete data and overplotting.
 }
-\section{Aesthetics}{
-
-\code{geom_point()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
-• \tab \code{stroke} \tab → via \code{theme()} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
@@ -174,4 +157,21 @@ d + geom_count(aes(size = after_stat(prop), group = clarity)) +
 }
 \seealso{
 For continuous \code{x} and \code{y}, use \code{\link[=geom_bin_2d]{geom_bin_2d()}}.
+}
+\section{Aesthetics}{
+
+\code{geom_point()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{stroke} \tab → via \code{theme()} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

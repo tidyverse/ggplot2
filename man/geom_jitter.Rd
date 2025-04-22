@@ -123,23 +123,6 @@ The jitter geom is a convenient shortcut for
 variation to the location of each point, and is a useful way of handling
 overplotting caused by discreteness in smaller datasets.
 }
-\section{Aesthetics}{
-
-\code{geom_point()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
-• \tab \code{stroke} \tab → via \code{theme()} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 p <- ggplot(mpg, aes(cyl, hwy))
 p + geom_point()
@@ -164,4 +147,21 @@ ggplot(mpg, aes(cty, hwy)) +
 \code{\link[=geom_point]{geom_point()}} for regular, unjittered points,
 \code{\link[=geom_boxplot]{geom_boxplot()}} for another way of looking at the conditional
 distribution of a variable
+}
+\section{Aesthetics}{
+
+\code{geom_point()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{stroke} \tab → via \code{theme()} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

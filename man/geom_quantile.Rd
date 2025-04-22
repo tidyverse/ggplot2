@@ -137,22 +137,6 @@ function defined by \code{method}.}
 This fits a quantile regression to the data and draws the fitted quantiles
 with lines. This is as a continuous analogue to \code{\link[=geom_boxplot]{geom_boxplot()}}.
 }
-\section{Aesthetics}{
-
-\code{geom_quantile()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{weight} \tab → \code{1} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
@@ -178,4 +162,20 @@ m + geom_quantile(method = "rqss", lambda = 0.1)
 
 # Set aesthetics to fixed value
 m + geom_quantile(colour = "red", linewidth = 2, alpha = 0.5)
+}
+\section{Aesthetics}{
+
+\code{geom_quantile()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{weight} \tab → \code{1} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

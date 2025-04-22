@@ -172,36 +172,6 @@ overplotting. This is a 2D version of \code{\link[=geom_density]{geom_density()}
 draws contour lines, and \code{geom_density_2d_filled()} draws filled contour
 bands.
 }
-\section{Aesthetics}{
-
-\code{geom_density_2d()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{geom_density_2d_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{subgroup} \tab → \code{NULL} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \code{stat_density_2d()} and \code{stat_density_2d_filled()} compute  different variables depending on whether contouring is turned on or off.  With contouring off (\code{contour = FALSE}), both stats behave the same, and  the following variables are provided:
@@ -280,4 +250,32 @@ d + stat_density_2d(geom = "point", aes(size = after_stat(density)), n = 20, con
 \code{\link[=geom_contour]{geom_contour()}}, \code{\link[=geom_contour_filled]{geom_contour_filled()}} for information about
 how contours are drawn; \code{\link[=geom_bin_2d]{geom_bin_2d()}} for another way of dealing with
 overplotting.
+}
+\section{Aesthetics}{
+
+\code{geom_density2d()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+}
+
+\code{geom_density2d_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{subgroup} \tab → \code{NULL} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

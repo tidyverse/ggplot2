@@ -202,60 +202,6 @@ grid points where all four corners are non-missing. If you have irregular
 data, you'll need to first interpolate on to a grid before visualising,
 using \code{\link[interp:interp]{interp::interp()}}, \code{\link[akima:bilinear]{akima::bilinear()}}, or similar.
 }
-\section{Aesthetics}{
-
-\code{geom_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{weight} \tab → \code{1} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{geom_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{subgroup} \tab → \code{NULL} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{stat_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \strong{\code{z}} \tab   \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{order} \tab → \code{after_stat(level)} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{stat_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \strong{\code{z}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → \code{after_stat(level)} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{order} \tab → \code{after_stat(level)} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. The computed variables differ somewhat for contour lines  (computed by \code{stat_contour()}) and contour bands (filled contours,  computed by \code{stat_contour_filled()}). The variables \code{nlevel} and \code{piece}  are available for both, whereas \code{level_low}, \code{level_high}, and \code{level_mid}  are only available for bands. The variable \code{level} is a numeric or a factor  depending on whether lines or bands are calculated.
@@ -305,4 +251,52 @@ v + geom_raster(aes(fill = density)) +
 }
 \seealso{
 \code{\link[=geom_density_2d]{geom_density_2d()}}: 2d density contours
+}
+\section{Aesthetics}{
+
+\code{geom_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{weight} \tab → \code{1} \cr\cr
+}
+
+\code{geom_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{subgroup} \tab → \code{NULL} \cr\cr
+}
+
+\code{stat_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \strong{\code{z}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{order} \tab → \code{after_stat(level)} \cr\cr
+}
+
+\code{stat_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \strong{\code{z}} \tab   \cr\cr
+ • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{fill}} \tab → \code{after_stat(level)} \cr\cr
+ • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{order} \tab → \code{after_stat(level)} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
