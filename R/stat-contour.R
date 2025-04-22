@@ -1,8 +1,8 @@
 #' @inheritParams stat_identity
 #' @inheritParams geom_contour
 #' @export
-#' @eval rd_aesthetics("stat", "contour")
-#' @eval rd_aesthetics("stat", "contour_filled")
+#' @aesthetics StatContour
+#' @aesthetics StatContourFilled
 #' @eval rd_computed_vars(
 #'   .details = "The computed variables differ somewhat for contour lines
 #'   (computed by `stat_contour()`) and contour bands (filled contours,

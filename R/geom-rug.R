@@ -9,7 +9,7 @@
 #' variables is 5% at both ends of the scale, the rug will not overlap with
 #' any data points under the default settings.
 #'
-#' @eval rd_aesthetics("geom", "rug")
+#' @aesthetics GeomRug
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param sides A string that controls which sides of the plot the rugs appear on.

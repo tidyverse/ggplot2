@@ -26,9 +26,9 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "bar")
-#' @eval rd_aesthetics("geom", "col")
-#' @eval rd_aesthetics("stat", "count")
+#' @aesthetics GeomBar
+#' @aesthetics GeomCol
+#' @aesthetics StatCount
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side

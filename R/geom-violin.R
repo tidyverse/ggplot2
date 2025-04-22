@@ -7,7 +7,7 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "violin")
+#' @aesthetics GeomViolin
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param trim If `TRUE` (default), trim the tails of the violins

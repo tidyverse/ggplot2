@@ -17,7 +17,7 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "ribbon")
+#' @aesthetics GeomRibbon
 #' @seealso
 #'   [geom_bar()] for discrete intervals (bars),
 #'   [geom_linerange()] for discrete intervals (lines),

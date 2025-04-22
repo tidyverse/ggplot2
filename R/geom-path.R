@@ -11,7 +11,7 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "path")
+#' @aesthetics GeomPath
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param lineend Line end style (round, butt, square).

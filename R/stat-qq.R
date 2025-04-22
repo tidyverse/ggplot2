@@ -4,8 +4,8 @@
 #' `stat_qq_line()` compute the slope and intercept of the line connecting the
 #' points at specified quartiles of the theoretical and sample distributions.
 #'
-#' @eval rd_aesthetics("stat", "qq")
-#' @eval rd_aesthetics("stat", "qq_line")
+#' @aesthetics StatQq
+#' @aesthetics StatQqLine
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to `distribution`
 #'   function.

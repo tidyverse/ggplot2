@@ -6,8 +6,8 @@
 #' draws contour lines, and `geom_density_2d_filled()` draws filled contour
 #' bands.
 #'
-#' @eval rd_aesthetics("geom", "density_2d")
-#' @eval rd_aesthetics("geom", "density_2d_filled")
+#' @aesthetics GeomDensity2d
+#' @aesthetics GeomDensity2dFilled
 #' @seealso [geom_contour()], [geom_contour_filled()] for information about
 #'  how contours are drawn; [geom_bin_2d()] for another way of dealing with
 #'  overplotting.
