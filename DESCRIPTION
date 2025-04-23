@@ -30,7 +30,7 @@ License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Imports:
     cli,
     grDevices,
