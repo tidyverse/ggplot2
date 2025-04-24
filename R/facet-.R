@@ -142,8 +142,8 @@ Facet <- ggproto("Facet", NULL,
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
   },
-  draw_facet_panels = function(self, panels, layout, x_scales, y_scales,
-                               ranges, coord, data, theme, params, ...) {
+  draw_panel_content = function(self, panels, layout, x_scales, y_scales,
+                                ranges, coord, data, theme, params, ...) {
     facet_bg <- self$draw_back(
       data,
       layout,
