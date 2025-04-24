@@ -60,7 +60,7 @@ Layout <- ggproto("Layout", NULL,
   # Assemble the facet fg & bg, the coord fg & bg, and the layers
   # Returns a gtable
   render = function(self, panels, data, theme, labels) {
-    panels <- self$facet$draw_facet_panels(
+    panels <- self$facet$draw_panel_content(
       panels,
       self$layout,
       self$panel_scales_x,
