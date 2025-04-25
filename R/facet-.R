@@ -68,7 +68,7 @@ NULL
 #'   between the layer stack and the foreground defined by the Coord object
 #'   (usually empty). The default is, as above, to return an empty grob.
 #'
-#'   - `draw_facet_panels`: Draws each panel for the facet. Should return a list
+#'   - `draw_panel_content`: Draws each panel for the facet. Should return a list
 #'     of grobs, one for each panel. The output is used by the `draw_panels`
 #'     method.
 #'
