@@ -167,7 +167,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.line =          element_blank(),
     axis.line.x =        NULL,
     axis.line.y =        NULL,
-    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.305)),
+    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.302)),
     axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
@@ -223,7 +223,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     legend.box.background = element_blank(),
     legend.box.spacing = rel(2),
 
-    panel.background =   element_rect(fill = col_mix(ink, paper, 0.925), colour = NA),
+    panel.background =   element_rect(fill = col_mix(ink, paper, 0.92), colour = NA),
     panel.border =       element_blank(),
     panel.grid =         element_line(colour = paper),
     panel.grid.minor =   element_line(linewidth = rel(0.5)),
@@ -232,10 +232,10 @@ theme_grey <- function(base_size = 11, base_family = "",
     panel.spacing.y =    NULL,
     panel.ontop    =     FALSE,
 
-    strip.background =   element_rect(fill = col_mix(ink, paper, 0.854), colour = NA),
+    strip.background =   element_rect(fill = col_mix(ink, paper, 0.85), colour = NA),
     strip.clip =         "on",
     strip.text =         element_text(
-                           colour = col_mix(ink, paper, 0.105),
+                           colour = col_mix(ink, paper, 0.1),
                            size = rel(0.8),
                            margin = margin_auto(0.8 * half_line)
                          ),
@@ -303,7 +303,7 @@ theme_bw <- function(base_size = 11, base_family = "",
       panel.background = element_rect(fill = paper, colour = NA),
       panel.border     = element_rect(colour = col_mix(ink, paper, 0.2)),
       # make gridlines dark, same contrast with white as in theme_grey
-      panel.grid = element_line(colour = col_mix(ink, paper, 0.925)),
+      panel.grid = element_line(colour = col_mix(ink, paper, 0.92)),
       panel.grid.minor = element_line(linewidth = rel(0.5)),
       # contour strips to match panel contour
       strip.background = element_rect(
@@ -380,7 +380,7 @@ theme_light <- function(base_size = 11, base_family = "",
     theme(
       # white panel with light grey border
       panel.background = element_rect(fill = paper, colour = NA),
-      panel.border     = element_rect(colour = col_mix(ink, paper, 0.705), linewidth = rel(1)),
+      panel.border     = element_rect(colour = col_mix(ink, paper, 0.702), linewidth = rel(1)),
       # light grey, thinner gridlines
       # => make them slightly darker to keep acceptable contrast
       panel.grid       = element_line(colour = col_mix(ink, paper, 0.871)),
@@ -388,10 +388,10 @@ theme_light <- function(base_size = 11, base_family = "",
       panel.grid.minor = element_line(linewidth = rel(0.25)),
 
       # match axes ticks thickness to gridlines and colour to panel border
-      axis.ticks       = element_line(colour = col_mix(ink, paper, 0.705), linewidth = rel(0.5)),
+      axis.ticks       = element_line(colour = col_mix(ink, paper, 0.702), linewidth = rel(0.5)),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
-      strip.background = element_rect(fill = col_mix(ink, paper, 0.705), colour = NA),
+      strip.background = element_rect(fill = col_mix(ink, paper, 0.702), colour = NA),
       strip.text       = element_text(
                            colour = paper,
                            size = rel(0.8),
@@ -423,7 +423,7 @@ theme_dark <- function(base_size = 11, base_family = "",
   ) %+replace%
     theme(
       # dark panel
-      panel.background = element_rect(fill = col_mix(ink, paper, 0.5), colour = NA),
+      panel.background = element_rect(fill = col_mix(ink, paper, 0.499), colour = NA),
       # inverse grid lines contrast compared to theme_grey
       # make them thinner and try to keep the same visual contrast as in theme_light
       panel.grid       = element_line(colour = col_mix(ink, paper, 0.42)),
@@ -436,7 +436,7 @@ theme_dark <- function(base_size = 11, base_family = "",
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = col_mix(ink, paper, 0.15), colour = NA),
       strip.text       = element_text(
-                           colour = col_mix(ink, paper, 0.9),
+                           colour = col_mix(ink, paper, 0.899),
                            size = rel(0.8),
                            margin = margin_auto(0.8 * half_line)
                          ),
@@ -649,7 +649,7 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.line =          element_blank(),
     axis.line.x =        NULL,
     axis.line.y =        NULL,
-    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.305)),
+    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.302)),
     axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
@@ -715,12 +715,12 @@ theme_test <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(
-                           fill   = col_mix(ink, paper, 0.851),
+                           fill   = col_mix(ink, paper, 0.85),
                            colour = col_mix(ink, paper, 0.2)
                          ),
     strip.clip =         "on",
     strip.text =         element_text(
-                           colour = col_mix(ink, paper, 0.105),
+                           colour = col_mix(ink, paper, 0.1),
                            size = rel(0.8),
                            margin = margin_auto(0.8 * half_line)
                          ),
