@@ -5,8 +5,7 @@
 #' data that comes from an underlying smooth distribution.
 #'
 #' @eval rd_orientation()
-#'
-#' @eval rd_aesthetics("geom", "density")
+#' @aesthetics GeomDensity
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.

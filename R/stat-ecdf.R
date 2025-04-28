@@ -24,7 +24,7 @@
 #'   of points to interpolate with.
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
-#' @eval rd_aesthetics("stat", "ecdf")
+#' @aesthetics StatEcdf
 #' @eval rd_computed_vars(
 #'   ecdf = "Cumulative density corresponding to `x`.",
 #'   y    = "`r lifecycle::badge('superseded')` For backward compatibility."

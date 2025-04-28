@@ -221,30 +221,6 @@ This gives a roughly 95\% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.
 }
 
-\section{Aesthetics}{
-
-\code{geom_boxplot()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \strong{\code{lower} \emph{or} \code{xlower}} \tab   \cr\cr
-• \tab \strong{\code{upper} \emph{or} \code{xupper}} \tab   \cr\cr
-• \tab \strong{\code{middle} \emph{or} \code{xmiddle}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
-• \tab \code{weight} \tab → \code{1} \cr\cr
-• \tab \code{width} \tab → \code{0.9} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \code{stat_boxplot()} provides the following variables, some of  which depend on the orientation:
@@ -316,4 +292,28 @@ box plots. The American Statistician 32, 12-16.
 \code{\link[=geom_quantile]{geom_quantile()}} for continuous \code{x},
 \code{\link[=geom_violin]{geom_violin()}} for a richer display of the distribution, and
 \code{\link[=geom_jitter]{geom_jitter()}} for a useful technique for small data.
+}
+\section{Aesthetics}{
+
+\code{geom_boxplot()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \strong{\code{lower} \emph{or} \code{xlower}} \tab   \cr\cr
+ • \tab \strong{\code{upper} \emph{or} \code{xupper}} \tab   \cr\cr
+ • \tab \strong{\code{middle} \emph{or} \code{xmiddle}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{weight} \tab → \code{1} \cr\cr
+ • \tab \code{width} \tab → \code{0.9} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

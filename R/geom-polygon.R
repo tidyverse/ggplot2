@@ -8,7 +8,7 @@
 #' differentiates the outer ring points from those describing holes in the
 #' polygon.
 #'
-#' @eval rd_aesthetics("geom", "polygon")
+#' @aesthetics GeomPolygon
 #' @seealso
 #'  [geom_path()] for an unfilled polygon,
 #'  [geom_ribbon()] for a polygon anchored on the x-axis

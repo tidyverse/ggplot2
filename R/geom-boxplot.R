@@ -24,7 +24,7 @@
 #' This gives a roughly 95% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
-#' @eval rd_aesthetics("geom", "boxplot")
+#' @aesthetics GeomBoxplot
 #'
 #' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and

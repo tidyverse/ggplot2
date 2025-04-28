@@ -8,7 +8,7 @@
 #' Both geoms draw a single segment/curve per case. See `geom_path()` if you
 #' need to connect points across multiple cases.
 #'
-#' @eval rd_aesthetics("geom", "segment")
+#' @aesthetics GeomSegment
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by [grid::arrow()].

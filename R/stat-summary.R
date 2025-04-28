@@ -7,7 +7,7 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("stat", "summary")
+#' @aesthetics StatSummary
 #' @seealso [geom_errorbar()], [geom_pointrange()],
 #'  [geom_linerange()], [geom_crossbar()] for geoms to
 #'  display summarised data
