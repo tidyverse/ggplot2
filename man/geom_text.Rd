@@ -308,18 +308,18 @@ The \href{https://ggplot2-book.org/annotations#sec-text-labels}{text labels sect
 
 \code{geom_text()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
 \tabular{rll}{
- • \tab \strong{\code{\link[=ggplot2::aes_position]{x}}} \tab   \cr\cr
- • \tab \strong{\code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
  • \tab \strong{\code{label}} \tab   \cr\cr
- • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
  • \tab \code{angle} \tab → \code{0} \cr\cr
- • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
  • \tab \code{family} \tab → via \code{theme()} \cr\cr
  • \tab \code{fontface} \tab → \code{1} \cr\cr
- • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
  • \tab \code{hjust} \tab → \code{0.5} \cr\cr
  • \tab \code{lineheight} \tab → \code{1.2} \cr\cr
- • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
  • \tab \code{vjust} \tab → \code{0.5} \cr\cr
 }
 

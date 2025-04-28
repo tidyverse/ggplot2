@@ -181,8 +181,8 @@ ggplot(plain, aes(x)) +
 
 \code{stat_ecdf()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
 \tabular{rll}{
- • \tab \strong{\code{\link[=ggplot2::aes_position]{x}} \emph{or} \code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
- • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
  • \tab \code{weight} \tab → \code{NULL} \cr\cr
 }
 

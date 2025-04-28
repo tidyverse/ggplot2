@@ -193,6 +193,10 @@ roxy_tag_parse.roxy_tag_aesthetics <- function(x) {
 }
 
 roxy_tag_rd.roxy_tag_aesthetics <- function(x, base_path, env) {
+  # When we document ggplot2 itself, we don't need to prefix links with ggplot2
+  if (basename(base_path) == "ggplot2") {
+    x$val <- gsub("\\link[=ggplot2::", "\\link[=", x$val, fixed = TRUE)
+  }
   roxygen2::rd_section("aesthetics", x$val)
 }
 

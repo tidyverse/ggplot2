@@ -297,20 +297,20 @@ box plots. The American Statistician 32, 12-16.
 
 \code{geom_boxplot()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
 \tabular{rll}{
- • \tab \strong{\code{\link[=ggplot2::aes_position]{x}} \emph{or} \code{\link[=ggplot2::aes_position]{y}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
  • \tab \strong{\code{lower} \emph{or} \code{xlower}} \tab   \cr\cr
  • \tab \strong{\code{upper} \emph{or} \code{xupper}} \tab   \cr\cr
  • \tab \strong{\code{middle} \emph{or} \code{xmiddle}} \tab   \cr\cr
- • \tab \strong{\code{\link[=ggplot2::aes_position]{ymin}} \emph{or} \code{\link[=ggplot2::aes_position]{xmin}}} \tab   \cr\cr
- • \tab \strong{\code{\link[=ggplot2::aes_position]{ymax}} \emph{or} \code{\link[=ggplot2::aes_position]{xmax}}} \tab   \cr\cr
- • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
- • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=ggplot2::aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=ggplot2::aes_group_order]{group}} \tab → inferred \cr\cr
- • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=ggplot2::aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
  • \tab \code{weight} \tab → \code{1} \cr\cr
  • \tab \code{width} \tab → \code{0.9} \cr\cr
 }
