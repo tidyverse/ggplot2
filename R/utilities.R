@@ -852,56 +852,6 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   )
 }
 
-# TODO: delete shims when {scales} releases >1.3.0.9000
-# and bump {scales} version requirements
-# Shim for scales/#424
-col_mix <- function(a, b, amount = 0.5) {
-  input <- vec_recycle_common(a = a, b = b, amount = amount)
-  a <- grDevices::col2rgb(input$a, TRUE)
-  b <- grDevices::col2rgb(input$b, TRUE)
-  new <- (a * (1 - input$amount) + b * input$amount)
-  grDevices::rgb(
-    new["red", ], new["green", ], new["blue", ],
-    alpha = new["alpha", ], maxColorValue = 255
-  )
-}
-
-# Shim for scales/#427
-as_discrete_pal <- function(x, ...) {
-  if (is.function(x)) {
-    return(x)
-  }
-  pal_manual(x)
-}
-
-# Shim for scales/#427
-as_continuous_pal <- function(x, ...) {
-  if (is.function(x)) {
-    return(x)
-  }
-  is_color <- grepl("^#(([[:xdigit:]]{2}){3,4}|([[:xdigit:]]){3,4})$", x) |
-    x %in% grDevices::colours()
-  if (all(is_color)) {
-    colour_ramp(x)
-  } else {
-    stats::approxfun(seq(0, 1, length.out = length(x)), x)
-  }
-}
-
-# Replace shims by actual scales function when available
-on_load({
-  nse <- getNamespaceExports("scales")
-  if ("col_mix" %in% nse) {
-    col_mix <- scales::col_mix
-  }
-  if ("as_discrete_pal" %in% nse) {
-    as_discrete_pal <- scales::as_discrete_pal
-  }
-  if ("as_continuous_pal" %in% nse) {
-    as_continuous_pal <- scales::as_continuous_pal
-  }
-})
-
 # TODO: Replace me if rlang/#1730 gets implemented
 # Similar to `rlang::check_installed()` but returns boolean and misses
 # features such as versions, comparisons and using {pak}.

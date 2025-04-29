@@ -346,6 +346,35 @@ Facet <- ggproto("Facet", NULL,
 
   ## Layout$render() -------------------------------------------------------
 
+  draw_panel_content = function(self, panels, layout, x_scales, y_scales,
+                                ranges, coord, data, theme, params, ...) {
+    facet_bg <- self$draw_back(
+      data,
+      layout,
+      x_scales,
+      y_scales,
+      theme,
+      params
+    )
+    facet_fg <- self$draw_front(
+      data,
+      layout,
+      x_scales,
+      y_scales,
+      theme,
+      params
+    )
+
+    # Draw individual panels, then call `$draw_panels()` method to
+    # assemble into gtable
+    lapply(seq_along(panels[[1]]), function(i) {
+      panel <- lapply(panels, `[[`, i)
+      panel <- c(facet_bg[i], panel, facet_fg[i])
+      panel <- coord$draw_panel(panel, ranges[[i]], theme)
+      ggname(paste("panel", i, sep = "-"), panel)
+    })
+  },
+
   #' @field draw_back,draw_front
   #' **Description**
   #'
