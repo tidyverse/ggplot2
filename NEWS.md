@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* (internal) New `Facet$draw_panel_content()` method for delegating panel 
+  assembly (@Yunuuuu, #6406).
 * Facet gains a new method `setup_panel_params` to interact with the
   panel_params setted by Coord object (@Yunuuuu, #6397, #6380)
 * `position_fill()` avoids stacking observations of zero (@teunbrand, #6338)
