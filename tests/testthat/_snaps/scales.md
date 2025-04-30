@@ -198,13 +198,13 @@
 
 # training incorrectly appropriately communicates the offenders
 
-    Continuous values supplied to discrete scale.
-    i Example values: 1, 2, 3, 4, and 5
+    Continuous value supplied to a discrete scale.
+    i Example values: 1, 2, 3, 4, and 5.
 
 ---
 
-    Discrete values supplied to continuous scale.
-    i Example values: "A", "B", "C", "D", and "E"
+    Discrete value supplied to a continuous scale.
+    i Example values: "A" and "E".
 
 # Using `scale_name` prompts deprecation message
 
