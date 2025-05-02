@@ -120,8 +120,8 @@ StatManual <- ggproto(
   "StatManual", Stat,
 
   setup_params = function(data, params) {
-    params$fun <- allow_lambda(params$fun)
-    check_function(params$fun, arg = "fun")
+    params[["fun"]] <- allow_lambda(params[["fun"]])
+    check_function(params[["fun"]], arg = "fun")
     params
   },
 

@@ -351,7 +351,7 @@ get_alt_text.gtable <- function(p, ...) {
 #'
 generate_alt_text <- function(p) {
   # Combine titles
-  if (!is.null(p$label$title %||% p$labels$subtitle)) {
+  if (!is.null(p$labels$title %||% p$labels$subtitle)) {
     title <- sub("\\.?$", "", c(p$labels$title, p$labels$subtitle))
     if (length(title) == 2) {
       title <- paste0(title[1], ": ", title[2])

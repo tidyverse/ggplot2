@@ -95,7 +95,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     msg <- character()
-    method <- params$method
+    method <- params[["method"]]
     if (is.null(method) || identical(method, "auto")) {
       # Use loess for small datasets, gam with a cubic regression basis for
       # larger. Based on size of the _largest_ group to avoid bad memory
@@ -144,14 +144,14 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
     # If gam and gam's method is not specified by the user then use REML
     if (identical(method, gam_method())) {
-      params$method.args$method <- params$method.args$method %||% "REML"
+      params$method.args[["method"]] <- params$method.args[["method"]] %||% "REML"
     }
 
     if (length(msg) > 0) {
       cli::cli_inform("{.fn geom_smooth} using {msg}")
     }
 
-    params$method <- method
+    params[["method"]] <- method
     params
   },
 
