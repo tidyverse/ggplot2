@@ -22,6 +22,9 @@
 #'   alignment with the coordinates.
 #' @param inner.radius A `numeric` between 0 and 1 setting the size of a
 #'   inner radius hole.
+#' @param panel.margin A single [unit][grid::unit] object indicating the margin
+#' around the panel area. Reducing this value decreases the spacing between the
+#' panel area and the axes.
 #' @param reverse A string giving which directions to reverse. `"none"`
 #'   (default) keep directions as is. `"theta"` reverses the angle and `"r"`
 #'   reverses the radius. `"thetar"` reverses both the angle and the radius.
@@ -51,6 +54,15 @@
 #'     thetalim = c(200, 300),
 #'     rlim = c(15, 30),
 #'   )
+#' 
+#' # Remove the spacing between the panel area and axis
+#' ggplot(mtcars, aes(disp, mpg)) +
+#'   geom_point() +
+#'   coord_radial(
+#'     start = -0.4 * pi,
+#'     end = 0.4 * pi, 
+#'     panel.margin = unit(0, "mm")
+#'   )
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
                          thetalim = NULL, rlim = NULL, expand = TRUE,
@@ -58,7 +70,8 @@ coord_radial <- function(theta = "x",
                          clip = "off",
                          r.axis.inside = NULL,
                          rotate.angle = FALSE,
-                         inner.radius = 0,
+                         inner.radius = 0, 
+                         panel.margin = NULL,
                          reverse = "none",
                          r_axis_inside = deprecated(),
                          rotate_angle = deprecated()) {
@@ -93,7 +106,11 @@ coord_radial <- function(theta = "x",
   check_number_decimal(start, allow_infinite = FALSE)
   check_number_decimal(end, allow_infinite = FALSE, allow_null = TRUE)
   check_number_decimal(inner.radius, min = 0, max = 1, allow_infinite = FALSE)
-
+  if (is.null(panel.margin)) {
+    panel.margin <- unit(0.1, "npc")
+  } else if (length(panel.margin) != 1L || !is.unit(panel.margin)) {
+    cli::cli_abort("{.arg panel.margin} must be a single {.fn unit}")
+  }
   arc <- c(start, end %||% (start + 2 * pi))
   if (arc[1] > arc[2]) {
     n_rotate <- ((arc[1] - arc[2]) %/% (2 * pi)) + 1
@@ -113,7 +130,7 @@ coord_radial <- function(theta = "x",
     }
   }
 
-  inner.radius <- c(inner.radius, 1) * 0.4
+  inner.radius <- c(inner.radius, 1) * 0.5
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
 
   ggproto(NULL, CoordRadial,
@@ -126,6 +143,7 @@ coord_radial <- function(theta = "x",
     r_axis_inside = r.axis.inside,
     rotate_angle = rotate.angle,
     inner_radius = inner.radius,
+    panel_margin = panel.margin,
     clip = clip
   )
 }
@@ -184,7 +202,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         expand = params$expand[c(3, 1)]
       ),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
-           arc = self$arc, inner_radius = self$inner_radius)
+           arc = self$arc, inner_radius = self$inner_radius,
+           panel_margin = self$panel_margin)
     )
 
     axis_rotation <- self$r_axis_inside
@@ -350,14 +369,36 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (!isFALSE(self$r_axis_inside)) {
       return(list(left = zeroGrob(), right = zeroGrob()))
     }
-    CoordCartesian$render_axis_v(panel_params, theme)
+    axis <- CoordCartesian$render_axis_v(panel_params, theme)
+
+    # align the axis with the panel area
+    panel_margin <- panel_params$panel_margin
+    vp <- viewport(height = unit(1, "npc") - panel_margin * 2L)
+    lapply(axis, function(g) {
+      if (is.null(g$vp)) {
+        editGrob(g, vp = vp)
+      } else {
+        editGrob(g, vp = vpStack(vp, g$vp))
+      }
+    })
   },
 
   render_axis_h = function(self, panel_params, theme) {
     if (!isFALSE(self$r_axis_inside)) {
       return(list(top = zeroGrob(), bottom = zeroGrob()))
     }
-    CoordCartesian$render_axis_h(panel_params, theme)
+    axis <- CoordCartesian$render_axis_h(panel_params, theme)
+
+    # align the axis with the panel area
+    panel_margin <- panel_params$panel_margin
+    vp <- viewport(width = unit(1, "npc") - panel_margin * 2L)
+    lapply(axis, function(g) {
+      if (is.null(g$vp)) {
+        editGrob(g, vp = vp)
+      } else {
+        editGrob(g, vp = vpStack(vp, g$vp))
+      }
+    })
   },
 
   render_bg = function(self, panel_params, theme) {
@@ -420,7 +461,17 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         vp = viewport(clip = clip_path)
       ))
     }
-    ggproto_parent(Coord, self)$draw_panel(panel, params, theme)
+    panel <- ggproto_parent(Coord, self)$draw_panel(panel, params, theme)
+    panel_margin <- params$panel_margin
+    vp <- viewport(
+      width = unit(1, "npc") - panel_margin * 2L,
+      height = unit(1, "npc") - panel_margin * 2L
+    )
+    if (is.null(panel$vp)) {
+      editGrob(panel, vp = vp)
+    } else {
+      editGrob(panel, vp = vpStack(vp, panel$vp))
+    }
   },
 
   labels = function(self, labels, panel_params) {

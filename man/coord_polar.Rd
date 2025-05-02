@@ -19,6 +19,7 @@ coord_radial(
   r.axis.inside = NULL,
   rotate.angle = FALSE,
   inner.radius = 0,
+  panel.margin = NULL,
   reverse = "none",
   r_axis_inside = deprecated(),
   rotate_angle = deprecated()
@@ -64,6 +65,10 @@ alignment with the coordinates.}
 
 \item{inner.radius}{A \code{numeric} between 0 and 1 setting the size of a
 inner radius hole.}
+
+\item{panel.margin}{A single \link[grid:unit]{unit} object indicating the margin
+around the panel area. Reducing this value decreases the spacing between the
+panel area and the axes.}
 
 \item{reverse}{A string giving which directions to reverse. \code{"none"}
 (default) keep directions as is. \code{"theta"} reverses the angle and \code{"r"}
