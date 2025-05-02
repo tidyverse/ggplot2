@@ -341,7 +341,7 @@ GuideBins <- ggproto(
 
 parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
 
-  if (is.waiver(scale$labels) || is.function(scale$labels)) {
+  if (is_waiver(scale$labels) || is.function(scale$labels)) {
     breaks <- breaks[!is.na(breaks)]
   }
   if (length(breaks) == 0) {
