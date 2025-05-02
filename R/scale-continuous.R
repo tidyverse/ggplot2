@@ -131,7 +131,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
 }
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export

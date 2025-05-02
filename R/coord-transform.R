@@ -106,7 +106,7 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
 }
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

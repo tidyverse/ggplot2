@@ -84,7 +84,7 @@ geom_function <- function(mapping = NULL, data = NULL, stat = "function",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

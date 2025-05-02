@@ -36,7 +36,7 @@ position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export

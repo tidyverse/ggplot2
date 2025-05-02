@@ -44,7 +44,7 @@ stat_bin_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 stat_binhex <- stat_bin_hex
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export

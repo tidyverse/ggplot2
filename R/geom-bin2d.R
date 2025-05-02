@@ -56,7 +56,7 @@ geom_bin_2d <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 geom_bin2d <- geom_bin_2d
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

@@ -50,7 +50,7 @@ stat_spoke <- function(...) {
   lifecycle::deprecate_stop("2.0.0", "stat_spoke()", "geom_spoke()")
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

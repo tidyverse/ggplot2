@@ -1,83 +1,105 @@
-#' @section Positions:
+#' Positions
 #'
+#' @description
 #' All `position_*()` functions (like `position_dodge()`) return a
 #' `Position*` object (like `PositionDodge`). The `Position*`
 #' object is responsible for adjusting the position of overlapping geoms.
 #'
+#' @details
 #' The way that the `position_*` functions work is slightly different from
 #' the `geom_*` and `stat_*` functions, because a `position_*`
 #' function actually "instantiates" the `Position*` object by creating a
-#' descendant, and returns that.
+#' descendant, and returns that. The object is chaperoned by the [Layer] class.
 #'
-#' Each of the `Position*` objects is a [ggproto()] object,
-#' descended from the top-level `Position`, and each implements the
-#' following methods:
+#' To create a new type of Position object, you typically will want to override
+#' one or more of the following:
 #'
-#'   - `compute_layer(self, data, params, panel)` is called once
-#'     per layer. `panel` is currently an internal data structure, so
-#'     this method should not be overridden.
+#' * The `required_aes` and `default_aes` fields.
+#' * The `setup_params()` and `setup_data()` methods.
+#' * One of the `compute_layer()` or `compute_panel()` methods.
 #'
-#'   - `compute_panel(self, data, params, scales)` is called once per
-#'     panel and should return a modified data frame.
+#' @section Convention:
 #'
-#'     `data` is a data frame containing the variables named according
-#'     to the aesthetics that they're mapped to. `scales` is a list
-#'     containing the `x` and `y` scales. There functions are called
-#'     before the facets are trained, so they are global scales, not local
-#'     to the individual panels. `params` contains the parameters returned by
-#'     `setup_params()`.
-#'   - `setup_params(data, params)`: called once for each layer.
-#'      Used to setup defaults that need to complete dataset, and to inform
-#'      the user of important choices. Should return list of parameters.
-#'   - `setup_data(data, params)`: called once for each layer,
-#'      after `setup_params()`. Should return modified `data`.
-#'      Default checks that required aesthetics are present.
+#' The object name that a new class is assigned to is typically the same as the
+#' class name. Position class name are in UpperCamelCase and start with the
+#' `Position*` prefix, like `PositionNew`.
 #'
-#' And the following fields
-#'   - `required_aes`: a character vector giving the aesthetics
-#'      that must be present for this position adjustment to work.
+#' A constructor functions is usually paired with a Position class. The
+#' constructor copies the position class and populates parameters. The
+#' constructor function name is formatted by taking the Position class name and
+#' formatting it with snake_case, so that `PositionNew` becomes `position_new()`.
 #'
-#' See also the `r link_book("new positions section", "extensions#new-positions")`
-#'
-#' @rdname ggplot2-ggproto
+#' @export
 #' @format NULL
 #' @usage NULL
-#' @export
-Position <- ggproto("Position",
+#' @seealso The `r link_book("new positions section", "extensions#new-positions")`
+#' @keywords internal
+#' @family Layer components
+#' @examples
+#' # Extending the class
+#' PositionRank <- ggproto(
+#'   "PositionRank", Position,
+#'   # Fields
+#'   required_aes = c("x", "y"),
+#'   # Methods
+#'   setup_params = function(self, data) list(width = self$width),
+#'   compute_panel = function(data, params, scales) {
+#'     width <- params$width
+#'     if (is.null(width)) {
+#'       width <- resolution(data$x, zero = FALSE, TRUE) * 0.4
+#'     }
+#'     rank   <- stats::ave(data$y, data$group, FUN = rank)
+#'     rank   <- scales::rescale(rank, to = c(-width, width) / 2)
+#'     data$x <- data$x + rank
+#'     data
+#'   }
+#' )
+#'
+#' # Building a constructor
+#' position_rank <- function(width = NULL) {
+#'   ggproto(NULL, PositionRank, width = width)
+#' }
+#'
+#' # Use new position in plot
+#' ggplot(mpg, aes(drv, displ)) +
+#'   geom_point(position = position_rank(width = 0.5))
+Position <- ggproto(
+  "Position",
+
+  # Fields ------------------------------------------------------------------
+
+  #' @field required_aes A character vector naming aesthetics that are necessary
+  #' to compute the position adjustment.
   required_aes = character(),
 
+  #' @field default_aes A [mapping][aes()] of default values for aesthetics.
   default_aes = aes(),
 
-  setup_params = function(self, data) {
-    list()
-  },
+  # Methods -----------------------------------------------------------------
 
-  setup_data = function(self, data, params) {
-    check_required_aesthetics(self$required_aes, names(data), snake_class(self))
-    data
-  },
+  ## compute_position -------------------------------------------------------
 
-  compute_layer = function(self, data, params, layout) {
-    dapply(data, "PANEL", function(data) {
-      if (empty(data)) return(data_frame0())
-
-      scales <- layout$get_scales(data$PANEL[1])
-      self$compute_panel(data = data, params = params, scales = scales)
-    })
-  },
-
-  compute_panel = function(self, data, params, scales) {
-    cli::cli_abort("Not implemented.")
-  },
-
-  aesthetics = function(self) {
-    required_aes <- self$required_aes
-    if (!is.null(required_aes)) {
-      required_aes <- unlist(strsplit(self$required_aes, "|", fixed = TRUE))
-    }
-    c(union(required_aes, names(self$default_aes)))
-  },
-
+  #' @field use_defaults
+  #' **Description**
+  #'
+  #' A function method for completing the layer data by filling in default
+  #' position aesthetics that are not present. These can come from two sources:
+  #' either from the layer parameters as static, unmapped aesthetics or from
+  #' the `default_aes` field.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Position$use_defaults(data, params)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`data`}{A data frame of the layer's data}
+  #'   \item{`params`}{A list of fixed aesthetic parameters}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A data frame with completed layer data
   use_defaults = function(self, data, params = list()) {
 
     aes <- self$aesthetics()
@@ -98,6 +120,135 @@ Position <- ggproto("Position",
     data[names(new)] <- new
     data
 
+  },
+
+  #' @field setup_params
+  #' **Description**
+  #'
+  #' A function method for modifying or checking the parameters based on the
+  #' data. The default method returns an empty list.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Position$setup_params(data)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`data`}{A data frame with the layer's data.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A list of parameters
+  setup_params = function(self, data) {
+    list()
+  },
+
+  #' @field setup_data
+  #' **Description**
+  #'
+  #' A function method for modifying or checking the data. The default method
+  #' checks for the presence of required aesthetics.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Position$setup_data(data, params)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`data`}{A data frame with the layer's data.}
+  #'   \item{`params`}{A list of parameters coming from the `setup_params()`
+  #'   method}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A data frame with layer data
+  setup_data = function(self, data, params) {
+    check_required_aesthetics(self$required_aes, names(data), snake_class(self))
+    data
+  },
+
+  #' @field compute_layer
+  #' **Description**
+  #'
+  #' A function method orchestrating the position adjust of the entire layer.
+  #' The default method splits the data and passes on adjustment tasks to the
+  #' panel-level `compute_panel()`. In addition, it finds the correct scales
+  #' in the layout object to pass to the panel computation.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Position$compute_layer(data, params, layout)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`data`}{A data frame with the layer's data.}
+  #'   \item{`params`}{A list of parameters coming from the `setup_params()`
+  #'   method}
+  #'   \item{`layout`}{A `<Layout>` ggproto object.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A data frame with layer data
+  compute_layer = function(self, data, params, layout) {
+    dapply(data, "PANEL", function(data) {
+      if (empty(data)) return(data_frame0())
+
+      scales <- layout$get_scales(data$PANEL[1])
+      self$compute_panel(data = data, params = params, scales = scales)
+    })
+  },
+
+  #' @field compute_panel
+  #' **Description**
+  #'
+  #' A function method executing the position adjustment at the panel level.
+  #' The default method is not implemented.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Position$compute_panel(data, params, scales)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`data`}{A data frame with the layer's data.}
+  #'   \item{`params`}{A list of parameters coming from the `setup_params()`
+  #'   method}
+  #'   \item{`scales`}{A list of pre-trained `x` and `y` scales. Note that the
+  #'   position scales are not finalised at this point and reflect the initial
+  #'   data range before computing stats.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A data frame with layer data
+  compute_panel = function(self, data, params, scales) {
+    cli::cli_abort("Not implemented.")
+  },
+
+  ## Utilities ---------------------------------------------------------------
+
+  #' @field aesthetics
+  #' **Description**
+  #'
+  #' A function method for listing out custom position aesthetics for this
+  #' position adjustment.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Position$aesthetics()
+  #' ```
+  #' **Value**
+  #'
+  #' A character vector of aesthetic names.
+  aesthetics = function(self) {
+    required_aes <- self$required_aes
+    if (!is.null(required_aes)) {
+      required_aes <- unlist(strsplit(self$required_aes, "|", fixed = TRUE))
+    }
+    c(union(required_aes, names(self$default_aes)))
   }
 )
 

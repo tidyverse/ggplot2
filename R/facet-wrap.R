@@ -223,7 +223,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export
