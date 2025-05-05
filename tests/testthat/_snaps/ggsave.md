@@ -1,12 +1,3 @@
-# ggsave can create directories
-
-    Code
-      ggsave(path, p)
-    Condition
-      Error in `ggsave()`:
-      ! Cannot find directory 'PATH'
-      i Please supply an existing directory or use `create.dir = TRUE`.
-
 # ggsave warns about empty or multiple filenames
 
     Code
