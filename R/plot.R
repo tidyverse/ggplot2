@@ -111,7 +111,7 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
-  if (!missing(mapping) && !is.mapping(mapping)) {
+  if (!missing(mapping) && !is_mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
       "x" = "You've supplied {.obj_type_friendly {mapping}}."
@@ -148,18 +148,26 @@ ggplot.function <- function(data = NULL, mapping = aes(), ...,
   ))
 }
 
-#' Reports whether x is a type of object
-#' @param x An object to test
-#' @keywords internal
-#' @export
-#' @name is_tests
-is.ggplot <- function(x) inherits(x, "ggplot")
-
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
 
   p
+}
+
+#' Reports wether `x` is a type of object
+#' @param x An object to test
+#' @keywords internal
+#' @export
+#' @name is_tests
+is_ggplot <- function(x) inherits(x, "ggplot")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.ggplot(x) # Deprecated
+is.ggplot <- function(x) {
+  deprecate_soft0("3.5.2", "is.ggplot()", "is_ggplot()")
+  is_ggplot(x)
 }
 
 #' Explicitly draw plot
