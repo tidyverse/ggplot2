@@ -113,7 +113,7 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   df$x <- (df$xmin + df$xmax) / 2
 
   # If no elements occupy the same position, there is no need to add padding
-  if (!any(duplicated(df$xid))) {
+  if (!anyDuplicated(df$xid) > 0) {
     return(df)
   }
 

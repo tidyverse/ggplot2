@@ -25,6 +25,9 @@
 #' @param text all text elements ([element_text()])
 #' @param title all title elements: plot, axes, legends ([element_text()];
 #'   inherits from `text`)
+#' @param point all point elements ([element_point()])
+#' @param polygon all polygon elements ([element_polygon()])
+#' @param geom defaults for geoms ([element_geom()])
 #' @param spacing all spacings ([`unit()`][grid::unit])
 #' @param margins all margins ([margin()])
 #' @param aspect.ratio aspect ratio of the panel
@@ -83,6 +86,10 @@
 #'   between legend keys given as a `unit`. Spacing in the horizontal (x) and
 #'   vertical (y) direction inherit from `legend.key.spacing` or can be
 #'   specified separately. `legend.key.spacing` inherits from `spacing`.
+#' @param legend.key.justification Justification for positioning legend keys
+#'   when more space is available than needed for display. The default, `NULL`,
+#'   stretches keys into the available space. Can be a location like `"center"`
+#'   or `"top"`, or a two-element numeric vector.
 #' @param legend.frame frame drawn around the bar ([element_rect()]).
 #' @param legend.ticks tick marks shown along bars or axes ([element_line()])
 #' @param legend.ticks.length length of tick marks in legend
@@ -142,6 +149,9 @@
 #'   and x axis grid lines are vertical. `panel.grid.*.*` inherits from
 #'   `panel.grid.*` which inherits from `panel.grid`, which in turn inherits
 #'   from `line`
+#' @param panel.widths,panel.heights Sizes for panels (`units`). Can be a
+#'   single unit to set the total size for the panel area, or a unit vector to
+#'   set the size of individual panels.
 #' @param panel.ontop option to place the panel (background, gridlines) over
 #'   the data layers (`logical`). Usually used with a transparent or blank
 #'   `panel.background`.
@@ -204,7 +214,7 @@
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
-#' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @param validate `TRUE` to run `check_element()`, `FALSE` to bypass checks.
 #' @export
 #' @seealso
 #'   [+.gg()] and [%+replace%],
@@ -280,14 +290,14 @@
 #'   legend.position.inside = c(.95, .95),
 #'   legend.justification = c("right", "top"),
 #'   legend.box.just = "right",
-#'   legend.margin = margin(6, 6, 6, 6)
+#'   legend.margin = margin_auto(6)
 #' )
 #'
 #' # The legend.box properties work similarly for the space around
 #' # all the legends
 #' p2 + theme(
 #'   legend.box.background = element_rect(),
-#'   legend.box.margin = margin(6, 6, 6, 6)
+#'   legend.box.margin = margin_auto(6)
 #' )
 #'
 #' # You can also control the display of the keys
@@ -315,6 +325,9 @@ theme <- function(...,
                   rect,
                   text,
                   title,
+                  point,
+                  polygon,
+                  geom,
                   spacing,
                   margins,
                   aspect.ratio,
@@ -388,6 +401,7 @@ theme <- function(...,
                   legend.key.spacing,
                   legend.key.spacing.x,
                   legend.key.spacing.y,
+                  legend.key.justification,
                   legend.frame,
                   legend.ticks,
                   legend.ticks.length,
@@ -425,6 +439,8 @@ theme <- function(...,
                   panel.grid.minor.x,
                   panel.grid.minor.y,
                   panel.ontop,
+                  panel.widths,
+                  panel.heights,
                   plot.background,
                   plot.title,
                   plot.title.position,
@@ -451,37 +467,30 @@ theme <- function(...,
                   strip.switch.pad.wrap,
                   complete = FALSE,
                   validate = TRUE) {
-  elements <- find_args(..., complete = NULL, validate = NULL)
 
-  if (!is.null(elements$axis.ticks.margin)) {
-    deprecate_warn0(
-      "2.0.0", "theme(axis.ticks.margin)",
-      details = "Please set `margin` property of `axis.text` instead"
-    )
-    elements$axis.ticks.margin <- NULL
+  elements <- find_args(..., complete = NULL, validate = NULL)
+  elements <- fix_theme_deprecations(elements)
+  elements <- validate_theme_palettes(elements)
+
+  # If complete theme set all non-blank elements to inherit from blanks
+  if (complete) {
+    elements <- lapply(elements, function(el) {
+      if (is_theme_element(el) && !is_theme_element(el, "blank")) {
+        el$inherit.blank <- TRUE
+      }
+      el
+    })
   }
-  if (!is.null(elements$panel.margin)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
-    )
-    elements$panel.spacing <- elements$panel.margin
-    elements$panel.margin <- NULL
-  }
-  if (!is.null(elements$panel.margin.x)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
-    )
-    elements$panel.spacing.x <- elements$panel.margin.x
-    elements$panel.margin.x <- NULL
-  }
-  if (!is.null(elements$panel.margin.y)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
-    )
-    elements$panel.spacing.y <- elements$panel.margin.y
-    elements$panel.margin.y <- NULL
-  }
-  if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
+  structure(
+    elements,
+    class = c("theme", "gg"),
+    complete = complete,
+    validate = validate
+  )
+}
+
+fix_theme_deprecations <- function(elements) {
+  if (is.unit(elements$legend.margin) && !is_margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
       "i" = "For the old behavior use {.var legend.spacing}"
@@ -523,22 +532,58 @@ theme <- function(...,
     elements$legend.position.inside <- elements$legend.position
     elements$legend.position <- "inside"
   }
+  elements
+}
 
-  # If complete theme set all non-blank elements to inherit from blanks
-  if (complete) {
-    elements <- lapply(elements, function(el) {
-      if (inherits(el, "element") && !inherits(el, "element_blank")) {
-        el$inherit.blank <- TRUE
-      }
-      el
-    })
+validate_theme_palettes <- function(elements) {
+
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous",
+            "palette.color.discrete",  "palette.color.continuous")
+  if (!any(pals %in% names(elements))) {
+    return(elements)
   }
-  structure(
+
+  # Standardise spelling
+  elements <- replace_null(
     elements,
-    class = c("theme", "gg"),
-    complete = complete,
-    validate = validate
+    palette.colour.discrete   = elements$palette.color.discrete,
+    palette.colour.continuous = elements$palette.color.continuous
   )
+  elements$palette.color.discrete   <- NULL
+  elements$palette.color.continuous <- NULL
+
+  # Check for incompatible options
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous")
+  opts <- c("ggplot2.discrete.colour", "ggplot2.continuous.colour",
+            "ggplot2.discrete.fill",   "ggplot2.continuous.fill")
+  index <- which(pals %in% names(elements))
+
+  for (i in index) {
+    if (is.null(getOption(opts[i]))) {
+      next
+    }
+    cli::cli_warn(c(
+      "The {.code options('{opts[i]}')} setting is incompatible with the \\
+        {.arg {pals[i]}} theme setting.",
+      i = "You can set {.code options({opts[i]} = NULL)}."
+    ))
+  }
+
+  elements
+}
+
+#' @export
+#' @rdname is_tests
+is_theme <- function(x) inherits(x, "theme")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.theme(x) # Deprecated
+is.theme <- function(x) {
+  deprecate_soft0("3.5.2", "is.theme()", "is_theme()")
+  is_theme(x)
 }
 
 # check whether theme is complete
@@ -550,12 +595,15 @@ is_theme_validate <- function(x) {
   isTRUE(validate %||% TRUE)
 }
 
-validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
+check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
+  elnames <- names(theme)
+  elnames[startsWith(elnames, "geom.")] <- "geom"
+
   mapply(
-    validate_element, theme, names(theme),
+    check_element, theme, elnames,
     MoreArgs = list(element_tree = tree, call = call)
   )
 }
@@ -580,9 +628,9 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
 #' complete_theme(my_theme)
 complete_theme <- function(theme = NULL, default = theme_get()) {
   if (!is_bare_list(theme)) {
-    check_object(theme, is.theme, "a {.cls theme} object", allow_null = TRUE)
+    check_object(theme, is_theme, "a {.cls theme} object", allow_null = TRUE)
   }
-  check_object(default, is.theme, "a {.cls theme} object")
+  check_object(default, is_theme, "a {.cls theme} object")
   theme <- plot_theme(list(theme = theme), default = default)
 
   # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
@@ -616,10 +664,13 @@ plot_theme <- function(x, default = get_theme()) {
   theme[missing] <- ggplot_global$theme_default[missing]
 
   # Check that all elements have the correct class (element_text, unit, etc)
-  validate_theme(theme)
+  check_theme(theme)
 
   # Remove elements that are not registered
-  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
+  # We accept unregistered `geom.*` elements
+  remove <- setdiff(names(theme), names(get_element_tree()))
+  remove <- remove[!startsWith(remove, "geom.")]
+  theme[remove] <- NULL
   theme
 }
 
@@ -734,6 +785,11 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
+    if (inherits(el_out, "element_geom")) {
+      # Geom elements are expected to have NULL fill/colour, so allow these
+      # to be missing
+      nullprops[c("colour", "fill")] <- FALSE
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
     }
@@ -788,7 +844,7 @@ merge_element.default <- function(new, old) {
     # If old is NULL or element_blank, then just return new
     return(new)
   } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
-             is.logical(new)) {
+             is.logical(new) || is.function(new)) {
     # If new is NULL, or a string, numeric vector, unit, or logical, just return it
     return(new)
   }
@@ -829,6 +885,18 @@ merge_element.element <- function(new, old) {
   new
 }
 
+#' @rdname merge_element
+#' @export
+merge_element.margin <- function(new, old) {
+  if (is.null(old) || inherits(old, "element_blank")) {
+    return(new)
+  }
+  if (anyNA(new)) {
+    new[is.na(new)] <- old[is.na(new)]
+  }
+  new
+}
+
 #' Combine the properties of two elements
 #'
 #' @param e1 An element object
@@ -862,8 +930,17 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
+  if (inherits(e1, "margin") && inherits(e2, "margin")) {
+    if (anyNA(e2)) {
+      e2[is.na(e2)] <- unit(0, "pt")
+    }
+    if (anyNA(e1)) {
+      e1[is.na(e1)] <- e2[is.na(e1)]
+    }
+  }
+
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!inherits(e1, "element") && !inherits(e2, "element")) {
+  if (!is_theme_element(e1) && !is_theme_element(e2)) {
     return(e1)
   }
 
@@ -891,8 +968,14 @@ combine_elements <- function(e1, e2) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
 
+  if (inherits(e1, "element_text")) {
+    e1$margin <- combine_elements(e1$margin, e2$margin)
+  }
+
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
-  if (is.subclass(e2, e1)) {
+  is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
+  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1)) > 0)
+  if (is_subclass) {
     new <- defaults(e1, e2)
     e2[names(new)] <- new
     return(e2)
@@ -900,17 +983,6 @@ combine_elements <- function(e1, e2) {
 
   e1
 }
-
-is.subclass <- function(x, y) {
-  inheritance <- inherits(x, class(y), which = TRUE)
-  !any(inheritance == 0) && length(setdiff(class(x), class(y))) > 0
-}
-
-#' Reports whether x is a theme object
-#' @param x An object to test
-#' @export
-#' @keywords internal
-is.theme <- function(x) inherits(x, "theme")
 
 #' @export
 `$.theme` <- function(x, ...) {

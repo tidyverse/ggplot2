@@ -28,8 +28,12 @@ geom_rect <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRect <- ggproto("GeomRect", Geom,
-  default_aes = aes(colour = NA, fill = "grey35", linewidth = 0.5, linetype = 1,
-    alpha = NA),
+  default_aes = aes(
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.35)),
+    linewidth = from_theme(borderwidth), linetype = from_theme(bordertype),
+    alpha = NA
+  ),
 
   required_aes = c("x|width|xmin|xmax", "y|height|ymin|ymax"),
 
@@ -66,7 +70,7 @@ GeomRect <- ggproto("GeomRect", Geom,
   },
 
   draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     if (!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")

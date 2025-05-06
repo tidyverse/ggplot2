@@ -72,6 +72,7 @@ LayerSf <- ggproto("LayerSf", Layer,
   },
 
   compute_geom_2 = function(self, data, params = self$aes_params, ...) {
+    if (empty(data)) return(data)
     data$geometry <- data$geometry %||% self$computed_geom_params$legend
     ggproto_parent(Layer, self)$compute_geom_2(data, params, ...)
   }

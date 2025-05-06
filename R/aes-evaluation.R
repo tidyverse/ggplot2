@@ -32,7 +32,7 @@
 #' Below follows an overview of the three stages of evaluation and how aesthetic
 #' evaluation can be controlled.
 #'
-#' ## Stage 1: direct input
+#' ## Stage 1: direct input at the start
 #' The default is to map at the beginning, using the layer data provided by
 #' the user. If you want to map directly from the layer data you should not do
 #' anything special. This is the only stage where the original layer data can
@@ -87,9 +87,11 @@
 #' ```
 #'
 #' ## Complex staging
-#' If you want to map the same aesthetic multiple times, e.g. map `x` to a
-#' data column for the stat, but remap it for the geom, you can use the
-#' `stage()` function to collect multiple mappings.
+#' Sometimes, you may want to map the same aesthetic multiple times, e.g. map
+#' `x` to a data column at the start for the layer stat, but remap it later to
+#' a variable from the stat transformation for the layer geom. The `stage()`
+#' function allows you to control multiple mappings for the same aesthetic
+#' across all three stages of evaluation.
 #'
 #' ```r
 #' # Use stage to modify the scaled fill
@@ -97,7 +99,7 @@
 #'   geom_boxplot(aes(fill = stage(class, after_scale = alpha(fill, 0.4))))
 #'
 #' # Using data for computing summary, but placing label elsewhere.
-#' # Also, we're making our own computed variable to use for the label.
+#' # Also, we're making our own computed variables to use for the label.
 #' ggplot(mpg, aes(class, displ)) +
 #'   geom_violin() +
 #'   stat_summary(
@@ -109,6 +111,18 @@
 #'     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
 #'   )
 #' ```
+#'
+#' Conceptually, `aes(x)` is equivalent to `aes(stage(start = x))`, and
+#' `aes(after_stat(count))` is equivalent to `aes(stage(after_stat = count))`,
+#' and so on. `stage()` is most useful when at least two of its arguments are
+#' specified.
+#'
+#' ## Theme access
+#' The `from_theme()` function can be used to acces the [`element_geom()`]
+#' fields of the `theme(geom)` argument. Using `aes(colour = from_theme(ink))`
+#' and `aes(colour = from_theme(accent))` allows swapping between foreground and
+#' accent colours.
+#'
 #' @rdname aes_eval
 #' @name aes_eval
 #'
@@ -192,6 +206,13 @@ stat <- function(x) {
 after_scale <- function(x) {
   x
 }
+
+#' @rdname aes_eval
+#' @export
+from_theme <- function(x) {
+  x
+}
+
 #' @rdname aes_eval
 #' @export
 stage <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
@@ -205,11 +226,9 @@ stage_scaled <- function(start = NULL, after_stat = NULL, after_scale = NULL) {
 }
 
 # Regex to determine if an identifier refers to a calculated aesthetic
+# The pattern includes ye olde '...var...' syntax, which was
+# deprecated in 3.4.0 in favour of `after_stat()`
 match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
-
-is_dotted_var <- function(x) {
-  grepl(match_calculated_aes, x)
-}
 
 # Determine if aesthetic is calculated
 is_calculated_aes <- function(aesthetics, warn = FALSE) {
@@ -221,6 +240,9 @@ is_scaled_aes <- function(aesthetics) {
 is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
 }
+is_themed_aes <- function(aesthetics) {
+  vapply(aesthetics, is_themed, logical(1), USE.NAMES = FALSE)
+}
 is_calculated <- function(x, warn = FALSE) {
   if (is_call(get_expr(x), "after_stat")) {
     return(TRUE)
@@ -229,7 +251,8 @@ is_calculated <- function(x, warn = FALSE) {
   if (is.null(x) || is.atomic(x)) {
     FALSE
   } else if (is.symbol(x)) {
-    res <- is_dotted_var(as.character(x))
+    # Test if x is a dotted variable
+    res <- grepl(match_calculated_aes, as.character(x))
     if (res && warn) {
       what <- I(paste0("The dot-dot notation (`", x, "`)"))
       var <- gsub(match_calculated_aes, "\\1", as.character(x))
@@ -262,6 +285,9 @@ is_scaled <- function(x) {
 }
 is_staged <- function(x) {
   is_call(get_expr(x), "stage")
+}
+is_themed <- function(x) {
+  is_call(get_expr(x), "from_theme")
 }
 
 # Strip dots from expressions
@@ -313,7 +339,7 @@ strip_stage <- function(expr) {
   } else if (is_call(uq_expr, "stage")) {
     uq_expr <- call_match(uq_expr, stage)
     # Prefer stat mapping if present, otherwise original mapping (fallback to
-    # scale mapping) but there should always be two arguments to stage()
+    # scale mapping)
     uq_expr$after_stat %||% uq_expr$start %||% uq_expr$after_scale
   } else {
     expr
@@ -339,3 +365,39 @@ make_labels <- function(mapping) {
   }
   Map(default_label, names(mapping), mapping)
 }
+
+eval_aesthetics <- function(aesthetics, data, mask = NULL) {
+
+  env <- child_env(base_env())
+
+  # Here we mask functions, often to replace `stage()` with context appropriate
+  # functions `stage_calculated()`/`stage_scaled()`.
+  if (length(mask) > 0) {
+    aesthetics <- substitute_aes(aesthetics, mask_function, mask = mask)
+  }
+
+  evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
+  names(evaled) <- names(aesthetics)
+  compact(rename_aes(evaled))
+}
+
+# `mask` is a list of functions where `names(mask)` indicate names of functions
+# that need to be replaced, and `mask[[i]]` is the function to replace it
+# with.
+mask_function <- function(x, mask) {
+  if (!is.call(x)) {
+    return(x)
+  }
+  nms <- names(mask)
+  x[-1] <- lapply(x[-1], mask_function, mask = mask)
+  if (!is_call(x, nms)) {
+    return(x)
+  }
+  for (nm in nms) {
+    if (is_call(x, nm)) {
+      x[[1]] <- mask[[nm]]
+      return(x)
+    }
+  }
+}
+

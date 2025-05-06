@@ -111,7 +111,7 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
-  if (!missing(mapping) && !inherits(mapping, "uneval")) {
+  if (!missing(mapping) && !is_mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
       "x" = "You've supplied {.obj_type_friendly {mapping}}."
@@ -130,7 +130,8 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
-    layout = ggproto(NULL, Layout)
+    layout = ggproto(NULL, Layout),
+    labels = list()
   ), class = c("gg", "ggplot"))
 
   set_last_plot(p)
@@ -154,11 +155,20 @@ plot_clone <- function(plot) {
   p
 }
 
-#' Reports whether x is a ggplot object
+#' Reports wether `x` is a type of object
 #' @param x An object to test
 #' @keywords internal
 #' @export
-is.ggplot <- function(x) inherits(x, "ggplot")
+#' @name is_tests
+is_ggplot <- function(x) inherits(x, "ggplot")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.ggplot(x) # Deprecated
+is.ggplot <- function(x) {
+  deprecate_soft0("3.5.2", "is.ggplot()", "is_ggplot()")
+  is_ggplot(x)
+}
 
 #' Explicitly draw plot
 #'
@@ -176,18 +186,17 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #' @export
 #' @method print ggplot
 #' @examples
-#' colours <- list(~class, ~drv, ~fl)
+#' colours <- c("class", "drv", "fl")
 #'
 #' # Doesn't seem to do anything!
 #' for (colour in colours) {
-#'   ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+#'   ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
 #'     geom_point()
 #' }
 #'
-#' # Works when we explicitly print the plots
 #' for (colour in colours) {
-#'   print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
-#'     geom_point())
+#'   print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
+#'           geom_point())
 #' }
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)

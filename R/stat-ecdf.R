@@ -147,7 +147,7 @@ wecdf <- function(x, weights = NULL) {
   x <- x[ord]
   weights <- weights[ord]
 
-  if (any(!is.finite(weights))) {
+  if (!all(is.finite(weights))) {
     cli::cli_warn(c(paste0(
       "The {.field weight} aesthetic does not support non-finite or ",
       "{.code NA} values."

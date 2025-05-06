@@ -9,6 +9,7 @@ facet_wrap(
   nrow = NULL,
   ncol = NULL,
   scales = "fixed",
+  space = "fixed",
   shrink = TRUE,
   labeller = "label_value",
   as.table = TRUE,
@@ -34,6 +35,13 @@ or a character vector, \code{c("a", "b")}.}
 \item{scales}{Should scales be fixed (\code{"fixed"}, the default),
 free (\code{"free"}), or free in one dimension (\code{"free_x"},
 \code{"free_y"})?}
+
+\item{space}{If \code{"fixed"} (default), all panels have the same size and
+the number of rows and columns in the layout can be arbitrary. If
+\code{"free_x"}, panels have widths proportional to the length of the x-scale,
+but the layout is constrained to one row. If \code{"free_y"}, panels have
+heights proportional to the length of the y-scale, but the layout is
+constrained to one column.}
 
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
 statistics, not raw data. If \code{FALSE}, will be range of raw data
@@ -94,6 +102,18 @@ x- or y-direction respectively.}
 a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} because most
 displays are roughly rectangular.
 }
+\section{Layer layout}{
+
+The \code{\link[=layer]{layer(layout)}} argument in context of \code{facet_wrap()} can take
+the following values:
+\itemize{
+\item \code{NULL} (default) to use the faceting variables to assign panels.
+\item An integer vector to include selected panels. Panel numbers not included in
+the integer vector are excluded.
+\item \code{"fixed"} to repeat data across every panel.
+}
+}
+
 \examples{
 p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 

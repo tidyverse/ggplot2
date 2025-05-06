@@ -126,14 +126,17 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linewidth = NULL,
-    linetype = 1,
+    linetype = from_theme(linetype),
     alpha = NA,
     stroke = 0.5
   ),
 
   use_defaults = function(self, data, params = list(), modifiers = aes(),
-                          default_aes = NULL, ...) {
-    data <- ggproto_parent(Geom, self)$use_defaults(data, params, modifiers, default_aes)
+                          default_aes = NULL, theme = NULL, ...) {
+    data <- ggproto_parent(Geom, self)$use_defaults(
+      data, params, modifiers, default_aes, theme = theme, ...
+    )
+    # Early exit for e.g. legend data that don't have geometry columns
     if (!"geometry" %in% names(data)) {
       return(data)
     }
@@ -156,24 +159,29 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (length(index$point) > 0) {
       points <- GeomPoint$use_defaults(
         vec_slice(data, index$point),
-        params, modifiers
+        params, modifiers, theme = theme
       )
     }
     if (length(index$line) > 0) {
       lines <- GeomLine$use_defaults(
         vec_slice(data, index$line),
-        params, modifiers
+        params, modifiers, theme = theme
       )
     }
     other_default <- modify_list(
       GeomPolygon$default_aes,
-      list(fill = "grey90", colour = "grey35", linewidth = 0.2)
+      aes(
+        fill   = from_theme(fill %||% col_mix(ink, paper, 0.899)),
+        colour = from_theme(colour %||% col_mix(ink, paper, 0.35)),
+        linewidth = from_theme(0.4 * borderwidth)
+      )
     )
     if (length(index$other) > 0) {
       others <- GeomPolygon$use_defaults(
         vec_slice(data, index$other),
         params, modifiers,
-        default_aes = other_default
+        default_aes = other_default,
+        theme = theme
       )
     }
     if (length(index$collection) > 0) {
@@ -185,7 +193,8 @@ GeomSf <- ggproto("GeomSf", Geom,
       collections <- Geom$use_defaults(
         vec_slice(data, index$collection),
         params, modifiers,
-        default_aes = modified
+        default_aes = modified,
+        theme = theme
       )
     }
 
@@ -200,6 +209,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (!inherits(coord, "CoordSf")) {
       cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
     }
+    data$shape <- translate_shape_string(data$shape)
 
     data <- coord$transform(data, panel_params)
 
@@ -219,14 +229,15 @@ GeomSf <- ggproto("GeomSf", Geom,
     point_size[!(is_point | is_collection)] <-
       data$linewidth[!(is_point | is_collection)]
 
-    stroke <- data$stroke * .stroke / 2
+    stroke <- (data$stroke %||% rep(0.5, nrow(data))) * .stroke / 2
     font_size <- point_size * .pt + stroke
 
     linewidth <- data$linewidth * .pt
     linewidth[is_point] <- stroke[is_point]
 
     gp <- gpar(
-      col = colour, fill = fill, fontsize = font_size, lwd = linewidth,
+      col = colour, fill = fill, fontsize = font_size,
+      lwd = linewidth, lty = data$linetype,
       lineend = lineend, linejoin = linejoin, linemitre = linemitre
     )
 
@@ -301,28 +312,25 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
 #' @inheritParams geom_label
 #' @inheritParams stat_sf_coordinates
 geom_sf_label <- function(mapping = aes(), data = NULL,
-                          stat = "sf_coordinates", position = "identity",
+                          stat = "sf_coordinates", position = "nudge",
                           ...,
                           parse = FALSE,
-                          nudge_x = 0,
-                          nudge_y = 0,
                           label.padding = unit(0.25, "lines"),
                           label.r = unit(0.15, "lines"),
-                          label.size = 0.25,
+                          label.size = deprecated(),
+                          border.colour = NULL,
+                          border.color = NULL,
+                          text.colour = NULL,
+                          text.color = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE,
                           fun.geometry = NULL) {
 
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
+  extra_args <- list2(...)
+  if (lifecycle::is_present(label.size)) {
+    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    extra_args$linewidth <- extra_args$linewidth %||% label.size
   }
 
   layer_sf(
@@ -337,10 +345,11 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
-      label.size = label.size,
       na.rm = na.rm,
       fun.geometry = fun.geometry,
-      ...
+      border.colour = border.color %||% border.colour,
+      text.colour = text.color %||% text.colour,
+      !!!extra_args
     )
   )
 }
@@ -350,27 +359,14 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 #' @inheritParams geom_text
 #' @inheritParams stat_sf_coordinates
 geom_sf_text <- function(mapping = aes(), data = NULL,
-                         stat = "sf_coordinates", position = "identity",
+                         stat = "sf_coordinates", position = "nudge",
                          ...,
                          parse = FALSE,
-                         nudge_x = 0,
-                         nudge_y = 0,
                          check_overlap = FALSE,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE,
                          fun.geometry = NULL) {
-
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
 
   layer_sf(
     data = data,

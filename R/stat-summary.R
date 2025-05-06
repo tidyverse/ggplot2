@@ -143,15 +143,15 @@ stat_summary <- function(mapping = NULL, data = NULL,
                          fun.ymax = deprecated()) {
   if (lifecycle::is_present(fun.y)) {
     deprecate_warn0("3.3.0", "stat_summary(fun.y)", "stat_summary(fun)")
-    fun = fun %||% fun.y
+    fun <- fun %||% fun.y
   }
   if (lifecycle::is_present(fun.ymin)) {
     deprecate_warn0("3.3.0", "stat_summary(fun.ymin)", "stat_summary(fun.min)")
-    fun.min = fun.min %||% fun.ymin
+    fun.min <- fun.min %||% fun.ymin
   }
   if (lifecycle::is_present(fun.ymax)) {
     deprecate_warn0("3.3.0", "stat_summary(fun.ymax)", "stat_summary(fun.max)")
-    fun.max = fun.max %||% fun.ymax
+    fun.max <- fun.max %||% fun.ymax
   }
   layer(
     data = data,
@@ -181,18 +181,22 @@ stat_summary <- function(mapping = NULL, data = NULL,
 StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "fun.data", "fun.max", "fun.min", "fun.args"),
+
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
+    params$fun <- make_summary_fun(
+      params$fun.data, params$fun,
+      params$fun.max, params$fun.min,
+      params$fun.args %||% list()
+    )
     params
   },
 
-  compute_panel = function(data, scales, fun.data = NULL, fun = NULL,
-                     fun.max = NULL, fun.min = NULL, fun.args = list(),
-                     na.rm = FALSE, flipped_aes = FALSE) {
+  compute_panel = function(data, scales, fun = NULL,
+                           na.rm = FALSE, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
-    fun <- make_summary_fun(fun.data, fun, fun.max, fun.min, fun.args)
-    summarised <- summarise_by_x(data, fun)
+    summarised <- summarise_by_x(data, fun %||% function(df) mean_se(df$y))
     summarised$flipped_aes <- flipped_aes
     flip_data(summarised, flipped_aes)
   }
@@ -216,6 +220,16 @@ summarise_by_x <- function(data, summary, ...) {
   unique$y <- NULL
 
   merge(summary, unique, by = c("x", "group"), sort = FALSE)
+}
+
+# Return unique columns
+# This is used for figuring out which columns are constant within a group
+#
+# @keyword internal
+uniquecols <- function(df) {
+  df <- df[1, sapply(df, is_unique), drop = FALSE]
+  attr(df, "row.names") <- .set_row_names(nrow(df))
+  df
 }
 
 #' A selection of summary functions from Hmisc

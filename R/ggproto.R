@@ -1,6 +1,6 @@
 #' Create a new ggproto object
 #'
-#' Construct a new object with `ggproto()`, test with `is.ggproto()`,
+#' Construct a new object with `ggproto()`, test with `is_ggproto()`,
 #' and access parent methods/fields with `ggproto_parent()`.
 #'
 #' ggproto implements a protype based OO system which blurs the lines between
@@ -52,7 +52,7 @@
 #'     self$x
 #'   }
 #'  )
-#' is.ggproto(Adder)
+#' is_ggproto(Adder)
 #'
 #' Adder$add(10)
 #' Adder$add(10)
@@ -88,7 +88,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
 
   super <- find_super()
   if (!is.null(super)) {
-    check_object(super, is.ggproto, "a {.cls ggproto} object", arg = "_inherit")
+    check_object(super, is_ggproto, "a {.cls ggproto} object", arg = "_inherit")
     e$super <- find_super
     class(e) <- c(`_class`, class(super))
   } else {
@@ -98,7 +98,6 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e
 }
 
-
 #' @export
 #' @rdname ggproto
 #' @param parent,self Access parent class `parent` of object `self`.
@@ -106,10 +105,17 @@ ggproto_parent <- function(parent, self) {
   structure(list(parent = parent, self = self), class = "ggproto_parent")
 }
 
-#' @param x An object to test.
 #' @export
-#' @rdname ggproto
-is.ggproto <- function(x) inherits(x, "ggproto")
+#' @rdname is_tests
+is_ggproto <- function(x) inherits(x, "ggproto")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.ggproto(x) # Deprecated
+is.ggproto <- function(x) {
+  deprecate_soft0("3.5.2", "is.ggproto()", "is_ggproto()")
+  is_ggproto(x)
+}
 
 fetch_ggproto <- function(x, name) {
   res <- NULL
@@ -305,7 +311,7 @@ object_summaries <- function(x, exclude = NULL, flat = TRUE) {
   values <- vapply(obj_names, function(name) {
     obj <- x[[name]]
     if (is.function(obj)) "function"
-    else if (is.ggproto(obj)) format(obj, flat = flat)
+    else if (is_ggproto(obj)) format(obj, flat = flat)
     else if (is.environment(obj)) "environment"
     else if (is.null(obj)) "NULL"
     else if (is.atomic(obj)) trim(paste(as.character(obj), collapse = " "))

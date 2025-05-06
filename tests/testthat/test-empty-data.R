@@ -34,7 +34,7 @@ test_that("layers with empty data are silently omitted with facet_wrap", {
   d <- ggplot(df0, aes(mpg, wt)) +
     geom_point() +
     facet_wrap(~cyl)
-  expect_error(get_layer_data(d), "must have at least one value")
+  expect_snapshot(get_layer_data(d), error = TRUE)
 
   d <- d + geom_point(data = mtcars)
   expect_equal(nrow(get_layer_data(d, 1)), 0)
@@ -45,7 +45,7 @@ test_that("layers with empty data are silently omitted with facet_grid", {
   d <- ggplot(df0, aes(mpg, wt)) +
     geom_point() +
     facet_grid(am ~ cyl)
-  expect_error(get_layer_data(d), "must have at least one value")
+  expect_snapshot(get_layer_data(d), error = TRUE)
 
   d <- d + geom_point(data = mtcars)
   expect_equal(nrow(get_layer_data(d, 1)), 0)
@@ -53,11 +53,13 @@ test_that("layers with empty data are silently omitted with facet_grid", {
 })
 
 test_that("empty data overrides plot defaults", {
-  # Should error when totally empty data frame because there's no x and y
-  d <- ggplot(mtcars, aes(mpg, wt)) +
-    geom_point() +
-    geom_point(data = data_frame())
-  expect_error(get_layer_data(d), "not found")
+  test_that("Should error when totally empty data frame because there's no x and y", {
+    skip_if(getRversion() <= "4.4.0")
+    d <- ggplot(mtcars, aes(mpg, wt)) +
+      geom_point() +
+      geom_point(data = data_frame())
+    expect_snapshot(get_layer_data(d), error = TRUE)
+  })
 
   # No extra points when x and y vars don't exist but are set
   d <- ggplot(mtcars, aes(mpg, wt)) +
@@ -88,13 +90,13 @@ test_that("empty layers still generate one grob per panel", {
     geom_point() +
     facet_wrap(~y)
 
-  expect_equal(length(get_layer_grob(d)), 3)
+  expect_length(get_layer_grob(d), 3)
 })
 
 test_that("missing layers generate one grob per panel", {
   df <- data_frame(x = 1:4, y = rep(1:2, 2), g = rep(1:2, 2))
   base <- ggplot(df, aes(x, y)) + geom_point(shape = NA, na.rm = TRUE)
 
-  expect_equal(length(get_layer_grob(base)), 1)
-  expect_equal(length(get_layer_grob(base + facet_wrap(~ g))), 2)
+  expect_length(get_layer_grob(base), 1)
+  expect_length(get_layer_grob(base + facet_wrap(~ g)), 2)
 })

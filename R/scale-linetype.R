@@ -5,10 +5,17 @@
 #' line types unless `scale_linetype_binned()` is used. Still, as linetypes has
 #' no inherent order, this use is not advised.
 #'
-#' @inheritParams scale_x_discrete
+#' @inheritParams discrete_scale
 #' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette
-#' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
+#' @details
+#' Lines can be referred to by number, name or hex code. Contrary to base R
+#' graphics, `NA`s are interpreted as blanks.
+#'
+#' \if{html}{\figure{linetype_table.svg}{Named linetypes by number and name}}
+#' \if{latex}{\figure{linetype_table.pdf}}
+#'
+#'
 #' @seealso
 #' The documentation for [differentiation related aesthetics][aes_linetype_size_shape].
 #'
@@ -35,22 +42,20 @@
 #'   scale_linetype_identity() +
 #'   facet_grid(linetype ~ .) +
 #'   theme_void(20)
-scale_linetype <- function(name = waiver(), ..., na.value = "blank") {
+scale_linetype <- function(name = waiver(), ..., aesthetics = "linetype") {
   discrete_scale(
-    "linetype", name = name,
-    palette = pal_linetype(),
-    na.value = na.value,
+    aesthetics, name = name,
+    palette = NULL,
     ...
   )
 }
 
 #' @rdname scale_linetype
 #' @export
-scale_linetype_binned <- function(name = waiver(), ..., na.value = "blank") {
+scale_linetype_binned <- function(name = waiver(), ..., aesthetics = "linetype") {
   binned_scale(
-    "linetype", name = name,
-    palette = pal_binned(pal_linetype()),
-    na.value = na.value,
+    aesthetics, name = name,
+    palette = NULL,
     ...
   )
 }

@@ -12,7 +12,7 @@ scales::alpha
 }
 
 "%|W|%" <- function(a, b) {
-  if (!is.waive(a)) a else b
+  if (!is.waiver(a)) a else b
 }
 
 # Check required aesthetics are present
@@ -82,16 +82,6 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
 #X clist(par()[1:5])
 clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
-}
-
-# Return unique columns
-# This is used for figuring out which columns are constant within a group
-#
-# @keyword internal
-uniquecols <- function(df) {
-  df <- df[1, sapply(df, is_unique), drop = FALSE]
-  rownames(df) <- seq_len(nrow(df))
-  df
 }
 
 #' Convenience function to remove missing values from a data.frame
@@ -192,21 +182,20 @@ should_stop <- function(expr) {
 #' A waiver is a "flag" object, similar to `NULL`, that indicates the
 #' calling function should just use the default value.  It is used in certain
 #' functions to distinguish between displaying nothing (`NULL`) and
-#' displaying a default value calculated elsewhere (`waiver()`)
+#' displaying a default value calculated elsewhere (`waiver()`).
+#' `is.waiver()` reports whether an object is a waiver.
 #'
 #' @export
 #' @keywords internal
 waiver <- function() structure(list(), class = "waiver")
 
-is.waive <- function(x) inherits(x, "waiver")
-
-
-rescale01 <- function(x) {
-  rng <- range(x, na.rm = TRUE)
-  (x - rng[1]) / (rng[2] - rng[1])
-}
+#' @param x An object to test
+#' @export
+#' @rdname waiver
+is.waiver <- function(x) inherits(x, "waiver")
 
 pal_binned <- function(palette) {
+  force(palette)
   function(x) {
     palette(length(x))
   }
@@ -247,15 +236,6 @@ gg_dep <- function(version, msg) {
   invisible()
 }
 
-has_name <- function(x) {
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(rep(FALSE, length(x)))
-  }
-
-  !is.na(nms) & nms != ""
-}
-
 # Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
 lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
 upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -270,10 +250,20 @@ toupper <- function(x) {
   cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
+merge_attrs <- function(new, old) {
+  new_attr <- attributes(new)
+  new <- vec_restore(new, old) # copies old attributes to new
+  new_attr <- new_attr[setdiff(names(new_attr), names(attributes(new)))]
+  attributes(new) <- c(attributes(new), new_attr)
+  new
+}
+
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
-  if (first) x <- firstUpper(x)
+  if (first) {
+    x <- paste0(to_upper_ascii(substring(x, 1, 1)), substring(x, 2))
+  }
   x
 }
 
@@ -284,33 +274,41 @@ snakeize <- function(x) {
   to_lower_ascii(x)
 }
 
-firstUpper <- function(s) {
-  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
-}
-
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
 
 empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waive(df)
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waiver(df)
 }
 
 is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
 
-# This function checks that all columns of a dataframe `x` are data and returns
-# the names of any columns that are not.
-# We define "data" as atomic types or lists, not functions or otherwise.
-# The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
-# and whether they can be expected to follow behavior typical of vectors. See
-# also #3835
-check_nondata_cols <- function(x) {
-  idx <- (vapply(x, function(x) {
-    is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
-  }, logical(1)))
-  names(x)[which(!idx)]
+check_nondata_cols <- function(data, mapping, problem = NULL, hint = NULL) {
+  # We define "data" as atomic types or lists, not functions or otherwise.
+  # The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
+  # and whether they can be expected to follow behaviour typical of vectors. See
+  # also #3835
+  invalid <- which(!vapply(
+    data, FUN.VALUE = logical(1),
+    function(x) is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
+  ))
+  invalid <- names(data)[invalid]
+
+  if (length(invalid) < 1) {
+    return(invisible())
+  }
+
+  mapping <- vapply(mapping[invalid], as_label, character(1))
+  issues <- paste0("{.code ", invalid, " = ", mapping, "}")
+  names(issues) <- rep("*", length(issues))
+  issues <- c(x = "The following aesthetics are invalid:", issues)
+
+  # Using 'call = NULL' here because `by_layer()` does a good job of indicating
+  # the origin of the error
+  cli::cli_abort(c(problem, issues, i = hint), call = NULL)
 }
 
 compact <- function(x) {
@@ -320,15 +318,6 @@ compact <- function(x) {
 
 is.formula <- function(x) inherits(x, "formula")
 
-deparse2 <- function(x) {
-  y <- deparse(x, backtick = TRUE)
-  if (length(y) == 1) {
-    y
-  } else {
-    paste0(y[[1]], "...")
-  }
-}
-
 dispatch_args <- function(f, ...) {
   args <- list(...)
   formals <- formals(f)
@@ -337,7 +326,6 @@ dispatch_args <- function(f, ...) {
   f
 }
 
-is_missing_arg <- function(x) identical(x, quote(expr = ))
 # Get all arguments in a function as a list. Will fail if an ellipsis argument
 # named .ignore
 # @param ... passed on in case enclosing function uses ellipsis in argument list
@@ -346,7 +334,8 @@ find_args <- function(...) {
   args <- names(formals(sys.function(sys.parent(1))))
 
   vals <- mget(args, envir = env)
-  vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
+  # Remove missing arguments
+  vals <- vals[!vapply(vals, identical, logical(1), y = quote(expr = ))]
 
   modify_list(vals, dots_list(..., `...` = NULL, .ignore_empty = "all"))
 }
@@ -363,18 +352,6 @@ with_seed_null <- function(seed, code) {
   }
 }
 
-seq_asc <- function(to, from) {
-  if (to > from) {
-    integer()
-  } else {
-    to:from
-  }
-}
-
-# Needed to trigger package loading
-#' @importFrom tibble tibble
-NULL
-
 # Wrapping vctrs data_frame constructor with no name repair
 data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
@@ -384,22 +361,18 @@ unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 # Code readability checking for uniqueness
 is_unique <- function(x) vec_unique_count(x) == 1L
 
-is_scalar_numeric <- function(x) is_bare_numeric(x, n = 1L)
-
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
-  x <- lapply(x, validate_column_vec)
+  x <- lapply(x, drop_column_vec)
   data_frame0(!!!x)
 }
-validate_column_vec <- function(x) {
-  if (is_column_vec(x)) {
+
+drop_column_vec <- function(x) {
+  dims <- dim(x)
+  if (length(dims) == 2L && dims[[2]] == 1L) {
     dim(x) <- NULL
   }
   x
-}
-is_column_vec <- function(x) {
-  dims <- dim(x)
-  length(dims) == 2L && dims[[2]] == 1L
 }
 
 # Parse takes a vector of n lines and returns m expressions.
@@ -690,24 +663,6 @@ is_bang <- function(x) {
   })
 }
 
-is_triple_bang <- function(x) {
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  x <- x[[2]]
-  if (!is_bang(x)) {
-    return(FALSE)
-  }
-
-  TRUE
-}
-
 # Restart handler for using vec_rbind with mix of types
 # Ordered is coerced to factor
 # If a character vector is present the other is converted to character
@@ -845,4 +800,112 @@ as_unordered_factor <- function(x) {
   x <- as.factor(x)
   class(x) <- setdiff(class(x), "ordered")
   x
+}
+
+size0 <- function(x) {
+  if (obj_is_vector(x)) {
+    vec_size(x)
+  } else if (is.vector(x)) {
+    length(x)
+  } else {
+    NULL
+  }
+}
+
+fallback_palette <- function(scale) {
+  aes <- scale$aesthetics[1]
+  discrete <- scale$is_discrete()
+  if (discrete) {
+    pal <- switch(
+      aes,
+      colour = , fill = pal_hue(),
+      alpha = function(n) seq(0.1, 1, length.out = n),
+      linewidth = function(n) seq(2, 6, length.out = n),
+      linetype = pal_linetype(),
+      shape = pal_shape(),
+      size = function(n) sqrt(seq(4, 36, length.out = n)),
+      ggplot_global$theme_default[[paste0("palette.", aes, ".discrete")]]
+    )
+    return(pal)
+  }
+  switch(
+    aes,
+    colour = , fill = pal_seq_gradient("#132B43", "#56B1F7"),
+    alpha = pal_rescale(c(0.1, 1)),
+    linewidth = pal_rescale(c(1, 6)),
+    linetype = pal_binned(pal_linetype()),
+    shape = pal_binned(pal_shape()),
+    size = pal_area(),
+    ggplot_global$theme_default[[paste0("palette.", aes, ".continuous")]]
+  )
+}
+
+warn_dots_used <- function(env = caller_env(), call = caller_env()) {
+  check_dots_used(
+    env = env, call = call,
+    # Demote from error to warning
+    error = function(cnd) {
+      # cli uses \f as newlines, not \n
+      msg <- gsub("\n", "\f", cnd_message(cnd))
+      cli::cli_warn(msg, call = call)
+    }
+  )
+}
+
+# TODO: Replace me if rlang/#1730 gets implemented
+# Similar to `rlang::check_installed()` but returns boolean and misses
+# features such as versions, comparisons and using {pak}.
+prompt_install <- function(pkg, reason = NULL) {
+  if (length(pkg) < 1 || is_installed(pkg)) {
+    return(TRUE)
+  }
+  if (!interactive()) {
+    return(FALSE)
+  }
+
+  pkg <- pkg[!vapply(pkg, is_installed, logical(1))]
+
+  message <- "The {.pkg {pkg}} package{?s} {?is/are} required"
+  if (is.null(reason)) {
+    message <- paste0(message, ".")
+  } else {
+    message <- paste0(message, " ", reason)
+  }
+  question <- "Would you like to install {cli::qty(pkg)}{?it/them}?"
+
+  cli::cli_bullets(c("!" = message, "i" = question))
+  if (utils::menu(c("Yes", "No")) != 1) {
+    return(FALSE)
+  }
+  utils::install.packages(pkg)
+  is_installed(pkg)
+}
+
+compute_data_size <- function(data, size, default = 0.9,
+                              target = "width",
+                              panels = c("across", "by", "ignore"),
+                              ...) {
+
+  data[[target]] <- data[[target]] %||% size
+  if (!is.null(data[[target]])) {
+    return(data)
+  }
+
+  var <- if (target == "height") "y" else "x"
+  panels <- arg_match0(panels, c("across", "by", "ignore"))
+
+  if (panels == "across") {
+    res <- split(data[[var]], data$PANEL, drop = FALSE)
+    res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
+    res <- min(res, na.rm = TRUE)
+  } else if (panels == "by") {
+    res <- stats::ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+  } else {
+    res <- resolution(data[[var]], ...)
+  }
+  if (is_quosure(default)) {
+    default <- eval_tidy(default, data = data)
+  }
+  data[[target]] <- res * (default %||% 0.9)
+  data
 }

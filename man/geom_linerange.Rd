@@ -4,6 +4,7 @@
 \name{geom_crossbar}
 \alias{geom_crossbar}
 \alias{geom_errorbar}
+\alias{geom_errorbarh}
 \alias{geom_linerange}
 \alias{geom_pointrange}
 \title{Vertical intervals: lines, crossbars & errorbars}
@@ -14,7 +15,15 @@ geom_crossbar(
   stat = "identity",
   position = "identity",
   ...,
-  fatten = 2.5,
+  middle.colour = NULL,
+  middle.color = NULL,
+  middle.linetype = NULL,
+  middle.linewidth = NULL,
+  box.colour = NULL,
+  box.color = NULL,
+  box.linetype = NULL,
+  box.linewidth = NULL,
+  fatten = deprecated(),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -29,6 +38,18 @@ geom_errorbar(
   ...,
   na.rm = FALSE,
   orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+geom_errorbarh(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  orientation = "y",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -51,7 +72,7 @@ geom_pointrange(
   stat = "identity",
   position = "identity",
   ...,
-  fatten = 4,
+  fatten = deprecated(),
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -81,7 +102,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -133,9 +154,15 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{fatten}{A multiplicative factor used to increase the size of the
-middle bar in \code{geom_crossbar()} and the middle point in
-\code{geom_pointrange()}.}
+\item{middle.colour, middle.color, middle.linetype, middle.linewidth}{Default aesthetics for the middle line. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
+\item{box.colour, box.color, box.linetype, box.linewidth}{Default aesthetics for the boxes. Set to \code{NULL} to inherit from the
+data's aesthetics.}
+
+\item{fatten}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}  A multiplicative factor
+used to increase the size of the middle bar in \code{geom_crossbar()} and the
+middle point in \code{geom_pointrange()}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -162,6 +189,10 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 Various ways of representing a vertical interval defined by \code{x},
 \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 }
+\note{
+\code{geom_errorbarh()} is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Use
+\code{geom_errorbar(orientation = "y")} instead.
+}
 \section{Orientation}{
 
 This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
@@ -169,16 +200,16 @@ This geom treats each axis differently and, thus, can thus have two orientations
 
 \section{Aesthetics}{
 
-\code{geom_linerange()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}}
-\item \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}}
-\item \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{linetype}}
-\item \code{\link[=aes_linetype_size_shape]{linewidth}}
+\code{geom_linerange()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}} \tab   \cr\cr
+• \tab \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
 }
 Note that \code{geom_pointrange()} also understands \code{size} for the size of the points.
 
@@ -235,6 +266,5 @@ geom_errorbar(
 }
 \seealso{
 \code{\link[=stat_summary]{stat_summary()}} for examples of these guys in use,
-\code{\link[=geom_smooth]{geom_smooth()}} for continuous analogue,
-\code{\link[=geom_errorbarh]{geom_errorbarh()}} for a horizontal error bar.
+\code{\link[=geom_smooth]{geom_smooth()}} for continuous analogue
 }

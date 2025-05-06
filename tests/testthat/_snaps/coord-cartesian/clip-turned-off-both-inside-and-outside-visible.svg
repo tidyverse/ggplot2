@@ -20,14 +20,14 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <rect x='19.93' y='37.23' width='680.15' height='518.85' style='stroke-width: 1.07; stroke: none; fill: #EBEBEB;' />
-<text transform='translate(28.28,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
-<text transform='translate(691.72,296.65) rotate(-270)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
-<text x='360.00' y='555.31' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
-<text x='360.00' y='45.59' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='28.85px' lengthAdjust='spacingAndGlyphs'>inside</text>
-<text transform='translate(19.17,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
-<text transform='translate(700.83,296.65) rotate(-270)' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
-<text x='360.00' y='564.43' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
-<text x='360.00' y='36.47' text-anchor='middle' style='font-size: 11.04px; font-family: sans;' textLength='35.60px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text transform='translate(28.25,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='28.74px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text transform='translate(691.75,296.65) rotate(-270)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='28.74px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text x='360.00' y='555.32' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='28.74px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text x='360.00' y='45.56' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='28.74px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text transform='translate(19.17,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='35.48px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text transform='translate(700.83,296.65) rotate(-270)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='35.48px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='360.00' y='564.40' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='35.48px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='360.00' y='36.47' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='35.48px' lengthAdjust='spacingAndGlyphs'>outside</text>
 <text x='19.93' y='29.01' style='font-size: 13.20px; font-family: sans;' textLength='272.79px' lengthAdjust='spacingAndGlyphs'>clip turned off, both 'inside' and 'outside' visible</text>
 </g>
 </svg>

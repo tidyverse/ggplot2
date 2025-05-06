@@ -1,7 +1,7 @@
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5))
+    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5))
 
   scales <- list(
     x = scale_x_continuous(limits = c(0, 2*pi)),
@@ -9,7 +9,7 @@ test_that("polar distance is calculated correctly", {
   )
   coord <- coord_polar()
   panel_params <- coord$setup_panel_params(scales$x, scales$y)
-  dists <- coord$distance(dat$theta, dat$r, panel_params)
+  dists <- coord$distance(dat$theta, dat$r, panel_params, boost = 1)
 
   # dists is normalized by dividing by this value, so we'll add it back
   # The maximum length of a spiral arc, from (t,r) = (0,0) to (2*pi,1)
@@ -155,8 +155,65 @@ test_that("bounding box calculations are sensible", {
   )
 })
 
+test_that("when both x and y are AsIs, they are not transformed", {
+
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = I(0.25), label = "foo") +
+    scale_x_continuous(limits = c(0, 10)) +
+    scale_y_continuous(limits = c(0, 10))
+
+  grob <- get_layer_grob(p + coord_polar())[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
+
+  grob <- get_layer_grob(p + coord_radial())[[1]]
+  location <- c(as.numeric(grob$x), as.numeric(grob$y))
+  expect_equal(location, c(0.75, 0.25))
+
+  # Check warning is thrown if only one is AsIs
+  p <- ggplot() +
+    annotate("text", x = I(0.75), y = 2.5, label = "foo") +
+    scale_x_continuous(limits = c(0, 10)) +
+    scale_y_continuous(limits = c(0, 10)) +
+    coord_radial()
+
+  expect_snapshot_warning(ggplotGrob(p))
+
+})
+
+test_that("radial coords can be reversed", {
+  p <- ggplot(data_frame0(x = c(0, 2), y = c(0, 2))) +
+    aes(x = x, y = y) +
+    geom_point() +
+    scale_x_continuous(limits = c(-1, 3), expand = c(0, 0)) +
+    scale_y_continuous(limits = c(-1, 3), expand = c(0, 0))
+  fwd <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "none")
+  rev <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "thetar")
+
+  fwd <- layer_grob(p + fwd)[[1]]
+  rev <- layer_grob(p + rev)[[1]]
+
+  expect_equal(as.numeric(fwd$x), rev(as.numeric(rev$x)))
+  expect_equal(as.numeric(fwd$y), rev(as.numeric(rev$y)))
+})
+
+test_that("coord_radial can deal with empty breaks (#6271)", {
+  p <- ggplot_build(
+    ggplot(mtcars, aes(mpg, disp)) +
+      geom_point() +
+      coord_radial() +
+      scale_x_continuous(breaks = numeric()) +
+      scale_y_continuous(breaks = numeric())
+  )
+  guides <- p$layout$panel_params[[1]]$guides$guides
+  is_none <- vapply(guides, inherits, logical(1), what = "GuideNone")
+  expect_true(all(is_none))
+})
 
 # Visual tests ------------------------------------------------------------
+
+#TODO: Once {vdiffr} supports non-rectangular clipping paths, we should add a
+# test for `coord_radial(clip = "on")`'s ability to clip to the sector
 
 test_that("polar coordinates draw correctly", {
   theme <- theme_test() +
@@ -176,7 +233,7 @@ test_that("polar coordinates draw correctly", {
 
   dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
+    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5),
     g     = 1:8
   )
   expect_doppelganger("Rays, circular arcs, and spiral arcs",

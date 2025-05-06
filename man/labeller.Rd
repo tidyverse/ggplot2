@@ -42,7 +42,7 @@ for the argument \code{labeller}.
 \description{
 This function makes it easy to assign different labellers to
 different factors. The labeller can be a function or it can be a
-named character vectors that will serve as a lookup table.
+named character vector that will serve as a lookup table.
 }
 \details{
 In case of functions, if the labeller has class \code{labeller}, it

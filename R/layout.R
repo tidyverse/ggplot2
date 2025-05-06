@@ -60,40 +60,17 @@ Layout <- ggproto("Layout", NULL,
   # Assemble the facet fg & bg, the coord fg & bg, and the layers
   # Returns a gtable
   render = function(self, panels, data, theme, labels) {
-    facet_bg <- self$facet$draw_back(data,
+    panels <- self$facet$draw_panel_content(
+      panels,
       self$layout,
       self$panel_scales_x,
       self$panel_scales_y,
-      theme,
-      self$facet_params
-    )
-    facet_fg <- self$facet$draw_front(
+      self$panel_params,
+      self$coord,
       data,
-      self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
       theme,
       self$facet_params
     )
-
-    # Draw individual panels, then assemble into gtable
-    panels <- lapply(seq_along(panels[[1]]), function(i) {
-      panel <- lapply(panels, `[[`, i)
-      panel <- c(facet_bg[i], panel, facet_fg[i])
-
-      coord_fg <- self$coord$render_fg(self$panel_params[[i]], theme)
-      coord_bg <- self$coord$render_bg(self$panel_params[[i]], theme)
-      if (isTRUE(theme$panel.ontop)) {
-        panel <- c(panel, list(coord_bg), list(coord_fg))
-      } else {
-        panel <- c(list(coord_bg), panel, list(coord_fg))
-      }
-
-      ggname(
-        paste("panel", i, sep = "-"),
-        gTree(children = inject(gList(!!!panel)))
-      )
-    })
     plot_table <- self$facet$draw_panels(
       panels,
       self$layout,
@@ -105,6 +82,7 @@ Layout <- ggproto("Layout", NULL,
       theme,
       self$facet_params
     )
+    plot_table <- self$facet$set_panel_size(plot_table, theme)
 
     # Draw individual labels, then add to gtable
     labels <- self$coord$labels(
@@ -220,11 +198,14 @@ Layout <- ggproto("Layout", NULL,
     scales_x <- self$panel_scales_x[self$layout$SCALE_X[index]]
     scales_y <- self$panel_scales_y[self$layout$SCALE_Y[index]]
 
-    self$panel_params <- Map(
+    panel_params <- Map(
       self$coord$setup_panel_params,
       scales_x, scales_y,
       MoreArgs = list(params = self$coord_params)
     )[order] # `[order]` does the repeating
+
+    # Let Facet modify `panel_params` for each panel
+    self$panel_params <- self$facet$setup_panel_params(panel_params, self$coord)
 
     invisible()
   },
@@ -254,35 +235,39 @@ Layout <- ggproto("Layout", NULL,
   },
 
   resolve_label = function(self, scale, labels) {
-    # General order is: guide title > scale name > labels
-    aes       <- scale$aesthetics[[1]]
-    primary   <- scale$name %|W|% labels[[aes]]
-    secondary <- if (is.null(scale$secondary.axis)) {
-      waiver()
-    } else {
-      scale$sec_name()
-    } %|W|% labels[[paste0("sec.", aes)]]
-    if (is.derived(secondary)) secondary <- primary
+    aes <- scale$aesthetics[[1]]
+
+    prim_scale <- scale$name
+    seco_scale <- (scale$sec_name %||% waiver)()
+
+    prim_label <- labels[[aes]]
+    seco_label <- labels[[paste0("sec. aes")]]
+
+    prim_guide <- seco_guide <- waiver()
+
     order <- scale$axis_order()
 
-    if (!is.null(self$panel_params[[1]]$guides)) {
-      if ((scale$position) %in% c("left", "right")) {
-        guides <- c("y", "y.sec")
-      } else {
-        guides <- c("x", "x.sec")
-      }
-      params    <- self$panel_params[[1]]$guides$get_params(guides)
+    panel <- self$panel_params[[1]]$guides
+    if (!is.null(panel)) {
+      position <- scale$position
+      aes <- switch(position, left = , right = "y", "x")
+      params <- panel$get_params(paste0(aes, c("", ".sec")))
       if (!is.null(params)) {
-        primary   <- params[[1]]$title %|W|% primary
-        secondary <- params[[2]]$title %|W|% secondary
-        position  <- params[[1]]$position %||% scale$position
-        if (position != scale$position) {
+        prim_guide <- params[[1]]$title
+        seco_guide <- params[[2]]$title
+        position   <- scale$position
+        if ((params[[1]]$position %||% position) != position) {
           order <- rev(order)
         }
       }
     }
-    primary   <- scale$make_title(primary)
-    secondary <- scale$make_sec_title(secondary)
+
+    primary   <- scale$make_title(prim_guide, prim_scale, prim_label)
+    secondary <- scale$make_sec_title(seco_guide, seco_scale, seco_label)
+    if (is.derived(secondary)) {
+      secondary <- primary
+    }
+
     list(primary = primary, secondary = secondary)[order]
   },
 
@@ -294,7 +279,7 @@ Layout <- ggproto("Layout", NULL,
         } else {
           switch(label, x = ".bottom", y = ".right")
         }
-        if (is.null(labels[[label]][[i]]) || is.waive(labels[[label]][[i]]))
+        if (is.null(labels[[label]][[i]]) || is.waiver(labels[[label]][[i]]))
           return(zeroGrob())
 
         element_render(
@@ -310,7 +295,6 @@ Layout <- ggproto("Layout", NULL,
     label_grobs
   }
 )
-
 
 # Helpers -----------------------------------------------------------------
 
@@ -329,7 +313,7 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
-      scales[[i]][[method]](data[[var]][scale_index[[i]]])
+      scales[[i]][[method]](vec_slice(data[[var]], scale_index[[i]]))
     })
     # Remove empty vectors to avoid coercion issues with vctrs
     pieces[lengths(pieces) == 0] <- NULL

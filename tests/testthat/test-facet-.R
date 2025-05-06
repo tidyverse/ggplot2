@@ -21,7 +21,7 @@ test_that("as_facets_list() coerces character vectors", {
 
   expect_identical(as_facets_list("foo"), list(foobar[1]))
   expect_identical(as_facets_list(c("foo", "bar")), list(foobar[1], foobar[2]))
-  expect_identical(wrap_as_facets_list(c("foo", "bar")), foobar)
+  expect_identical(compact_facets(c("foo", "bar")), foobar)
 })
 
 test_that("as_facets_list() coerces lists", {
@@ -43,16 +43,16 @@ test_that("as_facets_list() coerces quosures objectss", {
 })
 
 test_that("facets reject aes()", {
-  expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
-  expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
+  expect_snapshot(facet_wrap(aes(foo)), error = TRUE)
+  expect_snapshot(facet_grid(aes(foo)), error = TRUE)
 })
 
-test_that("wrap_as_facets_list() returns a quosures object with compacted", {
-  expect_identical(wrap_as_facets_list(vars(foo)), quos(foo = foo))
-  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
+test_that("compact_facets() returns a quosures object with compacted", {
+  expect_identical(compact_facets(vars(foo)), quos(foo = foo))
+  expect_identical(compact_facets(~foo + bar), quos(foo = foo, bar = bar))
 
   f <- function(x) {
-    expect_identical(wrap_as_facets_list(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
+    expect_identical(compact_facets(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
   }
 
   f(NULL)
@@ -71,12 +71,12 @@ test_that("grid_as_facets_list() returns a list of quosures objects with compact
   f()
 })
 
-test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
-  expect_identical(wrap_as_facets_list(NULL), quos())
-  expect_identical(wrap_as_facets_list(list()), quos())
-  expect_identical(wrap_as_facets_list(. ~ .), quos())
-  expect_identical(wrap_as_facets_list(list(. ~ .)), quos())
-  expect_identical(wrap_as_facets_list(list(NULL)), quos())
+test_that("compact_facets() and grid_as_facets_list() accept empty specs", {
+  expect_identical(compact_facets(NULL), quos())
+  expect_identical(compact_facets(list()), quos())
+  expect_identical(compact_facets(. ~ .), quos())
+  expect_identical(compact_facets(list(. ~ .)), quos())
+  expect_identical(compact_facets(list(NULL)), quos())
 
   expect_identical(grid_as_facets_list(list(), NULL), list(rows = quos(), cols = quos()))
   expect_identical(grid_as_facets_list(. ~ ., NULL), list(rows = quos(), cols = quos()))
@@ -353,9 +353,9 @@ test_that("at least one layer must contain all facet variables in combine_vars()
 
 test_that("at least one combination must exist in combine_vars()", {
   df <- data_frame(letter = character(0))
-  expect_error(
+  expect_snapshot(
     combine_vars(list(df), vars = vars(letter = letter)),
-    "Faceting variables must have at least one value"
+    error = TRUE
   )
 })
 
@@ -463,15 +463,15 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
   )
 
   # If the expression contains any non-existent variable, it fails
-  expect_error(
+  expect_snapshot(
     eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
-    "object 'no_such_variable' not found"
+    error = TRUE
   )
 })
 
-test_that("validate_facets() provide meaningful errors", {
-  expect_snapshot_error(validate_facets(aes(var)))
-  expect_snapshot_error(validate_facets(ggplot()))
+test_that("check_vars() provide meaningful errors", {
+  expect_snapshot_error(check_vars(aes(var)))
+  expect_snapshot_error(check_vars(ggplot()))
 })
 
 test_that("check_layout() throws meaningful errors", {

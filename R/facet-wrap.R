@@ -18,6 +18,12 @@ NULL
 #' @param scales Should scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,
 #'   `"free_y"`)?
+#' @param space If `"fixed"` (default), all panels have the same size and
+#'   the number of rows and columns in the layout can be arbitrary. If
+#'   `"free_x"`, panels have widths proportional to the length of the x-scale,
+#'   but the layout is constrained to one row. If `"free_y"`, panels have
+#'   heights proportional to the length of the y-scale, but the layout is
+#'   constrained to one column.
 #' @param strip.position By default, the labels are displayed on the top of
 #'   the plot. Using `strip.position` it is possible to place the labels on
 #'   either of the four sides by setting \code{strip.position = c("top",
@@ -39,6 +45,15 @@ NULL
 #'   the exterior axes get labels, and the interior axes get none. When
 #'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
 #'   x- or y-direction respectively.
+#'
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_wrap()` can take
+#' the following values:
+#' * `NULL` (default) to use the faceting variables to assign panels.
+#' * An integer vector to include selected panels. Panel numbers not included in
+#'   the integer vector are excluded.
+#' * `"fixed"` to repeat data across every panel.
+#'
 #' @inheritParams facet_grid
 #' @seealso
 #' The `r link_book("facet wrap section", "facet#sec-facet-wrap")`
@@ -109,9 +124,9 @@ NULL
 #'   geom_point() +
 #'   facet_wrap(vars(class), dir = "tr")
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-                       shrink = TRUE, labeller = "label_value", as.table = TRUE,
-                       switch = deprecated(), drop = TRUE, dir = "h",
-                       strip.position = 'top', axes = "margins",
+                       space = "fixed", shrink = TRUE, labeller = "label_value",
+                       as.table = TRUE, switch = deprecated(), drop = TRUE,
+                       dir = "h", strip.position = 'top', axes = "margins",
                        axis.labels = "all") {
   scales <- arg_match0(scales %||% "fixed", c("fixed", "free_x", "free_y", "free"))
   dir <- arg_match0(dir, c("h", "v", "lt", "tl", "lb", "bl", "rt", "tr", "rb", "br"))
@@ -127,6 +142,30 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
+
+  # We cannot have free space in both directions
+  space <- arg_match0(space, c("free_x", "free_y", "fixed"))
+  space_free <- list(x = space == "free_x", y = space == "free_y")
+  if (space_free$x) {
+    if ((nrow %||% 1) != 1 || !is.null(ncol)) {
+      cli::cli_warn(
+        "Cannot use {.code space = \"free_x\"} with custom \\
+        {.arg nrow} or {.arg ncol}."
+      )
+    }
+    ncol <- NULL
+    nrow <- 1L
+  }
+  if (space_free$y) {
+    if ((ncol %||% 1) != 1 || !is.null(nrow)) {
+      cli::cli_warn(
+        "Cannot use {.code space= \"free_y\"} with custom \\
+        {.arg nrow} or {.arg ncol}."
+      )
+    }
+    ncol <- 1L
+    nrow <- NULL
+  }
 
   # If scales are free, always draw the axes
   draw_axes <- arg_match0(axes, c("margins", "all_x", "all_y", "all"))
@@ -144,14 +183,15 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 
   # Check for deprecated labellers
-  labeller <- check_labeller(labeller)
+  check_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
-  facets <- wrap_as_facets_list(facets)
+  facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
-    deprecate_warn0("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
-    strip.position <- if (switch == "x") "bottom" else "left"
+    lifecycle::deprecate_stop(
+      "2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)"
+    )
   }
   strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))
 
@@ -174,18 +214,13 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
       drop = drop,
       ncol = ncol,
       nrow = nrow,
+      space_free = space_free,
       labeller = labeller,
       dir = dir,
       draw_axes = draw_axes,
       axis_labels = axis_labels
     )
   )
-}
-
-# Returns a quosures object
-wrap_as_facets_list <- function(x) {
-  facets_list <- as_facets_list(x)
-  compact_facets(facets_list)
 }
 
 #' @rdname ggplot2-ggproto
@@ -221,42 +256,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     panels
   },
-  map_data = function(data, layout, params) {
-    if (empty(data)) {
-      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
-    }
 
-    vars <- params$facets
-
-    if (length(vars) == 0) {
-      data$PANEL <- layout$PANEL
-      return(data)
-    }
-
-    facet_vals <- eval_facets(vars, data, params$.possible_columns)
-    facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
-    layout[] <- lapply(layout[], as_unordered_factor)
-
-    missing_facets <- setdiff(names(vars), names(facet_vals))
-    if (length(missing_facets) > 0) {
-
-      to_add <- unique0(layout[missing_facets])
-
-      data_rep <- rep.int(1:nrow(data), nrow(to_add))
-      facet_rep <- rep(1:nrow(to_add), each = nrow(data))
-
-      data <- data[data_rep, , drop = FALSE]
-      facet_vals <- vec_cbind(
-        facet_vals[data_rep, ,  drop = FALSE],
-        to_add[facet_rep, , drop = FALSE]
-      )
-    }
-
-    keys <- join_keys(facet_vals, layout, by = names(vars))
-
-    data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
-    data
-  },
+  map_data = map_facet_data,
 
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 
@@ -405,7 +406,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     shift  <- if (inside) shift[1] else shift[2]
     size   <- unit(size, "cm")
 
-    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "on")
+    table <- weave(table, mat, shift, size, name = prefix, z = 2, clip = "off")
 
     if (!inside) {
       axes  <- grepl(paste0("axis-", pos), table$layout$name)
@@ -422,16 +423,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
   draw_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if (inherits(coord, "CoordFlip")) {
-      if (params$free$x) {
-        layout$SCALE_X <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_X <- 1L
-      }
-      if (params$free$y) {
-        layout$SCALE_Y <- seq_len(nrow(layout))
-      } else {
-        layout$SCALE_Y <- 1L
-      }
+      # Switch the scales back
+      layout[c("SCALE_X", "SCALE_Y")] <- layout[c("SCALE_Y", "SCALE_X")]
     }
 
     panel_order <- order(layout$ROW, layout$COL)

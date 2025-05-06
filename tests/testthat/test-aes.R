@@ -48,8 +48,10 @@ test_that("aes evaluated in environment where plot created", {
   df <- data_frame(x = 1, y = 1)
   p <- ggplot(df, aes(foo, y)) + geom_point()
 
-  # Accessing an undefined variable should result in error
-  expect_error(get_layer_data(p), "'foo' not found")
+  test_that("accessing an undefined variable results in an error", {
+    skip_if(getRversion() <= "4.4.0")
+    expect_snapshot(get_layer_data(p), error = TRUE)
+  })
 
   # Once it's defined we should get it back
   foo <- 0
@@ -114,29 +116,26 @@ test_that("aes standardises aesthetic names", {
   expect_identical(aes(color_point = x), aes(colour_point = x))
 
   # warning when standardisation creates duplicates
-  expect_warning(aes(color = x, colour = y), "Duplicated aesthetics")
+  expect_snapshot_warning(aes(color = x, colour = y))
 })
 
 test_that("warn_for_aes_extract_usage() warns for discouraged uses of $ and [[ within aes()", {
 
   df <- data_frame(x = 1:5, nested_df = data_frame(x = 6:10))
 
-  expect_warning(
-    warn_for_aes_extract_usage(aes(df$x), df),
-    "Use of `df\\$x` is discouraged"
+  expect_snapshot_warning(
+    warn_for_aes_extract_usage(aes(df$x), df)
   )
 
-  expect_warning(
-    warn_for_aes_extract_usage(aes(df[["x"]]), df),
-    'Use of `df\\[\\["x"\\]\\]` is discouraged'
+  expect_snapshot_warning(
+    warn_for_aes_extract_usage(aes(df[["x"]]), df)
   )
 
   # Check that rownames are ignored (#5392)
   df2 <- df
   rownames(df2) <- LETTERS[seq_len(nrow(df))]
-  expect_warning(
-    warn_for_aes_extract_usage(aes(df$x), df2),
-    "Use of `df\\$x` is discouraged"
+  expect_snapshot_warning(
+    warn_for_aes_extract_usage(aes(df$x), df2)
   )
 })
 
@@ -144,7 +143,7 @@ test_that("warn_for_aes_extract_usage() does not evaluate function calls", {
   df <- data_frame(x = 1:5, nested_df = data_frame(x = 6:10))
   returns_df <- function() df
 
-  expect_warning(warn_for_aes_extract_usage(aes(df$x), df))
+  expect_snapshot_warning(warn_for_aes_extract_usage(aes(df$x), df))
   expect_silent(warn_for_aes_extract_usage(aes(returns_df()$x), df))
 })
 
@@ -163,7 +162,7 @@ test_that("warn_for_aes_extract_usage() does not warn for valid uses of $ and [[
 test_that("Warnings are issued when plots use discouraged extract usage within aes()", {
   df <- data_frame(x = 1:3, y = 1:3)
   p <- ggplot(df, aes(df$x, y)) + geom_point()
-  expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("aes evaluation fails with unknown input", {

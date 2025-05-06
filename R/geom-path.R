@@ -36,8 +36,9 @@
 #' @examples
 #' # geom_line() is suitable for time series
 #' ggplot(economics, aes(date, unemploy)) + geom_line()
+#' # separate by colour and use "timeseries" legend key glyph
 #' ggplot(economics_long, aes(date, value01, colour = variable)) +
-#'   geom_line()
+#'   geom_line(key_glyph = "timeseries")
 #'
 #' # You can get a timeseries that run vertically by setting the orientation
 #' ggplot(economics, aes(unemploy, date)) + geom_line(orientation = "y")
@@ -134,7 +135,12 @@ geom_path <- function(mapping = NULL, data = NULL,
 GeomPath <- ggproto("GeomPath", Geom,
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(
+    colour = from_theme(ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
 
   non_missing_aes = c("linewidth", "colour", "linetype"),
 
@@ -159,7 +165,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     if (!anyDuplicated(data$group)) {
       cli::cli_inform(c(
         "{.fn {snake_class(self)}}: Each group consists of only one observation.",
@@ -180,7 +186,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     attr <- dapply(munched, "group", function(df) {
       linetype <- unique0(df$linetype)
       data_frame0(
-        solid = identical(linetype, 1) || identical(linetype, "solid"),
+        solid = length(linetype) == 1 && (identical(linetype, "solid") || linetype == 1),
         constant = nrow(unique0(df[, names(df) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
         .size = 1
       )
