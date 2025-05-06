@@ -9,8 +9,8 @@ NULL
 #' rendered.
 #'
 #' Extending facets can range from the simple modifications of current facets,
-#' to very laborious rewrites with a lot of [gtable()] manipulation.
-#' For some examples of both, please see the extension vignette.
+#' to very laborious rewrites with a lot of [`gtable()`][gtable::gtable()]
+#' manipulation. For some examples of both, please see the extension vignette.
 #'
 #' `Facet` subclasses, like other extendible ggproto classes, have a range
 #' of methods that can be modified. Some of these are required for all new
@@ -46,6 +46,10 @@ NULL
 #' the default behaviour of one or more of the following methods:
 #'
 #'   - `setup_params`:
+#'
+#'   - `setup_panel_params`: modifies the x and y ranges for each panel. This is
+#'     used to allow the `Facet` to interact with the `panel_params`.
+#'
 #'   - `init_scales`: Given a master scale for x and y, create panel
 #'   specific scales for each panel defined in the layout. The default is to
 #'   simply clone the master scale.
@@ -63,6 +67,10 @@ NULL
 #'   - `draw_front`: As above except the returned grob is placed
 #'   between the layer stack and the foreground defined by the Coord object
 #'   (usually empty). The default is, as above, to return an empty grob.
+#'
+#'   - `draw_panel_content`: Draws each panel for the facet. Should return a list
+#'     of grobs, one for each panel. The output is used by the `draw_panels`
+#'     method.
 #'
 #'   - `draw_labels`: Given the gtable returned by `draw_panels`,
 #'   add axis titles to the gtable. The default is to add one title at each side
@@ -90,6 +98,7 @@ Facet <- ggproto("Facet", NULL,
   map_data = function(data, layout, params) {
     cli::cli_abort("Not implemented.")
   },
+  setup_panel_params = function(self, panel_params, coord, ...) panel_params,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {
@@ -132,6 +141,34 @@ Facet <- ggproto("Facet", NULL,
   },
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
+  },
+  draw_panel_content = function(self, panels, layout, x_scales, y_scales,
+                                ranges, coord, data, theme, params, ...) {
+    facet_bg <- self$draw_back(
+      data,
+      layout,
+      x_scales,
+      y_scales,
+      theme,
+      params
+    )
+    facet_fg <- self$draw_front(
+      data,
+      layout,
+      x_scales,
+      y_scales,
+      theme,
+      params
+    )
+
+    # Draw individual panels, then call `$draw_panels()` method to 
+    # assemble into gtable
+    lapply(seq_along(panels[[1]]), function(i) {
+      panel <- lapply(panels, `[[`, i)
+      panel <- c(facet_bg[i], panel, facet_fg[i])
+      panel <- coord$draw_panel(panel, ranges[[i]], theme)
+      ggname(paste("panel", i, sep = "-"), panel)
+    })
   },
   draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
                          ranges, coord, data = NULL, theme, params) {
@@ -313,10 +350,6 @@ Facet <- ggproto("Facet", NULL,
   }
 )
 
-#' @export
-#' @rdname is_tests
-is.facet <- function(x) inherits(x, "Facet")
-
 # Helpers -----------------------------------------------------------------
 
 #' Quote faceting variables
@@ -376,6 +409,18 @@ is.facet <- function(x) inherits(x, "Facet")
 #' p + wrap_cut(drat)
 vars <- function(...) {
   quos(...)
+}
+
+#' @export
+#' @rdname is_tests
+is_facet <- function(x) inherits(x, "Facet")
+
+#' @export
+#' @rdname is_tests
+#' @usage is.facet(x) # Deprecated
+is.facet <- function(x) {
+  deprecate_soft0("3.5.2", "is.facet()", "is_facet()")
+  is_facet(x)
 }
 
 #' Accessing a plot's facet strip labels
@@ -488,7 +533,7 @@ as_facets_list <- function(x) {
 }
 
 check_vars <- function(x) {
-  if (is.mapping(x)) {
+  if (is_mapping(x)) {
     cli::cli_abort("Please use {.fn vars} to supply facet variables.")
   }
   # Native pipe have higher precedence than + so any type of gg object can be

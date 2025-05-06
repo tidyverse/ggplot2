@@ -180,7 +180,7 @@ Run `revdepcheck::cloud_details(, "animalEKF")` for more info
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -199,7 +199,7 @@ ERROR: lazy loading failed for package ‘animalEKF’
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -243,7 +243,7 @@ Run `revdepcheck::cloud_details(, "ANOM")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -263,7 +263,7 @@ ERROR: lazy loading failed for package ‘ANOM’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -306,7 +306,7 @@ Run `revdepcheck::cloud_details(, "atRisk")` for more info
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -325,7 +325,7 @@ ERROR: lazy loading failed for package ‘atRisk’
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -588,7 +588,7 @@ installing to /tmp/workdir/bayesDP/new/bayesDP.Rcheck/00LOCK-bayesDP/00new/bayes
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -613,7 +613,7 @@ installing to /tmp/workdir/bayesDP/old/bayesDP.Rcheck/00LOCK-bayesDP/00new/bayes
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -657,7 +657,7 @@ Run `revdepcheck::cloud_details(, "BayesianFactorZoo")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -677,7 +677,7 @@ ERROR: lazy loading failed for package ‘BayesianFactorZoo’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -804,7 +804,7 @@ g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o BCClong.so
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -831,7 +831,7 @@ g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o BCClong.so
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -882,7 +882,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -DARMA_NO_DEBUG -I'/usr
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -909,7 +909,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -DARMA_NO_DEBUG -I'/usr
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -950,7 +950,7 @@ Run `revdepcheck::cloud_details(, "binsreg")` for more info
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -967,7 +967,7 @@ ERROR: lazy loading failed for package ‘binsreg’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1010,7 +1010,7 @@ Run `revdepcheck::cloud_details(, "bspcov")` for more info
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1029,7 +1029,7 @@ ERROR: lazy loading failed for package ‘bspcov’
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1073,7 +1073,7 @@ Run `revdepcheck::cloud_details(, "BSTZINB")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1093,7 +1093,7 @@ ERROR: lazy loading failed for package ‘BSTZINB’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1293,7 +1293,7 @@ installing to /tmp/workdir/CARBayesST/new/CARBayesST.Rcheck/00LOCK-CARBayesST/00
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1317,7 +1317,7 @@ installing to /tmp/workdir/CARBayesST/old/CARBayesST.Rcheck/00LOCK-CARBayesST/00
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1359,7 +1359,7 @@ Run `revdepcheck::cloud_details(, "Certara.VPCResults")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1377,7 +1377,7 @@ ERROR: lazy loading failed for package ‘Certara.VPCResults’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1421,7 +1421,7 @@ Run `revdepcheck::cloud_details(, "CGPfunctions")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1441,7 +1441,7 @@ ERROR: lazy loading failed for package ‘CGPfunctions’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1595,7 +1595,7 @@ Run `revdepcheck::cloud_details(, "cmprskcoxmsm")` for more info
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1614,7 +1614,7 @@ ERROR: lazy loading failed for package ‘cmprskcoxmsm’
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1658,7 +1658,7 @@ Run `revdepcheck::cloud_details(, "COMMA")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1678,7 +1678,7 @@ ERROR: lazy loading failed for package ‘COMMA’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1872,7 +1872,7 @@ Run `revdepcheck::cloud_details(, "CRMetrics")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -1890,7 +1890,7 @@ ERROR: lazy loading failed for package ‘CRMetrics’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -2705,7 +2705,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -2732,7 +2732,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -2884,7 +2884,7 @@ Run `revdepcheck::cloud_details(, "easybgm")` for more info
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -2901,7 +2901,7 @@ ERROR: lazy loading failed for package ‘easybgm’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3021,7 +3021,7 @@ Run `revdepcheck::cloud_details(, "ecolottery")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3039,7 +3039,7 @@ ERROR: lazy loading failed for package ‘ecolottery’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3082,7 +3082,7 @@ Run `revdepcheck::cloud_details(, "EpiEstim")` for more info
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3101,7 +3101,7 @@ ERROR: lazy loading failed for package ‘EpiEstim’
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3150,7 +3150,7 @@ installing to /tmp/workdir/evolqg/new/evolqg.Rcheck/00LOCK-evolqg/00new/evolqg/l
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3175,7 +3175,7 @@ installing to /tmp/workdir/evolqg/old/evolqg.Rcheck/00LOCK-evolqg/00new/evolqg/l
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3364,7 +3364,7 @@ Run `revdepcheck::cloud_details(, "ForecastComb")` for more info
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3383,7 +3383,7 @@ ERROR: lazy loading failed for package ‘ForecastComb’
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3516,7 +3516,7 @@ installing to /tmp/workdir/gapfill/new/gapfill.Rcheck/00LOCK-gapfill/00new/gapfi
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3543,7 +3543,7 @@ installing to /tmp/workdir/gapfill/old/gapfill.Rcheck/00LOCK-gapfill/00new/gapfi
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3736,7 +3736,7 @@ Run `revdepcheck::cloud_details(, "GeomComb")` for more info
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3753,7 +3753,7 @@ ERROR: lazy loading failed for package ‘GeomComb’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -3881,7 +3881,7 @@ Run `revdepcheck::cloud_details(, "ggtern")` for more info
 ** demo
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
+Error in get(x, envir = ns, inherits = FALSE) :
   object 'update_guides' not found
 Error: unable to load R code in package ‘ggtern’
 Execution halted
@@ -3951,7 +3951,7 @@ Run `revdepcheck::cloud_details(, "ggThemeAssist")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in is.element("extrafont", installed.packages()[, 1]) : 
+Error in is.element("extrafont", installed.packages()[, 1]) :
   unused argument (installed.packages()[, 1])
 Error: unable to load R code in package ‘ggThemeAssist’
 Execution halted
@@ -4014,7 +4014,7 @@ Run `revdepcheck::cloud_details(, "gJLS2")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4034,7 +4034,7 @@ ERROR: lazy loading failed for package ‘gJLS2’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4230,7 +4230,7 @@ Run `revdepcheck::cloud_details(, "hettx")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4250,7 +4250,7 @@ ERROR: lazy loading failed for package ‘hettx’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4370,7 +4370,7 @@ Run `revdepcheck::cloud_details(, "Hmsc")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4390,7 +4390,7 @@ ERROR: lazy loading failed for package ‘Hmsc’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4441,7 +4441,7 @@ installing to /tmp/workdir/iClusterVB/new/iClusterVB.Rcheck/00LOCK-iClusterVB/00
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4468,7 +4468,7 @@ installing to /tmp/workdir/iClusterVB/old/iClusterVB.Rcheck/00LOCK-iClusterVB/00
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4706,7 +4706,7 @@ Run `revdepcheck::cloud_details(, "iNZightPlots")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4724,7 +4724,7 @@ ERROR: lazy loading failed for package ‘iNZightPlots’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4766,7 +4766,7 @@ Run `revdepcheck::cloud_details(, "iNZightRegression")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4784,7 +4784,7 @@ ERROR: lazy loading failed for package ‘iNZightRegression’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4829,11 +4829,11 @@ Run `revdepcheck::cloud_details(, "IRexamples")` for more info
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4854,11 +4854,11 @@ ERROR: lazy loading failed for package ‘IRexamples’
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -4985,7 +4985,7 @@ g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5012,7 +5012,7 @@ g++ -std=gnu++11 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5495,7 +5495,7 @@ Run `revdepcheck::cloud_details(, "llbayesireg")` for more info
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5514,7 +5514,7 @@ ERROR: lazy loading failed for package ‘llbayesireg’
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5641,7 +5641,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5668,7 +5668,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5719,7 +5719,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5746,7 +5746,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5901,7 +5901,7 @@ Run `revdepcheck::cloud_details(, "MaxWiK")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5921,7 +5921,7 @@ ERROR: lazy loading failed for package ‘MaxWiK’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5963,7 +5963,7 @@ Run `revdepcheck::cloud_details(, "mbsts")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -5981,7 +5981,7 @@ ERROR: lazy loading failed for package ‘mbsts’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6029,7 +6029,7 @@ installing to /tmp/workdir/MendelianRandomization/new/MendelianRandomization.Rch
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6053,7 +6053,7 @@ installing to /tmp/workdir/MendelianRandomization/old/MendelianRandomization.Rch
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6102,7 +6102,7 @@ Run `revdepcheck::cloud_details(, "miWQS")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6122,7 +6122,7 @@ ERROR: lazy loading failed for package ‘miWQS’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6303,7 +6303,7 @@ Run `revdepcheck::cloud_details(, "MRZero")` for more info
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6320,7 +6320,7 @@ ERROR: lazy loading failed for package ‘MRZero’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6439,11 +6439,11 @@ Run `revdepcheck::cloud_details(, "multilevelTools")` for more info
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6462,11 +6462,11 @@ ERROR: lazy loading failed for package ‘multilevelTools’
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6738,7 +6738,7 @@ Run `revdepcheck::cloud_details(, "NCA")` for more info
 ** R
 ** data
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6756,7 +6756,7 @@ ERROR: lazy loading failed for package ‘NCA’
 ** R
 ** data
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6941,7 +6941,7 @@ installing to /tmp/workdir/nlmeVPC/new/nlmeVPC.Rcheck/00LOCK-nlmeVPC/00new/nlmeV
 ** R
 ** data
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -6966,7 +6966,7 @@ installing to /tmp/workdir/nlmeVPC/old/nlmeVPC.Rcheck/00LOCK-nlmeVPC/00new/nlmeV
 ** R
 ** data
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7008,7 +7008,7 @@ Run `revdepcheck::cloud_details(, "NMADiagT")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7026,7 +7026,7 @@ ERROR: lazy loading failed for package ‘NMADiagT’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7076,10 +7076,10 @@ Run `revdepcheck::cloud_details(, "NMF")` for more info
                     {xspace}^^M
     !  ==> Fatal error occurred, no output PDF file produced!
     --- failed re-building ‘heatmaps.Rnw’
-    
+
     SUMMARY: processing the following files failed:
       ‘NMF-vignette.Rnw’ ‘heatmaps.Rnw’
-    
+
     Error: Vignette re-building failed.
     Execution halted
     ```
@@ -7324,7 +7324,7 @@ Run `revdepcheck::cloud_details(, "optweight")` for more info
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7341,7 +7341,7 @@ ERROR: lazy loading failed for package ‘optweight’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7523,7 +7523,7 @@ Run `revdepcheck::cloud_details(, "paths")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7543,7 +7543,7 @@ ERROR: lazy loading failed for package ‘paths’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7621,11 +7621,11 @@ Run `revdepcheck::cloud_details(, "pcvr")` for more info
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7644,11 +7644,11 @@ ERROR: lazy loading failed for package ‘pcvr’
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7699,7 +7699,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7726,7 +7726,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7770,7 +7770,7 @@ Run `revdepcheck::cloud_details(, "popstudy")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7790,7 +7790,7 @@ ERROR: lazy loading failed for package ‘popstudy’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7910,7 +7910,7 @@ Run `revdepcheck::cloud_details(, "PoweREST")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7930,7 +7930,7 @@ ERROR: lazy loading failed for package ‘PoweREST’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7973,11 +7973,11 @@ Run `revdepcheck::cloud_details(, "powerly")` for more info
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -7996,11 +7996,11 @@ ERROR: lazy loading failed for package ‘powerly’
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.1 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8044,7 +8044,7 @@ Run `revdepcheck::cloud_details(, "pre")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8064,7 +8064,7 @@ ERROR: lazy loading failed for package ‘pre’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8260,11 +8260,11 @@ Run `revdepcheck::cloud_details(, "pscore")` for more info
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8284,11 +8284,11 @@ ERROR: lazy loading failed for package ‘pscore’
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8365,7 +8365,7 @@ Run `revdepcheck::cloud_details(, "qPCRtools")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8383,7 +8383,7 @@ ERROR: lazy loading failed for package ‘qPCRtools’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8434,7 +8434,7 @@ installing to /tmp/workdir/qris/new/qris.Rcheck/00LOCK-qris/00new/qris/libs
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8461,7 +8461,7 @@ installing to /tmp/workdir/qris/old/qris.Rcheck/00LOCK-qris/00new/qris/libs
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8505,7 +8505,7 @@ Run `revdepcheck::cloud_details(, "qte")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8525,7 +8525,7 @@ ERROR: lazy loading failed for package ‘qte’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8568,7 +8568,7 @@ Run `revdepcheck::cloud_details(, "quantilogram")` for more info
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8587,7 +8587,7 @@ ERROR: lazy loading failed for package ‘quantilogram’
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8631,7 +8631,7 @@ Run `revdepcheck::cloud_details(, "quid")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8651,7 +8651,7 @@ ERROR: lazy loading failed for package ‘quid’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8695,11 +8695,11 @@ Run `revdepcheck::cloud_details(, "RcmdrPlugin.RiskDemo")` for more info
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -8719,11 +8719,11 @@ ERROR: lazy loading failed for package ‘RcmdrPlugin.RiskDemo’
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9236,7 +9236,7 @@ Run `revdepcheck::cloud_details(, "robmed")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9256,7 +9256,7 @@ ERROR: lazy loading failed for package ‘robmed’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9357,7 +9357,7 @@ Run `revdepcheck::cloud_details(, "RPPanalyzer")` for more info
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9376,7 +9376,7 @@ ERROR: lazy loading failed for package ‘RPPanalyzer’
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9420,7 +9420,7 @@ Run `revdepcheck::cloud_details(, "RQdeltaCT")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9440,7 +9440,7 @@ ERROR: lazy loading failed for package ‘RQdeltaCT’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9604,7 +9604,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -I'/u
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9631,7 +9631,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG -I../inst/include -I'/u
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9751,7 +9751,7 @@ Run `revdepcheck::cloud_details(, "S4DM")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9771,7 +9771,7 @@ ERROR: lazy loading failed for package ‘S4DM’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9942,7 +9942,7 @@ Warning: namespace ‘Seurat’ is not available and has been replaced
 by .GlobalEnv when processing object ‘query.seurat’
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -9966,7 +9966,7 @@ Warning: namespace ‘Seurat’ is not available and has been replaced
 by .GlobalEnv when processing object ‘query.seurat’
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10017,7 +10017,7 @@ installing to /tmp/workdir/SCIntRuler/new/SCIntRuler.Rcheck/00LOCK-SCIntRuler/00
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10044,7 +10044,7 @@ installing to /tmp/workdir/SCIntRuler/old/SCIntRuler.Rcheck/00LOCK-SCIntRuler/00
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is being loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10088,7 +10088,7 @@ Run `revdepcheck::cloud_details(, "scMappR")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10108,7 +10108,7 @@ ERROR: lazy loading failed for package ‘scMappR’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10159,7 +10159,7 @@ Warning in .recacheSubclasses(def@className, def, env) :
   undefined subclass "pcorMatrix" of class "ConstValORExpr"; definition not updated
 Warning in .recacheSubclasses(def@className, def, env) :
   undefined subclass "pcorMatrix" of class "ConstValORNULL"; definition not updated
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10186,7 +10186,7 @@ Warning in .recacheSubclasses(def@className, def, env) :
   undefined subclass "pcorMatrix" of class "ConstValORExpr"; definition not updated
 Warning in .recacheSubclasses(def@className, def, env) :
   undefined subclass "pcorMatrix" of class "ConstValORNULL"; definition not updated
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10313,7 +10313,7 @@ by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 Warning: namespace ‘DBI’ is not available and has been replaced
 by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10340,7 +10340,7 @@ by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 Warning: namespace ‘DBI’ is not available and has been replaced
 by .GlobalEnv when processing object ‘AJ064_small_last_sce’
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10384,7 +10384,7 @@ Run `revdepcheck::cloud_details(, "sectorgap")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10404,7 +10404,7 @@ ERROR: lazy loading failed for package ‘sectorgap’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10523,7 +10523,7 @@ Run `revdepcheck::cloud_details(, "semicmprskcoxmsm")` for more info
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10540,7 +10540,7 @@ ERROR: lazy loading failed for package ‘semicmprskcoxmsm’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10584,7 +10584,7 @@ Run `revdepcheck::cloud_details(, "SensMap")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10604,7 +10604,7 @@ ERROR: lazy loading failed for package ‘SensMap’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10724,7 +10724,7 @@ Run `revdepcheck::cloud_details(, "shinyTempSignal")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10742,7 +10742,7 @@ ERROR: lazy loading failed for package ‘shinyTempSignal’
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10789,7 +10789,7 @@ g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sievePH.so
 installing to /tmp/workdir/sievePH/new/sievePH.Rcheck/00LOCK-sievePH/00new/sievePH/libs
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10812,7 +10812,7 @@ g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sievePH.so
 installing to /tmp/workdir/sievePH/old/sievePH.Rcheck/00LOCK-sievePH/00new/sievePH/libs
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10863,7 +10863,7 @@ installing to /tmp/workdir/SiFINeT/new/SiFINeT.Rcheck/00LOCK-SiFINeT/00new/SiFIN
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -10890,7 +10890,7 @@ installing to /tmp/workdir/SiFINeT/old/SiFINeT.Rcheck/00LOCK-SiFINeT/00new/SiFIN
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11032,7 +11032,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11059,7 +11059,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11104,11 +11104,11 @@ Run `revdepcheck::cloud_details(, "SimplyAgree")` for more info
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11129,11 +11129,11 @@ ERROR: lazy loading failed for package ‘SimplyAgree’
 ** inst
 ** byte-compile and prepare package for lazy loading
 Warning in check_dep_version() :
-  ABI version mismatch: 
+  ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11364,7 +11364,7 @@ Run `revdepcheck::cloud_details(, "SoupX")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11384,7 +11384,7 @@ ERROR: lazy loading failed for package ‘SoupX’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11433,7 +11433,7 @@ installing to /tmp/workdir/SpaCCI/new/SpaCCI.Rcheck/00LOCK-SpaCCI/00new/SpaCCI/l
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11458,7 +11458,7 @@ installing to /tmp/workdir/SpaCCI/old/SpaCCI.Rcheck/00LOCK-SpaCCI/00new/SpaCCI/l
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.4 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11507,7 +11507,7 @@ g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sparsereg.
 installing to /tmp/workdir/sparsereg/new/sparsereg.Rcheck/00LOCK-sparsereg/00new/sparsereg/libs
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11532,7 +11532,7 @@ g++ -std=gnu++17 -shared -L/opt/R/4.3.1/lib/R/lib -L/usr/local/lib -o sparsereg.
 installing to /tmp/workdir/sparsereg/old/sparsereg.Rcheck/00LOCK-sparsereg/00new/sparsereg/libs
 ** R
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11652,7 +11652,7 @@ installing to /tmp/workdir/spikeSlabGAM/new/spikeSlabGAM.Rcheck/00LOCK-spikeSlab
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11676,7 +11676,7 @@ installing to /tmp/workdir/spikeSlabGAM/old/spikeSlabGAM.Rcheck/00LOCK-spikeSlab
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -11720,7 +11720,7 @@ Run `revdepcheck::cloud_details(, "stabiliser")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) :
   there is no package called ‘maditr’
 Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
@@ -11740,7 +11740,7 @@ ERROR: lazy loading failed for package ‘stabiliser’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) :
   there is no package called ‘maditr’
 Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
 Execution halted
@@ -11913,8 +11913,8 @@ Run `revdepcheck::cloud_details(, "survex")` for more info
 * using option ‘--no-manual’
 * checking for file ‘survex/DESCRIPTION’ ... OK
 ...
- [32m A new explainer has been created! [39m 
-> 
+ [32m A new explainer has been created! [39m
+>
 > y <- cph_exp$y
 > times <- cph_exp$times
 > surv <- cph_exp$predict_survival_function(cph, cph_exp$data, times)
@@ -11943,8 +11943,8 @@ Status: 1 ERROR, 1 NOTE
 * using option ‘--no-manual’
 * checking for file ‘survex/DESCRIPTION’ ... OK
 ...
- [32m A new explainer has been created! [39m 
-> 
+ [32m A new explainer has been created! [39m
+>
 > y <- cph_exp$y
 > times <- cph_exp$times
 > surv <- cph_exp$predict_survival_function(cph, cph_exp$data, times)
@@ -12075,7 +12075,7 @@ installing to /tmp/workdir/survidm/new/survidm.Rcheck/00LOCK-survidm/00new/survi
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12100,7 +12100,7 @@ installing to /tmp/workdir/survidm/old/survidm.Rcheck/00LOCK-survidm/00new/survi
 ** data
 *** moving datasets to lazyload DB
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12280,7 +12280,7 @@ Run `revdepcheck::cloud_details(, "tidydr")` for more info
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
+Error in get(x, envir = ns, inherits = FALSE) :
   object 'len0_null' not found
 Error: unable to load R code in package ‘tidydr’
 Execution halted
@@ -12344,7 +12344,7 @@ Run `revdepcheck::cloud_details(, "tidyEdSurvey")` for more info
 Error: package or namespace load failed for ‘EdSurvey’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 In addition: Warning message:
-In check_dep_version() : ABI version mismatch: 
+In check_dep_version() : ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
@@ -12365,7 +12365,7 @@ ERROR: lazy loading failed for package ‘tidyEdSurvey’
 Error: package or namespace load failed for ‘EdSurvey’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
  namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 In addition: Warning message:
-In check_dep_version() : ABI version mismatch: 
+In check_dep_version() : ABI version mismatch:
 lme4 was built with Matrix ABI version 1
 Current Matrix ABI version is 0
 Please re-install lme4 from source or restore original ‘Matrix’ package
@@ -12472,7 +12472,7 @@ Run `revdepcheck::cloud_details(, "tidyvpc")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12492,7 +12492,7 @@ ERROR: lazy loading failed for package ‘tidyvpc’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12619,7 +12619,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12646,7 +12646,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12749,7 +12749,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12776,7 +12776,7 @@ g++ -std=gnu++17 -I"/opt/R/4.3.1/lib/R/include" -DNDEBUG  -I'/usr/local/lib/R/si
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12825,7 +12825,7 @@ installing to /tmp/workdir/twang/new/twang.Rcheck/00LOCK-twang/00new/twang/libs
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -12850,7 +12850,7 @@ installing to /tmp/workdir/twang/old/twang.Rcheck/00LOCK-twang/00new/twang/libs
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -13001,7 +13001,7 @@ Run `revdepcheck::cloud_details(, "visa")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -13021,7 +13021,7 @@ ERROR: lazy loading failed for package ‘visa’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -13099,7 +13099,7 @@ Run `revdepcheck::cloud_details(, "wppExplorer")` for more info
 ** data
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in is.element(wpp.data.env$iso3166$uncode, wpp.data.env$popM$country_code) : 
+Error in is.element(wpp.data.env$iso3166$uncode, wpp.data.env$popM$country_code) :
   unused argument (wpp.data.env$popM$country_code)
 Error: unable to load R code in package ‘wppExplorer’
 Execution halted
@@ -13163,7 +13163,7 @@ Run `revdepcheck::cloud_details(, "WRTDStidal")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
@@ -13183,7 +13183,7 @@ ERROR: lazy loading failed for package ‘WRTDStidal’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
   namespace ‘Matrix’ 1.5-4.1 is already loaded, but >= 1.6.0 is required
 Calls: <Anonymous> ... namespaceImportFrom -> asNamespace -> loadNamespace
 Execution halted
