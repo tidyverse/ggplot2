@@ -7,10 +7,10 @@
 %   R/facet-.R, R/facet-grid-.R, R/facet-null.R, R/facet-wrap.R, R/stat-.R,
 %   R/geom-abline.R, R/geom-rect.R, R/geom-bar.R, R/geom-tile.R, R/geom-bin2d.R,
 %   R/geom-blank.R, R/geom-boxplot.R, R/geom-col.R, R/geom-path.R,
-%   R/geom-contour.R, R/geom-crossbar.R, R/geom-segment.R, R/geom-curve.R,
-%   R/geom-ribbon.R, R/geom-density.R, R/geom-density2d.R, R/geom-dotplot.R,
-%   R/geom-errorbar.R, R/geom-function.R, R/geom-hex.R, R/geom-hline.R,
-%   R/geom-label.R, R/geom-linerange.R, R/geom-point.R, R/geom-pointrange.R,
+%   R/geom-contour.R, R/geom-point.R, R/geom-crossbar.R, R/geom-segment.R,
+%   R/geom-curve.R, R/geom-ribbon.R, R/geom-density.R, R/geom-density2d.R,
+%   R/geom-dotplot.R, R/geom-errorbar.R, R/geom-function.R, R/geom-hex.R,
+%   R/geom-hline.R, R/geom-label.R, R/geom-linerange.R, R/geom-pointrange.R,
 %   R/geom-quantile.R, R/geom-rug.R, R/geom-smooth.R, R/geom-spoke.R,
 %   R/geom-text.R, R/geom-violin.R, R/geom-vline.R, R/guide-.R, R/guide-axis.R,
 %   R/guide-axis-logticks.R, R/guide-axis-stack.R, R/guide-axis-theta.R,
@@ -66,6 +66,7 @@
 \alias{GeomStep}
 \alias{GeomContour}
 \alias{GeomContourFilled}
+\alias{GeomPoint}
 \alias{GeomCrossbar}
 \alias{GeomSegment}
 \alias{GeomCurve}
@@ -82,7 +83,6 @@
 \alias{GeomHline}
 \alias{GeomLabel}
 \alias{GeomLinerange}
-\alias{GeomPoint}
 \alias{GeomPointrange}
 \alias{GeomQuantile}
 \alias{GeomRug}
@@ -324,7 +324,7 @@ return an empty grob for each panel.
 \item \code{draw_front}: As above except the returned grob is placed
 between the layer stack and the foreground defined by the Coord object
 (usually empty). The default is, as above, to return an empty grob.
-\item \code{draw_facet_panels}: Draws each panel for the facet. Should return a list
+\item \code{draw_panel_content}: Draws each panel for the facet. Should return a list
 of grobs, one for each panel. The output is used by the \code{draw_panels}
 method.
 \item \code{draw_labels}: Given the gtable returned by \code{draw_panels},
