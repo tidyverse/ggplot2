@@ -188,39 +188,12 @@ GuideAxisLogticks <- ggproto(
 
     # Reconstruct original range
     limits <- transformation$inverse(scale$get_limits())
-    has_negatives <- any(limits <= 0)
-    if (has_negatives) {
-      large  <- max(abs(limits))
-      small  <- params$negative_small %||% min(c(1, large) * 0.1)
-      limits <- sort(c(small * 10, large))
-    }
 
-    start <- floor(log10(min(limits))) - 1L
-    end   <- ceiling(log10(max(limits))) + 1L
+    ticks <- minor_breaks_log(smallest = params$negative_small)(limits)
+    tick_type <- match(attr(ticks, "detail"), c(10, 5, 1))
+    ticks <- transformation$transform(ticks)
 
-    # Calculate tick marks
-    tens  <- 10^seq(start, end, by = 1L)
-    fives <- tens * 5
-    ones  <- as.vector(outer(setdiff(2:9, 5), tens))
-
-    if (has_negatives) {
-      # Filter and mirror ticks around 0
-      tens  <- tens[tens >= small]
-      tens  <- c(tens, -tens, 0)
-      fives <- fives[fives >= small]
-      fives <- c(fives, -fives)
-      ones  <- ones[ones >= small]
-      ones  <- c(ones, -ones)
-    }
-
-    # Set ticks back into transformed space
-    ticks  <- transformation$transform(c(tens, fives, ones))
-    nticks <- c(length(tens), length(fives), length(ones))
-
-    logkey <- data_frame0(
-      !!aesthetic := ticks,
-      .type = rep(1:3, times = nticks)
-    )
+    logkey <- data_frame0(!!aesthetic := ticks, .type = tick_type)
 
     # Discard out-of-bounds ticks
     range <- if (params$expanded) scale$continuous_range else scale$get_limits()
