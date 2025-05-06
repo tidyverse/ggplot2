@@ -10,7 +10,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -33,7 +35,9 @@ profile <- profvis(for (i in seq_len(100)) ggplotGrob(p))
 profile
 ```
 
-```{r, eval=FALSE, include=FALSE}
+```{r}
+#| eval: false
+#| include: false
 saveRDS(profile, file.path('profilings', paste0(packageVersion('ggplot2'), '.rds')))
 ```
 

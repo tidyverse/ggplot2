@@ -13,7 +13,8 @@ title: "FAQ: Customising"
   }
 </style>
 ```
-```{r, include = FALSE}
+```{r}
+#| include: false
 library(ggplot2)
 library(tibble)
 knitr::opts_chunk$set(
@@ -370,7 +371,8 @@ ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
 If you would like all plots within a session/document to use a particular base size, you can set it with `set_theme()`.
 Run the following at the beginning of your session or include on top of your R Markdown document.
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 set_theme(theme_gray(base_size = 18))
 ```
 

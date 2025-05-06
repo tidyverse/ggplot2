@@ -10,6 +10,8 @@ theme(
   rect,
   text,
   title,
+  point,
+  polygon,
   geom,
   spacing,
   margins,
@@ -84,6 +86,7 @@ theme(
   legend.key.spacing,
   legend.key.spacing.x,
   legend.key.spacing.y,
+  legend.key.justification,
   legend.frame,
   legend.ticks,
   legend.ticks.length,
@@ -121,6 +124,8 @@ theme(
   panel.grid.minor.x,
   panel.grid.minor.y,
   panel.ontop,
+  panel.widths,
+  panel.heights,
   plot.background,
   plot.title,
   plot.title.position,
@@ -161,6 +166,10 @@ these should also be defined in the \verb{element tree} argument. \link[rlang:sp
 
 \item{title}{all title elements: plot, axes, legends (\code{\link[=element_text]{element_text()}};
 inherits from \code{text})}
+
+\item{point}{all point elements (\code{\link[=element_point]{element_point()}})}
+
+\item{polygon}{all polygon elements (\code{\link[=element_polygon]{element_polygon()}})}
 
 \item{geom}{defaults for geoms (\code{\link[=element_geom]{element_geom()}})}
 
@@ -226,6 +235,11 @@ inherits from \code{spacing}.}
 between legend keys given as a \code{unit}. Spacing in the horizontal (x) and
 vertical (y) direction inherit from \code{legend.key.spacing} or can be
 specified separately. \code{legend.key.spacing} inherits from \code{spacing}.}
+
+\item{legend.key.justification}{Justification for positioning legend keys
+when more space is available than needed for display. The default, \code{NULL},
+stretches keys into the available space. Can be a location like \code{"center"}
+or \code{"top"}, or a two-element numeric vector.}
 
 \item{legend.frame}{frame drawn around the bar (\code{\link[=element_rect]{element_rect()}}).}
 
@@ -311,6 +325,10 @@ from \code{line}}
 the data layers (\code{logical}). Usually used with a transparent or blank
 \code{panel.background}.}
 
+\item{panel.widths, panel.heights}{Sizes for panels (\code{units}). Can be a
+single unit to set the total size for the panel area, or a unit vector to
+set the size of individual panels.}
+
 \item{plot.background}{background of the entire plot (\code{\link[=element_rect]{element_rect()}};
 inherits from \code{rect})}
 
@@ -378,7 +396,7 @@ differently when added to a ggplot object. Also, when setting
 \code{complete = TRUE} all elements will be set to inherit from blank
 elements.}
 
-\item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
+\item{validate}{\code{TRUE} to run \code{check_element()}, \code{FALSE} to bypass checks.}
 }
 \description{
 Themes are a powerful way to customize the non-data components of your plots:
@@ -469,14 +487,14 @@ p2 + theme(
   legend.position.inside = c(.95, .95),
   legend.justification = c("right", "top"),
   legend.box.just = "right",
-  legend.margin = margin(6, 6, 6, 6)
+  legend.margin = margin_auto(6)
 )
 
 # The legend.box properties work similarly for the space around
 # all the legends
 p2 + theme(
   legend.box.background = element_rect(),
-  legend.box.margin = margin(6, 6, 6, 6)
+  legend.box.margin = margin_auto(6)
 )
 
 # You can also control the display of the keys

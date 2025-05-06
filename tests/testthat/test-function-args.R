@@ -13,7 +13,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
     geom_fun_names,
     c("geom_map", "geom_sf", "geom_smooth", "geom_column", "geom_area",
       "geom_density", "annotation_custom", "annotation_map", "annotation_raster",
-      "annotation_id")
+      "annotation_id", "geom_errorbarh")
   )
 
   # For each geom_xxx function and the corresponding GeomXxx$draw and
@@ -22,7 +22,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   lapply(geom_fun_names, function(geom_fun_name) {
     geom_fun    <- ggplot2_ns[[geom_fun_name]]
     geom <- geom_fun()$geom
-    if (!inherits(geom, "Geom")) # for geoms that return more than one thing
+    if (!is_geom(geom)) # for geoms that return more than one thing
       return()
 
     fun_args <- formals(geom_fun)

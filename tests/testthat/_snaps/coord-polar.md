@@ -9,6 +9,10 @@
 
 ---
 
-    No appropriate placement found for `r_axis_inside`.
-    i Axis will be placed at panel edge.
+    No appropriate placement found for outside r.axis.
+    i Will use `r.axis.inside = TRUE` instead
+
+# when both x and y are AsIs, they are not transformed
+
+    `coord_radial()` cannot respect the <AsIs> class of `x` when `y` is not also <AsIs>.
 

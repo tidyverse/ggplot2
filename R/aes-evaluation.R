@@ -32,7 +32,7 @@
 #' Below follows an overview of the three stages of evaluation and how aesthetic
 #' evaluation can be controlled.
 #'
-#' ## Stage 1: direct input
+#' ## Stage 1: direct input at the start
 #' The default is to map at the beginning, using the layer data provided by
 #' the user. If you want to map directly from the layer data you should not do
 #' anything special. This is the only stage where the original layer data can
@@ -87,9 +87,11 @@
 #' ```
 #'
 #' ## Complex staging
-#' If you want to map the same aesthetic multiple times, e.g. map `x` to a
-#' data column for the stat, but remap it for the geom, you can use the
-#' `stage()` function to collect multiple mappings.
+#' Sometimes, you may want to map the same aesthetic multiple times, e.g. map
+#' `x` to a data column at the start for the layer stat, but remap it later to
+#' a variable from the stat transformation for the layer geom. The `stage()`
+#' function allows you to control multiple mappings for the same aesthetic
+#' across all three stages of evaluation.
 #'
 #' ```r
 #' # Use stage to modify the scaled fill
@@ -97,7 +99,7 @@
 #'   geom_boxplot(aes(fill = stage(class, after_scale = alpha(fill, 0.4))))
 #'
 #' # Using data for computing summary, but placing label elsewhere.
-#' # Also, we're making our own computed variable to use for the label.
+#' # Also, we're making our own computed variables to use for the label.
 #' ggplot(mpg, aes(class, displ)) +
 #'   geom_violin() +
 #'   stat_summary(
@@ -109,6 +111,11 @@
 #'     fun.data = ~ round(data.frame(mean = mean(.x), sd = sd(.x)), 2)
 #'   )
 #' ```
+#'
+#' Conceptually, `aes(x)` is equivalent to `aes(stage(start = x))`, and
+#' `aes(after_stat(count))` is equivalent to `aes(stage(after_stat = count))`,
+#' and so on. `stage()` is most useful when at least two of its arguments are
+#' specified.
 #'
 #' ## Theme access
 #' The `from_theme()` function can be used to acces the [`element_geom()`]
@@ -332,7 +339,7 @@ strip_stage <- function(expr) {
   } else if (is_call(uq_expr, "stage")) {
     uq_expr <- call_match(uq_expr, stage)
     # Prefer stat mapping if present, otherwise original mapping (fallback to
-    # scale mapping) but there should always be two arguments to stage()
+    # scale mapping)
     uq_expr$after_stat %||% uq_expr$start %||% uq_expr$after_scale
   } else {
     expr

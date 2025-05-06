@@ -86,7 +86,7 @@ test_that("labeller() dispatches labellers", {
   # facet_wrap() shouldn't get both rows and cols
   p3 <- p + facet_wrap(~cyl, labeller = labeller(
     .cols = label_both, .rows = label_both))
-  expect_error(ggplotGrob(p3))
+  expect_snapshot(ggplotGrob(p3), error = TRUE)
 
   # facet_grid() can get both rows and cols
   p4 <- p + facet_grid(am ~ cyl, labeller = labeller(
@@ -98,7 +98,7 @@ test_that("labeller() dispatches labellers", {
   # margin-wide labeller
   p5 <- p + facet_wrap(~cyl, labeller = labeller(
     .rows = label_both, cyl = label_value))
-  expect_error(ggplotGrob(p5))
+  expect_snapshot(ggplotGrob(p5), error = TRUE)
 
   # Variables can be attributed labellers
   p6 <- p + facet_grid(am + cyl ~ ., labeller = labeller(
@@ -130,18 +130,12 @@ test_that("as_labeller() deals with non-labellers", {
   expect_equal(get_labels_matrix(p2), cbind(c("0-foo", "1-foo")))
 })
 
-test_that("old school labellers still work", {
+test_that("old school labellers are deprecated", {
   my_labeller <- function(variable, value) {
     paste0("var = ", as.character(value))
   }
 
-  expect_warning(p <-
-    ggplot(mtcars, aes(disp, drat)) +
-    geom_point() +
-    facet_grid(~cyl, labeller = my_labeller))
-
-  expected_labels <- cbind(paste("var =", c(4, 6, 8)))
-  expect_identical(get_labels_matrix(p, "cols"), expected_labels)
+  lifecycle::expect_defunct(facet_grid(~cyl, labeller = my_labeller))
 })
 
 

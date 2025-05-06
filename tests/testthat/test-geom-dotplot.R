@@ -230,10 +230,12 @@ test_that("geom_dotplot draws correctly", {
   dat2 <- dat
   dat2$x[c(1, 10)] <- NA
 
-  expect_warning(expect_doppelganger("2 NA values, dot-density binning, binwidth = .4",
+  expect_snapshot_warning(expect_doppelganger(
+    "2 NA values, dot-density binning, binwidth = .4",
     ggplot(dat2, aes(x)) + geom_dotplot(binwidth = 0.4)
   ))
-  expect_warning(expect_doppelganger("2 NA values, bin along y, stack center",
+  expect_snapshot_warning(expect_doppelganger(
+    "2 NA values, bin along y, stack center",
     ggplot(dat2, aes(0, x)) + geom_dotplot(binwidth = 0.4, binaxis = "y", stackdir = "center")
   ))
 })

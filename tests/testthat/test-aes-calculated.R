@@ -76,18 +76,16 @@ test_that("calculated aesthetics throw warnings when lengths mismatch", {
 
   p <- ggplot(df, aes(x, x))
 
-  expect_warning(
+  expect_snapshot_warning(
     ggplot_build(
       p + geom_point(aes(colour = after_stat(c("A", "B", "C"))))
-    ),
-    "Failed to apply"
+    )
   )
 
-  expect_warning(
+  expect_snapshot_warning(
     ggplot_build(
       p + geom_point(aes(colour = after_scale(c("red", "green", "blue"))))
-    ),
-    "Failed to apply"
+    )
   )
 
 })
@@ -123,4 +121,51 @@ test_that("functions can be masked", {
   evaled <- eval_aesthetics(mapping, data = data, mask = list(stage = stage_scaled))
   expect_equal(evaled, list(x = 10, y = 30))
 
+})
+
+test_that("stage allows aesthetics that are only mapped to start", {
+
+  df <- data.frame(x = 1:2)
+
+  start_unnamed <- aes(stage(x))
+  expect_equal(
+    eval_aesthetics(start_unnamed, data = df),
+    list(x = 1:2)
+  )
+
+  start_named <- aes(stage(start = x))
+  expect_equal(
+    eval_aesthetics(start_named, data = df),
+    list(x = 1:2)
+  )
+
+  start_nulls <- aes(stage(start = x, after_stat = NULL, after_scale = NULL))
+  expect_equal(
+    eval_aesthetics(start_nulls, data = df),
+    list(x = 1:2)
+  )
+
+})
+
+test_that("A geom can have scaled defaults (#6135)", {
+
+  test_geom <- ggproto(
+    NULL, GeomPoint,
+    default_aes = modify_list(
+      GeomPoint$default_aes,
+      aes(colour = after_scale(alpha(fill, 0.5)), fill = "black")
+    )
+  )
+
+  df <- data.frame(x = 1:3, fill = c("#FF0000", "#00FF00", "#0000FF"))
+
+  ld <- layer_data(
+    ggplot(df, aes(x, x, fill = I(fill))) +
+      stat_identity(geom = test_geom)
+  )
+
+  expect_equal(ld$colour, c("#FF000080", "#00FF0080", '#0000FF80'))
+
+  defaults <- get_geom_defaults(test_geom)
+  expect_equal(defaults$colour, c("#00000080"))
 })

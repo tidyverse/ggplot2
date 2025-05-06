@@ -10,8 +10,8 @@ test_that("warnings are generated when coord_trans() results in new infinite val
   # TODO: These multiple warnings should be summarized nicely. Until this gets
   #       fixed, this test ignores all the following errors than the first one.
   suppressWarnings({
-    expect_warning(ggplot_gtable(ggplot_build(p)), "Transformation introduced infinite values in y-axis")
-    expect_warning(ggplot_gtable(ggplot_build(p2)), "Transformation introduced infinite values in x-axis")
+    expect_snapshot_warning(ggplot_gtable(ggplot_build(p)))
+    expect_snapshot_warning(ggplot_gtable(ggplot_build(p2)))
   })
 })
 
@@ -130,4 +130,18 @@ test_that("coord_trans() throws error when limits are badly specified", {
 
   # throws error when limit's length is different than two
   expect_snapshot_error(ggplot() + coord_trans(ylim=1:3))
+})
+
+test_that("transformed coords can be reversed", {
+  p <- ggplot(data_frame0(x = c(1, 100), y = c(1, 100))) +
+    aes(x = x, y = y) +
+    geom_point() +
+    coord_trans(
+      x = "log10", y = "log10",
+      xlim = c(0.1, 1000), ylim = c(0.1, 1000), expand = FALSE,
+      reverse = "xy"
+    )
+  grob <- layer_grob(p)[[1]]
+  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
+  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
 })

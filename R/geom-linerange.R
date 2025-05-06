@@ -6,13 +6,12 @@
 #' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "linerange", "Note that `geom_pointrange()` also understands `size` for the size of the points.")
-#' @param fatten A multiplicative factor used to increase the size of the
-#'   middle bar in `geom_crossbar()` and the middle point in
-#'   `geom_pointrange()`.
+#' @param fatten `r lifecycle::badge("deprecated")`  A multiplicative factor
+#'   used to increase the size of the middle bar in `geom_crossbar()` and the
+#'   middle point in `geom_pointrange()`.
 #' @seealso
 #'  [stat_summary()] for examples of these guys in use,
-#'  [geom_smooth()] for continuous analogue,
-#'  [geom_errorbarh()] for a horizontal error bar.
+#'  [geom_smooth()] for continuous analogue
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_bar
@@ -92,12 +91,7 @@ geom_linerange <- function(mapping = NULL, data = NULL,
 #' @export
 GeomLinerange <- ggproto("GeomLinerange", Geom,
 
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
+  default_aes = GeomPath$default_aes,
 
   draw_key = draw_key_linerange,
 

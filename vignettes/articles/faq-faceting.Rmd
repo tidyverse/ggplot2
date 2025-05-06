@@ -13,7 +13,8 @@ title: "FAQ: Faceting"
   }
 </style>
 ```
-```{r, include = FALSE}
+```{r}
+#| include: false
 library(ggplot2)
 knitr::opts_chunk$set(
   fig.dpi = 300, 
@@ -77,7 +78,8 @@ In `facet_grid()` these values are determined by the number of levels of the var
 Similarly, you can also use `facet_grid()` to facet by a single categorical variable as well.
 In the formula notation, you use a `.` to indicate that no faceting should be done along that axis, i.e. `cyl ~ .` facets across the y-axis (within a column) while `. ~ cyl` facets across the x-axis (within a row).
 
-```{r out.width = "50%"}
+```{r}
+#| out-width: 50%
 #| fig.alt:
 #| - "A histogram showing the city miles per gallon distribution. The plot has 
 #|  four panels in a 4-row, 1-column layout, showing four numbers of cylinders."
@@ -303,7 +305,8 @@ df
 
 You can plot `price` versus `time` and facet by `country`, but the resulting plot can be a bit difficult to read due to the shared y-axis label.
 
-```{r warning = FALSE}
+```{r}
+#| warning: false
 #| fig.alt: "A timeseries plot showing price over time for two countries, Japan
 #|  and the US, in two panels in a 2-row, 1-column layout. The countries are
 #|  indicated at the top of each panel. The two y-axes have different ranges."

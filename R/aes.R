@@ -38,6 +38,13 @@ NULL
 #'
 #'   [Delayed evaluation][aes_eval] for working with computed variables.
 #'
+#' @note
+#' Using `I()` to create objects of class 'AsIs' causes scales to ignore the
+#' variable and assumes the wrapped variable is direct input for the grid
+#' package. Please be aware that variables are sometimes combined, like in
+#' some stats or position adjustments, that may yield unexpected results with
+#' 'AsIs' variables.
+#'
 #' @family aesthetics documentation
 #' @return A list with class `uneval`. Components of the list are either
 #'   quosures or constants.
@@ -104,7 +111,7 @@ aes <- function(x, y, ...) {
 
 #' @export
 #' @rdname is_tests
-is.mapping <- function(x) inherits(x, "uneval")
+is_mapping <- function(x) inherits(x, "uneval")
 
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
@@ -283,7 +290,7 @@ is_position_aes <- function(vars) {
 #'
 #' @export
 aes_ <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_()",
     details = "Please use tidy evaluation idioms with `aes()`"
@@ -310,7 +317,7 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_string()",
     details = c(
@@ -353,7 +360,7 @@ aes_all <- function(vars) {
   # refer to the data mask
   structure(
     lapply(vars, function(x) new_quosure(as.name(x), emptyenv())),
-    class = "uneval"
+    class = c("unlabelled_uneval", "uneval")
   )
 }
 
@@ -367,29 +374,7 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  deprecate_warn0("2.0.0", "aes_auto()")
-
-  # detect names of data
-  if (is.null(data)) {
-    cli::cli_abort("{.fn aes_auto} requires a {.cls data.frame} or names of data.frame.")
-  } else if (is.data.frame(data)) {
-    vars <- names(data)
-  } else {
-    vars <- data
-  }
-
-  # automatically detected aes
-  vars <- intersect(ggplot_global$all_aesthetics, vars)
-  names(vars) <- vars
-  aes <- lapply(vars, function(x) parse(text = x)[[1]])
-
-  # explicitly defined aes
-  if (length(match.call()) > 2) {
-    args <- as.list(match.call()[-1])
-    aes <- c(aes, args[names(args) != "data"])
-  }
-
-  structure(rename_aes(aes), class = "uneval")
+  lifecycle::deprecate_stop("2.0.0", "aes_auto()")
 }
 
 mapped_aesthetics <- function(x) {

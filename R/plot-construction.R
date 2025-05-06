@@ -51,9 +51,9 @@
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
 
-  if      (is.theme(e1))  add_theme(e1, e2, e2name)
-  else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
-  else if (is.ggproto(e1)) {
+  if      (is_theme(e1))  add_theme(e1, e2, e2name)
+  else if (is_ggplot(e1)) add_ggplot(e1, e2, e2name)
+  else if (is_ggproto(e1)) {
     cli::cli_abort(c(
       "Cannot add {.cls ggproto} objects together.",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"
@@ -149,7 +149,7 @@ ggplot_add.labels <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Guides <- function(object, plot, object_name) {
-  if (is.guides(plot$guides)) {
+  if (is_guides(plot$guides)) {
     # We clone the guides object to prevent modify-in-place of guides
     old <- plot$guides
     new <- ggproto(NULL, old)
@@ -195,13 +195,20 @@ ggplot_add.by <- function(object, plot, object_name) {
 
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
-  layers_names <- new_layer_names(object, names(plot$layers))
+  layers_names <- new_layer_names(object, names2(plot$layers))
   plot$layers <- append(plot$layers, object)
   names(plot$layers) <- layers_names
   plot
 }
 
 new_layer_names <- function(layer, existing) {
+
+  empty <- !nzchar(existing)
+  if (any(empty)) {
+    existing[empty] <- "unknown"
+    existing <- vec_as_names(existing, repair = "unique", quiet = TRUE)
+  }
+
   new_name <- layer$name
   if (is.null(new_name)) {
     # Construct a name from the layer's call

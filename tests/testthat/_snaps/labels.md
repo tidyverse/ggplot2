@@ -25,3 +25,19 @@
 
     `plot.tag.position` must be one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", or "bottomright", not "foobar".
 
+---
+
+    Code
+      ggplotGrob(p + theme(plot.tag.position = c(0, 0.5, 1)))
+    Condition
+      Error in `theme()`:
+      ! A <numeric> `plot.tag.position` must be a vector of length 2, not length 3.
+
+---
+
+    Code
+      ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin"))
+    Condition
+      Error in `theme()`:
+      ! A <numeric> `plot.tag.position` cannot be used with `"margin"` as `plot.tag.location`.
+

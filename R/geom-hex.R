@@ -58,7 +58,7 @@ geom_hex <- function(mapping = NULL, data = NULL,
 GeomHex <- ggproto("GeomHex", Geom,
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", linemitre = 10) {
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     if (empty(data)) {
       return(zeroGrob())
     }
@@ -107,8 +107,8 @@ GeomHex <- ggproto("GeomHex", Geom,
   required_aes = c("x", "y"),
 
   default_aes = aes(
-    colour = NA,
-    fill = from_theme(col_mix(ink, paper)),
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
     alpha = NA

@@ -11,7 +11,20 @@ margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
 
 #' @export
 #' @rdname is_tests
-is.margin <- function(x) inherits(x, "margin")
+is_margin <- function(x) inherits(x, "margin")
+is.margin <- function(x) lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
+
+#' @rdname element
+#' @export
+margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
+  margin(t = t, r = r, b = b, l = l, unit = unit)
+}
+
+#' @rdname element
+#' @export
+margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
+  margin(t = t, r = r, b = b, l = l, unit)
+}
 
 #' Create a text grob with the proper location and margins
 #'

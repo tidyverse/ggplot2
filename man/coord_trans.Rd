@@ -12,7 +12,8 @@ coord_trans(
   limx = deprecated(),
   limy = deprecated(),
   clip = "on",
-  expand = TRUE
+  expand = TRUE,
+  reverse = "none"
 )
 }
 \arguments{
@@ -38,6 +39,11 @@ Giving a logical vector will separately control the expansion for the four
 directions (top, left, bottom and right). The \code{expand} argument will be
 recycled to length 4 if necessary. Alternatively, can be a named logical
 vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
+
+\item{reverse}{A string giving which directions to reverse. \code{"none"}
+(default) keeps directions as is. \code{"x"} and \code{"y"} can be used to reverse
+their respective directions. \code{"xy"} can be used to reverse both
+directions.}
 }
 \description{
 \code{coord_trans()} is different to scale transformations in that it occurs after
