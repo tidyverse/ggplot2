@@ -47,6 +47,7 @@
 \alias{CoordPolar}
 \alias{CoordQuickmap}
 \alias{CoordRadial}
+\alias{CoordTransform}
 \alias{CoordTrans}
 \alias{Facet}
 \alias{FacetGrid}
@@ -216,7 +217,7 @@ See also the \href{https://ggplot2-book.org/extensions#sec-new-geoms}{new geoms 
 \section{Coordinate systems}{
 
 
-All \verb{coord_*()} functions (like \code{coord_trans()}) return a \verb{Coord*}
+All \verb{coord_*()} functions (like \code{coord_transform()}) return a \verb{Coord*}
 object (like \code{CoordTrans}).
 
 Each of the \verb{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object,
@@ -232,7 +233,7 @@ object, you typically will want to implement one or more of the following:
 \item \code{backtransform_range(panel_params)}: Extracts the panel range provided
 in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
 back-transforms to data coordinates. This back-transformation can be needed
-for coords such as \code{coord_trans()} where the range in the transformed
+for coords such as \code{coord_transform()} where the range in the transformed
 coordinates differs from the range in the untransformed coordinates. Returns
 a list of two ranges, \code{x} and \code{y}, and these correspond to the variables
 mapped to the \code{x} and \code{y} aesthetics, even for coords such as \code{coord_flip()}
@@ -324,7 +325,7 @@ return an empty grob for each panel.
 \item \code{draw_front}: As above except the returned grob is placed
 between the layer stack and the foreground defined by the Coord object
 (usually empty). The default is, as above, to return an empty grob.
-\item \code{draw_facet_panels}: Draws each panel for the facet. Should return a list
+\item \code{draw_panel_content}: Draws each panel for the facet. Should return a list
 of grobs, one for each panel. The output is used by the \code{draw_panels}
 method.
 \item \code{draw_labels}: Given the gtable returned by \code{draw_panels},

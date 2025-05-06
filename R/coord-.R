@@ -1,6 +1,6 @@
 #' @section Coordinate systems:
 #'
-#' All `coord_*()` functions (like `coord_trans()`) return a `Coord*`
+#' All `coord_*()` functions (like `coord_transform()`) return a `Coord*`
 #' object (like `CoordTrans`).
 #'
 #' Each of the `Coord*` objects is a [ggproto()] object,
@@ -16,7 +16,7 @@
 #'   - `backtransform_range(panel_params)`: Extracts the panel range provided
 #'     in `panel_params` (created by `setup_panel_params()`, see below) and
 #'     back-transforms to data coordinates. This back-transformation can be needed
-#'     for coords such as `coord_trans()` where the range in the transformed
+#'     for coords such as `coord_transform()` where the range in the transformed
 #'     coordinates differs from the range in the untransformed coordinates. Returns
 #'     a list of two ranges, `x` and `y`, and these correspond to the variables
 #'     mapped to the `x` and `y` aesthetics, even for coords such as `coord_flip()`

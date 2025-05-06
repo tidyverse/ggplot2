@@ -100,7 +100,7 @@ test_that("coord summary - basic", {
 
 test_that("coord summary - log transformations", {
   # Check for coord log transformations (should ignore log scale)
-  pl <- p + scale_x_log10() + coord_trans(x = "log2")
+  pl <- p + scale_x_log10() + coord_transform(x = "log2")
   ll <- summarise_coord(ggplot_build(pl))
   expect_identical(ll, list(xlog = 2, ylog = NA_real_, flip = FALSE))
 })

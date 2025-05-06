@@ -33,7 +33,7 @@ test_that("geom_hex works in non-linear coordinate systems", {
   p <- ggplot(mpg, aes(displ, hwy)) + geom_hex()
 
   expect_doppelganger("hex bin plot with sqrt-transformed y",
-    p + coord_trans(y = "sqrt")
+    p + coord_transform(y = "sqrt")
   )
   expect_doppelganger("hex bin plot in polar coordinates",
                       p + coord_polar()

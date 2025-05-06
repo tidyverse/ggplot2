@@ -33,7 +33,7 @@
 #' @section Coord summary:
 #'
 #' The function `summarise_coord()` returns information about the log base for
-#' coordinates that are log-transformed in `coord_trans()`, and it also indicates
+#' coordinates that are log-transformed in `coord_transform()`, and it also indicates
 #' whether the coord has flipped the x and y axes.
 #'
 #' @section Layer summary:
