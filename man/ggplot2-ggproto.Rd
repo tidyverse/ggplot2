@@ -273,8 +273,8 @@ panels, how to apply positional scales and how to lay out the panels, once
 rendered.
 
 Extending facets can range from the simple modifications of current facets,
-to very laborious rewrites with a lot of \code{\link[=gtable]{gtable()}} manipulation.
-For some examples of both, please see the extension vignette.
+to very laborious rewrites with a lot of \code{\link[gtable:gtable]{gtable()}}
+manipulation. For some examples of both, please see the extension vignette.
 
 \code{Facet} subclasses, like other extendible ggproto classes, have a range
 of methods that can be modified. Some of these are required for all new
@@ -309,6 +309,8 @@ In addition to the methods described above, it is also possible to override
 the default behaviour of one or more of the following methods:
 \itemize{
 \item \code{setup_params}:
+\item \code{setup_panel_params}: modifies the x and y ranges for each panel. This is
+used to allow the \code{Facet} to interact with the \code{panel_params}.
 \item \code{init_scales}: Given a master scale for x and y, create panel
 specific scales for each panel defined in the layout. The default is to
 simply clone the master scale.
@@ -322,6 +324,9 @@ return an empty grob for each panel.
 \item \code{draw_front}: As above except the returned grob is placed
 between the layer stack and the foreground defined by the Coord object
 (usually empty). The default is, as above, to return an empty grob.
+\item \code{draw_facet_panels}: Draws each panel for the facet. Should return a list
+of grobs, one for each panel. The output is used by the \code{draw_panels}
+method.
 \item \code{draw_labels}: Given the gtable returned by \code{draw_panels},
 add axis titles to the gtable. The default is to add one title at each side
 depending on the position and existence of axes.

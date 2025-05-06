@@ -88,7 +88,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     data <- coord$transform(data, panel_params)
     data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
     data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
-    if (!is.margin("margin")) {
+    if (!is_margin("margin")) {
       label.padding <- rep(label.padding, length.out = 4)
     }
 

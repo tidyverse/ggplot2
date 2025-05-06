@@ -60,29 +60,17 @@ Layout <- ggproto("Layout", NULL,
   # Assemble the facet fg & bg, the coord fg & bg, and the layers
   # Returns a gtable
   render = function(self, panels, data, theme, labels) {
-    facet_bg <- self$facet$draw_back(data,
+    panels <- self$facet$draw_panel_content(
+      panels,
       self$layout,
       self$panel_scales_x,
       self$panel_scales_y,
-      theme,
-      self$facet_params
-    )
-    facet_fg <- self$facet$draw_front(
+      self$panel_params,
+      self$coord,
       data,
-      self$layout,
-      self$panel_scales_x,
-      self$panel_scales_y,
       theme,
       self$facet_params
     )
-
-    # Draw individual panels, then assemble into gtable
-    panels <- lapply(seq_along(panels[[1]]), function(i) {
-      panel <- lapply(panels, `[[`, i)
-      panel <- c(facet_bg[i], panel, facet_fg[i])
-      panel <- self$coord$draw_panel(panel, self$panel_params[[i]], theme)
-      ggname(paste("panel", i, sep = "-"), panel)
-    })
     plot_table <- self$facet$draw_panels(
       panels,
       self$layout,
@@ -210,11 +198,14 @@ Layout <- ggproto("Layout", NULL,
     scales_x <- self$panel_scales_x[self$layout$SCALE_X[index]]
     scales_y <- self$panel_scales_y[self$layout$SCALE_Y[index]]
 
-    self$panel_params <- Map(
+    panel_params <- Map(
       self$coord$setup_panel_params,
       scales_x, scales_y,
       MoreArgs = list(params = self$coord_params)
     )[order] # `[order]` does the repeating
+
+    # Let Facet modify `panel_params` for each panel
+    self$panel_params <- self$facet$setup_panel_params(panel_params, self$coord)
 
     invisible()
   },

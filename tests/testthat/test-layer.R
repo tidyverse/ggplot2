@@ -157,7 +157,7 @@ test_that("layer names can be resolved", {
   expect_snapshot(p + l + l, error = TRUE)
 })
 
-test_that("check_subclass can resolve classes via constructors", {
+test_that("validate_subclass can resolve classes via constructors", {
 
   env <- new_environment(list(
     geom_foobar = geom_point,
