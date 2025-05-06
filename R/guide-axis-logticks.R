@@ -17,6 +17,8 @@ NULL
 #'   keep the default `NULL` argument.
 #' @param negative.small When the scale limits include 0 or negative numbers,
 #'   what should be the smallest absolute value that is marked with a tick?
+#'   If `NULL` (default), will be the smallest of 0.1 or 0.1 times the absolute
+#'   scale maximum.
 #' @param short.theme A theme [element][element_line()] for customising the
 #'   display of the shortest ticks. Must be a line or blank element, and
 #'   it inherits from the `axis.minor.ticks` setting for the relevant position.
@@ -69,7 +71,7 @@ guide_axis_logticks <- function(
   mid   = 1.5,
   short = 0.75,
   prescale.base = NULL,
-  negative.small = 0.1,
+  negative.small = NULL,
   short.theme = element_line(),
   expanded = TRUE,
   cap = "none",
@@ -186,40 +188,12 @@ GuideAxisLogticks <- ggproto(
 
     # Reconstruct original range
     limits <- transformation$inverse(scale$get_limits())
-    has_negatives <- any(limits <= 0)
 
-    if (!has_negatives) {
-      start <- floor(log10(min(limits))) - 1L
-      end   <- ceiling(log10(max(limits))) + 1L
-    } else {
-      params$negative_small <- params$negative_small %||% 0.1
-      start <- floor(log10(abs(params$negative_small)))
-      end   <- ceiling(log10(max(abs(limits)))) + 1L
-    }
+    ticks <- minor_breaks_log(smallest = params$negative_small)(limits)
+    tick_type <- match(attr(ticks, "detail"), c(10, 5, 1))
+    ticks <- transformation$transform(ticks)
 
-    # Calculate tick marks
-    tens  <- 10^seq(start, end, by = 1)
-    fives <- tens * 5
-    ones  <- as.vector(outer(setdiff(2:9, 5), tens))
-
-    if (has_negatives) {
-      # Filter and mirror ticks around 0
-      tens  <- tens[tens >= params$negative_small]
-      tens  <- c(tens, -tens, 0)
-      fives <- fives[fives >= params$negative_small]
-      fives <- c(fives, -fives)
-      ones  <- ones[ones >= params$negative_small]
-      ones  <- c(ones, -ones)
-    }
-
-    # Set ticks back into transformed space
-    ticks  <- transformation$transform(c(tens, fives, ones))
-    nticks <- c(length(tens), length(fives), length(ones))
-
-    logkey <- data_frame0(
-      !!aesthetic := ticks,
-      .type = rep(1:3, times = nticks)
-    )
+    logkey <- data_frame0(!!aesthetic := ticks, .type = tick_type)
 
     # Discard out-of-bounds ticks
     range <- if (params$expanded) scale$continuous_range else scale$get_limits()

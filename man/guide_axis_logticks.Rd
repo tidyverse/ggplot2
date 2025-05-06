@@ -9,7 +9,7 @@ guide_axis_logticks(
   mid = 1.5,
   short = 0.75,
   prescale.base = NULL,
-  negative.small = 0.1,
+  negative.small = NULL,
   short.theme = element_line(),
   expanded = TRUE,
   cap = "none",
@@ -33,7 +33,9 @@ When using a log-transform in the position scale or in \code{coord_trans()},
 keep the default \code{NULL} argument.}
 
 \item{negative.small}{When the scale limits include 0 or negative numbers,
-what should be the smallest absolute value that is marked with a tick?}
+what should be the smallest absolute value that is marked with a tick?
+If \code{NULL} (default), will be the smallest of 0.1 or 0.1 times the absolute
+scale maximum.}
 
 \item{short.theme}{A theme \link[=element_line]{element} for customising the
 display of the shortest ticks. Must be a line or blank element, and

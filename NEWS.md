@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Better handling of the `guide_axis_logticks(negative.small)` parameter when
+  scale limits have small maximum (@teunbrand, #6121).
+* Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
 * (internal) New `Facet$draw_panel_content()` method for delegating panel 
   assembly (@Yunuuuu, #6406).
 * Facet gains a new method `setup_panel_params` to interact with the
