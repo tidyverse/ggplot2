@@ -23,7 +23,7 @@
 <text x='268.75' y='252.10' text-anchor='middle' style='font-size: 8.00px; font-family: sans;' textLength='21.35px' lengthAdjust='spacingAndGlyphs'>abline</text>
 <line x1='260.11' y1='273.83' x2='277.39' y2='256.55' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <text x='268.75' y='312.13' text-anchor='middle' style='font-size: 8.00px; font-family: sans;' textLength='13.34px' lengthAdjust='spacingAndGlyphs'>rect</text>
-<rect x='260.11' y='316.57' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #595959;' />
+<rect x='260.11' y='316.57' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #333333;' />
 <text x='268.75' y='372.15' text-anchor='middle' style='font-size: 8.00px; font-family: sans;' textLength='28.03px' lengthAdjust='spacingAndGlyphs'>polygon</text>
 <rect x='260.82' y='377.31' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #333333;' />
 <text x='314.37' y='192.07' text-anchor='middle' style='font-size: 8.00px; font-family: sans;' textLength='19.13px' lengthAdjust='spacingAndGlyphs'>blank</text>

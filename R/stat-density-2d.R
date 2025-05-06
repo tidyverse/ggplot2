@@ -168,8 +168,8 @@ precompute_2d_bw <- function(x, y, h = NULL, adjust = 1) {
     # Note: MASS::bandwidth.nrd is equivalent to stats::bw.nrd * 4
     h <- c(MASS::bandwidth.nrd(x), MASS::bandwidth.nrd(y))
     # Handle case when when IQR == 0 and thus regular nrd bandwidth fails
-    if (h[1] == 0 && length(x) > 1) h[1] <- bw.nrd0(x) * 4
-    if (h[2] == 0 && length(y) > 1) h[2] <- bw.nrd0(y) * 4
+    if (h[1] == 0 && length(x) > 1) h[1] <- stats::bw.nrd0(x) * 4
+    if (h[2] == 0 && length(y) > 1) h[2] <- stats::bw.nrd0(y) * 4
     h <- h * adjust
   }
 
