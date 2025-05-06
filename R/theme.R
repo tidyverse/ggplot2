@@ -545,13 +545,14 @@ validate_theme_palettes <- function(elements) {
   }
 
   # Standardise spelling
-  elements <- replace_null(
-    elements,
-    palette.colour.discrete   = elements$palette.color.discrete,
-    palette.colour.continuous = elements$palette.color.continuous
-  )
-  elements$palette.color.discrete   <- NULL
-  elements$palette.color.continuous <- NULL
+  if ("palette.color.continuous" %in% names(elements)) {
+    elements["palette.colour.continuous"]  <- elements["palette.color.continuous"]
+    elements[["palette.color.continuous"]] <- NULL
+  }
+  if ("palette.color.discrete" %in% names(elements)) {
+    elements["palette.colour.discrete"]  <- elements["palette.color.discrete"]
+    elements[["palette.color.discrete"]] <- NULL
+  }
 
   # Check for incompatible options
   pals <- c("palette.colour.discrete", "palette.colour.continuous",
