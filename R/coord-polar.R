@@ -3,6 +3,7 @@
 coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
   theta <- arg_match0(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
+  lifecycle::signal_stage("superseded", "coord_polar()", "coord_radial()")
 
   ggproto(NULL, CoordPolar,
     theta = theta,
