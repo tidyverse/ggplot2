@@ -1,8 +1,9 @@
 #' Polar coordinates
 #'
 #' The polar coordinate system is most commonly used for pie charts, which
-#' are a stacked bar chart in polar coordinates. `coord_radial()` has extended
-#' options.
+#' are a stacked bar chart in polar coordinates. \cr
+#' `r lifecycle::badge("superseded")`: `coord_polar()` has been in favour of
+#' `coord_radial()`.
 #'
 #' @param theta variable to map angle to (`x` or `y`)
 #' @param start Offset of starting point from 12 o'clock in radians. Offset

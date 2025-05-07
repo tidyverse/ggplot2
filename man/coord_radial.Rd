@@ -73,8 +73,9 @@ reverses the radius. \code{"thetar"} reverses both the angle and the radius.}
 }
 \description{
 The polar coordinate system is most commonly used for pie charts, which
-are a stacked bar chart in polar coordinates. \code{coord_radial()} has extended
-options.
+are a stacked bar chart in polar coordinates. \cr
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}: \code{coord_polar()} has been in favour of
+\code{coord_radial()}.
 }
 \note{
 In \code{coord_radial()}, position guides can be defined by using
