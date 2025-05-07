@@ -93,19 +93,19 @@ sensible when \code{inner.radius > 0}.
 # A pie chart = stacked bar chart + polar coordinates
 pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
  geom_bar(width = 1)
-pie + coord_polar(theta = "y")
+pie + coord_radial(theta = "y", expand = FALSE)
 
 \donttest{
 
 # A coxcomb plot = bar chart + polar coordinates
 cxc <- ggplot(mtcars, aes(x = factor(cyl))) +
   geom_bar(width = 1, colour = "black")
-cxc + coord_polar()
+cxc + coord_radial(expand = FALSE)
 # A new type of plot?
-cxc + coord_polar(theta = "y")
+cxc + coord_radial(theta = "y", expand = FALSE)
 
 # The bullseye chart
-pie + coord_polar()
+pie + coord_radial(expand = FALSE)
 
 # Hadley's favourite pie chart
 df <- data.frame(
@@ -115,7 +115,7 @@ df <- data.frame(
 ggplot(df, aes(x = "", y = value, fill = variable)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("red", "yellow")) +
-  coord_polar("y", start = pi / 3) +
+  coord_radial("y", start = pi / 3, expand =  FALSE) +
   labs(title = "Pac man")
 
 # Windrose + doughnut plot
@@ -126,9 +126,10 @@ movies$budgetq <- cut_number(movies$budget, 4)
 doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
 
 # Wind rose
-doh + geom_bar(width = 1) + coord_polar()
+doh + geom_bar(width = 1) + coord_radial(expand = FALSE)
 # Race track plot
-doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
+doh + geom_bar(width = 0.9, position = "fill") +
+  coord_radial(theta = "y", expand = FALSE)
 }
 }
 # A partial polar plot
