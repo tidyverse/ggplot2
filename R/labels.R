@@ -219,7 +219,7 @@ ylab <- function(label) {
 #' @rdname labs
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
-  lifecycle::signal_stage("superseded", "ggtitle()", "labs(title, subtitle)")
+  lifecycle::signal_stage("superseded", "ggtitle()", I("labs(title, subtitle)"))
   labs(title = label, subtitle = subtitle)
 }
 
