@@ -29,6 +29,10 @@
 #'   (default) keeps directions as is. `"x"` and `"y"` can be used to reverse
 #'   their respective directions. `"xy"` can be used to reverse both
 #'   directions.
+#' @param ratio aspect ratio, expressed as `y / x`. Can be `NULL` (default) to
+#'   not use an aspect ratio. Using `1` ensures that one unit on the x-axis
+#'   is the same length as one unit on the y-axis. Ratios higher than one make
+#'   units on the y-axis longer than units on the x-axis, and vice versa.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or

@@ -10,7 +10,8 @@ coord_cartesian(
   expand = TRUE,
   default = FALSE,
   clip = "on",
-  reverse = "none"
+  reverse = "none",
+  ratio = NULL
 )
 }
 \arguments{
@@ -42,6 +43,11 @@ legend, the plot title, or the plot margins.}
 (default) keeps directions as is. \code{"x"} and \code{"y"} can be used to reverse
 their respective directions. \code{"xy"} can be used to reverse both
 directions.}
+
+\item{ratio}{aspect ratio, expressed as \code{y / x}. Can be \code{NULL} (default) to
+not use an aspect ratio. Using \code{1} ensures that one unit on the x-axis
+is the same length as one unit on the y-axis. Ratios higher than one make
+units on the y-axis longer than units on the x-axis, and vice versa.}
 }
 \description{
 The Cartesian coordinate system is the most familiar, and common, type of
