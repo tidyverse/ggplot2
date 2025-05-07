@@ -45,6 +45,11 @@ NULL
 #'   the exterior axes get labels, and the interior axes get none. When
 #'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
 #'   x- or y-direction respectively.
+#' @param as.table `r lifecycle::badge("superseded")` The `as.table` argument
+#'   is now absorbed into the `dir` argument via the two letter options.
+#'   If `TRUE`, the facets are laid out like a table with highest values at the
+#'   bottom-right. If `FALSE`, the facets are laid out like a plot with the
+#'   highest value at the top-right.
 #'
 #' @section Layer layout:
 #' The [`layer(layout)`][layer()] argument in context of `facet_wrap()` can take

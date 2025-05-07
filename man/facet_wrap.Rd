@@ -58,9 +58,11 @@ functions for different kind of labels, for example use \code{\link[=label_parse
 formatting facet labels. \code{\link[=label_value]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
 
-\item{as.table}{If \code{TRUE}, the default, the facets are laid out like
-a table with highest values at the bottom-right. If \code{FALSE}, the
-facets are laid out like a plot with the highest value at the top-right.}
+\item{as.table}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} The \code{as.table} argument
+is now absorbed into the \code{dir} argument via the two letter options.
+If \code{TRUE}, the facets are laid out like a table with highest values at the
+bottom-right. If \code{FALSE}, the facets are laid out like a plot with the
+highest value at the top-right.}
 
 \item{switch}{By default, the labels are displayed on the top and
 right of the plot. If \code{"x"}, the top labels will be
