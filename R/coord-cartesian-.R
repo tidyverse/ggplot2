@@ -68,15 +68,18 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE, clip = "on", reverse = "none") {
+                            default = FALSE, clip = "on", reverse = "none",
+                            ratio = NULL) {
   check_coord_limits(xlim)
   check_coord_limits(ylim)
+  check_number_decimal(ratio, allow_infinite = FALSE, allow_null = TRUE)
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
     reverse = reverse,
     expand = expand,
     default = default,
-    clip = clip
+    clip = clip,
+    ratio = ratio
   )
 }
 
@@ -87,7 +90,13 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   is_linear = function() TRUE,
-  is_free = function() TRUE,
+  is_free = function(self) is.null(self$ratio),
+  aspect = function(self, ranges) {
+    if (is.null(self$ratio)) {
+      return(NULL)
+    }
+    diff(ranges$y.range) / diff(ranges$x.range) * self$ratio
+  },
 
   distance = function(x, y, panel_params) {
     max_dist <- dist_euclidean(panel_params$x$dimension(), panel_params$y$dimension())
