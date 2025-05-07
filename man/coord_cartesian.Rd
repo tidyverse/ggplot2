@@ -80,6 +80,10 @@ p + coord_cartesian(xlim = c(325, 500), expand = FALSE)
 # default limits
 p + coord_cartesian(expand = FALSE)
 
+# Using a fixed ratio: 1 y-axis unit is 100 x-axis units
+# Plot window can be resized and aspect ratio will be maintained
+p + coord_cartesian(ratio = 100)
+
 # You can see the same thing with this 2d histogram
 d <- ggplot(diamonds, aes(carat, price)) +
   stat_bin_2d(bins = 25, colour = "white")
