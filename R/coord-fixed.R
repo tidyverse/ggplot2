@@ -1,5 +1,7 @@
 #' Cartesian coordinates with fixed "aspect ratio"
 #'
+#' `r lifecycle::badge("superseded")` This coordinate system can be replaced by
+#' using the `coord_cartesian(ratio)` argument.\cr\cr
 #' A fixed scale coordinate system forces a specified ratio between the
 #' physical representation of data units on the axes. The ratio represents the
 #' number of units on the y-axis equivalent to one unit on the x-axis. The
@@ -10,7 +12,7 @@
 #'
 #' @export
 #' @inheritParams coord_cartesian
-#' @param ratio aspect ratio, expressed as `y / x`
+#' @inheritDotParams coord_cartesian
 #' @examples
 #' # ensures that the ranges of axes are equal to the specified ratio by
 #' # adjusting the plot aspect ratio
@@ -22,17 +24,8 @@
 #' p + coord_fixed(xlim = c(15, 30))
 #'
 #' # Resize the plot to see that the specified aspect ratio is maintained
-coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE,
-                        clip = "on", reverse = "none") {
-  check_coord_limits(xlim)
-  check_coord_limits(ylim)
-  ggproto(NULL, CoordFixed,
-    limits = list(x = xlim, y = ylim),
-    ratio = ratio,
-    expand = expand,
-    reverse = reverse,
-    clip = clip
-  )
+coord_fixed <- function(ratio = 1, ...) {
+  coord_cartesian(ratio = ratio, ...)
 }
 
 #' @export
