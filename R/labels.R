@@ -200,19 +200,26 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
 
 #' @rdname labs
 #' @export
+#' @description
+#' `r lifecycle::badge("superseded")`: `xlab()`, `ylab()` and `ggtitle()` are
+#' superseded. It is recommended to use the `labs(x, y, title, subtitle)`
+#' arguments instead.
 xlab <- function(label) {
+  lifecycle::signal_stage("superseded", "xlab()", "labs(x)")
   labs(x = label)
 }
 
 #' @rdname labs
 #' @export
 ylab <- function(label) {
+  lifecycle::signal_stage("superseded", "ylab()", "labs(y)")
   labs(y = label)
 }
 
 #' @rdname labs
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
+  lifecycle::signal_stage("superseded", "ggtitle()", "labs(title, subtitle)")
   labs(title = label, subtitle = subtitle)
 }
 

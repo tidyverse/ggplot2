@@ -64,6 +64,10 @@ main findings. It's common to use the \code{caption} to provide information
 about the data source. \code{tag} can be used for adding identification tags
 to differentiate between multiple plots.
 
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}: \code{xlab()}, \code{ylab()} and \code{ggtitle()} are
+superseded. It is recommended to use the \code{labs(x, y, title, subtitle)}
+arguments instead.
+
 \code{get_labs()} retrieves completed labels from a plot.
 }
 \details{
