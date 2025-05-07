@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `coord_cartesian(ratio)` argument that supersedes `coord_fixed()` and 
+  `coord_equal()`.
 * (internal) New `Facet$draw_panel_content()` method for delegating panel 
   assembly (@Yunuuuu, #6406).
 * Facet gains a new method `setup_panel_params` to interact with the
