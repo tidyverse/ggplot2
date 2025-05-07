@@ -161,7 +161,7 @@ Facet <- ggproto("Facet", NULL,
       params
     )
 
-    # Draw individual panels, then call `$draw_panels()` method to 
+    # Draw individual panels, then call `$draw_panels()` method to
     # assemble into gtable
     lapply(seq_along(panels[[1]]), function(i) {
       panel <- lapply(panels, `[[`, i)
@@ -185,10 +185,12 @@ Facet <- ggproto("Facet", NULL,
       if (space$x && space$y) {
         aspect_ratio <- aspect_ratio %||% coord$ratio
       } else if (free$x || free$y) {
-        cli::cli_abort(
-          "{.fn {snake_class(self)}} can't use free scales with \\
-          {.fn {snake_class(coord)}}."
-        )
+        msg <- paste0("{.fn {snake_class(self)}} can't use free scales with ",
+                      "{.fn {snake_class(coord)}}")
+        if (!is.null(coord$ratio)) {
+          msg <- paste0(msg, " with a fixed {.arg ratio} argument")
+        }
+        cli::cli_abort(paste0(msg, "."))
       }
     }
 

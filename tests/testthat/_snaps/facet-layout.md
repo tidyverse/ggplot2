@@ -33,11 +33,11 @@
 
 ---
 
-    `facet_wrap()` can't use free scales with `coord_fixed()`.
+    `facet_wrap()` can't use free scales with `coord_cartesian()` with a fixed `ratio` argument.
 
 # facet_grid throws errors at bad layout specs
 
-    `facet_grid()` can't use free scales with `coord_fixed()`.
+    `facet_grid()` can't use free scales with `coord_cartesian()` with a fixed `ratio` argument.
 
 ---
 
