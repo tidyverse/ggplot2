@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+</g>
+<defs>
+  <clipPath id='cpOTcuODV8Njk3Ljg3fDM5LjQzfDQ0OS45MQ=='>
+    <rect x='97.85' y='39.43' width='600.02' height='410.47' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpOTcuODV8Njk3Ljg3fDM5LjQzfDQ0OS45MQ==)'>
+<rect x='97.85' y='39.43' width='600.02' height='410.47' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<circle cx='397.86' cy='244.67' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
+<rect x='97.85' y='39.43' width='600.02' height='410.47' style='stroke-width: 1.07; stroke: #333333;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpOTcuODV8Njk3Ljg3fDIyLjc4fDM5LjQz'>
+    <rect x='97.85' y='22.78' width='600.02' height='16.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpOTcuODV8Njk3Ljg3fDIyLjc4fDM5LjQz)'>
+<rect x='97.85' y='22.78' width='600.02' height='16.65' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
+<text x='397.86' y='34.14' text-anchor='middle' style='font-size: 8.80px; fill: #1A1A1A; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpNjk3Ljg3fDcxNC41MnwzOS40M3w0NDkuOTE='>
+    <rect x='697.87' y='39.43' width='16.65' height='410.47' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNjk3Ljg3fDcxNC41MnwzOS40M3w0NDkuOTE=)'>
+<rect x='697.87' y='39.43' width='16.65' height='410.47' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
+<text transform='translate(703.17,244.67) rotate(90)' text-anchor='middle' style='font-size: 8.80px; fill: #1A1A1A; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<polyline points='397.86,452.65 397.86,449.91 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<text transform='translate(400.89,492.26) rotate(-90)' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='74.85px' lengthAdjust='spacingAndGlyphs'>very long axis label</text>
+<text x='92.92' y='247.70' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='74.85px' lengthAdjust='spacingAndGlyphs'>very long axis label</text>
+<polyline points='95.11,244.67 97.85,244.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<text x='397.86' y='540.00' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>x</text>
+<text transform='translate(13.05,244.67) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>y</text>
+<rect x='378.54' y='553.24' width='38.64' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #E5E5E5;' />
+<text x='378.54' y='565.67' style='font-size: 11.00px; font-family: sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>z</text>
+<rect x='389.53' y='553.24' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #E5E5E5;' />
+<circle cx='398.17' cy='561.88' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
+<text x='412.29' y='564.91' style='font-size: 8.80px; font-family: sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>a</text>
+<text x='97.85' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='60.16px' lengthAdjust='spacingAndGlyphs'>title of plot</text>
+</g>
+</svg>
