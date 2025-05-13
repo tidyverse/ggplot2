@@ -220,7 +220,7 @@ return an empty grob for each panel.</p></li>
 <li><p><code>draw_front</code>: As above except the returned grob is placed
 between the layer stack and the foreground defined by the Coord object
 (usually empty). The default is, as above, to return an empty grob.</p></li>
-<li><p><code>draw_facet_panels</code>: Draws each panel for the facet. Should return a list
+<li><p><code>draw_panel_content</code>: Draws each panel for the facet. Should return a list
 of grobs, one for each panel. The output is used by the <code>draw_panels</code>
 method.</p></li>
 <li><p><code>draw_labels</code>: Given the gtable returned by <code>draw_panels</code>,
