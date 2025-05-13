@@ -18,6 +18,7 @@
 #'   guide overrides, and is combined with, the plot's theme.
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
+     One of "top", "right", "bottom", "left", or "inside".
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param override.aes A list specifying aesthetic parameters of legend key.
