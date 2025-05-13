@@ -26,9 +26,9 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw2NjUuOTN8NzUuNTZ8NTc2LjAw)'>
-<circle cx='30.27' cy='553.25' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
-<circle cx='332.96' cy='325.78' r='5.86' style='stroke-width: 2.13; stroke: #00BFC4; fill: #00BFC4;' />
-<circle cx='635.66' cy='98.31' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='30.27' cy='553.25' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='332.96' cy='325.78' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
+<circle cx='635.66' cy='98.31' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
@@ -42,8 +42,8 @@
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='671.60' y='305.27' style='font-size: 33.00px; font-family: sans;' textLength='16.51px' lengthAdjust='spacingAndGlyphs'>z</text>
-<circle cx='680.24' cy='336.96' r='5.86' style='stroke-width: 2.13; stroke: #F8766D; fill: #F8766D;' />
-<circle cx='680.24' cy='360.61' r='5.86' style='stroke-width: 2.13; stroke: #00BFC4; fill: #00BFC4;' />
+<circle cx='680.24' cy='336.96' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
+<circle cx='680.24' cy='360.61' r='1.95' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' />
 <text x='705.32' y='346.04' style='font-size: 26.40px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>a</text>
 <text x='705.32' y='369.69' style='font-size: 26.40px; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>b</text>
 <text x='0.00' y='43.69' style='font-size: 39.60px; font-family: sans;' textLength='314.84px' lengthAdjust='spacingAndGlyphs'>theme_void_large</text>
