@@ -138,7 +138,8 @@ element_rect <- S7::new_class(
 
 #' @export
 #' @rdname element
-#' @param lineend Line end Line end style (round, butt, square)
+#' @param linejoin Line join style, one of `"round"`, `"mitre"` or `"bevel"`.
+#' @param lineend Line end style, one of `"round"`, `"butt"` or `"square"`.
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- S7::new_class(
   "element_line", parent = element,

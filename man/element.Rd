@@ -31,6 +31,7 @@ element_rect(
   linewidth = NULL,
   linetype = NULL,
   color = NULL,
+  linejoin = NULL,
   inherit.blank = FALSE,
   size = deprecated()
 )
@@ -41,6 +42,7 @@ element_line(
   linetype = NULL,
   lineend = NULL,
   color = NULL,
+  linejoin = NULL,
   arrow = NULL,
   arrow.fill = NULL,
   inherit.blank = FALSE,
@@ -68,6 +70,7 @@ element_polygon(
   linewidth = NULL,
   linetype = NULL,
   color = NULL,
+  linejoin = NULL,
   inherit.blank = FALSE
 )
 
@@ -119,6 +122,8 @@ integer (0:8), a name (blank, solid, dashed, dotted, dotdash, longdash,
 twodash), or a string with an even number (up to eight) of hexadecimal
 digits which give the lengths in consecutive positions in the string.}
 
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
+
 \item{inherit.blank}{Should this element inherit the existence of an
 \code{element_blank} among its parents? If \code{TRUE} the existence of
 a blank element among its parents will cause this element to be blank as
@@ -127,7 +132,7 @@ calculating final element state.}
 
 \item{size, fontsize, pointsize}{text size in pts, point size in mm.}
 
-\item{lineend}{Line end Line end style (round, butt, square)}
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
 
