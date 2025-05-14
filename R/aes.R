@@ -302,7 +302,7 @@ aes_ <- function(x, y, ...) {
   caller_env <- parent.frame()
 
   as_quosure_aes <- function(x) {
-    if (is.formula(x) && length(x) == 2) {
+    if (is_formula(x) && length(x) == 2) {
       as_quosure(x)
     } else if (is.null(x) || is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
