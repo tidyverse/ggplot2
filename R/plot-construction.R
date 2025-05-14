@@ -81,6 +81,7 @@ S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
   if (getRversion() < "4.3.0") {
     add_gg(e1, e2)
   } else {
+    deprecate_soft0("4.0.0", I("<ggplot> %+% x"), I("<ggplot> + x"))
     `+`(e1, e2)
   }
 }
