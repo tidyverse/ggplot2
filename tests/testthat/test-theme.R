@@ -150,7 +150,7 @@ test_that("calculating theme element inheritance works", {
   e <- calc_element(
     "panel.background",
     theme(
-      rect = element_rect(fill = "white", colour = "black", linewidth = 0.5, linetype = 1),
+      rect = element_rect(fill = "white", colour = "black", linewidth = 0.5, linetype = 1, linejoin = "round"),
       panel.background = element_dummyrect(dummy = 5),
       complete = TRUE # need to prevent pulling in default theme
     )
@@ -159,7 +159,7 @@ test_that("calculating theme element inheritance works", {
   expect_identical(
     e,
     element_dummyrect(
-      fill = "white", colour = "black", dummy = 5, linewidth = 0.5, linetype = 1,
+      fill = "white", colour = "black", dummy = 5, linewidth = 0.5, linetype = 1, linejoin = "round",
       inherit.blank = TRUE # this is true because we're requesting a complete theme
     )
   )
