@@ -6,12 +6,12 @@ test_that("guide_none() can be used in non-position scales", {
     scale_color_discrete(guide = guide_none())
 
   built <- ggplot_build(p)
-  plot <- built$plot
-  guides <- guides_list(plot$guides)
+  plot <- built@plot
+  guides <- guides_list(plot@guides)
   guides <- guides$build(
-    plot$scales,
-    plot$layers,
-    plot$labels
+    plot@scales,
+    plot@layers,
+    plot@labels
   )
 
   expect_length(guides$guides, 0)
@@ -156,7 +156,7 @@ test_that("empty guides are dropped", {
   expect_equal(nrow(gd), 0)
 
   # Draw guides
-  guides <- p$plot$guides$assemble(theme_gray())
+  guides <- p@plot@guides$assemble(theme_gray())
 
   # All guide-boxes should be empty
   expect_true(is.zero(guides))

@@ -2,10 +2,10 @@ test_that("building a plot does not affect its scales", {
   dat <- data_frame(x = rnorm(20), y = rnorm(20))
 
   p <- ggplot(dat, aes(x, y)) + geom_point()
-  expect_length(p$scales$scales, 0)
+  expect_length(p@scales$scales, 0)
 
   ggplot_build(p)
-  expect_length(p$scales$scales, 0)
+  expect_length(p@scales$scales, 0)
 })
 
 test_that("ranges update only for variables listed in aesthetics", {
@@ -146,18 +146,18 @@ test_that("all-Inf layers are not used for determining the type of scale", {
     geom_point()
 
   b1 <- ggplot_build(p1)
-  expect_s3_class(b1$layout$panel_scales_x[[1]], "ScaleDiscretePosition")
+  expect_s3_class(b1@layout$panel_scales_x[[1]], "ScaleDiscretePosition")
 
   p2 <- ggplot() +
     # If the layer non-Inf value, it's considered
     annotate("rect", xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf, fill = "black")
 
   b2 <- ggplot_build(p2)
-  expect_s3_class(b2$layout$panel_scales_x[[1]], "ScaleContinuousPosition")
+  expect_s3_class(b2@layout$panel_scales_x[[1]], "ScaleContinuousPosition")
 })
 
 test_that("scales are looked for in appropriate place", {
-  xlabel <- function(x) ggplot_build(x)$layout$panel_scales_x[[1]]$name
+  xlabel <- function(x) ggplot_build(x)@layout$panel_scales_x[[1]]$name
   p0 <- ggplot(mtcars, aes(mpg, wt)) + geom_point() + scale_x_continuous("0")
   expect_equal(xlabel(p0), "0")
 
@@ -343,12 +343,12 @@ test_that("scale_apply preserves class and attributes", {
 
   # Perform identity transformation via `scale_apply`
   out <- with_bindings(scale_apply(
-    df, "x", "transform", 1:2, plot$layout$panel_scales_x
+    df, "x", "transform", 1:2, plot@layout$panel_scales_x
   )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
 
   # Check that it errors on bad scale ids
   expect_snapshot_error(scale_apply(
-    df, "x", "transform", c(NA, 1), plot$layout$panel_scales_x
+    df, "x", "transform", c(NA, 1), plot@layout$panel_scales_x
   ))
 
   # Check class preservation
@@ -362,7 +362,7 @@ test_that("scale_apply preserves class and attributes", {
   class(df$x) <- "foobar"
 
   out <- with_bindings(scale_apply(
-    df, "x", "transform", 1:2, plot$layout$panel_scales_x
+    df, "x", "transform", 1:2, plot@layout$panel_scales_x
   )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
 
   expect_false(inherits(out, "foobar"))
@@ -755,7 +755,7 @@ test_that("ViewScales can make fixed copies", {
     annotate("point", x = 5, y = 10) +
     scale_x_discrete(labels = c("four-wheel", "forward", "reverse"))
 
-  b1 <- ggplot_build(p1)$layout$panel_params[[1]]
+  b1 <- ggplot_build(p1)@layout$panel_params[[1]]
 
   # We build a second plot with the first plot's scales
   p2 <- ggplot(mpg, aes(drv, cyl)) +

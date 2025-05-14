@@ -326,10 +326,7 @@ validate_device <- function(device, filename = NULL, dpi = 300, call = caller_en
   dev
 }
 
-#' @export
-grid.draw.ggplot <- function(x, recording = TRUE) {
-  print(x)
-}
+S7::method(grid.draw, class_ggplot) <- function(x, recording = TRUE) print(x)
 
 absorb_grdevice_args <- function(f) {
   function(..., type, antialias) {

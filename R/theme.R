@@ -482,12 +482,7 @@ theme <- function(...,
     })
   }
 
-  structure(
-    elements,
-    class = c("theme", "gg"),
-    complete = complete,
-    validate = validate
-  )
+  class_theme(elements, complete = complete, validate = validate)
 }
 
 fix_theme_deprecations <- function(elements) {
@@ -577,7 +572,7 @@ validate_theme_palettes <- function(elements) {
 
 #' @export
 #' @rdname is_tests
-is_theme <- function(x) inherits(x, "theme")
+is_theme <- function(x) S7::S7_inherits(x, class_theme)
 
 #' @export
 #' @rdname is_tests
@@ -588,12 +583,13 @@ is.theme <- function(x) {
 }
 
 # check whether theme is complete
-is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
+is_theme_complete <- function(x) {
+  is_theme(x) && isTRUE(x@complete)
+}
 
 # check whether theme should be validated
 is_theme_validate <- function(x) {
-  validate <- attr(x, "validate", exact = TRUE)
-  isTRUE(validate %||% TRUE)
+  !is_theme(x) || isTRUE(x@validate)
 }
 
 check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
@@ -633,21 +629,19 @@ complete_theme <- function(theme = NULL, default = theme_get()) {
   }
   check_object(default, is_theme, "a {.cls theme} object")
   theme <- plot_theme(list(theme = theme), default = default)
-
-  # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
-  # construct a new theme
-  attributes(theme) <- list(names = attr(theme, "names"))
-  structure(
-    theme,
-    class = c("theme", "gg"),
-    complete = TRUE, # This theme is complete and has no missing elements
-    validate = FALSE # Settings have already been validated
-  )
+  theme@complete <- TRUE
+  theme@validate <- FALSE
+  theme
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = get_theme()) {
-  theme <- x$theme
+  if (S7::S7_inherits(x)) {
+    theme <- x@theme
+  } else {
+    theme <- x$theme
+  }
+
 
   # apply theme defaults appropriately if needed
   if (is_theme_complete(theme)) {
@@ -709,13 +703,12 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
     }
   )
 
-  # make sure the "complete" attribute is set; this can be missing
-  # when t1 is an empty list
-  attr(t1, "complete") <- is_theme_complete(t1)
+  if (!is_theme(t1) && is.list(t1)) {
+    t1 <- theme(!!!t1)
+  }
 
   # Only validate if both themes should be validated
-  attr(t1, "validate") <-
-    is_theme_validate(t1) && is_theme_validate(t2)
+  t1@validate <- is_theme_validate(t1) && is_theme_validate(t2)
 
   t1
 }
@@ -1000,9 +993,9 @@ combine_elements <- function(e1, e2) {
 }
 
 #' @export
-`$.theme` <- function(x, ...) {
+`$.ggplot2::theme` <- function(x, ...) {
   .subset2(x, ...)
 }
 
 #' @export
-print.theme <- function(x, ...) utils::str(x)
+`print.ggplot2::theme` <- function(x, ...) utils::str(x)

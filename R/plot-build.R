@@ -23,44 +23,42 @@
 #' The `r link_book("build step section", "internals#sec-ggplotbuild")`
 #' @keywords internal
 #' @export
-ggplot_build <- function(plot) {
+ggplot_build <- S7::new_generic("ggplot_build", "plot", fun = function(plot) {
   # Attaching the plot env to be fetched by deprecations etc.
-  attach_plot_env(plot$plot_env)
+  if (S7::S7_inherits(plot) && S7::prop_exists(plot, "plot_env")) {
+    attach_plot_env(plot@plot_env)
+  }
+  S7::S7_dispatch()
+})
 
-  UseMethod('ggplot_build')
+S7::method(ggplot_build, class_ggplot_built) <- function(plot) {
+  plot # This is a no-op
 }
 
-#' @export
-ggplot_build.ggplot_built <- function(plot) {
-  # This is a no-op
-  plot
-}
-
-#' @export
-ggplot_build.ggplot <- function(plot) {
+S7::method(ggplot_build, class_ggplot) <- function(plot) {
   plot <- plot_clone(plot)
-  if (length(plot$layers) == 0) {
+  if (length(plot@layers) == 0) {
     plot <- plot + geom_blank()
   }
 
-  layers <- plot$layers
+  layers <- plot@layers
   data <- rep(list(NULL), length(layers))
 
-  scales <- plot$scales
+  scales <- plot@scales
 
   # Allow all layers to make any final adjustments based
   # on raw input data and plot info
-  data <- by_layer(function(l, d) l$layer_data(plot$data), layers, data, "computing layer data")
+  data <- by_layer(function(l, d) l$layer_data(plot@data), layers, data, "computing layer data")
   data <- by_layer(function(l, d) l$setup_layer(d, plot), layers, data, "setting up layer")
 
   # Initialise panels, add extra data for margins & missing faceting
   # variables, and add on a PANEL variable to data
-  layout <- create_layout(plot$facet, plot$coordinates, plot$layout)
-  data <- layout$setup(data, plot$data, plot$plot_env)
+  layout <- create_layout(plot@facet, plot@coordinates, plot@layout)
+  data <- layout$setup(data, plot@data, plot@plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
-  plot$labels <- setup_plot_labels(plot, layers, data)
+  plot@labels <- setup_plot_labels(plot, layers, data)
   data <- .ignore_data(data)
 
   # Transform all scales
@@ -80,7 +78,7 @@ ggplot_build.ggplot <- function(plot) {
   data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
 
   # Make sure missing (but required) aesthetics are added
-  plot$scales$add_missing(c("x", "y"), plot$plot_env)
+  plot@scales$add_missing(c("x", "y"), plot@plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
@@ -98,27 +96,27 @@ ggplot_build.ggplot <- function(plot) {
   data <- layout$map_position(data)
 
   # Hand off position guides to layout
-  layout$setup_panel_guides(plot$guides, plot$layers)
+  layout$setup_panel_guides(plot@guides, plot@layers)
 
   # Complete the plot's theme
-  plot$theme <- plot_theme(plot)
+  plot@theme <- plot_theme(plot)
 
   # Train and map non-position scales and guides
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {
-    npscales$set_palettes(plot$theme)
+    npscales$set_palettes(plot@theme)
     lapply(data, npscales$train_df)
-    plot$guides <- plot$guides$build(npscales, plot$layers, plot$labels, data, plot$theme)
+    plot@guides <- plot@guides$build(npscales, plot@layers, plot@labels, data, plot@theme)
     data <- lapply(data, npscales$map_df)
   } else {
     # Only keep custom guides if there are no non-position scales
-    plot$guides <- plot$guides$get_custom()
+    plot@guides <- plot@guides$get_custom()
   }
   data <- .expose_data(data)
 
   # Fill in defaults etc.
   data <- by_layer(
-    function(l, d) l$compute_geom_2(d, theme = plot$theme),
+    function(l, d) l$compute_geom_2(d, theme = plot@theme),
     layers, data, "setting up geom aesthetics"
   )
 
@@ -129,18 +127,15 @@ ggplot_build.ggplot <- function(plot) {
   data <- layout$finish_data(data)
 
   # Consolidate alt-text
-  plot$labels$alt <- get_alt_text(plot)
+  plot@labels$alt <- get_alt_text(plot)
 
-  structure(
-    list(data = data, layout = layout, plot = plot),
-    class = "ggplot_built"
-  )
+  class_ggplot_built(data = data, layout = layout, plot = plot)
 }
 
 #' @export
 #' @rdname ggplot_build
 get_layer_data <- function(plot = get_last_plot(), i = 1L) {
-  ggplot_build(plot)$data[[i]]
+  ggplot_build(plot)@data[[i]]
 }
 #' @export
 #' @rdname ggplot_build
@@ -151,12 +146,12 @@ layer_data <- get_layer_data
 get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
-  layout <- b$layout$layout
+  layout <- b@layout$layout
   selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
 
   list(
-    x = b$layout$panel_scales_x[[selected$SCALE_X]],
-    y = b$layout$panel_scales_y[[selected$SCALE_Y]]
+    x = b@layout$panel_scales_x[[selected$SCALE_X]],
+    y = b@layout$panel_scales_y[[selected$SCALE_Y]]
   )
 }
 
@@ -169,7 +164,7 @@ layer_scales <- get_panel_scales
 get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
-  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)
+  b@plot@layers[[i]]$draw_geom(b@data[[i]], b@layout)
 }
 
 #' @export
@@ -194,45 +189,42 @@ layer_grob <- get_layer_grob
 #' @keywords internal
 #' @param data plot data generated by [ggplot_build()]
 #' @export
-ggplot_gtable <- function(data) {
-  # Attaching the plot env to be fetched by deprecations etc.
-  attach_plot_env(data$plot$plot_env)
+ggplot_gtable <- S7::new_generic("ggplot_gtable", "data", function(data) {
+  attach_plot_env(data@plot@plot_env)
+  S7::S7_dispatch()
+})
 
-  UseMethod('ggplot_gtable')
-}
+S7::method(ggplot_gtable, class_ggplot_built) <- function(data) {
+  plot <- data@plot
+  layout <- data@layout
+  data <- data@data
+  theme <- plot@theme
 
-#' @export
-ggplot_gtable.ggplot_built <- function(data) {
-  plot <- data$plot
-  layout <- data$layout
-  data <- data$data
-  theme <- plot$theme
+  geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot@layers, data, "converting geom to grob")
 
-  geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
-
-  plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
+  plot_table <- layout$render(geom_grobs, data, theme, plot@labels)
 
   # Legends
-  legend_box <- plot$guides$assemble(theme)
+  legend_box <- plot@guides$assemble(theme)
   plot_table <- table_add_legends(plot_table, legend_box, theme)
 
   # Title
   title <- element_render(
-    theme, "plot.title", plot$labels$title,
+    theme, "plot.title", plot@labels$title,
     margin_y = TRUE, margin_x = TRUE
   )
   title_height <- grobHeight(title)
 
   # Subtitle
   subtitle <- element_render(
-    theme, "plot.subtitle", plot$labels$subtitle,
+    theme, "plot.subtitle", plot@labels$subtitle,
     margin_y = TRUE, margin_x = TRUE
   )
   subtitle_height <- grobHeight(subtitle)
 
   # whole plot annotation
   caption <- element_render(
-    theme, "plot.caption", plot$labels$caption,
+    theme, "plot.caption", plot@labels$caption,
     margin_y = TRUE, margin_x = TRUE
   )
   caption_height <- grobHeight(caption)
@@ -283,7 +275,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
     t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
 
-  plot_table <- table_add_tag(plot_table, plot$labels$tag, theme)
+  plot_table <- table_add_tag(plot_table, plot@labels$tag, theme)
 
   # Margins
   plot_margin <- calc_element("plot.margin", theme) %||% margin()
@@ -298,7 +290,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   }
 
   # add alt-text as attribute
-  attr(plot_table, "alt-label") <- plot$labels$alt
+  attr(plot_table, "alt-label") <- plot@labels$alt
 
   plot_table
 }
@@ -312,11 +304,8 @@ ggplotGrob <- function(x) {
   ggplot_gtable(ggplot_build(x))
 }
 
-#' @export
-as.gtable.ggplot <- function(x, ...) ggplotGrob(x)
-
-#' @export
-as.gtable.ggplot_built <- function(x, ...) ggplot_gtable(x)
+S7::method(as.gtable, class_ggplot) <- function(x, ...) ggplotGrob(x)
+S7::method(as.gtable, class_ggplot_built) <- function(x, ...) ggplot_gtable(x)
 
 # Apply function to layer and matching data
 by_layer <- function(f, layers, data, step = NULL) {

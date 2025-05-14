@@ -4,14 +4,12 @@
 \alias{ggplot_add}
 \title{Add custom objects to ggplot}
 \usage{
-ggplot_add(object, plot, object_name)
+ggplot_add(object, plot, ...)
 }
 \arguments{
 \item{object}{An object to add to the plot}
 
 \item{plot}{The ggplot object to add \code{object} to}
-
-\item{object_name}{The name of the object to add}
 }
 \value{
 A modified ggplot object
@@ -32,17 +30,17 @@ the plot intact.
 }
 \examples{
 # making a new method for the generic
-# in this example, we apply a colour to the plot background
-ggplot_add.character <- function(object, plot, object_name) {
-  plot + theme(plot.background = element_rect(fill = object))
-}
+# in this example, we enable adding text elements
+S7::method(ggplot_add, list(element_text, class_ggplot)) <-
+  function(object, plot, ...) {
+    plot + theme(text = object)
+  }
 
 # we can now use `+` to add our object to a plot
 ggplot(mpg, aes(displ, cty)) +
   geom_point() +
-  "cornsilk"
+  element_text(colour = "red")
 
 # clean-up
-rm(ggplot_add.character)
 }
 \keyword{internal}

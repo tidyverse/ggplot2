@@ -103,55 +103,53 @@
 #'     mapping = aes(x = group, y = group_mean), data = group_means_df,
 #'     colour = 'red', size = 3
 #'   )
-ggplot <- function(data = NULL, mapping = aes(), ...,
-                   environment = parent.frame()) {
-  UseMethod("ggplot")
-}
+ggplot <- S7::new_generic(
+  "ggplot2", "data",
+  fun = function(data, mapping = aes(), ..., environment = parent.frame()) {
+    force(mapping)
+    S7::S7_dispatch()
+  }
+)
 
-#' @export
-ggplot.default <- function(data = NULL, mapping = aes(), ...,
-                           environment = parent.frame()) {
+S7::method(ggplot, S7::class_any) <- function(
+    data, mapping = aes(), ...,
+    environment = parent.frame()) {
   if (!missing(mapping) && !is_mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
       "x" = "You've supplied {.obj_type_friendly {mapping}}."
     ))
   }
+  if (missing(data)) {
+    data <- NULL
+  }
 
   data <- fortify(data, ...)
 
-  p <- structure(list(
+  p <- class_ggplot(
     data = data,
-    layers = list(),
-    scales = scales_list(),
-    guides = guides_list(),
     mapping = mapping,
-    theme = list(),
-    coordinates = coord_cartesian(default = TRUE),
-    facet = facet_null(),
-    plot_env = environment,
-    layout = ggproto(NULL, Layout),
-    labels = list()
-  ), class = c("gg", "ggplot"))
+    plot_env = environment
+  )
+  class(p) <- union("ggplot", class(p))
 
   set_last_plot(p)
   p
 }
 
-#' @export
-ggplot.function <- function(data = NULL, mapping = aes(), ...,
-                            environment = parent.frame()) {
-  # Added to avoid functions end in ggplot.default
-  cli::cli_abort(c(
-    "{.arg data} cannot be a function.",
-    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
-  ))
-}
+S7::method(ggplot, S7::class_function) <-
+  function(data, mapping = aes(), ...,
+           environment = parent.frame()) {
+    # Added to avoid functions end in ggplot.default
+    cli::cli_abort(c(
+      "{.arg data} cannot be a function.",
+      "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+    ))
+  }
 
 plot_clone <- function(plot) {
   p <- plot
-  p$scales <- plot$scales$clone()
-
+  p@scales <- plot@scales$clone()
   p
 }
 
@@ -160,7 +158,7 @@ plot_clone <- function(plot) {
 #' @keywords internal
 #' @export
 #' @name is_tests
-is_ggplot <- function(x) inherits(x, "ggplot")
+is_ggplot <- function(x) S7::S7_inherits(x, class_ggplot)
 
 #' @export
 #' @rdname is_tests
@@ -184,7 +182,9 @@ is.ggplot <- function(x) {
 #' @keywords hplot
 #' @return Invisibly returns the original plot.
 #' @export
-#' @method print ggplot
+#' @method print ggplot2::ggplot
+#' @name print.ggplot
+#' @aliases print.ggplot2::ggplot plot.ggplot2::ggplot
 #' @examples
 #' colours <- c("class", "drv", "fl")
 #'
@@ -198,7 +198,8 @@ is.ggplot <- function(x) {
 #'   print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
 #'           geom_point())
 #' }
-print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
+# TODO: should convert to proper S7 method once bug in S7 is resolved
+`print.ggplot2::ggplot` <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
   if (newpage) grid.newpage()
 
@@ -227,7 +228,44 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
 
   invisible(x)
 }
-#' @rdname print.ggplot
-#' @method plot ggplot
+
+S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
+
+# The following extractors and subassignment operators are for a smooth
+# transition and should be deprecated in the release cycle after 4.0.0
+# TODO: should convert to proper S7 method once bug in S7 is resolved
+
 #' @export
-plot.ggplot <- print.ggplot
+`$.ggplot2::gg` <- function(x, i) {
+  `[[`(S7::props(x), i)
+}
+
+#' @export
+`$<-.ggplot2::gg` <- function(x, i, value) {
+  S7::props(x) <- `$<-`(S7::props(x), i, value)
+  x
+}
+
+#' @export
+`[.ggplot2::gg` <- function(x, i) {
+  `[`(S7::props(x), i)
+}
+
+#' @export
+`[<-.ggplot2::gg` <- function(x, i, value) {
+  S7::props(x) <- `[<-`(S7::props(x), i, value)
+  x
+}
+
+#' @export
+`[[.ggplot2::gg` <- function(x, i) {
+  `[[`(S7::props(x), i)
+}
+
+#' @export
+`[[<-.ggplot2::gg` <- function(x, i, value) {
+  S7::props(x) <- `[[<-`(S7::props(x), i, value)
+  x
+}
+
+

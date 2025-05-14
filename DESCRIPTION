@@ -94,6 +94,7 @@ Collate:
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'all-classes.R'
     'utilities-checks.R'
     'legend-draw.R'
     'geom-.R'

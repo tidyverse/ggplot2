@@ -24,8 +24,6 @@
 #' @param e1 An object of class [ggplot()] or a [theme()].
 #' @param e2 A plot component, as described below.
 #' @seealso [theme()]
-#' @export
-#' @method + gg
 #' @rdname gg-add
 #' @examples
 #' base <-
@@ -39,7 +37,7 @@
 #' # Alternatively, you can add multiple components with a list.
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
-"+.gg" <- function(e1, e2) {
+add_gg <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
             "Cannot use {.code +} with a single argument.",
@@ -52,6 +50,7 @@
   e2name <- deparse(substitute(e2))
 
   if      (is_theme(e1))  add_theme(e1, e2, e2name)
+  # The `add_ggplot()` branch here is for backward compatibility with R < 4.3.0
   else if (is_ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is_ggproto(e1)) {
     cli::cli_abort(c(
@@ -61,10 +60,30 @@
   }
 }
 
+if (getRversion() < "4.3.0") {
+  S7::method(`+`, list(class_S3_gg, S7::class_any)) <- add_gg
+}
+
+S7::method(`+`, list(class_ggplot, S7::class_any)) <- function(e1, e2) {
+  e2name <- deparse(substitute(e2, env = caller_env(2)))
+  add_ggplot(e1, e2, e2name)
+}
+
+S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
+  e2name <- deparse(substitute(e2, env = caller_env(2)))
+  add_theme(e1, e2, e2name)
+}
+
 
 #' @rdname gg-add
 #' @export
-"%+%" <- `+.gg`
+"%+%" <- function(e1, e2) {
+  if (getRversion() < "4.3.0") {
+    add_gg(e1, e2)
+  } else {
+    `+`(e1, e2)
+  }
+}
 
 add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)
@@ -81,7 +100,6 @@ add_ggplot <- function(p, object, objectname) {
 #'
 #' @param object An object to add to the plot
 #' @param plot The ggplot object to add `object` to
-#' @param object_name The name of the object to add
 #'
 #' @return A modified ggplot object
 #' @details
@@ -98,108 +116,100 @@ add_ggplot <- function(p, object, objectname) {
 #' @export
 #' @examples
 #' # making a new method for the generic
-#' # in this example, we apply a colour to the plot background
-#' ggplot_add.character <- function(object, plot, object_name) {
-#'   plot + theme(plot.background = element_rect(fill = object))
-#' }
+#' # in this example, we enable adding text elements
+#' S7::method(ggplot_add, list(element_text, class_ggplot)) <-
+#'   function(object, plot, ...) {
+#'     plot + theme(text = object)
+#'   }
 #'
 #' # we can now use `+` to add our object to a plot
 #' ggplot(mpg, aes(displ, cty)) +
 #'   geom_point() +
-#'   "cornsilk"
+#'   element_text(colour = "red")
 #'
 #' # clean-up
-#' rm(ggplot_add.character)
-ggplot_add <- function(object, plot, object_name) {
-  UseMethod("ggplot_add")
-}
-#' @export
-ggplot_add.default <- function(object, plot, object_name) {
-  cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
-}
-#' @export
-ggplot_add.NULL <- function(object, plot, object_name) {
-  plot
-}
-#' @export
-ggplot_add.data.frame <- function(object, plot, object_name) {
-  plot$data <- object
-  plot
-}
-#' @export
-ggplot_add.function <- function(object, plot, object_name) {
-  cli::cli_abort(c(
-          "Can't add {.var {object_name}} to a {.cls ggplot} object",
-    "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
-  ))
-}
-#' @export
-ggplot_add.theme <- function(object, plot, object_name) {
-  plot$theme <- add_theme(plot$theme, object)
-  plot
-}
-#' @export
-ggplot_add.Scale <- function(object, plot, object_name) {
-  plot$scales$add(object)
-  plot
-}
-#' @export
-ggplot_add.labels <- function(object, plot, object_name) {
-  update_labels(plot, object)
-}
-#' @export
-ggplot_add.Guides <- function(object, plot, object_name) {
-  if (is_guides(plot$guides)) {
-    # We clone the guides object to prevent modify-in-place of guides
-    old <- plot$guides
+ggplot_add <- S7::new_generic("ggplot_add", c("object", "plot"))
+
+S7::method(ggplot_add, list(S7::class_any, class_ggplot)) <-
+  function(object, plot, object_name, ...) {
+    cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
+  }
+
+S7::method(ggplot_add, list(S7::class_function, class_ggplot)) <-
+  function(object, plot, object_name, ...) {
+    cli::cli_abort(c(
+      "Can't add {.var {object_name}} to a {.cls ggplot} object",
+      "i" = "Did you forget to add parentheses, as in {.fn {object_name}}?"
+    ))
+  }
+
+S7::method(ggplot_add, list(NULL, class_ggplot)) <-
+  function(object, plot, ...) { plot }
+
+S7::method(ggplot_add, list(S7::class_data.frame, class_ggplot)) <-
+  function(object, plot, ...) { S7::set_props(plot, data = object) }
+
+S7::method(ggplot_add, list(class_scale, class_ggplot)) <-
+  function(object, plot, ...) {
+    plot@scales$add(object)
+    plot
+  }
+
+S7::method(ggplot_add, list(class_labels, class_ggplot)) <-
+  function(object, plot, ...) { update_labels(plot, object) }
+
+S7::method(ggplot_add, list(class_guides, class_ggplot)) <-
+  function(object, plot, ...) {
+    old <- plot@guides
     new <- ggproto(NULL, old)
     new$add(object)
-    plot$guides <- new
-  } else {
-    plot$guides <- object
-  }
-  plot
-}
-#' @export
-ggplot_add.uneval <- function(object, plot, object_name) {
-  plot$mapping <- defaults(object, plot$mapping)
-  # defaults() doesn't copy class, so copy it.
-  class(plot$mapping) <- class(object)
-  plot
-}
-#' @export
-ggplot_add.Coord <- function(object, plot, object_name) {
-  if (!isTRUE(plot$coordinates$default)) {
-    cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
+    plot@guides <- new
+    plot
   }
 
-  plot$coordinates <- object
-  plot
-}
-#' @export
-ggplot_add.Facet <- function(object, plot, object_name) {
-  plot$facet <- object
-  plot
-}
-#' @export
-ggplot_add.list <- function(object, plot, object_name) {
-  for (o in object) {
-    plot <- ggplot_add(o, plot, object_name)
+S7::method(ggplot_add, list(class_mapping, class_ggplot)) <-
+  function(object, plot, ...) {
+    S7::set_props(plot, mapping = class_mapping(defaults(object, plot@mapping)))
   }
-  plot
-}
-#' @export
-ggplot_add.by <- function(object, plot, object_name) {
-  ggplot_add.list(object, plot, object_name)
-}
 
-#' @export
-ggplot_add.Layer <- function(object, plot, object_name) {
-  layers_names <- new_layer_names(object, names2(plot$layers))
-  plot$layers <- append(plot$layers, object)
-  names(plot$layers) <- layers_names
-  plot
-}
+S7::method(ggplot_add, list(class_theme, class_ggplot)) <-
+  function(object, plot, ...) {
+    S7::set_props(plot, theme = add_theme(plot@theme, object))
+  }
+
+S7::method(ggplot_add, list(class_coord, class_ggplot)) <-
+  function(object, plot, ...) {
+    if (!isTRUE(plot@coordinates$default)) {
+      cli::cli_inform(c(
+        "Coordinate system already present.",
+        i = "Adding new coordinate system, which will replace the existing one."
+      ))
+    }
+    S7::set_props(plot, coordinates = object)
+  }
+
+S7::method(ggplot_add, list(class_facet, class_ggplot)) <-
+  function(object, plot, ...) { S7::set_props(plot, facet = object) }
+
+S7::method(ggplot_add, list(class_layer, class_ggplot)) <-
+  function(object, plot, ...) {
+    layers_names <- new_layer_names(object, names2(plot@layers))
+    object <- setNames(append(plot@layers, object), layers_names)
+    S7::set_props(plot, layers = object)
+  }
+
+S7::method(ggplot_add, list(S7::class_list, class_ggplot)) <-
+  function(object, plot, object_name, ...) {
+    for (o in object) {
+      plot <- ggplot_add(o, plot, object_name)
+    }
+    plot
+  }
+
+S7::method(ggplot_add, list(S7::new_S3_class("by"), class_ggplot)) <-
+  function(object, plot, object_name, ...) {
+    ggplot_add(unclass(object), plot, object_name)
+  }
 
 new_layer_names <- function(layer, existing) {
 
