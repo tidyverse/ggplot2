@@ -159,6 +159,9 @@ limits.POSIXlt <- function(lims, var, call = caller_env()) {
 
 #' Expand the plot limits, using data
 #'
+#' `r lifecycle::badge("superseded")`: It is recommended to pass a function to
+#' the `limits` argument in scales instead. For example:
+#' `scale_x_continuous(limits = ~range(.x, 0))` to include zero.\cr\cr
 #' Sometimes you may want to ensure limits include a single value, for all
 #' panels or all plots.  This function is a thin wrapper around
 #' [geom_blank()] that makes it easy to add such values.
@@ -180,6 +183,8 @@ limits.POSIXlt <- function(lims, var, call = caller_env()) {
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
   data <- list2(...)
+
+  lifecycle::signal_stage("superseded", "expand_limits()")
 
   # unpack data frame columns
   data_dfs <- vapply(data, is.data.frame, logical(1))
