@@ -444,6 +444,8 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   )
 ```
 
+<!-- Temporarily disabled while migrating to S7
+
 -   If you're already familiar with Markdown and HTML, you might prefer using the [ggtext](https://wilkelab.org/ggtext/) package instead. In Markdown we can write the axis labels as `cty<sup>2</sup>` and `log<sub>10</sub>(hwy)` for x and y axes, respectively. Then, we tell ggplot2 to interpret the axis labels as Markdown and not as plain text by setting `axis.title.x` and `axis.title.y` to `ggtext::element_markdown()`.
 
 ```{r}
@@ -463,6 +465,7 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
     axis.title.y = ggtext::element_markdown()
     )
 ```
+-->
 
 </details>
 
