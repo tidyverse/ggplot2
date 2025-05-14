@@ -68,6 +68,10 @@ NULL
 #'   between the layer stack and the foreground defined by the Coord object
 #'   (usually empty). The default is, as above, to return an empty grob.
 #'
+#'   - `draw_panel_content`: Draws each panel for the facet. Should return a list
+#'     of grobs, one for each panel. The output is used by the `draw_panels`
+#'     method.
+#'
 #'   - `draw_labels`: Given the gtable returned by `draw_panels`,
 #'   add axis titles to the gtable. The default is to add one title at each side
 #'   depending on the position and existence of axes.
@@ -137,6 +141,34 @@ Facet <- ggproto("Facet", NULL,
   },
   draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), vec_unique_count(layout$PANEL))
+  },
+  draw_panel_content = function(self, panels, layout, x_scales, y_scales,
+                                ranges, coord, data, theme, params, ...) {
+    facet_bg <- self$draw_back(
+      data,
+      layout,
+      x_scales,
+      y_scales,
+      theme,
+      params
+    )
+    facet_fg <- self$draw_front(
+      data,
+      layout,
+      x_scales,
+      y_scales,
+      theme,
+      params
+    )
+
+    # Draw individual panels, then call `$draw_panels()` method to 
+    # assemble into gtable
+    lapply(seq_along(panels[[1]]), function(i) {
+      panel <- lapply(panels, `[[`, i)
+      panel <- c(facet_bg[i], panel, facet_fg[i])
+      panel <- coord$draw_panel(panel, ranges[[i]], theme)
+      ggname(paste("panel", i, sep = "-"), panel)
+    })
   },
   draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
                          ranges, coord, data = NULL, theme, params) {

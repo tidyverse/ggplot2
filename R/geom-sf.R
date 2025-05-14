@@ -171,7 +171,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     other_default <- modify_list(
       GeomPolygon$default_aes,
       aes(
-        fill   = from_theme(fill %||% col_mix(ink, paper, 0.9)),
+        fill   = from_theme(fill %||% col_mix(ink, paper, 0.899)),
         colour = from_theme(colour %||% col_mix(ink, paper, 0.35)),
         linewidth = from_theme(0.4 * borderwidth)
       )

@@ -40,7 +40,7 @@ Imports:
     lifecycle (> 1.0.1),
     rlang (>= 1.1.0),
     S7,
-    scales (>= 1.3.0),
+    scales (>= 1.4.0),
     stats,
     vctrs (>= 0.6.0),
     withr (>= 2.5.0)
