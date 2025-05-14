@@ -324,6 +324,9 @@ return an empty grob for each panel.
 \item \code{draw_front}: As above except the returned grob is placed
 between the layer stack and the foreground defined by the Coord object
 (usually empty). The default is, as above, to return an empty grob.
+\item \code{draw_facet_panels}: Draws each panel for the facet. Should return a list
+of grobs, one for each panel. The output is used by the \code{draw_panels}
+method.
 \item \code{draw_labels}: Given the gtable returned by \code{draw_panels},
 add axis titles to the gtable. The default is to add one title at each side
 depending on the position and existence of axes.
