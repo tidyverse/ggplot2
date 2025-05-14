@@ -186,9 +186,13 @@ test_that("radial coords can be reversed", {
     aes(x = x, y = y) +
     geom_point() +
     scale_x_continuous(limits = c(-1, 3), expand = c(0, 0)) +
-    scale_y_continuous(limits = c(-1, 3), expand = c(0, 0))
+    scale_y_continuous(limits = c(-1, 3), expand = c(0, 0)) +
+    theme_test() +
+    theme(axis.line = element_line())
   fwd <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "none")
   rev <- coord_radial(start = 0.5 * pi, end = 1.5 * pi, reverse = "thetar")
+
+  expect_doppelganger("reversed polar coords", p + rev)
 
   fwd <- layer_grob(p + fwd)[[1]]
   rev <- layer_grob(p + rev)[[1]]
