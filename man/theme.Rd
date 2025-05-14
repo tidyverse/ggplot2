@@ -519,7 +519,7 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 }
 }
 \seealso{
-\code{\link[=+.gg]{+.gg()}} and \link{\%+replace\%},
+\code{\link[=add_gg]{add_gg()}} and \link{\%+replace\%},
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.

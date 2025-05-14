@@ -37,8 +37,8 @@ test_that("aes_q() & aes_string() preserve explicit NULLs", {
 
 test_that("aes_all() converts strings into mappings", {
   expect_equal(
-    aes_all(c("x", "y", "col", "pch")),
-    aes(x, y, colour = col, shape = pch),
+    unclass(aes_all(c("x", "y", "col", "pch"))),
+    unclass(aes(x, y, colour = col, shape = pch)),
     # ignore the environments of quosures
     ignore_attr = TRUE
   )
@@ -67,7 +67,7 @@ test_that("aes evaluated in environment where plot created", {
 
 test_that("constants are not wrapped in quosures", {
   aes <- aes(1L, "foo", 1.5)
-  expect_identical(unclass(aes), list(x = 1L, y = "foo", 1.5))
+  expect_identical(S7::S7_data(aes), list(x = 1L, y = "foo", 1.5))
 })
 
 test_that("assignment methods wrap symbolic objects in quosures", {
@@ -96,13 +96,13 @@ test_that("assignment methods pull unwrap constants from quosures", {
 
 test_that("quosures are squashed when creating default label for a mapping", {
   p <- ggplot(mtcars) + aes(!!quo(identity(!!quo(cyl))))
-  labels <- ggplot_build(p)$plot$labels
+  labels <- ggplot_build(p)@plot@labels
   expect_identical(labels$x, "identity(cyl)")
 })
 
 test_that("labelling doesn't cause error if aesthetic is NULL", {
   p <- ggplot(mtcars) + aes(x = NULL)
-  labels <- ggplot_build(p)$plot$labels
+  labels <- ggplot_build(p)@plot@labels
   expect_identical(labels$x, "x")
 })
 
@@ -195,8 +195,8 @@ test_that("alternative_aes_extract_usage() can inspect the call", {
   expect_snapshot_error(alternative_aes_extract_usage(x))
 })
 
-test_that("new_aes() checks its inputs", {
-  expect_snapshot_error(new_aes(1:5))
+test_that("class_mapping() checks its inputs", {
+  expect_snapshot_error(class_mapping(1:5))
 })
 
 # Visual tests ------------------------------------------------------------

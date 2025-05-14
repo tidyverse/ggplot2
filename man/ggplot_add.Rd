@@ -4,21 +4,19 @@
 \alias{ggplot_add}
 \title{Add custom objects to ggplot}
 \usage{
-ggplot_add(object, plot, object_name)
+ggplot_add(object, plot, ...)
 }
 \arguments{
 \item{object}{An object to add to the plot}
 
 \item{plot}{The ggplot object to add \code{object} to}
-
-\item{object_name}{The name of the object to add}
 }
 \value{
 A modified ggplot object
 }
 \description{
 This generic allows you to add your own methods for adding custom objects to
-a ggplot with \link{+.gg}.
+a ggplot with \link[=add_gg]{+.gg}.
 }
 \details{
 Custom methods for \code{ggplot_add()} are intended to update the \code{plot} variable
@@ -32,10 +30,11 @@ the plot intact.
 }
 \examples{
 # making a new method for the generic
-# in this example, we apply a text element to the text theme setting
-ggplot_add.element_text <- function(object, plot, object_name) {
-  plot + theme(text = object)
-}
+# in this example, we enable adding text elements
+S7::method(ggplot_add, list(element_text, class_ggplot)) <-
+  function(object, plot, ...) {
+    plot + theme(text = object)
+  }
 
 # we can now use `+` to add our object to a plot
 ggplot(mpg, aes(displ, cty)) +
@@ -43,6 +42,5 @@ ggplot(mpg, aes(displ, cty)) +
   element_text(colour = "red")
 
 # clean-up
-rm(ggplot_add.element_text)
 }
 \keyword{internal}

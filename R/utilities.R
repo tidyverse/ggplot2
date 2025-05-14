@@ -909,3 +909,13 @@ compute_data_size <- function(data, size, default = 0.9,
   data[[target]] <- res * (default %||% 0.9)
   data
 }
+
+try_prop <- function(object, name, default = NULL) {
+  if (!S7::S7_inherits(object)) {
+    return(default)
+  }
+  if (!S7::prop_exists(object, name)) {
+    return(default)
+  }
+  S7::prop(object, name)
+}
