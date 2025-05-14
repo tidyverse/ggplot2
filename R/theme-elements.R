@@ -105,6 +105,7 @@ element_props <- list(
   linewidth  = property_nullable(S7::class_numeric),
   linetype   = property_nullable(S7::class_numeric | S7::class_character),
   lineend    = property_choice(c("round", "butt", "square"), allow_null = TRUE),
+  linejoin   = property_choice(c("round", "mitre", "bevel"), allow_null = TRUE),
   shape      = property_nullable(S7::class_numeric | S7::class_character),
   arrow      = property_nullable(S7::new_S3_class("arrow") | S7::class_logical),
   arrow.fill = property_nullable(S7::class_character | S7::class_logical),
@@ -116,10 +117,12 @@ element_props <- list(
 #' @rdname element
 element_rect <- S7::new_class(
   "element_rect", parent = element,
-  properties = element_props[c("fill", "colour", "linewidth", "linetype", "inherit.blank")],
+  properties = element_props[c("fill", "colour",
+                               "linewidth", "linetype", "linejoin",
+                               "inherit.blank")],
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
-                         linetype = NULL, color = NULL, inherit.blank = FALSE,
-                         size = deprecated()){
+                         linetype = NULL, color = NULL, linejoin = NULL,
+                         inherit.blank = FALSE, size = deprecated()){
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
@@ -127,7 +130,7 @@ element_rect <- S7::new_class(
     S7::new_object(
       S7::S7_object(),
       fill = fill, colour = color %||% colour,
-      linewidth = linewidth, linetype = linetype,
+      linewidth = linewidth, linetype = linetype, linejoin = linejoin,
       inherit.blank = inherit.blank
     )
   }
@@ -140,12 +143,14 @@ element_rect <- S7::new_class(
 element_line <- S7::new_class(
   "element_line", parent = element,
   properties = element_props[c(
-    "colour", "linewidth", "linetype", "lineend", "arrow", "arrow.fill",
+    "colour", "linewidth", "linetype", "lineend", "linejoin",
+    "arrow", "arrow.fill",
     "inherit.blank"
   )],
   constructor = function(colour = NULL, linewidth = NULL, linetype = NULL,
-                         lineend = NULL, color = NULL, arrow = NULL,
-                         arrow.fill = NULL, inherit.blank = FALSE, size = deprecated()) {
+                         lineend = NULL, color = NULL, linejoin = NULL,
+                         arrow = NULL, arrow.fill = NULL,
+                         inherit.blank = FALSE, size = deprecated()) {
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
       linewidth <- size
@@ -155,6 +160,7 @@ element_line <- S7::new_class(
       S7::S7_object(),
       colour = colour,
       linewidth = linewidth, linetype = linetype, lineend = lineend,
+      linejoin = linejoin,
       arrow = arrow %||% FALSE,
       arrow.fill = arrow.fill %||% colour,
       inherit.blank = inherit.blank
@@ -212,15 +218,16 @@ element_text <- S7::new_class(
 element_polygon <- S7::new_class(
   "element_polygon", parent = element,
   properties = element_props[c(
-    "fill", "colour", "linewidth", "linetype", "inherit.blank"
+    "fill", "colour", "linewidth", "linetype", "linejoin", "inherit.blank"
   )],
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
-                         linetype = NULL, color = NULL, inherit.blank = FALSE) {
+                         linetype = NULL, color = NULL, linejoin = NULL,
+                         inherit.blank = FALSE) {
     colour <- color %||% colour
     S7::new_object(
       S7::S7_object(),
       fill = fill, colour = color %||% colour, linewidth = linewidth,
-      linetype = linetype, inherit.blank = inherit.blank
+      linetype = linetype, linejoin = linejoin, inherit.blank = inherit.blank
     )
   }
 )
@@ -412,7 +419,8 @@ S7::method(element_grob, element_blank) <- function(element, ...) zeroGrob()
 
 S7::method(element_grob, element_rect) <-
   function(element, x = 0.5, y = 0.5, width = 1, height = 1,
-           fill = NULL, colour = NULL, linewidth = NULL, linetype = NULL,
+           fill = NULL, colour = NULL,
+           linewidth = NULL, linetype = NULL, linejoin = NULL,
            ..., size = deprecated()) {
 
     if (lifecycle::is_present(size)) {
@@ -420,9 +428,10 @@ S7::method(element_grob, element_rect) <-
       linewidth <- size
     }
 
-    gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+    gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype, linejoin = linejoin)
     element_gp <- gg_par(lwd = element@linewidth, col = element@colour,
-                         fill = element@fill, lty = element@linetype)
+                         fill = element@fill, lty = element@linetype,
+                         linejoin = element@linejoin)
 
     rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
   }
@@ -458,7 +467,7 @@ S7::method(element_grob, element_text) <-
 S7::method(element_grob, element_line) <-
   function(element, x = 0:1, y = 0:1,
            colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
-           arrow.fill = NULL,
+           linejoin = NULL, arrow.fill = NULL,
            default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
     if (lifecycle::is_present(size)) {
@@ -479,12 +488,12 @@ S7::method(element_grob, element_line) <-
     # The gp settings can override element_gp
     gp <- gg_par(
       col = colour, fill = arrow.fill %||% colour,
-      lwd = linewidth, lty = linetype, lineend = lineend
+      lwd = linewidth, lty = linetype, lineend = lineend, linejoin = linejoin
     )
     element_gp <- gg_par(
       col = element@colour, fill = element@arrow.fill %||% element@colour,
       lwd = element@linewidth, lty = element@linetype,
-      lineend = element@lineend
+      lineend = element@lineend, linejoin = element@linejoin
     )
 
     polylineGrob(
@@ -498,13 +507,15 @@ S7::method(element_grob, element_polygon) <-
   function(element, x = c(0, 0.5, 1, 0.5),
            y = c(0.5, 1, 0.5, 0), fill = NULL,
            colour = NULL, linewidth = NULL,
-           linetype = NULL, ...,
+           linetype = NULL, linejoin = NULL, ...,
            id = NULL, id.lengths = NULL,
            pathId = NULL, pathId.lengths = NULL) {
 
-    gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype)
+    gp <- gg_par(lwd = linewidth, col = colour, fill = fill,
+                 lty = linetype, linejoin = linejoin)
     element_gp <- gg_par(lwd = element@linewidth, col = element@colour,
-                         fill = element@fill, lty = element@linetype)
+                         fill = element@fill, lty = element@linetype,
+                         linejoin = element@linejoin)
     pathGrob(
       x = x, y = y, gp = modify_list(element_gp, gp), ...,
       # We swap the id logic so that `id` is always the (super)group id
