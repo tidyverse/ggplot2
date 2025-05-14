@@ -16,7 +16,7 @@ A modified ggplot object
 }
 \description{
 This generic allows you to add your own methods for adding custom objects to
-a ggplot with \link{+.gg}.
+a ggplot with \link[=add_gg]{+.gg}.
 }
 \details{
 Custom methods for \code{ggplot_add()} are intended to update the \code{plot} variable
@@ -29,7 +29,9 @@ exposed at this point, which comes with the responsibility of returning
 the plot intact.
 }
 \examples{
-S7::method(ggplot_add, list(S7::new_S3_class("element_text"), class_ggplot)) <-
+# making a new method for the generic
+# in this example, we enable adding text elements
+S7::method(ggplot_add, list(element_text, class_ggplot)) <-
   function(object, plot, ...) {
     plot + theme(text = object)
   }
@@ -40,6 +42,5 @@ ggplot(mpg, aes(displ, cty)) +
   element_text(colour = "red")
 
 # clean-up
-rm("element_text", envir = ggplot_add@methods)
 }
 \keyword{internal}

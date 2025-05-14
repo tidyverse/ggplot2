@@ -1,17 +1,21 @@
+#' @include properties.R
+
 #' @param t,r,b,l Dimensions of each margin. (To remember order, think trouble).
 #' @param unit Default units of dimensions. Defaults to "pt" so it
 #'   can be most easily scaled with the text.
 #' @rdname element
 #' @export
-margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
-  u <- unit(c(t, r, b, l), unit)
-  class(u) <- c("margin", class(u))
-  u
-}
+margin <- S7::new_class(
+  "margin", parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
+  constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
+    u <- unit(c(t, r, b, l), unit)
+    S7::new_object(u)
+  }
+)
 
 #' @export
 #' @rdname is_tests
-is_margin <- function(x) inherits(x, "margin")
+is_margin <- function(x) S7::S7_inherits(x, margin)
 is.margin <- function(x) lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
 
 #' @rdname element

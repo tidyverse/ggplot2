@@ -245,7 +245,7 @@ eval_from_theme <- function(aesthetics, theme, class = NULL) {
     return(aesthetics)
   }
 
-  element <- calc_element("geom", theme) %||% .default_geom_element
+  el <- calc_element("geom", theme) %||% .default_geom_element
   class <- setdiff(class, c("Geom", "ggproto", "gg"))
 
   if (length(class) > 0) {
@@ -260,12 +260,12 @@ eval_from_theme <- function(aesthetics, theme, class = NULL) {
     # Inherit up to parent geom class
     if (length(class) > 0) {
       for (cls in rev(class)) {
-        element <- combine_elements(theme[[cls]], element)
+        el <- combine_elements(theme[[cls]], el)
       }
     }
   }
 
-  lapply(aesthetics[themed], eval_tidy, data = element)
+  lapply(aesthetics[themed], eval_tidy, data = S7::props(el))
 }
 
 #' Graphical units

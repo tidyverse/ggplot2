@@ -120,5 +120,5 @@ rep_el$text
 
 }
 \seealso{
-\code{\link[=+.gg]{+.gg()}}
+\code{\link[=add_gg]{add_gg()}}
 }

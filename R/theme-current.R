@@ -40,7 +40,7 @@ NULL
 #' @return `set_theme()`, `update_theme()`, and `replace_theme()`
 #'   invisibly return the previous theme so you can easily save it, then
 #'   later restore it.
-#' @seealso [+.gg()]
+#' @seealso [add_gg()]
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) +

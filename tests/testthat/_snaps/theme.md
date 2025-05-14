@@ -9,7 +9,7 @@
 # incorrect theme specifications throw meaningful errors
 
     Can't merge the `line` theme element.
-    Caused by error in `merge_element()`:
+    Caused by error in `method(merge_element, list(ggplot2::element, class_any))`:
     ! Only elements of the same class can be merged.
 
 ---
@@ -18,7 +18,7 @@
 
 ---
 
-    Theme element `test` has `NULL` property without default: fill, colour, linewidth, and linetype.
+    Theme element `test` has `NULL` property without default: fill, colour, linewidth, linetype, and linejoin.
 
 ---
 
@@ -58,7 +58,7 @@
     Code
       merge_element(text_base, rect_base)
     Condition
-      Error in `merge_element()`:
+      Error in `method(merge_element, list(ggplot2::element, class_any))`:
       ! Only elements of the same class can be merged.
 
 # Theme elements are checked during build

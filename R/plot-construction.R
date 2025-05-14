@@ -96,7 +96,7 @@ add_ggplot <- function(p, object, objectname) {
 #' Add custom objects to ggplot
 #'
 #' This generic allows you to add your own methods for adding custom objects to
-#' a ggplot with [+.gg].
+#' a ggplot with [+.gg][add_gg].
 #'
 #' @param object An object to add to the plot
 #' @param plot The ggplot object to add `object` to
@@ -115,7 +115,9 @@ add_ggplot <- function(p, object, objectname) {
 #' @keywords internal
 #' @export
 #' @examples
-#' S7::method(ggplot_add, list(S7::new_S3_class("element_text"), class_ggplot)) <-
+#' # making a new method for the generic
+#' # in this example, we enable adding text elements
+#' S7::method(ggplot_add, list(element_text, class_ggplot)) <-
 #'   function(object, plot, ...) {
 #'     plot + theme(text = object)
 #'   }
@@ -126,7 +128,6 @@ add_ggplot <- function(p, object, objectname) {
 #'   element_text(colour = "red")
 #'
 #' # clean-up
-#' rm("element_text", envir = ggplot_add@methods)
 ggplot_add <- S7::new_generic("ggplot_add", c("object", "plot"))
 
 S7::method(ggplot_add, list(S7::class_any, class_ggplot)) <-
