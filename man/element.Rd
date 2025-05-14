@@ -125,7 +125,10 @@ calculating final element state.}
 
 \item{arrow.fill}{Fill colour for arrows.}
 
-\item{family}{Font family}
+\item{family}{The typeface to use. The validity of this value will depend on
+the graphics device being used for rendering the plot. See
+\href{https://systemfonts.r-lib.org/articles/systemfonts.html}{the systemfonts vignette}
+for guidance on the best way to access fonts installed on your computer.}
 
 \item{face}{Font face ("plain", "italic", "bold", "bold.italic")}
 
