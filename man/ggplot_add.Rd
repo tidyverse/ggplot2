@@ -16,7 +16,7 @@ A modified ggplot object
 }
 \description{
 This generic allows you to add your own methods for adding custom objects to
-a ggplot with \link{+.gg}.
+a ggplot with \link[=add_gg]{+.gg}.
 }
 \details{
 Custom methods for \code{ggplot_add()} are intended to update the \code{plot} variable

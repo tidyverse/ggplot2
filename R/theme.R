@@ -217,7 +217,7 @@
 #' @param validate `TRUE` to run `check_element()`, `FALSE` to bypass checks.
 #' @export
 #' @seealso
-#'   [+.gg()] and [%+replace%],
+#'   [add_gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.

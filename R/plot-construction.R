@@ -96,7 +96,7 @@ add_ggplot <- function(p, object, objectname) {
 #' Add custom objects to ggplot
 #'
 #' This generic allows you to add your own methods for adding custom objects to
-#' a ggplot with [+.gg].
+#' a ggplot with [+.gg][add_gg].
 #'
 #' @param object An object to add to the plot
 #' @param plot The ggplot object to add `object` to
