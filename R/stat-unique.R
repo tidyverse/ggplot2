@@ -35,5 +35,7 @@ stat_unique <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatUnique <- ggproto("StatUnique", Stat,
-  compute_panel = function(data, scales) unique0(data)
+  compute_panel = function(data, scales) {
+    unique0(data)
+  }
 )

@@ -98,7 +98,9 @@ Facet <- ggproto("Facet", NULL,
   map_data = function(data, layout, params) {
     cli::cli_abort("Not implemented.")
   },
-  setup_panel_params = function(self, panel_params, coord, ...) panel_params,
+  setup_panel_params = function(self, panel_params, coord, ...) {
+    panel_params
+  },
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {
@@ -161,7 +163,7 @@ Facet <- ggproto("Facet", NULL,
       params
     )
 
-    # Draw individual panels, then call `$draw_panels()` method to 
+    # Draw individual panels, then call `$draw_panels()` method to
     # assemble into gtable
     lapply(seq_along(panels[[1]]), function(i) {
       panel <- lapply(panels, `[[`, i)

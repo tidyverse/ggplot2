@@ -111,7 +111,11 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
 #' @usage NULL
 #' @export
 CoordTrans <- ggproto("CoordTrans", Coord,
-  is_free = function() TRUE,
+
+  is_free = function() {
+    TRUE
+  },
+
   distance = function(self, x, y, panel_params) {
     max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
     dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
