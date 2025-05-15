@@ -107,13 +107,27 @@ ViewScale <- ggproto("ViewScale", NULL,
   is_empty = function(self) {
     is.null(self$get_breaks()) && is.null(self$get_breaks_minor())
   },
-  is_discrete = function(self) self$scale_is_discrete,
-  dimension = function(self) self$continuous_range,
-  get_limits = function(self) self$limits,
-  get_breaks = function(self) self$breaks,
-  get_breaks_minor = function(self) self$minor_breaks,
-  get_labels = function(self, breaks = self$get_breaks()) self$scale$get_labels(breaks),
-  get_transformation = function(self) self$scale$get_transformation(),
+  is_discrete = function(self) {
+    self$scale_is_discrete
+  },
+  dimension = function(self) {
+    self$continuous_range
+  },
+  get_limits = function(self) {
+    self$limits
+  },
+  get_breaks = function(self) {
+    self$breaks
+  },
+  get_breaks_minor = function(self) {
+    self$minor_breaks
+  },
+  get_labels = function(self, breaks = self$get_breaks()) {
+    self$scale$get_labels(breaks)
+  },
+  get_transformation = function(self) {
+    self$scale$get_transformation()
+  },
   rescale = function(self, x) {
     self$scale$rescale(x, self$limits, self$continuous_range)
   },

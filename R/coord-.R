@@ -62,7 +62,9 @@ Coord <- ggproto("Coord",
   # Should any of the scales be reversed?
   reverse = "none",
 
-  aspect = function(ranges) NULL,
+  aspect = function(ranges) {
+    NULL
+  },
 
   labels = function(self, labels, panel_params) {
     labels
@@ -177,15 +179,23 @@ Coord <- ggproto("Coord",
     panel_params
   },
 
-  transform = function(data, range) NULL,
+  transform = function(data, range) {
+    NULL
+  },
 
-  distance = function(x, y, panel_params) NULL,
+  distance = function(x, y, panel_params) {
+    NULL
+  },
 
-  is_linear = function() FALSE,
+  is_linear = function() {
+    FALSE
+  },
 
   # Does the coordinate system support free scaling of axes in a faceted plot?
   # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
-  is_free = function() FALSE,
+  is_free = function() {
+    FALSE
+  },
 
   setup_params = function(self, data) {
     list(expand = parse_coord_expand(self$expand %||% TRUE))

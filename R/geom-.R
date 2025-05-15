@@ -109,9 +109,13 @@ Geom <- ggproto("Geom",
     cli::cli_abort("{.fn {snake_class(self)}}, has not implemented a {.fn draw_group} method")
   },
 
-  setup_params = function(data, params) params,
+  setup_params = function(data, params) {
+    params
+  },
 
-  setup_data = function(data, params) data,
+  setup_data = function(data, params) {
+    data
+  },
 
   # Combine data with defaults and set aesthetics from parameters
   use_defaults = function(self, data, params = list(), modifiers = aes(),

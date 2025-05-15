@@ -140,7 +140,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     diff(details$bbox$y) / diff(details$bbox$x)
   },
 
-  is_free = function() TRUE,
+  is_free = function() {
+    TRUE
+  },
 
   distance = function(self, x, y, details, boost = 0.75) {
     arc <- details$arc %||% c(0, 2 * pi)

@@ -80,9 +80,13 @@ coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
 #' @export
 CoordPolar <- ggproto("CoordPolar", Coord,
 
-  aspect = function(details) 1,
+  aspect = function(details) {
+    1
+  },
 
-  is_free = function() TRUE,
+  is_free = function() {
+    TRUE
+  },
 
   distance = function(self, x, y, details, boost = 0.75) {
     arc <- self$start + c(0, 2 * pi)
