@@ -159,7 +159,7 @@ if (require(maps)) {
 
   crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 
-  # Equivalent to crimes \%>\% tidyr::pivot_longer(Murder:Rape)
+  # Equivalent to crimes |> tidyr::pivot_longer(Murder:Rape)
   vars <- lapply(names(crimes)[-1], function(j) {
     data.frame(state = crimes$state, variable = j, value = crimes[[j]])
   })

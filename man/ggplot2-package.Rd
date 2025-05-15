@@ -37,7 +37,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Posit, PBC [copyright holder, funder]
+  \item Posit, PBC (03wc8by49) [copyright holder, funder]
 }
 
 }

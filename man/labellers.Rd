@@ -110,7 +110,7 @@ p + facet_grid(. ~ cyl2)
 p + facet_grid(. ~ cyl2, labeller = label_parsed)
 
 # Include optional argument in label function
-p + facet_grid(. ~ cyl, labeller = function(x) label_both(x, sep = "="))
+p + facet_grid(. ~ cyl, labeller = \(x) label_both(x, sep = "="))
 }
 }
 \seealso{

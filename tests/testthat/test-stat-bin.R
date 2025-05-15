@@ -73,7 +73,7 @@ test_that("fuzzy breaks are used when cutting", {
   p <- ggplot(df, aes(x)) +
     geom_histogram(binwidth = 0.1, boundary = 0.1, closed = "left")
 
-  bins <- get_layer_data(p) %>% subset(count > 0) %>% .[1:5]
+  bins <- get_layer_data(p) |> subset(count > 0) |> head(5)
   expect_equal(bins$count, c(1, 1, 1, 1))
 })
 
