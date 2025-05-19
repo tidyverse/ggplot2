@@ -920,7 +920,7 @@ Guide <- ggproto(
   #'
   #' The `gtable` argument with added title.
   add_title = function(gtable, title, position, just) {
-    if (is.zero(title)) {
+    if (is_zero(title)) {
       return(gtable)
     }
 

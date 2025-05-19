@@ -446,7 +446,7 @@ Layer <- ggproto("Layer", NULL,
   #'
   #' A data frame with layer data or `NULL`
   layer_data = function(self, plot_data) {
-    if (is.waiver(self$data)) {
+    if (is_waiver(self$data)) {
       data <- plot_data
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
@@ -456,7 +456,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       data <- self$data
     }
-    if (is.null(data) || is.waiver(data)) data else unrowname(data)
+    if (is.null(data) || is_waiver(data)) data else unrowname(data)
   },
 
   #' @field setup_layer

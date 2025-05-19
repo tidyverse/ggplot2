@@ -498,7 +498,7 @@ Layout <- ggproto(
 
     primary   <- scale$make_title(prim_guide, prim_scale, prim_label)
     secondary <- scale$make_sec_title(seco_guide, seco_scale, seco_label)
-    if (is.derived(secondary)) {
+    if (is_derived(secondary)) {
       secondary <- primary
     }
 
@@ -537,7 +537,7 @@ Layout <- ggproto(
         } else {
           switch(label, x = ".bottom", y = ".right")
         }
-        if (is.null(labels[[label]][[i]]) || is.waiver(labels[[label]][[i]]))
+        if (is.null(labels[[label]][[i]]) || is_waiver(labels[[label]][[i]]))
           return(zeroGrob())
 
         element_render(

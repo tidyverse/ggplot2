@@ -228,7 +228,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   labels <- allow_lambda(labels)
   minor_breaks <- allow_lambda(minor_breaks)
 
-  if (!is.function(limits) && (length(limits) > 0) && !is.discrete(limits)) {
+  if (!is.function(limits) && (length(limits) > 0) && !is_discrete(limits)) {
     cli::cli_warn(c(
       "Continuous limits supplied to discrete scale.",
       "i" = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
@@ -1117,7 +1117,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     b <- b[is.finite(b)]
 
     transformation <- self$get_transformation()
-    if (is.waiver(self$minor_breaks)) {
+    if (is_waiver(self$minor_breaks)) {
       if (is.null(b)) {
         breaks <- NULL
       } else {
@@ -1164,7 +1164,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       )
     }
 
-    if (is.waiver(self$labels)) {
+    if (is_waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)
@@ -1338,7 +1338,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     }
 
-    if (is.waiver(self$breaks)) {
+    if (is_waiver(self$breaks)) {
       breaks <- limits
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -1402,7 +1402,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       )
     }
 
-    if (is.waiver(labels)) {
+    if (is_waiver(labels)) {
       if (!is.null(names(breaks))) {
         labels <- names(breaks)
       } else if (is.numeric(breaks)) {
@@ -1554,7 +1554,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     if (is.null(self$breaks)) {
       return(NULL)
-    } else if (is.waiver(self$breaks)) {
+    } else if (is_waiver(self$breaks)) {
       if (self$nice.breaks) {
         if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
@@ -1656,7 +1656,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         "Invalid {.arg labels} specification. Use {.code NULL}, not {.code NA}.",
         call = self$call
       )
-    } else if (is.waiver(self$labels)) {
+    } else if (is_waiver(self$labels)) {
       labels <- transformation$format(breaks)
     } else if (is.function(self$labels)) {
       labels <- self$labels(breaks)

@@ -24,7 +24,7 @@ StatFunction <- ggproto(
       }
     }
 
-    if (is.formula(fun)) fun <- as_function(fun)
+    if (is_formula(fun)) fun <- as_function(fun)
 
     y_out <- inject(fun(x_trans, !!!args))
     if (!is.null(scales$y) && !scales$y$is_discrete()) {

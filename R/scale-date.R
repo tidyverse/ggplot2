@@ -318,15 +318,15 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
   if (is.character(breaks)) breaks <- breaks_width(breaks)
   if (is.character(minor_breaks)) minor_breaks <- breaks_width(minor_breaks)
 
-  if (!is.waiver(date_breaks)) {
+  if (!is_waiver(date_breaks)) {
     check_string(date_breaks)
     breaks <- breaks_width(date_breaks)
   }
-  if (!is.waiver(date_minor_breaks)) {
+  if (!is_waiver(date_minor_breaks)) {
     check_string(date_minor_breaks)
     minor_breaks <- breaks_width(date_minor_breaks)
   }
-  if (!is.waiver(date_labels)) {
+  if (!is_waiver(date_labels)) {
     check_string(date_labels)
     if (transform == "hms") {
       labels <- label_time(date_labels)
@@ -404,21 +404,21 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
-    if (!(is.waiver(self$secondary.axis) || self$secondary.axis$empty())) {
+    if (!(is_waiver(self$secondary.axis) || self$secondary.axis$empty())) {
       self$secondary.axis$init(self)
       breaks <- c(breaks, self$secondary.axis$break_info(breaks$range, self))
     }
     breaks
   },
   sec_name = function(self) {
-    if (is.waiver(self$secondary.axis)) {
+    if (is_waiver(self$secondary.axis)) {
       waiver()
     } else {
       self$secondary.axis$name
     }
   },
   make_sec_title = function(self, ...) {
-    if (!is.waiver(self$secondary.axis)) {
+    if (!is_waiver(self$secondary.axis)) {
       self$secondary.axis$make_title(...)
     } else {
       ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
@@ -458,21 +458,21 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
-    if (!(is.waiver(self$secondary.axis) || self$secondary.axis$empty())) {
+    if (!(is_waiver(self$secondary.axis) || self$secondary.axis$empty())) {
       self$secondary.axis$init(self)
       breaks <- c(breaks, self$secondary.axis$break_info(breaks$range, self))
     }
     breaks
   },
   sec_name = function(self) {
-    if (is.waiver(self$secondary.axis)) {
+    if (is_waiver(self$secondary.axis)) {
       waiver()
     } else {
       self$secondary.axis$name
     }
   },
   make_sec_title = function(self, ...) {
-    if (!is.waiver(self$secondary.axis)) {
+    if (!is_waiver(self$secondary.axis)) {
       self$secondary.axis$make_title(...)
     } else {
       ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
