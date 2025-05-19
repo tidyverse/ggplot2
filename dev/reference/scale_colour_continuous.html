@@ -155,7 +155,7 @@ between 0 and 1 returns the corresponding output values.</p></li>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>One of the following:</p><ul><li><p>"gradient" (the default)</p></li>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded" class="external-link"><img src="figures/lifecycle-superseded.svg" alt="[Superseded]"></a> One of the following:</p><ul><li><p>"gradient" (the default)</p></li>
 <li><p>"viridis"</p></li>
 <li><p>A function that returns a continuous colour scale.</p></li>
 </ul></dd>
@@ -163,20 +163,13 @@ between 0 and 1 returns the corresponding output values.</p></li>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>All these colour scales use the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> mechanism to determine
-default settings. Continuous colour scales default to the values of the
-<code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code> options, and
-binned colour scales default to the values of the <code>ggplot2.binned.colour</code>
-and <code>ggplot2.binned.fill</code> options. These option values default to
-<code>"gradient"</code>, which means that the scale functions actually used are
-<code><a href="scale_gradient.html">scale_colour_gradient()</a></code>/<code><a href="scale_gradient.html">scale_fill_gradient()</a></code> for continuous scales and
-<code><a href="scale_steps.html">scale_colour_steps()</a></code>/<code><a href="scale_steps.html">scale_fill_steps()</a></code> for binned scales.
-Alternative option values are <code>"viridis"</code> or a different scale function.
-See description of the <code>type</code> argument for details.</p>
-<p>Note that the binned colour scales will use the settings of
-<code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code> as fallback,
-respectively, if <code>ggplot2.binned.colour</code> or <code>ggplot2.binned.fill</code> are
-not set.</p>
+    <p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded" class="external-link"><img src="figures/lifecycle-superseded.svg" alt="[Superseded]"></a>: The mechanism of setting defaults via
+<code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> is superseded by theme settings. The preferred method to change
+the default palette of scales is via the theme, for example:
+<code>theme(palette.colour.continuous = scales::pal_viridis())</code>. The
+<code>ggplot2.continuous.colour</code> and <code>ggplot2.continuous.fill</code> options could be
+used to set default continuous scales and <code>ggplot2.binned.colour</code> and
+<code>ggplot2.binned.fill</code> options to set default binned scales.</p>
 <p>These scale functions are meant to provide simple defaults. If
 you want to manually set the colors of a scale, consider using
 <code><a href="scale_gradient.html">scale_colour_gradient()</a></code> or <code><a href="scale_steps.html">scale_colour_steps()</a></code>.</p>

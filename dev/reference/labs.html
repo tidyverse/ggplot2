@@ -5,12 +5,18 @@ variable name. Use the plot title and subtitle to explain the
 main findings. It's common to use the caption to provide information
 about the data source. tag can be used for adding identification tags
 to differentiate between multiple plots.
+: xlab(), ylab() and ggtitle() are
+superseded. It is recommended to use the labs(x, y, title, subtitle)
+arguments instead.
 get_labs() retrieves completed labels from a plot."><meta property="og:description" content="Good labels are critical for making your plots accessible to a wider
 audience. Always ensure the axis and legend labels display the full
 variable name. Use the plot title and subtitle to explain the
 main findings. It's common to use the caption to provide information
 about the data source. tag can be used for adding identification tags
 to differentiate between multiple plots.
+: xlab(), ylab() and ggtitle() are
+superseded. It is recommended to use the labs(x, y, title, subtitle)
+arguments instead.
 get_labs() retrieves completed labels from a plot."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
@@ -85,6 +91,9 @@ variable name. Use the plot <code>title</code> and <code>subtitle</code> to expl
 main findings. It's common to use the <code>caption</code> to provide information
 about the data source. <code>tag</code> can be used for adding identification tags
 to differentiate between multiple plots.</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded" class="external-link"><img src="figures/lifecycle-superseded.svg" alt="[Superseded]"></a>: <code>xlab()</code>, <code>ylab()</code> and <code>ggtitle()</code> are
+superseded. It is recommended to use the <code>labs(x, y, title, subtitle)</code>
+arguments instead.</p>
 <p><code>get_labs()</code> retrieves completed labels from a plot.</p>
     </div>
 

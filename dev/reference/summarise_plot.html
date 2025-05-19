@@ -130,7 +130,7 @@ the y aesthetic, in transformed coordinates.</p></dd>
 </dl><p>Importantly, the values for <code>xmin</code>, <code>xmax</code>, <code>ymin</code>, <code>ymax</code>, <code>xscale</code>, and <code>yscale</code>
 are determined by the variables that are mapped to <code>x</code> and <code>y</code> in the <code><a href="aes.html">aes()</a></code> call.
 So even if a coord changes how x and y are shown in the final plot (as is the case
-for <code><a href="coord_flip.html">coord_flip()</a></code> or <code><a href="coord_polar.html">coord_polar()</a></code>), these changes have no effect on the results
+for <code><a href="coord_flip.html">coord_flip()</a></code> or <code><a href="coord_radial.html">coord_polar()</a></code>), these changes have no effect on the results
 returned by <code>summarise_plot()</code>.</p>
     </div>
     <div class="section level2">
@@ -169,13 +169,13 @@ contains information about aesthetic mapping for each layer.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6     6   2   3 subcompact 1.33 7.27 10.4 45.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7     7   3   1        suv 1.33 7.27 10.4 45.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                          xscale                        yscale</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 &lt;environment: 0x55e7f985be90&gt; &lt;environment: 0x55e7f95e5150&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 &lt;environment: 0x55e7f985be90&gt; &lt;environment: 0x55e7f95e5150&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 &lt;environment: 0x55e7f985be90&gt; &lt;environment: 0x55e7f95e5150&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 &lt;environment: 0x55e7f985be90&gt; &lt;environment: 0x55e7f95e5150&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 &lt;environment: 0x55e7f985be90&gt; &lt;environment: 0x55e7f95e5150&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 &lt;environment: 0x55e7f985be90&gt; &lt;environment: 0x55e7f95e5150&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 &lt;environment: 0x55e7f985be90&gt; &lt;environment: 0x55e7f95e5150&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 &lt;environment: 0x55eb9c25f598&gt; &lt;environment: 0x55eb9f3c0d30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 &lt;environment: 0x55eb9c25f598&gt; &lt;environment: 0x55eb9f3c0d30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 &lt;environment: 0x55eb9c25f598&gt; &lt;environment: 0x55eb9f3c0d30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 &lt;environment: 0x55eb9c25f598&gt; &lt;environment: 0x55eb9f3c0d30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 &lt;environment: 0x55eb9c25f598&gt; &lt;environment: 0x55eb9f3c0d30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 &lt;environment: 0x55eb9c25f598&gt; &lt;environment: 0x55eb9f3c0d30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 &lt;environment: 0x55eb9c25f598&gt; &lt;environment: 0x55eb9f3c0d30&gt;</span>
 <span class="r-in"><span><span class="fu">summarise_coord</span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $xlog</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>

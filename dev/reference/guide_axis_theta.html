@@ -69,7 +69,7 @@ position scale."><meta property="og:image" content="https://ggplot2.tidyverse.or
     </div>
 
     <div class="ref-description section level2">
-    <p>This is a specialised guide used in <code><a href="coord_polar.html">coord_radial()</a></code> to represent the theta
+    <p>This is a specialised guide used in <code><a href="coord_radial.html">coord_radial()</a></code> to represent the theta
 position scale.</p>
     </div>
 
@@ -149,7 +149,7 @@ the largest <code>margin</code> size set in the theme.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># A plot using coord_radial</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="coord_polar.html">coord_radial</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="coord_radial.html">coord_radial</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The `angle` argument can be used to set relative angles</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="guides.html">guides</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fu">guide_axis_theta</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
