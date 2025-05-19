@@ -65,7 +65,8 @@ GeomPoint <- ggproto(
 #' `geom_point(alpha = 0.05)`) or very small (e.g.
 #' `geom_point(shape = ".")`).
 #'
-#' @eval rd_aesthetics("geom", "point", "The `fill` aesthetic only applies to shapes 21-25.")
+#' @aesthetics GeomPoint
+#' The `fill` aesthetic only applies to shapes 21-25.
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.

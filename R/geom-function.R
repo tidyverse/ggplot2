@@ -28,7 +28,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
 #' with a grid of evenly spaced values along the x axis, and the results are
 #' drawn (by default) with a line.
 #'
-#' @eval rd_aesthetics("geom", "function")
+#' @aesthetics GeomFunction
 #' @param data Ignored by `stat_function()`, do not use.
 #' @inheritParams layer
 #' @inheritParams geom_path

@@ -28,8 +28,8 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #' data, you'll need to first interpolate on to a grid before visualising,
 #' using `interp::interp()`, `akima::bilinear()`, or similar.
 #'
-#' @eval rd_aesthetics("geom", "contour")
-#' @eval rd_aesthetics("geom", "contour_filled")
+#' @aesthetics GeomContour
+#' @aesthetics GeomContourFilled
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path

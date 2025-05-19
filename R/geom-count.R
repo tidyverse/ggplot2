@@ -7,7 +7,7 @@ NULL
 #' observations at each location, then maps the count to point area. It
 #' useful when you have discrete data and overplotting.
 #'
-#' @eval rd_aesthetics("geom", "point")
+#' @aesthetics GeomPoint
 #' @param geom,stat Use to override the default connection between
 #'   `geom_count()` and `stat_sum()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]

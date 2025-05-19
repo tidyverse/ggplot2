@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New roxygen tag `@aesthetics` that takes a Geom, Stat or Position class and
+  generates an 'Aesthetics' section.
 * `annotation_borders()` replaces the now-deprecated `borders()` 
   (@teunbrand, #6392)
 * New `make_constructor()` function that builds a standard constructor for

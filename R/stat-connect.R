@@ -119,7 +119,7 @@ StatConnect <- ggproto(
 #'    at location (0, 0) and point B at location (1, 1). At least one of these
 #'    two points is expected to be included in the coordinates.
 #'
-#' @eval rd_aesthetics("stat", "connect")
+#' @aesthetics StatConnect
 #' @export
 #'
 #' @examples

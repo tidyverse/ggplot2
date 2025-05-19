@@ -28,7 +28,7 @@ StatManual <- ggproto(
 #'   the data unchanged.
 #' @param args A list of arguments to pass to the function given in `fun`.
 #'
-#' @eval rd_aesthetics("stat", "manual")
+#' @aesthetics StatManual
 #' @section Aesthetics:
 #' Input aesthetics are determined by the `fun` argument. Output aesthetics must
 #' include those required by `geom`. Any aesthetic that is constant within a
