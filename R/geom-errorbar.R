@@ -1,62 +1,9 @@
-#' @export
-#' @rdname geom_linerange
-geom_errorbar <- function(mapping = NULL, data = NULL,
-                          stat = "identity", position = "identity",
-                          ...,
-                          na.rm = FALSE,
-                          orientation = NA,
-                          show.legend = NA,
-                          inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomErrorbar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @export
-#' @rdname geom_linerange
-#' @note
-#' `geom_errorbarh()` is `r lifecycle::badge("deprecated")`. Use
-#' `geom_errorbar(orientation = "y")` instead.
-geom_errorbarh <- function(mapping = NULL, data = NULL,
-                           stat = "identity", position = "identity",
-                           ...,
-                           orientation = "y",
-                           na.rm = FALSE,
-                           show.legend = NA,
-                           inherit.aes = TRUE) {
-  deprecate_soft0(
-    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
-    id = "no-more-errorbarh"
-  )
-  geom_errorbar(
-    mapping = mapping,
-    data = data,
-    stat = stat,
-    position = position,
-    ...,
-    orientation = orientation,
-    na.rm = na.rm,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes
-  )
-}
-
 #' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomErrorbar <- ggproto("GeomErrorbar", Geom,
+GeomErrorbar <- ggproto(
+  "GeomErrorbar", Geom,
 
   default_aes = aes(
     colour = from_theme(colour %||% ink),
@@ -85,7 +32,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
       zero = FALSE, discrete = TRUE
     )
     data <- transform(data,
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+                      xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
     flip_data(data, params$flipped_aes)
   },
@@ -128,3 +75,20 @@ GeomErrorbarh <- ggproto(
     GeomLinerange$setup_params(data, params)
   }
 )
+
+#' @export
+#' @rdname geom_linerange
+geom_errorbar <- make_constructor(GeomErrorbar, orientation = NA)
+
+#' @export
+#' @rdname geom_linerange
+#' @note
+#' `geom_errorbarh()` is `r lifecycle::badge("deprecated")`. Use
+#' `geom_errorbar(orientation = "y")` instead.
+geom_errorbarh <- function(..., orientation = "y") {
+  deprecate_soft0(
+    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+    id = "no-more-errorbarh"
+  )
+  geom_errorbar(..., orientation = orientation)
+}

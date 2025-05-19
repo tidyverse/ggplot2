@@ -10,6 +10,7 @@ stat_identity(
   geom = "point",
   position = "identity",
   ...,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -88,6 +89,9 @@ lists which parameters it can accept.
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
+
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

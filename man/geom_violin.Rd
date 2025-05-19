@@ -31,18 +31,18 @@ stat_ydensity(
   geom = "violin",
   position = "dodge",
   ...,
-  quantiles = c(0.25, 0.5, 0.75),
+  orientation = NA,
   bw = "nrd0",
   adjust = 1,
   kernel = "gaussian",
   trim = TRUE,
   scale = "area",
   drop = TRUE,
+  bounds = c(-Inf, Inf),
+  quantiles = c(0.25, 0.5, 0.75),
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE,
-  bounds = c(-Inf, Inf)
+  inherit.aes = TRUE
 )
 }
 \arguments{
@@ -153,9 +153,6 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
 
-\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
-and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
-
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
@@ -171,6 +168,9 @@ For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 \item{drop}{Whether to discard groups with less than 2 observations
 (\code{TRUE}, default) or keep such groups for position adjustment purposes
 (\code{FALSE}).}
+
+\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
+and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a

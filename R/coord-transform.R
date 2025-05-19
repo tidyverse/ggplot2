@@ -199,7 +199,7 @@ CoordTransform <- ggproto(
 )
 
 # TODO: deprecate this some time in the future
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

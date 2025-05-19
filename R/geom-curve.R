@@ -1,45 +1,10 @@
-#' @inheritParams grid::curveGrob
-#' @export
-#' @rdname geom_segment
-geom_curve <- function(mapping = NULL, data = NULL,
-                       stat = "identity", position = "identity",
-                       ...,
-                       curvature = 0.5,
-                       angle = 90,
-                       ncp = 5,
-                       arrow = NULL,
-                       arrow.fill = NULL,
-                       lineend = "butt",
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomCurve,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      arrow = arrow,
-      arrow.fill = arrow.fill,
-      curvature = curvature,
-      angle = angle,
-      ncp = ncp,
-      lineend = lineend,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
 #' @rdname Geom
 #' @include geom-segment.R
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomCurve <- ggproto("GeomCurve", GeomSegment,
+GeomCurve <- ggproto(
+  "GeomCurve", GeomSegment,
 
   draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
                         ncp = 5, arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
@@ -81,6 +46,11 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
     )
   }
 )
+
+#' @inheritParams grid::curveGrob
+#' @export
+#' @rdname geom_segment
+geom_curve <- make_constructor(GeomCurve)
 
 # Helper function for determining whether curves should swap segment ends to
 # keep curvature consistent over transformations

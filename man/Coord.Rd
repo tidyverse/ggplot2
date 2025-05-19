@@ -13,6 +13,7 @@
 \alias{CoordQuickmap}
 \alias{CoordRadial}
 \alias{CoordTransform}
+\alias{CoordTrans}
 \title{Coords}
 \description{
 All \verb{coord_*()} functions (like \code{coord_transform()}) return a \verb{Coord*} object

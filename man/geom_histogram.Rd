@@ -26,8 +26,10 @@ geom_histogram(
   ...,
   binwidth = NULL,
   bins = NULL,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  linejoin = "mitre",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -38,16 +40,16 @@ stat_bin(
   geom = "bar",
   position = "stack",
   ...,
+  orientation = NA,
   binwidth = NULL,
   bins = NULL,
   center = NULL,
   boundary = NULL,
-  breaks = NULL,
   closed = c("right", "left"),
   pad = FALSE,
-  na.rm = FALSE,
+  breaks = NULL,
   drop = "none",
-  orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -149,6 +151,10 @@ automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}. For more information
 at overriding these connections, see how the \link[=layer_stats]{stat} and
@@ -164,15 +170,15 @@ if \code{0} is outside the range of the data. Alternatively, this same alignment
 can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
 
-\item{breaks}{Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
-
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{drop}{Treatment of zero count bins. If \code{"none"} (default), such
 bins are kept as-is. If \code{"all"}, all zero count bins are filtered out.

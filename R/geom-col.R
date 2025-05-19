@@ -1,29 +1,3 @@
-#' @export
-#' @rdname geom_bar
-geom_col <- function(mapping = NULL, data = NULL,
-                     position = "stack",
-                     ...,
-                     just = 0.5,
-                     na.rm = FALSE,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = "identity",
-    geom = GeomCol,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      just = just,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
 #' @rdname Geom
 #' @format NULL
 #' @usage NULL
@@ -31,3 +5,7 @@ geom_col <- function(mapping = NULL, data = NULL,
 #' @include geom-rect.R
 # TODO: deprecate this
 GeomCol <- ggproto("GeomCol", GeomBar)
+
+#' @export
+#' @rdname geom_bar
+geom_col <- make_constructor(GeomCol, position = "stack", just = 0.5)

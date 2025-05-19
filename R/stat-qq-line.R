@@ -1,49 +1,9 @@
-#' @rdname geom_qq
-#' @export
-#' @param line.p Vector of quantiles to use when fitting the Q-Q line, defaults
-#' defaults to `c(.25, .75)`.
-#' @param fullrange Should the q-q line span the full range of the plot, or just
-#'   the data
-geom_qq_line <- function(mapping = NULL,
-                         data = NULL,
-                         geom = "abline",
-                         position = "identity",
-                         ...,
-                         distribution = stats::qnorm,
-                         dparams = list(),
-                         line.p = c(0.25, 0.75),
-                         fullrange = FALSE,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatQqLine,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      distribution = distribution,
-      dparams = dparams,
-      na.rm = na.rm,
-      line.p = line.p,
-      fullrange = fullrange,
-      ...
-    )
-  )
-}
-
-#' @export
-#' @rdname geom_qq
-stat_qq_line <- geom_qq_line
-
 #' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
-StatQqLine <- ggproto("StatQqLine", Stat,
+StatQqLine <- ggproto(
+  "StatQqLine", Stat,
   default_aes = aes(x = after_stat(x), y = after_stat(y)),
 
   required_aes = c("sample"),
@@ -92,3 +52,15 @@ StatQqLine <- ggproto("StatQqLine", Stat,
     )
   }
 )
+
+#' @rdname geom_qq
+#' @export
+#' @param line.p Vector of quantiles to use when fitting the Q-Q line, defaults
+#' defaults to `c(.25, .75)`.
+#' @param fullrange Should the q-q line span the full range of the plot, or just
+#'   the data
+geom_qq_line <- make_constructor(StatQqLine, geom = "abline", omit = "quantiles")
+
+#' @export
+#' @rdname geom_qq
+stat_qq_line <- geom_qq_line

@@ -1,54 +1,9 @@
-#' @export
-#' @rdname geom_hex
-#' @inheritParams stat_bin_2d
-#' @eval rd_computed_vars(
-#'   count    = "number of points in bin.",
-#'   density  = "density of points in bin, scaled to integrate to 1.",
-#'   ncount   = "count, scaled to maximum of 1.",
-#'   ndensity = "density, scaled to maximum of 1."
-#' )
-#' @section Controlling binning parameters for the x and y directions:
-#' The arguments `bins` and `binwidth` can
-#' be set separately for the x and y directions. When given as a scalar, one
-#' value applies to both directions. When given as a vector of length two,
-#' the first is applied to the x direction and the second to the y direction.
-#' Alternatively, these can be a named list containing `x` and `y` elements,
-#' for example `list(x = 10, y = 20)`.
-stat_bin_hex <- function(mapping = NULL, data = NULL,
-                         geom = "hex", position = "identity",
-                         ...,
-                         bins = 30,
-                         binwidth = NULL,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatBinhex,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @export
-#' @rdname geom_hex
-#' @usage NULL
-stat_binhex <- stat_bin_hex
-
 #' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
-StatBinhex <- ggproto("StatBinhex", Stat,
+StatBinhex <- ggproto(
+  "StatBinhex", Stat,
   default_aes = aes(weight = 1, fill = after_stat(count)),
 
   required_aes = c("x", "y"),
@@ -73,3 +28,25 @@ StatBinhex <- ggproto("StatBinhex", Stat,
   dropped_aes = "weight"
 )
 
+#' @export
+#' @rdname geom_hex
+#' @inheritParams stat_bin_2d
+#' @eval rd_computed_vars(
+#'   count    = "number of points in bin.",
+#'   density  = "density of points in bin, scaled to integrate to 1.",
+#'   ncount   = "count, scaled to maximum of 1.",
+#'   ndensity = "density, scaled to maximum of 1."
+#' )
+#' @section Controlling binning parameters for the x and y directions:
+#' The arguments `bins` and `binwidth` can
+#' be set separately for the x and y directions. When given as a scalar, one
+#' value applies to both directions. When given as a vector of length two,
+#' the first is applied to the x direction and the second to the y direction.
+#' Alternatively, these can be a named list containing `x` and `y` elements,
+#' for example `list(x = 10, y = 20)`.
+stat_bin_hex <- make_constructor(StatBinhex, geom = "hex")
+
+#' @export
+#' @rdname geom_hex
+#' @usage NULL
+stat_binhex <- stat_bin_hex

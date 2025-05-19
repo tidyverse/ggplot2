@@ -1,3 +1,20 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-ribbon.R
+GeomDensity <- ggproto(
+  "GeomDensity", GeomArea,
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    fill   = from_theme(fill %||% NA),
+    weight = 1,
+    alpha  = NA,
+    linewidth = from_theme(borderwidth),
+    linetype  = from_theme(bordertype)
+  )
+)
+
 #' Smoothed density estimates
 #'
 #' Computes and draws kernel density estimate, which is a smoothed version of
@@ -59,45 +76,9 @@
 #' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL,
-                         stat = "density", position = "identity",
-                         ...,
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE,
-                         outline.type = "upper") {
-  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomDensity,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      outline.type = outline.type,
-      ...
-    )
-  )
-}
-
-#' @rdname Geom
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-ribbon.R
-GeomDensity <- ggproto("GeomDensity", GeomArea,
-  default_aes = aes(
-    colour = from_theme(colour %||% ink),
-    fill   = from_theme(fill %||% NA),
-    weight = 1,
-    alpha  = NA,
-    linewidth = from_theme(borderwidth),
-    linetype  = from_theme(bordertype)
+geom_density <- make_constructor(
+  GeomDensity, stat = "density",
+  checks = exprs(
+    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   )
 )
