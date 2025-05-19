@@ -80,7 +80,7 @@ old_guide <- function(guide) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export

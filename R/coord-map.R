@@ -149,7 +149,7 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

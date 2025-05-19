@@ -36,23 +36,14 @@ geom_errorbar(
   stat = "identity",
   position = "identity",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
 
-geom_errorbarh(
-  mapping = NULL,
-  data = NULL,
-  stat = "identity",
-  position = "identity",
-  ...,
-  orientation = "y",
-  na.rm = FALSE,
-  show.legend = NA,
-  inherit.aes = TRUE
-)
+geom_errorbarh(..., orientation = "y")
 
 geom_linerange(
   mapping = NULL,
@@ -60,8 +51,9 @@ geom_linerange(
   stat = "identity",
   position = "identity",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -72,9 +64,10 @@ geom_pointrange(
   stat = "identity",
   position = "identity",
   ...,
-  fatten = deprecated(),
-  na.rm = FALSE,
   orientation = NA,
+  fatten = deprecated(),
+  lineend = "butt",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -183,7 +176,9 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
+
+\item{lineend}{Line end style (round, butt, square).}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},

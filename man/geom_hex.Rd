@@ -12,6 +12,9 @@ geom_hex(
   stat = "binhex",
   position = "identity",
   ...,
+  lineend = "butt",
+  linejoin = "mitre",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -23,8 +26,8 @@ stat_bin_hex(
   geom = "hex",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
+  bins = 30,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -92,6 +95,12 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{linemitre}{Line mitre limit (number greater than 1).}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -106,13 +115,11 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Override the default connection between \code{geom_hex()} and
 \code{stat_bin_hex()}. For more information about overriding these connections,
 see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom} arguments work.}
-
-\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
 or as a function that takes x after scale transformation as input and
@@ -125,6 +132,8 @@ stories in your data.
 
 The bin width of a date variable is the number of days in each time; the
 bin width of a time variable is the number of seconds.}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 }
 \description{
 Divides the plane into regular hexagons, counts the number of cases in

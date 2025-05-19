@@ -168,7 +168,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{fun.ymin, fun.y, fun.ymax}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the
 versions specified above instead.}
@@ -299,7 +299,7 @@ m2 + scale_y_log10()
 # statistic has been computed. This means we're calculating the summary on the raw data
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
-m2 + coord_trans(y="log10")
+m2 + coord_transform(y="log10")
 }
 }
 }
