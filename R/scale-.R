@@ -640,6 +640,12 @@ check_breaks_labels <- function(breaks, labels, call = NULL) {
   if (is.null(breaks) || is.null(labels)) {
     return(invisible())
   }
+  if (identical(breaks, NA)) {
+    cli::cli_abort(
+      "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
+      call = call
+    )
+  }
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
     length(breaks) != length(labels)
@@ -684,19 +690,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(x) == 0) {
       return()
     }
-    # Intercept error here to give examples and mention scale in call
-    if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
-      # These assumptions only hold for standard ContinuousRange class, so
-      # we skip the error if another range class is used
-      if (inherits(self$range, "ContinuousRange")) {
-        cli::cli_abort(
-          c("Discrete values supplied to continuous scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
-    }
-    self$range$train(x)
+    self$range$train(x, call = self$call)
   },
 
   is_empty = function(self) {
@@ -751,6 +745,12 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(numeric())
     }
     transformation <- self$get_transformation()
+    breaks <- self$breaks %|W|% transformation$breaks
+
+    if (is.null(breaks)) {
+      return(NULL)
+    }
+
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(transformation$transform(transformation$domain))
     domain <- sort(domain)
@@ -758,41 +758,25 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(domain) == 2 && !zero_range(domain)) {
       limits <- oob_squish(limits, domain)
     }
-
-    # Limits in transformed space need to be converted back to data space
-    limits <- transformation$inverse(limits)
-
-    if (is.null(self$breaks)) {
-      return(NULL)
+    if (zero_range(as.numeric(limits))) {
+      return(limits[1])
     }
 
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
-    }
-
-    # Compute `zero_range()` in transformed space in case `limits` in data space
-    # don't support conversion to numeric (#5304)
-    if (zero_range(as.numeric(transformation$transform(limits)))) {
-      breaks <- limits[1]
-    } else if (is.waiver(self$breaks)) {
-      if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
-        breaks <- transformation$breaks(limits, self$n.breaks)
+    if (is.function(breaks)) {
+      # Limits in transformed space need to be converted back to data space
+      limits <- transformation$inverse(limits)
+      if (!is.null(self$n.breaks) && support_nbreaks(breaks)) {
+        breaks <- breaks(limits, n = self$n.breaks)
       } else {
+        breaks <- breaks(limits)
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
-            "Ignoring {.arg n.breaks}. Use a {.cls transform} object that supports setting number of breaks.",
+            "Ignoring {.arg n.breaks}. Use a {.cls transform} object or \\
+            {.arg breaks} function that supports setting number of breaks",
             call = self$call
           )
         }
-        breaks <- transformation$breaks(limits)
       }
-    } else if (is.function(self$breaks)) {
-      breaks <- self$breaks(limits)
-    } else {
-      breaks <- self$breaks
     }
 
     # Breaks in data space need to be converted back to transformed space
@@ -964,19 +948,12 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     if (length(x) == 0) {
       return()
     }
-    # Intercept error here to give examples and mention scale in call
-    if (!is.discrete(x)) {
-      # These assumptions only hold for standard DiscreteRange class, so
-      # we skip the error if another range class is used
-      if (inherits(self$range, "DiscreteRange")) {
-        cli::cli_abort(
-          c("Continuous values supplied to discrete scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
-    }
-    self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
+    self$range$train(
+      x,
+      drop  = self$drop,
+      na.rm = !self$na.translate,
+      call  = self$call
+    )
   },
 
   transform = identity,
@@ -1044,13 +1021,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
     if (is.null(self$breaks)) {
       return(NULL)
-    }
-
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
     }
 
     if (is.waiver(self$breaks)) {
@@ -1196,17 +1166,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   is_discrete = function() FALSE,
 
   train = function(self, x) {
+    if (length(x) == 0) {
+      return()
+    }
     if (!is.numeric(x)) {
       cli::cli_abort(
         "Binned scales only support continuous data.",
         call = self$call
       )
     }
-
-    if (length(x) == 0) {
-      return()
-    }
-    self$range$train(x)
+    self$range$train(x, call = self$call)
   },
 
   transform = default_transform,
@@ -1268,14 +1237,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     if (is.null(self$breaks)) {
       return(NULL)
-    } else if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
     } else if (is.waiver(self$breaks)) {
       if (self$nice.breaks) {
-        if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
+        if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
         } else {
           if (!is.null(self$n.breaks)) {
@@ -1332,9 +1296,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         }
       }
     } else if (is.function(self$breaks)) {
-      if ("n.breaks" %in% names(formals(environment(self$breaks)$f))) {
+      fmls <- names(formals(environment(self$breaks)$f))
+      if (any(c("n", "n.breaks") %in% fmls)) {
         n.breaks <- self$n.breaks %||% 5 # same default as trans objects
-        breaks <- self$breaks(limits, n.breaks = n.breaks)
+        # TODO: we should only allow `n` argument and not `n.breaks` to be
+        # consistent with other scales. We should start deprecation at some point.
+        if ("n.breaks" %in% fmls) {
+          breaks <- self$breaks(limits, n.breaks = n.breaks)
+        } else {
+          breaks <- self$breaks(limits, n = n.breaks)
+        }
       } else {
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
@@ -1439,6 +1410,14 @@ check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) 
   cli::cli_warn(msg, call = call)
 }
 
+
+support_nbreaks <- function(fun) {
+  if (inherits(fun, "ggproto_method")) {
+    fun <- environment(fun)$f
+  }
+  "n" %in% fn_fmls_names(fun)
+}
+
 check_continuous_limits <- function(limits, ...,
                                     arg = caller_arg(limits),
                                     call = caller_env()) {
@@ -1447,10 +1426,6 @@ check_continuous_limits <- function(limits, ...,
   }
   check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
   check_length(limits, 2L, arg = arg, call = call)
-}
-
-trans_support_nbreaks <- function(trans) {
-  "n" %in% names(formals(trans$breaks))
 }
 
 allow_lambda <- function(x) {
