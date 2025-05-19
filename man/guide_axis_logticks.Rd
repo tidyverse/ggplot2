@@ -29,7 +29,7 @@ values of the \code{axis.ticks.length} theme setting.}
 \item{prescale.base}{Base of logarithm used to transform data manually. The
 default, \code{NULL}, will use the scale transformation to calculate positions.
 Only set \code{prescale.base} if the data has already been log-transformed.
-When using a log-transform in the position scale or in \code{coord_trans()},
+When using a log-transform in the position scale or in \code{coord_transform()},
 keep the default \code{NULL} argument.}
 
 \item{negative.small}{When the scale limits include 0 or negative numbers,
@@ -97,7 +97,7 @@ p + scale_x_log10(guide = "axis_logticks") +
   scale_y_log10(guide = "axis_logticks")
 
 # Or with log-transformed coordinates
-p + coord_trans(x = "log10", y = "log10") +
+p + coord_transform(x = "log10", y = "log10") +
   guides(x = "axis_logticks", y = "axis_logticks")
 
 # When data is transformed manually, one should provide `prescale.base`

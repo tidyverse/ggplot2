@@ -29,6 +29,9 @@ polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 \item{...}{
   Arguments passed on to \code{\link[=geom_polygon]{geom_polygon}}
   \describe{
+    \item{\code{lineend}}{Line end style (round, butt, square).}
+    \item{\code{linejoin}}{Line join style (round, mitre, bevel).}
+    \item{\code{linemitre}}{Line mitre limit (number greater than 1).}
     \item{\code{rule}}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
 hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for

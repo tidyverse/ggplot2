@@ -396,10 +396,10 @@ test_that("sf coords can be reversed", {
     coord_sf(
       xlim = c(-1, 3), ylim = c(-1, 3), expand = FALSE,
       reverse = "xy"
-    )
-  grob <- layer_grob(p)[[1]]
-  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
-  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+    ) +
+    theme_test() +
+    theme(axis.line = element_line())
+  expect_doppelganger("reversed sf coords", p)
 })
 
 test_that("coord_sf() can render with empty graticules", {

@@ -1,3 +1,75 @@
+#' @rdname Stat
+#' @format NULL
+#' @usage NULL
+#' @export
+StatBin <- ggproto(
+  "StatBin", Stat,
+  setup_params = function(self, data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+
+    if (is.logical(params$drop)) {
+      params$drop <- if (isTRUE(params$drop)) "all" else "none"
+    }
+    drop <- params$drop
+    params$drop <- arg_match0(
+      params$drop %||% "none",
+      c("all", "none", "extremes"), arg_nm = "drop"
+    )
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
+    }
+    if (has_x && has_y) {
+      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
+    }
+
+    x <- flipped_names(params$flipped_aes)$x
+    if (is_mapped_discrete(data[[x]])) {
+      cli::cli_abort(c(
+        "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic.",
+        "x" = "the {.field {x}} aesthetic is discrete.",
+        "i" = "Perhaps you want {.code stat=\"count\"}?"
+      ))
+    }
+
+    params <- fix_bin_params(params, fun = snake_class(self), version = "2.1.0")
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
+  compute_group = function(data, scales, binwidth = NULL, bins = NULL,
+                           center = NULL, boundary = NULL,
+                           closed = c("right", "left"), pad = FALSE,
+                           breaks = NULL, flipped_aes = FALSE, drop = "none") {
+    x <- flipped_names(flipped_aes)$x
+    bins <- compute_bins(
+      data[[x]], scales[[x]],
+      breaks = breaks, binwidth = binwidth, bins = bins,
+      center = center, boundary = boundary, closed = closed
+    )
+    bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
+
+    keep <- switch(
+      drop,
+      all = bins$count != 0,
+      extremes = inner_runs(bins$count != 0),
+      TRUE
+    )
+    bins <- vec_slice(bins, keep)
+    bins$flipped_aes <- flipped_aes
+    flip_data(bins, flipped_aes)
+  },
+
+  default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
+
+  required_aes = "x|y",
+
+  dropped_aes = "weight" # after statistical transformation, weights are no longer available
+)
+
 #' @param binwidth The width of the bins. Can be specified as a numeric value
 #'   or as a function that takes x after scale transformation as input and
 #'   returns a single numeric value. When specifying a function along with a
@@ -49,118 +121,9 @@
 #'   x data, whereas `stat_bin()` is suitable only for continuous x data.
 #' @export
 #' @rdname geom_histogram
-stat_bin <- function(mapping = NULL, data = NULL,
-                     geom = "bar", position = "stack",
-                     ...,
-                     binwidth = NULL,
-                     bins = NULL,
-                     center = NULL,
-                     boundary = NULL,
-                     breaks = NULL,
-                     closed = c("right", "left"),
-                     pad = FALSE,
-                     na.rm = FALSE,
-                     drop = "none",
-                     orientation = NA,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatBin,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      binwidth = binwidth,
-      bins = bins,
-      center = center,
-      boundary = boundary,
-      breaks = breaks,
-      closed = closed,
-      pad = pad,
-      na.rm = na.rm,
-      orientation = orientation,
-      drop = drop,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-StatBin <- ggproto("StatBin", Stat,
-  setup_params = function(self, data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
-
-    if (is.logical(params$drop)) {
-      params$drop <- if (isTRUE(params$drop)) "all" else "none"
-    }
-    drop <- params$drop
-    params$drop <- arg_match0(
-      params$drop %||% "none",
-      c("all", "none", "extremes"), arg_nm = "drop"
-    )
-
-    has_x <- !(is.null(data$x) && is.null(params$x))
-    has_y <- !(is.null(data$y) && is.null(params$y))
-    if (!has_x && !has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
-    }
-    if (has_x && has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
-    }
-
-    x <- flipped_names(params$flipped_aes)$x
-    if (is_mapped_discrete(data[[x]])) {
-      cli::cli_abort(c(
-        "{.fn {snake_class(self)}} requires a continuous {.field {x}} aesthetic.",
-        "x" = "the {.field {x}} aesthetic is discrete.",
-        "i" = "Perhaps you want {.code stat=\"count\"}?"
-      ))
-    }
-
-    params <- fix_bin_params(params, fun = snake_class(self), version = "2.1.0")
-    params
-  },
-
-  extra_params = c("na.rm", "orientation"),
-
-  compute_group = function(data, scales, binwidth = NULL, bins = NULL,
-                           center = NULL, boundary = NULL,
-                           closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE, drop = "none",
-                           # The following arguments are not used, but must
-                           # be listed so parameters are computed correctly
-                           origin = NULL, right = NULL) {
-    x <- flipped_names(flipped_aes)$x
-    bins <- compute_bins(
-      data[[x]], scales[[x]],
-      breaks = breaks, binwidth = binwidth, bins = bins,
-      center = center, boundary = boundary, closed = closed
-    )
-    bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
-
-    keep <- switch(
-      drop,
-      all = bins$count != 0,
-      extremes = inner_runs(bins$count != 0),
-      TRUE
-    )
-    bins <- vec_slice(bins, keep)
-    bins$flipped_aes <- flipped_aes
-    flip_data(bins, flipped_aes)
-  },
-
-  default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
-
-  required_aes = "x|y",
-
-  dropped_aes = "weight" # after statistical transformation, weights are no longer available
+stat_bin <- make_constructor(
+  StatBin, geom = "bar", position = "stack",
+  orientation = NA
 )
 
 inner_runs <- function(x) {
@@ -171,4 +134,3 @@ inner_runs <- function(x) {
   inner[i] <- inner[i] & rle$key[i]
   rep(inner, rle$times)
 }
-

@@ -102,6 +102,16 @@ coord_radial <- function(theta = "x",
   arc <- switch(reverse, thetar = , theta = rev(arc), arc)
 
   r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
+  if (isFALSE(r.axis.inside)) {
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, arc)
+    if (!any(place)) {
+      cli::cli_warn(c(
+        "No appropriate placement found for outside {.field r.axis}.",
+        i = "Will use {.code r.axis.inside = TRUE} instead"
+      ))
+      r.axis.inside <- TRUE
+    }
+  }
 
   inner.radius <- c(inner.radius, 1) * 0.4
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
@@ -120,7 +130,7 @@ coord_radial <- function(theta = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -453,25 +463,14 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   setup_params = function(self, data) {
     params <- ggproto_parent(Coord, self)$setup_params(data)
-    if (!isFALSE(self$r_axis_inside)) {
-      return(params)
+    if (isFALSE(self$r_axis_inside)) {
+      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+      params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+      params$fake_arc <- switch(
+        which(place[c(1, 3, 2, 4)])[1],
+        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+      ) * pi
     }
-
-    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-    if (!any(place)) {
-      cli::cli_warn(c(
-        "No appropriate placement found for {.arg r_axis_inside}.",
-        i = "Axis will be placed at panel edge."
-      ))
-      params$r_axis_inside <- TRUE
-      return(params)
-    }
-
-    params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
-    params$fake_arc <- switch(
-      which(place[c(1, 3, 2, 4)])[1],
-      c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
-    ) * pi
     params
   }
 )
@@ -525,6 +524,7 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
     return(list(x = c(0, 1), y = c(0, 1)))
   }
   arc <- sort(arc)
+  inner_radius <- sort(inner_radius)
 
   # X and Y position of the sector arc ends
   xmax <- 0.5 * sin(arc) + 0.5
@@ -576,7 +576,7 @@ deg2rad <- function(deg) deg * pi / 180
 # Function to rotate a radius axis through viewport
 rotate_r_axis <- function(axis, angle, bbox, position = "left") {
 
-  if (inherits(axis, "zeroGrob")) {
+  if (is_zero(axis)) {
     return(axis)
   }
 

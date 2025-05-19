@@ -492,7 +492,7 @@ Guides <- ggproto(
     )
 
     grobs <- self$draw(theme, positions, theme$legend.direction)
-    keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
+    keep <- !vapply(grobs, is_zero, logical(1), USE.NAMES = FALSE)
     grobs <- grobs[keep]
     if (length(grobs) < 1) {
       return(zeroGrob())
@@ -590,7 +590,7 @@ Guides <- ggproto(
   # arguments to collect guides
   package_box = function(grobs, position, theme) {
 
-    if (is.zero(grobs) || length(grobs) == 0) {
+    if (is_zero(grobs) || length(grobs) == 0) {
       return(zeroGrob())
     }
 

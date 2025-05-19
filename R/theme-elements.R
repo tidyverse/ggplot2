@@ -131,7 +131,14 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
 }
 
 
-#' @param family Font family
+#' @param family The typeface to use. The validity of this value will depend on
+#'   the graphics device being used for rendering the plot. See
+#'   [the systemfonts vignette](https://systemfonts.r-lib.org/articles/systemfonts.html)
+#'   for guidance on the best way to access fonts installed on your computer.
+#'   The values `"sans"`, `"serif"`, and `"mono"` should always be valid and
+#'   will select the default typeface for the respective styles. However, what
+#'   is considered default is dependant on the graphics device and the operating
+#'   system.
 #' @param face Font face ("plain", "italic", "bold", "bold.italic")
 #' @param hjust Horizontal justification (in \eqn{[0, 1]})
 #' @param vjust Vertical justification (in \eqn{[0, 1]})
@@ -168,25 +175,6 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
       margin = margin, debug = debug, inherit.blank = inherit.blank),
     class = c("element_text", "element")
-  )
-}
-
-#' @export
-#' @param type For testing elements: the type of element to expect. One of
-#'   `"blank"`, `"rect"`, `"line"` or `"text"`.
-#' @rdname is_tests
-is_theme_element <- function(x, type = "any") {
-  switch(
-    type %||% "any",
-    any   = inherits(x, "element"),
-    rect  = inherits(x, "element_rect"),
-    line  = inherits(x, "element_line"),
-    text  = inherits(x, "element_text"),
-    blank = inherits(x, "element_blank"),
-    # TODO: ideally we accept more elements from extensions. We need to
-    # consider how this will work with S7 classes, where ggplot2 doesn't know
-    # about the extension's class objects.
-    FALSE
   )
 }
 
@@ -266,6 +254,26 @@ element_geom <- function(
 )
 
 #' @export
+#' @param type For testing elements: the type of element to expect. One of
+#'   `"blank"`, `"rect"`, `"line"`, `"text"`, `"polygon"`, `"point"` or `"geom"`.
+#' @rdname is_tests
+is_theme_element <- function(x, type = "any") {
+  switch(
+    type %||% "any",
+    any     = inherits(x, "element"),
+    rect    = inherits(x, "element_rect"),
+    line    = inherits(x, "element_line"),
+    text    = inherits(x, "element_text"),
+    polygon = inherits(x, "element_polygon"),
+    point   = inherits(x, "element_point"),
+    geom    = inherits(x, "element_geom"),
+    blank   = inherits(x, "element_blank"),
+    # We don't consider elements from extensions
+    FALSE
+  )
+}
+
+#' @export
 print.element <- function(x, ...) utils::str(x)
 
 
@@ -282,7 +290,7 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 #' Reports whether x is a rel object
 #' @param x An object to test
 #' @keywords internal
-is.rel <- function(x) inherits(x, "rel")
+is_rel <- function(x) inherits(x, "rel")
 
 #' Render a specified theme element into a grob
 #'
@@ -846,7 +854,7 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   if ("margin" %in% eldef$class) {
     if (!is.unit(el) && length(el) == 4)
       cli::cli_abort("The {.var {elname}} theme element must be a {.cls unit} vector of length 4.", call = call)
-  } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
+  } else if (!inherits(el, eldef$class) && !is_theme_element(el, "blank")) {
     cli::cli_abort("The {.var {elname}} theme element must be a {.cls {eldef$class}} object.", call = call)
   }
   invisible()

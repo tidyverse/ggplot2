@@ -97,7 +97,7 @@ position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
