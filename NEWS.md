@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* In continuous scales, when `breaks` is a function and `n.breaks` is set, the 
+  `n.breaks` will be passed to the `breaks` function. Previously, `n.breaks` 
+  only applied to the default break calculation (@teunbrand, #5972)
 * (internal) New `Facet$draw_panel_content()` method for delegating panel 
   assembly (@Yunuuuu, #6406).
 * Facet gains a new method `setup_panel_params` to interact with the
@@ -280,6 +283,7 @@
   (@teunbrand, #5938, #4327).
 * Fixed bug where empty discrete scales weren't recognised as such
   (@teunbrand, #5945).
+* `coord_trans()` renamed to `coord_transform()` (@nmercadeb, #5825).
 * (internal) The summary function of `stat_summary()` and `stat_summary_bin()`
   is setup once in total instead of once per group (@teunbrand, #5971)
 * `facet_grid(space = "free")` can now be combined with `coord_fixed()`

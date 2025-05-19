@@ -12,11 +12,11 @@
 \alias{CoordPolar}
 \alias{CoordQuickmap}
 \alias{CoordRadial}
-\alias{CoordTrans}
+\alias{CoordTransform}
 \title{Coords}
 \description{
-All \verb{coord_*()} functions (like \code{coord_trans()}) return a \verb{Coord*} object
-(like \code{CoordTrans}). These objects contain methods that support the
+All \verb{coord_*()} functions (like \code{coord_transform()}) return a \verb{Coord*} object
+(like \code{CoordTransform}). These objects contain methods that support the
 coordinate systems in ggplot2.
 }
 \details{
@@ -271,7 +271,7 @@ back into data coordinates. The data coordinates may possibly be scale-
 transformed. It is used in \code{coord_munch()} to ensure limits are in data
 coordinates.
 
-The back-transformation may be needed for coords such as \code{coord_trans()},
+The back-transformation may be needed for coords such as \code{coord_transform()},
 where the range in the transformed coordinates differs from the range in
 the untransformed coordinates.
 

@@ -1,8 +1,8 @@
 #' Coords
 #'
 #' @description
-#' All `coord_*()` functions (like `coord_trans()`) return a `Coord*` object
-#' (like `CoordTrans`). These objects contain methods that support the
+#' All `coord_*()` functions (like `coord_transform()`) return a `Coord*` object
+#' (like `CoordTransform`). These objects contain methods that support the
 #' coordinate systems in ggplot2.
 #'
 #' @details
@@ -422,7 +422,7 @@ Coord <- ggproto("Coord",
   #' transformed. It is used in `coord_munch()` to ensure limits are in data
   #' coordinates.
   #'
-  #' The back-transformation may be needed for coords such as `coord_trans()`,
+  #' The back-transformation may be needed for coords such as `coord_transform()`,
   #' where the range in the transformed coordinates differs from the range in
   #' the untransformed coordinates.
   #'

@@ -123,7 +123,7 @@
 #' # statistic has been computed. This means we're calculating the summary on the raw data
 #' # and stretching the geoms onto the log scale.  Compare the widths of the
 #' # standard errors.
-#' m2 + coord_trans(y="log10")
+#' m2 + coord_transform(y="log10")
 #' }
 #' }
 stat_summary <- function(mapping = NULL, data = NULL,
