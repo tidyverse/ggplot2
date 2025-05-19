@@ -1,7 +1,8 @@
 # ggplot2 (development version)
 
-* New `coord_cartesian(ratio)` argument that supersedes `coord_fixed()` and 
-  `coord_equal()`.
+* New `coord_cartesian(ratio)` argument that absorbs the aspect ratio 
+  functionality from `coord_equal()` and `coord_fixed()`, which are now 
+  wrappers for `coord_cartesian()`.
 * `annotation_borders()` replaces the now-deprecated `borders()` 
   (@teunbrand, #6392)
 * New `make_constructor()` function that builds a standard constructor for

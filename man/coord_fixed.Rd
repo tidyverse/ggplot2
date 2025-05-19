@@ -43,8 +43,6 @@ directions.}
   }}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} This coordinate system can be replaced by
-using the \code{coord_cartesian(ratio)} argument.\cr\cr
 A fixed scale coordinate system forces a specified ratio between the
 physical representation of data units on the axes. The ratio represents the
 number of units on the y-axis equivalent to one unit on the x-axis. The

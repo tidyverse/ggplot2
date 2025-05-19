@@ -1,7 +1,5 @@
 #' Cartesian coordinates with fixed "aspect ratio"
 #'
-#' `r lifecycle::badge("superseded")` This coordinate system can be replaced by
-#' using the `coord_cartesian(ratio)` argument.\cr\cr
 #' A fixed scale coordinate system forces a specified ratio between the
 #' physical representation of data units on the axes. The ratio represents the
 #' number of units on the y-axis equivalent to one unit on the x-axis. The
