@@ -131,7 +131,14 @@ element_line <- function(colour = NULL, linewidth = NULL, linetype = NULL,
 }
 
 
-#' @param family Font family
+#' @param family The typeface to use. The validity of this value will depend on
+#'   the graphics device being used for rendering the plot. See
+#'   [the systemfonts vignette](https://systemfonts.r-lib.org/articles/systemfonts.html)
+#'   for guidance on the best way to access fonts installed on your computer.
+#'   The values `"sans"`, `"serif"`, and `"mono"` should always be valid and
+#'   will select the default typeface for the respective styles. However, what
+#'   is considered default is dependant on the graphics device and the operating
+#'   system.
 #' @param face Font face ("plain", "italic", "bold", "bold.italic")
 #' @param hjust Horizontal justification (in \eqn{[0, 1]})
 #' @param vjust Vertical justification (in \eqn{[0, 1]})
