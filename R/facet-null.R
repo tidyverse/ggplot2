@@ -19,7 +19,7 @@ facet_null <- function(shrink = TRUE) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export

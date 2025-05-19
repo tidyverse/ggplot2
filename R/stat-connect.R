@@ -58,7 +58,7 @@ stat_connect <- function(
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export

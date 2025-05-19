@@ -120,7 +120,7 @@ coord_trans <- function(...) {
   coord_transform(...)
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

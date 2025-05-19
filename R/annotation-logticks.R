@@ -123,7 +123,7 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
