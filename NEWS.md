@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `annotation_borders()` replaces the now-deprecated `borders()` 
+  (@teunbrand, #6392)
 * New `make_constructor()` function that builds a standard constructor for
   Geom and Stat classes (@teunbrand, #6142).
 * In continuous scales, when `breaks` is a function and `n.breaks` is set, the 
