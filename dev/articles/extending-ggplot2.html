@@ -112,7 +112,7 @@
     
 <p>This vignette documents the official extension mechanism provided in
 ggplot2 2.0.0. This vignette is a high-level adjunct to the low-level
-details found in <code><a href="../reference/ggplot2-ggproto.html">?Stat</a></code>, <code><a href="../reference/ggplot2-ggproto.html">?Geom</a></code> and
+details found in <code><a href="../reference/Stat.html">?Stat</a></code>, <code><a href="../reference/Geom.html">?Geom</a></code> and
 <code><a href="../reference/theme.html">?theme</a></code>. You’ll learn how to extend ggplot2 by creating a
 new stat, geom, or theme.</p>
 <p>As you read this document, you’ll see many things that will make you
@@ -163,13 +163,21 @@ ggplot2 needs, while allowing cross package inheritance to work.</p>
 <p>The majority of ggplot2 classes are immutable and static: the methods
 neither use nor modify state in the class. They’re mostly used as a
 convenient way of bundling related methods together.</p>
-<p>To create a new geom or stat, you will just create a new ggproto that
-inherits from <code>Stat</code>, <code>Geom</code> and override the
+<p>When you create new functionality, like a new geom or stat, the first
+decision to make is whether you want to build these from scratch or you
+want to re-use parts of pre-exiting classes. To create a new geom or
+stat from scratch, you will just create a new ggproto object that
+inherits from <code>Stat</code> or <code>Geom</code> and override the
 methods described below.</p>
 </div>
 <div class="section level2">
 <h2 id="creating-a-new-stat">Creating a new stat<a class="anchor" aria-label="anchor" href="#creating-a-new-stat"></a>
 </h2>
+<p>Stats are an important part of layers: they instruct what is
+displayed, not how it is displayed. They are declared in the
+<code>layer(stat)</code> argument which has a correspondence to
+<code>Stat*</code> ggproto classes which all inherit from the root
+<code>Stat</code> class.</p>
 <div class="section level3">
 <h3 id="the-simplest-stat">The simplest stat<a class="anchor" aria-label="anchor" href="#the-simplest-stat"></a>
 </h3>
@@ -192,7 +200,12 @@ be present in order for the stat to work.</p>
 mistake I called these either <code>stat_()</code> or
 <code>geom_()</code>. A better decision would have been to call them
 <code>layer_()</code> functions: that’s a more accurate description
-because every layer involves a stat <em>and</em> a geom.</p>
+because every layer involves a stat <em>and</em> a geom. Currently it is
+the convention to have <code>stat_()</code> wrappers with fixed
+<code>layer(stat)</code> arguments and <code>geom_()</code> wrappers
+with fixed <code>layer(geom)</code> arguments. The <code>stat_()</code>
+and <code>geom_()</code> functions both have the same ingredients and
+cook up new layers.</p>
 <p>All layer functions follow the same form - you specify defaults in
 the function arguments and then call the <code><a href="../reference/layer.html">layer()</a></code> function,
 sending <code>...</code> into the <code>params</code> argument. The
@@ -485,7 +498,7 @@ example, a value passed as <em>min</em> to a layer appears as
 recommended you avoid using these names for layer parameters.</p>
 </li>
 <li><p>Compare and contrast <code>StatLm</code> to
-<code><a href="../reference/ggplot2-ggproto.html">ggplot2::StatSmooth</a></code>. What key differences make
+<code><a href="../reference/Stat.html">ggplot2::StatSmooth</a></code>. What key differences make
 <code>StatSmooth</code> more complex than <code>StatLm</code>?</p></li>
 </ol>
 </div>
@@ -493,6 +506,10 @@ recommended you avoid using these names for layer parameters.</p>
 <div class="section level2">
 <h2 id="creating-a-new-geom">Creating a new geom<a class="anchor" aria-label="anchor" href="#creating-a-new-geom"></a>
 </h2>
+<p>Geoms are also important parts of layers: they instruct how data is
+displayed. They are declared in the <code>layer(geom)</code> argument
+which has a correspondence to <code>Geom*</code> ggproto classes which
+all inherit from the root <code>Geom</code> class.</p>
 <p>It’s harder to create a new geom than a new stat because you also
 need to know some grid. ggplot2 is built on top of grid, so you’ll need
 to know the basics of drawing with grid. If you’re serious about adding
@@ -867,8 +884,9 @@ of <code>GeomLine</code>:</p>
 <div class="section level2">
 <h2 id="creating-your-own-theme">Creating your own theme<a class="anchor" aria-label="anchor" href="#creating-your-own-theme"></a>
 </h2>
-<p>If you’re going to create your own complete theme, there are a few
-things you need to know:</p>
+<p>Themes govern how non-data elements of the plot are displayed. If
+you’re going to create your own complete theme, there are a few things
+you need to know:</p>
 <ul>
 <li>Overriding existing elements, rather than modifying them</li>
 <li>The four global elements that affect (almost) every other theme
@@ -990,12 +1008,14 @@ the new theme.</p></li>
 <div class="section level2">
 <h2 id="creating-a-new-faceting">Creating a new faceting<a class="anchor" aria-label="anchor" href="#creating-a-new-faceting"></a>
 </h2>
-<p>One of the more daunting exercises in ggplot2 extensions is to create
-a new faceting system. The reason for this is that when creating new
-facetings you take on the responsibility of how (almost) everything is
-drawn on the screen, and many do not have experience with directly using
-<a href="https://cran.r-project.org/package=gtable" class="external-link">gtable</a> and <a href="https://cran.r-project.org/package=grid" class="external-link">grid</a> upon which the
-ggplot2 rendering is built. If you decide to venture into faceting
+<p>Facets are a way to draw small multiples of the data in different
+panels. One of the more daunting exercises in ggplot2 extensions is to
+create a new faceting system. The reason for this is that when creating
+new facetings you take on the responsibility of how (almost) everything
+is drawn on the screen, and many do not have experience with directly
+using <a href="https://cran.r-project.org/package=gtable" class="external-link">gtable</a> and
+<a href="https://cran.r-project.org/package=grid" class="external-link">grid</a> upon which
+the ggplot2 rendering is built. If you decide to venture into faceting
 extensions, it is highly recommended to gain proficiency with the
 above-mentioned packages.</p>
 <p>The <code>Facet</code> class in ggplot2 is very powerful as it takes

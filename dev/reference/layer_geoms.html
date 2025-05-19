@@ -188,7 +188,7 @@ ggplot(df, aes(x = 1)) +
     <h2 id="under-the-hood">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood"></a></h2>
     <p>Internally, geoms are represented as <code><a href="ggproto.html">ggproto</a></code> classes that
 occupy a slot in a layer. All these classes inherit from the parental
-<code><a href="ggplot2-ggproto.html">Geom</a></code> ggproto object that orchestrates how geoms work. Briefly, geoms
+<code><a href="Geom.html">Geom</a></code> ggproto object that orchestrates how geoms work. Briefly, geoms
 are given the opportunity to draw the data of the layer as a whole,
 a facet panel, or of individual groups. For more information on extending
 geoms, see the <strong>Creating a new geom</strong> section after running

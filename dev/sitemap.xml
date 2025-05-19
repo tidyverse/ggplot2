@@ -19,6 +19,15 @@
 <url><loc>https://ggplot2.tidyverse.org/dev/authors.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/index.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/news/index.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Coord.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Facet.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Geom.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Guide.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Layer-class.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Layout.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Position.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Scale.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/Stat.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/absoluteGrob.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/add_theme.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/aes.html</loc></url>
