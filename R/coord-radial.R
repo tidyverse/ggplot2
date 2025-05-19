@@ -4,6 +4,7 @@
 #' @param end Position from 12 o'clock in radians where plot ends, to allow
 #'   for partial polar coordinates. The default, `NULL`, is set to
 #'   `start + 2 * pi`.
+#' @param thetalim,rlim Limits for the theta and r axes.
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
@@ -40,9 +41,19 @@
 #' ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
 #'   coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
+#'
+#' # Similar with coord_cartesian(), you can set limits.
+#' ggplot(mtcars, aes(disp, mpg)) +
+#'   geom_point() +
+#'   coord_radial(
+#'     start = -0.4 * pi,
+#'     end = 0.4 * pi, inner.radius = 0.3,
+#'     thetalim = c(200, 300),
+#'     rlim = c(15, 30),
+#'   )
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
-                         expand = TRUE,
+                         thetalim = NULL, rlim = NULL, expand = TRUE,
                          direction = deprecated(),
                          clip = "off",
                          r.axis.inside = NULL,
@@ -91,11 +102,22 @@ coord_radial <- function(theta = "x",
   arc <- switch(reverse, thetar = , theta = rev(arc), arc)
 
   r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
+  if (isFALSE(r.axis.inside)) {
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, arc)
+    if (!any(place)) {
+      cli::cli_warn(c(
+        "No appropriate placement found for outside {.field r.axis}.",
+        i = "Will use {.code r.axis.inside = TRUE} instead"
+      ))
+      r.axis.inside <- TRUE
+    }
+  }
 
   inner.radius <- c(inner.radius, 1) * 0.4
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
 
   ggproto(NULL, CoordRadial,
+    limits = list(theta = thetalim, r = rlim),
     theta = theta,
     r = r,
     arc = arc,
@@ -108,7 +130,7 @@ coord_radial <- function(theta = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -147,10 +169,20 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-
+    if (self$theta == "x") {
+      xlimits <- self$limits$theta
+      ylimits <- self$limits$r
+    } else {
+      xlimits <- self$limits$r
+      ylimits <- self$limits$theta
+    }
     params <- c(
-      view_scales_polar(scale_x, self$theta, expand = params$expand[c(4, 2)]),
-      view_scales_polar(scale_y, self$theta, expand = params$expand[c(3, 1)]),
+      view_scales_polar(scale_x, self$theta, xlimits,
+        expand = params$expand[c(4, 2)]
+      ),
+      view_scales_polar(scale_y, self$theta, ylimits,
+        expand = params$expand[c(3, 1)]
+      ),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
            arc = self$arc, inner_radius = self$inner_radius)
     )
@@ -431,30 +463,20 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   setup_params = function(self, data) {
     params <- ggproto_parent(Coord, self)$setup_params(data)
-    if (!isFALSE(self$r_axis_inside)) {
-      return(params)
+    if (isFALSE(self$r_axis_inside)) {
+      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+      params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+      params$fake_arc <- switch(
+        which(place[c(1, 3, 2, 4)])[1],
+        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+      ) * pi
     }
-
-    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-    if (!any(place)) {
-      cli::cli_warn(c(
-        "No appropriate placement found for {.arg r_axis_inside}.",
-        i = "Axis will be placed at panel edge."
-      ))
-      params$r_axis_inside <- TRUE
-      return(params)
-    }
-
-    params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
-    params$fake_arc <- switch(
-      which(place[c(1, 3, 2, 4)])[1],
-      c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
-    ) * pi
     params
   }
 )
 
-view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
+view_scales_polar <- function(scale, theta = "x", coord_limits = NULL, 
+                              expand = TRUE) {
 
   aesthetic <- scale$aesthetics[1]
   is_theta  <- theta == aesthetic
@@ -462,7 +484,10 @@ view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
 
   expansion <- default_expansion(scale, expand = expand)
   limits <- scale$get_limits()
-  continuous_range <- expand_limits_scale(scale, expansion, limits)
+  continuous_range <- expand_limits_scale(
+    scale, expansion, limits,
+    coord_limits
+  )
 
   primary <- view_scale_primary(scale, limits, continuous_range)
   view_scales <- list(
@@ -499,6 +524,7 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
     return(list(x = c(0, 1), y = c(0, 1)))
   }
   arc <- sort(arc)
+  inner_radius <- sort(inner_radius)
 
   # X and Y position of the sector arc ends
   xmax <- 0.5 * sin(arc) + 0.5
@@ -550,7 +576,7 @@ deg2rad <- function(deg) deg * pi / 180
 # Function to rotate a radius axis through viewport
 rotate_r_axis <- function(axis, angle, bbox, position = "left") {
 
-  if (inherits(axis, "zeroGrob")) {
+  if (is_zero(axis)) {
     return(axis)
   }
 

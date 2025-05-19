@@ -46,9 +46,9 @@ stat_density_2d(
   ...,
   contour = TRUE,
   contour_var = "density",
-  n = 100,
   h = NULL,
   adjust = c(1, 1),
+  n = 100,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -62,9 +62,9 @@ stat_density_2d_filled(
   ...,
   contour = TRUE,
   contour_var = "density",
-  n = 100,
   h = NULL,
   adjust = c(1, 1),
+  n = 100,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -155,8 +155,6 @@ overriding these connections, see how the \link[=layer_stats]{stat} and
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
 estimation.}
 
-\item{n}{Number of grid points in each direction.}
-
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
 
@@ -164,6 +162,8 @@ using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
 'NULL'. This makes it possible to adjust the bandwidth while still
 using the a bandwidth estimator. For example, \code{adjust = 1/2} means
 use half of the default bandwidth.}
+
+\item{n}{Number of grid points in each direction.}
 }
 \description{
 Perform a 2D kernel density estimation using \code{\link[MASS:kde2d]{MASS::kde2d()}} and

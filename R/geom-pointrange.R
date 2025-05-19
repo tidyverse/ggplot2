@@ -1,31 +1,4 @@
-#' @export
-#' @rdname geom_linerange
-geom_pointrange <- function(mapping = NULL, data = NULL,
-                            stat = "identity", position = "identity",
-                            ...,
-                            fatten = deprecated(),
-                            na.rm = FALSE,
-                            orientation = NA,
-                            show.legend = NA,
-                            inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomPointrange,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      fatten = fatten,
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -76,4 +49,11 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
       ))
     )
   }
+)
+
+#' @export
+#' @rdname geom_linerange
+geom_pointrange <- make_constructor(
+  GeomPointrange,
+  orientation = NA, fatten = deprecated()
 )

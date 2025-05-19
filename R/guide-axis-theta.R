@@ -54,7 +54,7 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -104,8 +104,9 @@ GuideAxisTheta <- ggproto(
 
       # If the first and last positions are close together, we merge the
       # labels of these positions
-      ends_apart <- (key$theta[n] - key$theta[1]) %% (2 * pi)
-      if (n > 0 && ends_apart < 0.05 && !is.null(key$.label)) {
+      if (n > 1L &&
+        (key$theta[n] - key$theta[1]) %% (2 * pi) < 0.05 &&
+        !is.null(key$.label)) {
         if (is.expression(key$.label[[1]])) {
           combined <- substitute(
             paste(a, "/", b),
@@ -183,7 +184,7 @@ GuideAxisTheta <- ggproto(
 
   build_labels = function(key, elements, params) {
 
-    if (inherits(elements$text, "element_blank")) {
+    if (is_theme_element(elements$text, "blank")) {
       return(zeroGrob())
     }
 
@@ -196,7 +197,7 @@ GuideAxisTheta <- ggproto(
     }
 
     # Resolve text angle
-    if (is.waiver(params$angle) || is.null(params$angle)) {
+    if (is_waiver(params$angle) || is.null(params$angle)) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
@@ -267,12 +268,12 @@ GuideAxisTheta <- ggproto(
     key <- params$key
     key <- vec_slice(key, !is.na(key$.label) & nzchar(key$.label))
     labels <- validate_labels(key$.label)
-    if (length(labels) == 0 || inherits(elements$text, "element_blank")) {
+    if (length(labels) == 0 || is_theme_element(elements$text, "blank")) {
       return(list(offset = offset))
     }
 
     # Resolve text angle
-    if (is.waiver(params$angle %||% waiver())) {
+    if (is_waiver(params$angle %||% waiver())) {
       angle <- elements$text$angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
@@ -364,7 +365,7 @@ GuideAxisTheta <- ggproto(
 
 theta_tickmarks <- function(key, element, length, offset = NULL) {
   n_breaks <- nrow(key)
-  if (n_breaks < 1 || inherits(element, "element_blank")) {
+  if (n_breaks < 1 || is_theme_element(element, "blank")) {
     return(zeroGrob())
   }
 

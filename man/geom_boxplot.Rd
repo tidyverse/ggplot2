@@ -51,9 +51,9 @@ stat_boxplot(
   geom = "boxplot",
   position = "dodge2",
   ...,
+  orientation = NA,
   coef = 1.5,
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )

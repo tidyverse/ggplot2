@@ -13,8 +13,9 @@ geom_bar(
   position = "stack",
   ...,
   just = 0.5,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -22,9 +23,12 @@ geom_bar(
 geom_col(
   mapping = NULL,
   data = NULL,
+  stat = "identity",
   position = "stack",
   ...,
   just = 0.5,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -36,8 +40,8 @@ stat_count(
   geom = "bar",
   position = "stack",
   ...,
-  na.rm = FALSE,
   orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -110,13 +114,12 @@ columns to the left/right of axis breaks. Note that this argument may have
 unintended behaviour when used with alternative positions, e.g.
 \code{position_dodge()}.}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
-
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -134,6 +137,11 @@ the default plot specification, e.g. \code{\link[=annotation_borders]{annotation
 \item{geom, stat}{Override the default connection between \code{geom_bar()} and
 \code{stat_count()}. For more information about overriding these connections,
 see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom} arguments work.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 }
 \description{
 There are two types of bar charts: \code{geom_bar()} and \code{geom_col()}.

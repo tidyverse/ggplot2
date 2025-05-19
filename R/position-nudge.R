@@ -39,7 +39,7 @@ position_nudge <- function(x = NULL, y = NULL) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
