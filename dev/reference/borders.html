@@ -118,7 +118,16 @@ polygons, see <code><a href="https://rdrr.io/pkg/maps/man/map.html" class="exter
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Arguments passed on to <code><a href="geom_polygon.html">geom_polygon</a></code></p><dl><dt><code>rule</code></dt>
+<dd><p>Arguments passed on to <code><a href="geom_polygon.html">geom_polygon</a></code></p><dl><dt><code>lineend</code></dt>
+<dd><p>Line end style (round, butt, square).</p></dd>
+
+    <dt><code>linejoin</code></dt>
+<dd><p>Line join style (round, mitre, bevel).</p></dd>
+
+    <dt><code>linemitre</code></dt>
+<dd><p>Line mitre limit (number greater than 1).</p></dd>
+
+    <dt><code>rule</code></dt>
 <dd><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
 being drawn (using the <code>subgroup</code> aesthetic) this argument defines how the
 hole coordinates are interpreted. See the examples in <code><a href="https://rdrr.io/r/grid/grid.path.html" class="external-link">grid::pathGrob()</a></code> for

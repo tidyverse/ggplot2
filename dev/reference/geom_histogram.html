@@ -106,8 +106,10 @@ across the levels of a categorical variable.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  binwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bins <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
+<span>  linejoin <span class="op">=</span> <span class="st">"mitre"</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
@@ -118,16 +120,16 @@ across the levels of a categorical variable.</p>
 <span>  geom <span class="op">=</span> <span class="st">"bar"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  binwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bins <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  boundary <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  closed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>  pad <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop <span class="op">=</span> <span class="st">"none"</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -245,6 +247,14 @@ rare event that this fails it can be given explicitly by setting <code>orientati
 to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></dd>
 
 
+<dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
+<dd><p>Line end style (round, butt, square).</p></dd>
+
+
+<dt id="arg-linejoin">linejoin<a class="anchor" aria-label="anchor" href="#arg-linejoin"></a></dt>
+<dd><p>Line join style (round, mitre, bevel).</p></dd>
+
+
 <dt id="arg-geom-stat">geom, stat<a class="anchor" aria-label="anchor" href="#arg-geom-stat"></a></dt>
 <dd><p>Use to override the default connection between
 <code>geom_histogram()</code>/<code>geom_freqpoly()</code> and <code>stat_bin()</code>. For more information
@@ -264,12 +274,6 @@ can be specified with <code>binwidth = 1</code> and <code>boundary = 0.5</code>,
 outside the range of the data.</p></dd>
 
 
-<dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
-<dd><p>Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides <code>binwidth</code>, <code>bins</code>, <code>center</code>,
-and <code>boundary</code>. Can also be a function that takes group-wise values as input and returns bin boundaries.</p></dd>
-
-
 <dt id="arg-closed">closed<a class="anchor" aria-label="anchor" href="#arg-closed"></a></dt>
 <dd><p>One of <code>"right"</code> or <code>"left"</code> indicating whether right
 or left edges of bins are included in the bin.</p></dd>
@@ -278,6 +282,12 @@ or left edges of bins are included in the bin.</p></dd>
 <dt id="arg-pad">pad<a class="anchor" aria-label="anchor" href="#arg-pad"></a></dt>
 <dd><p>If <code>TRUE</code>, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
+<dd><p>Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides <code>binwidth</code>, <code>bins</code>, <code>center</code>,
+and <code>boundary</code>. Can also be a function that takes group-wise values as input and returns bin boundaries.</p></dd>
 
 
 <dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>

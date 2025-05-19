@@ -84,6 +84,10 @@ The angles start from east and increase counterclockwise.</p>
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  arrow.fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
+<span>  linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -167,6 +171,23 @@ lists which parameters it can accept.</p></li>
 <code>...</code>. This can be one of the functions described as
 <a href="draw_key.html">key glyphs</a>, to change the display of the layer in the legend.</p></li>
 </ul></dd>
+
+
+<dt id="arg-arrow">arrow<a class="anchor" aria-label="anchor" href="#arg-arrow"></a></dt>
+<dd><p>specification for arrow heads, as created by <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">grid::arrow()</a></code>.</p></dd>
+
+
+<dt id="arg-arrow-fill">arrow.fill<a class="anchor" aria-label="anchor" href="#arg-arrow-fill"></a></dt>
+<dd><p>fill colour to use for the arrow head (if closed). <code>NULL</code>
+means use <code>colour</code> aesthetic.</p></dd>
+
+
+<dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
+<dd><p>Line end style (round, butt, square).</p></dd>
+
+
+<dt id="arg-linejoin">linejoin<a class="anchor" aria-label="anchor" href="#arg-linejoin"></a></dt>
+<dd><p>Line join style (round, mitre, bevel).</p></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>

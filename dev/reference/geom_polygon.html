@@ -95,8 +95,11 @@ polygon.</p>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
-<span>  rule <span class="op">=</span> <span class="st">"evenodd"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  rule <span class="op">=</span> <span class="st">"evenodd"</span>,</span>
+<span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
+<span>  linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
+<span>  linemitre <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -154,13 +157,6 @@ to use <code><a href="position_jitter.html">position_jitter()</a></code>, give t
 </ul></dd>
 
 
-<dt id="arg-rule">rule<a class="anchor" aria-label="anchor" href="#arg-rule"></a></dt>
-<dd><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
-being drawn (using the <code>subgroup</code> aesthetic) this argument defines how the
-hole coordinates are interpreted. See the examples in <code><a href="https://rdrr.io/r/grid/grid.path.html" class="external-link">grid::pathGrob()</a></code> for
-an explanation.</p></dd>
-
-
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other arguments passed on to <code><a href="layer.html">layer()</a></code>'s <code>params</code> argument. These
 arguments broadly fall into one of 4 categories below. Notably, further
@@ -187,6 +183,25 @@ lists which parameters it can accept.</p></li>
 <code>...</code>. This can be one of the functions described as
 <a href="draw_key.html">key glyphs</a>, to change the display of the layer in the legend.</p></li>
 </ul></dd>
+
+
+<dt id="arg-rule">rule<a class="anchor" aria-label="anchor" href="#arg-rule"></a></dt>
+<dd><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
+being drawn (using the <code>subgroup</code> aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in <code><a href="https://rdrr.io/r/grid/grid.path.html" class="external-link">grid::pathGrob()</a></code> for
+an explanation.</p></dd>
+
+
+<dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
+<dd><p>Line end style (round, butt, square).</p></dd>
+
+
+<dt id="arg-linejoin">linejoin<a class="anchor" aria-label="anchor" href="#arg-linejoin"></a></dt>
+<dd><p>Line join style (round, mitre, bevel).</p></dd>
+
+
+<dt id="arg-linemitre">linemitre<a class="anchor" aria-label="anchor" href="#arg-linemitre"></a></dt>
+<dd><p>Line mitre limit (number greater than 1).</p></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
@@ -286,7 +301,6 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 <span class="r-in"><span>  <span class="va">p</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-plt img"><img src="geom_polygon-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

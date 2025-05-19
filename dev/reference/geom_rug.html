@@ -84,8 +84,9 @@ cases so are best used with smaller datasets.</p>
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  outside <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
 <span>  sides <span class="op">=</span> <span class="st">"bl"</span>,</span>
+<span>  outside <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.03</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -172,14 +173,18 @@ lists which parameters it can accept.</p></li>
 </ul></dd>
 
 
-<dt id="arg-outside">outside<a class="anchor" aria-label="anchor" href="#arg-outside"></a></dt>
-<dd><p>logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use <code>coord_cartesian(clip = "off")</code>. When set to TRUE, also consider changing the sides argument to "tr". See examples.</p></dd>
+<dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
+<dd><p>Line end style (round, butt, square).</p></dd>
 
 
 <dt id="arg-sides">sides<a class="anchor" aria-label="anchor" href="#arg-sides"></a></dt>
 <dd><p>A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of <code>"trbl"</code>, for top, right,
 bottom, and left.</p></dd>
+
+
+<dt id="arg-outside">outside<a class="anchor" aria-label="anchor" href="#arg-outside"></a></dt>
+<dd><p>logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use <code>coord_cartesian(clip = "off")</code>. When set to TRUE, also consider changing the sides argument to "tr". See examples.</p></dd>
 
 
 <dt id="arg-length">length<a class="anchor" aria-label="anchor" href="#arg-length"></a></dt>
@@ -266,7 +271,6 @@ any data points under the default settings.</p>
 <span class="r-in"><span>  <span class="fu">geom_rug</span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="st">"npc"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_rug-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

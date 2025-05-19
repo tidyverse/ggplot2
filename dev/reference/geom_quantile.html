@@ -81,6 +81,8 @@ with lines. This is as a continuous analogue to <code><a href="geom_boxplot.html
 <span>  stat <span class="op">=</span> <span class="st">"quantile"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  arrow.fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
 <span>  linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
 <span>  linemitre <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -169,6 +171,15 @@ lists which parameters it can accept.</p></li>
 <code>...</code>. This can be one of the functions described as
 <a href="draw_key.html">key glyphs</a>, to change the display of the layer in the legend.</p></li>
 </ul></dd>
+
+
+<dt id="arg-arrow">arrow<a class="anchor" aria-label="anchor" href="#arg-arrow"></a></dt>
+<dd><p>Arrow specification, as created by <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">grid::arrow()</a></code>.</p></dd>
+
+
+<dt id="arg-arrow-fill">arrow.fill<a class="anchor" aria-label="anchor" href="#arg-arrow-fill"></a></dt>
+<dd><p>fill colour to use for the arrow head (if closed). <code>NULL</code>
+means use <code>colour</code> aesthetic.</p></dd>
 
 
 <dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>

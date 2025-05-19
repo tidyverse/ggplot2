@@ -107,18 +107,18 @@ boxplot.</p>
 <span>  geom <span class="op">=</span> <span class="st">"violin"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  bw <span class="op">=</span> <span class="st">"nrd0"</span>,</span>
 <span>  adjust <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  kernel <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
 <span>  trim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  scale <span class="op">=</span> <span class="st">"area"</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>  quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span></span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -254,11 +254,6 @@ overriding these connections, see how the <a href="layer_stats.html">stat</a> an
 <a href="layer_geoms.html">geom</a> arguments work.</p></dd>
 
 
-<dt id="arg-quantiles">quantiles<a class="anchor" aria-label="anchor" href="#arg-quantiles"></a></dt>
-<dd><p>If not <code>NULL</code> (default), compute the <code>quantile</code> variable
-and draw horizontal lines at the given quantiles in <code>geom_violin()</code>.</p></dd>
-
-
 <dt id="arg-bw">bw<a class="anchor" aria-label="anchor" href="#arg-bw"></a></dt>
 <dd><p>The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
@@ -281,6 +276,11 @@ For example, <code>adjust = 1/2</code> means use half of the default bandwidth.<
 <dd><p>Whether to discard groups with less than 2 observations
 (<code>TRUE</code>, default) or keep such groups for position adjustment purposes
 (<code>FALSE</code>).</p></dd>
+
+
+<dt id="arg-quantiles">quantiles<a class="anchor" aria-label="anchor" href="#arg-quantiles"></a></dt>
+<dd><p>If not <code>NULL</code> (default), compute the <code>quantile</code> variable
+and draw horizontal lines at the given quantiles in <code>geom_violin()</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
