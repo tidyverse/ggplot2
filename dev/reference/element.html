@@ -242,7 +242,14 @@ calculating final element state.</p></dd>
 
 
 <dt id="arg-family">family<a class="anchor" aria-label="anchor" href="#arg-family"></a></dt>
-<dd><p>Font family</p></dd>
+<dd><p>The typeface to use. The validity of this value will depend on
+the graphics device being used for rendering the plot. See
+<a href="https://systemfonts.r-lib.org/articles/systemfonts.html" class="external-link">the systemfonts vignette</a>
+for guidance on the best way to access fonts installed on your computer.
+The values <code>"sans"</code>, <code>"serif"</code>, and <code>"mono"</code> should always be valid and
+will select the default typeface for the respective styles. However, what
+is considered default is dependant on the graphics device and the operating
+system.</p></dd>
 
 
 <dt id="arg-face">face<a class="anchor" aria-label="anchor" href="#arg-face"></a></dt>
