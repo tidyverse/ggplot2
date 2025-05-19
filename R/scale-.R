@@ -1454,5 +1454,6 @@ trans_support_nbreaks <- function(trans) {
 }
 
 allow_lambda <- function(x) {
-  if (is_formula(x, lhs = FALSE)) as_function(x) else x
+  # we check the 'call' class to prevent interpreting `bquote()` calls as a function
+  if (is_formula(x, lhs = FALSE) && !inherits(x, "call")) as_function(x) else x
 }
