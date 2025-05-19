@@ -690,19 +690,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(x) == 0) {
       return()
     }
-    # Intercept error here to give examples and mention scale in call
-    if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
-      # These assumptions only hold for standard ContinuousRange class, so
-      # we skip the error if another range class is used
-      if (inherits(self$range, "ContinuousRange")) {
-        cli::cli_abort(
-          c("Discrete values supplied to continuous scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
-    }
-    self$range$train(x)
+    self$range$train(x, call = self$call)
   },
 
   is_empty = function(self) {
@@ -960,19 +948,12 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     if (length(x) == 0) {
       return()
     }
-    # Intercept error here to give examples and mention scale in call
-    if (!is.discrete(x)) {
-      # These assumptions only hold for standard DiscreteRange class, so
-      # we skip the error if another range class is used
-      if (inherits(self$range, "DiscreteRange")) {
-        cli::cli_abort(
-          c("Continuous values supplied to discrete scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
-    }
-    self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
+    self$range$train(
+      x,
+      drop  = self$drop,
+      na.rm = !self$na.translate,
+      call  = self$call
+    )
   },
 
   transform = identity,
@@ -1185,17 +1166,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   is_discrete = function() FALSE,
 
   train = function(self, x) {
+    if (length(x) == 0) {
+      return()
+    }
     if (!is.numeric(x)) {
       cli::cli_abort(
         "Binned scales only support continuous data.",
         call = self$call
       )
     }
-
-    if (length(x) == 0) {
-      return()
-    }
-    self$range$train(x)
+    self$range$train(x, call = self$call)
   },
 
   transform = default_transform,
