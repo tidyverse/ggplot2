@@ -298,12 +298,6 @@ scale and then back-transformed to the response scale.</p>
 <p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
     </div>
     <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code>geom_smooth()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td></td><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td></tr><tr><td></td><td></td><td>•</td></tr><tr><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>0.4</code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td></tr><tr><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td><td>•</td></tr><tr><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td><td></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td></tr><tr><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td><td>•</td></tr><tr><td><code>weight</code></td><td>→ <code>1</code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_position.html">ymax</a></code></td><td></td></tr><tr><td></td><td>•</td><td><code><a href="aes_position.html">ymin</a></code></td></tr><tr><td></td><td></td><td></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-    </div>
-    <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
 
 
@@ -318,6 +312,12 @@ scale and then back-transformed to the response scale.</p>
 <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> for linear smooths,
 <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code> for generalised linear smooths, and
 <code><a href="https://rdrr.io/r/stats/loess.html" class="external-link">loess()</a></code> for local smooths.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>geom_smooth()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td></td><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td></tr><tr><td></td><td></td><td>•</td></tr><tr><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>0.4</code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td></tr><tr><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td><td>•</td></tr><tr><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td><td></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td></tr><tr><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td><td>•</td></tr><tr><td><code>weight</code></td><td>→ <code>1</code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_position.html">ymax</a></code></td><td></td></tr><tr><td></td><td>•</td><td><code><a href="aes_position.html">ymin</a></code></td></tr><tr><td></td><td></td><td></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">

@@ -283,12 +283,6 @@ corresponds to a single case which provides the start and end coordinates.</p>
 <p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
     </div>
     <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code>geom_path()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td></td><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td></tr><tr><td></td><td></td><td>•</td></tr><tr><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td></tr><tr><td>→ inferred</td><td></td><td>•</td></tr><tr><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-    </div>
-    <div class="section level2">
     <h2 id="missing-value-handling">Missing value handling<a class="anchor" aria-label="anchor" href="#missing-value-handling"></a></h2>
 
 
@@ -303,6 +297,12 @@ the <code>NA</code> is removed silently, without warning.</p></li>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="geom_polygon.html">geom_polygon()</a></code>: Filled paths (polygons);
 <code><a href="geom_segment.html">geom_segment()</a></code>: Line segments</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>geom_path()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td></td><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td></tr><tr><td></td><td></td><td>•</td></tr><tr><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td></td><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td></tr><tr><td>→ inferred</td><td></td><td>•</td></tr><tr><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">
