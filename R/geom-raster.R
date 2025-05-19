@@ -90,9 +90,10 @@ GeomRaster <- ggproto("GeomRaster", Geom,
 
   draw_panel = function(self, data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
-    if (!inherits(coord, "CoordCartesian") || !coord$is_linear()) {
+    if (!coord$is_linear()) {
       cli::cli_inform(c(
-        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}.",
+        "{.fn {snake_class(self)}} only works with linear coordinate systems, \\
+        not {.fn {snake_class(coord)}}.",
         i = "Falling back to drawing as {.fn {snake_class(GeomRect)}}."
       ))
       data$linewidth <- 0.3 # preventing anti-aliasing artefacts
