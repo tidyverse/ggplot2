@@ -130,7 +130,7 @@ coord_radial <- function(theta = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -524,6 +524,7 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
     return(list(x = c(0, 1), y = c(0, 1)))
   }
   arc <- sort(arc)
+  inner_radius <- sort(inner_radius)
 
   # X and Y position of the sector arc ends
   xmax <- 0.5 * sin(arc) + 0.5

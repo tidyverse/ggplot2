@@ -111,7 +111,7 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
 # mapping, but makes it possible to place objects at non-integer positions,
 # as is necessary for jittering etc.
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export

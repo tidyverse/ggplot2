@@ -81,7 +81,7 @@ geom_qq <- function(mapping = NULL, data = NULL,
 #' @rdname geom_qq
 stat_qq <- geom_qq
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export

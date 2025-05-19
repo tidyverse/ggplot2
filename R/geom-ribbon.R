@@ -91,7 +91,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -316,7 +316,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "align",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
