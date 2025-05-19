@@ -768,6 +768,24 @@ details of the specific theme elements.</p>
 <span class="r-plt img"><img src="theme-26.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme-27.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Colours -------------------------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="annotate.html">annotate</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Text Annotation"</span>, x <span class="op">=</span> <span class="fl">5</span>, y <span class="op">=</span> <span class="fl">30</span>, geom <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># You can use the 'ink' setting to set colour defaults for all layers</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>geom <span class="op">=</span> <span class="fu"><a href="element.html">element_geom</a></span><span class="op">(</span>ink <span class="op">=</span> <span class="st">"dodgerblue"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="theme-28.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># Alternate colours are derived from the 'accent' and 'paper' settings</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">theme</span><span class="op">(</span>geom <span class="op">=</span> <span class="fu"><a href="element.html">element_geom</a></span><span class="op">(</span>accent <span class="op">=</span> <span class="st">"tomato"</span>, paper <span class="op">=</span> <span class="st">"orchid"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="theme-29.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># You can also set default palettes in the theme</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">drat</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">theme</span><span class="op">(</span>palette.colour.continuous <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink"</span>, <span class="st">"hotpink"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="theme-30.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
