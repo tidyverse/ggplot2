@@ -149,7 +149,7 @@ CoordTransform <- ggproto(
   transform = function(self, data, panel_params) {
     # trans_x() and trans_y() needs to keep Inf values because this can be called
     # in guide_transform.axis()
-    reverse <- self$reverse %||% "none"
+    reverse <- panel_params$reverse %||% "none"
     x_range <- switch(reverse, xy = , x = rev, identity)(panel_params$x.range)
     y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y.range)
     trans_x <- function(data) {
@@ -174,7 +174,8 @@ CoordTransform <- ggproto(
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
       view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, params$expand[c(4, 2)]),
-      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, params$expand[c(3, 1)])
+      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, params$expand[c(3, 1)]),
+      reverse = self$reverse %||% "none"
     )
   },
 
