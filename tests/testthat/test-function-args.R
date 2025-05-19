@@ -4,6 +4,23 @@ filter_args <- function(x) {
   x[all_names]
 }
 
+find_partial_match_pairs <- function(args) {
+  if (length(args) < 2) {
+    return(NULL)
+  }
+  combinations <- combn(args, 2L)
+  contains <- startsWith(combinations[1, ], combinations[2, ]) |
+    startsWith(combinations[2, ], combinations[1, ])
+
+  if (!any(contains)) {
+    return(NULL)
+  }
+
+  problem <- combinations[, contains, drop = FALSE]
+  paste0("`", problem[1, ], "` with `", problem[2, ], "`")
+}
+
+
 test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   ggplot2_ns <- asNamespace("ggplot2")
   objs <- ls(ggplot2_ns)
@@ -72,4 +89,54 @@ test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
         " and ", class(stat_fun()$stat)[1], "'s $compute_panel and/or $compute_group functions.")
     )
   })
+})
+
+# If the following tests fail, you may have introduced a potential partial match
+# in argument names. The code should be double checked that is doesn't
+# accidentally use `list$arg` when `list$arg_name` also exists. If that doesn't
+# occur, the snapshot can be updated.
+
+test_that("GeomXxx$parameters() does not contain partial matches", {
+  ggplot2_ns <- asNamespace("ggplot2")
+  objs <- ls(ggplot2_ns)
+  geom_class_names <- grep("^Geom", objs, value = TRUE)
+  geom_class_names <- setdiff(geom_class_names, c("Geom"))
+
+  problems <- list()
+
+  for (geom_class_name in geom_class_names) {
+    geom_obj <- ggplot2_ns[[geom_class_name]]
+    params <- geom_obj$parameters()
+    issues <- find_partial_match_pairs(params)
+    if (length(issues) == 0) {
+      next
+    }
+    problems[[geom_class_name]] <- issues
+  }
+
+  problems <- vapply(problems, paste0, character(1), collapse = ", ")
+  problems <- paste0(format(names(problems)), ": ", problems)
+  expect_snapshot(problems)
+})
+
+test_that("StatXxx$parameters() does not contain partial matches", {
+  ggplot2_ns <- asNamespace("ggplot2")
+  objs <- ls(ggplot2_ns)
+  stat_class_names <- grep("^Stat", objs, value = TRUE)
+  stat_class_names <- setdiff(stat_class_names, c("Stat"))
+
+  problems <- list()
+
+  for (stat_class_name in stat_class_names) {
+    stat_obj <- ggplot2_ns[[stat_class_name]]
+    params <- stat_obj$parameters()
+    issues <- find_partial_match_pairs(params)
+    if (length(issues) == 0) {
+      next
+    }
+    problems[[stat_class_name]] <- issues
+  }
+  problems <- vapply(problems, paste0, character(1), collapse = ", ")
+  problems <- paste0(format(names(problems)), ": ", problems)
+  expect_snapshot(problems)
 })

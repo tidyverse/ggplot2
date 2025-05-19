@@ -102,23 +102,24 @@ StatYdensity <- ggproto(
       trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
       quantiles = quantiles
     )
-    if (!drop && any(data$n < 2)) {
+    if (!drop && any(data[["n"]] < 2)) {
       cli::cli_warn(
         "Cannot compute density for groups with fewer than two datapoints."
       )
     }
 
     # choose how violins are scaled relative to each other
-    data$violinwidth <- switch(scale,
-                               # area : keep the original densities but scale them to a max width of 1
-                               #        for plotting purposes only
-                               area = data$density / max(data$density, na.rm = TRUE),
-                               # count: use the original densities scaled to a maximum of 1 (as above)
-                               #        and then scale them according to the number of observations
-                               count = data$density / max(data$density, na.rm = TRUE) *
-                                 data$n / max(data$n),
-                               # width: constant width (density scaled to a maximum of 1)
-                               width = data$scaled
+    data$violinwidth <- switch(
+      scale,
+      # area : keep the original densities but scale them to a max width of 1
+      #        for plotting purposes only
+      area = data$density / max(data$density, na.rm = TRUE),
+      # count: use the original densities scaled to a maximum of 1 (as above)
+      #        and then scale them according to the number of observations
+      count = data$density / max(data$density, na.rm = TRUE) *
+        data[["n"]] / max(data[["n"]]),
+      # width: constant width (density scaled to a maximum of 1)
+      width = data$scaled
     )
     data$flipped_aes <- flipped_aes
     flip_data(data, flipped_aes)
