@@ -123,7 +123,7 @@
 #' # statistic has been computed. This means we're calculating the summary on the raw data
 #' # and stretching the geoms onto the log scale.  Compare the widths of the
 #' # standard errors.
-#' m2 + coord_trans(y="log10")
+#' m2 + coord_transform(y="log10")
 #' }
 #' }
 stat_summary <- function(mapping = NULL, data = NULL,
@@ -174,7 +174,7 @@ stat_summary <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -185,8 +185,8 @@ StatSummary <- ggproto("StatSummary", Stat,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
-    params$fun <- make_summary_fun(
-      params$fun.data, params$fun,
+    params[["fun"]] <- make_summary_fun(
+      params$fun.data, params[["fun"]],
       params$fun.max, params$fun.min,
       params$fun.args %||% list()
     )

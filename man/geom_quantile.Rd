@@ -11,6 +11,8 @@ geom_quantile(
   stat = "quantile",
   position = "identity",
   ...,
+  arrow = NULL,
+  arrow.fill = NULL,
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
@@ -96,6 +98,11 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+
+\item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
+means use \code{colour} aesthetic.}
+
 \item{lineend}{Line end style (round, butt, square).}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
@@ -116,7 +123,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_quantile()} and \code{stat_quantile()}. For more information about

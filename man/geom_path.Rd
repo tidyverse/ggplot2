@@ -12,11 +12,11 @@ geom_path(
   stat = "identity",
   position = "identity",
   ...,
+  arrow = NULL,
+  arrow.fill = NULL,
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
-  arrow = NULL,
-  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -27,11 +27,16 @@ geom_line(
   data = NULL,
   stat = "identity",
   position = "identity",
-  na.rm = FALSE,
+  ...,
   orientation = NA,
+  arrow = NULL,
+  arrow.fill = NULL,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  na.rm = FALSE,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 )
 
 geom_step(
@@ -39,12 +44,17 @@ geom_step(
   data = NULL,
   stat = "identity",
   position = "identity",
+  ...,
+  orientation = NA,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  arrow = NULL,
+  arrow.fill = NULL,
   direction = "hv",
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE,
-  ...
+  inherit.aes = TRUE
 )
 }
 \arguments{
@@ -122,16 +132,16 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+
+\item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
+means use \code{colour} aesthetic.}
+
 \item{lineend}{Line end style (round, butt, square).}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
-
-\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
-
-\item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
-means use \code{colour} aesthetic.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -147,7 +157,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the

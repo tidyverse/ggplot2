@@ -52,6 +52,7 @@ test_that("coord map throws error when limits are badly specified", {
 })
 
 test_that("coord_map throws informative warning about guides", {
+  skip_if_not_installed("mapproj")
   expect_snapshot_warning(
    ggplot_build(ggplot() + coord_map() + guides(x = guide_axis()))
   )

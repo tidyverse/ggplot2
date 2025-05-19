@@ -13,6 +13,8 @@ geom_bin_2d(
   stat = "bin2d",
   position = "identity",
   ...,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -24,12 +26,13 @@ stat_bin_2d(
   geom = "tile",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
-  center = NULL,
-  boundary = NULL,
+  bins = 30,
   breaks = NULL,
   drop = TRUE,
+  boundary = NULL,
+  closed = NULL,
+  center = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -97,6 +100,10 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -111,14 +118,12 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_bin_2d()} and \code{stat_bin_2d()}. For more information about overriding
 these connections, see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom}
 arguments work.}
-
-\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
 or as a function that takes x after scale transformation as input and
@@ -132,6 +137,17 @@ stories in your data.
 The bin width of a date variable is the number of days in each time; the
 bin width of a time variable is the number of seconds.}
 
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
+
+\item{drop}{if \code{TRUE} removes all cells with 0 counts.}
+
+\item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
+or left edges of bins are included in the bin.}
+
 \item{center, boundary}{bin position specifiers. Only one, \code{center} or
 \code{boundary}, may be specified for a single plot. \code{center} specifies the
 center of one of the bins. \code{boundary} specifies the boundary between two
@@ -141,12 +157,6 @@ For example, to center on integers use \code{binwidth = 1} and \code{center = 0}
 if \code{0} is outside the range of the data. Alternatively, this same alignment
 can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
-
-\item{breaks}{Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
-
-\item{drop}{if \code{TRUE} removes all cells with 0 counts.}
 }
 \description{
 Divides the plane into rectangles, counts the number of cases in

@@ -46,9 +46,9 @@ stat_density_2d(
   ...,
   contour = TRUE,
   contour_var = "density",
-  n = 100,
   h = NULL,
   adjust = c(1, 1),
+  n = 100,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -62,9 +62,9 @@ stat_density_2d_filled(
   ...,
   contour = TRUE,
   contour_var = "density",
-  n = 100,
   h = NULL,
   adjust = c(1, 1),
+  n = 100,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -145,7 +145,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_density_2d()} and \code{stat_density_2d()}. For more information at
@@ -155,8 +155,6 @@ overriding these connections, see how the \link[=layer_stats]{stat} and
 \item{contour}{If \code{TRUE}, contour the results of the 2d density
 estimation.}
 
-\item{n}{Number of grid points in each direction.}
-
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
 
@@ -164,6 +162,8 @@ using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
 'NULL'. This makes it possible to adjust the bandwidth while still
 using the a bandwidth estimator. For example, \code{adjust = 1/2} means
 use half of the default bandwidth.}
+
+\item{n}{Number of grid points in each direction.}
 }
 \description{
 Perform a 2D kernel density estimation using \code{\link[MASS:kde2d]{MASS::kde2d()}} and
