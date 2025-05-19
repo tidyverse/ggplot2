@@ -1070,6 +1070,6 @@ test_that("legends are placed correctly when using stretchy spacing", {
 
   expect_doppelganger(
     "horizontal legends placed apart",
-    p + theme(legend.position = "right", legend.spacing.y = unit(1, "null"))
+    p + theme(legend.position = "top", legend.spacing.x = unit(1, "null"))
   )
 })
