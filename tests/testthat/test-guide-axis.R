@@ -260,7 +260,7 @@ test_that("Axis titles won't be blown away by coord_*()", {
       y.sec = guide_axis(title = "y (secondary)")
     )
 
-  expect_doppelganger("guide titles with coord_trans()", plot + coord_trans())
+  expect_doppelganger("guide titles with coord_transform()", plot + coord_transform())
   # TODO
   # expect_doppelganger("guide titles with coord_polar()", plot + coord_polar())
   # TODO
@@ -341,7 +341,7 @@ test_that("logticks look as they should", {
     scale_x_continuous(
       breaks = c(-100, -10, -1, 0, 1, 10, 100)
     ) +
-    coord_trans(x = transform_pseudo_log()) +
+    coord_transform(x = transform_pseudo_log()) +
     theme_test() +
     theme(axis.line = element_line(colour = "black"),
           panel.border = element_blank(),
@@ -380,6 +380,13 @@ test_that("guide_axis_theta sets relative angle", {
     theme(axis.line = element_line(colour = "black"))
 
   expect_doppelganger("guide_axis_theta with angle adapting to theta", p)
+})
+
+test_that("guide_axis_theta with only one axis key", {
+  p <- ggplot(data.frame(x = "a", y = 1:3), aes(x, y)) +
+    geom_point() +
+    coord_radial()
+  expect_identical(get_guide_data(p, "theta")$.label, "a")
 })
 
 test_that("guide_axis_theta can be used in cartesian coordinates", {

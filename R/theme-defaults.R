@@ -11,7 +11,7 @@
 #'   legend titles, the plot title and tag text.
 #' @param base_line_size base size for line elements
 #' @param base_rect_size base size for rect elements
-#' @param ink,paper colour for foreground and background elements respectively.
+#' @param ink,paper,accent colour for foreground, background, and accented elements respectively.
 #'
 #' @details
 #' \describe{
@@ -108,7 +108,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22,
-                       ink = "black", paper = "white") {
+                       ink = "black", paper = "white", accent = "#3366FF") {
 
   # The half-line (base-fontsize / 2) sets up the basic vertical
   # rhythm of the theme. Most margins will be set to this value.
@@ -157,7 +157,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                          ),
 
     geom =               element_geom(
-                           ink = ink, paper = paper, accent = "#3366FF",
+                           ink = ink, paper = paper, accent = accent,
                            linewidth = base_line_size, borderwidth = base_line_size,
                            linetype = 1L, bordertype = 1L,
                            family = base_family, fontsize = base_size,
@@ -167,7 +167,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.line =          element_blank(),
     axis.line.x =        NULL,
     axis.line.y =        NULL,
-    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.305)),
+    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.302)),
     axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
@@ -223,7 +223,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     legend.box.background = element_blank(),
     legend.box.spacing = rel(2),
 
-    panel.background =   element_rect(fill = col_mix(ink, paper, 0.925), colour = NA),
+    panel.background =   element_rect(fill = col_mix(ink, paper, 0.92), colour = NA),
     panel.border =       element_blank(),
     panel.grid =         element_line(colour = paper),
     panel.grid.minor =   element_line(linewidth = rel(0.5)),
@@ -232,10 +232,10 @@ theme_grey <- function(base_size = 11, base_family = "",
     panel.spacing.y =    NULL,
     panel.ontop    =     FALSE,
 
-    strip.background =   element_rect(fill = col_mix(ink, paper, 0.854), colour = NA),
+    strip.background =   element_rect(fill = col_mix(ink, paper, 0.85), colour = NA),
     strip.clip =         "on",
     strip.text =         element_text(
-                           colour = col_mix(ink, paper, 0.105),
+                           colour = col_mix(ink, paper, 0.1),
                            size = rel(0.8),
                            margin = margin_auto(0.8 * half_line)
                          ),
@@ -288,7 +288,7 @@ theme_bw <- function(base_size = 11, base_family = "",
                      header_family = NULL,
                      base_line_size = base_size / 22,
                      base_rect_size = base_size / 22,
-                     ink = "black", paper = "white") {
+                     ink = "black", paper = "white", accent = "#3366FF") {
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -296,14 +296,14 @@ theme_bw <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper
+    ink = ink, paper = paper, accent = accent
   ) %+replace%
     theme(
       # white background and dark border
       panel.background = element_rect(fill = paper, colour = NA),
       panel.border     = element_rect(colour = col_mix(ink, paper, 0.2)),
       # make gridlines dark, same contrast with white as in theme_grey
-      panel.grid = element_line(colour = col_mix(ink, paper, 0.925)),
+      panel.grid = element_line(colour = col_mix(ink, paper, 0.92)),
       panel.grid.minor = element_line(linewidth = rel(0.5)),
       # contour strips to match panel contour
       strip.background = element_rect(
@@ -321,7 +321,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
                            header_family = NULL,
                            base_line_size = base_size / 22,
                            base_rect_size = base_size / 22,
-                           ink = "black", paper = "white") {
+                           ink = "black", paper = "white", accent = "#3366FF") {
   half_line <- base_size / 2
 
   # Starts with theme_bw and then modify some parts
@@ -332,7 +332,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper
+    ink = ink, paper = paper, accent = accent
   ) %+replace%
     theme(
       # black text and ticks on the axes
@@ -365,7 +365,7 @@ theme_light <- function(base_size = 11, base_family = "",
                         header_family = NULL,
                         base_line_size = base_size / 22,
                         base_rect_size = base_size / 22,
-                        ink = "black", paper = "white") {
+                        ink = "black", paper = "white", accent = "#3366FF") {
   half_line <- base_size / 2
 
   # Starts with theme_grey and then modify some parts
@@ -375,12 +375,12 @@ theme_light <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper
+    ink = ink, paper = paper, accent = accent
   ) %+replace%
     theme(
       # white panel with light grey border
       panel.background = element_rect(fill = paper, colour = NA),
-      panel.border     = element_rect(colour = col_mix(ink, paper, 0.705), linewidth = rel(1)),
+      panel.border     = element_rect(colour = col_mix(ink, paper, 0.702), linewidth = rel(1)),
       # light grey, thinner gridlines
       # => make them slightly darker to keep acceptable contrast
       panel.grid       = element_line(colour = col_mix(ink, paper, 0.871)),
@@ -388,10 +388,10 @@ theme_light <- function(base_size = 11, base_family = "",
       panel.grid.minor = element_line(linewidth = rel(0.25)),
 
       # match axes ticks thickness to gridlines and colour to panel border
-      axis.ticks       = element_line(colour = col_mix(ink, paper, 0.705), linewidth = rel(0.5)),
+      axis.ticks       = element_line(colour = col_mix(ink, paper, 0.702), linewidth = rel(0.5)),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
-      strip.background = element_rect(fill = col_mix(ink, paper, 0.705), colour = NA),
+      strip.background = element_rect(fill = col_mix(ink, paper, 0.702), colour = NA),
       strip.text       = element_text(
                            colour = paper,
                            size = rel(0.8),
@@ -409,7 +409,7 @@ theme_dark <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22,
-                       ink = "black", paper = "white") {
+                       ink = "black", paper = "white", accent = "#3366FF") {
   half_line <- base_size / 2
 
   # Starts with theme_grey and then modify some parts
@@ -419,11 +419,11 @@ theme_dark <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper
+    ink = ink, paper = paper, accent = accent
   ) %+replace%
     theme(
       # dark panel
-      panel.background = element_rect(fill = col_mix(ink, paper, 0.5), colour = NA),
+      panel.background = element_rect(fill = col_mix(ink, paper, 0.499), colour = NA),
       # inverse grid lines contrast compared to theme_grey
       # make them thinner and try to keep the same visual contrast as in theme_light
       panel.grid       = element_line(colour = col_mix(ink, paper, 0.42)),
@@ -436,7 +436,7 @@ theme_dark <- function(base_size = 11, base_family = "",
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = col_mix(ink, paper, 0.15), colour = NA),
       strip.text       = element_text(
-                           colour = col_mix(ink, paper, 0.9),
+                           colour = col_mix(ink, paper, 0.899),
                            size = rel(0.8),
                            margin = margin_auto(0.8 * half_line)
                          ),
@@ -451,7 +451,7 @@ theme_minimal <- function(base_size = 11, base_family = "",
                           header_family = NULL,
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22,
-                          ink = "black", paper = "white") {
+                          ink = "black", paper = "white", accent = "#3366FF") {
   # Starts with theme_bw and remove most parts
   theme_bw(
     base_size = base_size,
@@ -459,7 +459,7 @@ theme_minimal <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper
+    ink = ink, paper = paper, accent = accent
   ) %+replace%
     theme(
       axis.ticks         = element_blank(), # Extra margins due to absence ticks
@@ -484,14 +484,14 @@ theme_classic <- function(base_size = 11, base_family = "",
                           header_family = NULL,
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22,
-                          ink = "black", paper = "white") {
+                          ink = "black", paper = "white", accent = "#3366FF") {
   theme_bw(
     base_size = base_size,
     base_family = base_family,
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper
+    ink = ink, paper = paper, accent = accent
   ) %+replace%
     theme(
       # no background and no grid
@@ -517,7 +517,7 @@ theme_void <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22,
-                       ink = "black", paper = alpha(ink, 0)) {
+                       ink = "black", paper = alpha(ink, 0), accent = "#3366FF") {
   half_line <- base_size / 2
 
   # Only keep indispensable text: legend and plot titles
@@ -538,6 +538,13 @@ theme_void <- function(base_size = 11, base_family = "",
     title =              element_text(family = header_family),
     spacing =            unit(half_line, "pt"),
     margins =            margin_auto(half_line),
+    geom =               element_geom(
+                           ink = ink, paper = paper, accent = accent,
+                           linewidth = base_line_size, borderwidth = base_line_size,
+                           linetype = 1L, bordertype = 1L,
+                           family = base_family, fontsize = base_size,
+                           pointsize = (base_size / 11) * 1.5, pointshape = 19
+                         ),
     axis.text =          element_blank(),
     axis.title =         element_blank(),
     axis.ticks.length =  rel(0),
@@ -608,7 +615,7 @@ theme_test <- function(base_size = 11, base_family = "",
                        header_family = NULL,
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22,
-                       ink = "black", paper = "white") {
+                       ink = "black", paper = "white", accent = "#3366FF") {
   half_line <- base_size / 2
 
   t <- theme(
@@ -639,7 +646,7 @@ theme_test <- function(base_size = 11, base_family = "",
     spacing = unit(half_line, "pt"),
     margins = margin_auto(half_line),
     geom =               element_geom(
-                           ink = ink, paper = paper, accent = "#3366FF",
+                           ink = ink, paper = paper, accent = accent,
                            linewidth = base_line_size, borderwidth = base_line_size,
                            family = base_family, fontsize = base_size,
                            linetype = 1L,
@@ -649,7 +656,7 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.line =          element_blank(),
     axis.line.x =        NULL,
     axis.line.y =        NULL,
-    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.305)),
+    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.302)),
     axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
@@ -715,12 +722,12 @@ theme_test <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(
-                           fill   = col_mix(ink, paper, 0.851),
+                           fill   = col_mix(ink, paper, 0.85),
                            colour = col_mix(ink, paper, 0.2)
                          ),
     strip.clip =         "on",
     strip.text =         element_text(
-                           colour = col_mix(ink, paper, 0.105),
+                           colour = col_mix(ink, paper, 0.1),
                            size = rel(0.8),
                            margin = margin_auto(0.8 * half_line)
                          ),
