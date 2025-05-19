@@ -7,21 +7,13 @@
 #' functions that assign discrete color bins to the continuous values
 #' instead of using a continuous color spectrum.
 #'
-#' All these colour scales use the [options()] mechanism to determine
-#' default settings. Continuous colour scales default to the values of the
-#' `ggplot2.continuous.colour` and `ggplot2.continuous.fill` options, and
-#' binned colour scales default to the values of the `ggplot2.binned.colour`
-#' and `ggplot2.binned.fill` options. These option values default to
-#' `"gradient"`, which means that the scale functions actually used are
-#' [scale_colour_gradient()]/[scale_fill_gradient()] for continuous scales and
-#' [scale_colour_steps()]/[scale_fill_steps()] for binned scales.
-#' Alternative option values are `"viridis"` or a different scale function.
-#' See description of the `type` argument for details.
-#'
-#' Note that the binned colour scales will use the settings of
-#' `ggplot2.continuous.colour` and `ggplot2.continuous.fill` as fallback,
-#' respectively, if `ggplot2.binned.colour` or `ggplot2.binned.fill` are
-#' not set.
+#' `r lifecycle::badge("superseded")`: The mechanism of setting defaults via
+#' [options()] is superseded by theme settings. The preferred method to change
+#' the default palette of scales is via the theme, for example:
+#' `theme(palette.colour.continuous = scales::pal_viridis())`. The
+#' `ggplot2.continuous.colour` and `ggplot2.continuous.fill` options could be
+#' used to set default continuous scales and `ggplot2.binned.colour` and
+#' `ggplot2.binned.fill` options to set default binned scales.
 #'
 #' These scale functions are meant to provide simple defaults. If
 #' you want to manually set the colors of a scale, consider using
@@ -35,7 +27,7 @@
 #'   * a palette function that when called with a numeric vector with values
 #'     between 0 and 1 returns the corresponding output values.
 #' @param ... Additional parameters passed on to the scale type
-#' @param type One of the following:
+#' @param type `r lifecycle::badge("superseded")` One of the following:
 #'   * "gradient" (the default)
 #'   * "viridis"
 #'   * A function that returns a continuous colour scale.
@@ -173,9 +165,7 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 
 #' Discrete colour scales
 #'
-#' The default discrete colour scale. Defaults to [scale_fill_hue()]/[scale_fill_brewer()]
-#' unless `type` (which defaults to the `ggplot2.discrete.fill`/`ggplot2.discrete.colour` options)
-#' is specified.
+#' The default discrete colour scale.
 #'
 #' @param palette One of the following:
 #'   * `NULL` for the default palette stored in the theme.
@@ -185,7 +175,9 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'     number of levels in the scale) returns the values that they should take.
 #' @param ... Additional parameters passed on to the scale type,
 #' @inheritParams discrete_scale
-#' @param type One of the following:
+#' @param type `r lifecycle::badge("superseded")` The preferred mechanism for
+#'   setting the default palette is by using the theme. For example:
+#'   `theme(palette.colour.discrete = "Okabe-Ito")`. One of the following:
 #'   * A character vector of color codes. The codes are used for a 'manual' color
 #'   scale as long as the number of codes exceeds the number of data levels
 #'   (if there are more levels than codes, [scale_colour_hue()]/[scale_fill_hue()]
