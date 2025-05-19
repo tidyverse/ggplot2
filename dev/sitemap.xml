@@ -40,6 +40,7 @@
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/aes_position.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/annotate.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/annotation_borders.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/annotation_custom.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/annotation_logticks.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/annotation_map.html</loc></url>
@@ -52,7 +53,6 @@
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/benchplot.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/bidirection.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/binned_scale.html</loc></url>
-<url><loc>https://ggplot2.tidyverse.org/dev/reference/borders.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/calc_element.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/check_device.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/combine_vars.html</loc></url>
