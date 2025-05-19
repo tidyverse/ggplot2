@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* In continuous scales, when `breaks` is a function and `n.breaks` is set, the 
+  `n.breaks` will be passed to the `breaks` function. Previously, `n.breaks` 
+  only applied to the default break calculation (@teunbrand, #5972)
 * (internal) New `Facet$draw_panel_content()` method for delegating panel 
   assembly (@Yunuuuu, #6406).
 * Facet gains a new method `setup_panel_params` to interact with the
