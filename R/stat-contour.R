@@ -1,4 +1,4 @@
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -39,7 +39,7 @@ StatContour <- ggproto(
   }
 )
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export

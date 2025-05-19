@@ -1,7 +1,7 @@
 #' @include make-constructor.R
 NULL
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

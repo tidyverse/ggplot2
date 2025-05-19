@@ -1,4 +1,4 @@
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -87,7 +87,7 @@ StatDensity2d <- ggproto(
   }
 )
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export

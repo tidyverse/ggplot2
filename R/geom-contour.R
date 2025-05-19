@@ -1,4 +1,4 @@
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -8,7 +8,7 @@ GeomContour <- ggproto(
   default_aes = aes(weight = 1, !!!GeomPath$default_aes)
 )
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -26,7 +26,7 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #' once. Missing values of `z` are allowed, but contouring will only work for
 #' grid points where all four corners are non-missing. If you have irregular
 #' data, you'll need to first interpolate on to a grid before visualising,
-#' using [interp::interp()], [akima::bilinear()], or similar.
+#' using `interp::interp()`, `akima::bilinear()`, or similar.
 #'
 #' @eval rd_aesthetics("geom", "contour")
 #' @eval rd_aesthetics("geom", "contour_filled")

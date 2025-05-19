@@ -1,4 +1,4 @@
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @include geom-segment.R
 #' @format NULL
 #' @usage NULL

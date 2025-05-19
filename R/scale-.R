@@ -372,113 +372,94 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 #' @rdname is_tests
 is_scale <- function(x) inherits(x, "Scale")
 
-#' @section Scales:
+# Scale -------------------------------------------------------------------
+
+#' Scales
 #'
-#' All `scale_*` functions like [scale_x_continuous()] return a `Scale*`
-#' object like `ScaleContinuous`. Each of the `Scale*` objects is a [ggproto()]
-#' object, descended from the top-level `Scale`.
+#' @description
+#' All `scale_*()` functions (like `scale_fill_continuous()`) return a `Scale*`
+#' object. The main purpose of these objects is to translate data values to
+#' aesthetic values and populating breaks and labels.
 #'
-#' Properties not documented in [continuous_scale()] or [discrete_scale()]:
+#' @details
+#' All `scale_*` functions like [scale_x_continuous()] return a `Scale*` object
+#' like `ScaleContinuous`. Each of the `Scale*` objects is a [ggproto()] object
+#' descended from the top-level `Scale`.
 #'
-#' - `call` The call to [continuous_scale()] or [discrete_scale()] that constructed
-#'   the scale.
+#' Scales generally need to track three types of spaces:
+#' 1. Data space. These are values as they are evaluated from the plot
+#'    or layer mapping, prior to any transformation.
+#' 2. Transformed space. This is the space after original data has been
+#'    transformed. Effectively, scales internally operate in transformed space
+#'    in that ranges and breaks get passed around in this space. Discrete scales
+#'    don't do transformations, so for these scales, transformed space is the
+#'    same as untransformed space.
+#' 3. Aesthetic space. Graphic values that are mapped from the transformed
+#'    space. This is dependent on the `palette` field for most scales and on the
+#'    `rescaler` field for continuous position scales.
 #'
-#' - `range` One of `continuous_range()` or `discrete_range()`.
+#' The user is expected to give any vector-based `minor_breaks`, `breaks` or
+#' `limits` in data space. When `breaks`, `limits` or `labels` is a function,
+#' its input is expected to be in data space.
 #'
+#' Before you attempt to create a new `Scale*` class of your own, it is
+#' recommended to think through whether your aims cannot be implemented with
+#' one of the existing classes. Making a wrapper for the `continuous_scale()`,
+#' `discrete_scale()` and `binned_scale()` should cover many cases, and should
+#' be considered prior to commiting to build a `Scale*` extension.
 #'
-#' Methods:
+#' For example, if you aim to develop a scale for a new data type, it should
+#' generally be possible to create a new [transformation][scales::new_transform]
+#' instead. One reason to implement your own `Scale*` class is to accommodate
+#' a data type does not lend itself for continuous or discrete range training.
 #'
-#' - `is_discrete()` Returns `TRUE` if the scale is a discrete scale
+#' In such case, you can override the following:
+#' * The `range` field.
+#' * The `transform`, `train` and `map` methods.
+#' * The `get_limits()`, `get_breaks()` and `get_labels()` methods.
 #'
-#' - `is_empty()` Returns `TRUE` if the scale contains no information (i.e.,
-#'   it has no information with which to calculate its `limits`).
+#' @section Conventions:
 #'
-#' - `clone()` Returns a copy of the scale that can be trained
-#'   independently without affecting the original scale.
+#' The object name that a new class is assigned to is typically the same as the
+#' class name. Scale class names are in UpperCamelCase and start with the
+#' `Scale*` prefix, like `ScaleNew`.
 #'
-#' - `transform()` Transforms a vector of values using `self$trans`.
-#'   This occurs before the `Stat` is calculated.
+#' In scales, there is a difference between user-facing and developer-facing
+#' constructors. Developer facing constructors have the shape
+#' `{foundation}_scale()`, like `discrete_scale()` corresponding to
+#' `ScaleDiscrete`. User-facing constructors have the `scale_{aesthetic}_{type}`
+#' as name. If you implement a new `Scale*` class, you like want both these
+#' types of constructor.
 #'
-#' - `train()` Update the `self$range` of observed (transformed) data values with
-#'   a vector of (possibly) new values.
-#'
-#' - `reset()` Reset the `self$range` of observed data values. For discrete
-#'   position scales, only the continuous range is reset.
-#'
-#' - `map()` Map transformed data values to some output value as
-#'   determined by `self$rescale()` and `self$palette` (except for position scales,
-#'   which do not use the default implementation of this method). The output corresponds
-#'   to the transformed data value in aesthetic space (e.g., a color, line width, or size).
-#'
-#' - `rescale()` Rescale transformed data to the range 0, 1. This is most useful for
-#'   position scales. For continuous scales, `rescale()` uses the `rescaler` that
-#'   was provided to the constructor. `rescale()` does not apply `self$oob()` to
-#'   its input, which means that discrete values outside `limits` will be `NA`, and
-#'   values that are outside `range` will have values less than 0 or greater than 1.
-#'   This allows guides more control over how out-of-bounds values are displayed.
-#'
-#' - `transform_df()`, `train_df()`, `map_df()` These `_df` variants
-#'   accept a data frame, and apply the `transform`, `train`, and `map` methods
-#'   (respectively) to the columns whose names are in `self$aesthetics`.
-#'
-#' - `get_limits()` Calculates the final scale limits in transformed data space
-#'   based on the combination of `self$limits` and/or the range of observed values
-#'   (`self$range`).
-#'
-#' - `get_breaks()` Calculates the final scale breaks in transformed data space
-#'   based on on the combination of `self$breaks`, `self$trans$breaks()` (for
-#'   continuous scales), and `limits`. Breaks outside of `limits` are assigned
-#'   a value of `NA` (continuous scales) or dropped (discrete scales).
-#'
-#' - `get_labels()` Calculates labels for a given set of (transformed) `breaks`
-#'   based on the combination of `self$labels` and `breaks`.
-#'
-#' - `get_breaks_minor()` For continuous scales, calculates the final scale minor breaks
-#'   in transformed data space based on the rescaled `breaks`, the value of `self$minor_breaks`,
-#'   and the value of `self$trans$minor_breaks()`. Discrete scales always return `NULL`.
-#'
-#' - `get_transformation()` Returns the scale's transformation object.
-#'
-#' - `make_title()` Hook to modify the title that is calculated during guide construction
-#'   (for non-position scales) or when the `Layout` calculates the x and y labels
-#'   (position scales).
-#'
-#' These methods are only valid for position (x and y) scales:
-#'
-#' - `dimension()` For continuous scales, the dimension is the same concept as the limits.
-#'   For discrete scales, `dimension()` returns a continuous range, where the limits
-#'   would be placed at integer positions. `dimension()` optionally expands
-#'   this range given an expansion of length 4 (see [expansion()]).
-#'
-#' - `break_info()` Returns a `list()` with calculated values needed for the `Coord`
-#'   to transform values in transformed data space. Axis and grid guides also use
-#'   these values to draw guides. This is called with
-#'   a (usually expanded) continuous range, such as that returned by `self$dimension()`
-#'   (even for discrete scales). The list has components `major_source`
-#'   (`self$get_breaks()` for continuous scales, or `seq_along(self$get_breaks())`
-#'   for discrete scales), `major` (the rescaled value of `major_source`, ignoring
-#'   `self$rescaler`), `minor` (the rescaled value of `minor_source`, ignoring
-#'   `self$rescaler`), `range` (the range that was passed in to `break_info()`),
-#'   `labels` (the label values, one for each element in `breaks`).
-#'
-#' - `axis_order()` One of `c("primary", "secondary")` or `c("secondary", "primary")`
-#'
-#' - `make_sec_title()` Hook to modify the title for the second axis that is calculated
-#'   when the `Layout` calculates the x and y labels.
-#'
-#' @rdname ggplot2-ggproto
+#' @export
 #' @format NULL
 #' @usage NULL
-#' @export
+#' @keywords internal
+#' @examples
+#' # TODO: find easy to digest example
+#' NULL
 Scale <- ggproto("Scale", NULL,
 
-  call = NULL,
-  aesthetics = aes(),
-  palette = function() {
-    cli::cli_abort("Not implemented.")
-  },
+  ## Fields ------------------------------------------------------------------
 
+  #' @field call A [call][call()] object with the user-facing constructor
+  #' function, for use in error messaging. This field is populated by scale
+  #' constructors.
+  call = NULL,
+
+  #' @field range A [`Range`][scales::Range] class object, like
+  #' `scales::ContinuousRange` or `scales::DiscreteRange`. These are 'trained'
+  #' to keep track of the data range (continuous) or data levels (discrete).
+  #' Continuous ranges are tracked in transformed space.
   range = Range$new(),
+
+  #' @field aesthetics,palette,name,breaks,labels,limits,name,guide,position,na.value,expand
+  #' Fields populated by the scale constructor that can take on the same values
+  #' as described in e.g. [`?continuous_scale`][continuous_scale].
+  #' Note that `limits` is expected in transformed space.
+  aesthetics = character(),
+  palette = function() cli::cli_abort("Not implemented."),
+
   limits = NULL,
   na.value = NA,
   expand = waiver(),
@@ -489,33 +470,34 @@ Scale <- ggproto("Scale", NULL,
   guide = "legend",
   position = "left",
 
+  ## Methods -----------------------------------------------------------------
 
-  is_discrete = function() {
-    cli::cli_abort("Not implemented.")
-  },
+  ### Transformation ----------------------------------------------------------
 
-  train_df = function(self, df) {
-    if (empty(df)) return()
-
-    aesthetics <- intersect(self$aesthetics, names(df))
-    for (aesthetic in aesthetics) {
-      self$train(df[[aesthetic]])
-    }
-    invisible()
-  },
-
-  train = function(self, x) {
-    cli::cli_abort("Not implemented.", call = self$call)
-  },
-
-  reset = function(self) {
-    self$range$reset()
-  },
-
-  is_empty = function(self) {
-    is.null(self$range$range) && is.null(self$limits)
-  },
-
+  #' @field transform_df,transform
+  #' **Description**
+  #'
+  #' A function method for orchestrating the transformation of aesthetics in a
+  #' data frame. Data transformation occurs before stats are computed.
+  #' The `transform_df()` method ensures the `transform()` method is applied
+  #' to the correct columns.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$transform_df(df)
+  #' Scale$transform(x)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`df`}{A data frame with the layer's data.}
+  #'   \item{`x`}{A vector of the relevant aesthetic.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' For `transform()` a vector of transformed values.
+  #' For `transform_df()`, a named list with transformed values for each
+  #' transformed aesthetic.
   transform_df = function(self, df) {
     if (empty(df)) {
       return()
@@ -533,6 +515,74 @@ Scale <- ggproto("Scale", NULL,
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  ### Training ----------------------------------------------------------------
+
+  #' @field train_df,train
+  #' **Description**
+  #'
+  #' A function method for orchestrating scale training for keeping track of
+  #' the data range or levels. The `train_df()` method ensures the `train()`
+  #' method is applied to the correct columns.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$train_df(df)
+  #' Scale$train(x)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`df`}{A data frame with the layer's data.}
+  #'   \item{`x`}{A vector of the relevant aesthetic.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' Nothing, these are called for their side effect of updating the `range`
+  #' field.
+  train_df = function(self, df) {
+    if (empty(df)) return()
+
+    aesthetics <- intersect(self$aesthetics, names(df))
+    for (aesthetic in aesthetics) {
+      self$train(df[[aesthetic]])
+    }
+    invisible()
+  },
+
+  train = function(self, x) {
+    cli::cli_abort("Not implemented.", call = self$call)
+  },
+
+  ### Mapping -----------------------------------------------------------------
+
+  #' @field map_df,map
+  #' **Description**
+  #'
+  #' A function method for orchestrating the mapping of data values to
+  #' aesthetics. The `map_df()` method ensures the `map()` method is applied
+  #' to the correct columns. When the scale uses a `palette()` function, it is
+  #' applied in the `map()` method.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$map_df(df, i)
+  #' Scale$map(x, limits)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`df`}{A data frame with the layer's data.}
+  #'   \item{`i`}{An integer vector giving an index to map a subset of data.
+  #'   The default, `NULL`, will map all rows.}
+  #'   \item{`x`}{A vector of the relevant aesthetic.}
+  #'   \item{`limits`}{A vector of the relevant aesthetic, usually via
+  #'   the `get_limits()` method.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' For `map()` a vector of mapped values in aesthetics space.
+  #' For `map_df()`, a named list with mapped values for each
+  #' aesthetic.
   map_df = function(self, df, i = NULL) {
     if (empty(df)) {
       return()
@@ -556,10 +606,50 @@ Scale <- ggproto("Scale", NULL,
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  #' @field recale
+  #' **Description**
+  #'
+  #' A function method for applying the recale function in the `rescaler` field.
+  #' It is used during the continuous `map()` and `Coord$transform()` methods
+  #' to ensure values are in the 0-1 range.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$rescale(x, limits, range)
+  #' ```
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`x`}{A vector of values to rescale. Can contain out-of-bounds
+  #'   or missing values depending on the `map()` method.}
+  #'   \item{`limits`}{A length two vector giving the limits of the relevant
+  #'   aesthetic, usually via the `get_limits()` method.}
+  #'   \item{`range`}{A length two vector giving the range that should coincide
+  #'   with the 0-1 points. For most purpuses, this should be the same as the
+  #'   `limits` argument.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A vector of values between 0 and 1 for in-bounds values of `x`.
   rescale = function(self, x, limits = self$get_limits(), range = self$dimension()) {
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  ### Getters -----------------------------------------------------------------
+
+  #' @field get_limits
+  #' **Description**
+  #'
+  #' A function method for resolving user input and getting the scale limits.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$get_limits()
+  #' ```
+  #'
+  #' **Value**
+  #'
+  #' The scale limits, without any expansion applied, in transformed space.
   get_limits = function(self) {
     if (self$is_empty()) {
       return(c(0, 1))
@@ -574,46 +664,195 @@ Scale <- ggproto("Scale", NULL,
     }
   },
 
+  #' @field dimension
+  #' **Description**
+  #'
+  #' A function method for getting a continuous representation of the limits of
+  #' position scales. For continuous scales, the dimension is the same concept
+  #' as the limits. For discrete scales the dimension is the continuous range
+  #' occupied by the mapped breaks, which by default take integer positions.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$dimension(expand, limits)
+  #' ```
+  #'
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`expand`}{A length 4 vector giving scale [expansion][expansion()].
+  #'   This is optional and defaults to no expansion.}
+  #'   \item{`limits`}{A vector of the relevant aesthetic, usually via
+  #'   the `get_limits()` method.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A numeric vector of length 2
   dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  #' @field get_breaks,get_breaks_minor
+  #' **Description**
+  #'
+  #' A function method for resolving user input and getting the scale breaks
+  #' or minor breaks. Note that these may return out-of-bounds values for the
+  #' purpose of coordinating with the `get_labels()` method.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$get_breaks(limits)
+  #' Scale$get_breaks_minor(n, b, limits)
+  #' ```
+  #'
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`limits`}{A vector of the relevant aesthetic, usually via
+  #'   the `get_limits()` method.}
+  #'   \item{`n`}{An integer setting the desired number of minor breaks per
+  #'   major break. Note that the resulting minor breaks may coincide with
+  #'   major breaks.}
+  #'   \item{`b`}{A vector of mapped major breaks from the `get_breaks()`
+  #'   method.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A vector of breaks in transformed space.
   get_breaks = function(self, limits = self$get_limits()) {
     cli::cli_abort("Not implemented.", call = self$call)
-  },
-
-  break_positions = function(self, range = self$get_limits()) {
-    self$map(self$get_breaks(range))
   },
 
   get_breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$get_limits()) {
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  #' @field get_labels
+  #' **Description**
+  #'
+  #' A function method for resolving user input and getting the scale labels for
+  #' a set of breaks.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$get_labels(breaks)
+  #' ```
+  #'
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`breaks`}{A vector of unmapped major breaks from the `get_breaks()`
+  #'   method, in transformed space.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A vector of labels of the same length as `breaks`.
   get_labels = function(self, breaks = self$get_breaks()) {
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
+  #' @field get_transformation
+  #' **Description**
+  #'
+  #' A helper method to access the scale's transformation object.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$get_transformation()
+  #' ```
+  #'
+  #' **Value**
+  #'
+  #' A [transform][scales::new_transform] object.
   get_transformation = function(self) {
     self$trans
   },
 
-  clone = function(self) {
-    cli::cli_abort("Not implemented.", call = self$call)
-  },
-
+  #' @field break_info
+  #' **Description**
+  #'
+  #' A function method for getting all break related information for position
+  #' scales. It is in use by coords that do not use the modern Guide system
+  #' and secondary axes.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$break_info(range)
+  #' ```
+  #'
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`range`}{A vector of the relevant aesthetic.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A named list with the following structure:
+  #' * `range` a length 2 vector giving continuous range
+  #' * `labels` a character or expression vector of the same length as major breaks.
+  #' * `major` a numeric vector with mapped numeric values for major breaks.
+  #' * `major_source` a numeric vector with (transformed) data values for major breaks.
+  #' * `minor` a numeric vector with mapped numeric values for minor breaks.
+  #' * `minor_source` a numeric vector with (transformed) data values for minor breaks.
   break_info = function(self, range = NULL) {
     cli::cli_abort("Not implemented.", call = self$call)
   },
 
-  axis_order = function(self) {
-    ord <- c("primary", "secondary")
-    if (self$position %in% c("right", "bottom")) {
-      ord <- rev(ord)
-    }
-    ord
+  #' @field break_position
+  #' **Description**
+  #'
+  #' A function method for getting mapped break positions. It is in use as a
+  #' default value in `get_breaks_minor()`, but is otherwise vestigial.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$break_info(range)
+  #' ```
+  #'
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`range`}{A vector of the relevant aesthetic.}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A vector with mapped break positions
+  break_positions = function(self, range = self$get_limits()) {
+    # TODO: should just retire this method?
+    self$map(self$get_breaks(range))
   },
 
+  ### Titles ----------------------------------------------------------------
+
+  #' @field make_title,make_sec_title
+  #' **Description**
+  #'
+  #' A function method for picking the title to use. This is usually called in
+  #' the `Guide$extract_params()` or `Layout$resolve_label()` methods.
+  #' The hierarchy of titles goes from guide (highest priority), to scale, to
+  #' labs (lowest priority).
+  #' When the guide or scale title are functions, they're applied to the next
+  #' in line. The `make_sec_title()` method by default re-uses the primary
+  #' `make_title()` method and only applies to position aesthetics.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$make_title(guide_title, scale_title, label_title)
+  #' Scale$make_sec_title(...)
+  #' ```
+  #'
+  #' **Arguments**
+  #' \describe{
+  #'   \item{`guide_title`}{The `title` parameter coming from a guide.}
+  #'   \item{`scale_title`}{The `name` field of the Scale.}
+  #'   \item{`label_title`}{The relevant entry in the `plot$labels` field.}
+  #'   \item{`...`}{By default, arguments forwarded  to the `make_title()`
+  #'   method}
+  #' }
+  #'
+  #' **Value**
+  #'
+  #' A scalar character or expression title
   make_title = function(self, guide_title = waiver(), scale_title = waiver(), label_title = waiver()) {
     title <- label_title
     scale_title <- allow_lambda(scale_title)
@@ -633,26 +872,112 @@ Scale <- ggproto("Scale", NULL,
 
   make_sec_title = function(self, ...) {
     self$make_title(...)
+  },
+
+  #' @field axis_order
+  #' **Description**
+  #'
+  #' A function method for setting the order of axes titles used to coordinate
+  #' with `Facet$draw_labels()`.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$axis_order()
+  #' ```
+  #'
+  #' **Value**
+  #'
+  #' Either `c("primary", "secondary")` or `c("secondary", "primary")`.
+  axis_order = function(self) {
+    # TODO: it feels like this method shouldn't be needed. Can we replace it?
+    ord <- c("primary", "secondary")
+    if (self$position %in% c("right", "bottom")) {
+      ord <- rev(ord)
+    }
+    ord
+  },
+
+  ### Utilities ---------------------------------------------------------------
+
+  #' @field clone
+  #' **Description**
+  #'
+  #' A function method for making an untrained copy of the scale. Due to
+  #' reference semantics of ggproto objects, in contrast to copy-on-modify
+  #' semantics, scales need to be cloned at the start of plot building.
+  #' The cloned scale can be trained independently of the original.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$clone()
+  #' ```
+  #'
+  #' **Value**
+  #'
+  #' A Scale object.
+  clone = function(self) {
+    cli::cli_abort("Not implemented.", call = self$call)
+  },
+
+  #' @field reset
+  #' **Description**
+  #'
+  #' A function method for to reset the `range` field, effectively 'untraining'
+  #' the scale. This is used in the `Layout$reset_scales()` method, so that
+  #' scales can be re-trained on data with final position aesthetics.
+  #' For discrete scales, only the continuous range (`range_c`) is reset.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$clone()
+  #' ```
+  #'
+  #' **Value**
+  #'
+  #' None, called for the side-effect of resetting the range.
+  reset = function(self) {
+    self$range$reset()
+  },
+
+  #' @field is_empty
+  #' **Description**
+  #'
+  #' A function method for determining whether a scale is empty, i.e. when no
+  #' information with which to calculate limits.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$is_empty()
+  #' ```
+  #'
+  #' **Value**
+  #'
+  #' A scalar boolean value.
+  is_empty = function(self) {
+    is.null(self$range$range) && is.null(self$limits)
+  },
+
+  #' @field is_empty
+  #' **Description**
+  #'
+  #' A function method for determining whether a scale is discrete.
+  #'
+  #' **Usage**
+  #' ```r
+  #' Scale$is_discrete()
+  #' ```
+  #'
+  #' **Value**
+  #'
+  #' A scalar boolean value.
+  is_discrete = function() {
+    cli::cli_abort("Not implemented.")
   }
 )
 
-check_breaks_labels <- function(breaks, labels, call = NULL) {
-  if (is.null(breaks) || is.null(labels)) {
-    return(invisible())
-  }
+# ScaleContinuous ---------------------------------------------------------
 
-  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
-    length(breaks) != length(labels)
-  if (bad_labels) {
-    cli::cli_abort(
-      "{.arg breaks} and {.arg labels} must have the same length.",
-      call = call
-    )
-  }
-
-  invisible()
-}
-
+# This needs to be defined prior to the Scale subclasses.
 default_transform <- function(self, x) {
   transformation <- self$get_transformation()
   new_x <- transformation$transform(x)
@@ -660,12 +985,7 @@ default_transform <- function(self, x) {
   new_x
 }
 
-has_default_transform <- function(scale) {
-  transform_method <- environment(scale$transform)$f
-  identical(default_transform, transform_method) || identical(identity, transform_method)
-}
-
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -684,19 +1004,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(x) == 0) {
       return()
     }
-    # Intercept error here to give examples and mention scale in call
-    if (is.factor(x) || !typeof(x) %in% c("integer", "double")) {
-      # These assumptions only hold for standard ContinuousRange class, so
-      # we skip the error if another range class is used
-      if (inherits(self$range, "ContinuousRange")) {
-        cli::cli_abort(
-          c("Discrete values supplied to continuous scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
-    }
-    self$range$train(x)
+    self$range$train(x, call = self$call)
   },
 
   is_empty = function(self) {
@@ -751,6 +1059,12 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       return(numeric())
     }
     transformation <- self$get_transformation()
+    breaks <- self$breaks %|W|% transformation$breaks
+
+    if (is.null(breaks)) {
+      return(NULL)
+    }
+
     # Ensure limits don't exceed domain (#980)
     domain <- suppressWarnings(transformation$transform(transformation$domain))
     domain <- sort(domain)
@@ -758,41 +1072,25 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(domain) == 2 && !zero_range(domain)) {
       limits <- oob_squish(limits, domain)
     }
-
-    # Limits in transformed space need to be converted back to data space
-    limits <- transformation$inverse(limits)
-
-    if (is.null(self$breaks)) {
-      return(NULL)
+    if (zero_range(as.numeric(limits))) {
+      return(limits[1])
     }
 
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
-    }
-
-    # Compute `zero_range()` in transformed space in case `limits` in data space
-    # don't support conversion to numeric (#5304)
-    if (zero_range(as.numeric(transformation$transform(limits)))) {
-      breaks <- limits[1]
-    } else if (is.waiver(self$breaks)) {
-      if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
-        breaks <- transformation$breaks(limits, self$n.breaks)
+    if (is.function(breaks)) {
+      # Limits in transformed space need to be converted back to data space
+      limits <- transformation$inverse(limits)
+      if (!is.null(self$n.breaks) && support_nbreaks(breaks)) {
+        breaks <- breaks(limits, n = self$n.breaks)
       } else {
+        breaks <- breaks(limits)
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
-            "Ignoring {.arg n.breaks}. Use a {.cls transform} object that supports setting number of breaks.",
+            "Ignoring {.arg n.breaks}. Use a {.cls transform} object or \\
+            {.arg breaks} function that supports setting number of breaks",
             call = self$call
           )
         }
-        breaks <- transformation$breaks(limits)
       }
-    } else if (is.function(self$breaks)) {
-      breaks <- self$breaks(limits)
-    } else {
-      breaks <- self$breaks
     }
 
     # Breaks in data space need to be converted back to transformed space
@@ -947,8 +1245,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   }
 )
 
+# ScaleDiscrete -----------------------------------------------------------
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -964,19 +1263,12 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     if (length(x) == 0) {
       return()
     }
-    # Intercept error here to give examples and mention scale in call
-    if (!is.discrete(x)) {
-      # These assumptions only hold for standard DiscreteRange class, so
-      # we skip the error if another range class is used
-      if (inherits(self$range, "DiscreteRange")) {
-        cli::cli_abort(
-          c("Continuous values supplied to discrete scale.",
-            i = "Example values: {.and {.val {head(x, 5)}}}"),
-          call = self$call
-        )
-      }
-    }
-    self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
+    self$range$train(
+      x,
+      drop  = self$drop,
+      na.rm = !self$na.translate,
+      call  = self$call
+    )
   },
 
   transform = identity,
@@ -1044,13 +1336,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
     if (is.null(self$breaks)) {
       return(NULL)
-    }
-
-    if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
     }
 
     if (is.waiver(self$breaks)) {
@@ -1178,7 +1463,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   }
 )
 
-#' @rdname ggplot2-ggproto
+# ScaleBinned -------------------------------------------------------------
+
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -1196,17 +1483,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   is_discrete = function() FALSE,
 
   train = function(self, x) {
+    if (length(x) == 0) {
+      return()
+    }
     if (!is.numeric(x)) {
       cli::cli_abort(
         "Binned scales only support continuous data.",
         call = self$call
       )
     }
-
-    if (length(x) == 0) {
-      return()
-    }
-    self$range$train(x)
+    self$range$train(x, call = self$call)
   },
 
   transform = default_transform,
@@ -1268,14 +1554,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     if (is.null(self$breaks)) {
       return(NULL)
-    } else if (identical(self$breaks, NA)) {
-      cli::cli_abort(
-        "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
-        call = self$call
-      )
     } else if (is.waiver(self$breaks)) {
       if (self$nice.breaks) {
-        if (!is.null(self$n.breaks) && trans_support_nbreaks(transformation)) {
+        if (!is.null(self$n.breaks) && support_nbreaks(transformation$breaks)) {
           breaks <- transformation$breaks(limits, n = self$n.breaks)
         } else {
           if (!is.null(self$n.breaks)) {
@@ -1332,9 +1613,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         }
       }
     } else if (is.function(self$breaks)) {
-      if ("n.breaks" %in% names(formals(environment(self$breaks)$f))) {
+      fmls <- names(formals(environment(self$breaks)$f))
+      if (any(c("n", "n.breaks") %in% fmls)) {
         n.breaks <- self$n.breaks %||% 5 # same default as trans objects
-        breaks <- self$breaks(limits, n.breaks = n.breaks)
+        # TODO: we should only allow `n` argument and not `n.breaks` to be
+        # consistent with other scales. We should start deprecation at some point.
+        if ("n.breaks" %in% fmls) {
+          breaks <- self$breaks(limits, n.breaks = n.breaks)
+        } else {
+          breaks <- self$breaks(limits, n = n.breaks)
+        }
       } else {
         if (!is.null(self$n.breaks)) {
           cli::cli_warn(
@@ -1420,6 +1708,35 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   }
 )
 
+# Helpers -----------------------------------------------------------------
+
+check_breaks_labels <- function(breaks, labels, call = NULL) {
+  if (is.null(breaks) || is.null(labels)) {
+    return(invisible())
+  }
+  if (identical(breaks, NA)) {
+    cli::cli_abort(
+      "Invalid {.arg breaks} specification. Use {.code NULL}, not {.code NA}.",
+      call = call
+    )
+  }
+
+  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
+    length(breaks) != length(labels)
+  if (bad_labels) {
+    cli::cli_abort(
+      "{.arg breaks} and {.arg labels} must have the same length.",
+      call = call
+    )
+  }
+  invisible()
+}
+
+has_default_transform <- function(scale) {
+  transform_method <- environment(scale$transform)$f
+  identical(default_transform, transform_method) || identical(identity, transform_method)
+}
+
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
   scale$position <- opposite_position(scale$position)
@@ -1439,6 +1756,14 @@ check_transformation <- function(x, transformed, name, arg = NULL, call = NULL) 
   cli::cli_warn(msg, call = call)
 }
 
+
+support_nbreaks <- function(fun) {
+  if (inherits(fun, "ggproto_method")) {
+    fun <- environment(fun)$f
+  }
+  "n" %in% fn_fmls_names(fun)
+}
+
 check_continuous_limits <- function(limits, ...,
                                     arg = caller_arg(limits),
                                     call = caller_env()) {
@@ -1447,10 +1772,6 @@ check_continuous_limits <- function(limits, ...,
   }
   check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
   check_length(limits, 2L, arg = arg, call = call)
-}
-
-trans_support_nbreaks <- function(trans) {
-  "n" %in% names(formals(trans$breaks))
 }
 
 allow_lambda <- function(x) {

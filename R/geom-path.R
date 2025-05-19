@@ -1,4 +1,4 @@
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -115,7 +115,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   rename_size = TRUE
 )
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -137,7 +137,7 @@ GeomLine <- ggproto(
   }
 )
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

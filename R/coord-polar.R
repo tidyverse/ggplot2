@@ -74,7 +74,7 @@ coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

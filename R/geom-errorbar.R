@@ -1,4 +1,4 @@
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -60,7 +60,8 @@ GeomErrorbar <- ggproto(
 
   rename_size = TRUE
 )
-#' @rdname ggplot2-ggproto
+
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

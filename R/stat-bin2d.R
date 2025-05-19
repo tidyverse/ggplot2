@@ -1,4 +1,4 @@
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @include stat-summary-2d.R
 #' @format NULL
 #' @usage NULL
@@ -49,9 +49,7 @@ StatBin2d <- ggproto(
 #' the first is applied to the x direction and the second to the y direction.
 #' Alternatively, these can be a named list containing `x` and `y` elements,
 #' for example `list(x = 10, y = 20)`.
-stat_bin_2d <- make_constructor(
-  StatBin2d, geom = "tile"
-)
+stat_bin_2d <- make_constructor(StatBin2d, geom = "tile")
 
 #' @export
 #' @rdname geom_bin_2d
