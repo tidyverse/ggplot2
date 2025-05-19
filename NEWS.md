@@ -280,6 +280,7 @@
   (@teunbrand, #5938, #4327).
 * Fixed bug where empty discrete scales weren't recognised as such
   (@teunbrand, #5945).
+* `coord_trans()` renamed to `coord_transform()` (@nmercadeb, #5825).
 * (internal) The summary function of `stat_summary()` and `stat_summary_bin()`
   is setup once in total instead of once per group (@teunbrand, #5971)
 * `facet_grid(space = "free")` can now be combined with `coord_fixed()`
