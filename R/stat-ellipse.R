@@ -45,7 +45,7 @@ StatEllipse <- ggproto(
 #' @param segments The number of segments to be used in drawing the ellipse.
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @eval rd_aesthetics("stat", "ellipse")
+#' @aesthetics StatEllipse
 #' @export
 #' @examples
 #' ggplot(faithful, aes(waiting, eruptions)) +

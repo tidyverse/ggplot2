@@ -75,7 +75,7 @@ GeomText <- ggproto(
 #' \href{https://cran.r-project.org/package=ggrepel}{ggrepel}
 #' package.
 #'
-#' @eval rd_aesthetics("geom", "text")
+#' @aesthetics GeomText
 #' @section `geom_label()`:
 #' Currently `geom_label()` does not support the `check_overlap` argument. Also,
 #' it is considerably slower than `geom_text()`. The `fill` aesthetic controls

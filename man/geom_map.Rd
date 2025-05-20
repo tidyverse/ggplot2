@@ -105,22 +105,6 @@ framework and does not work with sf geometry columns as input. However,
 it can be used in conjunction with \code{geom_sf()} layers and/or
 \code{\link[=coord_sf]{coord_sf()}} (see examples).
 }
-\section{Aesthetics}{
-
-\code{geom_map()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{map_id}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{subgroup} \tab → \code{NULL} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 # First, a made-up example containing a few polygons, to explain
 # how `geom_map()` works. It requires two data frames:
@@ -159,7 +143,7 @@ if (require(maps)) {
 
   crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 
-  # Equivalent to crimes \%>\% tidyr::pivot_longer(Murder:Rape)
+  # Equivalent to crimes |> tidyr::pivot_longer(Murder:Rape)
   vars <- lapply(names(crimes)[-1], function(j) {
     data.frame(state = crimes$state, variable = j, value = crimes[[j]])
   })
@@ -193,4 +177,20 @@ if (require(maps)) {
    ) +
    facet_wrap(~variable)
 }
+}
+\section{Aesthetics}{
+
+\code{geom_map()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{map_id}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{subgroup} \tab → \code{NULL} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

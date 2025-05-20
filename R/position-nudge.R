@@ -8,7 +8,7 @@
 #' @family position adjustments
 #' @param x,y Amount of vertical and horizontal distance to move.
 #' @export
-#' @eval rd_aesthetics("position", "nudge")
+#' @aesthetics PositionNudge
 #' @examples
 #' df <- data.frame(
 #'   x = c(1,3,2,5),

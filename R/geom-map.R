@@ -9,7 +9,7 @@ NULL
 #' it can be used in conjunction with `geom_sf()` layers and/or
 #' [`coord_sf()`] (see examples).
 #'
-#' @eval rd_aesthetics("geom", "map")
+#' @aesthetics GeomMap
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
 #'   typically be created using [fortify()] on a spatial object.
@@ -55,7 +55,7 @@ NULL
 #'
 #'   crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 #'
-#'   # Equivalent to crimes %>% tidyr::pivot_longer(Murder:Rape)
+#'   # Equivalent to crimes |> tidyr::pivot_longer(Murder:Rape)
 #'   vars <- lapply(names(crimes)[-1], function(j) {
 #'     data.frame(state = crimes$state, variable = j, value = crimes[[j]])
 #'   })

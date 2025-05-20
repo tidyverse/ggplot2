@@ -43,11 +43,11 @@
 #' a <- ggplot(msleep, aes(bodywt, brainwt)) +
 #'  geom_point(na.rm = TRUE) +
 #'  scale_x_log10(
-#'    breaks = scales::trans_breaks("log10", function(x) 10^x),
+#'    breaks = scales::trans_breaks("log10", \(x) 10^x),
 #'    labels = scales::trans_format("log10", scales::math_format(10^.x))
 #'  ) +
 #'  scale_y_log10(
-#'    breaks = scales::trans_breaks("log10", function(x) 10^x),
+#'    breaks = scales::trans_breaks("log10", \(x) 10^x),
 #'    labels = scales::trans_format("log10", scales::math_format(10^.x))
 #'  ) +
 #'  theme_bw()
@@ -92,6 +92,8 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
 {
   if (!is.null(color))
     colour <- color
+
+  lifecycle::signal_stage("superseded", "annotation_logticks()", "guide_axis_logticks()")
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.5.0", I("Using the `size` aesthetic in this geom"), I("`linewidth`"))

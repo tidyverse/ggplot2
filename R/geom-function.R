@@ -28,7 +28,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
 #' with a grid of evenly spaced values along the x axis, and the results are
 #' drawn (by default) with a line.
 #'
-#' @eval rd_aesthetics("geom", "function")
+#' @aesthetics GeomFunction
 #' @param data Ignored by `stat_function()`, do not use.
 #' @inheritParams layer
 #' @inheritParams geom_path
@@ -65,11 +65,9 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
 #'   geom_function(aes(colour = "t, df = 1"), fun = dt, args = list(df = 1))
 #'
 #' # Using a custom anonymous function
-#' base + geom_function(fun = function(x) 0.5 * exp(-abs(x)))
+#' base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))
 #' # or using lambda syntax:
 #' # base + geom_function(fun = ~ 0.5 * exp(-abs(.x)))
-#' # or in R4.1.0 and above:
-#' # base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))
 #' # or using a custom named function:
 #' # f <- function(x) 0.5 * exp(-abs(x))
 #' # base + geom_function(fun = f)

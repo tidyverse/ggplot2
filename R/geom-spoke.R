@@ -22,7 +22,7 @@ GeomSpoke <- ggproto(
 #' useful when you have variables that describe direction and distance.
 #' The angles start from east and increase counterclockwise.
 #'
-#' @eval rd_aesthetics("geom", "spoke")
+#' @aesthetics GeomSpoke
 #' @inheritParams layer
 #' @inheritParams geom_segment
 #' @export

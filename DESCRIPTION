@@ -20,7 +20,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-9415-4582")),
     person("Teun", "van den Brand", role = "aut",
            comment = c(ORCID = "0000-0002-9335-7468")),
-    person("Posit, PBC", role = c("cph", "fnd"))
+    person("Posit, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
   )
 Description: A system for 'declaratively' creating graphics, based on "The
     Grammar of Graphics". You provide the data, tell 'ggplot2' how to map
@@ -30,7 +31,7 @@ License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Imports:
     cli,
     grDevices,
@@ -63,6 +64,7 @@ Suggests:
     ragg (>= 1.2.6),
     RColorBrewer,
     rmarkdown,
+    roxygen2,
     rpart,
     sf (>= 0.7-3),
     svglite (>= 2.1.2),
@@ -76,7 +78,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
-Config/usethis/last-upkeep: 2024-10-24
+Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
