@@ -76,7 +76,7 @@ GeomSmooth <- ggproto(
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "smooth")
+#' @aesthetics GeomSmooth
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
@@ -164,7 +164,7 @@ geom_smooth <- function(mapping = NULL, data = NULL,
     ...
   )
   if (identical(stat, "smooth")) {
-    params$method <- method
+    params[["method"]] <- method
     params$formula <- formula
   }
 

@@ -7,7 +7,7 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("stat", "summary")
+#' @aesthetics StatSummary
 #' @seealso [geom_errorbar()], [geom_pointrange()],
 #'  [geom_linerange()], [geom_crossbar()] for geoms to
 #'  display summarised data
@@ -185,8 +185,8 @@ StatSummary <- ggproto("StatSummary", Stat,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
-    params$fun <- make_summary_fun(
-      params$fun.data, params$fun,
+    params[["fun"]] <- make_summary_fun(
+      params$fun.data, params[["fun"]],
       params$fun.max, params$fun.min,
       params$fun.args %||% list()
     )

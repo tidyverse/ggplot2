@@ -123,7 +123,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom}{The geometric object to use to display the data for this layer.
 When using a \verb{stat_*()} function to construct a layer, the \code{geom} argument
@@ -155,21 +155,6 @@ superimpose a function on top of an existing plot. The function is called
 with a grid of evenly spaced values along the x axis, and the results are
 drawn (by default) with a line.
 }
-\section{Aesthetics}{
-
-\code{geom_function()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
@@ -212,11 +197,9 @@ base +
   geom_function(aes(colour = "t, df = 1"), fun = dt, args = list(df = 1))
 
 # Using a custom anonymous function
-base + geom_function(fun = function(x) 0.5 * exp(-abs(x)))
+base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))
 # or using lambda syntax:
 # base + geom_function(fun = ~ 0.5 * exp(-abs(.x)))
-# or in R4.1.0 and above:
-# base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))
 # or using a custom named function:
 # f <- function(x) 0.5 * exp(-abs(x))
 # base + geom_function(fun = f)
@@ -234,4 +217,19 @@ geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
 }
 \seealso{
 \code{\link[rlang:as_function]{rlang::as_function()}}
+}
+\section{Aesthetics}{
+
+\code{geom_function()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

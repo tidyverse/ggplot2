@@ -9,7 +9,7 @@ StatUnique <- ggproto(
 
 #' Remove duplicates
 #'
-#' @eval rd_aesthetics("stat", "unique")
+#' @aesthetics StatUnique
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point

@@ -389,10 +389,10 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
     linewidth <- size
   }
 
-  arrow <- if (is.logical(element$arrow) && !element$arrow) {
+  arrow <- if (is.logical(element[["arrow"]]) && !element[["arrow"]]) {
     NULL
   } else {
-    element$arrow
+    element[["arrow"]]
   }
   if (is.null(arrow)) {
     arrow.fill <- colour

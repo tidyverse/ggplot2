@@ -130,7 +130,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
 or as a function that takes x after scale transformation as input and
@@ -337,7 +337,7 @@ m +
 # different ranges because the function will be called once per facet
 ggplot(economics_long, aes(value)) +
   facet_wrap(~variable, scales = 'free_x') +
-  geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
+  geom_histogram(binwidth = \(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{
 \code{\link[=stat_count]{stat_count()}}, which counts the number of cases at each x

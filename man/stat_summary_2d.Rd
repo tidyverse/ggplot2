@@ -168,7 +168,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 }
 \description{
 \code{stat_summary_2d()} is a 2d variation of \code{\link[=stat_summary]{stat_summary()}}.
@@ -217,7 +217,7 @@ d <- ggplot(diamonds, aes(carat, depth, z = price))
 d + stat_summary_2d()
 
 # Specifying function
-d + stat_summary_2d(fun = function(x) sum(x^2))
+d + stat_summary_2d(fun = \(x) sum(x^2))
 d + stat_summary_2d(fun = ~ sum(.x^2))
 d + stat_summary_2d(fun = var)
 d + stat_summary_2d(fun = "quantile", fun.args = list(probs = 0.1))

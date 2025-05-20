@@ -142,8 +142,8 @@ Note that we expanded the y axis limit to get the numbers to fit on the plot.
 ```{r}
 #| fig.alt: "A bar chart showing the number of cars for each of three types
 #|  of drive train. The count values are displayed on top of the bars as text."
-mpg %>%
-  dplyr::count(drv) %>%
+mpg |>
+  dplyr::count(drv) |>
   ggplot(aes(x = drv, y = n)) +
   geom_col() +
   geom_text(aes(label = n), vjust = -0.5) +
@@ -184,7 +184,7 @@ ggplot(mpg, aes(x = class, fill = drv)) +
 You can first calculate the counts for each segment with `dplyr::count()`, which will place these values in a column called `n`.
 
 ```{r}
-mpg %>%
+mpg |>
   count(class, drv) 
 ```
 
@@ -195,8 +195,8 @@ You can then pass this result directly to `ggplot()`, draw the segments with app
 #|  types of cars. The fill colour of the bars indicate the type of drive 
 #|  train. In the middle of each filled part, the count value is displayed as 
 #|  text."
-mpg %>%
-  count(class, drv) %>%
+mpg |>
+  count(class, drv) |>
   ggplot(aes(x = class, fill = drv, y = n)) +
   geom_col() +
   geom_text(aes(label = n), size = 3, position = position_stack(vjust = 0.5))
@@ -226,9 +226,9 @@ One option is to calculate the proportions with `dplyr::count()` and then use `g
 ```{r}
 #| fig.alt: "A bar chart showing the proportion of cars for each of three types
 #|  of drive train."
-mpg %>%
-  dplyr::count(drv) %>%
-  mutate(prop = n / sum(n)) %>%
+mpg |>
+  dplyr::count(drv) |>
+  mutate(prop = n / sum(n)) |>
   ggplot(aes(x = drv, y = prop)) +
   geom_col()
 ```

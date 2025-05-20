@@ -200,19 +200,26 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
 
 #' @rdname labs
 #' @export
+#' @description
+#' `r lifecycle::badge("superseded")`: `xlab()`, `ylab()` and `ggtitle()` are
+#' superseded. It is recommended to use the `labs(x, y, title, subtitle)`
+#' arguments instead.
 xlab <- function(label) {
+  lifecycle::signal_stage("superseded", "xlab()", "labs(x)")
   labs(x = label)
 }
 
 #' @rdname labs
 #' @export
 ylab <- function(label) {
+  lifecycle::signal_stage("superseded", "ylab()", "labs(y)")
   labs(y = label)
 }
 
 #' @rdname labs
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
+  lifecycle::signal_stage("superseded", "ggtitle()", I("labs(title, subtitle)"))
   labs(title = label, subtitle = subtitle)
 }
 
@@ -351,7 +358,7 @@ get_alt_text.gtable <- function(p, ...) {
 #'
 generate_alt_text <- function(p) {
   # Combine titles
-  if (!is.null(p$label$title %||% p$labels$subtitle)) {
+  if (!is.null(p$labels$title %||% p$labels$subtitle)) {
     title <- sub("\\.?$", "", c(p$labels$title, p$labels$subtitle))
     if (length(title) == 2) {
       title <- paste0(title[1], ": ", title[2])

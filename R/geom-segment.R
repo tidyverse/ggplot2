@@ -64,7 +64,7 @@ GeomSegment <- ggproto(
 #' Both geoms draw a single segment/curve per case. See `geom_path()` if you
 #' need to connect points across multiple cases.
 #'
-#' @eval rd_aesthetics("geom", "segment")
+#' @aesthetics GeomSegment
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by [grid::arrow()].
@@ -98,7 +98,7 @@ GeomSegment <- ggproto(
 #' ggplot(seals, aes(long, lat)) +
 #'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
 #'     arrow = arrow(length = unit(0.1,"cm"))) +
-#'   borders("state")
+#'   annotation_borders("state")
 #' }
 #'
 #' # Use lineend and linejoin to change the style of the segments
