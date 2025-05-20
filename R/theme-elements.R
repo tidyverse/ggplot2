@@ -996,7 +996,7 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   }
 
   if (is.character(class) && any(c("margin", "ggplot2::margin") %in% class)) {
-    if ("rel" %in% class && is.rel(el)) {
+    if ("rel" %in% class && is_rel(el)) {
       return()
     }
     if (is.unit(el) && length(el) == 4) {
