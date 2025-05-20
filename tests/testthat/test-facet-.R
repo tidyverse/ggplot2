@@ -230,7 +230,7 @@ test_that("facet variables", {
 test_that("facet gives clear error if ", {
   df <- data_frame(x = 1)
   expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(x ~ x)))
-  expect_snapshot_error(print(ggplot(df, aes(x)) %>% facet_grid(. ~ x)))
+  expect_snapshot_error(print(ggplot(df, aes(x)) |> facet_grid(. ~ x)))
   expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(list(1, 2, 3))))
   expect_snapshot_error(print(ggplot(df, aes(x)) + facet_grid(vars(x), "free")))
 })
