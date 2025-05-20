@@ -1,92 +1,9 @@
-#' @inheritParams stat_identity
-#' @inheritParams geom_contour
-#' @export
-#' @eval rd_aesthetics("stat", "contour")
-#' @eval rd_aesthetics("stat", "contour_filled")
-#' @eval rd_computed_vars(
-#'   .details = "The computed variables differ somewhat for contour lines
-#'   (computed by `stat_contour()`) and contour bands (filled contours,
-#'   computed by `stat_contour_filled()`). The variables `nlevel` and `piece`
-#'   are available for both, whereas `level_low`, `level_high`, and `level_mid`
-#'   are only available for bands. The variable `level` is a numeric or a factor
-#'   depending on whether lines or bands are calculated.",
-#'   level = "Height of contour. For contour lines, this is a numeric vector
-#'   that represents bin boundaries. For contour bands, this is an ordered
-#'   factor that represents bin ranges.",
-#'   "level_low,level_high,level_mid" = "(contour bands only) Lower and upper
-#'   bin boundaries for each band, as well as the mid point between boundaries.",
-#'   nlevel = "Height of contour, scaled to a maximum of 1.",
-#'   piece = "Contour piece (an integer)."
-#' )
-#'
-#' @section Dropped variables:
-#' \describe{
-#'   \item{`z`}{After contouring, the z values of individual data points are no longer available.}
-#' }
-#'
-#'
-#' @rdname geom_contour
-stat_contour <- function(mapping = NULL, data = NULL,
-                         geom = "contour", position = "identity",
-                         ...,
-                         bins = NULL,
-                         binwidth = NULL,
-                         breaks = NULL,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatContour,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname geom_contour
-#' @export
-stat_contour_filled <- function(mapping = NULL, data = NULL,
-                                geom = "contour_filled", position = "identity",
-                                ...,
-                                bins = NULL,
-                                binwidth = NULL,
-                                breaks = NULL,
-                                na.rm = FALSE,
-                                show.legend = NA,
-                                inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatContourFilled,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
-StatContour <- ggproto("StatContour", Stat,
+StatContour <- ggproto(
+  "StatContour", Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level)),
@@ -122,11 +39,12 @@ StatContour <- ggproto("StatContour", Stat,
   }
 )
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
-StatContourFilled <- ggproto("StatContourFilled", Stat,
+StatContourFilled <- ggproto(
+  "StatContourFilled", Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
@@ -164,6 +82,46 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
 
     path_df
   }
+)
+
+#' @inheritParams stat_identity
+#' @inheritParams geom_contour
+#' @export
+#' @aesthetics StatContour
+#' @aesthetics StatContourFilled
+#' @eval rd_computed_vars(
+#'   .details = "The computed variables differ somewhat for contour lines
+#'   (computed by `stat_contour()`) and contour bands (filled contours,
+#'   computed by `stat_contour_filled()`). The variables `nlevel` and `piece`
+#'   are available for both, whereas `level_low`, `level_high`, and `level_mid`
+#'   are only available for bands. The variable `level` is a numeric or a factor
+#'   depending on whether lines or bands are calculated.",
+#'   level = "Height of contour. For contour lines, this is a numeric vector
+#'   that represents bin boundaries. For contour bands, this is an ordered
+#'   factor that represents bin ranges.",
+#'   "level_low,level_high,level_mid" = "(contour bands only) Lower and upper
+#'   bin boundaries for each band, as well as the mid point between boundaries.",
+#'   nlevel = "Height of contour, scaled to a maximum of 1.",
+#'   piece = "Contour piece (an integer)."
+#' )
+#'
+#' @section Dropped variables:
+#' \describe{
+#'   \item{`z`}{After contouring, the z values of individual data points are no longer available.}
+#' }
+#'
+#'
+#' @rdname geom_contour
+stat_contour <- make_constructor(
+  StatContour, geom = "contour",
+  omit = "z.range"
+)
+
+#' @rdname geom_contour
+#' @export
+stat_contour_filled <- make_constructor(
+  StatContourFilled, geom = "contour_filled",
+  omit = "z.range"
 )
 
 #' Calculate the breaks used for contouring

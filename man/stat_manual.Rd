@@ -112,20 +112,13 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 }
 \description{
 \code{stat_manual()} takes a function that computes a data transformation for
 every group.
 }
 \section{Aesthetics}{
-
-\code{stat_manual()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
 
 Input aesthetics are determined by the \code{fun} argument. Output aesthetics must
 include those required by \code{geom}. Any aesthetic that is constant within a
@@ -196,4 +189,13 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
     args = vars(hull = chull(x, y), x = x[hull], y = y[hull])
   )
 }
+}
+\section{Aesthetics}{
+
+\code{stat_manual()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

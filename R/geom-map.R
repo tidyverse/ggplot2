@@ -9,7 +9,7 @@ NULL
 #' it can be used in conjunction with `geom_sf()` layers and/or
 #' [`coord_sf()`] (see examples).
 #'
-#' @eval rd_aesthetics("geom", "map")
+#' @aesthetics GeomMap
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
 #'   typically be created using [fortify()] on a spatial object.
@@ -121,7 +121,7 @@ geom_map <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

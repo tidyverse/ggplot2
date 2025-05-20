@@ -40,7 +40,9 @@ number of levels in the scale) returns the values that they should take.
 missing values be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
 
-\item{type}{One of the following:
+\item{type}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} The preferred mechanism for
+setting the default palette is by using the theme. For example:
+\code{theme(palette.colour.discrete = "Okabe-Ito")}. One of the following:
 \itemize{
 \item A character vector of color codes. The codes are used for a 'manual' color
 scale as long as the number of codes exceeds the number of data levels
@@ -56,9 +58,7 @@ want to change the color palette based on the number of levels.
 }}
 }
 \description{
-The default discrete colour scale. Defaults to \code{\link[=scale_fill_hue]{scale_fill_hue()}}/\code{\link[=scale_fill_brewer]{scale_fill_brewer()}}
-unless \code{type} (which defaults to the \code{ggplot2.discrete.fill}/\code{ggplot2.discrete.colour} options)
-is specified.
+The default discrete colour scale.
 }
 \examples{
 # A standard plot

@@ -40,7 +40,7 @@ Imports:
     isoband,
     lifecycle (> 1.0.1),
     rlang (>= 1.1.0),
-    scales (>= 1.3.0),
+    scales (>= 1.4.0),
     stats,
     vctrs (>= 0.6.0),
     withr (>= 2.5.0)
@@ -64,6 +64,7 @@ Suggests:
     ragg (>= 1.2.6),
     RColorBrewer,
     rmarkdown,
+    roxygen2,
     rpart,
     sf (>= 0.7-3),
     svglite (>= 2.1.2),
@@ -94,11 +95,15 @@ Collate:
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'annotation-borders.R'
     'utilities-checks.R'
     'legend-draw.R'
     'geom-.R'
     'annotation-custom.R'
     'annotation-logticks.R'
+    'scale-type.R'
+    'layer.R'
+    'make-constructor.R'
     'geom-polygon.R'
     'geom-map.R'
     'annotation-map.R'
@@ -143,6 +148,7 @@ Collate:
     'geom-col.R'
     'geom-path.R'
     'geom-contour.R'
+    'geom-point.R'
     'geom-count.R'
     'geom-crossbar.R'
     'geom-segment.R'
@@ -161,7 +167,6 @@ Collate:
     'geom-jitter.R'
     'geom-label.R'
     'geom-linerange.R'
-    'geom-point.R'
     'geom-pointrange.R'
     'geom-quantile.R'
     'geom-rug.R'
@@ -187,7 +192,6 @@ Collate:
     'guide-colorbar.R'
     'guide-colorsteps.R'
     'guide-custom.R'
-    'layer.R'
     'guide-none.R'
     'guide-old.R'
     'guides-.R'
@@ -237,7 +241,6 @@ Collate:
     'scale-shape.R'
     'scale-size.R'
     'scale-steps.R'
-    'scale-type.R'
     'scale-view.R'
     'scale-viridis.R'
     'scales-.R'

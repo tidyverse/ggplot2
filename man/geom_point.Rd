@@ -104,7 +104,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 }
 \description{
 The point geom is used to create scatterplots. The scatterplot is most
@@ -134,25 +134,6 @@ way, using \code{\link[=geom_count]{geom_count()}}, \code{\link[=geom_hex]{geom_
 Another technique is to make the points transparent (e.g.
 \code{geom_point(alpha = 0.05)}) or very small (e.g.
 \code{geom_point(shape = ".")}).
-}
-
-\section{Aesthetics}{
-
-\code{geom_point()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
-• \tab \code{stroke} \tab → via \code{theme()} \cr\cr
-}
-The \code{fill} aesthetic only applies to shapes 21-25.
-
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
@@ -210,4 +191,22 @@ ggplot(mtcars2, aes(wt, mpg)) +
 ggplot(mtcars2, aes(wt, mpg)) +
   geom_point(na.rm = TRUE)
 }
+}
+\section{Aesthetics}{
+
+\code{geom_point()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{stroke} \tab → via \code{theme()} \cr\cr
+}
+The \code{fill} aesthetic only applies to shapes 21-25.
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

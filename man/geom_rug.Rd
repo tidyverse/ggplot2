@@ -10,8 +10,9 @@ geom_rug(
   stat = "identity",
   position = "identity",
   ...,
-  outside = FALSE,
+  lineend = "butt",
   sides = "bl",
+  outside = FALSE,
   length = unit(0.03, "npc"),
   na.rm = FALSE,
   show.legend = NA,
@@ -93,11 +94,13 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{outside}{logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. When set to TRUE, also consider changing the sides argument to "tr". See examples.}
+\item{lineend}{Line end style (round, butt, square).}
 
 \item{sides}{A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
+
+\item{outside}{logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. When set to TRUE, also consider changing the sides argument to "tr". See examples.}
 
 \item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.}
 
@@ -115,7 +118,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 }
 \description{
 A rug plot is a compact visualisation designed to supplement a 2d display
@@ -128,21 +131,6 @@ of the total plot size. Since the default scale expansion of for continuous
 variables is 5\% at both ends of the scale, the rug will not overlap with
 any data points under the default settings.
 }
-\section{Aesthetics}{
-
-\code{geom_rug()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_position]{x}} \tab   \cr\cr
-• \tab \code{\link[=aes_position]{y}} \tab   \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 p <- ggplot(mtcars, aes(wt, mpg)) +
   geom_point()
@@ -177,5 +165,19 @@ p +
 p +
   geom_rug(length = unit(0.05, "npc")) +
   scale_y_continuous(expand = c(0.1, 0.1))
+}
+\section{Aesthetics}{
 
+\code{geom_rug()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_position]{x}} \tab   \cr\cr
+ • \tab \code{\link[=aes_position]{y}} \tab   \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

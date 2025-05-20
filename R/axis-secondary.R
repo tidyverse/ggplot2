@@ -124,19 +124,19 @@ dup_axis <- function(transform = identity, name = derive(), breaks = derive(),
   sec_axis(transform, trans = trans, name, breaks, labels, guide)
 }
 
-is.sec_axis <- function(x) {
+is_sec_axis <- function(x) {
   inherits(x, "AxisSecondary")
 }
 
 set_sec_axis <- function(sec.axis, scale) {
-  if (!is.waiver(sec.axis)) {
+  if (!is_waiver(sec.axis)) {
     if (scale$is_discrete()) {
       if (!identical(.subset2(sec.axis, "trans"), identity)) {
         cli::cli_abort("Discrete secondary axes must have the {.fn identity} transformation.")
       }
     }
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) {
+    if (is_formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is_sec_axis(sec.axis)) {
       cli::cli_abort("Secondary axes must be specified using {.fn sec_axis}.")
     }
     scale$secondary.axis <- sec.axis
@@ -150,7 +150,7 @@ set_sec_axis <- function(sec.axis, scale) {
 derive <- function() {
   structure(list(), class = "derived")
 }
-is.derived <- function(x) {
+is_derived <- function(x) {
   inherits(x, "derived")
 }
 #' @rdname ggplot2-ggproto
@@ -182,9 +182,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (!is.function(transform)) {
       cli::cli_abort("Transformation for secondary axes must be a function.")
     }
-    if (is.derived(self$name) && !is.waiver(scale$name)) self$name <- scale$name
-    if (is.derived(self$breaks)) self$breaks <- scale$breaks
-    if (is.waiver(self$breaks)) {
+    if (is_derived(self$name) && !is_waiver(scale$name)) self$name <- scale$name
+    if (is_derived(self$breaks)) self$breaks <- scale$breaks
+    if (is_waiver(self$breaks)) {
       if (scale$is_discrete()) {
         self$breaks <- setNames(nm = scale$get_breaks())
       } else {
@@ -197,8 +197,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
         }
       }
     }
-    if (is.derived(self$labels)) self$labels <- scale$labels
-    if (is.derived(self$guide)) self$guide <- scale$guide
+    if (is_derived(self$labels)) self$labels <- scale$labels
+    if (is_derived(self$guide)) self$guide <- scale$guide
   },
 
   transform_range = function(self, range) {

@@ -9,8 +9,11 @@ geom_polygon(
   data = NULL,
   stat = "identity",
   position = "identity",
-  rule = "evenodd",
   ...,
+  rule = "evenodd",
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -63,11 +66,6 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \link[=layer_positions]{layer position} documentation.
 }}
 
-\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
-being drawn (using the \code{subgroup} aesthetic) this argument defines how the
-hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
-an explanation.}
-
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
 arguments broadly fall into one of 4 categories below. Notably, further
 arguments to the \code{position} argument, or aesthetics that are required
@@ -96,6 +94,17 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
+an explanation.}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{linemitre}{Line mitre limit (number greater than 1).}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -110,7 +119,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 }
 \description{
 Polygons are very similar to paths (as drawn by \code{\link[=geom_path]{geom_path()}})
@@ -121,23 +130,6 @@ to draw polygons with holes by providing a subgroup aesthetic that
 differentiates the outer ring points from those describing holes in the
 polygon.
 }
-\section{Aesthetics}{
-
-\code{geom_polygon()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{subgroup} \tab → \code{NULL} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 # When using geom_polygon, you will typically need two data frames:
 # one contains the coordinates of each polygon (positions),  and the
@@ -197,9 +189,25 @@ if (packageVersion("grid") >= "3.6") {
     geom_polygon(aes(fill = value, group = id, subgroup = subid))
   p
 }
-
 }
 \seealso{
 \code{\link[=geom_path]{geom_path()}} for an unfilled polygon,
 \code{\link[=geom_ribbon]{geom_ribbon()}} for a polygon anchored on the x-axis
+}
+\section{Aesthetics}{
+
+\code{geom_polygon()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{subgroup} \tab → \code{NULL} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
