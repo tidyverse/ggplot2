@@ -80,7 +80,7 @@ log10 space.</p>
 <span>  mid <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>  short <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  prescale.base <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  negative.small <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  negative.small <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  short.theme <span class="op">=</span> <span class="fu"><a href="element.html">element_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  expanded <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  cap <span class="op">=</span> <span class="st">"none"</span>,</span>
@@ -113,7 +113,9 @@ keep the default <code>NULL</code> argument.</p></dd>
 
 <dt id="arg-negative-small">negative.small<a class="anchor" aria-label="anchor" href="#arg-negative-small"></a></dt>
 <dd><p>When the scale limits include 0 or negative numbers,
-what should be the smallest absolute value that is marked with a tick?</p></dd>
+what should be the smallest absolute value that is marked with a tick?
+If <code>NULL</code> (default), will be the smallest of 0.1 or 0.1 times the absolute
+scale maximum.</p></dd>
 
 
 <dt id="arg-short-theme">short.theme<a class="anchor" aria-label="anchor" href="#arg-short-theme"></a></dt>
