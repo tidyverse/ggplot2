@@ -168,7 +168,7 @@ class_ggplot <- S7::new_class(
 #' @keywords internal
 #' @export
 class_ggplot_built <- S7::new_class(
-  "ggplot_built",
+  "ggplot_built", parent = class_gg,
   properties = list(
     data   = S7::class_list,
     layout = class_layout,
