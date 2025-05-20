@@ -88,7 +88,7 @@ NULL
 #'
 #' # Note that users of your wrapper can use their own functions in the
 #' # quoted expressions and all will resolve as it should!
-#' cut3 <- \(x) cut_number(x, 3)
+#' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
   xs <- arg_enquos("x")
