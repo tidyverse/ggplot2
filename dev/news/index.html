@@ -67,7 +67,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li><p>Better handling of the <code>guide_axis_logticks(negative.small)</code> parameter when scale limits have small maximum (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6121" class="external-link">#6121</a>).</p></li>
+<ul><li><p>New <code>coord_cartesian(ratio)</code> argument that absorbs the aspect ratio functionality from <code><a href="../reference/coord_fixed.html">coord_equal()</a></code> and <code><a href="../reference/coord_fixed.html">coord_fixed()</a></code>, which are now wrappers for <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>.</p></li>
+<li><p>Better handling of the <code>guide_axis_logticks(negative.small)</code> parameter when scale limits have small maximum (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6121" class="external-link">#6121</a>).</p></li>
 <li><p>Fixed bug where the <code>ggplot2::</code>-prefix did not work with <code><a href="../reference/aes_eval.html">stage()</a></code></p></li>
 <li><p>New roxygen tag <code>@aesthetics</code> that takes a Geom, Stat or Position class and generates an ‘Aesthetics’ section.</p></li>
 <li><p><code><a href="../reference/annotation_borders.html">annotation_borders()</a></code> replaces the now-deprecated <code><a href="../reference/annotation_borders.html">borders()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6392" class="external-link">#6392</a>)</p></li>
