@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* New `coord_cartesian(ratio)` argument that absorbs the aspect ratio 
+  functionality from `coord_equal()` and `coord_fixed()`, which are now 
+  wrappers for `coord_cartesian()`.
 * Better handling of the `guide_axis_logticks(negative.small)` parameter when
   scale limits have small maximum (@teunbrand, #6121).
 * Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
