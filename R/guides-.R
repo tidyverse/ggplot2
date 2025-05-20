@@ -653,11 +653,14 @@ Guides <- ggproto(
                         height = heightDetails(grobs[[i]]))
         )
       }
-
-      spacing <- convertWidth(theme$legend.spacing.x, "cm")
+      spacing <- theme$legend.spacing.x
+      stretch_spacing <- any(unitType(spacing) == "null")
+      if (!stretch_spacing) {
+        spacing <- convertWidth(spacing, "cm")
+      }
       heights <- unit(height_cm(lapply(heights, sum)), "cm")
 
-      if (stretch_x) {
+      if (stretch_x || stretch_spacing) {
         widths   <- redistribute_null_units(widths, spacing, margin, "width")
         vp_width <- unit(1, "npc")
       } else {
@@ -692,10 +695,14 @@ Guides <- ggproto(
         )
       }
 
-      spacing <- convertHeight(theme$legend.spacing.y, "cm")
+      spacing <- theme$legend.spacing.y
+      stretch_spacing <- any(unitType(spacing) == "null")
+      if (!stretch_spacing) {
+        spacing <- convertWidth(spacing, "cm")
+      }
       widths  <- unit(width_cm(lapply(widths, sum)), "cm")
 
-      if (stretch_y) {
+      if (stretch_y || stretch_spacing) {
         heights   <- redistribute_null_units(heights, spacing, margin, "height")
         vp_height <- unit(1, "npc")
       } else {
@@ -735,10 +742,10 @@ Guides <- ggproto(
     )
 
     # Set global margin
-    if (stretch_x) {
+    if (stretch_x || stretch_spacing) {
       global_margin[c(2, 4)] <- unit(0, "cm")
     }
-    if (stretch_y) {
+    if (stretch_y || stretch_spacing) {
       global_margin[c(1, 3)] <- unit(0, "cm")
     }
     guides <- gtable_add_padding(guides, global_margin)
@@ -933,26 +940,20 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
   }
 
   # Get spacing between guides and margins in absolute units
-  size    <- switch(type, width = convertWidth, height = convertHeight)
-  spacing <- size(spacing, "cm", valueOnly = TRUE)
-  spacing <- sum(rep(spacing, length(units) - 1))
+  size    <- switch(type, width = width_cm, height = height_cm)
+  spacing <- sum(rep(spacing, length.out = length(units) - 1))
   margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
-  margin  <- sum(size(margin, "cm", valueOnly = TRUE))
+  margin  <- sum(size(margin))
 
   # Get the absolute parts of the unit
-  absolute <- vapply(units, function(u) {
-    u <- absolute.size(u)
-    u <- size(u, "cm", valueOnly = TRUE)
-    sum(u)
-  }, numeric(1))
-  absolute_sum <- sum(absolute) + spacing + margin
+  absolute <- vapply(units, function(u) sum(size(absolute.size(u))), numeric(1))
+  absolute_sum <- sum(absolute) + sum(size(spacing)) + margin
 
   # Get the null parts of the unit
+  num_null <- function(x) sum(as.numeric(x)[unitType(x) == "null"])
   relative <- rep(0, length(units))
-  relative[has_null] <- vapply(units[has_null], function(u) {
-    sum(as.numeric(u)[unitType(u) == "null"])
-  }, numeric(1))
-  relative_sum <- sum(relative)
+  relative[has_null] <- vapply(units[has_null], num_null, numeric(1))
+  relative_sum <- sum(relative) + num_null(spacing)
 
   if (relative_sum == 0) {
     return(unit(absolute, "cm"))

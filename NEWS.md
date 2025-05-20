@@ -353,6 +353,8 @@
   (@teunbrand, #6269).
 * The default colour and fill scales have a new `palette` argument
   (@teunbrand, #6064).
+* The `theme(legend.spacing.{x/y})` setting now accepts `null`-units 
+  (@teunbrand, #6417).
 
 # ggplot2 3.5.2
 
