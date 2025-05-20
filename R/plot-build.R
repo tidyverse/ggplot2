@@ -443,7 +443,7 @@ table_add_tag <- function(table, label, theme) {
 # Add the legends to the gtable
 table_add_legends <- function(table, legends, theme) {
 
-  if (is.zero(legends)) {
+  if (is_zero(legends)) {
     legends <- rep(list(zeroGrob()), 5)
     names(legends) <- c(.trbl, "inside")
   }
@@ -454,7 +454,7 @@ table_add_legends <- function(table, legends, theme) {
     names(legends)
   )
 
-  empty <- vapply(legends, is.zero, logical(1))
+  empty <- vapply(legends, is_zero, logical(1))
   widths[!empty]  <- lapply(legends[!empty], gtable_width)
   heights[!empty] <- lapply(legends[!empty], gtable_height)
   spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")

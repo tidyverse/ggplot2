@@ -1,5 +1,20 @@
 # ggplot2 (development version)
 
+* New `coord_cartesian(ratio)` argument that absorbs the aspect ratio 
+  functionality from `coord_equal()` and `coord_fixed()`, which are now 
+  wrappers for `coord_cartesian()`.
+* Better handling of the `guide_axis_logticks(negative.small)` parameter when
+  scale limits have small maximum (@teunbrand, #6121).
+* Fixed bug where the `ggplot2::`-prefix did not work with `stage()` 
+* New roxygen tag `@aesthetics` that takes a Geom, Stat or Position class and
+  generates an 'Aesthetics' section.
+* `annotation_borders()` replaces the now-deprecated `borders()` 
+  (@teunbrand, #6392)
+* New `make_constructor()` function that builds a standard constructor for
+  Geom and Stat classes (@teunbrand, #6142).
+* In continuous scales, when `breaks` is a function and `n.breaks` is set, the 
+  `n.breaks` will be passed to the `breaks` function. Previously, `n.breaks` 
+  only applied to the default break calculation (@teunbrand, #5972)
 * (internal) New `Facet$draw_panel_content()` method for delegating panel 
   assembly (@Yunuuuu, #6406).
 * Facet gains a new method `setup_panel_params` to interact with the
@@ -89,7 +104,7 @@
   @yutannihilation's prior work, #3120)
 * When discrete breaks have names, they'll be used as labels by default
   (@teunbrand, #6147).
-* The helper function `is.waiver()` is now exported to help extensions to work
+* The helper function `is_waiver()` is now exported to help extensions to work
   with `waiver()` objects (@arcresu, #6173).
 * Date(time) scales now throw appropriate errors when `date_breaks`,
   `date_minor_breaks` or `date_labels` are not strings (@RodDalBen, #5880)
@@ -280,6 +295,7 @@
   (@teunbrand, #5938, #4327).
 * Fixed bug where empty discrete scales weren't recognised as such
   (@teunbrand, #5945).
+* `coord_trans()` renamed to `coord_transform()` (@nmercadeb, #5825).
 * (internal) The summary function of `stat_summary()` and `stat_summary_bin()`
   is setup once in total instead of once per group (@teunbrand, #5971)
 * `facet_grid(space = "free")` can now be combined with `coord_fixed()`
@@ -340,6 +356,8 @@
   (@teunbrand, #6269).
 * The default colour and fill scales have a new `palette` argument
   (@teunbrand, #6064).
+* The `theme(legend.spacing.{x/y})` setting now accepts `null`-units 
+  (@teunbrand, #6417).
 
 # ggplot2 3.5.2
 

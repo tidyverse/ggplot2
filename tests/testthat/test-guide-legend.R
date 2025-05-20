@@ -5,7 +5,7 @@ test_that("show.legend handles named vectors", {
     g <- ggplotGrob(p)
     gb <- grep("guide-box", g$layout$name)
     n <- vapply(g$grobs[gb], function(x) {
-      if (is.zero(x)) return(0)
+      if (is_zero(x)) return(0)
       length(x$grobs) - 1
     }, numeric(1))
     sum(n)

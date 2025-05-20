@@ -75,7 +75,7 @@ guide_axis_stack <- function(first = "axis", ..., title = waiver(), theme = NULL
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -195,7 +195,7 @@ GuideAxisStack <- ggproto(
     }
 
     # Remove empty grobs
-    grobs <- grobs[!vapply(grobs, is.zero, logical(1))]
+    grobs <- grobs[!vapply(grobs, is_zero, logical(1))]
     if (length(grobs) == 0) {
       return(zeroGrob())
     }

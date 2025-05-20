@@ -64,7 +64,7 @@ between 0 and 1 returns the corresponding output values.
 
 \item{na.value}{Missing values will be replaced with this value.}
 
-\item{type}{One of the following:
+\item{type}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} One of the following:
 \itemize{
 \item "gradient" (the default)
 \item "viridis"
@@ -80,21 +80,13 @@ functions that assign discrete color bins to the continuous values
 instead of using a continuous color spectrum.
 }
 \details{
-All these colour scales use the \code{\link[=options]{options()}} mechanism to determine
-default settings. Continuous colour scales default to the values of the
-\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options, and
-binned colour scales default to the values of the \code{ggplot2.binned.colour}
-and \code{ggplot2.binned.fill} options. These option values default to
-\code{"gradient"}, which means that the scale functions actually used are
-\code{\link[=scale_colour_gradient]{scale_colour_gradient()}}/\code{\link[=scale_fill_gradient]{scale_fill_gradient()}} for continuous scales and
-\code{\link[=scale_colour_steps]{scale_colour_steps()}}/\code{\link[=scale_fill_steps]{scale_fill_steps()}} for binned scales.
-Alternative option values are \code{"viridis"} or a different scale function.
-See description of the \code{type} argument for details.
-
-Note that the binned colour scales will use the settings of
-\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} as fallback,
-respectively, if \code{ggplot2.binned.colour} or \code{ggplot2.binned.fill} are
-not set.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}: The mechanism of setting defaults via
+\code{\link[=options]{options()}} is superseded by theme settings. The preferred method to change
+the default palette of scales is via the theme, for example:
+\code{theme(palette.colour.continuous = scales::pal_viridis())}. The
+\code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options could be
+used to set default continuous scales and \code{ggplot2.binned.colour} and
+\code{ggplot2.binned.fill} options to set default binned scales.
 
 These scale functions are meant to provide simple defaults. If
 you want to manually set the colors of a scale, consider using

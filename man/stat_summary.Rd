@@ -168,7 +168,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{fun.ymin, fun.y, fun.ymax}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use the
 versions specified above instead.}
@@ -182,17 +182,6 @@ aggregate.
 \section{Orientation}{
 
 This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
-\section{Aesthetics}{
-
-\code{stat_summary()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Summary functions}{
@@ -299,7 +288,7 @@ m2 + scale_y_log10()
 # statistic has been computed. This means we're calculating the summary on the raw data
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
-m2 + coord_trans(y="log10")
+m2 + coord_transform(y="log10")
 }
 }
 }
@@ -307,4 +296,15 @@ m2 + coord_trans(y="log10")
 \code{\link[=geom_errorbar]{geom_errorbar()}}, \code{\link[=geom_pointrange]{geom_pointrange()}},
 \code{\link[=geom_linerange]{geom_linerange()}}, \code{\link[=geom_crossbar]{geom_crossbar()}} for geoms to
 display summarised data
+}
+\section{Aesthetics}{
+
+\code{stat_summary()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -189,7 +189,7 @@ labs <- function(..., title = waiver(), subtitle = waiver(),
                     tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
                     dictionary = dictionary, .ignore_empty = "all")
 
-  is_waive <- vapply(args, is.waiver, logical(1))
+  is_waive <- vapply(args, is_waiver, logical(1))
   args <- args[!is_waive]
   # remove duplicated arguments
   args <- args[!duplicated(names(args))]
@@ -199,19 +199,26 @@ labs <- function(..., title = waiver(), subtitle = waiver(),
 
 #' @rdname labs
 #' @export
+#' @description
+#' `r lifecycle::badge("superseded")`: `xlab()`, `ylab()` and `ggtitle()` are
+#' superseded. It is recommended to use the `labs(x, y, title, subtitle)`
+#' arguments instead.
 xlab <- function(label) {
+  lifecycle::signal_stage("superseded", "xlab()", "labs(x)")
   labs(x = label)
 }
 
 #' @rdname labs
 #' @export
 ylab <- function(label) {
+  lifecycle::signal_stage("superseded", "ylab()", "labs(y)")
   labs(y = label)
 }
 
 #' @rdname labs
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
+  lifecycle::signal_stage("superseded", "ggtitle()", I("labs(title, subtitle)"))
   labs(title = label, subtitle = subtitle)
 }
 

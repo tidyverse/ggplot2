@@ -1,6 +1,12 @@
 #' @include geom-tile.R
 NULL
 
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomBin2d <- ggproto("GeomBin2d", GeomTile)
+
 #' Heatmap of 2d bin counts
 #'
 #' Divides the plane into rectangles, counts the number of cases in
@@ -8,7 +14,7 @@ NULL
 #' rectangle's fill. This is a useful alternative to [geom_point()]
 #' in the presence of overplotting.
 #'
-#' @eval rd_aesthetics("stat", "bin_2d")
+#' @aesthetics GeomBin2d
 #'
 #' @export
 #' @inheritParams layer
@@ -17,6 +23,8 @@ NULL
 #'   `geom_bin_2d()` and `stat_bin_2d()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
 #'   arguments work.
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
 #' @seealso [stat_bin_hex()] for hexagonal binning
 #' @examples
 #' d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
@@ -29,35 +37,9 @@ NULL
 #'
 #' # Or by specifying the width of the bins
 #' d + geom_bin_2d(binwidth = c(0.1, 0.1))
-geom_bin_2d <- function(mapping = NULL, data = NULL,
-                       stat = "bin2d", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomBin2d,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_bin_2d <- make_constructor(GeomBin2d, stat = "bin2d")
 
 #' @export
 #' @rdname geom_bin_2d
 #' @usage NULL
 geom_bin2d <- geom_bin_2d
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomBin2d <- ggproto("GeomBin2d", GeomTile)

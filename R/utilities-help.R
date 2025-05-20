@@ -78,7 +78,7 @@ rd_match_docpage <- function(aes) {
   )[index + 1]
   no_match <- index == 0
   docpage[!no_match] <- paste0(
-    "\\link[=", docpage[!no_match],
+    "\\link[=ggplot2::", docpage[!no_match],
     "]{", flat[!no_match], "}"
   )
   docpage[no_match] <- flat[no_match]
@@ -164,4 +164,59 @@ link_book <- function(text = "", section = "",
     links <- oxford_comma(links, final = "and")
   }
   paste(links, suffix, sep = " ")
+}
+
+roxy_tag_parse.roxy_tag_aesthetics <- function(x) {
+  x <- roxygen2::tag_two_part(x, "an argument name", "a description", required = FALSE)
+
+  class <- get0(x$val$name, parent.frame())
+  if (!inherits(class, c("Geom", "Stat", "Position"))) {
+    cli::cli_abort(
+      "Cannot create a {.field Aesthetics} section for {.val {x$val$name}}."
+    )
+  }
+
+
+  fun_name <- snake_class(class)
+  aes_item <- rd_aesthetics_item(class)
+
+  x$val <- c("",
+    paste0(
+      "\\code{", fun_name, "()} ",
+      "understands the following aesthetics. Required aesthetics are displayed",
+      " in bold and defaults are displayed for optional aesthetics:"
+    ),
+    "\\tabular{rll}{", aes_item, "}",
+    if (nzchar(x$val$description)) x$val$description
+  )
+  x
+}
+
+roxy_tag_rd.roxy_tag_aesthetics <- function(x, base_path, env) {
+  # When we document ggplot2 itself, we don't need to prefix links with ggplot2
+  if (basename(base_path) == "ggplot2") {
+    x$val <- gsub("\\link[=ggplot2::", "\\link[=", x$val, fixed = TRUE)
+  }
+  roxygen2::rd_section("aesthetics", x$val)
+}
+
+on_load({
+  vctrs::s3_register(
+    "roxygen2::roxy_tag_parse", "roxy_tag_aesthetics",
+    roxy_tag_parse.roxy_tag_aesthetics
+  )
+  vctrs::s3_register(
+    "roxygen2::roxy_tag_rd", "roxy_tag_aesthetics",
+    roxy_tag_rd.roxy_tag_aesthetics
+  )
+})
+
+#' @export
+format.rd_section_aesthetics <- function(x, ...) {
+  vec_c(
+    "\\section{Aesthetics}{",
+    !!!x$value,
+    "\nLearn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}.",
+    "}"
+  )
 }

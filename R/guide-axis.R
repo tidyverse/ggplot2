@@ -81,7 +81,7 @@ guide_axis <- function(title = waiver(), theme = NULL, check.overlap = FALSE,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -167,12 +167,8 @@ GuideAxis <- ggproto(
     }
 
     opposite <- setdiff(c("x", "y"), aesthetic)
-    opposite_value <- if (position %in% c("top", "right")) -Inf else Inf
 
-    data_frame(
-      !!aesthetic := value,
-      !!opposite  := opposite_value
-    )
+    data_frame(!!aesthetic := value)
   },
 
   transform = function(self, params, coord, panel_params) {
@@ -180,19 +176,27 @@ GuideAxis <- ggproto(
     position <- params$position
     check <- FALSE
 
+    aesthetic <- names(key)[!grepl("^\\.", names(key))]
+    ortho     <- setdiff(c("x", "y"), params$aesthetic)
+    override  <- switch(position %||% "", bottom = , left = -Inf, Inf)
+
+    if (!(panel_params$reverse %||% "none") %in% c("xy", ortho)) {
+      override <- -override
+    }
+
     if (!(is.null(position) || nrow(key) == 0)) {
       check <- TRUE
-      aesthetics <- names(key)[!grepl("^\\.", names(key))]
-      if (!all(c("x", "y") %in% aesthetics)) {
-        other_aesthetic <- setdiff(c("x", "y"), aesthetics)
-        override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
-        key[[other_aesthetic]] <- override_value
+      if (!all(c("x", "y") %in% aesthetic)) {
+        key[[ortho]] <- override
       }
       key <- coord$transform(key, panel_params)
       params$key <- key
     }
 
     if (!is.null(params$decor)) {
+      if (!ortho %in% names(params$decor)) {
+        params$decor[[ortho]] <- override
+      }
       params$decor <- coord_munch(coord, params$decor, panel_params)
 
       if (!coord$is_linear()) {
@@ -420,7 +424,7 @@ GuideAxis <- ggproto(
     # Unlist the 'label' grobs
     z <- if (params$position == "left") c(2, 1, 3) else 1:3
     z <- rep(z, c(1, length(grobs$labels), 1))
-    has_labels <- !is.zero(grobs$labels[[1]])
+    has_labels <- !is_zero(grobs$labels[[1]])
     grobs  <- c(list(grobs$ticks), grobs$labels, list(grobs$title))
 
     # Initialise empty gtable

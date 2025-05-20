@@ -516,6 +516,21 @@ p3 + theme(strip.text.x = element_text(colour = "white", face = "bold"))
 # as in the facet_wrap the default strip.position is "top"
 p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 p3 + theme(panel.spacing = unit(1, "lines"))
+
+# Colours -------------------------------------------------------------------
+
+p4 <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  annotate(label = "Text Annotation", x = 5, y = 30, geom = "text")
+
+# You can use the 'ink' setting to set colour defaults for all layers
+p4 + theme(geom = element_geom(ink = "dodgerblue"))
+# Alternate colours are derived from the 'accent' and 'paper' settings
+p4 + geom_smooth(method = "lm", formula = y ~ x) +
+  theme(geom = element_geom(accent = "tomato", paper = "orchid"))
+# You can also set default palettes in the theme
+p4 + aes(colour = drat) +
+  theme(palette.colour.continuous = c("white", "pink", "hotpink"))
 }
 }
 \seealso{
