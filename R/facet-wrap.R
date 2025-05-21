@@ -188,7 +188,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 
   # Check for deprecated labellers
-  check_labeller(labeller)
+  labeller <- validate_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
   facets <- compact_facets(facets)
