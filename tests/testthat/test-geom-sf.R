@@ -197,7 +197,7 @@ test_that("geom_sf data type renders appropriate legends", {
   )
   expect_doppelganger(
     "geom_sf point legend",
-    p %+% data
+    ggplot_add(data, p)
   )
 
   # Line data
@@ -210,7 +210,7 @@ test_that("geom_sf data type renders appropriate legends", {
   )
   expect_doppelganger(
     "geom_sf line legend",
-    p %+% data
+    ggplot_add(data, p)
   )
 
   # Polygon data
@@ -223,7 +223,7 @@ test_that("geom_sf data type renders appropriate legends", {
   )
   expect_doppelganger(
     "geom_sf polygon legend",
-    p %+% data
+    ggplot_add(data, p)
   )
 })
 

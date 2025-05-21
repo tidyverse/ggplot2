@@ -82,7 +82,7 @@ test_that("position scales are updated by all position aesthetics", {
   )
 
   base <- ggplot(df, aes(x = 1, y = 1)) + geom_point()
-  plots <- lapply(aesthetics, function(x) base %+% x)
+  plots <- lapply(aesthetics, ggplot_add, plot = base)
   ranges <- lapply(plots, pranges)
 
   lapply(ranges, function(range) {
