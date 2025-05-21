@@ -133,22 +133,29 @@ class_ggplot <- S7::new_class(
     facet   = class_facet,
     layout  = class_layout,
     labels  = class_labels,
+    meta    = S7::class_list,
     plot_env = S7::class_environment
   ),
   constructor = function(data = waiver(), layers = list(), scales = NULL,
                          guides = NULL, mapping = aes(), theme = NULL,
                          coordinates = coord_cartesian(default = TRUE),
                          facet = facet_null(), layout = NULL,
-                         labels = labs(), plot_env = parent.frame()) {
+                         labels = labs(), meta = list(),
+                         plot_env = parent.frame()) {
     S7::new_object(
       S7::S7_object(),
-      data = data, layers = layers,
-      scales = scales %||% scales_list(),
-      guides = guides %||% guides_list(),
-      mapping = mapping, theme = theme %||% theme(),
-      coordinates = coordinates, facet = facet,
-      layout = layout %||% ggproto(NULL, Layout),
-      labels = labels, plot_env = plot_env
+      data        = data,
+      layers      = layers,
+      scales      = scales %||% scales_list(),
+      guides      = guides %||% guides_list(),
+      mapping     = mapping,
+      theme       = theme %||% theme(),
+      coordinates = coordinates,
+      facet       = facet,
+      layout      = layout %||% ggproto(NULL, Layout),
+      labels      = labels,
+      meta        = meta,
+      plot_env    = plot_env
     )
   }
 )

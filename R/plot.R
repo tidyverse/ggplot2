@@ -237,12 +237,26 @@ S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
 
 #' @export
 `$.ggplot2::gg` <- function(x, i) {
-  `[[`(S7::props(x), i)
+  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
+    # This is a trick to bridge a gap between S3 and S7. We're allowing
+    # for arbitrary fields by reading/writing to the 'meta' field when the
+    # index does not point to an actual property.
+    # The proper way to go about this is to implement new fields as properties
+    # of a ggplot subclass.
+    S7::prop(x, "meta")[[i]]
+  } else {
+    `[[`(S7::props(x), i)
+  }
 }
 
 #' @export
 `$<-.ggplot2::gg` <- function(x, i, value) {
-  S7::props(x) <- `[[<-`(S7::props(x), i, value)
+  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
+    # See explanation in `$.ggplot2::gg`
+    S7::prop(x, "meta")[[i]] <- value
+  } else {
+    S7::props(x) <- `[[<-`(S7::props(x), i, value)
+  }
   x
 }
 
