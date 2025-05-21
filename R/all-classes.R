@@ -116,6 +116,8 @@ class_mapping <- S7::new_class(
 #'   functions.
 #' @param layout A Layout ggproto object.
 #' @param labels A labels object created by [`labs()`].
+#' @param meta A list for additional metadata. This will be deprecated in the
+#'   future.
 #' @param plot_env An environment.
 #'
 #' @keywords internal

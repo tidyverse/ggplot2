@@ -15,6 +15,7 @@ class_ggplot(
   facet = facet_null(),
   layout = NULL,
   labels = labs(),
+  meta = list(),
   plot_env = parent.frame()
 )
 }
@@ -40,6 +41,9 @@ functions.}
 \item{layout}{A Layout ggproto object.}
 
 \item{labels}{A labels object created by \code{\link[=labs]{labs()}}.}
+
+\item{meta}{A list for additional metadata. This will be deprecated in the
+future.}
 
 \item{plot_env}{An environment.}
 }
