@@ -476,7 +476,7 @@ check_character <- function(x,
 
   if (!missing(x)) {
     if (is_character(x)) {
-      if (!allow_na && anyNA(x)) {
+      if (!allow_na && any(is.na(x))) {
         abort(
           sprintf("`%s` can't contain NA values.", arg),
           arg = arg,
