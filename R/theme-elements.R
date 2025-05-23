@@ -436,16 +436,19 @@ element_render <- function(theme, element, ..., name = NULL) {
 
 #' Generate grid grob from theme element
 #'
+#' The `element_grob()` function is vestigial and `draw_element()` should
+#' be used instead.
+#'
 #' @param element Theme element, i.e. `element_rect` or similar.
 #' @param ... Other arguments to control specific of rendering. This is
 #'   usually at least position. See the source code for individual methods.
 #' @keywords internal
 #' @export
-element_grob <- S7::new_generic("element_grob", "element")
+draw_element <- S7::new_generic("draw_element", "element")
 
-S7::method(element_grob, element_blank) <- function(element, ...) zeroGrob()
+S7::method(draw_element, element_blank) <- function(element, ...) zeroGrob()
 
-S7::method(element_grob, element_rect) <-
+S7::method(draw_element, element_rect) <-
   function(element, x = 0.5, y = 0.5, width = 1, height = 1,
            fill = NULL, colour = NULL,
            linewidth = NULL, linetype = NULL, linejoin = NULL,
@@ -464,7 +467,7 @@ S7::method(element_grob, element_rect) <-
     rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
   }
 
-S7::method(element_grob, element_text) <-
+S7::method(draw_element, element_text) <-
   function(element, label = "", x = NULL, y = NULL,
            family = NULL, face = NULL, colour = NULL, size = NULL,
            hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
@@ -492,7 +495,7 @@ S7::method(element_grob, element_text) <-
               margin_x = margin_x, margin_y = margin_y, debug = element@debug, ...)
   }
 
-S7::method(element_grob, element_line) <-
+S7::method(draw_element, element_line) <-
   function(element, x = 0:1, y = 0:1,
            colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
            linejoin = NULL, arrow.fill = NULL,
@@ -531,7 +534,7 @@ S7::method(element_grob, element_line) <-
     )
   }
 
-S7::method(element_grob, element_polygon) <-
+S7::method(draw_element, element_polygon) <-
   function(element, x = c(0, 0.5, 1, 0.5),
            y = c(0.5, 1, 0.5, 0), fill = NULL,
            colour = NULL, linewidth = NULL,
@@ -553,7 +556,7 @@ S7::method(element_grob, element_polygon) <-
     )
   }
 
-S7::method(element_grob, element_point) <-
+S7::method(draw_element, element_point) <-
   function(element, x = 0.5, y = 0.5, colour = NULL,
            shape = NULL, fill = NULL, size = NULL,
            stroke = NULL, ...,
@@ -566,6 +569,18 @@ S7::method(element_grob, element_point) <-
     pointsGrob(x = x, y = y, pch = shape, gp = modify_list(element_gp, gp),
                default.units = default.units, ...)
   }
+
+# TODO: the S3 generic should be phased out once S7 is adopted more widely
+#' @rdname draw_element
+#' @export
+element_grob <- function(element, ...) {
+  UseMethod("element_grob")
+}
+
+#' @export
+element_grob.default <- function(element, ...) {
+  draw_element(element, ...)
+}
 
 #' Define and register new theme elements
 #'
