@@ -97,17 +97,18 @@ add_ggplot <- function(p, object, objectname) {
 #' Add custom objects to ggplot
 #'
 #' This generic allows you to add your own methods for adding custom objects to
-#' a ggplot with [+.gg][add_gg].
+#' a ggplot with [+.gg][add_gg]. The `ggplot_add()` function is vestigial and
+#' the `update_ggplot()` function should be used instead.
 #'
 #' @param object An object to add to the plot
 #' @param plot The ggplot object to add `object` to
 #'
 #' @return A modified ggplot object
 #' @details
-#' Custom methods for `ggplot_add()` are intended to update the `plot` variable
+#' Custom methods for `update_ggplot()` are intended to update the `plot` variable
 #' using information from a custom `object`. This can become convenient when
 #' writing extensions that don't build on the pre-existing grammar like
-#' layers, facets, coords and themes. The `ggplot_add()` function is never
+#' layers, facets, coords and themes. The `update_ggplot()` function is never
 #' intended to be used directly, but it is triggered when an object is added
 #' to a plot via the `+` operator. Please note that the full `plot` object is
 #' exposed at this point, which comes with the responsibility of returning
@@ -118,7 +119,7 @@ add_ggplot <- function(p, object, objectname) {
 #' @examples
 #' # making a new method for the generic
 #' # in this example, we enable adding text elements
-#' S7::method(ggplot_add, list(element_text, class_ggplot)) <-
+#' S7::method(update_ggplot, list(element_text, class_ggplot)) <-
 #'   function(object, plot, ...) {
 #'     plot + theme(text = object)
 #'   }
@@ -129,14 +130,14 @@ add_ggplot <- function(p, object, objectname) {
 #'   element_text(colour = "red")
 #'
 #' # clean-up
-ggplot_add <- S7::new_generic("ggplot_add", c("object", "plot"))
+update_ggplot <- S7::new_generic("update_ggplot", c("object", "plot"))
 
-S7::method(ggplot_add, list(S7::class_any, class_ggplot)) <-
+S7::method(update_ggplot, list(S7::class_any, class_ggplot)) <-
   function(object, plot, object_name, ...) {
     cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
   }
 
-S7::method(ggplot_add, list(S7::class_function, class_ggplot)) <-
+S7::method(update_ggplot, list(S7::class_function, class_ggplot)) <-
   function(object, plot, object_name, ...) {
     cli::cli_abort(c(
       "Can't add {.var {object_name}} to a {.cls ggplot} object",
@@ -144,22 +145,22 @@ S7::method(ggplot_add, list(S7::class_function, class_ggplot)) <-
     ))
   }
 
-S7::method(ggplot_add, list(NULL, class_ggplot)) <-
+S7::method(update_ggplot, list(NULL, class_ggplot)) <-
   function(object, plot, ...) { plot }
 
-S7::method(ggplot_add, list(S7::class_data.frame, class_ggplot)) <-
+S7::method(update_ggplot, list(S7::class_data.frame, class_ggplot)) <-
   function(object, plot, ...) { S7::set_props(plot, data = object) }
 
-S7::method(ggplot_add, list(class_scale, class_ggplot)) <-
+S7::method(update_ggplot, list(class_scale, class_ggplot)) <-
   function(object, plot, ...) {
     plot@scales$add(object)
     plot
   }
 
-S7::method(ggplot_add, list(class_labels, class_ggplot)) <-
+S7::method(update_ggplot, list(class_labels, class_ggplot)) <-
   function(object, plot, ...) { update_labels(plot, object) }
 
-S7::method(ggplot_add, list(class_guides, class_ggplot)) <-
+S7::method(update_ggplot, list(class_guides, class_ggplot)) <-
   function(object, plot, ...) {
     old <- plot@guides
     new <- ggproto(NULL, old)
@@ -168,17 +169,17 @@ S7::method(ggplot_add, list(class_guides, class_ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(class_mapping, class_ggplot)) <-
+S7::method(update_ggplot, list(class_mapping, class_ggplot)) <-
   function(object, plot, ...) {
     S7::set_props(plot, mapping = class_mapping(defaults(object, plot@mapping)))
   }
 
-S7::method(ggplot_add, list(class_theme, class_ggplot)) <-
+S7::method(update_ggplot, list(class_theme, class_ggplot)) <-
   function(object, plot, ...) {
     S7::set_props(plot, theme = add_theme(plot@theme, object))
   }
 
-S7::method(ggplot_add, list(class_coord, class_ggplot)) <-
+S7::method(update_ggplot, list(class_coord, class_ggplot)) <-
   function(object, plot, ...) {
     if (!isTRUE(plot@coordinates$default)) {
       cli::cli_inform(c(
@@ -189,17 +190,17 @@ S7::method(ggplot_add, list(class_coord, class_ggplot)) <-
     S7::set_props(plot, coordinates = object)
   }
 
-S7::method(ggplot_add, list(class_facet, class_ggplot)) <-
+S7::method(update_ggplot, list(class_facet, class_ggplot)) <-
   function(object, plot, ...) { S7::set_props(plot, facet = object) }
 
-S7::method(ggplot_add, list(class_layer, class_ggplot)) <-
+S7::method(update_ggplot, list(class_layer, class_ggplot)) <-
   function(object, plot, ...) {
     layers_names <- new_layer_names(object, names2(plot@layers))
     object <- setNames(append(plot@layers, object), layers_names)
     S7::set_props(plot, layers = object)
   }
 
-S7::method(ggplot_add, list(S7::class_list, class_ggplot)) <-
+S7::method(update_ggplot, list(S7::class_list, class_ggplot)) <-
   function(object, plot, object_name, ...) {
     for (o in object) {
       plot <- ggplot_add(o, plot, object_name)
@@ -207,10 +208,23 @@ S7::method(ggplot_add, list(S7::class_list, class_ggplot)) <-
     plot
   }
 
-S7::method(ggplot_add, list(S7::new_S3_class("by"), class_ggplot)) <-
+S7::method(update_ggplot, list(S7::new_S3_class("by"), class_ggplot)) <-
   function(object, plot, object_name, ...) {
     ggplot_add(unclass(object), plot, object_name)
   }
+
+# For backward compatibility, ggplot_add still exists but by default it wraps
+# `update_ggplot()`
+#' @rdname update_ggplot
+#' @export
+ggplot_add <- function(object, plot, ...) {
+  UseMethod("ggplot_add")
+}
+
+#' @export
+ggplot_add.default <- function(object, plot, ...) {
+  update_ggplot(object = object, plot = plot, ...)
+}
 
 new_layer_names <- function(layer, existing) {
 
