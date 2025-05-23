@@ -134,6 +134,7 @@ S7::method(build_ggplot, class_ggplot) <- function(plot, ...) {
   class_ggplot_built(data = data, layout = layout, plot = plot)
 }
 
+# TODO: the S3 generic should be phased out once S7 is adopted more widely
 #' @rdname build_ggplot
 #' @export
 ggplot_build <- function(plot, ...) {

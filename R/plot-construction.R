@@ -213,6 +213,7 @@ S7::method(update_ggplot, list(S7::new_S3_class("by"), class_ggplot)) <-
     ggplot_add(unclass(object), plot, object_name)
   }
 
+# TODO: the S3 generic should be phased out once S7 is adopted more widely
 # For backward compatibility, ggplot_add still exists but by default it wraps
 # `update_ggplot()`
 #' @rdname update_ggplot
