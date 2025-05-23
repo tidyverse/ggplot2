@@ -94,10 +94,10 @@ test_that("layers are stateless except for the computed params", {
   df <- data.frame(x = 1:10, y = 1:10)
   p <- ggplot(df) +
     geom_col(aes(x = x, y = y), width = 0.8, fill = "red")
-  col_layer <- as.list(p$layers[[1]])
+  col_layer <- as.list(p@layers[[1]])
   stateless_names <- setdiff(names(col_layer), c("computed_geom_params", "computed_stat_params", "computed_mapping"))
   invisible(ggplotGrob(p))
-  expect_identical(as.list(p$layers[[1]])[stateless_names], col_layer[stateless_names])
+  expect_identical(as.list(p@layers[[1]])[stateless_names], col_layer[stateless_names])
 })
 
 test_that("inherit.aes works", {
@@ -108,7 +108,7 @@ test_that("inherit.aes works", {
     geom_col(aes(x = x, y = y), inherit.aes = FALSE)
   invisible(ggplotGrob(p1))
   invisible(ggplotGrob(p2))
-  expect_identical(p1$layers[[1]]$computed_mapping, p2$layers[[1]]$computed_mapping)
+  expect_identical(p1@layers[[1]]$computed_mapping, p2@layers[[1]]$computed_mapping)
 })
 
 test_that("retransform works on computed aesthetics in `map_statistic`", {
@@ -117,8 +117,8 @@ test_that("retransform works on computed aesthetics in `map_statistic`", {
   expect_equal(get_layer_data(p)$y, c(3, 5))
 
   # To double check: should be original values when `retransform = FALSE`
-  parent <- p$layers[[1]]$stat
-  p$layers[[1]]$stat <- ggproto(NULL, parent, retransform = FALSE)
+  parent <- p@layers[[1]]$stat
+  p@layers[[1]]$stat <- ggproto(NULL, parent, retransform = FALSE)
   expect_equal(get_layer_data(p)$y, c(9, 25))
 })
 
@@ -148,10 +148,10 @@ test_that("layer warns for constant aesthetics", {
 test_that("layer names can be resolved", {
 
   p <- ggplot() + geom_point() + geom_point()
-  expect_named(p$layers, c("geom_point", "geom_point...2"))
+  expect_named(p@layers, c("geom_point", "geom_point...2"))
 
   p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
-  expect_named(p$layers, c("foo", "bar"))
+  expect_named(p@layers, c("foo", "bar"))
 
   l <- geom_point(name = "foobar")
   expect_snapshot(p + l + l, error = TRUE)

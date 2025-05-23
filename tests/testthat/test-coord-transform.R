@@ -28,8 +28,8 @@ test_that("coord_transform() expands axes identically to coord_cartesian()", {
   built_cartesian <- ggplot_build(p + coord_cartesian())
   built_trans <- ggplot_build(p + coord_transform())
 
-  cartesian_params <- built_cartesian$layout$panel_params[[1]]
-  trans_params <- built_trans$layout$panel_params[[1]]
+  cartesian_params <- built_cartesian@layout$panel_params[[1]]
+  trans_params <- built_trans@layout$panel_params[[1]]
 
   expect_identical(cartesian_params$x.range, trans_params$x.range)
   expect_identical(cartesian_params$y.range, trans_params$y.range)
@@ -40,8 +40,8 @@ test_that("coord_transform(expand = FALSE) expands axes identically to coord_car
   built_cartesian <- ggplot_build(p + coord_cartesian(expand = FALSE))
   built_trans <- ggplot_build(p + coord_transform(expand = FALSE))
 
-  cartesian_params <- built_cartesian$layout$panel_params[[1]]
-  trans_params <- built_trans$layout$panel_params[[1]]
+  cartesian_params <- built_cartesian@layout$panel_params[[1]]
+  trans_params <- built_trans@layout$panel_params[[1]]
 
   expect_identical(cartesian_params$x.range, trans_params$x.range)
   expect_identical(cartesian_params$y.range, trans_params$y.range)
@@ -52,8 +52,8 @@ test_that("coord_transform(y = 'log10') expands the x axis identically to scale_
   built_cartesian <- ggplot_build(p + scale_y_log10())
   built_trans <- ggplot_build(p + coord_transform(y = "log10"))
 
-  cartesian_params <- built_cartesian$layout$panel_params[[1]]
-  trans_params <- built_trans$layout$panel_params[[1]]
+  cartesian_params <- built_cartesian@layout$panel_params[[1]]
+  trans_params <- built_trans@layout$panel_params[[1]]
 
   expect_identical(cartesian_params$y.range, trans_params$y.range)
 })
@@ -65,8 +65,8 @@ test_that("coord_transform() expands axes outside the domain of the axis trans",
   built_cartesian <- ggplot_build(p + scale_y_sqrt())
   built_trans <- ggplot_build(p + coord_transform(y = "sqrt"))
 
-  cartesian_params <- built_cartesian$layout$panel_params[[1]]
-  trans_params <- built_trans$layout$panel_params[[1]]
+  cartesian_params <- built_cartesian@layout$panel_params[[1]]
+  trans_params <- built_trans@layout$panel_params[[1]]
 
   expect_identical(cartesian_params$y.range, trans_params$y.range)
 })
@@ -78,8 +78,8 @@ test_that("coord_transform() works with the reverse transformation", {
   built_cartesian <- ggplot_build(p + scale_y_reverse())
   built_trans <- ggplot_build(p + coord_transform(y = "reverse"))
 
-  cartesian_params <- built_cartesian$layout$panel_params[[1]]
-  trans_params <- built_trans$layout$panel_params[[1]]
+  cartesian_params <- built_cartesian@layout$panel_params[[1]]
+  trans_params <- built_trans@layout$panel_params[[1]]
 
   expect_identical(cartesian_params$y.range, trans_params$y.range)
 })
@@ -91,8 +91,8 @@ test_that("coord_transform() can reverse discrete axes", {
   built_cartesian <- ggplot_build(p)
   built_trans <- ggplot_build(p + coord_transform(x = "reverse"))
 
-  cartesian_params <- built_cartesian$layout$panel_params[[1]]
-  trans_params <- built_trans$layout$panel_params[[1]]
+  cartesian_params <- built_cartesian@layout$panel_params[[1]]
+  trans_params <- built_trans@layout$panel_params[[1]]
 
   expect_identical(cartesian_params$x.range, -rev(trans_params$x.range))
 })

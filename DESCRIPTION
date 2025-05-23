@@ -40,6 +40,7 @@ Imports:
     isoband,
     lifecycle (> 1.0.1),
     rlang (>= 1.1.0),
+    S7,
     scales (>= 1.4.0),
     stats,
     vctrs (>= 0.6.0),
@@ -95,6 +96,7 @@ Collate:
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'all-classes.R'
     'annotation-borders.R'
     'utilities-checks.R'
     'legend-draw.R'
@@ -181,6 +183,8 @@ Collate:
     'grob-dotstack.R'
     'grob-null.R'
     'grouping.R'
+    'properties.R'
+    'margins.R'
     'theme-elements.R'
     'guide-.R'
     'guide-axis.R'
@@ -204,7 +208,6 @@ Collate:
     'layer-sf.R'
     'layout.R'
     'limits.R'
-    'margins.R'
     'performance.R'
     'plot-build.R'
     'plot-construction.R'
