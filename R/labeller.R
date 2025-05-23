@@ -578,13 +578,13 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
 }
 
 # Reject old school labeller
-check_labeller <- function(labeller) {
+validate_labeller <- function(labeller) {
 
   labeller <- match.fun(labeller)
   is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
 
   if (!is_deprecated) {
-    return(invisible())
+    return(labeller)
   }
 
   lifecycle::deprecate_stop(
