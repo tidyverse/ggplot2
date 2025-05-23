@@ -1,9 +1,10 @@
 #' Build ggplot for rendering.
 #'
-#' `ggplot_build()` takes the plot object, and performs all steps necessary
+#' `build_ggplot()` takes the plot object, and performs all steps necessary
 #' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
-#' contain all information about axis limits, breaks etc.
+#' contain all information about axis limits, breaks etc. The `ggplot_build()`
+#' function is vestigial and `build_ggplot()` should be used instead.
 #'
 #' `get_layer_data()`, `get_layer_grob()`, and `get_panel_scales()` are helper
 #' functions that return the data, grob, or scales associated with a given
@@ -15,6 +16,7 @@
 #'   plot). In `get_panel_scales()`, the row of a facet to return scales for.
 #' @param j An integer. In `get_panel_scales()`, the column of a facet to return
 #'   scales for.
+#' @param ... Not currently in use.
 #' @seealso
 #' [print.ggplot()] and [benchplot()] for
 #' functions that contain the complete set of steps for generating
@@ -23,19 +25,19 @@
 #' The `r link_book("build step section", "internals#sec-ggplotbuild")`
 #' @keywords internal
 #' @export
-ggplot_build <- S7::new_generic("ggplot_build", "plot", fun = function(plot) {
-  # Attaching the plot env to be fetched by deprecations etc.
-  if (S7::S7_inherits(plot) && S7::prop_exists(plot, "plot_env")) {
-    attach_plot_env(plot@plot_env)
+build_ggplot <- S7::new_generic("build_ggplot", "plot", fun = function(plot, ...) {
+  env <- try_prop(plot, "plot_env")
+  if (!is.null(env)) {
+    attach_plot_env(env)
   }
   S7::S7_dispatch()
 })
 
-S7::method(ggplot_build, class_ggplot_built) <- function(plot) {
+S7::method(build_ggplot, class_ggplot_built) <- function(plot, ...) {
   plot # This is a no-op
 }
 
-S7::method(ggplot_build, class_ggplot) <- function(plot) {
+S7::method(build_ggplot, class_ggplot) <- function(plot, ...) {
   plot <- plot_clone(plot)
   if (length(plot@layers) == 0) {
     plot <- plot + geom_blank()
@@ -132,17 +134,28 @@ S7::method(ggplot_build, class_ggplot) <- function(plot) {
   class_ggplot_built(data = data, layout = layout, plot = plot)
 }
 
+#' @rdname build_ggplot
 #' @export
-#' @rdname ggplot_build
+ggplot_build <- function(plot, ...) {
+  UseMethod("ggplot_build")
+}
+
+#' @export
+ggplot_build.default <- function(plot, ...) {
+  build_ggplot(plot)
+}
+
+#' @export
+#' @rdname build_ggplot
 get_layer_data <- function(plot = get_last_plot(), i = 1L) {
   ggplot_build(plot)@data[[i]]
 }
 #' @export
-#' @rdname ggplot_build
+#' @rdname build_ggplot
 layer_data <- get_layer_data
 
 #' @export
-#' @rdname ggplot_build
+#' @rdname build_ggplot
 get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
@@ -156,11 +169,11 @@ get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
 }
 
 #' @export
-#' @rdname ggplot_build
+#' @rdname build_ggplot
 layer_scales <- get_panel_scales
 
 #' @export
-#' @rdname ggplot_build
+#' @rdname build_ggplot
 get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
@@ -168,7 +181,7 @@ get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
 }
 
 #' @export
-#' @rdname ggplot_build
+#' @rdname build_ggplot
 layer_grob <- get_layer_grob
 
 #' Build a plot with all the usual bits and pieces.
