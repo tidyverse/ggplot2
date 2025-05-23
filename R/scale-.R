@@ -1311,7 +1311,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       pal <- vec_set_names(pal, NULL)
       limits <- pal_names
     }
-    pal <- vec_c(pal, na_value)
+
+    # vec_c is too strict in some cases, but we do want to allow 2D structures
+    pal <- if (is.null(dim(pal))) c(pal, na_value) else vec_c(pal, na_value)
+
     pal_match <-
       vec_slice(pal, match(as.character(x), limits, nomatch = vec_size(pal)))
 
