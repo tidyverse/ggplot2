@@ -298,18 +298,14 @@ scale_backward_compatibility <- function(..., scale, aesthetic, type) {
     scale <- scale %||% fallback
   }
 
-  if (is_bare_string(scale)) {
-    if (scale == "continuous") {
-      scale <- "gradient"
-    }
-    if (scale == "discrete") {
-      scale <- "hue"
-    }
-    if (scale == "viridis") {
-      scale <- switch(
-        type, discrete = "viridis_d", binned = "viridis_b", "viridis_c"
-      )
-    }
+  if (is_bare_string(scale) || is.null(scale)) {
+    scale <- switch(
+      scale %||% type,
+      discrete = "hue",
+      viridis = switch(type, discrete = "viridis_d", binned = "viridis_b", "viridis_c"),
+      continuous = "gradient",
+      scale
+    )
 
     candidates <- paste("scale", aesthetic, scale, sep = "_")
     for (candi in candidates) {
