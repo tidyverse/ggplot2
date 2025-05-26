@@ -4,6 +4,7 @@
 
 ### Breaking changes
 
+* The S3 parts of ggplot2 have been replaced with S7 bits (#6352).
 * (breaking) `geom_violin(quantiles)` now has actual quantiles based on
   the data, rather than inferred quantiles based on the computed density. The
   `quantiles` parameter that replaces `draw_quantiles` now belongs to
