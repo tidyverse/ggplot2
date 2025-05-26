@@ -497,7 +497,9 @@ theme <- function(...,
     })
   }
 
-  class_theme(elements, complete = complete, validate = validate)
+  t <- class_theme(elements, complete = complete, validate = validate)
+  class(t) <- union("theme", class(t))
+  t
 }
 
 fix_theme_deprecations <- function(elements) {
