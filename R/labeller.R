@@ -85,7 +85,7 @@
 #' p + facet_grid(. ~ cyl2, labeller = label_parsed)
 #'
 #' # Include optional argument in label function
-#' p + facet_grid(. ~ cyl, labeller = function(x) label_both(x, sep = "="))
+#' p + facet_grid(. ~ cyl, labeller = \(x) label_both(x, sep = "="))
 #' }
 #' @name labellers
 NULL
@@ -296,7 +296,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       x(labels)
     } else if (is.function(x)) {
       default(lapply(labels, x))
-    } else if (is.formula(x)) {
+    } else if (is_formula(x)) {
       default(lapply(labels, as_function(x)))
     } else if (is.character(x)) {
       default(lapply(labels, function(label) x[label]))
@@ -546,7 +546,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+  if (length(grobs) == 0 || is_zero(grobs[[1]])) {
     # Subsets matrix of zeroGrobs to correct length (#4050)
     grobs <- grobs[seq_len(NROW(grobs))]
     return(grobs)
@@ -578,13 +578,13 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
 }
 
 # Reject old school labeller
-check_labeller <- function(labeller) {
+validate_labeller <- function(labeller) {
 
   labeller <- match.fun(labeller)
   is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
 
   if (!is_deprecated) {
-    return(invisible())
+    return(labeller)
   }
 
   lifecycle::deprecate_stop(

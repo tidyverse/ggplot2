@@ -187,7 +187,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   facets_list <- grid_as_facets_list(rows, cols)
 
   # Check for deprecated labellers
-  check_labeller(labeller)
+  labeller <- validate_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
@@ -234,7 +234,7 @@ grid_as_facets_list <- function(rows, cols) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -430,7 +430,7 @@ ulevels <- function(x, na.last = TRUE) {
 
 table_has_grob <- function(table, pattern) {
   grobs <- table$grobs[grep(pattern, table$layout$name)]
-  !all(vapply(grobs, is.zero, logical(1)))
+  !all(vapply(grobs, is_zero, logical(1)))
 }
 
 seam_table <- function(table, grobs = NULL, side, shift = 1, name, z = 1,

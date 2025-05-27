@@ -145,7 +145,7 @@ guide_legend <- function(
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -545,7 +545,7 @@ GuideLegend <- ggproto(
     gt <- gtable(widths = widths, heights = heights)
 
     # Add keys
-    if (!is.zero(grobs$decor)) {
+    if (!is_zero(grobs$decor)) {
       n_key_layers <- params$n_key_layers %||% 1L
       key_cols <- rep(layout$key_col, each = n_key_layers)
       key_rows <- rep(layout$key_row, each = n_key_layers)
@@ -561,7 +561,7 @@ GuideLegend <- ggproto(
       )
     }
 
-    if (!is.zero(grobs$labels)) {
+    if (!is_zero(grobs$labels)) {
       gt <- gtable_add_grob(
         gt, grobs$labels,
         name = names(labels) %||%
@@ -580,7 +580,7 @@ GuideLegend <- ggproto(
     gt <- gtable_add_padding(gt, unit(elements$padding, "cm"))
 
     # Add background
-    if (!is.zero(elements$background)) {
+    if (!is_zero(elements$background)) {
       gt <- gtable_add_grob(
         gt, elements$background,
         name = "background", clip = "off",
@@ -648,7 +648,7 @@ set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
 keep_key_data <- function(key, data, aes, show) {
   # First, can we exclude based on anything else than actually checking the
   # data that we should include or drop the key?
-  if (!is.discrete(key$.value)) {
+  if (!is_discrete(key$.value)) {
     return(TRUE)
   }
   if (is_named(show)) {

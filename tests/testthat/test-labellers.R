@@ -1,3 +1,11 @@
+test_that("facets convert labeller to function", {
+  f <- facet_grid(foo ~ bar, labeller = "label_both")
+  expect_type(f$params$labeller, "closure")
+
+  f <- facet_wrap(foo ~ bar, labeller = "label_value")
+  expect_type(f$params$labeller, "closure")
+})
+
 test_that("label_bquote has access to functions in the calling environment", {
   labels <- data.frame(lab = letters[1:2])
   attr(labels, "facet") <- "wrap"

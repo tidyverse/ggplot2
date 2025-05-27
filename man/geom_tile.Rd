@@ -12,9 +12,9 @@ geom_raster(
   stat = "identity",
   position = "identity",
   ...,
+  interpolate = FALSE,
   hjust = 0.5,
   vjust = 0.5,
-  interpolate = FALSE,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -26,6 +26,7 @@ geom_rect(
   stat = "identity",
   position = "identity",
   ...,
+  lineend = "butt",
   linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
@@ -38,6 +39,7 @@ geom_tile(
   stat = "identity",
   position = "identity",
   ...,
+  lineend = "butt",
   linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
@@ -119,12 +121,12 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
+(the default) don't interpolate.}
+
 \item{hjust, vjust}{horizontal and vertical justification of the grob.  Each
 justification value should be a number between 0 and 1.  Defaults to 0.5
 for both, centering each pixel over its data location.}
-
-\item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
-(the default) don't interpolate.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -140,7 +142,9 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
+
+\item{lineend}{Line end style (round, butt, square).}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
 }
@@ -157,25 +161,6 @@ Please note that the \code{width} and \code{height} aesthetics are not true posi
 aesthetics and therefore are not subject to scale transformation. It is
 only after transformation that these aesthetics are applied.
 }
-\section{Aesthetics}{
-
-\code{geom_rect()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{width} \emph{or} \code{\link[=aes_position]{xmin}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}} \emph{or} \code{height} \emph{or} \code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{ymax}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-}
-\code{geom_tile()} understands only the \code{x}/\code{width} and \code{y}/\code{height} combinations.
-Note that \code{geom_raster()} ignores \code{colour}.
-
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 # The most common use for rectangles is to draw a surface. You always want
 # to use geom_raster here because it's so much faster, and produces
@@ -232,4 +217,22 @@ cars +
     position = "identity"
   )
 }
+}
+\section{Aesthetics}{
+
+\code{geom_rect()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{width} \emph{or} \code{\link[=aes_position]{xmin}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}} \emph{or} \code{height} \emph{or} \code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{ymax}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+}
+\code{geom_tile()} understands only the \code{x}/\code{width} and \code{y}/\code{height} combinations.
+Note that \code{geom_raster()} ignores \code{colour}.
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

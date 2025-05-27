@@ -163,35 +163,13 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 }
 \description{
 \code{geom_qq()} and \code{stat_qq()} produce quantile-quantile plots. \code{geom_qq_line()} and
 \code{stat_qq_line()} compute the slope and intercept of the line connecting the
 points at specified quartiles of the theoretical and sample distributions.
 }
-\section{Aesthetics}{
-
-\code{stat_qq()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{sample}} \tab   \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_position]{x}} \tab → \code{after_stat(theoretical)} \cr\cr
-• \tab \code{\link[=aes_position]{y}} \tab → \code{after_stat(sample)} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{stat_qq_line()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{sample}} \tab   \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_position]{x}} \tab → \code{after_stat(x)} \cr\cr
-• \tab \code{\link[=aes_position]{y}} \tab → \code{after_stat(y)} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \cr Variables computed by \code{stat_qq()}:
@@ -234,4 +212,24 @@ ggplot(mtcars, aes(sample = mpg, colour = factor(cyl))) +
   stat_qq() +
   stat_qq_line()
 }
+}
+\section{Aesthetics}{
+
+\code{stat_qq()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{sample}} \tab   \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_position]{x}} \tab → \code{after_stat(theoretical)} \cr\cr
+ • \tab \code{\link[=aes_position]{y}} \tab → \code{after_stat(sample)} \cr\cr
+}
+
+\code{stat_qq_line()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{sample}} \tab   \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_position]{x}} \tab → \code{after_stat(x)} \cr\cr
+ • \tab \code{\link[=aes_position]{y}} \tab → \code{after_stat(y)} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -29,6 +29,10 @@
 #'   (default) keeps directions as is. `"x"` and `"y"` can be used to reverse
 #'   their respective directions. `"xy"` can be used to reverse both
 #'   directions.
+#' @param ratio aspect ratio, expressed as `y / x`. Can be `NULL` (default) to
+#'   not use an aspect ratio. Using `1` ensures that one unit on the x-axis
+#'   is the same length as one unit on the y-axis. Ratios higher than one make
+#'   units on the y-axis longer than units on the x-axis, and vice versa.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -55,6 +59,10 @@
 #' # default limits
 #' p + coord_cartesian(expand = FALSE)
 #'
+#' # Using a fixed ratio: 1 y-axis unit is 100 x-axis units
+#' # Plot window can be resized and aspect ratio will be maintained
+#' p + coord_cartesian(ratio = 100)
+#'
 #' # You can see the same thing with this 2d histogram
 #' d <- ggplot(diamonds, aes(carat, price)) +
 #'   stat_bin_2d(bins = 25, colour = "white")
@@ -68,19 +76,22 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE, clip = "on", reverse = "none") {
+                            default = FALSE, clip = "on", reverse = "none",
+                            ratio = NULL) {
   check_coord_limits(xlim)
   check_coord_limits(ylim)
+  check_number_decimal(ratio, allow_infinite = FALSE, allow_null = TRUE)
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
     reverse = reverse,
     expand = expand,
     default = default,
-    clip = clip
+    clip = clip,
+    ratio = ratio
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -90,8 +101,15 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     TRUE
   },
 
-  is_free = function() {
-    TRUE
+  is_free = function(self) {
+    is.null(self$ratio)
+  },
+
+  aspect = function(self, ranges) {
+    if (is.null(self$ratio)) {
+      return(NULL)
+    }
+    diff(ranges$y.range) / diff(ranges$x.range) * self$ratio
   },
 
   distance = function(x, y, panel_params) {
@@ -107,8 +125,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     self$range(panel_params)
   },
 
-  transform = function(self, data, panel_params) {
-    reverse <- self$reverse %||% "none"
+  transform = function(data, panel_params) {
+    reverse <- panel_params$reverse %||% "none"
     x <- panel_params$x[[switch(reverse, xy = , x = "reverse", "rescale")]]
     y <- panel_params$y[[switch(reverse, xy = , y = "reverse", "rescale")]]
     data <- transform_position(data, x, y)
@@ -118,7 +136,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
       view_scales_from_scale(scale_x, self$limits$x, params$expand[c(4, 2)]),
-      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)])
+      view_scales_from_scale(scale_y, self$limits$y, params$expand[c(3, 1)]),
+      reverse = self$reverse %||% "none"
     )
   },
 

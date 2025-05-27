@@ -7,7 +7,7 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "violin")
+#' @aesthetics GeomViolin
 #' @inheritParams layer
 #' @inheritParams geom_bar
 #' @param trim If `TRUE` (default), trim the tails of the violins
@@ -79,10 +79,10 @@
 #'   scale_y_log10()
 #' m +
 #'   geom_violin() +
-#'   coord_trans(y = "log10")
+#'   coord_transform(y = "log10")
 #' m +
 #'   geom_violin() +
-#'   scale_y_log10() + coord_trans(y = "log10")
+#'   scale_y_log10() + coord_transform(y = "log10")
 #'
 #' # Violin plots with continuous x:
 #' # Use the group aesthetic to group observations in violins
@@ -156,7 +156,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

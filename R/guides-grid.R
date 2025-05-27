@@ -30,7 +30,7 @@ guide_grid <- function(theme, panel_params, coord, square = TRUE) {
   grill <- compact(grill)
 
   background <- element_render(theme, "panel.background")
-  if (!isTRUE(square) && !is.zero(background)) {
+  if (!isTRUE(square) && !is_zero(background)) {
     gp <- background$gp
     background <- data_frame0(x = c(1, 1, -1, -1), y = c(1, -1, -1, 1)) * Inf
     background <- coord_munch(coord, background, panel_params, is_closed = TRUE)

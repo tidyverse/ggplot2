@@ -26,8 +26,10 @@ geom_histogram(
   ...,
   binwidth = NULL,
   bins = NULL,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  linejoin = "mitre",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -38,16 +40,16 @@ stat_bin(
   geom = "bar",
   position = "stack",
   ...,
+  orientation = NA,
   binwidth = NULL,
   bins = NULL,
   center = NULL,
   boundary = NULL,
-  breaks = NULL,
   closed = c("right", "left"),
   pad = FALSE,
-  na.rm = FALSE,
+  breaks = NULL,
   drop = "none",
-  orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -128,7 +130,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
 or as a function that takes x after scale transformation as input and
@@ -149,6 +151,10 @@ automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
 to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}. For more information
 at overriding these connections, see how the \link[=layer_stats]{stat} and
@@ -164,15 +170,15 @@ if \code{0} is outside the range of the data. Alternatively, this same alignment
 can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
 
-\item{breaks}{Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
-
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{drop}{Treatment of zero count bins. If \code{"none"} (default), such
 bins are kept as-is. If \code{"all"}, all zero count bins are filtered out.
@@ -312,11 +318,11 @@ m +
 # no observations have 0 ratings.
 m +
   geom_histogram(boundary = 0) +
-  coord_trans(x = "log10")
+  coord_transform(x = "log10")
 # Use boundary = 0, to make sure we don't take sqrt of negative values
 m +
   geom_histogram(boundary = 0) +
-  coord_trans(x = "sqrt")
+  coord_transform(x = "sqrt")
 
 # You can also transform the y axis.  Remember that the base of the bars
 # has value 0, so log transformations are not appropriate
@@ -331,7 +337,7 @@ m +
 # different ranges because the function will be called once per facet
 ggplot(economics_long, aes(value)) +
   facet_wrap(~variable, scales = 'free_x') +
-  geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
+  geom_histogram(binwidth = \(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{
 \code{\link[=stat_count]{stat_count()}}, which counts the number of cases at each x

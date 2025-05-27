@@ -135,7 +135,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{curvature}{A numeric value giving the amount of curvature.
     Negative values produce left-hand curves, positive values
@@ -160,22 +160,6 @@ control the curve.
 Both geoms draw a single segment/curve per case. See \code{geom_path()} if you
 need to connect points across multiple cases.
 }
-\section{Aesthetics}{
-
-\code{geom_segment()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{xend}} \emph{or} \code{\link[=aes_position]{yend}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 b <- ggplot(mtcars, aes(wt, mpg)) +
   geom_point()
@@ -197,7 +181,7 @@ if (requireNamespace('maps', quietly = TRUE)) {
 ggplot(seals, aes(long, lat)) +
   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
     arrow = arrow(length = unit(0.1,"cm"))) +
-  borders("state")
+  annotation_borders("state")
 }
 
 # Use lineend and linejoin to change the style of the segments
@@ -230,4 +214,20 @@ segment lines and paths.
 
 \code{\link[=geom_spoke]{geom_spoke()}} for a segment parameterised by a location
 (x, y), and an angle and radius.
+}
+\section{Aesthetics}{
+
+\code{geom_segment()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{xend}} \emph{or} \code{\link[=aes_position]{yend}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

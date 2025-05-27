@@ -19,7 +19,7 @@
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
 #' @family position adjustments
-#' @eval rd_aesthetics("position", "dodge")
+#' @aesthetics PositionDodge
 #'
 #' @export
 #' @examples
@@ -97,7 +97,7 @@ position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export

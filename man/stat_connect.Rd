@@ -121,22 +121,11 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 }
 \description{
 Connect successive points with lines of different shapes.
 }
-\section{Aesthetics}{
-
-\code{stat_connect()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{xmin}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}} \emph{or} \code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{ymax}}} \tab   \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 ggplot(head(economics, 20), aes(date, unemploy)) +
   stat_connect(connection = "hv")
@@ -150,4 +139,15 @@ ggplot(head(economics, 10), aes(date, unemploy)) +
   geom_point() +
   stat_connect(aes(colour = "zigzag"), connection = zigzag) +
   stat_connect(aes(colour = "smooth"), connection = smooth)
+}
+\section{Aesthetics}{
+
+\code{stat_connect()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{xmin}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}} \emph{or} \code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{ymax}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

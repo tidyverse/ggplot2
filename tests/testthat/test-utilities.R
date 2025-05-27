@@ -188,6 +188,24 @@ test_that("expose/ignore_data() can round-trip a data.frame", {
 
 })
 
+test_that("allow_lambda converts the correct cases", {
+
+  f <- allow_lambda(function(x) x + 1)
+  expect_equal(f(1), 2)
+
+  f <- allow_lambda(~ .x + 1)
+  expect_equal(f(1), 2)
+
+  f <- allow_lambda("A")
+  expect_equal(f, "A")
+
+  f <- allow_lambda(expression(A))
+  expect_equal(f, expression(A))
+
+  f <- allow_lambda(bquote("foo"~"bar"))
+  expect_equal(f, call("~", "foo", "bar"))
+})
+
 test_that("summary method gives a nice summary", {
   # This test isn't important enough to break anything on CRAN
   skip_on_cran()

@@ -31,18 +31,18 @@ stat_ydensity(
   geom = "violin",
   position = "dodge",
   ...,
-  quantiles = c(0.25, 0.5, 0.75),
+  orientation = NA,
   bw = "nrd0",
   adjust = 1,
   kernel = "gaussian",
   trim = TRUE,
   scale = "area",
   drop = TRUE,
+  bounds = c(-Inf, Inf),
+  quantiles = c(0.25, 0.5, 0.75),
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE,
-  bounds = c(-Inf, Inf)
+  inherit.aes = TRUE
 )
 }
 \arguments{
@@ -146,15 +146,12 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_violin()} and \code{stat_ydensity()}. For more information about
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
-
-\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
-and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
@@ -171,6 +168,9 @@ For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 \item{drop}{Whether to discard groups with less than 2 observations
 (\code{TRUE}, default) or keep such groups for position adjustment purposes
 (\code{FALSE}).}
+
+\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
+and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a
@@ -181,24 +181,6 @@ boxplot.
 \section{Orientation}{
 
 This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
-\section{Aesthetics}{
-
-\code{geom_violin()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{weight} \tab → \code{1} \cr\cr
-• \tab \code{width} \tab → \code{0.9} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
@@ -264,10 +246,10 @@ m +
   scale_y_log10()
 m +
   geom_violin() +
-  coord_trans(y = "log10")
+  coord_transform(y = "log10")
 m +
   geom_violin() +
-  scale_y_log10() + coord_trans(y = "log10")
+  scale_y_log10() + coord_transform(y = "log10")
 
 # Violin plots with continuous x:
 # Use the group aesthetic to group observations in violins
@@ -285,4 +267,22 @@ Plot-Density Trace Synergism. The American Statistician 52, 181-184.
 \seealso{
 \code{\link[=geom_violin]{geom_violin()}} for examples, and \code{\link[=stat_density]{stat_density()}}
 for examples with data along the x axis.
+}
+\section{Aesthetics}{
+
+\code{geom_violin()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{weight} \tab → \code{1} \cr\cr
+ • \tab \code{width} \tab → \code{0.9} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

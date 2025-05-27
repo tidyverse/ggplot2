@@ -150,7 +150,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
@@ -183,27 +183,6 @@ To automatically position non-overlapping text labels see the
 \href{https://cran.r-project.org/package=ggrepel}{ggrepel}
 package.
 }
-\section{Aesthetics}{
-
-\code{geom_text()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \strong{\code{label}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{angle} \tab → \code{0} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{family} \tab → via \code{theme()} \cr\cr
-• \tab \code{fontface} \tab → \code{1} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{hjust} \tab → \code{0.5} \cr\cr
-• \tab \code{lineheight} \tab → \code{1.2} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
-• \tab \code{vjust} \tab → \code{0.5} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{\code{geom_label()}}{
 
 Currently \code{geom_label()} does not support the \code{check_overlap} argument. Also,
@@ -324,4 +303,25 @@ ggplot(df, aes(x, y)) +
 }
 \seealso{
 The \href{https://ggplot2-book.org/annotations#sec-text-labels}{text labels section} of the online ggplot2 book.
+}
+\section{Aesthetics}{
+
+\code{geom_text()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
+ • \tab \strong{\code{label}} \tab   \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
+ • \tab \code{angle} \tab → \code{0} \cr\cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{family} \tab → via \code{theme()} \cr\cr
+ • \tab \code{fontface} \tab → \code{1} \cr\cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
+ • \tab \code{hjust} \tab → \code{0.5} \cr\cr
+ • \tab \code{lineheight} \tab → \code{1.2} \cr\cr
+ • \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr\cr
+ • \tab \code{vjust} \tab → \code{0.5} \cr\cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

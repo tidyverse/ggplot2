@@ -16,7 +16,7 @@
 #' hide the y axis, as in one of the examples, or manually scale it
 #' to match the number of dots.
 #'
-#' @eval rd_aesthetics("geom", "dotplot")
+#' @aesthetics GeomDotplot
 #' @eval rd_computed_vars(
 #'   x = 'center of each bin, if `binaxis` is `"x"`.',
 #'   y = 'center of each bin, if `binaxis` is `"x"`.',
@@ -180,7 +180,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

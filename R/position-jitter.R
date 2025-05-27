@@ -53,7 +53,7 @@ position_jitter <- function(width = NULL, height = NULL, seed = NA) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
