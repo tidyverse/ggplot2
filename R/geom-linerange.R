@@ -27,11 +27,18 @@ GeomLinerange <- ggproto(
     data
   },
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", flipped_aes = FALSE, na.rm = FALSE) {
+  draw_panel = function(data, panel_params, coord, lineend = "butt",
+                        flipped_aes = FALSE, na.rm = FALSE,
+                        arrow = NULL, arrow.fill = NULL) {
     data <- flip_data(data, flipped_aes)
     data <- transform(data, xend = x, y = ymin, yend = ymax)
     data <- flip_data(data, flipped_aes)
-    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend, na.rm = na.rm))
+    grob <- GeomSegment$draw_panel(
+      data, panel_params, coord,
+      lineend = lineend, na.rm = na.rm,
+      arrow = arrow, arrow.fill = arrow.fill
+    )
+    ggname("geom_linerange", grob)
   },
 
   rename_size = TRUE
