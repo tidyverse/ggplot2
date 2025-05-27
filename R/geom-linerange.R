@@ -62,6 +62,7 @@ GeomLinerange <- ggproto(
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_bar
+#' @inheritParams geom_segment
 #' @examples
 #' # Create a simple example dataset
 #' df <- data.frame(
