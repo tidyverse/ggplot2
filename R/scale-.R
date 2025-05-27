@@ -458,7 +458,9 @@ Scale <- ggproto("Scale", NULL,
   #' as described in e.g. [`?continuous_scale`][continuous_scale].
   #' Note that `limits` is expected in transformed space.
   aesthetics = character(),
-  palette = function() cli::cli_abort("Not implemented."),
+  palette = function() {
+    cli::cli_abort("Not implemented.")
+  },
 
   limits = NULL,
   na.value = NA,
