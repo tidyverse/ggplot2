@@ -53,5 +53,5 @@ test_that("all ggproto methods start with `{` (#6459)", {
   # Actual relevant test
   failures <- lapply(ggprotos, report_no_bracket)
   failures <- failures[lengths(failures) > 0]
-  expect_equal(failures, list())
+  expect_equal(names(failures), character())
 })
