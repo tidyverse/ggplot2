@@ -42,6 +42,15 @@ test_that("all ggproto methods start with `{` (#6459)", {
     ))
   }
 
+  # Test to make sure we're testing correctly
+  ctrl <- list(
+    foo = ggproto("Dummy", dummy = function(x) x + 10),
+    bar = ggproto("Dummy", dummy = function(x) {x + 10})
+  )
+  ctrl <- lapply(ctrl, report_no_bracket)
+  expect_equal(ctrl, list(foo = "dummy", bar = character()))
+
+  # Actual relevant test
   failures <- lapply(ggprotos, report_no_bracket)
   failures <- failures[lengths(failures) > 0]
   expect_equal(failures, list())
