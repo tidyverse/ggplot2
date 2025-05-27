@@ -303,11 +303,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   # CoordSf enforces a fixed aspect ratio -> axes cannot be changed freely under faceting
-  is_free = function() FALSE,
+  is_free = function() {
+    FALSE
+  },
 
   # for regular geoms (such as geom_path, geom_polygon, etc.), CoordSf is non-linear
   # if the default_crs option is being used, i.e., not set to NULL
-  is_linear = function(self) is.null(self$get_default_crs()),
+  is_linear = function(self) {
+    is.null(self$get_default_crs())
+  },
 
   distance = function(self, x, y, panel_params) {
     d <- self$backtransform_range(panel_params)
@@ -328,7 +332,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     diff(panel_params$y_range) / diff(panel_params$x_range) / ratio
   },
 
-  labels = function(labels, panel_params) labels,
+  labels = function(labels, panel_params) {
+    labels
+  },
 
   render_bg = function(self, panel_params, theme) {
     el <- calc_element("panel.grid.major", theme)
