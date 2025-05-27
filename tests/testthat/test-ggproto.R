@@ -18,16 +18,31 @@ test_that("all ggproto methods start with `{` (#6459)", {
     mget(ls("package:ggplot2"), asNamespace("ggplot2"), ifnotfound = list(NULL))
   )
 
-  method_nobrackets <- lapply(ggprotos, function(x) {
-    Filter(
-      function(m) inherits(x[[m]], "ggproto_method") && {
-        b <- as.list(body(get(m, x)))
-        length(b) == 0 || b[[1]] != quote(`{`)
-      },
-      ls(envir = x)
-    )
-  })
+  lacks_brackets <- function(method) {
+    if (!inherits(method, "ggproto_method")) {
+      return(FALSE)
+    }
+    body <- as.list(body(environment(method)$f))
+    if (length(body) == 0 || body[[1]] != quote(`{`)) {
+      return(TRUE)
+    }
+    return(FALSE)
+  }
 
-  expect_length(Filter(length, method_nobrackets), 0)
+  report_no_bracket <- function(ggproto_class) {
+    unlist(lapply(
+      ls(envir = ggproto_class),
+      function(method) {
+        has_brackets <- !lacks_brackets(ggproto_class[[method]])
+        if (has_brackets) {
+          return(character())
+        }
+        return(method)
+      }
+    ))
+  }
 
+  failures <- lapply(ggprotos, report_no_bracket)
+  failures <- failures[lengths(failures) > 0]
+  expect_equal(failures, list())
 })
