@@ -21,9 +21,10 @@
     * Moved mgcv from Imports to Suggests
     * Moved tibble from Imports to Suggests
     * Removed glue dependency
-* Default labels are derived in `ggplot_build()` rather than
-  in `ggplot_add.Layer()`. This may affect code that accessed the `plot$labels` 
-  field (@teunbrand, #5894).
+* Default labels are derived in `build_ggplot()` (previously `ggplot_build()`) 
+  rather than in the layer method of `update_ggplot()` 
+  (previously `ggplot_add.Layer()`). This may affect code that accessed the 
+  `plot$labels` property (@teunbrand, #5894).
 
 ### Lifecycle changes
 
