@@ -15,7 +15,9 @@
 # warnings are thrown for unknown labels
 
     Ignoring unknown labels:
-    * `foo = "bar"`
+    * foo : "i don't exist"
+    * bar : <function>
+    * qux : "expression(me * neither)"
 
 # plot.tag.position rejects invalid input
 
