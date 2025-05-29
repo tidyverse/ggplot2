@@ -779,7 +779,8 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
   if (!is.null(el_out)) {
     class <- element_tree[[element]]$class
     if (inherits(class, "S7_class")) {
-      if (!S7::S7_inherits(el_out, class)) {
+      old_s3_inherit <- inherits(el_out, class@name)
+      if (!S7::S7_inherits(el_out, class) && !old_s3_inherit) {
         cli::cli_abort("Theme element {.var {element}} must have class {.cls {class@name}}.", call = call)
       }
     } else {
@@ -923,6 +924,22 @@ S7::method(merge_element, list(margin, S7::class_any)) <-
     new
   }
 
+# For backward compatibility
+# TODO: in subsequent release cycle, start deprecation
+S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
+  function(new, old, ...) {
+    if (is.null(old) || is_theme_element(old, "blank")) {
+      return(new)
+    }
+    if (S7::S7_inherits(old)) {
+      old <- S7::props(old)
+    }
+    idx <- lengths(new) == 0
+    idx <- names(idx[idx])
+    new[idx] <- old[idx]
+    new
+  }
+
 #' Combine the properties of two elements
 #'
 #' @param e1 An element object
@@ -963,6 +980,12 @@ combine_elements <- function(e1, e2) {
     if (anyNA(e1)) {
       e1[is.na(e1)] <- e2[is.na(e1)]
     }
+  }
+
+  # Backward compatbility
+  # TODO: deprecate next release cycle
+  if (inherits(e1, "element") && is_theme_element(e2)) {
+    return(combine_s3_elements(e1, e2))
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
@@ -1008,6 +1031,24 @@ combine_elements <- function(e1, e2) {
   }
 
   e1
+}
+
+# For backward compatibility
+# TODO: in subsequent release cycle, start deprecation
+combine_s3_elements <- function(e1, e2) {
+  if (S7::S7_inherits(e2)) {
+    e2 <- S7::props(e2)
+  }
+  if (is_rel(e1$size)) {
+    e1$size <- e2$size * unclass(e1$size)
+  }
+  if (is_rel(e1$linewidth)) {
+    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+  }
+  if (inherits(e1, "element_text")) {
+    e1$margin <- combine_elements(e1$margin, e2$margin)
+  }
+  return(e1)
 }
 
 #' @export

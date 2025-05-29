@@ -1012,6 +1012,10 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   class <- eldef$class
   if (inherits(class, "S7_class")) {
     inherit_ok <- S7::S7_inherits(el, class)
+    # For backward compatibility
+    # TODO: deprecate next release cycle
+    old_s3_inherits <- inherits(el, class@name)
+    inherit_ok <- inherit_ok || old_s3_inherits
   } else {
     inherit_ok <- inherits(el, class)
   }
