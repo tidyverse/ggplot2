@@ -941,13 +941,13 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
 
   # Get spacing between guides and margins in absolute units
   size    <- switch(type, width = width_cm, height = height_cm)
-  spacing <- sum(rep(spacing, length.out = length(units) - 1))
+  sum_spacing <- sum(rep(size(spacing), length.out = length(units) - 1))
   margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
   margin  <- sum(size(margin))
 
   # Get the absolute parts of the unit
   absolute <- vapply(units, function(u) sum(size(absolute.size(u))), numeric(1))
-  absolute_sum <- sum(absolute) + sum(size(spacing)) + margin
+  absolute_sum <- sum(absolute) + sum_spacing + margin
 
   # Get the null parts of the unit
   num_null <- function(x) sum(as.numeric(x)[unitType(x) == "null"])
