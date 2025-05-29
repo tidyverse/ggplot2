@@ -866,15 +866,21 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 #' # Adopt size but ignore colour
 #' merge_element(new, old)
 #'
-merge_element <- S7::new_generic("merge_element", c("new", "old"))
+merge_element <- S7::new_generic(
+  "merge_element", dispatch_args = c("new", "old"),
+  fun = function(new, old, ...) {
+    # If old is NULL or element_blank, then just return new
+    if (is.null(old) || is_theme_element(old, "blank")) {
+      return(new)
+    }
+    S7::S7_dispatch()
+  }
+)
 
 S7::method(merge_element, list(S7::class_any, S7::class_any))  <-
   function(new, old, ...) {
-    if (is.null(old) || is_theme_element(old, "blank")) {
-      # If old is NULL or element_blank, then just return new
-      return(new)
-    } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
-               is.logical(new) || is.function(new)) {
+    if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
+        is.logical(new) || is.function(new)) {
       # If new is NULL, or a string, numeric vector, unit, or logical, just return it
       return(new)
     }
@@ -891,11 +897,6 @@ S7::method(merge_element, list(element_blank, S7::class_any)) <-
 
 S7::method(merge_element, list(element, S7::class_any)) <-
   function(new, old, ...) {
-    if (is.null(old) || is_theme_element(old, "blank")) {
-      # If old is NULL or element_blank, then just return new
-      return(new)
-    }
-
     # actual merging can only happen if classes match
     if (!inherits(new, class(old)[1])) {
       cli::cli_abort("Only elements of the same class can be merged.")
@@ -915,9 +916,6 @@ S7::method(merge_element, list(element, S7::class_any)) <-
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
   function(new, old, ...) {
-    if (is.null(old) || is_theme_element(old, "blank")) {
-      return(new)
-    }
     if (anyNA(new)) {
       new[is.na(new)] <- old[is.na(new)]
     }
@@ -928,9 +926,6 @@ S7::method(merge_element, list(margin, S7::class_any)) <-
 # TODO: in subsequent release cycle, start deprecation
 S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
   function(new, old, ...) {
-    if (is.null(old) || is_theme_element(old, "blank")) {
-      return(new)
-    }
     if (S7::S7_inherits(old)) {
       old <- S7::props(old)
     }
