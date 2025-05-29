@@ -110,7 +110,11 @@ element_props <- list(
   arrow      = property_nullable(S7::new_S3_class("arrow") | S7::class_logical),
   arrow.fill = property_nullable(S7::class_character | S7::class_logical),
   debug      = property_boolean(allow_null = TRUE, default = NULL),
-  inherit.blank = property_boolean(default = FALSE)
+  inherit.blank = property_boolean(default = FALSE),
+  # These are reserved for future use
+  italic     = property_nullable(S7::class_character),
+  fontweight = property_nullable(S7::class_numeric),
+  fontwidth  = property_nullable(S7::class_numeric | S7::class_character)
 )
 
 #' @export
@@ -193,7 +197,8 @@ element_line <- S7::new_class(
 element_text <- S7::new_class(
   "element_text", parent = element,
   properties = element_props[c(
-    "family", "face", "colour", "size", "hjust", "vjust", "angle", "lineheight",
+    "family", "face", "italic", "fontweight", "fontwidth",
+    "colour", "size", "hjust", "vjust", "angle", "lineheight",
     "margin", "debug", "inherit.blank"
   )],
   constructor = function(family = NULL, face = NULL, colour = NULL,
@@ -216,7 +221,8 @@ element_text <- S7::new_class(
       S7::S7_object(),
       family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
-      margin = margin, debug = debug, inherit.blank = inherit.blank
+      margin = margin, debug = debug, inherit.blank = inherit.blank,
+      italic = NA_character_, fontweight = NA_real_, fontwidth  = NA_real_
     )
   }
 )
