@@ -1031,6 +1031,7 @@ combine_elements <- function(e1, e2) {
 # For backward compatibility
 # TODO: in subsequent release cycle, start deprecation
 combine_s3_elements <- function(e1, e2) {
+  e1 <- merge_element(e1, e2)
   if (S7::S7_inherits(e2)) {
     e2 <- S7::props(e2)
   }
