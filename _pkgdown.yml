@@ -9,7 +9,8 @@ template:
       <script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
       <script async src="https://widget.kapa.ai/kapa-widget.bundle.js"
       data-button-hide="true"
-      data-modal-disclaimer="This is a custom LLM for answering questions about ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!"
+      data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!"
+      data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2."
       data-modal-header-bg-color="#f9f9f9"
       data-modal-override-open-class="open-kapa-widget"
       data-project-color="#365a7a"
