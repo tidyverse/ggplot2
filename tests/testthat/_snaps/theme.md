@@ -1,19 +1,3 @@
-# modifying theme element properties with + operator works
-
-    Code
-      theme_grey() + "asdf"
-    Condition
-      Error:
-      ! Can't add `"asdf"` to a theme object.
-
-# replacing theme elements with %+replace% operator works
-
-    Code
-      theme_grey() + "asdf"
-    Condition
-      Error:
-      ! Can't add `"asdf"` to a theme object.
-
 # theme validation happens at build stage
 
     The `text` theme element must be a <element_text> object.
@@ -25,7 +9,7 @@
 # incorrect theme specifications throw meaningful errors
 
     Can't merge the `line` theme element.
-    Caused by error in `merge_element()`:
+    Caused by error in `method(merge_element, list(ggplot2::element, class_any))`:
     ! Only elements of the same class can be merged.
 
 ---
@@ -34,7 +18,7 @@
 
 ---
 
-    Theme element `test` has `NULL` property without default: fill, colour, linewidth, and linetype.
+    Theme element `test` has `NULL` property without default: fill, colour, linewidth, linetype, and linejoin.
 
 ---
 
@@ -74,7 +58,7 @@
     Code
       merge_element(text_base, rect_base)
     Condition
-      Error in `merge_element()`:
+      Error in `method(merge_element, list(ggplot2::element, class_any))`:
       ! Only elements of the same class can be merged.
 
 # Theme elements are checked during build
