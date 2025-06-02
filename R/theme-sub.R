@@ -54,43 +54,43 @@ subtheme <- function(elements, prefix = "", suffix = "", call = caller_env()) {
 
 #' @export
 #' @describeIn subtheme Theme specification for all axes.
-theme_sub_axis <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis <- function(title, text, ticks, ticks.length, line, minor.ticks.length) {
   subtheme(find_args(), "axis.")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for both x axes.
-theme_sub_axis_x <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_x <- function(title, text, ticks, ticks.length, line, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".x")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for both y axes.
-theme_sub_axis_y <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_y <- function(title, text, ticks, ticks.length, line, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".y")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the bottom x axis.
-theme_sub_axis_bottom <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_bottom <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".x.bottom")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the top x axis.
-theme_sub_axis_top <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_top <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".x.top")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the left y axis.
-theme_sub_axis_left <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_left <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".y.left")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the right y axis.
-theme_sub_axis_right <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_right <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".y.right")
 }
 
