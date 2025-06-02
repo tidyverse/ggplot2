@@ -105,7 +105,8 @@ theme_sub_legend <- function(background, margin, spacing, spacing.x, spacing.y,
 
 #' @export
 #' @describeIn subtheme Theme specification for the panels.
-theme_sub_panel <- function(background, border, spacing, spacing.x, spacing.y,
+theme_sub_panel <- function(background, border,
+                            widths, heights, spacing, spacing.x, spacing.y,
                             grid, grid.major, grid.minor, grid.major.x,
                             grid.major.y, grid.minor.x, grid.minor.y, ontop) {
   subtheme(find_args(), "panel.")

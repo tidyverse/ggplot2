@@ -54,6 +54,8 @@ theme_sub_legend(
 theme_sub_panel(
   background,
   border,
+  widths,
+  heights,
   spacing,
   spacing.x,
   spacing.y,
