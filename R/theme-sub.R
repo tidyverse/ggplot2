@@ -96,10 +96,24 @@ theme_sub_axis_right <- function(title, text, ticks, ticks.length, line, minor.t
 
 #' @export
 #' @describeIn subtheme Theme specification for the legend.
-theme_sub_legend <- function(background, margin, spacing, spacing.x, spacing.y,
-                             key, key.size, key.height, key.width, text, title,
-                             position, direction, justification, box, box.just,
-                             box.margin, box.background, box.spacing) {
+theme_sub_legend <- function(
+  # Text stuff
+  text, text.position, title, title.position,
+  # Drawn elements
+  background, frame, ticks, ticks.length, axis.line,
+  # Spacings
+  spacing, spacing.x, spacing.y,   margin,
+  # Seys
+  key, key.size, key.height, key.width, key.spacing, key.spacing.x,
+  key.spacing.y, key.justification,
+  # Settings
+  byrow, position, direction, location, position.inside,
+  # Justification
+  justification, justification.top, justification.bottom, justification.left,
+  justification.right, justification.inside,
+  # Box
+  box, box.just, box.margin, box.background, box.spacing
+) {
   subtheme(find_args(), "legend.")
 }
 
