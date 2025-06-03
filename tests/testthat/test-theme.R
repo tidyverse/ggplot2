@@ -748,7 +748,7 @@ test_that("theme elements are covered in `theme_sub_*()` functions", {
   fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_top), ".x.top"))
   fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_bottom), ".x.bottom"))
   fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_left), ".y.left"))
-  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_right), ".y.right")  )
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_right), ".y.right"))
   fmls <- c(fmls, paste0("legend.", fn_fmls_names(theme_sub_legend)))
   fmls <- c(fmls, paste0("plot.",   fn_fmls_names(theme_sub_plot)))
   fmls <- c(fmls, paste0("panel.",  fn_fmls_names(theme_sub_panel)))
