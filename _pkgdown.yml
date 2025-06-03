@@ -82,8 +82,6 @@ reference:
   - stat_summary_bin
   - stat_unique
   - stat_sf_coordinates
-  - stat_manual
-  - stat_connect
   - after_stat
 
 - subtitle: Position adjustment
@@ -106,7 +104,7 @@ reference:
   - annotation_logticks
   - annotation_map
   - annotation_raster
-  - annotation_borders
+  - borders
 
 - title: Aesthetics
   desc: >
@@ -180,7 +178,7 @@ reference:
     The coordinate system determines how the `x` and `y` aesthetics combine
     to position elements in the plot. The default coordinate system is
     Cartesian (`coord_cartesian()`), which can be tweaked with `coord_map()`,
-    `coord_fixed()`, `coord_flip()`, and `coord_transform()`, or completely
+    `coord_fixed()`, `coord_flip()`, and `coord_trans()`, or completely
     replaced with `coord_polar()`.
   contents:
   - coord_cartesian
@@ -188,7 +186,6 @@ reference:
   - coord_flip
   - coord_map
   - coord_polar
-  - coord_transform
   - coord_trans
 
 - title: Themes
@@ -202,7 +199,6 @@ reference:
   - theme
   - theme_bw
   - theme_update
-  - subtheme
   - element_line
   - margin
 
