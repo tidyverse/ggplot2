@@ -941,7 +941,11 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
 
   # Get spacing between guides and margins in absolute units
   size    <- switch(type, width = width_cm, height = height_cm)
-  spacing <- sum(rep(spacing, length.out = length(units) - 1))
+  if (length(units) < 2) {
+    spacing <- unit(0, "cm")
+  } else {
+    spacing <- sum(rep(spacing, length.out = length(units) - 1))
+  }
   margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
   margin  <- sum(size(margin))
 
