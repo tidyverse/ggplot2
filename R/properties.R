@@ -37,6 +37,31 @@ property_choice <- function(options, allow_null = FALSE, default = NULL) {
   )
 }
 
+# This is like `property_choice`, but allows for integers that mean `1 = plain`,
+# `2 = bold`, `3 = italic`,  `4 = bold italic`.
+property_fontface <- function(allow_null = TRUE, default = NULL) {
+  options <- c("plain", "bold", "italic", "oblique", "bold.italic")
+  class <- S7::new_union(S7::class_character, S7::class_numeric)
+  class <- if (allow_null) S7::new_union(class, NULL) else class
+  validator <- function(value) {
+    if (allow_null && is.null(value)) {
+      return(character())
+    }
+    if (is_integerish(value) && value %in% 1:4) {
+      return(character())
+    }
+    if (value %in% options) {
+      return(character())
+    }
+    as_cli("must be one of {.or {.val {options}}}.")
+  }
+  S7::new_property(
+    class = class,
+    validator = validator,
+    default = NULL
+  )
+}
+
 property_nullable <- function(class = S7::class_any, ...) {
   S7::new_property(
     class = S7::new_union(NULL, class),

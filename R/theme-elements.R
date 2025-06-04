@@ -112,7 +112,7 @@ element_props <- list(
   size       = property_nullable(S7::class_numeric),
   lineheight = property_nullable(S7::class_numeric),
   margin     = property_nullable(margin),
-  face       = property_choice(c("plain", "bold", "italic", "oblique", "bold.italic"), allow_null = TRUE),
+  face       = property_fontface(allow_null = TRUE),
   linewidth  = property_nullable(S7::class_numeric),
   linetype   = property_nullable(S7::class_numeric | S7::class_character),
   lineend    = property_choice(c("round", "butt", "square"), allow_null = TRUE),
