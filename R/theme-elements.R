@@ -322,26 +322,6 @@ element_geom <- S7::new_class(
 )
 
 #' @export
-#' @param type For testing elements: the type of element to expect. One of
-#'   `"blank"`, `"rect"`, `"line"`, `"text"`, `"polygon"`, `"point"` or `"geom"`.
-#' @rdname is_tests
-is_theme_element <- function(x, type = "any") {
-  switch(
-    type %||% "any",
-    any     = inherits(x, "element"),
-    rect    = inherits(x, "element_rect"),
-    line    = inherits(x, "element_line"),
-    text    = inherits(x, "element_text"),
-    polygon = inherits(x, "element_polygon"),
-    point   = inherits(x, "element_point"),
-    geom    = inherits(x, "element_geom"),
-    blank   = inherits(x, "element_blank"),
-    # We don't consider elements from extensions
-    FALSE
-  )
-}
-
-#' @export
 print.element <- function(x, ...) utils::str(x)
 
 #' @export
