@@ -29,6 +29,7 @@ setup_plot_labels <- function(plot, layers, data) {
     if (inherits(mapping, "unlabelled")) {
       next
     }
+    mapping <- mapping[have_name(mapping)]
 
     mapping <- strip_stage(mapping)
     mapping <- strip_dots(mapping, strip_pronoun = TRUE)

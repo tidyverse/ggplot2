@@ -202,7 +202,8 @@ layer <- function(geom = NULL, stat = NULL,
 validate_mapping <- function(mapping, call = caller_env()) {
   # Upgrade any old S3 input to new S7 input
   # TODO: deprecate this after a while
-  if (inherits(mapping, "uneval") && is.list(mapping)) {
+  is_old_mapping <- !S7::S7_inherits(mapping) && inherits(mapping, "uneval")
+  if (is_old_mapping && is.list(mapping)) {
     mapping <- aes(!!!mapping)
   }
 

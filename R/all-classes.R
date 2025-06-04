@@ -95,7 +95,9 @@ class_mapping <- S7::new_class(
   constructor = function(x, env = globalenv()) {
     check_object(x, is.list, "a {.cls list}")
     x <- lapply(x, new_aesthetic, env = env)
-    S7::new_object(x)
+    x <- S7::new_object(x)
+    class(x) <- union(c("ggplot2::mapping", "uneval"), class(x))
+    x
   }
 )
 
