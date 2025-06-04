@@ -131,7 +131,7 @@ S7::method(ggplot, S7::class_any) <- function(
     mapping = mapping,
     plot_env = environment
   )
-  class(p) <- union("ggplot", class(p))
+  class(p) <- union(union(c("ggplot2::ggplot", "ggplot"), class(p)), "gg")
 
   set_last_plot(p)
   p

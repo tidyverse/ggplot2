@@ -131,7 +131,9 @@ S7::method(build_ggplot, class_ggplot) <- function(plot, ...) {
   # Consolidate alt-text
   plot@labels$alt <- get_alt_text(plot)
 
-  class_ggplot_built(data = data, layout = layout, plot = plot)
+  build <- class_ggplot_built(data = data, layout = layout, plot = plot)
+  class(build) <- union(c("ggplot2::ggplot_built", "ggplot_built"), class(build))
+  build
 }
 
 # TODO: the S3 generic should be phased out once S7 is adopted more widely
