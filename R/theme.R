@@ -979,7 +979,8 @@ combine_elements <- function(e1, e2) {
 
   # Backward compatbility
   # TODO: deprecate next release cycle
-  if (inherits(e1, "element") && is_theme_element(e2)) {
+  is_old_element <- !S7::S7_inherits(e1) && inherits(e1, "element")
+  if (is_old_element && is_theme_element(e2)) {
     return(combine_s3_elements(e1, e2))
   }
 

@@ -85,7 +85,18 @@ element <- S7::new_class("element", abstract = TRUE)
 
 #' @export
 #' @rdname element
-element_blank <- S7::new_class("element_blank", parent = element)
+element_blank <- S7::new_class(
+  "element_blank",
+  parent = element,
+  constructor = function() {
+    obj <- S7::new_object(S7::S7_object())
+    class(obj) <- union(
+      union(c("ggplot2::element_blank", "element_blank"), class(obj)),
+      "element"
+    )
+    obj
+  }
+)
 
 # All properties are listed here so they can easily be recycled in the different
 # element classes
@@ -131,12 +142,17 @@ element_rect <- S7::new_class(
       deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
     }
-    S7::new_object(
+    obj <- S7::new_object(
       S7::S7_object(),
       fill = fill, colour = color %||% colour,
       linewidth = linewidth, linetype = linetype, linejoin = linejoin,
       inherit.blank = inherit.blank
     )
+    class(obj) <- union(
+      union(c("ggplot2::element_rect", "element_rect"), class(obj)),
+      "element"
+    )
+    obj
   }
 )
 
@@ -161,7 +177,7 @@ element_line <- S7::new_class(
       linewidth <- size
     }
     colour <- color %||% colour
-    S7::new_object(
+    obj <- S7::new_object(
       S7::S7_object(),
       colour = colour,
       linewidth = linewidth, linetype = linetype, lineend = lineend,
@@ -170,6 +186,11 @@ element_line <- S7::new_class(
       arrow.fill = arrow.fill %||% colour,
       inherit.blank = inherit.blank
     )
+    class(obj) <- union(
+      union(c("ggplot2::element_line", "element_line"), class(obj)),
+      "element"
+    )
+    obj
   }
 )
 
@@ -217,13 +238,18 @@ element_text <- S7::new_class(
     }
 
     colour <- color %||% colour
-    S7::new_object(
+    obj <- S7::new_object(
       S7::S7_object(),
       family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
       margin = margin, debug = debug, inherit.blank = inherit.blank,
       italic = NA_character_, fontweight = NA_real_, fontwidth  = NA_real_
     )
+    class(obj) <- union(
+      union(c("ggplot2::element_text", "element_text"), class(obj)),
+      "element"
+    )
+    obj
   }
 )
 
