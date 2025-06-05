@@ -272,14 +272,9 @@ S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
 }
 
 #' @export
-`[[.ggplot2::gg` <- function(x, i) {
-  `[[`(S7::props(x), i)
-}
+`[[.ggplot2::gg` <- `$.ggplot2::gg`
 
 #' @export
-`[[<-.ggplot2::gg` <- function(x, i, value) {
-  S7::props(x) <- `[[<-`(S7::props(x), i, value)
-  x
-}
+`[[<-.ggplot2::gg` <- `$<-.ggplot2::gg`
 
 
