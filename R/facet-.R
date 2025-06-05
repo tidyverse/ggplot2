@@ -958,9 +958,9 @@ is.facet <- function(x) {
 #' get_strip_labels(p + facet_grid(year ~ cyl))
 get_strip_labels <- function(plot = get_last_plot()) {
   plot   <- ggplot_build(plot)
-  layout <- plot$layout$layout
-  params <- plot$layout$facet_params
-  plot$plot$facet$format_strip_labels(layout, params)
+  layout <- plot@layout$layout
+  params <- plot@layout$facet_params
+  plot@plot@facet$format_strip_labels(layout, params)
 }
 
 # A "special" value, currently not used but could be used to determine
@@ -1052,7 +1052,7 @@ check_vars <- function(x) {
   }
   # Native pipe have higher precedence than + so any type of gg object can be
   # expected here, not just ggplot
-  if (inherits(x, "gg")) {
+  if (S7::S7_inherits(x, class_gg)) {
     cli::cli_abort(c(
       "Please use {.fn vars} to supply facet variables.",
       "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"

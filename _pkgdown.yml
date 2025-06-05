@@ -51,7 +51,7 @@ reference:
   contents:
   - ggplot
   - aes
-  - "`+.gg`"
+  - add_gg
   - ggsave
   - qplot
 

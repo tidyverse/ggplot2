@@ -835,7 +835,7 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   if (!aesthetic %in% c("x", "y", "x.sec", "y.sec", "theta", "r")) {
     # Non position guides: check if aesthetic in colnames of key
-    keys <- lapply(plot$plot$guides$params, `[[`, "key")
+    keys <- lapply(plot@plot@guides$params, `[[`, "key")
     keep <- vapply(keys, function(x) any(colnames(x) %in% aesthetic), logical(1))
     keys <- switch(sum(keep) + 1, NULL, keys[[which(keep)]], keys[keep])
     return(keys)
@@ -843,12 +843,12 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   # Position guides: find the right layout entry
   check_number_whole(panel)
-  layout <- plot$layout$layout
+  layout <- plot@layout$layout
   select <- layout[layout$PANEL == panel, , drop = FALSE]
   if (nrow(select) == 0) {
     return(NULL)
   }
-  params <- plot$layout$panel_params[select$PANEL][[1]]
+  params <- plot@layout$panel_params[select$PANEL][[1]]
 
   # If panel params don't have guides, we probably have old coord system
   # that doesn't use the guide system.
@@ -942,10 +942,12 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
   # Get spacing between guides and margins in absolute units
   size    <- switch(type, width = width_cm, height = height_cm)
   if (length(units) < 2) {
+    # When we have 1 guide, we don't need any spacing
     spacing <- unit(0, "cm")
   } else {
     spacing <- sum(rep(spacing, length.out = length(units) - 1))
   }
+
   margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
   margin  <- sum(size(margin))
 

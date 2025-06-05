@@ -1,16 +1,16 @@
 test_that("clipping can be turned off and on", {
   # clip on by default
   p <- ggplot() + coord_cartesian()
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "on")
 
   # clip can be turned on and off
   p <- ggplot() + coord_cartesian(clip = "off")
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "off")
 
   p <- ggplot() + coord_cartesian(clip = "on")
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "on")
 })
 

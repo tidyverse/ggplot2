@@ -127,11 +127,12 @@ theme_grey <- function(base_size = 11, base_family = "",
     # by others
     line =               element_line(
                            colour = ink, linewidth = base_line_size,
-                           linetype = 1, lineend = "butt"
+                           linetype = 1, lineend = "butt", linejoin = "round"
                          ),
     rect =               element_rect(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1,
+                           linejoin = "round"
                          ),
     text =               element_text(
                             family = base_family, face = "plain",
@@ -153,7 +154,7 @@ theme_grey <- function(base_size = 11, base_family = "",
 
     polygon =            element_polygon(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
                          ),
 
     geom =               element_geom(
@@ -525,7 +526,7 @@ theme_void <- function(base_size = 11, base_family = "",
     line =               element_blank(),
     rect =               element_rect(
                            fill = paper, colour = NA, linewidth = 0, linetype = 1,
-                           inherit.blank = FALSE
+                           inherit.blank = FALSE, linejoin = "round"
                          ),
     polygon =            element_blank(),
     point =              element_blank(),
@@ -621,11 +622,11 @@ theme_test <- function(base_size = 11, base_family = "",
   t <- theme(
     line =               element_line(
                            colour = ink, linewidth = base_line_size,
-                           linetype = 1, lineend = "butt"
+                           linetype = 1, lineend = "butt", linejoin = "round"
                          ),
     rect =               element_rect(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
                          ),
     text =               element_text(
                             family = base_family, face = "plain",
@@ -640,7 +641,7 @@ theme_test <- function(base_size = 11, base_family = "",
                          ),
     polygon =            element_polygon(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
                          ),
     title =              element_text(family = header_family),
     spacing = unit(half_line, "pt"),
