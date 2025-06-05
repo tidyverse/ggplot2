@@ -81,10 +81,17 @@ setup_plot_labels <- function(plot, layers, data) {
   extra_labels <- setdiff(names(plot_labels), known_labels)
 
   if (length(extra_labels) > 0) {
-    extra_labels <- paste0(
-      "{.code ", extra_labels, " = \"", plot_labels[extra_labels], "\"}"
+
+    warn_labels <- plot_labels[extra_labels]
+    warn_labels <- ifelse(
+      vapply(warn_labels, is.function, logical(1)),
+      "{.cls function}",
+      paste0("{.val ", warn_labels, "}")
     )
+
+    extra_labels <- paste0("{.field ", extra_labels, "} : ", warn_labels)
     names(extra_labels) <- rep("*", length(extra_labels))
+
     cli::cli_warn(c(
       "Ignoring unknown labels:",
       extra_labels

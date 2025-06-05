@@ -458,7 +458,9 @@ Scale <- ggproto("Scale", NULL,
   #' as described in e.g. [`?continuous_scale`][continuous_scale].
   #' Note that `limits` is expected in transformed space.
   aesthetics = character(),
-  palette = function() cli::cli_abort("Not implemented."),
+  palette = function() {
+    cli::cli_abort("Not implemented.")
+  },
 
   limits = NULL,
   na.value = NA,
@@ -998,7 +1000,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   n.breaks = NULL,
   trans = transform_identity(),
 
-  is_discrete = function() FALSE,
+  is_discrete = function() {
+    FALSE
+  },
 
   train = function(self, x) {
     if (length(x) == 0) {
@@ -1257,7 +1261,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   n.breaks.cache = NULL,
   palette.cache = NULL,
 
-  is_discrete = function() TRUE,
+  is_discrete = function() {
+    TRUE
+  },
 
   train = function(self, x) {
     if (length(x) == 0) {
@@ -1271,7 +1277,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     )
   },
 
-  transform = identity,
+  transform = function(self, x) {
+    x
+  },
 
   map = function(self, x, limits = self$get_limits()) {
     limits <- vec_slice(limits, !is.na(limits))
@@ -1483,7 +1491,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   after.stat = FALSE,
   show.limits = FALSE,
 
-  is_discrete = function() FALSE,
+  is_discrete = function() {
+    FALSE
+  },
 
   train = function(self, x) {
     if (length(x) == 0) {
@@ -1644,7 +1654,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     transformation$transform(breaks)
   },
 
-  get_breaks_minor = function(...) NULL,
+  get_breaks_minor = function(...) {
+    NULL
+  },
 
   get_labels = function(self, breaks = self$get_breaks()) {
     if (is.null(breaks)) return(NULL)
