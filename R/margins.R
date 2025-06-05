@@ -30,6 +30,27 @@ margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
   margin(t = t, r = r, b = b, l = l, unit)
 }
 
+as_margin <- function(x, x_arg = caller_arg(x), call = caller_env()) {
+  if (is_margin(x)) {
+    return(x)
+  }
+  if (!is.unit(x)) {
+    cli::cli_abort(
+      "{.arg {x_arg}} must be a {.cls margin} class, \\
+      not {.obj_type_friendly {x}}."
+    )
+  }
+  if (length(x) != 4) {
+    x <- rep(x, length.out = 4)
+  }
+  type <- unitType(x)
+  if (is_unique(type)) {
+    type <- type[1]
+  }
+  x <- as.numeric(x)
+  margin(x[1], x[2], x[3], x[4], unit = type)
+}
+
 #' Create a text grob with the proper location and margins
 #'
 #' `titleGrob()` is called when creating titles and labels for axes, legends,

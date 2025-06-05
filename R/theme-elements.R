@@ -236,6 +236,13 @@ element_text <- S7::new_class(
         "i" = "Results may be unexpected or may change in future versions of ggplot2."
       ))
     }
+    if (!is_margin(margin) && !is.null(margin)) {
+      margin <- as_margin(margin)
+      cli::cli_warn(
+        "The {.arg margin} argument should be constructed using the \\
+        {.fn margin} function."
+      )
+    }
 
     colour <- color %||% colour
     obj <- S7::new_object(

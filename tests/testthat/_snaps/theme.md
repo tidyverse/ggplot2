@@ -78,6 +78,23 @@
 
     Ignoring unknown `theme()` elements: foo and bar.
 
+# element_text throws appropriate conditions
+
+    Vectorized input to `element_text()` is not officially supported.
+    i Results may be unexpected or may change in future versions of ggplot2.
+
+---
+
+    The `margin` argument should be constructed using the `margin()` function.
+
+---
+
+    Code
+      element_text(margin = 5)
+    Condition
+      Error in `as_margin()`:
+      ! `margin` must be a <margin> class, not a number.
+
 # Theme validation behaves as expected
 
     The `aspect.ratio` theme element must be a <numeric/integer> object.

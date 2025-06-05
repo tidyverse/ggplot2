@@ -546,6 +546,19 @@ test_that("subtheme functions rename arguments as intended", {
   )
 })
 
+test_that("element_text throws appropriate conditions", {
+  expect_snapshot_warning(
+    element_text(colour = c("red", "blue"))
+  )
+  expect_snapshot_warning(
+    element_text(margin = unit(1, "cm"))
+  )
+  expect_snapshot(
+    element_text(margin = 5),
+    error = TRUE
+  )
+})
+
 test_that("Theme validation behaves as expected", {
   tree <- get_element_tree()
   expect_silent(check_element(1,  "aspect.ratio", tree))
