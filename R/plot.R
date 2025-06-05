@@ -103,17 +103,19 @@
 #'     mapping = aes(x = group, y = group_mean), data = group_means_df,
 #'     colour = 'red', size = 3
 #'   )
-ggplot <- S7::new_generic(
-  "ggplot2", "data",
-  fun = function(data, mapping = aes(), ..., environment = parent.frame()) {
-    force(mapping)
-    S7::S7_dispatch()
-  }
-)
+ggplot <- function(
+  data = NULL,
+  mapping = aes(),
+  ...,
+  environment = parent.frame()
+) {
+  UseMethod("ggplot")
+}
 
-S7::method(ggplot, S7::class_any) <- function(
-    data, mapping = aes(), ...,
-    environment = parent.frame()) {
+#' @export
+ggplot.default <-
+  function(data, mapping = aes(), ..., environment = parent.frame()) {
+
   if (!missing(mapping) && !is_mapping(mapping)) {
     cli::cli_abort(c(
       "{.arg mapping} must be created with {.fn aes}.",
@@ -137,13 +139,11 @@ S7::method(ggplot, S7::class_any) <- function(
   p
 }
 
-S7::method(ggplot, S7::class_function) <-
-  function(data, mapping = aes(), ...,
-           environment = parent.frame()) {
+ggplot.function <- function(data, ...) {
     # Added to avoid functions end in ggplot.default
     cli::cli_abort(c(
       "{.arg data} cannot be a function.",
-      "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}"
+      "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}?"
     ))
   }
 
