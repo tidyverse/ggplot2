@@ -198,7 +198,7 @@ heightDetails.titleGrob <- function(x) {
 #' @return A list with two components, `hjust` and `vjust`, containing the rotated hjust and vjust values
 #'
 #' @noRd
-rotate_just <- function(angle, hjust, vjust) {
+rotate_just <- function(angle = NULL, hjust = NULL, vjust = NULL, element = NULL) {
   ## Ideally we would like to do something like the following commented-out lines,
   ## but it currently yields unexpected results for angles other than 0, 90, 180, 270.
   ## Problems arise in particular in cases where the horizontal and the vertical
@@ -213,6 +213,14 @@ rotate_just <- function(angle, hjust, vjust) {
   #
   #hnew <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
   #vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+  if (S7::S7_inherits(element)) {
+    element <- S7::props(element)
+  }
+  if (!is.null(element)) {
+    angle <- element$angle
+    hjust <- element$hjust
+    vjust <- element$vjust
+  }
 
   angle <- (angle %||% 0) %% 360
 

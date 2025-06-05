@@ -113,7 +113,7 @@ GuideCustom <- ggproto(
 
     gt <- self$add_title(
       gt, title, title_position,
-      with(S7::props(elems$title), rotate_just(angle, hjust, vjust))
+      rotate_just(element = elems$title)
     )
 
     # Add padding and background

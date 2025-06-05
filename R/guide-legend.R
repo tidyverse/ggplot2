@@ -574,7 +574,7 @@ GuideLegend <- ggproto(
 
     gt <- self$add_title(
       gt, grobs$title, elements$title_position,
-      with(S7::props(elements$title), rotate_just(angle, hjust, vjust))
+      rotate_just(element = elements$title)
     )
 
     gt <- gtable_add_padding(gt, unit(elements$padding, "cm"))

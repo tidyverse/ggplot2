@@ -454,13 +454,13 @@ GuideAxis <- ggproto(
     # rather than dimensions of this axis alone.
     if (has_labels && params$position %in% c("left", "right")) {
       where <- layout$l[-c(1, length(layout$l))]
-      just <- with(S7::props(elements$text), rotate_just(angle, hjust, vjust))$hjust %||% 0.5
+      just <- rotate_just(element = elements$text)$hjust %||% 0.5
       gt <- gtable_add_cols(gt, unit(just, "null"), pos = min(where) - 1)
       gt <- gtable_add_cols(gt, unit(1 - just, "null"), pos = max(where) + 1)
     }
     if (has_labels && params$position %in% c("top", "bottom")) {
       where <- layout$t[-c(1, length(layout$t))]
-      just <- with(S7::props(elements$text), rotate_just(angle, hjust, vjust))$vjust %||% 0.5
+      just <- rotate_just(element = elements$text)$vjust %||% 0.5
       gt <- gtable_add_rows(gt, unit(1 - just, "null"), pos = min(where) - 1)
       gt <- gtable_add_rows(gt, unit(just, "null"), pos = max(where) + 1)
     }
