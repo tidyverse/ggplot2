@@ -329,6 +329,10 @@ validate_device <- function(device, filename = NULL, dpi = 300, call = caller_en
 grid.draw.ggplot <- function(x, recording = TRUE) {
   print(x)
 }
+#' @export
+grid.draw.recordedplot <- function(x) {
+  grDevices::replayPlot(x)
+}
 
 absorb_grdevice_args <- function(f) {
   function(..., type, antialias) {
