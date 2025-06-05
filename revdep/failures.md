@@ -171,7 +171,7 @@ In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core
 ** byte-compile and prepare package for lazy loading
 Error: .onLoad failed in loadNamespace() for 'rstan', details:
   call: NULL
-  error: C stack usage  9964308 is too close to the limit
+  error: C stack usage  9964532 is too close to the limit
 Execution halted
 ERROR: lazy loading failed for package ‘bmstdr’
 * removing ‘/tmp/workdir/bmstdr/new/bmstdr.Rcheck/bmstdr’
@@ -1024,6 +1024,7 @@ ERROR: lazy loading failed for package ‘inventorize’
 ** R
 ** byte-compile and prepare package for lazy loading
 Warning in qgamma(service_level, alpha, beta) : NaNs produced
+Warning in qgamma(service_level, alpha, beta) : NaNs produced
 ** help
 *** installing help indices
 ** building package indices
@@ -1622,6 +1623,72 @@ ERROR: compilation failed for package ‘rstanarm’
 
 
 ```
+# scplot
+
+<details>
+
+* Version: 0.5.1
+* GitHub: NA
+* Source code: https://github.com/cran/scplot
+* Date/Publication: 2025-03-01 13:10:03 UTC
+* Number of recursive dependencies: 115
+
+Run `revdepcheck::cloud_details(, "scplot")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking whether package ‘scplot’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/scplot/new/scplot.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘scplot’ ...
+** package ‘scplot’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+ℹ The deprecated feature was likely used in the scplot package.
+  Please report the issue to the authors.
+Error in `class<-`(`*tmp*`, value = "list") : 
+  cannot coerce type 'object' to vector of type 'list'
+Error: unable to load R code in package ‘scplot’
+Execution halted
+ERROR: lazy loading failed for package ‘scplot’
+* removing ‘/tmp/workdir/scplot/new/scplot.Rcheck/scplot’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘scplot’ ...
+** package ‘scplot’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (scplot)
+
+
+```
 # StatTeacherAssistant
 
 <details>
@@ -2013,7 +2080,7 @@ Run `revdepcheck::cloud_details(, "webSDM")` for more info
 ** byte-compile and prepare package for lazy loading
 Error: .onLoad failed in loadNamespace() for 'rstan', details:
   call: NULL
-  error: C stack usage  9961892 is too close to the limit
+  error: C stack usage  9964308 is too close to the limit
 Execution halted
 ERROR: lazy loading failed for package ‘webSDM’
 * removing ‘/tmp/workdir/webSDM/new/webSDM.Rcheck/webSDM’
