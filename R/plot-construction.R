@@ -134,6 +134,20 @@ update_ggplot <- S7::new_generic("update_ggplot", c("object", "plot"))
 
 S7::method(update_ggplot, list(S7::class_any, class_ggplot)) <-
   function(object, plot, object_name, ...) {
+
+    if (!S7::S7_inherits(object) && inherits(object, "theme")) {
+      # For backward compatibility, we try to cast old S3 themes (lists with
+      # the class 'theme') to proper themes. People *should* use `theme()`,
+      # so we should be pushy here.
+      # TODO: Promote warning to error in future release.
+      cli::cli_warn(c(
+        "{object_name} is not a valid theme.",
+        "Please use {.fn theme} to construct themes."
+      ))
+      object <- theme(!!!object)
+      return(update_ggplot(object, plot))
+    }
+
     cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object.")
   }
 
