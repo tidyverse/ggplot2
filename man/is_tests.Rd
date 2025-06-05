@@ -50,8 +50,6 @@ is_margin(x)
 
 is_theme_element(x, type = "any")
 
-is_theme_element(x, type = "any")
-
 is_guide(x)
 
 is_guides(x)

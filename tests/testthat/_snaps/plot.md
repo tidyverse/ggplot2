@@ -6,7 +6,7 @@
 ---
 
     `data` cannot be a function.
-    i Have you misspelled the `data` argument in `ggplot()`
+    i Have you misspelled the `data` argument in `ggplot()`?
 
 ---
 
