@@ -616,8 +616,8 @@ label_angle_heuristic <- function(element, position, angle) {
   hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
   vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
 
-  element@angle <- angle %||% element@angle
-  element@hjust <- hjust %||% element@hjust
-  element@vjust <- vjust %||% element@vjust
+  element@angle <- angle %||% try_prop(element, "angle")
+  element@hjust <- hjust %||% try_prop(element, "hjust")
+  element@vjust <- vjust %||% try_prop(element, "vjust")
   element
 }

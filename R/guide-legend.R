@@ -326,7 +326,7 @@ GuideLegend <- ggproto(
     # Resolve title. The trick here is to override the main text element, so
     # that any settings declared in `legend.title` will be honoured but we have
     # custom defaults for the guide.
-    margin <- calc_element("text", theme)@margin
+    margin <- try_prop(calc_element("text", theme), "margin")
     title <- theme(text = element_text(
       hjust = 0, vjust = 0.5,
       margin = position_margin(title_position, margin, gap)
