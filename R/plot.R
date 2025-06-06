@@ -116,11 +116,8 @@ ggplot <- function(
 ggplot.default <-
   function(data, mapping = aes(), ..., environment = parent.frame()) {
 
-  if (!missing(mapping) && !is_mapping(mapping)) {
-    cli::cli_abort(c(
-      "{.arg mapping} must be created with {.fn aes}.",
-      "x" = "You've supplied {.obj_type_friendly {mapping}}."
-    ))
+  if (!missing(mapping)) {
+    mapping <- validate_mapping(mapping)
   }
   if (missing(data)) {
     data <- NULL
