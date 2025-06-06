@@ -22,10 +22,10 @@ property_choice <- function(options, allow_null = FALSE, default = NULL) {
     if (allow_null && is.null(value)) {
       return(character())
     }
-    if (!is_string(value)) {
+    if (!is_character(value)) {
       return(as_cli("must be a string, not {.obj_type_friendly {value}}"))
     }
-    if (value %in% options) {
+    if (all(value %in% options)) {
       return(character())
     }
     as_cli("must be one of {.or {.val {options}}}")
@@ -47,10 +47,10 @@ property_fontface <- function(allow_null = TRUE, default = NULL) {
     if (allow_null && is.null(value)) {
       return(character())
     }
-    if (is_integerish(value) && value %in% 1:4) {
+    if (is_integerish(value) && all(value %in% 1:4)) {
       return(character())
     }
-    if (value %in% options) {
+    if (all(value %in% options)) {
       return(character())
     }
     as_cli("must be one of {.or {.val {options}}}.")
