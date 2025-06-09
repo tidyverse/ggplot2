@@ -25,6 +25,7 @@
 #' @param e2 A plot component, as described below.
 #' @seealso [theme()]
 #' @rdname gg-add
+#' @export
 #' @examples
 #' base <-
 #'  ggplot(mpg, aes(displ, hwy)) +
@@ -78,12 +79,10 @@ S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
 #' @rdname gg-add
 #' @export
 "%+%" <- function(e1, e2) {
-  if (getRversion() < "4.3.0") {
-    add_gg(e1, e2)
-  } else {
+  if (getRversion() >= "4.3.0") {
     deprecate_soft0("4.0.0", I("<ggplot> %+% x"), I("<ggplot> + x"))
-    `+`(e1, e2)
   }
+  agg_gg(e1, e2)
 }
 
 add_ggplot <- function(p, object, objectname) {

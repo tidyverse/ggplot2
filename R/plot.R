@@ -136,6 +136,7 @@ ggplot.default <-
   p
 }
 
+#' @export
 ggplot.function <- function(data, ...) {
     # Added to avoid functions end in ggplot.default
     cli::cli_abort(c(
