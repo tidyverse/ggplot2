@@ -13,10 +13,12 @@
 ---
 
     `mapping` must be created by `aes()`.
+    x You've supplied an integer vector.
 
 ---
 
     `mapping` must be created by `aes()`.
+    x You've supplied a <ggplot2::ggplot> object.
     i Did you use `%>%` or `|>` instead of `+`?
 
 ---

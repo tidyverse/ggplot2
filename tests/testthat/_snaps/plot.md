@@ -1,6 +1,6 @@
 # ggplot() throws informative errors
 
-    `mapping` must be created with `aes()`.
+    `mapping` must be created by `aes()`.
     x You've supplied a character vector.
 
 ---
