@@ -473,6 +473,10 @@ test_that("titleGrob() and margins() work correctly", {
   expect_equal(width_cm(g10), width_cm(g1) + 2)
 })
 
+test_that("margins() warn against wrong input lengths", {
+  expect_snapshot(margin(c(1, 2), 3, 4, c(5, 6, 7)))
+})
+
 test_that("provided themes explicitly define all elements", {
   elements <- names(.element_tree)
 

@@ -8,6 +8,20 @@
 margin <- S7::new_class(
   "margin", parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
   constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
+    lens <- c(length(t), length(r), length(b), length(l))
+    if (any(lens != 1)) {
+      incorrect <- c("t", "r", "b", "l")[lens != 1]
+      s <- if (length(incorrect) > 1) "s" else ""
+      cli::cli_warn(c(
+        "In {.fn margin}, the argument{s} {.and {.arg {incorrect}}} should \\
+        have length 1, not length {.and {lens[lens != 1]}}.",
+        i = "Argument{s} get(s) truncated to length 1."
+      ))
+      t <- t[1]
+      r <- r[1]
+      b <- b[1]
+      l <- l[1]
+    }
     u <- unit(c(t, r, b, l), unit)
     S7::new_object(u)
   }
