@@ -106,6 +106,15 @@
       Error in `as_margin()`:
       ! `margin` must be a <margin> class, not a number.
 
+---
+
+    Code
+      element_text(colour = sqrt(2))
+    Condition
+      Error:
+      ! <ggplot2::element_text> object properties are invalid:
+      - @colour cannot be a decimal number, but could be an integer.
+
 # Theme validation behaves as expected
 
     The `aspect.ratio` theme element must be a <numeric/integer> object.

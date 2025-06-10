@@ -561,6 +561,10 @@ test_that("element_text throws appropriate conditions", {
     element_text(margin = 5),
     error = TRUE
   )
+  expect_snapshot(
+    element_text(colour = sqrt(2)),
+    error = TRUE
+  )
 })
 
 test_that("Theme validation behaves as expected", {

@@ -103,8 +103,8 @@ element_blank <- S7::new_class(
 #' @include properties.R
 #' @include margins.R
 element_props <- list(
-  fill       = property_nullable(S7::class_character | S7::new_S3_class("GridPattern") | S7::class_logical),
-  colour     = property_nullable(S7::class_character | S7::class_logical),
+  fill       = property_colour(pattern = TRUE),
+  colour     = property_colour(pattern = FALSE),
   family     = property_nullable(S7::class_character),
   hjust      = property_nullable(S7::class_numeric),
   vjust      = property_nullable(S7::class_numeric),
@@ -119,7 +119,7 @@ element_props <- list(
   linejoin   = property_choice(c("round", "mitre", "bevel"), allow_null = TRUE),
   shape      = property_nullable(S7::class_numeric | S7::class_character),
   arrow      = property_nullable(S7::new_S3_class("arrow") | S7::class_logical),
-  arrow.fill = property_nullable(S7::class_character | S7::class_logical),
+  arrow.fill = property_colour(pattern = FALSE),
   debug      = property_boolean(allow_null = TRUE, default = NULL),
   inherit.blank = property_boolean(default = FALSE),
   # These are reserved for future use
