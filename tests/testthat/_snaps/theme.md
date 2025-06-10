@@ -115,6 +115,16 @@
       ! <ggplot2::element_text> object properties are invalid:
       - @colour cannot be a decimal number, but could be an integer.
 
+---
+
+    Code
+      element_grob(el, label = element_blank())
+    Condition
+      Warning:
+      `label` cannot be a <ggplot2::element_blank> object.
+    Output
+      zeroGrob[NULL] 
+
 # Theme validation behaves as expected
 
     The `aspect.ratio` theme element must be a <numeric/integer> object.

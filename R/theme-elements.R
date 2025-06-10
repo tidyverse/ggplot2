@@ -492,8 +492,13 @@ S7::method(draw_element, element_text) <-
            hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
            margin = NULL, margin_x = FALSE, margin_y = FALSE, ...) {
 
-    if (is.null(label))
+    if (is.null(label)) {
       return(zeroGrob())
+    }
+    if (is_theme_element(label)) {
+      cli::cli_warn("{.arg label} cannot be {.obj_type_friendly {label}}.")
+      return(zeroGrob())
+    }
 
     vj <- vjust %||% element@vjust
     hj <- hjust %||% element@hjust

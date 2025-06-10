@@ -565,6 +565,13 @@ test_that("element_text throws appropriate conditions", {
     element_text(colour = sqrt(2)),
     error = TRUE
   )
+
+  # Some absurd case found in reverse dependency check where
+  # labs(y = element_blank()) for some reason
+  el <- theme_get()$text
+  expect_snapshot(
+    element_grob(el, label = element_blank())
+  )
 })
 
 test_that("Theme validation behaves as expected", {
