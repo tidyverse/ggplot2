@@ -275,4 +275,11 @@ S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
 #' @export
 `[[<-.ggplot2::gg` <- `$<-.ggplot2::gg`
 
+#' @importFrom S7 convert
+S7::method(convert, list(from = class_ggplot, to = S7::class_list)) <-
+  function(from, to) {
+    S7::props(from)
+  }
 
+S7::method(as.list, class_ggplot) <- function(x, ...) convert(x, S7::class_list)
+rm(`as.list`)
