@@ -56,7 +56,7 @@ test_that("spatial polygons have correct ordering", {
   )
 })
 
-test_that("fortify.default proves a helpful error with class uneval", {
+test_that("fortify.default proves a helpful error with mapping class", {
   expect_snapshot_error(ggplot(aes(x = x)))
 })
 

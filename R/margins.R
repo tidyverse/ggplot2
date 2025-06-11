@@ -1,17 +1,35 @@
+#' @include properties.R
+
 #' @param t,r,b,l Dimensions of each margin. (To remember order, think trouble).
 #' @param unit Default units of dimensions. Defaults to "pt" so it
 #'   can be most easily scaled with the text.
 #' @rdname element
 #' @export
-margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
-  u <- unit(c(t, r, b, l), unit)
-  class(u) <- c("margin", class(u))
-  u
-}
+margin <- S7::new_class(
+  "margin", parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
+  constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
+    lens <- c(length(t), length(r), length(b), length(l))
+    if (any(lens != 1)) {
+      incorrect <- c("t", "r", "b", "l")[lens != 1]
+      s <- if (length(incorrect) > 1) "s" else ""
+      cli::cli_warn(c(
+        "In {.fn margin}, the argument{s} {.and {.arg {incorrect}}} should \\
+        have length 1, not length {.and {lens[lens != 1]}}.",
+        i = "Argument{s} get(s) truncated to length 1."
+      ))
+      t <- t[1]
+      r <- r[1]
+      b <- b[1]
+      l <- l[1]
+    }
+    u <- unit(c(t, r, b, l), unit)
+    S7::new_object(u)
+  }
+)
 
 #' @export
 #' @rdname is_tests
-is_margin <- function(x) inherits(x, "margin")
+is_margin <- function(x) S7::S7_inherits(x, margin)
 is.margin <- function(x) lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
 
 #' @rdname element
@@ -24,6 +42,27 @@ margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
 #' @export
 margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
   margin(t = t, r = r, b = b, l = l, unit)
+}
+
+as_margin <- function(x, x_arg = caller_arg(x), call = caller_env()) {
+  if (is_margin(x)) {
+    return(x)
+  }
+  if (!is.unit(x)) {
+    cli::cli_abort(
+      "{.arg {x_arg}} must be a {.cls margin} class, \\
+      not {.obj_type_friendly {x}}."
+    )
+  }
+  if (length(x) != 4) {
+    x <- rep(x, length.out = 4)
+  }
+  type <- unitType(x)
+  if (is_unique(type)) {
+    type <- type[1]
+  }
+  x <- as.numeric(x)
+  margin(x[1], x[2], x[3], x[4], unit = type)
 }
 
 #' Create a text grob with the proper location and margins
@@ -173,7 +212,7 @@ heightDetails.titleGrob <- function(x) {
 #' @return A list with two components, `hjust` and `vjust`, containing the rotated hjust and vjust values
 #'
 #' @noRd
-rotate_just <- function(angle, hjust, vjust) {
+rotate_just <- function(angle = NULL, hjust = NULL, vjust = NULL, element = NULL) {
   ## Ideally we would like to do something like the following commented-out lines,
   ## but it currently yields unexpected results for angles other than 0, 90, 180, 270.
   ## Problems arise in particular in cases where the horizontal and the vertical
@@ -188,6 +227,14 @@ rotate_just <- function(angle, hjust, vjust) {
   #
   #hnew <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
   #vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+  if (S7::S7_inherits(element)) {
+    element <- S7::props(element)
+  }
+  if (!is.null(element)) {
+    angle <- element$angle
+    hjust <- element$hjust
+    vjust <- element$vjust
+  }
 
   angle <- (angle %||% 0) %% 360
 

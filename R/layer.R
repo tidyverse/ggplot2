@@ -201,11 +201,21 @@ layer <- function(geom = NULL, stat = NULL,
 }
 
 validate_mapping <- function(mapping, call = caller_env()) {
+  # Upgrade any old S3 input to new S7 input
+  # TODO: deprecate this after a while
+  is_old_mapping <- !S7::S7_inherits(mapping) && inherits(mapping, "uneval")
+  if (is_old_mapping && is.list(mapping)) {
+    mapping <- aes(!!!mapping)
+  }
+
   if (!is_mapping(mapping)) {
-    msg <- "{.arg mapping} must be created by {.fn aes}."
+    msg <- c(
+      "{.arg mapping} must be created by {.fn aes}.",
+      "x" = "You've supplied {.obj_type_friendly {mapping}}."
+    )
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
-    if (inherits(mapping, "gg")) {
+    if (S7::S7_inherits(mapping, class_gg)) {
       msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
     }
 
@@ -215,7 +225,7 @@ validate_mapping <- function(mapping, call = caller_env()) {
   }
 
   # For backward compatibility with pre-tidy-eval layers
-  new_aes(mapping)
+  class_mapping(mapping)
 }
 
 #' Layers
@@ -485,18 +495,16 @@ Layer <- ggproto("Layer", NULL,
   setup_layer = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (isTRUE(self$inherit.aes)) {
-      self$computed_mapping <- defaults(self$mapping, plot$mapping)
+      self$computed_mapping <- class_mapping(defaults(self$mapping, plot@mapping))
 
       # Inherit size as linewidth from global mapping
       if (self$geom$rename_size &&
-          "size" %in% names(plot$mapping) &&
+          "size" %in% names(plot@mapping) &&
           !"linewidth" %in% names(self$computed_mapping) &&
           "linewidth" %in% self$geom$aesthetics()) {
-        self$computed_mapping$size <- plot$mapping$size
+        self$computed_mapping$size <- plot@mapping$size
         deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
       }
-      # defaults() strips class, but it needs to be preserved for now
-      class(self$computed_mapping) <- "uneval"
     } else {
       self$computed_mapping <- self$mapping
     }
@@ -544,7 +552,7 @@ Layer <- ggproto("Layer", NULL,
 
     # Evaluate aesthetics
     evaled <- eval_aesthetics(aesthetics, data)
-    plot$scales$add_defaults(evaled, plot$plot_env)
+    plot@scales$add_defaults(evaled, plot@plot_env)
 
     # Check for discouraged usage in mapping
     warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
@@ -659,7 +667,7 @@ Layer <- ggproto("Layer", NULL,
     if (length(new) == 0) return(data)
 
     # data needs to be non-scaled
-    data_orig <- plot$scales$backtransform_df(data)
+    data_orig <- plot@scales$backtransform_df(data)
 
     # Add map stat output to aesthetics
     stat_data <- eval_aesthetics(
@@ -676,11 +684,11 @@ Layer <- ggproto("Layer", NULL,
     stat_data <- data_frame0(!!!stat_data)
 
     # Add any new scales, if needed
-    plot$scales$add_defaults(stat_data, plot$plot_env)
+    plot@scales$add_defaults(stat_data, plot@plot_env)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {
-      stat_data <- plot$scales$transform_df(stat_data)
+      stat_data <- plot@scales$transform_df(stat_data)
     }
     stat_data <- cleanup_mismatched_data(stat_data, nrow(data), "after_stat")
     data[names(stat_data)] <- stat_data

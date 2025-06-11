@@ -697,6 +697,8 @@ Guide <- ggproto(
   #' A grob representing tick marks.
   build_ticks = function(key, elements, params, position = params$position,
                          length = elements$ticks_length) {
+    force(length)
+
     # TODO: position logic is crooked, should this be reversed?
     if (!is_theme_element(elements)) {
       elements <- elements$ticks

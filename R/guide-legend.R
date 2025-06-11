@@ -326,7 +326,7 @@ GuideLegend <- ggproto(
     # Resolve title. The trick here is to override the main text element, so
     # that any settings declared in `legend.title` will be honoured but we have
     # custom defaults for the guide.
-    margin <- calc_element("text", theme)$margin
+    margin <- try_prop(calc_element("text", theme), "margin")
     title <- theme(text = element_text(
       hjust = 0, vjust = 0.5,
       margin = position_margin(title_position, margin, gap)
@@ -574,7 +574,7 @@ GuideLegend <- ggproto(
 
     gt <- self$add_title(
       gt, grobs$title, elements$title_position,
-      with(elements$title, rotate_just(angle, hjust, vjust))
+      rotate_just(element = elements$title)
     )
 
     gt <- gtable_add_padding(gt, unit(elements$padding, "cm"))
@@ -691,13 +691,17 @@ keep_key_data <- function(key, data, aes, show) {
 
 position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
   margin <- margin %||% margin()
-  switch(
+  margin <- switch(
     position,
     top    = replace(margin, 3, margin[3] + gap),
     bottom = replace(margin, 1, margin[1] + gap),
     left   = replace(margin, 2, margin[2] + gap),
     right  = replace(margin, 4, margin[4] + gap)
   )
+  # We have to manually reconstitute the class because the 'simpleUnit' class
+  # might be dropped by the replacement operation.
+  class(margin) <- c("ggplot2::margin", class(margin), "S7_object")
+  margin
 }
 
 # Function implementing backward compatibility with the old way of specifying

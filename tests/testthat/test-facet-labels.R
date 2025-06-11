@@ -1,6 +1,6 @@
 get_labels_matrix <- function(plot, ...) {
   data <- ggplot_build(plot)
-  layout <- data$layout
+  layout <- data@layout
 
   labels <- get_labels_info(layout$facet, layout, ...)
   labeller <- match.fun(layout$facet$params$labeller)

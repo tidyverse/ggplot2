@@ -1,19 +1,3 @@
-# modifying theme element properties with + operator works
-
-    Code
-      theme_grey() + "asdf"
-    Condition
-      Error:
-      ! Can't add `"asdf"` to a theme object.
-
-# replacing theme elements with %+replace% operator works
-
-    Code
-      theme_grey() + "asdf"
-    Condition
-      Error:
-      ! Can't add `"asdf"` to a theme object.
-
 # theme validation happens at build stage
 
     The `text` theme element must be a <element_text> object.
@@ -25,7 +9,7 @@
 # incorrect theme specifications throw meaningful errors
 
     Can't merge the `line` theme element.
-    Caused by error in `merge_element()`:
+    Caused by error in `method(merge_element, list(ggplot2::element, class_any))`:
     ! Only elements of the same class can be merged.
 
 ---
@@ -34,7 +18,7 @@
 
 ---
 
-    Theme element `test` has `NULL` property without default: fill, colour, linewidth, and linetype.
+    Theme element `test` has `NULL` property without default: fill, colour, linewidth, linetype, and linejoin.
 
 ---
 
@@ -74,8 +58,19 @@
     Code
       merge_element(text_base, rect_base)
     Condition
-      Error in `merge_element()`:
+      Error in `method(merge_element, list(ggplot2::element, class_any))`:
       ! Only elements of the same class can be merged.
+
+# margins() warn against wrong input lengths
+
+    Code
+      margin(c(1, 2), 3, 4, c(5, 6, 7))
+    Condition
+      Warning:
+      In `margin()`, the arguments `t` and `l` should have length 1, not length 2 and 3.
+      i Arguments get(s) truncated to length 1.
+    Output
+      [1] 1points 3points 4points 5points
 
 # Theme elements are checked during build
 
@@ -93,6 +88,42 @@
 # subtheme functions rename arguments as intended
 
     Ignoring unknown `theme()` elements: foo and bar.
+
+# element_text throws appropriate conditions
+
+    Vectorized input to `element_text()` is not officially supported.
+    i Results may be unexpected or may change in future versions of ggplot2.
+
+---
+
+    The `margin` argument should be constructed using the `margin()` function.
+
+---
+
+    Code
+      element_text(margin = 5)
+    Condition
+      Error in `as_margin()`:
+      ! `margin` must be a <margin> class, not a number.
+
+---
+
+    Code
+      element_text(colour = sqrt(2))
+    Condition
+      Error:
+      ! <ggplot2::element_text> object properties are invalid:
+      - @colour cannot be a decimal number, but could be an integer.
+
+---
+
+    Code
+      element_grob(el, label = element_blank())
+    Condition
+      Warning:
+      `label` cannot be a <ggplot2::element_blank> object.
+    Output
+      zeroGrob[NULL] 
 
 # Theme validation behaves as expected
 

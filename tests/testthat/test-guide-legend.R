@@ -128,7 +128,7 @@ test_that("legends can be forced to display unrelated geoms", {
     )
 
   b <- ggplot_build(p)
-  legend <- b$plot$guides$params[[1]]
+  legend <- b@plot@guides$params[[1]]
 
   expect_equal(
     legend$decor[[1]]$data$fill,

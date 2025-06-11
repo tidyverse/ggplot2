@@ -154,7 +154,7 @@ GuideAxisTheta <- ggproto(
     }
 
     offset <- max(unit(0, "pt"), elements$major_length, elements$minor_length)
-    elements$offset <- offset + max(elements$text$margin %||% unit(0, "pt"))
+    elements$offset <- offset + max(try_prop(elements$text, "margin", default = unit(0, "pt")))
     elements
   },
 
@@ -198,7 +198,7 @@ GuideAxisTheta <- ggproto(
 
     # Resolve text angle
     if (is_waiver(params$angle) || is.null(params$angle)) {
-      angle <- elements$text$angle
+      angle <- elements$text@angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
     }
@@ -274,14 +274,14 @@ GuideAxisTheta <- ggproto(
 
     # Resolve text angle
     if (is_waiver(params$angle %||% waiver())) {
-      angle <- elements$text$angle
+      angle <- elements$text@angle
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
     }
     angle <- key$theta + deg2rad(angle)
 
     # Set margin
-    margin <- rep(max(elements$text$margin), length.out = 4)
+    margin <- rep(max(try_prop(elements$text, "margin", default = unit(0, "pt"))), length.out = 4)
 
     # Measure size of each individual label
     single_labels <- lapply(labels, function(lab) {
