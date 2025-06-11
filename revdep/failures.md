@@ -6,7 +6,7 @@
 * GitHub: NA
 * Source code: https://github.com/cran/bartMan
 * Date/Publication: 2024-07-24 12:10:02 UTC
-* Number of recursive dependencies: 134
+* Number of recursive dependencies: 133
 
 Run `revdepcheck::cloud_details(, "bartMan")` for more info
 
@@ -68,7 +68,7 @@ ERROR: lazy loading failed for package ‘bartMan’
 * GitHub: https://github.com/fate-ewi/bayesdfa
 * Source code: https://github.com/cran/bayesdfa
 * Date/Publication: 2025-03-22 20:30:21 UTC
-* Number of recursive dependencies: 85
+* Number of recursive dependencies: 84
 
 Run `revdepcheck::cloud_details(, "bayesdfa")` for more info
 
@@ -112,99 +112,6 @@ ERROR: configuration failed for package ‘bayesdfa’
 
 
 ```
-# bmstdr
-
-<details>
-
-* Version: 0.8.2
-* GitHub: https://github.com/sujit-sahu/bmstdr
-* Source code: https://github.com/cran/bmstdr
-* Date/Publication: 2025-03-31 17:30:06 UTC
-* Number of recursive dependencies: 206
-
-Run `revdepcheck::cloud_details(, "bmstdr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘bmstdr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/bmstdr/new/bmstdr.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 144.1Mb
-      sub-directories of 1Mb or more:
-        data    1.5Mb
-        libs  139.8Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘bmstdr’ ...
-** package ‘bmstdr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0’
-using C++17
-
-
-g++ -std=gnu++17 -I"/opt/R/4.4.0/lib/R/include" -DNDEBUG -I"../inst/include" -I"/usr/local/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/usr/local/lib/R/site-library/BH/include' -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppEigen/include' -I'/usr/local/lib/R/site-library/rstan/include' -I'/usr/local/lib/R/site-library/StanHeaders/include' -I'/usr/local/lib/R/site-library/RcppParallel/include' -I/usr/local/include    -I'/usr/local/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2   -c RcppExports.cpp -o RcppExports.o
-In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
-...
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'rstan', details:
-  call: NULL
-  error: C stack usage  9964532 is too close to the limit
-Execution halted
-ERROR: lazy loading failed for package ‘bmstdr’
-* removing ‘/tmp/workdir/bmstdr/new/bmstdr.Rcheck/bmstdr’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘bmstdr’ ...
-** package ‘bmstdr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0’
-using C++17
-
-
-g++ -std=gnu++17 -I"/opt/R/4.4.0/lib/R/include" -DNDEBUG -I"../inst/include" -I"/usr/local/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/usr/local/lib/R/site-library/BH/include' -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppEigen/include' -I'/usr/local/lib/R/site-library/rstan/include' -I'/usr/local/lib/R/site-library/StanHeaders/include' -I'/usr/local/lib/R/site-library/RcppParallel/include' -I/usr/local/include    -I'/usr/local/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2   -c RcppExports.cpp -o RcppExports.o
-In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
-...
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** checking absolute paths in shared objects and dynamic libraries
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (bmstdr)
-
-
-```
 # cocktailApp
 
 <details>
@@ -213,7 +120,7 @@ In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core
 * GitHub: https://github.com/shabbychef/cocktailApp
 * Source code: https://github.com/cran/cocktailApp
 * Date/Publication: 2023-07-19 13:40:09 UTC
-* Number of recursive dependencies: 94
+* Number of recursive dependencies: 93
 
 Run `revdepcheck::cloud_details(, "cocktailApp")` for more info
 
@@ -285,7 +192,7 @@ ERROR: lazy loading failed for package ‘cocktailApp’
 * GitHub: NA
 * Source code: https://github.com/cran/coda.plot
 * Date/Publication: 2025-04-20 21:30:02 UTC
-* Number of recursive dependencies: 42
+* Number of recursive dependencies: 41
 
 Run `revdepcheck::cloud_details(, "coda.plot")` for more info
 
@@ -428,7 +335,7 @@ ERROR: compilation failed for package ‘ctsem’
 * GitHub: https://github.com/willgearty/deeptime
 * Source code: https://github.com/cran/deeptime
 * Date/Publication: 2024-10-25 23:30:02 UTC
-* Number of recursive dependencies: 196
+* Number of recursive dependencies: 195
 
 Run `revdepcheck::cloud_details(, "deeptime")` for more info
 
@@ -502,7 +409,7 @@ ERROR: loading failed
 * GitHub: https://github.com/CefasRepRes/EcoEnsemble
 * Source code: https://github.com/cran/EcoEnsemble
 * Date/Publication: 2025-03-18 18:20:02 UTC
-* Number of recursive dependencies: 88
+* Number of recursive dependencies: 87
 
 Run `revdepcheck::cloud_details(, "EcoEnsemble")` for more info
 
@@ -580,7 +487,7 @@ ERROR: compilation failed for package ‘EcoEnsemble’
 * GitHub: https://github.com/albersonmiranda/fio
 * Source code: https://github.com/cran/fio
 * Date/Publication: 2025-04-06 07:50:02 UTC
-* Number of recursive dependencies: 88
+* Number of recursive dependencies: 87
 
 Run `revdepcheck::cloud_details(, "fio")` for more info
 
@@ -640,7 +547,7 @@ ERROR: configuration failed for package ‘fio’
 * GitHub: https://github.com/ggobi/ggally
 * Source code: https://github.com/cran/GGally
 * Date/Publication: 2024-02-14 00:53:32 UTC
-* Number of recursive dependencies: 144
+* Number of recursive dependencies: 143
 
 Run `revdepcheck::cloud_details(, "GGally")` for more info
 
@@ -704,7 +611,7 @@ ERROR: lazy loading failed for package ‘GGally’
 * GitHub: https://github.com/haleyjeppson/ggmosaic
 * Source code: https://github.com/cran/ggmosaic
 * Date/Publication: 2021-02-23 19:50:02 UTC
-* Number of recursive dependencies: 74
+* Number of recursive dependencies: 73
 
 Run `revdepcheck::cloud_details(, "ggmosaic")` for more info
 
@@ -781,7 +688,7 @@ ERROR: lazy loading failed for package ‘ggmosaic’
 * GitHub: NA
 * Source code: https://github.com/cran/ggmulti
 * Date/Publication: 2024-04-09 09:40:05 UTC
-* Number of recursive dependencies: 124
+* Number of recursive dependencies: 123
 
 Run `revdepcheck::cloud_details(, "ggmulti")` for more info
 
@@ -848,7 +755,7 @@ ERROR: lazy loading failed for package ‘ggmulti’
 * GitHub: https://github.com/ehrlinger/ggRandomForests
 * Source code: https://github.com/cran/ggRandomForests
 * Date/Publication: 2022-09-01 09:10:45 UTC
-* Number of recursive dependencies: 97
+* Number of recursive dependencies: 96
 
 Run `revdepcheck::cloud_details(, "ggRandomForests")` for more info
 
@@ -904,7 +811,7 @@ ERROR: lazy loading failed for package ‘ggRandomForests’
 * GitHub: NA
 * Source code: https://github.com/cran/ggtern
 * Date/Publication: 2024-03-24 21:50:02 UTC
-* Number of recursive dependencies: 40
+* Number of recursive dependencies: 39
 
 Run `revdepcheck::cloud_details(, "ggtern")` for more info
 
@@ -983,7 +890,7 @@ ERROR: lazy loading failed for package ‘ggtern’
 * GitHub: NA
 * Source code: https://github.com/cran/inventorize
 * Date/Publication: 2025-05-28 13:20:02 UTC
-* Number of recursive dependencies: 69
+* Number of recursive dependencies: 68
 
 Run `revdepcheck::cloud_details(, "inventorize")` for more info
 
@@ -1023,7 +930,6 @@ ERROR: lazy loading failed for package ‘inventorize’
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
-Warning in qgamma(service_level, alpha, beta) : NaNs produced
 Warning in qgamma(service_level, alpha, beta) : NaNs produced
 ** help
 *** installing help indices
@@ -1264,7 +1170,7 @@ ERROR: lazy loading failed for package ‘MultiTraits’
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/OpenMx
-* Number of recursive dependencies: 160
+* Number of recursive dependencies: 159
 
 Run `revdepcheck::cloud_details(, "OpenMx")` for more info
 
@@ -1300,7 +1206,7 @@ Run `revdepcheck::cloud_details(, "OpenMx")` for more info
 * GitHub: https://github.com/rishvish/PieGlyph
 * Source code: https://github.com/cran/PieGlyph
 * Date/Publication: 2024-06-28 12:00:02 UTC
-* Number of recursive dependencies: 88
+* Number of recursive dependencies: 87
 
 Run `revdepcheck::cloud_details(, "PieGlyph")` for more info
 
@@ -1363,7 +1269,7 @@ ERROR: lazy loading failed for package ‘PieGlyph’
 * GitHub: NA
 * Source code: https://github.com/cran/rmsb
 * Date/Publication: 2025-04-13 16:30:02 UTC
-* Number of recursive dependencies: 137
+* Number of recursive dependencies: 136
 
 Run `revdepcheck::cloud_details(, "rmsb")` for more info
 
@@ -1415,7 +1321,7 @@ ERROR: configuration failed for package ‘rmsb’
 * GitHub: https://github.com/alexhroom/rshift
 * Source code: https://github.com/cran/rshift
 * Date/Publication: 2025-04-06 18:40:02 UTC
-* Number of recursive dependencies: 35
+* Number of recursive dependencies: 34
 
 Run `revdepcheck::cloud_details(, "rshift")` for more info
 
@@ -1493,7 +1399,7 @@ ERROR: compilation failed for package ‘rshift’
 * GitHub: NA
 * Source code: https://github.com/cran/RSP
 * Date/Publication: 2023-09-24 21:00:02 UTC
-* Number of recursive dependencies: 238
+* Number of recursive dependencies: 243
 
 Run `revdepcheck::cloud_details(, "RSP")` for more info
 
@@ -1553,7 +1459,7 @@ ERROR: lazy loading failed for package ‘RSP’
 * GitHub: https://github.com/stan-dev/rstanarm
 * Source code: https://github.com/cran/rstanarm
 * Date/Publication: 2024-01-18 23:00:03 UTC
-* Number of recursive dependencies: 140
+* Number of recursive dependencies: 139
 
 Run `revdepcheck::cloud_details(, "rstanarm")` for more info
 
@@ -1631,7 +1537,7 @@ ERROR: compilation failed for package ‘rstanarm’
 * GitHub: NA
 * Source code: https://github.com/cran/scplot
 * Date/Publication: 2025-03-01 13:10:03 UTC
-* Number of recursive dependencies: 115
+* Number of recursive dependencies: 114
 
 Run `revdepcheck::cloud_details(, "scplot")` for more info
 
@@ -1696,7 +1602,7 @@ ERROR: lazy loading failed for package ‘scplot’
 * Version: NA
 * GitHub: NA
 * Source code: https://github.com/cran/StatTeacherAssistant
-* Number of recursive dependencies: 124
+* Number of recursive dependencies: 123
 
 Run `revdepcheck::cloud_details(, "StatTeacherAssistant")` for more info
 
@@ -1804,7 +1710,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/jiangyouxiang/TestAnaAPP
 * Source code: https://github.com/cran/TestAnaAPP
 * Date/Publication: 2024-11-09 04:00:02 UTC
-* Number of recursive dependencies: 264
+* Number of recursive dependencies: 263
 
 Run `revdepcheck::cloud_details(, "TestAnaAPP")` for more info
 
@@ -1864,7 +1770,7 @@ ERROR: lazy loading failed for package ‘TestAnaAPP’
 * GitHub: https://github.com/YuLab-SMU/tidydr
 * Source code: https://github.com/cran/tidydr
 * Date/Publication: 2023-03-08 09:20:02 UTC
-* Number of recursive dependencies: 76
+* Number of recursive dependencies: 75
 
 Run `revdepcheck::cloud_details(, "tidydr")` for more info
 
@@ -1926,7 +1832,7 @@ ERROR: lazy loading failed for package ‘tidydr’
 * GitHub: https://github.com/jschoeley/tricolore
 * Source code: https://github.com/cran/tricolore
 * Date/Publication: 2024-05-15 15:00:02 UTC
-* Number of recursive dependencies: 105
+* Number of recursive dependencies: 104
 
 Run `revdepcheck::cloud_details(, "tricolore")` for more info
 
@@ -2000,7 +1906,7 @@ ERROR: lazy loading failed for package ‘tricolore’
 * GitHub: https://github.com/alexander-pastukhov/tridim-regression
 * Source code: https://github.com/cran/TriDimRegression
 * Date/Publication: 2023-09-13 14:10:03 UTC
-* Number of recursive dependencies: 96
+* Number of recursive dependencies: 95
 
 Run `revdepcheck::cloud_details(, "TriDimRegression")` for more info
 
@@ -2044,71 +1950,6 @@ ERROR: configuration failed for package ‘TriDimRegression’
 
 
 ```
-# webSDM
-
-<details>
-
-* Version: 1.1-5
-* GitHub: https://github.com/giopogg/webSDM
-* Source code: https://github.com/cran/webSDM
-* Date/Publication: 2024-06-24 12:10:02 UTC
-* Number of recursive dependencies: 194
-
-Run `revdepcheck::cloud_details(, "webSDM")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘webSDM’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/webSDM/new/webSDM.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘webSDM’ ...
-** package ‘webSDM’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: .onLoad failed in loadNamespace() for 'rstan', details:
-  call: NULL
-  error: C stack usage  9964308 is too close to the limit
-Execution halted
-ERROR: lazy loading failed for package ‘webSDM’
-* removing ‘/tmp/workdir/webSDM/new/webSDM.Rcheck/webSDM’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘webSDM’ ...
-** package ‘webSDM’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (webSDM)
-
-
-```
 # xpose
 
 <details>
@@ -2117,7 +1958,7 @@ ERROR: lazy loading failed for package ‘webSDM’
 * GitHub: https://github.com/UUPharmacometrics/xpose
 * Source code: https://github.com/cran/xpose
 * Date/Publication: 2025-01-07 20:00:02 UTC
-* Number of recursive dependencies: 106
+* Number of recursive dependencies: 105
 
 Run `revdepcheck::cloud_details(, "xpose")` for more info
 
