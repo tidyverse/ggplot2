@@ -15,7 +15,7 @@ of the plot at the right time."><meta property="og:image" content="https://ggplo
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,8 +90,8 @@ of the plot at the right time.</p>
 is not intended for extension. The <code><a href="layer.html">layer()</a></code> function instantiates the
 LayerInstance class, which inherits from Layer, but has relevant fields
 populated.</p>
-<p>The class is mostly used in <code><a href="ggplot_build.html">ggplot_build()</a></code>, with the notable exception
-of the <code>draw_geom()</code> method, which is used in <code><a href="ggplot_gtable.html">ggplot_gtable()</a></code> instead.</p>
+<p>The class is mostly used in <code><a href="build_ggplot.html">ggplot_build()</a></code>, with the notable exception
+of the <code>draw_geom()</code> method, which is used in <code><a href="gtable_ggplot.html">ggplot_gtable()</a></code> instead.</p>
     </div>
     <div class="section level2">
     <h2 id="fields">Fields<a class="anchor" aria-label="anchor" href="#fields"></a></h2>
@@ -311,8 +311,8 @@ methods from the Position class.</p>
 <dd><p><strong>Description</strong></p>
 <p>A function method that produces graphics for every panel. It uses Geom
 class methods to handle missing data and produce grobs. In contrast to
-other methods, this is called during the <code><a href="ggplot_gtable.html">ggplot_gtable()</a></code> stage, not the
-<code><a href="ggplot_build.html">ggplot_build()</a></code> stage.</p>
+other methods, this is called during the <code><a href="gtable_ggplot.html">ggplot_gtable()</a></code> stage, not the
+<code><a href="build_ggplot.html">ggplot_build()</a></code> stage.</p>
 <p><strong>Usage</strong></p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">Layer</span><span class="op">$</span><span class="fu">draw_geom</span><span class="op">(</span><span class="va">data</span>, <span class="va">layout</span><span class="op">)</span></span></code></pre><p></p></div>
 <p><strong>Arguments</strong></p><dl><dt><code>data</code></dt>

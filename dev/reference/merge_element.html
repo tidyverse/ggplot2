@@ -9,7 +9,7 @@ method"><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.pn
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,19 +76,7 @@ method</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for class 'element_blank'</span></span>
-<span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for class 'element'</span></span>
-<span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for class 'margin'</span></span>
-<span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -116,19 +104,21 @@ method</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Adopt size but ignore colour</span></span></span>
 <span class="r-in"><span><span class="fu">merge_element</span><span class="op">(</span><span class="va">new</span>, <span class="va">old</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ family       : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ face         : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ colour       : chr "red"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ size         : num 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ hjust        : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ vjust        : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ angle        : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lineheight   : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ margin       : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ debug        : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ inherit.blank: logi FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "element_text" "element"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ggplot2::element_text&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ family       : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ face         : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ italic       : chr NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ fontweight   : num NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ fontwidth    : num NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ colour       : chr "red"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ size         : num 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ hjust        : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ vjust        : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ angle        : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ lineheight   : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ margin       : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ debug        : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  @ inherit.blank: logi FALSE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

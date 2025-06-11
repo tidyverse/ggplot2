@@ -13,7 +13,7 @@ element tree and provide default settings for newly defined theme elements."><me
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,8 +115,8 @@ reset to the default theme.</p></dd>
 
 
 <dt id="arg-class">class<a class="anchor" aria-label="anchor" href="#arg-class"></a></dt>
-<dd><p>The name of the element class. Examples are "element_line" or
-"element_text" or "unit", or one of the two reserved keywords "character" or
+<dd><p>The name of the element class. Examples are <code>element_line</code> or
+<code>element_text</code> or "unit", or one of the two reserved keywords "character" or
 "margin". The reserved keyword "character" implies a character
 or numeric vector, not a class called "character". The keyword
 "margin" implies a unit vector of length 4, as created by <code><a href="element.html">margin()</a></code>.</p></dd>
@@ -164,7 +164,7 @@ element inheritance relationships for the element tree.</p>
 <span class="r-in"><span><span class="co"># plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`</span></span></span>
 <span class="r-in"><span><span class="fu">register_theme_elements</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  ggxyz.panel.annotation <span class="op">=</span> <span class="fu"><a href="element.html">element_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span>, hjust <span class="op">=</span> <span class="fl">0.95</span>, vjust <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  element_tree <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ggxyz.panel.annotation <span class="op">=</span> <span class="fu">el_def</span><span class="op">(</span><span class="st">"element_text"</span>, <span class="st">"text"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  element_tree <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ggxyz.panel.annotation <span class="op">=</span> <span class="fu">el_def</span><span class="op">(</span><span class="va">element_text</span>, <span class="st">"text"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Now the package can define a new coord that includes a panel annotation</span></span></span>

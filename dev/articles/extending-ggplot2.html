@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -906,25 +906,25 @@ to red, but it inherits the existing fill colour:</p>
 <span></span>
 <span><span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">new_theme</span><span class="op">$</span><span class="va">legend.key</span></span>
-<span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ fill         : NULL</span></span>
-<span><span class="co">#&gt;  $ colour       : chr "red"</span></span>
-<span><span class="co">#&gt;  $ linewidth    : NULL</span></span>
-<span><span class="co">#&gt;  $ linetype     : NULL</span></span>
-<span><span class="co">#&gt;  $ inherit.blank: logi FALSE</span></span>
-<span><span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;ggplot2::element_rect&gt;</span></span>
+<span><span class="co">#&gt;  @ fill         : NULL</span></span>
+<span><span class="co">#&gt;  @ colour       : chr "red"</span></span>
+<span><span class="co">#&gt;  @ linewidth    : NULL</span></span>
+<span><span class="co">#&gt;  @ linetype     : NULL</span></span>
+<span><span class="co">#&gt;  @ linejoin     : NULL</span></span>
+<span><span class="co">#&gt;  @ inherit.blank: logi FALSE</span></span></code></pre></div>
 <p>To override it completely, use <code>%+replace%</code> instead of
 <code>+</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggtheme.html">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/get_theme.html">%+replace%</a></span> <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>legend.key <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">new_theme</span><span class="op">$</span><span class="va">legend.key</span></span>
-<span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ fill         : NULL</span></span>
-<span><span class="co">#&gt;  $ colour       : chr "red"</span></span>
-<span><span class="co">#&gt;  $ linewidth    : NULL</span></span>
-<span><span class="co">#&gt;  $ linetype     : NULL</span></span>
-<span><span class="co">#&gt;  $ inherit.blank: logi FALSE</span></span>
-<span><span class="co">#&gt;  - attr(*, "class")= chr [1:2] "element_rect" "element"</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;ggplot2::element_rect&gt;</span></span>
+<span><span class="co">#&gt;  @ fill         : NULL</span></span>
+<span><span class="co">#&gt;  @ colour       : chr "red"</span></span>
+<span><span class="co">#&gt;  @ linewidth    : NULL</span></span>
+<span><span class="co">#&gt;  @ linetype     : NULL</span></span>
+<span><span class="co">#&gt;  @ linejoin     : NULL</span></span>
+<span><span class="co">#&gt;  @ inherit.blank: logi FALSE</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="global-elements">Global elements<a class="anchor" aria-label="anchor" href="#global-elements"></a>
@@ -1599,7 +1599,7 @@ guides is that a lot of settings depend on the guide’s
 <span>  build_labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">key</span>, <span class="va">elements</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">position</span> <span class="op">&lt;-</span> <span class="va">params</span><span class="op">$</span><span class="va">position</span></span>
 <span>    <span class="co"># Downstream code expects a list of labels</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/element_grob.html">element_grob</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/draw_element.html">element_grob</a></span><span class="op">(</span></span>
 <span>      <span class="va">elements</span><span class="op">$</span><span class="va">text</span>,</span>
 <span>      label <span class="op">=</span> <span class="va">key</span><span class="op">$</span><span class="va">.label</span>,</span>
 <span>      x <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html" class="external-link">switch</a></span><span class="op">(</span><span class="va">position</span>, left <span class="op">=</span> <span class="fl">1</span>, right <span class="op">=</span> <span class="fl">0</span>, <span class="va">key</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>,</span>
