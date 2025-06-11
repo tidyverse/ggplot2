@@ -1315,7 +1315,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     if (!is_null(pal_names)) {
       # if pal is named, limit the pal by the names first,
       # then limit the values by the pal
-      vec_slice(pal, is.na(match(pal_names, limits))) <- na_value
+      if (is.null(dim(pal))) {
+        pal[is.na(match(pal_names, limits))] <- na_value
+      } else {
+        vec_slice(pal, is.na(match(pal_names, limits))) <- na_value
+      }
       pal <- vec_set_names(pal, NULL)
       limits <- pal_names
     }
