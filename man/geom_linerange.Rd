@@ -53,6 +53,8 @@ geom_linerange(
   ...,
   orientation = NA,
   lineend = "butt",
+  arrow = NULL,
+  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -67,6 +69,8 @@ geom_pointrange(
   orientation = NA,
   fatten = deprecated(),
   lineend = "butt",
+  arrow = NULL,
+  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -179,6 +183,11 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{lineend}{Line end style (round, butt, square).}
+
+\item{arrow}{specification for arrow heads, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+
+\item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
+means use \code{colour} aesthetic.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},
