@@ -518,9 +518,9 @@ fix_theme_deprecations <- function(elements) {
     )
     if (is.null(elements[["legend.title"]])) {
       elements$legend.title <- element_text(hjust = elements$legend.title.align)
-    } else {
-      elements$legend.title$hjust <- elements$legend.title$hjust %||%
-        elements$legend.title.align
+    } else if (!is_theme_element(elements$legend.title, "blank")) {
+      elements$legend.title$hjust <-
+        try_prop(elements$legend.title, "hjust", elements$legend.title.align)
     }
     elements$legend.title.align <- NULL
   }
@@ -531,9 +531,9 @@ fix_theme_deprecations <- function(elements) {
     )
     if (is.null(elements[["legend.text"]])) {
       elements$legend.text <- element_text(hjust = elements$legend.text.align)
-    } else {
-      elements$legend.text$hjust <- elements$legend.text$hjust %||%
-        elements$legend.text.align
+    } else if (!is_theme_element(elements$legend.text, "blank")) {
+      elements$legend.text$hjust <-
+        try_prop(elements$legend.text, "hjust", elements$legend.text.align)
     }
     elements$legend.text.align <- NULL
   }
