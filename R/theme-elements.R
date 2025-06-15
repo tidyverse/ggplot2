@@ -33,7 +33,7 @@
 #'   a blank element among its parents will cause this element to be blank as
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
-#' @return An S3 object of class `element`, `rel`, or `margin`.
+#' @return An object of class `element`, `rel`, or `margin`.
 #' @details
 #' The `element_polygon()` and `element_point()` functions are not rendered
 #' in standard plots and just serve as extension points.
