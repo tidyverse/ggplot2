@@ -280,6 +280,7 @@ S7::method(convert, list(from = class_ggplot, to = S7::class_list)) <-
   function(from, to) {
     S7::props(from)
   }
+rm(`convert`)
 
 S7::method(as.list, class_ggplot) <- function(x, ...) convert(x, S7::class_list)
 rm(`as.list`)
