@@ -999,22 +999,24 @@ combine_elements <- function(e1, e2) {
     }
   }
 
+  parent_props <- if (S7::S7_inherits(e2)) S7::props(e2) else unclass(e2)
+
   # If e1 has any NULL properties, inherit them from e2
   n <- S7::prop_names(e1)[lengths(S7::props(e1)) == 0]
-  S7::props(e1)[n] <- S7::props(e2)[n]
+  S7::props(e1)[n] <- parent_props[n]
 
   # Calculate relative sizes
   if (is_rel(try_prop(e1, "size"))) {
-    e1@size <- e2@size * unclass(e1@size)
+    e1@size <- parent_props$size * unclass(e1@size)
   }
 
   # Calculate relative linewidth
   if (is_rel(try_prop(e1, "linewidth"))) {
-    e1@linewidth <- e2@linewidth * unclass(e1@linewidth)
+    e1@linewidth <- parent_props$linewidth * unclass(e1@linewidth)
   }
 
   if (is_theme_element(e1, "text")) {
-    e1@margin <- combine_elements(e1@margin, e2@margin)
+    e1@margin <- combine_elements(e1@margin, parent_props$margin)
   }
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
