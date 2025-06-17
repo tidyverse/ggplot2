@@ -78,6 +78,7 @@ reference:
   - stat_ellipse
   - stat_function
   - stat_identity
+  - stat_ksmooth
   - stat_summary_2d
   - stat_summary_bin
   - stat_unique
