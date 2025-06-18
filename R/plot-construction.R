@@ -113,7 +113,6 @@ add_ggplot <- function(p, object, objectname) {
 #' exposed at this point, which comes with the responsibility of returning
 #' the plot intact.
 #'
-#' @keywords internal
 #' @export
 #' @examples
 #' # making a new method for the generic
