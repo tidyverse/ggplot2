@@ -23,6 +23,8 @@ class_scales_list <- S7::new_S3_class("ScalesList")
 
 # User facing classes -----------------------------------------------------
 
+## Theme -------------------------------------------------------------------
+
 #' The theme class
 #'
 #' The theme class holds information on how non-data elements of the plot
@@ -51,6 +53,8 @@ class_theme <- S7::new_class(
   }
 )
 
+## Labels ------------------------------------------------------------------
+
 #' The labels class
 #'
 #' The labels class holds a list with label information to display as titles
@@ -58,6 +62,10 @@ class_theme <- S7::new_class(
 #' class is to use the [`labs()`] function.
 #'
 #' @param labels A named list.
+#'
+#' @details
+#' All members of `labels` are expected to be named and unique.
+#'
 #'
 #' @keywords internal
 #' @export
@@ -80,6 +88,8 @@ class_labels <- S7::new_class(
   }
 )
 
+## Mapping -----------------------------------------------------------------
+
 #' The mapping class
 #'
 #' The mapping class holds a list of quoted expressions
@@ -101,6 +111,8 @@ class_mapping <- S7::new_class(
     x
   }
 )
+
+## ggplot ------------------------------------------------------------------
 
 #' The ggplot class
 #'
@@ -164,6 +176,8 @@ class_ggplot <- S7::new_class(
     )
   }
 )
+
+## Built ggplot ------------------------------------------------------------
 
 #' The ggplot built class
 #'
