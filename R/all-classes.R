@@ -14,6 +14,7 @@ class_gtable  <- S7::new_S3_class("gtable")
 # they are their own thing.
 class_scale  <- S7::new_S3_class("Scale")
 class_guides <- S7::new_S3_class("Guides")
+class_guide  <- S7::new_S3_class("Guide")
 class_coord  <- S7::new_S3_class("Coord")
 class_facet  <- S7::new_S3_class("Facet")
 class_layer  <- S7::new_S3_class("Layer")
