@@ -92,7 +92,7 @@ setup_plot_labels <- function(plot, layers, data) {
     extra_labels <- paste0("{.field ", extra_labels, "} : ", warn_labels)
     names(extra_labels) <- rep("*", length(extra_labels))
 
-    cli::cli_warn(c(
+    cli::cli_inform(c(
       "Ignoring unknown labels:",
       extra_labels
     ))
