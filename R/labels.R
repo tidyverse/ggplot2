@@ -78,7 +78,8 @@ setup_plot_labels <- function(plot, layers, data) {
   # `geom_function()`. We can display these labels anyway, so we include them.
   plot_labels  <- plot@labels
   known_labels <- c(names(labels), fn_fmls_names(labs), "x", "y")
-  extra_labels <- setdiff(names(plot_labels), known_labels)
+  extra_labels <- names(plot_labels)[lengths(plot_labels) > 0]
+  extra_labels <- setdiff(extra_labels, known_labels)
 
   if (length(extra_labels) > 0) {
 
