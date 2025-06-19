@@ -29,6 +29,7 @@ geom_curve(
   curvature = 0.5,
   angle = 90,
   ncp = 5,
+  shape = 0.5,
   arrow = NULL,
   arrow.fill = NULL,
   lineend = "butt",
@@ -149,6 +150,10 @@ the default plot specification, e.g. \code{\link[=annotation_borders]{annotation
 
 \item{ncp}{The number of control points used to draw the curve.
     More control points creates a smoother curve.}
+
+\item{shape}{A numeric vector of values between -1 and 1, which
+    control the shape of the curve relative to its control points.
+    See \code{grid.xspline} for more details.}
 }
 \description{
 \code{geom_segment()} draws a straight line between points (x, y) and
