@@ -16,7 +16,7 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
   setup_params = function(data, params) {
     if (lifecycle::is_present(params$fatten %||% deprecated())) {
-      deprecate_soft0("3.6.0", "geom_pointrange(fatten)", I("the `size` aesthetic"))
+      deprecate_soft0("4.0.0", "geom_pointrange(fatten)", I("the `size` aesthetic"))
     } else {
       # For backward compatibility reasons
       params$fatten <- 4

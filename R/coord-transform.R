@@ -113,7 +113,7 @@ coord_transform <- function(x = "identity", y = "identity", xlim = NULL, ylim = 
 #' @export
 coord_trans <- function(...) {
   deprecate_soft0(
-    "3.5.2",
+    "4.0.0",
     "coord_trans()",
     "coord_transform()"
   )
