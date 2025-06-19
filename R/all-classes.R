@@ -44,7 +44,8 @@
 #'
 #' @section S3 classes:
 #'
-#' Some simple classes remain S3.
+#' Some simple classes remain S3, primarily because they aren't meant to be
+#' recycled into new classes.
 #'
 #' @name class_definitions
 NULL
@@ -159,6 +160,38 @@ class_scales_list <- S7::new_S3_class("ScalesList")
 #' @format NULL
 #' @usage NULL
 class_S3_gg <- S7::new_S3_class("gg")
+
+#' @rdname class_definitions
+#' @section S3 classes:
+#' * `class_rel` is an S3 class used in [element] properties.
+#' @export
+#' @format NULL
+#' @usage NULL
+class_rel <- S7::new_S3_class("rel")
+
+#' @rdname class_definitions
+#' @section S3 classes:
+#' * `class_zero_grob` is an S3 class used to indicate empty drawings.
+#' @export
+#' @format NULL
+#' @usage NULL
+class_zero_grob <- S7::new_S3_class("zeroGrob")
+
+#' @rdname class_definitions
+#' @section S3 classes:
+#' * `class_waiver` is an S3 sentinel value class used in various places.
+#' @export
+#' @format NULL
+#' @usage NULL
+class_waiver <- S7::new_S3_class("waiver")
+
+#' @rdname class_definitions
+#' @section S3 classes:
+#' * `class_derive` is an S3 sentinel value class used primarily in [sec_axis()].
+#' @export
+#' @format NULL
+#' @usage NULL
+class_derive <- S7::new_S3_class("derive")
 
 # User facing classes -----------------------------------------------------
 
