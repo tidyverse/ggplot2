@@ -274,17 +274,17 @@ See individual modelling functions for more details:
 
 \code{geom_smooth()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
 \tabular{rll}{
- • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
- • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
- • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{0.4} \cr\cr
- • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
- • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
- • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
- • \tab \code{weight} \tab → \code{1} \cr\cr
- • \tab \code{\link[=aes_position]{ymax}} \tab   \cr\cr
- • \tab \code{\link[=aes_position]{ymin}} \tab   \cr\cr
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{0.4} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
+ • \tab \code{weight} \tab → \code{1} \cr
+ • \tab \code{\link[=aes_position]{ymax}} \tab   \cr
+ • \tab \code{\link[=aes_position]{ymin}} \tab   \cr
 }
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
