@@ -54,58 +54,73 @@ subtheme <- function(elements, prefix = "", suffix = "", call = caller_env()) {
 
 #' @export
 #' @describeIn subtheme Theme specification for all axes.
-theme_sub_axis <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis <- function(title, text, ticks, ticks.length, line, minor.ticks.length) {
   subtheme(find_args(), "axis.")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for both x axes.
-theme_sub_axis_x <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_x <- function(title, text, ticks, ticks.length, line, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".x")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for both y axes.
-theme_sub_axis_y <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_y <- function(title, text, ticks, ticks.length, line, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".y")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the bottom x axis.
-theme_sub_axis_bottom <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_bottom <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".x.bottom")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the top x axis.
-theme_sub_axis_top <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_top <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".x.top")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the left y axis.
-theme_sub_axis_left <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_left <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".y.left")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the right y axis.
-theme_sub_axis_right <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_right <- function(title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
   subtheme(find_args(), "axis.", ".y.right")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the legend.
-theme_sub_legend <- function(background, margin, spacing, spacing.x, spacing.y,
-                             key, key.size, key.height, key.width, text, title,
-                             position, direction, justification, box, box.just,
-                             box.margin, box.background, box.spacing) {
+theme_sub_legend <- function(
+  # Text stuff
+  text, text.position, title, title.position,
+  # Drawn elements
+  background, frame, ticks, ticks.length, axis.line,
+  # Spacings
+  spacing, spacing.x, spacing.y,   margin,
+  # Seys
+  key, key.size, key.height, key.width, key.spacing, key.spacing.x,
+  key.spacing.y, key.justification,
+  # Settings
+  byrow, position, direction, location, position.inside,
+  # Justification
+  justification, justification.top, justification.bottom, justification.left,
+  justification.right, justification.inside,
+  # Box
+  box, box.just, box.margin, box.background, box.spacing
+) {
   subtheme(find_args(), "legend.")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the panels.
-theme_sub_panel <- function(background, border, spacing, spacing.x, spacing.y,
+theme_sub_panel <- function(background, border,
+                            widths, heights, spacing, spacing.x, spacing.y,
                             grid, grid.major, grid.minor, grid.major.x,
                             grid.major.y, grid.minor.x, grid.minor.y, ontop) {
   subtheme(find_args(), "panel.")
