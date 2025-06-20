@@ -64,6 +64,12 @@ test_that("position_stack() can stack correctly when ymax is NA", {
   expect_equal(get_layer_data(p)$y, c(1, 2))
 })
 
+test_that("position_fill() handles one group per position case", {
+  df <- data_frame0(x = c("A", "B", "C"), y = 1:3)
+  p <- ggplot(df, aes(x, y)) + geom_col(position = "fill")
+  expect_equal(get_layer_data(p)$y, c(1, 1, 1))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("Stacking produces the expected output", {
