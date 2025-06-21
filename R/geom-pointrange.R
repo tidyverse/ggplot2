@@ -31,23 +31,24 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
   },
 
   draw_panel = function(data, panel_params, coord, lineend = "butt", fatten = 4,
-                        flipped_aes = FALSE, na.rm = FALSE) {
+                        flipped_aes = FALSE, na.rm = FALSE,
+                        arrow = NULL, arrow.fill = NULL) {
     line_grob <- GeomLinerange$draw_panel(
       data, panel_params, coord, lineend = lineend, flipped_aes = flipped_aes,
-      na.rm = na.rm
+      na.rm = na.rm, arrow = arrow, arrow.fill = arrow.fill
     )
-    if (is.null(data[[flipped_names(flipped_aes)$y]]))
-      return(line_grob)
 
-    ggname("geom_pointrange",
-      gTree(children = gList(
-        line_grob,
-        GeomPoint$draw_panel(
-          transform(data, size = size * fatten),
-          panel_params, coord, na.rm = na.rm
-        )
-      ))
+    skip_point <- is.null(data[[flipped_names(flipped_aes)$y]])
+    if (skip_point) {
+      return(line_grob)
+    }
+
+    point_grob <- GeomPoint$draw_panel(
+      transform(data, size = size * fatten),
+      panel_params, coord, na.rm = na.rm
     )
+    grob <- gTree(children = gList(line_grob, point_grob))
+    ggname("geom_pointrange", grob)
   }
 )
 
