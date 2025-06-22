@@ -94,6 +94,23 @@ GeomSegment <- ggproto(
 #'   arrow = arrow(length = unit(0.03, "npc"))
 #' )
 #'
+#' # The `shape` and `ncp` arguments of geom_curve control the sharpness of the spline
+#' b +
+#'   geom_curve(
+#'     aes(x = x1, y = y1, xend = x2, yend = y2, colour = "ncp = 5"),
+#'     data = df,
+#'     curvature = 1,
+#'     shape = 0,
+#'     ncp = 5
+#'   ) +
+#'   geom_curve(
+#'     aes(x = x1, y = y1, xend = x2, yend = y2, colour = "ncp = 1"),
+#'     data = df,
+#'     curvature = 1,
+#'     shape = 0,
+#'     ncp = 1
+#'   )
+#'
 #' if (requireNamespace('maps', quietly = TRUE)) {
 #' ggplot(seals, aes(long, lat)) +
 #'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
