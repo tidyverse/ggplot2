@@ -92,10 +92,7 @@
 #'   or `"top"`, or a two-element numeric vector.
 #' @param legend.frame frame drawn around the bar ([element_rect()]).
 #' @param legend.ticks tick marks shown along bars or axes ([element_line()])
-#' @param legend.ticks.length length of tick marks in legend
-#'   ([`unit()`][grid::unit]); By default, tick marks are positioned symmetrically.  
-#'   One-sided tick lengths can be controlled using absolute (`unit()`) or relative (`rel()`) values.  
-#'   For example, `unit(c(-0.15, 0), "cm")` or `rel(c(0.175, 0))` produces ticks on one side only. inherits from `legend.key.size`.
+#' @param legend.ticks.length length of tick marks in legend ([`unit()`][grid::unit]); By default, tick marks are positioned symmetrically. One-sided tick lengths can be controlled using absolute (`unit()`) or relative (`rel()`) values. For example, `unit(c(-0.15, 0), "cm")` or `rel(c(0.175, 0))` produces ticks on one side only. inherits from `legend.key.size`.
 #' @param legend.axis.line lines along axes in legends ([element_line()])
 #' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
