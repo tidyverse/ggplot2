@@ -6,7 +6,7 @@
 * GitHub: NA
 * Source code: https://github.com/cran/bartMan
 * Date/Publication: 2024-07-24 12:10:02 UTC
-* Number of recursive dependencies: 133
+* Number of recursive dependencies: 132
 
 Run `revdepcheck::cloud_details(, "bartMan")` for more info
 
@@ -244,15 +244,50 @@ ERROR: lazy loading failed for package ‘coda.plot’
 
 
 ```
+# cry
+
+<details>
+
+* Version: NA
+* GitHub: NA
+* Source code: https://github.com/cran/cry
+* Number of recursive dependencies: 50
+
+Run `revdepcheck::cloud_details(, "cry")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # ctsem
 
 <details>
 
-* Version: 3.10.2
+* Version: 3.10.3
 * GitHub: https://github.com/cdriveraus/ctsem
 * Source code: https://github.com/cran/ctsem
-* Date/Publication: 2025-01-13 11:00:08 UTC
-* Number of recursive dependencies: 158
+* Date/Publication: 2025-06-21 11:00:02 UTC
+* Number of recursive dependencies: 164
 
 Run `revdepcheck::cloud_details(, "ctsem")` for more info
 
@@ -324,80 +359,6 @@ compilation terminated.
 make: *** [/opt/R/4.4.0/lib/R/etc/Makeconf:202: stanExports_ctsm.o] Error 1
 ERROR: compilation failed for package ‘ctsem’
 * removing ‘/tmp/workdir/ctsem/old/ctsem.Rcheck/ctsem’
-
-
-```
-# deeptime
-
-<details>
-
-* Version: 2.1.0
-* GitHub: https://github.com/willgearty/deeptime
-* Source code: https://github.com/cran/deeptime
-* Date/Publication: 2024-10-25 23:30:02 UTC
-* Number of recursive dependencies: 195
-
-Run `revdepcheck::cloud_details(, "deeptime")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘deeptime’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/deeptime/new/deeptime.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘deeptime’ ...
-** package ‘deeptime’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-...
-** testing if installed package can be loaded from temporary location
-Error: package or namespace load failed for ‘deeptime’:
- .onLoad failed in loadNamespace() for 'deeptime', details:
-  call: NULL
-  error: <ggplot2::element_text> object properties are invalid:
-- @hjust must be <NULL>, <integer>, or <double>, not <logical>
-Error: loading failed
-Execution halted
-ERROR: loading failed
-* removing ‘/tmp/workdir/deeptime/new/deeptime.Rcheck/deeptime’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘deeptime’ ...
-** package ‘deeptime’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (deeptime)
 
 
 ```
@@ -547,7 +508,7 @@ ERROR: configuration failed for package ‘fio’
 * GitHub: https://github.com/ggobi/ggally
 * Source code: https://github.com/cran/GGally
 * Date/Publication: 2024-02-14 00:53:32 UTC
-* Number of recursive dependencies: 143
+* Number of recursive dependencies: 142
 
 Run `revdepcheck::cloud_details(, "GGally")` for more info
 
@@ -882,65 +843,6 @@ ERROR: lazy loading failed for package ‘ggtern’
 
 
 ```
-# inventorize
-
-<details>
-
-* Version: 1.1.2
-* GitHub: NA
-* Source code: https://github.com/cran/inventorize
-* Date/Publication: 2025-05-28 13:20:02 UTC
-* Number of recursive dependencies: 68
-
-Run `revdepcheck::cloud_details(, "inventorize")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘inventorize’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/inventorize/new/inventorize.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘inventorize’ ...
-** package ‘inventorize’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-Error in pm[[2]] : subscript out of bounds
-Error: unable to load R code in package ‘inventorize’
-Execution halted
-ERROR: lazy loading failed for package ‘inventorize’
-* removing ‘/tmp/workdir/inventorize/new/inventorize.Rcheck/inventorize’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘inventorize’ ...
-** package ‘inventorize’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-Warning in qgamma(service_level, alpha, beta) : NaNs produced
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (inventorize)
-
-
-```
 # metabolic
 
 <details>
@@ -964,9 +866,9 @@ Run `revdepcheck::cloud_details(, "metabolic")` for more info
 * using R version 4.4.0 (2024-04-24)
 * using platform: x86_64-pc-linux-gnu
 * R was compiled by
-    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-* running under: Ubuntu 24.04.1 LTS
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.2 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘metabolic/DESCRIPTION’ ... OK
@@ -994,9 +896,9 @@ Status: 2 NOTEs
 * using R version 4.4.0 (2024-04-24)
 * using platform: x86_64-pc-linux-gnu
 * R was compiled by
-    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-* running under: Ubuntu 24.04.1 LTS
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.2 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘metabolic/DESCRIPTION’ ... OK
@@ -1195,6 +1097,64 @@ Run `revdepcheck::cloud_details(, "OpenMx")` for more info
 
 
 
+
+
+```
+# pacta.loanbook
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/RMI-PACTA/pacta.loanbook
+* Source code: https://github.com/cran/pacta.loanbook
+* Date/Publication: 2025-03-17 20:50:02 UTC
+* Number of recursive dependencies: 115
+
+Run `revdepcheck::cloud_details(, "pacta.loanbook")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘pacta.loanbook’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/pacta.loanbook/new/pacta.loanbook.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘pacta.loanbook’ ...
+** package ‘pacta.loanbook’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error : 'market_share' is not an exported object from 'namespace:r2dii.plot'
+Error: unable to load R code in package ‘pacta.loanbook’
+Execution halted
+ERROR: lazy loading failed for package ‘pacta.loanbook’
+* removing ‘/tmp/workdir/pacta.loanbook/new/pacta.loanbook.Rcheck/pacta.loanbook’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘pacta.loanbook’ ...
+** package ‘pacta.loanbook’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error : 'market_share' is not an exported object from 'namespace:r2dii.plot'
+Error: unable to load R code in package ‘pacta.loanbook’
+Execution halted
+ERROR: lazy loading failed for package ‘pacta.loanbook’
+* removing ‘/tmp/workdir/pacta.loanbook/old/pacta.loanbook.Rcheck/pacta.loanbook’
 
 
 ```
@@ -1653,9 +1613,9 @@ Run `revdepcheck::cloud_details(, "streamDAG")` for more info
 * using R version 4.4.0 (2024-04-24)
 * using platform: x86_64-pc-linux-gnu
 * R was compiled by
-    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-* running under: Ubuntu 24.04.1 LTS
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.2 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘streamDAG/DESCRIPTION’ ... OK
@@ -1681,9 +1641,9 @@ Status: 1 ERROR
 * using R version 4.4.0 (2024-04-24)
 * using platform: x86_64-pc-linux-gnu
 * R was compiled by
-    gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-    GNU Fortran (Ubuntu 13.2.0-23ubuntu4) 13.2.0
-* running under: Ubuntu 24.04.1 LTS
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.2 LTS
 * using session charset: UTF-8
 * using option ‘--no-manual’
 * checking for file ‘streamDAG/DESCRIPTION’ ... OK
@@ -1958,7 +1918,7 @@ ERROR: configuration failed for package ‘TriDimRegression’
 * GitHub: https://github.com/UUPharmacometrics/xpose
 * Source code: https://github.com/cran/xpose
 * Date/Publication: 2025-01-07 20:00:02 UTC
-* Number of recursive dependencies: 105
+* Number of recursive dependencies: 104
 
 Run `revdepcheck::cloud_details(, "xpose")` for more info
 
