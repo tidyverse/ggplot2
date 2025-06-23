@@ -176,7 +176,7 @@ is anchored.}
 \item{x}{A single number specifying size relative to parent element.}
 }
 \value{
-An S3 object of class \code{element}, \code{rel}, or \code{margin}.
+An object of class \code{element}, \code{rel}, or \code{margin}.
 }
 \description{
 In conjunction with the \link{theme} system, the \code{element_} functions

@@ -52,8 +52,8 @@ Other position adjustments:
 
 \code{position_nudge()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
 \tabular{rll}{
- • \tab \code{nudge_x} \tab → \code{0} \cr\cr
- • \tab \code{nudge_y} \tab → \code{0} \cr\cr
+ • \tab \code{nudge_x} \tab → \code{0} \cr
+ • \tab \code{nudge_y} \tab → \code{0} \cr
 }
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

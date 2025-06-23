@@ -34,7 +34,7 @@ rd_aesthetics_item <- function(x) {
     paste0("\\strong{\\code{", docs, "}}"),
     paste0("\\code{", docs, "}")
   )
-  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr\\cr")
+  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr")
 }
 
 rd_defaults <- function(layer, aesthetics) {

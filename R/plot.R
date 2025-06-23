@@ -282,5 +282,8 @@ S7::method(convert, list(from = class_ggplot, to = S7::class_list)) <-
   }
 rm(`convert`)
 
-S7::method(as.list, class_ggplot) <- function(x, ...) convert(x, S7::class_list)
-rm(`as.list`)
+# S7 currently attaches the S3 method to the calling environment which gives `ggplot2:::as.list`
+# Wrap in `local()` to provide a temp environment which throws away the attachment
+local({
+  S7::method(as.list, class_ggplot) <- function(x, ...) convert(x, S7::class_list)
+})
