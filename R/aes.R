@@ -261,7 +261,7 @@ is_position_aes <- function(vars) {
 #'
 #' @section Life cycle:
 #'
-#' All these functions are soft-deprecated. Please use tidy evaluation idioms
+#' All these functions are deprecated. Please use tidy evaluation idioms
 #' instead. Regarding `aes_string()`, you can replace it with `.data` pronoun.
 #' For example, the following code can achieve the same mapping as
 #' `aes_string(x_var, y_var)`.

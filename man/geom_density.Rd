@@ -11,10 +11,10 @@ geom_density(
   stat = "density",
   position = "identity",
   ...,
+  outline.type = "upper",
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
-  outline.type = "both",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -100,15 +100,15 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
+upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
+\code{"full"} draws a closed polygon around the area.}
+
 \item{lineend}{Line end style (round, butt, square).}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
-
-\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
-upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
-\code{"full"} draws a closed polygon around the area.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

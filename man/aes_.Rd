@@ -39,7 +39,7 @@ with \code{aes_string()} is quite clunky.
 \section{Life cycle}{
 
 
-All these functions are soft-deprecated. Please use tidy evaluation idioms
+All these functions are deprecated. Please use tidy evaluation idioms
 instead. Regarding \code{aes_string()}, you can replace it with \code{.data} pronoun.
 For example, the following code can achieve the same mapping as
 \code{aes_string(x_var, y_var)}.

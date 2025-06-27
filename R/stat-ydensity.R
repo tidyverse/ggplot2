@@ -12,7 +12,7 @@ StatYdensity <- ggproto(
 
     if (!is.null(params$draw_quantiles)) {
       deprecate_soft0(
-        "3.6.0",
+        "4.0.0",
         what = "stat_ydensity(draw_quantiles)",
         with = "stat_ydensity(quantiles)"
       )

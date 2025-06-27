@@ -941,7 +941,7 @@ set_draw_key <- function(geom, draw_key = NULL) {
   }
   draw_key <- match.fun(draw_key)
 
-  ggproto("", geom, draw_key = draw_key)
+  ggproto(NULL, geom, draw_key = draw_key)
 }
 
 cleanup_mismatched_data <- function(data, n, fun) {

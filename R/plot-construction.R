@@ -135,6 +135,10 @@ S7::method(update_ggplot, list(S7::class_any, class_ggplot)) <-
   function(object, plot, object_name, ...) {
 
     if (!S7::S7_inherits(object) && inherits(object, "theme")) {
+      # This is a contingency for patchwork/#438
+      if (length(object) == 0) {
+        return(plot)
+      }
       # For backward compatibility, we try to cast old S3 themes (lists with
       # the class 'theme') to proper themes. People *should* use `theme()`,
       # so we should be pushy here.

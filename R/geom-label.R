@@ -28,7 +28,7 @@ geom_label <- function(mapping = NULL, data = NULL,
 
   extra_args <- list2(...)
   if (lifecycle::is_present(label.size)) {
-    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    deprecate_soft0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
     extra_args$linewidth <- extra_args$linewidth %||% label.size
   }
 

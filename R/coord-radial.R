@@ -136,7 +136,7 @@ coord_radial <- function(theta = "x",
   }
   if (lifecycle::is_present(direction)) {
     deprecate_warn0(
-      "3.5.2", "coord_radial(direction)", "coord_radial(reverse)"
+      "4.0.0", "coord_radial(direction)", "coord_radial(reverse)"
     )
     reverse <- switch(reverse, "r" = "thetar", "theta")
   }
