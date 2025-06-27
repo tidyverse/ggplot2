@@ -24,6 +24,7 @@
 #' @param e1 An object of class [ggplot()] or a [theme()].
 #' @param e2 A plot component, as described below.
 #' @seealso [theme()]
+#' @aliases +.gg
 #' @rdname gg-add
 #' @export
 #' @examples
