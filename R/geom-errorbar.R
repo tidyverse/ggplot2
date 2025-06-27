@@ -18,10 +18,19 @@ GeomErrorbar <- ggproto(
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
-    GeomLinerange$setup_params(data, params)
+    params <- GeomLinerange$setup_params(data, params)
+    if (
+      isTRUE(params$flipped_aes) &&
+      isTRUE("height" %in% names(params)) &&
+      !isTRUE("width" %in% names(params))
+    ) {
+      params <- rename(params, c(height = "width"))
+      cli::cli_inform("{.arg height} was translated to {.arg width}.")
+    }
+    params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "height"),
 
   setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
