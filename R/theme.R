@@ -916,7 +916,7 @@ S7::method(merge_element, list(element, S7::class_any)) <-
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
   function(new, old, ...) {
-    if (anyNA(new)) {
+    if (anyNA(new) && is_margin(old)) {
       new[is.na(new)] <- old[is.na(new)]
     }
     new
