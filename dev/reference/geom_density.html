@@ -85,10 +85,10 @@ data that comes from an underlying smooth distribution.</p>
 <span>  stat <span class="op">=</span> <span class="st">"density"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  outline.type <span class="op">=</span> <span class="st">"upper"</span>,</span>
 <span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
 <span>  linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
 <span>  linemitre <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  outline.type <span class="op">=</span> <span class="st">"both"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -179,6 +179,12 @@ lists which parameters it can accept.</p></li>
 </ul></dd>
 
 
+<dt id="arg-outline-type">outline.type<a class="anchor" aria-label="anchor" href="#arg-outline-type"></a></dt>
+<dd><p>Type of the outline of the area; <code>"both"</code> draws both the
+upper and lower lines, <code>"upper"</code>/<code>"lower"</code> draws the respective lines only.
+<code>"full"</code> draws a closed polygon around the area.</p></dd>
+
+
 <dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
 <dd><p>Line end style (round, butt, square).</p></dd>
 
@@ -189,12 +195,6 @@ lists which parameters it can accept.</p></li>
 
 <dt id="arg-linemitre">linemitre<a class="anchor" aria-label="anchor" href="#arg-linemitre"></a></dt>
 <dd><p>Line mitre limit (number greater than 1).</p></dd>
-
-
-<dt id="arg-outline-type">outline.type<a class="anchor" aria-label="anchor" href="#arg-outline-type"></a></dt>
-<dd><p>Type of the outline of the area; <code>"both"</code> draws both the
-upper and lower lines, <code>"upper"</code>/<code>"lower"</code> draws the respective lines only.
-<code>"full"</code> draws a closed polygon around the area.</p></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
