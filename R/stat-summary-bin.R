@@ -108,6 +108,13 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
   force(fun.min)
   force(fun.args)
 
+  as_function <- function(x) {
+    if (is.character(x)) {
+      x <- match.fun(x)
+    }
+    rlang::as_function(x)
+  }
+
   if (!is.null(fun.data)) {
     # Function that takes complete data frame as input
     fun.data <- as_function(fun.data)

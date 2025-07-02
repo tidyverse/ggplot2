@@ -78,7 +78,12 @@ LayerSf <- ggproto("LayerSf", Layer,
 geom_column <- function(data) {
   w <- which(vapply(data, inherits, TRUE, what = "sfc"))
   if (length(w) == 0) {
-    "geometry" # avoids breaks when objects without geometry list-column are examined
+    if (!is.character(data[["geometry"]])) {
+      "geometry" # avoids breaks when objects without geometry list-column are examined
+    } else {
+      # Avoids a rare case where computed_geom_params$legend is present but there is no actual geometry column
+      ""
+    }
   } else {
     # this may not be best in case more than one geometry list-column is present:
     if (length(w) > 1)

@@ -152,7 +152,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
     data$order <- xtfrm( # xtfrm makes anything 'sortable'
       data$order %||% ave(data$group, data$x, data$PANEL, FUN = match_sorted)
     )
-    if (params$reverse) {
+    if (isTRUE(params$reverse)) {
       data$order <- -data$order
     }
     if (is.null(params$n)) { # preserve = "total"

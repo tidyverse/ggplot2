@@ -274,7 +274,7 @@ Guides <- ggproto(
   #
   # The resulting guide is then drawn in ggplot_gtable
 
-  build = function(self, scales, layers, labels, layer_data, theme = theme()) {
+  build = function(self, scales, layers, labels, layer_data, theme = NULL) {
 
     # Empty guides list
     custom <- self$get_custom()
@@ -300,6 +300,7 @@ Guides <- ggproto(
     }
 
     # Merge and process layers
+    theme <- theme %||% theme()
     guides$merge()
     guides$process_layers(layers, layer_data, theme)
     if (length(guides$guides) == 0) {

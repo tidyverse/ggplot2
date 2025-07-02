@@ -76,7 +76,7 @@ GeomDensity <- ggproto(
 #'   geom_density(position = "fill")
 #' }
 geom_density <- make_constructor(
-  GeomDensity, stat = "density",
+  GeomDensity, stat = "density", outline.type = "upper",
   checks = exprs(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   )
