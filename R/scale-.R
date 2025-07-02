@@ -104,7 +104,7 @@
 continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, name = waiver(),
                              breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
                              labels = waiver(), limits = NULL, rescaler = rescale,
-                             oob = censor, expand = waiver(), na.value = NA_real_,
+                             oob = censor, expand = waiver(), na.value = NA,
                              transform = "identity", trans = deprecated(),
                              guide = "legend", position = "left",
                              call = caller_call(),
