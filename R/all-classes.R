@@ -48,6 +48,7 @@
 #' recycled into new classes.
 #'
 #' @name class_definitions
+#' @keywords internal
 NULL
 
 #' @rdname class_definitions

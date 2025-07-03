@@ -166,3 +166,4 @@ is superseded by \code{class_gg}.
 }
 
 \keyword{datasets}
+\keyword{internal}
