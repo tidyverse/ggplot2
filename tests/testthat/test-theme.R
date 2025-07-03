@@ -146,7 +146,7 @@ test_that("calculating theme element inheritance works", {
   # Check that inheritance from derived class works
   element_dummyrect <- S7::new_class(
     "element_dummyrect", parent = element_rect,
-    properties = c(element_rect@properties, list(dummy = S7::class_any))
+    properties = list(dummy = S7::class_any)
   )
 
   e <- calc_element(
