@@ -6,6 +6,7 @@
 \usage{
 class_ggplot(
   data = waiver(),
+  ...,
   layers = list(),
   scales = NULL,
   guides = NULL,
@@ -16,12 +17,13 @@ class_ggplot(
   layout = NULL,
   labels = labs(),
   meta = list(),
-  plot_env = parent.frame(),
-  ...
+  plot_env = parent.frame()
 )
 }
 \arguments{
 \item{data}{A property containing any data coerced by \code{\link[=fortify]{fortify()}}.}
+
+\item{...}{Reserved for future expansion.}
 
 \item{layers}{A list of layer instances created by \code{\link[=layer]{layer()}}.}
 
@@ -47,8 +49,6 @@ functions.}
 future.}
 
 \item{plot_env}{An environment.}
-
-\item{...}{Reserved for future expansion.}
 }
 \description{
 The ggplot class collects the needed information to render a plot.

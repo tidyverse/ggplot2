@@ -205,10 +205,10 @@ class_derive <- S7::new_S3_class("derive")
 #' is through the [`theme()`] function.
 #'
 #' @param elements A named list containing theme elements.
+#' @param ... Reserved for future expansion.
 #' @param complete A boolean value stating whether a theme is complete.
 #' @param validate A boolean value stating whether a theme should still be
 #'   validated.
-#' @param ... Reserved for future expansion.
 #'
 #' @keywords internal
 #' @export
@@ -218,7 +218,7 @@ class_theme <- S7::new_class(
     complete = S7::class_logical,
     validate = S7::class_logical
   ),
-  constructor = function(elements, complete, validate, ...) {
+  constructor = function(elements, ..., complete, validate) {
     warn_dots_empty()
     S7::new_object(
       elements,
@@ -276,14 +276,14 @@ class_labels <- S7::new_class(
 #' constructed using the [`aes()`] function.
 #'
 #' @param x A list of quosures and constants.
-#' @param env An environment for symbols that are not quosures or constants.
 #' @param ... Reserved for future expansion.
+#' @param env An environment for symbols that are not quosures or constants.
 #'
 #' @keywords internal
 #' @export
 class_mapping <- S7::new_class(
   "mapping", parent = class_S3_gg,
-  constructor = function(x, env = globalenv(), ...) {
+  constructor = function(x, ..., env = globalenv()) {
     warn_dots_empty()
     check_object(x, is.list, "a {.cls list}")
     x <- lapply(x, new_aesthetic, env = env)
@@ -301,6 +301,7 @@ class_mapping <- S7::new_class(
 #' This class can be constructed using the [`ggplot()`] function.
 #'
 #' @param data A property containing any data coerced by [`fortify()`].
+#' @param ... Reserved for future expansion.
 #' @param layers A list of layer instances created by [`layer()`].
 #' @param scales A ScalesList ggproto object.
 #' @param guides A Guides ggproto object created by [`guides()`].
@@ -315,7 +316,6 @@ class_mapping <- S7::new_class(
 #' @param meta A list for additional metadata. This will be deprecated in the
 #'   future.
 #' @param plot_env An environment.
-#' @param ... Reserved for future expansion.
 #'
 #' @keywords internal
 #' @export
@@ -337,6 +337,7 @@ class_ggplot <- S7::new_class(
   ),
   constructor = function(
     data = waiver(),
+    ...,
     layers = list(),
     scales = NULL,
     guides = NULL,
@@ -347,8 +348,7 @@ class_ggplot <- S7::new_class(
     layout = NULL,
     labels = labs(),
     meta = list(),
-    plot_env = parent.frame(),
-    ...
+    plot_env = parent.frame()
   ) {
     warn_dots_empty()
     S7::new_object(
@@ -379,10 +379,10 @@ class_ggplot <- S7::new_class(
 #' instantiated directly. The class can be rendered to a gtable object by
 #' calling the [`ggplot_gtable()`] function on a ggplot built class object.
 #'
+#' @param ... Reserved for future expansion.
 #' @param data A list of plain data frames; one for each layer.
 #' @param layout A Layout ggproto object.
 #' @param plot A completed ggplot class object.
-#' @param ... Reserved for future expansion.
 #'
 #' @keywords internal
 #' @export
@@ -393,7 +393,7 @@ class_ggplot_built <- S7::new_class(
     layout = class_layout,
     plot   = class_ggplot
   ),
-  constructor = function(data = NULL, layout = NULL, plot = NULL, ...) {
+  constructor = function(..., data = NULL, layout = NULL, plot = NULL) {
     warn_dots_empty()
     if (is.null(data) || is.null(layout) || is.null(plot)) {
       cli::cli_abort(
