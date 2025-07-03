@@ -4,10 +4,12 @@
 \alias{class_labels}
 \title{The labels class}
 \usage{
-class_labels(labels)
+class_labels(labels, ...)
 }
 \arguments{
 \item{labels}{A named list.}
+
+\item{...}{Reserved for future expansion.}
 }
 \description{
 The labels class holds a list with label information to display as titles
@@ -15,6 +17,6 @@ of plot components. The preferred way to construct an object of the labels
 class is to use the \code{\link[=labs]{labs()}} function.
 }
 \details{
-All members of \code{labels} are expected to be named and unique.
+All members of \code{labels} are expected to be named and names should be unique.
 }
 \keyword{internal}

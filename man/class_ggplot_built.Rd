@@ -4,7 +4,7 @@
 \alias{class_ggplot_built}
 \title{The ggplot built class}
 \usage{
-class_ggplot_built(data = NULL, layout = NULL, plot = NULL)
+class_ggplot_built(data = NULL, layout = NULL, plot = NULL, ...)
 }
 \arguments{
 \item{data}{A list of plain data frames; one for each layer.}
@@ -12,6 +12,8 @@ class_ggplot_built(data = NULL, layout = NULL, plot = NULL)
 \item{layout}{A Layout ggproto object.}
 
 \item{plot}{A completed ggplot class object.}
+
+\item{...}{Reserved for future expansion.}
 }
 \description{
 The ggplot built class is an intermediate class and represents a processed

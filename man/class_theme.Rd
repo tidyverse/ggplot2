@@ -4,7 +4,7 @@
 \alias{class_theme}
 \title{The theme class}
 \usage{
-class_theme(elements, complete, validate)
+class_theme(elements, complete, validate, ...)
 }
 \arguments{
 \item{elements}{A named list containing theme elements.}
@@ -13,6 +13,8 @@ class_theme(elements, complete, validate)
 
 \item{validate}{A boolean value stating whether a theme should still be
 validated.}
+
+\item{...}{Reserved for future expansion.}
 }
 \description{
 The theme class holds information on how non-data elements of the plot

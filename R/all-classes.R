@@ -207,6 +207,7 @@ class_derive <- S7::new_S3_class("derive")
 #' @param complete A boolean value stating whether a theme is complete.
 #' @param validate A boolean value stating whether a theme should still be
 #'   validated.
+#' @param ... Reserved for future expansion.
 #'
 #' @keywords internal
 #' @export
@@ -216,7 +217,7 @@ class_theme <- S7::new_class(
     complete = S7::class_logical,
     validate = S7::class_logical
   ),
-  constructor = function(elements, complete, validate) {
+  constructor = function(elements, complete, validate, ...) {
     S7::new_object(
       elements,
       complete = complete,
@@ -234,6 +235,7 @@ class_theme <- S7::new_class(
 #' class is to use the [`labs()`] function.
 #'
 #' @param labels A named list.
+#' @param ... Reserved for future expansion.
 #'
 #' @details
 #' All members of `labels` are expected to be named and unique.
@@ -243,7 +245,9 @@ class_theme <- S7::new_class(
 #' @export
 class_labels <- S7::new_class(
   "labels", parent = class_S3_gg,
-  constructor = function(labels) S7::new_object(labels),
+  constructor = function(labels, ...) {
+    S7::new_object(labels)
+  },
   validator = function(self) {
     if (!is.list(self)) {
       return("labels must be a list.")
@@ -270,12 +274,13 @@ class_labels <- S7::new_class(
 #'
 #' @param x A list of quosures and constants.
 #' @param env An environment for symbols that are not quosures or constants.
+#' @param ... Reserved for future expansion.
 #'
 #' @keywords internal
 #' @export
 class_mapping <- S7::new_class(
   "mapping", parent = class_S3_gg,
-  constructor = function(x, env = globalenv()) {
+  constructor = function(x, env = globalenv(), ...) {
     check_object(x, is.list, "a {.cls list}")
     x <- lapply(x, new_aesthetic, env = env)
     x <- S7::new_object(x)
@@ -306,6 +311,7 @@ class_mapping <- S7::new_class(
 #' @param meta A list for additional metadata. This will be deprecated in the
 #'   future.
 #' @param plot_env An environment.
+#' @param ... Reserved for future expansion.
 #'
 #' @keywords internal
 #' @export
@@ -325,12 +331,21 @@ class_ggplot <- S7::new_class(
     meta    = S7::class_list,
     plot_env = S7::class_environment
   ),
-  constructor = function(data = waiver(), layers = list(), scales = NULL,
-                         guides = NULL, mapping = aes(), theme = NULL,
-                         coordinates = coord_cartesian(default = TRUE),
-                         facet = facet_null(), layout = NULL,
-                         labels = labs(), meta = list(),
-                         plot_env = parent.frame()) {
+  constructor = function(
+    data = waiver(),
+    layers = list(),
+    scales = NULL,
+    guides = NULL,
+    mapping = aes(),
+    theme = NULL,
+    coordinates = coord_cartesian(default = TRUE),
+    facet = facet_null(),
+    layout = NULL,
+    labels = labs(),
+    meta = list(),
+    plot_env = parent.frame(),
+    ...
+  ) {
     S7::new_object(
       S7::S7_object(),
       data        = data,
@@ -362,6 +377,7 @@ class_ggplot <- S7::new_class(
 #' @param data A list of plain data frames; one for each layer.
 #' @param layout A Layout ggproto object.
 #' @param plot A completed ggplot class object.
+#' @param ... Reserved for future expansion.
 #'
 #' @keywords internal
 #' @export
@@ -372,7 +388,7 @@ class_ggplot_built <- S7::new_class(
     layout = class_layout,
     plot   = class_ggplot
   ),
-  constructor = function(data = NULL, layout = NULL, plot = NULL) {
+  constructor = function(data = NULL, layout = NULL, plot = NULL, ...) {
     if (is.null(data) || is.null(layout) || is.null(plot)) {
       cli::cli_abort(
         "The {.cls ggplot_built} class should be constructed by {.fn ggplot_build}."
@@ -380,7 +396,9 @@ class_ggplot_built <- S7::new_class(
     }
     S7::new_object(
       S7::S7_object(),
-      data = data, layout = layout, plot = plot
+      data = data,
+      layout = layout,
+      plot = plot
     )
   }
 )

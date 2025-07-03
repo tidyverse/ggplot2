@@ -4,12 +4,14 @@
 \alias{class_mapping}
 \title{The mapping class}
 \usage{
-class_mapping(x, env = globalenv())
+class_mapping(x, env = globalenv(), ...)
 }
 \arguments{
 \item{x}{A list of quosures and constants.}
 
 \item{env}{An environment for symbols that are not quosures or constants.}
+
+\item{...}{Reserved for future expansion.}
 }
 \description{
 The mapping class holds a list of quoted expressions

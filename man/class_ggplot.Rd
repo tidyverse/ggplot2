@@ -16,7 +16,8 @@ class_ggplot(
   layout = NULL,
   labels = labs(),
   meta = list(),
-  plot_env = parent.frame()
+  plot_env = parent.frame(),
+  ...
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ functions.}
 future.}
 
 \item{plot_env}{An environment.}
+
+\item{...}{Reserved for future expansion.}
 }
 \description{
 The ggplot class collects the needed information to render a plot.

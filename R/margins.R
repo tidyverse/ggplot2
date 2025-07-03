@@ -7,7 +7,7 @@
 #' @export
 margin <- S7::new_class(
   "margin", parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
-  constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
+  constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt", ...) {
     lens <- c(length(t), length(r), length(b), length(l))
     if (any(lens != 1)) {
       incorrect <- c("t", "r", "b", "l")[lens != 1]
@@ -41,7 +41,7 @@ margin_part <- function(t = NA, r = NA, b = NA, l = NA, unit = "pt") {
 #' @rdname element
 #' @export
 margin_auto <- function(t = 0, r = t, b = t, l = r, unit = "pt") {
-  margin(t = t, r = r, b = b, l = l, unit)
+  margin(t = t, r = r, b = b, l = l, unit = unit)
 }
 
 as_margin <- function(x, x_arg = caller_arg(x), call = caller_env()) {

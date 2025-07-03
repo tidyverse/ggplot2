@@ -33,6 +33,8 @@
 #'   a blank element among its parents will cause this element to be blank as
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
+#' @param ... Reserved for future expansion.
+#'
 #' @return An object of class `element`, `rel`, or `margin`.
 #' @details
 #' The `element_polygon()` and `element_point()` functions are not rendered
@@ -137,7 +139,7 @@ element_rect <- S7::new_class(
                                "inherit.blank")],
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
                          linetype = NULL, color = NULL, linejoin = NULL,
-                         inherit.blank = FALSE, size = deprecated()){
+                         inherit.blank = FALSE, size = deprecated(), ...){
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
@@ -171,7 +173,7 @@ element_line <- S7::new_class(
   constructor = function(colour = NULL, linewidth = NULL, linetype = NULL,
                          lineend = NULL, color = NULL, linejoin = NULL,
                          arrow = NULL, arrow.fill = NULL,
-                         inherit.blank = FALSE, size = deprecated()) {
+                         inherit.blank = FALSE, size = deprecated(), ...) {
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
       linewidth <- size
@@ -225,7 +227,7 @@ element_text <- S7::new_class(
   constructor = function(family = NULL, face = NULL, colour = NULL,
                          size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
                          lineheight = NULL, color = NULL, margin = NULL,
-                         debug = NULL, inherit.blank = FALSE) {
+                         debug = NULL, inherit.blank = FALSE, ...) {
     n <- max(
       length(family), length(face), length(colour), length(size),
       length(hjust), length(vjust), length(angle), length(lineheight)
@@ -269,7 +271,7 @@ element_polygon <- S7::new_class(
   )],
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
                          linetype = NULL, color = NULL, linejoin = NULL,
-                         inherit.blank = FALSE) {
+                         inherit.blank = FALSE, ...) {
     colour <- color %||% colour
     S7::new_object(
       S7::S7_object(),
@@ -290,7 +292,7 @@ element_point <- S7::new_class(
     c("linewidth" = "stroke")
   ),
   constructor = function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
-                         stroke = NULL, color = NULL, inherit.blank = FALSE) {
+                         stroke = NULL, color = NULL, inherit.blank = FALSE, ...) {
     S7::new_object(
       S7::S7_object(),
       colour = color %||% colour, fill = fill, shape = shape, size = size,
@@ -327,8 +329,8 @@ element_geom <- S7::new_class(
     linetype = NULL, bordertype = NULL,
     family = NULL, fontsize = NULL,
     pointsize = NULL, pointshape = NULL,
-    colour = NULL, color = NULL, fill = NULL) {
-
+    colour = NULL, color = NULL, fill = NULL,
+    ...) {
     if (!is.null(fontsize)) {
       fontsize <- fontsize / .pt
     }
