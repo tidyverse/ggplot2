@@ -218,6 +218,7 @@ class_theme <- S7::new_class(
     validate = S7::class_logical
   ),
   constructor = function(elements, complete, validate, ...) {
+    warn_dots_empty()
     S7::new_object(
       elements,
       complete = complete,
@@ -238,7 +239,7 @@ class_theme <- S7::new_class(
 #' @param ... Reserved for future expansion.
 #'
 #' @details
-#' All members of `labels` are expected to be named and unique.
+#' All members of `labels` are expected to be named and names should be unique.
 #'
 #'
 #' @keywords internal
@@ -246,6 +247,7 @@ class_theme <- S7::new_class(
 class_labels <- S7::new_class(
   "labels", parent = class_S3_gg,
   constructor = function(labels, ...) {
+    warn_dots_empty()
     S7::new_object(labels)
   },
   validator = function(self) {
@@ -281,6 +283,7 @@ class_labels <- S7::new_class(
 class_mapping <- S7::new_class(
   "mapping", parent = class_S3_gg,
   constructor = function(x, env = globalenv(), ...) {
+    warn_dots_empty()
     check_object(x, is.list, "a {.cls list}")
     x <- lapply(x, new_aesthetic, env = env)
     x <- S7::new_object(x)
@@ -346,6 +349,7 @@ class_ggplot <- S7::new_class(
     plot_env = parent.frame(),
     ...
   ) {
+    warn_dots_empty()
     S7::new_object(
       S7::S7_object(),
       data        = data,
@@ -389,6 +393,7 @@ class_ggplot_built <- S7::new_class(
     plot   = class_ggplot
   ),
   constructor = function(data = NULL, layout = NULL, plot = NULL, ...) {
+    warn_dots_empty()
     if (is.null(data) || is.null(layout) || is.null(plot)) {
       cli::cli_abort(
         "The {.cls ggplot_built} class should be constructed by {.fn ggplot_build}."

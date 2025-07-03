@@ -8,6 +8,7 @@
 margin <- S7::new_class(
   "margin", parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
   constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt", ...) {
+    warn_dots_empty()
     lens <- c(length(t), length(r), length(b), length(l))
     if (any(lens != 1)) {
       incorrect <- c("t", "r", "b", "l")[lens != 1]

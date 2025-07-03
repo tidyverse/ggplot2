@@ -140,6 +140,7 @@ element_rect <- S7::new_class(
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
                          linetype = NULL, color = NULL, linejoin = NULL,
                          inherit.blank = FALSE, size = deprecated(), ...){
+    warn_dots_empty()
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
@@ -174,6 +175,7 @@ element_line <- S7::new_class(
                          lineend = NULL, color = NULL, linejoin = NULL,
                          arrow = NULL, arrow.fill = NULL,
                          inherit.blank = FALSE, size = deprecated(), ...) {
+    warn_dots_empty()
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
       linewidth <- size
@@ -228,6 +230,7 @@ element_text <- S7::new_class(
                          size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
                          lineheight = NULL, color = NULL, margin = NULL,
                          debug = NULL, inherit.blank = FALSE, ...) {
+    warn_dots_empty()
     n <- max(
       length(family), length(face), length(colour), length(size),
       length(hjust), length(vjust), length(angle), length(lineheight)
@@ -272,6 +275,7 @@ element_polygon <- S7::new_class(
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
                          linetype = NULL, color = NULL, linejoin = NULL,
                          inherit.blank = FALSE, ...) {
+    warn_dots_empty()
     colour <- color %||% colour
     S7::new_object(
       S7::S7_object(),
@@ -293,6 +297,7 @@ element_point <- S7::new_class(
   ),
   constructor = function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
                          stroke = NULL, color = NULL, inherit.blank = FALSE, ...) {
+    warn_dots_empty()
     S7::new_object(
       S7::S7_object(),
       colour = color %||% colour, fill = fill, shape = shape, size = size,
@@ -331,6 +336,7 @@ element_geom <- S7::new_class(
     pointsize = NULL, pointshape = NULL,
     colour = NULL, color = NULL, fill = NULL,
     ...) {
+    warn_dots_empty()
     if (!is.null(fontsize)) {
       fontsize <- fontsize / .pt
     }
