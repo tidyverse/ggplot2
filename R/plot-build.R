@@ -317,13 +317,13 @@ S7::method(gtable_ggplot, class_ggplot_built) <- function(data) {
 # TODO: the S3 generic should be phased out once S7 is adopted more widely
 #' @rdname gtable_ggplot
 #' @export
-ggplot_gtable <- function(plot) {
+ggplot_gtable <- function(data) {
   UseMethod("ggplot_gtable")
 }
 
 #' @export
-ggplot_gtable.default <- function(plot) {
-  gtable_ggplot(plot)
+ggplot_gtable.default <- function(data) {
+  gtable_ggplot(data)
 }
 
 #' Generate a ggplot2 plot grob.

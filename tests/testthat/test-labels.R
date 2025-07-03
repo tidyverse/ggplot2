@@ -117,7 +117,7 @@ test_that("warnings are thrown for unknown labels", {
       bar = function(x) "i don't exist either",
       qux = expression(me * neither)
     )
-  expect_snapshot_warning(ggplot_build(p))
+  expect_snapshot(p <- ggplot_build(p))
 })
 
 test_that("plot.tag.position rejects invalid input", {

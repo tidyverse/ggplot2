@@ -124,7 +124,7 @@ Other position adjustments:
 
 \code{position_dodge()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
 \tabular{rll}{
- • \tab \code{order} \tab → \code{NULL} \cr\cr
+ • \tab \code{order} \tab → \code{NULL} \cr
 }
 
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

@@ -14,10 +14,13 @@
 
 # warnings are thrown for unknown labels
 
-    Ignoring unknown labels:
-    * foo : "i don't exist"
-    * bar : <function>
-    * qux : "expression(me * neither)"
+    Code
+      p <- ggplot_build(p)
+    Message
+      Ignoring unknown labels:
+      * foo : "i don't exist"
+      * bar : <function>
+      * qux : "expression(me * neither)"
 
 # plot.tag.position rejects invalid input
 

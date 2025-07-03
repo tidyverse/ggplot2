@@ -34,7 +34,7 @@ rd_aesthetics_item <- function(x) {
     paste0("\\strong{\\code{", docs, "}}"),
     paste0("\\code{", docs, "}")
   )
-  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr\\cr")
+  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr")
 }
 
 rd_defaults <- function(layer, aesthetics) {
@@ -78,7 +78,7 @@ rd_match_docpage <- function(aes) {
   )[index + 1]
   no_match <- index == 0
   docpage[!no_match] <- paste0(
-    "\\link[=ggplot2::", docpage[!no_match],
+    "\\link[ggplot2:", docpage[!no_match],
     "]{", flat[!no_match], "}"
   )
   docpage[no_match] <- flat[no_match]
@@ -195,7 +195,7 @@ roxy_tag_parse.roxy_tag_aesthetics <- function(x) {
 roxy_tag_rd.roxy_tag_aesthetics <- function(x, base_path, env) {
   # When we document ggplot2 itself, we don't need to prefix links with ggplot2
   if (basename(base_path) == "ggplot2") {
-    x$val <- gsub("\\link[=ggplot2::", "\\link[=", x$val, fixed = TRUE)
+    x$val <- gsub("\\link[ggplot2:", "\\link[=", x$val, fixed = TRUE)
   }
   roxygen2::rd_section("aesthetics", x$val)
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/plot-construction.R
 \name{add_gg}
 \alias{add_gg}
+\alias{+.gg}
 \alias{\%+\%}
 \title{Add components to a plot}
 \usage{
