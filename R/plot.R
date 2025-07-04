@@ -248,22 +248,25 @@ local({
   }
 })
 
-local({
-  S7::method(`$<-`, class_gg) <- S7::method(`[[<-`, class_gg) <-
-    function(x, i, value) {
-      if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
-        # See explanation in `$.ggplot2::gg`
-        S7::prop(x, "meta")[[i]] <- value
-      } else {
-        S7::props(x) <- `[[<-`(S7::props(x), i, value)
-      }
-      x
-    }
-  S7::method(`[<-`, class_gg) <- function(x, i, value) {
-    S7::props(x) <- `[<-`(S7::props(x), i, value)
-    x
+#' @export
+`[<-.ggplot2::gg` <- function(x, i, value) {
+  S7::props(x) <- `[<-`(S7::props(x), i, value)
+  x
+}
+
+#' @export
+`$<-.ggplot2::gg` <- function(x, i, value) {
+  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
+    # See explanation in accessor
+    S7::prop(x, "meta")[[i]] <- value
+  } else {
+    S7::props(x) <- `[[<-`(S7::props(x), i, value)
   }
-})
+  x
+}
+
+#' @export
+`[[<-.ggplot2::gg` <- `$<-.ggplot2::gg`
 
 #' @importFrom S7 convert
 # S7 currently attaches the S3 method to the calling environment which gives `ggplot2:::as.list`

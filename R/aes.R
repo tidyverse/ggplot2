@@ -152,14 +152,20 @@ local({
   S7::method(`[`, class_mapping) <- function(x, i, ...) {
     class_mapping(`[`(S7::S7_data(x), i, ...))
   }
-  S7::method(`$<-`, class_mapping) <- S7::method(`[[<-`, class_mapping) <-
-    function(x, i, value) {
-      class_mapping(`[[<-`(S7::S7_data(x), i, value))
-    }
-  S7::method(`[<-`, class_mapping) <- function(x, i, value) {
-    class_mapping(`[<-`(S7::S7_data(x), i, value))
-  }
 })
+
+#' @export
+`[[<-.ggplot2::mapping` <- function(x, i, value) {
+  class_mapping(`[[<-`(S7::S7_data(x), i, value))
+}
+
+#' @export
+`$<-.ggplot2::mapping` <- `[[<-.ggplot2::mapping`
+
+#' @export
+`[<-.ggplot2::mapping` <- function(x, i, value) {
+  class_mapping(`[<-`(S7::S7_data(x), i, value))
+}
 
 #' Standardise aesthetic names
 #'
