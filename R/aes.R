@@ -1,4 +1,4 @@
-#' @include utilities.R compat-plyr.R
+#' @include utilities.R compat-plyr.R all-classes.R
 NULL
 
 #' Construct aesthetic mappings
@@ -147,25 +147,19 @@ new_aesthetic <- function(x, env = globalenv()) {
   invisible(x)
 }
 
-# TODO: should convert to proper S7 method once bug in S7 is resolved
-#' @export
-"[.ggplot2::mapping" <- function(x, i, ...) {
-  class_mapping(NextMethod())
-}
 
-# If necessary coerce replacements to quosures for compatibility
-#' @export
-"[[<-.ggplot2::mapping" <- function(x, i, value) {
-  class_mapping(NextMethod())
-}
-#' @export
-"$<-.ggplot2::mapping" <- function(x, i, value) {
-  class_mapping(NextMethod())
-}
-#' @export
-"[<-.ggplot2::mapping" <- function(x, i, value) {
-  class_mapping(NextMethod())
-}
+local({
+  S7::method(`[`, class_mapping) <- function(x, i, ...) {
+    class_mapping(`[`(S7::S7_data(x), i, ...))
+  }
+  S7::method(`$<-`, class_mapping) <- S7::method(`[[<-`, class_mapping) <-
+    function(x, i, value) {
+      class_mapping(`[[<-`(S7::S7_data(x), i, value))
+    }
+  S7::method(`[<-`, class_mapping) <- function(x, i, value) {
+    class_mapping(`[<-`(S7::S7_data(x), i, value))
+  }
+})
 
 #' Standardise aesthetic names
 #'
