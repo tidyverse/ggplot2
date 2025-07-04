@@ -1050,10 +1050,11 @@ combine_s3_elements <- function(e1, e2) {
   return(e1)
 }
 
-#' @export
-`$.ggplot2::theme` <- function(x, ...) {
-  .subset2(x, ...)
-}
+local({
+  S7::method(`$`, class_theme) <- function(x, ...) {
+    .subset2(x, ...)
+  }
+})
 
 #' @export
 `print.ggplot2::theme` <- function(x, ...) utils::str(x)
