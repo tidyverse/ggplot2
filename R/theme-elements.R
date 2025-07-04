@@ -354,8 +354,11 @@ element_geom <- S7::new_class(
   fill = NULL, colour = NULL
 )
 
-#' @export
-print.element <- function(x, ...) utils::str(x)
+local({
+  S7::method(print, element) <- function(x, ...) {
+    utils::str(x)
+  }
+})
 
 #' @export
 #' @param type For testing elements: the type of element to expect. One of

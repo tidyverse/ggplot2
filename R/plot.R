@@ -179,10 +179,8 @@ is.ggplot <- function(x) {
 #' @param ... other arguments not used by this method
 #' @keywords hplot
 #' @return Invisibly returns the original plot.
-#' @export
-#' @method print ggplot2::ggplot
 #' @name print.ggplot
-#' @aliases print.ggplot2::ggplot plot.ggplot2::ggplot
+#' @aliases plot.ggplot
 #' @examples
 #' colours <- c("class", "drv", "fl")
 #'
@@ -196,38 +194,38 @@ is.ggplot <- function(x) {
 #'   print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
 #'           geom_point())
 #' }
-# TODO: should convert to proper S7 method once bug in S7 is resolved
-`print.ggplot2::ggplot` <- function(x, newpage = is.null(vp), vp = NULL, ...) {
-  set_last_plot(x)
-  if (newpage) grid.newpage()
+local({
+  S7::method(print, class_ggplot) <- S7::method(plot, class_ggplot) <-
+    function(x, newpage = is.null(vp), vp = NULL, ...) {
+      set_last_plot(x)
+      if (newpage) grid.newpage()
 
-  # Record dependency on 'ggplot2' on the display list
-  # (AFTER grid.newpage())
-  grDevices::recordGraphics(
-    requireNamespace("ggplot2", quietly = TRUE),
-    list(),
-    getNamespace("ggplot2")
-  )
+      # Record dependency on 'ggplot2' on the display list
+      # (AFTER grid.newpage())
+      grDevices::recordGraphics(
+        requireNamespace("ggplot2", quietly = TRUE),
+        list(),
+        getNamespace("ggplot2")
+      )
 
-  data <- ggplot_build(x)
+      data <- ggplot_build(x)
 
-  gtable <- ggplot_gtable(data)
-  if (is.null(vp)) {
-    grid.draw(gtable)
-  } else {
-    if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
-    grid.draw(gtable)
-    upViewport()
-  }
+      gtable <- ggplot_gtable(data)
+      if (is.null(vp)) {
+        grid.draw(gtable)
+      } else {
+        if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
+        grid.draw(gtable)
+        upViewport()
+      }
 
-  if (isTRUE(getOption("BrailleR.VI")) && rlang::is_installed("BrailleR")) {
-    print(asNamespace("BrailleR")$VI(x))
-  }
+      if (isTRUE(getOption("BrailleR.VI")) && rlang::is_installed("BrailleR")) {
+        print(asNamespace("BrailleR")$VI(x))
+      }
 
-  invisible(x)
-}
-
-S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
+      invisible(x)
+    }
+})
 
 # The following extractors and subassignment operators are for a smooth
 # transition and should be deprecated in the release cycle after 4.0.0

@@ -1054,7 +1054,7 @@ local({
   S7::method(`$`, class_theme) <- function(x, ...) {
     .subset2(x, ...)
   }
+  S7::method(print, class_theme) <- function(x, ...) {
+    utils::str(x)
+  }
 })
-
-#' @export
-`print.ggplot2::theme` <- function(x, ...) utils::str(x)

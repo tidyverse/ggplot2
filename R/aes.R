@@ -131,22 +131,22 @@ new_aesthetic <- function(x, env = globalenv()) {
 }
 
 #' @export
-# TODO: should convert to proper S7 method once bug in S7 is resolved
-`print.ggplot2::mapping` <- function(x, ...) {
-  cat("Aesthetic mapping: \n")
+local({
+  S7::method(print, class_mapping) <- function(x, ...) {
+    cat("Aesthetic mapping: \n")
 
-  if (length(x) == 0) {
-    cat("<empty>\n")
-  } else {
-    values <- vapply(x, quo_label, character(1))
-    bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
+    if (length(x) == 0) {
+      cat("<empty>\n")
+    } else {
+      values <- vapply(x, quo_label, character(1))
+      bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
 
-    cat(bullets, sep = "")
+      cat(bullets, sep = "")
+    }
+
+    invisible(x)
   }
-
-  invisible(x)
-}
-
+})
 
 local({
   S7::method(`[`, class_mapping) <- function(x, i, ...) {
