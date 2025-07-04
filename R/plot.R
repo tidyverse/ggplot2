@@ -231,49 +231,41 @@ S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
 
 # The following extractors and subassignment operators are for a smooth
 # transition and should be deprecated in the release cycle after 4.0.0
-# TODO: should convert to proper S7 method once bug in S7 is resolved
-
-#' @export
-`$.ggplot2::gg` <- function(x, i) {
-  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
-    # This is a trick to bridge a gap between S3 and S7. We're allowing
-    # for arbitrary fields by reading/writing to the 'meta' field when the
-    # index does not point to an actual property.
-    # The proper way to go about this is to implement new fields as properties
-    # of a ggplot subclass.
-    S7::prop(x, "meta")[[i]]
-  } else {
-    `[[`(S7::props(x), i)
+local({
+  S7::method(`[[`, class_gg) <- S7::method(`$`, class_gg) <-
+    function(x, i) {
+      if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
+        # This is a trick to bridge a gap between S3 and S7. We're allowing
+        # for arbitrary fields by reading/writing to the 'meta' field when the
+        # index does not point to an actual property.
+        # The proper way to go about this is to implement new fields as properties
+        # of a ggplot subclass.
+        S7::prop(x, "meta")[[i]]
+      } else {
+        `[[`(S7::props(x), i)
+      }
+    }
+  S7::method(`[`, class_gg) <- function(x, i) {
+    `[`(S7::props(x), i)
   }
-}
+})
 
-#' @export
-`$<-.ggplot2::gg` <- function(x, i, value) {
-  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
-    # See explanation in `$.ggplot2::gg`
-    S7::prop(x, "meta")[[i]] <- value
-  } else {
-    S7::props(x) <- `[[<-`(S7::props(x), i, value)
+local({
+  S7::method(`$<-`, class_gg) <- S7::method(`[[<-`, class_gg) <-
+    function(x, i, value) {
+      if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
+        # See explanation in `$.ggplot2::gg`
+        S7::prop(x, "meta")[[i]] <- value
+      } else {
+        S7::props(x) <- `[[<-`(S7::props(x), i, value)
+      }
+      x
+    }
+  S7::method(`[<-`, class_gg) <- function(x, i, value) {
+    S7::props(x) <- `[<-`(S7::props(x), i, value)
+    x
   }
-  x
-}
-
-#' @export
-`[.ggplot2::gg` <- function(x, i) {
-  `[`(S7::props(x), i)
-}
-
-#' @export
-`[<-.ggplot2::gg` <- function(x, i, value) {
-  S7::props(x) <- `[<-`(S7::props(x), i, value)
-  x
-}
-
-#' @export
-`[[.ggplot2::gg` <- `$.ggplot2::gg`
-
-#' @export
-`[[<-.ggplot2::gg` <- `$<-.ggplot2::gg`
+})
 
 #' @importFrom S7 convert
 # S7 currently attaches the S3 method to the calling environment which gives `ggplot2:::as.list`
