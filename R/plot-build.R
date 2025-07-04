@@ -25,19 +25,19 @@
 #' The `r link_book("build step section", "internals#sec-ggplotbuild")`
 #' @keywords internal
 #' @export
-build_ggplot <- S7::new_generic("build_ggplot", "plot", fun = function(plot, ...) {
+ggplot_build <- function(plot, ...) {
   env <- try_prop(plot, "plot_env")
   if (!is.null(env)) {
     attach_plot_env(env)
   }
-  S7::S7_dispatch()
-})
+  UseMethod("ggplot_build")
+}
 
-S7::method(build_ggplot, class_ggplot_built) <- function(plot, ...) {
+S7::method(ggplot_build, class_ggplot_built) <- function(plot, ...) {
   plot # This is a no-op
 }
 
-S7::method(build_ggplot, class_ggplot) <- function(plot, ...) {
+S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   plot <- plot_clone(plot)
   if (length(plot@layers) == 0) {
     plot <- plot + geom_blank()
@@ -136,29 +136,17 @@ S7::method(build_ggplot, class_ggplot) <- function(plot, ...) {
   build
 }
 
-# TODO: the S3 generic should be phased out once S7 is adopted more widely
-#' @rdname build_ggplot
 #' @export
-ggplot_build <- function(plot, ...) {
-  UseMethod("ggplot_build")
-}
-
-#' @export
-ggplot_build.default <- function(plot, ...) {
-  build_ggplot(plot)
-}
-
-#' @export
-#' @rdname build_ggplot
+#' @rdname ggplot_build
 get_layer_data <- function(plot = get_last_plot(), i = 1L) {
   ggplot_build(plot)@data[[i]]
 }
 #' @export
-#' @rdname build_ggplot
+#' @rdname ggplot_build
 layer_data <- get_layer_data
 
 #' @export
-#' @rdname build_ggplot
+#' @rdname ggplot_build
 get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
@@ -172,11 +160,11 @@ get_panel_scales <- function(plot = get_last_plot(), i = 1L, j = 1L) {
 }
 
 #' @export
-#' @rdname build_ggplot
+#' @rdname ggplot_build
 layer_scales <- get_panel_scales
 
 #' @export
-#' @rdname build_ggplot
+#' @rdname ggplot_build
 get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
@@ -184,7 +172,7 @@ get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
 }
 
 #' @export
-#' @rdname build_ggplot
+#' @rdname ggplot_build
 layer_grob <- get_layer_grob
 
 #' Build a plot with all the usual bits and pieces.
