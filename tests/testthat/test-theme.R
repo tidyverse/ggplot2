@@ -763,6 +763,28 @@ test_that("geom elements are inherited correctly", {
   expect_equal(p$colour, "red")
 })
 
+test_that("theme elements are covered in `theme_sub_*()` functions", {
+  # We use a snapshot test here to trigger when a new theme element is added
+  # or removed.
+  # A failure of this test should be taken as a prompt to see if the new
+  # theme element should be included in one of the `theme_sub_*` functions.
+
+  fmls <- paste0("axis.", fn_fmls_names(theme_sub_axis))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_x), ".x"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_y), ".y"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_top), ".x.top"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_bottom), ".x.bottom"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_left), ".y.left"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_right), ".y.right"))
+  fmls <- c(fmls, paste0("legend.", fn_fmls_names(theme_sub_legend)))
+  fmls <- c(fmls, paste0("plot.",   fn_fmls_names(theme_sub_plot)))
+  fmls <- c(fmls, paste0("panel.",  fn_fmls_names(theme_sub_panel)))
+  fmls <- c(fmls, paste0("strip.",  fn_fmls_names(theme_sub_strip)))
+
+  extra_elements <- setdiff(fn_fmls_names(theme), fmls)
+  expect_snapshot(extra_elements)
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("element_polygon() can render a grob", {
