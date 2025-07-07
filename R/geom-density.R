@@ -10,8 +10,8 @@ GeomDensity <- ggproto(
     fill   = from_theme(fill %||% NA),
     weight = 1,
     alpha  = NA,
-    linewidth = from_theme(borderwidth),
-    linetype  = from_theme(bordertype)
+    linewidth = from_theme(linewidth),
+    linetype  = from_theme(linetype)
   )
 )
 
