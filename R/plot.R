@@ -179,10 +179,8 @@ is.ggplot <- function(x) {
 #' @param ... other arguments not used by this method
 #' @keywords hplot
 #' @return Invisibly returns the original plot.
-#' @export
-#' @method print ggplot2::ggplot
 #' @name print.ggplot
-#' @aliases print.ggplot2::ggplot plot.ggplot2::ggplot
+#' @aliases plot.ggplot
 #' @examples
 #' colours <- c("class", "drv", "fl")
 #'
@@ -196,72 +194,59 @@ is.ggplot <- function(x) {
 #'   print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
 #'           geom_point())
 #' }
-# TODO: should convert to proper S7 method once bug in S7 is resolved
-`print.ggplot2::ggplot` <- function(x, newpage = is.null(vp), vp = NULL, ...) {
-  set_last_plot(x)
-  if (newpage) grid.newpage()
+local({
+  S7::method(print, class_ggplot) <- S7::method(plot, class_ggplot) <-
+    function(x, newpage = is.null(vp), vp = NULL, ...) {
+      set_last_plot(x)
+      if (newpage) grid.newpage()
 
-  # Record dependency on 'ggplot2' on the display list
-  # (AFTER grid.newpage())
-  grDevices::recordGraphics(
-    requireNamespace("ggplot2", quietly = TRUE),
-    list(),
-    getNamespace("ggplot2")
-  )
+      # Record dependency on 'ggplot2' on the display list
+      # (AFTER grid.newpage())
+      grDevices::recordGraphics(
+        requireNamespace("ggplot2", quietly = TRUE),
+        list(),
+        getNamespace("ggplot2")
+      )
 
-  data <- ggplot_build(x)
+      data <- ggplot_build(x)
 
-  gtable <- ggplot_gtable(data)
-  if (is.null(vp)) {
-    grid.draw(gtable)
-  } else {
-    if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
-    grid.draw(gtable)
-    upViewport()
-  }
+      gtable <- ggplot_gtable(data)
+      if (is.null(vp)) {
+        grid.draw(gtable)
+      } else {
+        if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
+        grid.draw(gtable)
+        upViewport()
+      }
 
-  if (isTRUE(getOption("BrailleR.VI")) && rlang::is_installed("BrailleR")) {
-    print(asNamespace("BrailleR")$VI(x))
-  }
+      if (isTRUE(getOption("BrailleR.VI")) && rlang::is_installed("BrailleR")) {
+        print(asNamespace("BrailleR")$VI(x))
+      }
 
-  invisible(x)
-}
-
-S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
+      invisible(x)
+    }
+})
 
 # The following extractors and subassignment operators are for a smooth
 # transition and should be deprecated in the release cycle after 4.0.0
-# TODO: should convert to proper S7 method once bug in S7 is resolved
-
-#' @export
-`$.ggplot2::gg` <- function(x, i) {
-  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
-    # This is a trick to bridge a gap between S3 and S7. We're allowing
-    # for arbitrary fields by reading/writing to the 'meta' field when the
-    # index does not point to an actual property.
-    # The proper way to go about this is to implement new fields as properties
-    # of a ggplot subclass.
-    S7::prop(x, "meta")[[i]]
-  } else {
-    `[[`(S7::props(x), i)
+local({
+  S7::method(`[[`, class_gg) <- S7::method(`$`, class_gg) <-
+    function(x, i) {
+      if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
+        # This is a trick to bridge a gap between S3 and S7. We're allowing
+        # for arbitrary fields by reading/writing to the 'meta' field when the
+        # index does not point to an actual property.
+        # The proper way to go about this is to implement new fields as properties
+        # of a ggplot subclass.
+        S7::prop(x, "meta")[[i]]
+      } else {
+        `[[`(S7::props(x), i)
+      }
+    }
+  S7::method(`[`, class_gg) <- function(x, i) {
+    `[`(S7::props(x), i)
   }
-}
-
-#' @export
-`$<-.ggplot2::gg` <- function(x, i, value) {
-  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
-    # See explanation in `$.ggplot2::gg`
-    S7::prop(x, "meta")[[i]] <- value
-  } else {
-    S7::props(x) <- `[[<-`(S7::props(x), i, value)
-  }
-  x
-}
-
-#' @export
-`[.ggplot2::gg` <- function(x, i) {
-  `[`(S7::props(x), i)
-}
+})
 
 #' @export
 `[<-.ggplot2::gg` <- function(x, i, value) {
@@ -270,7 +255,15 @@ S7::method(plot, class_ggplot) <- `print.ggplot2::ggplot`
 }
 
 #' @export
-`[[.ggplot2::gg` <- `$.ggplot2::gg`
+`$<-.ggplot2::gg` <- function(x, i, value) {
+  if (!S7::prop_exists(x, i) && S7::prop_exists(x, "meta")) {
+    # See explanation in accessor
+    S7::prop(x, "meta")[[i]] <- value
+  } else {
+    S7::props(x) <- `[[<-`(S7::props(x), i, value)
+  }
+  x
+}
 
 #' @export
 `[[<-.ggplot2::gg` <- `$<-.ggplot2::gg`
