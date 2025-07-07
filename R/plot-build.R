@@ -37,7 +37,9 @@ S7::method(ggplot_build, class_ggplot_built) <- function(plot, ...) {
   plot # This is a no-op
 }
 
-S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
+# The build_ggplot is a temporary concession to {thematic} after we put in
+# a compatibility PR that uses this function
+build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   plot <- plot_clone(plot)
   if (length(plot@layers) == 0) {
     plot <- plot + geom_blank()
