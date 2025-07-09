@@ -493,17 +493,7 @@ GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
     alpha = NA)
   )
 
-# We're baking in StatChull instead of exposing it via an argument, so we
-# need a custom constructor
-geom_chull <- function(mapping = NULL, data = NULL, 
-                       position = "identity", na.rm = FALSE, show.legend = NA, 
-                       inherit.aes = TRUE, ...) {
-  layer(
-    stat = StatChull, geom = GeomPolygonHollow, data = data, mapping = mapping,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
-  )
-}
+geom_chull <- make_constructor(GeomPolygonHollow, stat = "chull")
 
 ggplot(mpg, aes(displ, hwy)) + 
   geom_point() + 
