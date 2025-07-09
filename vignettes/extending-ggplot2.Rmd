@@ -72,7 +72,7 @@ The two most important components are the `compute_group()` method (which does t
 
 Next we write a layer function. Unfortunately, due to an early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a stat _and_ a geom. Currently it is the convention to have `stat_()` wrappers with fixed `layer(stat)` arguments and `geom_()` wrappers with fixed `layer(geom)` arguments. The `stat_()` and `geom_()` functions both have the same ingredients and cook up new layers.
 
-All layer functions follow the same form - you specify defaults in the function arguments and then call the `layer()` function, sending `...` into the `params` argument. The arguments in `...` will either be arguments for the geom (if you're making a stat wrapper), arguments for the stat (if you're making a geom wrapper), or aesthetics to be set. `layer()` takes care of teasing the different parameters apart and making sure they're stored in the right place:
+All layer functions follow the same form - you specify defaults in the function arguments and then call the `layer()` function, sending `...` into the `params` argument. The arguments in `...` will either be arguments for the geom (if you're making a stat wrapper), arguments for the stat (if you're making a geom wrapper), or aesthetics to be set. `layer()` takes care of teasing the different parameters apart and making sure they're stored in the right place.
 
 ```{r}
 stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
@@ -88,6 +88,12 @@ stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
 
 (Note that if you're writing this in your own package, you'll either need to call `ggplot2::layer()` explicitly, or import the `layer()` function into your package namespace.)
 
+If you have standard expectations of a constructor with no side effects (e.g. checking arguments), you can also use the `make_constructor()` function to build one for you. There is no sensible default geom for a stat, so you have to set the default one yourself.
+
+```{r}
+stat_chull <- make_constructor(StatChull, geom = "polygon")
+print(stat_chull)
+```
 Once we have a layer function we can try our new stat:
 
 ```{r}
@@ -146,22 +152,14 @@ StatLm <- ggproto("StatLm", Stat,
   }
 )
 
-stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
-                    position = "identity", na.rm = FALSE, show.legend = NA, 
-                    inherit.aes = TRUE, ...) {
-  layer(
-    stat = StatLm, data = data, mapping = mapping, geom = geom, 
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
-  )
-}
+stat_lm <- make_constructor(StatLm, geom = "line")
 
 ggplot(mpg, aes(displ, hwy)) + 
   geom_point() + 
   stat_lm()
 ```
 
-`StatLm` is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the `compute_group()` method and our wrapper function:
+`StatLm` is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the `compute_group()` method which will get picked up by `make_constructor()`.
 
 ```{r}
 #| fig.alt: "Scatterplot of engine displacement versus highway miles per
@@ -171,7 +169,7 @@ ggplot(mpg, aes(displ, hwy)) +
 StatLm <- ggproto("StatLm", Stat, 
   required_aes = c("x", "y"),
   
-  compute_group = function(data, scales, params, n = 100, formula = y ~ x) {
+  compute_group = function(data, scales, params = list(), n = 100, formula = y ~ x) {
     rng <- range(data$x, na.rm = TRUE)
     grid <- data.frame(x = seq(rng[1], rng[2], length = n))
     
@@ -182,16 +180,7 @@ StatLm <- ggproto("StatLm", Stat,
   }
 )
 
-stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
-                    position = "identity", na.rm = FALSE, show.legend = NA, 
-                    inherit.aes = TRUE, n = 50, formula = y ~ x, 
-                    ...) {
-  layer(
-    stat = StatLm, data = data, mapping = mapping, geom = geom, 
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(n = n, formula = formula, na.rm = na.rm, ...)
-  )
-}
+stat_lm <- make_constructor(StatLm, geom = "line")
 
 ggplot(mpg, aes(displ, hwy)) + 
   geom_point() + 
@@ -199,7 +188,8 @@ ggplot(mpg, aes(displ, hwy)) +
   stat_lm(formula = y ~ poly(x, 10), geom = "point", colour = "red", n = 20)
 ```
 
-Note that we don't _have_ to explicitly include the new parameters in the arguments for the layer, `...` will get passed to the right place anyway. But you'll need to document them somewhere so the user knows about them. Here's a brief example. Note `@inheritParams ggplot2::stat_identity`: that will automatically inherit documentation for all the parameters also defined for `stat_identity()`.
+If you're defining a constructor function yourself, it is good practise to add the parameters as arguments.
+We don't _have_ to explicitly include the new parameters in the arguments for the layer, `...` will get passed to the right place anyway. But you'll need to document them somewhere so the user knows about them. Here's a brief example. Note `@inheritParams ggplot2::stat_identity`: that will automatically inherit documentation for all the parameters also defined for `stat_identity()`.
 
 ```{r}
 #' @export
@@ -257,16 +247,7 @@ StatDensityCommon <- ggproto("StatDensityCommon", Stat,
   }  
 )
 
-stat_density_common <- function(mapping = NULL, data = NULL, geom = "line",
-                                position = "identity", na.rm = FALSE, show.legend = NA, 
-                                inherit.aes = TRUE, bandwidth = NULL,
-                                ...) {
-  layer(
-    stat = StatDensityCommon, data = data, mapping = mapping, geom = geom, 
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bandwidth = bandwidth, na.rm = na.rm, ...)
-  )
-}
+stat_density_common <- make_constructor(StatDensityCommon, geom = "line")
 
 ggplot(mpg, aes(displ, colour = drv)) + 
   stat_density_common()
@@ -400,15 +381,8 @@ GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
   }
 )
 
-geom_simple_point <- function(mapping = NULL, data = NULL, stat = "identity",
-                              position = "identity", na.rm = FALSE, show.legend = NA, 
-                              inherit.aes = TRUE, ...) {
-  layer(
-    geom = GeomSimplePoint, mapping = mapping,  data = data, stat = stat, 
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
-  )
-}
+# Default stat is `stat_identity()`, no need to specify
+geom_simple_point <- make_constructor(GeomSimplePoint)
 
 ggplot(mpg, aes(displ, hwy)) + 
   geom_simple_point()
@@ -481,15 +455,8 @@ GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
     )
   }
 )
-geom_simple_polygon <- function(mapping = NULL, data = NULL, stat = "chull",
-                                position = "identity", na.rm = FALSE, show.legend = NA, 
-                                inherit.aes = TRUE, ...) {
-  layer(
-    geom = GeomSimplePolygon, mapping = mapping, data = data, stat = stat, 
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
-  )
-}
+
+geom_simple_polygon <- make_constructor(GeomSimplePolygon, stat = "chull")
 
 ggplot(mpg, aes(displ, hwy)) + 
   geom_point() + 
@@ -525,15 +492,8 @@ GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
   default_aes = aes(colour = "black", fill = NA, linewidth = 0.5, linetype = 1,
     alpha = NA)
   )
-geom_chull <- function(mapping = NULL, data = NULL, 
-                       position = "identity", na.rm = FALSE, show.legend = NA, 
-                       inherit.aes = TRUE, ...) {
-  layer(
-    stat = StatChull, geom = GeomPolygonHollow, data = data, mapping = mapping,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
-  )
-}
+
+geom_chull <- make_constructor(GeomPolygonHollow, stat = "chull")
 
 ggplot(mpg, aes(displ, hwy)) + 
   geom_point() + 
