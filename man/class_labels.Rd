@@ -4,7 +4,7 @@
 \alias{class_labels}
 \title{The labels class}
 \usage{
-class_labels(labels, ...)
+class_labels(labels = list(), ...)
 }
 \arguments{
 \item{labels}{A named list.}

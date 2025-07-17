@@ -4,7 +4,7 @@
 \alias{class_theme}
 \title{The theme class}
 \usage{
-class_theme(elements, ..., complete, validate)
+class_theme(elements = list(), ..., complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{elements}{A named list containing theme elements.}

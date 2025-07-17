@@ -218,7 +218,7 @@ class_theme <- S7::new_class(
     complete = S7::class_logical,
     validate = S7::class_logical
   ),
-  constructor = function(elements, ..., complete, validate) {
+  constructor = function(elements = list(), ..., complete = FALSE, validate = TRUE) {
     warn_dots_empty()
     S7::new_object(
       elements,
@@ -247,7 +247,7 @@ class_theme <- S7::new_class(
 #' @export
 class_labels <- S7::new_class(
   "labels", parent = class_S3_gg,
-  constructor = function(labels, ...) {
+  constructor = function(labels = list(), ...) {
     warn_dots_empty()
     S7::new_object(labels)
   },
@@ -283,7 +283,7 @@ class_labels <- S7::new_class(
 #' @export
 class_mapping <- S7::new_class(
   "mapping", parent = class_S3_gg,
-  constructor = function(x, ..., env = globalenv()) {
+  constructor = function(x = list(), ..., env = globalenv()) {
     warn_dots_empty()
     check_object(x, is.list, "a {.cls list}")
     x <- lapply(x, new_aesthetic, env = env)

@@ -4,7 +4,7 @@
 \alias{class_mapping}
 \title{The mapping class}
 \usage{
-class_mapping(x, ..., env = globalenv())
+class_mapping(x = list(), ..., env = globalenv())
 }
 \arguments{
 \item{x}{A list of quosures and constants.}
