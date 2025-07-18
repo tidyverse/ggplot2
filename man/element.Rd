@@ -15,7 +15,7 @@
 \alias{rel}
 \title{Theme elements}
 \usage{
-margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
+margin(t = 0, r = 0, b = 0, l = 0, unit = "pt", ...)
 
 margin_part(t = NA, r = NA, b = NA, l = NA, unit = "pt")
 
@@ -33,7 +33,8 @@ element_rect(
   color = NULL,
   linejoin = NULL,
   inherit.blank = FALSE,
-  size = deprecated()
+  size = deprecated(),
+  ...
 )
 
 element_line(
@@ -46,7 +47,8 @@ element_line(
   arrow = NULL,
   arrow.fill = NULL,
   inherit.blank = FALSE,
-  size = deprecated()
+  size = deprecated(),
+  ...
 )
 
 element_text(
@@ -61,7 +63,8 @@ element_text(
   color = NULL,
   margin = NULL,
   debug = NULL,
-  inherit.blank = FALSE
+  inherit.blank = FALSE,
+  ...
 )
 
 element_polygon(
@@ -71,7 +74,8 @@ element_polygon(
   linetype = NULL,
   color = NULL,
   linejoin = NULL,
-  inherit.blank = FALSE
+  inherit.blank = FALSE,
+  ...
 )
 
 element_point(
@@ -81,7 +85,8 @@ element_point(
   fill = NULL,
   stroke = NULL,
   color = NULL,
-  inherit.blank = FALSE
+  inherit.blank = FALSE,
+  ...
 )
 
 element_geom(
@@ -98,7 +103,8 @@ element_geom(
   pointshape = NULL,
   colour = NULL,
   color = NULL,
-  fill = NULL
+  fill = NULL,
+  ...
 )
 
 rel(x)
@@ -108,6 +114,8 @@ rel(x)
 
 \item{unit}{Default units of dimensions. Defaults to "pt" so it
 can be most easily scaled with the text.}
+
+\item{...}{Reserved for future expansion.}
 
 \item{fill}{Fill colour. \code{fill_alpha()} can be used to set the transparency
 of the fill.}

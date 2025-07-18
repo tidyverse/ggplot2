@@ -850,6 +850,16 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   )
 }
 
+warn_dots_empty <- function(env = caller_env(), call = caller_env()) {
+  check_dots_empty(
+    env = env, call = call,
+    error = function(cnd) {
+      msg <- gsub("\n", "\f", cnd_message(cnd))
+      cli::cli_warn(msg, call = call)
+    }
+  )
+}
+
 # TODO: Replace me if rlang/#1730 gets implemented
 # Similar to `rlang::check_installed()` but returns boolean and misses
 # features such as versions, comparisons and using {pak}.

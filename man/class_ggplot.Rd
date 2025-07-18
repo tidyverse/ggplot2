@@ -6,6 +6,7 @@
 \usage{
 class_ggplot(
   data = waiver(),
+  ...,
   layers = list(),
   scales = NULL,
   guides = NULL,
@@ -21,6 +22,8 @@ class_ggplot(
 }
 \arguments{
 \item{data}{A property containing any data coerced by \code{\link[=fortify]{fortify()}}.}
+
+\item{...}{Reserved for future expansion.}
 
 \item{layers}{A list of layer instances created by \code{\link[=layer]{layer()}}.}
 

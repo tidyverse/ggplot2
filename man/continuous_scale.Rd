@@ -17,7 +17,7 @@ continuous_scale(
   rescaler = rescale,
   oob = censor,
   expand = waiver(),
-  na.value = NA_real_,
+  na.value = NA,
   transform = "identity",
   trans = deprecated(),
   guide = "legend",
