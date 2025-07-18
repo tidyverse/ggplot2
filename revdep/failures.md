@@ -283,10 +283,10 @@ Run `revdepcheck::cloud_details(, "cry")` for more info
 
 <details>
 
-* Version: 3.10.3
+* Version: 3.10.4
 * GitHub: https://github.com/cdriveraus/ctsem
 * Source code: https://github.com/cran/ctsem
-* Date/Publication: 2025-06-21 11:00:02 UTC
+* Date/Publication: 2025-06-30 16:40:11 UTC
 * Number of recursive dependencies: 164
 
 Run `revdepcheck::cloud_details(, "ctsem")` for more info
@@ -500,70 +500,6 @@ ERROR: configuration failed for package ‘fio’
 
 
 ```
-# GGally
-
-<details>
-
-* Version: 2.2.1
-* GitHub: https://github.com/ggobi/ggally
-* Source code: https://github.com/cran/GGally
-* Date/Publication: 2024-02-14 00:53:32 UTC
-* Number of recursive dependencies: 142
-
-Run `revdepcheck::cloud_details(, "GGally")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘GGally’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/GGally/new/GGally.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘GGally’ ...
-** package ‘GGally’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in eval(exprs[i], envir) : object 'is.rel' not found
-Error: unable to load R code in package ‘GGally’
-Execution halted
-ERROR: lazy loading failed for package ‘GGally’
-* removing ‘/tmp/workdir/GGally/new/GGally.Rcheck/GGally’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘GGally’ ...
-** package ‘GGally’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (GGally)
-
-
-```
 # ggmosaic
 
 <details>
@@ -708,62 +644,6 @@ ERROR: lazy loading failed for package ‘ggmulti’
 
 
 ```
-# ggRandomForests
-
-<details>
-
-* Version: 2.2.1
-* GitHub: https://github.com/ehrlinger/ggRandomForests
-* Source code: https://github.com/cran/ggRandomForests
-* Date/Publication: 2022-09-01 09:10:45 UTC
-* Number of recursive dependencies: 96
-
-Run `revdepcheck::cloud_details(, "ggRandomForests")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘ggRandomForests’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/ggRandomForests/new/ggRandomForests.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggRandomForests’ ...
-** package ‘ggRandomForests’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error: object ‘var.select’ is not exported by 'namespace:randomForestSRC'
-Execution halted
-ERROR: lazy loading failed for package ‘ggRandomForests’
-* removing ‘/tmp/workdir/ggRandomForests/new/ggRandomForests.Rcheck/ggRandomForests’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggRandomForests’ ...
-** package ‘ggRandomForests’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error: object ‘var.select’ is not exported by 'namespace:randomForestSRC'
-Execution halted
-ERROR: lazy loading failed for package ‘ggRandomForests’
-* removing ‘/tmp/workdir/ggRandomForests/old/ggRandomForests.Rcheck/ggRandomForests’
-
-
-```
 # ggtern
 
 <details>
@@ -840,82 +720,6 @@ ERROR: lazy loading failed for package ‘ggtern’
 ** testing if installed package can be loaded from final location
 ** testing if installed package keeps a record of temporary installation path
 * DONE (ggtern)
-
-
-```
-# metabolic
-
-<details>
-
-* Version: 0.1.2
-* GitHub: https://github.com/fmmattioni/metabolic
-* Source code: https://github.com/cran/metabolic
-* Date/Publication: 2023-10-10 07:40:02 UTC
-* Number of recursive dependencies: 136
-
-Run `revdepcheck::cloud_details(, "metabolic")` for more info
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-* using log directory ‘/tmp/workdir/metabolic/new/metabolic.Rcheck’
-* using R version 4.4.0 (2024-04-24)
-* using platform: x86_64-pc-linux-gnu
-* R was compiled by
-    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
-    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
-* running under: Ubuntu 24.04.2 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘metabolic/DESCRIPTION’ ... OK
-...
-* checking data for non-ASCII characters ... NOTE
-  Note: found 37 marked UTF-8 strings
-* checking LazyData ... OK
-* checking data for ASCII and uncompressed saves ... OK
-* checking examples ... OK
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘spelling.R’
-* DONE
-Status: 2 NOTEs
-
-
-
-
-
-```
-### CRAN
-
-```
-* using log directory ‘/tmp/workdir/metabolic/old/metabolic.Rcheck’
-* using R version 4.4.0 (2024-04-24)
-* using platform: x86_64-pc-linux-gnu
-* R was compiled by
-    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
-    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
-* running under: Ubuntu 24.04.2 LTS
-* using session charset: UTF-8
-* using option ‘--no-manual’
-* checking for file ‘metabolic/DESCRIPTION’ ... OK
-...
-* checking data for non-ASCII characters ... NOTE
-  Note: found 37 marked UTF-8 strings
-* checking LazyData ... OK
-* checking data for ASCII and uncompressed saves ... OK
-* checking examples ... OK
-* checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... OK
-  Running ‘spelling.R’
-* DONE
-Status: 2 NOTEs
-
-
-
 
 
 ```
@@ -1097,64 +901,6 @@ Run `revdepcheck::cloud_details(, "OpenMx")` for more info
 
 
 
-
-
-```
-# pacta.loanbook
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/RMI-PACTA/pacta.loanbook
-* Source code: https://github.com/cran/pacta.loanbook
-* Date/Publication: 2025-03-17 20:50:02 UTC
-* Number of recursive dependencies: 115
-
-Run `revdepcheck::cloud_details(, "pacta.loanbook")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘pacta.loanbook’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/pacta.loanbook/new/pacta.loanbook.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘pacta.loanbook’ ...
-** package ‘pacta.loanbook’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error : 'market_share' is not an exported object from 'namespace:r2dii.plot'
-Error: unable to load R code in package ‘pacta.loanbook’
-Execution halted
-ERROR: lazy loading failed for package ‘pacta.loanbook’
-* removing ‘/tmp/workdir/pacta.loanbook/new/pacta.loanbook.Rcheck/pacta.loanbook’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘pacta.loanbook’ ...
-** package ‘pacta.loanbook’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error : 'market_share' is not an exported object from 'namespace:r2dii.plot'
-Error: unable to load R code in package ‘pacta.loanbook’
-Execution halted
-ERROR: lazy loading failed for package ‘pacta.loanbook’
-* removing ‘/tmp/workdir/pacta.loanbook/old/pacta.loanbook.Rcheck/pacta.loanbook’
 
 
 ```
@@ -1351,66 +1097,6 @@ ERROR: compilation failed for package ‘rshift’
 
 
 ```
-# RSP
-
-<details>
-
-* Version: 0.4
-* GitHub: NA
-* Source code: https://github.com/cran/RSP
-* Date/Publication: 2023-09-24 21:00:02 UTC
-* Number of recursive dependencies: 243
-
-Run `revdepcheck::cloud_details(, "RSP")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘RSP’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/RSP/new/RSP.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘RSP’ ...
-** package ‘RSP’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘OpenMx’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘RSP’
-* removing ‘/tmp/workdir/RSP/new/RSP.Rcheck/RSP’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘RSP’ ...
-** package ‘RSP’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘OpenMx’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘RSP’
-* removing ‘/tmp/workdir/RSP/old/RSP.Rcheck/RSP’
-
-
-```
 # rstanarm
 
 <details>
@@ -1486,72 +1172,6 @@ make: *** [/opt/R/4.4.0/lib/R/etc/Makeconf:202: stan_files/continuous.o] Error 1
 rm stan_files/bernoulli.cc stan_files/binomial.cc stan_files/continuous.cc
 ERROR: compilation failed for package ‘rstanarm’
 * removing ‘/tmp/workdir/rstanarm/old/rstanarm.Rcheck/rstanarm’
-
-
-```
-# scplot
-
-<details>
-
-* Version: 0.5.1
-* GitHub: NA
-* Source code: https://github.com/cran/scplot
-* Date/Publication: 2025-03-01 13:10:03 UTC
-* Number of recursive dependencies: 114
-
-Run `revdepcheck::cloud_details(, "scplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘scplot’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/scplot/new/scplot.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘scplot’ ...
-** package ‘scplot’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.
-ℹ The deprecated feature was likely used in the scplot package.
-  Please report the issue to the authors.
-Error in `class<-`(`*tmp*`, value = "list") : 
-  cannot coerce type 'object' to vector of type 'list'
-Error: unable to load R code in package ‘scplot’
-Execution halted
-ERROR: lazy loading failed for package ‘scplot’
-* removing ‘/tmp/workdir/scplot/new/scplot.Rcheck/scplot’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘scplot’ ...
-** package ‘scplot’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (scplot)
 
 
 ```
@@ -1719,6 +1339,82 @@ Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWith
 Execution halted
 ERROR: lazy loading failed for package ‘TestAnaAPP’
 * removing ‘/tmp/workdir/TestAnaAPP/old/TestAnaAPP.Rcheck/TestAnaAPP’
+
+
+```
+# tidybins
+
+<details>
+
+* Version: 0.1.1
+* GitHub: https://github.com/Harrison4192/tidybins
+* Source code: https://github.com/cran/tidybins
+* Date/Publication: 2024-06-12 04:50:02 UTC
+* Number of recursive dependencies: 222
+
+Run `revdepcheck::cloud_details(, "tidybins")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/tidybins/new/tidybins.Rcheck’
+* using R version 4.4.0 (2024-04-24)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.2 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘tidybins/DESCRIPTION’ ... OK
+...
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 3 NOTEs
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/tidybins/old/tidybins.Rcheck’
+* using R version 4.4.0 (2024-04-24)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.2 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘tidybins/DESCRIPTION’ ... OK
+...
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 3 NOTEs
+
+
+
 
 
 ```
