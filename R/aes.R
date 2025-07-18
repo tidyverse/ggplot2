@@ -130,6 +130,7 @@ new_aesthetic <- function(x, env = globalenv()) {
   x
 }
 
+# TODO: remove `local()` when S7 has fixed S7/#390
 #' @export
 local({
   S7::method(print, class_mapping) <- function(x, ...) {

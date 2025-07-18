@@ -466,6 +466,7 @@ element_render <- function(theme, element, ..., name = NULL) {
 #' @keywords internal
 #' @export
 element_grob <- function(element, ...) {
+  # TODO: Swap to S7 generic once S7/#543 is resolved
   UseMethod("element_grob")
 }
 
