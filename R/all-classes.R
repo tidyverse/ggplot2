@@ -36,17 +36,19 @@ class_scales_list <- S7::new_S3_class("ScalesList")
 #' @keywords internal
 #' @export
 class_theme <- S7::new_class(
-  "theme", class_S3_gg,
+  "class_theme", class_S3_gg,
   properties = list(
     complete = S7::class_logical,
     validate = S7::class_logical
   ),
   constructor = function(elements, complete, validate) {
-    S7::new_object(
+    out <- S7::new_object(
       elements,
       complete = complete,
       validate = validate
     )
+    class(out) <- c("theme", class(out))
+    out
   }
 )
 
@@ -61,8 +63,12 @@ class_theme <- S7::new_class(
 #' @keywords internal
 #' @export
 class_labels <- S7::new_class(
-  "labels", parent = class_S3_gg,
-  constructor = function(labels) S7::new_object(labels),
+  "class_labels", parent = class_S3_gg,
+  constructor = function(labels) {
+    out <- S7::new_object(labels)
+    class(out) <- c("labels", class(out))
+    out
+  },
   validator = function(self) {
     if (!is.list(self)) {
       return("labels must be a list.")
@@ -91,12 +97,12 @@ class_labels <- S7::new_class(
 #' @keywords internal
 #' @export
 class_mapping <- S7::new_class(
-  "mapping", parent = class_S3_gg,
+  "class_mapping", parent = class_S3_gg,
   constructor = function(x, env = globalenv()) {
     check_object(x, is.list, "a {.cls list}")
     x <- lapply(x, new_aesthetic, env = env)
     x <- S7::new_object(x)
-    class(x) <- union(c("ggplot2::mapping", "uneval"), class(x))
+    class(x) <- union(c("ggplot2::mapping", "uneval", "mapping"), class(x))
     x
   }
 )
@@ -125,7 +131,7 @@ class_mapping <- S7::new_class(
 #' @keywords internal
 #' @export
 class_ggplot <- S7::new_class(
-  name = "ggplot", parent = class_gg,
+  name = "class_ggplot", parent = class_gg,
   properties = list(
     data    = S7::class_any,
     layers  = S7::class_list,
@@ -146,7 +152,7 @@ class_ggplot <- S7::new_class(
                          facet = facet_null(), layout = NULL,
                          labels = labs(), meta = list(),
                          plot_env = parent.frame()) {
-    S7::new_object(
+    out <- S7::new_object(
       S7::S7_object(),
       data        = data,
       layers      = layers,
@@ -161,6 +167,8 @@ class_ggplot <- S7::new_class(
       meta        = meta,
       plot_env    = plot_env
     )
+    class(out) <- c("ggplot", class(out))
+    out
   }
 )
 
@@ -179,7 +187,7 @@ class_ggplot <- S7::new_class(
 #' @keywords internal
 #' @export
 class_ggplot_built <- S7::new_class(
-  "ggplot_built", parent = class_gg,
+  "class_ggplot_built", parent = class_gg,
   properties = list(
     data   = S7::class_list,
     layout = class_layout,
@@ -191,9 +199,11 @@ class_ggplot_built <- S7::new_class(
         "The {.cls ggplot_built} class should be constructed by {.fn ggplot_build}."
       )
     }
-    S7::new_object(
+    out <- S7::new_object(
       S7::S7_object(),
       data = data, layout = layout, plot = plot
     )
+    class(out) <- c("ggplot_built", class(out))
+    out
   }
 )
