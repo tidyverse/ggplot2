@@ -41,47 +41,6 @@ Run `revdepcheck::cloud_details(, "adklakedata")` for more info
       'LazyData' is specified without a 'data' directory
     ```
 
-# adsoRptionCMF
-
-<details>
-
-* Version: 0.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/adsoRptionCMF
-* Date/Publication: 2025-06-05 10:00:05 UTC
-* Number of recursive dependencies: 46
-
-Run `revdepcheck::cloud_details(, "adsoRptionCMF")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘adsoRptionCMF-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: fit_freundlichLM
-    > ### Title: Freundlich Isotherm Linear Analysis
-    > ### Aliases: fit_freundlichLM
-    > 
-    > ### ** Examples
-    > 
-    > Ce <- c(0.01353, 0.04648, 0.13239, 0.27714, 0.41600, 0.63607, 0.80435, 1.10327, 1.58223)
-    ...
-     17. │             └─l$compute_geom_2(d, theme = plot@theme)
-     18. │               └─ggplot2 (local) compute_geom_2(..., self = self)
-     19. │                 └─self$geom$use_defaults(...)
-     20. │                   └─ggplot2 (local) use_defaults(..., self = self)
-     21. │                     └─ggplot2:::check_aesthetics(new_params, nrow(data))
-     22. │                       └─vctrs::list_sizes(x)
-     23. └─vctrs:::stop_scalar_type(`<fn>`(`<expression>`), "x$label", `<env>`)
-     24.   └─vctrs:::stop_vctrs(...)
-     25.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-    Execution halted
-    ```
-
 # adw
 
 <details>
@@ -170,86 +129,31 @@ Run `revdepcheck::cloud_details(, "afex")` for more info
     --- re-building ‘afex_analysing_accuracy_data.Rmd’ using rmarkdown
     ```
 
-# AgroR
+## In both
 
-<details>
-
-* Version: 1.3.6
-* GitHub: NA
-* Source code: https://github.com/cran/AgroR
-* Date/Publication: 2024-04-24 02:20:18 UTC
-* Number of recursive dependencies: 117
-
-Run `revdepcheck::cloud_details(, "AgroR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
+*   checking tests ... ERROR
     ```
-    Running examples in ‘AgroR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: TBARPLOT.reverse
-    > ### Title: Graph: Reverse graph of DICT, DBCT and DQL output when
-    > ###   geom="bar"
-    > ### Aliases: TBARPLOT.reverse
-    > ### Keywords: Experimental
-    > 
-    > ### ** Examples
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library(testthat)
+      > library(afex)
+      Loading required package: lme4
+      Loading required package: Matrix
+      ************
+      Welcome to afex. For support visit: http://afex.singmann.science/
+      - Functions for ANOVAs: aov_car(), aov_ez(), and aov_4()
     ...
-    3  7.822709e-05   0.59104221 0.46541352     0.3244232  4.189412
-    4  1.496061e-02   0.09984009 0.09849058     0.1332682  6.462590
-    5  1.757687e-04   0.67552390 0.42726077     0.3008609  2.566743
-    6  1.138255e-04   0.70461554 0.37578092     0.6357482  2.093636
-    > TBARPLOT.reverse(a)
-    Warning in geom_text(aes(label = letra, y = media + desvio + sup), position = position_dodge(0.9),  :
-      Ignoring empty aesthetics: `size` and `family`.
-    Error in if (colo == "gray") { : argument is of length zero
-    Calls: TBARPLOT.reverse
-    Execution halted
-    ```
-
-# AgroReg
-
-<details>
-
-* Version: 1.2.10
-* GitHub: NA
-* Source code: https://github.com/cran/AgroReg
-* Date/Publication: 2024-01-16 12:50:16 UTC
-* Number of recursive dependencies: 115
-
-Run `revdepcheck::cloud_details(, "AgroReg")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘AgroReg-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: adjust_scale
-    > ### Title: Utils: Adjust y and x scale
-    > ### Aliases: adjust_scale
-    > 
-    > ### ** Examples
-    > 
-    > library(AgroReg)
-    ...
-    > data("aristolochia")
-    > attach(aristolochia)
-    > a=LM(trat,resp)
-    
-    > b=LL(trat,resp,npar = "LL.3")
-    > a=plot_arrange(list(a,b),gray = TRUE)
-    Error in equation[[i]] <- plots[[i]][[3]]$plot$s : 
-      replacement has length zero
-    Calls: plot_arrange
-    Execution halted
+      • afex_plot-default-support/afex-plots-nlme-3.svg
+      • afex_plot-default-support/afex-plots-nlme-4.svg
+      • afex_plot-default-support/afex-plots-nlme-5.svg
+      • afex_plot-default-support/afex-plots-poisson-glm-1.svg
+      • afex_plot-default-support/afex-plots-poisson-glm-2.svg
+      • afex_plot-vignette/afex-plot-glmmtmb-1.svg
+      • afex_plot-vignette/afex-plot-glmmtmb-2.svg
+      • afex_plot-vignette/afex-plot-glmmtmb-3.svg
+      Error: Test failures
+      Execution halted
     ```
 
 # alookr
@@ -458,7 +362,7 @@ Run `revdepcheck::cloud_details(, "ANN2")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 48.9Mb
+      installed size is 49.0Mb
       sub-directories of 1Mb or more:
         cereal   1.4Mb
         libs    47.4Mb
@@ -497,10 +401,7 @@ Run `revdepcheck::cloud_details(, "APackOfTheClones")` for more info
     > 
     > ### ** Examples
     > 
-    ...
-    by .GlobalEnv when processing object ‘combined_pbmc’
-    Warning: namespace ‘colorspace’ is not available and has been replaced
-    by .GlobalEnv when processing object ‘combined_pbmc’
+    > data("combined_pbmc")
     > 
     > combined_pbmc <- RunAPOTC(
     +     combined_pbmc, run_id = "run1", verbose = FALSE
@@ -530,7 +431,7 @@ Run `revdepcheck::cloud_details(, "APackOfTheClones")` for more info
        31. │ └─plt %>% name_latest_layer(.ApotcLegendLayerName)
        32. └─APackOfTheClones:::name_latest_layer(., .ApotcLegendLayerName)
       
-      [ FAIL 5 | WARN 57 | SKIP 10 | PASS 239 ]
+      [ FAIL 5 | WARN 53 | SKIP 10 | PASS 239 ]
       Error: Test failures
       Execution halted
     ```
@@ -545,19 +446,6 @@ Run `revdepcheck::cloud_details(, "APackOfTheClones")` for more info
     ```
 
 ## In both
-
-*   checking contents of ‘data’ directory ... WARNING
-    ```
-    Output for data("combined_pbmc", package = "APackOfTheClones"):
-      Warning: namespace ‘colorspace’ is not available and has been replaced
-      by .GlobalEnv when processing object ‘combined_pbmc’
-      Warning: namespace ‘colorspace’ is not available and has been replaced
-      by .GlobalEnv when processing object ‘combined_pbmc’
-      Warning: namespace ‘colorspace’ is not available and has been replaced
-      by .GlobalEnv when processing object ‘combined_pbmc’
-      Warning: namespace ‘colorspace’ is not available and has been replaced
-      by .GlobalEnv when processing object ‘combined_pbmc’
-    ```
 
 *   checking installed package size ... NOTE
     ```
@@ -606,6 +494,30 @@ Run `revdepcheck::cloud_details(, "applicable")` for more info
       [ FAIL 3 | WARN 0 | SKIP 22 | PASS 90 ]
       Error: Test failures
       Execution halted
+    ```
+
+# AquaBEHER
+
+<details>
+
+* Version: 1.4.0
+* GitHub: https://github.com/RobelTakele/AquaBEHER
+* Source code: https://github.com/cran/AquaBEHER
+* Date/Publication: 2024-09-24 22:10:05 UTC
+* Number of recursive dependencies: 88
+
+Run `revdepcheck::cloud_details(, "AquaBEHER")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.6Mb
+      sub-directories of 1Mb or more:
+        data   2.0Mb
+        doc    2.4Mb
     ```
 
 # arena2r
@@ -703,9 +615,9 @@ Run `revdepcheck::cloud_details(, "ASRgenomics")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  8.9Mb
+      installed size is  6.9Mb
       sub-directories of 1Mb or more:
-        data   8.5Mb
+        data   6.5Mb
     ```
 
 # assignPOP
@@ -749,54 +661,52 @@ Run `revdepcheck::cloud_details(, "assignPOP")` for more info
       Execution halted
     ```
 
-# autocogs
+# autograph
 
 <details>
 
-* Version: 0.1.4
-* GitHub: https://github.com/schloerke/autocogs
-* Source code: https://github.com/cran/autocogs
-* Date/Publication: 2021-05-29 17:00:05 UTC
-* Number of recursive dependencies: 70
+* Version: 0.1.2
+* GitHub: https://github.com/stocnet/autograph
+* Source code: https://github.com/cran/autograph
+* Date/Publication: 2025-07-02 15:30:06 UTC
+* Number of recursive dependencies: 73
 
-Run `revdepcheck::cloud_details(, "autocogs")` for more info
+Run `revdepcheck::cloud_details(, "autograph")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking tests ... ERROR
+*   checking examples ... ERROR
     ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(autocogs)
-      > 
-      > test_check("autocogs")
-      [ FAIL 2 | WARN 1 | SKIP 0 | PASS 223 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
+    Running examples in ‘autograph-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: map_measure
+    > ### Title: Plotting logical marks Plotting numeric measures
+    > ### Aliases: map_measure plot.node_measure plot.tie_measure
+    > ###   plot.network_measures
+    > 
+    > ### ** Examples
+    > 
     ...
-        8.         └─autocogs (local) FUN(X[[i]], ...)
-        9.           └─base::lapply(...)
-       10.             └─autocogs (local) FUN(X[[i]], ...)
-       11.               ├─base::do.call(fn, args)
-       12.               └─autocogs (local) `<fn>`(...)
-       13.                 └─base::do.call(loess, c(core_params, params$method.args))
-      
-      [ FAIL 2 | WARN 1 | SKIP 0 | PASS 223 ]
-      Error: Test failures
-      Execution halted
+    ! Only know how to add <ggplot> and/or <grob> objects
+    Backtrace:
+        ▆
+     1. ├─base::plot(manynet::node_deg(ison_karateka))
+     2. └─autograph:::plot.node_measure(manynet::node_deg(ison_karateka))
+     3.   └─manynet:::`+.ggplot`(...)
+     4.     └─patchwork::wrap_plots(e1, e2, ...)
+     5.       └─cli::cli_abort("Only know how to add {.cls ggplot} and/or {.cls grob} objects")
+     6.         └─rlang::abort(...)
+    Execution halted
     ```
 
 ## In both
 
-*   checking dependencies in R code ... NOTE
+*   checking package dependencies ... NOTE
     ```
-    Namespaces in Imports field not imported from:
-      ‘MASS’ ‘broom’ ‘diptest’ ‘ggplot2’ ‘hexbin’ ‘moments’
-      All declared Imports should be used.
+    Package which this enhances but not available for checking: ‘RSiena’
     ```
 
 # autoplotly
@@ -989,29 +899,6 @@ Run `revdepcheck::cloud_details(, "bayesassurance")` for more info
       Execution halted
     ```
 
-# BayesCVI
-
-<details>
-
-* Version: 1.0.1
-* GitHub: NA
-* Source code: https://github.com/cran/BayesCVI
-* Date/Publication: 2024-09-04 15:50:02 UTC
-* Number of recursive dependencies: 30
-
-Run `revdepcheck::cloud_details(, "BayesCVI")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘BayesCVI’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘e1071::element’ by ‘ggplot2::element’ when loading ‘BayesCVI’
-    See ‘/tmp/workdir/BayesCVI/new/BayesCVI.Rcheck/00install.out’ for details.
-    ```
-
 # BayesianReasoning
 
 <details>
@@ -1083,47 +970,6 @@ Run `revdepcheck::cloud_details(, "BayesMultiMode")` for more info
       installed size is  6.5Mb
       sub-directories of 1Mb or more:
         help   6.1Mb
-    ```
-
-# BCEA
-
-<details>
-
-* Version: 2.4.7
-* GitHub: https://github.com/n8thangreen/BCEA
-* Source code: https://github.com/cran/BCEA
-* Date/Publication: 2025-01-14 12:30:08 UTC
-* Number of recursive dependencies: 123
-
-Run `revdepcheck::cloud_details(, "BCEA")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘BCEA-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot.bcea
-    > ### Title: Summary Plot of the Health Economic Analysis
-    > ### Aliases: plot.bcea
-    > ### Keywords: hplot
-    > 
-    > ### ** Examples
-    > 
-    ...
-     21.                   │ │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
-     22.                   │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
-     23.                   │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
-     24.                   │ └─base::withCallingHandlers(...)
-     25.                   └─ggplot2::merge_element(t2[[item]], t1[[item]])
-     26.                     ├─S7::S7_dispatch()
-     27.                     └─ggplot2 (local) `method(merge_element, list(class_any, class_any))`(new = `<named list>`, old = `<ggpl2::_>`, ...)
-     28.                       └─cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
-     29.                         └─rlang::abort(...)
-    Execution halted
     ```
 
 # bdsm
@@ -1344,60 +1190,6 @@ Run `revdepcheck::cloud_details(, "biclustermd")` for more info
       All declared Imports should be used.
     ```
 
-# biometryassist
-
-<details>
-
-* Version: 1.3.0
-* GitHub: https://github.com/biometryhub/biometryassist
-* Source code: https://github.com/cran/biometryassist
-* Date/Publication: 2025-06-11 11:00:12 UTC
-* Number of recursive dependencies: 85
-
-Run `revdepcheck::cloud_details(, "biometryassist")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(biometryassist)
-      > 
-      > test_check("biometryassist")
-      Starting 2 test processes
-      [ FAIL 7 | WARN 0 | SKIP 157 | PASS 311 ]
-      
-    ...
-      • resplot/resplot-for-asreml-pt-2.svg
-      • resplot/resplot-for-asreml-pt-3.svg
-      • resplot/resplot-for-asreml-single.svg
-      • resplot/resplot-for-lme4.svg
-      • resplot/resplot-for-sommer-mmer.svg
-      • resplot/resplot-for-sommer-mmes.svg
-      • resplot/resplot-onepage-true.svg
-      • resplot/resplot-with-smaller-call.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages which this enhances but not available for checking:
-      'asreml', 'ARTool', 'lme4', 'sommer'
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘lme4’
-    ```
-
 # BiVariAn
 
 <details>
@@ -1538,15 +1330,15 @@ Run `revdepcheck::cloud_details(, "bullseye")` for more info
     > 
     > irisc <- pairwise_scores(iris[40:150,], by= "Species")
     ...
-     20. │                   └─base::lapply(...)
-     21. │                     └─ggplot2 (local) FUN(X[[i]], ...)
-     22. │                       ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     23. │                       └─self$draw_panel(...)
-     24. └─base::.handleSimpleError(...)
-     25.   └─rlang (local) h(simpleError(msg, call))
-     26.     └─handlers[[1L]](cnd)
-     27.       └─cli::cli_abort(...)
-     28.         └─rlang::abort(...)
+     17. │               └─base::lapply(...)
+     18. │                 └─ggplot2 (local) FUN(X[[i]], ...)
+     19. │                   ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     20. │                   └─self$draw_panel(...)
+     21. └─base::.handleSimpleError(...)
+     22.   └─rlang (local) h(simpleError(msg, call))
+     23.     └─handlers[[1L]](cnd)
+     24.       └─cli::cli_abort(...)
+     25.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -1694,29 +1486,6 @@ Run `revdepcheck::cloud_details(, "carbonr")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 710 marked UTF-8 strings
-    ```
-
-# caretEnsemble
-
-<details>
-
-* Version: 4.0.1
-* GitHub: https://github.com/zachmayer/caretEnsemble
-* Source code: https://github.com/cran/caretEnsemble
-* Date/Publication: 2024-09-12 21:50:09 UTC
-* Number of recursive dependencies: 174
-
-Run `revdepcheck::cloud_details(, "caretEnsemble")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        data   4.5Mb
     ```
 
 # cartographr
@@ -1880,15 +1649,15 @@ Run `revdepcheck::cloud_details(, "centerline")` for more info
     > 
     > ## Don't show: 
     ...
-     24. │                           ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     25. │                           └─self$draw_panel(...)
-     26. │                             └─geomtextpath (local) draw_panel(...)
-     27. │                               └─geomtextpath:::sf_textgrob(...)
-     28. └─base::.handleSimpleError(...)
-     29.   └─rlang (local) h(simpleError(msg, call))
-     30.     └─handlers[[1L]](cnd)
-     31.       └─cli::cli_abort(...)
-     32.         └─rlang::abort(...)
+     21. │                       ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     22. │                       └─self$draw_panel(...)
+     23. │                         └─geomtextpath (local) draw_panel(...)
+     24. │                           └─geomtextpath:::sf_textgrob(...)
+     25. └─base::.handleSimpleError(...)
+     26.   └─rlang (local) h(simpleError(msg, call))
+     27.     └─handlers[[1L]](cnd)
+     28.       └─cli::cli_abort(...)
+     29.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -1925,7 +1694,7 @@ Run `revdepcheck::cloud_details(, "centerline")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/Certara.Xpose.NLME
 * Date/Publication: 2025-01-28 15:50:10 UTC
-* Number of recursive dependencies: 98
+* Number of recursive dependencies: 99
 
 Run `revdepcheck::cloud_details(, "Certara.Xpose.NLME")` for more info
 
@@ -1966,7 +1735,7 @@ Run `revdepcheck::cloud_details(, "Certara.Xpose.NLME")` for more info
 * GitHub: https://github.com/nspyrison/cheem
 * Source code: https://github.com/cran/cheem
 * Date/Publication: 2023-11-08 21:30:02 UTC
-* Number of recursive dependencies: 148
+* Number of recursive dependencies: 172
 
 Run `revdepcheck::cloud_details(, "cheem")` for more info
 
@@ -2497,245 +2266,6 @@ Run `revdepcheck::cloud_details(, "CoSMoS")` for more info
     --- re-building ‘vignette.Rmd’ using rmarkdown
     ```
 
-# countfitteR
-
-<details>
-
-* Version: 1.4
-* GitHub: https://github.com/BioGenies/countfitteR
-* Source code: https://github.com/cran/countfitteR
-* Date/Publication: 2020-09-30 21:30:02 UTC
-* Number of recursive dependencies: 87
-
-Run `revdepcheck::cloud_details(, "countfitteR")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(countfitteR)
-      > 
-      > test_check("countfitteR")
-      [ FAIL 1 | WARN 6 | SKIP 0 | PASS 32 ]
-      
-    ...
-       1. ├─testthat::expect_equal(p$labels[[1]], "x") at testing.R:45:3
-       2. │ └─testthat::quasi_label(enquo(object), label, arg = "object")
-       3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
-       4. ├─p$labels[[1]]
-       5. ├─S7:::`[[.S7_object`(p$labels, 1)
-       6. └─base::NextMethod()
-      
-      [ FAIL 1 | WARN 6 | SKIP 0 | PASS 32 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking Rd files ... NOTE
-    ```
-    checkRd: (-1) summary_fitlist.Rd:15: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) summary_fitlist.Rd:16: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) summary_fitlist.Rd:17: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) summary_fitlist.Rd:18: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) summary_fitlist.Rd:19: Lost braces in \itemize; \value handles \item{}{} directly
-    ```
-
-# covidcast
-
-<details>
-
-* Version: 0.5.2
-* GitHub: https://github.com/cmu-delphi/covidcast
-* Source code: https://github.com/cran/covidcast
-* Date/Publication: 2023-07-12 23:40:06 UTC
-* Number of recursive dependencies: 89
-
-Run `revdepcheck::cloud_details(, "covidcast")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(covidcast)
-      We encourage COVIDcast API users to register on our mailing list:
-      https://lists.andrew.cmu.edu/mailman/listinfo/delphi-covidcast-api
-      We'll send announcements about new data sources, package updates,
-      server maintenance, and new features.
-      > 
-    ...
-      • plot/default-county-choropleth.svg
-      • plot/default-hrr-choropleth-with-include.svg
-      • plot/default-msa-choropleth-with-include.svg
-      • plot/default-state-choropleth-with-include.svg
-      • plot/default-state-choropleth-with-range.svg
-      • plot/state-choropleth-with-no-metadata.svg
-      • plot/state-line-graph-with-range.svg
-      • plot/state-line-graph-with-stderrs.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘correlation-utils.Rmd’ using rmarkdown
-    --- finished re-building ‘correlation-utils.Rmd’
-    
-    --- re-building ‘covidcast.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 20 marked UTF-8 strings
-    ```
-
-# cowplot
-
-<details>
-
-* Version: 1.1.3
-* GitHub: https://github.com/wilkelab/cowplot
-* Source code: https://github.com/cran/cowplot
-* Date/Publication: 2024-01-22 23:22:51 UTC
-* Number of recursive dependencies: 96
-
-Run `revdepcheck::cloud_details(, "cowplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(cowplot)
-      > 
-      > test_check("cowplot")
-      [ FAIL 1 | WARN 4 | SKIP 7 | PASS 54 ]
-      
-      ══ Skipped tests (7) ═══════════════════════════════════════════════════════════
-    ...
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test_ggdraw.R:7:3'): basic ggdraw usage ───────────────────────────
-      methods::is(g) not equal to "gg".
-      1/1 mismatches
-      x[1]: "ggplot2::ggplot"
-      y[1]: "gg"
-      
-      [ FAIL 1 | WARN 4 | SKIP 7 | PASS 54 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# ctrialsgov
-
-<details>
-
-* Version: 0.2.5
-* GitHub: NA
-* Source code: https://github.com/cran/ctrialsgov
-* Date/Publication: 2021-10-18 16:00:02 UTC
-* Number of recursive dependencies: 96
-
-Run `revdepcheck::cloud_details(, "ctrialsgov")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ctrialsgov)
-      > 
-      > test_check("ctrialsgov")
-      [NCT04553939] ible Local Advanved |Bladder| Cancer
-      [NCT03517995]  of Sulforaphane in |Bladder| Cancer Chemoprevent
-      [NCT04210479]       Comparison of |Bladder| Filling vs. Non-Fil
-    ...
-      [1] "ctgov_bar_plot"  - "gg"     [2]
-      [2] "ggplot2::ggplot" -             
-      [3] "ggplot"          -             
-      [4] "ggplot2::gg"     -             
-      [5] "S7_object"       -             
-      [6] "gg"              - "ggplot" [3]
-      
-      [ FAIL 1 | WARN 6 | SKIP 0 | PASS 44 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1350 marked UTF-8 strings
-    ```
-
-# cvms
-
-<details>
-
-* Version: 1.7.0
-* GitHub: https://github.com/ludvigolsen/cvms
-* Source code: https://github.com/cran/cvms
-* Date/Publication: 2025-03-07 11:30:07 UTC
-* Number of recursive dependencies: 152
-
-Run `revdepcheck::cloud_details(, "cvms")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(cvms)
-      > 
-      > if (require("xpectr")) {
-      +   test_check("cvms")
-      + }
-      Loading required package: xpectr
-    ...
-      names for target but not for current
-      ── Failure ('test_plotting_functions.R:359:3'): plot_confusion_matrix() with sum tiles, class order, and intensity_by percentage ──
-      `labels` not equal to list(...).
-      Attributes: < names for target but not for current >
-      Attributes: < Length mismatch: comparison on first 0 components >
-      Length mismatch: comparison on first 4 components
-      
-      [ FAIL 15 | WARN 0 | SKIP 71 | PASS 3602 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # cylcop
 
 <details>
@@ -2765,15 +2295,15 @@ Run `revdepcheck::cloud_details(, "cylcop")` for more info
     > 
     > set.seed(123)
     ...
-     23. │                   └─l$compute_geom_2(d, theme = plot@theme)
-     24. │                     └─ggplot2 (local) compute_geom_2(..., self = self)
-     25. │                       └─self$geom$use_defaults(...)
-     26. │                         └─ggplot2 (local) use_defaults(..., self = self)
-     27. │                           └─ggplot2:::check_aesthetics(new_params, nrow(data))
-     28. │                             └─vctrs::list_sizes(x)
-     29. └─vctrs:::stop_scalar_type(`<fn>`(`<expression>`), "x$label", `<env>`)
-     30.   └─vctrs:::stop_vctrs(...)
-     31.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+     22. │               └─l$compute_geom_2(d, theme = plot@theme)
+     23. │                 └─ggplot2 (local) compute_geom_2(..., self = self)
+     24. │                   └─self$geom$use_defaults(...)
+     25. │                     └─ggplot2 (local) use_defaults(..., self = self)
+     26. │                       └─ggplot2:::check_aesthetics(new_params, nrow(data))
+     27. │                         └─vctrs::list_sizes(x)
+     28. └─vctrs:::stop_scalar_type(`<fn>`(`<expression>`), "x$label", `<env>`)
+     29.   └─vctrs:::stop_vctrs(...)
+     30.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
     Execution halted
     ```
 
@@ -2886,53 +2416,6 @@ Run `revdepcheck::cloud_details(, "dabestr")` for more info
       Execution halted
     ```
 
-# daiquiri
-
-<details>
-
-* Version: 1.1.1
-* GitHub: https://github.com/ropensci/daiquiri
-* Source code: https://github.com/cran/daiquiri
-* Date/Publication: 2023-07-18 16:50:09 UTC
-* Number of recursive dependencies: 104
-
-Run `revdepcheck::cloud_details(, "daiquiri")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(daiquiri)
-      > 
-      > test_check("daiquiri")
-      
-      Quitting from report_htmldoc.Rmd:466-528 [daiquiri-individual-fields]
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ...
-       36.                 └─rlang::abort(message, ..., call = call, arg = arg)
-      
-      [ FAIL 4 | WARN 0 | SKIP 8 | PASS 472 ]
-      Deleting unused snapshots:
-      • aggregate_data/test_[ALL_FIELDS_COMBINED].csv
-      • aggregate_data/test_[DUPLICATES].csv
-      • aggregate_data/test_col1.csv
-      • aggregate_data/test_col2.csv
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘daiquiri.Rmd’ using rmarkdown
-    ```
-
 # DAISIEprep
 
 <details>
@@ -3030,10 +2513,10 @@ Run `revdepcheck::cloud_details(, "Deducer")` for more info
 
 <details>
 
-* Version: 1.19.0
+* Version: 1.19.1
 * GitHub: https://github.com/talgalili/dendextend
 * Source code: https://github.com/cran/dendextend
-* Date/Publication: 2024-11-15 10:40:06 UTC
+* Date/Publication: 2025-07-15 08:50:09 UTC
 * Number of recursive dependencies: 128
 
 Run `revdepcheck::cloud_details(, "dendextend")` for more info
@@ -3052,17 +2535,17 @@ Run `revdepcheck::cloud_details(, "dendextend")` for more info
       > library(dendextend)
       
       ---------------------
-      Welcome to dendextend version 1.19.0
+      Welcome to dendextend version 1.19.1
       Type citation('dendextend') for how to cite the package.
     ...
-      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 872 ]
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 872 ]
       
       ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-ggdend.R:168:4'): ggplot doesn't have warnings for dendrograms ──
-      names(ggplot_build(g)) not identical to c("data", "layout", "plot").
+      ── Failure ('test-ggdend.R:172:7'): ggplot doesn't have warnings for dendrograms ──
+      names(built_plot) not identical to c("data", "layout", "plot").
       target is NULL, current is character
       
-      [ FAIL 1 | WARN 2 | SKIP 0 | PASS 872 ]
+      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 872 ]
       Error: Test failures
       Execution halted
     ```
@@ -3117,15 +2600,15 @@ Run `revdepcheck::cloud_details(, "DImodelsVis")` for more info
     > 
     > library(DImodels)
     ...
-     14.           │ └─base::withCallingHandlers(...)
-     15.           └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
-     16.             └─l$compute_position(d, layout)
-     17.               └─ggplot2 (local) compute_position(..., self = self)
-     18.                 └─self$position$use_defaults(data, self$aes_params)
-     19.                   └─ggplot2 (local) use_defaults(..., self = self)
-     20.                     └─ggplot2:::check_aesthetics(new, nrow(data))
-     21.                       └─cli::cli_abort(...)
-     22.                         └─rlang::abort(...)
+     11.       │ └─base::withCallingHandlers(...)
+     12.       └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
+     13.         └─l$compute_position(d, layout)
+     14.           └─ggplot2 (local) compute_position(..., self = self)
+     15.             └─self$position$use_defaults(data, self$aes_params)
+     16.               └─ggplot2 (local) use_defaults(..., self = self)
+     17.                 └─ggplot2:::check_aesthetics(new, nrow(data))
+     18.                   └─cli::cli_abort(...)
+     19.                     └─rlang::abort(...)
     Execution halted
     ```
 
@@ -3133,28 +2616,6 @@ Run `revdepcheck::cloud_details(, "DImodelsVis")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘DImodelsVis-with-complex-models.Rmd’ using rmarkdown
-    ```
-
-# directlabels
-
-<details>
-
-* Version: 2025.5.20
-* GitHub: https://github.com/tdhock/directlabels
-* Source code: https://github.com/cran/directlabels
-* Date/Publication: 2025-05-20 10:50:02 UTC
-* Number of recursive dependencies: 79
-
-Run `revdepcheck::cloud_details(, "directlabels")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘examples.Rmd’ using knitr
     ```
 
 # DiSCos
@@ -3300,7 +2761,48 @@ Run `revdepcheck::cloud_details(, "dittoViz")` for more info
        10.           └─ggplot2:::stop_input_type(...)
        11.             └─rlang::abort(message, ..., call = call, arg = arg)
       
-      [ FAIL 37 | WARN 19 | SKIP 0 | PASS 220 ]
+      [ FAIL 19 | WARN 19 | SKIP 0 | PASS 281 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+# door
+
+<details>
+
+* Version: 0.0.2
+* GitHub: NA
+* Source code: https://github.com/cran/door
+* Date/Publication: 2025-07-08 07:10:02 UTC
+* Number of recursive dependencies: 54
+
+Run `revdepcheck::cloud_details(, "door")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
+    ...
+      ── Failure ('test-plots.R:46:3'): Partial credit plot ──────────────────────────
+      partial_credit_biplot(pc_obj1) has type 'object', not 'list'.
+      ── Failure ('test-plots.R:47:3'): Partial credit plot ──────────────────────────
+      partial_credit_biplot(pc_obj2) has type 'object', not 'list'.
+      ── Failure ('test-plots.R:48:3'): Partial credit plot ──────────────────────────
+      partial_credit_contour_plot(y1 = y1t, y2 = y2t) has type 'object', not 'list'.
+      
+      [ FAIL 8 | WARN 10 | SKIP 0 | PASS 25 ]
       Error: Test failures
       Execution halted
     ```
@@ -3541,40 +3043,14 @@ Run `revdepcheck::cloud_details(, "EGM")` for more info
       Execution halted
     ```
 
-# eks
-
-<details>
-
-* Version: 1.1.0
-* GitHub: NA
-* Source code: https://github.com/cran/eks
-* Date/Publication: 2025-05-18 17:30:02 UTC
-* Number of recursive dependencies: 78
-
-Run `revdepcheck::cloud_details(, "eks")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.scale_rem:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
 # ENMTools
 
 <details>
 
-* Version: 1.1.2
-* GitHub: NA
+* Version: 1.1.4
+* GitHub: https://github.com/danlwarren/ENMTools
 * Source code: https://github.com/cran/ENMTools
-* Date/Publication: 2024-01-16 12:50:11 UTC
+* Date/Publication: 2025-07-14 00:10:05 UTC
 * Number of recursive dependencies: 284
 
 Run `revdepcheck::cloud_details(, "ENMTools")` for more info
@@ -3710,51 +3186,17 @@ Run `revdepcheck::cloud_details(, "EQUALSTATS")` for more info
     Package unavailable to check Rd xrefs: ‘lmerTest’
     ```
 
-# equatiomatic
+# extraSuperpower
 
 <details>
 
-* Version: 0.3.6
-* GitHub: https://github.com/datalorax/equatiomatic
-* Source code: https://github.com/cran/equatiomatic
-* Date/Publication: 2025-03-10 16:50:09 UTC
-* Number of recursive dependencies: 145
+* Version: 1.5.0
+* GitHub: https://github.com/luisrmacias/extraSuperpower
+* Source code: https://github.com/cran/extraSuperpower
+* Date/Publication: 2025-07-15 15:20:02 UTC
+* Number of recursive dependencies: 128
 
-Run `revdepcheck::cloud_details(, "equatiomatic")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘colors.Rmd’ using rmarkdown
-    --- finished re-building ‘colors.Rmd’
-    
-    --- re-building ‘equatiomatic.Rmd’ using rmarkdown
-    --- finished re-building ‘equatiomatic.Rmd’
-    
-    --- re-building ‘forecast-arima.Rmd’ using rmarkdown
-    --- finished re-building ‘forecast-arima.Rmd’
-    
-    --- re-building ‘lme4-lmer.Rmd’ using rmarkdown
-    --- finished re-building ‘lme4-lmer.Rmd’
-    
-    --- re-building ‘plotting-integration.Rmd’ using rmarkdown
-    ```
-
-# errors
-
-<details>
-
-* Version: 0.4.3
-* GitHub: https://github.com/r-quantities/errors
-* Source code: https://github.com/cran/errors
-* Date/Publication: 2025-01-18 18:10:05 UTC
-* Number of recursive dependencies: 65
-
-Run `revdepcheck::cloud_details(, "errors")` for more info
+Run `revdepcheck::cloud_details(, "extraSuperpower")` for more info
 
 </details>
 
@@ -3762,120 +3204,58 @@ Run `revdepcheck::cloud_details(, "errors")` for more info
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘errors-Ex.R’ failed
+    Running examples in ‘extraSuperpower-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: geom_errors
-    > ### Title: Errorbars for 'errors' objects
-    > ### Aliases: geom_errors
+    > ### Name: calculate_mean_matrix
+    > ### Title: Create input for simulation based two-way factorial experiments
+    > ### Aliases: calculate_mean_matrix
     > 
     > ### ** Examples
     > 
-    > if (requireNamespace("ggplot2", quietly=TRUE)) {
+    > refmean <- 1
     ...
-     23. │                       └─self$draw_panel(data, panel_params, coord, width = 0.05, height = 0.05)
-     24. │                         └─errors (local) draw_panel(...)
-     25. │                           ├─base::append(...)
-     26. │                           └─ggplot2::GeomErrorbarh$draw_panel(...)
-     27. └─base::.handleSimpleError(...)
-     28.   └─rlang (local) h(simpleError(msg, call))
-     29.     └─handlers[[1L]](cnd)
-     30.       └─cli::cli_abort(...)
-     31.         └─rlang::abort(...)
+    > 
+    > ## Plot should look the same, structure within data can be checked once simulated
+    > effects_treat_time$meansplot
+    > 
+    > n <- 20
+    > repeatedmeasures_experiment <- twoway_simulation_correlated(group_size = n,
+    +                                           matrices_obj = effects_treat_time)
+    Error in S7::prop(x, "meta")[[i]] : subscript out of bounds
+    Calls: twoway_simulation_correlated -> [[ -> [[.ggplot2::gg
     Execution halted
     ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘rjournal.Rmd’ using rmarkdown
-    
-    Quitting from rjournal.Rmd:252-272 [plot]
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    NULL
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
-    Error: processing vignette 'rjournal.Rmd' failed with diagnostics:
-    ...
-    ℹ Error occurred in the 2nd layer.
-    Caused by error in `draw_panel()`:
-    ! unused argument (height = NULL)
-    --- failed re-building ‘rjournal.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘rjournal.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘rjournal.Rmd’ using rmarkdown
-    
-    tlmgr: Remote database at https://mirrors.mit.edu/CTAN/systems/texlive/tlnet
-    (revision 75567 of the texlive-scripts package)
-    seems to be older than the local installation
-    (revision 75579 of texlive-scripts);
-    please use a different mirror and/or wait a day or two.
-    
-    ...
-    
-    Error: processing vignette 'rjournal.Rmd' failed with diagnostics:
-    LaTeX failed to compile /tmp/workdir/errors/old/errors.Rcheck/vign_test/errors/vignettes/rjournal.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See rjournal.log for more info.
-    --- failed re-building ‘rjournal.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘rjournal.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
-# eventstudyr
-
-<details>
-
-* Version: 1.1.3
-* GitHub: https://github.com/JMSLab/eventstudyr
-* Source code: https://github.com/cran/eventstudyr
-* Date/Publication: 2024-03-04 15:00:02 UTC
-* Number of recursive dependencies: 97
-
-Run `revdepcheck::cloud_details(, "eventstudyr")` for more info
-
-</details>
-
-## Newly broken
 
 *   checking tests ... ERROR
     ```
       Running ‘testthat.R’
     Running the tests in ‘tests/testthat.R’ failed.
     Complete output:
-      > library(testthat)
-      > library(eventstudyr)
-      > 
-      > test_check("eventstudyr")
-      Defaulting to strongest lead of differenced policy variable: proxyIV = z_fd_lead3. To specify a different proxyIV use the proxyIV argument.
-      Defaulting to strongest lead of differenced policy variable: proxyIV = z_fd_lead3. To specify a different proxyIV use the proxyIV argument.
-      Defaulting to strongest lead of differenced policy variable: proxyIV = z_fd_lead3. To specify a different proxyIV use the proxyIV argument.
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
     ...
-      `expected` is a character vector ('ci_lower')
-      ── Failure ('test-EventStudyPlot.R:128:5'): confidence intervals are appropriately present or absent ──
-      p_ci$labels$ymax (`actual`) not equal to "ci_upper" (`expected`).
+      Error in `S7::prop(x, "meta")[[i]]`: subscript out of bounds
+      Backtrace:
+          ▆
+       1. └─extraSuperpower::twoway_simulation_correlated(...) at test-twoway_simulation_testing.R:104:3
+       2.   ├─matrices_obj[[2]][[2]]
+       3.   └─ggplot2 (local) `[[.ggplot2::gg`(matrices_obj[[2]], 2)
       
-      `actual` is NULL
-      `expected` is a character vector ('ci_upper')
-      
-      [ FAIL 6 | WARN 0 | SKIP 0 | PASS 258 ]
+      [ FAIL 8 | WARN 4 | SKIP 0 | PASS 218 ]
       Error: Test failures
       Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘eSp_balanced_design_powertest.Rmd’ using rmarkdown
     ```
 
 # ez
@@ -3937,47 +3317,6 @@ Run `revdepcheck::cloud_details(, "ez")` for more info
     checkRd: (-1) ez-package.Rd:30: Lost braces in \itemize; meant \describe ?
     checkRd: (-1) ez-package.Rd:32: Lost braces in \itemize; meant \describe ?
     checkRd: (-1) ez-package.Rd:33: Lost braces in \itemize; meant \describe ?
-    ```
-
-# ezEDA
-
-<details>
-
-* Version: 0.1.1
-* GitHub: https://github.com/kviswana/ezEDA
-* Source code: https://github.com/cran/ezEDA
-* Date/Publication: 2021-06-29 04:40:10 UTC
-* Number of recursive dependencies: 76
-
-Run `revdepcheck::cloud_details(, "ezEDA")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ezEDA)
-      > 
-      > test_check("ezEDA")
-      [ FAIL 22 | WARN 0 | SKIP 0 | PASS 57 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-    ...
-      ── Error ('test_two_measures_relationship.R:19:3'): y axis is labeled 'hwy' ────
-      Error in `expect_match(p$labels$y, "hwy")`: is.character(act$val) is not TRUE
-      Backtrace:
-          ▆
-       1. └─testthat::expect_match(p$labels$y, "hwy") at test_two_measures_relationship.R:19:3
-       2.   └─base::stopifnot(is.character(act$val))
-      
-      [ FAIL 22 | WARN 0 | SKIP 0 | PASS 57 ]
-      Error: Test failures
-      Execution halted
     ```
 
 # ezplot
@@ -4148,7 +3487,7 @@ Run `revdepcheck::cloud_details(, "fairmodels")` for more info
         9.     └─fairmodels:::plot.fairness_heatmap(fairness_heatmap(x, ...))
        10.       └─base::ifelse(...)
       
-      [ FAIL 3 | WARN 2 | SKIP 0 | PASS 299 ]
+      [ FAIL 3 | WARN 1 | SKIP 0 | PASS 299 ]
       Error: Test failures
       Execution halted
     ```
@@ -4304,12 +3643,12 @@ Run `revdepcheck::cloud_details(, "feasts")` for more info
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 101 ]
       
     ...
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-graphics.R:194:3'): gg_tsdisplay() plots ───────────────────────
+      Error in `UseMethod("ggplot_build")`: no applicable method for 'ggplot_build' applied to an object of class "NULL"
+      Backtrace:
           ▆
-       1. ├─ggplot2::ggplot_build(p[[1]]) at test-graphics.R:194:3
-       2. ├─ggplot2:::ggplot_build.default(p[[1]])
-       3. │ └─ggplot2::build_ggplot(plot)
-       4. │   └─S7::S7_dispatch()
-       5. └─S7:::method_lookup_error("build_ggplot", `<named list>`)
+       1. └─ggplot2::ggplot_build(p[[1]]) at test-graphics.R:194:3
       
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 101 ]
       Error: Test failures
@@ -4445,15 +3784,15 @@ Run `revdepcheck::cloud_details(, "forestPSD")` for more info
     > 
     > data(Npop)
     ...
-     16. │           └─l$compute_geom_2(d, theme = plot@theme)
-     17. │             └─ggplot2 (local) compute_geom_2(..., self = self)
-     18. │               └─self$geom$use_defaults(...)
-     19. │                 └─ggplot2 (local) use_defaults(..., self = self)
-     20. │                   └─ggplot2:::check_aesthetics(new_params, nrow(data))
-     21. │                     └─vctrs::list_sizes(x)
-     22. └─vctrs:::stop_scalar_type(`<fn>`(`<expression>`), "x$label", `<env>`)
-     23.   └─vctrs:::stop_vctrs(...)
-     24.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
+     13. │       └─l$compute_geom_2(d, theme = plot@theme)
+     14. │         └─ggplot2 (local) compute_geom_2(..., self = self)
+     15. │           └─self$geom$use_defaults(...)
+     16. │             └─ggplot2 (local) use_defaults(..., self = self)
+     17. │               └─ggplot2:::check_aesthetics(new_params, nrow(data))
+     18. │                 └─vctrs::list_sizes(x)
+     19. └─vctrs:::stop_scalar_type(`<fn>`(`<expression>`), "x$label", `<env>`)
+     20.   └─vctrs:::stop_vctrs(...)
+     21.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
     Execution halted
     ```
 
@@ -4671,7 +4010,7 @@ Run `revdepcheck::cloud_details(, "genekitr")` for more info
 * GitHub: https://github.com/psobczyk/geneSLOPE
 * Source code: https://github.com/cran/geneSLOPE
 * Date/Publication: 2025-06-20 04:40:02 UTC
-* Number of recursive dependencies: 76
+* Number of recursive dependencies: 73
 
 Run `revdepcheck::cloud_details(, "geneSLOPE")` for more info
 
@@ -4684,39 +4023,6 @@ Run `revdepcheck::cloud_details(, "geneSLOPE")` for more info
     Found the following significant warnings:
       Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
     See ‘/tmp/workdir/geneSLOPE/new/geneSLOPE.Rcheck/00install.out’ for details.
-    ```
-
-# geofacet
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/hafen/geofacet
-* Source code: https://github.com/cran/geofacet
-* Date/Publication: 2023-11-30 08:00:11 UTC
-* Number of recursive dependencies: 93
-
-Run `revdepcheck::cloud_details(, "geofacet")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.facet_geo_spec:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 646 marked UTF-8 strings
     ```
 
 # geomtextpath
@@ -4748,15 +4054,15 @@ Run `revdepcheck::cloud_details(, "geomtextpath")` for more info
     > 
     > ggplot(waterways) +
     ...
-     22. │                       ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     23. │                       └─self$draw_panel(...)
-     24. │                         └─geomtextpath (local) draw_panel(...)
-     25. │                           └─geomtextpath:::sf_textgrob(...)
-     26. └─base::.handleSimpleError(...)
-     27.   └─rlang (local) h(simpleError(msg, call))
-     28.     └─handlers[[1L]](cnd)
-     29.       └─cli::cli_abort(...)
-     30.         └─rlang::abort(...)
+     19. │                   ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     20. │                   └─self$draw_panel(...)
+     21. │                     └─geomtextpath (local) draw_panel(...)
+     22. │                       └─geomtextpath:::sf_textgrob(...)
+     23. └─base::.handleSimpleError(...)
+     24.   └─rlang (local) h(simpleError(msg, call))
+     25.     └─handlers[[1L]](cnd)
+     26.       └─cli::cli_abort(...)
+     27.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -4855,15 +4161,15 @@ Run `revdepcheck::cloud_details(, "gg1d")` for more info
     > 
     > path_gg1d <- system.file("example.csv", package = "gg1d")
     ...
-     31. │                                 └─base::lapply(...)
-     32. │                                   └─ggplot2 (local) FUN(X[[i]], ...)
-     33. │                                     ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     34. │                                     └─self$draw_panel(...)
-     35. └─base::.handleSimpleError(...)
-     36.   └─rlang (local) h(simpleError(msg, call))
-     37.     └─handlers[[1L]](cnd)
-     38.       └─cli::cli_abort(...)
-     39.         └─rlang::abort(...)
+     28. │                             └─base::lapply(...)
+     29. │                               └─ggplot2 (local) FUN(X[[i]], ...)
+     30. │                                 ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     31. │                                 └─self$draw_panel(...)
+     32. └─base::.handleSimpleError(...)
+     33.   └─rlang (local) h(simpleError(msg, call))
+     34.     └─handlers[[1L]](cnd)
+     35.       └─cli::cli_abort(...)
+     36.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -4887,7 +4193,7 @@ Run `revdepcheck::cloud_details(, "gg1d")` for more info
         Caused by error in `draw_panel()`:
         ! unused arguments (lineend = "butt", linejoin = "mitre")
       
-      [ FAIL 9 | WARN 1 | SKIP 2 | PASS 47 ]
+      [ FAIL 9 | WARN 0 | SKIP 2 | PASS 47 ]
       Error: Test failures
       Execution halted
     ```
@@ -4983,15 +4289,6 @@ Run `revdepcheck::cloud_details(, "ggalign")` for more info
     Extensions’ manual.
     ```
 
-*   checking Rd cross-references ... WARNING
-    ```
-    Packages unavailable to check Rd xrefs: ‘ape’, ‘patchwork’, ‘maftools’, ‘ComplexHeatmap’, ‘pheatmap’
-    Missing link or links in Rd file 'scheme_theme.Rd':
-      ‘[ggplot2:+.gg]{+.gg()}’
-    
-    See section 'Cross-references' in the 'Writing R Extensions' manual.
-    ```
-
 *   checking for code/documentation mismatches ... WARNING
     ```
     Codoc mismatches from Rd file 'scheme_theme.Rd':
@@ -5017,13 +4314,6 @@ Run `revdepcheck::cloud_details(, "ggalign")` for more info
         Position: 8 Code: geom Docs: axis.title.x
     ```
 
-## Newly fixed
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘ape’, ‘patchwork’, ‘maftools’, ‘ComplexHeatmap’, ‘pheatmap’
-    ```
-
 ## In both
 
 *   checking package dependencies ... NOTE
@@ -5032,70 +4322,11 @@ Run `revdepcheck::cloud_details(, "ggalign")` for more info
       'patchwork', 'ggrastr', 'maftools'
     ```
 
-# GGally
-
-<details>
-
-* Version: 2.2.1
-* GitHub: https://github.com/ggobi/ggally
-* Source code: https://github.com/cran/GGally
-* Date/Publication: 2024-02-14 00:53:32 UTC
-* Number of recursive dependencies: 142
-
-Run `revdepcheck::cloud_details(, "GGally")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘GGally’ can be installed ... ERROR
+*   checking Rd cross-references ... NOTE
     ```
-    Installation failed.
-    See ‘/tmp/workdir/GGally/new/GGally.Rcheck/00install.out’ for details.
+    Packages unavailable to check Rd xrefs: ‘ape’, ‘patchwork’, ‘maftools’, ‘ComplexHeatmap’, ‘pheatmap’
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘GGally’ ...
-** package ‘GGally’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in eval(exprs[i], envir) : object 'is.rel' not found
-Error: unable to load R code in package ‘GGally’
-Execution halted
-ERROR: lazy loading failed for package ‘GGally’
-* removing ‘/tmp/workdir/GGally/new/GGally.Rcheck/GGally’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘GGally’ ...
-** package ‘GGally’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (GGally)
-
-
-```
 # ggblend
 
 <details>
@@ -5166,15 +4397,15 @@ Run `revdepcheck::cloud_details(, "ggborderline")` for more info
     > 
     > require(ggplot2)
     ...
-      5.     └─ggplot2::build_ggplot(plot)
-      6.       ├─S7::S7_dispatch()
-      7.       └─ggplot2 (local) `method(build_ggplot, ggplot2::ggplot)`(...)
-      8.         └─npscales$set_palettes(plot@theme)
-      9.           └─ggplot2 (local) set_palettes(..., self = self)
-     10.             ├─scales::as_discrete_pal(elem)
-     11.             └─scales:::as_discrete_pal.default(elem)
-     12.               └─cli::cli_abort("Cannot convert {.arg x} to a discrete palette.")
-     13.                 └─rlang::abort(...)
+      2. └─ggplot2 (local) `print.ggplot2::ggplot`(x)
+      3.   ├─ggplot2::ggplot_build(x)
+      4.   └─ggplot2 (local) `ggplot_build.ggplot2::ggplot`(x)
+      5.     └─npscales$set_palettes(plot@theme)
+      6.       └─ggplot2 (local) set_palettes(..., self = self)
+      7.         ├─scales::as_discrete_pal(elem)
+      8.         └─scales:::as_discrete_pal.default(elem)
+      9.           └─cli::cli_abort("Cannot convert {.arg x} to a discrete palette.")
+     10.             └─rlang::abort(...)
     Execution halted
     ```
 
@@ -5218,21 +4449,21 @@ Run `revdepcheck::cloud_details(, "ggbrain")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 10.1Mb
+      installed size is 10.2Mb
       sub-directories of 1Mb or more:
         doc       1.6Mb
         extdata   2.2Mb
-        libs      5.5Mb
+        libs      5.6Mb
     ```
 
 # ggbreak
 
 <details>
 
-* Version: 0.1.4
+* Version: 0.1.5
 * GitHub: https://github.com/YuLab-SMU/ggbreak
 * Source code: https://github.com/cran/ggbreak
-* Date/Publication: 2025-02-04 17:50:10 UTC
+* Date/Publication: 2025-07-02 04:50:07 UTC
 * Number of recursive dependencies: 61
 
 Run `revdepcheck::cloud_details(, "ggbreak")` for more info
@@ -5264,31 +4495,6 @@ Run `revdepcheck::cloud_details(, "ggbreak")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
-    ```
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.wrap_params:
-      function(object, plot, object_name)
-    
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.ggcut_params:
-      function(object, plot, object_name)
-    
-    ...
-      function(object, plot, ...)
-    ggplot_add.ggbreak:
-      function(object, plot, object_name)
-    
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.gg:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
     ```
 
 # ggbump
@@ -5412,29 +4618,6 @@ Run `revdepcheck::cloud_details(, "ggdark")` for more info
       'LazyData' is specified without a 'data' directory
     ```
 
-# ggdemetra
-
-<details>
-
-* Version: 0.2.8
-* GitHub: https://github.com/AQLT/ggdemetra
-* Source code: https://github.com/cran/ggdemetra
-* Date/Publication: 2024-02-04 14:50:02 UTC
-* Number of recursive dependencies: 51
-
-Run `revdepcheck::cloud_details(, "ggdemetra")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘ggdemetra’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: `aes_()` was deprecated in ggplot2 3.0.0.
-    See ‘/tmp/workdir/ggdemetra/new/ggdemetra.Rcheck/00install.out’ for details.
-    ```
-
 # ggDoubleHeat
 
 <details>
@@ -5505,15 +4688,15 @@ Run `revdepcheck::cloud_details(, "ggEDA")` for more info
     > 
     > 
     ...
-     31. │                                 └─base::lapply(...)
-     32. │                                   └─ggplot2 (local) FUN(X[[i]], ...)
-     33. │                                     ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     34. │                                     └─self$draw_panel(...)
-     35. └─base::.handleSimpleError(...)
-     36.   └─rlang (local) h(simpleError(msg, call))
-     37.     └─handlers[[1L]](cnd)
-     38.       └─cli::cli_abort(...)
-     39.         └─rlang::abort(...)
+     28. │                             └─base::lapply(...)
+     29. │                               └─ggplot2 (local) FUN(X[[i]], ...)
+     30. │                                 ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     31. │                                 └─self$draw_panel(...)
+     32. └─base::.handleSimpleError(...)
+     33.   └─rlang (local) h(simpleError(msg, call))
+     34.     └─handlers[[1L]](cnd)
+     35.       └─cli::cli_abort(...)
+     36.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -5537,7 +4720,7 @@ Run `revdepcheck::cloud_details(, "ggEDA")` for more info
         Caused by error in `draw_panel()`:
         ! unused arguments (lineend = "butt", linejoin = "mitre")
       
-      [ FAIL 11 | WARN 12 | SKIP 2 | PASS 114 ]
+      [ FAIL 11 | WARN 9 | SKIP 2 | PASS 114 ]
       Error: Test failures
       Execution halted
     ```
@@ -5574,47 +4757,6 @@ Run `revdepcheck::cloud_details(, "ggedit")` for more info
       cannot coerce type 'object' to vector of type 'list'
     Calls: compare ... themeFetchFull -> lapply -> as.list -> as.list.default
     Execution halted
-    ```
-
-# ggfixest
-
-<details>
-
-* Version: 0.3.0
-* GitHub: https://github.com/grantmcdermott/ggfixest
-* Source code: https://github.com/cran/ggfixest
-* Date/Publication: 2025-05-14 02:20:02 UTC
-* Number of recursive dependencies: 77
-
-Run `revdepcheck::cloud_details(, "ggfixest")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘tinytest.R’
-    Running the tests in ‘tests/tinytest.R’ failed.
-    Complete output:
-      > ## Throttle CPU threads if R CMD check (for CRAN)
-      > 
-      > if (any(grepl("_R_CHECK", names(Sys.getenv()), fixed = TRUE))) {
-      +     # fixest
-      +     if (requireNamespace("fixest", quietly = TRUE)) {
-      +         library(fixest)
-      +         setFixest_nthreads(1)
-    ...
-       call| expect_snapshot_plot(p19a, label = "ggiplot_multi_complex_kitchen_iid")
-       diff| 1774
-       info| Diff plot saved to: _tinysnapshot_review/ggiplot_multi_complex_kitchen_iid.png
-      ----- FAILED[]: test_ggiplot.R<193--193>
-       call| expect_snapshot_plot(p19b, label = "ggiplot_multi_complex_kitchen_iid")
-       diff| 1774
-       info| Diff plot saved to: _tinysnapshot_review/ggiplot_multi_complex_kitchen_iid.png
-      Error: 5 out of 111 tests failed
-      In addition: There were 11 warnings (use warnings() to see them)
-      Execution halted
     ```
 
 # ggfocus
@@ -5742,10 +4884,10 @@ Run `revdepcheck::cloud_details(, "ggformula")` for more info
 
 <details>
 
-* Version: 0.4.17
+* Version: 0.4.18
 * GitHub: https://github.com/sinhrks/ggfortify
 * Source code: https://github.com/cran/ggfortify
-* Date/Publication: 2024-04-17 04:30:04 UTC
+* Date/Publication: 2025-07-03 06:40:02 UTC
 * Number of recursive dependencies: 121
 
 Run `revdepcheck::cloud_details(, "ggfortify")` for more info
@@ -5774,7 +4916,7 @@ Run `revdepcheck::cloud_details(, "ggfortify")` for more info
       x[4]: "#595959FF"
       y[4]: "grey35"
       
-      [ FAIL 5 | WARN 13 | SKIP 48 | PASS 734 ]
+      [ FAIL 1 | WARN 13 | SKIP 48 | PASS 727 ]
       Error: Test failures
       Execution halted
     ```
@@ -5880,47 +5022,6 @@ Run `revdepcheck::cloud_details(, "gggenomes")` for more info
     Execution halted
     ```
 
-# ggghost
-
-<details>
-
-* Version: 0.2.2
-* GitHub: https://github.com/jonocarroll/ggghost
-* Source code: https://github.com/cran/ggghost
-* Date/Publication: 2025-04-15 05:50:07 UTC
-* Number of recursive dependencies: 46
-
-Run `revdepcheck::cloud_details(, "ggghost")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggghost-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: -.gg
-    > ### Title: Remove a call from a ggghost object
-    > ### Aliases: -.gg
-    > 
-    > ### ** Examples
-    > 
-    > ## create a ggghost object
-    ...
-    > ## remove the geom_smooth
-    > z - geom_smooth()
-    > 
-    > ## remove the labels
-    > ## NOTE: argument must be present and able to be
-    > ## evaluated in scope
-    > z - labs(TRUE) # works
-    Error: <ggplot2::labels> object is invalid:
-    - every label must be named.
-    Execution halted
-    ```
-
 # gghalves
 
 <details>
@@ -5950,15 +5051,15 @@ Run `revdepcheck::cloud_details(, "gghalves")` for more info
     > 
     > ggplot(iris, aes(x = Species, y = Petal.Width, fill = Species)) + 
     ...
-     32. │                                         └─base::lapply(...)
-     33. │                                           └─ggplot2 (local) FUN(X[[i]], ...)
-     34. │                                             └─ggplot2 (local) apply_fun(cur_data)
-     35. │                                               └─ggplot2 (local) fun(x, ...)
-     36. └─base::.handleSimpleError(...)
-     37.   └─rlang (local) h(simpleError(msg, call))
-     38.     └─handlers[[1L]](cnd)
-     39.       └─cli::cli_abort(...)
-     40.         └─rlang::abort(...)
+     29. │                                     └─base::lapply(...)
+     30. │                                       └─ggplot2 (local) FUN(X[[i]], ...)
+     31. │                                         └─ggplot2 (local) apply_fun(cur_data)
+     32. │                                           └─ggplot2 (local) fun(x, ...)
+     33. └─base::.handleSimpleError(...)
+     34.   └─rlang (local) h(simpleError(msg, call))
+     35.     └─handlers[[1L]](cnd)
+     36.       └─cli::cli_abort(...)
+     37.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -6030,7 +5131,7 @@ Run `revdepcheck::cloud_details(, "ggimage")` for more info
 * GitHub: https://github.com/davidgohel/ggiraph
 * Source code: https://github.com/cran/ggiraph
 * Date/Publication: 2025-03-28 10:20:02 UTC
-* Number of recursive dependencies: 86
+* Number of recursive dependencies: 85
 
 Run `revdepcheck::cloud_details(, "ggiraph")` for more info
 
@@ -6051,15 +5152,15 @@ Run `revdepcheck::cloud_details(, "ggiraph")` for more info
     > 
     > # add interactive bar -------
     ...
-     23. │                     └─base::lapply(...)
-     24. │                       └─ggplot2 (local) FUN(X[[i]], ...)
-     25. │                         ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     26. │                         └─self$draw_panel(...)
-     27. └─base::.handleSimpleError(...)
-     28.   └─rlang (local) h(simpleError(msg, call))
-     29.     └─handlers[[1L]](cnd)
-     30.       └─cli::cli_abort(...)
-     31.         └─rlang::abort(...)
+     20. │                 └─base::lapply(...)
+     21. │                   └─ggplot2 (local) FUN(X[[i]], ...)
+     22. │                     ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     23. │                     └─self$draw_panel(...)
+     24. └─base::.handleSimpleError(...)
+     25.   └─rlang (local) h(simpleError(msg, call))
+     26.     └─handlers[[1L]](cnd)
+     27.       └─cli::cli_abort(...)
+     28.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -6076,15 +5177,15 @@ Run `revdepcheck::cloud_details(, "ggiraph")` for more info
       test-annotate_interactive.R...    0 tests    
       test-annotate_interactive.R...    0 tests    
     ...
-       33. │                                 └─base::lapply(...)
-       34. │                                   └─ggplot2 (local) FUN(X[[i]], ...)
-       35. │                                     ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-       36. │                                     └─self$draw_panel(...)
-       37. └─base::.handleSimpleError(...)
-       38.   └─rlang (local) h(simpleError(msg, call))
-       39.     └─handlers[[1L]](cnd)
-       40.       └─cli::cli_abort(...)
-       41.         └─rlang::abort(...)
+       30. │                             └─base::lapply(...)
+       31. │                               └─ggplot2 (local) FUN(X[[i]], ...)
+       32. │                                 ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+       33. │                                 └─self$draw_panel(...)
+       34. └─base::.handleSimpleError(...)
+       35.   └─rlang (local) h(simpleError(msg, call))
+       36.     └─handlers[[1L]](cnd)
+       37.       └─cli::cli_abort(...)
+       38.         └─rlang::abort(...)
       Execution halted
     ```
 
@@ -6127,15 +5228,15 @@ Run `revdepcheck::cloud_details(, "ggiraphExtra")` for more info
     > 
     > require(moonBook)
     ...
-     24. │                       └─base::lapply(...)
-     25. │                         └─ggplot2 (local) FUN(X[[i]], ...)
-     26. │                           ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     27. │                           └─self$draw_panel(...)
-     28. └─base::.handleSimpleError(...)
-     29.   └─rlang (local) h(simpleError(msg, call))
-     30.     └─handlers[[1L]](cnd)
-     31.       └─cli::cli_abort(...)
-     32.         └─rlang::abort(...)
+     21. │                   └─base::lapply(...)
+     22. │                     └─ggplot2 (local) FUN(X[[i]], ...)
+     23. │                       ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     24. │                       └─self$draw_panel(...)
+     25. └─base::.handleSimpleError(...)
+     26.   └─rlang (local) h(simpleError(msg, call))
+     27.     └─handlers[[1L]](cnd)
+     28.       └─cli::cli_abort(...)
+     29.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -6321,63 +5422,6 @@ ERROR: lazy loading failed for package ‘ggmulti’
 
 
 ```
-# ggpackets
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/dgkf/ggpackets
-* Source code: https://github.com/cran/ggpackets
-* Date/Publication: 2022-10-10 23:30:02 UTC
-* Number of recursive dependencies: 72
-
-Run `revdepcheck::cloud_details(, "ggpackets")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggpackets-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ggpacket
-    > ### Title: A container for lazy ggplot layers
-    > ### Aliases: ggpacket
-    > 
-    > ### ** Examples
-    > 
-    > library(ggplot2)
-    ...
-    +     geom_line(...) %+%
-    +     geom_point(color = "red", ...)
-    + }
-    > 
-    > ggplot(mtcars, aes(x = wt, y = mpg)) +
-    +   ggpk_func(color = "purple", size = 2, point.size = 4)
-    Error in if (grepl("^Ignoring unknown (parameters|aesthetics):", w$message)) invokeRestart("muffleWarning") : 
-      the condition has length > 1
-    Calls: Ops.S7_object ... withOneRestart -> doWithOneRestart -> signalCondition -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘composing-functions.Rmd’ using rmarkdown
-    ```
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.ggpacket:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
 # ggparallel
 
 <details>
@@ -6407,12 +5451,12 @@ Run `revdepcheck::cloud_details(, "ggparallel")` for more info
       > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
       > # * https://testthat.r-lib.org/articles/special-files.html
     ...
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-ggparallel.R:12:3'): ggparallel works ──────────────────────────
+      Error in `UseMethod("ggplot_build")`: no applicable method for 'ggplot_build' applied to an object of class "c('gg', 'ggplot')"
+      Backtrace:
           ▆
-       1. ├─ggplot2::ggplot_build(test_mtcars_plot) at test-ggparallel.R:12:3
-       2. ├─ggplot2:::ggplot_build.default(test_mtcars_plot)
-       3. │ └─ggplot2::build_ggplot(plot)
-       4. │   └─S7::S7_dispatch()
-       5. └─S7:::method_lookup_error("build_ggplot", `<list>`)
+       1. └─ggplot2::ggplot_build(test_mtcars_plot) at test-ggparallel.R:12:3
       
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 0 ]
       Error: Test failures
@@ -6460,17 +5504,17 @@ Run `revdepcheck::cloud_details(, "ggpath")` for more info
       Execution halted
     ```
 
-# ggplot2.utils
+# ggPMX
 
 <details>
 
-* Version: 0.3.2
-* GitHub: https://github.com/insightsengineering/ggplot2.utils
-* Source code: https://github.com/cran/ggplot2.utils
-* Date/Publication: 2024-06-25 21:10:02 UTC
-* Number of recursive dependencies: 70
+* Version: 1.3.0
+* GitHub: https://github.com/ggPMXdevelopment/ggPMX
+* Source code: https://github.com/cran/ggPMX
+* Date/Publication: 2025-07-16 10:20:02 UTC
+* Number of recursive dependencies: 160
 
-Run `revdepcheck::cloud_details(, "ggplot2.utils")` for more info
+Run `revdepcheck::cloud_details(, "ggPMX")` for more info
 
 </details>
 
@@ -6482,64 +5526,23 @@ Run `revdepcheck::cloud_details(, "ggplot2.utils")` for more info
     Running the tests in ‘tests/testthat.R’ failed.
     Complete output:
       > library(testthat)
-      > library(ggplot2.utils)
-      Loading required package: ggplot2
-      > 
-      > test_check("ggplot2.utils")
-      
-      Attaching package: 'dplyr'
+      > library(ggPMX)
+      > library(data.table)
+      > setDTthreads(1)
+      > test_check("ggPMX")
+      convergence of SAEM parameter estimates  file does not exist.
+      convergence of SAEM parameter estimates  file does not exist.
     ...
-      ── Failure ('test-geom_km_ticks.R:10:3'): geom_km_ticks works as expected ──────
-      Names of `first_layer` ('time', 'survival', 'n.risk', 'n.censor', 'n.event', 'PANEL', 'group', 'x', 'y', 'shape', 'colour', 'size', 'alpha', 'stroke', 'fill') don't match 'x', 'y', 'time', 'survival', 'n.risk', 'n.censor', 'n.event', 'PANEL', 'group', 'shape', 'colour', 'size', 'alpha', 'stroke', 'fill'
-      ── Failure ('test-stat_km.R:10:3'): stat_km works as expected ──────────────────
-      Names of `first_layer` ('time', 'survival', 'PANEL', 'group', 'x', 'y', 'colour', 'fill', 'linewidth', 'linetype', 'weight', 'alpha') don't match 'x', 'y', 'time', 'survival', 'PANEL', 'group', 'colour', 'fill', 'linewidth', 'linetype', 'weight', 'alpha'
-      ── Failure ('test-stat_km_ticks.R:10:3'): stat_km_ticks works as expected ──────
-      Names of `first_layer` ('time', 'survival', 'n.risk', 'n.censor', 'n.event', 'PANEL', 'group', 'x', 'y', 'shape', 'colour', 'size', 'alpha', 'stroke', 'fill') don't match 'x', 'y', 'time', 'survival', 'n.risk', 'n.censor', 'n.event', 'PANEL', 'group', 'shape', 'colour', 'size', 'alpha', 'stroke', 'fill'
+      Error: 'build_ggplot' is not an exported object from 'namespace:ggplot2'
+      Backtrace:
+          ▆
+       1. └─testthat::expect_identical(...) at test-plot-individual.R:353:7
+       2.   └─testthat::quasi_label(enquo(object), label, arg = "object")
+       3.     └─rlang::eval_bare(expr, quo_get_env(quo))
       
-      [ FAIL 4 | WARN 0 | SKIP 7 | PASS 44 ]
+      [ FAIL 1 | WARN 0 | SKIP 16 | PASS 1031 ]
       Error: Test failures
       Execution halted
-    ```
-
-# ggPMX
-
-<details>
-
-* Version: 1.2.11
-* GitHub: https://github.com/ggPMXdevelopment/ggPMX
-* Source code: https://github.com/cran/ggPMX
-* Date/Publication: 2023-11-30 16:10:06 UTC
-* Number of recursive dependencies: 173
-
-Run `revdepcheck::cloud_details(, "ggPMX")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘ggPMX-guide.Rmd’ using rmarkdown
-    
-    Quitting from ggPMX-guide.Rmd:24-37 [load_package]
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    <error/rlang_error>
-    Error in `+.gg`:
-    ! 'ggmatrix' does not know how to add objects that do not have class 'theme', 'labels' or 'ggproto'. Received object with class: 'character'
-    ---
-    Backtrace:
-    ...
-    
-    Error: processing vignette 'ggPMX-guide.Rmd' failed with diagnostics:
-    'ggmatrix' does not know how to add objects that do not have class 'theme', 'labels' or 'ggproto'. Received object with class: 'character'
-    --- failed re-building ‘ggPMX-guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘ggPMX-guide.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 ## In both
@@ -6551,11 +5554,10 @@ Run `revdepcheck::cloud_details(, "ggPMX")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  9.0Mb
+      installed size is  7.0Mb
       sub-directories of 1Mb or more:
-        doc        1.1Mb
         help       2.4Mb
-        testdata   4.8Mb
+        testdata   3.0Mb
     ```
 
 # ggpol
@@ -6587,15 +5589,15 @@ Run `revdepcheck::cloud_details(, "ggpol")` for more info
     > 
     > x <- sample(LETTERS[seq(4)], 50, replace = TRUE)
     ...
-     24. │                         └─ggpol (local) draw_panel(...)
-     25. │                           └─base::lapply(GeomText$default_aes[missing_aes], rlang::eval_tidy)
-     26. │                             └─rlang (local) FUN(X[[i]], ...)
-     27. ├─ggplot2::from_theme(fontsize)
-     28. └─base::.handleSimpleError(...)
-     29.   └─rlang (local) h(simpleError(msg, call))
-     30.     └─handlers[[1L]](cnd)
-     31.       └─cli::cli_abort(...)
-     32.         └─rlang::abort(...)
+     21. │                     └─ggpol (local) draw_panel(...)
+     22. │                       └─base::lapply(GeomText$default_aes[missing_aes], rlang::eval_tidy)
+     23. │                         └─rlang (local) FUN(X[[i]], ...)
+     24. ├─ggplot2::from_theme(fontsize)
+     25. └─base::.handleSimpleError(...)
+     26.   └─rlang (local) h(simpleError(msg, call))
+     27.     └─handlers[[1L]](cnd)
+     28.       └─cli::cli_abort(...)
+     29.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -6704,47 +5706,6 @@ Run `revdepcheck::cloud_details(, "ggprism")` for more info
     Execution halted
     ```
 
-# ggpubr
-
-<details>
-
-* Version: 0.6.0
-* GitHub: https://github.com/kassambara/ggpubr
-* Source code: https://github.com/cran/ggpubr
-* Date/Publication: 2023-02-10 16:20:02 UTC
-* Number of recursive dependencies: 88
-
-Run `revdepcheck::cloud_details(, "ggpubr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ggpubr)
-      Loading required package: ggplot2
-      > 
-      > test_check("ggpubr")
-      [ FAIL 2 | WARN 6 | SKIP 0 | PASS 183 ]
-      
-    ...
-      [6]   6 - 10 == -4
-      [7]  19 -  9 == 10
-      [9]   1 -  7 == -6
-      [10]  6 -  7 == -1
-      [11] 13 -  6 ==  7
-      ...
-      
-      [ FAIL 2 | WARN 6 | SKIP 0 | PASS 183 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # ggraph
 
 <details>
@@ -6781,7 +5742,7 @@ Run `revdepcheck::cloud_details(, "ggraph")` for more info
     +   ggforce::theme_no_axes()
     Error in get_layer_key(...) : 
       unused argument (list(<object>, <object>, <object>, <object>, <object>, <object>, <object>, 5.5, c(5.5, 5.5, 5.5, 5.5), NULL, <object>, <object>, <object>, NULL, <object>, NULL, <object>, <object>, <object>, <object>, NULL, <object>, NULL, <object>, NULL, <object>, <object>, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, <object>, NULL, NULL, NULL, NULL, NULL, NULL, 
-        NULL, NULL, <object>, NULL, 2, NULL, NULL, NULL, 1.2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.2, NULL, <object>, NULL, <object>, NULL, "right", NULL, NULL, NULL, "center", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, <object>, 2, <object>, <object>, NULL, NULL, NULL, <object>, NULL, <object>, NULL, NULL, NULL, NULL, FALSE, NULL, NULL, <object>, <object>, "panel", <object>, <object>, "panel", <object>, "topleft", NULL, NULL, <object>, NULL, NULL, "on", "
+        NULL, NULL, <object>, NULL, 2, NULL, NULL, NULL, 1.2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.2, NULL, <object>, NULL, <object>, NULL, "right", NULL, NULL, NULL, "center", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, c(0, 0, 0, 0), <object>, 2, <object>, <object>, NULL, NULL, NULL, <object>, NULL, <object>, NULL, NULL, NULL, NULL, FALSE, NULL, NULL, <object>, <object>, "panel", <object>, <object>, "panel", <object>, "topleft", NULL, NULL, <object>, NULL, N
     Calls: <Anonymous> ... <Anonymous> -> <Anonymous> -> process_layers -> <Anonymous>
     Execution halted
     ```
@@ -6842,15 +5803,15 @@ Run `revdepcheck::cloud_details(, "ggResidpanel")` for more info
     > 
     > 
     ...
-     36. │                                           └─ggplot2 (local) FUN(X[[i]], ...)
-     37. │                                             └─self$draw_group(group, panel_params, coord, ...)
-     38. │                                               └─ggplot2 (local) draw_group(...)
-     39. │                                                 └─ggplot2 (local) draw_group(..., self = self)
-     40. └─base::.handleSimpleError(...)
-     41.   └─rlang (local) h(simpleError(msg, call))
-     42.     └─handlers[[1L]](cnd)
-     43.       └─cli::cli_abort(...)
-     44.         └─rlang::abort(...)
+     33. │                                       └─ggplot2 (local) FUN(X[[i]], ...)
+     34. │                                         └─self$draw_group(group, panel_params, coord, ...)
+     35. │                                           └─ggplot2 (local) draw_group(...)
+     36. │                                             └─ggplot2 (local) draw_group(..., self = self)
+     37. └─base::.handleSimpleError(...)
+     38.   └─rlang (local) h(simpleError(msg, call))
+     39.     └─handlers[[1L]](cnd)
+     40.       └─cli::cli_abort(...)
+     41.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -6867,12 +5828,12 @@ Run `revdepcheck::cloud_details(, "ggResidpanel")` for more info
       
       ══ Skipped tests (9) ═══════════════════════════════════════════════════════════
     ...
-       42. │                                                 └─ggplot2 (local) draw_group(..., self = self)
-       43. └─base::.handleSimpleError(...)
-       44.   └─rlang (local) h(simpleError(msg, call))
-       45.     └─handlers[[1L]](cnd)
-       46.       └─cli::cli_abort(...)
-       47.         └─rlang::abort(...)
+       39. │                                             └─ggplot2 (local) draw_group(..., self = self)
+       40. └─base::.handleSimpleError(...)
+       41.   └─rlang (local) h(simpleError(msg, call))
+       42.     └─handlers[[1L]](cnd)
+       43.       └─cli::cli_abort(...)
+       44.         └─rlang::abort(...)
       
       [ FAIL 1 | WARN 4 | SKIP 9 | PASS 18 ]
       Error: Test failures
@@ -6958,78 +5919,6 @@ Run `revdepcheck::cloud_details(, "ggRtsy")` for more info
       Note: found 19 marked UTF-8 strings
     ```
 
-# ggseqplot
-
-<details>
-
-* Version: 0.8.6
-* GitHub: https://github.com/maraab23/ggseqplot
-* Source code: https://github.com/cran/ggseqplot
-* Date/Publication: 2025-05-06 22:10:02 UTC
-* Number of recursive dependencies: 127
-
-Run `revdepcheck::cloud_details(, "ggseqplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggseqplot-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ggseqtrplot
-    > ### Title: Sequence Transition Rate Plot
-    > ### Aliases: ggseqtrplot
-    > 
-    > ### ** Examples
-    > 
-    > # Use example data from TraMineR: biofam data set
-    ...
-         8  7           7        Divorced
-     [>] sum of weights: 330.07 - min/max: 0/6.02881860733032
-     [>] 300 sequences in the data set
-     [>] min/max sequence length: 16/16
-    > 
-    > # Basic transition rate plot (with adjusted x-axis labels)
-    > ggseqtrplot(biofam.seq, x_n.dodge = 2)
-    Error in ggseqtrplot(biofam.seq, x_n.dodge = 2) : 
-      labsize must be a single number
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ggseqplot)
-      Loading required package: TraMineR
-      
-      TraMineR stable version 2.2-11 (Built: 2024-12-09)
-      Website: http://traminer.unige.ch
-      Please type 'citation("TraMineR")' for citation information.
-    ...
-      Backtrace:
-          ▆
-       1. ├─testthat::expect_s3_class(ggseqtrplot(biofam.seq), "ggplot") at test-ggseqtrplot.R:35:3
-       2. │ └─testthat::quasi_label(enquo(object), arg = "object")
-       3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
-       4. └─ggseqplot::ggseqtrplot(biofam.seq)
-      
-      [ FAIL 1 | WARN 16 | SKIP 0 | PASS 131 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘ggseqplot.Rmd’ using rmarkdown
-    ```
-
 # ggside
 
 <details>
@@ -7059,15 +5948,15 @@ Run `revdepcheck::cloud_details(, "ggside")` for more info
     > ### ** Examples
     > 
     ...
-     14.           │ └─base::withCallingHandlers(...)
-     15.           └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
-     16.             └─l$compute_statistic(d, layout)
-     17.               └─ggside (local) compute_statistic(..., self = self)
-     18.                 └─ggplot2 (local) ggproto_parent_method(self = self, data = data, layout = layout)
-     19.                   └─self$stat$setup_params(data, self$stat_params)
-     20.                     └─ggplot2 (local) setup_params(..., self = self)
-     21.                       └─cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
-     22.                         └─rlang::abort(...)
+     11.       │ └─base::withCallingHandlers(...)
+     12.       └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
+     13.         └─l$compute_statistic(d, layout)
+     14.           └─ggside (local) compute_statistic(..., self = self)
+     15.             └─ggplot2 (local) ggproto_parent_method(self = self, data = data, layout = layout)
+     16.               └─self$stat$setup_params(data, self$stat_params)
+     17.                 └─ggplot2 (local) setup_params(..., self = self)
+     18.                   └─cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
+     19.                     └─rlang::abort(...)
     Execution halted
     ```
 
@@ -7290,81 +6179,6 @@ Run `revdepcheck::cloud_details(, "ggstream")` for more info
       All declared Imports should be used.
     ```
 
-# ggswissmaps
-
-<details>
-
-* Version: 0.1.1
-* GitHub: https://github.com/gibonet/ggswissmaps
-* Source code: https://github.com/cran/ggswissmaps
-* Date/Publication: 2016-10-29 10:48:24
-* Number of recursive dependencies: 68
-
-Run `revdepcheck::cloud_details(, "ggswissmaps")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘ggswissmaps’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-    See ‘/tmp/workdir/ggswissmaps/new/ggswissmaps.Rcheck/00install.out’ for details.
-    ```
-
-*   checking whether the namespace can be loaded with stated dependencies ... NOTE
-    ```
-    Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-    ℹ Please use tidy evaluation idioms with `aes()`.
-    ℹ See also `vignette("ggplot2-in-packages")` for more information.
-    ℹ The deprecated feature was likely used in the ggswissmaps package.
-      Please report the issue to the authors.
-    
-    A namespace must be able to be loaded with just the base namespace
-    loaded: otherwise if the namespace gets loaded by a saved object, the
-    session will be unable to start.
-    
-    Probably some imports need to be declared in the NAMESPACE file.
-    ```
-
-# ggtangle
-
-<details>
-
-* Version: 0.0.6
-* GitHub: NA
-* Source code: https://github.com/cran/ggtangle
-* Date/Publication: 2024-12-18 14:30:06 UTC
-* Number of recursive dependencies: 75
-
-Run `revdepcheck::cloud_details(, "ggtangle")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘ggtangle.Rmd’ using rmarkdown
-    ```
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.cnet_label:
-      function(object, plot, object_name)
-    
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.layer_edge:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
 # ggtern
 
 <details>
@@ -7473,77 +6287,57 @@ Run `revdepcheck::cloud_details(, "ggtime")` for more info
       > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
       > # * https://testthat.r-lib.org/articles/special-files.html
     ...
+      ══ Failed tests ════════════════════════════════════════════════════════════════
+      ── Error ('test-plot-helpers.R:192:3'): gg_tsdisplay() plots ───────────────────
+      Error in `UseMethod("ggplot_build")`: no applicable method for 'ggplot_build' applied to an object of class "NULL"
+      Backtrace:
           ▆
-       1. ├─ggplot2::ggplot_build(p[[1]]) at test-plot-helpers.R:192:3
-       2. ├─ggplot2:::ggplot_build.default(p[[1]])
-       3. │ └─ggplot2::build_ggplot(plot)
-       4. │   └─S7::S7_dispatch()
-       5. └─S7:::method_lookup_error("build_ggplot", `<named list>`)
+       1. └─ggplot2::ggplot_build(p[[1]]) at test-plot-helpers.R:192:3
       
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 32 ]
       Error: Test failures
       Execution halted
     ```
 
-# ggVennDiagram
+# ggtranslate
 
 <details>
 
-* Version: 1.5.4
-* GitHub: https://github.com/gaospecial/ggVennDiagram
-* Source code: https://github.com/cran/ggVennDiagram
-* Date/Publication: 2025-06-21 11:10:02 UTC
-* Number of recursive dependencies: 94
+* Version: 0.1.0
+* GitHub: https://github.com/mathiasleroy/ggtranslate
+* Source code: https://github.com/cran/ggtranslate
+* Date/Publication: 2025-07-10 15:00:02 UTC
+* Number of recursive dependencies: 42
 
-Run `revdepcheck::cloud_details(, "ggVennDiagram")` for more info
+Run `revdepcheck::cloud_details(, "ggtranslate")` for more info
 
 </details>
 
 ## Newly broken
 
-*   checking re-building of vignette outputs ... ERROR
+*   checking examples ... ERROR
     ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘VennCalculator.Rmd’ using rmarkdown
-    --- finished re-building ‘VennCalculator.Rmd’
+    Running examples in ‘ggtranslate-Ex.R’ failed
+    The error most likely occurred in:
     
-    --- re-building ‘fully-customed.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 11.1Mb
-      sub-directories of 1Mb or more:
-        doc    9.5Mb
-        help   1.1Mb
-    ```
-
-# ggview
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/idmn/ggview
-* Source code: https://github.com/cran/ggview
-* Date/Publication: 2024-10-02 17:00:10 UTC
-* Number of recursive dependencies: 44
-
-Run `revdepcheck::cloud_details(, "ggview")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.canvas:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
+    > ### Name: ggtranslate
+    > ### Title: Translate all text elements in a ggplot2 object
+    > ### Aliases: ggtranslate
+    > 
+    > ### ** Examples
+    > 
+    > library(ggplot2)
+    ...
+    +   "Tuesday" = "Mardi",
+    +   "Weekly Report" = "Rapport Hebdomadaire"
+    + )
+    > p_en <- ggplot(df, aes(x = day, y = value)) +
+    +   geom_col() +
+    +   labs(title = "Weekly Report")
+    > p_fr <- ggtranslate(p_en, translation_fr)
+    Error: <ggplot2::ggplot> object properties are invalid:
+    - @labels must be <ggplot2::labels>, not <list>
+    Execution halted
     ```
 
 # grafify
@@ -7772,57 +6566,16 @@ Run `revdepcheck::cloud_details(, "gtExtras")` for more info
       
       The following object is masked from 'package:testthat':
     ...
-       44. │                                                     └─base::stop(...)
-       45. └─base::.handleSimpleError(...)
-       46.   └─rlang (local) h(simpleError(msg, call))
-       47.     └─handlers[[1L]](cnd)
-       48.       └─cli::cli_abort(...)
-       49.         └─rlang::abort(...)
+       41. │                                                 └─base::stop(...)
+       42. └─base::.handleSimpleError(...)
+       43.   └─rlang (local) h(simpleError(msg, call))
+       44.     └─handlers[[1L]](cnd)
+       45.       └─cli::cli_abort(...)
+       46.         └─rlang::abort(...)
       
       [ FAIL 6 | WARN 4 | SKIP 19 | PASS 104 ]
       Error: Test failures
       Execution halted
-    ```
-
-# handwriterRF
-
-<details>
-
-* Version: 1.1.1
-* GitHub: https://github.com/CSAFE-ISU/handwriterRF
-* Source code: https://github.com/cran/handwriterRF
-* Date/Publication: 2025-01-29 00:20:01 UTC
-* Number of recursive dependencies: 123
-
-Run `revdepcheck::cloud_details(, "handwriterRF")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-    ...
-      Calculating similarity score...
-      Calculating distance between samples...
-      Calculating similarity score...
-      Calculating distance between samples...
-      Calculating similarity score...
-      Calculating SLR...
-      Calculating distance between samples...
-      Calculating similarity score...
-      Calculating SLR...
-      Killed
     ```
 
 # harmony
@@ -7870,11 +6623,11 @@ Run `revdepcheck::cloud_details(, "harmony")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 14.8Mb
+      installed size is 14.9Mb
       sub-directories of 1Mb or more:
         data   5.0Mb
         doc    2.5Mb
-        libs   7.1Mb
+        libs   7.2Mb
     ```
 
 # hatchR
@@ -7928,69 +6681,6 @@ Run `revdepcheck::cloud_details(, "hatchR")` for more info
         doc    1.9Mb
     ```
 
-# heatmaply
-
-<details>
-
-* Version: 1.5.0
-* GitHub: https://github.com/talgalili/heatmaply
-* Source code: https://github.com/cran/heatmaply
-* Date/Publication: 2023-10-06 20:50:02 UTC
-* Number of recursive dependencies: 108
-
-Run `revdepcheck::cloud_details(, "heatmaply")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(heatmaply)
-      Loading required package: plotly
-      Loading required package: ggplot2
-      
-      Attaching package: 'plotly'
-      
-    ...
-       11.       ├─ggplot2::theme(...)
-       12.       │ └─ggplot2:::find_args(..., complete = NULL, validate = NULL)
-       13.       │   └─base::mget(args, envir = env)
-       14.       └─ggplot2::element_text(...)
-       15.         └─S7::new_object(...)
-       16.           └─S7::validate(object, recursive = !parent_validated)
-      
-      [ FAIL 1 | WARN 1 | SKIP 0 | PASS 264 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        doc   5.1Mb
-    ```
-
-*   checking Rd files ... NOTE
-    ```
-    checkRd: (-1) heatmaply.Rd:282: Lost braces
-       282 | row and column dendrograms. The default uses stats{reorder.dendrogram}}
-           |                                                   ^
-    checkRd: (-1) heatmapr.Rd:93: Lost braces
-        93 | \item{reorderfun}{function(d, w) of dendrogram and weights for reordering the row and column dendrograms. The default uses stats{reorder.dendrogram}}
-           |                                                                                                                                 ^
-    checkRd: (-1) is.plotly.Rd:16: Lost braces
-        16 | Helpful for the plot_method in link{heatmaply}.
-           |                                    ^
-    ```
-
 # hesim
 
 <details>
@@ -8041,6 +6731,63 @@ Run `revdepcheck::cloud_details(, "hesim")` for more info
         R      1.5Mb
         doc    2.2Mb
         libs  30.8Mb
+    ```
+
+# hmde
+
+<details>
+
+* Version: 1.2.1
+* GitHub: https://github.com/traitecoevo/hmde
+* Source code: https://github.com/cran/hmde
+* Date/Publication: 2025-07-04 19:20:06 UTC
+* Number of recursive dependencies: 107
+
+Run `revdepcheck::cloud_details(, "hmde")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
+    ...
+      ── Failure ('test-hmde_plot_de_pieces.R:21:3'): Execution and output: plot_de_pieces function ──
+      `plot` has type 'object', not 'list'.
+      ── Failure ('test-hmde_plot_obs_est_inds.R:5:3'): Execution and output: plot_obs_est_inds function ──
+      `plot` does not have names.
+      ── Failure ('test-hmde_plot_obs_est_inds.R:9:3'): Execution and output: plot_obs_est_inds function ──
+      `plot` has type 'object', not 'list'.
+      
+      [ FAIL 4 | WARN 0 | SKIP 0 | PASS 85 ]
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 175.3Mb
+      sub-directories of 1Mb or more:
+        article    3.0Mb
+        doc        1.1Mb
+        libs     170.5Mb
+    ```
+
+*   checking for GNU extensions in Makefiles ... NOTE
+    ```
+    GNU make is a SystemRequirements.
     ```
 
 # hrbrthemes
@@ -8166,11 +6913,11 @@ Run `revdepcheck::cloud_details(, "ImHD")` for more info
 
 <details>
 
-* Version: 0.2.1
+* Version: 0.3.0
 * GitHub: NA
 * Source code: https://github.com/cran/implicitMeasures
-* Date/Publication: 2022-02-16 13:40:13 UTC
-* Number of recursive dependencies: 83
+* Date/Publication: 2025-07-10 14:50:05 UTC
+* Number of recursive dependencies: 126
 
 Run `revdepcheck::cloud_details(, "implicitMeasures")` for more info
 
@@ -8188,25 +6935,19 @@ Run `revdepcheck::cloud_details(, "implicitMeasures")` for more info
       > library(implicitMeasures)
       > 
       > test_check("implicitMeasures")
-      [ FAIL 7 | WARN 2 | SKIP 2 | PASS 69 ]
+      [ FAIL 4 | WARN 1 | SKIP 2 | PASS 75 ]
       
     ...
-        5. └─implicitMeasures::multi_dscore(iat_data, ds = "error-inflation")
-        6.   └─ggplot2::geom_violin(draw_quantiles = TRUE)
-        7.     └─ggplot2:::check_numeric(draw_quantiles)
-        8.       └─ggplot2:::check_object(x, is.numeric, what, ..., arg = arg, call = call)
-        9.         └─ggplot2:::stop_input_type(...)
-       10.           └─rlang::abort(message, ..., call = call, arg = arg)
+      y[1]: "gg"
+      ── Failure ('test-d_density_d_plot.R:99:3'): d_density produces a ggplot fot the SC-IAT ──
+      class(d_density(d_sciat1))[[1]] not equal to "gg".
+      1/1 mismatches
+      x[1]: "ggplot2::ggplot"
+      y[1]: "gg"
       
-      [ FAIL 7 | WARN 2 | SKIP 2 | PASS 69 ]
+      [ FAIL 4 | WARN 1 | SKIP 2 | PASS 75 ]
       Error: Test failures
       Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘IAT-example.Rmd’ using rmarkdown
     ```
 
 # imputeTS
@@ -8286,57 +7027,6 @@ Run `revdepcheck::cloud_details(, "imputeTS")` for more info
         libs   1.9Mb
     ```
 
-# infer
-
-<details>
-
-* Version: 1.0.8
-* GitHub: https://github.com/tidymodels/infer
-* Source code: https://github.com/cran/infer
-* Date/Publication: 2025-04-14 17:20:02 UTC
-* Number of recursive dependencies: 125
-
-Run `revdepcheck::cloud_details(, "infer")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/tests.html
-      > # * https://testthat.r-lib.org/reference/test_package.html#special-files
-    ...
-      • visualize/viz-assume-z-p-val-right.svg
-      • visualize/viz-assume-z.svg
-      • visualize/viz-fit-bare.svg
-      • visualize/viz-fit-conf-int.svg
-      • visualize/viz-fit-no-h0.svg
-      • visualize/viz-fit-p-val-both.svg
-      • visualize/viz-fit-p-val-left.svg
-      • visualize/viz-fit-p-val-right.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.infer_layer:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
 # inTextSummaryTable
 
 <details>
@@ -8412,54 +7102,6 @@ Run `revdepcheck::cloud_details(, "inTextSummaryTable")` for more info
         doc   9.7Mb
     ```
 
-# iNZightTS
-
-<details>
-
-* Version: 2.0.0
-* GitHub: https://github.com/iNZightVIT/iNZightTS
-* Source code: https://github.com/cran/iNZightTS
-* Date/Publication: 2024-01-17 06:20:02 UTC
-* Number of recursive dependencies: 90
-
-Run `revdepcheck::cloud_details(, "iNZightTS")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(iNZightTS)
-      > 
-      > test_check("iNZightTS")
-      [ FAIL 1 | WARN 3 | SKIP 0 | PASS 107 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-    ...
-        9.     └─ggplot2::coord_fixed(...)
-       10.       └─ggplot2::coord_cartesian(ratio = ratio)
-       11.         └─ggplot2:::check_number_decimal(...)
-       12.           └─ggplot2:::.stop_not_number(...)
-       13.             └─ggplot2:::stop_input_type(...)
-       14.               └─rlang::abort(message, ..., call = call, arg = arg)
-      
-      [ FAIL 1 | WARN 3 | SKIP 0 | PASS 107 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘plotly’
-    ```
-
 # IRon
 
 <details>
@@ -8489,15 +7131,15 @@ Run `revdepcheck::cloud_details(, "IRon")` for more info
     > 
     > library(IRon)
     ...
-     19. │                 └─self$stat$setup_params(data, self$stat_params)
-     20. │                   └─ggplot2 (local) setup_params(...)
-     21. │                     └─base::match.fun(method)
-     22. │                       └─base::get(as.character(FUN), mode = "function", envir = envir)
-     23. └─base::.handleSimpleError(...)
-     24.   └─rlang (local) h(simpleError(msg, call))
-     25.     └─handlers[[1L]](cnd)
-     26.       └─cli::cli_abort(...)
-     27.         └─rlang::abort(...)
+     16. │             └─self$stat$setup_params(data, self$stat_params)
+     17. │               └─ggplot2 (local) setup_params(...)
+     18. │                 └─base::match.fun(method)
+     19. │                   └─base::get(as.character(FUN), mode = "function", envir = envir)
+     20. └─base::.handleSimpleError(...)
+     21.   └─rlang (local) h(simpleError(msg, call))
+     22.     └─handlers[[1L]](cnd)
+     23.       └─cli::cli_abort(...)
+     24.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -8583,55 +7225,14 @@ Run `revdepcheck::cloud_details(, "jskm")` for more info
     --- re-building ‘jskm.Rmd’ using rmarkdown
     ```
 
-# lares
-
-<details>
-
-* Version: 5.2.13
-* GitHub: https://github.com/laresbernardo/lares
-* Source code: https://github.com/cran/lares
-* Date/Publication: 2025-02-19 15:20:02 UTC
-* Number of recursive dependencies: 95
-
-Run `revdepcheck::cloud_details(, "lares")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘lares-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: clusterKmeans
-    > ### Title: Automated K-Means Clustering + PCA/t-SNE
-    > ### Aliases: clusterKmeans
-    > 
-    > ### ** Examples
-    > 
-    > Sys.unsetenv("LARES_FONT") # Temporal
-    ...
-    > 
-    > # If dataset has +5 columns, feel free to reduce dimenstionalities
-    > # with reduce_pca() or reduce_tsne() first
-    > 
-    > # Find optimal k
-    > check_k <- clusterKmeans(df, limit = 10)
-    >>> Removed duplicate obserations: 1
-    Error: <ggplot2::element_text> object properties are invalid:
-    - @family must be <NULL> or <character>, not <logical>
-    Execution halted
-    ```
-
 # latrend
 
 <details>
 
-* Version: 1.6.1
-* GitHub: https://github.com/philips-software/latrend
+* Version: 1.6.2
+* GitHub: https://github.com/niekdt/latrend
 * Source code: https://github.com/cran/latrend
-* Date/Publication: 2024-05-15 11:50:02 UTC
+* Date/Publication: 2025-07-04 14:40:02 UTC
 * Number of recursive dependencies: 237
 
 Run `revdepcheck::cloud_details(, "latrend")` for more info
@@ -8653,15 +7254,15 @@ Run `revdepcheck::cloud_details(, "latrend")` for more info
     > 
     > data(latrendData)
     ...
-     26. │                             └─ggplot2 (local) FUN(X[[i]], ...)
-     27. │                               └─self$draw_group(group, panel_params, coord, ...)
-     28. │                                 └─ggplot2 (local) draw_group(...)
-     29. │                                   └─ggplot2 (local) draw_group(..., self = self)
-     30. └─base::.handleSimpleError(...)
-     31.   └─rlang (local) h(simpleError(msg, call))
-     32.     └─handlers[[1L]](cnd)
-     33.       └─cli::cli_abort(...)
-     34.         └─rlang::abort(...)
+     23. │                         └─ggplot2 (local) FUN(X[[i]], ...)
+     24. │                           └─self$draw_group(group, panel_params, coord, ...)
+     25. │                             └─ggplot2 (local) draw_group(...)
+     26. │                               └─ggplot2 (local) draw_group(..., self = self)
+     27. └─base::.handleSimpleError(...)
+     28.   └─rlang (local) h(simpleError(msg, call))
+     29.     └─handlers[[1L]](cnd)
+     30.       └─cli::cli_abort(...)
+     31.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -8802,9 +7403,9 @@ Run `revdepcheck::cloud_details(, "lemon")` for more info
       +   test_check("lemon")
       + } #else {
     ...
-       16.                       └─gtable::gtable_add_row_space(panel_table, theme$panel.spacing.y %||% theme$panel.spacing)
-       17.                         └─cli::cli_abort("{.arg height} must be of length 1 or nrow - 1")
-       18.                           └─rlang::abort(...)
+       13.                   └─gtable::gtable_add_row_space(panel_table, theme$panel.spacing.y %||% theme$panel.spacing)
+       14.                     └─cli::cli_abort("{.arg height} must be of length 1 or nrow - 1")
+       15.                       └─rlang::abort(...)
       
       [ FAIL 2 | WARN 14 | SKIP 3 | PASS 138 ]
       Deleting unused snapshots:
@@ -8833,72 +7434,6 @@ Run `revdepcheck::cloud_details(, "lemon")` for more info
       function(object, plot, object_name)
     See section ‘Generic functions and methods’ in the ‘Writing R
     Extensions’ manual.
-    ```
-
-# lfproQC
-
-<details>
-
-* Version: 1.4.0
-* GitHub: https://github.com/kabilansbio/lfproQC
-* Source code: https://github.com/cran/lfproQC
-* Date/Publication: 2024-10-10 13:10:02 UTC
-* Number of recursive dependencies: 142
-
-Run `revdepcheck::cloud_details(, "lfproQC")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘lfproQC-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: QQplot_data
-    > ### Title: Creating QQ-Plot for a dataset
-    > ### Aliases: QQplot_data
-    > 
-    > ### ** Examples
-    > 
-    > qqplot <- QQplot_data(rlr_knn_yeast_data)
-    ...
-     11.               ├─tidyr:::wrap_error_names(...)
-     12.               │ └─base::withCallingHandlers(...)
-     13.               └─vctrs::vec_cbind(...)
-     14.                 └─vctrs (local) `<fn>`()
-     15.                   └─vctrs:::validate_unique(names = names, arg = arg, call = call)
-     16.                     └─vctrs:::stop_names_must_be_unique(names, arg, call = call)
-     17.                       └─vctrs:::stop_names(...)
-     18.                         └─vctrs:::stop_vctrs(...)
-     19.                           └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-      ...
-    --- re-building ‘user_guide.Rmd’ using rmarkdown
-    
-    Quitting from user_guide.Rmd:74-76 [unnamed-chunk-12]
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    NULL
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
-    Error: processing vignette 'user_guide.Rmd' failed with diagnostics:
-    ...
-    ✖ These names are duplicated:
-      * "variable" at locations 4 and 14.
-    ℹ Use argument `names_repair` to specify repair strategy.
-    --- failed re-building ‘user_guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘user_guide.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # lgpr
@@ -9098,10 +7633,10 @@ Run `revdepcheck::cloud_details(, "LMD")` for more info
 
 <details>
 
-* Version: 1.2
+* Version: 1.2.1
 * GitHub: https://github.com/lbelzile/longevity
 * Source code: https://github.com/cran/longevity
-* Date/Publication: 2025-05-12 02:10:02 UTC
+* Date/Publication: 2025-07-03 21:20:02 UTC
 * Number of recursive dependencies: 58
 
 Run `revdepcheck::cloud_details(, "longevity")` for more info
@@ -9129,8 +7664,8 @@ Run `revdepcheck::cloud_details(, "longevity")` for more info
     +  family = "exp",
     +  export = TRUE)
     > plot(fitted, plot.type = "ggplot")
-    Error in get("print.ggplot", envir = loadNamespace("ggplot2")) : 
-      object 'print.ggplot' not found
+    Error in get(x = ifelse(packageVersion("ggplot2") >= "3.5.2.9001", "print.ggplot2::ggplot",  : 
+      object 'print.ggplot2::ggplot' not found
     Calls: plot -> plot.elife_par -> lapply -> match.fun -> get
     Execution halted
     ```
@@ -9154,8 +7689,8 @@ Run `revdepcheck::cloud_details(, "longevity")` for more info
       test-S3methods.R..............    0 tests    
       test-S3methods.R..............    0 tests    
       test-S3methods.R..............    0 tests    
-      test-S3methods.R..............    0 tests    Error in get("print.ggplot", envir = loadNamespace("ggplot2")) : 
-        object 'print.ggplot' not found
+      test-S3methods.R..............    0 tests    Error in get(x = ifelse(packageVersion("ggplot2") >= "3.5.2.9001", "print.ggplot2::ggplot",  : 
+        object 'print.ggplot2::ggplot' not found
       Calls: <Anonymous> ... plot -> plot.elife_par -> lapply -> match.fun -> get
       Execution halted
     ```
@@ -9238,10 +7773,10 @@ Run `revdepcheck::cloud_details(, "manymodelr")` for more info
 
 <details>
 
-* Version: 1.3.2
+* Version: 1.5.1
 * GitHub: https://github.com/stocnet/manynet
 * Source code: https://github.com/cran/manynet
-* Date/Publication: 2024-11-05 20:50:02 UTC
+* Date/Publication: 2025-06-23 08:30:02 UTC
 * Number of recursive dependencies: 135
 
 Run `revdepcheck::cloud_details(, "manynet")` for more info
@@ -9255,23 +7790,23 @@ Run `revdepcheck::cloud_details(, "manynet")` for more info
     Running examples in ‘manynet-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: make_play
-    > ### Title: Making diffusion models on networks
-    > ### Aliases: make_play play_diffusion play_diffusions
+    > ### Name: make_random
+    > ### Title: Making unconditional and conditional random networks
+    > ### Aliases: make_random generate_random generate_configuration
+    > ###   generate_man generate_utilities generate_permutation
     > 
     > ### ** Examples
     > 
-    >   smeg <- generate_smallworld(15, 0.025)
     ...
-    ! Only know how to add <ggplot> and/or <grob> objects
     Backtrace:
         ▆
-     1. ├─base::plot(play_diffusion(smeg, recovery = 0.4))
-     2. └─manynet:::plot.diff_model(play_diffusion(smeg, recovery = 0.4))
-     3.   └─manynet:::`+.ggplot`(...)
-     4.     └─patchwork::wrap_plots(e1, e2, ...)
-     5.       └─cli::cli_abort("Only know how to add {.cls ggplot} and/or {.cls grob} objects")
-     6.         └─rlang::abort(...)
+     1. └─manynet::graphr(generate_random(12, 0.4))
+     2.   └─manynet:::.graph_layout(...)
+     3.     └─ggraph::ggraph(lo)
+     4.       └─manynet:::`+.ggplot`(...)
+     5.         └─patchwork::wrap_plots(e1, e2, ...)
+     6.           └─cli::cli_abort("Only know how to add {.cls ggplot} and/or {.cls grob} objects")
+     7.             └─rlang::abort(...)
     Execution halted
     ```
 
@@ -9285,17 +7820,17 @@ Run `revdepcheck::cloud_details(, "manynet")` for more info
       > 
       > test_check("manynet")
       Starting 2 test processes
-      [ FAIL 3 | WARN 0 | SKIP 21 | PASS 548 ]
+      [ FAIL 2 | WARN 0 | SKIP 20 | PASS 562 ]
       
     ...
-       1. ├─base::plot(node_degree(ison_adolescents)) at test-measure_centrality.R:87:3
-       2. └─manynet:::plot.node_measure(node_degree(ison_adolescents))
-       3.   └─manynet:::`+.ggplot`(...)
-       4.     └─patchwork::wrap_plots(e1, e2, ...)
-       5.       └─cli::cli_abort("Only know how to add {.cls ggplot} and/or {.cls grob} objects")
-       6.         └─rlang::abort(...)
+       3.   └─manynet:::.graph_layout(...)
+       4.     └─ggraph::ggraph(lo)
+       5.       └─manynet:::`+.ggplot`(...)
+       6.         └─patchwork::wrap_plots(e1, e2, ...)
+       7.           └─cli::cli_abort("Only know how to add {.cls ggplot} and/or {.cls grob} objects")
+       8.             └─rlang::abort(...)
       
-      [ FAIL 3 | WARN 0 | SKIP 21 | PASS 548 ]
+      [ FAIL 2 | WARN 0 | SKIP 20 | PASS 562 ]
       Error: Test failures
       Execution halted
     ```
@@ -9309,15 +7844,33 @@ Run `revdepcheck::cloud_details(, "manynet")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.4Mb
+      installed size is  5.1Mb
       sub-directories of 1Mb or more:
         R           1.5Mb
-        tutorials   1.9Mb
+        tutorials   1.6Mb
     ```
 
-*   checking data for non-ASCII characters ... NOTE
+# MAPCtools
+
+<details>
+
+* Version: 0.1.0
+* GitHub: https://github.com/LarsVatten/MAPCtools
+* Source code: https://github.com/cran/MAPCtools
+* Date/Publication: 2025-06-25 15:40:02 UTC
+* Number of recursive dependencies: 110
+
+Run `revdepcheck::cloud_details(, "MAPCtools")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking installed package size ... NOTE
     ```
-      Note: found 7 marked UTF-8 strings
+      installed size is  5.0Mb
+      sub-directories of 1Mb or more:
+        extdata   4.2Mb
     ```
 
 # marquee
@@ -9369,47 +7922,6 @@ Run `revdepcheck::cloud_details(, "marquee")` for more info
       sub-directories of 1Mb or more:
         doc    2.4Mb
         libs   2.6Mb
-    ```
-
-# MaxWiK
-
-<details>
-
-* Version: 1.0.5
-* GitHub: NA
-* Source code: https://github.com/cran/MaxWiK
-* Date/Publication: 2024-11-25 11:40:13 UTC
-* Number of recursive dependencies: 54
-
-Run `revdepcheck::cloud_details(, "MaxWiK")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘User-Guide.Rmd’ using rmarkdown
-    # Input data
-    
-    ## Data format
-    
-    The data format of input should be numerical only in the form of data frame, for example:
-    
-    
-    ``` r
-    ...
-    
-    Error: processing vignette 'User-Guide.Rmd' failed with diagnostics:
-    Can't find method for `draw_element(S3<element_text/element>)`.
-    --- failed re-building ‘User-Guide.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘User-Guide.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # mcStats
@@ -9468,7 +7980,7 @@ Run `revdepcheck::cloud_details(, "mcStats")` for more info
 * GitHub: https://github.com/GuangchuangYu/meme
 * Source code: https://github.com/cran/meme
 * Date/Publication: 2021-04-23 10:00:02 UTC
-* Number of recursive dependencies: 63
+* Number of recursive dependencies: 64
 
 Run `revdepcheck::cloud_details(, "meme")` for more info
 
@@ -9480,69 +7992,6 @@ Run `revdepcheck::cloud_details(, "meme")` for more info
     ```
     Error(s) in re-building vignettes:
     --- re-building ‘meme.Rmd’ using rmarkdown
-    ```
-
-# metagam
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/Lifebrain/metagam
-* Source code: https://github.com/cran/metagam
-* Date/Publication: 2023-05-05 18:20:06 UTC
-* Number of recursive dependencies: 116
-
-Run `revdepcheck::cloud_details(, "metagam")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘dominance.Rmd’ using rmarkdown
-    ```
-
-# MetaNet
-
-<details>
-
-* Version: 0.2.5
-* GitHub: https://github.com/Asa12138/MetaNet
-* Source code: https://github.com/cran/MetaNet
-* Date/Publication: 2025-04-10 06:30:02 UTC
-* Number of recursive dependencies: 173
-
-Run `revdepcheck::cloud_details(, "MetaNet")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘MetaNet-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: as.ggig
-    > ### Title: Transfer an igraph object to a ggig
-    > ### Aliases: as.ggig
-    > 
-    > ### ** Examples
-    > 
-    > as.ggig(co_net, coors = c_net_layout(co_net)) -> ggig
-    ...
-      5.     └─ggplot2::build_ggplot(plot)
-      6.       ├─S7::S7_dispatch()
-      7.       └─ggplot2 (local) `method(build_ggplot, ggplot2::ggplot)`(...)
-      8.         └─npscales$set_palettes(plot@theme)
-      9.           └─ggplot2 (local) set_palettes(..., self = self)
-     10.             ├─scales::as_continuous_pal(elem)
-     11.             └─scales:::as_continuous_pal.default(elem)
-     12.               └─cli::cli_abort("Cannot convert {.arg x} to a continuous palette.")
-     13.                 └─rlang::abort(...)
-    Execution halted
     ```
 
 # metR
@@ -9599,12 +8048,12 @@ Run `revdepcheck::cloud_details(, "metR")` for more info
       > if (on_cran) data.table::setDTthreads(2)
       > 
     ...
-       18.                           ├─ggplot2::guide_gengrob(params, theme)
-       19.                           └─metR:::guide_gengrob.colorstrip(params, theme)
-       20.                             └─grid::convertWidth(...)
-       21.                               └─grid::convertUnit(...)
-       22.                                 ├─grid:::upgradeUnit(x)
-       23.                                 └─grid:::upgradeUnit.default(x)
+       15.                       ├─ggplot2::guide_gengrob(params, theme)
+       16.                       └─metR:::guide_gengrob.colorstrip(params, theme)
+       17.                         └─grid::convertWidth(...)
+       18.                           └─grid::convertUnit(...)
+       19.                             ├─grid:::upgradeUnit(x)
+       20.                             └─grid:::upgradeUnit.default(x)
       
       [ FAIL 1 | WARN 2 | SKIP 19 | PASS 184 ]
       Error: Test failures
@@ -9647,28 +8096,6 @@ Run `revdepcheck::cloud_details(, "metR")` for more info
         doc    1.8Mb
     ```
 
-# mgcViz
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/mfasiolo/mgcViz
-* Source code: https://github.com/cran/mgcViz
-* Date/Publication: 2025-04-11 11:30:07 UTC
-* Number of recursive dependencies: 110
-
-Run `revdepcheck::cloud_details(, "mgcViz")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘mgcviz.rmd’ using rmarkdown
-    ```
-
 # MIC
 
 <details>
@@ -9698,15 +8125,15 @@ Run `revdepcheck::cloud_details(, "MIC")` for more info
     > 
     > gold_standard <- c("<0.25", "8", "64", ">64")
     ...
-      6.       ├─S7::S7_dispatch()
-      7.       └─ggplot2 (local) `method(gtable_ggplot, ggplot2::ggplot_built)`(data = `<ggpl2::_>`)
-      8.         └─layout$render(geom_grobs, data, theme, plot@labels)
-      9.           └─ggplot2 (local) render(..., self = self)
-     10.             └─self$facet$draw_panels(...)
-     11.               └─lemon (local) draw_panels(...)
-     12.                 └─gtable::gtable_add_col_space(panel_table, theme$panel.spacing.x %||% theme$panel.spacing)
-     13.                   └─cli::cli_abort("{.arg width} must be of length 1 or ncol - 1")
-     14.                     └─rlang::abort(...)
+      3.   ├─ggplot2::ggplot_gtable(data)
+      4.   └─ggplot2 (local) `ggplot_gtable.ggplot2::ggplot_built`(data)
+      5.     └─layout$render(geom_grobs, data, theme, plot@labels)
+      6.       └─ggplot2 (local) render(..., self = self)
+      7.         └─self$facet$draw_panels(...)
+      8.           └─lemon (local) draw_panels(...)
+      9.             └─gtable::gtable_add_col_space(panel_table, theme$panel.spacing.x %||% theme$panel.spacing)
+     10.               └─cli::cli_abort("{.arg width} must be of length 1 or ncol - 1")
+     11.                 └─rlang::abort(...)
     Execution halted
     ```
 
@@ -9940,10 +8367,10 @@ Run `revdepcheck::cloud_details(, "MiscMetabar")` for more info
 
 <details>
 
-* Version: 2.2.2
+* Version: 2.2.3
 * GitHub: NA
 * Source code: https://github.com/cran/mistral
-* Date/Publication: 2024-01-17 13:40:02 UTC
+* Date/Publication: 2025-07-16 05:00:02 UTC
 * Number of recursive dependencies: 71
 
 Run `revdepcheck::cloud_details(, "mistral")` for more info
@@ -9957,57 +8384,6 @@ Run `revdepcheck::cloud_details(, "mistral")` for more info
     Found the following significant warnings:
       Warning: replacing previous import ‘e1071::element’ by ‘ggplot2::element’ when loading ‘mistral’
     See ‘/tmp/workdir/mistral/new/mistral.Rcheck/00install.out’ for details.
-    ```
-
-# misty
-
-<details>
-
-* Version: 0.7.2
-* GitHub: NA
-* Source code: https://github.com/cran/misty
-* Date/Publication: 2025-05-20 16:20:02 UTC
-* Number of recursive dependencies: 85
-
-Run `revdepcheck::cloud_details(, "misty")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘misty-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: na.pattern
-    > ### Title: Missing Data Pattern
-    > ### Aliases: na.pattern
-    > 
-    > ### ** Examples
-    > 
-    > # Example 1: Compute a summary of missing data patterns
-    ...
-     26.                                   └─ggplot2 (local) extract_key(...)
-     27.                                     └─Guide$extract_key(scale, aesthetic, ...)
-     28.                                       └─ggplot2 (local) extract_key(...)
-     29.                                         └─scale$get_labels(breaks)
-     30.                                           └─ggplot2 (local) get_labels(..., self = self)
-     31.                                             └─self$scale$get_labels(breaks)
-     32.                                               └─ggplot2 (local) get_labels(..., self = self)
-     33.                                                 └─cli::cli_abort(...)
-     34.                                                   └─rlang::abort(...)
-    Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.6Mb
-      sub-directories of 1Mb or more:
-        R      4.0Mb
-        help   1.5Mb
     ```
 
 # MKpower
@@ -10039,16 +8415,66 @@ Run `revdepcheck::cloud_details(, "MKpower")` for more info
     > 
     > ### ** Examples
     ...
-     26. │                             └─ggplot2 (local) FUN(X[[i]], ...)
-     27. │                               └─self$draw_group(group, panel_params, coord, ...)
-     28. │                                 └─ggplot2 (local) draw_group(...)
-     29. │                                   └─ggplot2 (local) draw_group(..., self = self)
-     30. └─base::.handleSimpleError(...)
-     31.   └─rlang (local) h(simpleError(msg, call))
-     32.     └─handlers[[1L]](cnd)
-     33.       └─cli::cli_abort(...)
-     34.         └─rlang::abort(...)
+     23. │                         └─ggplot2 (local) FUN(X[[i]], ...)
+     24. │                           └─self$draw_group(group, panel_params, coord, ...)
+     25. │                             └─ggplot2 (local) draw_group(...)
+     26. │                               └─ggplot2 (local) draw_group(..., self = self)
+     27. └─base::.handleSimpleError(...)
+     28.   └─rlang (local) h(simpleError(msg, call))
+     29.     └─handlers[[1L]](cnd)
+     30.       └─cli::cli_abort(...)
+     31.         └─rlang::abort(...)
     Execution halted
+    ```
+
+# mlr3spatiotempcv
+
+<details>
+
+* Version: 2.3.3
+* GitHub: https://github.com/mlr-org/mlr3spatiotempcv
+* Source code: https://github.com/cran/mlr3spatiotempcv
+* Date/Publication: 2025-07-10 15:20:10 UTC
+* Number of recursive dependencies: 165
+
+Run `revdepcheck::cloud_details(, "mlr3spatiotempcv")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > if (requireNamespace("testthat", quietly = TRUE)) {
+      +   library("checkmate")
+      +   library("testthat")
+      +   library("mlr3spatiotempcv")
+      +   test_check("mlr3spatiotempcv")
+      + }
+      Loading required package: mlr3
+    ...
+      • 2-autoplot/sptcvcstf-2d-time-var-fold-1-rep-2.svg
+      • 2-autoplot/sptcvcstf-2d-time-var-fold-1-sample-fold-n.svg
+      • 2-autoplot/sptcvcstf-2d-time-var-fold-1.svg
+      • 2-autoplot/sptcvcstf-2d-time-var-sample-fold-n.svg
+      • 2-autoplot/sptcvcstf-3d-time-var-fold-1-2-sample-fold-n.svg
+      • 2-autoplot/sptcvcstf-3d-time-var-fold-1-2.svg
+      • 2-autoplot/sptcvcstf-3d-time-var-fold-1-sample-fold-n.svg
+      • autoplot_buffer/spcvbuffer-fold-1-2.svg
+      Error: Test failures
+      Execution halted
+    ```
+
+## In both
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.7Mb
+      sub-directories of 1Mb or more:
+        data   3.5Mb
     ```
 
 # modeldb
@@ -10259,9 +8685,9 @@ Run `revdepcheck::cloud_details(, "mtdesign")` for more info
       > library(mtdesign)
       > 
       > test_check("mtdesign")
-      testthat 2025-06-23 07:35:52 DEBUG test_check: Entry
-      testthat 2025-06-23 07:35:52 DEBUG test_check: Entry
-      testthat 2025-06-23 07:35:52 DEBUG test_check: Exit
+      testthat 2025-07-18 12:24:01 DEBUG test_check: Entry
+      testthat 2025-07-18 12:24:01 DEBUG test_check: Entry
+      testthat 2025-07-18 12:24:01 DEBUG test_check: Exit
     ...
       `expected[2:2]`:                                                      "ggplot"
       ── Failure ('test-powerPlot.R:6:3'): multiplication works ──────────────────────
@@ -10399,9 +8825,9 @@ Run `revdepcheck::cloud_details(, "mxnorm")` for more info
       > library(mxnorm)
       > 
       > test_check("mxnorm")
-      boundary (singular) fit: see help('isSingular')
-      boundary (singular) fit: see help('isSingular')
-      boundary (singular) fit: see help('isSingular')
+      Error in python_config_impl(python) : 
+        Error running '/root/.cache/R/reticulate/uv/cache/builds-v0/.tmpRFGVnf/bin/python': No such file.
+      Error in python_config_impl(python) : 
     ...
       `expected[2:2]`:                                                      "ggplot"
       ── Failure ('test-plot_mx_umap.R:16:5'): plotting works ────────────────────────
@@ -10410,7 +8836,7 @@ Run `revdepcheck::cloud_details(, "mxnorm")` for more info
       `actual`:        "ggplot2::ggplot" "ggplot" "ggplot2::gg" "S7_object" "gg"    
       `expected[2:2]`:                                                      "ggplot"
       
-      [ FAIL 2 | WARN 2 | SKIP 6 | PASS 85 ]
+      [ FAIL 2 | WARN 8 | SKIP 6 | PASS 85 ]
       Error: Test failures
       Execution halted
     ```
@@ -10422,6 +8848,28 @@ Run `revdepcheck::cloud_details(, "mxnorm")` for more info
     Namespaces in Imports field not imported from:
       ‘e1071’ ‘glue’
       All declared Imports should be used.
+    ```
+
+# mycolorsTB
+
+<details>
+
+* Version: 0.1.1
+* GitHub: NA
+* Source code: https://github.com/cran/mycolorsTB
+* Date/Publication: 2025-07-16 17:10:02 UTC
+* Number of recursive dependencies: 66
+
+Run `revdepcheck::cloud_details(, "mycolorsTB")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking re-building of vignette outputs ... ERROR
+    ```
+    Error(s) in re-building vignettes:
+    --- re-building ‘use-mycolors.Rmd’ using rmarkdown
     ```
 
 # NHSRplotthedots
@@ -10478,10 +8926,10 @@ Run `revdepcheck::cloud_details(, "NHSRplotthedots")` for more info
 
 <details>
 
-* Version: 3.0.1
+* Version: 3.0.2
 * GitHub: https://github.com/nlmixr2/nlmixr2plot
 * Source code: https://github.com/cran/nlmixr2plot
-* Date/Publication: 2025-02-14 15:10:02 UTC
+* Date/Publication: 2025-06-25 05:30:02 UTC
 * Number of recursive dependencies: 159
 
 Run `revdepcheck::cloud_details(, "nlmixr2plot")` for more info
@@ -10505,7 +8953,7 @@ Run `revdepcheck::cloud_details(, "nlmixr2plot")` for more info
     ...
       `expected`: TRUE 
       ── Failure ('test-add.R:45:3'): test addition operator ─────────────────────────
-      inherits(p2[[1]], "gg") is not TRUE
+      ggplot2::is_ggplot(p2[[1]]) is not TRUE
       
       `actual`:   FALSE
       `expected`: TRUE 
@@ -10564,7 +9012,7 @@ Run `revdepcheck::cloud_details(, "normfluodbf")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/nzelect
 * Date/Publication: 2017-10-02 20:35:23 UTC
-* Number of recursive dependencies: 79
+* Number of recursive dependencies: 78
 
 Run `revdepcheck::cloud_details(, "nzelect")` for more info
 
@@ -10600,7 +9048,7 @@ Run `revdepcheck::cloud_details(, "nzelect")` for more info
 * GitHub: https://github.com/DIFM-Brain/ofpetrial
 * Source code: https://github.com/cran/ofpetrial
 * Date/Publication: 2024-12-11 23:00:02 UTC
-* Number of recursive dependencies: 147
+* Number of recursive dependencies: 146
 
 Run `revdepcheck::cloud_details(, "ofpetrial")` for more info
 
@@ -10630,70 +9078,6 @@ Run `revdepcheck::cloud_details(, "ofpetrial")` for more info
      36.               └─ggplot2:::check_object(x, is.numeric, what, ..., arg = arg, call = call)
      37.                 └─ggplot2:::stop_input_type(...)
      38.                   └─rlang::abort(message, ..., call = call, arg = arg)
-    Execution halted
-    ```
-
-# ogrdbstats
-
-<details>
-
-* Version: 0.5.2
-* GitHub: https://github.com/airr-community/ogrdbstats
-* Source code: https://github.com/cran/ogrdbstats
-* Date/Publication: 2024-11-03 06:10:02 UTC
-* Number of recursive dependencies: 130
-
-Run `revdepcheck::cloud_details(, "ogrdbstats")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ogrdbstats-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: make_novel_base_grobs
-    > ### Title: Create plots showing base usage at selected locations in
-    > ###   sequences based on novel alleles
-    > ### Aliases: make_novel_base_grobs
-    > 
-    > ### ** Examples
-    > 
-    > base_grobs = make_novel_base_grobs(
-    +                  example_rep$inferred_seqs,
-    +                  example_rep$input_sequences,
-    +                  'V',
-    +                  FALSE
-    +              )
-    Error: <ggplot2::labels> object is invalid:
-    - every label must be named.
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Using_ogrdbstats.Rmd’ using rmarkdown
-    
-    Quitting from Using_ogrdbstats.Rmd:277-296 [unnamed-chunk-1]
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    <error/rlang_error>
-    Error:
-    ! <ggplot2::labels> object is invalid:
-    - every label must be named.
-    ---
-    ...
-    Error: processing vignette 'Using_ogrdbstats.Rmd' failed with diagnostics:
-    <ggplot2::labels> object is invalid:
-    - every label must be named.
-    --- failed re-building ‘Using_ogrdbstats.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘Using_ogrdbstats.Rmd’
-    
-    Error: Vignette re-building failed.
     Execution halted
     ```
 
@@ -10746,11 +9130,11 @@ Run `revdepcheck::cloud_details(, "OmicNavigator")` for more info
     --- re-building ‘OmicNavigatorAPI.Rnw’ using Sweave
     OmicNavigator R package version: 1.15.0
     The app is not installed. Install it with installApp()
-    Installing study "ABC" in /tmp/Rtmp2uYYGs/file1c972c78c294
+    Installing study "ABC" in /tmp/Rtmpj47Bsp/file1e09511743e0
     Exporting study "ABC" as an R package
     Note: No maintainer email was specified. Using the placeholder: Unknown <unknown@unknown>
     Calculating pairwise overlaps. This may take a while...
-    Exported study to /tmp/Rtmp2uYYGs/ONstudyABC
+    Exported study to /tmp/Rtmpj47Bsp/ONstudyABC
     Success!
     ...
     l.14 ^^M
@@ -10763,240 +9147,6 @@ Run `revdepcheck::cloud_details(, "OmicNavigator")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
-    ```
-
-# ordinalsimr
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/NeuroShepherd/ordinalsimr
-* Source code: https://github.com/cran/ordinalsimr
-* Date/Publication: 2025-06-04 07:10:02 UTC
-* Number of recursive dependencies: 118
-
-Run `revdepcheck::cloud_details(, "ordinalsimr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-    ...
-      ── Error ('test-utils.R:70:3'): test the plot_power() function ─────────────────
-      Error in `expect_match(plot_obj$labels$ymin, "lower_power_bound")`: is.character(act$val) is not TRUE
-      Backtrace:
-          ▆
-       1. └─testthat::expect_match(plot_obj$labels$ymin, "lower_power_bound") at test-utils.R:70:3
-       2.   └─base::stopifnot(is.character(act$val))
-      
-      [ FAIL 1 | WARN 0 | SKIP 1 | PASS 69 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-# ordr
-
-<details>
-
-* Version: 0.1.1
-* GitHub: https://github.com/corybrunson/ordr
-* Source code: https://github.com/cran/ordr
-* Date/Publication: 2022-10-20 20:52:35 UTC
-* Number of recursive dependencies: 106
-
-Run `revdepcheck::cloud_details(, "ordr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ordr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: biplot-stats
-    > ### Title: Convenience stats for row and column matrix factors
-    > ### Aliases: biplot-stats stat_rows_ellipse stat_cols_ellipse
-    > ###   stat_rows_center stat_cols_center stat_rows_star stat_cols_star
-    > ###   stat_rows_chull stat_cols_chull stat_rows_cone stat_cols_cone
-    > ###   stat_rows_scale stat_cols_scale stat_rows_spantree stat_cols_spantree
-    > 
-    ...
-    +     type = "qual", palette = 2,
-    +     aesthetics = c("color", "fill")
-    +   ) +
-    +   ggtitle(
-    +     "Row-principal PCA biplot of Anderson iris measurements",
-    +     "Overlaid with 95% confidence disks"
-    +   )
-    Error: <ggplot2::ggplot> object properties are invalid:
-    - @mapping must be <ggplot2::mapping>, not <list>
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ordr)
-      Loading required package: ggplot2
-      > 
-      > test_check("ordr")
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 181 ]
-      
-    ...
-          ▆
-       1. └─ordr::ggbiplot(m) at test-stat-spantree.r:10:5
-       2.   ├─base::`$<-`(`*tmp*`, "mapping", value = `<named list>`)
-       3.   └─ggplot2:::`$<-.ggplot2::gg`(`*tmp*`, "mapping", value = `<named list>`)
-       4.     └─S7::`props<-`(`*tmp*`, value = `[[<-`(S7::props(x), i, value))
-       5.       └─S7::validate(object)
-      
-      [ FAIL 2 | WARN 0 | SKIP 0 | PASS 181 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘cmds-variables.rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking Rd files ... NOTE
-    ```
-    checkRd: (-1) lra-ord.Rd:54: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) lra-ord.Rd:55-56: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) lra-ord.Rd:57-58: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) lra-ord.Rd:59: Lost braces in \itemize; \value handles \item{}{} directly
-    checkRd: (-1) lra-ord.Rd:60: Lost braces in \itemize; \value handles \item{}{} directly
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 4 marked UTF-8 strings
-    ```
-
-# pafr
-
-<details>
-
-* Version: 0.0.2
-* GitHub: https://github.com/dwinter/pafr
-* Source code: https://github.com/cran/pafr
-* Date/Publication: 2020-12-08 10:20:12 UTC
-* Number of recursive dependencies: 110
-
-Run `revdepcheck::cloud_details(, "pafr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(pafr)
-      Loading required package: ggplot2
-      > 
-      > test_check("pafr")
-      [ FAIL 6 | WARN 2 | SKIP 0 | PASS 70 ]
-      
-    ...
-      ── Failure ('test_plot.r:11:5'): dotplot works produces a plot ─────────────────
-      unname(labs["xintercept"]) not equal to "xintercept".
-      target is NULL, current is character
-      ── Failure ('test_plot.r:12:5'): dotplot works produces a plot ─────────────────
-      unname(labs["yintercept"]) not equal to "yintercept".
-      target is NULL, current is character
-      
-      [ FAIL 6 | WARN 2 | SKIP 0 | PASS 70 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    ggplot_add:
-      function(object, plot, ...)
-    ggplot_add.dotplot_hl:
-      function(object, plot, object_name)
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
-## In both
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
-    ```
-
-# palettes
-
-<details>
-
-* Version: 0.2.1
-* GitHub: https://github.com/mccarthy-m-g/palettes
-* Source code: https://github.com/cran/palettes
-* Date/Publication: 2024-07-13 23:10:01 UTC
-* Number of recursive dependencies: 111
-
-Run `revdepcheck::cloud_details(, "palettes")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘palettes-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: scale_colour_palette_d
-    > ### Title: Colour scales from colour vectors and colour palettes
-    > ### Aliases: scale_colour_palette_d scale_fill_palette_d
-    > ###   scale_colour_palette_c scale_fill_palette_c scale_colour_palette_b
-    > ###   scale_fill_palette_b scale_color_palette_d scale_color_palette_c
-    > ###   scale_color_palette_b
-    > 
-    ...
-     26.   └─vctrs::vec_default_cast(...)
-     27.     ├─base::withRestarts(...)
-     28.     │ └─base (local) withOneRestart(expr, restarts[[1L]])
-     29.     │   └─base (local) doWithOneRestart(return(expr), restart)
-     30.     └─vctrs::stop_incompatible_cast(...)
-     31.       └─vctrs::stop_incompatible_type(...)
-     32.         └─vctrs:::stop_incompatible(...)
-     33.           └─vctrs:::stop_vctrs(...)
-     34.             └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘biscale.Rmd’ using rmarkdown
     ```
 
 # patchwork
@@ -11096,12 +9246,12 @@ Run `revdepcheck::cloud_details(, "patientProfilesVis")` for more info
       
       == Skipped tests (20) ==================================================================================================================================================================================
     ...
-       24.                           \-ggplot2:::plot_theme(plot)
-       25.                             \-ggplot2:::check_theme(theme)
-       26.                               \-base::mapply(...)
-       27.                                 \-ggplot2 (local) `<fn>`(...)
-       28.                                   \-cli::cli_abort(...)
-       29.                                     \-rlang::abort(...)
+       21.                       \-ggplot2:::plot_theme(plot)
+       22.                         \-ggplot2:::check_theme(theme)
+       23.                           \-base::mapply(...)
+       24.                             \-ggplot2 (local) `<fn>`(...)
+       25.                               \-cli::cli_abort(...)
+       26.                                 \-rlang::abort(...)
       
       [ FAIL 21 | WARN 23 | SKIP 20 | PASS 330 ]
       Error: Test failures
@@ -11279,72 +9429,6 @@ Run `revdepcheck::cloud_details(, "plantTracker")` for more info
       number of items to replace is not a multiple of replacement length
     ```
 
-# plotdap
-
-<details>
-
-* Version: 1.0.3
-* GitHub: https://github.com/rmendels/plotdap
-* Source code: https://github.com/cran/plotdap
-* Date/Publication: 2023-10-17 22:00:15 UTC
-* Number of recursive dependencies: 109
-
-Run `revdepcheck::cloud_details(, "plotdap")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘plotdap-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: add_ggplot
-    > ### Title: Add ggplot2 elements to a plotdap object
-    > ### Aliases: add_ggplot
-    > 
-    > ### ** Examples
-    > 
-    > 
-    ...
-    +   crs = "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs")
-    Loading required package: maps
-    > p <- add_ggplot(
-    +  p,
-    +  ggplot2::theme_bw()
-    + )
-    Error in .Primitive("@")(NULL, properties) : 
-      no applicable method for `@` applied to an object of class "NULL"
-    Calls: add_ggplot ... <Anonymous> -> validate -> validate_properties -> @ -> do.call
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘using_plotdap.Rmd’ using rmarkdown
-    
-    Quitting from using_plotdap.Rmd:57-61 [world]
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    <error/rlang_error>
-    Error:
-    ! no applicable method for `@` applied to an object of class "NULL"
-    ---
-    Backtrace:
-    ...
-    
-    Error: processing vignette 'using_plotdap.Rmd' failed with diagnostics:
-    no applicable method for `@` applied to an object of class "NULL"
-    --- failed re-building ‘using_plotdap.Rmd’
-    
-    SUMMARY: processing the following file failed:
-      ‘using_plotdap.Rmd’
-    
-    Error: Vignette re-building failed.
-    Execution halted
-    ```
-
 # plotDK
 
 <details>
@@ -11440,78 +9524,6 @@ Run `revdepcheck::cloud_details(, "PlotFTIR")` for more info
       Execution halted
     ```
 
-# plotor
-
-<details>
-
-* Version: 0.6.0
-* GitHub: https://github.com/craig-parylo/plotor
-* Source code: https://github.com/cran/plotor
-* Date/Publication: 2025-05-28 11:50:02 UTC
-* Number of recursive dependencies: 139
-
-Run `revdepcheck::cloud_details(, "plotor")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘plotor-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: table_or
-    > ### Title: Table OR
-    > ### Aliases: table_or
-    > 
-    > ### ** Examples
-    > 
-    > # get some data
-    ...
-     40. │                                               └─self$draw_panel(...)
-     41. │                                                 └─ggplot2 (local) draw_panel(..., self = self)
-     42. │                                                   └─grid:::Ops.unit(data$linewidth, 0)
-     43. │                                                     └─base::stop(...)
-     44. └─base::.handleSimpleError(...)
-     45.   └─rlang (local) h(simpleError(msg, call))
-     46.     └─handlers[[1L]](cnd)
-     47.       └─cli::cli_abort(...)
-     48.         └─rlang::abort(...)
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > # This file is part of the standard setup for testthat.
-      > # It is recommended that you do not modify it.
-      > #
-      > # Where should you do additional test configuration?
-      > # Learn more about the roles of various files in:
-      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-      > # * https://testthat.r-lib.org/articles/special-files.html
-    ...
-      ── Failure ('test-plot_or.R:7:3'): `plot_or()` does not produce messages or warnings ──
-      `{ ... }` produced warnings.
-      ── Failure ('test-plot_or.R:13:3'): `plot_or()` does not produce messages or warnings ──
-      `{ ... }` produced warnings.
-      
-      [ FAIL 2 | WARN 24 | SKIP 1 | PASS 26 ]
-      Deleting unused snapshots:
-      • plot_or/plot-diabetes.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘using_plotor.Rmd’ using rmarkdown
-    ```
-
 # plotROC
 
 <details>
@@ -11588,11 +9600,11 @@ Run `revdepcheck::cloud_details(, "plotROC")` for more info
 
 <details>
 
-* Version: 0.7.1
+* Version: 0.7.2
 * GitHub: https://github.com/pwwang/plotthis
 * Source code: https://github.com/cran/plotthis
-* Date/Publication: 2025-06-20 18:40:02 UTC
-* Number of recursive dependencies: 212
+* Date/Publication: 2025-07-13 02:30:12 UTC
+* Number of recursive dependencies: 219
 
 Run `revdepcheck::cloud_details(, "plotthis")` for more info
 
@@ -11613,15 +9625,15 @@ Run `revdepcheck::cloud_details(, "plotthis")` for more info
     > 
     > set.seed(8525)
     ...
-     26. │                             └─ggplot2 (local) FUN(X[[i]], ...)
-     27. │                               └─self$draw_group(group, panel_params, coord, ...)
-     28. │                                 └─ggplot2 (local) draw_group(...)
-     29. │                                   └─ggplot2 (local) draw_group(..., self = self)
-     30. └─base::.handleSimpleError(...)
-     31.   └─rlang (local) h(simpleError(msg, call))
-     32.     └─handlers[[1L]](cnd)
-     33.       └─cli::cli_abort(...)
-     34.         └─rlang::abort(...)
+     23. │                         └─ggplot2 (local) FUN(X[[i]], ...)
+     24. │                           └─self$draw_group(group, panel_params, coord, ...)
+     25. │                             └─ggplot2 (local) draw_group(...)
+     26. │                               └─ggplot2 (local) draw_group(..., self = self)
+     27. └─base::.handleSimpleError(...)
+     28.   └─rlang (local) h(simpleError(msg, call))
+     29.     └─handlers[[1L]](cnd)
+     30.       └─cli::cli_abort(...)
+     31.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -11629,7 +9641,7 @@ Run `revdepcheck::cloud_details(, "plotthis")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.0Mb
+      installed size is  5.1Mb
       sub-directories of 1Mb or more:
         R      1.5Mb
         help   3.3Mb
@@ -11664,9 +9676,9 @@ Run `revdepcheck::cloud_details(, "pmxTools")` for more info
       [ FAIL 1 | WARN 1 | SKIP 12 | PASS 110 ]
       
     ...
-       44.     └─handlers[[1L]](cnd)
-       45.       └─cli::cli_abort(...)
-       46.         └─rlang::abort(...)
+       41.     └─handlers[[1L]](cnd)
+       42.       └─cli::cli_abort(...)
+       43.         └─rlang::abort(...)
       
       [ FAIL 1 | WARN 1 | SKIP 12 | PASS 110 ]
       Deleting unused snapshots:
@@ -11893,47 +9905,6 @@ Run `revdepcheck::cloud_details(, "PredPsych")` for more info
     See ‘/tmp/workdir/PredPsych/new/PredPsych.Rcheck/00install.out’ for details.
     ```
 
-# predRupdate
-
-<details>
-
-* Version: 0.2.0
-* GitHub: https://github.com/GlenMartin31/predRupdate
-* Source code: https://github.com/cran/predRupdate
-* Date/Publication: 2024-08-23 14:20:02 UTC
-* Number of recursive dependencies: 112
-
-Run `revdepcheck::cloud_details(, "predRupdate")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(predRupdate)
-      > 
-      > test_check("predRupdate")
-      $OE_ratio
-      [1] 1.900612
-      
-    ...
-      `expected[2:2]`:                                                      "ggplot"
-      ── Failure ('test-flex_calplot.R:28:3'): flex_calplot works ────────────────────
-      class(...) (`actual`) not equal to c("gg", "ggplot") (`expected`).
-      
-      `actual`:        "ggplot2::ggplot" "ggplot" "ggplot2::gg" "S7_object" "gg"    
-      `expected[2:2]`:                                                      "ggplot"
-      
-      [ FAIL 2 | WARN 0 | SKIP 4 | PASS 229 ]
-      Error: Test failures
-      Execution halted
-    ```
-
 # priorsense
 
 <details>
@@ -12018,10 +9989,10 @@ Run `revdepcheck::cloud_details(, "probably")` for more info
 
 <details>
 
-* Version: 0.2.2
+* Version: 0.2.3
 * GitHub: NA
 * Source code: https://github.com/cran/psborrow
-* Date/Publication: 2025-02-19 13:40:02 UTC
+* Date/Publication: 2025-06-23 14:30:02 UTC
 * Number of recursive dependencies: 103
 
 Run `revdepcheck::cloud_details(, "psborrow")` for more info
@@ -12029,31 +10000,6 @@ Run `revdepcheck::cloud_details(, "psborrow")` for more info
 </details>
 
 ## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(psborrow)
-      > 
-      > test_check("psborrow")
-      Input all is found in pred. Any other input is disregarded.
-      [ FAIL 20 | WARN 0 | SKIP 1 | PASS 134 ]
-      
-    ...
-      `expected`: "gg"             
-      ── Failure ('test-plots.R:126:5'): Ensure output is producing a ggplot2 object with appropriate parameters ──
-      p1$labels$yintercept (`actual`) not equal to "ref" (`expected`).
-      
-      `actual` is NULL
-      `expected` is a character vector ('ref')
-      
-      [ FAIL 20 | WARN 0 | SKIP 1 | PASS 134 ]
-      Error: Test failures
-      Execution halted
-    ```
 
 *   checking whether package ‘psborrow’ can be installed ... WARNING
     ```
@@ -12092,8 +10038,8 @@ Run `revdepcheck::cloud_details(, "psc")` for more info
     Error: processing vignette 'psc-vignette.Rmd' failed with diagnostics:
     ...
     ℹ In index: 1.
-    Caused by error:
-    ! Can't find method for `build_ggplot(S3<gg/ggplot>)`.
+    Caused by error in `UseMethod()`:
+    ! no applicable method for 'ggplot_build' applied to an object of class "c('gg', 'ggplot')"
     --- failed re-building ‘psc-vignette.Rmd’
     
     SUMMARY: processing the following file failed:
@@ -12101,29 +10047,6 @@ Run `revdepcheck::cloud_details(, "psc")` for more info
     
     Error: Vignette re-building failed.
     Execution halted
-    ```
-
-# pscore
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/JWiley/score-project
-* Source code: https://github.com/cran/pscore
-* Date/Publication: 2022-05-13 22:30:02 UTC
-* Number of recursive dependencies: 156
-
-Run `revdepcheck::cloud_details(, "pscore")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘pscore’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-    See ‘/tmp/workdir/pscore/new/pscore.Rcheck/00install.out’ for details.
     ```
 
 # pubh
@@ -12171,10 +10094,10 @@ Run `revdepcheck::cloud_details(, "pubh")` for more info
 
 <details>
 
-* Version: 1.0.4
+* Version: 1.0.5
 * GitHub: https://github.com/griefl/qad
 * Source code: https://github.com/cran/qad
-* Date/Publication: 2022-12-14 16:50:02 UTC
+* Date/Publication: 2025-07-02 08:40:02 UTC
 * Number of recursive dependencies: 92
 
 Run `revdepcheck::cloud_details(, "qad")` for more info
@@ -12206,33 +10129,6 @@ Run `revdepcheck::cloud_details(, "qad")` for more info
       [ FAIL 10 | WARN 26 | SKIP 0 | PASS 71 ]
       Error: Test failures
       Execution halted
-    ```
-
-## In both
-
-*   checking Rd files ... NOTE
-    ```
-    checkRd: (-1) ECBC.Rd:39: Lost braces; missing escapes or markup?
-        39 | Let (u_i,v_i) := (F_n(x_i),G_n(y_i)) be the pseudo-observations for i in \{1,\ldots,n\} and (u_1',v_1'),\ldots, (u_m',v_m') the distinct pairs of pseudo-observations with m leq n. Moreover set S_1:=\{0, u_1, \ldots, u_{m_1}\} and S_2:=\{0, v_1,\ldots, v_{m_2}\} and define the quantities t_i,r_i and s_i for i=1,\ldots, m by
-           |                                                                                                                                                                                                                           ^
-    checkRd: (-1) ECBC.Rd:39: Lost braces; missing escapes or markup?
-        39 | Let (u_i,v_i) := (F_n(x_i),G_n(y_i)) be the pseudo-observations for i in \{1,\ldots,n\} and (u_1',v_1'),\ldots, (u_m',v_m') the distinct pairs of pseudo-observations with m leq n. Moreover set S_1:=\{0, u_1, \ldots, u_{m_1}\} and S_2:=\{0, v_1,\ldots, v_{m_2}\} and define the quantities t_i,r_i and s_i for i=1,\ldots, m by
-           |                                                                                                                                                                                                                                                               ^
-    checkRd: (-1) ECBC.Rd:49: Lost braces; missing escapes or markup?
-        49 | and set the measure of the empirical copula mu_{A_n}^B := 1/n sum_{i=1}^m t_i mu_B^{w_i}, where B denotes the product copula.
-           |                                                ^
-    checkRd: (-1) ECBC.Rd:49: Lost braces; missing escapes or markup?
-    ...
-           |                                                                                                                                                                                                                                                               ^
-    checkRd: (-1) emp_c_copula.Rd:52: Lost braces; missing escapes or markup?
-        52 | and set the measure of the empirical copula mu_{A_n}^B := 1/n sum_{i=1}^m t_i mu_B^{w_i}, where B denotes the product copula.
-           |                                                ^
-    checkRd: (-1) emp_c_copula.Rd:52: Lost braces; missing escapes or markup?
-        52 | and set the measure of the empirical copula mu_{A_n}^B := 1/n sum_{i=1}^m t_i mu_B^{w_i}, where B denotes the product copula.
-           |                                                                   ^
-    checkRd: (-1) emp_c_copula.Rd:52: Lost braces; missing escapes or markup?
-        52 | and set the measure of the empirical copula mu_{A_n}^B := 1/n sum_{i=1}^m t_i mu_B^{w_i}, where B denotes the product copula.
-           |                                                                                    ^
     ```
 
 # qdap
@@ -12354,84 +10250,8 @@ Run `revdepcheck::cloud_details(, "qgcompint")` for more info
     > #ppom <- ggplot_build(pp0 + pp1[2] + pp2[[2]] + scale_color_discrete(guide="none"))
     > ppom <- ggplot_build(pp0ee + pp1ee[2] + pp2ee[[2]] + scale_color_discrete(guide="none"))
     Error in S7::prop(x, "meta")[[i]] : subscript out of bounds
-    Calls: ggplot_build -> [[ -> [[.ggplot2::gg
+    Calls: ggplot_build -> try_prop -> <Anonymous> -> [[ -> [[.ggplot2::gg
     Execution halted
-    ```
-
-# quantities
-
-<details>
-
-* Version: 0.2.3
-* GitHub: https://github.com/r-quantities/quantities
-* Source code: https://github.com/cran/quantities
-* Date/Publication: 2025-01-18 21:20:02 UTC
-* Number of recursive dependencies: 72
-
-Run `revdepcheck::cloud_details(, "quantities")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘introduction.Rmd’ using rmarkdown
-    ```
-
-# quickPlot
-
-<details>
-
-* Version: 1.0.2
-* GitHub: https://github.com/PredictiveEcology/quickPlot
-* Source code: https://github.com/cran/quickPlot
-* Date/Publication: 2023-07-02 05:20:02 UTC
-* Number of recursive dependencies: 84
-
-Run `revdepcheck::cloud_details(, "quickPlot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘test-all.R’
-    Running the tests in ‘tests/test-all.R’ failed.
-    Complete output:
-      > library(testthat)
-      > test_check("quickPlot")
-      Loading required package: quickPlot
-      Error in pgmatrix(grobToPlot, col, real, size, minv, maxv, legend, legendText,  : 
-        object 'nrowLegText' not found
-      Error in pgmatrix(grobToPlot, col, real, size, minv, maxv, legend, legendText,  : 
-        object 'nrowLegText' not found
-    ...
-      • Plot/test46.png
-      • Plot/test47.png
-      • Plot/test5.png
-      • Plot/test50.png
-      • Plot/test6.png
-      • Plot/test7.png
-      • Plot/test8.png
-      • Plot/test9.png
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘iii-plotting.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘fastshp’
     ```
 
 # quickReg
@@ -12495,63 +10315,6 @@ Run `revdepcheck::cloud_details(, "quickReg")` for more info
     Package unavailable to check Rd xrefs: ‘PredictABEL’
     ```
 
-# Radviz
-
-<details>
-
-* Version: 0.9.4
-* GitHub: https://github.com/yannabraham/Radviz
-* Source code: https://github.com/cran/Radviz
-* Date/Publication: 2025-05-09 06:30:02 UTC
-* Number of recursive dependencies: 61
-
-Run `revdepcheck::cloud_details(, "Radviz")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘Radviz-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: Radviz-package
-    > ### Title: Radviz: Project Multidimensional Data in 2D Space
-    > ### Aliases: Radviz Radviz-package
-    > ### Keywords: internal
-    > 
-    > ### ** Examples
-    > 
-    ...
-    Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-    ℹ Please use tidy evaluation idioms with `aes()`.
-    ℹ See also `vignette("ggplot2-in-packages")` for more information.
-    ℹ The deprecated feature was likely used in the Radviz package.
-      Please report the issue at <https://github.com/yannabraham/Radviz/issues>.
-    > plot(rv,anchors.only=FALSE)
-    Error in plot.radviz(rv, anchors.only = FALSE) : 
-      'language' object cannot be coerced to type 'double'
-    Calls: plot -> plot.radviz
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘multivariate_analysis.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.6Mb
-      sub-directories of 1Mb or more:
-        doc    3.9Mb
-        libs   2.5Mb
-    ```
-
 # RamanMP
 
 <details>
@@ -12594,80 +10357,6 @@ Run `revdepcheck::cloud_details(, "RamanMP")` for more info
       installed size is  8.1Mb
       sub-directories of 1Mb or more:
         data   8.0Mb
-    ```
-
-# randomForestExplainer
-
-<details>
-
-* Version: 0.10.1
-* GitHub: https://github.com/ModelOriented/randomForestExplainer
-* Source code: https://github.com/cran/randomForestExplainer
-* Date/Publication: 2020-07-11 20:30:02 UTC
-* Number of recursive dependencies: 89
-
-Run `revdepcheck::cloud_details(, "randomForestExplainer")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘randomForestExplainer-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot_importance_ggpairs
-    > ### Title: Plot importance measures with ggpairs
-    > ### Aliases: plot_importance_ggpairs
-    > 
-    > ### ** Examples
-    > 
-    > forest <- randomForest::randomForest(Species ~ ., data = iris, localImp = TRUE, ntree = 200)
-    > frame <- measure_importance(forest, measures = c("mean_min_depth", "times_a_root"))
-    > plot_importance_ggpairs(frame, measures = c("mean_min_depth", "times_a_root"))
-    Error in `+.gg`(e1, item) : 
-      'ggmatrix' does not know how to add objects that do not have class 'theme', 'labels' or 'ggproto'. Received object with class: 'character'
-    Calls: plot_importance_ggpairs -> +.gg -> add_list_to_ggmatrix -> +.gg
-    Execution halted
-    ```
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(randomForestExplainer)
-      > 
-      > test_check("randomForestExplainer")
-      [ FAIL 12 | WARN 71 | SKIP 0 | PASS 49 ]
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-    ...
-      Backtrace:
-          ▆
-       1. └─randomForestExplainer::plot_importance_rankings(ranger_s) at test_ranger.R:185:3
-       2.   └─GGally:::`+.gg`(plot, ggtitle(main))
-       3.     └─GGally:::add_list_to_ggmatrix(e1, e2)
-       4.       └─GGally:::`+.gg`(e1, item)
-      
-      [ FAIL 12 | WARN 71 | SKIP 0 | PASS 49 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘randomForestExplainer.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking LazyData ... NOTE
-    ```
-      'LazyData' is specified without a 'data' directory
     ```
 
 # rasterdiv
@@ -12760,159 +10449,6 @@ Run `revdepcheck::cloud_details(, "rater")` for more info
     GNU make is a SystemRequirements.
     ```
 
-# ratlas
-
-<details>
-
-* Version: 0.1.0
-* GitHub: https://github.com/atlas-aai/ratlas
-* Source code: https://github.com/cran/ratlas
-* Date/Publication: 2024-11-06 16:20:02 UTC
-* Number of recursive dependencies: 136
-
-Run `revdepcheck::cloud_details(, "ratlas")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘spelling.R’
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(ratlas)
-      NOTE: Either Arial Narrow or Montserrat fonts are required to use these themes.
-            Please use ratlas::import_montserrat() to install Montserrat and
-            if Arial Narrow is not on your system, please see https://bit.ly/arialnarrow
-      > 
-    ...
-      • okabeito-color-scales/okabeito-fill.svg
-      • okabeito-color-scales/okabeito-lighten.svg
-      • stat-bin/bins30-bound0.svg
-      • stat-bin/no-color-hist.svg
-      • stat-bin/one-bin.svg
-      • stat-bin/trimmed-hist-bound0.svg
-      • stat-bin/trimmed-hist-center0.svg
-      • themes/theme-atlas.svg
-      Error: Test failures
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘plotting.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.1Mb
-      sub-directories of 1Mb or more:
-        doc       2.6Mb
-        rstudio   1.6Mb
-    ```
-
-# rbioacc
-
-<details>
-
-* Version: 1.2.1
-* GitHub: NA
-* Source code: https://github.com/cran/rbioacc
-* Date/Publication: 2024-02-27 01:40:02 UTC
-* Number of recursive dependencies: 96
-
-Run `revdepcheck::cloud_details(, "rbioacc")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(rbioacc)
-      > 
-      > test_check("rbioacc")
-      
-      SAMPLING FOR MODEL 'TK' NOW (CHAIN 1).
-      Chain 1: 
-    ...
-      `expected`: TRUE 
-      ── Failure ('test-ppc.R:16:5'): plot ppc ───────────────────────────────────────
-      all(class(ppc(fit_MGSG)) == c("gg", "ggplot")) is not TRUE
-      
-      `actual`:   FALSE
-      `expected`: TRUE 
-      
-      [ FAIL 20 | WARN 99 | SKIP 9 | PASS 60 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 94.5Mb
-      sub-directories of 1Mb or more:
-        libs  93.8Mb
-    ```
-
-*   checking for GNU extensions in Makefiles ... NOTE
-    ```
-    GNU make is a SystemRequirements.
-    ```
-
-# rbiom
-
-<details>
-
-* Version: 2.2.0
-* GitHub: https://github.com/cmmr/rbiom
-* Source code: https://github.com/cran/rbiom
-* Date/Publication: 2025-04-04 20:20:02 UTC
-* Number of recursive dependencies: 106
-
-Run `revdepcheck::cloud_details(, "rbiom")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rbiom-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: bdiv_heatmap
-    > ### Title: Display beta diversities in an all vs all grid.
-    > ### Aliases: bdiv_heatmap
-    > 
-    > ### ** Examples
-    > 
-    >     library(rbiom)
-    ...
-     18.                   │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
-     19.                   │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
-     20.                   │ └─base::withCallingHandlers(...)
-     21.                   └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
-     22.                     └─l$layer_data(plot@data)
-     23.                       └─ggplot2::layer_data(..., self = self)
-     24.                         └─ggplot2:::unrowname(data)
-     25.                           └─cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects.")
-     26.                             └─rlang::abort(...)
-    Execution halted
-    ```
-
 # reda
 
 <details>
@@ -12958,40 +10494,10 @@ Run `revdepcheck::cloud_details(, "reda")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  8.3Mb
+      installed size is  8.5Mb
       sub-directories of 1Mb or more:
         doc    3.6Mb
-        libs   4.1Mb
-    ```
-
-# regtomean
-
-<details>
-
-* Version: 1.2
-* GitHub: NA
-* Source code: https://github.com/cran/regtomean
-* Date/Publication: 2024-12-17 15:00:02 UTC
-* Number of recursive dependencies: 83
-
-Run `revdepcheck::cloud_details(, "regtomean")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘regtomean’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::set_theme’ by ‘sjPlot::set_theme’ when loading ‘regtomean’
-    See ‘/tmp/workdir/regtomean/new/regtomean.Rcheck/00install.out’ for details.
-    ```
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘plyr’
+        libs   4.2Mb
     ```
 
 # rempsyc
@@ -13023,15 +10529,15 @@ Run `revdepcheck::cloud_details(, "rempsyc")` for more info
     > ### ** Examples
     > 
     ...
-     33. │                                         └─ggplot2 (local) FUN(X[[i]], ...)
-     34. │                                           └─self$draw_group(group, panel_params, coord, ...)
-     35. │                                             └─ggplot2 (local) draw_group(...)
-     36. │                                               └─ggplot2 (local) draw_group(..., self = self)
-     37. └─base::.handleSimpleError(...)
-     38.   └─rlang (local) h(simpleError(msg, call))
-     39.     └─handlers[[1L]](cnd)
-     40.       └─cli::cli_abort(...)
-     41.         └─rlang::abort(...)
+     30. │                                     └─ggplot2 (local) FUN(X[[i]], ...)
+     31. │                                       └─self$draw_group(group, panel_params, coord, ...)
+     32. │                                         └─ggplot2 (local) draw_group(...)
+     33. │                                           └─ggplot2 (local) draw_group(..., self = self)
+     34. └─base::.handleSimpleError(...)
+     35.   └─rlang (local) h(simpleError(msg, call))
+     36.     └─handlers[[1L]](cnd)
+     37.       └─cli::cli_abort(...)
+     38.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -13048,12 +10554,12 @@ Run `revdepcheck::cloud_details(, "rempsyc")` for more info
       > test_check("rempsyc")
       Ignoring unknown labels:
     ...
-       33. │                                         └─ggplot2 (local) draw_group(..., self = self)
-       34. └─base::.handleSimpleError(...)
-       35.   └─rlang (local) h(simpleError(msg, call))
-       36.     └─handlers[[1L]](cnd)
-       37.       └─cli::cli_abort(...)
-       38.         └─rlang::abort(...)
+       30. │                                     └─ggplot2 (local) draw_group(..., self = self)
+       31. └─base::.handleSimpleError(...)
+       32.   └─rlang (local) h(simpleError(msg, call))
+       33.     └─handlers[[1L]](cnd)
+       34.       └─cli::cli_abort(...)
+       35.         └─rlang::abort(...)
       
       [ FAIL 2 | WARN 0 | SKIP 20 | PASS 44 ]
       Error: Test failures
@@ -13207,61 +10713,6 @@ Run `revdepcheck::cloud_details(, "robCompositions")` for more info
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 1 marked UTF-8 string
-    ```
-
-# rrr
-
-<details>
-
-* Version: 1.0.0
-* GitHub: https://github.com/chrisaddy/rrr
-* Source code: https://github.com/cran/rrr
-* Date/Publication: 2016-12-09 15:15:55
-* Number of recursive dependencies: 94
-
-Run `revdepcheck::cloud_details(, "rrr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rrr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: residuals
-    > ### Title: Reduced-Rank Regression Residuals
-    > ### Aliases: residuals
-    > 
-    > ### ** Examples
-    > 
-    > data(tobacco)
-    ...
-    > galaxy <- as_data_frame(COMBO17)
-    > galaxy <- select(galaxy, -starts_with("e."), -Nr, -UFS:-IFD)
-    > galaxy <- na.omit(galaxy)
-    > galaxy_x <- select(galaxy, -Rmag:-chi2red)
-    > galaxy_y <- select(galaxy, Rmag:chi2red)
-    > residuals(galaxy_x, galaxy_y, type = "cva", rank = 2, k = 0.001)
-    Error in `+.gg`(e1, item) : 
-      'ggmatrix' does not know how to add objects that do not have class 'theme', 'labels' or 'ggproto'. Received object with class: 'character'
-    Calls: residuals ... cva_residual_plot -> +.gg -> add_list_to_ggmatrix -> +.gg
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘rrr.Rmd’ using rmarkdown
-    ```
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘Rcpp’
-      All declared Imports should be used.
     ```
 
 # RSDA
@@ -13433,6 +10884,7 @@ Run `revdepcheck::cloud_details(, "Rwtss")` for more info
               See ?Rwtss for help, citation("Rwtss") for use in publication.
               See demo(package = "Rwtss") for examples.
     ...
+      `expected`: TRUE 
       Backtrace:
           ▆
        1. ├─vcr::use_cassette(...) at test_wtss.R:53:5
@@ -13442,7 +10894,6 @@ Run `revdepcheck::cloud_details(, "Rwtss")` for more info
       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 57 ]
       Error: Test failures
       Execution halted
-      Ran 14/14 deferred expressions
     ```
 
 ## In both
@@ -13489,15 +10940,15 @@ Run `revdepcheck::cloud_details(, "saros")` for more info
     > 
     > plot <- makeme(data = ex_survey, dep = b_1)
     ...
-     24. │                       └─base::lapply(...)
-     25. │                         └─ggplot2 (local) FUN(X[[i]], ...)
-     26. │                           ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
-     27. │                           └─self$draw_panel(...)
-     28. └─base::.handleSimpleError(...)
-     29.   └─rlang (local) h(simpleError(msg, call))
-     30.     └─handlers[[1L]](cnd)
-     31.       └─cli::cli_abort(...)
-     32.         └─rlang::abort(...)
+     21. │                   └─base::lapply(...)
+     22. │                     └─ggplot2 (local) FUN(X[[i]], ...)
+     23. │                       ├─rlang::inject(self$draw_panel(data, panel_params, coord, !!!params))
+     24. │                       └─self$draw_panel(...)
+     25. └─base::.handleSimpleError(...)
+     26.   └─rlang (local) h(simpleError(msg, call))
+     27.     └─handlers[[1L]](cnd)
+     28.       └─cli::cli_abort(...)
+     29.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -13514,12 +10965,12 @@ Run `revdepcheck::cloud_details(, "saros")` for more info
       Starting 2 test processes
       [ FAIL 1 | WARN 2 | SKIP 0 | PASS 224 ]
     ...
-       27. │                             └─self$draw_panel(...)
-       28. └─base::.handleSimpleError(...)
-       29.   └─rlang (local) h(simpleError(msg, call))
-       30.     └─handlers[[1L]](cnd)
-       31.       └─cli::cli_abort(...)
-       32.         └─rlang::abort(...)
+       24. │                         └─self$draw_panel(...)
+       25. └─base::.handleSimpleError(...)
+       26.   └─rlang (local) h(simpleError(msg, call))
+       27.     └─handlers[[1L]](cnd)
+       28.       └─cli::cli_abort(...)
+       29.         └─rlang::abort(...)
       
       [ FAIL 1 | WARN 2 | SKIP 0 | PASS 224 ]
       Error: Test failures
@@ -13534,7 +10985,7 @@ Run `revdepcheck::cloud_details(, "saros")` for more info
 * GitHub: https://github.com/samuel-marsh/scCustomize
 * Source code: https://github.com/cran/scCustomize
 * Date/Publication: 2024-12-18 18:40:02 UTC
-* Number of recursive dependencies: 275
+* Number of recursive dependencies: 276
 
 Run `revdepcheck::cloud_details(, "scCustomize")` for more info
 
@@ -13571,10 +11022,10 @@ Run `revdepcheck::cloud_details(, "scCustomize")` for more info
 
 <details>
 
-* Version: 2.1.0
+* Version: 2.1.1
 * GitHub: https://github.com/epiforecasts/scoringutils
 * Source code: https://github.com/cran/scoringutils
-* Date/Publication: 2025-03-03 18:10:02 UTC
+* Date/Publication: 2025-06-25 22:20:02 UTC
 * Number of recursive dependencies: 82
 
 Run `revdepcheck::cloud_details(, "scoringutils")` for more info
@@ -13608,72 +11059,6 @@ Run `revdepcheck::cloud_details(, "scoringutils")` for more info
     Execution halted
     ```
 
-# scplot
-
-<details>
-
-* Version: 0.5.1
-* GitHub: NA
-* Source code: https://github.com/cran/scplot
-* Date/Publication: 2025-03-01 13:10:03 UTC
-* Number of recursive dependencies: 114
-
-Run `revdepcheck::cloud_details(, "scplot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘scplot’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/tmp/workdir/scplot/new/scplot.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘scplot’ ...
-** package ‘scplot’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.
-ℹ The deprecated feature was likely used in the scplot package.
-  Please report the issue to the authors.
-Error in `class<-`(`*tmp*`, value = "list") : 
-  cannot coerce type 'object' to vector of type 'list'
-Error: unable to load R code in package ‘scplot’
-Execution halted
-ERROR: lazy loading failed for package ‘scplot’
-* removing ‘/tmp/workdir/scplot/new/scplot.Rcheck/scplot’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘scplot’ ...
-** package ‘scplot’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (scplot)
-
-
-```
 # SCpubr
 
 <details>
@@ -13977,15 +11362,15 @@ Run `revdepcheck::cloud_details(, "see")` for more info
     > 
     > ## Don't show: 
     ...
-     14.               │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
-     15.               │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
-     16.               │ └─base::withCallingHandlers(...)
-     17.               └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
-     18.                 └─l$map_statistic(d, plot)
-     19.                   └─ggplot2 (local) map_statistic(..., self = self)
-     20.                     └─ggplot2:::check_nondata_cols(...)
-     21.                       └─cli::cli_abort(c(problem, issues, i = hint), call = NULL)
-     22.                         └─rlang::abort(...)
+     11.           │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+     12.           │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+     13.           │ └─base::withCallingHandlers(...)
+     14.           └─ggplot2 (local) f(l = layers[[i]], d = data[[i]])
+     15.             └─l$map_statistic(d, plot)
+     16.               └─ggplot2 (local) map_statistic(..., self = self)
+     17.                 └─ggplot2:::check_nondata_cols(...)
+     18.                   └─cli::cli_abort(c(problem, issues, i = hint), call = NULL)
+     19.                     └─rlang::abort(...)
     Execution halted
     ```
 
@@ -14002,14 +11387,14 @@ Run `revdepcheck::cloud_details(, "see")` for more info
       + 
       +   test_check("see")
     ...
-       33. │                                         └─ggplot2 (local) draw_group(..., self = self)
-       34. └─base::.handleSimpleError(...)
-       35.   └─rlang (local) h(simpleError(msg, call))
-       36.     └─handlers[[1L]](cnd)
-       37.       └─cli::cli_abort(...)
-       38.         └─rlang::abort(...)
+       30. │                                     └─ggplot2 (local) draw_group(..., self = self)
+       31. └─base::.handleSimpleError(...)
+       32.   └─rlang (local) h(simpleError(msg, call))
+       33.     └─handlers[[1L]](cnd)
+       34.       └─cli::cli_abort(...)
+       35.         └─rlang::abort(...)
       
-      [ FAIL 1 | WARN 9 | SKIP 23 | PASS 34 ]
+      [ FAIL 1 | WARN 3 | SKIP 23 | PASS 34 ]
       Error: Test failures
       Execution halted
     ```
@@ -14055,87 +11440,14 @@ Run `revdepcheck::cloud_details(, "seedreg")` for more info
     Execution halted
     ```
 
-# shadowtext
-
-<details>
-
-* Version: 0.1.4
-* GitHub: https://github.com/GuangchuangYu/shadowtext
-* Source code: https://github.com/cran/shadowtext
-* Date/Publication: 2024-07-18 07:00:01 UTC
-* Number of recursive dependencies: 47
-
-Run `revdepcheck::cloud_details(, "shadowtext")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking dependencies in R code ... WARNING
-    ```
-    '::' or ':::' import not declared from: ‘S7’
-    ```
-
-# shiny
-
-<details>
-
-* Version: 1.10.0
-* GitHub: https://github.com/rstudio/shiny
-* Source code: https://github.com/cran/shiny
-* Date/Publication: 2024-12-14 00:10:02 UTC
-* Number of recursive dependencies: 91
-
-Run `revdepcheck::cloud_details(, "shiny")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(shiny)
-      > 
-      > test_check("shiny")
-      [ FAIL 96 | WARN 1 | SKIP 19 | PASS 1529 ]
-      
-      ══ Skipped tests (19) ══════════════════════════════════════════════════════════
-    ...
-      m5$panels has length 0, not length 1.
-      ── Failure ('test-plot-coordmap.R:464:3'): ggplot coordmap maintains discrete limits ──
-      m5$panels[[1]]$domain$discrete_limits (`actual`) not equal to list(x = c("e", "f")) (`expected`).
-      
-      `actual` is NULL
-      `expected` is a list
-      
-      [ FAIL 96 | WARN 1 | SKIP 19 | PASS 1529 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 16.6Mb
-      sub-directories of 1Mb or more:
-        R      3.5Mb
-        help   1.7Mb
-        www   10.4Mb
-    ```
-
 # shinyMixR
 
 <details>
 
-* Version: 0.5.0
-* GitHub: NA
+* Version: 0.5.1
+* GitHub: https://github.com/RichardHooijmaijers/shinyMixR
 * Source code: https://github.com/cran/shinyMixR
-* Date/Publication: 2024-11-14 16:10:03 UTC
+* Date/Publication: 2025-07-18 09:20:02 UTC
 * Number of recursive dependencies: 199
 
 Run `revdepcheck::cloud_details(, "shinyMixR")` for more info
@@ -14167,28 +11479,6 @@ Run `revdepcheck::cloud_details(, "shinyMixR")` for more info
       [ FAIL 3 | WARN 1 | SKIP 11 | PASS 54 ]
       Error: Test failures
       Execution halted
-    ```
-
-# simmr
-
-<details>
-
-* Version: 0.5.1.217
-* GitHub: https://github.com/andrewcparnell/simmr
-* Source code: https://github.com/cran/simmr
-* Date/Publication: 2024-10-16 15:10:02 UTC
-* Number of recursive dependencies: 114
-
-Run `revdepcheck::cloud_details(, "simmr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘advanced_plotting.Rmd’ using rmarkdown
     ```
 
 # simplecolors
@@ -14230,28 +11520,6 @@ Run `revdepcheck::cloud_details(, "simplecolors")` for more info
       [ FAIL 3 | WARN 1 | SKIP 0 | PASS 22 ]
       Error: Test failures
       Execution halted
-    ```
-
-# sjPlot
-
-<details>
-
-* Version: 2.8.17
-* GitHub: https://github.com/strengejacke/sjPlot
-* Source code: https://github.com/cran/sjPlot
-* Date/Publication: 2024-11-29 11:20:03 UTC
-* Number of recursive dependencies: 193
-
-Run `revdepcheck::cloud_details(, "sjPlot")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘blackwhitefigures.Rmd’ using rmarkdown
     ```
 
 # smer
@@ -14407,7 +11675,7 @@ Run `revdepcheck::cloud_details(, "spectralR")` for more info
       +   tinytest::test_package("spectralR")
       + }
       
-      test_get.pixel.data.R.........    1 tests [0;32mOK[0m [0;34m0.1s[0m
+      test_get.pixel.data.R.........    1 tests [0;32mOK[0m [0;36m83ms[0m
       
       test_prepare.vector.data.R....    1 tests [0;32mOK[0m 
     ...
@@ -14431,7 +11699,7 @@ Run `revdepcheck::cloud_details(, "spectralR")` for more info
 * GitHub: https://github.com/nspyrison/spinifex
 * Source code: https://github.com/cran/spinifex
 * Date/Publication: 2025-01-08 22:10:02 UTC
-* Number of recursive dependencies: 151
+* Number of recursive dependencies: 175
 
 Run `revdepcheck::cloud_details(, "spinifex")` for more info
 
@@ -14549,29 +11817,6 @@ Run `revdepcheck::cloud_details(, "sportyR")` for more info
       Execution halted
     ```
 
-# SPUTNIK
-
-<details>
-
-* Version: 1.4.2
-* GitHub: https://github.com/paoloinglese/SPUTNIK
-* Source code: https://github.com/cran/SPUTNIK
-* Date/Publication: 2024-04-16 14:30:05 UTC
-* Number of recursive dependencies: 85
-
-Run `revdepcheck::cloud_details(, "SPUTNIK")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘SPUTNIK’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘e1071::element’ by ‘ggplot2::element’ when loading ‘SPUTNIK’
-    See ‘/tmp/workdir/SPUTNIK/new/SPUTNIK.Rcheck/00install.out’ for details.
-    ```
-
 # ssd4mosaic
 
 <details>
@@ -14608,7 +11853,7 @@ Run `revdepcheck::cloud_details(, "ssd4mosaic")` for more info
           ▆
        1. └─base::order(p$layers[[1]]$data$group) at test-fct_options_plots.R:8:3
       
-      [ FAIL 3 | WARN 1 | SKIP 1 | PASS 66 ]
+      [ FAIL 3 | WARN 0 | SKIP 1 | PASS 66 ]
       Error: Test failures
       Execution halted
     ```
@@ -14684,271 +11929,6 @@ Run `revdepcheck::cloud_details(, "states")` for more info
       Execution halted
     ```
 
-# statgenGWAS
-
-<details>
-
-* Version: 1.0.11
-* GitHub: https://github.com/Biometris/statgenGWAS
-* Source code: https://github.com/cran/statgenGWAS
-* Date/Publication: 2025-03-31 13:30:06 UTC
-* Number of recursive dependencies: 70
-
-Run `revdepcheck::cloud_details(, "statgenGWAS")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘tinytest.R’
-    Running the tests in ‘tests/tinytest.R’ failed.
-    Complete output:
-      > 
-      > if ( requireNamespace("tinytest", quietly=TRUE) ){
-      +   tinytest::test_package("statgenGWAS")
-      + }
-      
-      test_GWAS.R...................    0 tests    
-      test_GWAS.R...................    0 tests    
-    ...
-      ℹ Please use `linewidth` instead.
-      ℹ The deprecated feature was likely used in the statgenGWAS package.
-        Please report the issue at <https://github.com/Biometris/statgenGWAS/issues>. 
-      2: In grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
-        for '← 2@3' in 'mbcsToSbcs': <- substituted for ← (U+2190)
-      3: `aes_()` was deprecated in ggplot2 3.0.0.
-      ℹ Please use tidy evaluation idioms with `aes()`
-      ℹ The deprecated feature was likely used in the statgenGWAS package.
-        Please report the issue at <https://github.com/Biometris/statgenGWAS/issues>. 
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 15.2Mb
-      sub-directories of 1Mb or more:
-        data   7.0Mb
-        libs   7.2Mb
-    ```
-
-# statgenGxE
-
-<details>
-
-* Version: 1.0.9
-* GitHub: https://github.com/Biometris/statgenGxE
-* Source code: https://github.com/cran/statgenGxE
-* Date/Publication: 2024-09-18 07:10:03 UTC
-* Number of recursive dependencies: 85
-
-Run `revdepcheck::cloud_details(, "statgenGxE")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(statgenGxE)
-      > 
-      > test_check("statgenGxE")
-      [ FAIL 8 | WARN 3 | SKIP 17 | PASS 440 ]
-      
-      ══ Skipped tests (17) ══════════════════════════════════════════════════════════
-    ...
-      ── Failure ('test-plots.R:354:3'): Option colorGenoBy in scatterFit plot functions correctly ──
-      p1$labels$colour not equal to "family".
-      target is NULL, current is character
-      ── Failure ('test-plots.R:405:3'): VarCov plot gives correct output types ──────
-      `geoms` not equal to "GeomTile".
-      names for target but not for current
-      
-      [ FAIL 8 | WARN 3 | SKIP 17 | PASS 440 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘asreml’
-    ```
-
-# statgenHTP
-
-<details>
-
-* Version: 1.0.8
-* GitHub: https://github.com/Biometris/statgenHTP
-* Source code: https://github.com/cran/statgenHTP
-* Date/Publication: 2025-04-29 10:30:02 UTC
-* Number of recursive dependencies: 131
-
-Run `revdepcheck::cloud_details(, "statgenHTP")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘tinytest.R’
-    Running the tests in ‘tests/tinytest.R’ failed.
-    Complete output:
-      > 
-      > if ( requireNamespace("tinytest", quietly=TRUE) ){
-      +   tinytest::test_package("statgenHTP")
-      + }
-      
-      test_TP.R.....................    0 tests    
-      test_TP.R.....................    0 tests    
-    ...
-      test_detectSerieOut.R.........    4 tests [0;32mOK[0m 
-      test_detectSerieOut.R.........    5 tests [0;32mOK[0m 
-      test_detectSerieOut.R.........    6 tests [0;32mOK[0m 
-      test_detectSerieOut.R.........    7 tests [0;32mOK[0m 
-      test_detectSerieOut.R.........    8 tests [0;32mOK[0m 
-      test_detectSerieOut.R.........    9 tests [0;32mOK[0m Error in inherits(w, class) && grepl(pattern, w$message, ...) : 
-        'length = 2' in coercion to 'logical(1)'
-      Calls: <Anonymous> ... eval -> expect_warning -> fun -> sapply -> lapply -> FUN
-      In addition: There were 21 warnings (use warnings() to see them)
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘asreml’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.0Mb
-      sub-directories of 1Mb or more:
-        data   6.5Mb
-    ```
-
-# statgenIBD
-
-<details>
-
-* Version: 1.0.8
-* GitHub: https://github.com/Biometris/statgenIBD
-* Source code: https://github.com/cran/statgenIBD
-* Date/Publication: 2025-02-05 12:00:02 UTC
-* Number of recursive dependencies: 58
-
-Run `revdepcheck::cloud_details(, "statgenIBD")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘tinytest.R’
-    Running the tests in ‘tests/tinytest.R’ failed.
-    Complete output:
-      > 
-      > if ( requireNamespace("tinytest", quietly=TRUE) ){
-      +   tinytest::test_package("statgenIBD")
-      + }
-      
-      test_IBDprob.R................    0 tests    
-      test_IBDprob.R................    0 tests    
-    ...
-      test_IBDprob.R................    6 tests [0;32mOK[0m 
-      test_IBDprob.R................    7 tests [0;32mOK[0m 
-      test_IBDprob.R................    8 tests [0;32mOK[0m 
-      test_IBDprob.R................    9 tests [0;32mOK[0m 
-      test_IBDprob.R................    9 tests [0;32mOK[0m 
-      test_IBDprob.R................   10 tests [0;32mOK[0m 
-      test_IBDprob.R................   11 tests [0;32mOK[0m 
-      test_IBDprob.R................   12 tests [0;32mOK[0m Error in if (msg != "") { : the condition has length > 1
-      Calls: <Anonymous> ... lapply -> FUN -> eval -> eval -> expect_silent -> fun
-      Execution halted
-    ```
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  9.7Mb
-      sub-directories of 1Mb or more:
-        extdata   2.4Mb
-        libs      6.4Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘statgenGWAS’
-      All declared Imports should be used.
-    ```
-
-# statgenSTA
-
-<details>
-
-* Version: 1.0.14
-* GitHub: https://github.com/Biometris/statgenSTA
-* Source code: https://github.com/cran/statgenSTA
-* Date/Publication: 2024-10-14 07:40:02 UTC
-* Number of recursive dependencies: 84
-
-Run `revdepcheck::cloud_details(, "statgenSTA")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘testthat.R’
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(statgenSTA)
-      > 
-      > test_check("statgenSTA")
-      [ FAIL 1 | WARN 2 | SKIP 6 | PASS 777 ]
-      
-      ══ Skipped tests (6) ═══════════════════════════════════════════════════════════
-    ...
-      • {asreml} is not installed (3): 'test-STA.R:43:3', 'test-STA.R:57:3',
-        'test-STA.R:113:3'
-      
-      ══ Failed tests ════════════════════════════════════════════════════════════════
-      ── Failure ('test-layoutPlot.R:104:3'): plot works correctly if no trial is defined ──
-      `plot(testTD2, plotType = "layout")` produced warnings.
-      
-      [ FAIL 1 | WARN 2 | SKIP 6 | PASS 777 ]
-      Error: Test failures
-      Execution halted
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘asreml’
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘mapproj’
-      All declared Imports should be used.
-    ```
-
 # stRoke
 
 <details>
@@ -15001,10 +11981,10 @@ Run `revdepcheck::cloud_details(, "stRoke")` for more info
 
 <details>
 
-* Version: 0.2.3
+* Version: 0.2.4
 * GitHub: https://github.com/arcaldwell49/Superpower
 * Source code: https://github.com/cran/Superpower
-* Date/Publication: 2025-05-15 07:20:02 UTC
+* Date/Publication: 2025-06-24 19:30:02 UTC
 * Number of recursive dependencies: 115
 
 Run `revdepcheck::cloud_details(, "Superpower")` for more info
@@ -15026,84 +12006,16 @@ Run `revdepcheck::cloud_details(, "Superpower")` for more info
       > test_check("Superpower")
       [1] "condition_one" "sad_1"        
     ...
-      y[1]: "gg"
+      ══ Failed tests ════════════════════════════════════════════════════════════════
       ── Failure ('test-morey.R:109:3'): No error messages ftest ─────────────────────
       class(test)[1] not equal to "gg".
       1/1 mismatches
       x[1]: "ggplot2::ggplot"
       y[1]: "gg"
       
-      [ FAIL 2 | WARN 18 | SKIP 13 | PASS 398 ]
+      [ FAIL 1 | WARN 18 | SKIP 13 | PASS 399 ]
       Error: Test failures
       Execution halted
-    ```
-
-# synthpop
-
-<details>
-
-* Version: 1.9-1.1
-* GitHub: NA
-* Source code: https://github.com/cran/synthpop
-* Date/Publication: 2025-06-03 05:53:06 UTC
-* Number of recursive dependencies: 70
-
-Run `revdepcheck::cloud_details(, "synthpop")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘synthpop-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: compare.synds
-    > ### Title: Compare univariate distributions of synthesised and observed
-    > ###   data
-    > ### Aliases: compare.synds compare.data.frame compare.list
-    > ###   print.compare.synds
-    > 
-    > ### ** Examples
-    ...
-    > 
-    > ### synthetic data provided as a 'synds' object
-    > compare(s1, ods, vars = "ls")
-    Calculations done for ls 
-    
-    Comparing percentages observed with synthetic
-    
-    Error in S7::prop(x, "meta")[[i]] : subscript out of bounds
-    Calls: <Anonymous> ... print.compare.synds -> print -> [[ -> [[.ggplot2::gg
-    Execution halted
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘disclosure.Rnw’ using Sweave
-    New version of synthpop (1.9-0) with disclosure functions
-    see disclosure.pdf for details and NEWS file for other changes
-    
-    Find out more at https://www.synthpop.org.uk/
-    Error: processing vignette 'disclosure.Rnw' failed with diagnostics:
-    Running 'texi2dvi' on 'disclosure.tex' failed.
-    LaTeX errors:
-    ! LaTeX Error: File `authblk.sty' not found.
-    ...
-    l.6 \usepackage
-                   {framed}^^M
-    !  ==> Fatal error occurred, no output PDF file produced!
-    --- failed re-building 'utility.Rnw'
-    
-    SUMMARY: processing the following files failed:
-      ‘disclosure.Rnw’ ‘inference.Rnw’ ‘utility.Rnw’
-    
-    Error: Vignette re-building failed.
-    Execution halted
     ```
 
 # tastypie
@@ -15114,7 +12026,7 @@ Run `revdepcheck::cloud_details(, "synthpop")` for more info
 * GitHub: https://github.com/PaoloDalena/tastypie
 * Source code: https://github.com/cran/tastypie
 * Date/Publication: 2023-09-06 18:00:06 UTC
-* Number of recursive dependencies: 76
+* Number of recursive dependencies: 77
 
 Run `revdepcheck::cloud_details(, "tastypie")` for more info
 
@@ -15145,42 +12057,6 @@ Run `revdepcheck::cloud_details(, "tastypie")` for more info
       [ FAIL 45 | WARN 38 | SKIP 0 | PASS 74 ]
       Error: Test failures
       Execution halted
-    ```
-
-# TcGSA
-
-<details>
-
-* Version: 0.12.10
-* GitHub: https://github.com/sistm/TcGSA
-* Source code: https://github.com/cran/TcGSA
-* Date/Publication: 2022-02-28 21:40:02 UTC
-* Number of recursive dependencies: 131
-
-Run `revdepcheck::cloud_details(, "TcGSA")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking Rd cross-references ... WARNING
-    ```
-    Missing link or links in Rd file 'plot1GS.Rd':
-      ‘+.gg’
-    
-    Missing link or links in Rd file 'plotFit.GS.Rd':
-      ‘+.gg’
-    
-    Missing link or links in Rd file 'plotMultipleGS.Rd':
-      ‘+.gg’
-    
-    Missing link or links in Rd file 'plotPat.1GS.Rd':
-      ‘+.gg’
-    
-    Missing link or links in Rd file 'plotSelect.GS.Rd':
-      ‘+.gg’
-    
-    See section 'Cross-references' in the 'Writing R Extensions' manual.
     ```
 
 # teal.widgets
@@ -15440,6 +12316,72 @@ Run `revdepcheck::cloud_details(, "tidyposterior")` for more info
       Execution halted
     ```
 
+# topolow
+
+<details>
+
+* Version: 1.0.0
+* GitHub: https://github.com/omid-arhami/topolow
+* Source code: https://github.com/cran/topolow
+* Date/Publication: 2025-07-11 12:30:02 UTC
+* Number of recursive dependencies: 127
+
+Run `revdepcheck::cloud_details(, "topolow")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘topolow-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: plot_cluster_mapping
+    > ### Title: Create Clustered Mapping Plots
+    > ### Aliases: plot_cluster_mapping
+    > 
+    > ### ** Examples
+    > 
+    > # Basic usage with default configurations
+    ...
+    > data <- data.frame(
+    +   V1 = rnorm(100), V2 = rnorm(100), V3 = rnorm(100), name = 1:100,
+    +   antigen = rep(c(0,1), 50), antiserum = rep(c(1,0), 50),
+    +   cluster = rep(1:5, each=20)
+    + )
+    > p1 <- plot_cluster_mapping(data, ndim=3)
+    Error in new_layout_config() : 
+      inherits(plot_margin, "margin") is not TRUE
+    Calls: plot_cluster_mapping -> new_layout_config -> stopifnot
+    Execution halted
+    ```
+
+*   checking tests ... ERROR
+    ```
+      Running ‘testthat.R’
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > # This file is part of the standard setup for testthat.
+      > # It is recommended that you do not modify it.
+      > #
+      > # Where should you do additional test configuration?
+      > # Learn more about the roles of various files in:
+      > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+      > # * https://testthat.r-lib.org/articles/special-files.html
+    ...
+      ── Error ('test-visualization.R:47:3'): plot configuration objects work correctly ──
+      Error in `new_layout_config(width = 8, height = 6)`: inherits(plot_margin, "margin") is not TRUE
+      Backtrace:
+          ▆
+       1. └─topolow::new_layout_config(width = 8, height = 6) at test-visualization.R:47:3
+       2.   └─base::stopifnot(...)
+      
+      [ FAIL 4 | WARN 0 | SKIP 0 | PASS 50 ]
+      Error: Test failures
+      Execution halted
+    ```
+
 # TPMplt
 
 <details>
@@ -15461,47 +12403,6 @@ Run `revdepcheck::cloud_details(, "TPMplt")` for more info
     Found the following significant warnings:
       Warning: replacing previous import ‘e1071::element’ by ‘ggplot2::element’ when loading ‘TPMplt’
     See ‘/tmp/workdir/TPMplt/new/TPMplt.Rcheck/00install.out’ for details.
-    ```
-
-# track2KBA
-
-<details>
-
-* Version: 1.1.2
-* GitHub: https://github.com/BirdLifeInternational/track2kba
-* Source code: https://github.com/cran/track2KBA
-* Date/Publication: 2024-07-01 10:40:07 UTC
-* Number of recursive dependencies: 91
-
-Run `revdepcheck::cloud_details(, "track2KBA")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ... ERROR
-    ```
-      Running ‘tinytest.R’
-    Running the tests in ‘tests/tinytest.R’ failed.
-    Complete output:
-      > if ( requireNamespace("tinytest", quietly=TRUE) ){
-      +   tinytest::test_package("track2KBA")
-      + }
-      
-      test_estSpaceUse.R............    0 tests    
-      Attaching package: 'lubridate'
-      
-    ...
-          with cells of 0.411 square km
-      
-      test_mapKDE.R.................    1 tests [0;32mOK[0m 
-      test_mapKDE.R.................    2 tests [0;32mOK[0m Error in if (msg != "") { : the condition has length > 1
-      Calls: <Anonymous> ... lapply -> FUN -> eval -> eval -> expect_silent -> fun
-      In addition: Warning message:
-      In Matching::ks.boot(WI, BW, alternative = "two.sided", nboots = iterations) :
-        For publication quality p-values it is recommended that 'nboots'
-       be set equal to at least 500 (preferably 1000)
-      Execution halted
     ```
 
 # tradeoffaucdim
@@ -15767,31 +12668,6 @@ Run `revdepcheck::cloud_details(, "triplot")` for more info
       'LazyData' is specified without a 'data' directory
     ```
 
-# ulrb
-
-<details>
-
-* Version: 0.1.6
-* GitHub: https://github.com/pascoalf/ulrb
-* Source code: https://github.com/cran/ulrb
-* Date/Publication: 2025-04-07 09:50:02 UTC
-* Number of recursive dependencies: 80
-
-Run `revdepcheck::cloud_details(, "ulrb")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘Glossary.Rmd’ using rmarkdown
-    --- finished re-building ‘Glossary.Rmd’
-    
-    --- re-building ‘eco-analysis.Rmd’ using rmarkdown
-    ```
-
 # UnalR
 
 <details>
@@ -15962,7 +12838,7 @@ Run `revdepcheck::cloud_details(, "vanquish")` for more info
 * GitHub: NA
 * Source code: https://github.com/cran/VarSelLCM
 * Date/Publication: 2020-10-14 16:34:36 UTC
-* Number of recursive dependencies: 60
+* Number of recursive dependencies: 59
 
 Run `revdepcheck::cloud_details(, "VarSelLCM")` for more info
 
@@ -15999,9 +12875,9 @@ Run `revdepcheck::cloud_details(, "VarSelLCM")` for more info
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 17.3Mb
+      installed size is 17.4Mb
       sub-directories of 1Mb or more:
-        libs  16.5Mb
+        libs  16.7Mb
     ```
 
 # vDiveR
@@ -16033,15 +12909,15 @@ Run `revdepcheck::cloud_details(, "vDiveR")` for more info
     > 
     > plot_conservation_level(proteins_1host, conservation_label = 1,alpha=0.8, base_size = 15)
     ...
-     32. │                                         └─base::lapply(...)
-     33. │                                           └─ggplot2 (local) FUN(X[[i]], ...)
-     34. │                                             └─ggplot2 (local) apply_fun(cur_data)
-     35. │                                               └─ggplot2 (local) fun(x, ...)
-     36. └─base::.handleSimpleError(...)
-     37.   └─rlang (local) h(simpleError(msg, call))
-     38.     └─handlers[[1L]](cnd)
-     39.       └─cli::cli_abort(...)
-     40.         └─rlang::abort(...)
+     29. │                                     └─base::lapply(...)
+     30. │                                       └─ggplot2 (local) FUN(X[[i]], ...)
+     31. │                                         └─ggplot2 (local) apply_fun(cur_data)
+     32. │                                           └─ggplot2 (local) fun(x, ...)
+     33. └─base::.handleSimpleError(...)
+     34.   └─rlang (local) h(simpleError(msg, call))
+     35.     └─handlers[[1L]](cnd)
+     36.       └─cli::cli_abort(...)
+     37.         └─rlang::abort(...)
     Execution halted
     ```
 
@@ -16085,7 +12961,7 @@ Run `revdepcheck::cloud_details(, "vip")` for more info
       test_vip.R....................    0 tests    
       test_vip.R....................    1 tests [0;32mOK[0m 
       test_vip.R....................    2 tests [0;32mOK[0m 
-      test_vip.R....................    3 tests [0;32mOK[0m [0;36m5ms[0m
+      test_vip.R....................    3 tests [0;32mOK[0m [0;36m7ms[0m
       ----- FAILED[data]: test_pkg_nnet.R<47--50>
        call| expect_identical(current = class(p), target = c("gg", "ggplot"))
        diff| Lengths (2, 5) differ (string compare on first 2)
@@ -16162,15 +13038,15 @@ Run `revdepcheck::cloud_details(, "voluModel")` for more info
     > ### ** Examples
     > 
     ...
-      9.           └─ggplot2 (local) setup(..., self = self)
-     10.             └─self$coord$setup_params(data)
-     11.               └─ggplot2 (local) setup_params(..., self = self)
-     12.                 └─ggproto_parent(Coord, self)$setup_params(data)
-     13.                   └─ggplot2 (local) setup_params(..., self = self)
-     14.                     └─ggplot2:::parse_coord_expand(expand = self$expand %||% TRUE)
-     15.                       └─ggplot2:::check_logical(expand)
-     16.                         └─ggplot2:::stop_input_type(...)
-     17.                           └─rlang::abort(message, ..., call = call, arg = arg)
+      6.       └─ggplot2 (local) setup(..., self = self)
+      7.         └─self$coord$setup_params(data)
+      8.           └─ggplot2 (local) setup_params(..., self = self)
+      9.             └─ggproto_parent(Coord, self)$setup_params(data)
+     10.               └─ggplot2 (local) setup_params(..., self = self)
+     11.                 └─ggplot2:::parse_coord_expand(expand = self$expand %||% TRUE)
+     12.                   └─ggplot2:::check_logical(expand)
+     13.                     └─ggplot2:::stop_input_type(...)
+     14.                       └─rlang::abort(message, ..., call = call, arg = arg)
     Execution halted
     ```
 
@@ -16227,7 +13103,7 @@ Run `revdepcheck::cloud_details(, "vvshiny")` for more info
       ── Failure ('test-basic_plot.R:19:3'): basic_plot function test ────────────────
       `test_plot2` has type 'object', not 'list'.
       
-      [ FAIL 2 | WARN 4 | SKIP 0 | PASS 59 ]
+      [ FAIL 2 | WARN 2 | SKIP 0 | PASS 59 ]
       Error: Test failures
       Execution halted
     ```
@@ -16359,28 +13235,6 @@ Run `revdepcheck::cloud_details(, "wql")` for more info
     --- re-building ‘wql-package.Rmd’ using rmarkdown
     ```
 
-# xaringanthemer
-
-<details>
-
-* Version: 0.4.3
-* GitHub: https://github.com/gadenbuie/xaringanthemer
-* Source code: https://github.com/cran/xaringanthemer
-* Date/Publication: 2024-09-15 14:00:02 UTC
-* Number of recursive dependencies: 72
-
-Run `revdepcheck::cloud_details(, "xaringanthemer")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... ERROR
-    ```
-    Error(s) in re-building vignettes:
-    --- re-building ‘ggplot2-themes.Rmd’ using rmarkdown
-    ```
-
 # xpose
 
 <details>
@@ -16463,7 +13317,7 @@ ERROR: lazy loading failed for package ‘xpose’
 * GitHub: https://github.com/jprybylski/xpose.xtras
 * Source code: https://github.com/cran/xpose.xtras
 * Date/Publication: 2024-11-21 17:20:02 UTC
-* Number of recursive dependencies: 105
+* Number of recursive dependencies: 104
 
 Run `revdepcheck::cloud_details(, "xpose.xtras")` for more info
 
@@ -16516,7 +13370,7 @@ Run `revdepcheck::cloud_details(, "xpose.xtras")` for more info
        14.   └─vctrs:::stop_vctrs(...)
        15.     └─rlang::abort(message, class = c(class, "vctrs_error"), ..., call = call)
       
-      [ FAIL 10 | WARN 0 | SKIP 4 | PASS 622 ]
+      [ FAIL 7 | WARN 0 | SKIP 6 | PASS 647 ]
       Error: Test failures
       Execution halted
     ```
