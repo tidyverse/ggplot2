@@ -53,7 +53,6 @@
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/benchplot.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/bidirection.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/binned_scale.html</loc></url>
-<url><loc>https://ggplot2.tidyverse.org/dev/reference/build_ggplot.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/calc_element.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/check_device.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/class_definitions.html</loc></url>
@@ -76,10 +75,10 @@
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/datetime_scale.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/diamonds.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/discrete_scale.html</loc></url>
-<url><loc>https://ggplot2.tidyverse.org/dev/reference/draw_element.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/draw_key.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/economics.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/element.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/element_grob.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/element_render.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/expand_limits.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/expansion.html</loc></url>
@@ -136,12 +135,13 @@
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/ggplot2-ggproto.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/ggplot2-package.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/ggplotGrob.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/ggplot_build.html</loc></url>
+<url><loc>https://ggplot2.tidyverse.org/dev/reference/ggplot_gtable.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/ggproto.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/ggsave.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/ggsf.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/ggtheme.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/graphical-units.html</loc></url>
-<url><loc>https://ggplot2.tidyverse.org/dev/reference/gtable_ggplot.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/guide_axis.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/guide_axis_logticks.html</loc></url>
 <url><loc>https://ggplot2.tidyverse.org/dev/reference/guide_axis_stack.html</loc></url>
