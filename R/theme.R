@@ -1051,9 +1051,9 @@ combine_s3_elements <- function(e1, e2) {
 }
 
 #' @export
-`$.ggplot2::theme` <- function(x, ...) {
+`$.ggplot2::class_theme` <- function(x, ...) {
   .subset2(x, ...)
 }
 
 #' @export
-`print.ggplot2::theme` <- function(x, ...) utils::str(x)
+`print.ggplot2::class_theme` <- function(x, ...) utils::str(x)
