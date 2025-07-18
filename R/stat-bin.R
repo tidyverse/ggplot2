@@ -63,6 +63,54 @@ StatBin <- ggproto(
     flip_data(bins, flipped_aes)
   },
 
+  compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
+                           center = NULL, boundary = NULL,
+                           closed = c("right", "left"), pad = FALSE,
+                           breaks = NULL, flipped_aes = FALSE, drop = "none") {
+    # First call parent's compute_panel to get binned data for all groups
+    data <- ggproto_parent(Stat, self)$compute_panel(
+      data, scales, binwidth = binwidth, bins = bins,
+      center = center, boundary = boundary, closed = closed,
+      pad = pad, breaks = breaks, flipped_aes = flipped_aes, drop = drop
+    )
+    
+    # Only calculate bin_prop if we have the necessary columns and multiple groups
+    if (!is.null(data) && nrow(data) > 0 && 
+        all(c("count", "xmin", "xmax") %in% names(data))) {
+      
+      # Calculate bin_prop: proportion of each group within each bin
+      # Create a unique bin identifier using rounded values to handle floating point precision
+      data$bin_id <- paste(round(data$xmin, 10), round(data$xmax, 10), sep = "_")
+      
+      # Calculate total count per bin across all groups
+      bin_totals <- stats::aggregate(data$count, by = list(bin_id = data$bin_id), FUN = sum)
+      names(bin_totals)[2] <- "bin_total"
+      
+      # Merge back to get bin totals for each row
+      data <- merge(data, bin_totals, by = "bin_id", sort = FALSE)
+      
+      # Calculate bin_prop: count within group / total count in bin
+      # When bin_total = 0 (empty bin), set bin_prop based on whether there are multiple groups
+      n_groups <- length(unique(data$group))
+      if (n_groups == 1) {
+        # With only one group, bin_prop is always 1 (100% of the bin belongs to this group)
+        data$bin_prop <- 1
+      } else {
+        # With multiple groups, bin_prop = count / total_count_in_bin, or 0 for empty bins
+        data$bin_prop <- ifelse(data$bin_total > 0, data$count / data$bin_total, 0)
+      }
+      
+      # Remove the temporary columns
+      data$bin_id <- NULL
+      data$bin_total <- NULL
+    } else {
+      # If we don't have the necessary data, just add a default bin_prop column
+      data$bin_prop <- if (nrow(data) > 0) rep(1, nrow(data)) else numeric(0)
+    }
+    
+    data
+  },
+
   default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
   required_aes = "x|y",
@@ -108,7 +156,8 @@ StatBin <- ggproto(
 #'   density  = "density of points in bin, scaled to integrate to 1.",
 #'   ncount   = "count, scaled to a maximum of 1.",
 #'   ndensity = "density, scaled to a maximum of 1.",
-#'   width    = "widths of bins."
+#'   width    = "widths of bins.",
+#'   bin_prop = "proportion of points in bin that belong to each group."
 #' )
 #'
 #' @section Dropped variables:
