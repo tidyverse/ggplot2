@@ -31,8 +31,10 @@ on_load(
   }
 )
 
+# In R >= 4.3.0, S7 methods fall back to base Ops behavior when one of the
+# arguments is not an S7 object. This ensures compatibility in such cases.
 on_load(
-  if (getRversion() > "4.3.0") registerS3method("+", "gg", add_gg)
+  if (getRversion() >= "4.3.0") registerS3method("+", "gg", add_gg)
 )
 
 on_load(S7::methods_register())
