@@ -34,3 +34,11 @@
       Error:
       ! `1:3` must be a vector of length 2, not length 3.
 
+# adding default coords works correctly
+
+    Code
+      test <- test + coord_cartesian(xlim = c(-2, 2))
+    Message
+      Coordinate system already present.
+      i Adding new coordinate system, which will replace the existing one.
+

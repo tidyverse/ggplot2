@@ -108,3 +108,31 @@ test_that("coord expand takes a vector", {
 
 })
 
+test_that("adding default coords works correctly", {
+
+  base <- ggplot() + coord_cartesian(default = TRUE, xlim = c(0, 1))
+
+  # default + user = user
+  expect_no_message(
+    test <- base + coord_cartesian(xlim = c(-1, 1))
+  )
+  expect_equal(test@coordinates$limits$x, c(-1, 1))
+
+  # user1 + user2 = user2 + message
+  expect_snapshot(
+    test <- test + coord_cartesian(xlim = c(-2, 2))
+  )
+  expect_equal(test@coordinates$limits$x, c(-2, 2))
+
+  # user + default = user
+  expect_no_message(
+    test <- test + coord_cartesian(xlim = c(-3, 3), default = TRUE)
+  )
+  expect_equal(test@coordinates$limits$x, c(-2, 2))
+
+  # default1 + default2 = default2 (silent)
+  expect_no_message(
+    test <- base + coord_cartesian(xlim = c(-4, 4), default = TRUE)
+  )
+  expect_equal(test@coordinates$limits$x, c(-4, 4))
+})
