@@ -200,6 +200,12 @@ S7::method(update_ggplot, list(class_theme, class_ggplot)) <-
 S7::method(update_ggplot, list(class_coord, class_ggplot)) <-
   function(object, plot, ...) {
     if (!isTRUE(plot@coordinates$default)) {
+
+      if (isTRUE(object$default)) {
+        # We don't let default coords override non-default coords (#6572)
+        return(plot)
+      }
+
       cli::cli_inform(c(
         "Coordinate system already present.",
         i = "Adding new coordinate system, which will replace the existing one."
