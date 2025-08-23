@@ -63,9 +63,11 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     if (any(outliers)) {
       stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
     }
-
-    if (vec_unique_count(data$x) > 1)
+    if (vec_size(data) > 0L && !is.null(data$width)) {
+      width <- data$width[1L]
+    } else if (vec_unique_count(data$x) > 1) {
       width <- diff(range(data$x)) * 0.9
+    }
 
     df <- data_frame0(!!!as.list(stats))
     df$outliers <- list(data$y[outliers])
