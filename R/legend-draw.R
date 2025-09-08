@@ -211,7 +211,7 @@ draw_key_path <- function(data, params, size) {
   )
   if (!is.null(params[["arrow"]])) {
     angle <- deg2rad(params[["arrow"]]$angle)
-    length <- convertUnit(params[["arrow"]]$length, "cm", valueOnly = TRUE)
+    length <- convertUnit(params[["arrow"]]$length[1], "cm", valueOnly = TRUE)
     attr(grob, "width")  <- cos(angle) * length * 1.25
     attr(grob, "height") <- sin(angle) * length * 2
   }
@@ -232,7 +232,7 @@ draw_key_vpath <- function(data, params, size) {
   )
   if (!is.null(params[["arrow"]])) {
     angle <- deg2rad(params[["arrow"]]$angle)
-    length <- convertUnit(params[["arrow"]]$length, "cm", valueOnly = TRUE)
+    length <- convertUnit(params[["arrow"]]$length[1], "cm", valueOnly = TRUE)
     attr(grob, "width")  <- sin(angle) * length * 2
     attr(grob, "height") <- cos(angle) * length * 1.25
   }
