@@ -112,7 +112,10 @@ get_geom_defaults <- function(geom, theme = theme_get()) {
     out <- geom$use_defaults(data = NULL, theme = theme)
     return(out)
   }
-  stop_input_type(geom, as_cli("a layer function, string or {.cls Geom} object"))
+  stop_input_type(
+    geom,
+    as_cli("a layer function, string or {.cls Geom} object")
+  )
 }
 
 #' @rdname update_defaults
@@ -126,18 +129,19 @@ reset_stat_defaults <- function() reset_defaults("stat")
 cache_defaults <- new_environment()
 
 update_defaults <- function(name, subclass, new, env = parent.frame()) {
-  obj   <- validate_subclass(name, subclass, env = env)
+  obj <- validate_subclass(name, subclass, env = env)
   index <- snake_class(obj)
 
-  if (is.null(new)) { # Reset from cache
+  if (is.null(new)) {
+    # Reset from cache
 
     old <- cache_defaults[[index]]
     if (!is.null(old)) {
       new <- update_defaults(name, subclass, new = old, env = env)
     }
     invisible(new)
-
-  } else { # Update default aesthetics
+  } else {
+    # Update default aesthetics
 
     old <- obj$default_aes
     # Only update cache the first time defaults are changed
@@ -149,7 +153,6 @@ update_defaults <- function(name, subclass, new, env = parent.frame()) {
     new <- defaults(new, old)[name_order]
     obj$default_aes[names(new)] <- new
     invisible(old)
-
   }
 }
 

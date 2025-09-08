@@ -3,10 +3,21 @@
 #' @usage NULL
 #' @export
 #' @include geom-path.R
-GeomFunction <- ggproto("GeomFunction", GeomPath,
-  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 10,
-                        na.rm = FALSE) {
+GeomFunction <- ggproto(
+  "GeomFunction",
+  GeomPath,
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    arrow = NULL,
+    arrow.fill = NULL,
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10,
+    na.rm = FALSE
+  ) {
     groups <- unique0(data$group)
     if (length(groups) > 1) {
       cli::cli_warn(c(
@@ -16,7 +27,15 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
     }
 
     ggproto_parent(GeomPath, self)$draw_panel(
-      data, panel_params, coord, arrow, arrow.fill, lineend, linejoin, linemitre, na.rm
+      data,
+      panel_params,
+      coord,
+      arrow,
+      arrow.fill,
+      lineend,
+      linejoin,
+      linemitre,
+      na.rm
     )
   }
 )
@@ -84,6 +103,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
 #'
 #' @export
 geom_function <- make_constructor(
-  GeomFunction, stat = "function",
+  GeomFunction,
+  stat = "function",
   checks = exprs(data <- data %||% ensure_nonempty_data)
 )

@@ -70,7 +70,8 @@
 #' ggplot(mpg, aes(drv, displ)) +
 #'   geom_boxplot() +
 #'   coord_jitter()
-Coord <- ggproto("Coord",
+Coord <- ggproto(
+  "Coord",
 
   # Fields ------------------------------------------------------------------
 
@@ -266,7 +267,8 @@ Coord <- ggproto("Coord",
 
     # Do guide setup
     guides <- guides$setup(
-      scales, aesthetics,
+      scales,
+      aesthetics,
       default = params$guide_default %||% guide_axis(),
       missing = params$guide_missing %||% guide_none()
     )
@@ -281,12 +283,14 @@ Coord <- ggproto("Coord",
       scale = scale_position[!is_sec]
     )
     opposite <- c(
-      "top"  = "bottom", "bottom" = "top",
-      "left" = "right",   "right" = "left"
+      "top" = "bottom",
+      "bottom" = "top",
+      "left" = "right",
+      "right" = "left"
     )
     guide_position[is_sec] <- Map(
       function(sec, prim) sec %|W|% unname(opposite[prim]),
-      sec  = guide_position[is_sec],
+      sec = guide_position[is_sec],
       prim = guide_position[!is_sec]
     )
     guide_params <- Map(
@@ -295,7 +299,7 @@ Coord <- ggproto("Coord",
         params
       },
       params = guide_params,
-      pos    = guide_position
+      pos = guide_position
     )
 
     # Update positions
@@ -330,7 +334,6 @@ Coord <- ggproto("Coord",
   #' The `panel_params` object, but with trained and transformed `guides`
   #' parameter.
   train_panel_guides = function(self, panel_params, layers, params = list()) {
-
     aesthetics <- c("x", "y", "x.sec", "y.sec")
 
     # If the panel_params doesn't contain the scale, there's no guide for the aesthetic
@@ -338,7 +341,7 @@ Coord <- ggproto("Coord",
     names(aesthetics) <- aesthetics
 
     guides <- panel_params$guides$get_guide(aesthetics)
-    empty  <- vapply(guides, inherits, logical(1), "GuideNone")
+    empty <- vapply(guides, inherits, logical(1), "GuideNone")
     guide_params <- panel_params$guides$get_params(aesthetics)
     aesthetics <- aesthetics[!empty]
 
@@ -440,7 +443,9 @@ Coord <- ggproto("Coord",
   #'
   #' A list containing numeric ranges for `x` and `y` in data coordinates.
   backtransform_range = function(self, panel_params) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn backtransform_range} method.")
+    cli::cli_abort(
+      "{.fn {snake_class(self)}} has not implemented a {.fn backtransform_range} method."
+    )
   },
 
   # return range stored in panel_params
@@ -465,7 +470,9 @@ Coord <- ggproto("Coord",
   #'
   #' A list containing numeric ranges for `x` and `y`.
   range = function(self, panel_params) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn range} method.")
+    cli::cli_abort(
+      "{.fn {snake_class(self)}} has not implemented a {.fn range} method."
+    )
   },
 
   ## render -----------------------------------------------------------------
@@ -555,7 +562,9 @@ Coord <- ggproto("Coord",
   #'
   #' A grob with panel background.
   render_bg = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_bg} method.")
+    cli::cli_abort(
+      "{.fn {snake_class(self)}} has not implemented a {.fn render_bg} method."
+    )
   },
 
   #' @field labels
@@ -638,11 +647,15 @@ Coord <- ggproto("Coord",
   #' `"right"` are grobs with an axis. These grobs should be [`zeroGrob()`]
   #' when no axes should be rendered.
   render_axis_h = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_h} method.")
+    cli::cli_abort(
+      "{.fn {snake_class(self)}} has not implemented a {.fn render_axis_h} method."
+    )
   },
 
   render_axis_v = function(self, panel_params, theme) {
-    cli::cli_abort("{.fn {snake_class(self)}} has not implemented a {.fn render_axis_v} method.")
+    cli::cli_abort(
+      "{.fn {snake_class(self)}} has not implemented a {.fn render_axis_v} method."
+    )
   },
 
   ## Utilities --------------------------------------------------------------
@@ -704,9 +717,21 @@ is.Coord <- function(x) {
 # generated
 render_axis <- function(panel_params, axis, scale, position, theme) {
   if (axis == "primary") {
-    draw_axis(panel_params[[paste0(scale, ".major")]], panel_params[[paste0(scale, ".labels")]], position, theme)
-  } else if (axis == "secondary" && !is.null(panel_params[[paste0(scale, ".sec.major")]])) {
-    draw_axis(panel_params[[paste0(scale, ".sec.major")]], panel_params[[paste0(scale, ".sec.labels")]], position, theme)
+    draw_axis(
+      panel_params[[paste0(scale, ".major")]],
+      panel_params[[paste0(scale, ".labels")]],
+      position,
+      theme
+    )
+  } else if (
+    axis == "secondary" && !is.null(panel_params[[paste0(scale, ".sec.major")]])
+  ) {
+    draw_axis(
+      panel_params[[paste0(scale, ".sec.major")]],
+      panel_params[[paste0(scale, ".sec.labels")]],
+      position,
+      theme
+    )
   } else {
     zeroGrob()
   }
@@ -737,7 +762,9 @@ parse_coord_expand <- function(expand) {
 
 # Utility function to check coord limits
 check_coord_limits <- function(
-    limits, arg = caller_arg(limits), call = caller_env()
+  limits,
+  arg = caller_arg(limits),
+  call = caller_env()
 ) {
   if (is.null(limits)) {
     return(invisible(NULL))

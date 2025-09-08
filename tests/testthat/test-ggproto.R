@@ -12,7 +12,6 @@ test_that("construction checks input", {
 })
 
 test_that("all ggproto methods start with `{` (#6459)", {
-
   ggprotos <- Filter(
     function(x) inherits(x, "ggproto"),
     mget(ls("package:ggplot2"), asNamespace("ggplot2"), ifnotfound = list(NULL))
@@ -45,7 +44,9 @@ test_that("all ggproto methods start with `{` (#6459)", {
   # Test to make sure we're testing correctly
   ctrl <- list(
     foo = ggproto("Dummy", dummy = function(x) x + 10),
-    bar = ggproto("Dummy", dummy = function(x) {x + 10})
+    bar = ggproto("Dummy", dummy = function(x) {
+      x + 10
+    })
   )
   ctrl <- lapply(ctrl, report_no_bracket)
   expect_equal(ctrl, list(foo = "dummy", bar = character()))

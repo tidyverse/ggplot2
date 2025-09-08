@@ -194,19 +194,32 @@ Geom <- ggproto(
   #' **Value**
   #'
   #' A data frame with completed layer data.
-  use_defaults = function(self, data, params = list(), modifiers = aes(),
-                          default_aes = NULL, theme = NULL, ...) {
+  use_defaults = function(
+    self,
+    data,
+    params = list(),
+    modifiers = aes(),
+    default_aes = NULL,
+    theme = NULL,
+    ...
+  ) {
     default_aes <- default_aes %||% self$default_aes
 
     # Inherit size as linewidth if no linewidth aesthetic and param exist
-    if (self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)) {
+    if (
+      self$rename_size && is.null(data$linewidth) && is.null(params$linewidth)
+    ) {
       data$linewidth <- data$size
       params$linewidth <- params$size
     }
     # Take care of subclasses setting the wrong default when inheriting from
     # a geom with rename_size = TRUE
     if (self$rename_size && is.null(default_aes$linewidth)) {
-      deprecate_warn0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
+      deprecate_warn0(
+        "3.4.0",
+        I("Using the `size` aesthetic in this geom"),
+        I("`linewidth` in the `default_aes` field and elsewhere")
+      )
       default_aes$linewidth <- default_aes$size
     }
 
@@ -245,7 +258,8 @@ Geom <- ggproto(
     if (length(modifiers) != 0) {
       modified_aes <- try_fetch(
         eval_aesthetics(
-          substitute_aes(modifiers), data,
+          substitute_aes(modifiers),
+          data,
           mask = list(stage = stage_scaled)
         ),
         error = function(cnd) {
@@ -256,12 +270,17 @@ Geom <- ggproto(
 
       # Check that all output are valid data
       check_nondata_cols(
-        modified_aes, modifiers,
+        modified_aes,
+        modifiers,
         problem = "Aesthetic modifiers returned invalid values.",
-        hint    = "Did you map the modifier in the wrong layer?"
+        hint = "Did you map the modifier in the wrong layer?"
       )
 
-      modified_aes <- cleanup_mismatched_data(modified_aes, nrow(data), "after_scale")
+      modified_aes <- cleanup_mismatched_data(
+        modified_aes,
+        nrow(data),
+        "after_scale"
+      )
       data[names(modified_aes)] <- modified_aes
     }
 
@@ -305,7 +324,9 @@ Geom <- ggproto(
   #'
   #' A data frame with layer data
   handle_na = function(self, data, params) {
-    remove_missing(data, params$na.rm,
+    remove_missing(
+      data,
+      params$na.rm,
       c(self$required_aes, self$non_missing_aes),
       snake_class(self)
     )
@@ -349,7 +370,9 @@ Geom <- ggproto(
       data_panels <- list(data)
     }
     lapply(data_panels, function(data) {
-      if (empty(data)) return(zeroGrob())
+      if (empty(data)) {
+        return(zeroGrob())
+      }
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
       inject(self$draw_panel(data, panel_params, coord, !!!params))
@@ -397,13 +420,18 @@ Geom <- ggproto(
       self$draw_group(group, panel_params, coord, ...)
     })
 
-    ggname(snake_class(self), gTree(
-      children = inject(gList(!!!grobs))
-    ))
+    ggname(
+      snake_class(self),
+      gTree(
+        children = inject(gList(!!!grobs))
+      )
+    )
   },
 
   draw_group = function(self, data, panel_params, coord) {
-    cli::cli_abort("{.fn {snake_class(self)}}, has not implemented a {.fn draw_group} method")
+    cli::cli_abort(
+      "{.fn {snake_class(self)}}, has not implemented a {.fn draw_group} method"
+    )
   },
 
   ## Utilities ---------------------------------------------------------------
@@ -478,7 +506,6 @@ eval_from_theme <- function(aesthetics, theme, class = NULL) {
   class <- setdiff(class, c("Geom", "ggproto", "gg"))
 
   if (length(class) > 0) {
-
     # CamelCase to dot.case
     class <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1.\\2\\3", class)
     class <- gsub("([a-z])([A-Z])", "\\1.\\2", class)
@@ -530,7 +557,11 @@ check_aesthetics <- function(x, n) {
 
 fix_linewidth <- function(data, name) {
   if (is.null(data$linewidth) && !is.null(data$size)) {
-    deprecate_warn0("3.4.0", I(paste0("Using the `size` aesthetic with ", name)), I("the `linewidth` aesthetic"))
+    deprecate_warn0(
+      "3.4.0",
+      I(paste0("Using the `size` aesthetic with ", name)),
+      I("the `linewidth` aesthetic")
+    )
     data$linewidth <- data$size
   }
   data

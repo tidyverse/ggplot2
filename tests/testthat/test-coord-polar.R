@@ -1,10 +1,11 @@
 test_that("polar distance is calculated correctly", {
   dat <- data_frame(
-    theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5))
+    theta = c(0, 2 * pi, 2, 6, 6, 1, 1, 0),
+    r = c(0, 0, 0.5, 0.5, 1, 1, 0.75, 0.5)
+  )
 
   scales <- list(
-    x = scale_x_continuous(limits = c(0, 2*pi)),
+    x = scale_x_continuous(limits = c(0, 2 * pi)),
     y = scale_y_continuous(limits = c(0, 1))
   )
   coord <- coord_polar()
@@ -16,8 +17,10 @@ test_that("polar distance is calculated correctly", {
   maxlen <- spiral_arc_length(1 / (2 * pi), 0, 2 * pi)
 
   # These are the expected lengths. I think they're correct...
-  expect_equal(dists,
-    c(0, -1.225737494, -2, -0.5, -5, -0.25, -0.6736885011) / maxlen)
+  expect_equal(
+    dists,
+    c(0, -1.225737494, -2, -0.5, -5, -0.25, -0.6736885011) / maxlen
+  )
 
   # The picture can be visualized with:
   # ggplot(dat, aes(x=theta, y=r)) + geom_path() +
@@ -25,10 +28,9 @@ test_that("polar distance is calculated correctly", {
 })
 
 test_that("polar distance calculation ignores NA's", {
-
   # These are r and theta values; we'll swap them around for testing
   x1 <- c(0, 0.5, 0.5, NA, 1)
-  x2 <- c(0,   1,   2, 0,  1)
+  x2 <- c(0, 1, 2, 0, 1)
 
   dists <- dist_polar(x1, x2)
   expect_equal(is.na(dists), c(FALSE, FALSE, TRUE, TRUE))
@@ -37,15 +39,15 @@ test_that("polar distance calculation ignores NA's", {
 
   # NA on the end
   x1 <- c(0, 0.5, 0.5, 1, NA)
-  x2 <- c(0,   1,   2, 0,  1)
+  x2 <- c(0, 1, 2, 0, 1)
   dists <- dist_polar(x1, x2)
   expect_equal(is.na(dists), c(FALSE, FALSE, FALSE, TRUE))
   dists <- dist_polar(x2, x1)
   expect_equal(is.na(dists), c(FALSE, FALSE, FALSE, TRUE))
 
   # NAs in each vector - also have NaN
-  x1 <- c(0, 0.5, 0.5,  1, NA)
-  x2 <- c(NaN,   1,   2, NA,  1)
+  x1 <- c(0, 0.5, 0.5, 1, NA)
+  x2 <- c(NaN, 1, 2, NA, 1)
   dists <- dist_polar(x1, x2)
   expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
   dists <- dist_polar(x2, x1)
@@ -80,15 +82,14 @@ test_that("Inf is squished to range", {
 })
 
 test_that("coord_polar can have free scales in facets", {
-
   p <- ggplot(data_frame0(x = c(1, 2)), aes(1, x)) +
     geom_col() +
     coord_polar(theta = "y")
 
-  sc <- get_panel_scales(p + facet_wrap(~ x), 1, 1)
+  sc <- get_panel_scales(p + facet_wrap(~x), 1, 1)
   expect_equal(sc$y$get_limits(), c(0, 2))
 
-  sc <- get_panel_scales(p + facet_wrap(~ x, scales = "free"), 1, 1)
+  sc <- get_panel_scales(p + facet_wrap(~x, scales = "free"), 1, 1)
   expect_equal(sc$y$get_limits(), c(0, 1))
 
   sc <- get_panel_scales(p + facet_grid(x ~ .), 1, 1)
@@ -105,7 +106,6 @@ test_that("coord_polar throws informative warning about guides", {
 })
 
 test_that("coord_radial warns about axes", {
-
   p <- ggplot(mtcars, aes(disp, mpg)) +
     geom_point()
 
@@ -119,11 +119,9 @@ test_that("coord_radial warns about axes", {
   expect_snapshot_warning(ggplotGrob(
     p + coord_radial(start = 0.1 * pi, end = 0.4 * pi, r.axis.inside = FALSE)
   ))
-
 })
 
 test_that("bounding box calculations are sensible", {
-
   # Full cirle
   expect_equal(
     polar_bbox(arc = c(0, 2 * pi)),
@@ -156,7 +154,6 @@ test_that("bounding box calculations are sensible", {
 })
 
 test_that("when both x and y are AsIs, they are not transformed", {
-
   p <- ggplot() +
     annotate("text", x = I(0.75), y = I(0.25), label = "foo") +
     scale_x_continuous(limits = c(0, 10)) +
@@ -178,7 +175,6 @@ test_that("when both x and y are AsIs, they are not transformed", {
     coord_radial()
 
   expect_snapshot_warning(ggplotGrob(p))
-
 })
 
 test_that("radial coords can be reversed", {
@@ -228,7 +224,8 @@ test_that("polar coordinates draw correctly", {
     )
   dat <- data_frame(x = rep(0:1, 4), y = rep(c(1, 10, 40, 80), each = 2))
 
-  expect_doppelganger("three-concentric-circles",
+  expect_doppelganger(
+    "three-concentric-circles",
     ggplot(dat, aes(x, y, group = factor(y))) +
       geom_path() +
       coord_polar() +
@@ -236,11 +233,12 @@ test_that("polar coordinates draw correctly", {
   )
 
   dat <- data_frame(
-    theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
-    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, 0.5),
-    g     = 1:8
+    theta = c(0, 2 * pi, 2, 6, 6, 1, 1, 0),
+    r = c(0, 0, 0.5, 0.5, 1, 1, 0.75, 0.5),
+    g = 1:8
   )
-  expect_doppelganger("Rays, circular arcs, and spiral arcs",
+  expect_doppelganger(
+    "Rays, circular arcs, and spiral arcs",
     ggplot(dat, aes(theta, r, colour = g)) +
       geom_path(show.legend = FALSE) +
       geom_point(colour = "black") +
@@ -249,29 +247,33 @@ test_that("polar coordinates draw correctly", {
   )
 
   dat <- data_frame(x = LETTERS[1:3], y = 1:3)
-  expect_doppelganger("rose plot with has equal spacing",
+  expect_doppelganger(
+    "rose plot with has equal spacing",
     ggplot(dat, aes(x, y)) +
       geom_bar(stat = "identity") +
       coord_polar() +
       theme
   )
-  expect_doppelganger("racetrack plot: closed and no center hole",
+  expect_doppelganger(
+    "racetrack plot: closed and no center hole",
     ggplot(dat, aes(x, y)) +
       geom_bar(stat = "identity") +
       coord_polar(theta = "y") +
       theme
   )
-  expect_doppelganger("racetrack plot: closed and has center hole",
+  expect_doppelganger(
+    "racetrack plot: closed and has center hole",
     ggplot(dat, aes(x, y)) +
       geom_bar(stat = "identity") +
       coord_polar(theta = "y") +
       scale_x_discrete(expand = c(0, 0.6)) +
       theme
   )
-  expect_doppelganger("secondary axis ticks and labels",
+  expect_doppelganger(
+    "secondary axis ticks and labels",
     ggplot(dat, aes(x, y, group = factor(y))) +
       geom_blank() +
-      scale_y_continuous(sec.axis = sec_axis(~. * 0.1, name = "sec y")) +
+      scale_y_continuous(sec.axis = sec_axis(~ . * 0.1, name = "sec y")) +
       coord_polar() +
       theme_test() +
       theme(axis.text.x = element_blank())
@@ -279,11 +281,10 @@ test_that("polar coordinates draw correctly", {
 })
 
 test_that("coord_radial() draws correctly", {
-
   # Theme to test for axis placement
   theme <- theme(
     axis.line.theta = element_line(colour = "tomato"),
-    axis.line.r   = element_line(colour = "dodgerblue"),
+    axis.line.r = element_line(colour = "dodgerblue"),
   )
 
   sec_guides <- guides(
@@ -300,40 +301,48 @@ test_that("coord_radial() draws correctly", {
     theme
 
   expect_doppelganger("inner.radius with all axes", {
-    p + coord_radial(inner.radius = 0.3, r.axis.inside = FALSE) +
-      sec_guides
+    p + coord_radial(inner.radius = 0.3, r.axis.inside = FALSE) + sec_guides
   })
 
   expect_doppelganger("partial with all axes", {
-    p + coord_radial(start = 0.25 * pi, end = 0.75 * pi, inner.radius = 0.3,
-                     r.axis.inside = TRUE, theta = "y") +
+    p +
+      coord_radial(
+        start = 0.25 * pi,
+        end = 0.75 * pi,
+        inner.radius = 0.3,
+        r.axis.inside = TRUE,
+        theta = "y"
+      ) +
       sec_guides
   })
 
   df <- data_frame0(
-    x = 1:5, lab = c("cat", "strawberry\ncake", "coffee", "window", "fluid")
+    x = 1:5,
+    lab = c("cat", "strawberry\ncake", "coffee", "window", "fluid")
   )
 
   ggplot(df, aes(x, label = lab)) +
-    geom_text(aes(y = "0 degrees"),  angle = 0) +
+    geom_text(aes(y = "0 degrees"), angle = 0) +
     geom_text(aes(y = "90 degrees"), angle = 90) +
-    coord_radial(start = 0.5 * pi, end = 1.5 * pi,
-                 rotate.angle = TRUE) +
+    coord_radial(start = 0.5 * pi, end = 1.5 * pi, rotate.angle = TRUE) +
     theme
 
   expect_doppelganger(
     "bottom half circle with rotated text",
     ggplot(df, aes(x, label = lab)) +
-      geom_text(aes(y = "0 degrees"),  angle = 0) +
+      geom_text(aes(y = "0 degrees"), angle = 0) +
       geom_text(aes(y = "90 degrees"), angle = 90) +
-      coord_radial(start = 0.5 * pi, end = 1.5 * pi,
-                   rotate.angle = TRUE, r.axis.inside = FALSE) +
+      coord_radial(
+        start = 0.5 * pi,
+        end = 1.5 * pi,
+        rotate.angle = TRUE,
+        r.axis.inside = FALSE
+      ) +
       theme
   )
 })
 
 test_that("coord_radial()'s axis internal placement works", {
-
   df <- data.frame(x = c(0, 360), y = c(1, 14))
 
   expect_doppelganger(

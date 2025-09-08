@@ -23,7 +23,8 @@ guide_none <- function(title = waiver(), position = waiver()) {
 #' @usage NULL
 #' @export
 GuideNone <- ggproto(
-  "GuideNone", Guide,
+  "GuideNone",
+  Guide,
 
   # Perform no training
   train = function(self, params = self$params, scale, aesthetic = NULL, ...) {

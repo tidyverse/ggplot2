@@ -5,12 +5,24 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(self, data, panel_params, coord, rule = "evenodd",
-                        lineend = "butt", linejoin = "round", linemitre = 10) {
+GeomPolygon <- ggproto(
+  "GeomPolygon",
+  Geom,
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    rule = "evenodd",
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     n <- nrow(data)
-    if (n == 1) return(zeroGrob())
+    if (n == 1) {
+      return(zeroGrob())
+    }
 
     munched <- coord_munch(coord, data, panel_params, is_closed = TRUE)
 
@@ -27,7 +39,9 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       ggname(
         "geom_polygon",
         polygonGrob(
-          munched$x, munched$y, default.units = "native",
+          munched$x,
+          munched$y,
+          default.units = "native",
           id = munched$group,
           gp = gg_par(
             col = first_rows$colour,
@@ -57,8 +71,11 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       ggname(
         "geom_polygon",
         pathGrob(
-          munched$x, munched$y, default.units = "native",
-          id = id, pathId = munched$group,
+          munched$x,
+          munched$y,
+          default.units = "native",
+          id = id,
+          pathId = munched$group,
           rule = rule,
           gp = gg_par(
             col = first_rows$colour,
@@ -79,7 +96,8 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
-    alpha = NA, subgroup = NULL
+    alpha = NA,
+    subgroup = NULL
   ),
 
   handle_na = function(data, params) {

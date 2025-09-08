@@ -135,7 +135,11 @@ guide_colourbar <- function(
   ...
 ) {
   if (lifecycle::is_present(raster)) {
-    deprecate_soft0("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
+    deprecate_soft0(
+      "3.5.0",
+      "guide_colourbar(raster)",
+      "guide_colourbar(display)"
+    )
     check_bool(raster)
     display <- if (raster) "raster" else "rectangles"
   }
@@ -175,7 +179,8 @@ guide_colorbar <- guide_colourbar
 #' @usage NULL
 #' @export
 GuideColourbar <- ggproto(
-  "GuideColourbar", GuideLegend,
+  "GuideColourbar",
+  GuideLegend,
 
   params = list(
     # title
@@ -210,19 +215,19 @@ GuideColourbar <- ggproto(
   hashables = exprs(title, key$.label, decor, name),
 
   elements = list(
-    background     = "legend.background",
-    margin         = "legend.margin",
-    key            = "legend.key",
-    key_height     = "legend.key.height",
-    key_width      = "legend.key.width",
-    text           = "legend.text",
-    theme.title    = "legend.title",
-    text_position  = "legend.text.position",
+    background = "legend.background",
+    margin = "legend.margin",
+    key = "legend.key",
+    key_height = "legend.key.height",
+    key_width = "legend.key.width",
+    text = "legend.text",
+    theme.title = "legend.title",
+    text_position = "legend.text.position",
     title_position = "legend.title.position",
-    axis_line      = "legend.axis.line",
-    ticks          = "legend.ticks",
-    ticks_length   = "legend.ticks.length",
-    frame          = "legend.frame"
+    axis_line = "legend.axis.line",
+    ticks = "legend.ticks",
+    ticks_length = "legend.ticks.length",
+    frame = "legend.frame"
   ),
 
   extract_key = function(scale, aesthetic, ...) {
@@ -237,8 +242,14 @@ GuideColourbar <- ggproto(
     key
   },
 
-  extract_decor = function(scale, aesthetic, nbin = 300, reverse = FALSE, alpha = NA, ...) {
-
+  extract_decor = function(
+    scale,
+    aesthetic,
+    nbin = 300,
+    reverse = FALSE,
+    alpha = NA,
+    ...
+  ) {
     limits <- scale$get_limits()
     bar <- seq(limits[1], limits[2], length.out = nbin)
     if (length(bar) == 0) {
@@ -246,8 +257,8 @@ GuideColourbar <- ggproto(
     }
     bar <- data_frame0(
       colour = alpha(scale$map(bar), alpha),
-      value  = bar,
-      .size  = length(bar)
+      value = bar,
+      .size = length(bar)
     )
     if (reverse) {
       bar <- bar[nrow(bar):1, , drop = FALSE]
@@ -255,8 +266,7 @@ GuideColourbar <- ggproto(
     return(bar)
   },
 
-  extract_params = function(scale, params,
-                            title  = waiver(), ...) {
+  extract_params = function(scale, params, title = waiver(), ...) {
     params$title <- scale$make_title(params$title, scale$name, title)
     limits <- params$decor$value[c(1L, nrow(params$decor))]
     to <- switch(
@@ -282,7 +292,8 @@ GuideColourbar <- ggproto(
   setup_params = function(params) {
     params$direction <- arg_match0(
       params$direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
+      c("horizontal", "vertical"),
+      arg_nm = "direction"
     )
     params
   },
@@ -302,8 +313,8 @@ GuideColourbar <- ggproto(
     theme <- replace_null(
       theme,
       legend.text.position = valid_position[1],
-      legend.ticks         = params$default_ticks,
-      legend.frame         = params$default_frame
+      legend.ticks = params$default_ticks,
+      legend.frame = params$default_frame
     )
 
     # Let the legend guide handle the rest
@@ -326,24 +337,30 @@ GuideColourbar <- ggproto(
       return(list(labels = zeroGrob()))
     }
 
-    list(labels = flip_element_grob(
-      elements$text,
-      label = validate_labels(key$.label),
-      x = unit(key$.value, "npc"),
-      margin_x = FALSE,
-      margin_y = TRUE,
-      flip = params$direction == "vertical"
-    ))
+    list(
+      labels = flip_element_grob(
+        elements$text,
+        label = validate_labels(key$.label),
+        x = unit(key$.value, "npc"),
+        margin_x = FALSE,
+        margin_y = TRUE,
+        flip = params$direction == "vertical"
+      )
+    )
   },
 
   build_ticks = function(key, elements, params, position = params$position) {
     pos <- key$.value
-    if (!params$draw_lim[1]) pos <- pos[-1]
-    if (!params$draw_lim[2]) pos <- pos[-length(pos)]
+    if (!params$draw_lim[1]) {
+      pos <- pos[-1]
+    }
+    if (!params$draw_lim[2]) {
+      pos <- pos[-length(pos)]
+    }
     position <- switch(
       params$direction,
       "horizontal" = c("bottom", "top"),
-      "vertical"   = c("right", "left")
+      "vertical" = c("right", "left")
     )
     ticks_length <- rep(elements$ticks_length, length.out = 2)
 
@@ -358,11 +375,11 @@ GuideColourbar <- ggproto(
       image <- switch(
         params$direction,
         "horizontal" = t(decor$colour),
-        "vertical"   = rev(decor$colour)
+        "vertical" = rev(decor$colour)
       )
       grob <- rasterGrob(
-        image  = image,
-        width  = 1,
+        image = image,
+        width = 1,
         height = 1,
         default.units = "npc",
         gp = gpar(col = NA),
@@ -370,20 +387,23 @@ GuideColourbar <- ggproto(
       )
     } else if (params$display == "rectangles") {
       if (params$direction == "horizontal") {
-        width  <- 1 / nrow(decor)
+        width <- 1 / nrow(decor)
         height <- 1
         x <- (seq_len(nrow(decor)) - 1) * width
         y <- 0
       } else {
-        width  <- 1
+        width <- 1
         height <- 1 / nrow(decor)
         y <- (seq_len(nrow(decor)) - 1) * height
         x <- 0
       }
       grob <- rectGrob(
-        x = x, y = y,
-        vjust = 0, hjust = 0,
-        width = width, height = height,
+        x = x,
+        y = y,
+        vjust = 0,
+        hjust = 0,
+        width = width,
+        height = height,
         default.units = "npc",
         gp = gg_par(col = NA, fill = decor$colour)
       )
@@ -397,7 +417,7 @@ GuideColourbar <- ggproto(
       position <- switch(
         params$direction,
         horizontal = list(y1 = unit(0.5, "npc"), y2 = unit(0.5, "npc")),
-        vertical   = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
+        vertical = list(x1 = unit(0.5, "npc"), x2 = unit(0.5, "npc"))
       )
       gradient <- inject(linearGradient(decor$colour, value, !!!position))
       grob <- rectGrob(gp = gg_par(fill = gradient, col = NA))
@@ -410,7 +430,7 @@ GuideColourbar <- ggproto(
 
   measure_grobs = function(grobs, params, elements) {
     params$sizes <- list(
-      widths  = elements$width_cm,
+      widths = elements$width_cm,
       heights = elements$height_cm
     )
     GuideLegend$measure_grobs(grobs, params, elements)

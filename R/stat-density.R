@@ -3,20 +3,33 @@
 #' @usage NULL
 #' @export
 StatDensity <- ggproto(
-  "StatDensity", Stat,
+  "StatDensity",
+  Stat,
   required_aes = "x|y",
 
-  default_aes = aes(x = after_stat(density), y = after_stat(density), fill = NA, weight = NULL),
+  default_aes = aes(
+    x = after_stat(density),
+    y = after_stat(density),
+    fill = NA,
+    weight = NULL
+  ),
 
   dropped_aes = "weight",
 
   setup_params = function(self, data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
+    params$flipped_aes <- has_flipped_aes(
+      data,
+      params,
+      main_is_orthogonal = FALSE,
+      main_is_continuous = TRUE
+    )
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic."
+      )
     }
 
     params
@@ -24,9 +37,18 @@ StatDensity <- ggproto(
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
-                           n = 512, trim = FALSE, na.rm = FALSE, bounds = c(-Inf, Inf),
-                           flipped_aes = FALSE) {
+  compute_group = function(
+    data,
+    scales,
+    bw = "nrd0",
+    adjust = 1,
+    kernel = "gaussian",
+    n = 512,
+    trim = FALSE,
+    na.rm = FALSE,
+    bounds = c(-Inf, Inf),
+    flipped_aes = FALSE
+  ) {
     data <- flip_data(data, flipped_aes)
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
@@ -34,9 +56,17 @@ StatDensity <- ggproto(
       range <- scales[[flipped_names(flipped_aes)$x]]$dimension()
     }
 
-    density <- compute_density(data$x, data$weight, from = range[1],
-                               to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n,
-                               bounds = bounds)
+    density <- compute_density(
+      data$x,
+      data$weight,
+      from = range[1],
+      to = range[2],
+      bw = bw,
+      adjust = adjust,
+      kernel = kernel,
+      n = n,
+      bounds = bounds
+    )
     density$flipped_aes <- flipped_aes
     flip_data(density, flipped_aes)
   }
@@ -77,13 +107,23 @@ StatDensity <- ggproto(
 #' @export
 #' @rdname geom_density
 stat_density <- make_constructor(
-  StatDensity, geom = "area", position = "stack",
+  StatDensity,
+  geom = "area",
+  position = "stack",
   orientation = NA
 )
 
-compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
-                            kernel = "gaussian", n = 512,
-                            bounds = c(-Inf, Inf)) {
+compute_density <- function(
+  x,
+  w,
+  from,
+  to,
+  bw = "nrd0",
+  adjust = 1,
+  kernel = "gaussian",
+  n = 512,
+  bounds = c(-Inf, Inf)
+) {
   nx <- w_sum <- length(x)
   if (is.null(w)) {
     w <- rep(1 / nx, nx)
@@ -119,32 +159,48 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   if (any(is.finite(bounds))) {
     # To prevent discontinuities, we widen the range before calling the
     # unbounded estimator (#5641).
-    bounds   <- sort(bounds)
-    range    <- range(from, to)
-    width    <- diff(range)
+    bounds <- sort(bounds)
+    range <- range(from, to)
+    width <- diff(range)
     range[1] <- range[1] - width * as.numeric(is.finite(bounds[1]))
     range[2] <- range[2] + width * as.numeric(is.finite(bounds[2]))
     n <- n * (sum(is.finite(bounds)) + 1)
 
     dens <- stats::density(
-      x, weights = w, bw = bw, adjust = adjust,
-      kernel = kernel, n = n, from = range[1], to = range[2]
+      x,
+      weights = w,
+      bw = bw,
+      adjust = adjust,
+      kernel = kernel,
+      n = n,
+      from = range[1],
+      to = range[2]
     )
     dens <- reflect_density(
-      dens = dens, bounds = bounds,
-      from = range[1], to = range[2]
+      dens = dens,
+      bounds = bounds,
+      from = range[1],
+      to = range[2]
     )
   } else {
-    dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
-                           kernel = kernel, n = n, from = from, to = to)
+    dens <- stats::density(
+      x,
+      weights = w,
+      bw = bw,
+      adjust = adjust,
+      kernel = kernel,
+      n = n,
+      from = from,
+      to = to
+    )
   }
 
   data_frame0(
     x = dens$x,
     density = dens$y,
-    scaled =  dens$y / max(dens$y, na.rm = TRUE),
+    scaled = dens$y / max(dens$y, na.rm = TRUE),
     ndensity = dens$y / max(dens$y, na.rm = TRUE),
-    count =   dens$y * nx,
+    count = dens$y * nx,
     wdensity = dens$y * w_sum,
     n = nx,
     .size = length(dens$x)
@@ -189,7 +245,11 @@ reflect_density <- function(dens, bounds, from, to) {
 
   # Estimate linearly with zero tails (crucial to account for infinite bound)
   f_dens <- stats::approxfun(
-    x = dens$x, y = dens$y, method = "linear", yleft = 0, yright = 0
+    x = dens$x,
+    y = dens$y,
+    method = "linear",
+    yleft = 0,
+    yright = 0
   )
 
   # Create a uniform x-grid inside `bounds`
@@ -212,14 +272,17 @@ precompute_bw <- function(x, bw = "nrd0") {
   bw <- bw[1]
   if (is.character(bw)) {
     bw <- to_lower_ascii(bw)
-    bw <- arg_match0(bw, c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi"))
+    bw <- arg_match0(
+      bw,
+      c("nrd0", "nrd", "ucv", "bcv", "sj", "sj-ste", "sj-dpi")
+    )
     bw <- switch(
       to_lower_ascii(bw),
       nrd0 = stats::bw.nrd0(x),
-      nrd  = stats::bw.nrd(x),
-      ucv  = stats::bw.ucv(x),
-      bcv  = stats::bw.bcv(x),
-      sj   = ,
+      nrd = stats::bw.nrd(x),
+      ucv = stats::bw.ucv(x),
+      bcv = stats::bw.bcv(x),
+      sj = ,
       `sj-ste` = stats::bw.SJ(x, method = "ste"),
       `sj-dpi` = stats::bw.SJ(x, method = "dpi")
     )

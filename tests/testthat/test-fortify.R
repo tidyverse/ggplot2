@@ -3,27 +3,41 @@ test_that("spatial polygons have correct ordering", {
     skip_if_not_installed("sp")
   })
 
-
-  make_square <- function(x = 0, y = 0, height = 1, width = 1){
-    delx <- width/2
-    dely <- height/2
-    sp::Polygon(matrix(c(x + delx, x - delx,x - delx,x + delx,x + delx ,
-        y - dely,y - dely,y + dely,y + dely,y - dely), ncol = 2))
+  make_square <- function(x = 0, y = 0, height = 1, width = 1) {
+    delx <- width / 2
+    dely <- height / 2
+    sp::Polygon(matrix(
+      c(
+        x + delx,
+        x - delx,
+        x - delx,
+        x + delx,
+        x + delx,
+        y - dely,
+        y - dely,
+        y + dely,
+        y + dely,
+        y - dely
+      ),
+      ncol = 2
+    ))
   }
 
-  make_hole <- function(x = 0, y = 0, height = 0.5, width = 0.5){
+  make_hole <- function(x = 0, y = 0, height = 0.5, width = 0.5) {
     p <- make_square(x = x, y = y, height = height, width = width)
     p@hole <- TRUE
     p
   }
 
-  fake_data <- data_frame(ids = 1:5, region = c(1,1,2,3,4))
+  fake_data <- data_frame(ids = 1:5, region = c(1, 1, 2, 3, 4))
   rownames(fake_data) <- 1:5
-  polys <- list(sp::Polygons(list(make_square(), make_hole()), 1),
-                sp::Polygons(list(make_square(1,0), make_square(2, 0)), 2),
-                sp::Polygons(list(make_square(1,1)), 3),
-                sp::Polygons(list(make_square(0,1)), 4),
-                sp::Polygons(list(make_square(0,3)), 5))
+  polys <- list(
+    sp::Polygons(list(make_square(), make_hole()), 1),
+    sp::Polygons(list(make_square(1, 0), make_square(2, 0)), 2),
+    sp::Polygons(list(make_square(1, 1)), 3),
+    sp::Polygons(list(make_square(0, 1)), 4),
+    sp::Polygons(list(make_square(0, 3)), 5)
+  )
 
   polys_sp <- sp::SpatialPolygons(polys)
   fake_sp <- sp::SpatialPolygonsDataFrame(polys_sp, fake_data)
@@ -72,7 +86,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Unhealthy data-frame-like (matrix with no colnames)
 
-  expect_snapshot(fortify(cbind(X, Y, Z, deparse.level=0)), error = TRUE)
+  expect_snapshot(fortify(cbind(X, Y, Z, deparse.level = 0)), error = TRUE)
 
   # Healthy data-frame-like (matrix with colnames)
 
@@ -92,11 +106,11 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   as.data.frame.foo <- function(x, row.names = NULL, ...) {
     key <- if (is.null(names(x))) rownames(x) else names(x)
-    data.frame(key=key, value=unname(unclass(x)))
+    data.frame(key = key, value = unname(unclass(x)))
   }
   registerS3method("as.data.frame", "foo", as.data.frame.foo)
 
-  expect_identical(fortify(object), data.frame(key=names(object), value=Y))
+  expect_identical(fortify(object), data.frame(key = names(object), value = Y))
 
   # Rejected by fortify.default() because of unhealthy dim() behavior
 
@@ -129,7 +143,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Rejected by fortify.default() because of unhealthy colnames() behavior
 
-  dimnames.foo <- function(x) list()  # this breaks colnames(<foo>)
+  dimnames.foo <- function(x) list() # this breaks colnames(<foo>)
   registerS3method("dimnames", "foo", dimnames.foo)
   expect_snapshot(fortify(object), error = TRUE)
 
@@ -166,7 +180,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   as.data.frame.foo <- function(x, row.names = NULL, ...) {
     key <- if (is.null(names(x))) rownames(x) else names(x)
-    data.frame(oops=key, value=unname(unclass(x)))
+    data.frame(oops = key, value = unname(unclass(x)))
   }
   registerS3method("as.data.frame", "foo", as.data.frame.foo)
   expect_snapshot(fortify(object), error = TRUE)

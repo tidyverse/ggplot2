@@ -4,11 +4,14 @@
 #' @export
 #' @include geom-path.R
 GeomQuantile <- ggproto(
-  "GeomQuantile", GeomPath,
-  default_aes = aes(!!!defaults(
-    aes(weight = 1, colour = from_theme(colour %||% accent)),
-    GeomPath$default_aes
-  ))
+  "GeomQuantile",
+  GeomPath,
+  default_aes = aes(
+    !!!defaults(
+      aes(weight = 1, colour = from_theme(colour %||% accent)),
+      GeomPath$default_aes
+    )
+  )
 )
 
 #' Quantile regression

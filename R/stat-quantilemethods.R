@@ -3,12 +3,21 @@
 #' @usage NULL
 #' @export
 StatQuantile <- ggproto(
-  "StatQuantile", Stat,
+  "StatQuantile",
+  Stat,
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
-                           formula = NULL, xseq = NULL, method = "rq",
-                           method.args = list(), lambda = 1, na.rm = FALSE) {
+  compute_group = function(
+    data,
+    scales,
+    quantiles = c(0.25, 0.5, 0.75),
+    formula = NULL,
+    xseq = NULL,
+    method = "rq",
+    method.args = list(),
+    lambda = 1,
+    na.rm = FALSE
+  ) {
     check_installed("quantreg", reason = "for `stat_quantile()`.")
 
     if (is.null(formula)) {
@@ -23,10 +32,14 @@ StatQuantile <- ggproto(
       } else {
         formula <- y ~ x
       }
-      cli::cli_inform("Smoothing formula not specified. Using: {deparse(formula)}")
+      cli::cli_inform(
+        "Smoothing formula not specified. Using: {deparse(formula)}"
+      )
     }
 
-    if (is.null(data$weight)) data$weight <- 1
+    if (is.null(data$weight)) {
+      data$weight <- 1
+    }
 
     if (is.null(xseq)) {
       xmin <- min(data$x, na.rm = TRUE)
@@ -74,12 +87,20 @@ StatQuantile <- ggproto(
 #' @export
 #' @rdname geom_quantile
 stat_quantile <- make_constructor(
-  StatQuantile, geom = "quantile",
+  StatQuantile,
+  geom = "quantile",
   omit = c("xseq", "lambda")
 )
 
-quant_pred <- function(quantile, data, method, formula, weight, grid,
-                       method.args = method.args) {
+quant_pred <- function(
+  quantile,
+  data,
+  method,
+  formula,
+  weight,
+  grid,
+  method.args = method.args
+) {
   model <- inject(method(
     formula,
     data = data,

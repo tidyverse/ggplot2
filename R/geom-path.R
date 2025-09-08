@@ -2,7 +2,9 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomPath <- ggproto("GeomPath", Geom,
+GeomPath <- ggproto(
+  "GeomPath",
+  Geom,
   required_aes = c("x", "y"),
 
   default_aes = aes(
@@ -32,9 +34,18 @@ GeomPath <- ggproto("GeomPath", Geom,
     data
   },
 
-  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 10,
-                        na.rm = FALSE) {
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    arrow = NULL,
+    arrow.fill = NULL,
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10,
+    na.rm = FALSE
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     if (!anyDuplicated(data$group)) {
       cli::cli_inform(c(
@@ -50,38 +61,49 @@ GeomPath <- ggproto("GeomPath", Geom,
     # Silently drop lines with less than two points, preserving order
     rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
     munched <- munched[rows >= 2, ]
-    if (nrow(munched) < 2) return(zeroGrob())
+    if (nrow(munched) < 2) {
+      return(zeroGrob())
+    }
 
     # Work out whether we should use lines or segments
     attr <- dapply(munched, "group", function(df) {
       linetype <- unique0(df$linetype)
       data_frame0(
-        solid = length(linetype) == 1 && (identical(linetype, "solid") || linetype == 1),
-        constant = nrow(unique0(df[, names(df) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
+        solid = length(linetype) == 1 &&
+          (identical(linetype, "solid") || linetype == 1),
+        constant = nrow(unique0(df[,
+          names(df) %in% c("alpha", "colour", "linewidth", "linetype")
+        ])) ==
+          1,
         .size = 1
       )
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid.")
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid."
+      )
     }
 
     # Work out grouping variables for grobs
     n <- nrow(munched)
     group_diff <- munched$group[-1] != munched$group[-n]
     start <- c(TRUE, group_diff)
-    end <-   c(group_diff, TRUE)
+    end <- c(group_diff, TRUE)
 
     munched$fill <- arrow.fill %||% munched$colour
 
     if (!constant) {
-
       arrow <- repair_segment_arrow(arrow, munched$group)
 
       segmentsGrob(
-        munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
-        default.units = "native", arrow = arrow,
+        munched$x[!end],
+        munched$y[!end],
+        munched$x[!start],
+        munched$y[!start],
+        default.units = "native",
+        arrow = arrow,
         gp = gg_par(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$fill, munched$alpha)[!end],
@@ -95,8 +117,11 @@ GeomPath <- ggproto("GeomPath", Geom,
     } else {
       id <- match(munched$group, unique0(munched$group))
       polylineGrob(
-        munched$x, munched$y, id = id,
-        default.units = "native", arrow = arrow,
+        munched$x,
+        munched$y,
+        id = id,
+        default.units = "native",
+        arrow = arrow,
         gp = gg_par(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$fill, munched$alpha)[start],
@@ -121,7 +146,8 @@ GeomPath <- ggproto("GeomPath", Geom,
 #' @export
 #' @include geom-path.R
 GeomLine <- ggproto(
-  "GeomLine", GeomPath,
+  "GeomLine",
+  GeomPath,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     params
@@ -143,16 +169,25 @@ GeomLine <- ggproto(
 #' @export
 #' @include geom-path.R
 GeomStep <- ggproto(
-  "GeomStep", GeomPath,
+  "GeomStep",
+  GeomPath,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     params
   },
   extra_params = c("na.rm", "orientation"),
-  draw_panel = function(data, panel_params, coord,
-                        lineend = "butt", linejoin = "round", linemitre = 10,
-                        arrow = NULL, arrow.fill = NULL,
-                        direction = "hv", flipped_aes = FALSE) {
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10,
+    arrow = NULL,
+    arrow.fill = NULL,
+    direction = "hv",
+    flipped_aes = FALSE
+  ) {
     data <- flip_data(data, flipped_aes)
     if (isTRUE(flipped_aes)) {
       direction <- switch(direction, hv = "vh", vh = "hv", direction)
@@ -160,9 +195,14 @@ GeomStep <- ggproto(
     data <- dapply(data, "group", stairstep, direction = direction)
     data <- flip_data(data, flipped_aes)
     GeomPath$draw_panel(
-      data, panel_params, coord,
-      lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-      arrow = arrow, arrow.fill = arrow.fill
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre,
+      arrow = arrow,
+      arrow.fill = arrow.fill
     )
   }
 )
@@ -310,22 +350,22 @@ stairstep <- function(data, direction = "hv") {
   }
 
   if (direction == "vh") {
-    xs <- rep(1:n, each = 2)[-2*n]
+    xs <- rep(1:n, each = 2)[-2 * n]
     ys <- c(1, rep(2:n, each = 2))
   } else if (direction == "hv") {
-    ys <- rep(1:n, each = 2)[-2*n]
+    ys <- rep(1:n, each = 2)[-2 * n]
     xs <- c(1, rep(2:n, each = 2))
   } else if (direction == "mid") {
-    xs <- rep(1:(n-1), each = 2)
+    xs <- rep(1:(n - 1), each = 2)
     ys <- rep(1:n, each = 2)
   }
 
   if (direction == "mid") {
     gaps <- data$x[-1] - data$x[-n]
-    mid_x <- data$x[-n] + gaps/2 # map the mid-point between adjacent x-values
+    mid_x <- data$x[-n] + gaps / 2 # map the mid-point between adjacent x-values
     x <- c(data$x[1], mid_x[xs], data$x[n])
     y <- c(data$y[ys])
-    data_attr <- data[c(1,xs,n), setdiff(names(data), c("x", "y"))]
+    data_attr <- data[c(1, xs, n), setdiff(names(data), c("x", "y"))]
   } else {
     x <- data$x[xs]
     y <- data$y[ys]
@@ -342,15 +382,15 @@ repair_segment_arrow <- function(arrow, group) {
   }
 
   # Get group parameters
-  rle       <- vec_group_rle(group) # handles NAs better than base::rle()
-  n_groups  <- length(rle)
-  rle_len   <- field(rle, "length") - 1 # segments have 1 member less than lines
-  rle_end   <- cumsum(rle_len)
+  rle <- vec_group_rle(group) # handles NAs better than base::rle()
+  n_groups <- length(rle)
+  rle_len <- field(rle, "length") - 1 # segments have 1 member less than lines
+  rle_end <- cumsum(rle_len)
   rle_start <- rle_end - rle_len + 1
 
   # Recycle ends and lengths
-  ends <- rep(rep(arrow$ends,   length.out = n_groups), rle_len)
-  len  <- rep(rep(arrow$length, length.out = n_groups), rle_len)
+  ends <- rep(rep(arrow$ends, length.out = n_groups), rle_len)
+  len <- rep(rep(arrow$length, length.out = n_groups), rle_len)
 
   # Repair ends
   # Convert 'both' ends to first/last in multi-member groups

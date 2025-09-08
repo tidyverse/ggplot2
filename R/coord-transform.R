@@ -80,9 +80,17 @@
 #' plot + coord_transform(x = "log10")
 #' plot + coord_transform(x = "sqrt")
 #' }
-coord_transform <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
-                            limx = deprecated(), limy = deprecated(), clip = "on",
-                            expand = TRUE, reverse = "none") {
+coord_transform <- function(
+  x = "identity",
+  y = "identity",
+  xlim = NULL,
+  ylim = NULL,
+  limx = deprecated(),
+  limy = deprecated(),
+  clip = "on",
+  expand = TRUE,
+  reverse = "none"
+) {
   if (lifecycle::is_present(limx)) {
     deprecate_warn0("3.3.0", "coord_transform(limx)", "coord_transform(xlim)")
     xlim <- limx
@@ -96,11 +104,16 @@ coord_transform <- function(x = "identity", y = "identity", xlim = NULL, ylim = 
   check_coord_limits(ylim)
 
   # resolve transformers
-  if (is.character(x)) x <- as.transform(x)
-  if (is.character(y)) y <- as.transform(y)
+  if (is.character(x)) {
+    x <- as.transform(x)
+  }
+  if (is.character(y)) {
+    y <- as.transform(y)
+  }
 
   ggproto(
-    NULL, CoordTransform,
+    NULL,
+    CoordTransform,
     trans = list(x = x, y = y),
     limits = list(x = xlim, y = ylim),
     expand = expand,
@@ -125,7 +138,8 @@ coord_trans <- function(...) {
 #' @usage NULL
 #' @export
 CoordTransform <- ggproto(
-  "CoordTransform", Coord,
+  "CoordTransform",
+  Coord,
 
   is_free = function() {
     TRUE
@@ -133,7 +147,8 @@ CoordTransform <- ggproto(
 
   distance = function(self, x, y, panel_params) {
     max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
-    dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
+    dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) /
+      max_dist
   },
 
   backtransform_range = function(self, panel_params) {
@@ -177,8 +192,18 @@ CoordTransform <- ggproto(
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      view_scales_from_scale_with_coord_trans(scale_x, self$limits$x, self$trans$x, params$expand[c(4, 2)]),
-      view_scales_from_scale_with_coord_trans(scale_y, self$limits$y, self$trans$y, params$expand[c(3, 1)]),
+      view_scales_from_scale_with_coord_trans(
+        scale_x,
+        self$limits$x,
+        self$trans$x,
+        params$expand[c(4, 2)]
+      ),
+      view_scales_from_scale_with_coord_trans(
+        scale_y,
+        self$limits$y,
+        self$trans$y,
+        params$expand[c(3, 1)]
+      ),
       reverse = self$reverse %||% "none"
     )
   },
@@ -189,15 +214,31 @@ CoordTransform <- ggproto(
 
   render_axis_h = function(panel_params, theme) {
     list(
-      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
-      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
+      top = panel_guides_grob(
+        panel_params$guides,
+        position = "top",
+        theme = theme
+      ),
+      bottom = panel_guides_grob(
+        panel_params$guides,
+        position = "bottom",
+        theme = theme
+      )
     )
   },
 
   render_axis_v = function(panel_params, theme) {
     list(
-      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
-      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
+      left = panel_guides_grob(
+        panel_params$guides,
+        position = "left",
+        theme = theme
+      ),
+      right = panel_guides_grob(
+        panel_params$guides,
+        position = "right",
+        theme = theme
+      )
     )
   }
 )
@@ -210,13 +251,19 @@ CoordTransform <- ggproto(
 CoordTrans <- ggproto("CoordTrans", CoordTransform)
 
 transform_value <- function(trans, value, range) {
-  if (is.null(value))
+  if (is.null(value)) {
     return(value)
+  }
   rescale(trans$transform(value), 0:1, range)
 }
 
 # TODO: can we merge this with view_scales_from_scale()?
-view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, expand = TRUE) {
+view_scales_from_scale_with_coord_trans <- function(
+  scale,
+  coord_limits,
+  trans,
+  expand = TRUE
+) {
   expansion <- default_expansion(scale, expand = expand)
   transformation <- scale$get_transformation() %||% transform_identity()
   coord_limits <- coord_limits %||% transformation$inverse(c(NA, NA))
@@ -251,14 +298,26 @@ view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, 
   # major and minor values in coordinate data
   out$major_source <- transform_value(trans, out$major_source, out$range)
   out$minor_source <- transform_value(trans, out$minor_source, out$range)
-  out$sec.major_source <- transform_value(trans, out$sec.major_source, out$range)
-  out$sec.minor_source <- transform_value(trans, out$sec.minor_source, out$range)
+  out$sec.major_source <- transform_value(
+    trans,
+    out$sec.major_source,
+    out$range
+  )
+  out$sec.minor_source <- transform_value(
+    trans,
+    out$sec.minor_source,
+    out$range
+  )
 
   out <- list(
     # Note that a ViewScale requires a limit and a range that are before the
     # Coord's transformation, so we pass `continuous_range`, not `continuous_range_coord`.
     view_scale_primary(scale, scale_limits, continuous_ranges$continuous_range),
-    sec = view_scale_secondary(scale, scale_limits, continuous_ranges$continuous_range),
+    sec = view_scale_secondary(
+      scale,
+      scale_limits,
+      continuous_ranges$continuous_range
+    ),
     range = out$range,
     labels = out$labels,
     major = out$major_source,
@@ -279,9 +338,16 @@ view_scales_from_scale_with_coord_trans <- function(scale, coord_limits, trans, 
 #' @param new_values A vector of post-transformation values.
 #' @param axis Which axis the values originate from (e.g. x, y).
 #' @noRd
-warn_new_infinites <- function(old_values, new_values, axis, call = caller_env()) {
+warn_new_infinites <- function(
+  old_values,
+  new_values,
+  axis,
+  call = caller_env()
+) {
   if (any(is.finite(old_values) & !is.finite(new_values))) {
-    cli::cli_warn("Transformation introduced infinite values in {axis}-axis", call = call)
+    cli::cli_warn(
+      "Transformation introduced infinite values in {axis}-axis",
+      call = call
+    )
   }
 }
-

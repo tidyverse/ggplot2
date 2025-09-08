@@ -50,7 +50,8 @@ setup_plot_labels <- function(plot, layers, data) {
 
     # Search for label attribute in symbolic mappings
     symbolic <- vapply(
-      mapping, FUN.VALUE = logical(1),
+      mapping,
+      FUN.VALUE = logical(1),
       function(x) is_quosure(x) && quo_is_symbol(x)
     )
     symbols <- intersect(names(mapping)[symbolic], names(data[[i]]))
@@ -65,7 +66,11 @@ setup_plot_labels <- function(plot, layers, data) {
     # 2. The labels of this layer, including fallback labels
     # 3. Existing fallback labels
     current <- labels
-    fallbacks <- vapply(current, function(l) isTRUE(attr(l, "fallback")), logical(1))
+    fallbacks <- vapply(
+      current,
+      function(l) isTRUE(attr(l, "fallback")),
+      logical(1)
+    )
 
     labels <- defaults(current[!fallbacks], layer_labels)
     if (any(fallbacks)) {
@@ -76,13 +81,12 @@ setup_plot_labels <- function(plot, layers, data) {
   # Warn for spurious labels that don't have a mapping.
   # Note: sometimes, 'x' and 'y' might not have a mapping, like in
   # `geom_function()`. We can display these labels anyway, so we include them.
-  plot_labels  <- plot@labels
+  plot_labels <- plot@labels
   known_labels <- c(names(labels), fn_fmls_names(labs), "x", "y")
   extra_labels <- names(plot_labels)[lengths(plot_labels) > 0]
   extra_labels <- setdiff(extra_labels, known_labels)
 
   if (length(extra_labels) > 0) {
-
     warn_labels <- plot_labels[extra_labels]
     warn_labels <- ifelse(
       vapply(warn_labels, is.function, logical(1)),
@@ -190,13 +194,28 @@ setup_plot_labels <- function(plot, layers, data) {
 #' p +
 #'  labs(title = "title") +
 #'  labs(title = NULL)
-labs <- function(..., title = waiver(), subtitle = waiver(),
-                 caption = waiver(), tag = waiver(), dictionary = waiver(),
-                 alt = waiver(), alt_insight = waiver()) {
+labs <- function(
+  ...,
+  title = waiver(),
+  subtitle = waiver(),
+  caption = waiver(),
+  tag = waiver(),
+  dictionary = waiver(),
+  alt = waiver(),
+  alt_insight = waiver()
+) {
   # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
-  args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
-                    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
-                    dictionary = dictionary, .ignore_empty = "all")
+  args <- dots_list(
+    ...,
+    title = title,
+    subtitle = subtitle,
+    caption = caption,
+    tag = tag,
+    alt = allow_lambda(alt),
+    alt_insight = alt_insight,
+    dictionary = dictionary,
+    .ignore_empty = "all"
+  )
 
   is_waive <- vapply(args, is_waiver, logical(1))
   args <- args[!is_waive]
@@ -242,10 +261,16 @@ get_labs <- function(plot = get_last_plot()) {
   labs <- plot@plot@labels
 
   xy_labs <- rename(
-    c(x = plot@layout$resolve_label(plot@layout$panel_scales_x[[1]], labs),
-      y = plot@layout$resolve_label(plot@layout$panel_scales_y[[1]], labs)),
-    c(x.primary = "x", x.secondary = "x.sec",
-      y.primary = "y", y.secondary = "y.sec")
+    c(
+      x = plot@layout$resolve_label(plot@layout$panel_scales_x[[1]], labs),
+      y = plot@layout$resolve_label(plot@layout$panel_scales_y[[1]], labs)
+    ),
+    c(
+      x.primary = "x",
+      x.secondary = "x.sec",
+      y.primary = "y",
+      y.secondary = "y.sec"
+    )
   )
 
   labs <- defaults(xy_labs, labs)
@@ -257,9 +282,9 @@ get_labs <- function(plot = get_last_plot()) {
 
   for (aes in guides$aesthetics) {
     param <- guides$get_params(aes)
-    aes   <- param$aesthetic # Can have length > 1 when guide was merged
+    aes <- param$aesthetic # Can have length > 1 when guide was merged
     title <- vec_set_names(rep(list(param$title), length(aes)), aes)
-    labs  <- defaults(title, labs)
+    labs <- defaults(title, labs)
   }
   labs
 }
@@ -377,9 +402,13 @@ generate_alt_text <- function(p) {
     title <- ""
   }
 
-
   # Get axes descriptions
-  axes <- paste0(" showing ", scale_description(p, "x"), " and ", scale_description(p, "y"))
+  axes <- paste0(
+    " showing ",
+    scale_description(p, "x"),
+    " and ",
+    scale_description(p, "y")
+  )
   axes <- safe_string(axes)
 
   # Get layer types
@@ -410,7 +439,9 @@ scale_description <- function(p, name) {
   } else {
     lab <- scale$make_title(scale$name %|W|% p@labels[[name]])
     type <- "a continuous"
-    if (scale$is_discrete()) type <- "a discrete"
+    if (scale$is_discrete()) {
+      type <- "a discrete"
+    }
     if (inherits(scale, "ScaleBinned")) type <- "a binned"
   }
   if (is.null(lab)) {

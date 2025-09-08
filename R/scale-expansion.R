@@ -1,4 +1,3 @@
-
 #' Generate expansion vector for scales
 #'
 #' This is a convenience function for generating scale expansion vectors
@@ -36,8 +35,15 @@
 #'   scale_y_continuous(expand = expansion(mult = .05))
 #'
 expansion <- function(mult = 0, add = 0) {
-  if (!(is.numeric(mult) && (length(mult) %in% 1:2) && is.numeric(add) && (length(add) %in% 1:2))) {
-    cli::cli_abort("{.arg mult} and {.arg add} must be numeric vectors with 1 or 2 elements.")
+  if (
+    !(is.numeric(mult) &&
+      (length(mult) %in% 1:2) &&
+      is.numeric(add) &&
+      (length(add) %in% 1:2))
+  ) {
+    cli::cli_abort(
+      "{.arg mult} and {.arg add} must be numeric vectors with 1 or 2 elements."
+    )
   }
 
   mult <- rep(mult, length.out = 2)
@@ -65,8 +71,10 @@ expand_scale <- function(mult = 0, add = 0) {
 #' @noRd
 #'
 expand_range4 <- function(limits, expand) {
-  if (!(is.numeric(expand) && length(expand) %in% c(2,4))) {
-    cli::cli_abort("{.arg expand} must be a numeric vector with 2 or 4 elements.")
+  if (!(is.numeric(expand) && length(expand) %in% c(2, 4))) {
+    cli::cli_abort(
+      "{.arg expand} must be a numeric vector with 2 or 4 elements."
+    )
   }
 
   if (!any(is.finite(limits))) {
@@ -94,8 +102,12 @@ expand_range4 <- function(limits, expand) {
 #' @return One of `discrete`, `continuous`, or `scale$expand`
 #' @noRd
 #'
-default_expansion <- function(scale, discrete = expansion(add = 0.6),
-                              continuous = expansion(mult = 0.05), expand = TRUE) {
+default_expansion <- function(
+  scale,
+  discrete = expansion(add = 0.6),
+  continuous = expansion(mult = 0.05),
+  expand = TRUE
+) {
   out <- expansion()
   if (!any(expand)) {
     return(out)
@@ -141,8 +153,12 @@ default_expansion <- function(scale, discrete = expansion(add = 0.6),
 #'
 #' @noRd
 #'
-expand_limits_scale <- function(scale, expand = expansion(0, 0), limits = waiver(),
-                                coord_limits = NULL) {
+expand_limits_scale <- function(
+  scale,
+  expand = expansion(0, 0),
+  limits = waiver(),
+  coord_limits = NULL
+) {
   limits <- limits %|W|% scale$get_limits()
 
   if (scale$is_discrete()) {
@@ -158,18 +174,28 @@ expand_limits_scale <- function(scale, expand = expansion(0, 0), limits = waiver
     # using the inverse transform to resolve the NA value is needed for date/datetime/time
     # scales, which refuse to transform objects of the incorrect type
     transformation <- scale$get_transformation()
-    coord_limits <- coord_limits %||% transformation$inverse(c(NA_real_, NA_real_))
+    coord_limits <- coord_limits %||%
+      transformation$inverse(c(NA_real_, NA_real_))
     coord_limits_scale <- transformation$transform(coord_limits)
     expand_limits_continuous(limits, expand, coord_limits_scale)
   }
 }
 
-expand_limits_continuous <- function(limits, expand = expansion(0, 0), coord_limits = c(NA, NA)) {
+expand_limits_continuous <- function(
+  limits,
+  expand = expansion(0, 0),
+  coord_limits = c(NA, NA)
+) {
   expand_limits_continuous_trans(limits, expand, coord_limits)$continuous_range
 }
 
-expand_limits_discrete <- function(limits, expand = expansion(0, 0), coord_limits = c(NA, NA),
-                                   range_continuous = NULL, continuous_limits = NULL) {
+expand_limits_discrete <- function(
+  limits,
+  expand = expansion(0, 0),
+  coord_limits = c(NA, NA),
+  range_continuous = NULL,
+  continuous_limits = NULL
+) {
   if (is.function(continuous_limits)) {
     continuous_limits <- continuous_limits(limits)
   }
@@ -180,7 +206,7 @@ expand_limits_discrete <- function(limits, expand = expansion(0, 0), coord_limit
     check_numeric(continuous_limits, arg = "continuous.limits")
     check_length(continuous_limits, 2L, arg = "continuous.limits")
     missing <- is.na(continuous_limits)
-    limits  <- ifelse(missing, range(limits), continuous_limits)
+    limits <- ifelse(missing, range(limits), continuous_limits)
   }
 
   limit_info <- expand_limits_discrete_trans(
@@ -193,9 +219,12 @@ expand_limits_discrete <- function(limits, expand = expansion(0, 0), coord_limit
   limit_info$continuous_range
 }
 
-expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
-                                           coord_limits = c(NA, NA), trans = transform_identity()) {
-
+expand_limits_continuous_trans <- function(
+  limits,
+  expand = expansion(0, 0),
+  coord_limits = c(NA, NA),
+  trans = transform_identity()
+) {
   # let non-NA coord_limits override the scale limits
   limits <- ifelse(is.na(coord_limits), limits, coord_limits)
 
@@ -204,8 +233,13 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
 
   # range expansion expects values in increasing order, which may not be true
   # for reciprocal/reverse transformations
-  if (all(is.finite(continuous_range_coord)) && diff(continuous_range_coord) < 0) {
-    continuous_range_coord <- rev(expand_range4(rev(continuous_range_coord), expand))
+  if (
+    all(is.finite(continuous_range_coord)) && diff(continuous_range_coord) < 0
+  ) {
+    continuous_range_coord <- rev(expand_range4(
+      rev(continuous_range_coord),
+      expand
+    ))
   } else {
     continuous_range_coord <- expand_range4(continuous_range_coord, expand)
   }
@@ -215,7 +249,11 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
   # if any non-finite values were introduced in the transformations,
   # replace them with the original scale limits for the purposes of
   # calculating breaks and minor breaks from the scale
-  continuous_range <- ifelse(is.finite(final_scale_limits), final_scale_limits, limits)
+  continuous_range <- ifelse(
+    is.finite(final_scale_limits),
+    final_scale_limits,
+    limits
+  )
 
   list(
     continuous_range_coord = sort(continuous_range_coord),
@@ -223,9 +261,13 @@ expand_limits_continuous_trans <- function(limits, expand = expansion(0, 0),
   )
 }
 
-expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
-                                         coord_limits = c(NA, NA), trans = transform_identity(),
-                                         range_continuous = NULL) {
+expand_limits_discrete_trans <- function(
+  limits,
+  expand = expansion(0, 0),
+  coord_limits = c(NA, NA),
+  trans = transform_identity(),
+  range_continuous = NULL
+) {
   discrete_limits <- NULL
   if (length(limits) > 0) {
     if (is_discrete(limits)) {
@@ -242,25 +284,44 @@ expand_limits_discrete_trans <- function(limits, expand = expansion(0, 0),
   if (is_empty) {
     expand_limits_continuous_trans(c(0, 1), expand, coord_limits, trans)
   } else if (is_only_continuous) {
-    expand_limits_continuous_trans(range_continuous, expand, coord_limits, trans)
+    expand_limits_continuous_trans(
+      range_continuous,
+      expand,
+      coord_limits,
+      trans
+    )
   } else if (is_only_discrete) {
     expand_limits_continuous_trans(discrete_limits, expand, coord_limits, trans)
   } else {
     # continuous and discrete
-    limit_info_discrete <- expand_limits_continuous_trans(discrete_limits, expand, coord_limits, trans)
+    limit_info_discrete <- expand_limits_continuous_trans(
+      discrete_limits,
+      expand,
+      coord_limits,
+      trans
+    )
 
     # don't expand continuous range if there is also a discrete range
     limit_info_continuous <- expand_limits_continuous_trans(
-      range_continuous, expansion(0, 0), coord_limits, trans
+      range_continuous,
+      expansion(0, 0),
+      coord_limits,
+      trans
     )
 
     # prefer expanded discrete range, but allow continuous range to further expand the range
     list(
       continuous_range_coord = range(
-        c(limit_info_discrete$continuous_range_coord, limit_info_continuous$continuous_range_coord)
+        c(
+          limit_info_discrete$continuous_range_coord,
+          limit_info_continuous$continuous_range_coord
+        )
       ),
       continuous_range = range(
-        c(limit_info_discrete$continuous_range, limit_info_continuous$continuous_range)
+        c(
+          limit_info_discrete$continuous_range,
+          limit_info_continuous$continuous_range
+        )
       )
     )
   }

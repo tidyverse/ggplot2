@@ -1,19 +1,35 @@
-
 # Visual tests ------------------------------------------------------------
 
 skip_if(utils::packageVersion('grid') < "3.6")
 test_that("geom_polygon draws correctly", {
-
   tbl <- data_frame(
     x = c(
-      0, 10, 10, 0,
-      20, 30, 30, 20,
-      22, 28, 28, 22
+      0,
+      10,
+      10,
+      0,
+      20,
+      30,
+      30,
+      20,
+      22,
+      28,
+      28,
+      22
     ),
     y = c(
-      0, 0, 10, 10,
-      20, 20, 30, 30,
-      22, 22, 28, 28
+      0,
+      0,
+      10,
+      10,
+      20,
+      20,
+      30,
+      30,
+      22,
+      22,
+      28,
+      28
     ),
     group = c(rep(1, 4), rep(2, 8)),
     subgroup = c(rep(1, 8), rep(2, 4))
@@ -26,7 +42,6 @@ test_that("geom_polygon draws correctly", {
 })
 
 test_that("geom_polygon is closed before munching", {
-
   df <- data_frame0(
     x = c(1, 1, 4, 4, 2, 2, 3, 3),
     y = c(1, 4, 4, 1, 2, 3, 3, 2),
@@ -41,11 +56,11 @@ test_that("geom_polygon is closed before munching", {
 
   built <- ggplot_build(p)
   coord <- built@plot@coordinates
-  data  <- built@data[[1]]
+  data <- built@data[[1]]
   param <- built@layout$panel_params[[1]]
 
   closed <- coord_munch(coord, data, param, is_closed = TRUE)
-  open   <- coord_munch(coord, data, param, is_closed = FALSE)
+  open <- coord_munch(coord, data, param, is_closed = FALSE)
 
   p <- ggplot(mapping = aes(x = x, y = y, group = subgroup)) +
     geom_polygon(aes(colour = "closed"), data = closed, fill = NA) +

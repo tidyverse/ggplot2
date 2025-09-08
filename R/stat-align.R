@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatAlign <- ggproto(
-  "StatAlign", Stat,
+  "StatAlign",
+  Stat,
   extra_params = c("na.rm", "orientation"),
   required_aes = c("x", "y"),
 
@@ -27,23 +28,37 @@ StatAlign <- ggproto(
     pivot <- vec_unrep(data_frame0(group = data$group, y = y < 0))
     group_ends <- cumsum(vec_unrep(pivot$key$group)$times)
     pivot <- cumsum(pivot$times)[-group_ends]
-    cross <- -y[pivot] * (x[pivot + 1] - x[pivot]) /
-      (y[pivot + 1] - y[pivot]) + x[pivot]
+    cross <- -y[pivot] *
+      (x[pivot + 1] - x[pivot]) /
+      (y[pivot + 1] - y[pivot]) +
+      x[pivot]
 
     unique_loc <- unique(sort(c(x, cross)))
-    adjust     <- diff(range(unique_loc, na.rm = TRUE)) * 0.001
-    adjust     <- min(adjust, min(diff(unique_loc)) / 3)
+    adjust <- diff(range(unique_loc, na.rm = TRUE)) * 0.001
+    adjust <- min(adjust, min(diff(unique_loc)) / 3)
     unique_loc <- unique(sort(c(
-      unique_loc - adjust, unique_loc, unique_loc + adjust
+      unique_loc - adjust,
+      unique_loc,
+      unique_loc + adjust
     )))
 
     ggproto_parent(Stat, self)$compute_panel(
-      data, scales, flipped_aes = flipped_aes, unique_loc = unique_loc,
-      adjust = adjust, ...
+      data,
+      scales,
+      flipped_aes = flipped_aes,
+      unique_loc = unique_loc,
+      adjust = adjust,
+      ...
     )
   },
 
-  compute_group = function(data, scales, flipped_aes = NA, unique_loc = NULL, adjust = 0) {
+  compute_group = function(
+    data,
+    scales,
+    flipped_aes = NA,
+    unique_loc = NULL,
+    adjust = 0
+  ) {
     data <- flip_data(data, flipped_aes)
     if (is_unique(data$x)) {
       # Not enough data to align
@@ -52,7 +67,9 @@ StatAlign <- ggproto(
     # Sort out multiple observations at the same x
     if (anyDuplicated(data$x)) {
       data <- dapply(data, "x", function(d) {
-        if (nrow(d) == 1) return(d)
+        if (nrow(d) == 1) {
+          return(d)
+        }
         d <- d[c(1, nrow(d)), ]
         d$x[1] <- d$x[1] - adjust
         d
@@ -81,6 +98,7 @@ StatAlign <- ggproto(
 #' @export
 #' @rdname geom_ribbon
 stat_align <- make_constructor(
-  StatAlign, geom = "area",
+  StatAlign,
+  geom = "area",
   omit = c("unique_loc", "adjust")
 )

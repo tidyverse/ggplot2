@@ -31,7 +31,12 @@
 #'
 #' # Changing the title
 #' p + scale_alpha("cylinders")
-scale_alpha <- function(name = waiver(), ..., range = NULL, aesthetics = "alpha") {
+scale_alpha <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "alpha"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   continuous_scale(aesthetics, name = name, palette = palette, ...)
 }
@@ -42,7 +47,12 @@ scale_alpha_continuous <- scale_alpha
 
 #' @rdname scale_alpha
 #' @export
-scale_alpha_binned <- function(name = waiver(), ..., range = NULL, aesthetics = "alpha") {
+scale_alpha_binned <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "alpha"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   binned_scale(aesthetics, name = name, palette = palette, ...)
 }
@@ -58,7 +68,12 @@ scale_alpha_discrete <- function(...) {
 
 #' @rdname scale_alpha
 #' @export
-scale_alpha_ordinal <- function(name = waiver(), ..., range = NULL, aesthetics = "alpha") {
+scale_alpha_ordinal <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "alpha"
+) {
   palette <- if (!is.null(range)) {
     function(n) seq(range[1], range[2], length.out = n)
   } else {
@@ -70,21 +85,37 @@ scale_alpha_ordinal <- function(name = waiver(), ..., range = NULL, aesthetics =
 #' @rdname scale_alpha
 #' @export
 #' @usage NULL
-scale_alpha_datetime <- function(name = waiver(), ..., range = NULL, aesthetics = "alpha") {
+scale_alpha_datetime <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "alpha"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
-    aesthetics = aesthetics, transform = "time", name = name,
-    palette = palette, ...
+    aesthetics = aesthetics,
+    transform = "time",
+    name = name,
+    palette = palette,
+    ...
   )
 }
 
 #' @rdname scale_alpha
 #' @export
 #' @usage NULL
-scale_alpha_date <- function(name = waiver(), ..., range = NULL, aesthetics = "alpha"){
+scale_alpha_date <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "alpha"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
-    aesthetics = aesthetics, transform = "date", name = name,
-    palette = palette, ...
+    aesthetics = aesthetics,
+    transform = "date",
+    name = name,
+    palette = palette,
+    ...
   )
 }

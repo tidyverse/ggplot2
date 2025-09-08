@@ -37,15 +37,18 @@ test_that("mapping works", {
 
   expect_equal(
     sc$map_df(data_frame(alpha = c(-10, 11)))[[1]],
-    c(0, 0))
+    c(0, 0)
+  )
 })
 
 test_that("identity scale preserves input values", {
   df <- data_frame(x = 1:3, z = factor(letters[1:3]))
 
   # aesthetic-specific scales
-  p1 <- ggplot(df,
-    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
+  p1 <- ggplot(
+    df,
+    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)
+  ) +
     geom_point() +
     scale_colour_identity() +
     scale_fill_identity() +
@@ -61,8 +64,10 @@ test_that("identity scale preserves input values", {
   expect_equal(d1$alpha, as.numeric(df$z))
 
   # generic scales
-  p2 <- ggplot(df,
-    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
+  p2 <- ggplot(
+    df,
+    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)
+  ) +
     geom_point() +
     scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
     scale_continuous_identity(aesthetics = c("size", "alpha"))
@@ -109,7 +114,7 @@ test_that("oob affects position values", {
   y_scale <- function(limits, oob = censor) {
     scale_y_continuous(limits = limits, oob = oob, expand = c(0, 0))
   }
-  base + scale_y_continuous(limits = c(-0,5))
+  base + scale_y_continuous(limits = c(-0, 5))
 
   low_censor <- cdata(base + y_scale(c(0, 5), censor))
   mid_censor <- cdata(base + y_scale(c(3, 7), censor))
@@ -142,7 +147,14 @@ test_that("all-Inf layers are not used for determining the type of scale", {
   d1 <- data_frame(x = c("a", "b"))
   p1 <- ggplot(d1, aes(x, x)) +
     # Inf is numeric, but means discrete values in this case
-    annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "black") +
+    annotate(
+      "rect",
+      xmin = -Inf,
+      xmax = Inf,
+      ymin = -Inf,
+      ymax = Inf,
+      fill = "black"
+    ) +
     geom_point()
 
   b1 <- ggplot_build(p1)
@@ -150,7 +162,14 @@ test_that("all-Inf layers are not used for determining the type of scale", {
 
   p2 <- ggplot() +
     # If the layer non-Inf value, it's considered
-    annotate("rect", xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf, fill = "black")
+    annotate(
+      "rect",
+      xmin = -Inf,
+      xmax = 0,
+      ymin = -Inf,
+      ymax = Inf,
+      fill = "black"
+    )
 
   b2 <- ggplot_build(p2)
   expect_s3_class(b2@layout$panel_scales_x[[1]], "ScaleContinuousPosition")
@@ -181,8 +200,10 @@ test_that("find_global searches in the right places", {
   testenv <- new.env(parent = globalenv())
 
   # This should find the scale object in the package environment
-  expect_identical(find_global("scale_colour_hue", testenv),
-    ggplot2::scale_colour_hue)
+  expect_identical(
+    find_global("scale_colour_hue", testenv),
+    ggplot2::scale_colour_hue
+  )
 
   # Set an object with the same name in the environment
   testenv$scale_colour_hue <- "foo"
@@ -192,8 +213,10 @@ test_that("find_global searches in the right places", {
 
   # If we search in the empty env, we should end up with the object
   # from the ggplot2 namespace
-  expect_identical(find_global("scale_colour_hue", emptyenv()),
-    ggplot2::scale_colour_hue)
+  expect_identical(
+    find_global("scale_colour_hue", emptyenv()),
+    ggplot2::scale_colour_hue
+  )
 })
 
 test_that("scales warn when transforms introduces non-finite values", {
@@ -338,17 +361,30 @@ test_that("scale_apply preserves class and attributes", {
   plot <- ggplot(df, aes(x, y)) +
     scale_x_continuous() +
     # Facetting such that 2 x-scales will exist, i.e. `x` will be subsetted
-    facet_grid(~ z, scales = "free_x")
+    facet_grid(~z, scales = "free_x")
   plot <- ggplot_build(plot)
 
   # Perform identity transformation via `scale_apply`
-  out <- with_bindings(scale_apply(
-    df, "x", "transform", 1:2, plot@layout$panel_scales_x
-  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
+  out <- with_bindings(
+    scale_apply(
+      df,
+      "x",
+      "transform",
+      1:2,
+      plot@layout$panel_scales_x
+    )[[1]],
+    `c.baz` = `c.baz`,
+    `[.baz` = `[.baz`,
+    .env = global_env()
+  )
 
   # Check that it errors on bad scale ids
   expect_snapshot_error(scale_apply(
-    df, "x", "transform", c(NA, 1), plot@layout$panel_scales_x
+    df,
+    "x",
+    "transform",
+    c(NA, 1),
+    plot@layout$panel_scales_x
   ))
 
   # Check class preservation
@@ -361,9 +397,18 @@ test_that("scale_apply preserves class and attributes", {
   # Negative control: non-type stable classes don't preserve attributes
   class(df$x) <- "foobar"
 
-  out <- with_bindings(scale_apply(
-    df, "x", "transform", 1:2, plot@layout$panel_scales_x
-  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
+  out <- with_bindings(
+    scale_apply(
+      df,
+      "x",
+      "transform",
+      1:2,
+      plot@layout$panel_scales_x
+    )[[1]],
+    `c.baz` = `c.baz`,
+    `[.baz` = `[.baz`,
+    .env = global_env()
+  )
 
   expect_false(inherits(out, "foobar"))
   expect_null(attributes(out))
@@ -373,8 +418,16 @@ test_that("All scale_colour_*() have their American versions", {
   # In testthat, the package env contains non-exported functions as well so we
   # need to parse NAMESPACE file by ourselves
   exports <- readLines(system.file("NAMESPACE", package = "ggplot2"))
-  colour_scale_exports <- grep("export\\(scale_colour_.*\\)", exports, value = TRUE)
-  color_scale_exports <- grep("export\\(scale_color_.*\\)", exports, value = TRUE)
+  colour_scale_exports <- grep(
+    "export\\(scale_colour_.*\\)",
+    exports,
+    value = TRUE
+  )
+  color_scale_exports <- grep(
+    "export\\(scale_color_.*\\)",
+    exports,
+    value = TRUE
+  )
   expect_equal(
     colour_scale_exports,
     sub("color", "colour", color_scale_exports)
@@ -383,10 +436,14 @@ test_that("All scale_colour_*() have their American versions", {
 
 test_that("scales accept lambda notation for function input", {
   check_lambda <- function(items, ggproto) {
-    vapply(items, function(x) {
-      f <- environment(ggproto[[x]])$f
-      is_lambda(f)
-    }, logical(1))
+    vapply(
+      items,
+      function(x) {
+        f <- environment(ggproto[[x]])$f
+        is_lambda(f)
+      },
+      logical(1)
+    )
   }
 
   # Test continuous scale
@@ -431,20 +488,30 @@ test_that("scales accept lambda notation for function input", {
 test_that("breaks and labels are correctly checked", {
   expect_snapshot_error(check_breaks_labels(1:10, letters))
   expect_snapshot_error(scale_x_continuous(breaks = NA))
-  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(minor_breaks = NA)
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    scale_x_continuous(minor_breaks = NA)
   expect_snapshot_error(ggplot_build(p))
-  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = NA)
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    scale_x_continuous(labels = NA)
   expect_snapshot_error(ggplotGrob(p))
-  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = function(x) 1:2)
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    scale_x_continuous(labels = function(x) 1:2)
   expect_snapshot_error(ggplotGrob(p))
   expect_snapshot_error(scale_x_discrete(breaks = NA))
-  p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(labels = NA)
+  p <- ggplot(mtcars) +
+    geom_bar(aes(factor(gear))) +
+    scale_x_discrete(labels = NA)
   expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(scale_x_binned(breaks = NA))
   p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = NA)
   expect_snapshot_error(ggplotGrob(p))
-  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = function(x) 1:2)
+  p <- ggplot(mtcars) +
+    geom_bar(aes(mpg)) +
+    scale_x_binned(labels = function(x) 1:2)
   expect_snapshot_error(ggplotGrob(p))
 })
 
@@ -458,7 +525,6 @@ test_that("staged aesthetics are backtransformed properly (#4155)", {
 })
 
 test_that("numeric scale transforms can produce breaks", {
-
   test_breaks <- function(transform, limits) {
     scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
@@ -487,7 +553,6 @@ test_that("numeric scale transforms can produce breaks", {
 })
 
 test_that("scale functions accurately report their calls", {
-
   construct <- exprs(
     scale_alpha(),
     scale_alpha_binned(),
@@ -613,7 +678,6 @@ test_that("scale functions accurately report their calls", {
 })
 
 test_that("scale call is found accurately", {
-
   call_template <- quote(scale_x_continuous(transform = "log10"))
 
   sc <- do.call("scale_x_continuous", list(transform = "log10"))
@@ -643,7 +707,6 @@ test_that("scale call is found accurately", {
 })
 
 test_that("training incorrectly appropriately communicates the offenders", {
-
   sc <- scale_colour_viridis_d()
   expect_snapshot_error(
     sc$train(1:5)
@@ -656,7 +719,6 @@ test_that("training incorrectly appropriately communicates the offenders", {
 })
 
 test_that("find_scale appends appropriate calls", {
-
   expect_equal(
     find_scale("x", 1)$call,
     quote(scale_x_continuous())
@@ -666,20 +728,16 @@ test_that("find_scale appends appropriate calls", {
     find_scale("colour", "A")$call,
     quote(scale_colour_discrete())
   )
-
 })
 
 test_that("Using `scale_name` prompts deprecation message", {
-
   expect_snapshot_warning(continuous_scale("x", "foobar", pal_identity()))
-  expect_snapshot_warning(discrete_scale("x",   "foobar", pal_identity()))
-  expect_snapshot_warning(binned_scale("x",     "foobar", pal_identity()))
-
+  expect_snapshot_warning(discrete_scale("x", "foobar", pal_identity()))
+  expect_snapshot_warning(binned_scale("x", "foobar", pal_identity()))
 })
 
 # From #5623
 test_that("Discrete scales with only NAs return `na.value`", {
-
   x <- c(NA, NA)
 
   sc <- scale_colour_discrete(na.value = "red")
@@ -697,7 +755,6 @@ test_that("continuous scales warn about faulty `limits`", {
 })
 
 test_that("populating palettes works", {
-
   scl <- scales_list()
   scl$add(scale_colour_discrete(aesthetics = c("colour", "fill")))
 
@@ -717,7 +774,6 @@ test_that("populating palettes works", {
 
   scl$set_palettes(my_theme)
   expect_equal(scl$scales[[1]]$palette(2), c("red", "blue"))
-
 })
 
 test_that("discrete scales work with NAs in arbitrary positions", {
@@ -731,7 +787,7 @@ test_that("discrete scales work with NAs in arbitrary positions", {
   }
 
   # All inputs should yield output regardless of where NA is
-  input  <- c("A", "B", "C", NA)
+  input <- c("A", "B", "C", NA)
   output <- c("red", "green", "blue", "gray")
 
   test <- map(input, limits = c("A", "B", "C", NA))
@@ -742,11 +798,9 @@ test_that("discrete scales work with NAs in arbitrary positions", {
 
   test <- map(input, limits = c(NA, "A", "B", "C"))
   expect_equal(test, output)
-
 })
 
 test_that("ViewScales can make fixed copies", {
-
   p1 <- ggplot(mpg, aes(drv, displ)) +
     geom_boxplot() +
     annotate("point", x = 5, y = 10) +
@@ -772,7 +826,6 @@ test_that("ViewScales can make fixed copies", {
 })
 
 test_that("discrete scales can map to 2D structures", {
-
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
     geom_point()
 

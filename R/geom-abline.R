@@ -68,13 +68,15 @@ NULL
 #'   geom_point() +
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
-geom_abline <- function(mapping = NULL, data = NULL,
-                        ...,
-                        slope,
-                        intercept,
-                        na.rm = FALSE,
-                        show.legend = NA) {
-
+geom_abline <- function(
+  mapping = NULL,
+  data = NULL,
+  ...,
+  slope,
+  intercept,
+  na.rm = FALSE,
+  show.legend = NA
+) {
   # If nothing set, default to y = x
   if (is.null(mapping) && missing(slope) && missing(intercept)) {
     slope <- 1
@@ -83,17 +85,24 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(slope) || !missing(intercept)) {
-
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg mapping} because {.arg slope} and/or {.arg intercept} were provided.")
+      cli::cli_warn(
+        "{.fn geom_abline}: Ignoring {.arg mapping} because {.arg slope} and/or {.arg intercept} were provided."
+      )
     }
     if (!is.null(data)) {
-      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg data} because {.arg slope} and/or {.arg intercept} were provided.")
+      cli::cli_warn(
+        "{.fn geom_abline}: Ignoring {.arg data} because {.arg slope} and/or {.arg intercept} were provided."
+      )
     }
 
-    if (missing(slope)) slope <- 1
-    if (missing(intercept)) intercept <- 0
+    if (missing(slope)) {
+      slope <- 1
+    }
+    if (missing(intercept)) {
+      intercept <- 0
+    }
     n_slopes <- max(length(slope), length(intercept))
 
     data <- data_frame0(
@@ -124,7 +133,9 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomAbline <- ggproto("GeomAbline", Geom,
+GeomAbline <- ggproto(
+  "GeomAbline",
+  Geom,
   draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
 
@@ -136,14 +147,24 @@ GeomAbline <- ggproto("GeomAbline", Geom,
     }
 
     # Restrict 'x' to where 'y' is in range: x = (y - intercept) / slope
-    x <- sweep(outer(ranges$y, data$intercept, FUN = "-"), 2, data$slope, FUN = "/")
+    x <- sweep(
+      outer(ranges$y, data$intercept, FUN = "-"),
+      2,
+      data$slope,
+      FUN = "/"
+    )
 
-    data$x    <- pmax(ranges$x[1], pmin(x[1, ], x[2, ]))
+    data$x <- pmax(ranges$x[1], pmin(x[1, ], x[2, ]))
     data$xend <- pmin(ranges$x[2], pmax(x[1, ], x[2, ]))
-    data$y    <- data$x    * data$slope + data$intercept
+    data$y <- data$x * data$slope + data$intercept
     data$yend <- data$xend * data$slope + data$intercept
 
-    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(
+      unique0(data),
+      panel_params,
+      coord,
+      lineend = lineend
+    )
   },
 
   default_aes = aes(

@@ -4,7 +4,6 @@
 #
 # Any minor lines coinciding with major lines will be removed
 guide_grid <- function(theme, panel_params, coord, square = TRUE) {
-
   x_major <- panel_params$x$mapped_breaks()
   x_minor <- setdiff(panel_params$x$mapped_breaks_minor(), x_major)
 
@@ -46,15 +45,18 @@ breaks_as_grid <- function(var, type, transform, theme) {
     return(NULL)
   }
   df <- data_frame0(
-    var   = rep(var, each = 2),
-    alt   = rep(c(-Inf, Inf), n),
+    var = rep(var, each = 2),
+    alt = rep(c(-Inf, Inf), n),
     group = rep(seq_along(var), each = 2)
   )
   colnames(df)[1:2] <-
     switch(type, major.y = , minor.y = c("y", "x"), c("x", "y"))
   df <- transform(df)
   element_render(
-    theme, paste0("panel.grid.", type), x = df$x, y = df$y,
+    theme,
+    paste0("panel.grid.", type),
+    x = df$x,
+    y = df$y,
     id.lengths = vec_unrep(df$group)$times
   )
 }

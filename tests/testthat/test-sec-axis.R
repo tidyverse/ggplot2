@@ -11,10 +11,14 @@ test_that("sec_axis checks the user input", {
   secondary <- ggproto(NULL, AxisSecondary, trans = 1:10)
   expect_snapshot_error(secondary$init(scale))
 
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(.))
+  p <- ggplot(mtcars) +
+    geom_point(aes(disp, mpg)) +
+    scale_y_continuous(sec.axis = ~ sin(.))
   expect_snapshot_error(ggplot_build(p))
 
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg)) + scale_y_continuous(sec.axis = ~sin(./100))
+  p <- ggplot(mtcars) +
+    geom_point(aes(disp, mpg)) +
+    scale_y_continuous(sec.axis = ~ sin(. / 100))
   expect_silent(ggplot_build(p))
 })
 
@@ -33,8 +37,12 @@ test_that("dup_axis() works", {
 
   # these aren't exactly equal because the sec_axis trans is based on a
   # (default) 1000-point approximation
-  expect_true(all(abs(breaks$major_source - round(breaks$sec.major_source) <= 1)))
-  expect_true(all(abs(breaks$minor_source - round(breaks$sec.minor_source) <= 1)))
+  expect_true(all(abs(
+    breaks$major_source - round(breaks$sec.major_source) <= 1
+  )))
+  expect_true(all(abs(
+    breaks$minor_source - round(breaks$sec.minor_source) <= 1
+  )))
   expect_equal(round(breaks$major, 3), round(breaks$major, 3))
   expect_equal(round(breaks$minor, 3), round(breaks$minor, 3))
 })
@@ -43,7 +51,7 @@ test_that("sec_axis() works with subtraction", {
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
     scale_y_continuous(
-      sec.axis = sec_axis(~1-.)
+      sec.axis = sec_axis(~ 1 - .)
     )
   scale <- get_panel_scales(p)$y
   expect_equal(scale$sec_name(), scale$name)
@@ -53,8 +61,12 @@ test_that("sec_axis() works with subtraction", {
 
   # these aren't exactly equal because the sec_axis trans is based on a
   # (default) 1000-point approximation
-  expect_true(all(abs(breaks$major_source - round(breaks$sec.major_source) <= 1)))
-  expect_true(all(abs(breaks$minor_source - round(breaks$sec.minor_source) <= 1)))
+  expect_true(all(abs(
+    breaks$major_source - round(breaks$sec.major_source) <= 1
+  )))
+  expect_true(all(abs(
+    breaks$minor_source - round(breaks$sec.minor_source) <= 1
+  )))
   expect_equal(round(breaks$major, 3), round(breaks$major, 3))
   expect_equal(round(breaks$minor, 3), round(breaks$minor, 3))
 })
@@ -106,7 +118,6 @@ test_that("sec_axis() breaks work for log-transformed scales", {
   # test position
   expect_equal(breaks$major, round(breaks$sec.major, 1))
 
-
   # sec_axis() with transform and breaks
   custom_breaks <- c(10, 20, 40, 200, 400, 800)
   p <- ggplot(data = df, aes(x, y)) +
@@ -142,14 +153,17 @@ test_that("sec axis works with skewed transform", {
     ggplot(foo, aes(x, y)) +
       geom_point() +
       scale_x_continuous(
-        name = "Unit A", transform = "log",
+        name = "Unit A",
+        transform = "log",
         breaks = c(0.001, 0.01, 0.1, 1, 10, 100, 1000),
-        sec.axis = sec_axis(~ . * 100,
+        sec.axis = sec_axis(
+          ~ . * 100,
           name = "Unit B",
           labels = derive(),
           breaks = derive()
         )
-      ) + theme_linedraw()
+      ) +
+      theme_linedraw()
   )
 })
 
@@ -197,7 +211,10 @@ test_that("sec_axis() handles secondary power transformations", {
   scale <- get_panel_scales(p)$y
   breaks <- scale$break_info()
 
-  expect_equal(round(breaks$major[4:6], 2), round(breaks$sec.major[c(1, 2, 4)], 2))
+  expect_equal(
+    round(breaks$major[4:6], 2),
+    round(breaks$sec.major[c(1, 2, 4)], 2)
+  )
 
   expect_doppelganger(
     "sec_axis, sec power transform",
@@ -210,8 +227,19 @@ test_that("sec_axis() handles secondary power transformations", {
 
 test_that("sec_axis() respects custom transformations", {
   # Custom transform code submitted by DInfanger, Issue #2798
-  magnify_trans_log <- function(interval_low = 0.05, interval_high = 1, reducer = 0.05, reducer2 = 8) {
-    trans <- Vectorize(function(x, i_low = interval_low, i_high = interval_high, r = reducer, r2 = reducer2) {
+  magnify_trans_log <- function(
+    interval_low = 0.05,
+    interval_high = 1,
+    reducer = 0.05,
+    reducer2 = 8
+  ) {
+    trans <- Vectorize(function(
+      x,
+      i_low = interval_low,
+      i_high = interval_high,
+      r = reducer,
+      r2 = reducer2
+    ) {
       if (is.na(x) || (x >= i_low & x <= i_high)) {
         x
       } else if (x < i_low & !is.na(x)) {
@@ -221,7 +249,13 @@ test_that("sec_axis() respects custom transformations", {
       }
     })
 
-    inv <- Vectorize(function(x, i_low = interval_low, i_high = interval_high, r = reducer, r2 = reducer2) {
+    inv <- Vectorize(function(
+      x,
+      i_low = interval_low,
+      i_high = interval_high,
+      r = reducer,
+      r2 = reducer2
+    ) {
       if (is.na(x) || (x >= i_low & x <= i_high)) {
         x
       } else if (x < i_low & !is.na(x)) {
@@ -231,7 +265,12 @@ test_that("sec_axis() respects custom transformations", {
       }
     })
 
-    new_transform(name = "customlog", transform = trans, inverse = inv, domain = c(1e-16, Inf))
+    new_transform(
+      name = "customlog",
+      transform = trans,
+      inverse = inv,
+      domain = c(1e-16, Inf)
+    )
   }
 
   # Create data
@@ -244,14 +283,20 @@ test_that("sec_axis() respects custom transformations", {
     ggplot(dat, aes(x = x, y = y)) +
       geom_line(linewidth = 1, na.rm = TRUE) +
       scale_y_continuous(
-        transform =
-          magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =
-          c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits =
-          c(0.001, 1), sec.axis = sec_axis(
-          transform =
-            ~ . * (1 / 2), breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
+        transform = magnify_trans_log(
+          interval_low = 0.5,
+          interval_high = 1,
+          reducer = 0.5,
+          reducer2 = 8
+        ),
+        breaks = c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+        limits = c(0.001, 1),
+        sec.axis = sec_axis(
+          transform = ~ . * (1 / 2),
+          breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
         )
-      ) + theme_linedraw()
+      ) +
+      theme_linedraw()
   )
 })
 
@@ -260,11 +305,14 @@ test_that("sec_axis works with date/time/datetime scales", {
   withr::local_locale(c(LC_TIME = "C"))
 
   df <- data_frame(
-    dx = seq(as.POSIXct("2012-02-29 12:00:00",
-      tz = "UTC",
-      format = "%Y-%m-%d %H:%M:%S"
-    ),
-    length.out = 10, by = "4 hour"
+    dx = seq(
+      as.POSIXct(
+        "2012-02-29 12:00:00",
+        tz = "UTC",
+        format = "%Y-%m-%d %H:%M:%S"
+      ),
+      length.out = 10,
+      by = "4 hour"
     ),
     price = seq(20, 200000, length.out = 10)
   )
@@ -291,9 +339,7 @@ test_that("sec_axis works with date/time/datetime scales", {
     geom_line() +
     scale_x_datetime(
       name = "UTC",
-      sec.axis = sec_axis(~ . + 12 * 60 * 60,
-        name = "UTC+12"
-      )
+      sec.axis = sec_axis(~ . + 12 * 60 * 60, name = "UTC+12")
     )
   scale <- get_panel_scales(dt)$x
   breaks <- scale$break_info()
@@ -305,13 +351,16 @@ test_that("sec_axis works with date/time/datetime scales", {
 
   # visual test, datetime scales, reprex #1936
   df <- data_frame(
-    x = as.POSIXct(c(
-      "2016-11-30 00:00:00",
-      "2016-11-30 06:00:00",
-      "2016-11-30 12:00:00",
-      "2016-11-30 18:00:00",
-      "2016-12-01 00:00:00"
-    ), tz = "UTC"),
+    x = as.POSIXct(
+      c(
+        "2016-11-30 00:00:00",
+        "2016-11-30 06:00:00",
+        "2016-11-30 12:00:00",
+        "2016-11-30 18:00:00",
+        "2016-12-01 00:00:00"
+      ),
+      tz = "UTC"
+    ),
     y = c(0, -1, 0, 1, 0)
   )
 
@@ -319,10 +368,13 @@ test_that("sec_axis works with date/time/datetime scales", {
     "sec_axis, datetime scale",
     ggplot(df, aes(x = x, y = y)) +
       geom_line() +
-      scale_x_datetime("UTC",
-        date_breaks = "2 hours", date_labels = "%I%p",
+      scale_x_datetime(
+        "UTC",
+        date_breaks = "2 hours",
+        date_labels = "%I%p",
         sec.axis = dup_axis(~ . - 8 * 60 * 60, name = "PST")
-      ) + theme_linedraw()
+      ) +
+      theme_linedraw()
   )
 })
 
@@ -333,11 +385,16 @@ test_that("sec.axis allows independent trans btwn primary and secondary axes", {
   )
   expect_doppelganger(
     "sec_axis, independent transformations",
-    ggplot(data = data, aes(Probability, Value)) + geom_point() +
+    ggplot(data = data, aes(Probability, Value)) +
+      geom_point() +
       scale_x_continuous(
-        transform = scales::transform_probability(distribution = "norm", lower.tail = FALSE),
+        transform = scales::transform_probability(
+          distribution = "norm",
+          lower.tail = FALSE
+        ),
         sec.axis = sec_axis(transform = ~ 1 / ., name = "Return Period")
-      ) + theme_linedraw()
+      ) +
+      theme_linedraw()
   )
 })
 
@@ -382,14 +439,16 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
 })
 
 test_that("discrete scales can have secondary axes", {
-
   data <- data.frame(x = c("A", "B", "C"), y = c("D", "E", "F"))
   p <- ggplot(data, aes(x, y)) +
     geom_point() +
     scale_x_discrete(sec.axis = dup_axis(labels = c("foo", "bar", "baz"))) +
-    scale_y_discrete(sec.axis = dup_axis(
-      breaks = c(1.5, 2.5), labels = c("grault", "garply")
-    ))
+    scale_y_discrete(
+      sec.axis = dup_axis(
+        breaks = c(1.5, 2.5),
+        labels = c("grault", "garply")
+      )
+    )
   b <- ggplot_build(p)
 
   x <- get_guide_data(b, "x.sec")
@@ -402,20 +461,19 @@ test_that("discrete scales can have secondary axes", {
 })
 
 test_that("n.breaks is respected by secondary axes (#4483)", {
-
   b <- ggplot_build(
     ggplot(data.frame(x = c(0, 10)), aes(x, x)) +
       scale_y_continuous(
         n.breaks = 11,
-        sec.axis = sec_axis(~.x*100)
+        sec.axis = sec_axis(~ .x * 100)
       )
   )
 
   # We get scale breaks via guide data
   prim <- get_guide_data(b, "y")
-  sec  <- get_guide_data(b, "y.sec")
+  sec <- get_guide_data(b, "y.sec")
 
   expect_equal(prim$.value, sec$.value) # .value is in primary scale
   expect_equal(prim$.label, as.character(seq(0, 10, length.out = 11)))
-  expect_equal(sec$.label,  as.character(seq(0, 1000, length.out = 11)))
+  expect_equal(sec$.label, as.character(seq(0, 1000, length.out = 11)))
 })

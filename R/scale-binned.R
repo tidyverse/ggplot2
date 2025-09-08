@@ -25,19 +25,41 @@ NULL
 #' @rdname scale_binned
 #'
 #' @export
-scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
-                           breaks = waiver(), labels = waiver(), limits = NULL,
-                           expand = waiver(), oob = squish, na.value = NA_real_,
-                           right = TRUE, show.limits = FALSE, transform = "identity",
-                           trans = deprecated(),
-                           guide = waiver(), position = "bottom") {
+scale_x_binned <- function(
+  name = waiver(),
+  n.breaks = 10,
+  nice.breaks = TRUE,
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = squish,
+  na.value = NA_real_,
+  right = TRUE,
+  show.limits = FALSE,
+  transform = "identity",
+  trans = deprecated(),
+  guide = waiver(),
+  position = "bottom"
+) {
   binned_scale(
     ggplot_global$x_aes,
-    palette = identity, name = name, breaks = breaks,
-    labels = labels, limits = limits, expand = expand, oob = oob,
-    na.value = na.value, n.breaks = n.breaks, nice.breaks = nice.breaks,
-    right = right, transform = transform, trans = trans,
-    show.limits = show.limits, guide = guide, position = position,
+    palette = identity,
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    expand = expand,
+    oob = oob,
+    na.value = na.value,
+    n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
+    right = right,
+    transform = transform,
+    trans = trans,
+    show.limits = show.limits,
+    guide = guide,
+    position = position,
     super = ScaleBinnedPosition
   )
 }
@@ -45,19 +67,42 @@ scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
 #' @rdname scale_binned
 #'
 #' @export
-scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
-                           breaks = waiver(), labels = waiver(), limits = NULL,
-                           expand = waiver(), oob = squish, na.value = NA_real_,
-                           right = TRUE, show.limits = FALSE, transform = "identity",
-                           trans = deprecated(),
-                           guide = waiver(), position = "left") {
+scale_y_binned <- function(
+  name = waiver(),
+  n.breaks = 10,
+  nice.breaks = TRUE,
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = squish,
+  na.value = NA_real_,
+  right = TRUE,
+  show.limits = FALSE,
+  transform = "identity",
+  trans = deprecated(),
+  guide = waiver(),
+  position = "left"
+) {
   binned_scale(
     ggplot_global$y_aes,
-    palette = identity, name = name, breaks = breaks,
-    labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
-    n.breaks = n.breaks, nice.breaks = nice.breaks, right = right,
-    transform = transform, trans = trans, show.limits = show.limits,
-    guide = guide, position = position, super = ScaleBinnedPosition
+    palette = identity,
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    expand = expand,
+    oob = oob,
+    na.value = na.value,
+    n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
+    right = right,
+    transform = transform,
+    trans = trans,
+    show.limits = show.limits,
+    guide = guide,
+    position = position,
+    super = ScaleBinnedPosition
   )
 }
 
@@ -65,7 +110,9 @@ scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
 #' @format NULL
 #' @usage NULL
 #' @export
-ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
+ScaleBinnedPosition <- ggproto(
+  "ScaleBinnedPosition",
+  ScaleBinned,
   after.stat = FALSE,
 
   train = function(self, x) {
@@ -76,7 +123,9 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
       )
     }
 
-    if (length(x) == 0 || self$after.stat) return()
+    if (length(x) == 0 || self$after.stat) {
+      return()
+    }
     self$range$train(x)
   },
 
@@ -87,7 +136,9 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
     if (self$after.stat) {
       # Backtransform to original scale
-      x_binned <- cut(x, seq_len(length(all_breaks) + 1) - 0.5,
+      x_binned <- cut(
+        x,
+        seq_len(length(all_breaks) + 1) - 0.5,
         labels = FALSE,
         include.lowest = TRUE,
         right = self$right
@@ -96,7 +147,9 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
     } else {
       x <- as.numeric(self$oob(x, limits))
       x <- ifelse(!is.na(x), x, self$na.value)
-      x_binned <- cut(x, all_breaks,
+      x_binned <- cut(
+        x,
+        all_breaks,
         labels = FALSE,
         include.lowest = TRUE,
         right = self$right

@@ -24,14 +24,20 @@ test_that("strip_dots remove dots around calculated aesthetics", {
 
 test_that("strip_dots handles tidy evaluation pronouns", {
   expect_identical(strip_dots(aes(.data$x), strip_pronoun = TRUE)$x, quo(x))
-  expect_identical(strip_dots(aes(.data[["x"]]), strip_pronoun = TRUE)$x, quo(x))
+  expect_identical(
+    strip_dots(aes(.data[["x"]]), strip_pronoun = TRUE)$x,
+    quo(x)
+  )
 
   var <- "y"
   f <- function() {
     var <- "x"
     aes(.data[[var]])$x
   }
-  expect_identical(quo_get_expr(strip_dots(f(), strip_pronoun = TRUE)), quote(x))
+  expect_identical(
+    quo_get_expr(strip_dots(f(), strip_pronoun = TRUE)),
+    quote(x)
+  )
 })
 
 test_that("make_labels() deparses mappings properly", {
@@ -42,7 +48,9 @@ test_that("make_labels() deparses mappings properly", {
   # symbol is always deparsed without backticks
   expect_identical(make_labels(aes(x = `a b`)), list(x = "a b"))
   # long expression is abbreviated with ...
-  x_lab <- make_labels(aes(x = 2 * x * exp(`coef 1` * x^2) * 2 * x * exp(`coef 1` * x^2) * 2 * x))$x
+  x_lab <- make_labels(aes(
+    x = 2 * x * exp(`coef 1` * x^2) * 2 * x * exp(`coef 1` * x^2) * 2 * x
+  ))$x
   expect_length(x_lab, 1L)
   expect_match(x_lab, "...$")
   # if the mapping is a literal or NULL, the aesthetics is used
@@ -58,8 +66,10 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
   expect_snapshot_warning(
     p <- ggplot(df, aes(x, y, label = lab)) +
       geom_label(
-        aes(colour = stage(lab, after_scale = colour),
-            color  = after_scale(color))
+        aes(
+          colour = stage(lab, after_scale = colour),
+          color = after_scale(color)
+        )
       ) +
       # Guide would trigger another warning when plot is printed, due to the
       # `guide_geom.legend` also using `Geom$use_defaults` method, which we
@@ -71,7 +81,6 @@ test_that("staged aesthetics warn appropriately for duplicated names", {
 })
 
 test_that("calculated aesthetics throw warnings when lengths mismatch", {
-
   df <- data.frame(x = 1:2)
 
   p <- ggplot(df, aes(x, x))
@@ -87,7 +96,6 @@ test_that("calculated aesthetics throw warnings when lengths mismatch", {
       p + geom_point(aes(colour = after_scale(c("red", "green", "blue"))))
     )
   )
-
 })
 
 test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {
@@ -99,14 +107,13 @@ test_that("A deprecated warning is issued when stat(var) or ..var.. is used", {
 })
 
 test_that("functions can be masked", {
-
   foo <- function(x) x + 10
   bar <- function(x) x * 10
 
   data <- data.frame(val = 10)
   mapping <- aes(x = val, y = foo(20))
 
-  evaled  <- eval_aesthetics(mapping, data = data, mask = list())
+  evaled <- eval_aesthetics(mapping, data = data, mask = list())
   expect_equal(evaled, list(x = 10, y = 30))
 
   evaled <- eval_aesthetics(mapping, data = data, mask = list(foo = bar))
@@ -116,15 +123,21 @@ test_that("functions can be masked", {
   mapping <- aes(x = val, y = ggplot2::stage(10, 20, 30))
   evaled <- eval_aesthetics(mapping, data = data, mask = list())
   expect_equal(evaled, list(x = 10, y = 10))
-  evaled <- eval_aesthetics(mapping, data = data, mask = list(stage = stage_calculated))
+  evaled <- eval_aesthetics(
+    mapping,
+    data = data,
+    mask = list(stage = stage_calculated)
+  )
   expect_equal(evaled, list(x = 10, y = 20))
-  evaled <- eval_aesthetics(mapping, data = data, mask = list(stage = stage_scaled))
+  evaled <- eval_aesthetics(
+    mapping,
+    data = data,
+    mask = list(stage = stage_scaled)
+  )
   expect_equal(evaled, list(x = 10, y = 30))
-
 })
 
 test_that("stage allows aesthetics that are only mapped to start", {
-
   df <- data.frame(x = 1:2)
 
   start_unnamed <- aes(stage(x))
@@ -144,13 +157,12 @@ test_that("stage allows aesthetics that are only mapped to start", {
     eval_aesthetics(start_nulls, data = df),
     list(x = 1:2)
   )
-
 })
 
 test_that("A geom can have scaled defaults (#6135)", {
-
   test_geom <- ggproto(
-    NULL, GeomPoint,
+    NULL,
+    GeomPoint,
     default_aes = modify_list(
       GeomPoint$default_aes,
       aes(colour = after_scale(alpha(fill, 0.5)), fill = "black")

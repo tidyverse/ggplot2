@@ -157,7 +157,6 @@ fetch_ggproto <- function(x, name) {
   } else {
     grep(pattern, methods, value = TRUE)
   }
-
 }
 
 #' @export
@@ -184,7 +183,7 @@ make_proto_method <- function(self, f, name) {
   args <- formals(f)
   # is.null is a fast path for a common case; the %in% check is slower but also
   # catches the case where there's a `self = NULL` argument.
-  has_self  <- !is.null(args[["self"]]) || "self"  %in% names(args)
+  has_self <- !is.null(args[["self"]]) || "self" %in% names(args)
 
   # We assign the method with its correct name and construct a call to it to
   # make errors reported as coming from the method name rather than `f()`
@@ -252,7 +251,6 @@ as.list.ggproto <- function(x, inherit = TRUE, ...) {
 print.ggproto <- function(x, ..., flat = TRUE) {
   if (is.function(x$print)) {
     x$print(...)
-
   } else {
     cat(format(x, flat = flat), "\n", sep = "")
     invisible(x)
@@ -262,11 +260,12 @@ print.ggproto <- function(x, ..., flat = TRUE) {
 
 #' @export
 #' @rdname print.ggproto
-format.ggproto <-  function(x, ..., flat = TRUE) {
+format.ggproto <- function(x, ..., flat = TRUE) {
   classes_str <- function(obj) {
     classes <- setdiff(class(obj), "ggproto")
-    if (length(classes) == 0)
+    if (length(classes) == 0) {
       return("")
+    }
     paste0(": Class ", paste(classes, collapse = ', '))
   }
 
@@ -278,13 +277,16 @@ format.ggproto <-  function(x, ..., flat = TRUE) {
   }
 
   str <- paste0(
-    "<ggproto object", classes_str(x), ">\n",
+    "<ggproto object",
+    classes_str(x),
+    ">\n",
     indent(object_summaries(objs, flat = flat), 4)
   )
 
   if (flat && is.function(x$super)) {
     str <- paste0(
-      str, "\n",
+      str,
+      "\n",
       indent(
         paste0("super: ", " <ggproto object", classes_str(x$super()), ">"),
         4
@@ -298,25 +300,38 @@ format.ggproto <-  function(x, ..., flat = TRUE) {
 # Return a summary string of the items of a list or environment
 # x must be a list or environment
 object_summaries <- function(x, exclude = NULL, flat = TRUE) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(NULL)
+  }
 
-  if (is.list(x))
+  if (is.list(x)) {
     obj_names <- sort(names(x))
-  else if (is.environment(x))
+  } else if (is.environment(x)) {
     obj_names <- ls(x, all.names = TRUE)
+  }
 
   obj_names <- setdiff(obj_names, exclude)
 
-  values <- vapply(obj_names, function(name) {
-    obj <- x[[name]]
-    if (is.function(obj)) "function"
-    else if (is_ggproto(obj)) format(obj, flat = flat)
-    else if (is.environment(obj)) "environment"
-    else if (is.null(obj)) "NULL"
-    else if (is.atomic(obj)) trim(paste(as.character(obj), collapse = " "))
-    else paste(class(obj), collapse = ", ")
-  }, FUN.VALUE = character(1))
+  values <- vapply(
+    obj_names,
+    function(name) {
+      obj <- x[[name]]
+      if (is.function(obj)) {
+        "function"
+      } else if (is_ggproto(obj)) {
+        format(obj, flat = flat)
+      } else if (is.environment(obj)) {
+        "environment"
+      } else if (is.null(obj)) {
+        "NULL"
+      } else if (is.atomic(obj)) {
+        trim(paste(as.character(obj), collapse = " "))
+      } else {
+        paste(class(obj), collapse = ", ")
+      }
+    },
+    FUN.VALUE = character(1)
+  )
 
   paste0(obj_names, ": ", values, sep = "", collapse = "\n")
 }
@@ -324,7 +339,8 @@ object_summaries <- function(x, exclude = NULL, flat = TRUE) {
 # Given a string, indent every line by some number of spaces.
 # The exception is to not add spaces after a trailing \n.
 indent <- function(str, indent = 0) {
-  gsub("(\\n|^)(?!$)",
+  gsub(
+    "(\\n|^)(?!$)",
     paste0("\\1", paste(rep(" ", indent), collapse = "")),
     str,
     perl = TRUE
@@ -333,8 +349,11 @@ indent <- function(str, indent = 0) {
 
 # Trim a string to n characters; if it's longer than n, add " ..." to the end
 trim <- function(str, n = 60) {
-  if (nchar(str) > n) paste(substr(str, 1, 56), "...")
-  else str
+  if (nchar(str) > n) {
+    paste(substr(str, 1, 56), "...")
+  } else {
+    str
+  }
 }
 
 #' @export
@@ -344,13 +363,13 @@ print.ggproto_method <- function(x, ...) {
 
 #' @export
 format.ggproto_method <- function(x, ...) {
-
   # Given a function, return a string from srcref if present. If not present,
   # paste the deparsed lines of code together.
   format_fun <- function(fn) {
     srcref <- attr(fn, "srcref", exact = TRUE)
-    if (is.null(srcref))
+    if (is.null(srcref)) {
       return(paste(format(fn), collapse = "\n"))
+    }
 
     paste(as.character(srcref), collapse = "\n")
   }
@@ -358,8 +377,10 @@ format.ggproto_method <- function(x, ...) {
   x <- unclass(x)
   paste0(
     "<ggproto method>",
-    "\n  <Wrapper function>\n    ", format_fun(x),
-    "\n\n  <Inner function (f)>\n    ", format_fun(environment(x)$f)
+    "\n  <Wrapper function>\n    ",
+    format_fun(x),
+    "\n\n  <Inner function (f)>\n    ",
+    format_fun(environment(x)$f)
   )
 }
 
@@ -394,9 +415,8 @@ ggproto_debug <- function(method, debug = c("once", "always", "never"), ...) {
   check_function(method)
   switch(
     arg_match0(debug, c("once", "always", "never")),
-    once   = debugonce(method, ...),
+    once = debugonce(method, ...),
     always = debug(method, ...),
-    never  = undebug(method, ...)
+    never = undebug(method, ...)
   )
 }
-

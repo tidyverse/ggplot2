@@ -59,11 +59,19 @@ NULL
 annotation_map <- function(map, ...) {
   # Get map input into correct form
   check_data_frame(map)
-  if (!is.null(map$lat)) map$y <- map$lat
-  if (!is.null(map$long)) map$x <- map$long
-  if (!is.null(map$region)) map$id <- map$region
+  if (!is.null(map$lat)) {
+    map$y <- map$lat
+  }
+  if (!is.null(map$long)) {
+    map$x <- map$long
+  }
+  if (!is.null(map$region)) {
+    map$id <- map$region
+  }
   if (!all(c("x", "y", "id") %in% names(map))) {
-    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}.")
+    cli::cli_abort(
+      "{.arg map} must have the columns {.col x}, {.col y}, and {.col id}."
+    )
   }
 
   layer(
@@ -80,7 +88,9 @@ annotation_map <- function(map, ...) {
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
+GeomAnnotationMap <- ggproto(
+  "GeomAnnotationMap",
+  GeomMap,
   extra_params = "",
   handle_na = function(data, params) {
     data
@@ -93,12 +103,17 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
     coords$group <- coords$group %||% coords$id
     grob_id <- match(coords$group, unique0(coords$group))
 
-    polygonGrob(coords$x, coords$y, default.units = "native",
+    polygonGrob(
+      coords$x,
+      coords$y,
+      default.units = "native",
       id = grob_id,
       gp = gg_par(
-        col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$linewidth)
+        col = data$colour,
+        fill = alpha(data$fill, data$alpha),
+        lwd = data$linewidth
       )
+    )
   },
 
   required_aes = c()

@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 GeomPoint <- ggproto(
-  "GeomPoint", Geom,
+  "GeomPoint",
+  Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = aes(
@@ -21,7 +22,8 @@ GeomPoint <- ggproto(
     ggname(
       "geom_point",
       pointsGrob(
-        coords$x, coords$y,
+        coords$x,
+        coords$y,
         pch = coords$shape,
         gp = gg_par(
           col = alpha(coords$colour, coords$alpha),
@@ -182,33 +184,33 @@ translate_shape_string <- function(shape_string) {
   }
 
   pch_table <- c(
-    "square open"           = 0,
-    "circle open"           = 1,
-    "triangle open"         = 2,
-    "plus"                  = 3,
-    "cross"                 = 4,
-    "diamond open"          = 5,
-    "triangle down open"    = 6,
-    "square cross"          = 7,
-    "asterisk"              = 8,
-    "diamond plus"          = 9,
-    "circle plus"           = 10,
-    "star"                  = 11,
-    "square plus"           = 12,
-    "circle cross"          = 13,
-    "square triangle"       = 14,
-    "triangle square"       = 14,
-    "square"                = 15,
-    "circle small"          = 16,
-    "triangle"              = 17,
-    "diamond"               = 18,
-    "circle"                = 19,
-    "bullet"                = 20,
-    "circle filled"         = 21,
-    "square filled"         = 22,
-    "diamond filled"        = 23,
-    "triangle filled"       = 24,
-    "triangle down filled"  = 25
+    "square open" = 0,
+    "circle open" = 1,
+    "triangle open" = 2,
+    "plus" = 3,
+    "cross" = 4,
+    "diamond open" = 5,
+    "triangle down open" = 6,
+    "square cross" = 7,
+    "asterisk" = 8,
+    "diamond plus" = 9,
+    "circle plus" = 10,
+    "star" = 11,
+    "square plus" = 12,
+    "circle cross" = 13,
+    "square triangle" = 14,
+    "triangle square" = 14,
+    "square" = 15,
+    "circle small" = 16,
+    "triangle" = 17,
+    "diamond" = 18,
+    "circle" = 19,
+    "bullet" = 20,
+    "circle filled" = 21,
+    "square filled" = 22,
+    "diamond filled" = 23,
+    "triangle filled" = 24,
+    "triangle down filled" = 25
   )
 
   shape_match <- charmatch(shape_string, names(pch_table))
@@ -218,7 +220,9 @@ translate_shape_string <- function(shape_string) {
 
   if (any(invalid_strings)) {
     bad_string <- unique0(shape_string[invalid_strings])
-    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}.")
+    cli::cli_abort(
+      "Shape aesthetic contains invalid value{?s}: {.val {bad_string}}."
+    )
   }
 
   if (any(nonunique_strings)) {

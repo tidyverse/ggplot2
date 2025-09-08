@@ -8,11 +8,18 @@
 #' @inheritParams layer
 #' @keywords internal
 #' @export
-layer_sf <- function(geom = NULL, stat = NULL,
-                     data = NULL, mapping = NULL,
-                     position = NULL, params = list(),
-                     inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                     show.legend = NA) {
+layer_sf <- function(
+  geom = NULL,
+  stat = NULL,
+  data = NULL,
+  mapping = NULL,
+  position = NULL,
+  params = list(),
+  inherit.aes = TRUE,
+  check.aes = TRUE,
+  check.param = TRUE,
+  show.legend = NA
+) {
   call_env <- caller_env()
   if (is.character(show.legend)) {
     legend_key_type <- show.legend
@@ -22,20 +29,31 @@ layer_sf <- function(geom = NULL, stat = NULL,
   }
 
   # inherit from LayerSf class to add `legend_key_type` slot
-  layer_class <- ggproto(NULL, LayerSf,
+  layer_class <- ggproto(
+    NULL,
+    LayerSf,
     constructor = frame_call(call_env),
     legend_key_type = legend_key_type
   )
 
   layer(
-    geom = geom, stat = stat, data = data, mapping = mapping,
-    position = position, params = params, inherit.aes = inherit.aes,
-    check.aes = check.aes, check.param = check.param,
-    show.legend = show.legend, layer_class = layer_class
+    geom = geom,
+    stat = stat,
+    data = data,
+    mapping = mapping,
+    position = position,
+    params = params,
+    inherit.aes = inherit.aes,
+    check.aes = check.aes,
+    check.param = check.param,
+    show.legend = show.legend,
+    layer_class = layer_class
   )
 }
 
-LayerSf <- ggproto("LayerSf", Layer,
+LayerSf <- ggproto(
+  "LayerSf",
+  Layer,
   legend_key_type = NULL,
 
   setup_layer = function(self, data, plot) {
@@ -58,7 +76,9 @@ LayerSf <- ggproto("LayerSf", Layer,
     if (is.null(legend_type)) {
       legend_type <- switch(
         detect_sf_type(data$geometry),
-        point = "point", line = "line", "other"
+        point = "point",
+        line = "line",
+        "other"
       )
     }
 
@@ -68,7 +88,9 @@ LayerSf <- ggproto("LayerSf", Layer,
   },
 
   compute_geom_2 = function(self, data, params = self$aes_params, ...) {
-    if (empty(data)) return(data)
+    if (empty(data)) {
+      return(data)
+    }
     data$geometry <- data$geometry %||% self$computed_geom_params$legend
     ggproto_parent(Layer, self)$compute_geom_2(data, params, ...)
   }
@@ -86,8 +108,9 @@ geom_column <- function(data) {
     }
   } else {
     # this may not be best in case more than one geometry list-column is present:
-    if (length(w) > 1)
+    if (length(w) > 1) {
       cli::cli_warn("More than one geometry column present: taking the first")
+    }
     w[[1]]
   }
 }
@@ -108,6 +131,8 @@ detect_sf_type <- function(sf) {
     return("other")
   }
   geometry_type <- unique0(as.character(sf::st_geometry_type(sf)))
-  if (length(geometry_type) != 1)  geometry_type <- "GEOMETRY"
+  if (length(geometry_type) != 1) {
+    geometry_type <- "GEOMETRY"
+  }
   sf_types[geometry_type]
 }

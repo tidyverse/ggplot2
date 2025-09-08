@@ -19,15 +19,21 @@
 #' ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 #'   geom_boxplot(outlier.size = 0) +
 #'   geom_point(pch = 21, position = position_jitterdodge())
-position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
-                                 dodge.width = 0.75, reverse = FALSE,
-                                 seed = NA) {
+position_jitterdodge <- function(
+  jitter.width = NULL,
+  jitter.height = 0,
+  dodge.width = 0.75,
+  reverse = FALSE,
+  seed = NA
+) {
   if (!is.null(seed) && is.na(seed)) {
     seed <- sample.int(.Machine$integer.max, 1L)
   }
   check_bool(reverse)
 
-  ggproto(NULL, PositionJitterdodge,
+  ggproto(
+    NULL,
+    PositionJitterdodge,
     jitter.width = jitter.width,
     jitter.height = jitter.height,
     dodge.width = dodge.width,
@@ -40,7 +46,9 @@ position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
+PositionJitterdodge <- ggproto(
+  "PositionJitterdodge",
+  Position,
   jitter.width = NULL,
   jitter.height = NULL,
   dodge.width = NULL,
@@ -51,7 +59,8 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
-    width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
+    width <- self$jitter.width %||%
+      (resolution(data$x, zero = FALSE, TRUE) * 0.4)
 
     ndodge <- vec_unique(data[c("group", "PANEL", "x")])
     ndodge <- vec_group_id(ndodge[c("PANEL", "x")])
@@ -77,7 +86,12 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
       check.width = FALSE,
       reverse = !params$reverse # for consistency with `position_dodge2()`
     )
-    data <- compute_jitter(data, params$jitter.width, params$jitter.height, params$seed)
+    data <- compute_jitter(
+      data,
+      params$jitter.width,
+      params$jitter.height,
+      params$seed
+    )
     flip_data(data, params$flipped_aes)
   }
 )

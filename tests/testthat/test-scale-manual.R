@@ -1,36 +1,43 @@
 test_that("names of values used in manual scales", {
-   s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"))
-   s1$train(c("4", "6", "8"))
-   expect_equal(s1$map(c("4", "6", "8")), c("a", "b", "c"))
+  s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"))
+  s1$train(c("4", "6", "8"))
+  expect_equal(s1$map(c("4", "6", "8")), c("a", "b", "c"))
 
-   s2 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), na.value = NA)
-   s2$train(c("4", "8"))
-   expect_equal(s2$map(c("4", "6", "8")), c("a", NA, "c"))
-   expect_equal(s2$get_limits(), c("4", "8"))
+  s2 <- scale_colour_manual(
+    values = c("8" = "c", "4" = "a", "6" = "b"),
+    na.value = NA
+  )
+  s2$train(c("4", "8"))
+  expect_equal(s2$map(c("4", "6", "8")), c("a", NA, "c"))
+  expect_equal(s2$get_limits(), c("4", "8"))
 
-   s3 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), na.value = "x")
-   s3$train(c("4", "8", NA))
-   expect_equal(s3$map(c("4", "6", "8")), c("a", "x", "c"))
-   expect_equal(s3$get_limits(), c("4", "8", NA))
+  s3 <- scale_colour_manual(
+    values = c("8" = "c", "4" = "a", "6" = "b"),
+    na.value = "x"
+  )
+  s3$train(c("4", "8", NA))
+  expect_equal(s3$map(c("4", "6", "8")), c("a", "x", "c"))
+  expect_equal(s3$get_limits(), c("4", "8", NA))
 
-   # Names do not match data
-   s <- scale_colour_manual(values = c("foo" = "x", "bar" = "y"))
-   s$train(c("A", "B"))
-   expect_snapshot_warning(
-     expect_equal(s$get_limits(), character())
-   )
+  # Names do not match data
+  s <- scale_colour_manual(values = c("foo" = "x", "bar" = "y"))
+  s$train(c("A", "B"))
+  expect_snapshot_warning(
+    expect_equal(s$get_limits(), character())
+  )
 })
 
 
-dat <- data_frame(g = c("B","A","A"))
+dat <- data_frame(g = c("B", "A", "A"))
 p <- ggplot(dat, aes(g, fill = g)) + geom_bar()
 col <- c("A" = "red", "B" = "green", "C" = "blue")
 
 cols <- function(x) ggplot_build(x)@data[[1]][, "fill"]
 
 test_that("named values work regardless of order", {
-  fill_scale <- function(order) scale_fill_manual(values = col[order],
-    na.value = "black")
+  fill_scale <- function(order) {
+    scale_fill_manual(values = col[order], na.value = "black")
+  }
 
   # Order of value vector shouldn't matter
   expect_equal(cols(p + fill_scale(1:3)), c("red", "green"))
@@ -54,15 +61,19 @@ test_that("insufficient values raise an error", {
   df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
   p <- ggplot(df, aes(x, y, colour = z)) + geom_point()
 
-  expect_snapshot(ggplot_build(p + scale_colour_manual(values = "black")), error = TRUE)
+  expect_snapshot(
+    ggplot_build(p + scale_colour_manual(values = "black")),
+    error = TRUE
+  )
 
   # Should be sufficient
   ggplot_build(p + scale_colour_manual(values = c("black", "black")))
 })
 
 test_that("values are matched when scale contains more unique values than are in the data", {
-  s <- scale_colour_manual(values = c("8" = "c", "4" = "a",
-    "22" = "d", "6"  = "b"))
+  s <- scale_colour_manual(
+    values = c("8" = "c", "4" = "a", "22" = "d", "6" = "b")
+  )
   s$train(c("4", "6", "8"))
   expect_equal(s$map(c("4", "6", "8")), c("a", "b", "c"))
 })
@@ -76,7 +87,10 @@ test_that("generic scale can be used in place of aesthetic-specific scales", {
 
   p2 <- ggplot(df, aes(z, z, shape = x, color = y, alpha = z)) +
     scale_discrete_manual(aesthetics = "shape", values = 1:3) +
-    scale_discrete_manual(aesthetics = "colour", values = c("red", "green", "blue")) +
+    scale_discrete_manual(
+      aesthetics = "colour",
+      values = c("red", "green", "blue")
+    ) +
     scale_discrete_manual(aesthetics = "alpha", values = c(0.2, 0.4, 0.6))
 
   expect_equal(get_layer_data(p1), get_layer_data(p2))
@@ -102,12 +116,20 @@ test_that("unnamed values match breaks in manual scales", {
 
 test_that("limits works (#3262)", {
   # named character vector
-  s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), limits = c("4", "8"), na.value = NA)
+  s1 <- scale_colour_manual(
+    values = c("8" = "c", "4" = "a", "6" = "b"),
+    limits = c("4", "8"),
+    na.value = NA
+  )
   s1$train(c("4", "6", "8"))
   expect_equal(s1$map(c("4", "6", "8")), c("a", NA, "c"))
 
   # unnamed character vector
-  s2 <- scale_colour_manual(values = c("c", "a", "b"), limits = c("4", "8"), na.value = NA)
+  s2 <- scale_colour_manual(
+    values = c("c", "a", "b"),
+    limits = c("4", "8"),
+    na.value = NA
+  )
   s2$train(c("4", "6", "8"))
   expect_equal(s2$map(c("4", "6", "8")), c("c", NA, "a"))
 })
@@ -153,31 +175,33 @@ test_that("limits and breaks (#4619)", {
 })
 
 test_that("NAs from palette are not translated (#5929)", {
-
   s1 <- scale_colour_manual(
     values = c("4" = "a", "6" = NA, "8" = "c"),
-    na.translate = TRUE, na.value = "x"
+    na.translate = TRUE,
+    na.value = "x"
   )
   s1$train(c("8", "6", "4"))
   expect_equal(s1$map(c("4", "6", "8", "10")), c("a", NA, "c", "x"))
 
   s2 <- scale_colour_manual(
     values = c("4" = "a", "6" = NA, "8" = "c"),
-    na.translate = TRUE, na.value = NA
+    na.translate = TRUE,
+    na.value = NA
   )
   s2$train(c("8", "6", "4"))
   expect_equal(s2$map(c("4", "6", "8", "10")), c("a", NA, "c", NA))
 
   s3 <- scale_colour_manual(
     values = c("4" = "a", "6" = NA, "8" = "c"),
-    na.translate = FALSE, na.value = "x"
+    na.translate = FALSE,
+    na.value = "x"
   )
   s3$train(c("8", "6", "4"))
   expect_equal(s3$map(c("4", "6", "8", "10")), c("a", NA, "c", NA))
 })
 
 test_that("numeric linetype palettes are mapped correctly (#6096)", {
-  x  <- c(LETTERS[1:3], NA)
+  x <- c(LETTERS[1:3], NA)
   sc <- scale_linetype_manual(values = 1:5)
   sc$train(x)
   expect_equal(sc$map(x), c(1L, 2L, 3L, NA))

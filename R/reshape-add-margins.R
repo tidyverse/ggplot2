@@ -3,7 +3,9 @@ reshape_add_margins <- function(df, vars, margins = TRUE) {
   margin_vars <- reshape_margins(vars, margins)
 
   # Return data frame if no margining necessary
-  if (length(margin_vars) == 0) return(df)
+  if (length(margin_vars) == 0) {
+    return(df)
+  }
 
   # Prepare data frame for addition of margins
   addAll <- function(x) {
@@ -26,7 +28,9 @@ reshape_add_margins <- function(df, vars, margins = TRUE) {
 }
 
 reshape_margins <- function(vars, margins = NULL) {
-  if (is.null(margins) || identical(margins, FALSE)) return(NULL)
+  if (is.null(margins) || identical(margins, FALSE)) {
+    return(NULL)
+  }
 
   all_vars <- unlist(vars)
   if (isTRUE(margins)) {
@@ -37,16 +41,22 @@ reshape_margins <- function(vars, margins = NULL) {
   dims <- lapply(vars, intersect, margins)
 
   # Next, ensure high-level margins include lower-levels
-  dims <- mapply(function(vars, margin) {
-    lapply(margin, downto, vars)
-  }, vars, dims, SIMPLIFY = FALSE, USE.NAMES = FALSE)
+  dims <- mapply(
+    function(vars, margin) {
+      lapply(margin, downto, vars)
+    },
+    vars,
+    dims,
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
 
   # Finally, find intersections across all dimensions
   seq_0 <- function(x) c(0, seq_along(x))
   indices <- expand.grid(lapply(dims, seq_0), KEEP.OUT.ATTRS = FALSE)
   # indices <- indices[rowSums(indices) > 0, ]
 
-  lapply(seq_len(nrow(indices)), function(i){
+  lapply(seq_len(nrow(indices)), function(i) {
     unlist(mapply("[", dims, indices[i, ], SIMPLIFY = FALSE))
   })
 }

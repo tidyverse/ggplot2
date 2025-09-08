@@ -1,11 +1,16 @@
-df0 <- data_frame(mpg = numeric(0), wt = numeric(0), am = numeric(0), cyl = numeric(0))
+df0 <- data_frame(
+  mpg = numeric(0),
+  wt = numeric(0),
+  am = numeric(0),
+  cyl = numeric(0)
+)
 
 test_that("layers with empty data are silently omitted", {
   # Empty data (no visible points)
-  d <- ggplot(df0, aes(mpg,wt)) + geom_point()
+  d <- ggplot(df0, aes(mpg, wt)) + geom_point()
   expect_equal(nrow(get_layer_data(d)), 0)
 
-  d <- ggplot() + geom_point(data = df0, aes(mpg,wt))
+  d <- ggplot() + geom_point(data = df0, aes(mpg, wt))
   expect_equal(nrow(get_layer_data(d)), 0)
 
   # Regular mtcars data, x=mpg, y=wt, normal points and points from empty data frame
@@ -98,5 +103,5 @@ test_that("missing layers generate one grob per panel", {
   base <- ggplot(df, aes(x, y)) + geom_point(shape = NA, na.rm = TRUE)
 
   expect_length(get_layer_grob(base), 1)
-  expect_length(get_layer_grob(base + facet_wrap(~ g)), 2)
+  expect_length(get_layer_grob(base + facet_wrap(~g)), 2)
 })

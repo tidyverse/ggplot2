@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 GeomErrorbar <- ggproto(
-  "GeomErrorbar", Geom,
+  "GeomErrorbar",
+  Geom,
 
   default_aes = aes(
     colour = from_theme(colour %||% ink),
@@ -21,8 +22,8 @@ GeomErrorbar <- ggproto(
     params <- GeomLinerange$setup_params(data, params)
     if (
       isTRUE(params$flipped_aes) &&
-      isTRUE("height" %in% names(params)) &&
-      !isTRUE("width" %in% names(params))
+        isTRUE("height" %in% names(params)) &&
+        !isTRUE("width" %in% names(params))
     ) {
       params <- rename(params, c(height = "width"))
       cli::cli_inform("{.arg height} was translated to {.arg width}.")
@@ -36,23 +37,53 @@ GeomErrorbar <- ggproto(
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- compute_data_size(
-      data, params$width,
+      data,
+      params$width,
       default = self$default_aes$width,
-      zero = FALSE, discrete = TRUE
+      zero = FALSE,
+      discrete = TRUE
     )
-    data <- transform(data,
-                      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    data <- transform(
+      data,
+      xmin = x - width / 2,
+      xmax = x + width / 2,
+      width = NULL
     )
     flip_data(data, params$flipped_aes)
   },
 
   # Note: `width` is vestigial
-  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
-                        width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    width = NULL,
+    flipped_aes = FALSE
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
-    x <- vec_interleave(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)
-    y <- vec_interleave(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)
+    x <- vec_interleave(
+      data$xmin,
+      data$xmax,
+      NA,
+      data$x,
+      data$x,
+      NA,
+      data$xmin,
+      data$xmax
+    )
+    y <- vec_interleave(
+      data$ymax,
+      data$ymax,
+      NA,
+      data$ymax,
+      data$ymin,
+      NA,
+      data$ymin,
+      data$ymin
+    )
     data <- data_frame0(
       x = x,
       y = y,
@@ -75,10 +106,13 @@ GeomErrorbar <- ggproto(
 #' @usage NULL
 #' @export
 GeomErrorbarh <- ggproto(
-  "GeomErrorbarh", GeomErrorbar,
+  "GeomErrorbarh",
+  GeomErrorbar,
   setup_params = function(data, params) {
     deprecate_soft0(
-      "4.0.0", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+      "4.0.0",
+      "geom_errobarh()",
+      "geom_errorbar(orientation = \"y\")",
       id = "no-more-errorbarh"
     )
     GeomLinerange$setup_params(data, params)
@@ -96,7 +130,9 @@ geom_errorbar <- make_constructor(GeomErrorbar, orientation = NA)
 #' `geom_errorbar(orientation = "y")` instead.
 geom_errorbarh <- function(..., orientation = "y") {
   deprecate_soft0(
-    "4.0.0", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+    "4.0.0",
+    "geom_errobarh()",
+    "geom_errorbar(orientation = \"y\")",
     id = "no-more-errorbarh"
   )
   geom_errorbar(..., orientation = orientation)

@@ -58,11 +58,19 @@
 #' # Use viridis_b to bin continuous data before mapping
 #' v + scale_fill_viridis_b()
 #'
-scale_colour_viridis_d <- function(name = waiver(), ..., alpha = 1, begin = 0,
-                                   end = 1, direction = 1, option = "D",
-                                   aesthetics = "colour") {
+scale_colour_viridis_d <- function(
+  name = waiver(),
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  aesthetics = "colour"
+) {
   discrete_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = pal_viridis(alpha, begin, end, direction, option),
     ...
   )
@@ -70,11 +78,19 @@ scale_colour_viridis_d <- function(name = waiver(), ..., alpha = 1, begin = 0,
 
 #' @export
 #' @rdname scale_viridis
-scale_fill_viridis_d <- function(name = waiver(), ..., alpha = 1, begin = 0,
-                                 end = 1, direction = 1, option = "D",
-                                 aesthetics = "fill") {
+scale_fill_viridis_d <- function(
+  name = waiver(),
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  aesthetics = "fill"
+) {
   discrete_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = pal_viridis(alpha, begin, end, direction, option),
     ...
   )
@@ -82,13 +98,23 @@ scale_fill_viridis_d <- function(name = waiver(), ..., alpha = 1, begin = 0,
 
 #' @export
 #' @rdname scale_viridis
-scale_colour_viridis_c <- function(name = waiver(), ..., alpha = 1, begin = 0,
-                                   end = 1, direction = 1, option = "D",
-                                   values = NULL, space = "Lab",
-                                   na.value = "grey50", guide = "colourbar",
-                                   aesthetics = "colour") {
+scale_colour_viridis_c <- function(
+  name = waiver(),
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "colour"
+) {
   continuous_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = pal_gradient_n(
       pal_viridis(alpha, begin, end, direction, option)(6),
       values,
@@ -102,13 +128,23 @@ scale_colour_viridis_c <- function(name = waiver(), ..., alpha = 1, begin = 0,
 
 #' @export
 #' @rdname scale_viridis
-scale_fill_viridis_c <- function(name = waiver(), ..., alpha = 1, begin = 0,
-                                 end = 1, direction = 1, option = "D",
-                                 values = NULL, space = "Lab",
-                                 na.value = "grey50", guide = "colourbar",
-                                 aesthetics = "fill") {
+scale_fill_viridis_c <- function(
+  name = waiver(),
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+) {
   continuous_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = pal_gradient_n(
       pal_viridis(alpha, begin, end, direction, option)(6),
       values,
@@ -122,17 +158,27 @@ scale_fill_viridis_c <- function(name = waiver(), ..., alpha = 1, begin = 0,
 
 #' @export
 #' @rdname scale_viridis
-scale_colour_viridis_b <- function(name = waiver(), ..., alpha = 1, begin = 0,
-                                   end = 1, direction = 1, option = "D",
-                                   values = NULL, space = "Lab",
-                                   na.value = "grey50", guide = "coloursteps",
-                                   aesthetics = "colour") {
-  pal <-  pal_binned(
+scale_colour_viridis_b <- function(
+  name = waiver(),
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "colour"
+) {
+  pal <- pal_binned(
     pal_viridis(alpha, begin, end, direction, option)
   )
 
   binned_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = pal,
     na.value = na.value,
     guide = guide,
@@ -142,17 +188,27 @@ scale_colour_viridis_b <- function(name = waiver(), ..., alpha = 1, begin = 0,
 
 #' @export
 #' @rdname scale_viridis
-scale_fill_viridis_b <- function(name = waiver(), ..., alpha = 1, begin = 0,
-                                 end = 1, direction = 1, option = "D",
-                                 values = NULL, space = "Lab",
-                                 na.value = "grey50", guide = "coloursteps",
-                                 aesthetics = "fill") {
-  pal <-  pal_binned(
+scale_fill_viridis_b <- function(
+  name = waiver(),
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "fill"
+) {
+  pal <- pal_binned(
     pal_viridis(alpha, begin, end, direction, option)
   )
 
   binned_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = pal,
     na.value = na.value,
     guide = guide,

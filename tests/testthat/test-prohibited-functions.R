@@ -29,19 +29,22 @@ get_n_data.frame <- function(f) {
   idx_base <- d$token == "SYMBOL_PACKAGE" & d$text == "base"
   idx_colons <- d$token == "NS_GET" & d$text == "::"
   # exclude the case when the `data.frame` is prefixed with `base::`
-  idx_base_prefixed <- c(FALSE, FALSE, idx_base[1:(nrow(d) - 2)]) & c(FALSE, idx_colons[1:(nrow(d) - 1)])
+  idx_base_prefixed <- c(FALSE, FALSE, idx_base[1:(nrow(d) - 2)]) &
+    c(FALSE, idx_colons[1:(nrow(d) - 1)])
 
   idx_data.frame <- d$token == "SYMBOL_FUNCTION_CALL" & d$text == "data.frame"
   sum(idx_data.frame & !idx_base_prefixed)
 }
 
 test_that("`get_n_*() detects number of calls properly", {
-  tmp <- withr::local_tempfile(lines = c(
-    'stop("foo!")',
-    'warning("bar!")',
-    "data.frame(x = 1)",
-    "base::data.frame(x = 1)"  # this is not counted
-  ))
+  tmp <- withr::local_tempfile(
+    lines = c(
+      'stop("foo!")',
+      'warning("bar!")',
+      "data.frame(x = 1)",
+      "base::data.frame(x = 1)" # this is not counted
+    )
+  )
 
   expect_equal(get_n_stop(tmp), 1)
   expect_equal(get_n_warning(tmp), 1)
@@ -50,8 +53,8 @@ test_that("`get_n_*() detects number of calls properly", {
 
 # Pattern is needed filter out files such as ggplot2.rdb, which is created when running covr::package_coverage()
 R_paths <- c(
-  "../../R",                     # in the case of devtools::test()
-  "../../00_pkg_src/ggplot2/R"   # in the case of R CMD check
+  "../../R", # in the case of devtools::test()
+  "../../00_pkg_src/ggplot2/R" # in the case of R CMD check
 )
 R_files <- list.files(R_paths, pattern = ".*\\.(R|r)$", full.names = TRUE)
 
@@ -94,7 +97,6 @@ test_that("do not use data.frame(), use `data_frame()` or `new_data_frame()`, or
 })
 
 test_that("No new argument names use underscores", {
-
   # For context:
   # We decided to use dot.case for argument names in exported functions,
   # not snake_case.

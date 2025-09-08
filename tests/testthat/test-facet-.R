@@ -1,17 +1,29 @@
 test_that("as_facets_list() coerces formulas", {
   expect_identical(as_facets_list(~foo), list(quos(), quos(foo = foo)))
-  expect_identical(as_facets_list(~foo + bar), list(quos(), quos(foo = foo, bar = bar)))
-  expect_identical(as_facets_list(foo ~ bar), list(quos(foo = foo), quos(bar = bar)))
+  expect_identical(
+    as_facets_list(~ foo + bar),
+    list(quos(), quos(foo = foo, bar = bar))
+  )
+  expect_identical(
+    as_facets_list(foo ~ bar),
+    list(quos(foo = foo), quos(bar = bar))
+  )
 
   exp <- list(quos(foo = foo, bar = bar), quos(baz = baz, bam = bam))
   expect_identical(as_facets_list(foo + bar ~ baz + bam), exp)
 
-  exp <- list(quos(`foo()`= foo(), `bar()` = bar()), quos(`baz()` = baz(), `bam()` = bam()))
+  exp <- list(
+    quos(`foo()` = foo(), `bar()` = bar()),
+    quos(`baz()` = baz(), `bam()` = bam())
+  )
   expect_identical(as_facets_list(foo() + bar() ~ baz() + bam()), exp)
 })
 
 test_that("as_facets_list() coerces strings containing formulas", {
-  expect_identical(as_facets_list("foo ~ bar"), as_facets_list(local(foo ~ bar, globalenv())))
+  expect_identical(
+    as_facets_list("foo ~ bar"),
+    as_facets_list(local(foo ~ bar, globalenv()))
+  )
 })
 
 test_that("as_facets_list() coerces character vectors", {
@@ -49,10 +61,13 @@ test_that("facets reject aes()", {
 
 test_that("compact_facets() returns a quosures object with compacted", {
   expect_identical(compact_facets(vars(foo)), quos(foo = foo))
-  expect_identical(compact_facets(~foo + bar), quos(foo = foo, bar = bar))
+  expect_identical(compact_facets(~ foo + bar), quos(foo = foo, bar = bar))
 
   f <- function(x) {
-    expect_identical(compact_facets(vars(foo, {{ x }}, bar)), quos(foo = foo, bar = bar))
+    expect_identical(
+      compact_facets(vars(foo, {{ x }}, bar)),
+      quos(foo = foo, bar = bar)
+    )
   }
 
   f(NULL)
@@ -60,11 +75,20 @@ test_that("compact_facets() returns a quosures object with compacted", {
 })
 
 test_that("grid_as_facets_list() returns a list of quosures objects with compacted", {
-  expect_identical(grid_as_facets_list(vars(foo), NULL), list(rows = quos(foo = foo), cols = quos()))
-  expect_identical(grid_as_facets_list(~foo, NULL), list(rows = quos(), cols = quos(foo = foo)))
+  expect_identical(
+    grid_as_facets_list(vars(foo), NULL),
+    list(rows = quos(foo = foo), cols = quos())
+  )
+  expect_identical(
+    grid_as_facets_list(~foo, NULL),
+    list(rows = quos(), cols = quos(foo = foo))
+  )
 
   f <- function(x) {
-    expect_identical(grid_as_facets_list(vars(foo, {{ x }}, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+    expect_identical(
+      grid_as_facets_list(vars(foo, {{ x }}, bar), NULL),
+      list(rows = quos(foo = foo, bar = bar), cols = quos())
+    )
   }
 
   f(NULL)
@@ -78,10 +102,22 @@ test_that("compact_facets() and grid_as_facets_list() accept empty specs", {
   expect_identical(compact_facets(list(. ~ .)), quos())
   expect_identical(compact_facets(list(NULL)), quos())
 
-  expect_identical(grid_as_facets_list(list(), NULL), list(rows = quos(), cols = quos()))
-  expect_identical(grid_as_facets_list(. ~ ., NULL), list(rows = quos(), cols = quos()))
-  expect_identical(grid_as_facets_list(list(. ~ .), NULL), list(rows = quos(), cols = quos()))
-  expect_identical(grid_as_facets_list(list(NULL), NULL), list(rows = quos(), cols = quos()))
+  expect_identical(
+    grid_as_facets_list(list(), NULL),
+    list(rows = quos(), cols = quos())
+  )
+  expect_identical(
+    grid_as_facets_list(. ~ ., NULL),
+    list(rows = quos(), cols = quos())
+  )
+  expect_identical(
+    grid_as_facets_list(list(. ~ .), NULL),
+    list(rows = quos(), cols = quos())
+  )
+  expect_identical(
+    grid_as_facets_list(list(NULL), NULL),
+    list(rows = quos(), cols = quos())
+  )
 })
 
 test_that("facets split up the data", {
@@ -136,9 +172,15 @@ test_that("facet_grid() accepts vars()", {
   expect_identical(grid$params$cols, quos(bar = bar))
 
   expect_equal(facet_grid(vars(am, vs))$params, facet_grid(am + vs ~ .)$params)
-  expect_equal(facet_grid(vars(am, vs), vars(cyl))$params, facet_grid(am + vs ~ cyl)$params)
+  expect_equal(
+    facet_grid(vars(am, vs), vars(cyl))$params,
+    facet_grid(am + vs ~ cyl)$params
+  )
   expect_equal(facet_grid(NULL, vars(cyl))$params, facet_grid(. ~ cyl)$params)
-  expect_equal(facet_grid(vars(am, vs), TRUE)$params, facet_grid(am + vs ~ ., margins = TRUE)$params)
+  expect_equal(
+    facet_grid(vars(am, vs), TRUE)$params,
+    facet_grid(am + vs ~ ., margins = TRUE)$params
+  )
 })
 
 test_that("facet_grid() fails if passed both a formula and a vars()", {
@@ -215,7 +257,8 @@ test_that("shrink parameter affects scaling", {
   r2 <- pranges(l2)
   expect_equal(r2$y[[1]], c(2, 2))
 
-  l3 <- ggplot(df, aes(1, y)) + stat_summary(fun = "mean") +
+  l3 <- ggplot(df, aes(1, y)) +
+    stat_summary(fun = "mean") +
     facet_null(shrink = FALSE)
   r3 <- pranges(l3)
   expect_equal(r3$y[[1]], c(1, 3))
@@ -223,7 +266,7 @@ test_that("shrink parameter affects scaling", {
 
 test_that("facet variables", {
   expect_identical(facet_null()$vars(), character(0))
-  expect_identical(facet_wrap(~ a)$vars(), "a")
+  expect_identical(facet_wrap(~a)$vars(), "a")
   expect_identical(facet_grid(a ~ b)$vars(), c("a", "b"))
 })
 
@@ -236,7 +279,6 @@ test_that("facet gives clear error if ", {
 })
 
 test_that("facet_grid `axis_labels` argument can be overruled", {
-
   f <- facet_grid(vars(cyl), axes = "all", axis.labels = "all")
   expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
 
@@ -246,39 +288,62 @@ test_that("facet_grid `axis_labels` argument can be overruled", {
   # Overrule when only drawing at margins
   f <- facet_grid(vars(cyl), axes = "margins", axis.labels = "margins")
   expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
-
 })
 
 test_that("facet_wrap `axis_labels` argument can be overruled", {
-
   # The folllowing three should all draw axis labels
-  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis.labels = "all")
+  f <- facet_wrap(
+    vars(cyl),
+    scales = "fixed",
+    axes = "all",
+    axis.labels = "all"
+  )
   expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
 
   f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis.labels = "all")
   expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
 
-  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis.labels = "all")
+  f <- facet_wrap(
+    vars(cyl),
+    scales = "fixed",
+    axes = "margins",
+    axis.labels = "all"
+  )
   expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
 
   # The only case when labels shouldn't be drawn is when scales are fixed but
   # the axes are to be drawn
-  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis.labels = "margins")
+  f <- facet_wrap(
+    vars(cyl),
+    scales = "fixed",
+    axes = "all",
+    axis.labels = "margins"
+  )
   expect_equal(f$params$axis_labels, list(x = FALSE, y = FALSE))
 
   # Should draw labels because scales are free
-  f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis.labels = "margins")
+  f <- facet_wrap(
+    vars(cyl),
+    scales = "free",
+    axes = "all",
+    axis.labels = "margins"
+  )
   expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
 
   # Should draw labels because only drawing at margins
-  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis.labels = "margins")
+  f <- facet_wrap(
+    vars(cyl),
+    scales = "fixed",
+    axes = "margins",
+    axis.labels = "margins"
+  )
   expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
-
 })
 
 test_that("facet_grid `axes` can draw inner axes.", {
   df <- data_frame(
-    x = 1:4, y = 1:4,
+    x = 1:4,
+    y = 1:4,
     fx = c("A", "A", "B", "B"),
     fy = c("c", "d", "c", "d")
   )
@@ -303,7 +368,9 @@ test_that("facet_grid `axes` can draw inner axes.", {
 
 test_that("facet_wrap `axes` can draw inner axes.", {
   df <- data_frame(
-    x = 1, y = 1, facet = LETTERS[1:4]
+    x = 1,
+    y = 1,
+    facet = LETTERS[1:4]
   )
 
   p <- ggplot(df, aes(x, y)) + geom_point()
@@ -376,7 +443,12 @@ test_that("combine_vars() generates the correct combinations", {
   )
   attr(df_all, "out.attrs") <- NULL
 
-  vars_all <- vars(letter = letter, number =  number, boolean = boolean, factor = factor)
+  vars_all <- vars(
+    letter = letter,
+    number = number,
+    boolean = boolean,
+    factor = factor
+  )
 
   expect_equal(
     combine_vars(list(df_one), vars = vars_all),
@@ -395,21 +467,23 @@ test_that("combine_vars() generates the correct combinations", {
   # they appear in the data (in addition to keeping unused factor levels)
   expect_equal(
     combine_vars(list(df_one), vars = vars_all, drop = FALSE),
-    df_all[order(df_all$letter, df_all$number, df_all$boolean, df_all$factor), ],
-    ignore_attr = TRUE   # do not compare `row.names`
+    df_all[
+      order(df_all$letter, df_all$number, df_all$boolean, df_all$factor),
+    ],
+    ignore_attr = TRUE # do not compare `row.names`
   )
 
   expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2, b = 2:3), data.frame(a = 1:2, c = 2:3)),
-      vars = vars(b=b, c=c)
+      vars = vars(b = b, c = c)
     )
   )
 
   expect_snapshot_error(
     combine_vars(
       list(data.frame(a = 1:2), data.frame(b = numeric())),
-      vars = vars(b=b)
+      vars = vars(b = b)
     )
   )
 })
@@ -427,7 +501,11 @@ test_that("drop = FALSE in combine_vars() keeps unused factor levels", {
 })
 
 test_that("combine_vars() generates the correct combinations with multiple data frames", {
-  df <- expand.grid(letter = c("a", "b"), number = c(1, 2), boolean = c(TRUE, FALSE))
+  df <- expand.grid(
+    letter = c("a", "b"),
+    number = c(1, 2),
+    boolean = c(TRUE, FALSE)
+  )
 
   vars <- vars(letter = letter, number = number)
   expect_identical(
@@ -449,13 +527,25 @@ test_that("combine_vars() generates the correct combinations with multiple data 
 })
 
 test_that("eval_facet() is tolerant for missing columns (#2963)", {
-  expect_null(eval_facet(quo(2 * x), data_frame(foo = 1), possible_columns = c("x")))
-  expect_null(eval_facet(quo(2 * .data$x), data_frame(foo = 1), possible_columns = c("x")))
+  expect_null(eval_facet(
+    quo(2 * x),
+    data_frame(foo = 1),
+    possible_columns = c("x")
+  ))
+  expect_null(eval_facet(
+    quo(2 * .data$x),
+    data_frame(foo = 1),
+    possible_columns = c("x")
+  ))
 
   # Even if there's the same name of external variable, eval_facet() returns NULL before
   # reaching to the variable
   bar <- 2
-  expect_null(eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = c("bar")))
+  expect_null(eval_facet(
+    quo(2 * bar),
+    data_frame(foo = 1),
+    possible_columns = c("bar")
+  ))
   # If there's no same name of columns, the external variable is used
   expect_equal(
     eval_facet(quo(2 * bar), data_frame(foo = 1), possible_columns = c("x")),
@@ -464,7 +554,11 @@ test_that("eval_facet() is tolerant for missing columns (#2963)", {
 
   # If the expression contains any non-existent variable, it fails
   expect_snapshot(
-    eval_facet(quo(no_such_variable * x), data_frame(foo = 1), possible_columns = c("x")),
+    eval_facet(
+      quo(no_such_variable * x),
+      data_frame(foo = 1),
+      possible_columns = c("x")
+    ),
     error = TRUE
   )
 })
@@ -481,7 +575,6 @@ test_that("check_layout() throws meaningful errors", {
 # Visual tests ------------------------------------------------------------
 
 test_that("facet labels respect both justification and margin arguments", {
-
   df <- data_frame(
     x = 1:2,
     y = 1:2,
@@ -495,8 +588,10 @@ test_that("facet labels respect both justification and margin arguments", {
     theme_test()
 
   p1 <- base +
-    theme(strip.text.x = element_text(hjust = 0, margin = margin(5, 5, 5, 5)),
-          strip.text.y = element_text(hjust = 0, margin = margin(5, 5, 5, 5)))
+    theme(
+      strip.text.x = element_text(hjust = 0, margin = margin(5, 5, 5, 5)),
+      strip.text.y = element_text(hjust = 0, margin = margin(5, 5, 5, 5))
+    )
 
   p2 <- base +
     theme(
@@ -517,14 +612,14 @@ test_that("facet labels respect both justification and margin arguments", {
 })
 
 test_that("facet's 'axis_labels' argument correctly omits labels", {
-
   base <- ggplot(mtcars, aes(mpg, disp)) +
     geom_point() +
     guides(x = "axis", y = "axis", x.sec = "axis", y.sec = "axis")
 
   expect_doppelganger(
     "facet_grid with omitted inner axis labels",
-    base + facet_grid(vars(cyl), vars(vs), axes = "all", axis.labels = "margins")
+    base +
+      facet_grid(vars(cyl), vars(vs), axes = "all", axis.labels = "margins")
   )
 
   expect_doppelganger(

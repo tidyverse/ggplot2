@@ -1,4 +1,3 @@
-
 # Visual tests ------------------------------------------------------------
 
 test_that("check h/v/abline transformed on basic projections", {
@@ -35,16 +34,15 @@ test_that("curved lines in map projections", {
     geom_hline(yintercept = -38.6) + # roughly Taupo
     geom_vline(xintercept = 176)
 
-  expect_doppelganger("straight lines in mercator",
-    nzmap + coord_map()
-  )
-  expect_doppelganger("lines curved in azequalarea",
-    nzmap + coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+  expect_doppelganger("straight lines in mercator", nzmap + coord_map())
+  expect_doppelganger(
+    "lines curved in azequalarea",
+    nzmap +
+      coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
   )
 })
 
 test_that("geom_abline is clipped to x/y ranges", {
-
   df <- data.frame(slope = c(-0.2, -1, -5, 5, 1, 0.2))
 
   p <- ggplot(df) +

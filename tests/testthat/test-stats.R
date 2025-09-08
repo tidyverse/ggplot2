@@ -17,14 +17,21 @@ test_that("error message is thrown when aesthetics are missing", {
 })
 
 test_that("erroneously dropped aesthetics are found and issue a warning", {
-
   # case 1) dropped completely
 
   df1 <- data_frame(
-    x = c( # arbitrary random numbers
-      0.42986445,  1.11153170, -1.22318013,  0.90982003,
-      0.46454276, -0.42300004, -1.76139834, -0.75060412,
-      0.01635474, -0.63202159
+    x = c(
+      # arbitrary random numbers
+      0.42986445,
+      1.11153170,
+      -1.22318013,
+      0.90982003,
+      0.46454276,
+      -0.42300004,
+      -1.76139834,
+      -0.75060412,
+      0.01635474,
+      -0.63202159
     ),
     g = rep(1:2, each = 5)
   )
@@ -34,9 +41,9 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
   # case 2-1) dropped partially
 
   df2 <- data_frame(
-    id     = c("a", "a", "b", "b", "c"),
-    colour = c(  0,   1,  10,  10,  20),   # a should be dropped
-    fill   = c(  0,   0,  10,  11,  20)    # b should be dropped
+    id = c("a", "a", "b", "b", "c"),
+    colour = c(0, 1, 10, 10, 20), # a should be dropped
+    fill = c(0, 0, 10, 11, 20) # b should be dropped
   )
 
   p2 <- ggplot(df2, aes(id, colour = colour, fill = fill)) + geom_bar()
@@ -52,12 +59,13 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
   # case 2-1) dropped partially with NA
 
   df3 <- data_frame(
-    id     = c("a", "a", "b", "b", "c"),
-    colour = c(  0,  NA,  10,  10,  20),   # a should be dropped
-    fill   = c( NA,  NA,  10,  10,  20)    # a should not be dropped
+    id = c("a", "a", "b", "b", "c"),
+    colour = c(0, NA, 10, 10, 20), # a should be dropped
+    fill = c(NA, NA, 10, 10, 20) # a should not be dropped
   )
 
-  p3 <- ggplot(df3, aes(id, colour = colour, fill = fill)) + geom_bar() +
+  p3 <- ggplot(df3, aes(id, colour = colour, fill = fill)) +
+    geom_bar() +
     scale_fill_continuous(na.value = "#123")
   expect_snapshot_warning(b3 <- ggplot_build(p3))
 
@@ -71,9 +79,9 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
 })
 
 test_that("stats can modify persistent attributes", {
-
   StatTest <- ggproto(
-    "StatTest", Stat,
+    "StatTest",
+    Stat,
     compute_layer = function(self, data, params, layout) {
       attr(data, "foo") <- "bar"
       data
@@ -86,5 +94,4 @@ test_that("stats can modify persistent attributes", {
 
   ld <- layer_data(p)
   expect_equal(attr(ld, "foo"), "bar")
-
 })

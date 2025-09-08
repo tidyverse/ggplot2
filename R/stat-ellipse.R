@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatEllipse <- ggproto(
-  "StatEllipse", Stat,
+  "StatEllipse",
+  Stat,
   required_aes = c("x", "y"),
   optional_aes = "weight",
   dropped_aes = "weight",
@@ -16,10 +17,21 @@ StatEllipse <- ggproto(
     params
   },
 
-  compute_group = function(data, scales, type = "t", level = 0.95,
-                           segments = 51, na.rm = FALSE) {
-    calculate_ellipse(data = data, vars = c("x", "y"), type = type,
-                      level = level, segments = segments)
+  compute_group = function(
+    data,
+    scales,
+    type = "t",
+    level = 0.95,
+    segments = 51,
+    na.rm = FALSE
+  ) {
+    calculate_ellipse(
+      data = data,
+      vars = c("x", "y"),
+      type = type,
+      level = level,
+      segments = segments
+    )
   }
 )
 
@@ -71,7 +83,7 @@ StatEllipse <- ggproto(
 #'   stat_ellipse(geom = "polygon")
 stat_ellipse <- make_constructor(StatEllipse, geom = "path")
 
-calculate_ellipse <- function(data, vars, type, level, segments){
+calculate_ellipse <- function(data, vars, type, level, segments) {
   dfn <- 2
   dfd <- nrow(data) - 1
 
@@ -87,22 +99,22 @@ calculate_ellipse <- function(data, vars, type, level, segments){
   } else {
     if (type == "t") {
       # Prone to convergence problems when `sum(weight) != nrow(data)`
-      v <- MASS::cov.trob(data[,vars], wt = weight * nrow(data))
+      v <- MASS::cov.trob(data[, vars], wt = weight * nrow(data))
     } else if (type == "norm") {
-      v <- stats::cov.wt(data[,vars], wt = weight)
+      v <- stats::cov.wt(data[, vars], wt = weight)
     } else if (type == "euclid") {
-      v <- stats::cov.wt(data[,vars], wt = weight)
+      v <- stats::cov.wt(data[, vars], wt = weight)
       v$cov <- diag(rep(min(diag(v$cov)), 2))
     }
     shape <- v$cov
     center <- v$center
     chol_decomp <- chol(shape)
     if (type == "euclid") {
-      radius <- level/max(chol_decomp)
+      radius <- level / max(chol_decomp)
     } else {
       radius <- sqrt(dfn * stats::qf(level, dfn, dfd))
     }
-    angles <- (0:segments) * 2 * pi/segments
+    angles <- (0:segments) * 2 * pi / segments
     unit.circle <- cbind(cos(angles), sin(angles))
     ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
   }

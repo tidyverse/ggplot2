@@ -42,11 +42,10 @@ test_that("alignment adjusts per panel", {
 
   # Here, x-range is large, so adjustment should be larger
   ld <- get_layer_data(p + geom_area(aes(fill = f)))
-  expect_equal(diff(ld$x[1:2]), 1/6, tolerance = 1e-4)
+  expect_equal(diff(ld$x[1:2]), 1 / 6, tolerance = 1e-4)
 
   # Here, x-ranges are smaller, so adjustment should be smaller instead of
   # considering the data as a whole
   ld <- get_layer_data(p + geom_area() + facet_wrap(vars(f), scales = "free_x"))
   expect_equal(diff(ld$x[1:2]), 1e-3, tolerance = 1e-4)
-
 })

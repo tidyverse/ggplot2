@@ -134,7 +134,11 @@
 #'   facet_wrap(~variable, scales = 'free_x') +
 #'   geom_histogram(binwidth = \(x) 2 * IQR(x) / (length(x)^(1/3)))
 geom_histogram <- make_constructor(
-  GeomBar, stat = "bin", position = "stack",
+  GeomBar,
+  stat = "bin",
+  position = "stack",
   # Passed to bin stat:
-  binwidth = NULL, bins = NULL, orientation = NA
+  binwidth = NULL,
+  bins = NULL,
+  orientation = NA
 )

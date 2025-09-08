@@ -32,13 +32,24 @@
 #'   scale_size_area() +
 #'   coord_quickmap()
 #' }
-annotation_borders <- function(database = "world", regions = ".", fill = NA,
-                               colour = "grey50", xlim = NULL, ylim = NULL, ...) {
+annotation_borders <- function(
+  database = "world",
+  regions = ".",
+  fill = NA,
+  colour = "grey50",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+) {
   df <- map_data(database, regions, xlim = xlim, ylim = ylim)
   annotate(
     geom = "polygon",
-    x = df$long, y = df$lat, group = df$group,
-    fill = fill, colour = colour, ...
+    x = df$long,
+    y = df$lat,
+    group = df$group,
+    fill = fill,
+    colour = colour,
+    ...
   )
 }
 
