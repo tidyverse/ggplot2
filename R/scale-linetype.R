@@ -44,7 +44,8 @@
 #'   theme_void(20)
 scale_linetype <- function(name = waiver(), ..., aesthetics = "linetype") {
   discrete_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = NULL,
     ...
   )
@@ -52,9 +53,14 @@ scale_linetype <- function(name = waiver(), ..., aesthetics = "linetype") {
 
 #' @rdname scale_linetype
 #' @export
-scale_linetype_binned <- function(name = waiver(), ..., aesthetics = "linetype") {
+scale_linetype_binned <- function(
+  name = waiver(),
+  ...,
+  aesthetics = "linetype"
+) {
   binned_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = NULL,
     ...
   )

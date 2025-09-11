@@ -63,7 +63,9 @@ NULL
 #' @examples
 #' # Please see extension vignette
 #' NULL
-Facet <- ggproto("Facet", NULL,
+Facet <- ggproto(
+  "Facet",
+  NULL,
 
   # Fields ------------------------------------------------------------------
 
@@ -225,10 +227,14 @@ Facet <- ggproto("Facet", NULL,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {
-      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
+      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) {
+        x_scale$clone()
+      })
     }
     if (!is.null(y_scale)) {
-      scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
+      scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) {
+        y_scale$clone()
+      })
     }
     scales
   },
@@ -389,8 +395,19 @@ Facet <- ggproto("Facet", NULL,
   #'
   #' A list of grobs, one for each level of the `PANEL` layout variable. Grob
   #' can be `zeroGrob()` to draw nothing.
-  draw_panel_content = function(self, panels, layout, x_scales, y_scales,
-                                ranges, coord, data, theme, params, ...) {
+  draw_panel_content = function(
+    self,
+    panels,
+    layout,
+    x_scales,
+    y_scales,
+    ranges,
+    coord,
+    data,
+    theme,
+    params,
+    ...
+  ) {
     facet_bg <- self$draw_back(
       data,
       layout,
@@ -498,10 +515,19 @@ Facet <- ggproto("Facet", NULL,
   #' **Value**
   #'
   #' A [`gtable`][gtable::gtable()] object.
-  draw_panels = function(self, panels, layout, x_scales = NULL, y_scales = NULL,
-                         ranges, coord, data = NULL, theme, params) {
-
-    free  <- params$free       %||% list(x = FALSE, y = FALSE)
+  draw_panels = function(
+    self,
+    panels,
+    layout,
+    x_scales = NULL,
+    y_scales = NULL,
+    ranges,
+    coord,
+    data = NULL,
+    theme,
+    params
+  ) {
+    free <- params$free %||% list(x = FALSE, y = FALSE)
     space <- params$space_free %||% list(x = FALSE, y = FALSE)
 
     aspect_ratio <- theme$aspect.ratio
@@ -513,8 +539,10 @@ Facet <- ggproto("Facet", NULL,
       if (space$x && space$y) {
         aspect_ratio <- aspect_ratio %||% coord$ratio
       } else if (free$x || free$y) {
-        msg <- paste0("{.fn {snake_class(self)}} can't use free scales with ",
-                      "{.fn {snake_class(coord)}}")
+        msg <- paste0(
+          "{.fn {snake_class(self)}} can't use free scales with ",
+          "{.fn {snake_class(coord)}}"
+        )
         if (!is.null(coord$ratio)) {
           msg <- paste0(msg, " with a fixed {.arg ratio} argument")
         }
@@ -523,7 +551,11 @@ Facet <- ggproto("Facet", NULL,
     }
 
     table <- self$init_gtable(
-      panels, layout, theme, ranges, params,
+      panels,
+      layout,
+      theme,
+      ranges,
+      params,
       aspect_ratio = aspect_ratio %||% coord$aspect(ranges[[1]])
     )
 
@@ -559,22 +591,27 @@ Facet <- ggproto("Facet", NULL,
   #'
   #' A [`gtable`][gtable::gtable()] object containing panel grobs prefixed with
   #' `"panel"`.
-  init_gtable = function(panels, layout, theme, ranges, params,
-                         aspect_ratio = NULL) {
-
+  init_gtable = function(
+    panels,
+    layout,
+    theme,
+    ranges,
+    params,
+    aspect_ratio = NULL
+  ) {
     # Initialise matrix of panels
-    dim   <- c(max(layout$ROW), max(layout$COL))
+    dim <- c(max(layout$ROW), max(layout$COL))
     table <- matrix(list(zeroGrob()), dim[1], dim[2])
     table[cbind(layout$ROW, layout$COL)] <- panels
 
     # Set initial sizes
-    widths  <- unit(rep(1, dim[2]), "null")
+    widths <- unit(rep(1, dim[2]), "null")
     heights <- unit(rep(1 * abs(aspect_ratio %||% 1), dim[1]), "null")
 
     # When space are free, let panel parameter limits determine size of panel
     space <- params$space_free %||% list(x = FALSE, y = FALSE)
     if (space$x) {
-      idx    <- layout$PANEL[layout$ROW == 1]
+      idx <- layout$PANEL[layout$ROW == 1]
       widths <- vapply(idx, function(i) diff(ranges[[i]]$x.range), numeric(1))
       widths <- unit(widths, "null")
     }
@@ -587,10 +624,13 @@ Facet <- ggproto("Facet", NULL,
 
     # Build gtable
     table <- gtable_matrix(
-      "layout", table,
-      widths = widths, heights = heights,
+      "layout",
+      table,
+      widths = widths,
+      heights = heights,
       respect = !is.null(aspect_ratio),
-      clip = "off", z = matrix(1, dim[1], dim[2])
+      clip = "off",
+      z = matrix(1, dim[1], dim[2])
     )
 
     # Set panel names
@@ -604,7 +644,8 @@ Facet <- ggproto("Facet", NULL,
     # Add spacing between panels
     spacing <- lapply(
       c(x = "panel.spacing.x", y = "panel.spacing.y"),
-      calc_element, theme = theme
+      calc_element,
+      theme = theme
     )
 
     table <- gtable_add_col_space(table, spacing$x)
@@ -723,8 +764,7 @@ Facet <- ggproto("Facet", NULL,
   #' The `table` object, optionally with different `widths` and `heights`
   #' properties.
   set_panel_size = function(table, theme) {
-
-    new_widths  <- calc_element("panel.widths",  theme)
+    new_widths <- calc_element("panel.widths", theme)
     new_heights <- calc_element("panel.heights", theme)
 
     if (is.null(new_widths) && is.null(new_heights)) {
@@ -748,7 +788,7 @@ Facet <- ggproto("Facet", NULL,
       extra <- setdiff(seq(min(cols$l), max(cols$r)), union(cols$l, cols$r))
       extra <- unit(sum(width_cm(table$widths[extra])), "cm")
       # Distribute width proportionally
-      relative   <- as.numeric(table$widths[cols$l]) # assumed to be simple units
+      relative <- as.numeric(table$widths[cols$l]) # assumed to be simple units
       new_widths <- (new_widths - extra) * (relative / sum(relative))
     }
     if (!is.null(new_widths)) {
@@ -760,7 +800,7 @@ Facet <- ggproto("Facet", NULL,
       extra <- setdiff(seq(min(rows$t), max(rows$t)), union(rows$t, rows$b))
       extra <- unit(sum(height_cm(table$heights[extra])), "cm")
       # Distribute height proportionally
-      relative    <- as.numeric(table$heights[rows$t]) # assumed to be simple units
+      relative <- as.numeric(table$heights[rows$t]) # assumed to be simple units
       new_heights <- (new_heights - extra) * (relative / sum(relative))
     }
     if (!is.null(new_heights)) {
@@ -815,30 +855,69 @@ Facet <- ggproto("Facet", NULL,
   #' **Value**
   #'
   #' A [`gtable`][gtable::gtable()] object.
-  draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
-    panel_dim <-  find_panel(panels)
+  draw_labels = function(
+    panels,
+    layout,
+    x_scales,
+    y_scales,
+    ranges,
+    coord,
+    data,
+    theme,
+    labels,
+    params
+  ) {
+    panel_dim <- find_panel(panels)
 
     xlab_height_top <- grobHeight(labels$x[[1]])
     panels <- gtable_add_rows(panels, xlab_height_top, pos = 0)
-    panels <- gtable_add_grob(panels, labels$x[[1]], name = "xlab-t",
-      l = panel_dim$l, r = panel_dim$r, t = 1, clip = "off")
+    panels <- gtable_add_grob(
+      panels,
+      labels$x[[1]],
+      name = "xlab-t",
+      l = panel_dim$l,
+      r = panel_dim$r,
+      t = 1,
+      clip = "off"
+    )
 
     xlab_height_bottom <- grobHeight(labels$x[[2]])
     panels <- gtable_add_rows(panels, xlab_height_bottom, pos = -1)
-    panels <- gtable_add_grob(panels, labels$x[[2]], name = "xlab-b",
-      l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
+    panels <- gtable_add_grob(
+      panels,
+      labels$x[[2]],
+      name = "xlab-b",
+      l = panel_dim$l,
+      r = panel_dim$r,
+      t = -1,
+      clip = "off"
+    )
 
-    panel_dim <-  find_panel(panels)
+    panel_dim <- find_panel(panels)
 
     ylab_width_left <- grobWidth(labels$y[[1]])
     panels <- gtable_add_cols(panels, ylab_width_left, pos = 0)
-    panels <- gtable_add_grob(panels, labels$y[[1]], name = "ylab-l",
-      l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+    panels <- gtable_add_grob(
+      panels,
+      labels$y[[1]],
+      name = "ylab-l",
+      l = 1,
+      b = panel_dim$b,
+      t = panel_dim$t,
+      clip = "off"
+    )
 
     ylab_width_right <- grobWidth(labels$y[[2]])
     panels <- gtable_add_cols(panels, ylab_width_right, pos = -1)
-    panels <- gtable_add_grob(panels, labels$y[[2]], name = "ylab-r",
-      l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+    panels <- gtable_add_grob(
+      panels,
+      labels$y[[2]],
+      name = "ylab-r",
+      l = -1,
+      b = panel_dim$b,
+      t = panel_dim$t,
+      clip = "off"
+    )
 
     panels
   },
@@ -957,7 +1036,7 @@ is.facet <- function(x) {
 #' get_strip_labels(p + facet_wrap(year ~ cyl))
 #' get_strip_labels(p + facet_grid(year ~ cyl))
 get_strip_labels <- function(plot = get_last_plot()) {
-  plot   <- ggplot_build(plot)
+  plot <- ggplot_build(plot)
   layout <- plot@layout$layout
   params <- plot@layout$facet_params
   plot@plot@facet$format_strip_labels(layout, params)
@@ -968,16 +1047,25 @@ get_strip_labels <- function(plot = get_last_plot()) {
 NO_PANEL <- -1L
 
 unique_combs <- function(df) {
-  if (length(df) == 0) return()
+  if (length(df) == 0) {
+    return()
+  }
 
   unique_values <- lapply(df, ulevels)
-  rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
-    KEEP.OUT.ATTRS = TRUE))
+  rev(expand.grid(
+    rev(unique_values),
+    stringsAsFactors = FALSE,
+    KEEP.OUT.ATTRS = TRUE
+  ))
 }
 
 df.grid <- function(a, b) {
-  if (is.null(a) || nrow(a) == 0) return(b)
-  if (is.null(b) || nrow(b) == 0) return(a)
+  if (is.null(a) || nrow(a) == 0) {
+    return(b)
+  }
+  if (is.null(b) || nrow(b) == 0) {
+    return(a)
+  }
 
   indexes <- expand.grid(
     i_a = seq_len(nrow(a)),
@@ -1064,14 +1152,18 @@ check_vars <- function(x) {
 # Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
   x <- as_facets_list(x)
-  proxy   <- vec_proxy(x)
+  proxy <- vec_proxy(x)
   is_list <- vapply(proxy, vec_is_list, logical(1))
-  proxy[is_list]  <- lapply(proxy[is_list],  unclass)
+  proxy[is_list] <- lapply(proxy[is_list], unclass)
   proxy[!is_list] <- lapply(proxy[!is_list], list)
   new <- list_unchop(proxy, ptype = list(), name_spec = "{outer}_{inner}")
   x <- vec_restore(new, x)
 
-  null_or_missing <- vapply(x, function(x) quo_is_null(x) || quo_is_missing(x), logical(1))
+  null_or_missing <- vapply(
+    x,
+    function(x) quo_is_null(x) || quo_is_missing(x),
+    logical(1)
+  )
   new_quosures(x[!null_or_missing])
 }
 
@@ -1099,7 +1191,9 @@ simplify <- function(x) {
   if (length(x) < 3) {
     return(list(x))
   }
-  op <- x[[1]]; a <- x[[2]]; b <- x[[3]]
+  op <- x[[1]]
+  a <- x[[2]]
+  b <- x[[3]]
 
   if (is_symbol(op, c("+", "*", "~"))) {
     c(simplify(a), simplify(b))
@@ -1111,7 +1205,8 @@ simplify <- function(x) {
 }
 
 as_facets <- function(x) {
-  is_facets <- is.list(x) && length(x) > 0 &&
+  is_facets <- is.list(x) &&
+    length(x) > 0 &&
     all(vapply(x, is_quosure, logical(1)))
   if (is_facets) {
     return(x)
@@ -1150,7 +1245,12 @@ f_as_facets <- function(f) {
 # mean you can't have background data when faceting by an expression,
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, possible_columns = NULL) {
-  vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
+  vars <- compact(lapply(
+    facets,
+    eval_facet,
+    data,
+    possible_columns = possible_columns
+  ))
   data_frame0(!!!vars)
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
@@ -1171,7 +1271,9 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   # but present in others raise a custom error
   env <- new_environment(data)
   missing_columns <- setdiff(possible_columns, names(data))
-  undefined_error <- function(e) cli::cli_abort("", class = "ggplot2_missing_facet_var")
+  undefined_error <- function(e) {
+    cli::cli_abort("", class = "ggplot2_missing_facet_var")
+  }
   bindings <- rep_named(missing_columns, list(undefined_error))
   env_bind_active(env, !!!bindings)
 
@@ -1202,7 +1304,9 @@ check_layout <- function(x) {
     return()
   }
 
-  cli::cli_abort("Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}.")
+  cli::cli_abort(
+    "Facet layout has a bad format. It must contain columns {.col PANEL}, {.col SCALE_X}, and {.col SCALE_Y}."
+  )
 }
 
 check_facet_vars <- function(..., name) {
@@ -1210,10 +1314,13 @@ check_facet_vars <- function(..., name) {
   reserved_names <- c("PANEL", "ROW", "COL", "SCALE_X", "SCALE_Y")
   problems <- intersect(vars_names, reserved_names)
   if (length(problems) != 0) {
-    cli::cli_abort(c(
-      "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables.",
-      "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
-    ), call = call2(name))
+    cli::cli_abort(
+      c(
+        "{.val {problems}} {?is/are} not {?an/} allowed name{?/s} for faceting variables.",
+        "i" = "Change the name of your data columns to not be {.or {.str {reserved_names}}}."
+      ),
+      call = call2(name)
+    )
   }
 }
 
@@ -1230,14 +1337,18 @@ check_facet_vars <- function(..., name) {
 #' @export
 max_height <- function(grobs, value_only = FALSE) {
   height <- max(unlist(lapply(grobs, height_cm)))
-  if (!value_only) height <- unit(height, "cm")
+  if (!value_only) {
+    height <- unit(height, "cm")
+  }
   height
 }
 #' @rdname max_height
 #' @export
 max_width <- function(grobs, value_only = FALSE) {
   width <- max(unlist(lapply(grobs, width_cm)))
-  if (!value_only) width <- unit(width, "cm")
+  if (!value_only) {
+    width <- unit(width, "cm")
+  }
   width
 }
 #' Find panels in a gtable
@@ -1293,10 +1404,17 @@ panel_rows <- function(table) {
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   possible_columns <- unique0(unlist(lapply(data, names)))
-  if (length(vars) == 0) return(data_frame0())
+  if (length(vars) == 0) {
+    return(data_frame0())
+  }
 
   # For each layer, compute the facet values
-  values <- compact(lapply(data, eval_facets, facets = vars, possible_columns = possible_columns))
+  values <- compact(lapply(
+    data,
+    eval_facets,
+    facets = vars,
+    possible_columns = possible_columns
+  ))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data
@@ -1305,7 +1423,9 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
     missing_vars <- paste0(
       c("Plot", paste0("Layer ", seq_len(length(data) - 1))),
-      " is missing {.var ", missing[seq_along(data)], "}"
+      " is missing {.var ",
+      missing[seq_along(data)],
+      "}"
     )
     names(missing_vars) <- rep("x", length(data))
 
@@ -1322,7 +1442,9 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
 
   # Systematically add on missing combinations
   for (value in values[!has_all]) {
-    if (empty(value)) next;
+    if (empty(value)) {
+      next
+    }
 
     old <- base[setdiff(names(base), names(value))]
     new <- unique0(value[intersect(names(base), names(value))])
@@ -1410,7 +1532,9 @@ censor_labels <- function(ranges, layout, labels) {
     return(ranges)
   }
   draw <- matrix(
-    TRUE, length(ranges), 4,
+    TRUE,
+    length(ranges),
+    4,
     dimnames = list(NULL, c("top", "bottom", "left", "right"))
   )
 
@@ -1433,7 +1557,6 @@ censor_labels <- function(ranges, layout, labels) {
 }
 
 map_facet_data <- function(data, layout, params) {
-
   if (empty(data)) {
     return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
   }
@@ -1458,13 +1581,16 @@ map_facet_data <- function(data, layout, params) {
   facet_vals <- eval_facets(vars, data, params$.possible_columns)
 
   include_margins <- !isFALSE(params$margins %||% FALSE) &&
-    nrow(facet_vals) == nrow(data) && grid_layout
+    nrow(facet_vals) == nrow(data) &&
+    grid_layout
   if (include_margins) {
     # Margins are computed on evaluated faceting values (#1864).
     facet_vals <- reshape_add_margins(
       vec_cbind(facet_vals, .index = seq_len(nrow(facet_vals))),
-      list(intersect(names(params$rows), names(facet_vals)),
-           intersect(names(params$cols), names(facet_vals))),
+      list(
+        intersect(names(params$rows), names(facet_vals)),
+        intersect(names(params$cols), names(facet_vals))
+      ),
       params$margins %||% FALSE
     )
     # Apply recycling on original data to fit margins
@@ -1489,10 +1615,9 @@ map_facet_data <- function(data, layout, params) {
   # duplicating the data
   missing_facets <- setdiff(names(vars), names(facet_vals))
   if (length(missing_facets) > 0) {
-
     to_add <- unique0(layout[missing_facets])
 
-    data_rep  <- rep.int(seq_len(nrow(data)), nrow(to_add))
+    data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
     facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
 
     data <- unrowname(data[data_rep, , drop = FALSE])

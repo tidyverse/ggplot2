@@ -6,7 +6,8 @@
 #' @rdname element
 #' @export
 margin <- S7::new_class(
-  "margin", parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
+  "margin",
+  parent = S7::new_S3_class(c("simpleUnit", "unit", "unit_v2")),
   constructor = function(t = 0, r = 0, b = 0, l = 0, unit = "pt", ...) {
     warn_dots_empty()
     lens <- c(length(t), length(r), length(b), length(l))
@@ -31,7 +32,9 @@ margin <- S7::new_class(
 #' @export
 #' @rdname is_tests
 is_margin <- function(x) S7::S7_inherits(x, margin)
-is.margin <- function(x) lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
+is.margin <- function(x) {
+  lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
+}
 
 #' @rdname element
 #' @export
@@ -85,9 +88,20 @@ as_margin <- function(x, x_arg = caller_arg(x), call = caller_env()) {
 #'   is anchored.
 #'
 #' @noRd
-titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
-                      margin = NULL, margin_x = FALSE, margin_y = FALSE,
-                      debug = FALSE, check.overlap = FALSE) {
+titleGrob <- function(
+  label,
+  x,
+  y,
+  hjust,
+  vjust,
+  angle = 0,
+  gp = gpar(),
+  margin = NULL,
+  margin_x = FALSE,
+  margin_y = FALSE,
+  debug = FALSE,
+  check.overlap = FALSE
+) {
   if (is.null(label)) {
     return(zeroGrob())
   }
@@ -107,9 +121,14 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   }
 
   grob <- textGrob(
-    label, x, y,
-    hjust = hjust, vjust = vjust,
-    rot = angle, gp = gp, check.overlap = check.overlap
+    label,
+    x,
+    y,
+    hjust = hjust,
+    vjust = vjust,
+    rot = angle,
+    gp = gp,
+    check.overlap = check.overlap
   )
 
   # The grob dimensions don't include the text descenders, so these need to be added
@@ -128,7 +147,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   y_descent <- abs(cos(rad)) * descent
 
   # Set text size to actual size including descenders
-  width  <- unit(1, "grobwidth",  grob) + x_descent
+  width <- unit(1, "grobwidth", grob) + x_descent
   height <- unit(1, "grobheight", grob) + y_descent
 
   # Resolve margin
@@ -141,7 +160,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   # Initialise new values for position and dimensions
   new_x <- NULL
   new_y <- NULL
-  new_width  <- NULL
+  new_width <- NULL
   new_height <- NULL
 
   # Calculate new x/width
@@ -158,12 +177,12 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
   # If only one margin is set, the other dimension is a null unit
   if (xor(margin_x, margin_y)) {
-    new_width  <- new_width  %||% unit(1, "null")
+    new_width <- new_width %||% unit(1, "null")
     new_height <- new_height %||% unit(1, "null")
   }
 
   # If we haven't touched the new positions/dimensions, use the previous ones
-  new_width  <- new_width  %||% width
+  new_width <- new_width %||% width
   new_height <- new_height %||% height
   x <- new_x %||% x
   y <- new_y %||% y
@@ -176,8 +195,12 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   if (isTRUE(debug)) {
     children <- gList(
       rectGrob(
-        x = x, y = y, width = width, height = height,
-        hjust = just$hjust, vjust = just$vjust,
+        x = x,
+        y = y,
+        width = width,
+        height = height,
+        hjust = just$hjust,
+        vjust = just$vjust,
         gp = gg_par(fill = "cornsilk", col = NA)
       ),
       pointsGrob(x, y, pch = 20, gp = gg_par(col = "gold")),
@@ -189,8 +212,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
   gTree(
     children = children,
-    widths   = new_width,
-    heights  = new_height,
+    widths = new_width,
+    heights = new_height,
     cl = "titleGrob"
   )
 }
@@ -213,7 +236,12 @@ heightDetails.titleGrob <- function(x) {
 #' @return A list with two components, `hjust` and `vjust`, containing the rotated hjust and vjust values
 #'
 #' @noRd
-rotate_just <- function(angle = NULL, hjust = NULL, vjust = NULL, element = NULL) {
+rotate_just <- function(
+  angle = NULL,
+  hjust = NULL,
+  vjust = NULL,
+  element = NULL
+) {
   ## Ideally we would like to do something like the following commented-out lines,
   ## but it currently yields unexpected results for angles other than 0, 90, 180, 270.
   ## Problems arise in particular in cases where the horizontal and the vertical
@@ -249,7 +277,7 @@ rotate_just <- function(angle = NULL, hjust = NULL, vjust = NULL, element = NULL
   }
 
   # Apply recycle rules
-  size  <- vec_size_common(angle, hjust, vjust)
+  size <- vec_size_common(angle, hjust, vjust)
   angle <- vec_recycle(angle, size)
   hjust <- vec_recycle(hjust, size)
   vjust <- vec_recycle(vjust, size)
@@ -280,7 +308,7 @@ descent_cache <- new.env(parent = emptyenv())
 font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   cur_dev <- names(grDevices::dev.cur())
   if (cur_dev == "null device") {
-    cache <- FALSE   # don't cache if no device open
+    cache <- FALSE # don't cache if no device open
   } else {
     cache <- TRUE
   }
@@ -291,15 +319,18 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   descent <- descent_cache[[key]]
 
   if (is.null(descent)) {
-    descent <- convertHeight(grobDescent(textGrob(
-      label = "gjpqyQ",
-      gp = gg_par(
-        fontsize = size,
-        cex = cex,
-        fontfamily = family,
-        fontface = face
-      )
-    )), 'inches')
+    descent <- convertHeight(
+      grobDescent(textGrob(
+        label = "gjpqyQ",
+        gp = gg_par(
+          fontsize = size,
+          cex = cex,
+          fontfamily = family,
+          fontface = face
+        )
+      )),
+      'inches'
+    )
 
     if (cache) {
       descent_cache[[key]] <- descent

@@ -53,8 +53,18 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
 
   # Allow all layers to make any final adjustments based
   # on raw input data and plot info
-  data <- by_layer(function(l, d) l$layer_data(plot@data), layers, data, "computing layer data")
-  data <- by_layer(function(l, d) l$setup_layer(d, plot), layers, data, "setting up layer")
+  data <- by_layer(
+    function(l, d) l$layer_data(plot@data),
+    layers,
+    data,
+    "computing layer data"
+  )
+  data <- by_layer(
+    function(l, d) l$setup_layer(d, plot),
+    layers,
+    data,
+    "setting up layer"
+  )
 
   # Initialise panels, add extra data for margins & missing faceting
   # variables, and add on a PANEL variable to data
@@ -62,7 +72,12 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   data <- layout$setup(data, plot@data, plot@plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
-  data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+  data <- by_layer(
+    function(l, d) l$compute_aesthetics(d, plot),
+    layers,
+    data,
+    "computing aesthetics"
+  )
   plot@labels <- setup_plot_labels(plot, layers, data)
   data <- .ignore_data(data)
 
@@ -79,17 +94,37 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   data <- .expose_data(data)
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$compute_statistic(d, layout), layers, data, "computing stat")
-  data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
+  data <- by_layer(
+    function(l, d) l$compute_statistic(d, layout),
+    layers,
+    data,
+    "computing stat"
+  )
+  data <- by_layer(
+    function(l, d) l$map_statistic(d, plot),
+    layers,
+    data,
+    "mapping stat to aesthetics"
+  )
 
   # Make sure missing (but required) aesthetics are added
   plot@scales$add_missing(c("x", "y"), plot@plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
+  data <- by_layer(
+    function(l, d) l$compute_geom_1(d),
+    layers,
+    data,
+    "setting up geom"
+  )
 
   # Apply position adjustments
-  data <- by_layer(function(l, d) l$compute_position(d, layout), layers, data, "computing position")
+  data <- by_layer(
+    function(l, d) l$compute_position(d, layout),
+    layers,
+    data,
+    "computing position"
+  )
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what is
@@ -111,7 +146,13 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   if (npscales$n() > 0) {
     npscales$set_palettes(plot@theme)
     lapply(data, npscales$train_df)
-    plot@guides <- plot@guides$build(npscales, plot@layers, plot@labels, data, plot@theme)
+    plot@guides <- plot@guides$build(
+      npscales,
+      plot@layers,
+      plot@labels,
+      data,
+      plot@theme
+    )
     data <- lapply(data, npscales$map_df)
   } else {
     # Only keep custom guides if there are no non-position scales
@@ -122,11 +163,18 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   # Fill in defaults etc.
   data <- by_layer(
     function(l, d) l$compute_geom_2(d, theme = plot@theme),
-    layers, data, "setting up geom aesthetics"
+    layers,
+    data,
+    "setting up geom aesthetics"
   )
 
   # Let layer stat have a final say before rendering
-  data <- by_layer(function(l, d) l$finish_statistics(d), layers, data, "finishing layer stat")
+  data <- by_layer(
+    function(l, d) l$finish_statistics(d),
+    layers,
+    data,
+    "finishing layer stat"
+  )
 
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
@@ -135,7 +183,10 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   plot@labels$alt <- get_alt_text(plot)
 
   build <- class_ggplot_built(data = data, layout = layout, plot = plot)
-  class(build) <- union(c("ggplot2::ggplot_built", "ggplot_built"), class(build))
+  class(build) <- union(
+    c("ggplot2::ggplot_built", "ggplot_built"),
+    class(build)
+  )
   build
 }
 
@@ -211,7 +262,12 @@ S7::method(ggplot_gtable, class_ggplot_built) <- function(data) {
   data <- data@data
   theme <- plot@theme
 
-  geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot@layers, data, "converting geom to grob")
+  geom_grobs <- by_layer(
+    function(l, d) l$draw_geom(d, layout),
+    plot@layers,
+    data,
+    "converting geom to grob"
+  )
 
   plot_table <- layout$render(geom_grobs, data, theme, plot@labels)
 
@@ -221,22 +277,31 @@ S7::method(ggplot_gtable, class_ggplot_built) <- function(data) {
 
   # Title
   title <- element_render(
-    theme, "plot.title", plot@labels$title,
-    margin_y = TRUE, margin_x = TRUE
+    theme,
+    "plot.title",
+    plot@labels$title,
+    margin_y = TRUE,
+    margin_x = TRUE
   )
   title_height <- grobHeight(title)
 
   # Subtitle
   subtitle <- element_render(
-    theme, "plot.subtitle", plot@labels$subtitle,
-    margin_y = TRUE, margin_x = TRUE
+    theme,
+    "plot.subtitle",
+    plot@labels$subtitle,
+    margin_y = TRUE,
+    margin_x = TRUE
   )
   subtitle_height <- grobHeight(subtitle)
 
   # whole plot annotation
   caption <- element_render(
-    theme, "plot.caption", plot@labels$caption,
-    margin_y = TRUE, margin_x = TRUE
+    theme,
+    "plot.caption",
+    plot@labels$caption,
+    margin_y = TRUE,
+    margin_x = TRUE
   )
   caption_height <- grobHeight(caption)
 
@@ -258,7 +323,11 @@ S7::method(ggplot_gtable, class_ggplot_built) <- function(data) {
     error_call = expr(theme())
   )
 
-  pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
+  pans <- plot_table$layout[
+    grepl("^panel", plot_table$layout$name),
+    ,
+    drop = FALSE
+  ]
   if (title_pos == "panel") {
     title_l <- min(pans$l)
     title_r <- max(pans$r)
@@ -275,29 +344,65 @@ S7::method(ggplot_gtable, class_ggplot_built) <- function(data) {
   }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
-    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table,
+    subtitle,
+    name = "subtitle",
+    t = 1,
+    b = 1,
+    l = title_l,
+    r = title_r,
+    clip = "off"
+  )
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table,
+    title,
+    name = "title",
+    t = 1,
+    b = 1,
+    l = title_l,
+    r = title_r,
+    clip = "off"
+  )
 
   plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
-  plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
-    t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
+  plot_table <- gtable_add_grob(
+    plot_table,
+    caption,
+    name = "caption",
+    t = -1,
+    b = -1,
+    l = caption_l,
+    r = caption_r,
+    clip = "off"
+  )
 
   plot_table <- table_add_tag(plot_table, plot@labels$tag, theme)
 
   # Margins
   plot_margin <- calc_element("plot.margin", theme) %||% margin()
-  plot_table  <- gtable_add_padding(plot_table, plot_margin)
+  plot_table <- gtable_add_padding(plot_table, plot_margin)
 
   if (is_theme_element(theme$plot.background)) {
-    plot_table <- gtable_add_grob(plot_table,
+    plot_table <- gtable_add_grob(
+      plot_table,
       element_render(theme, "plot.background"),
-      t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
-    plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
-    plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
+      t = 1,
+      l = 1,
+      b = -1,
+      r = -1,
+      name = "background",
+      z = -Inf
+    )
+    plot_table$layout <- plot_table$layout[
+      c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),
+    ]
+    plot_table$grobs <- plot_table$grobs[c(
+      nrow(plot_table$layout),
+      1:(nrow(plot_table$layout) - 1)
+    )]
   }
 
   # add alt-text as attribute
@@ -327,9 +432,11 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c(
-        "Problem while {step}.",
-        "i" = "Error occurred in the {ordinal(i)} layer."),
+      cli::cli_abort(
+        c(
+          "Problem while {step}.",
+          "i" = "Error occurred in the {ordinal(i)} layer."
+        ),
         call = layers[[i]]$constructor,
         parent = cnd
       )
@@ -359,14 +466,18 @@ table_add_tag <- function(table, label, theme) {
 
   if (is.numeric(position)) {
     if (location == "margin") {
-      cli::cli_abort(paste0(
-        "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
-        "`{.val margin}` as {.arg plot.tag.location}."
-      ),
-      call = expr(theme()))
+      cli::cli_abort(
+        paste0(
+          "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
+          "`{.val margin}` as {.arg plot.tag.location}."
+        ),
+        call = expr(theme())
+      )
     }
     check_length(
-      position, 2L, call = expr(theme()),
+      position,
+      2L,
+      call = expr(theme()),
       arg = I("A {.cls numeric} {.arg plot.tag.position}")
     )
     top <- left <- right <- bottom <- FALSE
@@ -374,21 +485,29 @@ table_add_tag <- function(table, label, theme) {
     # Break position into top/left/right/bottom
     position <- arg_match0(
       position[1],
-      c("topleft", "top", "topright", "left",
-        "right", "bottomleft", "bottom", "bottomright"),
+      c(
+        "topleft",
+        "top",
+        "topright",
+        "left",
+        "right",
+        "bottomleft",
+        "bottom",
+        "bottomright"
+      ),
       arg_nm = "plot.tag.position",
       error_call = expr(theme())
     )
-    top    <- position %in% c("topleft",    "top",    "topright")
-    left   <- position %in% c("topleft",    "left",   "bottomleft")
-    right  <- position %in% c("topright",   "right",  "bottomright")
+    top <- position %in% c("topleft", "top", "topright")
+    left <- position %in% c("topleft", "left", "bottomleft")
+    right <- position %in% c("topright", "right", "bottomright")
     bottom <- position %in% c("bottomleft", "bottom", "bottomright")
   }
 
   # Resolve tag and sizes
   tag <- element_grob(element, label = label, margin_y = TRUE, margin_x = TRUE)
   height <- grobHeight(tag)
-  width  <- grobWidth(tag)
+  width <- grobWidth(tag)
 
   if (location %in% c("plot", "panel")) {
     if (!is.numeric(position)) {
@@ -416,13 +535,23 @@ table_add_tag <- function(table, label, theme) {
     }
     # Re-render with manual positions
     tag <- element_grob(
-      element, x = x, y = y, label = label,
-      margin_y = TRUE, margin_x = TRUE
+      element,
+      x = x,
+      y = y,
+      label = label,
+      margin_y = TRUE,
+      margin_x = TRUE
     )
     if (location == "plot") {
       table <- gtable_add_grob(
-        table, tag, name = "tag", clip = "off",
-        t = 1, b = nrow(table), l = 1, r = ncol(table)
+        table,
+        tag,
+        name = "tag",
+        clip = "off",
+        t = 1,
+        b = nrow(table),
+        l = 1,
+        r = ncol(table)
       )
       return(table)
     }
@@ -434,28 +563,49 @@ table_add_tag <- function(table, label, theme) {
     n_col <- ncol(table)
     n_row <- nrow(table)
     # Actually fill margin with relevant units
-    if (top)    table$heights <- unit.c(height, table$heights[-1])
-    if (left)   table$widths  <- unit.c(width,  table$widths[-1])
-    if (right)  table$widths  <- unit.c(table$widths[-n_col],  width)
-    if (bottom) table$heights <- unit.c(table$heights[-n_row], height)
+    if (top) {
+      table$heights <- unit.c(height, table$heights[-1])
+    }
+    if (left) {
+      table$widths <- unit.c(width, table$widths[-1])
+    }
+    if (right) {
+      table$widths <- unit.c(table$widths[-n_col], width)
+    }
+    if (bottom) {
+      table$heights <- unit.c(table$heights[-n_row], height)
+    }
     place <- data_frame0(t = 1L, r = n_col, b = n_row, l = 1L)
   }
 
   # Shrink placement to position
-  if (top)    place$b <- place$t
-  if (left)   place$r <- place$l
-  if (right)  place$l <- place$r
-  if (bottom) place$t <- place$b
+  if (top) {
+    place$b <- place$t
+  }
+  if (left) {
+    place$r <- place$l
+  }
+  if (right) {
+    place$l <- place$r
+  }
+  if (bottom) {
+    place$t <- place$b
+  }
 
   gtable_add_grob(
-    table, tag, name = "tag", clip = "off",
-    t = place$t, l = place$l, b = place$b, r = place$r
+    table,
+    tag,
+    name = "tag",
+    clip = "off",
+    t = place$t,
+    l = place$l,
+    b = place$b,
+    r = place$r
   )
 }
 
 # Add the legends to the gtable
 table_add_legends <- function(table, legends, theme) {
-
   if (is_zero(legends)) {
     legends <- rep(list(zeroGrob()), 5)
     names(legends) <- c(.trbl, "inside")
@@ -468,12 +618,12 @@ table_add_legends <- function(table, legends, theme) {
   )
 
   empty <- vapply(legends, is_zero, logical(1))
-  widths[!empty]  <- lapply(legends[!empty], gtable_width)
+  widths[!empty] <- lapply(legends[!empty], gtable_width)
   heights[!empty] <- lapply(legends[!empty], gtable_height)
   spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
 
   # If legend is missing, set spacing to zero for that legend
-  zero    <- unit(0, "pt")
+  zero <- unit(0, "pt")
   spacing <- lapply(empty, function(is_empty) if (is_empty) zero else spacing)
 
   location <- switch(
@@ -486,19 +636,29 @@ table_add_legends <- function(table, legends, theme) {
 
   # Add right legend
   table <- gtable_add_cols(table, spacing$right, pos = -1)
-  table <- gtable_add_cols(table, widths$right,  pos = -1)
+  table <- gtable_add_cols(table, widths$right, pos = -1)
   table <- gtable_add_grob(
-    table, legends$right, clip = "off",
-    t = place$t, b = place$b, l = -1, r = -1,
+    table,
+    legends$right,
+    clip = "off",
+    t = place$t,
+    b = place$b,
+    l = -1,
+    r = -1,
     name = "guide-box-right"
   )
 
   # Add left legend
   table <- gtable_add_cols(table, spacing$left, pos = 0)
-  table <- gtable_add_cols(table, widths$left,  pos = 0)
+  table <- gtable_add_cols(table, widths$left, pos = 0)
   table <- gtable_add_grob(
-    table, legends$left, clip = "off",
-    t = place$t, b = place$b, l = 1, r = 1,
+    table,
+    legends$left,
+    clip = "off",
+    t = place$t,
+    b = place$b,
+    l = 1,
+    r = 1,
     name = "guide-box-left"
   )
 
@@ -508,8 +668,13 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$bottom, pos = -1)
   table <- gtable_add_rows(table, heights$bottom, pos = -1)
   table <- gtable_add_grob(
-    table, legends$bottom, clip = "off",
-    t = -1, b = -1, l = place$l, r = place$r,
+    table,
+    legends$bottom,
+    clip = "off",
+    t = -1,
+    b = -1,
+    l = place$l,
+    r = place$r,
     name = "guide-box-bottom"
   )
 
@@ -517,16 +682,26 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$top, pos = 0)
   table <- gtable_add_rows(table, heights$top, pos = 0)
   table <- gtable_add_grob(
-    table, legends$top, clip = "off",
-    t = 1, b = 1, l = place$l, r = place$r,
+    table,
+    legends$top,
+    clip = "off",
+    t = 1,
+    b = 1,
+    l = place$l,
+    r = place$r,
     name = "guide-box-top"
   )
 
   # Add manual legend
   place <- find_panel(table)
   table <- gtable_add_grob(
-    table, legends$inside, clip = "off",
-    t = place$t, b = place$b, l = place$l, r = place$r,
+    table,
+    legends$inside,
+    clip = "off",
+    t = place$t,
+    b = place$b,
+    l = place$l,
+    r = place$r,
     name = "guide-box-inside"
   )
 

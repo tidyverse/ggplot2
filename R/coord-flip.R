@@ -60,7 +60,9 @@ coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   lifecycle::signal_stage("superseded", "coord_flip()")
   check_coord_limits(xlim)
   check_coord_limits(ylim)
-  ggproto(NULL, CoordFlip,
+  ggproto(
+    NULL,
+    CoordFlip,
     limits = list(x = xlim, y = ylim),
     expand = expand,
     clip = clip
@@ -71,7 +73,9 @@ coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordFlip <- ggproto("CoordFlip", CoordCartesian,
+CoordFlip <- ggproto(
+  "CoordFlip",
+  CoordCartesian,
 
   transform = function(data, panel_params) {
     data <- flip_axis_labels(data)
@@ -111,12 +115,12 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     lapply(scales_x, scale_flip_axis)
     lapply(scales_y, scale_flip_axis)
   }
-
 )
 
 # In-place modification of a scale position to swap axes
 scale_flip_axis <- function(scale) {
-  scale$position <- switch(scale$position,
+  scale$position <- switch(
+    scale$position,
     top = "right",
     bottom = "left",
     left = "bottom",

@@ -119,16 +119,14 @@ id <- function(.variables, drop = FALSE) {
   if (n > 2^31) {
     char_id <- inject(paste(!!!ids, sep = "\r"))
     res <- match(char_id, unique0(char_id))
-  }
-  else {
+  } else {
     combs <- c(1, cumprod(ndistinct[-p]))
     mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {
     id_var(res, drop = TRUE)
-  }
-  else {
+  } else {
     res <- as.integer(res)
     attr(res, "n") <- n
     res
@@ -173,14 +171,17 @@ join_keys <- function(x, y, by) {
   keys <- id(joint, drop = TRUE)
   n_x <- nrow(x)
   n_y <- nrow(y)
-  list(x = keys[seq_len(n_x)], y = keys[n_x + seq_len(n_y)],
-       n = attr(keys, "n"))
+  list(
+    x = keys[seq_len(n_x)],
+    y = keys[n_x + seq_len(n_y)],
+    n = attr(keys, "n")
+  )
 }
 
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   check_numeric(x)
-  f(x/accuracy) * accuracy
+  f(x / accuracy) * accuracy
 }
 
 #' Apply function to unique subsets of a data.frame
@@ -207,12 +208,22 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   fallback_order <- unique0(c(by, names(df)))
   apply_fun <- function(x) {
     res <- fun(x, ...)
-    if (is.null(res)) return(res)
-    if (length(res) == 0) return(data_frame0())
+    if (is.null(res)) {
+      return(res)
+    }
+    if (length(res) == 0) {
+      return(data_frame0())
+    }
     vars <- lapply(setNames(by, by), function(col) .subset2(x, col)[1])
-    if (is.matrix(res)) res <- split_matrix(res)
-    if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
-    if (all(by %in% names(res))) return(data_frame0(!!!unclass(res)))
+    if (is.matrix(res)) {
+      res <- split_matrix(res)
+    }
+    if (is.null(names(res))) {
+      names(res) <- paste0("V", seq_along(res))
+    }
+    if (all(by %in% names(res))) {
+      return(data_frame0(!!!unclass(res)))
+    }
     res <- modify_list(unclass(vars), unclass(res))
     res <- res[intersect(c(fallback_order, names(res)), names(res))]
     data_frame0(!!!res)

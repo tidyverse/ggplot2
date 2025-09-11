@@ -1,6 +1,8 @@
 .onAttach <- function(...) {
   withr::with_preserve_seed({
-    if (!interactive() || stats::runif(1) > 0.1) return()
+    if (!interactive() || stats::runif(1) > 0.1) {
+      return()
+    }
 
     tip <- random_tip()
     packageStartupMessage(paste(strwrap(tip), collapse = "\n"))

@@ -105,41 +105,55 @@ element_blank <- S7::new_class(
 #' @include properties.R
 #' @include margins.R
 element_props <- list(
-  fill       = property_colour(pattern = TRUE),
-  colour     = property_colour(pattern = FALSE),
-  family     = property_nullable(S7::class_character),
-  hjust      = property_nullable(S7::class_numeric),
-  vjust      = property_nullable(S7::class_numeric),
-  angle      = property_nullable(S7::class_numeric),
-  size       = property_nullable(S7::class_numeric),
+  fill = property_colour(pattern = TRUE),
+  colour = property_colour(pattern = FALSE),
+  family = property_nullable(S7::class_character),
+  hjust = property_nullable(S7::class_numeric),
+  vjust = property_nullable(S7::class_numeric),
+  angle = property_nullable(S7::class_numeric),
+  size = property_nullable(S7::class_numeric),
   lineheight = property_nullable(S7::class_numeric),
-  margin     = property_nullable(margin),
-  face       = property_fontface(allow_null = TRUE),
-  linewidth  = property_nullable(S7::class_numeric),
-  linetype   = property_nullable(S7::class_numeric | S7::class_character),
-  lineend    = property_choice(c("round", "butt", "square"), allow_null = TRUE),
-  linejoin   = property_choice(c("round", "mitre", "bevel"), allow_null = TRUE),
-  shape      = property_nullable(S7::class_numeric | S7::class_character),
-  arrow      = property_nullable(S7::new_S3_class("arrow") | S7::class_logical),
+  margin = property_nullable(margin),
+  face = property_fontface(allow_null = TRUE),
+  linewidth = property_nullable(S7::class_numeric),
+  linetype = property_nullable(S7::class_numeric | S7::class_character),
+  lineend = property_choice(c("round", "butt", "square"), allow_null = TRUE),
+  linejoin = property_choice(c("round", "mitre", "bevel"), allow_null = TRUE),
+  shape = property_nullable(S7::class_numeric | S7::class_character),
+  arrow = property_nullable(S7::new_S3_class("arrow") | S7::class_logical),
   arrow.fill = property_colour(pattern = FALSE),
-  debug      = property_boolean(allow_null = TRUE, default = NULL),
+  debug = property_boolean(allow_null = TRUE, default = NULL),
   inherit.blank = property_boolean(default = FALSE),
   # These are reserved for future use
-  italic     = property_nullable(S7::class_character),
+  italic = property_nullable(S7::class_character),
   fontweight = property_nullable(S7::class_numeric),
-  fontwidth  = property_nullable(S7::class_numeric | S7::class_character)
+  fontwidth = property_nullable(S7::class_numeric | S7::class_character)
 )
 
 #' @export
 #' @rdname element
 element_rect <- S7::new_class(
-  "element_rect", parent = element,
-  properties = element_props[c("fill", "colour",
-                               "linewidth", "linetype", "linejoin",
-                               "inherit.blank")],
-  constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
-                         linetype = NULL, color = NULL, linejoin = NULL,
-                         inherit.blank = FALSE, size = deprecated(), ...){
+  "element_rect",
+  parent = element,
+  properties = element_props[c(
+    "fill",
+    "colour",
+    "linewidth",
+    "linetype",
+    "linejoin",
+    "inherit.blank"
+  )],
+  constructor = function(
+    fill = NULL,
+    colour = NULL,
+    linewidth = NULL,
+    linetype = NULL,
+    color = NULL,
+    linejoin = NULL,
+    inherit.blank = FALSE,
+    size = deprecated(),
+    ...
+  ) {
     warn_dots_empty()
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
@@ -147,8 +161,11 @@ element_rect <- S7::new_class(
     }
     obj <- S7::new_object(
       S7::S7_object(),
-      fill = fill, colour = color %||% colour,
-      linewidth = linewidth, linetype = linetype, linejoin = linejoin,
+      fill = fill,
+      colour = color %||% colour,
+      linewidth = linewidth,
+      linetype = linetype,
+      linejoin = linejoin,
       inherit.blank = inherit.blank
     )
     class(obj) <- union(
@@ -165,16 +182,31 @@ element_rect <- S7::new_class(
 #' @param lineend Line end style, one of `"round"`, `"butt"` or `"square"`.
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- S7::new_class(
-  "element_line", parent = element,
+  "element_line",
+  parent = element,
   properties = element_props[c(
-    "colour", "linewidth", "linetype", "lineend", "linejoin",
-    "arrow", "arrow.fill",
+    "colour",
+    "linewidth",
+    "linetype",
+    "lineend",
+    "linejoin",
+    "arrow",
+    "arrow.fill",
     "inherit.blank"
   )],
-  constructor = function(colour = NULL, linewidth = NULL, linetype = NULL,
-                         lineend = NULL, color = NULL, linejoin = NULL,
-                         arrow = NULL, arrow.fill = NULL,
-                         inherit.blank = FALSE, size = deprecated(), ...) {
+  constructor = function(
+    colour = NULL,
+    linewidth = NULL,
+    linetype = NULL,
+    lineend = NULL,
+    color = NULL,
+    linejoin = NULL,
+    arrow = NULL,
+    arrow.fill = NULL,
+    inherit.blank = FALSE,
+    size = deprecated(),
+    ...
+  ) {
     warn_dots_empty()
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
@@ -184,7 +216,9 @@ element_line <- S7::new_class(
     obj <- S7::new_object(
       S7::S7_object(),
       colour = colour,
-      linewidth = linewidth, linetype = linetype, lineend = lineend,
+      linewidth = linewidth,
+      linetype = linetype,
+      lineend = lineend,
       linejoin = linejoin,
       arrow = arrow %||% FALSE,
       arrow.fill = arrow.fill %||% colour,
@@ -220,20 +254,49 @@ element_line <- S7::new_class(
 #' @export
 #' @rdname element
 element_text <- S7::new_class(
-  "element_text", parent = element,
+  "element_text",
+  parent = element,
   properties = element_props[c(
-    "family", "face", "italic", "fontweight", "fontwidth",
-    "colour", "size", "hjust", "vjust", "angle", "lineheight",
-    "margin", "debug", "inherit.blank"
+    "family",
+    "face",
+    "italic",
+    "fontweight",
+    "fontwidth",
+    "colour",
+    "size",
+    "hjust",
+    "vjust",
+    "angle",
+    "lineheight",
+    "margin",
+    "debug",
+    "inherit.blank"
   )],
-  constructor = function(family = NULL, face = NULL, colour = NULL,
-                         size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
-                         lineheight = NULL, color = NULL, margin = NULL,
-                         debug = NULL, inherit.blank = FALSE, ...) {
+  constructor = function(
+    family = NULL,
+    face = NULL,
+    colour = NULL,
+    size = NULL,
+    hjust = NULL,
+    vjust = NULL,
+    angle = NULL,
+    lineheight = NULL,
+    color = NULL,
+    margin = NULL,
+    debug = NULL,
+    inherit.blank = FALSE,
+    ...
+  ) {
     warn_dots_empty()
     n <- max(
-      length(family), length(face), length(colour), length(size),
-      length(hjust), length(vjust), length(angle), length(lineheight)
+      length(family),
+      length(face),
+      length(colour),
+      length(size),
+      length(hjust),
+      length(vjust),
+      length(angle),
+      length(lineheight)
     )
     if (n > 1) {
       cli::cli_warn(c(
@@ -252,10 +315,20 @@ element_text <- S7::new_class(
     colour <- color %||% colour
     obj <- S7::new_object(
       S7::S7_object(),
-      family = family, face = face, colour = colour, size = size,
-      hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
-      margin = margin, debug = debug, inherit.blank = inherit.blank,
-      italic = NA_character_, fontweight = NA_real_, fontwidth  = NA_real_
+      family = family,
+      face = face,
+      colour = colour,
+      size = size,
+      hjust = hjust,
+      vjust = vjust,
+      angle = angle,
+      lineheight = lineheight,
+      margin = margin,
+      debug = debug,
+      inherit.blank = inherit.blank,
+      italic = NA_character_,
+      fontweight = NA_real_,
+      fontwidth = NA_real_
     )
     class(obj) <- union(
       union(c("ggplot2::element_text", "element_text"), class(obj)),
@@ -268,19 +341,36 @@ element_text <- S7::new_class(
 #' @export
 #' @rdname element
 element_polygon <- S7::new_class(
-  "element_polygon", parent = element,
+  "element_polygon",
+  parent = element,
   properties = element_props[c(
-    "fill", "colour", "linewidth", "linetype", "linejoin", "inherit.blank"
+    "fill",
+    "colour",
+    "linewidth",
+    "linetype",
+    "linejoin",
+    "inherit.blank"
   )],
-  constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
-                         linetype = NULL, color = NULL, linejoin = NULL,
-                         inherit.blank = FALSE, ...) {
+  constructor = function(
+    fill = NULL,
+    colour = NULL,
+    linewidth = NULL,
+    linetype = NULL,
+    color = NULL,
+    linejoin = NULL,
+    inherit.blank = FALSE,
+    ...
+  ) {
     warn_dots_empty()
     colour <- color %||% colour
     S7::new_object(
       S7::S7_object(),
-      fill = fill, colour = color %||% colour, linewidth = linewidth,
-      linetype = linetype, linejoin = linejoin, inherit.blank = inherit.blank
+      fill = fill,
+      colour = color %||% colour,
+      linewidth = linewidth,
+      linetype = linetype,
+      linejoin = linejoin,
+      inherit.blank = inherit.blank
     )
   }
 )
@@ -288,20 +378,38 @@ element_polygon <- S7::new_class(
 #' @export
 #' @rdname element
 element_point <- S7::new_class(
-  "element_point", parent = element,
+  "element_point",
+  parent = element,
   properties = rename(
     element_props[c(
-      "colour", "shape", "size", "fill", "linewidth", "inherit.blank"
+      "colour",
+      "shape",
+      "size",
+      "fill",
+      "linewidth",
+      "inherit.blank"
     )],
     c("linewidth" = "stroke")
   ),
-  constructor = function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
-                         stroke = NULL, color = NULL, inherit.blank = FALSE, ...) {
+  constructor = function(
+    colour = NULL,
+    shape = NULL,
+    size = NULL,
+    fill = NULL,
+    stroke = NULL,
+    color = NULL,
+    inherit.blank = FALSE,
+    ...
+  ) {
     warn_dots_empty()
     S7::new_object(
       S7::S7_object(),
-      colour = color %||% colour, fill = fill, shape = shape, size = size,
-      stroke = stroke, inherit.blank = inherit.blank
+      colour = color %||% colour,
+      fill = fill,
+      shape = shape,
+      size = size,
+      stroke = stroke,
+      inherit.blank = inherit.blank
     )
   }
 )
@@ -312,7 +420,8 @@ element_point <- S7::new_class(
 #' @export
 #' @rdname element
 element_geom <- S7::new_class(
-  "element_geom", parent = element,
+  "element_geom",
+  parent = element,
   properties = list(
     ink = element_props$colour,
     paper = element_props$colour,
@@ -329,13 +438,22 @@ element_geom <- S7::new_class(
     fill = element_props$fill
   ),
   constructor = function(
-    ink = NULL, paper = NULL, accent = NULL,
-    linewidth = NULL, borderwidth = NULL,
-    linetype = NULL, bordertype = NULL,
-    family = NULL, fontsize = NULL,
-    pointsize = NULL, pointshape = NULL,
-    colour = NULL, color = NULL, fill = NULL,
-    ...) {
+    ink = NULL,
+    paper = NULL,
+    accent = NULL,
+    linewidth = NULL,
+    borderwidth = NULL,
+    linetype = NULL,
+    bordertype = NULL,
+    family = NULL,
+    fontsize = NULL,
+    pointsize = NULL,
+    pointshape = NULL,
+    colour = NULL,
+    color = NULL,
+    fill = NULL,
+    ...
+  ) {
     warn_dots_empty()
     if (!is.null(fontsize)) {
       fontsize <- fontsize / .pt
@@ -343,23 +461,37 @@ element_geom <- S7::new_class(
 
     S7::new_object(
       S7::S7_object(),
-      ink = ink, paper = paper, accent = accent,
-      linewidth = linewidth, borderwidth = borderwidth,
-      linetype = linetype, bordertype = bordertype,
-      family = family, fontsize = fontsize,
-      pointsize = pointsize, pointshape = pointshape,
-      colour = color %||% colour, fill = fill
+      ink = ink,
+      paper = paper,
+      accent = accent,
+      linewidth = linewidth,
+      borderwidth = borderwidth,
+      linetype = linetype,
+      bordertype = bordertype,
+      family = family,
+      fontsize = fontsize,
+      pointsize = pointsize,
+      pointshape = pointshape,
+      colour = color %||% colour,
+      fill = fill
     )
   }
 )
 
 .default_geom_element <- element_geom(
-  ink = "black", paper = "white", accent = "#3366FF",
-  linewidth = 0.5, borderwidth = 0.5,
-  linetype = 1L, bordertype = 1L,
-  family = "", fontsize = 11,
-  pointsize = 1.5, pointshape = 19,
-  fill = NULL, colour = NULL
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF",
+  linewidth = 0.5,
+  borderwidth = 0.5,
+  linetype = 1L,
+  bordertype = 1L,
+  family = "",
+  fontsize = 11,
+  pointsize = 1.5,
+  pointshape = 19,
+  fill = NULL,
+  colour = NULL
 )
 
 local({
@@ -375,14 +507,14 @@ local({
 is_theme_element <- function(x, type = "any") {
   switch(
     type %||% "any",
-    any     = S7::S7_inherits(x, element),
-    blank   = S7::S7_inherits(x, element_blank),
-    rect    = S7::S7_inherits(x, element_rect),
-    line    = S7::S7_inherits(x, element_line),
-    text    = S7::S7_inherits(x, element_text),
+    any = S7::S7_inherits(x, element),
+    blank = S7::S7_inherits(x, element_blank),
+    rect = S7::S7_inherits(x, element_rect),
+    line = S7::S7_inherits(x, element_line),
+    text = S7::S7_inherits(x, element_text),
     polygon = S7::S7_inherits(x, element_polygon),
-    point   = S7::S7_inherits(x, element_point),
-    geom    = S7::S7_inherits(x, element_geom),
+    point = S7::S7_inherits(x, element_point),
+    geom = S7::S7_inherits(x, element_geom),
     FALSE
   )
 }
@@ -451,7 +583,6 @@ is_rel <- function(x) inherits(x, "rel")
 #' @keywords internal
 #' @export
 element_render <- function(theme, element, ..., name = NULL) {
-
   # Get the element from the theme, calculating inheritance
   el <- calc_element(element, theme)
   if (is.null(el)) {
@@ -481,30 +612,66 @@ element_grob <- function(element, ...) {
 S7::method(element_grob, element_blank) <- function(element, ...) zeroGrob()
 
 S7::method(element_grob, element_rect) <-
-  function(element, x = 0.5, y = 0.5, width = 1, height = 1,
-           fill = NULL, colour = NULL,
-           linewidth = NULL, linetype = NULL, linejoin = NULL,
-           ..., size = deprecated()) {
-
+  function(
+    element,
+    x = 0.5,
+    y = 0.5,
+    width = 1,
+    height = 1,
+    fill = NULL,
+    colour = NULL,
+    linewidth = NULL,
+    linetype = NULL,
+    linejoin = NULL,
+    ...,
+    size = deprecated()
+  ) {
     if (lifecycle::is_present(size)) {
-      deprecate_warn0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+      deprecate_warn0(
+        "3.4.0",
+        "element_grob.element_rect(size)",
+        "element_grob.element_rect(linewidth)"
+      )
       linewidth <- size
     }
 
-    gp <- gg_par(lwd = linewidth, col = colour, fill = fill, lty = linetype, linejoin = linejoin)
-    element_gp <- gg_par(lwd = element@linewidth, col = element@colour,
-                         fill = element@fill, lty = element@linetype,
-                         linejoin = element@linejoin)
+    gp <- gg_par(
+      lwd = linewidth,
+      col = colour,
+      fill = fill,
+      lty = linetype,
+      linejoin = linejoin
+    )
+    element_gp <- gg_par(
+      lwd = element@linewidth,
+      col = element@colour,
+      fill = element@fill,
+      lty = element@linetype,
+      linejoin = element@linejoin
+    )
 
     rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
   }
 
 S7::method(element_grob, element_text) <-
-  function(element, label = "", x = NULL, y = NULL,
-           family = NULL, face = NULL, colour = NULL, size = NULL,
-           hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-           margin = NULL, margin_x = FALSE, margin_y = FALSE, ...) {
-
+  function(
+    element,
+    label = "",
+    x = NULL,
+    y = NULL,
+    family = NULL,
+    face = NULL,
+    colour = NULL,
+    size = NULL,
+    hjust = NULL,
+    vjust = NULL,
+    angle = NULL,
+    lineheight = NULL,
+    margin = NULL,
+    margin_x = FALSE,
+    margin_y = FALSE,
+    ...
+  ) {
     if (is.null(label)) {
       return(zeroGrob())
     }
@@ -520,26 +687,59 @@ S7::method(element_grob, element_text) <-
     angle <- angle %||% element@angle %||% 0
 
     # The gp settings can override element_gp
-    gp <- gg_par(fontsize = size, col = colour,
-                 fontfamily = family, fontface = face,
-                 lineheight = lineheight)
-    element_gp <- gg_par(fontsize = element@size, col = element@colour,
-                         fontfamily = element@family, fontface = element@face,
-                         lineheight = element@lineheight)
+    gp <- gg_par(
+      fontsize = size,
+      col = colour,
+      fontfamily = family,
+      fontface = face,
+      lineheight = lineheight
+    )
+    element_gp <- gg_par(
+      fontsize = element@size,
+      col = element@colour,
+      fontfamily = element@family,
+      fontface = element@face,
+      lineheight = element@lineheight
+    )
 
-    titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
-              gp = modify_list(element_gp, gp), margin = margin,
-              margin_x = margin_x, margin_y = margin_y, debug = element@debug, ...)
+    titleGrob(
+      label,
+      x,
+      y,
+      hjust = hj,
+      vjust = vj,
+      angle = angle,
+      gp = modify_list(element_gp, gp),
+      margin = margin,
+      margin_x = margin_x,
+      margin_y = margin_y,
+      debug = element@debug,
+      ...
+    )
   }
 
 S7::method(element_grob, element_line) <-
-  function(element, x = 0:1, y = 0:1,
-           colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
-           linejoin = NULL, arrow.fill = NULL,
-           default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
-
+  function(
+    element,
+    x = 0:1,
+    y = 0:1,
+    colour = NULL,
+    linewidth = NULL,
+    linetype = NULL,
+    lineend = NULL,
+    linejoin = NULL,
+    arrow.fill = NULL,
+    default.units = "npc",
+    id.lengths = NULL,
+    ...,
+    size = deprecated()
+  ) {
     if (lifecycle::is_present(size)) {
-      deprecate_warn0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+      deprecate_warn0(
+        "3.4.0",
+        "element_grob.element_line(size)",
+        "element_grob.element_line(linewidth)"
+      )
       linewidth <- size
     }
 
@@ -555,56 +755,106 @@ S7::method(element_grob, element_line) <-
 
     # The gp settings can override element_gp
     gp <- gg_par(
-      col = colour, fill = arrow.fill %||% colour,
-      lwd = linewidth, lty = linetype, lineend = lineend, linejoin = linejoin
+      col = colour,
+      fill = arrow.fill %||% colour,
+      lwd = linewidth,
+      lty = linetype,
+      lineend = lineend,
+      linejoin = linejoin
     )
     element_gp <- gg_par(
-      col = element@colour, fill = element@arrow.fill %||% element@colour,
-      lwd = element@linewidth, lty = element@linetype,
-      lineend = element@lineend, linejoin = element@linejoin
+      col = element@colour,
+      fill = element@arrow.fill %||% element@colour,
+      lwd = element@linewidth,
+      lty = element@linetype,
+      lineend = element@lineend,
+      linejoin = element@linejoin
     )
 
     polylineGrob(
-      x, y, default.units = default.units,
+      x,
+      y,
+      default.units = default.units,
       gp = modify_list(element_gp, gp),
-      id.lengths = id.lengths, arrow = arrow, ...
+      id.lengths = id.lengths,
+      arrow = arrow,
+      ...
     )
   }
 
 S7::method(element_grob, element_polygon) <-
-  function(element, x = c(0, 0.5, 1, 0.5),
-           y = c(0.5, 1, 0.5, 0), fill = NULL,
-           colour = NULL, linewidth = NULL,
-           linetype = NULL, linejoin = NULL, ...,
-           id = NULL, id.lengths = NULL,
-           pathId = NULL, pathId.lengths = NULL) {
-
-    gp <- gg_par(lwd = linewidth, col = colour, fill = fill,
-                 lty = linetype, linejoin = linejoin)
-    element_gp <- gg_par(lwd = element@linewidth, col = element@colour,
-                         fill = element@fill, lty = element@linetype,
-                         linejoin = element@linejoin)
+  function(
+    element,
+    x = c(0, 0.5, 1, 0.5),
+    y = c(0.5, 1, 0.5, 0),
+    fill = NULL,
+    colour = NULL,
+    linewidth = NULL,
+    linetype = NULL,
+    linejoin = NULL,
+    ...,
+    id = NULL,
+    id.lengths = NULL,
+    pathId = NULL,
+    pathId.lengths = NULL
+  ) {
+    gp <- gg_par(
+      lwd = linewidth,
+      col = colour,
+      fill = fill,
+      lty = linetype,
+      linejoin = linejoin
+    )
+    element_gp <- gg_par(
+      lwd = element@linewidth,
+      col = element@colour,
+      fill = element@fill,
+      lty = element@linetype,
+      linejoin = element@linejoin
+    )
     pathGrob(
-      x = x, y = y, gp = modify_list(element_gp, gp), ...,
+      x = x,
+      y = y,
+      gp = modify_list(element_gp, gp),
+      ...,
       # We swap the id logic so that `id` is always the (super)group id
       # (consistent with `polygonGrob()`) and `pathId` always the subgroup id.
-      pathId = id, pathId.lengths = id.lengths,
-      id = pathId, id.lengths = pathId.lengths
+      pathId = id,
+      pathId.lengths = id.lengths,
+      id = pathId,
+      id.lengths = pathId.lengths
     )
   }
 
 S7::method(element_grob, element_point) <-
-  function(element, x = 0.5, y = 0.5, colour = NULL,
-           shape = NULL, fill = NULL, size = NULL,
-           stroke = NULL, ...,
-           default.units = "npc") {
-
+  function(
+    element,
+    x = 0.5,
+    y = 0.5,
+    colour = NULL,
+    shape = NULL,
+    fill = NULL,
+    size = NULL,
+    stroke = NULL,
+    ...,
+    default.units = "npc"
+  ) {
     gp <- gg_par(col = colour, fill = fill, pointsize = size, stroke = stroke)
-    element_gp <- gg_par(col = element@colour, fill = element@fill,
-                         pointsize = element@size, stroke = element@stroke)
+    element_gp <- gg_par(
+      col = element@colour,
+      fill = element@fill,
+      pointsize = element@size,
+      stroke = element@stroke
+    )
     shape <- translate_shape_string(shape %||% element@shape %||% 19)
-    pointsGrob(x = x, y = y, pch = shape, gp = modify_list(element_gp, gp),
-               default.units = default.units, ...)
+    pointsGrob(
+      x = x,
+      y = y,
+      pch = shape,
+      gp = modify_list(element_gp, gp),
+      default.units = default.units,
+      ...
+    )
   }
 
 #' Define and register new theme elements
@@ -674,7 +924,10 @@ register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
   check_element_tree(element_tree)
 
   # Merge element trees
-  ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
+  ggplot_global$element_tree <- defaults(
+    element_tree,
+    ggplot_global$element_tree
+  )
 
   invisible(old)
 }
@@ -703,9 +956,9 @@ reset_theme_settings <- function(reset_current = TRUE) {
 # create the global variables holding all the theme settings
 on_load({
   ggplot_global$theme_all_null <- theme_all_null() # cache all null theme, required by theme_grey()
-  ggplot_global$theme_current <- NULL  # the current theme applied to plots if none is specified
-  ggplot_global$theme_default <- NULL  # the underlying fallback default theme
-  ggplot_global$element_tree <- NULL   # the current element tree for themes
+  ggplot_global$theme_current <- NULL # the current theme applied to plots if none is specified
+  ggplot_global$theme_default <- NULL # the underlying fallback default theme
+  ggplot_global$element_tree <- NULL # the current element tree for themes
   reset_theme_settings() # sets the preceding three global variables to their actual defaults
 })
 
@@ -734,8 +987,10 @@ check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
   if (any(bad_fields)) {
     bad_fields <- names(x)[bad_fields]
     cli::cli_abort(
-      c("{.arg {arg}} must have elements constructed with {.fn el_def}.",
-        i = "Invalid structure: {.and {.val {bad_fields}}}"),
+      c(
+        "{.arg {arg}} must have elements constructed with {.fn el_def}.",
+        i = "Invalid structure: {.and {.val {bad_fields}}}"
+      ),
       call = call
     )
   }
@@ -743,7 +998,8 @@ check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
   # Check element tree, prevent elements from being their own parent (#6162)
   bad_parent <- unlist(Map(
     function(name, el) any(name %in% el$inherit),
-    name = names(x), el = x
+    name = names(x),
+    el = x
   ))
   if (any(bad_parent)) {
     bad_parent <- names(x)[bad_parent]
@@ -776,14 +1032,14 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
     class <- switch(
       class,
       element = element,
-      element_blank   = element_blank,
-      element_rect    = element_rect,
-      element_line    = element_line,
-      element_text    = element_text,
+      element_blank = element_blank,
+      element_rect = element_rect,
+      element_line = element_line,
+      element_text = element_text,
       element_polygon = element_polygon,
-      element_point   = element_point,
-      element_geom    = element_geom,
-      margin          = margin,
+      element_point = element_point,
+      element_geom = element_geom,
+      margin = margin,
       class
     )
   }
@@ -800,123 +1056,135 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # among them. It should not be read from directly, since users may modify the
 # current element tree stored in ggplot_global$element_tree
 .element_tree <- list(
-  line                = el_def(element_line),
-  rect                = el_def(element_rect),
-  text                = el_def(element_text),
-  point               = el_def(element_point),
-  polygon             = el_def(element_polygon),
-  geom                = el_def(element_geom),
-  title               = el_def(element_text, "text"),
-  spacing             = el_def("unit"),
-  margins             = el_def(c("margin", "unit")),
+  line = el_def(element_line),
+  rect = el_def(element_rect),
+  text = el_def(element_text),
+  point = el_def(element_point),
+  polygon = el_def(element_polygon),
+  geom = el_def(element_geom),
+  title = el_def(element_text, "text"),
+  spacing = el_def("unit"),
+  margins = el_def(c("margin", "unit")),
 
-  axis.line           = el_def(element_line, "line"),
-  axis.text           = el_def(element_text, "text"),
-  axis.title          = el_def(element_text, "title"),
-  axis.ticks          = el_def(element_line, "line"),
-  legend.key.size     = el_def(c("unit", "rel"), "spacing"),
-  panel.grid          = el_def(element_line, "line"),
-  panel.grid.major    = el_def(element_line, "panel.grid"),
-  panel.grid.minor    = el_def(element_line, "panel.grid"),
-  strip.text          = el_def(element_text, "text"),
+  axis.line = el_def(element_line, "line"),
+  axis.text = el_def(element_text, "text"),
+  axis.title = el_def(element_text, "title"),
+  axis.ticks = el_def(element_line, "line"),
+  legend.key.size = el_def(c("unit", "rel"), "spacing"),
+  panel.grid = el_def(element_line, "line"),
+  panel.grid.major = el_def(element_line, "panel.grid"),
+  panel.grid.minor = el_def(element_line, "panel.grid"),
+  strip.text = el_def(element_text, "text"),
 
-  axis.line.x         = el_def(element_line, "axis.line"),
-  axis.line.x.top     = el_def(element_line, "axis.line.x"),
-  axis.line.x.bottom  = el_def(element_line, "axis.line.x"),
-  axis.line.y         = el_def(element_line, "axis.line"),
-  axis.line.y.left    = el_def(element_line, "axis.line.y"),
-  axis.line.y.right   = el_def(element_line, "axis.line.y"),
-  axis.line.theta     = el_def(element_line, "axis.line.x"),
-  axis.line.r         = el_def(element_line, "axis.line.y"),
+  axis.line.x = el_def(element_line, "axis.line"),
+  axis.line.x.top = el_def(element_line, "axis.line.x"),
+  axis.line.x.bottom = el_def(element_line, "axis.line.x"),
+  axis.line.y = el_def(element_line, "axis.line"),
+  axis.line.y.left = el_def(element_line, "axis.line.y"),
+  axis.line.y.right = el_def(element_line, "axis.line.y"),
+  axis.line.theta = el_def(element_line, "axis.line.x"),
+  axis.line.r = el_def(element_line, "axis.line.y"),
 
-  axis.text.x         = el_def(element_text, "axis.text"),
-  axis.text.x.top     = el_def(element_text, "axis.text.x"),
-  axis.text.x.bottom  = el_def(element_text, "axis.text.x"),
-  axis.text.y         = el_def(element_text, "axis.text"),
-  axis.text.y.left    = el_def(element_text, "axis.text.y"),
-  axis.text.y.right   = el_def(element_text, "axis.text.y"),
-  axis.text.theta     = el_def(element_text, "axis.text.x"),
-  axis.text.r         = el_def(element_text, "axis.text.y"),
+  axis.text.x = el_def(element_text, "axis.text"),
+  axis.text.x.top = el_def(element_text, "axis.text.x"),
+  axis.text.x.bottom = el_def(element_text, "axis.text.x"),
+  axis.text.y = el_def(element_text, "axis.text"),
+  axis.text.y.left = el_def(element_text, "axis.text.y"),
+  axis.text.y.right = el_def(element_text, "axis.text.y"),
+  axis.text.theta = el_def(element_text, "axis.text.x"),
+  axis.text.r = el_def(element_text, "axis.text.y"),
 
-  axis.ticks.length   = el_def(c("unit", "rel"), "spacing"),
+  axis.ticks.length = el_def(c("unit", "rel"), "spacing"),
   axis.ticks.length.x = el_def(c("unit", "rel"), "axis.ticks.length"),
   axis.ticks.length.x.top = el_def(c("unit", "rel"), "axis.ticks.length.x"),
   axis.ticks.length.x.bottom = el_def(c("unit", "rel"), "axis.ticks.length.x"),
-  axis.ticks.length.y  = el_def(c("unit", "rel"), "axis.ticks.length"),
+  axis.ticks.length.y = el_def(c("unit", "rel"), "axis.ticks.length"),
   axis.ticks.length.y.left = el_def(c("unit", "rel"), "axis.ticks.length.y"),
   axis.ticks.length.y.right = el_def(c("unit", "rel"), "axis.ticks.length.y"),
   axis.ticks.length.theta = el_def(c("unit", "rel"), "axis.ticks.length.x"),
   axis.ticks.length.r = el_def(c("unit", "rel"), "axis.ticks.length.y"),
 
-  axis.ticks.x        = el_def(element_line, "axis.ticks"),
-  axis.ticks.x.top    = el_def(element_line, "axis.ticks.x"),
+  axis.ticks.x = el_def(element_line, "axis.ticks"),
+  axis.ticks.x.top = el_def(element_line, "axis.ticks.x"),
   axis.ticks.x.bottom = el_def(element_line, "axis.ticks.x"),
-  axis.ticks.y        = el_def(element_line, "axis.ticks"),
-  axis.ticks.y.left   = el_def(element_line, "axis.ticks.y"),
-  axis.ticks.y.right  = el_def(element_line, "axis.ticks.y"),
-  axis.ticks.theta    = el_def(element_line, "axis.ticks.x"),
-  axis.ticks.r        = el_def(element_line, "axis.ticks.y"),
+  axis.ticks.y = el_def(element_line, "axis.ticks"),
+  axis.ticks.y.left = el_def(element_line, "axis.ticks.y"),
+  axis.ticks.y.right = el_def(element_line, "axis.ticks.y"),
+  axis.ticks.theta = el_def(element_line, "axis.ticks.x"),
+  axis.ticks.r = el_def(element_line, "axis.ticks.y"),
 
-  axis.title.x        = el_def(element_text, "axis.title"),
-  axis.title.x.top    = el_def(element_text, "axis.title.x"),
+  axis.title.x = el_def(element_text, "axis.title"),
+  axis.title.x.top = el_def(element_text, "axis.title.x"),
   axis.title.x.bottom = el_def(element_text, "axis.title.x"),
-  axis.title.y        = el_def(element_text, "axis.title"),
-  axis.title.y.left   = el_def(element_text, "axis.title.y"),
-  axis.title.y.right  = el_def(element_text, "axis.title.y"),
+  axis.title.y = el_def(element_text, "axis.title"),
+  axis.title.y.left = el_def(element_text, "axis.title.y"),
+  axis.title.y.right = el_def(element_text, "axis.title.y"),
 
-  axis.minor.ticks.x.top    = el_def(element_line, "axis.ticks.x.top"),
+  axis.minor.ticks.x.top = el_def(element_line, "axis.ticks.x.top"),
   axis.minor.ticks.x.bottom = el_def(element_line, "axis.ticks.x.bottom"),
-  axis.minor.ticks.y.left   = el_def(element_line, "axis.ticks.y.left"),
-  axis.minor.ticks.y.right  = el_def(element_line, "axis.ticks.y.right"),
-  axis.minor.ticks.theta    = el_def(element_line, "axis.ticks.theta"),
-  axis.minor.ticks.r        = el_def(element_line, "axis.ticks.r"),
+  axis.minor.ticks.y.left = el_def(element_line, "axis.ticks.y.left"),
+  axis.minor.ticks.y.right = el_def(element_line, "axis.ticks.y.right"),
+  axis.minor.ticks.theta = el_def(element_line, "axis.ticks.theta"),
+  axis.minor.ticks.r = el_def(element_line, "axis.ticks.r"),
 
   axis.minor.ticks.length = el_def(c("unit", "rel")),
-  axis.minor.ticks.length.x = el_def(c("unit", "rel"), "axis.minor.ticks.length"),
+  axis.minor.ticks.length.x = el_def(
+    c("unit", "rel"),
+    "axis.minor.ticks.length"
+  ),
   axis.minor.ticks.length.x.top = el_def(
-    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.x.top")
+    c("unit", "rel"),
+    c("axis.minor.ticks.length.x", "axis.ticks.length.x.top")
   ),
   axis.minor.ticks.length.x.bottom = el_def(
-    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.x.bottom")
+    c("unit", "rel"),
+    c("axis.minor.ticks.length.x", "axis.ticks.length.x.bottom")
   ),
-  axis.minor.ticks.length.y = el_def(c("unit", "rel"), "axis.minor.ticks.length"),
+  axis.minor.ticks.length.y = el_def(
+    c("unit", "rel"),
+    "axis.minor.ticks.length"
+  ),
   axis.minor.ticks.length.y.left = el_def(
-    c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.y.left")
+    c("unit", "rel"),
+    c("axis.minor.ticks.length.y", "axis.ticks.length.y.left")
   ),
   axis.minor.ticks.length.y.right = el_def(
-    c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.y.right")
+    c("unit", "rel"),
+    c("axis.minor.ticks.length.y", "axis.ticks.length.y.right")
   ),
   axis.minor.ticks.length.theta = el_def(
-    c("unit", "rel"), c("axis.minor.ticks.length.x", "axis.ticks.length.theta"),
+    c("unit", "rel"),
+    c("axis.minor.ticks.length.x", "axis.ticks.length.theta"),
   ),
   axis.minor.ticks.length.r = el_def(
-    c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.r")
+    c("unit", "rel"),
+    c("axis.minor.ticks.length.y", "axis.ticks.length.r")
   ),
 
-  legend.background   = el_def(element_rect, "rect"),
-  legend.margin       = el_def(c("margin", "unit", "rel"), "margins"),
-  legend.spacing      = el_def(c("unit", "rel"), "spacing"),
-  legend.spacing.x     = el_def(c("unit", "rel"), "legend.spacing"),
-  legend.spacing.y     = el_def(c("unit", "rel"), "legend.spacing"),
-  legend.key          = el_def(element_rect, "panel.background"),
-  legend.key.height   = el_def(c("unit", "rel"), "legend.key.size"),
-  legend.key.width    = el_def(c("unit", "rel"), "legend.key.size"),
-  legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
+  legend.background = el_def(element_rect, "rect"),
+  legend.margin = el_def(c("margin", "unit", "rel"), "margins"),
+  legend.spacing = el_def(c("unit", "rel"), "spacing"),
+  legend.spacing.x = el_def(c("unit", "rel"), "legend.spacing"),
+  legend.spacing.y = el_def(c("unit", "rel"), "legend.spacing"),
+  legend.key = el_def(element_rect, "panel.background"),
+  legend.key.height = el_def(c("unit", "rel"), "legend.key.size"),
+  legend.key.width = el_def(c("unit", "rel"), "legend.key.size"),
+  legend.key.spacing = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.justification = el_def(c("character", "numeric", "integer")),
-  legend.frame        = el_def(element_rect, "rect"),
-  legend.axis.line    = el_def(element_line, "line"),
-  legend.ticks        = el_def(element_line, "legend.axis.line"),
+  legend.frame = el_def(element_rect, "rect"),
+  legend.axis.line = el_def(element_line, "line"),
+  legend.ticks = el_def(element_line, "legend.axis.line"),
   legend.ticks.length = el_def(c("rel", "unit"), "legend.key.size"),
-  legend.text         = el_def(element_text, "text"),
+  legend.text = el_def(element_text, "text"),
   legend.text.position = el_def("character"),
-  legend.title        = el_def(element_text, "title"),
+  legend.title = el_def(element_text, "title"),
   legend.title.position = el_def("character"),
-  legend.byrow        = el_def("logical"),
-  legend.position     = el_def("character"),
+  legend.byrow = el_def("logical"),
+  legend.position = el_def("character"),
   legend.position.inside = el_def(c("numeric", "integer")),
-  legend.direction    = el_def("character"),
+  legend.direction = el_def("character"),
 
   legend.justification = el_def(c("character", "numeric", "integer")),
   legend.justification.top = el_def(
@@ -940,70 +1208,126 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
     "legend.justification"
   ),
 
-  legend.location     = el_def("character"),
+  legend.location = el_def("character"),
 
-  legend.box          = el_def("character"),
-  legend.box.just     = el_def("character"),
-  legend.box.margin   = el_def(c("margin", "unit", "rel"), "margins"),
+  legend.box = el_def("character"),
+  legend.box.just = el_def("character"),
+  legend.box.margin = el_def(c("margin", "unit", "rel"), "margins"),
   legend.box.background = el_def(element_rect, "rect"),
-  legend.box.spacing  = el_def(c("unit", "rel"), "spacing"),
+  legend.box.spacing = el_def(c("unit", "rel"), "spacing"),
 
-  panel.background    = el_def(element_rect, "rect"),
-  panel.border        = el_def(element_rect, "rect"),
-  panel.spacing       = el_def(c("unit", "rel"), "spacing"),
-  panel.spacing.x     = el_def(c("unit", "rel"), "panel.spacing"),
-  panel.spacing.y     = el_def(c("unit", "rel"), "panel.spacing"),
-  panel.grid.major.x  = el_def(element_line, "panel.grid.major"),
-  panel.grid.major.y  = el_def(element_line, "panel.grid.major"),
-  panel.grid.minor.x  = el_def(element_line, "panel.grid.minor"),
-  panel.grid.minor.y  = el_def(element_line, "panel.grid.minor"),
-  panel.ontop         = el_def("logical"),
-  panel.widths        = el_def("unit"),
-  panel.heights       = el_def("unit"),
+  panel.background = el_def(element_rect, "rect"),
+  panel.border = el_def(element_rect, "rect"),
+  panel.spacing = el_def(c("unit", "rel"), "spacing"),
+  panel.spacing.x = el_def(c("unit", "rel"), "panel.spacing"),
+  panel.spacing.y = el_def(c("unit", "rel"), "panel.spacing"),
+  panel.grid.major.x = el_def(element_line, "panel.grid.major"),
+  panel.grid.major.y = el_def(element_line, "panel.grid.major"),
+  panel.grid.minor.x = el_def(element_line, "panel.grid.minor"),
+  panel.grid.minor.y = el_def(element_line, "panel.grid.minor"),
+  panel.ontop = el_def("logical"),
+  panel.widths = el_def("unit"),
+  panel.heights = el_def("unit"),
 
-  strip.background    = el_def(element_rect, "rect"),
-  strip.background.x  = el_def(element_rect, "strip.background"),
-  strip.background.y  = el_def(element_rect, "strip.background"),
-  strip.clip          = el_def("character"),
-  strip.text.x        = el_def(element_text, "strip.text"),
-  strip.text.x.top    = el_def(element_text, "strip.text.x"),
+  strip.background = el_def(element_rect, "rect"),
+  strip.background.x = el_def(element_rect, "strip.background"),
+  strip.background.y = el_def(element_rect, "strip.background"),
+  strip.clip = el_def("character"),
+  strip.text.x = el_def(element_text, "strip.text"),
+  strip.text.x.top = el_def(element_text, "strip.text.x"),
   strip.text.x.bottom = el_def(element_text, "strip.text.x"),
-  strip.text.y        = el_def(element_text, "strip.text"),
-  strip.text.y.left   = el_def(element_text, "strip.text.y"),
-  strip.text.y.right  = el_def(element_text, "strip.text.y"),
-  strip.placement     = el_def("character"),
-  strip.placement.x   = el_def("character", "strip.placement"),
-  strip.placement.y   = el_def("character", "strip.placement"),
+  strip.text.y = el_def(element_text, "strip.text"),
+  strip.text.y.left = el_def(element_text, "strip.text.y"),
+  strip.text.y.right = el_def(element_text, "strip.text.y"),
+  strip.placement = el_def("character"),
+  strip.placement.x = el_def("character", "strip.placement"),
+  strip.placement.y = el_def("character", "strip.placement"),
   strip.switch.pad.grid = el_def(c("unit", "rel"), "spacing"),
   strip.switch.pad.wrap = el_def(c("unit", "rel"), "spacing"),
 
-  plot.background     = el_def(element_rect, "rect"),
-  plot.title          = el_def(element_text, "title"),
+  plot.background = el_def(element_rect, "rect"),
+  plot.title = el_def(element_text, "title"),
   plot.title.position = el_def("character"),
-  plot.subtitle       = el_def(element_text, "text"),
-  plot.caption        = el_def(element_text, "text"),
+  plot.subtitle = el_def(element_text, "text"),
+  plot.caption = el_def(element_text, "text"),
   plot.caption.position = el_def("character"),
-  plot.tag            = el_def(element_text, "text"),
-  plot.tag.position   = el_def(c("character", "numeric", "integer")),  # Need to also accept numbers
-  plot.tag.location   = el_def("character"),
-  plot.margin         = el_def(c("margin", "unit", "rel"), "margins"),
+  plot.tag = el_def(element_text, "text"),
+  plot.tag.position = el_def(c("character", "numeric", "integer")), # Need to also accept numbers
+  plot.tag.location = el_def("character"),
+  plot.margin = el_def(c("margin", "unit", "rel"), "margins"),
 
-  palette.colour.discrete   = el_def(c("character", "function")),
+  palette.colour.discrete = el_def(c("character", "function")),
   palette.colour.continuous = el_def(c("character", "function")),
-  palette.fill.discrete   = el_def(c("character", "function"), "palette.colour.discrete"),
-  palette.fill.continuous = el_def(c("character", "function"), "palette.colour.continuous"),
-  palette.alpha.discrete   = el_def(c("character", "numeric", "integer", "function")),
-  palette.alpha.continuous = el_def(c("character", "numeric", "integer", "function")),
-  palette.linewidth.discrete = el_def(c("character", "numeric", "integer", "function")),
-  palette.linewidth.continuous = el_def(c("character", "numeric", "integer", "function")),
-  palette.size.discrete = el_def(c("character", "numeric", "integer", "function")),
-  palette.size.continuous = el_def(c("character", "numeric", "integer", "function")),
-  palette.shape.discrete = el_def(c("character", "numeric", "integer", "function")),
-  palette.shape.continuous = el_def(c("character", "numeric", "integer", "function")),
-  palette.linetype.discrete = el_def(c("character", "numeric", "integer", "function")),
-  palette.linetype.continuous = el_def(c("character", "numeric", "integer", "function")),
+  palette.fill.discrete = el_def(
+    c("character", "function"),
+    "palette.colour.discrete"
+  ),
+  palette.fill.continuous = el_def(
+    c("character", "function"),
+    "palette.colour.continuous"
+  ),
+  palette.alpha.discrete = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.alpha.continuous = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.linewidth.discrete = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.linewidth.continuous = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.size.discrete = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.size.continuous = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.shape.discrete = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.shape.continuous = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.linetype.discrete = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
+  palette.linetype.continuous = el_def(c(
+    "character",
+    "numeric",
+    "integer",
+    "function"
+  )),
 
-  aspect.ratio        = el_def(c("numeric", "integer"))
+  aspect.ratio = el_def(c("numeric", "integer"))
 )
 
 # Check that an element object has the proper class
@@ -1021,12 +1345,17 @@ check_element <- function(el, elname, element_tree, call = caller_env()) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    cli::cli_warn("The {.var {elname}} theme element is not defined in the element hierarchy.", call = call)
+    cli::cli_warn(
+      "The {.var {elname}} theme element is not defined in the element hierarchy.",
+      call = call
+    )
     return()
   }
 
   # NULL values for elements are OK
-  if (is.null(el)) return()
+  if (is.null(el)) {
+    return()
+  }
 
   class <- eldef$class
   if (inherits(class, "S7_class")) {

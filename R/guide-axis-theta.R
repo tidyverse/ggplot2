@@ -23,10 +23,15 @@ NULL
 #'
 #' # The `angle` argument can be used to set relative angles
 #' p + guides(theta = guide_axis_theta(angle = 0))
-guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
-                             minor.ticks = FALSE, cap = "none", order = 0,
-                             position = waiver()) {
-
+guide_axis_theta <- function(
+  title = waiver(),
+  theme = NULL,
+  angle = waiver(),
+  minor.ticks = FALSE,
+  cap = "none",
+  order = 0,
+  position = waiver()
+) {
   check_bool(minor.ticks)
   if (is.logical(cap)) {
     check_bool(cap)
@@ -40,7 +45,7 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
     # customisations
     angle = angle,
     cap = cap,
-    minor.ticks  = minor.ticks,
+    minor.ticks = minor.ticks,
     theme = theme,
 
     # parameter
@@ -59,15 +64,21 @@ guide_axis_theta <- function(title = waiver(), theme = NULL, angle = waiver(),
 #' @usage NULL
 #' @export
 GuideAxisTheta <- ggproto(
-  "GuideAxisTheta", GuideAxis,
+  "GuideAxisTheta",
+  GuideAxis,
 
   transform = function(params, coord, panel_params) {
-
     position <- params$position
 
     if (!is.null(position)) {
       opposite_var <- setdiff(c("x", "y"), params$aesthetic)
-      opposite_value <- switch(position, top = , right = , theta.sec = -Inf, Inf)
+      opposite_value <- switch(
+        position,
+        top = ,
+        right = ,
+        theta.sec = -Inf,
+        Inf
+      )
       if (is.unsorted(panel_params$inner_radius %||% NA)) {
         opposite_value <- -opposite_value
       }
@@ -92,10 +103,10 @@ GuideAxisTheta <- ggproto(
       # standard axes to be visually similar.
       key$theta <- switch(
         params$position,
-        top    = 0,
-        bottom = 1   * pi,
-        left   = 1.5 * pi,
-        right  = 0.5 * pi
+        top = 0,
+        bottom = 1 * pi,
+        left = 1.5 * pi,
+        right = 0.5 * pi
       )
     } else {
       if (params$position == 'theta.sec') {
@@ -104,9 +115,11 @@ GuideAxisTheta <- ggproto(
 
       # If the first and last positions are close together, we merge the
       # labels of these positions
-      if (n > 1L &&
-        (key$theta[n] - key$theta[1]) %% (2 * pi) < 0.05 &&
-        !is.null(key$.label)) {
+      if (
+        n > 1L &&
+          (key$theta[n] - key$theta[1]) %% (2 * pi) < 0.05 &&
+          !is.null(key$.label)
+      ) {
         if (is.expression(key$.label[[1]])) {
           combined <- substitute(
             paste(a, "/", b),
@@ -132,20 +145,29 @@ GuideAxisTheta <- ggproto(
   setup_elements = function(params, elements, theme) {
     theme <- add_theme(theme, params$theme)
 
-    axis_elem <- c("line", "text", "ticks", "minor", "major_length", "minor_length")
+    axis_elem <- c(
+      "line",
+      "text",
+      "ticks",
+      "minor",
+      "major_length",
+      "minor_length"
+    )
     is_char <- vapply(elements[axis_elem], is.character, logical(1))
     axis_elem <- axis_elem[is_char]
 
-    aes <- params$theme_suffix %||% switch(
-      params$position,
-      theta     = "x.bottom",
-      theta.sec = "x.top",
-      paste0(params$aesthetic, ".", params$position)
-    )
+    aes <- params$theme_suffix %||%
+      switch(
+        params$position,
+        theta = "x.bottom",
+        theta.sec = "x.top",
+        paste0(params$aesthetic, ".", params$position)
+      )
 
     elements[axis_elem] <- lapply(
       paste(unlist(elements[axis_elem]), aes, sep = "."),
-      calc_element, theme = theme
+      calc_element,
+      theme = theme
     )
 
     # Offset distance from axis arc to text positions
@@ -154,7 +176,8 @@ GuideAxisTheta <- ggproto(
     }
 
     offset <- max(unit(0, "pt"), elements$major_length, elements$minor_length)
-    elements$offset <- offset + max(try_prop(elements$text, "margin", default = unit(0, "pt")))
+    elements$offset <- offset +
+      max(try_prop(elements$text, "margin", default = unit(0, "pt")))
     elements
   },
 
@@ -183,7 +206,6 @@ GuideAxisTheta <- ggproto(
   },
 
   build_labels = function(key, elements, params) {
-
     if (is_theme_element(elements$text, "blank")) {
       return(zeroGrob())
     }
@@ -222,8 +244,8 @@ GuideAxisTheta <- ggproto(
     element_grob(
       elements$text,
       label = labels,
-      x     = unit(key$x, "npc") + xoffset,
-      y     = unit(key$y, "npc") + yoffset,
+      x = unit(key$x, "npc") + xoffset,
+      y = unit(key$y, "npc") + yoffset,
       hjust = 0.5 - sin(theta + rad) / 2,
       vjust = 0.5 - cos(theta + rad) / 2,
       angle = angle
@@ -234,19 +256,26 @@ GuideAxisTheta <- ggproto(
     offset <- params$stack_offset
     major <- theta_tickmarks(
       vec_slice(key, (key$.type %||% "major") == "major"),
-      elements$ticks, elements$major_length, offset = offset
+      elements$ticks,
+      elements$major_length,
+      offset = offset
     )
     minor <- theta_tickmarks(
       vec_slice(key, (key$.type %||% "major") == "minor"),
-      elements$minor, elements$minor_length, offset = offset
+      elements$minor,
+      elements$minor_length,
+      offset = offset
     )
 
     grobTree(major, minor, name = "ticks")
   },
 
   draw_early_exit = function(self, params, elements) {
-    line <- self$build_decor(decor = params$decor, elements = elements,
-                             params = params)
+    line <- self$build_decor(
+      decor = params$decor,
+      elements = elements,
+      params = params
+    )
     gTree(children = gList(line), offset = unit(0, "cm"))
   },
 
@@ -281,16 +310,22 @@ GuideAxisTheta <- ggproto(
     angle <- key$theta + deg2rad(angle)
 
     # Set margin
-    margin <- rep(max(try_prop(elements$text, "margin", default = unit(0, "pt"))), length.out = 4)
+    margin <- rep(
+      max(try_prop(elements$text, "margin", default = unit(0, "pt"))),
+      length.out = 4
+    )
 
     # Measure size of each individual label
     single_labels <- lapply(labels, function(lab) {
       element_grob(
-        elements$text, label = lab,
-        margin = margin, margin_x = TRUE, margin_y = TRUE
+        elements$text,
+        label = lab,
+        margin = margin,
+        margin_x = TRUE,
+        margin_y = TRUE
       )
     })
-    widths  <- width_cm(single_labels)
+    widths <- width_cm(single_labels)
     heights <- height_cm(single_labels)
 
     # Set text justification
@@ -319,7 +354,6 @@ GuideAxisTheta <- ggproto(
   },
 
   assemble_drawing = function(grobs, layout, sizes, params, elements) {
-
     # Fix order of grobs
     grobs <- grobs[c("title", "labels", "ticks", "decor")]
 
@@ -339,7 +373,8 @@ GuideAxisTheta <- ggproto(
       )
       vp <- viewport(
         y = unit(as.numeric(params$position == "bottom"), "npc"),
-        height = height, width = unit(1, "npc"),
+        height = height,
+        width = unit(1, "npc"),
         just = opposite_position(params$position)
       )
     } else {
@@ -349,14 +384,15 @@ GuideAxisTheta <- ggproto(
       )
       vp <- viewport(
         x = unit(as.numeric(params$position == "left"), "npc"),
-        height = unit(1, "npc"), width = width,
+        height = unit(1, "npc"),
+        width = width,
         just = opposite_position(params$position)
       )
     }
 
     absoluteGrob(
       inject(gList(!!!grobs)),
-      width  = vp$width,
+      width = vp$width,
       height = vp$height,
       vp = vp
     )
@@ -370,10 +406,10 @@ theta_tickmarks <- function(key, element, length, offset = NULL) {
   }
 
   length <- rep(length, length.out = n_breaks * 2)
-  angle  <- rep(key$theta, each = 2)
-  x      <- rep(key$x,     each = 2)
-  y      <- rep(key$y,     each = 2)
-  length <- rep(c(0, 1),  times = n_breaks) * length
+  angle <- rep(key$theta, each = 2)
+  x <- rep(key$x, each = 2)
+  y <- rep(key$y, each = 2)
+  length <- rep(c(0, 1), times = n_breaks) * length
   if (!is.null(offset)) {
     length <- length + offset
   }

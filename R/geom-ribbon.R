@@ -2,7 +2,9 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRibbon <- ggproto("GeomRibbon", Geom,
+GeomRibbon <- ggproto(
+  "GeomRibbon",
+  Geom,
 
   default_aes = aes(
     colour = from_theme(colour %||% NA),
@@ -15,7 +17,11 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
+    params$flipped_aes <- has_flipped_aes(
+      data,
+      params,
+      range_is_orthogonal = TRUE
+    )
     params
   },
 
@@ -26,7 +32,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- flip_data(data, params$flipped_aes)
 
     if (is.null(data$ymin) && is.null(data$ymax)) {
-      cli::cli_abort("Either {.field {flipped_names(params$flipped_aes)$ymin}} or {.field {flipped_names(params$flipped_aes)$ymax}} must be given as an aesthetic.")
+      cli::cli_abort(
+        "Either {.field {flipped_names(params$flipped_aes)$ymin}} or {.field {flipped_names(params$flipped_aes)$ymax}} must be given as an aesthetic."
+      )
     }
     data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
     data$y <- data$ymin %||% data$ymax
@@ -36,10 +44,11 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   draw_key = draw_key_polygon,
 
   handle_na = function(self, data, params) {
-
     vars <- vapply(
       strsplit(self$required_aes, "|", fixed = TRUE),
-      `[[`, i = 1, character(1)
+      `[[`,
+      i = 1,
+      character(1)
     )
     if (isTRUE(params$flipped_aes || any(data$flipped_aes) %||% FALSE)) {
       vars <- switch_orientation(vars)
@@ -63,16 +72,27 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(self, data, panel_params, coord, lineend = "butt",
-                        linejoin = "round", linemitre = 10, na.rm = FALSE,
-                        flipped_aes = FALSE, outline.type = "both") {
+  draw_group = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10,
+    na.rm = FALSE,
+    flipped_aes = FALSE,
+    outline.type = "both"
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
     aes <- lapply(
-      data[names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")],
+      data[
+        names(data) %in% c("colour", "fill", "linewidth", "linetype", "alpha")
+      ],
       unique0
     )
     non_constant <- names(aes)[lengths(aes) > 1]
@@ -96,14 +116,20 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
         args <- list(
           colours = alpha(data$fill, data$alpha)[keep],
           stops = rescale(transformed$y)[keep],
-          y1 = 0, y2 = 1, x1 = 0.5, x2 = 0.5
+          y1 = 0,
+          y2 = 1,
+          x1 = 0.5,
+          x2 = 0.5
         )
       } else {
         keep <- is.finite(transformed$x)
         args <- list(
           colours = alpha(data$fill, data$alpha)[keep],
           stops = rescale(transformed$x)[keep],
-          x1 = 0, x2 = 1, y1 = 0.5, y2 = 0.5
+          x1 = 0,
+          x2 = 1,
+          y1 = 0.5,
+          y2 = 0.5
         )
       }
       aes$fill <- inject(linearGradient(!!!args))
@@ -149,7 +175,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     is_full_outline <- identical(outline.type, "full")
     g_poly <- polygonGrob(
-      munched_poly$x, munched_poly$y, id = munched_poly$id,
+      munched_poly$x,
+      munched_poly$y,
+      id = munched_poly$id,
       default.units = "native",
       gp = gg_par(
         fill = fill_alpha(aes$fill, aes$alpha),
@@ -174,13 +202,16 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       c("both", "upper", "lower")
     )
 
-    munched_lines <- switch(outline.type,
+    munched_lines <- switch(
+      outline.type,
       both = vec_rbind0(munched_upper, munched_lower),
       upper = munched_upper,
       lower = munched_lower
     )
     g_lines <- polylineGrob(
-      munched_lines$x, munched_lines$y, id = munched_lines$id,
+      munched_lines$x,
+      munched_lines$y,
+      id = munched_lines$id,
       default.units = "native",
       gp = gg_par(
         col = aes$colour,
@@ -202,7 +233,9 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomArea <- ggproto("GeomArea", GeomRibbon,
+GeomArea <- ggproto(
+  "GeomArea",
+  GeomRibbon,
 
   required_aes = c("x", "y"),
 
@@ -214,7 +247,11 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
-    data <- transform(data[order(data$PANEL, data$group, data$x), ], ymin = 0, ymax = y)
+    data <- transform(
+      data[order(data$PANEL, data$group, data$x), ],
+      ymin = 0,
+      ymax = y
+    )
     flip_data(data, params$flipped_aes)
   }
 )
@@ -288,18 +325,28 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 #'   geom_area(stat = "identity")
 #'
 geom_ribbon <- make_constructor(
-  GeomRibbon, orientation = NA,
+  GeomRibbon,
+  orientation = NA,
   checks = exprs(
-    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
+    outline.type <- arg_match0(
+      outline.type,
+      c("both", "upper", "lower", "full")
+    )
   )
 )
 
 #' @rdname geom_ribbon
 #' @export
 geom_area <- make_constructor(
-  GeomArea, stat = "align", position = "stack",
-  orientation = NA, outline.type = "upper",
+  GeomArea,
+  stat = "align",
+  position = "stack",
+  orientation = NA,
+  outline.type = "upper",
   checks = exprs(
-    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
+    outline.type <- arg_match0(
+      outline.type,
+      c("both", "upper", "lower", "full")
+    )
   )
 )

@@ -110,33 +110,43 @@
 #'     thetalim = c(200, 300),
 #'     rlim = c(15, 30),
 #'   )
-coord_radial <- function(theta = "x",
-                         start = 0, end = NULL,
-                         thetalim = NULL, rlim = NULL, expand = TRUE,
-                         direction = deprecated(),
-                         clip = "off",
-                         r.axis.inside = NULL,
-                         rotate.angle = FALSE,
-                         inner.radius = 0,
-                         reverse = "none",
-                         r_axis_inside = deprecated(),
-                         rotate_angle = deprecated()) {
-
+coord_radial <- function(
+  theta = "x",
+  start = 0,
+  end = NULL,
+  thetalim = NULL,
+  rlim = NULL,
+  expand = TRUE,
+  direction = deprecated(),
+  clip = "off",
+  r.axis.inside = NULL,
+  rotate.angle = FALSE,
+  inner.radius = 0,
+  reverse = "none",
+  r_axis_inside = deprecated(),
+  rotate_angle = deprecated()
+) {
   if (lifecycle::is_present(r_axis_inside)) {
     deprecate_warn0(
-      "3.5.1", "coord_radial(r_axis_inside)", "coord_radial(r.axis.inside)"
+      "3.5.1",
+      "coord_radial(r_axis_inside)",
+      "coord_radial(r.axis.inside)"
     )
     r.axis.inside <- r_axis_inside
   }
   if (lifecycle::is_present(rotate_angle)) {
     deprecate_warn0(
-      "3.5.1", "coord_radial(rotate_angle)", "coord_radial(rotate.angle)"
+      "3.5.1",
+      "coord_radial(rotate_angle)",
+      "coord_radial(rotate.angle)"
     )
     rotate.angle <- rotate_angle
   }
   if (lifecycle::is_present(direction)) {
     deprecate_warn0(
-      "4.0.0", "coord_radial(direction)", "coord_radial(reverse)"
+      "4.0.0",
+      "coord_radial(direction)",
+      "coord_radial(reverse)"
     )
     reverse <- switch(reverse, "r" = "thetar", "theta")
   }
@@ -175,7 +185,9 @@ coord_radial <- function(theta = "x",
   inner.radius <- c(inner.radius, 1) * 0.4
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
 
-  ggproto(NULL, CoordRadial,
+  ggproto(
+    NULL,
+    CoordRadial,
     limits = list(theta = thetalim, r = rlim),
     theta = theta,
     r = r,
@@ -193,7 +205,9 @@ coord_radial <- function(theta = "x",
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordRadial <- ggproto("CoordRadial", Coord,
+CoordRadial <- ggproto(
+  "CoordRadial",
+  Coord,
 
   aspect = function(details) {
     diff(details$bbox$y) / diff(details$bbox$x)
@@ -238,14 +252,23 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       ylimits <- self$limits$theta
     }
     params <- c(
-      view_scales_polar(scale_x, self$theta, xlimits,
+      view_scales_polar(
+        scale_x,
+        self$theta,
+        xlimits,
         expand = params$expand[c(4, 2)]
       ),
-      view_scales_polar(scale_y, self$theta, ylimits,
+      view_scales_polar(
+        scale_y,
+        self$theta,
+        ylimits,
         expand = params$expand[c(3, 1)]
       ),
-      list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
-           arc = self$arc, inner_radius = self$inner_radius)
+      list(
+        bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
+        arc = self$arc,
+        inner_radius = self$inner_radius
+      )
     )
 
     axis_rotation <- self$r_axis_inside
@@ -254,8 +277,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
       axis_rotation <- theta_scale$transform(axis_rotation)
       axis_rotation <- oob_squish(axis_rotation, params$theta.range)
       axis_rotation <- theta_rescale(
-        axis_rotation, params$theta.range,
-        params$arc, 1
+        axis_rotation,
+        params$theta.range,
+        params$arc,
+        1
       )
       params$axis_rotation <- rep_len(axis_rotation, length.out = 2)
     } else {
@@ -266,17 +291,18 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   setup_panel_guides = function(self, panel_params, guides, params = list()) {
-
     aesthetics <- c("r", "theta", "r.sec", "theta.sec")
     names(aesthetics) <- aesthetics
     is_sec <- grepl("sec$", aesthetics)
     scales <- panel_params[aesthetics]
 
     # Fill in theta guide default
-    panel_params$theta$guide <- panel_params$theta$guide %|W|% guide_axis_theta()
+    panel_params$theta$guide <- panel_params$theta$guide %|W|%
+      guide_axis_theta()
 
     guides <- guides$setup(
-      scales, aesthetics,
+      scales,
+      aesthetics,
       default = params$guide_default %||% guide_axis(),
       missing = params$guide_missing %||% guide_none()
     )
@@ -291,7 +317,7 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     names(guide_params) <- aesthetics
 
     # Set guide positions
-    guide_params[["theta"]]$position     <- "theta"
+    guide_params[["theta"]]$position <- "theta"
     guide_params[["theta.sec"]]$position <- "theta.sec"
 
     if (self$theta == "x") {
@@ -301,7 +327,6 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     }
 
     if (!isFALSE(self$r_axis_inside)) {
-
       r_position <- c("left", "right")
       # If both opposite direction and opposite position, don't flip
       if (xor(self$reverse %in% c("thetar", "theta"), opposite_r)) {
@@ -312,15 +337,16 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         arc <- rev(arc)
       }
       # Set guide text angles
-      guide_params[["r"]]$angle     <- guide_params[["r"]]$angle     %|W|% arc[1]
-      guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|% arc[2]
+      guide_params[["r"]]$angle <- guide_params[["r"]]$angle %|W|% arc[1]
+      guide_params[["r.sec"]]$angle <- guide_params[["r.sec"]]$angle %|W|%
+        arc[2]
     } else {
       r_position <- c(params$r_axis, opposite_position(params$r_axis))
       if (opposite_r) {
         r_position <- rev(r_position)
       }
     }
-    guide_params[["r"]]$position     <- r_position[1]
+    guide_params[["r"]]$position <- r_position[1]
     guide_params[["r.sec"]]$position <- r_position[2]
 
     guide_params[drop_guides] <- list(NULL)
@@ -331,14 +357,13 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   train_panel_guides = function(self, panel_params, layers, params = list()) {
-
     aesthetics <- c("r", "theta", "r.sec", "theta.sec")
     aesthetics <- intersect(aesthetics, names(panel_params$guides$aesthetics))
     names(aesthetics) <- aesthetics
 
     guides <- panel_params$guides$get_guide(aesthetics)
     names(guides) <- aesthetics
-    empty  <- vapply(guides, inherits, logical(1), "GuideNone")
+    empty <- vapply(guides, inherits, logical(1), "GuideNone")
     gdefs <- panel_params$guides$get_params(aesthetics)
     names(gdefs) <- aesthetics
 
@@ -393,9 +418,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
     data <- rename_data(self, data)
     bbox <- panel_params$bbox %||% list(x = c(0, 1), y = c(0, 1))
-    arc  <- panel_params$arc  %||% c(0, 2 * pi)
+    arc <- panel_params$arc %||% c(0, 2 * pi)
 
-    data$r  <- r_rescale(data$r, panel_params$r.range, panel_params$inner_radius)
+    data$r <- r_rescale(data$r, panel_params$r.range, panel_params$inner_radius)
     data$theta <- theta_rescale(data$theta, panel_params$theta.range, arc)
     data$x <- rescale(data$r * sin(data$theta) + 0.5, from = bbox$x)
     data$y <- rescale(data$r * cos(data$theta) + 0.5, from = bbox$y)
@@ -431,7 +456,6 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   render_fg = function(self, panel_params, theme) {
-
     border <- element_render(theme, "panel.border", fill = NA)
 
     if (isFALSE(self$r_axis_inside)) {
@@ -444,10 +468,10 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     }
 
     bbox <- panel_params$bbox
-    dir  <- self$direction
-    rot  <- panel_params$axis_rotation
-    rot  <- switch(self$reverse, thetar = , theta = rev(rot), rot)
-    rot  <- rad2deg(-rot)
+    dir <- self$direction
+    rot <- panel_params$axis_rotation
+    rot <- switch(self$reverse, thetar = , theta = rev(rot), rot)
+    rot <- rad2deg(-rot)
 
     left <- panel_guides_grob(panel_params$guides, position = "left", theme)
     left <- rotate_r_axis(left, rot[1], bbox, "left")
@@ -458,11 +482,11 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     grobTree(
       panel_guides_grob(panel_params$guides, "theta", theme),
       panel_guides_grob(panel_params$guides, "theta.sec", theme),
-      left, right,
+      left,
+      right,
       border
     )
   },
-
 
   draw_panel = function(self, panel, params, theme) {
     clip_support <- check_device("clippingPaths", "test", maybe = TRUE)
@@ -494,8 +518,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     if (self$theta == "y") {
       # Need to use single brackets for labels to avoid deleting an element by
       # assigning NULL
-      labels$y['primary']   <- list(titles[[1]] %|W|% labels$y$primary)
-      labels$x['primary']   <- list(titles[[2]] %|W|% labels$x$primary)
+      labels$y['primary'] <- list(titles[[1]] %|W|% labels$y$primary)
+      labels$x['primary'] <- list(titles[[2]] %|W|% labels$x$primary)
       labels$x['secondary'] <- list(titles[[3]] %|W|% labels$x$secondary)
       if (any(in_arc(c(0, 1) * pi, panel_params$arc))) {
         labels <- list(x = labels$y, y = labels$x)
@@ -503,8 +527,8 @@ CoordRadial <- ggproto("CoordRadial", Coord,
         labels <- list(x = rev(labels$x), y = rev(labels$y))
       }
     } else {
-      labels$x['primary']   <- list(titles[[1]] %|W|% labels$x$primary)
-      labels$y['primary']   <- list(titles[[2]] %|W|% labels$y$primary)
+      labels$x['primary'] <- list(titles[[1]] %|W|% labels$x$primary)
+      labels$y['primary'] <- list(titles[[2]] %|W|% labels$y$primary)
       labels$y['secondary'] <- list(titles[[3]] %|W|% labels$y$secondary)
 
       if (!any(in_arc(c(0, 1) * pi, panel_params$arc))) {
@@ -515,8 +539,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   modify_scales = function(self, scales_x, scales_y) {
-    if (self$theta != "y")
+    if (self$theta != "y") {
       return()
+    }
 
     lapply(scales_x, scale_flip_position)
     lapply(scales_y, scale_flip_position)
@@ -526,27 +551,36 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     params <- ggproto_parent(Coord, self)$setup_params(data)
     if (isFALSE(self$r_axis_inside)) {
       place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-      params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+      params$r_axis <- if (any(place[c(1, 3)])) "left" else "bottom"
       params$fake_arc <- switch(
         which(place[c(1, 3, 2, 4)])[1],
-        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
-      ) * pi
+        c(0, 2),
+        c(1, 3),
+        c(0.5, 2.5),
+        c(1.5, 3.5)
+      ) *
+        pi
     }
     params
   }
 )
 
-view_scales_polar <- function(scale, theta = "x", coord_limits = NULL,
-                              expand = TRUE) {
-
+view_scales_polar <- function(
+  scale,
+  theta = "x",
+  coord_limits = NULL,
+  expand = TRUE
+) {
   aesthetic <- scale$aesthetics[1]
-  is_theta  <- theta == aesthetic
+  is_theta <- theta == aesthetic
   name <- if (is_theta) "theta" else "r"
 
   expansion <- default_expansion(scale, expand = expand)
   limits <- scale$get_limits()
   continuous_range <- expand_limits_scale(
-    scale, expansion, limits,
+    scale,
+    expansion,
+    limits,
     coord_limits
   )
 
@@ -577,9 +611,11 @@ view_scales_polar <- function(scale, theta = "x", coord_limits = NULL,
 #' @noRd
 #' @examples
 #' polar_bbox(c(0, 1) * pi)
-polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
-                       inner_radius = c(0, 0.4)) {
-
+polar_bbox <- function(
+  arc,
+  margin = c(0.05, 0.05, 0.05, 0.05),
+  inner_radius = c(0, 0.4)
+) {
   # Early exit if we have full circle or more
   if (abs(diff(arc)) >= 2 * pi) {
     return(list(x = c(0, 1), y = c(0, 1)))
@@ -607,11 +643,14 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
   bounds <- ifelse(
     in_sector,
     c(1, 1, 0, 0),
-    c(max(ymax, margin[1]), max(xmax, margin[2]),
-      min(ymax, margin[3]), min(xmax, margin[4]))
+    c(
+      max(ymax, margin[1]),
+      max(xmax, margin[2]),
+      min(ymax, margin[3]),
+      min(xmax, margin[4])
+    )
   )
-  list(x = c(bounds[4], bounds[2]),
-       y = c(bounds[3], bounds[1]))
+  list(x = c(bounds[4], bounds[2]), y = c(bounds[3], bounds[1]))
 }
 
 # For any `theta` in [0, 2 * pi), test if theta is inside the span
@@ -636,7 +675,6 @@ deg2rad <- function(deg) deg * pi / 180
 
 # Function to rotate a radius axis through viewport
 rotate_r_axis <- function(axis, angle, bbox, position = "left") {
-
   if (is_zero(axis)) {
     return(axis)
   }
@@ -665,7 +703,7 @@ flip_data_text_angle <- function(data) {
     return(data)
   }
   angle <- (data$angle - rad2deg(data$theta)) %% 360
-  flip  <- angle > 90 & angle < 270
+  flip <- angle > 90 & angle < 270
   angle[flip] <- angle[flip] + 180
   data$angle <- angle
   if ("hjust" %in% names(data)) {
@@ -678,8 +716,12 @@ flip_data_text_angle <- function(data) {
 }
 
 
-theta_grid <- function(theta, element, inner_radius = c(0, 0.4),
-                       bbox = list(x = c(0, 1), y = c(0, 1))) {
+theta_grid <- function(
+  theta,
+  element,
+  inner_radius = c(0, 0.4),
+  bbox = list(x = c(0, 1), y = c(0, 1))
+) {
   n <- length(theta)
   if (n < 1) {
     return(NULL)

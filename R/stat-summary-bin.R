@@ -3,34 +3,46 @@
 #' @param breaks Alternatively, you can supply a numeric vector giving the bin
 #'   boundaries. Overrides `binwidth` and `bins`.
 #' @export
-stat_summary_bin <- function(mapping = NULL, data = NULL,
-                             geom = "pointrange", position = "identity",
-                             ...,
-                             fun.data = NULL,
-                             fun = NULL,
-                             fun.max = NULL,
-                             fun.min = NULL,
-                             fun.args = list(),
-                             bins = 30,
-                             binwidth = NULL,
-                             breaks = NULL,
-                             na.rm = FALSE,
-                             orientation = NA,
-                             show.legend = NA,
-                             inherit.aes = TRUE,
-                             fun.y = deprecated(),
-                             fun.ymin = deprecated(),
-                             fun.ymax = deprecated()) {
+stat_summary_bin <- function(
+  mapping = NULL,
+  data = NULL,
+  geom = "pointrange",
+  position = "identity",
+  ...,
+  fun.data = NULL,
+  fun = NULL,
+  fun.max = NULL,
+  fun.min = NULL,
+  fun.args = list(),
+  bins = 30,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.y = deprecated(),
+  fun.ymin = deprecated(),
+  fun.ymax = deprecated()
+) {
   if (lifecycle::is_present(fun.y)) {
     deprecate_warn0("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
     fun <- fun %||% fun.y
   }
   if (lifecycle::is_present(fun.ymin)) {
-    deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
+    deprecate_warn0(
+      "3.3.0",
+      "stat_summary_bin(fun.ymin)",
+      "stat_summary_bin(fun.min)"
+    )
     fun.min <- fun.min %||% fun.ymin
   }
   if (lifecycle::is_present(fun.ymax)) {
-    deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
+    deprecate_warn0(
+      "3.3.0",
+      "stat_summary_bin(fun.ymax)",
+      "stat_summary_bin(fun.max)"
+    )
     fun.max <- fun.max %||% fun.ymax
   }
   layer(
@@ -61,32 +73,58 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-StatSummaryBin <- ggproto("StatSummaryBin", Stat,
+StatSummaryBin <- ggproto(
+  "StatSummaryBin",
+  Stat,
   required_aes = c("x", "y"),
 
-  extra_params = c("na.rm", "orientation", "fun.data", "fun.max", "fun.min", "fun.args"),
+  extra_params = c(
+    "na.rm",
+    "orientation",
+    "fun.data",
+    "fun.max",
+    "fun.min",
+    "fun.args"
+  ),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
     params[["fun"]] <- make_summary_fun(
-      params$fun.data, params[["fun"]],
-      params$fun.max, params$fun.min,
+      params$fun.data,
+      params[["fun"]],
+      params$fun.max,
+      params$fun.min,
       params$fun.args %||% list()
     )
     params
   },
 
-  compute_group = function(data, scales, fun = NULL,
-                           bins = 30, binwidth = NULL, breaks = NULL,
-                           origin = NULL, right = FALSE, na.rm = FALSE,
-                           flipped_aes = FALSE, width = NULL, center = NULL,
-                           boundary = NULL, closed = c("right", "left")) {
-
+  compute_group = function(
+    data,
+    scales,
+    fun = NULL,
+    bins = 30,
+    binwidth = NULL,
+    breaks = NULL,
+    origin = NULL,
+    right = FALSE,
+    na.rm = FALSE,
+    flipped_aes = FALSE,
+    width = NULL,
+    center = NULL,
+    boundary = NULL,
+    closed = c("right", "left")
+  ) {
     x <- flipped_names(flipped_aes)$x
     bins <- compute_bins(
-      data[[x]], scales[[x]],
-      breaks = breaks, binwidth = binwidth, bins = bins,
-      center = center,  boundary = boundary, closed = closed
+      data[[x]],
+      scales[[x]],
+      breaks = breaks,
+      binwidth = binwidth,
+      bins = bins,
+      center = center,
+      boundary = boundary,
+      closed = closed
     )
     data$bin <- bin_cut(data[[x]], bins)
 
@@ -125,7 +163,9 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
     # Three functions that take vectors as inputs
 
     call_f <- function(fun, x) {
-      if (is.null(fun)) return(NA_real_)
+      if (is.null(fun)) {
+        return(NA_real_)
+      }
       fun <- as_function(fun)
       inject(fun(x, !!!fun.args))
     }

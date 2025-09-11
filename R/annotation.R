@@ -40,10 +40,19 @@
 #'   parse = TRUE)
 #' p + annotate("text", x = 4, y = 25,
 #'   label = "paste(italic(R) ^ 2, \" = .75\")", parse = TRUE)
-annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
-                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
-                     na.rm = FALSE) {
-
+annotate <- function(
+  geom,
+  x = NULL,
+  y = NULL,
+  xmin = NULL,
+  xmax = NULL,
+  ymin = NULL,
+  ymax = NULL,
+  xend = NULL,
+  yend = NULL,
+  ...,
+  na.rm = FALSE
+) {
   if (is_string(geom, c("abline", "hline", "vline"))) {
     cli::cli_warn(c(
       "{.arg geom} must not be {.val {geom}}.",
@@ -52,8 +61,14 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   }
 
   position <- compact(list(
-    x = x, xmin = xmin, xmax = xmax, xend = xend,
-    y = y, ymin = ymin, ymax = ymax, yend = yend
+    x = x,
+    xmin = xmin,
+    xmax = xmax,
+    xend = xend,
+    y = y,
+    ymin = ymin,
+    ymax = ymax,
+    yend = yend
   ))
   aesthetics <- c(position, list(...))
 
@@ -95,4 +110,3 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     show.legend = FALSE
   )
 }
-

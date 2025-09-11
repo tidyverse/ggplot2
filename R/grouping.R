@@ -9,7 +9,9 @@ NO_GROUP <- -1L
 # character) vectors, excluding `label`. The special value `NO_GROUP`
 # is used for all observations if no discrete variables exist.
 add_group <- function(data) {
-  if (empty(data)) return(data)
+  if (empty(data)) {
+    return(data)
+  }
 
   if (is.null(data[["group"]])) {
     disc <- vapply(data, is_discrete, logical(1))

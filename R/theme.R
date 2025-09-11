@@ -335,154 +335,155 @@
 #' p4 + aes(colour = drat) +
 #'   theme(palette.colour.continuous = c("white", "pink", "hotpink"))
 #' }
-theme <- function(...,
-                  line,
-                  rect,
-                  text,
-                  title,
-                  point,
-                  polygon,
-                  geom,
-                  spacing,
-                  margins,
-                  aspect.ratio,
-                  axis.title,
-                  axis.title.x,
-                  axis.title.x.top,
-                  axis.title.x.bottom,
-                  axis.title.y,
-                  axis.title.y.left,
-                  axis.title.y.right,
-                  axis.text,
-                  axis.text.x,
-                  axis.text.x.top,
-                  axis.text.x.bottom,
-                  axis.text.y,
-                  axis.text.y.left,
-                  axis.text.y.right,
-                  axis.text.theta,
-                  axis.text.r,
-                  axis.ticks,
-                  axis.ticks.x,
-                  axis.ticks.x.top,
-                  axis.ticks.x.bottom,
-                  axis.ticks.y,
-                  axis.ticks.y.left,
-                  axis.ticks.y.right,
-                  axis.ticks.theta,
-                  axis.ticks.r,
-                  axis.minor.ticks.x.top,
-                  axis.minor.ticks.x.bottom,
-                  axis.minor.ticks.y.left,
-                  axis.minor.ticks.y.right,
-                  axis.minor.ticks.theta,
-                  axis.minor.ticks.r,
-                  axis.ticks.length,
-                  axis.ticks.length.x,
-                  axis.ticks.length.x.top,
-                  axis.ticks.length.x.bottom,
-                  axis.ticks.length.y,
-                  axis.ticks.length.y.left,
-                  axis.ticks.length.y.right,
-                  axis.ticks.length.theta,
-                  axis.ticks.length.r,
-                  axis.minor.ticks.length,
-                  axis.minor.ticks.length.x,
-                  axis.minor.ticks.length.x.top,
-                  axis.minor.ticks.length.x.bottom,
-                  axis.minor.ticks.length.y,
-                  axis.minor.ticks.length.y.left,
-                  axis.minor.ticks.length.y.right,
-                  axis.minor.ticks.length.theta,
-                  axis.minor.ticks.length.r,
-                  axis.line,
-                  axis.line.x,
-                  axis.line.x.top,
-                  axis.line.x.bottom,
-                  axis.line.y,
-                  axis.line.y.left,
-                  axis.line.y.right,
-                  axis.line.theta,
-                  axis.line.r,
-                  legend.background,
-                  legend.margin,
-                  legend.spacing,
-                  legend.spacing.x,
-                  legend.spacing.y,
-                  legend.key,
-                  legend.key.size,
-                  legend.key.height,
-                  legend.key.width,
-                  legend.key.spacing,
-                  legend.key.spacing.x,
-                  legend.key.spacing.y,
-                  legend.key.justification,
-                  legend.frame,
-                  legend.ticks,
-                  legend.ticks.length,
-                  legend.axis.line,
-                  legend.text,
-                  legend.text.position,
-                  legend.title,
-                  legend.title.position,
-                  legend.position,
-                  legend.position.inside,
-                  legend.direction,
-                  legend.byrow,
-                  legend.justification,
-                  legend.justification.top,
-                  legend.justification.bottom,
-                  legend.justification.left,
-                  legend.justification.right,
-                  legend.justification.inside,
-                  legend.location,
-                  legend.box,
-                  legend.box.just,
-                  legend.box.margin,
-                  legend.box.background,
-                  legend.box.spacing,
-                  panel.background,
-                  panel.border,
-                  panel.spacing,
-                  panel.spacing.x,
-                  panel.spacing.y,
-                  panel.grid,
-                  panel.grid.major,
-                  panel.grid.minor,
-                  panel.grid.major.x,
-                  panel.grid.major.y,
-                  panel.grid.minor.x,
-                  panel.grid.minor.y,
-                  panel.ontop,
-                  panel.widths,
-                  panel.heights,
-                  plot.background,
-                  plot.title,
-                  plot.title.position,
-                  plot.subtitle,
-                  plot.caption,
-                  plot.caption.position,
-                  plot.tag,
-                  plot.tag.position,
-                  plot.tag.location,
-                  plot.margin,
-                  strip.background,
-                  strip.background.x,
-                  strip.background.y,
-                  strip.clip,
-                  strip.placement,
-                  strip.text,
-                  strip.text.x,
-                  strip.text.x.bottom,
-                  strip.text.x.top,
-                  strip.text.y,
-                  strip.text.y.left,
-                  strip.text.y.right,
-                  strip.switch.pad.grid,
-                  strip.switch.pad.wrap,
-                  complete = FALSE,
-                  validate = TRUE) {
-
+theme <- function(
+  ...,
+  line,
+  rect,
+  text,
+  title,
+  point,
+  polygon,
+  geom,
+  spacing,
+  margins,
+  aspect.ratio,
+  axis.title,
+  axis.title.x,
+  axis.title.x.top,
+  axis.title.x.bottom,
+  axis.title.y,
+  axis.title.y.left,
+  axis.title.y.right,
+  axis.text,
+  axis.text.x,
+  axis.text.x.top,
+  axis.text.x.bottom,
+  axis.text.y,
+  axis.text.y.left,
+  axis.text.y.right,
+  axis.text.theta,
+  axis.text.r,
+  axis.ticks,
+  axis.ticks.x,
+  axis.ticks.x.top,
+  axis.ticks.x.bottom,
+  axis.ticks.y,
+  axis.ticks.y.left,
+  axis.ticks.y.right,
+  axis.ticks.theta,
+  axis.ticks.r,
+  axis.minor.ticks.x.top,
+  axis.minor.ticks.x.bottom,
+  axis.minor.ticks.y.left,
+  axis.minor.ticks.y.right,
+  axis.minor.ticks.theta,
+  axis.minor.ticks.r,
+  axis.ticks.length,
+  axis.ticks.length.x,
+  axis.ticks.length.x.top,
+  axis.ticks.length.x.bottom,
+  axis.ticks.length.y,
+  axis.ticks.length.y.left,
+  axis.ticks.length.y.right,
+  axis.ticks.length.theta,
+  axis.ticks.length.r,
+  axis.minor.ticks.length,
+  axis.minor.ticks.length.x,
+  axis.minor.ticks.length.x.top,
+  axis.minor.ticks.length.x.bottom,
+  axis.minor.ticks.length.y,
+  axis.minor.ticks.length.y.left,
+  axis.minor.ticks.length.y.right,
+  axis.minor.ticks.length.theta,
+  axis.minor.ticks.length.r,
+  axis.line,
+  axis.line.x,
+  axis.line.x.top,
+  axis.line.x.bottom,
+  axis.line.y,
+  axis.line.y.left,
+  axis.line.y.right,
+  axis.line.theta,
+  axis.line.r,
+  legend.background,
+  legend.margin,
+  legend.spacing,
+  legend.spacing.x,
+  legend.spacing.y,
+  legend.key,
+  legend.key.size,
+  legend.key.height,
+  legend.key.width,
+  legend.key.spacing,
+  legend.key.spacing.x,
+  legend.key.spacing.y,
+  legend.key.justification,
+  legend.frame,
+  legend.ticks,
+  legend.ticks.length,
+  legend.axis.line,
+  legend.text,
+  legend.text.position,
+  legend.title,
+  legend.title.position,
+  legend.position,
+  legend.position.inside,
+  legend.direction,
+  legend.byrow,
+  legend.justification,
+  legend.justification.top,
+  legend.justification.bottom,
+  legend.justification.left,
+  legend.justification.right,
+  legend.justification.inside,
+  legend.location,
+  legend.box,
+  legend.box.just,
+  legend.box.margin,
+  legend.box.background,
+  legend.box.spacing,
+  panel.background,
+  panel.border,
+  panel.spacing,
+  panel.spacing.x,
+  panel.spacing.y,
+  panel.grid,
+  panel.grid.major,
+  panel.grid.minor,
+  panel.grid.major.x,
+  panel.grid.major.y,
+  panel.grid.minor.x,
+  panel.grid.minor.y,
+  panel.ontop,
+  panel.widths,
+  panel.heights,
+  plot.background,
+  plot.title,
+  plot.title.position,
+  plot.subtitle,
+  plot.caption,
+  plot.caption.position,
+  plot.tag,
+  plot.tag.position,
+  plot.tag.location,
+  plot.margin,
+  strip.background,
+  strip.background.x,
+  strip.background.y,
+  strip.clip,
+  strip.placement,
+  strip.text,
+  strip.text.x,
+  strip.text.x.bottom,
+  strip.text.x.top,
+  strip.text.y,
+  strip.text.y.left,
+  strip.text.y.right,
+  strip.switch.pad.grid,
+  strip.switch.pad.wrap,
+  complete = FALSE,
+  validate = TRUE
+) {
   elements <- find_args(..., complete = NULL, validate = NULL)
   elements <- fix_theme_deprecations(elements)
   elements <- validate_theme_palettes(elements)
@@ -513,7 +514,8 @@ fix_theme_deprecations <- function(elements) {
   }
   if (!is.null(elements$legend.title.align)) {
     deprecate_soft0(
-      "3.5.0", "theme(legend.title.align)",
+      "3.5.0",
+      "theme(legend.title.align)",
       I("theme(legend.title = element_text(hjust))")
     )
     if (is.null(elements[["legend.title"]])) {
@@ -526,7 +528,8 @@ fix_theme_deprecations <- function(elements) {
   }
   if (!is.null(elements$legend.text.align)) {
     deprecate_soft0(
-      "3.5.0", "theme(legend.text.align)",
+      "3.5.0",
+      "theme(legend.text.align)",
       I("theme(legend.text = element_text(hjust))")
     )
     if (is.null(elements[["legend.text"]])) {
@@ -539,7 +542,8 @@ fix_theme_deprecations <- function(elements) {
   }
   if (is.numeric(elements[["legend.position"]])) {
     deprecate_soft0(
-      "3.5.0", I("A numeric `legend.position` argument in `theme()`"),
+      "3.5.0",
+      I("A numeric `legend.position` argument in `theme()`"),
       "theme(legend.position.inside)"
     )
     elements$legend.position.inside <- elements$legend.position
@@ -549,29 +553,43 @@ fix_theme_deprecations <- function(elements) {
 }
 
 validate_theme_palettes <- function(elements) {
-
-  pals <- c("palette.colour.discrete", "palette.colour.continuous",
-            "palette.fill.discrete",   "palette.fill.continuous",
-            "palette.color.discrete",  "palette.color.continuous")
+  pals <- c(
+    "palette.colour.discrete",
+    "palette.colour.continuous",
+    "palette.fill.discrete",
+    "palette.fill.continuous",
+    "palette.color.discrete",
+    "palette.color.continuous"
+  )
   if (!any(pals %in% names(elements))) {
     return(elements)
   }
 
   # Standardise spelling
   if ("palette.color.continuous" %in% names(elements)) {
-    elements["palette.colour.continuous"]  <- elements["palette.color.continuous"]
+    elements["palette.colour.continuous"] <- elements[
+      "palette.color.continuous"
+    ]
     elements[["palette.color.continuous"]] <- NULL
   }
   if ("palette.color.discrete" %in% names(elements)) {
-    elements["palette.colour.discrete"]  <- elements["palette.color.discrete"]
+    elements["palette.colour.discrete"] <- elements["palette.color.discrete"]
     elements[["palette.color.discrete"]] <- NULL
   }
 
   # Check for incompatible options
-  pals <- c("palette.colour.discrete", "palette.colour.continuous",
-            "palette.fill.discrete",   "palette.fill.continuous")
-  opts <- c("ggplot2.discrete.colour", "ggplot2.continuous.colour",
-            "ggplot2.discrete.fill",   "ggplot2.continuous.fill")
+  pals <- c(
+    "palette.colour.discrete",
+    "palette.colour.continuous",
+    "palette.fill.discrete",
+    "palette.fill.continuous"
+  )
+  opts <- c(
+    "ggplot2.discrete.colour",
+    "ggplot2.continuous.colour",
+    "ggplot2.discrete.fill",
+    "ggplot2.continuous.fill"
+  )
   index <- which(pals %in% names(elements))
 
   for (i in index) {
@@ -618,7 +636,9 @@ check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   elnames[startsWith(elnames, "geom.")] <- "geom"
 
   mapply(
-    check_element, theme, elnames,
+    check_element,
+    theme,
+    elnames,
     MoreArgs = list(element_tree = tree, call = call)
   )
 }
@@ -660,7 +680,6 @@ plot_theme <- function(x, default = get_theme()) {
     theme <- x$theme
   }
 
-
   # apply theme defaults appropriately if needed
   if (is_theme_complete(theme)) {
     # for complete themes, we fill in missing elements but don't do any element merging
@@ -698,13 +717,15 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
   if (is.null(t2)) {
     return(t1)
   }
-  if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
+  if (!is.list(t2)) {
+    # in various places in the code base, simple lists are used as themes
     cli::cli_abort("Can't add {.arg {t2name}} to a theme object.", call = call)
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2
-  if (is_theme_complete(t2) || is.null(t1))
+  if (is_theme_complete(t2) || is.null(t1)) {
     return(t2)
+  }
 
   # Iterate over the elements that are to be updated
   try_fetch(
@@ -717,7 +738,11 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
       t1[item] <- list(x)
     },
     error = function(cnd) {
-      cli::cli_abort("Can't merge the {.var {item}} theme element.", parent = cnd, call = call)
+      cli::cli_abort(
+        "Can't merge the {.var {item}} theme element.",
+        parent = cnd,
+        call = call
+      )
     }
   )
 
@@ -754,9 +779,16 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
 #' t$axis.text.x
 #' t$axis.text
 #' t$text
-calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
-                         call = caller_env()) {
-  if (verbose) cli::cli_inform(paste0(element, " --> "))
+calc_element <- function(
+  element,
+  theme,
+  verbose = FALSE,
+  skip_blank = FALSE,
+  call = caller_env()
+) {
+  if (verbose) {
+    cli::cli_inform(paste0(element, " --> "))
+  }
 
   el_out <- theme[[element]]
 
@@ -766,7 +798,9 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
-      if (verbose) cli::cli_inform("{.fn element_blank} (no inheritance)")
+      if (verbose) {
+        cli::cli_inform("{.fn element_blank} (no inheritance)")
+      }
       return(el_out)
     }
   }
@@ -781,11 +815,17 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (inherits(class, "S7_class")) {
       old_s3_inherit <- inherits(el_out, class@name)
       if (!S7::S7_inherits(el_out, class) && !old_s3_inherit) {
-        cli::cli_abort("Theme element {.var {element}} must have class {.cls {class@name}}.", call = call)
+        cli::cli_abort(
+          "Theme element {.var {element}} must have class {.cls {class@name}}.",
+          call = call
+        )
       }
     } else {
       if (!inherits(el_out, class)) {
-        cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
+        cli::cli_abort(
+          "Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.",
+          call = call
+        )
       }
     }
   }
@@ -795,7 +835,9 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
-    if (verbose) cli::cli_inform("nothing (top level)")
+    if (verbose) {
+      cli::cli_inform("nothing (top level)")
+    }
 
     # Check that all the properties of this element are non-NULL
     if (is_theme_element(el_out)) {
@@ -823,11 +865,16 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
       return(el_out) # no null properties remaining, return element
     }
 
-    cli::cli_abort("Theme element {.var {element}} has {.code NULL} property without default: {.field {names(nullprops)[nullprops]}}.", call = call)
+    cli::cli_abort(
+      "Theme element {.var {element}} has {.code NULL} property without default: {.field {names(nullprops)[nullprops]}}.",
+      call = call
+    )
   }
 
   # Calculate the parent objects' inheritance
-  if (verbose) cli::cli_inform("{pnames}")
+  if (verbose) {
+    cli::cli_inform("{pnames}")
+  }
 
   # once we've started skipping blanks, we continue doing so until the end of the
   # recursion; we initiate skipping blanks if we encounter an element that
@@ -867,7 +914,8 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 #' merge_element(new, old)
 #'
 merge_element <- S7::new_generic(
-  "merge_element", dispatch_args = c("new", "old"),
+  "merge_element",
+  dispatch_args = c("new", "old"),
   fun = function(new, old, ...) {
     # If old is NULL or element_blank, then just return new
     if (is.null(old) || is_theme_element(old, "blank")) {
@@ -877,16 +925,24 @@ merge_element <- S7::new_generic(
   }
 )
 
-S7::method(merge_element, list(S7::class_any, S7::class_any))  <-
+S7::method(merge_element, list(S7::class_any, S7::class_any)) <-
   function(new, old, ...) {
-    if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
-        is.logical(new) || is.function(new)) {
+    if (
+      is.null(new) ||
+        is.character(new) ||
+        is.numeric(new) ||
+        is.unit(new) ||
+        is.logical(new) ||
+        is.function(new)
+    ) {
       # If new is NULL, or a string, numeric vector, unit, or logical, just return it
       return(new)
     }
 
     # otherwise we can't merge
-    cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
+    cli::cli_abort(
+      "No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}."
+    )
   }
 
 S7::method(merge_element, list(element_blank, S7::class_any)) <-
@@ -912,7 +968,7 @@ S7::method(merge_element, list(element, S7::class_any)) <-
     S7::props(new)[idx] <- S7::props(old, idx)
 
     new
-}
+  }
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
   function(new, old, ...) {
@@ -943,7 +999,6 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
 #' @noRd
 #'
 combine_elements <- function(e1, e2) {
-
   # If e2 is NULL, nothing to inherit
   if (is.null(e2) || is_theme_element(e1, "blank")) {
     return(e1)

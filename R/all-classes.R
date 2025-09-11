@@ -99,7 +99,7 @@ class_guides <- S7::new_S3_class("Guides")
 #' @export
 #' @format NULL
 #' @usage NULL
-class_guide  <- S7::new_S3_class("Guide")
+class_guide <- S7::new_S3_class("Guide")
 
 #' @rdname class_definitions
 #' @section ggproto classes:
@@ -108,7 +108,7 @@ class_guide  <- S7::new_S3_class("Guide")
 #' @export
 #' @format NULL
 #' @usage NULL
-class_coord  <- S7::new_S3_class("Coord")
+class_coord <- S7::new_S3_class("Coord")
 
 
 #' @rdname class_definitions
@@ -118,7 +118,7 @@ class_coord  <- S7::new_S3_class("Coord")
 #' @export
 #' @format NULL
 #' @usage NULL
-class_facet  <- S7::new_S3_class("Facet")
+class_facet <- S7::new_S3_class("Facet")
 
 #' @rdname class_definitions
 #' @section ggproto classes:
@@ -128,7 +128,7 @@ class_facet  <- S7::new_S3_class("Facet")
 #' @export
 #' @format NULL
 #' @usage NULL
-class_layer  <- S7::new_S3_class("Layer")
+class_layer <- S7::new_S3_class("Layer")
 
 #' @rdname class_definitions
 #' @section ggproto classes:
@@ -213,12 +213,18 @@ class_derive <- S7::new_S3_class("derive")
 #' @keywords internal
 #' @export
 class_theme <- S7::new_class(
-  "theme", class_S3_gg,
+  "theme",
+  class_S3_gg,
   properties = list(
     complete = S7::class_logical,
     validate = S7::class_logical
   ),
-  constructor = function(elements = list(), ..., complete = FALSE, validate = TRUE) {
+  constructor = function(
+    elements = list(),
+    ...,
+    complete = FALSE,
+    validate = TRUE
+  ) {
     warn_dots_empty()
     S7::new_object(
       elements,
@@ -246,7 +252,8 @@ class_theme <- S7::new_class(
 #' @keywords internal
 #' @export
 class_labels <- S7::new_class(
-  "labels", parent = class_S3_gg,
+  "labels",
+  parent = class_S3_gg,
   constructor = function(labels = list(), ...) {
     warn_dots_empty()
     S7::new_object(labels)
@@ -282,7 +289,8 @@ class_labels <- S7::new_class(
 #' @keywords internal
 #' @export
 class_mapping <- S7::new_class(
-  "mapping", parent = class_S3_gg,
+  "mapping",
+  parent = class_S3_gg,
   constructor = function(x = list(), ..., env = globalenv()) {
     warn_dots_empty()
     check_object(x, is.list, "a {.cls list}")
@@ -320,19 +328,20 @@ class_mapping <- S7::new_class(
 #' @keywords internal
 #' @export
 class_ggplot <- S7::new_class(
-  name = "ggplot", parent = class_gg,
+  name = "ggplot",
+  parent = class_gg,
   properties = list(
-    data    = S7::class_any,
-    layers  = S7::class_list,
-    scales  = class_scales_list,
-    guides  = class_guides,
+    data = S7::class_any,
+    layers = S7::class_list,
+    scales = class_scales_list,
+    guides = class_guides,
     mapping = class_mapping,
-    theme   = class_theme,
+    theme = class_theme,
     coordinates = class_coord,
-    facet   = class_facet,
-    layout  = class_layout,
-    labels  = class_labels,
-    meta    = S7::class_list,
+    facet = class_facet,
+    layout = class_layout,
+    labels = class_labels,
+    meta = S7::class_list,
     plot_env = S7::class_environment
   ),
   constructor = function(
@@ -353,18 +362,18 @@ class_ggplot <- S7::new_class(
     warn_dots_empty()
     S7::new_object(
       S7::S7_object(),
-      data        = data,
-      layers      = layers,
-      scales      = scales %||% scales_list(),
-      guides      = guides %||% guides_list(),
-      mapping     = mapping,
-      theme       = theme %||% theme(),
+      data = data,
+      layers = layers,
+      scales = scales %||% scales_list(),
+      guides = guides %||% guides_list(),
+      mapping = mapping,
+      theme = theme %||% theme(),
       coordinates = coordinates,
-      facet       = facet,
-      layout      = layout %||% ggproto(NULL, Layout),
-      labels      = labels,
-      meta        = meta,
-      plot_env    = plot_env
+      facet = facet,
+      layout = layout %||% ggproto(NULL, Layout),
+      labels = labels,
+      meta = meta,
+      plot_env = plot_env
     )
   }
 )
@@ -387,11 +396,12 @@ class_ggplot <- S7::new_class(
 #' @keywords internal
 #' @export
 class_ggplot_built <- S7::new_class(
-  "ggplot_built", parent = class_gg,
+  "ggplot_built",
+  parent = class_gg,
   properties = list(
-    data   = S7::class_list,
+    data = S7::class_list,
     layout = class_layout,
-    plot   = class_ggplot
+    plot = class_ggplot
   ),
   constructor = function(..., data = NULL, layout = NULL, plot = NULL) {
     warn_dots_empty()

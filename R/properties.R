@@ -77,8 +77,8 @@ property_colour <- function(
   # TODO: remove numeric option for editioning
   class <- S7::new_union(
     S7::class_character, # Hex codes and colour names, e.g. #FF000 or "red"
-    S7::class_logical,   # For allowing NA, which means 'transparent'
-    S7::class_numeric    # For `grDevices::palette()` indexing
+    S7::class_logical, # For allowing NA, which means 'transparent'
+    S7::class_numeric # For `grDevices::palette()` indexing
   )
   if (isTRUE(pattern)) {
     class <- S7::new_union(class, S7::new_S3_class("GridPattern"))
@@ -98,4 +98,3 @@ property_colour <- function(
     default = default
   )
 }
-

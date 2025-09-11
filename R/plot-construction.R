@@ -42,7 +42,7 @@
 add_gg <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
-            "Cannot use {.code +} with a single argument.",
+      "Cannot use {.code +} with a single argument.",
       "i" = "Did you accidentally put {.code +} on a new line?"
     ))
   }
@@ -51,10 +51,12 @@ add_gg <- function(e1, e2) {
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
 
-  if      (is_theme(e1))  add_theme(e1, e2, e2name)
-  # The `add_ggplot()` branch here is for backward compatibility with R < 4.3.0
-  else if (is_ggplot(e1)) add_ggplot(e1, e2, e2name)
-  else if (is_ggproto(e1)) {
+  if (is_theme(e1)) {
+    add_theme(e1, e2, e2name)
+  } else if (is_ggplot(e1)) {
+    # The `add_ggplot()` branch here is for backward compatibility with R < 4.3.0
+    add_ggplot(e1, e2, e2name)
+  } else if (is_ggproto(e1)) {
     cli::cli_abort(c(
       "Cannot add {.cls ggproto} objects together.",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"
@@ -87,7 +89,9 @@ S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
 }
 
 add_ggplot <- function(p, object, objectname) {
-  if (is.null(object)) return(p)
+  if (is.null(object)) {
+    return(p)
+  }
 
   p <- plot_clone(p)
   p <- ggplot_add(object, p, objectname)
@@ -134,7 +138,6 @@ update_ggplot <- S7::new_generic("update_ggplot", c("object", "plot"))
 
 S7::method(update_ggplot, list(S7::class_any, class_ggplot)) <-
   function(object, plot, object_name, ...) {
-
     if (!S7::S7_inherits(object) && inherits(object, "theme")) {
       # This is a contingency for patchwork/#438
       if (length(object) == 0) {
@@ -164,10 +167,14 @@ S7::method(update_ggplot, list(S7::class_function, class_ggplot)) <-
   }
 
 S7::method(update_ggplot, list(NULL, class_ggplot)) <-
-  function(object, plot, ...) { plot }
+  function(object, plot, ...) {
+    plot
+  }
 
 S7::method(update_ggplot, list(S7::class_data.frame, class_ggplot)) <-
-  function(object, plot, ...) { S7::set_props(plot, data = object) }
+  function(object, plot, ...) {
+    S7::set_props(plot, data = object)
+  }
 
 S7::method(update_ggplot, list(class_scale, class_ggplot)) <-
   function(object, plot, ...) {
@@ -176,7 +183,9 @@ S7::method(update_ggplot, list(class_scale, class_ggplot)) <-
   }
 
 S7::method(update_ggplot, list(class_labels, class_ggplot)) <-
-  function(object, plot, ...) { update_labels(plot, object) }
+  function(object, plot, ...) {
+    update_labels(plot, object)
+  }
 
 S7::method(update_ggplot, list(class_guides, class_ggplot)) <-
   function(object, plot, ...) {
@@ -209,7 +218,9 @@ S7::method(update_ggplot, list(class_coord, class_ggplot)) <-
   }
 
 S7::method(update_ggplot, list(class_facet, class_ggplot)) <-
-  function(object, plot, ...) { S7::set_props(plot, facet = object) }
+  function(object, plot, ...) {
+    S7::set_props(plot, facet = object)
+  }
 
 S7::method(update_ggplot, list(class_layer, class_ggplot)) <-
   function(object, plot, ...) {
@@ -246,7 +257,6 @@ ggplot_add.default <- function(object, plot, ...) {
 }
 
 new_layer_names <- function(layer, existing) {
-
   empty <- !nzchar(existing)
   if (any(empty)) {
     existing[empty] <- "unknown"

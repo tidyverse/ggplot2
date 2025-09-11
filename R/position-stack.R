@@ -144,7 +144,9 @@ position_fill <- function(vjust = 1, reverse = FALSE) {
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionStack <- ggproto("PositionStack", Position,
+PositionStack <- ggproto(
+  "PositionStack",
+  Position,
   type = NULL,
   vjust = 1,
   fill = FALSE,
@@ -154,7 +156,7 @@ PositionStack <- ggproto("PositionStack", Position,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     var <- self$var %||% stack_var(data)
-    if (!vec_duplicate_any(data$x)  && !isTRUE(self$fill)) {
+    if (!vec_duplicate_any(data$x) && !isTRUE(self$fill)) {
       # We skip stacking when all data have different x positions so that
       # there is nothing to stack
       var <- NULL
@@ -174,7 +176,8 @@ PositionStack <- ggproto("PositionStack", Position,
       return(data)
     }
 
-    data$ymax <- switch(params$var,
+    data$ymax <- switch(
+      params$var,
       y = data$y,
       ymax = as.numeric(ifelse(data$ymax == 0, data$ymin, data$ymax))
     )
@@ -199,21 +202,31 @@ PositionStack <- ggproto("PositionStack", Position,
     pos <- data[!negative, , drop = FALSE]
 
     if (any(negative)) {
-      neg <- collide(neg, NULL, "position_stack", pos_stack,
+      neg <- collide(
+        neg,
+        NULL,
+        "position_stack",
+        pos_stack,
         vjust = params$vjust,
         fill = params$fill,
         reverse = params$reverse
       )
     }
     if (!all(negative)) {
-      pos <- collide(pos, NULL, "position_stack", pos_stack,
+      pos <- collide(
+        pos,
+        NULL,
+        "position_stack",
+        pos_stack,
         vjust = params$vjust,
         fill = params$fill,
         reverse = params$reverse
       )
     }
 
-    data <- vec_rbind0(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
+    data <- vec_rbind0(neg, pos)[
+      match(seq_len(nrow(data)), c(which(negative), which(!negative))),
+    ]
     flip_data(data, params$flipped_aes)
   }
 )
@@ -229,7 +242,7 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
       heights <- heights / total
     }
   }
-# We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
+  # We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
   if (!is.null(df$ymin) && !is.null(df$ymax)) {
     max_is_lower <- df$ymax < df$ymin
   } else {
@@ -248,9 +261,7 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionFill <- ggproto("PositionFill", PositionStack,
-  fill = TRUE
-)
+PositionFill <- ggproto("PositionFill", PositionStack, fill = TRUE)
 
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {

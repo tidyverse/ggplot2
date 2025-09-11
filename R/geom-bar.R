@@ -4,7 +4,8 @@
 #' @export
 #' @include geom-rect.R
 GeomBar <- ggproto(
-  "GeomBar", GeomRect,
+  "GeomBar",
+  GeomRect,
   required_aes = c("x", "y"),
 
   # These aes columns are created by setup_data(). They need to be listed here so
@@ -25,14 +26,20 @@ GeomBar <- ggproto(
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- compute_data_size(
-      data, size = params$width,
-      default = self$default_aes$width, zero = FALSE
+      data,
+      size = params$width,
+      default = self$default_aes$width,
+      zero = FALSE
     )
     data$just <- params$just %||% 0.5
-    data <- transform(data,
-                      ymin = pmin(y, 0), ymax = pmax(y, 0),
-                      xmin = x - width * just, xmax = x + width * (1 - just),
-                      width = NULL, just = NULL
+    data <- transform(
+      data,
+      ymin = pmin(y, 0),
+      ymax = pmax(y, 0),
+      xmin = x - width * just,
+      xmax = x + width * (1 - just),
+      width = NULL,
+      just = NULL
     )
     flip_data(data, params$flipped_aes)
   },
@@ -138,5 +145,7 @@ GeomBar <- ggproto(
 #' ggplot(df, aes(x, y)) + geom_col(just = 1)
 geom_bar <- make_constructor(
   GeomBar,
-  stat = "count", position = "stack", just = 0.5
+  stat = "count",
+  position = "stack",
+  just = 0.5
 )

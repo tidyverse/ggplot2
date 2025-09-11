@@ -10,15 +10,15 @@ panel_layout <- function(facet, data) {
 }
 
 test_that("grid: single row and single col are equivalent", {
-  row <- panel_layout(facet_grid(a~.), list(a))
-  col <- panel_layout(facet_grid(.~a), list(a))
+  row <- panel_layout(facet_grid(a ~ .), list(a))
+  col <- panel_layout(facet_grid(. ~ a), list(a))
 
   expect_equal(row$ROW, 1:2)
   expect_equal(row$ROW, col$COL)
   expect_equal(row[c("PANEL", "a")], col[c("PANEL", "a")])
 
-  row <- panel_layout(facet_grid(a~.), list(a, b))
-  col <- panel_layout(facet_grid(.~a), list(a, b))
+  row <- panel_layout(facet_grid(a ~ .), list(a, b))
+  col <- panel_layout(facet_grid(. ~ a), list(a, b))
 
   expect_equal(row$ROW, 1:3)
   expect_equal(row$ROW, col$COL)
@@ -27,17 +27,16 @@ test_that("grid: single row and single col are equivalent", {
 
 test_that("grid: includes all combinations", {
   d <- data_frame(a = c(1, 2), b = c(2, 1))
-  all <- panel_layout(facet_grid(a~b), list(d))
+  all <- panel_layout(facet_grid(a ~ b), list(d))
 
   expect_equal(nrow(all), 4)
 })
 
 test_that("wrap: layout sorting is correct", {
-
   dummy <- list(data_frame0(x = 1:5))
 
   test <- panel_layout(facet_wrap(~x, dir = "lt"), dummy)
-  expect_equal(test$ROW, rep(c(1,2), c(3, 2)))
+  expect_equal(test$ROW, rep(c(1, 2), c(3, 2)))
   expect_equal(test$COL, c(1:3, 1:2))
 
   test <- panel_layout(facet_wrap(~x, dir = "tl"), dummy)
@@ -67,21 +66,20 @@ test_that("wrap: layout sorting is correct", {
   test <- panel_layout(facet_wrap(~x, dir = "br"), dummy)
   expect_equal(test$ROW, c(2, 1, 2, 1, 2))
   expect_equal(test$COL, c(3, 3, 2, 2, 1))
-
 })
 
 test_that("wrap and grid are equivalent for 1d data", {
-  rowg <- panel_layout(facet_grid(a~.), list(a))
+  rowg <- panel_layout(facet_grid(a ~ .), list(a))
   roww <- panel_layout(facet_wrap(~a, ncol = 1), list(a))
   expect_equal(roww, rowg)
 
-  colg <- panel_layout(facet_grid(.~a), list(a))
+  colg <- panel_layout(facet_grid(. ~ a), list(a))
   colw <- panel_layout(facet_wrap(~a, nrow = 1), list(a))
   expect_equal(colw, colg)
 })
 
 test_that("grid: crossed rows/cols create no more combinations than necessary", {
-  facet <- facet_grid(a~b)
+  facet <- facet_grid(a ~ b)
 
   one <- panel_layout(facet, list(a))
   expect_equal(nrow(one), 4)
@@ -100,13 +98,13 @@ test_that("grid: crossed rows/cols create no more combinations than necessary", 
 })
 
 test_that("grid: nested rows/cols create no more combinations than necessary", {
-  one <- panel_layout(facet_grid(drv+cyl~.), list(mpg))
+  one <- panel_layout(facet_grid(drv + cyl ~ .), list(mpg))
   expect_equal(one$PANEL, factor(1:9))
   expect_equal(one$ROW, 1:9)
 })
 
 test_that("grid: margins add correct combinations", {
-  one <- panel_layout(facet_grid(a~b, margins = TRUE), list(a))
+  one <- panel_layout(facet_grid(a ~ b, margins = TRUE), list(a))
   expect_equal(nrow(one), 4 + 2 + 2 + 1)
 })
 
@@ -127,10 +125,10 @@ test_that("wrap: as.table = FALSE gets axes", {
 })
 
 test_that("grid: as.table reverses rows", {
-  one <- panel_layout(facet_grid(a~., as.table = FALSE), list(a))
+  one <- panel_layout(facet_grid(a ~ ., as.table = FALSE), list(a))
   expect_equal(as.character(one$a), c("2", "1"))
 
-  two <- panel_layout(facet_grid(a~., as.table = TRUE), list(a))
+  two <- panel_layout(facet_grid(a ~ ., as.table = TRUE), list(a))
   expect_equal(as.character(two$a), c("1", "2"))
 })
 
@@ -158,22 +156,21 @@ test_that("wrap: drop = FALSE preserves unused levels", {
 })
 
 test_that("grid: drop = FALSE preserves unused levels", {
-  grid_a <- panel_layout(facet_grid(a~., drop = FALSE), list(a2))
+  grid_a <- panel_layout(facet_grid(a ~ ., drop = FALSE), list(a2))
   expect_equal(nrow(grid_a), 4)
   expect_equal(as.character(grid_a$a), as.character(1:4))
 
-  grid_b <- panel_layout(facet_grid(b~., drop = FALSE), list(a2))
+  grid_b <- panel_layout(facet_grid(b ~ ., drop = FALSE), list(a2))
   expect_equal(nrow(grid_b), 4)
   expect_equal(as.character(grid_b$b), as.character(4:1))
 
-  grid_ab <- panel_layout(facet_grid(a~b, drop = FALSE), list(a2))
+  grid_ab <- panel_layout(facet_grid(a ~ b, drop = FALSE), list(a2))
   expect_equal(nrow(grid_ab), 16)
   expect_equal(as.character(grid_ab$a), as.character(rep(1:4, each = 4)))
   expect_equal(as.character(grid_ab$b), as.character(rep(4:1, 4)))
 })
 
 test_that("wrap: space = 'free_x/y' sets panel sizes", {
-
   df <- data.frame(x = 1:3)
   p <- ggplot(df, aes(x, x)) +
     geom_point() +
@@ -203,9 +200,9 @@ test_that("missing values get a panel", {
   wrap_a <- panel_layout(facet_wrap(~a), list(a3))
   wrap_b <- panel_layout(facet_wrap(~b), list(a3))
   wrap_c <- panel_layout(facet_wrap(~c), list(a3))
-  grid_a <- panel_layout(facet_grid(a~.), list(a3))
-  grid_b <- panel_layout(facet_grid(b~.), list(a3))
-  grid_c <- panel_layout(facet_grid(c~.), list(a3))
+  grid_a <- panel_layout(facet_grid(a ~ .), list(a3))
+  grid_b <- panel_layout(facet_grid(b ~ .), list(a3))
+  grid_c <- panel_layout(facet_grid(c ~ .), list(a3))
 
   expect_equal(nrow(wrap_a), 4)
   expect_equal(nrow(wrap_b), 4)
@@ -243,12 +240,12 @@ test_that("facet_wrap throws errors at bad layout specs", {
 test_that("facet_grid throws errors at bad layout specs", {
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp)) +
-    facet_grid(.~gear, scales = "free") +
+    facet_grid(. ~ gear, scales = "free") +
     coord_fixed()
   expect_snapshot_error(ggplotGrob(p))
   p <- ggplot(mtcars) +
     geom_point(aes(mpg, disp)) +
-    facet_grid(.~gear, space = "free") +
+    facet_grid(. ~ gear, space = "free") +
     theme(aspect.ratio = 1)
   expect_snapshot_error(ggplotGrob(p))
 })
@@ -260,13 +257,14 @@ test_that("facet_grid can respect coord aspect with free scales/space", {
     facet_grid(
       rows = vars(y == "C"),
       cols = vars(x %in% c("e", "f")),
-      scales = "free", space = "free"
+      scales = "free",
+      space = "free"
     ) +
     coord_fixed(3, expand = FALSE)
   gt <- ggplotGrob(p)
-  width  <- gt$widths[panel_cols(gt)$l]
+  width <- gt$widths[panel_cols(gt)$l]
   height <- gt$heights[panel_rows(gt)$t]
-  expect_equal(as.numeric(width),  c(4, 2))
+  expect_equal(as.numeric(width), c(4, 2))
   expect_equal(as.numeric(height), c(6, 3))
 })
 

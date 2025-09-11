@@ -1,5 +1,4 @@
 test_that("fill_alpha works as expected", {
-
   expect_snapshot_error(
     fill_alpha(data.frame(x = 1:10, y = LETTERS[1:10]), 0.5)
   )
@@ -36,9 +35,15 @@ test_that("fill_alpha works as expected", {
 
   # Tiled pattern
   pat <- pattern(
-    rectGrob(c(0.25, 0.75), c(0.25, 0.75), width = 0.5, height = 0.5,
-             gp = gpar(fill = "black", col = NA)),
-    width = unit(1, "cm"), height = unit(1, "cm"),
+    rectGrob(
+      c(0.25, 0.75),
+      c(0.25, 0.75),
+      width = 0.5,
+      height = 0.5,
+      gp = gpar(fill = "black", col = NA)
+    ),
+    width = unit(1, "cm"),
+    height = unit(1, "cm"),
     extend = "repeat"
   )
   # Constructed with empty viewport
@@ -59,7 +64,6 @@ test_that("fill_alpha works as expected", {
 })
 
 test_that("geoms can use pattern fills", {
-
   skip_if_not_installed("grid", "4.2.0")
   skip_if_not_installed("svglite", "2.1.2")
   # TODO: ideally we should test this on all platforms, but currently they
@@ -80,9 +84,15 @@ test_that("geoms can use pattern fills", {
     linearGradient(group = FALSE),
     radialGradient(group = FALSE),
     pattern(
-      rectGrob(c(0.25, 0.75), c(0.25, 0.75), width = 0.5, height = 0.5,
-               gp = gpar(fill = "black", col = NA)),
-      width = unit(1, "cm"), height = unit(1, "cm"),
+      rectGrob(
+        c(0.25, 0.75),
+        c(0.25, 0.75),
+        width = 0.5,
+        height = 0.5,
+        gp = gpar(fill = "black", col = NA)
+      ),
+      width = unit(1, "cm"),
+      height = unit(1, "cm"),
       extend = "repeat"
     ),
     "black"

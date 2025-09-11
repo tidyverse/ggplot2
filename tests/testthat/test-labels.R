@@ -1,52 +1,54 @@
 test_that("setting guide labels works", {
+  expect_identical(xlab("my label")$x, "my label")
+  expect_identical(labs(x = "my label")$x, "my label")
 
-    expect_identical(xlab("my label")$x, "my label")
-    expect_identical(labs(x = "my label")$x, "my label")
+  expect_identical(ylab("my label")$y, "my label")
+  expect_identical(labs(y = "my label")$y, "my label")
 
-    expect_identical(ylab("my label")$y, "my label")
-    expect_identical(labs(y = "my label")$y, "my label")
+  # Plot titles
+  expect_identical(labs(title = "my title")$title, "my title")
+  expect_identical(
+    labs(title = "my title", subtitle = "my subtitle")$subtitle,
+    "my subtitle"
+  )
 
-    # Plot titles
-    expect_identical(labs(title = "my title")$title, "my title")
-    expect_identical(labs(title = "my title",
-                          subtitle = "my subtitle")$subtitle, "my subtitle")
+  # whole plot annotations
+  expect_identical(labs(caption = "my notice")$caption, "my notice")
+  expect_identical(
+    labs(title = "my title", caption = "my notice")$caption,
+    "my notice"
+  )
+  expect_identical(labs(tag = "A)")$tag, "A)")
+  expect_identical(labs(title = "my title", tag = "A)")$tag, "A)")
 
-    # whole plot annotations
-    expect_identical(labs(caption = "my notice")$caption, "my notice")
-    expect_identical(labs(title = "my title",
-                          caption = "my notice")$caption, "my notice")
-    expect_identical(labs(tag = "A)")$tag, "A)")
-    expect_identical(labs(title = "my title",
-                          tag = "A)")$tag, "A)")
+  # Colour
+  expect_identical(labs(colour = "my label")$colour, "my label")
+  # American spelling
+  expect_identical(labs(color = "my label")$colour, "my label")
 
-    # Colour
-    expect_identical(labs(colour = "my label")$colour, "my label")
-    # American spelling
-    expect_identical(labs(color = "my label")$colour, "my label")
+  # No extra elements exists
+  expect_length(labs(title = "my title"), 1) # formal argument
+  expect_length(labs(colour = "my label"), 1) # dot
+  expect_length(labs(foo = "bar"), 1) # non-existent param
 
-    # No extra elements exists
-    expect_length(labs(title = "my title"),  1)   # formal argument
-    expect_length(labs(colour = "my label"), 1)   # dot
-    expect_length(labs(foo = "bar"), 1)   # non-existent param
+  # labs() has list-splicing semantics
+  params <- list(title = "my title", tag = "A)")
+  expect_identical(labs(!!!params)$tag, "A)")
 
-    # labs() has list-splicing semantics
-    params <- list(title = "my title", tag = "A)")
-    expect_identical(labs(!!!params)$tag, "A)")
+  # NULL is preserved
+  expect_length(labs(title = NULL), 1)
 
-    # NULL is preserved
-    expect_length(labs(title = NULL), 1)
-
-    # ggtitle works in the same way as labs()
-    expect_identical(ggtitle("my title")$title, "my title")
-    expect_identical(
-      ggtitle("my title", subtitle = "my subtitle")$subtitle,
-      "my subtitle"
-    )
-    expect_equal(
-      unclass(ggtitle("my title", subtitle = NULL)),
-      list(title = "my title", subtitle = NULL),
-      ignore_attr = TRUE
-    )
+  # ggtitle works in the same way as labs()
+  expect_identical(ggtitle("my title")$title, "my title")
+  expect_identical(
+    ggtitle("my title", subtitle = "my subtitle")$subtitle,
+    "my subtitle"
+  )
+  expect_equal(
+    unclass(ggtitle("my title", subtitle = NULL)),
+    list(title = "my title", subtitle = NULL),
+    ignore_attr = TRUE
+  )
 })
 
 test_that("Labels from default stat mapping are overwritten by default labels", {
@@ -73,7 +75,6 @@ test_that("Labels can be extracted from attributes", {
 })
 
 test_that("Labels from static aesthetics are ignored (#6003)", {
-
   df <- data.frame(x = 1, y = 1, f = 1)
 
   p <- ggplot(df, aes(x, y, colour = f)) + geom_point()
@@ -134,10 +135,11 @@ test_that("plot.tag.position rejects invalid input", {
     error = TRUE
   )
   expect_snapshot(
-    ggplotGrob(p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")),
+    ggplotGrob(
+      p + theme(plot.tag.position = c(0, 0), plot.tag.location = "margin")
+    ),
     error = TRUE
   )
-
 })
 
 test_that("position axis label hierarchy works as intended", {
@@ -197,8 +199,12 @@ test_that("position axis label hierarchy works as intended", {
 
   # Secondary guide titles override secondary axis names
   p@layout$setup_panel_guides(
-    guides_list(list(x = guide_axis("quuX"), y = guide_axis("corgE"),
-                     x.sec = guide_axis("waldo"), y.sec = guide_axis("fred"))),
+    guides_list(list(
+      x = guide_axis("quuX"),
+      y = guide_axis("corgE"),
+      x.sec = guide_axis("waldo"),
+      y.sec = guide_axis("fred")
+    )),
     p@plot@layers
   )
   expect_identical(
@@ -213,7 +219,6 @@ test_that("position axis label hierarchy works as intended", {
 })
 
 test_that("labels can be derived using functions", {
-
   p <- ggplot(mtcars, aes(disp, mpg, colour = drat, shape = factor(cyl))) +
     geom_point() +
     labs(
@@ -228,11 +233,10 @@ test_that("labels can be derived using functions", {
     guides(colour = guide_colourbar(title = to_upper_ascii))
 
   labs <- get_labs(p)
-  expect_equal(labs$shape,  "FOO(CYL)!!!")
+  expect_equal(labs$shape, "FOO(CYL)!!!")
   expect_equal(labs$colour, "DRAT")
-  expect_equal(labs$x,      "DISP")
-  expect_equal(labs$y,      "MPG")
-
+  expect_equal(labs$x, "DISP")
+  expect_equal(labs$y, "MPG")
 })
 
 test_that("moving guide positions lets titles follow", {
@@ -246,8 +250,10 @@ test_that("moving guide positions lets titles follow", {
   # Default guide positions
   p@layout$setup_panel_guides(
     guides_list(
-      list(x = guide_axis("baz", position = "bottom"),
-           y = guide_axis("qux", position = "left"))
+      list(
+        x = guide_axis("baz", position = "bottom"),
+        y = guide_axis("qux", position = "left")
+      )
     ),
     p@plot@layers
   )
@@ -258,8 +264,10 @@ test_that("moving guide positions lets titles follow", {
   # Guides at secondary positions
   p@layout$setup_panel_guides(
     guides_list(
-      list(x = guide_axis("baz", position = "top"),
-           y = guide_axis("qux", position = "right"))
+      list(
+        x = guide_axis("baz", position = "top"),
+        y = guide_axis("qux", position = "right")
+      )
     ),
     p@plot@layers
   )
@@ -270,10 +278,12 @@ test_that("moving guide positions lets titles follow", {
   # secondary guides at primary positions
   p@layout$setup_panel_guides(
     guides_list(
-      list(x = guide_axis("baz", position = "top"),
-           y = guide_axis("qux", position = "right"),
-           x.sec = guide_axis("quux"),
-           y.sec = guide_axis("corge"))
+      list(
+        x = guide_axis("baz", position = "top"),
+        y = guide_axis("qux", position = "right"),
+        x.sec = guide_axis("quux"),
+        y.sec = guide_axis("corge")
+      )
     ),
     p@plot@layers
   )
@@ -283,15 +293,16 @@ test_that("moving guide positions lets titles follow", {
 })
 
 test_that("label dictionaries work", {
-
   p <- ggplot(mtcars, aes(disp, mpg, shape = factor(cyl), size = drat)) +
     geom_point() +
-    labs(dictionary = c(
-      disp = "Displacement",
-      mpg  = "Miles per gallon",
-      `factor(cyl)` = "Number of cylinders",
-      drat = "Rear axle ratio"
-    ))
+    labs(
+      dictionary = c(
+        disp = "Displacement",
+        mpg = "Miles per gallon",
+        `factor(cyl)` = "Number of cylinders",
+        drat = "Rear axle ratio"
+      )
+    )
   p <- ggplot_build(p)
 
   x <- p@layout$resolve_label(p@layout$panel_scales_x[[1]], p@plot@labels)

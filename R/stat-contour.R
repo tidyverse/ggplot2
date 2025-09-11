@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatContour <- ggproto(
-  "StatContour", Stat,
+  "StatContour",
+  Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level)),
@@ -19,15 +20,25 @@ StatContour <- ggproto(
     contour_deduplicate(data)
   },
 
-  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL,
-                           breaks = NULL, na.rm = FALSE) {
+  compute_group = function(
+    data,
+    scales,
+    z.range,
+    bins = NULL,
+    binwidth = NULL,
+    breaks = NULL,
+    na.rm = FALSE
+  ) {
     # Undo data rotation
     rotation <- estimate_contour_angle(data$x, data$y)
     data[c("x", "y")] <- rotate_xy(data$x, data$y, -rotation)
 
     breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
-    isolines <- withr::with_options(list(OutDec = "."), xyz_to_isolines(data, breaks))
+    isolines <- withr::with_options(
+      list(OutDec = "."),
+      xyz_to_isolines(data, breaks)
+    )
     path_df <- iso_to_geom(isolines, data$group[1], geom = "path")
 
     path_df$level <- as.numeric(path_df$level)
@@ -44,7 +55,8 @@ StatContour <- ggproto(
 #' @usage NULL
 #' @export
 StatContourFilled <- ggproto(
-  "StatContourFilled", Stat,
+  "StatContourFilled",
+  Stat,
 
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
@@ -60,22 +72,32 @@ StatContourFilled <- ggproto(
     contour_deduplicate(data)
   },
 
-  compute_group = function(data, scales, z.range, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
-
+  compute_group = function(
+    data,
+    scales,
+    z.range,
+    bins = NULL,
+    binwidth = NULL,
+    breaks = NULL,
+    na.rm = FALSE
+  ) {
     # Undo data rotation
     rotation <- estimate_contour_angle(data$x, data$y)
     data[c("x", "y")] <- rotate_xy(data$x, data$y, -rotation)
 
     breaks <- contour_breaks(z.range, bins, binwidth, breaks)
 
-    isobands <- withr::with_options(list(OutDec = "."), xyz_to_isobands(data, breaks))
+    isobands <- withr::with_options(
+      list(OutDec = "."),
+      xyz_to_isobands(data, breaks)
+    )
     names(isobands) <- pretty_isoband_levels(names(isobands))
     path_df <- iso_to_geom(isobands, data$group[1], geom = "polygon")
 
     path_df$level <- ordered(path_df$level, levels = names(isobands))
     path_df$level_low <- breaks[as.numeric(path_df$level)]
     path_df$level_high <- breaks[as.numeric(path_df$level) + 1]
-    path_df$level_mid <- 0.5*(path_df$level_low + path_df$level_high)
+    path_df$level_mid <- 0.5 * (path_df$level_low + path_df$level_high)
     path_df$nlevel <- rescale_max(path_df$level_high)
     # Re-apply data rotation
     path_df[c("x", "y")] <- rotate_xy(path_df$x, path_df$y, rotation)
@@ -113,14 +135,16 @@ StatContourFilled <- ggproto(
 #'
 #' @rdname geom_contour
 stat_contour <- make_constructor(
-  StatContour, geom = "contour",
+  StatContour,
+  geom = "contour",
   omit = "z.range"
 )
 
 #' @rdname geom_contour
 #' @export
 stat_contour_filled <- make_constructor(
-  StatContourFilled, geom = "contour_filled",
+  StatContourFilled,
+  geom = "contour_filled",
   omit = "z.range"
 )
 
@@ -132,7 +156,12 @@ stat_contour_filled <- make_constructor(
 #' @return A vector of breaks
 #' @noRd
 #'
-contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL) {
+contour_breaks <- function(
+  z_range,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL
+) {
   breaks <- allow_lambda(breaks)
 
   if (is.numeric(breaks)) {
@@ -152,9 +181,9 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
   if (!is.null(bins)) {
     # round lower limit down and upper limit up to make sure
     # we generate bins that span the data range nicely
-    accuracy <- signif(diff(z_range), 1)/10
-    z_range[1] <- floor(z_range[1]/accuracy)*accuracy
-    z_range[2] <- ceiling(z_range[2]/accuracy)*accuracy
+    accuracy <- signif(diff(z_range), 1) / 10
+    z_range[1] <- floor(z_range[1] / accuracy) * accuracy
+    z_range[2] <- ceiling(z_range[2] / accuracy) * accuracy
 
     if (bins == 1) {
       return(z_range)
@@ -287,7 +316,7 @@ pretty_isoband_levels <- function(isoband_levels, dig.lab = 3) {
 
   breaks <- unique(c(interval_low, interval_high))
 
-  while(anyDuplicated(format(breaks, digits = dig.lab, trim = TRUE))) {
+  while (anyDuplicated(format(breaks, digits = dig.lab, trim = TRUE))) {
     dig.lab <- dig.lab + 1
   }
 
@@ -328,7 +357,6 @@ contour_deduplicate <- function(data, check = c("x", "y", "group", "PANEL")) {
 }
 
 estimate_contour_angle <- function(x, y) {
-
   # Compute most frequent angle among first 20 points
   all_angles <- atan2(diff(head(y, 20L)), diff(head(x, 20L)))
   freq <- tabulate(match(all_angles, unique(all_angles)))
@@ -351,7 +379,8 @@ estimate_contour_angle <- function(x, y) {
   }
 
   # No need to rotate contour data when angle is straight
-  straight <- abs(angle - c(-1, -0.5, 0, 0.5, 1) * pi) < sqrt(.Machine$double.eps)
+  straight <- abs(angle - c(-1, -0.5, 0, 0.5, 1) * pi) <
+    sqrt(.Machine$double.eps)
   if (any(straight)) {
     return(0)
   }

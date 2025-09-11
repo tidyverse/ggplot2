@@ -3,24 +3,38 @@
 #' @usage NULL
 #' @export
 StatEcdf <- ggproto(
-  "StatEcdf", Stat,
+  "StatEcdf",
+  Stat,
   required_aes = c("x|y"),
 
   default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf), weight = NULL),
 
   setup_params = function(self, data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
+    params$flipped_aes <- has_flipped_aes(
+      data,
+      params,
+      main_is_orthogonal = FALSE,
+      main_is_continuous = TRUE
+    )
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic."
+      )
     }
 
     params
   },
 
-  compute_group = function(data, scales, n = NULL, pad = TRUE, flipped_aes = FALSE) {
+  compute_group = function(
+    data,
+    scales,
+    n = NULL,
+    pad = TRUE,
+    flipped_aes = FALSE
+  ) {
     data <- flip_data(data, flipped_aes)
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {
@@ -115,7 +129,6 @@ stat_ecdf <- make_constructor(StatEcdf, geom = "step")
 
 # Weighted eCDF function
 wecdf <- function(x, weights = NULL) {
-
   weights <- weights %||% 1
   weights <- vec_recycle(weights, length(x))
 
@@ -125,10 +138,13 @@ wecdf <- function(x, weights = NULL) {
   weights <- weights[ord]
 
   if (!all(is.finite(weights))) {
-    cli::cli_warn(c(paste0(
-      "The {.field weight} aesthetic does not support non-finite or ",
-      "{.code NA} values."
-    ), "i" = "These weights were replaced by {.val 0}."))
+    cli::cli_warn(c(
+      paste0(
+        "The {.field weight} aesthetic does not support non-finite or ",
+        "{.code NA} values."
+      ),
+      "i" = "These weights were replaced by {.val 0}."
+    ))
     weights[!is.finite(weights)] <- 0
   }
 
@@ -156,7 +172,8 @@ wecdf <- function(x, weights = NULL) {
   # we sum weights per unique value of `x`
   agg_weights <- vapply(
     split(weights, matched),
-    sum, numeric(1)
+    sum,
+    numeric(1)
   )
 
   # Like `ecdf(x)`, we return an approx function
@@ -164,7 +181,9 @@ wecdf <- function(x, weights = NULL) {
     vals,
     cumsum(agg_weights) / total,
     method = "constant",
-    yleft = 0, yright = 1,
-    f = 0, ties = "ordered"
+    yleft = 0,
+    yright = 1,
+    f = 0,
+    ties = "ordered"
   )
 }

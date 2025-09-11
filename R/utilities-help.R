@@ -1,7 +1,8 @@
 # Use extra_note arg to add some notes (e.g. the document is shared with multiple
 # Geoms and there's some difference among their aesthetics).
 rd_aesthetics <- function(type, name, extra_note = NULL) {
-  obj <- switch(type,
+  obj <- switch(
+    type,
     geom = validate_subclass(name, "Geom", env = globalenv()),
     stat = validate_subclass(name, "Stat", env = globalenv()),
     position = validate_subclass(name, "Position", env = globalenv())
@@ -11,11 +12,17 @@ rd_aesthetics <- function(type, name, extra_note = NULL) {
   c(
     "@section Aesthetics:",
     paste0(
-      "\\code{", type, "_", name, "()} ",
+      "\\code{",
+      type,
+      "_",
+      name,
+      "()} ",
       "understands the following aesthetics. Required aesthetics are displayed",
       " in bold and defaults are displayed for optional aesthetics:"
     ),
-    "\\tabular{rll}{", aes, "}",
+    "\\tabular{rll}{",
+    aes,
+    "}",
     if (!is.null(extra_note)) paste0(extra_note, "\n"),
     "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
@@ -30,7 +37,8 @@ rd_aesthetics_item <- function(x) {
   docs <- rd_match_docpage(all)
   defaults <- rd_defaults(x, all)
 
-  item <- ifelse(all %in% req,
+  item <- ifelse(
+    all %in% req,
     paste0("\\strong{\\code{", docs, "}}"),
     paste0("\\code{", docs, "}")
   )
@@ -59,27 +67,45 @@ rd_defaults <- function(layer, aesthetics) {
 }
 
 rd_match_docpage <- function(aes) {
-
   split <- strsplit(aes, "} \\emph{or} \\code{", fixed = TRUE)
-  flat  <- unlist(split)
+  flat <- unlist(split)
 
   index <- match(
     flat,
     c(
-      "x", "y", "xmin", "xmax", "ymin", "ymax", "xend", 'yend',
-      "colour", "fill", "alpha",
+      "x",
+      "y",
+      "xmin",
+      "xmax",
+      "ymin",
+      "ymax",
+      "xend",
+      'yend',
+      "colour",
+      "fill",
+      "alpha",
       "group",
-      "linetype", "size", "shape", "linewidth"
-    ), nomatch = 0L
+      "linetype",
+      "size",
+      "shape",
+      "linewidth"
+    ),
+    nomatch = 0L
   )
   docpage <- c(
-    "", rep("aes_position", 8), rep("aes_colour_fill_alpha", 3),
-    "aes_group_order", rep("aes_linetype_size_shape", 4)
+    "",
+    rep("aes_position", 8),
+    rep("aes_colour_fill_alpha", 3),
+    "aes_group_order",
+    rep("aes_linetype_size_shape", 4)
   )[index + 1]
   no_match <- index == 0
   docpage[!no_match] <- paste0(
-    "\\link[ggplot2:", docpage[!no_match],
-    "]{", flat[!no_match], "}"
+    "\\link[ggplot2:",
+    docpage[!no_match],
+    "]{",
+    flat[!no_match],
+    "}"
   )
   docpage[no_match] <- flat[no_match]
   docpage <- split(docpage, rep(seq_along(split), lengths(split, FALSE)))
@@ -130,35 +156,39 @@ rd_orientation <- function() {
 #'   corge = "grault"
 #' )
 rd_computed_vars <- function(..., .details = "", .skip_intro = FALSE) {
-  args  <- list(...)
+  args <- list(...)
   items <- names(args)
   descr <- unname(args)
 
   # Format preamble
   header <- "@section Computed variables: "
-  intro  <- paste0(
+  intro <- paste0(
     "These are calculated by the 'stat' part of layers and can be accessed ",
     "with [delayed evaluation][aes_eval]. "
   )
-  if (.skip_intro) intro <- ""
+  if (.skip_intro) {
+    intro <- ""
+  }
   preamble <- c(header, paste0(intro, gsub("\n", "", .details)))
 
   # Format items
   fmt_items <- gsub(",", ")`, `after_stat(", items, fixed = TRUE)
-  fmt_items <- gsub("|", ")` *or* `after_stat(",
-                    fmt_items, fixed = TRUE)
+  fmt_items <- gsub("|", ")` *or* `after_stat(", fmt_items, fixed = TRUE)
   fmt_items <- paste0("*  `after_stat(", fmt_items, ")`")
 
   # Compose item-list
   fmt_descr <- gsub("\n", "", descr)
-  fmt_list  <- paste(fmt_items, fmt_descr, sep = "\\cr ")
+  fmt_list <- paste(fmt_items, fmt_descr, sep = "\\cr ")
 
   c(preamble, fmt_list)
 }
 
-link_book <- function(text = "", section = "",
-                      book = "https://ggplot2-book.org/",
-                      suffix = "of the online ggplot2 book.") {
+link_book <- function(
+  text = "",
+  section = "",
+  book = "https://ggplot2-book.org/",
+  suffix = "of the online ggplot2 book."
+) {
   links <- paste0("[", text, "](", book, section, ")")
   if (length(links) > 1) {
     links <- oxford_comma(links, final = "and")
@@ -167,7 +197,12 @@ link_book <- function(text = "", section = "",
 }
 
 roxy_tag_parse.roxy_tag_aesthetics <- function(x) {
-  x <- roxygen2::tag_two_part(x, "an argument name", "a description", required = FALSE)
+  x <- roxygen2::tag_two_part(
+    x,
+    "an argument name",
+    "a description",
+    required = FALSE
+  )
 
   class <- get0(x$val$name, parent.frame())
   if (!inherits(class, c("Geom", "Stat", "Position"))) {
@@ -176,17 +211,21 @@ roxy_tag_parse.roxy_tag_aesthetics <- function(x) {
     )
   }
 
-
   fun_name <- snake_class(class)
   aes_item <- rd_aesthetics_item(class)
 
-  x$val <- c("",
+  x$val <- c(
+    "",
     paste0(
-      "\\code{", fun_name, "()} ",
+      "\\code{",
+      fun_name,
+      "()} ",
       "understands the following aesthetics. Required aesthetics are displayed",
       " in bold and defaults are displayed for optional aesthetics:"
     ),
-    "\\tabular{rll}{", aes_item, "}",
+    "\\tabular{rll}{",
+    aes_item,
+    "}",
     if (nzchar(x$val$description)) x$val$description
   )
   x
@@ -202,11 +241,13 @@ roxy_tag_rd.roxy_tag_aesthetics <- function(x, base_path, env) {
 
 on_load({
   vctrs::s3_register(
-    "roxygen2::roxy_tag_parse", "roxy_tag_aesthetics",
+    "roxygen2::roxy_tag_parse",
+    "roxy_tag_aesthetics",
     roxy_tag_parse.roxy_tag_aesthetics
   )
   vctrs::s3_register(
-    "roxygen2::roxy_tag_rd", "roxy_tag_aesthetics",
+    "roxygen2::roxy_tag_rd",
+    "roxy_tag_aesthetics",
     roxy_tag_rd.roxy_tag_aesthetics
   )
 })

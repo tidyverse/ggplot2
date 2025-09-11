@@ -3,22 +3,24 @@
 #' @usage NULL
 #' @export
 StatQqLine <- ggproto(
-  "StatQqLine", Stat,
+  "StatQqLine",
+  Stat,
   default_aes = aes(x = after_stat(x), y = after_stat(y)),
 
   required_aes = c("sample"),
 
   dropped_aes = c("sample"),
 
-  compute_group = function(data,
-                           scales,
-                           quantiles = NULL,
-                           distribution = stats::qnorm,
-                           dparams = list(),
-                           na.rm = FALSE,
-                           line.p = c(0.25, 0.75),
-                           fullrange = FALSE) {
-
+  compute_group = function(
+    data,
+    scales,
+    quantiles = NULL,
+    distribution = stats::qnorm,
+    dparams = list(),
+    na.rm = FALSE,
+    line.p = c(0.25, 0.75),
+    fullrange = FALSE
+  ) {
     sample <- sort(data$sample)
     n <- length(sample)
 
@@ -32,7 +34,9 @@ StatQqLine <- ggproto(
     theoretical <- inject(distribution(p = quantiles, !!!dparams))
 
     if (length(line.p) != 2) {
-      cli::cli_abort("Cannot fit line quantiles {line.p}. {.arg line.p} must have length 2.")
+      cli::cli_abort(
+        "Cannot fit line quantiles {line.p}. {.arg line.p} must have length 2."
+      )
     }
 
     x_coords <- inject(distribution(p = line.p, !!!dparams))
@@ -47,8 +51,10 @@ StatQqLine <- ggproto(
     }
 
     data_frame0(
-      x = x, y = slope * x + intercept,
-      slope = slope, intercept = intercept
+      x = x,
+      y = slope * x + intercept,
+      slope = slope,
+      intercept = intercept
     )
   }
 )
@@ -59,7 +65,11 @@ StatQqLine <- ggproto(
 #' defaults to `c(.25, .75)`.
 #' @param fullrange Should the q-q line span the full range of the plot, or just
 #'   the data
-geom_qq_line <- make_constructor(StatQqLine, geom = "abline", omit = "quantiles")
+geom_qq_line <- make_constructor(
+  StatQqLine,
+  geom = "abline",
+  omit = "quantiles"
+)
 
 #' @export
 #' @rdname geom_qq

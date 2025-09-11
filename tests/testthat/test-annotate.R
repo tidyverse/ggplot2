@@ -1,12 +1,22 @@
 test_that("dates in segment annotation work", {
-  dt <- structure(list(month = structure(c(1364774400, 1377993600),
-      class = c("POSIXct", "POSIXt"), tzone = "UTC"), total = c(-10.3,
-      11.7)), .Names = c("month", "total"), row.names = c(NA, -2L), class =
-      "data.frame")
+  dt <- structure(
+    list(
+      month = structure(
+        c(1364774400, 1377993600),
+        class = c("POSIXct", "POSIXt"),
+        tzone = "UTC"
+      ),
+      total = c(-10.3, 11.7)
+    ),
+    .Names = c("month", "total"),
+    row.names = c(NA, -2L),
+    class = "data.frame"
+  )
 
   p <- ggplot(dt, aes(month, total)) +
     geom_point() +
-    annotate("segment",
+    annotate(
+      "segment",
       x = as.POSIXct("2013-04-01"),
       xend = as.POSIXct("2013-07-01"),
       y = -10,
@@ -58,7 +68,10 @@ test_that("annotation_raster() and annotation_custom() requires cartesian coordi
   p <- ggplot() +
     annotation_custom(
       grob = grid::roundrectGrob(),
-      xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
+      xmin = -Inf,
+      xmax = Inf,
+      ymin = -Inf,
+      ymax = Inf
     ) +
     coord_polar()
   expect_snapshot_error(ggplotGrob(p))
@@ -92,28 +105,35 @@ test_that("annotation_custom() and annotation_raster() adhere to scale transform
 
   p <- ggplot() +
     annotation_raster(rast, 1, 10, 1, 9) +
-    scale_x_continuous(transform = "log10", limits = c(0.1, 100), expand = FALSE) +
+    scale_x_continuous(
+      transform = "log10",
+      limits = c(0.1, 100),
+      expand = FALSE
+    ) +
     scale_y_continuous(limits = c(0, 10), expand = FALSE)
   ann <- get_layer_grob(p)[[1]]
 
-  expect_equal(as.numeric(ann$x), 1/3)
-  expect_equal(as.numeric(ann$y), 1/10)
-  expect_equal(as.numeric(ann$width), 1/3)
-  expect_equal(as.numeric(ann$height), 8/10)
+  expect_equal(as.numeric(ann$x), 1 / 3)
+  expect_equal(as.numeric(ann$y), 1 / 10)
+  expect_equal(as.numeric(ann$width), 1 / 3)
+  expect_equal(as.numeric(ann$height), 8 / 10)
 
   rast <- rasterGrob(rast, width = 1, height = 1)
 
   p <- ggplot() +
     annotation_custom(rast, 1, 10, 1, 9) +
-    scale_x_continuous(transform = "log10", limits = c(0.1, 100), expand = FALSE) +
+    scale_x_continuous(
+      transform = "log10",
+      limits = c(0.1, 100),
+      expand = FALSE
+    ) +
     scale_y_continuous(limits = c(0, 10), expand = FALSE)
   ann <- get_layer_grob(p)[[1]]$vp
 
-  expect_equal(as.numeric(ann$x), 1/2)
-  expect_equal(as.numeric(ann$y), 1/2)
-  expect_equal(as.numeric(ann$width), 1/3)
-  expect_equal(as.numeric(ann$height), 8/10)
-
+  expect_equal(as.numeric(ann$x), 1 / 2)
+  expect_equal(as.numeric(ann$y), 1 / 2)
+  expect_equal(as.numeric(ann$width), 1 / 3)
+  expect_equal(as.numeric(ann$height), 8 / 10)
 })
 
 test_that("annotation_borders() can create a map", {

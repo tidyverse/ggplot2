@@ -78,87 +78,132 @@
 #' # Restoring the previous theme
 #' theme_set(old)
 #' @export
-scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
-                                    guide = "colourbar", na.value = "grey50",
-                                    type = getOption("ggplot2.continuous.colour")) {
-
+scale_colour_continuous <- function(
+  ...,
+  palette = NULL,
+  aesthetics = "colour",
+  guide = "colourbar",
+  na.value = "grey50",
+  type = getOption("ggplot2.continuous.colour")
+) {
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
-      ..., guide = guide, na.value = na.value, scale = type,
-      aesthetic = "colour", type = "continuous"
+      ...,
+      guide = guide,
+      na.value = na.value,
+      scale = type,
+      aesthetic = "colour",
+      type = "continuous"
     )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics,
+    palette = palette,
+    guide = guide,
+    na.value = na.value,
     ...
   )
 }
 
 #' @rdname scale_colour_continuous
 #' @export
-scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guide = "colourbar",
-                                  na.value = "grey50",
-                                  type = getOption("ggplot2.continuous.fill")) {
-
+scale_fill_continuous <- function(
+  ...,
+  palette = NULL,
+  aesthetics = "fill",
+  guide = "colourbar",
+  na.value = "grey50",
+  type = getOption("ggplot2.continuous.fill")
+) {
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
-      ..., guide = guide, na.value = na.value, scale = type,
-      aesthetic = "fill", type = "continuous"
+      ...,
+      guide = guide,
+      na.value = na.value,
+      scale = type,
+      aesthetic = "fill",
+      type = "continuous"
     )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics,
+    palette = palette,
+    guide = guide,
+    na.value = na.value,
     ...
   )
 }
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guide = "coloursteps",
-                                na.value = "grey50",
-                                type = getOption("ggplot2.binned.colour")) {
-
+scale_colour_binned <- function(
+  ...,
+  palette = NULL,
+  aesthetics = "colour",
+  guide = "coloursteps",
+  na.value = "grey50",
+  type = getOption("ggplot2.binned.colour")
+) {
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
-      ..., guide = guide, na.value = na.value, scale = type,
-      aesthetic = "colour", type = "binned"
+      ...,
+      guide = guide,
+      na.value = na.value,
+      scale = type,
+      aesthetic = "colour",
+      type = "binned"
     )
     return(scale)
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics,
+    palette = palette,
+    guide = guide,
+    na.value = na.value,
     ...
   )
 }
 
 #' @export
 #' @rdname scale_colour_continuous
-scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = "coloursteps",
-                              na.value = "grey50",
-                              type = getOption("ggplot2.binned.fill")) {
+scale_fill_binned <- function(
+  ...,
+  palette = NULL,
+  aesthetics = "fill",
+  guide = "coloursteps",
+  na.value = "grey50",
+  type = getOption("ggplot2.binned.fill")
+) {
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
-      ..., guide = guide, na.value = na.value, scale = type,
-      aesthetic = "fill", type = "binned"
+      ...,
+      guide = guide,
+      na.value = na.value,
+      scale = type,
+      aesthetic = "fill",
+      type = "binned"
     )
     return(scale)
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics,
+    palette = palette,
+    guide = guide,
+    na.value = na.value,
     ...
   )
 }
@@ -211,70 +256,107 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'
 #' # Restoring the previous theme
 #' theme_set(old)
-scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na.value = "grey50",
-                                  type = getOption("ggplot2.discrete.colour")) {
-
-  has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
+scale_colour_discrete <- function(
+  ...,
+  palette = NULL,
+  aesthetics = "colour",
+  na.value = "grey50",
+  type = getOption("ggplot2.discrete.colour")
+) {
+  has_old_args <- any(
+    names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction")
+  )
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
-      ..., na.value = na.value, scale = type,
-      aesthetic = "colour", type = "discrete"
+      ...,
+      na.value = na.value,
+      scale = type,
+      aesthetic = "colour",
+      type = "discrete"
     )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
   discrete_scale(
-    aesthetics, palette = palette, na.value = na.value,
+    aesthetics,
+    palette = palette,
+    na.value = na.value,
     ...
   )
 }
 
 #' @rdname scale_colour_discrete
 #' @export
-scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.value = "grey50",
-                                type = getOption("ggplot2.discrete.fill")) {
-
-  has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
+scale_fill_discrete <- function(
+  ...,
+  palette = NULL,
+  aesthetics = "fill",
+  na.value = "grey50",
+  type = getOption("ggplot2.discrete.fill")
+) {
+  has_old_args <- any(
+    names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction")
+  )
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
     scale <- scale_backward_compatibility(
-      ..., na.value = na.value, scale = type,
-      aesthetic = "fill", type = "discrete"
+      ...,
+      na.value = na.value,
+      scale = type,
+      aesthetic = "fill",
+      type = "discrete"
     )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
   discrete_scale(
-    aesthetics, palette = palette, na.value = na.value,
+    aesthetics,
+    palette = palette,
+    na.value = na.value,
     ...
   )
 }
 
 # helper function to make sure that the provided scale is of the correct
 # type (i.e., is continuous and works with the provided aesthetic)
-check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, call = caller_env()) {
+check_scale_type <- function(
+  scale,
+  name,
+  aesthetic,
+  scale_is_discrete = FALSE,
+  call = caller_env()
+) {
   if (!is_ggproto(scale) || !is_scale(scale)) {
-    cli::cli_abort(c(
-      "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
-      "x" = "The provided object is not a scale function."
-    ), call = call)
+    cli::cli_abort(
+      c(
+        "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
+        "x" = "The provided object is not a scale function."
+      ),
+      call = call
+    )
   }
   if (!isTRUE(aesthetic %in% scale$aesthetics)) {
-    cli::cli_abort(c(
-      "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
-      "x" = "The provided scale works with the following aesthetics: {.field {scale$aesthetics}}."
-    ), call = call)
+    cli::cli_abort(
+      c(
+        "The {.arg type} argument must return a continuous scale for the {.field {aesthetic}} aesthetic.",
+        "x" = "The provided scale works with the following aesthetics: {.field {scale$aesthetics}}."
+      ),
+      call = call
+    )
   }
   if (isTRUE(scale$is_discrete()) != scale_is_discrete) {
     scale_types <- c("continuous", "discrete")
     if (scale_is_discrete) {
       scale_types <- rev(scale_types)
     }
-    cli::cli_abort(c(
-      "The {.arg type} argument must return a {scale_types[1]} scale for the {.field {aesthetic}} aesthetic.",
-      "x" = "The provided scale is {scale_types[2]}."
-    ), call = call)
+    cli::cli_abort(
+      c(
+        "The {.arg type} argument must return a {scale_types[1]} scale for the {.field {aesthetic}} aesthetic.",
+        "x" = "The provided scale is {scale_types[2]}."
+      ),
+      call = call
+    )
   }
   invisible()
 }
@@ -302,7 +384,12 @@ scale_backward_compatibility <- function(..., scale, aesthetic, type) {
     scale <- switch(
       scale %||% type,
       discrete = "hue",
-      viridis = switch(type, discrete = "viridis_d", binned = "viridis_b", "viridis_c"),
+      viridis = switch(
+        type,
+        discrete = "viridis_d",
+        binned = "viridis_b",
+        "viridis_c"
+      ),
       continuous = "gradient",
       scale
     )
@@ -322,7 +409,7 @@ scale_backward_compatibility <- function(..., scale, aesthetic, type) {
     scale <- switch(
       aesthetic,
       colour = scale_colour_qualitative,
-      fill   = scale_fill_qualitative
+      fill = scale_fill_qualitative
     )
   }
 

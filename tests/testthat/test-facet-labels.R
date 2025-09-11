@@ -45,8 +45,14 @@ test_that("labellers handle facet labels properly", {
   expect_identical(label_value(labels), labels)
   expect_identical(label_value(labels, FALSE), list(c("a, c", "b, d")))
 
-  expect_identical(label_both(labels), list(c("var1: a", "var1: b"), c("var2: c", "var2: d")))
-  expect_identical(label_both(labels, FALSE), list(c("var1, var2: a, c", "var1, var2: b, d")))
+  expect_identical(
+    label_both(labels),
+    list(c("var1: a", "var1: b"), c("var2: c", "var2: d"))
+  )
+  expect_identical(
+    label_both(labels, FALSE),
+    list(c("var1, var2: a, c", "var1, var2: b, d"))
+  )
 })
 
 test_that("labellers handle plotmath expressions", {
@@ -84,25 +90,49 @@ test_that("labeller() dispatches labellers", {
   expect_equal(get_labels_matrix(p2), expected_cyl_both)
 
   # facet_wrap() shouldn't get both rows and cols
-  p3 <- p + facet_wrap(~cyl, labeller = labeller(
-    .cols = label_both, .rows = label_both))
+  p3 <- p +
+    facet_wrap(
+      ~cyl,
+      labeller = labeller(
+        .cols = label_both,
+        .rows = label_both
+      )
+    )
   expect_snapshot(ggplotGrob(p3), error = TRUE)
 
   # facet_grid() can get both rows and cols
-  p4 <- p + facet_grid(am ~ cyl, labeller = labeller(
-    .cols = label_both, .rows = label_both))
+  p4 <- p +
+    facet_grid(
+      am ~ cyl,
+      labeller = labeller(
+        .cols = label_both,
+        .rows = label_both
+      )
+    )
   expect_equal(get_labels_matrix(p4, "rows"), expected_am_both)
   expect_equal(get_labels_matrix(p4, "cols"), expected_cyl_both)
 
   # Cannot have a specific labeller for a variable which already has a
   # margin-wide labeller
-  p5 <- p + facet_wrap(~cyl, labeller = labeller(
-    .rows = label_both, cyl = label_value))
+  p5 <- p +
+    facet_wrap(
+      ~cyl,
+      labeller = labeller(
+        .rows = label_both,
+        cyl = label_value
+      )
+    )
   expect_snapshot(ggplotGrob(p5), error = TRUE)
 
   # Variables can be attributed labellers
-  p6 <- p + facet_grid(am + cyl ~ ., labeller = labeller(
-     am = label_both, cyl = label_both))
+  p6 <- p +
+    facet_grid(
+      am + cyl ~ .,
+      labeller = labeller(
+        am = label_both,
+        cyl = label_both
+      )
+    )
   expect_equal(
     get_labels_matrix(p6, "rows"),
     cbind(
@@ -126,7 +156,8 @@ test_that("as_labeller() deals with non-labellers", {
   expect_equal(get_labels_matrix(p1), cbind(c("zero", "one")))
 
   # Non-labeller function taking character vectors
-  p2 <- p + facet_wrap(~am, labeller = labeller(am = function(x) paste0(x, "-foo")))
+  p2 <- p +
+    facet_wrap(~am, labeller = labeller(am = function(x) paste0(x, "-foo")))
   expect_equal(get_labels_matrix(p2), cbind(c("0-foo", "1-foo")))
 })
 
@@ -148,12 +179,11 @@ test_that("parsed labels are rendered correctly", {
     "parsed facet labels",
     ggplot(df, aes(x, y)) +
       labs(x = NULL, y = NULL) +
-      facet_wrap(~ f, labeller = label_parsed)
+      facet_wrap(~f, labeller = label_parsed)
   )
 })
 
 test_that("outside-justified labels are justified across panels", {
-
   df <- data.frame(
     x = c("X\nX\nX\nX\nX", "X"),
     y = c("YYYYY", "Y"),
@@ -170,9 +200,9 @@ test_that("outside-justified labels are justified across panels", {
     facet_grid(f1 ~ f2, scales = "free") +
     guides(x.sec = "axis", y.sec = "axis") +
     theme(
-      axis.text.y.left   = element_text(hjust = 0),
-      axis.text.y.right  = element_text(hjust = 1),
-      axis.text.x.top    = element_text(vjust = 1),
+      axis.text.y.left = element_text(hjust = 0),
+      axis.text.y.right = element_text(hjust = 1),
+      axis.text.x.top = element_text(vjust = 1),
       axis.text.x.bottom = element_text(vjust = 0)
     )
 

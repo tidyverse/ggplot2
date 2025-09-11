@@ -118,7 +118,9 @@ NULL
 #' @rdname ggsf
 #' @usage NULL
 #' @format NULL
-GeomSf <- ggproto("GeomSf", Geom,
+GeomSf <- ggproto(
+  "GeomSf",
+  Geom,
   required_aes = "geometry",
   default_aes = aes(
     shape = NULL,
@@ -131,10 +133,22 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  use_defaults = function(self, data, params = list(), modifiers = aes(),
-                          default_aes = NULL, theme = NULL, ...) {
+  use_defaults = function(
+    self,
+    data,
+    params = list(),
+    modifiers = aes(),
+    default_aes = NULL,
+    theme = NULL,
+    ...
+  ) {
     data <- ggproto_parent(Geom, self)$use_defaults(
-      data, params, modifiers, default_aes, theme = theme, ...
+      data,
+      params,
+      modifiers,
+      default_aes,
+      theme = theme,
+      ...
     )
     # Early exit for e.g. legend data that don't have geometry columns
     if (!"geometry" %in% names(data)) {
@@ -159,19 +173,23 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (length(index$point) > 0) {
       points <- GeomPoint$use_defaults(
         vec_slice(data, index$point),
-        params, modifiers, theme = theme
+        params,
+        modifiers,
+        theme = theme
       )
     }
     if (length(index$line) > 0) {
       lines <- GeomLine$use_defaults(
         vec_slice(data, index$line),
-        params, modifiers, theme = theme
+        params,
+        modifiers,
+        theme = theme
       )
     }
     other_default <- modify_list(
       GeomPolygon$default_aes,
       aes(
-        fill   = from_theme(fill %||% col_mix(ink, paper, 0.899)),
+        fill = from_theme(fill %||% col_mix(ink, paper, 0.899)),
         colour = from_theme(colour %||% col_mix(ink, paper, 0.35)),
         linewidth = from_theme(0.4 * borderwidth)
       )
@@ -179,7 +197,8 @@ GeomSf <- ggproto("GeomSf", Geom,
     if (length(index$other) > 0) {
       others <- GeomPolygon$use_defaults(
         vec_slice(data, index$other),
-        params, modifiers,
+        params,
+        modifiers,
         default_aes = other_default,
         theme = theme
       )
@@ -192,7 +211,8 @@ GeomSf <- ggproto("GeomSf", Geom,
       modified <- modify_list(other_default, modified)
       collections <- Geom$use_defaults(
         vec_slice(data, index$collection),
-        params, modifiers,
+        params,
+        modifiers,
         default_aes = modified,
         theme = theme
       )
@@ -203,11 +223,23 @@ GeomSf <- ggproto("GeomSf", Geom,
     vec_slice(data, order(unlist(index)))
   },
 
-  draw_panel = function(self, data, panel_params, coord, legend = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 10,
-                        arrow = NULL, arrow.fill = NULL, na.rm = TRUE) {
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    legend = NULL,
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10,
+    arrow = NULL,
+    arrow.fill = NULL,
+    na.rm = TRUE
+  ) {
     if (!inherits(coord, "CoordSf")) {
-      cli::cli_abort("{.fn {snake_class(self)}} can only be used with {.fn coord_sf}.")
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} can only be used with {.fn coord_sf}."
+      )
     }
     data$shape <- translate_shape_string(data$shape)
 
@@ -215,7 +247,7 @@ GeomSf <- ggproto("GeomSf", Geom,
 
     type <- sf_types[sf::st_geometry_type(data$geometry)]
     is_point <- type == "point"
-    is_line  <- type == "line"
+    is_line <- type == "line"
     is_collection <- type == "collection"
 
     fill <- fill_alpha(data$fill %||% rep(NA, nrow(data)), data$alpha)
@@ -236,9 +268,14 @@ GeomSf <- ggproto("GeomSf", Geom,
     linewidth[is_point] <- stroke[is_point]
 
     gp <- gpar(
-      col = colour, fill = fill, fontsize = font_size,
-      lwd = linewidth, lty = data$linetype,
-      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+      col = colour,
+      fill = fill,
+      fontsize = font_size,
+      lwd = linewidth,
+      lty = data$linetype,
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre
     )
 
     sf::st_as_grob(data$geometry, pch = data$shape, gp = gp, arrow = arrow)
@@ -248,7 +285,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     switch(
       params$legend %||% "other",
       point = draw_key_point(data, params, size),
-      line  = draw_key_path(data, params, size),
+      line = draw_key_path(data, params, size),
       draw_key_polygon(data, params, size)
     )
   },
@@ -264,7 +301,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     }
 
     remove[types$point] <- get_missing(GeomPoint)[types$point]
-    remove[types$line]  <- get_missing(GeomPath)[types$line]
+    remove[types$line] <- get_missing(GeomPath)[types$line]
     remove[types$other] <- get_missing(GeomPolygon)[types$other]
 
     remove <- remove | get_missing(self)
@@ -286,9 +323,16 @@ GeomSf <- ggproto("GeomSf", Geom,
 #' @export
 #' @rdname ggsf
 #' @inheritParams geom_point
-geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
-                    position = "identity", na.rm = FALSE, show.legend = NA,
-                    inherit.aes = TRUE, ...) {
+geom_sf <- function(
+  mapping = aes(),
+  data = NULL,
+  stat = "sf",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+) {
   c(
     layer_sf(
       geom = GeomSf,
@@ -311,22 +355,25 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
 #' @rdname ggsf
 #' @inheritParams geom_label
 #' @inheritParams stat_sf_coordinates
-geom_sf_label <- function(mapping = aes(), data = NULL,
-                          stat = "sf_coordinates", position = "nudge",
-                          ...,
-                          parse = FALSE,
-                          label.padding = unit(0.25, "lines"),
-                          label.r = unit(0.15, "lines"),
-                          label.size = deprecated(),
-                          border.colour = NULL,
-                          border.color = NULL,
-                          text.colour = NULL,
-                          text.color = NULL,
-                          na.rm = FALSE,
-                          show.legend = NA,
-                          inherit.aes = TRUE,
-                          fun.geometry = NULL) {
-
+geom_sf_label <- function(
+  mapping = aes(),
+  data = NULL,
+  stat = "sf_coordinates",
+  position = "nudge",
+  ...,
+  parse = FALSE,
+  label.padding = unit(0.25, "lines"),
+  label.r = unit(0.15, "lines"),
+  label.size = deprecated(),
+  border.colour = NULL,
+  border.color = NULL,
+  text.colour = NULL,
+  text.color = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.geometry = NULL
+) {
   extra_args <- list2(...)
   if (lifecycle::is_present(label.size)) {
     deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
@@ -358,16 +405,19 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 #' @rdname ggsf
 #' @inheritParams geom_text
 #' @inheritParams stat_sf_coordinates
-geom_sf_text <- function(mapping = aes(), data = NULL,
-                         stat = "sf_coordinates", position = "nudge",
-                         ...,
-                         parse = FALSE,
-                         check_overlap = FALSE,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE,
-                         fun.geometry = NULL) {
-
+geom_sf_text <- function(
+  mapping = aes(),
+  data = NULL,
+  stat = "sf_coordinates",
+  position = "nudge",
+  ...,
+  parse = FALSE,
+  check_overlap = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.geometry = NULL
+) {
   layer_sf(
     data = data,
     mapping = mapping,
@@ -386,10 +436,23 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
   )
 }
 
-sf_types <- c(GEOMETRY = "other", POINT = "point", LINESTRING = "line",
-              POLYGON = "other", MULTIPOINT = "point", MULTILINESTRING = "line",
-              MULTIPOLYGON = "other", GEOMETRYCOLLECTION = "collection",
-              CIRCULARSTRING = "line", COMPOUNDCURVE = "line", CURVEPOLYGON = "other",
-              MULTICURVE = "line", MULTISURFACE = "other", CURVE = "line",
-              SURFACE = "other", POLYHEDRALSURFACE = "other", TIN = "other",
-              TRIANGLE = "other")
+sf_types <- c(
+  GEOMETRY = "other",
+  POINT = "point",
+  LINESTRING = "line",
+  POLYGON = "other",
+  MULTIPOINT = "point",
+  MULTILINESTRING = "line",
+  MULTIPOLYGON = "other",
+  GEOMETRYCOLLECTION = "collection",
+  CIRCULARSTRING = "line",
+  COMPOUNDCURVE = "line",
+  CURVEPOLYGON = "other",
+  MULTICURVE = "line",
+  MULTISURFACE = "other",
+  CURVE = "line",
+  SURFACE = "other",
+  POLYHEDRALSURFACE = "other",
+  TIN = "other",
+  TRIANGLE = "other"
+)

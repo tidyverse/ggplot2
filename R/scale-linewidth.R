@@ -29,16 +29,29 @@ NULL
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_continuous <- function(name = waiver(), breaks = waiver(),
-                                       labels = waiver(), limits = NULL,
-                                       range = NULL, transform = "identity",
-                                       trans = deprecated(),
-                                       guide = "legend",
-                                       aesthetics = "linewidth") {
+scale_linewidth_continuous <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = NULL,
+  transform = "identity",
+  trans = deprecated(),
+  guide = "legend",
+  aesthetics = "linewidth"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
-  continuous_scale(aesthetics, palette = palette, name = name,
-                   breaks = breaks, labels = labels, limits = limits,
-                   transform = transform, trans = trans, guide = guide)
+  continuous_scale(
+    aesthetics,
+    palette = palette,
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    transform = transform,
+    trans = trans,
+    guide = guide
+  )
 }
 
 #' @rdname scale_linewidth
@@ -47,22 +60,42 @@ scale_linewidth <- scale_linewidth_continuous
 
 #' @rdname scale_linewidth
 #' @export
-scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                              limits = NULL, range = NULL, n.breaks = NULL,
-                              nice.breaks = TRUE, transform = "identity",
-                              trans = deprecated(), guide = "bins", aesthetics = "linewidth") {
+scale_linewidth_binned <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = NULL,
+  n.breaks = NULL,
+  nice.breaks = TRUE,
+  transform = "identity",
+  trans = deprecated(),
+  guide = "bins",
+  aesthetics = "linewidth"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
-  binned_scale(aesthetics, palette = palette, name = name,
-               breaks = breaks, labels = labels, limits = limits,
-               transform = transform, trans = trans, n.breaks = n.breaks,
-               nice.breaks = nice.breaks, guide = guide)
+  binned_scale(
+    aesthetics,
+    palette = palette,
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    transform = transform,
+    trans = trans,
+    n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
+    guide = guide
+  )
 }
 
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
 scale_linewidth_discrete <- function(...) {
-  cli::cli_warn("Using {.field linewidth} for a discrete variable is not advised.")
+  cli::cli_warn(
+    "Using {.field linewidth} for a discrete variable is not advised."
+  )
   args <- list2(...)
   args$call <- args$call %||% current_call()
   exec(scale_linewidth_ordinal, !!!args)
@@ -71,7 +104,12 @@ scale_linewidth_discrete <- function(...) {
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_ordinal <- function(name = waiver(), ..., range = NULL, aesthetics = "linewidth") {
+scale_linewidth_ordinal <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "linewidth"
+) {
   palette <- if (!is.null(range)) {
     function(n) seq(range[1], range[2], length.out = n)
   } else {
@@ -83,21 +121,37 @@ scale_linewidth_ordinal <- function(name = waiver(), ..., range = NULL, aestheti
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_datetime <- function(name = waiver(), ..., range = NULL, aesthetics = "linewidth") {
+scale_linewidth_datetime <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "linewidth"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
-    aesthetics, transform = "time", name = name,
-    palette = palette, ...
+    aesthetics,
+    transform = "time",
+    name = name,
+    palette = palette,
+    ...
   )
 }
 
 #' @rdname scale_linewidth
 #' @export
 #' @usage NULL
-scale_linewidth_date <- function(name = waiver(), ..., range = NULL, aesthetics = "linewidth") {
+scale_linewidth_date <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "linewidth"
+) {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
-    aesthetics, transform = "date", name = name,
-    palette = palette, ...
+    aesthetics,
+    transform = "date",
+    name = name,
+    palette = palette,
+    ...
   )
 }

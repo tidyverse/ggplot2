@@ -5,7 +5,9 @@ coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
   r <- if (theta == "x") "y" else "x"
   lifecycle::signal_stage("superseded", "coord_polar()", "coord_radial()")
 
-  ggproto(NULL, CoordPolar,
+  ggproto(
+    NULL,
+    CoordPolar,
     theta = theta,
     r = r,
     start = start,
@@ -18,7 +20,9 @@ coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordPolar <- ggproto("CoordPolar", Coord,
+CoordPolar <- ggproto(
+  "CoordPolar",
+  Coord,
 
   aspect = function(details) {
     1
@@ -56,17 +60,15 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-
     ret <- list(x = list(), y = list())
     for (n in c("x", "y")) {
-
       scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
 
       if (self$theta == n) {
         expansion <- default_expansion(scale, c(0, 0.5), c(0, 0))
       } else {
-        expansion <- default_expansion(scale, c(0, 0),   c(0, 0))
+        expansion <- default_expansion(scale, c(0, 0), c(0, 0))
       }
       range <- expand_limits_scale(scale, expansion, coord_limits = limits)
 
@@ -82,14 +84,22 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     }
 
     details <- list(
-      x.range = ret$x$range, y.range = ret$y$range,
-      x.major = ret$x$major, y.major = ret$y$major,
-      x.minor = ret$x$minor, y.minor = ret$y$minor,
-      x.labels = ret$x$labels, y.labels = ret$y$labels,
-      x.sec.range = ret$x$sec.range, y.sec.range = ret$y$sec.range,
-      x.sec.major = ret$x$sec.major, y.sec.major = ret$y$sec.major,
-      x.sec.minor = ret$x$sec.minor, y.sec.minor = ret$y$sec.minor,
-      x.sec.labels = ret$x$sec.labels, y.sec.labels = ret$y$sec.labels
+      x.range = ret$x$range,
+      y.range = ret$y$range,
+      x.major = ret$x$major,
+      y.major = ret$y$major,
+      x.minor = ret$x$minor,
+      y.minor = ret$y$minor,
+      x.labels = ret$x$labels,
+      y.labels = ret$y$labels,
+      x.sec.range = ret$x$sec.range,
+      y.sec.range = ret$y$sec.range,
+      x.sec.major = ret$x$sec.major,
+      y.sec.major = ret$y$sec.major,
+      x.sec.minor = ret$x$sec.minor,
+      y.sec.minor = ret$y$sec.minor,
+      x.sec.labels = ret$x$sec.labels,
+      y.sec.labels = ret$y$sec.labels
     )
 
     if (self$theta == "y") {
@@ -119,7 +129,13 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
+  train_panel_guides = function(
+    self,
+    panel_params,
+    layers,
+    default_mapping,
+    params = list()
+  ) {
     panel_params
   },
 
@@ -128,11 +144,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       return(data)
     }
 
-    arc  <- self$start + c(0, 2 * pi)
-    dir  <- self$direction
+    arc <- self$start + c(0, 2 * pi)
+    dir <- self$direction
     data <- rename_data(self, data)
 
-    data$r  <- r_rescale(data$r, panel_params$r.range)
+    data$r <- r_rescale(data$r, panel_params$r.range)
     data$theta <- theta_rescale(data$theta, panel_params$theta.range, arc, dir)
     data$x <- data$r * sin(data$theta) + 0.5
     data$y <- data$r * cos(data$theta) + 0.5
@@ -149,7 +165,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       panel_params$r.sec.major <- r_rescale(
         panel_params$r.sec.major,
         panel_params$r.sec.range
-      ) + 0.5
+      ) +
+        0.5
     }
 
     list(
@@ -170,10 +187,22 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     arc <- self$start + c(0, 2 * pi)
     dir <- self$direction
 
-    theta <- if (length(panel_params$theta.major) > 0)
-      theta_rescale(panel_params$theta.major, panel_params$theta.range, arc, dir)
-    thetamin <- if (length(panel_params$theta.minor) > 0)
-      theta_rescale(panel_params$theta.minor, panel_params$theta.range, arc, dir)
+    theta <- if (length(panel_params$theta.major) > 0) {
+      theta_rescale(
+        panel_params$theta.major,
+        panel_params$theta.range,
+        arc,
+        dir
+      )
+    }
+    thetamin <- if (length(panel_params$theta.minor) > 0) {
+      theta_rescale(
+        panel_params$theta.minor,
+        panel_params$theta.range,
+        arc,
+        dir
+      )
+    }
     thetafine <- seq(0, 2 * pi, length.out = 100)
 
     rfine <- c(r_rescale(panel_params$r.major, panel_params$r.range), 0.45)
@@ -182,33 +211,50 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     #   panel.grid.major.x or .y
     majortheta <- paste("panel.grid.major.", self$theta, sep = "")
     minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
-    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
+    majorr <- paste("panel.grid.major.", self$r, sep = "")
 
-    ggname("grill", grobTree(
-      element_render(theme, "panel.background"),
-      if (length(theta) > 0) element_render(
-        theme, majortheta, name = "angle",
-        x = vec_interleave(0, 0.45 * sin(theta)) + 0.5,
-        y = vec_interleave(0, 0.45 * cos(theta)) + 0.5,
-        id.lengths = rep(2, length(theta)),
-        default.units = "native"
-      ),
-      if (length(thetamin) > 0) element_render(
-        theme, minortheta, name = "angle",
-        x = vec_interleave(0, 0.45 * sin(thetamin)) + 0.5,
-        y = vec_interleave(0, 0.45 * cos(thetamin)) + 0.5,
-        id.lengths = rep(2, length(thetamin)),
-        default.units = "native"
-      ),
+    ggname(
+      "grill",
+      grobTree(
+        element_render(theme, "panel.background"),
+        if (length(theta) > 0) {
+          element_render(
+            theme,
+            majortheta,
+            name = "angle",
+            x = vec_interleave(0, 0.45 * sin(theta)) + 0.5,
+            y = vec_interleave(0, 0.45 * cos(theta)) + 0.5,
+            id.lengths = rep(2, length(theta)),
+            default.units = "native"
+          )
+        },
+        if (length(thetamin) > 0) {
+          element_render(
+            theme,
+            minortheta,
+            name = "angle",
+            x = vec_interleave(0, 0.45 * sin(thetamin)) + 0.5,
+            y = vec_interleave(0, 0.45 * cos(thetamin)) + 0.5,
+            id.lengths = rep(2, length(thetamin)),
+            default.units = "native"
+          )
+        },
 
-      element_render(
-        theme, majorr, name = "radius",
-        x = rep(rfine, each = length(thetafine)) * rep(sin(thetafine), length(rfine)) + 0.5,
-        y = rep(rfine, each = length(thetafine)) * rep(cos(thetafine), length(rfine)) + 0.5,
-        id.lengths = rep(length(thetafine), length(rfine)),
-        default.units = "native"
+        element_render(
+          theme,
+          majorr,
+          name = "radius",
+          x = rep(rfine, each = length(thetafine)) *
+            rep(sin(thetafine), length(rfine)) +
+            0.5,
+          y = rep(rfine, each = length(thetafine)) *
+            rep(cos(thetafine), length(rfine)) +
+            0.5,
+          id.lengths = rep(length(thetafine), length(rfine)),
+          default.units = "native"
+        )
       )
-    ))
+    )
   },
 
   render_fg = function(self, panel_params, theme) {
@@ -218,17 +264,24 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     arc <- self$start + c(0, 2 * pi)
     dir <- self$direction
 
-    theta <- theta_rescale(panel_params$theta.major, panel_params$theta.range, arc, dir)
+    theta <- theta_rescale(
+      panel_params$theta.major,
+      panel_params$theta.range,
+      arc,
+      dir
+    )
     labels <- panel_params$theta.labels
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
-    ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
+    ends_apart <- (theta[length(theta)] - theta[1]) %% (2 * pi)
     if (length(theta) > 0 && ends_apart < 0.05 && !is.null(labels)) {
       n <- length(labels)
       if (is.expression(labels)) {
-        combined <- substitute(paste(a, "/", b),
-          list(a = labels[[1]], b = labels[[n]]))
+        combined <- substitute(
+          paste(a, "/", b),
+          list(a = labels[[1]], b = labels[[n]])
+        )
       } else {
         combined <- paste(labels[1], labels[n], sep = "/")
       }
@@ -238,13 +291,17 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     }
 
     grobTree(
-      if (length(labels) > 0) element_render(
-        theme, "axis.text.x",
-        labels,
-        unit(0.45 * sin(theta) + 0.5, "native"),
-        unit(0.45 * cos(theta) + 0.5, "native"),
-        hjust = 0.5, vjust = 0.5
-      ),
+      if (length(labels) > 0) {
+        element_render(
+          theme,
+          "axis.text.x",
+          labels,
+          unit(0.45 * sin(theta) + 0.5, "native"),
+          unit(0.45 * cos(theta) + 0.5, "native"),
+          hjust = 0.5,
+          vjust = 0.5
+        )
+      },
       element_render(theme, "panel.border", fill = NA)
     )
   },
@@ -258,8 +315,9 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   modify_scales = function(self, scales_x, scales_y) {
-    if (self$theta != "y")
+    if (self$theta != "y") {
       return()
+    }
 
     lapply(scales_x, scale_flip_position)
     lapply(scales_y, scale_flip_position)

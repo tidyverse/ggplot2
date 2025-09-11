@@ -1,12 +1,15 @@
 #' @export
 #' @rdname geom_histogram
-geom_freqpoly <- function(mapping = NULL, data = NULL,
-                          stat = "bin", position = "identity",
-                          ...,
-                          na.rm = FALSE,
-                          show.legend = NA,
-                          inherit.aes = TRUE) {
-
+geom_freqpoly <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "bin",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
   params <- list2(na.rm = na.rm, ...)
   if (identical(stat, "bin")) {
     params$pad <- TRUE

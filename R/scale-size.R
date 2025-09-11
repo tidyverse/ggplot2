@@ -51,16 +51,29 @@ NULL
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                                  limits = NULL, range = NULL,
-                                  transform = "identity",
-                                  trans = deprecated(),
-                                  guide = "legend",
-                                  aesthetics = "size") {
+scale_size_continuous <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = NULL,
+  transform = "identity",
+  trans = deprecated(),
+  guide = "legend",
+  aesthetics = "size"
+) {
   palette <- if (!is.null(range)) pal_area(range) else NULL
-  continuous_scale(aesthetics, palette = palette, name = name,
-    breaks = breaks, labels = labels, limits = limits,
-    transform = transform, trans = trans, guide = guide)
+  continuous_scale(
+    aesthetics,
+    palette = palette,
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    transform = transform,
+    trans = trans,
+    guide = guide
+  )
 }
 
 #' @rdname scale_size
@@ -69,27 +82,59 @@ scale_size <- scale_size_continuous
 
 #' @rdname scale_size
 #' @export
-scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                         limits = NULL, range = c(1, 6),
-                         transform = "identity", trans = deprecated(),
-                         guide = "legend", aesthetics = "size") {
-  continuous_scale(aesthetics, palette = pal_rescale(range), name = name,
-    breaks = breaks, labels = labels, limits = limits, transform = transform,
-    trans = trans, guide = guide)
+scale_radius <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  transform = "identity",
+  trans = deprecated(),
+  guide = "legend",
+  aesthetics = "size"
+) {
+  continuous_scale(
+    aesthetics,
+    palette = pal_rescale(range),
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    transform = transform,
+    trans = trans,
+    guide = guide
+  )
 }
 
 #' @rdname scale_size
 #' @export
-scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                              limits = NULL, range = NULL, n.breaks = NULL,
-                              nice.breaks = TRUE, transform = "identity",
-                              trans = deprecated(), guide = "bins",
-                              aesthetics = "size") {
+scale_size_binned <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = NULL,
+  n.breaks = NULL,
+  nice.breaks = TRUE,
+  transform = "identity",
+  trans = deprecated(),
+  guide = "bins",
+  aesthetics = "size"
+) {
   palette <- if (!is.null(range)) pal_area(range) else NULL
-  binned_scale(aesthetics, palette = palette, name = name,
-               breaks = breaks, labels = labels, limits = limits,
-               transform = transform, trans = trans, n.breaks = n.breaks,
-               nice.breaks = nice.breaks, guide = guide)
+  binned_scale(
+    aesthetics,
+    palette = palette,
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    transform = transform,
+    trans = trans,
+    n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
+    guide = guide
+  )
 }
 
 #' @rdname scale_size
@@ -105,7 +150,12 @@ scale_size_discrete <- function(...) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_ordinal <- function(name = waiver(), ..., range = NULL, aesthetics = "size") {
+scale_size_ordinal <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "size"
+) {
   palette <- if (!is.null(range)) {
     function(n) sqrt(seq(range[1]^2, range[2]^2, length.out = n))
   } else {
@@ -118,28 +168,47 @@ scale_size_ordinal <- function(name = waiver(), ..., range = NULL, aesthetics = 
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size
-scale_size_area <- function(name = waiver(), ..., max_size = 6, aesthetics = "size") {
+scale_size_area <- function(
+  name = waiver(),
+  ...,
+  max_size = 6,
+  aesthetics = "size"
+) {
   continuous_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = abs_area(max_size),
-    rescaler = rescale_max, ...
+    rescaler = rescale_max,
+    ...
   )
 }
 
 #' @export
 #' @rdname scale_size
-scale_size_binned_area <- function(name = waiver(), ..., max_size = 6, aesthetics = "size") {
+scale_size_binned_area <- function(
+  name = waiver(),
+  ...,
+  max_size = 6,
+  aesthetics = "size"
+) {
   binned_scale(
-    aesthetics, name = name,
+    aesthetics,
+    name = name,
     palette = abs_area(max_size),
-    rescaler = rescale_max, ...
+    rescaler = rescale_max,
+    ...
   )
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_datetime <- function(name = waiver(), ..., range = NULL, aesthetics = "size") {
+scale_size_datetime <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "size"
+) {
   palette <- if (!is.null(range)) pal_area(range) else NULL
   datetime_scale(aesthetics, "time", name = name, palette = palette, ...)
 }
@@ -147,7 +216,12 @@ scale_size_datetime <- function(name = waiver(), ..., range = NULL, aesthetics =
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_date <- function(name = waiver(), ..., range = NULL, aesthetics = "size") {
+scale_size_date <- function(
+  name = waiver(),
+  ...,
+  range = NULL,
+  aesthetics = "size"
+) {
   palette <- if (!is.null(range)) pal_area(range) else NULL
   datetime_scale(aesthetics, "date", name = name, palette = palette, ...)
 }

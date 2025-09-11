@@ -122,42 +122,45 @@
 #'    stat = "identity"
 #'  )
 #' }
-geom_boxplot <- function(mapping = NULL, data = NULL,
-                         stat = "boxplot", position = "dodge2",
-                         ...,
-                         outliers = TRUE,
-                         outlier.colour = NULL,
-                         outlier.color = NULL,
-                         outlier.fill = NULL,
-                         outlier.shape = NULL,
-                         outlier.size = NULL,
-                         outlier.stroke = 0.5,
-                         outlier.alpha = NULL,
-                         whisker.colour    = NULL,
-                         whisker.color     = NULL,
-                         whisker.linetype  = NULL,
-                         whisker.linewidth = NULL,
-                         staple.colour     = NULL,
-                         staple.color      = NULL,
-                         staple.linetype   = NULL,
-                         staple.linewidth  = NULL,
-                         median.colour     = NULL,
-                         median.color      = NULL,
-                         median.linetype   = NULL,
-                         median.linewidth  = NULL,
-                         box.colour        = NULL,
-                         box.color         = NULL,
-                         box.linetype      = NULL,
-                         box.linewidth     = NULL,
-                         notch = FALSE,
-                         notchwidth = 0.5,
-                         staplewidth = 0,
-                         varwidth = FALSE,
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-
+geom_boxplot <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "boxplot",
+  position = "dodge2",
+  ...,
+  outliers = TRUE,
+  outlier.colour = NULL,
+  outlier.color = NULL,
+  outlier.fill = NULL,
+  outlier.shape = NULL,
+  outlier.size = NULL,
+  outlier.stroke = 0.5,
+  outlier.alpha = NULL,
+  whisker.colour = NULL,
+  whisker.color = NULL,
+  whisker.linetype = NULL,
+  whisker.linewidth = NULL,
+  staple.colour = NULL,
+  staple.color = NULL,
+  staple.linetype = NULL,
+  staple.linewidth = NULL,
+  median.colour = NULL,
+  median.color = NULL,
+  median.linetype = NULL,
+  median.linewidth = NULL,
+  box.colour = NULL,
+  box.color = NULL,
+  box.linetype = NULL,
+  box.linewidth = NULL,
+  notch = FALSE,
+  notchwidth = 0.5,
+  staplewidth = 0,
+  varwidth = FALSE,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
   # varwidth = TRUE is not compatible with preserve = "total"
   if (is.character(position)) {
     if (varwidth == TRUE) position <- position_dodge2(preserve = "single")
@@ -170,34 +173,34 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 
   outlier_gp <- list(
     colour = outlier.color %||% outlier.colour,
-    fill   = outlier.fill,
-    shape  = outlier.shape,
-    size   = outlier.size,
+    fill = outlier.fill,
+    shape = outlier.shape,
+    size = outlier.size,
     stroke = outlier.stroke,
-    alpha  = outlier.alpha
+    alpha = outlier.alpha
   )
 
   whisker_gp <- list(
-    colour    = whisker.color %||% whisker.colour,
-    linetype  = whisker.linetype,
+    colour = whisker.color %||% whisker.colour,
+    linetype = whisker.linetype,
     linewidth = whisker.linewidth
   )
 
   staple_gp <- list(
-    colour    = staple.color %||% staple.colour,
-    linetype  = staple.linetype,
+    colour = staple.color %||% staple.colour,
+    linetype = staple.linetype,
     linewidth = staple.linewidth
   )
 
   median_gp <- list(
-    colour    = median.color %||% median.colour,
-    linetype  = median.linetype,
+    colour = median.color %||% median.colour,
+    linetype = median.linetype,
     linewidth = median.linewidth
   )
 
   box_gp <- list(
-    colour    = box.color %||% box.colour,
-    linetype  = box.linetype,
+    colour = box.color %||% box.colour,
+    linetype = box.linetype,
     linewidth = box.linewidth
   )
 
@@ -216,9 +219,9 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       outliers = outliers,
       outlier_gp = outlier_gp,
       whisker_gp = whisker_gp,
-      staple_gp  = staple_gp,
-      median_gp  = median_gp,
-      box_gp     = box_gp,
+      staple_gp = staple_gp,
+      median_gp = median_gp,
+      box_gp = box_gp,
       notch = notch,
       notchwidth = notchwidth,
       staplewidth = staplewidth,
@@ -234,14 +237,17 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomBoxplot <- ggproto("GeomBoxplot", Geom,
+GeomBoxplot <- ggproto(
+  "GeomBoxplot",
+  Geom,
 
   extra_params = c("na.rm", "orientation", "outliers"),
 
   setup_params = function(data, params) {
     if ("fatten" %in% names(params)) {
       deprecate_soft0(
-        "4.0.0", "geom_boxplot(fatten)",
+        "4.0.0",
+        "geom_boxplot(fatten)",
         "geom_boxplot(median.linewidth)"
       )
     } else {
@@ -256,9 +262,11 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- compute_data_size(
-      data, params$width,
+      data,
+      params$width,
       default = self$default_aes$width,
-      zero = FALSE, discrete = TRUE
+      zero = FALSE,
+      discrete = TRUE
     )
     if (isFALSE(params$outliers)) {
       data$outliers <- NULL
@@ -270,12 +278,17 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         out_max <- vapply(data$outliers, max, numeric(1))
       })
 
-      data$ymin_final  <- pmin(out_min, data$ymin)
-      data$ymax_final  <- pmax(out_max, data$ymax)
+      data$ymin_final <- pmin(out_min, data$ymin)
+      data$ymax_final <- pmax(out_max, data$ymax)
     }
 
     # if `varwidth` not requested or not available, don't use it
-    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(data$relvarwidth)) {
+    if (
+      is.null(params) ||
+        is.null(params$varwidth) ||
+        !params$varwidth ||
+        is.null(data$relvarwidth)
+    ) {
       data$xmin <- data$x - data$width / 2
       data$xmax <- data$x + data$width / 2
     } else {
@@ -285,23 +298,39 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       data$xmax <- data$x + data$relvarwidth * data$width / 2
     }
     data$width <- NULL
-    if (!is.null(data$relvarwidth)) data$relvarwidth <- NULL
+    if (!is.null(data$relvarwidth)) {
+      data$relvarwidth <- NULL
+    }
 
     flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(self, data, panel_params, coord, lineend = "butt",
-                        linejoin = "mitre", fatten = 2, outlier_gp = NULL,
-                        whisker_gp = NULL, staple_gp = NULL, median_gp = NULL,
-                        box_gp = NULL, notch = FALSE, notchwidth = 0.5,
-                        staplewidth = 0, varwidth = FALSE, flipped_aes = FALSE) {
+  draw_group = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    linejoin = "mitre",
+    fatten = 2,
+    outlier_gp = NULL,
+    whisker_gp = NULL,
+    staple_gp = NULL,
+    median_gp = NULL,
+    box_gp = NULL,
+    notch = FALSE,
+    notchwidth = 0.5,
+    staplewidth = 0,
+    varwidth = FALSE,
+    flipped_aes = FALSE
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
       cli::cli_abort(c(
         "Can only draw one boxplot per group.",
-        "i"= "Did you forget {.code aes(group = ...)}?"
+        "i" = "Did you forget {.code aes(group = ...)}?"
       ))
     }
 
@@ -312,8 +341,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       xend = c(data$x, data$x),
       y = c(data$upper, data$lower),
       yend = c(data$ymax, data$ymin),
-      colour    = rep(whisker_gp$colour    %||% data$colour,    2),
-      linetype  = rep(whisker_gp$linetype  %||% data$linetype,  2),
+      colour = rep(whisker_gp$colour %||% data$colour, 2),
+      linetype = rep(whisker_gp$linetype %||% data$linetype, 2),
       linewidth = rep(whisker_gp$linewidth %||% data$linewidth, 2),
       alpha = c(NA_real_, NA_real_),
       !!!common,
@@ -337,9 +366,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier_gp$colour %||% data$colour[1],
-        fill   = outlier_gp$fill   %||% data$fill[1],
-        shape  = outlier_gp$shape  %||% data$shape[1]  %||% 19,
-        size   = outlier_gp$size   %||% data$size[1]   %||% 1.5,
+        fill = outlier_gp$fill %||% data$fill[1],
+        shape = outlier_gp$shape %||% data$shape[1] %||% 19,
+        size = outlier_gp$size %||% data$size[1] %||% 1.5,
         stroke = outlier_gp$stroke %||% data$stroke[1] %||% 0.5,
         fill = NA,
         alpha = outlier_gp$alpha %||% data$alpha[1],
@@ -354,55 +383,76 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
     if (staplewidth != 0) {
       staples <- data_frame0(
-        x    = rep((data$xmin - data$x) * staplewidth + data$x, 2),
+        x = rep((data$xmin - data$x) * staplewidth + data$x, 2),
         xend = rep((data$xmax - data$x) * staplewidth + data$x, 2),
-        y    = c(data$ymax, data$ymin),
+        y = c(data$ymax, data$ymin),
         yend = c(data$ymax, data$ymin),
-        linetype  = rep(staple_gp$linetype  %||% data$linetype, 2),
+        linetype = rep(staple_gp$linetype %||% data$linetype, 2),
         linewidth = rep(staple_gp$linewidth %||% data$linewidth, 2),
-        colour    = rep(staple_gp$colour    %||% data$colour, 2),
+        colour = rep(staple_gp$colour %||% data$colour, 2),
         alpha = c(NA_real_, NA_real_),
         !!!common,
         .size = 2
       )
       staples <- flip_data(staples, flipped_aes)
       staple_grob <- GeomSegment$draw_panel(
-        staples, panel_params, coord,
+        staples,
+        panel_params,
+        coord,
         lineend = lineend
       )
     } else {
       staple_grob <- NULL
     }
 
-    ggname("geom_boxplot", grobTree(
-      outliers_grob,
-      staple_grob,
-      GeomSegment$draw_panel(whiskers, panel_params, coord, lineend = lineend),
-      GeomCrossbar$draw_panel(
-        box,
-        fatten = fatten,
-        panel_params,
-        coord,
-        lineend = lineend,
-        linejoin = linejoin,
-        flipped_aes = flipped_aes,
-        middle_gp = median_gp,
-        box_gp = box_gp
+    ggname(
+      "geom_boxplot",
+      grobTree(
+        outliers_grob,
+        staple_grob,
+        GeomSegment$draw_panel(
+          whiskers,
+          panel_params,
+          coord,
+          lineend = lineend
+        ),
+        GeomCrossbar$draw_panel(
+          box,
+          fatten = fatten,
+          panel_params,
+          coord,
+          lineend = lineend,
+          linejoin = linejoin,
+          flipped_aes = flipped_aes,
+          middle_gp = median_gp,
+          box_gp = box_gp
+        )
       )
-    ))
+    )
   },
 
   draw_key = draw_key_boxplot,
 
   default_aes = aes(
-    weight = 1, colour = from_theme(colour %||% col_mix(ink, paper, 0.2)),
-    fill = from_theme(fill %||% paper), size = from_theme(pointsize),
-    alpha = NA, shape = from_theme(pointshape), linetype = from_theme(bordertype),
+    weight = 1,
+    colour = from_theme(colour %||% col_mix(ink, paper, 0.2)),
+    fill = from_theme(fill %||% paper),
+    size = from_theme(pointsize),
+    alpha = NA,
+    shape = from_theme(pointshape),
+    linetype = from_theme(bordertype),
     linewidth = from_theme(borderwidth),
     width = 0.9
   ),
 
-  required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
+  required_aes = c(
+    "x|y",
+    "lower|xlower",
+    "upper|xupper",
+    "middle|xmiddle",
+    "ymin|xmin",
+    "ymax|xmax"
+  ),
 
   rename_size = TRUE
 )

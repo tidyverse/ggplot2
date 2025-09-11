@@ -2,11 +2,17 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomPointrange <- ggproto("GeomPointrange", Geom,
+GeomPointrange <- ggproto(
+  "GeomPointrange",
+  Geom,
   default_aes = aes(
-    colour = from_theme(colour %||% ink), size = from_theme(pointsize / 3),
-    linewidth = from_theme(linewidth), linetype = from_theme(linetype),
-    shape = from_theme(pointshape), fill = from_theme(fill %||% NA), alpha = NA,
+    colour = from_theme(colour %||% ink),
+    size = from_theme(pointsize / 3),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    shape = from_theme(pointshape),
+    fill = from_theme(fill %||% NA),
+    alpha = NA,
     stroke = from_theme(borderwidth * 2)
   ),
 
@@ -16,7 +22,11 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
   setup_params = function(data, params) {
     if (lifecycle::is_present(params$fatten %||% deprecated())) {
-      deprecate_soft0("4.0.0", "geom_pointrange(fatten)", I("the `size` aesthetic"))
+      deprecate_soft0(
+        "4.0.0",
+        "geom_pointrange(fatten)",
+        I("the `size` aesthetic")
+      )
     } else {
       # For backward compatibility reasons
       params$fatten <- 4
@@ -30,23 +40,40 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
     GeomLinerange$setup_data(data, params)
   },
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", fatten = 4,
-                        flipped_aes = FALSE, na.rm = FALSE) {
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    fatten = 4,
+    flipped_aes = FALSE,
+    na.rm = FALSE
+  ) {
     line_grob <- GeomLinerange$draw_panel(
-      data, panel_params, coord, lineend = lineend, flipped_aes = flipped_aes,
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      flipped_aes = flipped_aes,
       na.rm = na.rm
     )
-    if (is.null(data[[flipped_names(flipped_aes)$y]]))
+    if (is.null(data[[flipped_names(flipped_aes)$y]])) {
       return(line_grob)
+    }
 
-    ggname("geom_pointrange",
-      gTree(children = gList(
-        line_grob,
-        GeomPoint$draw_panel(
-          transform(data, size = size * fatten),
-          panel_params, coord, na.rm = na.rm
+    ggname(
+      "geom_pointrange",
+      gTree(
+        children = gList(
+          line_grob,
+          GeomPoint$draw_panel(
+            transform(data, size = size * fatten),
+            panel_params,
+            coord,
+            na.rm = na.rm
+          )
         )
-      ))
+      )
     )
   }
 )
@@ -55,5 +82,6 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 #' @rdname geom_linerange
 geom_pointrange <- make_constructor(
   GeomPointrange,
-  orientation = NA, fatten = deprecated()
+  orientation = NA,
+  fatten = deprecated()
 )

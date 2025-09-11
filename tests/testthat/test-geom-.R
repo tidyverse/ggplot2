@@ -7,7 +7,6 @@ test_that("aesthetic checking in geom throws correct errors", {
 })
 
 test_that("get_geom_defaults can use various sources", {
-
   test <- get_geom_defaults(geom_point)
   expect_equal(test$colour, "black")
 
@@ -46,7 +45,6 @@ test_that("geom defaults can be set and reset", {
 })
 
 test_that("updating geom aesthetic defaults preserves class and order", {
-
   original_defaults <- GeomPoint$default_aes
 
   update_geom_defaults("point", aes(color = "red"))
@@ -61,14 +59,10 @@ test_that("updating geom aesthetic defaults preserves class and order", {
   expect_equal(updated_defaults, intended_defaults)
 
   update_geom_defaults("point", NULL)
-
 })
 
 
-
-
 test_that("updating stat aesthetic defaults preserves class and order", {
-
   original_defaults <- StatBin$default_aes
 
   update_stat_defaults("bin", aes(y = after_stat(density)))
@@ -79,10 +73,12 @@ test_that("updating stat aesthetic defaults preserves class and order", {
 
   intended_defaults <- original_defaults
   intended_defaults[["y"]] <- expr(after_stat(density))
-  attr(intended_defaults[["y"]], ".Environment") <- attr(updated_defaults[["y"]], ".Environment")
+  attr(intended_defaults[["y"]], ".Environment") <- attr(
+    updated_defaults[["y"]],
+    ".Environment"
+  )
 
   expect_equal(updated_defaults, intended_defaults)
 
   update_stat_defaults("bin", NULL)
-
 })

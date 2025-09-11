@@ -140,7 +140,13 @@ local({
       cat("<empty>\n")
     } else {
       values <- vapply(x, quo_label, character(1))
-      bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
+      bullets <- paste0(
+        "* ",
+        format(paste0("`", names(x), "`")),
+        " -> ",
+        values,
+        "\n"
+      )
 
       cat(bullets, sep = "")
     }
@@ -195,7 +201,9 @@ rename_aes <- function(x) {
   names(x) <- standardise_aes_names(names(x))
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
-    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}")
+    cli::cli_warn(
+      "Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}"
+    )
   }
   x
 }
@@ -289,8 +297,12 @@ aes_ <- function(x, y, ...) {
     details = "Please use tidy evaluation idioms with `aes()`"
   )
   mapping <- list(...)
-  if (!missing(x)) mapping["x"] <- list(x)
-  if (!missing(y)) mapping["y"] <- list(y)
+  if (!missing(x)) {
+    mapping["x"] <- list(x)
+  }
+  if (!missing(y)) {
+    mapping["y"] <- list(y)
+  }
 
   caller_env <- parent.frame()
 
@@ -300,7 +312,9 @@ aes_ <- function(x, y, ...) {
     } else if (is.null(x) || is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
-      cli::cli_abort("Aesthetic must be a one-sided formula, call, name, or constant.")
+      cli::cli_abort(
+        "Aesthetic must be a one-sided formula, call, name, or constant."
+      )
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
@@ -319,8 +333,12 @@ aes_string <- function(x, y, ...) {
     )
   )
   mapping <- list(...)
-  if (!missing(x)) mapping["x"] <- list(x)
-  if (!missing(y)) mapping["y"] <- list(y)
+  if (!missing(x)) {
+    mapping["x"] <- list(x)
+  }
+  if (!missing(y)) {
+    mapping["y"] <- list(y)
+  }
 
   caller_env <- parent.frame()
   mapping <- lapply(mapping, function(x) {
@@ -351,7 +369,9 @@ aes_all <- function(vars) {
 
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
-  x <- class_mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
+  x <- class_mapping(lapply(vars, function(x) {
+    new_quosure(as.name(x), emptyenv())
+  }))
   class(x) <- union("unlabelled", class(x))
   x
 }
@@ -423,10 +443,13 @@ extract_target_is_likely_data <- function(x, data, env) {
     return(FALSE)
   }
 
-  tryCatch({
-    data_eval <- eval_tidy(x[[2]], data, env)
-    identical(unrowname(data_eval), unrowname(data))
-  }, error = function(err) FALSE)
+  tryCatch(
+    {
+      data_eval <- eval_tidy(x[[2]], data, env)
+      identical(unrowname(data_eval), unrowname(data))
+    },
+    error = function(err) FALSE
+  )
 }
 
 # Takes a quosure and returns a named list of quosures, expanding
@@ -438,7 +461,9 @@ arg_enquos <- function(name, frame = caller_env()) {
   expr <- quo_get_expr(quo)
 
   is_triple_bang <- !is_missing(expr) &&
-    is_bang(expr) && is_bang(expr[[2]]) && is_bang(expr[[c(2, 2)]])
+    is_bang(expr) &&
+    is_bang(expr[[2]]) &&
+    is_bang(expr[[c(2, 2)]])
   if (is_triple_bang) {
     # Evaluate `!!!` operand and create a list of quosures
     env <- quo_get_env(quo)

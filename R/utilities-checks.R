@@ -1,17 +1,17 @@
-
 # Extra checks in addition to the ones in import-standalone-types-check.R
 
 # Usage:
 # check_object(x, is.data.frame, "a data.frame)
-check_object <- function(x,
-                         check_fun,
-                         what,
-                         ...,
-                         allow_na = FALSE,
-                         allow_null = FALSE,
-                         arg = caller_arg(x),
-                         call = caller_env()) {
-
+check_object <- function(
+  x,
+  check_fun,
+  what,
+  ...,
+  allow_na = FALSE,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (!missing(x)) {
     if (check_fun(x)) {
       return(invisible(NULL))
@@ -34,22 +34,25 @@ check_object <- function(x,
   )
 }
 
-check_numeric <- function(x,
-                          what = "a {.cls numeric} vector",
-                          ...,
-                          arg = caller_arg(x),
-                          call = caller_env()) {
+check_numeric <- function(
+  x,
+  what = "a {.cls numeric} vector",
+  ...,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   check_object(x, is.numeric, what, ..., arg = arg, call = call)
 }
 
-check_inherits <- function(x,
-                           class,
-                           what = NULL,
-                           ...,
-                           allow_null = FALSE,
-                           arg = caller_arg(x),
-                           call = caller_env()) {
-
+check_inherits <- function(
+  x,
+  class,
+  what = NULL,
+  ...,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (!missing(x)) {
     if (inherits(x, class)) {
       return(invisible(NULL))
@@ -59,9 +62,12 @@ check_inherits <- function(x,
     }
   }
 
-  what <- what %||% paste(
-    "a", oxford_comma(paste0("{.cls ", class, "}")), "object"
-  )
+  what <- what %||%
+    paste(
+      "a",
+      oxford_comma(paste0("{.cls ", class, "}")),
+      "object"
+    )
 
   stop_input_type(
     x,
@@ -73,8 +79,15 @@ check_inherits <- function(x,
   )
 }
 
-check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
-                         arg = caller_arg(x), call = caller_env()) {
+check_length <- function(
+  x,
+  length = integer(),
+  ...,
+  min = 0,
+  max = Inf,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (missing(x)) {
     stop_input_type(x, "a vector", arg = arg, call = call)
   }
@@ -96,7 +109,9 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
     }
     msg <- sprintf(
       "%s must be %s, not length %d.",
-      fmt(arg), type, n
+      fmt(arg),
+      type,
+      n
     )
     cli::cli_abort(msg, call = call, arg = arg)
   }
@@ -122,7 +137,10 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
 
   msg <- sprintf(
     "`%s` must be a %s with %s, not length %d.",
-    fmt(arg), type, what, n
+    fmt(arg),
+    type,
+    what,
+    n
   )
   cli::cli_abort(msg, call = call, arg = arg)
 }
@@ -240,13 +258,17 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
 #'
 #' # Possibly throw an error
 #' try(check_device("glyphs", action = "abort"))
-check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
-                        call = caller_env()) {
-
+check_device <- function(
+  feature,
+  action = "warn",
+  op = NULL,
+  maybe = FALSE,
+  call = caller_env()
+) {
   check_bool(maybe, allow_na = TRUE)
 
   # Grab device for checking
-  dev_cur  <- grDevices::dev.cur()
+  dev_cur <- grDevices::dev.cur()
   dev_name <- names(dev_cur)
 
   if (dev_name == "null device") {
@@ -256,29 +278,39 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
   action <- arg_match0(action, c("test", "warn", "abort"))
   action_fun <- switch(
     action,
-    warn  = cli::cli_warn,
+    warn = cli::cli_warn,
     abort = cli::cli_abort,
     function(...) invisible()
   )
 
   feature <- arg_match0(
     feature,
-    c("clippingPaths", "alpha_masks", "lumi_masks", "compositing", "blending",
-      "transformations", "glyphs", "patterns", "gradients", "paths",
-      ".test_feature")
+    c(
+      "clippingPaths",
+      "alpha_masks",
+      "lumi_masks",
+      "compositing",
+      "blending",
+      "transformations",
+      "glyphs",
+      "patterns",
+      "gradients",
+      "paths",
+      ".test_feature"
+    )
   )
   # Formatting prettier feature names
   feat_name <- switch(
     feature,
-    clippingPaths   = "clipping paths",
-    patterns        = "tiled patterns",
-    blending        = "blend modes",
-    gradients       = "colour gradients",
-    glyphs          = "typeset glyphs",
-    paths           = "stroking and filling paths",
+    clippingPaths = "clipping paths",
+    patterns = "tiled patterns",
+    blending = "blend modes",
+    gradients = "colour gradients",
+    glyphs = "typeset glyphs",
+    paths = "stroking and filling paths",
     transformations = "affine transformations",
-    alpha_masks     = "alpha masks",
-    lumi_masks      = "luminance masks",
+    alpha_masks = "alpha masks",
+    lumi_masks = "luminance masks",
     feature
   )
 
@@ -287,16 +319,19 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
   capable <- switch(
     feature,
     glyphs = version >= "4.3.0",
-    paths =, transformations =, compositing =,
-    patterns =, lumi_masks =, blending =,
+    paths = ,
+    transformations = ,
+    compositing = ,
+    patterns = ,
+    lumi_masks = ,
+    blending = ,
     gradients = version >= "4.2.0",
-    alpha_masks =,
+    alpha_masks = ,
     clippingPaths = version >= "4.1.0",
     TRUE
   )
   if (isFALSE(capable)) {
-    action_fun("R {version} does not support {.emph {feature}}.",
-               call = call)
+    action_fun("R {version} does not support {.emph {feature}}.", call = call)
     return(FALSE)
   }
 
@@ -306,20 +341,22 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
     # device to check capabilities.
     dev_old <- dev_cur
     on.exit(grDevices::dev.set(dev_old), add = TRUE)
-    dev_cur  <- grDevices::dev.set(grDevices::dev.next())
+    dev_cur <- grDevices::dev.set(grDevices::dev.next())
     dev_name <- names(dev_cur)
   }
 
   # {ragg} and {svglite} report capabilities, but need specific version
   if (dev_name %in% c("agg_jpeg", "agg_ppm", "agg_png", "agg_tiff")) {
     check_installed(
-      "ragg", version = "1.2.6",
+      "ragg",
+      version = "1.2.6",
       reason = paste0("for checking device support for ", feat_name, ".")
     )
   }
   if (dev_name == "devSVG") {
     check_installed(
-      "svglite", version = "2.1.2",
+      "svglite",
+      version = "2.1.2",
       reason = paste0("for checking device support for ", feat_name, ".")
     )
   }
@@ -361,7 +398,7 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
       gradients = !all(is.na(capa$patterns)) &&
         !all(c("LinearGradient", "RadialGradient") %in% capa$patterns),
       alpha_masks = !is.na(capa$masks) && !("alpha" %in% capa$masks),
-      lumi_masks  = !is.na(capa$masks) && !("luminance" %in% capa$masks),
+      lumi_masks = !is.na(capa$masks) && !("luminance" %in% capa$masks),
       patterns = !is.na(capa$patterns) && !("TilingPattern" %in% capa$patterns),
       compositing = !all(is.na(capa$compositing)) &&
         !all(.compo_ops %in% capa$compositing),
@@ -412,10 +449,33 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
   return(maybe)
 }
 
-.compo_ops <- c("clear", "source", "over", "in", "out", "atop", "dest",
-                "dest.over", "dest.in", "dest.out", "dest.atop", "xor", "add",
-                "saturate")
+.compo_ops <- c(
+  "clear",
+  "source",
+  "over",
+  "in",
+  "out",
+  "atop",
+  "dest",
+  "dest.over",
+  "dest.in",
+  "dest.out",
+  "dest.atop",
+  "xor",
+  "add",
+  "saturate"
+)
 
-.blend_ops <- c("multiply", "screen", "overlay", "darken", "lighten",
-                "color.dodge", "color.burn", "hard.light", "soft.light",
-                "difference", "exclusion")
+.blend_ops <- c(
+  "multiply",
+  "screen",
+  "overlay",
+  "darken",
+  "lighten",
+  "color.dodge",
+  "color.burn",
+  "hard.light",
+  "soft.light",
+  "difference",
+  "exclusion"
+)

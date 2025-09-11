@@ -3,14 +3,17 @@
 #' @usage NULL
 #' @export
 StatConnect <- ggproto(
-  "StatConnect", Stat,
+  "StatConnect",
+  Stat,
 
   required_aes = c("x|xmin|xmax", "y|ymin|ymax"),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(
-      data, params,
-      range_is_orthogonal = TRUE, ambiguous = TRUE
+      data,
+      params,
+      range_is_orthogonal = TRUE,
+      ambiguous = TRUE
     )
 
     connection <- params$connection %||% "hv"
@@ -19,16 +22,18 @@ StatConnect <- ggproto(
       check_string(connection)
       connection <- switch(
         arg_match0(connection, c("hv", "vh", "mid", "linear")),
-        hv     = matrix(c(1, 1, 0, 1),     2, 2),
-        vh     = matrix(c(0, 0, 0, 1),     2, 2),
-        mid    = matrix(c(0.5, 0.5, 0, 1), 2, 2),
-        linear = matrix(c(0, 1, 0, 1),     2, 2)
+        hv = matrix(c(1, 1, 0, 1), 2, 2),
+        vh = matrix(c(0, 0, 0, 1), 2, 2),
+        mid = matrix(c(0.5, 0.5, 0, 1), 2, 2),
+        linear = matrix(c(0, 1, 0, 1), 2, 2)
       )
     }
 
-    if (!is.matrix(connection) ||
+    if (
+      !is.matrix(connection) ||
         !typeof(connection) %in% c("integer", "double") ||
-        !identical(dim(connection)[2], 2L)) {
+        !identical(dim(connection)[2], 2L)
+    ) {
       extra <- ""
       if (!is.null(dim(connection)[2])) {
         extra <- paste0(" with ", dim(connection)[2], " column(s)")
@@ -53,8 +58,12 @@ StatConnect <- ggproto(
     params
   },
 
-  compute_group = function(data, scales, connection = "hv", flipped_aes = FALSE) {
-
+  compute_group = function(
+    data,
+    scales,
+    connection = "hv",
+    flipped_aes = FALSE
+  ) {
     data <- flip_data(data, flipped_aes)
 
     n <- nrow(data)
@@ -68,7 +77,7 @@ StatConnect <- ggproto(
     m <- nrow(connection)
 
     before <- rep(seq_len(n - 1), each = m)
-    after  <- rep(seq_len(n)[-1], each = m)
+    after <- rep(seq_len(n)[-1], each = m)
 
     data <- vec_slice(data, order(data$x %||% data$xmin))
 
@@ -76,12 +85,12 @@ StatConnect <- ggproto(
     # Note that `length(x) != length(xjust)`, but these are kept in sync due to
     # the matrix recycling rules (effectively `rep(xjust, ncol(x))`)
     x <- as.matrix(data[intersect(names(data), ggplot_global$x_aes)])
-    xjust  <- rep(connection[, 1], n - 1L)
+    xjust <- rep(connection[, 1], n - 1L)
     x <- vec_slice(x, before) * (1 - xjust) + vec_slice(x, after) * xjust
 
     # Interpolate y
     y <- as.matrix(data[intersect(names(data), ggplot_global$y_aes)])
-    yjust  <- rep(connection[, 2], n - 1L)
+    yjust <- rep(connection[, 2], n - 1L)
     y <- vec_slice(y, before) * (1 - yjust) + vec_slice(y, after) * yjust
 
     # Reconstitute data
@@ -98,7 +107,6 @@ StatConnect <- ggproto(
     }
     flip_data(new_data, flipped_aes)
   }
-
 )
 
 #' Connect observations

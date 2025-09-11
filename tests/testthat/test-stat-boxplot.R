@@ -1,5 +1,4 @@
 test_that("stat_boxplot drops missing rows with a warning", {
-
   p1 <- ggplot(PlantGrowth, aes(x = group, y = weight)) +
     geom_boxplot(position = "dodge") +
     scale_x_discrete(limits = c("trt1", "ctrl"))

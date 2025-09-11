@@ -47,9 +47,15 @@ test_that("alpha affects only fill colour of solid geoms", {
 
   expect_equal(get_layer_grob(poly)[[1]]$gp$col[[1]], "red")
   expect_equal(get_layer_grob(rect)[[1]]$gp$col[[1]], "red")
-  expect_equal(get_layer_grob(ribb)[[1]]$children[[1]]$children[[2]]$gp$col[[1]], "red")
+  expect_equal(
+    get_layer_grob(ribb)[[1]]$children[[1]]$children[[2]]$gp$col[[1]],
+    "red"
+  )
 
   expect_equal(get_layer_grob(poly)[[1]]$gp$fill[[1]], "#FF000080")
   expect_equal(get_layer_grob(rect)[[1]]$gp$fill[[1]], "#FF000080")
-  expect_equal(get_layer_grob(ribb)[[1]]$children[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(
+    get_layer_grob(ribb)[[1]]$children[[1]]$children[[1]]$gp$fill[[1]],
+    "#FF000080"
+  )
 })

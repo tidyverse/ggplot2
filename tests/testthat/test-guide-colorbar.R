@@ -51,14 +51,12 @@ test_that("guide_colourbar merging preserves both aesthetics", {
 
 
 test_that("guide_colourbar warns about discrete scales", {
-
   g <- guide_colourbar()
   s <- scale_colour_discrete()
   s$train(LETTERS[1:3])
 
   expect_snapshot_warning(g <- g$train(g$params, s, "colour"))
   expect_null(g)
-
 })
 
 test_that("colorbar can be styled", {
@@ -72,28 +70,37 @@ test_that("colorbar can be styled", {
 
   expect_doppelganger(
     "customized colorbar",
-    p + scale_color_gradient(
-      low = 'white', high = 'red',
-      guide = guide_colorbar(
-        theme = theme(
-          legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
-          legend.ticks = element_line("black", linewidth = 2.5 / .pt),
-          legend.ticks.length = unit(0.4, "npc")
-        ), alpha = 0.75
+    p +
+      scale_color_gradient(
+        low = 'white',
+        high = 'red',
+        guide = guide_colorbar(
+          theme = theme(
+            legend.frame = element_rect(
+              colour = "green",
+              linewidth = 1.5 / .pt
+            ),
+            legend.ticks = element_line("black", linewidth = 2.5 / .pt),
+            legend.ticks.length = unit(0.4, "npc")
+          ),
+          alpha = 0.75
+        )
+      ) +
+      labs(
+        subtitle = "white-to-red semitransparent colorbar, long thick black ticks, green frame"
       )
-    ) + labs(subtitle = "white-to-red semitransparent colorbar, long thick black ticks, green frame")
   )
 })
 
 test_that("guides can handle multiple aesthetics for one scale", {
-  df <- data_frame(x = c(1, 2, 3),
-                   y = c(6, 5, 7))
+  df <- data_frame(x = c(1, 2, 3), y = c(6, 5, 7))
 
   p <- ggplot(df, aes(x, y, color = x, fill = y)) +
     geom_point(shape = 21, size = 3, stroke = 2) +
     scale_colour_viridis_c(
       name = "value",
-      option = "B", aesthetics = c("colour", "fill")
+      option = "B",
+      aesthetics = c("colour", "fill")
     )
 
   expect_doppelganger("combined colour and fill aesthetics", p)

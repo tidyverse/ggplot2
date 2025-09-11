@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatDensity2d <- ggproto(
-  "StatDensity2d", Stat,
+  "StatDensity2d",
+  Stat,
   default_aes = aes(colour = "#3366FF", size = 0.5),
 
   required_aes = c("x", "y"),
@@ -13,8 +14,12 @@ StatDensity2d <- ggproto(
   dropped_aes = character(0),
 
   extra_params = c(
-    "na.rm", "contour", "contour_var",
-    "bins", "binwidth", "breaks"
+    "na.rm",
+    "contour",
+    "contour_var",
+    "bins",
+    "binwidth",
+    "breaks"
   ),
 
   # when contouring is on, are we returning lines or bands?
@@ -29,7 +34,9 @@ StatDensity2d <- ggproto(
     }
 
     # if we're not contouring we're done
-    if (!isTRUE(params$contour %||% TRUE)) return(data)
+    if (!isTRUE(params$contour %||% TRUE)) {
+      return(data)
+    }
 
     # set up data and parameters for contouring
     contour_var <- params$contour_var %||% "density"
@@ -44,32 +51,54 @@ StatDensity2d <- ggproto(
 
     if (isTRUE(self$contour_type == "bands")) {
       contour_stat <- ggproto(NULL, StatContourFilled)
-    } else { # lines is the default
+    } else {
+      # lines is the default
       contour_stat <- ggproto(NULL, StatContour)
     }
     # update dropped aes
-    contour_stat$dropped_aes <- c(contour_stat$dropped_aes, "density", "ndensity", "count")
+    contour_stat$dropped_aes <- c(
+      contour_stat$dropped_aes,
+      "density",
+      "ndensity",
+      "count"
+    )
 
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
       try_fetch(
-        inject(contour_stat$compute_panel(data = data, scales = scales, !!!params)),
+        inject(contour_stat$compute_panel(
+          data = data,
+          scales = scales,
+          !!!params
+        )),
         error = function(cnd) {
-          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}.", parent = cnd)
+          cli::cli_warn(
+            "Computation failed in {.fn {snake_class(self)}}.",
+            parent = cnd
+          )
           data_frame0()
         }
       )
     })
   },
 
-  compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
-                           n = 100, ...) {
-
+  compute_group = function(
+    data,
+    scales,
+    na.rm = FALSE,
+    h = NULL,
+    adjust = c(1, 1),
+    n = 100,
+    ...
+  ) {
     h <- precompute_2d_bw(data$x, data$y, h = h, adjust = adjust)
 
     # calculate density
     dens <- MASS::kde2d(
-      data$x, data$y, h = h, n = n,
+      data$x,
+      data$y,
+      h = h,
+      n = n,
       lims = c(scales$x$dimension(), scales$y$dimension())
     )
 
@@ -92,7 +121,8 @@ StatDensity2d <- ggproto(
 #' @usage NULL
 #' @export
 StatDensity2dFilled <- ggproto(
-  "StatDensity2dFilled", StatDensity2d,
+  "StatDensity2dFilled",
+  StatDensity2d,
   default_aes = aes(colour = NA, fill = after_stat(level)),
   contour_type = "bands"
 )
@@ -141,8 +171,10 @@ StatDensity2dFilled <- ggproto(
 #' are no longer available after the contouring pass.
 #'
 stat_density_2d <- make_constructor(
-  StatDensity2d, geom = "density_2d",
-  contour = TRUE, contour_var = "density"
+  StatDensity2d,
+  geom = "density_2d",
+  contour = TRUE,
+  contour_var = "density"
 )
 
 #' @rdname geom_density_2d
@@ -153,8 +185,10 @@ stat_density2d <- stat_density_2d
 #' @rdname geom_density_2d
 #' @export
 stat_density_2d_filled <- make_constructor(
-  StatDensity2dFilled, geom = "density_2d_filled",
-  contour = TRUE, contour_var = "density"
+  StatDensity2dFilled,
+  geom = "density_2d_filled",
+  contour = TRUE,
+  contour_var = "density"
 )
 
 #' @rdname geom_density_2d
@@ -163,13 +197,16 @@ stat_density_2d_filled <- make_constructor(
 stat_density2d_filled <- stat_density_2d_filled
 
 precompute_2d_bw <- function(x, y, h = NULL, adjust = 1) {
-
   if (is.null(h)) {
     # Note: MASS::bandwidth.nrd is equivalent to stats::bw.nrd * 4
     h <- c(MASS::bandwidth.nrd(x), MASS::bandwidth.nrd(y))
     # Handle case when when IQR == 0 and thus regular nrd bandwidth fails
-    if (h[1] == 0 && length(x) > 1) h[1] <- stats::bw.nrd0(x) * 4
-    if (h[2] == 0 && length(y) > 1) h[2] <- stats::bw.nrd0(y) * 4
+    if (h[1] == 0 && length(x) > 1) {
+      h[1] <- stats::bw.nrd0(x) * 4
+    }
+    if (h[2] == 0 && length(y) > 1) {
+      h[2] <- stats::bw.nrd0(y) * 4
+    }
     h <- h * adjust
   }
 

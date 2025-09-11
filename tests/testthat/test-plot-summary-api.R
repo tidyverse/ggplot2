@@ -3,13 +3,13 @@
 
 # Some basic plots that we build on for the tests
 p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
-pw <- p + facet_wrap(~ drv)
+pw <- p + facet_wrap(~drv)
 pg <- p + facet_grid(drv ~ cyl)
 
 test_that("layout summary - basic plot", {
   l <- summarise_layout(ggplot_build(p))
 
-  empty_named_list <- list(a=1)[0]
+  empty_named_list <- list(a = 1)[0]
 
   expect_equal(l$panel, factor(1))
   expect_equal(l$row, 1)
@@ -63,7 +63,7 @@ test_that("layout summary - facet_grid", {
 })
 
 test_that("layout summary - free scales", {
-  pwf <- p + facet_wrap(~ drv, scales = "free")
+  pwf <- p + facet_wrap(~drv, scales = "free")
   lwf <- summarise_layout(ggplot_build(pwf))
   expect_equal(lwf$xmin, c(1.565, 1.415, 3.640))
   expect_equal(lwf$xmax, c(6.735, 5.485, 7.160))
@@ -113,12 +113,20 @@ test_that("coord summary - coord_flip", {
 
 test_that("summarise_layers", {
   l <- summarise_layers(ggplot_build(p))
-  expect_equal(l$mapping[[1]], list(x = quo(displ), y = quo(hwy)), ignore_attr = TRUE)
+  expect_equal(
+    l$mapping[[1]],
+    list(x = quo(displ), y = quo(hwy)),
+    ignore_attr = TRUE
+  )
 
-  p2 <- p + geom_point(aes(x = displ/2, y = hwy/2))
+  p2 <- p + geom_point(aes(x = displ / 2, y = hwy / 2))
   l2 <- summarise_layers(ggplot_build(p2))
-  expect_equal(l2$mapping[[1]], list(x = quo(displ), y = quo(hwy)), ignore_attr = TRUE)
+  expect_equal(
+    l2$mapping[[1]],
+    list(x = quo(displ), y = quo(hwy)),
+    ignore_attr = TRUE
+  )
 
   # Here use _identical because the quosures are supposed to be local
-  expect_identical(l2$mapping[[2]], list(x = quo(displ/2), y = quo(hwy/2)))
+  expect_identical(l2$mapping[[2]], list(x = quo(displ / 2), y = quo(hwy / 2)))
 })

@@ -21,8 +21,8 @@ test_that("binwidth is respected", {
 test_that("breaks override binwidth", {
   # Test explicitly setting the breaks for x, overriding
   # the binwidth.
-  integer_breaks <- (0:4) - 0.5  # Will use for x
-  half_breaks <- seq(0, 3.5, 0.5)  # Will test against this for y
+  integer_breaks <- (0:4) - 0.5 # Will use for x
+  half_breaks <- seq(0, 3.5, 0.5) # Will test against this for y
 
   df <- data_frame(x = 0:3, y = 0:3)
   base <- ggplot(df, aes(x, y)) +
@@ -32,15 +32,22 @@ test_that("breaks override binwidth", {
     )
 
   out <- get_layer_data(base)
-  expect_equal(out$xbin, cut(df$x, bins(integer_breaks)$fuzzy, include.lowest = TRUE, labels = FALSE))
-  expect_equal(out$ybin, cut(df$y, bins(half_breaks)$fuzzy, include.lowest = TRUE, labels = FALSE))
+  expect_equal(
+    out$xbin,
+    cut(df$x, bins(integer_breaks)$fuzzy, include.lowest = TRUE, labels = FALSE)
+  )
+  expect_equal(
+    out$ybin,
+    cut(df$y, bins(half_breaks)$fuzzy, include.lowest = TRUE, labels = FALSE)
+  )
 })
 
 test_that("breaks are transformed by the scale", {
   df <- data_frame(x = c(1, 10, 100, 1000), y = 0:3)
   base <- ggplot(df, aes(x, y)) +
     stat_bin_2d(
-      breaks = list(x = c(5, 50, 500), y = c(0.5, 1.5, 2.5)))
+      breaks = list(x = c(5, 50, 500), y = c(0.5, 1.5, 2.5))
+    )
 
   out1 <- get_layer_data(base)
   out2 <- get_layer_data(base + scale_x_log10())

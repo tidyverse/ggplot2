@@ -67,8 +67,8 @@ NULL
 #' # To control the tick density around 0, one can set `negative.small`
 #' p2 + guides(x = guide_axis_logticks(negative.small = 1))
 guide_axis_logticks <- function(
-  long  = 2.25,
-  mid   = 1.5,
+  long = 2.25,
+  mid = 1.5,
   short = 0.75,
   prescale.base = NULL,
   negative.small = NULL,
@@ -83,19 +83,25 @@ guide_axis_logticks <- function(
 ) {
   if (lifecycle::is_present(prescale_base)) {
     deprecate_warn0(
-      "3.5.1", "guide_axis_logticks(prescale_base)", "guide_axis_logticks(prescale.base)"
+      "3.5.1",
+      "guide_axis_logticks(prescale_base)",
+      "guide_axis_logticks(prescale.base)"
     )
     prescale.base <- prescale_base
   }
   if (lifecycle::is_present(negative_small)) {
     deprecate_warn0(
-      "3.5.1", "guide_axis_logticks(negative_small)", "guide_axis_logticks(negative.small)"
+      "3.5.1",
+      "guide_axis_logticks(negative_small)",
+      "guide_axis_logticks(negative.small)"
     )
     negative.small <- negative_small
   }
   if (lifecycle::is_present(short_theme)) {
     deprecate_warn0(
-      "3.5.1", "guide_axis_logticks(short_theme)", "guide_axis_logticks(short.theme)"
+      "3.5.1",
+      "guide_axis_logticks(short_theme)",
+      "guide_axis_logticks(short.theme)"
     )
     short.theme <- short_theme
   }
@@ -106,32 +112,42 @@ guide_axis_logticks <- function(
   }
   cap <- arg_match0(cap, c("none", "both", "upper", "lower"))
 
-  if (is_bare_numeric(long))   long <- rel(long)
-  if (is_bare_numeric(mid))    mid  <- rel(mid)
-  if (is_bare_numeric(short)) short <- rel(short)
+  if (is_bare_numeric(long)) {
+    long <- rel(long)
+  }
+  if (is_bare_numeric(mid)) {
+    mid <- rel(mid)
+  }
+  if (is_bare_numeric(short)) {
+    short <- rel(short)
+  }
 
   check_fun <- function(x) (is_rel(x) || is.unit(x)) && length(x) == 1
   what <- "a {.cls rel} or {.cls unit} object of length 1"
-  check_object(long,  check_fun, what)
-  check_object(mid,   check_fun, what)
+  check_object(long, check_fun, what)
+  check_object(mid, check_fun, what)
   check_object(short, check_fun, what)
   check_number_decimal(
-    negative.small, min = 1e-100, # minimal domain of scales::log_trans
+    negative.small,
+    min = 1e-100, # minimal domain of scales::log_trans
     allow_infinite = FALSE,
     allow_null = TRUE
   )
   check_bool(expanded)
-  check_inherits(short.theme, c("ggplot2::element_blank", "ggplot2::element_line"))
+  check_inherits(
+    short.theme,
+    c("ggplot2::element_blank", "ggplot2::element_line")
+  )
 
   new_guide(
-    available_aes  = c("x", "y"),
-    prescale_base  = prescale.base,
+    available_aes = c("x", "y"),
+    prescale_base = prescale.base,
     negative_small = negative.small,
-    expanded       = expanded,
-    long  = long,
-    mid   = mid,
+    expanded = expanded,
+    long = long,
+    mid = mid,
     short = short,
-    cap   = cap,
+    cap = cap,
     minor.ticks = TRUE,
     short_theme = short.theme,
     theme = theme,
@@ -145,15 +161,16 @@ guide_axis_logticks <- function(
 #' @usage NULL
 #' @export
 GuideAxisLogticks <- ggproto(
-  "GuideAxisLogticks", GuideAxis,
+  "GuideAxisLogticks",
+  GuideAxis,
 
   params = defaults(
     list(
-      prescale_base  = NULL,
+      prescale_base = NULL,
       negative_small = 0.1,
-      minor.ticks    = TRUE, # for spacing calculation
-      long  = 2.25,
-      mid   = 1.5,
+      minor.ticks = TRUE, # for spacing calculation
+      long = 2.25,
+      mid = 1.5,
       short = 0.75,
       expanded = TRUE,
       short_theme = NULL
@@ -163,12 +180,11 @@ GuideAxisLogticks <- ggproto(
 
   # Here we calculate a 'shadow key' that only applies to the tickmarks.
   extract_params = function(scale, params, ...) {
-
     if (scale$is_discrete()) {
       cli::cli_abort("Cannot calculate logarithmic ticks for discrete scales.")
     }
 
-    aesthetic   <- params$aesthetic
+    aesthetic <- params$aesthetic
     params$name <- paste0(params$name, "_", aesthetic)
     params
 
@@ -230,7 +246,7 @@ GuideAxisLogticks <- ggproto(
       if (is.unit(x)) x else unclass(x) * length
     })
     tick_length <- inject(unit.c(!!!tick_length))
-    elements$tick_length  <- tick_length
+    elements$tick_length <- tick_length
 
     # We replace the lengths so that spacing calculation works out as intended
     elements$major_length <- max(tick_length)
@@ -243,19 +259,25 @@ GuideAxisLogticks <- ggproto(
     key <- params$logkey
     long <- Guide$build_ticks(
       vec_slice(key, key$.type == 1L),
-      elements$ticks, params, position,
+      elements$ticks,
+      params,
+      position,
       elements$tick_length[1L]
     )
 
     mid <- Guide$build_ticks(
       vec_slice(key, key$.type == 2L),
-      elements$minor, params, position,
+      elements$minor,
+      params,
+      position,
       elements$tick_length[2L]
     )
 
     short <- Guide$build_ticks(
       vec_slice(key, key$.type == 3L),
-      elements$short, params, position,
+      elements$short,
+      params,
+      position,
       elements$tick_length[3L]
     )
     grobTree(long, mid, short, name = "ticks")

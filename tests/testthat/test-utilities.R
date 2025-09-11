@@ -2,29 +2,41 @@ test_that("finite_cases.data.frame", {
   finite_cases <- function(x) cases(x, is_finite)
 
   # All finite --------------------------------------------------------------
-  expect_true(finite_cases(data_frame(x = 4)))          # 1x1
-  expect_true(finite_cases(data_frame(x = 4, y = 11)))          # 1x2
-  expect_identical(finite_cases(data_frame(x = 4:5)),            c(TRUE, TRUE)) # 2x1
+  expect_true(finite_cases(data_frame(x = 4))) # 1x1
+  expect_true(finite_cases(data_frame(x = 4, y = 11))) # 1x2
+  expect_identical(finite_cases(data_frame(x = 4:5)), c(TRUE, TRUE)) # 2x1
   expect_identical(finite_cases(data_frame(x = 4:5, y = 11:12)), c(TRUE, TRUE)) # 2x2
 
   # Has one NA --------------------------------------------------------------
-  expect_false(finite_cases(data_frame(x = NA)))           # 1x1
-  expect_false(finite_cases(data_frame(x = 4, y = NA)))           # 1x2
-  expect_identical(finite_cases(data_frame(x = c(4, NA))),                c(TRUE,  FALSE)) # 2x1
-  expect_identical(finite_cases(data_frame(x = c(4, NA), y = c(11, NA))), c(TRUE,  FALSE)) # 2x2
-  expect_identical(finite_cases(data_frame(x = c(4, NA), y = c(NA, 12))), c(FALSE, FALSE)) # 2x2
-  expect_identical(finite_cases(data_frame(x = c(4, 5),  y = c(NA, 12))), c(FALSE, TRUE))  # 2x2
+  expect_false(finite_cases(data_frame(x = NA))) # 1x1
+  expect_false(finite_cases(data_frame(x = 4, y = NA))) # 1x2
+  expect_identical(finite_cases(data_frame(x = c(4, NA))), c(TRUE, FALSE)) # 2x1
+  expect_identical(
+    finite_cases(data_frame(x = c(4, NA), y = c(11, NA))),
+    c(TRUE, FALSE)
+  ) # 2x2
+  expect_identical(
+    finite_cases(data_frame(x = c(4, NA), y = c(NA, 12))),
+    c(FALSE, FALSE)
+  ) # 2x2
+  expect_identical(
+    finite_cases(data_frame(x = c(4, 5), y = c(NA, 12))),
+    c(FALSE, TRUE)
+  ) # 2x2
 
   # Testing NaN and Inf, using miscellaneous data shapes --------------------
-  expect_identical(finite_cases(data_frame(x = c(4, NaN))),                c(TRUE, FALSE))
+  expect_identical(finite_cases(data_frame(x = c(4, NaN))), c(TRUE, FALSE))
   expect_false(finite_cases(data_frame(x = Inf)))
-  expect_identical(finite_cases(data_frame(x = c(4, 5), y = c(-Inf, 12))), c(FALSE, TRUE))
+  expect_identical(
+    finite_cases(data_frame(x = c(4, 5), y = c(-Inf, 12))),
+    c(FALSE, TRUE)
+  )
 })
 
 test_that("add_group", {
-  data <- data_frame(f=letters[7:9], x=1:3, y=4:6, group=c(1, -1, 1))
-  expect_true(has_groups(add_group(data[2:4])))  # explicit group column
-  expect_true(has_groups(add_group(data[1:3])))  # discrete column
+  data <- data_frame(f = letters[7:9], x = 1:3, y = 4:6, group = c(1, -1, 1))
+  expect_true(has_groups(add_group(data[2:4]))) # explicit group column
+  expect_true(has_groups(add_group(data[1:3]))) # discrete column
   expect_false(has_groups(add_group(data[2:3]))) # no group or discrete column
 })
 
@@ -37,7 +49,9 @@ test_that("find_args behaves correctly", {
   # Ellipsis is not an element
   expect_false("..." %in% names(test_fun()))
   # Args are added
-  expect_true(all(c("arg1", "arg2", "arg3") %in% names(test_fun(arg1 = 1, arg2 = 1, arg3 = 1))))
+  expect_true(all(
+    c("arg1", "arg2", "arg3") %in% names(test_fun(arg1 = 1, arg2 = 1, arg3 = 1))
+  ))
   # Defaults are overwritten
   expect_true(test_fun(arg2 = TRUE)$arg2)
 })
@@ -93,11 +107,27 @@ test_that("x and y aesthetics have the same length", {
 test_that("check_required_aesthetics() errors on missing", {
   required_single <- c("x", "y")
   required_bidirectional <- c("x|y", "fill")
-  expect_snapshot_error(check_required_aesthetics(required_single, present = "x", name = "test"))
-  expect_snapshot_error(check_required_aesthetics(required_single, present = "shape", name = "test"))
+  expect_snapshot_error(check_required_aesthetics(
+    required_single,
+    present = "x",
+    name = "test"
+  ))
+  expect_snapshot_error(check_required_aesthetics(
+    required_single,
+    present = "shape",
+    name = "test"
+  ))
 
-  expect_snapshot_error(check_required_aesthetics(required_bidirectional, present = "fill", name = "test"))
-  expect_snapshot_error(check_required_aesthetics(required_bidirectional, present = "shape", name = "test"))
+  expect_snapshot_error(check_required_aesthetics(
+    required_bidirectional,
+    present = "fill",
+    name = "test"
+  ))
+  expect_snapshot_error(check_required_aesthetics(
+    required_bidirectional,
+    present = "shape",
+    name = "test"
+  ))
 })
 
 test_that("remove_missing checks input", {
@@ -131,7 +161,6 @@ test_that("cut_*() checks its input and output", {
 })
 
 test_that("vec_rbind0 can combined ordered factors", {
-
   withr::local_options(lifecycle_verbosity = "warning")
 
   # Ideally code below throws just 1 warning (the <ordered> and <ordered> one)
@@ -155,23 +184,21 @@ test_that("vec_rbind0 can combined ordered factors", {
   expect_s3_class(test$a, "factor", exact = TRUE)
   # Test levels are combined sensibly
   expect_equal(levels(test$a), c("A", "B", "C"))
-
 })
 
 test_that("resolution() gives correct answers", {
-  expect_equal(resolution(c(4,  6)), 2)
+  expect_equal(resolution(c(4, 6)), 2)
   expect_equal(resolution(c(4L, 6L)), 1L)
   expect_equal(resolution(mapped_discrete(c(4, 6)), discrete = TRUE), 1L)
   expect_equal(resolution(mapped_discrete(c(4, 6))), 2)
   expect_equal(resolution(c(0, 0)), 1L)
-  expect_equal(resolution(c(0.5,  1.5), zero = TRUE), 0.5)
+  expect_equal(resolution(c(0.5, 1.5), zero = TRUE), 0.5)
 
   # resolution has a tolerance
   expect_equal(resolution(c(1, 1 + 1000 * .Machine$double.eps, 2)), 1)
 })
 
 test_that("expose/ignore_data() can round-trip a data.frame", {
-
   # Plain data.frame
   df <- data_frame0(a = 1:3, b = 4:6, c = LETTERS[1:3], d = LETTERS[4:6])
   expect_equal(list(df), .ignore_data(df))
@@ -185,11 +212,9 @@ test_that("expose/ignore_data() can round-trip a data.frame", {
 
   test <- .expose_data(test)[[1]]
   expect_equal(test, df[, c("a", "c", "b", "d")])
-
 })
 
 test_that("allow_lambda converts the correct cases", {
-
   f <- allow_lambda(function(x) x + 1)
   expect_equal(f(1), 2)
 
@@ -202,7 +227,7 @@ test_that("allow_lambda converts the correct cases", {
   f <- allow_lambda(expression(A))
   expect_equal(f, expression(A))
 
-  f <- allow_lambda(bquote("foo"~"bar"))
+  f <- allow_lambda(bquote("foo" ~ "bar"))
   expect_equal(f, call("~", "foo", "bar"))
 })
 

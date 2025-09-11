@@ -18,10 +18,7 @@ test_that("geom_quantile matches quantile regression", {
   quants <- c(0.25, 0.5, 0.75)
 
   pred_rq <- predict(
-    quantreg::rq(y ~ x,
-      tau = quants,
-      data = df
-    ),
+    quantreg::rq(y ~ x, tau = quants, data = df),
     data_frame(
       x = seq(min(x), max(x), length.out = 100)
     )

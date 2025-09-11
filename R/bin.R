@@ -1,12 +1,12 @@
-bins <- function(breaks, closed = "right",
-                 fuzz = NULL) {
+bins <- function(breaks, closed = "right", fuzz = NULL) {
   check_numeric(breaks)
   closed <- arg_match0(closed, c("right", "left"))
   breaks <- sort(breaks)
 
   # Adapted base::hist - this protects from floating point rounding errors
   fuzz <- fuzz %||% 1e-08 * stats::median(diff(breaks[is.finite(breaks)]))
-  if (!is.finite(fuzz)) { # happens when 0 or 1 finite breaks are given
+  if (!is.finite(fuzz)) {
+    # happens when 0 or 1 finite breaks are given
     fuzz <- .Machine$double.eps * 1e3
   }
   if (closed == "right") {
@@ -52,9 +52,13 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
   bins(breaks, closed)
 }
 
-bin_breaks_width <- function(x_range, width = NULL, center = NULL,
-                             boundary = NULL, closed = c("right", "left")) {
-
+bin_breaks_width <- function(
+  x_range,
+  width = NULL,
+  center = NULL,
+  boundary = NULL,
+  closed = c("right", "left")
+) {
   if (is.null(boundary)) {
     if (is.null(center)) {
       # If neither edge nor center given, compute both using tile layer's
@@ -92,9 +96,13 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   bin_breaks(breaks, closed = closed)
 }
 
-bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
-                            boundary = NULL, closed = c("right", "left")) {
-
+bin_breaks_bins <- function(
+  x_range,
+  bins = 30,
+  center = NULL,
+  boundary = NULL,
+  closed = c("right", "left")
+) {
   if (zero_range(x_range)) {
     # 0.1 is the same width as the expansion `default_expansion()` gives for 0-width data
     width <- 0.1
@@ -109,17 +117,28 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
     }
   }
 
-  bin_breaks_width(x_range, width, boundary = boundary, center = center,
-    closed = closed)
+  bin_breaks_width(
+    x_range,
+    width,
+    boundary = boundary,
+    center = center,
+    closed = closed
+  )
 }
 
 
 # Compute bins ------------------------------------------------------------
 
-compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins = NULL,
-                         center = NULL, boundary = NULL,
-                         closed = c("right", "left")) {
-
+compute_bins <- function(
+  x,
+  scale = NULL,
+  breaks = NULL,
+  binwidth = NULL,
+  bins = NULL,
+  center = NULL,
+  boundary = NULL,
+  closed = c("right", "left")
+) {
   range <- if (is_scale(scale)) scale$dimension() else range(x)
   check_length(range, 2L)
 
@@ -139,7 +158,9 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
   check_number_decimal(boundary, allow_infinite = FALSE, allow_null = TRUE)
   check_number_decimal(center, allow_infinite = FALSE, allow_null = TRUE)
   if (!is.null(boundary) && !is.null(center)) {
-    cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
+    cli::cli_abort(
+      "Only one of {.arg boundary} and {.arg center} may be specified."
+    )
   }
 
   if (!is.null(binwidth)) {
@@ -149,8 +170,11 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
     }
     check_number_decimal(binwidth, min = 0, allow_infinite = FALSE)
     bins <- bin_breaks_width(
-      range, binwidth,
-      center = center, boundary = boundary, closed = closed
+      range,
+      binwidth,
+      center = center,
+      boundary = boundary,
+      closed = closed
     )
     return(bins)
   }
@@ -161,8 +185,11 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
   }
   check_number_whole(bins, min = 1, allow_infinite = FALSE)
   bin_breaks_bins(
-    range, bins,
-    center = center, boundary = boundary, closed = closed
+    range,
+    bins,
+    center = center,
+    boundary = boundary,
+    closed = closed
   )
 }
 
@@ -211,8 +238,13 @@ bin_cut <- function(x, bins) {
   cut(x, bins$fuzzy, right = bins$right_closed, include.lowest = TRUE)
 }
 
-bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
-  xmin = x - width / 2, xmax = x + width / 2) {
+bin_out <- function(
+  count = integer(0),
+  x = numeric(0),
+  width = numeric(0),
+  xmin = x - width / 2,
+  xmax = x + width / 2
+) {
   density <- count / width / sum(abs(count))
 
   data_frame0(
@@ -241,7 +273,6 @@ bin_loc <- function(x, id) {
 }
 
 fix_bin_params <- function(params, fun, version) {
-
   if (package_version(version) < "3.0.0") {
     deprecate <- lifecycle::deprecate_stop
   } else {

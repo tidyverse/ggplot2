@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 GeomText <- ggproto(
-  "GeomText", Geom,
+  "GeomText",
+  Geom,
   required_aes = c("x", "y", "label"),
 
   non_missing_aes = "angle",
@@ -12,13 +13,23 @@ GeomText <- ggproto(
     colour = from_theme(colour %||% ink),
     family = from_theme(family),
     size = from_theme(fontsize),
-    angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, fontface = 1, lineheight = 1.2
+    angle = 0,
+    hjust = 0.5,
+    vjust = 0.5,
+    alpha = NA,
+    fontface = 1,
+    lineheight = 1.2
   ),
 
-  draw_panel = function(data, panel_params, coord, parse = FALSE,
-                        na.rm = FALSE, check_overlap = FALSE,
-                        size.unit = "mm") {
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    parse = FALSE,
+    na.rm = FALSE,
+    check_overlap = FALSE,
+    size.unit = "mm"
+  ) {
     lab <- data$label
     if (parse) {
       lab <- parse_safe(as.character(lab))
@@ -33,8 +44,11 @@ GeomText <- ggproto(
 
     textGrob(
       lab,
-      data$x, data$y, default.units = "native",
-      hjust = data$hjust, vjust = data$vjust,
+      data$x,
+      data$y,
+      default.units = "native",
+      hjust = data$hjust,
+      vjust = data$vjust,
       rot = data$angle,
       gp = gg_par(
         col = alpha(data$colour, data$alpha),
@@ -232,11 +246,16 @@ compute_just <- function(just, a = 0.5, b = a, angle = 0) {
     outward <-
       (just == "outward" & !just_swap) | (just == "inward" & just_swap)
     just[outward] <- c("right", "middle", "left")[just_dir(ab[outward])]
-
   }
 
-  unname(c(left = 0, center = 0.5, right = 1,
-    bottom = 0, middle = 0.5, top = 1)[just])
+  unname(c(
+    left = 0,
+    center = 0.5,
+    right = 1,
+    bottom = 0,
+    middle = 0.5,
+    top = 1
+  )[just])
 }
 
 just_dir <- function(x, tol = 0.001) {
