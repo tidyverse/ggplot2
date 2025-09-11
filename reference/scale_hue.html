@@ -9,7 +9,7 @@ It does not generate colour-blind safe palettes."><meta property="og:image" cont
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@ It does not generate colour-blind safe palettes."><meta property="og:image" cont
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Evenly spaced colours for discrete data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/scale-hue.R" class="external-link"><code>R/scale-hue.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/zxx.R" class="external-link"><code>R/zxx.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/scale-hue.R" class="external-link"><code>R/scale-hue.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/zxx.R" class="external-link"><code>R/zxx.R</code></a></small>
       <div class="d-none name"><code>scale_hue.Rd</code></div>
     </div>
 
@@ -113,12 +113,7 @@ omitted.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Arguments passed on to <code><a href="discrete_scale.html">discrete_scale</a></code></p><dl><dt><code>palette</code></dt>
-<dd><p>A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href="https://scales.r-lib.org/reference/pal_hue.html" class="external-link">scales::pal_hue()</a></code>).</p></dd>
-
-    <dt><code>breaks</code></dt>
+<dd><p>Arguments passed on to <code><a href="discrete_scale.html">discrete_scale</a></code></p><dl><dt><code>breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (the scale limits)</p></li>
 <li><p>A character vector of breaks</p></li>
@@ -147,8 +142,21 @@ every level in a legend, the layer should use <code>show.legend = TRUE</code>.</
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
 
+    <dt><code>minor_breaks</code></dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
+<li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (none for discrete, one minor break
+between each major break for continuous)</p></li>
+<li><p>A numeric vector of positions</p></li>
+<li><p>A function that given the limits returns a vector of minor breaks. Also
+accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.</p></li>
+</ul></dd>
+
     <dt><code>labels</code></dt>
-<dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
+<dd><p>One of the options below. Please note that when <code>labels</code> is a
+vector, it is highly recommended to also set the <code>breaks</code> argument as a
+vector to protect against unintended mismatches.</p><ul><li><p><code>NULL</code> for no labels</p></li>
 <li><p><code><a href="waiver.html">waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>

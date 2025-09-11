@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Remove duplicates</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-unique.R" class="external-link"><code>R/stat-unique.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-unique.R" class="external-link"><code>R/stat-unique.R</code></a></small>
       <div class="d-none name"><code>stat_unique.Rd</code></div>
     </div>
 
@@ -174,22 +174,23 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
 
 
-<p><code>stat_unique()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
+<p><code>stat_unique()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">

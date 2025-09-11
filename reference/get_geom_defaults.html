@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Resolve and get geom defaults</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-defaults.R" class="external-link"><code>R/geom-defaults.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-defaults.R" class="external-link"><code>R/geom-defaults.R</code></a></small>
       <div class="d-none name"><code>get_geom_defaults.Rd</code></div>
     </div>
 
@@ -73,7 +73,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_geom_defaults</span><span class="op">(</span><span class="va">geom</span>, theme <span class="op">=</span> <span class="fu"><a href="theme_get.html">theme_get</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_geom_defaults</span><span class="op">(</span><span class="va">geom</span>, theme <span class="op">=</span> <span class="fu"><a href="get_theme.html">theme_get</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -102,13 +102,13 @@ e.g. <code>"contour_filled"</code>.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Using a function</span></span></span>
 <span class="r-in"><span><span class="fu">get_geom_defaults</span><span class="op">(</span><span class="va">geom_raster</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     fill alpha</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 grey20    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        fill alpha</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 #333333FF    NA</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using a layer includes static aesthetics as default</span></span></span>
 <span class="r-in"><span><span class="fu">get_geom_defaults</span><span class="op">(</span><span class="fu"><a href="geom_tile.html">geom_tile</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    fill colour linewidth linetype alpha width height</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 white     NA       0.1        1    NA    NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 white     NA       0.2        1    NA     1      1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using a class name</span></span></span>
 <span class="r-in"><span><span class="fu">get_geom_defaults</span><span class="op">(</span><span class="st">"density_2d"</span><span class="op">)</span></span></span>
@@ -117,8 +117,13 @@ e.g. <code>"contour_filled"</code>.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using a class</span></span></span>
 <span class="r-in"><span><span class="fu">get_geom_defaults</span><span class="op">(</span><span class="va">GeomPoint</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   shape colour size fill alpha stroke</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    19  black  1.5   NA    NA    0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   shape colour fill size alpha stroke</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    19  black   NA  1.5    NA    0.5</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Changed theme</span></span></span>
+<span class="r-in"><span><span class="fu">get_geom_defaults</span><span class="op">(</span><span class="st">"point"</span>, <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="fu"><a href="element.html">element_geom</a></span><span class="op">(</span>ink <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   shape colour fill size alpha stroke</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    19 purple   NA  1.5    NA    0.5</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

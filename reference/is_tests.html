@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Reports wether <code>x</code> is a type of object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/ggproto.R" class="external-link"><code>R/ggproto.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/aes.R" class="external-link"><code>R/aes.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-.R" class="external-link"><code>R/geom-.R</code></a>, and 11 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/ggproto.R" class="external-link"><code>R/ggproto.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/aes.R" class="external-link"><code>R/aes.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-.R" class="external-link"><code>R/geom-.R</code></a>, and 12 more</small>
       <div class="d-none name"><code>is_tests.Rd</code></div>
     </div>
 
@@ -81,6 +81,8 @@
 <span></span>
 <span><span class="fu">is_geom</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">is_layer</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">is_coord</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">is.Coord</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># Deprecated</span></span>
@@ -91,13 +93,13 @@
 <span></span>
 <span><span class="fu">is_stat</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">is_margin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_theme_element</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"any"</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">is_guide</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is_layer</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">is_guides</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_margin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">is_ggplot</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
@@ -118,6 +120,11 @@
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>An object to test</p></dd>
+
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>For testing elements: the type of element to expect. One of
+<code>"blank"</code>, <code>"rect"</code>, <code>"line"</code>, <code>"text"</code>, <code>"polygon"</code>, <code>"point"</code> or <code>"geom"</code>.</p></dd>
 
 </dl></div>
 

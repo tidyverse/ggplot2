@@ -11,7 +11,7 @@ constant height."><meta property="og:image" content="https://ggplot2.tidyverse.o
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ constant height."><meta property="og:image" content="https://ggplot2.tidyverse.o
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Stack overlapping objects on top of each another</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/position-stack.R" class="external-link"><code>R/position-stack.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/position-stack.R" class="external-link"><code>R/position-stack.R</code></a></small>
       <div class="d-none name"><code>position_stack.Rd</code></div>
     </div>
 
@@ -221,14 +221,12 @@ more examples.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Negative values -----------------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">grp</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"a"</span>, <span class="fl">1</span>,  <span class="st">"x"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"a"</span>, <span class="fl">2</span>,  <span class="st">"y"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"b"</span>, <span class="fl">1</span>,  <span class="st">"x"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"b"</span>, <span class="fl">3</span>,  <span class="st">"y"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"b"</span>, <span class="op">-</span><span class="fl">1</span>, <span class="st">"y"</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  grp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"y"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, group <span class="op">=</span> <span class="va">grp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_bar.html">geom_col</a></span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">grp</span><span class="op">)</span>, position <span class="op">=</span> <span class="fu">position_stack</span><span class="op">(</span>reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>

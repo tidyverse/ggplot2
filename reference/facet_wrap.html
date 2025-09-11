@@ -11,7 +11,7 @@ displays are roughly rectangular."><meta property="og:image" content="https://gg
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ displays are roughly rectangular."><meta property="og:image" content="https://gg
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Wrap a 1d ribbon of panels into 2d</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/facet-wrap.R" class="external-link"><code>R/facet-wrap.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/facet-wrap.R" class="external-link"><code>R/facet-wrap.R</code></a></small>
       <div class="d-none name"><code>facet_wrap.Rd</code></div>
     </div>
 
@@ -84,6 +84,7 @@ displays are roughly rectangular.</p>
 <span>  nrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>  shrink <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  labeller <span class="op">=</span> <span class="st">"label_value"</span>,</span>
 <span>  as.table <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -119,6 +120,15 @@ free (<code>"free"</code>), or free in one dimension (<code>"free_x"</code>,
 <code>"free_y"</code>)?</p></dd>
 
 
+<dt id="arg-space">space<a class="anchor" aria-label="anchor" href="#arg-space"></a></dt>
+<dd><p>If <code>"fixed"</code> (default), all panels have the same size and
+the number of rows and columns in the layout can be arbitrary. If
+<code>"free_x"</code>, panels have widths proportional to the length of the x-scale,
+but the layout is constrained to one row. If <code>"free_y"</code>, panels have
+heights proportional to the length of the y-scale, but the layout is
+constrained to one column.</p></dd>
+
+
 <dt id="arg-shrink">shrink<a class="anchor" aria-label="anchor" href="#arg-shrink"></a></dt>
 <dd><p>If <code>TRUE</code>, will shrink scales to fit output of
 statistics, not raw data. If <code>FALSE</code>, will be range of raw data
@@ -139,9 +149,11 @@ check it for more details and pointers to other options.</p></dd>
 
 
 <dt id="arg-as-table">as.table<a class="anchor" aria-label="anchor" href="#arg-as-table"></a></dt>
-<dd><p>If <code>TRUE</code>, the default, the facets are laid out like
-a table with highest values at the bottom-right. If <code>FALSE</code>, the
-facets are laid out like a plot with the highest value at the top-right.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded" class="external-link"><img src="figures/lifecycle-superseded.svg" alt="[Superseded]"></a> The <code>as.table</code> argument
+is now absorbed into the <code>dir</code> argument via the two letter options.
+If <code>TRUE</code>, the facets are laid out like a table with highest values at the
+bottom-right. If <code>FALSE</code>, the facets are laid out like a plot with the
+highest value at the top-right.</p></dd>
 
 
 <dt id="arg-switch">switch<a class="anchor" aria-label="anchor" href="#arg-switch"></a></dt>
@@ -160,7 +172,12 @@ will be shown, regardless of whether or not they appear in the data.</p></dd>
 
 <dt id="arg-dir">dir<a class="anchor" aria-label="anchor" href="#arg-dir"></a></dt>
 <dd><p>Direction: either <code>"h"</code> for horizontal, the default, or <code>"v"</code>,
-for vertical.</p></dd>
+for vertical. When <code>"h"</code> or <code>"v"</code> will be combined with <code>as.table</code> to
+set final layout. Alternatively, a combination of <code>"t"</code> (top) or
+<code>"b"</code> (bottom) with <code>"l"</code> (left) or <code>"r"</code> (right) to set a layout directly.
+These two letters give the starting position and the first letter gives
+the growing direction. For example <code>"rt"</code> will place the first panel in
+the top-right and starts filling in panels right-to-left.</p></dd>
 
 
 <dt id="arg-strip-position">strip.position<a class="anchor" aria-label="anchor" href="#arg-strip-position"></a></dt>
@@ -186,6 +203,16 @@ the exterior axes get labels, and the interior axes get none. When
 x- or y-direction respectively.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="layer-layout">Layer layout<a class="anchor" aria-label="anchor" href="#layer-layout"></a></h2>
+
+
+<p>The <code><a href="layer.html">layer(layout)</a></code> argument in context of <code>facet_wrap()</code> can take
+the following values:</p><ul><li><p><code>NULL</code> (default) to use the faceting variables to assign panels.</p></li>
+<li><p>An integer vector to include selected panels. Panel numbers not included in
+the integer vector are excluded.</p></li>
+<li><p><code>"fixed"</code> to repeat data across every panel.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>The <a href="https://ggplot2-book.org/facet#sec-facet-wrap" class="external-link">facet wrap section</a> of the online ggplot2 book.</p></div>
@@ -258,6 +285,15 @@ x- or y-direction respectively.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="theme.html">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, strip.placement <span class="op">=</span> <span class="st">"outside"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_wrap-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The two letters determine the starting position, so 'tr' starts</span></span></span>
+<span class="r-in"><span><span class="co"># in the top-right.</span></span></span>
+<span class="r-in"><span><span class="co"># The first letter determines direction, so 'tr' fills top-to-bottom.</span></span></span>
+<span class="r-in"><span><span class="co"># `dir = "tr"` is equivalent to `dir = "v", as.table = FALSE`</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="fu"><a href="vars.html">vars</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span>, dir <span class="op">=</span> <span class="st">"tr"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="facet_wrap-10.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

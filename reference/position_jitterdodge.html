@@ -11,7 +11,7 @@ a fill aesthetic supplied)."><meta property="og:image" content="https://ggplot2.
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ a fill aesthetic supplied)."><meta property="og:image" content="https://ggplot2.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Simultaneously dodge and jitter</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/position-jitterdodge.R" class="external-link"><code>R/position-jitterdodge.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/position-jitterdodge.R" class="external-link"><code>R/position-jitterdodge.R</code></a></small>
       <div class="d-none name"><code>position_jitterdodge.Rd</code></div>
     </div>
 
@@ -83,6 +83,7 @@ a fill aesthetic supplied).</p>
 <span>  jitter.width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  jitter.height <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  dodge.width <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  seed <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -103,6 +104,11 @@ resolution of the data.</p></dd>
 <dt id="arg-dodge-width">dodge.width<a class="anchor" aria-label="anchor" href="#arg-dodge-width"></a></dt>
 <dd><p>the amount to dodge in the x direction. Defaults to 0.75,
 the default <code><a href="position_dodge.html">position_dodge()</a></code> width.</p></dd>
+
+
+<dt id="arg-reverse">reverse<a class="anchor" aria-label="anchor" href="#arg-reverse"></a></dt>
+<dd><p>If <code>TRUE</code>, will reverse the default stacking order.
+This is useful if you're rotating both the plot and legend.</p></dd>
 
 
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>

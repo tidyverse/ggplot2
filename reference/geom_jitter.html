@@ -13,7 +13,7 @@ overplotting caused by discreteness in smaller datasets.'><meta property="og:ima
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@ overplotting caused by discreteness in smaller datasets.'><meta property="og:ima
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Jittered points</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-jitter.R" class="external-link"><code>R/geom-jitter.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-jitter.R" class="external-link"><code>R/geom-jitter.R</code></a></small>
       <div class="d-none name"><code>geom_jitter.Rd</code></div>
     </div>
 
@@ -124,7 +124,7 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
 <dt id="arg-stat">stat<a class="anchor" aria-label="anchor" href="#arg-stat"></a></dt>
 <dd><p>The statistical transformation to use on the data for this layer.
 When using a <code>geom_*()</code> function to construct a layer, the <code>stat</code>
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
 <li><p>A string naming the stat. To give the stat as a string, strip the
 function name of the <code>stat_</code> prefix. For example, to use <code><a href="geom_bar.html">stat_count()</a></code>,
@@ -195,36 +195,29 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code><a href="geom_point.html">geom_point()</a></code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">y</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">fill</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">shape</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">size</a></code></p></li>
-<li><p><code>stroke</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="geom_point.html">geom_point()</a></code> for regular, unjittered points,
 <code><a href="geom_boxplot.html">geom_boxplot()</a></code> for another way of looking at the conditional
 distribution of a variable</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code><a href="geom_point.html">geom_point()</a></code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">shape</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">size</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code>stroke</code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">

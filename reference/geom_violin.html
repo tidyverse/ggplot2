@@ -13,7 +13,7 @@ boxplot."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@ boxplot."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Violin plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-violin.R" class="external-link"><code>R/geom-violin.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-ydensity.R" class="external-link"><code>R/stat-ydensity.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-violin.R" class="external-link"><code>R/geom-violin.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-ydensity.R" class="external-link"><code>R/stat-ydensity.R</code></a></small>
       <div class="d-none name"><code>geom_violin.Rd</code></div>
     </div>
 
@@ -88,9 +88,13 @@ boxplot.</p>
 <span>  stat <span class="op">=</span> <span class="st">"ydensity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  draw_quantiles <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>  quantile.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  quantile.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  quantile.linetype <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  quantile.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  draw_quantiles <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  scale <span class="op">=</span> <span class="st">"area"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -104,17 +108,18 @@ boxplot.</p>
 <span>  geom <span class="op">=</span> <span class="st">"violin"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"dodge"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  bw <span class="op">=</span> <span class="st">"nrd0"</span>,</span>
 <span>  adjust <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  kernel <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
 <span>  trim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  scale <span class="op">=</span> <span class="st">"area"</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>  quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span><span class="op">)</span></span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -184,11 +189,6 @@ lists which parameters it can accept.</p></li>
 </ul></dd>
 
 
-<dt id="arg-draw-quantiles">draw_quantiles<a class="anchor" aria-label="anchor" href="#arg-draw-quantiles"></a></dt>
-<dd><p>If <code>not(NULL)</code> (default), draw horizontal lines
-at the given quantiles of the density estimate.</p></dd>
-
-
 <dt id="arg-trim">trim<a class="anchor" aria-label="anchor" href="#arg-trim"></a></dt>
 <dd><p>If <code>TRUE</code> (default), trim the tails of the violins
 to the range of the data. If <code>FALSE</code>, don't trim the tails.</p></dd>
@@ -200,6 +200,17 @@ to the range of the data. If <code>FALSE</code>, don't trim the tails.</p></dd>
 finite, boundary effect of default density estimation will be corrected by
 reflecting tails outside <code>bounds</code> around their closest edge. Data points
 outside of bounds are removed with a warning.</p></dd>
+
+
+<dt id="arg-quantile-colour-quantile-color-quantile-linewidth-quantile-linetype">quantile.colour, quantile.color, quantile.linewidth, quantile.linetype<a class="anchor" aria-label="anchor" href="#arg-quantile-colour-quantile-color-quantile-linewidth-quantile-linetype"></a></dt>
+<dd><p>Default aesthetics for the quantile lines. Set to <code>NULL</code> to inherit from
+the data's aesthetics. By default, quantile lines are hidden and can be
+turned on by changing <code>quantile.linetype</code>.</p></dd>
+
+
+<dt id="arg-draw-quantiles">draw_quantiles<a class="anchor" aria-label="anchor" href="#arg-draw-quantiles"></a></dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Previous
+specification of drawing quantiles.</p></dd>
 
 
 <dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
@@ -225,14 +236,16 @@ to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> sec
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-geom-stat">geom, stat<a class="anchor" aria-label="anchor" href="#arg-geom-stat"></a></dt>
@@ -265,27 +278,17 @@ For example, <code>adjust = 1/2</code> means use half of the default bandwidth.<
 (<code>TRUE</code>, default) or keep such groups for position adjustment purposes
 (<code>FALSE</code>).</p></dd>
 
+
+<dt id="arg-quantiles">quantiles<a class="anchor" aria-label="anchor" href="#arg-quantiles"></a></dt>
+<dd><p>If not <code>NULL</code> (default), compute the <code>quantile</code> variable
+and draw horizontal lines at the given quantiles in <code>geom_violin()</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="orientation">Orientation<a class="anchor" aria-label="anchor" href="#orientation"></a></h2>
 
 
 <p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code>geom_violin()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">y</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">fill</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-<li><p><code>weight</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
@@ -297,6 +300,7 @@ For example, <code>adjust = 1/2</code> means use half of the default bandwidth.<
 <li><p><code>after_stat(violinwidth)</code><br> Density scaled for the violin plot, according to area,  counts or to a constant maximum width.</p></li>
 <li><p><code>after_stat(n)</code><br> Number of points.</p></li>
 <li><p><code>after_stat(width)</code><br> Width of violin bounding box.</p></li>
+<li><p><code>after_stat(quantile)</code><br> Whether the row is part of the <code>quantiles</code> computation.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -307,6 +311,12 @@ Plot-Density Trace Synergism. The American Statistician 52, 181-184.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code>geom_violin()</code> for examples, and <code><a href="geom_density.html">stat_density()</a></code>
 for examples with data along the x axis.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>geom_violin()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code>weight</code></td><td>→ <code>1</code></td></tr><tr><td>•</td><td><code>width</code></td><td>→ <code>0.9</code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -361,6 +371,9 @@ for examples with data along the x axis.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show quartiles</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_violin</span><span class="op">(</span>draw_quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `draw_quantiles` argument of `geom_violin()` is deprecated as of</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> ggplot2 4.0.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use the `quantiles.linetype` argument instead.</span>
 <span class="r-plt img"><img src="geom_violin-13.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Scales vs. coordinate transforms -------</span></span></span>
@@ -375,10 +388,10 @@ for examples with data along the x axis.</p></div>
 <span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="coord_trans.html">coord_trans</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="coord_transform.html">coord_transform</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="coord_trans.html">coord_trans</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="coord_transform.html">coord_transform</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Violin plots with continuous x:</span></span></span>
 <span class="r-in"><span><span class="co"># Use the group aesthetic to group observations in violins</span></span></span>

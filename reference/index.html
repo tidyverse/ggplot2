@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@
         <dd>Construct aesthetic mappings</dd>
       </dl><dl><dt>
 
-          <code><a href="gg-add.html">`+`(<i>&lt;gg&gt;</i>)</a></code> <code><a href="gg-add.html">`%+%`</a></code>
+          <code><a href="gg-add.html">add_gg()</a></code> <code><a href="gg-add.html">`%+%`</a></code>
 
         </dt>
         <dd>Add components to a plot</dd>
@@ -191,12 +191,6 @@
         <dd>Dot plot</dd>
       </dl><dl><dt>
 
-          <code><a href="geom_errorbarh.html">geom_errorbarh()</a></code>
-
-        </dt>
-        <dd>Horizontal error bars</dd>
-      </dl><dl><dt>
-
           <code><a href="geom_function.html">geom_function()</a></code> <code><a href="geom_function.html">stat_function()</a></code>
 
         </dt>
@@ -221,7 +215,7 @@
         <dd>Jittered points</dd>
       </dl><dl><dt>
           <a class="icon" href="geom_linerange.html"><img src="icons/geom_crossbar.png" alt=""></a>
-          <code><a href="geom_linerange.html">geom_crossbar()</a></code> <code><a href="geom_linerange.html">geom_errorbar()</a></code> <code><a href="geom_linerange.html">geom_linerange()</a></code> <code><a href="geom_linerange.html">geom_pointrange()</a></code>
+          <code><a href="geom_linerange.html">geom_crossbar()</a></code> <code><a href="geom_linerange.html">geom_errorbar()</a></code> <code><a href="geom_linerange.html">geom_errorbarh()</a></code> <code><a href="geom_linerange.html">geom_linerange()</a></code> <code><a href="geom_linerange.html">geom_pointrange()</a></code>
 
         </dt>
         <dd>Vertical intervals: lines, crossbars &amp; errorbars</dd>
@@ -382,7 +376,19 @@
         <dd>Extract coordinates from 'sf' objects</dd>
       </dl><dl><dt>
 
-          <code><a href="aes_eval.html">after_stat()</a></code> <code><a href="aes_eval.html">after_scale()</a></code> <code><a href="aes_eval.html">stage()</a></code>
+          <code><a href="stat_manual.html">stat_manual()</a></code>
+
+        </dt>
+        <dd>Manually compute transformations</dd>
+      </dl><dl><dt>
+
+          <code><a href="stat_connect.html">stat_connect()</a></code>
+
+        </dt>
+        <dd>Connect observations</dd>
+      </dl><dl><dt>
+
+          <code><a href="aes_eval.html">after_stat()</a></code> <code><a href="aes_eval.html">after_scale()</a></code> <code><a href="aes_eval.html">from_theme()</a></code> <code><a href="aes_eval.html">stage()</a></code>
 
         </dt>
         <dd>Control aesthetic evaluation</dd>
@@ -488,7 +494,7 @@
         <dd>Annotation: high-performance rectangular tiling</dd>
       </dl><dl><dt>
 
-          <code><a href="borders.html">borders()</a></code>
+          <code><a href="annotation_borders.html">annotation_borders()</a></code> <code><a href="annotation_borders.html">borders()</a></code>
 
         </dt>
         <dd>Create a layer of map borders</dd>
@@ -541,7 +547,7 @@
       <dl><dt>
 
           <code><a href="labs.html">labs()</a></code> <code><a href="labs.html">xlab()</a></code> <code><a href="labs.html">ylab()</a></code> <code><a href="labs.html">ggtitle()</a></code> <code><a href="labs.html">get_labs()</a></code>
-
+          <span class="badge lifecycle lifecycle-superseded">superseded</span>
         </dt>
         <dd>Modify axis, legend, and plot labels</dd>
       </dl><dl><dt>
@@ -553,7 +559,7 @@
       </dl><dl><dt>
 
           <code><a href="expand_limits.html">expand_limits()</a></code>
-
+          <span class="badge lifecycle lifecycle-superseded">superseded</span>
         </dt>
         <dd>Expand the plot limits, using data</dd>
       </dl><dl><dt>
@@ -832,7 +838,7 @@
       </dl></div><div class="section level2">
       <h2 id="coordinate-systems">Coordinate systems<a class="anchor" aria-label="anchor" href="#coordinate-systems"></a></h2>
 
-      <div class="section-desc"><p>The coordinate system determines how the <code>x</code> and <code>y</code> aesthetics combine to position elements in the plot. The default coordinate system is Cartesian (<code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>), which can be tweaked with <code><a href="../reference/coord_map.html">coord_map()</a></code>, <code><a href="../reference/coord_fixed.html">coord_fixed()</a></code>, <code><a href="../reference/coord_flip.html">coord_flip()</a></code>, and <code><a href="../reference/coord_trans.html">coord_trans()</a></code>, or completely replaced with <code><a href="../reference/coord_polar.html">coord_polar()</a></code>.</p></div>
+      <div class="section-desc"><p>The coordinate system determines how the <code>x</code> and <code>y</code> aesthetics combine to position elements in the plot. The default coordinate system is Cartesian (<code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>), which can be tweaked with <code><a href="../reference/coord_map.html">coord_map()</a></code>, <code><a href="../reference/coord_fixed.html">coord_fixed()</a></code>, <code><a href="../reference/coord_flip.html">coord_flip()</a></code>, and <code><a href="../reference/coord_transform.html">coord_transform()</a></code>, or completely replaced with <code><a href="../reference/coord_radial.html">coord_polar()</a></code>.</p></div>
 
 
     </div><div class="section level2">
@@ -865,21 +871,21 @@
         </dt>
         <dd>Map projections</dd>
       </dl><dl><dt>
-          <a class="icon" href="coord_polar.html"><img src="icons/coord_polar.png" alt=""></a>
-          <code><a href="coord_polar.html">coord_polar()</a></code> <code><a href="coord_polar.html">coord_radial()</a></code>
-
+          <a class="icon" href="coord_radial.html"><img src="icons/coord_polar.png" alt=""></a>
+          <code><a href="coord_radial.html">coord_polar()</a></code> <code><a href="coord_radial.html">coord_radial()</a></code>
+          <span class="badge lifecycle lifecycle-superseded">superseded</span>
         </dt>
         <dd>Polar coordinates</dd>
       </dl><dl><dt>
-
-          <code><a href="coord_trans.html">coord_trans()</a></code>
+          <a class="icon" href="coord_transform.html"><img src="icons/coord_transform.png" alt=""></a>
+          <code><a href="coord_transform.html">coord_transform()</a></code> <code><a href="coord_transform.html">coord_trans()</a></code>
 
         </dt>
         <dd>Transformed Cartesian coordinate system</dd>
       </dl></div><div class="section level2">
       <h2 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a></h2>
 
-      <div class="section-desc"><p>Themes control the display of all non-data elements of the plot. You can override all settings with a complete theme like <code><a href="../reference/ggtheme.html">theme_bw()</a></code>, or choose to tweak individual settings by using <code><a href="../reference/theme.html">theme()</a></code> and the <code>element_</code> functions. Use <code><a href="../reference/theme_get.html">theme_set()</a></code> to modify the active theme, affecting all future plots.</p></div>
+      <div class="section-desc"><p>Themes control the display of all non-data elements of the plot. You can override all settings with a complete theme like <code><a href="../reference/ggtheme.html">theme_bw()</a></code>, or choose to tweak individual settings by using <code><a href="../reference/theme.html">theme()</a></code> and the <code>element_</code> functions. Use <code><a href="../reference/get_theme.html">theme_set()</a></code> to modify the active theme, affecting all future plots.</p></div>
 
 
     </div><div class="section level2">
@@ -901,13 +907,19 @@
         <dd>Complete themes</dd>
       </dl><dl><dt>
 
-          <code><a href="theme_get.html">theme_get()</a></code> <code><a href="theme_get.html">theme_set()</a></code> <code><a href="theme_get.html">theme_update()</a></code> <code><a href="theme_get.html">theme_replace()</a></code> <code><a href="theme_get.html">`%+replace%`</a></code>
+          <code><a href="get_theme.html">get_theme()</a></code> <code><a href="get_theme.html">theme_get()</a></code> <code><a href="get_theme.html">set_theme()</a></code> <code><a href="get_theme.html">theme_set()</a></code> <code><a href="get_theme.html">update_theme()</a></code> <code><a href="get_theme.html">theme_update()</a></code> <code><a href="get_theme.html">replace_theme()</a></code> <code><a href="get_theme.html">theme_replace()</a></code> <code><a href="get_theme.html">`%+replace%`</a></code>
 
         </dt>
         <dd>Get, set, and modify the active theme</dd>
       </dl><dl><dt>
 
-          <code><a href="element.html">element_blank()</a></code> <code><a href="element.html">element_rect()</a></code> <code><a href="element.html">element_line()</a></code> <code><a href="element.html">element_text()</a></code> <code><a href="element.html">is_theme_element()</a></code> <code><a href="element.html">rel()</a></code> <code><a href="element.html">margin()</a></code>
+          <code><a href="subtheme.html">theme_sub_axis()</a></code> <code><a href="subtheme.html">theme_sub_axis_x()</a></code> <code><a href="subtheme.html">theme_sub_axis_y()</a></code> <code><a href="subtheme.html">theme_sub_axis_bottom()</a></code> <code><a href="subtheme.html">theme_sub_axis_top()</a></code> <code><a href="subtheme.html">theme_sub_axis_left()</a></code> <code><a href="subtheme.html">theme_sub_axis_right()</a></code> <code><a href="subtheme.html">theme_sub_legend()</a></code> <code><a href="subtheme.html">theme_sub_panel()</a></code> <code><a href="subtheme.html">theme_sub_plot()</a></code> <code><a href="subtheme.html">theme_sub_strip()</a></code>
+
+        </dt>
+        <dd>Shortcuts for theme settings</dd>
+      </dl><dl><dt>
+
+          <code><a href="element.html">margin()</a></code> <code><a href="element.html">margin_part()</a></code> <code><a href="element.html">margin_auto()</a></code> <code><a href="element.html">element()</a></code> <code><a href="element.html">element_blank()</a></code> <code><a href="element.html">element_rect()</a></code> <code><a href="element.html">element_line()</a></code> <code><a href="element.html">element_text()</a></code> <code><a href="element.html">element_polygon()</a></code> <code><a href="element.html">element_point()</a></code> <code><a href="element.html">element_geom()</a></code> <code><a href="element.html">rel()</a></code>
 
         </dt>
         <dd>Theme elements</dd>
@@ -930,7 +942,7 @@
         <dd>Define aesthetic mappings programmatically</dd>
       </dl><dl><dt>
 
-          <code><a href="print.ggplot.html">print(<i>&lt;ggplot&gt;</i>)</a></code> <code><a href="print.ggplot.html">plot(<i>&lt;ggplot&gt;</i>)</a></code>
+          <code><a href="print.ggplot.html">print.ggplot</a></code> <code><a href="print.ggplot.html">plot.ggplot</a></code>
 
         </dt>
         <dd>Explicitly draw plot</dd>

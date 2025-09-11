@@ -9,7 +9,7 @@ log10 space."><meta property="og:image" content="https://ggplot2.tidyverse.org/l
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@ log10 space."><meta property="og:image" content="https://ggplot2.tidyverse.org/l
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Axis with logarithmic tick marks</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/guide-axis-logticks.R" class="external-link"><code>R/guide-axis-logticks.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/guide-axis-logticks.R" class="external-link"><code>R/guide-axis-logticks.R</code></a></small>
       <div class="d-none name"><code>guide_axis_logticks.Rd</code></div>
     </div>
 
@@ -81,7 +81,7 @@ log10 space.</p>
 <span>  mid <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>  short <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  prescale.base <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  negative.small <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  negative.small <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  short.theme <span class="op">=</span> <span class="fu"><a href="element.html">element_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  expanded <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  cap <span class="op">=</span> <span class="st">"none"</span>,</span>
@@ -108,13 +108,15 @@ values of the <code>axis.ticks.length</code> theme setting.</p></dd>
 <dd><p>Base of logarithm used to transform data manually. The
 default, <code>NULL</code>, will use the scale transformation to calculate positions.
 Only set <code>prescale.base</code> if the data has already been log-transformed.
-When using a log-transform in the position scale or in <code><a href="coord_trans.html">coord_trans()</a></code>,
+When using a log-transform in the position scale or in <code><a href="coord_transform.html">coord_transform()</a></code>,
 keep the default <code>NULL</code> argument.</p></dd>
 
 
 <dt id="arg-negative-small">negative.small<a class="anchor" aria-label="anchor" href="#arg-negative-small"></a></dt>
 <dd><p>When the scale limits include 0 or negative numbers,
-what should be the smallest absolute value that is marked with a tick?</p></dd>
+what should be the smallest absolute value that is marked with a tick?
+If <code>NULL</code> (default), will be the smallest of 0.1 or 0.1 times the absolute
+scale maximum.</p></dd>
 
 
 <dt id="arg-short-theme">short.theme<a class="anchor" aria-label="anchor" href="#arg-short-theme"></a></dt>
@@ -140,7 +142,7 @@ and <code>FALSE</code> are shorthand for <code>"both"</code> and <code>"none"</c
 <dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
 <dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
 differently from the plot's theme settings. The <code>theme</code> argument in the
-guide overrides, and is combined with, the plot's theme.</p></dd>
+guide partially overrides, and is combined with, the plot's theme.</p></dd>
 
 
 <dt id="arg-prescale-base-negative-small-short-theme">prescale_base, negative_small, short_theme<a class="anchor" aria-label="anchor" href="#arg-prescale-base-negative-small-short-theme"></a></dt>
@@ -198,7 +200,7 @@ specified in <code><a href="labs.html">labs()</a></code> is used for the title.<
 <span class="r-plt img"><img src="guide_axis_logticks-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Or with log-transformed coordinates</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="coord_trans.html">coord_trans</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"log10"</span>, y <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="coord_transform.html">coord_transform</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"log10"</span>, y <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="guides.html">guides</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"axis_logticks"</span>, y <span class="op">=</span> <span class="st">"axis_logticks"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="guide_axis_logticks-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

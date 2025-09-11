@@ -11,7 +11,7 @@ These are useful for annotating plots."><meta property="og:image" content="https
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ These are useful for annotating plots."><meta property="og:image" content="https
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Reference lines: horizontal, vertical, and diagonal</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-abline.R" class="external-link"><code>R/geom-abline.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-hline.R" class="external-link"><code>R/geom-hline.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-vline.R" class="external-link"><code>R/geom-vline.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-abline.R" class="external-link"><code>R/geom-abline.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-hline.R" class="external-link"><code>R/geom-hline.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-vline.R" class="external-link"><code>R/geom-vline.R</code></a></small>
       <div class="d-none name"><code>geom_abline.Rd</code></div>
     </div>
 
@@ -92,6 +92,7 @@ These are useful for annotating plots.</p>
 <span><span class="fu">geom_hline</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">yintercept</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -101,6 +102,7 @@ These are useful for annotating plots.</p>
 <span><span class="fu">geom_vline</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">xintercept</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -168,7 +170,22 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
+
+
+<dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
+<dd><p>A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.
+This method allows for passing extra arguments to the position.</p></li>
+<li><p>A string naming the position adjustment. To give the position as a
+string, strip the function name of the <code>position_</code> prefix. For example,
+to use <code><a href="position_jitter.html">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
+<li><p>For more information and other ways to specify the position, see the
+<a href="layer_positions.html">layer position</a> documentation.</p></li>
+</ul></dd>
 
 
 <dt id="arg-xintercept-yintercept-slope-intercept">xintercept, yintercept, slope, intercept<a class="anchor" aria-label="anchor" href="#arg-xintercept-yintercept-slope-intercept"></a></dt>

@@ -15,7 +15,7 @@ coord_sf() (see examples)."><meta property="og:image" content="https://ggplot2.t
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@ coord_sf() (see examples)."><meta property="og:image" content="https://ggplot2.t
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Polygons from a reference map</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-map.R" class="external-link"><code>R/geom-map.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-map.R" class="external-link"><code>R/geom-map.R</code></a></small>
       <div class="d-none name"><code>geom_map.Rd</code></div>
     </div>
 
@@ -125,7 +125,7 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
 <dt id="arg-stat">stat<a class="anchor" aria-label="anchor" href="#arg-stat"></a></dt>
 <dd><p>The statistical transformation to use on the data for this layer.
 When using a <code>geom_*()</code> function to construct a layer, the <code>stat</code>
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
 <li><p>A string naming the stat. To give the stat as a string, strip the
 function name of the <code>stat_</code> prefix. For example, to use <code><a href="geom_bar.html">stat_count()</a></code>,
@@ -180,29 +180,23 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
 
 
-<p><code>geom_map()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code>map_id</code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">fill</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-<li><p><code>subgroup</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
+<p><code>geom_map()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code>map_id</code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code>subgroup</code></td><td>→ <code>NULL</code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -211,7 +205,7 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 <span class="r-in"><span><span class="co"># how `geom_map()` works. It requires two data frames:</span></span></span>
 <span class="r-in"><span><span class="co"># One contains the coordinates of each polygon (`positions`), and is</span></span></span>
 <span class="r-in"><span><span class="co"># provided via the `map` argument. The other contains the</span></span></span>
-<span class="r-in"><span><span class="co"># other the values associated with each polygon (`values`).  An id</span></span></span>
+<span class="r-in"><span><span class="co"># values associated with each polygon (`values`).  An id</span></span></span>
 <span class="r-in"><span><span class="co"># variable links the two together.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1.1"</span>, <span class="st">"2.1"</span>, <span class="st">"1.2"</span>, <span class="st">"2.2"</span>, <span class="st">"1.3"</span>, <span class="st">"2.3"</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -247,7 +241,7 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span><span class="op">)</span>, <span class="va">USArrests</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># Equivalent to crimes %&gt;% tidyr::pivot_longer(Murder:Rape)</span></span></span>
+<span class="r-in"><span>  <span class="co"># Equivalent to crimes |&gt; tidyr::pivot_longer(Murder:Rape)</span></span></span>
 <span class="r-in"><span>  <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>state <span class="op">=</span> <span class="va">crimes</span><span class="op">$</span><span class="va">state</span>, variable <span class="op">=</span> <span class="va">j</span>, value <span class="op">=</span> <span class="va">crimes</span><span class="op">[[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>

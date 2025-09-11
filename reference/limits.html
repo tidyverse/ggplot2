@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Generate correct scale type for specified limits</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/limits.R" class="external-link"><code>R/limits.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/limits.R" class="external-link"><code>R/limits.R</code></a></small>
       <div class="d-none name"><code>limits.Rd</code></div>
     </div>
 
@@ -101,13 +101,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Limits:   -5 --   -1</span>
 <span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">:::</span><span class="fu">limits</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span>, <span class="st">"x"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ggproto object: Class ScaleDiscretePosition, ScaleDiscrete, Scale, gg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     aesthetics: x xmin xmax xend</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     aesthetics: x xmin xmax xend xintercept xmin_final xmax_final xlower ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     axis_order: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     break_info: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     break_positions: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     breaks: waiver</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     call: environment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     continuous_limits: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dimension: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     drop: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     expand: waiver</span>
@@ -125,6 +126,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     make_title: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     map: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     map_df: function</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     minor_breaks: waiver</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n.breaks.cache: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     na.translate: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     na.value: NA</span>
@@ -136,6 +138,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     range_c: environment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     rescale: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     reset: function</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sec_name: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     train: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     train_df: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     transform: function</span>
@@ -167,11 +170,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     make_title: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     map: function</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     map_df: function</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     minor_breaks: waiver</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n.breaks.cache: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     na.translate: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     na.value: grey50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     name: waiver</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     palette: function</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     palette: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     palette.cache: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     position: left</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     range: environment</span>

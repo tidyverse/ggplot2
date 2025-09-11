@@ -15,7 +15,7 @@ are summarised with fun."><meta property="og:image" content="https://ggplot2.tid
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@ are summarised with fun."><meta property="og:image" content="https://ggplot2.tid
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Bin and summarise in 2d (rectangle &amp; hexagons)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-summary-2d.R" class="external-link"><code>R/stat-summary-2d.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-summary-hex.R" class="external-link"><code>R/stat-summary-hex.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-summary-2d.R" class="external-link"><code>R/stat-summary-2d.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-summary-hex.R" class="external-link"><code>R/stat-summary-hex.R</code></a></small>
       <div class="d-none name"><code>stat_summary_2d.Rd</code></div>
     </div>
 
@@ -91,11 +91,15 @@ are summarised with <code>fun</code>.</p>
 <span>  geom <span class="op">=</span> <span class="st">"tile"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  bins <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>  binwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bins <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fun <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  fun.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  boundary <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  closed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -107,8 +111,8 @@ are summarised with <code>fun</code>.</p>
 <span>  geom <span class="op">=</span> <span class="st">"hex"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  bins <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>  binwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bins <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fun <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  fun.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -197,14 +201,27 @@ lists which parameters it can accept.</p></li>
 </ul></dd>
 
 
-<dt id="arg-bins">bins<a class="anchor" aria-label="anchor" href="#arg-bins"></a></dt>
-<dd><p>numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.</p></dd>
-
-
 <dt id="arg-binwidth">binwidth<a class="anchor" aria-label="anchor" href="#arg-binwidth"></a></dt>
-<dd><p>Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
+<dd><p>The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in <code>bins</code>,
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.</p>
+<p>The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.</p></dd>
+
+
+<dt id="arg-bins">bins<a class="anchor" aria-label="anchor" href="#arg-bins"></a></dt>
+<dd><p>Number of bins. Overridden by <code>binwidth</code>. Defaults to 30.</p></dd>
+
+
+<dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
+<dd><p>Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides <code>binwidth</code>, <code>bins</code>, <code>center</code>,
+and <code>boundary</code>. Can also be a function that takes group-wise values as input and returns bin boundaries.</p></dd>
 
 
 <dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>
@@ -219,6 +236,23 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></dd>
 <dd><p>A list of extra arguments to pass to <code>fun</code></p></dd>
 
 
+<dt id="arg-closed">closed<a class="anchor" aria-label="anchor" href="#arg-closed"></a></dt>
+<dd><p>One of <code>"right"</code> or <code>"left"</code> indicating whether right
+or left edges of bins are included in the bin.</p></dd>
+
+
+<dt id="arg-center-boundary">center, boundary<a class="anchor" aria-label="anchor" href="#arg-center-boundary"></a></dt>
+<dd><p>bin position specifiers. Only one, <code>center</code> or
+<code>boundary</code>, may be specified for a single plot. <code>center</code> specifies the
+center of one of the bins. <code>boundary</code> specifies the boundary between two
+bins. Note that if either is above or below the range of the data, things
+will be shifted by the appropriate integer multiple of <code>binwidth</code>.
+For example, to center on integers use <code>binwidth = 1</code> and <code>center = 0</code>, even
+if <code>0</code> is outside the range of the data. Alternatively, this same alignment
+can be specified with <code>binwidth = 1</code> and <code>boundary = 0.5</code>, even if <code>0.5</code> is
+outside the range of the data.</p></dd>
+
+
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
@@ -229,14 +263,16 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -264,6 +300,17 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 
 </dl></div>
     <div class="section level2">
+    <h2 id="controlling-binning-parameters-for-the-x-and-y-directions">Controlling binning parameters for the x and y directions<a class="anchor" aria-label="anchor" href="#controlling-binning-parameters-for-the-x-and-y-directions"></a></h2>
+
+
+<p>The arguments <code>bins</code>, <code>binwidth</code>, <code>breaks</code>, <code>center</code>, and <code>boundary</code> can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing <code>x</code> and <code>y</code> elements,
+for example <code>list(x = 10, y = 20)</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code>stat_summary_hex()</code> for hexagonal summarization.
 <code><a href="geom_bin_2d.html">stat_bin_2d()</a></code> for the binning options.</p></div>
@@ -276,7 +323,7 @@ the default plot specification, e.g. <code><a href="borders.html">borders()</a><
 <span class="r-plt img"><img src="stat_summary_2d-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Specifying function</span></span></span>
-<span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">stat_summary_2d</span><span class="op">(</span>fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">stat_summary_2d</span><span class="op">(</span>fun <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="stat_summary_2d-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">stat_summary_2d</span><span class="op">(</span>fun <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">.x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="stat_summary_2d-3.png" alt="" width="700" height="433"></span>

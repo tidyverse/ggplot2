@@ -23,7 +23,7 @@ which performs no extra computation on the data."><meta property="og:image" cont
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@ which performs no extra computation on the data."><meta property="og:image" cont
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Layer statistical transformations</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/docs_layer.R" class="external-link"><code>R/docs_layer.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/docs_layer.R" class="external-link"><code>R/docs_layer.R</code></a></small>
       <div class="d-none name"><code>layer_stats.Rd</code></div>
     </div>
 
@@ -187,7 +187,7 @@ computed variables:</p>
     <h2 id="under-the-hood">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood"></a></h2>
     <p>Internally, stats are represented as <code><a href="ggproto.html">ggproto</a></code> classes that
 occupy a slot in a layer. All these classes inherit from the parental
-<code><a href="ggplot2-ggproto.html">Stat</a></code> ggproto object that orchestrates how stats work. Briefly, stats
+<code><a href="Stat.html">Stat</a></code> ggproto object that orchestrates how stats work. Briefly, stats
 are given the opportunity to perform computation either on the layer as a
 whole, a facet panel, or on individual groups. For more information on
 extending stats, see the <strong>Creating a new stat</strong> section after

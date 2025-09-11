@@ -15,7 +15,7 @@ bands."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.pn
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@ bands."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.pn
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Contours of a 2D density estimate</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-density2d.R" class="external-link"><code>R/geom-density2d.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-density-2d.R" class="external-link"><code>R/stat-density-2d.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-density2d.R" class="external-link"><code>R/geom-density2d.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-density-2d.R" class="external-link"><code>R/stat-density-2d.R</code></a></small>
       <div class="d-none name"><code>geom_density_2d.Rd</code></div>
     </div>
 
@@ -120,9 +120,9 @@ bands.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  contour <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  contour_var <span class="op">=</span> <span class="st">"density"</span>,</span>
-<span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  h <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  adjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -136,9 +136,9 @@ bands.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  contour <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  contour_var <span class="op">=</span> <span class="st">"density"</span>,</span>
-<span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  h <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  adjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -230,14 +230,16 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-geom-stat">geom, stat<a class="anchor" aria-label="anchor" href="#arg-geom-stat"></a></dt>
@@ -252,10 +254,6 @@ overriding these connections, see how the <a href="layer_stats.html">stat</a> an
 estimation.</p></dd>
 
 
-<dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
-<dd><p>Number of grid points in each direction.</p></dd>
-
-
 <dt id="arg-h">h<a class="anchor" aria-label="anchor" href="#arg-h"></a></dt>
 <dd><p>Bandwidth (vector of length two). If <code>NULL</code>, estimated
 using <code><a href="https://rdrr.io/pkg/MASS/man/bandwidth.nrd.html" class="external-link">MASS::bandwidth.nrd()</a></code>.</p></dd>
@@ -267,31 +265,11 @@ using <code><a href="https://rdrr.io/pkg/MASS/man/bandwidth.nrd.html" class="ext
 using the a bandwidth estimator. For example, <code>adjust = 1/2</code> means
 use half of the default bandwidth.</p></dd>
 
+
+<dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
+<dd><p>Number of grid points in each direction.</p></dd>
+
 </dl></div>
-    <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code>geom_density_2d()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">y</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-
-<p><code>geom_density_2d_filled()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">y</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">fill</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-<li><p><code>subgroup</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-    </div>
     <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
 
@@ -324,6 +302,12 @@ are no longer available after the contouring pass.</p>
     <div class="dont-index"><p><code><a href="geom_contour.html">geom_contour()</a></code>, <code><a href="geom_contour.html">geom_contour_filled()</a></code> for information about
 how contours are drawn; <code><a href="geom_bin_2d.html">geom_bin_2d()</a></code> for another way of dealing with
 overplotting.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>geom_density2d()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr></table><p><code>geom_density2d_filled()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code>subgroup</code></td><td>→ <code>NULL</code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">

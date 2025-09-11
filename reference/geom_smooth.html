@@ -13,7 +13,7 @@ display the results with a non-standard geom."><meta property="og:image" content
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@ display the results with a non-standard geom."><meta property="og:image" content
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Smoothed conditional means</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-smooth.R" class="external-link"><code>R/geom-smooth.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-smooth.R" class="external-link"><code>R/stat-smooth.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-smooth.R" class="external-link"><code>R/geom-smooth.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-smooth.R" class="external-link"><code>R/stat-smooth.R</code></a></small>
       <div class="d-none name"><code>geom_smooth.Rd</code></div>
     </div>
 
@@ -103,6 +103,7 @@ display the results with a non-standard geom.</p>
 <span>  geom <span class="op">=</span> <span class="st">"smooth"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  method <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  formula <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -113,7 +114,6 @@ display the results with a non-standard geom.</p>
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -210,7 +210,7 @@ observations and <code>formula = y ~ s(x, bs = "cs")</code> otherwise.</p></dd>
 
 
 <dt id="arg-se">se<a class="anchor" aria-label="anchor" href="#arg-se"></a></dt>
-<dd><p>Display confidence interval around smooth? (<code>TRUE</code> by default, see
+<dd><p>Display confidence band around smooth? (<code>TRUE</code> by default, see
 <code>level</code> to control.)</p></dd>
 
 
@@ -231,14 +231,16 @@ to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> sec
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-geom-stat">geom, stat<a class="anchor" aria-label="anchor" href="#arg-geom-stat"></a></dt>
@@ -273,7 +275,7 @@ equally spaced points for continuous data.</p></dd>
 
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
-<dd><p>Level of confidence interval to use (0.95 by default).</p></dd>
+<dd><p>Level of confidence band to use (0.95 by default).</p></dd>
 
 
 <dt id="arg-method-args">method.args<a class="anchor" aria-label="anchor" href="#arg-method-args"></a></dt>
@@ -287,7 +289,7 @@ function defined by <code>method</code>.</p></dd>
 <code>predictdf()</code> generic and its methods.  For most methods the standard
 error bounds are computed using the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method – the
 exceptions are <code><a href="https://rdrr.io/r/stats/loess.html" class="external-link">loess()</a></code>, which uses a t-based approximation, and
-<code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>, where the normal confidence interval is constructed on the link
+<code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>, where the normal confidence band is constructed on the link
 scale and then back-transformed to the response scale.</p>
     </div>
     <div class="section level2">
@@ -297,29 +299,12 @@ scale and then back-transformed to the response scale.</p>
 <p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
     </div>
     <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code>geom_smooth()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">y</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">fill</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-<li><p><code>weight</code></p></li>
-<li><p><code><a href="aes_position.html">ymax</a></code></p></li>
-<li><p><code><a href="aes_position.html">ymin</a></code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-    </div>
-    <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
 
 
 <p>These are calculated by the 'stat' part of layers and can be accessed with <a href="aes_eval.html">delayed evaluation</a>. <code>stat_smooth()</code> provides the following variables, some of  which depend on the orientation:</p><ul><li><p><code>after_stat(y)</code> <em>or</em> <code>after_stat(x)</code><br> Predicted value.</p></li>
-<li><p><code>after_stat(ymin)</code> <em>or</em> <code>after_stat(xmin)</code><br> Lower pointwise confidence interval around the mean.</p></li>
-<li><p><code>after_stat(ymax)</code> <em>or</em> <code>after_stat(xmax)</code><br> Upper pointwise confidence interval around the mean.</p></li>
+<li><p><code>after_stat(ymin)</code> <em>or</em> <code>after_stat(xmin)</code><br> Lower pointwise confidence band around the mean.</p></li>
+<li><p><code>after_stat(ymax)</code> <em>or</em> <code>after_stat(xmax)</code><br> Upper pointwise confidence band around the mean.</p></li>
 <li><p><code>after_stat(se)</code><br> Standard error.</p></li>
 </ul></div>
     <div class="section level2">
@@ -328,6 +313,12 @@ scale and then back-transformed to the response scale.</p>
 <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> for linear smooths,
 <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code> for generalised linear smooths, and
 <code><a href="https://rdrr.io/r/stats/loess.html" class="external-link">loess()</a></code> for local smooths.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>geom_smooth()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>0.4</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code>weight</code></td><td>→ <code>1</code></td></tr><tr><td>•</td><td><code><a href="aes_position.html">ymax</a></code></td><td></td></tr><tr><td>•</td><td><code><a href="aes_position.html">ymin</a></code></td><td></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">

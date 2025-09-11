@@ -17,7 +17,7 @@ across the levels of a categorical variable."><meta property="og:image" content=
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@ across the levels of a categorical variable."><meta property="og:image" content=
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Histograms and frequency polygons</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-freqpoly.R" class="external-link"><code>R/geom-freqpoly.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-histogram.R" class="external-link"><code>R/geom-histogram.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-bin.R" class="external-link"><code>R/stat-bin.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-freqpoly.R" class="external-link"><code>R/geom-freqpoly.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-histogram.R" class="external-link"><code>R/geom-histogram.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-bin.R" class="external-link"><code>R/stat-bin.R</code></a></small>
       <div class="d-none name"><code>geom_histogram.Rd</code></div>
     </div>
 
@@ -107,8 +107,10 @@ across the levels of a categorical variable.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  binwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bins <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
+<span>  linejoin <span class="op">=</span> <span class="st">"mitre"</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
@@ -119,15 +121,16 @@ across the levels of a categorical variable.</p>
 <span>  geom <span class="op">=</span> <span class="st">"bar"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"stack"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  binwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bins <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  boundary <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  closed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
 <span>  pad <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  drop <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -209,22 +212,23 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-binwidth">binwidth<a class="anchor" aria-label="anchor" href="#arg-binwidth"></a></dt>
 <dd><p>The width of the bins. Can be specified as a numeric value
-or as a function that calculates width from unscaled x. Here, "unscaled x"
-refers to the original x values in the data, before application of any
-scale transformation. When specifying a function along with a grouping
-structure, the function will be called once per group.
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
 The default is to use the number of bins in <code>bins</code>,
 covering the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
@@ -242,6 +246,14 @@ bin width of a time variable is the number of seconds.</p></dd>
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting <code>orientation</code>
 to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></dd>
+
+
+<dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
+<dd><p>Line end style (round, butt, square).</p></dd>
+
+
+<dt id="arg-linejoin">linejoin<a class="anchor" aria-label="anchor" href="#arg-linejoin"></a></dt>
+<dd><p>Line join style (round, mitre, bevel).</p></dd>
 
 
 <dt id="arg-geom-stat">geom, stat<a class="anchor" aria-label="anchor" href="#arg-geom-stat"></a></dt>
@@ -263,12 +275,6 @@ can be specified with <code>binwidth = 1</code> and <code>boundary = 0.5</code>,
 outside the range of the data.</p></dd>
 
 
-<dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
-<dd><p>Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides <code>binwidth</code>, <code>bins</code>, <code>center</code>,
-and <code>boundary</code>.</p></dd>
-
-
 <dt id="arg-closed">closed<a class="anchor" aria-label="anchor" href="#arg-closed"></a></dt>
 <dd><p>One of <code>"right"</code> or <code>"left"</code> indicating whether right
 or left edges of bins are included in the bin.</p></dd>
@@ -277,6 +283,20 @@ or left edges of bins are included in the bin.</p></dd>
 <dt id="arg-pad">pad<a class="anchor" aria-label="anchor" href="#arg-pad"></a></dt>
 <dd><p>If <code>TRUE</code>, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
+<dd><p>Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides <code>binwidth</code>, <code>bins</code>, <code>center</code>,
+and <code>boundary</code>. Can also be a function that takes group-wise values as input and returns bin boundaries.</p></dd>
+
+
+<dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>
+<dd><p>Treatment of zero count bins. If <code>"none"</code> (default), such
+bins are kept as-is. If <code>"all"</code>, all zero count bins are filtered out.
+If <code>"extremes"</code> only zero count bins at the flanks are filtered out, but
+not in the middle. <code>TRUE</code> is shorthand for <code>"all"</code> and <code>FALSE</code> is shorthand
+for <code>"none"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -289,6 +309,11 @@ different number of bins. You can also experiment modifying the <code>binwidth</
 <code>center</code> or <code>boundary</code> arguments. <code>binwidth</code> overrides <code>bins</code> so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.</p>
+<p>By default, the <em>height</em> of the bars represent the counts within each bin.
+However, there are situations where this behavior might produce misleading
+plots (e.g., when non-equal-width bins are used), in which case it might be
+preferable to have the <em>area</em> of the bars represent the counts (by setting
+<code>aes(y = after_stat(count / width))</code>). See example below.</p>
 <p>In addition to <code>geom_histogram()</code>, you can create a histogram plot by using
 <code><a href="scale_binned.html">scale_x_binned()</a></code> with <code><a href="geom_bar.html">geom_bar()</a></code>. This method by default plots tick marks
 in between each bar.</p>
@@ -336,7 +361,7 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span>
 <span class="r-plt img"><img src="geom_histogram-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
@@ -347,7 +372,7 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class="r-in"><span><span class="co"># Map values to y to flip the orientation</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span>
 <span class="r-plt img"><img src="geom_histogram-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For histograms with tick marks between each bin, use `geom_bar()` with</span></span></span>
@@ -371,6 +396,20 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">price</span>, <span class="fu"><a href="aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span>, colour <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_freqpoly</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_histogram-8.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># When using the non-equal-width bins, we should set the area of the bars to</span></span></span>
+<span class="r-in"><span><span class="co"># represent the counts (not the height).</span></span></span>
+<span class="r-in"><span><span class="co"># Here we're using 10 equi-probable bins:</span></span></span>
+<span class="r-in"><span><span class="va">price_bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">price</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length <span class="op">=</span> <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>breaks <span class="op">=</span> <span class="va">price_bins</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="co"># misleading (height = count)</span></span></span>
+<span class="r-plt img"><img src="geom_histogram-9.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">price</span>, <span class="fu"><a href="aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">count</span> <span class="op">/</span> <span class="va">width</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>breaks <span class="op">=</span> <span class="va">price_bins</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="co"># area = count</span></span></span>
+<span class="r-plt img"><img src="geom_histogram-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"ggplot2movies"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Often we don't want the height of the bar to represent the</span></span></span>
@@ -404,11 +443,11 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class="r-in"><span><span class="co"># no observations have 0 ratings.</span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>boundary <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="coord_trans.html">coord_trans</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="coord_transform.html">coord_transform</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Use boundary = 0, to make sure we don't take sqrt of negative values</span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>boundary <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="coord_trans.html">coord_trans</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"sqrt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="coord_transform.html">coord_transform</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"sqrt"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># You can also transform the y axis.  Remember that the base of the bars</span></span></span>
 <span class="r-in"><span><span class="co"># has value 0, so log transformations are not appropriate</span></span></span>
@@ -417,15 +456,15 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_y_sqrt</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-plt img"><img src="geom_histogram-9.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_histogram-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># You can specify a function for calculating binwidth, which is</span></span></span>
 <span class="r-in"><span><span class="co"># particularly useful when faceting along variables with</span></span></span>
 <span class="r-in"><span><span class="co"># different ranges because the function will be called once per facet</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">economics_long</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">variable</span>, scales <span class="op">=</span> <span class="st">'free_x'</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/IQR.html" class="external-link">IQR</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_histogram-10.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span>binwidth <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/IQR.html" class="external-link">IQR</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_histogram-12.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -29,7 +29,7 @@ See also the examples for annotation_map() and geom_map()."><meta property="og:i
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +85,7 @@ See also the examples for annotation_map() and geom_map()."><meta property="og:i
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Map projections</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/coord-map.R" class="external-link"><code>R/coord-map.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/coord-quickmap.R" class="external-link"><code>R/coord-quickmap.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/coord-map.R" class="external-link"><code>R/coord-map.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/coord-quickmap.R" class="external-link"><code>R/coord-quickmap.R</code></a></small>
       <div class="d-none name"><code>coord_map.Rd</code></div>
     </div>
 
@@ -156,7 +156,11 @@ means no. For details, please see <code><a href="coord_cartesian.html">coord_car
 <dt id="arg-expand">expand<a class="anchor" aria-label="anchor" href="#arg-expand"></a></dt>
 <dd><p>If <code>TRUE</code>, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
-limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></dd>
+limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The <code>expand</code> argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. <code>expand = c(bottom = FALSE)</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

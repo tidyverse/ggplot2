@@ -13,8 +13,8 @@ passed from function arguments inside other tidy eval functions.
 {{ is designed for individual arguments. To pass multiple
 arguments contained in dots, use ... in the normal way.
 my_function &amp;lt;- function(data, var, ...) {
-  data %&amp;gt;%
-    group_by(...) %&amp;gt;%
+  data |&amp;gt;
+    group_by(...) |&amp;gt;
     summarise(mean = mean({{ var }}))
 }
 
@@ -30,8 +30,8 @@ my_function &amp;lt;- function(data, var, ...) {
   dots &amp;lt;- enquos(...)
 
   # Inject
-  data %&amp;gt;%
-    group_by(!!!dots) %&amp;gt;%
+  data |&amp;gt;
+    group_by(!!!dots) |&amp;gt;
     summarise(mean = mean(!!var))
 }
 
@@ -43,7 +43,7 @@ The .data pronoun is an object that represents the current
 slice of data. If you have a variable name in a string, use the
 .data pronoun to subset that variable with [[.
 my_var &amp;lt;- &quot;disp&quot;
-mtcars %&amp;gt;% summarise(mean = mean(.data[[my_var]]))
+mtcars |&amp;gt; summarise(mean = mean(.data[[my_var]]))
 
 Another tidy eval operator is :=. It makes it possible to use
 glue and curly-curly syntax on the LHS of =. For technical
@@ -52,7 +52,7 @@ the left of =, so we use := as a workaround.
 my_function &amp;lt;- function(data, var, suffix = &quot;foo&quot;) {
   # Use `{{` to tunnel function arguments and the usual glue
   # operator `{` to interpolate plain strings.
-  data %&amp;gt;%
+  data |&amp;gt;
     summarise(&quot;{{ var }}_mean_{suffix}&quot; := mean({{ var }}))
 }
 
@@ -64,7 +64,7 @@ can be reproduced manually with:
 my_function &amp;lt;- function(data, var, suffix = &quot;foo&quot;) {
   var &amp;lt;- enquo(var)
   prefix &amp;lt;- as_label(var)
-  data %&amp;gt;%
+  data |&amp;gt;
     summarise(&quot;{prefix}_mean_{suffix}&quot; := mean(!!var))
 }
 
@@ -88,8 +88,8 @@ passed from function arguments inside other tidy eval functions.
 {{ is designed for individual arguments. To pass multiple
 arguments contained in dots, use ... in the normal way.
 my_function &amp;lt;- function(data, var, ...) {
-  data %&amp;gt;%
-    group_by(...) %&amp;gt;%
+  data |&amp;gt;
+    group_by(...) |&amp;gt;
     summarise(mean = mean({{ var }}))
 }
 
@@ -105,8 +105,8 @@ my_function &amp;lt;- function(data, var, ...) {
   dots &amp;lt;- enquos(...)
 
   # Inject
-  data %&amp;gt;%
-    group_by(!!!dots) %&amp;gt;%
+  data |&amp;gt;
+    group_by(!!!dots) |&amp;gt;
     summarise(mean = mean(!!var))
 }
 
@@ -118,7 +118,7 @@ The .data pronoun is an object that represents the current
 slice of data. If you have a variable name in a string, use the
 .data pronoun to subset that variable with [[.
 my_var &amp;lt;- &quot;disp&quot;
-mtcars %&amp;gt;% summarise(mean = mean(.data[[my_var]]))
+mtcars |&amp;gt; summarise(mean = mean(.data[[my_var]]))
 
 Another tidy eval operator is :=. It makes it possible to use
 glue and curly-curly syntax on the LHS of =. For technical
@@ -127,7 +127,7 @@ the left of =, so we use := as a workaround.
 my_function &amp;lt;- function(data, var, suffix = &quot;foo&quot;) {
   # Use `{{` to tunnel function arguments and the usual glue
   # operator `{` to interpolate plain strings.
-  data %&amp;gt;%
+  data |&amp;gt;
     summarise(&quot;{{ var }}_mean_{suffix}&quot; := mean({{ var }}))
 }
 
@@ -139,7 +139,7 @@ can be reproduced manually with:
 my_function &amp;lt;- function(data, var, suffix = &quot;foo&quot;) {
   var &amp;lt;- enquo(var)
   prefix &amp;lt;- as_label(var)
-  data %&amp;gt;%
+  data |&amp;gt;
     summarise(&quot;{prefix}_mean_{suffix}&quot; := mean(!!var))
 }
 
@@ -157,7 +157,7 @@ because it throws an error if the input is not a name as expected.
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -213,7 +213,7 @@ because it throws an error if the input is not a name as expected.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Tidy eval helpers</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/utilities-tidy-eval.R" class="external-link"><code>R/utilities-tidy-eval.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/utilities-tidy-eval.R" class="external-link"><code>R/utilities-tidy-eval.R</code></a></small>
       <div class="d-none name"><code>tidyeval.Rd</code></div>
     </div>
 
@@ -231,8 +231,8 @@ passed from function arguments inside other tidy eval functions.
 <code>{{</code> is designed for individual arguments. To pass multiple
 arguments contained in dots, use <code>...</code> in the normal way.</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(data, var, ...) {</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">|&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>({{ var }}))</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>}</span></code></pre><p></p></div></li>
 <li><p><code>enquo()</code> and <code>enquos()</code> delay the execution of one or several
@@ -247,8 +247,8 @@ into an evaluation context with <code>!!</code> (for a single expression) and
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  dots <span class="ot">&lt;-</span> <span class="fu">enquos</span>(...)</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="co"># Inject</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="sc">!!!</span>dots) <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="sc">!!!</span>dots) <span class="sc">|&gt;</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(<span class="sc">!!</span>var))</span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>}</span></code></pre><p></p></div>
 <p>In this simple case, the code is equivalent to the usage of <code>{{</code>
@@ -259,7 +259,7 @@ or modify the expressions in some way.</p></li>
 slice of data. If you have a variable name in a string, use the
 <code>.data</code> pronoun to subset that variable with <code>[[</code>.</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>my_var <span class="ot">&lt;-</span> <span class="st">"disp"</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(.data[[my_var]]))</span></code></pre><p></p></div></li>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(.data[[my_var]]))</span></code></pre><p></p></div></li>
 <li><p>Another tidy eval operator is <code>:=</code>. It makes it possible to use
 glue and curly-curly syntax on the LHS of <code>=</code>. For technical
 reasons, the R language doesn't support complex expressions on
@@ -267,7 +267,7 @@ the left of <code>=</code>, so we use <code>:=</code> as a workaround.</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(data, var, <span class="at">suffix =</span> <span class="st">"foo"</span>) {</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="co"># Use `{{` to tunnel function arguments and the usual glue</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="co"># operator `{` to interpolate plain strings.</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="st">"{{ var }}_mean_{suffix}"</span> <span class="sc">:=</span> <span class="fu">mean</span>({{ var }}))</span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>}</span></code></pre><p></p></div></li>
 <li><p>Many tidy eval functions like <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> or
@@ -278,7 +278,7 @@ can be reproduced manually with:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(data, var, <span class="at">suffix =</span> <span class="st">"foo"</span>) {</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  var <span class="ot">&lt;-</span> <span class="fu">enquo</span>(var)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  prefix <span class="ot">&lt;-</span> <span class="fu">as_label</span>(var)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="st">"{prefix}_mean_{suffix}"</span> <span class="sc">:=</span> <span class="fu">mean</span>(<span class="sc">!!</span>var))</span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>}</span></code></pre><p></p></div>
 <p>Expressions defused with <code>enquo()</code> (or tunnelled with <code>{{</code>) need

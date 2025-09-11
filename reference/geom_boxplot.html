@@ -11,7 +11,7 @@ and two whiskers), and all "outlying" points individually.'><meta property="og:i
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ and two whiskers), and all "outlying" points individually.'><meta property="og:i
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>A box and whiskers plot (in the style of Tukey)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-boxplot.R" class="external-link"><code>R/geom-boxplot.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-boxplot.R" class="external-link"><code>R/stat-boxplot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-boxplot.R" class="external-link"><code>R/geom-boxplot.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-boxplot.R" class="external-link"><code>R/stat-boxplot.R</code></a></small>
       <div class="d-none name"><code>geom_boxplot.Rd</code></div>
     </div>
 
@@ -89,10 +89,26 @@ and two whiskers), and all "outlying" points individually.</p>
 <span>  outlier.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  outlier.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  outlier.fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  outlier.shape <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>  outlier.size <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>  outlier.shape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  outlier.size <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  outlier.stroke <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  outlier.alpha <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whisker.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  staple.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  median.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.linetype <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  notch <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  notchwidth <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  staplewidth <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -109,9 +125,9 @@ and two whiskers), and all "outlying" points individually.</p>
 <span>  geom <span class="op">=</span> <span class="st">"boxplot"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"dodge2"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  coef <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -194,9 +210,28 @@ needs to show the full data range, please use <code>outlier.shape = NA</code> in
 
 <dt id="arg-outlier-colour-outlier-color-outlier-fill-outlier-shape-outlier-size-outlier-stroke-outlier-alpha">outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha<a class="anchor" aria-label="anchor" href="#arg-outlier-colour-outlier-color-outlier-fill-outlier-shape-outlier-size-outlier-stroke-outlier-alpha"></a></dt>
 <dd><p>Default aesthetics for outliers. Set to <code>NULL</code> to inherit from the
-aesthetics used for the box.</p>
-<p>In the unlikely event you specify both US and UK spellings of colour, the
-US spelling will take precedence.</p></dd>
+data's aesthetics.</p></dd>
+
+
+<dt id="arg-whisker-colour-whisker-color-whisker-linetype-whisker-linewidth">whisker.colour, whisker.color, whisker.linetype, whisker.linewidth<a class="anchor" aria-label="anchor" href="#arg-whisker-colour-whisker-color-whisker-linetype-whisker-linewidth"></a></dt>
+<dd><p>Default aesthetics for the whiskers. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
+
+
+<dt id="arg-staple-colour-staple-color-staple-linetype-staple-linewidth">staple.colour, staple.color, staple.linetype, staple.linewidth<a class="anchor" aria-label="anchor" href="#arg-staple-colour-staple-color-staple-linetype-staple-linewidth"></a></dt>
+<dd><p>Default aesthetics for the staples. Set to <code>NULL</code> to inherit from the
+data's aesthetics. Note that staples don't appear unless the <code>staplewidth</code>
+argument is set to a non-zero size.</p></dd>
+
+
+<dt id="arg-median-colour-median-color-median-linetype-median-linewidth">median.colour, median.color, median.linetype, median.linewidth<a class="anchor" aria-label="anchor" href="#arg-median-colour-median-color-median-linetype-median-linewidth"></a></dt>
+<dd><p>Default aesthetics for the median line. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
+
+
+<dt id="arg-box-colour-box-color-box-linetype-box-linewidth">box.colour, box.color, box.linetype, box.linewidth<a class="anchor" aria-label="anchor" href="#arg-box-colour-box-color-box-linetype-box-linewidth"></a></dt>
+<dd><p>Default aesthetics for the boxes. Set to <code>NULL</code> to inherit from the
+data's aesthetics.</p></dd>
 
 
 <dt id="arg-notch">notch<a class="anchor" aria-label="anchor" href="#arg-notch"></a></dt>
@@ -240,14 +275,16 @@ to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> sec
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-geom-stat">geom, stat<a class="anchor" aria-label="anchor" href="#arg-geom-stat"></a></dt>
@@ -261,6 +298,11 @@ overriding these connections, see how the <a href="layer_stats.html">stat</a> an
 <dd><p>Length of the whiskers as multiple of IQR. Defaults to 1.5.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>In the unlikely event you specify both US and UK spellings of colour,
+the US spelling will take precedence.</p>
+    </div>
     <div class="section level2">
     <h2 id="orientation">Orientation<a class="anchor" aria-label="anchor" href="#orientation"></a></h2>
 
@@ -287,27 +329,6 @@ This gives a roughly 95% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.</p>
     </div>
     <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code>geom_boxplot()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code> <em>or</em> <code><a href="aes_position.html">y</a></code></strong></p></li>
-<li><p><strong><code>lower</code> <em>or</em> <code>xlower</code></strong></p></li>
-<li><p><strong><code>upper</code> <em>or</em> <code>xupper</code></strong></p></li>
-<li><p><strong><code>middle</code> <em>or</em> <code>xmiddle</code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">ymin</a></code> <em>or</em> <code><a href="aes_position.html">xmin</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">ymax</a></code> <em>or</em> <code><a href="aes_position.html">xmax</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">fill</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">shape</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">size</a></code></p></li>
-<li><p><code>weight</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-    </div>
-    <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
 
 
@@ -330,6 +351,12 @@ box plots. The American Statistician 32, 12-16.</p>
     <div class="dont-index"><p><code><a href="geom_quantile.html">geom_quantile()</a></code> for continuous <code>x</code>,
 <code><a href="geom_violin.html">geom_violin()</a></code> for a richer display of the distribution, and
 <code><a href="geom_jitter.html">geom_jitter()</a></code> for a useful technique for small data.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>geom_boxplot()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code> <em>or</em> <code><a href="aes_position.html">y</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code>lower</code> <em>or</em> <code>xlower</code></strong></td><td></td></tr><tr><td>•</td><td><strong><code>upper</code> <em>or</em> <code>xupper</code></strong></td><td></td></tr><tr><td>•</td><td><strong><code>middle</code> <em>or</em> <code>xmiddle</code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">ymin</a></code> <em>or</em> <code><a href="aes_position.html">xmin</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">ymax</a></code> <em>or</em> <code><a href="aes_position.html">xmax</a></code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">fill</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">shape</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">size</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code>weight</code></td><td>→ <code>1</code></td></tr><tr><td>•</td><td><code>width</code></td><td>→ <code>0.9</code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">

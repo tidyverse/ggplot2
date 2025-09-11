@@ -11,7 +11,7 @@ ggplot() and in individual layers."><meta property="og:image" content="https://g
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ ggplot() and in individual layers."><meta property="og:image" content="https://g
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Construct aesthetic mappings</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/aes.R" class="external-link"><code>R/aes.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/aes.R" class="external-link"><code>R/aes.R</code></a></small>
       <div class="d-none name"><code>aes.Rd</code></div>
     </div>
 
@@ -99,14 +99,22 @@ common; all other aesthetics must be named.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list with class <code>uneval</code>. Components of the list are either
-quosures or constants.</p>
+    <p>An S7 object representing a list with class <code>mapping</code>. Components of
+the list are either quosures or constants.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function also standardises aesthetic names by converting <code>color</code> to <code>colour</code>
 (also in substrings, e.g., <code>point_color</code> to <code>point_colour</code>) and translating old style
 R names to ggplot names (e.g., <code>pch</code> to <code>shape</code> and <code>cex</code> to <code>size</code>).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>Using <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to create objects of class 'AsIs' causes scales to ignore the
+variable and assumes the wrapped variable is direct input for the grid
+package. Please be aware that variables are sometimes combined, like in
+some stats or position adjustments, that may yield unexpected results with
+'AsIs' variables.</p>
     </div>
     <div class="section level2">
     <h2 id="quasiquotation">Quasiquotation<a class="anchor" aria-label="anchor" href="#quasiquotation"></a></h2>

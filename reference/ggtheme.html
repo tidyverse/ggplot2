@@ -11,7 +11,7 @@ theme."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.pn
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ theme."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.pn
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Complete themes</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/theme-defaults.R" class="external-link"><code>R/theme-defaults.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/theme-defaults.R" class="external-link"><code>R/theme-defaults.R</code></a></small>
       <div class="d-none name"><code>ggtheme.Rd</code></div>
     </div>
 
@@ -82,71 +82,111 @@ theme.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme_grey</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_gray</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_bw</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_linedraw</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_light</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_dark</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_minimal</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_classic</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_void</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="va">ink</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_test</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  header_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_line_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
-<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span></span>
+<span>  base_rect_size <span class="op">=</span> <span class="va">base_size</span><span class="op">/</span><span class="fl">22</span>,</span>
+<span>  ink <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  paper <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  accent <span class="op">=</span> <span class="st">"#3366FF"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -162,12 +202,22 @@ theme.</p>
 <dd><p>base font family</p></dd>
 
 
+<dt id="arg-header-family">header_family<a class="anchor" aria-label="anchor" href="#arg-header-family"></a></dt>
+<dd><p>font family for titles and headers. The default, <code>NULL</code>,
+uses theme inheritance to set the font. This setting affects axis titles,
+legend titles, the plot title and tag text.</p></dd>
+
+
 <dt id="arg-base-line-size">base_line_size<a class="anchor" aria-label="anchor" href="#arg-base-line-size"></a></dt>
 <dd><p>base size for line elements</p></dd>
 
 
 <dt id="arg-base-rect-size">base_rect_size<a class="anchor" aria-label="anchor" href="#arg-base-rect-size"></a></dt>
 <dd><p>base size for rect elements</p></dd>
+
+
+<dt id="arg-ink-paper-accent">ink, paper, accent<a class="anchor" aria-label="anchor" href="#arg-ink-paper-accent"></a></dt>
+<dd><p>colour for foreground, background, and accented elements respectively.</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Custom guides</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/guide-custom.R" class="external-link"><code>R/guide-custom.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/guide-custom.R" class="external-link"><code>R/guide-custom.R</code></a></small>
       <div class="d-none name"><code>guide_custom.Rd</code></div>
     </div>
 
@@ -108,12 +108,17 @@ If <code>NULL</code> (default), no title is shown.</p></dd>
 <dt id="arg-theme">theme<a class="anchor" aria-label="anchor" href="#arg-theme"></a></dt>
 <dd><p>A <code><a href="theme.html">theme</a></code> object to style the guide individually or
 differently from the plot's theme settings. The <code>theme</code> argument in the
-guide overrides, and is combined with, the plot's theme.</p></dd>
+guide partially overrides, and is combined with, the plot's theme.
+Arguments that apply to a single legend are respected, most of which have
+the <code>legend</code>-prefix. Arguments that apply to combined legends
+(the legend box) are ignored, including <code>legend.position</code>,
+<code>legend.justification.*</code>, <code>legend.location</code> and <code>legend.box.*</code>.</p></dd>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
 <dd><p>A character string indicating where the legend should be
-placed relative to the plot panels.</p></dd>
+placed relative to the plot panels.
+One of "top", "right", "bottom", "left", or "inside".</p></dd>
 
 
 <dt id="arg-order">order<a class="anchor" aria-label="anchor" href="#arg-order"></a></dt>

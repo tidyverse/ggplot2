@@ -13,7 +13,7 @@ geom_sf_text() and geom_sf_label() relies on this)."><meta property="og:image" c
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@ geom_sf_text() and geom_sf_label() relies on this)."><meta property="og:image" c
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Extract coordinates from 'sf' objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-sf-coordinates.R" class="external-link"><code>R/stat-sf-coordinates.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-sf-coordinates.R" class="external-link"><code>R/stat-sf-coordinates.R</code></a></small>
       <div class="d-none name"><code>stat_sf_coordinates.Rd</code></div>
     </div>
 
@@ -156,14 +156,16 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-fun-geometry">fun.geometry<a class="anchor" aria-label="anchor" href="#arg-fun-geometry"></a></dt>
@@ -235,7 +237,7 @@ dimension.</p>
 <span class="r-in"><span>  <span class="fu">stat_sf_coordinates</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="geom_errorbarh.html">geom_errorbarh</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_linerange.html">geom_errorbarh</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>geometry <span class="op">=</span> <span class="va">geometry</span>,</span></span>
 <span class="r-in"><span>        xmin <span class="op">=</span> <span class="fu"><a href="aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.1</span>,</span></span>
 <span class="r-in"><span>        xmax <span class="op">=</span> <span class="fu"><a href="aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span>,</span></span>
@@ -252,6 +254,9 @@ dimension.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  NAD27</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`geom_errobarh()` was deprecated in ggplot2 4.0.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use the `orientation` argument of `geom_errorbar()` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown aesthetics: <span style="color: #00BB00;">height</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_point_on_surface may not give correct results for longitude/latitude data</span>
 <span class="r-plt img"><img src="stat_sf_coordinates-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

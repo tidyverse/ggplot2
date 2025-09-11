@@ -3,11 +3,15 @@
 scales. By default, any values outside the limits specified are replaced with
 NA. Be warned that this will remove data outside the limits and this can
 produce unintended results. For changing x or y axis limits without
-dropping data observations, see coord_cartesian()."><meta property="og:description" content="This is a shortcut for supplying the limits argument to the individual
+dropping data observations, see
+coord_cartesian(xlim, ylim), or use a full scale with
+oob = scales::oob_keep."><meta property="og:description" content="This is a shortcut for supplying the limits argument to the individual
 scales. By default, any values outside the limits specified are replaced with
 NA. Be warned that this will remove data outside the limits and this can
 produce unintended results. For changing x or y axis limits without
-dropping data observations, see coord_cartesian()."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png"><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script><script async src="https://widget.kapa.ai/kapa-widget.bundle.js" data-button-hide="true" data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!" data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2." data-modal-header-bg-color="#f9f9f9" data-modal-override-open-class="open-kapa-widget" data-project-color="#365a7a" data-project-name="ggplot2" data-modal-title="tidyverse AI ✨" data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&amp;u=235532df5cf8543246812f73db051b793f868807&amp;v=4" data-user-analytics-fingerprint-enabled="true" data-bot-protection-mechanism="hcaptcha" data-website-id="5dcac24a-bd5a-4874-9f5b-3341afddd8c3"></script></head><body>
+dropping data observations, see
+coord_cartesian(xlim, ylim), or use a full scale with
+oob = scales::oob_keep."><meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png"><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script><script async src="https://widget.kapa.ai/kapa-widget.bundle.js" data-button-hide="true" data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!" data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2." data-modal-header-bg-color="#f9f9f9" data-modal-override-open-class="open-kapa-widget" data-project-color="#365a7a" data-project-name="ggplot2" data-modal-title="tidyverse AI ✨" data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&amp;u=235532df5cf8543246812f73db051b793f868807&amp;v=4" data-user-analytics-fingerprint-enabled="true" data-bot-protection-mechanism="hcaptcha" data-website-id="5dcac24a-bd5a-4874-9f5b-3341afddd8c3"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
 
@@ -15,7 +19,7 @@ dropping data observations, see coord_cartesian()."><meta property="og:image" co
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +75,7 @@ dropping data observations, see coord_cartesian()."><meta property="og:image" co
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Set scale limits</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/limits.R" class="external-link"><code>R/limits.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/limits.R" class="external-link"><code>R/limits.R</code></a></small>
       <div class="d-none name"><code>lims.Rd</code></div>
     </div>
 
@@ -80,7 +84,9 @@ dropping data observations, see coord_cartesian()."><meta property="og:image" co
 scales. By default, any values outside the limits specified are replaced with
 <code>NA</code>. Be warned that this will remove data outside the limits and this can
 produce unintended results. For changing x or y axis limits <strong>without</strong>
-dropping data observations, see <code><a href="coord_cartesian.html">coord_cartesian()</a></code>.</p>
+dropping data observations, see
+<code><a href="coord_cartesian.html">coord_cartesian(xlim, ylim)</a></code>, or use a full scale with
+<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob = scales::oob_keep</a></code>.</p>
     </div>
 
     <div class="section level2">

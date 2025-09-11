@@ -13,7 +13,7 @@ drawn (by default) with a line."><meta property="og:image" content="https://ggpl
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@ drawn (by default) with a line."><meta property="og:image" content="https://ggpl
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Draw a function as a continuous curve</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/geom-function.R" class="external-link"><code>R/geom-function.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/stat-function.R" class="external-link"><code>R/stat-function.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/geom-function.R" class="external-link"><code>R/geom-function.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/stat-function.R" class="external-link"><code>R/stat-function.R</code></a></small>
       <div class="d-none name"><code>geom_function.Rd</code></div>
     </div>
 
@@ -88,6 +88,11 @@ drawn (by default) with a line.</p>
 <span>  stat <span class="op">=</span> <span class="st">"function"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  arrow.fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
+<span>  linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
+<span>  linemitre <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -127,7 +132,7 @@ mapping.</p></dd>
 <dt id="arg-stat">stat<a class="anchor" aria-label="anchor" href="#arg-stat"></a></dt>
 <dd><p>The statistical transformation to use on the data for this layer.
 When using a <code>geom_*()</code> function to construct a layer, the <code>stat</code>
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
 <li><p>A string naming the stat. To give the stat as a string, strip the
 function name of the <code>stat_</code> prefix. For example, to use <code><a href="geom_bar.html">stat_count()</a></code>,
@@ -178,6 +183,27 @@ lists which parameters it can accept.</p></li>
 </ul></dd>
 
 
+<dt id="arg-arrow">arrow<a class="anchor" aria-label="anchor" href="#arg-arrow"></a></dt>
+<dd><p>Arrow specification, as created by <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">grid::arrow()</a></code>.</p></dd>
+
+
+<dt id="arg-arrow-fill">arrow.fill<a class="anchor" aria-label="anchor" href="#arg-arrow-fill"></a></dt>
+<dd><p>fill colour to use for the arrow head (if closed). <code>NULL</code>
+means use <code>colour</code> aesthetic.</p></dd>
+
+
+<dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
+<dd><p>Line end style (round, butt, square).</p></dd>
+
+
+<dt id="arg-linejoin">linejoin<a class="anchor" aria-label="anchor" href="#arg-linejoin"></a></dt>
+<dd><p>Line join style (round, mitre, bevel).</p></dd>
+
+
+<dt id="arg-linemitre">linemitre<a class="anchor" aria-label="anchor" href="#arg-linemitre"></a></dt>
+<dd><p>Line mitre limit (number greater than 1).</p></dd>
+
+
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
@@ -188,14 +214,16 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-geom">geom<a class="anchor" aria-label="anchor" href="#arg-geom"></a></dt>
@@ -231,19 +259,6 @@ be vectorised.</p></dd>
 
 </dl></div>
     <div class="section level2">
-    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
-
-
-<p><code>geom_function()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code><a href="aes_position.html">x</a></code></strong></p></li>
-<li><p><strong><code><a href="aes_position.html">y</a></code></strong></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">alpha</a></code></p></li>
-<li><p><code><a href="aes_colour_fill_alpha.html">colour</a></code></p></li>
-<li><p><code><a href="aes_group_order.html">group</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linetype</a></code></p></li>
-<li><p><code><a href="aes_linetype_size_shape.html">linewidth</a></code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
-    </div>
-    <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
 
 
@@ -253,6 +268,12 @@ be vectorised.</p></dd>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code></p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>geom_function()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><strong><code><a href="aes_position.html">x</a></code></strong></td><td></td></tr><tr><td>•</td><td><strong><code><a href="aes_position.html">y</a></code></strong></td><td></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">alpha</a></code></td><td>→ <code>NA</code></td></tr><tr><td>•</td><td><code><a href="aes_colour_fill_alpha.html">colour</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_group_order.html">group</a></code></td><td>→ inferred</td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linetype</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr><tr><td>•</td><td><code><a href="aes_linetype_size_shape.html">linewidth</a></code></td><td>→ via <code><a href="theme.html">theme()</a></code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -297,12 +318,10 @@ be vectorised.</p></dd>
 <span class="r-plt img"><img src="geom_function-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using a custom anonymous function</span></span></span>
-<span class="r-in"><span><span class="va">base</span> <span class="op">+</span> <span class="fu">geom_function</span><span class="op">(</span>fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">base</span> <span class="op">+</span> <span class="fu">geom_function</span><span class="op">(</span>fun <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_function-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># or using lambda syntax:</span></span></span>
 <span class="r-in"><span><span class="co"># base + geom_function(fun = ~ 0.5 * exp(-abs(.x)))</span></span></span>
-<span class="r-in"><span><span class="co"># or in R4.1.0 and above:</span></span></span>
-<span class="r-in"><span><span class="co"># base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))</span></span></span>
 <span class="r-in"><span><span class="co"># or using a custom named function:</span></span></span>
 <span class="r-in"><span><span class="co"># f &lt;- function(x) 0.5 * exp(-abs(x))</span></span></span>
 <span class="r-in"><span><span class="co"># base + geom_function(fun = f)</span></span></span>

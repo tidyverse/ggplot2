@@ -11,7 +11,7 @@ calls but it can also be created directly using this function."><meta property="
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ calls but it can also be created directly using this function."><meta property="
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create a new layer</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/layer.R" class="external-link"><code>R/layer.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/layer.R" class="external-link"><code>R/layer.R</code></a></small>
       <div class="d-none name"><code>layer.Rd</code></div>
     </div>
 
@@ -91,6 +91,7 @@ calls but it can also be created directly using this function.</p>
 <span>  check.param <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  key_glyph <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  layer_class <span class="op">=</span> <span class="va">Layer</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -115,7 +116,7 @@ give the geom as <code>"point"</code>.</p></li>
 <dt id="arg-stat">stat<a class="anchor" aria-label="anchor" href="#arg-stat"></a></dt>
 <dd><p>The statistical transformation to use on the data for this layer.
 When using a <code>geom_*()</code> function to construct a layer, the <code>stat</code>
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
 <li><p>A string naming the stat. To give the stat as a string, strip the
 function name of the <code>stat_</code> prefix. For example, to use <code><a href="geom_bar.html">stat_count()</a></code>,
@@ -167,7 +168,7 @@ to use <code><a href="position_jitter.html">position_jitter()</a></code>, give t
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="borders.html">borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-check-aes-check-param">check.aes, check.param<a class="anchor" aria-label="anchor" href="#arg-check-aes-check-param"></a></dt>
@@ -181,12 +182,19 @@ supplied parameters and aesthetics are understood by the <code>geom</code> or
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.</p></dd>
+display. To include legend keys for all levels, even
+when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
+but unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-key-glyph">key_glyph<a class="anchor" aria-label="anchor" href="#arg-key-glyph"></a></dt>
 <dd><p>A legend key drawing function or a string providing the
 function name minus the <code>draw_key_</code> prefix. See <a href="draw_key.html">draw_key</a> for details.</p></dd>
+
+
+<dt id="arg-layout">layout<a class="anchor" aria-label="anchor" href="#arg-layout"></a></dt>
+<dd><p>Argument to control layout at the layer level. Consult the
+faceting documentation to view appropriate values.</p></dd>
 
 
 <dt id="arg-layer-class">layer_class<a class="anchor" aria-label="anchor" href="#arg-layer-class"></a></dt>

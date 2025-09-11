@@ -11,7 +11,7 @@ at least one discrete position."><meta property="og:image" content="https://ggpl
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ at least one discrete position."><meta property="og:image" content="https://ggpl
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Jitter points to avoid overplotting</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/position-jitter.R" class="external-link"><code>R/position-jitter.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/position-jitter.R" class="external-link"><code>R/position-jitter.R</code></a></small>
       <div class="d-none name"><code>position_jitter.Rd</code></div>
     </div>
 
@@ -141,7 +141,7 @@ Use <code>NULL</code> to use the current random seed and also avoid resetting
 <span class="r-plt img"><img src="position_jitter-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a jitter object for reproducible jitter:</span></span></span>
-<span class="r-in"><span><span class="va">jitter</span> <span class="op">&lt;-</span> <span class="fu">position_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">jitter</span> <span class="op">&lt;-</span> <span class="fu">position_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0.1</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="va">jitter</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="va">jitter</span>, color <span class="op">=</span> <span class="st">"red"</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">am</span> <span class="op">+</span> <span class="fl">0.2</span>, <span class="va">vs</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>

@@ -19,7 +19,7 @@ together according to inheritance, read more about theme inheritance below."><me
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@ together according to inheritance, read more about theme inheritance below."><me
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Modify components of a theme</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/theme.R" class="external-link"><code>R/theme.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/theme.R" class="external-link"><code>R/theme.R</code></a></small>
       <div class="d-none name"><code>theme.Rd</code></div>
     </div>
 
@@ -83,7 +83,7 @@ together according to inheritance, read more about theme inheritance below."><me
     <p>Themes are a powerful way to customize the non-data components of your plots:
 i.e. titles, labels, fonts, background, gridlines, and legends. Themes can be
 used to give plots a consistent customized look. Modify a single plot's theme
-using <code>theme()</code>; see <code><a href="theme_get.html">theme_update()</a></code> if you want modify the active theme, to
+using <code>theme()</code>; see <code><a href="get_theme.html">theme_update()</a></code> if you want modify the active theme, to
 affect all subsequent plots. Use the themes available in <a href="ggtheme.html">complete themes</a> if you would like to use a complete theme such as
 <code><a href="ggtheme.html">theme_bw()</a></code>, <code><a href="ggtheme.html">theme_minimal()</a></code>, and more. Theme elements are documented
 together according to inheritance, read more about theme inheritance below.</p>
@@ -97,6 +97,11 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">rect</span>,</span>
 <span>  <span class="va">text</span>,</span>
 <span>  <span class="va">title</span>,</span>
+<span>  <span class="va">point</span>,</span>
+<span>  <span class="va">polygon</span>,</span>
+<span>  <span class="va">geom</span>,</span>
+<span>  <span class="va">spacing</span>,</span>
+<span>  <span class="va">margins</span>,</span>
 <span>  <span class="va">aspect.ratio</span>,</span>
 <span>  <span class="va">axis.title</span>,</span>
 <span>  <span class="va">axis.title.x</span>,</span>
@@ -168,6 +173,7 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">legend.key.spacing</span>,</span>
 <span>  <span class="va">legend.key.spacing.x</span>,</span>
 <span>  <span class="va">legend.key.spacing.y</span>,</span>
+<span>  <span class="va">legend.key.justification</span>,</span>
 <span>  <span class="va">legend.frame</span>,</span>
 <span>  <span class="va">legend.ticks</span>,</span>
 <span>  <span class="va">legend.ticks.length</span>,</span>
@@ -205,6 +211,8 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">panel.grid.minor.x</span>,</span>
 <span>  <span class="va">panel.grid.minor.y</span>,</span>
 <span>  <span class="va">panel.ontop</span>,</span>
+<span>  <span class="va">panel.widths</span>,</span>
+<span>  <span class="va">panel.heights</span>,</span>
 <span>  <span class="va">plot.background</span>,</span>
 <span>  <span class="va">plot.title</span>,</span>
 <span>  <span class="va">plot.title.position</span>,</span>
@@ -260,6 +268,26 @@ these should also be defined in the <code>element tree</code> argument. <a href=
 inherits from <code>text</code>)</p></dd>
 
 
+<dt id="arg-point">point<a class="anchor" aria-label="anchor" href="#arg-point"></a></dt>
+<dd><p>all point elements (<code><a href="element.html">element_point()</a></code>)</p></dd>
+
+
+<dt id="arg-polygon">polygon<a class="anchor" aria-label="anchor" href="#arg-polygon"></a></dt>
+<dd><p>all polygon elements (<code><a href="element.html">element_polygon()</a></code>)</p></dd>
+
+
+<dt id="arg-geom">geom<a class="anchor" aria-label="anchor" href="#arg-geom"></a></dt>
+<dd><p>defaults for geoms (<code><a href="element.html">element_geom()</a></code>)</p></dd>
+
+
+<dt id="arg-spacing">spacing<a class="anchor" aria-label="anchor" href="#arg-spacing"></a></dt>
+<dd><p>all spacings (<code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit()</a></code>)</p></dd>
+
+
+<dt id="arg-margins">margins<a class="anchor" aria-label="anchor" href="#arg-margins"></a></dt>
+<dd><p>all margins (<code><a href="element.html">margin()</a></code>)</p></dd>
+
+
 <dt id="arg-aspect-ratio">aspect.ratio<a class="anchor" aria-label="anchor" href="#arg-aspect-ratio"></a></dt>
 <dd><p>aspect ratio of the panel</p></dd>
 
@@ -297,7 +325,7 @@ inherit from the corresponding major ticks <code>axis.ticks.*.*</code>.</p></dd>
 
 
 <dt id="arg-axis-ticks-length-axis-ticks-length-x-axis-ticks-length-x-top-axis-ticks-length-x-bottom-axis-ticks-length-y-axis-ticks-length-y-left-axis-ticks-length-y-right-axis-ticks-length-theta-axis-ticks-length-r">axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right, axis.ticks.length.theta, axis.ticks.length.r<a class="anchor" aria-label="anchor" href="#arg-axis-ticks-length-axis-ticks-length-x-axis-ticks-length-x-top-axis-ticks-length-x-bottom-axis-ticks-length-y-axis-ticks-length-y-left-axis-ticks-length-y-right-axis-ticks-length-theta-axis-ticks-length-r"></a></dt>
-<dd><p>length of tick marks (<code>unit</code>)</p></dd>
+<dd><p>length of tick marks (<code>unit</code>). <code>axis.ticks.length</code> inherits from <code>spacing</code>.</p></dd>
 
 
 <dt id="arg-axis-minor-ticks-length-axis-minor-ticks-length-x-axis-minor-ticks-length-x-top-axis-minor-ticks-length-x-bottom-axis-minor-ticks-length-y-axis-minor-ticks-length-y-left-axis-minor-ticks-length-y-right-axis-minor-ticks-length-theta-axis-minor-ticks-length-r">axis.minor.ticks.length, axis.minor.ticks.length.x, axis.minor.ticks.length.x.top, axis.minor.ticks.length.x.bottom, axis.minor.ticks.length.y, axis.minor.ticks.length.y.left, axis.minor.ticks.length.y.right, axis.minor.ticks.length.theta, axis.minor.ticks.length.r<a class="anchor" aria-label="anchor" href="#arg-axis-minor-ticks-length-axis-minor-ticks-length-x-axis-minor-ticks-length-x-top-axis-minor-ticks-length-x-bottom-axis-minor-ticks-length-y-axis-minor-ticks-length-y-left-axis-minor-ticks-length-y-right-axis-minor-ticks-length-theta-axis-minor-ticks-length-r"></a></dt>
@@ -319,12 +347,14 @@ from <code>rect</code>)</p></dd>
 
 
 <dt id="arg-legend-margin">legend.margin<a class="anchor" aria-label="anchor" href="#arg-legend-margin"></a></dt>
-<dd><p>the margin around each legend (<code><a href="element.html">margin()</a></code>)</p></dd>
+<dd><p>the margin around each legend (<code><a href="element.html">margin()</a></code>); inherits
+from <code>margins</code>.</p></dd>
 
 
 <dt id="arg-legend-spacing-legend-spacing-x-legend-spacing-y">legend.spacing, legend.spacing.x, legend.spacing.y<a class="anchor" aria-label="anchor" href="#arg-legend-spacing-legend-spacing-x-legend-spacing-y"></a></dt>
 <dd><p>the spacing between legends (<code>unit</code>). <code>legend.spacing.x</code> &amp; <code>legend.spacing.y</code>
-inherit from <code>legend.spacing</code> or can be specified separately</p></dd>
+inherit from <code>legend.spacing</code> or can be specified separately.
+<code>legend.spacing</code> inherits from <code>spacing</code>.</p></dd>
 
 
 <dt id="arg-legend-key">legend.key<a class="anchor" aria-label="anchor" href="#arg-legend-key"></a></dt>
@@ -334,14 +364,22 @@ inherits from <code>rect</code>)</p></dd>
 
 <dt id="arg-legend-key-size-legend-key-height-legend-key-width">legend.key.size, legend.key.height, legend.key.width<a class="anchor" aria-label="anchor" href="#arg-legend-key-size-legend-key-height-legend-key-width"></a></dt>
 <dd><p>size of legend keys (<code>unit</code>); key background height &amp; width inherit from
-<code>legend.key.size</code> or can be specified separately</p></dd>
+<code>legend.key.size</code> or can be specified separately. In turn <code>legend.key.size</code>
+inherits from <code>spacing</code>.</p></dd>
 
 
 <dt id="arg-legend-key-spacing-legend-key-spacing-x-legend-key-spacing-y">legend.key.spacing, legend.key.spacing.x, legend.key.spacing.y<a class="anchor" aria-label="anchor" href="#arg-legend-key-spacing-legend-key-spacing-x-legend-key-spacing-y"></a></dt>
 <dd><p>spacing
 between legend keys given as a <code>unit</code>. Spacing in the horizontal (x) and
 vertical (y) direction inherit from <code>legend.key.spacing</code> or can be
-specified separately.</p></dd>
+specified separately. <code>legend.key.spacing</code> inherits from <code>spacing</code>.</p></dd>
+
+
+<dt id="arg-legend-key-justification">legend.key.justification<a class="anchor" aria-label="anchor" href="#arg-legend-key-justification"></a></dt>
+<dd><p>Justification for positioning legend keys
+when more space is available than needed for display. The default, <code>NULL</code>,
+stretches keys into the available space. Can be a location like <code>"center"</code>
+or <code>"top"</code>, or a two-element numeric vector.</p></dd>
 
 
 <dt id="arg-legend-frame">legend.frame<a class="anchor" aria-label="anchor" href="#arg-legend-frame"></a></dt>
@@ -353,7 +391,8 @@ specified separately.</p></dd>
 
 
 <dt id="arg-legend-ticks-length">legend.ticks.length<a class="anchor" aria-label="anchor" href="#arg-legend-ticks-length"></a></dt>
-<dd><p>length of tick marks in legend (<code>unit</code>)</p></dd>
+<dd><p>length of tick marks in legend
+(<code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit()</a></code>); inherits from <code>legend.key.size</code>.</p></dd>
 
 
 <dt id="arg-legend-axis-line">legend.axis.line<a class="anchor" aria-label="anchor" href="#arg-legend-axis-line"></a></dt>
@@ -424,13 +463,13 @@ string. Can be <code>"panel"</code> (default) to align legends to the panels or
 
 <dt id="arg-legend-box-just">legend.box.just<a class="anchor" aria-label="anchor" href="#arg-legend-box-just"></a></dt>
 <dd><p>justification of each legend within the overall
-bounding box, when there are multiple legends ("top", "bottom", "left", or
-"right")</p></dd>
+bounding box, when there are multiple legends ("top", "bottom", "left",
+"right", "center" or "centre")</p></dd>
 
 
 <dt id="arg-legend-box-margin">legend.box.margin<a class="anchor" aria-label="anchor" href="#arg-legend-box-margin"></a></dt>
 <dd><p>margins around the full legend area, as specified
-using <code><a href="element.html">margin()</a></code></p></dd>
+using <code><a href="element.html">margin()</a></code>; inherits from <code>margins</code>.</p></dd>
 
 
 <dt id="arg-legend-box-background">legend.box.background<a class="anchor" aria-label="anchor" href="#arg-legend-box-background"></a></dt>
@@ -440,7 +479,7 @@ inherits from <code>rect</code>)</p></dd>
 
 <dt id="arg-legend-box-spacing">legend.box.spacing<a class="anchor" aria-label="anchor" href="#arg-legend-box-spacing"></a></dt>
 <dd><p>The spacing between the plotting area and the
-legend box (<code>unit</code>)</p></dd>
+legend box (<code>unit</code>); inherits from <code>spacing</code>.</p></dd>
 
 
 <dt id="arg-panel-background">panel.background<a class="anchor" aria-label="anchor" href="#arg-panel-background"></a></dt>
@@ -458,7 +497,7 @@ it covers tick marks and grid lines. This should be used with
 <dt id="arg-panel-spacing-panel-spacing-x-panel-spacing-y">panel.spacing, panel.spacing.x, panel.spacing.y<a class="anchor" aria-label="anchor" href="#arg-panel-spacing-panel-spacing-x-panel-spacing-y"></a></dt>
 <dd><p>spacing between facet
 panels (<code>unit</code>). <code>panel.spacing.x</code> &amp; <code>panel.spacing.y</code> inherit from <code>panel.spacing</code>
-or can be specified separately.</p></dd>
+or can be specified separately. <code>panel.spacing</code> inherits from <code>spacing</code>.</p></dd>
 
 
 <dt id="arg-panel-grid-panel-grid-major-panel-grid-minor-panel-grid-major-x-panel-grid-major-y-panel-grid-minor-x-panel-grid-minor-y">panel.grid, panel.grid.major, panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x, panel.grid.minor.y<a class="anchor" aria-label="anchor" href="#arg-panel-grid-panel-grid-major-panel-grid-minor-panel-grid-major-x-panel-grid-major-y-panel-grid-minor-x-panel-grid-minor-y"></a></dt>
@@ -475,6 +514,12 @@ from <code>line</code></p></dd>
 <dd><p>option to place the panel (background, gridlines) over
 the data layers (<code>logical</code>). Usually used with a transparent or blank
 <code>panel.background</code>.</p></dd>
+
+
+<dt id="arg-panel-widths-panel-heights">panel.widths, panel.heights<a class="anchor" aria-label="anchor" href="#arg-panel-widths-panel-heights"></a></dt>
+<dd><p>Sizes for panels (<code>units</code>). Can be a
+single unit to set the total size for the panel area, or a unit vector to
+set the size of individual panels.</p></dd>
 
 
 <dt id="arg-plot-background">plot.background<a class="anchor" aria-label="anchor" href="#arg-plot-background"></a></dt>
@@ -528,7 +573,7 @@ around the panel space.</p></dd>
 
 <dt id="arg-plot-margin">plot.margin<a class="anchor" aria-label="anchor" href="#arg-plot-margin"></a></dt>
 <dd><p>margin around entire plot (<code>unit</code> with the sizes of
-the top, right, bottom, and left margins)</p></dd>
+the top, right, bottom, and left margins); inherits from <code>margin</code>.</p></dd>
 
 
 <dt id="arg-strip-background-strip-background-x-strip-background-y">strip.background, strip.background.x, strip.background.y<a class="anchor" aria-label="anchor" href="#arg-strip-background-strip-background-x-strip-background-y"></a></dt>
@@ -561,14 +606,9 @@ As a consequence, some theme stylings need to be applied to
 the position-dependent elements rather than to the parent elements</p></dd>
 
 
-<dt id="arg-strip-switch-pad-grid">strip.switch.pad.grid<a class="anchor" aria-label="anchor" href="#arg-strip-switch-pad-grid"></a></dt>
-<dd><p>space between strips and axes when strips are
-switched (<code>unit</code>)</p></dd>
-
-
-<dt id="arg-strip-switch-pad-wrap">strip.switch.pad.wrap<a class="anchor" aria-label="anchor" href="#arg-strip-switch-pad-wrap"></a></dt>
-<dd><p>space between strips and axes when strips are
-switched (<code>unit</code>)</p></dd>
+<dt id="arg-strip-switch-pad-grid-strip-switch-pad-wrap">strip.switch.pad.grid, strip.switch.pad.wrap<a class="anchor" aria-label="anchor" href="#arg-strip-switch-pad-grid-strip-switch-pad-wrap"></a></dt>
+<dd><p>space between strips and
+axes when strips are switched (<code>unit</code>); inherits from <code>spacing</code>.</p></dd>
 
 
 <dt id="arg-complete">complete<a class="anchor" aria-label="anchor" href="#arg-complete"></a></dt>
@@ -580,7 +620,7 @@ elements.</p></dd>
 
 
 <dt id="arg-validate">validate<a class="anchor" aria-label="anchor" href="#arg-validate"></a></dt>
-<dd><p><code>TRUE</code> to run <code>validate_element()</code>, <code>FALSE</code> to bypass checks.</p></dd>
+<dd><p><code>TRUE</code> to run <code>check_element()</code>, <code>FALSE</code> to bypass checks.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -598,7 +638,7 @@ setting a single high-level component.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="gg-add.html">+.gg()</a></code> and <a href="theme_get.html">%+replace%</a>,
+    <div class="dont-index"><p><code><a href="gg-add.html">add_gg()</a></code> and <a href="get_theme.html">%+replace%</a>,
 <code><a href="element.html">element_blank()</a></code>, <code><a href="element.html">element_line()</a></code>,
 <code><a href="element.html">element_rect()</a></code>, and <code><a href="element.html">element_text()</a></code> for
 details of the specific theme elements.</p>
@@ -623,7 +663,7 @@ details of the specific theme elements.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu"><a href="element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>panel.border <span class="op">=</span> <span class="fu"><a href="element.html">element_rect</a></span><span class="op">(</span>linetype <span class="op">=</span> <span class="st">"dashed"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>panel.border <span class="op">=</span> <span class="fu"><a href="element.html">element_rect</a></span><span class="op">(</span>linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>panel.grid.major <span class="op">=</span> <span class="fu"><a href="element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme-6.png" alt="" width="700" height="433"></span>
@@ -690,7 +730,7 @@ details of the specific theme elements.</p>
 <span class="r-in"><span>  legend.position.inside <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.95</span>, <span class="fl">.95</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  legend.justification <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="st">"top"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  legend.box.just <span class="op">=</span> <span class="st">"right"</span>,</span></span>
-<span class="r-in"><span>  legend.margin <span class="op">=</span> <span class="fu"><a href="element.html">margin</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  legend.margin <span class="op">=</span> <span class="fu"><a href="element.html">margin_auto</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme-18.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -698,7 +738,7 @@ details of the specific theme elements.</p>
 <span class="r-in"><span><span class="co"># all the legends</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  legend.box.background <span class="op">=</span> <span class="fu"><a href="element.html">element_rect</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  legend.box.margin <span class="op">=</span> <span class="fu"><a href="element.html">margin</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  legend.box.margin <span class="op">=</span> <span class="fu"><a href="element.html">margin_auto</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme-19.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -729,6 +769,24 @@ details of the specific theme elements.</p>
 <span class="r-plt img"><img src="theme-26.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme-27.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Colours -------------------------------------------------------------------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="annotate.html">annotate</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Text Annotation"</span>, x <span class="op">=</span> <span class="fl">5</span>, y <span class="op">=</span> <span class="fl">30</span>, geom <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># You can use the 'ink' setting to set colour defaults for all layers</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">+</span> <span class="fu">theme</span><span class="op">(</span>geom <span class="op">=</span> <span class="fu"><a href="element.html">element_geom</a></span><span class="op">(</span>ink <span class="op">=</span> <span class="st">"dodgerblue"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="theme-28.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># Alternate colours are derived from the 'accent' and 'paper' settings</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">theme</span><span class="op">(</span>geom <span class="op">=</span> <span class="fu"><a href="element.html">element_geom</a></span><span class="op">(</span>accent <span class="op">=</span> <span class="st">"tomato"</span>, paper <span class="op">=</span> <span class="st">"orchid"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="theme-29.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># You can also set default palettes in the theme</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">drat</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">theme</span><span class="op">(</span>palette.colour.continuous <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"pink"</span>, <span class="st">"hotpink"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="theme-30.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

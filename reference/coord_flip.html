@@ -19,7 +19,7 @@ to x conditional on y."><meta property="og:image" content="https://ggplot2.tidyv
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@ to x conditional on y."><meta property="og:image" content="https://ggplot2.tidyv
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Cartesian coordinates with x and y flipped</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/coord-flip.R" class="external-link"><code>R/coord-flip.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/coord-flip.R" class="external-link"><code>R/coord-flip.R</code></a></small>
       <div class="d-none name"><code>coord_flip.Rd</code></div>
     </div>
 
@@ -105,7 +105,11 @@ to x conditional on y.</p>
 <dt id="arg-expand">expand<a class="anchor" aria-label="anchor" href="#arg-expand"></a></dt>
 <dd><p>If <code>TRUE</code>, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
-limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></dd>
+limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The <code>expand</code> argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. <code>expand = c(bottom = FALSE)</code>.</p></dd>
 
 
 <dt id="arg-clip">clip<a class="anchor" aria-label="anchor" href="#arg-clip"></a></dt>
@@ -149,7 +153,7 @@ vertical direction.</p></li>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span>
 <span class="r-plt img"><img src="coord_flip-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># In `coord_flip()`, the x-scale controls the left axis</span></span></span>
@@ -157,7 +161,7 @@ vertical direction.</p></li>
 <span class="r-in"><span>  <span class="fu"><a href="geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_continuous.html">scale_x_reverse</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span>
 <span class="r-plt img"><img src="coord_flip-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># In line and area plots, swapped aesthetics require an explicit orientation</span></span></span>

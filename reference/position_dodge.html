@@ -19,7 +19,7 @@ can have variable widths."><meta property="og:image" content="https://ggplot2.ti
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.5.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@ can have variable widths."><meta property="og:image" content="https://ggplot2.ti
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Dodge overlapping objects side-to-side</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/position-dodge.R" class="external-link"><code>R/position-dodge.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-v3.5.2/R/position-dodge2.R" class="external-link"><code>R/position-dodge2.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/position-dodge.R" class="external-link"><code>R/position-dodge.R</code></a>, <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.0/R/position-dodge2.R" class="external-link"><code>R/position-dodge2.R</code></a></small>
       <div class="d-none name"><code>position_dodge.Rd</code></div>
     </div>
 
@@ -91,7 +91,12 @@ can have variable widths.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="cn">NULL</span>, preserve <span class="op">=</span> <span class="st">"total"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">position_dodge</span><span class="op">(</span></span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  preserve <span class="op">=</span> <span class="st">"total"</span>,</span>
+<span>  orientation <span class="op">=</span> <span class="st">"x"</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">position_dodge2</span><span class="op">(</span></span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -116,14 +121,20 @@ geoms. See the examples.</p></dd>
 at a position, or the width of a <code>"single"</code> element?</p></dd>
 
 
-<dt id="arg-padding">padding<a class="anchor" aria-label="anchor" href="#arg-padding"></a></dt>
-<dd><p>Padding between elements at the same position. Elements are
-shrunk by this proportion to allow space between them. Defaults to 0.1.</p></dd>
+<dt id="arg-orientation">orientation<a class="anchor" aria-label="anchor" href="#arg-orientation"></a></dt>
+<dd><p>Fallback orientation when the layer or the data does not
+indicate an explicit orientation, like <code><a href="geom_point.html">geom_point()</a></code>. Can be <code>"x"</code>
+(default) or <code>"y"</code>.</p></dd>
 
 
 <dt id="arg-reverse">reverse<a class="anchor" aria-label="anchor" href="#arg-reverse"></a></dt>
 <dd><p>If <code>TRUE</code>, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.</p></dd>
+
+
+<dt id="arg-padding">padding<a class="anchor" aria-label="anchor" href="#arg-padding"></a></dt>
+<dd><p>Padding between elements at the same position. Elements are
+shrunk by this proportion to allow space between them. Defaults to 0.1.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -134,6 +145,12 @@ This is useful if you're rotating both the plot and legend.</p></dd>
 <code><a href="position_jitterdodge.html">position_jitterdodge</a>()</code>,
 <code><a href="position_nudge.html">position_nudge</a>()</code>,
 <code><a href="position_stack.html">position_stack</a>()</code></p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
+
+
+<p><code>position_dodge()</code> understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:</p><table class="table table"><tr><td>•</td><td><code>order</code></td><td>→ <code>NULL</code></td></tr></table><p>Learn more about setting these aesthetics in <code><a href="../articles/ggplot2-specs.html">vignette("ggplot2-specs")</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -151,14 +168,14 @@ This is useful if you're rotating both the plot and legend.</p></dd>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">price</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_histogram.html">geom_histogram</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"dodge2"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span>
 <span class="r-plt img"><img src="position_dodge-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># see ?geom_bar for more examples</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># In this case a frequency polygon is probably a better choice</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">price</span>, colour <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span>
 <span class="r-plt img"><img src="position_dodge-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
