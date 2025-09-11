@@ -538,7 +538,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #' Takes the output from title_spec, adds margins, creates gList with strip
 #' background and label, and returns gtable matrix.
 #'
-#' @param grobs Output from [titleGrob()].
+#' @param grobs Output from `titleGrob()`.
 #' @param theme Theme object.
 #' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
 #' @param clip should drawing be clipped to the specified cells (‘"on"’),the
