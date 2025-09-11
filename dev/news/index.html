@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">3.5.2.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">4.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +20,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/">Version 4.0.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a></li>
@@ -68,10 +69,13 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="4.0.0" id="ggplot2-400">ggplot2 4.0.0<a class="anchor" aria-label="anchor" href="#ggplot2-400"></a></h2><p class="text-muted">CRAN release: 2025-09-11</p>
 <div class="section level3">
-<h3 id="user-facing-development-version">User facing<a class="anchor" aria-label="anchor" href="#user-facing-development-version"></a></h3>
+<h3 id="user-facing-4-0-0">User facing<a class="anchor" aria-label="anchor" href="#user-facing-4-0-0"></a></h3>
 <div class="section level4">
-<h4 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h4>
+<h4 id="breaking-changes-4-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-4-0-0"></a></h4>
 <ul><li>The S3 parts of ggplot2 have been replaced with S7 bits (<a href="https://github.com/tidyverse/ggplot2/issues/6352" class="external-link">#6352</a>).</li>
 <li>(breaking) <code>geom_violin(quantiles)</code> now has actual quantiles based on the data, rather than inferred quantiles based on the computed density. The <code>quantiles</code> parameter that replaces <code>draw_quantiles</code> now belongs to <code><a href="../reference/geom_violin.html">stat_ydensity()</a></code> instead of <code><a href="../reference/geom_violin.html">geom_violin()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4120" class="external-link">#4120</a>).</li>
 <li>(Breaking) The defaults for all geoms can be set at one in the theme. (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a> based on pioneering work by <a href="https://github.com/dpseidel" class="external-link">@dpseidel</a>, <a href="https://github.com/tidyverse/ggplot2/issues/2239" class="external-link">#2239</a>)
@@ -88,7 +92,7 @@
 <li>In binning stats, the default <code>boundary</code> is now chosen to better adhere to the <code>nbin</code> argument. This may affect plots that use default binning (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5882" class="external-link">#5882</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5036" class="external-link">#5036</a>)</li>
 </ul></div>
 <div class="section level4">
-<h4 id="lifecycle-changes-development-version">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-development-version"></a></h4>
+<h4 id="lifecycle-changes-4-0-0">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-4-0-0"></a></h4>
 <ul><li><p>Deprecated functions and arguments prior to ggplot2 3.0.0 throw errors instead of warnings.</p></li>
 <li><p>Functions and arguments that were soft-deprecated up to ggplot2 3.4.0 now throw warnings.</p></li>
 <li><p><code><a href="../reference/annotation_borders.html">annotation_borders()</a></code> replaces the now-deprecated <code><a href="../reference/annotation_borders.html">borders()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6392" class="external-link">#6392</a>)</p></li>
@@ -121,9 +125,9 @@
 <li><p><code><a href="../reference/coord_transform.html">coord_trans()</a></code> was renamed to <code><a href="../reference/coord_transform.html">coord_transform()</a></code> (<a href="https://github.com/nmercadeb" class="external-link">@nmercadeb</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5825" class="external-link">#5825</a>).</p></li>
 </ul></div>
 <div class="section level4">
-<h4 id="improvements-development-version">Improvements<a class="anchor" aria-label="anchor" href="#improvements-development-version"></a></h4>
+<h4 id="improvements-4-0-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-4-0-0"></a></h4>
 <div class="section level5">
-<h5 id="themes-development-version">Themes<a class="anchor" aria-label="anchor" href="#themes-development-version"></a></h5>
+<h5 id="themes-4-0-0">Themes<a class="anchor" aria-label="anchor" href="#themes-4-0-0"></a></h5>
 <ul><li>The <code><a href="../reference/theme.html">theme()</a></code> function offers new arguments:
 <ul><li>
 <code>geom</code> to set defaults for layer aesthetics (<a href="https://github.com/tidyverse/ggplot2/issues/2239" class="external-link">#2239</a>).</li>
@@ -160,7 +164,7 @@
 <li>The <code>theme(legend.spacing.{x/y})</code> setting now accepts <code>null</code>-units (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6417" class="external-link">#6417</a>).</li>
 </ul></div>
 <div class="section level5">
-<h5 id="scales-development-version">Scales<a class="anchor" aria-label="anchor" href="#scales-development-version"></a></h5>
+<h5 id="scales-4-0-0">Scales<a class="anchor" aria-label="anchor" href="#scales-4-0-0"></a></h5>
 <ul><li>The default colour and fill scales have a new <code>palette</code> argument. The default, <code>palette = NULL</code> will retrieve palettes from the theme (see the Themes section). This replaces the old options-based <code>type</code> system, with some limited backward compatibility (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6064" class="external-link">#6064</a>).</li>
 <li>All scales now expose the <code>aesthetics</code> parameter (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5841" class="external-link">#5841</a>)</li>
 <li>All position scales now use the same definition of <code>x</code> and <code>y</code> aesthetics. This lets uncommon aesthetics like <code>xintercept</code> expand scales as usual. (<a href="https://github.com/tidyverse/ggplot2/issues/3342" class="external-link">#3342</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4966" class="external-link">#4966</a>, <a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>)</li>
@@ -181,7 +185,7 @@
 <li>Scale names, guide titles and aesthetic labels can now accept functions (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4313" class="external-link">#4313</a>)</li>
 </ul></div>
 <div class="section level5">
-<h5 id="coords-development-version">Coords<a class="anchor" aria-label="anchor" href="#coords-development-version"></a></h5>
+<h5 id="coords-4-0-0">Coords<a class="anchor" aria-label="anchor" href="#coords-4-0-0"></a></h5>
 <ul><li>Reversal of a dimension, typically ‘x’ or ‘y’, is now controlled by the <code>reverse</code> argument in <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>, <code><a href="../reference/coord_fixed.html">coord_fixed()</a></code>, <code><a href="../reference/coord_radial.html">coord_radial()</a></code> and <code><a href="../reference/ggsf.html">coord_sf()</a></code>. In <code><a href="../reference/coord_radial.html">coord_radial()</a></code>, this replaces the older <code>direction</code> argument (<a href="https://github.com/tidyverse/ggplot2/issues/4021" class="external-link">#4021</a>, <a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</li>
 <li>
 <code>coord_*(expand)</code> can now take a logical vector to control expansion at any side of the panel (top, right, bottom, left) (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6020" class="external-link">#6020</a>)</li>
@@ -195,7 +199,7 @@
 <li>Munching in <code><a href="../reference/coord_radial.html">coord_polar()</a></code> and <code><a href="../reference/coord_radial.html">coord_radial()</a></code> now adds more detail, particularly for data-points with a low radius near the center (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5023" class="external-link">#5023</a>).</li>
 </ul></div>
 <div class="section level5">
-<h5 id="layers-development-version">Layers<a class="anchor" aria-label="anchor" href="#layers-development-version"></a></h5>
+<h5 id="layers-4-0-0">Layers<a class="anchor" aria-label="anchor" href="#layers-4-0-0"></a></h5>
 <ul><li>Position adjustments can now have auxiliary aesthetics (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).
 <ul><li>
 <code><a href="../reference/position_nudge.html">position_nudge()</a></code> gains <code>nudge_x</code> and <code>nudge_y</code> aesthetics (<a href="https://github.com/tidyverse/ggplot2/issues/3026" class="external-link">#3026</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5445" class="external-link">#5445</a>).</li>
@@ -253,7 +257,7 @@
 <code><a href="../reference/geom_contour.html">geom_contour()</a></code> should be able to recognise a rotated grid of points (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4320" class="external-link">#4320</a>)</li>
 </ul></div>
 <div class="section level5">
-<h5 id="other-development-version">Other<a class="anchor" aria-label="anchor" href="#other-development-version"></a></h5>
+<h5 id="other-4-0-0">Other<a class="anchor" aria-label="anchor" href="#other-4-0-0"></a></h5>
 <ul><li>An attempt is made to use a variable’s label attribute as default label (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4631" class="external-link">#4631</a>)</li>
 <li>
 <code>guide_*()</code> can now accept two inside legend theme elements: <code>legend.position.inside</code> and <code>legend.justification.inside</code>, allowing inside legends to be placed at different positions. Only inside legends with the same position and justification will be merged (<a href="https://github.com/Yunuuuu" class="external-link">@Yunuuuu</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6210" class="external-link">#6210</a>).</li>
@@ -273,7 +277,7 @@
 </ul></div>
 </div>
 <div class="section level4">
-<h4 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h4>
+<h4 id="bug-fixes-4-0-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-4-0-0"></a></h4>
 <ul><li>Fixed a bug where the <code>guide_custom(order)</code> wasn’t working (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6195" class="external-link">#6195</a>)</li>
 <li>Fixed bug in <code><a href="../reference/guide_custom.html">guide_custom()</a></code> that would throw error with <code><a href="../reference/ggtheme.html">theme_void()</a></code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5856" class="external-link">#5856</a>).</li>
 <li>
@@ -339,9 +343,9 @@
 </ul></div>
 </div>
 <div class="section level3">
-<h3 id="developer-facing-development-version">Developer facing<a class="anchor" aria-label="anchor" href="#developer-facing-development-version"></a></h3>
+<h3 id="developer-facing-4-0-0">Developer facing<a class="anchor" aria-label="anchor" href="#developer-facing-4-0-0"></a></h3>
 <div class="section level4">
-<h4 id="utilities-development-version">Utilities<a class="anchor" aria-label="anchor" href="#utilities-development-version"></a></h4>
+<h4 id="utilities-4-0-0">Utilities<a class="anchor" aria-label="anchor" href="#utilities-4-0-0"></a></h4>
 <ul><li>New helper function <code><a href="../reference/gg_par.html">gg_par()</a></code> to translate ggplot2’s interpretation of graphical parameters to {grid}’s interpretation (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5866" class="external-link">#5866</a>).</li>
 <li>New roxygen tag <code>@aesthetics</code> that takes a Geom, Stat or Position class and generates an ‘Aesthetics’ section.</li>
 <li>New <code><a href="../reference/make_constructor.html">make_constructor()</a></code> function that builds a standard constructor for Geom and Stat classes (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6142" class="external-link">#6142</a>).</li>
@@ -355,7 +359,7 @@
 <li>The ViewScale class has a <code>make_fixed_copy()</code> method to permit copying trained position scales (<a href="https://github.com/tidyverse/ggplot2/issues/3441" class="external-link">#3441</a>).</li>
 </ul></div>
 <div class="section level4">
-<h4 id="internal-changes-development-version">Internal changes<a class="anchor" aria-label="anchor" href="#internal-changes-development-version"></a></h4>
+<h4 id="internal-changes-4-0-0">Internal changes<a class="anchor" aria-label="anchor" href="#internal-changes-4-0-0"></a></h4>
 <ul><li>Facet gains a new method <code>setup_panel_params</code> to interact with the panel_params setted by Coord object (<a href="https://github.com/Yunuuuu" class="external-link">@Yunuuuu</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6397" class="external-link">#6397</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6380" class="external-link">#6380</a>)</li>
 <li>
 <code><a href="../reference/continuous_scale.html">continuous_scale()</a></code> and <code><a href="../reference/binned_scale.html">binned_scale()</a></code> sort the <code>limits</code> argument internally (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>).</li>
