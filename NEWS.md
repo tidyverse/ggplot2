@@ -2,7 +2,8 @@
 
 ### Bug fixes
 
-* Fixed regression where `draw_key_rect()` stopped using `fill` colours (#6609).
+* Fixed regression where `draw_key_rect()` stopped using `fill` colours 
+  (@mitchelloharawild, #6609).
 
 # ggplot2 4.0.0
 
