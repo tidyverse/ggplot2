@@ -54,7 +54,7 @@ draw_key_abline <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_rect <- function(data, params, size) {
-  colour <- if (is.na(data$fill %||% NA)) data$colour
+  colour <- if (is.na(data$fill %||% NA)) data$colour else data$fill
   rectGrob(gp = gg_par(
     col = NA,
     fill = fill_alpha(colour %||% "grey20", data$alpha),
