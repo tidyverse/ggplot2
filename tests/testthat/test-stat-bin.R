@@ -257,3 +257,77 @@ test_that("stat_count preserves x order for continuous and discrete", {
   expect_identical(b@layout$panel_params[[1]]$x$get_labels(), c("4","1","2","3","6","8"))
   expect_identical(b@data[[1]]$y, c(10,7,10,3,1,1))
 })
+
+# Test bin_prop functionality ---------------------------------------------
+
+test_that("stat_bin calculates bin_prop correctly", {
+  # Create test data with two distinct groups
+  test_data <- data_frame(
+    x = c(rep(c(1, 2, 3, 4, 5), each = 10), rep(c(3, 4, 5, 6, 7), each = 10)),
+    group = rep(c("A", "B"), each = 50)
+  )
+  
+  # Test with 5 bins to get predictable overlap
+  p <- ggplot(test_data, aes(x, fill = group)) + geom_histogram(bins = 5)
+  data <- get_layer_data(p)
+  
+  # bin_prop should be available
+  expect_true("bin_prop" %in% names(data))
+  
+  # All bin_prop values should be between 0 and 1
+  expect_true(all(data$bin_prop >= 0 & data$bin_prop <= 1))
+  
+  # For bins that contain both groups, bin_prop should sum to 1 across groups
+  bins_with_both_groups <- aggregate(data$count > 0, by = list(paste(data$xmin, data$xmax)), sum)
+  overlapping_bins <- bins_with_both_groups[bins_with_both_groups$x == 2, ]$Group.1
+  
+  for (bin in overlapping_bins) {
+    bin_data <- data[paste(data$xmin, data$xmax) == bin, ]
+    total_prop <- sum(bin_data$bin_prop)
+    expect_equal(total_prop, 1, tolerance = 1e-6)
+  }
+  
+  # Test after_stat(bin_prop) usage
+  p2 <- ggplot(test_data, aes(x, y = after_stat(bin_prop), fill = group)) + 
+    stat_bin(geom = "col", bins = 5, position = "dodge")
+  data2 <- get_layer_data(p2)
+  
+  # y should contain the bin_prop values
+  expect_equal(data2$y, data2$bin_prop)
+})
+
+test_that("stat_bin bin_prop works with single group", {
+  # Test that bin_prop = 1 for all bins when there's only one group
+  test_data <- data_frame(x = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+  
+  p <- ggplot(test_data, aes(x)) + geom_histogram(bins = 5)
+  data <- get_layer_data(p)
+  
+  # All bin_prop values should be 1 (even for empty bins)
+  expect_true(all(data$bin_prop == 1))
+})
+
+test_that("stat_bin bin_prop works with weights", {
+  # Test that bin_prop calculation respects weights
+  test_data <- data_frame(
+    x = c(1, 1, 2, 2),
+    group = c("A", "B", "A", "B"),
+    w = c(1, 3, 2, 2)  # Different weights for each observation
+  )
+  
+  p <- ggplot(test_data, aes(x, fill = group, weight = w)) + geom_histogram(bins = 2)
+  data <- get_layer_data(p)
+  
+  # bin_prop should be available
+  expect_true("bin_prop" %in% names(data))
+  
+  # Check that proportions are calculated correctly with weights
+  # Bin 1: A=1, B=3, total=4, so A should have bin_prop=0.25, B should have bin_prop=0.75
+  # Bin 2: A=2, B=2, total=4, so A should have bin_prop=0.5, B should have bin_prop=0.5
+  bin1_data <- data[data$x == min(data$x), ]
+  bin2_data <- data[data$x == max(data$x), ]
+  
+  # For each bin, proportions should sum to 1
+  expect_equal(sum(bin1_data$bin_prop), 1, tolerance = 1e-6)
+  expect_equal(sum(bin2_data$bin_prop), 1, tolerance = 1e-6)
+})
