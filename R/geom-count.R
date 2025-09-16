@@ -3,7 +3,7 @@ NULL
 
 #' Count overlapping points
 #'
-#' This is a variant [geom_point()] that counts the number of
+#' This is a variant of [geom_point()] that counts the number of
 #' observations at each location, then maps the count to point area. It
 #' useful when you have discrete data and overplotting.
 #'

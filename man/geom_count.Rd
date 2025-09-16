@@ -111,7 +111,7 @@ these connections, see how the \link[=layer_stats]{stat} and \link[=layer_geoms]
 arguments work.}
 }
 \description{
-This is a variant \code{\link[=geom_point]{geom_point()}} that counts the number of
+This is a variant of \code{\link[=geom_point]{geom_point()}} that counts the number of
 observations at each location, then maps the count to point area. It
 useful when you have discrete data and overplotting.
 }
