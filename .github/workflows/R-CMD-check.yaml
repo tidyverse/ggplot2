@@ -64,10 +64,16 @@ jobs:
         if: ${{ matrix.config.os == 'windows-latest' && matrix.config.r == 'oldrel-4' }}
         with:
           cache-version: 3
+          extra-packages: >
+            any::rcmdcheck,
+            Hmisc=?ignore-before-r=4.2.0,
+            quantreg=?ignore-before-r=4.3.0
           packages: >
             ragg@1.4.0
+          needs: check
 
       - uses: r-lib/actions/setup-r-dependencies@v2
+        if: ${{ matrix.config.os != 'windows-latest' || matrix.config.r != 'oldrel-4' }}
         with:
           cache-version: 3
           extra-packages: >
