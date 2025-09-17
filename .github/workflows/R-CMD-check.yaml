@@ -61,7 +61,7 @@ jobs:
       # TODO: remove this when R 4.6 is released
       - name: Tweak for old Windows (R 4.1)
         uses: r-lib/actions/setup-r-dependencies@v2
-        if: ${{ matrix.config.os == 'windows-latest' && matrix.config.r = 'oldrel-4' }}
+        if: ${{ matrix.config.os == 'windows-latest' && matrix.config.r == 'oldrel-4' }}
         with:
           cache-version: 3
           packages: >
