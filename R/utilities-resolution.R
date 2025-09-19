@@ -35,6 +35,10 @@ resolution <- function(x, zero = TRUE, discrete = FALSE) {
   d <- diff(sort(x))
   tolerance <- sqrt(.Machine$double.eps)
 
+  if(all(d < tolerance)){
+    return(1)
+  }
+
   min(d[d > tolerance], 1)
 
 }
