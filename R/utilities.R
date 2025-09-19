@@ -562,7 +562,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  isTRUE(default)
+  default
 }
 #' @rdname bidirection
 #' @export
