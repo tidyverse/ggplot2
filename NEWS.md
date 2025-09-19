@@ -5,7 +5,7 @@
 * Fixed regression where `draw_key_rect()` stopped using `fill` colours 
   (@mitchelloharawild, #6609).
 
-### Improvements
+
 * Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
 
 # ggplot2 4.0.0

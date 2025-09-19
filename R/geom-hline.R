@@ -4,12 +4,11 @@ NULL
 #' @export
 #' @rdname geom_abline
 geom_hline <- function(mapping = NULL, data = NULL,
-                       position = "identity",
+                       stat = "identity", position = "identity",
                        ...,
                        yintercept,
                        na.rm = FALSE,
                        show.legend = NA,
-                      stat = "identity",
                       inherit.aes = FALSE) {
 
   # Act like an annotation

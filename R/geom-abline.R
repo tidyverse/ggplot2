@@ -69,12 +69,12 @@ NULL
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
 geom_abline <- function(mapping = NULL, data = NULL,
+                        stat = "identity", 
                         ...,
                         slope,
                         intercept,
                         na.rm = FALSE,
                         show.legend = NA,
-                        stat = "identity",
                         inherit.aes = FALSE) {
 
   # If nothing set, default to y = x
