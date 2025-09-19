@@ -31,7 +31,7 @@ theme_replace(...)
 e1 \%+replace\% e2
 }
 \arguments{
-\item{new}{new theme (a list of theme elements). Sets theme to the default (theme_grey) if \code{new} isn't supplied.}
+\item{new}{new theme (a list of theme elements). Sets theme to the default (\code{\link[=theme_grey]{theme_grey()}}) if \code{new} isn't supplied.}
 
 \item{...}{named list of theme settings}
 
