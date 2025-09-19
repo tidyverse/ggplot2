@@ -39,6 +39,6 @@ resolution <- function(x, zero = TRUE, discrete = FALSE) {
     return(1)
   }
 
-  min(d[d > tolerance], 1)
+  min(d[d > tolerance])
 
 }
