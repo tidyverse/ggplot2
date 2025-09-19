@@ -9,31 +9,37 @@
 geom_abline(
   mapping = NULL,
   data = NULL,
+  stat = "identity",
   ...,
   slope,
   intercept,
   na.rm = FALSE,
-  show.legend = NA
+  show.legend = NA,
+  inherit.aes = FALSE
 )
 
 geom_hline(
   mapping = NULL,
   data = NULL,
+  stat = "identity",
   position = "identity",
   ...,
   yintercept,
   na.rm = FALSE,
-  show.legend = NA
+  show.legend = NA,
+  inherit.aes = FALSE
 )
 
 geom_vline(
   mapping = NULL,
   data = NULL,
+  stat = "identity",
   position = "identity",
   ...,
   xintercept,
   na.rm = FALSE,
-  show.legend = NA
+  show.legend = NA,
+  inherit.aes = FALSE
 )
 }
 \arguments{
@@ -53,6 +59,19 @@ A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used to override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[=layer_stats]{layer stat} documentation.
+}}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
 arguments broadly fall into one of 4 categories below. Notably, further
@@ -92,6 +111,11 @@ It can also be a named logical vector to finely select the aesthetics to
 display. To include legend keys for all levels, even
 when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
 but unobserved levels are omitted.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{position}{A position adjustment to use on the data for this layer. This
 can be used in various ways, including to prevent overplotting and
