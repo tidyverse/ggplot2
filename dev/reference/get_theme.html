@@ -87,9 +87,9 @@ changing individual elements.</p>
 <span></span>
 <span><span class="fu">theme_get</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">set_theme</span><span class="op">(</span><span class="va">new</span><span class="op">)</span></span>
+<span><span class="fu">set_theme</span><span class="op">(</span>new <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">theme_set</span><span class="op">(</span><span class="va">new</span><span class="op">)</span></span>
+<span><span class="fu">theme_set</span><span class="op">(</span>new <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_theme</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -107,7 +107,7 @@ changing individual elements.</p>
 
 
 <dl><dt id="arg-new">new<a class="anchor" aria-label="anchor" href="#arg-new"></a></dt>
-<dd><p>new theme (a list of theme elements)</p></dd>
+<dd><p>new theme (a list of theme elements). Sets theme to the default (<code><a href="ggtheme.html">theme_grey()</a></code>) if <code>new</code> isn't supplied.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
