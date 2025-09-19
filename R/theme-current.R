@@ -91,9 +91,12 @@ get_theme <- function() {
 theme_get <- get_theme
 
 #' @rdname get_theme
-#' @param new new theme (a list of theme elements)
+#' @param new new theme (a list of theme elements). Sets theme to the default (theme_grey) if `new` isn't supplied.
 #' @export
 set_theme <- function(new) {
+  if (missing(new)) {
+    new <- ggplot_global$theme_default
+  }
   check_object(new, is_theme, "a {.cls theme} object")
   old <- ggplot_global$theme_current
   ggplot_global$theme_current <- new
@@ -141,4 +144,3 @@ theme_replace <- replace_theme
 
   e1
 }
-
