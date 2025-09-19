@@ -23,7 +23,13 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
                                           group_has_equal = TRUE,
-                                          main_is_optional = TRUE)
+                                          main_is_optional = TRUE,
+                                        default = NA)
+    
+    if (is.na(params$flipped_aes)) {
+      cli::cli_warn("Orientation is not uniquely specified when both the x and y aesthetics are continuous. Picking default orientation 'x'.")
+      params$flipped_aes <- FALSE
+    }
     data <- flip_data(data, params$flipped_aes)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
