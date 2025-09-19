@@ -56,6 +56,12 @@ test_that("modifying theme element properties with + operator works", {
   )
 })
 
+test_that("set_theme() resets theme to default when called with no arguments", {
+  theme_set(theme_void())
+  set_theme()
+  expect_identical(theme_get(), theme_grey())
+})
+
 test_that("adding theme object to ggplot object with + operator works", {
   ## test with complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point() + theme_grey()
