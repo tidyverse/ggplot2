@@ -73,7 +73,9 @@ geom_abline <- function(mapping = NULL, data = NULL,
                         slope,
                         intercept,
                         na.rm = FALSE,
-                        show.legend = NA) {
+                        show.legend = NA,
+                        stat = "identity",
+                        inherit.aes = FALSE) {
 
   # If nothing set, default to y = x
   if (is.null(mapping) && missing(slope) && missing(intercept)) {
@@ -108,11 +110,11 @@ geom_abline <- function(mapping = NULL, data = NULL,
   layer(
     data = data,
     mapping = mapping,
-    stat = StatIdentity,
+    stat = stat,
     geom = GeomAbline,
     position = PositionIdentity,
     show.legend = show.legend,
-    inherit.aes = FALSE,
+    inherit.aes = inherit.aes,
     params = list2(
       na.rm = na.rm,
       ...
