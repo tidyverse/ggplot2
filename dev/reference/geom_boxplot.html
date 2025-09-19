@@ -395,15 +395,21 @@ box plots. The American Statistician 32, 12-16.</p>
 <span class="r-in"><span><span class="co"># a grouping variable. cut_width is particularly useful</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Orientation is not uniquely specified when both the x and y aesthetics</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> are continuous. Picking default orientation 'x'.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Continuous <span style="color: #00BB00;">x</span> aesthetic</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> did you forget `aes(group = ...)`?</span>
 <span class="r-plt img"><img src="geom_boxplot-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="cut_interval.html">cut_width</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Orientation is not uniquely specified when both the x and y aesthetics</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> are continuous. Picking default orientation 'x'.</span>
 <span class="r-plt img"><img src="geom_boxplot-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Adjust the transparency of outliers using outlier.alpha</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="cut_interval.html">cut_width</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>, outlier.alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Orientation is not uniquely specified when both the x and y aesthetics</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> are continuous. Picking default orientation 'x'.</span>
 <span class="r-plt img"><img src="geom_boxplot-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>

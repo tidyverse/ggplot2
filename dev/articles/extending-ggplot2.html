@@ -244,7 +244,7 @@ yourself.</p>
 <span><span class="co">#&gt;         position = position, show.legend = show.legend, inherit.aes = inherit.aes, </span></span>
 <span><span class="co">#&gt;         params = list2(na.rm = na.rm, ...))</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x556ded698fe0&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x55c7e192e168&gt;</span></span></code></pre></div>
 <p>Once we have a layer function we can try our new stat:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -708,7 +708,11 @@ helper:</p>
 <span><span class="co">#&gt;     function (self, data, params) </span></span>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     params$flipped_aes &lt;- has_flipped_aes(data, params, main_is_orthogonal = TRUE, </span></span>
-<span><span class="co">#&gt;         group_has_equal = TRUE, main_is_optional = TRUE)</span></span>
+<span><span class="co">#&gt;         group_has_equal = TRUE, main_is_optional = TRUE, default = NA)</span></span>
+<span><span class="co">#&gt;     if (is.na(params$flipped_aes)) {</span></span>
+<span><span class="co">#&gt;         cli::cli_warn("Orientation is not uniquely specified when both the x and y aesthetics are continuous. Picking default orientation 'x'.")</span></span>
+<span><span class="co">#&gt;         params$flipped_aes &lt;- FALSE</span></span>
+<span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     data &lt;- flip_data(data, params$flipped_aes)</span></span>
 <span><span class="co">#&gt;     has_x &lt;- !(is.null(data$x) &amp;&amp; is.null(params$x))</span></span>
 <span><span class="co">#&gt;     has_y &lt;- !(is.null(data$y) &amp;&amp; is.null(params$y))</span></span>
