@@ -27,7 +27,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
                                         default = NA)
     
     if (is.na(params$flipped_aes)) {
-      cli::cli_warn("Warning: Orientation is not uniquely specified when both the x and y aesthetics are continuous. Picking default orientation 'x'.")
+      cli::cli_warn("Orientation is not uniquely specified when both the x and y aesthetics are continuous. Picking default orientation 'x'.")
       params$flipped_aes <- FALSE
     }
     data <- flip_data(data, params$flipped_aes)
