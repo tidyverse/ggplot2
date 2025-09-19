@@ -16,9 +16,9 @@ get_theme()
 
 theme_get()
 
-set_theme(new)
+set_theme(new = null)
 
-theme_set(new)
+theme_set(new = null)
 
 update_theme(...)
 
