@@ -1190,7 +1190,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels <- lapply(labels, `[`, 1)
     }
     if (is.expression(labels)) {
-      labels <- as.list(labels)
+      labels <- as.list(unclass(labels))
     }
 
     labels
@@ -1438,7 +1438,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     if (is.expression(labels)) {
-      labels <- as.list(labels)
+      labels <- as.list(unclass(labels))
     }
     labels
   },
@@ -1689,7 +1689,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       )
     }
     if (is.expression(labels)) {
-      labels <- as.list(labels)
+      labels <- as.list(unclass(labels))
     }
     labels
   },
