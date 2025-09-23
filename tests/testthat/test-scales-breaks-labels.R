@@ -21,8 +21,8 @@ test_that("labels accept expressions", {
   sc1 <- scale_y_continuous(breaks = 1:4, labels = labels, limits = c(1, 3))
 
   # classed labels should also work (#6638)
-  labels <- structure(labels, class = "foo")
-  sc2 <- scale_y_continuous(breaks = 1:4, labels = labels, limits = c(1, 3))
+  classed_labels <- structure(labels, class = "foo")
+  sc2 <- scale_y_continuous(breaks = 1:4, labels = classed_labels, limits = c(1, 3))
 
   expect_equal(sc1$get_labels(), as.list(labels))
   expect_equal(sc2$get_labels(), as.list(labels))
