@@ -18,10 +18,14 @@ test_that("labels don't have to match null breaks", {
 
 test_that("labels accept expressions", {
   labels <- parse(text = paste0(1:4, "^degree"))
-  sc <- scale_y_continuous(breaks = 1:4, labels = labels, limits = c(1, 3))
+  sc1 <- scale_y_continuous(breaks = 1:4, labels = labels, limits = c(1, 3))
 
-  expect_equal(sc$get_breaks(), 1:4)
-  expect_equal(sc$get_labels(), as.list(labels))
+  # classed labels should also work (#6638)
+  labels <- structure(labels, class = "foo")
+  sc2 <- scale_y_continuous(breaks = 1:4, labels = labels, limits = c(1, 3))
+
+  expect_equal(sc1$get_labels(), as.list(labels))
+  expect_equal(sc2$get_labels(), as.list(labels))
 })
 
 test_that("labels don't have extra spaces", {
