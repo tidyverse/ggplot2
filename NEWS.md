@@ -6,8 +6,8 @@
   (@mitchelloharawild, #6609).
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
   object is set to `labels` argument (@yutannihilation, #6617).
-
-
+* `stat_ydensity()` now only requires the `x` or `y` aesthetic. The other will
+  be populated with 0, similar to `stat_boxplot()` (@teunbrand, #6600)
 * Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
 
 # ggplot2 4.0.0
