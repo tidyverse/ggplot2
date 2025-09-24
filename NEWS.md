@@ -2,6 +2,8 @@
 
 ### Bug fixes
 
+* Fixed regression where `NULL`-aesthetics contributed to plot labels too 
+  insistently. Now they contribute only as fallback labels (@teunbrand, #6616)
 * Fixed regression where `draw_key_rect()` stopped using `fill` colours 
   (@mitchelloharawild, #6609).
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
