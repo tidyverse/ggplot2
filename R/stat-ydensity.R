@@ -4,7 +4,7 @@
 #' @export
 StatYdensity <- ggproto(
   "StatYdensity", Stat,
-  required_aes = c("x", "y"),
+  required_aes = "x|y",
   non_missing_aes = "weight",
 
   setup_params = function(data, params) {
@@ -21,6 +21,12 @@ StatYdensity <- ggproto(
     }
 
     params
+  },
+
+  setup_data = function(self, data, params) {
+    var <- flipped_names(flip = params$flipped_aes)$x
+    data[[var]] <- data[[var]] %||% 0
+    data
   },
 
   # `draw_quantiles` is here for deprecation repair reasons
