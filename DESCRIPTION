@@ -52,6 +52,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    hms,
     knitr,
     mapproj,
     maps,
