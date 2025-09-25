@@ -425,15 +425,63 @@ draw_key_timeseries <- function(data, params, size) {
     data$linetype <- 0
   }
 
-  grid::linesGrob(
-    x = c(0, 0.4, 0.6, 1),
-    y = c(0.1, 0.6, 0.4, 0.9),
+  upper_x <- c(0, 0.4, 0.6, 1)
+  upper_y <- c(0.1, 0.6, 0.4, 0.9)
+
+  common_gp <- list(
+    lwd = data$linewidth %||% 0.5,
+    lty = data$linetype  %||% 1,
+    lineend  = params$lineend  %||% "butt",
+    linejoin = params$linejoin %||% "round"
+  )
+
+  outline_type <- params$outline.type
+  if (is.null(outline_type)) {
+    grob <- grid::linesGrob(
+      x = upper_x,
+      y = upper_y,
+      gp = gg_par(
+        col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
+        !!!common_gp
+      )
+    )
+    return(grob)
+  }
+
+  colour <- if (identical(outline_type, "full")) data$colour else NA
+
+  grob <- grid::polygonGrob(
+    x = c(0, upper_x, 1),
+    y = c(0, upper_y, 0),
     gp = gg_par(
-      col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      lwd = data$linewidth %||% 0.5,
-      lty = data$linetype %||% 1,
-      lineend = params$lineend %||% "butt",
-      linejoin = params$linejoin %||% "round"
+      col = colour %||% NA,
+      fill = alpha(data$fill %||% "black", data$alpha),
+      !!!common_gp
     )
   )
+
+  draw_partial_outline <-
+    (outline_type %||% "full") %in% c("upper", "lower", "both") &&
+    !is.null(data$colour) &&
+    !all(is.na(data$colour)) &&
+    !all(data$linewidth <= 0) &&
+    !all((data$linetype %||% 1) %in% c(0, "none"))
+
+  if (draw_partial_outline) {
+    gp <- gg_par(col = data$colour, !!!common_gp)
+    args <- switch(
+      params$outline.type,
+      upper = list(x = upper_x, y = upper_y),
+      lower = list(x = c(0, 1), y = c(0, 0)),
+      both = list(
+        x = c(upper_x, 0, 1),
+        y = c(upper_y, 0, 0),
+        id.lengths = c(length(upper_x), 2)
+      )
+    )
+    lines <- inject(grid::polylineGrob(!!!args, gp = gp))
+    grob <- grobTree(grob, lines)
+  }
+
+  return(grob)
 }
