@@ -562,7 +562,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  isTRUE(default)
+  as.logical(default)[1]
 }
 #' @rdname bidirection
 #' @export
@@ -803,7 +803,7 @@ as_unordered_factor <- function(x) {
 size0 <- function(x) {
   if (obj_is_vector(x)) {
     vec_size(x)
-  } else if (is.vector(x)) {
+  } else if (is.vector(x) || is.expression(x)) {
     length(x)
   } else {
     NULL
