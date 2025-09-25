@@ -67,17 +67,56 @@ draw_key_polygon <- function(data, params, size) {
 
   lwd <- data$linewidth %||% 0
 
+  outline_type <- params$outline.type %||% "full"
+  colour <- switch(outline_type, full = data$colour, NA)
+
+  common_gp <- list(
+    lty = data$linetype %||% 1,
+    lwd = lwd,
+    linejoin = params$linejoin %||% "mitre",
+    lineend  = params$lineend  %||% "butt"
+  )
+
   grob <- rectGrob(
-    width = unit(1, "npc") - unit(lwd, "mm"),
+    width  = unit(1, "npc") - unit(lwd, "mm"),
     height = unit(1, "npc") - unit(lwd, "mm"),
     gp = gg_par(
-      col = data$colour %||% NA,
+      col = colour %||% NA,
       fill = fill_alpha(data$fill %||% "grey20", data$alpha),
-      lty = data$linetype %||% 1,
-      lwd = lwd,
-      linejoin = params$linejoin %||% "mitre",
-      lineend = params$lineend %||% "butt"
+      !!!common_gp
   ))
+
+  draw_partial_outline <-
+    outline_type %in% c("upper", "lower", "both") &&
+    !is.null(data$colour) && !all(is.na(data$colour)) &&
+    !all(lwd <= 0) &&
+    !all((data$linetype %||% 1) %in% c(0, "none"))
+
+  if (draw_partial_outline) {
+    gp <- gg_par(col = data$colour, !!!common_gp)
+    low  <- unit(0, "npc") + unit(0.5 * lwd, "mm")
+    high <- unit(1, "npc") - unit(0.5 * lwd, "mm")
+    args <- switch(
+      outline_type,
+      upper = list(
+        x0 = low, x1 = high, y0 = high, y1 = high, gp = gp
+      ),
+      lower = list(
+        x0 = low, x1 = high, y0 = low, y1 = low, gp = gp
+      ),
+      both = list(
+        x0 = unit.c(low, low),  x1 = unit.c(high, high),
+        y0 = unit.c(low, high), y1 = unit.c(low, high),
+        gp = gp
+      )
+    )
+    if (identical(params$orientation, "y")) {
+      args <- rename(args, c(x0 = "y0", x1 = "y1", y0 = "x0", y1 = "x1"))
+    }
+
+    segments <- inject(segmentsGrob(!!!args))
+    grob <- grobTree(grob, segments)
+  }
 
   # Magic number is 5 because we convert mm to cm (divide by 10) but we
   # draw two lines in each direction (times 2)
