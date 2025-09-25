@@ -9,6 +9,8 @@
 
 
 * Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
+* Circularly defined `ggproto()` classes will throw more informative warning 
+  (@teunbrand, #6583).
 
 # ggplot2 4.0.0
 
