@@ -11,6 +11,12 @@ test_that("construction checks input", {
   expect_snapshot_error(ggproto("Test", mtcars, a = function(self, a) a))
 })
 
+test_that("circular definitions are protested", {
+  circular <- ggproto("Circular")
+  circular <- ggproto(NULL, circular)
+  expect_snapshot_error(print(circular))
+})
+
 test_that("all ggproto methods start with `{` (#6459)", {
 
   ggprotos <- Filter(

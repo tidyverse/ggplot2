@@ -131,7 +131,14 @@ fetch_ggproto <- function(x, name) {
     if (is.null(super)) {
       # no super class
     } else if (is.function(super)) {
-      res <- fetch_ggproto(super(), name)
+      parent <- super()
+      if (!identical(parent, x)) {
+        # happy path
+        return(fetch_ggproto(parent, name))
+      }
+      cli::cli_abort(
+        "{.cls {class(x)[1]}} cannot have a circular definition."
+      )
     } else {
       cli::cli_abort(c(
         "{class(x)[[1]]} was built with an incompatible version of ggproto.",

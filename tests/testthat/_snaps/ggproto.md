@@ -10,3 +10,7 @@
 
     `_inherit` must be a <ggproto> object, not a <data.frame> object.
 
+# circular definitions are protested
+
+    <Circular> cannot have a circular definition.
+
