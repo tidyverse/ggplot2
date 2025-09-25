@@ -47,7 +47,11 @@ test_that("make_labels() deparses mappings properly", {
   expect_match(x_lab, "...$")
   # if the mapping is a literal or NULL, the aesthetics is used
   expect_identical(make_labels(aes(x = 1)), list(x = "x"))
-  expect_identical(make_labels(aes(x = NULL)), list(x = "x"))
+  # NULL labels should only be used as fallback labels
+  expect_identical(
+    make_labels(aes(x = NULL)),
+    list(x = structure("x", fallback = TRUE))
+  )
 })
 
 test_that("staged aesthetics warn appropriately for duplicated names", {
