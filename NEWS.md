@@ -9,6 +9,7 @@
 
 
 * Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
+* `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
 
 # ggplot2 4.0.0
 
