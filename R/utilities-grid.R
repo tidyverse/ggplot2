@@ -41,8 +41,13 @@ gg_par <- function(..., stroke = NULL, pointsize = NULL) {
     stroke[is.na(stroke)] <- 0
     args$fontsize <- pointsize * .pt + stroke * .stroke / 2
   }
-  if (!is.null(args$lty) && anyNA(args$lty)) {
-    args$lty[is.na(args$lty)] <- if (is.character(args$lty)) "blank" else 0
+  if (!is.null(args$lty)) {
+    if (is.logical(args$lty)) {
+      args$lty <- as.integer(args$lty)
+    }
+    if (anyNA(args$lty)) {
+      args$lty[is.na(args$lty)] <- if (is.character(args$lty)) "blank" else 0
+    }
   }
 
   inject(gpar(!!!args))
