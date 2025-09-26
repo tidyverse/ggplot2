@@ -500,7 +500,7 @@ Guides <- ggproto(
     }
 
     # prepare the position of inside legends
-    default_inside_just <- calc_element("legend.justification.inside", theme)
+    default_inside_just <- calc_element("legend.just.inside", theme)
     default_inside_position <- calc_element("legend.position.inside", theme)
 
     groups <- data_frame0(
@@ -514,9 +514,9 @@ Guides <- ggproto(
     for (i in which(positions == "inside")) {
       # the actual inside position and justification can be set in each guide
       # by `theme` argument, here, we won't use `calc_element()` which will
-      # use inherits from `legend.justification` or `legend.position`, we only
+      # use inherits from `legend.just` or `legend.position`, we only
       # follow the inside elements from the guide theme
-      just <- params[[i]]$theme[["legend.justification.inside"]]
+      just <- params[[i]]$theme[["legend.just.inside"]]
       just <- valid.just(just %||% default_inside_just)
       coord <- params[[i]]$theme[["legend.position.inside"]]
       coord <- coord %||% default_inside_position %||% just
@@ -541,7 +541,7 @@ Guides <- ggproto(
       if (position == "inside") {
         adjust <- theme(
           legend.position.inside = groups$key$coords[[i]],
-          legend.justification.inside = groups$key$justs[[i]]
+          legend.just.inside = groups$key$justs[[i]]
         )
       }
       adjust <- add_theme(theme, adjust, "internal theme settings")
@@ -615,7 +615,7 @@ Guides <- ggproto(
     stretch_y <- any(unlist(lapply(heights, unitType)) == "null")
 
     # Global justification of the complete legend box
-    global_just <- paste0("legend.justification.", position)
+    global_just <- paste0("legend.just.", position)
     global_just <- valid.just(calc_element(global_just, theme))
 
     if (position == "inside") {

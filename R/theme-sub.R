@@ -105,7 +105,7 @@ theme_sub_legend <- function(
   spacing, spacing.x, spacing.y,   margin,
   # Seys
   key, key.size, key.height, key.width, key.spacing, key.spacing.x,
-  key.spacing.y, key.justification,
+  key.spacing.y, key.just,
   # Settings
   byrow, position, direction, location, position.inside,
   # Justification

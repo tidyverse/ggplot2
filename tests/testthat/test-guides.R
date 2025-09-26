@@ -274,13 +274,13 @@ test_that("guides are positioned correctly", {
     p2 + theme(legend.position.inside = c(0.5, 0.5))
   )
   expect_doppelganger("legend inside plot, bottom left",
-    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0,0))
+    p2 + theme(legend.just = c(0,0), legend.position.inside = c(0,0))
   )
   expect_doppelganger("legend inside plot, top right",
-    p2 + theme(legend.justification = c(1,1), legend.position.inside = c(1,1))
+    p2 + theme(legend.just = c(1,1), legend.position.inside = c(1,1))
   )
   expect_doppelganger("legend inside plot, bottom left of legend at center",
-    p2 + theme(legend.justification = c(0,0), legend.position.inside = c(0.5,0.5))
+    p2 + theme(legend.just = c(0,0), legend.position.inside = c(0.5,0.5))
   )
   expect_doppelganger("legend inside plot, multiple positions",
     p2 +
@@ -289,14 +289,14 @@ test_that("guides are positioned correctly", {
               position = "inside",
               theme = theme(
                 legend.position.inside = c(0, 1),
-                legend.justification.inside = c(0, 1)
+                legend.just.inside = c(0, 1)
               )
           ),
           fill = guide_legend(
               position = "inside",
               theme = theme(
                 legend.position.inside = c(1, 0),
-                legend.justification.inside = c(1, 0)
+                legend.just.inside = c(1, 0)
               )
           )
       )

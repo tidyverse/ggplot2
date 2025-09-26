@@ -186,7 +186,7 @@ test_that("absent titles don't take up space", {
       legend.title = element_blank(),
       legend.margin = margin(),
       legend.position = "top",
-      legend.justification = "left",
+      legend.just = "left",
       legend.key = element_rect(colour = "black"),
       axis.line = element_line(colour = "black")
     )
@@ -221,7 +221,7 @@ test_that("legend.byrow works in `guide_legend()`", {
   expect_doppelganger("legend.byrow = TRUE", p)
 })
 
-test_that("legend.key.justification works as intended", {
+test_that("legend.key.just works as intended", {
 
   p <- ggplot(mtcars, aes(mpg, disp, colour = factor(cyl), size = drat)) +
     geom_point() +
@@ -231,7 +231,7 @@ test_that("legend.key.justification works as intended", {
     scale_colour_discrete(
       labels = c("one line", "up\nto\nfour\nlines", "up\nto\nfive\nwhole\nlines")
     ) +
-    theme(legend.key.justification = c(1, 0))
+    theme(legend.key.just = c(1, 0))
 
   expect_doppelganger("legend key justification", p)
 

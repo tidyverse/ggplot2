@@ -19,7 +19,7 @@
 #'   Arguments that apply to a single legend are respected, most of which have
 #'   the `legend`-prefix. Arguments that apply to combined legends
 #'   (the legend box) are ignored, including `legend.position`,
-#'   `legend.justification.*`, `legend.location` and `legend.box.*`.
+#'   `legend.just.*`, `legend.location` and `legend.box.*`.
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
 #'   One of "top", "right", "bottom", "left", or "inside".
@@ -179,7 +179,7 @@ GuideLegend <- ggproto(
     key            = "legend.key",
     key_height     = "legend.key.height",
     key_width      = "legend.key.width",
-    key_just       = "legend.key.justification",
+    key_just       = "legend.key.just",
     text           = "legend.text",
     theme.title    = "legend.title",
     spacing_x      = "legend.key.spacing.x",
