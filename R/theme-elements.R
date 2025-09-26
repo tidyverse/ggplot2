@@ -904,7 +904,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.key.spacing  = el_def(c("unit", "rel"), "spacing"),
   legend.key.spacing.x = el_def(c("unit", "rel"), "legend.key.spacing"),
   legend.key.spacing.y = el_def(c("unit", "rel"), "legend.key.spacing"),
-  legend.key.justification = el_def(c("character", "numeric", "integer")),
+  legend.key.just     = el_def(c("character", "numeric", "integer")),
   legend.frame        = el_def(element_rect, "rect"),
   legend.axis.line    = el_def(element_line, "line"),
   legend.ticks        = el_def(element_line, "legend.axis.line"),
@@ -918,26 +918,26 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.position.inside = el_def(c("numeric", "integer")),
   legend.direction    = el_def("character"),
 
-  legend.justification = el_def(c("character", "numeric", "integer")),
-  legend.justification.top = el_def(
+  legend.just = el_def(c("character", "numeric", "integer")),
+  legend.just.top = el_def(
     c("character", "numeric", "integer"),
-    "legend.justification"
+    "legend.just"
   ),
-  legend.justification.bottom = el_def(
+  legend.just.bottom = el_def(
     c("character", "numeric", "integer"),
-    "legend.justification"
+    "legend.just"
   ),
-  legend.justification.left = el_def(
+  legend.just.left = el_def(
     c("character", "numeric", "integer"),
-    "legend.justification"
+    "legend.just"
   ),
-  legend.justification.right = el_def(
+  legend.just.right = el_def(
     c("character", "numeric", "integer"),
-    "legend.justification"
+    "legend.just"
   ),
-  legend.justification.inside = el_def(
+  legend.just.inside = el_def(
     c("character", "numeric", "integer"),
-    "legend.justification"
+    "legend.just"
   ),
 
   legend.location     = el_def("character"),
