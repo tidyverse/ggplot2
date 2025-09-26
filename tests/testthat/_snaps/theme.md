@@ -150,6 +150,9 @@
       [17] "axis.minor.ticks.r"            "axis.ticks.length.theta"      
       [19] "axis.ticks.length.r"           "axis.minor.ticks.length.theta"
       [21] "axis.minor.ticks.length.r"     "axis.line.theta"              
-      [23] "axis.line.r"                   "complete"                     
-      [25] "validate"                     
+      [23] "axis.line.r"                   "legend.just"                  
+      [25] "legend.just.top"               "legend.just.bottom"           
+      [27] "legend.just.left"              "legend.just.right"            
+      [29] "legend.just.inside"            "complete"                     
+      [31] "validate"                     
 
