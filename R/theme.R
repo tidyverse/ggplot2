@@ -545,6 +545,21 @@ fix_theme_deprecations <- function(elements) {
     elements$legend.position.inside <- elements$legend.position
     elements$legend.position <- "inside"
   }
+  just_settings <- c(
+    "legend.key.just",
+    paste0("legend.just", c("", ".top", ".bottom", ".left", ".right", ".inside"))
+  )
+  justification_settings <- gsub("\\.just", "\\.justification", just_settings)
+  for (i in which(justification_settings %in% names(elements))) {
+    deprecate_warn0(
+      "4.0.1", # TODO: double check intended version before merging
+      paste0("theme(", justification_settings[i], ")"),
+      paste0("theme(", just_settings[i], ")")
+    )
+    elements[[just_settings[i]]] <- elements[[justification_settings[i]]]
+    elements[[justification_settings[i]]] <- NULL
+  }
+
   elements
 }
 
