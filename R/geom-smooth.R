@@ -88,6 +88,8 @@ GeomSmooth <- ggproto(
 #'   `geom_smooth()` and `stat_smooth()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
 #'   arguments work.
+#' @param band.colour,band.color,band.linetype,band.linewidth Graphical
+#'   parameters for controlling the display of the confidence band outline.
 #' @seealso See individual modelling functions for more details:
 #'   [lm()] for linear smooths,
 #'   [glm()] for generalised linear smooths, and

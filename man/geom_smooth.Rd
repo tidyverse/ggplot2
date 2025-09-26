@@ -14,6 +14,10 @@ geom_smooth(
   method = NULL,
   formula = NULL,
   se = TRUE,
+  band.colour = NULL,
+  band.color = NULL,
+  band.linetype = NULL,
+  band.linewidth = NULL,
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -127,6 +131,9 @@ observations and \code{formula = y ~ s(x, bs = "cs")} otherwise.}
 
 \item{se}{Display confidence band around smooth? (\code{TRUE} by default, see
 \code{level} to control.)}
+
+\item{band.colour, band.color, band.linetype, band.linewidth}{Graphical
+parameters for controlling the display of the confidence band outline.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
