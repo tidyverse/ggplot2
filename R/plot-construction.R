@@ -268,3 +268,12 @@ new_layer_names <- function(layer, existing) {
   names <- c(existing, new_name)
   vec_as_names(names, repair = "check_unique")
 }
+
+local({
+  S7::method(format, class_gg) <- function(x, ...) {
+    x <- S7::S7_class(x)
+    # Similar to S7:::S7_class_name
+    x <- paste(c(x@package, x@name), collapse = "::")
+    format(paste0("<", x, ">"), ...)
+  }
+})
