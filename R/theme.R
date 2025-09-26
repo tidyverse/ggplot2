@@ -86,7 +86,7 @@
 #'   between legend keys given as a `unit`. Spacing in the horizontal (x) and
 #'   vertical (y) direction inherit from `legend.key.spacing` or can be
 #'   specified separately. `legend.key.spacing` inherits from `spacing`.
-#' @param legend.key.justification Justification for positioning legend keys
+#' @param legend.key.just Justification for positioning legend keys
 #'   when more space is available than needed for display. The default, `NULL`,
 #'   stretches keys into the available space. Can be a location like `"center"`
 #'   or `"top"`, or a two-element numeric vector.
@@ -112,11 +112,11 @@
 #'   "vertical")
 #' @param legend.byrow whether the legend-matrix is filled by columns
 #'   (`FALSE`, the default) or by rows (`TRUE`).
-#' @param legend.justification anchor point for positioning legend inside plot
+#' @param legend.just anchor point for positioning legend inside plot
 #'   ("center" or two-element numeric vector) or the justification according to
 #'   the plot area when positioned outside the plot
-#' @param legend.justification.top,legend.justification.bottom,legend.justification.left,legend.justification.right,legend.justification.inside
-#'   Same as `legend.justification` but specified per `legend.position` option.
+#' @param legend.just.top,legend.just.bottom,legend.just.left,legend.just.right,legend.just.inside
+#'   Same as `legend.just` but specified per `legend.position` option.
 #' @param legend.location Relative placement of legends outside the plot as a
 #'   string. Can be `"panel"` (default) to align legends to the panels or
 #'   `"plot"` to align legends to the plot as a whole.
@@ -280,15 +280,15 @@
 #'
 #' # Position
 #' p2 + theme(legend.position = "none")
-#' p2 + theme(legend.justification = "top")
+#' p2 + theme(legend.just = "top")
 #' p2 + theme(legend.position = "bottom")
 #'
 #' # Or place legends inside the plot using relative coordinates between 0 and 1
-#' # legend.justification sets the corner that the position refers to
+#' # legend.just sets the corner that the position refers to
 #' p2 + theme(
 #'   legend.position = "inside",
 #'   legend.position.inside = c(.95, .95),
-#'   legend.justification = c("right", "top"),
+#'   legend.just = c("right", "top"),
 #'   legend.box.just = "right",
 #'   legend.margin = margin_auto(6)
 #' )
