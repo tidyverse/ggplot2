@@ -2,6 +2,8 @@
 
 ### Bug fixes
 
+* New `geom_smooth(band.colour, band.linetype, band.linewidth)` arguments 
+  control graphical parameters of the (confidence) band (@teunbrand, #6551)
 * Fixed regression where `draw_key_rect()` stopped using `fill` colours 
   (@mitchelloharawild, #6609).
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
