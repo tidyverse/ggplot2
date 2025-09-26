@@ -5,6 +5,7 @@
 #' keeping theme declarations more organised.
 #'
 #' @eval subtheme_param_doc()
+#' @param ... Not in use, expected to be empty.
 #'
 #' @return A `theme`-class object that can be added to a plot.
 #' @name subtheme
@@ -162,6 +163,7 @@ subtheme_param_doc <- function() {
     theme_sub_panel, theme_sub_plot, theme_sub_strip
   )
   args <- sort(unique(unlist(lapply(funs, fn_fmls_names), use.names = FALSE)))
+  args <- setdiff(args, "...")
   paste0(
     "@param ",
     paste0(args, collapse = ","),
