@@ -64,12 +64,9 @@ between 0 and 1 returns the corresponding output values.
 
 \item{na.value}{Missing values will be replaced with this value.}
 
-\item{type}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} One of the following:
-\itemize{
-\item "gradient" (the default)
-\item "viridis"
-\item A function that returns a continuous colour scale.
-}}
+\item{type}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} The preferred mechanism for
+setting the default palette is by using the theme. For example:
+\code{theme(palette.colour.discrete = "viridis")}.}
 }
 \description{
 The scales \code{scale_colour_continuous()} and \code{scale_fill_continuous()} are
