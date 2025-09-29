@@ -93,7 +93,8 @@ scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
     ...
   )
 }
@@ -115,7 +116,8 @@ scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guid
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
     ...
   )
 }
@@ -137,7 +139,8 @@ scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guid
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
     ...
   )
 }
@@ -158,7 +161,8 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
     ...
   )
 }
@@ -225,7 +229,8 @@ scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
   discrete_scale(
-    aesthetics, palette = palette, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, na.value = na.value,
+    scale_name = deprecated(),
     ...
   )
 }
@@ -246,7 +251,8 @@ scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.val
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
   discrete_scale(
-    aesthetics, palette = palette, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, na.value = na.value,
+    scale_name = deprecated(),
     ...
   )
 }
