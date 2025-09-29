@@ -126,7 +126,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linewidth = NULL,
-    linetype = from_theme(linetype),
+    linetype = NULL,
     alpha = NA,
     stroke = 0.5
   ),
@@ -161,6 +161,7 @@ GeomSf <- ggproto("GeomSf", Geom,
         vec_slice(data, index$point),
         params, modifiers, theme = theme
       )
+      points$linetype <- 1L # Avoids NA linetype, which is invalid input
     }
     if (length(index$line) > 0) {
       lines <- GeomLine$use_defaults(
