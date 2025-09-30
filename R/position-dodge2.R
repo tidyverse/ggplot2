@@ -2,6 +2,9 @@
 #' @rdname position_dodge
 #' @param padding Padding between elements at the same position. Elements are
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
+#' @param group_row Relationship between groups and rows. Can be `"single"` if
+#'   every row represents a single group, or `"many"` if many rows represent
+#'   a group.
 position_dodge2 <- function(width = NULL, preserve = "total",
                             padding = 0.1, reverse = FALSE,
                             group_row = "single") {
@@ -10,7 +13,7 @@ position_dodge2 <- function(width = NULL, preserve = "total",
     preserve = arg_match0(preserve, c("total", "single")),
     padding = padding,
     reverse = reverse,
-    group_row = group_row
+    group_row = arg_match0(group_row, c("single", "many"))
   )
 }
 

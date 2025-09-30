@@ -16,7 +16,8 @@ position_dodge2(
   width = NULL,
   preserve = "total",
   padding = 0.1,
-  reverse = FALSE
+  reverse = FALSE,
+  group_row = "single"
 )
 }
 \arguments{
@@ -36,6 +37,10 @@ This is useful if you're rotating both the plot and legend.}
 
 \item{padding}{Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.}
+
+\item{group_row}{Relationship between groups and rows. Can be \code{"single"} if
+every row represents a single group, or \code{"many"} if many rows represent
+a group.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
