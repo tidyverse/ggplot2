@@ -30,98 +30,24 @@ S7::method(ggplot_gtable, class_ggplot_built) <- function(data) {
   layout <- data@layout
   data <- data@data
   theme <- plot@theme
+  labels <- plot@labels
 
   geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot@layers, data, "converting geom to grob")
 
-  plot_table <- layout$render(geom_grobs, data, theme, plot@labels)
+  plot_table <- layout$render(geom_grobs, data, theme, labels)
 
   # Legends
   legend_box <- plot@guides$assemble(theme)
   plot_table <- table_add_legends(plot_table, legend_box, theme)
 
-  # Title
-  title <- element_render(
-    theme, "plot.title", plot@labels$title,
-    margin_y = TRUE, margin_x = TRUE
-  )
-  title_height <- grobHeight(title)
-
-  # Subtitle
-  subtitle <- element_render(
-    theme, "plot.subtitle", plot@labels$subtitle,
-    margin_y = TRUE, margin_x = TRUE
-  )
-  subtitle_height <- grobHeight(subtitle)
-
   # whole plot annotation
-  caption <- element_render(
-    theme, "plot.caption", plot@labels$caption,
-    margin_y = TRUE, margin_x = TRUE
-  )
-  caption_height <- grobHeight(caption)
-
-  # positioning of title and subtitle is governed by plot.title.position
-  # positioning of caption is governed by plot.caption.position
-  #   "panel" means align to the panel(s)
-  #   "plot" means align to the entire plot (except margins and tag)
-  title_pos <- arg_match0(
-    theme$plot.title.position %||% "panel",
-    c("panel", "plot"),
-    arg_nm = "plot.title.position",
-    error_call = expr(theme())
-  )
-
-  caption_pos <- arg_match0(
-    theme$plot.caption.position %||% "panel",
-    values = c("panel", "plot"),
-    arg_nm = "plot.caption.position",
-    error_call = expr(theme())
-  )
-
-  pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
-  if (title_pos == "panel") {
-    title_l <- min(pans$l)
-    title_r <- max(pans$r)
-  } else {
-    title_l <- 1
-    title_r <- ncol(plot_table)
-  }
-  if (caption_pos == "panel") {
-    caption_l <- min(pans$l)
-    caption_r <- max(pans$r)
-  } else {
-    caption_l <- 1
-    caption_r <- ncol(plot_table)
-  }
-
-  plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
-                                t = 1, b = 1, l = title_l, r = title_r, clip = "off")
-
-  plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, title, name = "title",
-                                t = 1, b = 1, l = title_l, r = title_r, clip = "off")
-
-  plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
-  plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
-                                t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
-
-  plot_table <- table_add_tag(plot_table, plot@labels$tag, theme)
-
-  # Margins
-  plot_margin <- calc_element("plot.margin", theme) %||% margin()
-  plot_table  <- gtable_add_padding(plot_table, plot_margin)
-
-  if (is_theme_element(theme$plot.background)) {
-    plot_table <- gtable_add_grob(plot_table,
-                                  element_render(theme, "plot.background"),
-                                  t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
-    # plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
-    # plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
-  }
+  plot_table <- table_add_titles(plot_table, labels, theme)
+  plot_table <- table_add_caption(plot_table, labels$caption, theme)
+  plot_table <- table_add_tag(plot_table, labels$tag, theme)
+  plot_table <- table_add_background(plot_table, theme)
 
   # add alt-text as attribute
-  attr(plot_table, "alt-label") <- plot@labels$alt
+  attr(plot_table, "alt-label") <- labels$alt
 
   plot_table
 }
@@ -156,6 +82,166 @@ by_layer <- function(f, layers, data, step = NULL) {
     }
   )
   out
+}
+
+# Add the legends to the gtable
+table_add_legends <- function(table, legends, theme) {
+
+  if (is_zero(legends)) {
+    legends <- rep(list(zeroGrob()), 5)
+    names(legends) <- c(.trbl, "inside")
+  }
+
+  # Extract sizes
+  widths <- heights <- set_names(
+    rep(list(unit(0, "cm")), length(legends)),
+    names(legends)
+  )
+
+  empty <- vapply(legends, is_zero, logical(1))
+  widths[!empty]  <- lapply(legends[!empty], gtable_width)
+  heights[!empty] <- lapply(legends[!empty], gtable_height)
+  spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
+
+  # If legend is missing, set spacing to zero for that legend
+  zero    <- unit(0, "pt")
+  spacing <- lapply(empty, function(is_empty) if (is_empty) zero else spacing)
+
+  location <- switch(
+    theme$legend.location %||% "panel",
+    "plot" = plot_extent,
+    find_panel
+  )
+
+  place <- location(table)
+
+  # Add right legend
+  table <- gtable_add_cols(table, spacing$right, pos = -1)
+  table <- gtable_add_cols(table, widths$right,  pos = -1)
+  table <- gtable_add_grob(
+    table, legends$right, clip = "off",
+    t = place$t, b = place$b, l = -1, r = -1,
+    name = "guide-box-right"
+  )
+
+  # Add left legend
+  table <- gtable_add_cols(table, spacing$left, pos = 0)
+  table <- gtable_add_cols(table, widths$left,  pos = 0)
+  table <- gtable_add_grob(
+    table, legends$left, clip = "off",
+    t = place$t, b = place$b, l = 1, r = 1,
+    name = "guide-box-left"
+  )
+
+  place <- location(table)
+
+  # Add bottom legend
+  table <- gtable_add_rows(table, spacing$bottom, pos = -1)
+  table <- gtable_add_rows(table, heights$bottom, pos = -1)
+  table <- gtable_add_grob(
+    table, legends$bottom, clip = "off",
+    t = -1, b = -1, l = place$l, r = place$r,
+    name = "guide-box-bottom"
+  )
+
+  # Add top legend
+  table <- gtable_add_rows(table, spacing$top, pos = 0)
+  table <- gtable_add_rows(table, heights$top, pos = 0)
+  table <- gtable_add_grob(
+    table, legends$top, clip = "off",
+    t = 1, b = 1, l = place$l, r = place$r,
+    name = "guide-box-top"
+  )
+
+  # Add manual legend
+  place <- find_panel(table)
+  table <- gtable_add_grob(
+    table, legends$inside, clip = "off",
+    t = place$t, b = place$b, l = place$l, r = place$r,
+    name = "guide-box-inside"
+  )
+
+  table
+}
+
+table_add_titles <- function(table, labels, theme) {
+
+  # Title
+  title <- element_render(
+    theme, "plot.title", labels$title,
+    margin_y = TRUE, margin_x = TRUE
+  )
+  title_height <- grobHeight(title)
+
+  # Subtitle
+  subtitle <- element_render(
+    theme, "plot.subtitle", labels$subtitle,
+    margin_y = TRUE, margin_x = TRUE
+  )
+  subtitle_height <- grobHeight(subtitle)
+
+  # positioning of title and subtitle is governed by plot.title.position
+  #   "panel" means align to the panel(s)
+  #   "plot" means align to the entire plot (except margins and tag)
+  title_pos <- arg_match0(
+    theme$plot.title.position %||% "panel",
+    c("panel", "plot"),
+    arg_nm = "plot.title.position",
+    error_call = expr(theme())
+  )
+
+  panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+  if (title_pos == "panel") {
+    l <- min(panels$l)
+    r <- max(panels$r)
+  } else {
+    l <- 1
+    r <- ncol(table)
+  }
+
+  table <- gtable_add_rows(table, subtitle_height, pos = 0)
+  table <- gtable_add_grob(table, subtitle, name = "subtitle",
+                           t = 1, b = 1, l = l, r = r, clip = "off")
+
+  table <- gtable_add_rows(table, title_height, pos = 0)
+  table <- gtable_add_grob(table, title, name = "title",
+                           t = 1, b = 1, l = l, r = r, clip = "off")
+
+  table
+}
+
+table_add_caption <- function(table, label, theme) {
+
+  caption <- element_render(
+    theme, "plot.caption", label,
+    margin_y = TRUE, margin_x = TRUE
+  )
+  caption_height <- grobHeight(caption)
+
+  # positioning of title and subtitle is governed by plot.title.position
+  # positioning of caption is governed by plot.caption.position
+  #   "panel" means align to the panel(s)
+  #   "plot" means align to the entire plot (except margins and tag)
+  position <- arg_match0(
+    theme$plot.caption.position %||% "panel",
+    values = c("panel", "plot"),
+    arg_nm = "plot.caption.position",
+    error_call = expr(theme())
+  )
+
+  pans <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+  if (position == "panel") {
+    l <- min(pans$l)
+    r <- max(pans$r)
+  } else {
+    l <- 1
+    r <- ncol(table)
+  }
+
+  table <- gtable_add_rows(table, caption_height, pos = -1)
+  table <- gtable_add_grob(table, caption, name = "caption",
+                           t = -1, b = -1, l = l, r = r, clip = "off")
+  table
 }
 
 # Add the tag element to the gtable
@@ -273,82 +359,19 @@ table_add_tag <- function(table, label, theme) {
   )
 }
 
-# Add the legends to the gtable
-table_add_legends <- function(table, legends, theme) {
+table_add_background <- function(table, theme) {
+  # Margins
+  margin <- calc_element("plot.margin", theme) %||% margin()
+  table  <- gtable_add_padding(table, margin)
 
-  if (is_zero(legends)) {
-    legends <- rep(list(zeroGrob()), 5)
-    names(legends) <- c(.trbl, "inside")
+  background <- calc_element("plot.background", theme)
+  if (is_theme_element(background)) {
+    table <- gtable_add_grob(
+      table, element_grob(background),
+      t = 1, l = 1, b = -1, r = -1,
+      name = "background", z = -Inf
+    )
   }
-
-  # Extract sizes
-  widths <- heights <- set_names(
-    rep(list(unit(0, "cm")), length(legends)),
-    names(legends)
-  )
-
-  empty <- vapply(legends, is_zero, logical(1))
-  widths[!empty]  <- lapply(legends[!empty], gtable_width)
-  heights[!empty] <- lapply(legends[!empty], gtable_height)
-  spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
-
-  # If legend is missing, set spacing to zero for that legend
-  zero    <- unit(0, "pt")
-  spacing <- lapply(empty, function(is_empty) if (is_empty) zero else spacing)
-
-  location <- switch(
-    theme$legend.location %||% "panel",
-    "plot" = plot_extent,
-    find_panel
-  )
-
-  place <- location(table)
-
-  # Add right legend
-  table <- gtable_add_cols(table, spacing$right, pos = -1)
-  table <- gtable_add_cols(table, widths$right,  pos = -1)
-  table <- gtable_add_grob(
-    table, legends$right, clip = "off",
-    t = place$t, b = place$b, l = -1, r = -1,
-    name = "guide-box-right"
-  )
-
-  # Add left legend
-  table <- gtable_add_cols(table, spacing$left, pos = 0)
-  table <- gtable_add_cols(table, widths$left,  pos = 0)
-  table <- gtable_add_grob(
-    table, legends$left, clip = "off",
-    t = place$t, b = place$b, l = 1, r = 1,
-    name = "guide-box-left"
-  )
-
-  place <- location(table)
-
-  # Add bottom legend
-  table <- gtable_add_rows(table, spacing$bottom, pos = -1)
-  table <- gtable_add_rows(table, heights$bottom, pos = -1)
-  table <- gtable_add_grob(
-    table, legends$bottom, clip = "off",
-    t = -1, b = -1, l = place$l, r = place$r,
-    name = "guide-box-bottom"
-  )
-
-  # Add top legend
-  table <- gtable_add_rows(table, spacing$top, pos = 0)
-  table <- gtable_add_rows(table, heights$top, pos = 0)
-  table <- gtable_add_grob(
-    table, legends$top, clip = "off",
-    t = 1, b = 1, l = place$l, r = place$r,
-    name = "guide-box-top"
-  )
-
-  # Add manual legend
-  place <- find_panel(table)
-  table <- gtable_add_grob(
-    table, legends$inside, clip = "off",
-    t = place$t, b = place$b, l = place$l, r = place$r,
-    name = "guide-box-inside"
-  )
 
   table
 }
