@@ -38,7 +38,7 @@ This is useful if you're rotating both the plot and legend.}
 \item{padding}{Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.}
 
-\item{group_row}{Relationship between groups and rows. Can be \code{"single"} if
+\item{group.row}{Relationship between groups and rows. Can be \code{"single"} if
 every row represents a single group, or \code{"many"} if many rows represent
 a group.}
 }
