@@ -3,12 +3,14 @@
 #' @param padding Padding between elements at the same position. Elements are
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
 position_dodge2 <- function(width = NULL, preserve = "total",
-                            padding = 0.1, reverse = FALSE) {
+                            padding = 0.1, reverse = FALSE,
+                            group_row = "single") {
   ggproto(NULL, PositionDodge2,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
     padding = padding,
-    reverse = reverse
+    reverse = reverse,
+    group_row = group_row
   )
 }
 
@@ -20,6 +22,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   preserve = "total",
   padding = 0.1,
   reverse = FALSE,
+  group_row = "single",
 
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
@@ -48,7 +51,8 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       n = n,
       padding = self$padding,
       reverse = self$reverse,
-      flipped_aes = flipped_aes
+      flipped_aes = flipped_aes,
+      group_row = self$group_row
     )
   },
 
