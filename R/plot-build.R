@@ -83,7 +83,7 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
 
   # Make sure missing (but required) aesthetics are added
-  plot@scales$add_missing(c("x", "y"), plot@plot_env)
+  scales$add_missing(c("x", "y"), plot@plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
