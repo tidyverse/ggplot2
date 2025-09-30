@@ -58,8 +58,15 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
 
   compute_panel = function(data, params, scales) {
     data <- flip_data(data, params$flipped_aes)
+    key <- NULL
+    columns <- c("group", "x", "xmin", "xmax")
+    if (isTRUE(params$group_row == "many")) {
+      # Run-length encode (RLE) relevant variables
+      key <- vec_unrep(data[columns])
+    }
+
     collided <- collide2(
-      data,
+      key$key %||% data,
       params$width,
       name = "position_dodge2",
       strategy = pos_dodge2,
@@ -68,7 +75,15 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       check.width = FALSE,
       reverse = params$reverse
     )
-    flip_data(collided, params$flipped_aes)
+
+    if (!is.null(key)) {
+      # Decode RLE to full data
+      data[columns] <- vec_rep_each(collided[columns], key$times)
+    } else {
+      data <- collided
+    }
+
+    flip_data(data, params$flipped_aes)
   }
 )
 
