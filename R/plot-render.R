@@ -64,26 +64,6 @@ ggplotGrob <- function(x) {
 S7::method(as.gtable, class_ggplot) <- function(x, ...) ggplotGrob(x)
 S7::method(as.gtable, class_ggplot_built) <- function(x, ...) ggplot_gtable(x)
 
-# Apply function to layer and matching data
-by_layer <- function(f, layers, data, step = NULL) {
-  ordinal <- label_ordinal()
-  out <- vector("list", length(data))
-  try_fetch(
-    for (i in seq_along(data)) {
-      out[[i]] <- f(l = layers[[i]], d = data[[i]])
-    },
-    error = function(cnd) {
-      cli::cli_abort(c(
-        "Problem while {step}.",
-        "i" = "Error occurred in the {ordinal(i)} layer."),
-        call = layers[[i]]$constructor,
-        parent = cnd
-      )
-    }
-  )
-  out
-}
-
 # Add the legends to the gtable
 table_add_legends <- function(table, legends, theme) {
 

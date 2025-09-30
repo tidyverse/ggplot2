@@ -177,3 +177,23 @@ get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
 #' @export
 #' @rdname ggplot_build
 layer_grob <- get_layer_grob
+
+# Apply function to layer and matching data
+by_layer <- function(f, layers, data, step = NULL) {
+  ordinal <- label_ordinal()
+  out <- vector("list", length(data))
+  try_fetch(
+    for (i in seq_along(data)) {
+      out[[i]] <- f(l = layers[[i]], d = data[[i]])
+    },
+    error = function(cnd) {
+      cli::cli_abort(c(
+        "Problem while {step}.",
+        "i" = "Error occurred in the {ordinal(i)} layer."),
+        call = layers[[i]]$constructor,
+        parent = cnd
+      )
+    }
+  )
+  out
+}
