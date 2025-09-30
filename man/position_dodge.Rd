@@ -17,7 +17,7 @@ position_dodge2(
   preserve = "total",
   padding = 0.1,
   reverse = FALSE,
-  group_row = "single"
+  group.row = "single"
 )
 }
 \arguments{

@@ -7,13 +7,13 @@
 #'   a group.
 position_dodge2 <- function(width = NULL, preserve = "total",
                             padding = 0.1, reverse = FALSE,
-                            group_row = "single") {
+                            group.row = "single") {
   ggproto(NULL, PositionDodge2,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
     padding = padding,
     reverse = reverse,
-    group_row = arg_match0(group_row, c("single", "many"))
+    group_row = arg_match0(group.row, c("single", "many"))
   )
 }
 
