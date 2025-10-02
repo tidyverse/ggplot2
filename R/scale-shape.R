@@ -51,14 +51,22 @@
 #'   theme_void()
 scale_shape <- function(name = waiver(), ..., solid = NULL, aesthetics = "shape") {
   palette <- if (!is.null(solid)) pal_shape(solid) else NULL
-  discrete_scale(aesthetics, name = name, palette = palette, ...)
+  discrete_scale(
+    aesthetics, name = name, palette = palette,
+    fallback.palette = pal_shape(),
+    ...
+  )
 }
 
 #' @rdname scale_shape
 #' @export
 scale_shape_binned <- function(name = waiver(), ..., solid = TRUE, aesthetics = "shape") {
   palette <- if (!is.null(solid)) pal_binned(pal_shape(solid)) else NULL
-  binned_scale(aesthetics, name = name, palette = palette, ...)
+  binned_scale(
+    aesthetics, name = name, palette = palette,
+    fallback.palette = pal_binned(pal_shape(solid)),
+    ...
+  )
 }
 
 #' @rdname scale_shape

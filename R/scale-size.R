@@ -58,9 +58,12 @@ scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = w
                                   guide = "legend",
                                   aesthetics = "size") {
   palette <- if (!is.null(range)) pal_area(range) else NULL
-  continuous_scale(aesthetics, palette = palette, name = name,
+  continuous_scale(
+    aesthetics, palette = palette, name = name,
     breaks = breaks, labels = labels, limits = limits,
-    transform = transform, trans = trans, guide = guide)
+    transform = transform, trans = trans, guide = guide,
+    fallback.palette = pal_area()
+  )
 }
 
 #' @rdname scale_size
@@ -86,10 +89,13 @@ scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waive
                               trans = deprecated(), guide = "bins",
                               aesthetics = "size") {
   palette <- if (!is.null(range)) pal_area(range) else NULL
-  binned_scale(aesthetics, palette = palette, name = name,
-               breaks = breaks, labels = labels, limits = limits,
-               transform = transform, trans = trans, n.breaks = n.breaks,
-               nice.breaks = nice.breaks, guide = guide)
+  binned_scale(
+    aesthetics, palette = palette, name = name,
+    breaks = breaks, labels = labels, limits = limits,
+    transform = transform, trans = trans, n.breaks = n.breaks,
+    nice.breaks = nice.breaks, guide = guide,
+    fallback.palette = pal_area()
+  )
 }
 
 #' @rdname scale_size
@@ -111,7 +117,11 @@ scale_size_ordinal <- function(name = waiver(), ..., range = NULL, aesthetics = 
   } else {
     NULL
   }
-  discrete_scale(aesthetics, name = name, palette = palette, ...)
+  discrete_scale(
+    aesthetics, name = name, palette = palette,
+    fallback.palette = function(n) sqrt(seq(4, 36, length.out = n)),
+    ...
+  )
 }
 
 #' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler -expand -position
@@ -141,7 +151,11 @@ scale_size_binned_area <- function(name = waiver(), ..., max_size = 6, aesthetic
 #' @usage NULL
 scale_size_datetime <- function(name = waiver(), ..., range = NULL, aesthetics = "size") {
   palette <- if (!is.null(range)) pal_area(range) else NULL
-  datetime_scale(aesthetics, "time", name = name, palette = palette, ...)
+  datetime_scale(
+    aesthetics, "time", name = name, palette = palette,
+    fallback.palette = pal_area(),
+    ...
+  )
 }
 
 #' @rdname scale_size
@@ -149,5 +163,9 @@ scale_size_datetime <- function(name = waiver(), ..., range = NULL, aesthetics =
 #' @usage NULL
 scale_size_date <- function(name = waiver(), ..., range = NULL, aesthetics = "size") {
   palette <- if (!is.null(range)) pal_area(range) else NULL
-  datetime_scale(aesthetics, "date", name = name, palette = palette, ...)
+  datetime_scale(
+    aesthetics, "date", name = name, palette = palette,
+    fallback.palette = pal_area(),
+    ...
+  )
 }
