@@ -10,7 +10,7 @@
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
 #' @inheritParams discrete_scale
-#' @inheritDotParams discrete_scale -expand -position -scale_name -palette
+#' @inheritDotParams discrete_scale -expand -position -scale_name -palette -fallback.palette
 #' @rdname scale_shape
 #' @details
 #' Shapes can be referred to by number or name. Shapes in \[0, 20\] do not

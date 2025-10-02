@@ -92,6 +92,8 @@
 #'   to generate the values for the `expand` argument. The defaults are to
 #'   expand the scale by 5% on each side for continuous variables, and by
 #'   0.6 units on each side for discrete variables.
+#' @param fallback.palette Function to use when `palette = NULL` and the
+#'   palette is not represented in the theme.
 #' @param position For position scales, The position of the axis.
 #' `left` or `right` for y axes, `top` or `bottom` for x axes.
 #' @param call The `call` used to construct the scale for reporting messages.

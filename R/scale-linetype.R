@@ -6,7 +6,7 @@
 #' no inherent order, this use is not advised.
 #'
 #' @inheritParams discrete_scale
-#' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette
+#' @inheritDotParams discrete_scale -expand -position -na.value -scale_name -palette -fallback.palette
 #' @rdname scale_linetype
 #' @details
 #' Lines can be referred to by number, name or hex code. Contrary to base R
