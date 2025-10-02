@@ -107,6 +107,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
                              oob = censor, expand = waiver(), na.value = NA,
                              transform = "identity", trans = deprecated(),
                              guide = "legend", position = "left",
+                             fallback.palette = NULL,
                              call = caller_call(),
                              super = ScaleContinuous) {
   call <- call %||% current_call()
@@ -121,6 +122,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels, call = call)
+  check_fallback_palette(palette, fallback.palette, call = call)
 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
@@ -152,6 +154,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 
     aesthetics = aesthetics,
     palette = palette,
+    fallback_palette = fallback.palette,
 
     range = ContinuousRange$new(),
     limits = limits,
@@ -211,6 +214,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
                            labels = waiver(), limits = NULL, expand = waiver(),
                            na.translate = TRUE, na.value = NA, drop = TRUE,
                            guide = "legend", position = "left",
+                           fallback.palette = NULL,
                            call = caller_call(),
                            super = ScaleDiscrete) {
   call <- call %||% current_call()
@@ -221,6 +225,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels, call = call)
+  check_fallback_palette(palette, fallback.palette, call = call)
 
   # Convert formula input to function if appropriate
   limits <- allow_lambda(limits)
@@ -251,6 +256,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 
     aesthetics = aesthetics,
     palette = palette,
+    fallback_palette = fallback.palette,
 
     range = DiscreteRange$new(),
     limits = limits,
@@ -303,6 +309,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
                          right = TRUE, transform = "identity",
                          trans = deprecated(), show.limits = FALSE,
                          guide = "bins", position = "left",
+                         fallback.palette = NULL,
                          call = caller_call(),
                          super = ScaleBinned) {
   if (lifecycle::is_present(scale_name)) {
@@ -318,6 +325,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels, call = call)
+  check_fallback_palette(palette, fallback.palette, call = call)
 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
@@ -346,6 +354,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
     aesthetics = aesthetics,
     palette = palette,
+    fallback_palette = fallback.palette,
 
     range = ContinuousRange$new(),
     limits = limits,
@@ -1791,6 +1800,15 @@ check_continuous_limits <- function(limits, ...,
   }
   check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
   check_length(limits, 2L, arg = arg, call = call)
+}
+
+check_fallback_palette <- function(pal, fallback, call = caller_env()) {
+  if (!is.null(pal) || is.function(fallback)) {
+    return(invisible)
+  }
+  cli::cli_abort(
+    "When {.code palette = NULL}, the {.arg fallback.palette} must be defined."
+  )
 }
 
 allow_lambda <- function(x) {
