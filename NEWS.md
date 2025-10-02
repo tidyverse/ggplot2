@@ -2,6 +2,8 @@
 
 ### Bug fixes
 
+* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
+  silently rather than verbosely (@teunbrand, #6667)
 * Fixed regression where `draw_key_rect()` stopped using `fill` colours 
   (@mitchelloharawild, #6609).
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
