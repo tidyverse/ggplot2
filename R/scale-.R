@@ -598,7 +598,7 @@ Scale <- ggproto("Scale", NULL,
     if (empty(df)) {
       return()
     }
-    self$palette <- self$palette %||% fallback_palette(self)
+    self$palette <- self$palette %||% fetch_ggproto(self, "fallback_palette")
 
     aesthetics <- intersect(self$aesthetics, names(df))
     names(aesthetics) <- aesthetics
