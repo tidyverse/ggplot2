@@ -19,10 +19,10 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme(axis.title.x = element_text(colour = 'red', margin = margin()))
   expect_identical(t$axis.title.x, element_text(colour = 'red', margin = margin(), vjust = 1))
   # Make sure the theme class didn't change or get dropped
-  expect_true(is.theme(t))
+  expect_s7_class(t, class_theme)
   # Make sure the element class didn't change or get dropped
-  expect_true(inherits(t$axis.title.x, "element"))
-  expect_true(inherits(t$axis.title.x, "element_text"))
+  expect_s7_class(t$axis.title.x, element)
+  expect_s7_class(t$axis.title.x, element_text)
 
   # Modifying an intermediate node works
   t <- theme_grey() + theme(axis.title = element_text(colour = 'red'))
@@ -30,10 +30,10 @@ test_that("modifying theme element properties with + operator works", {
 
   # Modifying a root node changes only the specified properties
   t <- theme_grey() + theme(text = element_text(colour = 'red'))
-  expect_identical(t$text$colour, 'red')
-  expect_identical(t$text$family, theme_grey()$text$family)
-  expect_identical(t$text$face,   theme_grey()$text$face)
-  expect_identical(t$text$size,   theme_grey()$text$size)
+  expect_identical(t$text@colour, 'red')
+  expect_identical(t$text@family, theme_grey()$text@family)
+  expect_identical(t$text@face,   theme_grey()$text@face)
+  expect_identical(t$text@size,   theme_grey()$text@size)
   # Descendent is unchanged
   expect_identical(t$axis.title.x, theme_grey()$axis.title.x)
 
@@ -49,41 +49,51 @@ test_that("modifying theme element properties with + operator works", {
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
 
-  expect_snapshot(theme_grey() + "asdf", error = TRUE)
+  expect_snapshot(
+    theme_grey() + "asdf",
+    error = TRUE,
+    variant = substr(as.character(getRversion()), start = 1, stop = 3)
+  )
+})
+
+test_that("set_theme() resets theme to default when called with no arguments", {
+  theme_set(theme_void())
+  set_theme()
+  expect_identical(theme_get(), theme_grey())
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
   ## test with complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point() + theme_grey()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_true(p@theme$axis.title@size == 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = 'red'))
-  expect_true(p$theme$text$colour == 'red')
+  expect_true(p@theme$text@colour == 'red')
   tt <- theme_grey()$text
-  tt$colour <- 'red'
-  expect_true(tt$inherit.blank)
-  tt$inherit.blank <- FALSE
-  expect_identical(p$theme$text, tt)
+  tt@colour <- 'red'
+  expect_true(tt@inherit.blank)
+  tt@inherit.blank <- FALSE
+  expect_identical(p@theme$text, tt)
 
   ## test without complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   p <- p + theme(axis.title = element_text(size = 20))
-  expect_true(p$theme$axis.title$size == 20)
+  expect_true(p@theme$axis.title@size == 20)
 
   # Should update specified properties, but not reset other properties
   p <- p + theme(text = element_text(colour = 'red'))
-  expect_true(p$theme$text$colour == 'red')
-  expect_null(p$theme$text$family)
-  expect_null(p$theme$text$face)
-  expect_null(p$theme$text$size)
-  expect_null(p$theme$text$hjust)
-  expect_null(p$theme$text$vjust)
-  expect_null(p$theme$text$angle)
-  expect_null(p$theme$text$lineheight)
-  expect_null(p$theme$text$margin)
-  expect_null(p$theme$text$debug)
+  expect_true(p@theme$text@colour == 'red')
+  expect_null(p@theme$text@family)
+  expect_null(p@theme$text@face)
+  expect_null(p@theme$text@size)
+  expect_null(p@theme$text@hjust)
+  expect_null(p@theme$text@vjust)
+  expect_null(p@theme$text@angle)
+  expect_null(p@theme$text@lineheight)
+  expect_null(p@theme$text@margin)
+  expect_null(p@theme$text@debug)
 
   ## stepwise addition of partial themes is identical to one-step addition
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
@@ -95,7 +105,7 @@ test_that("adding theme object to ggplot object with + operator works", {
     theme(axis.line.x = element_line(color = "blue"),
           axis.ticks.x = element_line(color = "red"))
 
-  expect_identical(p1$theme, p2$theme)
+  expect_identical(p1@theme, p2@theme)
 })
 
 test_that("replacing theme elements with %+replace% operator works", {
@@ -103,7 +113,7 @@ test_that("replacing theme elements with %+replace% operator works", {
   t <- theme_grey() %+replace% theme(axis.title.x = element_text(colour = 'red'))
   expect_identical(t$axis.title.x, element_text(colour = 'red'))
   # Make sure the class didn't change or get dropped
-  expect_true(is.theme(t))
+  expect_s7_class(t, class_theme)
 
   # Changing an intermediate node works
   t <- theme_grey() %+replace% theme(axis.title = element_text(colour = 'red'))
@@ -114,8 +124,6 @@ test_that("replacing theme elements with %+replace% operator works", {
   # Adding empty theme() has no effect
   t <- theme_grey() %+replace% theme()
   expect_identical(t, theme_grey())
-
-  expect_snapshot(theme_grey() + "asdf", error = TRUE)
 })
 
 test_that("calculating theme element inheritance works", {
@@ -123,36 +131,34 @@ test_that("calculating theme element inheritance works", {
 
   # Check that properties are passed along from axis.title to axis.title.x
   e <- calc_element('axis.title.x', t)
-  expect_identical(e$colour, 'red')
-  expect_false(is.null(e$family))
-  expect_false(is.null(e$face))
-  expect_false(is.null(e$size))
+  expect_identical(e@colour, 'red')
+  expect_false(is.null(e@family))
+  expect_false(is.null(e@face))
+  expect_false(is.null(e@size))
 
   # Check that rel() works for relative sizing, and is applied at each level
   t <- theme_grey(base_size = 12) +
     theme(axis.title   = element_text(size = rel(0.5))) +
     theme(axis.title.x = element_text(size = rel(0.5)))
   e <- calc_element('axis.title', t)
-  expect_identical(e$size, 6)
+  expect_identical(e@size, 6)
   ex <- calc_element('axis.title.x', t)
-  expect_identical(ex$size, 3)
+  expect_identical(ex@size, 3)
 
   # Check that a theme_blank in a parent node gets passed along to children
   t <- theme_grey() + theme(text = element_blank())
   expect_identical(calc_element('axis.title.x', t), element_blank())
 
   # Check that inheritance from derived class works
-  element_dummyrect <- function(dummy) { # like element_rect but w/ dummy argument
-    structure(list(
-      fill = NULL, colour = NULL, dummy = dummy, linewidth = NULL,
-      linetype = NULL, inherit.blank = FALSE
-    ), class = c("element_dummyrect", "element_rect", "element"))
-  }
+  element_dummyrect <- S7::new_class(
+    "element_dummyrect", parent = element_rect,
+    properties = list(dummy = S7::class_any)
+  )
 
   e <- calc_element(
     "panel.background",
     theme(
-      rect = element_rect(fill = "white", colour = "black", linewidth = 0.5, linetype = 1),
+      rect = element_rect(fill = "white", colour = "black", linewidth = 0.5, linetype = 1, linejoin = "round"),
       panel.background = element_dummyrect(dummy = 5),
       complete = TRUE # need to prevent pulling in default theme
     )
@@ -160,10 +166,10 @@ test_that("calculating theme element inheritance works", {
 
   expect_identical(
     e,
-    structure(list(
-      fill = "white", colour = "black", dummy = 5, linewidth = 0.5, linetype = 1,
+    element_dummyrect(
+      fill = "white", colour = "black", dummy = 5, linewidth = 0.5, linetype = 1, linejoin = "round",
       inherit.blank = TRUE # this is true because we're requesting a complete theme
-    ), class = c("element_dummyrect", "element_rect", "element"))
+    )
   )
 
   # Check that blank elements are skipped in inheritance tree if and only if elements
@@ -175,7 +181,7 @@ test_that("calculating theme element inheritance works", {
     )
   e1 <- calc_element("strip.text.x", t)
   e2 <- calc_element("text", t)
-  e2$inherit.blank <- FALSE # b/c inherit.blank = TRUE for complete themes
+  e2@inherit.blank <- FALSE # b/c inherit.blank = TRUE for complete themes
   expect_identical(e1, e2)
 
   theme <- theme_gray() +
@@ -201,18 +207,18 @@ test_that("complete and non-complete themes interact correctly with each other",
   # But for _element properties_, the one on the right modifies the one on the left.
   t <- theme_bw() + theme(text = element_text(colour = 'red'))
   expect_true(attr(t, "complete"))
-  expect_equal(t$text$colour, 'red')
+  expect_equal(t$text@colour, 'red')
 
   # A complete theme object (like theme_bw) always trumps a non-complete theme object
   t <- theme(text = element_text(colour = 'red')) + theme_bw()
   expect_true(attr(t, "complete"))
-  expect_equal(t$text$colour, theme_bw()$text$colour)
+  expect_equal(t$text@colour, theme_bw()$text@colour)
 
   # Adding two non-complete themes: the one on the right modifies the one on the left.
   t <- theme(text = element_text(colour = 'blue')) +
     theme(text = element_text(colour = 'red'))
   expect_false(attr(t, "complete"))
-  expect_equal(t$text$colour, 'red')
+  expect_equal(t$text@colour, 'red')
 })
 
 test_that("complete and non-complete themes interact correctly with ggplot objects", {
@@ -221,50 +227,50 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   # Check that adding two theme successive theme objects to a ggplot object
   # works like adding the two theme object to each other
   p <- ggplot_build(base + theme_bw() + theme(text = element_text(colour = 'red')))
-  expect_true(attr(p$plot$theme, "complete"))
+  expect_true(attr(p@plot@theme, "complete"))
 
   # Compare the theme objects, after sorting the items, because item order can differ
-  pt <- p$plot$theme
+  pt <- p@plot@theme
   tt <- theme_bw() + theme(text = element_text(colour = 'red'))
   pt <- pt[order(names(pt))]
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red')) + theme_bw())
-  expect_true(attr(p$plot$theme, "complete"))
+  expect_true(attr(p@plot@theme, "complete"))
   # Compare the theme objects, after sorting the items, because item order can differ
-  pt <- p$plot$theme
+  pt <- p@plot@theme
   tt <- theme(text = element_text(colour = 'red')) + theme_bw()
   pt <- pt[order(names(pt))]
   tt <- tt[order(names(tt))]
   expect_identical(pt, tt)
 
   p <- ggplot_build(base + theme(text = element_text(colour = 'red', face = 'italic')))
-  expect_equal(p$plot$theme$text$colour, "red")
-  expect_equal(p$plot$theme$text$face, "italic")
+  expect_equal(p@plot@theme$text@colour, "red")
+  expect_equal(p@plot@theme$text@face, "italic")
 
   p <- ggplot_build(base +
     theme(text = element_text(colour = 'red')) +
     theme(text = element_text(face = 'italic')))
-  expect_equal(p$plot$theme$text$colour, "red")
-  expect_equal(p$plot$theme$text$face, "italic")
+  expect_equal(p@plot@theme$text@colour, "red")
+  expect_equal(p@plot@theme$text@face, "italic")
 })
 
-test_that("theme(validate=FALSE) means do not validate_element", {
+test_that("theme(validate=FALSE) means do not check_element", {
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point()
   bw <- p + theme_bw()
   red.text <- theme(text = element_text(colour = "red"))
   bw.before <- bw + theme(animint.width = 500, validate = FALSE)
-  expect_equal(bw.before$theme$animint.width, 500)
+  expect_equal(bw.before@theme$animint.width, 500)
 
   bw.after <- p + theme(animint.width = 500, validate = FALSE) + theme_bw()
-  expect_null(bw.after$theme$animint.width)
+  expect_null(bw.after@theme$animint.width)
 
   red.after <- p + theme(animint.width = 500, validate = FALSE) + red.text
-  expect_equal(red.after$theme$animint.width, 500)
+  expect_equal(red.after@theme$animint.width, 500)
 
   red.before <- p + red.text + theme(animint.width = 500, validate = FALSE)
-  expect_equal(red.before$theme$animint.width, 500)
+  expect_equal(red.before@theme$animint.width, 500)
 })
 
 test_that("theme validation happens at build stage", {
@@ -283,9 +289,10 @@ test_that("theme validation happens at build stage", {
 test_that("incorrect theme specifications throw meaningful errors", {
   expect_snapshot_error(add_theme(theme_grey(), theme(line = element_rect())))
   expect_snapshot_error(calc_element("line", theme(line = element_rect())))
-  register_theme_elements(element_tree = list(test = el_def("element_rect")))
+  register_theme_elements(element_tree = list(test = el_def(element_rect)))
   expect_snapshot_error(calc_element("test", theme_gray() + theme(test = element_rect())))
   expect_snapshot_error(set_theme("foo"))
+  reset_theme_settings()
 })
 
 test_that("element tree can be modified", {
@@ -305,42 +312,51 @@ test_that("element tree can be modified", {
 
   # things work once we add a new element to the element tree
   register_theme_elements(
-    element_tree = list(blablabla = el_def("element_text", "text"))
+    element_tree = list(blablabla = el_def(element_text, "text"))
   )
   expect_silent(ggplotGrob(p))
 
   p1 <- ggplot() + theme(blablabla = element_line())
   expect_snapshot_error(ggplotGrob(p1))
 
+  # Expect errors for invalid element trees
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(el_def("rect"), el_def("line")))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = "bar"))
+  )
+  expect_snapshot_error(
+    register_theme_elements(element_tree = list(foo = el_def(inherit = "foo")))
+  )
+
   # inheritance and final calculation of novel element works
   final_theme <- ggplot2:::plot_theme(p, theme_gray())
   e1 <- calc_element("blablabla", final_theme)
   e2 <- calc_element("text", final_theme)
-  expect_identical(e1$family, e2$family)
-  expect_identical(e1$face, e2$face)
-  expect_identical(e1$size, e2$size)
-  expect_identical(e1$lineheight, e2$lineheight)
-  expect_identical(e1$colour, "red") # not inherited from element_text
+  expect_identical(e1@family, e2@family)
+  expect_identical(e1@face, e2@face)
+  expect_identical(e1@size, e2@size)
+  expect_identical(e1@lineheight, e2@lineheight)
+  expect_identical(e1@colour, "red") # not inherited from element_text
 
   # existing elements can be overwritten
-  ed <- el_def("element_rect", "rect")
+  ed <- el_def(element_rect, "rect")
   register_theme_elements(
     element_tree = list(axis.title = ed)
   )
   expect_identical(get_element_tree()$axis.title, ed)
 
-  reset_theme_settings(reset_current = FALSE) # revert back to defaults
+  reset_theme_settings() # revert back to defaults
 })
 
 test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
-    all(vapply(theme, function(el) {
-      if (inherits(el, "element") && !inherits(el, "element_blank")) {
-        el$inherit.blank
-      } else {
-        TRUE
-      }
-    }, logical(1)))
+    all(vapply(
+      theme, try_prop,
+      name = "inherit.blank", default = TRUE,
+      logical(1)
+    ))
   }
   expect_true(inherit_blanks(theme_grey()))
   expect_true(inherit_blanks(theme_bw()))
@@ -350,7 +366,6 @@ test_that("all elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_linedraw()))
   expect_true(inherit_blanks(theme_minimal()))
   expect_true(inherit_blanks(theme_void()))
-  expect_true(inherit_blanks(theme_transparent()))
 })
 
 test_that("elements can be merged", {
@@ -383,7 +398,7 @@ test_that("complete plot themes shouldn't inherit from default", {
   base <- ggplot(data.frame(x = 1), aes(x, x)) + geom_point()
 
   ptheme <- plot_theme(base + theme(axis.text.x = element_text(colour = "blue")), default_theme)
-  expect_equal(ptheme$axis.text.x$colour, "blue")
+  expect_equal(ptheme$axis.text.x@colour, "blue")
 
   ptheme <- plot_theme(base + theme_void(), default_theme)
   expect_null(ptheme$axis.text.x)
@@ -413,14 +428,14 @@ test_that("current theme can be updated with new elements", {
   # element tree gets merged properly
   register_theme_elements(
     abcde = element_text(color = "blue", hjust = 0, vjust = 1),
-    element_tree = list(abcde = el_def("element_text", "text"))
+    element_tree = list(abcde = el_def(element_text, "text"))
   )
 
   e1 <- calc_element("abcde", plot_theme(b2))
   e2 <- calc_element("text", plot_theme(b2))
-  e2$colour <- "blue"
-  e2$hjust <- 0
-  e2$vjust <- 1
+  e2@colour <- "blue"
+  e2@hjust <- 0
+  e2@vjust <- 1
   expect_identical(e1, e2)
 
   reset_theme_settings()
@@ -464,6 +479,10 @@ test_that("titleGrob() and margins() work correctly", {
   expect_equal(width_cm(g10), width_cm(g1) + 2)
 })
 
+test_that("margins() warn against wrong input lengths", {
+  expect_snapshot(margin(c(1, 2), 3, 4, c(5, 6, 7)))
+})
+
 test_that("provided themes explicitly define all elements", {
   elements <- names(.element_tree)
 
@@ -497,9 +516,6 @@ test_that("provided themes explicitly define all elements", {
 
   t <- theme_test()
   expect_true(all(names(t) %in% elements))
-
-  t <- theme_transparent()
-  expect_true(all(names(t) %in% elements))
 })
 
 test_that("Theme elements are checked during build", {
@@ -514,11 +530,61 @@ test_that("Theme elements are checked during build", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("subtheme functions rename arguments as intended", {
+
+  line <- element_line(colour = "red")
+  rect <- element_rect(colour = "red")
+
+  expect_equal(theme_sub_axis(ticks = line),        theme(axis.ticks = line))
+  expect_equal(theme_sub_axis_x(ticks = line),      theme(axis.ticks.x = line))
+  expect_equal(theme_sub_axis_y(ticks = line),      theme(axis.ticks.y = line))
+  expect_equal(theme_sub_axis_top(ticks = line),    theme(axis.ticks.x.top = line))
+  expect_equal(theme_sub_axis_bottom(ticks = line), theme(axis.ticks.x.bottom = line))
+  expect_equal(theme_sub_axis_left(ticks = line),   theme(axis.ticks.y.left = line))
+  expect_equal(theme_sub_axis_right(ticks = line),  theme(axis.ticks.y.right = line))
+  expect_equal(theme_sub_legend(key = rect),        theme(legend.key = rect))
+  expect_equal(theme_sub_panel(border = rect),      theme(panel.border = rect))
+  expect_equal(theme_sub_plot(background = rect),   theme(plot.background = rect))
+  expect_equal(theme_sub_strip(background = rect),  theme(strip.background = rect))
+
+  # Test rejection of unknown theme elements
+  expect_snapshot_warning(
+    expect_equal(
+      subtheme(list(foo = 1, bar = 2, axis.line = line)),
+      theme(axis.line = line)
+    )
+  )
+})
+
+test_that("element_text throws appropriate conditions", {
+  expect_snapshot_warning(
+    element_text(colour = c("red", "blue"))
+  )
+  expect_snapshot_warning(
+    element_text(margin = unit(1, "cm"))
+  )
+  expect_snapshot(
+    element_text(margin = 5),
+    error = TRUE
+  )
+  expect_snapshot(
+    element_text(colour = sqrt(2)),
+    error = TRUE
+  )
+
+  # Some absurd case found in reverse dependency check where
+  # labs(y = element_blank()) for some reason
+  el <- theme_get()$text
+  expect_snapshot(
+    element_grob(el, label = element_blank())
+  )
+})
+
 test_that("Theme validation behaves as expected", {
   tree <- get_element_tree()
-  expect_silent(validate_element(1,  "aspect.ratio", tree))
-  expect_silent(validate_element(1L, "aspect.ratio", tree))
-  expect_snapshot_error(validate_element("A", "aspect.ratio", tree))
+  expect_silent(check_element(1,  "aspect.ratio", tree))
+  expect_silent(check_element(1L, "aspect.ratio", tree))
+  expect_snapshot_error(check_element("A", "aspect.ratio", tree))
 })
 
 test_that("Element subclasses are inherited", {
@@ -532,7 +598,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(poor, rich)
   expect_s3_class(test, "element_rich")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 3, linewidth = 2)
   )
 
@@ -540,7 +606,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(rich, poor)
   expect_s3_class(test, "element_rich")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 2, linewidth = 2)
   )
 
@@ -552,7 +618,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(sibling, rich)
   expect_s3_class(test, "element_sibling")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 3, linewidth = 2)
   )
 
@@ -560,7 +626,7 @@ test_that("Element subclasses are inherited", {
   test <- combine_elements(rich, sibling)
   expect_s3_class(test, "element_rich")
   expect_equal(
-    test[c("colour", "linetype", "linewidth")],
+    S7::props(test)[c("colour", "linetype", "linewidth")],
     list(colour = "red", linetype = 2, linewidth = 2)
   )
 })
@@ -587,33 +653,33 @@ test_that("header_family is passed on correctly", {
   td <- theme_dark(base_family = "x", header_family = "y")
 
   test <- calc_element("plot.title", td)
-  expect_equal(test$family, "y")
+  expect_equal(test@family, "y")
 
   test <- calc_element("plot.subtitle", td)
-  expect_equal(test$family, "x")
+  expect_equal(test@family, "x")
 })
 
 test_that("complete_theme completes a theme", {
   # `NULL` should match default
   gray <- theme_gray()
   new <- complete_theme(NULL, default = gray)
-  expect_equal(new, gray, ignore_attr = "validate")
+  expect_equal(S7::S7_data(new), S7::S7_data(gray))
 
   # Elements are propagated
   new <- complete_theme(theme(axis.line = element_line("red")), gray)
-  expect_equal(new$axis.line$colour, "red")
+  expect_equal(new$axis.line@colour, "red")
 
   # Missing elements are filled in if default theme is incomplete
   new <- complete_theme(default = theme())
-  expect_s3_class(new$axis.line, "element_blank")
+  expect_s3_class(new$axis.line, "ggplot2::element_blank")
 
   # Registered elements are included
   register_theme_elements(
     test = element_text(),
-    element_tree = list(test = el_def("element_text", "text"))
+    element_tree = list(test = el_def(element_text, "text"))
   )
   new <- complete_theme(default = gray)
-  expect_s3_class(new$test, "element_text")
+  expect_s3_class(new$test, "ggplot2::element_text")
   reset_theme_settings()
 })
 
@@ -673,7 +739,100 @@ test_that("margin_part() mechanics work as expected", {
   expect_equal(as.numeric(test), c(5.5, 5.5, 11, 5.5))
 })
 
+test_that("theme() warns about conflicting palette options", {
+  expect_silent(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+  local_options(ggplot2.discrete.colour = c("red", "purple"))
+  expect_snapshot_warning(
+    theme(palette.colour.discrete = c("dodgerblue", "orange"))
+  )
+})
+
+test_that("geom elements are inherited correctly", {
+
+  GeomFoo <- ggproto("GeomFoo", GeomPoint)
+  GeomBar <- ggproto("GeomBar", GeomFoo)
+
+  p <- ggplot(data.frame(x = 1), aes(x, x)) +
+    stat_identity(geom = GeomBar) +
+    theme(
+      geom = element_geom(pointshape = 15),
+      geom.point = element_geom(borderwidth = 2, ink = "blue"),
+      geom.foo = element_geom(pointsize = 2),
+      geom.bar = element_geom(ink = "red")
+    )
+  p <- layer_data(p)
+  expect_equal(p$shape, 15)
+  expect_equal(p$stroke, 2)
+  expect_equal(p$size, 2)
+  expect_equal(p$colour, "red")
+})
+
+test_that("theme elements are covered in `theme_sub_*()` functions", {
+  # We use a snapshot test here to trigger when a new theme element is added
+  # or removed.
+  # A failure of this test should be taken as a prompt to see if the new
+  # theme element should be included in one of the `theme_sub_*` functions.
+
+  fmls <- paste0("axis.", fn_fmls_names(theme_sub_axis))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_x), ".x"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_y), ".y"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_top), ".x.top"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_bottom), ".x.bottom"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_left), ".y.left"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_right), ".y.right"))
+  fmls <- c(fmls, paste0("legend.", fn_fmls_names(theme_sub_legend)))
+  fmls <- c(fmls, paste0("plot.",   fn_fmls_names(theme_sub_plot)))
+  fmls <- c(fmls, paste0("panel.",  fn_fmls_names(theme_sub_panel)))
+  fmls <- c(fmls, paste0("strip.",  fn_fmls_names(theme_sub_strip)))
+
+  extra_elements <- setdiff(fn_fmls_names(theme), fmls)
+  expect_snapshot(extra_elements)
+})
+
 # Visual tests ------------------------------------------------------------
+
+test_that("element_polygon() can render a grob", {
+
+  t <- theme_gray() + theme(polygon = element_polygon(fill = "orchid"))
+  e <- calc_element("polygon", t)
+  g <- element_grob(
+    e,
+    x  = c(0, 0.5, 1, 0.5, 0.15, 0.85, 0.85, 0.15),
+    y  = c(0.5, 0, 0.5, 1, 0.15, 0.15, 0.85, 0.85),
+    id = c(1, 1, 1, 1, 2, 2, 2, 2),
+    colour = c("orange", "limegreen")
+  )
+
+  expect_s3_class(g, "pathgrob")
+  expect_equal(g$gp$fill, "orchid")
+
+  expect_doppelganger(
+    "polygon elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
+
+test_that("element_point() can render a grob", {
+
+  t <- theme_gray() + theme(point = element_point(shape = 21, size = 5))
+  e <- calc_element("point", t)
+  g <- element_grob(
+    e,
+    x = seq(0.1, 0.9, length.out = 5),
+    y = seq(0.9, 0.1, length.out = 5),
+    fill = c("orange", "limegreen", "orchid", "turquoise", "grey")
+  )
+
+  expect_s3_class(g, "points")
+  expect_equal(g$pch, 21)
+
+  expect_doppelganger(
+    "point elements",
+    function() {grid.newpage(); grid.draw(g)}
+  )
+})
 
 test_that("aspect ratio is honored", {
   df <- cbind(data_frame(x = 1:8, y = 1:8, f = gl(2,4)), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
@@ -721,7 +880,6 @@ test_that("themes don't change without acknowledgement", {
   expect_doppelganger("theme_light", plot + theme_light())
   expect_doppelganger("theme_void", plot + theme_void())
   expect_doppelganger("theme_linedraw", plot + theme_linedraw())
-  expect_doppelganger("theme_transparent", plot + theme_transparent())
 })
 
 test_that("themes look decent at larger base sizes", {
@@ -738,7 +896,6 @@ test_that("themes look decent at larger base sizes", {
   expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
   expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
   expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
-  expect_doppelganger("theme_transparent_large", plot + theme_transparent(base_size = 33))
 })
 
 test_that("setting 'spacing' and 'margins' affect the whole plot", {
@@ -881,15 +1038,11 @@ test_that("Legends can on all sides of the plot with custom justification", {
 })
 
 test_that("Strips can render custom elements", {
-  element_test <- function(...) {
-    el <- element_text(...)
-    class(el) <- c('element_test', 'element_text', 'element')
-    el
-  }
-  element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
-    rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
-  }
-  registerS3method("element_grob", "element_test", element_grob.element_test)
+  element_test <- S7::new_class("element_test", element_text)
+  S7::method(element_grob, element_test) <-
+    function(element, label = "", x = NULL, y = NULL, ...) {
+      rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
+    }
 
   df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
   plot <- ggplot(df, aes(x, y)) +
@@ -948,4 +1101,26 @@ test_that("legend margins are correct when using relative key sizes", {
   )
 
   expect_doppelganger("stretched horizontal legends", horizontal)
+})
+
+test_that("legends are placed correctly when using stretchy spacing", {
+
+  df <- data.frame(x = 1:3, y = 1:3, a = letters[1:3])
+
+  p <- ggplot(df, aes(x, y, colour = a, shape = factor(x))) +
+    geom_point() +
+    theme(
+      legend.box.background = element_rect(colour = "blue", fill = NA),
+      legend.background = element_rect(colour = "red", fill = NA)
+    )
+
+  expect_doppelganger(
+    "vertical legends placed apart",
+    p + theme(legend.position = "right", legend.spacing.y = unit(1, "null"))
+  )
+
+  expect_doppelganger(
+    "horizontal legends placed apart",
+    p + theme(legend.position = "top", legend.spacing.x = unit(1, "null"))
+  )
 })

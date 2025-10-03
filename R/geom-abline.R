@@ -69,11 +69,13 @@ NULL
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
 geom_abline <- function(mapping = NULL, data = NULL,
+                        stat = "identity", 
                         ...,
                         slope,
                         intercept,
                         na.rm = FALSE,
-                        show.legend = NA) {
+                        show.legend = NA,
+                        inherit.aes = FALSE) {
 
   # If nothing set, default to y = x
   if (is.null(mapping) && missing(slope) && missing(intercept)) {
@@ -108,11 +110,11 @@ geom_abline <- function(mapping = NULL, data = NULL,
   layer(
     data = data,
     mapping = mapping,
-    stat = StatIdentity,
+    stat = stat,
     geom = GeomAbline,
     position = PositionIdentity,
     show.legend = show.legend,
-    inherit.aes = FALSE,
+    inherit.aes = inherit.aes,
     params = list2(
       na.rm = na.rm,
       ...
@@ -120,7 +122,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -147,7 +149,7 @@ GeomAbline <- ggproto("GeomAbline", Geom,
   },
 
   default_aes = aes(
-    colour = from_theme(ink),
+    colour = from_theme(colour %||% ink),
     linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
     alpha = NA

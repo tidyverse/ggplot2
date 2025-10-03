@@ -24,11 +24,7 @@ NULL
 #' @export
 #' @rdname draw_key
 draw_key_point <- function(data, params, size) {
-  if (is.null(data$shape)) {
-    data$shape <- 19
-  } else if (is.character(data$shape)) {
-    data$shape <- translate_shape_string(data$shape)
-  }
+  data$shape <- translate_shape_string(data$shape %||% 19)
 
   # NULL means the default stroke size, and NA means no stroke.
   pointsGrob(0.5, 0.5,
@@ -58,20 +54,18 @@ draw_key_abline <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_rect <- function(data, params, size) {
+  colour <- if (is.na(data$fill %||% NA)) data$colour else data$fill
   rectGrob(gp = gg_par(
     col = NA,
-    fill = fill_alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+    fill = fill_alpha(colour %||% "grey20", data$alpha),
     lty = data$linetype %||% 1
   ))
 }
 #' @export
 #' @rdname draw_key
 draw_key_polygon <- function(data, params, size) {
-  if (is.null(data$linewidth)) {
-    data$linewidth <- 0.5
-  }
 
-  lwd <- data$linewidth
+  lwd <- data$linewidth %||% 0
 
   grob <- rectGrob(
     width = unit(1, "npc") - unit(lwd, "mm"),
@@ -128,7 +122,7 @@ draw_key_boxplot <- function(data, params, size) {
     lwd = params$box_gp$linewidth
   )
 
-  staple_size <- 0.5 + c(0.375, -0.375) * params$staplewidth
+  staple_size <- 0.5 + c(0.375, -0.375) * (params$staplewidth %||% 0)
   staple <- gg_par(
     col = params$staple_gp$colour,
     lty = params$staple_gp$linetype,
@@ -203,8 +197,6 @@ draw_key_crossbar <- function(data, params, size) {
 draw_key_path <- function(data, params, size) {
   if (is.null(data$linetype)) {
     data$linetype <- 0
-  } else {
-    data$linetype[is.na(data$linetype)] <- 0
   }
   grob <- segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gg_par(
@@ -215,11 +207,11 @@ draw_key_path <- function(data, params, size) {
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
-    arrow = params$arrow
+    arrow = params[["arrow"]]
   )
-  if (!is.null(params$arrow)) {
-    angle <- deg2rad(params$arrow$angle)
-    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+  if (!is.null(params[["arrow"]])) {
+    angle <- deg2rad(params[["arrow"]]$angle)
+    length <- convertUnit(params[["arrow"]]$length, "cm", valueOnly = TRUE)
     attr(grob, "width")  <- cos(angle) * length * 1.25
     attr(grob, "height") <- sin(angle) * length * 2
   }
@@ -236,11 +228,11 @@ draw_key_vpath <- function(data, params, size) {
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
-    arrow = params$arrow
+    arrow = params[["arrow"]]
   )
-  if (!is.null(params$arrow)) {
-    angle <- deg2rad(params$arrow$angle)
-    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+  if (!is.null(params[["arrow"]])) {
+    angle <- deg2rad(params[["arrow"]]$angle)
+    length <- convertUnit(params[["arrow"]]$length, "cm", valueOnly = TRUE)
     attr(grob, "width")  <- sin(angle) * length * 2
     attr(grob, "height") <- cos(angle) * length * 1.25
   }
@@ -332,7 +324,6 @@ draw_key_text <- function(data, params, size) {
 #' @rdname draw_key
 draw_key_label <- function(data, params, size) {
   data <- replace_null(unclass(data), label = "a", angle = 0)
-  params$label.size <- params$label.size %||% 0.25
   hjust <- compute_just(data$hjust %||% 0.5)
   vjust <- compute_just(data$vjust %||% 0.5)
   just  <- rotate_just(data$angle, hjust, vjust)
@@ -342,6 +333,7 @@ draw_key_label <- function(data, params, size) {
     face = data$fontface %||% 1,
     size = data$size %||% 3.88
   )
+  lwd <- data$linewidth %||% 0.25
   grob <- labelGrob(
     data$label,
     x = unit(just$hjust, "npc"),
@@ -351,15 +343,16 @@ draw_key_label <- function(data, params, size) {
     padding = padding,
     r = params$label.r %||% unit(0.15, "lines"),
     text.gp = gg_par(
-      col = data$colour %||% "black",
+      col = params$text.colour %||% data$colour %||% "black",
       fontfamily = data$family   %||% "",
       fontface   = data$fontface %||% 1,
       fontsize   = (data$size %||% 3.88) * .pt
     ),
     rect.gp = gg_par(
-      col  = if (isTRUE(all.equal(params$label.size, 0))) NA else data$colour,
+      col  = if (isTRUE(all.equal(lwd, 0))) NA else params$border.colour %||% data$colour %||% "black",
       fill = alpha(data$fill %||% "white", data$alpha),
-      lwd  = params$label.size
+      lwd  = lwd,
+      lty  = data$linetype %||% 1L
     )
   )
   angle  <- deg2rad(data$angle %||% 0)
@@ -391,8 +384,6 @@ draw_key_vline <- function(data, params, size) {
 draw_key_timeseries <- function(data, params, size) {
   if (is.null(data$linetype)) {
     data$linetype <- 0
-  } else {
-    data$linetype[is.na(data$linetype)] <- 0
   }
 
   grid::linesGrob(

@@ -1,4 +1,4 @@
-#' @include utilities.R compat-plyr.R
+#' @include utilities.R compat-plyr.R all-classes.R
 NULL
 
 #' Construct aesthetic mappings
@@ -38,9 +38,16 @@ NULL
 #'
 #'   [Delayed evaluation][aes_eval] for working with computed variables.
 #'
+#' @note
+#' Using `I()` to create objects of class 'AsIs' causes scales to ignore the
+#' variable and assumes the wrapped variable is direct input for the grid
+#' package. Please be aware that variables are sometimes combined, like in
+#' some stats or position adjustments, that may yield unexpected results with
+#' 'AsIs' variables.
+#'
 #' @family aesthetics documentation
-#' @return A list with class `uneval`. Components of the list are either
-#'   quosures or constants.
+#' @return An S7 object representing a list with class `mapping`. Components of
+#'   the list are either quosures or constants.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -98,13 +105,12 @@ aes <- function(x, y, ...) {
     inject(aes(!!!args))
   })
 
-  aes <- new_aes(args, env = parent.frame())
-  rename_aes(aes)
+  class_mapping(rename_aes(args), env = parent.frame())
 }
 
 #' @export
 #' @rdname is_tests
-is.mapping <- function(x) inherits(x, "uneval")
+is_mapping <- function(x) S7::S7_inherits(x, class_mapping)
 
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
@@ -123,48 +129,43 @@ new_aesthetic <- function(x, env = globalenv()) {
 
   x
 }
-new_aes <- function(x, env = globalenv()) {
-  check_object(x, is.list, "a {.cls list}")
-  x <- lapply(x, new_aesthetic, env = env)
-  structure(x, class = "uneval")
-}
 
+# TODO: remove `local()` when S7 has fixed S7/#390
 #' @export
-print.uneval <- function(x, ...) {
-  cat("Aesthetic mapping: \n")
+local({
+  S7::method(print, class_mapping) <- function(x, ...) {
+    cat("Aesthetic mapping: \n")
 
-  if (length(x) == 0) {
-    cat("<empty>\n")
-  } else {
-    values <- vapply(x, quo_label, character(1))
-    bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
+    if (length(x) == 0) {
+      cat("<empty>\n")
+    } else {
+      values <- vapply(x, quo_label, character(1))
+      bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
 
-    cat(bullets, sep = "")
+      cat(bullets, sep = "")
+    }
+
+    invisible(x)
   }
+})
 
-  invisible(x)
+local({
+  S7::method(`[`, class_mapping) <- function(x, i, ...) {
+    class_mapping(`[`(S7::S7_data(x), i, ...))
+  }
+})
+
+#' @export
+`[[<-.ggplot2::mapping` <- function(x, i, value) {
+  class_mapping(`[[<-`(S7::S7_data(x), i, value))
 }
 
 #' @export
-"[.uneval" <- function(x, i, ...) {
-  new_aes(NextMethod())
-}
+`$<-.ggplot2::mapping` <- `[[<-.ggplot2::mapping`
 
-# If necessary coerce replacements to quosures for compatibility
 #' @export
-"[[<-.uneval" <- function(x, i, value) {
-  new_aes(NextMethod())
-}
-#' @export
-"$<-.uneval" <- function(x, i, value) {
-  # Can't use NextMethod() because of a bug in R 3.1
-  x <- unclass(x)
-  x[[i]] <- value
-  new_aes(x)
-}
-#' @export
-"[<-.uneval" <- function(x, i, value) {
-  new_aes(NextMethod())
+`[<-.ggplot2::mapping` <- function(x, i, value) {
+  class_mapping(`[<-`(S7::S7_data(x), i, value))
 }
 
 #' Standardise aesthetic names
@@ -205,8 +206,7 @@ substitute_aes <- function(x, fun = standardise_aes_symbols, ...) {
   x <- lapply(x, function(aesthetic) {
     as_quosure(fun(quo_get_expr(aesthetic), ...), env = environment(aesthetic))
   })
-  class(x) <- "uneval"
-  x
+  class_mapping(x)
 }
 # x is a quoted expression from inside aes()
 standardise_aes_symbols <- function(x) {
@@ -262,7 +262,7 @@ is_position_aes <- function(vars) {
 #'
 #' @section Life cycle:
 #'
-#' All these functions are soft-deprecated. Please use tidy evaluation idioms
+#' All these functions are deprecated. Please use tidy evaluation idioms
 #' instead. Regarding `aes_string()`, you can replace it with `.data` pronoun.
 #' For example, the following code can achieve the same mapping as
 #' `aes_string(x_var, y_var)`.
@@ -283,7 +283,7 @@ is_position_aes <- function(vars) {
 #'
 #' @export
 aes_ <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_()",
     details = "Please use tidy evaluation idioms with `aes()`"
@@ -295,7 +295,7 @@ aes_ <- function(x, y, ...) {
   caller_env <- parent.frame()
 
   as_quosure_aes <- function(x) {
-    if (is.formula(x) && length(x) == 2) {
+    if (is_formula(x) && length(x) == 2) {
       as_quosure(x)
     } else if (is.null(x) || is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
@@ -304,13 +304,13 @@ aes_ <- function(x, y, ...) {
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
-  structure(rename_aes(mapping), class = "uneval")
+  class_mapping(rename_aes(mapping))
 }
 
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
-  deprecate_soft0(
+  deprecate_warn0(
     "3.0.0",
     "aes_string()",
     details = c(
@@ -330,7 +330,7 @@ aes_string <- function(x, y, ...) {
     new_aesthetic(x, env = caller_env)
   })
 
-  structure(rename_aes(mapping), class = "uneval")
+  class_mapping(rename_aes(mapping))
 }
 
 #' @export
@@ -351,10 +351,9 @@ aes_all <- function(vars) {
 
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
-  structure(
-    lapply(vars, function(x) new_quosure(as.name(x), emptyenv())),
-    class = "uneval"
-  )
+  x <- class_mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
+  class(x) <- union("unlabelled", class(x))
+  x
 }
 
 #' Automatic aesthetic mapping
@@ -367,29 +366,7 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  deprecate_warn0("2.0.0", "aes_auto()")
-
-  # detect names of data
-  if (is.null(data)) {
-    cli::cli_abort("{.fn aes_auto} requires a {.cls data.frame} or names of data.frame.")
-  } else if (is.data.frame(data)) {
-    vars <- names(data)
-  } else {
-    vars <- data
-  }
-
-  # automatically detected aes
-  vars <- intersect(ggplot_global$all_aesthetics, vars)
-  names(vars) <- vars
-  aes <- lapply(vars, function(x) parse(text = x)[[1]])
-
-  # explicitly defined aes
-  if (length(match.call()) > 2) {
-    args <- as.list(match.call()[-1])
-    aes <- c(aes, args[names(args) != "data"])
-  }
-
-  structure(rename_aes(aes), class = "uneval")
+  lifecycle::deprecate_stop("2.0.0", "aes_auto()")
 }
 
 mapped_aesthetics <- function(x) {

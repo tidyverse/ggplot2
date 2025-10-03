@@ -45,7 +45,7 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
 view_scale_secondary <- function(scale, limits = scale$get_limits(),
                                  continuous_range = scale$dimension(limits = limits)) {
 
-  if (is.null(scale$secondary.axis) || is.waiver(scale$secondary.axis) || scale$secondary.axis$empty()) {
+  if (is.null(scale$secondary.axis) || is_waiver(scale$secondary.axis) || scale$secondary.axis$empty()) {
     # if there is no second axis, return the primary scale with no guide
     # this guide can be overridden using guides()
     primary_scale <- view_scale_primary(scale, limits, continuous_range)
@@ -76,7 +76,7 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       # different breaks and labels in a different data space
       aesthetics = scale$aesthetics,
       name = scale$sec_name(),
-      make_title = function(self, title) self$scale$make_sec_title(title),
+      make_title = function(self, ...) self$scale$make_sec_title(...),
       continuous_range = sort(continuous_range),
       dimension = function(self) self$break_info$range,
       get_limits = function(self) self$break_info$range,
@@ -107,13 +107,27 @@ ViewScale <- ggproto("ViewScale", NULL,
   is_empty = function(self) {
     is.null(self$get_breaks()) && is.null(self$get_breaks_minor())
   },
-  is_discrete = function(self) self$scale_is_discrete,
-  dimension = function(self) self$continuous_range,
-  get_limits = function(self) self$limits,
-  get_breaks = function(self) self$breaks,
-  get_breaks_minor = function(self) self$minor_breaks,
-  get_labels = function(self, breaks = self$get_breaks()) self$scale$get_labels(breaks),
-  get_transformation = function(self) self$scale$get_transformation(),
+  is_discrete = function(self) {
+    self$scale_is_discrete
+  },
+  dimension = function(self) {
+    self$continuous_range
+  },
+  get_limits = function(self) {
+    self$limits
+  },
+  get_breaks = function(self) {
+    self$breaks
+  },
+  get_breaks_minor = function(self) {
+    self$minor_breaks
+  },
+  get_labels = function(self, breaks = self$get_breaks()) {
+    self$scale$get_labels(breaks)
+  },
+  get_transformation = function(self) {
+    self$scale$get_transformation()
+  },
   rescale = function(self, x) {
     self$scale$rescale(x, self$limits, self$continuous_range)
   },
@@ -127,8 +141,8 @@ ViewScale <- ggproto("ViewScale", NULL,
       x
     }
   },
-  make_title = function(self, title) {
-    self$scale$make_title(title)
+  make_title = function(self, ...) {
+    self$scale$make_title(...)
   },
   mapped_breaks = function(self) {
     self$map(self$get_breaks())
@@ -150,5 +164,31 @@ ViewScale <- ggproto("ViewScale", NULL,
     }
 
     self$rescale(b)
+  },
+  make_fixed_copy = function(self) {
+    breaks <- self$get_breaks()
+    minor  <- self$get_breaks_minor()
+    transform <- self$scale$get_transformation()
+
+    if (self$scale$is_discrete()) {
+      limits <- self$get_limits()
+    } else {
+      limits <- self$continuous_range
+    }
+
+    if (!is.null(transform)) {
+      breaks <- transform$inverse(breaks)
+      minor  <- transform$inverse(minor)
+    }
+
+    ggproto(
+      NULL, self$scale,
+      breaks = breaks,
+      minor_breaks = minor,
+      limits = limits,
+      expand = c(0, 0, 0, 0),
+      continuous_limits = self$continuous_range,
+      train = function (...) NULL
+    )
   }
 )

@@ -17,7 +17,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
                           box.color         = NULL,
                           box.linetype      = NULL,
                           box.linewidth     = NULL,
-                          fatten = 2.5,
+                          fatten = deprecated(),
                           na.rm = FALSE,
                           orientation = NA,
                           show.legend = NA,
@@ -54,12 +54,21 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
 GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   setup_params = function(data, params) {
+    if (lifecycle::is_present(params$fatten %||% deprecated())) {
+      deprecate_soft0(
+        "4.0.0", "geom_crossbar(fatten)",
+        "geom_crossbar(middle.linewidth)"
+      )
+    } else {
+      # For backward compatibility reasons
+      params$fatten <- 2.5
+    }
     GeomErrorbar$setup_params(data, params)
   },
 
@@ -70,8 +79,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   },
 
   default_aes = aes(
-    colour = from_theme(ink),
-    fill = NA,
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% NA),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
     alpha = NA
@@ -84,8 +93,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   draw_panel = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", fatten = 2.5, width = NULL,
                         flipped_aes = FALSE, middle_gp = NULL, box_gp = NULL) {
-
-    data <- check_linewidth(data, snake_class(self))
+    data <- fix_linewidth(data, snake_class(self))
     data <- flip_data(data, flipped_aes)
 
     middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = linewidth * fatten, alpha = NA)

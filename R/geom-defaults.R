@@ -99,16 +99,16 @@ get_geom_defaults <- function(geom, theme = theme_get()) {
   if (is.function(geom)) {
     geom <- geom()
   }
-  if (is.layer(geom)) {
+  if (is_layer(geom)) {
     data <- data_frame0(.id = 1L)
     data <- geom$compute_geom_2(data = data, theme = theme)
     data$.id <- NULL
     return(data)
   }
   if (is.character(geom)) {
-    geom <- check_subclass(geom, "Geom")
+    geom <- validate_subclass(geom, "Geom")
   }
-  if (is.geom(geom)) {
+  if (is_geom(geom)) {
     out <- geom$use_defaults(data = NULL, theme = theme)
     return(out)
   }
@@ -126,7 +126,7 @@ reset_stat_defaults <- function() reset_defaults("stat")
 cache_defaults <- new_environment()
 
 update_defaults <- function(name, subclass, new, env = parent.frame()) {
-  obj   <- check_subclass(name, subclass, env = env)
+  obj   <- validate_subclass(name, subclass, env = env)
   index <- snake_class(obj)
 
   if (is.null(new)) { # Reset from cache

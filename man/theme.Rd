@@ -10,6 +10,8 @@ theme(
   rect,
   text,
   title,
+  point,
+  polygon,
   geom,
   spacing,
   margins,
@@ -84,6 +86,7 @@ theme(
   legend.key.spacing,
   legend.key.spacing.x,
   legend.key.spacing.y,
+  legend.key.justification,
   legend.frame,
   legend.ticks,
   legend.ticks.length,
@@ -164,6 +167,10 @@ these should also be defined in the \verb{element tree} argument. \link[rlang:sp
 \item{title}{all title elements: plot, axes, legends (\code{\link[=element_text]{element_text()}};
 inherits from \code{text})}
 
+\item{point}{all point elements (\code{\link[=element_point]{element_point()}})}
+
+\item{polygon}{all polygon elements (\code{\link[=element_polygon]{element_polygon()}})}
+
 \item{geom}{defaults for geoms (\code{\link[=element_geom]{element_geom()}})}
 
 \item{spacing}{all spacings (\code{\link[grid:unit]{unit()}})}
@@ -228,6 +235,11 @@ inherits from \code{spacing}.}
 between legend keys given as a \code{unit}. Spacing in the horizontal (x) and
 vertical (y) direction inherit from \code{legend.key.spacing} or can be
 specified separately. \code{legend.key.spacing} inherits from \code{spacing}.}
+
+\item{legend.key.justification}{Justification for positioning legend keys
+when more space is available than needed for display. The default, \code{NULL},
+stretches keys into the available space. Can be a location like \code{"center"}
+or \code{"top"}, or a two-element numeric vector.}
 
 \item{legend.frame}{frame drawn around the bar (\code{\link[=element_rect]{element_rect()}}).}
 
@@ -384,7 +396,7 @@ differently when added to a ggplot object. Also, when setting
 \code{complete = TRUE} all elements will be set to inherit from blank
 elements.}
 
-\item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
+\item{validate}{\code{TRUE} to run \code{check_element()}, \code{FALSE} to bypass checks.}
 }
 \description{
 Themes are a powerful way to customize the non-data components of your plots:
@@ -504,10 +516,25 @@ p3 + theme(strip.text.x = element_text(colour = "white", face = "bold"))
 # as in the facet_wrap the default strip.position is "top"
 p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 p3 + theme(panel.spacing = unit(1, "lines"))
+
+# Colours -------------------------------------------------------------------
+
+p4 <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  annotate(label = "Text Annotation", x = 5, y = 30, geom = "text")
+
+# You can use the 'ink' setting to set colour defaults for all layers
+p4 + theme(geom = element_geom(ink = "dodgerblue"))
+# Alternate colours are derived from the 'accent' and 'paper' settings
+p4 + geom_smooth(method = "lm", formula = y ~ x) +
+  theme(geom = element_geom(accent = "tomato", paper = "orchid"))
+# You can also set default palettes in the theme
+p4 + aes(colour = drat) +
+  theme(palette.colour.continuous = c("white", "pink", "hotpink"))
 }
 }
 \seealso{
-\code{\link[=+.gg]{+.gg()}} and \link{\%+replace\%},
+\code{\link[=add_gg]{add_gg()}} and \code{\link[=get_theme]{\%+replace\%}},
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.

@@ -85,7 +85,7 @@
 #' p + facet_grid(. ~ cyl2, labeller = label_parsed)
 #'
 #' # Include optional argument in label function
-#' p + facet_grid(. ~ cyl, labeller = function(x) label_both(x, sep = "="))
+#' p + facet_grid(. ~ cyl, labeller = \(x) label_both(x, sep = "="))
 #' }
 #' @name labellers
 NULL
@@ -296,7 +296,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       x(labels)
     } else if (is.function(x)) {
       default(lapply(labels, x))
-    } else if (is.formula(x)) {
+    } else if (is_formula(x)) {
       default(lapply(labels, as_function(x)))
     } else if (is.character(x)) {
       default(lapply(labels, function(label) x[label]))
@@ -411,7 +411,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
                      keep.as.numeric = deprecated(), .multi_line = TRUE,
                      .default = label_value) {
   if (lifecycle::is_present(keep.as.numeric)) {
-    deprecate_warn0("2.0.0", "labeller(keep.as.numeric)")
+    lifecycle::deprecate_stop("2.0.0", "labeller(keep.as.numeric)")
   }
   dots <- list2(...)
   .default <- as_labeller(.default)
@@ -538,7 +538,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #' Takes the output from title_spec, adds margins, creates gList with strip
 #' background and label, and returns gtable matrix.
 #'
-#' @param grobs Output from [titleGrob()].
+#' @param grobs Output from `titleGrob()`.
 #' @param theme Theme object.
 #' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
 #' @param clip should drawing be clipped to the specified cells (‘"on"’),the
@@ -546,7 +546,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #'
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
-  if (length(grobs) == 0 || is.zero(grobs[[1]])) {
+  if (length(grobs) == 0 || is_zero(grobs[[1]])) {
     # Subsets matrix of zeroGrobs to correct length (#4050)
     grobs <- grobs[seq_len(NROW(grobs))]
     return(grobs)
@@ -577,22 +577,18 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   })
 }
 
-# Check for old school labeller
-check_labeller <- function(labeller) {
+# Reject old school labeller
+validate_labeller <- function(labeller) {
+
   labeller <- match.fun(labeller)
   is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
 
-  if (is_deprecated) {
-    old_labeller <- labeller
-    labeller <- function(labels) {
-      Map(old_labeller, names(labels), labels)
-    }
-    # TODO Update to lifecycle after next lifecycle release
-    cli::cli_warn(c(
-      "The {.arg labeller} API has been updated. Labellers taking {.arg variable} and {.arg value} arguments are now deprecated.",
-      "i" = "See labellers documentation."
-    ))
+  if (!is_deprecated) {
+    return(labeller)
   }
 
-  labeller
+  lifecycle::deprecate_stop(
+    "2.0.0",
+    what = I("Providing a labeller with `variable` and `value` arguments")
+  )
 }

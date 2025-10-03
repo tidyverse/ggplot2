@@ -15,9 +15,9 @@ coverage](https://codecov.io/gh/tidyverse/ggplot2/graph/badge.svg)](https://app.
 
 ggplot2 is a system for declaratively creating graphics, based on [The
 Grammar of
-Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl).
-You provide the data, tell ggplot2 how to map variables to aesthetics,
-what graphical primitives to use, and it takes care of the details.
+Graphics](https://link.springer.com/book/10.1007/0-387-28695-0). You
+provide the data, tell ggplot2 how to map variables to aesthetics, what
+graphical primitives to use, and it takes care of the details.
 
 ## Installation
 
@@ -49,7 +49,7 @@ then add on layers (like `geom_point()` or `geom_histogram()`), scales
 ``` r
 library(ggplot2)
 
-ggplot(mpg, aes(displ, hwy, colour = class)) + 
+ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
@@ -74,7 +74,7 @@ extensions. See a community maintained list at
 
 If you are new to ggplot2 you are better off starting with a systematic
 introduction, rather than trying to learn from reading individual
-documentation pages. Currently, there are three good places to start:
+documentation pages. Currently, there are several good places to start:
 
 1.  The [Data Visualization](https://r4ds.hadley.nz/data-visualize) and
     [Communication](https://r4ds.hadley.nz/communication) chapters in [R
@@ -97,12 +97,15 @@ documentation pages. Currently, there are three good places to start:
     Cookbook](https://r-graphics.org) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.
 
-If you’ve mastered the basics and want to learn more, read [ggplot2:
-Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
-describes the theoretical underpinnings of ggplot2 and shows you how all
-the pieces fit together. This book helps you understand the theory that
-underpins ggplot2, and will help you create new types of graphics
-specifically tailored to your needs.
+5.  If you’ve mastered the basics and want to learn more, read [ggplot2:
+    Elegant Graphics for Data Analysis](https://ggplot2-book.org). It
+    describes the theoretical underpinnings of ggplot2 and shows you how
+    all the pieces fit together. This book helps you understand the
+    theory that underpins ggplot2, and will help you create new types of
+    graphics specifically tailored to your needs.
+
+6.  For articles about announcements and deep-dives you can visit the
+    [tidyverse blog](https://www.tidyverse.org/tags/ggplot2/).
 
 ## Getting help
 

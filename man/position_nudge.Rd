@@ -4,7 +4,7 @@
 \alias{position_nudge}
 \title{Nudge points a fixed distance}
 \usage{
-position_nudge(x = 0, y = 0)
+position_nudge(x = NULL, y = NULL)
 }
 \arguments{
 \item{x, y}{Amount of vertical and horizontal distance to move.}
@@ -33,6 +33,11 @@ ggplot(df, aes(x, y)) +
 ggplot(df, aes(x, y)) +
   geom_point() +
   geom_text(aes(label = y), nudge_y = -0.1)
+
+# For each text individually
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  geom_text(aes(label = y, nudge_y = c(-0.1, 0.1, -0.1, 0.1)))
 }
 \seealso{
 Other position adjustments: 
@@ -43,3 +48,13 @@ Other position adjustments:
 \code{\link{position_stack}()}
 }
 \concept{position adjustments}
+\section{Aesthetics}{
+
+\code{position_nudge()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \code{nudge_x} \tab → \code{0} \cr
+ • \tab \code{nudge_y} \tab → \code{0} \cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}

@@ -57,7 +57,7 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -68,8 +68,8 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
-    params$fun <- make_summary_fun(
-      params$fun.data, params$fun,
+    params[["fun"]] <- make_summary_fun(
+      params$fun.data, params[["fun"]],
       params$fun.max, params$fun.min,
       params$fun.args %||% list()
     )
@@ -79,16 +79,21 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   compute_group = function(data, scales, fun = NULL,
                            bins = 30, binwidth = NULL, breaks = NULL,
                            origin = NULL, right = FALSE, na.rm = FALSE,
-                           flipped_aes = FALSE, width = NULL) {
-    data <- flip_data(data, flipped_aes)
-    x <- flipped_names(flipped_aes)$x
-    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins,
-                           closed = if (right) "right" else "left")
+                           flipped_aes = FALSE, width = NULL, center = NULL,
+                           boundary = NULL, closed = c("right", "left")) {
 
-    data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
+    x <- flipped_names(flipped_aes)$x
+    bins <- compute_bins(
+      data[[x]], scales[[x]],
+      breaks = breaks, binwidth = binwidth, bins = bins,
+      center = center,  boundary = boundary, closed = closed
+    )
+    data$bin <- bin_cut(data[[x]], bins)
+
+    data <- flip_data(data, flipped_aes)
     out <- dapply(data, "bin", fun %||% function(df) mean_se(df$y))
 
-    locs <- bin_loc(breaks, out$bin)
+    locs <- bin_loc(bins$breaks, out$bin)
     out$x <- locs$mid
     out$width <- width %||% if (scales[[x]]$is_discrete()) 0.9 else locs$length
     out$flipped_aes <- flipped_aes
@@ -102,6 +107,13 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
   force(fun.max)
   force(fun.min)
   force(fun.args)
+
+  as_function <- function(x) {
+    if (is.character(x)) {
+      x <- match.fun(x)
+    }
+    rlang::as_function(x)
+  }
 
   if (!is.null(fun.data)) {
     # Function that takes complete data frame as input

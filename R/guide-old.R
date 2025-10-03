@@ -80,7 +80,7 @@ old_guide <- function(guide) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -89,7 +89,7 @@ GuideOld <- ggproto(
 
   train = function(self, params, scale, aesthetic = NULL,
                    title = waiver(), direction = NULL) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     params$direction <- params$direction %||% direction %||% "vertical"
     params <- guide_train(params, scale, aesthetic)
     params

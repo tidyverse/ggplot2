@@ -1,10 +1,13 @@
+#' @include geom-point.R
+NULL
+
 #' Count overlapping points
 #'
-#' This is a variant [geom_point()] that counts the number of
+#' This is a variant of [geom_point()] that counts the number of
 #' observations at each location, then maps the count to point area. It
 #' useful when you have discrete data and overplotting.
 #'
-#' @eval rd_aesthetics("geom", "point")
+#' @aesthetics GeomPoint
 #' @param geom,stat Use to override the default connection between
 #'   `geom_count()` and `stat_sum()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
@@ -43,23 +46,4 @@
 #'   scale_size_area(max_size = 10)
 #' d + geom_count(aes(size = after_stat(prop), group = clarity)) +
 #'   scale_size_area(max_size = 10)
-geom_count <- function(mapping = NULL, data = NULL,
-                       stat = "sum", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomPoint,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_count <- make_constructor(GeomPoint, stat = "sum")

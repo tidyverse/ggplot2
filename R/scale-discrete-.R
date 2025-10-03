@@ -16,6 +16,12 @@
 #'   argument (the number of levels in the scale) returns the numerical values
 #'   that they should take.
 #' @param sec.axis [dup_axis()] is used to specify a secondary axis.
+#' @param continuous.limits One of:
+#'   * `NULL` to use the default scale range
+#'   * A numeric vector of length two providing a display range for the scale.
+#'   Use `NA` to refer to the existing minimum or maximum.
+#'   * A function that accepts the limits and returns a numeric vector of
+#'   length two.
 #' @rdname scale_discrete
 #' @family position scales
 #' @seealso
@@ -69,7 +75,8 @@
 #' }
 scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(), guide = waiver(),
-                             position = "bottom", sec.axis = waiver()) {
+                             position = "bottom", sec.axis = waiver(),
+                             continuous.limits = NULL) {
   sc <- discrete_scale(
     aesthetics = ggplot_global$x_aes, name = name,
     palette = palette, ...,
@@ -78,13 +85,15 @@ scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
   )
 
   sc$range_c <- ContinuousRange$new()
+  sc$continuous_limits <- continuous.limits
   set_sec_axis(sec.axis, sc)
 }
 #' @rdname scale_discrete
 #' @export
 scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
                              expand = waiver(), guide = waiver(),
-                             position = "left", sec.axis = waiver()) {
+                             position = "left", sec.axis = waiver(),
+                             continuous.limits = NULL) {
   sc <- discrete_scale(
     aesthetics = ggplot_global$y_aes, name = name,
     palette = palette, ...,
@@ -93,6 +102,7 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
   )
 
   sc$range_c <- ContinuousRange$new()
+  sc$continuous_limits <- continuous.limits
   set_sec_axis(sec.axis, sc)
 }
 
@@ -101,13 +111,15 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
 # mapping, but makes it possible to place objects at non-integer positions,
 # as is necessary for jittering etc.
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
 ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
+  continuous_limits = NULL,
+
   train = function(self, x) {
-    if (is.discrete(x)) {
+    if (is_discrete(x)) {
       self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
     } else {
       self$range_c$train(x)
@@ -141,7 +153,10 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    if (is.discrete(x)) {
+    if (inherits(x, "AsIs")) {
+      return(x)
+    }
+    if (is_discrete(x)) {
       values <- self$palette(length(limits))
       if (!is.numeric(values)) {
         cli::cli_abort(
@@ -170,7 +185,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   sec_name = function(self) {
-    if (is.waiver(self$secondary.axis)) {
+    if (is_waiver(self$secondary.axis)) {
       waiver()
     } else {
       self$secondary.axis$name

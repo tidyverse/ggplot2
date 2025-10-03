@@ -29,13 +29,17 @@ geom_blank <- function(mapping = NULL, data = NULL,
 }
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
 GeomBlank <- ggproto("GeomBlank", Geom,
   default_aes = aes(),
-  handle_na = function(data, params) data,
+  handle_na = function(data, params) {
+    data
+  },
   check_constant_aes = FALSE,
-  draw_panel = function(...) nullGrob()
+  draw_panel = function(...) {
+    nullGrob()
+  }
 )

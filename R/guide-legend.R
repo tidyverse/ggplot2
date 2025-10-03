@@ -15,9 +15,14 @@
 #'   specified in [labs()] is used for the title.
 #' @param theme A [`theme`][theme()] object to style the guide individually or
 #'   differently from the plot's theme settings. The `theme` argument in the
-#'   guide overrides, and is combined with, the plot's theme.
+#'   guide partially overrides, and is combined with, the plot's theme.
+#'   Arguments that apply to a single legend are respected, most of which have
+#'   the `legend`-prefix. Arguments that apply to combined legends
+#'   (the legend box) are ignored, including `legend.position`,
+#'   `legend.justification.*`, `legend.location` and `legend.box.*`.
 #' @param position A character string indicating where the legend should be
 #'   placed relative to the plot panels.
+#'   One of "top", "right", "bottom", "left", or "inside".
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical".
 #' @param override.aes A list specifying aesthetic parameters of legend key.
@@ -140,7 +145,7 @@ guide_legend <- function(
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -174,6 +179,7 @@ GuideLegend <- ggproto(
     key            = "legend.key",
     key_height     = "legend.key.height",
     key_width      = "legend.key.width",
+    key_just       = "legend.key.justification",
     text           = "legend.text",
     theme.title    = "legend.title",
     spacing_x      = "legend.key.spacing.x",
@@ -185,7 +191,7 @@ GuideLegend <- ggproto(
 
   extract_params = function(scale, params,
                             title = waiver(), ...) {
-    params$title <- scale$make_title(params$title %|W|% scale$name %|W|% title)
+    params$title <- scale$make_title(params$title, scale$name, title)
     if (isTRUE(params$reverse %||% FALSE)) {
       params$key <- params$key[nrow(params$key):1, , drop = FALSE]
     }
@@ -271,7 +277,6 @@ GuideLegend <- ggproto(
       c("horizontal", "vertical"), arg_nm = "direction"
     )
     params$n_breaks <- n_breaks <- nrow(params$key)
-    params$n_key_layers <- length(params$decor) + 1 # +1 is key background
 
     # Resolve shape
     if (!is.null(params$nrow) && !is.null(params$ncol) &&
@@ -321,7 +326,7 @@ GuideLegend <- ggproto(
     # Resolve title. The trick here is to override the main text element, so
     # that any settings declared in `legend.title` will be honoured but we have
     # custom defaults for the guide.
-    margin <- calc_element("text", theme)$margin
+    margin <- try_prop(calc_element("text", theme), "margin")
     title <- theme(text = element_text(
       hjust = 0, vjust = 0.5,
       margin = position_margin(title_position, margin, gap)
@@ -374,6 +379,9 @@ GuideLegend <- ggproto(
       elements$key <-
         ggname("legend.key", element_grob(elements$key))
     }
+    if (!is.null(elements$key_just)) {
+      elements$key_just <- valid.just(elements$key_just)
+    }
 
     elements$text <-
       label_angle_heuristic(elements$text, elements$text_position, params$angle)
@@ -387,22 +395,39 @@ GuideLegend <- ggproto(
 
   build_decor = function(decor, grobs, elements, params) {
 
-    key_size <- c(elements$width_cm, elements$height_cm) * 10
+    key_size <- c(elements$width_cm, elements$height_cm)
+    just <- elements$key_just
+    idx <- seq_len(params$n_breaks)
 
-    draw <- function(i) {
-      bg <- elements$key
-      keys <- lapply(decor, function(g) {
-        data <- vec_slice(g$data, i)
-        if (data$.draw %||% TRUE) {
-          key <- g$draw_key(data, g$params, key_size)
-          set_key_size(key, data$linewidth, data$size, key_size / 10)
-        } else {
-          zeroGrob()
+    key_glyphs <- lapply(idx, function(i) {
+      glyph <- lapply(decor, function(dec) {
+        data <- vec_slice(dec$data, i)
+        if (!(data$.draw %||% TRUE)) {
+          return(zeroGrob())
         }
+        key <- dec$draw_key(data, dec$params, key_size * 10)
+        set_key_size(key, data$linewidth, data$size, key_size)
       })
-      c(list(bg), keys)
-    }
-    unlist(lapply(seq_len(params$n_breaks), draw), FALSE)
+
+      width  <- vapply(glyph, get_attr, which = "width", default = 0, numeric(1))
+      width  <- max(width, 0, key_size[1], na.rm = TRUE)
+      height <- vapply(glyph, get_attr, which = "height", default = 0, numeric(1))
+      height <- max(height, 0, key_size[2], na.rm = TRUE)
+
+      vp <- NULL
+      if (!is.null(just)) {
+        vp <- viewport(
+          x = just[1], y = just[2], just = just,
+          width = unit(width, "cm"), height = unit(height, "cm")
+        )
+      }
+
+      grob <- gTree(children = inject(gList(elements$key, !!!glyph)), vp = vp)
+      attr(grob, "width")  <- width
+      attr(grob, "height") <- height
+      grob
+    })
+    key_glyphs
   },
 
   build_labels = function(key, elements, params) {
@@ -520,7 +545,7 @@ GuideLegend <- ggproto(
     gt <- gtable(widths = widths, heights = heights)
 
     # Add keys
-    if (!is.zero(grobs$decor)) {
+    if (!is_zero(grobs$decor)) {
       n_key_layers <- params$n_key_layers %||% 1L
       key_cols <- rep(layout$key_col, each = n_key_layers)
       key_rows <- rep(layout$key_row, each = n_key_layers)
@@ -536,7 +561,7 @@ GuideLegend <- ggproto(
       )
     }
 
-    if (!is.zero(grobs$labels)) {
+    if (!is_zero(grobs$labels)) {
       gt <- gtable_add_grob(
         gt, grobs$labels,
         name = names(labels) %||%
@@ -549,13 +574,13 @@ GuideLegend <- ggproto(
 
     gt <- self$add_title(
       gt, grobs$title, elements$title_position,
-      with(elements$title, rotate_just(angle, hjust, vjust))
+      rotate_just(element = elements$title)
     )
 
     gt <- gtable_add_padding(gt, unit(elements$padding, "cm"))
 
     # Add background
-    if (!is.zero(elements$background)) {
+    if (!is_zero(elements$background)) {
       gt <- gtable_add_grob(
         gt, elements$background,
         name = "background", clip = "off",
@@ -623,7 +648,7 @@ set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
 keep_key_data <- function(key, data, aes, show) {
   # First, can we exclude based on anything else than actually checking the
   # data that we should include or drop the key?
-  if (!is.discrete(key$.value)) {
+  if (!is_discrete(key$.value)) {
     return(TRUE)
   }
   if (is_named(show)) {
@@ -666,13 +691,17 @@ keep_key_data <- function(key, data, aes, show) {
 
 position_margin <- function(position, margin = NULL, gap = unit(0, "pt")) {
   margin <- margin %||% margin()
-  switch(
+  margin <- switch(
     position,
     top    = replace(margin, 3, margin[3] + gap),
     bottom = replace(margin, 1, margin[1] + gap),
     left   = replace(margin, 2, margin[2] + gap),
     right  = replace(margin, 4, margin[4] + gap)
   )
+  # We have to manually reconstitute the class because the 'simpleUnit' class
+  # might be dropped by the replacement operation.
+  class(margin) <- c("ggplot2::margin", class(margin), "S7_object")
+  margin
 }
 
 # Function implementing backward compatibility with the old way of specifying
@@ -786,8 +815,12 @@ deprecated_guide_args <- function(
 
   # Set as theme
   theme <- compact(theme)
-  if (!is.theme(theme)) {
+  if (!is_theme(theme)) {
     theme <- inject(theme(!!!theme))
   }
   theme
+}
+
+get_attr <- function(x, which, exact = TRUE, default = NULL) {
+  attr(x, which = which, exact = exact) %||% default
 }

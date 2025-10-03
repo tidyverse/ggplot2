@@ -13,6 +13,8 @@ geom_bin_2d(
   stat = "bin2d",
   position = "identity",
   ...,
+  lineend = "butt",
+  linejoin = "mitre",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -24,9 +26,13 @@ stat_bin_2d(
   geom = "tile",
   position = "identity",
   ...,
-  bins = 30,
   binwidth = NULL,
+  bins = 30,
+  breaks = NULL,
   drop = TRUE,
+  boundary = NULL,
+  closed = NULL,
+  center = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -94,6 +100,10 @@ lists which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -108,20 +118,45 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_bin_2d()} and \code{stat_bin_2d()}. For more information about overriding
 these connections, see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom}
 arguments work.}
 
-\item{bins}{numeric vector giving number of bins in both vertical and
-horizontal directions. Set to 30 by default.}
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that takes x after scale transformation as input and
+returns a single numeric value. When specifying a function along with a
+grouping structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.
 
-\item{binwidth}{Numeric vector giving bin width in both vertical and
-horizontal directions. Overrides \code{bins} if both set.}
+The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{drop}{if \code{TRUE} removes all cells with 0 counts.}
+
+\item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
+or left edges of bins are included in the bin.}
+
+\item{center, boundary}{bin position specifiers. Only one, \code{center} or
+\code{boundary}, may be specified for a single plot. \code{center} specifies the
+center of one of the bins. \code{boundary} specifies the boundary between two
+bins. Note that if either is above or below the range of the data, things
+will be shifted by the appropriate integer multiple of \code{binwidth}.
+For example, to center on integers use \code{binwidth = 1} and \code{center = 0}, even
+if \code{0} is outside the range of the data. Alternatively, this same alignment
+can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+outside the range of the data.}
 }
 \description{
 Divides the plane into rectangles, counts the number of cases in
@@ -129,19 +164,6 @@ each rectangle, and then (by default) maps the number of cases to the
 rectangle's fill. This is a useful alternative to \code{\link[=geom_point]{geom_point()}}
 in the presence of overplotting.
 }
-\section{Aesthetics}{
-
-\code{stat_bin_2d()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \code{\link[=aes_colour_fill_alpha]{fill}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{weight}
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
@@ -153,6 +175,16 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 }
 }
 
+\section{Controlling binning parameters for the x and y directions}{
+
+The arguments \code{bins}, \code{binwidth}, \code{breaks}, \code{center}, and \code{boundary} can
+be set separately for the x and y directions. When given as a scalar, one
+value applies to both directions. When given as a vector of length two,
+the first is applied to the x direction and the second to the y direction.
+Alternatively, these can be a named list containing \code{x} and \code{y} elements,
+for example \code{list(x = 10, y = 20)}.
+}
+
 \examples{
 d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
 d + geom_bin_2d()
@@ -160,11 +192,29 @@ d + geom_bin_2d()
 # You can control the size of the bins by specifying the number of
 # bins in each direction:
 d + geom_bin_2d(bins = 10)
-d + geom_bin_2d(bins = 30)
+d + geom_bin_2d(bins = list(x = 30, y = 10))
 
 # Or by specifying the width of the bins
 d + geom_bin_2d(binwidth = c(0.1, 0.1))
 }
 \seealso{
 \code{\link[=stat_bin_hex]{stat_bin_hex()}} for hexagonal binning
+}
+\section{Aesthetics}{
+
+\code{geom_bin2d()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{height} \tab → \code{1} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
+ • \tab \code{width} \tab → \code{1} \cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

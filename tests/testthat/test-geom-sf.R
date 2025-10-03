@@ -30,24 +30,24 @@ test_that("geom_sf() determines the legend type automatically", {
   }
 
   # test the automatic choice
-  expect_true(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "point")
+  expect_true(fun_geom_sf(mp, TRUE)@plot@layers[[1]]$show.legend)
+  expect_identical(fun_geom_sf(mp, TRUE)@plot@layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_true(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "line")
+  expect_true(fun_geom_sf(mls, TRUE)@plot@layers[[1]]$show.legend)
+  expect_identical(fun_geom_sf(mls, TRUE)@plot@layers[[1]]$computed_geom_params$legend, "line")
 
-  expect_true(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$computed_geom_params$legend, "other")
+  expect_true(fun_geom_sf(mpol, TRUE)@plot@layers[[1]]$show.legend)
+  expect_identical(fun_geom_sf(mpol, TRUE)@plot@layers[[1]]$computed_geom_params$legend, "other")
 
   # test that automatic choice can be overridden manually
-  expect_true(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
+  expect_true(fun_geom_sf(mp, "point")@plot@layers[[1]]$show.legend)
+  expect_identical(fun_geom_sf(mp, "point")@plot@layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_true(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
+  expect_true(fun_geom_sf(mls, "point")@plot@layers[[1]]$show.legend)
+  expect_identical(fun_geom_sf(mls, "point")@plot@layers[[1]]$computed_geom_params$legend, "point")
 
-  expect_true(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$computed_geom_params$legend, "point")
+  expect_true(fun_geom_sf(mpol, "point")@plot@layers[[1]]$show.legend)
+  expect_identical(fun_geom_sf(mpol, "point")@plot@layers[[1]]$computed_geom_params$legend, "point")
 })
 
 test_that("geom_sf() determines the legend type from mapped geometry column", {
@@ -68,12 +68,12 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
   p <- ggplot_build(
     ggplot(d_sf) + geom_sf(aes(geometry = g_point, colour = "a"))
   )
-  expect_identical(p$plot$layers[[1]]$computed_geom_params$legend, "point")
+  expect_identical(p@plot@layers[[1]]$computed_geom_params$legend, "point")
 
   p <- ggplot_build(
     ggplot(d_sf) + geom_sf(aes(geometry = g_line, colour = "a"))
   )
-  expect_identical(p$plot$layers[[1]]$computed_geom_params$legend, "line")
+  expect_identical(p@plot@layers[[1]]$computed_geom_params$legend, "line")
 })
 
 test_that("geom_sf() removes rows containing missing aes", {
@@ -137,8 +137,8 @@ test_that("errors are correctly triggered", {
   )
   p <- ggplot(pts) + geom_sf() + coord_cartesian()
   expect_snapshot_error(ggplotGrob(p))
-  expect_snapshot_error(geom_sf_label(position = "jitter", nudge_x = 0.5))
-  expect_snapshot_error(geom_sf_text(position = "jitter", nudge_x = 0.5))
+  expect_snapshot_warning(geom_sf_label(position = "jitter", nudge_x = 0.5))
+  expect_snapshot_warning(geom_sf_text(position = "jitter", nudge_x = 0.5))
 
   # #5204: missing linewidth should be dropped
   pts <- sf::st_sf(
@@ -197,7 +197,7 @@ test_that("geom_sf data type renders appropriate legends", {
   )
   expect_doppelganger(
     "geom_sf point legend",
-    p %+% data
+    ggplot_add(data, p)
   )
 
   # Line data
@@ -210,7 +210,7 @@ test_that("geom_sf data type renders appropriate legends", {
   )
   expect_doppelganger(
     "geom_sf line legend",
-    p %+% data
+    ggplot_add(data, p)
   )
 
   # Polygon data
@@ -223,7 +223,7 @@ test_that("geom_sf data type renders appropriate legends", {
   )
   expect_doppelganger(
     "geom_sf polygon legend",
-    p %+% data
+    ggplot_add(data, p)
   )
 })
 

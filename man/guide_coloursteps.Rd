@@ -43,7 +43,11 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide overrides, and is combined with, the plot's theme.}
+guide partially overrides, and is combined with, the plot's theme.
+Arguments that apply to a single legend are respected, most of which have
+the \code{legend}-prefix. Arguments that apply to combined legends
+(the legend box) are ignored, including \code{legend.position},
+\verb{legend.justification.*}, \code{legend.location} and \verb{legend.box.*}.}
 
 \item{alpha}{A numeric between 0 and 1 setting the colour transparency of
 the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
@@ -67,7 +71,8 @@ shown irrespective of the value of \code{show.limits}.}
 One of "horizontal" or "vertical."}
 
 \item{position}{A character string indicating where the legend should be
-placed relative to the plot panels.}
+placed relative to the plot panels.
+One of "top", "right", "bottom", "left", or "inside".}
 
 \item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}

@@ -24,7 +24,7 @@
 #' @param scaled is the data already log-scaled? This should be `TRUE`
 #'   (default) when the data is already transformed with `log10()` or when
 #'   using `scale_y_log10()`. It should be `FALSE` when using
-#'   `coord_trans(y = "log10")`.
+#'   `coord_transform(y = "log10")`.
 #' @param colour Colour of the tick marks.
 #' @param linewidth Thickness of tick marks, in mm.
 #' @param linetype Linetype of tick marks (`solid`, `dashed`, etc.)
@@ -36,18 +36,18 @@
 #' @export
 #' @seealso [scale_y_continuous()], [scale_y_log10()] for log scale
 #'   transformations.
-#' @seealso [coord_trans()] for log coordinate transformations.
+#' @seealso [coord_transform()] for log coordinate transformations.
 #'
 #' @examples
 #' # Make a log-log plot (without log ticks)
 #' a <- ggplot(msleep, aes(bodywt, brainwt)) +
 #'  geom_point(na.rm = TRUE) +
 #'  scale_x_log10(
-#'    breaks = scales::trans_breaks("log10", function(x) 10^x),
+#'    breaks = scales::trans_breaks("log10", \(x) 10^x),
 #'    labels = scales::trans_format("log10", scales::math_format(10^.x))
 #'  ) +
 #'  scale_y_log10(
-#'    breaks = scales::trans_breaks("log10", function(x) 10^x),
+#'    breaks = scales::trans_breaks("log10", \(x) 10^x),
 #'    labels = scales::trans_format("log10", scales::math_format(10^.x))
 #'  ) +
 #'  theme_bw()
@@ -75,7 +75,7 @@
 #' # Using a coordinate transform requires scaled = FALSE
 #' t <- ggplot(msleep, aes(bodywt, brainwt)) +
 #'   geom_point() +
-#'   coord_trans(x = "log10", y = "log10") +
+#'   coord_transform(x = "log10", y = "log10") +
 #'   theme_bw()
 #' t + annotation_logticks(scaled = FALSE)
 #'
@@ -92,6 +92,8 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
 {
   if (!is.null(color))
     colour <- color
+
+  lifecycle::signal_stage("superseded", "annotation_logticks()", "guide_axis_logticks()")
 
   if (lifecycle::is_present(size)) {
     deprecate_soft0("3.5.0", I("Using the `size` aesthetic in this geom"), I("`linewidth`"))
@@ -123,7 +125,7 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -229,7 +231,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
   },
 
   default_aes = aes(
-    colour = from_theme(ink),
+    colour = from_theme(colour %||% ink),
     linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
     alpha = 1

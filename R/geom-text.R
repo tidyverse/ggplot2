@@ -1,3 +1,55 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomText <- ggproto(
+  "GeomText", Geom,
+  required_aes = c("x", "y", "label"),
+
+  non_missing_aes = "angle",
+
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    family = from_theme(family),
+    size = from_theme(fontsize),
+    angle = 0, hjust = 0.5,
+    vjust = 0.5, alpha = NA, fontface = 1, lineheight = 1.2
+  ),
+
+  draw_panel = function(data, panel_params, coord, parse = FALSE,
+                        na.rm = FALSE, check_overlap = FALSE,
+                        size.unit = "mm") {
+    lab <- data$label
+    if (parse) {
+      lab <- parse_safe(as.character(lab))
+    }
+
+    data <- coord$transform(data, panel_params)
+
+    data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
+    data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
+
+    size.unit <- resolve_text_unit(size.unit)
+
+    textGrob(
+      lab,
+      data$x, data$y, default.units = "native",
+      hjust = data$hjust, vjust = data$vjust,
+      rot = data$angle,
+      gp = gg_par(
+        col = alpha(data$colour, data$alpha),
+        fontsize = data$size * size.unit,
+        fontfamily = data$family,
+        fontface = data$fontface,
+        lineheight = data$lineheight
+      ),
+      check.overlap = check_overlap
+    )
+  },
+
+  draw_key = draw_key_text
+)
+
 #' Text
 #'
 #' Text geoms are useful for labeling plots. They can be used by themselves as
@@ -23,7 +75,7 @@
 #' \href{https://cran.r-project.org/package=ggrepel}{ggrepel}
 #' package.
 #'
-#' @eval rd_aesthetics("geom", "text")
+#' @aesthetics GeomText
 #' @section `geom_label()`:
 #' Currently `geom_label()` does not support the `check_overlap` argument. Also,
 #' it is considerably slower than `geom_text()`. The `fill` aesthetic controls
@@ -41,19 +93,6 @@
 #' @inheritParams geom_point
 #' @param parse If `TRUE`, the labels will be parsed into expressions and
 #'   displayed as described in `?plotmath`.
-#' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
-#'   Useful for offsetting text from points, particularly on discrete scales.
-#'   Cannot be jointly specified with `position`.
-#' @param position A position adjustment to use on the data for this layer.
-#'   Cannot be jointy specified with `nudge_x` or `nudge_y`. This
-#'   can be used in various ways, including to prevent overplotting and
-#'   improving the display. The `position` argument accepts the following:
-#'   * The result of calling a position function, such as `position_jitter()`.
-#'   * A string naming the position adjustment. To give the position as a
-#'     string, strip the function name of the `position_` prefix. For example,
-#'     to use `position_jitter()`, give the position as `"jitter"`.
-#'   * For more information and other ways to specify the position, see the
-#'     [layer position][layer_positions] documentation.
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted. `check_overlap` happens at draw time and in
 #'   the order of the data. Therefore data should be arranged by the label
@@ -165,97 +204,7 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 #' }
-geom_text <- function(mapping = NULL, data = NULL,
-                      stat = "identity", position = "identity",
-                      ...,
-                      parse = FALSE,
-                      nudge_x = 0,
-                      nudge_y = 0,
-                      check_overlap = FALSE,
-                      size.unit = "mm",
-                      na.rm = FALSE,
-                      show.legend = NA,
-                      inherit.aes = TRUE)
-{
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      cli::cli_abort(c(
-        "Both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied.",
-        "i" = "Only use one approach to alter the position."
-      ))
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomText,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      parse = parse,
-      check_overlap = check_overlap,
-      size.unit = size.unit,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomText <- ggproto("GeomText", Geom,
-  required_aes = c("x", "y", "label"),
-
-  non_missing_aes = "angle",
-
-  default_aes = aes(
-    colour = from_theme(ink),
-    family = from_theme(family),
-    size = from_theme(fontsize),
-    angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, fontface = 1, lineheight = 1.2
-  ),
-
-  draw_panel = function(data, panel_params, coord, parse = FALSE,
-                        na.rm = FALSE, check_overlap = FALSE,
-                        size.unit = "mm") {
-    lab <- data$label
-    if (parse) {
-      lab <- parse_safe(as.character(lab))
-    }
-
-    data <- coord$transform(data, panel_params)
-
-    data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
-    data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
-
-    size.unit <- resolve_text_unit(size.unit)
-
-    textGrob(
-      lab,
-      data$x, data$y, default.units = "native",
-      hjust = data$hjust, vjust = data$vjust,
-      rot = data$angle,
-      gp = gg_par(
-        col = alpha(data$colour, data$alpha),
-        fontsize = data$size * size.unit,
-        fontfamily = data$family,
-        fontface = data$fontface,
-        lineheight = data$lineheight
-      ),
-      check.overlap = check_overlap
-    )
-  },
-
-  draw_key = draw_key_text
-)
+geom_text <- make_constructor(GeomText, position = "nudge")
 
 compute_just <- function(just, a = 0.5, b = a, angle = 0) {
   if (!is.character(just)) {

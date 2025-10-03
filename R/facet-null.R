@@ -6,6 +6,9 @@ NULL
 #' @inheritParams facet_grid
 #' @keywords internal
 #' @export
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_null()` is
+#' completely ignored.
 #' @examples
 #' # facet_null is the default faceting specification if you
 #' # don't override it with facet_grid or facet_wrap
@@ -16,7 +19,7 @@ facet_null <- function(shrink = TRUE) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -27,9 +30,9 @@ FacetNull <- ggproto("FacetNull", Facet,
     layout_null()
   },
   map_data = function(data, layout, params) {
-    # Need the is.waiver check for special case where no data, but aesthetics
+    # Need the is_waiver check for special case where no data, but aesthetics
     # are mapped to vectors
-    if (is.waiver(data))
+    if (is_waiver(data))
       return(data_frame0(PANEL = factor()))
 
     if (empty(data))

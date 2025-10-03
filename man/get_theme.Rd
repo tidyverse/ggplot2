@@ -16,9 +16,9 @@ get_theme()
 
 theme_get()
 
-set_theme(new)
+set_theme(new = NULL)
 
-theme_set(new)
+theme_set(new = NULL)
 
 update_theme(...)
 
@@ -31,7 +31,7 @@ theme_replace(...)
 e1 \%+replace\% e2
 }
 \arguments{
-\item{new}{new theme (a list of theme elements)}
+\item{new}{new theme (a list of theme elements). Sets theme to the default (\code{\link[=theme_grey]{theme_grey()}}) if \code{new} isn't supplied.}
 
 \item{...}{named list of theme settings}
 
@@ -120,5 +120,5 @@ rep_el$text
 
 }
 \seealso{
-\code{\link[=+.gg]{+.gg()}}
+\code{\link[=add_gg]{add_gg()}}
 }

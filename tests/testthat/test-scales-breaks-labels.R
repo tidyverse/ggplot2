@@ -12,8 +12,16 @@ test_that("labels match breaks", {
 })
 
 test_that("labels don't have to match null breaks", {
-  expect_true(check_breaks_labels(breaks = 1:3, labels = NULL))
-  expect_true(check_breaks_labels(breaks = NULL, labels = 1:2))
+  expect_silent(check_breaks_labels(breaks = 1:3, labels = NULL))
+  expect_silent(check_breaks_labels(breaks = NULL, labels = 1:2))
+})
+
+test_that("labels accept expressions", {
+  labels <- parse(text = paste0(1:4, "^degree"))
+  sc <- scale_y_continuous(breaks = 1:4, labels = labels, limits = c(1, 3))
+
+  expect_equal(sc$get_breaks(), 1:4)
+  expect_equal(sc$get_labels(), as.list(labels))
 })
 
 test_that("labels don't have extra spaces", {
@@ -186,38 +194,12 @@ test_that("suppressing breaks, minor_breask, and labels works", {
 
 test_that("scale_breaks with explicit NA options (deprecated)", {
   # NA is defunct, should throw error
-
-  # X
-  sxc <- scale_x_continuous(breaks = NA)
-  sxc$train(1:3)
-  expect_snapshot(sxc$get_breaks(), error = TRUE)
-  expect_snapshot(sxc$get_breaks_minor(), error = TRUE)
-
-  # Y
-  syc <- scale_y_continuous(breaks = NA)
-  syc$train(1:3)
-  expect_snapshot(syc$get_breaks(), error = TRUE)
-  expect_snapshot(syc$get_breaks_minor(), error = TRUE)
-
-  # Alpha
-  sac <- scale_alpha_continuous(breaks = NA)
-  sac$train(1:3)
-  expect_snapshot(sac$get_breaks(), error = TRUE)
-
-  # Size
-  ssc <- scale_size_continuous(breaks = NA)
-  ssc$train(1:3)
-  expect_snapshot(ssc$get_breaks(), error = TRUE)
-
-  # Fill
-  sfc <- scale_fill_continuous(breaks = NA)
-  sfc$train(1:3)
-  expect_snapshot(sfc$get_breaks(), error = TRUE)
-
-  # Colour
-  scc <- scale_colour_continuous(breaks = NA)
-  scc$train(1:3)
-  expect_snapshot(scc$get_breaks(), error = TRUE)
+  expect_error(scale_x_continuous(breaks = NA))
+  expect_error(scale_y_continuous(breaks = NA))
+  expect_error(scale_alpha_continuous(breaks = NA))
+  expect_error(scale_size_continuous(breaks = NA))
+  expect_error(scale_fill_continuous(breaks = NA))
+  expect_error(scale_colour_continuous(breaks = NA))
 })
 
 test_that("breaks can be specified by names of labels", {

@@ -122,8 +122,8 @@ First, calculate these means and save them in a new data frame.
 ```{r}
 library(dplyr)
 
-mpg_summary <- mpg %>%
-  group_by(drv) %>%
+mpg_summary <- mpg |>
+  group_by(drv) |>
   summarise(hwy_mean = mean(hwy))
 
 mpg_summary

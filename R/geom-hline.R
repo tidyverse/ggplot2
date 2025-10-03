@@ -4,11 +4,12 @@ NULL
 #' @export
 #' @rdname geom_abline
 geom_hline <- function(mapping = NULL, data = NULL,
-                       position = "identity",
+                       stat = "identity", position = "identity",
                        ...,
                        yintercept,
                        na.rm = FALSE,
-                       show.legend = NA) {
+                       show.legend = NA,
+                      inherit.aes = FALSE) {
 
   # Act like an annotation
   if (!missing(yintercept)) {
@@ -28,11 +29,11 @@ geom_hline <- function(mapping = NULL, data = NULL,
   layer(
     data = data,
     mapping = mapping,
-    stat = StatIdentity,
+    stat = stat,
     geom = GeomHline,
     position = position,
     show.legend = show.legend,
-    inherit.aes = FALSE,
+    inherit.aes = inherit.aes,
     params = list2(
       na.rm = na.rm,
       ...
@@ -40,7 +41,7 @@ geom_hline <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -57,7 +58,7 @@ GeomHline <- ggproto("GeomHline", Geom,
   },
 
   default_aes = aes(
-    colour = from_theme(ink),
+    colour = from_theme(colour %||% ink),
     linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
     alpha = NA

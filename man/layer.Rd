@@ -16,6 +16,7 @@ layer(
   check.param = TRUE,
   show.legend = NA,
   key_glyph = NULL,
+  layout = NULL,
   layer_class = Layer
 )
 }
@@ -84,7 +85,7 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{check.aes, check.param}{If \code{TRUE}, the default, will check that
 supplied parameters and aesthetics are understood by the \code{geom} or
@@ -100,6 +101,9 @@ but unobserved levels are omitted.}
 
 \item{key_glyph}{A legend key drawing function or a string providing the
 function name minus the \code{draw_key_} prefix. See \link{draw_key} for details.}
+
+\item{layout}{Argument to control layout at the layer level. Consult the
+faceting documentation to view appropriate values.}
 
 \item{layer_class}{The type of layer object to be constructed. This is
 intended for ggplot2 internal use only.}

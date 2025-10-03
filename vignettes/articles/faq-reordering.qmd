@@ -235,9 +235,9 @@ Now the blue circle is over the yellow triangle since 0.01 comes after 0 and sim
 #|  four x-positions, of which two are very distinct. Every point has a distinct 
 #|  shape and colour. A blue circle is plotted on top of a yellow triangle. A 
 #|  red square is plotted on top of a black asterisk."
-df_arranged <- df %>% dplyr::arrange(x)
+df_arranged <- df |> dplyr::arrange(x)
 
-df_arranged %>%
+df_arranged |>
   ggplot(aes(x = x, y = y, fill = fill, shape = shape)) +
   geom_point(size = 8) +
   scale_shape_identity() +
@@ -258,14 +258,14 @@ If you wanted to make sure that the observation identified with an asterisk is a
 #|  asterisk is plotted on top of a red square."
 
 ggplot(mapping = aes(x = x, y = y, fill = fill, shape = shape)) +
-  geom_point(data = df %>% filter(shape != "asterisk"), size = 8) +
-  geom_point(data = df %>% filter(shape == "asterisk"), size = 8) +
+  geom_point(data = df |> filter(shape != "asterisk"), size = 8) +
+  geom_point(data = df |> filter(shape == "asterisk"), size = 8) +
   scale_shape_identity() +
   scale_fill_identity()
 
 ggplot(mapping = aes(x = x, y = y, fill = fill, shape = shape)) +
-  geom_point(data = df_arranged %>% filter(shape != "asterisk"), size = 8) +
-  geom_point(data = df_arranged %>% filter(shape == "asterisk"), size = 8) +
+  geom_point(data = df_arranged |> filter(shape != "asterisk"), size = 8) +
+  geom_point(data = df_arranged |> filter(shape == "asterisk"), size = 8) +
   scale_shape_identity() +
   scale_fill_identity()
 ```

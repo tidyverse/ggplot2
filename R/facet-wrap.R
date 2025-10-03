@@ -45,6 +45,20 @@ NULL
 #'   the exterior axes get labels, and the interior axes get none. When
 #'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
 #'   x- or y-direction respectively.
+#' @param as.table `r lifecycle::badge("superseded")` The `as.table` argument
+#'   is now absorbed into the `dir` argument via the two letter options.
+#'   If `TRUE`, the facets are laid out like a table with highest values at the
+#'   bottom-right. If `FALSE`, the facets are laid out like a plot with the
+#'   highest value at the top-right.
+#'
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_wrap()` can take
+#' the following values:
+#' * `NULL` (default) to use the faceting variables to assign panels.
+#' * An integer vector to include selected panels. Panel numbers not included in
+#'   the integer vector are excluded.
+#' * `"fixed"` to repeat data across every panel.
+#'
 #' @inheritParams facet_grid
 #' @seealso
 #' The `r link_book("facet wrap section", "facet#sec-facet-wrap")`
@@ -174,14 +188,15 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 
   # Check for deprecated labellers
-  labeller <- check_labeller(labeller)
+  labeller <- validate_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
   facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
-    deprecate_warn0("2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)")
-    strip.position <- if (switch == "x") "bottom" else "left"
+    lifecycle::deprecate_stop(
+      "2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)"
+    )
   }
   strip.position <- arg_match0(strip.position, c("top", "bottom", "left", "right"))
 
@@ -213,7 +228,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -246,42 +261,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     panels
   },
-  map_data = function(data, layout, params) {
-    if (empty(data)) {
-      return(vec_cbind(data %|W|% NULL, PANEL = integer(0)))
-    }
 
-    vars <- params$facets
-
-    if (length(vars) == 0) {
-      data$PANEL <- layout$PANEL
-      return(data)
-    }
-
-    facet_vals <- eval_facets(vars, data, params$.possible_columns)
-    facet_vals[] <- lapply(facet_vals[], as_unordered_factor)
-    layout[] <- lapply(layout[], as_unordered_factor)
-
-    missing_facets <- setdiff(names(vars), names(facet_vals))
-    if (length(missing_facets) > 0) {
-
-      to_add <- unique0(layout[missing_facets])
-
-      data_rep <- rep.int(seq_len(nrow(data)), nrow(to_add))
-      facet_rep <- rep(seq_len(nrow(to_add)), each = nrow(data))
-
-      data <- data[data_rep, , drop = FALSE]
-      facet_vals <- vec_cbind(
-        facet_vals[data_rep, ,  drop = FALSE],
-        to_add[facet_rep, , drop = FALSE]
-      )
-    }
-
-    keys <- join_keys(facet_vals, layout, by = names(vars))
-
-    data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
-    data
-  },
+  map_data = map_facet_data,
 
   attach_axes = function(table, layout, ranges, coord, theme, params) {
 
@@ -351,7 +332,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_bottom) > 0) {
       x_axes <- original$x$bottom[matched[empty_bottom]]
       clash["bottom"] <- strip == "bottom" && !inside && !free$x &&
-        !all(vapply(x_axes, is.zero, logical(1)))
+        !all(vapply(x_axes, is_zero, logical(1)))
       if (!clash["bottom"]) {
         bottom[empty_bottom] <- x_axes
       }
@@ -360,7 +341,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_top) > 0) {
       x_axes <- original$x$top[matched[empty_top]]
       clash["top"] <- strip == "top" && !inside && !free$x &&
-        !all(vapply(x_axes, is.zero, logical(1)))
+        !all(vapply(x_axes, is_zero, logical(1)))
       if (!clash["top"]) {
         top[empty_top] <- x_axes
       }
@@ -369,7 +350,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_right) > 0) {
       y_axes <- original$y$right[matched[empty_right]]
       clash["right"]  <- strip == "right" && !inside && !free$y &&
-        !all(vapply(y_axes, is.zero, logical(1)))
+        !all(vapply(y_axes, is_zero, logical(1)))
       if (!clash["right"]) {
         right[empty_right] <- y_axes
       }
@@ -378,7 +359,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_left) > 0) {
       y_axes <- original$y$left[matched[empty_left]]
       clash["left"]  <- strip == "left" && !inside && !free$y &&
-        !all(vapply(y_axes, is.zero, logical(1)))
+        !all(vapply(y_axes, is_zero, logical(1)))
       if (!clash["left"]) {
         left[empty_left] <- y_axes
       }
@@ -434,7 +415,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     if (!inside) {
       axes  <- grepl(paste0("axis-", pos), table$layout$name)
-      has_axes <- !vapply(table$grobs[axes], is.zero, logical(1))
+      has_axes <- !vapply(table$grobs[axes], is_zero, logical(1))
       has_axes <- split(has_axes, table$layout[[pos]][axes])
       has_axes <- vapply(has_axes, sum, numeric(1)) > 0
       padding  <- rep(padding, length(has_axes))
@@ -588,7 +569,7 @@ wrap_layout <- function(id, dims, dir) {
     # Should only occur when `as.table` was not incorporated into `dir`
     dir <- switch(dir, h = "lt", v = "tl")
     deprecate_soft0(
-      "3.5.2",
+      "4.0.0",
       what = I("Internal use of `dir = \"h\"` and `dir = \"v\"` in `facet_wrap()`"),
       details = I(c(
         "The `dir` argument should incorporate the `as.table` argument.",

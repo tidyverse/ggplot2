@@ -83,7 +83,7 @@ guide_coloursteps <- function(
 #' @rdname guide_coloursteps
 guide_colorsteps <- guide_coloursteps
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -191,12 +191,10 @@ GuideColoursteps <- ggproto(
       params$key <- key
     }
 
-    params$title <- scale$make_title(
-      params$title %|W|% scale$name %|W|% title
-    )
+    params$title <- scale$make_title(params$title, scale$name, title)
 
     limits <- c(params$decor$min[1], params$decor$max[nrow(params$decor)])
-    if (params$reverse) {
+    if (isTRUE(params$reverse)) {
       limits <- rev(limits)
     }
     params$key$.value <- rescale(params$key$.value, from = limits)

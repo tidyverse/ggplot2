@@ -1,3 +1,45 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.R
+GeomBar <- ggproto(
+  "GeomBar", GeomRect,
+  required_aes = c("x", "y"),
+
+  # These aes columns are created by setup_data(). They need to be listed here so
+  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
+  # limits, not just those for which x and y are outside the limits
+  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
+
+  default_aes = aes(!!!GeomRect$default_aes, width = 0.9),
+
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params
+  },
+
+  extra_params = c("just", "na.rm", "orientation"),
+
+  setup_data = function(self, data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
+    data <- compute_data_size(
+      data, size = params$width,
+      default = self$default_aes$width, zero = FALSE
+    )
+    data$just <- params$just %||% 0.5
+    data <- transform(data,
+                      ymin = pmin(y, 0), ymax = pmax(y, 0),
+                      xmin = x - width * just, xmax = x + width * (1 - just),
+                      width = NULL, just = NULL
+    )
+    flip_data(data, params$flipped_aes)
+  },
+
+  rename_size = FALSE
+)
+
 #' Bar charts
 #'
 #' There are two types of bar charts: `geom_bar()` and `geom_col()`.
@@ -26,9 +68,9 @@
 #'
 #' @eval rd_orientation()
 #'
-#' @eval rd_aesthetics("geom", "bar")
-#' @eval rd_aesthetics("geom", "col")
-#' @eval rd_aesthetics("stat", "count")
+#' @aesthetics GeomBar
+#' @aesthetics GeomCol
+#' @aesthetics StatCount
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side
@@ -48,6 +90,8 @@
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`. For more information about overriding these connections,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
@@ -92,69 +136,7 @@
 #' ggplot(df, aes(x, y)) + geom_col(just = 0.5)
 #' # Columns begin on the first day of the month
 #' ggplot(df, aes(x, y)) + geom_col(just = 1)
-geom_bar <- function(mapping = NULL, data = NULL,
-                     stat = "count", position = "stack",
-                     ...,
-                     just = 0.5,
-                     na.rm = FALSE,
-                     orientation = NA,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomBar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      just = just,
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-rect.R
-GeomBar <- ggproto("GeomBar", GeomRect,
-  required_aes = c("x", "y"),
-
-  # These aes columns are created by setup_data(). They need to be listed here so
-  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
-  # limits, not just those for which x and y are outside the limits
-  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
-
-  default_aes = aes(!!!GeomRect$default_aes, width = NULL),
-
-  setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params)
-    params
-  },
-
-  extra_params = c("just", "na.rm", "orientation"),
-
-  setup_data = function(data, params) {
-    data$flipped_aes <- params$flipped_aes
-    data <- flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (min(vapply(
-        split(data$x, data$PANEL, drop = TRUE),
-        resolution, numeric(1), zero = FALSE
-      )) * 0.9)
-    data$just <- params$just %||% 0.5
-    data <- transform(data,
-      ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width * just, xmax = x + width * (1 - just),
-      width = NULL, just = NULL
-    )
-    flip_data(data, params$flipped_aes)
-  },
-
-  rename_size = TRUE
+geom_bar <- make_constructor(
+  GeomBar,
+  stat = "count", position = "stack", just = 0.5
 )

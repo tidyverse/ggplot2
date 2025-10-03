@@ -131,7 +131,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
 }
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -142,28 +142,31 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
   # can tell the difference between continuous and discrete data.
   map = function(self, x, limits = self$get_limits()) {
     scaled <- as.numeric(self$oob(x, limits))
-    ifelse(!is.na(scaled), scaled, self$na.value)
+    if (!anyNA(scaled)) {
+      return(scaled)
+    }
+    vec_assign(scaled, is.na(scaled), self$na.value)
   },
   break_info = function(self, range = NULL) {
     breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
-    if (!(is.waiver(self$secondary.axis) || self$secondary.axis$empty())) {
+    if (!(is_waiver(self$secondary.axis) || self$secondary.axis$empty())) {
       self$secondary.axis$init(self)
       breaks <- c(breaks, self$secondary.axis$break_info(breaks$range, self))
     }
     breaks
   },
   sec_name = function(self) {
-    if (is.waiver(self$secondary.axis)) {
+    if (is_waiver(self$secondary.axis)) {
       waiver()
     } else {
       self$secondary.axis$name
     }
   },
-  make_sec_title = function(self, title) {
-    if (!is.waiver(self$secondary.axis)) {
-      self$secondary.axis$make_title(title)
+  make_sec_title = function(self, ...) {
+    if (!is_waiver(self$secondary.axis)) {
+      self$secondary.axis$make_title(...)
     } else {
-      ggproto_parent(ScaleContinuous, self)$make_sec_title(title)
+      ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
     }
   }
 )

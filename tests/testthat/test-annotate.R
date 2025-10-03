@@ -30,7 +30,6 @@ test_that("segment annotations transform with scales", {
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {
   skip_if_not_installed("maps")
-  skip_if(packageVersion("base") < "3.5.0")
   custom <- annotation_custom(zeroGrob())
   logtick <- annotation_logticks()
   usamap <- map_data("state")
@@ -114,4 +113,10 @@ test_that("annotation_custom() and annotation_raster() adhere to scale transform
   expect_equal(as.numeric(ann$width), 1/3)
   expect_equal(as.numeric(ann$height), 8/10)
 
+})
+
+test_that("annotation_borders() can create a map", {
+  skip_if_not_installed("maps")
+  lifecycle::expect_deprecated(utah <- borders("state", "utah"))
+  expect_doppelganger("annotation_borders utah", ggplot() + utah)
 })

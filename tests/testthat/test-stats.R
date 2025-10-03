@@ -3,12 +3,12 @@ test_that("plot succeeds even if some computation fails", {
   p1 <- ggplot(df, aes(x, y)) + geom_point()
 
   b1 <- ggplot_build(p1)
-  expect_length(b1$data, 1)
+  expect_length(b1@data, 1)
 
   p2 <- p1 + stat_summary(fun = function(x) stop("Failed computation"))
 
   expect_snapshot_warning(b2 <- ggplot_build(p2))
-  expect_length(b2$data, 2)
+  expect_length(b2@data, 2)
 })
 
 test_that("error message is thrown when aesthetics are missing", {
@@ -45,9 +45,9 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
   )
 
   # colour is dropped because group a's colour is not constant (GeomBar$default_aes$colour is NA)
-  expect_true(all(is.na(b2$data[[1]]$colour)))
+  expect_true(all(is.na(b2@data[[1]]$colour)))
   # fill is dropped because group b's fill is not constant
-  expect_true(all(b2$data[[1]]$fill == "#595959FF"))
+  expect_true(all(b2@data[[1]]$fill == "#595959FF"))
 
   # case 2-1) dropped partially with NA
 
@@ -62,10 +62,29 @@ test_that("erroneously dropped aesthetics are found and issue a warning", {
   expect_snapshot_warning(b3 <- ggplot_build(p3))
 
   # colour is dropped because group a's colour is not constant (GeomBar$default_aes$colour is NA)
-  expect_true(all(is.na(b3$data[[1]]$colour)))
+  expect_true(all(is.na(b3@data[[1]]$colour)))
   # fill is NOT dropped. Group a's fill is na.value, but others are mapped.
   expect_equal(
-    b3$data[[1]]$fill == "#123",
+    b3@data[[1]]$fill == "#123",
     c(TRUE, FALSE, FALSE)
   )
+})
+
+test_that("stats can modify persistent attributes", {
+
+  StatTest <- ggproto(
+    "StatTest", Stat,
+    compute_layer = function(self, data, params, layout) {
+      attr(data, "foo") <- "bar"
+      data
+    }
+  )
+
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point(stat = StatTest) +
+    facet_wrap(~cyl)
+
+  ld <- layer_data(p)
+  expect_equal(attr(ld, "foo"), "bar")
+
 })

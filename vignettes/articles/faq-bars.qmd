@@ -259,7 +259,7 @@ poll <- tribble(
 You can first pivot the data longer to obtain a data frame with one row per party/opinion combination and a new column, `n`, for the number of responses that fall into that category.
 
 ```{r}
-poll_longer <- poll %>%
+poll_longer <- poll |>
   pivot_longer(
     cols = -party,
     names_to = "opinion",
@@ -319,12 +319,12 @@ Then, pass the resulting longer data frame to `ggplot()` group responses for eac
 #| fig.alt: "A grouped bar chart showing the number of responses to three 
 #|  questions. Within each question, two bars denote an 'Agree' or 'Disagree' 
 #|  response."
-survey %>%
+survey |>
   tidyr::pivot_longer(
     cols = -respondent,
     names_to = "question",
     values_to = "response"
-  ) %>%
+  ) |>
   ggplot(aes(x = question, fill = response)) +
   geom_bar(position = "dodge")
 ```
@@ -345,9 +345,9 @@ Then, you can pass the resulting data frame to `ggplot()` and plot bars using `g
 ```{r}
 #| fig.alt: "A bar chart showing the average highway miles per gallon for 
 #|  three types of drive train."
-mpg %>%
-  group_by(drv) %>%
-  summarise(mean_hwy = mean(hwy)) %>%
+mpg |>
+  group_by(drv) |>
+  summarise(mean_hwy = mean(hwy)) |>
   ggplot(aes(x = drv, y = mean_hwy)) +
   geom_col()
 ```

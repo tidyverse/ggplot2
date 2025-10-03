@@ -448,6 +448,7 @@ ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
 -   If you're already familiar with Markdown and HTML, you might prefer using the [ggtext](https://wilkelab.org/ggtext/) package instead. In Markdown we can write the axis labels as `cty<sup>2</sup>` and `log<sub>10</sub>(hwy)` for x and y axes, respectively. Then, we tell ggplot2 to interpret the axis labels as Markdown and not as plain text by setting `axis.title.x` and `axis.title.y` to `ggtext::element_markdown()`.
 
 ```{r}
+#| eval: false
 #| fig.alt: "A scatter plot showing the squared city miles per gallon on the 
 #|  x-axis versus the base 10 logarithm of highway miles per gallon on the 
 #|  y-axis for 234 cars. In the axis titles, the base 10 is indicated in 

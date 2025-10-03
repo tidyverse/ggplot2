@@ -9,7 +9,7 @@ guide_axis_logticks(
   mid = 1.5,
   short = 0.75,
   prescale.base = NULL,
-  negative.small = 0.1,
+  negative.small = NULL,
   short.theme = element_line(),
   expanded = TRUE,
   cap = "none",
@@ -29,11 +29,13 @@ values of the \code{axis.ticks.length} theme setting.}
 \item{prescale.base}{Base of logarithm used to transform data manually. The
 default, \code{NULL}, will use the scale transformation to calculate positions.
 Only set \code{prescale.base} if the data has already been log-transformed.
-When using a log-transform in the position scale or in \code{coord_trans()},
+When using a log-transform in the position scale or in \code{coord_transform()},
 keep the default \code{NULL} argument.}
 
 \item{negative.small}{When the scale limits include 0 or negative numbers,
-what should be the smallest absolute value that is marked with a tick?}
+what should be the smallest absolute value that is marked with a tick?
+If \code{NULL} (default), will be the smallest of 0.1 or 0.1 times the absolute
+scale maximum.}
 
 \item{short.theme}{A theme \link[=element_line]{element} for customising the
 display of the shortest ticks. Must be a line or blank element, and
@@ -51,7 +53,7 @@ and \code{FALSE} are shorthand for \code{"both"} and \code{"none"} respectively.
 
 \item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide overrides, and is combined with, the plot's theme.}
+guide partially overrides, and is combined with, the plot's theme.}
 
 \item{prescale_base, negative_small, short_theme}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
@@ -97,7 +99,7 @@ p + scale_x_log10(guide = "axis_logticks") +
   scale_y_log10(guide = "axis_logticks")
 
 # Or with log-transformed coordinates
-p + coord_trans(x = "log10", y = "log10") +
+p + coord_transform(x = "log10", y = "log10") +
   guides(x = "axis_logticks", y = "axis_logticks")
 
 # When data is transformed manually, one should provide `prescale.base`

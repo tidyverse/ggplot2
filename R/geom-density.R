@@ -1,3 +1,20 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-ribbon.R
+GeomDensity <- ggproto(
+  "GeomDensity", GeomArea,
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    fill   = from_theme(fill %||% NA),
+    weight = 1,
+    alpha  = NA,
+    linewidth = from_theme(linewidth),
+    linetype  = from_theme(linetype)
+  )
+)
+
 #' Smoothed density estimates
 #'
 #' Computes and draws kernel density estimate, which is a smoothed version of
@@ -5,8 +22,7 @@
 #' data that comes from an underlying smooth distribution.
 #'
 #' @eval rd_orientation()
-#'
-#' @eval rd_aesthetics("geom", "density")
+#' @aesthetics GeomDensity
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.
@@ -59,41 +75,9 @@
 #' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL,
-                         stat = "density", position = "identity",
-                         ...,
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE,
-                         outline.type = "upper") {
-  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomDensity,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      outline.type = outline.type,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-ribbon.R
-GeomDensity <- ggproto("GeomDensity", GeomArea,
-  default_aes = defaults(
-    aes(fill = NA, weight = 1, colour = from_theme(ink), alpha = NA),
-    GeomArea$default_aes
+geom_density <- make_constructor(
+  GeomDensity, stat = "density", outline.type = "upper",
+  checks = exprs(
+    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   )
 )

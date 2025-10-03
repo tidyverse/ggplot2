@@ -25,6 +25,8 @@
 #' @param text all text elements ([element_text()])
 #' @param title all title elements: plot, axes, legends ([element_text()];
 #'   inherits from `text`)
+#' @param point all point elements ([element_point()])
+#' @param polygon all polygon elements ([element_polygon()])
 #' @param geom defaults for geoms ([element_geom()])
 #' @param spacing all spacings ([`unit()`][grid::unit])
 #' @param margins all margins ([margin()])
@@ -84,6 +86,10 @@
 #'   between legend keys given as a `unit`. Spacing in the horizontal (x) and
 #'   vertical (y) direction inherit from `legend.key.spacing` or can be
 #'   specified separately. `legend.key.spacing` inherits from `spacing`.
+#' @param legend.key.justification Justification for positioning legend keys
+#'   when more space is available than needed for display. The default, `NULL`,
+#'   stretches keys into the available space. Can be a location like `"center"`
+#'   or `"top"`, or a two-element numeric vector.
 #' @param legend.frame frame drawn around the bar ([element_rect()]).
 #' @param legend.ticks tick marks shown along bars or axes ([element_line()])
 #' @param legend.ticks.length length of tick marks in legend
@@ -208,10 +214,10 @@
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
-#' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @param validate `TRUE` to run `check_element()`, `FALSE` to bypass checks.
 #' @export
 #' @seealso
-#'   [+.gg()] and [%+replace%],
+#'   [add_gg()] and [`%+replace%`][get_theme()],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
@@ -313,12 +319,29 @@
 #' # as in the facet_wrap the default strip.position is "top"
 #' p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 #' p3 + theme(panel.spacing = unit(1, "lines"))
+#'
+#' # Colours -------------------------------------------------------------------
+#'
+#' p4 <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   annotate(label = "Text Annotation", x = 5, y = 30, geom = "text")
+#'
+#' # You can use the 'ink' setting to set colour defaults for all layers
+#' p4 + theme(geom = element_geom(ink = "dodgerblue"))
+#' # Alternate colours are derived from the 'accent' and 'paper' settings
+#' p4 + geom_smooth(method = "lm", formula = y ~ x) +
+#'   theme(geom = element_geom(accent = "tomato", paper = "orchid"))
+#' # You can also set default palettes in the theme
+#' p4 + aes(colour = drat) +
+#'   theme(palette.colour.continuous = c("white", "pink", "hotpink"))
 #' }
 theme <- function(...,
                   line,
                   rect,
                   text,
                   title,
+                  point,
+                  polygon,
                   geom,
                   spacing,
                   margins,
@@ -393,6 +416,7 @@ theme <- function(...,
                   legend.key.spacing,
                   legend.key.spacing.x,
                   legend.key.spacing.y,
+                  legend.key.justification,
                   legend.frame,
                   legend.ticks,
                   legend.ticks.length,
@@ -458,37 +482,28 @@ theme <- function(...,
                   strip.switch.pad.wrap,
                   complete = FALSE,
                   validate = TRUE) {
-  elements <- find_args(..., complete = NULL, validate = NULL)
 
-  if (!is.null(elements$axis.ticks.margin)) {
-    deprecate_warn0(
-      "2.0.0", "theme(axis.ticks.margin)",
-      details = "Please set `margin` property of `axis.text` instead"
-    )
-    elements$axis.ticks.margin <- NULL
+  elements <- find_args(..., complete = NULL, validate = NULL)
+  elements <- fix_theme_deprecations(elements)
+  elements <- validate_theme_palettes(elements)
+
+  # If complete theme set all non-blank elements to inherit from blanks
+  if (complete) {
+    elements <- lapply(elements, function(el) {
+      if (is_theme_element(el) && S7::prop_exists(el, "inherit.blank")) {
+        S7::prop(el, "inherit.blank") <- TRUE
+      }
+      el
+    })
   }
-  if (!is.null(elements$panel.margin)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin)", "theme(panel.spacing)"
-    )
-    elements$panel.spacing <- elements$panel.margin
-    elements$panel.margin <- NULL
-  }
-  if (!is.null(elements$panel.margin.x)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.x)", "theme(panel.spacing.x)"
-    )
-    elements$panel.spacing.x <- elements$panel.margin.x
-    elements$panel.margin.x <- NULL
-  }
-  if (!is.null(elements$panel.margin.y)) {
-    deprecate_warn0(
-      "2.2.0", "theme(panel.margin.y)", "theme(panel.spacing.y)"
-    )
-    elements$panel.spacing.y <- elements$panel.margin.y
-    elements$panel.margin.y <- NULL
-  }
-  if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
+
+  t <- class_theme(elements, complete = complete, validate = validate)
+  class(t) <- union("theme", class(t))
+  t
+}
+
+fix_theme_deprecations <- function(elements) {
+  if (is.unit(elements$legend.margin) && !is_margin(elements$legend.margin)) {
     cli::cli_warn(c(
       "{.var legend.margin} must be specified using {.fn margin}",
       "i" = "For the old behavior use {.var legend.spacing}"
@@ -503,9 +518,9 @@ theme <- function(...,
     )
     if (is.null(elements[["legend.title"]])) {
       elements$legend.title <- element_text(hjust = elements$legend.title.align)
-    } else {
-      elements$legend.title$hjust <- elements$legend.title$hjust %||%
-        elements$legend.title.align
+    } else if (!is_theme_element(elements$legend.title, "blank")) {
+      elements$legend.title$hjust <-
+        try_prop(elements$legend.title, "hjust", elements$legend.title.align)
     }
     elements$legend.title.align <- NULL
   }
@@ -516,9 +531,9 @@ theme <- function(...,
     )
     if (is.null(elements[["legend.text"]])) {
       elements$legend.text <- element_text(hjust = elements$legend.text.align)
-    } else {
-      elements$legend.text$hjust <- elements$legend.text$hjust %||%
-        elements$legend.text.align
+    } else if (!is_theme_element(elements$legend.text, "blank")) {
+      elements$legend.text$hjust <-
+        try_prop(elements$legend.text, "hjust", elements$legend.text.align)
     }
     elements$legend.text.align <- NULL
   }
@@ -530,43 +545,80 @@ theme <- function(...,
     elements$legend.position.inside <- elements$legend.position
     elements$legend.position <- "inside"
   }
+  elements
+}
 
-  # If complete theme set all non-blank elements to inherit from blanks
-  if (complete) {
-    elements <- lapply(elements, function(el) {
-      if (is.theme_element(el) && !inherits(el, "element_blank")) {
-        el$inherit.blank <- TRUE
-      }
-      el
-    })
+validate_theme_palettes <- function(elements) {
+
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous",
+            "palette.color.discrete",  "palette.color.continuous")
+  if (!any(pals %in% names(elements))) {
+    return(elements)
   }
-  structure(
-    elements,
-    class = c("theme", "gg"),
-    complete = complete,
-    validate = validate
-  )
+
+  # Standardise spelling
+  if ("palette.color.continuous" %in% names(elements)) {
+    elements["palette.colour.continuous"]  <- elements["palette.color.continuous"]
+    elements[["palette.color.continuous"]] <- NULL
+  }
+  if ("palette.color.discrete" %in% names(elements)) {
+    elements["palette.colour.discrete"]  <- elements["palette.color.discrete"]
+    elements[["palette.color.discrete"]] <- NULL
+  }
+
+  # Check for incompatible options
+  pals <- c("palette.colour.discrete", "palette.colour.continuous",
+            "palette.fill.discrete",   "palette.fill.continuous")
+  opts <- c("ggplot2.discrete.colour", "ggplot2.continuous.colour",
+            "ggplot2.discrete.fill",   "ggplot2.continuous.fill")
+  index <- which(pals %in% names(elements))
+
+  for (i in index) {
+    if (is.null(getOption(opts[i]))) {
+      next
+    }
+    cli::cli_warn(c(
+      "The {.code options('{opts[i]}')} setting is incompatible with the \\
+        {.arg {pals[i]}} theme setting.",
+      i = "You can set {.code options({opts[i]} = NULL)}."
+    ))
+  }
+
+  elements
 }
 
 #' @export
 #' @rdname is_tests
-is.theme <- function(x) inherits(x, "theme")
+is_theme <- function(x) S7::S7_inherits(x, class_theme)
+
+#' @export
+#' @rdname is_tests
+#' @usage is.theme(x) # Deprecated
+is.theme <- function(x) {
+  deprecate_soft0("3.5.2", "is.theme()", "is_theme()")
+  is_theme(x)
+}
 
 # check whether theme is complete
-is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
+is_theme_complete <- function(x) {
+  is_theme(x) && isTRUE(x@complete)
+}
 
 # check whether theme should be validated
 is_theme_validate <- function(x) {
-  validate <- attr(x, "validate", exact = TRUE)
-  isTRUE(validate %||% TRUE)
+  !is_theme(x) || isTRUE(x@validate)
 }
 
-validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
+check_theme <- function(theme, tree = get_element_tree(), call = caller_env()) {
   if (!is_theme_validate(theme)) {
     return()
   }
+  elnames <- names(theme)
+  elnames[startsWith(elnames, "geom.")] <- "geom"
+
   mapply(
-    validate_element, theme, names(theme),
+    check_element, theme, elnames,
     MoreArgs = list(element_tree = tree, call = call)
   )
 }
@@ -591,25 +643,23 @@ validate_theme <- function(theme, tree = get_element_tree(), call = caller_env()
 #' complete_theme(my_theme)
 complete_theme <- function(theme = NULL, default = theme_get()) {
   if (!is_bare_list(theme)) {
-    check_object(theme, is.theme, "a {.cls theme} object", allow_null = TRUE)
+    check_object(theme, is_theme, "a {.cls theme} object", allow_null = TRUE)
   }
-  check_object(default, is.theme, "a {.cls theme} object")
+  check_object(default, is_theme, "a {.cls theme} object")
   theme <- plot_theme(list(theme = theme), default = default)
-
-  # Using `theme(!!!theme)` drops `NULL` entries, so strip most attributes and
-  # construct a new theme
-  attributes(theme) <- list(names = attr(theme, "names"))
-  structure(
-    theme,
-    class = c("theme", "gg"),
-    complete = TRUE, # This theme is complete and has no missing elements
-    validate = FALSE # Settings have already been validated
-  )
+  theme@complete <- TRUE
+  theme@validate <- FALSE
+  theme
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = get_theme()) {
-  theme <- x$theme
+  if (S7::S7_inherits(x)) {
+    theme <- x@theme
+  } else {
+    theme <- x$theme
+  }
+
 
   # apply theme defaults appropriately if needed
   if (is_theme_complete(theme)) {
@@ -627,10 +677,13 @@ plot_theme <- function(x, default = get_theme()) {
   theme[missing] <- ggplot_global$theme_default[missing]
 
   # Check that all elements have the correct class (element_text, unit, etc)
-  validate_theme(theme)
+  check_theme(theme)
 
   # Remove elements that are not registered
-  theme[setdiff(names(theme), names(get_element_tree()))] <- NULL
+  # We accept unregistered `geom.*` elements
+  remove <- setdiff(names(theme), names(get_element_tree()))
+  remove <- remove[!startsWith(remove, "geom.")]
+  theme[remove] <- NULL
   theme
 }
 
@@ -668,13 +721,12 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
     }
   )
 
-  # make sure the "complete" attribute is set; this can be missing
-  # when t1 is an empty list
-  attr(t1, "complete") <- is_theme_complete(t1)
+  if (!is_theme(t1) && is.list(t1)) {
+    t1 <- theme(!!!t1)
+  }
 
   # Only validate if both themes should be validated
-  attr(t1, "validate") <-
-    is_theme_validate(t1) && is_theme_validate(t2)
+  t1@validate <- is_theme_validate(t1) && is_theme_validate(t2)
 
   t1
 }
@@ -710,7 +762,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
   # and otherwise we don't inherit anything from parents
-  if (inherits(el_out, "element_blank")) {
+  if (is_theme_element(el_out, "blank")) {
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
@@ -724,9 +776,18 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in element_tree
-  if (!is.null(el_out) &&
-      !inherits(el_out, element_tree[[element]]$class)) {
-    cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
+  if (!is.null(el_out)) {
+    class <- element_tree[[element]]$class
+    if (inherits(class, "S7_class")) {
+      old_s3_inherit <- inherits(el_out, class@name)
+      if (!S7::S7_inherits(el_out, class) && !old_s3_inherit) {
+        cli::cli_abort("Theme element {.var {element}} must have class {.cls {class@name}}.", call = call)
+      }
+    } else {
+      if (!inherits(el_out, class)) {
+        cli::cli_abort("Theme element {.var {element}} must have class {.cls {ggplot_global$element_tree[[element]]$class}}.", call = call)
+      }
+    }
   }
 
   # Get the names of parents from the inheritance tree
@@ -737,14 +798,27 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
     if (verbose) cli::cli_inform("nothing (top level)")
 
     # Check that all the properties of this element are non-NULL
-    nullprops <- vapply(el_out, is.null, logical(1))
+    if (is_theme_element(el_out)) {
+      nullprops <- lengths(S7::props(el_out)) == 0
+    } else {
+      nullprops <- vapply(el_out, is.null, logical(1))
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties, return element as is
     }
 
     # if we have null properties, try to fill in from ggplot_global$theme_default
     el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
-    nullprops <- vapply(el_out, is.null, logical(1))
+    if (is_theme_element(el_out)) {
+      nullprops <- lengths(S7::props(el_out)) == 0
+    } else {
+      nullprops <- vapply(el_out, is.null, logical(1))
+    }
+    if (is_theme_element(el_out, "geom")) {
+      # Geom elements are expected to have NULL fill/colour, so allow these
+      # to be missing
+      nullprops[c("colour", "fill")] <- FALSE
+    }
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
     }
@@ -754,15 +828,19 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 
   # Calculate the parent objects' inheritance
   if (verbose) cli::cli_inform("{pnames}")
+
+  # once we've started skipping blanks, we continue doing so until the end of the
+  # recursion; we initiate skipping blanks if we encounter an element that
+  # doesn't inherit blank.
+  skip_blank <- skip_blank ||
+    (!is.null(el_out) && !isTRUE(try_prop(el_out, "inherit.blank")))
+
   parents <- lapply(
     pnames,
     calc_element,
     theme,
     verbose = verbose,
-    # once we've started skipping blanks, we continue doing so until the end of the
-    # recursion; we initiate skipping blanks if we encounter an element that
-    # doesn't inherit blank.
-    skip_blank = skip_blank || (!is.null(el_out) && !isTRUE(el_out$inherit.blank)),
+    skip_blank = skip_blank,
     call = call
   )
 
@@ -788,69 +866,74 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE,
 #' # Adopt size but ignore colour
 #' merge_element(new, old)
 #'
-merge_element <- function(new, old) {
-  UseMethod("merge_element")
-}
-
-#' @rdname merge_element
-#' @export
-merge_element.default <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
+merge_element <- S7::new_generic(
+  "merge_element", dispatch_args = c("new", "old"),
+  fun = function(new, old, ...) {
     # If old is NULL or element_blank, then just return new
-    return(new)
-  } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
-             is.logical(new)) {
-    # If new is NULL, or a string, numeric vector, unit, or logical, just return it
-    return(new)
+    if (is.null(old) || is_theme_element(old, "blank")) {
+      return(new)
+    }
+    S7::S7_dispatch()
+  }
+)
+
+S7::method(merge_element, list(S7::class_any, S7::class_any))  <-
+  function(new, old, ...) {
+    if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
+        is.logical(new) || is.function(new)) {
+      # If new is NULL, or a string, numeric vector, unit, or logical, just return it
+      return(new)
+    }
+
+    # otherwise we can't merge
+    cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
   }
 
-  # otherwise we can't merge
-  cli::cli_abort("No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}.")
+S7::method(merge_element, list(element_blank, S7::class_any)) <-
+  function(new, old, ...) {
+    # If new is element_blank, just return it
+    new
+  }
+
+S7::method(merge_element, list(element, S7::class_any)) <-
+  function(new, old, ...) {
+    # actual merging can only happen if classes match
+    if (!inherits(new, class(old)[1])) {
+      cli::cli_abort("Only elements of the same class can be merged.")
+    }
+
+    # Override NULL properties of new with the values in old
+    # Get logical vector of NULL properties in new
+    idx <- lengths(S7::props(new)) == 0
+    # Get the names of TRUE items
+    idx <- names(idx[idx])
+
+    # Update non-NULL items
+    S7::props(new)[idx] <- S7::props(old, idx)
+
+    new
 }
 
-#' @rdname merge_element
-#' @export
-merge_element.element_blank <- function(new, old) {
-  # If new is element_blank, just return it
-  new
-}
-
-#' @rdname merge_element
-#' @export
-merge_element.element <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
-    # If old is NULL or element_blank, then just return new
-    return(new)
+S7::method(merge_element, list(margin, S7::class_any)) <-
+  function(new, old, ...) {
+    if (anyNA(new) && is_margin(old)) {
+      new[is.na(new)] <- old[is.na(new)]
+    }
+    new
   }
 
-  # actual merging can only happen if classes match
-  if (!inherits(new, class(old)[1])) {
-    cli::cli_abort("Only elements of the same class can be merged.")
+# For backward compatibility
+# TODO: in subsequent release cycle, start deprecation
+S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
+  function(new, old, ...) {
+    if (S7::S7_inherits(old)) {
+      old <- S7::props(old)
+    }
+    idx <- lengths(new) == 0
+    idx <- names(idx[idx])
+    new[idx] <- old[idx]
+    new
   }
-
-  # Override NULL properties of new with the values in old
-  # Get logical vector of NULL properties in new
-  idx <- vapply(new, is.null, logical(1))
-  # Get the names of TRUE items
-  idx <- names(idx[idx])
-
-  # Update non-NULL items
-  new[idx] <- old[idx]
-
-  new
-}
-
-#' @rdname merge_element
-#' @export
-merge_element.margin <- function(new, old) {
-  if (is.null(old) || inherits(old, "element_blank")) {
-    return(new)
-  }
-  if (anyNA(new)) {
-    new[is.na(new)] <- old[is.na(new)]
-  }
-  new
-}
 
 #' Combine the properties of two elements
 #'
@@ -862,7 +945,7 @@ merge_element.margin <- function(new, old) {
 combine_elements <- function(e1, e2) {
 
   # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || inherits(e1, "element_blank")) {
+  if (is.null(e2) || is_theme_element(e1, "blank")) {
     return(e1)
   }
 
@@ -872,9 +955,9 @@ combine_elements <- function(e1, e2) {
   }
 
   # Inheritance of rel objects
-  if (is.rel(e1)) {
+  if (is_rel(e1)) {
     # Both e1 and e2 are rel, give product as another rel
-    if (is.rel(e2)) {
+    if (is_rel(e2)) {
       return(rel(unclass(e1) * unclass(e2)))
     }
     # If e2 is a unit/numeric, return modified unit/numeric
@@ -885,7 +968,7 @@ combine_elements <- function(e1, e2) {
     return(e1)
   }
 
-  if (inherits(e1, "margin") && inherits(e2, "margin")) {
+  if (is_margin(e1) && is_margin(e2)) {
     if (anyNA(e2)) {
       e2[is.na(e2)] <- unit(0, "pt")
     }
@@ -894,55 +977,84 @@ combine_elements <- function(e1, e2) {
     }
   }
 
+  # Backward compatbility
+  # TODO: deprecate next release cycle
+  is_old_element <- !S7::S7_inherits(e1) && inherits(e1, "element")
+  if (is_old_element && (is_theme_element(e2) || inherits(e2, "element"))) {
+    return(combine_s3_elements(e1, e2))
+  }
+
   # If neither of e1 or e2 are element_* objects, return e1
-  if (!inherits(e1, "element") && !inherits(e2, "element")) {
+  if (!is_theme_element(e1) && !is_theme_element(e2)) {
     return(e1)
   }
 
   # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
   # otherwise ignore e2
-  if (inherits(e2, "element_blank")) {
-    if (e1$inherit.blank) {
+  if (is_theme_element(e2, "blank")) {
+    if (isTRUE(try_prop(e1, "inherit.blank"))) {
       return(e2)
     } else {
       return(e1)
     }
   }
 
+  parent_props <- if (S7::S7_inherits(e2)) S7::props(e2) else unclass(e2)
+
   # If e1 has any NULL properties, inherit them from e2
-  n <- names(e1)[vapply(e1, is.null, logical(1))]
-  e1[n] <- e2[n]
+  n <- S7::prop_names(e1)[lengths(S7::props(e1)) == 0]
+  S7::props(e1)[n] <- parent_props[n]
 
   # Calculate relative sizes
-  if (is.rel(e1$size)) {
-    e1$size <- e2$size * unclass(e1$size)
+  if (is_rel(try_prop(e1, "size"))) {
+    e1@size <- parent_props$size * unclass(e1@size)
   }
 
   # Calculate relative linewidth
-  if (is.rel(e1$linewidth)) {
-    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+  if (is_rel(try_prop(e1, "linewidth"))) {
+    e1@linewidth <- parent_props$linewidth * unclass(e1@linewidth)
   }
 
-  if (inherits(e1, "element_text")) {
-    e1$margin <- combine_elements(e1$margin, e2$margin)
+  if (is_theme_element(e1, "text")) {
+    e1@margin <- combine_elements(e1@margin, parent_props$margin)
   }
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
   is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
-  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1)) > 0)
+  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1))) > 0
   if (is_subclass) {
-    new <- defaults(e1, e2)
-    e2[names(new)] <- new
+    new <- defaults(S7::props(e1), S7::props(e2))
+    S7::props(e2)[names(new)] <- new
     return(e2)
   }
 
   e1
 }
 
-#' @export
-`$.theme` <- function(x, ...) {
-  .subset2(x, ...)
+# For backward compatibility
+# TODO: in subsequent release cycle, start deprecation
+combine_s3_elements <- function(e1, e2) {
+  e1 <- merge_element(e1, e2)
+  if (S7::S7_inherits(e2)) {
+    e2 <- S7::props(e2)
+  }
+  if (is_rel(e1$size)) {
+    e1$size <- e2$size * unclass(e1$size)
+  }
+  if (is_rel(e1$linewidth)) {
+    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+  }
+  if (inherits(e1, "element_text")) {
+    e1$margin <- combine_elements(e1$margin, e2$margin)
+  }
+  return(e1)
 }
 
-#' @export
-print.theme <- function(x, ...) utils::str(x)
+local({
+  S7::method(`$`, class_theme) <- function(x, ...) {
+    .subset2(x, ...)
+  }
+  S7::method(print, class_theme) <- function(x, ...) {
+    utils::str(x)
+  }
+})

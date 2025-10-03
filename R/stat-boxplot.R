@@ -1,54 +1,11 @@
-#' @rdname geom_boxplot
-#' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
-#' @inheritParams stat_identity
-#' @export
-#' @eval rd_computed_vars(
-#'   .details = "`stat_boxplot()` provides the following variables, some of
-#'   which depend on the orientation:",
-#'   width = "width of boxplot.",
-#'   "ymin|xmin" = "lower whisker = smallest observation greater than or equal
-#'   to lower hinger - 1.5 * IQR.",
-#'   "lower|xlower" = "lower hinge, 25% quantile.",
-#'   notchlower = "lower edge of notch = median - 1.58 * IQR / sqrt(n).",
-#'   "middle|xmiddle" = "median, 50% quantile.",
-#'   notchupper = "upper edge of notch = median + 1.58 * IQR / sqrt(n).",
-#'   "upper|xupper" = "upper hinge, 75% quantile.",
-#'   "ymax|xmax" = "upper whisker = largest observation less than or equal to
-#'   upper hinger + 1.5 * IQR."
-#' )
-stat_boxplot <- function(mapping = NULL, data = NULL,
-                         geom = "boxplot", position = "dodge2",
-                         ...,
-                         coef = 1.5,
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatBoxplot,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      coef = coef,
-      ...
-    )
-  )
-}
-
-
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y|x"),
   non_missing_aes = "weight",
+  optional_aes = "width",
   # either the x or y aesthetic will get dropped during
   # statistical transformation, depending on the orientation
   dropped_aes = c("x", "y", "weight"),
@@ -67,7 +24,13 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   setup_params = function(self, data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
                                           group_has_equal = TRUE,
-                                          main_is_optional = TRUE)
+                                          main_is_optional = TRUE,
+                                        default = NA)
+
+    if (is.na(params$flipped_aes) && any(c("x", "y") %in% names(data))) {
+      cli::cli_warn("Orientation is not uniquely specified when both the x and y aesthetics are continuous. Picking default orientation 'x'.")
+      params$flipped_aes <- FALSE
+    }
     data <- flip_data(data, params$flipped_aes)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
@@ -107,9 +70,11 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     if (any(outliers)) {
       stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
     }
-
-    if (vec_unique_count(data$x) > 1)
+    if (length(data$width) > 0L) {
+      width <- data$width[1L]
+    } else if (vec_unique_count(data$x) > 1) {
       width <- diff(range(data$x)) * 0.9
+    }
 
     df <- data_frame0(!!!as.list(stats))
     df$outliers <- list(data$y[outliers])
@@ -130,4 +95,27 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     df$flipped_aes <- flipped_aes
     flip_data(df, flipped_aes)
   }
+)
+
+#' @rdname geom_boxplot
+#' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
+#' @inheritParams stat_identity
+#' @export
+#' @eval rd_computed_vars(
+#'   .details = "`stat_boxplot()` provides the following variables, some of
+#'   which depend on the orientation:",
+#'   width = "width of boxplot.",
+#'   "ymin|xmin" = "lower whisker = smallest observation greater than or equal
+#'   to lower hinger - 1.5 * IQR.",
+#'   "lower|xlower" = "lower hinge, 25% quantile.",
+#'   notchlower = "lower edge of notch = median - 1.58 * IQR / sqrt(n).",
+#'   "middle|xmiddle" = "median, 50% quantile.",
+#'   notchupper = "upper edge of notch = median + 1.58 * IQR / sqrt(n).",
+#'   "upper|xupper" = "upper hinge, 75% quantile.",
+#'   "ymax|xmax" = "upper whisker = largest observation less than or equal to
+#'   upper hinger + 1.5 * IQR."
+#' )
+stat_boxplot <- make_constructor(
+  StatBoxplot, geom = "boxplot", position = "dodge2",
+  orientation = NA, omit = "width"
 )

@@ -16,7 +16,7 @@
 #' hide the y axis, as in one of the examples, or manually scale it
 #' to match the number of dots.
 #'
-#' @eval rd_aesthetics("geom", "dotplot")
+#' @aesthetics GeomDotplot
 #' @eval rd_computed_vars(
 #'   x = 'center of each bin, if `binaxis` is `"x"`.',
 #'   y = 'center of each bin, if `binaxis` is `"x"`.',
@@ -180,7 +180,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -189,17 +189,21 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   non_missing_aes = c("size", "shape"),
 
   default_aes = aes(
-    colour = from_theme(ink),
-    fill = from_theme(ink),
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% ink),
     alpha = NA,
     stroke = from_theme(borderwidth * 2),
     linetype = from_theme(linetype),
-    weight = 1
+    weight = 1,
+    width = 0.9
   ),
 
-  setup_data = function(data, params) {
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE, TRUE) * 0.9)
+  setup_data = function(self, data, params) {
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width,
+      zero = FALSE, discrete = TRUE
+    )
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {

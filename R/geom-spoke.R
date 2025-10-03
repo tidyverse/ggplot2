@@ -1,10 +1,28 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomSpoke <- ggproto(
+  "GeomSpoke", GeomSegment,
+  setup_data = function(data, params) {
+    data$radius <- data$radius %||% params$radius
+    data$angle <- data$angle %||% params$angle
+
+    transform(data,
+              xend = x + cos(angle) * radius,
+              yend = y + sin(angle) * radius
+    )
+  },
+  required_aes = c("x", "y", "angle", "radius")
+)
+
 #' Line segments parameterised by location, direction and distance
 #'
 #' This is a polar parameterisation of [geom_segment()]. It is
 #' useful when you have variables that describe direction and distance.
 #' The angles start from east and increase counterclockwise.
 #'
-#' @eval rd_aesthetics("geom", "spoke")
+#' @aesthetics GeomSpoke
 #' @inheritParams layer
 #' @inheritParams geom_segment
 #' @export
@@ -22,48 +40,11 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   geom_spoke(aes(angle = angle, radius = speed))
-geom_spoke <- function(mapping = NULL, data = NULL,
-                       stat = "identity", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    geom = GeomSpoke,
-    stat = stat,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_spoke <- make_constructor(GeomSpoke)
 
 #' @export
 #' @rdname geom_spoke
 #' @usage NULL
 stat_spoke <- function(...) {
-  deprecate_warn0("2.0.0", "stat_spoke()", "geom_spoke()")
-  geom_spoke(...)
+  lifecycle::deprecate_stop("2.0.0", "stat_spoke()", "geom_spoke()")
 }
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomSpoke <- ggproto("GeomSpoke", GeomSegment,
-  setup_data = function(data, params) {
-    data$radius <- data$radius %||% params$radius
-    data$angle <- data$angle %||% params$angle
-
-    transform(data,
-      xend = x + cos(angle) * radius,
-      yend = y + sin(angle) * radius
-    )
-  },
-  required_aes = c("x", "y", "angle", "radius")
-)

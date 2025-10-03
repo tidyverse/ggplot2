@@ -4,11 +4,12 @@ NULL
 #' @export
 #' @rdname geom_abline
 geom_vline <- function(mapping = NULL, data = NULL,
-                       position = "identity",
+                      stat = "identity", position = "identity",
                        ...,
                        xintercept,
                        na.rm = FALSE,
-                       show.legend = NA) {
+                       show.legend = NA,
+                      inherit.aes = FALSE) {
 
   # Act like an annotation
   if (!missing(xintercept)) {
@@ -28,11 +29,11 @@ geom_vline <- function(mapping = NULL, data = NULL,
   layer(
     data = data,
     mapping = mapping,
-    stat = StatIdentity,
+    stat = stat,
     geom = GeomVline,
     position = position,
     show.legend = show.legend,
-    inherit.aes = FALSE,
+    inherit.aes = inherit.aes,
     params = list2(
       na.rm = na.rm,
       ...
@@ -40,7 +41,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -56,12 +57,7 @@ GeomVline <- ggproto("GeomVline", Geom,
     GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
   },
 
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
+  default_aes = GeomPath$default_aes,
 
   required_aes = "xintercept",
 

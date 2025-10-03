@@ -1,39 +1,12 @@
-#' @export
-#' @rdname geom_linerange
-geom_pointrange <- function(mapping = NULL, data = NULL,
-                            stat = "identity", position = "identity",
-                            ...,
-                            fatten = 4,
-                            na.rm = FALSE,
-                            orientation = NA,
-                            show.legend = NA,
-                            inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomPointrange,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      fatten = fatten,
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
 GeomPointrange <- ggproto("GeomPointrange", Geom,
   default_aes = aes(
-    colour = from_theme(ink), size = from_theme(pointsize / 3),
+    colour = from_theme(colour %||% ink), size = from_theme(pointsize / 3),
     linewidth = from_theme(linewidth), linetype = from_theme(linetype),
-    shape = from_theme(pointshape), fill = NA, alpha = NA,
+    shape = from_theme(pointshape), fill = from_theme(fill %||% NA), alpha = NA,
     stroke = from_theme(borderwidth * 2)
   ),
 
@@ -42,6 +15,12 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
   required_aes = c("x", "y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
+    if (lifecycle::is_present(params$fatten %||% deprecated())) {
+      deprecate_soft0("4.0.0", "geom_pointrange(fatten)", I("the `size` aesthetic"))
+    } else {
+      # For backward compatibility reasons
+      params$fatten <- 4
+    }
     GeomLinerange$setup_params(data, params)
   },
 
@@ -70,4 +49,11 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
       ))
     )
   }
+)
+
+#' @export
+#' @rdname geom_linerange
+geom_pointrange <- make_constructor(
+  GeomPointrange,
+  orientation = NA, fatten = deprecated()
 )

@@ -140,7 +140,7 @@ position_fill <- function(vjust = 1, reverse = FALSE) {
   ggproto(NULL, PositionFill, vjust = vjust, reverse = reverse)
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -154,7 +154,7 @@ PositionStack <- ggproto("PositionStack", Position,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     var <- self$var %||% stack_var(data)
-    if (!vec_duplicate_any(data$x)) {
+    if (!vec_duplicate_any(data$x)  && !isTRUE(self$fill)) {
       # We skip stacking when all data have different x positions so that
       # there is nothing to stack
       var <- NULL
@@ -224,7 +224,10 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   heights <- c(0, cumsum(y))
 
   if (fill) {
-    heights <- heights / abs(heights[length(heights)])
+    total <- abs(heights[length(heights)])
+    if (total > sqrt(.Machine$double.eps)) {
+      heights <- heights / total
+    }
   }
 # We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
   if (!is.null(df$ymin) && !is.null(df$ymax)) {
@@ -241,7 +244,7 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
 }
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export

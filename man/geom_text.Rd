@@ -9,14 +9,16 @@ geom_label(
   mapping = NULL,
   data = NULL,
   stat = "identity",
-  position = "identity",
+  position = "nudge",
   ...,
   parse = FALSE,
-  nudge_x = 0,
-  nudge_y = 0,
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
-  label.size = 0.25,
+  label.size = deprecated(),
+  border.colour = NULL,
+  border.color = NULL,
+  text.colour = NULL,
+  text.color = NULL,
   size.unit = "mm",
   na.rm = FALSE,
   show.legend = NA,
@@ -27,11 +29,9 @@ geom_text(
   mapping = NULL,
   data = NULL,
   stat = "identity",
-  position = "identity",
+  position = "nudge",
   ...,
   parse = FALSE,
-  nudge_x = 0,
-  nudge_y = 0,
   check_overlap = FALSE,
   size.unit = "mm",
   na.rm = FALSE,
@@ -73,12 +73,12 @@ give the stat as \code{"count"}.
 \link[=layer_stats]{layer stat} documentation.
 }}
 
-\item{position}{A position adjustment to use on the data for this layer.
-Cannot be jointy specified with \code{nudge_x} or \code{nudge_y}. This
+\item{position}{A position adjustment to use on the data for this layer. This
 can be used in various ways, including to prevent overplotting and
 improving the display. The \code{position} argument accepts the following:
 \itemize{
 \item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
 \item A string naming the position adjustment. To give the position as a
 string, strip the function name of the \code{position_} prefix. For example,
 to use \code{position_jitter()}, give the position as \code{"jitter"}.
@@ -117,15 +117,20 @@ lists which parameters it can accept.
 \item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
 displayed as described in \code{?plotmath}.}
 
-\item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointly specified with \code{position}.}
-
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
-\item{label.size}{Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Replaced by the
+\code{linewidth} aesthetic. Size of label border, in mm.}
+
+\item{border.colour, border.color}{Colour of label border. When \code{NULL}
+(default), the \code{colour} aesthetic determines the colour of the label border.
+\code{border.color} is an alias for \code{border.colour}.}
+
+\item{text.colour, text.color}{Colour of the text. When \code{NULL} (default), the
+\code{colour} aesthetic determines the colour of the text. \code{text.color} is an
+alias for \code{text.colour}.}
 
 \item{size.unit}{How the \code{size} aesthetic is interpreted: as millimetres
 (\code{"mm"}, default), points (\code{"pt"}), centimetres (\code{"cm"}), inches (\code{"in"}),
@@ -145,7 +150,7 @@ but unobserved levels are omitted.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
@@ -178,27 +183,6 @@ To automatically position non-overlapping text labels see the
 \href{https://cran.r-project.org/package=ggrepel}{ggrepel}
 package.
 }
-\section{Aesthetics}{
-
-\code{geom_text()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}}}
-\item \strong{\code{\link[=aes_position]{y}}}
-\item \strong{\code{label}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{angle}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{family}
-\item \code{fontface}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{hjust}
-\item \code{lineheight}
-\item \code{\link[=aes_linetype_size_shape]{size}}
-\item \code{vjust}
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{\code{geom_label()}}{
 
 Currently \code{geom_label()} does not support the \code{check_overlap} argument. Also,
@@ -319,4 +303,25 @@ ggplot(df, aes(x, y)) +
 }
 \seealso{
 The \href{https://ggplot2-book.org/annotations#sec-text-labels}{text labels section} of the online ggplot2 book.
+}
+\section{Aesthetics}{
+
+\code{geom_text()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \strong{\code{label}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr
+ • \tab \code{angle} \tab → \code{0} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
+ • \tab \code{family} \tab → via \code{theme()} \cr
+ • \tab \code{fontface} \tab → \code{1} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{hjust} \tab → \code{0.5} \cr
+ • \tab \code{lineheight} \tab → \code{1.2} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr
+ • \tab \code{vjust} \tab → \code{0.5} \cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

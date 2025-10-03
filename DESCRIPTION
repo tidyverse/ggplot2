@@ -1,6 +1,6 @@
 Package: ggplot2
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Version: 3.5.1.9000
+Version: 4.0.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -20,7 +20,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-9415-4582")),
     person("Teun", "van den Brand", role = "aut",
            comment = c(ORCID = "0000-0002-9335-7468")),
-    person("Posit, PBC", role = c("cph", "fnd"))
+    person("Posit, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
   )
 Description: A system for 'declaratively' creating graphics, based on "The
     Grammar of Graphics". You provide the data, tell 'ggplot2' how to map
@@ -30,16 +31,17 @@ License: MIT + file LICENSE
 URL: https://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 Depends:
-    R (>= 4.0)
-Imports: 
+    R (>= 4.1)
+Imports:
     cli,
     grDevices,
     grid,
-    gtable (>= 0.1.1),
+    gtable (>= 0.3.6),
     isoband,
     lifecycle (> 1.0.1),
     rlang (>= 1.1.0),
-    scales (>= 1.3.0),
+    S7,
+    scales (>= 1.4.0),
     stats,
     vctrs (>= 0.6.0),
     withr (>= 2.5.0)
@@ -50,6 +52,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    hms,
     knitr,
     mapproj,
     maps,
@@ -63,6 +66,7 @@ Suggests:
     quarto,
     ragg (>= 1.2.6),
     RColorBrewer,
+    roxygen2,
     rpart,
     sf (>= 0.7-3),
     svglite (>= 2.1.2),
@@ -70,18 +74,18 @@ Suggests:
     tibble,
     vdiffr (>= 1.0.6),
     xml2
-Enhances: 
+Enhances:
     sp
 VignetteBuilder: 
     quarto
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
-Config/usethis/last-upkeep: 2024-10-24
+Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
-Collate: 
+RoxygenNote: 7.3.3
+Collate:
     'ggproto.R'
     'ggplot-global.R'
     'aaa-.R'
@@ -90,14 +94,19 @@ Collate:
     'aes-group-order.R'
     'aes-linetype-size-shape.R'
     'aes-position.R'
+    'all-classes.R'
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'annotation-borders.R'
     'utilities-checks.R'
     'legend-draw.R'
     'geom-.R'
     'annotation-custom.R'
     'annotation-logticks.R'
+    'scale-type.R'
+    'layer.R'
+    'make-constructor.R'
     'geom-polygon.R'
     'geom-map.R'
     'annotation-map.R'
@@ -142,6 +151,7 @@ Collate:
     'geom-col.R'
     'geom-path.R'
     'geom-contour.R'
+    'geom-point.R'
     'geom-count.R'
     'geom-crossbar.R'
     'geom-segment.R'
@@ -160,7 +170,6 @@ Collate:
     'geom-jitter.R'
     'geom-label.R'
     'geom-linerange.R'
-    'geom-point.R'
     'geom-pointrange.R'
     'geom-quantile.R'
     'geom-rug.R'
@@ -175,6 +184,8 @@ Collate:
     'grob-dotstack.R'
     'grob-null.R'
     'grouping.R'
+    'properties.R'
+    'margins.R'
     'theme-elements.R'
     'guide-.R'
     'guide-axis.R'
@@ -186,7 +197,6 @@ Collate:
     'guide-colorbar.R'
     'guide-colorsteps.R'
     'guide-custom.R'
-    'layer.R'
     'guide-none.R'
     'guide-old.R'
     'guides-.R'
@@ -199,7 +209,6 @@ Collate:
     'layer-sf.R'
     'layout.R'
     'limits.R'
-    'margins.R'
     'performance.R'
     'plot-build.R'
     'plot-construction.R'
@@ -236,16 +245,17 @@ Collate:
     'scale-shape.R'
     'scale-size.R'
     'scale-steps.R'
-    'scale-type.R'
     'scale-view.R'
     'scale-viridis.R'
     'scales-.R'
     'stat-align.R'
     'stat-bin.R'
+    'stat-summary-2d.R'
     'stat-bin2d.R'
     'stat-bindot.R'
     'stat-binhex.R'
     'stat-boxplot.R'
+    'stat-connect.R'
     'stat-contour.R'
     'stat-count.R'
     'stat-density-2d.R'
@@ -263,7 +273,6 @@ Collate:
     'stat-smooth-methods.R'
     'stat-smooth.R'
     'stat-sum.R'
-    'stat-summary-2d.R'
     'stat-summary-bin.R'
     'stat-summary-hex.R'
     'stat-summary.R'
@@ -274,6 +283,7 @@ Collate:
     'theme.R'
     'theme-defaults.R'
     'theme-current.R'
+    'theme-sub.R'
     'utilities-break.R'
     'utilities-grid.R'
     'utilities-help.R'
