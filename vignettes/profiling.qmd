@@ -1,12 +1,11 @@
 ---
 title: "Profiling Performance"
 author: "Thomas Lin Pedersen"
-output: rmarkdown::html_vignette
 description: |
   Monitoring the performance of your plots.
 vignette: >
   %\VignetteIndexEntry{Profiling Performance}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
