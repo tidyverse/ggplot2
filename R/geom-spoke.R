@@ -8,6 +8,10 @@ GeomSpoke <- ggproto(
     data$radius <- data$radius %||% params$radius
     data$angle <- data$angle %||% params$angle
 
+    if (any(is.infinite(data$radius))) {
+      cli::cli_warn("Infinite {.field radius} values are unreliable.")
+    }
+
     transform(data,
               xend = x + cos(angle) * radius,
               yend = y + sin(angle) * radius
