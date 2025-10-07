@@ -103,7 +103,7 @@ If you are new to ggplot2 you are better off starting with a systematic introduc
 
 There are two main places to get help with ggplot2:
 
-1.  The [posit community][community] (formerly RStudio Community) is a friendly place to ask any
+1.  The [Posit Community][community] (formerly RStudio Community) is a friendly place to ask any
     questions about ggplot2.
 
 1.  [Stack Overflow][so] is a great source of answers to common ggplot2
