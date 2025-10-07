@@ -73,6 +73,13 @@ StatAlign <- ggproto(
       flipped_aes = flipped_aes
     )
     flip_data(data_aligned, flipped_aes)
+  },
+
+  finish_layer = function(data, params) {
+    # Silently remove out-of-bounds padding vertices
+    var <- flipped_names(params$flipped_aes)$x
+    remove <- is.na(data[[var]]) & (data$align_padding %||% FALSE)
+    vec_slice(data, !remove)
   }
 )
 
