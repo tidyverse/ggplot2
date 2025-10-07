@@ -176,6 +176,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
+  aes_params$label <- normalise_label(aes_params$label)
 
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
@@ -552,6 +553,7 @@ Layer <- ggproto("Layer", NULL,
 
     # Evaluate aesthetics
     evaled <- eval_aesthetics(aesthetics, data)
+    evaled$label <- normalise_label(evaled$label)
     plot@scales$add_defaults(evaled, plot@plot_env)
 
     # Check for discouraged usage in mapping
@@ -962,4 +964,18 @@ cleanup_mismatched_data <- function(data, n, fun) {
 
   data[failed] <- NULL
   data
+}
+
+normalise_label <- function(label) {
+  if (is.null(label)) {
+    return(NULL)
+  }
+  if (obj_is_list(label)) {
+    label[lengths(label) == 0] <- ""
+    labels <- lapply(labels, `[`, i)
+  }
+  if (is.expression(label)) {
+    label <- unclass(as.list(label))
+  }
+  label
 }
