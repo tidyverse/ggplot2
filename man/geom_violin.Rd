@@ -118,7 +118,8 @@ outside of bounds are removed with a warning.}
 
 \item{quantile.colour, quantile.color, quantile.linewidth, quantile.linetype}{Default aesthetics for the quantile lines. Set to \code{NULL} to inherit from
 the data's aesthetics. By default, quantile lines are hidden and can be
-turned on by changing \code{quantile.linetype}.}
+turned on by changing \code{quantile.linetype}. Quantile values can be set
+using the \code{quantiles} argument when using \code{stat = "ydensity"} (default).}
 
 \item{draw_quantiles}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Previous
 specification of drawing quantiles.}
@@ -169,8 +170,11 @@ For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 (\code{TRUE}, default) or keep such groups for position adjustment purposes
 (\code{FALSE}).}
 
-\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
-and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
+\item{quantiles}{A numeric vector with numbers between 0 and 1 to indicate
+quantiles marked by the \code{quantile} computed variable. The default marks the
+25th, 50th and 75th percentiles. The display of quantiles can be
+turned on by setting \code{quantile.linetype} to non-blank when using
+\code{geom = "violin"} (default).}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a
