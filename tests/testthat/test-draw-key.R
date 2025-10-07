@@ -110,7 +110,11 @@ test_that("keep_draw_key", {
       aes(colour = "line", alpha = "line"),
       show.legend = c("colour" = NA, alpha = TRUE)
     ) +
-    suppressWarnings(scale_alpha_discrete())
+    suppressWarnings(scale_alpha_discrete()) +
+    guides(
+      alpha  = guide_legend(order = 1),
+      colour = guide_legend(order = 2)
+    )
 
   expect_doppelganger("appropriate colour key with alpha key as lines", p)
 
