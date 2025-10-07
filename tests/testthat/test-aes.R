@@ -103,7 +103,8 @@ test_that("quosures are squashed when creating default label for a mapping", {
 test_that("labelling doesn't cause error if aesthetic is NULL", {
   p <- ggplot(mtcars) + aes(x = NULL)
   labels <- ggplot_build(p)@plot@labels
-  expect_identical(labels$x, "x")
+  # NULL labels should only be used as fallback labels
+  expect_identical(labels$x, structure("x", fallback = TRUE))
 })
 
 test_that("aes standardises aesthetic names", {
