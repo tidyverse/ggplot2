@@ -91,7 +91,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
       check.width = FALSE,
       reverse = !params$reverse # for consistency with `position_dodge2()`
     )
-    data <- compute_jitter(data, params$jitter.width, params$jitter.height, params$seed)
-    flip_data(data, params$flipped_aes)
+    data <- flip_data(data, params$flipped_aes)
+    compute_jitter(data, params$jitter.width, params$jitter.height, params$seed)
   }
 )
