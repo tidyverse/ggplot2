@@ -350,11 +350,8 @@ strip_stage <- function(expr) {
 make_labels <- function(mapping) {
   default_label <- function(aesthetic, mapping) {
     # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
-    if (is.null(mapping)) {
+    if (is.null(mapping) || is.atomic(mapping)) {
       return(structure(aesthetic, fallback = TRUE))
-    }
-    if (is.atomic(mapping)) {
-      return(aesthetic)
     }
     mapping <- strip_stage(mapping)
     mapping <- strip_dots(mapping, strip_pronoun = TRUE)
