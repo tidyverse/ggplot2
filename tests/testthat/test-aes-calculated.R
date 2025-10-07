@@ -45,13 +45,11 @@ test_that("make_labels() deparses mappings properly", {
   x_lab <- make_labels(aes(x = 2 * x * exp(`coef 1` * x^2) * 2 * x * exp(`coef 1` * x^2) * 2 * x))$x
   expect_length(x_lab, 1L)
   expect_match(x_lab, "...$")
-  # if the mapping is a literal or NULL, the aesthetics is used
-  expect_identical(make_labels(aes(x = 1)), list(x = "x"))
+  fallback <- list(x = structure("x", fallback = TRUE))
+  # if the mapping is a literal or NULL, the aesthetics is used as fallback
+  expect_identical(make_labels(aes(x = 1)), fallback)
   # NULL labels should only be used as fallback labels
-  expect_identical(
-    make_labels(aes(x = NULL)),
-    list(x = structure("x", fallback = TRUE))
-  )
+  expect_identical(make_labels(aes(x = NULL)), fallback)
 })
 
 test_that("staged aesthetics warn appropriately for duplicated names", {
