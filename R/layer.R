@@ -971,12 +971,12 @@ normalise_label <- function(label) {
     return(NULL)
   }
   if (obj_is_list(label)) {
-    # Ensure that element in the list has length 1
+    # Ensure that each element in the list has length 1
     label[lengths(label) == 0] <- ""
     labels <- lapply(labels, `[`, i)
   }
   if (is.expression(label)) {
-    # Subclasses expressions, when converted to lists, retain their class.
+    # Classed expressions, when converted to lists, retain their class.
     # The unclass is needed to properly treat it as a vctrs-compatible list.
     label <- unclass(as.list(label))
   }
