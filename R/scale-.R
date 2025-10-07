@@ -1182,18 +1182,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         call = self$call
       )
     }
-
-    if (obj_is_list(labels)) {
-      # Guard against list with empty elements
-      labels[lengths(labels) == 0] <- ""
-      # Make sure each element is scalar
-      labels <- lapply(labels, `[`, 1)
-    }
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
-
-    labels
+    normalise_label(labels)
   },
 
   clone = function(self) {
@@ -1436,11 +1425,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       # Need to ensure that if breaks were dropped, corresponding labels are too
       labels <- labels[attr(breaks, "pos")]
     }
-
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
-    labels
+    normalise_label(labels)
   },
 
   clone = function(self) {
@@ -1688,10 +1673,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         call = self$call
       )
     }
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
-    labels
+    normalise_label(labels)
   },
 
   clone = function(self) {

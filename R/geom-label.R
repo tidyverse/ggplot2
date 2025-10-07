@@ -83,6 +83,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     if (parse) {
       lab <- parse_safe(as.character(lab))
     }
+    lab <- validate_labels(lab)
 
     data <- coord$transform(data, panel_params)
     data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
