@@ -114,7 +114,7 @@ p3
 # override.aes overwrites the alpha
 p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 
-omit legend items
+# omit legend items
 p4 <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
   geom_point()
 p4
