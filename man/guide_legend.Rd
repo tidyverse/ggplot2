@@ -114,6 +114,12 @@ p3
 # override.aes overwrites the alpha
 p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 
+omit legend items
+p4 <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+  geom_point()
+p4
+p4 + scale_color_discrete(breaks = c(4, 8))
+
 # multiple row/col legends
 df <- data.frame(x = 1:20, y = 1:20, color = letters[1:20])
 p <- ggplot(df, aes(x, y)) +
