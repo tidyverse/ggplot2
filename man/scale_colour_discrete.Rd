@@ -81,5 +81,20 @@ p
 theme_set(old)
 }
 \seealso{
+\code{\link[=discrete_scale]{discrete_scale()}}
+
 The \href{https://ggplot2-book.org/scales-colour#sec-colour-discrete}{discrete colour scales section} of the online ggplot2 book.
+
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
+\concept{colour scales}

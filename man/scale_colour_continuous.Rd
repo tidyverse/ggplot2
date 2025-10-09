@@ -136,9 +136,7 @@ p + scale_colour_binned() +
 theme_set(old)
 }
 \seealso{
-\code{\link[=continuous_scale]{continuous_scale()}}, \code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_viridis_c]{scale_colour_viridis_c()}},
-\code{\link[=scale_colour_steps]{scale_colour_steps()}}, \code{\link[=scale_colour_viridis_b]{scale_colour_viridis_b()}}, \code{\link[=scale_fill_gradient]{scale_fill_gradient()}},
-\code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}, \code{\link[=scale_fill_steps]{scale_fill_steps()}}, and \code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}}
+\code{\link[=continuous_scale]{continuous_scale()}} and \code{\link[=binned_scale]{binned_scale()}}
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
@@ -147,6 +145,7 @@ The \href{https://ggplot2-book.org/scales-colour#sec-colour-continuous}{continuo
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_discrete}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
