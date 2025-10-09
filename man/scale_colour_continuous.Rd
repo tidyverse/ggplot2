@@ -46,7 +46,9 @@ scale_fill_binned(
 )
 }
 \arguments{
-\item{...}{Additional parameters passed on to the scale type}
+\item{...}{Additional parameters passed on to \code{\link[=continuous_scale]{continuous_scale()}} or
+\code{\link[=binned_scale]{binned_scale()}} as appropriate, or, if set, to the scale specified
+by the superseded \code{type} argument.}
 
 \item{palette}{One of the following:
 \itemize{

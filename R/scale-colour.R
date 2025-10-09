@@ -26,7 +26,9 @@
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a numeric vector with values
 #'     between 0 and 1 returns the corresponding output values.
-#' @param ... Additional parameters passed on to the scale type
+#' @param ... Additional parameters passed on to [continuous_scale()] or
+#'   [binned_scale()] as appropriate, or, if set, to the scale specified
+#'   by the superseded `type` argument.
 #' @param type `r lifecycle::badge("superseded")` One of the following:
 #'   * "gradient" (the default)
 #'   * "viridis"
@@ -171,7 +173,8 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a single integer argument (the
 #'     number of levels in the scale) returns the values that they should take.
-#' @param ... Additional parameters passed on to the scale type,
+#' @param ... Additional parameters passed on to [discrete_scale()] or, if set, to the scale specified
+#'   by the superseded `type` argument.
 #' @inheritParams discrete_scale
 #' @param type `r lifecycle::badge("superseded")` The preferred mechanism for
 #'   setting the default palette is by using the theme. For example:

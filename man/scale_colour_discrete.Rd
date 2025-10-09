@@ -23,7 +23,8 @@ scale_fill_discrete(
 )
 }
 \arguments{
-\item{...}{Additional parameters passed on to the scale type,}
+\item{...}{Additional parameters passed on to \code{\link[=discrete_scale]{discrete_scale()}} or, if set, to the scale specified
+by the superseded \code{type} argument.}
 
 \item{palette}{One of the following:
 \itemize{
