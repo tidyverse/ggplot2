@@ -31,7 +31,7 @@
 #'   * "gradient" (the default)
 #'   * "viridis"
 #'   * A function that returns a continuous colour scale.
-#' @seealso [scale_colour_gradient()], [scale_colour_viridis_c()],
+#' @seealso  [continuous_scale()], [scale_colour_gradient()], [scale_colour_viridis_c()],
 #'   [scale_colour_steps()], [scale_colour_viridis_b()], [scale_fill_gradient()],
 #'   [scale_fill_viridis_c()], [scale_fill_steps()], and [scale_fill_viridis_b()]
 #'
