@@ -96,7 +96,66 @@
 
 
 <dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional parameters passed on to the scale type,</p></dd>
+<dd><p>Arguments passed on to <code><a href="discrete_scale.html">discrete_scale</a></code></p><dl><dt><code>breaks</code></dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
+<li><p><code><a href="waiver.html">waiver()</a></code> for the default breaks (the scale limits)</p></li>
+<li><p>A character vector of breaks</p></li>
+<li><p>A function that takes the limits as input and returns breaks
+as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+notation.</p></li>
+</ul></dd>
+
+    <dt><code>limits</code></dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale values</p></li>
+<li><p>A character vector that defines possible values of the scale and their
+order</p></li>
+<li><p>A function that accepts the existing (automatic) values and returns
+new ones. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+notation.</p></li>
+</ul></dd>
+
+    <dt><code>drop</code></dt>
+<dd><p>Should unused factor levels be omitted from the scale?
+The default, <code>TRUE</code>, uses the levels that appear in the data;
+<code>FALSE</code> includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use <code>show.legend = TRUE</code>.</p></dd>
+
+    <dt><code>na.translate</code></dt>
+<dd><p>Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
+
+    <dt><code>name</code></dt>
+<dd><p>The name of the scale. Used as the axis or legend title. If
+<code><a href="waiver.html">waiver()</a></code>, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
+omitted.</p></dd>
+
+    <dt><code>labels</code></dt>
+<dd><p>One of the options below. Please note that when <code>labels</code> is a
+vector, it is highly recommended to also set the <code>breaks</code> argument as a
+vector to protect against unintended mismatches.</p><ul><li><p><code>NULL</code> for no labels</p></li>
+<li><p><code><a href="waiver.html">waiver()</a></code> for the default labels computed by the
+transformation object</p></li>
+<li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
+<li><p>An expression vector (must be the same length as breaks). See ?plotmath for details.</p></li>
+<li><p>A function that takes the breaks as input and returns labels
+as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+notation.</p></li>
+</ul></dd>
+
+    <dt><code>guide</code></dt>
+<dd><p>A function used to create a guide or its name. See
+<code><a href="guides.html">guides()</a></code> for more information.</p></dd>
+
+    <dt><code>call</code></dt>
+<dd><p>The <code>call</code> used to construct the scale for reporting messages.</p></dd>
+
+    <dt><code>super</code></dt>
+<dd><p>The super class to use for the constructed scale</p></dd>
+
+
+</dl></dd>
 
 
 <dt id="arg-palette">palette<a class="anchor" aria-label="anchor" href="#arg-palette"></a></dt>
@@ -137,7 +196,19 @@ want to change the color palette based on the number of levels.</p></li>
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>The <a href="https://ggplot2-book.org/scales-colour#sec-colour-discrete" class="external-link">discrete colour scales section</a> of the online ggplot2 book.</p></div>
+    <div class="dont-index"><p><code><a href="discrete_scale.html">discrete_scale()</a></code></p>
+<p>The <a href="https://ggplot2-book.org/scales-colour#sec-colour-discrete" class="external-link">discrete colour scales section</a> of the online ggplot2 book.</p>
+<p>Other colour scales:
+<code><a href="scale_alpha.html">scale_alpha</a>()</code>,
+<code><a href="scale_brewer.html">scale_colour_brewer</a>()</code>,
+<code><a href="scale_colour_continuous.html">scale_colour_continuous</a>()</code>,
+<code><a href="scale_gradient.html">scale_colour_gradient</a>()</code>,
+<code><a href="scale_grey.html">scale_colour_grey</a>()</code>,
+<code><a href="scale_hue.html">scale_colour_hue</a>()</code>,
+<code><a href="scale_identity.html">scale_colour_identity</a>()</code>,
+<code><a href="scale_manual.html">scale_colour_manual</a>()</code>,
+<code><a href="scale_steps.html">scale_colour_steps</a>()</code>,
+<code><a href="scale_viridis.html">scale_colour_viridis_d</a>()</code></p></div>
     </div>
 
     <div class="section level2">
