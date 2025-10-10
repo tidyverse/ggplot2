@@ -124,7 +124,12 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- unclass(data) #for faster indexing
 
     # In case the data comes from stat_align
-    upper_keep <- if (is.null(data$align_padding)) TRUE else !data$align_padding
+    upper_keep <- TRUE
+    if (!is.null(data$align_padding)) {
+      upper_keep <- !data$align_padding
+      # `align_padding` can be NA when group is the only group in panel
+      upper_keep[is.na(upper_keep)] <- TRUE
+    }
 
     # The upper line and lower line need to processed separately (#4023)
     positions_upper <- data_frame0(
