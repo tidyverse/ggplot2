@@ -213,6 +213,7 @@ Collate:
     'plot-build.R'
     'plot-construction.R'
     'plot-last.R'
+    'plot-render.R'
     'plot.R'
     'position-.R'
     'position-collide.R'
