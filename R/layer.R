@@ -142,15 +142,6 @@ layer <- function(geom = NULL, stat = NULL,
   if (any(pattern)) {
     aes_params[pattern] <- lapply(aes_params[pattern], list)
   }
-  # Drop empty aesthetics
-  empty_aes <- names(aes_params)[lengths(aes_params) == 0]
-  if (length(empty_aes) > 0) {
-    cli::cli_warn(
-      "Ignoring empty aesthetic{?s}: {.arg {empty_aes}}.",
-      call = call_env
-    )
-    aes_params <- aes_params[setdiff(names(aes_params), empty_aes)]
-  }
 
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
@@ -783,6 +774,16 @@ Layer <- ggproto("Layer", NULL,
   compute_geom_2 = function(self, data, params = self$aes_params, theme = NULL, ...) {
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
+
+    # Drop empty aesthetics
+    empty_aes <- names(params)[lengths(params) == 0]
+    if (length(empty_aes) > 0) {
+      cli::cli_warn(
+        "Ignoring empty aesthetic{?s}: {.arg {empty_aes}}.",
+        call = self$constructor
+      )
+      params <- params[setdiff(names(params), empty_aes)]
+    }
 
     aesthetics <- self$computed_mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics) | is_themed_aes(aesthetics)]
