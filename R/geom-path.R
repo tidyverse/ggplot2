@@ -19,7 +19,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     # middle since you expect those to be shown by a break in the line
     aesthetics <- c(self$required_aes, self$non_missing_aes)
     complete <- stats::complete.cases(data[names(data) %in% aesthetics])
-    kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
+    kept <- vec_ave(complete, data$group, keep_mid_true)
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
@@ -48,7 +48,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     munched <- coord_munch(coord, data, panel_params)
 
     # Silently drop lines with less than two points, preserving order
-    rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
+    rows <- vec_ave(seq_len(nrow(munched)), munched$group, length)
     munched <- munched[rows >= 2, ]
     if (nrow(munched) < 2) return(zeroGrob())
 

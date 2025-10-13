@@ -1415,14 +1415,14 @@ censor_labels <- function(ranges, layout, labels) {
   )
 
   if (!labels$x) {
-    xmax <- stats::ave(layout$ROW, layout$COL, FUN = max)
-    xmin <- stats::ave(layout$ROW, layout$COL, FUN = min)
+    xmax <- vec_ave(layout$ROW, layout$COL, max)
+    xmin <- vec_ave(layout$ROW, layout$COL, min)
     draw[which(layout$ROW != xmax), "bottom"] <- FALSE
     draw[which(layout$ROW != xmin), "top"] <- FALSE
   }
   if (!labels$y) {
-    ymax <- stats::ave(layout$COL, layout$ROW, FUN = max)
-    ymin <- stats::ave(layout$COL, layout$ROW, FUN = min)
+    ymax <- vec_ave(layout$COL, layout$ROW, max)
+    ymin <- vec_ave(layout$COL, layout$ROW, min)
     draw[which(layout$COL != ymax), "right"] <- FALSE
     draw[which(layout$COL != ymin), "left"] <- FALSE
   }
