@@ -415,28 +415,27 @@ class_ggplot_built <- S7::new_class(
 # S7 currently attaches the S3 method to the calling environment which gives `ggplot2:::as.list`
 # Wrap in `local()` to provide a temp environment which throws away the attachment
 local({
+  list_classes <- class_mapping | class_theme | class_labels
+  prop_classes <- class_ggplot | class_ggplot_built
 
-  S7::method(
-    convert,
-    list(
-      from = class_ggplot | class_ggplot_built,
-      to = S7::class_list
-    )
-  ) <- function(from, to, ...) {
-    S7::props(from)
-  }
+  S7::method(convert, list(from = prop_classes, to = S7::class_list)) <-
+    function(from, to, ...) S7::props(from)
 
-  S7::method(
-    convert,
-    list(
-      from = class_mapping | class_theme | class_labels,
-      to = S7::class_list
-    )
-  ) <- function(from, to, ...) {
-    S7::S7_data(from)
-  }
+  S7::method(convert, list(from = list_classes, to = S7::class_list)) <-
+    function(from, to, ...) S7::S7_data(from)
 
-  S7::method(as.list, class_gg) <- function(x, ...) convert(x, S7::class_list)
+  # We're not using union classes here because of S7#510
+  S7::method(as.list, class_gg) <-
+    S7::method(as.list, class_mapping) <-
+    S7::method(as.list, class_theme) <-
+    S7::method(as.list, class_labels) <-
+    function(x, ...) convert(x, S7::class_list)
+
+  S7::method(convert, list(from = S7::class_list, to = prop_classes)) <-
+    function(from, to, ...) inject(to(!!!from))
+
+  S7::method(convert, list(from = S7::class_list, to = list_classes)) <-
+    function(from, to, ...) to(from)
 })
 
 
