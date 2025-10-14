@@ -408,6 +408,13 @@ local({
     # deprecate_soft0("4.1.0", I("`<ggplot2::element>[[i]]`"), I("`S7::prop(<ggplot2::element>, i)`"))
     `[[`(S7::props(x), i)
   }
+  S7::method(as.list, element) <- function(x, ...) {
+    S7::convert(x, S7::class_list)
+  }
+  S7::method(convert, list(from = element, to = S7::class_list)) <-
+    function(from, to, ...) {
+      S7::props(from)
+    }
 })
 
 # Element setter methods
