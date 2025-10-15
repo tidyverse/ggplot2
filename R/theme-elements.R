@@ -412,9 +412,25 @@ local({
     S7::convert(x, S7::class_list)
   }
   S7::method(convert, list(from = element, to = S7::class_list)) <-
-    function(from, to, ...) {
-      S7::props(from)
+    function(from, to, ...) S7::props(from)
+  S7::method(
+    convert,
+    list(
+      from = S7::class_list,
+      to = element_geom | element_line | element_point |
+        element_polygon | element_rect | element_text | element_blank
+    )
+  ) <- function(from, to, ...) {
+    extra <- setdiff(names(from), fn_fmls_names(to))
+    if (length(extra) > 0) {
+      cli::cli_warn(
+        "Unknown {cli::qty(extra)} argument{?s} to {.fn {to@name}}: \\
+        {.and {.arg {extra}}}."
+      )
+      from <- from[setdiff(names(from), extra)]
     }
+    inject(to(!!!from))
+  }
 })
 
 # Element setter methods
