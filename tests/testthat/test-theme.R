@@ -791,6 +791,22 @@ test_that("theme elements are covered in `theme_sub_*()` functions", {
   expect_snapshot(extra_elements)
 })
 
+test_that("theme element conversion to lists works", {
+
+  x <- element_rect(colour = "red")
+  expect_type(x <- as.list(x), "list")
+  expect_s7_class(convert(x, element_rect), element_rect)
+
+  # For now, element_text doesn't round-trip.
+  # Once fontwidth/fontweight/italic are implemented, it should round-trip again
+  x <- as.list(element_text(colour = "red"))
+  expect_snapshot_warning(
+    convert(x, element_text)
+  )
+  x <- x[setdiff(names(x), c("fontwidth", "fontweight", "italic"))]
+  expect_silent(convert(x, element_text))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("element_polygon() can render a grob", {
