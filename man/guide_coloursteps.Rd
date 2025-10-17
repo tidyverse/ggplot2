@@ -47,7 +47,7 @@ guide partially overrides, and is combined with, the plot's theme.
 Arguments that apply to a single legend are respected, most of which have
 the \code{legend}-prefix. Arguments that apply to combined legends
 (the legend box) are ignored, including \code{legend.position},
-\verb{legend.justification.*}, \code{legend.location} and \verb{legend.box.*}.}
+\verb{legend.just.*}, \code{legend.location} and \verb{legend.box.*}.}
 
 \item{alpha}{A numeric between 0 and 1 setting the colour transparency of
 the bar. Use \code{NA} to preserve the alpha encoded in the colour itself

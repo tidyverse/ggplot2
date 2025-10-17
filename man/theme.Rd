@@ -86,7 +86,7 @@ theme(
   legend.key.spacing,
   legend.key.spacing.x,
   legend.key.spacing.y,
-  legend.key.justification,
+  legend.key.just,
   legend.frame,
   legend.ticks,
   legend.ticks.length,
@@ -99,12 +99,12 @@ theme(
   legend.position.inside,
   legend.direction,
   legend.byrow,
-  legend.justification,
-  legend.justification.top,
-  legend.justification.bottom,
-  legend.justification.left,
-  legend.justification.right,
-  legend.justification.inside,
+  legend.just,
+  legend.just.top,
+  legend.just.bottom,
+  legend.just.left,
+  legend.just.right,
+  legend.just.inside,
   legend.location,
   legend.box,
   legend.box.just,
@@ -236,7 +236,7 @@ between legend keys given as a \code{unit}. Spacing in the horizontal (x) and
 vertical (y) direction inherit from \code{legend.key.spacing} or can be
 specified separately. \code{legend.key.spacing} inherits from \code{spacing}.}
 
-\item{legend.key.justification}{Justification for positioning legend keys
+\item{legend.key.just}{Justification for positioning legend keys
 when more space is available than needed for display. The default, \code{NULL},
 stretches keys into the available space. Can be a location like \code{"center"}
 or \code{"top"}, or a two-element numeric vector.}
@@ -275,11 +275,11 @@ placement of legends that have the \code{"inside"} position.}
 \item{legend.byrow}{whether the legend-matrix is filled by columns
 (\code{FALSE}, the default) or by rows (\code{TRUE}).}
 
-\item{legend.justification}{anchor point for positioning legend inside plot
+\item{legend.just}{anchor point for positioning legend inside plot
 ("center" or two-element numeric vector) or the justification according to
 the plot area when positioned outside the plot}
 
-\item{legend.justification.top, legend.justification.bottom, legend.justification.left, legend.justification.right, legend.justification.inside}{Same as \code{legend.justification} but specified per \code{legend.position} option.}
+\item{legend.just.top, legend.just.bottom, legend.just.left, legend.just.right, legend.just.inside}{Same as \code{legend.just} but specified per \code{legend.position} option.}
 
 \item{legend.location}{Relative placement of legends outside the plot as a
 string. Can be \code{"panel"} (default) to align legends to the panels or
@@ -477,15 +477,15 @@ p2
 
 # Position
 p2 + theme(legend.position = "none")
-p2 + theme(legend.justification = "top")
+p2 + theme(legend.just = "top")
 p2 + theme(legend.position = "bottom")
 
 # Or place legends inside the plot using relative coordinates between 0 and 1
-# legend.justification sets the corner that the position refers to
+# legend.just sets the corner that the position refers to
 p2 + theme(
   legend.position = "inside",
   legend.position.inside = c(.95, .95),
-  legend.justification = c("right", "top"),
+  legend.just = c("right", "top"),
   legend.box.just = "right",
   legend.margin = margin_auto(6)
 )

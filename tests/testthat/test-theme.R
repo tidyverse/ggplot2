@@ -1026,11 +1026,11 @@ test_that("Legends can on all sides of the plot with custom justification", {
     ) +
     theme_test() +
     theme(
-      legend.justification.top    = "left",
-      legend.justification.bottom = c(1, 0),
-      legend.justification.left   = c(0, 1),
-      legend.justification.right  = "bottom",
-      legend.justification.inside = c(0.75, 0.75),
+      legend.just.top    = "left",
+      legend.just.bottom = c(1, 0),
+      legend.just.left   = c(0, 1),
+      legend.just.right  = "bottom",
+      legend.just.inside = c(0.75, 0.75),
       legend.location = "plot"
     )
 
