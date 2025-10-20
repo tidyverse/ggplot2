@@ -19,7 +19,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     # middle since you expect those to be shown by a break in the line
     aesthetics <- c(self$required_aes, self$non_missing_aes)
     complete <- stats::complete.cases(data[names(data) %in% aesthetics])
-    kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
+    kept <- stats::ave(complete, data$group, data$PANEL, FUN = keep_mid_true)
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
