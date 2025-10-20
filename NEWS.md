@@ -2,6 +2,8 @@
 
 ### Bug fixes
 
+* `geom_text()` and `geom_label()` accept expressions as the `label` aesthetic 
+  (@teunbrand, #6638)
 * Fixed regression where `draw_key_rect()` stopped using `fill` colours 
   (@mitchelloharawild, #6609).
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
