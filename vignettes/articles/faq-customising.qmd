@@ -1,6 +1,14 @@
 ---
 title: "FAQ: Customising"
 format: html
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    fig-dpi: 300
+    fig-asp: 0.618
+    fig-width: 6
+    out-width: "80%"
 ---
 
 ```{=html}
@@ -18,14 +26,6 @@ format: html
 #| include: false
 library(ggplot2)
 library(tibble)
-knitr::opts_chunk$set(
-  fig.dpi = 300, 
-  collapse = TRUE, 
-  comment = "#>",
-  fig.asp = 0.618,
-  fig.width = 6,
-  out.width = "80%"
-  )
 ```
 
 ## Legends

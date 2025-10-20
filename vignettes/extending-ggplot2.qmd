@@ -1,5 +1,12 @@
 ---
 title: "Extending ggplot2"
+knitr:
+  opts_chunk:
+    collapse: false
+    comment: "#>"
+    fig-width: 7
+    fig-height: 7
+    fig-align: "center"
 description: |
   Official extension mechanism provided in ggplot2.
 vignette: >
@@ -10,7 +17,6 @@ vignette: >
 
 ```{r}
 #| include: false
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 7, fig.align = "center")
 library(ggplot2)
 ```
 

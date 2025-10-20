@@ -1,5 +1,10 @@
 ---
 title: "Using ggplot2 in packages"
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    fig-show: "hide"
 description: |
   Customising how aesthetic specifications are represented on your plot.
 vignette: >
@@ -10,7 +15,6 @@ vignette: >
 
 ```{r}
 #| include: false
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.show = "hide")
 library(ggplot2)
 ```
 
