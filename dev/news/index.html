@@ -69,7 +69,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>Fixed bug where <code>NA</code> handling in <code><a href="../reference/geom_path.html">geom_path()</a></code> was ignoring panels (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6533" class="external-link">#6533</a>)</li>
+<ul><li>Fixed regression where <code>position_stack(vjust)</code> was ignored when there are only single groups (<a href="https://github.com/tidyverse/ggplot2/issues/6692" class="external-link">#6692</a>)</li>
+<li>Fixed bug where <code>NA</code> handling in <code><a href="../reference/geom_path.html">geom_path()</a></code> was ignoring panels (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6533" class="external-link">#6533</a>)</li>
 <li>Logical values for the linetype aesthetic will be interpreted numerically, so that <code>linetype = FALSE</code> becomes 0/‘blank’ and <code>linetype = TRUE</code> becomes 1/‘solid’ (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6641" class="external-link">#6641</a>)</li>
 <li>Out-of-bounds datapoints used as padding by <code><a href="../reference/geom_ribbon.html">stat_align()</a></code> now get removed silently rather than verbosely (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6667" class="external-link">#6667</a>)</li>
 <li>Fixed bug where <code>stat_bin(boundary)</code> was ignored (<a href="https://github.com/tidyverse/ggplot2/issues/6682" class="external-link">#6682</a>).</li>
