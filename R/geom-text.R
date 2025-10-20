@@ -23,6 +23,7 @@ GeomText <- ggproto(
     if (parse) {
       lab <- parse_safe(as.character(lab))
     }
+    lab <- validate_labels(lab)
 
     data <- coord$transform(data, panel_params)
 

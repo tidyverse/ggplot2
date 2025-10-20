@@ -26,14 +26,13 @@
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a numeric vector with values
 #'     between 0 and 1 returns the corresponding output values.
-#' @param ... Additional parameters passed on to the scale type
+#' @inheritDotParams continuous_scale -scale_name -trans -minor_breaks -expand
+#' @inheritDotParams binned_scale -scale_name -trans -expand
 #' @param type `r lifecycle::badge("superseded")` One of the following:
 #'   * "gradient" (the default)
 #'   * "viridis"
 #'   * A function that returns a continuous colour scale.
-#' @seealso [scale_colour_gradient()], [scale_colour_viridis_c()],
-#'   [scale_colour_steps()], [scale_colour_viridis_b()], [scale_fill_gradient()],
-#'   [scale_fill_viridis_c()], [scale_fill_steps()], and [scale_fill_viridis_b()]
+#' @seealso  [continuous_scale()] and [binned_scale()]
 #'
 #'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
 #' @family colour scales
@@ -177,7 +176,7 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a single integer argument (the
 #'     number of levels in the scale) returns the values that they should take.
-#' @param ... Additional parameters passed on to the scale type,
+#' @inheritDotParams discrete_scale -scale_name -expand -position -minor_breaks
 #' @inheritParams discrete_scale
 #' @param type `r lifecycle::badge("superseded")` The preferred mechanism for
 #'   setting the default palette is by using the theme. For example:
@@ -194,6 +193,8 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
 #'   [scale_fill_brewer()], etc).
 #' @export
+#' @seealso [discrete_scale()]
+#' @family colour scales
 #' @seealso
 #' The `r link_book("discrete colour scales section", "scales-colour#sec-colour-discrete")`
 #' @examples

@@ -111,8 +111,8 @@ documentation pages. Currently, there are several good places to start:
 
 There are two main places to get help with ggplot2:
 
-1.  The [RStudio community](https://forum.posit.co/) is a friendly place
-    to ask any questions about ggplot2.
+1.  The [Posit Community](https://forum.posit.co/) (formerly RStudio
+    Community) is a friendly place to ask any questions about ggplot2.
 
 2.  [Stack
     Overflow](https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50)
