@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
+  silently rather than verbosely (@teunbrand, #6667)
 * Fixed bug where `stat_bin(boundary)` was ignored (#6682).
 * `geom_text()` and `geom_label()` accept expressions as the `label` aesthetic 
   (@teunbrand, #6638)

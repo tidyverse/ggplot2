@@ -810,6 +810,36 @@ size0 <- function(x) {
   }
 }
 
+fallback_palette <- function(scale) {
+  aes <- scale$aesthetics[1]
+  discrete <- scale$is_discrete()
+  if (discrete) {
+    pal <- switch(
+      aes,
+      colour = , fill = pal_hue(),
+      alpha = function(n) seq(0.1, 1, length.out = n),
+      linewidth = function(n) seq(2, 6, length.out = n),
+      linetype = pal_linetype(),
+      shape = pal_shape(),
+      size = function(n) sqrt(seq(4, 36, length.out = n)),
+      ggplot_global$theme_default[[paste0("palette.", aes, ".discrete")]]
+    )
+    return(pal)
+  }
+  switch(
+    aes,
+    colour = , fill = pal_seq_gradient("#132B43", "#56B1F7"),
+    alpha = pal_rescale(c(0.1, 1)),
+    linewidth = pal_rescale(c(1, 6)),
+    linetype = pal_binned(pal_linetype()),
+    shape = pal_binned(pal_shape()),
+    size = pal_area(),
+    ggplot_global$theme_default[[paste0("palette.", aes, ".continuous")]]
+  )
+}
+
+# For when you want to ensure all forwarded arguments are consumed by downstream
+# functions.
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
     env = env, call = call,
@@ -822,6 +852,7 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   )
 }
 
+# For when you do not want `...` to be used; it should be empty.
 warn_dots_empty <- function(env = caller_env(), call = caller_env()) {
   check_dots_empty(
     env = env, call = call,
