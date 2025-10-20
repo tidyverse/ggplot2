@@ -1,4 +1,4 @@
-#' @include utilities.R compat-plyr.R
+#' @include utilities.R compat-plyr.R all-classes.R
 NULL
 
 #' Construct aesthetic mappings
@@ -130,41 +130,42 @@ new_aesthetic <- function(x, env = globalenv()) {
   x
 }
 
+# TODO: remove `local()` when S7 has fixed S7/#390
 #' @export
-# TODO: should convert to proper S7 method once bug in S7 is resolved
-`print.ggplot2::mapping` <- function(x, ...) {
-  cat("Aesthetic mapping: \n")
+local({
+  S7::method(print, class_mapping) <- function(x, ...) {
+    cat("Aesthetic mapping: \n")
 
-  if (length(x) == 0) {
-    cat("<empty>\n")
-  } else {
-    values <- vapply(x, quo_label, character(1))
-    bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
+    if (length(x) == 0) {
+      cat("<empty>\n")
+    } else {
+      values <- vapply(x, quo_label, character(1))
+      bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
 
-    cat(bullets, sep = "")
+      cat(bullets, sep = "")
+    }
+
+    invisible(x)
   }
+})
 
-  invisible(x)
+local({
+  S7::method(`[`, class_mapping) <- function(x, i, ...) {
+    class_mapping(`[`(S7::S7_data(x), i, ...))
+  }
+})
+
+#' @export
+`[[<-.ggplot2::mapping` <- function(x, i, value) {
+  class_mapping(`[[<-`(S7::S7_data(x), i, value))
 }
 
-# TODO: should convert to proper S7 method once bug in S7 is resolved
 #' @export
-"[.ggplot2::mapping" <- function(x, i, ...) {
-  class_mapping(NextMethod())
-}
+`$<-.ggplot2::mapping` <- `[[<-.ggplot2::mapping`
 
-# If necessary coerce replacements to quosures for compatibility
 #' @export
-"[[<-.ggplot2::mapping" <- function(x, i, value) {
-  class_mapping(NextMethod())
-}
-#' @export
-"$<-.ggplot2::mapping" <- function(x, i, value) {
-  class_mapping(NextMethod())
-}
-#' @export
-"[<-.ggplot2::mapping" <- function(x, i, value) {
-  class_mapping(NextMethod())
+`[<-.ggplot2::mapping` <- function(x, i, value) {
+  class_mapping(`[<-`(S7::S7_data(x), i, value))
 }
 
 #' Standardise aesthetic names

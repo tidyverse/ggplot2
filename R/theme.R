@@ -217,7 +217,7 @@
 #' @param validate `TRUE` to run `check_element()`, `FALSE` to bypass checks.
 #' @export
 #' @seealso
-#'   [add_gg()] and [%+replace%],
+#'   [add_gg()] and [`%+replace%`][get_theme()],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
@@ -1050,10 +1050,11 @@ combine_s3_elements <- function(e1, e2) {
   return(e1)
 }
 
-#' @export
-`$.ggplot2::theme` <- function(x, ...) {
-  .subset2(x, ...)
-}
-
-#' @export
-`print.ggplot2::theme` <- function(x, ...) utils::str(x)
+local({
+  S7::method(`$`, class_theme) <- function(x, ...) {
+    .subset2(x, ...)
+  }
+  S7::method(print, class_theme) <- function(x, ...) {
+    utils::str(x)
+  }
+})

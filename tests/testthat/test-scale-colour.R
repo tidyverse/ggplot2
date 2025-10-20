@@ -49,3 +49,22 @@ test_that("palette arguments can take alternative input", {
   expect_equal(alpha(test, 1), hex)
 
 })
+
+test_that("`name` is directed correctly (#6623)", {
+  # The desired behaviour is that the first argument passed to scales is the
+  # 'name' argument.
+
+  scales <- list(
+    scale_colour_continuous,
+    scale_colour_discrete,
+    scale_colour_binned,
+    scale_fill_continuous,
+    scale_fill_discrete,
+    scale_fill_binned
+  )
+
+  for (scale in scales) {
+    p <- scale("foobar")
+    expect_equal(p$name, "foobar")
+  }
+})

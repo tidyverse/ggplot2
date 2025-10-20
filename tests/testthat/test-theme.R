@@ -56,6 +56,12 @@ test_that("modifying theme element properties with + operator works", {
   )
 })
 
+test_that("set_theme() resets theme to default when called with no arguments", {
+  theme_set(theme_void())
+  set_theme()
+  expect_identical(theme_get(), theme_grey())
+})
+
 test_that("adding theme object to ggplot object with + operator works", {
   ## test with complete theme
   p <- ggplot(data.frame(x = 1:3), aes(x, x)) + geom_point() + theme_grey()
@@ -146,7 +152,7 @@ test_that("calculating theme element inheritance works", {
   # Check that inheritance from derived class works
   element_dummyrect <- S7::new_class(
     "element_dummyrect", parent = element_rect,
-    properties = c(element_rect@properties, list(dummy = S7::class_any))
+    properties = list(dummy = S7::class_any)
   )
 
   e <- calc_element(
@@ -761,6 +767,28 @@ test_that("geom elements are inherited correctly", {
   expect_equal(p$stroke, 2)
   expect_equal(p$size, 2)
   expect_equal(p$colour, "red")
+})
+
+test_that("theme elements are covered in `theme_sub_*()` functions", {
+  # We use a snapshot test here to trigger when a new theme element is added
+  # or removed.
+  # A failure of this test should be taken as a prompt to see if the new
+  # theme element should be included in one of the `theme_sub_*` functions.
+
+  fmls <- paste0("axis.", fn_fmls_names(theme_sub_axis))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_x), ".x"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_y), ".y"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_top), ".x.top"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_bottom), ".x.bottom"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_left), ".y.left"))
+  fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_right), ".y.right"))
+  fmls <- c(fmls, paste0("legend.", fn_fmls_names(theme_sub_legend)))
+  fmls <- c(fmls, paste0("plot.",   fn_fmls_names(theme_sub_plot)))
+  fmls <- c(fmls, paste0("panel.",  fn_fmls_names(theme_sub_panel)))
+  fmls <- c(fmls, paste0("strip.",  fn_fmls_names(theme_sub_strip)))
+
+  extra_elements <- setdiff(fn_fmls_names(theme), fmls)
+  expect_snapshot(extra_elements)
 })
 
 # Visual tests ------------------------------------------------------------

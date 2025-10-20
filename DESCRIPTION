@@ -1,6 +1,6 @@
 Package: ggplot2
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Version: 3.5.2.9001
+Version: 4.0.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -52,6 +52,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    hms,
     knitr,
     mapproj,
     maps,
@@ -83,7 +84,7 @@ Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Collate:
     'ggproto.R'
     'ggplot-global.R'
@@ -93,10 +94,10 @@ Collate:
     'aes-group-order.R'
     'aes-linetype-size-shape.R'
     'aes-position.R'
+    'all-classes.R'
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
-    'all-classes.R'
     'annotation-borders.R'
     'utilities-checks.R'
     'legend-draw.R'

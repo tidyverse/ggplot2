@@ -4,10 +4,12 @@
 \alias{class_theme}
 \title{The theme class}
 \usage{
-class_theme(elements, complete, validate)
+class_theme(elements = list(), ..., complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{elements}{A named list containing theme elements.}
+
+\item{...}{Reserved for future expansion.}
 
 \item{complete}{A boolean value stating whether a theme is complete.}
 

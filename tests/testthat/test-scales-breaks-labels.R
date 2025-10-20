@@ -16,6 +16,14 @@ test_that("labels don't have to match null breaks", {
   expect_silent(check_breaks_labels(breaks = NULL, labels = 1:2))
 })
 
+test_that("labels accept expressions", {
+  labels <- parse(text = paste0(1:4, "^degree"))
+  sc <- scale_y_continuous(breaks = 1:4, labels = labels, limits = c(1, 3))
+
+  expect_equal(sc$get_breaks(), 1:4)
+  expect_equal(sc$get_labels(), as.list(labels))
+})
+
 test_that("labels don't have extra spaces", {
   labels <- c("a", "abc", "abcdef")
 

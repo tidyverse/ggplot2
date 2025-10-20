@@ -562,7 +562,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  isTRUE(default)
+  as.logical(default)[1]
 }
 #' @rdname bidirection
 #' @export
@@ -803,7 +803,7 @@ as_unordered_factor <- function(x) {
 size0 <- function(x) {
   if (obj_is_vector(x)) {
     vec_size(x)
-  } else if (is.vector(x)) {
+  } else if (is.vector(x) || is.expression(x)) {
     length(x)
   } else {
     NULL
@@ -838,12 +838,25 @@ fallback_palette <- function(scale) {
   )
 }
 
+# For when you want to ensure all forwarded arguments are consumed by downstream
+# functions.
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
     env = env, call = call,
     # Demote from error to warning
     error = function(cnd) {
       # cli uses \f as newlines, not \n
+      msg <- gsub("\n", "\f", cnd_message(cnd))
+      cli::cli_warn(msg, call = call)
+    }
+  )
+}
+
+# For when you do not want `...` to be used; it should be empty.
+warn_dots_empty <- function(env = caller_env(), call = caller_env()) {
+  check_dots_empty(
+    env = env, call = call,
+    error = function(cnd) {
       msg <- gsub("\n", "\f", cnd_message(cnd))
       cli::cli_warn(msg, call = call)
     }

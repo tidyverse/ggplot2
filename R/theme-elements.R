@@ -33,6 +33,8 @@
 #'   a blank element among its parents will cause this element to be blank as
 #'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
+#' @param ... Reserved for future expansion.
+#'
 #' @return An object of class `element`, `rel`, or `margin`.
 #' @details
 #' The `element_polygon()` and `element_point()` functions are not rendered
@@ -137,7 +139,8 @@ element_rect <- S7::new_class(
                                "inherit.blank")],
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
                          linetype = NULL, color = NULL, linejoin = NULL,
-                         inherit.blank = FALSE, size = deprecated()){
+                         inherit.blank = FALSE, size = deprecated(), ...){
+    warn_dots_empty()
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
@@ -171,7 +174,8 @@ element_line <- S7::new_class(
   constructor = function(colour = NULL, linewidth = NULL, linetype = NULL,
                          lineend = NULL, color = NULL, linejoin = NULL,
                          arrow = NULL, arrow.fill = NULL,
-                         inherit.blank = FALSE, size = deprecated()) {
+                         inherit.blank = FALSE, size = deprecated(), ...) {
+    warn_dots_empty()
     if (lifecycle::is_present(size)) {
       deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
       linewidth <- size
@@ -225,7 +229,8 @@ element_text <- S7::new_class(
   constructor = function(family = NULL, face = NULL, colour = NULL,
                          size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
                          lineheight = NULL, color = NULL, margin = NULL,
-                         debug = NULL, inherit.blank = FALSE) {
+                         debug = NULL, inherit.blank = FALSE, ...) {
+    warn_dots_empty()
     n <- max(
       length(family), length(face), length(colour), length(size),
       length(hjust), length(vjust), length(angle), length(lineheight)
@@ -269,7 +274,8 @@ element_polygon <- S7::new_class(
   )],
   constructor = function(fill = NULL, colour = NULL, linewidth = NULL,
                          linetype = NULL, color = NULL, linejoin = NULL,
-                         inherit.blank = FALSE) {
+                         inherit.blank = FALSE, ...) {
+    warn_dots_empty()
     colour <- color %||% colour
     S7::new_object(
       S7::S7_object(),
@@ -290,7 +296,8 @@ element_point <- S7::new_class(
     c("linewidth" = "stroke")
   ),
   constructor = function(colour = NULL, shape = NULL, size = NULL, fill = NULL,
-                         stroke = NULL, color = NULL, inherit.blank = FALSE) {
+                         stroke = NULL, color = NULL, inherit.blank = FALSE, ...) {
+    warn_dots_empty()
     S7::new_object(
       S7::S7_object(),
       colour = color %||% colour, fill = fill, shape = shape, size = size,
@@ -327,8 +334,9 @@ element_geom <- S7::new_class(
     linetype = NULL, bordertype = NULL,
     family = NULL, fontsize = NULL,
     pointsize = NULL, pointshape = NULL,
-    colour = NULL, color = NULL, fill = NULL) {
-
+    colour = NULL, color = NULL, fill = NULL,
+    ...) {
+    warn_dots_empty()
     if (!is.null(fontsize)) {
       fontsize <- fontsize / .pt
     }
@@ -354,8 +362,11 @@ element_geom <- S7::new_class(
   fill = NULL, colour = NULL
 )
 
-#' @export
-print.element <- function(x, ...) utils::str(x)
+local({
+  S7::method(print, element) <- function(x, ...) {
+    utils::str(x)
+  }
+})
 
 #' @export
 #' @param type For testing elements: the type of element to expect. One of
@@ -383,24 +394,23 @@ rel <- function(x) {
   structure(x, class = "rel")
 }
 
-#' @export
-`$.ggplot2::element` <- function(x, i) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>$i`"), I("`<ggplot2::element>@i`"))
-  `[[`(S7::props(x), i)
-}
+# Element getter methods
+local({
+  S7::method(`$`, element) <- function(x, i) {
+    # deprecate_soft0("4.1.0", I("`<ggplot2::element>$i`"), I("`<ggplot2::element>@i`"))
+    `[[`(S7::props(x), i)
+  }
+  S7::method(`[`, element) <- function(x, i) {
+    # deprecate_soft0("4.1.0", I("`<gglot2::element>[i]`"), I("`S7::props(<ggplot2::element>, i)`"))
+    `[`(S7::props(x), i)
+  }
+  S7::method(`[[`, element) <- function(x, i) {
+    # deprecate_soft0("4.1.0", I("`<ggplot2::element>[[i]]`"), I("`S7::prop(<ggplot2::element>, i)`"))
+    `[[`(S7::props(x), i)
+  }
+})
 
-#' @export
-`[.ggplot2::element` <- function(x, i) {
-  # deprecate_soft0("4.1.0", I("`<gglot2::element>[i]`"), I("`S7::props(<ggplot2::element>, i)`"))
-  `[`(S7::props(x), i)
-}
-
-#' @export
-`[[.ggplot2::element` <- function(x, i) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>[[i]]`"), I("`S7::prop(<ggplot2::element>, i)`"))
-  `[[`(S7::props(x), i)
-}
-
+# Element setter methods
 #' @export
 `$<-.ggplot2::element` <- function(x, i, value) {
   # deprecate_soft0("4.1.0", I("`<ggplot2::element>$i <- value`"), I("`<ggplot2::element>@i <- value`"))
@@ -463,11 +473,14 @@ element_render <- function(theme, element, ..., name = NULL) {
 #'   usually at least position. See the source code for individual methods.
 #' @keywords internal
 #' @export
-draw_element <- S7::new_generic("draw_element", "element")
+element_grob <- function(element, ...) {
+  # TODO: Swap to S7 generic once S7/#543 is resolved
+  UseMethod("element_grob")
+}
 
-S7::method(draw_element, element_blank) <- function(element, ...) zeroGrob()
+S7::method(element_grob, element_blank) <- function(element, ...) zeroGrob()
 
-S7::method(draw_element, element_rect) <-
+S7::method(element_grob, element_rect) <-
   function(element, x = 0.5, y = 0.5, width = 1, height = 1,
            fill = NULL, colour = NULL,
            linewidth = NULL, linetype = NULL, linejoin = NULL,
@@ -486,7 +499,7 @@ S7::method(draw_element, element_rect) <-
     rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
   }
 
-S7::method(draw_element, element_text) <-
+S7::method(element_grob, element_text) <-
   function(element, label = "", x = NULL, y = NULL,
            family = NULL, face = NULL, colour = NULL, size = NULL,
            hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
@@ -519,7 +532,7 @@ S7::method(draw_element, element_text) <-
               margin_x = margin_x, margin_y = margin_y, debug = element@debug, ...)
   }
 
-S7::method(draw_element, element_line) <-
+S7::method(element_grob, element_line) <-
   function(element, x = 0:1, y = 0:1,
            colour = NULL, linewidth = NULL, linetype = NULL, lineend = NULL,
            linejoin = NULL, arrow.fill = NULL,
@@ -558,7 +571,7 @@ S7::method(draw_element, element_line) <-
     )
   }
 
-S7::method(draw_element, element_polygon) <-
+S7::method(element_grob, element_polygon) <-
   function(element, x = c(0, 0.5, 1, 0.5),
            y = c(0.5, 1, 0.5, 0), fill = NULL,
            colour = NULL, linewidth = NULL,
@@ -580,7 +593,7 @@ S7::method(draw_element, element_polygon) <-
     )
   }
 
-S7::method(draw_element, element_point) <-
+S7::method(element_grob, element_point) <-
   function(element, x = 0.5, y = 0.5, colour = NULL,
            shape = NULL, fill = NULL, size = NULL,
            stroke = NULL, ...,
@@ -593,18 +606,6 @@ S7::method(draw_element, element_point) <-
     pointsGrob(x = x, y = y, pch = shape, gp = modify_list(element_gp, gp),
                default.units = default.units, ...)
   }
-
-# TODO: the S3 generic should be phased out once S7 is adopted more widely
-#' @rdname draw_element
-#' @export
-element_grob <- function(element, ...) {
-  UseMethod("element_grob")
-}
-
-#' @export
-element_grob.default <- function(element, ...) {
-  draw_element(element, ...)
-}
 
 #' Define and register new theme elements
 #'
