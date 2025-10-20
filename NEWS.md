@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* Fixed bug where `NA` handling in `geom_path()` was ignoring panels (@teunbrand, #6533)
 * Logical values for the linetype aesthetic will be interpreted numerically,
   so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes 
   1/'solid' (@teunbrand, #6641)
