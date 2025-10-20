@@ -67,17 +67,56 @@ draw_key_polygon <- function(data, params, size) {
 
   lwd <- data$linewidth %||% 0
 
+  outline_type <- params$outline.type %||% "full"
+  colour <- switch(outline_type, full = data$colour, NA)
+
+  common_gp <- list(
+    lty = data$linetype %||% 1,
+    lwd = lwd,
+    linejoin = params$linejoin %||% "mitre",
+    lineend  = params$lineend  %||% "butt"
+  )
+
   grob <- rectGrob(
-    width = unit(1, "npc") - unit(lwd, "mm"),
+    width  = unit(1, "npc") - unit(lwd, "mm"),
     height = unit(1, "npc") - unit(lwd, "mm"),
     gp = gg_par(
-      col = data$colour %||% NA,
+      col = colour %||% NA,
       fill = fill_alpha(data$fill %||% "grey20", data$alpha),
-      lty = data$linetype %||% 1,
-      lwd = lwd,
-      linejoin = params$linejoin %||% "mitre",
-      lineend = params$lineend %||% "butt"
+      !!!common_gp
   ))
+
+  draw_partial_outline <-
+    outline_type %in% c("upper", "lower", "both") &&
+    !is.null(data$colour) && !all(is.na(data$colour)) &&
+    !all(lwd <= 0) &&
+    !all((data$linetype %||% 1) %in% c(0, "none"))
+
+  if (draw_partial_outline) {
+    gp <- gg_par(col = data$colour, !!!common_gp)
+    low  <- unit(0, "npc") + unit(0.5 * lwd, "mm")
+    high <- unit(1, "npc") - unit(0.5 * lwd, "mm")
+    args <- switch(
+      outline_type,
+      upper = list(
+        x0 = low, x1 = high, y0 = high, y1 = high, gp = gp
+      ),
+      lower = list(
+        x0 = low, x1 = high, y0 = low, y1 = low, gp = gp
+      ),
+      both = list(
+        x0 = unit.c(low, low),  x1 = unit.c(high, high),
+        y0 = unit.c(low, high), y1 = unit.c(low, high),
+        gp = gp
+      )
+    )
+    if (identical(params$orientation, "y")) {
+      args <- rename(args, c(x0 = "y0", x1 = "y1", y0 = "x0", y1 = "x1"))
+    }
+
+    segments <- inject(segmentsGrob(!!!args))
+    grob <- grobTree(grob, segments)
+  }
 
   # Magic number is 5 because we convert mm to cm (divide by 10) but we
   # draw two lines in each direction (times 2)
@@ -386,15 +425,63 @@ draw_key_timeseries <- function(data, params, size) {
     data$linetype <- 0
   }
 
-  grid::linesGrob(
-    x = c(0, 0.4, 0.6, 1),
-    y = c(0.1, 0.6, 0.4, 0.9),
+  upper_x <- c(0, 0.4, 0.6, 1)
+  upper_y <- c(0.1, 0.6, 0.4, 0.9)
+
+  common_gp <- list(
+    lwd = data$linewidth %||% 0.5,
+    lty = data$linetype  %||% 1,
+    lineend  = params$lineend  %||% "butt",
+    linejoin = params$linejoin %||% "round"
+  )
+
+  outline_type <- params$outline.type
+  if (is.null(outline_type)) {
+    grob <- grid::linesGrob(
+      x = upper_x,
+      y = upper_y,
+      gp = gg_par(
+        col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
+        !!!common_gp
+      )
+    )
+    return(grob)
+  }
+
+  colour <- if (identical(outline_type, "full")) data$colour else NA
+
+  grob <- grid::polygonGrob(
+    x = c(0, upper_x, 1),
+    y = c(0, upper_y, 0),
     gp = gg_par(
-      col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-      lwd = data$linewidth %||% 0.5,
-      lty = data$linetype %||% 1,
-      lineend = params$lineend %||% "butt",
-      linejoin = params$linejoin %||% "round"
+      col = colour %||% NA,
+      fill = alpha(data$fill %||% "black", data$alpha),
+      !!!common_gp
     )
   )
+
+  draw_partial_outline <-
+    (outline_type %||% "full") %in% c("upper", "lower", "both") &&
+    !is.null(data$colour) &&
+    !all(is.na(data$colour)) &&
+    !all(data$linewidth <= 0) &&
+    !all((data$linetype %||% 1) %in% c(0, "none"))
+
+  if (draw_partial_outline) {
+    gp <- gg_par(col = data$colour, !!!common_gp)
+    args <- switch(
+      params$outline.type,
+      upper = list(x = upper_x, y = upper_y),
+      lower = list(x = c(0, 1), y = c(0, 0)),
+      both = list(
+        x = c(upper_x, 0, 1),
+        y = c(upper_y, 0, 0),
+        id.lengths = c(length(upper_x), 2)
+      )
+    )
+    lines <- inject(grid::polylineGrob(!!!args, gp = gp))
+    grob <- grobTree(grob, lines)
+  }
+
+  return(grob)
 }
