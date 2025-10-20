@@ -45,6 +45,10 @@ NULL
 #' @param available_aes A vector of character strings listing the aesthetics
 #'   for which a colourbar can be drawn.
 #' @param ... ignored.
+#' @details
+#' The `legend.ticks.length` theme option can be set to a length 2 unit to
+#' control ticks at the right/bottom and left/top sides independently.
+#'
 #' @return A guide object
 #' @export
 #' @family guides
