@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed regression where `position_stack(vjust)` was ignored when there are
+  only single groups (#6692)
 * Fixed bug where `NA` handling in `geom_path()` was ignoring panels (@teunbrand, #6533)
 * Logical values for the linetype aesthetic will be interpreted numerically,
   so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes 
