@@ -69,9 +69,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<div class="section level4">
-<h4 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h4>
-<ul><li>Out-of-bounds datapoints used as padding by <code><a href="../reference/geom_ribbon.html">stat_align()</a></code> now get removed silently rather than verbosely (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6667" class="external-link">#6667</a>)</li>
+<ul><li>Logical values for the linetype aesthetic will be interpreted numerically, so that <code>linetype = FALSE</code> becomes 0/‘blank’ and <code>linetype = TRUE</code> becomes 1/‘solid’ (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6641" class="external-link">#6641</a>)</li>
+<li>Out-of-bounds datapoints used as padding by <code><a href="../reference/geom_ribbon.html">stat_align()</a></code> now get removed silently rather than verbosely (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6667" class="external-link">#6667</a>)</li>
 <li>Fixed bug where <code>stat_bin(boundary)</code> was ignored (<a href="https://github.com/tidyverse/ggplot2/issues/6682" class="external-link">#6682</a>).</li>
 <li>
 <code><a href="../reference/geom_text.html">geom_text()</a></code> and <code><a href="../reference/geom_text.html">geom_label()</a></code> accept expressions as the <code>label</code> aesthetic (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6638" class="external-link">#6638</a>)</li>
@@ -82,7 +81,6 @@
 <li>
 <code><a href="../reference/geom_boxplot.html">stat_boxplot()</a></code> treats <code>width</code> as an optional aesthetic (<a href="https://github.com/Yunuuuu" class="external-link">@Yunuuuu</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6575" class="external-link">#6575</a>)</li>
 </ul></div>
-</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.0.0" id="ggplot2-400">ggplot2 4.0.0<a class="anchor" aria-label="anchor" href="#ggplot2-400"></a></h2><p class="text-muted">CRAN release: 2025-09-11</p>
 <div class="section level3">
