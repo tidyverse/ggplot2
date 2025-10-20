@@ -26,8 +26,8 @@
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a numeric vector with values
 #'     between 0 and 1 returns the corresponding output values.
-#' @inheritDotParams continuous_scale -scale_name -trans -minor_breaks -expand
-#' @inheritDotParams binned_scale -scale_name -trans -expand
+#' @inheritDotParams continuous_scale -scale_name -trans -minor_breaks -expand -fallback.palette
+#' @inheritDotParams binned_scale -scale_name -trans -expand -fallback.palette
 #' @param type `r lifecycle::badge("superseded")` The preferred mechanism for
 #'   setting the default palette is by using the theme. For example:
 #'   `theme(palette.colour.discrete = "viridis")`.
@@ -179,7 +179,7 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a single integer argument (the
 #'     number of levels in the scale) returns the values that they should take.
-#' @inheritDotParams discrete_scale -scale_name -expand -position -minor_breaks
+#' @inheritDotParams discrete_scale -scale_name -expand -position -minor_breaks -fallback.palette
 #' @inheritParams discrete_scale
 #' @param type `r lifecycle::badge("superseded")` The preferred mechanism for
 #'   setting the default palette is by using the theme. For example:
