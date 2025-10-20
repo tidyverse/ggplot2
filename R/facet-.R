@@ -731,15 +731,6 @@ Facet <- ggproto("Facet", NULL,
       return(table)
     }
 
-    if (isTRUE(table$respect)) {
-      args <- !c(is.null(new_widths), is.null(new_heights))
-      args <- c("panel.widths", "panel.heights")[args]
-      cli::cli_warn(
-        "Aspect ratios are overruled by {.arg {args}} theme element{?s}."
-      )
-      table$respect <- FALSE
-    }
-
     rows <- panel_rows(table)
     cols <- panel_cols(table)
 
