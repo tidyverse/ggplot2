@@ -1806,7 +1806,7 @@ check_continuous_limits <- function(limits, ...,
 
 check_fallback_palette <- function(pal, fallback, call = caller_env()) {
   if (!is.null(pal) || is.function(fallback)) {
-    return(invisible)
+    return(invisible())
   }
   cli::cli_abort(
     "When {.code palette = NULL}, the {.arg fallback.palette} must be defined."
