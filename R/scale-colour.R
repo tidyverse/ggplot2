@@ -94,7 +94,6 @@ scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
     aesthetics = aesthetics, palette = palette, guide = guide,
     na.value = na.value, scale_name = deprecated(),
     fallback.palette = pal_seq_gradient("#132B43", "#56B1F7"),
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
     ...
   )
 }
@@ -119,7 +118,6 @@ scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guid
     aesthetics = aesthetics, palette = palette, guide = guide,
     na.value = na.value, scale_name = deprecated(),
     fallback.palette = pal_seq_gradient("#132B43", "#56B1F7"),
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
     ...
   )
 }
