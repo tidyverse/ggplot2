@@ -80,13 +80,30 @@ keeping theme declarations more organised.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme_sub_axis</span><span class="op">(</span><span class="va">title</span>, <span class="va">text</span>, <span class="va">ticks</span>, <span class="va">ticks.length</span>, <span class="va">line</span>, <span class="va">minor.ticks.length</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme_sub_axis</span><span class="op">(</span><span class="va">...</span>, <span class="va">title</span>, <span class="va">text</span>, <span class="va">ticks</span>, <span class="va">ticks.length</span>, <span class="va">line</span>, <span class="va">minor.ticks.length</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">theme_sub_axis_x</span><span class="op">(</span><span class="va">title</span>, <span class="va">text</span>, <span class="va">ticks</span>, <span class="va">ticks.length</span>, <span class="va">line</span>, <span class="va">minor.ticks.length</span><span class="op">)</span></span>
+<span><span class="fu">theme_sub_axis_x</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">title</span>,</span>
+<span>  <span class="va">text</span>,</span>
+<span>  <span class="va">ticks</span>,</span>
+<span>  <span class="va">ticks.length</span>,</span>
+<span>  <span class="va">line</span>,</span>
+<span>  <span class="va">minor.ticks.length</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">theme_sub_axis_y</span><span class="op">(</span><span class="va">title</span>, <span class="va">text</span>, <span class="va">ticks</span>, <span class="va">ticks.length</span>, <span class="va">line</span>, <span class="va">minor.ticks.length</span><span class="op">)</span></span>
+<span><span class="fu">theme_sub_axis_y</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">title</span>,</span>
+<span>  <span class="va">text</span>,</span>
+<span>  <span class="va">ticks</span>,</span>
+<span>  <span class="va">ticks.length</span>,</span>
+<span>  <span class="va">line</span>,</span>
+<span>  <span class="va">minor.ticks.length</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_axis_bottom</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">title</span>,</span>
 <span>  <span class="va">text</span>,</span>
 <span>  <span class="va">ticks</span>,</span>
@@ -97,6 +114,7 @@ keeping theme declarations more organised.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_axis_top</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">title</span>,</span>
 <span>  <span class="va">text</span>,</span>
 <span>  <span class="va">ticks</span>,</span>
@@ -107,6 +125,7 @@ keeping theme declarations more organised.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_axis_left</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">title</span>,</span>
 <span>  <span class="va">text</span>,</span>
 <span>  <span class="va">ticks</span>,</span>
@@ -117,6 +136,7 @@ keeping theme declarations more organised.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_axis_right</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">title</span>,</span>
 <span>  <span class="va">text</span>,</span>
 <span>  <span class="va">ticks</span>,</span>
@@ -127,6 +147,7 @@ keeping theme declarations more organised.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_legend</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">text</span>,</span>
 <span>  <span class="va">text.position</span>,</span>
 <span>  <span class="va">title</span>,</span>
@@ -167,6 +188,7 @@ keeping theme declarations more organised.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_panel</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">background</span>,</span>
 <span>  <span class="va">border</span>,</span>
 <span>  <span class="va">widths</span>,</span>
@@ -185,6 +207,7 @@ keeping theme declarations more organised.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_plot</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">background</span>,</span>
 <span>  <span class="va">title</span>,</span>
 <span>  <span class="va">title.position</span>,</span>
@@ -198,6 +221,7 @@ keeping theme declarations more organised.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_sub_strip</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
 <span>  <span class="va">background</span>,</span>
 <span>  <span class="va">background.x</span>,</span>
 <span>  <span class="va">background.y</span>,</span>
@@ -219,7 +243,11 @@ keeping theme declarations more organised.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-axis-line-background-background-x-background-y-border-box-box-background-box-just-box-margin-box-spacing-byrow-caption-caption-position-clip-direction-frame-grid-grid-major-grid-major-x-grid-major-y-grid-minor-grid-minor-x-grid-minor-y-heights-justification-justification-bottom-justification-inside-justification-left-justification-right-justification-top-key-key-height-key-justification-key-size-key-spacing-key-spacing-x-key-spacing-y-key-width-line-location-margin-minor-ticks-minor-ticks-length-ontop-placement-position-position-inside-spacing-spacing-x-spacing-y-subtitle-switch-pad-grid-switch-pad-wrap-tag-tag-location-tag-position-text-text-position-text-x-text-x-bottom-text-x-top-text-y-text-y-left-text-y-right-ticks-ticks-length-title-title-position-widths">axis.line, background, background.x, background.y, border, box, box.background, box.just, box.margin, box.spacing, byrow, caption, caption.position, clip, direction, frame, grid, grid.major, grid.major.x, grid.major.y, grid.minor, grid.minor.x, grid.minor.y, heights, justification, justification.bottom, justification.inside, justification.left, justification.right, justification.top, key, key.height, key.justification, key.size, key.spacing, key.spacing.x, key.spacing.y, key.width, line, location, margin, minor.ticks, minor.ticks.length, ontop, placement, position, position.inside, spacing, spacing.x, spacing.y, subtitle, switch.pad.grid, switch.pad.wrap, tag, tag.location, tag.position, text, text.position, text.x, text.x.bottom, text.x.top, text.y, text.y.left, text.y.right, ticks, ticks.length, title, title.position, widths<a class="anchor" aria-label="anchor" href="#arg-axis-line-background-background-x-background-y-border-box-box-background-box-just-box-margin-box-spacing-byrow-caption-caption-position-clip-direction-frame-grid-grid-major-grid-major-x-grid-major-y-grid-minor-grid-minor-x-grid-minor-y-heights-justification-justification-bottom-justification-inside-justification-left-justification-right-justification-top-key-key-height-key-justification-key-size-key-spacing-key-spacing-x-key-spacing-y-key-width-line-location-margin-minor-ticks-minor-ticks-length-ontop-placement-position-position-inside-spacing-spacing-x-spacing-y-subtitle-switch-pad-grid-switch-pad-wrap-tag-tag-location-tag-position-text-text-position-text-x-text-x-bottom-text-x-top-text-y-text-y-left-text-y-right-ticks-ticks-length-title-title-position-widths"></a></dt>
+<dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Not in use, expected to be empty.</p></dd>
+
+
+<dt id="arg-axis-line-background-background-x-background-y-border-box-box-background-box-just-box-margin-box-spacing-byrow-caption-caption-position-clip-direction-frame-grid-grid-major-grid-major-x-grid-major-y-grid-minor-grid-minor-x-grid-minor-y-heights-justification-justification-bottom-justification-inside-justification-left-justification-right-justification-top-key-key-height-key-justification-key-size-key-spacing-key-spacing-x-key-spacing-y-key-width-line-location-margin-minor-ticks-minor-ticks-length-ontop-placement-position-position-inside-spacing-spacing-x-spacing-y-subtitle-switch-pad-grid-switch-pad-wrap-tag-tag-location-tag-position-text-text-position-text-x-text-x-bottom-text-x-top-text-y-text-y-left-text-y-right-ticks-ticks-length-title-title-position-widths">axis.line, background, background.x, background.y, border, box, box.background, box.just, box.margin, box.spacing, byrow, caption, caption.position, clip, direction, frame, grid, grid.major, grid.major.x, grid.major.y, grid.minor, grid.minor.x, grid.minor.y, heights, justification, justification.bottom, justification.inside, justification.left, justification.right, justification.top, key, key.height, key.justification, key.size, key.spacing, key.spacing.x, key.spacing.y, key.width, line, location, margin, minor.ticks, minor.ticks.length, ontop, placement, position, position.inside, spacing, spacing.x, spacing.y, subtitle, switch.pad.grid, switch.pad.wrap, tag, tag.location, tag.position, text, text.position, text.x, text.x.bottom, text.x.top, text.y, text.y.left, text.y.right, ticks, ticks.length, title, title.position, widths<a class="anchor" aria-label="anchor" href="#arg-axis-line-background-background-x-background-y-border-box-box-background-box-just-box-margin-box-spacing-byrow-caption-caption-position-clip-direction-frame-grid-grid-major-grid-major-x-grid-major-y-grid-minor-grid-minor-x-grid-minor-y-heights-justification-justification-bottom-justification-inside-justification-left-justification-right-justification-top-key-key-height-key-justification-key-size-key-spacing-key-spacing-x-key-spacing-y-key-width-line-location-margin-minor-ticks-minor-ticks-length-ontop-placement-position-position-inside-spacing-spacing-x-spacing-y-subtitle-switch-pad-grid-switch-pad-wrap-tag-tag-location-tag-position-text-text-position-text-x-text-x-bottom-text-x-top-text-y-text-y-left-text-y-right-ticks-ticks-length-title-title-position-widths"></a></dt>
 <dd><p>Arguments that are renamed and passed on to <code><a href="theme.html">theme()</a></code>.</p></dd>
 
 </dl></div>
