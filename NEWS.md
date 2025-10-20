@@ -22,6 +22,8 @@
   not passed as the `name` argument (@teunbrand, #6623)
 * Fixed issue where vectorised `arrow()`s caused errors in drawing the 
   legend glyphs (@teunbrand, #6594)
+* Fixed regression where `NULL`-aesthetics contributed to plot labels too 
+  insistently. Now they contribute only as fallback labels (@teunbrand, #6616)
 
 # ggplot2 4.0.0
 
