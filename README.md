@@ -53,9 +53,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
-<img src="man/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per
- gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles
- per gallon are inversely correlated."  />
+<img src="man/figures/README-example-1.png" alt="Scatterplot of engine displacement versus highway miles per gallon, for 234 cars coloured by 7 'types' of car. The displacement and miles per gallon are inversely correlated."  />
 
 ## Lifecycle
 
@@ -113,8 +111,8 @@ documentation pages. Currently, there are several good places to start:
 
 There are two main places to get help with ggplot2:
 
-1.  The [RStudio community](https://forum.posit.co/) is a friendly place
-    to ask any questions about ggplot2.
+1.  The [Posit Community](https://forum.posit.co/) (formerly RStudio
+    Community) is a friendly place to ask any questions about ggplot2.
 
 2.  [Stack
     Overflow](https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50)

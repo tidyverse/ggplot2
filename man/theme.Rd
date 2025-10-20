@@ -534,7 +534,7 @@ p4 + aes(colour = drat) +
 }
 }
 \seealso{
-\code{\link[=add_gg]{add_gg()}} and \link{\%+replace\%},
+\code{\link[=add_gg]{add_gg()}} and \code{\link[=get_theme]{\%+replace\%}},
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.
