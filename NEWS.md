@@ -18,6 +18,8 @@
 * `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
 * Fixed regression where the first (unnamed) argument to colour/fill scales was 
   not passed as the `name` argument (@teunbrand, #6623)
+* Fixed issue where vectorised `arrow()`s caused errors in drawing the 
+  legend glyphs (@teunbrand, #6594)
 
 # ggplot2 4.0.0
 
