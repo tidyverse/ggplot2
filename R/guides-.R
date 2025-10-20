@@ -659,7 +659,8 @@ Guides <- ggproto(
       if (!stretch_spacing) {
         spacing <- convertWidth(spacing, "cm")
       }
-      heights <- unit(height_cm(lapply(heights, sum)), "cm")
+
+      total_height <- max(inject(unit.c(!!!lapply(heights, sum))))
 
       if (stretch_x || stretch_spacing) {
         widths   <- redistribute_null_units(widths, spacing, margin, "width")
@@ -672,14 +673,14 @@ Guides <- ggproto(
       # Set global justification
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
-        height = max(heights),
+        height = total_height,
         width  = vp_width
       )
 
       # Initialise gtable as legends in a row
       guides <- gtable_row(
         name = "guides", grobs = grobs,
-        widths = widths, height = max(heights),
+        widths = widths, height = total_height,
         vp = vp
       )
 
@@ -701,7 +702,7 @@ Guides <- ggproto(
       if (!stretch_spacing) {
         spacing <- convertWidth(spacing, "cm")
       }
-      widths  <- unit(width_cm(lapply(widths, sum)), "cm")
+      total_width <- max(inject(unit.c(!!!lapply(widths, sum))))
 
       if (stretch_y || stretch_spacing) {
         heights   <- redistribute_null_units(heights, spacing, margin, "height")
@@ -715,13 +716,13 @@ Guides <- ggproto(
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
         height = vp_height,
-        width =  max(widths)
+        width =  total_width
       )
 
       # Initialise gtable as legends in a column
       guides <- gtable_col(
         name = "guides", grobs = grobs,
-        width = max(widths), heights = heights,
+        width = total_width, heights = heights,
         vp = vp
       )
 
