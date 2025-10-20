@@ -137,8 +137,11 @@ StatYdensity <- ggproto(
 #' @param drop Whether to discard groups with less than 2 observations
 #'   (`TRUE`, default) or keep such groups for position adjustment purposes
 #'   (`FALSE`).
-#' @param quantiles If not `NULL` (default), compute the `quantile` variable
-#'   and draw horizontal lines at the given quantiles in `geom_violin()`.
+#' @param quantiles A numeric vector with numbers between 0 and 1 to indicate
+#'   quantiles marked by the `quantile` computed variable. The default marks the
+#'   25th, 50th and 75th percentiles. The display of quantiles can be
+#'   turned on by setting `quantile.linetype` to non-blank when using
+#'   `geom = "violin"` (default).
 #'
 #' @eval rd_computed_vars(
 #'   density = "Density estimate.",
