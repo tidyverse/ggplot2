@@ -2,6 +2,7 @@
 
 ### Bug fixes
 
+* Fixed bug where `stat_bin(boundary)` was ignored (#6682).
 * `geom_text()` and `geom_label()` accept expressions as the `label` aesthetic 
   (@teunbrand, #6638)
 * Fixed regression where `draw_key_rect()` stopped using `fill` colours 
