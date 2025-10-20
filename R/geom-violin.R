@@ -24,7 +24,8 @@
 #' @param quantile.colour,quantile.color,quantile.linewidth,quantile.linetype
 #'   Default aesthetics for the quantile lines. Set to `NULL` to inherit from
 #'   the data's aesthetics. By default, quantile lines are hidden and can be
-#'   turned on by changing `quantile.linetype`.
+#'   turned on by changing `quantile.linetype`. Quantile values can be set
+#'   using the `quantiles` argument when using `stat = "ydensity"` (default).
 #' @param draw_quantiles `r lifecycle::badge("deprecated")` Previous
 #'   specification of drawing quantiles.
 #' @export
