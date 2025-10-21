@@ -29,7 +29,7 @@ This function is deprecated because using \code{broom::tidy()} is a better
 solution to convert model objects.
 }
 \examples{
-\dontshow{if (require("multcomp") && require("broom")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("multcomp") && require("broom")) withAutoprint(\{ # examplesIf}
 amod <- aov(breaks ~ wool + tension, data = warpbreaks)
 wht <- multcomp::glht(amod, linfct = multcomp::mcp(tension = "Tukey"))
 

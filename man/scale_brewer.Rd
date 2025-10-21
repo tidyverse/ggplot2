@@ -196,6 +196,7 @@ The \href{https://ggplot2-book.org/scales-colour#brewer-scales}{brewer scales se
 Other colour scales: 
 \code{\link{scale_alpha}()},
 \code{\link{scale_colour_continuous}()},
+\code{\link{scale_colour_discrete}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
