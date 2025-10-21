@@ -734,6 +734,21 @@ Facet <- ggproto("Facet", NULL,
     rows <- panel_rows(table)
     cols <- panel_cols(table)
 
+    if (isTRUE(table$respect) && # Has fixed aspect ratio
+        xor(is.null(new_widths), is.null(new_heights)) && # One dimension is set
+        nrow(rows) == 1 && nrow(cols) == 1) { # Just a single panel
+      old_width <- table$widths[cols$l]
+      old_height <- table$heights[rows$t]
+      # Try to reconstruct aspect ratio from panel size
+      # We shouldn't attempt this with mixed or compound (e.g. "sum") units
+      if (identical(unitType(old_width),  "null") &&
+          identical(unitType(old_height), "null")) {
+        ratio <- as.numeric(old_height) / as.numeric(old_width)
+        new_widths  <- new_widths  %||% (new_heights / ratio)
+        new_heights <- new_heights %||% (new_widths  * ratio)
+      }
+    }
+
     if (length(new_widths) == 1L && nrow(cols) > 1L) {
       # Get total size of non-panel widths in between panels
       extra <- setdiff(seq(min(cols$l), max(cols$r)), union(cols$l, cols$r))
