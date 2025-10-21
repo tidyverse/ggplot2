@@ -717,6 +717,36 @@ test_that("panel.widths and panel.heights works with free-space panels", {
 
 })
 
+test_that("panel.withs and panel.heights preserve aspect ratios with single panels", {
+
+  df <- data.frame(x = c(1, 2))
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      theme(
+        aspect.ratio = 2,
+        panel.heights = unit(10, "cm")
+      )
+  )
+
+  width <- p$widths[panel_cols(p)$l]
+  expect_equal(as.character(width), "5cm")
+
+  p <- ggplotGrob(
+    ggplot(df, aes(x, x)) +
+      geom_point() +
+      facet_wrap(~ x) + # This behaviour doesn't occur in multipanel plots.
+      theme(
+        aspect.ratio = 2,
+        panel.heights = unit(10, "cm")
+      )
+  )
+
+  width <- p$widths[panel_cols(p)$l]
+  expect_equal(as.character(width), c("1null", "1null"))
+})
+
 test_that("margin_part() mechanics work as expected", {
 
   t <- theme_gray() +
