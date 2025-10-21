@@ -327,8 +327,10 @@ the data layers (\code{logical}). Usually used with a transparent or blank
 
 \item{panel.widths, panel.heights}{Sizes for panels (\code{units}). Can be a
 single unit to set the total size for the panel area, or a unit vector to
-set the size of individual panels. Using this setting overrides any
-aspect ratio set by the theme, coord or facets.}
+set the size of individual panels. Using this setting overrides the
+aspect ratio set by the theme, coord or facets. An exception is made when
+the plot has a single panel and exactly one of the width \emph{or} height is
+set, in which case an attempt is made to preserve the aspect ratio.}
 
 \item{plot.background}{background of the entire plot (\code{\link[=element_rect]{element_rect()}};
 inherits from \code{rect})}
