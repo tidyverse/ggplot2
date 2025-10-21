@@ -744,8 +744,8 @@ Facet <- ggproto("Facet", NULL,
       if (identical(unitType(old_width),  "null") &&
           identical(unitType(old_height), "null")) {
         ratio <- as.numeric(old_height) / as.numeric(old_width)
-        new_widths  <- new_widths  %||% (new_heights / ratio)
-        new_heights <- new_heights %||% (new_widths  * ratio)
+        new_widths  <- (new_widths  %||% (new_heights / ratio))[1]
+        new_heights <- (new_heights %||% (new_widths  * ratio))[1]
       }
     }
 
