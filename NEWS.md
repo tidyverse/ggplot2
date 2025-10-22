@@ -24,6 +24,8 @@
   legend glyphs (@teunbrand, #6594)
 * Fixed regression where `NULL`-aesthetics contributed to plot labels too 
   insistently. Now they contribute only as fallback labels (@teunbrand, #6616)
+* Fixed regression where empty arguments to colour/fill scale caused errors
+  (@jmbarbone, #6710)
 
 # ggplot2 4.0.0
 
