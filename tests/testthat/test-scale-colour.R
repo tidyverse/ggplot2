@@ -68,3 +68,7 @@ test_that("`name` is directed correctly (#6623)", {
     expect_equal(p$name, "foobar")
   }
 })
+
+test_that("backwards compatibility allows trailing args (#6710)", {
+  expect_no_error(scale_fill_discrete(breaks = 1:2, direction = -1L, ))
+})
