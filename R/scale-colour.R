@@ -83,11 +83,10 @@ scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
-    scale <- inject(scale_backward_compatibility(
-      !!!list2(...), 
-      guide = guide, na.value = na.value, scale = type,
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "continuous"
-    ))
+    )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
@@ -108,11 +107,10 @@ scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guid
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
-    scale <- inject(scale_backward_compatibility(
-      !!!list2(...),
-      guide = guide, na.value = na.value, scale = type,
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "continuous"
-    ))
+    )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
@@ -133,11 +131,10 @@ scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guid
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
-    scale <- inject(scale_backward_compatibility(
-      !!!list2(...),
-      guide = guide, na.value = na.value, scale = type,
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "colour", type = "binned"
-    ))
+    )
     return(scale)
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
@@ -157,11 +154,10 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
   has_old_args <- any(names(enexprs(...)) %in% c("low", "high"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
-    scale <- inject(scale_backward_compatibility(
-      !!!list2(...),
-      guide = guide, na.value = na.value, scale = type,
+    scale <- scale_backward_compatibility(
+      ..., guide = guide, na.value = na.value, scale = type,
       aesthetic = "fill", type = "binned"
-    ))
+    )
     return(scale)
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
@@ -218,11 +214,10 @@ scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na
   has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
-    scale <- inject(scale_backward_compatibility(
-      !!!list2(...),
-      na.value = na.value, scale = type,
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
       aesthetic = "colour", type = "discrete"
-    ))
+    )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
@@ -242,11 +237,10 @@ scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.val
   has_old_args <- any(names(enexprs(...)) %in% c("h", "c", "l", "h.start", "direction"))
 
   if (has_old_args || (!is.null(type) && is.null(palette))) {
-    scale <- inject(scale_backward_compatibility(
-      !!!list2(...),
-      na.value = na.value, scale = type, 
+    scale <- scale_backward_compatibility(
+      ..., na.value = na.value, scale = type,
       aesthetic = "fill", type = "discrete"
-    ))
+    )
     return(scale)
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
