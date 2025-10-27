@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed regression where `geom_area()` didn't draw panels with single groups 
+  when `stat = "align"` (@teunbrand, #6680)
 * Fixed regression where `position_stack(vjust)` was ignored when there are
   only single groups (#6692)
 * Fixed bug where `NA` handling in `geom_path()` was ignoring panels (@teunbrand, #6533)
