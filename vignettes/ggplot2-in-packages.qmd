@@ -1,17 +1,20 @@
 ---
 title: "Using ggplot2 in packages"
-output: rmarkdown::html_vignette
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    fig-show: "hide"
 description: |
   Customising how aesthetic specifications are represented on your plot.
 vignette: >
   %\VignetteIndexEntry{Using ggplot2 in packages}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r}
 #| include: false
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.show = "hide")
 library(ggplot2)
 ```
 

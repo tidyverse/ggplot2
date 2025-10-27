@@ -1,21 +1,16 @@
 ---
 title: "Introduction to ggplot2"
-output: rmarkdown::html_vignette
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 description: |
   An overview of the layered grammar of graphics.
 vignette: >
   %\VignetteIndexEntry{Introduction to ggplot2}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r}
-#| include: false
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ggplot2 is an R package for producing visualizations of data. 
 Unlike many graphics packages, ggplot2 uses a conceptual framework based on the grammar of graphics.
