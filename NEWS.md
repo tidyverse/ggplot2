@@ -24,6 +24,7 @@
   legend glyphs (@teunbrand, #6594)
 * Fixed regression where `NULL`-aesthetics contributed to plot labels too 
   insistently. Now they contribute only as fallback labels (@teunbrand, #6616)
+* Fixed axis misplacement in `coor_radial()` when labels are blank (@teunbrand, #6574)
 
 # ggplot2 4.0.0
 
