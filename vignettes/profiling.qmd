@@ -1,23 +1,17 @@
 ---
 title: "Profiling Performance"
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
 author: "Thomas Lin Pedersen"
-output: rmarkdown::html_vignette
 description: |
   Monitoring the performance of your plots.
 vignette: >
   %\VignetteIndexEntry{Profiling Performance}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 In order to continuously monitor the performance of ggplot2
 the following piece of code is used to generate a profile and inspect it:
