@@ -26,6 +26,9 @@
   legend glyphs (@teunbrand, #6594)
 * Fixed regression where `NULL`-aesthetics contributed to plot labels too 
   insistently. Now they contribute only as fallback labels (@teunbrand, #6616)
+* The `theme(panel.widths, panel.heights)` setting attempts to preserve the
+  plot's aspect ratio when only one of the two settings is given, and the plot 
+  has a single panel (@teunbrand, #6701).
 * Fixed axis misplacement in `coor_radial()` when labels are blank (@teunbrand, #6574)
 
 # ggplot2 4.0.0
