@@ -520,7 +520,10 @@ the data layers (<code>logical</code>). Usually used with a transparent or blank
 <dt id="arg-panel-widths-panel-heights">panel.widths, panel.heights<a class="anchor" aria-label="anchor" href="#arg-panel-widths-panel-heights"></a></dt>
 <dd><p>Sizes for panels (<code>units</code>). Can be a
 single unit to set the total size for the panel area, or a unit vector to
-set the size of individual panels.</p></dd>
+set the size of individual panels. Using this setting overrides the
+aspect ratio set by the theme, coord or facets. An exception is made when
+the plot has a single panel and exactly one of the width <em>or</em> height is
+set, in which case an attempt is made to preserve the aspect ratio.</p></dd>
 
 
 <dt id="arg-plot-background">plot.background<a class="anchor" aria-label="anchor" href="#arg-plot-background"></a></dt>
