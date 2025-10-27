@@ -346,26 +346,6 @@ strip_stage <- function(expr) {
   }
 }
 
-# Convert aesthetic mapping into text labels
-make_labels <- function(mapping) {
-  default_label <- function(aesthetic, mapping) {
-    # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
-    if (is.null(mapping) || is.atomic(mapping)) {
-      return(aesthetic)
-    }
-    mapping <- strip_stage(mapping)
-    mapping <- strip_dots(mapping, strip_pronoun = TRUE)
-    if (is_quosure(mapping) && quo_is_symbol(mapping)) {
-      name <- as_string(quo_get_expr(mapping))
-    } else {
-      name <- quo_text(mapping)
-      name <- gsub("\n.*$", "...", name)
-    }
-    name
-  }
-  Map(default_label, names(mapping), mapping)
-}
-
 eval_aesthetics <- function(aesthetics, data, mask = NULL) {
 
   env <- child_env(base_env())

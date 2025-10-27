@@ -1,18 +1,21 @@
 ---
 title: "Aesthetic specifications"
-output: rmarkdown::html_vignette
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    fig-dpi: 96
 description: |
   Customising how aesthetic specifications are represented on your plot.
 vignette: >
   %\VignetteIndexEntry{Aesthetic specifications}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r}
 #| include: false
 library(ggplot2)
-knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
 ```
 
 This vignette summarises the various formats that grid drawing functions take.  Most of this information is available scattered throughout the R documentation.  This appendix brings it all together in one place.

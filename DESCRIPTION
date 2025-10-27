@@ -63,9 +63,9 @@ Suggests:
     nlme,
     profvis,
     quantreg,
+    quarto,
     ragg (>= 1.2.6),
     RColorBrewer,
-    rmarkdown,
     roxygen2,
     rpart,
     sf (>= 0.7-3),
@@ -76,8 +76,8 @@ Suggests:
     xml2
 Enhances:
     sp
-VignetteBuilder:
-    knitr
+VignetteBuilder: 
+    quarto
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2025-04-23
