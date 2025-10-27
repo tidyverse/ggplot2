@@ -17,7 +17,10 @@
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Barplots">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="faq-bars_files/libs/quarto-html/popper.min.js"></script><script src="faq-bars_files/libs/quarto-html/tippy.umd.min.js"></script><link href="faq-bars_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="faq-bars_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Barplots">
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
 <meta name="robots" content="noindex">
 <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script><script async src="https://widget.kapa.ai/kapa-widget.bundle.js" data-button-hide="true" data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!" data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2." data-modal-header-bg-color="#f9f9f9" data-modal-override-open-class="open-kapa-widget" data-project-color="#365a7a" data-project-name="ggplot2" data-modal-title="tidyverse AI ✨" data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&amp;u=235532df5cf8543246812f73db051b793f868807&amp;v=4" data-user-analytics-fingerprint-enabled="true" data-bot-protection-mechanism="hcaptcha" data-website-id="5dcac24a-bd5a-4874-9f5b-3341afddd8c3"></script>
 </head>
@@ -91,228 +94,266 @@
 
 
   </div>
-</nav><div class="container template-article" id="container">
-
-
-
-
+</nav><div class="container template-quarto" id="container">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>FAQ: Barplots</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/main/vignettes/articles/faq-bars.Rmd" class="external-link"><code>vignettes/articles/faq-bars.Rmd</code></a></small>
-      <div class="d-none name"><code>faq-bars.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/main/vignettes/articles/faq-bars.qmd" class="external-link"><code>vignettes/articles/faq-bars.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<style>
+
+
+
+
+
+    <style>
   .content h3 {
     margin-top: -30px !important;
   }
-  
+
   details {
     margin-bottom: 40px;
   }
 </style>
-<div class="section level2">
-<h2 id="colors">Colors<a class="anchor" aria-label="anchor" href="#colors"></a>
+<section class="level2"><h2 id="colors">Colors<a class="anchor" aria-label="anchor" href="#colors"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-change-the-color-of-the-bars-in-my-bar-plot">How can I change the color of the bars in my bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-color-of-the-bars-in-my-bar-plot"></a>
+<section class="level3"><h3 id="how-can-i-change-the-color-of-the-bars-in-my-bar-plot">How can I change the color of the bars in my bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-color-of-the-bars-in-my-bar-plot"></a>
 </h3>
-<p>If using the same color for all bars, define the <code>fill</code>
-argument in <code><a href="../reference/geom_bar.html">geom_bar()</a></code> (or <code><a href="../reference/geom_bar.html">geom_col()</a></code>). If
-assigning color based on another variable, map the variable to the
-<code>fill</code> <code>aes</code>thetic, and if needed, use one of the
-<code>scale_fill_*()</code> functions to set colors.</p>
+<p>If using the same color for all bars, define the <code>fill</code> argument in <code><a href="../reference/geom_bar.html">geom_bar()</a></code> (or <code><a href="../reference/geom_bar.html">geom_col()</a></code>). If assigning color based on another variable, map the variable to the <code>fill</code> <code>aes</code>thetic, and if needed, use one of the <code>scale_fill_*()</code> functions to set colors.</p>
 <details><summary>
 See example
-</summary><p>You can set all bars to be a given color with the <code>fill</code>
-argument of <code><a href="../reference/geom_bar.html">geom_bar()</a></code>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+</summary><p>You can set all bars to be a given color with the <code>fill</code> argument of <code><a href="../reference/geom_bar.html">geom_bar()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-2-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. All bars are blue." width="80%"></p>
-<p>Alternatively, if the colors should be based on a variable, this
-should be should happen in the <code><a href="../reference/aes.html">aes()</a></code> mapping.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-2-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. All bars are blue."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Alternatively, if the colors should be based on a variable, this should be should happen in the <code><a href="../reference/aes.html">aes()</a></code> mapping.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-3-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. From left-to-right, the bars appear red, green and blue." width="80%"></p>
-<p>And if you want to then customize the colors, one option is
-<code><a href="../reference/scale_manual.html">scale_fill_manual()</a></code>, which allows you to manually assign
-colors to each bar. See other <code>scale_fill_*()</code> functions for
-more options for color choices.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-3-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. From left-to-right, the bars appear red, green and blue."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And if you want to then customize the colors, one option is <code><a href="../reference/scale_manual.html">scale_fill_manual()</a></code>, which allows you to manually assign colors to each bar. See other <code>scale_fill_*()</code> functions for more options for color choices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"orange"</span>, <span class="st">"darkblue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-4-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. From left-to-right, the bars are purple, orange and dark blue." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-4-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. From left-to-right, the bars are purple, orange and dark blue."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="spacing-and-widths">Spacing and widths<a class="anchor" aria-label="anchor" href="#spacing-and-widths"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="spacing-and-widths">Spacing and widths<a class="anchor" aria-label="anchor" href="#spacing-and-widths"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-increase-the-space-between-the-bars-in-my-bar-plot">How can I increase the space between the bars in my bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-increase-the-space-between-the-bars-in-my-bar-plot"></a>
+<section class="level3"><h3 id="how-can-i-increase-the-space-between-the-bars-in-my-bar-plot">How can I increase the space between the bars in my bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-increase-the-space-between-the-bars-in-my-bar-plot"></a>
 </h3>
-<p>Set the <code>width</code> of <code><a href="../reference/geom_bar.html">geom_bar()</a></code> to a small
-value to obtain narrower bars with more space between them.</p>
+<p>Set the <code>width</code> of <code><a href="../reference/geom_bar.html">geom_bar()</a></code> to a small value to obtain narrower bars with more space between them.</p>
 <details><summary>
 See example
-</summary><p>By default, the <code>width</code> of bars is <code>0.9</code> (90%
-of the resolution of the data). You can set this argument to a lower
-value to get bars that are narrower with more space between them.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+</summary><p>By default, the <code>width</code> of bars is <code>0.9</code> (90% of the resolution of the data). You can set this argument to a lower value to get bars that are narrower with more space between them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-5-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The bars are somewhat narrower than the default." width="80%"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-5-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. The bars are somewhat narrower than the default."></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-5-2.png" alt="A bar chart showing the number of cars for each of three types of drive train. The bars are very narrow." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-5-2.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. The bars are very narrow."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-can-i-remove-the-space-between-the-bars-and-the-x-axis">How can I remove the space between the bars and the x-axis?<a class="anchor" aria-label="anchor" href="#how-can-i-remove-the-space-between-the-bars-and-the-x-axis"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-can-i-remove-the-space-between-the-bars-and-the-x-axis">How can I remove the space between the bars and the x-axis?<a class="anchor" aria-label="anchor" href="#how-can-i-remove-the-space-between-the-bars-and-the-x-axis"></a>
 </h3>
-<p>Adjust the <code>expand</code> argument in
-<code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code>, e.g. add
-<code>scale_y_continuous(expand = expansion(mult = c(0, 0.05)))</code>
-to remove the expansion on the lower end of the y-axis but keep the
-expansion on the upper end of the y-axis at 0.05 (the default expansion
-for continuous scales).</p>
+<p>Adjust the <code>expand</code> argument in <code><a href="../reference/scale_continuous.html">scale_y_continuous()</a></code>, e.g. add <code>scale_y_continuous(expand = expansion(mult = c(0, 0.05)))</code> to remove the expansion on the lower end of the y-axis but keep the expansion on the upper end of the y-axis at 0.05 (the default expansion for continuous scales).</p>
 <details><summary>
 See example
-</summary><p>By default ggplot2 expands the axes so the geoms aren’t flush against
-the edges of the plot.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</summary><p>By default ggplot2 expands the axes so the geoms aren’t flush against the edges of the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-6-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges." width="80%"></p>
-<p>To remove the spacing between the bars and the x-axis, but keep the
-spacing between the bars and the top of the plot, use the following.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-6-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To remove the spacing between the bars and the x-axis, but keep the spacing between the bars and the top of the plot, use the following.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-7-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The bottom of the bars touch the x-axis." width="80%"></p>
-<p>To achieve the opposite, switch the values in <code>mult</code>. Note
-that the tallest bar is now flush against top of the plot.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-7-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. The bottom of the bars touch the x-axis."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To achieve the opposite, switch the values in <code>mult</code>. Note that the tallest bar is now flush against top of the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-8-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The top of the highest bar touches the top of the panel." width="80%"></p>
-<p>To adjust spacing around the x-axis, adjust the <code>expand</code>
-argument in <code><a href="../reference/scale_discrete.html">scale_x_discrete()</a></code>. Note that this places the
-bars flush against the left side and leaves some space on the right
-side.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-8-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. The top of the highest bar touches the top of the panel."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To adjust spacing around the x-axis, adjust the <code>expand</code> argument in <code><a href="../reference/scale_discrete.html">scale_x_discrete()</a></code>. Note that this places the bars flush against the left side and leaves some space on the right side.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-9-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The left of the leftmost bar touches the y-axis." width="80%"></p>
-<p>The default look of a bar plot can be achieved with the
-following.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-9-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. The left of the leftmost bar touches the y-axis."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The default look of a bar plot can be achieved with the following.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>add <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="../reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-10-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-10-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. No parts of the bars touch the panel edges."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-do-i-ensure-that-bars-on-a-dodged-bar-plot-have-the-same-width">How do I ensure that bars on a dodged bar plot have the same
-width?<a class="anchor" aria-label="anchor" href="#how-do-i-ensure-that-bars-on-a-dodged-bar-plot-have-the-same-width"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-do-i-ensure-that-bars-on-a-dodged-bar-plot-have-the-same-width">How do I ensure that bars on a dodged bar plot have the same width?<a class="anchor" aria-label="anchor" href="#how-do-i-ensure-that-bars-on-a-dodged-bar-plot-have-the-same-width"></a>
 </h3>
-<p>Set <code>position = position_dodge2(preserve = "single")</code> in
-<code><a href="../reference/geom_bar.html">geom_bar()</a></code>.</p>
+<p>Set <code>position = position_dodge2(preserve = "single")</code> in <code><a href="../reference/geom_bar.html">geom_bar()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>In the following plot the bars have differing widths within each
-level of <code>drv</code> as there are differing levels of
-<code>class</code> represented.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+</summary><p>In the following plot the bars have differing widths within each level of <code>drv</code> as there are differing levels of <code>class</code> represented.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-11-1.png" alt="A grouped bar chart showing car counts dodged and filled by 7 types of cars for each of three types of drive train. The left group has 5 narrower bars, the middle group has 4 bars and the right group has 3 wider bars." width="80%"></p>
-<p>You can use <code><a href="../reference/position_dodge.html">position_dodge2()</a></code> with
-<code>preserve = "single"</code> to address this.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-11-1.png" style="width:80.0%" alt="A grouped bar chart showing car counts dodged and filled by 7 types of cars for each of three types of drive train. The left group has 5 narrower bars, the middle group has 4 bars and the right group has 3 wider bars."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can use <code><a href="../reference/position_dodge.html">position_dodge2()</a></code> with <code>preserve = "single"</code> to address this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="../reference/position_dodge.html">position_dodge2</a></span><span class="op">(</span>preserve <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-12-1.png" alt="A grouped bar chart showing car counts dodged and filled by 7 types of cars for each of three types of drive train. From left-to-right, each groups has respectively 5, 4 and 3 equally wide bars." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-12-1.png" style="width:80.0%" alt="A grouped bar chart showing car counts dodged and filled by 7 types of cars for each of three types of drive train. From left-to-right, each groups has respectively 5, 4 and 3 equally wide bars."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="stacked-bar-plots">Stacked bar plots<a class="anchor" aria-label="anchor" href="#stacked-bar-plots"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="stacked-bar-plots">Stacked bar plots<a class="anchor" aria-label="anchor" href="#stacked-bar-plots"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-create-a-stacked-bar-plot-displaying-a-conditional-distribution-where-each-stack-is-scaled-to-sum-to-100">How can I create a stacked bar plot displaying a conditional
-distribution where each stack is scaled to sum to 100%?<a class="anchor" aria-label="anchor" href="#how-can-i-create-a-stacked-bar-plot-displaying-a-conditional-distribution-where-each-stack-is-scaled-to-sum-to-100"></a>
+<section class="level3"><h3 id="how-can-i-create-a-stacked-bar-plot-displaying-a-conditional-distribution-where-each-stack-is-scaled-to-sum-to-100">How can I create a stacked bar plot displaying a conditional distribution where each stack is scaled to sum to 100%?<a class="anchor" aria-label="anchor" href="#how-can-i-create-a-stacked-bar-plot-displaying-a-conditional-distribution-where-each-stack-is-scaled-to-sum-to-100"></a>
 </h3>
-<p>Use <code>position = "fill"</code> in <code><a href="../reference/geom_bar.html">geom_bar()</a></code> or
-<code><a href="../reference/geom_bar.html">geom_col()</a></code>. If you also want to show percentages on the
-axis, use <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code>.</p>
+<p>Use <code>position = "fill"</code> in <code><a href="../reference/geom_bar.html">geom_bar()</a></code> or <code><a href="../reference/geom_bar.html">geom_col()</a></code>. If you also want to show percentages on the axis, use <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>The following plot is useful for comparing counts but not as useful
-for comparing proportions, which is what you need if you want to be able
-to make statements like “in this sample, it’s more likely to have a
-two-seater car that has rear-wheel drive than an SUV that has rear-wheel
-drive”.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+</summary><p>The following plot is useful for comparing counts but not as useful for comparing proportions, which is what you need if you want to be able to make statements like “in this sample, it’s more likely to have a two-seater car that has rear-wheel drive than an SUV that has rear-wheel drive”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-13-1.png" alt="A horizontal stacked bar chart showing car counts for 7 types of cars, stacked and filled by 3 types of drive train." width="80%"></p>
-<p><code>position = "fill"</code> will generate a bar plot with bars of
-equal length and the stacks in each bar will show the proportion of
-<code>drv</code> for that particular <code>class</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-13-1.png" style="width:80.0%" alt="A horizontal stacked bar chart showing car counts for 7 types of cars, stacked and filled by 3 types of drive train."></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>position = "fill"</code> will generate a bar plot with bars of equal length and the stacks in each bar will show the proportion of <code>drv</code> for that particular <code>class</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-14-1.png" alt="A horizontal filled bar chart showing proportions of cars for 7 types of cars. The fill colour represents 3 types of drive train. Every stacked bar spans the width of the panel." width="80%"></p>
-<p>If you want to show percentages instead of proportions on the x-axis,
-you can define this in <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> with
-<code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-14-1.png" style="width:80.0%" alt="A horizontal filled bar chart showing proportions of cars for 7 types of cars. The fill colour represents 3 types of drive train. Every stacked bar spans the width of the panel."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If you want to show percentages instead of proportions on the x-axis, you can define this in <code><a href="../reference/scale_continuous.html">scale_x_continuous()</a></code> with <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span>, fill <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"percentage"</span>, labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">label_percent</a></span><span class="op">(</span>accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-15-1.png" alt="A horizontal filled bar chart showing percentages of cars for 7 types of cars. The fill colour represents 3 types of drive train. Every stacked bar spans the width of the panel." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-15-1.png" style="width:80.0%" alt="A horizontal filled bar chart showing percentages of cars for 7 types of cars. The fill colour represents 3 types of drive train. Every stacked bar spans the width of the panel."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-can-i-create-a-stacked-bar-plot-based-on-data-from-a-contingency-table-of-to-categorical-variables">How can I create a stacked bar plot based on data from a contingency
-table of to categorical variables?<a class="anchor" aria-label="anchor" href="#how-can-i-create-a-stacked-bar-plot-based-on-data-from-a-contingency-table-of-to-categorical-variables"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-can-i-create-a-stacked-bar-plot-based-on-data-from-a-contingency-table-of-to-categorical-variables">How can I create a stacked bar plot based on data from a contingency table of to categorical variables?<a class="anchor" aria-label="anchor" href="#how-can-i-create-a-stacked-bar-plot-based-on-data-from-a-contingency-table-of-to-categorical-variables"></a>
 </h3>
-<p>First reshape the data (e.g. with <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">tidyr::pivot_longer()</a></code>)
-so that there is one row per each combination of the levels of the
-categorical variables, then use <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the
-bars.</p>
+<p>First reshape the data (e.g. with <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">tidyr::pivot_longer()</a></code>) so that there is one row per each combination of the levels of the categorical variables, then use <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the bars.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following data from an opinion poll, where the
-numbers in the cells represent the number of responses for each
-party/opinion combination.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+</summary><p>Suppose you have the following data from an opinion poll, where the numbers in the cells represent the number of responses for each party/opinion combination.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">poll</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">party</span>,       <span class="op">~</span><span class="va">agree</span>, <span class="op">~</span><span class="va">disagree</span>, <span class="op">~</span><span class="va">no_opinion</span>,</span>
 <span>  <span class="st">"Democrat"</span>,    <span class="fl">20</span>,    <span class="fl">30</span>,        <span class="fl">20</span>,</span>
 <span>  <span class="st">"Republican"</span>,  <span class="fl">15</span>,    <span class="fl">20</span>,        <span class="fl">10</span>,</span>
 <span>  <span class="st">"Independent"</span>, <span class="fl">10</span>,    <span class="fl">5</span>,         <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>You can first pivot the data longer to obtain a data frame with one
-row per party/opinion combination and a new column, <code>n</code>, for
-the number of responses that fall into that category.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+</div>
+<p>You can first pivot the data longer to obtain a data frame with one row per party/opinion combination and a new column, <code>n</code>, for the number of responses that fall into that category.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">poll_longer</span> <span class="op">&lt;-</span> <span class="va">poll</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">pivot_longer</span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">-</span><span class="va">party</span>,</span>
@@ -321,47 +362,52 @@ the number of responses that fall into that category.</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">poll_longer</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 3</span></span></span>
+<span><span class="co">#&gt; # A tibble: 9 × 3</span></span>
 <span><span class="co">#&gt;   party       opinion        n</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Democrat    agree         20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Democrat    disagree      30</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Democrat    no_opinion    20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Republican  agree         15</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Republican  disagree      20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Republican  no_opinion    10</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Independent agree         10</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> Independent disagree       5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> Independent no_opinion     0</span></span></code></pre></div>
-<p>Then, you can pass this result to <code><a href="../reference/ggplot.html">ggplot()</a></code> and create a
-bar for each <code>party</code> on the <code>y</code> (or
-<code>x</code>, if you prefer vertical bars) axis and fill the bars in
-with number of responses for each <code>opinion</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Democrat    agree         20</span></span>
+<span><span class="co">#&gt; 2 Democrat    disagree      30</span></span>
+<span><span class="co">#&gt; 3 Democrat    no_opinion    20</span></span>
+<span><span class="co">#&gt; 4 Republican  agree         15</span></span>
+<span><span class="co">#&gt; 5 Republican  disagree      20</span></span>
+<span><span class="co">#&gt; 6 Republican  no_opinion    10</span></span>
+<span><span class="co">#&gt; 7 Independent agree         10</span></span>
+<span><span class="co">#&gt; 8 Independent disagree       5</span></span>
+<span><span class="co">#&gt; 9 Independent no_opinion     0</span></span></code></pre></div>
+</div>
+<p>Then, you can pass this result to <code><a href="../reference/ggplot.html">ggplot()</a></code> and create a bar for each <code>party</code> on the <code>y</code> (or <code>x</code>, if you prefer vertical bars) axis and fill the bars in with number of responses for each <code>opinion</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">poll_longer</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">party</span>, fill <span class="op">=</span> <span class="va">opinion</span>, x <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-18-1.png" alt="A horizontal stacked bar chart showing opinion counts for 3 parties, stacked and filled by 3 types of opinions." width="80%"></p>
-<p>To plot proportions (relative frequencies) instead of counts, use
-<code>position = "fill"</code> in <code><a href="../reference/geom_bar.html">geom_col()</a></code>.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-18-1.png" style="width:80.0%" alt="A horizontal stacked bar chart showing opinion counts for 3 parties, stacked and filled by 3 types of opinions."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To plot proportions (relative frequencies) instead of counts, use <code>position = "fill"</code> in <code><a href="../reference/geom_bar.html">geom_col()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">poll_longer</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">party</span>, fill <span class="op">=</span> <span class="va">opinion</span>, x <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"proportion"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-19-1.png" alt="A horizontal filled bar chart showing proportions of opinions for 3 parties. The fill colour represents 3 types of opinion. Every stacked bar spans the width of the panel." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-19-1.png" style="width:80.0%" alt="A horizontal filled bar chart showing proportions of opinions for 3 parties. The fill colour represents 3 types of opinion. Every stacked bar spans the width of the panel."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-can-i-make-a-grouped-bar-plot">How can I make a grouped bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-make-a-grouped-bar-plot"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-can-i-make-a-grouped-bar-plot">How can I make a grouped bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-make-a-grouped-bar-plot"></a>
 </h3>
-<p>Map the variable you want to group by to the <code>x</code> or
-<code>y</code> <code>aes</code>thetic, map the variable you want to
-color the vars by to the <code>fill</code> aesthetic, and set
-<code>position = "dodge"</code> in <code><a href="../reference/geom_bar.html">geom_bar()</a></code>.</p>
+<p>Map the variable you want to group by to the <code>x</code> or <code>y</code> <code>aes</code>thetic, map the variable you want to color the vars by to the <code>fill</code> aesthetic, and set <code>position = "dodge"</code> in <code><a href="../reference/geom_bar.html">geom_bar()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have data from a survey with three questions, where
-respondents select “Agree” or “Disagree” for each question.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+</summary><p>Suppose you have data from a survey with three questions, where respondents select “Agree” or “Disagree” for each question.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">respondent</span>, <span class="op">~</span><span class="va">q1</span>,        <span class="op">~</span><span class="va">q2</span>,        <span class="op">~</span><span class="va">q3</span>,</span>
 <span>  <span class="fl">1</span>,           <span class="st">"Agree"</span>,    <span class="st">"Agree"</span>,    <span class="st">"Disagree"</span>,</span>
@@ -369,12 +415,10 @@ respondents select “Agree” or “Disagree” for each question.</p>
 <span>  <span class="fl">3</span>,           <span class="st">"Agree"</span>,    <span class="st">"Agree"</span>,    <span class="st">"Disagree"</span>,</span>
 <span>  <span class="fl">4</span>,           <span class="st">"Disagree"</span>, <span class="st">"Disagree"</span>, <span class="st">"Agree"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>You’ll first want to reshape these data so that each row represents a
-respondent / question pair. You can do this with
-<code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">tidyr::pivot_longer()</a></code>. Then, pass the resulting longer data
-frame to <code><a href="../reference/ggplot.html">ggplot()</a></code> group responses for each question
-together.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+</div>
+<p>You’ll first want to reshape these data so that each row represents a respondent / question pair. You can do this with <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">tidyr::pivot_longer()</a></code>. Then, pass the resulting longer data frame to <code><a href="../reference/ggplot.html">ggplot()</a></code> group responses for each question together.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">-</span><span class="va">respondent</span>,</span>
@@ -383,79 +427,83 @@ together.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">question</span>, fill <span class="op">=</span> <span class="va">response</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-21-1.png" alt="A grouped bar chart showing the number of responses to three questions. Within each question, two bars denote an 'Agree' or 'Disagree' response." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-21-1.png" style="width:80.0%" alt="A grouped bar chart showing the number of responses to three questions. Within each question, two bars denote an 'Agree' or 'Disagree' response."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-can-i-make-a-bar-plot-of-group-means">How can I make a bar plot of group means?<a class="anchor" aria-label="anchor" href="#how-can-i-make-a-bar-plot-of-group-means"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-can-i-make-a-bar-plot-of-group-means">How can I make a bar plot of group means?<a class="anchor" aria-label="anchor" href="#how-can-i-make-a-bar-plot-of-group-means"></a>
 </h3>
-<p>Either calculate the group means first and use
-<code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the bars or let ggplot2 calculate the
-means with <code><a href="../reference/stat_summary.html">stat_summary()</a></code> with <code>fun = "mean"</code>
-and <code>geom = "bar"</code>.</p>
+<p>Either calculate the group means first and use <code><a href="../reference/geom_bar.html">geom_col()</a></code> to draw the bars or let ggplot2 calculate the means with <code><a href="../reference/stat_summary.html">stat_summary()</a></code> with <code>fun = "mean"</code> and <code>geom = "bar"</code>.</p>
 <details><summary>
 See example
-</summary><p>One option for calculating group means is using
-<code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code> followed by
-<code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">dplyr::summarise()</a></code>. Then, you can pass the resulting data
-frame to <code><a href="../reference/ggplot.html">ggplot()</a></code> and plot bars using
-<code><a href="../reference/geom_bar.html">geom_col()</a></code>.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+</summary><p>One option for calculating group means is using <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code> followed by <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">dplyr::summarise()</a></code>. Then, you can pass the resulting data frame to <code><a href="../reference/ggplot.html">ggplot()</a></code> and plot bars using <code><a href="../reference/geom_bar.html">geom_col()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mpg</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">drv</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>mean_hwy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">mean_hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-22-1.png" alt="A bar chart showing the average highway miles per gallon for three types of drive train." width="80%"></p>
-<p>Alternatively, you can use <code><a href="../reference/stat_summary.html">stat_summary()</a></code> to let ggplot2
-calculate and plot the means.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-22-1.png" style="width:80.0%" alt="A bar chart showing the average highway miles per gallon for three types of drive train."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Alternatively, you can use <code><a href="../reference/stat_summary.html">stat_summary()</a></code> to let ggplot2 calculate and plot the means.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/stat_summary.html">stat_summary</a></span><span class="op">(</span>fun <span class="op">=</span> <span class="st">"mean"</span>, geom <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-23-1.png" alt="A bar chart showing the average highway miles per gallon for three types of drive train." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-23-1.png" style="width:80.0%" alt="A bar chart showing the average highway miles per gallon for three types of drive train."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="axes-and-axis-limits">Axes and axis limits<a class="anchor" aria-label="anchor" href="#axes-and-axis-limits"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="axes-and-axis-limits">Axes and axis limits<a class="anchor" aria-label="anchor" href="#axes-and-axis-limits"></a>
 </h2>
-<div class="section level3">
-<h3 id="why-do-the-bars-on-my-plot-disappear-when-i-specify-an-axis-range-with-ylim-how-can-i-get-the-bars-to-show-up-within-a-given-axis-range">Why do the bars on my plot disappear when I specify an axis range
-with <code>ylim()</code>? How can I get the bars to show up within a
-given axis range?<a class="anchor" aria-label="anchor" href="#why-do-the-bars-on-my-plot-disappear-when-i-specify-an-axis-range-with-ylim-how-can-i-get-the-bars-to-show-up-within-a-given-axis-range"></a>
+<section class="level3"><h3 id="why-do-the-bars-on-my-plot-disappear-when-i-specify-an-axis-range-with-ylim-how-can-i-get-the-bars-to-show-up-within-a-given-axis-range">Why do the bars on my plot disappear when I specify an axis range with <code>ylim()</code>? How can I get the bars to show up within a given axis range?<a class="anchor" aria-label="anchor" href="#why-do-the-bars-on-my-plot-disappear-when-i-specify-an-axis-range-with-ylim-how-can-i-get-the-bars-to-show-up-within-a-given-axis-range"></a>
 </h3>
-<p><code><a href="../reference/lims.html">ylim()</a></code> is a shortcut for supplying the
-<code>limits</code> argument to individual scales. When either of these
-is set, any values outside the limits specified are replaced with
-<code>NA</code>. Since the bars naturally start at <code>y = 0</code>,
-replacing part of the bars with <code>NA</code>s results in the bars
-entirely disappearing from the plot. For changing axis limits without
-dropping data observations, set limits in <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>
-instead. Also note that this will result in a deceiving bar plot, which
-should be avoided in general.</p>
+<p><code><a href="../reference/lims.html">ylim()</a></code> is a shortcut for supplying the <code>limits</code> argument to individual scales. When either of these is set, any values outside the limits specified are replaced with <code>NA</code>. Since the bars naturally start at <code>y = 0</code>, replacing part of the bars with <code>NA</code>s results in the bars entirely disappearing from the plot. For changing axis limits without dropping data observations, set limits in <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code> instead. Also note that this will result in a deceiving bar plot, which should be avoided in general.</p>
 <details><summary>
 See example
-</summary><p>In the following plot the y-axis is limited to 20 to 120, and hence
-the bars are not showing up.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+</summary><p>In the following plot the y-axis is limited to 20 to 120, and hence the bars are not showing up.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 3 rows containing missing values or values outside the scale</span></span>
-<span><span class="co">#&gt; range (`geom_bar()`).</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-24-1.png" alt="A plot with axes and a panel, but no other geometry." width="80%"></p>
-<p>In order to obtain a bar plot with limited y-axis, you need to
-instead set the limits in <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; Warning: Removed 3 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; (`geom_bar()`).</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-24-1.png" style="width:80.0%" alt="A plot with axes and a panel, but no other geometry."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In order to obtain a bar plot with limited y-axis, you need to instead set the limits in <code><a href="../reference/coord_cartesian.html">coord_cartesian()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">110</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-25-1.png" alt="A bar chart showing the number of cars for each of three types of drive train. The y-axis starts at 20, and all bars touch the x-axis." width="80%"></p>
-<p>This is, indeed, a deceiving plot. If you’re using a bar plot to
-display values that could not take the value of 0, you might choose a
-different geom instead. For example, if you have the following data and
-plot.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-25-1.png" style="width:80.0%" alt="A bar chart showing the number of cars for each of three types of drive train. The y-axis starts at 20, and all bars touch the x-axis."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is, indeed, a deceiving plot. If you’re using a bar plot to display values that could not take the value of 0, you might choose a different geom instead. For example, if you have the following data and plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">x</span>,  <span class="op">~</span><span class="va">y</span>,</span>
 <span>  <span class="st">"A"</span>, <span class="fl">1050</span>,</span>
@@ -465,30 +513,124 @@ plot.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-26-1.png" alt="A bar chart showing numbers for 3 arbitrary categories. The numbers are far away from the x-axis and visually appear broadly similar in height." width="80%"></p>
-<p>Also suppose that you want to cut off the bars at
-<code>y = 1000</code> since you know that the variable you’re plotting
-cannot take a value less than 1000, you might use
-<code><a href="../reference/geom_point.html">geom_point()</a></code> instead.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-26-1.png" style="width:80.0%" alt="A bar chart showing numbers for 3 arbitrary categories. The numbers are far away from the x-axis and visually appear broadly similar in height."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Also suppose that you want to cut off the bars at <code>y = 1000</code> since you know that the variable you’re plotting cannot take a value less than 1000, you might use <code><a href="../reference/geom_point.html">geom_point()</a></code> instead.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># don't do this</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1150</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-27-1.png" alt="A bar chart showing numbers for 3 arbitrary categories. The y-axis starts at 1000 and the bars all look different in height. This is not a recommended way of plotting this data." width="80%"></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-27-1.png" style="width:80.0%" alt="A bar chart showing numbers for 3 arbitrary categories. The y-axis starts at 1000 and the bars all look different in height. This is not a recommended way of plotting this data."></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># do this</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-bars_files/figure-html/unnamed-chunk-27-2.png" alt="A scatter plot with 3 points showing numbers for 3 arbitrary categories. The y-axis starts at 1000 and the points have visually different values. This is a better way of plotting this data." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-bars_files/figure-html/unnamed-chunk-27-2.png" style="width:80.0%" alt="A scatter plot with 3 points showing numbers for 3 arbitrary categories. The y-axis starts at 1000 and the points have visually different values. This is a better way of plotting this data."></p>
+</figure>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</div>
+</details></section></section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
    </div>

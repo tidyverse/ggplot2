@@ -17,7 +17,10 @@
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Faceting">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="faq-faceting_files/libs/quarto-html/popper.min.js"></script><script src="faq-faceting_files/libs/quarto-html/tippy.umd.min.js"></script><link href="faq-faceting_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="faq-faceting_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Faceting">
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
 <meta name="robots" content="noindex">
 <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script><script async src="https://widget.kapa.ai/kapa-widget.bundle.js" data-button-hide="true" data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!" data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2." data-modal-header-bg-color="#f9f9f9" data-modal-override-open-class="open-kapa-widget" data-project-color="#365a7a" data-project-name="ggplot2" data-modal-title="tidyverse AI ✨" data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&amp;u=235532df5cf8543246812f73db051b793f868807&amp;v=4" data-user-analytics-fingerprint-enabled="true" data-bot-protection-mechanism="hcaptcha" data-website-id="5dcac24a-bd5a-4874-9f5b-3341afddd8c3"></script>
 </head>
@@ -91,117 +94,130 @@
 
 
   </div>
-</nav><div class="container template-article" id="container">
-
-
-
-
+</nav><div class="container template-quarto" id="container">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>FAQ: Faceting</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/main/vignettes/articles/faq-faceting.Rmd" class="external-link"><code>vignettes/articles/faq-faceting.Rmd</code></a></small>
-      <div class="d-none name"><code>faq-faceting.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/main/vignettes/articles/faq-faceting.qmd" class="external-link"><code>vignettes/articles/faq-faceting.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<style>
+
+
+
+
+
+    <style>
   .content h3 {
     margin-top: -30px !important;
   }
-  
+
   details {
     margin-bottom: 40px;
   }
 </style>
-<div class="section level2">
-<h2 id="panes">Panes<a class="anchor" aria-label="anchor" href="#panes"></a>
+<section class="level2"><h2 id="panes">Panes<a class="anchor" aria-label="anchor" href="#panes"></a>
 </h2>
-<div class="section level3">
-<h3 id="what-is-the-difference-between-facet_wrap-and-facet_grid">What is the difference between <code>facet_wrap()</code> and
-<code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#what-is-the-difference-between-facet_wrap-and-facet_grid"></a>
+<section class="level3"><h3 id="what-is-the-difference-between-facet_wrap-and-facet_grid">What is the difference between <code>facet_wrap()</code> and <code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#what-is-the-difference-between-facet_wrap-and-facet_grid"></a>
 </h3>
-<p>The simplest answer is that you should use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code>
-when faceting by a single variable and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> when
-faceting by two variables and want to create a grid of panes.</p>
+<p>The simplest answer is that you should use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> when faceting by a single variable and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> when faceting by two variables and want to create a grid of panes.</p>
 <details><summary>
 See example
-</summary><p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> is most commonly used to facet by a plot by
-a single categorical variable.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+</summary><p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> is most commonly used to facet by a plot by a single categorical variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-2-1.png" alt="A histogram showing the city miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout." width="80%"></p>
-<p>And <code><a href="../reference/facet_grid.html">facet_grid()</a></code> is commonly used to facet by a plot by
-two categorical variables.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-2-1.png" style="width:80.0%" alt="A histogram showing the city miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And <code><a href="../reference/facet_grid.html">facet_grid()</a></code> is commonly used to facet by a plot by two categorical variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-3-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction, and four numbers of cylinders in the vertical direction. Several panels have no data." width="80%"></p>
-<p>Notice that this results in some empty panes (e.g. 4-wheel drive and
-5 cylinders) as there are no cars in the <code>mpg</code> dataset that
-fall into such categories.</p>
-<p>You can also use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> with to facet by two
-categorical variables. This will only create facets for combinations of
-the levels of variables for which data exists.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-3-1.png" style="width:80.0%" alt="A histogram showing the city miles per gallon distribution. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction, and four numbers of cylinders in the vertical direction. Several panels have no data."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice that this results in some empty panes (e.g. 4-wheel drive and 5 cylinders) as there are no cars in the <code>mpg</code> dataset that fall into such categories.</p>
+<p>You can also use <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> with to facet by two categorical variables. This will only create facets for combinations of the levels of variables for which data exists.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-4-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has nine panels in a 3-row, 3-column layout, showing all existing combinations of three types of drive train, and four numbers of cylinders." width="80%"></p>
-<p>In <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> you can control the number of rows
-and/or columns of the resulting plot layout using the <code>nrow</code>
-and <code>ncol</code> arguments, respectively. In
-<code><a href="../reference/facet_grid.html">facet_grid()</a></code> these values are determined by the number of
-levels of the variables you’re faceting by.</p>
-<p>Similarly, you can also use <code><a href="../reference/facet_grid.html">facet_grid()</a></code> to facet by a
-single categorical variable as well. In the formula notation, you use a
-<code>.</code> to indicate that no faceting should be done along that
-axis, i.e. <code>cyl ~ .</code> facets across the y-axis (within a
-column) while <code>. ~ cyl</code> facets across the x-axis (within a
-row).</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-4-1.png" style="width:80.0%" alt="A histogram showing the city miles per gallon distribution. The plot has nine panels in a 3-row, 3-column layout, showing all existing combinations of three types of drive train, and four numbers of cylinders."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> you can control the number of rows and/or columns of the resulting plot layout using the <code>nrow</code> and <code>ncol</code> arguments, respectively. In <code><a href="../reference/facet_grid.html">facet_grid()</a></code> these values are determined by the number of levels of the variables you’re faceting by.</p>
+<p>Similarly, you can also use <code><a href="../reference/facet_grid.html">facet_grid()</a></code> to facet by a single categorical variable as well. In the formula notation, you use a <code>.</code> to indicate that no faceting should be done along that axis, i.e. <code>cyl ~ .</code> facets across the y-axis (within a column) while <code>. ~ cyl</code> facets across the x-axis (within a row).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-1.png" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 4-row, 1-column layout, showing four numbers of cylinders." width="50%"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-1.png" style="width:50.0%" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 4-row, 1-column layout, showing four numbers of cylinders."></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value `binwidth`.</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-2.png" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 1-row, 4-column layout, showing four numbers of cylinders." width="50%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-5-2.png" style="width:50.0%" alt="A histogram showing the city miles per gallon distribution. The plot has four panels in a 1-row, 4-column layout, showing four numbers of cylinders."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot">How can I place a vertical lines (<code>geom_vline()</code>) in each
-pane of a faceted plot?<a class="anchor" aria-label="anchor" href="#how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot">How can I place a vertical lines (<code>geom_vline()</code>) in each pane of a faceted plot?<a class="anchor" aria-label="anchor" href="#how-can-i-place-a-vertical-lines-geom_vline-in-each-pane-of-a-faceted-plot"></a>
 </h3>
-<p>First, calculate where the lines should be placed and save this
-information in a separate data frame. Then, add a
-<code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summarized
-data.</p>
+<p>First, calculate where the lines should be placed and save this information in a separate data frame. Then, add a <code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summarized data.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following plot, and you want to add a vertical
-line at the mean value of <code>hwy</code> (highway mileage) for each
-pane.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</summary><p>Suppose you have the following plot, and you want to add a vertical line at the mean value of <code>hwy</code> (highway mileage) for each pane.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-6-1.png" alt="A histogram showing the highway miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout." width="80%"></p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-6-1.png" style="width:80.0%" alt="A histogram showing the highway miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout."></p>
+</figure>
+</div>
+</div>
+</div>
 <p>First, calculate these means and save them in a new data frame.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -217,110 +233,117 @@ pane.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>hwy_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">hwy</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mpg_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
 <span><span class="co">#&gt;   drv   hwy_mean</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 4         19.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> f         28.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> r         21</span></span></code></pre></div>
-<p>Then, add a <code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses
-the summary data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 4         19.2</span></span>
+<span><span class="co">#&gt; 2 f         28.2</span></span>
+<span><span class="co">#&gt; 3 r         21</span></span></code></pre></div>
+</div>
+<p>Then, add a <code><a href="../reference/geom_abline.html">geom_vline()</a></code> layer to your plot that uses the summary data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg_summary</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">hwy_mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-8-1.png" alt="A histogram showing the highway miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout. Each panel has a vertical black line indicating the mean of the distribution." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-8-1.png" style="width:80.0%" alt="A histogram showing the highway miles per gallon distribution for three types of drive train, each in their own panel in a 1-row, 3-column layout. Each panel has a vertical black line indicating the mean of the distribution."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="axes">Axes<a class="anchor" aria-label="anchor" href="#axes"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="axes">Axes<a class="anchor" aria-label="anchor" href="#axes"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-set-individual-axis-limits-for-facets">How can I set individual axis limits for facets?<a class="anchor" aria-label="anchor" href="#how-can-i-set-individual-axis-limits-for-facets"></a>
+<section class="level3"><h3 id="how-can-i-set-individual-axis-limits-for-facets">How can I set individual axis limits for facets?<a class="anchor" aria-label="anchor" href="#how-can-i-set-individual-axis-limits-for-facets"></a>
 </h3>
-<p>Either let ggplot2 determine custom axis limits for the facets based
-on the range of the data you’re plotting using the <code>scales</code>
-argument in <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> or <code><a href="../reference/facet_grid.html">facet_grid()</a></code> or,
-if that is not sufficient, use <code><a href="../reference/expand_limits.html">expand_limits()</a></code> to ensure
-limits include a single value or a range of values.</p>
+<p>Either let ggplot2 determine custom axis limits for the facets based on the range of the data you’re plotting using the <code>scales</code> argument in <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> or <code><a href="../reference/facet_grid.html">facet_grid()</a></code> or, if that is not sufficient, use <code><a href="../reference/expand_limits.html">expand_limits()</a></code> to ensure limits include a single value or a range of values.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following faceted plot. By default, both x and y
-scales are shared across the facets.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+</summary><p>Suppose you have the following faceted plot. By default, both x and y scales are shared across the facets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-9-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row has the same y-axis range, and every column has the same x-axis range." width="80%"></p>
-<p>You can control this behaviour with the <code>scales</code> argument
-of faceting functions: varying scales across rows
-(<code>"free_x"</code>), columns (<code>"free_y"</code>), or both rows
-and columns (<code>"free"</code>), e.g.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-9-1.png" style="width:80.0%" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row has the same y-axis range, and every column has the same x-axis range."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can control this behaviour with the <code>scales</code> argument of faceting functions: varying scales across rows (<code>"free_x"</code>), columns (<code>"free_y"</code>), or both rows and columns (<code>"free"</code>), e.g.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-10-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row in the layout has an independent y-axis range. Every column in the layout has an independent x-axis range." width="80%"></p>
-<p>If you also want to make sure that a particular value or range is
-included in each of the facets, you can set this with
-<code><a href="../reference/expand_limits.html">expand_limits()</a></code>, e.g. ensure that 10 is included in the
-x-axis and values between 20 to 25 are included in the y-axis:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-10-1.png" style="width:80.0%" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row in the layout has an independent y-axis range. Every column in the layout has an independent x-axis range."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If you also want to make sure that a particular value or range is included in each of the facets, you can set this with <code><a href="../reference/expand_limits.html">expand_limits()</a></code>, e.g. ensure that 10 is included in the x-axis and values between 20 to 25 are included in the y-axis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-11-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row in the layout has an independent y-axis range, but all include the 20-25 interval. Every column in the layout has an independent x-axis range, but all include 10." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-11-1.png" style="width:80.0%" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout, showing three types of drive train in the horizontal direction and four numbers of cylinders in the vertical direction. Several panels are empty. Every row in the layout has an independent y-axis range, but all include the 20-25 interval. Every column in the layout has an independent x-axis range, but all include 10."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="facet-labels">Facet labels<a class="anchor" aria-label="anchor" href="#facet-labels"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="facet-labels">Facet labels<a class="anchor" aria-label="anchor" href="#facet-labels"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-remove-the-facet-labels-entirely">How can I remove the facet labels entirely?<a class="anchor" aria-label="anchor" href="#how-can-i-remove-the-facet-labels-entirely"></a>
+<section class="level3"><h3 id="how-can-i-remove-the-facet-labels-entirely">How can I remove the facet labels entirely?<a class="anchor" aria-label="anchor" href="#how-can-i-remove-the-facet-labels-entirely"></a>
 </h3>
-<p>Set the <code>strip.text</code> element in <code><a href="../reference/theme.html">theme()</a></code> to
-<code><a href="../reference/element.html">element_blank()</a></code>.</p>
+<p>Set the <code>strip.text</code> element in <code><a href="../reference/theme.html">theme()</a></code> to <code><a href="../reference/element.html">element_blank()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>Setting <code>strip.text</code> to <code><a href="../reference/element.html">element_blank()</a></code> will
-remove all facet labels.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+</summary><p>Setting <code>strip.text</code> to <code><a href="../reference/element.html">element_blank()</a></code> will remove all facet labels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>strip.text <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-12-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout. The strips, or panel layout titles and their backgrounds, are missing." width="80%"></p>
-<p>You can also remove the labels across rows only with
-<code>strip.x.text</code> or across columns only with
-<code>strip.y.text</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-12-1.png" style="width:80.0%" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout. The strips, or panel layout titles and their backgrounds, are missing."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can also remove the labels across rows only with <code>strip.x.text</code> or across columns only with <code>strip.y.text</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">drv</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>strip.text.x <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-13-1.png" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout. In the vertical direction, the panels indicate four numbers of cylinders. The strips of the horizontal direction are missing." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-13-1.png" style="width:80.0%" alt="A scatter plot showing city miles per gallon on the x-axis and highway miles per gallon on the y-axis. The plot has twelve panels in a 4-row, 3-column layout. In the vertical direction, the panels indicate four numbers of cylinders. The strips of the horizontal direction are missing."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows">The facet labels in my plot are too long so they get cut off. How
-can I wrap facet label text so that long labels are spread across two
-rows?<a class="anchor" aria-label="anchor" href="#the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows">The facet labels in my plot are too long so they get cut off. How can I wrap facet label text so that long labels are spread across two rows?<a class="anchor" aria-label="anchor" href="#the-facet-labels-in-my-plot-are-too-long-so-they-get-cut-off--how-can-i-wrap-facet-label-text-so-that-long-labels-are-spread-across-two-rows"></a>
 </h3>
-<p>Use <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> in the <code>labeller</code>
-argument of your faceting function and set a <code>width</code> (number
-of characters) for the maximum number of characters before wrapping the
-strip.</p>
+<p>Use <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> in the <code>labeller</code> argument of your faceting function and set a <code>width</code> (number of characters) for the maximum number of characters before wrapping the strip.</p>
 <details><summary>
 See example
-</summary><p>In the data frame below we have 100 observations, 50 of them come
-from one group and 50 from another. These groups have very long names,
-and so when you facet the ploy by group, the facet labels (strips) get
-cut off.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+</summary><p>In the data frame below we have 100 observations, 50 of them come from one group and 50 from another. These groups have very long names, and so when you facet the ploy by group, the facet labels (strips) get cut off.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
 <span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"A long group name for the first group"</span>, <span class="fl">50</span><span class="op">)</span>,</span>
@@ -330,32 +353,34 @@ cut off.</p>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-14-1.png" alt="A histogram with two panels in a 1-row, 2-column layout of random data. The first panel has as title 'A long group name for the first group'. The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the second group'. However, the second title is clipped to the panel width and doesn't show all the text." width="80%"></p>
-<p>You can control the maximum width of the facet label by setting the
-<code>width</code> in the <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> function, which
-is then passed to the <code>labeller</code> argument of your faceting
-function.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-14-1.png" style="width:80.0%" alt="A histogram with two panels in a 1-row, 2-column layout of random data. The first panel has as title 'A long group name for the first group'. The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the second group'. However, the second title is clipped to the panel width and doesn't show all the text."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can control the maximum width of the facet label by setting the <code>width</code> in the <code><a href="../reference/labellers.html">label_wrap_gen()</a></code> function, which is then passed to the <code>labeller</code> argument of your faceting function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span>, labeller <span class="op">=</span> <span class="fu"><a href="../reference/labeller.html">labeller</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="../reference/labellers.html">label_wrap_gen</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-15-1.png" alt="A histogram with two panels in a 1-row, 2-column layout of random data. The first panel has as title 'A long group name for the first group' in two lines of text. The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the second group' in three lines of text. The width of the second title now fits within the panel width." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-15-1.png" style="width:80.0%" alt="A histogram with two panels in a 1-row, 2-column layout of random data. The first panel has as title 'A long group name for the first group' in two lines of text. The second panel has a title 'A muuuuuuuuuuuuuch longer group name for the second group' in three lines of text. The width of the second title now fits within the panel width."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-can-i-set-different-axis-labels-for-facets">How can I set different axis labels for facets?<a class="anchor" aria-label="anchor" href="#how-can-i-set-different-axis-labels-for-facets"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-can-i-set-different-axis-labels-for-facets">How can I set different axis labels for facets?<a class="anchor" aria-label="anchor" href="#how-can-i-set-different-axis-labels-for-facets"></a>
 </h3>
-<p>Use <code><a href="../reference/as_labeller.html">as_labeller()</a></code> in the <code>labeller</code> argument
-of your faceting function and then set <code>strip.background</code> and
-<code>strip.placement</code> elements in the <code><a href="../reference/theme.html">theme()</a></code> to
-place the facet labels where axis labels would go. This is a
-particularly useful solution for plotting data on different scales
-without the use of double y-axes.</p>
+<p>Use <code><a href="../reference/as_labeller.html">as_labeller()</a></code> in the <code>labeller</code> argument of your faceting function and then set <code>strip.background</code> and <code>strip.placement</code> elements in the <code><a href="../reference/theme.html">theme()</a></code> to place the facet labels where axis labels would go. This is a particularly useful solution for plotting data on different scales without the use of double y-axes.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have data price data on a given item over a few years
-from two countries with very different currency scales.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+</summary><p>Suppose you have data price data on a given item over a few years from two countries with very different currency scales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2016</span><span class="op">:</span><span class="fl">2021</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>  price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">13</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">1000</span>, <span class="fl">1010</span>, <span class="fl">1200</span>, <span class="fl">1050</span>, <span class="fl">1105</span>, <span class="fl">1300</span><span class="op">)</span>,</span>
@@ -376,21 +401,24 @@ from two countries with very different currency scales.</p>
 <span><span class="co">#&gt; 10 2019  1050   Japan</span></span>
 <span><span class="co">#&gt; 11 2020  1105   Japan</span></span>
 <span><span class="co">#&gt; 12 2021  1300   Japan</span></span></code></pre></div>
-<p>You can plot <code>price</code> versus <code>time</code> and facet by
-<code>country</code>, but the resulting plot can be a bit difficult to
-read due to the shared y-axis label.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+</div>
+<p>You can plot <code>price</code> versus <code>time</code> and facet by <code>country</code>, but the resulting plot can be a bit difficult to read due to the shared y-axis label.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">country</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-17-1.png" alt="A timeseries plot showing price over time for two countries, Japan and the US, in two panels in a 2-row, 1-column layout. The countries are indicated at the top of each panel. The two y-axes have different ranges." width="80%"></p>
-<p>With the following you can customize the facet labels first with
-<code><a href="../reference/as_labeller.html">as_labeller()</a></code>, turn off the default y-axis label, and then
-place the facet labels where the y-axis label goes
-(<code>"outside"</code> and on the <code>"left"</code>).</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-17-1.png" style="width:80.0%" alt="A timeseries plot showing price over time for two countries, Japan and the US, in two panels in a 2-row, 1-column layout. The countries are indicated at the top of each panel. The two y-axes have different ranges."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With the following you can customize the facet labels first with <code><a href="../reference/as_labeller.html">as_labeller()</a></code>, turn off the default y-axis label, and then place the facet labels where the y-axis label goes (<code>"outside"</code> and on the <code>"left"</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">country</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span>, </span>
@@ -402,14 +430,99 @@ place the facet labels where the y-axis label goes
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme.html">theme</a></span><span class="op">(</span>strip.background <span class="op">=</span> <span class="fu"><a href="../reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, strip.placement <span class="op">=</span> <span class="st">"outside"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></span></code></pre></div>
-<p><img src="faq-faceting_files/figure-html/unnamed-chunk-18-1.png" alt="A timeseries plot showing price over time for two countries and their currencies, the Japanese Yen and the US Dollar, in two panels in a 2-row, 1-column layout. The countries and currency units are indicated at the left of each panel. The two y-axes have different ranges." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-faceting_files/figure-html/unnamed-chunk-18-1.png" style="width:80.0%" alt="A timeseries plot showing price over time for two countries and their currencies, the Japanese Yen and the US Dollar, in two panels in a 2-row, 1-column layout. The countries and currency units are indicated at the left of each panel. The two y-axes have different ranges."></p>
+</figure>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</div>
+</details></section></section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
    </div>
