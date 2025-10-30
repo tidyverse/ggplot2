@@ -167,7 +167,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
-  aes_params$label <- normalise_label(aes_params$label)
+  aes_params[["label"]] <- normalise_label(aes_params[["label"]])
 
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
