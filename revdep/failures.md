@@ -50,6 +50,105 @@ ERROR: configuration failed for package ‘bayesdfa’
 
 
 ```
+# bmgarch
+
+<details>
+
+* Version: 2.0.0
+* GitHub: https://github.com/ph-rast/bmgarch
+* Source code: https://github.com/cran/bmgarch
+* Date/Publication: 2023-09-12 00:40:02 UTC
+* Number of recursive dependencies: 78
+
+Run `revdepcheck::cloud_details(, "bmgarch")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking whether package ‘bmgarch’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/tmp/workdir/bmgarch/new/bmgarch.Rcheck/00install.out’ for details.
+    ```
+
+## Newly fixed
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 303.9Mb
+      sub-directories of 1Mb or more:
+        libs  303.0Mb
+    ```
+
+*   checking Rd files ... NOTE
+    ```
+    checkRd: (-1) dot-pred_array_to_df.Rd:20: Lost braces; missing escapes or markup?
+        20 | Helper function for as.data.frame.{fitted, forecast}. Converts predictive array to data.frame.
+           |                                   ^
+    ```
+
+*   checking for GNU extensions in Makefiles ... NOTE
+    ```
+    GNU make is a SystemRequirements.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘bmgarch’ ...
+** package ‘bmgarch’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0’
+using C++17
+
+
+g++ -std=gnu++17 -I"/opt/R/4.4.0/lib/R/include" -DNDEBUG -I"../inst/include" -I"/usr/local/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/usr/local/lib/R/site-library/BH/include' -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppParallel/include' -I'/usr/local/lib/R/site-library/RcppEigen/include' -I'/usr/local/lib/R/site-library/rstan/include' -I'/usr/local/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/usr/local/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2   -c RcppExports.cpp -o RcppExports.o
+In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+...
+/usr/local/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:0:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_DCCMGARCH_namespace::model_DCCMGARCH; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/usr/local/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:21:0:   required from here
+/usr/local/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:654:74: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__m128d’} [-Wignored-attributes]
+  654 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
+      |                                                                          ^~~~~~~~~
+g++: fatal error: Killed signal terminated program cc1plus
+compilation terminated.
+make: *** [/opt/R/4.4.0/lib/R/etc/Makeconf:202: stanExports_DCCMGARCH.o] Error 1
+ERROR: compilation failed for package ‘bmgarch’
+* removing ‘/tmp/workdir/bmgarch/new/bmgarch.Rcheck/bmgarch’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘bmgarch’ ...
+** package ‘bmgarch’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0’
+using C++17
+
+
+g++ -std=gnu++17 -I"/opt/R/4.4.0/lib/R/include" -DNDEBUG -I"../inst/include" -I"/usr/local/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/usr/local/lib/R/site-library/BH/include' -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppParallel/include' -I'/usr/local/lib/R/site-library/RcppEigen/include' -I'/usr/local/lib/R/site-library/rstan/include' -I'/usr/local/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/usr/local/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2   -c RcppExports.cpp -o RcppExports.o
+In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
+...
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (bmgarch)
+
+
+```
 # cdcatR
 
 <details>
@@ -210,7 +309,7 @@ Status: OK
 * GitHub: https://github.com/eonurk/cinaR
 * Source code: https://github.com/cran/cinaR
 * Date/Publication: 2022-05-18 14:00:09 UTC
-* Number of recursive dependencies: 168
+* Number of recursive dependencies: 175
 
 Run `revdepcheck::cloud_details(, "cinaR")` for more info
 
@@ -286,7 +385,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/junjunlab/ClusterGVis
 * Source code: https://github.com/cran/ClusterGVis
 * Date/Publication: 2025-07-19 06:10:02 UTC
-* Number of recursive dependencies: 292
+* Number of recursive dependencies: 296
 
 Run `revdepcheck::cloud_details(, "ClusterGVis")` for more info
 
@@ -690,7 +789,7 @@ Run `revdepcheck::cloud_details(, "degradr")` for more info
 * GitHub: https://github.com/MohmedSoudy/DFD
 * Source code: https://github.com/cran/DFD
 * Date/Publication: 2025-02-11 13:50:11 UTC
-* Number of recursive dependencies: 206
+* Number of recursive dependencies: 211
 
 Run `revdepcheck::cloud_details(, "DFD")` for more info
 
@@ -1091,7 +1190,7 @@ Status: 1 NOTE
 * GitHub: https://github.com/GangLiLab/genekitr
 * Source code: https://github.com/cran/genekitr
 * Date/Publication: 2024-09-06 13:00:06 UTC
-* Number of recursive dependencies: 197
+* Number of recursive dependencies: 201
 
 Run `revdepcheck::cloud_details(, "genekitr")` for more info
 
@@ -1167,7 +1266,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/dzhakparov/GeneSelectR
 * Source code: https://github.com/cran/GeneSelectR
 * Date/Publication: 2024-02-03 14:00:05 UTC
-* Number of recursive dependencies: 178
+* Number of recursive dependencies: 187
 
 Run `revdepcheck::cloud_details(, "GeneSelectR")` for more info
 
@@ -1307,7 +1406,7 @@ ERROR: lazy loading failed for package ‘ggmosaic’
 * GitHub: https://github.com/cafferychen777/ggpicrust2
 * Source code: https://github.com/cran/ggpicrust2
 * Date/Publication: 2025-08-25 23:00:02 UTC
-* Number of recursive dependencies: 319
+* Number of recursive dependencies: 296
 
 Run `revdepcheck::cloud_details(, "ggpicrust2")` for more info
 
@@ -1528,7 +1627,7 @@ ERROR: lazy loading failed for package ‘ggtern’
 * GitHub: https://github.com/erhard-lab/grandR
 * Source code: https://github.com/cran/grandR
 * Date/Publication: 2025-01-22 22:10:02 UTC
-* Number of recursive dependencies: 264
+* Number of recursive dependencies: 267
 
 Run `revdepcheck::cloud_details(, "grandR")` for more info
 
@@ -1639,7 +1738,7 @@ Run `revdepcheck::cloud_details(, "groupedHyperframe")` for more info
 * GitHub: https://github.com/YuanlongHu/immcp
 * Source code: https://github.com/cran/immcp
 * Date/Publication: 2022-05-12 05:50:02 UTC
-* Number of recursive dependencies: 184
+* Number of recursive dependencies: 187
 
 Run `revdepcheck::cloud_details(, "immcp")` for more info
 
@@ -2152,14 +2251,14 @@ using C++17
 g++ -std=gnu++17 -I"/opt/R/4.4.0/lib/R/include" -DNDEBUG -I"../inst/include" -I"/usr/local/lib/R/site-library/StanHeaders/include/src" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_MATH_OVERFLOW_ERROR_POLICY=errno_on_error -DUSE_STANC3 -D_HAS_AUTO_PTR_ETC=0 -I'/usr/local/lib/R/site-library/BH/include' -I'/usr/local/lib/R/site-library/Rcpp/include' -I'/usr/local/lib/R/site-library/RcppEigen/include' -I'/usr/local/lib/R/site-library/RcppParallel/include' -I'/usr/local/lib/R/site-library/rstan/include' -I'/usr/local/lib/R/site-library/StanHeaders/include' -I/usr/local/include    -I'/usr/local/lib/R/site-library/RcppParallel/include' -D_REENTRANT -DSTAN_THREADS   -fpic  -g -O2   -c RcppExports.cpp -o RcppExports.o
 In file included from /usr/local/lib/R/site-library/RcppEigen/include/Eigen/Core:205,
 ...
-/usr/local/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:0:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_survival_mspline_namespace::model_survival_mspline; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
+/usr/local/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:22:0:   required from ‘double stan::mcmc::dense_e_metric<Model, BaseRNG>::T(stan::mcmc::dense_e_point&) [with Model = model_survival_param_namespace::model_survival_param; BaseRNG = boost::random::additive_combine_engine<boost::random::linear_congruential_engine<unsigned int, 40014, 0, 2147483563>, boost::random::linear_congruential_engine<unsigned int, 40692, 0, 2147483399> >]’
 /usr/local/lib/R/site-library/StanHeaders/include/src/stan/mcmc/hmc/hamiltonians/dense_e_metric.hpp:21:0:   required from here
 /usr/local/lib/R/site-library/RcppEigen/include/Eigen/src/Core/DenseCoeffsBase.h:654:74: warning: ignoring attributes on template argument ‘Eigen::internal::packet_traits<double>::type’ {aka ‘__m128d’} [-Wignored-attributes]
   654 |   return internal::first_aligned<int(unpacket_traits<DefaultPacketType>::alignment),Derived>(m);
       |                                                                          ^~~~~~~~~
 g++: fatal error: Killed signal terminated program cc1plus
 compilation terminated.
-make: *** [/opt/R/4.4.0/lib/R/etc/Makeconf:202: stanExports_survival_mspline.o] Error 1
+make: *** [/opt/R/4.4.0/lib/R/etc/Makeconf:202: stanExports_survival_param.o] Error 1
 ERROR: compilation failed for package ‘multinma’
 * removing ‘/tmp/workdir/multinma/old/multinma.Rcheck/multinma’
 
@@ -2325,7 +2424,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/kharchenkolab/numbat
 * Source code: https://github.com/cran/numbat
 * Date/Publication: 2025-10-21 17:00:02 UTC
-* Number of recursive dependencies: 139
+* Number of recursive dependencies: 144
 
 Run `revdepcheck::cloud_details(, "numbat")` for more info
 
@@ -2401,7 +2500,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/Olink-Proteomics/OlinkRPackage
 * Source code: https://github.com/cran/OlinkAnalyze
 * Date/Publication: 2025-09-24 22:20:09 UTC
-* Number of recursive dependencies: 210
+* Number of recursive dependencies: 214
 
 Run `revdepcheck::cloud_details(, "OlinkAnalyze")` for more info
 
@@ -2588,7 +2687,7 @@ Status: 1 NOTE
 * GitHub: https://github.com/Asa12138/pctax
 * Source code: https://github.com/cran/pctax
 * Date/Publication: 2024-12-02 10:00:02 UTC
-* Number of recursive dependencies: 252
+* Number of recursive dependencies: 255
 
 Run `revdepcheck::cloud_details(, "pctax")` for more info
 
@@ -3079,7 +3178,7 @@ Status: 1 WARNING, 3 NOTEs
 * GitHub: https://github.com/Asa12138/ReporterScore
 * Source code: https://github.com/cran/ReporterScore
 * Date/Publication: 2024-11-28 14:10:06 UTC
-* Number of recursive dependencies: 248
+* Number of recursive dependencies: 252
 
 Run `revdepcheck::cloud_details(, "ReporterScore")` for more info
 
@@ -3101,16 +3200,16 @@ Run `revdepcheck::cloud_details(, "ReporterScore")` for more info
 * using option ‘--no-manual’
 * checking for file ‘ReporterScore/DESCRIPTION’ ... OK
 ...
-> data("reporter_score_res")
-> plot_report(reporter_score_res, rs_threshold = c(2.5, -2.5), y_text_size = 10, str_width = 40)
-Error in FUN(X[[i]], ...) : object of type 'symbol' is not subsettable
-Calls: <Anonymous> ... <Anonymous> -> get_labels -> normalise_label -> lapply
-Execution halted
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
 * checking for unstated dependencies in vignettes ... OK
 * checking package vignettes ... OK
 * checking re-building of vignette outputs ... OK
 * DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 NOTE
 
 
 
@@ -3427,6 +3526,82 @@ Status: 1 NOTE
 
 
 ```
+# rSDR
+
+<details>
+
+* Version: 1.0.2.1
+* GitHub: NA
+* Source code: https://github.com/cran/rSDR
+* Date/Publication: 2025-10-28 08:20:08 UTC
+* Number of recursive dependencies: 149
+
+Run `revdepcheck::cloud_details(, "rSDR")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/rSDR/new/rSDR.Rcheck’
+* using R version 4.4.0 (2024-04-24)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.3 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘rSDR/DESCRIPTION’ ... OK
+...
+--- failed re-building ‘rSDR_vignette.Rmd’
+
+SUMMARY: processing the following file failed:
+  ‘rSDR_vignette.Rmd’
+
+Error: Vignette re-building failed.
+Execution halted
+
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/rSDR/old/rSDR.Rcheck’
+* using R version 4.4.0 (2024-04-24)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.3 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘rSDR/DESCRIPTION’ ... OK
+...
+--- failed re-building ‘rSDR_vignette.Rmd’
+
+SUMMARY: processing the following file failed:
+  ‘rSDR_vignette.Rmd’
+
+Error: Vignette re-building failed.
+Execution halted
+
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+```
 # rshift
 
 <details>
@@ -3591,7 +3766,7 @@ ERROR: compilation failed for package ‘rstanarm’
 * GitHub: https://github.com/THERMOSTATS/RVA
 * Source code: https://github.com/cran/RVA
 * Date/Publication: 2021-11-01 21:40:02 UTC
-* Number of recursive dependencies: 210
+* Number of recursive dependencies: 213
 
 Run `revdepcheck::cloud_details(, "RVA")` for more info
 
@@ -3667,7 +3842,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/enblacar/SCpubr
 * Source code: https://github.com/cran/SCpubr
 * Date/Publication: 2025-08-20 08:40:02 UTC
-* Number of recursive dependencies: 290
+* Number of recursive dependencies: 293
 
 Run `revdepcheck::cloud_details(, "SCpubr")` for more info
 
@@ -4037,7 +4212,7 @@ Status: 1 ERROR
 * GitHub: NA
 * Source code: https://github.com/cran/SurprisalAnalysis
 * Date/Publication: 2025-09-10 08:30:13 UTC
-* Number of recursive dependencies: 205
+* Number of recursive dependencies: 208
 
 Run `revdepcheck::cloud_details(, "SurprisalAnalysis")` for more info
 
@@ -4645,7 +4820,7 @@ Status: 2 NOTEs
 * GitHub: https://github.com/xjsun1221/tinyarray
 * Source code: https://github.com/cran/tinyarray
 * Date/Publication: 2025-03-05 13:20:02 UTC
-* Number of recursive dependencies: 249
+* Number of recursive dependencies: 252
 
 Run `revdepcheck::cloud_details(, "tinyarray")` for more info
 
@@ -4721,7 +4896,7 @@ Status: 1 ERROR
 * GitHub: https://github.com/SSSYDYSSS/TransProR
 * Source code: https://github.com/cran/TransProR
 * Date/Publication: 2025-09-12 12:10:02 UTC
-* Number of recursive dependencies: 193
+* Number of recursive dependencies: 196
 
 Run `revdepcheck::cloud_details(, "TransProR")` for more info
 
