@@ -12,17 +12,17 @@
 \usage{
 ggplot_build(plot, ...)
 
-get_layer_data(plot = get_last_plot(), i = 1L)
+get_layer_data(plot = get_last_plot(), i = 1L, name = NA)
 
-layer_data(plot = get_last_plot(), i = 1L)
+layer_data(plot = get_last_plot(), i = 1L, name = NA)
 
 get_panel_scales(plot = get_last_plot(), i = 1L, j = 1L)
 
 layer_scales(plot = get_last_plot(), i = 1L, j = 1L)
 
-get_layer_grob(plot = get_last_plot(), i = 1L)
+get_layer_grob(plot = get_last_plot(), i = 1L, name = NA)
 
-layer_grob(plot = get_last_plot(), i = 1L)
+layer_grob(plot = get_last_plot(), i = 1L, name = NA)
 }
 \arguments{
 \item{plot}{ggplot object}
@@ -32,6 +32,9 @@ layer_grob(plot = get_last_plot(), i = 1L)
 \item{i}{An integer. In \code{get_layer_data()}, the data to return (in the order added to the
 plot). In \code{get_layer_grob()}, the grob to return (in the order added to the
 plot). In \code{get_panel_scales()}, the row of a facet to return scales for.}
+
+\item{name}{A scalar string. In \code{get_layer_data()} and \code{get_layer_grob()}, the name of the layer
+to return. If provided and existing, this takes precedence over \code{i}.}
 
 \item{j}{An integer. In \code{get_panel_scales()}, the column of a facet to return
 scales for.}
