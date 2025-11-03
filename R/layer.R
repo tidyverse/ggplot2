@@ -976,7 +976,7 @@ normalise_label <- function(label) {
     label[lengths(label) == 0] <- ""
     # Don't mess with call/formula
     if (!is.call(label[[1]])) {
-      label <- lapply(label, `[`, 1)
+      label[] <- lapply(label, `[`, 1)
     }
   }
   if (is.expression(label)) {
