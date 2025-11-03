@@ -226,6 +226,36 @@ test_that("layer_data returns a data.frame", {
   expect_snapshot_error(l$layer_data(mtcars))
 })
 
+test_that("get_layer_data works with layer names", {
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+
+  # name has higher precedence than index
+  expect_identical(
+    get_layer_data(p, i = 1L, name = "bar"),
+    get_layer_data(p, i = 2L)
+  )
+
+  # name falls back to index
+  expect_snapshot_error(
+    get_layer_data(p, i = 1L, name = "none")
+  )
+})
+
+test_that("get_layer_grob works with layer names", {
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+
+  # name has higher precedence than index
+  expect_identical(
+    get_layer_grob(p, i = 1L, name = "bar"),
+    get_layer_grob(p, i = 2L)
+  )
+
+  # name falls back to index
+  expect_snapshot_error(
+    get_layer_grob(p, i = 1L, name = "none")
+  )
+})
+
 test_that("data.frames and matrix aesthetics survive the build stage", {
   df <- data_frame0(
     x = 1:2,
