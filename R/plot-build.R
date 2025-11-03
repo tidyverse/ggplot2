@@ -16,6 +16,8 @@
 #'   plot). In `get_panel_scales()`, the row of a facet to return scales for.
 #' @param j An integer. In `get_panel_scales()`, the column of a facet to return
 #'   scales for.
+#' @param name A scalar string. In `get_layer_data()` and `get_layer_grob()`, the name of the layer
+#'   to return. If provided and existing, this takes precedence over `i`.
 #' @param ... Not currently in use.
 #' @seealso
 #' [print.ggplot()] and [benchplot()] for
@@ -141,9 +143,16 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
 
 #' @export
 #' @rdname ggplot_build
-get_layer_data <- function(plot = get_last_plot(), i = 1L) {
-  ggplot_build(plot)@data[[i]]
+get_layer_data <- function(plot = get_last_plot(), i = 1L, name = NA) {
+  if (is.na(name)) {
+    idx <- i
+  } else {
+    name <- arg_match0(name, names(p@layers))
+    idx <- which(name == names(p@layers))
+  }
+  ggplot_build(plot)@data[[idx]]
 }
+
 #' @export
 #' @rdname ggplot_build
 layer_data <- get_layer_data
@@ -168,10 +177,15 @@ layer_scales <- get_panel_scales
 
 #' @export
 #' @rdname ggplot_build
-get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
+get_layer_grob <- function(plot = get_last_plot(), i = 1L, name = NA) {
   b <- ggplot_build(plot)
-
-  b@plot@layers[[i]]$draw_geom(b@data[[i]], b@layout)
+  if (is.na(name)) {
+    idx <- i
+  } else {
+    idx <- arg_match0(name, names(p@layers))
+    idx <- which(name == names(p@layers))
+  }
+  b@plot@layers[[idx]]$draw_geom(b@data[[idx]], b@layout)
 }
 
 #' @export
