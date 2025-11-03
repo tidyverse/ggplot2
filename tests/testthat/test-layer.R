@@ -5,8 +5,18 @@ test_that("layer() checks its input", {
   expect_snapshot_error(layer(geom = "point", position = "identity"))
   expect_snapshot_error(layer(geom = "point", stat = "identity"))
 
-  expect_snapshot_error(layer("point", "identity", mapping = 1:4, position = "identity"))
-  expect_snapshot_error(layer("point", "identity", mapping = ggplot(), position = "identity"))
+  expect_snapshot_error(layer(
+    "point",
+    "identity",
+    mapping = 1:4,
+    position = "identity"
+  ))
+  expect_snapshot_error(layer(
+    "point",
+    "identity",
+    mapping = ggplot(),
+    position = "identity"
+  ))
 
   expect_snapshot_error(validate_subclass("test", "geom"))
   expect_snapshot_error(validate_subclass(environment(), "geom"))
@@ -29,7 +39,8 @@ test_that("unknown aesthetics create warning", {
 })
 
 test_that("empty aesthetics create warning", {
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg), fill = NULL, shape = character())
+  p <- ggplot(mtcars) +
+    geom_point(aes(disp, mpg), fill = NULL, shape = character())
   expect_snapshot_warning(ggplot_build(p))
 })
 
@@ -80,7 +91,13 @@ test_that("function aesthetics are wrapped with after_stat()", {
 test_that("computed stats are in appropriate layer", {
   df <- data_frame(x = 1:10)
   expect_snapshot_error(
-    ggplot_build(ggplot(df, aes(colour = after_stat(density), fill = after_stat(density))) + geom_point())
+    ggplot_build(
+      ggplot(
+        df,
+        aes(colour = after_stat(density), fill = after_stat(density))
+      ) +
+        geom_point()
+    )
   )
 })
 
@@ -96,9 +113,15 @@ test_that("layers are stateless except for the computed params", {
   p <- ggplot(df) +
     geom_col(aes(x = x, y = y), width = 0.8, fill = "red")
   col_layer <- as.list(p@layers[[1]])
-  stateless_names <- setdiff(names(col_layer), c("computed_geom_params", "computed_stat_params", "computed_mapping"))
+  stateless_names <- setdiff(
+    names(col_layer),
+    c("computed_geom_params", "computed_stat_params", "computed_mapping")
+  )
   invisible(ggplotGrob(p))
-  expect_identical(as.list(p@layers[[1]])[stateless_names], col_layer[stateless_names])
+  expect_identical(
+    as.list(p@layers[[1]])[stateless_names],
+    col_layer[stateless_names]
+  )
 })
 
 test_that("inherit.aes works", {
@@ -109,11 +132,14 @@ test_that("inherit.aes works", {
     geom_col(aes(x = x, y = y), inherit.aes = FALSE)
   invisible(ggplotGrob(p1))
   invisible(ggplotGrob(p2))
-  expect_identical(p1@layers[[1]]$computed_mapping, p2@layers[[1]]$computed_mapping)
+  expect_identical(
+    p1@layers[[1]]$computed_mapping,
+    p2@layers[[1]]$computed_mapping
+  )
 })
 
 test_that("retransform works on computed aesthetics in `map_statistic`", {
-  df <- data.frame(x = rep(c(1,2), c(9, 25)))
+  df <- data.frame(x = rep(c(1, 2), c(9, 25)))
   p <- ggplot(df, aes(x)) + geom_bar() + scale_y_sqrt()
   expect_equal(get_layer_data(p)$y, c(3, 5))
 
@@ -147,7 +173,6 @@ test_that("layer warns for constant aesthetics", {
 })
 
 test_that("layer names can be resolved", {
-
   p <- ggplot() + geom_point() + geom_point()
   expect_named(p@layers, c("geom_point", "geom_point...2"))
 
@@ -159,7 +184,6 @@ test_that("layer names can be resolved", {
 })
 
 test_that("validate_subclass can resolve classes via constructors", {
-
   env <- new_environment(list(
     geom_foobar = geom_point,
     stat_foobar = stat_boxplot,
@@ -169,9 +193,14 @@ test_that("validate_subclass can resolve classes via constructors", {
 
   expect_s3_class(validate_subclass("foobar", "Geom", env = env), "GeomPoint")
   expect_s3_class(validate_subclass("foobar", "Stat", env = env), "StatBoxplot")
-  expect_s3_class(validate_subclass("foobar", "Position", env = env), "PositionNudge")
-  expect_s3_class(validate_subclass("foobar", "Guide", env = env), "GuideAxisTheta")
-
+  expect_s3_class(
+    validate_subclass("foobar", "Position", env = env),
+    "PositionNudge"
+  )
+  expect_s3_class(
+    validate_subclass("foobar", "Guide", env = env),
+    "GuideAxisTheta"
+  )
 })
 
 test_that("attributes on layer data are preserved", {
@@ -182,7 +211,9 @@ test_that("attributes on layer data are preserved", {
   # * It has an `after_stat()` so it enters the map_statistic method
   old <- stat_summary(
     aes(fill = after_stat(y)),
-    fun = mean, geom = "col", position = "dodge"
+    fun = mean,
+    geom = "col",
+    position = "dodge"
   )
   # We modify the compute aesthetics method to append a test attribute
   new <- ggproto(NULL, old, compute_aesthetics = function(self, data, plot) {
@@ -192,7 +223,9 @@ test_that("attributes on layer data are preserved", {
   })
   # At the end of plot building, we want to retrieve that metric
   ld <- layer_data(
-    ggplot(mpg, aes(drv, hwy, colour = factor(year))) + new + facet_grid(~year) +
+    ggplot(mpg, aes(drv, hwy, colour = factor(year))) +
+      new +
+      facet_grid(~year) +
       scale_y_sqrt()
   )
   expect_equal(attr(ld, "test"), "preserve me")
@@ -226,6 +259,36 @@ test_that("layer_data returns a data.frame", {
   expect_snapshot_error(l$layer_data(mtcars))
 })
 
+test_that("get_layer_data works with layer names", {
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+
+  # name has higher precedence than index
+  expect_identical(
+    get_layer_data(p, i = 1L, name = "bar"),
+    get_layer_data(p, i = 2L)
+  )
+
+  # name falls back to index
+  expect_snapshot_error(
+    get_layer_data(p, i = 1L, name = "none")
+  )
+})
+
+test_that("get_layer_grob works with layer names", {
+  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+
+  # name has higher precedence than index
+  expect_identical(
+    get_layer_grob(p, i = 1L, name = "bar"),
+    get_layer_grob(p, i = 2L)
+  )
+
+  # name falls back to index
+  expect_snapshot_error(
+    get_layer_grob(p, i = 1L, name = "none")
+  )
+})
+
 test_that("data.frames and matrix aesthetics survive the build stage", {
   df <- data_frame0(
     x = 1:2,
@@ -240,5 +303,5 @@ test_that("data.frames and matrix aesthetics survive the build stage", {
       scale_shape_identity()
   )
   expect_vector(p$colour, matrix(NA_integer_, nrow = 0, ncol = 2), size = 2)
-  expect_vector(p$shape,  data_frame0(a = integer(), b = character()), size = 2)
+  expect_vector(p$shape, data_frame0(a = integer(), b = character()), size = 2)
 })
