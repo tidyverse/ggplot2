@@ -86,7 +86,7 @@ p + labs(colour = "Cylinders")
 p + labs(x = "New x label")
 
 # Set labels by variable name instead of aesthetic
-p + labs(dict = c(
+p + labs(dictionary = c(
   disp = "Displacment", # Not in use
   cyl  = "Number of cylinders",
   mpg  = "Miles per gallon",

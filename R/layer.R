@@ -167,7 +167,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
-  aes_params$label <- normalise_label(aes_params$label)
+  aes_params[["label"]] <- normalise_label(aes_params[["label"]])
 
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
@@ -974,7 +974,7 @@ normalise_label <- function(label) {
   if (obj_is_list(label)) {
     # Ensure that each element in the list has length 1
     label[lengths(label) == 0] <- ""
-    labels <- lapply(labels, `[`, 1)
+    label <- lapply(label, `[`, 1)
   }
   if (is.expression(label)) {
     # Classed expressions, when converted to lists, retain their class.
