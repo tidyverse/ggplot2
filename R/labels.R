@@ -105,7 +105,12 @@ setup_plot_labels <- function(plot, layers, data) {
     if (!is.function(label)) {
       return(label)
     }
-    label(plot %||% "")
+
+    if (nm %in% c("alt", "alt_insight")) {
+      label(plot %||% "") 
+    } else {
+      label(labels[[nm]] %||% "") 
+    }
   })
 
   dict <- plot_labels$dictionary
