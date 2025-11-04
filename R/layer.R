@@ -142,15 +142,6 @@ layer <- function(geom = NULL, stat = NULL,
   if (any(pattern)) {
     aes_params[pattern] <- lapply(aes_params[pattern], list)
   }
-  # Drop empty aesthetics
-  empty_aes <- names(aes_params)[lengths(aes_params) == 0]
-  if (length(empty_aes) > 0) {
-    cli::cli_warn(
-      "Ignoring empty aesthetic{?s}: {.arg {empty_aes}}.",
-      call = call_env
-    )
-    aes_params <- aes_params[setdiff(names(aes_params), empty_aes)]
-  }
 
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
@@ -176,6 +167,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
   }
+  aes_params[["label"]] <- normalise_label(aes_params[["label"]])
 
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
@@ -552,6 +544,7 @@ Layer <- ggproto("Layer", NULL,
 
     # Evaluate aesthetics
     evaled <- eval_aesthetics(aesthetics, data)
+    evaled$label <- normalise_label(evaled$label)
     plot@scales$add_defaults(evaled, plot@plot_env)
 
     # Check for discouraged usage in mapping
@@ -784,6 +777,16 @@ Layer <- ggproto("Layer", NULL,
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
+    # Drop empty aesthetics
+    empty_aes <- names(params)[lengths(params) == 0]
+    if (length(empty_aes) > 0) {
+      cli::cli_warn(
+        "Ignoring empty aesthetic{?s}: {.arg {empty_aes}}.",
+        call = self$constructor
+      )
+      params <- params[setdiff(names(params), empty_aes)]
+    }
+
     aesthetics <- self$computed_mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics) | is_themed_aes(aesthetics)]
 
@@ -962,4 +965,21 @@ cleanup_mismatched_data <- function(data, n, fun) {
 
   data[failed] <- NULL
   data
+}
+
+normalise_label <- function(label) {
+  if (is.null(label)) {
+    return(NULL)
+  }
+  if (obj_is_list(label)) {
+    # Ensure that each element in the list has length 1
+    label[lengths(label) == 0] <- ""
+    label <- lapply(label, `[`, 1)
+  }
+  if (is.expression(label)) {
+    # Classed expressions, when converted to lists, retain their class.
+    # The unclass is needed to properly treat it as a vctrs-compatible list.
+    label <- unclass(as.list(label))
+  }
+  label
 }

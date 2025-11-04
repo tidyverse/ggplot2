@@ -48,14 +48,10 @@ test_that("aes evaluated in environment where plot created", {
   df <- data_frame(x = 1, y = 1)
   p <- ggplot(df, aes(foo, y)) + geom_point()
 
-  test_that("accessing an undefined variable results in an error", {
-    skip_if(getRversion() <= "4.4.0")
-    expect_snapshot(get_layer_data(p), error = TRUE)
-  })
-
   # Once it's defined we should get it back
   foo <- 0
   expect_equal(get_layer_data(p)$x, 0)
+  rm(foo)
 
   # And regular variable shadowing should work
   f <- function() {
@@ -63,6 +59,9 @@ test_that("aes evaluated in environment where plot created", {
     ggplot(df, aes(foo, y)) + geom_point()
   }
   expect_equal(get_layer_data(f())$x, 10)
+
+  skip_if(getRversion() <= "4.4.0")
+  expect_snapshot(get_layer_data(p), error = TRUE)
 })
 
 test_that("constants are not wrapped in quosures", {
@@ -103,7 +102,8 @@ test_that("quosures are squashed when creating default label for a mapping", {
 test_that("labelling doesn't cause error if aesthetic is NULL", {
   p <- ggplot(mtcars) + aes(x = NULL)
   labels <- ggplot_build(p)@plot@labels
-  expect_identical(labels$x, "x")
+  # NULL labels should only be used as fallback labels
+  expect_identical(labels$x, structure("x", fallback = TRUE))
 })
 
 test_that("aes standardises aesthetic names", {

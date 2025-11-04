@@ -29,7 +29,8 @@ test_that("unknown aesthetics create warning", {
 })
 
 test_that("empty aesthetics create warning", {
-  expect_snapshot_warning(geom_point(fill = NULL, shape = character()))
+  p <- ggplot(mtcars) + geom_point(aes(disp, mpg), fill = NULL, shape = character())
+  expect_snapshot_warning(ggplot_build(p))
 })
 
 test_that("invalid aesthetics throws errors", {

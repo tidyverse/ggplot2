@@ -69,6 +69,7 @@ jobs:
             ragg@1.4.0,
             Hmisc=?ignore-before-r=4.2.0,
             quantreg=?ignore-before-r=4.3.0
+            local::.
           needs: check
 
       - uses: r-lib/actions/setup-r-dependencies@v2

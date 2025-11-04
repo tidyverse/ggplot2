@@ -1,4 +1,4 @@
-# accessing an undefined variable results in an error
+# aes evaluated in environment where plot created
 
     Code
       get_layer_data(p)

@@ -92,6 +92,8 @@
 #'   to generate the values for the `expand` argument. The defaults are to
 #'   expand the scale by 5% on each side for continuous variables, and by
 #'   0.6 units on each side for discrete variables.
+#' @param fallback.palette Function to use when `palette = NULL` and the
+#'   palette is not represented in the theme.
 #' @param position For position scales, The position of the axis.
 #' `left` or `right` for y axes, `top` or `bottom` for x axes.
 #' @param call The `call` used to construct the scale for reporting messages.
@@ -107,6 +109,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
                              oob = censor, expand = waiver(), na.value = NA,
                              transform = "identity", trans = deprecated(),
                              guide = "legend", position = "left",
+                             fallback.palette = NULL,
                              call = caller_call(),
                              super = ScaleContinuous) {
   call <- call %||% current_call()
@@ -121,6 +124,10 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels, call = call)
+  fallback.palette <- validate_fallback_palette(
+    palette, fallback.palette, aesthetics, discrete = FALSE,
+    call = call
+  )
 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
@@ -152,6 +159,7 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
 
     aesthetics = aesthetics,
     palette = palette,
+    fallback_palette = fallback.palette,
 
     range = ContinuousRange$new(),
     limits = limits,
@@ -211,6 +219,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
                            labels = waiver(), limits = NULL, expand = waiver(),
                            na.translate = TRUE, na.value = NA, drop = TRUE,
                            guide = "legend", position = "left",
+                           fallback.palette = NULL,
                            call = caller_call(),
                            super = ScaleDiscrete) {
   call <- call %||% current_call()
@@ -221,6 +230,10 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels, call = call)
+  fallback.palette <- validate_fallback_palette(
+    palette, fallback.palette, aesthetics, discrete = TRUE,
+    call = call
+  )
 
   # Convert formula input to function if appropriate
   limits <- allow_lambda(limits)
@@ -251,6 +264,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
 
     aesthetics = aesthetics,
     palette = palette,
+    fallback_palette = fallback.palette,
 
     range = DiscreteRange$new(),
     limits = limits,
@@ -303,6 +317,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
                          right = TRUE, transform = "identity",
                          trans = deprecated(), show.limits = FALSE,
                          guide = "bins", position = "left",
+                         fallback.palette = NULL,
                          call = caller_call(),
                          super = ScaleBinned) {
   if (lifecycle::is_present(scale_name)) {
@@ -318,6 +333,10 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
   aesthetics <- standardise_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels, call = call)
+  fallback.palette <- validate_fallback_palette(
+    palette, fallback.palette, aesthetics, discrete = FALSE,
+    call = call
+  )
 
   position <- arg_match0(position, c("left", "right", "top", "bottom"))
 
@@ -346,6 +365,7 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
 
     aesthetics = aesthetics,
     palette = palette,
+    fallback_palette = fallback.palette,
 
     range = ContinuousRange$new(),
     limits = limits,
@@ -589,7 +609,7 @@ Scale <- ggproto("Scale", NULL,
     if (empty(df)) {
       return()
     }
-    self$palette <- self$palette %||% fallback_palette(self)
+    self$palette <- self$palette %||% fetch_ggproto(self, "fallback_palette")
 
     aesthetics <- intersect(self$aesthetics, names(df))
     names(aesthetics) <- aesthetics
@@ -1182,18 +1202,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         call = self$call
       )
     }
-
-    if (obj_is_list(labels)) {
-      # Guard against list with empty elements
-      labels[lengths(labels) == 0] <- ""
-      # Make sure each element is scalar
-      labels <- lapply(labels, `[`, 1)
-    }
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
-
-    labels
+    normalise_label(labels)
   },
 
   clone = function(self) {
@@ -1436,11 +1445,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       # Need to ensure that if breaks were dropped, corresponding labels are too
       labels <- labels[attr(breaks, "pos")]
     }
-
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
-    labels
+    normalise_label(labels)
   },
 
   clone = function(self) {
@@ -1688,10 +1693,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         call = self$call
       )
     }
-    if (is.expression(labels)) {
-      labels <- as.list(labels)
-    }
-    labels
+    normalise_label(labels)
   },
 
   clone = function(self) {
@@ -1796,4 +1798,51 @@ check_continuous_limits <- function(limits, ...,
 allow_lambda <- function(x) {
   # we check the 'call' class to prevent interpreting `bquote()` calls as a function
   if (is_formula(x, lhs = FALSE) && !inherits(x, "call")) as_function(x) else x
+}
+
+validate_fallback_palette <- function(pal, fallback, aesthetic = "x",
+                                      discrete = FALSE, call = caller_env()) {
+  if (!is.null(pal) || is.function(fallback)) {
+    return(pal %||% fallback)
+  }
+  aesthetic <- standardise_aes_names(aesthetic[1])
+  if (discrete) {
+    pal <- fallback_palette_discrete(aesthetic)
+  } else {
+    pal <- fallback_palette_continuous(aesthetic)
+  }
+  if (!is.null(pal)) {
+    return(pal)
+  }
+  cli::cli_abort(
+    "When {.code palette = NULL}, the {.arg fallback.palette} must be defined."
+  )
+}
+
+fallback_palette_discrete <- function(aesthetic) {
+  switch(
+    aesthetic,
+    colour    = ,
+    fill      = pal_hue(),
+    alpha     = function(n) seq(0.1, 1, length.out = n),
+    linewidth = function(n) seq(2, 6, length.out = n),
+    linetype  = pal_linetype(),
+    shape     = pal_shape(),
+    size      = function(n) sqrt(seq(4, 36, length.out = n)),
+    ggplot_global$theme_default[[paste0("palette.", aesthetic, ".discrete")]]
+  )
+}
+
+fallback_palette_continuous <- function(aesthetic) {
+  switch(
+    aesthetic,
+    colour    = ,
+    fill      = pal_seq_gradient("#132B43", "#56B1F7"),
+    alpha     = pal_rescale(c(0.1, 1)),
+    linewidth = pal_rescale(c(1, 6)),
+    linetype  = pal_binned(pal_linetype()),
+    shape     = pal_binned(pal_shape()),
+    size      = pal_area(),
+    ggplot_global$theme_default[[paste0("palette.", aes, ".continuous")]]
+  )
 }

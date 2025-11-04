@@ -838,6 +838,8 @@ fallback_palette <- function(scale) {
   )
 }
 
+# For when you want to ensure all forwarded arguments are consumed by downstream
+# functions.
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
     env = env, call = call,
@@ -850,6 +852,7 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   )
 }
 
+# For when you do not want `...` to be used; it should be empty.
 warn_dots_empty <- function(env = caller_env(), call = caller_env()) {
   check_dots_empty(
     env = env, call = call,
