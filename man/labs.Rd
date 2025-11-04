@@ -28,7 +28,14 @@ ggtitle(label, subtitle = waiver())
 get_labs(plot = get_last_plot())
 }
 \arguments{
-\item{...}{A list of new name-value pairs. The name should be an aesthetic.}
+\item{...}{New name-value pairs. The name should be an aesthetic. The values can be
+one of the following:
+\itemize{
+\item A string or expression to set a label verbatim.
+\item A function to use as formatter for the default label.
+\item \code{NULL} to remove a label.
+\item A \code{\link[=waiver]{waiver()}} to use the default label.
+}}
 
 \item{title}{The text for the title.}
 
