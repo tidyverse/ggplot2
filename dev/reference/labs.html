@@ -126,7 +126,12 @@ arguments instead.</p>
 
 
 <dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>A list of new name-value pairs. The name should be an aesthetic.</p></dd>
+<dd><p>New name-value pairs. The name should be an aesthetic. The values can be
+one of the following:</p><ul><li><p>A string or expression to set a label verbatim.</p></li>
+<li><p>A function to use as formatter for the default label.</p></li>
+<li><p><code>NULL</code> to remove a label.</p></li>
+<li><p>A <code><a href="waiver.html">waiver()</a></code> to use the default label.</p></li>
+</ul></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
