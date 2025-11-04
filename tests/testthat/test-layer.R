@@ -231,13 +231,16 @@ test_that("get_layer_data works with layer names", {
 
   # name has higher precedence than index
   expect_identical(
-    get_layer_data(p, i = 1L, name = "bar"),
+    get_layer_data(p, i = "bar"),
     get_layer_data(p, i = 2L)
   )
 
   # name falls back to index
   expect_snapshot_error(
-    get_layer_data(p, i = 1L, name = "none")
+    get_layer_data(p, i ="none")
+  )
+  expect_snapshot_error(
+    get_layer_data(p, i = 4L)
   )
 })
 
@@ -246,13 +249,16 @@ test_that("get_layer_grob works with layer names", {
 
   # name has higher precedence than index
   expect_identical(
-    get_layer_grob(p, i = 1L, name = "bar"),
+    get_layer_grob(p, i = "bar"),
     get_layer_grob(p, i = 2L)
   )
 
   # name falls back to index
   expect_snapshot_error(
-    get_layer_grob(p, i = 1L, name = "none")
+    get_layer_grob(p, i ="none")
+  )
+  expect_snapshot_error(
+    get_layer_grob(p, i = 4L)
   )
 })
 

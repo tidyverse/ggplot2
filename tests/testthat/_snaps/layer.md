@@ -147,9 +147,23 @@
 
 # get_layer_data works with layer names
 
-    `name` must be one of "foo" or "bar", not "none".
+    Can't extract elements that don't exist.
+    x Element `none` doesn't exist.
+
+---
+
+    Can't extract elements past the end.
+    i Location 4 doesn't exist.
+    i There are only 2 elements.
 
 # get_layer_grob works with layer names
 
-    `name` must be one of "foo" or "bar", not "none".
+    Can't extract elements that don't exist.
+    x Element `none` doesn't exist.
+
+---
+
+    Can't extract elements past the end.
+    i Location 4 doesn't exist.
+    i There are only 2 elements.
 
