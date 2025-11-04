@@ -105,7 +105,7 @@ setup_plot_labels <- function(plot, layers, data) {
     if (!is.function(label)) {
       return(label)
     }
-    label(labels[[nm]] %||% "")
+    label(plot %||% "")
   })
 
   dict <- plot_labels$dictionary
