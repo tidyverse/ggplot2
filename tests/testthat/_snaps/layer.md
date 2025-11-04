@@ -145,3 +145,11 @@
 
     `layer_data()` must return a <data.frame>.
 
+# get_layer_data works with layer names
+
+    `name` must be one of "foo" or "bar", not "none".
+
+# get_layer_grob works with layer names
+
+    `name` must be one of "foo" or "bar", not "none".
+
