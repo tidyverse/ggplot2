@@ -42,7 +42,7 @@ GeomLinerange <- ggproto(
 #' Various ways of representing a vertical interval defined by `x`,
 #' `ymin` and `ymax`. Each case draws a single graphical object.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomLinerange
 #' Note that `geom_pointrange()` also understands `size` for the size of the points.

@@ -163,11 +163,6 @@ side-to-side, use \code{\link[=position_dodge]{position_dodge()}} or \code{\link
 \code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by stacking the
 bars and then standardising each bar to have the same height.
 }
-\section{Orientation}{
-
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
@@ -175,6 +170,19 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(count)}\cr number of points in bin.
 \item \code{after_stat(prop)}\cr groupwise proportion
 }
+}
+
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two
+orientations. Often the orientation is easy to deduce from a combination of
+the given mappings and the types of positional scales in use. Thus, ggplot2
+will by default try to guess which orientation the layer should have. Under
+rare circumstances, the orientation is ambiguous and guessing may fail. In
+that case the orientation can be specified directly using the \code{orientation}
+parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that
+the geom should run along, \code{"x"} being the default orientation you would
+expect for the geom.
 }
 
 \examples{

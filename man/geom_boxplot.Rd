@@ -190,11 +190,6 @@ and two whiskers), and all "outlying" points individually.
 In the unlikely event you specify both US and UK spellings of colour,
 the US spelling will take precedence.
 }
-\section{Orientation}{
-
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \section{Summary statistics}{
 
 The lower and upper hinges correspond to the first and third quartiles
@@ -228,6 +223,19 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(upper)} \emph{or} \code{after_stat(xupper)}\cr upper hinge, 75\% quantile.
 \item \code{after_stat(ymax)} \emph{or} \code{after_stat(xmax)}\cr upper whisker = largest observation less than or equal to  upper hinger + 1.5 * IQR.
 }
+}
+
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two
+orientations. Often the orientation is easy to deduce from a combination of
+the given mappings and the types of positional scales in use. Thus, ggplot2
+will by default try to guess which orientation the layer should have. Under
+rare circumstances, the orientation is ambiguous and guessing may fail. In
+that case the orientation can be specified directly using the \code{orientation}
+parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that
+the geom should run along, \code{"x"} being the default orientation you would
+expect for the geom.
 }
 
 \examples{

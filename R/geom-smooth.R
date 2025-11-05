@@ -74,7 +74,7 @@ GeomSmooth <- ggproto(
 #' `glm()`, where the normal confidence band is constructed on the link
 #' scale and then back-transformed to the response scale.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomSmooth
 #' @inheritParams shared_layer_parameters

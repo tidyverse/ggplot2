@@ -178,7 +178,7 @@ GeomStep <- ggproto(
 #' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomPath
 #' @inheritParams shared_layer_parameters

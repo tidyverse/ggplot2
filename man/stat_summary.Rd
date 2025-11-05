@@ -173,11 +173,6 @@ operates on binned \code{x} or \code{y}. They are more flexible versions of
 \code{\link[=stat_bin]{stat_bin()}}: instead of just counting, they can compute any
 aggregate.
 }
-\section{Orientation}{
-
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \section{Summary functions}{
 
 You can either supply summary functions individually (\code{fun},
@@ -205,6 +200,19 @@ y-axis.
 
 If no aggregation functions are supplied, will default to
 \code{\link[=mean_se]{mean_se()}}.
+}
+
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two
+orientations. Often the orientation is easy to deduce from a combination of
+the given mappings and the types of positional scales in use. Thus, ggplot2
+will by default try to guess which orientation the layer should have. Under
+rare circumstances, the orientation is ambiguous and guessing may fail. In
+that case the orientation can be specified directly using the \code{orientation}
+parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that
+the geom should run along, \code{"x"} being the default orientation you would
+expect for the geom.
 }
 
 \examples{

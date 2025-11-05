@@ -5,7 +5,7 @@
 #' [stat_bin()]: instead of just counting, they can compute any
 #' aggregate.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics StatSummary
 #' @seealso [geom_errorbar()], [geom_pointrange()],

@@ -107,6 +107,17 @@
 #' can be given explicitly by setting `orientation` to either `"x"` or `"y"`.
 #' See the *Orientation* section for more detail.
 #'
+#' @section Orientation:
+#' This geom treats each axis differently and, thus, can thus have two
+#' orientations. Often the orientation is easy to deduce from a combination of
+#' the given mappings and the types of positional scales in use. Thus, ggplot2
+#' will by default try to guess which orientation the layer should have. Under
+#' rare circumstances, the orientation is ambiguous and guessing may fail. In
+#' that case the orientation can be specified directly using the `orientation`
+#' parameter, which can be either `"x"` or `"y"`. The value gives the axis that
+#' the geom should run along, `"x"` being the default orientation you would
+#' expect for the geom.
+#'
 #' @keywords internal
 #' @aliases NULL
 NULL

@@ -66,7 +66,7 @@ GeomBar <- ggproto(
 #' [position_fill()] shows relative proportions at each `x` by stacking the
 #' bars and then standardising each bar to have the same height.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomBar
 #' @aesthetics GeomCol

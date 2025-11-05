@@ -241,7 +241,7 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 #' of x-coordinates. To turn off this interpolation, `stat = "identity"` can
 #' be used instead.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomRibbon
 #' @seealso

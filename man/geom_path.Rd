@@ -173,11 +173,6 @@ connected together.
 An alternative parameterisation is \code{\link[=geom_segment]{geom_segment()}}, where each line
 corresponds to a single case which provides the start and end coordinates.
 }
-\section{Orientation}{
-
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \section{Missing value handling}{
 
 \code{geom_path()}, \code{geom_line()}, and \code{geom_step()} handle \code{NA} as follows:
@@ -189,6 +184,19 @@ is shown, regardless of whether \code{na.rm} is \code{TRUE} or \code{FALSE}.
 \item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{TRUE},
 the \code{NA} is removed silently, without warning.
 }
+}
+
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two
+orientations. Often the orientation is easy to deduce from a combination of
+the given mappings and the types of positional scales in use. Thus, ggplot2
+will by default try to guess which orientation the layer should have. Under
+rare circumstances, the orientation is ambiguous and guessing may fail. In
+that case the orientation can be specified directly using the \code{orientation}
+parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that
+the geom should run along, \code{"x"} being the default orientation you would
+expect for the geom.
 }
 
 \examples{
