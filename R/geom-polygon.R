@@ -105,8 +105,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'  [geom_path()] for an unfilled polygon,
 #'  [geom_ribbon()] for a polygon anchored on the x-axis
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param lineend Line end style (round, butt, square).
 #' @param linejoin Line join style (round, mitre, bevel).
 #' @param linemitre Line mitre limit (number greater than 1).

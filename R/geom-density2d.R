@@ -15,8 +15,7 @@
 #'   `geom_density_2d()` and `stat_density_2d()`. For more information at
 #'   overriding these connections, see how the [stat][layer_stats] and
 #'   [geom][layer_geoms] arguments work.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_path
 #' @param contour_var Character string identifying the variable to contour
 #'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section

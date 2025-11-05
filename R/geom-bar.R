@@ -76,8 +76,7 @@ GeomBar <- ggproto(
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side
 #'   bar charts.
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param orientation The orientation of the layer. The default (`NA`)
 #' automatically determines the orientation from the aesthetic mapping. In the
 #' rare event that this fails it can be given explicitly by setting `orientation`

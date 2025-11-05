@@ -36,8 +36,7 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #'
 #' @aesthetics GeomContour
 #' @aesthetics GeomContourFilled
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_path
 #' @param binwidth The width of the contour bins. Overridden by `bins`.
 #' @param bins Number of contour bins. Overridden by `breaks`.

@@ -28,8 +28,8 @@ accepts the following:
 \itemize{
 \item A \code{Geom} ggproto subclass, for example \code{GeomPoint}.
 \item A string naming the geom. To give the geom as a string, strip the
-function name of the \code{geom_} prefix. For example, to use \code{geom_point()}, give
-the geom as \code{"point"}.
+function name of the \code{geom_} prefix. For example, to use \code{geom_point()},
+give the geom as \code{"point"}.
 \item For more information and other ways to specify the geom, see the
 \link[=layer_geoms]{layer geom} documentation.
 }}
@@ -41,8 +41,8 @@ accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
 \item A string naming the stat. To give the stat as a string, strip the
-function name of the \code{stat_} prefix. For example, to use \code{stat_count()}, give
-the stat as \code{"count"}.
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
 \item For more information and other ways to specify the stat, see the
 \link[=layer_stats]{layer stat} documentation.
 }}
@@ -59,10 +59,8 @@ value must be a \code{data.frame}, and will be used as the layer data. A
 \code{function} can be created from a \code{formula} (e.g. \code{~ head(.x, 10)}).
 }}
 
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
-\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
-at the top level of the plot. You must supply \code{mapping} if there is no plot
-mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level
+of the plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{position}{A position adjustment to use on the data for this layer. This can be used in
 various ways, including to prevent overplotting and improving the display.

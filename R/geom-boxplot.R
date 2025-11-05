@@ -29,7 +29,7 @@
 #' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
-#' @inheritParams layer
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot()` and `stat_boxplot()`. For more information about

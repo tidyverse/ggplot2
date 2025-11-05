@@ -18,8 +18,7 @@ GeomQuantile <- ggproto(
 #'
 #' @aesthetics GeomQuantile
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_path
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.

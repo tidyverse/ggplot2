@@ -31,8 +31,7 @@ NULL
 #'
 #' @seealso See [geom_segment()] for a more general approach to
 #'   adding straight line segments to a plot.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param mapping Set of aesthetic mappings created by [aes()].
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, `data`, `mapping` and

@@ -181,7 +181,7 @@ GeomStep <- ggproto(
 #' @eval rd_orientation()
 #'
 #' @aesthetics GeomPath
-#' @inheritParams layer
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_bar
 #' @param lineend Line end style (round, butt, square).
 #' @param linejoin Line join style (round, mitre, bevel).

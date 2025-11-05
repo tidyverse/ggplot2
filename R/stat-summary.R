@@ -11,7 +11,7 @@
 #' @seealso [geom_errorbar()], [geom_pointrange()],
 #'  [geom_linerange()], [geom_crossbar()] for geoms to
 #'  display summarised data
-#' @inheritParams stat_identity
+#' @inheritParams shared_layer_parameters
 #' @section Summary functions:
 #' You can either supply summary functions individually (`fun`,
 #' `fun.max`, `fun.min`), or as a single function (`fun.data`):

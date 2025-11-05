@@ -17,8 +17,7 @@ GeomBin2d <- ggproto("GeomBin2d", GeomTile)
 #' @aesthetics GeomBin2d
 #'
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_bin_2d()` and `stat_bin_2d()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]

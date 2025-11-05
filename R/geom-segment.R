@@ -65,8 +65,7 @@ GeomSegment <- ggproto(
 #' need to connect points across multiple cases.
 #'
 #' @aesthetics GeomSegment
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param arrow specification for arrow heads, as created by [grid::arrow()].
 #' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
 #'        means use `colour` aesthetic.

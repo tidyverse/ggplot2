@@ -133,8 +133,7 @@ GeomRug <- ggproto("GeomRug", Geom,
 #' any data points under the default settings.
 #'
 #' @aesthetics GeomRug
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param sides A string that controls which sides of the plot the rugs appear on.
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.

@@ -26,7 +26,7 @@ GeomDensity <- ggproto(
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.
-#' @inheritParams layer
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_bar
 #' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between

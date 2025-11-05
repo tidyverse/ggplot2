@@ -39,10 +39,8 @@ polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
 hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
 an explanation.}
-    \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
-\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
-at the top level of the plot. You must supply \code{mapping} if there is no plot
-mapping.}
+    \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level
+of the plot. You must supply \code{mapping} if there is no plot mapping.}
     \item{\code{data}}{The data to be displayed in this layer. There are three options:
 \itemize{
 \item \code{NULL} (default): the data is inherited from the plot data as specified
@@ -61,8 +59,8 @@ accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
 \item A string naming the stat. To give the stat as a string, strip the
-function name of the \code{stat_} prefix. For example, to use \code{stat_count()}, give
-the stat as \code{"count"}.
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
 \item For more information and other ways to specify the stat, see the
 \link[=layer_stats]{layer stat} documentation.
 }}
@@ -78,6 +76,8 @@ use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item For more information and other ways to specify the position, see the
 \link[=layer_positions]{layer position} documentation.
 }}
+    \item{\code{na.rm}}{If \code{FALSE}, the default, missing values are removed with a warning. If
+\code{TRUE}, missing values are silently removed.}
     \item{\code{show.legend}}{Logical. Should this layer be included in the legends? \code{NA}, the default,
 includes if any aesthetics are mapped. \code{FALSE} never includes, and \code{TRUE}
 always includes. It can also be a named logical vector to finely select the
@@ -88,8 +88,6 @@ unobserved levels are omitted.}
 them. This is most useful for helper functions that define both data and
 aesthetics and shouldn't inherit behaviour from the default plot
 specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
-    \item{\code{na.rm}}{If \code{FALSE}, the default, missing values are removed with a warning. If
-\code{TRUE}, missing values are silently removed.}
   }}
 }
 \description{
