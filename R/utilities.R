@@ -784,6 +784,26 @@ as_cli <- function(..., env = caller_env()) {
   cli::cli_fmt(cli::cli_text(..., .envir = env))
 }
 
+deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
+                      escalate = FALSE) {
+
+  defunct <- "3.0.0"
+  full    <- "3.4.0"
+  soft    <- packageVersion("ggplot2")
+
+  version <- as.package_version(when)
+  if (version < defunct) {
+    lifecycle::deprecate_stop(when, ...)
+  }
+  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
+  if (version <= full) {
+    lifecycle::deprecate_warn(when, ..., id = id, always = always, user_env = user_env)
+  } else if (version <= soft) {
+    lifecycle::deprecate_soft(when, ..., id = id, user_env = user_env)
+  }
+  invisible()
+}
+
 deprecate_soft0 <- function(..., user_env = NULL) {
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
   lifecycle::deprecate_soft(..., user_env = user_env)
