@@ -25,9 +25,8 @@ GeomHex <- ggproto("GeomHex", Geom,
       dy <- resolution(data$y, FALSE, TRUE) / sqrt(3) / 2 * 1.15
     }
 
-    hexC <- hexbin::hexcoords(dx, dy, n = 1)
-
     n <- nrow(data)
+    hexC <- hexbin::hexcoords(dx, dy, n = n)
 
     hexdata <- data[rep(seq_len(n), each = 6), c("x", "y")]
     hexdata$x <- rep.int(hexC$x, n) + hexdata$x
