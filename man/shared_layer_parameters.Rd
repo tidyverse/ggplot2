@@ -106,6 +106,12 @@ which parameters it can accept.
 
 \item{linemitre}{Line mitre limit, a number greater  than 1.}
 
+\item{arrow}{Arrow specification. Can be created by \code{\link[grid:arrow]{grid::arrow()}} or \code{NULL} to not draw
+an arrow.}
+
+\item{arrow.fill}{Fill colour to use for closed arrowheads. \code{NULL} means use \code{colour}
+aesthetic.}
+
 \item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
 orientation from the aesthetic mapping. In the rare event that this fails it
 can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.

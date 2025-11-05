@@ -24,7 +24,6 @@ GeomSpoke <- ggproto(
 #'
 #' @aesthetics GeomSpoke
 #' @inheritParams shared_layer_parameters
-#' @inheritParams geom_segment
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)

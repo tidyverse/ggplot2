@@ -16,7 +16,6 @@
 #'   overriding these connections, see how the [stat][layer_stats] and
 #'   [geom][layer_geoms] arguments work.
 #' @inheritParams shared_layer_parameters
-#' @inheritParams geom_path
 #' @param contour_var Character string identifying the variable to contour
 #'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
 #'   on computed variables for details.

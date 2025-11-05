@@ -182,9 +182,6 @@ GeomStep <- ggproto(
 #'
 #' @aesthetics GeomPath
 #' @inheritParams shared_layer_parameters
-#' @param arrow Arrow specification, as created by [grid::arrow()].
-#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
-#'        means use `colour` aesthetic.
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments

@@ -58,7 +58,6 @@ GeomTile <- ggproto(
 #' `geom_tile()` understands only the `x`/`width` and `y`/`height` combinations.
 #' Note that `geom_raster()` ignores `colour`.
 #' @inheritParams shared_layer_parameters
-#' @inheritParams geom_segment
 #' @export
 #'
 #' @details

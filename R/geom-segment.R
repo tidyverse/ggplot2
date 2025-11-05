@@ -66,9 +66,6 @@ GeomSegment <- ggproto(
 #'
 #' @aesthetics GeomSegment
 #' @inheritParams shared_layer_parameters
-#' @param arrow specification for arrow heads, as created by [grid::arrow()].
-#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
-#'        means use `colour` aesthetic.
 #' @seealso [geom_path()] and [geom_line()] for multi-
 #'   segment lines and paths.
 #' @seealso [geom_spoke()] for a segment parameterised by a location

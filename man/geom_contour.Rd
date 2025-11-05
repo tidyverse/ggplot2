@@ -157,10 +157,11 @@ and returns breaks as output. A function can be created from a formula
 Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
 ten with \code{\link[=pretty]{pretty()}} breaks.}
 
-\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+\item{arrow}{Arrow specification. Can be created by \code{\link[grid:arrow]{grid::arrow()}} or \code{NULL} to not draw
+an arrow.}
 
-\item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
-means use \code{colour} aesthetic.}
+\item{arrow.fill}{Fill colour to use for closed arrowheads. \code{NULL} means use \code{colour}
+aesthetic.}
 
 \item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 

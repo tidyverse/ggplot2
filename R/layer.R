@@ -110,6 +110,14 @@
 #' @param linemitre
 #' Line mitre limit, a number greater  than 1.
 #'
+#' @param arrow
+#' Arrow specification. Can be created by [grid::arrow()] or `NULL` to not draw
+#' an arrow.
+#'
+#' @param arrow.fill
+#' Fill colour to use for closed arrowheads. `NULL` means use `colour`
+#' aesthetic.
+#'
 #' @param orientation
 #' The orientation of the layer. The default (`NA`) automatically determines the
 #' orientation from the aesthetic mapping. In the rare event that this fails it
