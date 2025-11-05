@@ -57,6 +57,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     fill = from_theme(fill %||% col_mix(ink, paper)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
+    radius = 1,
     alpha = NA
   ),
 
