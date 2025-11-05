@@ -147,7 +147,10 @@ boundaries. Overrides \code{binwidth} and \code{bins}.}
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
 \code{TRUE}, missing values are silently removed.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the orientation from the aesthetic mapping. In the rare event that this fails it can be given explicitly by setting \code{orientation} to either \code{"x"}` or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{Logical. Should this layer be included in the legends? \code{NA}, the default,
 includes if any aesthetics are mapped. \code{FALSE} never includes, and \code{TRUE}

@@ -155,7 +155,10 @@ middle point in \code{geom_pointrange()}.}
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
 \code{TRUE}, missing values are silently removed.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the orientation from the aesthetic mapping. In the rare event that this fails it can be given explicitly by setting \code{orientation} to either \code{"x"}` or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{Logical. Should this layer be included in the legends? \code{NA}, the default,
 includes if any aesthetics are mapped. \code{FALSE} never includes, and \code{TRUE}
@@ -168,8 +171,6 @@ unobserved levels are omitted.}
 them. This is most useful for helper functions that define both data and
 aesthetics and shouldn't inherit behaviour from the default plot
 specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
-
-\item{lineend}{Line end style (round, butt, square).}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},

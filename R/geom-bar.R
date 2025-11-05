@@ -77,10 +77,6 @@ GeomBar <- ggproto(
 #'   bar charts.
 #' @export
 #' @inheritParams shared_layer_parameters
-#' @param orientation The orientation of the layer. The default (`NA`)
-#' automatically determines the orientation from the aesthetic mapping. In the
-#' rare event that this fails it can be given explicitly by setting `orientation`
-#' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #' @param just Adjustment for column placement. Set to `0.5` by default, meaning
 #'   that columns will be centered about axis breaks. Set to `0` or `1` to place
 #'   columns to the left/right of axis breaks. Note that this argument may have

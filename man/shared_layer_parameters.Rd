@@ -100,6 +100,11 @@ which parameters it can accept.
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 }
 \description{
 This is a central place for describing typical layer parameters.

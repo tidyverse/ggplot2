@@ -140,11 +140,10 @@ bin width of a time variable is the number of seconds.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the orientation from the aesthetic mapping. In the rare event that this fails it can be given explicitly by setting \code{orientation} to either \code{"x"}` or \code{"y"}. See the \emph{Orientation} section for more detail.}
-
-\item{lineend}{Line end style (round, butt, square).}
-
-\item{linejoin}{Line join style (round, mitre, bevel).}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}. For more information

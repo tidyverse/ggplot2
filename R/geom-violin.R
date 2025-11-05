@@ -9,7 +9,6 @@
 #'
 #' @aesthetics GeomViolin
 #' @inheritParams shared_layer_parameters
-#' @inheritParams geom_bar
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between

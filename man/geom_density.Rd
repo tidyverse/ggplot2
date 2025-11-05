@@ -99,10 +99,6 @@ which parameters it can accept.
 upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.
 \code{"full"} draws a closed polygon around the area.}
 
-\item{lineend}{Line end style (round, butt, square).}
-
-\item{linejoin}{Line join style (round, mitre, bevel).}
-
 \item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
@@ -125,7 +121,10 @@ specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the orientation from the aesthetic mapping. In the rare event that this fails it can be given explicitly by setting \code{orientation} to either \code{"x"}` or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.

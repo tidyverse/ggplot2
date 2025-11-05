@@ -119,11 +119,10 @@ which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the orientation from the aesthetic mapping. In the rare event that this fails it can be given explicitly by setting \code{orientation} to either \code{"x"}` or \code{"y"}. See the \emph{Orientation} section for more detail.}
-
-\item{lineend}{Line end style (round, butt, square).}
-
-\item{linejoin}{Line join style (round, mitre, bevel).}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
 

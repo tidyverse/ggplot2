@@ -100,6 +100,12 @@
 #' * The `key_glyph` argument of [`layer()`] may also be passed on through
 #'   `...`. This can be one of the functions described as
 #'   [key glyphs][draw_key], to change the display of the layer in the legend.
+
+#' @param orientation
+#' The orientation of the layer. The default (`NA`) automatically determines the
+#' orientation from the aesthetic mapping. In the rare event that this fails it
+#' can be given explicitly by setting `orientation` to either `"x"` or `"y"`.
+#' See the *Orientation* section for more detail.
 #'
 #' @keywords internal
 #' @aliases NULL

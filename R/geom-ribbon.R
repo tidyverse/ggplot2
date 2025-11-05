@@ -249,7 +249,6 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 #'   [geom_linerange()] for discrete intervals (lines),
 #'   [geom_polygon()] for general polygons
 #' @inheritParams shared_layer_parameters
-#' @inheritParams geom_bar
 #' @param linemitre Line mitre limit (number greater than 1).
 #' @param outline.type Type of the outline of the area; `"both"` draws both the
 #'   upper and lower lines, `"upper"`/`"lower"` draws the respective lines only.

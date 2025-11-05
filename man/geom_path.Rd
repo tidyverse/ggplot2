@@ -153,7 +153,10 @@ them. This is most useful for helper functions that define both data and
 aesthetics and shouldn't inherit behaviour from the default plot
 specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the orientation from the aesthetic mapping. In the rare event that this fails it can be given explicitly by setting \code{orientation} to either \code{"x"}` or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
 \item{direction}{direction of stairs: 'vh' for vertical then horizontal,
 'hv' for horizontal then vertical, or 'mid' for step half-way between

@@ -54,7 +54,6 @@ GeomLinerange <- ggproto(
 #'  [geom_smooth()] for continuous analogue
 #' @export
 #' @inheritParams shared_layer_parameters
-#' @inheritParams geom_bar
 #' @examples
 #' # Create a simple example dataset
 #' df <- data.frame(

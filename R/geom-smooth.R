@@ -78,7 +78,6 @@ GeomSmooth <- ggproto(
 #'
 #' @aesthetics GeomSmooth
 #' @inheritParams shared_layer_parameters
-#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_smooth()` and `stat_smooth()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]

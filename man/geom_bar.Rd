@@ -132,10 +132,10 @@ specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 \code{stat_count()}. For more information about overriding these connections,
 see how the \link[=layer_stats]{stat} and \link[=layer_geoms]{geom} arguments work.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 }
 \description{
 There are two types of bar charts: \code{geom_bar()} and \code{geom_col()}.
