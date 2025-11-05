@@ -568,7 +568,7 @@ wrap_layout <- function(id, dims, dir) {
   if (nchar(dir) != 2) {
     # Should only occur when `as.table` was not incorporated into `dir`
     dir <- switch(dir, h = "lt", v = "tl")
-    deprecate_soft0(
+    deprecate(
       "4.0.0",
       what = I("Internal use of `dir = \"h\"` and `dir = \"v\"` in `facet_wrap()`"),
       details = I(c(

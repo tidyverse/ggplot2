@@ -11,7 +11,7 @@ StatYdensity <- ggproto(
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
     if (!is.null(params$draw_quantiles)) {
-      deprecate_soft0(
+      deprecate(
         "4.0.0",
         what = "stat_ydensity(draw_quantiles)",
         with = "stat_ydensity(quantiles)"

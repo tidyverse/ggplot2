@@ -397,15 +397,15 @@ rel <- function(x) {
 # Element getter methods
 local({
   S7::method(`$`, element) <- function(x, i) {
-    # deprecate_soft0("4.1.0", I("`<ggplot2::element>$i`"), I("`<ggplot2::element>@i`"))
+    deprecate("4.1.0", I("`<ggplot2::element>$i`"), I("`<ggplot2::element>@i`"))
     `[[`(S7::props(x), i)
   }
   S7::method(`[`, element) <- function(x, i) {
-    # deprecate_soft0("4.1.0", I("`<gglot2::element>[i]`"), I("`S7::props(<ggplot2::element>, i)`"))
+    deprecate("4.1.0", I("`<gglot2::element>[i]`"), I("`S7::props(<ggplot2::element>, i)`"))
     `[`(S7::props(x), i)
   }
   S7::method(`[[`, element) <- function(x, i) {
-    # deprecate_soft0("4.1.0", I("`<ggplot2::element>[[i]]`"), I("`S7::prop(<ggplot2::element>, i)`"))
+    deprecate("4.1.0", I("`<ggplot2::element>[[i]]`"), I("`S7::prop(<ggplot2::element>, i)`"))
     `[[`(S7::props(x), i)
   }
 })
@@ -413,21 +413,21 @@ local({
 # Element setter methods
 #' @export
 `$<-.ggplot2::element` <- function(x, i, value) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>$i <- value`"), I("`<ggplot2::element>@i <- value`"))
+  deprecate("4.1.0", I("`<ggplot2::element>$i <- value`"), I("`<ggplot2::element>@i <- value`"))
   S7::props(x) <- `[[<-`(S7::props(x), i, value)
   x
 }
 
 #' @export
 `[<-.ggplot2::element` <- function(x, i, value) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>[i] <- value`"), I("`S7::props(<ggplot2::element>)[i] <- value`"))
+  deprecate("4.1.0", I("`<ggplot2::element>[i] <- value`"), I("`S7::props(<ggplot2::element>)[i] <- value`"))
   S7::props(x) <- `[<-`(S7::props(x), i, value)
   x
 }
 
 #' @export
 `[[<-.ggplot2::element` <- function(x, i, value) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>[[i]] <- value`"), I("S7::prop(<ggplot2::element>, i) <- value"))
+  deprecate("4.1.0", I("`<ggplot2::element>[[i]] <- value`"), I("S7::prop(<ggplot2::element>, i) <- value"))
   S7::props(x) <- `[[<-`(S7::props(x), i, value)
   x
 }
