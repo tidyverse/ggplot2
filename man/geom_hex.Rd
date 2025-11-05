@@ -175,6 +175,9 @@ d + geom_hex(bins = 30)
 # Or by specifying the width of the bins
 d + geom_hex(binwidth = c(1, 1000))
 d + geom_hex(binwidth = c(.1, 500))
+
+# The hexagons can be scaled by tuning the radius aesthetic
+d + geom_hex(aes(radius = after_stat(ncount)))
 }
 }
 \seealso{
@@ -192,6 +195,7 @@ d + geom_hex(binwidth = c(.1, 500))
  • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
  • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
  • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
+ • \tab \code{radius} \tab → \code{1} \cr
 }
 
 \code{stat_binhex()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:

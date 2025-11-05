@@ -99,5 +99,8 @@ GeomHex <- ggproto("GeomHex", Geom,
 #' # Or by specifying the width of the bins
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
+#'
+#' # The hexagons can be scaled by tuning the radius aesthetic
+#' d + geom_hex(aes(radius = after_stat(ncount)))
 #' }
 geom_hex <- make_constructor(GeomHex, stat = 'binhex')
