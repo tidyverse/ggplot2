@@ -89,7 +89,7 @@ which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{lineend}{Line end style (round, butt, square).}
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 
 \item{sides}{A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,

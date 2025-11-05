@@ -85,8 +85,6 @@ GeomBar <- ggproto(
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`. For more information about overriding these connections,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)

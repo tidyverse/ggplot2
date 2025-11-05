@@ -120,11 +120,11 @@ ten with \code{\link[=pretty]{pretty()}} breaks.}
 by. Can be one of \code{"density"}, \code{"ndensity"}, or \code{"count"}. See the section
 on computed variables for details.}
 
-\item{lineend}{Line end style (round, butt, square).}
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 
-\item{linejoin}{Line join style (round, mitre, bevel).}
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
 
-\item{linemitre}{Line mitre limit (number greater than 1).}
+\item{linemitre}{Line mitre limit, a number greater  than 1.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
 \code{TRUE}, missing values are silently removed.}

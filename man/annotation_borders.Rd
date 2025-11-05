@@ -32,9 +32,6 @@ polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 \item{...}{
   Arguments passed on to \code{\link[=geom_polygon]{geom_polygon}}
   \describe{
-    \item{\code{lineend}}{Line end style (round, butt, square).}
-    \item{\code{linejoin}}{Line join style (round, mitre, bevel).}
-    \item{\code{linemitre}}{Line mitre limit (number greater than 1).}
     \item{\code{rule}}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
 hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
@@ -88,6 +85,9 @@ unobserved levels are omitted.}
 them. This is most useful for helper functions that define both data and
 aesthetics and shouldn't inherit behaviour from the default plot
 specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
+    \item{\code{lineend}}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
+    \item{\code{linejoin}}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
+    \item{\code{linemitre}}{Line mitre limit, a number greater  than 1.}
   }}
 }
 \description{

@@ -145,6 +145,10 @@ orientation from the aesthetic mapping. In the rare event that this fails it
 can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
 See the \emph{Orientation} section for more detail.}
 
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
+
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
+
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}. For more information
 at overriding these connections, see how the \link[=layer_stats]{stat} and

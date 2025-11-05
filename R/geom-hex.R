@@ -81,9 +81,6 @@ GeomHex <- ggproto("GeomHex", Geom,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
 #' @export
 #' @inheritParams shared_layer_parameters
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))

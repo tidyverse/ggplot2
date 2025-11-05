@@ -171,6 +171,8 @@ unobserved levels are omitted.}
 them. This is most useful for helper functions that define both data and
 aesthetics and shouldn't inherit behaviour from the default plot
 specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
+
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},

@@ -132,11 +132,11 @@ which parameters it can accept.
 \item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
 means use \code{colour} aesthetic.}
 
-\item{lineend}{Line end style (round, butt, square).}
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 
-\item{linejoin}{Line join style (round, mitre, bevel).}
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
 
-\item{linemitre}{Line mitre limit (number greater than 1).}
+\item{linemitre}{Line mitre limit, a number greater  than 1.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
 \code{TRUE}, missing values are silently removed.}

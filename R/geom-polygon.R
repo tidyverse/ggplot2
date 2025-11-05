@@ -106,9 +106,6 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'  [geom_ribbon()] for a polygon anchored on the x-axis
 #' @export
 #' @inheritParams shared_layer_parameters
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
 #' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
 #' being drawn (using the `subgroup` aesthetic) this argument defines how the
 #' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for

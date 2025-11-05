@@ -100,7 +100,16 @@
 #' * The `key_glyph` argument of [`layer()`] may also be passed on through
 #'   `...`. This can be one of the functions described as
 #'   [key glyphs][draw_key], to change the display of the layer in the legend.
-
+#'
+#' @param lineend
+#' Line end style, one of `"round"`, `"butt"` or `"square"`.
+#'
+#' @param linejoin
+#' Line join style, one of `"round"`, `"mitre"` or `"bevel"`.
+#'
+#' @param linemitre
+#' Line mitre limit, a number greater  than 1.
+#'
 #' @param orientation
 #' The orientation of the layer. The default (`NA`) automatically determines the
 #' orientation from the aesthetic mapping. In the rare event that this fails it

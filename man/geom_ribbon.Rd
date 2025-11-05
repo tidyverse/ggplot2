@@ -124,7 +124,11 @@ orientation from the aesthetic mapping. In the rare event that this fails it
 can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
 See the \emph{Orientation} section for more detail.}
 
-\item{linemitre}{Line mitre limit (number greater than 1).}
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
+
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
+
+\item{linemitre}{Line mitre limit, a number greater  than 1.}
 
 \item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
 upper and lower lines, \code{"upper"}/\code{"lower"} draws the respective lines only.

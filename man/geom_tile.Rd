@@ -138,9 +138,9 @@ them. This is most useful for helper functions that define both data and
 aesthetics and shouldn't inherit behaviour from the default plot
 specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
-\item{lineend}{Line end style (round, butt, square).}
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 
-\item{linejoin}{Line join style (round, mitre, bevel).}
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
 }
 \description{
 \code{geom_rect()} and \code{geom_tile()} do the same thing, but are
