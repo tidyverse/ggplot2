@@ -24,3 +24,11 @@
     The dot-dot notation (`..bar..`) was deprecated in ggplot2 3.4.0.
     i Please use `after_stat(bar)` instead.
 
+# aes evaluation fails with unknown input
+
+    Unknown input: <environment>
+
+---
+
+    Unknown input: <environment>
+
