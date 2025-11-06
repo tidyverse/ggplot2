@@ -146,6 +146,16 @@ test_that("unresolved, modified expressions throw a warning (#6264)", {
   expect_snapshot_warning(ggplot_build(p))
 })
 
+test_that("legend filters out aesthetics not of length 1", {
+  df <- data_frame(x = 1:5, y = 1:5)
+  p <- ggplot(df, aes(x, y, colour = factor(x))) +
+    geom_point(alpha = seq(0, 1, length.out = 5))
+
+  # Ideally would test something in the legend data structure, but
+  # that's not easily accessible currently.
+  expect_no_error(ggplot_gtable(ggplot_build(p)))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("legend directions are set correctly", {
