@@ -789,7 +789,7 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
 
   defunct <- "3.0.0"
   full    <- "3.4.0"
-  soft    <- packageVersion("ggplot2")
+  soft    <- utils::packageVersion("ggplot2")
 
   version <- as.package_version(when)
   if (version < defunct || identical(escalate, "abort")) {
