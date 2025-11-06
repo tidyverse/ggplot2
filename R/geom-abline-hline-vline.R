@@ -69,7 +69,7 @@ NULL
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
 geom_abline <- function(mapping = NULL, data = NULL,
-                        stat = "identity", 
+                        stat = "identity",
                         ...,
                         slope,
                         intercept,
@@ -122,6 +122,86 @@ geom_abline <- function(mapping = NULL, data = NULL,
   )
 }
 
+#' @export
+#' @rdname geom_abline
+geom_hline <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       yintercept,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = FALSE) {
+
+  # Act like an annotation
+  if (!missing(yintercept)) {
+    # Warn if supplied mapping and/or data is going to be overwritten
+    if (!is.null(mapping)) {
+      cli::cli_warn("{.fn geom_hline}: Ignoring {.arg mapping} because {.arg yintercept} was provided.")
+    }
+    if (!is.null(data)) {
+      cli::cli_warn("{.fn geom_hline}: Ignoring {.arg data} because {.arg yintercept} was provided.")
+    }
+
+    data <- data_frame0(yintercept = yintercept)
+    mapping <- aes(yintercept = yintercept)
+    show.legend <- FALSE
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomHline,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list2(
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+#' @export
+#' @rdname geom_abline
+geom_vline <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       xintercept,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = FALSE) {
+
+  # Act like an annotation
+  if (!missing(xintercept)) {
+    # Warn if supplied mapping and/or data is going to be overwritten
+    if (!is.null(mapping)) {
+      cli::cli_warn("{.fn geom_vline}: Ignoring {.arg mapping} because {.arg xintercept} was provided.")
+    }
+    if (!is.null(data)) {
+      cli::cli_warn("{.fn geom_vline}: Ignoring {.arg data} because {.arg xintercept} was provided.")
+    }
+
+    data <- data_frame0(xintercept = xintercept)
+    mapping <- aes(xintercept = xintercept)
+    show.legend <- FALSE
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomVline,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list2(
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
 #' @rdname Geom
 #' @format NULL
 #' @usage NULL
@@ -163,3 +243,67 @@ GeomAbline <- ggproto("GeomAbline", Geom,
 
   check_constant_aes = FALSE
 )
+
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomHline <- ggproto("GeomHline", Geom,
+  draw_panel = function(data, panel_params, coord, lineend = "butt") {
+    ranges <- coord$backtransform_range(panel_params)
+
+    data$x    <- ranges$x[1]
+    data$xend <- ranges$x[2]
+    data$y    <- data$yintercept
+    data$yend <- data$yintercept
+
+    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
+  },
+
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
+  required_aes = "yintercept",
+
+  draw_key = draw_key_path,
+
+  rename_size = TRUE,
+
+  check_constant_aes = FALSE
+)
+
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomVline <- ggproto("GeomVline", Geom,
+  draw_panel = function(data, panel_params, coord, lineend = "butt") {
+    ranges <- coord$backtransform_range(panel_params)
+
+    data$x    <- data$xintercept
+    data$xend <- data$xintercept
+    data$y    <- ranges$y[1]
+    data$yend <- ranges$y[2]
+
+    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
+  },
+
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
+
+  required_aes = "xintercept",
+
+  draw_key = draw_key_vline,
+
+  rename_size = TRUE,
+
+  check_constant_aes = FALSE
+)
+
