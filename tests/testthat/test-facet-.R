@@ -337,6 +337,55 @@ test_that("facet_wrap throws deprecation messages", {
   )
 })
 
+# Strips ------------------------------------------------------------------
+
+test_that("strips can be removed", {
+  dat <- data_frame(a = rep(LETTERS[1:10], 10), x = rnorm(100), y = rnorm(100))
+  g <- ggplot(dat, aes(x = x, y = y)) +
+    geom_point() +
+    facet_wrap(~a) +
+    theme(strip.background = element_blank(), strip.text = element_blank())
+  g_grobs <- ggplotGrob(g)
+  strip_grobs <- g_grobs$grobs[grepl('strip-', g_grobs$layout$name)]
+  expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
+})
+
+test_that("strip clipping can be set from the theme", {
+  labels <- data_frame(var1 = "a")
+
+  strip <- render_strips(
+    labels,
+    labeller = label_value,
+    theme = theme_test() + theme(strip.clip = "on")
+  )
+  expect_equal(strip$x$top[[1]]$layout$clip, "on")
+
+  strip <- render_strips(
+    labels,
+    labeller = label_value,
+    theme = theme_test() + theme(strip.clip = "off")
+  )
+  expect_equal(strip$x$top[[1]]$layout$clip, "off")
+})
+
+test_that("strip labels can be accessed", {
+
+  expect_null(get_strip_labels(ggplot()))
+
+  expect_equal(
+    get_strip_labels(ggplot() + facet_wrap(vars("X", "Y"))),
+    list(facets = data_frame0(`"X"` = "X", `"Y"` = "Y"))
+  )
+
+  expect_equal(
+    get_strip_labels(ggplot() + facet_grid(vars("X"), vars("Y"))),
+    list(
+      cols = data_frame0(`"Y"` = "Y"),
+      rows = data_frame0(`"X"` = "X")
+    )
+  )
+})
+
 # Variable combinations ---------------------------------------------------
 
 test_that("zero-length vars in combine_vars() generates zero combinations", {

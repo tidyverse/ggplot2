@@ -261,3 +261,65 @@ test_that("facet_wrap() order follows default data frame order", {
                       geom_point(data = d) + geom_blank(data = d2))
   expect_equal(as.character(lay$fx), c("c","b","a")[lay$PANEL])
 })
+
+# Strips ------------------------------------------------------------------
+
+test_that("facet_wrap() lays out strips correctly", {
+
+  strip_layout <- function(p) {
+    data <- ggplot_build(p)
+    plot <- data@plot
+    layout <- data@layout
+    data <- data@data
+    theme <- plot_theme(plot)
+
+    geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot@layers, data)
+
+    facet <- layout$render(geom_grobs, data, theme, plot@labels)
+    layout <- facet$layout
+    strip_layout <- layout[grepl("^strip", layout$name), 1:4]
+    as.list(strip_layout)
+  }
+
+  p <- ggplot(mtcars, aes(disp, drat)) + geom_point()
+
+  # Building correct output (top position)
+  wrap <- p + facet_wrap(~cyl)
+  wrap_expected <- list(
+    t = c(3, 3, 3),
+    l = c(3, 7, 11),
+    b = c(3, 3, 3),
+    r = c(3, 7, 11)
+  )
+  expect_equal(strip_layout(wrap), wrap_expected)
+
+  # Switching to bottom
+  wrap_b <- p + facet_wrap(~cyl, strip.position = "bottom")
+  wrap_b_expected <- list(
+    t = c(4, 4, 4),
+    l = c(3, 7, 11),
+    b = c(4, 4, 4),
+    r = c(3, 7, 11)
+  )
+  expect_equal(strip_layout(wrap_b), wrap_b_expected)
+
+  # Switching to left
+  wrap_l <- p + facet_wrap(~cyl, strip.position = "left")
+  wrap_l_expected <- list(
+    t = c(3, 3, 3),
+    l = c(13, 8, 3),
+    b = c(3, 3, 3),
+    r = c(13, 8, 3)
+  )
+  expect_equal(strip_layout(wrap_l), wrap_l_expected)
+
+  # Switching to right
+  wrap_r <- p + facet_wrap(~cyl, strip.position = "right")
+  wrap_r_expected <- list(
+    t = c(3, 3, 3),
+    l = c(14, 9, 4),
+    b = c(3, 3, 3),
+    r = c(14, 9, 4)
+  )
+  expect_equal(strip_layout(wrap_r), wrap_r_expected)
+})
