@@ -86,14 +86,13 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Collate:
-    'ggproto.R'
-    'ggplot-global.R'
-    'aaa-.R'
     'aes-colour-fill-alpha.R'
     'aes-evaluation.R'
     'aes-group-order.R'
     'aes-linetype-size-shape.R'
     'aes-position.R'
+    'ggplot-global.R'
+    'ggproto.R'
     'all-classes.R'
     'compat-plyr.R'
     'utilities.R'
