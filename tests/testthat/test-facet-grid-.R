@@ -1,3 +1,101 @@
+# General -----------------------------------------------------------------
+
+test_that("facet_grid() accepts vars()", {
+  grid <- facet_grid(vars(a = foo))
+  expect_identical(grid$params$rows, quos(a = foo))
+
+  grid <- facet_grid(vars(a = foo), vars(b = bar))
+  expect_identical(grid$params$rows, quos(a = foo))
+  expect_identical(grid$params$cols, quos(b = bar))
+
+  grid <- facet_grid(vars(foo), vars(bar))
+  expect_identical(grid$params$rows, quos(foo = foo))
+  expect_identical(grid$params$cols, quos(bar = bar))
+
+  expect_equal(facet_grid(vars(am, vs))$params, facet_grid(am + vs ~ .)$params)
+  expect_equal(facet_grid(vars(am, vs), vars(cyl))$params, facet_grid(am + vs ~ cyl)$params)
+  expect_equal(facet_grid(NULL, vars(cyl))$params, facet_grid(. ~ cyl)$params)
+  expect_equal(facet_grid(vars(am, vs), TRUE)$params, facet_grid(am + vs ~ ., margins = TRUE)$params)
+})
+
+test_that("facet_grid() handles rows/cols correctly", {
+  # fails if passed both a formula and a vars()
+  expect_snapshot_error(facet_grid(~foo, vars()))
+
+  # can't pass formulas to `cols`
+  expect_snapshot_error(facet_grid(NULL, ~foo))
+
+  # can still pass `margins` as second argument
+  grid <- facet_grid(~foo, TRUE)
+  expect_true(grid$params$margins)
+})
+
+test_that("facet_grid() compact the facet spec, and accept empty spec", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point() +
+    facet_grid(vars(NULL))
+  d_grid <- get_layer_data(p)
+
+  expect_equal(d_grid$PANEL, factor(c(1L, 1L, 1L)))
+  expect_equal(d_grid$group, structure(c(-1L, -1L, -1L), n = 1L))
+})
+
+test_that("facets with free scales scale independently", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  # RHS of facet_grid()
+  l1 <- p + facet_grid(. ~ z, scales = "free")
+  d1 <- cdata(l1)[[1]]
+  expect_true(sd(d1$x) < 1e-10)
+  expect_length(unique(d1$y), 3)
+
+  # LHS of facet_grid()
+  l2 <- p + facet_grid(z ~ ., scales = "free")
+  d2 <- cdata(l2)[[1]]
+  expect_length(unique(d2$x), 3)
+  expect_true(sd(d2$y) < 1e-10)
+})
+
+test_that("facet_grid `axis_labels` argument can be overruled", {
+
+  f <- facet_grid(vars(cyl), axes = "all", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_grid(vars(cyl), axes = "all", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = FALSE, y = FALSE))
+
+  # Overrule when only drawing at margins
+  f <- facet_grid(vars(cyl), axes = "margins", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+})
+
+test_that("facet_grid `axes` can draw inner axes.", {
+  df <- data_frame(
+    x = 1:4, y = 1:4,
+    fx = c("A", "A", "B", "B"),
+    fy = c("c", "d", "c", "d")
+  )
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  case <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "all"))
+  ctrl <- ggplotGrob(p + facet_grid(vars(fy), vars(fx), axes = "margins"))
+
+  # 4 x-axes if all axes should be drawn
+  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
+  # 2 x-axes if drawing at the margins
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
+
+  # Ditto for y-axes
+  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
+})
+
 # Layout ------------------------------------------------------------------
 
 a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))

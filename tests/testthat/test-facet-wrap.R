@@ -1,3 +1,98 @@
+# General -----------------------------------------------------------------
+
+test_that("facet_wrap() accepts vars()", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  p1 <- p + facet_wrap(~z)
+  p2 <- p + facet_wrap(vars(Z = z), labeller = label_both)
+
+  expect_identical(get_layer_data(p1), get_layer_data(p2))
+})
+
+test_that("facet_wrap() compact the facet spec, and accept empty spec", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point() +
+    facet_wrap(vars(NULL))
+  d_wrap <- get_layer_data(p)
+
+  expect_equal(d_wrap$PANEL, factor(c(1L, 1L, 1L)))
+  expect_equal(d_wrap$group, structure(c(-1L, -1L, -1L), n = 1L))
+})
+
+test_that("facets with free scales scale independently", {
+  df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  l1 <- p + facet_wrap(~z, scales = "free")
+  d1 <- cdata(l1)[[1]]
+  expect_true(sd(d1$x) < 1e-10)
+  expect_true(sd(d1$y) < 1e-10)
+})
+
+test_that("facet_wrap `axis_labels` argument can be overruled", {
+
+  # The folllowing three should all draw axis labels
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis.labels = "all")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  # The only case when labels shouldn't be drawn is when scales are fixed but
+  # the axes are to be drawn
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "all", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = FALSE, y = FALSE))
+
+  # Should draw labels because scales are free
+  f <- facet_wrap(vars(cyl), scales = "free", axes = "all", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+  # Should draw labels because only drawing at margins
+  f <- facet_wrap(vars(cyl), scales = "fixed", axes = "margins", axis.labels = "margins")
+  expect_equal(f$params$axis_labels, list(x = TRUE, y = TRUE))
+
+})
+
+test_that("facet_wrap `axes` can draw inner axes.", {
+  df <- data_frame(
+    x = 1, y = 1, facet = LETTERS[1:4]
+  )
+
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  case <- ggplotGrob(p + facet_wrap(vars(facet), axes = "all"))
+  ctrl <- ggplotGrob(p + facet_wrap(vars(facet), axes = "margins"))
+
+  # 4 x-axes if all axes should be drawn
+  bottom <- case$grobs[grepl("axis-b", case$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 4)
+  # 2 x-axes if drawing at the margins
+  bottom <- ctrl$grobs[grepl("axis-b", ctrl$layout$name)]
+  expect_equal(sum(vapply(bottom, inherits, logical(1), "absoluteGrob")), 2)
+
+  # Ditto for y-axes
+  left <- case$grobs[grepl("axis-l", case$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 4)
+  left <- ctrl$grobs[grepl("axis-l", ctrl$layout$name)]
+  expect_equal(sum(vapply(left, inherits, logical(1), "absoluteGrob")), 2)
+})
+
+test_that("facet_wrap throws deprecation messages", {
+  withr::local_options(lifecycle_verbosity = "warning")
+
+  facet <- facet_wrap(vars(year))
+  facet$params$dir <- "h"
+
+  lifecycle::expect_deprecated(
+    ggplot_build(ggplot(mpg, aes(displ, hwy)) + geom_point() + facet),
+    "Internal use of"
+  )
+})
+
 # Layout ------------------------------------------------------------------
 
 a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
