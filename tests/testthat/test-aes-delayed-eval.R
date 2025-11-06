@@ -171,3 +171,9 @@ test_that("A geom can have scaled defaults (#6135)", {
   defaults <- get_geom_defaults(test_geom)
   expect_equal(defaults$colour, c("#00000080"))
 })
+
+
+test_that("aes evaluation fails with unknown input", {
+  expect_snapshot_error(is_calculated(environment()))
+  expect_snapshot_error(strip_dots(environment()))
+})
