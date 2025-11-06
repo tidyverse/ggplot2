@@ -478,6 +478,29 @@ test_that("check_layout() throws meaningful errors", {
   expect_snapshot_error(check_layout(mtcars))
 })
 
+test_that("wrap and grid are equivalent for 1d data", {
+  rowg <- panel_layout(facet_grid(a~.), list(a))
+  roww <- panel_layout(facet_wrap(~a, ncol = 1), list(a))
+  expect_equal(roww, rowg)
+
+  colg <- panel_layout(facet_grid(.~a), list(a))
+  colw <- panel_layout(facet_wrap(~a, nrow = 1), list(a))
+  expect_equal(colw, colg)
+})
+
+test_that("facet_wrap and facet_grid throws errors when using reserved words", {
+  mtcars2 <- mtcars
+  mtcars2$PANEL <- mtcars2$cyl
+  mtcars2$ROW <- mtcars2$gear
+
+  p <- ggplot(mtcars2) +
+    geom_point(aes(mpg, disp))
+  expect_snapshot_error(ggplotGrob(p + facet_grid(ROW ~ gear)))
+  expect_snapshot_error(ggplotGrob(p + facet_grid(ROW ~ PANEL)))
+  expect_snapshot_error(ggplotGrob(p + facet_wrap(~ROW)))
+})
+
+
 # Visual tests ------------------------------------------------------------
 
 test_that("facet labels respect both justification and margin arguments", {
