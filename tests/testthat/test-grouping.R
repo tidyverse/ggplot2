@@ -5,7 +5,7 @@ df <- data_frame(
 )
 
 group <- function(x) as.vector(get_layer_data(x, 1)$group)
-groups <- function(x) vec_unique_count(group(x))
+n_groups <- function(x) vec_unique_count(group(x))
 
 test_that("one group per combination of discrete vars", {
   plot <- ggplot(df, aes(x, x)) + geom_point()
@@ -17,15 +17,7 @@ test_that("one group per combination of discrete vars", {
   expect_equal(group(plot), c(1, 2, 1, 2))
 
   plot <- ggplot(df, aes(a, b)) + geom_point()
-  expect_equal(groups(plot), 4)
-})
-
-test_that("no error for aes(groupS)", {
-  df2 <- data_frame(x = df$a, y = df$b, groupS = 1)
-  g <- add_group(df2)
-
-  expect_equal(nrow(g), nrow(df2))
-  expect_named(g, c("x", "y", "groupS", "group"))
+  expect_equal(n_groups(plot), 4)
 })
 
 test_that("label is not used as a grouping var", {
@@ -38,13 +30,21 @@ test_that("label is not used as a grouping var", {
 
 test_that("group aesthetic overrides defaults", {
   plot <- ggplot(df, aes(x, x, group = x)) + geom_point()
-  expect_equal(groups(plot), 4)
+  expect_equal(n_groups(plot), 4)
 
   plot <- ggplot(df, aes(a, b, group = 1)) + geom_point()
-  expect_equal(groups(plot), 1)
+  expect_equal(n_groups(plot), 1)
 })
 
 test_that("group param overrides defaults", {
   plot <- ggplot(df, aes(a, b)) + geom_point(group = 1)
-  expect_equal(groups(plot), 1)
+  expect_equal(n_groups(plot), 1)
+})
+
+test_that("group does not partially match data", {
+  df2 <- data_frame(x = df$a, y = df$b, groupS = 1)
+  g <- add_group(df2)
+
+  expect_equal(nrow(g), nrow(df2))
+  expect_named(g, c("x", "y", "groupS", "group"))
 })
