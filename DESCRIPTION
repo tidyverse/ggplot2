@@ -86,11 +86,8 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Collate:
-    'aes-colour-fill-alpha.R'
-    'aes-evaluation.R'
-    'aes-group-order.R'
-    'aes-linetype-size-shape.R'
-    'aes-position.R'
+    'aes-delayed-eval.R'
+    'aes-variants.R'
     'ggplot-global.R'
     'ggproto.R'
     'all-classes.R'
@@ -130,6 +127,7 @@ Collate:
     'coord-sf.R'
     'coord-transform.R'
     'data.R'
+    'docs-aes.R'
     'docs_layer.R'
     'facet-.R'
     'facet-grid-.R'
