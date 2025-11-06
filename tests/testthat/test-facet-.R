@@ -341,6 +341,8 @@ test_that("check_layout() throws meaningful errors", {
 })
 
 test_that("wrap and grid are equivalent for 1d data", {
+  a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
+
   panel_layout <- function(facet, data) {
     layout <- create_layout(facet = facet, coord = CoordCartesian)
     layout$setup(data)
