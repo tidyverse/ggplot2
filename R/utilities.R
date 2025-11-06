@@ -212,7 +212,7 @@ pal_binned <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
-  deprecate_warn0("3.3.0", "gg_dep()")
+  deprecate("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
@@ -802,11 +802,6 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
     lifecycle::deprecate_soft(when, ..., id = id, user_env = user_env)
   }
   invisible()
-}
-
-deprecate_warn0 <- function(..., user_env = NULL) {
-  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_warn(..., user_env = user_env)
 }
 
 as_unordered_factor <- function(x) {

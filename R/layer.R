@@ -149,7 +149,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
     aes_params <- c(aes_params, params["size"])
     extra_param <- setdiff(extra_param, "size")
-    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.param && length(extra_param) > 0) {
     cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
@@ -162,7 +162,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Take care of size->linewidth aes renaming
   if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
     extra_aes <- setdiff(extra_aes, "size")
-    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
@@ -495,7 +495,7 @@ Layer <- ggproto("Layer", NULL,
           !"linewidth" %in% names(self$computed_mapping) &&
           "linewidth" %in% self$geom$aesthetics()) {
         self$computed_mapping$size <- plot@mapping$size
-        deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
+        deprecate("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
       }
     } else {
       self$computed_mapping <- self$mapping

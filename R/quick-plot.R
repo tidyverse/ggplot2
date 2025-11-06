@@ -62,7 +62,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
 
-  deprecate_warn0("3.4.0", "qplot()")
+  deprecate("3.4.0", "qplot()")
 
   caller_env <- parent.frame()
 
