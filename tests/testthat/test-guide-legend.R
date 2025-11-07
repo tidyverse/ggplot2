@@ -156,6 +156,29 @@ test_that("legend filters out aesthetics not of length 1", {
   expect_no_error(ggplot_gtable(ggplot_build(p)))
 })
 
+test_that("deprecated_guide_args works as expected", {
+  thm <- guide_legend(
+    label.hjust = 0.5,
+    title.hjust = 0.5,
+    frame.colour = "black",
+    ticks.colour = "black",
+    axis.colour  = "black",
+    theme = list()
+  )$params$theme
+  expect_true(is_theme_element(thm$legend.frame, "rect"))
+  expect_true(is_theme_element(thm$legend.ticks, "line"))
+  expect_true(is_theme_element(thm$legend.axis.line, "line"))
+  expect_true(is_theme_element(thm$legend.text, "text"))
+  expect_true(is_theme_element(thm$legend.title, "text"))
+
+  thm <- guide_legend(
+    label = FALSE,
+    ticks = FALSE,
+    axis = FALSE
+  )$params$theme
+  expect_true(is_theme_element(thm$legend.text, "blank"))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("legend directions are set correctly", {
