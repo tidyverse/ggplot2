@@ -34,3 +34,13 @@
 
     Please use `to_upper_ascii()`, which works fine in all locales.
 
+# should_stop stops when it should
+
+    Code
+      should_stop(invisible())
+    Output
+      NULL
+    Condition
+      Error in `should_stop()`:
+      ! No error!
+

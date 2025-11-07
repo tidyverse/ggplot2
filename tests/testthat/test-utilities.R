@@ -182,3 +182,18 @@ test_that("allow_lambda converts the correct cases", {
   f <- allow_lambda(bquote("foo"~"bar"))
   expect_equal(f, call("~", "foo", "bar"))
 })
+
+test_that("should_stop stops when it should", {
+  expect_silent(should_stop(stop()))
+  expect_snapshot(should_stop(invisible()), error = TRUE)
+})
+
+test_that("fallback_palette finds palettes", {
+  sc <- continuous_scale("colour", palette = NULL, fallback.palette = pal_identity())
+  pal <- fallback_palette(sc)
+  expect_true(is_continuous_pal(pal))
+
+  sc <- discrete_scale("shape", palette = NULL, fallback.palette = pal_identity())
+  pal <- fallback_palette(sc)
+  expect_true(is_discrete_pal(pal))
+})
