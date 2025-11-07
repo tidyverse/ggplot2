@@ -146,7 +146,6 @@ Collate:
     'geom-bin2d.R'
     'geom-blank.R'
     'geom-boxplot.R'
-    'geom-col.R'
     'geom-path.R'
     'geom-contour.R'
     'geom-point.R'
