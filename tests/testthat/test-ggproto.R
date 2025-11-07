@@ -55,3 +55,17 @@ test_that("all ggproto methods start with `{` (#6459)", {
   failures <- failures[lengths(failures) > 0]
   expect_equal(names(failures), character())
 })
+
+test_that("ggproto objects print well", {
+  Foo <- ggproto(
+    "Foo",
+    env = empty_env(),
+    num = 12,
+    method = function(x) print(x),
+    empty = NULL,
+    theme = theme()
+  )
+
+  expect_snapshot(print(Foo))
+  expect_snapshot(print(Foo$method))
+})
