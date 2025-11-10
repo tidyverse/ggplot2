@@ -157,6 +157,9 @@ test_that("legend filters out aesthetics not of length 1", {
 })
 
 test_that("deprecated_guide_args works as expected", {
+
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   thm <- guide_legend(
     label.hjust = 0.5,
     title.hjust = 0.5,
@@ -165,6 +168,7 @@ test_that("deprecated_guide_args works as expected", {
     axis.colour  = "black",
     theme = list()
   )$params$theme
+
   expect_true(is_theme_element(thm$legend.frame, "rect"))
   expect_true(is_theme_element(thm$legend.ticks, "line"))
   expect_true(is_theme_element(thm$legend.axis.line, "line"))
