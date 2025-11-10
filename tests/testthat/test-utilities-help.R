@@ -4,10 +4,12 @@ test_that("rd_orientation formats a section", {
 })
 
 test_that("rd_computed_vars formats a list", {
+  skip_if(getRversion() < "4.2.0")
   expect_snapshot(rd_computed_vars(x = "foo", y = "bar"))
 })
 
 test_that("rd_aesthetics formats a section", {
+  skip_if(getRversion() < "4.2.0")
   expect_snapshot(rd_aesthetics("geom", "point"))
 })
 
