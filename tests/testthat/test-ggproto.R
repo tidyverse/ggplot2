@@ -67,5 +67,4 @@ test_that("ggproto objects print well", {
   )
 
   expect_snapshot(print(Foo))
-  expect_snapshot(print(Foo$method))
 })

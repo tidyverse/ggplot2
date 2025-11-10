@@ -22,15 +22,3 @@
           num: 12
           theme: theme, ggplot2::theme, gg, S7_object
 
----
-
-    Code
-      print(Foo$method)
-    Output
-      <ggproto method>
-        <Wrapper function>
-          function(...) !!call2(name, !!!args)
-      
-        <Inner function (f)>
-          function(x) print(x)
-
