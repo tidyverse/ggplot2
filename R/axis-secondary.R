@@ -153,7 +153,8 @@ derive <- function() {
 is_derived <- function(x) {
   inherits(x, "derived")
 }
-#' @noRd
+#' Secondary axis class
+#' @keywords internal
 #' @format NULL
 #' @usage NULL
 #' @export
