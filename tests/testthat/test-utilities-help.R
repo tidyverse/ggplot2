@@ -4,7 +4,6 @@ test_that("rd_orientation formats a section", {
 })
 
 test_that("rd_computed_vars formats a list", {
-  skip_if(getRversion() < "4.2.0")
   expect_snapshot(rd_computed_vars(x = "foo", y = "bar"))
 })
 
@@ -14,6 +13,7 @@ test_that("rd_aesthetics formats a section", {
 })
 
 test_that("roxygen parses the @aesthetics tag", {
+  skip_if(getRversion() < "4.2.0")
   skip_if_not_installed("roxygen2")
 
   text <- "
