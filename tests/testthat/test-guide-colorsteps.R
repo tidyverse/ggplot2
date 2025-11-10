@@ -90,15 +90,15 @@ test_that("coloursteps guide can be styled correctly", {
 
   expect_doppelganger("guide_coloursteps looks as it should", p)
   expect_doppelganger(
-    "guide_coloursteps can show limits",
+    "show limits",
     p + guides(colour = guide_coloursteps(show.limits = TRUE))
   )
   expect_doppelganger(
-    "guide_coloursteps can have bins relative to binsize",
+    "bins relative to binsize",
     p + guides(colour = guide_coloursteps(even.steps = FALSE))
   )
   expect_doppelganger(
-    "guide_bins can show ticks and transparancy",
+    "show ticks and transparancy",
     p +
       guides(
         colour = guide_coloursteps(
@@ -116,7 +116,7 @@ test_that("binning scales understand the different combinations of limits, break
     geom_point()
 
   expect_doppelganger(
-    "guide_colorsteps understands coinciding limits and bins",
+    "coinciding limits and bins",
     p +
       scale_color_binned(
         limits = c(1999, 2008),
@@ -124,7 +124,7 @@ test_that("binning scales understand the different combinations of limits, break
       )
   )
   expect_doppelganger(
-    "guide_colorsteps understands coinciding limits and bins 2",
+    "coinciding limits and bins 2",
     p +
       scale_color_binned(
         limits = c(1999, 2008),
@@ -132,7 +132,7 @@ test_that("binning scales understand the different combinations of limits, break
       )
   )
   expect_doppelganger(
-    "guide_colorsteps understands coinciding limits and bins 3",
+    "coinciding limits and bins 3",
     p +
       scale_color_binned(
         limits = c(1999, 2008),
@@ -141,7 +141,7 @@ test_that("binning scales understand the different combinations of limits, break
       )
   )
   expect_doppelganger(
-    "guide_colorsteps sets labels when limits is in breaks",
+    "labels when limits is in breaks",
     p +
       scale_color_binned(
         limits = c(1999, 2008),

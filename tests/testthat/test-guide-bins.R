@@ -25,11 +25,11 @@ test_that("bin guide can be styled correctly", {
 
   expect_doppelganger("guide_bins looks as it should", p)
   expect_doppelganger(
-    "guide_bins can show limits",
+    "show limits",
     p + guides(size = guide_bins(show.limits = TRUE))
   )
   expect_doppelganger(
-    "guide_bins can show arrows",
+    "show arrows",
     p +
       guides(size = guide_bins()) +
       theme_test() +
@@ -41,7 +41,7 @@ test_that("bin guide can be styled correctly", {
       )
   )
   expect_doppelganger(
-    "guide_bins can remove axis",
+    "remove axis",
     p +
       guides(size = guide_bins()) +
       theme_test() +
@@ -50,7 +50,7 @@ test_that("bin guide can be styled correctly", {
       )
   )
   expect_doppelganger(
-    "guide_bins work horizontally",
+    "work horizontally",
     p + guides(size = guide_bins(direction = "horizontal"))
   )
 })
@@ -60,7 +60,7 @@ test_that("binning scales understand the different combinations of limits, break
     geom_point()
 
   expect_doppelganger(
-    "guide_bins understands coinciding limits and bins",
+    "coinciding limits and bins",
     p +
       scale_color_binned(
         limits = c(1999, 2008),
@@ -69,7 +69,7 @@ test_that("binning scales understand the different combinations of limits, break
       )
   )
   expect_doppelganger(
-    "guide_bins understands coinciding limits and bins 2",
+    "coinciding limits and bins 2",
     p +
       scale_color_binned(
         limits = c(1999, 2008),
@@ -78,7 +78,7 @@ test_that("binning scales understand the different combinations of limits, break
       )
   )
   expect_doppelganger(
-    "guide_bins understands coinciding limits and bins 3",
+    "coinciding limits and bins 3",
     p +
       scale_color_binned(
         limits = c(1999, 2008),
@@ -88,7 +88,7 @@ test_that("binning scales understand the different combinations of limits, break
       )
   )
   expect_doppelganger(
-    "guide_bins sets labels when limits is in breaks",
+    "labels when limits is in breaks",
     p +
       scale_color_binned(
         limits = c(1999, 2008),
