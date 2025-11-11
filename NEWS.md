@@ -10,11 +10,6 @@ polishing the recent features.
 * Fixed regression where `position_stack(vjust)` was ignored when there are
   only single groups (#6692)
 * Fixed bug where `NA` handling in `geom_path()` was ignoring panels (@teunbrand, #6533)
-* Logical values for the linetype aesthetic will be interpreted numerically,
-  so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes 
-  1/'solid' (@teunbrand, #6641)
-* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
-  silently rather than verbosely (@teunbrand, #6667)
 * Fixed bug where `stat_bin(boundary)` was ignored (#6682).
 * `geom_text()` and `geom_label()` accept expressions as the `label` aesthetic 
   (@teunbrand, #6638)
@@ -40,6 +35,11 @@ polishing the recent features.
 * The `theme(panel.widths, panel.heights)` setting attempts to preserve the
   plot's aspect ratio when only one of the two settings is given, and the plot 
   has a single panel (@teunbrand, #6701).
+* Logical values for the linetype aesthetic will be interpreted numerically,
+  so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes 
+  1/'solid' (@teunbrand, #6641)
+* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
+  silently rather than verbosely (@teunbrand, #6667)
 
 # ggplot2 4.0.0
 
