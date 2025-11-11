@@ -118,6 +118,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (!is.null(mapping)) {
     mapping <- validate_mapping(mapping, call_env)
   }
+  mapped_aes <- mapped_aesthetics(mapping)
 
   data <- fortify(data)
 
@@ -146,7 +147,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
   # Take care of size->linewidth renaming in layer params
-  if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
+  if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aes) {
     aes_params <- c(aes_params, params["size"])
     extra_param <- setdiff(extra_param, "size")
     deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
@@ -156,11 +157,11 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   extra_aes <- setdiff(
-    mapped_aesthetics(mapping),
+    mapped_aes,
     c(geom$aesthetics(), stat$aesthetics(), position$aesthetics())
   )
   # Take care of size->linewidth aes renaming
-  if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
+  if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aes) {
     extra_aes <- setdiff(extra_aes, "size")
     deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
