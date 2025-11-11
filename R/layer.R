@@ -130,13 +130,14 @@ layer <- function(geom = NULL, stat = NULL,
   params$na.rm <- params$na.rm %||% FALSE
 
   # Split up params between aesthetics, geom, and stat
+  all_aes <- unique(c(geom$aesthetics(), position$aesthetics(), stat$aesthetics()))
   params <- rename_aes(params)
-  aes_params  <- params[intersect(names(params), union(geom$aesthetics(), position$aesthetics()))]
+  aes_params  <- params[intersect(names(params), all_aes)]
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
   ignore <- c("key_glyph", "name", "layout")
-  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), position$aesthetics(), ignore)
+  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), all_aes, ignore)
 
   # Take care of plain patterns provided as aesthetic
   pattern <- vapply(aes_params, is_pattern, logical(1))
@@ -156,10 +157,7 @@ layer <- function(geom = NULL, stat = NULL,
     cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
   }
 
-  extra_aes <- setdiff(
-    mapped_aes,
-    c(geom$aesthetics(), stat$aesthetics(), position$aesthetics())
-  )
+  extra_aes <- setdiff(mapped_aes, all_aes)
   # Take care of size->linewidth aes renaming
   if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aes) {
     extra_aes <- setdiff(extra_aes, "size")
