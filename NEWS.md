@@ -1,5 +1,10 @@
 # ggplot2 (development version)
 
+This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
+polishing the recent features.
+
+## Bug fixes
+
 * Fixed regression where `geom_area()` didn't draw panels with single groups 
   when `stat = "align"` (@teunbrand, #6680)
 * Fixed regression where `position_stack(vjust)` was ignored when there are
@@ -17,9 +22,6 @@
   (@mitchelloharawild, #6609).
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
   object is set to `labels` argument (@yutannihilation, #6617).
-* Improved palette fallback mechanism in scales (@teunbrand, #6669).
-* Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
-* `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
 * Fixed regression where the first (unnamed) argument to colour/fill scales was 
   not passed as the `name` argument (@teunbrand, #6623)
 * Fixed issue where vectorised `arrow()`s caused errors in drawing the 
@@ -28,10 +30,16 @@
   insistently. Now they contribute only as fallback labels (@teunbrand, #6616)
 * Fixed regression where empty arguments to colour/fill scale caused errors
   (@jmbarbone, #6710)
+* Fixed axis misplacement in `coor_radial()` when labels are blank (@teunbrand, #6574)
+
+## Improvements
+
+* Improved palette fallback mechanism in scales (@teunbrand, #6669).
+* Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
+* `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
 * The `theme(panel.widths, panel.heights)` setting attempts to preserve the
   plot's aspect ratio when only one of the two settings is given, and the plot 
   has a single panel (@teunbrand, #6701).
-* Fixed axis misplacement in `coor_radial()` when labels are blank (@teunbrand, #6574)
 
 # ggplot2 4.0.0
 
