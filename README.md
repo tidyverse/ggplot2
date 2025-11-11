@@ -80,8 +80,8 @@ documentation pages. Currently, there are several good places to start:
     [Communication](https://r4ds.hadley.nz/communication) chapters in [R
     for Data Science](https://r4ds.hadley.nz). R for Data Science is
     designed to give you a comprehensive introduction to the
-    [tidyverse](https://www.tidyverse.org), and these two chapters will
-    get you up to speed with the essentials of ggplot2 as quickly as
+    [tidyverse](https://tidyverse.org/), and these two chapters will get
+    you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
 2.  If you’d like to take an online course, try [Data Visualization in R
@@ -105,7 +105,7 @@ documentation pages. Currently, there are several good places to start:
     graphics specifically tailored to your needs.
 
 6.  For articles about announcements and deep-dives you can visit the
-    [tidyverse blog](https://www.tidyverse.org/tags/ggplot2/).
+    [tidyverse blog](https://tidyverse.org/tags/ggplot2/).
 
 ## Getting help
 
