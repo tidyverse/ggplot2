@@ -972,10 +972,8 @@ normalise_label <- function(label) {
     return(NULL)
   }
   if (obj_is_list(label)) {
-    # Ensure that each element in the list has length 1
+    # Ensure no elements are empty
     label[lengths(label) == 0] <- ""
-    truncate <- !vapply(label, is.call, logical(1)) # Don't mess with call/formula
-    label[truncate] <- lapply(label[truncate], `[`, 1)
   }
   if (is.expression(label)) {
     # Classed expressions, when converted to lists, retain their class.
