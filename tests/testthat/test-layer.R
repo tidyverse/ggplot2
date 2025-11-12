@@ -33,6 +33,10 @@ test_that("empty aesthetics create warning", {
   expect_snapshot_warning(ggplot_build(p))
 })
 
+test_that("aesthetics defined twice create warning", {
+  expect_snapshot_warning(geom_point(aes(size = foo), size = 12))
+})
+
 test_that("invalid aesthetics throws errors", {
   # We want to test error and ignore the scale search message
   suppressMessages({
