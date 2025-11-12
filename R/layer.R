@@ -153,8 +153,21 @@ layer <- function(geom = NULL, stat = NULL,
     extra_param <- setdiff(extra_param, "size")
     deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
-  if (check.param && length(extra_param) > 0) {
-    cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
+  if (check.param) {
+    if (length(extra_param) > 0) {
+      cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
+    }
+    double_defined <- intersect(mapped_aes, names(aes_params))
+    if (length(double_defined) > 0) {
+      cli::cli_warn(
+        c(
+          "The {.and {.field {double_defined}}} aesthetic{?s} {?is/are} \\
+          defined twice: once in {.arg mapping} and once as a static aesthetic.",
+          "i" = "The static aesthetic overrules the mapped aesthetic."
+        ),
+        call = call_env
+      )
+    }
   }
 
   extra_aes <- setdiff(mapped_aes, all_aes)
