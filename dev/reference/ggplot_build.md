@@ -37,10 +37,11 @@ layer_grob(plot = get_last_plot(), i = 1L)
 
 - i:
 
-  An integer. In `get_layer_data()`, the data to return (in the order
-  added to the plot). In `get_layer_grob()`, the grob to return (in the
-  order added to the plot). In `get_panel_scales()`, the row of a facet
-  to return scales for.
+  An integer or a name of a layer. In `get_layer_data()`, the data to
+  return (in the order added to the plot). In `get_layer_grob()`, the
+  grob to return (in the order added to the plot). In
+  `get_panel_scales()` (only integers allowed), the row of a facet to
+  return scales for.
 
 - j:
 

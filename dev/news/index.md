@@ -2,6 +2,13 @@
 
 ## ggplot2 (development version)
 
+- [`get_layer_data()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)
+  and
+  [`get_layer_grob()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)
+  now accept layer names as index
+  ([@lgaborini](https://github.com/lgaborini),
+  [\#6724](https://github.com/tidyverse/ggplot2/issues/6724))
+
 ## ggplot2 4.0.1
 
 CRAN release: 2025-11-14
