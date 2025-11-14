@@ -227,7 +227,9 @@ test_that("layer_data returns a data.frame", {
 })
 
 test_that("get_layer_data works with layer names", {
-  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+  p <- ggplot() +
+    annotate("point", x = 1, y = 1, name = "foo") +
+    annotate("line", x = 1:2, y = 1:2, name = "bar")
 
   # name has higher precedence than index
   expect_identical(
@@ -237,13 +239,15 @@ test_that("get_layer_data works with layer names", {
 })
 
 test_that("get_layer_grob works with layer names", {
-  p <- ggplot() + geom_point(name = "foo") + geom_point(name = "bar")
+  p <- ggplot() +
+    annotate("point", x = 1, y = 1, name = "foo") +
+    annotate("line", x = 1:2, y = 1:2, name = "bar")
 
   # name has higher precedence than index
-  expect_identical(
-    get_layer_grob(p, i = "bar"),
-    get_layer_grob(p, i = 2L)
-  )
+  named <- get_layer_grob(p, i = "bar")
+  nummed <- get_layer_grob(p, i = 2L)
+  named[[1]]$name <- nummed[[1]]$name <- NULL # ignore grid's unique names
+  expect_identical(named, nummed)
 })
 
 test_that("data.frames and matrix aesthetics survive the build stage", {
