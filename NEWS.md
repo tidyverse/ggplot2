@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `get_layer_data()` and `get_layer_grob()` now accept layer names as index 
+  (@lgaborini, #6724)
+
 # ggplot2 4.0.1
 
 This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
