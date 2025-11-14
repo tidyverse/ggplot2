@@ -11,9 +11,9 @@
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
-#' @param i An integer. In `get_layer_data()`, the data to return (in the order added to the
+#' @param i An integer or a name of a layer. In `get_layer_data()`, the data to return (in the order added to the
 #'   plot). In `get_layer_grob()`, the grob to return (in the order added to the
-#'   plot). In `get_panel_scales()`, the row of a facet to return scales for.
+#'   plot). In `get_panel_scales()` (only integers allowed), the row of a facet to return scales for.
 #' @param j An integer. In `get_panel_scales()`, the column of a facet to return
 #'   scales for.
 #' @param ... Not currently in use.
@@ -142,8 +142,15 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
 #' @export
 #' @rdname ggplot_build
 get_layer_data <- function(plot = get_last_plot(), i = 1L) {
-  ggplot_build(plot)@data[[i]]
+  b <- ggplot_build(plot)
+  idx <- vec_as_location2(
+    i = i,
+    n = vec_size(b@plot@layers),
+    names = names(b@plot@layers)
+  )
+  b@data[[idx]]
 }
+
 #' @export
 #' @rdname ggplot_build
 layer_data <- get_layer_data
@@ -171,7 +178,12 @@ layer_scales <- get_panel_scales
 get_layer_grob <- function(plot = get_last_plot(), i = 1L) {
   b <- ggplot_build(plot)
 
-  b@plot@layers[[i]]$draw_geom(b@data[[i]], b@layout)
+  idx <- vec_as_location2(
+    i = i,
+    n = vec_size(b@plot@layers),
+    names = names(b@plot@layers)
+  )
+  b@plot@layers[[idx]]$draw_geom(b@data[[idx]], b@layout)
 }
 
 #' @export

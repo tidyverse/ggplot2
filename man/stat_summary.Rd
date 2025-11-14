@@ -204,7 +204,7 @@ If no aggregation functions are supplied, will default to
 
 \section{Orientation}{
 
-This geom treats each axis differently and, thus, can thus have two
+This geom treats each axis differently and, thus, can have two
 orientations. Often the orientation is easy to deduce from a combination of
 the given mappings and the types of positional scales in use. Thus, ggplot2
 will by default try to guess which orientation the layer should have. Under

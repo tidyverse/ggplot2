@@ -125,7 +125,7 @@
 #' See the *Orientation* section for more detail.
 #'
 #' @section Orientation:
-#' This geom treats each axis differently and, thus, can thus have two
+#' This geom treats each axis differently and, thus, can have two
 #' orientations. Often the orientation is easy to deduce from a combination of
 #' the given mappings and the types of positional scales in use. Thus, ggplot2
 #' will by default try to guess which orientation the layer should have. Under
@@ -1054,10 +1054,8 @@ normalise_label <- function(label) {
     return(NULL)
   }
   if (obj_is_list(label)) {
-    # Ensure that each element in the list has length 1
+    # Ensure no elements are empty
     label[lengths(label) == 0] <- ""
-    truncate <- !vapply(label, is.call, logical(1)) # Don't mess with call/formula
-    label[truncate] <- lapply(label[truncate], `[`, 1)
   }
   if (is.expression(label)) {
     # Classed expressions, when converted to lists, retain their class.
