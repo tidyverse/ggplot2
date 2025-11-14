@@ -1,3 +1,5 @@
+# ggplot2 (development version)
+
 # ggplot2 4.0.1
 
 This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
