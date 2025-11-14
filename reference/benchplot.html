@@ -9,7 +9,7 @@ Broken down into construct, build, render and draw times."><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@ Broken down into construct, build, render and draw times."><meta property="og:im
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/">Version 4.0.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a></li>
@@ -65,7 +66,7 @@ Broken down into construct, build, render and draw times."><meta property="og:im
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Benchmark plot creation time. Broken down into construct, build, render and draw times.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-badge-display/R/bench.R" class="external-link"><code>R/bench.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.1/R/bench.R" class="external-link"><code>R/bench.R</code></a></small>
       <div class="d-none name"><code>benchplot.Rd</code></div>
     </div>
 
@@ -92,29 +93,29 @@ Broken down into construct, build, render and draw times.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">benchplot</span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.004</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.026        0   0.026</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.039        0   0.039</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.019        0   0.019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.089        0   0.088</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.020        0   0.019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.090        0   0.089</span>
 <span class="r-in"><span><span class="fu">benchplot</span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.028        0   0.027</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.089        0   0.090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.028        0   0.028</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.091        0   0.091</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.034        0   0.034</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.156        0   0.156</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.158        0   0.158</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With tidy eval:</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="tidyeval.html">expr</a></span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">benchplot</span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="va">p</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="benchplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.026        0   0.026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.039        0   0.039</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.020        0   0.019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.090        0   0.089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.004    0.001   0.005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.026    0.000   0.026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.039    0.000   0.039</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.019    0.000   0.019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.088    0.001   0.089</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -128,7 +129,7 @@ Broken down into construct, build, render and draw times.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>

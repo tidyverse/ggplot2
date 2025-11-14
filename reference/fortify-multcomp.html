@@ -11,7 +11,7 @@ solution to convert model objects."><meta property="og:image" content="https://g
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,7 @@ solution to convert model objects."><meta property="og:image" content="https://g
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/">Version 4.0.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a></li>
@@ -67,7 +68,7 @@ solution to convert model objects."><meta property="og:image" content="https://g
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Fortify methods for objects produced by <span class="pkg">multcomp</span></h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-badge-display/R/fortify-models.R" class="external-link"><code>R/fortify-models.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.1/R/fortify-models.R" class="external-link"><code>R/fortify-models.R</code></a></small>
       <div class="d-none name"><code>fortify-multcomp.Rd</code></div>
     </div>
 
@@ -119,7 +120,7 @@ solution to convert model objects.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> tension H - L             0   -<span style="color: #BB0000;">14.7</span>       3.87     -<span style="color: #BB0000;">3.80</span>     0.001<span style="text-decoration: underline;">10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> tension H - M             0    -<span style="color: #BB0000;">4.72</span>      3.87     -<span style="color: #BB0000;">1.22</span>     0.447  </span>
 <span class="r-in"><span><span class="fu"><a href="fortify.html">fortify</a></span><span class="op">(</span><span class="va">wht</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`fortify(&lt;glht&gt;)` was deprecated in ggplot2 3.6.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`fortify(&lt;glht&gt;)` was deprecated in ggplot2 4.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `broom::tidy(&lt;glht&gt;)` instead.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            lhs rhs   estimate</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> tension1 M - L   0 -10.000000</span>
@@ -138,7 +139,7 @@ solution to convert model objects.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> tension H - L      -<span style="color: #BB0000;">14.7</span>     -<span style="color: #BB0000;">24.1</span>    -<span style="color: #BB0000;">5.37</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> tension H - M       -<span style="color: #BB0000;">4.72</span>    -<span style="color: #BB0000;">14.1</span>     4.63 </span>
 <span class="r-in"><span><span class="fu"><a href="fortify.html">fortify</a></span><span class="op">(</span><span class="va">ci</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`fortify(&lt;confint.glht&gt;)` was deprecated in ggplot2 3.6.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`fortify(&lt;confint.glht&gt;)` was deprecated in ggplot2 4.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `broom::tidy(&lt;confint.glht&gt;)` instead.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         lhs rhs   estimate       lwr        upr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M - L M - L   0 -10.000000 -19.35506 -0.6449368</span>
@@ -159,7 +160,7 @@ solution to convert model objects.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> tension H - L             0   -<span style="color: #BB0000;">14.7</span>       3.87     -<span style="color: #BB0000;">3.80</span>     0.001<span style="text-decoration: underline;">13</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> tension H - M             0    -<span style="color: #BB0000;">4.72</span>      3.87     -<span style="color: #BB0000;">1.22</span>     0.447  </span>
 <span class="r-in"><span><span class="fu"><a href="fortify.html">fortify</a></span><span class="op">(</span><span class="va">smry</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`fortify(&lt;summary.glht&gt;)` was deprecated in ggplot2 3.6.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`fortify(&lt;summary.glht&gt;)` was deprecated in ggplot2 4.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `broom::tidy(&lt;summary.glht&gt;)` instead.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         lhs rhs   estimate       se         t           p</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> M - L M - L   0 -10.000000 3.872378 -2.582393 0.033655435</span>
@@ -198,7 +199,7 @@ solution to convert model objects.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>

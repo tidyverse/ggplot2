@@ -17,11 +17,9 @@
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Aesthetic specifications">
-<meta name="description" content="Customising how aesthetic specifications are represented on your plot.
-">
-<meta property="og:description" content="Customising how aesthetic specifications are represented on your plot.
-">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="ggplot2-specs_files/libs/quarto-html/popper.min.js"></script><script src="ggplot2-specs_files/libs/quarto-html/tippy.umd.min.js"></script><link href="ggplot2-specs_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ggplot2-specs_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Aesthetic specifications">
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
 <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script><script async src="https://widget.kapa.ai/kapa-widget.bundle.js" data-button-hide="true" data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!" data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2." data-modal-header-bg-color="#f9f9f9" data-modal-override-open-class="open-kapa-widget" data-project-color="#365a7a" data-project-name="ggplot2" data-modal-title="tidyverse AI ✨" data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&amp;u=235532df5cf8543246812f73db051b793f868807&amp;v=4" data-user-analytics-fingerprint-enabled="true" data-bot-protection-mechanism="hcaptcha" data-website-id="5dcac24a-bd5a-4874-9f5b-3341afddd8c3"></script>
 </head>
@@ -33,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +46,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news">
 <li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/">Version 4.0.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a></li>
@@ -94,73 +93,53 @@
 
 
   </div>
-</nav><div class="container template-article" id="container">
-
-
-
-
+</nav><div class="container template-quarto" id="container">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Aesthetic specifications</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-badge-display/vignettes/ggplot2-specs.Rmd" class="external-link"><code>vignettes/ggplot2-specs.Rmd</code></a></small>
-      <div class="d-none name"><code>ggplot2-specs.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.1/vignettes/ggplot2-specs.qmd" class="external-link"><code>vignettes/ggplot2-specs.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p>This vignette summarises the various formats that grid drawing
-functions take. Most of this information is available scattered
-throughout the R documentation. This appendix brings it all together in
-one place.</p>
-<div class="section level2">
-<h2 id="colour-and-fill">Colour and fill<a class="anchor" aria-label="anchor" href="#colour-and-fill"></a>
+
+
+
+
+
+    <p>This vignette summarises the various formats that grid drawing functions take. Most of this information is available scattered throughout the R documentation. This appendix brings it all together in one place.</p>
+<section class="level2"><h2 id="colour-and-fill">Colour and fill<a class="anchor" aria-label="anchor" href="#colour-and-fill"></a>
 </h2>
-<p>Almost every geom has either colour, fill, or both. Colours and fills
-can be specified in the following ways:</p>
+<p>Almost every geom has either colour, fill, or both. Colours and fills can be specified in the following ways:</p>
 <ul>
-<li><p>A <strong>name</strong>, e.g., <code>"red"</code>. R has 657
-built-in named colours, which can be listed with
-<code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code>.</p></li>
+<li><p>A <strong>name</strong>, e.g., <code>"red"</code>. R has 657 built-in named colours, which can be listed with <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code>.</p></li>
 <li>
-<p>An <strong>rgb specification</strong>, with a string of the form
-<code>"#RRGGBB"</code> where each of the pairs <code>RR</code>,
-<code>GG</code>, <code>BB</code> consists of two hexadecimal digits
-giving a value in the range <code>00</code> to <code>FF</code></p>
-<p>You can optionally make the colour transparent by using the form
-<code>"#RRGGBBAA"</code>.</p>
+<p>An <strong>rgb specification</strong>, with a string of the form <code>"#RRGGBB"</code> where each of the pairs <code>RR</code>, <code>GG</code>, <code>BB</code> consists of two hexadecimal digits giving a value in the range <code>00</code> to <code>FF</code></p>
+<p>You can optionally make the colour transparent by using the form <code>"#RRGGBBAA"</code>.</p>
 </li>
-<li><p>An <strong>NA</strong>, for a completely transparent
-colour.</p></li>
+<li><p>An <strong>NA</strong>, for a completely transparent colour.</p></li>
 <li>
-<p>The <a href="https://github.com/cwickham/munsell" class="external-link">munsell</a>
-package, by Charlotte Wickham, makes it easy to choose specific colours
-using a system designed by Albert H. Munsell. If you invest a little in
-learning the system, it provides a convenient way of specifying
-aesthetically pleasing colours.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<p>The <a href="https://github.com/cwickham/munsell" class="external-link">munsell</a> package, by Charlotte Wickham, makes it easy to choose specific colours using a system designed by Albert H. Munsell. If you invest a little in learning the system, it provides a convenient way of specifying aesthetically pleasing colours.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">munsell</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/munsell/man/mnsl.html" class="external-link">mnsl</a></span><span class="op">(</span><span class="st">"5PB 5/10"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "#447DBF"</span></span></code></pre></div>
-</li>
-</ul>
 </div>
-<div class="section level2">
-<h2 id="lines">Lines<a class="anchor" aria-label="anchor" href="#lines"></a>
+</li>
+</ul></section><section class="level2"><h2 id="lines">Lines<a class="anchor" aria-label="anchor" href="#lines"></a>
 </h2>
-<p>As well as <code>colour</code>, the appearance of a line is affected
-by <code>linewidth</code>, <code>linetype</code>, <code>linejoin</code>
-and <code>lineend</code>.</p>
-<div class="section level3">
-<h3 id="sec:line-type-spec">Line type<a class="anchor" aria-label="anchor" href="#sec:line-type-spec"></a>
+<p>As well as <code>colour</code>, the appearance of a line is affected by <code>linewidth</code>, <code>linetype</code>, <code>linejoin</code> and <code>lineend</code>.</p>
+<section class="level3"><h3 id="sec:line-type-spec">Line type<a class="anchor" aria-label="anchor" href="#sec:line-type-spec"></a>
 </h3>
 <p>Line types can be specified with:</p>
 <ul>
 <li>
-<p>An <strong>integer</strong> or <strong>name</strong>: 0 = blank,
-1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 =
-twodash, as shown below:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>An <strong>integer</strong> or <strong>name</strong>: 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash, as shown below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solid"</span>, <span class="st">"dashed"</span>, <span class="st">"dotted"</span>, <span class="st">"dotdash"</span>, <span class="st">"longdash"</span>, <span class="st">"twodash"</span><span class="op">)</span></span>
 <span><span class="va">linetypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">lty</span><span class="op">)</span>,</span>
@@ -172,16 +151,18 @@ twodash, as shown below:</p>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">lty</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_y <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-3-1.png" alt="A series of 6 horizontal lines with different line types. From top-to-bottom they are titled 'solid', 'dashed', 'dotted', 'dotdash', 'longdash', 'twodash'." width="700"></p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-3-1.png" alt="A series of 6 horizontal lines with different line types. From top-to-bottom they are titled 'solid', 'dashed', 'dotted', 'dotdash', 'longdash', 'twodash'." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </li>
 <li>
-<p>The lengths of on/off stretches of line. This is done with a
-string containing 2, 4, 6, or 8 hexadecimal digits which give the
-lengths of consecutive lengths. For example, the string
-<code>"33"</code> specifies three units on followed by three off and
-<code>"3313"</code> specifies three units on followed by three off
-followed by one on and finally three off.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>The lengths of on/off stretches of line. This is done with a string containing 2, 4, 6, or 8 hexadecimal digits which give the lengths of consecutive lengths. For example, the string <code>"33"</code> specifies three units on followed by three off and <code>"3313"</code> specifies three units on followed by three off followed by one on and finally three off.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"11"</span>, <span class="st">"18"</span>, <span class="st">"1f"</span>, <span class="st">"81"</span>, <span class="st">"88"</span>, <span class="st">"8f"</span>, <span class="st">"f1"</span>, <span class="st">"f8"</span>, <span class="st">"ff"</span><span class="op">)</span></span>
 <span><span class="va">linetypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">lty</span><span class="op">)</span>,</span>
@@ -193,28 +174,25 @@ followed by one on and finally three off.</p>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">lty</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="fl">0</span>, nudge_y <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_continuous.html">scale_y_reverse</a></span><span class="op">(</span><span class="cn">NULL</span>, breaks <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-4-1.png" alt="A series of 9 horizontal lines with different line types. Each line is titled by two hexadecimal digits that determined the lengths of dashes and gaps." width="700"></p>
-<p>The five standard dash-dot line types described above correspond to
-44, 13, 1343, 73, and 2262.</p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-4-1.png" alt="A series of 9 horizontal lines with different line types. Each line is titled by two hexadecimal digits that determined the lengths of dashes and gaps." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The five standard dash-dot line types described above correspond to 44, 13, 1343, 73, and 2262.</p>
 </li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="linewidth">Linewidth<a class="anchor" aria-label="anchor" href="#linewidth"></a>
+</ul></section><section class="level3"><h3 id="linewidth">Linewidth<a class="anchor" aria-label="anchor" href="#linewidth"></a>
 </h3>
-<p>Due to a historical error, the unit of linewidth is roughly 0.75 mm.
-Making it exactly 1 mm would change a very large number of existing
-plots, so we’re stuck with this mistake.</p>
-</div>
-<div class="section level3">
-<h3 id="line-endjoin-paramters">Line end/join paramters<a class="anchor" aria-label="anchor" href="#line-endjoin-paramters"></a>
+<p>Due to a historical error, the unit of linewidth is roughly 0.75 mm. Making it exactly 1 mm would change a very large number of existing plots, so we’re stuck with this mistake.</p>
+</section><section class="level3"><h3 id="line-endjoin-paramters">Line end/join paramters<a class="anchor" aria-label="anchor" href="#line-endjoin-paramters"></a>
 </h3>
 <ul>
 <li>
-<p>The appearance of the line end is controlled by the
-<code>lineend</code> paramter, and can be one of “round”, “butt” (the
-default), or “square”.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>The appearance of the line end is controlled by the <code>lineend</code> paramter, and can be one of “round”, “butt” (the default), or “square”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">xlim</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">+</span></span>
@@ -228,13 +206,30 @@ default), or “square”.</p>
 <span><span class="va">base</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span>, lineend <span class="op">=</span> <span class="st">"square"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-1.png" alt="A plot showing a line with an angle. A thinner red line is placed over a thicker black line. The black line ends where the red line ends." width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-2.png" alt="A plot showing a line with an angle. A thinner red line is placed over a thicker black line. The black line ends past where the red line ends, and ends in a semicircle." width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-3.png" alt="A plot showing a line with an angle. A thinner red line is placed over a thicker black line. The black line ends past where the red line ends, and ends in a square shape." width="30%"></p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-1.png" style="width:30.0%" alt="A plot showing a line with an angle. A thinner red line is placed over a thicker black line. The black line ends where the red line ends."></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-2.png" style="width:30.0%" alt="A plot showing a line with an angle. A thinner red line is placed over a thicker black line. The black line ends past where the red line ends, and ends in a semicircle."></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-5-3.png" style="width:30.0%" alt="A plot showing a line with an angle. A thinner red line is placed over a thicker black line. The black line ends past where the red line ends, and ends in a square shape."></p>
+</figure>
+</div>
+</div>
+</div>
 </li>
 <li>
-<p>The appearance of line joins is controlled by
-<code>linejoin</code> and can be one of “round” (the default), “mitre”,
-or “bevel”.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>The appearance of line joins is controlled by <code>linejoin</code> and can be one of “round” (the default), “mitre”, or “bevel”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">base</span> <span class="op">+</span></span>
@@ -248,34 +243,41 @@ or “bevel”.</p>
 <span><span class="va">base</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">10</span>, linejoin <span class="op">=</span> <span class="st">"bevel"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_path.html">geom_path</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-1.png" alt="A plot showing a thin red line on top of a thick black line shaped like the letter 'V'. The corner in the black V-shape is rounded." width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-2.png" alt="A plot showing a thin red line on top of a thick black line shaped like the letter 'V'. The corner in the black V-shape is sharp." width="30%"><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-3.png" alt="A plot showing a thin red line on top of a thick black line shaped like the letter 'V'. A piece of the corner is cut off so that the two straight parts are connected by a horizontal part." width="30%"></p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-1.png" style="width:30.0%" alt="A plot showing a thin red line on top of a thick black line shaped like the letter 'V'. The corner in the black V-shape is rounded."></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-2.png" style="width:30.0%" alt="A plot showing a thin red line on top of a thick black line shaped like the letter 'V'. The corner in the black V-shape is sharp."></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-6-3.png" style="width:30.0%" alt="A plot showing a thin red line on top of a thick black line shaped like the letter 'V'. A piece of the corner is cut off so that the two straight parts are connected by a horizontal part."></p>
+</figure>
+</div>
+</div>
+</div>
 </li>
 </ul>
-<p>Mitre joins are automatically converted to bevel joins whenever the
-angle is too small (which would create a very long bevel). This is
-controlled by the <code>linemitre</code> parameter which specifies the
-maximum ratio between the line width and the length of the mitre.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="polygons">Polygons<a class="anchor" aria-label="anchor" href="#polygons"></a>
+<p>Mitre joins are automatically converted to bevel joins whenever the angle is too small (which would create a very long bevel). This is controlled by the <code>linemitre</code> parameter which specifies the maximum ratio between the line width and the length of the mitre.</p>
+</section></section><section class="level2"><h2 id="polygons">Polygons<a class="anchor" aria-label="anchor" href="#polygons"></a>
 </h2>
-<p>The border of the polygon is controlled by the <code>colour</code>,
-<code>linetype</code>, and <code>linewidth</code> aesthetics as
-described above. The inside is controlled by <code>fill</code>.</p>
-</div>
-<div class="section level2">
-<h2 id="point">Point<a class="anchor" aria-label="anchor" href="#point"></a>
+<p>The border of the polygon is controlled by the <code>colour</code>, <code>linetype</code>, and <code>linewidth</code> aesthetics as described above. The inside is controlled by <code>fill</code>.</p>
+</section><section class="level2"><h2 id="point">Point<a class="anchor" aria-label="anchor" href="#point"></a>
 </h2>
-<div class="section level3">
-<h3 id="sec:shape-spec">Shape<a class="anchor" aria-label="anchor" href="#sec:shape-spec"></a>
+<section class="level3"><h3 id="sec:shape-spec">Shape<a class="anchor" aria-label="anchor" href="#sec:shape-spec"></a>
 </h3>
 <p>Shapes take five types of values:</p>
 <ul>
 <li>
-<p>An <strong>integer</strong> in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>25</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, 25]</annotation></semantics></math>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>An <strong>integer</strong> in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>25</mn><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, 25]</annotation></semantics></math>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shapes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">19</span>, <span class="fl">22</span>, <span class="fl">21</span>, <span class="fl">24</span>, <span class="fl">23</span>, <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  x <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">24</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fl">5</span>,</span>
@@ -287,11 +289,18 @@ described above. The inside is controlled by <code>fill</code>.</p>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">4.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-7-1.png" alt="A 5-by-5 grid of point symbols annotated by the numbers that can be used to represent the symbols. From left to right, the first 15 symbols are lines or open shapes, the next 5 symbols are solid shapes and the last 5 symbols are filled shaped." width="700"></p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-7-1.png" alt="A 5-by-5 grid of point symbols annotated by the numbers that can be used to represent the symbols. From left to right, the first 15 symbols are lines or open shapes, the next 5 symbols are solid shapes and the last 5 symbols are filled shaped." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </li>
 <li>
 <p>The <strong>name</strong> of the shape:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shape_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"circle"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"bullet"</span>,</span>
 <span>  <span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"square"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"filled"</span>, <span class="st">"cross"</span>, <span class="st">"plus"</span>, <span class="st">"triangle"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -312,133 +321,187 @@ described above. The inside is controlled by <code>fill</code>.</p>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">shape_names</span><span class="op">)</span>, nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-8-1.png" alt="An irregular 6-by-7 grid of point symbols annotated by the names that can be used to represent the symbols. Broadly, from top to bottom, the symbols are circles, squares, diamonds, triangles and others. Broadly from left to right, the symbols are solid shapes, open shapes, filled shapes and others." width="90%"></p>
-</li>
-<li><p>A <strong>single character</strong>, to use that character as a
-plotting symbol.</p></li>
-<li><p>A <code>.</code> to draw the smallest rectangle that is visible,
-usually 1 pixel.</p></li>
-<li><p>An <code>NA</code>, to draw nothing.</p></li>
-</ul>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-8-1.png" style="width:90.0%" alt="An irregular 6-by-7 grid of point symbols annotated by the names that can be used to represent the symbols. Broadly, from top to bottom, the symbols are circles, squares, diamonds, triangles and others. Broadly from left to right, the symbols are solid shapes, open shapes, filled shapes and others."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="colour-and-fill-1">Colour and fill<a class="anchor" aria-label="anchor" href="#colour-and-fill-1"></a>
+</div>
+</div>
+</li>
+<li><p>A <strong>single character</strong>, to use that character as a plotting symbol.</p></li>
+<li><p>A <code>.</code> to draw the smallest rectangle that is visible, usually 1 pixel.</p></li>
+<li><p>An <code>NA</code>, to draw nothing.</p></li>
+</ul></section><section class="level3"><h3 id="colour-and-fill-1">Colour and fill<a class="anchor" aria-label="anchor" href="#colour-and-fill-1"></a>
 </h3>
-<p>While <code>colour</code> applies to all shapes, <code>fill</code>
-only applies to shapes 21-25, as can be seen above. The size of the
-filled part is controlled by <code>size</code>, the size of the stroke
-is controlled by <code>stroke</code>. Each is measured in mm, and the
-total size of the point is the sum of the two. Note that the size is
-constant along the diagonal in the following figure.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>While <code>colour</code> applies to all shapes, <code>fill</code> only applies to shapes 21-25, as can be seen above. The size of the filled part is controlled by <code>size</code>, the size of the stroke is controlled by <code>stroke</code>. Each is measured in mm, and the total size of the point is the sum of the two. Note that the size is constant along the diagonal in the following figure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>size <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span>, stroke <span class="op">=</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sizes</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">size</span>, <span class="va">stroke</span>, size <span class="op">=</span> <span class="va">size</span>, stroke <span class="op">=</span> <span class="va">stroke</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">6</span>, colour <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_size_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-9-1.png" alt="A plot showing a 4-by-4 grid of red points, the top 12 points with black outlines. The size of the points increases horizontally. The stroke of the outlines of the points increases vertically. A white diagonal line with a negative slope marks that the 'stroke' versus 'size' trade-off has similar total sizes." width="700"></p>
-<p>Because points are not typically filled, you may need to change some
-default settings when using these shapes and mapping <code>fill</code>.
-In particular, discrete <code>fill</code> guides will be drawn with an
-unfilled shape unless overridden (refer to <code><a href="../reference/geom_point.html">geom_point()</a></code> for
-an example of this).</p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-9-1.png" alt="A plot showing a 4-by-4 grid of red points, the top 12 points with black outlines. The size of the points increases horizontally. The stroke of the outlines of the points increases vertically. A white diagonal line with a negative slope marks that the 'stroke' versus 'size' trade-off has similar total sizes." width="672"></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="text">Text<a class="anchor" aria-label="anchor" href="#text"></a>
+</div>
+<p>Because points are not typically filled, you may need to change some default settings when using these shapes and mapping <code>fill</code>. In particular, discrete <code>fill</code> guides will be drawn with an unfilled shape unless overridden (refer to <code><a href="../reference/geom_point.html">geom_point()</a></code> for an example of this).</p>
+</section></section><section class="level2"><h2 id="text">Text<a class="anchor" aria-label="anchor" href="#text"></a>
 </h2>
-<div class="section level3">
-<h3 id="font-family">Font family<a class="anchor" aria-label="anchor" href="#font-family"></a>
+<section class="level3"><h3 id="font-family">Font family<a class="anchor" aria-label="anchor" href="#font-family"></a>
 </h3>
-<p><code>family</code> sets the typeface of the font. There are only
-three values that are guaranteed to work everywhere: “sans” (the
-default), “serif”, or “mono”:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><code>family</code> sets the typeface of the font. There are only three values that are guaranteed to work everywhere: “sans” (the default), “serif”, or “mono”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">1</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sans"</span>, <span class="st">"serif"</span>, <span class="st">"mono"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">family</span>, family <span class="op">=</span> <span class="va">family</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-10-1.png" alt="A plot showing three text labels arranged vertically. The top label is 'sans' and is displayed in a sans-serif font. The middle label is 'serif' and is displayed in a serif font. The bottom label is 'mono' and is displayed in a monospaced font." width="700"></p>
-<p>While these are guaranteed to work, they might map to different
-typefaces depending on the graphics device and operating system.
-Choosing any other value puts you at the mercy of the graphics device in
-use. We <em>strongly</em> recommend using a graphics device built with
-<a href="https://systemfonts.r-lib.org" class="external-link">systemfonts</a> support because
-this means that you can access all fonts installed on the operating
-system without any additional work. For now this means using <a href="https://ragg.r-lib.org" class="external-link">ragg</a> for raster output (PNG, JPEG,
-TIFF), and <a href="https://svglite.r-lib.org" class="external-link">svglite</a> for vector
-output (SVG). See the <a href="https://systemfonts.r-lib.org/articles/systemfonts.html#fonts-from-other-places" class="external-link">Fonts
-from other places</a> section of the systemfonts vignette to learn how
-to make systemfonts aware of fonts not installed on the computer.</p>
-<p>For now there is no PDF device with systemfonts support. If you need
-to create a PDF file using fonts other than the postscript fonts that
-<code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code> natively support you can look into either of these
-packages:</p>
-<ul>
-<li><p><code>showtext</code> renders text as polygons by hijacking the
-text rendering method of the graphics device.</p></li>
-<li><p><code>extrafont</code> registers system fonts in the
-<code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code> device so it can natively find them.</p></li>
-</ul>
-<p>Both approaches have pros and cons, so you will to need to try both
-of them and see which works best for your needs.</p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-10-1.png" alt="A plot showing three text labels arranged vertically. The top label is 'sans' and is displayed in a sans-serif font. The middle label is 'serif' and is displayed in a serif font. The bottom label is 'mono' and is displayed in a monospaced font." width="672"></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="font-face">Font face<a class="anchor" aria-label="anchor" href="#font-face"></a>
+</div>
+</div>
+<p>While these are guaranteed to work, they might map to different typefaces depending on the graphics device and operating system. Choosing any other value puts you at the mercy of the graphics device in use. We <em>strongly</em> recommend using a graphics device built with <a href="https://systemfonts.r-lib.org" class="external-link">systemfonts</a> support because this means that you can access all fonts installed on the operating system without any additional work. For now this means using <a href="https://ragg.r-lib.org" class="external-link">ragg</a> for raster output (PNG, JPEG, TIFF), and <a href="https://svglite.r-lib.org" class="external-link">svglite</a> for vector output (SVG). See the <a href="https://systemfonts.r-lib.org/articles/systemfonts.html#fonts-from-other-places" class="external-link">Fonts from other places</a> section of the systemfonts vignette to learn how to make systemfonts aware of fonts not installed on the computer.</p>
+<p>For now there is no PDF device with systemfonts support. If you need to create a PDF file using fonts other than the postscript fonts that <code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code> natively support you can look into either of these packages:</p>
+<ul>
+<li><p><code>showtext</code> renders text as polygons by hijacking the text rendering method of the graphics device.</p></li>
+<li><p><code>extrafont</code> registers system fonts in the <code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code> device so it can natively find them.</p></li>
+</ul>
+<p>Both approaches have pros and cons, so you will to need to try both of them and see which works best for your needs.</p>
+</section><section class="level3"><h3 id="font-face">Font face<a class="anchor" aria-label="anchor" href="#font-face"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, fontface <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plain"</span>, <span class="st">"bold"</span>, <span class="st">"italic"</span>, <span class="st">"bold.italic"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">fontface</span>, fontface <span class="op">=</span> <span class="va">fontface</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-11-1.png" alt="A plot showing four text labels arranged vertically. The top label is 'bold.italic' and is displayed in bold and italic. The next three labels are 'italic', 'bold' and 'plain' and are displayed in their respective styles." width="700"></p>
-<p><code>fontface</code>/<code>face</code> is a catch-all argument that
-describes the style of the typeface to use. It can take one of 4 values:
-<code>"plain"</code> is an upright normal-weight font,
-<code>"italic"</code> is a slanted normal-weight font,
-<code>"bold"</code> is an upright bold-weight font, and
-<code>"bold.italic"</code> is a slanted bold-weight font.</p>
-<p>The R graphics engine does not allow you to chose other combinations
-of styles such as other weights or specifying width. See the <a href="https://systemfonts.r-lib.org/articles/systemfonts.html#extra-font-styles" class="external-link">Extra
-font styles</a> section of the systemfonts vignette for ways to
-circumvent this limitation.</p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-11-1.png" alt="A plot showing four text labels arranged vertically. The top label is 'bold.italic' and is displayed in bold and italic. The next three labels are 'italic', 'bold' and 'plain' and are displayed in their respective styles." width="672"></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="font-size">Font size<a class="anchor" aria-label="anchor" href="#font-size"></a>
-</h3>
-<p>The <code>size</code> of text is measured in mm by default. This is
-unusual, but makes the size of text consistent with the size of lines
-and points. Typically you specify font size using points (or pt for
-short), where 1 pt = 0.35mm. In <code><a href="../reference/geom_text.html">geom_text()</a></code> and
-<code><a href="../reference/geom_text.html">geom_label()</a></code>, you can set <code>size.unit = "pt"</code> to
-use points instead of millimeters. In addition, ggplot2 provides a
-conversion factor as the variable <code>.pt</code>, so if you want to
-draw 12pt text, you can also set <code>size = 12 / .pt</code>.</p>
 </div>
-<div class="section level3">
-<h3 id="justification">Justification<a class="anchor" aria-label="anchor" href="#justification"></a>
+</div>
+<p><code>fontface</code>/<code>face</code> is a catch-all argument that describes the style of the typeface to use. It can take one of 4 values: <code>"plain"</code> is an upright normal-weight font, <code>"italic"</code> is a slanted normal-weight font, <code>"bold"</code> is an upright bold-weight font, and <code>"bold.italic"</code> is a slanted bold-weight font.</p>
+<p>The R graphics engine does not allow you to chose other combinations of styles such as other weights or specifying width. See the <a href="https://systemfonts.r-lib.org/articles/systemfonts.html#extra-font-styles" class="external-link">Extra font styles</a> section of the systemfonts vignette for ways to circumvent this limitation.</p>
+</section><section class="level3"><h3 id="font-size">Font size<a class="anchor" aria-label="anchor" href="#font-size"></a>
 </h3>
-<p>Horizontal and vertical justification have the same parameterisation,
-either a string (“top”, “middle”, “bottom”, “left”, “center”, “right”)
-or a number between 0 and 1:</p>
+<p>The <code>size</code> of text is measured in mm by default. This is unusual, but makes the size of text consistent with the size of lines and points. Typically you specify font size using points (or pt for short), where 1 pt = 0.35mm. In <code><a href="../reference/geom_text.html">geom_text()</a></code> and <code><a href="../reference/geom_text.html">geom_label()</a></code>, you can set <code>size.unit = "pt"</code> to use points instead of millimeters. In addition, ggplot2 provides a conversion factor as the variable <code>.pt</code>, so if you want to draw 12pt text, you can also set <code>size = 12 / .pt</code>.</p>
+</section><section class="level3"><h3 id="justification">Justification<a class="anchor" aria-label="anchor" href="#justification"></a>
+</h3>
+<p>Horizontal and vertical justification have the same parameterisation, either a string (“top”, “middle”, “bottom”, “left”, “center”, “right”) or a number between 0 and 1:</p>
 <ul>
 <li>top = 1, middle = 0.5, bottom = 0</li>
 <li>left = 0, center = 0.5, right = 1</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">just</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">just</span><span class="op">$</span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">just</span><span class="op">$</span><span class="va">hjust</span>, <span class="st">", "</span>, <span class="va">just</span><span class="op">$</span><span class="va">vjust</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">just</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span><span class="va">hjust</span>, <span class="va">vjust</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey70"</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">label</span>, hjust <span class="op">=</span> <span class="va">hjust</span>, vjust <span class="op">=</span> <span class="va">vjust</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-12-1.png" alt="A 3-by-3 grid of text on top of points, with horizontal text justification increasing from 0 to 1 on the x-axis and vertical justification increasing from 0 to 1 on the y-axis. The points make it easier to see the relative placement of text." width="700"></p>
-<p>Note that you can use numbers outside the range (0, 1), but it’s not
-recommended.</p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="ggplot2-specs_files/figure-html/unnamed-chunk-12-1.png" alt="A 3-by-3 grid of text on top of points, with horizontal text justification increasing from 0 to 1 on the x-axis and vertical justification increasing from 0 to 1 on the y-axis. The points make it easier to see the relative placement of text." width="672"></p>
+</figure>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</div>
+<p>Note that you can use numbers outside the range (0, 1), but it’s not recommended.</p>
+</section></section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
    </div>
@@ -448,7 +511,7 @@ recommended.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>

@@ -17,7 +17,10 @@
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Reordering">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="faq-reordering_files/libs/quarto-html/popper.min.js"></script><script src="faq-reordering_files/libs/quarto-html/tippy.umd.min.js"></script><link href="faq-reordering_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="faq-reordering_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="FAQ: Reordering">
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png">
 <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="ggplot2.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script><script async src="https://widget.kapa.ai/kapa-widget.bundle.js" data-button-hide="true" data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!" data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2." data-modal-header-bg-color="#f9f9f9" data-modal-override-open-class="open-kapa-widget" data-project-color="#365a7a" data-project-name="ggplot2" data-modal-title="tidyverse AI ✨" data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&amp;u=235532df5cf8543246812f73db051b793f868807&amp;v=4" data-user-analytics-fingerprint-enabled="true" data-bot-protection-mechanism="hcaptcha" data-website-id="5dcac24a-bd5a-4874-9f5b-3341afddd8c3"></script>
 </head>
 <body>
@@ -28,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +46,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news">
 <li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/">Version 4.0.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a></li>
@@ -89,175 +93,181 @@
 
 
   </div>
-</nav><div class="container template-article" id="container">
-
-
-
-
+</nav><div class="container template-quarto" id="container">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>FAQ: Reordering</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/pkgdown-badge-display/vignettes/articles/faq-reordering.Rmd" class="external-link"><code>vignettes/articles/faq-reordering.Rmd</code></a></small>
-      <div class="d-none name"><code>faq-reordering.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.1/vignettes/articles/faq-reordering.qmd" class="external-link"><code>vignettes/articles/faq-reordering.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<style>
+
+
+
+
+
+    <style>
   .content h3 {
     margin-top: -30px !important;
   }
-  
+
   details {
     margin-bottom: 40px;
   }
 </style>
-<div class="section level2">
-<h2 id="bar-plots">Bar plots<a class="anchor" aria-label="anchor" href="#bar-plots"></a>
+<section class="level2"><h2 id="bar-plots">Bar plots<a class="anchor" aria-label="anchor" href="#bar-plots"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-reorder-the-bars-in-a-bar-plot-by-their-value">How can I reorder the bars in a bar plot by their value?<a class="anchor" aria-label="anchor" href="#how-can-i-reorder-the-bars-in-a-bar-plot-by-their-value"></a>
+<section class="level3"><h3 id="how-can-i-reorder-the-bars-in-a-bar-plot-by-their-value">How can I reorder the bars in a bar plot by their value?<a class="anchor" aria-label="anchor" href="#how-can-i-reorder-the-bars-in-a-bar-plot-by-their-value"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re creating
-the bar plot for in the <code>aes</code>thetic <code>mapping</code>. The
-forcats package offers a variety of options for doing this, such as
-<code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">forcats::fct_infreq()</a></code> for ordering by the number of
-observations within each level.</p>
+<p>Change the order of the levels of the factor variable you’re creating the bar plot for in the <code>aes</code>thetic <code>mapping</code>. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">forcats::fct_infreq()</a></code> for ordering by the number of observations within each level.</p>
 <details><summary>
 See example
-</summary><p>The following bar plot shows the number of cars that fall into each
-<code>class</code> category. Classes are ordered alphabetically. You
-might prefer them to be ordered by the number of cars in each class.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+</summary><p>The following bar plot shows the number of cars that fall into each <code>class</code> category. Classes are ordered alphabetically. You might prefer them to be ordered by the number of cars in each class.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-2-1.png" alt="A horizontal bar plot showing counts on the x-axis and seven types of cars on the y-axis. From bottom to top, the car types are in alphabetical order." width="80%"></p>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-2-1.png" style="width:80.0%" alt="A horizontal bar plot showing counts on the x-axis and seven types of cars on the y-axis. From bottom to top, the car types are in alphabetical order."></p>
+</figure>
+</div>
+</div>
+</div>
 <p>To do this, you can use <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">forcats::fct_infreq()</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">fct_infreq</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-3-1.png" alt="A horizontal bar plot showing counts on the x-axis and seven types of cars on the y-axis. From top to bottom, the car types are ordered by increasing number of cars." width="80%"></p>
-<p>If you’d like to plot the highest value first, you can also reverse
-the order with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. You might also want to
-simplify the axis label.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-3-1.png" style="width:80.0%" alt="A horizontal bar plot showing counts on the x-axis and seven types of cars on the y-axis. From top to bottom, the car types are ordered by increasing number of cars."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If you’d like to plot the highest value first, you can also reverse the order with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. You might also want to simplify the axis label.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html" class="external-link">fct_infreq</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-4-1.png" alt="A horizontal bar plot showing counts on the x-axis and seven types of cars on the y-axis. From top to bottom, the car types are ordered in decreasing number of cars." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-4-1.png" style="width:80.0%" alt="A horizontal bar plot showing counts on the x-axis and seven types of cars on the y-axis. From top to bottom, the car types are ordered in decreasing number of cars."></p>
+</figure>
 </div>
-<div class="section level3">
-<h3 id="how-can-i-reorder-the-stacks-in-a-stacked-bar-plot">How can I reorder the stacks in a stacked bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-reorder-the-stacks-in-a-stacked-bar-plot"></a>
+</div>
+</div>
+</details></section><section class="level3"><h3 id="how-can-i-reorder-the-stacks-in-a-stacked-bar-plot">How can I reorder the stacks in a stacked bar plot?<a class="anchor" aria-label="anchor" href="#how-can-i-reorder-the-stacks-in-a-stacked-bar-plot"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re creating
-the stacks with in the <code>aes</code>thetic <code>mapping</code>. The
-forcats package offers a variety of options for doing this, such as
-<code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> to reorder the levels or
-<code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code> to reverse their order.</p>
+<p>Change the order of the levels of the factor variable you’re creating the stacks with in the <code>aes</code>thetic <code>mapping</code>. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> to reorder the levels or <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code> to reverse their order.</p>
 <details><summary>
 See example
-</summary><p>Suppose you have the following stacked bar plot of
-<code>clarity</code> of <code>diamonds</code> by their
-<code>cut</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+</summary><p>Suppose you have the following stacked bar plot of <code>clarity</code> of <code>diamonds</code> by their <code>cut</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-5-1.png" alt="A stacked bar plot showing counts on the y-axis and five cut qualities of diamonds on the x-axis. Within every stacked bar, the fill colour indicates an ordinal clarity of the diamond. The worst clarity has the darkest colour and the best quality has the lightest colour. The best clarity is the bar on the bottom." width="80%"></p>
-<p>You can reverse the order <code>clarity</code> levels are displayed
-in the bars with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. This will also change
-the order they’re presented in the legend so the two orders match.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-5-1.png" style="width:80.0%" alt="A stacked bar plot showing counts on the y-axis and five cut qualities of diamonds on the x-axis. Within every stacked bar, the fill colour indicates an ordinal clarity of the diamond. The worst clarity has the darkest colour and the best quality has the lightest colour. The best clarity is the bar on the bottom."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can reverse the order <code>clarity</code> levels are displayed in the bars with <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev()</a></code>. This will also change the order they’re presented in the legend so the two orders match.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="va">clarity</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"clarity"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-6-1.png" alt="A stacked bar plot showing counts on the y-axis and five cut qualities of diamonds on the x-axis. Within every stacked bar, the fill colour indicates an ordinal clarity of the diamond. The worst clarity has the lightest colour and the best quality has the darkest colour. The worst clarity is the bar on the bottom." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-6-1.png" style="width:80.0%" alt="A stacked bar plot showing counts on the y-axis and five cut qualities of diamonds on the x-axis. Within every stacked bar, the fill colour indicates an ordinal clarity of the diamond. The worst clarity has the lightest colour and the best quality has the darkest colour. The worst clarity is the bar on the bottom."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="box-plots">Box plots<a class="anchor" aria-label="anchor" href="#box-plots"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="box-plots">Box plots<a class="anchor" aria-label="anchor" href="#box-plots"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot">How can I control the order of boxes in a side-by-side box
-plot?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot"></a>
+<section class="level3"><h3 id="how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot">How can I control the order of boxes in a side-by-side box plot?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-boxes-in-a-side-by-side-box-plot"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re faceting
-by. The forcats package offers a variety of options for doing this, such
-as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> for manual reordering or
-<code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> for ordering by a particular value,
-e.g. group median.</p>
+<p>Change the order of the levels of the factor variable you’re faceting by. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> for manual reordering or <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">forcats::fct_reorder()</a></code> for ordering by a particular value, e.g. group median.</p>
 <details><summary>
 See example
-</summary><p>The order of the boxes is determined by the order of the levels of
-the variable you’re grouping by. If the faceting variable is character,
-this order is alphabetical by default.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</summary><p>The order of the boxes is determined by the order of the levels of the variable you’re grouping by. If the faceting variable is character, this order is alphabetical by default.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-7-1.png" alt="A boxplot showing the highway miles per gallon on the y-axis for seven types of car on the x-axis. The car types on the x-axis are in alphabetical order." width="80%"></p>
-<p>Suppose you’d like the boxes to be ordered in ascending order of
-their medians. You can do this in a data transformation step prior to
-plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it
-directly in the plotting code as shown below. You might then want to
-customize the x-axis label as well.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-7-1.png" style="width:80.0%" alt="A boxplot showing the highway miles per gallon on the y-axis for seven types of car on the x-axis. The car types on the x-axis are in alphabetical order."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Suppose you’d like the boxes to be ordered in ascending order of their medians. You can do this in a data transformation step prior to plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it directly in the plotting code as shown below. You might then want to customize the x-axis label as well.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html" class="external-link">fct_reorder</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">hwy</span>, .fun <span class="op">=</span> <span class="va">median</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-8-1.png" alt="A boxplot showing the highway miles per gallon on the y-axis for seven types of car on the x-axis. The car types on the x-axis sorted from left to right by increasing medians." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-8-1.png" style="width:80.0%" alt="A boxplot showing the highway miles per gallon on the y-axis for seven types of car on the x-axis. The car types on the x-axis sorted from left to right by increasing medians."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="facets">Facets<a class="anchor" aria-label="anchor" href="#facets"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="facets">Facets<a class="anchor" aria-label="anchor" href="#facets"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid">How can I control the order of panes created with
-<code>facet_wrap()</code> or <code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid"></a>
+<section class="level3"><h3 id="how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid">How can I control the order of panes created with <code>facet_wrap()</code> or <code>facet_grid()</code>?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-panes-created-with-facet_wrap-or-facet_grid"></a>
 </h3>
-<p>Change the order of the levels of the factor variable you’re faceting
-by. The forcats package offers a variety of options for doing this, such
-as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code>.</p>
+<p>Change the order of the levels of the factor variable you’re faceting by. The forcats package offers a variety of options for doing this, such as <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code>.</p>
 <details><summary>
 See example
-</summary><p>The order of the panes is determined by the order of the levels of
-the variable you’re faceting by. If the faceting variable is character,
-this order is alphabetical by default.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+</summary><p>The order of the panes is determined by the order of the levels of the variable you’re faceting by. If the faceting variable is character, this order is alphabetical by default.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">drv</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-9-1.png" alt="A scatter plot showing the engine displacement on the x-axis and highway miles per gallon on the y-axis of 234 cars. The plot has three panels in a 1-row, 3-column layout for three types of drive train. The drive trains are ordered alphabetically in the horizontal direction." width="80%"></p>
-<p>Suppose you’d like the panes to be in the order <code>"r"</code>,
-<code>"f"</code> , <code>"4"</code>. You can use
-<code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> to reorder the levels of
-<code>drv</code>. You can do this in a data transformation step prior to
-plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it
-directly in the plotting code as shown below.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-9-1.png" style="width:80.0%" alt="A scatter plot showing the engine displacement on the x-axis and highway miles per gallon on the y-axis of 234 cars. The plot has three panels in a 1-row, 3-column layout for three types of drive train. The drive trains are ordered alphabetically in the horizontal direction."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Suppose you’d like the panes to be in the order <code>"r"</code>, <code>"f"</code> , <code>"4"</code>. You can use <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">forcats::fct_relevel()</a></code> to reorder the levels of <code>drv</code>. You can do this in a data transformation step prior to plotting (e.g. with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>) or you can do it directly in the plotting code as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">fct_relevel</a></span><span class="op">(</span><span class="va">drv</span>, <span class="st">"r"</span>, <span class="st">"f"</span>, <span class="st">"4"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-10-1.png" alt="A scatter plot showing the engine displacement on the x-axis and highway miles per gallon on the y-axis of 234 cars. The plot has three panels in a 1-row, 3-column layout for three types of drive train. The drive trains are in the order 'r', 'f' and '4' from left to right." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-10-1.png" style="width:80.0%" alt="A scatter plot showing the engine displacement on the x-axis and highway miles per gallon on the y-axis of 234 cars. The plot has three panels in a 1-row, 3-column layout for three types of drive train. The drive trains are in the order 'r', 'f' and '4' from left to right."></p>
+</figure>
 </div>
 </div>
-<div class="section level2">
-<h2 id="overplotting">Overplotting<a class="anchor" aria-label="anchor" href="#overplotting"></a>
+</div>
+</details></section></section><section class="level2"><h2 id="overplotting">Overplotting<a class="anchor" aria-label="anchor" href="#overplotting"></a>
 </h2>
-<div class="section level3">
-<h3 id="how-can-i-control-the-order-of-the-points-plotted">How can I control the order of the points plotted?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-the-points-plotted"></a>
+<section class="level3"><h3 id="how-can-i-control-the-order-of-the-points-plotted">How can I control the order of the points plotted?<a class="anchor" aria-label="anchor" href="#how-can-i-control-the-order-of-the-points-plotted"></a>
 </h3>
-<p>If there is a specific point (or group of points) you want to make
-sure is plotted on top of others, subset the data for those observations
-and add as a new layer to your plot.</p>
+<p>If there is a specific point (or group of points) you want to make sure is plotted on top of others, subset the data for those observations and add as a new layer to your plot.</p>
 <details><summary>
 See example
 </summary><p>Suppose you have the following data frame.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">id</span>, <span class="op">~</span><span class="va">x</span>,   <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">shape</span>,            <span class="op">~</span><span class="va">fill</span>,</span>
 <span>  <span class="fl">1</span>,   <span class="fl">0.01</span>, <span class="fl">0</span>,  <span class="st">"circle filled"</span>,   <span class="st">"blue"</span>,</span>
@@ -265,21 +275,24 @@ See example
 <span>  <span class="fl">3</span>,   <span class="fl">0.99</span>, <span class="fl">0</span>,  <span class="st">"asterisk"</span>,        <span class="st">"black"</span>,</span>
 <span>  <span class="fl">4</span>,   <span class="fl">0</span>,    <span class="fl">0</span>,  <span class="st">"triangle filled"</span>, <span class="st">"yellow"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>By default, this is how a scatter plot of these looks. Note that the
-blue circle is partially covered by the yellow triangle since that
-observation comes later in the dataset. Similarly the black asterisk
-appears on top of the red square.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+</div>
+<p>By default, this is how a scatter plot of these looks. Note that the blue circle is partially covered by the yellow triangle since that observation comes later in the dataset. Similarly the black asterisk appears on top of the red square.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fill</span>, shape <span class="op">=</span> <span class="va">shape</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-12-1.png" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A yellow triangle is plotted on top of a blue circle. A black asterisk is plotted on top of a red square." width="80%"></p>
-<p>Suppose you arranged your data in ascending order of the
-x-coordinates and plotted again. Now the blue circle is over the yellow
-triangle since 0.01 comes after 0 and similarly the red square is over
-the black asterisk since 1 comes after 0.99.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-12-1.png" style="width:80.0%" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A yellow triangle is plotted on top of a blue circle. A black asterisk is plotted on top of a red square."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Suppose you arranged your data in ascending order of the x-coordinates and plotted again. Now the blue circle is over the yellow triangle since 0.01 comes after 0 and similarly the red square is over the black asterisk since 1 comes after 0.99.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_arranged</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df_arranged</span> <span class="op">|&gt;</span></span>
@@ -287,33 +300,127 @@ the black asterisk since 1 comes after 0.99.</p>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-13-1.png" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A blue circle is plotted on top of a yellow triangle. A red square is plotted on top of a black asterisk." width="80%"></p>
-<p>If you wanted to make sure that the observation identified with an
-asterisk is always plotted on top, regardless of how the data are
-arranged in the data frame, you can create an additional layer for that
-observation.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-13-1.png" style="width:80.0%" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A blue circle is plotted on top of a yellow triangle. A red square is plotted on top of a black asterisk."></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If you wanted to make sure that the observation identified with an asterisk is always plotted on top, regardless of how the data are arranged in the data frame, you can create an additional layer for that observation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fill</span>, shape <span class="op">=</span> <span class="va">shape</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">shape</span> <span class="op">!=</span> <span class="st">"asterisk"</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">shape</span> <span class="op">==</span> <span class="st">"asterisk"</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-14-1.png" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A yellow triangle is plotted on top of a blue circle. A black asterisk is plotted on top of a red square." width="80%"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-14-1.png" style="width:80.0%" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A yellow triangle is plotted on top of a blue circle. A black asterisk is plotted on top of a red square."></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fill</span>, shape <span class="op">=</span> <span class="va">shape</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_arranged</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">shape</span> <span class="op">!=</span> <span class="st">"asterisk"</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_arranged</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">shape</span> <span class="op">==</span> <span class="st">"asterisk"</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_shape_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_identity.html">scale_fill_identity</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="faq-reordering_files/figure-html/unnamed-chunk-14-2.png" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A blue circle is plotted on top of a yellow triangle. A black asterisk is plotted on top of a red square." width="80%"></p>
-</details>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="faq-reordering_files/figure-html/unnamed-chunk-14-2.png" style="width:80.0%" alt="A scatter plot showing four points at the same y-positions but at four x-positions, of which two are very distinct. Every point has a distinct shape and colour. A blue circle is plotted on top of a yellow triangle. A black asterisk is plotted on top of a red square."></p>
+</figure>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</div>
+</details></section></section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
    </div>
@@ -323,7 +430,7 @@ observation.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>
