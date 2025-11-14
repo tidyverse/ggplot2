@@ -25,7 +25,7 @@ pak::pak("tidyverse/ggplot2")
 ## Cheatsheet
 
 [![ggplot2
-cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png)](https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf)
+cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png)](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
 
 ## Usage
 
