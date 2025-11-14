@@ -128,7 +128,7 @@ facet_wrap(
 - axis.labels:
 
   Determines whether to draw labels for interior axes when the scale is
-  fixed and the `axis` argument is not `"margins"`. When `"all"`
+  fixed and the `axes` argument is not `"margins"`. When `"all"`
   (default), all interior axes get labels. When `"margins"`, only the
   exterior axes get labels, and the interior axes get none. When
   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in
