@@ -915,8 +915,19 @@ include_layer_in_guide <- function(layer, matched) {
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide)) {
-    fun <- find_global(paste0("guide_", guide), env = global_env(),
-                       mode = "function")
+    check_string(guide, allow_empty = FALSE)
+    search_env <- list(global_env())
+    if (isTRUE(grepl("::", guide))) {
+      # Append prefix as namespaces to search environments
+      prefix <- sub("::.*", "", guide)
+      search_env <- c(search_env, list(asNamespace(prefix)))
+      # Remove prefix from guide name
+      guide <- sub(".*::", "", guide)
+    }
+    fun <- find_global(
+      paste0("guide_", guide),
+      env = search_env, mode = "function"
+    )
     if (is.function(fun)) {
       guide <- fun()
     }
