@@ -1,22 +1,7 @@
-# Connect observations
+# Shared layer parameters
 
-Connect successive points with lines of different shapes.
-
-## Usage
-
-``` r
-stat_connect(
-  mapping = NULL,
-  data = NULL,
-  geom = "path",
-  position = "identity",
-  ...,
-  connection = "hv",
-  na.rm = FALSE,
-  show.legend = NA,
-  inherit.aes = TRUE
-)
-```
+This is a central place for describing typical layer parameters. It
+prevents cluttered definitions all over the place.
 
 ## Arguments
 
@@ -65,6 +50,25 @@ stat_connect(
     geom](https://ggplot2.tidyverse.org/dev/reference/layer_geoms.md)
     documentation.
 
+- stat:
+
+  The statistical transformation to use on the data for this layer. When
+  using a `geom_*()` function to construct a layer, the `stat` argument
+  can be used to override the default coupling between geoms and stats.
+  The `stat` argument accepts the following:
+
+  - A `Stat` ggproto subclass, for example `StatCount`.
+
+  - A string naming the stat. To give the stat as a string, strip the
+    function name of the `stat_` prefix. For example, to use
+    [`stat_count()`](https://ggplot2.tidyverse.org/dev/reference/geom_bar.md),
+    give the stat as `"count"`.
+
+  - For more information and other ways to specify the stat, see the
+    [layer
+    stat](https://ggplot2.tidyverse.org/dev/reference/layer_stats.md)
+    documentation.
+
 - position:
 
   A position adjustment to use on the data for this layer. This can be
@@ -85,6 +89,28 @@ stat_connect(
     [layer
     position](https://ggplot2.tidyverse.org/dev/reference/layer_positions.md)
     documentation.
+
+- na.rm:
+
+  If `FALSE`, the default, missing values are removed with a warning. If
+  `TRUE`, missing values are silently removed.
+
+- show.legend:
+
+  Logical. Should this layer be included in the legends? `NA`, the
+  default, includes if any aesthetics are mapped. `FALSE` never
+  includes, and `TRUE` always includes. It can also be a named logical
+  vector to finely select the aesthetics to display. To include legend
+  keys for all levels, even when no data exists, use `TRUE`. If `NA`,
+  all levels are shown in legend, but unobserved levels are omitted.
+
+- inherit.aes:
+
+  If `FALSE`, overrides the default aesthetics, rather than combining
+  with them. This is most useful for helper functions that define both
+  data and aesthetics and shouldn't inherit behaviour from the default
+  plot specification, e.g.
+  [`annotation_borders()`](https://ggplot2.tidyverse.org/dev/reference/annotation_borders.md).
 
 - ...:
 
@@ -124,78 +150,45 @@ stat_connect(
     glyphs](https://ggplot2.tidyverse.org/dev/reference/draw_key.md), to
     change the display of the layer in the legend.
 
-- connection:
+- lineend:
 
-  A specification of how two points are connected. Can be one of the
-  folloing:
+  Line end style, one of `"round"`, `"butt"` or `"square"`.
 
-  - A string giving a named connection. These options are:
+- linejoin:
 
-    - `"hv"` to first jump horizontally, then vertically.
+  Line join style, one of `"round"`, `"mitre"` or `"bevel"`.
 
-    - `"vh"` to first jump vertically, then horizontally.
+- linemitre:
 
-    - `"mid"` to step half-way between adjacent x-values.
+  Line mitre limit, a number greater than 1.
 
-    - `"linear"` to use a straight segment.
+- arrow:
 
-  - A numeric matrix with two columns giving x and y coordinates
-    respectively. The coordinates should describe points on a path that
-    connect point A at location (0, 0) and point B at location (1, 1).
-    At least one of these two points is expected to be included in the
-    coordinates.
+  Arrow specification. Can be created by
+  [`grid::arrow()`](https://rdrr.io/r/grid/arrow.html) or `NULL` to not
+  draw an arrow.
 
-- na.rm:
+- arrow.fill:
 
-  If `FALSE`, the default, missing values are removed with a warning. If
-  `TRUE`, missing values are silently removed.
+  Fill colour to use for closed arrowheads. `NULL` means use `colour`
+  aesthetic.
 
-- show.legend:
+- orientation:
 
-  Logical. Should this layer be included in the legends? `NA`, the
-  default, includes if any aesthetics are mapped. `FALSE` never
-  includes, and `TRUE` always includes. It can also be a named logical
-  vector to finely select the aesthetics to display. To include legend
-  keys for all levels, even when no data exists, use `TRUE`. If `NA`,
-  all levels are shown in legend, but unobserved levels are omitted.
+  The orientation of the layer. The default (`NA`) automatically
+  determines the orientation from the aesthetic mapping. In the rare
+  event that this fails it can be given explicitly by setting
+  `orientation` to either `"x"` or `"y"`. See the *Orientation* section
+  for more detail.
 
-- inherit.aes:
+## Orientation
 
-  If `FALSE`, overrides the default aesthetics, rather than combining
-  with them. This is most useful for helper functions that define both
-  data and aesthetics and shouldn't inherit behaviour from the default
-  plot specification, e.g.
-  [`annotation_borders()`](https://ggplot2.tidyverse.org/dev/reference/annotation_borders.md).
-
-## Aesthetics
-
-`stat_connect()` understands the following aesthetics. Required
-aesthetics are displayed in bold and defaults are displayed for optional
-aesthetics:
-
-|     |                                                                                                                                                                                                                              |            |
-|-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`xmin`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`xmax`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |            |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`ymin`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`ymax`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |            |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)                                                                                                                                                    | → inferred |
-
-Learn more about setting these aesthetics in
-[`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/dev/articles/ggplot2-specs.md).
-
-## Examples
-
-``` r
-ggplot(head(economics, 20), aes(date, unemploy)) +
-  stat_connect(connection = "hv")
-
-
-# Setup custom connections
-x <- seq(0, 1, length.out = 20)[-1]
-smooth <- cbind(x, scales::rescale(1 / (1 + exp(-(x * 10 - 5)))))
-zigzag <- cbind(c(0.4, 0.6, 1), c(0.75, 0.25, 1))
-
-ggplot(head(economics, 10), aes(date, unemploy)) +
-  geom_point() +
-  stat_connect(aes(colour = "zigzag"), connection = zigzag) +
-  stat_connect(aes(colour = "smooth"), connection = smooth)
-```
+This geom treats each axis differently and, thus, can have two
+orientations. Often the orientation is easy to deduce from a combination
+of the given mappings and the types of positional scales in use. Thus,
+ggplot2 will by default try to guess which orientation the layer should
+have. Under rare circumstances, the orientation is ambiguous and
+guessing may fail. In that case the orientation can be specified
+directly using the `orientation` parameter, which can be either `"x"` or
+`"y"`. The value gives the axis that the geom should run along, `"x"`
+being the default orientation you would expect for the geom.

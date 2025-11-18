@@ -35,19 +35,19 @@ stat_ellipse(
 
   The data to be displayed in this layer. There are three options:
 
-  If `NULL`, the default, the data is inherited from the plot data as
-  specified in the call to
-  [`ggplot()`](https://ggplot2.tidyverse.org/dev/reference/ggplot.md).
+  - `NULL` (default): the data is inherited from the plot data as
+    specified in the call to
+    [`ggplot()`](https://ggplot2.tidyverse.org/dev/reference/ggplot.md).
 
-  A `data.frame`, or other object, will override the plot data. All
-  objects will be fortified to produce a data frame. See
-  [`fortify()`](https://ggplot2.tidyverse.org/dev/reference/fortify.md)
-  for which variables will be created.
+  - A `data.frame`, or other object, will override the plot data. All
+    objects will be fortified to produce a data frame. See
+    [`fortify()`](https://ggplot2.tidyverse.org/dev/reference/fortify.md)
+    for which variables will be created.
 
-  A `function` will be called with a single argument, the plot data. The
-  return value must be a `data.frame`, and will be used as the layer
-  data. A `function` can be created from a `formula` (e.g.
-  `~ head(.x, 10)`).
+  - A `function` will be called with a single argument, the plot data.
+    The return value must be a `data.frame`, and will be used as the
+    layer data. A `function` can be created from a `formula` (e.g.
+    `~ head(.x, 10)`).
 
 - geom:
 
@@ -153,7 +153,7 @@ stat_ellipse(
 
 - show.legend:
 
-  logical. Should this layer be included in the legends? `NA`, the
+  Logical. Should this layer be included in the legends? `NA`, the
   default, includes if any aesthetics are mapped. `FALSE` never
   includes, and `TRUE` always includes. It can also be a named logical
   vector to finely select the aesthetics to display. To include legend

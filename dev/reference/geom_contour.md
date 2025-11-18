@@ -95,19 +95,19 @@ stat_contour_filled(
 
   The data to be displayed in this layer. There are three options:
 
-  If `NULL`, the default, the data is inherited from the plot data as
-  specified in the call to
-  [`ggplot()`](https://ggplot2.tidyverse.org/dev/reference/ggplot.md).
+  - `NULL` (default): the data is inherited from the plot data as
+    specified in the call to
+    [`ggplot()`](https://ggplot2.tidyverse.org/dev/reference/ggplot.md).
 
-  A `data.frame`, or other object, will override the plot data. All
-  objects will be fortified to produce a data frame. See
-  [`fortify()`](https://ggplot2.tidyverse.org/dev/reference/fortify.md)
-  for which variables will be created.
+  - A `data.frame`, or other object, will override the plot data. All
+    objects will be fortified to produce a data frame. See
+    [`fortify()`](https://ggplot2.tidyverse.org/dev/reference/fortify.md)
+    for which variables will be created.
 
-  A `function` will be called with a single argument, the plot data. The
-  return value must be a `data.frame`, and will be used as the layer
-  data. A `function` can be created from a `formula` (e.g.
-  `~ head(.x, 10)`).
+  - A `function` will be called with a single argument, the plot data.
+    The return value must be a `data.frame`, and will be used as the
+    layer data. A `function` can be created from a `formula` (e.g.
+    `~ head(.x, 10)`).
 
 - stat:
 
@@ -211,25 +211,26 @@ stat_contour_filled(
 
 - arrow:
 
-  Arrow specification, as created by
-  [`grid::arrow()`](https://rdrr.io/r/grid/arrow.html).
+  Arrow specification. Can be created by
+  [`grid::arrow()`](https://rdrr.io/r/grid/arrow.html) or `NULL` to not
+  draw an arrow.
 
 - arrow.fill:
 
-  fill colour to use for the arrow head (if closed). `NULL` means use
-  `colour` aesthetic.
+  Fill colour to use for closed arrowheads. `NULL` means use `colour`
+  aesthetic.
 
 - lineend:
 
-  Line end style (round, butt, square).
+  Line end style, one of `"round"`, `"butt"` or `"square"`.
 
 - linejoin:
 
-  Line join style (round, mitre, bevel).
+  Line join style, one of `"round"`, `"mitre"` or `"bevel"`.
 
 - linemitre:
 
-  Line mitre limit (number greater than 1).
+  Line mitre limit, a number greater than 1.
 
 - na.rm:
 
@@ -238,7 +239,7 @@ stat_contour_filled(
 
 - show.legend:
 
-  logical. Should this layer be included in the legends? `NA`, the
+  Logical. Should this layer be included in the legends? `NA`, the
   default, includes if any aesthetics are mapped. `FALSE` never
   includes, and `TRUE` always includes. It can also be a named logical
   vector to finely select the aesthetics to display. To include legend

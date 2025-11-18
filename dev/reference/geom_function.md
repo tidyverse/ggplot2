@@ -134,25 +134,26 @@ stat_function(
 
 - arrow:
 
-  Arrow specification, as created by
-  [`grid::arrow()`](https://rdrr.io/r/grid/arrow.html).
+  Arrow specification. Can be created by
+  [`grid::arrow()`](https://rdrr.io/r/grid/arrow.html) or `NULL` to not
+  draw an arrow.
 
 - arrow.fill:
 
-  fill colour to use for the arrow head (if closed). `NULL` means use
-  `colour` aesthetic.
+  Fill colour to use for closed arrowheads. `NULL` means use `colour`
+  aesthetic.
 
 - lineend:
 
-  Line end style (round, butt, square).
+  Line end style, one of `"round"`, `"butt"` or `"square"`.
 
 - linejoin:
 
-  Line join style (round, mitre, bevel).
+  Line join style, one of `"round"`, `"mitre"` or `"bevel"`.
 
 - linemitre:
 
-  Line mitre limit (number greater than 1).
+  Line mitre limit, a number greater than 1.
 
 - na.rm:
 
@@ -161,7 +162,7 @@ stat_function(
 
 - show.legend:
 
-  logical. Should this layer be included in the legends? `NA`, the
+  Logical. Should this layer be included in the legends? `NA`, the
   default, includes if any aesthetics are mapped. `FALSE` never
   includes, and `TRUE` always includes. It can also be a named logical
   vector to finely select the aesthetics to display. To include legend

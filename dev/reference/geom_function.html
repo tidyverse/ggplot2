@@ -120,10 +120,8 @@ drawn (by default) with a line.</p>
 
 
 <dl><dt id="arg-mapping">mapping<a class="anchor" aria-label="anchor" href="#arg-mapping"></a></dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="aes.html">aes()</a></code>. If specified and
-<code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
-at the top level of the plot. You must supply <code>mapping</code> if there is no plot
-mapping.</p></dd>
+<dd><p>Set of aesthetic mappings created by <code><a href="aes.html">aes()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping at the top level
+of the plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
@@ -131,10 +129,10 @@ mapping.</p></dd>
 
 
 <dt id="arg-stat">stat<a class="anchor" aria-label="anchor" href="#arg-stat"></a></dt>
-<dd><p>The statistical transformation to use on the data for this layer.
-When using a <code>geom_*()</code> function to construct a layer, the <code>stat</code>
-argument can be used to override the default coupling between geoms and
-stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
+<dd><p>The statistical transformation to use on the data for this layer. When using
+a <code>geom_*()</code> function to construct a layer, the <code>stat</code> argument can be used
+to override the default coupling between geoms and stats. The <code>stat</code> argument
+accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
 <li><p>A string naming the stat. To give the stat as a string, strip the
 function name of the <code>stat_</code> prefix. For example, to use <code><a href="geom_bar.html">stat_count()</a></code>,
 give the stat as <code>"count"</code>.</p></li>
@@ -144,40 +142,40 @@ give the stat as <code>"count"</code>.</p></li>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
-<dd><p>A position adjustment to use on the data for this layer. This
-can be used in various ways, including to prevent overplotting and
-improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.
+<dd><p>A position adjustment to use on the data for this layer. This can be used in
+various ways, including to prevent overplotting and improving the display.
+The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="position_jitter.html">position_jitter()</a></code>.
 This method allows for passing extra arguments to the position.</p></li>
 <li><p>A string naming the position adjustment. To give the position as a
-string, strip the function name of the <code>position_</code> prefix. For example,
-to use <code><a href="position_jitter.html">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
+string, strip the function name of the <code>position_</code> prefix. For example, to
+use <code><a href="position_jitter.html">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
 <li><p>For more information and other ways to specify the position, see the
 <a href="layer_positions.html">layer position</a> documentation.</p></li>
 </ul></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other arguments passed on to <code><a href="layer.html">layer()</a></code>'s <code>params</code> argument. These
-arguments broadly fall into one of 4 categories below. Notably, further
-arguments to the <code>position</code> argument, or aesthetics that are required
-can <em>not</em> be passed through <code>...</code>. Unknown arguments that are not part
-of the 4 categories below are ignored.</p><ul><li><p>Static aesthetics that are not mapped to a scale, but are at a fixed
-value and apply to the layer as a whole. For example, <code>colour = "red"</code>
-or <code>linewidth = 3</code>. The geom's documentation has an <strong>Aesthetics</strong>
-section that lists the available options. The 'required' aesthetics
-cannot be passed on to the <code>params</code>. Please note that while passing
-unmapped aesthetics as vectors is technically possible, the order and
-required length is not guaranteed to be parallel to the input data.</p></li>
+<dd><p>Other arguments passed on to <code><a href="layer.html">layer()</a></code>'s <code>params</code> argument. These arguments
+broadly fall into one of 4 categories below. Notably, further arguments to
+the <code>position</code> argument, or aesthetics that are required can
+<em>not</em> be passed through <code>...</code>. Unknown arguments that are not part of the 4
+categories below are ignored.</p><ul><li><p>Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, <code>colour = "red"</code> or
+<code>linewidth = 3</code>. The geom's documentation has an <strong>Aesthetics</strong> section
+that lists the available options. The 'required' aesthetics cannot be
+passed on to the <code>params</code>. Please note that while passing unmapped
+aesthetics as vectors is technically possible, the order and required
+length is not guaranteed to be parallel to the input data.</p></li>
 <li><p>When constructing a layer using
-a <code>stat_*()</code> function, the <code>...</code> argument can be used to pass on
-parameters to the <code>geom</code> part of the layer. An example of this is
+a <code>stat_*()</code> function, the <code>...</code> argument can be used to pass on parameters
+to the <code>geom</code> part of the layer. An example of this is
 <code>stat_density(geom = "area", outline.type = "both")</code>. The geom's
 documentation lists which parameters it can accept.</p></li>
 <li><p>Inversely, when constructing a layer using a
 <code>geom_*()</code> function, the <code>...</code> argument can be used to pass on parameters
 to the <code>stat</code> part of the layer. An example of this is
-<code>geom_area(stat = "density", adjust = 0.5)</code>. The stat's documentation
-lists which parameters it can accept.</p></li>
+<code>geom_area(stat = "density", adjust = 0.5)</code>. The stat's documentation lists
+which parameters it can accept.</p></li>
 <li><p>The <code>key_glyph</code> argument of <code><a href="layer.html">layer()</a></code> may also be passed on through
 <code>...</code>. This can be one of the functions described as
 <a href="draw_key.html">key glyphs</a>, to change the display of the layer in the legend.</p></li>
@@ -185,53 +183,53 @@ lists which parameters it can accept.</p></li>
 
 
 <dt id="arg-arrow">arrow<a class="anchor" aria-label="anchor" href="#arg-arrow"></a></dt>
-<dd><p>Arrow specification, as created by <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">grid::arrow()</a></code>.</p></dd>
+<dd><p>Arrow specification. Can be created by <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">grid::arrow()</a></code> or <code>NULL</code> to not draw
+an arrow.</p></dd>
 
 
 <dt id="arg-arrow-fill">arrow.fill<a class="anchor" aria-label="anchor" href="#arg-arrow-fill"></a></dt>
-<dd><p>fill colour to use for the arrow head (if closed). <code>NULL</code>
-means use <code>colour</code> aesthetic.</p></dd>
+<dd><p>Fill colour to use for closed arrowheads. <code>NULL</code> means use <code>colour</code>
+aesthetic.</p></dd>
 
 
 <dt id="arg-lineend">lineend<a class="anchor" aria-label="anchor" href="#arg-lineend"></a></dt>
-<dd><p>Line end style (round, butt, square).</p></dd>
+<dd><p>Line end style, one of <code>"round"</code>, <code>"butt"</code> or <code>"square"</code>.</p></dd>
 
 
 <dt id="arg-linejoin">linejoin<a class="anchor" aria-label="anchor" href="#arg-linejoin"></a></dt>
-<dd><p>Line join style (round, mitre, bevel).</p></dd>
+<dd><p>Line join style, one of <code>"round"</code>, <code>"mitre"</code> or <code>"bevel"</code>.</p></dd>
 
 
 <dt id="arg-linemitre">linemitre<a class="anchor" aria-label="anchor" href="#arg-linemitre"></a></dt>
-<dd><p>Line mitre limit (number greater than 1).</p></dd>
+<dd><p>Line mitre limit, a number greater  than 1.</p></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
-<dd><p>If <code>FALSE</code>, the default, missing values are removed with
-a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
+<dd><p>If <code>FALSE</code>, the default, missing values are removed with a warning. If
+<code>TRUE</code>, missing values are silently removed.</p></dd>
 
 
 <dt id="arg-show-legend">show.legend<a class="anchor" aria-label="anchor" href="#arg-show-legend"></a></dt>
-<dd><p>logical. Should this layer be included in the legends?
-<code>NA</code>, the default, includes if any aesthetics are mapped.
-<code>FALSE</code> never includes, and <code>TRUE</code> always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display. To include legend keys for all levels, even
-when no data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend,
-but unobserved levels are omitted.</p></dd>
+<dd><p>Logical. Should this layer be included in the legends? <code>NA</code>, the default,
+includes if any aesthetics are mapped. <code>FALSE</code> never includes, and <code>TRUE</code>
+always includes. It can also be a named logical vector to finely select the
+aesthetics to display. To include legend keys for all levels, even when no
+data exists, use <code>TRUE</code>.  If <code>NA</code>, all levels are shown in legend, but
+unobserved levels are omitted.</p></dd>
 
 
 <dt id="arg-inherit-aes">inherit.aes<a class="anchor" aria-label="anchor" href="#arg-inherit-aes"></a></dt>
-<dd><p>If <code>FALSE</code>, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
+<dd><p>If <code>FALSE</code>, overrides the default aesthetics, rather than combining with
+them. This is most useful for helper functions that define both data and
+aesthetics and shouldn't inherit behaviour from the default plot
+specification, e.g. <code><a href="annotation_borders.html">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-geom">geom<a class="anchor" aria-label="anchor" href="#arg-geom"></a></dt>
-<dd><p>The geometric object to use to display the data for this layer.
-When using a <code>stat_*()</code> function to construct a layer, the <code>geom</code> argument
-can be used to override the default coupling between stats and geoms. The
-<code>geom</code> argument accepts the following:</p><ul><li><p>A <code>Geom</code> ggproto subclass, for example <code>GeomPoint</code>.</p></li>
+<dd><p>The geometric object to use to display the data for this layer. When using a
+<code>stat_*()</code> function to construct a layer, the <code>geom</code> argument can be used to
+override the default coupling between stats and geoms. The <code>geom</code> argument
+accepts the following:</p><ul><li><p>A <code>Geom</code> ggproto subclass, for example <code>GeomPoint</code>.</p></li>
 <li><p>A string naming the geom. To give the geom as a string, strip the
 function name of the <code>geom_</code> prefix. For example, to use <code><a href="geom_point.html">geom_point()</a></code>,
 give the geom as <code>"point"</code>.</p></li>
