@@ -791,6 +791,12 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
   full    <- "3.4.0"
   soft    <- utils::packageVersion("ggplot2")
 
+  if (identical(escalate, "delay")) {
+    soft <- full
+    full <- defunct
+    defunct <- "0.0.0"
+  }
+
   version <- as.package_version(when)
   if (version < defunct || identical(escalate, "abort")) {
     lifecycle::deprecate_stop(when, ...)
