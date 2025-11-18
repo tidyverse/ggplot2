@@ -110,7 +110,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
 
   extra <- list()
   if (lifecycle::is_present(draw_quantiles)) {
-    deprecate_soft0(
+    deprecate(
       "4.0.0",
       what = "geom_violin(draw_quantiles)",
       with = "geom_violin(quantiles.linetype)"

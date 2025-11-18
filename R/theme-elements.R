@@ -142,7 +142,7 @@ element_rect <- S7::new_class(
                          inherit.blank = FALSE, size = deprecated(), ...){
     warn_dots_empty()
     if (lifecycle::is_present(size)) {
-      deprecate_warn0("3.4.0", "element_rect(size)", "element_rect(linewidth)")
+      deprecate("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
     }
     obj <- S7::new_object(
@@ -177,7 +177,7 @@ element_line <- S7::new_class(
                          inherit.blank = FALSE, size = deprecated(), ...) {
     warn_dots_empty()
     if (lifecycle::is_present(size)) {
-      deprecate_warn0("3.4.0", "element_line(size)", "element_line(linewidth)")
+      deprecate("3.4.0", "element_line(size)", "element_line(linewidth)")
       linewidth <- size
     }
     colour <- color %||% colour
@@ -397,15 +397,15 @@ rel <- function(x) {
 # Element getter methods
 local({
   S7::method(`$`, element) <- function(x, i) {
-    # deprecate_soft0("4.1.0", I("`<ggplot2::element>$i`"), I("`<ggplot2::element>@i`"))
+    deprecate("4.1.0", I("`<ggplot2::element>$i`"), I("`<ggplot2::element>@i`"))
     `[[`(S7::props(x), i)
   }
   S7::method(`[`, element) <- function(x, i) {
-    # deprecate_soft0("4.1.0", I("`<gglot2::element>[i]`"), I("`S7::props(<ggplot2::element>, i)`"))
+    deprecate("4.1.0", I("`<gglot2::element>[i]`"), I("`S7::props(<ggplot2::element>, i)`"))
     `[`(S7::props(x), i)
   }
   S7::method(`[[`, element) <- function(x, i) {
-    # deprecate_soft0("4.1.0", I("`<ggplot2::element>[[i]]`"), I("`S7::prop(<ggplot2::element>, i)`"))
+    deprecate("4.1.0", I("`<ggplot2::element>[[i]]`"), I("`S7::prop(<ggplot2::element>, i)`"))
     `[[`(S7::props(x), i)
   }
 })
@@ -413,21 +413,21 @@ local({
 # Element setter methods
 #' @export
 `$<-.ggplot2::element` <- function(x, i, value) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>$i <- value`"), I("`<ggplot2::element>@i <- value`"))
+  deprecate("4.1.0", I("`<ggplot2::element>$i <- value`"), I("`<ggplot2::element>@i <- value`"))
   S7::props(x) <- `[[<-`(S7::props(x), i, value)
   x
 }
 
 #' @export
 `[<-.ggplot2::element` <- function(x, i, value) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>[i] <- value`"), I("`S7::props(<ggplot2::element>)[i] <- value`"))
+  deprecate("4.1.0", I("`<ggplot2::element>[i] <- value`"), I("`S7::props(<ggplot2::element>)[i] <- value`"))
   S7::props(x) <- `[<-`(S7::props(x), i, value)
   x
 }
 
 #' @export
 `[[<-.ggplot2::element` <- function(x, i, value) {
-  # deprecate_soft0("4.1.0", I("`<ggplot2::element>[[i]] <- value`"), I("S7::prop(<ggplot2::element>, i) <- value"))
+  deprecate("4.1.0", I("`<ggplot2::element>[[i]] <- value`"), I("S7::prop(<ggplot2::element>, i) <- value"))
   S7::props(x) <- `[[<-`(S7::props(x), i, value)
   x
 }
@@ -487,7 +487,7 @@ S7::method(element_grob, element_rect) <-
            ..., size = deprecated()) {
 
     if (lifecycle::is_present(size)) {
-      deprecate_warn0("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
+      deprecate("3.4.0", "element_grob.element_rect(size)", "element_grob.element_rect(linewidth)")
       linewidth <- size
     }
 
@@ -539,7 +539,7 @@ S7::method(element_grob, element_line) <-
            default.units = "npc", id.lengths = NULL, ..., size = deprecated()) {
 
     if (lifecycle::is_present(size)) {
-      deprecate_warn0("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
+      deprecate("3.4.0", "element_grob.element_line(size)", "element_grob.element_line(linewidth)")
       linewidth <- size
     }
 

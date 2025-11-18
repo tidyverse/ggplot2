@@ -38,8 +38,9 @@
 #' ggplot(augment(mod, mtcars), aes(.fitted, .std.resid, colour = factor(cyl))) +
 #'   geom_point()
 fortify.lm <- function(model, data = model$model, ...) {
-  lifecycle::deprecate_warn(
-    "4.0.0", I("`fortify(<lm>)`"), I("`broom::augment(<lm>)`")
+  deprecate(
+    "4.0.0", escalate = "warn",
+    I("`fortify(<lm>)`"), I("`broom::augment(<lm>)`")
   )
   infl <- stats::influence(model, do.coef = FALSE)
   data$.hat <- infl$hat
@@ -101,8 +102,9 @@ NULL
 #' @rdname fortify-multcomp
 #' @export
 fortify.glht <- function(model, data, ...) {
-  lifecycle::deprecate_warn(
-    "4.0.0", I("`fortify(<glht>)`"), I("`broom::tidy(<glht>)`")
+  deprecate(
+    "4.0.0", escalate = "warn",
+    I("`fortify(<glht>)`"), I("`broom::tidy(<glht>)`")
   )
   base::data.frame(
     lhs = rownames(model$linfct),
@@ -117,8 +119,9 @@ fortify.glht <- function(model, data, ...) {
 #' @method fortify confint.glht
 #' @export
 fortify.confint.glht <- function(model, data, ...) {
-  lifecycle::deprecate_warn(
-    "4.0.0", I("`fortify(<confint.glht>)`"), I("`broom::tidy(<confint.glht>)`")
+  deprecate(
+    "4.0.0", escalate = "warn",
+    I("`fortify(<confint.glht>)`"), I("`broom::tidy(<confint.glht>)`")
   )
   coef <- model$confint
   colnames(coef) <- to_lower_ascii(colnames(coef))
@@ -136,8 +139,9 @@ fortify.confint.glht <- function(model, data, ...) {
 #' @rdname fortify-multcomp
 #' @export
 fortify.summary.glht <- function(model, data, ...) {
-  lifecycle::deprecate_warn(
-    "4.0.0", I("`fortify(<summary.glht>)`"), I("`broom::tidy(<summary.glht>)`")
+  deprecate(
+    "4.0.0", escalate = "warn",
+    I("`fortify(<summary.glht>)`"), I("`broom::tidy(<summary.glht>)`")
   )
   coef <- as.data.frame(
     model$test[c("coefficients", "sigma", "tstat", "pvalues")])
@@ -157,8 +161,9 @@ fortify.summary.glht <- function(model, data, ...) {
 #' @rdname fortify-multcomp
 #' @export
 fortify.cld <- function(model, data, ...) {
-  lifecycle::deprecate_warn(
-    "4.0.0", I("`fortify(<summary.glht>)`"), I("`broom::tidy(<summary.glht>)`")
+  deprecate(
+    "4.0.0", escalate = "warn",
+    I("`fortify(<summary.glht>)`"), I("`broom::tidy(<summary.glht>)`")
   )
   base::data.frame(
     lhs = names(model$mcletters$Letters),

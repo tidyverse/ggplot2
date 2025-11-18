@@ -78,7 +78,7 @@ guides <- function(...) {
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
-    deprecate_warn0("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
+    deprecate("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
     args[idx_false] <- "none"
   }
 
@@ -345,7 +345,7 @@ Guides <- ggproto(
         default %||% missing
 
       if (isFALSE(guide)) {
-        deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
+        deprecate("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
         guide <- "none"
       }
 

@@ -113,7 +113,7 @@ is_ggproto <- function(x) inherits(x, "ggproto")
 #' @rdname is_tests
 #' @usage is.ggproto(x) # Deprecated
 is.ggproto <- function(x) {
-  deprecate_soft0("3.5.2", "is.ggproto()", "is_ggproto()")
+  deprecate("3.5.2", "is.ggproto()", "is_ggproto()")
   is_ggproto(x)
 }
 

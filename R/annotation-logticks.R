@@ -96,7 +96,7 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
   lifecycle::signal_stage("superseded", "annotation_logticks()", "guide_axis_logticks()")
 
   if (lifecycle::is_present(size)) {
-    deprecate_soft0("3.5.0", I("Using the `size` aesthetic in this geom"), I("`linewidth`"))
+    deprecate("3.5.0", I("Using the `size` aesthetic in this geom"), I("`linewidth`"))
     linewidth <- linewidth %||% size
   }
 
