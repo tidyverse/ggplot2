@@ -920,7 +920,7 @@ validate_guide <- function(guide) {
     if (isTRUE(grepl("::", guide))) {
       # Append prefix as namespaces to search environments
       prefix <- sub("::.*", "", guide)
-      search_env <- c(search_env, list(asNamespace(prefix)))
+      search_env <- c(search_env, list(as_namespace(prefix)))
       # Remove prefix from guide name
       guide <- sub(".*::", "", guide)
     }

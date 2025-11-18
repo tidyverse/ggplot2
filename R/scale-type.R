@@ -13,7 +13,7 @@ find_scale <- function(aes, x, env = parent.frame()) {
     if (isTRUE(grepl("::", scale))) {
       # Append prefix as namepaces to search environments
       prefix <- sub("::.*", "", scale)
-      search_env <- c(search_env, list(asNamespace(prefix)))
+      search_env <- c(search_env, list(as_namespace(prefix)))
       # Remove prefix from scale name
       scale <- sub(".*::", "", scale)
     }
@@ -41,7 +41,7 @@ find_global <- function(name, env, mode = "any") {
   if (!is.list(env)) {
     env <- list(env)
   }
-  env <- c(env, list(asNamespace("ggplot2")))
+  env <- c(env, list(as_namespace("ggplot2")))
 
   for (e in env) {
     if (exists(name, envir = e, mode = mode)) {
@@ -51,6 +51,13 @@ find_global <- function(name, env, mode = "any") {
 
   NULL
 }
+
+# This exists for testing purposes (mocking) only
+as_namespace <- function(...) NULL
+on_load({
+  as_namespace <- base::asNamespace
+})
+
 
 #' Determine default scale type
 #'
