@@ -24,3 +24,41 @@ test_that("find_scale gives sensible calls to scales", {
     quote(scale_colour_discrete())
   )
 })
+
+test_that("find_scale finds scales with namespace prefixes", {
+
+  # Mock foo::bar as namespace
+  fake_namespace <- new_environment()
+  env_bind(
+    fake_namespace,
+    scale_x_bar = function(...) scale_x_continuous(name = "barname")
+  )
+
+  local_mocked_bindings(
+    as_namespace = function(ns, ...) {
+      if (identical(ns, "foo")) {
+        return(fake_namespace)
+      } else {
+        base::asNamespace(ns, ...)
+      }
+    }
+  )
+
+  # No loaded namespace has a scale_x_bar
+  registerS3method(
+    "scale_type", "bar",
+    method = function(x) "bar"
+  )
+
+  sc <- find_scale("x", structure(1, class = "bar"))
+  expect_null(sc)
+
+  # With prefix, we know the namespace where to look for scale_x_bar
+  registerS3method(
+    "scale_type", "bar",
+    method = function(x) "foo::bar"
+  )
+
+  sc <- find_scale("x", structure(1, class = "bar"))
+  expect_equal(sc$name, "barname")
+})

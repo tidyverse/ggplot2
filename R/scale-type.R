@@ -7,10 +7,18 @@ find_scale <- function(aes, x, env = parent.frame()) {
   }
 
   type <- scale_type(x)
-  candidates <- paste("scale", aes, type, sep = "_")
 
-  for (scale in candidates) {
-    scale_f <- find_global(scale, env, mode = "function")
+  for (scale in type) {
+    search_env <- list(env)
+    if (isTRUE(grepl("::", scale))) {
+      # Append prefix as namepaces to search environments
+      prefix <- sub("::.*", "", scale)
+      search_env <- c(search_env, list(as_namespace(prefix)))
+      # Remove prefix from scale name
+      scale <- sub(".*::", "", scale)
+    }
+    scale <- paste("scale", aes, scale, sep = "_")
+    scale_f <- find_global(scale, search_env, mode = "function")
     if (!is.null(scale_f)) {
       sc <- scale_f()
       sc$call <- parse_expr(paste0(scale, "()"))
@@ -29,17 +37,27 @@ find_scale <- function(aes, x, env = parent.frame()) {
 # ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
 find_global <- function(name, env, mode = "any") {
-  if (exists(name, envir = env, mode = mode)) {
-    return(get(name, envir = env, mode = mode))
-  }
 
-  nsenv <- asNamespace("ggplot2")
-  if (exists(name, envir = nsenv, mode = mode)) {
-    return(get(name, envir = nsenv, mode = mode))
+  if (!is.list(env)) {
+    env <- list(env)
+  }
+  env <- c(env, list(as_namespace("ggplot2")))
+
+  for (e in env) {
+    if (exists(name, envir = e, mode = mode)) {
+      return(get(name, envir = e, mode = mode))
+    }
   }
 
   NULL
 }
+
+# This exists for testing purposes (mocking) only
+as_namespace <- function(...) NULL
+on_load({
+  as_namespace <- base::asNamespace
+})
+
 
 #' Determine default scale type
 #'

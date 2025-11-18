@@ -37,6 +37,10 @@
 
     `nrow` * `ncol` needs to be larger than the number of breaks (5).
 
+# validate_guide finds guides with namespace prefixes
+
+    Unknown guide: bar
+
 # get_guide_data retrieves keys appropriately
 
     Code
