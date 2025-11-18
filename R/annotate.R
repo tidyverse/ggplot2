@@ -18,8 +18,7 @@
 #' @param geom name of geom to use for annotation
 #' @param x,y,xmin,ymin,xmax,ymax,xend,yend positioning aesthetics -
 #'   you must specify at least one of these.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @seealso
 #' The `r link_book("custom annotations section", "annotations#sec-custom-annotations")`
 #' @export

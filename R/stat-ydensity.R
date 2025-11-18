@@ -128,8 +128,7 @@ StatYdensity <- ggproto(
   dropped_aes = "weight"
 )
 
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams stat_density
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
