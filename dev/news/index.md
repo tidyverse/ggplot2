@@ -11,8 +11,6 @@
 
 ## ggplot2 4.0.1
 
-CRAN release: 2025-11-14
-
 This is a smaller patch release focussed on fixing regressions from
 4.0.0 and polishing the recent features.
 
@@ -95,8 +93,6 @@ This is a smaller patch release focussed on fixing regressions from
   [\#6667](https://github.com/tidyverse/ggplot2/issues/6667))
 
 ## ggplot2 4.0.0
-
-CRAN release: 2025-09-11
 
 ### User facing
 
@@ -918,8 +914,6 @@ CRAN release: 2025-09-11
 
 ## ggplot2 3.5.2
 
-CRAN release: 2025-04-09
-
 This is a small release focusing on providing infrastructure for other
 packages to gracefully prepare for changes in the next major release.
 
@@ -957,8 +951,6 @@ packages to gracefully prepare for changes in the next major release.
   [\#5800](https://github.com/tidyverse/ggplot2/issues/5800)).
 
 ## ggplot2 3.5.1
-
-CRAN release: 2024-04-23
 
 This is a small release focusing on fixing regressions from 3.5.0 and
 documentation updates.
@@ -1049,8 +1041,6 @@ documentation updates.
   [\#6166](https://github.com/tidyverse/ggplot2/issues/6166)).
 
 ## ggplot2 3.5.0
-
-CRAN release: 2024-02-23
 
 This is a minor release that turned out quite beefy. It is focused on
 overhauling the guide system: the system responsible for displaying
@@ -1659,8 +1649,6 @@ extensible in the same manner as geoms, stats, facets and coords
 
 ## ggplot2 3.4.4
 
-CRAN release: 2023-10-12
-
 This hotfix release adapts to a change in r-devel’s
 [`base::is.atomic()`](https://rdrr.io/r/base/is.recursive.html) and the
 upcoming retirement of maptools.
@@ -1678,14 +1666,10 @@ upcoming retirement of maptools.
 
 ## ggplot2 3.4.3
 
-CRAN release: 2023-08-14
-
 This hotfix release addresses a version comparison change in r-devel.
 There are no user-facing or breaking changes.
 
 ## ggplot2 3.4.2
-
-CRAN release: 2023-04-03
 
 This is a hotfix release anticipating changes in r-devel, but folds in
 upkeep changes and a few bug fixes as well.
@@ -1766,8 +1750,6 @@ upkeep changes and a few bug fixes as well.
   [\#2757](https://github.com/tidyverse/ggplot2/issues/2757)).
 
 ## ggplot2 3.4.1
-
-CRAN release: 2023-02-10
 
 This is a small release focusing on fixing regressions in the 3.4.0
 release and minor polishes.
@@ -1850,8 +1832,6 @@ In binned scales:
   [\#4217](https://github.com/tidyverse/ggplot2/issues/4217)).
 
 ## ggplot2 3.4.0
-
-CRAN release: 2022-11-04
 
 This is a minor release focusing on tightening up the internals and
 ironing out some inconsistencies in the API. The biggest change is the
@@ -2187,16 +2167,12 @@ speed.
 
 ## ggplot2 3.3.6
 
-CRAN release: 2022-05-03
-
 This is a very small release only applying an internal change to comply
 with R 4.2 and its deprecation of
 [`default.stringsAsFactors()`](https://rdrr.io/r/base/base-defunct.html).
 There are no user facing changes and no breaking changes.
 
 ## ggplot2 3.3.5
-
-CRAN release: 2021-06-25
 
 This is a very small release focusing on fixing a couple of untenable
 issues that surfaced with the 3.3.4 release
@@ -2223,8 +2199,6 @@ issues that surfaced with the 3.3.4 release
   [\#4527](https://github.com/tidyverse/ggplot2/issues/4527))
 
 ## ggplot2 3.3.4
-
-CRAN release: 2021-06-16
 
 This is a larger patch release fixing a huge number of bugs and
 introduces a small selection of feature refinements.
@@ -2503,8 +2477,6 @@ introduces a small selection of feature refinements.
 
 ## ggplot2 3.3.3
 
-CRAN release: 2020-12-30
-
 This is a small patch release mainly intended to address changes in R
 and CRAN. It further changes the licensing model of ggplot2 to an MIT
 license.
@@ -2529,8 +2501,6 @@ license.
   [\#4085](https://github.com/tidyverse/ggplot2/issues/4085)).
 
 ## ggplot2 3.3.2
-
-CRAN release: 2020-06-19
 
 This is a small release focusing on fixing regressions introduced in
 3.3.1.
@@ -2631,14 +2601,10 @@ This is a small release focusing on fixing regressions introduced in
 
 ## ggplot2 3.3.1
 
-CRAN release: 2020-05-28
-
 This is a small release with no code change. It removes all malicious
 links to a site that got hijacked from the readme and pkgdown site.
 
 ## ggplot2 3.3.0
-
-CRAN release: 2020-03-05
 
 This is a minor release but does contain a range of substantial new
 features, along with the standard bug fixes. The release contains a few
@@ -2921,8 +2887,6 @@ packages to fail.
 
 ## ggplot2 3.2.1
 
-CRAN release: 2019-08-10
-
 This is a patch release fixing a few regressions introduced in 3.2.0 as
 well as fixing some unit tests that broke due to upstream changes.
 
@@ -2940,8 +2904,6 @@ well as fixing some unit tests that broke due to upstream changes.
 - Fixes unit tests for sf graticule labels caused by changes to sf
 
 ## ggplot2 3.2.0
-
-CRAN release: 2019-06-16
 
 This is a minor release with an emphasis on internal changes to make
 ggplot2 faster and more consistent. The few interface changes will only
@@ -3254,8 +3216,6 @@ R.
 
 ## ggplot2 3.1.0
 
-CRAN release: 2018-10-25
-
 ### Breaking changes
 
 This is a minor release and breaking changes have been kept to a
@@ -3447,8 +3407,6 @@ accompanying issue
   [\#2679](https://github.com/tidyverse/ggplot2/issues/2679)).
 
 ## ggplot2 3.0.0
-
-CRAN release: 2018-07-03
 
 ### Breaking changes
 
@@ -4164,14 +4122,10 @@ CRAN release: 2018-07-03
 
 ## ggplot2 2.2.1
 
-CRAN release: 2016-12-30
-
 - Fix usage of `structure(NULL)` for R-devel compatibility
   ([\#1968](https://github.com/tidyverse/ggplot2/issues/1968)).
 
 ## ggplot2 2.2.0
-
-CRAN release: 2016-11-11
 
 ### Major new features
 
@@ -4539,8 +4493,6 @@ legends:
 
 ## ggplot2 2.1.0
 
-CRAN release: 2016-03-01
-
 ### New features
 
 - When mapping an aesthetic to a constant (e.g.
@@ -4734,8 +4686,6 @@ CRAN release: 2016-03-01
   ([\#1933](https://github.com/tidyverse/ggplot2/issues/1933))
 
 ## ggplot2 2.0.0
-
-CRAN release: 2015-12-18
 
 ### Major changes
 
