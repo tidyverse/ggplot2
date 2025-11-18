@@ -285,7 +285,7 @@ GeomSf <- ggproto("GeomSf", Geom,
 
 #' @export
 #' @rdname ggsf
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
