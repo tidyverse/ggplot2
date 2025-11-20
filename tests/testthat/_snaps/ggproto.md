@@ -10,3 +10,15 @@
 
     `_inherit` must be a <ggproto> object, not a <data.frame> object.
 
+# ggproto objects print well
+
+    Code
+      print(Foo)
+    Output
+      <ggproto object: Class Foo, gg>
+          empty: NULL
+          env: environment
+          method: function
+          num: 12
+          theme: theme, ggplot2::theme, gg, S7_object
+

@@ -1,47 +1,9 @@
+# Quosures ----------------------------------------------------------------
+
 test_that("aes() captures input expressions", {
   out <- aes(mpg, wt + 1)
   expect_identical(out$x, quo(mpg))
   expect_identical(out$y, quo(wt + 1))
-})
-
-test_that("aes_q() uses quoted calls and formulas", {
-  # Silence deprecation warning
-  out <- suppressWarnings(aes_q(quote(mpg), ~ wt + 1))
-  expect_identical(out$x, quo(mpg))
-  expect_identical(out$y, quo(wt + 1))
-})
-
-test_that("aes_string() parses strings", {
-  # Silence deprecation warning
-  suppressWarnings(expect_equal(aes_string("a + b")$x, quo(a + b)))
-})
-
-test_that("aes_string() doesn't parse non-strings", {
-  old <- options(OutDec = ",")
-  on.exit(options(old))
-
-  # Silence deprecation warning
-  suppressWarnings(expect_identical(aes_string(0.4)$x, 0.4))
-})
-
-test_that("aes_q() & aes_string() preserve explicit NULLs", {
-  # Silence deprecation warning
-  suppressWarnings(expect_equal(aes_q(NULL), aes(NULL)))
-  suppressWarnings(expect_equal(aes_q(x = NULL), aes(NULL)))
-  suppressWarnings(expect_equal(aes_q(colour = NULL), aes(colour = NULL)))
-
-  suppressWarnings(expect_equal(aes_string(NULL), aes(NULL)))
-  suppressWarnings(expect_equal(aes_string(x = NULL), aes(NULL)))
-  suppressWarnings(expect_equal(aes_string(colour = NULL), aes(colour = NULL)))
-})
-
-test_that("aes_all() converts strings into mappings", {
-  expect_equal(
-    unclass(aes_all(c("x", "y", "col", "pch"))),
-    unclass(aes(x, y, colour = col, shape = pch)),
-    # ignore the environments of quosures
-    ignore_attr = TRUE
-  )
 })
 
 test_that("aes evaluated in environment where plot created", {
@@ -99,12 +61,7 @@ test_that("quosures are squashed when creating default label for a mapping", {
   expect_identical(labels$x, "identity(cyl)")
 })
 
-test_that("labelling doesn't cause error if aesthetic is NULL", {
-  p <- ggplot(mtcars) + aes(x = NULL)
-  labels <- ggplot_build(p)@plot@labels
-  # NULL labels should only be used as fallback labels
-  expect_identical(labels$x, structure("x", fallback = TRUE))
-})
+# Standardisation ---------------------------------------------------------
 
 test_that("aes standardises aesthetic names", {
   # test a few common cases
@@ -118,6 +75,9 @@ test_that("aes standardises aesthetic names", {
   # warning when standardisation creates duplicates
   expect_snapshot_warning(aes(color = x, colour = y))
 })
+
+
+# Extraction --------------------------------------------------------------
 
 test_that("warn_for_aes_extract_usage() warns for discouraged uses of $ and [[ within aes()", {
 
@@ -165,9 +125,28 @@ test_that("Warnings are issued when plots use discouraged extract usage within a
   expect_snapshot_warning(ggplot_build(p))
 })
 
-test_that("aes evaluation fails with unknown input", {
-  expect_snapshot_error(is_calculated(environment()))
-  expect_snapshot_error(strip_dots(environment()))
+test_that("alternative_aes_extract_usage() can inspect the call", {
+  x <- quote(test[['var']])
+  expect_identical(alternative_aes_extract_usage(x), ".data[[\"var\"]]")
+  x <- quote(test$var)
+  expect_identical(alternative_aes_extract_usage(x), "var")
+  x <- quote(foo())
+  expect_snapshot_error(alternative_aes_extract_usage(x))
+})
+
+# Other -------------------------------------------------------------------
+
+test_that("mapping class is preserved when adding mapping objects", {
+  p <- ggplot(mtcars) + aes(wt, mpg)
+  expect_s7_class(p@mapping, class_mapping)
+})
+
+
+test_that("labelling doesn't cause error if aesthetic is NULL", {
+  p <- ggplot(mtcars) + aes(x = NULL)
+  labels <- ggplot_build(p)@plot@labels
+  # NULL labels should only be used as fallback labels
+  expect_identical(labels$x, structure("x", fallback = TRUE))
 })
 
 test_that("aes() supports `!!!` in named arguments (#2675)", {
@@ -186,17 +165,54 @@ test_that("aes() supports `!!!` in named arguments (#2675)", {
   expect_snapshot_error(aes(y = 1, !!!list(y = 2)))
 })
 
-test_that("alternative_aes_extract_usage() can inspect the call", {
-  x <- quote(test[['var']])
-  expect_identical(alternative_aes_extract_usage(x), ".data[[\"var\"]]")
-  x <- quote(test$var)
-  expect_identical(alternative_aes_extract_usage(x), "var")
-  x <- quote(foo())
-  expect_snapshot_error(alternative_aes_extract_usage(x))
-})
-
 test_that("class_mapping() checks its inputs", {
   expect_snapshot_error(class_mapping(1:5))
+})
+
+test_that("aesthetic parameters match length of data", {
+  df <- data_frame(x = 1:5, y = 1:5)
+  p <- ggplot(df, aes(x, y))
+
+  set_colours <- function(colours) {
+    get_layer_data(p + geom_point(colour = colours))
+  }
+
+  set_colours("red")
+  expect_snapshot(set_colours(rep("red", 2)), error = TRUE)
+  expect_snapshot(set_colours(rep("red", 3)), error = TRUE)
+  expect_snapshot(set_colours(rep("red", 4)), error = TRUE)
+  set_colours(rep("red", 5))
+})
+
+test_that("Length 1 aesthetics are recycled to 0", {
+  p <- ggplot(data.frame(x = numeric(), y = numeric())) +
+    geom_point(aes(x, y, colour = "red"))
+
+  expect_silent(plot(p))
+
+  data <- get_layer_data(p)
+
+  expect_equal(nrow(data), 0)
+})
+
+test_that("alpha affects only fill colour of solid geoms", {
+  df <- data_frame(x = 1:2, y = 1)
+
+  poly <- ggplot(df, aes(x = x, y)) +
+    geom_polygon(fill = "red", colour = "red", alpha = 0.5)
+  rect <- ggplot(df, aes(xmin = x, xmax = x + 1, ymin = 1, ymax = y + 1)) +
+    geom_rect(fill = "red", colour = "red", alpha = 0.5)
+  # geom_ribbon() consists of polygonGrob and polylineGrob
+  ribb <- ggplot(df, aes(x = x, ymin = 1, ymax = y + 1)) +
+    geom_ribbon(fill = "red", colour = "red", alpha = 0.5)
+
+  expect_equal(get_layer_grob(poly)[[1]]$gp$col[[1]], "red")
+  expect_equal(get_layer_grob(rect)[[1]]$gp$col[[1]], "red")
+  expect_equal(get_layer_grob(ribb)[[1]]$children[[1]]$children[[2]]$gp$col[[1]], "red")
+
+  expect_equal(get_layer_grob(poly)[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(get_layer_grob(rect)[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(get_layer_grob(ribb)[[1]]$children[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
 })
 
 # Visual tests ------------------------------------------------------------

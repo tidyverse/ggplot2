@@ -1795,11 +1795,6 @@ check_continuous_limits <- function(limits, ...,
   check_length(limits, 2L, arg = arg, call = call)
 }
 
-allow_lambda <- function(x) {
-  # we check the 'call' class to prevent interpreting `bquote()` calls as a function
-  if (is_formula(x, lhs = FALSE) && !inherits(x, "call")) as_function(x) else x
-}
-
 validate_fallback_palette <- function(pal, fallback, aesthetic = "x",
                                       discrete = FALSE, call = caller_env()) {
   if (!is.null(pal) || is.function(fallback)) {

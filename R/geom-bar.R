@@ -40,6 +40,14 @@ GeomBar <- ggproto(
   rename_size = FALSE
 )
 
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.R
+# TODO: deprecate this
+GeomCol <- ggproto("GeomCol", GeomBar)
+
 #' Bar charts
 #'
 #' There are two types of bar charts: `geom_bar()` and `geom_col()`.
@@ -133,3 +141,7 @@ geom_bar <- make_constructor(
   GeomBar,
   stat = "count", position = "stack", just = 0.5
 )
+
+#' @export
+#' @rdname geom_bar
+geom_col <- make_constructor(GeomCol, position = "stack", just = 0.5)

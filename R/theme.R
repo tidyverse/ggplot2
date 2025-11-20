@@ -702,7 +702,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
     return(t1)
   }
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
-    cli::cli_abort("Can't add {.arg {t2name}} to a theme object.", call = call)
+    cli::cli_abort("Can't add {.arg {t2name}} to a theme object.", call = NULL)
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2
