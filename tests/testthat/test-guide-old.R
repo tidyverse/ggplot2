@@ -51,13 +51,15 @@ test_that("old S3 guides can be implemented", {
   my_guides <- guides(x = guide_circle())
   expect_length(my_guides$guides, 1)
   expect_s3_class(my_guides$guides[[1]], "guide")
+  title <- "old S3 guide drawing a circle"
 
-  expect_snapshot_warning(
-    expect_doppelganger(
-      "old S3 guide drawing a circle",
-      ggplot(mtcars, aes(disp, mpg)) +
-        geom_point() +
-        my_guides
-    )
-  )
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
+    my_guides +
+    theme_test() +
+    labs(title = title)
+
+  lifecycle::expect_deprecated(gt <- ggplotGrob(p))
+
+  expect_doppelganger(title, fig = function() grid.draw(gt))
 })
