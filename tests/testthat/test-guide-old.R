@@ -1,5 +1,4 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
-skip("Temporarily disabled for testing CI")
 
 test_that("old S3 guides can be implemented", {
   my_env <- env()
@@ -48,19 +47,16 @@ test_that("old S3 guides can be implemented", {
   )
 
   withr::local_environment(my_env)
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   my_guides <- guides(x = guide_circle())
   expect_length(my_guides$guides, 1)
   expect_s3_class(my_guides$guides[[1]], "guide")
-  title <- "old S3 guide drawing a circle"
 
-  p <- ggplot(mtcars, aes(disp, mpg)) +
-    geom_point() +
-    my_guides +
-    theme_test() +
-    labs(title = title)
-
-  lifecycle::expect_deprecated(gt <- ggplotGrob(p))
-
-  expect_doppelganger(title, fig = function() grid.draw(gt))
+  expect_doppelganger(
+    "old S3 guide drawing a circle",
+    ggplot(mtcars, aes(disp, mpg)) +
+      geom_point() +
+      my_guides
+  )
 })
