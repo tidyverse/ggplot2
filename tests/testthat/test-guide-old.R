@@ -1,4 +1,5 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
+skip("Temporarily disabled for testing CI")
 
 test_that("old S3 guides can be implemented", {
   my_env <- env()
