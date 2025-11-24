@@ -54,7 +54,7 @@ test_that("old S3 guides can be implemented", {
   expect_s3_class(my_guides$guides[[1]], "guide")
 
   expect_doppelganger(
-    "old S3 guide drawing a circle",
+    "dummy old s3 guide",
     ggplot(mtcars, aes(disp, mpg)) +
       geom_point() +
       my_guides

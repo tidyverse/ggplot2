@@ -76,6 +76,6 @@
 <polyline points='30.05,24.29 32.79,24.29 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <circle cx='373.66' cy='556.35' r='14.17' style='stroke-width: 0.75; fill: #FFFFFF;' />
 <text transform='translate(13.05,282.48) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>mpg</text>
-<text x='32.79' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='168.78px' lengthAdjust='spacingAndGlyphs'>old S3 guide drawing a circle</text>
+<text x='32.79' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='118.15px' lengthAdjust='spacingAndGlyphs'>dummy old s3 guide</text>
 </g>
 </svg>
