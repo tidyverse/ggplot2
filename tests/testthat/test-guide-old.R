@@ -5,33 +5,33 @@ test_that("old S3 guides can be implemented", {
   guide_circle <- function() {
     structure(
       list(available_aes = c("x", "y"), position = "bottom"),
-      class = c("guide", "circle")
+      class = c("guide", "circle_guide")
     )
   }
 
   registerS3method(
     "guide_train",
-    "circle",
+    "circle_guide",
     function(guide, ...) guide
   )
   registerS3method(
     "guide_transform",
-    "circle",
+    "circle_guide",
     function(guide, ...) guide
   )
   registerS3method(
     "guide_merge",
-    "circle",
+    "circle_guide",
     function(guide, ...) guide
   )
   registerS3method(
     "guide_geom",
-    "circle",
+    "circle_guide",
     function(guide, ...) guide
   )
   registerS3method(
     "guide_gengrob",
-    "circle",
+    "circle_guide",
     function(guide, ...) {
       absoluteGrob(
         gList(circleGrob()),
@@ -47,10 +47,15 @@ test_that("old S3 guides can be implemented", {
   expect_length(my_guides$guides, 1)
   expect_s3_class(my_guides$guides[[1]], "guide")
 
-  expect_doppelganger(
-    "dummy old s3 guide",
+  gt <- ggplotGrob(
     ggplot(mtcars, aes(disp, mpg)) +
       geom_point() +
       my_guides
+  )
+
+  axis <- gtable_filter(gt, "axis-b")$grobs[[1]]
+  expect_s3_class(
+    axis$children[[1]],
+    "circle"
   )
 })
