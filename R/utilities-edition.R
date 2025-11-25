@@ -8,9 +8,26 @@ get_edition <- function() {
   ggplot_global$edition[[1]]
 }
 
+
+#' Set ggplot2 edition
+#'
+#' ggplot2 uses the 'edition' concept to manage the lifecycles of functions and
+#' arguments. Setting a recent edition opens up the latest features but also
+#' closes down deprecated and superseded functionality.
+#'
+#' @param edition An edition. Possible values currently include `"2026"` only.
+#'   Can be `NULL` (default) to unset an edition.
+#'
+#' @returns The previous `edition` value. This function is called for the side
+#'  effect of setting the edition though.
+#' @export
+#'
+#' @examples
+#' set_edition(2026)
 set_edition <- function(edition = NULL) {
-  ggplot_global$edition <- validate_edition(edition)
-  invisible()
+  old <- ggplot_global$edition
+  ggplot_global$edition <- validate_edition(as.character(edition))
+  invisible(old)
 }
 
 validate_edition <- function(edition, allow_null = TRUE, call = caller_env()) {
