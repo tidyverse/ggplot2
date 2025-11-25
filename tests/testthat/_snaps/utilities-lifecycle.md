@@ -29,3 +29,11 @@
       ! `foo()` was deprecated in <NA> edition 2025 and is now defunct.
       i Please use `bar()` instead.
 
+# edition requirements work
+
+    Code
+      foo()
+    Condition
+      Error in `foo()`:
+      ! foo() requires the 2025 edition of ggplot2.
+

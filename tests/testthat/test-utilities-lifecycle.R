@@ -39,3 +39,18 @@ test_that("edition supersession works", {
 
   expect_snapshot(foo(), error = TRUE)
 })
+
+test_that("edition requirements work", {
+
+  foo <- function() {
+    edition_require("2025", what = "foo()")
+    NULL
+  }
+
+  expect_snapshot(foo(), error = TRUE)
+
+  set_edition(2025)
+  withr::defer(set_edition())
+
+  expect_silent(foo())
+})
