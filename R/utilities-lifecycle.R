@@ -1,14 +1,3 @@
-# Any new editions should be appended here and anchored to a version
-edition_versions <- c(
-  "2025" = "4.0.0",
-  "2026" = "4.1.0"
-)
-
-get_edition <- function() {
-  ggplot_global$edition[[1]]
-}
-
-
 #' Set ggplot2 edition
 #'
 #' ggplot2 uses the 'edition' concept to manage the lifecycles of functions and
@@ -29,6 +18,16 @@ set_edition <- function(edition = NULL) {
   ggplot_global$edition <- validate_edition(as.character(edition))
   invisible(old)
 }
+
+get_edition <- function() {
+  ggplot_global$edition[[1]]
+}
+
+# Any new editions should be appended here and anchored to a version
+edition_versions <- c(
+  "2025" = "4.0.0",
+  "2026" = "4.1.0"
+)
 
 validate_edition <- function(edition, allow_null = TRUE, call = caller_env()) {
   if (is.null(edition) && allow_null) {
