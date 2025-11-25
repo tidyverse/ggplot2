@@ -789,59 +789,6 @@ as_cli <- function(..., env = caller_env()) {
   cli::cli_fmt(cli::cli_text(..., .envir = env))
 }
 
-deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
-                      escalate = NULL) {
-
-  defunct <- "3.0.0"
-  full    <- "3.4.0"
-  soft    <- utils::packageVersion("ggplot2")
-
-  if (identical(escalate, "delay")) {
-    soft <- full
-    full <- defunct
-    defunct <- "0.0.0"
-  }
-
-  edition <- get_edition()
-  if (!is.null(edition) && edition %in% names(edition_versions)) {
-    soft <- full <- defunct <- edition_versions[[edition]]
-  }
-
-  version <- as.package_version(when)
-  if (version < defunct || identical(escalate, "abort")) {
-    lifecycle::deprecate_stop(when, ...)
-  }
-  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  if (version <= full || identical(escalate, "warn")) {
-    lifecycle::deprecate_warn(when, ..., id = id, always = always, user_env = user_env)
-  } else if (version <= soft) {
-    lifecycle::deprecate_soft(when, ..., id = id, user_env = user_env)
-  }
-  invisible()
-}
-
-supersede <- function(edition, what, with = NULL, ..., env = caller_env()) {
-  current_edition <- get_edition()
-  if (
-    !is.null(current_edition) &&
-      current_edition %in% names(edition_versions) &&
-      as.numeric(current_edition) >= as.numeric(edition)
-  ) {
-    lifecycle::deprecate_stop(
-      when = paste0("edition ", edition),
-      what = what,
-      with = with,
-      env  = env
-    )
-  }
-  lifecycle::signal_stage(
-    stage = "superseded",
-    what  = what,
-    with  = with,
-    env   = env
-  )
-}
-
 as_unordered_factor <- function(x) {
   x <- as.factor(x)
   class(x) <- setdiff(class(x), "ordered")
