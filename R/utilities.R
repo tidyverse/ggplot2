@@ -820,6 +820,28 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
   invisible()
 }
 
+supersede <- function(edition, what, with = NULL, ..., env = caller_env()) {
+  current_edition <- get_edition()
+  if (
+    !is.null(current_edition) &&
+      current_edition %in% names(edition_versions) &&
+      as.numeric(current_edition) >= as.numeric(edition)
+  ) {
+    lifecycle::deprecate_stop(
+      when = paste0("edition ", edition),
+      what = what,
+      with = with,
+      env  = env
+    )
+  }
+  lifecycle::signal_stage(
+    stage = "superseded",
+    what  = what,
+    with  = with,
+    env   = env
+  )
+}
+
 as_unordered_factor <- function(x) {
   x <- as.factor(x)
   class(x) <- setdiff(class(x), "ordered")
