@@ -15,7 +15,7 @@
 #' set_edition(2026)
 set_edition <- function(edition = NULL) {
   old <- ggplot_global$edition
-  ggplot_global$edition <- validate_edition(as.character(edition))
+  ggplot_global$edition <- validate_edition(edition)
   invisible(old)
 }
 
@@ -33,6 +33,7 @@ validate_edition <- function(edition, allow_null = TRUE, call = caller_env()) {
   if (is.null(edition) && allow_null) {
     return(NULL)
   }
+  edition <- as.character(edition)
   check_string(edition, allow_empty = FALSE, call = call)
   arg_match0(edition, names(edition_versions), error_call = call)
 }
