@@ -411,7 +411,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
                      keep.as.numeric = deprecated(), .multi_line = TRUE,
                      .default = label_value) {
   if (lifecycle::is_present(keep.as.numeric)) {
-    lifecycle::deprecate_stop("2.0.0", "labeller(keep.as.numeric)")
+    deprecate("2.0.0", "labeller(keep.as.numeric)")
   }
   dots <- list2(...)
   .default <- as_labeller(.default)
@@ -587,7 +587,7 @@ validate_labeller <- function(labeller) {
     return(labeller)
   }
 
-  lifecycle::deprecate_stop(
+  deprecate(
     "2.0.0",
     what = I("Providing a labeller with `variable` and `value` arguments")
   )

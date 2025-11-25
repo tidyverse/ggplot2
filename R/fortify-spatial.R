@@ -34,9 +34,10 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
     coords <- vec_rbind0(!!!coords)
     cli::cli_inform("Regions defined for each Polygons")
   } else {
-    lifecycle::deprecate_stop("3.4.4",
-      I("`fortify(<SpatialPolygonsDataFrame>, region = ...)` is defunct'"),
-      details = "Please migrate to sf."
+    deprecate("3.4.4",
+      I("`fortify(<SpatialPolygonsDataFrame>, region = ...)`"),
+      details = "Please migrate to sf.",
+      escalate = "abort"
     )
   }
   coords

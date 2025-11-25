@@ -66,8 +66,8 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   caller_env <- parent.frame()
 
-  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
-  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("2.0.0", "qplot(position)")
+  if (lifecycle::is_present(stat)) deprecate("2.0.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) deprecate("2.0.0", "qplot(position)")
   check_character(geom)
 
   exprs <- enquos(x = x, y = y, ...)

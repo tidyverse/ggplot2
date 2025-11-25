@@ -127,6 +127,6 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  lifecycle::deprecate_stop("2.0.0", "aes_auto()")
+  deprecate("2.0.0", "aes_auto()")
 }
 

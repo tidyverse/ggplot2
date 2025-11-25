@@ -47,7 +47,7 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    lifecycle::deprecate_stop(
+    deprecate(
       "2.0.0", "layer(show_guide)", "layer(show.legend)"
     )
   }
@@ -818,7 +818,7 @@ Layer <- ggproto("Layer", NULL,
 #' @export
 #' @rdname is_tests
 is_layer <- function(x) inherits(x, "Layer")
-is.layer <- function(x) lifecycle::deprecate_stop("3.5.2", "is.layer()", "is_layer()")
+is.layer <- function(x) deprecate("3.5.2", "is.layer()", "is_layer()", escalate = "abort")
 
 validate_subclass <- function(x, subclass,
                               argname = to_lower_ascii(subclass),

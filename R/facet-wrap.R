@@ -194,7 +194,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
-    lifecycle::deprecate_stop(
+    deprecate(
       "2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)"
     )
   }
