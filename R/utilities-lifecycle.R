@@ -38,7 +38,9 @@ validate_edition <- function(edition, allow_null = TRUE, call = caller_env()) {
 }
 
 edition_require <- function(edition = NULL, what, call = caller_env()) {
-  if (identical(get_edition(), validate_edition(edition))) {
+  edition <- validate_edition(edition)
+  current_edition <- get_edition()
+  if (as.numeric(current_edition) >= as.numeric(edition)) {
     return(invisible())
   }
   cli::cli_abort(
