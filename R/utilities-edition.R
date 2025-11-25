@@ -1,5 +1,6 @@
 # Any new editions should be appended here and anchored to a version
 edition_versions <- c(
+  "2025" = "4.0.0",
   "2026" = "4.1.0"
 )
 
