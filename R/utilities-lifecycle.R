@@ -69,7 +69,7 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
   }
 
   version <- as.package_version(when)
-  if (version < defunct || identical(escalate, "abort")) {
+  if (version <= defunct || identical(escalate, "abort")) {
     lifecycle::deprecate_stop(when, ...)
   }
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
