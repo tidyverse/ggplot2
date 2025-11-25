@@ -153,7 +153,8 @@ derive <- function() {
 is_derived <- function(x) {
   inherits(x, "derived")
 }
-#' @rdname ggplot2-ggproto
+#' Secondary axis class
+#' @keywords internal
 #' @format NULL
 #' @usage NULL
 #' @export

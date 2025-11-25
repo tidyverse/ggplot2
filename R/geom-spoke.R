@@ -23,8 +23,7 @@ GeomSpoke <- ggproto(
 #' The angles start from east and increase counterclockwise.
 #'
 #' @aesthetics GeomSpoke
-#' @inheritParams layer
-#' @inheritParams geom_segment
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)

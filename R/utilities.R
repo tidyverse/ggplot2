@@ -73,6 +73,11 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
   )
 }
 
+allow_lambda <- function(x) {
+  # we check the 'call' class to prevent interpreting `bquote()` calls as a function
+  if (is_formula(x, lhs = FALSE) && !inherits(x, "call")) as_function(x) else x
+}
+
 # Concatenate a named list for output
 # Print a `list(a=1, b=2)` as `(a=1, b=2)`
 #

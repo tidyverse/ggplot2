@@ -86,8 +86,7 @@ StatSummary2d <- ggproto(
 #' }
 #' @seealso [stat_summary_hex()] for hexagonal summarization.
 #'   [stat_bin_2d()] for the binning options.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams stat_bin_2d
 #' @param drop drop if the output of `fun` is `NA`.
 #' @param fun function for summary.

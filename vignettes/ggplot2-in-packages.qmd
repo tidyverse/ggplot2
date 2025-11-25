@@ -246,4 +246,4 @@ Generally, if you add a method for a ggplot2 generic like `autoplot()`, ggplot2 
 ```
 
 ## Read more
-There are other things to consider when taking on a dependency. [This post]( https://www.tidyverse.org/blog/2022/09/playing-on-the-same-team-as-your-dependecy/) goes into detail with many of these using ggplot2 as an example and is a good read for anyone developing a package using ggplot2.
+There are other things to consider when taking on a dependency. [This post]( https://tidyverse.org/blog/2022/09/playing-on-the-same-team-as-your-dependecy/) goes into detail with many of these using ggplot2 as an example and is a good read for anyone developing a package using ggplot2.
