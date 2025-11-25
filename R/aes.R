@@ -246,7 +246,6 @@ mapped_aesthetics <- function(x) {
   names(x)[!is_null]
 }
 
-
 #' Check a mapping for discouraged usage
 #'
 #' Checks that `$` and `[[` are not used when the target *is* the data

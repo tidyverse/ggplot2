@@ -100,7 +100,7 @@ sec_axis <- function(transform = NULL,
                      name = waiver(), breaks = waiver(), labels = waiver(),
                      guide = waiver(), trans = deprecated()) {
   if (lifecycle::is_present(trans)) {
-    deprecate_soft0("3.5.0", "sec_axis(trans)", "sec_axis(transform)")
+    deprecate("3.5.0", "sec_axis(trans)", "sec_axis(transform)")
     transform <- trans
   }
 

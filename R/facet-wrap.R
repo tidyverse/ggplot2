@@ -194,7 +194,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
-    lifecycle::deprecate_stop(
+    deprecate(
       "2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)"
     )
   }
@@ -568,7 +568,7 @@ wrap_layout <- function(id, dims, dir) {
   if (nchar(dir) != 2) {
     # Should only occur when `as.table` was not incorporated into `dir`
     dir <- switch(dir, h = "lt", v = "tl")
-    deprecate_soft0(
+    deprecate(
       "4.0.0",
       what = I("Internal use of `dir = \"h\"` and `dir = \"v\"` in `facet_wrap()`"),
       details = I(c(

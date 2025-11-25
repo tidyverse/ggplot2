@@ -217,7 +217,7 @@ pal_binned <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
-  deprecate_warn0("3.3.0", "gg_dep()")
+  deprecate("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
@@ -721,7 +721,7 @@ with_ordered_restart <- function(expr, .call) {
         ")"
       )
 
-      deprecate_soft0(
+      deprecate(
         "3.4.0",
         I(msg),
         details = desc
@@ -789,14 +789,30 @@ as_cli <- function(..., env = caller_env()) {
   cli::cli_fmt(cli::cli_text(..., .envir = env))
 }
 
-deprecate_soft0 <- function(..., user_env = NULL) {
-  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_soft(..., user_env = user_env)
-}
+deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
+                      escalate = NULL) {
 
-deprecate_warn0 <- function(..., user_env = NULL) {
+  defunct <- "3.0.0"
+  full    <- "3.4.0"
+  soft    <- utils::packageVersion("ggplot2")
+
+  if (identical(escalate, "delay")) {
+    soft <- full
+    full <- defunct
+    defunct <- "0.0.0"
+  }
+
+  version <- as.package_version(when)
+  if (version < defunct || identical(escalate, "abort")) {
+    lifecycle::deprecate_stop(when, ...)
+  }
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_warn(..., user_env = user_env)
+  if (version <= full || identical(escalate, "warn")) {
+    lifecycle::deprecate_warn(when, ..., id = id, always = always, user_env = user_env)
+  } else if (version <= soft) {
+    lifecycle::deprecate_soft(when, ..., id = id, user_env = user_env)
+  }
+  invisible()
 }
 
 as_unordered_factor <- function(x) {

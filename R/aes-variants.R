@@ -44,7 +44,7 @@
 #'
 #' @export
 aes_ <- function(x, y, ...) {
-  deprecate_warn0(
+  deprecate(
     "3.0.0",
     "aes_()",
     details = "Please use tidy evaluation idioms with `aes()`"
@@ -71,7 +71,7 @@ aes_ <- function(x, y, ...) {
 #' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
-  deprecate_warn0(
+  deprecate(
     "3.0.0",
     "aes_string()",
     details = c(
@@ -127,6 +127,6 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  lifecycle::deprecate_stop("2.0.0", "aes_auto()")
+  deprecate("2.0.0", "aes_auto()")
 }
 
