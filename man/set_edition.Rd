@@ -22,3 +22,4 @@ closes down deprecated and superseded functionality.
 \examples{
 set_edition(2026)
 }
+\keyword{internal}

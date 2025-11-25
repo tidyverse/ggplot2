@@ -10,6 +10,7 @@
 #' @returns The previous `edition` value. This function is called for the side
 #'  effect of setting the edition though.
 #' @export
+#' @keywords internal
 #'
 #' @examples
 #' set_edition(2026)
