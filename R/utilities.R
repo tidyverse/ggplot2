@@ -802,6 +802,11 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
     defunct <- "0.0.0"
   }
 
+  edition <- get_edition()
+  if (!is.null(edition) && edition %in% names(edition_versions)) {
+    soft <- full <- defunct <- edition_versions[[edition]]
+  }
+
   version <- as.package_version(when)
   if (version < defunct || identical(escalate, "abort")) {
     lifecycle::deprecate_stop(when, ...)
