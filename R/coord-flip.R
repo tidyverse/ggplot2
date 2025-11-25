@@ -57,7 +57,7 @@
 #'   geom_area() +
 #'   coord_flip()
 coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
-  lifecycle::signal_stage("superseded", "coord_flip()")
+  supersede("2026", "coord_flip()", with = I("swapping x and y aesthetics"))
   check_coord_limits(xlim)
   check_coord_limits(ylim)
   ggproto(NULL, CoordFlip,
